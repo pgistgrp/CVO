@@ -1,0 +1,4 @@
+Spring v1.2.6
+Hibernate v3.1
+DWR v1.1b3
+Struts v1.2.8

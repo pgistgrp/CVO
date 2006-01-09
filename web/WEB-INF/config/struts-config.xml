@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+
+<struts-config>
+
+
+    <form-beans>
+    </form-beans>
+
+
+    <global-exceptions>
+    </global-exceptions>
+
+
+    <global-forwards>
+        <forward name="login" path="/index.jsp"/>
+        <forward name="main" path="/main.jsp"/>
+    </global-forwards>
+
+
+    <action-mappings>
+    
+    
+        <action path="/login" type="org.pgist.action.LoginAction"/>
+        
+
+    </action-mappings>
+    
+    
+    <controller>
+        <set-property property="processorClass" value="org.springframework.web.struts.DelegatingRequestProcessor"/>
+    </controller>
+    
+    
+    <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+      <set-property
+          property="contextConfigLocation"
+          value="/WEB-INF/config/dataAccessContext-local.xml,/WEB-INF/config/applicationContext.xml,/WEB-INF/config/action-servlet.xml">
+      </set-property>
+    </plug-in>
+    
+    
+</struts-config>
+

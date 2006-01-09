@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project default="compile" basedir=".">
+
+
+    <property name="base" value="." />
+    <property name="web" value="web" />
+    <property name="src" value="${web}/WEB-INF/src" />
+    <property name="deplib" value="lib" />
+    <property name="lib" value="${web}/WEB-INF/lib" />
+    <property name="build" value="${web}/WEB-INF/classes" />
+    <property name="tomcat" value="/opt/jakarta-tomcat-5.5.9"/>
+    <property name="webapp" value="${tomcat}/webapps/cvotest"/>
+    <property name="javadoc" value="docs/api"/>
+    <property name="doctime" value="2006"/>
+
+
+    <path id="classpath">
+        <fileset dir="${deplib}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${lib}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <pathelement location="${build}"/>
+    </path>
+
+
+    <target name="init">
+        <tstamp/>
+        <mkdir dir="${build}" />
+    </target>
+
+
+    <target name="clean" >
+        <delete dir="${build}" />
+    </target>
+
+
+    <target name="compile" depends="init">
+        <javac classpathref="classpath" srcdir="${src}" destdir="${build}" debug="on">
+            <include name="**/*.java" />
+        </javac>
+        <copy todir="${build}" >
+            <fileset dir="${src}" >
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+
+
+    <target name="mapping" depends="compile" description="Hibernate Mapping Files with XDoclet">
+        <taskdef name="hibernatemapping" classname="xdoclet.modules.hibernate.HibernateDocletTask">
+            <classpath refid="classpath"/>
+        </taskdef>
+        <hibernatemapping destdir="${build}" excludedtags="@version,@author,@todo" force="true" verbose="true">
+            <fileset dir="${src}">
+                <include name="**/*.java"/>
+            </fileset>
+            <hibernate version="3.0" />
+        </hibernatemapping>
+    </target>
+
+
+    <target name="schema" depends="compile, mapping">
+        <taskdef name="schema" classname="org.hibernate.tool.hbm2ddl.SchemaExportTask">
+            <classpath refid="classpath"/>
+        </taskdef>
+        <schema config="${src}/hibernate.cfg.xml" quiet="no" text="no" drop="no" delimiter=";" output="databaseschema.sql">
+        </schema>
+    </target>
+
+
+    <target name="initdb" depends="compile, mapping">
+        <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit">
+            <classpath refid="classpath"/>
+        </taskdef>
+        <SystemInit config="${src}/hibernate.cfg.xml"/>
+    </target>
+
+
+    <target name="test" depends="compile, mapping">
+        <taskdef name="SimpleTest" classname="org.pgist.tests.SimpleTest">
+            <classpath refid="classpath"/>
+        </taskdef>
+        <SimpleTest config="${src}/hibernate.cfg.xml"/>
+    </target>
+
+
+    <target name="javadoc">
+        <delete dir="${javadoc}"/>
+        <mkdir dir="${javadoc}"/>
+        <javadoc classpathref="classpath" destdir="${javadoc}" author="true" version="true" use="true" windowtitle="PGIST API" doctitle="PGIST"
+                 bottom="Copyright &#169; ${doctime} University of Washington University. All Rights Reserved.">
+            <packageset dir="${src}" defaultexcludes="yes">
+              <include name="**" />
+            </packageset>
+        </javadoc>
+    </target>
+
+
+    <target name="deploy" depends="compile, mapping">
+        <mkdir dir="${webapp}"/>
+        <copy todir="${webapp}">
+          <fileset dir="${web}">
+            <exclude name="WEB-INF/classes/org/pgist/tests/**"/>
+            <exclude name="WEB-INF/src/**"/>
+            <exclude name="WEB-INF/lib/ostermillerutils.jar"/>
+          </fileset>
+        </copy>
+    </target>
+    
+
+    <target name="war" depends="compile, mapping">
+        <war destfile="${base}/cvotest.war" webxml="${web}/WEB-INF/web.xml">
+            <fileset dir="${web}">
+                <exclude name="WEB-INF/classes/org/pgist/tests/**"/>
+                <exclude name="WEB-INF/src/**"/>
+            </fileset>
+        </war>
+    </target>
+
+
+    <target name="junit" depends="compile">
+        <junit printsummary="on" fork="false" haltonfailure="false" failureproperty="tests.failed" showoutput="true">
+            <classpath refid="classpath"/>
+            <formatter type="brief" usefile="false"/>
+            <batchtest>
+                <fileset dir="${src}">
+                    <include name="**/Test*.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+  
+</project>
+

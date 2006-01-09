@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName">
+           <value>org.postgresql.Driver</value>
+        </property>
+        <property name="url">
+           <value>jdbc:postgresql://localhost/cvotest</value>
+        </property>
+        <property name="username">
+           <value>pgist</value>
+        </property>
+        <property name="password">
+           <value>pgist</value>
+        </property>
+    </bean>
+    
+    
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource">
+           <ref local="dataSource" />
+        </property>
+        <property name="mappingResources">
+           <list>
+               <value>org/pgist/users/User.hbm.xml</value>
+               <value>org/pgist/users/Role.hbm.xml</value>
+           </list>
+        </property>
+        <property name="hibernateProperties">
+           <props>
+               <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+               <prop key="hibernate.show_sql">true</prop>
+           </props>
+        </property>
+    </bean>
+    
+    
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory">
+           <ref local="sessionFactory" />
+        </property>
+    </bean>
+    
+    
+    <!-- ========================= DAO DEFINITIONS: HIBERNATE IMPLEMENTATIONS ========================= -->
+  
+
+    <bean id="userDAO" parent="baseTransactionProxy">
+      <property name="target">
+        <bean class="org.pgist.dao.UserDAOImpl">
+          <property name="sessionFactory">
+            <ref local="sessionFactory" />
+          </property>
+        </bean>
+      </property>
+    </bean>
+    
+    
+</beans>
+
