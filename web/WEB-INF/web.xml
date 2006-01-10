@@ -146,22 +146,5 @@
   </error-page>
 
 
-  <taglib>
-       <taglib-uri>http://jakarta.apache.org/struts/tags-bean</taglib-uri>
-       <taglib-location>/WEB-INF/config/struts-bean.tld</taglib-location>
-  </taglib>
-  <taglib>
-       <taglib-uri>http://jakarta.apache.org/struts/tags-html</taglib-uri>
-       <taglib-location>/WEB-INF/config/struts-html.tld</taglib-location>
-  </taglib>
-  <taglib>
-       <taglib-uri>http://jakarta.apache.org/struts/tags-logic</taglib-uri>
-       <taglib-location>/WEB-INF/config/struts-logic.tld</taglib-location>
-  </taglib>
-  <taglib>
-       <taglib-uri>http://jakarta.apache.org/struts/tags-nested</taglib-uri>
-       <taglib-location>/WEB-INF/config/struts-nested.tld</taglib-location>
-  </taglib>
-
 </web-app>
 
