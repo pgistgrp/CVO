@@ -9,6 +9,7 @@
 
 
     <form-beans>
+        <form-bean name="user" type="org.pgist.form.UserForm"/>
     </form-beans>
 
 
@@ -19,15 +20,22 @@
     <global-forwards>
         <forward name="login" path="/index.jsp"/>
         <forward name="main" path="/main.jsp"/>
+        <forward name="register" path="/register.jsp"/>
     </global-forwards>
 
 
     <action-mappings>
     
     
-        <action path="/login" type="org.pgist.action.LoginAction"/>
+        <action path="/login" type="org.pgist.action.LoginAction" name="user" scope="request"/>
+        
+        
+        <action path="/logout" type="org.pgist.action.LogoutAction"/>
         
 
+        <action path="/register" type="org.pgist.action.RegisterAction" name="user" scope="request"/>
+        
+        
     </action-mappings>
     
     

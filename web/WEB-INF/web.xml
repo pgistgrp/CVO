@@ -43,7 +43,7 @@
     </init-param>
     <init-param>
       <param-name>ignore-url</param-name>
-      <param-value>/login.do</param-value>
+      <param-value>/login.do, /register.do</param-value>
     </init-param>
   </filter>
 
@@ -145,6 +145,23 @@
 		<location>/PageNotFound.jsf</location>
   </error-page>
 
+
+  <taglib>
+       <taglib-uri>http://jakarta.apache.org/struts/tags-bean</taglib-uri>
+       <taglib-location>/WEB-INF/config/struts-bean.tld</taglib-location>
+  </taglib>
+  <taglib>
+       <taglib-uri>http://jakarta.apache.org/struts/tags-html</taglib-uri>
+       <taglib-location>/WEB-INF/config/struts-html.tld</taglib-location>
+  </taglib>
+  <taglib>
+       <taglib-uri>http://jakarta.apache.org/struts/tags-logic</taglib-uri>
+       <taglib-location>/WEB-INF/config/struts-logic.tld</taglib-location>
+  </taglib>
+  <taglib>
+       <taglib-uri>http://jakarta.apache.org/struts/tags-nested</taglib-uri>
+       <taglib-location>/WEB-INF/config/struts-nested.tld</taglib-location>
+  </taglib>
 
 </web-app>
 

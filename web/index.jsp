@@ -1,28 +1,29 @@
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html>
+<html:html>
 <head>
 <title>PGIST main page</title>
 </head>
 
 <body bgcolor="white">
 
-<form name="mainForm" action="login.do" method="POST">
+<html:form action="/login.do" method="POST" focus="loginname">
   <h2>Welcome to PGIST.
   <table>
     <tr>
       <td>User Name:</td>
-      <td><input type="text" name="loginname" value=""></td>
+      <td><html:text property="loginname"/></td>
     </tr>
     <tr>
       <td>Password:</td>
-      <td><input type="password" name="password" value=""></td>
+      <td><html:password property="password" redisplay="false"/></td>
     </tr>
     <tr>
-      <td colspan="2"><input type="submit" value="submit"></td>
+      <td colspan="2"><html:submit property="submit" value="Login"/> (<a href="register.do">Register</a>)</td>
     </tr>
   </table>
-</form>
+</html:form>
 
 </body>
-</html>
+</html:html>
 

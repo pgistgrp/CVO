@@ -8,5 +8,14 @@
     </bean>
     
     
+    <bean name="/logout" class="org.pgist.action.LogoutAction">
+    </bean>
+    
+    
+    <bean name="/register" class="org.pgist.action.RegisterAction">
+        <property name="userDAO" ref="userDAO"/>
+    </bean>
+    
+    
 </beans>
 
