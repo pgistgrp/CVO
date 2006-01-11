@@ -7,7 +7,7 @@
 
 <body bgcolor="white">
 
-<html:form action="/login.do" method="POST" focus="loginname">
+<html:form action="/login.do" method="POST" focus="user.loginname">
   <h2>Welcome to PGIST.
   <table>
     <tr>

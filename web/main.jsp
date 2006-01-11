@@ -8,14 +8,14 @@
 
 <body bgcolor="white">
 
-<h2><a href="logout.do">Logout</a></h2>
+<h2><a href="/logout.do">Logout</a></h2>
 
 <pg:show users="admin">
-  <p><a href="">User Management</a>
+  <p><a href="/userlist.do">User Management</a>
 </pg:show>
 
 <pg:show roles="member">
-  <p><a href="cvolist.do">CVO participation</a>
+  <p><html:link action="/cvolist.do">CVO participation</html:link>
 </pg:show>
 
 <pg:show users="admin, guest">

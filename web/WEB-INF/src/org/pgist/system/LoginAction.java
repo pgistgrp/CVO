@@ -14,6 +14,11 @@ import org.pgist.users.Role;
 import org.pgist.users.User;
 
 
+/**
+ * 
+ * @author kenny
+ *
+ */
 public class LoginAction extends Action {
 
     

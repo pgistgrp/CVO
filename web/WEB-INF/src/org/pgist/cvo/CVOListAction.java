@@ -7,6 +7,11 @@ import org.apache.struts.action.ActionMapping;
 import org.pgist.system.UserDAO;
 
 
+/**
+ * 
+ * @author kenny
+ *
+ */
 public class CVOListAction extends Action {
 
     

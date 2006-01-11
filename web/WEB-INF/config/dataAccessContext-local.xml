@@ -27,6 +27,9 @@
            <list>
                <value>org/pgist/users/User.hbm.xml</value>
                <value>org/pgist/users/Role.hbm.xml</value>
+               <value>org/pgist/model/Discussible.hbm.xml</value>
+               <value>org/pgist/model/DiscourseObject.hbm.xml</value>
+               <value>org/pgist/model/Post.hbm.xml</value>
            </list>
         </property>
         <property name="hibernateProperties">
@@ -65,6 +68,15 @@
           <property name="sessionFactory">
             <ref local="sessionFactory" />
           </property>
+        </bean>
+      </property>
+    </bean>
+    
+    
+    <bean id="cvoAgent" parent="baseTransactionProxy">
+      <property name="target">
+        <bean class="org.pgist.ajax.CVOAgent">
+          <property name="cvoDAO" ref="cvoDAO"/>
         </bean>
       </property>
     </bean>

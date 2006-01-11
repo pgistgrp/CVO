@@ -32,9 +32,14 @@
 
         <mapping resource="org/pgist/users/User.hbm.xml"/>
         <mapping resource="org/pgist/users/Role.hbm.xml"/>
+        
+        <mapping resource="org/pgist/model/Discussible.hbm.xml"/>
+        <mapping resource="org/pgist/model/DiscourseObject.hbm.xml"/>
+        <mapping resource="org/pgist/model/Post.hbm.xml"/>
 
 
     </session-factory>
 
 
 </hibernate-configuration>
+
