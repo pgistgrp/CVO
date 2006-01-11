@@ -15,7 +15,7 @@
 </pg:show>
 
 <pg:show roles="member">
-  <h2>Haha, this line can only be seen by role member!</h2>
+  <p><a href="cvolist.do">CVO participation</a>
 </pg:show>
 
 <pg:show users="admin, guest">

@@ -3,17 +3,23 @@
 <beans>
 
 
-    <bean name="/login" class="org.pgist.action.LoginAction">
+    <bean name="/login" class="org.pgist.system.LoginAction">
         <property name="userDAO" ref="userDAO"/>
     </bean>
     
     
-    <bean name="/logout" class="org.pgist.action.LogoutAction">
+    <bean name="/logout" class="org.pgist.system.LogoutAction">
     </bean>
     
     
-    <bean name="/register" class="org.pgist.action.RegisterAction">
+    <bean name="/register" class="org.pgist.system.RegisterAction">
         <property name="userDAO" ref="userDAO"/>
+    </bean>
+    
+    
+    <bean name="/cvolist" class="org.pgist.cvo.CVOListAction">
+        <property name="userDAO" ref="userDAO"/>
+        <property name="cvoDAO" ref="cvoDAO"/>
     </bean>
     
     

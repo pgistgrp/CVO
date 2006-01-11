@@ -50,7 +50,18 @@
 
     <bean id="userDAO" parent="baseTransactionProxy">
       <property name="target">
-        <bean class="org.pgist.dao.UserDAOImpl">
+        <bean class="org.pgist.system.UserDAOImpl">
+          <property name="sessionFactory">
+            <ref local="sessionFactory" />
+          </property>
+        </bean>
+      </property>
+    </bean>
+    
+    
+    <bean id="cvoDAO" parent="baseTransactionProxy">
+      <property name="target">
+        <bean class="org.pgist.cvo.CVODAOImpl">
           <property name="sessionFactory">
             <ref local="sessionFactory" />
           </property>

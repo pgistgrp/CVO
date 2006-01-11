@@ -9,7 +9,8 @@
 
 
     <form-beans>
-        <form-bean name="userForm" type="org.pgist.form.UserForm"/>
+        <form-bean name="userForm" type="org.pgist.system.UserForm"/>
+        <form-bean name="cvoForm" type="org.pgist.cvo.CVOForm"/>
     </form-beans>
 
 
@@ -27,13 +28,18 @@
     <action-mappings>
     
     
-        <action path="/login" type="org.pgist.action.LoginAction" name="userForm" scope="request"/>
+        <action path="/login" type="org.pgist.system.LoginAction" name="userForm" scope="request"/>
         
         
-        <action path="/logout" type="org.pgist.action.LogoutAction"/>
+        <action path="/logout" type="org.pgist.system.LogoutAction"/>
         
 
-        <action path="/register" type="org.pgist.action.RegisterAction" name="userForm" scope="request"/>
+        <action path="/register" type="org.pgist.system.RegisterAction" name="userForm" scope="request"/>
+        
+        
+        <action path="/cvolist" type="org.pgist.cvo.CVOListAction" name="cvoForm" scope="request">
+            <forward name="list" path="/WEB-INF/jsp/cvo/index.jsp"/>
+        </action>
         
         
     </action-mappings>
