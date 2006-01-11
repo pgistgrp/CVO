@@ -13,11 +13,11 @@
   <table>
     <tr>
       <td>User Name:</td>
-      <td><html:text property="loginname"/></td>
+      <td><html:text property="user.loginname"/></td>
     </tr>
     <tr>
       <td>Password:</td>
-      <td><html:password property="password" redisplay="false"/></td>
+      <td><html:password property="user.password" redisplay="false"/></td>
     </tr>
     <tr>
       <td>Password Confirm:</td>
@@ -25,15 +25,15 @@
     </tr>
     <tr>
       <td>First Name:</td>
-      <td><html:text property="firstname"/></td>
+      <td><html:text property="user.firstname"/></td>
     </tr>
     <tr>
       <td>Last Name:</td>
-      <td><html:text property="lastname"/></td>
+      <td><html:text property="user.lastname"/></td>
     </tr>
     <tr>
       <td>Email Address:</td>
-      <td><html:text property="email"/></td>
+      <td><html:text property="user.email"/></td>
     </tr>
     <tr>
       <td colspan="2"><html:submit property="submit" value="Submit"/></td>

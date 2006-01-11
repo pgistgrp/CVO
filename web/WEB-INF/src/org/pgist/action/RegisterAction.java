@@ -40,15 +40,14 @@ public class RegisterAction extends Action {
         
         if (!uform.isSave()) return mapping.findForward("register");
         
-        User user = new User();
+        User user = uform.getUser();
         
-        String loginname = uform.getLoginname();
+        String loginname = user.getLoginname();
         if (loginname==null || "".equals(loginname)) {
             return mapping.findForward("register");
         }
-        user.setLoginname(loginname);
         
-        String password = uform.getPassword();
+        String password = user.getPassword();
         if (password==null || "".equals(password)) {
             return mapping.findForward("register");
         }
@@ -62,32 +61,26 @@ public class RegisterAction extends Action {
             return mapping.findForward("register");
         }
         
-        user.setPassword(password);
-        
-        String firstname = uform.getFirstname();
+        String firstname = user.getFirstname();
         if (firstname==null || "".equals(firstname)) {
             return mapping.findForward("register");
         }
         
-        user.setFirstname(firstname);
-        
-        String lastname = uform.getLastname();
+        String lastname = user.getLastname();
         if (lastname==null || "".equals(lastname)) {
             return mapping.findForward("register");
         }
         
-        user.setLastname(lastname);
-        
-        String email = uform.getEmail();
+        String email = user.getEmail();
         if (email==null || "".equals(email)) {
             return mapping.findForward("register");
         }
         
-        user.setEmail(email);
-        
         user.setDeleted(false);
         user.setEnabled(true);
         user.setInternal(false);
+        
+        //TODO: Check if user already exists
         
         Role role = userDAO.getRoleByName("member");
         user.addRole(role);
