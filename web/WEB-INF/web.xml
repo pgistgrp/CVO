@@ -14,7 +14,6 @@
 		<param-value>
       /WEB-INF/config/dataAccessContext-local.xml
       /WEB-INF/config/applicationContext.xml
-      /WEB-INF/config/action-servlet.xml
 		</param-value>
 	</context-param>
 
@@ -146,5 +145,13 @@
   </error-page>
 
 
+	<taglib>
+	    <taglib-uri>http://www.pgist.org/pgtaglib</taglib-uri>
+	    <taglib-location>
+	       /WEB-INF/config/pgist-taglib.tld
+	    </taglib-location>
+	</taglib>
+  
+  
 </web-app>
 

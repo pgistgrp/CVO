@@ -68,4 +68,7 @@ public interface UserDAO {
     void updateProfile(User user) throws Exception;
 
 
+    void saveUser(User user);
+
+
 }//class UserDAO

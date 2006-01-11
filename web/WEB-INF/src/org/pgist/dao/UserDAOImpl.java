@@ -20,6 +20,11 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
 
     
+    public void saveUser(User user) {
+        getSession().save(user);
+    }//saveUser()
+
+
     private final static String hql_getRoleByName = "from Role where name=:name and deleted=:deleted";
     
     

@@ -12,11 +12,11 @@
   <table>
     <tr>
       <td>User Name:</td>
-      <td><html:text property="loginname"/></td>
+      <td><html:text property="user.loginname"/></td>
     </tr>
     <tr>
       <td>Password:</td>
-      <td><html:password property="password" redisplay="false"/></td>
+      <td><html:password property="user.password" redisplay="false"/></td>
     </tr>
     <tr>
       <td colspan="2"><html:submit property="submit" value="Login"/> (<a href="register.do">Register</a>)</td>

@@ -1,12 +1,15 @@
 package org.pgist.form;
 
 import org.apache.struts.action.ActionForm;
+import org.pgist.users.User;
 
 
 public class UserForm extends ActionForm {
 
     
     private static final long serialVersionUID = 5443268954560626922L;
+    
+    private User user = new User();
 
     private Long id;
     
@@ -25,6 +28,16 @@ public class UserForm extends ActionForm {
     private boolean save = false;
     
     
+    public User getUser() {
+        return user;
+    }
+
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
     public Long getId() {
         return id;
     }

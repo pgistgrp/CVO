@@ -1,5 +1,9 @@
 package org.pgist.action;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.Action;
@@ -8,6 +12,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.dao.UserDAO;
 import org.pgist.form.UserForm;
+import org.pgist.users.Role;
 import org.pgist.users.User;
 
 
@@ -43,20 +48,30 @@ public class LoginAction extends Action {
         
         UserForm uform = (UserForm) form;
         
-        String loginname = uform.getLoginname();
+        String loginname = uform.getUser().getLoginname();
         if (loginname==null || "".equals(loginname)) {
             return mapping.findForward("login");
         }
         
-        String password = uform.getPassword();
+        String password = uform.getUser().getPassword();
         if (password==null || "".equals(password)) {
             return mapping.findForward("login");
         }
         
         User user = userDAO.getUserByName(loginname, true, false);
         if (user!=null && user.checkPassword(password)) {
-            session = request.getSession();
+            session = request.getSession(true);
             session.setAttribute("user", user);
+            session.setAttribute("userLoginname", user.getLoginname());
+            
+            Map map = new HashMap();
+            for (Iterator iter=user.getRoles().iterator(); iter.hasNext(); ) {
+                Role role = (Role) iter.next();
+                map.put(role.getId(), role.getName());
+            }//for iter
+            
+            session.setAttribute("rolesMap", map);
+            
             return mapping.findForward("main");
         }
         

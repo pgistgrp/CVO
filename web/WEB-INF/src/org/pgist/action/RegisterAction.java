@@ -90,9 +90,11 @@ public class RegisterAction extends Action {
         user.setInternal(false);
         
         Role role = userDAO.getRoleByName("member");
-        user.getRoles().add(role);
+        user.addRole(role);
         
-        userDAO.addUser(user);
+        user.encodePassword();
+        
+        userDAO.saveUser(user);
         
         return mapping.findForward("login");
     }//execute()
