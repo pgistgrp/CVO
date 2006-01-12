@@ -16,6 +16,8 @@ public interface CVODAO {
     void saveCVO(CVO cvo) throws Exception;
     
     Collection getCVOList() throws Exception;
+
+    CVO getCVOById(Long id);
     
     
 }

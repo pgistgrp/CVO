@@ -42,6 +42,11 @@
         </action>
         
         
+        <action path="/cvoview" type="org.pgist.cvo.CVOViewAction" name="cvoForm" scope="request">
+            <forward name="view" path="/WEB-INF/jsp/cvo/view.jsp"/>
+        </action>
+        
+        
     </action-mappings>
     
     

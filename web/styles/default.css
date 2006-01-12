@@ -53,3 +53,51 @@ body {
   padding:0px;
 }
 
+td.outtop {
+	font-size: small;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid #aaa;
+  margin-left: 3px;
+}
+
+td.outleft {
+	font-size: small;
+  border-left: 1px solid black;
+  border-right: 1px solid #aaa;
+  border-bottom: 1px solid black;
+  margin-left: 3px;
+}
+
+td.outright {
+	font-size: small;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-left: 3px;
+}
+
+td.hidetop {
+	font-size: small;
+  border-bottom: 1px solid #aaa;
+  margin-left: 3px;
+  cursor: pointer; cursor: hand;
+}
+
+td.hidenone {
+	font-size: small;
+  cursor: pointer; cursor: hand;
+}
+
+td.hideleft {
+	font-size: small;
+  cursor: pointer; cursor: hand;
+}
+
+td.hideright {
+	font-size: small;
+  border-left: 1px solid #aaa;
+  margin-left: 3px;
+  cursor: pointer; cursor: hand;
+}
+

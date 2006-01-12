@@ -62,7 +62,12 @@ public class CVOAgent {
         cvoDAO.saveCVO(cvo);
         
         return true;
-    }
+    }//createCVO()
+    
+    
+    public String extractConcern(String post) {
+        return post;
+    }//extractConcern()
     
     
 }

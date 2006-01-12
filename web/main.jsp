@@ -1,7 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html>
+<html:html>
 <head>
 <title>PGIST main page</title>
 </head>
@@ -19,5 +19,5 @@
 </pg:show>
 
 </body>
-</html>
+</html:html>
 

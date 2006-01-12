@@ -1,6 +1,7 @@
 package org.pgist.cvo;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.hibernate.Query;
 import org.pgist.model.DiscourseObject;
@@ -34,6 +35,22 @@ public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
         query.setBoolean("deleted", false);
         return query.list();
     }//getCVOList()
+    
+    
+    private final static String hql_getCVOById = "from CVO cvo where cvo.deleted=:deleted and cvo.id=:id";
+    
+    
+    public CVO getCVOById(Long id) {
+        CVO cvo = null;
+        Query query = getSession().createQuery(hql_getCVOById);
+        query.setBoolean("deleted", false);
+        query.setLong("id", id.longValue());
+        List list = query.list(); 
+        if (list.size()>0) {
+            cvo = (CVO) list.get(0);
+        }
+        return cvo;
+    }
     
     
 }

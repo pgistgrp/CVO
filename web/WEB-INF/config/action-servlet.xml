@@ -23,5 +23,10 @@
     </bean>
     
     
+    <bean name="/cvoview" class="org.pgist.cvo.CVOViewAction">
+        <property name="cvoDAO" ref="cvoDAO"/>
+    </bean>
+    
+    
 </beans>
 
