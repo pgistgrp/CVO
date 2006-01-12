@@ -20,6 +20,9 @@ public interface UserDAO {
     Role getRoleByName(String roleName) throws Exception;
     
     
+    User getUserById(Long id, boolean enabled, boolean deleted) throws Exception;
+    
+    
     User getUserByName(String loginname, boolean enabled, boolean deleted) throws Exception;
     
     

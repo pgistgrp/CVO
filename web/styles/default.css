@@ -50,5 +50,6 @@ body {
   background:white;
   border: solid 1px gray;
   display:none;
+  padding:0px;
 }
 

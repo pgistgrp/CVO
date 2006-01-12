@@ -36,6 +36,28 @@
       <rtexprvalue>false</rtexprvalue>
     </attribute>
   </tag>
+  
+  <tag>
+    <name>dialog</name>
+    <tag-class>org.pgist.tags.DialogTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Div simulated dialog</description>
+    <attribute>
+      <name>id</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>width</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>height</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
 
 </taglib>
 

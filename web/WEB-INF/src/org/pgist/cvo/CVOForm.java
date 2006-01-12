@@ -1,7 +1,6 @@
 package org.pgist.cvo;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import org.apache.struts.action.ActionForm;
 
@@ -16,14 +15,14 @@ public class CVOForm extends ActionForm {
     
     private static final long serialVersionUID = 5443268954560626922L;
     
-    private List cvoList = new ArrayList();
+    private Collection cvoList;
     
 
-    public List getCvoList() {
+    public Collection getCvoList() {
         return cvoList;
     }
 
-    public void setCvoList(List cvoList) {
+    public void setCvoList(Collection cvoList) {
         this.cvoList = cvoList;
     }
     

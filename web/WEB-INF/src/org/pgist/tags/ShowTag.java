@@ -6,8 +6,6 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import org.pgist.users.User;
-
 
 /**
  * 
@@ -50,9 +48,6 @@ public class ShowTag extends TagSupport {
 
     public int doStartTag() throws JspException {
         HttpSession session = pageContext.getSession();
-        
-        User user = (User) session.getAttribute("user");
-        if (user==null) return SKIP_BODY;
         
         if (condition!=null) {
             if ("true".equalsIgnoreCase(condition.trim())) {

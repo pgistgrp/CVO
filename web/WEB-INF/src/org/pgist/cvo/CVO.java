@@ -14,8 +14,6 @@ public class CVO extends Discussible {
     
     private String name;
     
-    private boolean deleted;
-    
     
     /**
      * @return
@@ -28,20 +26,6 @@ public class CVO extends Discussible {
     
     public void setName(String name) {
         this.name = name;
-    }
-    
-    
-    /**
-     * @return
-     * @hibernate.property not-null="true"
-     */
-    public boolean isDeleted() {
-        return deleted;
-    }
-    
-    
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
     }
     
     

@@ -45,7 +45,33 @@ public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
     }//getRoleByName()
     
     
+    private final static String hql_getUserById = "from User where id=:id and enabled=:enabled and deleted=:deleted";
     
+    
+    /**
+     * 
+     * @param id
+     * @param enabled
+     * @param deleted
+     * @return
+     * @throws Exception
+     */
+    public User getUserById(Long id, boolean enabled, boolean deleted) throws Exception {
+        User user = null;
+        
+        Query query = getSession().createQuery(hql_getUserById);
+        query.setLong("id", id.longValue());
+        query.setBoolean("enabled", true);
+        query.setBoolean("deleted", false);
+        List list = query.list();
+        if (list.size()>0) {
+            user = (User) list.get(0);
+        }
+        
+        return user;
+    }//getUserById()
+
+
     private final static String hql_getUserByName = "from User where loginname=:loginname and enabled=:enabled and deleted=:deleted";
     
     

@@ -91,6 +91,14 @@ public class SystemInit extends MatchingTask {
                 session.save(roleAdmin);
                 System.out.println("---- successfully inserte a role: member");
                 
+                //role - moderator
+                Role roleModerator = new Role();
+                roleModerator.setName("moderator");
+                roleModerator.setDescription("Moderator");
+                roleModerator.setInternal(true);
+                session.save(roleModerator);
+                System.out.println("---- successfully inserte a role: moderator");
+                
                 //role - guest
                 Role roleGuest = new Role();
                 roleGuest.setName("guest");
@@ -111,6 +119,7 @@ public class SystemInit extends MatchingTask {
                 admin.setDeleted(false);
                 admin.setInternal(true);
                 admin.getRoles().add(roleMember);
+                admin.getRoles().add(roleModerator);
                 admin.getRoles().add(roleAdmin);
                 session.save(admin);
                 System.out.println("---- successfully inserte a user: admin");
@@ -126,6 +135,7 @@ public class SystemInit extends MatchingTask {
                 guest.setEnabled(true);
                 guest.setDeleted(false);
                 guest.setInternal(true);
+                guest.getRoles().add(roleMember);
                 guest.getRoles().add(roleGuest);
                 session.save(guest);
                 System.out.println("---- successfully inserte a user: guest");

@@ -41,6 +41,7 @@ public class CVOListAction extends Action {
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
         CVOForm cvoform = (CVOForm) form;
+        cvoform.setCvoList(cvoDAO.getCVOList());
         
         return mapping.findForward("list");
     }//execute()

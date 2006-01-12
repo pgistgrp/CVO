@@ -1,3 +1,4 @@
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
@@ -10,40 +11,59 @@
 <script type='text/javascript' src='<html:rewrite page="/dwr/util.js"/>'></script>
 <script type='text/javascript' src='<html:rewrite page="/dwr/interface/CVOAgent.js"/>'></script>
 <script>
-  function createCVO() {
-    $('createCVODialog').style.display='block';
-    //CVOAgent.createCVO(createCVO_callback, 'test');
+  function openCreateCVO() {
+    var div = $('createCVODialog');
+    $('createCVODialog_name').value = '';
+    $('createCVODialog_question').value = '';
+    leftPos = (window.innerWidth-300)/2;
+    topPos = (window.innerHeight-200)/2;
+    div.style.left = leftPos+"px";
+    div.style.top = topPos+"px";
+    div.style.display = "block";
     return false;
   }
+  function createCVO() {
+    CVOAgent.createCVO($('createCVODialog_name').value, $('createCVODialog_question').value, createCVO_callback);
+  }
   function createCVO_callback(data) {
-    alert(data);
+    if (data) {
+      $('createCVODialog').style.display = "none";
+    }
   }
 </script>
 </head>
 
 <body>
 
-<div id="createCVODialog" class="dialog" style="width:300;height:200;">
-</div>
+<pg:dialog id="createCVODialog" width="300" height="200">
+  <table width="100%" height="100%" cellpadding="0" cellspacing="0">
+    <tr>
+      <td>Please input the display name of this CVO:</td>
+    </tr>
+    <tr>
+      <td><input type="text" id="createCVODialog_name" value="" style="width:100%;"/></td>
+    </tr>
+    <tr>
+      <td>Please input the QUESTION:</td>
+    </tr>
+    <tr>
+      <td><textarea id="createCVODialog_question" style="width:100%;height:100%;" value=""></textarea></td>
+    </tr>
+    <tr>
+      <td><input type="button" value="Submit" onclick="createCVO();"/></td>
+    </tr>
+  </table>
+</pg:dialog>
 
 <html:form action="/cvolist.do" method="POST">
   <h2>CVO List</h2>
-  <pg:show roles="admin">
-    <p><a href="#" onclick="createCVO();">Create CVO</a>
+  <pg:show roles="moderator">
+    <p><a href="#" onclick="openCreateCVO();">Create CVO</a>
   </pg:show>
   <table class="listtable" width="100%">
-    <tr>
-      <td>CVO List</td>
-    </tr>
-    <tr>
-      <td>CVO List</td>
-    </tr>
-    <tr>
-      <td>CVO List</td>
-    </tr>
     <logic:iterate id="cvo" property="cvoList" name="cvoForm">
     <tr>
-      <td><bean:write name="cvo" property="name"/></td>
+      <td><html:link action="/cvoview.do" paramId="id" paramName="cvo" paramProperty="id"><bean:write name="cvo" property="name"/></html:link></td>
     </tr>
     </logic:iterate>
   </table>

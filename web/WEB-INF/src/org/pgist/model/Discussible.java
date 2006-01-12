@@ -18,6 +18,8 @@ public abstract class Discussible {
     
     protected User owner;
     
+    private boolean deleted;
+    
     
     /**
      * @return
@@ -58,6 +60,20 @@ public abstract class Discussible {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+    
+    
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public boolean isDeleted() {
+        return deleted;
+    }
+    
+    
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
     
     

@@ -25,10 +25,6 @@ public class LoginAction extends Action {
     private UserDAO userDAO;
     
     
-    public LoginAction() {
-    }
-    
-    
     public UserDAO getUserDAO() {
         return userDAO;
     }

@@ -17,7 +17,7 @@ public class DiscourseObject {
     protected Discussible target;
     
     protected Post root;
-
+    
     protected User owner;
     
     
