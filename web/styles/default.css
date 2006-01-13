@@ -43,13 +43,20 @@ body {
   position:absolute;
   z-Index:10000;
   background:white;
-  border: solid 1px gray;
   display:none;
   padding:0px;
+	border-top: 1px solid #5c6f84;
+	border-bottom: 2px solid #5c6f84;
+	border-right: 2px solid #5c6f84;
+	border-left: 2px solid #5c6f84;
 }
 
 .dialog .body {
   padding:2px;
+}
+
+.inputbox {
+  border:solid 1px gray;
 }
 
 td.outtop {

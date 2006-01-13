@@ -59,7 +59,15 @@ public class DialogTag extends TagSupport {
             writer.write(ctxPath);
             writer.write("/images/titlebar.gif) repeat-x top;\" align=\"right\" nowrap><img src=\"");
             writer.write(ctxPath);
-            writer.write("/images/close.gif\" onclick=\"$('");
+            writer.write("/images/close.gif\" onmouseover=\"");
+            writer.write("this.src='");
+            writer.write(ctxPath);
+            writer.write("/images/close1.gif';\"");
+            writer.write(" onmouseout=\"");
+            writer.write("this.src='");
+            writer.write(ctxPath);
+            writer.write("/images/close.gif';\"");
+            writer.write(" onclick=\"$('");
             writer.write(id);
             writer.write("').style.display='none';\"></td>");
             writer.write("</tr><tr><td class=\"body\">");

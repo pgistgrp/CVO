@@ -61,13 +61,13 @@
       <td>Please input the display name of this CVO:</td>
     </tr>
     <tr>
-      <td><input type="text" id="createCVODialog_name" value="" style="width:100%;"/></td>
+      <td><input type="text" id="createCVODialog_name" value="" class="inputbox" style="width:100%;"/></td>
     </tr>
     <tr>
       <td>Please input the QUESTION:</td>
     </tr>
     <tr>
-      <td><textarea id="createCVODialog_question" style="width:100%;height:100%;" value=""></textarea></td>
+      <td><textarea id="createCVODialog_question" style="width:100%;height:99%;" class="inputbox" value=""></textarea></td>
     </tr>
     <tr>
       <td align="center"><input type="button" value="Submit" onclick="createCVO();"/></td>

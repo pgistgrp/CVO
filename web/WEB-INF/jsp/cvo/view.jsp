@@ -26,7 +26,7 @@
             <div style="background-color:#c9c9ff;">CVO: <bean:write name="cvoForm" property="cvo.name"/></div>
             <div>
               <span style="background-color:#deffc1;">Q: <bean:write name="cvoForm" property="root.content"/></span>
-              <textarea id="reply" style="width:100%;height:80px;"></textarea>
+              <textarea id="reply" style="width:100%;height:80px;" class="inputbox"></textarea>
             </div>
             <center>
               <input type="button" value="OK" onclick="extractConcern();">
