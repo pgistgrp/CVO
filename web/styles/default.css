@@ -4,21 +4,16 @@ body {
 }
 
 .listtable {
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-	border-bottom-color: #CCCCCC;
+  border:solid 1px #CCCCCC;
+  border-collapse:collapse;
+  padding:1;
 }
 
 .listtable td {
 	font-size: small;
 	text-align: left;
 	vertical-align: top;
-	border-top: 1px solid #CCCCCC;
-	border-right: 1px solid #CCCCCC;
-	border-left: 1px solid #CCCCCC;
-	padding-top: 2px;
-	padding-bottom: 2px;
-	padding-left: 5px;
+	padding: 2px;
 }
 
 .index {
@@ -53,19 +48,23 @@ body {
   padding:0px;
 }
 
+.dialog .body {
+  padding:2px;
+}
+
 td.outtop {
 	font-size: small;
   border-top: 1px solid black;
   border-left: 1px solid black;
   border-right: 1px solid black;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid black;
   margin-left: 3px;
 }
 
 td.outleft {
 	font-size: small;
   border-left: 1px solid black;
-  border-right: 1px solid #aaa;
+  border-right: 1px solid black;
   border-bottom: 1px solid black;
   margin-left: 3px;
 }
@@ -79,7 +78,7 @@ td.outright {
 
 td.hidetop {
 	font-size: small;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid black;
   margin-left: 3px;
   cursor: pointer; cursor: hand;
 }
@@ -96,7 +95,7 @@ td.hideleft {
 
 td.hideright {
 	font-size: small;
-  border-left: 1px solid #aaa;
+  border-left: 1px solid black;
   margin-left: 3px;
   cursor: pointer; cursor: hand;
 }

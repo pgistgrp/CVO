@@ -1,6 +1,9 @@
 package org.pgist.ajax;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -35,7 +38,32 @@ public class CVOAgent {
     }
     
     
-    public boolean createCVO(HttpSession session, String name, String question) throws Exception {
+    public Map getCVOList() throws Exception {
+        Map map = new HashMap();
+        Collection cvoList = cvoDAO.getCVOList();
+        map.put("cvoList", cvoList);
+        return map;
+    }//getCVOList()
+    
+    
+    public Map createCVO(HttpSession session, String name, String question) throws Exception {
+        Map map = new HashMap();
+        
+        if (name==null || question==null) {
+            map.put("result", "false");
+            map.put("alert", "Please input the name and the question.");
+            return map;
+        }
+        
+        name = name.trim();
+        question = question.trim();
+        
+        if ("".equals(name) || "".equals(question)) {
+            map.put("result", "false");
+            map.put("alert", "Please input the name and the question.");
+            return map;
+        }
+        
         User user = (User) session.getAttribute("user");
         user = userDAO.getUserById(user.getId(), true, false);
         
@@ -61,7 +89,8 @@ public class CVOAgent {
         cvoDAO.saveDO(dobj);
         cvoDAO.saveCVO(cvo);
         
-        return true;
+        map.put("result", "true");
+        return map;
     }//createCVO()
     
     

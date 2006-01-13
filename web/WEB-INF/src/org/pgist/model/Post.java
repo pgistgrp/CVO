@@ -11,7 +11,7 @@ import org.pgist.users.User;
  * 
  * @author kenny
  *
- * @hibernate.class table="pgist_discouse_post"
+ * @hibernate.class table="pgist_discourse_post"
  */
 public class Post {
     
@@ -59,7 +59,7 @@ public class Post {
     
     /**
      * @return
-     * @hibernate.set lazy="true" table="pgist_discouse_post" cascade="all" order-by="id"
+     * @hibernate.set lazy="true" table="pgist_discourse_post" cascade="all" order-by="id"
      * @hibernate.collection-key column="parent_id"
      * @hibernate.collection-one-to-many class="org.pgist.model.Post"
      */

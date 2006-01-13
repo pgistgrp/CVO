@@ -5,10 +5,11 @@
 
   <allow>
 
-    <!--convert converter="bean" match="org.pgist.glossary.Term"/-->
+    <convert converter="bean" match="org.pgist.cvo.CVO"/>
 
     <create creator="spring" javascript="CVOAgent">
       <param name="beanName" value="cvoAgent"/>
+      <include method="getCVOList"/>
       <include method="createCVO"/>
     </create>
 

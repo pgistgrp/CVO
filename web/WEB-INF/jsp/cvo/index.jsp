@@ -26,8 +26,28 @@
     CVOAgent.createCVO($('createCVODialog_name').value, $('createCVODialog_question').value, createCVO_callback);
   }
   function createCVO_callback(data) {
-    if (data) {
+    if (data['result']=='true') {
       $('createCVODialog').style.display = "none";
+      var table = $('cvoListTable');
+      n = table.rows.length;
+      for (var i=0; i<n; i++) table.deleteRow(0);
+      var row = table.insertRow(table.rows.length);
+      var column = row.insertCell(0);
+      column.innerHTML = '<span style="color:red;">Loading......</span>';
+      CVOAgent.getCVOList(getCVOList_callback);
+    } else {
+      alert(data['alert']);
+    }
+  }
+  function getCVOList_callback(data) {
+    var table = $('cvoListTable');
+    table.deleteRow(0);
+    var list = data['cvoList'];
+    for (var i=0; i<list.length; i++) {
+      var cvo = list[i];
+      var row = table.insertRow(table.rows.length);
+      var column = row.insertCell(0);
+      column.innerHTML = '<a href="<html:rewrite page="/cvoview.do"/>?id='+cvo['id']+'">'+cvo['name']+'</a>';
     }
   }
 </script>
@@ -50,7 +70,7 @@
       <td><textarea id="createCVODialog_question" style="width:100%;height:100%;" value=""></textarea></td>
     </tr>
     <tr>
-      <td><input type="button" value="Submit" onclick="createCVO();"/></td>
+      <td align="center"><input type="button" value="Submit" onclick="createCVO();"/></td>
     </tr>
   </table>
 </pg:dialog>
@@ -58,9 +78,11 @@
 <html:form action="/cvolist.do" method="POST">
   <h2>CVO List</h2>
   <pg:show roles="moderator">
+    <pg:hide roles="admin">
     <p><a href="#" onclick="openCreateCVO();">Create CVO</a>
+    </pg:hide>
   </pg:show>
-  <table class="listtable" width="100%">
+  <table id="cvoListTable" class="listtable" cellspacing="1" frame="box" rules="all" width="100%">
     <logic:iterate id="cvo" property="cvoList" name="cvoForm">
     <tr>
       <td><html:link action="/cvoview.do" paramId="id" paramName="cvo" paramProperty="id"><bean:write name="cvo" property="name"/></html:link></td>

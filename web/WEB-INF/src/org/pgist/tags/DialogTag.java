@@ -62,7 +62,7 @@ public class DialogTag extends TagSupport {
             writer.write("/images/close.gif\" onclick=\"$('");
             writer.write(id);
             writer.write("').style.display='none';\"></td>");
-            writer.write("</tr><tr><td>");
+            writer.write("</tr><tr><td class=\"body\">");
         } catch(IOException e) {
             throw new JspException(e);
         }

@@ -7,7 +7,7 @@ import org.pgist.users.User;
  * 
  * @author kenny
  *
- * @hibernate.class table="pgist_discouse_object"
+ * @hibernate.class table="pgist_discourse_object"
  */
 public class DiscourseObject {
     

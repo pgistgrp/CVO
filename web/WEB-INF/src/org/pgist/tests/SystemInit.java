@@ -1,6 +1,7 @@
 package org.pgist.tests;
 
 import java.io.File;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,6 +16,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.util.ArrayHelper;
+import org.pgist.cvo.CVO;
+import org.pgist.model.DiscourseObject;
+import org.pgist.model.Post;
 import org.pgist.users.Role;
 import org.pgist.users.User;
 
@@ -76,19 +80,19 @@ public class SystemInit extends MatchingTask {
                 Transaction transaction = session.beginTransaction();
                 
                 //role - member
-                Role roleMember = new Role();
-                roleMember.setName("admin");
-                roleMember.setDescription("Administrator");
-                roleMember.setInternal(true);
-                session.save(roleMember);
+                Role roleAdmin = new Role();
+                roleAdmin.setName("admin");
+                roleAdmin.setDescription("Administrator");
+                roleAdmin.setInternal(true);
+                session.save(roleAdmin);
                 System.out.println("---- successfully inserte a role: admin");
                 
                 //role - admin
-                Role roleAdmin = new Role();
-                roleAdmin.setName("member");
-                roleAdmin.setDescription("Member");
-                roleAdmin.setInternal(true);
-                session.save(roleAdmin);
+                Role roleMember = new Role();
+                roleMember.setName("member");
+                roleMember.setDescription("Member");
+                roleMember.setInternal(true);
+                session.save(roleMember);
                 System.out.println("---- successfully inserte a role: member");
                 
                 //role - moderator
@@ -140,6 +144,133 @@ public class SystemInit extends MatchingTask {
                 session.save(guest);
                 System.out.println("---- successfully inserte a user: guest");
                 
+                //user - moderator
+                User moderator = new User();
+                moderator.setLoginname("moderator");
+                moderator.setFirstname("moderator");
+                moderator.setLastname("moderator");
+                moderator.setPassword("moderator");
+                moderator.encodePassword();
+                moderator.setEmail("moderator@pgist.org");
+                moderator.setEnabled(true);
+                moderator.setDeleted(false);
+                moderator.setInternal(true);
+                moderator.getRoles().add(roleModerator);
+                session.save(moderator);
+                System.out.println("---- successfully inserte a user: moderator");
+                
+                //user - user1
+                User user1 = new User();
+                user1.setLoginname("user1");
+                user1.setFirstname("user1");
+                user1.setLastname("user1");
+                user1.setPassword("user1");
+                user1.encodePassword();
+                user1.setEmail("user1@pgist.org");
+                user1.setEnabled(true);
+                user1.setDeleted(false);
+                user1.setInternal(true);
+                user1.getRoles().add(roleMember);
+                session.save(user1);
+                System.out.println("---- successfully inserte a user: user1");
+                
+                //user - user2
+                User user2 = new User();
+                user2.setLoginname("user2");
+                user2.setFirstname("user2");
+                user2.setLastname("user2");
+                user2.setPassword("user2");
+                user2.encodePassword();
+                user2.setEmail("user2@pgist.org");
+                user2.setEnabled(true);
+                user2.setDeleted(false);
+                user2.setInternal(true);
+                user2.getRoles().add(roleMember);
+                session.save(user2);
+                System.out.println("---- successfully inserte a user: user2");
+                
+                //user - user3
+                User user3 = new User();
+                user3.setLoginname("user3");
+                user3.setFirstname("user3");
+                user3.setLastname("user3");
+                user3.setPassword("user3");
+                user3.encodePassword();
+                user3.setEmail("user3@pgist.org");
+                user3.setEnabled(true);
+                user3.setDeleted(false);
+                user3.setInternal(true);
+                user3.getRoles().add(roleMember);
+                session.save(user3);
+                System.out.println("---- successfully inserte a user: user3");
+                
+                Post post = new Post();
+                post.setOwner(admin);
+                post.setParent(null);
+                post.setTime(new Date());
+                post.setContent("What is your concern about I5?");
+                
+                DiscourseObject dobj = new DiscourseObject();
+                dobj.setOwner(admin);
+                dobj.setRoot(post);
+                
+                CVO cvo = new CVO();
+                cvo.setName("CVO test for I5");
+                cvo.setOwner(admin);
+                cvo.setDeleted(false);
+                cvo.setDiscourseObject(dobj);
+                
+                dobj.setTarget(cvo);
+                
+                Post post1 = new Post();
+                post1.setOwner(guest);
+                post1.setParent(post);
+                post1.setTime(new Date());
+                post1.setContent("What I care most is the NOISE!");
+                
+                post.getChildren().add(post1);
+                
+                Post post2 = new Post();
+                post2.setOwner(user1);
+                post2.setParent(post1);
+                post2.setTime(new Date());
+                post2.setContent("NOISE? I don't think it's important.");
+                
+                post1.getChildren().add(post2);
+                
+                Post post3 = new Post();
+                post3.setOwner(user2);
+                post3.setParent(post1);
+                post3.setTime(new Date());
+                post3.setContent("Em, I agree with you.");
+                
+                post1.getChildren().add(post3);
+                
+                Post post4 = new Post();
+                post4.setOwner(user3);
+                post4.setParent(post1);
+                post4.setTime(new Date());
+                post4.setContent("Noise is only trivial for I5!");
+                
+                post1.getChildren().add(post4);
+                
+                Post post5 = new Post();
+                post5.setOwner(guest);
+                post5.setParent(post4);
+                post5.setTime(new Date());
+                post5.setContent("Trivial? Oh, God. If you live besides I5!");
+                
+                post4.getChildren().add(post5);
+                
+                session.save(post);
+                session.save(post1);
+                session.save(post2);
+                session.save(post3);
+                session.save(post4);
+                session.save(post5);
+                session.save(dobj);
+                session.save(cvo);
+                
                 transaction.commit();
             } catch(Exception ex) {
                 ex.printStackTrace();
@@ -177,7 +308,7 @@ public class SystemInit extends MatchingTask {
         return ArrayHelper.toStringArray(files);
     }
     
-
+    
     private Configuration getConfiguration() throws Exception {
         Configuration cfg = new Configuration();
         if (configurationFile != null) cfg.configure( new File(configurationFile) );

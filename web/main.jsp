@@ -14,7 +14,7 @@
   <p><a href="/userlist.do">User Management</a>
 </pg:show>
 
-<pg:show roles="member">
+<pg:show roles="member, moderator">
   <p><html:link action="/cvolist.do">CVO participation</html:link>
 </pg:show>
 
