@@ -51,6 +51,7 @@
   function getPost_callback(data) {
     var post = data['post'];
     var div = $('createComment');
+    $('createComment_id').value = post['id'];
     $('createComment_title').innerHTML = 'User '+post.owner.loginname+' said:';
     $('createComment_replyto').value = post.content;
     $('createComment_reply').value = '';
@@ -60,11 +61,25 @@
     div.style.top = topPos+"px";
     div.style.display = "block";
   }
+  function createReply() {
+    CVOAgent.createPost($('createComment_id').value, $('createComment_reply').value, createPost_callback);
+  }
+  function createPost_callback(data) {
+    if (data['result']=='true') {
+      var div = $('createComment');
+      div.style.display = 'none';
+      url = '<html:rewrite page="/postGroups.do?id="/>'+$('cvoId').value;
+      ajaxCaller.getPlainText(url, reloadPostGroups);
+    } else {
+      alert(data['alert']);
+    }
+  }
 </script>
 </head>
 <body bgcolor="white">
 
 <pg:dialog id="createComment" width="400" height="500">
+  <input type="hidden" id="createComment_id" value="">
   <table width="100%" cellpadding="0" cellspacing="0">
     <tr>
       <td id="createComment_title"></td>

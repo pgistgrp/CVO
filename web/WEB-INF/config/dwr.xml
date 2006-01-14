@@ -16,6 +16,7 @@
       <include method="extractConcern"/>
       <include method="createConcern"/>
       <include method="getPost"/>
+      <include method="createPost"/>
     </create>
 
   </allow>

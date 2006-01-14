@@ -135,4 +135,25 @@ public class CVOAgent {
     }//getPost()
     
     
+    public Map createPost(HttpSession session, Long parentId, String paragraph) throws Exception {
+        Map map = new HashMap();
+        
+        User user = (User) session.getAttribute("user");
+        user = userDAO.getUserById(user.getId(), true, false);
+        
+        Post parent = cvoDAO.getPostById(parentId);
+        Post post = new Post();
+        post.setParent(parent);
+        post.setContent(paragraph);
+        post.setOwner(user);
+        post.setTime(new Date());
+        
+        cvoDAO.savePost(post);
+        
+        map.put("result", "true");
+        
+        return map;
+    }//createPost()
+    
+    
 }
