@@ -5,12 +5,17 @@
 
   <allow>
 
+    <convert converter="bean" match="org.pgist.users.User"/>
+    <convert converter="bean" match="org.pgist.model.Post"/>
     <convert converter="bean" match="org.pgist.cvo.CVO"/>
 
     <create creator="spring" javascript="CVOAgent">
       <param name="beanName" value="cvoAgent"/>
       <include method="getCVOList"/>
       <include method="createCVO"/>
+      <include method="extractConcern"/>
+      <include method="createConcern"/>
+      <include method="getPost"/>
     </create>
 
   </allow>

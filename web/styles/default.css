@@ -1,6 +1,6 @@
 body {
-	font-family: "Arial", "Helvetica", "sans-serif";
-	font-size: small;
+  font-family: "Arial", "Helvetica", "sans-serif";
+  font-size: small;
 }
 
 .listtable {
@@ -10,33 +10,33 @@ body {
 }
 
 .listtable td {
-	font-size: small;
-	text-align: left;
-	vertical-align: top;
-	padding: 2px;
+  font-size: small;
+  text-align: left;
+  vertical-align: top;
+  padding: 2px;
 }
 
 .index {
-	text-align: center;
-	vertical-align: top;
-	background-color: #EEEEEE;
-	color: #330066;
-	border-top: 1px solid #CCCCCC;
-	border-left: 1px solid #CCCCCC;
-	padding-top: 2px;
-	padding-bottom: 2px;
-	padding-left: 5px;
+  text-align: center;
+  vertical-align: top;
+  background-color: #EEEEEE;
+  color: #330066;
+  border-top: 1px solid #CCCCCC;
+  border-left: 1px solid #CCCCCC;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 5px;
 }
 
 .title {
-	text-align: left;
-	vertical-align: top;
-	border-top: 1px solid #CCCCCC;
-	border-right: 1px solid #CCCCCC;
-	border-left: 1px solid #CCCCCC;
-	padding-top: 2px;
-	padding-bottom: 2px;
-	padding-left: 5px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #CCCCCC;
+  border-left: 1px solid #CCCCCC;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 5px;
 }
 
 .dialog {
@@ -45,10 +45,10 @@ body {
   background:white;
   display:none;
   padding:0px;
-	border-top: 1px solid #5c6f84;
-	border-bottom: 2px solid #5c6f84;
-	border-right: 2px solid #5c6f84;
-	border-left: 2px solid #5c6f84;
+  border-top: 1px solid #5c6f84;
+  border-bottom: 2px solid #5c6f84;
+  border-right: 2px solid #5c6f84;
+  border-left: 2px solid #5c6f84;
 }
 
 .dialog .body {
@@ -59,8 +59,16 @@ body {
   border:solid 1px gray;
 }
 
+.discourse {
+}
+
+.discourse .link {
+  color:blue;
+  cursor: pointer; cursor: hand;
+}
+
 td.outtop {
-	font-size: small;
+  font-size: small;
   border-top: 1px solid black;
   border-left: 1px solid black;
   border-right: 1px solid black;
@@ -69,7 +77,7 @@ td.outtop {
 }
 
 td.outleft {
-	font-size: small;
+  font-size: small;
   border-left: 1px solid black;
   border-right: 1px solid black;
   border-bottom: 1px solid black;
@@ -77,31 +85,31 @@ td.outleft {
 }
 
 td.outright {
-	font-size: small;
+  font-size: small;
   border-right: 1px solid black;
   border-bottom: 1px solid black;
   margin-left: 3px;
 }
 
 td.hidetop {
-	font-size: small;
+  font-size: small;
   border-bottom: 1px solid black;
   margin-left: 3px;
   cursor: pointer; cursor: hand;
 }
 
 td.hidenone {
-	font-size: small;
+  font-size: small;
   cursor: pointer; cursor: hand;
 }
 
 td.hideleft {
-	font-size: small;
+  font-size: small;
   cursor: pointer; cursor: hand;
 }
 
 td.hideright {
-	font-size: small;
+  font-size: small;
   border-left: 1px solid black;
   margin-left: 3px;
   cursor: pointer; cursor: hand;

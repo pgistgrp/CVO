@@ -50,7 +50,22 @@ public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
             cvo = (CVO) list.get(0);
         }
         return cvo;
-    }
+    }//getCVOById()
+
+
+    private final static String hql_getPostById = "from Post post where post.id=:id";
+    
+    
+    public Post getPostById(Long id) {
+        Post post = null;
+        Query query = getSession().createQuery(hql_getPostById);
+        query.setLong("id", id.longValue());
+        List list = query.list(); 
+        if (list.size()>0) {
+            post = (Post) list.get(0);
+        }
+        return post;
+    }//getPostById()
     
     
 }

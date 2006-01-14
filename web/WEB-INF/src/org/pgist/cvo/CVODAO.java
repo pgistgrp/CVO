@@ -18,6 +18,8 @@ public interface CVODAO {
     Collection getCVOList() throws Exception;
 
     CVO getCVOById(Long id);
+
+    Post getPostById(Long id);
     
     
 }

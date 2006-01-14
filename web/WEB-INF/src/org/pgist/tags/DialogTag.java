@@ -70,7 +70,7 @@ public class DialogTag extends TagSupport {
             writer.write(" onclick=\"$('");
             writer.write(id);
             writer.write("').style.display='none';\"></td>");
-            writer.write("</tr><tr><td class=\"body\">");
+            writer.write("</tr><tr><td class=\"body\" valign=\"top\">");
         } catch(IOException e) {
             throw new JspException(e);
         }

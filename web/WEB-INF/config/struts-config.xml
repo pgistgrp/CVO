@@ -47,6 +47,11 @@
         </action>
         
         
+        <action path="/postGroups" type="org.pgist.cvo.CVOPostGroupsAction" name="cvoForm" scope="request">
+            <forward name="display" path="/WEB-INF/jsp/cvo/postGroups.jsp"/>
+        </action>
+        
+        
     </action-mappings>
     
     

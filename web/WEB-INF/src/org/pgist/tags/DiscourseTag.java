@@ -64,7 +64,7 @@ public class DiscourseTag extends SimpleTagSupport {
         JspWriter writer = getJspContext().getOut();
         writer.write("<div id=\"");
         writer.write(id);
-        writer.write("\" width=\"100%\">");
+        writer.write("\" class=\"discourse\" width=\"100%\">");
         
         writer.write("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
         
@@ -74,10 +74,15 @@ public class DiscourseTag extends SimpleTagSupport {
             writer.write(" colspan=\""+n+"\"");
         }
         writer.write(">");
-        writer.write(thePost.getContent());
+        String content = thePost.getContent();
+        content = content.replaceAll("\n", "<br>");
+        writer.write(content);
         writer.write("<span style=\"margin-left:30px;\">--- ");
         writer.write(thePost.getOwner().getLoginname());
-        writer.write("</span>");
+        writer.write("</span><span style=\"margin-left:30px;\" class=\"link\" onclick=\"");
+        writer.write("if (postReply) {postReply(");
+        writer.write(""+thePost.getId());
+        writer.write(");}\">[Comment]</span>");
         writer.write("</td></tr>");
         
         writer.write("<tr>");
