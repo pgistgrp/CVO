@@ -62,7 +62,12 @@
     div.style.display = "block";
   }
   function createReply() {
-    CVOAgent.createPost($('createComment_id').value, $('createComment_reply').value, createPost_callback);
+    var content = $('createComment_reply').value;
+    if (content.length<1) {
+      alert('Please input your comment.');
+      return;
+    }
+    CVOAgent.createPost($('createComment_id').value, content, createPost_callback);
   }
   function createPost_callback(data) {
     if (data['result']=='true') {
