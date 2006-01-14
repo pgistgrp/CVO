@@ -40,7 +40,8 @@ body {
 }
 
 .dialog {
-  position:absolute;
+  position: fixed;
+  top: 2em;
   z-Index:10000;
   background:white;
   display:none;
