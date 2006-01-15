@@ -27,6 +27,8 @@ public class CVOForm extends ActionForm {
     
     private Post root;
     
+    private int myPost;
+    
     
     public Collection getCvoList() {
         return cvoList;
@@ -75,6 +77,16 @@ public class CVOForm extends ActionForm {
     
     public void setDobj(DiscourseObject dobj) {
         this.dobj = dobj;
+    }
+
+
+    public int getMyPost() {
+        return myPost;
+    }
+
+
+    public void setMyPost(int myPost) {
+        this.myPost = myPost;
     }
     
     

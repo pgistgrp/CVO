@@ -33,7 +33,11 @@ public class CVOPostGroupsAction extends Action {
         CVO cvo = cvoDAO.getCVOById(cvoform.getId());
         cvoform.setRoot(cvo.getDiscourseObject().getRoot());
         
-        return mapping.findForward("display");
+        if (cvoform.getMyPost()==0) {
+            return mapping.findForward("myPost");
+        } else {
+            return mapping.findForward("otherPost");
+        }
     }//execute()
 
 

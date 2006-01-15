@@ -45,6 +45,9 @@
   function reloadPostGroups(text, headers, callingContext) {
     $('postGroups').innerHTML = text;
   }
+  function reloadMyPostGroups(text, headers, callingContext) {
+    $('myPostGroups').innerHTML = text;
+  }
   function postReply(id) {
     CVOAgent.getPost(id, getPost_callback);
   }
@@ -73,7 +76,9 @@
     if (data['result']=='true') {
       var div = $('createComment');
       div.style.display = 'none';
-      url = '<html:rewrite page="/postGroups.do?id="/>'+$('cvoId').value;
+      url = '<html:rewrite page="/postGroups.do?id="/>'+$('cvoId').value+'&myPost=0';
+      ajaxCaller.getPlainText(url, reloadMyPostGroups);
+      url = '<html:rewrite page="/postGroups.do?id="/>'+$('cvoId').value+'&myPost=1';
       ajaxCaller.getPlainText(url, reloadPostGroups);
     } else {
       alert(data['alert']);
@@ -106,15 +111,15 @@
 
 <form>
 <input type="hidden" id="cvoId" value="${cvoForm.cvo.id}">
+<div style="background-color:#c9c9ff;padding:3px;">CVO: <bean:write name="cvoForm" property="cvo.name"/></div>
 <table width="100%">
   <tr>
     <td width="50%" valign="top">
       <table width="100%">
         <tr>
           <td width="100%">
-            <div style="background-color:#c9c9ff;">CVO: <bean:write name="cvoForm" property="cvo.name"/></div>
             <div>
-              <span style="background-color:#deffc1;">Q: <bean:write name="cvoForm" property="root.content"/></span>
+              <span>Q: <bean:write name="cvoForm" property="root.content"/></span>
               <textarea id="reply" style="width:100%;height:80px;" class="inputbox"></textarea>
             </div>
             <center>
@@ -143,15 +148,28 @@
       <table>
         <tr>
           <td width="100%">
-            <div>
+            <div style="border-top:1px solid blue; padding-top:10px;">
               Your concerns:
             </div>
           </td>
         </tr>
+        <tr>
+          <td id="myPostGroups">
+            <jsp:include page="myPostGroups.jsp"/>
+          </td>
+        </tr>
       </table>
     </td>
-    <td id="postGroups" valign="top">
-      <jsp:include page="postGroups.jsp"/>
+    <td valign="top">
+      <table width="100%">
+      <tr>
+        <td style="font-size:small; padding-bottom:10px;">Hottest First | Latest First | Last commented</td>
+      </tr>
+      <tr>
+        <td id="postGroups">
+        <jsp:include page="postGroups.jsp"/>
+        </td>
+      </tr>
     </td>
   </tr>
 </table>

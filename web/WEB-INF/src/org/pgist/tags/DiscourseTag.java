@@ -24,6 +24,8 @@ public class DiscourseTag extends SimpleTagSupport {
     
     private String post;
     
+    private String callback;
+    
     private static final String[] colors = {
         "#ccccff",
         "#ccfffe",
@@ -59,6 +61,11 @@ public class DiscourseTag extends SimpleTagSupport {
     }
     
     
+    public void setCallback(String callback) {
+        this.callback = callback;
+    }
+
+
     public void doTag() throws JspException, IOException {
         Post thePost = (Post) getJspContext().getAttribute(post);
         JspWriter writer = getJspContext().getOut();
@@ -80,7 +87,7 @@ public class DiscourseTag extends SimpleTagSupport {
         writer.write("<span style=\"margin-left:30px;\">--- ");
         writer.write(thePost.getOwner().getLoginname());
         writer.write("</span><span style=\"margin-left:30px;\" class=\"link\" onclick=\"");
-        writer.write("if (postReply) {postReply(");
+        writer.write("if ("+callback+") {"+callback+"(");
         writer.write(""+thePost.getId());
         writer.write(");}\">[Comment]</span>");
         writer.write("</td></tr>");
@@ -102,11 +109,16 @@ public class DiscourseTag extends SimpleTagSupport {
     
     
     public void renderNode(Post thePost, boolean first) throws IOException {
-        JspWriter writer = getJspContext().getOut();
-        writer.write("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
-        
         int n = thePost.getChildren().size();
-        writer.write("<tr><td height=\"5\" width=\"100%\" valign=\"top\" class=\"hidetop\" style=\"background-color:");
+        
+        JspWriter writer = getJspContext().getOut();
+        if (n==0) {
+            writer.write("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" height=\"5\" width=\"100%\">");
+        } else {
+            writer.write("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
+        }
+        
+        writer.write("<tr><td width=\"100%\" valign=\"top\" class=\"hidetop\" style=\"background-color:");
         int index = (int) Math.floor(Math.random()*length);
         writer.write(colors[index]);
         writer.write(";\"");
@@ -118,13 +130,15 @@ public class DiscourseTag extends SimpleTagSupport {
         writer.write(">");
         writer.write("</td></tr>");
         
-        writer.write("<tr><td valign=\"top\" class=\"hidenone\">");
+        writer.write("<tr>");
         first = true;
         for (Iterator iter=thePost.getChildren().iterator(); iter.hasNext(); ) {
+            writer.write("<td valign=\"top\" class=\"hidenone\">");
             renderNode((Post) (iter.next()), first);
             first = false;
+            writer.write("</td>");
         }//for i
-        writer.write("</td></tr>");
+        writer.write("</tr>");
         
         writer.write("</table>");
     }//renderNode()
