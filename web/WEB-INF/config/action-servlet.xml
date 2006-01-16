@@ -28,10 +28,5 @@
     </bean>
     
     
-    <bean name="/postGroups" class="org.pgist.cvo.CVOPostGroupsAction">
-        <property name="cvoDAO" ref="cvoDAO"/>
-    </bean>
-    
-    
 </beans>
 

@@ -17,9 +17,24 @@
       <include method="createConcern"/>
       <include method="getPost"/>
       <include method="createPost"/>
+      <include method="getPostGroups"/>
     </create>
 
   </allow>
+  
 
+  <signatures>
+  
+  
+    <![CDATA[
+      import java.util.Map;
+      import org.pgist.cvo.CVOAgent;
+      CVOAgent.getPostGroups(Map<String, String>);
+    ]]>
+    
+    
+  </signatures>
+  
+  
 </dwr>
 

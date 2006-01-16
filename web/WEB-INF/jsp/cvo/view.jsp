@@ -7,8 +7,6 @@
 <head>
 <title>CVO</title>
 <link rel="stylesheet" type="text/css" href="<html:rewrite page='/styles/default.css'/>">
-<script type='text/javascript' src='<html:rewrite page="/scripts/util.js"/>'></script>
-<script type='text/javascript' src='<html:rewrite page="/scripts/ajaxCaller.js"/>'></script>
 <script type='text/javascript' src='<html:rewrite page="/dwr/engine.js"/>'></script>
 <script type='text/javascript' src='<html:rewrite page="/dwr/util.js"/>'></script>
 <script type='text/javascript' src='<html:rewrite page="/dwr/interface/CVOAgent.js"/>'></script>
@@ -35,19 +33,21 @@
       $('concern').value = '';
       $('step2').style.display='none';
       reply.disabled = false;
-      //reload concerns
-      url = '<html:rewrite page="/postGroups.do?id="/>'+$('cvoId').value+'&myPost=0';
-      ajaxCaller.getPlainText(url, reloadMyPostGroups);
-      url = '<html:rewrite page="/postGroups.do?id="/>'+$('cvoId').value+'&myPost=1';
-      ajaxCaller.getPlainText(url, reloadPostGroups);
+      var params = {
+        cvoId : $('cvoId').value,
+        myPost : '0'
+      };
+      CVOAgent.getPostGroups(reloadMyPostGroups, params);
+      params['myPost'] = '1';
+      CVOAgent.getPostGroups(reloadPostGroups, params);
     } else {
       alert(data['alert']);
     }
   }
-  function reloadPostGroups(text, headers, callingContext) {
+  function reloadPostGroups(text) {
     $('postGroups').innerHTML = text;
   }
-  function reloadMyPostGroups(text, headers, callingContext) {
+  function reloadMyPostGroups(text) {
     $('myPostGroups').innerHTML = text;
   }
   function postReply(id) {
@@ -78,10 +78,13 @@
     if (data['result']=='true') {
       var div = $('createComment');
       div.style.display = 'none';
-      url = '<html:rewrite page="/postGroups.do?id="/>'+$('cvoId').value+'&myPost=0';
-      ajaxCaller.getPlainText(url, reloadMyPostGroups);
-      url = '<html:rewrite page="/postGroups.do?id="/>'+$('cvoId').value+'&myPost=1';
-      ajaxCaller.getPlainText(url, reloadPostGroups);
+      var params = {
+        cvoId : $('cvoId').value,
+        myPost : '0'
+      };
+      CVOAgent.getPostGroups(reloadMyPostGroups, params);
+      params['myPost'] = '1';
+      CVOAgent.getPostGroups(reloadPostGroups, params);
     } else {
       alert(data['alert']);
     }

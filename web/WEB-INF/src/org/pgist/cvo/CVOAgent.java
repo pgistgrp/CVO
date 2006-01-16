@@ -5,12 +5,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
 import org.pgist.system.UserDAO;
 import org.pgist.users.User;
+
+import uk.ltd.getahead.dwr.WebContext;
+import uk.ltd.getahead.dwr.WebContextFactory;
 
 
 /**
@@ -156,6 +160,24 @@ public class CVOAgent {
         
         return map;
     }//createPost()
+    
+    
+    public String getPostGroups(Map params) throws Exception {
+        CVOForm form = new CVOForm();
+        CVO cvo = cvoDAO.getCVOById(new Long((String) (params.get("cvoId"))));
+        form.setRoot(cvo.getDiscourseObject().getRoot());
+        
+        WebContext context = WebContextFactory.get();
+        HttpServletRequest request = context.getHttpServletRequest();
+        request.setAttribute("cvoForm", form);
+        
+        String myPost = (String) params.get("myPost");
+        if ("0".equals(myPost)) {
+            return context.forwardToString("/WEB-INF/jsp/cvo/myPostGroups.jsp");
+        } else {
+            return context.forwardToString("/WEB-INF/jsp/cvo/postGroups.jsp");
+        }
+    }//getPostGroups()
     
     
 }
