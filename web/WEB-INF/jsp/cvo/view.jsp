@@ -116,7 +116,7 @@
 
 <form>
 <input type="hidden" id="cvoId" value="${cvoForm.cvo.id}">
-<div style="background-color:#c9c9ff;padding:3px;">CVO: <bean:write name="cvoForm" property="cvo.name"/></div>
+<div class="cvotitle">CVO: <bean:write name="cvoForm" property="cvo.name"/></div>
 <table width="100%" cellpadding="10">
   <tr>
     <td width="50%" valign="top">

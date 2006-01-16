@@ -109,4 +109,27 @@ td.hideleft {
 td.hideright {
   border-left: 1px solid #CCCCCC;
 }
-
+.bar {
+	height:6px;
+	border-right-width: 3px;
+	border-left-width: 3px;
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-color: #FFFFFF;
+	border-style: solid;
+	border-style: solid;
+}
+.cvotitle {
+	background-color: #EFFAF4;
+	margin: auto;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	border-top-color: #339900;
+	padding-left: 5px;
+}

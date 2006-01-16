@@ -6,6 +6,7 @@ import java.util.Iterator;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
+import javax.servlet.http.HttpServletRequest;
 
 import org.pgist.model.Post;
 
@@ -80,11 +81,6 @@ public class DiscourseTag extends SimpleTagSupport {
         boolean first = true;
         for (Iterator iter=thePost.getChildren().iterator(); iter.hasNext(); ) {
             writer.write("<td valign=\"top\"");
-            if (first) {
-                writer.write(" class=\"outleft\"");
-            } else {
-                writer.write(" class=\"outright\"");
-            }
             writer.write(">");
             renderNode((Post) (iter.next()), first, 1);
             first = false;
@@ -98,6 +94,9 @@ public class DiscourseTag extends SimpleTagSupport {
     
     
     public void renderNode(Post thePost, boolean first, int depth) throws IOException {
+        //HttpServletRequest req = (HttpServletRequest) this.getPageContext.getRequest();
+        String ctxPath = "/cvotest"; //req.getContextPath();
+
         int n = thePost.getChildren().size();
         
         JspWriter writer = getJspContext().getOut();
@@ -107,7 +106,7 @@ public class DiscourseTag extends SimpleTagSupport {
         if (this.depth!=-1 && depth>this.depth) {
             styleClass = "hidetop";
         }
-        writer.write("<tr><td width=\"100%\" valign=\"top\" class=\""+styleClass+"\"");
+        writer.write("<tr><td width=\"100%\" valign=\"top\" class=\"bar\"");  ////"+styleClass+"  ////gz
         
         if (n>1) {
             writer.write(" colspan=\"");
@@ -121,7 +120,7 @@ public class DiscourseTag extends SimpleTagSupport {
             content = content.replaceAll("\n", "<br>");
             writer.write(content);
         }
-        
+        writer.write("<img src=\"" + ctxPath + "/images/dot.gif\" width=\"100%\" height=\"6\">");	/////gz
         writer.write("</td></tr>");
         
         writer.write("<tr>");
