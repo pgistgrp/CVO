@@ -36,7 +36,9 @@
       $('step2').style.display='none';
       reply.disabled = false;
       //reload concerns
-      url = '<html:rewrite page="/postGroups.do?id="/>'+$('cvoId').value;
+      url = '<html:rewrite page="/postGroups.do?id="/>'+$('cvoId').value+'&myPost=0';
+      ajaxCaller.getPlainText(url, reloadMyPostGroups);
+      url = '<html:rewrite page="/postGroups.do?id="/>'+$('cvoId').value+'&myPost=1';
       ajaxCaller.getPlainText(url, reloadPostGroups);
     } else {
       alert(data['alert']);
@@ -154,7 +156,7 @@
           </td>
         </tr>
         <tr>
-          <td id="myPostGroups">
+          <td id="myPostGroups" width="100%">
             <jsp:include page="myPostGroups.jsp"/>
           </td>
         </tr>
@@ -166,7 +168,7 @@
         <td style="font-size:small; padding-bottom:10px;">Hottest First | Latest First | Last commented</td>
       </tr>
       <tr>
-        <td id="postGroups">
+        <td id="postGroups" width="100%">
         <jsp:include page="postGroups.jsp"/>
         </td>
       </tr>
