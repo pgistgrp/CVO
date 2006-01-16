@@ -11,6 +11,22 @@
 <script type='text/javascript' src='<html:rewrite page="/dwr/util.js"/>'></script>
 <script type='text/javascript' src='<html:rewrite page="/dwr/interface/CVOAgent.js"/>'></script>
 <script>
+  var pgistTimer = {
+    start : function() {
+      setTimeout(this.run, 60000, this);
+    },
+    stop : function() {
+      clearTimeout(timer);
+    },
+    run : function(timer) {
+      var params = {
+        cvoId : $('cvoId').value,
+        myPost : '1'
+      };
+      CVOAgent.getPostGroups(reloadPostGroups, params);
+      timer.start();
+    }
+  };
   function extractConcern() {
     var reply = $('reply');
     if (reply.value=='') {
@@ -32,7 +48,7 @@
       $('reply').value = '';
       $('concern').value = '';
       $('step2').style.display='none';
-      reply.disabled = false;
+      $('reply').disabled = false;
       var params = {
         cvoId : $('cvoId').value,
         myPost : '0'
@@ -91,7 +107,7 @@
   }
 </script>
 </head>
-<body bgcolor="white">
+<body bgcolor="white" onload="pgistTimer.start();">
 
 <pg:dialog id="createComment" width="400" height="500">
   <input type="hidden" id="createComment_id" value="">
