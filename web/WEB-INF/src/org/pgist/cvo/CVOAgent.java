@@ -110,12 +110,13 @@ public class CVOAgent {
         CVO cvo = cvoDAO.getCVOById(cvoId);
         Post root = cvo.getDiscourseObject().getRoot();
         
-        Post post = new Post();
-        post.setContent(paragraph);
-        post.setOwner(user);
-        root.getChildren().add(post);
-        post.setParent(root);
-        post.setTime(new Date());
+        Post post = null;
+        
+        try {
+            post = root.addChild(root, paragraph, user);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         
         cvoDAO.savePost(post);
         
@@ -135,18 +136,16 @@ public class CVOAgent {
     }//getPost()
     
     
-    public Map createPost(HttpSession session, Long parentId, String paragraph) throws Exception {
+    public Map createPost(HttpSession session, Long cvoId, Long parentId, String paragraph) throws Exception {
         Map map = new HashMap();
         
         User user = (User) session.getAttribute("user");
         user = userDAO.getUserById(user.getId(), true, false);
         
+        CVO cvo = cvoDAO.getCVOById(cvoId);
+        
         Post parent = cvoDAO.getPostById(parentId);
-        Post post = new Post();
-        post.setParent(parent);
-        post.setContent(paragraph);
-        post.setOwner(user);
-        post.setTime(new Date());
+        Post post = parent.addChild(cvo.getDiscourseObject().getRoot(), paragraph, user);
         
         cvoDAO.savePost(post);
         

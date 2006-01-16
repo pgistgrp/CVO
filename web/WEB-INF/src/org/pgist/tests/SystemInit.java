@@ -222,45 +222,15 @@ public class SystemInit extends MatchingTask {
                 
                 dobj.setTarget(cvo);
                 
-                Post post1 = new Post();
-                post1.setOwner(guest);
-                post1.setParent(post);
-                post1.setTime(new Date());
-                post1.setContent("What I care most is the NOISE!");
+                Post post1 = post.addChild(post, "What I care most is the NOISE!", guest);
                 
-                post.getChildren().add(post1);
+                Post post2 = post1.addChild(post, "NOISE? I don't think it's important.", user1);
                 
-                Post post2 = new Post();
-                post2.setOwner(user1);
-                post2.setParent(post1);
-                post2.setTime(new Date());
-                post2.setContent("NOISE? I don't think it's important.");
+                Post post3 = post1.addChild(post, "Em, I agree with you.", user2);
                 
-                post1.getChildren().add(post2);
+                Post post4 = post1.addChild(post, "Noise is only trivial for I5!", user3);
                 
-                Post post3 = new Post();
-                post3.setOwner(user2);
-                post3.setParent(post1);
-                post3.setTime(new Date());
-                post3.setContent("Em, I agree with you.");
-                
-                post1.getChildren().add(post3);
-                
-                Post post4 = new Post();
-                post4.setOwner(user3);
-                post4.setParent(post1);
-                post4.setTime(new Date());
-                post4.setContent("Noise is only trivial for I5!");
-                
-                post1.getChildren().add(post4);
-                
-                Post post5 = new Post();
-                post5.setOwner(guest);
-                post5.setParent(post4);
-                post5.setTime(new Date());
-                post5.setContent("Trivial? Oh, God. If you live besides I5!");
-                
-                post4.getChildren().add(post5);
+                Post post5 = post4.addChild(post, "Trivial? Oh, God. If you live besides I5!", guest);
                 
                 session.save(post);
                 session.save(post1);

@@ -28,6 +28,10 @@ public class Post {
     
     protected Date time;
     
+    protected int descendantNum = 0;
+    
+    protected int category = 0;
+    
     
     /**
      * @return
@@ -113,6 +117,61 @@ public class Post {
     public void setTime(Date time) {
         this.time = time;
     }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getDescendantNum() {
+        return descendantNum;
+    }
+
+
+    public void setDescendantNum(int descendantNum) {
+        this.descendantNum = descendantNum;
+    }
+    
+    
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getCategory() {
+        return category;
+    }
+
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+
+    public Post addChild(Post root, String content, User owner) {
+        Post post = new Post();
+        post.setParent(this);
+        this.getChildren().add(post);
+        post.setContent(content);
+        post.setOwner(owner);
+        post.setTime(new Date());
+        if (this.getId().longValue()==root.getId().longValue()) {
+            synchronized(this) {
+                descendantNum++;
+            }
+        } else {
+            propogate(root);
+        }
+        return post;
+    }//addChild()
+    
+    
+    public void propogate(Post root) {
+        synchronized(root) {
+            descendantNum++;
+            if (this.getId().longValue()==root.getId().longValue()) return;
+            parent.propogate(root);
+        }//synchronized
+    }//propogate()
     
     
 }
