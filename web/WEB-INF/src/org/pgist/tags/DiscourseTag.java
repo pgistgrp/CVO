@@ -26,29 +26,7 @@ public class DiscourseTag extends SimpleTagSupport {
     
     private String callback;
     
-    private static final String[] colors = {
-        "#ccccff",
-        "#ccfffe",
-        "#ffcccc",
-        "#ffbae7",
-        "#baffbf",
-        "#fbffba",
-        "#ffe4ba",
-        "#c9c9c9",
-        "#e1a7ff",
-        "#d2ffa7",
-        "#ff9696",
-        "#9b96ff",
-        "#a7ff96",
-        "#ff96ea",
-        "#96d4ff",
-        "#968dff",
-        "#fff88d",
-        "#ffd58d",
-        "#ffb58d",
-    };
-    
-    private static final int length = colors.length;
+    private int depth = 0;
     
     
     public void setId(String condition) {
@@ -63,6 +41,12 @@ public class DiscourseTag extends SimpleTagSupport {
     
     public void setCallback(String callback) {
         this.callback = callback;
+    }
+
+
+    public void setDepth(int depth) {
+        if (depth<0) depth = -1;
+        else this.depth = depth;
     }
 
 
@@ -95,9 +79,14 @@ public class DiscourseTag extends SimpleTagSupport {
         writer.write("<tr>");
         boolean first = true;
         for (Iterator iter=thePost.getChildren().iterator(); iter.hasNext(); ) {
-            if (first) writer.write("<td valign=\"top\" class=\"outleft\">");
-            else writer.write("<td valign=\"top\" class=\"outright\">");
-            renderNode((Post) (iter.next()), first);
+            writer.write("<td valign=\"top\"");
+            if (first) {
+                writer.write(" class=\"outleft\"");
+            } else {
+                writer.write(" class=\"outright\"");
+            }
+            writer.write(">");
+            renderNode((Post) (iter.next()), first, 1);
             first = false;
             writer.write("</td>");
         }//for i
@@ -108,33 +97,42 @@ public class DiscourseTag extends SimpleTagSupport {
     }//doTag()
     
     
-    public void renderNode(Post thePost, boolean first) throws IOException {
+    public void renderNode(Post thePost, boolean first, int depth) throws IOException {
         int n = thePost.getChildren().size();
         
         JspWriter writer = getJspContext().getOut();
-        if (n==0) {
-            writer.write("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" height=\"5\" width=\"100%\">");
-        } else {
-            writer.write("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
-        }
+        writer.write("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
         
-        writer.write("<tr><td width=\"100%\" valign=\"top\" class=\"hidetop\" style=\"background-color:");
-        int index = (int) Math.floor(Math.random()*length);
-        writer.write(colors[index]);
-        writer.write(";\"");
+        String styleClass = "innertop";
+        if (this.depth!=-1 && depth>this.depth) {
+            styleClass = "hidetop";
+        }
+        writer.write("<tr><td width=\"100%\" valign=\"top\" class=\""+styleClass+"\"");
+        
         if (n>1) {
-            writer.write("colspan=\"");
+            writer.write(" colspan=\"");
             writer.write(n);
             writer.write("\"");
         }
         writer.write(">");
+        
+        if (this.depth==-1 || depth<=this.depth) {
+            String content = thePost.getContent();
+            content = content.replaceAll("\n", "<br>");
+            writer.write(content);
+        }
+        
         writer.write("</td></tr>");
         
         writer.write("<tr>");
         first = true;
         for (Iterator iter=thePost.getChildren().iterator(); iter.hasNext(); ) {
-            writer.write("<td valign=\"top\" class=\"hidenone\">");
-            renderNode((Post) (iter.next()), first);
+            if (this.depth!=-1 && depth>this.depth) styleClass = "hide";
+            else styleClass = "inner";
+            if (first) styleClass += "left";
+            else styleClass = "right";
+            writer.write("<td valign=\"top\" class=\""+styleClass+"\">");
+            renderNode((Post) (iter.next()), first, depth+1);
             first = false;
             writer.write("</td>");
         }//for i

@@ -57,7 +57,7 @@ body {
 }
 
 .inputbox {
-  border:solid 1px gray;
+  border:solid 1px #CCCCCC;
 }
 
 .discourse {
@@ -71,47 +71,42 @@ body {
 td.outtop {
   font-size: small;
   border: 1px solid #CCCCCC;
-  margin-left: 3px;
   padding:3px;
 }
 
 td.outleft {
-  font-size: small;
   border-left: 1px solid #CCCCCC;
   border-right: 1px solid #CCCCCC;
-  border-bottom: 1px solid #CCCCCC;
-  margin-left: 3px;
 }
 
 td.outright {
-  font-size: small;
   border-right: 1px solid #CCCCCC;
+}
+
+td.innertop {
+  font-size: small;
   border-bottom: 1px solid #CCCCCC;
-  margin-left: 3px;
+  padding:3px;
+}
+
+td.innerleft {
+}
+
+td.innerright {
+  border-left: 1px solid #CCCCCC;
 }
 
 td.hidetop {
-  font-size: small;
-  border-bottom: 1px solid #CCCCCC;
-  margin-left: 3px;
+  background-color: #a9a9ff;
+  height:5px;
   cursor: pointer; cursor: hand;
-}
-
-td.hidenone {
-  font-size: small;
   border-bottom: 1px solid #CCCCCC;
-  cursor: pointer; cursor: hand;
 }
 
 td.hideleft {
-  font-size: small;
-  cursor: pointer; cursor: hand;
 }
 
 td.hideright {
-  font-size: small;
   border-left: 1px solid #CCCCCC;
-  margin-left: 3px;
-  cursor: pointer; cursor: hand;
 }
 

@@ -205,10 +205,13 @@ public class SystemInit extends MatchingTask {
                 System.out.println("---- successfully inserte a user: user3");
                 
                 Post post = new Post();
+                post.setRoot(post);
+                post.setTarget(true);
                 post.setOwner(admin);
                 post.setParent(null);
                 post.setTime(new Date());
                 post.setContent("What is your concern about I5?");
+                session.save(post);
                 
                 DiscourseObject dobj = new DiscourseObject();
                 dobj.setOwner(admin);
@@ -222,17 +225,16 @@ public class SystemInit extends MatchingTask {
                 
                 dobj.setTarget(cvo);
                 
-                Post post1 = post.addChild(post, "What I care most is the NOISE!", guest);
+                Post post1 = post.addChild("What I care most is the NOISE!", guest);
                 
-                Post post2 = post1.addChild(post, "NOISE? I don't think it's important.", user1);
+                Post post2 = post1.addChild("NOISE? I don't think it's important.", user1);
                 
-                Post post3 = post1.addChild(post, "Em, I agree with you.", user2);
+                Post post3 = post1.addChild("Em, I agree with you.", user2);
                 
-                Post post4 = post1.addChild(post, "Noise is only trivial for I5!", user3);
+                Post post4 = post1.addChild("Noise is only trivial for I5!", user3);
                 
-                Post post5 = post4.addChild(post, "Trivial? Oh, God. If you live besides I5!", guest);
+                Post post5 = post4.addChild("Trivial? Oh, God. If you live besides I5!", guest);
                 
-                session.save(post);
                 session.save(post1);
                 session.save(post2);
                 session.save(post3);

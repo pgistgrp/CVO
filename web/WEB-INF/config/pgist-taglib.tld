@@ -102,6 +102,11 @@
       <rtexprvalue>false</rtexprvalue>
     </attribute>
     <attribute>
+      <name>depth</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
       <name>callback</name>
       <required>true</required>
       <rtexprvalue>false</rtexprvalue>

@@ -32,6 +32,10 @@ public class Post {
     
     protected int category = 0;
     
+    protected boolean target = false;
+    
+    protected Post root;
+    
     
     /**
      * @return
@@ -147,30 +151,53 @@ public class Post {
     }
 
 
-    public Post addChild(Post root, String content, User owner) {
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public boolean isTarget() {
+        return target;
+    }
+
+
+    public void setTarget(boolean target) {
+        this.target = target;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.many-to-one column="root_id" class="org.pgist.model.Post" casecad="all"
+     */
+    public Post getRoot() {
+        return root;
+    }
+
+
+    public void setRoot(Post root) {
+        this.root = root;
+    }
+
+
+    public Post addChild(String content, User owner) {
         Post post = new Post();
+        post.setRoot(getRoot());
         post.setParent(this);
         this.getChildren().add(post);
         post.setContent(content);
         post.setOwner(owner);
         post.setTime(new Date());
-        if (this.getId().longValue()==root.getId().longValue()) {
-            synchronized(this) {
-                descendantNum++;
-            }
-        } else {
-            propogate(root);
-        }
+        propogate();
         return post;
     }//addChild()
     
     
-    public void propogate(Post root) {
-        synchronized(root) {
-            descendantNum++;
-            if (this.getId().longValue()==root.getId().longValue()) return;
-            parent.propogate(root);
+    public void propogate() {
+        synchronized(getRoot()) {
+            setDescendantNum(getDescendantNum()+1);
         }//synchronized
+        if (this.isTarget()) return;
+        this.getParent().propogate();
     }//propogate()
     
     

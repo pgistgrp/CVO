@@ -113,7 +113,7 @@ public class CVOAgent {
         Post post = null;
         
         try {
-            post = root.addChild(root, paragraph, user);
+            post = root.addChild(paragraph, user);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -136,16 +136,19 @@ public class CVOAgent {
     }//getPost()
     
     
-    public Map createPost(HttpSession session, Long cvoId, Long parentId, String paragraph) throws Exception {
+    public Map createPost(HttpSession session, Long parentId, String paragraph) throws Exception {
         Map map = new HashMap();
         
         User user = (User) session.getAttribute("user");
         user = userDAO.getUserById(user.getId(), true, false);
         
-        CVO cvo = cvoDAO.getCVOById(cvoId);
-        
-        Post parent = cvoDAO.getPostById(parentId);
-        Post post = parent.addChild(cvo.getDiscourseObject().getRoot(), paragraph, user);
+        Post post = null;
+        try {
+            Post parent = cvoDAO.getPostById(parentId);
+            post = parent.addChild(paragraph, user);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         
         cvoDAO.savePost(post);
         
