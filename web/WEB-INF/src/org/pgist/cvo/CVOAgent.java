@@ -70,6 +70,8 @@ public class CVOAgent {
         user = userDAO.getUserById(user.getId(), true, false);
         
         Post post = new Post();
+        post.setRoot(post);
+        post.setTarget(true);
         post.setOwner(user);
         post.setParent(null);
         post.setTime(new Date());

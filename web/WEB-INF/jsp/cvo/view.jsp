@@ -139,7 +139,7 @@
       <table width="100%">
         <tr>
           <td width="100%">
-            <div>
+            <div width="100%">
               <span>Q: <bean:write name="cvoForm" property="root.content"/></span>
               <textarea id="reply" style="width:100%;height:80px;" class="inputbox"></textarea>
             </div>
@@ -149,7 +149,7 @@
           </td>
         </tr>
       </table>
-      <table id="step2" style="display:none;">
+      <table width="100%" id="step2" style="display:none;">
         <tr>
           <td>
             <table width="100%">
@@ -166,7 +166,7 @@
           </td>
         </tr>
       </table>
-      <table>
+      <table width="100%">
         <tr>
           <td width="100%">
             <div style="border-top:1px solid blue; padding-top:10px;">
