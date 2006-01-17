@@ -20,9 +20,9 @@ public class DialogTag extends TagSupport {
 
     private String id;
     
-    private String width;
+    private int width;
     
-    private String height;
+    private int height;
     
     
     public void setId(String condition) {
@@ -30,13 +30,13 @@ public class DialogTag extends TagSupport {
     }
 
 
-    public void setWidth(String owner) {
+    public void setWidth(int owner) {
         this.width = owner;
     }
 
 
-    public void setHeight(String roles) {
-        this.height = roles;
+    public void setHeight(int height) {
+        this.height = height;
     }
 
 
@@ -49,9 +49,9 @@ public class DialogTag extends TagSupport {
             writer.write(id);
             writer.write("\" class=\"dialog\" ");
             writer.write("style=\"width:");
-            writer.write(width);
+            writer.write(""+width);
             writer.write(";height:");
-            writer.write(height);
+            writer.write(""+height);
             writer.write("\">");
             writer.write("<table width=\"100%\" height=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
             writer.write("<tr>");
@@ -71,6 +71,7 @@ public class DialogTag extends TagSupport {
             writer.write(id);
             writer.write("').style.display='none';\"></td>");
             writer.write("</tr><tr><td class=\"body\" valign=\"top\">");
+            writer.write("<div style=\"width:100%;overflow:auto;height:"+(height-21)+"\">");
         } catch(IOException e) {
             throw new JspException(e);
         }
@@ -81,7 +82,7 @@ public class DialogTag extends TagSupport {
     public int doEndTag() throws JspException {
         JspWriter writer = pageContext.getOut();
         try {
-            writer.write("</td></tr></table></div>");
+            writer.write("</div></td></tr></table></div>");
         } catch(IOException e) {
             throw new JspException(e);
         }

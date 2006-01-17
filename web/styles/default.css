@@ -109,6 +109,7 @@ td.hideleft {
 td.hideright {
   border-left: 1px solid #CCCCCC;
 }
+
 .bar {
 	height:6px;
 	border-right-width: 3px;
@@ -119,6 +120,7 @@ td.hideright {
 	border-style: solid;
 	border-style: solid;
 }
+
 .cvotitle {
 	background-color: #EFFAF4;
 	margin: auto;
