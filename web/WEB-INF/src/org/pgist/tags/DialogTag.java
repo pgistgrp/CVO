@@ -45,6 +45,21 @@ public class DialogTag extends TagSupport {
         String ctxPath = req.getContextPath();
         JspWriter writer = pageContext.getOut();
         try {
+            writer.write("<script>");
+            writer.write("var "+id+" = {");
+            writer.write("popup : function() {");
+            writer.write("var div = $('"+id+"');");
+            writer.write("leftPos = (window.innerWidth-"+width+")/2;");
+            writer.write("topPos = (window.innerHeight-"+height+")/2;");
+            writer.write("div.style.left = leftPos+\"px\";");
+            writer.write("div.style.top = topPos+\"px\";");
+            writer.write("div.style.display = \"block\";");
+            writer.write("},");
+            writer.write("close : function() {");
+            writer.write("$('"+id+"').style.display = \"none\";");
+            writer.write("}");
+            writer.write("};");
+            writer.write("</script>");
             writer.write("<div id=\"");
             writer.write(id);
             writer.write("\" class=\"dialog\" ");
@@ -67,9 +82,9 @@ public class DialogTag extends TagSupport {
             writer.write("this.src='");
             writer.write(ctxPath);
             writer.write("/images/close.gif';\"");
-            writer.write(" onclick=\"$('");
+            writer.write(" onclick=\"");
             writer.write(id);
-            writer.write("').style.display='none';\"></td>");
+            writer.write(".close();\"></td>");
             writer.write("</tr><tr><td class=\"body\" valign=\"top\">");
             writer.write("<div style=\"width:100%;overflow:auto;height:"+(height-21)+"\">");
         } catch(IOException e) {

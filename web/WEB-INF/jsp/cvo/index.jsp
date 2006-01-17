@@ -12,14 +12,9 @@
 <script type='text/javascript' src='<html:rewrite page="/dwr/interface/CVOAgent.js"/>'></script>
 <script>
   function openCreateCVO() {
-    var div = $('createCVODialog');
     $('createCVODialog_name').value = '';
     $('createCVODialog_question').value = '';
-    leftPos = (window.innerWidth-300)/2;
-    topPos = (window.innerHeight-200)/2;
-    div.style.left = leftPos+"px";
-    div.style.top = topPos+"px";
-    div.style.display = "block";
+    createCVODialog.popup();
     return false;
   }
   function createCVO() {
@@ -27,7 +22,7 @@
   }
   function createCVO_callback(data) {
     if (data['result']=='true') {
-      $('createCVODialog').style.display = "none";
+      createCVODialog.close();
       var table = $('cvoListTable');
       n = table.rows.length;
       for (var i=0; i<n; i++) table.deleteRow(0);

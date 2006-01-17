@@ -6,7 +6,6 @@ import java.util.Iterator;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-import javax.servlet.http.HttpServletRequest;
 
 import org.pgist.model.Post;
 

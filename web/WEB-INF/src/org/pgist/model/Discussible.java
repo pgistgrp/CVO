@@ -37,7 +37,7 @@ public abstract class Discussible {
     
     /**
      * @return
-     * @hibernate.many-to-one column="do_id" class="org.pgist.model.DiscourseObject" casecad="all"
+     * @hibernate.many-to-one column="do_id" lazy="true" class="org.pgist.model.DiscourseObject" casecad="all"
      */
     public DiscourseObject getDiscourseObject() {
         return discourseObject;
@@ -51,7 +51,7 @@ public abstract class Discussible {
     
     /**
      * @return
-     * @hibernate.many-to-one column="owner_id" class="org.pgist.users.User" casecad="all"
+     * @hibernate.many-to-one column="owner_id" lazy="true" class="org.pgist.users.User" casecad="all"
      */
     public User getOwner() {
         return owner;

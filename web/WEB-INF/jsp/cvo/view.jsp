@@ -71,29 +71,23 @@
   }
   function getPost_callback(data) {
     var post = data['post'];
-    var div = $('createComment');
-    $('createComment_id').value = post['id'];
-    $('createComment_title').innerHTML = 'User '+post.owner.loginname+' said:';
-    $('createComment_replyto').value = post.content;
-    $('createComment_reply').value = '';
-    leftPos = (window.innerWidth-400)/2;
-    topPos = (window.innerHeight-500)/2;
-    div.style.left = leftPos+"px";
-    div.style.top = topPos+"px";
-    div.style.display = "block";
+    $('createCommentDialog_id').value = post['id'];
+    $('createCommentDialog_title').innerHTML = 'User '+post.owner.loginname+' said:';
+    $('createCommentDialog_replyto').value = post.content;
+    $('createCommentDialog_reply').value = '';
+    createCommentDialog.popup();
   }
   function createReply() {
-    var content = $('createComment_reply').value;
+    var content = $('createCommentDialog_reply').value;
     if (content.length<1) {
       alert('Please input your comment.');
       return;
     }
-    CVOAgent.createPost($('createComment_id').value, content, createPost_callback);
+    CVOAgent.createPost($('createCommentDialog_id').value, content, createPost_callback);
   }
   function createPost_callback(data) {
     if (data['result']=='true') {
-      var div = $('createComment');
-      div.style.display = 'none';
+      createCommentDialog.close();
       var params = {
         cvoId : $('cvoId').value,
         myPost : '0'
@@ -109,20 +103,20 @@
 </head>
 <body bgcolor="white" onload="pgistTimer.start();">
 
-<pg:dialog id="createComment" width="400" height="500">
-  <input type="hidden" id="createComment_id" value="">
+<pg:dialog id="createCommentDialog" width="400" height="500">
+  <input type="hidden" id="createCommentDialog_id" value="">
   <table width="100%" cellpadding="0" cellspacing="0">
     <tr>
-      <td id="createComment_title"></td>
+      <td id="createCommentDialog_title"></td>
     </tr>
     <tr>
-      <td><textarea id="createComment_replyto" style="width:100%;height:150px;color:red;" class="inputbox" readonly value=""></textarea></td>
+      <td><textarea id="createCommentDialog_replyto" style="width:100%;height:150px;color:red;" class="inputbox" readonly value=""></textarea></td>
     </tr>
     <tr>
       <td>Please input your comment:</td>
     </tr>
     <tr>
-      <td><textarea id="createComment_reply" style="width:100%;height:200px;color:blue;" class="inputbox" value=""></textarea></td>
+      <td><textarea id="createCommentDialog_reply" style="width:100%;height:200px;color:blue;" class="inputbox" value=""></textarea></td>
     </tr>
     <tr>
       <td align="center"><input type="button" value="Submit" onclick="createReply();"/></td>

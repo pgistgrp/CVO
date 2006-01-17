@@ -53,7 +53,7 @@ public class Post {
     
     /**
      * @return
-     * @hibernate.many-to-one column="parent_id" class="org.pgist.model.Post" casecad="all"
+     * @hibernate.many-to-one column="parent_id" lazy="true" class="org.pgist.model.Post" casecad="all"
      */
     public Post getParent() {
         return parent;
@@ -97,7 +97,7 @@ public class Post {
 
     /**
      * @return
-     * @hibernate.many-to-one column="owner_id" class="org.pgist.users.User" casecad="all"
+     * @hibernate.many-to-one column="owner_id" lazy="true" class="org.pgist.users.User" casecad="all"
      */
     public User getOwner() {
         return owner;
@@ -167,7 +167,7 @@ public class Post {
 
     /**
      * @return
-     * @hibernate.many-to-one column="root_id" class="org.pgist.model.Post" casecad="all"
+     * @hibernate.many-to-one column="root_id" lazy="true" class="org.pgist.model.Post" casecad="all"
      */
     public Post getRoot() {
         return root;
