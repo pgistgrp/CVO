@@ -68,10 +68,17 @@ body {
   cursor: pointer; cursor: hand;
 }
 
-td.outtop {
+td.outtop-old {
   font-size: small;
   border: 1px solid #CCCCCC;
   padding:3px;
+}
+
+td.outtop {
+  font-size: small;
+	background-color: #EEF9EF;
+	margin: auto;
+	padding:5px;
 }
 
 td.outleft {
@@ -112,8 +119,8 @@ td.hideright {
 
 .bar {
 	height:6px;
-	border-right-width: 3px;
-	border-left-width: 3px;
+	border-right-width: 2px;
+	border-left-width: 2px;
 	border-top-width: 1px;
 	border-bottom-width: 1px;
 	border-color: #FFFFFF;
