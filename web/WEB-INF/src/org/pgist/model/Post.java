@@ -11,7 +11,8 @@ import org.pgist.users.User;
  * 
  * @author kenny
  *
- * @hibernate.class table="pgist_discourse_post"
+ * @hibernate.class table="pgist_discourse_post" lazy="true"
+ * @hibernate.cache usage="read-write"
  */
 public class Post {
     
@@ -53,7 +54,7 @@ public class Post {
     
     /**
      * @return
-     * @hibernate.many-to-one column="parent_id" lazy="true" class="org.pgist.model.Post" casecad="all"
+     * @hibernate.many-to-one column="parent_id" lazy="true"
      */
     public Post getParent() {
         return parent;
@@ -67,7 +68,7 @@ public class Post {
     
     /**
      * @return
-     * @hibernate.set lazy="true" table="pgist_discourse_post" cascade="all" order-by="id"
+     * @hibernate.set lazy="true" table="pgist_discourse_post" order-by="id"
      * @hibernate.collection-key column="parent_id"
      * @hibernate.collection-one-to-many class="org.pgist.model.Post"
      */
@@ -97,7 +98,7 @@ public class Post {
 
     /**
      * @return
-     * @hibernate.many-to-one column="owner_id" lazy="true" class="org.pgist.users.User" casecad="all"
+     * @hibernate.many-to-one column="owner_id" lazy="true" class="org.pgist.users.User"
      */
     public User getOwner() {
         return owner;
@@ -167,7 +168,7 @@ public class Post {
 
     /**
      * @return
-     * @hibernate.many-to-one column="root_id" lazy="true" class="org.pgist.model.Post" casecad="all"
+     * @hibernate.many-to-one column="root_id" lazy="true" class="org.pgist.model.Post"
      */
     public Post getRoot() {
         return root;

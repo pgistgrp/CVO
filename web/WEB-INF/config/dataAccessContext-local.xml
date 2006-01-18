@@ -36,6 +36,8 @@
            <props>
                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
                <prop key="hibernate.show_sql">true</prop>
+               <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+               <prop key="hibernate.default_batch_fetch_size">20</prop>
            </props>
         </property>
     </bean>

@@ -6,7 +6,9 @@
   <allow>
 
     <convert converter="bean" match="org.pgist.users.User"/>
-    <convert converter="bean" match="org.pgist.model.Post"/>
+    <convert converter="bean" match="org.pgist.model.Post">
+      <param name="exclude" value="parent, children, root"/>
+    </convert>
     <convert converter="bean" match="org.pgist.cvo.CVO"/>
 
     <create creator="spring" javascript="CVOAgent">
