@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.pgist.model.Category;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -66,6 +67,16 @@ public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
         }
         return post;
     }//getPostById()
+
+
+    private final static String hql_getCategory = "from Category category where category.parent=null and category.deleted=?";
+    
+    
+    public Category getCategory() throws Exception {
+        List list = getHibernateTemplate().find(hql_getCategory, new Boolean(false));
+        if (list.size()>0) return (Category) list.get(0);
+        return null;
+    }//getCategory()
     
     
 }

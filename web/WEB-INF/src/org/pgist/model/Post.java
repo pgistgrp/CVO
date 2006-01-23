@@ -14,7 +14,7 @@ import org.pgist.users.User;
  * @hibernate.class table="pgist_discourse_post" lazy="true"
  * @hibernate.cache usage="read-write"
  */
-public class Post {
+public class Post implements Node {
     
     
     protected Long id;

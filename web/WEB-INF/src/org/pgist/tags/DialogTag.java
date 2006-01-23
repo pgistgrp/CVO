@@ -30,8 +30,8 @@ public class DialogTag extends TagSupport {
     }
 
 
-    public void setWidth(int owner) {
-        this.width = owner;
+    public void setWidth(int width) {
+        this.width = width;
     }
 
 

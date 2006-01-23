@@ -17,6 +17,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.util.ArrayHelper;
 import org.pgist.cvo.CVO;
+import org.pgist.model.Category;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
 import org.pgist.users.Role;
@@ -242,6 +243,12 @@ public class SystemInit extends MatchingTask {
                 session.save(post5);
                 session.save(dobj);
                 session.save(cvo);
+                
+                Category category = new Category();
+                category.setDeleted(false);
+                category.setName("ALL");
+                category.setParent(null);
+                session.save(category);
                 
                 transaction.commit();
             } catch(Exception ex) {

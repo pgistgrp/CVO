@@ -24,7 +24,9 @@ public class DiscourseTag extends SimpleTagSupport {
     
     private String post;
     
-    private String callback;
+    private String commentCallback;
+    
+    private String enterCallback;
     
     private int depth = 0;
     
@@ -39,8 +41,13 @@ public class DiscourseTag extends SimpleTagSupport {
     }
     
     
-    public void setCallback(String callback) {
-        this.callback = callback;
+    public void setCommentCallback(String commentCallback) {
+        this.commentCallback = commentCallback;
+    }
+
+
+    public void setEnterCallback(String enterCallback) {
+        this.enterCallback = enterCallback;
     }
 
 
@@ -54,7 +61,7 @@ public class DiscourseTag extends SimpleTagSupport {
         Post thePost = (Post) getJspContext().getAttribute(post);
         JspWriter writer = getJspContext().getOut();
         writer.write("<div id=\"");
-        writer.write(id);
+        writer.write(id+"_"+thePost.getId());
         writer.write("\" class=\"discourse\" width=\"100%\">");
         
         writer.write("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
@@ -68,12 +75,15 @@ public class DiscourseTag extends SimpleTagSupport {
         String content = thePost.getContent();
         content = content.replaceAll("\n", "<br>");
         writer.write(content);
-        writer.write("<span style=\"margin-left:30px;\">--- ");
+        writer.write("<br><span style=\"margin-left:30px;\">--- ");
         writer.write(thePost.getOwner().getLoginname());
         writer.write("</span><span style=\"margin-left:30px;\" class=\"link\" onclick=\"");
-        writer.write("if ("+callback+") {"+callback+"(");
+        writer.write("if ("+commentCallback+") {"+commentCallback+"(");
         writer.write(""+thePost.getId());
-        writer.write(");}\">[Comment]</span>");
+        writer.write(");}\">[Comment]</span><span style=\"margin-left:5px;\" class=\"link\" onclick=\"");
+        writer.write("if ("+enterCallback+") {"+enterCallback+"(");
+        writer.write(""+thePost.getId());
+        writer.write(");}\">[Enter]</span>");
         writer.write("</td></tr>");
         
         writer.write("<tr>");
@@ -119,7 +129,7 @@ public class DiscourseTag extends SimpleTagSupport {
             content = content.replaceAll("\n", "<br>");
             writer.write(content);
         }
-        writer.write("<img src=\"" + ctxPath + "/images/dot.gif\" width=\"100%\" height=\"6\">");	/////gz
+        writer.write("<img src=\"" + ctxPath + "/images/dot.gif\" width=\"100%\" height=\"2\">");	/////gz
         writer.write("</td></tr>");
         
         writer.write("<tr>");

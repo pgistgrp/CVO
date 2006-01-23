@@ -2,6 +2,7 @@ package org.pgist.cvo;
 
 import java.util.Collection;
 
+import org.pgist.model.Category;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
 
@@ -20,6 +21,8 @@ public interface CVODAO {
     CVO getCVOById(Long id);
 
     Post getPostById(Long id);
+    
+    Category getCategory() throws Exception;
     
     
 }

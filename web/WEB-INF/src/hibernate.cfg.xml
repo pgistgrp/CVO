@@ -37,6 +37,9 @@
         <mapping resource="org/pgist/model/DiscourseObject.hbm.xml"/>
         <mapping resource="org/pgist/model/Post.hbm.xml"/>
         
+        <mapping resource="org/pgist/model/Category.hbm.xml"/>
+        <mapping resource="org/pgist/model/Tag.hbm.xml"/>
+        
 
     </session-factory>
 

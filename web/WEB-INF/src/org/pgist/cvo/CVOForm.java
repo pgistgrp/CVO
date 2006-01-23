@@ -3,6 +3,7 @@ package org.pgist.cvo;
 import java.util.Collection;
 
 import org.apache.struts.action.ActionForm;
+import org.pgist.model.Category;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
 
@@ -28,6 +29,8 @@ public class CVOForm extends ActionForm {
     private Post root;
     
     private int myPost;
+    
+    private Category category;
     
     
     public Collection getCvoList() {
@@ -87,6 +90,16 @@ public class CVOForm extends ActionForm {
 
     public void setMyPost(int myPost) {
         this.myPost = myPost;
+    }
+
+
+    public Category getCategory() {
+        return category;
+    }
+
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
     
     

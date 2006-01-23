@@ -25,11 +25,6 @@ public class LoginAction extends Action {
     private UserDAO userDAO;
     
     
-    public UserDAO getUserDAO() {
-        return userDAO;
-    }
-
-
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
