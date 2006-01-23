@@ -119,36 +119,103 @@
   </tag>
   
   <tag>
-    <name>categoryTree</name>
-    <tag-class>org.pgist.tags.CategoryTreeTag</tag-class>
+    <name>tree</name>
+    <tag-class>org.pgist.tags.TreeTag</tag-class>
     <body-content>JSP</body-content>
-    <description>Category Tree</description>
+    <description>Tree Tag</description>
     <attribute>
       <name>id</name>
       <required>true</required>
       <rtexprvalue>false</rtexprvalue>
     </attribute>
     <attribute>
-      <name>width</name>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>node</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>height</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>styleClass</name>
+      <name>imagePath</name>
       <required>false</required>
       <rtexprvalue>false</rtexprvalue>
     </attribute>
     <attribute>
-      <name>category</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
+      <name>dragable</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>dragHandler</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>clickHandler</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>stdImage</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
     </attribute>
   </tag>
 
+  <tag>
+    <name>list</name>
+    <tag-class>org.pgist.tags.ListTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>List Tag</description>
+    <attribute>
+      <name>id</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>list</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>identity</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>title</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>imagePath</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>dragable</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>dragHandler</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>stdImage</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+  
 </taglib>
 

@@ -24,5 +24,11 @@ public interface CVODAO {
     
     Category getCategory() throws Exception;
     
+    Category getCategoryById(Long id) throws Exception;
+
+    Collection getAllTags();
+
+    Category createCategory(Category parent, String name);
+    
     
 }

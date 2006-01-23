@@ -9,48 +9,55 @@
 <script type='text/javascript' src='<html:rewrite page="/scripts/dhtmlXTree/dhtmlXTree.js"/>'></script>
 <script type='text/javascript' src='<html:rewrite page="/dwr/engine.js"/>'></script>
 <script type='text/javascript' src='<html:rewrite page="/dwr/util.js"/>'></script>
+<script type='text/javascript' src='<html:rewrite page="/dwr/interface/CVOAgent.js"/>'></script>
 <script>
   var tree1 = null;
+  function myClick1Handler(itemId) {
+    CVOAgent.getCategoryTags(
+      function(data) {
+        alert(data);
+      },
+      itemId
+    );
+  }
   function myDrag1Handler(sourceId, targetId, siblingId, sourceTree, targetTree) {
     if (sourceTree.rootId==targetTree.rootId) return true;
     return false;
   }
   function myDrag2Handler(sourceId, targetId, siblingId, sourceTree, targetTree) {
-    if (sourceTree.rootId==3) return true;
+    if (tree1.getSelectedItemId()==null || tree1.getSelectedItemId()=='') return false;
+    if (sourceTree.rootId==tree3.rootId) return true;
     return false;
   }
   function myDrag3Handler(sourceId, targetId, siblingId, sourceTree, targetTree) {
-    if (sourceTree.rootId==2) return true;
+    if (sourceTree.rootId==tree2.rootId) return true;
     return false;
   }
   function doOnLoad(){
-    tree1=new dhtmlXTreeObject('treebox1',"100%","100%",1);
-    tree1.setImagePath("<html:rewrite page='/images/dhtmlXTree/'/>");
-    tree1.enableDragAndDrop(true);
-    tree1.setDragHandler(myDrag1Handler);
-    tree1.setStdImages('book.gif','books_open.gif','books_close.gif');
-    <%
-      org.pgist.cvo.CVOForm cvoForm = (org.pgist.cvo.CVOForm) request.getAttribute("cvoForm");
-      out.print(cvoForm.getCategory().getJavascript("tree1"));
-    %>
-    tree2=new dhtmlXTreeObject('treebox2',"100%","100%",2);
-    tree2.setImagePath("<html:rewrite page='/images/dhtmlXTree/'/>");
-    tree2.enableDragAndDrop(true);
-    tree2.setDragHandler(myDrag2Handler);
-    tree2.setStdImages('book.gif','books_open.gif','books_close.gif');
-    tree2.insertNewItem(2,-1,'New Tag',0,0,0,0,'');
-    tree3=new dhtmlXTreeObject('treebox3',"100%","100%",3);
-    tree3.setImagePath("<html:rewrite page='/images/dhtmlXTree/'/>");
-    tree3.enableDragAndDrop(true);
-    tree3.setDragHandler(myDrag3Handler);
-    tree3.setStdImages('book.gif','books_open.gif','books_close.gif');
-    tree3.insertNewItem(3,1,'Tag1',0,0,0,0,'');
-    tree3.insertNewItem(3,2,'Tag2',0,0,0,0,'');
-    tree3.insertNewItem(3,3,'Tag3',0,0,0,0,'');
-    tree3.insertNewItem(3,4,'Tag4',0,0,0,0,'');
+    <pg:tree id="treebox1" var="tree1" node="${cvoForm.category}"
+        imagePath="/images/dhtmlXTree/" dragable="true"
+        dragHandler="myDrag1Handler" clickHandler="myClick1Handler"
+        stdImage="book.gif, books_open.gif, books_close.gif">
+    </pg:tree>
+    <pg:list id="treebox2" var="tree2" list="" title="name" identity="id"
+        imagePath="/images/dhtmlXTree/" dragable="true"
+        dragHandler="myDrag2Handler"
+        stdImage="book.gif, books_open.gif, books_close.gif">
+    </pg:list>
+    <pg:list id="treebox3" var="tree3" list="${cvoForm.tags}" title="name" identity="id"
+        imagePath="/images/dhtmlXTree/" dragable="true"
+        dragHandler="myDrag3Handler"
+        stdImage="book.gif, books_open.gif, books_close.gif">
+    </pg:list>
   }
   function createCategory() {
-    tree1.insertNewItem(1,100,$('catName').value,0,0,0,0,'');
+    CVOAgent.createCategory(
+      function(data) {
+        tree1.insertNewItem(tree1.rootId,data['category']['id'],data['category']['name'],0,0,0,0,'');
+      },
+      tree1.getSelectedItemId()==''?null:tree1.getSelectedItemId(),
+      $('catName').value
+    );
   }
 </script>
 </head>

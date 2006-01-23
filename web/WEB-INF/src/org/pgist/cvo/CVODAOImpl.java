@@ -77,6 +77,33 @@ public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
         if (list.size()>0) return (Category) list.get(0);
         return null;
     }//getCategory()
+
+
+    private final static String hql_getCategoryById = "from Category category where category.id=? and category.deleted=?";
+    
+    
+    public Category getCategoryById(Long id) throws Exception {
+        List list = getHibernateTemplate().find(hql_getCategoryById, new Object[] {id, new Boolean(false)});
+        if (list.size()>0) return (Category) list.get(0);
+        return null;
+    }//getCategory()
+
+
+    private final static String hql_getAllTags = "from Tag tag where tag.deleted=?";
+    
+    
+    public Collection getAllTags() {
+        return getHibernateTemplate().find(hql_getAllTags, new Boolean(false));
+    }//getAllTags()
+
+
+    public Category createCategory(Category parent, String name) {
+        Category category = new Category();
+        category.setDeleted(false);
+        category.setName(name);
+        category.setParent(parent);
+        return category;
+    }//createCategory()
     
     
 }

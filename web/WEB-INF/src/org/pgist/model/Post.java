@@ -14,7 +14,7 @@ import org.pgist.users.User;
  * @hibernate.class table="pgist_discourse_post" lazy="true"
  * @hibernate.cache usage="read-write"
  */
-public class Post implements Node {
+public class Post {
     
     
     protected Long id;
@@ -200,6 +200,6 @@ public class Post implements Node {
         if (this.isTarget()) return;
         this.getParent().propogate();
     }//propogate()
-    
-    
+
+
 }

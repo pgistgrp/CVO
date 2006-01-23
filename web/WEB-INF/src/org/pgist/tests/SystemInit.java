@@ -20,6 +20,7 @@ import org.pgist.cvo.CVO;
 import org.pgist.model.Category;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
+import org.pgist.model.Tag;
 import org.pgist.users.Role;
 import org.pgist.users.User;
 
@@ -249,6 +250,26 @@ public class SystemInit extends MatchingTask {
                 category.setName("ALL");
                 category.setParent(null);
                 session.save(category);
+                
+                Tag tag = new Tag();
+                tag.setName("Noise");
+                session.save(tag);
+                
+                tag = new Tag();
+                tag.setName("Money");
+                session.save(tag);
+                
+                tag = new Tag();
+                tag.setName("Time");
+                session.save(tag);
+                
+                tag = new Tag();
+                tag.setName("Safety");
+                session.save(tag);
+                
+                tag = new Tag();
+                tag.setName("Usability");
+                session.save(tag);
                 
                 transaction.commit();
             } catch(Exception ex) {

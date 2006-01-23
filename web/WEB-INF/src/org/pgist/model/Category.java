@@ -1,7 +1,6 @@
 package org.pgist.model;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 
@@ -87,9 +86,10 @@ public class Category implements Node {
 
     /**
      * @return
-     * @hibernate.set lazy="true" table="pgist_cst_tags" order-by="id"
+     * 
+     * @hibernate.set lazy="true" table="pgist_cst_cat_tag_link" order-by="tag_id"
      * @hibernate.collection-key column="category_id"
-     * @hibernate.collection-one-to-many class="org.pgist.model.Tag"
+     * @hibernate.collection-many-to-many column="tag_id" class="org.pgist.model.Tag"
      */
     public Set getTags() {
         return tags;
@@ -113,32 +113,11 @@ public class Category implements Node {
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
-    
-    
-    public String getJavascript(String tree) {
-        StringBuffer sb = new StringBuffer();
-        
-        //sb.append(tree).append(".insertNewItem(0,").append(id).append(",'")
-        //  .append(name).append("',0,0,0,0,'');");
-        
-        for (Iterator iter=children.iterator(); iter.hasNext(); ) {
-            Category category = (Category) iter.next();
-            category.getJavascript(sb, tree, id);
-        }//for iter
-        
-        return sb.toString();
-    }//getJavascript()
-    
-    
-    protected void getJavascript(StringBuffer sb, String tree, Long parentId) {
-        sb.append(tree).append(".insertNewItem("+parentId+",").append(id).append(",'")
-          .append(name).append("',0,0,0,0,'');");
-      
-        for (Iterator iter=children.iterator(); iter.hasNext(); ) {
-            Category category = (Category) iter.next();
-            category.getJavascript(sb, tree, id);
-        }//for iter
-    }//getJavascript()
+
+
+    public String getCaption() {
+        return name;
+    }
     
     
 }

@@ -15,5 +15,7 @@ public interface Node {
     
     Set getChildren();
     
+    String getCaption();
+    
     
 }

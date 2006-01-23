@@ -32,6 +32,8 @@ public class CVOForm extends ActionForm {
     
     private Category category;
     
+    private Collection tags;
+    
     
     public Collection getCvoList() {
         return cvoList;
@@ -100,6 +102,16 @@ public class CVOForm extends ActionForm {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+
+    public Collection getTags() {
+        return tags;
+    }
+
+
+    public void setTags(Collection tags) {
+        this.tags = tags;
     }
     
     

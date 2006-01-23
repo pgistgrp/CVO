@@ -30,6 +30,7 @@ public class ConcernManagementAction extends Action {
     ) throws java.lang.Exception {
         CVOForm cvoform = (CVOForm) form;
         cvoform.setCategory(cvoDAO.getCategory());
+        cvoform.setTags(cvoDAO.getAllTags());
         
         return mapping.findForward("main");
     }//execute()

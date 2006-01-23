@@ -1,5 +1,7 @@
 package org.pgist.model;
 
+import java.util.Set;
+
 
 /**
  * 
@@ -14,7 +16,7 @@ public class Tag {
     
     protected String name;
     
-    protected Category category;
+    protected Set categories;
     
     protected boolean deleted = false;
     
@@ -49,15 +51,18 @@ public class Tag {
     
     /**
      * @return
-     * @hibernate.many-to-one column="category_id" lazy="true"
+     * 
+     * @hibernate.set lazy="true" table="pgist_cst_cat_tag_link" order-by="category_id"
+     * @hibernate.collection-key column="tag_id"
+     * @hibernate.collection-many-to-many column="category_id" class="org.pgist.model.Category"
      */
-    public Category getCategory() {
-        return category;
+    public Set getCategories() {
+        return categories;
     }
 
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategories(Set categories) {
+        this.categories = categories;
     }
 
 

@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.pgist.model.Category;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
 import org.pgist.system.UserDAO;
@@ -180,6 +181,38 @@ public class CVOAgent {
             return context.forwardToString("/WEB-INF/jsp/cvo/postGroups.jsp");
         }
     }//getPostGroups()
+    
+    
+    public Map getCategoryTags(Long categoryId) throws Exception {
+        Map map = new HashMap();
+        
+        Collection all = cvoDAO.getAllTags();
+        Category category = cvoDAO.getCategoryById(categoryId);
+        Collection tags = category.getTags();
+        all.removeAll(tags);
+        map.put("all", all);
+        map.put("tags", tags);
+        
+        return map;
+    }//getCategoryTags()
+    
+    
+    public Map createCategory(Long parentId, String name) throws Exception {
+        Map map = new HashMap();
+        map.put("result", "false");
+        
+        Category parent = null;
+        if (parentId!=null) {
+            parent = cvoDAO.getCategoryById(parentId);
+        }
+        map.put("parent", parent);
+        
+        Category category = cvoDAO.createCategory(parent, name);
+        map.put("category", category);
+        
+        map.put("result", "true");
+        return map;
+    }//createCategory()
     
     
 }

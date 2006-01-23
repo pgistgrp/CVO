@@ -10,6 +10,12 @@
       <param name="exclude" value="parent, children, root"/>
     </convert>
     <convert converter="bean" match="org.pgist.cvo.CVO"/>
+    <convert converter="bean" match="org.pgist.model.Tags">
+      <param name="exclude" value="categories"/>
+    </convert>
+    <convert converter="bean" match="org.pgist.model.Category">
+      <param name="exclude" value="parent, children, tags"/>
+    </convert>
 
     <create creator="spring" javascript="CVOAgent">
       <param name="beanName" value="cvoAgent"/>
@@ -20,6 +26,8 @@
       <include method="getPost"/>
       <include method="createPost"/>
       <include method="getPostGroups"/>
+      <include method="getCategoryTags"/>
+      <include method="createCategory"/>
     </create>
 
   </allow>
