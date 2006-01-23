@@ -63,7 +63,7 @@ body {
 .discourse {
 }
 
-.discourse .link {
+.link {
   color:blue;
   cursor: pointer; cursor: hand;
 }
@@ -118,9 +118,9 @@ td.hideright {
 }
 
 .bar {
-	height:6px;
-	border-right-width: 2px;
-	border-left-width: 2px;
+	height:3px;
+	border-right-width: 3px;
+	border-left-width: 3px;
 	border-top-width: 1px;
 	border-bottom-width: 1px;
 	border-color: #FFFFFF;

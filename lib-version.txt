@@ -2,3 +2,7 @@ Spring v1.2.6
 Hibernate v3.1
 DWR v1.1b3
 Struts v1.2.8
+Prototype 1.4.0
+Rico 1.1.0
+dhtmlxTree 1.2 standard
+

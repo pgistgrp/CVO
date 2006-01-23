@@ -28,5 +28,10 @@
     </bean>
     
     
+    <bean name="/concernManagement" class="org.pgist.cvo.ConcernManagementAction">
+        <property name="cvoDAO" ref="cvoDAO"/>
+    </bean>
+    
+    
 </beans>
 

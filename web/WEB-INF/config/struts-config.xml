@@ -47,6 +47,11 @@
         </action>
         
         
+        <action path="/concernManagement" type="org.pgist.cvo.ConcernManagementAction" name="cvoForm" scope="request">
+            <forward name="main" path="/WEB-INF/jsp/cvo/concernManagement.jsp"/>
+        </action>
+        
+        
     </action-mappings>
     
     
