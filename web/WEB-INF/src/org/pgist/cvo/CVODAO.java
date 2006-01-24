@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.pgist.model.Category;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
+import org.pgist.model.Tag;
 
 
 public interface CVODAO {
@@ -18,17 +19,23 @@ public interface CVODAO {
     
     Collection getCVOList() throws Exception;
 
-    CVO getCVOById(Long id);
+    CVO getCVOById(Long id) throws Exception;
 
-    Post getPostById(Long id);
+    Post getPostById(Long id) throws Exception;
     
     Category getCategory() throws Exception;
     
     Category getCategoryById(Long id) throws Exception;
 
-    Collection getAllTags();
+    Collection getAllTags() throws Exception;
 
-    Category createCategory(Category parent, String name);
+    Category createCategory(Category parent, String name) throws Exception;
+
+    Tag getTagById(Long id) throws Exception;
+
+    void saveCategory(Category category) throws Exception;
+
+    void saveTag(Tag tag) throws Exception;
     
     
 }

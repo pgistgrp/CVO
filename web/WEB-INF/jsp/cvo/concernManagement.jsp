@@ -12,10 +12,24 @@
 <script type='text/javascript' src='<html:rewrite page="/dwr/interface/CVOAgent.js"/>'></script>
 <script>
   var tree1 = null;
+  var tree2 = null;
+  var tree3 = null;
+  function resetTags(data) {
+    tree2.deleteChildItems(tree2.rootId);
+    for(var i=0;i<data['tags'].length;i++) {
+      var one = data['tags'][i];
+      tree2.insertNewItem(tree2.rootId,one['id'],one['name'],0,0,0,0,'');
+    }
+    tree3.deleteChildItems(tree3.rootId);
+    for(var i=0;i<data['all'].length;i++) {
+      var one = data['all'][i];
+      tree3.insertNewItem(tree3.rootId,one['id'],one['name'],0,0,0,0,'');
+    }
+  }
   function myClick1Handler(itemId) {
     CVOAgent.getCategoryTags(
       function(data) {
-        alert(data);
+        resetTags(data);
       },
       itemId
     );
@@ -25,12 +39,27 @@
     return false;
   }
   function myDrag2Handler(sourceId, targetId, siblingId, sourceTree, targetTree) {
-    if (tree1.getSelectedItemId()==null || tree1.getSelectedItemId()=='') return false;
-    if (sourceTree.rootId==tree3.rootId) return true;
+    if (sourceTree.rootId==tree3.rootId) {
+      CVOAgent.addTagToCategory(
+        function(data) {
+          resetTags(data);
+        },
+        tree1.getSelectedItemId(),
+        sourceId
+      );
+    }
     return false;
   }
   function myDrag3Handler(sourceId, targetId, siblingId, sourceTree, targetTree) {
-    if (sourceTree.rootId==tree2.rootId) return true;
+    if (sourceTree.rootId==tree2.rootId) {
+      CVOAgent.deleteTagFromCategory(
+        function(data) {
+          resetTags(data);
+        },
+        tree1.getSelectedItemId(),
+        sourceId
+      );
+    }
     return false;
   }
   function doOnLoad(){
@@ -44,7 +73,7 @@
         dragHandler="myDrag2Handler"
         stdImage="book.gif, books_open.gif, books_close.gif">
     </pg:list>
-    <pg:list id="treebox3" var="tree3" list="${cvoForm.tags}" title="name" identity="id"
+    <pg:list id="treebox3" var="tree3" list="" title="name" identity="id"
         imagePath="/images/dhtmlXTree/" dragable="true"
         dragHandler="myDrag3Handler"
         stdImage="book.gif, books_open.gif, books_close.gif">

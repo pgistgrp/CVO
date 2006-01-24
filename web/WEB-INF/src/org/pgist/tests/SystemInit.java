@@ -2,9 +2,11 @@ package org.pgist.tests;
 
 import java.io.File;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
@@ -15,6 +17,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.util.ArrayHelper;
 import org.pgist.cvo.CVO;
 import org.pgist.model.Category;
@@ -80,6 +83,8 @@ public class SystemInit extends MatchingTask {
             try {
                 session = sessionFactory.openSession();
                 Transaction transaction = session.beginTransaction();
+                
+                /*
                 
                 //role - member
                 Role roleAdmin = new Role();
@@ -270,6 +275,14 @@ public class SystemInit extends MatchingTask {
                 tag = new Tag();
                 tag.setName("Usability");
                 session.save(tag);
+                
+                */
+                
+                for (int i=0; i<100000; i++) {
+                    Tag tag = new Tag();
+                    tag.setName("Tag "+i);
+                    session.save(tag);
+                }
                 
                 transaction.commit();
             } catch(Exception ex) {

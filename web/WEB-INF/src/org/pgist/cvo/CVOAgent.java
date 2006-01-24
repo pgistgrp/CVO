@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.pgist.model.Category;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
+import org.pgist.model.Tag;
 import org.pgist.system.UserDAO;
 import org.pgist.users.User;
 
@@ -207,12 +208,58 @@ public class CVOAgent {
         }
         map.put("parent", parent);
         
-        Category category = cvoDAO.createCategory(parent, name);
-        map.put("category", category);
+        try {
+            Category category = cvoDAO.createCategory(parent, name);
+            map.put("category", category);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         
         map.put("result", "true");
         return map;
     }//createCategory()
+    
+    
+    public Map addTagToCategory(Long categoryId, Long tagId) throws Exception {
+        Map map = new HashMap();
+        map.put("result", "false");
+        
+        Category category = cvoDAO.getCategoryById(categoryId);
+        Tag tag = cvoDAO.getTagById(tagId);
+        
+        category.getTags().add(tag);
+        cvoDAO.saveCategory(category);
+        
+        Collection all = cvoDAO.getAllTags();
+        Collection tags = category.getTags();
+        all.removeAll(tags);
+        map.put("all", all);
+        map.put("tags", tags);
+        
+        map.put("result", "true");
+        return map;
+    }//addTagToCategory()
+    
+    
+    public Map deleteTagFromCategory(Long categoryId, Long tagId) throws Exception {
+        Map map = new HashMap();
+        map.put("result", "false");
+        
+        Category category = cvoDAO.getCategoryById(categoryId);
+        Tag tag = cvoDAO.getTagById(tagId);
+        
+        category.getTags().remove(tag);
+        cvoDAO.saveCategory(category);
+        
+        Collection all = cvoDAO.getAllTags();
+        Collection tags = category.getTags();
+        all.removeAll(tags);
+        map.put("all", all);
+        map.put("tags", tags);
+        
+        map.put("result", "true");
+        return map;
+    }//deleteTagFromCategory()
     
     
 }
