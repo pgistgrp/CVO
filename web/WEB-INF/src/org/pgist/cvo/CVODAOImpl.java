@@ -1,12 +1,9 @@
 package org.pgist.cvo;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Query;
-import org.hibernate.criterion.Restrictions;
 import org.pgist.model.Category;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
