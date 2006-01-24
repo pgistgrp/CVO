@@ -262,4 +262,23 @@ public class CVOAgent {
     }//deleteTagFromCategory()
     
     
+    public Map moveCategory(Long parentId, Long id) throws Exception {
+        Map map = new HashMap();
+        map.put("result", "false");
+        
+        Category parent = cvoDAO.getCategoryById(parentId);
+        Category category = cvoDAO.getCategoryById(id);
+        category.getParent().getChildren().remove(category);
+        parent.getChildren().add(category);
+        category.setParent(parent);
+        cvoDAO.saveCategory(category);
+        
+        map.put("parent", parent);
+        map.put("category", category);
+        
+        map.put("result", "true");
+        return map;
+    }//moveCategory()
+    
+    
 }

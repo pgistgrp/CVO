@@ -70,7 +70,7 @@ public class Category implements Node {
 
     /**
      * @return
-     * @hibernate.set lazy="true" table="pgist_cst_categories" order-by="id"
+     * @hibernate.set lazy="true" table="pgist_cst_categories" order-by="name"
      * @hibernate.collection-key column="parent_id"
      * @hibernate.collection-one-to-many class="org.pgist.model.Category"
      */

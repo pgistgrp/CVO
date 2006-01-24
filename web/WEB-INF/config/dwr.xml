@@ -30,6 +30,7 @@
       <include method="createCategory"/>
       <include method="addTagToCategory"/>
       <include method="deleteTagFromCategory"/>
+      <include method="moveCategory"/>
     </create>
 
   </allow>

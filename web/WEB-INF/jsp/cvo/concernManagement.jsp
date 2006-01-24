@@ -35,7 +35,21 @@
     );
   }
   function myDrag1Handler(sourceId, targetId, siblingId, sourceTree, targetTree) {
-    if (sourceTree.rootId==targetTree.rootId) return true;
+    if (sourceTree.rootId==targetTree.rootId) {
+      var result = 'false';
+      DWREngine.setAsync(false);
+      CVOAgent.moveCategory(
+        targetId,
+        sourceId,
+        {
+          callback: function(data) {
+            result = data['result'];
+          },
+          async:false
+        }
+      );
+      return result=='true';
+    }
     return false;
   }
   function myDrag2Handler(sourceId, targetId, siblingId, sourceTree, targetTree) {
@@ -82,7 +96,11 @@
   function createCategory() {
     CVOAgent.createCategory(
       function(data) {
-        tree1.insertNewItem(tree1.rootId,data['category']['id'],data['category']['name'],0,0,0,0,'');
+        if (data['result']=='true') {
+          tree1.insertNewItem(data['parent']['id'],data['category']['id'],data['category']['name'],0,0,0,0,'');
+        } else {
+          alert(data['alert']);
+        }
       },
       tree1.getSelectedItemId()==''?null:tree1.getSelectedItemId(),
       $('catName').value
