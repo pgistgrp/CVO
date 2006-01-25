@@ -281,4 +281,16 @@ public class CVOAgent {
     }//moveCategory()
     
     
+    public Map createTag(String name) throws Exception {
+        Map map = new HashMap();
+        map.put("result", "false");
+        
+        Tag tag = cvoDAO.createTag(name);
+        map.put("tag", tag);
+        
+        map.put("result", "true");
+        return map;
+    }//createTag()
+    
+    
 }

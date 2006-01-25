@@ -36,6 +36,8 @@ public interface CVODAO {
     void saveCategory(Category category) throws Exception;
 
     void saveTag(Tag tag) throws Exception;
+
+    Tag createTag(String name) throws Exception;
     
     
 }

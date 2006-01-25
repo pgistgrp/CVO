@@ -106,6 +106,18 @@
       $('catName').value
     );
   }
+  function createTag() {
+    CVOAgent.createTag(
+      function(data) {
+        if (data['result']=='true') {
+          tree3.insertNewItem(tree3.rootId,data['tag']['id'],data['tag']['name'],0,0,0,0,'');
+        } else {
+          alert(data['alert']);
+        }
+      },
+      $('tagName').value
+    );
+  }
 </script>
 </head>
 
@@ -114,13 +126,18 @@
 <table height="100%">
   <tr>
     <td valign="top">
-      <div id="toolbar" style="background-color:#f5f5f5; margin-left:2px; border :1px solid Silver;">
+      <div id="categorybar" style="background-color:#f5f5f5; margin-left:2px; border :1px solid Silver;">
         <input type="text" id="catName" value="New Category">
         <span style="margin-left:2px;" class="link" onclick="javascript:createCategory();">Create</span>
       </div>
     </td>
     <td>&nbsp;</td>
-    <td>&nbsp;</td>
+    <td valign="top">
+      <div id="tagbar" style="background-color:#f5f5f5; margin-left:2px; border :1px solid Silver;">
+        <input type="text" id="tagName" value="New Tag">
+        <span style="margin-left:2px;" class="link" onclick="javascript:createTag();">Create</span>
+      </div>
+    </td>
   </tr>
   <tr height="95%">
     <td valign="top">
