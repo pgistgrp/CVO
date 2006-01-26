@@ -1,6 +1,6 @@
 package org.pgist.cvo;
 
-import java.util.Set;
+import java.util.SortedSet;
 
 
 /**
@@ -16,7 +16,7 @@ public class Tag {
     
     protected String name;
     
-    protected Set categories;
+    protected SortedSet categories;
     
     protected boolean deleted = false;
     
@@ -52,16 +52,16 @@ public class Tag {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="pgist_cst_cat_tag_link" order-by="category_id"
+     * @hibernate.set lazy="true" table="pgist_cst_cat_tag_link" sort="org.pgist.cvo.CategoryComparator"
      * @hibernate.collection-key column="tag_id"
      * @hibernate.collection-many-to-many column="category_id" class="org.pgist.cvo.Category"
      */
-    public Set getCategories() {
+    public SortedSet getCategories() {
         return categories;
     }
 
 
-    public void setCategories(Set categories) {
+    public void setCategories(SortedSet categories) {
         this.categories = categories;
     }
 

@@ -97,7 +97,11 @@
     CVOAgent.createCategory(
       function(data) {
         if (data['result']=='true') {
-          tree1.insertNewItem(data['parent']['id'],data['category']['id'],data['category']['name'],0,0,0,0,'');
+          if (data['parent']) {
+            tree1.insertNewItem(data['parent']['id'],data['category']['id'],data['category']['name'],0,0,0,0,'');
+          } else {
+            tree1.insertNewItem(tree1.rootId,data['category']['id'],data['category']['name'],0,0,0,0,'');
+          }
         } else {
           alert(data['alert']);
         }

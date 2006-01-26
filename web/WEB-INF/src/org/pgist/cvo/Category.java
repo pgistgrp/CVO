@@ -2,6 +2,8 @@ package org.pgist.cvo;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.pgist.model.Node;
 
@@ -23,7 +25,7 @@ public class Category implements Node {
     
     protected Set children = new HashSet();
     
-    protected Set tags = new HashSet();
+    protected SortedSet tags = new TreeSet();
     
     protected boolean deleted = false;
     
@@ -93,12 +95,12 @@ public class Category implements Node {
      * @hibernate.collection-key column="category_id"
      * @hibernate.collection-many-to-many column="tag_id" class="org.pgist.cvo.Tag"
      */
-    public Set getTags() {
+    public SortedSet getTags() {
         return tags;
     }
 
 
-    public void setTags(Set tags) {
+    public void setTags(SortedSet tags) {
         this.tags = tags;
     }
 
