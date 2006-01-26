@@ -17,10 +17,10 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.util.ArrayHelper;
 import org.pgist.cvo.CVO;
-import org.pgist.model.Category;
+import org.pgist.cvo.Category;
+import org.pgist.cvo.Tag;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
-import org.pgist.model.Tag;
 import org.pgist.users.Role;
 import org.pgist.users.User;
 

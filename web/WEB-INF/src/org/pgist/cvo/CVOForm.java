@@ -3,7 +3,6 @@ package org.pgist.cvo;
 import java.util.Collection;
 
 import org.apache.struts.action.ActionForm;
-import org.pgist.model.Category;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
 

@@ -3,24 +3,19 @@
 
 <dwr>
 
-  <init>
+  <allow>
 
     <convert converter="bean" match="org.pgist.users.User"/>
     <convert converter="bean" match="org.pgist.model.Post">
       <param name="exclude" value="parent, children, root"/>
     </convert>
     <convert converter="bean" match="org.pgist.cvo.CVO"/>
-    <convert converter="bean" match="org.pgist.model.Tag">
+    <convert converter="bean" match="org.pgist.cvo.Tag">
       <param name="exclude" value="categories"/>
     </convert>
-    <convert converter="bean" match="org.pgist.model.Category">
+    <convert converter="bean" match="org.pgist.cvo.Category">
       <param name="exclude" value="parent, children, tags"/>
     </convert>
-
-  </init>
-
-
-  <allow>
 
     <create creator="spring" javascript="CVOAgent">
       <param name="beanName" value="cvoAgent"/>

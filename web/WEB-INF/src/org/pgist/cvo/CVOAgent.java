@@ -8,10 +8,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.pgist.model.Category;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
-import org.pgist.model.Tag;
 import org.pgist.system.UserDAO;
 import org.pgist.users.User;
 

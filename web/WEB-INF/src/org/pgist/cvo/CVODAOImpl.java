@@ -4,10 +4,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Query;
-import org.pgist.model.Category;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
-import org.pgist.model.Tag;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 
@@ -91,7 +89,7 @@ public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
     }//getCategory()
 
 
-    private final static String hql_getAllTags = "from Tag tag where tag.deleted=?";
+    private final static String hql_getAllTags = "from Tag tag where tag.deleted=? order by tag.name";
     
     
     public Collection getAllTags() throws Exception {

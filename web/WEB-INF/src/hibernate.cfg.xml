@@ -37,12 +37,11 @@
         <mapping resource="org/pgist/model/DiscourseObject.hbm.xml"/>
         <mapping resource="org/pgist/model/Post.hbm.xml"/>
         
-        <mapping resource="org/pgist/model/Category.hbm.xml"/>
-        <mapping resource="org/pgist/model/Tag.hbm.xml"/>
+        <mapping resource="org/pgist/cvo/Category.hbm.xml"/>
+        <mapping resource="org/pgist/cvo/Tag.hbm.xml"/>
         
 
     </session-factory>
 
 
 </hibernate-configuration>
-

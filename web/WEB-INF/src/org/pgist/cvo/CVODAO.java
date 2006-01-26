@@ -2,10 +2,8 @@ package org.pgist.cvo;
 
 import java.util.Collection;
 
-import org.pgist.model.Category;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
-import org.pgist.model.Tag;
 
 
 public interface CVODAO {

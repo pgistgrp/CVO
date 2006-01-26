@@ -30,8 +30,8 @@
                <value>org/pgist/model/Discussible.hbm.xml</value>
                <value>org/pgist/model/DiscourseObject.hbm.xml</value>
                <value>org/pgist/model/Post.hbm.xml</value>
-               <value>org/pgist/model/Category.hbm.xml</value>
-               <value>org/pgist/model/Tag.hbm.xml</value>
+               <value>org/pgist/cvo/Category.hbm.xml</value>
+               <value>org/pgist/cvo/Tag.hbm.xml</value>
            </list>
         </property>
         <property name="hibernateProperties">
