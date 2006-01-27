@@ -23,7 +23,7 @@
   </tr>
   <logic:iterate name="searchForm" property="results" id="result">
   <tr>
-    <td>${result}</td>
+    <td><pg:searchresult object="${result}"/></td>
   </tr>
   </logic:iterate>
 </table>

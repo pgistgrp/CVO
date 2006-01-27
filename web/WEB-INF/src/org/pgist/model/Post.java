@@ -17,6 +17,11 @@ import org.pgist.users.User;
 public class Post {
     
     
+    public static final int CATEGORY_CONCERN = 1;
+    
+    public static final int CATEGORY_COMMENT = 2;
+    
+    
     protected Long id;
     
     protected Post parent;

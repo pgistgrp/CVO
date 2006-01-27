@@ -8,8 +8,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.index.IndexWriter;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
+import org.pgist.search.SearchHelper;
 import org.pgist.system.UserDAO;
 import org.pgist.users.User;
 
@@ -29,6 +33,8 @@ public class CVOAgent {
     
     private CVODAO cvoDAO;
     
+    private SearchHelper searchHelper;
+    
     
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
@@ -40,6 +46,11 @@ public class CVOAgent {
     }
     
     
+    public void setSearchHelper(SearchHelper searchHelper) {
+        this.searchHelper = searchHelper;
+    }
+
+
     public Map getCVOList() throws Exception {
         Map map = new HashMap();
         Collection cvoList = cvoDAO.getCVOList();
@@ -116,15 +127,23 @@ public class CVOAgent {
         CVO cvo = cvoDAO.getCVOById(cvoId);
         Post root = cvo.getDiscourseObject().getRoot();
         
-        Post post = null;
-        
-        try {
-            post = root.addChild(paragraph, user);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        Post post = root.addChild(paragraph, user);
+        post.setCategory(Post.CATEGORY_CONCERN);
         
         cvoDAO.savePost(post);
+        
+        /**
+         * Lucene Operation
+         */
+        IndexWriter indexWriter = searchHelper.getIndexWriter();
+        Document doc = new Document();
+        doc.add(Field.Text("contents", post.getContent()));
+        doc.add(Field.UnIndexed("type", "concern"));
+        doc.add(Field.UnIndexed("id", ""+post.getId()));
+        doc.add(Field.UnIndexed("cvoId", ""+cvoId));
+        indexWriter.addDocument(doc);
+        indexWriter.optimize();
+        indexWriter.close();
         
         map.put("result", "true");
         
@@ -142,7 +161,7 @@ public class CVOAgent {
     }//getPost()
     
     
-    public Map createPost(HttpSession session, Long parentId, String paragraph) throws Exception {
+    public Map createPost(HttpSession session, Long cvoId, Long parentId, String paragraph) throws Exception {
         Map map = new HashMap();
         
         User user = (User) session.getAttribute("user");
@@ -151,6 +170,19 @@ public class CVOAgent {
         Post parent = cvoDAO.getPostById(parentId);
         Post post = parent.addChild(paragraph, user);
         cvoDAO.savePost(post);
+        
+        /**
+         * Lucene Operation
+         */
+        IndexWriter indexWriter = searchHelper.getIndexWriter();
+        Document doc = new Document();
+        doc.add(Field.Text("contents", post.getContent()));
+        doc.add(Field.UnIndexed("type", "comment"));
+        doc.add(Field.UnIndexed("id", ""+post.getId()));
+        doc.add(Field.UnIndexed("cvoId", ""+cvoId));
+        indexWriter.addDocument(doc);
+        indexWriter.optimize();
+        indexWriter.close();
         
         map.put("result", "true");
         

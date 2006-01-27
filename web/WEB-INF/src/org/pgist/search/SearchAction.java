@@ -1,12 +1,13 @@
 package org.pgist.search;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
@@ -15,6 +16,9 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.cvo.CVO;
+import org.pgist.cvo.CVODAO;
+import org.pgist.model.Post;
 
 
 /**
@@ -27,9 +31,16 @@ public class SearchAction extends Action {
     
     private SearchHelper searchHelper;
     
+    private CVODAO cvoDAO;
+    
     
     public void setSearchHelper(SearchHelper searchHelper) {
         this.searchHelper = searchHelper;
+    }
+
+
+    public void setCvoDAO(CVODAO cvoDAO) {
+        this.cvoDAO = cvoDAO;
     }
 
 
@@ -57,8 +68,19 @@ public class SearchAction extends Action {
         int end = Math.min(hits.length(), HITS_PER_PAGE);
         for (int i=0; i<end; i++) {
             Document doc = hits.doc(i);
-            Field field = doc.getField("id");
-            list.add(field.stringValue());
+            String type = doc.get("type");
+            Map map = new HashMap();
+            map.put("type", type);
+            map.put("doc", doc);
+            if ("concern".equals(type) || "comment".equals(type)) {
+                String id = doc.get("id");
+                Post post = cvoDAO.getPostById(new Long(id));
+                String cvoId = doc.get("cvoId");
+                CVO cvo = cvoDAO.getCVOById(new Long(cvoId));
+                map.put("cvo", cvo);
+                map.put("post", post);
+            }
+            list.add(map);
         }//for i
         
         indexSearcher.close();

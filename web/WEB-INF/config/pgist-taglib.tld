@@ -217,5 +217,17 @@
     </attribute>
   </tag>
   
+  <tag>
+    <name>searchresult</name>
+    <tag-class>org.pgist.tags.SearchResultTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>SearchResult Tag</description>
+    <attribute>
+      <name>object</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
 </taglib>
 

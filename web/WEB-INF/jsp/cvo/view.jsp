@@ -83,7 +83,7 @@
       alert('Please input your comment.');
       return;
     }
-    CVOAgent.createPost($('createCommentDialog_id').value, content, createPost_callback);
+    CVOAgent.createPost($('cvoId').value, $('createCommentDialog_id').value, content, createPost_callback);
   }
   function createPost_callback(data) {
     if (data['result']=='true') {

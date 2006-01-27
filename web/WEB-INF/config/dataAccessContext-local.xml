@@ -76,9 +76,6 @@
     <bean id="cvoDAO" parent="baseTransactionProxy">
       <property name="target">
         <bean class="org.pgist.cvo.CVODAOImpl">
-          <property name="searchHelper">
-            <ref local="searchHelper" />
-          </property>
           <property name="sessionFactory">
             <ref local="sessionFactory" />
           </property>
@@ -92,6 +89,7 @@
         <bean class="org.pgist.cvo.CVOAgent">
           <property name="userDAO" ref="userDAO"/>
           <property name="cvoDAO" ref="cvoDAO"/>
+          <property name="searchHelper" ref="searchHelper"/>
         </bean>
       </property>
     </bean>

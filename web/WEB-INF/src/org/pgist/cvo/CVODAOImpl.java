@@ -3,40 +3,17 @@ package org.pgist.cvo;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.index.IndexWriter;
 import org.hibernate.Query;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
-import org.pgist.search.SearchHelper;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 
 public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
     
     
-    private SearchHelper searchHelper;
-    
-    
-    public void setSearchHelper(SearchHelper searchHelper) {
-        this.searchHelper = searchHelper;
-    }
-
-
     public void savePost(Post post) throws Exception {
         getSession().save(post);
-        
-        /**
-         * Lucene Index Writer
-         */
-        IndexWriter indexWriter = searchHelper.getIndexWriter();
-        Document doc = new Document();
-        doc.add(Field.Text("contents", post.getContent()));
-        doc.add(Field.UnIndexed("id", ""+post.getId()));
-        indexWriter.addDocument(doc);
-        indexWriter.optimize();
-        indexWriter.close();
     }//savePost()
     
     
