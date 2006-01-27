@@ -22,6 +22,8 @@
 
 <p><html:link page="/concernManagement.do">Concern Management</html:link>
 
+<p><html:link page="/search.do">Search</html:link>
+
 </body>
 </html:html>
 

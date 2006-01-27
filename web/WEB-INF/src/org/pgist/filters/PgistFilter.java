@@ -1,4 +1,4 @@
-package org.pgist.filters;
+package org.pgist.web;
 
 import java.io.IOException;
 import java.util.HashSet;

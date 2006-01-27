@@ -148,14 +148,8 @@ public class CVOAgent {
         User user = (User) session.getAttribute("user");
         user = userDAO.getUserById(user.getId(), true, false);
         
-        Post post = null;
-        try {
-            Post parent = cvoDAO.getPostById(parentId);
-            post = parent.addChild(paragraph, user);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        
+        Post parent = cvoDAO.getPostById(parentId);
+        Post post = parent.addChild(paragraph, user);
         cvoDAO.savePost(post);
         
         map.put("result", "true");

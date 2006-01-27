@@ -17,6 +17,11 @@
     </bean>
     
     
+    <bean name="/search" class="org.pgist.search.SearchAction">
+        <property name="searchHelper" ref="searchHelper"/>
+    </bean>
+    
+    
     <bean name="/cvolist" class="org.pgist.cvo.CVOListAction">
         <property name="userDAO" ref="userDAO"/>
         <property name="cvoDAO" ref="cvoDAO"/>

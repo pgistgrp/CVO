@@ -9,6 +9,7 @@
 
 
     <form-beans>
+        <form-bean name="searchForm" type="org.pgist.search.SearchForm"/>
         <form-bean name="userForm" type="org.pgist.system.UserForm"/>
         <form-bean name="cvoForm" type="org.pgist.cvo.CVOForm"/>
     </form-beans>
@@ -35,6 +36,12 @@
         
 
         <action path="/register" type="org.pgist.system.RegisterAction" name="userForm" scope="request"/>
+        
+        
+        <action path="/search" type="org.pgist.search.SearchAction" name="searchForm" scope="request">
+            <forward name="index" path="/WEB-INF/jsp/search/index.jsp"/>
+            <forward name="results" path="/WEB-INF/jsp/search/results.jsp"/>
+        </action>
         
         
         <action path="/cvolist" type="org.pgist.cvo.CVOListAction" name="cvoForm" scope="request">

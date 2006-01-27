@@ -53,8 +53,15 @@
     
     
     <!-- ========================= DAO DEFINITIONS: HIBERNATE IMPLEMENTATIONS ========================= -->
-  
-
+    
+    
+    <bean id="searchHelper" class="org.pgist.search.SearchHelper">
+      <property name="indexPath">
+        <value>/WEB-INF/lucene</value>
+      </property>
+    </bean>
+    
+    
     <bean id="userDAO" parent="baseTransactionProxy">
       <property name="target">
         <bean class="org.pgist.system.UserDAOImpl">
@@ -69,6 +76,9 @@
     <bean id="cvoDAO" parent="baseTransactionProxy">
       <property name="target">
         <bean class="org.pgist.cvo.CVODAOImpl">
+          <property name="searchHelper">
+            <ref local="searchHelper" />
+          </property>
           <property name="sessionFactory">
             <ref local="sessionFactory" />
           </property>
