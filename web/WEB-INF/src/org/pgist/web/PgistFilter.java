@@ -42,7 +42,7 @@ public class PgistFilter implements Filter {
      * All request urls in the ignoreURLs will not be checked if the user has logged in.
      */
     protected HashSet ignoreURLs = new HashSet();
-
+    
     
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
