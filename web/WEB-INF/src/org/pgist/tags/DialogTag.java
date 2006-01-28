@@ -86,7 +86,7 @@ public class DialogTag extends TagSupport {
             writer.write(" onclick=\"");
             writer.write(id);
             writer.write(".close();\"></td>");
-            writer.write("</tr><tr><td class=\"body\" valign=\"top\">");
+            writer.write("</tr><tr><td class=\"body\" valign=\"top\" colspan=\"2\">");
             writer.write("<div style=\"width:100%;overflow:auto;height:"+(height-21)+"\">");
         } catch(IOException e) {
             throw new JspException(e);
