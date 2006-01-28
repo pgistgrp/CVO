@@ -69,10 +69,11 @@ public class DialogTag extends TagSupport {
             writer.write(""+height);
             writer.write("\">");
             writer.write("<table width=\"100%\" height=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
-            writer.write("<tr>");
-            writer.write("<td height=\"21\" style=\"background:url(");
+            writer.write("<tr height=\"21\" style=\"background:url(");
             writer.write(ctxPath);
-            writer.write("/images/titlebar.gif) repeat-x top;\" align=\"right\" nowrap><img src=\"");
+            writer.write("/images/titlebar.gif) repeat-x top;\">");
+            writer.write("<td style=\"color:white;cursor:move;\" onmousedown=\"dragStart(event, '"+id+"');\">&nbsp;&nbsp;&nbsp;</td>");
+            writer.write("<td align=\"right\" nowrap><img src=\"");
             writer.write(ctxPath);
             writer.write("/images/close.gif\" onmouseover=\"");
             writer.write("this.src='");
