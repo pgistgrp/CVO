@@ -11,6 +11,7 @@ import org.pgist.model.Post;
 
 
 /**
+ * DiscourseTag is a customized JSP tag to show a discourse tree.
  * 
  * @author kenny
  *

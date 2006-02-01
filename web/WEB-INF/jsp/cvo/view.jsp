@@ -179,13 +179,11 @@
     <td valign="top">
       <table width="100%">
       <tr>
-        <td style="font-size:small; padding-bottom:10px;">Hottest First | Latest First | Last commented</td>
-      </tr>
-      <tr>
         <td id="postGroups" width="100%">
         <jsp:include page="postGroups.jsp"/>
         </td>
       </tr>
+      </table>
     </td>
   </tr>
 </table>

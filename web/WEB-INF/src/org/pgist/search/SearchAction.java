@@ -52,38 +52,41 @@ public class SearchAction extends Action {
     ) throws java.lang.Exception {
         SearchForm sform = (SearchForm) form;
         
+        List list = new ArrayList();
+
         String queryStr = sform.getQueryStr();
         
         if (queryStr==null || "".equals(queryStr)) return mapping.findForward("index");
         
-        IndexSearcher indexSearcher = searchHelper.getIndexSearcher();
-        Analyzer analyzer = new StandardAnalyzer();
-        Query query = QueryParser.parse(queryStr, "contents", analyzer);
-        
-        List list = new ArrayList();
-        
-        Hits hits = indexSearcher.search(query);
-        sform.setTotal(hits.length());
-        final int HITS_PER_PAGE = 10;
-        int end = Math.min(hits.length(), HITS_PER_PAGE);
-        for (int i=0; i<end; i++) {
-            Document doc = hits.doc(i);
-            String type = doc.get("type");
-            Map map = new HashMap();
-            map.put("type", type);
-            map.put("doc", doc);
-            if ("concern".equals(type) || "comment".equals(type)) {
-                String id = doc.get("id");
-                Post post = cvoDAO.getPostById(new Long(id));
-                String cvoId = doc.get("cvoId");
-                CVO cvo = cvoDAO.getCVOById(new Long(cvoId));
-                map.put("cvo", cvo);
-                map.put("post", post);
-            }
-            list.add(map);
-        }//for i
-        
-        indexSearcher.close();
+        IndexSearcher indexSearcher = null;
+        try {
+            searchHelper.getIndexSearcher();
+            Analyzer analyzer = new StandardAnalyzer();
+            Query query = QueryParser.parse(queryStr, "contents", analyzer);
+
+            Hits hits = indexSearcher.search(query);
+            sform.setTotal(hits.length());
+            final int HITS_PER_PAGE = 10;
+            int end = Math.min(hits.length(), HITS_PER_PAGE);
+            for (int i=0; i<end; i++) {
+                Document doc = hits.doc(i);
+                String type = doc.get("type");
+                Map map = new HashMap();
+                map.put("type", type);
+                map.put("doc", doc);
+                if ("concern".equals(type) || "comment".equals(type)) {
+                    String id = doc.get("id");
+                    Post post = cvoDAO.getPostById(new Long(id));
+                    String cvoId = doc.get("cvoId");
+                    CVO cvo = cvoDAO.getCVOById(new Long(cvoId));
+                    map.put("cvo", cvo);
+                    map.put("post", post);
+                }
+                list.add(map);
+            }//for i
+        } finally {
+            indexSearcher.close();
+        }
         
         sform.setResults(list);
         
