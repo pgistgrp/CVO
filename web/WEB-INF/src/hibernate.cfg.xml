@@ -40,15 +40,15 @@
         <mapping resource="org/pgist/cvo/Category.hbm.xml"/>
         <mapping resource="org/pgist/cvo/Tag.hbm.xml"/>
         
+        <mapping resource="org/pgist/workflow/DicisionSituation.hbm.xml"/>
+        
         <mapping resource="org/pgist/wfengine/WorkflowEnvironment.hbm.xml"/>
-        <mapping resource="org/pgist/wfengine/WorkflowTracker.hbm.xml"/>
-        <mapping resource="org/pgist/wfengine/WorkflowTrackRecord.hbm.xml"/>
+        <mapping resource="org/pgist/wfengine/RunningContext.hbm.xml"/>
         <mapping resource="org/pgist/wfengine/Workflow.hbm.xml"/>
         <mapping resource="org/pgist/wfengine/Activity.hbm.xml"/>
-        <mapping resource="org/pgist/wfengine/WFProcess.hbm.xml"/>
         <mapping resource="org/pgist/wfengine/Task.hbm.xml"/>
         <mapping resource="org/pgist/wfengine/AccessManager.hbm.xml"/>
-        <mapping resource="org/pgist/workflow/DicisionSituation.hbm.xml"/>
+        <mapping resource="org/pgist/wfengine/Template.hbm.xml"/>
         
 
     </session-factory>

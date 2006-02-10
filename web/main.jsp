@@ -24,6 +24,8 @@
 
 <p><html:link page="/search.do">Search</html:link>
 
+<p><html:link page="/situationList.do">Situation List</html:link>
+
 </body>
 </html:html>
 

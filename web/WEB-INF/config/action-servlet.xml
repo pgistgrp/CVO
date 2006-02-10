@@ -39,5 +39,14 @@
     </bean>
     
     
+    <!-- Workflow Management Actions -->
+    
+    
+    <bean name="/situationList" class="org.pgist.workflow.SituationListAction">
+        <property name="workflowDAO" ref="workflowDAO"/>
+        <property name="engine" ref="engine"/>
+    </bean>
+    
+    
 </beans>
 

@@ -12,6 +12,7 @@
         <form-bean name="searchForm" type="org.pgist.search.SearchForm"/>
         <form-bean name="userForm" type="org.pgist.system.UserForm"/>
         <form-bean name="cvoForm" type="org.pgist.cvo.CVOForm"/>
+        <form-bean name="workflowForm" type="org.pgist.workflow.WorkflowForm"/>
     </form-beans>
 
 
@@ -59,6 +60,14 @@
         </action>
         
         
+        <!-- Workflow Management Actions -->
+        
+        
+        <action path="/situationList" type="org.pgist.workflow.SituationListAction" name="workflowForm" scope="request">
+            <forward name="list" path="/WEB-INF/jsp/workflow/situationList.jsp"/>
+        </action>
+        
+        
     </action-mappings>
     
     
@@ -68,10 +77,7 @@
     
     
     <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
-      <set-property
-          property="contextConfigLocation"
-          value="/WEB-INF/config/action-servlet.xml">
-      </set-property>
+      <set-property property="contextConfigLocation" value="/WEB-INF/config/action-servlet.xml"/>
     </plug-in>
     
     
