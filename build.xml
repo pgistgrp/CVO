@@ -105,7 +105,7 @@
           <fileset dir="${web}">
             <exclude name="WEB-INF/classes/org/pgist/tests/**"/>
             <exclude name="WEB-INF/src/**"/>
-            <exclude name="WEB-INF/lib/ostermillerutils.jar"/>
+            <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
           </fileset>
         </copy>
     </target>
@@ -116,6 +116,7 @@
             <fileset dir="${web}">
                 <exclude name="WEB-INF/classes/org/pgist/tests/**"/>
                 <exclude name="WEB-INF/src/**"/>
+                <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
             </fileset>
         </war>
     </target>

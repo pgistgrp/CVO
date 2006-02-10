@@ -49,6 +49,7 @@
         <mapping resource="org/pgist/wfengine/Task.hbm.xml"/>
         <mapping resource="org/pgist/wfengine/AccessManager.hbm.xml"/>
         <mapping resource="org/pgist/workflow/DicisionSituation.hbm.xml"/>
+        
 
     </session-factory>
 
