@@ -72,10 +72,9 @@
 
 
     <target name="initdb" depends="compile, mapping">
-        <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit">
-            <classpath refid="classpath"/>
+        <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
         </taskdef>
-        <SystemInit config="${src}/hibernate.cfg.xml"/>
+        <SystemInit configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
 
 
@@ -93,7 +92,7 @@
         <javadoc classpathref="classpath" destdir="${javadoc}" author="true" version="true" use="true" windowtitle="PGIST API" doctitle="PGIST"
                  bottom="Copyright &#169; ${doctime} University of Washington University. All Rights Reserved.">
             <packageset dir="${src}" defaultexcludes="yes">
-              <include name="**" />
+              <include name="**"/>
             </packageset>
         </javadoc>
     </target>

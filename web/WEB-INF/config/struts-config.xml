@@ -68,6 +68,11 @@
         </action>
         
         
+        <action path="/templateList" type="org.pgist.workflow.TemplateListAction" name="workflowForm" scope="request">
+            <forward name="list" path="/WEB-INF/jsp/workflow/templateList.jsp"/>
+        </action>
+        
+        
     </action-mappings>
     
     

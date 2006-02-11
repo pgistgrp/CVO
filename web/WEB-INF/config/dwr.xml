@@ -34,6 +34,12 @@
       <include method="createTag"/>
     </create>
 
+    <create creator="spring" javascript="WorkflowAgent">
+      <param name="beanName" value="workflowAgent"/>
+      <include method="getTemplates"/>
+      <include method="createSituation"/>
+    </create>
+
   </allow>
   
 

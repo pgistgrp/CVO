@@ -32,7 +32,7 @@
                <value>org/pgist/model/Post.hbm.xml</value>
                <value>org/pgist/cvo/Category.hbm.xml</value>
                <value>org/pgist/cvo/Tag.hbm.xml</value>
-               <value>org/pgist/workflow/DicisionSituation.hbm.xml</value>
+               <value>org/pgist/workflow/DecisionSituation.hbm.xml</value>
                <value>org/pgist/wfengine/WorkflowEnvironment.hbm.xml</value>
                <value>org/pgist/wfengine/RunningContext.hbm.xml</value>
                <value>org/pgist/wfengine/Workflow.hbm.xml</value>
@@ -148,6 +148,17 @@
         <property name="sessionFactory">
            <ref local="sessionFactory" />
         </property>
+    </bean>
+    
+    
+    <bean id="workflowAgent" parent="baseTransactionProxy">
+      <property name="target">
+        <bean class="org.pgist.workflow.WorkflowAgent">
+          <property name="engine" ref="engine"/>
+          <property name="userDAO" ref="userDAO"/>
+          <property name="workflowDAO" ref="workflowDAO"/>
+        </bean>
+      </property>
     </bean>
     
     

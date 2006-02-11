@@ -12,22 +12,63 @@
 <script type='text/javascript' src='<html:rewrite page="/dwr/util.js"/>'></script>
 <script type='text/javascript' src='<html:rewrite page="/dwr/interface/WorkflowAgent.js"/>'></script>
 <script>
+  function openCreateSituation() {
+    WorkflowAgent.getTemplates(function(data) {
+      $('templateList').innerHTML = data;
+      createSituationDialog.popup();
+    });
+  }
+  function createSituation() {
+    if ($('selectedTemplate').value=='') return;
+    WorkflowAgent.createSituation($('selectedTemplate').value, $('createSituationDialog_title').value,
+      function(data) {
+        createSituationDialog.close();
+      }
+    );
+  }
 </script>
 </head>
 
 <body>
 
+<pg:dialog id="createSituationDialog" width="300" height="200">
+  <table width="100%" height="100%" cellpadding="0" cellspacing="0">
+    <tr>
+      <td>Please create a decision situation from following template:</td>
+    </tr>
+    <tr>
+      <td>Title:</td>
+    </tr>
+    <tr>
+      <td><input type="text" id="createSituationDialog_title" value="" style="width:100%;"></td>
+    </tr>
+    <tr>
+      <td id="templateList"></td>
+    </tr>
+    <tr>
+      <td align="center"><input type="button" value="Submit" onclick="createSituation();"/></td>
+    </tr>
+  </table>
+</pg:dialog>
+
 <html:form action="/situationList.do" method="POST">
-  <h2>Situation List</h2>
+  <h2>Decision Situation List</h2>
   <pg:show roles="moderator">
     <pg:hide roles="admin">
     <p><a href="#" onclick="openCreateSituation();">Create Situation</a>
     </pg:hide>
   </pg:show>
-  <table id="situationListTable" class="listtable" cellspacing="1" frame="box" rules="all" width="100%">
+  <table id="situationListTable" class="listtable" cellspacing="1" frame="box" rules="all" width="600">
+    <tr>
+      <th>Decision Situation</th>
+      <th>Status</th>
+      <th width="50">Participate</th>
+    </tr>
     <logic:iterate id="situation" property="situationList" name="workflowForm">
     <tr>
-      <td><html:link action="/view.do" paramId="id" paramName="situation" paramProperty="id"><bean:write name="situation" property="name"/></html:link></td>
+      <td><bean:write name="situation" property="title"/></td>
+      <td style="text-align:center;">Running</td>
+      <td style="text-align:center;"><html:link action="/workflow.do" paramId="id" paramName="situation" paramProperty="id">Participate</html:link></td>
     </tr>
     </logic:iterate>
   </table>

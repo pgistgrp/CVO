@@ -40,7 +40,7 @@
         <mapping resource="org/pgist/cvo/Category.hbm.xml"/>
         <mapping resource="org/pgist/cvo/Tag.hbm.xml"/>
         
-        <mapping resource="org/pgist/workflow/DicisionSituation.hbm.xml"/>
+        <mapping resource="org/pgist/workflow/DecisionSituation.hbm.xml"/>
         
         <mapping resource="org/pgist/wfengine/WorkflowEnvironment.hbm.xml"/>
         <mapping resource="org/pgist/wfengine/RunningContext.hbm.xml"/>

@@ -52,8 +52,6 @@ public class SituationListAction extends Action {
         Collection list = workflowDAO.getSituations();
         wfform.setSituationList(list);
         
-        //wfform.setTemplateList(engine.getSituationTemplates());
-        
         return mapping.findForward("list");
     }//execute()
 

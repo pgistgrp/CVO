@@ -1,6 +1,5 @@
 package org.pgist.workflow;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -14,9 +13,15 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class WorkflowDAOImpl extends HibernateDaoSupport implements WorkflowDAO {
     
     
+    private static final String hql_getSituations = "from DecisionSituation ds where deleted=?";
     public Collection getSituations() throws Exception {
-        return new ArrayList();
+        return getHibernateTemplate().find(hql_getSituations, new Boolean(false));
     }//getSituations()
+    
+    
+    public void saveSituation(DecisionSituation situation) throws Exception {
+        getHibernateTemplate().saveOrUpdate(situation);
+    }//saveSituation()
     
     
 }//class WorkflowDAOImpl

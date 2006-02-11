@@ -12,6 +12,8 @@ public interface WorkflowDAO {
     
     
     Collection getSituations() throws Exception;
+
+    void saveSituation(DecisionSituation situation) throws Exception;
     
     
 }

@@ -48,5 +48,11 @@
     </bean>
     
     
+    <bean name="/templateList" class="org.pgist.workflow.TemplateListAction">
+        <property name="workflowDAO" ref="workflowDAO"/>
+        <property name="engine" ref="engine"/>
+    </bean>
+    
+    
 </beans>
 
