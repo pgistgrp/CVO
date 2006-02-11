@@ -68,7 +68,7 @@
     <tr>
       <td><bean:write name="situation" property="title"/></td>
       <td style="text-align:center;">Running</td>
-      <td style="text-align:center;"><html:link action="/workflow.do" paramId="id" paramName="situation" paramProperty="id">Participate</html:link></td>
+      <td style="text-align:center;"><html:link action="/workflow.do" paramId="situationId" paramName="situation" paramProperty="id">Participate</html:link></td>
     </tr>
     </logic:iterate>
   </table>

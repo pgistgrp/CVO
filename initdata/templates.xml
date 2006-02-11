@@ -150,7 +150,7 @@
   </meeting>
   
   
-  <situation refid="400000" name="Dicision Situation 1" description="Dicision Situation 1">
+  <situation refid="400000" name="Dicision Situation Template 1" description="Dicision Situation 1">
     <environment>
       <var name="totalCount" value="1"/>
     </environment>
