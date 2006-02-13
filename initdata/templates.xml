@@ -10,16 +10,6 @@
     <sequence>
       <pact reference="100"/>
       <pact reference="100"/>
-      <branch automatic="true">
-        <sequence>
-          <pact reference="200"/>
-          <pact reference="100"/>
-        </sequence>
-        <sequence>
-          <pact reference="200"/>
-          <pact reference="200"/>
-        </sequence>
-      </branch>
     </sequence>
   </pgame>
   
@@ -30,17 +20,7 @@
     </environment>
     <sequence>
       <pact reference="200"/>
-      <pact reference="100"/>
-      <branch automatic="true">
-        <sequence>
-          <pact reference="100"/>
-          <pact reference="100"/>
-        </sequence>
-        <sequence>
-          <pact reference="200"/>
-          <pact reference="200"/>
-        </sequence>
-      </branch>
+      <pact reference="200"/>
     </sequence>
   </pgame>
   

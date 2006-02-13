@@ -25,6 +25,7 @@
         <forward name="main" path="/main.jsp"/>
         <forward name="register" path="/register.jsp"/>
         <forward name="error" path="/error.jsp"/>
+        <forward name="workflow" path="/workflow.do"/>
     </global-forwards>
 
 
@@ -74,6 +75,16 @@
             <forward name="pmethods" path="/WEB-INF/jsp/workflow/showPmethods.jsp"/>
             <forward name="pgames" path="/WEB-INF/jsp/workflow/showPgames.jsp"/>
             <forward name="pacts" path="/WEB-INF/jsp/workflow/showPacts.jsp"/>
+        </action>
+        
+        
+        <action path="/concernCollection" type="org.pgist.workflow.ConcernCollectionAction" name="workflowForm" scope="request">
+            <forward name="show" path="/WEB-INF/jsp/workflow/concernCollection.jsp"/>
+        </action>
+        
+        
+        <action path="/voting" type="org.pgist.workflow.VotingAction" name="workflowForm" scope="request">
+            <forward name="show" path="/WEB-INF/jsp/workflow/voting.jsp"/>
         </action>
         
         

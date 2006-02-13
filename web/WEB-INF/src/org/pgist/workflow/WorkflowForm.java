@@ -6,6 +6,7 @@ import org.apache.struts.action.ActionForm;
 import org.pgist.wfengine.Template;
 import org.pgist.wfengine.Workflow;
 import org.pgist.wfengine.activity.GroupActivity;
+import org.pgist.wfengine.activity.PActActivity;
 
 
 /**
@@ -32,6 +33,8 @@ public class WorkflowForm extends ActionForm {
     
     private Long pgameId;
     
+    private Long pactId;
+    
     private DecisionSituation situation;
     
     private Workflow agenda;
@@ -41,6 +44,10 @@ public class WorkflowForm extends ActionForm {
     private GroupActivity pmethod;
     
     private GroupActivity pgame;
+
+    private PActActivity pact;
+    
+    private boolean goAhead;
     
     
     public Template getTemplate() {
@@ -113,6 +120,16 @@ public class WorkflowForm extends ActionForm {
     }
 
 
+    public Long getPactId() {
+        return pactId;
+    }
+
+
+    public void setPactId(Long pactId) {
+        this.pactId = pactId;
+    }
+
+
     public DecisionSituation getSituation() {
         return situation;
     }
@@ -160,6 +177,26 @@ public class WorkflowForm extends ActionForm {
 
     public void setPgame(GroupActivity pgame) {
         this.pgame = pgame;
+    }
+
+
+    public PActActivity getPact() {
+        return pact;
+    }
+
+
+    public void setPact(PActActivity pact) {
+        this.pact = pact;
+    }
+
+
+    public boolean isGoAhead() {
+        return goAhead;
+    }
+
+
+    public void setGoAhead(boolean goAhead) {
+        this.goAhead = goAhead;
     }
     
     

@@ -7,9 +7,10 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.wfengine.Activity;
 import org.pgist.wfengine.Workflow;
-import org.pgist.wfengine.WorkflowEngine;
 import org.pgist.wfengine.activity.GroupActivity;
+import org.pgist.wfengine.activity.PActActivity;
 
 
 /**
@@ -98,8 +99,31 @@ public class WorkflowAction extends Action {
         
         wfform.setPgame(pgame);
         
+        //PAct, in principle, there should be only one running activity.
+        Set set = pgame.getRunningActivities();
+        if (set==null || set.size()==0) return mapping.findForward("error");
         
-        return mapping.findForward("list");
+        PActActivity pact = null;
+        
+        for (Iterator iter=set.iterator(); iter.hasNext(); ) {
+            Activity one = (Activity) iter.next();
+            if (one.getType()!=Activity.TYPE_PACT) continue;
+            pact = (PActActivity) one;
+            wfform.setPact(pact);
+        }//for iter
+        
+        if (pact==null) return mapping.findForward("error");
+        
+        String actionPath = pact.getAction();
+        if (actionPath==null) return mapping.findForward("error");
+        
+        ActionForward forward = new ActionForward();
+        forward.setModule("");
+        forward.setName("temporary");
+        forward.setPath(actionPath);
+        forward.setRedirect(false);
+        
+        return forward;
     }//execute()
 
 

@@ -53,5 +53,17 @@
     </bean>
     
     
+    <bean name="/concernCollection" class="org.pgist.workflow.ConcernCollectionAction">
+        <property name="workflowDAO" ref="workflowDAO"/>
+        <property name="engine" ref="engine"/>
+    </bean>
+    
+    
+    <bean name="/voting" class="org.pgist.workflow.VotingAction">
+        <property name="workflowDAO" ref="workflowDAO"/>
+        <property name="engine" ref="engine"/>
+    </bean>
+    
+    
 </beans>
 
