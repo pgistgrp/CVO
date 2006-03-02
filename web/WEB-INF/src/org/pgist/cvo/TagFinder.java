@@ -25,7 +25,12 @@ public class TagFinder {
 
     x.initCollections();
 
-    String statement = "";
+    String statement = "R: Well they're very interested that it looks aesthetic, ";
+    statement += "as well they should. And some artist whom they hired has been there";
+    statement += " on occasion and she will present plans, ";
+    statement += "bicycle friendly street network \"this is what Im thinking of... this is what Im thinking of having ";
+    statement += "for the lamp posts, what do you think?\" And we will say, \"that is ";
+    statement += "really good because.....\" or, \"this doesn\uFFFDt really reflect the state";
     //tokenize(statement);
 
     long[][] tt = x.makeTree(x.all_tags);
@@ -38,32 +43,14 @@ public class TagFinder {
     //1. extract existing tags;
     //2. remove stop-words;
     //3. present left words, paired as 2
-    String ss = "bus rapid vehi";
-    //System.out.println("matched length: " + x.matchString(tt, 0, ss));
-    if(tt[0][3] > 0)
-      System.out.print("full match:");
-    else
-      System.out.print("partial match:");
-    System.out.print(tt[0][3]);
 
     long start, end;
 
-/*    long start = new Date().getTime();
-    x.tokenize(statement);
-    long end = new Date().getTime();
-    System.out.println("tokenize used time:" + (end - start));
-*/
     start = new Date().getTime();
     x.find(tt, statement);
     end = new Date().getTime();
     System.out.println("tag tree used time:" + (end - start));
 
-
-/*    if(x.matchString(tt, 0, ss) > 0)
-      System.out.println("matched: " + ss);
-    else
-      System.out.println("not matched: " + ss);
-*/
     tt = null;
   }
 
@@ -157,7 +144,6 @@ public class TagFinder {
 
     for(int i=0; i<list.size(); i++){
       s = (String) list.get(i);
-//      addToTree(tree, s, i);
       this.addNode(tree, s, i,
                    0, 1, 1);
     }
@@ -166,17 +152,26 @@ public class TagFinder {
     return tree;
   }
 
+  /**
+   *
+   * @param tree long[][] - tags as stored in an array.
+   * @param tag String - a new tag to insert into the tag tree.
+   * @param tagid long - the ID of the tag, for fast access.
+   * @param parent int - the parent position of the node.
+   * @param current int - the position of the current node.
+   * @param child int - indicate to put the node at the left or right. 1 = left; 2 = right
+   */
   public void addNode(long[][] tree, String tag, long tagid,
-                      int parent, int current, int child){
+  int parent, int current, int child){
     if(tag.length() == 0){
-      tree[parent][3] = tagid;
+      tree[parent][3] = tagid;  //this cell is used to keep the availale position
       return;
     }
 
     if(current == -1){
-      tree[ (int)tree[0][3] ][0] = tag.charAt(0);
-      tree[parent][child] = tree[0][3];
-      tree[0][3]++;
+      tree[ (int)tree[0][3] ][0] = tag.charAt(0);  //this means to use a new record
+      tree[parent][child] = tree[0][3];            //set the child to the new record position
+      tree[0][3]++;                                //move the available position
       this.addNode(tree, tag.substring(1), tagid,
                    (int)tree[0][3]-1, -1, 1);
       return;
@@ -248,8 +243,13 @@ public class TagFinder {
     }
   }
 
+  /**
+   * Initialize the tree, put the 26 letters into the tree. the first record is used as
+   * root, reserved for other purposes
+   * @param t long[][]
+   */
   public void initTree(long[][] t){
-    for(int i=0; i<t.length; i++)
+  for(int i=0; i<t.length; i++)
       for(int j=0; j<t[i].length; j++)
         t[i][j] = -1;
 
@@ -263,8 +263,12 @@ public class TagFinder {
     t[26][2] = -1;
   }
 
+  /**
+   * Print the tree in its raw form - array
+   * @param t long[][]
+   */
   public static void printTree(long[][] t){
-    for(int i=0; i<t.length; i++){
+  for(int i=0; i<t.length; i++){
       System.out.print(i + ": ");
       System.out.print((char)t[i][0] + " ");
       for (int j = 1; j < t[i].length; j++) {
@@ -275,8 +279,14 @@ public class TagFinder {
     }
   }
 
+  /**
+   * Print tree as strings. Recursion is used
+   * @param t long[][]
+   * @param start int
+   * @param firstpart String
+   */
   public void printTreeNice(long[][] t, int start, String firstpart){
-    if(t[start][3] >= 0){
+  if(t[start][3] >= 0){
       System.out.println(firstpart + (char)t[start][0]);
     }
 
