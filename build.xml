@@ -71,6 +71,15 @@
     </target>
 
 
+    <target name="updateschema" depends="compile, mapping">
+        <taskdef name="schemaupdate" classname="org.hibernate.tool.hbm2ddl.SchemaUpdateTask">
+            <classpath refid="classpath"/>
+        </taskdef>
+        <schemaupdate config="${src}/hibernate.cfg.xml" quiet="no" text="no">
+        </schemaupdate>
+    </target>
+
+
     <target name="initdb" depends="compile, mapping">
         <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
         </taskdef>

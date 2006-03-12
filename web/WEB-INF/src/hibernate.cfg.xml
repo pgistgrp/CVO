@@ -50,6 +50,10 @@
         <mapping resource="org/pgist/wfengine/AccessManager.hbm.xml"/>
         <mapping resource="org/pgist/wfengine/Template.hbm.xml"/>
         
+        <mapping resource="org/pgist/voting/VotePackage.hbm.xml"/>
+        <mapping resource="org/pgist/voting/VoteSheet.hbm.xml"/>
+        <mapping resource="org/pgist/voting/VoteItem.hbm.xml"/>
+        
 
     </session-factory>
 

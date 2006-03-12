@@ -4,14 +4,13 @@ body {
 }
 
 .listtable {
-  border:solid 1px #CCCCCC;
+  border:solid 2px #CCCCCC;
   border-collapse:collapse;
   padding:1;
 }
 
 .listtable td {
   font-size: small;
-  text-align: left;
   vertical-align: top;
   padding: 2px;
 }

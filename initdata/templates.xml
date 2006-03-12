@@ -3,150 +3,56 @@
 <template>
 
 
-  <pgame refid="100000" name="BrainStorming" description="BrainStorming">
+  <pmethod refid="200000" name="Customized PMethod" description="Customized PMethod">
     <environment>
       <var name="totalCount" value="1"/>
     </environment>
     <sequence>
-      <pact reference="100"/>
-      <pact reference="100"/>
+      <pgame id="1" template="100"/>
+      <pgame id="2" template="200"/>
+      <pgame id="3" template="300"/>
+      <pgame id="4" template="400"/>
+      <pgame id="5" template="500"/>
+      <pgame id="6" template="600"/>
+      <pgame id="7" template="700"/>
     </sequence>
-  </pgame>
+  </pmethod>
   
   
-  <pgame refid="101000" name="Voting" description="Voting">
+  <pmethod refid="201000" name="Unnamed PMethod" description="Unnamed PMethod">
     <environment>
       <var name="totalCount" value="1"/>
     </environment>
     <sequence>
-      <pact reference="200"/>
-      <pact reference="200"/>
-    </sequence>
-  </pgame>
-  
-  
-  <pmethod refid="200000" name="ToP" description="ToP">
-    <environment>
-      <var name="totalCount" value="1"/>
-    </environment>
-    <sequence>
-      <pgame reference="100000"/>
-      <pgame reference="100000"/>
       <branch automatic="true">
         <sequence>
-          <pgame reference="101000"/>
-          <pgame reference="100000"/>
+          <pgame id="1" template="100"/>
         </sequence>
         <sequence>
-          <pgame reference="101000"/>
-          <pgame reference="100000"/>
+          <pgame id="2" template="200" depends="1"/>
         </sequence>
       </branch>
     </sequence>
   </pmethod>
   
   
-  <pmethod refid="201000" name="Delphi" description="Delphi">
+  <meeting refid="300000" name="Determine Objectives and Criteria" description="Determine Objectives and Criteria">
     <environment>
       <var name="totalCount" value="1"/>
     </environment>
     <sequence>
-      <pgame reference="100000"/>
-      <pgame reference="101000"/>
-      <branch automatic="true">
-        <sequence>
-          <pgame reference="100000"/>
-          <pgame reference="101000"/>
-        </sequence>
-        <sequence>
-          <pgame reference="100000"/>
-          <pgame reference="100000"/>
-        </sequence>
-      </branch>
-    </sequence>
-  </pmethod>
-  
-  
-  <pmethod refid="202000" name="NGT" description="NGT">
-    <environment>
-      <var name="totalCount" value="1"/>
-    </environment>
-    <sequence>
-      <pgame reference="101000"/>
-      <pgame reference="101000"/>
-      <branch automatic="true">
-        <sequence>
-          <pgame reference="100000"/>
-          <pgame reference="100000"/>
-        </sequence>
-        <sequence>
-          <pgame reference="100000"/>
-          <pgame reference="101000"/>
-        </sequence>
-      </branch>
-    </sequence>
-  </pmethod>
-  
-  
-  <meeting refid="300000" name="Meeting 1" description="Meeting 1">
-    <environment>
-      <var name="totalCount" value="1"/>
-    </environment>
-    <sequence>
-      <pmethod reference="200000"/>
-      <pmethod reference="202000"/>
-      <branch automatic="true">
-        <sequence>
-          <pmethod reference="201000"/>
-          <pmethod reference="200000"/>
-        </sequence>
-        <sequence>
-          <pmethod reference="200000"/>
-          <pmethod reference="202000"/>
-        </sequence>
-      </branch>
+      <pmethod template="200000"/>
+      <pmethod template="201000"/>
     </sequence>
   </meeting>
   
   
-  <meeting refid="301000" name="Meeting 2" description="Meeting 2">
+  <situation refid="400000" name="Let's Improve Transportation (Process B)" description="Let's Improve Transportation (Process B)">
     <environment>
       <var name="totalCount" value="1"/>
     </environment>
     <sequence>
-      <pmethod reference="200000"/>
-      <pmethod reference="202000"/>
-      <branch automatic="true">
-        <sequence>
-          <pmethod reference="201000"/>
-          <pmethod reference="200000"/>
-        </sequence>
-        <sequence>
-          <pmethod reference="200000"/>
-          <pmethod reference="202000"/>
-        </sequence>
-      </branch>
-    </sequence>
-  </meeting>
-  
-  
-  <situation refid="400000" name="Dicision Situation Template 1" description="Dicision Situation 1">
-    <environment>
-      <var name="totalCount" value="1"/>
-    </environment>
-    <sequence>
-      <meeting reference="300000"/>
-      <meeting reference="301000"/>
-      <branch automatic="true">
-        <sequence>
-          <meeting reference="300000"/>
-          <meeting reference="301000"/>
-        </sequence>
-        <sequence>
-          <meeting reference="301000"/>
-          <meeting reference="300000"/>
-        </sequence>
-      </branch>
+      <meeting template="300000"/>
     </sequence>
   </situation>
   

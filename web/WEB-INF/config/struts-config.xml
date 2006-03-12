@@ -70,6 +70,20 @@
         </action>
         
         
+        <action path="/agendaDisplay" type="org.pgist.workflow.AgendaDisplayAction" name="workflowForm" scope="request">
+            <forward name="moderator" path="/WEB-INF/jsp/workflow/agendaDisplay-moderator.jsp"/>
+            <forward name="member" path="/WEB-INF/jsp/workflow/agendaDisplay-member.jsp"/>
+        </action>
+        
+        
+        <action path="/participate" type="org.pgist.workflow.ParticipateAction" name="workflowForm" scope="request">
+        </action>
+        
+        
+        <action path="/complete" type="org.pgist.workflow.CompleteAction" name="workflowForm" scope="request">
+        </action>
+        
+        
         <action path="/workflow" type="org.pgist.workflow.WorkflowAction" name="workflowForm" scope="request">
             <forward name="meetings" path="/WEB-INF/jsp/workflow/showMeetings.jsp"/>
             <forward name="pmethods" path="/WEB-INF/jsp/workflow/showPmethods.jsp"/>
@@ -78,13 +92,33 @@
         </action>
         
         
-        <action path="/concernCollection" type="org.pgist.workflow.ConcernCollectionAction" name="workflowForm" scope="request">
-            <forward name="show" path="/WEB-INF/jsp/workflow/concernCollection.jsp"/>
+        <action path="/brainStorming" type="org.pgist.workflow.pgame.brainstorming.BrainStormingAction" name="workflowForm" scope="request">
+            <forward name="show" path="/WEB-INF/jsp/pgame/BrainStorming/brainStorming.jsp"/>
         </action>
         
         
-        <action path="/voting" type="org.pgist.workflow.VotingAction" name="workflowForm" scope="request">
-            <forward name="show" path="/WEB-INF/jsp/workflow/voting.jsp"/>
+        <action path="/review" type="org.pgist.workflow.pgame.review.ReviewAction" name="workflowForm" scope="request">
+            <forward name="show" path="/WEB-INF/jsp/pgame/Review/reviewDiscuss.html"/>
+        </action>
+        
+        
+        <action path="/prioritize" type="org.pgist.workflow.pgame.prioritize.PrioritizeAction" name="workflowForm" scope="request">
+            <forward name="show" path="/WEB-INF/jsp/pgame/Prioritize/prioritizeMain.html"/>
+        </action>
+        
+        
+        <action path="/hierarchy" type="org.pgist.workflow.pgame.hierarchy.HierarchyAction" name="workflowForm" scope="request">
+            <forward name="show" path="/WEB-INF/jsp/pgame/Hierarchy/hierarchyMain.html"/>
+        </action>
+        
+        
+        <action path="/qna" type="org.pgist.workflow.pgame.question.QnAAction" name="workflowForm" scope="request">
+            <forward name="show" path="/WEB-INF/jsp/pgame/Question/qnAMain.html"/>
+        </action>
+        
+        
+        <action path="/sensitivity" type="org.pgist.workflow.pgame.sensitivity.SensitivityAnalysisAction" name="workflowForm" scope="request">
+            <forward name="show" path="/WEB-INF/jsp/pgame/Sensitivity/sensitivityMain.html"/>
         </action>
         
         

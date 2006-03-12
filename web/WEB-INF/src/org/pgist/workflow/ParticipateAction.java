@@ -11,6 +11,7 @@ import org.pgist.wfengine.Activity;
 import org.pgist.wfengine.Workflow;
 import org.pgist.wfengine.activity.GroupActivity;
 import org.pgist.wfengine.activity.PActActivity;
+import org.pgist.wfengine.activity.PGameActivity;
 
 
 /**
@@ -18,13 +19,13 @@ import org.pgist.wfengine.activity.PActActivity;
  * @author kenny
  *
  */
-public class WorkflowAction extends Action {
+public class ParticipateAction extends Action {
 
     
     private WorkflowDAO workflowDAO;
     
     
-    public WorkflowAction() {
+    public ParticipateAction() {
     }
     
     
@@ -38,10 +39,10 @@ public class WorkflowAction extends Action {
      */
     
     
-    private GroupActivity getActivty(Set set, Long id) {
-        GroupActivity activity = null;
+    private Activity getActivty(Set set, Long id) {
+        Activity activity = null;
         for (Iterator iter=set.iterator(); iter.hasNext(); ) {
-            GroupActivity one = (GroupActivity) iter.next();
+            Activity one = (Activity) iter.next();
             if (one.getId().longValue()==id.longValue()) {
                 activity = one;
                 break;
@@ -76,7 +77,7 @@ public class WorkflowAction extends Action {
         }
         
         //Meeting
-        GroupActivity meeting = getActivty(agenda.getRunningActivities(Activity.TYPE_MEETING), meetingId);
+        GroupActivity meeting = (GroupActivity) getActivty(agenda.getRunningActivities(Activity.TYPE_MEETING), meetingId);
         
         if (meeting==null) return mapping.findForward("error");
         
@@ -89,7 +90,7 @@ public class WorkflowAction extends Action {
         }
         
         //PMethod
-        GroupActivity pmethod = getActivty(meeting.getRunningActivities(Activity.TYPE_PMETHOD), pmethodId);
+        GroupActivity pmethod = (GroupActivity) getActivty(meeting.getRunningActivities(Activity.TYPE_PMETHOD), pmethodId);
         
         if (pmethod==null) return mapping.findForward("error");
         
@@ -102,28 +103,13 @@ public class WorkflowAction extends Action {
         }
         
         //PGame
-        GroupActivity pgame = getActivty(pmethod.getRunningActivities(Activity.TYPE_PGAME), pgameId);
+        PGameActivity pgame = (PGameActivity) getActivty(pmethod.getRunningActivities(Activity.TYPE_PGAME), pgameId);
         
         if (pgame==null) return mapping.findForward("error");
         
         wfform.setPgame(pgame);
         
-        //PAct, in principle, there should be only one running activity.
-        Set set = pgame.getRunningActivities(Activity.TYPE_PACT);
-        if (set==null || set.size()==0) return mapping.findForward("error");
-        
-        PActActivity pact = null;
-        
-        for (Iterator iter=set.iterator(); iter.hasNext(); ) {
-            Activity one = (Activity) iter.next();
-            if (one.getType()!=Activity.TYPE_PACT) continue;
-            pact = (PActActivity) one;
-            wfform.setPact(pact);
-        }//for iter
-        
-        if (pact==null) return mapping.findForward("error");
-        
-        String actionPath = pact.getAction();
+        String actionPath = pgame.getAction();
         if (actionPath==null) return mapping.findForward("error");
         
         ActionForward forward = new ActionForward();
@@ -136,4 +122,4 @@ public class WorkflowAction extends Action {
     }//execute()
 
 
-}//class TemplateListAction
+}//class ParticipateAction

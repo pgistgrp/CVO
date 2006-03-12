@@ -330,8 +330,8 @@ public class SystemInit extends MatchingTask {
     
     
     private void initWorkflow() throws Exception {
-        File file = new File(dataPath, "pacts.xml");
-        engine.addPActs(new FileInputStream(file));
+        File file = new File(dataPath, "pgames.xml");
+        engine.addPGames(new FileInputStream(file));
         file = new File(dataPath, "templates.xml");
         engine.addTemplates(new FileInputStream(file));
     }//initWorkflow()

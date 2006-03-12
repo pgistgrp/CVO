@@ -72,7 +72,7 @@ public class DecisionSituation {
 
     /**
      * @return
-     * @hibernate.many-to-one column="creator_id" lazy="true" class="org.pgist.users.User" casecad="all"
+     * @hibernate.many-to-one column="creator_id" lazy="true" class="org.pgist.users.User" cascade="all"
      */
     public User getCreator() {
         return creator;
@@ -100,7 +100,7 @@ public class DecisionSituation {
 
     /**
      * @return
-     * @hibernate.many-to-one column="agenda_id" lazy="true" class="org.pgist.wfengine.Workflow" casecad="all"
+     * @hibernate.many-to-one column="agenda_id" lazy="true" class="org.pgist.wfengine.Workflow" cascade="all"
      */
     public Workflow getAgenda() {
         return agenda;

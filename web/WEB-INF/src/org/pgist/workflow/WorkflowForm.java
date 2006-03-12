@@ -1,5 +1,6 @@
 package org.pgist.workflow;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.struts.action.ActionForm;
@@ -7,6 +8,7 @@ import org.pgist.wfengine.Template;
 import org.pgist.wfengine.Workflow;
 import org.pgist.wfengine.activity.GroupActivity;
 import org.pgist.wfengine.activity.PActActivity;
+import org.pgist.wfengine.activity.PGameActivity;
 
 
 /**
@@ -43,9 +45,13 @@ public class WorkflowForm extends ActionForm {
     
     private GroupActivity pmethod;
     
-    private GroupActivity pgame;
+    private PGameActivity pgame;
 
     private PActActivity pact;
+    
+    private Collection runningActivities;
+    
+    private Collection meetings = new ArrayList();
     
     private boolean goAhead;
     
@@ -170,12 +176,12 @@ public class WorkflowForm extends ActionForm {
     }
 
 
-    public GroupActivity getPgame() {
+    public PGameActivity getPgame() {
         return pgame;
     }
 
 
-    public void setPgame(GroupActivity pgame) {
+    public void setPgame(PGameActivity pgame) {
         this.pgame = pgame;
     }
 
@@ -197,6 +203,26 @@ public class WorkflowForm extends ActionForm {
 
     public void setGoAhead(boolean goAhead) {
         this.goAhead = goAhead;
+    }
+
+
+    public Collection getRunningActivities() {
+        return runningActivities;
+    }
+
+
+    public void setRunningActivities(Collection runningActivities) {
+        this.runningActivities = runningActivities;
+    }
+
+
+    public Collection getMeetings() {
+        return meetings;
+    }
+
+
+    public void setMeetings(Collection activityStack) {
+        this.meetings = activityStack;
     }
     
     

@@ -23,7 +23,7 @@
       <th>PGame List</th>
       <th width="50">Participate</th>
     </tr>
-    <logic:iterate id="pgame" property="pmethod.runningActivities" name="workflowForm">
+    <logic:iterate id="pgame" property="runningActivities" name="workflowForm">
     <tr>
       <td><bean:write name="pgame" property="name"/></td>
       <td style="text-align:center;">

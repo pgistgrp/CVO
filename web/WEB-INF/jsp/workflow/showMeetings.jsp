@@ -23,7 +23,7 @@
       <th>Meeting List</th>
       <th width="50">Participate</th>
     </tr>
-    <logic:iterate id="meeting" property="agenda.runningActivities" name="workflowForm">
+    <logic:iterate id="meeting" property="runningActivities" name="workflowForm">
     <tr>
       <td><bean:write name="meeting" property="name"/></td>
       <td style="text-align:center;">

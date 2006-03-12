@@ -48,18 +48,57 @@
     </bean>
     
     
-    <bean name="/workflow" class="org.pgist.workflow.WorkflowAction">
-        <property name="workflowDAO" ref="workflowDAO"/>
-    </bean>
-    
-    
-    <bean name="/concernCollection" class="org.pgist.workflow.ConcernCollectionAction">
+    <bean name="/agendaDisplay" class="org.pgist.workflow.AgendaDisplayAction">
         <property name="workflowDAO" ref="workflowDAO"/>
         <property name="engine" ref="engine"/>
     </bean>
     
     
-    <bean name="/voting" class="org.pgist.workflow.VotingAction">
+    <bean name="/participate" class="org.pgist.workflow.ParticipateAction">
+        <property name="workflowDAO" ref="workflowDAO"/>
+    </bean>
+    
+    
+    <bean name="/complete" class="org.pgist.workflow.CompleteAction">
+        <property name="workflowDAO" ref="workflowDAO"/>
+        <property name="engine" ref="engine"/>
+    </bean>
+    
+    
+    <bean name="/workflow" class="org.pgist.workflow.WorkflowAction">
+        <property name="workflowDAO" ref="workflowDAO"/>
+    </bean>
+    
+    
+    <!-- PGame Actions -->
+    
+    
+    <bean name="/brainStorming" class="org.pgist.workflow.pgame.brainstorming.BrainStormingAction">
+        <property name="brainStormingDAO" ref="brainStormingDAO"/>
+    </bean>
+    
+    
+    <bean name="/review" class="org.pgist.workflow.pgame.review.ReviewAction">
+    </bean>
+    
+    
+    <bean name="/prioritize" class="org.pgist.workflow.pgame.prioritize.PrioritizeAction">
+    </bean>
+    
+    
+    <bean name="/hierarchy" class="org.pgist.workflow.pgame.hierarchy.HierarchyAction">
+    </bean>
+    
+    
+    <bean name="/qna" class="org.pgist.workflow.pgame.question.QnAAction">
+    </bean>
+    
+    
+    <bean name="/sensitivity" class="org.pgist.workflow.pgame.sensitivity.SensitivityAnalysisAction">
+    </bean>
+    
+    
+    <bean name="/voting" class="org.pgist.workflow.pgames.ConcernCollectionAction">
         <property name="workflowDAO" ref="workflowDAO"/>
         <property name="engine" ref="engine"/>
     </bean>

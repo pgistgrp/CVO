@@ -9,6 +9,7 @@
     <convert converter="bean" match="org.pgist.model.Post">
       <param name="exclude" value="parent, children, root"/>
     </convert>
+    <convert converter="bean" match="org.pgist.workflow.pgame.brainstorming.BrainStorming"/>
     <convert converter="bean" match="org.pgist.cvo.CVO"/>
     <convert converter="bean" match="org.pgist.cvo.Tag">
       <param name="exclude" value="categories"/>
@@ -32,6 +33,15 @@
       <include method="deleteTagFromCategory"/>
       <include method="moveCategory"/>
       <include method="createTag"/>
+    </create>
+
+    <create creator="spring" javascript="BrainStormingAgent">
+      <param name="beanName" value="brainStormingAgent"/>
+      <include method="extractConcern"/>
+      <include method="createConcern"/>
+      <include method="getPost"/>
+      <include method="createPost"/>
+      <include method="getPostGroups"/>
     </create>
 
     <create creator="spring" javascript="WorkflowAgent">

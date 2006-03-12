@@ -23,7 +23,7 @@
       <th>PMethod List</th>
       <th width="50">Participate</th>
     </tr>
-    <logic:iterate id="pmethod" property="meeting.runningActivities" name="workflowForm">
+    <logic:iterate id="pmethod" property="runningActivities" name="workflowForm">
     <tr>
       <td><bean:write name="pmethod" property="name"/></td>
       <td style="text-align:center;">

@@ -1,6 +1,10 @@
 package org.pgist.workflow;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.struts.action.Action;
@@ -9,8 +13,10 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.wfengine.Activity;
 import org.pgist.wfengine.Workflow;
+import org.pgist.wfengine.WorkflowEngine;
 import org.pgist.wfengine.activity.GroupActivity;
 import org.pgist.wfengine.activity.PActActivity;
+import org.pgist.wfengine.activity.PGameActivity;
 
 
 /**
@@ -18,13 +24,15 @@ import org.pgist.wfengine.activity.PActActivity;
  * @author kenny
  *
  */
-public class WorkflowAction extends Action {
+public class CompleteAction extends Action {
 
     
     private WorkflowDAO workflowDAO;
     
+    private WorkflowEngine engine;
     
-    public WorkflowAction() {
+    
+    public CompleteAction() {
     }
     
     
@@ -33,15 +41,20 @@ public class WorkflowAction extends Action {
     }
 
 
+    public void setEngine(WorkflowEngine engine) {
+        this.engine = engine;
+    }
+
+
     /*
      * ------------------------------------------------------------------------------
      */
     
     
-    private GroupActivity getActivty(Set set, Long id) {
-        GroupActivity activity = null;
+    private Activity getActivty(Set set, Long id) {
+        Activity activity = null;
         for (Iterator iter=set.iterator(); iter.hasNext(); ) {
-            GroupActivity one = (GroupActivity) iter.next();
+            Activity one = (Activity) iter.next();
             if (one.getId().longValue()==id.longValue()) {
                 activity = one;
                 break;
@@ -70,70 +83,53 @@ public class WorkflowAction extends Action {
         wfform.setAgenda(agenda);
         
         Long meetingId = wfform.getMeetingId();
-        if (meetingId==null) {
-            wfform.setRunningActivities(agenda.getRunningActivities(Activity.TYPE_MEETING));
-            return mapping.findForward("meetings");
-        }
+        if (meetingId==null) return mapping.findForward("error");
         
         //Meeting
-        GroupActivity meeting = getActivty(agenda.getRunningActivities(Activity.TYPE_MEETING), meetingId);
+        GroupActivity meeting = (GroupActivity) getActivty(agenda.getRunningActivities(Activity.TYPE_MEETING), meetingId);
         
         if (meeting==null) return mapping.findForward("error");
         
         wfform.setMeeting(meeting);
         
         Long pmethodId = wfform.getPmethodId();
-        if (pmethodId==null) {
-            wfform.setRunningActivities(meeting.getRunningActivities(Activity.TYPE_PMETHOD));
-            return mapping.findForward("pmethods");
-        }
+        if (pmethodId==null) return mapping.findForward("error");
         
         //PMethod
-        GroupActivity pmethod = getActivty(meeting.getRunningActivities(Activity.TYPE_PMETHOD), pmethodId);
+        GroupActivity pmethod = (GroupActivity) getActivty(meeting.getRunningActivities(Activity.TYPE_PMETHOD), pmethodId);
         
         if (pmethod==null) return mapping.findForward("error");
         
         wfform.setPmethod(pmethod);
         
         Long pgameId = wfform.getPgameId();
-        if (pgameId==null) {
-            wfform.setRunningActivities(pmethod.getRunningActivities(Activity.TYPE_PGAME));
-            return mapping.findForward("pgames");
-        }
+        if (pgameId==null) return mapping.findForward("error");
         
         //PGame
-        GroupActivity pgame = getActivty(pmethod.getRunningActivities(Activity.TYPE_PGAME), pgameId);
+        PGameActivity pgame = (PGameActivity) getActivty(pmethod.getRunningActivities(Activity.TYPE_PGAME), pgameId);
         
         if (pgame==null) return mapping.findForward("error");
         
         wfform.setPgame(pgame);
         
-        //PAct, in principle, there should be only one running activity.
-        Set set = pgame.getRunningActivities(Activity.TYPE_PACT);
-        if (set==null || set.size()==0) return mapping.findForward("error");
+        pgame.setExpression(1);
         
-        PActActivity pact = null;
+        if (pmethod.getContext().proceed(pgame)) {
+            if (meeting.getContext().proceed(pmethod)) {
+                agenda.getContext().proceed(meeting);
+            }
+        }
         
-        for (Iterator iter=set.iterator(); iter.hasNext(); ) {
-            Activity one = (Activity) iter.next();
-            if (one.getType()!=Activity.TYPE_PACT) continue;
-            pact = (PActActivity) one;
-            wfform.setPact(pact);
-        }//for iter
-        
-        if (pact==null) return mapping.findForward("error");
-        
-        String actionPath = pact.getAction();
-        if (actionPath==null) return mapping.findForward("error");
+        engine.saveWorkflow(agenda);
         
         ActionForward forward = new ActionForward();
         forward.setModule("");
         forward.setName("temporary");
-        forward.setPath(actionPath);
+        forward.setPath("/agendaDisplay.do");
         forward.setRedirect(false);
         
         return forward;
     }//execute()
 
 
-}//class TemplateListAction
+}//class CompleteAction
