@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<title>Building Hierarchy: Drag and Drop</title>
+	<link rel="STYLESHEET" type="text/css" href="/cvotest/styles/pgame.css">
+</head>
+<style>
+	body {font-size:small}
+	.{font-family:arial;font-size:14px}
+	h1 {cursor:hand;font-size:16px;margin-left:10px;line-height:10px}
+</style>
+<body>
+	<h1>Create/Adjust relationships by drag and drop</h1>
+	<link rel="STYLESHEET" type="text/css" href="/cvotest/styles/dhtmlXTree/dhtmlXTree.css">
+	<script src="/cvotest/scripts/dhtmlXTree/dhtmlXCommon.js"></script>
+	<script src="/cvotest/scripts/dhtmlXTree/dhtmlXTree.js"></script>		
+
+	<table width="100%">
+		<tr>
+			<td width="100%" valign="top">
+
+				<div id="treeboxbox_tree" style="width:100%; height:600px;background-color:#f5f5f5;border :1px solid Silver;; overflow:auto;"></div><br>
+				
+			</td>
+		</tr>
+	</table>
+ 
+	<script>
+			tree=new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+			tree.setImagePath("/cvotest/images/");
+			tree.enableDragAndDrop(1);
+			tree.loadXML("/cvotest/html/concerns.xml");
+	</script>
+
+</body>
+</html>

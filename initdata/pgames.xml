@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--DOCTYPE workflow PUBLIC "-//W3C//DTD WORKFLOW 1.0//EN" "http://www.pgist.org/wfengine/pacts.dtd"-->
+<pgames>
+
+
+  <pgame refid="100" name="BrainStorming" description="BrainStorming">
+    <action>/brainStorming.do</action>
+    <environment>
+      <var name="totalCount" value="1"/>
+    </environment>
+  </pgame>
+  
+  
+  <pgame refid="200" name="Synthesizing" description="Synthesizing">
+    <action>/synthesizing.do</action>
+    <depends>100</depends>
+    <environment>
+      <var name="totalCount" value="1"/>
+    </environment>
+  </pgame>
+  
+  
+  <pgame refid="300" name="Review" description="Review">
+    <action>/review.do</action>
+    <environment>
+      <var name="totalCount" value="1"/>
+    </environment>
+  </pgame>
+  
+  
+  <pgame refid="400" name="Prioritize" description="Prioritize">
+    <action>/prioritize.do</action>
+    <environment>
+      <var name="totalCount" value="1"/>
+    </environment>
+  </pgame>
+  
+  
+  <pgame refid="500" name="Hierarchy" description="Hierarchy">
+    <action>/hierarchy.do</action>
+    <environment>
+      <var name="totalCount" value="1"/>
+    </environment>
+  </pgame>
+  
+  
+  <pgame refid="600" name="Answer Questions" description="Answer Questions">
+    <action>/qna.do</action>
+    <environment>
+      <var name="totalCount" value="1"/>
+    </environment>
+  </pgame>
+  
+  
+  <pgame refid="700" name="Sensitivity Analysis" description="Sensitivity Analysis">
+    <action>/sensitivity.do</action>
+    <environment>
+      <var name="totalCount" value="1"/>
+    </environment>
+  </pgame>
+  
+  
+</pgames>
+
