@@ -81,10 +81,7 @@ public class DiscourseTag extends SimpleTagSupport {
         writer.write("</span><span style=\"margin-left:30px;\" class=\"link\" onclick=\"");
         writer.write("if ("+commentCallback+") {"+commentCallback+"(");
         writer.write(""+thePost.getId());
-        writer.write(");}\">[Comment]</span><span style=\"margin-left:5px;\" class=\"link\" onclick=\"");
-        writer.write("if ("+enterCallback+") {"+enterCallback+"(");
-        writer.write(""+thePost.getId());
-        writer.write(");}\">[Enter]</span>");
+        writer.write(");}\">[Comment]</span>");
         writer.write("</td></tr>");
         
         writer.write("<tr>");

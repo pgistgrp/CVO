@@ -73,7 +73,7 @@ public class Post {
     
     /**
      * @return
-     * @hibernate.set lazy="true" table="pgist_discourse_post" order-by="id"
+     * @hibernate.set lazy="true" table="pgist_discourse_post" order-by="id" cascade="all"
      * @hibernate.collection-key column="parent_id"
      * @hibernate.collection-one-to-many class="org.pgist.model.Post"
      */

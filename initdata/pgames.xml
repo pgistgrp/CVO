@@ -12,7 +12,7 @@
   
   
   <pgame refid="200" name="Synthesizing" description="Synthesizing">
-    <action>/synthesizing.do</action>
+    <action>/concernManagement.do</action>
     <depends>100</depends>
     <environment>
       <var name="totalCount" value="1"/>

@@ -48,6 +48,7 @@
       <param name="beanName" value="workflowAgent"/>
       <include method="getTemplates"/>
       <include method="createSituation"/>
+      <include method="refreshSituationList"/>
     </create>
 
   </allow>

@@ -1,5 +1,6 @@
 package org.pgist.workflow;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -78,6 +79,20 @@ public class WorkflowAgent {
         
         return true;
     }//createSituation()
+    
+    
+    public String refreshSituationList()  throws Exception {
+        WorkflowForm wfform = new WorkflowForm();
+        
+        Collection list = workflowDAO.getSituations();
+        wfform.setSituationList(list);
+        
+        WebContext context = WebContextFactory.get();
+        HttpServletRequest request = context.getHttpServletRequest();
+        request.setAttribute("workflowForm", wfform);
+        
+        return WebContextFactory.get().forwardToString("/WEB-INF/jsp/workflow/situationList_list.jsp");
+    }//refreshSituationList()
     
     
 }//class WorkflowAgent
