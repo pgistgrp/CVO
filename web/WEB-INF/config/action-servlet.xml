@@ -98,11 +98,5 @@
     </bean>
     
     
-    <bean name="/voting" class="org.pgist.workflow.pgames.ConcernCollectionAction">
-        <property name="workflowDAO" ref="workflowDAO"/>
-        <property name="engine" ref="engine"/>
-    </bean>
-    
-    
 </beans>
 
