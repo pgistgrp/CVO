@@ -51,6 +51,11 @@
       <include method="refreshSituationList"/>
     </create>
 
+    <create creator="spring" javascript="WFModelingAgent">
+      <param name="beanName" value="wfModelingAgent"/>
+      <include method="test"/>
+    </create>
+
   </allow>
   
 

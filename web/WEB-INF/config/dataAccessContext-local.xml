@@ -196,5 +196,16 @@
     </bean>
     
     
+    <!-- Workflow Modeling -->
+    
+    
+    <bean id="wfModelingAgent" parent="baseTransactionProxy">
+      <property name="target">
+        <bean class="org.pgist.workflow.modeling.WFModelingAgent">
+        </bean>
+      </property>
+    </bean>
+    
+    
 </beans>
 
