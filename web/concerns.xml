@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Author (OGG company) -->
+<tree id="0">
+	<item id="all" select="0" text="All concerns" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1">
+		<item id="c1" select="0" text="Certain locations" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="c2" select="0" text="Environment" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="c3" select="0" text="Mobility" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="c4" select="0" text="Accessibility" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="c5" select="0" text="Environment" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="c6" select="0" text="Funding opportunities" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="c7" select="0" text="System continuity" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="c8" select="0" text="Collaborative and inclusive" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="c9" select="0" text="Air quality" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="c10" select="0" text="Many modes" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="c11" select="0" text="Future transportation needs" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="c12" select="0" text="More efficient" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="c13" select="0" text="More roads" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="c14" select="0" text="Mass transit" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="c15" select="0" text="Coordinated planning" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="c16" select="0" text="Contain growth" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="c17" select="0" text="Mix housing" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="1" select="0" text="Improve Urban Center Environment" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="2" select="0" text="Improve Urban Center Impacts" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="3" select="0" text="Improve Urban Center Circulation" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="4" select="0" text="Manufacturing/Industrial Center Mobility and Accessibility" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="5" select="0" text="Connecting Corridors Benefit to Center" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="6" select="0" text="Connecting Corridors System Continuity" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="7" select="0" text="Connecting Corridors Sustainability" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="8" select="0" text="Identify joint-funding opportunities" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="9" select="0" text="Promote projects that create other benefits" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="10" select="0" text="Use collaborative and inclusive planning process" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="11" select="0" text="Prioritize projects that are specifically identified in local GMA plan(s)" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="12" select="0" text="Improve Air Quality" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="13" select="0" text="Planning for future transportation needs is more important than future economic growth and future land development." open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="14" select="0" text="Transportation system should support many modes of travel" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="15" select="0" text="Use technology and incentive programs to make existing roads more efficient instead of building new roads" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="16" select="0" text="Build new roads" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="17" select="0" text="Build mass transit" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="18" select="0" text="Cities and towns should coordinate planning activities" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="19" select="0" text="Focus or concentrate new growth in already developmed areas" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="20" select="0" text="Mix office, retail and other land uses with retail" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="21" select="0" text="Favor Mix housing types within neighborhoods" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="22" select="0" text="RAN - Regional Arterial Networ?k.  Identify and provide strategic improvements on a core network of arterials that connect urban and activity centers which improves regional mobility throughout King County. (Regional Arterial Network)" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="23" select="0" text="Improve Transit Speed and Reliability" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="24" select="0" text="Improve Transit HUBS and Transit Centers." open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="25" select="0" text="Increase parking stalls availabel in park and ride lots" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="26" select="0" text="Improve mobility to and from port facilities, railyards, truck warehousing and distribution centers, manufacturing and assembly sites, and general heavy commercial and business sites." open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="27" select="0" text="Keep local economy competitive and dynamic" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="28" select="0" text="Replace or repair bridges" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="29" select="0" text="Identify projects with links to Endangered Species Act" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="30" select="0" text="Support iner-jurisdictional approach for implementing projects" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="31" select="0" text="Improve infrastructure in older unincorporated neighborhoods" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="32" select="0" text="Non-motorized facility projects" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="33" select="0" text="Capacity projects" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="34" select="0" text="Get Seattle moving" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="35" select="0" text="Keep our neighborhoods safe" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="36" select="0" text="Create jobs and opportunity for all" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="37" select="0" text="Build strong families" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="38" select="0" text="Safety" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="39" select="0" text="Preservation and maintenance of infrastructure" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="40" select="0" text="Support the urban village land use strategy" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="41" select="0" text="Make the best use of the streets we have to move people, goods, and services" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="42" select="0" text="Important social goals" open="1" im0="b?ooks_close.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="43" select="0" text="Promote efficient use of roadways, avoid adverse impacts to businesses and households" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="44" select="0" text="Efficiency: use what we have wisely" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="45" select="0" text="Preservation: keep what we have safe and useable" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="46" select="0" text="Expansion: grow capacity so more people and goods can move" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="47" select="0" text="Smart Growth: improve access in urban areas where density and development are greatest" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="48" select="0" text="Financing: Establish a higher level of predictable and user based funding" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="49" select="0" text="Increase housing densities in the urban center" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="50" select="0" text="Increase employment densities in the urban center" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="51" select="0" text="Concentrate Development/redevelopment activities in the urban center" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="52" select="0" text="Further the objectives and aims of existing policies for the urban center" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="53" select="0" text="Enhance the urban center sense of place" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="54" select="0" text="Remedy a current or anticipated problem" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="55" select="0" text="Support environmental justice" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="56" select="0" text="Improve safety" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="57" select="0" text="Improve convenient access to major destinations within the center" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="58" select="0" text="Improve circulation within the center" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="59" select="0" text="Provide users a range of travel modes" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="60" select="0" text="&quot;Provide users a &quot;&quot;missing&quot;&quot; travel mode&quot;" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="61" select="0" text="Complete a physical gap or essential link in transportation network (spread users around an expanded system network and minimize pressure on other facilities and routes) (objective)" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="62" select="0" text="Make park?ing compatible with a pedestrian oriented environment" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="63" select="0" text="Improve the efficient movement of freights and goods through a significant reduction in travel time" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="64" select="0" text="Increase safety" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="65" select="0" text="Improve access to one or more modes to major employment sites or access to residential areas outside the center" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="66" select="0" text="Benefit a large number and variety of users" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="67" select="0" text="Encourage further development in the center" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="68" select="0" text="Complete physical gap, provide essential link, remove barriers" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="69" select="0" text="&quot;Reduce modal conflicts, achieve a &quot;&quot;seamless&quot;&quot; system&quot;" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="70" select="0" text="Promote Commute Trip Reduction" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="71" select="0" text="Provide benefits to large number and variety of users" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="72" select="0" text="Support multiple centers" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="73" select="0" text="Expand the person carrying capacity of routes leading to the center" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="74" select="0" text="Help centers to meet development goals" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="75" select="0" text="Improve access to the center for multiple modes" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="76" select="0" text="Serve multiple user groups including those without fulltime access to to cars" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="77" select="0" text="Develop adjacent to dense, mixed use areas likely to generate significant use of the project" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="78" select="0" text="Provide logical segment that links to a center" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="79" select="0" text="Provide a missing link or remove barriers" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="80" select="0" text="Create greater efficiency or reliability in accessing a center" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="81" select="0" text="Maximize long term efficiency of the corridor meeting projected travel demand to a center" open="1" im0="books?_close.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="82" select="0" text="Relieve pressure or remove bottlenecks on the MTS" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="83" select="0" text="Eliminate vehicle trips" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="84" select="0" text="Induce mode shift away from SOV&apos;s" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="85" select="0" text="Reduce Vehicle Miles Traveled (VMT)" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="86" select="0" text="Improve traffic flow" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="87" select="0" text="Reduce emission" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="88" select="0" text="Environmental preservation" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="89" select="0" text="Reduced traffic" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="90" select="0" text="More jobs" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="91" select="0" text="Help business" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="92" select="0" text="More or better housing" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="93" select="0" text="Provide a coordinated and complementary network to the state&apos;s congested limited access freeway system." open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="94" select="0" text="More efficient movement of transit, freight, cars and nonmotorized trips to and between centers" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="95" select="0" text="Increase mobility for people and goods by providing congestion relief in high priority corridors." open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="96" select="0" text="Stress regional, multimodal approach to providing coordinated improvements instead of spot improvements" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="97" select="0" text="Support coordination between jurisdictions" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="98" select="0" text="Identify other sources of funding for improvements" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="99" select="0" text="Small to moderate cost investments (goal)" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="100" select="0" text="Bus zone relocation or consolidation" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="101" select="0" text="Improved signal timing and/or addition of signal phases that benefit transit" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="102" select="0" text="Dedicated transit signal priority systems" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="103" select="0" text="Improved intersection geometries for transit" open="1" im0="concern.gif" im1="concern.gif" im2="t?ombs.gif" call="1"/>
+		<item id="104" select="0" text="Bus bulbs and queue jumps to give transit preferential treatment" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="105" select="0" text="Creation of transit only lanes through parking removal, restriping or new construction" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="106" select="0" text="Obtain full support of local agencies" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="107" select="0" text="Improved passenger facilities but no investment in bus layover facilities or right-of-way acquision" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="108" select="0" text="Improve both passenger facilities and bus layover areas, but not right-of-way acquisition" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="109" select="0" text="Improve transit hubs that require new passenger facilities, bus layover areas, and/or right-of-way acquisition" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="110" select="0" text="Moving freight and goods important to local economy (value)" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="111" select="0" text="Provide critical access to the Port of Seattle" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="112" select="0" text="Reduce conflicts between movement of freight rail and trucks as well as general traffic" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="113" select="0" text="Allow Duwamish Industrial Area to continue to be a vital place for jobs and employment in the future" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="114" select="0" text="Accommodate movement of freight and goods within and adjacent to nearby communities" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="115" select="0" text="Retrofit new improvement projects into the road right-of-way with a minimum amount of disruption to the existing homes or businesses." open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="116" select="0" text="Make mostly non-motorized improvements including sidewalks, pathways, and other facilities" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="117" select="0" text="Improve traffic calming" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="118" select="0" text="Improve traffic control" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="119" select="0" text="Maintain and rehabilitate exisiting facilities" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="120" select="0" text="Improve safety" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="121" select="0" text="Reduce vehicle trips" open="1" im0="bo?oks_close.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="122" select="0" text="Reduce pollution" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="123" select="0" text="Reduce congestion" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="124" select="0" text="Increase capacity on certain portions of the system" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="125" select="0" text="Increase transit service" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="126" select="0" text="Make intelligent transportation system improvements" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="127" select="0" text="Discourage road construction and widening in rural portions of King County" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="128" select="0" text="Move goods and people efficiently" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="129" select="0" text="Build light rail" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="130" select="0" text="Partner with monorail" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="131" select="0" text="Replace Alaskan Way Viaduct" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="132" select="0" text="Ensure transportation routes are available during a catastrophe" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="133" select="0" text="Ensure emergency access remains on roads and bridges" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="134" select="0" text="Provide transportation system access so people can get to jobs" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="135" select="0" text="Provide transportation system access so goods can get to market" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="136" select="0" text="Transportation system should enhance quality of neighborhoods" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="137" select="0" text="Develop new and sustainable revenue sources" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="138" select="0" text="Improve upon maintenance and operations" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="139" select="0" text="Utilize innovations in technology and best environmental practices" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="140" select="0" text="Expand system to meet future needs" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="141" select="0" text="Focus on growth in urban areas" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="142" select="0" text="Direct transit investments to linking these predestrian-oriented activity centers" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="143" select="0" text="Urban villages are walkable" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="14?4" select="0" text="Urban villages are transit friendly" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="145" select="0" text="Urban villages are bike-friendly" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="146" select="0" text="Urban villages are not servved well by single occupancy vehicle mode" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="147" select="0" text="Optimize the movement of people, goods, and services on arterial streets through operational improvements" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="148" select="0" text="Optimize people moving capacity through major capital improvements" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="149" select="0" text="Continue Seattle&apos;s neighborhood traffic control program:  requests from neighborhood organizations and citizens" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="150" select="0" text="Define Seattle&apos;s street classification system to guide the design and operation of the city&apos;s street system" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="151" select="0" text="Define and map a set of street types to define street design features that support the street&apos;s function and adjacent land use" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="152" select="0" text="Encourage walking" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="153" select="0" text="Encourage biking" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="154" select="0" text="Make transit a real choice" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="155" select="0" text="Price and manage parking wisely" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="156" select="0" text="Increase transportation choices through demand management" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="157" select="0" text="Promote the economy by moving freight and goods" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="158" select="0" text="Improve our environment" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="159" select="0" text="Protect our infrastructure" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="160" select="0" text="Connect to the region" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="161" select="0" text="Make the most of transportation investments" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="162" select="0" text="Stronger economy" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="163" select="0" text="Cleaner environment" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="164" select="0" text="Better health" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="165" select="0" text="Access to employment" open="1" im0="books_clos?e.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="166" select="0" text="More livable neighborhoods" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="167" select="0" text="Expanded educational and recreational opportunities" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="168" select="0" text="Improved personal safety" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="169" select="0" text="Move more people and goods oon existing roadways (KC criteria)" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="170" select="0" text="Implement improvements that reduce roadways collisions" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="171" select="0" text="Implement improvments that reduce injuries" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="172" select="0" text="Implement improvements that reduce property damage" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="173" select="0" text="Repair connections that are at risk of sudden failure" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="174" select="0" text="Preserve and improve ability to travel to, through and between major activity centers" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="175" select="0" text="Give priority to moving more people and goods over moving more vehicles" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="176" select="0" text="Focus investments for the economy" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="177" select="0" text="Focus investments for the environment" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="178" select="0" text="Focus investments for communities" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="179" select="0" text="Implement user-based fees" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="180" select="0" text="Projects should be an integrated package" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="181" select="0" text="Fiscally sound" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="182" select="0" text="Credible" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="183" select="0" text="Complementary" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="184" select="0" text="Stakeholder input: criteria and consideration of stakeholder input" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="185" select="0" text="Reduce Congestion" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="186" select="0" text="Improve incomplete sidewalk system" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="187" select="0" text="Improve inadequate transit service/facilities" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="188" select="0" text="Improve walkability" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="189" select="0" text="Improve? public transit access (objective)" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="190" select="0" text="Improve public transit speed and reliability" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="191" select="0" text="Improve Safety and security" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="192" select="0" text="Improve Bicycle mobility" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="193" select="0" text="Improve Bicycle facilities" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="194" select="0" text="Streetscape improvements" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="195" select="0" text="Upgraded shelters" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="196" select="0" text="Better Lighting" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="197" select="0" text="Upgraded customer information and signage" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="198" select="0" text="Adujust signal timing" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="199" select="0" text="Installing turning pockets" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="200" select="0" text="Restricting turning movements and driveways" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="201" select="0" text="Installing regulatory and informational signning" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="202" select="0" text="Adding parking restrictions to provide for turning movements and through-lane continuity" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="203" select="0" text="Install signal interconnects" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="204" select="0" text="Improving direct linkages with highways and freeways" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="205" select="0" text="Constructing grade separations where appropriate" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="206" select="0" text="New lane capacity in only very rare circumstances" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="207" select="0" text="Install traffic circles" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="208" select="0" text="Traffic calming devices" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="209" select="0" text="Designate a main street - pedestrian type street" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="210" select="0" text="Designate a main street - neighborhood commercial street type" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="211" select="0" text="Designate a regional access street type" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="212" select="0" text="Designate a commercial access street type" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="213" select="0" text="Design?ate a pedestrian connector street type" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="214" select="0" text="Designate an industrial access street type" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="215" select="0" text="Designate a green street type" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="216" select="0" text="Designate a neighborhood green street type" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="217" select="0" text="Implement the right of way management initiative" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="218" select="0" text="Make street crossings safer and easier" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="219" select="0" text="Use traffic signals and their associate features to improve pedestrian safety" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="220" select="0" text="Provide routine accommoadation of pedestrian facilities" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="221" select="0" text="Make safe routes to schools" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="222" select="0" text="Complete and maintain sidewalk network" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="223" select="0" text="Provide for pedestrian/elderly/disabled accessibility" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="224" select="0" text="Consider installing road diets (reduce 4 lanes to three plus bike lane)" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="225" select="0" text="Develop pedestrian transportation performance measures" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="226" select="0" text="Maintain Seattle pedestrian advisory board" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="227" select="0" text="Review right-of-way improvement manual to ensure design criteria support pedestrian safety and access concerns" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="228" select="0" text="Support pedestrian safety and education and promotion programs" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="229" select="0" text="Explore alternative design treatments" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="230" select="0" text="Support enforcement of traffic laws that protect the rights of pedestrians" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="231" select="0" text="Support wayfinding projects" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="232" select="0" text="Accommodate pedestrians during project construction" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="233" select="0" text="Install accessible traffic signals" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="?1"/>
+		<item id="234" select="0" text="Complete and preserve the urban trails network" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="235" select="0" text="Enhance bicycle network by improving safety and access to urban villages, schools, and the urban trails network" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="236" select="0" text="Maintain bicycle advisory board" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="237" select="0" text="Improve bicycle access to and through the city center" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="238" select="0" text="Provide ongoing and regular maintenance for bicycle facilities" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="239" select="0" text="Routinely coordinate and institutionalize bicycle facility planning design and construction into all programs and projects that impact public right-of-way" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="240" select="0" text="Maximize opportunities to fund bicycle facilities and programs" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="241" select="0" text="Accommodate bicycles during project construction" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="242" select="0" text="Make bicycling and transit work seamlessly" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="243" select="0" text="Provide adequate bicycle parking for current and future users" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="244" select="0" text="Support bicycle education and promotion efforts" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="245" select="0" text="Develop bicycle transportation performance measures" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="246" select="0" text="Explore alternative design treatments" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="247" select="0" text="Support enforcement of traffic related violations of motorist and bicylists" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="248" select="0" text="Maintain a vision of Seattle&apos;s future transit system that integrates planned and potential high, intermediate, and local capacity transit investments" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="249" select="0" text="Work with transit partners on bus layover and route terminal planning" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="250" select="0" text="Make transit convenient, understandable, and easy to use" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="251" select="0" text="Establish and implement transit service priorities" open="1" im0="concern.gif" im1="?concern.gif" im2="concern.gif" call="1"/>
+		<item id="252" select="0" text="Support equitable and ridership-oriented fare policies" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="253" select="0" text="Ensure access to transit" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="254" select="0" text="Support and promote public involvement in the decision making processes of transit partners" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="255" select="0" text="Encourage testing of new, innovative, transit services and technologies" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="256" select="0" text="Only consider rapid transit investments" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="257" select="0" text="Develop funding options for implementation of the UVTN and STN" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="258" select="0" text="Select preferred rapid transit technologies and alignments following corridor studies that consider all options" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="259" select="0" text="Work with partner transit agencies to make the best possible rapid transit investments" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="260" select="0" text="Expand options for water-based transit services" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="261" select="0" text="Use station area planning to maximize ridership and further growth management, neighborhood plan, economic development, and revitalization objectives" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="262" select="0" text="Maximize the direct economic benefits of rapid transit construction and operation" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="263" select="0" text="Work to focus the ferry system on moving people rather than cars" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="264" select="0" text="Increase parking management capabilities through new technology applications" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="265" select="0" text="Ensure reasonable supply of short-term on-street parking in downtown Seattle and neighborhood business districts" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="266" select="0" text="Pursue installing longer-term on-street paid parking" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="267" select="0" text="Use residential parking zones to address resident parking needs" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="268" select="0" text="Work with neighborhoods on area-wide comprehensive parking management?" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="269" select="0" text="Respond to individual business and resident parking requests" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="270" select="0" text="Increase parking enforcement resources" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="271" select="0" text="Regularly review off-street parking regulations" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="272" select="0" text="Address parking impacts of major transportation capital projects" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="273" select="0" text="Develop and maintain an on-and-off parking inventory" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="274" select="0" text="Evaluate neighborhood parking facility proposals" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="275" select="0" text="Coordinate or consolidate on street parking management, enforcement, and other parking functions" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="276" select="0" text="Install additional arterial parking restrictions to  improve safety, mobility and access" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="277" select="0" text="Publicize the city&apos;s parking programs, rules, and regulations" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="278" select="0" text="Ensure appropriate reservation systems for on-street parking spaces" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="279" select="0" text="Establish taxi, vale, and car sharing installation policies and procedures" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="280" select="0" text="Review and revise procedures for installing street carpool spaces" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="281" select="0" text="Educate the public about transportation demande mangement" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="282" select="0" text="Reduce car ownership" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="283" select="0" text="&quot;Strengthen and expand &quot;&quot;way to go, Seattle&quot;&quot; program&quot;" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="284" select="0" text="Pursue regional partnerships and branding" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="285" select="0" text="Advocate for incorporating TDM in major transportation projects" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="286" select="0" text="Support efforts to evaluate and reform transportation pricing" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="287" select="0" text="Extend TDM programs to small businesses and small business organizations" open="1" im0="books?_close.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="288" select="0" text="Strengthen transportation management program regulations" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="289" select="0" text="Encourage car sharing" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="290" select="0" text="Promote proximate commuting" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="291" select="0" text="Educate the property development and management community about unbundled parking from building leases" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="292" select="0" text="Encourage convertible uses for structured parking" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="293" select="0" text="Encourage parking cash-out programs" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="294" select="0" text="Promote telecommuting" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="295" select="0" text="Highway network for trucks" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="296" select="0" text="Support rail enhancements" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="297" select="0" text="Freight access to manufacturing and industrial areas" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="298" select="0" text="Support access to container and cargo terminals" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="299" select="0" text="Retail and office goods delivery" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="300" select="0" text="Freight mobility implementation" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="301" select="0" text="Incorporate elements of sustainable design into major capital projects" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="302" select="0" text="Accomplishing our environmental mission-compliance" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="303" select="0" text="Accomplishing our environmental mission - going beyond compliance" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="304" select="0" text="Plan for and respond to emergencies in the street rights-of-way" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="305" select="0" text="Develop and maintain roadway conditions database" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="306" select="0" text="Clean and maintain transportation right-of-way" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="307" select="0" text="Maintain and preserve green infrastructure" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="308" select="0" text="Perform maintenance on bridges and other roadway structures" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="309" select="0" text="Develop annual maintenace preserv?ation program" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="310" select="0" text="Improve street tree pruning" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="311" select="0" text="Preserve and maintain traffic control devices" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="312" select="0" text="Address structures maintenance backlog" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="313" select="0" text="Implement ITS master plan" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="314" select="0" text="Implement a load-testing program" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="315" select="0" text="Coordinate with federal government to implement transportation projects" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="316" select="0" text="Coordinate with state government to implement transportation projects" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="317" select="0" text="Coordinate with regional government to implement transportation projects" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="318" select="0" text="Coordinate with county government to implement transportation projects" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="319" select="0" text="Coordinate with other government organizations to implement transportation projects" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="320" select="0" text="Prioritize transportation programs and projects so as to maximize benefits from limitied revenues" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="321" select="0" text="Maximize available funding resources" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="322" select="0" text="Continue to look for means to improve efficiencies and cost effectiveness" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="323" select="0" text="PM peak hour non-transit trips (KC Indicators) - Number of person, trips, exclusive of transit trips, currently carried on project roadway/facility" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="324" select="0" text="PM peak hour transit trips - number of transit trips currently carried on the project roadway/facility" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="325" select="0" text="Freight movement - number of tons carried on roadway/facility" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="326" select="0" text="Improves traffic flow/reliability - project provides operational changes that improve vehicle flows for all modes/users of the roadway/facility" open="1" im0="concern.gif" im1="concern.gif?" im2="concern.gif" call="1"/>
+		<item id="327" select="0" text="Improves HOV movement/HOT lane potential - the project improves HOV lane performance, provides other HOV priority treatments and/or supplements existing HOV lanes so that future use as HOT lane facility is possible" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="328" select="0" text="Improves transit movement/reliability - project includes transit specific elements such as transit or BAT lanes, queue jumps, signal priority, or exclusive ROW" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="329" select="0" text="Improves freight movement/reliability - project includes freight specific elements such as truck climbing lanes or grade separation targeted at freight movement" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="330" select="0" text="Preserve capacity - project repairs or replaces facilities or replaces transit fleets at or nearing end of uesfulness" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="331" select="0" text="Increase SOV capacity - project increases capacity for general purpose travel on the roadway/facility" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="332" select="0" text="Increase HOV capacity - project adds HOV capacity by adding HOV lanes or completing HOV lane connections" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="333" select="0" text="Increase transit capacity - the project increases transit capacity by adding vehicles and/or service" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="334" select="0" text="Mix of roads and public transportation" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="335" select="0" text="Stakeholders key project" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="336" select="0" text="Replacement of road construction revenues for cities and counties" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="337" select="0" text="Mega-projects are too expensive" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="338" select="0" text="Rational project phasing" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="339" select="0" text="Ensure major facilities subject to catastrophic failure have been addressed" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="340" select="0" text="Readiness" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="341" select="0" text="Slow speed" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="342" select="0" text="Reduce collisions on neighborhood streets" open="1" im0="concern.gif" im1="concern.gif" im2="tombs.g?if" call="1"/>
+		<item id="343" select="0" text="Reduce impacts of cut through traffic" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="344" select="0" text="Install marked crosswalks at signalized and unsignalized intersections where appropriate" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="345" select="0" text="Continue to use pedestrian push button installation rules" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="346" select="0" text="Improve pedestrian safety and access to bus transit" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="347" select="0" text="Improve pedestrian access to monorail and sound transit rail systems" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="348" select="0" text="Consider overpasses over major pedestrian barriers" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="349" select="0" text="Dedicated bicycle facilities such as bicycle lanes, trails, and other appropriate measures and design elements to make it easy to bicycle to rail stations and major bus stops" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="350" select="0" text="Covered, secure bicycle parking at transit centers and stations, and at ferry terminals, including space for anticipated future expansion" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="351" select="0" text="Bicycle accommodations in trains in a safe and convenient manner, with barrier free interior station designs" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="352" select="0" text="Bikestations as a means of accommodating cyclists and attracting new users to multimodal travel" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="353" select="0" text="Develop and implement the urban village transit network" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="354" select="0" text="Develop and implement the secondary transit network" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="355" select="0" text="Develop a transit priority treatment toolbox for improving transit speed and reliability" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="356" select="0" text="Develop designated multimodal hubs in urban centers" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="357" select="0" text="Develop designated transportation centers in urban villages" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="358" select="0" text="Make bus stops and transfer points more visible and comfortable" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="359" select="0" text="Improve bus service information" open="1" im0="bo?oks_close.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="360" select="0" text="Allocate transit service to achieve basic mobility and ridership goals" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="361" select="0" text="Evaluate transit service investments against clear performance standards for ridership and cost-effectiveness and progress towards completion of the UVTN" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="362" select="0" text="Ensure that existing transit resource redeployment and new transit resource investment is effective and fair" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="363" select="0" text="Use transit street classifications with performance measures to manage a system that guides Seattle transit investments" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="364" select="0" text="Participate in efforts to reduce fares, especially for those least able to pay" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="365" select="0" text="Consider ride free areas as possible travel demand" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="366" select="0" text="Support development of the regional fare integration project" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="367" select="0" text="Encourage access to transit in Seattle by walking and bicycling" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="368" select="0" text="Discourage the development of park and ride lots in Seattle" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="369" select="0" text="Encourage Washington State Ferries to serve increased demand with walk-on passenger service rather than additional vehicle capacity" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="370" select="0" text="Improve transit connections for walk-on ferry passengers" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="371" select="0" text="Integrate ferry terminals surrounding land uses" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="372" select="0" text="Install pay station technology" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="373" select="0" text="&quot;Evaluate &quot;&quot;smart card&quot;&quot; technology to pay for parking&quot;" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="374" select="0" text="Address residential parking concerns through residential parking zones" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="375" select="0" text="Evaluate potential residential parking zone programs" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="376" select="0" text="Implement neighborhood-wide TDM prog?rams" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="377" select="0" text="Obstacles to truck movement" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="378" select="0" text="Design standards for oversized vehicles" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="379" select="0" text="Improve pavement conditions" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="380" select="0" text="Grade separation" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="381" select="0" text="Minimize conflicts between trucks and other modes" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="382" select="0" text="Make traffic engineering and technology improvements for freight" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="383" select="0" text="Define and map industrial access streets" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="384" select="0" text="Improve freight-dependent business access" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="385" select="0" text="Improve freight dependent business site access" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="386" select="0" text="Develop and implement goods delivery strategies" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="387" select="0" text="Build arterial street projects to benefit freight" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="388" select="0" text="Manage arterial street system operation to keep freight moving" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="389" select="0" text="Maintain the freight mobility advisory committee" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="390" select="0" text="Develop funding partnerships to promote projects that benefit freight" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="391" select="0" text="Improved communication tools" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="392" select="0" text="Participate on city or regional major and capital project teams" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="393" select="0" text="Sustainable infrastructure" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="394" select="0" text="Add environmental procedures and design criteria to the right-of-way improvement manual" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="395" select="0" text="Context sensitive design" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="396" select="0" text="Develop and implement an environmental management system" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="397" select="0" text="Achieve regulatory compliance" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="398" select="0" text="Cooperative efforts with other city departments" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="399" select="0" text="Connect every traffic signal to the traffic management center" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="400" select="0" text="Operate all signals at peak efficiency through the traffic management center" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="401" select="0" text="Provide accurate and timely information to motorists" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="402" select="0" text="Implement cost effective technologies that reduce maintenance" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="403" select="0" text="Ensure maintenance of ITS components" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="404" select="0" text="Increase public transportation investments in lieu of local arterial projects" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="405" select="0" text="Mix of road and transit projects" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="406" select="0" text="Extend Link Light Rail to key regional destinations" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="407" select="0" text="Expanded commuter and local bus and other transit service" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="408" select="0" text="Addition of projects proposed by stakeholders where guiding principles and criteria also support the project" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="409" select="0" text="Replacement revenue source approximately equal to the lost Vehicle License Fee (VLF) to be distributed to cities and counties to go towards their roads capital programs" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="410" select="0" text="Projects that can be constructed in smaller scope" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="411" select="0" text="Projects that can be constructed in logical segments" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="412" select="0" text="Projects that produce immediate results" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="413" select="0" text="Projects that retain the ability to add other project elements later to complete the full project scope" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="414" select="0" text="Reduce each mega-project scope to an initial investment in logical, beneficial project elements" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="415" select="0" text="Target the most critical bottlenecks on each of the regions major freeway corridors" open="1" im0="concern.gif" im1="concern.gif" im2="tombs.g?if" call="1"/>
+		<item id="416" select="0" text="SR 520 Bridge is a structure of critical importance" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="417" select="0" text="Replace bridge structures" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="418" select="0" text="Ensure structural stability" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="419" select="0" text="Alaskan Way Viaduct is a structure of critical importance" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="420" select="0" text="Initial investment in partial replacement addressing southern approach first" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="421" select="0" text="Ensure fit with ultimate viaduct option" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="422" select="0" text="Identify opportunities to maximize the investments of other funding sources in combination with RTID investments" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="423" select="0" text="Ensure individual projects are far enough along from project identification, design, and environmental standpoint to move forward to project construction or implementation in a timely manner" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+		<item id="424" text="Include projects for which implementation within 10 years is a reasonable assumption" open="1" im0="concern.gif" im1="concern.gif" im2="concern.gif" call="1"/>
+	</item>
+</tree>
