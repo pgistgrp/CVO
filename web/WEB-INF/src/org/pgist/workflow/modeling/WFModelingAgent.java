@@ -3,10 +3,10 @@ package org.pgist.workflow.modeling;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletResponseWrapper;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -135,14 +135,12 @@ public class WFModelingAgent {
     }//insertConnector()
     
     
-    public Map test(HttpServletRequest request) throws Exception {
+    public Map test(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map map = new HashMap();
         
-        ServletContext context = request.getSession().getServletContext();
-        RequestDispatcher dispatcher = context.getRequestDispatcher("/WEB-INF/test.jsp");
-        dispatcher.forward(request, new ServletResponseWrapper());
+        String html = WebUtils.forwardToString(request, response, "/test.jsp");
         
-        map.put("html", "");
+        map.put("html", html);
         map.put("successful", new Boolean(true));
         return map;
     }//test()
