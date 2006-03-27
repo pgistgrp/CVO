@@ -14,6 +14,7 @@
   var tree1 = null;
   var tree2 = null;
   var tree3 = null;
+  var bottomTree = null;
   function resetTags(data) {
     tree2.deleteChildItems(tree2.rootId);
     for(var i=0;i<data['tags'].length;i++) {
@@ -92,6 +93,9 @@
         dragHandler="myDrag3Handler"
         stdImage="book.gif, books_open.gif, books_close.gif">
     </pg:list>
+    bottomTree = new dhtmlXTreeObject($('bottomTree'),"100%","100%",0);
+    bottomTree.setImagePath("<html:rewrite page='/images/dhtmlXTree/'/>");
+    bottomTree.loadXML("<html:rewrite page='/concerns.xml'/>");
   }
   function createCategory() {
     CVOAgent.createCategory(
@@ -126,8 +130,14 @@
 </head>
 
 <body bgcolor="white" onload="doOnLoad();">
+<center>
 
-<table height="100%">
+<table width="800">
+  <tr>
+    <td colspan="3">
+      <div>Synthesize concerns: As a moderator, you can use this tool to sort out all the concerns the participants expressed in the previous step. All concerns are given "tags" which roughly captures the "ontology" of a participant as expressed in the concern. By adjusting the relationship among categories and the relationship among categories and tags, concerns will be grouped into clusters.</div>
+    </td>
+  </tr>
   <tr>
     <td valign="top">
       <div id="categorybar" style="background-color:#f5f5f5; margin-left:2px; border :1px solid Silver;">
@@ -143,18 +153,25 @@
       </div>
     </td>
   </tr>
-  <tr height="95%">
-    <td valign="top">
-      <div id="treebox1" style="width:250; height:90%; background-color:#f5f5f5; border :1px solid Silver; overflow:auto;"></div>
+  <tr height="250">
+    <td valign="top" width="33%">
+      <div id="treebox1" style="width:100%; height:100%; background-color:#f5f5f5; border :1px solid Silver; overflow:auto;"></div>
+    </td>
+    <td valign="top" width="33%">
+      <div id="treebox2" style="width:100%; height:100%; background-color:#f5f5f5; border :1px solid Silver; overflow:auto;"></div>
     </td>
     <td valign="top">
-      <div id="treebox2" style="width:250; height:90%; background-color:#f5f5f5; border :1px solid Silver; overflow:auto;"></div>
-    </td>
-    <td valign="top">
-      <div id="treebox3" style="width:250; height:90%; background-color:#f5f5f5; border :1px solid Silver; overflow:auto;"></div>
+      <div id="treebox3" style="width:100%; height:100%; background-color:#f5f5f5; border :1px solid Silver; overflow:auto;"></div>
     </td>
   </tr>
+  <tr>
+    <td colspan="3" valign="top">
+      <div id="bottomTree" style="width:100%; height:500; background-color:#f5f5f5; border :1px solid Silver; overflow:auto;"></div>
+    </td>
+  </tr>
+</table>
 
+</center>
 </body>
 </html:html>
 
