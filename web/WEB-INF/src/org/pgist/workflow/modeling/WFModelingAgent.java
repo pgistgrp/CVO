@@ -41,8 +41,12 @@ public class WFModelingAgent {
      * @return
      * @throws Exception
      */
-    public String getDefinitionAsTree(int type, Long id) throws Exception {
-        return "";
+    public Map getDefinitionAsTree(HttpServletRequest request, HttpServletResponse response, int type, Long id) throws Exception {
+        Map map = new HashMap();
+        
+        map.put("html", WebUtils.forwardToString(request, response, "/test.jsp"));
+        map.put("successful", new Boolean(true));
+        return map;
     }//getDefinitionAsTree()
     
     
@@ -55,8 +59,12 @@ public class WFModelingAgent {
      * @return
      * @throws Exception
      */
-    public String getDefinitionSheet(int type, Long id) throws Exception {
-        return "";
+    public Map getDefinitionSheet(HttpServletRequest request, HttpServletResponse response, int type, Long id) throws Exception {
+        Map map = new HashMap();
+        
+        map.put("html", WebUtils.forwardToString(request, response, "/test.jsp"));
+        map.put("successful", new Boolean(true));
+        return map;
     }//getDefinitionSheet()
     
     
@@ -68,8 +76,12 @@ public class WFModelingAgent {
      * @return
      * @throws Exception
      */
-    public String getTemplateList(int type) throws Exception {
-        return "";
+    public Map getTemplateList(HttpServletRequest request, HttpServletResponse response, int type) throws Exception {
+        Map map = new HashMap();
+        
+        map.put("html", WebUtils.forwardToString(request, response, "/test.jsp"));
+        map.put("successful", new Boolean(true));
+        return map;
     }//getTemplateList()
     
     
@@ -80,7 +92,7 @@ public class WFModelingAgent {
      * @return
      * @throws Exception
      */
-    public Map createTemplate(Map params) throws Exception {
+    public Map createTemplate(HttpServletRequest request, HttpServletResponse response, Map params) throws Exception {
        Map map = new HashMap();
        
        String type = (String) params.get("type");
@@ -111,10 +123,10 @@ public class WFModelingAgent {
      * @return
      * @throws Exception
      */
-    public Map insertEntity(Map params) throws Exception {
+    public Map insertEntity(HttpServletRequest request, HttpServletResponse response, Map params) throws Exception {
         Map map = new HashMap();
         
-        map.put("html", "");
+        map.put("html", WebUtils.forwardToString(request, response, "/test.jsp"));
         map.put("successful", new Boolean(true));
         return map;
     }//insertEntity()
@@ -126,24 +138,13 @@ public class WFModelingAgent {
      * @return
      * @throws Exception
      */
-    public Map insertConnector(Map params) throws Exception {
+    public Map insertConnector(HttpServletRequest request, HttpServletResponse response, Map params) throws Exception {
         Map map = new HashMap();
         
-        map.put("html", "");
+        map.put("html", WebUtils.forwardToString(request, response, "/test.jsp"));
         map.put("successful", new Boolean(true));
         return map;
     }//insertConnector()
-    
-    
-    public Map test(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Map map = new HashMap();
-        
-        String html = WebUtils.forwardToString(request, response, "/test.jsp");
-        
-        map.put("html", html);
-        map.put("successful", new Boolean(true));
-        return map;
-    }//test()
     
     
 }//class WFModelingAgent
