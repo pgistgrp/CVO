@@ -153,15 +153,15 @@
       </div>
     </td>
   </tr>
-  <tr height="250">
+  <tr>
     <td valign="top" width="33%">
-      <div id="treebox1" style="width:100%; height:100%; background-color:#f5f5f5; border :1px solid Silver; overflow:auto;"></div>
+      <div id="treebox1" style="width:100%; height:250; background-color:#f5f5f5; border :1px solid Silver; overflow:auto;"></div>
     </td>
     <td valign="top" width="33%">
-      <div id="treebox2" style="width:100%; height:100%; background-color:#f5f5f5; border :1px solid Silver; overflow:auto;"></div>
+      <div id="treebox2" style="width:100%; height:250; background-color:#f5f5f5; border :1px solid Silver; overflow:auto;"></div>
     </td>
     <td valign="top">
-      <div id="treebox3" style="width:100%; height:100%; background-color:#f5f5f5; border :1px solid Silver; overflow:auto;"></div>
+      <div id="treebox3" style="width:100%; height:250; background-color:#f5f5f5; border :1px solid Silver; overflow:auto;"></div>
     </td>
   </tr>
   <tr>
