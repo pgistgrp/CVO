@@ -81,17 +81,17 @@
     <pg:tree id="treebox1" var="tree1" node="${cvoForm.category}"
         imagePath="/images/dhtmlXTree/" dragable="true"
         dragHandler="myDrag1Handler" clickHandler="myClick1Handler"
-        stdImage="book.gif, books_open.gif, books_close.gif">
+        stdImage="category.gif, category.gif, category.gif">
     </pg:tree>
     <pg:list id="treebox2" var="tree2" list="" title="name" identity="id"
         imagePath="/images/dhtmlXTree/" dragable="true"
         dragHandler="myDrag2Handler"
-        stdImage="book.gif, books_open.gif, books_close.gif">
+        stdImage="tag.gif, tag.gif, tag.gif">
     </pg:list>
     <pg:list id="treebox3" var="tree3" list="" title="name" identity="id"
         imagePath="/images/dhtmlXTree/" dragable="true"
         dragHandler="myDrag3Handler"
-        stdImage="book.gif, books_open.gif, books_close.gif">
+        stdImage="tag.gif, tag.gif, tag.gif">
     </pg:list>
     bottomTree = new dhtmlXTreeObject($('bottomTree'),"100%","100%",0);
     bottomTree.setImagePath("<html:rewrite page='/images/dhtmlXTree/'/>");
