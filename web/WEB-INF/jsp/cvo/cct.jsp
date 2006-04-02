@@ -1,15 +1,19 @@
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>PGIST Portal - Let's Improve Transportation</title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<style type="text/css" media="screen">@import "tabs.css";</style>
+<style type="text/css" media="screen">@import "/styles/tabs.css";</style>
+<style type="text/css" media="screen">@import "/styles/pgist.css";</style>
 <script src="/scripts/ajax.js" type="text/javascript"></script>
 <script src="/scripts/tabs.js" type="text/javascript"></script>
 <script src="/scripts/prototype.js" type="text/javascript"></script>
 <script src="/scripts/effects.js" type="text/javascript"></script>
-<script src="./scripts/combo.js" type="text/javascript"></script>
+<script src="/scripts/combo.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 	function doOnLoad() {
@@ -44,14 +48,13 @@
 	Effect.CloseDown('validation');
 	}
 </script>
-<link href="pgist.css" rel="stylesheet" type="text/css">
 </head>
 
 <body onload="doOnLoad()">
 <div id="decorBar"></div>
 
 
-<div id="header"><img src="images/logo.jpg">
+<div id="header"><img src="/images/logo.jpg">
 
 </div>
 
@@ -98,7 +101,7 @@
 	<div id="tabPanels"></div>
   </div>
 <div id="footerContainer">
-<div id="footer"><a href="http://www.pgist.org" target="_blank"><img src="images/footer_pgist.jpg" alt="Powered by the PGIST Portal" border="0" align="right"></a></div>
+<div id="footer"><a href="http://www.pgist.org" target="_blank"><img src="/images/footer_pgist.jpg" alt="Powered by the PGIST Portal" border="0" align="right"></a></div>
 <div id="nsf">This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.</div>
 </div>
 </body>

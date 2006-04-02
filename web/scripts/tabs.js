@@ -232,7 +232,7 @@
 					}
 				}
 			}
-			document.getElementById('panel_' + tabId).innerHTML = "<div class='loadingBox'><b>Please wait. Loading...</b> <img src='indicator.gif' /></div>";
+			document.getElementById('panel_' + tabId).innerHTML = "<div class='loadingBox'><b>Please wait. Loading...</b> <img src='/images/indicator.gif' /></div>";
 			
 			http.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
 			http.send(null);

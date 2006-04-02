@@ -6,11 +6,11 @@
 <html:html>
 <head>
 <title>CVO List</title>
-<link rel="stylesheet" type="text/css" href="<html:rewrite page='/styles/default.css'/>">
-<script type='text/javascript' src='<html:rewrite page="/scripts/base.js"/>'></script>
-<script type='text/javascript' src='<html:rewrite page="/dwr/engine.js"/>'></script>
-<script type='text/javascript' src='<html:rewrite page="/dwr/util.js"/>'></script>
-<script type='text/javascript' src='<html:rewrite page="/dwr/interface/CVOAgent.js"/>'></script>
+<link rel="stylesheet" type="text/css" href="/styles/default.css">
+<script type='text/javascript' src='/scripts/base.js'></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/util.js'></script>
+<script type='text/javascript' src='/dwr/interface/CVOAgent.js'></script>
 <script>
   function openCreateCVO() {
     $('createCVODialog_name').value = '';

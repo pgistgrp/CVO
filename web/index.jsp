@@ -1,5 +1,6 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
 <html:html>
 <head>
 <title>PGIST main page</title>
@@ -23,6 +24,8 @@
     </tr>
   </table>
 </html:form>
+
+<tags:discussion discussible="null" url="/test.do" count="10"/>
 
 </body>
 </html:html>

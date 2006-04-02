@@ -18,6 +18,8 @@
   <p><html:link action="/cvolist.do">CVO participation</html:link>
 </pg:show>
 
+<p><html:link page="/cct.do">Concerns Collector Tool</html:link>
+
 <p><html:link page="/test.jsp">Test</html:link>
 
 <p><html:link page="/concernManagement.do">Concern Management</html:link>

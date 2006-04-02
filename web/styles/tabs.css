@@ -19,7 +19,7 @@
 
 #tabs li {
 	float:left;
-	background:url("left.gif") no-repeat left top;
+	background:url("/images/left.gif") no-repeat left top;
 	margin:0;
 	padding:0 0 0 9px;
 }
@@ -27,65 +27,65 @@
 #tabs span {
 	float:left;
 	display:block;
-	background:url("right.gif") no-repeat right top;
+	background:url("/images/right.gif") no-repeat right top;
 	padding:5px 15px 4px 6px;
 	text-decoration:none;
 	color:#321;
 }
 
 #tabs li.blue {
-	background:url("leftBlue.gif") no-repeat left top;
+	background:url("/images/leftBlue.gif") no-repeat left top;
 }
 
 #tabs span.blue {
-	background:url("rightBlue.gif") no-repeat right top;
+	background:url("/images/rightBlue.gif") no-repeat right top;
 }
 
 
 #tabs li.red {
-	background:url("leftRed.gif") no-repeat left top;
+	background:url("/images/leftRed.gif") no-repeat left top;
 }
 
 #tabs span.red {
-	background:url("rightRed.gif") no-repeat right top;
+	background:url("/images/rightRed.gif") no-repeat right top;
 }
 
 
 #tabs li.green {
-	background:url("leftGreen.gif") no-repeat left top;
+	background:url("/images/leftGreen.gif") no-repeat left top;
 }
 
 #tabs span.green {
-	background:url("rightGreen.gif") no-repeat right top;
+	background:url("/images/rightGreen.gif") no-repeat right top;
 }
 
 
 #tabs li.darkgreen {
-	background:url("leftDarkGreen.gif") no-repeat left top;
+	background:url("/images/leftDarkGreen.gif") no-repeat left top;
 }
 
 #tabs span.darkgreen {
-	background:url("rightDarkGreen.gif") no-repeat right top;
+	background:url("/images/rightDarkGreen.gif") no-repeat right top;
 }
 
 
 #tabs li.orange {
-	background:url("leftOrange.gif") no-repeat left top;
+	background:url("/images/leftOrange.gif") no-repeat left top;
 }
 
 #tabs span.orange {
-	background:url("rightOrange.gif") no-repeat right top;
+	background:url("/images/rightOrange.gif") no-repeat right top;
 }
 
 
 #tabs .current {
-	/* background-image:url("left_on.gif"); */
-	background-image:url("leftBlue.gif");
+	/* background-image:url("/images/left_on.gif"); */
+	background-image:url("/images/leftBlue.gif");
 }
 
 #tabs .current span {
-	/* background-image:url("right_on.gif"); */
-	background-image:url("rightBlue.gif");
+	/* background-image:url("/images/right_on.gif"); */
+	background-image:url("/images/rightBlue.gif");
 	color:#333333;
 	padding-bottom:5px;
 	font-weight: bold;
@@ -93,54 +93,54 @@
 }
 
 #tabs .bluecurrent {
-	background-image:url("leftBlue.gif");
+	background-image:url("/images/leftBlue.gif");
 }
 
 #tabs .bluecurrent span {
-	background-image:url("rightBlue.gif");
+	background-image:url("/images/rightBlue.gif");
 	color:black;
 	padding-bottom:5px;
 	font-weight: bold;
 }
 
 #tabs .redcurrent {
-	background-image:url("leftRed.gif");
+	background-image:url("/images/leftRed.gif");
 }
 
 #tabs .redcurrent span {
-	background-image:url("rightRed.gif");
+	background-image:url("/images/rightRed.gif");
 	padding-bottom:5px;
 	font-weight: bold;
 }
 
 #tabs .greencurrent {
-	background-image:url("leftGreen.gif");
+	background-image:url("/images/leftGreen.gif");
 }
 
 #tabs .greencurrent span {
-	background-image:url("rightGreen.gif");
+	background-image:url("/images/rightGreen.gif");
 	color:black;
 	padding-bottom:5px;
 	font-weight: bold;
 }
 
 #tabs .darkgreencurrent {
-	background-image:url("leftDarkGreen.gif");
+	background-image:url("/images/leftDarkGreen.gif");
 }
 
 #tabs .darkgreencurrent span {
-	background-image:url("rightDarkGreen.gif");
+	background-image:url("/images/rightDarkGreen.gif");
 	color:black;
 	padding-bottom:5px;
 	font-weight: bold;
 }
 
 #tabs .orangecurrent {
-	background-image:url("leftOrange.gif");
+	background-image:url("/images/leftOrange.gif");
 }
 
 #tabs .orangecurrent span {
-	background-image:url("rightOrange.gif");
+	background-image:url("/images/rightOrange.gif");
 	color:black;
 	padding-bottom:5px;
 	font-weight: bold;
