@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>PGIST Portal - Let's Improve Transportation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="pgist.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div id="decorBar"></div>
+
+
+<div id="header"><img src="images/logo.jpg">
+
+</div>
+
+
+<div id="navigation">
+	<div id="bread">
+	<ul>
+		<li class="first">LIT Process
+		<ul>
+			<li>&#187; Brainstorm Concerns</li>
+		</ul></li>
+	</ul>
+	</div>
+
+</div><br>
+<span class="title_page">Brainstorm Concerns</span>
+<div id="container"><br>
+  <div id="overview"><span class="title_overview">Overview and Instructions</span> 
+  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Fusce eu ante vitae risus varius scelerisque. Vivamus fermentum. Maecenas posuere arcu in eros. Sed tortor. Praesent quis purus. Ut accumsan metus non nisl. Nullam consequat, ligula a bibendum porta, nisl justo volutpat pede, vitae commodo felis nisl malesuada est. Fusce pellentesque. Sed dolor pede, lobortis vel, pellentesque ut, sodales vel, augue. Vestibulum molestie fringilla nibh. Nulla condimentum. In quis justo. Integer vel est. Sed ligula sapien, scelerisque a, pulvinar eu, molestie vitae, urna. Morbi vestibulum. Vestibulum vestibulum.</p>
+ 
+  </div>
+  <br>
+  <div id="slate">
+    <span class="title_section">List of Created Concerns</span><br>
+	<p><span class="explaination">None created yet.  Please add a concern below.  Please refer to other participant's concerns on the right column for examples.</span></p>
+    <span class="title_section">Add your concern</span>
+    <form name="form1" method="post" action="">
+      <p>
+        <textarea name="addConcern" cols="50" rows="5" id="addConcern"></textarea>
+</p>
+      <p>
+        <input type="submit" name="Submit" value="Submit"> 
+        <input type="reset" name="Submit2" value="Reset"> 
+      </p>
+    </form>
+    <p>&nbsp; </p>
+  </div>
+	<div id="bar">
+	  <span class="title_bar">Other Participants Concerns</span><p>
+	  <form name="form2" method="post" action="">
+	    <select name="select">
+	      <option selected>Sort by...</option>
+	      <option>Date Ascending</option>
+	      <option>Date Decending</option>
+	      <option>Category</option>
+	      <option>No Sort (Random)</option>
+        </select>
+        <input type="submit" name="Submit3" value="Sort!">
+      </form>
+	  <p>To help you create your concerns, below are examples of other participant concerns in random order. To sort, use the drop down box above. </p>
+	  <p><span class="participantName">Mark said:</span><br>
+	    &quot;They don't know how to spend our money on transportation projects in Seattle!&quot;<br>
+	    <strong>Tags</strong>: Money, Projects </p>
+	  <p><span class="participantName">Jack Said:</span><br>
+	    &quot;I want projects that promote bicycling/walking!&quot;<br>
+        <strong>Tags: </strong>Bicycling, Walking</p>
+	  <p><span class="participantName">Hallie Said:</span><br>
+	    &quot;We need to focus on projects that have the best bang for the buck!&quot;<br>
+	    <strong>Tags: </strong>Money, Projects </p>
+    </div>
+</p>
+</div>
+<br>
+<div id="footer"><a href="http://www.pgist.org" target="_blank"><img src="images/footer_pgist.jpg" alt="Powered by the PGIST Portal" border="0" align="right"></a></div>
+<div id="nsf">This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.</div>
+
+</body>
+</html>
