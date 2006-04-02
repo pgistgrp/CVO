@@ -1,4 +1,0 @@
-<div>
-	Page 2<br/>
-	<a href="javascript:void(0)" onclick="RefreshTab('tab_page2');">Refresh This Tab</a>
-</div>
