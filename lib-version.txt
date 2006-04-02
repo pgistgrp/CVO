@@ -4,6 +4,7 @@ DWR v1.1b3
 Struts v1.2.8
 Prototype 1.5.0
 Rico 1.1.0
+scriptaculous 1.6
 dhtmlxTree 1.2 standard
 Lucene 1.4.3
 
