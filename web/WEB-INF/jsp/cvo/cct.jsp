@@ -28,11 +28,11 @@
 			document.getElementById('validation').innerHTML = 'Please fill in your concern above.';
 			Effect.OpenUp('validation');
 			Effect.CloseDown('tagConcerns');
-			Effect.Yellow('validation', {duration: 4});
+			Effect.Yellow('validation', {duration: 4, endcolor:'#EEEEEE'});
 		}else{
 			Effect.CloseDown('validation');
 			Effect.OpenUp('tagConcerns');
-			Effect.Yellow('tagConcerns', {duration: 4});
+			Effect.Yellow('tagConcerns', {duration: 4, endcolor:'#EEEEEE'});
 		}
 	}
 	
