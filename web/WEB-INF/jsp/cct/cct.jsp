@@ -5,11 +5,11 @@
 <title>PGIST Portal - Let's Improve Transportation</title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <style type="text/css" media="screen">@import "tabs.css";</style>
-<script src="ajax.js" type="text/javascript"></script>
-<script src="tabs.js" type="text/javascript"></script>
-<script src="./javascripts/prototype.js" type="text/javascript"></script>
-<script src="./javascripts/effects.js" type="text/javascript"></script>
-<script src="./javascripts/combo.js" type="text/javascript"></script>
+<script src="/scripts/ajax.js" type="text/javascript"></script>
+<script src="/scripts/tabs.js" type="text/javascript"></script>
+<script src="/scripts/prototype.js" type="text/javascript"></script>
+<script src="/scripts/effects.js" type="text/javascript"></script>
+<script src="./scripts/combo.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 	function doOnLoad() {
@@ -84,6 +84,7 @@
       </p>
     
     <div id="tagConcerns" style="display: none;"><span class="title_section">Tag Your Concern</span>
+    <div id="tags"></div>
     <input type="text" name="tags" size="55"><input type="submit" name="SubmitConcern" value="Add Concern!">
     </div>
     </form>
