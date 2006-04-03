@@ -98,8 +98,9 @@
     <target name="javadoc">
         <delete dir="${javadoc}"/>
         <mkdir dir="${javadoc}"/>
-        <javadoc classpathref="classpath" destdir="${javadoc}" author="true" version="true" use="true" windowtitle="PGIST API" doctitle="PGIST"
-                 bottom="Copyright &#169; ${doctime} University of Washington University. All Rights Reserved.">
+        <javadoc classpathref="classpath" destdir="${javadoc}" author="true" version="true"
+                 use="true" windowtitle="PGIST API" doctitle="PGIST" Locale="en_US"
+                 bottom="Copyright &#169; ${doctime} University of Washington. All Rights Reserved.">
             <packageset dir="${src}" defaultexcludes="yes">
               <include name="**"/>
             </packageset>

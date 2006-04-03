@@ -25,6 +25,10 @@
   </table>
 </html:form>
 
+<br>
+<br>
+
+<a href="">Javadoc</a>
 <!--tags:discussion discussible="null" url="/test.do" count="10"/-->
 
 </body>

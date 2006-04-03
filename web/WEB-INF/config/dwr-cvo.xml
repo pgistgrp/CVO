@@ -47,6 +47,10 @@
       <param name="beanName" value="cctAgent"/>
       <include method="getCCTs"/>
       <include method="createCCT"/>
+      <include method="prepareConcern"/>
+      <include method="saveConcern"/>
+      <include method="getConcerns"/>
+      <include method="getTagCloud"/>
     </create>
 
 
@@ -61,6 +65,10 @@
       import org.pgist.cvo.CCTAgent;
       CCTAgent.getCCTs(Map<String, String>);
       CCTAgent.createCCT(Map<String, String>);
+      CCTAgent.prepareConcern(Map<String, String>);
+      CCTAgent.saveConcern(Map<String, String>);
+      CCTAgent.getConcerns(Map<String, String>);
+      CCTAgent.getTagCloud(Map<String, String>);
     ]]>
 
 
