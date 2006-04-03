@@ -18,7 +18,7 @@
 <script type="text/javascript">
 	function doOnLoad() {
 		OpenTab("tab_page2", "Tags", "tags.html", false, '');
-		OpenTab("tab_page1", "Concerns", "concerns.html", false, '');
+		OpenTab("tab_page1", "Other Participants Concerns'", "concerns.html", false, '');
 	}
 	
 	function validateForm()
