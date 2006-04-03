@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    
+    <bean id="cctDAO" class="org.pgist.cvo.CCTDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+    
+    
+    <bean id="cctService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.cvo.CCTServiceImpl">
+                <property name="userDAO" ref="userDAO"/>
+                <property name="cctDAO" ref="cctDAO"/>
+            </bean>
+        </property>
+    </bean>
+    
+    
+    <bean id="cctAgent" class="org.pgist.cvo.CCTAgent">
+        <property name="cctService" ref="cctService"/>
+    </bean>
+    
+    
+</beans>
+

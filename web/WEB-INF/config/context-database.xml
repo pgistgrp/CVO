@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    
+    
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName">
+           <value>org.postgresql.Driver</value>
+        </property>
+        <property name="url">
+           <value>jdbc:postgresql://localhost/cvotest</value>
+        </property>
+        <property name="username">
+           <value>pgist</value>
+        </property>
+        <property name="password">
+           <value>pgist</value>
+        </property>
+    </bean>
+    
+    
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource">
+           <ref local="dataSource" />
+        </property>
+        <property name="mappingResources">
+           <list>
+               <value>org/pgist/users/User.hbm.xml</value>
+               <value>org/pgist/users/Role.hbm.xml</value>
+               <value>org/pgist/model/Discussible.hbm.xml</value>
+               <value>org/pgist/model/DiscourseObject.hbm.xml</value>
+               <value>org/pgist/model/Post.hbm.xml</value>
+               <value>org/pgist/model/PGame.hbm.xml</value>
+               <value>org/pgist/cvo/Category.hbm.xml</value>
+               <value>org/pgist/cvo/Concern.hbm.xml</value>
+               <value>org/pgist/cvo/Tag.hbm.xml</value>
+               <value>org/pgist/workflow/DecisionSituation.hbm.xml</value>
+               <value>org/pgist/wfengine/WorkflowEnvironment.hbm.xml</value>
+               <value>org/pgist/wfengine/RunningContext.hbm.xml</value>
+               <value>org/pgist/wfengine/Workflow.hbm.xml</value>
+               <value>org/pgist/wfengine/Activity.hbm.xml</value>
+               <value>org/pgist/wfengine/Template.hbm.xml</value>
+               <value>org/pgist/wfengine/Task.hbm.xml</value>
+               <value>org/pgist/wfengine/AccessManager.hbm.xml</value>
+               <value>org/pgist/voting/VotePackage.hbm.xml</value>
+               <value>org/pgist/voting/VoteSheet.hbm.xml</value>
+               <value>org/pgist/voting/VoteItem.hbm.xml</value>
+           </list>
+        </property>
+        <property name="hibernateProperties">
+           <props>
+               <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+               <prop key="hibernate.show_sql">true</prop>
+               <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+               <prop key="hibernate.default_batch_fetch_size">20</prop>
+           </props>
+        </property>
+    </bean>
+    
+    
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory">
+           <ref local="sessionFactory" />
+        </property>
+    </bean>
+    
+    
+    <bean id="baseTransactionProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+      <property name="transactionManager" ref="transactionManager"/>
+      <property name="transactionAttributes">
+        <props>
+          <prop key="add*">PROPAGATION_REQUIRED</prop>
+          <prop key="save*">PROPAGATION_REQUIRED</prop>
+          <prop key="set*">PROPAGATION_REQUIRED</prop>
+          <prop key="update*">PROPAGATION_REQUIRED</prop>
+          <prop key="edit*">PROPAGATION_REQUIRED</prop>
+          <prop key="create*">PROPAGATION_REQUIRED</prop>
+          <prop key="delete*">PROPAGATION_REQUIRED</prop>
+          <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+          <prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
+        </props>
+      </property>
+    </bean>
+    
+    
+</beans>
+

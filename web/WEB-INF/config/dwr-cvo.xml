@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN" "http://www.getahead.ltd.uk/dwr/dwr10.dtd">
+
+<dwr>
+
+
+  <allow>
+
+
+    <!-- Beans Convertor -->
+
+    <convert converter="bean" match="org.pgist.cvo.CCT">
+      <param name="exclude" value="concerns"/>
+    </convert>
+
+    <convert converter="bean" match="org.pgist.cvo.Concern"/>
+
+    <convert converter="bean" match="org.pgist.cvo.Tag">
+      <param name="exclude" value="categories"/>
+    </convert>
+
+    <convert converter="bean" match="org.pgist.cvo.Category">
+      <param name="exclude" value="parent, children, tags"/>
+    </convert>
+
+
+    <!-- DWR Agents -->
+
+    <!--create creator="spring" javascript="CVOAgent">
+      <param name="beanName" value="cvoAgent"/>
+      <include method="getCVOList"/>
+      <include method="createCVO"/>
+      <include method="extractConcern"/>
+      <include method="createConcern"/>
+      <include method="getPost"/>
+      <include method="createPost"/>
+      <include method="getPostGroups"/>
+      <include method="getCategoryTags"/>
+      <include method="createCategory"/>
+      <include method="addTagToCategory"/>
+      <include method="deleteTagFromCategory"/>
+      <include method="moveCategory"/>
+      <include method="createTag"/>
+    </create-->
+
+    <create creator="spring" javascript="CCTAgent">
+      <param name="beanName" value="cctAgent"/>
+      <include method="getCCTs"/>
+      <include method="createCCT"/>
+    </create>
+
+
+  </allow>
+
+
+  <signatures>
+
+
+    <![CDATA[
+      import java.util.Map;
+      import org.pgist.cvo.CCTAgent;
+      CCTAgent.getCCTs(Map<String, String>);
+      CCTAgent.createCCT(Map<String, String>);
+    ]]>
+
+
+  </signatures>
+
+
+</dwr>
+

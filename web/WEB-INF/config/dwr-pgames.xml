@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN" "http://www.getahead.ltd.uk/dwr/dwr10.dtd">
+
+<dwr>
+
+
+  <allow>
+
+
+    <convert converter="bean" match="org.pgist.workflow.pgame.brainstorming.BrainStorming"/>
+
+    <create creator="spring" javascript="BrainStormingAgent">
+      <param name="beanName" value="brainStormingAgent"/>
+      <include method="extractConcern"/>
+      <include method="createConcern"/>
+      <include method="getPost"/>
+      <include method="createPost"/>
+      <include method="getPostGroups"/>
+    </create>
+
+
+  </allow>
+
+
+</dwr>
+

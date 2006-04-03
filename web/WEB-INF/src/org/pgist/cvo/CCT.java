@@ -1,0 +1,56 @@
+package org.pgist.cvo;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.pgist.model.PGame;
+
+
+/**
+ * 
+ * @author kenny
+ *
+ * @hibernate.joined-subclass name="CCT" table="pgist_cvo_cct"
+ * @hibernate.joined-subclass-key column="id"
+ */
+public class CCT extends PGame {
+    
+    
+    private int maxConcernPerPerson = Integer.MAX_VALUE;
+    
+    private Set concerns = new HashSet();
+    
+    
+    /**
+     * @return
+     * 
+     * @hibernate.property not-null="true"
+     */
+    public int getMaxConcernPerPerson() {
+        return maxConcernPerPerson;
+    }
+    
+    
+    public void setMaxConcernPerPerson(int maxConcernPerPerson) {
+        this.maxConcernPerPerson = maxConcernPerPerson;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.set lazy="true" table="pgist_cvo_concerns" order-by="createTime desc"
+     * @hibernate.collection-key column="cct_id"
+     * @hibernate.collection-one-to-many class="org.pgist.cvo.Concern"
+     */
+    public Set getConcerns() {
+        return concerns;
+    }
+
+
+    public void setConcerns(Set concerns) {
+        this.concerns = concerns;
+    }
+    
+    
+}//class CCT
