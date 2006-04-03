@@ -11,6 +11,7 @@
     <property name="build" value="${web}/WEB-INF/classes" />
     <property name="tomcat" value="/opt/jakarta-tomcat-5.5.9"/>
     <property name="webapp" value="${tomcat}/webapps/ROOT"/>
+    <property name="javadoc-webapp" value="${tomcat}/webapps/pgist-docs"/>
     <property name="javadoc" value="docs/api"/>
     <property name="doctime" value="2006"/>
 
@@ -105,6 +106,10 @@
               <include name="**"/>
             </packageset>
         </javadoc>
+        <copy todir="${javadoc-webapp}">
+          <fileset dir="${javadoc}">
+          </fileset>
+        </copy>
     </target>
 
 
