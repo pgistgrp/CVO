@@ -141,3 +141,13 @@ td.hideright {
 	border-top-color: #339900;
 	padding-left: 5px;
 }
+
+
+.pg_button {
+  cursor: pointer;
+  cursor: hand;
+  color: blue;
+  font-weight:bold;
+  text-decoration:underline;
+}
+

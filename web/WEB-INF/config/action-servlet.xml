@@ -17,26 +17,36 @@
     </bean>
     
     
-    <bean name="/search" class="org.pgist.search.SearchAction">
+    <!--bean name="/search" class="org.pgist.search.SearchAction">
         <property name="searchHelper" ref="searchHelper"/>
         <property name="cvoDAO" ref="cvoDAO"/>
+    </bean-->
+    
+    
+    <bean name="/cctlist" class="org.pgist.cvo.CCTListAction">
+        <property name="cctService" ref="cctService"/>
     </bean>
     
     
-    <bean name="/cvolist" class="org.pgist.cvo.CVOListAction">
+    <bean name="/cctview" class="org.pgist.cvo.CCTViewAction">
+        <property name="cctService" ref="cctService"/>
+    </bean>
+    
+    
+    <!--bean name="/cvolist" class="org.pgist.cvo.CVOListAction">
         <property name="userDAO" ref="userDAO"/>
         <property name="cvoDAO" ref="cvoDAO"/>
     </bean>
     
     
     <bean name="/cvoview" class="org.pgist.cvo.CVOViewAction">
-        <property name="cvoDAO" ref="cvoDAO"/>
+        <property name="cvoService" ref="cvoService"/>
     </bean>
     
     
     <bean name="/concernManagement" class="org.pgist.cvo.ConcernManagementAction">
         <property name="cvoDAO" ref="cvoDAO"/>
-    </bean>
+    </bean-->
     
     
     <!-- Workflow Management Actions -->

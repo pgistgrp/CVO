@@ -17,6 +17,8 @@ public class CVOViewAction extends Action {
     
     private CVODAO cvoDAO;
     
+    private CCTService cvoService;
+    
     
     public CVOViewAction() {
     }
@@ -25,6 +27,16 @@ public class CVOViewAction extends Action {
     public void setCvoDAO(CVODAO cvoDAO) {
         this.cvoDAO = cvoDAO;
     }
+    
+    
+    public void setCvoService(CCTService CVOService) {
+        this.cvoService = CVOService;
+    }
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
     
     
     public ActionForward execute(
@@ -47,6 +59,6 @@ public class CVOViewAction extends Action {
         
         return mapping.findForward("view");
     }//execute()
-    
-    
-}
+
+
+}//class CVOViewAction

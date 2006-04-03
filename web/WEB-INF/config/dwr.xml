@@ -3,74 +3,17 @@
 
 <dwr>
 
+
   <allow>
 
+
     <convert converter="bean" match="org.pgist.users.User"/>
-    <convert converter="bean" match="org.pgist.model.Post">
-      <param name="exclude" value="parent, children, root"/>
-    </convert>
-    <convert converter="bean" match="org.pgist.workflow.pgame.brainstorming.BrainStorming"/>
-    <convert converter="bean" match="org.pgist.cvo.CVO"/>
-    <convert converter="bean" match="org.pgist.cvo.Tag">
-      <param name="exclude" value="categories"/>
-    </convert>
-    <convert converter="bean" match="org.pgist.cvo.Category">
-      <param name="exclude" value="parent, children, tags"/>
-    </convert>
+    
+    <convert converter="bean" match="org.pgist.users.Role"/>
 
-    <create creator="spring" javascript="CVOAgent">
-      <param name="beanName" value="cvoAgent"/>
-      <include method="getCVOList"/>
-      <include method="createCVO"/>
-      <include method="extractConcern"/>
-      <include method="createConcern"/>
-      <include method="getPost"/>
-      <include method="createPost"/>
-      <include method="getPostGroups"/>
-      <include method="getCategoryTags"/>
-      <include method="createCategory"/>
-      <include method="addTagToCategory"/>
-      <include method="deleteTagFromCategory"/>
-      <include method="moveCategory"/>
-      <include method="createTag"/>
-    </create>
-
-    <create creator="spring" javascript="BrainStormingAgent">
-      <param name="beanName" value="brainStormingAgent"/>
-      <include method="extractConcern"/>
-      <include method="createConcern"/>
-      <include method="getPost"/>
-      <include method="createPost"/>
-      <include method="getPostGroups"/>
-    </create>
-
-    <create creator="spring" javascript="WorkflowAgent">
-      <param name="beanName" value="workflowAgent"/>
-      <include method="getTemplates"/>
-      <include method="createSituation"/>
-      <include method="refreshSituationList"/>
-    </create>
-
-    <create creator="spring" javascript="WFModelingAgent">
-      <param name="beanName" value="wfModelingAgent"/>
-      <include method="test"/>
-    </create>
 
   </allow>
-  
 
-  <signatures>
-  
-  
-    <![CDATA[
-      import java.util.Map;
-      import org.pgist.cvo.CVOAgent;
-      CVOAgent.getPostGroups(Map<String, String>);
-    ]]>
-    
-    
-  </signatures>
-  
-  
+
 </dwr>
 

@@ -56,6 +56,7 @@ public class LoginAction extends Action {
         if (user!=null && user.checkPassword(password)) {
             session = request.getSession(true);
             session.setAttribute("user", user);
+            session.setAttribute("userId", user.getId());
             session.setAttribute("userLoginname", user.getLoginname());
             
             Map map = new HashMap();

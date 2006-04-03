@@ -25,7 +25,7 @@
   </table>
 </html:form>
 
-<tags:discussion discussible="null" url="/test.do" count="10"/>
+<!--tags:discussion discussible="null" url="/test.do" count="10"/-->
 
 </body>
 </html:html>

@@ -7,32 +7,31 @@ import java.util.SortedSet;
  *
  * @author kenny
  *
- *
- * @hibernate.class table="pgist_cst_tags" lazy="true"
+ * @hibernate.class table="pgist_cvo_tags" lazy="true"
  */
 public class Tag {
-    public Tag() {
-        try {
-            jbInit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+    
+    
+    public static final int STATUS_OFFICIAL  = 1;
 
+    public static final int STATUS_CANDIDATE = 2;
+
+    public static final int STATUS_REJECTED  = 3;
+    
 
     protected Long id;
-
+    
     protected String name;
-
+    
+    protected String description = "";
+    
     protected SortedSet categories;
-
-    protected boolean deleted = false;
-
-    //Jie March 20, 2006
-    private boolean candidate = false;
+    
+    private int status = STATUS_CANDIDATE;
+    
     private int count = 0;
-
-
+    
+    
     /**
      * @return
      * @hibernate.id generator-class="native"
@@ -63,8 +62,22 @@ public class Tag {
 
     /**
      * @return
+     * @hibernate.property not-null="true"
+     */
+    public String getDescription() {
+        return description;
+    }
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    /**
+     * @return
      *
-     * @hibernate.set lazy="true" table="pgist_cst_cat_tag_link" sort="org.pgist.cvo.CategoryComparator"
+     * @hibernate.set lazy="true" table="pgist_cvo_cat_tag_link" sort="org.pgist.cvo.CategoryComparator"
      * @hibernate.collection-key column="tag_id"
      * @hibernate.collection-many-to-many column="category_id" class="org.pgist.cvo.Category"
      */
@@ -82,37 +95,28 @@ public class Tag {
      * @return
      * @hibernate.property not-null="true"
      */
-    public boolean isDeleted() {
-        return deleted;
+    public int getStatus() {
+        return status;
     }
-
-    //Jie March 20, 2006
-    public boolean getCandidate() {
-        return candidate;
+    
+    
+    public void setStatus(int status) {
+        this.status = status;
     }
-
-    //Jie March 20, 2006
+    
+    
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
     public int getCount() {
         return count;
     }
 
 
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
-
-    //Jie March 20, 2006
-    public void setCandidate(boolean candidate) {
-        this.candidate = candidate;
-    }
-
-    //Jie March 20, 2006
     public void setCount(int count) {
         this.count = count;
     }
 
-    private void jbInit() throws Exception {
-    }
 
-
-}
+}//class Tag

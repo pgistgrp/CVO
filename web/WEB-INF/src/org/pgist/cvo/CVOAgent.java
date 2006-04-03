@@ -29,6 +29,8 @@ import uk.ltd.getahead.dwr.WebContextFactory;
 public class CVOAgent {
     
     
+    private CCTService cvoService;
+    
     private UserDAO userDAO;
     
     private CVODAO cvoDAO;
@@ -36,6 +38,11 @@ public class CVOAgent {
     private SearchHelper searchHelper;
     
     
+    public void setCvoService(CCTService cvoService) {
+        this.cvoService = cvoService;
+    }
+
+
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
@@ -49,6 +56,11 @@ public class CVOAgent {
     public void setSearchHelper(SearchHelper searchHelper) {
         this.searchHelper = searchHelper;
     }
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
 
 
     public Map getCVOList() throws Exception {
@@ -317,4 +329,4 @@ public class CVOAgent {
     }//createTag()
     
     
-}
+}//class CVOAgent

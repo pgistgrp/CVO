@@ -4,7 +4,6 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.system.UserDAO;
 
 
 /**
@@ -15,17 +14,10 @@ import org.pgist.system.UserDAO;
 public class CVOListAction extends Action {
 
     
-    private UserDAO userDAO;
-    
     private CVODAO cvoDAO;
     
     
     public CVOListAction() {
-    }
-    
-    
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
     }
     
     

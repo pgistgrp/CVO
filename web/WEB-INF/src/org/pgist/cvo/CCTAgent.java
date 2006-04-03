@@ -5,20 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.index.IndexWriter;
-import org.pgist.model.DiscourseObject;
-import org.pgist.model.Post;
-import org.pgist.search.SearchHelper;
-import org.pgist.system.UserDAO;
-import org.pgist.users.User;
-
-import uk.ltd.getahead.dwr.WebContext;
-import uk.ltd.getahead.dwr.WebContextFactory;
 
 
 /**
@@ -29,159 +15,56 @@ import uk.ltd.getahead.dwr.WebContextFactory;
 public class CCTAgent {
 
 
-    private UserDAO userDAO;
-
-    private CVODAO cvoDAO;
-
-    private SearchHelper searchHelper;
+    CCTService cctService = null;
 
 
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    public void setCctService(CCTService cctService) {
+        this.cctService = cctService;
     }
-
-
-    public void setCvoDAO(CVODAO cvoDAO) {
-        this.cvoDAO = cvoDAO;
-    }
-
-
-    public void setSearchHelper(SearchHelper searchHelper) {
-        this.searchHelper = searchHelper;
-    }
-
-    public Map createCVO(HttpSession session, String name, String question) throws Exception {
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
+    /**
+     * 
+     * @param params
+     * @return
+     * @throws Exception
+     */
+    public Map getCCTs(Map params)  throws Exception {
         Map map = new HashMap();
-
-        if (name==null || question==null) {
-            map.put("result", "false");
-            map.put("alert", "Please input the name and the question.");
-            return map;
-        }
-
-        name = name.trim();
-        question = question.trim();
-
-        if ("".equals(name) || "".equals(question)) {
-            map.put("result", "false");
-            map.put("alert", "Please input the name and the question.");
-            return map;
-        }
-
-        User user = (User) session.getAttribute("user");
-        user = userDAO.getUserById(user.getId(), true, false);
-
-        Post post = new Post();
-        post.setRoot(post);
-        post.setTarget(true);
-        post.setOwner(user);
-        post.setParent(null);
-        post.setTime(new Date());
-        post.setContent(question);
-
-        DiscourseObject dobj = new DiscourseObject();
-        dobj.setOwner(user);
-        dobj.setRoot(post);
-
-        CVO cvo = new CVO();
-        cvo.setName(name);
-        cvo.setOwner(user);
-        cvo.setDeleted(false);
-        cvo.setDiscourseObject(dobj);
-
-        dobj.setTarget(cvo);
-
-        cvoDAO.savePost(post);
-        cvoDAO.saveDO(dobj);
-        cvoDAO.saveCVO(cvo);
-
+        
+        Collection list = cctService.getCCTs();
+        map.put("ccts", list);
+        
+        return map;
+    }//getCCTs()
+    
+    
+    /**
+     * 
+     * @param params
+     * @return
+     * @throws Exception
+     */
+    public Map createCCT(Map params) throws Exception {
+        Map map = new HashMap();
+        
+        CCT cct = new CCT();
+        cct.setName((String) params.get("name"));
+        cct.setPurpose((String) params.get("purpose"));
+        cct.setInstruction((String) params.get("instruction"));
+        cct.setCreateTime(new Date());
+        
+        cctService.save(cct);
+        
         map.put("result", "true");
+        
         return map;
-    }//createCVO()
-
-    public Map extractTags(String paragraph) throws Exception {
-        Map map = new HashMap();
-
-        //grab the analyzer from Spring and use it
-        //to parse this paragraph, and get the returned tags
-
-        map.put("successful", true);
-        map.put("tags", "transportation, position, noise");
-
-        return map;
-    }//analyzeConcern()
-
-    public Map createConcern(HttpSession session, Long cvoId, String paragraph, String concern) throws Exception {
-        Map map = new HashMap();
-
-        User user = (User) session.getAttribute("user");
-        user = userDAO.getUserById(user.getId(), true, false);
-
-        CVO cvo = cvoDAO.getCVOById(cvoId);
-        Post root = cvo.getDiscourseObject().getRoot();
-
-        Post post = root.addChild(paragraph, user);
-        post.setCategory(Post.CATEGORY_CONCERN);
-
-        cvoDAO.savePost(post);
-
-        /**
-         * Lucene Operation
-         */
-        IndexWriter indexWriter = searchHelper.getIndexWriter();
-        Document doc = new Document();
-        doc.add(Field.Text("contents", post.getContent()));
-        doc.add(Field.UnIndexed("type", "concern"));
-        doc.add(Field.UnIndexed("id", ""+post.getId()));
-        doc.add(Field.UnIndexed("cvoId", ""+cvoId));
-        indexWriter.addDocument(doc);
-        indexWriter.optimize();
-        indexWriter.close();
-
-        map.put("result", "true");
-
-        return map;
-    }//createConcern()
-
-
-    public Map getPost(Long postId) throws Exception {
-        Map map = new HashMap();
-
-        Post post = cvoDAO.getPostById(postId);
-        map.put("post", post);
-
-        return map;
-    }//getPost()
-
-
-
-    public String getPostGroups(Map params) throws Exception {
-        CVOForm form = new CVOForm();
-        CVO cvo = cvoDAO.getCVOById(new Long((String) (params.get("cvoId"))));
-        form.setRoot(cvo.getDiscourseObject().getRoot());
-
-        WebContext context = WebContextFactory.get();
-        HttpServletRequest request = context.getHttpServletRequest();
-        request.setAttribute("cvoForm", form);
-
-        String myPost = (String) params.get("myPost");
-        if ("0".equals(myPost)) {
-            return context.forwardToString("/WEB-INF/jsp/cvo/myPostGroups.jsp");
-        } else {
-            return context.forwardToString("/WEB-INF/jsp/cvo/postGroups.jsp");
-        }
-    }//getPostGroups()
-
-    public Map suggestTags(String name) throws Exception {
-        Map map = new HashMap();
-        map.put("result", "false");
-
-        Tag tag = cvoDAO.createTag(name);
-        map.put("tag", tag);
-
-        map.put("result", "true");
-        return map;
-    }//createTag()
-
-
-}
+    }//createCCT
+    
+    
+}//class CCTAgent

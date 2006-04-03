@@ -36,7 +36,9 @@
         <mapping resource="org/pgist/model/Discussible.hbm.xml"/>
         <mapping resource="org/pgist/model/DiscourseObject.hbm.xml"/>
         <mapping resource="org/pgist/model/Post.hbm.xml"/>
+        <mapping resource="org/pgist/model/PGame.hbm.xml"/>
         
+        <mapping resource="org/pgist/cvo/Concern.hbm.xml"/>
         <mapping resource="org/pgist/cvo/Category.hbm.xml"/>
         <mapping resource="org/pgist/cvo/Tag.hbm.xml"/>
         

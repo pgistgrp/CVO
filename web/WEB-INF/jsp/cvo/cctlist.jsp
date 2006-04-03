@@ -42,7 +42,7 @@
             var cct = list[i];
             var row = table.insertRow(table.rows.length);
             var column = row.insertCell(0);
-            column.innerHTML = '<a href="<html:rewrite page="/cctview.do"/>?id='+cct['id']+'">'+cct['name']+'</a>';
+            column.innerHTML = '<a href="<html:rewrite page="/cctview.do"/>?cctId='+cct['id']+'">'+cct['name']+'</a>';
           }
         });
       } else {

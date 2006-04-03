@@ -6,7 +6,7 @@
 <html:html>
 <head>
 <title>CVO List</title>
-<link rel="stylesheet" type="text/css" href="/styles/default.css">
+<link rel="stylesheet" type="text/css" href="/styles/default.css'/>">
 <script type='text/javascript' src='/scripts/base.js'></script>
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>

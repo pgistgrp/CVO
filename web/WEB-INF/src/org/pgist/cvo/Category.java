@@ -12,7 +12,7 @@ import org.pgist.model.Node;
  * 
  * @author kenny
  *
- * @hibernate.class table="pgist_cst_categories" lazy="true"
+ * @hibernate.class table="pgist_cvo_categories" lazy="true"
  */
 public class Category implements Node {
     
@@ -32,6 +32,7 @@ public class Category implements Node {
     
     /**
      * @return
+     * 
      * @hibernate.id generator-class="native"
      */
     public Long getId() {
@@ -46,6 +47,7 @@ public class Category implements Node {
 
     /**
      * @return
+     * 
      * @hibernate.property not-null="true"
      */
     public String getName() {
@@ -60,6 +62,7 @@ public class Category implements Node {
 
     /**
      * @return
+     * 
      * @hibernate.many-to-one column="parent_id" lazy="true"
      */
     public Category getParent() {
@@ -74,7 +77,8 @@ public class Category implements Node {
 
     /**
      * @return
-     * @hibernate.set lazy="true" table="pgist_cst_categories" order-by="name"
+     * 
+     * @hibernate.set lazy="true" table="pgist_cvo_categories" order-by="name"
      * @hibernate.collection-key column="parent_id"
      * @hibernate.collection-one-to-many class="org.pgist.cvo.Category"
      */
@@ -91,7 +95,7 @@ public class Category implements Node {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="pgist_cst_cat_tag_link" order-by="tag_id" sort="org.pgist.cvo.TagComparator"
+     * @hibernate.set lazy="true" table="pgist_cvo_cat_tag_link" order-by="tag_id" sort="org.pgist.cvo.TagComparator"
      * @hibernate.collection-key column="category_id"
      * @hibernate.collection-many-to-many column="tag_id" class="org.pgist.cvo.Tag"
      */
@@ -107,6 +111,7 @@ public class Category implements Node {
 
     /**
      * @return
+     * 
      * @hibernate.property not-null="true"
      */
     public boolean isDeleted() {
@@ -118,10 +123,15 @@ public class Category implements Node {
         this.deleted = deleted;
     }
 
-
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
     public String getCaption() {
         return name;
     }
     
     
-}
+}//class Category

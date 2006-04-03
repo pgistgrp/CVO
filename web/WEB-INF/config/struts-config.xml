@@ -11,6 +11,7 @@
     <form-beans>
         <form-bean name="searchForm" type="org.pgist.search.SearchForm"/>
         <form-bean name="userForm" type="org.pgist.system.UserForm"/>
+        <form-bean name="cctForm" type="org.pgist.cvo.CCTForm"/>
         <form-bean name="cvoForm" type="org.pgist.cvo.CVOForm"/>
         <form-bean name="workflowForm" type="org.pgist.workflow.WorkflowForm"/>
     </form-beans>
@@ -44,6 +45,16 @@
         <action path="/search" type="org.pgist.search.SearchAction" name="searchForm" scope="request">
             <forward name="index" path="/WEB-INF/jsp/search/index.jsp"/>
             <forward name="results" path="/WEB-INF/jsp/search/results.jsp"/>
+        </action>
+        
+        
+        <action path="/cctlist" type="org.pgist.cvo.CCTListAction" name="cctForm" scope="request">
+            <forward name="list" path="/WEB-INF/jsp/cvo/cctlist.jsp"/>
+        </action>
+        
+        
+        <action path="/cctview" type="org.pgist.cvo.CCTViewAction" name="cctForm" scope="request">
+            <forward name="view" path="/WEB-INF/jsp/cvo/cct.jsp"/>
         </action>
         
         

@@ -135,7 +135,7 @@ public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
     public Tag createTag(String name) throws Exception {
         Tag tag = new Tag();
         tag.setName(name);
-        tag.setDeleted(false);
+        //tag.setDeleted(false);
         getHibernateTemplate().save(tag);
         
         return tag;

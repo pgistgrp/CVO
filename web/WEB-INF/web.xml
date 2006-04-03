@@ -12,8 +12,12 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-      /WEB-INF/config/dataAccessContext-local.xml
-      /WEB-INF/config/applicationContext.xml
+      /WEB-INF/config/context-database.xml
+      /WEB-INF/config/context-system.xml
+      /WEB-INF/config/context-webservice.xml
+      /WEB-INF/config/context-workflow.xml
+      /WEB-INF/config/context-cvo.xml
+      /WEB-INF/config/context-pgames.xml
 		</param-value>
 	</context-param>
 
@@ -21,14 +25,14 @@
       <param-name>org.pgist.CONFIG_DIR</param-name>
       <param-value>/WEB-INF/config</param-value>
   </context-param>
-  
-  
+
+
   <filter>
     	<filter-name>OpenSessionInViewFilter</filter-name>
       <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
   </filter>
-  
-  
+
+
   <filter>
     <filter-name>pgist filter</filter-name>
     <filter-class>org.pgist.web.PgistFilter</filter-class>
@@ -56,8 +60,8 @@
       <filter-name>pgist filter</filter-name>
       <url-pattern>/*</url-pattern>
   </filter-mapping>
-  
-  
+
+
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
@@ -115,12 +119,24 @@
       <param-value>WEB-INF/config/dwr.xml</param-value>
     </init-param>
     <init-param>
+      <param-name>config-webservice</param-name>
+      <param-value>WEB-INF/config/dwr-webservice.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>config-cvo</param-name>
+      <param-value>WEB-INF/config/dwr-cvo.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>config-pgames</param-name>
+      <param-value>WEB-INF/config/dwr-pgames.xml</param-value>
+    </init-param>
+    <init-param>
        <param-name>debug</param-name>
        <param-value>true</param-value>
     </init-param>
   </servlet>
-  
-  
+
+
   <servlet-mapping>
     <servlet-name>action</servlet-name>
     <url-pattern>*.do</url-pattern>
@@ -156,7 +172,7 @@
 	       /WEB-INF/config/pgist-taglib.tld
 	    </taglib-location>
 	</taglib>
-  
-  
+
+
 </web-app>
 

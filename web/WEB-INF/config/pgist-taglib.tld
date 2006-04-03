@@ -229,5 +229,23 @@
     </attribute>
   </tag>
   
+  <tag>
+    <name>button</name>
+    <tag-class>org.pgist.tags.ButtonTag</tag-class>
+    <body-content>scriptless</body-content>
+    <description>Faked Button Tag</description>
+    <attribute>
+      <name>title</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>onclick</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+  
+  
 </taglib>
 
