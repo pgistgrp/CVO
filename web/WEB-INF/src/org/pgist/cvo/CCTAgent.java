@@ -19,7 +19,9 @@ import java.util.Map;
 public class CCTAgent {
 
 
-    CCTService cctService = null;
+    private CCTService cctService = null;
+    
+    private TagAnalyzer analyzer = null;
 
 
     /**
@@ -32,6 +34,16 @@ public class CCTAgent {
     }
     
     
+    /**
+     * This is not an AJAX service method.
+     * 
+     * @param analyzer
+     */
+    public void setAnalyzer(TagAnalyzer analyzer) {
+        this.analyzer = analyzer;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */
@@ -43,7 +55,7 @@ public class CCTAgent {
      * @param params An empty map.
      * @return A map contains:<br>
      *         <ul>
-     *           <li>result - a boolean value to denote if the operation succeeds</li>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>ccts   - a list of CCT objects</li>
      *         </ul>
      * @throws Exception
@@ -52,7 +64,7 @@ public class CCTAgent {
         Map map = new HashMap();
         
         Collection list = cctService.getCCTs();
-        map.put("result", new Boolean(true));
+        map.put("successful", new Boolean(true));
         map.put("ccts", list);
         
         return map;
@@ -64,13 +76,13 @@ public class CCTAgent {
      * 
      * @param params A map contains:<br>
      *         <ul>
-     *           <li>name : name of the new CCT instance</li>
-     *           <li>purpose : purpose of the new CCT instance</li>
-     *           <li>instruction : instruction of the new CCT instance</li>
+     *           <li>name - String, name of the new CCT instance</li>
+     *           <li>purpose - String, purpose of the new CCT instance</li>
+     *           <li>instruction - String, instruction of the new CCT instance</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
-     *           <li>result - a boolean value to denote if the operation succeeds</li>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *         </ul>
      * @throws Exception
      */
@@ -85,67 +97,113 @@ public class CCTAgent {
         
         cctService.save(cct);
         
-        map.put("result", "true");
+        map.put("successful", new Boolean(true));
         
         return map;
     }//createCCT()
     
     
     /**
+     * Analyze the given concern, extract and return the recognized tags from it.
      * 
-     * @param params
-     * @return
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>concern - String, the new concern which user entered</li>
+     *           <li>purpose - String, purpose of the new CCT instance</li>
+     *           <li>instruction - String, instruction of the new CCT instance</li>
+     *         </ul>
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>tags - a list of Tag objects</li>
+     *         </ul>
      * @throws Exception
      */
     public Map prepareConcern(Map params) throws Exception {
         Map map = new HashMap();
         
-        map.put("result", "true");
+        map.put("tags", null);
+        map.put("successful", new Boolean(true));
         
         return map;
     }//prepareConcern()
     
     
     /**
+     * Save the given concern and its tags to the system.
      * 
-     * @param params
-     * @return
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>concern - String, the new concern which user entered</li>
+     *           <li>tags - String array, tags matched to the sysytem tag library</li>
+     *           <li>newtags - String array, new candidate tags provided by user</li>
+     *         </ul>
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *         </ul>
      * @throws Exception
      */
     public Map saveConcern(Map params) throws Exception {
         Map map = new HashMap();
         
-        map.put("result", "true");
+        map.put("successful", new Boolean(true));
         
         return map;
     }//saveConcern()
     
     
     /**
+     * Get concerns conform to given conditions.
      * 
-     * @param params
-     * @return
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>concern - String, the new concern which user entered</li>
+     *           <li>tags - String array, tags matched to the sysytem tag library</li>
+     *           <li>newtags - String array, new candidate tags provided by user</li>
+     *         </ul>
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>concerns - a list of Concern objects</li>
+     *         </ul>
      * @throws Exception
      */
     public Map getConcerns(Map params) throws Exception {
         Map map = new HashMap();
         
-        map.put("result", "true");
+        map.put("successful", new Boolean(true));
         
         return map;
     }//getConcerns()
     
     
     /**
+     * Get the tag cloud of the current CCT instance.
      * 
-     * @param params
-     * @return
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>cctId - long int, the current CCT instance id</li>
+     *           <li>type - int
+     *             <ul>
+     *               <li>type==0, search top count tags which are the hotest</li>
+     *               <li>type==1, search tags which are over a specific threshhold</li>
+     *             </ul>
+     *           </li>
+     *           <li>count - valid when type==0</li>
+     *           <li>threshhold - valid when type==1</li>
+     *         </ul>
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>tags - a list of Tag objects</li>
+     *         </ul>
      * @throws Exception
      */
     public Map getTagCloud(Map params) throws Exception {
         Map map = new HashMap();
         
-        map.put("result", "true");
+        map.put("successful", new Boolean(true));
         
         return map;
     }//getTagCloud()
