@@ -26,7 +26,7 @@
       instruction : $('createCCTDialog_instruction').value,
     };
     CCTAgent.createCCT(params, function(data) {
-      if (data['result']=='true') {
+      if (data.successful) {
         createCCTDialog.close();
         var table = $('cctListTable');
         n = table.rows.length;
@@ -34,19 +34,23 @@
         var row = table.insertRow(table.rows.length);
         var column = row.insertCell(0);
         column.innerHTML = '<span style="color:red;">Loading......</span>';
-        CCTAgent.getCCTs(function(data) {
-          var table = $('cctListTable');
-          table.deleteRow(0);
-          var list = data['ccts'];
-          for (var i=0; i<list.length; i++) {
-            var cct = list[i];
-            var row = table.insertRow(table.rows.length);
-            var column = row.insertCell(0);
-            column.innerHTML = '<a href="<html:rewrite page="/cctview.do"/>?cctId='+cct['id']+'">'+cct['name']+'</a>';
+        CCTAgent.getCCTs(function(data1) {
+          if (data1.successful) {
+            var table = $('cctListTable');
+            table.deleteRow(0);
+            var list = data1.ccts;
+            for (var i=0; i<list.length; i++) {
+              var cct = list[i];
+              var row = table.insertRow(table.rows.length);
+              var column = row.insertCell(0);
+              column.innerHTML = '<a href="<html:rewrite page="/cctview.do"/>?cctId='+cct['id']+'">'+cct['name']+'</a>';
+            }
+          } else {
+            alert(data.reason);
           }
         });
       } else {
-        alert(data['alert']);
+        alert(data.reason);
       }
     });
   }

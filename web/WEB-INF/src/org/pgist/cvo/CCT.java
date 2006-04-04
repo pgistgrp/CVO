@@ -39,7 +39,7 @@ public class CCT extends PGame {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="pgist_cvo_concerns" order-by="createTime desc"
+     * @hibernate.set lazy="true" cascade="all" table="pgist_cvo_concerns" order-by="createTime desc"
      * @hibernate.collection-key column="cct_id"
      * @hibernate.collection-one-to-many class="org.pgist.cvo.Concern"
      */

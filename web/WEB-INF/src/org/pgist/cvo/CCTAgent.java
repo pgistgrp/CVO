@@ -56,7 +56,8 @@ public class CCTAgent {
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
-     *           <li>ccts   - a list of CCT objects</li>
+     *           <li>ccts - a list of CCT objects</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      * @throws Exception
      */
@@ -83,6 +84,7 @@ public class CCTAgent {
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      * @throws Exception
      */
@@ -117,6 +119,7 @@ public class CCTAgent {
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>tags - a list of Tag objects</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      * @throws Exception
      */
@@ -143,6 +146,7 @@ public class CCTAgent {
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      * @throws Exception
      */
@@ -167,6 +171,7 @@ public class CCTAgent {
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>concerns - a list of Concern objects</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      * @throws Exception
      */
@@ -198,6 +203,7 @@ public class CCTAgent {
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>tags - a list of Tag objects</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      * @throws Exception
      */

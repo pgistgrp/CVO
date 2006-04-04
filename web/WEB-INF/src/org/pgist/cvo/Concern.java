@@ -102,9 +102,9 @@ public class Concern {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="pgist_cvo_tags" order-by="id" cascade="all"
-     * @hibernate.collection-key column="parent_id"
-     * @hibernate.collection-one-to-many class="org.pgist.cvo.Tag"
+     * @hibernate.set lazy="true" table="pgist_cvo_concern_tag_link" cascade="all" order-by="name"
+     * @hibernate.collection-key column="concern_id"
+     * @hibernate.collection-many-to-many column="tag_id" class="org.pgist.cvo.Tag"
      */
     public Set getTags() {
         return tags;
