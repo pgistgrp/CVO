@@ -108,6 +108,7 @@ public class CCTAgent {
      * 
      * @param params A map contains:<br>
      *         <ul>
+     *           <li>cctId - long int, the current CCT instance id</li>
      *           <li>concern - String, the new concern which user entered</li>
      *           <li>purpose - String, purpose of the new CCT instance</li>
      *           <li>instruction - String, instruction of the new CCT instance</li>
@@ -134,6 +135,7 @@ public class CCTAgent {
      * 
      * @param params A map contains:<br>
      *         <ul>
+     *           <li>cctId - long int, the current CCT instance id</li>
      *           <li>concern - String, the new concern which user entered</li>
      *           <li>tags - String array, tags matched to the sysytem tag library</li>
      *           <li>newtags - String array, new candidate tags provided by user</li>
