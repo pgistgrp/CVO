@@ -13,7 +13,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class TagDAOImpl extends HibernateDaoSupport implements TagDAO {
     
     
-    public List addTags(List tags) throws Exception {
+    public List addTags(String[] tags) throws Exception {
         return null;
     }//addTags()
     

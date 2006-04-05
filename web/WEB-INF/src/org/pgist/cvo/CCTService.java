@@ -1,7 +1,6 @@
 package org.pgist.cvo;
 
 import java.util.Collection;
-import java.util.List;
 
 
 /**
@@ -51,7 +50,7 @@ public interface CCTService {
      * @return
      * @throws Exception
      */
-    Concern createConcern(CCT cct, String concern, List tags) throws Exception;
+    Concern createConcern(CCT cct, String concern, String[] tags) throws Exception;
     
     /**
      * Get the current user's concerns.

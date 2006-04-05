@@ -22,7 +22,7 @@ public interface TagDAO {
      * @return A list of Tag object
      * @throws Exception
      */
-    List addTags(List tags) throws Exception;
+    List addTags(String[] tags) throws Exception;
     
     
 }//interface TagDAO

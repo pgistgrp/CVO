@@ -63,7 +63,7 @@ public class CCTServiceImpl implements CCTService {
     }//getCCTById()
 
 
-    public Concern createConcern(CCT cct, String concern, List tags) throws Exception {
+    public Concern createConcern(CCT cct, String concern, String[] tags) throws Exception {
         Concern concernObj = new Concern();
         
         Long id = WebUtils.currentUserId();

@@ -1,8 +1,10 @@
 package org.pgist.cvo;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -112,8 +114,6 @@ public class CCTAgent {
      *         <ul>
      *           <li>cctId - long int, the current CCT instance id</li>
      *           <li>concern - String, the new concern which user entered</li>
-     *           <li>purpose - String, purpose of the new CCT instance</li>
-     *           <li>instruction - String, instruction of the new CCT instance</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
@@ -126,7 +126,20 @@ public class CCTAgent {
     public Map prepareConcern(Map params) throws Exception {
         Map map = new HashMap();
         
-        map.put("tags", null);
+        //Temp for test
+        List tags = new ArrayList();
+        Tag tag = new Tag();
+        tag.setDescription("tag1");
+        tag.setName("tag1");
+        tag.setStatus(Tag.STATUS_OFFICIAL);
+        tags.add(tag);
+        tag = new Tag();
+        tag.setDescription("tag2");
+        tag.setName("tag2");
+        tag.setStatus(Tag.STATUS_OFFICIAL);
+        tags.add(tag);
+        
+        map.put("tags", tags);
         map.put("successful", new Boolean(true));
         
         return map;
@@ -140,12 +153,12 @@ public class CCTAgent {
      *         <ul>
      *           <li>cctId - long int, the current CCT instance id</li>
      *           <li>concern - String, the new concern which user entered</li>
-     *           <li>tags - String array, tags matched to the sysytem tag library</li>
-     *           <li>newtags - String array, new candidate tags provided by user</li>
+     *           <li>tags - String array, tags provided by current user</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>concern - A newly created Concern object</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      * @throws Exception
@@ -153,6 +166,14 @@ public class CCTAgent {
     public Map saveConcern(Map params) throws Exception {
         Map map = new HashMap();
         
+        Long cctId = new Long((String) params.get("cctId"));
+        String concern = (String) params.get("concern");
+        String[] tags = (String[]) params.get("tags");
+        CCT cct = cctService.getCCTById(cctId);
+        if (cct!=null) {
+            Concern concernObj = cctService.createConcern(cct, concern, tags);
+            map.put("concern", concernObj);
+        }
         map.put("successful", new Boolean(true));
         
         return map;

@@ -31,7 +31,7 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
     }//getMyConcerns()
 
 
-    private static final String hql_getOthersConcerns = "from Concern c where c.deleted=? and c.cct.id=? and author.id<>? order by c.id";
+    private static final String hql_getOthersConcerns = "from Concern c where c.deleted=? and c.cct.id=? and author.id<>? order by c.createTime";
     
     
     public Collection getOthersConcerns(Long cctId, Long userId, int count) throws Exception {
