@@ -19,9 +19,6 @@
     
     
     <bean id="tagAnalyzer" class="org.pgist.cvo.TagAnalyzer">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory" />
-        </property>
     </bean>
     
     

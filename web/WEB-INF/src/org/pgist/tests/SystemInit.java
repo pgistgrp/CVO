@@ -12,7 +12,7 @@ import org.apache.tools.ant.taskdefs.MatchingTask;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.pgist.cvo.CVO;
-import org.pgist.cvo.CVODAO;
+import org.pgist.cvo.CVODAO1;
 import org.pgist.cvo.Category;
 import org.pgist.cvo.Tag;
 import org.pgist.model.DiscourseObject;
@@ -44,7 +44,7 @@ public class SystemInit extends MatchingTask {
     
     private SessionFactory sessionFactory = null; 
     
-    private CVODAO cvoDAO;
+    private CVODAO1 cvoDAO;
     
     private UserDAO userDAO;
     
@@ -86,7 +86,7 @@ public class SystemInit extends MatchingTask {
         Session session = SessionFactoryUtils.getSession(sessionFactory, true);
         TransactionSynchronizationManager.bindResource(sessionFactory, new SessionHolder(session));
         
-        cvoDAO = (CVODAO) appContext.getBean("cvoDAO");
+        cvoDAO = (CVODAO1) appContext.getBean("cvoDAO");
         userDAO = (UserDAO) appContext.getBean("userDAO");
         engine = (WorkflowEngine) appContext.getBean("engine");
     }//setUp()

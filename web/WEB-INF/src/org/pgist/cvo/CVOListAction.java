@@ -14,14 +14,14 @@ import org.apache.struts.action.ActionMapping;
 public class CVOListAction extends Action {
 
     
-    private CVODAO cvoDAO;
+    private CVODAO1 cvoDAO;
     
     
     public CVOListAction() {
     }
     
     
-    public void setCvoDAO(CVODAO cvoDAO) {
+    public void setCvoDAO(CVODAO1 cvoDAO) {
         this.cvoDAO = cvoDAO;
     }
     

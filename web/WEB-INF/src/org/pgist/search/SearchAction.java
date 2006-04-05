@@ -17,7 +17,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.cvo.CVO;
-import org.pgist.cvo.CVODAO;
+import org.pgist.cvo.CVODAO1;
 import org.pgist.model.Post;
 
 
@@ -31,7 +31,7 @@ public class SearchAction extends Action {
     
     private SearchHelper searchHelper;
     
-    private CVODAO cvoDAO;
+    private CVODAO1 cvoDAO;
     
     
     public void setSearchHelper(SearchHelper searchHelper) {
@@ -39,7 +39,7 @@ public class SearchAction extends Action {
     }
 
 
-    public void setCvoDAO(CVODAO cvoDAO) {
+    public void setCvoDAO(CVODAO1 cvoDAO) {
         this.cvoDAO = cvoDAO;
     }
 

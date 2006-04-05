@@ -53,5 +53,24 @@ public interface CCTService {
      */
     Concern createConcern(CCT cct, String concern, List tags) throws Exception;
     
+    /**
+     * Get the current user's concerns.
+     * 
+     * @param cct A CCT object which the current user is working on.
+     * @return A collection of the current user's concerns
+     * @throws Exception
+     */
+    Collection getMyConcerns(CCT cct) throws Exception;
+    
+    /**
+     * Get other users' concerns than the current user.
+     * 
+     * @param cct A CCT object which the current user is working on.
+     * @param count The max number of concerns to retrieve.
+     * @return A collection of other users' concerns
+     * @throws Exception
+     */
+    Collection getOthersConcerns(CCT cct, int count) throws Exception;
+    
     
 }//interface CCTService

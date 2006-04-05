@@ -15,7 +15,7 @@ import org.pgist.model.DiscourseObject;
 public class CVOViewAction extends Action {
 
     
-    private CVODAO cvoDAO;
+    private CVODAO1 cvoDAO;
     
     private CCTService cvoService;
     
@@ -24,7 +24,7 @@ public class CVOViewAction extends Action {
     }
     
     
-    public void setCvoDAO(CVODAO cvoDAO) {
+    public void setCvoDAO(CVODAO1 cvoDAO) {
         this.cvoDAO = cvoDAO;
     }
     

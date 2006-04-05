@@ -33,7 +33,7 @@ public class CVOAgent {
     
     private UserDAO userDAO;
     
-    private CVODAO cvoDAO;
+    private CVODAO1 cvoDAO;
     
     private SearchHelper searchHelper;
     
@@ -48,7 +48,7 @@ public class CVOAgent {
     }
     
     
-    public void setCvoDAO(CVODAO cvoDAO) {
+    public void setCvoDAO(CVODAO1 cvoDAO) {
         this.cvoDAO = cvoDAO;
     }
     

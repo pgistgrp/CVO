@@ -79,6 +79,16 @@ public class CCTServiceImpl implements CCTService {
         
         return null;
     }//createConcern()
+
+
+    public Collection getMyConcerns(CCT cct) throws Exception {
+        return cctDAO.getMyConcerns(cct.getId(), WebUtils.currentUserId());
+    }//getMyConcerns()
+
+
+    public Collection getOthersConcerns(CCT cct, int count) throws Exception {
+        return cctDAO.getOthersConcerns(cct.getId(), WebUtils.currentUserId(), count);
+    }//getOthersConcerns()
     
     
 }//class CCTServiceImpl

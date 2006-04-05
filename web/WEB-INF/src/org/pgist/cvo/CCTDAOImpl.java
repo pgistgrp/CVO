@@ -2,15 +2,13 @@ package org.pgist.cvo;
 
 import java.util.Collection;
 
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-
 
 /**
  * 
  * @author kenny
  *
  */
-public class CCTDAOImpl extends HibernateDaoSupport implements CCTDAO {
+public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
     
     
     private static final String hql_getCCTs = "from CCT c where c.deleted=? order by c.id";
@@ -21,16 +19,29 @@ public class CCTDAOImpl extends HibernateDaoSupport implements CCTDAO {
     }//getCCTs()
 
 
-    public void save(CCT cct) throws Exception {
-        getHibernateTemplate().saveOrUpdate(cct);
-    }//save()
+    private static final String hql_getMyConcerns = "from Concern c where c.deleted=? and c.cct.id=? and author.id=? order by c.id";
+    
+    
+    public Collection getMyConcerns(Long cctId, Long userId) throws Exception {
+        return getHibernateTemplate().find(hql_getMyConcerns, new Object[] {
+            new Boolean(false),
+            cctId,
+            userId
+        });
+    }//getMyConcerns()
 
 
-    public CCT getCCTById(Long cctId) throws Exception {
-        CCT cct = (CCT) getHibernateTemplate().get(CCT.class, cctId);
-        if (cct.isDeleted()) return null;
-        return cct;
-    }//getCCTById()
+    private static final String hql_getOthersConcerns = "from Concern c where c.deleted=? and c.cct.id=? and author.id<>? order by c.id";
+    
+    
+    public Collection getOthersConcerns(Long cctId, Long userId, int count) throws Exception {
+        getHibernateTemplate().setMaxResults(count);
+        return getHibernateTemplate().find(hql_getOthersConcerns, new Object[] {
+            new Boolean(false),
+            cctId,
+            userId
+        });
+    }//getOthersConcerns()
     
     
 }//class CCTDAOImpl

@@ -24,7 +24,9 @@ public class Concern {
     
     protected Date createTime;
     
-    private boolean deleted = false;
+    protected boolean deleted = false;
+    
+    protected CCT cct;
     
     protected Set tags = new HashSet();
     
@@ -96,6 +98,20 @@ public class Concern {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.many-to-one column="cct_id" lazy="true" class="org.pgist.cvo.CCT" cascade="all"
+     */
+    public CCT getCct() {
+        return cct;
+    }
+
+
+    public void setCct(CCT cct) {
+        this.cct = cct;
     }
 
 
