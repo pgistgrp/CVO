@@ -153,7 +153,7 @@ public class CCTAgent {
      *         <ul>
      *           <li>cctId - long int, the current CCT instance id</li>
      *           <li>concern - String, the new concern which user entered</li>
-     *           <li>tags - String array, tags provided by current user</li>
+     *           <li>tags - String, a comma-separated tag list provided by current user</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
@@ -168,10 +168,12 @@ public class CCTAgent {
         
         Long cctId = new Long((String) params.get("cctId"));
         String concern = (String) params.get("concern");
-        String[] tags = (String[]) params.get("tags");
+        String tags = (String) params.get("tags");
+        System.out.println("---> "+tags);
+        
         CCT cct = cctService.getCCTById(cctId);
         if (cct!=null) {
-            Concern concernObj = cctService.createConcern(cct, concern, tags);
+            Concern concernObj = cctService.createConcern(cct, concern, tags.split(","));
             map.put("concern", concernObj);
         }
         map.put("successful", new Boolean(true));
