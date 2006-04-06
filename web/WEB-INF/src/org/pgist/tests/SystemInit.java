@@ -1,9 +1,12 @@
 package org.pgist.tests;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.tools.ant.BuildException;
@@ -11,9 +14,13 @@ import org.apache.tools.ant.loader.AntClassLoader2;
 import org.apache.tools.ant.taskdefs.MatchingTask;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.jaxen.expr.iter.IterableAncestorAxis;
+import org.pgist.cvo.CCT;
+import org.pgist.cvo.CCTService;
 import org.pgist.cvo.CVO;
 import org.pgist.cvo.CVODAO1;
 import org.pgist.cvo.Category;
+import org.pgist.cvo.Concern;
 import org.pgist.cvo.Tag;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
@@ -43,6 +50,8 @@ public class SystemInit extends MatchingTask {
     private ApplicationContext appContext = null;
     
     private SessionFactory sessionFactory = null; 
+    
+    private CCTService cctService;
     
     private CVODAO1 cvoDAO;
     
@@ -77,8 +86,12 @@ public class SystemInit extends MatchingTask {
 
         appContext = new FileSystemXmlApplicationContext(
             new String[] {
-                configPath + "/dataAccessContext-local.xml",
-                configPath + "/applicationContext.xml"
+                configPath + "/context-database.xml",
+                configPath + "/context-system.xml",
+                configPath + "/context-webservice.xml",
+                configPath + "/context-workflow.xml",
+                configPath + "/context-cvo.xml",
+                configPath + "/context-pgames.xml",
             }
         );
         
@@ -86,6 +99,7 @@ public class SystemInit extends MatchingTask {
         Session session = SessionFactoryUtils.getSession(sessionFactory, true);
         TransactionSynchronizationManager.bindResource(sessionFactory, new SessionHolder(session));
         
+        cctService = (CCTService) appContext.getBean("cctService");
         cvoDAO = (CVODAO1) appContext.getBean("cvoDAO");
         userDAO = (UserDAO) appContext.getBean("userDAO");
         engine = (WorkflowEngine) appContext.getBean("engine");
@@ -109,6 +123,7 @@ public class SystemInit extends MatchingTask {
             
             initRole();
             initUser();
+            initCCT();
             initCVO();
             initTags();
             
@@ -258,6 +273,91 @@ public class SystemInit extends MatchingTask {
     }//initUser()
     
     
+    private void initCCT() throws Exception {
+        CCT cct = new CCT();
+        cct.setCreateTime(new Date());
+        cct.setCreator((User) users.get("moderator"));
+        cct.setInstruction("This is a test.");
+        cct.setName("CCT Test.");
+        cct.setPurpose("To test cct.");
+        
+        cctService.save(cct);
+        
+        File file = new File(dataPath, "concerns.txt");
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        
+        Map participants = new HashMap();
+        Map tags = new HashMap();
+        Map categories = new HashMap();
+        
+        while (true) {
+            String line = reader.readLine();
+            if (line==null) break;
+            
+            if (line.length()<1) continue;
+            
+            if (line.charAt(0)=='#') continue;
+            
+            String[] s = line.split("######");
+            User user = (User) participants.get(s[2]);
+            if (user==null) {
+                user = new User();
+                user.setLoginname(s[2].toLowerCase());
+                user.setLastname(s[2]);
+                user.setFirstname(s[3]);
+                user.setEmail(s[2].toLowerCase()+"@pgist.org");
+                user.setEnabled(true);
+                user.setDeleted(false);
+                user.setPassword(s[2].toLowerCase());
+                user.encodePassword();
+                userDAO.saveUser(user);
+                participants.put(s[2], user);
+            }
+            
+            Concern concern = new Concern();
+            concern.setAuthor(user);
+            concern.setCct(cct);
+            concern.setContent(s[4]);
+            concern.setCreateTime(new Date());
+            concern.setDeleted(false);
+            
+            String[] cateStrs = s[6].split(",");
+            for (int i=0; i<cateStrs.length; i++) {
+                Category category = (Category) categories.get(cateStrs[i]);
+                if (category==null) {
+                    category = new Category();
+                    category.setName(cateStrs[i]);
+                    category.setDeleted(false);
+                    cvoDAO.saveCategory(category);
+                }
+            }//for i
+            
+            String[] tagStrs = s[5].split(",");
+            for (int i=0; i<tagStrs.length; i++) {
+                Tag tag = (Tag) tags.get(tagStrs[i]);
+                if (tag==null) {
+                    tag = new Tag();
+                    tag.setCount(tag.getCount()+1);
+                    tag.setDescription(tagStrs[i]);
+                    tag.setStatus(Tag.STATUS_CANDIDATE);
+                    tag.setName(tagStrs[i]);
+                    tags.put(tagStrs[i], tag);
+                    cvoDAO.saveTag(tag);
+                }
+                concern.getTags().add(tag);
+                for (Iterator iter=categories.keySet().iterator(); iter.hasNext(); ) {
+                    Category category = (Category) iter.next();
+                    category.getTags().add(tag);
+                    tag.getCategories().add(category);
+                }
+            }//for i
+            
+            cct.getConcerns().add(concern);
+            cctService.save(cct);
+        }//while
+    }//initCCT()
+
+
     private void initCVO() throws Exception {
         Post post = new Post();
         post.setRoot(post);

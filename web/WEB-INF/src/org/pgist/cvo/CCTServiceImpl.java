@@ -1,7 +1,6 @@
 package org.pgist.cvo;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import org.pgist.system.UserDAO;
@@ -50,10 +49,6 @@ public class CCTServiceImpl implements CCTService {
 
 
     public void save(CCT cct) throws Exception {
-        Long id = WebUtils.currentUserId();
-        User user = userDAO.getUserById(id, true, false);
-        cct.setCreator(user);
-        
         cctDAO.save(cct);
     }//save()
 
@@ -63,17 +58,9 @@ public class CCTServiceImpl implements CCTService {
     }//getCCTById()
 
 
-    public Concern createConcern(CCT cct, String concern, String[] tags) throws Exception {
-        Concern concernObj = new Concern();
-        
-        Long id = WebUtils.currentUserId();
-        User user = userDAO.getUserById(id, true, false);
-        concernObj.setAuthor(user);
-        concernObj.setContent(concern);
-        concernObj.setCreateTime(new Date());
-        
+    public Concern createConcern(CCT cct, Concern concern, String[] tags) throws Exception {
         List tagList = tagDAO.addTags(tags);
-        concernObj.getTags().addAll(tagList);
+        concern.getTags().addAll(tagList);
         
         cctDAO.save(cct);
         

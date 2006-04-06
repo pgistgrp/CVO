@@ -45,12 +45,12 @@ public interface CCTService {
      * Reference count of each tag will be increased by 1. 
      * 
      * @param cct A CCT object which the new Concern object belongs to.
-     * @param concern The paragraph user input.
+     * @param concern A Concern object.
      * @param tags A list of string, each element will be a tag.
      * @return
      * @throws Exception
      */
-    Concern createConcern(CCT cct, String concern, String[] tags) throws Exception;
+    Concern createConcern(CCT cct, Concern concern, String[] tags) throws Exception;
     
     /**
      * Get the current user's concerns.

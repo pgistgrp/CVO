@@ -7,6 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.pgist.system.UserDAO;
+import org.pgist.users.User;
+import org.pgist.util.WebUtils;
+
 
 
 /**
@@ -23,6 +27,8 @@ public class CCTAgent {
 
     private CCTService cctService = null;
     
+    private UserDAO userDAO = null;
+    
     private TagAnalyzer analyzer = null;
 
 
@@ -36,6 +42,16 @@ public class CCTAgent {
     }
     
     
+    /**
+     * This is not an AJAX service method.
+     * 
+     * @param userDAO
+     */
+    public void setUserDAO(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+
+
     /**
      * This is not an AJAX service method.
      * 
@@ -98,6 +114,10 @@ public class CCTAgent {
         cct.setPurpose((String) params.get("purpose"));
         cct.setInstruction((String) params.get("instruction"));
         cct.setCreateTime(new Date());
+        
+        Long id = WebUtils.currentUserId();
+        User user = userDAO.getUserById(id, true, false);
+        cct.setCreator(user);
         
         cctService.save(cct);
         
@@ -173,7 +193,15 @@ public class CCTAgent {
         
         CCT cct = cctService.getCCTById(cctId);
         if (cct!=null) {
-            Concern concernObj = cctService.createConcern(cct, concern, tags.split(","));
+            Concern concernObj = new Concern();
+            concernObj.setContent(concern);
+            cct.getConcerns().add(concernObj);
+            cctService.createConcern(cct, concernObj, tags.split(","));
+            
+            Long id = WebUtils.currentUserId();
+            User user = userDAO.getUserById(id, true, false);
+            concernObj.setAuthor(user);
+            
             map.put("concern", concernObj);
         }
         map.put("successful", new Boolean(true));

@@ -11,6 +11,17 @@
     </bean>
     
     
+    <bean id="cvoDAO" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.cvo.CVODAOImpl1">
+              <property name="sessionFactory">
+                  <ref bean="sessionFactory" />
+              </property>
+            </bean>
+        </property>
+    </bean>
+    
+    
     <bean id="tagDAO" class="org.pgist.cvo.TagDAOImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
@@ -35,6 +46,7 @@
     
     <bean id="cctAgent" class="org.pgist.cvo.CCTAgent">
         <property name="cctService" ref="cctService"/>
+        <property name="userDAO" ref="userDAO"/>
         <property name="analyzer" ref="tagAnalyzer"/>
     </bean>
     
