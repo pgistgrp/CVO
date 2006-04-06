@@ -18,7 +18,7 @@ import org.pgist.util.WebUtils;
  * Provide AJAX services to client programs.<br>
  * In this document, all the NON-AJAX methods are marked out. So all methods without such
  * a description <span style="color:red;">ARE</span> AJAX service methods.<br>
- * 
+ *
  * @author kenny
  *
  */
@@ -26,25 +26,25 @@ public class CCTAgent {
 
 
     private CCTService cctService = null;
-    
+
     private UserDAO userDAO = null;
-    
+
     private TagAnalyzer analyzer = null;
 
 
     /**
      * This is not an AJAX service method.
-     * 
+     *
      * @param cctService
      */
     public void setCctService(CCTService cctService) {
         this.cctService = cctService;
     }
-    
-    
+
+
     /**
      * This is not an AJAX service method.
-     * 
+     *
      * @param userDAO
      */
     public void setUserDAO(UserDAO userDAO) {
@@ -54,7 +54,7 @@ public class CCTAgent {
 
     /**
      * This is not an AJAX service method.
-     * 
+     *
      * @param analyzer
      */
     public void setAnalyzer(TagAnalyzer analyzer) {
@@ -65,11 +65,11 @@ public class CCTAgent {
     /*
      * ------------------------------------------------------------------------
      */
-    
-    
+
+
     /**
      * Get all the CCT instances from the database.
-     * 
+     *
      * @param params An empty map.
      * @return A map contains:<br>
      *         <ul>
@@ -81,18 +81,18 @@ public class CCTAgent {
      */
     public Map getCCTs(Map params)  throws Exception {
         Map map = new HashMap();
-        
+
         Collection list = cctService.getCCTs();
         map.put("successful", new Boolean(true));
         map.put("ccts", list);
-        
+
         return map;
     }//getCCTs()
-    
-    
+
+
     /**
      * Create a new CCT instance with the given parameters.
-     * 
+     *
      * @param params A map contains:<br>
      *         <ul>
      *           <li>name - String, name of the new CCT instance</li>
@@ -108,28 +108,28 @@ public class CCTAgent {
      */
     public Map createCCT(Map params) throws Exception {
         Map map = new HashMap();
-        
+
         CCT cct = new CCT();
         cct.setName((String) params.get("name"));
         cct.setPurpose((String) params.get("purpose"));
         cct.setInstruction((String) params.get("instruction"));
         cct.setCreateTime(new Date());
-        
+
         Long id = WebUtils.currentUserId();
         User user = userDAO.getUserById(id, true, false);
         cct.setCreator(user);
-        
+
         cctService.save(cct);
-        
+
         map.put("successful", new Boolean(true));
-        
+
         return map;
     }//createCCT()
-    
-    
+
+
     /**
      * Analyze the given concern, extract and return the recognized tags from it.
-     * 
+     *
      * @param params A map contains:<br>
      *         <ul>
      *           <li>cctId - long int, the current CCT instance id</li>
@@ -145,7 +145,7 @@ public class CCTAgent {
      */
     public Map prepareConcern(Map params) throws Exception {
         Map map = new HashMap();
-        
+
         //Temp for test
         List tags = new ArrayList();
         Tag tag = new Tag();
@@ -158,17 +158,17 @@ public class CCTAgent {
         tag.setName("tag2");
         tag.setStatus(Tag.STATUS_OFFICIAL);
         tags.add(tag);
-        
+
         map.put("tags", tags);
         map.put("successful", new Boolean(true));
-        
+
         return map;
     }//prepareConcern()
-    
-    
+
+
     /**
      * Save the given concern and its tags to the system.
-     * 
+     *
      * @param params A map contains:<br>
      *         <ul>
      *           <li>cctId - long int, the current CCT instance id</li>
@@ -185,37 +185,43 @@ public class CCTAgent {
      */
     public Map saveConcern(Map params) throws Exception {
         Map map = new HashMap();
-        
+
         Long cctId = new Long((String) params.get("cctId"));
         String concern = (String) params.get("concern");
         String tags = (String) params.get("tags");
         System.out.println("---> "+tags);
-        
+
         CCT cct = cctService.getCCTById(cctId);
         if (cct!=null) {
             Concern concernObj = new Concern();
             concernObj.setContent(concern);
             cct.getConcerns().add(concernObj);
             cctService.createConcern(cct, concernObj, tags.split(","));
-            
+
             Long id = WebUtils.currentUserId();
             User user = userDAO.getUserById(id, true, false);
             concernObj.setAuthor(user);
-            
+
             map.put("concern", concernObj);
         }
         map.put("successful", new Boolean(true));
-        
+
         return map;
     }//saveConcern()
-    
-    
+
+
     /**
      * Get concerns conform to given conditions.
-     * 
+     *
      * @param params A map contains:<br>
      *         <ul>
      *           <li>cctId - long int, the current CCT instance id</li>
+     *           <li>type - int
+     *             <ul>
+     *               <li>type==0, get the current user's concerns</li>
+     *               <li>type==1, get other peopls's concerns</li>
+     *             </ul>
+     *           </li>
      *           <li>count - int, number of concerns to be extracted</li>
      *         </ul>
      * @return A map contains:<br>
@@ -228,16 +234,40 @@ public class CCTAgent {
      */
     public Map getConcerns(Map params) throws Exception {
         Map map = new HashMap();
-        
-        map.put("successful", new Boolean(true));
-        
+
+        Long cctId = new Long((String) params.get("cctId"));
+
+        if(!(cctId > 0)){
+          map.put("successful", new Boolean(false));
+          map.put("reason", "No CCTId is given.");
+          return map;
+        }
+
+        Integer count = new Integer( (String) params.get("count"));
+        if (! (count > 0))
+          count = 10;
+
+        CCT cct = cctService.getCCTById(cctId);
+        if(params.get("type") != null){
+          if( Integer.parseInt( (String)params.get("type")) == 0){
+            map.put("concerns", cctService.getMyConcerns(cct));
+            map.put("successful", new Boolean(true));
+          }else{
+            map.put("concerns", cctService.getOthersConcerns(cct, count));
+            map.put("successful", new Boolean(true));
+          }
+        }else{
+          map.put("successful", new Boolean(false));
+          map.put("reason", "Not sure who's concern is wanted. Please set type to 0 (current user) or 1 (others').");
+        }
+
         return map;
     }//getConcerns()
-    
-    
+
+
     /**
      * Get the tag cloud of the current CCT instance.
-     * 
+     *
      * @param params A map contains:<br>
      *         <ul>
      *           <li>cctId - long int, the current CCT instance id</li>
@@ -260,11 +290,11 @@ public class CCTAgent {
      */
     public Map getTagCloud(Map params) throws Exception {
         Map map = new HashMap();
-        
-        map.put("successful", new Boolean(true));
-        
+
+
         return map;
     }//getTagCloud()
-    
-    
+
+
 }//class CCTAgent
+
