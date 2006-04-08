@@ -12,7 +12,6 @@ import org.pgist.users.User;
 import org.pgist.util.WebUtils;
 
 
-
 /**
  * DWR AJAX Agent class.<br>
  * Provide AJAX services to client programs.<br>
@@ -185,17 +184,15 @@ public class CCTAgent {
      */
     public Map saveConcern(Map params) throws Exception {
         Map map = new HashMap();
-
+        
         Long cctId = new Long((String) params.get("cctId"));
         String concern = (String) params.get("concern");
         String tags = (String) params.get("tags");
-        System.out.println("---> "+tags);
-
+        
         CCT cct = cctService.getCCTById(cctId);
         if (cct!=null) {
             Concern concernObj = new Concern();
             concernObj.setContent(concern);
-            cct.getConcerns().add(concernObj);
             cctService.createConcern(cct, concernObj, tags.split(","));
 
             Long id = WebUtils.currentUserId();
@@ -237,7 +234,7 @@ public class CCTAgent {
 
         Long cctId = new Long((String) params.get("cctId"));
 
-        if(!(cctId > 0)){
+        if(!(cctId > 0)) {
           map.put("successful", new Boolean(false));
           map.put("reason", "No CCTId is given.");
           return map;
@@ -290,8 +287,8 @@ public class CCTAgent {
      */
     public Map getTagCloud(Map params) throws Exception {
         Map map = new HashMap();
-
-
+        
+        
         return map;
     }//getTagCloud()
 

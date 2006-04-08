@@ -99,6 +99,18 @@ public class TagAnalyzer {
 
         return null;
     }
+
+
+    /**
+     * For the given tagStr, check if exist corresponding Tag object, if yes then return it; else
+     * create a new Tag object and return it.
+     * 
+     * @param tagStr The tag string
+     * @return A Tag object.
+     */
+    public Tag ensureTag(String tagStr) {
+        return null;
+    }//ensureTag()
     
 
-}
+}//class TagAnalyzer

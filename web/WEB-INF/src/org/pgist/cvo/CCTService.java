@@ -56,7 +56,7 @@ public interface CCTService {
      * Get the current user's concerns.
      * 
      * @param cct A CCT object which the current user is working on.
-     * @return A collection of the current user's concerns
+     * @return A collection of Concern objects, the current user's concerns.
      * @throws Exception
      */
     Collection getMyConcerns(CCT cct) throws Exception;
@@ -66,10 +66,30 @@ public interface CCTService {
      * 
      * @param cct A CCT object which the current user is working on.
      * @param count The max number of concerns to retrieve.
-     * @return A collection of other users' concerns
+     * @return A collection of Concern objects, other users' concerns.
      * @throws Exception
      */
     Collection getOthersConcerns(CCT cct, int count) throws Exception;
+    
+    /**
+     * Get the top N tags in the given cct according to the frequency of reference.
+     * 
+     * @param cct A CCT object which the current user is working on.
+     * @param count The max number of tags to be retrieved.
+     * @return A collection of Tag objects.
+     * @throws Exception
+     */
+    Collection getTagsByRank(CCT cct, int count) throws Exception;
+    
+    /**
+     * Get tags whose reference times are greater than the given threshold.
+     * 
+     * @param cct A CCT object which the current user is working on.
+     * @param threshold The least reference times of the tag.
+     * @return A collection of Tag objects.
+     * @throws Exception
+     */
+    Collection getTagsByThreshold(CCT cct, float threshold) throws Exception;
     
     
 }//interface CCTService
