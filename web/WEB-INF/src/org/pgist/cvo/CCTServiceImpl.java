@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.pgist.system.UserDAO;
-import org.pgist.users.User;
 import org.pgist.util.WebUtils;
 
 
@@ -81,7 +80,7 @@ public class CCTServiceImpl implements CCTService {
         
         cctDAO.save(cct);
         
-        return null;
+        return concern;
     }//createConcern()
 
 
@@ -100,8 +99,8 @@ public class CCTServiceImpl implements CCTService {
     }//getTagsByRank()
 
 
-    public Collection getTagsByThreshold(CCT cct, float threshold) throws Exception {
-        return null;
+    public Collection getTagsByThreshold(CCT cct, int threshold) throws Exception {
+        return tagDAO.getTagsByThreshold(cct, threshold);
     }//getTagsByThreshold()
     
     

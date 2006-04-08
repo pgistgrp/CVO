@@ -24,6 +24,20 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
         getHibernateTemplate().setMaxResults(count);
         return getHibernateTemplate().find(hql_getTagsByRank, cct);
     }//getTagsByRank()
+
+
+    private static String getTagsByThreshold = "from TagReference tr where tr.cct=? and tr.times>? order by tr.times desc";
+    
+    
+    public Collection getTagsByThreshold(CCT cct, int threshold) throws Exception {
+        return getHibernateTemplate().find(
+                getTagsByThreshold,
+                new Object[] {
+                        cct,
+                        new Integer(threshold),
+                }
+        );
+    }//getTagsByThreshold()
     
     
 }//class TagDAOImpl

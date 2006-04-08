@@ -35,6 +35,17 @@ public interface TagDAO extends CVODAO {
      * @throws Exception
      */
     Collection getTagsByRank(CCT cct, int count) throws Exception;
+
+    /**
+     * Search in the given CCT, and find those tags appeared in this CCT and which are referenced at least
+     * threshold times.
+     * 
+     * @param cct
+     * @param threshold
+     * @return
+     * @throws Exception
+     */
+    Collection getTagsByThreshold(CCT cct, int threshold) throws Exception;
     
     
 }//interface TagDAO

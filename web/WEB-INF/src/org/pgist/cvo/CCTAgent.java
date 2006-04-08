@@ -320,9 +320,11 @@ public class CCTAgent {
             
             try {
                 Collection tags = cctService.getTagsByRank(cct, count);
+                map.put("successful", true);
                 map.put("tags", tags);
             } catch(Exception e) {
                 e.printStackTrace();
+                map.put("successful", false);
                 map.put("reason", "Error: " + e.getMessage());
                 return map;
             }
@@ -338,8 +340,10 @@ public class CCTAgent {
             
             try {
                 Collection tags = cctService.getTagsByThreshold(cct, threshhold);
+                map.put("successful", true);
                 map.put("tags", tags);
             } catch(Exception e) {
+                map.put("successful", false);
                 map.put("reason", "Error: " + e.getMessage());
                 return map;
             }

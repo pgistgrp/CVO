@@ -89,7 +89,7 @@ public interface CCTService {
      * @return A collection of Tag objects.
      * @throws Exception
      */
-    Collection getTagsByThreshold(CCT cct, float threshold) throws Exception;
+    Collection getTagsByThreshold(CCT cct, int threshold) throws Exception;
     
     
 }//interface CCTService
