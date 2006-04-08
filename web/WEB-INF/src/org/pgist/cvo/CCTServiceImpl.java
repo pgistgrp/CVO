@@ -96,7 +96,7 @@ public class CCTServiceImpl implements CCTService {
 
 
     public Collection getTagsByRank(CCT cct, int count) throws Exception {
-        return null;
+        return tagDAO.getTagsByRank(cct, count);
     }//getTagsByRank()
 
 

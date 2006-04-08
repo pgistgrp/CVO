@@ -1,5 +1,6 @@
 package org.pgist.cvo;
 
+import java.util.Collection;
 import java.util.List;
 
 
@@ -9,7 +10,7 @@ import java.util.List;
  * @author kenny
  *
  */
-public interface TagDAO {
+public interface TagDAO extends CVODAO {
     
     
     /**
@@ -23,6 +24,17 @@ public interface TagDAO {
      * @throws Exception
      */
     List addTags(String[] tags) throws Exception;
+
+    /**
+     * Search in the given CCT, and find those tags appeared in this CCT and which are the top count
+     * being referenced.
+     * 
+     * @param cct
+     * @param count
+     * @return
+     * @throws Exception
+     */
+    Collection getTagsByRank(CCT cct, int count) throws Exception;
     
     
 }//interface TagDAO

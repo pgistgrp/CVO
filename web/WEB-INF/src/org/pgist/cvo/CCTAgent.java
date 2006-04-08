@@ -274,8 +274,8 @@ public class CCTAgent {
      *               <li>type==1, search tags which are over a specific threshhold</li>
      *             </ul>
      *           </li>
-     *           <li>count - valid when type==0</li>
-     *           <li>threshhold - valid when type==1</li>
+     *           <li>count - valid when type==0, default is 10</li>
+     *           <li>threshhold - valid when type==1, default is 2</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
@@ -285,13 +285,70 @@ public class CCTAgent {
      *         </ul>
      * @throws Exception
      */
-    public Map getTagCloud(Map params) throws Exception {
+    public Map getTagCloud(Map params) {
         Map map = new HashMap();
         
+        System.out.println("cctId ---> " + params.get("cctId"));
+        System.out.println("type ---> " + params.get("type"));
+        System.out.println("count ---> " + params.get("count"));
+        System.out.println("threshhold ---> " + params.get("threshhold"));
+        
+        int type = -1;
+        CCT cct = null;
+        
+        try {
+            type = Integer.parseInt((String) params.get("type"));
+            Long cctId = new Long((String) params.get("cctId"));
+            cct = cctService.getCCTById(cctId);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("successful", false);
+            if (type==-1) map.put("reason", "Wrong invocation type!");
+            if (cct==null) map.put("reason", "No CCTId is given.");
+            return map;
+        }
+        
+        if (type==0) {
+            int count = -1;
+            try {
+                count = Integer.parseInt((String) params.get("count"));
+                if (count<1) count = 2;
+            } catch(Exception e) {
+                e.printStackTrace();
+                count = 2;
+            }
+            
+            try {
+                Collection tags = cctService.getTagsByRank(cct, count);
+                map.put("tags", tags);
+            } catch(Exception e) {
+                e.printStackTrace();
+                map.put("reason", "Error: " + e.getMessage());
+                return map;
+            }
+        } else if (type==1) {
+            int threshhold = -1;
+            try {
+                threshhold = Integer.parseInt((String) params.get("count"));
+                if (threshhold<1) threshhold = 10;
+                else if (threshhold>100) threshhold = 100;
+            } catch(Exception e) {
+                threshhold = 10;
+            }
+            
+            try {
+                Collection tags = cctService.getTagsByThreshold(cct, threshhold);
+                map.put("tags", tags);
+            } catch(Exception e) {
+                map.put("reason", "Error: " + e.getMessage());
+                return map;
+            }
+        } else {
+            map.put("reason", "Wrong invocation type!");
+        }
         
         return map;
     }//getTagCloud()
 
 
 }//class CCTAgent
-

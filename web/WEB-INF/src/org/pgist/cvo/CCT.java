@@ -4,8 +4,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
+
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 
 import org.pgist.model.PGame;
 
@@ -24,9 +27,23 @@ public class CCT extends PGame {
     
     private Set concerns = new HashSet();
     
-    private Map tags = new HashMap();
+    private Set tagRefs = new HashSet();
     
-    private static Map locks = new HashMap();
+    private static Cache lockCache;
+    
+    
+    static {
+        try {
+            CacheManager manager = CacheManager.getInstance();
+            lockCache = manager.getCache("cctTagMaps");
+            if (lockCache==null) {
+                lockCache = new Cache("cctTagMaps", 50, true, false, 2*3600, 20*60);
+                manager.addCache(lockCache);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }//static
     
     
     /**
@@ -62,24 +79,22 @@ public class CCT extends PGame {
 
 
     /**
-     * 
      * @return
      * 
-     * @hibernate.map table="pgist_cvo_cct_tags" lazy="true"
-     * @hibernate.collection-key column="cct_id"
-     * @hibernate.index-many-to-many column="tag_id" class="org.pgist.cvo.Tag"
-     * @hibernate.collection-element column="times" type="int" not-null="true"
+     * @hibernate.set lazy="true" cascade="all" table="pgist_cvo_tag_refs" order-by="createTime desc"
+     * @hibernate.collection-key column="tagref_id"
+     * @hibernate.collection-one-to-many class="org.pgist.cvo.TagReference"
      */
-    public Map getTags() {
-        return tags;
+    public Set getTagRefs() {
+        return tagRefs;
     }
 
 
-    public void setTags(Map tags) {
-        this.tags = tags;
+    public void setTagRefs(Set tagRefs) {
+        this.tagRefs = tagRefs;
     }
-    
-    
+
+
     /*
      * ------------------------------------------------------------------------
      */
@@ -93,34 +108,46 @@ public class CCT extends PGame {
      * @param concern A Concern object.
      * @param tags A collection of Tag objects which are related to the given concern.
      */
-    public void addConcern(Concern concern, Collection tags) {
-        Long lock = (Long) locks.get(getId().toString());
-        if (lock==null) {
-            synchronized (locks) {
-                lock = (Long) locks.get(id.toString());
-                if (lock==null) {
-                    lock = new Long(1);
-                    locks.put(id.toString(), lock);
+    public void addConcern(Concern concern, Collection tags) throws Exception {
+        HashMap tagMap = null;
+        Element element =  lockCache.get(id);
+        if (element==null) {
+            synchronized (lockCache) {
+                element = lockCache.get(id);
+                if (element==null) {
+                    tagMap = new HashMap();
+                    for (Iterator iter=tagRefs.iterator(); iter.hasNext(); ) {
+                        TagReference tagRef = (TagReference) iter.next();
+                        Tag tag = tagRef.getTag();
+                        tagMap.put(tag.getId(), tagRef);
+                    }//for iter
+                    element = new Element(id, tagMap);
+                    lockCache.put(element);
+                } else {
+                    tagMap = (HashMap) element.getValue();
                 }
             }//synchronized
+        } else {
+            tagMap = (HashMap) element.getValue();
         }
-        synchronized(lock) {
-            Map cctTags = getTags();
+        
+        synchronized(tagMap) {
+            Set cctTags = getTagRefs();
             for (Iterator iter=tags.iterator(); iter.hasNext(); ) {
                 Tag tag = (Tag) iter.next();
-                Integer times = (Integer) cctTags.get(tag);
-                if (times==null) {
-                    cctTags.put(tag, new Integer(1));
+                concern.getTags().add(tag);
+                TagReference ref = (TagReference) tagMap.get(tag.getId());
+                if (ref==null) {
+                    ref = new TagReference();
+                    ref.setCct(this);
+                    ref.setTag(tag);
+                    ref.setTimes(1);
                 } else {
-                    cctTags.put(tag, new Integer((times.intValue())+1));
+                    ref.setTimes(ref.getTimes()+1);
                 }
+                cctTags.add(ref);
             }//for iter
         }//synchronized
-        
-        for (Iterator iter=tags.iterator(); iter.hasNext(); ) {
-            Tag tag = (Tag) iter.next();
-            concern.getTags().add(tag);
-        }//for iter
         
         concerns.add(concern);
     }//addConcern()
