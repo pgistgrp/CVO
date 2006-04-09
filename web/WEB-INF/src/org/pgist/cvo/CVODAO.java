@@ -41,6 +41,15 @@ public interface CVODAO {
     Tag getTagById(Long tagId) throws Exception;
     
     /**
+     * Get a TagReference object with the given tagId.<br>
+     * 
+     * @param refId The id of the TagReference object.
+     * @return The requested TagReference object.
+     * @throws Exception
+     */
+    TagReference getTagReferenceById(Long refId) throws Exception;
+    
+    /**
      * Save the given CCT object to database.<br>
      * If the CCT object is already persisted, update the database; if not, create a new
      * CCT object and insert it to the database.
@@ -69,6 +78,17 @@ public interface CVODAO {
      * @throws Exception
      */
     void save(Tag tag) throws Exception;
+    
+    
+    /**
+     * Save the given TagReference object to database.<br>
+     * If the TagReference object is already persisted, update the database; if not, create a new
+     * TagReference object and insert it to the database.
+     * 
+     * @param tag
+     * @throws Exception
+     */
+    void save(TagReference ref) throws Exception;
     
     
 }//interface CVODAO

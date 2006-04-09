@@ -19,6 +19,9 @@
       <param name="exclude" value="categories"/>
     </convert>
 
+    <convert converter="bean" match="org.pgist.cvo.TagReference">
+    </convert>
+
     <convert converter="bean" match="org.pgist.cvo.Category">
       <param name="exclude" value="parent, children, tags"/>
     </convert>

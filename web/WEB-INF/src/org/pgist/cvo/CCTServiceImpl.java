@@ -2,6 +2,7 @@ package org.pgist.cvo;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.pgist.system.UserDAO;
 import org.pgist.util.WebUtils;
@@ -70,6 +71,11 @@ public class CCTServiceImpl implements CCTService {
         
         Collection tags = analyzer.ensureTags(tagStrs);
         cct.addConcern(concern, tags);
+        
+        for (Iterator iter=concern.getTags().iterator(); iter.hasNext(); ) {
+            TagReference ref = (TagReference) iter.next();
+            cctDAO.save(ref);
+        }//for iter
         
         cctDAO.save(concern);
         

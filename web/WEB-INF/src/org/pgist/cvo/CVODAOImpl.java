@@ -26,6 +26,11 @@ public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
     }//getTagById()
     
     
+    public TagReference getTagReferenceById(Long refId) throws Exception {
+        return (TagReference) getHibernateTemplate().get(TagReference.class, refId);
+    }//getTagReferenceById()
+
+
     public void save(CCT cct) throws Exception {
         getHibernateTemplate().saveOrUpdate(cct);
     }//save()
@@ -38,6 +43,11 @@ public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
 
     public void save(Tag tag) throws Exception {
         getHibernateTemplate().saveOrUpdate(tag);
+    }//save()
+
+
+    public void save(TagReference ref) throws Exception {
+        getHibernateTemplate().saveOrUpdate(ref);
     }//save()
 
 
