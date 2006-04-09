@@ -1,10 +1,9 @@
-
 import java.util.*;
 
-public class TagMatcher {
+public class tagFinder {
     private static final String statement = "vehicle miles traveled vehicle migration vehicle migration i-5 vehicle miles traveled vehicle migration vehicle migration i-5";
-    private final String blank =" ";    
-    private String[] concern;
+    private static final String blank =" ";    
+    private static String[] concern;
     //List<String> input; //user input
     Set<String> kbTags; //tags retrieved from the prepared knowledge base
     Set<String> cdTags; //candidate tags selected from the statement by CST 
@@ -14,9 +13,36 @@ public class TagMatcher {
         concern = statement.split(blank);         
         kbTags = new TreeSet<String> ();
         cdTags = new TreeSet<String> ();
+        kbTags.add("safety of i-5");
+        kbTags.add("seattle transit");
+        kbTags.add("alaskan way viaduct");
+        kbTags.add("alternatives to single occupancy car use");
+        kbTags.add("ballot measure");
+        kbTags.add("bicycle friendly street network");
+        kbTags.add("bridge toll");
+        kbTags.add("bike lanes");
+        kbTags.add("business community support");
+        kbTags.add("commuting alternatives");
+        kbTags.add("competing transportation proposals");
+        kbTags.add("construction employment");
+        kbTags.add("disability access");
+        kbTags.add("elected official");
+        kbTags.add("employment density in urban centers");
+        kbTags.add("bus");
+        kbTags.add("busman");
+        kbTags.add("busmanania");
+        kbTags.add("car");
+        kbTags.add("bus rapid transit");
+        kbTags.add("bus rapid vehicle");
+        kbTags.add("vehicle miles traveled");
+        kbTags.add("vehicle migration");
+        kbTags.add("i-5");
+        kbTags.add("environmental impact statement");
+        kbTags.add("equity of transportation service");
+        kbTags.add("federal transportation administration");
     }
     
-    public Collection match(String statement) {
+    private void find() {
         int size = concern.length;
         if(size < 1)
             throw new IllegalStateException("The user does not input any word");
@@ -48,7 +74,7 @@ public class TagMatcher {
     }
     
     public static void main(String[] args) {
-        TagMatcher a = new TagMatcher();
+        tagFinder a = new tagFinder();
         a.printkbTags();
     }
 }
