@@ -14,6 +14,9 @@
 <script src="/scripts/prototype.js" type="text/javascript"></script>
 <script src="/scripts/effects.js" type="text/javascript"></script>
 <script src="/scripts/combo.js" type="text/javascript"></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/util.js'></script>
+<script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
 
 <script type="text/javascript">
   var cctId = ${cctForm.cct.id};
@@ -31,10 +34,13 @@
 			Effect.OpenUp('validation');
 			Effect.CloseDown('tagConcerns');
 			Effect.Yellow('validation', {duration: 4, endcolor:'#EEEEEE'});
+			return false;
+			
 		}else{
 			Effect.CloseDown('validation');
 			Effect.OpenUp('tagConcerns');
 			Effect.Yellow('tagConcerns', {duration: 4, endcolor:'#EEEEEE'});
+			return true;
 		}
 	}
 	
@@ -42,6 +48,25 @@
 	{
 		Effect.CloseDown('tagConcerns');
 		Effect.CloseDown('validation');
+	}
+	
+	function prepareConcern(){
+		if (validateForm()){
+			var concern = $('concernInput').value;
+			CCTAgent.prepareConcern(cctId, concern, function(data) {
+			
+			if (data.successful){
+				var str= "";
+				for(i=0; i < data.tags.lenth; i++){
+					str += '<li><span class="tagsList_tag"></span>'+ data.tags[i] +' <span class="tagsList_controls"><img src="/images/trash.gif" alt="Delete this Tag!" ></span></li>';
+					
+				}
+				document.getElementById('tagsList').innerHTML = str;
+			}
+				
+				
+			});
+		}
 	}
 </script>
 </head>
@@ -71,9 +96,9 @@
   
  <div id="slate">
     <span class="title_section">Add your concern</span>
-    <form name="brainstorm" method="post" action="javascript:validateForm();">
-      <p><textarea style="width:99%;" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
-      <p><input type="reset" name="Submit2" value="Reset" onClick="resetForm();"> <input type="submit" name="Continue" value="Continue"><div style="display: none;" id="validation"></div>
+    <form name="brainstorm" method="post">
+      <p><textarea style="width:99%;" id="concernInput" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
+      <p><input type="reset" name="Submit2" value="Reset" onClick="resetForm();"> <input type="button" name="Continue" value="Continue" onclick="prepareConcern();"><div style="display: none;" id="validation"></div>
       </p>
     
 	    <div id="tagConcerns" style="display: none;"><span class="title_section">Tag Your Concern</span>
