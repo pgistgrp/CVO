@@ -122,7 +122,7 @@ public class TagAnalyzer {
      * @param tagStr The tag string
      * @return A Tag object.
      */
-    public Collection ensureTags(String[] tagStrs) {
+    public Collection ensureTags(String[] tagStrs) throws Exception {
         List list = new ArrayList(tagStrs.length);
 
         for (int i=0; i<tagStrs.length; i++) {
@@ -136,7 +136,7 @@ public class TagAnalyzer {
             tag.setStatus(Tag.STATUS_CANDIDATE);
 
             list.add(tag);
-            tagDAO.saveTag(tag);
+            tagDAO.save(tag);
         }//for i
 
         return list;
