@@ -1,29 +1,46 @@
+package org.pgist.cvo;
+
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
+
+
 /**
- *
- * <p>Title: </p>
- *
- * <p>Description: </p>
- *
- * <p>Copyright: Copyright (c) 2006</p>
- *
- * <p>Company: PGIST</p>
- *
+ * 
+ * <p>
+ * Title:
+ * </p>
+ * 
+ * <p>
+ * Description:
+ * </p>
+ * 
+ * <p>
+ * Copyright: Copyright (c) 2006
+ * </p>
+ * 
+ * <p>
+ * Company: PGIST
+ * </p>
+ * 
  * @author Jie
  * @version 1.0
  */
-
-package org.pgist.cvo;
-
-import org.*;
-import java.util.*;
-
 public class TagMatcher {
+    
+    
     private String data = "vehicle miles traveled vehicle migration vehicle migration i-5 vehicle miles traveled vehicle migration vehicle migration i-5";
+    
     private Set<String> kbTags;
+    
     private Map<String, Tag> kbMap; //tags retrieved from the prepared knowledge base
+    
     private Set<Tag> cdTags; //candidate tags selected from the statement by CST
+    
     private final int MAX = 6; //the maximum number of words in a tag
+    
     private TagDAO tagDao;
+    
 
 /*    public void build() {
         if (kbMap != null)
@@ -46,6 +63,7 @@ public class TagMatcher {
         }
     }
 */
+    
     public Collection find(String statement) {
   //      this.build();
         data = statement;
@@ -67,6 +85,7 @@ public class TagMatcher {
         }
         return cdTags;
     }
+    
 
     /**
          public void printkbTags() {
@@ -89,4 +108,5 @@ public class TagMatcher {
         a.printkbTags();
          }*/
 
+    
 }

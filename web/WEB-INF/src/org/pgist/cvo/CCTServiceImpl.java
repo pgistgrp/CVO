@@ -39,6 +39,11 @@ public class CCTServiceImpl implements CCTService {
     }
     
     
+    public void setAnalyzer(TagAnalyzer analyzer) {
+        this.analyzer = analyzer;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */
@@ -65,6 +70,8 @@ public class CCTServiceImpl implements CCTService {
         
         Collection tags = analyzer.ensureTags(tagStrs);
         cct.addConcern(concern, tags);
+        
+        cctDAO.save(concern);
         
         cctDAO.save(cct);
         
