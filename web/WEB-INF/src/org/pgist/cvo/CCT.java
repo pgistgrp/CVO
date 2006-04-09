@@ -84,7 +84,7 @@ public class CCT extends PGame {
      * @return
      * 
      * @hibernate.set lazy="true" cascade="all" table="pgist_cvo_tag_refs" order-by="id"
-     * @hibernate.collection-key column="tagref_id"
+     * @hibernate.collection-key column="cct_id"
      * @hibernate.collection-one-to-many class="org.pgist.cvo.TagReference"
      */
     public Set getTagRefs() {

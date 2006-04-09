@@ -54,19 +54,17 @@
 	function prepareConcern(){
 		if (validateForm()){
 			var concern = $('addConcern').value;
-			alert(concern);
 			document.getElementById("indicator").style.visibility = "visible";
-			CCTAgent.prepareConcern(cctId, concern, function(data) {
-				alert(data);
-/*				if (data.successful){
+			CCTAgent.prepareConcern({cctId:cctId, concern:concern}, function(data) {
+				if (data.successful){
 					var str= "";
 					for(i=0; i < data.tags.length; i++){
 						str += '<li><span class="tagsList_tag"></span>'+ data.tags[i] +' <span class="tagsList_controls"><img src="/images/trash.gif" alt="Delete this Tag!" ></span></li>';
 						concernTags += data.tags[i] + ',';
 					}
 					document.getElementById('tagsList').innerHTML = str;
-				}*/
-				document.getElementById("indicator").style.visibility = "hidden";
+				}
+				//document.getElementById("indicator").style.visibility = "hidden";
 			} );
 		}
 	}
@@ -79,7 +77,7 @@
 	
 	function saveConcern(){
 		document.getElementById("indicator").style.visibility = "visible";
-		CCTAgent.saveConcern(cctId, concern, concernTags, function(data){
+		CCTAgent.saveConcern({cctId:cctId, concern:"dasfasdf", tags:"sdfs,sdfds,sdfsfd"}, function(data){
 			if (data.successful){
 				//<p><span class="explaination">None created yet.  Please add a concern above.  Please refer to other participant's concerns on the right column for examples.</span></p>
 				for(i=0; i<data.concern.tags.length;i++){
