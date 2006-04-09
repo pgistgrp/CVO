@@ -22,6 +22,7 @@ import org.pgist.cvo.CVODAO1;
 import org.pgist.cvo.Category;
 import org.pgist.cvo.Concern;
 import org.pgist.cvo.Tag;
+import org.pgist.cvo.TagReference;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
 import org.pgist.system.UserDAO;
@@ -288,6 +289,7 @@ public class SystemInit extends MatchingTask {
         
         Map participants = new HashMap();
         Map tags = new HashMap();
+        Map tagRefs = new HashMap();
         Map categories = new HashMap();
         
         while (true) {
@@ -344,7 +346,15 @@ public class SystemInit extends MatchingTask {
                     tags.put(tagStrs[i], tag);
                     cvoDAO.saveTag(tag);
                 }
-                concern.getTags().add(tag);
+                TagReference ref = (TagReference) tagRefs.get(tagStrs[i]);
+                if (ref==null) {
+                    ref = new TagReference();
+                    ref.setTag(tag);
+                    ref.setTimes(1);
+                } else {
+                    ref.setTimes(ref.getTimes()+1);
+                }
+                concern.getTags().add(ref);
                 for (Iterator iter=categories.keySet().iterator(); iter.hasNext(); ) {
                     Category category = (Category) iter.next();
                     category.getTags().add(tag);

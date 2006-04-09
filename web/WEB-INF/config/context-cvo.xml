@@ -48,7 +48,6 @@
     <bean id="cctAgent" class="org.pgist.cvo.CCTAgent">
         <property name="cctService" ref="cctService"/>
         <property name="userDAO" ref="userDAO"/>
-        <property name="analyzer" ref="tagAnalyzer"/>
     </bean>
     
     
