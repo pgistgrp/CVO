@@ -20,6 +20,7 @@
 
 <script type="text/javascript">
   var cctId = ${cctForm.cct.id};
+  var concernTags = "";
   
 	function doOnLoad() {
 		OpenTab("tab_page2", "Tags", "tags.html", false, '');
@@ -53,21 +54,37 @@
 	function prepareConcern(){
 		if (validateForm()){
 			var concern = $('concernInput').value;
+			document.getElementById("indicator").style.visibility = "visible";
 			CCTAgent.prepareConcern(cctId, concern, function(data) {
-			
 			if (data.successful){
 				var str= "";
 				for(i=0; i < data.tags.lenth; i++){
 					str += '<li><span class="tagsList_tag"></span>'+ data.tags[i] +' <span class="tagsList_controls"><img src="/images/trash.gif" alt="Delete this Tag!" ></span></li>';
-					
+					concernTags += data.tags[i] + ',';
 				}
 				document.getElementById('tagsList').innerHTML = str;
 			}
-				
-				
+			document.getElementById("indicator").style.visibility = "hidden";
 			});
 		}
 	}
+	
+	function addTagToList(){
+		document.getElementById('tagsList').innerHTML += '<li><span class="tagsList_tag"></span>'+ document.getElementById("addTag").value +' <span class="tagsList_controls"><img src="/images/trash.gif" alt="Delete this Tag!" ></span></li>';
+		concernTags += document.getElementById("addTag").value + ',';
+	}
+	
+	function saveConcern(){
+		document.getElementById("indicator").style.visibility = "visible";
+		CCTAgent.saveConcern(cctId, concern, concernTags, function(data){
+			if (data.successful){
+				//<p><span class="explaination">None created yet.  Please add a concern above.  Please refer to other participant's concerns on the right column for examples.</span></p>
+			}
+		document.getElementById("indicator").style.visibility = "hidden";
+	})
+}
+	
+	
 </script>
 </head>
 <body onload="doOnLoad()">
@@ -98,7 +115,8 @@
     <span class="title_section">Add your concern</span>
     <form name="brainstorm" method="post">
       <p><textarea style="width:99%;" id="concernInput" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
-      <p><input type="reset" name="Submit2" value="Reset" onClick="resetForm();"> <input type="button" name="Continue" value="Continue" onclick="prepareConcern();"><div style="display: none;" id="validation"></div>
+      <p><input type="reset" name="Submit2" value="Reset" onClick="resetForm();"> <input type="button" name="Continue" value="Continue" onclick="prepareConcern();"><span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>
+      <div style="display: none;" id="validation"></div>
       </p>
     
 	    <div id="tagConcerns" style="display: none;"><span class="title_section">Tag Your Concern</span>
@@ -108,15 +126,16 @@
 				<li><span class="tagsList_tag"></span>Traffic <span class="tagsList_controls"><img src="/images/trash.gif" alt="Delete this Tag!" ></span></li>
 			</ul>	    
 			Add more tags (Add tags that were not suggested - View Examples)<br>
-			<input type="text" name="tags" size="15"><input type="submit" name="AddTag" value="Add Tag!">
-			<p>Finished Tagging? <input type="submit" name="SubmitConcern" name="AddConcern" value="Add Concern to List!"</p>
+			<input type="text" name="tags" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList();">
+			<p>Finished Tagging? <input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveConcern();"></p>
 		    </div>
 	    </div><hr>
 	      <span class="title_section">List of Created Concerns</span><br>
-	<p><span class="explaination">None created yet.  Please add a concern above.  Please refer to other participant's concerns on the right column for examples.</span></p>
-	
-	<span class="title_section">Finished Brainstorming Concerns?</span><br>
-	<p><span class="explaination">Continue to the next step!</span></p>
+      <div id="myConcerns">
+				
+	  	</div>
+			<span class="title_section">Finished Brainstorming Concerns?</span><br>
+			<p><span class="explaination">Continue to the next step!</span></p>
     </form>
   </div>
  
