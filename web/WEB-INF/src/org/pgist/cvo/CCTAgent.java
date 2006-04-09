@@ -125,7 +125,7 @@ public class CCTAgent {
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
-     *           <li>tags - a list of Tag objects</li>
+     *           <li>tags - a string array each element is a tag</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      * @throws Exception
@@ -133,19 +133,7 @@ public class CCTAgent {
     public Map prepareConcern(Map params) throws Exception {
         Map map = new HashMap();
 
-        //Temp for test
-        List tags = new ArrayList();
-        Tag tag = new Tag();
-        tag.setDescription("tag1");
-        tag.setName("tag1");
-        tag.setStatus(Tag.STATUS_OFFICIAL);
-        tags.add(tag);
-        tag = new Tag();
-        tag.setDescription("tag2");
-        tag.setName("tag2");
-        tag.setStatus(Tag.STATUS_OFFICIAL);
-        tags.add(tag);
-
+        String[] tags = {"Traffic", "Transit", "Bus"}; 
         map.put("tags", tags);
         map.put("successful", new Boolean(true));
 

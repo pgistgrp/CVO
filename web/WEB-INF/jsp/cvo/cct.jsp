@@ -16,6 +16,8 @@
 <script src="/scripts/combo.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+  var cctId = ${cctForm.cct.id};
+  
 	function doOnLoad() {
 		OpenTab("tab_page2", "Tags", "tags.html", false, '');
 		OpenTab("tab_page1", "Other Participants Concerns'", "concerns.html", false, '');
@@ -63,7 +65,7 @@
 <span class="title_page">Brainstorm Concerns</span>
 <div id="container"><br>
   <div id="overview"><span class="title_overview">Overview and Instructions</span> 
-  	<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Fusce eu ante vitae risus varius scelerisque. Vivamus fermentum. Maecenas posuere arcu in eros. Sed tortor. Praesent quis purus. Ut accumsan metus non nisl. Nullam consequat, ligula a bibendum porta, nisl justo volutpat pede, vitae commodo felis nisl malesuada est. Fusce pellentesque. Sed dolor pede, lobortis vel, pellentesque ut, sodales vel, augue. Vestibulum molestie fringilla nibh. Nulla condimentum. In quis justo. Integer vel est. Sed ligula sapien, scelerisque a, pulvinar eu, molestie vitae, urna. Morbi vestibulum. Vestibulum vestibulum.</p>
+  	<p>${cctForm.cct.instruction}</p>
   </div>
   <br>
   
