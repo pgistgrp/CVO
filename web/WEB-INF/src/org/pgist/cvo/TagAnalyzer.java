@@ -1,6 +1,7 @@
 package org.pgist.cvo;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -20,6 +21,19 @@ import java.util.List;
 public class TagAnalyzer {
     
     
+    private TagDAO tagDAO = null;
+    
+    
+    public void setTagDAO(TagDAO tagDAO) {
+        this.tagDAO = tagDAO;
+    }
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+
+
     private static List all_terms = new ArrayList();
 
     /**
@@ -108,9 +122,20 @@ public class TagAnalyzer {
      * @param tagStr The tag string
      * @return A Tag object.
      */
-    public Tag ensureTag(String tagStr) {
-        return null;
-    }//ensureTag()
+    public Collection ensureTags(String[] tagStrs) {
+        List list = new ArrayList(tagStrs.length);
+        
+        for (int i=0; i<tagStrs.length; i++) {
+            if (tagStrs[i]==null) continue;
+            tagStrs[i] = tagStrs[i].trim();
+            if ("".equals(tagStrs[i])) continue;
+            //Tag tag = ensureTag(tagStrs[i]);
+            //list.add(tag);
+            //tagDAO.saveTags(tag);
+        }//for i
+        
+        return list;
+    }//ensureTags()
     
 
 }//class TagAnalyzer

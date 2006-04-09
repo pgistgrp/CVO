@@ -28,8 +28,6 @@ public class CCTAgent {
 
     private UserDAO userDAO = null;
 
-    private TagAnalyzer analyzer = null;
-
 
     /**
      * This is not an AJAX service method.
@@ -48,16 +46,6 @@ public class CCTAgent {
      */
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
-    }
-
-
-    /**
-     * This is not an AJAX service method.
-     *
-     * @param analyzer
-     */
-    public void setAnalyzer(TagAnalyzer analyzer) {
-        this.analyzer = analyzer;
     }
 
 

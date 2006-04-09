@@ -1,9 +1,11 @@
 package org.pgist.cvo;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import net.sf.ehcache.Cache;
@@ -107,8 +109,11 @@ public class CCT extends PGame {
      * 
      * @param concern A Concern object.
      * @param tags A collection of Tag objects which are related to the given concern.
+     * @return A collection of new tags.
      */
-    public void addConcern(Concern concern, Collection tags) throws Exception {
+    public Collection addConcern(Concern concern, Collection tags) throws Exception {
+        List list = new ArrayList(5);
+        
         HashMap tagMap = null;
         Element element =  lockCache.get(id);
         if (element==null) {
@@ -135,21 +140,24 @@ public class CCT extends PGame {
             Set cctTags = getTagRefs();
             for (Iterator iter=tags.iterator(); iter.hasNext(); ) {
                 Tag tag = (Tag) iter.next();
-                concern.getTags().add(tag);
                 TagReference ref = (TagReference) tagMap.get(tag.getId());
                 if (ref==null) {
                     ref = new TagReference();
                     ref.setCct(this);
                     ref.setTag(tag);
                     ref.setTimes(1);
+                    cctTags.add(ref);
+                    list.add(tag);
                 } else {
                     ref.setTimes(ref.getTimes()+1);
                 }
-                cctTags.add(ref);
+                concern.getTags().add(ref);
             }//for iter
         }//synchronized
         
         concerns.add(concern);
+        
+        return list;
     }//addConcern()
     
     

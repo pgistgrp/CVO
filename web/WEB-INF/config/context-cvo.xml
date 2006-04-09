@@ -30,6 +30,7 @@
     
     
     <bean id="tagAnalyzer" class="org.pgist.cvo.TagAnalyzer">
+        <property name="tagDAO" ref="tagDAO"/>
     </bean>
     
     
