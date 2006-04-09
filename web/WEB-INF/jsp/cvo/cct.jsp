@@ -53,25 +53,28 @@
 	
 	function prepareConcern(){
 		if (validateForm()){
-			var concern = $('concernInput').value;
+			var concern = $('addConcern').value;
+			alert(concern);
 			document.getElementById("indicator").style.visibility = "visible";
 			CCTAgent.prepareConcern(cctId, concern, function(data) {
-			if (data.successful){
-				var str= "";
-				for(i=0; i < data.tags.lenth; i++){
-					str += '<li><span class="tagsList_tag"></span>'+ data.tags[i] +' <span class="tagsList_controls"><img src="/images/trash.gif" alt="Delete this Tag!" ></span></li>';
-					concernTags += data.tags[i] + ',';
-				}
-				document.getElementById('tagsList').innerHTML = str;
-			}
-			document.getElementById("indicator").style.visibility = "hidden";
-			});
+				alert(data);
+/*				if (data.successful){
+					var str= "";
+					for(i=0; i < data.tags.length; i++){
+						str += '<li><span class="tagsList_tag"></span>'+ data.tags[i] +' <span class="tagsList_controls"><img src="/images/trash.gif" alt="Delete this Tag!" ></span></li>';
+						concernTags += data.tags[i] + ',';
+					}
+					document.getElementById('tagsList').innerHTML = str;
+				}*/
+				document.getElementById("indicator").style.visibility = "hidden";
+			} );
 		}
 	}
 	
 	function addTagToList(){
-		document.getElementById('tagsList').innerHTML += '<li><span class="tagsList_tag"></span>'+ document.getElementById("addTag").value +' <span class="tagsList_controls"><img src="/images/trash.gif" alt="Delete this Tag!" ></span></li>';
-		concernTags += document.getElementById("addTag").value + ',';
+		document.getElementById('tagsList').innerHTML += '<li><span class="tagsList_tag"></span>'+ document.getElementById("theTag").value +' <span class="tagsList_controls"><img src="/images/trash.gif" alt="Delete this Tag!" ></span></li>';
+		concernTags += document.getElementById("theTag").value + ',';
+		$('theTag').value = "";
 	}
 	
 	function saveConcern(){
@@ -79,9 +82,12 @@
 		CCTAgent.saveConcern(cctId, concern, concernTags, function(data){
 			if (data.successful){
 				//<p><span class="explaination">None created yet.  Please add a concern above.  Please refer to other participant's concerns on the right column for examples.</span></p>
+				for(i=0; i<data.concern.tags.length;i++){
+					alert(data.concern.tags[i].name);
+				}
 			}
 		document.getElementById("indicator").style.visibility = "hidden";
-	})
+	});
 }
 	
 	
@@ -113,8 +119,8 @@
   
  <div id="slate">
     <span class="title_section">Add your concern</span>
-    <form name="brainstorm" method="post">
-      <p><textarea style="width:99%;" id="concernInput" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
+    <form name="brainstorm" method="post" onSubmit="addTagToList(); return false;">
+      <p><textarea style="width:99%;" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
       <p><input type="reset" name="Submit2" value="Reset" onClick="resetForm();"> <input type="button" name="Continue" value="Continue" onclick="prepareConcern();"><span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>
       <div style="display: none;" id="validation"></div>
       </p>
@@ -126,7 +132,7 @@
 				<li><span class="tagsList_tag"></span>Traffic <span class="tagsList_controls"><img src="/images/trash.gif" alt="Delete this Tag!" ></span></li>
 			</ul>	    
 			Add more tags (Add tags that were not suggested - View Examples)<br>
-			<input type="text" name="tags" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList();">
+			<input type="text" id="theTag" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList();">
 			<p>Finished Tagging? <input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveConcern();"></p>
 		    </div>
 	    </div><hr>
