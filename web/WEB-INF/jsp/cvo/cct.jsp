@@ -55,7 +55,7 @@
 		if (validateForm()){
 			var concern = $('addConcern').value;
 			document.getElementById("indicator").style.visibility = "visible";
-			CCTAgent.prepareConcern({cctId:cctId, concern:concern}, function(data) {
+			CCTAgent.prepareConcern({cctId:cctId,concern:concern}, function(data) {
 				if (data.successful){
 					var str= "";
 					for(i=0; i < data.tags.length; i++){
@@ -64,7 +64,7 @@
 					}
 					document.getElementById('tagsList').innerHTML = str;
 				}
-				//document.getElementById("indicator").style.visibility = "hidden";
+				document.getElementById("indicator").style.visibility = "hidden";
 			} );
 		}
 	}
@@ -75,13 +75,14 @@
 		$('theTag').value = "";
 	}
 	
-	function saveConcern(){
+	function saveTheConcern(){
+		var concern = $('addConcern').value;
 		document.getElementById("indicator").style.visibility = "visible";
-		CCTAgent.saveConcern({cctId:cctId, concern:"dasfasdf", tags:"sdfs,sdfds,sdfsfd"}, function(data){
+		CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:concernTags}, function(data){
 			if (data.successful){
 				//<p><span class="explaination">None created yet.  Please add a concern above.  Please refer to other participant's concerns on the right column for examples.</span></p>
 				for(i=0; i<data.concern.tags.length;i++){
-					alert(data.concern.tags[i].name);
+					alert(data.concern.tags[i].tag.name);
 				}
 			}
 		document.getElementById("indicator").style.visibility = "hidden";
@@ -131,7 +132,7 @@
 			</ul>	    
 			Add more tags (Add tags that were not suggested - View Examples)<br>
 			<input type="text" id="theTag" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList();">
-			<p>Finished Tagging? <input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveConcern();"></p>
+			<p>Finished Tagging? <input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></p>
 		    </div>
 	    </div><hr>
 	      <span class="title_section">List of Created Concerns</span><br>
