@@ -14,48 +14,64 @@
 
 package org.pgist.cvo;
 
+import org.*;
 import java.util.*;
 
 public class TagMatcher {
-    private static final String statement = "vehicle miles traveled vehicle migration vehicle migration i-5 vehicle miles traveled vehicle migration vehicle migration i-5";
-    private final String blank =" ";
-    private String[] concern;
-    private Set<String> kbTags; //tags retrieved from the prepared knowledge base
-    private HashMap<String, Tag> cdMap;
-    private Set<String> cdTags; //candidate tags selected from the statement by CST
-    private static final int MAX = 6; //the maximum number of words in a tag
+    private String data = "vehicle miles traveled vehicle migration vehicle migration i-5 vehicle miles traveled vehicle migration vehicle migration i-5";
+    private Set<String> kbTags;
+    private Map<String, Tag> kbMap; //tags retrieved from the prepared knowledge base
+    private Set<Tag> cdTags; //candidate tags selected from the statement by CST
+    private final int MAX = 6; //the maximum number of words in a tag
+    private TagDAO tagDao;
 
-    public void build() {
-        if(kbTags != null)
+/*    public void build() {
+        if (kbMap != null)
             return;
-        else
-
-    }
-
-    private Collection find() {
-        concern = statement.split(blank);
-        kbTags = new TreeSet<String> ();
-        cdTags = new TreeSet<String> ();
-
-        int size = concern.length;
-        if(size < 1)
-            throw new IllegalStateException("The user does not input any word");
-        for(int i = 0; i < size; i++) {
-                String s = concern[i];
-                if(kbTags.contains(s))
-                    cdTags.add(s);
-                int j = 1;
-                while((i+j) < size && j < MAX){
-                    s = s + blank + concern[i+j];
-                    if(kbTags.contains(s))
-                        cdTags.add(s);
-                    j++;
+        else {
+            try {
+                kbMap = new HashMap<String, Tag>();
+                kbTags = new TreeSet<String>();
+                Collection c = tagDao.getAllTags();
+                Iterator it = c.iterator();
+                while (it.hasNext()) {
+                    Tag tag = (Tag) it.next();
+                    kbTags.add(tag.getName());
+                    kbMap.put(tag.getName(), tag);
                 }
+            } catch (Exception e) {
+                System.out.println(
+                        "could not retrieve tags from the prepared knowledge base");
+            }
         }
     }
+*/
+    public Collection find(String statement) {
+  //      this.build();
+        data = statement;
+        String[] concern = statement.split(" ");
+        int size = concern.length;
+        if (size < 1)
+            throw new IllegalStateException("The user does not input any word");
+        for (int i = 0; i < size; i++) {
+            String s = concern[i];
+            if (kbTags.contains(s))
+                cdTags.add(kbMap.get(s));
+                int j = 1;
+            while ((i + j) < size && j < MAX) {
+                s = s + " " + concern[i + j];
+                if (kbTags.contains(s))
+                    cdTags.add(kbMap.get(s));
+                j++;
+            }
+        }
+        return cdTags;
+    }
 
-    public void printkbTags() {
-        System.out.println("we have " + kbTags.size() + " prepared tags in the PGIST knowledge base.");
+    /**
+         public void printkbTags() {
+        System.out.println("we have " + kbTags.size() +
+                           " prepared tags in the PGIST knowledge base.");
         System.out.println("They are " + kbTags.toString());
         //This implementation provides guaranteed log(n) time cost for the basic operations (add, remove and contains).
         String s = "federal transportation administration";
@@ -63,12 +79,14 @@ public class TagMatcher {
         //System.out.println(kbTags.contains(s));
         this.find();
         long end = new Date().getTime();
-        System.out.println("finding candidate tags costing time: " + (end - start));
+        System.out.println("finding candidate tags costing time: " +
+                           (end - start));
         System.out.println("They are " + cdTags.toString());
-    }
+         }
 
-    public static void main(String[] args) {
+         public static void main(String[] args) {
         tagFinder a = new tagFinder();
         a.printkbTags();
-    }
+         }*/
+
 }
