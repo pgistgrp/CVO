@@ -15,7 +15,7 @@
            <value>pgist</value>
         </property>
         <property name="password">
-           <value>pgist</value>
+           <value>ppgis.2005</value>
         </property>
     </bean>
     
