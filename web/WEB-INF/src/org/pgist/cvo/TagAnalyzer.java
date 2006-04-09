@@ -5,30 +5,30 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * 
+ *
  * <p>
  * Title: Tag analysis for text information
  * </p>
- * 
+ *
  * <p>
  * Description: This class provides the function of extracting tags based on tag
  * database and suggesting new tags based on nautral language processing
  * </p>
- * 
+ *
  * @author Guirong
  * @version 1.0
  */
 public class TagAnalyzer {
-    
-    
+
+
     private TagDAO tagDAO = null;
-    
-    
+
+
     public void setTagDAO(TagDAO tagDAO) {
         this.tagDAO = tagDAO;
     }
-    
-    
+
+
     /*
      * ------------------------------------------------------------------------
      */
@@ -50,18 +50,18 @@ public class TagAnalyzer {
      * number of appearance.
      */
     private long[][] term_id_count;
-    
+
 
     public static void main(String args[]) {
         TagAnalyzer g = new TagAnalyzer();
 
         System.out.println("my agenda is to find a bus oooo");
     }
-    
+
 
     /**
      * Extract existing tags for the given text.
-     * 
+     *
      * @param statement
      *            String
      * @return List
@@ -69,12 +69,12 @@ public class TagAnalyzer {
     public List parseText(String statement) {
         return null;
     }
-    
+
 
     /**
      * This method recursively finds the longest matched part of a string
      * against the tree, starting from a given position in the tree.
-     * 
+     *
      * @param tree
      *            long[][]
      * @param start
@@ -88,11 +88,11 @@ public class TagAnalyzer {
     public int matchString(long[][] tree, int start, String s, long[] settings) {
         return 0;
     }
-    
+
 
     /**
      * Add a given node to the tree.
-     * 
+     *
      * @param tree
      *            long[][]
      * @param tag
@@ -101,12 +101,12 @@ public class TagAnalyzer {
     public void addTag(long[][] tree, Tag tag) {
 
     }
-    
+
 
     /**
      * Get data form the tag database, and build or rebuild the tree. It loops
      * through all the tags and call addNode() to add all tags into the tree.
-     * 
+     *
      * @return long[][]
      */
     public long[][] rebuildTree() {
@@ -118,24 +118,29 @@ public class TagAnalyzer {
     /**
      * For the given tagStr, check if exist corresponding Tag object, if yes then return it; else
      * create a new Tag object and return it.
-     * 
+     *
      * @param tagStr The tag string
      * @return A Tag object.
      */
     public Collection ensureTags(String[] tagStrs) {
         List list = new ArrayList(tagStrs.length);
-        
+
         for (int i=0; i<tagStrs.length; i++) {
             if (tagStrs[i]==null) continue;
             tagStrs[i] = tagStrs[i].trim();
             if ("".equals(tagStrs[i])) continue;
-            //Tag tag = ensureTag(tagStrs[i]);
-            //list.add(tag);
-            //tagDAO.saveTags(tag);
+
+            Tag tag = new Tag();
+            tag.setName(tagStrs[i]);
+            tag.setDescription(tagStrs[i]);
+            tag.setStatus(Tag.STATUS_CANDIDATE);
+
+            list.add(tag);
+            tagDAO.saveTag(tag);
         }//for i
-        
+
         return list;
     }//ensureTags()
-    
+
 
 }//class TagAnalyzer
