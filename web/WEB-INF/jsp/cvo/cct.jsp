@@ -23,8 +23,8 @@
   var concernTags = "";
   
 	function doOnLoad() {
+		OpenTab("tab_page1", "Other Concerns", "concerns.html", false, '');
 		OpenTab("tab_page2", "Tags", "tags.html", false, '');
-		OpenTab("tab_page1", "Other Participants Concerns'", "concerns.html", false, '');
 	}
 	
 	function validateForm()
@@ -35,6 +35,7 @@
 			Effect.OpenUp('validation');
 			Effect.CloseDown('tagConcerns');
 			Effect.Yellow('validation', {duration: 4, endcolor:'#EEEEEE'});
+			Effect.Yellow('theTag', {duration: 10, endcolor:'#EEEEEE'});
 			return false;
 			
 		}else{
@@ -72,27 +73,61 @@
 	function addTagToList(){
 		document.getElementById('tagsList').innerHTML += '<li><span class="tagsList_tag"></span>'+ document.getElementById("theTag").value +' <span class="tagsList_controls"><img src="/images/trash.gif" alt="Delete this Tag!" ></span></li>';
 		concernTags += document.getElementById("theTag").value + ',';
+		Effect.Yellow('theTag', {duration: 4, endcolor:'#EEEEEE'});
 		$('theTag').value = "";
 	}
 	
 	function saveTheConcern(){
+		
 		var concern = $('addConcern').value;
 		document.getElementById("indicator").style.visibility = "visible";
+		
 		CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:concernTags}, function(data){
 			if (data.successful){
-				//<p><span class="explaination">None created yet.  Please add a concern above.  Please refer to other participant's concerns on the right column for examples.</span></p>
-				for(i=0; i<data.concern.tags.length;i++){
-					alert(data.concern.tags[i].tag.name);
-				}
-				for(j=0;j<data.concern.length;j++){
-					alert(data.concern[j].concern.name);
+				
+				//for(i=0; i<data.concern.tags.length;i++){
+				//	alert(data.concern.tags[i].tag.name);
+				//}
+				//for(i=0; i<data.concern.tags.length;i++){
+				//		alert(data.concern.tags[i].tag.name);
+				//}
+				//for (i=0; i<data.concern.length; i++){
+				//	alert(data.concern[i].concern.name);
+				//}
+			
+			document.getElementById('myConcerns').innerHTML += '<li>'+ concern + '<br>' + concernTags + '</li>';
+			Effect.CloseDown('tagConcerns');
+			//Clear comma separated concerns tag list
+			concernTags = "";
+			}
+		document.getElementById("indicator").style.visibility = "hidden";
+	});
+}
+/*
+	function showTagCloud(){
+		var count = 1;
+		var concern = $('addConcern').value;
+		var lastString = "";
+		document.getElementById("indicator").style.visibility = "visible";
+		CCTAgent.getTagCloud({cctId:cctId,type:0,count:20}, function(data){
+			if (data.successful){
+				for (i=0; i<data.tags.length; i++){
+					alert(data.tags[i].tag.name);
+					thisString = data.tags[i].tag.name;
+					if (thisString == lastString){
+						count = count + 1;
+	
+					}
+					else{
+					 	if(lastString != ""
+					}
 				}
 			}
 		document.getElementById("indicator").style.visibility = "hidden";
 	});
 }
 	
-	
+	*/
 </script>
 </head>
 <body onload="doOnLoad()">
@@ -130,10 +165,8 @@
     
     
 	    <div id="tagConcerns" style="display: none;"><span class="title_section">Tag Your Concern</span>
-		    <div id="tags">The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed). <span id="smallHelp">[ <a href="null">why are tags important?</a> ]</span>
+		    <div id="tags">The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed). <span class="smallHelp">[ <a href="null">why are tags important?</a> ]</span>
 			<ul id="tagsList">
-				<li><span class="tagsList_tag"></span>Safety <span class="tagsList_controls"><img src="/images/trash.gif" alt="Delete this Tag!" ></span></li>
-				<li><span class="tagsList_tag"></span>Traffic <span class="tagsList_controls"><img src="/images/trash.gif" alt="Delete this Tag!" ></span></li>
 			</ul>	    
 			Add more tags (Add tags that were not suggested - View Examples)<br>
 			<input type="text" id="theTag" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList();">
@@ -141,11 +174,11 @@
 		    </div>
 	    </div><hr>
 	      <span class="title_section">List of Created Concerns</span><br>
-      <div id="myConcerns">
-				
-	  	</div>
+      <ol id="myConcerns">
+		  <p><span class="explaination">None created yet.  Please add a concern above.  Please refer to other participant's concerns on the right column for examples.</span></p>
+	  	</ol>
 			<span class="title_section">Finished Brainstorming Concerns?</span><br>
-			<p><span class="explaination">Continue to the next step!</span></p>
+			<p><span class="explaination"><a href="javascript:showTagCloud();">Continue to the next step!</a></span></p>
     </form>
   </div>
  
