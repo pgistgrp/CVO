@@ -81,11 +81,11 @@
 	function saveTheConcern(){
 		
 		var concern = $('addConcern').value;
-		document.getElementById("indicator").style.visibility = "visible";
-		document.getElementById('explaination').innerHTML = "";
+		$("indicator").style.visibility = "visible";
+		$('explaination').innerHTML = "";
 		CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:concernTags}, function(data){
 			if (data.successful){
-				document.getElementById('myConcerns').innerHTML += '<li>'+ concern + '<br>' + concernTags + '</li>';
+				$('myConcerns').innerHTML += '<li>'+ concern + '<br>' + concernTags + '</li>';
 				Effect.Yellow('myConcerns', {duration: 4, endcolor:'#EEEEEE'});
 				Effect.CloseDown('tagConcerns');
 				//Reset add concerns textbox and Clear comma separated concerns tag list
@@ -93,7 +93,7 @@
 				document.forms.brainstorm.addConcern.value = "";
 				document.forms.brainstorm.addConcern.focus();
 			}
-		document.getElementById("indicator").style.visibility = "hidden";
+		$("indicator").style.visibility = "hidden";
 	});
 }
 
@@ -106,7 +106,7 @@
 				}
 				$("tabPanels").innerHTML = s;
 			}
-		document.getElementById("indicator").style.visibility = "hidden";
+		$("indicator").style.visibility = "hidden";
 	});
 }
 	
