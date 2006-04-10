@@ -101,7 +101,7 @@
 		CCTAgent.getTagCloud({cctId:cctId,type:0,count:20}, function(data){
 			if (data.successful){
 				for (i=0; i<data.tags.length; i++){
-					document.getElementById("tabPanels").innerHTML = data.tags[i].tag.name;
+					document.getElementById("tabPanels").innerHTML += data.tags[i].tag.name + ' ';
 				}
 			}
 		document.getElementById("indicator").style.visibility = "hidden";
