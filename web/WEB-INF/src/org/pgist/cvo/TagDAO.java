@@ -23,7 +23,15 @@ public interface TagDAO extends CVODAO {
      * @throws Exception
      */
     List addTags(String[] tags) throws Exception;
-
+    
+    /**
+     * Get all valid tags in the system.
+     * 
+     * @return A collection of Tag objects.
+     * @throws Exception
+     */
+    Collection getAllTags() throws Exception;
+    
     /**
      * Search in the given CCT, and find those tags appeared in this CCT and which are the top count
      * being referenced.

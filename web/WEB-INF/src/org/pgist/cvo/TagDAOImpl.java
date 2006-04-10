@@ -38,6 +38,14 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
                 }
         );
     }//getTagsByThreshold()
+
+    
+    private static String hql_getAllTags = "from Tag t where t.status!=?";
+    
+    
+    public Collection getAllTags() throws Exception {
+        return getHibernateTemplate().find(hql_getAllTags, new Integer(Tag.STATUS_REJECTED));
+    }//getAllTags
     
     
 }//class TagDAOImpl
