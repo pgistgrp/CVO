@@ -84,6 +84,9 @@
 				for(i=0; i<data.concern.tags.length;i++){
 					alert(data.concern.tags[i].tag.name);
 				}
+				for(j=0;j<data.concern.length;j++){
+					alert(data.concern[j].concern.name);
+				}
 			}
 		document.getElementById("indicator").style.visibility = "hidden";
 	});
@@ -119,10 +122,12 @@
  <div id="slate">
     <span class="title_section">Add your concern</span>
     <form name="brainstorm" method="post" onSubmit="addTagToList(); return false;">
-      <p><textarea style="width:99%;" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
-      <p><input type="reset" name="Submit2" value="Reset" onClick="resetForm();"> <input type="button" name="Continue" value="Continue" onclick="prepareConcern();"><span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>
-      <div style="display: none;" id="validation"></div>
-      </p>
+    	<span id="addConcernInput">
+	      <p><textarea style="width:70%" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
+	      <p><input type="reset" name="Submit2" value="Reset" onClick="resetForm();"> <input type="button" name="Continue" value="Continue" onclick="prepareConcern();"><span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>  </p>
+	      <div style="display: none;" id="validation"></div>
+      </span>
+    
     
 	    <div id="tagConcerns" style="display: none;"><span class="title_section">Tag Your Concern</span>
 		    <div id="tags">The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed).
