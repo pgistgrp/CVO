@@ -100,9 +100,11 @@
 	function showTagCloud(){
 		CCTAgent.getTagCloud({cctId:cctId,type:0,count:20}, function(data){
 			if (data.successful){
+				var s = '';
 				for (i=0; i<data.tags.length; i++){
-					document.getElementById("tabPanels").innerHTML += data.tags[i].tag.name + ' ';
+					s += data.tags[i].tag.name + ' ';
 				}
+				$("tabPanels").innerHTML = s;
 			}
 		document.getElementById("indicator").style.visibility = "hidden";
 	});
