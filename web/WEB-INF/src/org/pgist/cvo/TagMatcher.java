@@ -29,6 +29,8 @@ import java.util.Set;
 public class TagMatcher {
     
     
+    private TagDAO tagDAO;
+    
     private String data = "vehicle miles traveled vehicle migration vehicle migration i-5 vehicle miles traveled vehicle migration vehicle migration i-5";
     
     private Set<String> kbTags;
@@ -39,8 +41,16 @@ public class TagMatcher {
     
     private final int MAX = 6; //the maximum number of words in a tag
     
-    private TagDAO tagDao;
+
+    public void setTagDAO(TagDAO tagDAO) {
+        this.tagDAO = tagDAO;
+    }
     
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+
 
 /*    public void build() {
         if (kbMap != null)
@@ -109,4 +119,4 @@ public class TagMatcher {
          }*/
 
     
-}
+}//class TagMatcher

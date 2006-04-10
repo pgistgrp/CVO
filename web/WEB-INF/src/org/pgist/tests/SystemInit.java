@@ -14,7 +14,6 @@ import org.apache.tools.ant.loader.AntClassLoader2;
 import org.apache.tools.ant.taskdefs.MatchingTask;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.jaxen.expr.iter.IterableAncestorAxis;
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.CCTService;
 import org.pgist.cvo.CVO;

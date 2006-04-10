@@ -29,6 +29,13 @@
     </bean>
     
     
+    <bean id="tagMatcher" class="org.pgist.cvo.TagMatcher">
+        <property name="tagDAO">
+          <ref local="tagDAO"/>
+        </property>
+    </bean>
+    
+    
     <bean id="tagAnalyzer" class="org.pgist.cvo.TagAnalyzer">
         <property name="tagDAO" ref="tagDAO"/>
     </bean>

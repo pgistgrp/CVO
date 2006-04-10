@@ -96,6 +96,13 @@
     </target>
 
 
+    <target name="tagMatcher" depends="compile, mapping">
+        <taskdef name="TagMatcher" classname="org.pgist.tests.TagMatcherTest" classpathref="classpath">
+        </taskdef>
+        <TagMatcher configPath="${web}/WEB-INF/config"/>
+    </target>
+
+
     <target name="javadoc">
         <delete dir="${javadoc}"/>
         <mkdir dir="${javadoc}"/>
