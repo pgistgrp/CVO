@@ -118,7 +118,7 @@ public class Concern {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="pgist_cvo_concern_tag_link" cascade="all" order-by="name"
+     * @hibernate.set lazy="true" table="pgist_cvo_concern_tag_link" cascade="all"
      * @hibernate.collection-key column="concern_id"
      * @hibernate.collection-many-to-many column="tagref_id" class="org.pgist.cvo.TagReference"
      */

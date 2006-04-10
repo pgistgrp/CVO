@@ -10,16 +10,19 @@
     <!-- Beans Convertor -->
 
     <convert converter="bean" match="org.pgist.cvo.CCT">
-      <param name="exclude" value="concerns"/>
+      <param name="exclude" value="concerns, tagRefs"/>
     </convert>
 
-    <convert converter="bean" match="org.pgist.cvo.Concern"/>
+    <convert converter="bean" match="org.pgist.cvo.Concern">
+      <param name="exclude" value="cct"/>
+    </convert>
 
     <convert converter="bean" match="org.pgist.cvo.Tag">
       <param name="exclude" value="categories"/>
     </convert>
 
     <convert converter="bean" match="org.pgist.cvo.TagReference">
+      <param name="exclude" value="cct"/>
     </convert>
 
     <convert converter="bean" match="org.pgist.cvo.Category">
