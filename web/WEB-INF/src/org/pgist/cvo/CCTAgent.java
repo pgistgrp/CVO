@@ -1,10 +1,8 @@
 package org.pgist.cvo;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.pgist.system.UserDAO;
@@ -169,11 +167,11 @@ public class CCTAgent {
         if (cct!=null) {
             Concern concernObj = new Concern();
             concernObj.setContent(concern);
-            cctService.createConcern(cct, concernObj, tags.split(","));
-
             Long id = WebUtils.currentUserId();
             User user = userDAO.getUserById(id, true, false);
             concernObj.setAuthor(user);
+
+            cctService.createConcern(cct, concernObj, tags.split(","));
 
             map.put("concern", concernObj);
         }
@@ -217,8 +215,7 @@ public class CCTAgent {
         }
 
         Integer count = new Integer( (String) params.get("count"));
-        if (! (count > 0))
-          count = 10;
+        if (! (count > 0)) count = 10;
 
         CCT cct = cctService.getCCTById(cctId);
         if(params.get("type") != null){
@@ -263,11 +260,6 @@ public class CCTAgent {
      */
     public Map getTagCloud(Map params) {
         Map map = new HashMap();
-        
-        System.out.println("cctId ---> " + params.get("cctId"));
-        System.out.println("type ---> " + params.get("type"));
-        System.out.println("count ---> " + params.get("count"));
-        System.out.println("threshhold ---> " + params.get("threshhold"));
         
         int type = -1;
         CCT cct = null;
