@@ -130,7 +130,7 @@
     
     
 	    <div id="tagConcerns" style="display: none;"><span class="title_section">Tag Your Concern</span>
-		    <div id="tags">The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed).
+		    <div id="tags">The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed). <span id="smallHelp">[ <a href="null">why are tags important?</a> ]</span>
 			<ul id="tagsList">
 				<li><span class="tagsList_tag"></span>Safety <span class="tagsList_controls"><img src="/images/trash.gif" alt="Delete this Tag!" ></span></li>
 				<li><span class="tagsList_tag"></span>Traffic <span class="tagsList_controls"><img src="/images/trash.gif" alt="Delete this Tag!" ></span></li>
