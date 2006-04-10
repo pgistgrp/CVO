@@ -253,7 +253,7 @@ public class CCTAgent {
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
-     *           <li>tags - a list of Tag objects</li>
+     *           <li>tags - a list of TagReference objects</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      * @throws Exception
