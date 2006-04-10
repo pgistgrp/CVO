@@ -1,6 +1,6 @@
 p {
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;
+	font-size: 1.00em;
 	line-height: 19px;
 }
 
@@ -252,7 +252,7 @@ display: none;
 }
 
 .smallHelp {
-	font-size: 8px;
+	font-size: .80em;
 }
 
 

@@ -23,8 +23,8 @@
   var concernTags = "";
   
 	function doOnLoad() {
-		OpenTab("tab_page1", "Other Concerns", "concerns.html", false, '');
 		OpenTab("tab_page2", "Tags", "tags.html", false, '');
+		OpenTab("tab_page1", "Other Concerns", "concerns.html", false, '');
 	}
 	
 	function validateForm()
@@ -64,6 +64,7 @@
 						concernTags += data.tags[i] + ',';
 					}
 					document.getElementById('tagsList').innerHTML = str;
+
 				}
 				document.getElementById("indicator").style.visibility = "hidden";
 			} );
@@ -81,53 +82,33 @@
 		
 		var concern = $('addConcern').value;
 		document.getElementById("indicator").style.visibility = "visible";
-		
+		document.getElementById('explaination').innerHTML = "";
 		CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:concernTags}, function(data){
 			if (data.successful){
-				
-				//for(i=0; i<data.concern.tags.length;i++){
-				//	alert(data.concern.tags[i].tag.name);
-				//}
-				//for(i=0; i<data.concern.tags.length;i++){
-				//		alert(data.concern.tags[i].tag.name);
-				//}
-				//for (i=0; i<data.concern.length; i++){
-				//	alert(data.concern[i].concern.name);
-				//}
-			
-			document.getElementById('myConcerns').innerHTML += '<li>'+ concern + '<br>' + concernTags + '</li>';
-			Effect.CloseDown('tagConcerns');
-			//Clear comma separated concerns tag list
-			concernTags = "";
+				document.getElementById('myConcerns').innerHTML += '<li>'+ concern + '<br>' + concernTags + '</li>';
+				Effect.Yellow('myConcerns', {duration: 4, endcolor:'#EEEEEE'});
+				Effect.CloseDown('tagConcerns');
+				//Reset add concerns textbox and Clear comma separated concerns tag list
+				concernTags = "";
+				document.forms.brainstorm.addConcern.value = "";
+				document.forms.brainstorm.addConcern.focus();
 			}
 		document.getElementById("indicator").style.visibility = "hidden";
 	});
 }
-/*
+
 	function showTagCloud(){
-		var count = 1;
-		var concern = $('addConcern').value;
-		var lastString = "";
-		document.getElementById("indicator").style.visibility = "visible";
 		CCTAgent.getTagCloud({cctId:cctId,type:0,count:20}, function(data){
 			if (data.successful){
 				for (i=0; i<data.tags.length; i++){
-					alert(data.tags[i].tag.name);
-					thisString = data.tags[i].tag.name;
-					if (thisString == lastString){
-						count = count + 1;
-	
-					}
-					else{
-					 	if(lastString != ""
-					}
+					document.getElementById("tabPanels").innerHTML = data.tags[i].tag.name;
 				}
 			}
 		document.getElementById("indicator").style.visibility = "hidden";
 	});
 }
 	
-	*/
+	
 </script>
 </head>
 <body onload="doOnLoad()">
@@ -157,41 +138,43 @@
  <div id="slate">
     <span class="title_section">Add your concern</span>
     <form name="brainstorm" method="post" onSubmit="addTagToList(); return false;">
-    	<span id="addConcernInput">
-	      <p><textarea style="width:70%" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
-	      <p><input type="reset" name="Submit2" value="Reset" onClick="resetForm();"> <input type="button" name="Continue" value="Continue" onclick="prepareConcern();"><span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>  </p>
-	      <div style="display: none;" id="validation"></div>
-      </span>
-    
-    
-	    <div id="tagConcerns" style="display: none;"><span class="title_section">Tag Your Concern</span>
-		    <div id="tags">The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed). <span class="smallHelp">[ <a href="null">why are tags important?</a> ]</span>
-			<ul id="tagsList">
-			</ul>	    
-			Add more tags (Add tags that were not suggested - View Examples)<br>
-			<input type="text" id="theTag" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList();">
-			<p>Finished Tagging? <input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></p>
+	    	<span id="addConcernInput">
+		      <p><textarea style="width:70%" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
+		      <p><input type="reset" name="Submit2" value="Reset" onClick="resetForm();"> <input type="button" name="Continue" value="Continue" onclick="prepareConcern();"><span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>  </p>
+		      <div style="display: none;" id="validation"></div>
+	      </span>
+	   
+		    <div id="tagConcerns" style="display: none;"><span class="title_section">Tag Your Concern</span>
+				    <div id="tags">The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed). <span class="smallHelp">[ <a href="null">why are tags important?</a> ]</span>
+							<ul id="tagsList">
+							</ul>	    
+							Add more tags (Add tags that were not suggested - View Examples)<br>
+							<input type="text" id="theTag" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList();">
+							<p>Finished Tagging? <input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></p>
+				    </div>
 		    </div>
-	    </div><hr>
-	      <span class="title_section">List of Created Concerns</span><br>
-      <ol id="myConcerns">
-		  <p><span class="explaination">None created yet.  Please add a concern above.  Please refer to other participant's concerns on the right column for examples.</span></p>
-	  	</ol>
-			<span class="title_section">Finished Brainstorming Concerns?</span><br>
-			<p><span class="explaination"><a href="javascript:showTagCloud();">Continue to the next step!</a></span></p>
+		   
+		    <hr><span class="title_section">List of Created Concerns</span><br>
+		    <p><span id="explaination" class="explaination">None created yet.  Please add a concern above.  Please refer to other participant's concerns on the right column for examples.</span></p>
+	      <ol id="myConcerns">
+			  
+		  	</ol>
+		  	<hr>
+				<span class="title_section">Finished Brainstorming Concerns?</span><br>
+				<p><span class="explaination"><a href="javascript:showTagCloud();">Continue to the next step!</a></span></p>
     </form>
   </div>
  
   <div id="tabContainer">
-	<div id="tabs">
-		<ul id="tabList">
-		</ul>
-	</div>
-	<div id="tabPanels"></div>
+		<div id="tabs">
+			<ul id="tabList">
+			</ul>
+		</div>
+		<div id="tabPanels"></div>
   </div>
 <div id="footerContainer">
-<div id="footer"><a href="http://www.pgist.org" target="_blank"><img src="/images/footer_pgist.jpg" alt="Powered by the PGIST Portal" border="0" align="right"></a></div>
-<div id="nsf">This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.</div>
+	<div id="footer"><a href="http://www.pgist.org" target="_blank"><img src="/images/footer_pgist.jpg" alt="Powered by the PGIST Portal" border="0" align="right"></a></div>
+	<div id="nsf">This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.</div>
 </div>
 </body>
 </html>
