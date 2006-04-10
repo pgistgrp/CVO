@@ -60,23 +60,5 @@
   </allow>
 
 
-  <signatures>
-
-
-    <![CDATA[
-      import java.util.Map;
-      import org.pgist.cvo.CCTAgent;
-      CCTAgent.getCCTs(Map<String, String>);
-      CCTAgent.createCCT(Map<String, String>);
-      CCTAgent.prepareConcern(Map<String, String>);
-      CCTAgent.saveConcern(Map<String, String>);
-      CCTAgent.getConcerns(Map<String, String>);
-      CCTAgent.getTagCloud(Map<String, String>);
-    ]]>
-
-
-  </signatures>
-
-
 </dwr>
 
