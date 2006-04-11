@@ -72,6 +72,16 @@ public interface CCTService {
     Collection getOthersConcerns(CCT cct, int count) throws Exception;
     
     /**
+     * Randomly get other people's concerns.
+     * 
+     * @param cct
+     * @param count
+     * @return
+     * @throws Exception
+     */
+    Collection getRandomConcerns(CCT cct, int count) throws Exception;
+    
+    /**
      * Get the top N tags in the given cct according to the frequency of reference.
      * 
      * @param cct A CCT object which the current user is working on.
@@ -91,5 +101,5 @@ public interface CCTService {
      */
     Collection getTagsByThreshold(CCT cct, int threshold) throws Exception;
     
-    
+
 }//interface CCTService

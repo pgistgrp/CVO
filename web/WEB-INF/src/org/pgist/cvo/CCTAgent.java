@@ -194,7 +194,8 @@ public class CCTAgent {
      *           <li>type - int
      *             <ul>
      *               <li>type==0, get the current user's concerns</li>
-     *               <li>type==1, get other peopls's concerns</li>
+     *               <li>type==1, get other people's concerns</li>
+     *               <li>type==2, get other people's concerns (randomly ordered)</li>
      *             </ul>
      *           </li>
      *           <li>count - int, number of concerns to be extracted</li>
@@ -217,24 +218,29 @@ public class CCTAgent {
 
         Long cctId = new Long((String) params.get("cctId"));
 
-        if(!(cctId > 0)) {
+        if (!(cctId > 0)) {
           map.put("successful", new Boolean(false));
           map.put("reason", "No CCTId is given.");
           return map;
         }
 
-        Integer count = new Integer( (String) params.get("count"));
+        int count = Integer.parseInt( (String) params.get("count"));
         if (! (count > 0)) count = 10;
-
+        
         CCT cct = cctService.getCCTById(cctId);
         
         Collection concerns = null;
         
-        if(params.get("type") != null){
-          if( Integer.parseInt( (String)params.get("type")) == 0){
+        if (params.get("type") != null){
+          if( Integer.parseInt( (String)params.get("type")) == 0) {
               concerns =  cctService.getMyConcerns(cct);
-          }else{
+          } else if (Integer.parseInt( (String)params.get("type")) == 1) {
               concerns =  cctService.getOthersConcerns(cct, count);
+          } else if (Integer.parseInt( (String)params.get("type")) == 2) {
+              concerns =  cctService.getRandomConcerns(cct, count);
+          } else {
+              map.put("successful", new Boolean(false));
+              map.put("reason", "Not sure who's concern is wanted. Please set type to 0 (current user) or 1 (others').");
           }
           
           request.setAttribute("concerns", concerns);
@@ -242,7 +248,7 @@ public class CCTAgent {
           map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/concerns.jsp"));
           
           map.put("successful", new Boolean(true));
-        }else{
+        } else {
           map.put("successful", new Boolean(false));
           map.put("reason", "Not sure who's concern is wanted. Please set type to 0 (current user) or 1 (others').");
         }

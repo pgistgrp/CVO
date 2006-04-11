@@ -1,6 +1,11 @@
 package org.pgist.cvo;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 
 /**
@@ -42,6 +47,29 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
             userId
         });
     }//getOthersConcerns()
+
+
+    public Collection getRandomConcerns(Long cctId, Long userId, int count) throws Exception {
+        Set set = new HashSet(count);
+        
+        List concerns = getHibernateTemplate().find(hql_getOthersConcerns, new Object[] {
+            new Boolean(false),
+            cctId,
+            userId
+        });
+        
+        if (concerns.size()<count) return concerns;
+        
+        List full = new LinkedList(concerns);
+        Random random = new Random();
+        
+        while (set.size()<count) {
+            int index = random.nextInt(full.size());
+            set.add(full.remove(index));
+        }//while
+        
+        return set;
+    }//getRandomConcerns()
     
     
 }//class CCTDAOImpl

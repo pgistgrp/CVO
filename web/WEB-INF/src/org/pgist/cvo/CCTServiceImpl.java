@@ -95,6 +95,11 @@ public class CCTServiceImpl implements CCTService {
     }//getOthersConcerns()
 
 
+    public Collection getRandomConcerns(CCT cct, int count) throws Exception {
+        return cctDAO.getRandomConcerns(cct.getId(), WebUtils.currentUserId(), count);
+    }//getRandomConcerns()
+    
+    
     public Collection getTagsByRank(CCT cct, int count) throws Exception {
         return tagDAO.getTagsByRank(cct, count);
     }//getTagsByRank()
@@ -103,6 +108,6 @@ public class CCTServiceImpl implements CCTService {
     public Collection getTagsByThreshold(CCT cct, int threshold) throws Exception {
         return tagDAO.getTagsByThreshold(cct, threshold);
     }//getTagsByThreshold()
-    
-    
+
+
 }//class CCTServiceImpl
