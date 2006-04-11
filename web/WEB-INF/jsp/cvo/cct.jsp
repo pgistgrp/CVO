@@ -8,7 +8,91 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <style type="text/css" media="screen">@import "/styles/tabs.css";</style>
 <style type="text/css" media="screen">@import "/styles/pgist.css";</style>
-<script src="/scripts/ajax.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+/* Optional: Temporarily hide the "tabber" class so it does not "flash"
+   on the page as plain HTML. After tabber runs, the class is changed
+   to "tabberlive" and it will appear. */
+
+document.write('<style type="text/css">.tabber{display:none;}<\/style>');
+
+/*==================================================
+  Set the tabber options (must do this before including tabber.js)
+  ==================================================*/
+var tabberOptions = {
+
+  'cookie':"tabber", /* Name to use for the cookie */
+
+  'onLoad': function(argsObj)
+  {
+    var t = argsObj.tabber;
+    var i;
+
+    /* Optional: Add the id of the tabber to the cookie name to allow
+       for multiple tabber interfaces on the site.  If you have
+       multiple tabber interfaces (even on different pages) I suggest
+       setting a unique id on each one, to avoid having the cookie set
+       the wrong tab.
+    */
+    if (t.id) {
+      t.cookie = t.id + t.cookie;
+    }
+
+    /* If a cookie was previously set, restore the active tab */
+    i = parseInt(getCookie(t.cookie));
+    if (isNaN(i)) { return; }
+    t.tabShow(i);
+    
+  },
+
+  'onClick':function(argsObj)
+  {
+    var c = argsObj.tabber.cookie;
+    var i = argsObj.index;
+    
+    setCookie(c, i);
+  }
+};
+
+/*==================================================
+  Cookie functions
+  ==================================================*/
+function setCookie(name, value, expires, path, domain, secure) {
+    document.cookie= name + "=" + escape(value) +
+        ((expires) ? "; expires=" + expires.toGMTString() : "") +
+        ((path) ? "; path=" + path : "") +
+        ((domain) ? "; domain=" + domain : "") +
+        ((secure) ? "; secure" : "");
+}
+
+function getCookie(name) {
+    var dc = document.cookie;
+    var prefix = name + "=";
+    var begin = dc.indexOf("; " + prefix);
+    if (begin == -1) {
+        begin = dc.indexOf(prefix);
+        if (begin != 0) return null;
+    } else {
+        begin += 2;
+    }
+    var end = document.cookie.indexOf(";", begin);
+    if (end == -1) {
+        end = dc.length;
+    }
+    return unescape(dc.substring(begin + prefix.length, end));
+}
+function deleteCookie(name, path, domain) {
+    if (getCookie(name)) {
+        document.cookie = name + "=" +
+            ((path) ? "; path=" + path : "") +
+            ((domain) ? "; domain=" + domain : "") +
+            "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+    }
+}
+
+</script>
+
 <script src="/scripts/tabs.js" type="text/javascript"></script>
 <script src="/scripts/prototype.js" type="text/javascript"></script>
 <script src="/scripts/effects.js" type="text/javascript"></script>
@@ -20,12 +104,13 @@
 <script type="text/javascript">
   var cctId = ${cctForm.cct.id};
   var concernTags = "";
+  window.onload(doOnLoad());
   
-	function doOnLoad() {
-		OpenTab("tab_page2", "Tags", "tags.html", false, '');
-		OpenTab("tab_page1", "Other Concerns", "concerns.html", false, '');
+
+	function doOnLoad(){
+		showConcerns(1);
+		showTagCloud();
 	}
-	
 	function validateForm()
 	{
 		if(""==document.forms.brainstorm.addConcern.value)
@@ -59,7 +144,7 @@
 				if (data.successful){
 					var str= "";
 					for(i=0; i < data.tags.length; i++){
-						str += '<li><span class="tagsList_tag"></span>'+ data.tags[i] +' <span class="tagsList_controls"><img src="/images/trash.gif" alt="Delete this Tag!" ></span></li>';
+						str += '<li><span class="tagsList_tag"></span>'+ data.tags[i] +' <span class="tagsList_controls"><a href="null"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
 						concernTags += data.tags[i] + ',';
 					}
 					document.getElementById('tagsList').innerHTML = str;
@@ -103,8 +188,9 @@
 				for (i=0; i<data.tags.length; i++){
 					s += data.tags[i].tag.name + ' ';
 				}
-				$("tabPanels").innerHTML = s;
+				$("sidebar_tags").innerHTML += s;
 			}
+
 		$("indicator").style.visibility = "hidden";
 	});
 }
@@ -112,7 +198,7 @@
 function showConcerns(theType){
 	CCTAgent.getConcerns({cctId:cctId,type:theType,count:5}, function(data){
 		if (data.successful){
-			$('tabPanels').innerHTML = data.html;
+			$('sidebar_concerns').innerHTML += data.html;
 		}
 	});
 }
@@ -121,7 +207,7 @@ function showConcerns(theType){
 	
 </script>
 </head>
-<body onload="doOnLoad()">
+<body>
 
 <div id="decorBar"></div>
 <div id="header"><img src="/images/logo.jpg"></div>
@@ -149,7 +235,7 @@ function showConcerns(theType){
     <span class="title_section">Add your concern</span>
     <form name="brainstorm" method="post" onSubmit="addTagToList(); return false;">
 	    	<span id="addConcernInput">
-		      <p><textarea style="width:70%" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
+		      <p><textarea style="width:98%" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
 		      <p><input type="reset" name="Submit2" value="Reset" onClick="resetForm();"> <input type="button" name="Continue" value="Continue" onclick="prepareConcern();"><span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>  </p>
 		      <div style="display: none;" id="validation"></div>
 	      </span>
@@ -171,17 +257,26 @@ function showConcerns(theType){
 		  	</ol>
 		  	<hr>
 				<span class="title_section">Finished Brainstorming Concerns?</span><br>
-				<p><span class="explaination"><a href="javascript:showConcerns(1);">Continue to the next step!</a></span></p>
+				<p><span class="explaination"><a href="javascript:showTagCloud();">Continue to the next step!</a></span></p>
     </form>
   </div>
- 
-  <div id="tabContainer">
-		<div id="tabs">
-			<ul id="tabList">
-			</ul>
-		</div>
-		<div id="tabPanels"></div>
-  </div>
+<!--START SIDEBAR -->
+<div id="bar">
+	<div class="tabber">
+	
+	    <div id="sidebar_tags" class="tabbertab">
+	    	<H2>Tags</H2>
+			  <p>Tab 1 content.</p>
+	    </div>
+	
+	
+	    <div id="sidebar_concerns" class="tabbertab">
+	    	<H2>Other Concerns</H2>
+	    </div>
+	
+	</div>
+</div>
+<!--END SIDEBAR -->
 <div id="footerContainer">
 	<div id="footer"><a href="http://www.pgist.org" target="_blank"><img src="/images/footer_pgist.jpg" alt="Powered by the PGIST Portal" border="0" align="right"></a></div>
 	<div id="nsf">This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.</div>

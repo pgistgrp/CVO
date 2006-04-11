@@ -114,7 +114,12 @@ hr {
 	top: +15px;
 }
 
-
+#bar{
+	width: 35%;
+	float: right;
+	position: relative;
+}	
+	
 #validation{
 	font-size: 14px;
 	color: red;	
@@ -231,7 +236,7 @@ label {
 	margin-bottom: 1.25em;
 	border-color: black;
 	border-width: 1px;
-	width: 300px;
+	width: 98%;
 	height: 25px;
 	font-size: 18px;
 	color: #333333;
@@ -256,14 +261,14 @@ display: none;
 }
 
 .tags{
-	font-size: .85em;
+	font-size: .90em;
 }
 
-.tags a{
+a{
 	color: #F79438;
 }
 
-.tags a:hover{
+a:hover{
 	background-color: #006699;
 	color: #EEEEEE;
 }
