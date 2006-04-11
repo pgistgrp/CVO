@@ -108,6 +108,15 @@
 		$("indicator").style.visibility = "hidden";
 	});
 }
+
+function showConcerns(){
+	CCTAgent.getConcerns({cctId:cctId,type:1,count:20}, function(data){
+		if (data.successful){
+			$('tabPanels').innerHTML = data.html;
+		}
+	});
+	
+}
 	
 	
 </script>
@@ -162,7 +171,7 @@
 		  	</ol>
 		  	<hr>
 				<span class="title_section">Finished Brainstorming Concerns?</span><br>
-				<p><span class="explaination"><a href="javascript:showTagCloud();">Continue to the next step!</a></span></p>
+				<p><span class="explaination"><a href="javascript:showConcerns();">Continue to the next step!</a></span></p>
     </form>
   </div>
  
