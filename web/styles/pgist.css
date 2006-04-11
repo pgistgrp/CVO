@@ -255,5 +255,15 @@ display: none;
 	font-size: .80em;
 }
 
+.tags{
+	font-size: .80em;
+}
 
+.tags a{
+	color: #ff8040;
+}
+
+.tags a:hover{
+	background-color: #006699;
+}
 
