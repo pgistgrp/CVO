@@ -109,14 +109,14 @@
 	});
 }
 
-function showConcerns(){
-	CCTAgent.getConcerns({cctId:cctId,type:1,count:20}, function(data){
+function showConcerns(theType){
+	CCTAgent.getConcerns({cctId:cctId,type:theType,count:5}, function(data){
 		if (data.successful){
 			$('tabPanels').innerHTML = data.html;
 		}
 	});
-	
 }
+
 	
 	
 </script>
@@ -141,7 +141,7 @@ function showConcerns(){
 <span class="title_page">Brainstorm Concerns</span>
 <div id="container"><br>
   <div id="overview"><span class="title_overview">Overview and Instructions</span> 
-  	<p>${cctForm.cct.instruction}</p>
+  	<p><strong>Instructions:</strong>${cctForm.cct.instruction}</p>
   </div>
   <br>
   
@@ -171,7 +171,7 @@ function showConcerns(){
 		  	</ol>
 		  	<hr>
 				<span class="title_section">Finished Brainstorming Concerns?</span><br>
-				<p><span class="explaination"><a href="javascript:showConcerns();">Continue to the next step!</a></span></p>
+				<p><span class="explaination"><a href="javascript:showConcerns(1);">Continue to the next step!</a></span></p>
     </form>
   </div>
  
