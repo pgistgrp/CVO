@@ -24,6 +24,8 @@
   ul.tabbernav = the tab navigation list
   li.tabberactive = the active tab
   --------------------------------------------------*/
+  
+
 ul.tabbernav
 {
  margin:0;
@@ -44,16 +46,16 @@ ul.tabbernav li a
  margin-left: 3px;
  border: 1px solid #CCCCCC;
  border-bottom: none;
- background: #EEE;
+ background: #96494D;
  text-decoration: none;
 }
 
-ul.tabbernav li a:link { color: #448; }
-ul.tabbernav li a:visited { color: #667; }
+ul.tabbernav li a:link { color: #EEE; }
+ul.tabbernav li a:visited { color: #EEE; }
 
 ul.tabbernav li a:hover
 {
- color: #000;
+ color: #EEE;
  background: #006699;
  border-color: #CCCCCC;
 }
@@ -62,6 +64,7 @@ ul.tabbernav li.tabberactive a
 {
  background-color: #FFF;
  border-bottom: 1px solid #FFF;
+ color: #000;
 }
 
 ul.tabbernav li.tabberactive a:hover
@@ -81,6 +84,7 @@ ul.tabbernav li.tabberactive a:hover
  border:1px solid #CCCCCC;
  border-top:0;
  background-color: #FFF;
+ 
 
  /* If you don't want the tab size changing whenever a tab is changed
     you can set a fixed height */

@@ -125,7 +125,7 @@ function deleteCookie(name, path, domain) {
 		}else{
 			Effect.CloseDown('validation');
 			Effect.OpenUp('tagConcerns');
-			Effect.Yellow('tagConcerns', {duration: 4, endcolor:'#EEEEEE'});
+			Effect.Yellow('tags', {duration: 4, endcolor:'#DDDDDD'});
 			return true;
 		}
 	}
@@ -144,7 +144,7 @@ function deleteCookie(name, path, domain) {
 				if (data.successful){
 					var str= "";
 					for(i=0; i < data.tags.length; i++){
-						str += '<li><span class="tagsList_tag"></span>'+ data.tags[i] +' <span class="tagsList_controls"><a href="null"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
+						str += '<li class="tagsList"><span class="tagsList_tag">'+ data.tags[i] +'</span><span class="tagsList_controls">&nbsp;<a href="null"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span>&nbsp;|&nbsp;</li>';
 						concernTags += data.tags[i] + ',';
 					}
 					document.getElementById('tagsList').innerHTML = str;
@@ -163,7 +163,6 @@ function deleteCookie(name, path, domain) {
 	}
 	
 	function saveTheConcern(){
-		
 		var concern = $('addConcern').value;
 		$("indicator").style.visibility = "visible";
 		$('explaination').innerHTML = "";
@@ -233,32 +232,36 @@ function showConcerns(theType){
   
  <div id="slate">
     <span class="title_section">Add your concern</span>
-    <form name="brainstorm" method="post" onSubmit="addTagToList(); return false;">
-	    	<span id="addConcernInput">
-		      <p><textarea style="width:98%" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
-		      <p><input type="reset" name="Submit2" value="Reset" onClick="resetForm();"> <input type="button" name="Continue" value="Continue" onclick="prepareConcern();"><span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>  </p>
-		      <div style="display: none;" id="validation"></div>
-	      </span>
-	   
-		    <div id="tagConcerns" style="display: none;"><span class="title_section">Tag Your Concern</span>
-				    <div id="tags">The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed). <span class="smallHelp">[ <a href="null">why are tags important?</a> ]</span>
-							<ul id="tagsList">
-							</ul>	    
-							Add more tags (Add tags that were not suggested - View Examples)<br>
-							<input type="text" id="theTag" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList();">
-							<p>Finished Tagging? <input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></p>
-				    </div>
-		    </div>
-		   
-		    <hr><span class="title_section">List of Created Concerns</span><br>
-		    <p><span id="explaination" class="explaination">None created yet.  Please add a concern above.  Please refer to other participant's concerns on the right column for examples.</span></p>
-	      <ol id="myConcerns">
+
+		    <form name="brainstorm" method="post" onSubmit="addTagToList(); return false;">
+			    	
+			      <p><textarea class="textareaAddConcern" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
+			      <p class="indent">
+				      <input type="reset" name="Submit2" value="Reset" onClick="resetForm();"> 
+				      <input type="button" name="Continue" value="Continue" onclick="prepareConcern();">
+				      <span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>
+			      </p>
+			      <div style="display: none; padding-left: 20px;" id="validation"></div>
 			  
-		  	</ol>
-		  	<hr>
-				<span class="title_section">Finished Brainstorming Concerns?</span><br>
-				<p><span class="explaination"><a href="javascript:showTagCloud();">Continue to the next step!</a></span></p>
-    </form>
+				    <div id="tagConcerns" style="display: none; padding-left: 20px;">
+						    <div id="tags" style="background-color: #DDDDDD; border: 1px solid #BBBBBB; padding: 5px;"><span class="title_section">Tag Your Concern</span>
+						    	<p>The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed). <span class="smallHelp">[ <a href="null">why are tags important?</a> ]</span></p>
+									<ul class="tagsList" id="tagsList">
+									</ul>	    
+									
+									<p><input type="text" id="theTag" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList();"></p>
+						    </div>
+						    <p><b class="blue">Finished Tagging? </b><input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></p>
+				    </div>
+				    <hr><span class="title_section">List of Created Concerns</span><br>
+				    <div id="explaination" class="indent">None created yet.  Please add a concern above.  Please refer to other participant's concerns on the right column for examples.</div>
+			      <ol id="myConcerns">
+				  	</ol>
+				  	<hr>
+						<span class="title_section">Finished Brainstorming Concerns?</span><br>
+						<div id="finished" class="indent"><a href="next">Continue to the next step!</a></div></p>
+		    </form>
+
   </div>
 <!--START SIDEBAR -->
 <div id="bar">

@@ -4,6 +4,28 @@ p {
 	line-height: 15px;
 }
 
+p.indent{
+	padding-left: 20px;
+}
+
+p.topBorder {
+	border-top: 1px solid #006699;
+	padding-bottom: 5px;
+}
+a{
+	color: #96494D;
+}
+
+a:hover{
+	background-color: #006699;
+	color: #EEEEEE;
+}
+
+b.blue {
+	font-weight: bold;
+	color: #006699;
+}
+
 hr {
 	border-top: 1px dashed #006699;
 }
@@ -43,6 +65,7 @@ hr {
 	font-size: 12px;
 	font-style: italic;
 	color: #006699;	
+	padding-left: 20px;
 }
 
 #decorBar {
@@ -65,7 +88,9 @@ hr {
 	padding: 0;
 }
 
-
+.indent {
+padding-left: 20px;
+}
 
 #navigation {
 	width: 100%;
@@ -97,11 +122,27 @@ hr {
 #bread-gen ul li.first:before {
 	content: " ";
 	}
+	
+ul.tagsList{
+	margin: 0;
+	padding: 0;
+	border: none;
+	list-style: none;
+	display: inline;
+}
+
+li.tagsList{
+	margin: 0;
+	padding: 0;
+	border: none;
+	list-style: none;
+	display: inline;
+}
 #overview {
 	border: 1px solid #CCCCCC;
 	position: relative;
 	width: 100%;
-    padding: 5px;
+  padding: 5px;
 }
 
 #slate {
@@ -127,7 +168,6 @@ hr {
 
 
 #container {
-	
 	width: 90%;
 }
 
@@ -154,6 +194,17 @@ hr {
 	font-size: 10px;
 	color:#666666;
 	}
+
+.textareaAddConcern{
+	display: block;
+	border-color: black;
+	border-width: 1px;
+	width: 90%;
+	height: 120px;
+	font-size: 18px;
+	color: #333333;
+	margin-left: 20px;
+}
 
 /* Slate Rounded ///////////////////////////////////*/
 #slateRounded{
@@ -236,7 +287,7 @@ label {
 	margin-bottom: 1.25em;
 	border-color: black;
 	border-width: 1px;
-	width: 98%;
+	width: 300px;
 	height: 25px;
 	font-size: 18px;
 	color: #333333;
@@ -248,12 +299,7 @@ width: 20px
 
 
 #slateRounded br{
-display: none;
-
-}
-
-.addConcernInput {
-	margin-left: 20px;
+	display: none;
 }
 
 .smallHelp {
@@ -264,12 +310,4 @@ display: none;
 	font-size: .90em;
 }
 
-a{
-	color: #F79438;
-}
-
-a:hover{
-	background-color: #006699;
-	color: #EEEEEE;
-}
 
