@@ -122,7 +122,7 @@ public class CCTAgent {
      * @param params A map contains:<br>
      *         <ul>
      *           <li>cctId - long int, the current CCT instance id</li>
-     *           <li>concern - String, the new concern which user entered</li>
+     *           <li>concern - A string, the new concern which user entered</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
@@ -144,7 +144,7 @@ public class CCTAgent {
 
 
     /**
-     * Save the given concern and its tags to the system.
+     * Save the given new concern and its tags to the system.
      *
      * @param params A map contains:<br>
      *         <ul>
@@ -397,6 +397,79 @@ public class CCTAgent {
         
         return map;
     }//getConcernsByTag()
+    
+    
+    /**
+     * Edit the given Concern object. Before edit, the current user will be check if he is the author of
+     * this concern.
+     * 
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>concernId - long int, the Concern instance id</li>
+     *           <li>concern - A string, the concern which user edited, can be null or "" after trimed, means don't edit the concern string.</li>
+     *           <li>tags - A string, a comma-separated tag list provided by current user</li>
+     *         </ul>
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>concern - The edited Concern object (valid when successful==true)</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
+    public Map editConcern(Map params) {
+        Map map = new HashMap();
+        
+        //Check if the current user is the author of this concern.
+        
+        return map;
+    }//editConcern()
+    
+    
+    /**
+     * Delete the given Concern object. Before delete, the current user will be check if he is the author of
+     * this concern.
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>concernId - long int, the Concern instance id</li>
+     *         </ul>
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
+    public Map deleteConcern(Map params) {
+        Map map = new HashMap();
+        
+        //Check if the current user is the author of this concern.
+        
+        return map;
+    }//deleteConcern()
+    
+    
+    /**
+     * Delete the given TagReference objects from the given Concern object. Before delete, the current user will be check if he is the author of
+     * this concern.
+     * 
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>concernId - long int, the Concern instance id</li>
+     *           <li>tagIds - A string, a comma-separated tag id list to be deleted</li>
+     *         </ul>
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>concern - The Concern object after being edited (valid when successful==true)</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
+    public Map deleteTags(Map params) {
+        Map map = new HashMap();
+        
+        //Check if the current user is the author of this concern.
+        
+        return map;
+    }//deleteTags()
 
 
 }//class CCTAgent

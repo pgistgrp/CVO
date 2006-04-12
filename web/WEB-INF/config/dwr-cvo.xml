@@ -58,6 +58,9 @@
       <include method="getConcerns"/>
       <include method="getConcernsByTag"/>
       <include method="getTagCloud"/>
+      <include method="editConcern"/>
+      <include method="deleteConcern"/>
+      <include method="deleteTags"/>
     </create>
 
 
