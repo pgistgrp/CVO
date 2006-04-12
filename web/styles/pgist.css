@@ -12,6 +12,12 @@ p.topBorder {
 	border-top: 1px solid #006699;
 	padding-bottom: 5px;
 }
+
+p.explaination {
+	font-style: italic;
+	color: #006699;	
+}
+
 a{
 	color: #96494D;
 }
@@ -44,14 +50,14 @@ hr {
 .title_page {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 23px;
-	color: #333333;
+	color: #FF67B3;
 	font-weight: bold;	
 }
 
 .title_section {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 15px;
-	color: #333333;
+	color: #A7005D;
 	font-weight: bolder;	
 }
 
@@ -59,13 +65,6 @@ hr {
 	color: #90B021;
 	font-size: 15px;
 	font-weight: bolder;	
-}
-
-.explaination {
-	font-size: 12px;
-	font-style: italic;
-	color: #006699;	
-	padding-left: 20px;
 }
 
 #decorBar {

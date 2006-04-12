@@ -46,8 +46,9 @@ ul.tabbernav li a
  margin-left: 3px;
  border: 1px solid #CCCCCC;
  border-bottom: none;
- background: #96494D;
+ background: #006699;
  text-decoration: none;
+ padding-bottom: 5px;
 }
 
 ul.tabbernav li a:link { color: #EEE; }
@@ -56,15 +57,17 @@ ul.tabbernav li a:visited { color: #EEE; }
 ul.tabbernav li a:hover
 {
  color: #EEE;
- background: #006699;
+ background: #AFCAE7;
  border-color: #CCCCCC;
 }
 
 ul.tabbernav li.tabberactive a
 {
+ font-size: 16px;
+ font-weight: bold;
  background-color: #FFF;
  border-bottom: 1px solid #FFF;
- color: #000;
+ color: #FF67B3;
 }
 
 ul.tabbernav li.tabberactive a:hover

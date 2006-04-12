@@ -156,7 +156,7 @@ function deleteCookie(name, path, domain) {
 	}
 	
 	function addTagToList(){
-		document.getElementById('tagsList').innerHTML += '<li><span class="tagsList_tag"></span>'+ document.getElementById("theTag").value +' <span class="tagsList_controls"><img src="/images/trash.gif" alt="Delete this Tag!" ></span></li>';
+		document.getElementById('tagsList').innerHTML += '<li class="tagsList"><span class="tagsList_tag">'+ document.getElementById("theTag").value +'</span><span class="tagsList_controls">&nbsp;<a href="null"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span>&nbsp;|&nbsp;</li>';
 		concernTags += document.getElementById("theTag").value + ',';
 		Effect.Yellow('theTag', {duration: 4, endcolor:'#EEEEEE'});
 		$('theTag').value = "";
@@ -197,7 +197,7 @@ function deleteCookie(name, path, domain) {
 function showConcerns(theType){
 	CCTAgent.getConcerns({cctId:cctId,type:theType,count:5}, function(data){
 		if (data.successful){
-			$('sidebar_concerns').innerHTML += data.html;
+			$('sidebar_concerns').innerHTML = data.html;
 		}
 	});
 }
@@ -254,12 +254,12 @@ function showConcerns(theType){
 						    <p><b class="blue">Finished Tagging? </b><input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></p>
 				    </div>
 				    <hr><span class="title_section">List of Created Concerns</span><br>
-				    <div id="explaination" class="indent">None created yet.  Please add a concern above.  Please refer to other participant's concerns on the right column for examples.</div>
+				    <div id="explaination" class="indent"><p class="explaination">None created yet.  Please add a concern above.  Please refer to other participant's concerns on the right column for examples.</p></div>
 			      <ol id="myConcerns">
 				  	</ol>
 				  	<hr>
 						<span class="title_section">Finished Brainstorming Concerns?</span><br>
-						<div id="finished" class="indent"><a href="next">Continue to the next step!</a></div></p>
+						<div id="finished" class="indent"><p>When you are staisfied with your concerns list above, please use the button below to continue to the next step!</div></p>
 		    </form>
 
   </div>
@@ -269,7 +269,6 @@ function showConcerns(theType){
 	
 	    <div id="sidebar_tags" class="tabbertab">
 	    	<H2>Tags</H2>
-			  <p>Tab 1 content.</p>
 	    </div>
 	
 	

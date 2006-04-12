@@ -1,6 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<h2>Other Concerns</h2>
 <span class="title_section">Other Participant's Concerns</span>
 
 <p>To help you create your concerns, below are examples of other participant concerns in random order. To sort, use the drop down box above.</p>
