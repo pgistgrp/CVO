@@ -70,6 +70,18 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
         
         return set;
     }//getRandomConcerns()
+
+
+    private static final String hql_getConcernByTag = "from Concern c where c.deleted=? and c.tags.id=?";
+    
+    
+    public Collection getConcernsByTag(TagReference tagRef, int count) throws Exception {
+        if (count>0) getHibernateTemplate().setMaxResults(count);
+        return getHibernateTemplate().find(hql_getConcernByTag, new Object[] {
+                new Boolean(false),
+                tagRef.getId()
+        });
+    }//getConcernByTag()
     
     
 }//class CCTDAOImpl

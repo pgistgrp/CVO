@@ -100,6 +100,16 @@ public interface CCTService {
      * @throws Exception
      */
     Collection getTagsByThreshold(CCT cct, int threshold) throws Exception;
+
+    /**
+     * Get concerns by the given tagRefId.
+     * 
+     * @param tagRefId the id of a TagReference object.
+     * @param count the max amount of concerns to get.
+     * @return A collection of Concern objects.
+     * @throws Exception
+     */
+    Collection getConcernsByTag(Long tagRefId, int count) throws Exception;
     
 
 }//interface CCTService

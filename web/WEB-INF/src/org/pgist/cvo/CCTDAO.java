@@ -51,6 +51,16 @@ public interface CCTDAO extends CVODAO {
      * @throws Exception
      */
     Collection getRandomConcerns(Long cctId, Long userId, int count) throws Exception;
+
+    /**
+     * Get concerns with the given tagRefId.
+     * 
+     * @param tagRef the TagReference object.
+     * @param count the max amount of concerns to get.
+     * @return A collection of Concern objects.
+     * @throws Exception
+     */
+    Collection getConcernsByTag(TagReference tagRef, int count) throws Exception;
     
 
 }//interface CCTDAO

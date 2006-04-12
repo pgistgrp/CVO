@@ -110,4 +110,11 @@ public class CCTServiceImpl implements CCTService {
     }//getTagsByThreshold()
 
 
+    public Collection getConcernsByTag(Long tagRefId, int count) throws Exception {
+        TagReference tagRef = tagDAO.getTagReferenceById(tagRefId);
+        if (tagRef==null) throw new Exception("Requested TagReference doesn't exist.");
+        return cctDAO.getConcernsByTag(tagRef, count);
+    }//getConcernsByTag()
+
+
 }//class CCTServiceImpl

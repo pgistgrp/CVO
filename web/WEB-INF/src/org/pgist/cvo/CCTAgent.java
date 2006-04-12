@@ -364,10 +364,36 @@ public class CCTAgent {
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
-    public Map getConcernsByTag(Map params) {
+    public Map getConcernsByTag(HttpServletRequest request, Map params) {
         Map map = new HashMap();
         
+        Long tagRefId = null;
+        int count = -1;
         
+        try {
+            tagRefId = new Long((String) params.get("tagRefId"));
+            count = Integer.parseInt((String) params.get("count"));
+        } catch(NumberFormatException e) {
+            if (tagRefId==null) {
+                map.put("successful", new Boolean(false));
+                map.put("reason", "tagRefId is required!");
+                return map;
+            }
+        }
+        
+        try {
+            Collection concerns = cctService.getConcernsByTag(tagRefId, count);
+            
+            request.setAttribute("concerns", concerns);
+            
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/tagConcerns.jsp"));
+        } catch(Exception e) {
+            map.put("successful", new Boolean(false));
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        map.put("successful", new Boolean(true));
         
         return map;
     }//getConcernsByTag()
