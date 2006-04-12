@@ -2,14 +2,15 @@
 
 <project default="compile" basedir=".">
 
-
     <property name="base" value="." />
+    
+    <property file="${base}/build.properties"/>
+    
     <property name="web" value="web" />
     <property name="src" value="${web}/WEB-INF/src" />
     <property name="deplib" value="lib" />
     <property name="lib" value="${web}/WEB-INF/lib" />
     <property name="build" value="${web}/WEB-INF/classes" />
-    <property name="tomcat" value="C:/Program Files/Apache Software Foundation/Tomcat 5.5"/>
     <property name="webapp" value="${tomcat}/webapps/ROOT"/>
     <property name="javadoc-webapp" value="${tomcat}/webapps/pgist-docs"/>
     <property name="javadoc" value="docs/api"/>
