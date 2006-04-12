@@ -108,7 +108,8 @@ function deleteCookie(name, path, domain) {
   
 
 	function doOnLoad(){
-		showConcerns(1);
+		showConcerns(2);
+		showMyConcerns();
 		showTagCloud();
 	}
 	function validateForm()
@@ -165,7 +166,7 @@ function deleteCookie(name, path, domain) {
 	function saveTheConcern(){
 		var concern = $('addConcern').value;
 		$("indicator").style.visibility = "visible";
-		$('explaination').innerHTML = "";
+		//$('explaination').innerHTML = "";
 		CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:concernTags}, function(data){
 			if (data.successful){
 				$('myConcerns').innerHTML += '<li>'+ concern + '<br>' + concernTags + '</li>';
@@ -197,7 +198,19 @@ function deleteCookie(name, path, domain) {
 function showConcerns(theType){
 	CCTAgent.getConcerns({cctId:cctId,type:theType,count:5}, function(data){
 		if (data.successful){
-			$('sidebar_concerns').innerHTML = data.html;
+			$('sidebar_concerns').innerHTML += data.html;
+		}
+	});
+}
+
+function showMyConcerns(){
+	/*
+					    if user.concerns count = 0
+				    document.getElementById("myConcernsList").innerHTML = '<p class="explaination">None created yet.  Please add a concern above.  Please refer to other participant's concerns on the right column for examples.</p>';
+ */
+	CCTAgent.getConcerns({cctId:cctId,type:0,count:10}, function(data){
+		if (data.successful){
+			$('myConcernsList').innerHTML += data.html;
 		}
 	});
 }
@@ -223,8 +236,8 @@ function showConcerns(theType){
 	</div>
 </div>
 <br>
+<div id="container">
 <span class="title_page">Brainstorm Concerns</span>
-<div id="container"><br>
   <div id="overview"><span class="title_overview">Overview and Instructions</span> 
   	<p><strong>Instructions:</strong>${cctForm.cct.instruction}</p>
   </div>
@@ -254,12 +267,16 @@ function showConcerns(theType){
 						    <p><b class="blue">Finished Tagging? </b><input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></p>
 				    </div>
 				    <hr><span class="title_section">List of Created Concerns</span><br>
-				    <div id="explaination" class="indent"><p class="explaination">None created yet.  Please add a concern above.  Please refer to other participant's concerns on the right column for examples.</p></div>
-			      <ol id="myConcerns">
-				  	</ol>
+			      <div id="myConcernsList" class="indent">
+				      <ol id="myConcerns">
+					  	</ol>
+				  	</div>
 				  	<hr>
 						<span class="title_section">Finished Brainstorming Concerns?</span><br>
-						<div id="finished" class="indent"><p>When you are staisfied with your concerns list above, please use the button below to continue to the next step!</div></p>
+						<div id="finished_container" class="indent">
+							<div id="finished_p"><p>When you are staisfied with your concerns list above, please use the button on the right to continue to the next step!</p></div>
+							<div id="finished_img"><a href="nextStep"><img src="/images/submission_brainstorm.gif" border="0" align="right"></a></div>
+						</div>
 		    </form>
 
   </div>
@@ -272,11 +289,22 @@ function showConcerns(theType){
 	    </div>
 	
 	
-	    <div id="sidebar_concerns" class="tabbertab">
-	    	<H2>Other Concerns</H2>
+	    <div id="sidebar_concernsContainer" class="tabbertab">
+	    	<h2>Other Concerns</h2>
+				<span class="title_section">Other Participant's Concerns</span>
+				<p>To help you create your concerns, below are examples of other participant concerns in random order. To sort, use the drop down box above.</p>
+				<select name="select">
+				    <option selected>Sort by...</option>
+				    <option onclick="showConcerns(1);">Date Ascending</option>
+				    <option>Date Decending</option>
+				    <option onclick="showConcerns(2);">No Sort (Random)</option>
+				</select>
+				<div id="sidebar_concerns">
+				</div>
 	    </div>
 	
 	</div>
+</div>
 </div>
 <!--END SIDEBAR -->
 <div id="footerContainer">

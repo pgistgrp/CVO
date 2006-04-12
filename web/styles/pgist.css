@@ -52,6 +52,7 @@ hr {
 	font-size: 23px;
 	color: #FF67B3;
 	font-weight: bold;	
+
 }
 
 .title_section {
@@ -146,7 +147,7 @@ li.tagsList{
 
 #slate {
 	border: 1px solid #CCCCCC;
-	width: 60%;
+	width: 63%;
 	float: left;
 	background-color: #EEEEEE;
 	padding: 5px;
@@ -155,7 +156,7 @@ li.tagsList{
 }
 
 #bar{
-	width: 35%;
+	width: 33%;
 	float: right;
 	position: relative;
 }	
@@ -168,6 +169,7 @@ li.tagsList{
 
 #container {
 	width: 90%;
+	margin: auto;
 }
 
 #footerContainer {
@@ -198,13 +200,25 @@ li.tagsList{
 	display: block;
 	border-color: black;
 	border-width: 1px;
-	width: 90%;
-	height: 120px;
+	width: 93%;
+	height: 100px;
 	font-size: 18px;
 	color: #333333;
 	margin-left: 20px;
+	margin-right: 20px;
 }
 
+#finished_p{
+position: relative;
+float: left;
+width: 70%
+}
+
+#finished_img{
+position: relative;
+float: right;
+width: 130px;
+}
 /* Slate Rounded ///////////////////////////////////*/
 #slateRounded{
 	position: relative;
