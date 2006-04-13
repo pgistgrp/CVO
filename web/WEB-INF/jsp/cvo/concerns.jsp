@@ -9,7 +9,7 @@
 	<logic:iterate id="tagref" property="tags" name="concern">
 		<a href="null"><bean:write name="tagref" property="tag.name" /></a>&nbsp;|&nbsp;
 	</logic:iterate></span></p>
-	<logic:equal parameter="type" value="0">
+	<logic:equal name="type" value="0">
 	<p class=actionMenu><a href="edit">edit concern</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="edit">edit tags</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="edit">delete concern</a>&nbsp;&nbsp;|&nbsp;&nbsp;</p>
 	</logic:equal>
 	<p></p>
