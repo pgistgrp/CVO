@@ -210,7 +210,7 @@ function showMyConcerns(){
 				    document.getElementById("myConcernsList").innerHTML = '<p class="explaination">None created yet.  Please add a concern above.  Please refer to other participant's concerns on the right column for examples.</p>';
  						}
  */
-	CCTAgent.getConcerns({cctId:cctId,type:0,count:10}, function(data){
+	CCTAgent.getConcerns({cctId:cctId,type:0,count:-1}, function(data){
 		if (data.successful){
 			$('myConcernsList').innerHTML += data.html;
 		}
