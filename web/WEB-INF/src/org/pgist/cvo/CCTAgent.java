@@ -209,6 +209,8 @@ public class CCTAgent {
      *                    <li>concerns - A list of Concern objects</li>
      *                  </ul>
      *           </li>
+     *           <li>count - int, number of concerns actually extracted (valid when successful==true)</li>
+     *           <li>total - int, number of total my/other concerns in the database (valid when successful==true)</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      * @throws Exception
@@ -423,12 +425,10 @@ public class CCTAgent {
      *         <ul>
      *           <li>concernId - long int, the Concern instance id</li>
      *           <li>concern - A string, the concern which user edited, can be null or "" after trimed, means don't edit the concern string.</li>
-     *           <li>tags - A string, a comma-separated tag list provided by current user</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
-     *           <li>concern - The edited Concern object (valid when successful==true)</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
@@ -470,22 +470,21 @@ public class CCTAgent {
      * @param params A map contains:<br>
      *         <ul>
      *           <li>concernId - long int, the Concern instance id</li>
-     *           <li>tagIds - A string, a comma-separated tag id list to be deleted</li>
+     *           <li>tags - A string, a comma-separated tag name list which is the final tags</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
-     *           <li>concern - The Concern object after being edited (valid when successful==true)</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
-    public Map deleteTags(Map params) {
+    public Map editTags(Map params) {
         Map map = new HashMap();
         
         //Check if the current user is the author of this concern.
         
         return map;
-    }//deleteTags()
+    }//editTags()
 
 
 }//class CCTAgent
