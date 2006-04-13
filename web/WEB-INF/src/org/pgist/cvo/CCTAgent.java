@@ -230,27 +230,43 @@ public class CCTAgent {
         CCT cct = cctService.getCCTById(cctId);
         
         Collection concerns = null;
+        Integer type = null;
+        String url = "";
         
-        if (params.get("type") != null){
-          if( Integer.parseInt( (String)params.get("type")) == 0) {
-              concerns =  cctService.getMyConcerns(cct);
-          } else if (Integer.parseInt( (String)params.get("type")) == 1) {
-              concerns =  cctService.getOthersConcerns(cct, count);
-          } else if (Integer.parseInt( (String)params.get("type")) == 2) {
-              concerns =  cctService.getRandomConcerns(cct, count);
-          } else {
-              map.put("successful", new Boolean(false));
-              map.put("reason", "Not sure who's concern is wanted. Please set type to 0 (current user) or 1 (others').");
-          }
-          
-          request.setAttribute("concerns", concerns);
-          
-          map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/concerns.jsp"));
-          
-          map.put("successful", new Boolean(true));
-        } else {
-          map.put("successful", new Boolean(false));
-          map.put("reason", "Not sure who's concern is wanted. Please set type to 0 (current user) or 1 (others').");
+        try {
+            type = new Integer((String)params.get("type"));
+            switch(type.intValue()) {
+                case 0:
+                    concerns =  cctService.getMyConcerns(cct);
+                    url = "/WEB-INF/jsp/cvo/myConcerns.jsp";
+                    break;
+                case 1:
+                    concerns =  cctService.getOthersConcerns(cct, count);
+                    url = "/WEB-INF/jsp/cvo/concerns.jsp";
+                    break;
+                case 2:
+                    concerns =  cctService.getRandomConcerns(cct, count);
+                    url = "/WEB-INF/jsp/cvo/concerns.jsp";
+                    break;
+                default:
+                    map.put("successful", new Boolean(false));
+                    map.put("reason", "Not sure who's concern is wanted. Please set type to 0 (current user) or 1 (others').");
+                    return map;
+            }
+            
+            request.setAttribute("concerns", concerns);
+            request.setAttribute("type", type);
+            
+            map.put("html", WebContextFactory.get().forwardToString(url));
+            map.put("successful", new Boolean(true));
+        } catch (Exception e) {
+            map.put("successful", new Boolean(false));
+            if (type==null) {
+                map.put("reason", "Not sure who's concern is wanted. Please set type to 0 (current user) or 1 (others').");
+            } else {
+                map.put("reason", e.getMessage());
+            }
+            return map;
         }
 
         return map;
