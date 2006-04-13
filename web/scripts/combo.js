@@ -3,6 +3,12 @@ Effect.Yellow = function(element) {
 	new Effect.Highlight(element, arguments[1] || {});	
 }
 
+Effect.drop = function(element) {
+	element = $(element);
+	new Effect.DropOut(element, arguments[1] || {});	
+}
+
+
 Effect.OpenUp = function(element) {
      element = $(element);
      new Effect.BlindDown(element, arguments[1] || {});
