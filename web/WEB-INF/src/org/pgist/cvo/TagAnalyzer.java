@@ -66,6 +66,10 @@ public class TagAnalyzer {
      * ------------------------------------------------------------------------
      */
 
+    public void TagAnalyzer(){
+      rebuildTree();
+    }
+
 
     private static List all_tags = new ArrayList();
 
@@ -331,12 +335,28 @@ public class TagAnalyzer {
                          0, 1, 1);          //do the index in the list
           }
 
+          printTreeNice(tag_tree, 0, "");
+
         }
         catch (Exception ex) {
           System.out.println("==Error in TagAnalyzer.rebuildTree: " + ex.getMessage());
         }
 
     }
+
+    private static void printTreeNice(long[][] t, int start, String firstpart){
+    if(t[start][3] >= 0){
+        System.out.println(firstpart + (char)t[start][0]);
+      }
+
+      if(t[start][1] >= 0){
+        printTreeNice(t, (int)t[start][1], firstpart + (char)t[start][0]);
+      }
+
+      if(t[start][2] >= 0){
+        printTreeNice(t, (int)t[start][2], firstpart);
+      }
+  }
 
 
     /**
