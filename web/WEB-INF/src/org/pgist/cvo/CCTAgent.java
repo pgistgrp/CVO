@@ -135,7 +135,9 @@ public class CCTAgent {
     public Map prepareConcern(Map params) throws Exception {
         Map map = new HashMap();
 
-        String[] tags = {"Traffic", "Transit", "Bus"}; 
+        String concern = (String) params.get("concern");
+
+        Collection tags = cctService.getSuggestedTags(concern);//{"Traffic", "Transit", "Bus"};
         map.put("tags", tags);
         map.put("successful", new Boolean(true));
 
@@ -162,11 +164,11 @@ public class CCTAgent {
      */
     public Map saveConcern(Map params) throws Exception {
         Map map = new HashMap();
-        
+
         Long cctId = new Long((String) params.get("cctId"));
         String concern = (String) params.get("concern");
         String tags = (String) params.get("tags");
-        
+
         CCT cct = cctService.getCCTById(cctId);
         if (cct!=null) {
             Concern concernObj = new Concern();
@@ -228,13 +230,13 @@ public class CCTAgent {
 
         int count = Integer.parseInt( (String) params.get("count"));
         if (! (count > 0)) count = 10;
-        
+
         CCT cct = cctService.getCCTById(cctId);
-        
+
         Collection concerns = null;
         Integer type = null;
         String url = "";
-        
+
         try {
             type = new Integer((String)params.get("type"));
             switch(type.intValue()) {
@@ -255,10 +257,10 @@ public class CCTAgent {
                     map.put("reason", "Not sure who's concern is wanted. Please set type to 0 (current user) or 1 (others').");
                     return map;
             }
-            
+
             request.setAttribute("concerns", concerns);
             request.setAttribute("type", type);
-            
+
             map.put("html", WebContextFactory.get().forwardToString(url));
             map.put("successful", new Boolean(true));
         } catch (Exception e) {
@@ -299,10 +301,10 @@ public class CCTAgent {
      */
     public Map getTagCloud(Map params) {
         Map map = new HashMap();
-        
+
         int type = -1;
         CCT cct = null;
-        
+
         try {
             type = Integer.parseInt((String) params.get("type"));
             Long cctId = new Long((String) params.get("cctId"));
@@ -314,7 +316,7 @@ public class CCTAgent {
             if (cct==null) map.put("reason", "No CCTId is given.");
             return map;
         }
-        
+
         if (type==0) {
             int count = -1;
             try {
@@ -324,7 +326,7 @@ public class CCTAgent {
                 e.printStackTrace();
                 count = 2;
             }
-            
+
             try {
                 Collection tags = cctService.getTagsByRank(cct, count);
                 map.put("successful", true);
@@ -344,7 +346,7 @@ public class CCTAgent {
             } catch(Exception e) {
                 threshhold = 10;
             }
-            
+
             try {
                 Collection tags = cctService.getTagsByThreshold(cct, threshhold);
                 map.put("successful", true);
@@ -357,14 +359,14 @@ public class CCTAgent {
         } else {
             map.put("reason", "Wrong invocation type!");
         }
-        
+
         return map;
     }//getTagCloud()
-    
-    
+
+
     /**
      * Get concerns attached to a tag.
-     * 
+     *
      * @param params A map contains:<br>
      *         <ul>
      *           <li>tagRefId - long int, the TagReference instance id</li>
@@ -384,10 +386,10 @@ public class CCTAgent {
      */
     public Map getConcernsByTag(HttpServletRequest request, Map params) {
         Map map = new HashMap();
-        
+
         Long tagRefId = null;
         int count = -1;
-        
+
         try {
             tagRefId = new Long((String) params.get("tagRefId"));
             count = Integer.parseInt((String) params.get("count"));
@@ -398,29 +400,29 @@ public class CCTAgent {
                 return map;
             }
         }
-        
+
         try {
             Collection concerns = cctService.getConcernsByTag(tagRefId, count);
-            
+
             request.setAttribute("concerns", concerns);
-            
+
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/tagConcerns.jsp"));
         } catch(Exception e) {
             map.put("successful", new Boolean(false));
             map.put("reason", e.getMessage());
             return map;
         }
-        
+
         map.put("successful", new Boolean(true));
-        
+
         return map;
     }//getConcernsByTag()
-    
-    
+
+
     /**
      * Edit the given Concern object. Before edit, the current user will be check if he is the author of
      * this concern.
-     * 
+     *
      * @param params A map contains:<br>
      *         <ul>
      *           <li>concernId - long int, the Concern instance id</li>
@@ -434,13 +436,13 @@ public class CCTAgent {
      */
     public Map editConcern(Map params) {
         Map map = new HashMap();
-        
+
         //Check if the current user is the author of this concern.
-        
+
         return map;
     }//editConcern()
-    
-    
+
+
     /**
      * Delete the given Concern object. Before delete, the current user will be check if he is the author of
      * this concern.
@@ -456,17 +458,17 @@ public class CCTAgent {
      */
     public Map deleteConcern(Map params) {
         Map map = new HashMap();
-        
+
         //Check if the current user is the author of this concern.
-        
+
         return map;
     }//deleteConcern()
-    
-    
+
+
     /**
      * Delete the given TagReference objects from the given Concern object. Before delete, the current user will be check if he is the author of
      * this concern.
-     * 
+     *
      * @param params A map contains:<br>
      *         <ul>
      *           <li>concernId - long int, the Concern instance id</li>
@@ -480,9 +482,9 @@ public class CCTAgent {
      */
     public Map editTags(Map params) {
         Map map = new HashMap();
-        
+
         //Check if the current user is the author of this concern.
-        
+
         return map;
     }//editTags()
 

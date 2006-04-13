@@ -107,11 +107,8 @@ public class TagAnalyzer {
      *         <li>map.get("suggested")=list of strings as suggested tags</li>
      *
      */
-    public Map parseText(String statement) {
-      Map map = new HashMap();
+    public Collection parseText(String statement) {
       Collection suggestedStrings = new HashSet();
-
-      map.put("suggested", suggestedStrings);
 
       String line = null;
       String output = "";
@@ -137,13 +134,13 @@ public class TagAnalyzer {
         results = xpathSelector.selectNodes(parse(output));
       }
       catch (DocumentException ex) {
-        return map;
+        return suggestedStrings;
       }
       catch (InvalidXPathException ex) {
-        return map;
+        return suggestedStrings;
       }
       catch (IOException ex) {
-        return map;
+        return suggestedStrings;
       }
 
       String s;
@@ -197,7 +194,13 @@ public class TagAnalyzer {
         }
       }
 
-      return map;
+      //put all the found tags in the suggestedStrings
+      for(int k=0; k<tag_id_count.length; k++)
+        if(tag_id_count[k][1] > 0){
+          suggestedStrings.add( ">>" + ((Tag)all_tags.get(k)).getName() );
+        }
+
+      return suggestedStrings;
     }
 
     /**

@@ -9,22 +9,22 @@ import org.pgist.util.WebUtils;
 
 
 /**
- * 
+ *
  * @author kenny
  *
  */
 public class CCTServiceImpl implements CCTService {
-    
-    
+
+
     private UserDAO userDAO = null;
-    
+
     private CCTDAO cctDAO = null;
 
     private TagDAO tagDAO = null;
-    
+
     private TagAnalyzer analyzer = null;
-    
-    
+
+
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
@@ -38,8 +38,8 @@ public class CCTServiceImpl implements CCTService {
     public void setTagDAO(TagDAO tagDAO) {
         this.tagDAO = tagDAO;
     }
-    
-    
+
+
     public void setAnalyzer(TagAnalyzer analyzer) {
         this.analyzer = analyzer;
     }
@@ -48,8 +48,8 @@ public class CCTServiceImpl implements CCTService {
     /*
      * ------------------------------------------------------------------------
      */
-    
-    
+
+
     public Collection getCCTs() throws Exception {
         return cctDAO.getCCTs();
     }//getCCTs()
@@ -68,19 +68,19 @@ public class CCTServiceImpl implements CCTService {
     public Concern createConcern(CCT cct, Concern concern, String[] tagStrs) throws Exception {
         concern.setCct(cct);
         concern.setCreateTime(new Date());
-        
+
         Collection tags = analyzer.ensureTags(tagStrs);
         cct.addConcern(concern, tags);
-        
+
         for (Iterator iter=concern.getTags().iterator(); iter.hasNext(); ) {
             TagReference ref = (TagReference) iter.next();
             cctDAO.save(ref);
         }//for iter
-        
+
         cctDAO.save(concern);
-        
+
         cctDAO.save(cct);
-        
+
         return concern;
     }//createConcern()
 
@@ -98,8 +98,8 @@ public class CCTServiceImpl implements CCTService {
     public Collection getRandomConcerns(CCT cct, int count) throws Exception {
         return cctDAO.getRandomConcerns(cct.getId(), WebUtils.currentUserId(), count);
     }//getRandomConcerns()
-    
-    
+
+
     public Collection getTagsByRank(CCT cct, int count) throws Exception {
         return tagDAO.getTagsByRank(cct, count);
     }//getTagsByRank()
@@ -115,6 +115,10 @@ public class CCTServiceImpl implements CCTService {
         if (tagRef==null) throw new Exception("Requested TagReference doesn't exist.");
         return cctDAO.getConcernsByTag(tagRef, count);
     }//getConcernsByTag()
+
+    public Collection getSuggestedTags(String statement) throws Exception{
+      return analyzer.parseText(statement);
+    }//getSuggestedTags
 
 
 }//class CCTServiceImpl
