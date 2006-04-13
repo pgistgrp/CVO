@@ -238,7 +238,7 @@ public class CCTAgent {
             switch(type.intValue()) {
                 case 0:
                     concerns =  cctService.getMyConcerns(cct);
-                    url = "/WEB-INF/jsp/cvo/myConcerns.jsp";
+                    url = "/WEB-INF/jsp/cvo/concerns.jsp";
                     break;
                 case 1:
                     concerns =  cctService.getOthersConcerns(cct, count);
