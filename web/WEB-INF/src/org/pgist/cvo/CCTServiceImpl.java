@@ -60,6 +60,11 @@ public class CCTServiceImpl implements CCTService {
     }//save()
 
 
+    public void save(Concern concern) throws Exception {
+        cctDAO.save(concern);
+    }//save()
+    
+    
     public CCT getCCTById(Long cctId) throws Exception {
         return cctDAO.getCCTById(cctId);
     }//getCCTById()
@@ -119,6 +124,30 @@ public class CCTServiceImpl implements CCTService {
     public Collection getSuggestedTags(String statement) throws Exception{
       return analyzer.parseText(statement);
     }//getSuggestedTags
+
+
+    public Concern getConcernById(Long concernId) throws Exception {
+        return cctDAO.getConcernById(concernId);
+    }//getConcernById()
+
+
+    public void deleteConcern(Concern concern) throws Exception {
+        CCT cct = concern.getCct();
+        cct.removeConcern(concern);
+        concern.setDeleted(true);
+        concern.setCreateTime(new Date());
+        cctDAO.save(concern);
+        cctDAO.save(cct);
+    }//deleteConcern()
+
+
+    public void editConcernTags(Concern concern, String[] tags) throws Exception {
+        CCT cct = concern.getCct();
+        cct.editConcern(concern, tags);
+        concern.setCreateTime(new Date());
+        cctDAO.save(concern);
+        cctDAO.save(cct);
+    }//editConcernTags()
 
 
 }//class CCTServiceImpl

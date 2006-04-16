@@ -159,6 +159,16 @@ public class CCT extends PGame {
         
         return list;
     }//addConcern()
+
+
+    public void removeConcern(Concern concern) {
+        //TODO
+    }//removeConcern()
+
+
+    public void editConcern(Concern concern, String[] tags) {
+        // TODO Auto-generated method stub
+    }//editConcern()
     
     
 }//class CCT

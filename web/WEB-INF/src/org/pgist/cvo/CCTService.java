@@ -30,6 +30,16 @@ public interface CCTService {
     void save(CCT cct) throws Exception;
 
     /**
+     * Save the given Concern object to database.<br>
+     * Depending on the Concern object persisted or not, this method will automatically Insert/Update
+     * the Concern object to database.
+     * 
+     * @param concern
+     * @throws Exception
+     */
+    void save(Concern concern) throws Exception;
+    
+    /**
      * Get a CCT object by the given cctId.
      *
      * @param cctId The id of the CCT object.
@@ -118,5 +128,32 @@ public interface CCTService {
      * @throws Exception
      */
     Collection getConcernsByTag(Long tagRefId, int count) throws Exception;
+
+    /**
+     * Get the Concern object with id concernId.
+     * 
+     * @param concernId the id of the Concern object.
+     * @return The Concern object.
+     * @throws Exception
+     */
+    Concern getConcernById(Long concernId) throws Exception;
+
+    /**
+     * Delete the given Concern object.
+     * 
+     * @param concern The Concern object.
+     * @throws Exception
+     */
+    void deleteConcern(Concern concern) throws Exception;
+
+    /**
+     * Edit the tag list of the given Concern object.
+     * 
+     * @param concern The Concern object.
+     * @param tags A list of string, each element will be a tag.
+     * @throws Exception
+     */
+    void editConcernTags(Concern concern, String[] tags) throws Exception;
+
 
 }//interface CCTService

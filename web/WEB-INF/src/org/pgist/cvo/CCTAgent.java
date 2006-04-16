@@ -437,9 +437,54 @@ public class CCTAgent {
      */
     public Map editConcern(Map params) {
         Map map = new HashMap();
-
+        
+        Long concernId = null;
+        Concern concern = null;
+        
+        String newConcern = (String) params.get("concern");
+        if (newConcern==null || "".equals(newConcern.trim())) {
+            map.put("successful", new Boolean(false));
+            map.put("reason", "Concern string can't be empty.");
+            return map;
+        }
+        
+        try {
+            concernId = new Long((String) params.get("concernId"));
+            concern = cctService.getConcernById(concernId);
+            if (concern.isDeleted()) {
+                map.put("successful", new Boolean(false));
+                map.put("reason", "This concern is already deleted.");
+                return map;
+            }
+        } catch (Exception e) {
+            map.put("successful", new Boolean(false));
+            if (concernId==null) {
+                map.put("reason", "concernId is required.");
+            } else {
+                map.put("reason", "failed to extract concern object with id "+concernId);
+            }
+            return map;
+        }
+        
         //Check if the current user is the author of this concern.
-
+        try {
+            Long userId = WebUtils.currentUserId();
+            User user = userDAO.getUserById(userId, true, false);
+            if (user.getId().doubleValue()==concern.getAuthor().getId()) {
+                concern.setContent(newConcern);
+                concern.setCreateTime(new Date());
+                cctService.save(concern);
+            } else {
+                map.put("successful", new Boolean(false));
+                map.put("reason", "You have no right to edit this concern.");
+                return map;
+            }
+        } catch (Exception e) {
+            map.put("successful", new Boolean(false));
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
         return map;
     }//editConcern()
 
@@ -459,9 +504,45 @@ public class CCTAgent {
      */
     public Map deleteConcern(Map params) {
         Map map = new HashMap();
-
+        
+        Long concernId = null;
+        Concern concern = null;
+        
+        try {
+            concernId = new Long((String) params.get("concernId"));
+            concern = cctService.getConcernById(concernId);
+            if (concern.isDeleted()) {
+                map.put("successful", new Boolean(false));
+                map.put("reason", "This concern is already deleted.");
+                return map;
+            }
+        } catch (Exception e) {
+            map.put("successful", new Boolean(false));
+            if (concernId==null) {
+                map.put("reason", "concernId is required.");
+            } else {
+                map.put("reason", "failed to extract concern object with id "+concernId);
+            }
+            return map;
+        }
+        
         //Check if the current user is the author of this concern.
-
+        try {
+            Long userId = WebUtils.currentUserId();
+            User user = userDAO.getUserById(userId, true, false);
+            if (user.getId().doubleValue()==concern.getAuthor().getId()) {
+                cctService.deleteConcern(concern);
+            } else {
+                map.put("successful", new Boolean(false));
+                map.put("reason", "You have no right to edit this concern.");
+                return map;
+            }
+        } catch (Exception e) {
+            map.put("successful", new Boolean(false));
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
         return map;
     }//deleteConcern()
 
@@ -483,9 +564,50 @@ public class CCTAgent {
      */
     public Map editTags(Map params) {
         Map map = new HashMap();
-
+        
+        Long concernId = null;
+        Concern concern = null;
+        
+        try {
+            concernId = new Long((String) params.get("concernId"));
+            concern = cctService.getConcernById(concernId);
+            if (concern.isDeleted()) {
+                map.put("successful", new Boolean(false));
+                map.put("reason", "This concern is already deleted.");
+                return map;
+            }
+        } catch (Exception e) {
+            map.put("successful", new Boolean(false));
+            if (concernId==null) {
+                map.put("reason", "concernId is required.");
+            } else {
+                map.put("reason", "failed to extract concern object with id "+concernId);
+            }
+            return map;
+        }
+        
         //Check if the current user is the author of this concern.
-
+        try {
+            Long userId = WebUtils.currentUserId();
+            User user = userDAO.getUserById(userId, true, false);
+            String tagStr = (String) params.get("tags");
+            String tags[] = null;
+            if (tagStr==null) tagStr = "";
+            tags = tagStr.trim().split(",");
+            if (user.getId().doubleValue()==concern.getAuthor().getId()) {
+                concern.setCreateTime(new Date());
+                cctService.editConcernTags(concern, tags);
+            } else {
+                map.put("successful", new Boolean(false));
+                map.put("reason", "You have no right to edit this concern.");
+                return map;
+            }
+        } catch (Exception e) {
+            map.put("successful", new Boolean(false));
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
         return map;
     }//editTags()
 
