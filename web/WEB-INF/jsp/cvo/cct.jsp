@@ -214,13 +214,19 @@ function showMyConcerns(){
 			if (data.successful){
 				$('myConcernsList').innerHTML += data.html;
 			}
-			if (data.total == 0){
-				document.getElementById("myConcernsList").innerHTML = '<p class="explaination">None created yet.  Please add a concern above.  Please refer to other participant\'s concerns on the right column for examples.</p>';
-			}
+		//	if (data.total == 0){
+		//		document.getElementById("myConcernsList").innerHTML = '<p class="explaination">None created yet.  Please add a concern above.  Please refer to other participant\'s concerns on the right column for examples.</p>';
+		//	}
 		});
 	}
 
-	
+function getConcernsByTag(id){
+		CCTAgent.getConcernsByTag({tagRefid:id,count:-1}, function(data){
+			if (data.successful){
+				$('sidebar_concerns').innerHTML = data.html;
+			}
+		});
+}
 	
 </script>
 </head>
