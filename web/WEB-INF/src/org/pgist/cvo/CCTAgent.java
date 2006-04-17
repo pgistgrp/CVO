@@ -411,6 +411,7 @@ public class CCTAgent {
             Collection concerns = cctService.getConcernsByTag(tagRefId, count);
             TagReference tagRef = cctService.getTagReferenceById(tagRefId);
             
+            request.setAttribute("showTitle", new Boolean(true));
             request.setAttribute("tagRef", tagRef);
             request.setAttribute("concerns", concerns);
 
