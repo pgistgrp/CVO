@@ -75,4 +75,20 @@ public class TagReference {
     }
     
     
+    public int getFontSize() {
+        if (times>=1 && times<=5) {
+            return 1;
+        } else if (times>=6 && times <=7) {
+            return 2;
+        } else if (times>=8 && times <=10) {
+            return 3;
+        } else if (times>10) {
+            return 4;
+        } else {
+            //invalid state
+            return 0;
+        }
+    }
+
+
 }//class TagReference
