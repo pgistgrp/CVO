@@ -415,7 +415,7 @@ public class CCTAgent {
             request.setAttribute("tagRef", tagRef);
             request.setAttribute("concerns", concerns);
 
-            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/tagConcerns.jsp"));
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/concerns.jsp"));
         } catch(Exception e) {
             e.printStackTrace();
             map.put("successful", new Boolean(false));
