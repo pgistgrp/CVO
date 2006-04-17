@@ -244,16 +244,25 @@ public class CCTAgent {
                 case 0:
                     concerns =  cctService.getMyConcerns(cct);
                     map.put("total", ""+cctService.getConcernsTotal(cct, 1));
+                    
+                    request.setAttribute("showIcon", new Boolean(true));
+                    
                     url = "/WEB-INF/jsp/cvo/concerns.jsp";
                     break;
                 case 1:
                     concerns =  cctService.getOthersConcerns(cct, count);
                     map.put("total", ""+cctService.getConcernsTotal(cct, 2));
+                    
+                    request.setAttribute("showIcon", new Boolean(false));
+                    
                     url = "/WEB-INF/jsp/cvo/concerns.jsp";
                     break;
                 case 2:
                     concerns =  cctService.getRandomConcerns(cct, count);
                     map.put("total", ""+cctService.getConcernsTotal(cct, 2));
+                    
+                    request.setAttribute("showIcon", new Boolean(false));
+                    
                     url = "/WEB-INF/jsp/cvo/concerns.jsp";
                     break;
                 default:
@@ -262,10 +271,10 @@ public class CCTAgent {
                     return map;
             }
 
+            request.setAttribute("showTitle", new Boolean(false));
+
             request.setAttribute("concerns", concerns);
             request.setAttribute("type", type);
-
-            request.setAttribute("showTitle", new Boolean(false));
 
             map.put("html", WebContextFactory.get().forwardToString(url));
             map.put("successful", new Boolean(true));
@@ -413,6 +422,8 @@ public class CCTAgent {
             Collection concerns = cctService.getConcernsByTag(tagRefId, count);
             TagReference tagRef = cctService.getTagReferenceById(tagRefId);
             
+            
+            request.setAttribute("showIcon", new Boolean(false));
             request.setAttribute("showTitle", new Boolean(true));
             request.setAttribute("tagRef", tagRef);
             request.setAttribute("concerns", concerns);
