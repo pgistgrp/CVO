@@ -162,7 +162,41 @@ public class CCT extends PGame {
 
 
     public void removeConcern(Concern concern) {
-        //TODO
+        HashMap tagMap = null;
+        Element element =  lockCache.get(id);
+        if (element==null) {
+            synchronized (lockCache) {
+                element = lockCache.get(id);
+                if (element==null) {
+                    tagMap = new HashMap();
+                    for (Iterator iter=tagRefs.iterator(); iter.hasNext(); ) {
+                        TagReference tagRef = (TagReference) iter.next();
+                        Tag tag = tagRef.getTag();
+                        tagMap.put(tag.getId(), tagRef);
+                    }//for iter
+                    element = new Element(id, tagMap);
+                    lockCache.put(element);
+                } else {
+                    tagMap = (HashMap) element.getValue();
+                }
+            }//synchronized
+        } else {
+            tagMap = (HashMap) element.getValue();
+        }
+        
+        synchronized(tagMap) {
+            Set cctTags = getTagRefs();
+            for (Iterator iter=concern.getTags().iterator(); iter.hasNext(); ) {
+                TagReference ref = (TagReference) iter.next();
+                ref.setTimes(ref.getTimes()-1);
+                if (ref.getTimes()==0) {
+                    //Delete this tagref
+                } else {
+                    ref.setTimes(ref.getTimes()+1);
+                }
+                //concern.getTags().add(ref);
+            }//for iter
+        }//synchronized
     }//removeConcern()
 
 

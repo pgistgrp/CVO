@@ -150,4 +150,9 @@ public class CCTServiceImpl implements CCTService {
     }//editConcernTags()
 
 
+    public int getConcernsTotal(CCT cct, int whose) throws Exception {
+        return cctDAO.getConcernsTotal(cct, whose, WebUtils.currentUserId());
+    }//getConcernsTotal()
+
+
 }//class CCTServiceImpl

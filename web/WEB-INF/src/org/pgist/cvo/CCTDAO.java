@@ -61,6 +61,22 @@ public interface CCTDAO extends CVODAO {
      * @throws Exception
      */
     Collection getConcernsByTag(TagReference tagRef, int count) throws Exception;
+
+    /**
+     * Get the total number of concerns in a CCT object.
+     * 
+     * @param cct A CCT object which the current user is working on.
+     * @param whose The mode to count the total number of concerns.<br>
+     *        <ul>
+     *          <li>whose==0: all concerns</li>
+     *          <li>whose==1: my concerns</li>
+     *          <li>whose==2: other's concerns</li>
+     *        </ul>
+     * @param user
+     * @return
+     * @throws Exception
+     */
+    int getConcernsTotal(CCT cct, int whose, Long userId) throws Exception;
     
 
 }//interface CCTDAO

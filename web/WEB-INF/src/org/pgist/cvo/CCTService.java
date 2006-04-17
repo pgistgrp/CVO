@@ -155,5 +155,20 @@ public interface CCTService {
      */
     void editConcernTags(Concern concern, String[] tags) throws Exception;
 
+    /**
+     * Get the total number of concerns in a CCT object.
+     * 
+     * @param cct A CCT object which the current user is working on.
+     * @param whose The mode to count the total number of concerns.<br>
+     *        <ul>
+     *          <li>whose==0: all concerns</li>
+     *          <li>whose==1: my concerns</li>
+     *          <li>whose==2: other's concerns</li>
+     *        </ul>
+     * @return
+     * @throws Exception
+     */
+    int getConcernsTotal(CCT cct, int whose) throws Exception;
+
 
 }//interface CCTService

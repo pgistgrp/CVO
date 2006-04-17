@@ -243,14 +243,17 @@ public class CCTAgent {
             switch(type.intValue()) {
                 case 0:
                     concerns =  cctService.getMyConcerns(cct);
+                    map.put("total", ""+cctService.getConcernsTotal(cct, 1));
                     url = "/WEB-INF/jsp/cvo/concerns.jsp";
                     break;
                 case 1:
                     concerns =  cctService.getOthersConcerns(cct, count);
+                    map.put("total", ""+cctService.getConcernsTotal(cct, 2));
                     url = "/WEB-INF/jsp/cvo/concerns.jsp";
                     break;
                 case 2:
                     concerns =  cctService.getRandomConcerns(cct, count);
+                    map.put("total", ""+cctService.getConcernsTotal(cct, 2));
                     url = "/WEB-INF/jsp/cvo/concerns.jsp";
                     break;
                 default:

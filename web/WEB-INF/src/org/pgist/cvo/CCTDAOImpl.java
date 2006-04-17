@@ -82,6 +82,39 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
                 tagRef.getId()
         });
     }//getConcernByTag()
+
+    
+    private static final String hql_getConcernsTotal0 = "select count(c.id) from Concern c where c.deleted=?";
+    private static final String hql_getConcernsTotal1 = "select count(c.id) from Concern c where c.deleted=? and c.author.id=?";
+    private static final String hql_getConcernsTotal2 = "select count(c.id) from Concern c where c.deleted=? and c.author.id!=?";
+    
+
+    public int getConcernsTotal(CCT cct, int whose, Long userId) throws Exception {
+        List list = null;
+        
+        switch (whose) {
+            case 0:
+                getHibernateTemplate().find(hql_getConcernsTotal0, new Boolean(false));
+                break;
+            case 1:
+                getHibernateTemplate().find(hql_getConcernsTotal1, new Object[] {
+                        new Boolean(false),
+                        userId
+                });
+                break;
+            case 2:
+                getHibernateTemplate().find(hql_getConcernsTotal2, new Object[] {
+                        new Boolean(false),
+                        userId
+                });
+                break;
+            default:
+        }
+        
+        if (list!=null && list.size()>0) return ((Integer)list.get(0)).intValue();
+        
+        return 0;
+    }//getConcernsTotal()
     
     
 }//class CCTDAOImpl
