@@ -196,6 +196,11 @@ function deleteCookie(name, path, domain) {
 	});
 }
 
+function getRandomConcerns(){
+	Effect.OpenUp('sidebar_concerns');
+	showConcerns(2);
+}
+
 function showConcerns(theType){
 	CCTAgent.getConcerns({cctId:cctId,type:theType,count:7}, function(data){
 		if (data.successful){
@@ -237,7 +242,7 @@ function showMyConcerns(){
 </div>
 <br>
 <div id="container">
-<span class="title_page">Brainstorm Concerns</span>
+<span class="title_steps">STEP 1 OF 7: </span><span class="title_page">Brainstorm Concerns</span>
   <div id="overview"><span class="title_overview">Overview and Instructions</span> 
   	<p><strong>Instructions:</strong>${cctForm.cct.instruction}</p>
   </div>
@@ -263,6 +268,7 @@ function showMyConcerns(){
 									</ul>	    
 									
 									<p><input type="text" id="theTag" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList();"></p>
+									<p align="right"><a href="JavaScript:resetForm();">Cancel</a></p>
 						    </div>
 						    <p><b class="blue">Finished Tagging? </b><input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></p>
 				    </div>
@@ -293,7 +299,7 @@ function showMyConcerns(){
 	    	<h2>Other Concerns</h2>
 				<span class="title_section">Other Participant's Concerns</span>
 				<p>To help you create your concerns, below are examples of other participant concerns in random order.</p>
-				<p><a href="JavaScript:showConcerns(2);">Get more random concerns!</a></p>
+				<p><a href="JavaScript:getRandomConcerns();">Get more random concerns!</a></p>
 				<div id="sidebar_concerns">
 				</div>
 	    </div>

@@ -11,7 +11,7 @@
 		<span class="participantName"><bean:write name="concern" property="author.firstname" />&nbsp;said:</span>
 	</logic:notEqual>
 	<br>
-	"<bean:write name="concern" property="content" />"<br>
+	<span class="concerns">"<bean:write name="concern" property="content" />"</span><br>
 	<span class="tags"><strong>Tags</strong>:
 	<logic:iterate id="tagref" property="tags" name="concern">
 		<a href="null"><bean:write name="tagref" property="tag.name" /></a>&nbsp;|&nbsp;

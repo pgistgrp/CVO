@@ -19,8 +19,9 @@ p.explaination {
 }
 
 p.actionMenu {
-	
+	font-size: 10px;
 }
+
 
 a{
 	color: #96494D;
@@ -52,11 +53,16 @@ hr {
 	font-weight: bold;
 }
 .title_page {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: Helvetica, Arial, sans-serif;
 	font-size: 23px;
-	color: #FF67B3;
+	color: #FFA500;
 	font-weight: bold;	
+}
 
+.title_steps {
+	font-size: 20px;
+	color: #333;
+	font-weight: bold;	
 }
 
 .title_section {
@@ -324,7 +330,9 @@ width: 20px
 }
 
 .tags{
-	font-size: .90em;
+	font-size: 10px;
 }
 
-
+.concerns{
+	font-size: 12px;
+}
