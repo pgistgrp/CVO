@@ -185,14 +185,10 @@ function deleteCookie(name, path, domain) {
 	function showTagCloud(){
 		CCTAgent.getTagCloud({cctId:cctId,type:0,count:20}, function(data){
 			if (data.successful){
-				var s = '';
-				for (i=0; i<data.tags.length; i++){
-					s += data.tags[i].tag.name + ' ';
-				}
-				$("sidebar_tags").innerHTML += s;
+				$('sidebar_tags').innerHTML = data.html;
 			}
-
-		$("indicator").style.visibility = "hidden";
+	
+			$("indicator").style.visibility = "hidden";
 	});
 }
 
@@ -211,6 +207,11 @@ function showConcerns(theType){
 
 function showMyConcerns(){
 	CCTAgent.getConcerns({cctId:cctId,type:0,count:-1}, function(data){
+/*	$('sidebar_concernsContainer')
+					<span class="title_section">Other Participant's Concerns</span>
+				<p>To help you create your concerns, below are examples of other participant concerns in random order.</p>
+				<p><a href="JavaScript:getRandomConcerns();">Get more random concerns!</a></p>
+				*/
 			if (data.successful){
 				$('myConcernsList').innerHTML += data.html;
 			}
@@ -221,7 +222,7 @@ function showMyConcerns(){
 	}
 
 function getConcernsByTag(id){
-		CCTAgent.getConcernsByTag({tagRefid:id,count:-1}, function(data){
+		CCTAgent.getConcernsByTag({tagRefId:id,count:-1}, function(data){
 			if (data.successful){
 				$('sidebar_concerns').innerHTML = data.html;
 			}
@@ -303,9 +304,7 @@ function getConcernsByTag(id){
 	
 	    <div id="sidebar_concernsContainer" class="tabbertab">
 	    	<h2>Other Concerns</h2>
-				<span class="title_section">Other Participant's Concerns</span>
-				<p>To help you create your concerns, below are examples of other participant concerns in random order.</p>
-				<p><a href="JavaScript:getRandomConcerns();">Get more random concerns!</a></p>
+
 				<div id="sidebar_concerns">
 				</div>
 	    </div>
