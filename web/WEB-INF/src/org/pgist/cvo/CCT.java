@@ -161,7 +161,7 @@ public class CCT extends PGame {
     }//addConcern()
 
 
-    public void removeConcern(Concern concern) {
+    public void removeConcern(Concern concern) throws Exception {
         HashMap tagMap = null;
         Element element =  lockCache.get(id);
         if (element==null) {
