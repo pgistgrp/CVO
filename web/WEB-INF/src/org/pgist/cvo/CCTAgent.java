@@ -265,6 +265,8 @@ public class CCTAgent {
             request.setAttribute("concerns", concerns);
             request.setAttribute("type", type);
 
+            request.setAttribute("showTitle", new Boolean(false));
+
             map.put("html", WebContextFactory.get().forwardToString(url));
             map.put("successful", new Boolean(true));
         } catch (Exception e) {
