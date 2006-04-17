@@ -155,4 +155,9 @@ public class CCTServiceImpl implements CCTService {
     }//getConcernsTotal()
 
 
+    public TagReference getTagReferenceById(Long tagRefId) throws Exception {
+        return tagDAO.getTagReferenceById(tagRefId);
+    }//getTagReferenceById()
+
+
 }//class CCTServiceImpl

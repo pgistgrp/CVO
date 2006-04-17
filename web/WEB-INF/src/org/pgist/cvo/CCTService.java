@@ -170,5 +170,14 @@ public interface CCTService {
      */
     int getConcernsTotal(CCT cct, int whose) throws Exception;
 
+    /**
+     * Get the TagReference object with the given tagRefId.
+     * 
+     * @param tagRefId
+     * @return The TagReference object
+     * @throws Exception
+     */
+    TagReference getTagReferenceById(Long tagRefId) throws Exception;
+
 
 }//interface CCTService
