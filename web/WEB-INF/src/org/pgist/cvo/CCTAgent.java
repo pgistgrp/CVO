@@ -268,6 +268,7 @@ public class CCTAgent {
             map.put("html", WebContextFactory.get().forwardToString(url));
             map.put("successful", new Boolean(true));
         } catch (Exception e) {
+            e.printStackTrace();
             map.put("successful", new Boolean(false));
             if (type==null) {
                 map.put("reason", "Not sure who's concern is wanted. Please set type to 0 (current user) or 1 (others').");
@@ -415,6 +416,7 @@ public class CCTAgent {
 
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/tagConcerns.jsp"));
         } catch(Exception e) {
+            e.printStackTrace();
             map.put("successful", new Boolean(false));
             map.put("reason", e.getMessage());
             return map;

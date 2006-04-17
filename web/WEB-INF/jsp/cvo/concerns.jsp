@@ -14,8 +14,7 @@
 	<span class="concerns">"<bean:write name="concern" property="content" />"</span><br>
 	<span class="tags"><strong>Tags</strong>:
 	<logic:iterate id="tagref" property="tags" name="concern">
-		<bean:write name="tagref" property="times" />
-		<a href="javascript:getConcernsByTag();"><bean:write name="tagref" property="tag.name" /></a>&nbsp;|&nbsp;
+		<a href="javascript:getConcernsByTag(${tagref.id});">${tagref.tag.name}</a>&nbsp;|&nbsp;
 	</logic:iterate></span>
 	<logic:equal name="type" value="0">
 	<p class=actionMenu>Actions: <a href="edit">edit concern</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="edit">edit tags</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="edit">delete concern</a></p>
