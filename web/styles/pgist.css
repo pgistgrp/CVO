@@ -22,16 +22,24 @@ h3{
 	letter-spacing:0px;
 }
 
+.normal{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #333;
+}
 p {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
+	color: #333;
 }
 
 b.big{
  font-size: 16px;
  font-weight: bold;
  color: #06c;
+ margin-bottom: 0px;
+ padding-bottom: 0px;
 }
 
 p.indent{
@@ -48,9 +56,13 @@ p.explaination {
 	color: #A7005D;	
 }
 
-p.actionMenu {
+#actionMenu {
 	font-size: 12px;
 	color: #333;
+	width: 350px;
+	margin-top: 5px;
+	padding-top: 2px;
+	border-top: 1px solid #DDDDDD;
 }
 
 
@@ -72,14 +84,17 @@ hr {
 .title_steps {
 	font-size: 18px;
 	color: #333;
-	font-weight: 400;
+	font-weight: 300;
 }
 
 .title_section {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 15px;
-	color: #A7005D;
-	font-weight: bolder;	
+  letter-spacing:-1px;
+  margin:15px 0 0 0;
+  margin-top:0px;
+  color:#06c;
+  margin-bottom:3px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .participantName {
@@ -166,6 +181,7 @@ li.tagsList{
 
 #slate {
 	border: 1px solid #CCCCCC;
+	border-top: 3px solid #CCCCCC;
 	width: 63%;
 	float: left;
 	background-color: #EEEEEE;

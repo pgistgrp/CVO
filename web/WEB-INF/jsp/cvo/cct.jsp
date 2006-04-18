@@ -171,6 +171,7 @@ function deleteCookie(name, path, domain) {
 			if (data.successful){
 				showMyConcerns();
 				Effect.CloseDown('tagConcerns');
+				Effect.Yellow('myConcernsList', {duration: 7, endcolor:'#EEEEEE'});
 				//Reset add concerns textbox and Clear comma separated concerns tag list
 				concernTags = "";
 				document.forms.brainstorm.addConcern.value = "";
@@ -180,7 +181,7 @@ function deleteCookie(name, path, domain) {
 	});
 }
 
-	function showTagCloud(){
+function showTagCloud(){
 		CCTAgent.getTagCloud({cctId:cctId,type:0,count:20}, function(data){
 			if (data.successful){
 				$('sidebar_tags').innerHTML = data.html;
@@ -191,8 +192,9 @@ function deleteCookie(name, path, domain) {
 }
 
 function getRandomConcerns(){
-	$("sidebar_concerns").style.display = "none";
-	Effect.FadeIn('sidebar_concerns');
+	//$("sidebar_concerns").style.display = "none";
+	//Effect.FadeIn('sidebar_concerns');
+	Effect.Yellow('sidebar_concerns');
 	showConcerns(2);
 }
 
@@ -212,11 +214,10 @@ function showMyConcerns(){
 				<p><a href="JavaScript:getRandomConcerns();">Get more random concerns!</a></p>
 				*/
 			if (data.successful){
-							//if (data.total == 0){
-								//document.getElementById("myConcernsList").innerHTML = '<p class="explaination">None created yet.  Please add a concern above.  Please refer to other participant\'s concerns on the right column for examples.</p>';
-							//}
 				$('myConcernsList').innerHTML = data.html;
-				alert(data.total);
+				if (data.total == 0){
+					document.getElementById("myConcernsList").innerHTML = '<p class="explaination">None created yet.  Please add a concern above.  Please refer to other participant\'s concerns on the right column for examples.</p>';
+				}
 			}
 		});
 	}
@@ -224,6 +225,8 @@ function showMyConcerns(){
 function getConcernsByTag(id){
 		CCTAgent.getConcernsByTag({tagRefId:id,count:-1}, function(data){
 			if (data.successful){
+				//$("sidebar_concerns").style.display = "none";
+				Effect.Yellow('sidebar_concerns');
 				$('sidebar_concerns').innerHTML = data.html;
 			}
 		});
@@ -232,10 +235,9 @@ function getConcernsByTag(id){
 </script>
 </head>
 <body>
-
 <div id="decorBar"></div>
 <div id="header"><img src="/images/logo.jpg"></div>
-
+<div id="container">
 <div id="navigation">
 	<div id="bread">
 	<ul>
@@ -248,7 +250,7 @@ function getConcernsByTag(id){
 	</div>
 </div>
 <br>
-<div id="container">
+
 <h1>Brainstorm Concerns <span class="title_steps">  Step 1 of 7</span></h1>
   <div id="overview"><h3>Overview and Instructions</h3> 
   	<p><strong>Instructions:</strong>${cctForm.cct.instruction}</p>
@@ -256,7 +258,8 @@ function getConcernsByTag(id){
 
   
  <div id="slate">
-  		<h2>Add your concern</h2>
+  		<span class="title_section">Add your concern</span>
+  			<span class="normal"> | View examples of concerns in the right collumn.</span>
 		    <form name="brainstorm" method="post" onSubmit="addTagToList(); return false;">
 			      <p><textarea class="textareaAddConcern" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
 			      <p class="indent">
@@ -267,7 +270,8 @@ function getConcernsByTag(id){
 			      <div style="display: none; padding-left: 20px;" id="validation"></div>
 			  
 				    <div id="tagConcerns" style="display: none;">
-						    <div id="tags" style="background-color: #DDDDDD; border: 1px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;"><h3>Tag Your Concern</h3>
+						    <div id="tags" style="background-color: #DDDDDD; border-top: 3px solid #CCCCCC; border: 1px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;">
+						    	<h3>Tag Your Concern</h3>
 						    	<p>The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed). <span class="smallHelp">[ <a href="null">why are tags important?</a> ]</span></p>
 									<ul class="tagsList" id="tagsList">
 									</ul>	    
@@ -286,7 +290,7 @@ function getConcernsByTag(id){
 					  	</ol>
 				  	</div>
 				  	
-						<h2>Finished Brainstorming Concerns?</h2>
+						<h2>Finished brainstorming concerns?</h2>
 						<div id="finished_container" class="indent">
 							<div id="finished_p"><p>When you are staisfied with your concerns list above, please use the button on the right to continue to the next step!</p></div>
 							<div id="finished_img"><a href="nextStep"><img src="/images/submission_brainstorm.gif" border="0" align="right"></a></div>
@@ -303,7 +307,6 @@ function getConcernsByTag(id){
 
 	    <div id="sidebar_concernsContainer" class="tabbertab">
 	    	<h2>Concerns</h2>
-				<a href="javascript:getRandomConcerns();">Get Random Concerns</a>
 				<div id="sidebar_concerns">
 				</div>
 	    </div>
