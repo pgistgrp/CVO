@@ -94,16 +94,16 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
         
         switch (whose) {
             case 0:
-                getHibernateTemplate().find(hql_getConcernsTotal0, new Boolean(false));
+                list = getHibernateTemplate().find(hql_getConcernsTotal0, new Boolean(false));
                 break;
             case 1:
-                getHibernateTemplate().find(hql_getConcernsTotal1, new Object[] {
+                list = getHibernateTemplate().find(hql_getConcernsTotal1, new Object[] {
                         new Boolean(false),
                         userId
                 });
                 break;
             case 2:
-                getHibernateTemplate().find(hql_getConcernsTotal2, new Object[] {
+                list = getHibernateTemplate().find(hql_getConcernsTotal2, new Object[] {
                         new Boolean(false),
                         userId
                 });
