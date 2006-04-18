@@ -149,10 +149,10 @@ function deleteCookie(name, path, domain) {
 						concernTags += data.tags[i] + ',';
 					}
 					document.getElementById('tagsList').innerHTML = str;
-
 				}
 				document.getElementById("indicator").style.visibility = "hidden";
 			} );
+				//document.forms.brainstorm.Thetag.focus();
 		}
 	}
 	
@@ -170,8 +170,6 @@ function deleteCookie(name, path, domain) {
 		CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:concernTags}, function(data){
 			if (data.successful){
 				showMyConcerns();
-				
-				Effect.Yellow('myConcerns', {duration: 4, endcolor:'#EEEEEE'});
 				Effect.CloseDown('tagConcerns');
 				//Reset add concerns textbox and Clear comma separated concerns tag list
 				concernTags = "";
@@ -193,7 +191,8 @@ function deleteCookie(name, path, domain) {
 }
 
 function getRandomConcerns(){
-	Effect.OpenUp('sidebar_concerns');
+	$("sidebar_concerns").style.display = "none";
+	Effect.FadeIn('sidebar_concerns');
 	showConcerns(2);
 }
 
@@ -213,11 +212,12 @@ function showMyConcerns(){
 				<p><a href="JavaScript:getRandomConcerns();">Get more random concerns!</a></p>
 				*/
 			if (data.successful){
-				$('myConcernsList').innerHTML += data.html;
+							//if (data.total == 0){
+								//document.getElementById("myConcernsList").innerHTML = '<p class="explaination">None created yet.  Please add a concern above.  Please refer to other participant\'s concerns on the right column for examples.</p>';
+							//}
+				$('myConcernsList').innerHTML = data.html;
+				alert(data.total);
 			}
-		//	if (data.total == 0){
-		//		document.getElementById("myConcernsList").innerHTML = '<p class="explaination">None created yet.  Please add a concern above.  Please refer to other participant\'s concerns on the right column for examples.</p>';
-		//	}
 		});
 	}
 
@@ -249,17 +249,15 @@ function getConcernsByTag(id){
 </div>
 <br>
 <div id="container">
-<span class="title_steps">STEP 1 OF 7: </span><span class="title_page">Brainstorm Concerns</span>
-  <div id="overview"><span class="title_overview">Overview and Instructions</span> 
+<h1>Brainstorm Concerns <span class="title_steps">  Step 1 of 7</span></h1>
+  <div id="overview"><h3>Overview and Instructions</h3> 
   	<p><strong>Instructions:</strong>${cctForm.cct.instruction}</p>
   </div>
-  <br>
+
   
  <div id="slate">
-    <span class="title_section">Add your concern</span>
-
+  		<h2>Add your concern</h2>
 		    <form name="brainstorm" method="post" onSubmit="addTagToList(); return false;">
-			    	
 			      <p><textarea class="textareaAddConcern" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
 			      <p class="indent">
 				      <input type="reset" name="Submit2" value="Reset" onClick="resetForm();"> 
@@ -268,24 +266,27 @@ function getConcernsByTag(id){
 			      </p>
 			      <div style="display: none; padding-left: 20px;" id="validation"></div>
 			  
-				    <div id="tagConcerns" style="display: none; padding-left: 20px;">
-						    <div id="tags" style="background-color: #DDDDDD; border: 1px solid #BBBBBB; padding: 5px;"><span class="title_section">Tag Your Concern</span>
+				    <div id="tagConcerns" style="display: none;">
+						    <div id="tags" style="background-color: #DDDDDD; border: 1px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;"><h3>Tag Your Concern</h3>
 						    	<p>The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed). <span class="smallHelp">[ <a href="null">why are tags important?</a> ]</span></p>
 									<ul class="tagsList" id="tagsList">
 									</ul>	    
 									
 									<p><input type="text" id="theTag" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList();"></p>
-									<p align="right"><a href="JavaScript:resetForm();">Cancel</a></p>
+									<hr>
+									<b class="big">Finished Tagging? <input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></b>
 						    </div>
-						    <p><b class="blue">Finished Tagging? </b><input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></p>
+						    <br>
 				    </div>
-				    <hr><span class="title_section">List of Created Concerns</span><br>
+				
+				<h2>List of my created concerns</h2>
 			      <div id="myConcernsList" class="indent">
+			 
 				      <ol id="myConcerns">
 					  	</ol>
 				  	</div>
-				  	<hr>
-						<span class="title_section">Finished Brainstorming Concerns?</span><br>
+				  	
+						<h2>Finished Brainstorming Concerns?</h2>
 						<div id="finished_container" class="indent">
 							<div id="finished_p"><p>When you are staisfied with your concerns list above, please use the button on the right to continue to the next step!</p></div>
 							<div id="finished_img"><a href="nextStep"><img src="/images/submission_brainstorm.gif" border="0" align="right"></a></div>
@@ -296,15 +297,13 @@ function getConcernsByTag(id){
 <!--START SIDEBAR -->
 <div id="bar">
 	<div class="tabber">
-	
-	    <div id="sidebar_tags" class="tabbertab">
+		  <div id="sidebar_tags" class="tabbertab">
 	    	<H2>Tags</H2>
 	    </div>
-	
-	
-	    <div id="sidebar_concernsContainer" class="tabbertab">
-	    	<h2>Other Concerns</h2>
 
+	    <div id="sidebar_concernsContainer" class="tabbertab">
+	    	<h2>Concerns</h2>
+				<a href="javascript:getRandomConcerns();">Get Random Concerns</a>
 				<div id="sidebar_concerns">
 				</div>
 	    </div>

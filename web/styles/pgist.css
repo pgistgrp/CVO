@@ -1,7 +1,37 @@
+h1, h2, h3 {
+  letter-spacing:-1px;
+  margin:15px 0 0 0;
+  margin-top:0px;
+}
+
+h1 {
+  color:#87C900;
+  font-size:2.3em;
+}
+
+h2{
+  color:#06c;
+  margin-bottom:3px;
+}
+
+h3{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	color: #A7005D;
+	font-weight: 300;
+	letter-spacing:0px;
+}
+
 p {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
+}
+
+b.big{
+ font-size: 16px;
+ font-weight: bold;
+ color: #06c;
 }
 
 p.indent{
@@ -15,11 +45,12 @@ p.topBorder {
 
 p.explaination {
 	font-style: italic;
-	color: #006699;	
+	color: #A7005D;	
 }
 
 p.actionMenu {
-	font-size: 10px;
+	font-size: 12px;
+	color: #333;
 }
 
 
@@ -32,37 +63,16 @@ a:hover{
 	color: #EEEEEE;
 }
 
-b.blue {
-	font-weight: bold;
-	color: #006699;
-}
 
 hr {
-	border-top: 1px dashed #006699;
-}
-.title_overview{
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 20px;
-	color: #006699;
+	border-top: 1px solid #006699;
 }
 
-.title_bar{
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
-	color:#666666;
-	font-weight: bold;
-}
-.title_page {
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 23px;
-	color: #FFA500;
-	font-weight: bold;	
-}
 
 .title_steps {
-	font-size: 20px;
+	font-size: 18px;
 	color: #333;
-	font-weight: bold;	
+	font-weight: 400;
 }
 
 .title_section {
@@ -74,8 +84,7 @@ hr {
 
 .participantName {
 	color: #90B021;
-	font-size: 15px;
-	font-weight: bolder;	
+	font-size: 15px;	
 }
 
 #decorBar {
@@ -99,7 +108,7 @@ hr {
 }
 
 .indent {
-padding-left: 20px;
+	padding-left: 20px;
 }
 
 #navigation {
@@ -207,6 +216,7 @@ li.tagsList{
 	}
 
 .textareaAddConcern{
+	font-family: Arial, Helvetica, sans-serif;
 	display: block;
 	border-color: black;
 	border-width: 1px;
@@ -229,6 +239,8 @@ position: relative;
 float: right;
 width: 130px;
 }
+
+
 /* Slate Rounded ///////////////////////////////////*/
 #slateRounded{
 	position: relative;
@@ -324,17 +336,23 @@ width: 20px
 #slateRounded br{
 	display: none;
 }
+/* /////////////////////////////  ////////////////////////// */
 
 .smallHelp {
 	font-size: .85em;
 }
 
 .tags{
-	font-size: 10px;
+	font-size: 12px;
 }
 
 .concerns{
-	font-size: 12px;
+	font-size: 13px;
+}
+
+.myConcerns{
+	font-size: 17px;
+	color: #333;
 }
 
 .tagSize1{
@@ -353,3 +371,4 @@ width: 20px
 	font-size: 20px;
 	font-weight: bold;
 }
+
