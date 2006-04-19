@@ -133,12 +133,14 @@ function deleteCookie(name, path, domain) {
 	
 	function resetForm()
 	{
+		$('btnContinue').disabled=false;
 		Effect.CloseDown('tagConcerns');
 		Effect.CloseDown('validation');
 	}
 	
 	function prepareConcern(){
 		if (validateForm()){
+			$('btnContinue').disabled=true;
 			var concern = $('addConcern').value;
 			document.getElementById("indicator").style.visibility = "visible";
 			CCTAgent.prepareConcern({cctId:cctId,concern:concern}, function(data) {
@@ -174,8 +176,9 @@ function deleteCookie(name, path, domain) {
 				Effect.Yellow('myConcernsList', {duration: 7, endcolor:'#EEEEEE'});
 				//Reset add concerns textbox and Clear comma separated concerns tag list
 				concernTags = "";
-				document.forms.brainstorm.addConcern.value = "";
-				document.forms.brainstorm.addConcern.focus();
+				$('btnContinue').disabled=false;
+				$('addConcern').value = "";
+				$('addConcern').focus();
 			}
 		$("indicator").style.visibility = "hidden";
 	});
@@ -251,20 +254,20 @@ function getConcernsByTag(id){
 </div>
 <br>
 
-<h1>Brainstorm Concerns <span class="title_steps">  Step 1 of 7</span></h1>
+<h1>Brainstorm Concerns</h1>&nbsp;&nbsp;<span class="title_steps">Step 1 of 7</span>
   <div id="overview"><h3>Overview and Instructions</h3> 
-  	<p><strong>Instructions:</strong>${cctForm.cct.instruction}</p>
+  	<p><strong>Overview: </strong>${cctForm.cct.purpose}</p>
+  	<p><strong>Instructions: </strong>${cctForm.cct.instruction}</p>
   </div>
 
   
  <div id="slate">
-  		<span class="title_section">Add your concern</span>
-  			<span class="normal"> | View examples of concerns in the right collumn.</span>
+  		<h2>Add your concern</h2>&nbsp;| View examples of concerns in the right column.
 		    <form name="brainstorm" method="post" onSubmit="addTagToList(); return false;">
 			      <p><textarea class="textareaAddConcern" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
 			      <p class="indent">
 				      <input type="reset" name="Submit2" value="Reset" onClick="resetForm();"> 
-				      <input type="button" name="Continue" value="Continue" onclick="prepareConcern();">
+				      <input type="button" id="btnContinue" name="Continue" value="Continue" onclick="prepareConcern();">
 				      <span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>
 			      </p>
 			      <div style="display: none; padding-left: 20px;" id="validation"></div>
@@ -278,12 +281,12 @@ function getConcernsByTag(id){
 									
 									<p><input type="text" id="theTag" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList();"></p>
 									<hr>
-									<b class="big">Finished Tagging? <input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></b>
+									<b class="big">Finished Tagging? <input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></b><br>or <a href="javascript:resetForm();">Cancel</a> - back to edit my concern
 						    </div>
 						    <br>
 				    </div>
 				
-				<h2>List of my created concerns</h2>
+				<h2>List of my created concerns</h2>&nbsp | Finished? Please submit concerns <a href="#finished">below.</a><br>
 			      <div id="myConcernsList" class="indent">
 			 
 				      <ol id="myConcerns">
@@ -293,7 +296,7 @@ function getConcernsByTag(id){
 						<h2>Finished brainstorming concerns?</h2>
 						<div id="finished_container" class="indent">
 							<div id="finished_p"><p>When you are staisfied with your concerns list above, please use the button on the right to continue to the next step!</p></div>
-							<div id="finished_img"><a href="nextStep"><img src="/images/submission_brainstorm.gif" border="0" align="right"></a></div>
+							<div id="finished_img"><a name="finished" href="nextStep"><img src="/images/submission_brainstorm.gif" border="0" align="right"></a></div>
 						</div>
 		    </form>
 

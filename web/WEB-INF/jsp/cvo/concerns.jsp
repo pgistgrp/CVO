@@ -5,7 +5,7 @@
 		<logic:notEqual name="showIcon" value="true">
 			<span class="title_section">Other Participant's Concerns</span>
 			<br>
-			<span class="normal">To help you create your concerns, below are examples of other participant concerns in random order.
+			To help you create your concerns, below are examples of other participant concerns in random order.
 			<p><a href="javascript:getRandomConcerns();">Get Random Concerns</a></span></p>
 		</logic:notEqual>
 </logic:notEqual>
