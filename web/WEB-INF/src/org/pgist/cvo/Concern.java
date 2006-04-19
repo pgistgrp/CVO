@@ -30,6 +30,8 @@ public class Concern {
     
     protected Set tags = new HashSet();
     
+    protected int sortOrder = 0;
+    
     
     /**
      * @return
@@ -132,4 +134,18 @@ public class Concern {
     }
     
     
+    /**
+     * @return
+     * @hibernate.property not-null="true" column="sort_order"
+     */
+    public int getSortOrder() {
+        return sortOrder;
+    }
+
+
+    public void setSortOrder(int sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
+
 }//class Concern

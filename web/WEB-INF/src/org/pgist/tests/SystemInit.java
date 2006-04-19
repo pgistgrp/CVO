@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.loader.AntClassLoader2;
@@ -274,6 +275,7 @@ public class SystemInit extends MatchingTask {
     
     
     private void initCCT() throws Exception {
+        Random random = new Random();
         CCT cct = new CCT();
         cct.setCreateTime(new Date());
         cct.setCreator((User) users.get("moderator"));
@@ -321,6 +323,7 @@ public class SystemInit extends MatchingTask {
             concern.setContent(s[4]);
             concern.setCreateTime(new Date());
             concern.setDeleted(false);
+            concern.setSortOrder(random.nextInt(65535));
             
             String[] cateStrs = s[6].split(",");
             for (int i=0; i<cateStrs.length; i++) {

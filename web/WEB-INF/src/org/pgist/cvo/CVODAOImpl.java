@@ -1,5 +1,7 @@
 package org.pgist.cvo;
 
+import java.util.Random;
+
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 
@@ -9,6 +11,9 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  *
  */
 public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
+    
+    
+    private static Random random = new Random();
     
     
     public CCT getCCTById(Long cctId) throws Exception {
@@ -37,6 +42,7 @@ public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
 
 
     public void save(Concern concern) throws Exception {
+        concern.setSortOrder(random.nextInt(65535));
         getHibernateTemplate().saveOrUpdate(concern);
     }//save()
 

@@ -2,6 +2,8 @@ package org.pgist.cvo;
 
 import java.util.Collection;
 
+import org.pgist.util.PageSetting;
+
 
 /**
  * Data Access Object for CCT.
@@ -46,11 +48,11 @@ public interface CCTDAO extends CVODAO {
      * 
      * @param cctId The id of the CCT object.
      * @param userId The id of the given user.
-     * @param count The max number of concerns to retrieve.
+     * @param setting The page setting.
      * @return A collection of Concern objects.
      * @throws Exception
      */
-    Collection getRandomConcerns(Long cctId, Long userId, int count) throws Exception;
+    Collection getRandomConcerns(Long cctId, Long userId, PageSetting setting) throws Exception;
 
     /**
      * Get concerns with the given tagRefId.

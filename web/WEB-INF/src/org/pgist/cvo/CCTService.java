@@ -2,6 +2,8 @@ package org.pgist.cvo;
 
 import java.util.Collection;
 
+import org.pgist.util.PageSetting;
+
 
 /**
  *
@@ -85,11 +87,11 @@ public interface CCTService {
      * Randomly get other people's concerns.
      *
      * @param cct
-     * @param count
+     * @param setting The page setting.
      * @return
      * @throws Exception
      */
-    Collection getRandomConcerns(CCT cct, int count) throws Exception;
+    Collection getRandomConcerns(CCT cct, PageSetting setting) throws Exception;
 
     /**
      * Get the top N tags in the given cct according to the frequency of reference.

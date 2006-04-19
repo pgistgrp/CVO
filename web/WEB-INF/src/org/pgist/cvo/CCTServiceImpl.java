@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 import org.pgist.system.UserDAO;
+import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 
 
@@ -100,8 +101,8 @@ public class CCTServiceImpl implements CCTService {
     }//getOthersConcerns()
 
 
-    public Collection getRandomConcerns(CCT cct, int count) throws Exception {
-        return cctDAO.getRandomConcerns(cct.getId(), WebUtils.currentUserId(), count);
+    public Collection getRandomConcerns(CCT cct, PageSetting setting) throws Exception {
+        return cctDAO.getRandomConcerns(cct.getId(), WebUtils.currentUserId(), setting);
     }//getRandomConcerns()
 
 

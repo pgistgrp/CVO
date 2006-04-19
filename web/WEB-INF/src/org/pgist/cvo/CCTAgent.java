@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.pgist.system.UserDAO;
 import org.pgist.users.User;
+import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 
 import uk.ltd.getahead.dwr.WebContextFactory;
@@ -202,6 +203,7 @@ public class CCTAgent {
      *             </ul>
      *           </li>
      *           <li>count - int, number of concerns to be extracted</li>
+     *           <li>page - int, the page number of concerns to be extracted (only valid when type==2)</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
@@ -210,6 +212,7 @@ public class CCTAgent {
      *                  The following variables are available for use in the jsp:
      *                  <ul>
      *                    <li>concerns - A list of Concern objects</li>
+     *                    <li>setting - A PageSetting objects</li>
      *                  </ul>
      *           </li>
      *           <li>count - int, number of concerns actually extracted (valid when successful==true)</li>
@@ -258,9 +261,17 @@ public class CCTAgent {
                     url = "/WEB-INF/jsp/cvo/concerns.jsp";
                     break;
                 case 2:
-                    concerns =  cctService.getRandomConcerns(cct, count);
-                    map.put("total", ""+cctService.getConcernsTotal(cct, 2));
+                    PageSetting setting = new PageSetting();
+                    setting.setRowOfPage(count);
+                    try {
+                        setting.setPage(Integer.parseInt((String) params.get("page")));
+                    } catch (Exception e) {
+                        setting.setPage(1);
+                    }
+                    concerns =  cctService.getRandomConcerns(cct, setting);
+                    map.put("total", ""+setting.getRowSize());
                     
+                    request.setAttribute("setting", setting);
                     request.setAttribute("showIcon", new Boolean(false));
                     
                     url = "/WEB-INF/jsp/cvo/concerns.jsp";

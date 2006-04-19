@@ -1,11 +1,15 @@
 package org.pgist.cvo;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+
+import org.hibernate.Query;
+import org.pgist.util.PageSetting;
 
 
 /**
@@ -49,26 +53,28 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
     }//getOthersConcerns()
 
 
-    public Collection getRandomConcerns(Long cctId, Long userId, int count) throws Exception {
-        Set set = new HashSet(count);
+    private static final String getRandomConcerns1 = "select count(c.id) from Concern c where c.deleted=? and c.cct.id=? and c.author.id<>?";
+    private static final String getRandomConcerns2 = "from Concern c where c.deleted=? and c.cct.id=? and c.author.id<>? order by c.sortOrder";
+    
+    
+    public Collection getRandomConcerns(Long cctId, Long userId, PageSetting setting) throws Exception {
+        List result = new ArrayList();
         
-        List concerns = getHibernateTemplate().find(hql_getOthersConcerns, new Object[] {
-            new Boolean(false),
-            cctId,
-            userId
-        });
+        List list = getHibernateTemplate().find(getRandomConcerns1, new Object[] {new Boolean(false), cctId, userId});
+        if (list==null || list.size()==0) return result;
         
-        if (concerns.size()<count) return concerns;
+        int total = ((Integer) list.get(0)).intValue();
+        if (setting.getRowOfPage()==-1) setting.setRowOfPage(total);
+        setting.setRowSize(total);
         
-        List full = new LinkedList(concerns);
-        Random random = new Random();
+        Query query = getSession().createQuery(getRandomConcerns2);
+        query.setFirstResult(setting.getFirstRow());
+        query.setMaxResults(setting.getRowOfPage());
+        query.setBoolean(0, false);
+        query.setLong(1, cctId);
+        query.setLong(2, userId);
         
-        while (set.size()<count) {
-            int index = random.nextInt(full.size());
-            set.add(full.remove(index));
-        }//while
-        
-        return set;
+        return query.list();
     }//getRandomConcerns()
 
 
