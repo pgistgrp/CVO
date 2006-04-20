@@ -1,6 +1,7 @@
 package org.pgist.cvo;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -17,26 +18,30 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
     }//addTags()
     
     
-    private static String hql_getTagsByRank = "from TagReference tr where tr.cct=? order by tr.times desc";
+    private static String hql_getTagsByRank = "from TagReference tr where tr.cct=? order by tr.times desc, tr.tag.name";
     
     
     public Collection getTagsByRank(CCT cct, int count) throws Exception {
         getHibernateTemplate().setMaxResults(count);
-        return getHibernateTemplate().find(hql_getTagsByRank, cct);
+        List list = getHibernateTemplate().find(hql_getTagsByRank, cct);
+        Collections.sort(list, new TagReferenceComparator());
+        return list;
     }//getTagsByRank()
 
 
-    private static String getTagsByThreshold = "from TagReference tr where tr.cct=? and tr.times>? order by tr.times desc";
+    private static String getTagsByThreshold = "from TagReference tr where tr.cct=? and tr.times>? order by tr.times desc, tr.tag.name";
     
     
     public Collection getTagsByThreshold(CCT cct, int threshold) throws Exception {
-        return getHibernateTemplate().find(
+        List list =  getHibernateTemplate().find(
                 getTagsByThreshold,
                 new Object[] {
                         cct,
                         new Integer(threshold),
                 }
         );
+        Collections.sort(list, new TagReferenceComparator());
+        return list;
     }//getTagsByThreshold()
 
     
