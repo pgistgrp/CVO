@@ -13,6 +13,14 @@ import java.util.List;
 public class TagDAOImpl extends CVODAOImpl implements TagDAO {
     
     
+    private TagReferenceComparator comparator = new TagReferenceComparator(false);
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
     public List addTags(String[] tags) throws Exception {
         return null;
     }//addTags()
@@ -24,7 +32,7 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
     public Collection getTagsByRank(CCT cct, int count) throws Exception {
         getHibernateTemplate().setMaxResults(count);
         List list = getHibernateTemplate().find(hql_getTagsByRank, cct);
-        Collections.sort(list, new TagReferenceComparator());
+        Collections.sort(list, comparator);
         return list;
     }//getTagsByRank()
 
@@ -40,7 +48,7 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
                         new Integer(threshold),
                 }
         );
-        Collections.sort(list, new TagReferenceComparator());
+        Collections.sort(list, comparator);
         return list;
     }//getTagsByThreshold()
 
