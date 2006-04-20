@@ -136,11 +136,15 @@ function deleteCookie(name, path, domain) {
 		$('btnContinue').disabled=false;
 		Effect.CloseDown('tagConcerns');
 		Effect.CloseDown('validation');
+		$('addConcern').style.background="#FFF";
+		$('addConcern').style.color="#333";
 	}
 	
 	function prepareConcern(){
 		if (validateForm()){
 			$('btnContinue').disabled=true;
+			$('addConcern').style.background="#EEE";
+			$('addConcern').style.color="#CCC";
 			var concern = $('addConcern').value;
 			document.getElementById("indicator").style.visibility = "visible";
 			CCTAgent.prepareConcern({cctId:cctId,concern:concern}, function(data) {
@@ -171,13 +175,14 @@ function deleteCookie(name, path, domain) {
 		//$('explaination').innerHTML = "";
 		CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:concernTags}, function(data){
 			if (data.successful){
-				showMyConcerns();
+				showMyConcerns(data.concern.id);
 				Effect.CloseDown('tagConcerns');
-				Effect.Yellow('myConcernsList', {duration: 7, endcolor:'#EEEEEE'});
 				//Reset add concerns textbox and Clear comma separated concerns tag list
 				concernTags = "";
 				$('btnContinue').disabled=false;
 				$('addConcern').value = "";
+				$('addConcern').style.background="#FFF";
+				$('addConcern').style.color="#333";
 				$('addConcern').focus();
 			}
 		$("indicator").style.visibility = "hidden";
@@ -185,7 +190,7 @@ function deleteCookie(name, path, domain) {
 }
 
 function showTagCloud(){
-		CCTAgent.getTagCloud({cctId:cctId,type:0,count:20}, function(data){
+		CCTAgent.getTagCloud({cctId:cctId,type:0,count:70}, function(data){
 			if (data.successful){
 				$('sidebar_tags').innerHTML = data.html;
 			}
@@ -209,15 +214,18 @@ function showConcerns(theType){
 	});
 }
 
-function showMyConcerns(){
+function showMyConcerns(id){
 	CCTAgent.getConcerns({cctId:cctId,type:0,count:-1}, function(data){
 /*	$('sidebar_concernsContainer')
 					<span class="title_section">Other Participant's Concerns</span>
-				<p>To help you create your concerns, below are examples of other participant concerns in random order.</p>
+				<p>To help you create your concerns, Below are examples of other participant concerns in random order.</p>
 				<p><a href="JavaScript:getRandomConcerns();">Get more random concerns!</a></p>
 				*/
 			if (data.successful){
 				$('myConcernsList').innerHTML = data.html;
+				if (id != undefined){
+				Effect.Yellow('concernId' + id, {duration: 4, endcolor:'#EEEEEE'})
+				}
 				if (data.total == 0){
 					document.getElementById("myConcernsList").innerHTML = '<p class="explaination">None created yet.  Please add a concern above.  Please refer to other participant\'s concerns on the right column for examples.</p>';
 				}
@@ -233,6 +241,22 @@ function getConcernsByTag(id){
 				$('sidebar_concerns').innerHTML = data.html;
 			}
 		});
+}
+
+function goPage(pageNum){
+	/*if (pageNum == lastPage+1){
+		pageNum = firstPage;
+	}
+	if (pageNum == firstPage-1){
+		pageNum = lastPage;
+	}
+	*/
+	CCTAgent.getConcerns({cctId:cctId,type:2,count:7, page:pageNum}, function(data){
+		if (data.successful){
+			$('sidebar_concerns').innerHTML = data.html;
+			Effect.Yellow('sidebar_concerns');
+		}
+	});
 }
 	
 </script>
@@ -262,18 +286,18 @@ function getConcernsByTag(id){
 
   
  <div id="slate">
-  		<h2>Add your concern</h2>&nbsp;| View examples of concerns in the right column.
+  		<h2>Add your concern</h2><br>What is one of your concerns about the Central Puget Sound Transportation System?  View examples of concerns in the right column (concerns tab).
 		    <form name="brainstorm" method="post" onSubmit="addTagToList(); return false;">
 			      <p><textarea class="textareaAddConcern" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
 			      <p class="indent">
-				      <input type="reset" name="Submit2" value="Reset" onClick="resetForm();"> 
 				      <input type="button" id="btnContinue" name="Continue" value="Continue" onclick="prepareConcern();">
+				      <input type="reset" name="Submit2" value="Reset" onClick="resetForm();"> 
 				      <span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>
 			      </p>
 			      <div style="display: none; padding-left: 20px;" id="validation"></div>
 			  
 				    <div id="tagConcerns" style="display: none;">
-						    <div id="tags" style="background-color: #DDDDDD; border-top: 3px solid #CCCCCC; border: 1px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;">
+						    <div id="tags" style="background-color: #DDDDDD; border: 5Px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;">
 						    	<h3>Tag Your Concern</h3>
 						    	<p>The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed). <span class="smallHelp">[ <a href="null">why are tags important?</a> ]</span></p>
 									<ul class="tagsList" id="tagsList">
@@ -286,7 +310,7 @@ function getConcernsByTag(id){
 						    <br>
 				    </div>
 				
-				<h2>List of my created concerns</h2>&nbsp | Finished? Please submit concerns <a href="#finished">below.</a><br>
+				<h2>List of my created concerns</h2><br>Finished? Please submit concerns <a href="#finished">below</a>.<p></p>
 			      <div id="myConcernsList" class="indent">
 			 
 				      <ol id="myConcerns">
@@ -295,7 +319,7 @@ function getConcernsByTag(id){
 				  	
 						<h2>Finished brainstorming concerns?</h2>
 						<div id="finished_container" class="indent">
-							<div id="finished_p"><p>When you are staisfied with your concerns list above, please use the button on the right to continue to the next step!</p></div>
+							<div id="finished_p">When you are staisfied with your concerns list above, please use the button on the right to continue to the next step!</div>
 							<div id="finished_img"><a name="finished" href="nextStep"><img src="/images/submission_brainstorm.gif" border="0" align="right"></a></div>
 						</div>
 		    </form>

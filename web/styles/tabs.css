@@ -59,7 +59,7 @@ ul.tabbernav li a:hover
  color: #EEE;
  background: #AFCAE7;
  border-color: #CCCCCC;
- border-top: 3px solid #87C900;
+ border-top: 2px solid #FF67B3;
 }
 
 ul.tabbernav li.tabberactive a
@@ -68,7 +68,7 @@ ul.tabbernav li.tabberactive a
  font-weight: bold;
  background-color: #FFF;
  border-bottom: 1px solid #FFF;
- border-top: 2px solid #87C900;
+ border-top: 2px solid #FF67B3;
  color: #A7005D;
  /*cool pink color color: #FF67B3; */
 }
