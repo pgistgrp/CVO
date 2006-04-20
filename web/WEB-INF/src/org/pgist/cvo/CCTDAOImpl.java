@@ -117,6 +117,11 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
         
         return 0;
     }//getConcernsTotal()
+
+
+    public void delete(TagReference ref) throws Exception {
+        getHibernateTemplate().delete(ref);
+    }//delete()
     
     
 }//class CCTDAOImpl

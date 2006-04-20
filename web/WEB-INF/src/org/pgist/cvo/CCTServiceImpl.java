@@ -3,6 +3,7 @@ package org.pgist.cvo;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import org.pgist.system.UserDAO;
 import org.pgist.util.PageSetting;
@@ -134,7 +135,11 @@ public class CCTServiceImpl implements CCTService {
 
     public void deleteConcern(Concern concern) throws Exception {
         CCT cct = concern.getCct();
-        cct.removeConcern(concern);
+        List list = cct.removeConcern(concern);
+        for (Iterator iter=list.iterator(); iter.hasNext(); ) {
+            TagReference ref = (TagReference) iter.next();
+            cctDAO.delete(ref);
+        }//for iter
         concern.setDeleted(true);
         concern.setCreateTime(new Date());
         cctDAO.save(concern);
@@ -142,10 +147,18 @@ public class CCTServiceImpl implements CCTService {
     }//deleteConcern()
 
 
-    public void editConcernTags(Concern concern, String[] tags) throws Exception {
+    public void editConcernTags(Concern concern, String[] tagStrs) throws Exception {
+        Collection tags = analyzer.ensureTags(tagStrs);
+        
         CCT cct = concern.getCct();
-        cct.editConcern(concern, tags);
+        Collection list = cct.editConcern(concern, tags);
+        for (Iterator iter=list.iterator(); iter.hasNext(); ) {
+            TagReference ref = (TagReference) iter.next();
+            cctDAO.delete(ref);
+        }//for iter
+        
         concern.setCreateTime(new Date());
+        
         cctDAO.save(concern);
         cctDAO.save(cct);
     }//editConcernTags()

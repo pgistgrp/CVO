@@ -148,6 +148,7 @@ public class CCT extends PGame {
                     ref.setTimes(1);
                     cctTags.add(ref);
                     list.add(tag);
+                    tagMap.put(tag, ref);
                 } else {
                     ref.setTimes(ref.getTimes()+1);
                 }
@@ -161,7 +162,9 @@ public class CCT extends PGame {
     }//addConcern()
 
 
-    public void removeConcern(Concern concern) throws Exception {
+    public List removeConcern(Concern concern) throws Exception {
+        List list = new ArrayList(10);
+        
         HashMap tagMap = null;
         Element element =  lockCache.get(id);
         if (element==null) {
@@ -190,18 +193,77 @@ public class CCT extends PGame {
                 TagReference ref = (TagReference) iter.next();
                 ref.setTimes(ref.getTimes()-1);
                 if (ref.getTimes()==0) {
-                    //Delete this tagref
-                } else {
-                    ref.setTimes(ref.getTimes()+1);
+                    cctTags.remove(ref);
+                    list.add(ref);
                 }
-                //concern.getTags().add(ref);
             }//for iter
+            concern.getTags().clear();
+            getConcerns().remove(concern);
         }//synchronized
+        
+        return list;
     }//removeConcern()
 
 
-    public void editConcern(Concern concern, String[] tags) {
-        // TODO Auto-generated method stub
+    public Collection editConcern(Concern concern, Collection tags) throws Exception {
+        Collection list = new HashSet(concern.getTags());
+        List toBeDeleted = new ArrayList(10);
+        
+        HashMap tagMap = null;
+        Element element =  lockCache.get(id);
+        if (element==null) {
+            synchronized (lockCache) {
+                element = lockCache.get(id);
+                if (element==null) {
+                    tagMap = new HashMap();
+                    for (Iterator iter=tagRefs.iterator(); iter.hasNext(); ) {
+                        TagReference tagRef = (TagReference) iter.next();
+                        Tag tag = tagRef.getTag();
+                        tagMap.put(tag.getId(), tagRef);
+                    }//for iter
+                    element = new Element(id, tagMap);
+                    lockCache.put(element);
+                } else {
+                    tagMap = (HashMap) element.getValue();
+                }
+            }//synchronized
+        } else {
+            tagMap = (HashMap) element.getValue();
+        }
+        
+        synchronized(tagMap) {
+            Set cctTags = getTagRefs();
+            concern.getTags().clear();
+            for (Iterator iter=tags.iterator(); iter.hasNext(); ) {
+                Tag tag = (Tag) iter.next();
+                TagReference ref = (TagReference) tagMap.get(tag.getId());
+                concern.getTags().add(ref);
+                if (ref==null) {
+                    ref = new TagReference();
+                    ref.setCct(this);
+                    ref.setTag(tag);
+                    ref.setTimes(1);
+                    cctTags.add(ref);
+                    list.add(tag);
+                    tagMap.put(tag, ref);
+                } else {
+                    list.remove(ref);
+                    ref.setTimes(ref.getTimes()+1);
+                }
+            }//for iter
+            
+            for (Iterator iter=list.iterator(); iter.hasNext(); ) {
+                TagReference ref = (TagReference) iter.next();
+                ref.setTimes(ref.getTimes()-1);
+                if (ref.getTimes()==0) {
+                    cctTags.remove(ref);
+                    tagMap.remove(ref.getTag());
+                    toBeDeleted.add(ref);
+                }
+            }//for iter
+        }//synchronized
+        
+        return toBeDeleted;
     }//editConcern()
     
     

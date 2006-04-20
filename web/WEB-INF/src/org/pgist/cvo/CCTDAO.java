@@ -79,6 +79,8 @@ public interface CCTDAO extends CVODAO {
      * @throws Exception
      */
     int getConcernsTotal(CCT cct, int whose, Long userId) throws Exception;
+
+    void delete(TagReference ref) throws Exception;
     
 
 }//interface CCTDAO

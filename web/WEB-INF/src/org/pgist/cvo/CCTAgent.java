@@ -312,7 +312,7 @@ public class CCTAgent {
      *           <li>cctId - long int, the current CCT instance id</li>
      *           <li>type - int
      *             <ul>
-     *               <li>type==0, search top count tags which are the hotest</li>
+     *               <li>type==0, search top count tags which are the hottest</li>
      *               <li>type==1, search tags which are over a specific threshhold</li>
      *             </ul>
      *           </li>
