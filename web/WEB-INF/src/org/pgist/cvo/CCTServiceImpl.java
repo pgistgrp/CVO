@@ -174,4 +174,9 @@ public class CCTServiceImpl implements CCTService {
     }//getTagReferenceById()
 
 
+    public Collection searchTags(CCT cct, String tag) throws Exception {
+        return cctDAO.searchTags(cct.getId(), tag);
+    }//searchTags()
+
+
 }//class CCTServiceImpl

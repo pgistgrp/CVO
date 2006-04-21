@@ -62,6 +62,7 @@
       <include method="deleteConcern"/>
       <include method="deleteTags"/>
       <include method="getConcernsByTag"/>
+      <include method="searchTags"/>
     </create>
 
 

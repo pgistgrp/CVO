@@ -122,6 +122,17 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
     public void delete(TagReference ref) throws Exception {
         getHibernateTemplate().delete(ref);
     }//delete()
+
+
+    private static final String hql_searchTags = "select tr from CCT c, TagReference tr where c.id=? and lower(tr.tag.name) like ?";
+    
+    
+    public Collection searchTags(Long id, String tag) throws Exception {
+        return getHibernateTemplate().find(hql_searchTags, new Object[] {
+                id,
+                '%' + tag + '%'
+        });
+    }//searchTags()
     
     
 }//class CCTDAOImpl

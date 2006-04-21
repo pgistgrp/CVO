@@ -181,5 +181,14 @@ public interface CCTService {
      */
     TagReference getTagReferenceById(Long tagRefId) throws Exception;
 
+    /**
+     * Search all matched tags in the given CCT by tag name. Approximate match is used for the tag string.
+     * @param cct A CCT object which the current user is working on.
+     * @param tag A string which will be searched in tags.
+     * @return A collection of matched TagReference objects.
+     * @throws Exception
+     */
+    Collection searchTags(CCT cct, String tag) throws Exception;
+
 
 }//interface CCTService
