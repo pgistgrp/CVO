@@ -650,6 +650,30 @@ public class CCTAgent {
         
         return map;
     }//editTags()
+    
+    
+    /**
+     * Search all matched tags by tag name. Approximate match is used for the tag string.
+     * 
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>cctId - long int, the current CCT instance id</li>
+     *           <li>tag - A string, all or part of a Tag name</li>
+     *         </ul>
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>count - amount of matched Tag objects (valid when successful==true)</li>
+     *           <li>tags - An array of matched TagReference objects (valid when successful==true)</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
+    public Map searchTags(Map params) {
+        Map map = new HashMap();
+        
+        
+        return map;
+    }//searchTags()
 
 
 }//class CCTAgent
