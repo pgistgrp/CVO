@@ -8,8 +8,28 @@
 			<span class="highlight">To help you create your concerns</span>, below are examples of other participant concerns in random order.  Use the buttons below to view more pages of random concerns.
 			<p>
 				<div id="prevNext_container">
-					<div id="previous"><span class="prevNext"><a href="javascript:goPage(${setting.page}-1);">&#171; prev page</a></span></div>
-					<div id="next"><span class="prevNext"><a href="javascript:goPage(${setting.page}+1);">next page &#187; </a></span></div>
+					
+					<div id="previous"><span class="prevNext">
+						<logic:equal name="setting" property="page" value="1">
+							<a href="javascript:goPage(${setting.pageSize});">
+						</logic:equal>
+						
+						<logic:notEqual name="setting" property="page" value="1">	
+							<a href="javascript:goPage(${setting.page}-1);">
+						</logic:notEqual>
+						&#171; prev page</a></span>
+					</div>
+
+					<div id="next"><span class="prevNext">
+						<logic:equal name="setting" property="page" value="${setting.pageSize}">
+							<a href="javascript:goPage(1);">
+						</logic:equal>
+						
+						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
+							<a href="javascript:goPage(${setting.page}+1);">
+						</logic:notEqual>
+						next page &#187; </a></span>
+					</div>
 				</div>
 			</p>
 		</logic:notEqual>
@@ -58,8 +78,28 @@
 		<logic:notEqual name="showIcon" value="true">
 			<p>
 				<div id="prevNext_container">
-					<div id="previous"><span class="prevNext"><a href="javascript:goPage(${setting.page}-1);">&#171; prev page</a></span></div>
-					<div id="next"><span class="prevNext"><a href="javascript:goPage(${setting.page}+1);">next page &#187; </a></span></div>
+					
+					<div id="previous"><span class="prevNext">
+						<logic:equal name="setting" property="page" value="1">
+							<a href="javascript:goPage(${setting.pageSize});">
+						</logic:equal>
+						
+						<logic:notEqual name="setting" property="page" value="1">	
+							<a href="javascript:goPage(${setting.page}-1);">
+						</logic:notEqual>
+						&#171; prev page</a></span>
+					</div>
+
+					<div id="next"><span class="prevNext">
+						<logic:equal name="setting" property="page" value="${setting.pageSize}">
+							<a href="javascript:goPage(1);">
+						</logic:equal>
+						
+						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
+							<a href="javascript:goPage(${setting.page}+1);">
+						</logic:notEqual>
+						next page &#187; </a></span>
+					</div>
 				</div>
 			</p>
 		</logic:notEqual>

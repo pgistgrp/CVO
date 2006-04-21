@@ -190,7 +190,7 @@ function deleteCookie(name, path, domain) {
 }
 
 function showTagCloud(){
-		CCTAgent.getTagCloud({cctId:cctId,type:0,count:70}, function(data){
+		CCTAgent.getTagCloud({cctId:cctId,type:0,count:100}, function(data){
 			if (data.successful){
 				$('sidebar_tags').innerHTML = data.html;
 			}
@@ -244,13 +244,13 @@ function getConcernsByTag(id){
 }
 
 function goPage(pageNum){
-	/*if (pageNum == lastPage+1){
-		pageNum = firstPage;
-	}
-	if (pageNum == firstPage-1){
-		pageNum = lastPage;
-	}
-	*/
+/*		if (pageNum == lastPage+1){
+			pageNum = firstPage;
+		}
+		if (pageNum == firstPage-1){
+			pageNum = lastPage;
+		}*/
+	
 	CCTAgent.getConcerns({cctId:cctId,type:2,count:7, page:pageNum}, function(data){
 		if (data.successful){
 			$('sidebar_concerns').innerHTML = data.html;
@@ -291,7 +291,7 @@ function goPage(pageNum){
 			      <p><textarea class="textareaAddConcern" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
 			      <p class="indent">
 				      <input type="button" id="btnContinue" name="Continue" value="Continue" onclick="prepareConcern();">
-				      <input type="reset" name="Submit2" value="Reset" onClick="resetForm();"> 
+				      <input type="reset" name="Reset" value="Reset" onClick="resetForm();"> 
 				      <span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>
 			      </p>
 			      <div style="display: none; padding-left: 20px;" id="validation"></div>
