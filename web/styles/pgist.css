@@ -118,6 +118,18 @@ hr {
 	font-size: 15px;	
 }
 
+.participantName a{
+	color: #90B021;
+	font-size: 15px;
+	text-decoration: underline;
+}
+
+.participantName a:hover{
+	color: #EEE;
+	font-size: 15px;
+	text-decoration: underline;
+}
+
 #decorBar {
 	width: 100%;
 	border-top: thick solid #006699;
@@ -129,13 +141,64 @@ hr {
 
 
 #header {
-	width: 100%;
+	width: 60%;
+	height: 93px;
+	float: left;
+	background-image: url(/images/header_background.jpg);
+	background-repeat: repeat;
+	margin: 0;
+	padding: 0;
+}
+
+#searchNavContiner{
+	width: 40%;
 	height: 93px;
 	float: right;
 	background-image: url(/images/header_background.jpg);
 	background-repeat: repeat;
 	margin: 0;
 	padding: 0;
+	position: relative;
+	text-align: right; 
+	text-align: bottom;
+}
+
+
+#mainSearch{
+	position: absolute;
+	width: 100%;
+	height: 60px;
+  bottom: 0;
+  text-align: right; 
+}
+
+#mainNav{
+	width: 100%;
+	height: 20px;
+  position: absolute;
+  bottom: 0;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: right; 
+}
+
+.tbx1_default
+{
+	background: #EEE;
+	color: #AAA;
+	border:1px solid #aaa;
+	height:16px;
+	width:200px;
+	padding: 3px;
+}
+.tbx1_hover
+{
+	background: #FFF;
+	color: #333;
+	border:1px solid green;
+	height:16px;
+	width:200px;
+	padding: 3px;
 }
 
 .indent {
@@ -148,7 +211,16 @@ hr {
 }
 #bread {
 	color: #AAAAAA;
-	}
+}
+
+#bread a{
+	color: #AAAAAA;
+	text-decoration: none;
+}
+
+#bread a:hover{
+	color: #eee;
+}
 
 #bread ul {
 	margin-left: 0;
@@ -260,9 +332,10 @@ li.tagsList{
 
 .textbox{
 	font-size: 14px;
-	color: #333333;
+	color: #AAA;
 	width: 80px;
 }
+
 
 #finished_p{
 	position: relative;
@@ -322,7 +395,7 @@ li.tagsList{
    position: absolute;
    left: 0;
    width: 50%;
-   vertical-align: bottom
+   vertical-align: bottom;
 }
 
 #searchTag_form{

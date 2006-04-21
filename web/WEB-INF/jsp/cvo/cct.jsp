@@ -244,33 +244,40 @@ function getConcernsByTag(id){
 }
 
 function goPage(pageNum){
-/*		if (pageNum == lastPage+1){
-			pageNum = firstPage;
-		}
-		if (pageNum == firstPage-1){
-			pageNum = lastPage;
-		}*/
-	
-	CCTAgent.getConcerns({cctId:cctId,type:2,count:7, page:pageNum}, function(data){
+CCTAgent.getConcerns({cctId:cctId,type:2,count:7, page:pageNum}, function(data){
 		if (data.successful){
 			$('sidebar_concerns').innerHTML = data.html;
 			Effect.Yellow('sidebar_concerns');
 		}
 	});
 }
-	
+function clear_textbox(inputID)
+	{
+		if (inputID.value != "")
+		inputID.value = "";
+		inputID.style.color = "#333";
+	} 
 </script>
 </head>
 <body>
 <div id="decorBar"></div>
 <div id="header"><img src="/images/logo.jpg"></div>
+<div id="searchNavContiner">
+	<div id="mainSearch">
+			<form name="mainSearch" method="post" onSubmit="search();">
+				<input type="text" value="Search LIT!" ID="tbx1" class="tbx1_default" onfocus="clear_textbox(this)" onmouseover="this.className='tbx1_hover';" onmouseout="this.className='tbx1_default';"/>&nbsp;<img src="/images/search.gif">
+			</form>	
+	</div>
+	<div id="mainNav">MyLIT&nbsp;&nbsp;|&nbsp;&nbsp;Discussion&nbsp;&nbsp;|&nbsp;&nbsp;Advanced Search&nbsp;&nbsp;|&nbsp;&nbsp;Help&nbsp;&nbsp;</div>
+</div>
+
 <div id="container">
 <div id="navigation">
 	<div id="bread">
 	<ul>
-		<li class="first">LIT Process
+		<li class="first"><a href="null">LIT Process</a>
 			<ul>
-				<li>&#187; Brainstorm Concerns</li>
+				<li>&#187; <a href="null">Brainstorm Concerns</a></li>
 			</ul>
 		</li>
 	</ul>
@@ -318,7 +325,7 @@ function goPage(pageNum){
 				  	</div>
 				  	
 						<h2>Finished brainstorming concerns?</h2>
-						<div id="finished_container" class="indent">
+						<div id="finished_container">
 							<div id="finished_p">When you are staisfied with your concerns list above, please use the button on the right to continue to the next step!</div>
 							<div id="finished_img"><a name="finished" href="nextStep"><img src="/images/submission_brainstorm.gif" border="0" align="right"></a></div>
 						</div>

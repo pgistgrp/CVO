@@ -3,8 +3,8 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 
 <h2>Tags</h2>
-<span class="title_section">Tag Cloud</span>
-<p>Click on any of these tags to view the concerns attached to each tag.  <span class="highlight">Use these tags to help you navigate and find other participant's concerns</span> to help you create your own!</p>
+<span class="title_section">Tag Cloud</span><br>
+Click on any of these tags to view the concerns attached to each tag.  <span class="highlight">Use these tags to help you navigate and find other participant's concerns</span> to help you create your own!<p></p>
 
 <div id="searchTag_container">
 		<div id="searchTag_title">
@@ -12,7 +12,7 @@
 		</div>
 		<div id="searchTag_form">
 				<form name="searchTags" method="post" onSubmit="searchTags();">
-					<input type="text" class="textbox"><input type="button" id="btnSearchTag" name="btnSearchTag" value="Search" onclick="SearchTags();">
+					<input type="text" id="txtSearch" name="txtSearch" class="textbox" value=" find a tag " onfocus="clear_textbox(this);"><input type="button" id="btnSearchTag" name="btnSearchTag" value="Search" onclick="SearchTags();">
 				</form>			
 		</div>
 </div>
