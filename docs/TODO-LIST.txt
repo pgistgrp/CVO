@@ -1,0 +1,18 @@
+
+
+-------------- Frontend --------------
+
+
+[] Edit Concern (Jordan)
+[] Edit Tags (Jordan)
+
+
+-------------- Backend --------------
+
+
+[] TagAnalyzer (Guirong)
+
+[] Integration of TagAnalyzer with CCT (Zhong)
+
+
+
