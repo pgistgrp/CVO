@@ -72,7 +72,7 @@ public class TagAnalyzer {
      * as the array index allows fast retrieval of a term, and count records the
      * number of appearance.
      */
-    private long[][] tag_id_count;
+    private long[] tag_id_count;
 
     public static Document parse(URL url) throws DocumentException {
         SAXReader reader = new SAXReader();
@@ -99,6 +99,11 @@ public class TagAnalyzer {
      */
     public Collection parseTextNLP(String statement) {
       Collection suggestedStrings = new HashSet();
+      long[][] tag_id_count_temp = new long[tag_id_count.length][2];
+      for(int k=0; k<tag_id_count.length; k++){
+      	tag_id_count_temp[k][0] = tag_id_count[k]; 
+      	tag_id_count_temp[k][1] = 0;
+        }
 
       String line = null;
       String output = "";
@@ -163,7 +168,7 @@ public class TagAnalyzer {
 
           if(foundtext.length() > 0){
             if(setting[1] >= 0){ //
-               tag_id_count[(int)setting[1]][1]++;
+            	tag_id_count_temp[(int)setting[1]][1]++;
                setting[1] = -1;
                //System.out.println(foundtext);
 
@@ -182,8 +187,8 @@ public class TagAnalyzer {
       }
 
       //put all the found tags in the suggestedStrings
-      for(int k=0; k<tag_id_count.length; k++)
-        if(tag_id_count[k][1] > 0){
+      for(int k=0; k<tag_id_count_temp.length; k++)
+        if(tag_id_count_temp[k][1] > 0){
           suggestedStrings.add( ">>" + ((Tag)all_tags.get(k)).getName() );
         }
 
@@ -196,7 +201,13 @@ public class TagAnalyzer {
         	printTreeNice(tag_tree, 0, "");
         }
     	
-    	 Collection suggestedStrings = new HashSet();
+        Collection suggestedStrings = new HashSet();
+         //cleat out the parse results
+        long[][] tag_id_count_temp = new long[tag_id_count.length][2];
+        for(int k=0; k<tag_id_count.length; k++){
+        	tag_id_count_temp[k][0] = tag_id_count[k]; 
+        	tag_id_count_temp[k][1] = 0;
+          }
 
         Reader reader = new StringReader(statement);
         Tokenizer tkz = new LowerCaseTokenizer(reader);	//StandardTokenizer
@@ -227,7 +238,7 @@ public class TagAnalyzer {
 
             if(foundtext.length() > 0){
               if(setting[1] >= 0){ 
-                 tag_id_count[(int)setting[1]][1]++;
+            	  tag_id_count_temp[(int)setting[1]][1]++;
                  setting[1] = -1;
               }
             }
@@ -242,8 +253,8 @@ public class TagAnalyzer {
         }
 
         //put all the found tags in the suggestedStrings
-        for(int k=0; k<tag_id_count.length; k++)
-          if(tag_id_count[k][1] > 0){
+        for(int k=0; k<tag_id_count_temp.length; k++)
+          if(tag_id_count_temp[k][1] > 0){
             suggestedStrings.add( ((Tag)all_tags.get(k)).getName() );
           }
 
@@ -343,9 +354,10 @@ public class TagAnalyzer {
      * The result of this method will be a refreshed tag_tree
      */
     public void rebuildTree() {
-    	all_tags.clear();
-       tag_id_count = null;
-        
+    	List all_tags_temp = new ArrayList();
+    	long[] tag_id_count_temp;
+    	long[][] tag_tree_temp;
+    	
     	try {
           Collection tags = tagDAO.getAllTags();
           System.out.println("====start to build tree, with " + tags.size() + " tags.");
@@ -353,48 +365,53 @@ public class TagAnalyzer {
           int size = 0;
           int i = 0;
           String s = "";
-          tag_id_count = new long[tags.size()][2];
+          tag_id_count_temp = new long[tags.size()];
 
           for(Iterator itr = tags.iterator(); itr.hasNext();){
             Tag tag = (Tag)itr.next();
-            all_tags.add( tag );
+            all_tags_temp.add( tag );
             s = tag.getName();
             size += s.length();
 
-            tag_id_count[i][0] = tag.getId();
-            tag_id_count[i][1] = 0;
+            tag_id_count_temp[i] = tag.getId();
+
             i++;
           }
 
           size += 27;
 
-          tag_tree = null;
-          tag_tree = new long[size][4];
+          tag_tree_temp = new long[size][4];
 
-          tag_tree[0][3] = -1;  //reset this cell - it's used else where
+          tag_tree_temp[0][3] = -1;  //reset this cell - it's used else where
 
-          for ( i = 0; i < tag_tree.length; i++)
-            for (int j = 0; j < tag_tree[i].length; j++)
-              tag_tree[i][j] = -1;
+          for ( i = 0; i < tag_tree_temp.length; i++)
+            for (int j = 0; j < tag_tree_temp[i].length; j++)
+            	tag_tree_temp[i][j] = -1;
 
           for ( i = 0; i <= 26; i++) {
-            tag_tree[i][0] = 'a' - 1 + i;
-            tag_tree[i][1] = tag_tree[i][3] = -1;
-            tag_tree[i][2] = i + 1;
+        	  tag_tree_temp[i][0] = 'a' - 1 + i;
+        	  tag_tree_temp[i][1] = tag_tree_temp[i][3] = -1;
+        	  tag_tree_temp[i][2] = i + 1;
           }
-          tag_tree[0][0] = '$';
-          tag_tree[0][3] = 27;	//the first available locaiton
-          tag_tree[26][2] = -1;
+          tag_tree_temp[0][0] = '$';
+          tag_tree_temp[0][3] = 27;	//the first available locaiton
+          tag_tree_temp[26][2] = -1;
 
-          for( i=0; i<all_tags.size(); i++){
-            s = ( (Tag)all_tags.get(i)).getName().toLowerCase();
-            this.addNode(tag_tree, s, i,        //instead remember the ID(( (Term)list.get(i)).getId())
+          for( i=0; i<all_tags_temp.size(); i++){
+            s = ( (Tag)all_tags_temp.get(i)).getName().toLowerCase();
+            this.addNode(tag_tree_temp, s, i,        //instead remember the ID(( (Term)list.get(i)).getId())
                          0, 1, 1);          //do the index in the list
                System.out.println("--added: " + s);
           }
-
+          
+        synchronized(tag_tree){
+	        tag_tree = tag_tree_temp;
+	        tag_id_count = tag_id_count_temp;
+	        all_tags = all_tags_temp;
+          }
+          
          //printTreeNice(tag_tree, 0, "");
-          System.out.println("==>>tag tree size: " + tag_tree.length + "; used: " + tag_tree[0][3]);
+          System.out.println("==>>tag tree size: " + tag_tree_temp.length + "; used: " + tag_tree_temp[0][3]);
 
         }
         catch (Exception ex) {
@@ -425,7 +442,7 @@ public class TagAnalyzer {
      * @param tagStr The tag string
      * @return A Tag object.
      */
-    public Collection ensureTags(String[] tagStrs) throws Exception {
+    public synchronized Collection ensureTags(String[] tagStrs) throws Exception {
         List list = new ArrayList(tagStrs.length);
 
         //this portion should be synchronized
@@ -434,8 +451,12 @@ public class TagAnalyzer {
             tagStrs[i] = tagStrs[i].trim();
             if ("".equals(tagStrs[i])) continue;
 
-            if(false){	//if tag exist
-            	
+            long[] setting = {0, -1};
+            int m = matchString(tag_tree, 0, tagStrs[i], setting);
+            if( m == tagStrs[i].length() ){	//if tag exist
+            		//find the tag and add count
+            	System.out.println("==increase count for tag:" + setting[1]);
+            	list.add( (Tag)all_tags.get( (int)setting[1]) );
             }else{
             	Tag tag = new Tag();
             	tag.setName(tagStrs[i]);
