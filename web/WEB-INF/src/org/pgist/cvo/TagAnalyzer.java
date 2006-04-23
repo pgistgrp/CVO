@@ -22,6 +22,10 @@ import java.io.InputStreamReader;
 import java.io.BufferedWriter;
 import org.dom4j.*;
 import java.io.*;
+import org.apache.lucene.analysis.Tokenizer;
+import org.apache.lucene.analysis.standard.StandardTokenizer;
+import org.apache.lucene.analysis.Token;
+import org.apache.lucene.analysis.LowerCaseTokenizer;
 
 /**
  *
@@ -49,6 +53,8 @@ public class TagAnalyzer {
 
     public void setTagDAO(TagDAO tagDAO) {
         this.tagDAO = tagDAO;
+        //rebuildTree();
+        System.out.println("in the setter");
     }
 
 
@@ -65,11 +71,6 @@ public class TagAnalyzer {
     /*
      * ------------------------------------------------------------------------
      */
-
-    public void TagAnalyzer(){
-      rebuildTree();
-    }
-
 
     private static List all_tags = new ArrayList();
 
@@ -111,7 +112,7 @@ public class TagAnalyzer {
      *         <li>map.get("suggested")=list of strings as suggested tags</li>
      *
      */
-    public Collection parseText(String statement) {
+    public Collection parseTextNLP(String statement) {
       Collection suggestedStrings = new HashSet();
 
       String line = null;
@@ -146,9 +147,6 @@ public class TagAnalyzer {
       catch (IOException ex) {
         return suggestedStrings;
       }
-
-      String s;
-      int total = 0;
 
       for ( Iterator iter = results.iterator(); iter.hasNext(); ) {
         Element element = (Element) iter.next();
@@ -207,6 +205,66 @@ public class TagAnalyzer {
       return suggestedStrings;
     }
 
+    public Collection parseTextTokenized(String statement) {
+        if(all_tags.size() == 0){
+        	rebuildTree();
+        	printTreeNice(tag_tree, 0, "");
+        }
+    	
+    	 Collection suggestedStrings = new HashSet();
+
+        Reader reader = new StringReader(statement);
+        Tokenizer tkz = new LowerCaseTokenizer(reader);	//StandardTokenizer
+
+        try{
+          Token t = tkz.next();
+          while (t != null){
+            //find the logest appearance
+            String foundtext = "";
+            String trytext = t.termText();
+            boolean found = false;
+            long[] setting = {0, -1};
+            int m = matchString(tag_tree, 0, trytext, setting);
+            while( m == (foundtext.length() + trytext.length() ) ){
+              found = true;
+              foundtext += trytext; 
+
+              t = tkz.next();
+              if(t == null)break;
+
+              trytext = " " + t.termText(); 
+
+              if(setting[0] >=0 ) 
+                m += matchString(tag_tree, (int)setting[0], trytext, setting);
+              else
+                break;
+            }
+
+            if(foundtext.length() > 0){
+              if(setting[1] >= 0){ 
+                 tag_id_count[(int)setting[1]][1]++;
+                 setting[1] = -1;
+              }
+            }
+
+            if(!found)
+              t = tkz.next();
+          }//while
+
+          tkz.close();
+        }catch (Exception e){
+          System.out.println("error: " + e.getMessage());
+        }
+
+        //put all the found tags in the suggestedStrings
+        for(int k=0; k<tag_id_count.length; k++)
+          if(tag_id_count[k][1] > 0){
+            suggestedStrings.add( ((Tag)all_tags.get(k)).getName() );
+          }
+
+        return suggestedStrings;
+      }
+    
     /**
      *
      * @param elements
@@ -279,7 +337,18 @@ public class TagAnalyzer {
      *            Tag
      */
     public void addTag(long[][] tree, Tag tag) {
-
+    	try {
+			tagDAO.save(tag);
+	    	all_tags.add(tag);
+	    	if( tree.length > ( tree[0][3] + tag.name.length() ))
+	    		addNode(tree, tag.name, all_tags.size()-1, 0, 1, 1);
+	    	else{
+	    		rebuildTree();
+	    	}			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
 
@@ -289,13 +358,17 @@ public class TagAnalyzer {
      * The result of this method will be a refreshed tag_tree
      */
     public void rebuildTree() {
-        try {
+    	all_tags.clear();
+       tag_id_count = null;
+        
+    	try {
           Collection tags = tagDAO.getAllTags();
+          System.out.println("====start to build tree, with " + tags.size() + " tags.");
 
           int size = 0;
           int i = 0;
           String s = "";
-          tag_id_count = new long[all_tags.size()][2];
+          tag_id_count = new long[tags.size()][2];
 
           for(Iterator itr = tags.iterator(); itr.hasNext();){
             Tag tag = (Tag)itr.next();
@@ -310,7 +383,6 @@ public class TagAnalyzer {
 
           size += 27;
 
-          System.out.println("==>>tag tree size: " + size);
           tag_tree = null;
           tag_tree = new long[size][4];
 
@@ -326,16 +398,18 @@ public class TagAnalyzer {
             tag_tree[i][2] = i + 1;
           }
           tag_tree[0][0] = '$';
-          tag_tree[0][3] = 27;
+          tag_tree[0][3] = 27;	//the first available locaiton
           tag_tree[26][2] = -1;
 
           for( i=0; i<all_tags.size(); i++){
             s = ( (Tag)all_tags.get(i)).getName().toLowerCase();
             this.addNode(tag_tree, s, i,        //instead remember the ID(( (Term)list.get(i)).getId())
                          0, 1, 1);          //do the index in the list
+               System.out.println("--added: " + s);
           }
 
-          printTreeNice(tag_tree, 0, "");
+         //printTreeNice(tag_tree, 0, "");
+          System.out.println("==>>tag tree size: " + tag_tree.length + "; used: " + tag_tree[0][3]);
 
         }
         catch (Exception ex) {
@@ -369,18 +443,23 @@ public class TagAnalyzer {
     public Collection ensureTags(String[] tagStrs) throws Exception {
         List list = new ArrayList(tagStrs.length);
 
+        //this portion should be synchronized
         for (int i=0; i<tagStrs.length; i++) {
             if (tagStrs[i]==null) continue;
             tagStrs[i] = tagStrs[i].trim();
             if ("".equals(tagStrs[i])) continue;
 
-            Tag tag = new Tag();
-            tag.setName(tagStrs[i]);
-            tag.setDescription(tagStrs[i]);
-            tag.setStatus(Tag.STATUS_CANDIDATE);
+            if(false){	//if tag exist
+            	
+            }else{
+            	Tag tag = new Tag();
+            	tag.setName(tagStrs[i]);
+            	tag.setDescription(tagStrs[i]);
+            	tag.setStatus(Tag.STATUS_CANDIDATE);
 
-            list.add(tag);
-            tagDAO.save(tag);
+            	list.add(tag);
+            	tagDAO.save(tag);
+            }
         }//for i
 
         return list;
