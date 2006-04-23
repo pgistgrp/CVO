@@ -124,7 +124,7 @@ public class CCTServiceImpl implements CCTService {
     }//getConcernsByTag()
 
     public Collection getSuggestedTags(String statement) throws Exception{
-      return analyzer.parseText(statement);
+    	return analyzer.parseTextTokenized(statement);
     }//getSuggestedTags
 
 

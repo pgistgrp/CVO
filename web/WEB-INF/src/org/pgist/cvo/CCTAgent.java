@@ -139,8 +139,9 @@ public class CCTAgent {
 
         String concern = (String) params.get("concern");
 
-        //Collection tags = cctService.getSuggestedTags(concern);//
-        String[] tags = {"Traffic", "Transit", "Bus"};
+        Collection tags = cctService.getSuggestedTags(concern);//
+        System.out.println("====returned back to cctagent: get tags=" + tags.size());
+        //String[] tags = {"Traffic", "Transit", "Bus"};
         map.put("tags", tags);
         map.put("successful", new Boolean(true));
 
