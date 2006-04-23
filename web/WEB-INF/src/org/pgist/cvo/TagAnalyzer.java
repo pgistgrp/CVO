@@ -46,25 +46,10 @@ public class TagAnalyzer {
 
     private TagDAO tagDAO = null;
 
-    private boolean greedyMatching = true;
-
-    private boolean greedyTagging = true;
-
-
     public void setTagDAO(TagDAO tagDAO) {
         this.tagDAO = tagDAO;
         //rebuildTree();
         System.out.println("in the setter");
-    }
-
-
-    public void setGreedyMatching(boolean greedyMatching) {
-        this.greedyMatching = greedyMatching;
-    }
-
-
-    public void setGreedyTagging(boolean greedyTagging) {
-        this.greedyTagging = greedyTagging;
     }
 
 
