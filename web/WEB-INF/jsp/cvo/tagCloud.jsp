@@ -11,8 +11,8 @@ Click on any of these tags to view the concerns attached to each tag.  <span cla
 				<span class="title_section2">Top 100 Tags</span>
 		</div>
 		<div id="searchTag_form">
-				<form name="searchTags" method="post" onSubmit="searchTags();">
-					<input type="text" id="txtSearch" name="txtSearch" class="textbox" value=" find a tag " onfocus="clear_textbox(this);"><input type="button" id="btnSearchTag" name="btnSearchTag" value="Search" onclick="SearchTags();">
+				<form name="searchTags" method="post" onSubmit="tagSearch($('txtSearch').value); return false;">
+					<input type="text" id="txtSearch" name="txtSearch" class="textbox" value=" find a tag " onfocus="clear_textbox(this);" onkeyup="tagSearch($('txtSearch').value);"><input type="submit" id="btnSearchTag" name="btnSearchTag" value="Search">
 				</form>			
 		</div>
 </div>

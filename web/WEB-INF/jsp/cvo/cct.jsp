@@ -251,6 +251,25 @@ CCTAgent.getConcerns({cctId:cctId,type:2,count:7, page:pageNum}, function(data){
 		}
 	});
 }
+
+function tagSearch(theTag){
+
+CCTAgent.searchTags({cctId:cctId,tag:theTag}, function(data){
+		if (data.successful){
+			//alert(data.count);
+			if (data.count == 1){
+				getConcernsByTag(theTag);
+			}
+			
+			if (data.count > 1){
+				$('searchTag_title').innerHTML = '<span class="title_section2">Query: '+ theTag +'</span>'
+				$('topTags').innerHTML = data.html;
+				Effect.Yellow('topTags');
+			}
+		}
+	});
+}
+
 function clear_textbox(inputID)
 	{
 		if (inputID.value != "")
