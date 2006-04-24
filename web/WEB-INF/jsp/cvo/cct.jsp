@@ -127,6 +127,8 @@ function deleteCookie(name, path, domain) {
 			Effect.CloseDown('validation');
 			Effect.OpenUp('tagConcerns');
 			Effect.Yellow('tags', {duration: 4, endcolor:'#DDDDDD'});
+			$('theTag').value = "add tag";
+			//$('theTag').focus();
 			return true;
 		}
 	}
@@ -158,7 +160,6 @@ function deleteCookie(name, path, domain) {
 				}
 				document.getElementById("indicator").style.visibility = "hidden";
 			} );
-				//document.forms.brainstorm.Thetag.focus();
 		}
 	}
 	
@@ -239,6 +240,7 @@ function getConcernsByTag(id){
 				//$("sidebar_concerns").style.display = "none";
 				Effect.Yellow('sidebar_concerns');
 				$('sidebar_concerns').innerHTML = data.html;
+				$('myTab').tabber.tabShow(1);
 			}
 		});
 }
@@ -253,26 +255,36 @@ CCTAgent.getConcerns({cctId:cctId,type:2,count:7, page:pageNum}, function(data){
 }
 
 function tagSearch(theTag){
-
 CCTAgent.searchTags({cctId:cctId,tag:theTag}, function(data){
 		if (data.successful){
+			if ($('txtSearch').value == ""){
+				showTagCloud();
+			}
 			//alert(data.count);
-			if (data.count == 1){
-				getConcernsByTag(theTag);
+			//if (data.count == 1){
+				//$('topTags').innerHTML = data.tag.tag.name;
+				//getConcernsByTag(data.tag.id);
+				//$('myTab').tabber.tabShow(1);
+			//}
+			
+			if (data.count > 0){
+				$('tagIndicator').style.visibility = 'visible';
+				$('searchTag_title').innerHTML = '<span class="title_section2">Tag Query:</span>'; 
+				$('tagSearchResults').innerHTML = '<span class="highlight">' + data.count +' tags match your query&nbsp;&nbsp;(<a href="javascript:showTagCloud();">clear query</a>)</span>';
+				$('topTags').innerHTML = data.html;
+				$('tagIndicator').style.visibility = 'hidden';
 			}
 			
-			if (data.count > 1){
-				$('searchTag_title').innerHTML = '<span class="title_section2">Query: '+ theTag +'</span>'
-				$('topTags').innerHTML = data.html;
-				Effect.Yellow('topTags');
+			if (data.count == 0){
+				$('tagSearchResults').innerHTML = "<span class=\"highlight\">No tag matches found! Please try a different search.</span>";
+				$('topTags').innerHTML = "";
 			}
+			
 		}
 	});
 }
-
 function clear_textbox(inputID)
 	{
-		if (inputID.value != "")
 		inputID.value = "";
 		inputID.style.color = "#333";
 	} 
@@ -324,7 +336,7 @@ function clear_textbox(inputID)
 			  
 				    <div id="tagConcerns" style="display: none;">
 						    <div id="tags" style="background-color: #DDDDDD; border: 5Px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;">
-						    	<h3>Tag Your Concern</h3>
+						    	<h3>Tag Your Concern</h3>&nbsp;|&nbsp; or <a href="javascript:resetForm();">Cancel</a> - back to edit my concern<br>
 						    	<p>The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed). <span class="smallHelp">[ <a href="null">why are tags important?</a> ]</span></p>
 									<ul class="tagsList" id="tagsList">
 									</ul>	    
@@ -353,7 +365,7 @@ function clear_textbox(inputID)
   </div>
 <!--START SIDEBAR -->
 <div id="bar">
-	<div class="tabber">
+	<div class="tabber" id="myTab">
 		  <div id="sidebar_tags" class="tabbertab">
 	    	<H2>Tags</H2>
 	    </div>

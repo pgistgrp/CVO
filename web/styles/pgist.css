@@ -8,18 +8,17 @@ h1, h2, h3 {
   letter-spacing:-1px;
   margin:15px 0 0 0;
   margin-top:0px;
+   display:inline;
 }
 
 h1 {
   color:#87C900;
   font-size:2.3em;
-  display:inline;
 }
 
 h2{
   color:#06c;
   margin-bottom:3px;
-  display:inline;
 }
 
 h3{
@@ -330,10 +329,11 @@ li.tagsList{
 	margin-right: 20px;
 }
 
-.textbox{
+.searchTagTextbox{
 	font-size: 14px;
 	color: #AAA;
-	width: 80px;
+	width: 100%;
+	border: 1px solid #ccc;
 }
 
 
@@ -402,7 +402,12 @@ li.tagsList{
    position: absolute;
    right: 0;
    width: 50%;
-   text-align: right; 
+   text-align: left; 
+
+}
+
+#tagSearchResults{
+	clear: both;
 }
 
 
