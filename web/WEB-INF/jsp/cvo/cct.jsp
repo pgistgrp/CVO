@@ -297,22 +297,18 @@ function editConcernPopup(concernId,currentConcern){
 	os = "";
 	os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');">cancel</a></span>'
 	os += '<h2>Edit My Concern</h2><br>';
-	os += '<form name="frmEditConcern" method="post" return false;">';
 	os += '<textarea style="height: 150px; width: 100%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p>';
 	os += '<input type="button" id="modifyConcern" value="Submit Edits!" onClick="editConcern('+concernId+')">';
-	os += '<a href="javascript:editConcern('+concernId+');">Test</a>';
-	os += '<input type="reset" id="resetConcern" value="Revert to My Original Concern"></form>';
+	os += '<input type="reset" id="resetConcern" value="Revert to My Original Concern">';
 	$('lightbox').innerHTML = os;
 }
 	
 function editConcern(concernId){
-	alert(concernId);
 	newConcern = $('editConcern').value;
 	CCTAgent.editConcern({concernId:concernId, concern:newConcern}, function(data){
 		if (data.successful){
-			alert(newConcern);
 			lightboxDisplay('none');
-			Effect.Yellow('concernId' + concernId, {duration: 4, endcolor:'#EEEEEE'});
+			showMyConcerns(concernId);
 		}
 	});
 }
