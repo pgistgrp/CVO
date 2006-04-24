@@ -36,7 +36,7 @@ public interface TagDAO extends CVODAO {
      * Search in the given CCT, and find those tags appeared in this CCT and which are the top count
      * being referenced.
      *
-     * @param cct
+     * @param cctId
      * @param count
      * @return
      * @throws Exception
@@ -47,7 +47,7 @@ public interface TagDAO extends CVODAO {
      * Search in the given CCT, and find those tags appeared in this CCT and which are referenced at least
      * threshold times.
      *
-     * @param cct
+     * @param cctId
      * @param threshold
      * @return
      * @throws Exception

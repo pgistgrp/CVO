@@ -54,7 +54,7 @@ public interface CVODAO {
      * If the CCT object is already persisted, update the database; if not, create a new
      * CCT object and insert it to the database.
      * 
-     * @param cct A CCT object persisted or not.
+     * @param cctId A CCT object persisted or not.
      * @throws Exception
      */
     void save(CCT cct) throws Exception;

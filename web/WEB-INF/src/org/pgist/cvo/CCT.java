@@ -141,14 +141,16 @@ public class CCT extends PGame {
             for (Iterator iter=tags.iterator(); iter.hasNext(); ) {
                 Tag tag = (Tag) iter.next();
                 TagReference ref = (TagReference) tagMap.get(tag.getName());
+                System.out.println("Reference ---> "+ref);
+                System.out.println(tag.getName()+" ---> "+tagMap);
                 if (ref==null) {
                     ref = new TagReference();
-                    ref.setCct(this);
+                    ref.setCctId(getId());
                     ref.setTag(tag);
                     ref.setTimes(1);
                     cctTags.add(ref);
                     list.add(tag);
-                    tagMap.put(tag, ref);
+                    tagMap.put(tag.getName(), ref);
                 } else {
                     ref.setTimes(ref.getTimes()+1);
                 }
@@ -240,12 +242,12 @@ public class CCT extends PGame {
                 concern.getTags().add(ref);
                 if (ref==null) {
                     ref = new TagReference();
-                    ref.setCct(this);
+                    ref.setCctId(getId());
                     ref.setTag(tag);
                     ref.setTimes(1);
                     cctTags.add(ref);
                     list.add(tag);
-                    tagMap.put(tag, ref);
+                    tagMap.put(tag.getName(), ref);
                 } else {
                     list.remove(ref);
                     ref.setTimes(ref.getTimes()+1);

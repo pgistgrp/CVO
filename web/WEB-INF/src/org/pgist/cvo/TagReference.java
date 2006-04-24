@@ -16,7 +16,7 @@ public class TagReference {
     
     protected int times;
     
-    protected CCT cct;
+    protected Long cctId;
     
     
     /**
@@ -63,15 +63,15 @@ public class TagReference {
 
     /**
      * @return
-     * @hibernate.many-to-one column="cct_id" lazy="true" class="org.pgist.cvo.CCT" cascade="all"
+     * @hibernate.property column="cct_id" not-null="true"
      */
-    public CCT getCct() {
-        return cct;
+    public Long getCctId() {
+        return cctId;
     }
 
 
-    public void setCct(CCT cct) {
-        this.cct = cct;
+    public void setCctId(Long cctId) {
+        this.cctId = cctId;
     }
     
     

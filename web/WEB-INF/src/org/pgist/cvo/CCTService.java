@@ -26,7 +26,7 @@ public interface CCTService {
      * Depending on the CCT object persisted or not, this method will automatically Insert/Update
      * the CCT object to database.
      *
-     * @param cct A CCT object.
+     * @param cctId A CCT object.
      * @throws Exception
      */
     void save(CCT cct) throws Exception;
@@ -56,7 +56,7 @@ public interface CCTService {
      * into the library.<br>
      * Reference count of each tag will be increased by 1.
      *
-     * @param cct A CCT object which the new Concern object belongs to.
+     * @param cctId A CCT object which the new Concern object belongs to.
      * @param concern A Concern object.
      * @param tags A list of string, each element will be a tag.
      * @return
@@ -67,7 +67,7 @@ public interface CCTService {
     /**
      * Get the current user's concerns.
      *
-     * @param cct A CCT object which the current user is working on.
+     * @param cctId A CCT object which the current user is working on.
      * @return A collection of Concern objects, the current user's concerns.
      * @throws Exception
      */
@@ -76,7 +76,7 @@ public interface CCTService {
     /**
      * Get other users' concerns than the current user.
      *
-     * @param cct A CCT object which the current user is working on.
+     * @param cctId A CCT object which the current user is working on.
      * @param count The max number of concerns to retrieve.
      * @return A collection of Concern objects, other users' concerns.
      * @throws Exception
@@ -86,7 +86,7 @@ public interface CCTService {
     /**
      * Randomly get other people's concerns.
      *
-     * @param cct
+     * @param cctId
      * @param setting The page setting.
      * @return
      * @throws Exception
@@ -94,9 +94,9 @@ public interface CCTService {
     Collection getRandomConcerns(CCT cct, PageSetting setting) throws Exception;
 
     /**
-     * Get the top N tags in the given cct according to the frequency of reference.
+     * Get the top N tags in the given cctId according to the frequency of reference.
      *
-     * @param cct A CCT object which the current user is working on.
+     * @param cctId A CCT object which the current user is working on.
      * @param count The max number of tags to be retrieved.
      * @return A collection of Tag objects.
      * @throws Exception
@@ -106,7 +106,7 @@ public interface CCTService {
     /**
      * Get tags whose reference times are greater than the given threshold.
      *
-     * @param cct A CCT object which the current user is working on.
+     * @param cctId A CCT object which the current user is working on.
      * @param threshold The least reference times of the tag.
      * @return A collection of Tag objects.
      * @throws Exception
@@ -160,7 +160,7 @@ public interface CCTService {
     /**
      * Get the total number of concerns in a CCT object.
      * 
-     * @param cct A CCT object which the current user is working on.
+     * @param cctId A CCT object which the current user is working on.
      * @param whose The mode to count the total number of concerns.<br>
      *        <ul>
      *          <li>whose==0: all concerns</li>
@@ -183,7 +183,7 @@ public interface CCTService {
 
     /**
      * Search all matched tags in the given CCT by tag name. Approximate match is used for the tag string.
-     * @param cct A CCT object which the current user is working on.
+     * @param cctId A CCT object which the current user is working on.
      * @param tag A string which will be searched in tags.
      * @return A collection of matched TagReference objects.
      * @throws Exception

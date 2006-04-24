@@ -67,7 +67,7 @@ public interface CCTDAO extends CVODAO {
     /**
      * Get the total number of concerns in a CCT object.
      * 
-     * @param cct A CCT object which the current user is working on.
+     * @param cctId A CCT object which the current user is working on.
      * @param whose The mode to count the total number of concerns.<br>
      *        <ul>
      *          <li>whose==0: all concerns</li>
