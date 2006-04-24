@@ -26,25 +26,25 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
     }//addTags()
     
     
-    private static String hql_getTagsByRank = "from TagReference tr where tr.cct=? order by tr.times desc, tr.tag.name";
+    private static String hql_getTagsByRank = "from TagReference tr where tr.cctId=? order by tr.times desc, tr.tag.name";
     
     
     public Collection getTagsByRank(CCT cct, int count) throws Exception {
         getHibernateTemplate().setMaxResults(count);
-        List list = getHibernateTemplate().find(hql_getTagsByRank, cct);
+        List list = getHibernateTemplate().find(hql_getTagsByRank, cct.getId());
         Collections.sort(list, comparator);
         return list;
     }//getTagsByRank()
 
 
-    private static String getTagsByThreshold = "from TagReference tr where tr.cct=? and tr.times>? order by tr.times desc, tr.tag.name";
+    private static String getTagsByThreshold = "from TagReference tr where tr.cctId=? and tr.times>? order by tr.times desc, tr.tag.name";
     
     
     public Collection getTagsByThreshold(CCT cct, int threshold) throws Exception {
         List list =  getHibernateTemplate().find(
                 getTagsByThreshold,
                 new Object[] {
-                        cct,
+                        cct.getId(),
                         new Integer(threshold),
                 }
         );
