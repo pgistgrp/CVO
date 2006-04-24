@@ -257,9 +257,7 @@ CCTAgent.getConcerns({cctId:cctId,type:2,count:7, page:pageNum}, function(data){
 function tagSearch(theTag){
 CCTAgent.searchTags({cctId:cctId,tag:theTag}, function(data){
 		if (data.successful){
-			if ($('txtSearch').value == ""){
-				showTagCloud();
-			}
+
 			//alert(data.count);
 			//if (data.count == 1){
 				//$('topTags').innerHTML = data.tag.tag.name;
