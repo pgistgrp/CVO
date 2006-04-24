@@ -3,9 +3,9 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <logic:notEqual name="showTitle" value="true">
 		<logic:notEqual name="showIcon" value="true">
-			<span class="title_section">Other Participant's Concerns</span>
+			<span class="title_section">Random Concerns</span>
 			<br>
-			<span class="highlight">To help you create your concerns</span>, below are examples of other participant concerns in random order.  Use the buttons below to view more pages of random concerns.
+		  To help you create your concerns, below are examples of other participant concerns in random order.  Use the buttons below to view more pages of random concerns.
 			<p>
 				<div id="prevNext_container">
 					
@@ -36,8 +36,8 @@
 </logic:notEqual>
 
 <logic:equal name="showTitle" value="true">
-	<p align="right"><a href="javascript:getRandomConcerns();">Back to Random Concerns</a></p>
-	<span class="title_section">Tag: <bean:write name="tagRef" property="tag.name" /></span>
+	<span class="closeBox"><b>Back to: </b><a href="javascript:goPage(${setting.page});">Random Concerns</a>&nbsp;&nbsp;<a href="javascript: tabFocusConcerns();">Tags</a></span>
+	<br><span class="title_section">Tag: <bean:write name="tagRef" property="tag.name" /></span>
 	<p>Displaying all concerns with the tag: <bean:write name="tagRef" property="tag.name" /></p>
 </logic:equal>
 
@@ -63,16 +63,14 @@
 						</logic:iterate></span>
 						<logic:equal name="type" value="0">
 						<br
-						<div id=actionMenu>Actions: <a href="javascript:editConcernPopup(${concern.id}, '${concern.content}');">edit concern</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:editTags();">edit tags</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:destroyConcern();">delete entire concern</a></div>
+						<div id=actionMenu>Actions: <a href="javascript:editConcernPopup(${concern.id}, '${concern.content}');">edit concern</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:editTags();">edit tags</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:delConcern(${concern.id});">delete entire concern</a></div>
 						<br>
 						</logic:equal>
 			</div>
 	<p></p>
 </logic:iterate>
 
-<logic:equal name="showTitle" value="true">
-	<p align="right"><a href="javascript:getRandomConcerns();">Back to Random Concerns</a></p>
-</logic:equal>
+
 
 <logic:notEqual name="showTitle" value="true">
 		<logic:notEqual name="showIcon" value="true">

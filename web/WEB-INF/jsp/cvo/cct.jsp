@@ -185,6 +185,7 @@ function deleteCookie(name, path, domain) {
 				$('addConcern').style.background="#FFF";
 				$('addConcern').style.color="#333";
 				$('addConcern').focus();
+				showTagCloud();
 			}
 		$("indicator").style.visibility = "hidden";
 	});
@@ -254,6 +255,10 @@ CCTAgent.getConcerns({cctId:cctId,type:2,count:7, page:pageNum}, function(data){
 	});
 }
 
+function tabFocusConcerns(){
+	$('myTab').tabber.tabShow(0);
+}
+
 function tagSearch(theTag){
 CCTAgent.searchTags({cctId:cctId,tag:theTag}, function(data){
 		if (data.successful){
@@ -291,6 +296,15 @@ function lightboxDisplay(action){
 	$('overlay').style.display = action;
 	$('lightbox').style.display = action;
 }
+
+function glossaryPopup(term){
+	lightboxDisplay('inline');
+	os = "";
+	os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');">cancel</a></span>'
+	os += '<br><h2>Glossary Term: '+ term +'</h2>';
+	os += '<p>Tags helps make your concerns easier to find, since all this info is searchable later. Imagine this applied to thousands of concerns!</p>';
+	$('lightbox').innerHTML = os;
+}
 function editConcernPopup(concernId,currentConcern){
 	lightboxDisplay('inline');
 
@@ -299,7 +313,7 @@ function editConcernPopup(concernId,currentConcern){
 	os += '<h2>Edit My Concern</h2><br>';
 	os += '<textarea style="height: 150px; width: 100%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p>';
 	os += '<input type="button" id="modifyConcern" value="Submit Edits!" onClick="editConcern('+concernId+')">';
-	os += '<input type="reset" id="resetConcern" value="Revert to My Original Concern">';
+	os += 'or <a href="javascript: lightboxDisplay(\'none\');">cancel</a>';
 	$('lightbox').innerHTML = os;
 }
 	
@@ -312,6 +326,18 @@ function editConcern(concernId){
 		}
 	});
 }
+
+function delConcern(concernId){
+	var destroy = confirm ("Are you sure you want to delete this concern? There is no undo.")
+	if (destroy){
+			CCTAgent.deleteConcern({concernId:concernId}, function(data){
+				if (data.successful){
+					showMyConcerns();
+				}
+			});
+	}
+}
+
 </script>
 </Head>
 <body>
@@ -364,7 +390,7 @@ function editConcern(concernId){
 				    <div id="tagConcerns" style="display: none;">
 						    <div id="tags" style="background-color: #DDDDDD; border: 5Px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;">
 						    	<h3>Tag Your Concern</h3>&nbsp;|&nbsp; or <a href="javascript:resetForm();">Cancel</a> - back to edit my concern<br>
-						    	<p>The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed). <span class="smallHelp">[ <a href="null">why are tags important?</a> ]</span></p>
+						    	<p>The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed). <span class="smallHelp">[ <a href="javascript:glossaryPopup('tag');">what are tags?</a> ]</span></p>
 									<ul class="tagsList" id="tagsList">
 									</ul>	    
 									
