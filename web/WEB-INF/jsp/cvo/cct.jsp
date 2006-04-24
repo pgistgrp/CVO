@@ -286,10 +286,21 @@ function clear_textbox(inputID)
 		inputID.value = "";
 		inputID.style.color = "#333";
 	} 
+	
+	
+function editConcern(concernId, concern){
+CCTAgent.editConcern({concernId:concernId, concern:concern}, function(data){
+		if (data.successful){
+			alert(concern);
+		}
+	});
+}
 </script>
 </head>
 <body>
+
 <div id="decorBar"></div>
+<div id="container">
 <div id="header"><img src="/images/logo.jpg"></div>
 <div id="searchNavContiner">
 	<div id="mainSearch">
@@ -299,8 +310,18 @@ function clear_textbox(inputID)
 	</div>
 	<div id="mainNav">MyLIT&nbsp;&nbsp;|&nbsp;&nbsp;Discussion&nbsp;&nbsp;|&nbsp;&nbsp;Advanced Search&nbsp;&nbsp;|&nbsp;&nbsp;Help&nbsp;&nbsp;</div>
 </div>
-
-<div id="container">
+<!-- LIGHTBOX -->
+<form name="editConcern" method="post" onSubmit="editConcern(id, concern) return false;")
+	<input type="text" 
+</form>
+<a href="javascript:editConcern(443, ' is a change');" class="lbOn">Test This</a>
+<div id="overlay"></div>
+<div id="lightbox">Hello
+    <div id="lbLoadMessage">
+        <p>Loading</p>
+    </div>
+</div>
+<!-- LIGHTBOX -->
 <div id="navigation">
 	<div id="bread">
 	<ul>
