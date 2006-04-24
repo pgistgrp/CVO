@@ -76,13 +76,14 @@ public class TagReference {
     
     
     public int getFontSize() {
-        if (times>=1 && times<=5) {
+        int myTimes = getTimes();
+        if (myTimes>=1 && myTimes<=5) {
             return 1;
-        } else if (times>=6 && times <=7) {
+        } else if (myTimes>=6 && myTimes <=7) {
             return 2;
-        } else if (times>=8 && times <=10) {
+        } else if (myTimes>=8 && myTimes <=10) {
             return 3;
-        } else if (times>10) {
+        } else if (myTimes>10) {
             return 4;
         } else {
             //invalid state
