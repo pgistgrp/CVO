@@ -181,6 +181,10 @@ hr {
   text-align: right; 
 }
 
+#mainNav .active{
+	color: #FFFF00;
+}
+
 .tbx1_default
 {
 	background: #EEE;
@@ -545,7 +549,6 @@ width: 20px
 #topTags{
 	width: 95%
 	margin: auto;
-	text-align:justify 
 }
 
 /*LIGHTbox*/

@@ -127,7 +127,7 @@ function deleteCookie(name, path, domain) {
 			Effect.CloseDown('validation');
 			Effect.OpenUp('tagConcerns');
 			Effect.Yellow('tags', {duration: 4, endcolor:'#DDDDDD'});
-			$('theTag').value = "add tag";
+			//$('theTag').value = "add tag";
 			//$('theTag').focus();
 			return true;
 		}
@@ -299,22 +299,20 @@ function editConcernPopup(concernId,currentConcern){
 	os += '<h2>Edit My Concern</h2><br>';
 	os += '<form name="frmEditConcern" method="post" return false;">';
 	os += '<textarea style="height: 150px; width: 100%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p>';
-  os += '<input type="button" id="modifyConcern" value="Submit Edits!">';
+	os += '<input type="button" id="modifyConcern" value="Submit Edits!" onClick="editConcern('+concernId+')">';
+	os += '<a href="javascript:editConcern('+concernId+');">Test</a>';
 	os += '<input type="reset" id="resetConcern" value="Revert to My Original Concern"></form>';
 	$('lightbox').innerHTML = os;
-	newConcern =$('editConcern').value;
-	alert(newConcern);
-
-	
-	
-	editConcern(concernId, newConcern);
 }
 	
-function editConcern(concernId, newConcern){
+function editConcern(concernId){
+	alert(concernId);
+	newConcern = $('editConcern').value;
 	CCTAgent.editConcern({concernId:concernId, concern:newConcern}, function(data){
 		if (data.successful){
-			alert(concern);
+			alert(newConcern);
 			lightboxDisplay('none');
+			Effect.Yellow('concernId' + concernId, {duration: 4, endcolor:'#EEEEEE'});
 		}
 	});
 }
@@ -331,18 +329,11 @@ function editConcern(concernId, newConcern){
 				<input type="text" value="Search LIT!" ID="tbx1" class="tbx1_default" onfocus="clear_textbox(this)" onmouseover="this.className='tbx1_hover';" onmouseout="this.className='tbx1_default';"/>&nbsp;<img src="/images/search.gif">
 			</form>	
 	</div>
-	<div id="mainNav">MyLIT&nbsp;&nbsp;|&nbsp;&nbsp;Discussion&nbsp;&nbsp;|&nbsp;&nbsp;Advanced Search&nbsp;&nbsp;|&nbsp;&nbsp;Help&nbsp;&nbsp;</div>
+	<div id="mainNav"><span class="active">LIT Process</span>&nbsp;&nbsp;|&nbsp;&nbsp;MyLIT&nbsp;&nbsp;|&nbsp;&nbsp;Discussion&nbsp;&nbsp;|&nbsp;&nbsp;Advanced Search&nbsp;&nbsp;|&nbsp;&nbsp;Help&nbsp;&nbsp;</div>
 </div>
 <!-- LIGHTBOX -->
-
-<form name="editConcern" method="post" onSubmit="editConcern(id, concern) return false;")
-	<input type="text" 
-</form>
-<a href="javascript:editConcern(443, ' is a change');" class="lbOn">Test This</a>
-
 <div id="overlay"></div>
 <div id="lightbox"></div>
-<!-- LIGHTBOX -->
 <div id="navigation">
 	<div id="bread">
 	<ul>
