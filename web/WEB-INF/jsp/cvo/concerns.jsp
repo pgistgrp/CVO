@@ -63,7 +63,7 @@
 						</logic:iterate></span>
 						<logic:equal name="type" value="0">
 						<br
-						<div id=actionMenu>Actions: <a href="javascript:editConcern();">edit concern</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:editTags();">edit tags</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:destroyConcern();">delete entire concern</a></div>
+						<div id=actionMenu>Actions: <a href="javascript:editConcernPopup(${concern.id}, '${concern.content}');">edit concern</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:editTags();">edit tags</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:destroyConcern();">delete entire concern</a></div>
 						<br>
 						</logic:equal>
 			</div>

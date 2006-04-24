@@ -287,16 +287,39 @@ function clear_textbox(inputID)
 		inputID.style.color = "#333";
 	} 
 	
+function lightboxDisplay(action){
+	$('overlay').style.display = action;
+	$('lightbox').style.display = action;
+}
+function editConcernPopup(concernId,currentConcern){
+	lightboxDisplay('inline');
+
+	os = "";
+	os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');">cancel</a></span>'
+	os += '<h2>Edit My Concern</h2><br>';
+	os += '<form name="frmEditConcern" method="post" return false;">';
+	os += '<textarea style="height: 150px; width: 100%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p>';
+  os += '<input type="button" id="modifyConcern" value="Submit Edits!">';
+	os += '<input type="reset" id="resetConcern" value="Revert to My Original Concern"></form>';
+	$('lightbox').innerHTML = os;
+	newConcern =$('editConcern').value;
+	alert(newConcern);
+
 	
-function editConcern(concernId, concern){
-CCTAgent.editConcern({concernId:concernId, concern:concern}, function(data){
+	
+	editConcern(concernId, newConcern);
+}
+	
+function editConcern(concernId, newConcern){
+	CCTAgent.editConcern({concernId:concernId, concern:newConcern}, function(data){
 		if (data.successful){
 			alert(concern);
+			lightboxDisplay('none');
 		}
 	});
 }
 </script>
-</head>
+</Head>
 <body>
 
 <div id="decorBar"></div>
@@ -311,16 +334,14 @@ CCTAgent.editConcern({concernId:concernId, concern:concern}, function(data){
 	<div id="mainNav">MyLIT&nbsp;&nbsp;|&nbsp;&nbsp;Discussion&nbsp;&nbsp;|&nbsp;&nbsp;Advanced Search&nbsp;&nbsp;|&nbsp;&nbsp;Help&nbsp;&nbsp;</div>
 </div>
 <!-- LIGHTBOX -->
+
 <form name="editConcern" method="post" onSubmit="editConcern(id, concern) return false;")
 	<input type="text" 
 </form>
 <a href="javascript:editConcern(443, ' is a change');" class="lbOn">Test This</a>
+
 <div id="overlay"></div>
-<div id="lightbox">Hello
-    <div id="lbLoadMessage">
-        <p>Loading</p>
-    </div>
-</div>
+<div id="lightbox"></div>
 <!-- LIGHTBOX -->
 <div id="navigation">
 	<div id="bread">
