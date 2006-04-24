@@ -124,7 +124,7 @@ public class CCT extends PGame {
                     for (Iterator iter=tagRefs.iterator(); iter.hasNext(); ) {
                         TagReference tagRef = (TagReference) iter.next();
                         Tag tag = tagRef.getTag();
-                        tagMap.put(tag.getId(), tagRef);
+                        tagMap.put(tag.getName(), tagRef);
                     }//for iter
                     element = new Element(id, tagMap);
                     lockCache.put(element);
@@ -140,7 +140,7 @@ public class CCT extends PGame {
             Set cctTags = getTagRefs();
             for (Iterator iter=tags.iterator(); iter.hasNext(); ) {
                 Tag tag = (Tag) iter.next();
-                TagReference ref = (TagReference) tagMap.get(tag.getId());
+                TagReference ref = (TagReference) tagMap.get(tag.getName());
                 if (ref==null) {
                     ref = new TagReference();
                     ref.setCct(this);
@@ -175,7 +175,7 @@ public class CCT extends PGame {
                     for (Iterator iter=tagRefs.iterator(); iter.hasNext(); ) {
                         TagReference tagRef = (TagReference) iter.next();
                         Tag tag = tagRef.getTag();
-                        tagMap.put(tag.getId(), tagRef);
+                        tagMap.put(tag.getName(), tagRef);
                     }//for iter
                     element = new Element(id, tagMap);
                     lockCache.put(element);
@@ -219,7 +219,7 @@ public class CCT extends PGame {
                     for (Iterator iter=tagRefs.iterator(); iter.hasNext(); ) {
                         TagReference tagRef = (TagReference) iter.next();
                         Tag tag = tagRef.getTag();
-                        tagMap.put(tag.getId(), tagRef);
+                        tagMap.put(tag.getName(), tagRef);
                     }//for iter
                     element = new Element(id, tagMap);
                     lockCache.put(element);
@@ -236,7 +236,7 @@ public class CCT extends PGame {
             concern.getTags().clear();
             for (Iterator iter=tags.iterator(); iter.hasNext(); ) {
                 Tag tag = (Tag) iter.next();
-                TagReference ref = (TagReference) tagMap.get(tag.getId());
+                TagReference ref = (TagReference) tagMap.get(tag.getName());
                 concern.getTags().add(ref);
                 if (ref==null) {
                     ref = new TagReference();
