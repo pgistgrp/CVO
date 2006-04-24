@@ -354,6 +354,7 @@ public class SystemInit extends MatchingTask {
                     ref.setTag(tag);
                     ref.setTimes(1);
                     ref.setCctId(cct.getId());
+                    tagRefs.put(tagStrs[i], ref);
                 } else {
                     ref.setTimes(ref.getTimes()+1);
                 }
