@@ -56,7 +56,7 @@ public class TagAnalyzer {
      * ------------------------------------------------------------------------
      */
 
-    private static List all_tags = new ArrayList();
+    private static List all_tags = null;
 
     /**
      * tt is a "trie" data structure to promote efficient retrieval of existing
@@ -65,14 +65,6 @@ public class TagAnalyzer {
      * end of a tag
      */
     private long[][] tag_tree = null;
-
-    /**
-     * term_id_count is a useful data structure to index the found results: id
-     * as the array index allows fast retrieval of a term, and count records the
-     * number of appearance.
-     */
-    private long[] tag_id_count;
-    
 
     public static Document parse(URL url) throws DocumentException {
         SAXReader reader = new SAXReader();
@@ -88,173 +80,72 @@ public class TagAnalyzer {
         return document;
     }
     
-
-    /**
-     * Extract existing tags for the given text.
-     * 
-     * @param statement
-     *            String
-     * @return Map
-     *         <li>map.get("found")=list of tags existing in tag database</li>
-     *         <li>map.get("suggested")=list of strings as suggested tags</li>
-     * 
-     */
-    public Collection parseTextNLP(String statement) {
-        Collection suggestedStrings = new HashSet();
-        long[][] tag_id_count_temp = new long[tag_id_count.length][2];
-        for (int k = 0; k < tag_id_count.length; k++) {
-            tag_id_count_temp[k][0] = tag_id_count[k];
-            tag_id_count_temp[k][1] = 0;
-        }
-
-        String line = null;
-        String output = "";
-
-        List results = null;
-        try {
-            Process process = Runtime.getRuntime().exec("c:/nlp/bin/nlp.cmd -xml");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
-            writer.write(statement);
-            writer.flush();
-            writer.close();
-
-            while ((line = reader.readLine()) != null) {
-                output += line;
-            }
-
-            // do NLP parse on the statement and get a list of pharases
-            XPath xpathSelector = DocumentHelper.createXPath("//NG[count(W[@C='NN'])>0 or count(W[@C='NNP'])>0 or count(W[@C='NNS'])>0]");
-            results = xpathSelector.selectNodes(parse(output));
-        } catch (DocumentException ex) {
-            return suggestedStrings;
-        } catch (InvalidXPathException ex) {
-            return suggestedStrings;
-        } catch (IOException ex) {
-            return suggestedStrings;
-        }
-
-        for (Iterator iter = results.iterator(); iter.hasNext();) {
-            Element element = (Element) iter.next();
-            List l = element.elements();
-
-            boolean suggestNew = true;
-
-            for (int i = 0; i < l.size();) {
-
-                String foundtext = "";
-                String trytext = ((Element) l.get(i)).getText().toLowerCase();
-                boolean found = false;
-                long[] setting = { 0, -1 };
-                int m = matchString(tag_tree, 0, trytext, setting);
-                while (m == (foundtext.length() + trytext.length())) {
-                    found = true;
-                    foundtext += trytext;
-
-                    i++;
-                    if (i >= l.size()) break;
-
-                    trytext = " " + ((Element) l.get(i)).getText().toLowerCase();
-
-                    if (setting[0] >= 0) {//
-                        m += matchString(tag_tree, (int) setting[0], trytext, setting);
-                    } else {
-                        break;
-                    }
-                }
-
-                if (foundtext.length() > 0) {
-                    if (setting[1] >= 0) { //
-                        tag_id_count_temp[(int) setting[1]][1]++;
-                        setting[1] = -1;
-                        // System.out.println(foundtext);
-
-                        suggestNew = false;
-                    }
-                }
-
-                if (!found) i++;
-
-            }
-
-            if (suggestNew) {
-                suggestedStrings.add(makeSuggest(l));
-            }
-        }
-
-        // put all the found tags in the suggestedStrings
-        for (int k = 0; k < tag_id_count_temp.length; k++) {
-            if (tag_id_count_temp[k][1] > 0) {
-                suggestedStrings.add(">>" + ((Tag) all_tags.get(k)).getName());
-            }
-        }//for k
-
-        return suggestedStrings;
-    }
-    
-
     public Collection parseTextTokenized(String statement) {
-        if (all_tags.size() == 0) {
-            rebuildTree();
-            printTreeNice(tag_tree, 0, "");
+        System.out.println(">>>>parse string: " + statement);
+    	if(all_tags == null){
+        	rebuildTree();
+        	printTreeNice(tag_tree, 0, "");
+
         }
 
         Collection suggestedStrings = new HashSet();
-        // cleat out the parse results
-        long[][] tag_id_count_temp = new long[tag_id_count.length][2];
-        for (int k = 0; k < tag_id_count.length; k++) {
-            tag_id_count_temp[k][0] = tag_id_count[k];
-            tag_id_count_temp[k][1] = 0;
-        }
+
+        long[][] tag_id_count = new long[all_tags.size()][2];
+        for(int k=0; k<tag_id_count.length; k++){
+        	tag_id_count[k][0] = ((Tag)all_tags.get(k)).getId(); 
+        	tag_id_count[k][1] = 0;
+          }
+
 
         Reader reader = new StringReader(statement);
         Tokenizer tkz = new LowerCaseTokenizer(reader); // StandardTokenizer
 
-        try {
-            Token t = tkz.next();
-            while (t != null) {
-                // find the logest appearance
-                String foundtext = "";
-                String trytext = t.termText();
-                boolean found = false;
-                long[] setting = { 0, -1 };
-                int m = matchString(tag_tree, 0, trytext, setting);
-                while (m == (foundtext.length() + trytext.length())) {
-                    found = true;
-                    foundtext += trytext;
+        try{
+          Token t = tkz.next();
+          while (t != null){
+            //find the logest appearance
+            String foundtext = "";
+            String trytext = t.termText();
+            boolean found = false;
+            long[] setting = {0, -1};
+            int m = matchString(tag_tree, 0, trytext, setting);
+            while( m == (foundtext.length() + trytext.length() ) ){
+              found = true;
+              foundtext += trytext; 
 
-                    t = tkz.next();
-                    if (t == null) break;
+              t = tkz.next();
+              if(t == null)break;
 
-                    trytext = " " + t.termText();
+              trytext = " " + t.termText(); 
 
-                    if (setting[0] >= 0)
-                        m += matchString(tag_tree, (int) setting[0], trytext, setting);
-                    else
-                        break;
-                }
+              if(setting[0] >=0 ) 
+                m += matchString(tag_tree, (int)setting[0], trytext, setting);
+              else
+                break;
+              }
 
-                if (foundtext.length() > 0) {
-                    if (setting[1] >= 0) {
-                        tag_id_count_temp[(int) setting[1]][1]++;
-                        setting[1] = -1;
-                    }
-                }
+            if(foundtext.length() > 0){
+              if(setting[1] >= 0){ 
+            	  tag_id_count[(int)setting[1]][1]++;
+                 setting[1] = -1;
+              }
+            }
 
-                if (!found) t = tkz.next();
-            }// while
+            if(!found)
+              t = tkz.next();
+          }//while
 
-            tkz.close();
-        } catch (Exception e) {
-            System.out.println("error: " + e.getMessage());
+          tkz.close();
+        }catch (Exception e){
+          System.out.println("error in parseTextTokenized: " + e.getMessage());
+          e.printStackTrace();
         }
 
-        // put all the found tags in the suggestedStrings
-        for (int k = 0; k < tag_id_count_temp.length; k++) {
-            if (tag_id_count_temp[k][1] > 0) {
-                suggestedStrings.add(((Tag) all_tags.get(k)).getName());
-            }
-        }//for k
+        //put all the found tags in the suggestedStrings
+        for(int k=0; k<tag_id_count.length; k++)
+          if(tag_id_count[k][1] > 0){
+            suggestedStrings.add( ((Tag)all_tags.get(k)).getName() );
+          }
 
         return suggestedStrings;
     }//parseTextTokenized()
@@ -329,18 +220,18 @@ public class TagAnalyzer {
      *            Tag
      */
     public void addTag(long[][] tree, Tag tag) {
-        try {
-            tagDAO.save(tag);
-            all_tags.add(tag);
-            if (tree.length > (tree[0][3] + tag.name.length())) {
-                addNode(tree, tag.name, all_tags.size() - 1, 0, 1, 1);
-            } else {
-                rebuildTree();
-            }
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    	try {
+			//tagDAO.save(tag);
+	    	all_tags.add(tag);
+	    	if( tree.length > ( tree[0][3] + tag.name.length() )){
+	    		addNode(tree, tag.name, all_tags.size()-1, 0, 1, 1);
+	    	}else{
+	    		rebuildTree();
+	    	}			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
 
@@ -350,64 +241,51 @@ public class TagAnalyzer {
      * The result of this method will be a refreshed tag_tree
      */
     public void rebuildTree() {
-        List all_tags_temp = new ArrayList();
-        long[] tag_id_count_temp;
-        long[][] tag_tree_temp;
+    	List all_tags_temp = new ArrayList();
+    	long[][] tag_tree_temp;
+    	
+    	try {
+          Collection tags = tagDAO.getAllTags();
+          System.out.println("====start to build tree, with " + tags.size() + " tags.");
 
-        try {
-            Collection tags = tagDAO.getAllTags();
-            System.out.println("====start to build tree, with " + tags.size() + " tags.");
+          int size = 0;
+          int i;
+          String s = "";
 
-            int size = 0;
-            int i = 0;
-            String s = "";
-            tag_id_count_temp = new long[tags.size()];
+          for(Iterator itr = tags.iterator(); itr.hasNext();){
+            Tag tag = (Tag)itr.next();
+            s = tag.getName();
+            size += s.length();
+            all_tags_temp.add(tag);
+          }
 
-            for (Iterator itr = tags.iterator(); itr.hasNext();) {
-                Tag tag = (Tag) itr.next();
-                all_tags_temp.add(tag);
-                s = tag.getName();
-                size += s.length();
+          size += 27;
 
-                tag_id_count_temp[i] = tag.getId();
+          tag_tree_temp = new long[size][4];
 
-                i++;
-            }
+          for ( i = 0; i < tag_tree_temp.length; i++)
+            for (int j = 0; j < tag_tree_temp[i].length; j++)
+            	tag_tree_temp[i][j] = -1;
 
-            size += 27;
+          for ( i = 0; i <= 26; i++) {
+        	  tag_tree_temp[i][0] = 'a' - 1 + i;
+        	  tag_tree_temp[i][1] = tag_tree_temp[i][3] = -1;
+        	  tag_tree_temp[i][2] = i + 1;
+          }
+          tag_tree_temp[0][0] = '$';
+          tag_tree_temp[0][3] = 27;	//the first available locaiton
+          tag_tree_temp[26][2] = -1;
 
-            tag_tree_temp = new long[size][4];
-
-            tag_tree_temp[0][3] = -1; // reset this cell - it's used else
-                                        // where
-
-            for (i = 0; i < tag_tree_temp.length; i++)
-                for (int j = 0; j < tag_tree_temp[i].length; j++)
-                    tag_tree_temp[i][j] = -1;
-
-            for (i = 0; i <= 26; i++) {
-                tag_tree_temp[i][0] = 'a' - 1 + i;
-                tag_tree_temp[i][1] = tag_tree_temp[i][3] = -1;
-                tag_tree_temp[i][2] = i + 1;
-            }
-            tag_tree_temp[0][0] = '$';
-            tag_tree_temp[0][3] = 27; // the first available locaiton
-            tag_tree_temp[26][2] = -1;
-
-            for (i = 0; i < all_tags_temp.size(); i++) {
-                s = ((Tag) all_tags_temp.get(i)).getName().toLowerCase();
-                this.addNode(tag_tree_temp, s, i, // instead remember the ID((
-                                                    // (Term)list.get(i)).getId())
-                        0, 1, 1); // do the index in the list
-                System.out.println("--added: " + s);
-            }
-
-            synchronized (tag_tree) {
-                tag_tree = tag_tree_temp;
-                tag_id_count = tag_id_count_temp;
-                all_tags = all_tags_temp;
-            }
-
+          for( i=0; i<all_tags_temp.size(); i++){
+            s = ( (Tag)all_tags_temp.get(i)).getName().toLowerCase();
+            this.addNode(tag_tree_temp, s, i,        //instead remember the ID(( (Term)list.get(i)).getId())
+                         0, 1, 1);          //do the index in the list
+               System.out.println("--added: " + s);
+          }
+          
+        tag_tree = tag_tree_temp;
+        all_tags = all_tags_temp;
+          
             // printTreeNice(tag_tree, 0, "");
             System.out.println("==>>tag tree size: " + tag_tree_temp.length + "; used: " + tag_tree_temp[0][3]);
 
@@ -418,20 +296,19 @@ public class TagAnalyzer {
     }
     
 
-    private static void printTreeNice(long[][] t, int start, String firstpart) {
-        if (t[start][3] >= 0) {
-            System.out.println(firstpart + (char) t[start][0]);
-        }
+    private static void printTreeNice(long[][] t, int start, String firstpart){
+    if(t[start][3] >= 0){
+        System.out.println(firstpart + (char)t[start][0]);
+      }
 
-        if (t[start][1] >= 0) {
-            printTreeNice(t, (int) t[start][1], firstpart + (char) t[start][0]);
-        }
+      if(t[start][1] >= 0){
+        printTreeNice(t, (int)t[start][1], firstpart + (char)t[start][0]);
+      }
 
-        if (t[start][2] >= 0) {
-            printTreeNice(t, (int) t[start][2], firstpart);
-        }
-    }
-    
+      if(t[start][2] >= 0){
+        printTreeNice(t, (int)t[start][2], firstpart);
+      }
+  }
 
     /**
      * For the given tagStr, check if exist corresponding Tag object, if yes
@@ -454,21 +331,25 @@ public class TagAnalyzer {
                 continue;
 
             long[] setting = { 0, -1 };
-            int m = matchString(tag_tree, 0, tagStrs[i], setting);
-            if (m == tagStrs[i].length()) { // if tag exist
-                // find the tag and add count
-                System.out.println("==increase count for tag:" + setting[1]);
-                list.add((Tag) all_tags.get((int) setting[1]));
-            } else {
-                Tag tag = new Tag();
-                tag.setName(tagStrs[i]);
-                tag.setDescription(tagStrs[i]);
-                tag.setStatus(Tag.STATUS_CANDIDATE);
+            int m = matchString(tag_tree, 0, tagStrs[i].toLowerCase(), setting);
+            if( m == tagStrs[i].length() ){	//if tag exists
+             	System.out.println("==ensure: tag exist:" + tagStrs[i]);
+            	list.add( (Tag)all_tags.get( (int)setting[1]) );
+            }else{
+             	System.out.println("==ensure: new tag: " + tagStrs[i]);
+            	Tag tag = new Tag();
+            	tag.setName(tagStrs[i]);
+            	tag.setDescription(tagStrs[i]);
+            	tag.setStatus(Tag.STATUS_CANDIDATE);
 
-                list.add(tag);
-                tagDAO.save(tag);
+            	list.add(tag);
+            	addTag(tag_tree, tag);
+            	//tagDAO.save(tag);
             }
         }// for i
+        for(int i=0; i<list.size(); i++){
+        	System.out.println(">>return tag: " + ((Tag)list.get(i)).getName());
+        }
 
         return list;
     }//ensureTags()
@@ -490,27 +371,30 @@ public class TagAnalyzer {
      *            int - indicate to put the node at the left or right. 1 = left;
      *            2 = right
      */
-    private void addNode(long[][] tree, String tag, long tagid, int parent, int current, int child) {
-        if (tag.length() == 0) {
-            tree[parent][3] = tagid; //this cell is used to keep the availale position
-            return;
-        }
+    private void addNode(long[][] tree, String tag, long tagindex,
+                         int parent, int current, int child){
+      if(tag.length() == 0){
+        tree[parent][3] = tagindex;  //this cell is used to keep the availale position
+        return;
+      }
 
-        if (current == -1) {
-            tree[(int) tree[0][3]][0] = tag.charAt(0); //this means to use a new record
-            tree[parent][child] = tree[0][3]; //set the child to the new record position
-            tree[0][3]++; //move the available position
-            this.addNode(tree, tag.substring(1), tagid, (int) tree[0][3] - 1, -1, 1);
-            return;
-        }
+      if(current == -1){
+        tree[ (int)tree[0][3] ][0] = tag.charAt(0);  //this means to use a new record
+        tree[parent][child] = tree[0][3];            //set the child to the new record position
+        tree[0][3]++;                                //move the available position
+        this.addNode(tree, tag.substring(1), tagindex,
+                     (int)tree[0][3]-1, -1, 1);
+        return;
+      }
 
-        if (tree[current][0] == tag.charAt(0)) {
-            this.addNode(tree, tag.substring(1), tagid, current, (int) tree[current][1], 1);
-        } else {
-            this.addNode(tree, tag, tagid, current, (int) tree[current][2], 2);
-        }
-
+      if(tree[current][0] == tag.charAt(0)){
+        this.addNode(tree, tag.substring(1), tagindex,
+                     current,(int)tree[current][1], 1 );
+      }
+      else{
+        this.addNode(tree, tag, tagindex,
+                     current, (int)tree[current][2], 2);
+      }
     }
-    
 
 }//class TagAnalyzer
