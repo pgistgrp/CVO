@@ -516,6 +516,7 @@ public class CCTAgent {
                 concern.setContent(newConcern);
                 concern.setCreateTime(new Date());
                 cctService.save(concern);
+                map.put("successful", new Boolean(true));
             } else {
                 map.put("successful", new Boolean(false));
                 map.put("reason", "You have no right to edit this concern.");
@@ -574,6 +575,7 @@ public class CCTAgent {
             User user = userDAO.getUserById(userId, true, false);
             if (user.getId().doubleValue()==concern.getAuthor().getId()) {
                 cctService.deleteConcern(concern);
+                map.put("successful", new Boolean(true));
             } else {
                 map.put("successful", new Boolean(false));
                 map.put("reason", "You have no right to edit this concern.");
