@@ -620,6 +620,7 @@ public class CCTAgent {
                 map.put("reason", "This concern is already deleted.");
                 return map;
             }
+            System.out.println("---> 000000000");
         } catch (Exception e) {
             map.put("successful", new Boolean(false));
             if (concernId==null) {
@@ -629,6 +630,8 @@ public class CCTAgent {
             }
             return map;
         }
+        
+        System.out.println("---> 11111111111");
         
         //Check if the current user is the author of this concern.
         try {
@@ -641,12 +644,14 @@ public class CCTAgent {
             if (user.getId().doubleValue()==concern.getAuthor().getId()) {
                 concern.setCreateTime(new Date());
                 cctService.editConcernTags(concern, tags);
+                map.put("successful", new Boolean(true));
             } else {
                 map.put("successful", new Boolean(false));
                 map.put("reason", "You have no right to edit this concern.");
                 return map;
             }
         } catch (Exception e) {
+            e.printStackTrace();
             map.put("successful", new Boolean(false));
             map.put("reason", e.getMessage());
             return map;
