@@ -126,7 +126,7 @@ function deleteCookie(name, path, domain) {
 		}else{
 			Effect.CloseDown('validation');
 			Effect.OpenUp('tagConcerns');
-			Effect.Yellow('tags', {duration: 4, endcolor:'#DDDDDD'});
+			Effect.Yellow('tags', {duration: 4, endcolor:'#FFFFFF'});
 			//$('theTag').value = "add tag";
 			//$('theTag').focus();
 			return true;
@@ -153,7 +153,7 @@ function deleteCookie(name, path, domain) {
 				if (data.successful){
 					var str= "";
 					for(i=0; i < data.tags.length; i++){
-						str += '<li class="tagsList"><span class="tagsList_tag">'+ data.tags[i] +'</span><span class="tagsList_controls">&nbsp;<a href="null"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span>&nbsp;|&nbsp;</li>';
+						str += '<li class="tagsList">'+ data.tags [i] +'</span><span class="tagsList_controls"></li>&nbsp;<a href="null"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span>&nbsp;|&nbsp;';
 						concernTags += data.tags[i] + ',';
 					}
 					document.getElementById('tagsList').innerHTML = str;
@@ -164,9 +164,9 @@ function deleteCookie(name, path, domain) {
 	}
 	
 	function addTagToList(){
-		document.getElementById('tagsList').innerHTML += '<li class="tagsList"><span class="tagsList_tag">'+ document.getElementById("theTag").value +'</span><span class="tagsList_controls">&nbsp;<a href="null"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span>&nbsp;|&nbsp;</li>';
+		document.getElementById('tagsList').innerHTML += '<li class="tagsList">'+ document.getElementById("theTag").value +'</span><span class="tagsList_controls"></li>&nbsp;<a href="null"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span>&nbsp;|&nbsp;';
 		concernTags += document.getElementById("theTag").value + ',';
-		Effect.Yellow('theTag', {duration: 4, endcolor:'#EEEEEE'});
+		Effect.Yellow('theTag', {duration: 4, endcolor:'#FFFFFF'});
 		$('theTag').value = "";
 	}
 	
@@ -300,7 +300,7 @@ function lightboxDisplay(action){
 function glossaryPopup(term){
 	lightboxDisplay('inline');
 	os = "";
-	os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');">cancel</a></span>'
+	os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');">close</a></span>'
 	os += '<br><h2>Glossary Term: '+ term +'</h2>';
 	os += '<p>Tags helps make your concerns easier to find, since all this info is searchable later. Imagine this applied to thousands of concerns!</p>';
 	$('lightbox').innerHTML = os;
@@ -388,15 +388,15 @@ function delConcern(concernId){
 			      <div style="display: none; padding-left: 20px;" id="validation"></div>
 			  
 				    <div id="tagConcerns" style="display: none;">
-						    <div id="tags" style="background-color: #DDDDDD; border: 5Px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;">
-						    	<h3>Tag Your Concern</h3>&nbsp;|&nbsp; or <a href="javascript:resetForm();">Cancel</a> - back to edit my concern<br>
-						    	<p>The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed). <span class="smallHelp">[ <a href="javascript:glossaryPopup('tag');">what are tags?</a> ]</span></p>
+						    <div id="tags" style="background-color: #FFF; border: 5Px solid #BBBBBB; margin:auto; padding: 5px; width: 50%;">
+						    	<h3>Tag Your Concern</h3>
+						    	<p>The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed). <br><span class="glossary">[ what are <a href="javascript:glossaryPopup('tag');">tags</a>? ]</span></p>
 									<ul class="tagsList" id="tagsList">
 									</ul>	    
 									
-									<p><input type="text" id="theTag" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList();"></p>
+									<p><input type="text" id="theTag" class="tagTextbox" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList();"></p>
 									<hr>
-									<b class="big">Finished Tagging? <input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></b><br>or <a href="javascript:resetForm();">Cancel</a> - back to edit my concern
+									<span class="title_section">Finished Tagging? <input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></span><input type="button" value="Cancel - back to edit my concern" onclick="javascript:resetForm();">
 						    </div>
 						    <br>
 				    </div>

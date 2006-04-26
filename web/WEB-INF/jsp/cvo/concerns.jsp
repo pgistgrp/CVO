@@ -3,42 +3,18 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <logic:notEqual name="showTitle" value="true">
 		<logic:notEqual name="showIcon" value="true">
-			<span class="title_section">Random Concerns</span>
+			<span class="title_section">Other Participant's Concerns</span>
 			<br>
-		  To help you create your concerns, below are examples of other participant concerns in random order.  Use the buttons below to view more pages of random concerns.
-			<p>
-				<div id="prevNext_container">
-					
-					<div id="previous"><span class="prevNext">
-						<logic:equal name="setting" property="page" value="1">
-							<a href="javascript:goPage(${setting.pageSize});">
-						</logic:equal>
-						
-						<logic:notEqual name="setting" property="page" value="1">	
-							<a href="javascript:goPage(${setting.page}-1);">
-						</logic:notEqual>
-						&#171; prev page</a></span>
-					</div>
-
-					<div id="next"><span class="prevNext">
-						<logic:equal name="setting" property="page" value="${setting.pageSize}">
-							<a href="javascript:goPage(1);">
-						</logic:equal>
-						
-						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-							<a href="javascript:goPage(${setting.page}+1);">
-						</logic:notEqual>
-						next page &#187; </a></span>
-					</div>
-				</div>
-			</p>
+		  To help you create your concerns, below are examples of other participant concerns in random order.  Use the buttons on the bottom of this column to view more pages of random concerns.
+			<p></p>
 		</logic:notEqual>
 </logic:notEqual>
 
 <logic:equal name="showTitle" value="true">
 	<span class="closeBox"><b>Back to: </b><a href="javascript:goPage(${setting.page});">Random Concerns</a>&nbsp;&nbsp;<a href="javascript: tabFocusConcerns();">Tags</a></span>
-	<br><span class="title_section">Tag: <bean:write name="tagRef" property="tag.name" /></span>
-	<p>Displaying all concerns with the tag: <bean:write name="tagRef" property="tag.name" /></p>
+	<br><span class="title_section">Concerns with the tag: </span>
+		<span class="tagSize${tagRef.fontSize}"><a href="javascript:getConcernsByTag(${tagRef.id});">${tagRef.tag.name}</a></span>&nbsp;
+	
 </logic:equal>
 
 <logic:iterate id="concern" name="concerns">
@@ -54,15 +30,13 @@
 							<span class="concerns">
 						</logic:notEqual>
 						"<bean:write name="concern" property="content" />"</span><br>
-						<span class="tags"><strong>Tags</strong>:
+						
 						<logic:iterate id="tagref" property="tags" name="concern">
-							<a href="javascript:getConcernsByTag(${tagref.id});">${tagref.tag.name}</a>&nbsp;
-							<logic:equal name="showIcon" value="true">
-								<a href="javascript:getConcernsByTag(${tagref.id});"><img src="/images/switchToBar.gif" title="View concerns that use this tag" border="0"></a>
-							</logic:equal>|&nbsp;
-						</logic:iterate></span>
+							<span class="tags">
+							<a href="javascript:getConcernsByTag(${tagref.id});">${tagref.tag.name}</a>
+							</span>
+						</logic:iterate>
 						<logic:equal name="type" value="0">
-						<br
 						<div id=actionMenu>Actions: <a href="javascript:editConcernPopup(${concern.id}, '${concern.content}');">edit concern</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:editTags();">edit tags</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:delConcern(${concern.id});">delete entire concern</a></div>
 						<br>
 						</logic:equal>
