@@ -153,8 +153,8 @@ public class CCTServiceImpl implements CCTService {
         CCT cct = concern.getCct();
         
         synchronized (this) {
-            Set oldTags = concern.getTags();
-            concern.setTags(new HashSet());
+            Set oldTags = new HashSet(concern.getTags());
+            concern.getTags().clear();
             
             for (Object object : oldTags) {
                 TagReference ref = (TagReference) object;
@@ -187,8 +187,8 @@ public class CCTServiceImpl implements CCTService {
         CCT cct = concern.getCct();
         
         synchronized (this) {
-            Set oldTags = concern.getTags();
-            concern.setTags(new HashSet());
+            Set oldTags = new HashSet(concern.getTags());
+            concern.getTags().clear();
             
             Tag tag = null;
             TagReference ref = null;
