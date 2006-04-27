@@ -91,4 +91,7 @@ public interface CVODAO {
     void save(TagReference ref) throws Exception;
     
     
+    void refresh(Object object) throws Exception;
+    
+    
 }//interface CVODAO

@@ -16,6 +16,11 @@ public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
     private static Random random = new Random();
     
     
+    public void refresh(Object object) throws Exception {
+        getHibernateTemplate().refresh(object);
+    }//refresh()
+
+
     public CCT getCCTById(Long cctId) throws Exception {
         return (CCT) getHibernateTemplate().get(CCT.class, cctId);
     }//getCCTById()

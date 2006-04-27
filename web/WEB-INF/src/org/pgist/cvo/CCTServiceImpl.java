@@ -81,6 +81,7 @@ public class CCTServiceImpl implements CCTService {
         synchronized (this) {
             for (Object object : tags) {
                 Tag tag = (Tag) object;
+                cctDAO.refresh(tag);
                 cctDAO.save(tag);
                 
                 TagReference ref = cctDAO.getTagReferenceByTagId(tag.getId());
@@ -199,6 +200,7 @@ public class CCTServiceImpl implements CCTService {
             
             for (Object object : tags) {
                 Tag tag = (Tag) object;
+                cctDAO.refresh(tag);
                 cctDAO.save(tag);
                 
                 TagReference ref = cctDAO.getTagReferenceByTagId(tag.getId());
