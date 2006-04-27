@@ -329,33 +329,53 @@ function editConcern(concernId){
 }
 
 function editTagsPopup(concernId){
-
 		CCTAgent.getConcernById(concernId, function (data) {
 		if (data.successful){
-			alert(concernId);
-			lightboxDisplay('inline');
-			//lightboxDisplay('none');
-		//	showMyConcerns(concernId);
-			//concernTags = "";
+			
+		lightboxDisplay('inline');
+		os = "";
+		os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
+		os += '<h2>Edit My Concern\'s Tags</h2><br>';
+		os += '<ul id="editTagsList" class="tagsList"> '+data.id+ '</ul>';
+		os += '<br><input type="text" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList(\'editTagsList\',\'theNewTag\');"></p>';
+		os += '<a href="javascript:editTags('+concernId+');">TestIt</a>';
+		//os += '<br><input type="button" id="modifyTags" value="Submit Edits!" onClick="editTags('+concernId+')">';
+		os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')">';
+		$('lightbox').innerHTML = os;
+			var str= "";
+			for(i=0; i < data.concern.tags.length; i++){
+				str += '<li class="tagsList">'+ data.concern.tags[i].tag.name +'</span><span class="tagsList_controls"></li>&nbsp;<a href="null"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span>&nbsp;|&nbsp;';
+				concernTags += data.concern.tags[i].tag.name + ',';
+			}
+			document.getElementById('editTagsList').innerHTML = str;
+
 		}
 		
 	});
-	os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
-	os += '<h2>Edit My Concern\'s Tags</h2><br>';
-	os += '<ul id="editTagsList" class="tagsList"></ul>';
-	os += '<br><input type="text" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList(\'editTagsList\',\'theNewTag\');"></p>';
-	os += '<br><input type="button" id="modifyTags" value="Submit Edits!" onClick="editTags('+concernId+','+ concernTags +')">';
-	os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')">';
-	$('lightbox').innerHTML = os;
-	$('editTagsList').innerHTML += '<li class="tagsList">'+ document.getElementById("theTag").value +'</span><span class="tagsList_controls"></li>&nbsp;<a href="null"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span>&nbsp;|&nbsp;';	
-}
-	
-function editTags(concernId){
 
+}
+
+function removeLastComma(str){
+	str = str.replace(/[\,]$/,'');
+	concernTags = str;
+}
+
+function editTags(concernId){
+	alert(concernId);
+	alert(concernTags);
+	removeLastComma(concernTags);
+	alert(concernTags);
+	
 	CCTAgent.editConcern({concernId:concernId, tags:concernTags}, function(data){
-		if (data.successful){
+		if (data.successful){ 
+				alert("itworked");
 			lightboxDisplay('none');
 			showMyConcerns(concernId);
+			concernTags = "";
+		}
+		
+		if (data.successful != true){
+			alert(data.reason);
 			concernTags = "";
 		}
 	});
