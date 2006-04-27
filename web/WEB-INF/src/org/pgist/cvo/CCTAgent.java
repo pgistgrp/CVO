@@ -420,6 +420,7 @@ public class CCTAgent {
                 map.put("reason", "concern not found with id "+id);
                 return map;
             }
+            map.put("successful", true);
             map.put("concern", concern);
         } catch (Exception e) {
             e.printStackTrace();
