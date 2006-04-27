@@ -64,13 +64,13 @@ public class TagAnalyzer {
 	 */
 	private long[][] tag_tree = null;
 
-	public static Document parse(URL url) throws DocumentException {
+	private static Document parse(URL url) throws DocumentException {
 		SAXReader reader = new SAXReader();
 		Document document = reader.read(url);
 		return document;
 	}
 
-	public static Document parse(String s) throws DocumentException {
+	private static Document parse(String s) throws DocumentException {
 		SAXReader reader = new SAXReader();
 		Document document = reader.read(new StringReader(s));
 
@@ -81,8 +81,6 @@ public class TagAnalyzer {
 		System.out.println(">>>>parse string: " + statement);
 		if (all_tags == null) {
 			rebuildTree();
-			printTreeNice(tag_tree, 0, "");
-
 		}
 
 		Collection suggestedStrings = new HashSet();
@@ -186,7 +184,7 @@ public class TagAnalyzer {
 	 *            long[]
 	 * @return int
 	 */
-	public int matchString(long[][] tree, int start, String s, long[] settings) {
+	private int matchString(long[][] tree, int start, String s, long[] settings) {
 		if (s.length() == 0)
 			return 0;
 
@@ -219,7 +217,7 @@ public class TagAnalyzer {
 	 * @param tag
 	 *            Tag
 	 */
-	public void addTag(long[][] tree, Tag tag) {
+	private void addTag(long[][] tree, Tag tag) {
 		try {
 			//tagDAO.save(tag);
 			all_tags.add(tag);
@@ -323,8 +321,6 @@ public class TagAnalyzer {
 			throws Exception {
 		if (all_tags == null) {
 			rebuildTree();
-			printTreeNice(tag_tree, 0, "");
-
 		}
 		
 		List list = new ArrayList(tagStrs.length);
