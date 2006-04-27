@@ -163,11 +163,11 @@ function deleteCookie(name, path, domain) {
 		}
 	}
 	
-	function addTagToList(){
-		document.getElementById('tagsList').innerHTML += '<li class="tagsList">'+ document.getElementById("theTag").value +'</span><span class="tagsList_controls"></li>&nbsp;<a href="null"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span>&nbsp;|&nbsp;';
-		concernTags += document.getElementById("theTag").value + ',';
-		Effect.Yellow('theTag', {duration: 4, endcolor:'#FFFFFF'});
-		$('theTag').value = "";
+	function addTagToList(theListId,theTagTextboxId){
+		document.getElementById(theListId).innerHTML += '<li class="tagsList">'+ document.getElementById(theTagTextboxId).value +'</span><span class="tagsList_controls"></li>&nbsp;<a href="null"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span>&nbsp;|&nbsp;';
+		concernTags += document.getElementById(theTagTextboxId).value + ',';
+		Effect.Yellow(theTagTextboxId, {duration: 4, endcolor:'#FFFFFF'});
+		$(theTagTextboxId).value = "";
 	}
 	
 	function saveTheConcern(){
@@ -300,7 +300,7 @@ function lightboxDisplay(action){
 function glossaryPopup(term){
 	lightboxDisplay('inline');
 	os = "";
-	os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');">close</a></span>'
+	os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
 	os += '<br><h2>Glossary Term: '+ term +'</h2>';
 	os += '<p>Tags helps make your concerns easier to find, since all this info is searchable later. Imagine this applied to thousands of concerns!</p>';
 	$('lightbox').innerHTML = os;
@@ -309,11 +309,12 @@ function editConcernPopup(concernId,currentConcern){
 	lightboxDisplay('inline');
 
 	os = "";
-	os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');">cancel</a></span>'
+	os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
 	os += '<h2>Edit My Concern</h2><br>';
 	os += '<textarea style="height: 150px; width: 100%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p>';
 	os += '<input type="button" id="modifyConcern" value="Submit Edits!" onClick="editConcern('+concernId+')">';
-	os += 'or <a href="javascript: lightboxDisplay(\'none\');">cancel</a>';
+	os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')">';
+	
 	$('lightbox').innerHTML = os;
 }
 	
@@ -323,6 +324,39 @@ function editConcern(concernId){
 		if (data.successful){
 			lightboxDisplay('none');
 			showMyConcerns(concernId);
+		}
+	});
+}
+
+function editTagsPopup(concernId){
+
+		CCTAgent.getConcernById(concernId, function (data) {
+		if (data.successful){
+			alert(concernId);
+			lightboxDisplay('inline');
+			//lightboxDisplay('none');
+		//	showMyConcerns(concernId);
+			//concernTags = "";
+		}
+		
+	});
+	os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
+	os += '<h2>Edit My Concern\'s Tags</h2><br>';
+	os += '<ul id="editTagsList" class="tagsList"></ul>';
+	os += '<br><input type="text" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList(\'editTagsList\',\'theNewTag\');"></p>';
+	os += '<br><input type="button" id="modifyTags" value="Submit Edits!" onClick="editTags('+concernId+','+ concernTags +')">';
+	os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')">';
+	$('lightbox').innerHTML = os;
+	$('editTagsList').innerHTML += '<li class="tagsList">'+ document.getElementById("theTag").value +'</span><span class="tagsList_controls"></li>&nbsp;<a href="null"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span>&nbsp;|&nbsp;';	
+}
+	
+function editTags(concernId){
+
+	CCTAgent.editConcern({concernId:concernId, tags:concernTags}, function(data){
+		if (data.successful){
+			lightboxDisplay('none');
+			showMyConcerns(concernId);
+			concernTags = "";
 		}
 	});
 }
@@ -378,7 +412,7 @@ function delConcern(concernId){
   
  <div id="slate">
   		<h2>Add your concern</h2><br>What is one of your concerns about the Central Puget Sound Transportation System?  View examples of concerns in the right column (concerns tab).
-		    <form name="brainstorm" method="post" onSubmit="addTagToList(); return false;">
+		    <form name="brainstorm" method="post" onSubmit="addTagToList('tagsList', 'theTag'); return false;">
 			      <p><textarea class="textareaAddConcern" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
 			      <p class="indent">
 				      <input type="button" id="btnContinue" name="Continue" value="Continue" onclick="prepareConcern();">
@@ -394,7 +428,7 @@ function delConcern(concernId){
 									<ul class="tagsList" id="tagsList">
 									</ul>	    
 									
-									<p><input type="text" id="theTag" class="tagTextbox" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList();"></p>
+									<p><input type="text" id="theTag" class="tagTextbox" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList('tagsList','theTag');"></p>
 									<hr>
 									<span class="title_section">Finished Tagging? <input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></span><input type="button" value="Cancel - back to edit my concern" onclick="javascript:resetForm();">
 						    </div>
