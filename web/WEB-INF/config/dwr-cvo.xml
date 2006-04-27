@@ -56,6 +56,7 @@
       <include method="prepareConcern"/>
       <include method="saveConcern"/>
       <include method="getConcerns"/>
+      <include method="getConcernById"/>
       <include method="getConcernsByTag"/>
       <include method="getTagCloud"/>
       <include method="editConcern"/>

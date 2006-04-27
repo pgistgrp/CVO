@@ -401,6 +401,37 @@ public class CCTAgent {
 
 
     /**
+     * Get a Concern object with the given id.
+     * @param id the id of Concern object.
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>concern - a Concern object. (valid when successful==true)</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
+    public Map getConcernById(Long id) {
+        Map map = new HashMap();
+        
+        try {
+            Concern concern = cctService.getConcernById(id);
+            if (concern==null) {
+                map.put("successful", false);
+                map.put("reason", "concern not found with id "+id);
+                return map;
+            }
+            map.put("concern", concern);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("successful", false);
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//getConcernById
+    
+    
+    /**
      * Get concerns attached to a tag.
      *
      * @param params A map contains:<br>
