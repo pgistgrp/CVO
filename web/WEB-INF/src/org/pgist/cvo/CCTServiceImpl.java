@@ -82,8 +82,7 @@ public class CCTServiceImpl implements CCTService {
             for (String tagName : tagStrs) {
                 tag = analyzer.tagExists(tagName);
                 if (tag!=null) {
-                    tag = cctDAO.getTagById(tag.getId());
-                    ref = cctDAO.getTagReferenceByTagId(tag.getId());
+                    ref = cctDAO.getTagReferenceByTagId(cct.getId(), tag.getId());
                 } else {
                     tag = new Tag();
                     tag.setName(tagName);
@@ -197,7 +196,7 @@ public class CCTServiceImpl implements CCTService {
                 tag = analyzer.tagExists(tagName);
                 if (tag!=null) {
                     tag = cctDAO.getTagById(tag.getId());
-                    ref = cctDAO.getTagReferenceByTagId(tag.getId());
+                    ref = cctDAO.getTagReferenceByTagId(cct.getId(), tag.getId());
                     if (oldTags.contains(ref)) {
                         oldTags.remove(ref);
                     } else {

@@ -135,16 +135,20 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
     }//searchTags()
 
 
-    private static final String hql_getTagReferenceByTagId = "from TagReference tr where tr.tag.id=?";
+    private static final String hql_getTagReferenceByTagId = "from TagReference tr where tr.cctId=? and tr.tag.id=?";
     
     
     /**
-     * @param id
+     * @param cctId
+     * @param tagId
      * @return
      * @exception
      */
-    public TagReference getTagReferenceByTagId(Long id) throws Exception {
-        List list = getHibernateTemplate().find(hql_getTagReferenceByTagId, id);
+    public TagReference getTagReferenceByTagId(Long cctId, Long tagId) throws Exception {
+        List list = getHibernateTemplate().find(hql_getTagReferenceByTagId, new Object[] {
+                cctId,
+                tagId,
+        });
         if (list.size()>0) {
             TagReference ref = (TagReference) list.get(0);
             return ref;
