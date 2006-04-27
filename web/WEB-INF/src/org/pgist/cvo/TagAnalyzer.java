@@ -217,12 +217,14 @@ public class TagAnalyzer {
 	 * @param tag
 	 *            Tag
 	 */
-	private void addTag(long[][] tree, Tag tag) {
+	public synchronized void addTag(Tag tag) {
+		if(all_tags == null) rebuildTree();
+		
 		try {
 			//tagDAO.save(tag);
 			all_tags.add(tag);
-			if (tree.length > (tree[0][3] + tag.name.length())) {
-				addNode(tree, tag.name, all_tags.size() - 1, 0, 1, 1);
+			if (tag_tree.length > (tag_tree[0][3] + tag.name.length())) {
+				addNode(tag_tree, tag.name, all_tags.size() - 1, 0, 1, 1);
 			} else {
 				rebuildTree();
 			}
@@ -230,6 +232,18 @@ public class TagAnalyzer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean tagExists(String tagName){
+		if(all_tags == null)rebuildTree();
+		
+		long[] setting = { 0, -1 };
+		String str = tagName.trim().toLowerCase();
+		int m = matchString(tag_tree, 0, str, setting);
+		if( m == str.length() )
+			return true;
+		else
+			return false;
 	}
 
 	/**
@@ -344,8 +358,8 @@ public class TagAnalyzer {
 
 			long[] setting = { 0, -1 };
 			int m = matchString(tag_tree, 0, tagStrs[i].toLowerCase(), setting);
-			if (m == tagStrs[i].length()) { //if tag exists
-				System.out.println("==ensure: tag exist:" + tagStrs[i]);
+			if (m == tagStrs[i].length() && setting[1] > 0) { //if tag exists
+				System.out.println("==ensure: tag exist: " + tagStrs[i]);
 				list.add((Tag) all_tags.get((int) setting[1]));
 			} else {
 				System.out.println("==ensure: new tag: " + tagStrs[i]);
@@ -355,7 +369,7 @@ public class TagAnalyzer {
 				tag.setStatus(Tag.STATUS_CANDIDATE);
 
 				list.add(tag);
-				addTag(tag_tree, tag);
+				addTag(tag);
 				//tagDAO.save(tag);
 			}
 		}// for i
