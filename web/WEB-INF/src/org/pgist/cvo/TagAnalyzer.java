@@ -248,7 +248,7 @@ public class TagAnalyzer {
 		String str = tagName.trim().toLowerCase();
 		int m = matchString(tag_tree, 0, str, setting);
 		if( m == str.length() && setting[1] > 0)
-			return (Tag)all_tags.get((int) setting[1]));
+			return (Tag)all_tags.get((int) setting[1]);
 		else
 			return null;
 	}
