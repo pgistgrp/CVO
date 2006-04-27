@@ -85,6 +85,6 @@ public interface CCTDAO extends CVODAO {
     Collection searchTags(Long id, String tag) throws Exception;
 
     TagReference getTagReferenceByTagId(Long id) throws Exception;
-    
+
 
 }//interface CCTDAO
