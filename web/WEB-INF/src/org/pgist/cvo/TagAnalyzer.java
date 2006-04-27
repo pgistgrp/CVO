@@ -234,16 +234,16 @@ public class TagAnalyzer {
 		}
 	}
 	
-	public boolean tagExists(String tagName){
+	public Tag tagExists(String tagName){
 		if(all_tags == null)rebuildTree();
 		
 		long[] setting = { 0, -1 };
 		String str = tagName.trim().toLowerCase();
 		int m = matchString(tag_tree, 0, str, setting);
-		if( m == str.length() )
-			return true;
+		if( m == str.length() && setting[1] > 0)
+			return all_tags.get((int) setting[1]));
 		else
-			return false;
+			return null;
 	}
 
 	/**
