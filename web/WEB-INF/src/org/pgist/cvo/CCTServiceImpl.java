@@ -89,6 +89,9 @@ public class CCTServiceImpl implements CCTService {
                     tag.setDescription(tagName);
                     tag.setStatus(Tag.STATUS_CANDIDATE);
                     cctDAO.save(tag);
+                    
+                    analyzer.addTag(tag);
+                    
                     ref = new TagReference();
                     ref.setTag(tag);
                     ref.setTimes(0);
