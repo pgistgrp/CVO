@@ -321,6 +321,12 @@ public class TagAnalyzer {
 	 */
 	public synchronized Collection ensureTags(String[] tagStrs)
 			throws Exception {
+		if (all_tags == null) {
+			rebuildTree();
+			printTreeNice(tag_tree, 0, "");
+
+		}
+		
 		List list = new ArrayList(tagStrs.length);
 		
 		Set set = new HashSet();
