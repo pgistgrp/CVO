@@ -249,10 +249,13 @@ ul.tagsList{
 	border: none;
 	list-style: none;
 	display: inline;
+	line-height: 15px;
 }
 
 li.tagsList{
-	margin: 0;
+	margin-right: 3px;
+	margin-bottom: 5px;
+	margin-top: 20px;
 	padding: 2px;
 	border: 1px solid #CDC;
 	list-style: none;

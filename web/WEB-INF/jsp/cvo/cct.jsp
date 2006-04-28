@@ -153,7 +153,7 @@ function deleteCookie(name, path, domain) {
 				if (data.successful){
 					var str= "";
 					for(i=0; i < data.tags.length; i++){
-						str += '<li class="tagsList">'+ data.tags [i] +'</span><span class="tagsList_controls"></li>&nbsp;<a href="null"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span>&nbsp;|&nbsp;';
+						str += '<li class="tagsList">'+ data.tags [i] +'</span><span class="tagsList_controls"></li>&nbsp;<a href="javascript:removeFromList(tagsList);"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span>&nbsp;|&nbsp;';
 						concernTags += data.tags[i] + ',';
 					}
 					document.getElementById('tagsList').innerHTML = str;
@@ -163,8 +163,32 @@ function deleteCookie(name, path, domain) {
 		}
 	}
 	
+	var editingTags = new Array();
+	function removeFromList(ulId,tagId){
+		
+		d = document.getElementById(ulId); 
+		d_nested = document.getElementById(tagId); 
+		if (editingTags[tagId] != null){
+			var indexNum = concernTags.indexOf(editingTags[tagId]+',');
+			if (indexNum > 0){
+				firstpart = concernTags.substring(0, indexNum);
+				secondpart = concernTags.substring(indexNum + editingTags[tagId].length + 1, concernTags.length);
+				concernTags = firstpart + secondpart;
+			}else if (indexNum == 0){
+				concernTags = concernTags.substring(indexNum + editingTags[tagId].length +1, concernTags.length);
+			}
+
+		}
+		throwaway_node = d.removeChild(d_nested);
+
+	}
+	
+	var uniqueTagCounter = 0;
 	function addTagToList(theListId,theTagTextboxId){
-		document.getElementById(theListId).innerHTML += '<li class="tagsList">'+ document.getElementById(theTagTextboxId).value +'</span><span class="tagsList_controls"></li>&nbsp;<a href="null"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span>&nbsp;|&nbsp;';
+		uniqueTagCounter++;
+		newTagId = 'tag' + uniqueTagCounter;
+		editingTags[newTagId] = document.getElementById(theTagTextboxId).value;
+		document.getElementById(theListId).innerHTML += '<li id="'+ newTagId +'" class="tagsList">'+ document.getElementById(theTagTextboxId).value +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:removeFromList(\'editTagsList\',\''+ newTagId +'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
 		concernTags += document.getElementById(theTagTextboxId).value + ',';
 		Effect.Yellow(theTagTextboxId, {duration: 4, endcolor:'#FFFFFF'});
 		$(theTagTextboxId).value = "";
@@ -335,16 +359,16 @@ function editTagsPopup(concernId){
 		lightboxDisplay('inline');
 		os = "";
 		os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
-		os += '<h2>Edit My Concern\'s Tags</h2><br>';
+		os += '<h2>Edit My Concern\'s Tags</h2><p></p>';
 		os += '<ul id="editTagsList" class="tagsList"> '+data.id+ '</ul>';
-		os += '<br><input type="text" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList(\'editTagsList\',\'theNewTag\');"></p>';
-		os += '<a href="javascript:editTags('+concernId+');">TestIt</a>';
-		//os += '<br><input type="button" id="modifyTags" value="Submit Edits!" onClick="editTags('+concernId+')">';
+		os += '<p></p><input type="text" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList(\'editTagsList\',\'theNewTag\');"></p>';
+		//os += '<a href="javascript:editTags('+concernId+');">TestIt</a>';
+		os += '<hr><input type="button" id="modifyTags" value="Submit Edits!" onClick="editTags('+concernId+')">';
 		os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')">';
 		$('lightbox').innerHTML = os;
 			var str= "";
 			for(i=0; i < data.concern.tags.length; i++){
-				str += '<li class="tagsList">'+ data.concern.tags[i].tag.name +'</span><span class="tagsList_controls"></li>&nbsp;<a href="null"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span>&nbsp;|&nbsp;';
+				str += '<li id="tag'+data.concern.tags[i].tag.id+'" class="tagsList">'+ data.concern.tags[i].tag.name +'&nbsp;<a href="javascript:removeFromList(\'editTagsList\',\'tag'+data.concern.tags[i].tag.id+'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></li>';
 				concernTags += data.concern.tags[i].tag.name + ',';
 			}
 			document.getElementById('editTagsList').innerHTML = str;
@@ -361,14 +385,9 @@ function removeLastComma(str){
 }
 
 function editTags(concernId){
-	alert(concernId);
-	alert(concernTags);
 	removeLastComma(concernTags);
-	alert(concernTags);
-	
-	CCTAgent.editConcern({concernId:concernId, tags:concernTags}, function(data){
+	CCTAgent.editTags({concernId:concernId, tags:concernTags}, function(data){
 		if (data.successful){ 
-				alert("itworked");
 			lightboxDisplay('none');
 			showMyConcerns(concernId);
 			concernTags = "";
@@ -382,7 +401,7 @@ function editTags(concernId){
 }
 
 function delConcern(concernId){
-	var destroy = confirm ("Are you sure you want to delete this concern? There is no undo.")
+	var destroy = confirm ("Are you sure you want to delete this concern? Note: there is no undo.")
 	if (destroy){
 			CCTAgent.deleteConcern({concernId:concernId}, function(data){
 				if (data.successful){
