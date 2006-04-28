@@ -40,6 +40,7 @@
         
         <mapping resource="org/pgist/cvo/Concern.hbm.xml"/>
         <mapping resource="org/pgist/cvo/Category.hbm.xml"/>
+        <mapping resource="org/pgist/cvo/CategoryReference.hbm.xml"/>
         <mapping resource="org/pgist/cvo/Tag.hbm.xml"/>
         <mapping resource="org/pgist/cvo/TagReference.hbm.xml"/>
         

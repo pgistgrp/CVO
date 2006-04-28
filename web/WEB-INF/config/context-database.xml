@@ -33,9 +33,10 @@
                <value>org/pgist/model/Post.hbm.xml</value>
                <value>org/pgist/model/PGame.hbm.xml</value>
                <value>org/pgist/cvo/Category.hbm.xml</value>
-               <value>org/pgist/cvo/Concern.hbm.xml</value>
+               <value>org/pgist/cvo/CategoryReference.hbm.xml</value>
                <value>org/pgist/cvo/Tag.hbm.xml</value>
                <value>org/pgist/cvo/TagReference.hbm.xml</value>
+               <value>org/pgist/cvo/Concern.hbm.xml</value>
                <value>org/pgist/workflow/DecisionSituation.hbm.xml</value>
                <value>org/pgist/wfengine/WorkflowEnvironment.hbm.xml</value>
                <value>org/pgist/wfengine/RunningContext.hbm.xml</value>
