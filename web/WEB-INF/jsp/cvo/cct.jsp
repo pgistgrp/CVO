@@ -165,9 +165,9 @@ function deleteCookie(name, path, domain) {
 	
 	var editingTags = new Array();
 	function removeFromList(ulId,tagId){
-		
 		d = document.getElementById(ulId); 
 		d_nested = document.getElementById(tagId); 
+		
 		if (editingTags[tagId] != null){
 			var indexNum = concernTags.indexOf(editingTags[tagId]+',');
 			if (indexNum > 0){
@@ -177,8 +177,8 @@ function deleteCookie(name, path, domain) {
 			}else if (indexNum == 0){
 				concernTags = concernTags.substring(indexNum + editingTags[tagId].length +1, concernTags.length);
 			}
-
 		}
+		
 		throwaway_node = d.removeChild(d_nested);
 
 	}
@@ -186,7 +186,7 @@ function deleteCookie(name, path, domain) {
 	var uniqueTagCounter = 0;
 	function addTagToList(theListId,theTagTextboxId){
 		uniqueTagCounter++;
-		newTagId = 'tag' + uniqueTagCounter;
+		newTagId = 'userTag' + uniqueTagCounter;
 		editingTags[newTagId] = document.getElementById(theTagTextboxId).value;
 		document.getElementById(theListId).innerHTML += '<li id="'+ newTagId +'" class="tagsList">'+ document.getElementById(theTagTextboxId).value +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:removeFromList(\'editTagsList\',\''+ newTagId +'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
 		concernTags += document.getElementById(theTagTextboxId).value + ',';
@@ -216,7 +216,7 @@ function deleteCookie(name, path, domain) {
 }
 
 function showTagCloud(){
-		CCTAgent.getTagCloud({cctId:cctId,type:0,count:100}, function(data){
+		CCTAgent.getTagCloud({cctId:cctId,type:0,count:25}, function(data){
 			if (data.successful){
 				$('sidebar_tags').innerHTML = data.html;
 			}
@@ -294,6 +294,14 @@ CCTAgent.searchTags({cctId:cctId,tag:theTag}, function(data){
 				//$('myTab').tabber.tabShow(1);
 			//}
 			
+			if ($('txtSearch').value != ""){
+				$('clearQuery').style.visibility = 'visible';
+			} 
+				
+			if ($('txtSearch').value == ""){
+				$('clearQuery').style.visibility = 'hidden';
+			}
+			
 			if (data.count > 0){
 				$('tagIndicator').style.visibility = 'visible';
 				$('searchTag_title').innerHTML = '<span class="title_section2">Tag Query:</span>'; 
@@ -361,11 +369,11 @@ function editTagsPopup(concernId){
 		os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
 		os += '<h2>Edit My Concern\'s Tags</h2><p></p>';
 		os += '<ul id="editTagsList" class="tagsList"> '+data.id+ '</ul>';
-		os += '<p></p><input type="text" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList(\'editTagsList\',\'theNewTag\');"></p>';
+		os += '<p></p><form name="editTagList" onsubmit="addTagToList(\'editTagsList\',\'theNewTag\'); return false;"><input type="text" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="submit" name="addTag" id="addTag" value="Add Tag!"></p>';
 		//os += '<a href="javascript:editTags('+concernId+');">TestIt</a>';
-		os += '<hr><input type="button" id="modifyTags" value="Submit Edits!" onClick="editTags('+concernId+')">';
-		os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')">';
-		$('lightbox').innerHTML = os;
+		os += '<hr><input type="button" value="Submit Edits" onClick="editTags('+concernId+')">';
+		os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')"></form>';
+			$('lightbox').innerHTML = os;
 			var str= "";
 			for(i=0; i < data.concern.tags.length; i++){
 				str += '<li id="tag'+data.concern.tags[i].tag.id+'" class="tagsList">'+ data.concern.tags[i].tag.name +'&nbsp;<a href="javascript:removeFromList(\'editTagsList\',\'tag'+data.concern.tags[i].tag.id+'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></li>';

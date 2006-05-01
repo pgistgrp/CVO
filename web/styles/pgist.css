@@ -263,6 +263,7 @@ li.tagsList{
 	color: #878;
 	text-decoration: none;
 }
+
 #overview {
 	border: 1px solid #CCCCCC;
 	position: relative;
@@ -335,10 +336,18 @@ li.tagsList{
 }
 
 .searchTagTextbox{
+	position: absolute;
+	left: 0;
 	font-size: 14px;
 	color: #AAA;
-	width: 100%;
+	width: 80%;
 	border: 1px solid #ccc;
+}
+
+#clearQuery{
+	position: absolute;
+	right: 0;
+	top: 0;
 }
 
 .tagTextbox{

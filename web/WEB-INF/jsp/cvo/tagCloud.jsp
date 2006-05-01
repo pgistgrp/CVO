@@ -8,11 +8,11 @@ Click on any of these tags to view the concerns attached to each tag.  Use these
 
 <div id="searchTag_container">
 		<div id="searchTag_title">
-				<span class="title_section2">Top 100 Tags</span>
+				<span class="title_section2">Top 25 Tags</span>
 		</div>
 		<div id="searchTag_form">
 				<form name="searchTags" method="post" onSubmit="tagSearch($('txtSearch').value); return false;">
-					<input type="text" id="txtSearch" name="txtSearch" class="searchTagTextbox" value=" tag search" onfocus="clear_textbox(this);" onkeyup="tagSearch($('txtSearch').value);"><span id="tagIndicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>
+					<input type="text" id="txtSearch" name="txtSearch" class="searchTagTextbox" value=" tag search" onfocus="clear_textbox(this);" onkeyup="tagSearch($('txtSearch').value);"><span id="tagIndicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span><div id="clearQuery" style="visibility: hidden;"><img src="/images/clearText.gif"></div>
 				</form>			
 		</div>
 </div>
