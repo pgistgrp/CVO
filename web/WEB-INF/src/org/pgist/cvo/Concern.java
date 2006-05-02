@@ -1,8 +1,8 @@
 package org.pgist.cvo;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.pgist.users.User;
 
@@ -28,7 +28,7 @@ public class Concern {
     
     protected CCT cct;
     
-    protected Set tags = new HashSet();
+    protected SortedSet tags = new TreeSet(new TagReferenceComparator());
     
     protected int sortOrder = 0;
     
@@ -120,16 +120,16 @@ public class Concern {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="pgist_cvo_concern_tag_link" cascade="all"
+     * @hibernate.set lazy="true" table="pgist_cvo_concern_tag_link" cascade="all" sort="org.pgist.cvo.TagReferenceComparator"
      * @hibernate.collection-key column="concern_id"
      * @hibernate.collection-many-to-many column="tagref_id" class="org.pgist.cvo.TagReference"
      */
-    public Set getTags() {
+    public SortedSet getTags() {
         return tags;
     }
 
 
-    public void setTags(Set tags) {
+    public void setTags(SortedSet tags) {
         this.tags = tags;
     }
     
