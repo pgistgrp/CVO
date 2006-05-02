@@ -57,6 +57,7 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
     
     
     public Collection getAllTags() throws Exception {
+        getHibernateTemplate().setMaxResults(-1);
         return getHibernateTemplate().find(hql_getAllTags, new Integer(Tag.STATUS_REJECTED));
     }//getAllTags
     
