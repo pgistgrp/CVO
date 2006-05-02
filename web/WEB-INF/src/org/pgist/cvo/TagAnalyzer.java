@@ -1,7 +1,13 @@
 package org.pgist.cvo;
 
+import java.io.FileNotFoundException;
 import java.io.Reader;
+import java.io.BufferedReader;
 import java.io.StringReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,10 +15,12 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.lucene.analysis.LowerCaseTokenizer;
 import org.apache.lucene.analysis.Token;
 import org.apache.lucene.analysis.Tokenizer;
+import org.apache.lucene.analysis.standard.StandardTokenizer;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -53,6 +61,8 @@ public class TagAnalyzer {
 	 * end of a tag
 	 */
 	private long[][] tag_tree = null;
+	
+	private Set stop_words = null;
 
 	private static Document parse(URL url) throws DocumentException {
 		SAXReader reader = new SAXReader();
@@ -187,8 +197,12 @@ public class TagAnalyzer {
 					}
 				}
 
-				if (!found)
+				if (!found){
+					if(!stop_words.contains(t.termText().toLowerCase()))
+						suggestedStrings.add(t.termText());
+					
 					t = tkz.next();
+				}
 			}//while
 
 			tkz.close();
@@ -323,6 +337,8 @@ public class TagAnalyzer {
 	 * The result of this method will be a refreshed tag_tree
 	 */
 	public void rebuildTree() {
+		stop_words = loadStopWords();
+		
 		List all_tags_temp = new ArrayList();
 		long[][] tag_tree_temp;
 
@@ -491,6 +507,32 @@ public class TagAnalyzer {
 			this.addNode(tree, tag, tagindex, current, (int) tree[current][2],
 					2);
 		}
+	}
+	
+	private Set loadStopWords(){
+		Set stopwords = new TreeSet();
+        try {
+			URL url = this.getClass().getResource("stopwords.txt") ;
+			System.out.println("====file location: " + url.toString());
+			Reader reader = new BufferedReader( new InputStreamReader(url.openStream()));
+			Tokenizer tkz = new StandardTokenizer(reader);
+			try {
+			    Token t = tkz.next();
+			    while (t != null) {
+			        String s = t.termText().toLowerCase();
+			        System.out.println("==add stop word: " + s);
+			        if(!stopwords.contains(s))
+			            stopwords.add(s);
+
+			        t = tkz.next();
+			    }
+			}catch (Exception ex){}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (IOException exio){}
+		
+		return stopwords;
 	}
 
 }//class TagAnalyzer
