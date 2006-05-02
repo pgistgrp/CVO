@@ -38,8 +38,6 @@ public class TagAnalyzer {
 
 	public void setTagDAO(TagDAO tagDAO) {
 		this.tagDAO = tagDAO;
-		// rebuildTree();
-		System.out.println("in the setter");
 	}
 
 	/*
@@ -68,6 +66,76 @@ public class TagAnalyzer {
 
 		return document;
 	}
+
+	public Collection parseTextTokenized_old(String statement) {
+		System.out.println(">>>>parse string: " + statement);
+		if (all_tags == null) {
+			rebuildTree();
+		}
+
+		Collection suggestedStrings = new HashSet();
+
+		long[][] tag_id_count = new long[all_tags.size()][2];
+		for (int k = 0; k < tag_id_count.length; k++) {
+			tag_id_count[k][0] = ((Tag) all_tags.get(k)).getId();
+			tag_id_count[k][1] = 0;
+		}
+
+		Reader reader = new StringReader(statement);
+		Tokenizer tkz = new LowerCaseTokenizer(reader); // StandardTokenizer
+
+		try {
+			Token t = tkz.next();
+			while (t != null) {
+				//find the logest appearance
+				String foundtext = "";
+				String trytext = t.termText();
+				boolean found = false;
+				long[] setting = { 0, -1 };
+				int m = matchString(tag_tree, 0, trytext, setting);
+				while (m == (foundtext.length() + trytext.length())) {
+					found = true;
+					foundtext += trytext;
+
+					t = tkz.next();
+					if (t == null)
+						break;
+
+					trytext = " " + t.termText();
+
+					if (setting[0] >= 0)
+						m += matchString(tag_tree, (int) setting[0], trytext,
+								setting);
+					else
+						break;
+				}
+
+				if (foundtext.length() > 0) {
+					if (setting[1] >= 0) {
+						tag_id_count[(int) setting[1]][1]++;
+						setting[1] = -1;
+					}
+				}
+
+				if (!found)
+					t = tkz.next();
+			}//while
+
+			tkz.close();
+		} catch (Exception e) {
+			System.out
+					.println("error in parseTextTokenized: " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		//put all the found tags in the suggestedStrings
+		for (int k = 0; k < tag_id_count.length; k++)
+			if (tag_id_count[k][1] > 0) {
+				suggestedStrings.add(((Tag) all_tags.get(k)).getName());
+			}
+
+		return suggestedStrings;
+	}//parseTextTokenized()
 
 	public Collection parseTextTokenized(String statement) {
 		System.out.println(">>>>parse string: " + statement);
@@ -138,7 +206,7 @@ public class TagAnalyzer {
 
 		return suggestedStrings;
 	}//parseTextTokenized()
-
+	
 	/**
 	 * 
 	 * @param elements
@@ -215,9 +283,13 @@ public class TagAnalyzer {
 		try {
 			//tagDAO.save(tag);
 			all_tags.add(tag);
+			System.out.println("++++ add new tag: " + tag.getName() );
+			System.out.println("---- buffer usage: " + + tag_tree[0][3] + "/" + tag_tree.length);
 			if (tag_tree.length > (tag_tree[0][3] + tag.name.length())) {
 				addNode(tag_tree, tag.name, all_tags.size() - 1, 0, 1, 1);
 			} else {
+				System.out.println("++++ buffer full (" + tag_tree[0][3] + "/" + tag_tree.length
+						+ "need to rebuild tree ++++");
 				rebuildTree();
 			}
 		} catch (Exception e) {
