@@ -183,6 +183,7 @@ function deleteCookie(name, path, domain) {
 	}
 	
 	function renderTags(tags,type){
+		alert(concernTags);
 		sty = (type == 1)?"tagsList":"suggestedTagsList";
 		var str= "";
 		tagtemp = tags.split(",");
@@ -475,7 +476,7 @@ function delConcern(concernId){
 				<input type="text" value="Search LIT!" ID="tbx1" class="tbx1_default" onfocus="clear_textbox(this)" onmouseover="this.className='tbx1_hover';" onmouseout="this.className='tbx1_default';"/>&nbsp;<img src="/images/search.gif">
 			</form>	
 	</div>
-	<div id="mainNav">Home&nbsp;&nbsp;|&nbsp;&nbsp;<span class="active">Current Task</span>&nbsp;&nbsp;|&nbsp;&nbsp;Discussion&nbsp;&nbsp;|&nbsp;&nbsp;Maps&nbsp;&nbsp;|&nbsp;&nbsp;Library&nbsp;&nbsp;</div>
+	<div id="mainNav">Home&nbsp;&nbsp;&nbsp;&nbsp;<span class="active">Current Task</span>&nbsp;&nbsp;&nbsp;&nbsp;Discussion&nbsp;&nbsp;&nbsp;&nbsp;Maps&nbsp;&nbsp;&nbsp;&nbsp;Library&nbsp;&nbsp;</div>
 </div>
 <!-- LIGHTBOX -->
 <div id="overlay"></div>
