@@ -161,7 +161,7 @@ public class CSTAgent {
                     map.put("reason", "CategoryReference doesn't exist.");
                     return map;
                 }
-                if (ref.getCctId().longValue()!=cct.getId().longValue()) {
+                if (ref.getCct().getId().longValue()!=cct.getId().longValue()) {
                     map.put("successful", false);
                     map.put("reason", "CategoryReference object is not in this CCT object");
                     return map;
@@ -235,7 +235,7 @@ public class CSTAgent {
                     categoryReference.setCategory(category);
                     categoryReference.setParent(parent);
                     parent.getChildren().add(categoryReference);
-                    categoryReference.setCctId(cct.getId());
+                    categoryReference.setCct(cct);
                 }
                 
                 cstService.save(categoryReference);
