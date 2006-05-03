@@ -183,7 +183,6 @@ function deleteCookie(name, path, domain) {
 	}
 	
 	function renderTags(tags,type){
-		alert(concernTags);
 		sty = (type == 1)?"tagsList":"suggestedTagsList";
 		var str= "";
 		tagtemp = tags.split(",");
@@ -403,6 +402,7 @@ function editConcern(concernId){
 
 function editTagsPopup(concernId){
 		tagHolderId = 1;
+		concernTags = "";
 		
 		CCTAgent.getConcernById(concernId, function (data) {
 		if (data.successful){
