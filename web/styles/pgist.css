@@ -76,8 +76,6 @@ a:visited{
 }
 
 
-
-
 hr {
 	border-top: 1px solid #006699;
 }
@@ -85,7 +83,7 @@ hr {
 
 .title_steps {
 	font-size: 18px;
-	color: #333;
+	color: #A7005D;
 	font-weight: 300;
 }
 
@@ -340,11 +338,11 @@ li.tagsList{
 	left: 0;
 	font-size: 14px;
 	color: #AAA;
-	width: 80%;
+	width: 70%;
 	border: 1px solid #ccc;
 }
 
-#clearQuery{
+#tagIndicator{
 	position: absolute;
 	right: 0;
 	top: 0;

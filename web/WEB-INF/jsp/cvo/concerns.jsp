@@ -11,8 +11,8 @@
 </logic:notEqual>
 
 <logic:equal name="showTitle" value="true">
-	<span class="closeBox"><b>Back to: </b><a href="javascript:goPage(${setting.page});">Random Concerns</a>&nbsp;&nbsp;<a href="javascript: tabFocusConcerns();">Tags</a></span>
-	<br><span class="title_section">Concerns with the tag: </span>
+	<span class="closeBox"><b>Back to: </b><a href="javascript:goPage(${setting.page});">Random Concerns</a>&nbsp;&nbsp;<a href="javascript: tabFocus(0);">Tags</a></span>
+	<br><span class="title_section">Concerns tagged with: </span>
 		<span class="tagSize${tagRef.fontSize}"><a href="javascript:getConcernsByTag(${tagRef.id});">${tagRef.tag.name}</a></span>&nbsp;
 	
 </logic:equal>

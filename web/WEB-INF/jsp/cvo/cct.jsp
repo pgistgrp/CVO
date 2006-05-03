@@ -143,6 +143,8 @@ function deleteCookie(name, path, domain) {
 	}
 	
 	function prepareConcern(){
+		concernTags = "";
+		tagHolderId = 0;
 		if (validateForm()){
 			$('btnContinue').disabled=true;
 			$('addConcern').style.background="#EEE";
@@ -151,21 +153,55 @@ function deleteCookie(name, path, domain) {
 			document.getElementById("indicator").style.visibility = "visible";
 			CCTAgent.prepareConcern({cctId:cctId,concern:concern}, function(data) {
 				if (data.successful){
-					var str= "";
 					for(i=0; i < data.tags.length; i++){
-						str += '<li class="tagsList">'+ data.tags [i] +'</span><span class="tagsList_controls"></li>&nbsp;<a href="javascript:removeFromList(tagsList);"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span>&nbsp;|&nbsp;';
 						concernTags += data.tags[i] + ',';
 					}
-					document.getElementById('tagsList').innerHTML = str;
+					document.getElementById('tagsList').innerHTML = renderTags( concernTags, 1);  // + renderTags( data.suggested, 0);
 				}
 				document.getElementById("indicator").style.visibility = "hidden";
 			} );
 		}
 	}
 	
+	var tagHolderId = 1;
+	function removeFromGeneratedTags(name){
+		if(name == "")return;
+		var indexNum = concernTags.indexOf(name +',');
+		if (indexNum > 0){
+			firstpart = concernTags.substring(0, indexNum);
+			secondpart = concernTags.substring(indexNum + name.length + 1, concernTags.length);
+			concernTags = firstpart + secondpart;
+		}else if (indexNum == 0){
+			concernTags = concernTags.substring(indexNum + name.length +1, concernTags.length);
+		}
+
+		if (tagHolderId == 0){
+			document.getElementById('tagsList').innerHTML = renderTags( concernTags, 1);
+		}else{
+			document.getElementById('editTagsList').innerHTML = renderTags( concernTags, 1);
+		}
+	}
+	
+	function renderTags(tags,type){
+		sty = (type == 1)?"tagsList":"suggestedTagsList";
+		var str= "";
+		tagtemp = tags.split(",");
+		
+		for(i=0; i < tagtemp.length; i++){
+			if(tagtemp [i] != ""){
+				str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:removeFromGeneratedTags(\''+ tagtemp [i] +'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';	
+			}
+		}	
+		return str;
+	}
+	
 	var editingTags = new Array();
-	function removeFromList(ulId,tagId){
-		d = document.getElementById(ulId); 
+	function removeFromList(tagId){
+		if (tagHolderId == 1){
+			d = document.getElementById('editTagsList'); 
+		}else{
+			d = document.getElementById('tagsList'); 
+		}
 		d_nested = document.getElementById(tagId); 
 		
 		if (editingTags[tagId] != null){
@@ -184,14 +220,23 @@ function deleteCookie(name, path, domain) {
 	}
 	
 	var uniqueTagCounter = 0;
-	function addTagToList(theListId,theTagTextboxId){
-		uniqueTagCounter++;
-		newTagId = 'userTag' + uniqueTagCounter;
-		editingTags[newTagId] = document.getElementById(theTagTextboxId).value;
-		document.getElementById(theListId).innerHTML += '<li id="'+ newTagId +'" class="tagsList">'+ document.getElementById(theTagTextboxId).value +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:removeFromList(\'editTagsList\',\''+ newTagId +'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
-		concernTags += document.getElementById(theTagTextboxId).value + ',';
-		Effect.Yellow(theTagTextboxId, {duration: 4, endcolor:'#FFFFFF'});
-		$(theTagTextboxId).value = "";
+	function addTagToList(theListId,theTagTextboxId,validationId){
+		
+		if(""==$(theTagTextboxId).value)
+		{
+			$(validationId).innerHTML = 'Please add your tag above.  Tag can not be blank.';
+			Effect.OpenUp(validationId);
+			Effect.Yellow(validationId, {duration: 20, endcolor:'#FFFFFF'});			
+		}else{
+			Effect.CloseDown(validationId);
+			uniqueTagCounter++;
+			newTagId = 'userTag' + uniqueTagCounter;
+			editingTags[newTagId] = document.getElementById(theTagTextboxId).value;
+			document.getElementById(theListId).innerHTML += '<li id="'+ newTagId +'" class="tagsList">'+ document.getElementById(theTagTextboxId).value +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:removeFromList(\''+ newTagId +'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
+			concernTags += document.getElementById(theTagTextboxId).value + ',';
+			Effect.Yellow(theTagTextboxId, {duration: 4, endcolor:'#FFFFFF'});
+			$(theTagTextboxId).value = "";
+		}
 	}
 	
 	function saveTheConcern(){
@@ -203,7 +248,6 @@ function deleteCookie(name, path, domain) {
 				showMyConcerns(data.concern.id);
 				Effect.CloseDown('tagConcerns');
 				//Reset add concerns textbox and Clear comma separated concerns tag list
-				concernTags = "";
 				$('btnContinue').disabled=false;
 				$('addConcern').value = "";
 				$('addConcern').style.background="#FFF";
@@ -220,8 +264,7 @@ function showTagCloud(){
 			if (data.successful){
 				$('sidebar_tags').innerHTML = data.html;
 			}
-	
-			$("indicator").style.visibility = "hidden";
+			//$("indicator").style.visibility = "hidden";
 	});
 }
 
@@ -279,31 +322,25 @@ CCTAgent.getConcerns({cctId:cctId,type:2,count:7, page:pageNum}, function(data){
 	});
 }
 
-function tabFocusConcerns(){
-	$('myTab').tabber.tabShow(0);
+function tabFocus(num){
+	$('myTab').tabber.tabShow(num);
 }
 
 function tagSearch(theTag){
 CCTAgent.searchTags({cctId:cctId,tag:theTag}, function(data){
+	  $('tagIndicator').style.visibility = 'visible';
 		if (data.successful){
-
 			//alert(data.count);
 			//if (data.count == 1){
 				//$('topTags').innerHTML = data.tag.tag.name;
 				//getConcernsByTag(data.tag.id);
 				//$('myTab').tabber.tabShow(1);
 			//}
-			
-			if ($('txtSearch').value != ""){
-				$('clearQuery').style.visibility = 'visible';
-			} 
-				
 			if ($('txtSearch').value == ""){
-				$('clearQuery').style.visibility = 'hidden';
+				showTagCloud();
 			}
 			
-			if (data.count > 0){
-				$('tagIndicator').style.visibility = 'visible';
+			if ($('txtSearch').value != ""){
 				$('searchTag_title').innerHTML = '<span class="title_section2">Tag Query:</span>'; 
 				$('tagSearchResults').innerHTML = '<span class="highlight">' + data.count +' tags match your query&nbsp;&nbsp;(<a href="javascript:showTagCloud();">clear query</a>)</span>';
 				$('topTags').innerHTML = data.html;
@@ -313,14 +350,17 @@ CCTAgent.searchTags({cctId:cctId,tag:theTag}, function(data){
 			if (data.count == 0){
 				$('tagSearchResults').innerHTML = "<span class=\"highlight\">No tag matches found! Please try a different search.</span>";
 				$('topTags').innerHTML = "";
+				$('tagIndicator').style.visibility = 'hidden';
 			}
 			
 		}
 	});
 }
+
 function clear_textbox(inputID)
 	{
 		inputID.value = "";
+		inputID.focus();
 		inputID.style.color = "#333";
 	} 
 	
@@ -361,6 +401,8 @@ function editConcern(concernId){
 }
 
 function editTagsPopup(concernId){
+		tagHolderId = 1;
+		
 		CCTAgent.getConcernById(concernId, function (data) {
 		if (data.successful){
 			
@@ -369,14 +411,15 @@ function editTagsPopup(concernId){
 		os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
 		os += '<h2>Edit My Concern\'s Tags</h2><p></p>';
 		os += '<ul id="editTagsList" class="tagsList"> '+data.id+ '</ul>';
-		os += '<p></p><form name="editTagList" onsubmit="addTagToList(\'editTagsList\',\'theNewTag\'); return false;"><input type="text" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="submit" name="addTag" id="addTag" value="Add Tag!"></p>';
+		os += '<p></p><form name="editTagList" onsubmit="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\'); return false;"><input type="text" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="submit" name="addTag" id="addTag" value="Add Tag!"></p>';
 		//os += '<a href="javascript:editTags('+concernId+');">TestIt</a>';
+		os += '<div style="display: none;" id="editTagValidation"></div>';
 		os += '<hr><input type="button" value="Submit Edits" onClick="editTags('+concernId+')">';
 		os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')"></form>';
 			$('lightbox').innerHTML = os;
 			var str= "";
 			for(i=0; i < data.concern.tags.length; i++){
-				str += '<li id="tag'+data.concern.tags[i].tag.id+'" class="tagsList">'+ data.concern.tags[i].tag.name +'&nbsp;<a href="javascript:removeFromList(\'editTagsList\',\'tag'+data.concern.tags[i].tag.id+'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></li>';
+				str += '<li id="tag'+data.concern.tags[i].tag.id+'" class="tagsList">'+ data.concern.tags[i].tag.name +'&nbsp;<a href="javascript:removeFromGeneratedTags(\'' + data.concern.tags[i].tag.name + '\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></li>';
 				concernTags += data.concern.tags[i].tag.name + ',';
 			}
 			document.getElementById('editTagsList').innerHTML = str;
@@ -432,7 +475,7 @@ function delConcern(concernId){
 				<input type="text" value="Search LIT!" ID="tbx1" class="tbx1_default" onfocus="clear_textbox(this)" onmouseover="this.className='tbx1_hover';" onmouseout="this.className='tbx1_default';"/>&nbsp;<img src="/images/search.gif">
 			</form>	
 	</div>
-	<div id="mainNav"><span class="active">LIT Process</span>&nbsp;&nbsp;|&nbsp;&nbsp;MyLIT&nbsp;&nbsp;|&nbsp;&nbsp;Discussion&nbsp;&nbsp;|&nbsp;&nbsp;Advanced Search&nbsp;&nbsp;|&nbsp;&nbsp;Help&nbsp;&nbsp;</div>
+	<div id="mainNav">Home&nbsp;&nbsp;|&nbsp;&nbsp;<span class="active">Current Task</span>&nbsp;&nbsp;|&nbsp;&nbsp;Discussion&nbsp;&nbsp;|&nbsp;&nbsp;Maps&nbsp;&nbsp;|&nbsp;&nbsp;Library&nbsp;&nbsp;</div>
 </div>
 <!-- LIGHTBOX -->
 <div id="overlay"></div>
@@ -458,26 +501,26 @@ function delConcern(concernId){
 
   
  <div id="slate">
-  		<h2>Add your concern</h2><br>What is one of your concerns about the Central Puget Sound Transportation System?  View examples of concerns in the right column (concerns tab).
-		    <form name="brainstorm" method="post" onSubmit="addTagToList('tagsList', 'theTag'); return false;">
+  		<h2>Add your concern</h2><br>What is one of your concerns about the Central Puget Sound Transportation System?  View examples of concerns in the right column (<a href="javascript:tabFocus(1);">concerns tab</a>).
+		    <form name="brainstorm" method="post" onSubmit="addTagToList('tagsList', 'theTag', 'tagValidation'); return false;">
 			      <p><textarea class="textareaAddConcern" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
 			      <p class="indent">
 				      <input type="button" id="btnContinue" name="Continue" value="Continue" onclick="prepareConcern();">
 				      <input type="reset" name="Reset" value="Reset" onClick="resetForm();"> 
 				      <span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>
 			      </p>
-			      <div style="display: none; padding-left: 20px;" id="validation"></div>
-			  
+			      <div style="display: none;" id="validation"></div>
 				    <div id="tagConcerns" style="display: none;">
-						    <div id="tags" style="background-color: #FFF; border: 5Px solid #BBBBBB; margin:auto; padding: 5px; width: 50%;">
+						    <div id="tags" style="background-color: #FFF; border: 5Px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;">
 						    	<h3>Tag Your Concern</h3>
 						    	<p>The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed). <br><span class="glossary">[ what are <a href="javascript:glossaryPopup('tag');">tags</a>? ]</span></p>
 									<ul class="tagsList" id="tagsList">
 									</ul>	    
 									
-									<p><input type="text" id="theTag" class="tagTextbox" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList('tagsList','theTag');"></p>
+									<p><input type="text" id="theTag" class="tagTextbox" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList('tagsList','theTag','tagValidation');"></p>
+									<div style="display: none; padding-left: 20px;" id="tagValidation"></div>
 									<hr>
-									<span class="title_section">Finished Tagging? <input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></span><input type="button" value="Cancel - back to edit my concern" onclick="javascript:resetForm();">
+									<span class="title_section">Finished Tagging? <br><input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></span><input type="button" value="Cancel - back to edit my concern" onclick="javascript:resetForm();">
 						    </div>
 						    <br>
 				    </div>
