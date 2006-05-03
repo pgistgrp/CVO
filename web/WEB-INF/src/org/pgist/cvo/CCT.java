@@ -1,16 +1,7 @@
 package org.pgist.cvo;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
-
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
 
 import org.pgist.model.PGame;
 
@@ -86,7 +77,7 @@ public class CCT extends PGame {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="root_cat_ref_id" lazy="true"
+     * @hibernate.many-to-one column="root_cat_ref_id" cascade="all" lazy="true"
      */
     public CategoryReference getRootCategory() {
         return rootCategory;
