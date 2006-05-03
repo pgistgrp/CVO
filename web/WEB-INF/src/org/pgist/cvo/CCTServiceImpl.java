@@ -217,6 +217,7 @@ public class CCTServiceImpl implements CCTService {
                     ref.setCctId(cct.getId());
                     cctDAO.save(ref);
                 }
+                cctDAO.save(concern);
                 cctDAO.save(ref);
                 concern.getTags().add(ref);
             }//for
