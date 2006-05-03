@@ -20,6 +20,8 @@ public class CSTAgent {
     
     
     private CCTService cctService = null;
+    
+    private CSTService cstService = null;
 
     private UserDAO userDAO = null;
 
@@ -31,6 +33,16 @@ public class CSTAgent {
      */
     public void setCctService(CCTService cctService) {
         this.cctService = cctService;
+    }
+
+
+    /**
+     * This is not an AJAX service method.
+     *
+     * @param cstService
+     */
+    public void setCstService(CSTService cstService) {
+        this.cstService = cstService;
     }
 
 
@@ -72,7 +84,20 @@ public class CSTAgent {
     public Map getCategories(Map params) {
         Map map = new HashMap();
         
-        
+        Long cctId = new Long((String) params.get("cctId"));
+        try {
+            CCT cct = cctService.getCCTById(cctId);
+            if (cct!=null) {
+                
+            } else {
+                map.put("result", false);
+                map.put("reason", "no such cct!");
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("result", false);
+            map.put("reason", e.getMessage());
+        }
         
         return map;
     }//getCategories()
