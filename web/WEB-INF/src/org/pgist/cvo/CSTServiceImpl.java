@@ -38,15 +38,36 @@ public class CSTServiceImpl implements CSTService {
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
-    
-    
+
+
     /*
      * ------------------------------------------------------------------------
      */
     
     
+    public void save(Category category) throws Exception {
+        cstDAO.save(category);
+    }//save()
+
+
+    public void save(CategoryReference categoryReference) throws Exception {
+        cstDAO.save(categoryReference);
+    }//save()
     
     
+    public CategoryReference getCategoryReferenceById(Long categoryId) throws Exception {
+        return cstDAO.getCategoryReferenceById(categoryId);
+    }//getCategoryReferenceById()
+
+
+    public Category getCategoryByName(String name) throws Exception {
+        return cstDAO.getCategoryByName(name);
+    }//getCategoryByName()
     
     
+    public CategoryReference getCategoryReferenceByName(String name) throws Exception {
+        return cstDAO.getCategoryReferenceByName(name);
+    }//getCategoryReferenceByName()
+
+
 }//class CSTServiceImpl

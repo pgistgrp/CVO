@@ -50,6 +50,15 @@ public interface CVODAO {
     TagReference getTagReferenceById(Long refId) throws Exception;
     
     /**
+     * Get a CategoryReference object with the give categoryId.<br>
+     * 
+     * @param categoryId
+     * @return
+     * @throws Exception
+     */
+    public CategoryReference getCategoryReferenceById(Long categoryId) throws Exception;
+    
+    /**
      * Save the given CCT object to database.<br>
      * If the CCT object is already persisted, update the database; if not, create a new
      * CCT object and insert it to the database.
@@ -90,6 +99,24 @@ public interface CVODAO {
      */
     void save(TagReference ref) throws Exception;
     
+    /**
+     * Save the given CategoryReference object to database.<br>
+     * If the CategoryReference object is already persisted, update the database; if not, create a new
+     * CategoryReference object and insert it to the database.
+     * 
+     * @param ref
+     * @throws Exception
+     */
+    void save(CategoryReference ref) throws Exception;
+    
+    /**
+     * Save the given Category object to database.<br>
+     * If the Category object is already persisted, update the database; if not, create a new
+     * Category object and insert it to the database.
+     * @param category
+     * @throws Exception
+     */
+    void save(Category category) throws Exception;
     
     void refresh(Object object) throws Exception;
     

@@ -31,21 +31,7 @@ public class CCT extends PGame {
     
     private Set tagRefs = new HashSet();
     
-    private static Cache lockCache;
-    
-    
-    static {
-        try {
-            CacheManager manager = CacheManager.getInstance();
-            lockCache = manager.getCache("cctTagMaps");
-            if (lockCache==null) {
-                lockCache = new Cache("cctTagMaps", 50, true, false, 2*3600, 20*60);
-                manager.addCache(lockCache);
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }//static
+    private CategoryReference rootCategory = new CategoryReference();
     
     
     /**
@@ -97,176 +83,19 @@ public class CCT extends PGame {
     }
 
 
-    /*
-     * ------------------------------------------------------------------------
-     */
-    
-    
     /**
-     * Add the given concern and tags to CCT. All tags with be checked if exists in CCT, if
-     * true then the reference times of this tag will be adjusted; if false then a new tag
-     * will be created and the reference times will be set to 1.
+     * @return
      * 
-     * @param concern A Concern object.
-     * @param tags A collection of Tag objects which are related to the given concern.
-     * @return A collection of new tags.
+     * @hibernate.many-to-one column="root_cat_ref_id" lazy="true"
      */
-    public Collection addConcern(Concern concern, Collection tags) throws Exception {
-        List list = new ArrayList(5);
-        
-        HashMap tagMap = null;
-        Element element =  lockCache.get(id);
-        if (element==null) {
-            synchronized (lockCache) {
-                element = lockCache.get(id);
-                if (element==null) {
-                    tagMap = new HashMap();
-                    for (Iterator iter=tagRefs.iterator(); iter.hasNext(); ) {
-                        TagReference tagRef = (TagReference) iter.next();
-                        Tag tag = tagRef.getTag();
-                        tagMap.put(tag.getName(), tagRef);
-                    }//for iter
-                    element = new Element(id, tagMap);
-                    lockCache.put(element);
-                } else {
-                    tagMap = (HashMap) element.getValue();
-                }
-            }//synchronized
-        } else {
-            tagMap = (HashMap) element.getValue();
-        }
-        
-        synchronized(tagMap) {
-            Set cctTags = getTagRefs();
-            for (Iterator iter=tags.iterator(); iter.hasNext(); ) {
-                Tag tag = (Tag) iter.next();
-                TagReference ref = (TagReference) tagMap.get(tag.getName());
-                System.out.println("Reference ---> "+ref);
-                System.out.println(tag.getName()+" ---> "+tagMap);
-                if (ref==null) {
-                    ref = new TagReference();
-                    ref.setCctId(getId());
-                    ref.setTag(tag);
-                    ref.setTimes(1);
-                    cctTags.add(ref);
-                    list.add(tag);
-                    tagMap.put(tag.getName(), ref);
-                } else {
-                    ref.setTimes(ref.getTimes()+1);
-                }
-                concern.getTags().add(ref);
-            }//for iter
-        }//synchronized
-        
-        concerns.add(concern);
-        
-        return list;
-    }//addConcern()
+    public CategoryReference getRootCategory() {
+        return rootCategory;
+    }
 
 
-    public List removeConcern(Concern concern) throws Exception {
-        List list = new ArrayList(10);
-        
-        HashMap tagMap = null;
-        Element element =  lockCache.get(id);
-        if (element==null) {
-            synchronized (lockCache) {
-                element = lockCache.get(id);
-                if (element==null) {
-                    tagMap = new HashMap();
-                    for (Iterator iter=tagRefs.iterator(); iter.hasNext(); ) {
-                        TagReference tagRef = (TagReference) iter.next();
-                        Tag tag = tagRef.getTag();
-                        tagMap.put(tag.getName(), tagRef);
-                    }//for iter
-                    element = new Element(id, tagMap);
-                    lockCache.put(element);
-                } else {
-                    tagMap = (HashMap) element.getValue();
-                }
-            }//synchronized
-        } else {
-            tagMap = (HashMap) element.getValue();
-        }
-        
-        synchronized(tagMap) {
-            Set cctTags = getTagRefs();
-            for (Iterator iter=concern.getTags().iterator(); iter.hasNext(); ) {
-                TagReference ref = (TagReference) iter.next();
-                ref.setTimes(ref.getTimes()-1);
-                if (ref.getTimes()==0) {
-                    cctTags.remove(ref);
-                    list.add(ref);
-                }
-            }//for iter
-            concern.getTags().clear();
-            getConcerns().remove(concern);
-        }//synchronized
-        
-        return list;
-    }//removeConcern()
+    public void setRootCategory(CategoryReference rootCategory) {
+        this.rootCategory = rootCategory;
+    }
 
 
-    public Collection editConcern(Concern concern, Collection tags) throws Exception {
-        Collection list = new HashSet(concern.getTags());
-        List toBeDeleted = new ArrayList(10);
-        
-        HashMap tagMap = null;
-        Element element =  lockCache.get(id);
-        if (element==null) {
-            synchronized (lockCache) {
-                element = lockCache.get(id);
-                if (element==null) {
-                    tagMap = new HashMap();
-                    for (Iterator iter=tagRefs.iterator(); iter.hasNext(); ) {
-                        TagReference tagRef = (TagReference) iter.next();
-                        Tag tag = tagRef.getTag();
-                        tagMap.put(tag.getName(), tagRef);
-                    }//for iter
-                    element = new Element(id, tagMap);
-                    lockCache.put(element);
-                } else {
-                    tagMap = (HashMap) element.getValue();
-                }
-            }//synchronized
-        } else {
-            tagMap = (HashMap) element.getValue();
-        }
-        
-        synchronized(tagMap) {
-            Set cctTags = getTagRefs();
-            concern.getTags().clear();
-            for (Iterator iter=tags.iterator(); iter.hasNext(); ) {
-                Tag tag = (Tag) iter.next();
-                TagReference ref = (TagReference) tagMap.get(tag.getName());
-                concern.getTags().add(ref);
-                if (ref==null) {
-                    ref = new TagReference();
-                    ref.setCctId(getId());
-                    ref.setTag(tag);
-                    ref.setTimes(1);
-                    cctTags.add(ref);
-                    list.add(tag);
-                    tagMap.put(tag.getName(), ref);
-                } else {
-                    list.remove(ref);
-                    ref.setTimes(ref.getTimes()+1);
-                }
-            }//for iter
-            
-            for (Iterator iter=list.iterator(); iter.hasNext(); ) {
-                TagReference ref = (TagReference) iter.next();
-                ref.setTimes(ref.getTimes()-1);
-                if (ref.getTimes()==0) {
-                    cctTags.remove(ref);
-                    tagMap.remove(ref.getTag());
-                    toBeDeleted.add(ref);
-                }
-            }//for iter
-        }//synchronized
-        
-        return toBeDeleted;
-    }//editConcern()
-    
-    
 }//class CCT

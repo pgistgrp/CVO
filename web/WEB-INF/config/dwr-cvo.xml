@@ -10,7 +10,7 @@
     <!-- Beans Convertor -->
 
     <convert converter="bean" match="org.pgist.cvo.CCT">
-      <param name="exclude" value="concerns, tagRefs"/>
+      <param name="exclude" value="concerns, tagRefs, rootCategory"/>
     </convert>
 
     <convert converter="bean" match="org.pgist.cvo.Concern">
@@ -65,6 +65,20 @@
       <include method="deleteTags"/>
       <include method="getConcernsByTag"/>
       <include method="searchTags"/>
+    </create>
+
+
+    <create creator="spring" javascript="CSTAgent">
+      <param name="beanName" value="cstAgent"/>
+      <include method="addCategory"/>
+      <include method="deleteCategory"/>
+      <include method="derelateTag"/>
+      <include method="editCategory"/>
+      <include method="getCategories"/>
+      <include method="getConcerns"/>
+      <include method="getTags"/>
+      <include method="relateTag"/>
+      <include method="saveSummary"/>
     </create>
 
 
