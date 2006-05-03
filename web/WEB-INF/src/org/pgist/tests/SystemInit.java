@@ -20,6 +20,7 @@ import org.pgist.cvo.CCTService;
 import org.pgist.cvo.CVO;
 import org.pgist.cvo.CVODAO1;
 import org.pgist.cvo.Category;
+import org.pgist.cvo.CategoryReference;
 import org.pgist.cvo.Concern;
 import org.pgist.cvo.Tag;
 import org.pgist.cvo.TagReference;
@@ -276,12 +277,18 @@ public class SystemInit extends MatchingTask {
     
     private void initCCT() throws Exception {
         Random random = new Random();
+        
+        CategoryReference catRef = new CategoryReference();
         CCT cct = new CCT();
+        
+        catRef.setCct(cct);
+        
         cct.setCreateTime(new Date());
         cct.setCreator((User) users.get("moderator"));
         cct.setInstruction("This is a test.");
         cct.setName("CCT Test.");
         cct.setPurpose("To test cct.");
+        cct.setRootCategory(catRef);
         
         cctService.save(cct);
         

@@ -25,11 +25,6 @@ public class CCT extends PGame {
     private CategoryReference rootCategory = new CategoryReference();
     
     
-    public CCT() {
-        rootCategory.setCctId(this.getId());
-    }
-    
-    
     /**
      * @return
      * 

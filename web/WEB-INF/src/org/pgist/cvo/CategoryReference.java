@@ -15,7 +15,7 @@ public class CategoryReference {
     
     protected Long id;
     
-    protected Long cctId;
+    protected CCT cct;
     
     protected CategoryReference parent;
     
@@ -45,15 +45,15 @@ public class CategoryReference {
     
     /**
      * @return
-     * @hibernate.property column="cct_id" not-null="true"
+     * @hibernate.many-to-one column="cct_id" lazy="true" class="org.pgist.cvo.CCT" cascade="all"
      */
-    public Long getCctId() {
-        return cctId;
+    public CCT getCct() {
+        return cct;
     }
 
 
-    public void setCctId(Long cctId) {
-        this.cctId = cctId;
+    public void setCct(CCT cct) {
+        this.cct = cct;
     }
 
 
