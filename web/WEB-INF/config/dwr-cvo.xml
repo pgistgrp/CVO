@@ -30,6 +30,11 @@
     </convert>
 
 
+    <convert converter="bean" match="org.pgist.cvo.CategoryReference">
+      <param name="exclude" value="parent, children, tags, cct"/>
+    </convert>
+
+
     <!-- DWR Agents -->
 
     <!--create creator="spring" javascript="CVOAgent">

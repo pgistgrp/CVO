@@ -24,13 +24,14 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
     }//getCategoryByName()
     
     
-    private static final String hql_getCategoryReferenceByName = "from CategoryReference cr where cr.deleted=? and lower(cr.name)=?";
+    private static final String hql_getCategoryReferenceByName = "from CategoryReference cr where cr.deleted=? and cr.cctId=? and lower(cr.name)=?";
     
     
-    public CategoryReference getCategoryReferenceByName(String name) throws Exception {
-        List list = getHibernateTemplate().find(hql_getCategoryByName, new Object[] {
+    public CategoryReference getCategoryReferenceByName(Long cctId, String name) throws Exception {
+        List list = getHibernateTemplate().find(hql_getCategoryReferenceByName, new Object[] {
                 new Boolean(false),
-                name
+                cctId,
+                name,
         });
         if (list.size()>0) return (CategoryReference) list.get(0);
         return null;

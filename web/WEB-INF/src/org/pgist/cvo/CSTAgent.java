@@ -100,14 +100,14 @@ public class CSTAgent {
                 request.setAttribute("cct", cct);
                 request.setAttribute("categories", set);
                 map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/cstCategories.jsp"));
-                map.put("result", true);
+                map.put("successful", true);
             } else {
-                map.put("result", false);
+                map.put("successful", false);
                 map.put("reason", "no such cct!");
             }
         } catch(Exception e) {
             e.printStackTrace();
-            map.put("result", false);
+            map.put("successful", false);
             map.put("reason", e.getMessage());
         }
         
@@ -179,14 +179,14 @@ public class CSTAgent {
                 map.put("html1", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/cstTags1.jsp"));
                 map.put("html2", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/cstTags2.jsp"));
                 
-                map.put("result", true);
+                map.put("successful", true);
             } else {
-                map.put("result", false);
+                map.put("successful", false);
                 map.put("reason", "no such cct!");
             }
         } catch(Exception e) {
             e.printStackTrace();
-            map.put("result", false);
+            map.put("successful", false);
             map.put("reason", e.getMessage());
         }
         
@@ -213,42 +213,21 @@ public class CSTAgent {
     public Map addCategory(Map params) {
         Map map = new HashMap();
         
-        Long cctId = new Long((String) params.get("cctId"));
+        map.put("successful", false);
         try {
-            CCT cct = cctService.getCCTById(cctId);
-            if (cct!=null) {
-                String name = (String) params.get("category");
-                CategoryReference parent = cstService.getCategoryReferenceById(new Long((String)params.get("parentId")));
-                if (parent==null) {
-                    parent = cct.getRootCategory();
-                }
-                
-                CategoryReference categoryReference = cstService.getCategoryReferenceByName(name);
-                if (categoryReference==null) {
-                    Category category = cstService.getCategoryByName(name);
-                    if (category==null) {
-                        category = new Category();
-                        category.setName(name);
-                        cstService.save(category);
-                    }
-                    categoryReference = new CategoryReference();
-                    categoryReference.setCategory(category);
-                    categoryReference.setParent(parent);
-                    parent.getChildren().add(categoryReference);
-                    categoryReference.setCct(cct);
-                }
-                
-                cstService.save(categoryReference);
-                cctService.save(cct);
-                
-                map.put("result", true);
-            } else {
-                map.put("result", false);
-                map.put("reason", "no such cct!");
+            Long cctId = new Long((String) params.get("cctId"));
+            Long parentId = new Long((String)params.get("parentId"));
+            String name = (String) params.get("category");
+            
+            if (name==null || "".equals(name.trim())) {
+                map.put("reason", "can't create a category which name is empty.");
+                return map;
             }
+            
+            cstService.addChildCategoryReference(cctId, parentId, name);
+            map.put("successful", true);
         } catch(Exception e) {
             e.printStackTrace();
-            map.put("result", false);
             map.put("reason", e.getMessage());
         }
         
@@ -275,7 +254,25 @@ public class CSTAgent {
     public Map editCategory(Map params) {
         Map map = new HashMap();
         
-        
+        map.put("successful", false);
+        try {
+            Long cctId = new Long((String) params.get("cctId"));
+            Long categoryId = new Long((String) params.get("categoryId"));
+            String name = (String) params.get("category");
+            
+            if (name==null || "".equals(name.trim())) {
+                map.put("reason", "can't create a category which name is empty.");
+                return map;
+            }
+            
+            cstService.editCategoryReference(cctId, categoryId, name);
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("successful", false);
+            map.put("reason", e.getMessage());
+            return map;
+        }
         
         return map;
     }//editCategory()
@@ -287,6 +284,7 @@ public class CSTAgent {
      * @param params A map contains:<br>
      *         <ul>
      *           <li>cctId - long int, the current CCT instance id</li>
+     *           <li>parentId - long int, id of the parent CategoryReference object</li>
      *           <li>categoryId - long int, id of the CategoryReference object</li>
      *         </ul>
      * @return A map contains:<br>
@@ -299,7 +297,20 @@ public class CSTAgent {
     public Map deleteCategory(Map params) {
         Map map = new HashMap();
         
-        
+        map.put("successful", false);
+        try {
+            Long cctId = new Long((String) params.get("cctId"));
+            Long parentId = new Long((String) params.get("parentId"));
+            Long categoryId = new Long((String) params.get("categoryId"));
+            
+            cstService.deleteCategoryReference(cctId, parentId, categoryId);
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("successful", false);
+            map.put("reason", e.getMessage());
+            return map;
+        }
         
         return map;
     }//deleteCategory()

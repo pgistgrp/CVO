@@ -1,5 +1,7 @@
 package org.pgist.cvo;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -17,7 +19,7 @@ public class CategoryReference {
     
     protected CCT cct;
     
-    protected CategoryReference parent;
+    protected Set parents = new HashSet();
     
     protected SortedSet children = new TreeSet();
     
@@ -59,23 +61,26 @@ public class CategoryReference {
 
     /**
      * @return
-     * @hibernate.many-to-one column="parent_id" lazy="true" class="org.pgist.cvo.CategoryReference" cascade="all"
+     * 
+     * @hibernate.set lazy="true" table="pgist_cvo_catref_catref_link" order-by="child_id"
+     * @hibernate.collection-key column="parent_id"
+     * @hibernate.collection-many-to-many column="child_id" class="org.pgist.cvo.CategoryReference"
      */
-    public CategoryReference getParent() {
-        return parent;
+    public Set getParents() {
+        return parents;
     }
     
     
-    public void setParent(CategoryReference parent) {
-        this.parent = parent;
+    public void setParents(Set parents) {
+        this.parents = parents;
     }
 
 
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="pgist_cvo_catref_catref_link" order-by="tag_id" sort="org.pgist.cvo.TagComparator"
-     * @hibernate.collection-key column="category_id"
+     * @hibernate.set lazy="true" table="pgist_cvo_catref_catref_link" order-by="parent_id"
+     * @hibernate.collection-key column="child_id"
      * @hibernate.collection-many-to-many column="parent_id" class="org.pgist.cvo.CategoryReference"
      */
     public SortedSet getChildren() {
