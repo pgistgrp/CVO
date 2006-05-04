@@ -2,7 +2,9 @@ package org.pgist.cvo;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.pgist.system.UserDAO;
@@ -190,54 +192,63 @@ public class CCTServiceImpl implements CCTService {
         CCT cct = concern.getCct();
         
         synchronized (this) {
-            Set oldTags = new HashSet(concern.getTags());
-            concern.getTags().clear();
+            Map<String, TagReference> oldTags = new HashMap<String, TagReference>();
+            Set<TagReference> tags = concern.getTags();
+            for (TagReference one : tags) {
+                oldTags.put(one.getTag().getName(), one);
+            }
+            tags.clear();
             
             Tag tag = null;
             TagReference ref = null;
             for (String tagName : tagStrs) {
-                tag = analyzer.tagExists(tagName);
-                if (tag!=null) {
-                    tag = cctDAO.getTagById(tag.getId());
-                    ref = cctDAO.getTagReferenceByTagId(cct.getId(), tag.getId());
-                    if (oldTags.contains(ref)) {
-                        oldTags.remove(ref);
+                ref = oldTags.get(tagName);
+                if (ref!=null) {
+                    oldTags.remove(tagName);
+                } else {
+                    tag = analyzer.tagExists(tagName);
+                    if (tag!=null) {
+                        tag = cctDAO.getTagById(tag.getId());
+                        ref = cctDAO.getTagReferenceByTagId(cct.getId(), tag.getId());
+                        if (ref==null) {
+                            ref = new TagReference();
+                            ref.setCctId(cct.getId());
+                            ref.setTag(tag);
+                            ref.setTimes(1);
+                        } else {
+                            ref.setTimes(ref.getTimes()+1);
+                        }
                     } else {
-                        ref.setTimes(ref.getTimes()+1);
+                        tag = new Tag();
+                        tag.setName(tagName);
+                        tag.setDescription(tagName);
+                        tag.setStatus(Tag.STATUS_CANDIDATE);
+                        cctDAO.save(tag);
+                        ref = new TagReference();
+                        ref.setTag(tag);
+                        ref.setTimes(1);
+                        ref.setCctId(cct.getId());
                     }
-                } else {
-                    tag = new Tag();
-                    tag.setName(tagName);
-                    tag.setDescription(tagName);
-                    tag.setStatus(Tag.STATUS_CANDIDATE);
-                    cctDAO.save(tag);
-                    ref = new TagReference();
-                    ref.setTag(tag);
-                    ref.setTimes(1);
-                    ref.setCctId(cct.getId());
                     cctDAO.save(ref);
                 }
-                cctDAO.save(concern);
-                cctDAO.save(ref);
-                concern.getTags().add(ref);
+                tags.add(ref);
             }//for
             
-            for (Object object : oldTags) {
-                ref = (TagReference) object;
-                ref.setTimes(ref.getTimes()-1);
-                if (ref.getTimes()<1) {
-                    cctDAO.delete(ref);
+            //Decrease the times of the old tags
+            Collection<TagReference> collection = oldTags.values();
+            for (TagReference one : collection) {
+                one.setTimes(one.getTimes()-1);
+                if (one.getTimes()<1) {
+                    cctDAO.delete(one);
                 } else {
-                    cctDAO.save(ref);
+                    cctDAO.save(one);
                 }
-            }//for
+            }
             
+            concern.setCreateTime(new Date());
+            cctDAO.save(concern);
+            cctDAO.save(cct);
         }//synchronized
-        
-        concern.setCreateTime(new Date());
-        
-        cctDAO.save(concern);
-        cctDAO.save(cct);
     }//editConcernTags()
 
 
