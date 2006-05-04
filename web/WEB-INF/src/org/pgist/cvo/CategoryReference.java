@@ -21,7 +21,7 @@ public class CategoryReference {
     
     protected Set parents = new HashSet();
     
-    protected SortedSet children = new TreeSet();
+    protected Set children = new HashSet();
     
     protected Category category;
     
@@ -62,7 +62,7 @@ public class CategoryReference {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="pgist_cvo_catref_catref_link" order-by="child_id"
+     * @hibernate.set lazy="true" cascade="all" table="pgist_cvo_catref_catref_link" order-by="child_id"
      * @hibernate.collection-key column="parent_id"
      * @hibernate.collection-many-to-many column="child_id" class="org.pgist.cvo.CategoryReference"
      */
@@ -79,16 +79,16 @@ public class CategoryReference {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="pgist_cvo_catref_catref_link" order-by="parent_id"
+     * @hibernate.set lazy="true" cascade="all" table="pgist_cvo_catref_catref_link" order-by="parent_id"
      * @hibernate.collection-key column="child_id"
      * @hibernate.collection-many-to-many column="parent_id" class="org.pgist.cvo.CategoryReference"
      */
-    public SortedSet getChildren() {
+    public Set getChildren() {
         return children;
     }
 
 
-    public void setChildren(SortedSet children) {
+    public void setChildren(Set children) {
         this.children = children;
     }
 
