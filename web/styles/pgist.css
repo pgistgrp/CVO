@@ -1,3 +1,4 @@
+/* ///////////////////////////// GLOBAL ////////////////////////// */
 body{
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
@@ -12,9 +13,11 @@ h1, h2, h3 {
 }
 
 h1 {
-  color:#333;
-  font-size:23px;
-  font-weight: 800;
+	margin-top: 15px;
+	margin-bottom: 0px;
+  color:#87C900;;
+  font-size:2.3em;
+
 }
 
 h2{
@@ -25,7 +28,7 @@ h2{
 h3{
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 18px;
-	color: #333;
+	color: #A7005D;
 	font-weight: 300;
 	letter-spacing:0px;
 }
@@ -56,21 +59,25 @@ p.topBorder {
 
 p.explaination {
 	font-style: italic;
-	color: #333;	
+	color: #A7005D;	
 }
 
-#actionMenu {
+.actionMenu {
 	font-size: 10px;
 	color: #333;
 	width: 350px;
 	font-weight: bold;
 }
 
-a{
+body a{
 	color: #006699;
 	font-weight: bold;
 }
 
+body a:hover{
+	color: #EEE;
+	background-color: #006699;
+}
 
 a:visited{
 	color: #333;
@@ -81,10 +88,10 @@ hr {
 	border-top: 1px solid #006699;
 }
 
-
+/* ///////////////////////////// Text Decoration ////////////////////////// */
 .title_steps {
 	font-size: 18px;
-	color: #999;
+	color: #A7005D;
 	font-weight: 300;
 }
 
@@ -100,7 +107,7 @@ hr {
 .title_section2 {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 18px;
-	color: #333;
+	color: #A7005D;
 	font-weight: 300;
 	letter-spacing:0px;
 	margin-bottom:3px;
@@ -123,6 +130,8 @@ hr {
 	text-decoration: underline;
 }
 
+/* ///////////////////////////// Header ////////////////////////// */
+
 #decorBar {
 	width: 100%;
 	border-top: thick solid #006699;
@@ -134,6 +143,7 @@ hr {
 
 
 #header {
+
 	width: 50%;
 	height: 93px;
 	float: left;
@@ -141,6 +151,12 @@ hr {
 	background-repeat: repeat;
 	margin: 0;
 	padding: 0;
+}
+
+#pageTitle{
+	clear: both;
+	padding-top: 10px;
+	padding-bottom: 5px;
 }
 
 #searchNavContiner{
@@ -179,21 +195,12 @@ hr {
 	color: #FFFF00;
 }
 
-.tbx1_default
-{
-	background: #EEE;
-	color: #AAA;
-	border:1px solid #aaa;
-	height:16px;
-	width:200px;
-	padding: 3px;
-}
-.tbx1_hover
-{
+.searchBox{
 	background: #FFF;
-	color: #333;
-	border:1px solid green;
-	height:16px;
+	color: #AAA;
+	border:1px solid #CCC;
+	height:18px;
+	font-size: 16px;
 	width:200px;
 	padding: 3px;
 }
@@ -206,24 +213,18 @@ hr {
 	width: 100%;
 	clear: both;
 }
-#bread {
-	color: #AAAAAA;
+#bread{
+	margin: 0;
 }
 
-#bread a{
-	color: #AAAAAA;
-	text-decoration: none;
-}
-
-#bread a:hover{
-	color: #eee;
-}
 
 #bread ul {
+	margin-top: 0;
 	margin-left: 0;
 	padding-left: 0;
 	display: inline;
 	border: none;
+
 	} 
 
 #bread ul li {
@@ -232,6 +233,12 @@ hr {
 	list-style: none;
 	display: inline;
 	}
+	
+#bread ul li a{
+	font-size: 10px;
+	color: #006699;
+	font-weight: bold;
+}
 
 #bread-gen ul li:before {
 	content: "\0020 \0020 \0020 \00BB \0020";
@@ -241,6 +248,8 @@ hr {
 #bread-gen ul li.first:before {
 	content: " ";
 	}
+
+/* ///////////////////////////// SLATE ////////////////////////// */
 	
 ul.tagsList{
 	margin: 0;
@@ -286,7 +295,7 @@ li.tagsList{
 	float: right;
 	position: relative;
 }	
-	
+
 #validation{
 	font-size: 14px;
 	color: red;	
@@ -304,23 +313,8 @@ li.tagsList{
 	position: relative;
 	top: 30px;
 }
-#footer {
-	width: 100%;
-	height: 67px;
-	float: right;
-	background-image: url(/images/footer_background.jpg);
-	background-repeat: repeat;
-	margin: 0;
-	padding: 0;
-}
 
-#nsf {
-	width:100%;
-	background-color:#EEEEEE;
-	clear: both;
-	font-size: 10px;
-	color:#666666;
-	}
+
 
 .textareaAddConcern{
 	font-family: Arial, Helvetica, sans-serif;
@@ -524,7 +518,7 @@ width: 20px
 #slateRounded br{
 	display: none;
 }
-/* /////////////////////////////  ////////////////////////// */
+/* /////////////////////////////  Tags and Concerns////////////////////////// */
 
 .smallHelp {
 	font-size: .85em;
@@ -568,7 +562,6 @@ width: 20px
 	text-decoration: none;
 	margin-right: 3px;
 }
-
 
 .tagSize1 a{
 	font-size: 14px;
@@ -635,6 +628,9 @@ width: 20px
 	position:fixed;
 }
 
+
+/* ///////////////////////////// LIGHTBOX ////////////////////////// */
+
 #lightbox.done #lbLoadMessage{
 	display:none;
 }
@@ -669,7 +665,23 @@ width: 20px
 	border-bottom: 1px dotted #333;
 }
 
-a:hover{
-	color: #EEEEEE;
-	background-color: #006699;
+
+
+/* ///////////////////////////// FOOTER ////////////////////////// */
+#footer {
+	width: 100%;
+	height: 67px;
+	float: right;
+	background-image: url(/images/footer_background.jpg);
+	background-repeat: repeat;
+	margin: 0;
+	padding: 0;
+}
+
+#nsf {
+	width:100%;
+	background-color:#EEEEEE;
+	clear: both;
+	font-size: 10px;
+	color:#666666;
 }
