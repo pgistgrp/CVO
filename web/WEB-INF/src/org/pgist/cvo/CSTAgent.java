@@ -335,7 +335,20 @@ public class CSTAgent {
     public Map relateTag(Map params) {
         Map map = new HashMap();
         
-        
+        map.put("successful", false);
+        try {
+            Long cctId = new Long((String) params.get("cctId"));
+            Long categoryId = new Long((String) params.get("categoryId"));
+            Long tagId = new Long((String) params.get("tagId"));
+            
+            cstService.relateTagToCategory(cctId, categoryId, tagId);
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("successful", false);
+            map.put("reason", e.getMessage());
+            return map;
+        }
         
         return map;
     }//relateTag()
@@ -360,7 +373,20 @@ public class CSTAgent {
     public Map derelateTag(Map params) {
         Map map = new HashMap();
         
-        
+        map.put("successful", false);
+        try {
+            Long cctId = new Long((String) params.get("cctId"));
+            Long categoryId = new Long((String) params.get("categoryId"));
+            Long tagId = new Long((String) params.get("tagId"));
+            
+            cstService.deleteTagFromCategory(cctId, categoryId, tagId);
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("successful", false);
+            map.put("reason", e.getMessage());
+            return map;
+        }
         
         return map;
     }//derelateTag()

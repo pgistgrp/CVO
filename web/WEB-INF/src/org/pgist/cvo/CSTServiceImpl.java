@@ -162,4 +162,44 @@ public class CSTServiceImpl implements CSTService {
     }//deleteCategoryReference()
 
 
+    public void relateTagToCategory(Long cctId, Long catRefId, Long tagRefId) throws Exception {
+        CCT cct = cctDAO.getCCTById(cctId);
+        if (cct==null) throw new Exception("no such cct.");
+        
+        CategoryReference catRef = cstDAO.getCategoryReferenceById(catRefId);
+        if (catRef==null) throw new Exception("no such category reference.");
+        
+        TagReference tagRef = cstDAO.getTagReferenceById(tagRefId);
+        if (tagRef==null) throw new Exception("no such tag reference.");
+        
+        if (catRef.getCct().getId().longValue()!=cct.getId().longValue()) throw new Exception("no such category reference in this cct.");
+        
+        if (tagRef.getCctId().longValue()!=cct.getId().longValue()) throw new Exception("no such tag reference in this cct.");
+        
+        catRef.getTags().add(tagRef);
+        
+        cstDAO.save(catRef);
+    }//relateTagToCategory()
+
+
+    public void deleteTagFromCategory(Long cctId, Long catRefId, Long tagRefId) throws Exception {
+        CCT cct = cctDAO.getCCTById(cctId);
+        if (cct==null) throw new Exception("no such cct.");
+        
+        CategoryReference catRef = cstDAO.getCategoryReferenceById(catRefId);
+        if (catRef==null) throw new Exception("no such category reference.");
+        
+        TagReference tagRef = cstDAO.getTagReferenceById(tagRefId);
+        if (tagRef==null) throw new Exception("no such tag reference.");
+        
+        if (catRef.getCct().getId().longValue()!=cct.getId().longValue()) throw new Exception("no such category reference in this cct.");
+        
+        if (tagRef.getCctId().longValue()!=cct.getId().longValue()) throw new Exception("no such tag reference in this cct.");
+        
+        catRef.getTags().remove(tagRef);
+        
+        cstDAO.save(catRef);
+    }//deleteTagFromCategory()
+
+
 }//class CSTServiceImpl

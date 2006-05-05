@@ -20,6 +20,10 @@ public interface CSTService {
     void editCategoryReference(Long cctId, Long catRefId, String name) throws Exception;
 
     void deleteCategoryReference(Long cctId, Long parentId, Long categoryId) throws Exception;
+
+    void relateTagToCategory(Long cctId, Long categoryId, Long tagId) throws Exception;
+
+    void deleteTagFromCategory(Long cctId, Long categoryId, Long tagId) throws Exception;
     
     
 }//interface CSTService
