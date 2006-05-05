@@ -12,7 +12,7 @@ Click on any of these tags to view the concerns attached to each tag.  Use these
 		</div>
 		<div id="searchTag_form">
 				<form name="searchTags" method="post" onSubmit="tagSearch($('txtSearch').value); return false;">
-					<input type="text" id="txtSearch" name="txtSearch" class="searchTagTextbox" value=" tag search" onfocus="clear_textbox(this);" onkeyup="tagSearch($('txtSearch').value);"><div id="tagIndicator" style="visibility:hidden;"><img src="/images/indicator.gif"></div>
+					<input type="text" id="txtSearch" name="txtSearch" style="padding-left: 1px; padding-right:20px; background: url('/images/search_light.gif') no-repeat right;"  class="searchTagTextbox" value="Tag Search" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" onkeyup="tagSearch($('txtSearch').value);"><div id="tagIndicator" style="visibility:hidden;"><img src="/images/indicator.gif"></div>
 				</form>			
 		</div>
 </div>

@@ -337,7 +337,11 @@ CCTAgent.searchTags({cctId:cctId,tag:theTag}, function(data){
 				//$('myTab').tabber.tabShow(1);
 			//}
 			if ($('txtSearch').value == ""){
-				showTagCloud();
+				$('searchTag_title').innerHTML = '<span class="title_section2">Tag Query:</span>'; 
+				$('topTags').innerHTML = "";
+				$('tagSearchResults').innerHTML = '<span class="highlight">Please type in your query or <a href="javascript:showTagCloud();">clear query</a>&nbsp;to view top tags again.</span>';
+			  $('tagIndicator').style.visibility = 'hidden';
+			  
 			}
 			
 			if ($('txtSearch').value != ""){
@@ -348,7 +352,7 @@ CCTAgent.searchTags({cctId:cctId,tag:theTag}, function(data){
 			}
 			
 			if (data.count == 0){
-				$('tagSearchResults').innerHTML = "<span class=\"highlight\">No tag matches found! Please try a different search.</span>";
+				$('tagSearchResults').innerHTML = '<span class=\"highlight\">No tag matches found! Please try a different search or <a href="javascript:showTagCloud();">clear the query</a>&nbsp;to view top tags again.</span>';
 				$('topTags').innerHTML = "";
 				$('tagIndicator').style.visibility = 'hidden';
 			}
@@ -357,13 +361,7 @@ CCTAgent.searchTags({cctId:cctId,tag:theTag}, function(data){
 	});
 }
 
-function clear_textbox(inputID)
-	{
-		inputID.value = "";
-		inputID.focus();
-		inputID.style.color = "#333";
-	} 
-	
+
 function lightboxDisplay(action){
 	$('overlay').style.display = action;
 	$('lightbox').style.display = action;
@@ -473,7 +471,7 @@ function delConcern(concernId){
 <div id="searchNavContiner">
 	<div id="mainSearch">
 			<form name="mainSearch" method="post" onSubmit="search();">
-				<input type="text" value="Search LIT!" ID="tbx1" class="tbx1_default" onfocus="clear_textbox(this)" onmouseover="this.className='tbx1_hover';" onmouseout="this.className='tbx1_default';"/>&nbsp;<img src="/images/search.gif">
+				<input type="text" ID="tbx1" class="searchBox" style="padding-left: 5px; padding-right:20px; background: url('/images/search.gif') no-repeat right;" value="Search" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;"/>
 			</form>	
 	</div>
 	<div id="mainNav">Home&nbsp;&nbsp;&nbsp;&nbsp;<span class="active">Current Task</span>&nbsp;&nbsp;&nbsp;&nbsp;Discussion&nbsp;&nbsp;&nbsp;&nbsp;Maps&nbsp;&nbsp;&nbsp;&nbsp;Library&nbsp;&nbsp;</div>
@@ -481,8 +479,9 @@ function delConcern(concernId){
 <!-- LIGHTBOX -->
 <div id="overlay"></div>
 <div id="lightbox"></div>
-<div id="navigation">
-	<div id="bread">
+<!-- LIGHTBOX -->
+<div id="pageTitle">
+		<div id="bread">
 	<ul>
 		<li class="first"><a href="null">LIT Process</a>
 			<ul>
@@ -491,10 +490,9 @@ function delConcern(concernId){
 		</li>
 	</ul>
 	</div>
-</div>
-<br>
+<h1>Current Task: Brainstorm Concerns</h1>
+</div>	
 
-<h1>Brainstorm Concerns</h1>&nbsp;&nbsp;<span class="title_steps">Step 1 of 7</span>
   <div id="overview"><h3>Overview and Instructions</h3> 
   	<p><strong>Overview: </strong>${cctForm.cct.purpose}</p>
   	<p><strong>Instructions: </strong>${cctForm.cct.instruction}</p>
