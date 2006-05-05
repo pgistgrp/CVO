@@ -3,7 +3,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <logic:notEqual name="showTitle" value="true">
 		<logic:notEqual name="showIcon" value="true">
-			<span class="title_section">Other Participant's Concerns</span>
+			<span class="title_section2">Other Participant's Concerns</span>
 			<br>
 		  To help you create your concerns, below are examples of other participant concerns in random order.  Use the buttons on the bottom of this column to view more pages of random concerns.
 			<p></p>

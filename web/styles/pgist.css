@@ -6,35 +6,43 @@ body{
 }
 
 h1, h2, h3 {
+	font-family: "Trebuchet MS", Arial, Verdana, sans-serif;
   letter-spacing:-1px;
   margin:15px 0 0 0;
   margin-top:0px;
   display:inline;
+  font-weight: 300;
 }
 
 h1 {
+
 	margin-top: 15px;
 	margin-bottom: 0px;
-  color:#87C900;;
+  color:#8DAD1F;;
   font-size:2.3em;
+}
 
+.title_page{
+	font-family: "Trebuchet MS", Arial, Verdana, sans-serif;
+	margin-top: 15px;
+	margin-bottom: 0px;
+  color:#999;;
+  font-size:2.3em;
+  letter-spacing:-1px;
 }
 
 h2{
-  color:#06c;
+  color:#666;
   margin-bottom:3px;
+  font-size: 1.5em;
 }
 
 h3{
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 18px;
-	color: #A7005D;
-	font-weight: 300;
-	letter-spacing:0px;
+  font-size: 1.5em;
+	color: #999;
 }
 
 p {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
 	color: #333;
@@ -53,7 +61,7 @@ p.indent{
 }
 
 p.topBorder {
-	border-top: 1px solid #006699;
+	border-top: 1px solid #06c;
 	padding-bottom: 5px;
 }
 
@@ -69,18 +77,23 @@ p.explaination {
 	font-weight: bold;
 }
 
+.actionMenu a{
+	font-size: 10px;
+	color: #06c;
+}
+
 body a{
-	color: #006699;
+	color: #333;
 	font-weight: bold;
 }
 
 body a:hover{
 	color: #EEE;
-	background-color: #006699;
+	background-color: #06c;
 }
 
 a:visited{
-	color: #333;
+	color: #006699;
 }
 
 
@@ -91,35 +104,39 @@ hr {
 /* ///////////////////////////// Text Decoration ////////////////////////// */
 .title_steps {
 	font-size: 18px;
-	color: #A7005D;
+	color: #888;
 	font-weight: 300;
 }
 
 .title_section {
+	font-family: "Trebuchet MS", Arial, Verdana, sans-serif;
   letter-spacing:-1px;
   margin:15px 0 0 0;
   margin-top:0px;
-  color:#06c;
+  color:#999;
   margin-bottom:3px;
-  font-size: 16px;
-  font-weight: bold;
+   font-size: 1.5em;
+  font-weight: 300;
 }
 .title_section2 {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 18px;
-	color: #A7005D;
+	font-family: "Trebuchet MS", Arial, Verdana, sans-serif;
+  font-size: 1.5em;
+	color: #666;
 	font-weight: 300;
-	letter-spacing:0px;
+	letter-spacing:-1px;
 	margin-bottom:3px;
 }
 
 .participantName {
-	color: #90B021;
+	font-family: "Trebuchet MS", Arial, Verdana, sans-serif;
+	font-weight: 300;
+	letter-spacing:-1px;
+	color: #8DAD1F;
 	font-size: 15px;	
 }
 
 .participantName a{
-	color: #90B021;
+	color: #8DAD1F;
 	font-size: 15px;
 	text-decoration: underline;
 }
@@ -134,10 +151,10 @@ hr {
 
 #decorBar {
 	width: 100%;
-	border-top: thick solid #006699;
+	border-top: thick solid #06c;
 	left: 0px;
 	top: 0px;
-	height: 3px;
+	height: 5px;
 	position: absolute;
 }
 
@@ -186,13 +203,13 @@ hr {
 	height: 20px;
   position: absolute;
   bottom: 0;
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 14px;
   text-align: right; 
 }
 
 #mainNav .active{
-	color: #FFFF00;
+	color: #FFF;
+	font-weight: bold;
 }
 
 .searchBox{
@@ -236,8 +253,12 @@ hr {
 	
 #bread ul li a{
 	font-size: 10px;
-	color: #006699;
+	color: #999;
 	font-weight: bold;
+}
+
+#bread ul li a:hover{
+	color:#EEE;
 }
 
 #bread-gen ul li:before {
@@ -278,6 +299,7 @@ li.tagsList{
 	width: 99%;
   padding: 5px;
 }
+
 
 #slate {
 	border: 1px solid #CCCCCC;
@@ -330,7 +352,7 @@ li.tagsList{
 
 .searchTagTextbox{
 	position: absolute;
-	left: 0;
+	right: 0;
 	font-size: 14px;
 	color: #AAA;
 	width: 70%;
@@ -396,7 +418,7 @@ li.tagsList{
 
 .prevNext a:hover{
 	color: #EEE;
-	background: #006699;
+	background: #06c;
 }
 
 #searchTag_container{
@@ -484,7 +506,7 @@ li.tagsList{
 .title_form {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 23px;
-	color: #006699;
+	color: #06c;
 	font-weight: bold;	
 }
 
@@ -549,6 +571,7 @@ width: 20px
 
 .myConcerns{
 	font-size: 16px;
+	color: #A7005D;
 }
 
 

@@ -481,7 +481,8 @@ function delConcern(concernId){
 <div id="lightbox"></div>
 <!-- LIGHTBOX -->
 <div id="pageTitle">
-		<div id="bread">
+<span class="title_page">Current Task: </span><h1>Brainstorm Concerns</h1>
+	<div id="bread">
 	<ul>
 		<li class="first"><a href="null">LIT Process</a>
 			<ul>
@@ -490,13 +491,13 @@ function delConcern(concernId){
 		</li>
 	</ul>
 	</div>
-<h1>Current Task: Brainstorm Concerns</h1>
 </div>	
 
-  <div id="overview"><h3>Overview and Instructions</h3> 
-  	<p><strong>Overview: </strong>${cctForm.cct.purpose}</p>
-  	<p><strong>Instructions: </strong>${cctForm.cct.instruction}</p>
-  </div>
+  <div id="overview">
+	  	<h3>Overview and Instructions</h3> 
+	  	<p><strong>Overview: </strong>${cctForm.cct.purpose}</p>
+	  	<p><strong>Instructions: </strong>${cctForm.cct.instruction}</p>
+ </div>
 
   
  <div id="slate">

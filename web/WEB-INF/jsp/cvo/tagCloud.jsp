@@ -3,12 +3,12 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 
 <h2>Tags</h2>
-<span class="title_section">Tag Cloud</span><br>
+<span class="title_section2">Tag Cloud</span><br>
 Click on any of these tags to view the concerns attached to each tag.  Use these tags to help you navigate and find other participant's concerns to help you create your own!<p></p>
 
 <div id="searchTag_container">
 		<div id="searchTag_title">
-				<span class="title_section2">Top 25 Tags</span>
+				<span class="title_section">Top 25 Tags</span>
 		</div>
 		<div id="searchTag_form">
 				<form name="searchTags" method="post" onSubmit="tagSearch($('txtSearch').value); return false;">
