@@ -1,9 +1,12 @@
 package org.pgist.cvo;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.pgist.system.UserDAO;
+import org.pgist.util.PageSetting;
 
 
 /**
@@ -200,6 +203,33 @@ public class CSTServiceImpl implements CSTService {
         
         cstDAO.save(catRef);
     }//deleteTagFromCategory()
+
+
+    public Object[] getConcernsByTag(Long cctId, Long tagRefId, PageSetting setting) throws Exception {
+        Object[] values = new Object[3];
+        
+        CCT cct = cctDAO.getCCTById(cctId);
+        if (cct==null) throw new Exception("no such cct.");
+        values[0] = cct;
+        
+        TagReference tagRef = cstDAO.getTagReferenceById(tagRefId);
+        if (tagRef==null) throw new Exception("no such tag reference.");
+        
+        if (tagRef.getCctId().longValue()!=cct.getId().longValue()) throw new Exception("no such tag reference in this cct.");
+        values[1] = tagRef;
+        
+        values[2] = cstDAO.getConcernsByTag(cctId, tagRefId, setting);
+        
+        return values;
+    }//getConcernsByTag()
+
+
+    public void saveSummary(Long cctId, String summary) throws Exception {
+        CCT cct = cctDAO.getCCTById(cctId);
+        if (cct==null) throw new Exception("no such cct.");
+        
+        //TODO finish saving summary
+    }//saveSummary()
 
 
 }//class CSTServiceImpl

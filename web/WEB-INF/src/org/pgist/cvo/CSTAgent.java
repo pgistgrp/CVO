@@ -1,5 +1,6 @@
 package org.pgist.cvo;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.pgist.system.UserDAO;
+import org.pgist.util.PageSetting;
 
 import uk.ltd.getahead.dwr.WebContextFactory;
 
@@ -416,10 +418,39 @@ public class CSTAgent {
      *         </ul>
      * @throws Exception
      */
-    public Map getConcerns(Map params) {
+    public Map getConcerns(HttpServletRequest request, Map params) {
         Map map = new HashMap();
         
-        
+        map.put("successful", false);
+        try {
+            Long cctId = new Long((String) params.get("cctId"));
+            Long tagId = new Long((String) params.get("tagId"));
+            
+            int page = 1;
+            try {
+                String pageStr = (String) params.get("page");
+                page = Integer.parseInt(pageStr);
+            } catch(Exception e) {
+            }
+            
+            PageSetting setting = new PageSetting(20);
+            setting.setPage(page);
+            
+            Object[] values = cstService.getConcernsByTag(cctId, tagId, setting);
+            
+            request.setAttribute("cct", values[0]);
+            request.setAttribute("tag", values[1]);
+            request.setAttribute("concerns", values[2]);
+            
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/cstConcerns.jsp"));
+            
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("successful", false);
+            map.put("reason", e.getMessage());
+            return map;
+        }
         
         return map;
     }//getConcerns()
@@ -443,7 +474,20 @@ public class CSTAgent {
     public Map saveSummary(Map params) {
         Map map = new HashMap();
         
-        
+        map.put("successful", false);
+        try {
+            Long cctId = new Long((String) params.get("cctId"));
+            String summary = (String) params.get("summary");
+            
+            cstService.saveSummary(cctId, summary);
+            
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("successful", false);
+            map.put("reason", e.getMessage());
+            return map;
+        }
         
         return map;
     }//saveSummary()

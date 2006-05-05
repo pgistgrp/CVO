@@ -1,5 +1,9 @@
 package org.pgist.cvo;
 
+import java.util.Collection;
+
+import org.pgist.util.PageSetting;
+
 
 /**
  * 
@@ -24,6 +28,10 @@ public interface CSTService {
     void relateTagToCategory(Long cctId, Long categoryId, Long tagId) throws Exception;
 
     void deleteTagFromCategory(Long cctId, Long categoryId, Long tagId) throws Exception;
+
+    Object[] getConcernsByTag(Long cctId, Long tagId, PageSetting setting) throws Exception;
+
+    void saveSummary(Long cctId, String summary) throws Exception;
     
     
 }//interface CSTService
