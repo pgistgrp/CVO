@@ -9,7 +9,6 @@ import java.util.Set;
 
 import org.pgist.system.UserDAO;
 import org.pgist.users.User;
-import org.pgist.users.UserInfo;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 
@@ -245,6 +244,8 @@ public class CCTServiceImpl implements CCTService {
             Tag tag = null;
             TagReference ref = null;
             for (String tagName : tagStrs) {
+                if (tagName==null || "".equals(tagName.trim())) continue;
+                
                 ref = oldTags.get(tagName);
                 if (ref!=null) {
                     oldTags.remove(tagName);
