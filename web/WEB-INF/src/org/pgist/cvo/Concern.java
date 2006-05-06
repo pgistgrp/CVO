@@ -49,7 +49,7 @@ public class Concern {
 
     /**
      * @return
-     * @hibernate.property
+     * @hibernate.property type="text"
      */
     public String getContent() {
         return content;

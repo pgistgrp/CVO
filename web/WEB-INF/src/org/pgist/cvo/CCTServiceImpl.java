@@ -85,6 +85,14 @@ public class CCTServiceImpl implements CCTService {
                 tag = analyzer.tagExists(tagName);
                 if (tag!=null) {
                     ref = cctDAO.getTagReferenceByTagId(cct.getId(), tag.getId());
+                    if (ref==null) {
+                        ref = new TagReference();
+                        ref.setCctId(cct.getId());
+                        ref.setTag(tag);
+                        ref.setTimes(1);
+                    } else {
+                        ref.setTimes(ref.getTimes()+1);
+                    }
                 } else {
                     tag = new Tag();
                     tag.setName(tagName);
@@ -96,11 +104,10 @@ public class CCTServiceImpl implements CCTService {
                     
                     ref = new TagReference();
                     ref.setTag(tag);
-                    ref.setTimes(0);
+                    ref.setTimes(1);
                     ref.setCctId(cct.getId());
                     cctDAO.save(ref);
                 }
-                ref.setTimes(ref.getTimes()+1);
                 cctDAO.save(ref);
                 concern.getTags().add(ref);
             }//for

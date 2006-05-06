@@ -10,28 +10,28 @@
     <!-- Beans Convertor -->
 
     <convert converter="bean" match="org.pgist.cvo.CCT">
-      <param name="exclude" value="concerns, tagRefs, rootCategory"/>
+      <param name="include" value="id, name, purpose, instruction, creator, createTime"/>
     </convert>
 
     <convert converter="bean" match="org.pgist.cvo.Concern">
-      <param name="exclude" value="cct"/>
+      <param name="include" value="id, content, author, createTime, deleted"/>
     </convert>
 
     <convert converter="bean" match="org.pgist.cvo.Tag">
-      <param name="exclude" value="categories"/>
+      <param name="include" value="id, name, description, status, count"/>
     </convert>
 
     <convert converter="bean" match="org.pgist.cvo.TagReference">
-      <param name="exclude" value="cct"/>
+      <param name="include" value="id, tag, times, cctId"/>
     </convert>
 
     <convert converter="bean" match="org.pgist.cvo.Category">
-      <param name="exclude" value="parent, children, tags"/>
+      <param name="include" value="id, name, deleted"/>
     </convert>
 
 
     <convert converter="bean" match="org.pgist.cvo.CategoryReference">
-      <param name="exclude" value="parent, children, tags, cct"/>
+      <param name="include" value="id, category"/>
     </convert>
 
 
