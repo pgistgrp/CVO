@@ -469,6 +469,7 @@ function delConcern(concernId){
 <div id="container">
 <div id="header"><img src="/images/logo.jpg"></div>
 <div id="searchNavContiner">
+	<div id="authentication">Welcome, ${BaseUser.Firstname} [&nbsp;<a href="/logout.do">logout</a>&nbsp;]</div>
 	<div id="mainSearch">
 			<form name="mainSearch" method="post" onSubmit="search();">
 				<input type="text" ID="tbx1" class="searchBox" style="padding-left: 5px; padding-right:20px; background: url('/images/search.gif') no-repeat right;" value="Search" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;"/>
@@ -495,8 +496,8 @@ function delConcern(concernId){
 
   <div id="overview">
 	  	<h3>Overview and Instructions</h3> 
-	  	<p><strong>Overview: </strong>${cctForm.cct.purpose}</p>
-	  	<p><strong>Instructions: </strong>${cctForm.cct.instruction}</p>
+	  	<p class="indent"><strong>Overview: </strong>${cctForm.cct.purpose}</p>
+	  	<p class="indent"><strong>Instructions: </strong>${cctForm.cct.instruction}</p>
  </div>
 
   

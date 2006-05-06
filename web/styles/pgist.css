@@ -11,7 +11,7 @@ h1, h2, h3 {
   margin:15px 0 0 0;
   margin-top:0px;
   display:inline;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 h1 {
@@ -32,13 +32,13 @@ h1 {
 }
 
 h2{
-  color:#666;
+  color:#888;
   margin-bottom:3px;
-  font-size: 1.5em;
+  font-size: 1.7em;
 }
 
 h3{
-  font-size: 1.5em;
+  font-size: 1.7em;
 	color: #999;
 }
 
@@ -113,24 +113,21 @@ hr {
   letter-spacing:-1px;
   margin:15px 0 0 0;
   margin-top:0px;
-  color:#999;
+  color:#06c;
   margin-bottom:3px;
-   font-size: 1.5em;
+  font-size: 1.5em;
   font-weight: 300;
 }
 .title_section2 {
 	font-family: "Trebuchet MS", Arial, Verdana, sans-serif;
   font-size: 1.5em;
-	color: #666;
+	color: #999;
 	font-weight: 300;
 	letter-spacing:-1px;
 	margin-bottom:3px;
 }
 
 .participantName {
-	font-family: "Trebuchet MS", Arial, Verdana, sans-serif;
-	font-weight: 300;
-	letter-spacing:-1px;
 	color: #8DAD1F;
 	font-size: 15px;	
 }
@@ -148,6 +145,10 @@ hr {
 }
 
 /* ///////////////////////////// Header ////////////////////////// */
+
+#authentication{
+	padding-top: 10px;
+}
 
 #decorBar {
 	width: 100%;
@@ -203,12 +204,12 @@ hr {
 	height: 20px;
   position: absolute;
   bottom: 0;
-  font-size: 14px;
+  font-size: 12px;
   text-align: right; 
 }
 
 #mainNav .active{
-	color: #FFF;
+	color: #FFFF00;
 	font-weight: bold;
 }
 
@@ -571,7 +572,7 @@ width: 20px
 
 .myConcerns{
 	font-size: 16px;
-	color: #A7005D;
+	color: #333;
 }
 
 
@@ -706,5 +707,5 @@ width: 20px
 	background-color:#EEEEEE;
 	clear: both;
 	font-size: 10px;
-	color:#666666;
+	color:#888;
 }

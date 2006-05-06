@@ -46,13 +46,13 @@ ul.tabbernav li a
  margin-left: 3px;
  border: 1px solid #CCCCCC;
  border-bottom: none;
- background: #999;
+ background: #EEE;
  text-decoration: none;
  padding-bottom: 5px;
 }
 
-ul.tabbernav li a:link { color: #EEE; }
-ul.tabbernav li a:visited { color: #EEE; }
+ul.tabbernav li a:link { color: #666; }
+ul.tabbernav li a:visited { color: #666; }
 
 ul.tabbernav li a:hover
 {
