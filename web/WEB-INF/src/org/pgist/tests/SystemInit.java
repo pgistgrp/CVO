@@ -20,7 +20,6 @@ import org.pgist.cvo.CCTService;
 import org.pgist.cvo.CVO;
 import org.pgist.cvo.CVODAO1;
 import org.pgist.cvo.Category;
-import org.pgist.cvo.CategoryReference;
 import org.pgist.cvo.Concern;
 import org.pgist.cvo.Tag;
 import org.pgist.cvo.TagReference;
@@ -29,6 +28,8 @@ import org.pgist.model.Post;
 import org.pgist.system.UserDAO;
 import org.pgist.users.Role;
 import org.pgist.users.User;
+import org.pgist.users.UserInfo;
+import org.pgist.util.WebUtils;
 import org.pgist.wfengine.WorkflowEngine;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -61,9 +62,11 @@ public class SystemInit extends MatchingTask {
     
     private WorkflowEngine engine;
     
-    private Map roles = new HashMap();
+    private Map<String, Role> roles = new HashMap<String, Role>();
     
-    private Map users = new HashMap();
+    private Map<String, User> users = new HashMap<String, User>();
+    
+    private User admin = null;
     
     
     public void setConfigPath(String configPath) {
@@ -181,7 +184,7 @@ public class SystemInit extends MatchingTask {
     
     private void initUser() throws Exception {
         //user - admin
-        User admin = new User();
+        admin = new User();
         admin.setLoginname("admin");
         admin.setFirstname("Admin");
         admin.setLastname("Admin");
@@ -278,19 +281,8 @@ public class SystemInit extends MatchingTask {
     private void initCCT() throws Exception {
         Random random = new Random();
         
-        CategoryReference catRef = new CategoryReference();
-        CCT cct = new CCT();
-        
-        catRef.setCct(cct);
-        
-        cct.setCreateTime(new Date());
-        cct.setCreator((User) users.get("moderator"));
-        cct.setInstruction("This is a test.");
-        cct.setName("CCT Test.");
-        cct.setPurpose("To test cct.");
-        cct.setRootCategory(catRef);
-        
-        cctService.save(cct);
+        WebUtils.setCurrentUser(new UserInfo(admin));
+        CCT cct = cctService.createCCT("CCT Test.", "To test cct.", "This is a test.");
         
         File file = new File(dataPath, "concerns.txt");
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -374,7 +366,6 @@ public class SystemInit extends MatchingTask {
             }//for i
             
             cct.getConcerns().add(concern);
-            cctService.save(cct);
         }//while
     }//initCCT()
 

@@ -14,7 +14,7 @@
     </convert>
 
     <convert converter="bean" match="org.pgist.cvo.Concern">
-      <param name="include" value="id, content, author, createTime, deleted"/>
+      <param name="include" value="id, content, author, createTime, deleted, tags"/>
     </convert>
 
     <convert converter="bean" match="org.pgist.cvo.Tag">

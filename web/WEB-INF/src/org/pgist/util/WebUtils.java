@@ -4,10 +4,9 @@ import java.io.StringWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import uk.ltd.getahead.dwr.WebContext;
-import uk.ltd.getahead.dwr.WebContextFactory;
+import org.pgist.users.UserInfo;
+
 import uk.ltd.getahead.dwr.util.SwallowingHttpServletResponse;
 
 
@@ -17,6 +16,33 @@ import uk.ltd.getahead.dwr.util.SwallowingHttpServletResponse;
  *
  */
 public class WebUtils {
+    
+    
+    private static ThreadLocal<UserInfo> threadLocalCurrentUser = new ThreadLocal<UserInfo>();
+    
+    
+    public static UserInfo currentUser() {
+        return threadLocalCurrentUser.get();
+    }//currentUser()
+    
+    
+    public static Long currentUserId() {
+        return threadLocalCurrentUser.get().getId();
+    }//currentUserId()
+    
+    
+    public static void setCurrentUser(UserInfo userInfo) {
+        if (userInfo==null) {
+            threadLocalCurrentUser.remove();
+        } else {
+            threadLocalCurrentUser.set(userInfo);
+        }
+    }//setCurrentUser()
+    
+    
+    public static boolean checkRole(String roleName) {
+        return threadLocalCurrentUser.get().checkRole(roleName);
+    }//checkRole()
     
     
     /**
@@ -41,19 +67,6 @@ public class WebUtils {
         
         return buffer.toString();
     }//forwardToString()
-    
-    
-    /**
-     * 
-     * @return
-     * @throws Exception
-     */
-    public static Long currentUserId() throws Exception {
-        WebContext ctx = WebContextFactory.get();
-        HttpSession session = ctx.getSession();
-        Long id = (Long) session.getAttribute("userId");
-        return id;
-    }//getCurrentUser()
     
     
 }//class WebUtils

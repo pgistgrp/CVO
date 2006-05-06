@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.pgist.system.UserDAO;
+import org.pgist.users.User;
+import org.pgist.users.UserInfo;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 
@@ -59,6 +61,29 @@ public class CCTServiceImpl implements CCTService {
     }//getCCTs()
 
 
+    public CCT createCCT(String name, String purpose, String instruction) throws Exception {
+        CategoryReference catRef = new CategoryReference();
+        
+        CCT cct = new CCT();
+        
+        catRef.setCct(cct);
+        cct.setRootCategory(catRef);
+        
+        cct.setName(name);
+        cct.setPurpose(purpose);
+        cct.setInstruction(instruction);
+        cct.setCreateTime(new Date());
+        
+        Long id = WebUtils.currentUserId();
+        User user = userDAO.getUserById(id, true, false);
+        cct.setCreator(user);
+        
+        cctDAO.save(cct);
+        
+        return cct;
+    }//createCCT()
+
+
     public void save(CCT cct) throws Exception {
         cctDAO.save(cct);
     }//save()
@@ -74,15 +99,26 @@ public class CCTServiceImpl implements CCTService {
     }//getCCTById()
 
 
-    public Concern createConcern(CCT cct, Concern concern, String[] tagStrs) throws Exception {
-        concern.setCct(cct);
-        concern.setCreateTime(new Date());
-
+    public Concern createConcern(Long cctId, String concern, String[] tagStrs) throws Exception {
+        CCT cct = cctDAO.getCCTById(cctId);
+        if (cct==null) throw new Exception("cct not found");
+        
+        Concern c = new Concern();
+        c.setCct(cct);
+        c.setCreateTime(new Date());
+        c.setContent(concern);
+        
+        Long id = WebUtils.currentUserId();
+        User user = userDAO.getUserById(id, true, false);
+        c.setAuthor(user);
+        
         synchronized (this) {
             Tag tag = null;
             TagReference ref = null;
             for (String tagName : tagStrs) {
-                tag = analyzer.tagExists(tagName);
+                if (tagName==null || "".equals(tagName.trim())) continue;
+                
+                tag = analyzer.tagExists(tagName.trim());
                 if (tag!=null) {
                     ref = cctDAO.getTagReferenceByTagId(cct.getId(), tag.getId());
                     if (ref==null) {
@@ -109,14 +145,14 @@ public class CCTServiceImpl implements CCTService {
                     cctDAO.save(ref);
                 }
                 cctDAO.save(ref);
-                concern.getTags().add(ref);
+                c.getTags().add(ref);
             }//for
         }//synchronized
         
-        cctDAO.save(concern);
+        cctDAO.save(c);
         cctDAO.save(cct);
 
-        return concern;
+        return c;
     }//createConcern()
 
 

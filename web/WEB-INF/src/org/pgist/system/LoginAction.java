@@ -1,17 +1,14 @@
 package org.pgist.system;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.users.Role;
 import org.pgist.users.User;
+import org.pgist.users.UserInfo;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -55,17 +52,10 @@ public class LoginAction extends Action {
         User user = userDAO.getUserByName(loginname, true, false);
         if (user!=null && user.checkPassword(password)) {
             session = request.getSession(true);
-            session.setAttribute("user", user);
-            session.setAttribute("userId", user.getId());
-            session.setAttribute("userLoginname", user.getLoginname());
             
-            Map map = new HashMap();
-            for (Iterator iter=user.getRoles().iterator(); iter.hasNext(); ) {
-                Role role = (Role) iter.next();
-                map.put(role.getId(), role.getName());
-            }//for iter
-            
-            session.setAttribute("rolesMap", map);
+            UserInfo userInfo = new UserInfo(user);
+            session.setAttribute("user", userInfo);
+            WebUtils.setCurrentUser(userInfo);
             
             return mapping.findForward("main");
         }
@@ -74,4 +64,4 @@ public class LoginAction extends Action {
     }//execute()
     
     
-}
+}//class LoginAction

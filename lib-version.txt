@@ -1,5 +1,5 @@
 Spring v1.2.6
-Hibernate v3.1.2
+Hibernate v3.1.3
 DWR v1.1b3
 Struts v1.2.8
 Prototype 1.5.0

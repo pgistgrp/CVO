@@ -95,25 +95,37 @@ public class CCTAgent {
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
-     * @throws Exception
      */
-    public Map createCCT(Map params) throws Exception {
+    public Map createCCT(Map params) {
         Map map = new HashMap();
-
-        CCT cct = new CCT();
-        cct.setName((String) params.get("name"));
-        cct.setPurpose((String) params.get("purpose"));
-        cct.setInstruction((String) params.get("instruction"));
-        cct.setCreateTime(new Date());
-
-        Long id = WebUtils.currentUserId();
-        User user = userDAO.getUserById(id, true, false);
-        cct.setCreator(user);
-
-        cctService.save(cct);
-
-        map.put("successful", new Boolean(true));
-
+        map.put("successful", false);
+        
+        String name = (String) params.get("name");
+        if (name==null || "".equals(name.trim())) {
+            map.put("reason", "name can not be empty.");
+            return map;
+        }
+        
+        String purpose = (String) params.get("purpose");
+        if (purpose==null || "".equals(purpose.trim())) {
+            map.put("reason", "purpose can not be empty.");
+            return map;
+        }
+        
+        String instruction = (String) params.get("instruction");
+        if (instruction==null || "".equals(instruction.trim())) {
+            map.put("reason", "instruction can not be empty.");
+            return map;
+        }
+        
+        try {
+            CCT cct = cctService.createCCT(name, purpose, instruction);
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
         return map;
     }//createCCT()
 
@@ -136,15 +148,15 @@ public class CCTAgent {
      */
     public Map prepareConcern(Map params) throws Exception {
         Map map = new HashMap();
-
+        
         String concern = (String) params.get("concern");
-
+        
         Collection tags = cctService.getSuggestedTags(concern);//
         System.out.println("====returned back to cctagent: get tags=" + tags.size());
         //String[] tags = {"Traffic", "Transit", "Bus"};
         map.put("tags", tags);
         map.put("successful", new Boolean(true));
-
+        
         return map;
     }//prepareConcern()
 
@@ -164,29 +176,30 @@ public class CCTAgent {
      *           <li>concern - A newly created Concern object</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
-     * @throws Exception
      */
-    public Map saveConcern(Map params) throws Exception {
+    public Map saveConcern(Map params) {
         Map map = new HashMap();
-
+        map.put("successful", false);
+        
         Long cctId = new Long((String) params.get("cctId"));
+        
         String concern = (String) params.get("concern");
-        String tags = (String) params.get("tags");
-
-        CCT cct = cctService.getCCTById(cctId);
-        if (cct!=null) {
-            Concern concernObj = new Concern();
-            concernObj.setContent(concern);
-            Long id = WebUtils.currentUserId();
-            User user = userDAO.getUserById(id, true, false);
-            concernObj.setAuthor(user);
-
-            cctService.createConcern(cct, concernObj, tags.split(","));
-
-            map.put("concern", concernObj);
+        if (concern==null || "".equals(concern.trim())) {
+            map.put("reason", "concern can not be empty.");
+            return map;
         }
-        map.put("successful", new Boolean(true));
-
+        
+        String tags = (String) params.get("tags");
+        
+        try {
+            Concern c = cctService.createConcern(cctId, concern, tags.split(","));
+            map.put("concern", c);
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
         return map;
     }//saveConcern()
 

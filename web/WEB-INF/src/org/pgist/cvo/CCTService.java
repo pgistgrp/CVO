@@ -22,6 +22,17 @@ public interface CCTService {
     Collection getCCTs() throws Exception;
 
     /**
+     * Create a CCT object.
+     * 
+     * @param name
+     * @param purpose
+     * @param instruction
+     * @return
+     * @throws Exception
+     */
+    CCT createCCT(String name, String purpose, String instruction) throws Exception;
+
+    /**
      * Save the given CCT object to database.<br>
      * Depending on the CCT object persisted or not, this method will automatically Insert/Update
      * the CCT object to database.
@@ -29,7 +40,7 @@ public interface CCTService {
      * @param cctId A CCT object.
      * @throws Exception
      */
-    void save(CCT cct) throws Exception;
+    //void save(CCT cct) throws Exception;
 
     /**
      * Save the given Concern object to database.<br>
@@ -62,7 +73,7 @@ public interface CCTService {
      * @return
      * @throws Exception
      */
-    Concern createConcern(CCT cct, Concern concern, String[] tags) throws Exception;
+    Concern createConcern(Long cctId, String concern, String[] tags) throws Exception;
 
     /**
      * Get the current user's concerns.

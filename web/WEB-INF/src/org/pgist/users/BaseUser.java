@@ -12,12 +12,21 @@ public class BaseUser {
     
     
     private Long id;
+    
     private String loginname = "";
+    
     private String firstname = "";
+    
     private String lastname = "";
+    
     protected String password = "";
+    
     protected String email = "";
+    
+    protected boolean gender = true;
+    
     private boolean enabled;
+    
     private boolean deleted;
     
     
@@ -138,4 +147,18 @@ public class BaseUser {
     }
 
 
-}
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public boolean isGender() {
+        return gender;
+    }
+
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
+    }
+
+
+}//class BaseUser

@@ -1,10 +1,10 @@
 package org.pgist.tags;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
+
+import org.pgist.users.UserInfo;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -47,8 +47,6 @@ public class HideTag extends TagSupport {
 
 
     public int doStartTag() throws JspException {
-        HttpSession session = pageContext.getSession();
-        
         if (condition!=null) {
             if ("true".equalsIgnoreCase(condition.trim())) {
                 return SKIP_BODY;
@@ -57,10 +55,10 @@ public class HideTag extends TagSupport {
             }
         }
         
-        String loginname = (String) session.getAttribute("userLoginname");
+        UserInfo userInfo = WebUtils.currentUser();
         
         if (owner!=null) {
-            if (loginname.equals(owner.trim())) {
+            if (userInfo.checkLoginname(owner.trim())) {
                 return SKIP_BODY;
             } else {
                 return EVAL_BODY_INCLUDE;
@@ -68,37 +66,20 @@ public class HideTag extends TagSupport {
         }
         
         if (users!=null) {
-            String[] userList = users.split(",");
             boolean valid = false;
-            
-            for (int i=0; i<userList.length; i++) {
-                if (userList[i]!=null) {
-                    userList[i] = userList[i].trim();
-                    if (!"".equals(userList[i])) {
-                        valid = true;
-                        if (loginname.equals(userList[i])) {
-                            return SKIP_BODY;
-                        }
-                    }
-                }
-            }//for i
+            for (String loginname : users.split(",")) {
+                if (loginname==null || "".equals(loginname.trim())) continue;
+                valid = true;
+                if (userInfo.checkLoginname(loginname.trim())) return SKIP_BODY;
+            }//for
             
             if (valid) return EVAL_BODY_INCLUDE;
         }
         
-        Map map = (Map) session.getAttribute("rolesMap");
-        if (roles!=null) {
-            String[] roleList = roles.split(",");
-            
-            for (int i=0; i<roleList.length; i++) {
-                if (roleList[i]!=null) {
-                    roleList[i] = roleList[i].trim();
-                    if (!"".equals(roleList[i]) && map.containsValue(roleList[i])) {
-                            return SKIP_BODY;
-                    }
-                }
-            }//for i
-        }
+        for (String roleName : roles.split(",")) {
+            if (roleName==null || "".equals(roleName.trim())) continue;
+            if (WebUtils.checkRole(roleName.trim())) return SKIP_BODY;
+        }//for
         
         return EVAL_BODY_INCLUDE;
     }//doStartTag()

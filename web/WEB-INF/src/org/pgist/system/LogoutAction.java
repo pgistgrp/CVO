@@ -21,14 +21,18 @@ public class LogoutAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
+        
         //Invalidate the Session
         HttpSession session = request.getSession(false);
+        
         if (session!=null) {
             session.setAttribute("user", null);
             session.invalidate();
         }
+        
         return mapping.findForward("login");
+        
     }//execute()
     
     
-}
+}//class LogoutAction

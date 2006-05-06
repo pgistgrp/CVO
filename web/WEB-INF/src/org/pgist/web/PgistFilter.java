@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.pgist.users.UserInfo;
+import org.pgist.util.WebUtils;
+
 
 /**
  * Filter for PGIST
@@ -60,7 +63,7 @@ public class PgistFilter implements Filter {
         for (int i=0; i<array.length; i++) {
             ignoreURLs.add(array[i].trim());
         }
-    }
+    }//init()
 
     
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -72,9 +75,12 @@ public class PgistFilter implements Filter {
         
         System.out.println("PgistFilter: "+path);
         
+        UserInfo userInfo = null;
+        
         if (!ignoreURLs.contains(path)) {
             HttpSession session = req.getSession();
-            if (session.getAttribute("user")==null) {
+            userInfo = (UserInfo) session.getAttribute("user");
+            if (userInfo==null) {
                 //user has not logged on
                 HttpServletResponse res = (HttpServletResponse) response;
                 res.sendRedirect( req.getContextPath() + loginURL );
@@ -82,13 +88,19 @@ public class PgistFilter implements Filter {
             }
         }
         
-        chain.doFilter(request, response);
-    }
+        try {
+            //hold userInfo for later use
+            WebUtils.setCurrentUser(userInfo);
+            chain.doFilter(request, response);
+        } finally {
+            //release userInfo
+            if (userInfo!=null) WebUtils.setCurrentUser(null);
+        }
+    }//doFilter()
     
 
     public void destroy() {
-    }
+    }//destroy()
     
 
 }//class PgistFilter
-

@@ -10,9 +10,13 @@ public class Role {
 
     
     private Long id;
+    
     private String name;
+    
     private String description;
+    
     private boolean internal = false;
+    
     private boolean deleted = false;
     
     

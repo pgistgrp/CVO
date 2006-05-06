@@ -16,7 +16,8 @@ public class User extends BaseUser {
     
     
     private boolean internal = false;
-    protected Set roles = new HashSet();
+    
+    protected Set<Role> roles = new HashSet<Role>();
     
     
     /**
@@ -39,12 +40,12 @@ public class User extends BaseUser {
      * @hibernate.collection-key column="user_id"
      * @hibernate.collection-many-to-many column="role_id" class="org.pgist.users.Role"
      */
-    public Set getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
 
-    public void setRoles(Set roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
     

@@ -11,6 +11,7 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.util.WebUtils;
 import org.pgist.wfengine.Activity;
 import org.pgist.wfengine.Workflow;
 import org.pgist.wfengine.WorkflowEngine;
@@ -102,13 +103,10 @@ public class AgendaDisplayAction extends Action {
             }//for iter2
         }//for iter1
         
-        Map map = (Map) request.getSession().getAttribute("rolesMap");
-        if (map!=null) {
-            if (map.containsValue("moderator")) {
-                return mapping.findForward("moderator");
-            } else {
-                return mapping.findForward("member");
-            }
+        if (WebUtils.checkRole("moderator")) {
+            return mapping.findForward("moderator");
+        } else if (WebUtils.checkRole("member")) {
+            return mapping.findForward("member");
         } else {
             return mapping.findForward("error");
         }
