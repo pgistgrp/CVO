@@ -1,0 +1,20 @@
+
+For linux running JDK1.5, and tomcat, it's better to make tomcat running under server mode.
+It's accomplished by adding the following line to catalina.sh:
+
+JAVA_OPTS=" -server "
+
+Otherwise, some weird exceptions may occur for hibernate such as:
+
+Warning: Method execution failed:
+java.lang.NoSuchMethodError: org.pgist.cvo.Tag.getHibernateLazyInitializer()Lorg/hibernate/proxy/LazyInitializer;
+        at org.pgist.cvo.Tag$$EnhancerByCGLIB$$3d66b771.getHibernateLazyInitializer(<generated>)
+        at org.hibernate.type.EntityType.resolveIdentifier(EntityType.java:274)
+        at org.hibernate.type.EntityType.resolve(EntityType.java:303)
+        at org.hibernate.engine.TwoPhaseLoad.initializeEntity(TwoPhaseLoad.java:116)
+        at org.hibernate.loader.Loader.initializeEntitiesAndCollections(Loader.java:842)
+        at org.hibernate.loader.Loader.doQuery(Loader.java:717)
+        at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:224)
+        at org.hibernate.loader.Loader.doList(Loader.java:2145)
+        ..................
+
