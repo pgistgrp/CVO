@@ -53,15 +53,25 @@
 
   <filter-mapping>
       <filter-name>OpenSessionInViewFilter</filter-name>
-      <url-pattern>/*</url-pattern>
+      <servlet-name>action</servlet-name>
+  </filter-mapping>
+
+  <filter-mapping>
+      <filter-name>OpenSessionInViewFilter</filter-name>
+      <url-pattern>/dwr/exec/*</url-pattern>
+  </filter-mapping>
+  
+  <filter-mapping>
+      <filter-name>pgist filter</filter-name>
+      <servlet-name>action</servlet-name>
   </filter-mapping>
 
   <filter-mapping>
       <filter-name>pgist filter</filter-name>
-      <url-pattern>/*</url-pattern>
+      <url-pattern>/dwr/exec/*</url-pattern>
   </filter-mapping>
-
-
+  
+  
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
