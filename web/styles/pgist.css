@@ -283,8 +283,9 @@ ul.tagsList{
 }
 
 li.tagsList{
+	line-height: 25px;
 	margin-right: 3px;
-	margin-bottom: 5px;
+	margin-bottom: 20px;
 	margin-top: 20px;
 	padding: 2px;
 	border: 1px solid #CDC;

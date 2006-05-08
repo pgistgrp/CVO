@@ -375,17 +375,22 @@ function glossaryPopup(term){
 	os += '<p>Tags helps make your concerns easier to find, since all this info is searchable later. Imagine this applied to thousands of concerns!</p>';
 	$('lightbox').innerHTML = os;
 }
-function editConcernPopup(concernId,currentConcern){
+function editConcernPopup(concernId){
+  var currentConcern = '';
 	lightboxDisplay('inline');
+	CCTAgent.getConcernById(concernId, function(data){
+		if (data.successful){
+				currentConcern = data.concern.content;
+				os = "";
+				os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
+				os += '<h2>Edit My Concern</h2><br>';
+				os += '<textarea style="height: 150px; width: 100%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p>';
+				os += '<input type="button" id="modifyConcern" value="Submit Edits!" onClick="editConcern('+concernId+')">';
+				os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')">';
+				$('lightbox').innerHTML = os;
+		}
+	});
 
-	os = "";
-	os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
-	os += '<h2>Edit My Concern</h2><br>';
-	os += '<textarea style="height: 150px; width: 100%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p>';
-	os += '<input type="button" id="modifyConcern" value="Submit Edits!" onClick="editConcern('+concernId+')">';
-	os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')">';
-	
-	$('lightbox').innerHTML = os;
 }
 	
 function editConcern(concernId){
