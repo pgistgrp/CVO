@@ -474,7 +474,7 @@ function delConcern(concernId){
 <div id="container">
 <div id="header"><img src="/images/logo.jpg"></div>
 <div id="searchNavContiner">
-	<div id="authentication">Welcome, ${BaseUser.Firstname} [&nbsp;<a href="/logout.do">logout</a>&nbsp;]</div>
+	<div id="authentication">Welcome, ${baseuser.firstname} [&nbsp;<a href="/logout.do">logout</a>&nbsp;]</div>
 	<div id="mainSearch">
 			<form name="mainSearch" method="post" onSubmit="search();">
 				<input type="text" ID="tbx1" class="searchBox" style="padding-left: 5px; padding-right:20px; background: url('/images/search.gif') no-repeat right;" value="Search" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;"/>
