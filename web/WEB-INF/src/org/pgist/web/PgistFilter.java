@@ -73,10 +73,9 @@ public class PgistFilter implements Filter {
         String ctxPath = req.getContextPath();
         path = path.substring(ctxPath.length());
         
-        System.out.println("URI: "+req.getRequestURI());
-        System.out.println("URL: "+req.getRequestURL());
-        
-        System.out.println("PgistFilter: "+path);
+        //System.out.println("URI: "+req.getRequestURI());
+        //System.out.println("URL: "+req.getRequestURL());
+        //System.out.println("PgistFilter: "+path);
         
         UserInfo userInfo = null;
         
