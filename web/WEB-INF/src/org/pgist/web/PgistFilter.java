@@ -86,6 +86,9 @@ public class PgistFilter implements Filter {
                 res.sendRedirect( req.getContextPath() + loginURL );
                 return;
             }
+            
+            //You can use the variable "baseuser" on any jsp page.
+            request.setAttribute("baseuser", userInfo);
         }
         
         try {
