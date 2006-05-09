@@ -255,8 +255,8 @@ function deleteCookie(name, path, domain) {
 				$('addConcern').focus();
 				showTagCloud();
 			}
-		$("indicator").style.visibility = "hidden";
 	});
+	$("indicator").style.visibility = "hidden";
 }
 
 function showTagCloud(){
