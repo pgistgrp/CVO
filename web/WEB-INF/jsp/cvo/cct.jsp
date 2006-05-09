@@ -352,7 +352,7 @@ CCTAgent.searchTags({cctId:cctId,tag:theTag}, function(data){
 				$('tagIndicator').style.visibility = 'hidden';
 			}
 			
-			if (data.count == 0){
+			if (data.count == 0 || $('txtSearch').value == "_"){
 				$('tagSearchResults').innerHTML = '<span class=\"highlight\">No tag matches found! Please try a different search or <a href="javascript:showTagCloud();">clear the query</a>&nbsp;to view top tags again.</span>';
 				$('topTags').innerHTML = "";
 				$('tagIndicator').style.visibility = 'hidden';
