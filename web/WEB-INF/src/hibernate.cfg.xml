@@ -43,6 +43,7 @@
         <mapping resource="org/pgist/cvo/CategoryReference.hbm.xml"/>
         <mapping resource="org/pgist/cvo/Tag.hbm.xml"/>
         <mapping resource="org/pgist/cvo/TagReference.hbm.xml"/>
+        <mapping resource="org/pgist/cvo/StopWord.hbm.xml"/>
         
         <mapping resource="org/pgist/workflow/DecisionSituation.hbm.xml"/>
         

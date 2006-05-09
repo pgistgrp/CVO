@@ -1,12 +1,14 @@
 package org.pgist.cvo;
 
+
 /**
  * @author Jie
  * @version 1.0
- * @hibernate.class table="pgist_cvo_tags" lazy="true"
+ * @hibernate.class table="pgist_cvo_stopwords" lazy="true"
  */
-
 public class StopWord {
+    
+    
     protected Long id;
 
     protected String name;
@@ -34,6 +36,7 @@ public class StopWord {
 
     public void setName(String name) {
            this.name = name;
-       }
-
-}
+    }
+    
+    
+}//class StopWord
