@@ -263,7 +263,8 @@ function showTagCloud(){
 		CCTAgent.getTagCloud({cctId:cctId,type:0,count:25}, function(data){
 			if (data.successful){
 				$('sidebar_tags').innerHTML = data.html;
-			}
+					      <p><textarea class="textareaAddConcern" name="addConcern" cols="50" rows="2" id="addConcern"></textarea></p>
+	}
 			//$("indicator").style.visibility = "hidden";
 	});
 }
@@ -466,18 +467,31 @@ function delConcern(concernId){
 	}
 }
 
+function ifEnter(field,event) {
+	var theCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+	if (theCode == 13){
+	prepareConcern();
+	$('theTag').focus();
+	return false;
+	} 
+	else
+	return true;
+}   
+
 </script>
 </Head>
 <body>
 
 <div id="decorBar"></div>
 <div id="container">
-<div id="header"><img src="/images/logo.jpg"></div>
+
 <div id="searchNavContiner">
+	<div id="logo"><img src="/images/logo.png"></div>
 	<div id="authentication">Welcome, ${baseuser.firstname} [&nbsp;<a href="/logout.do">logout</a>&nbsp;]</div>
 	<div id="mainSearch">
 			<form name="mainSearch" method="post" onSubmit="search();">
 				<input type="text" ID="tbx1" class="searchBox" style="padding-left: 5px; padding-right:20px; background: url('/images/search.gif') no-repeat right;" value="Search" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;"/>
+
 			</form>	
 	</div>
 	<div id="mainNav">Home&nbsp;&nbsp;&nbsp;&nbsp;<span class="active">Current Task</span>&nbsp;&nbsp;&nbsp;&nbsp;Discussion&nbsp;&nbsp;&nbsp;&nbsp;Maps&nbsp;&nbsp;&nbsp;&nbsp;Library&nbsp;&nbsp;</div>
@@ -508,8 +522,8 @@ function delConcern(concernId){
   
  <div id="slate">
   		<h2>Add your concern</h2><br>What is one of your concerns about the Central Puget Sound Transportation System?  View examples of concerns in the right column (<a href="javascript:tabFocus(1);">concerns tab</a>).
-		    <form name="brainstorm" method="post" onSubmit="addTagToList('tagsList', 'theTag', 'tagValidation'); return false;">
-			      <p><textarea class="textareaAddConcern" name="addConcern" cols="50" rows="5" id="addConcern"></textarea></p>
+		    <form name="brainstorm" method="post" onSubmit="addTagToList('tagsList', 'theTag',5'tagValidation'); return false;">
+			      <p><textarea class="textareaAddConcern" onkeypress="ifEnter(this,event);" name="addConcern" cols="20" rows="2" id="addConcern"></textarea></p>
 			      <p class="indent">
 				      <input type="button" id="btnContinue" name="Continue" value="Continue" onclick="prepareConcern();">
 				      <input type="reset" name="Reset" value="Reset" onClick="resetForm();"> 
@@ -540,8 +554,8 @@ function delConcern(concernId){
 				  	
 						<h2>Finished brainstorming concerns?</h2>
 						<div id="finished_container">
-							<div id="finished_p">When you are staisfied with your concerns list above, please use the button on the right to continue to the next step!</div>
-							<div id="finished_img"><a name="finished" href="nextStep"><img src="/images/submission_brainstorm.gif" border="0" align="right"></a></div>
+							<div id="finished_p">When you are satisfied with your concerns list above, please use the button on the right to continue to the next step!</div>
+							<div id="finished_img"><input type="button" value="Continue to Next Step"></div>
 						</div>
 		    </form>
 
@@ -550,13 +564,19 @@ function delConcern(concernId){
 <div id="bar">
 	<div class="tabber" id="myTab">
 		  <div id="sidebar_tags" class="tabbertab">
-	    	<H2>Tags</H2>
+	    	<H2>Current Task</H2>
 	    </div>
 
 	    <div id="sidebar_concernsContainer" class="tabbertab">
-	    	<h2>Concerns</h2>
+	    	<h2>Discussion</h2>
 				<div id="sidebar_concerns">
 				</div>
+	    </div>
+	    <div id="sidebar_map" class="tabbertab">
+	    	<H2>Maps</H2>
+	    </div>
+		  <div id="sidebar_library" class="tabbertab">
+	    	<H2>Library</H2>
 	    </div>
 	
 	</div>

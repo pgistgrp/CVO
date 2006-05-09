@@ -31,6 +31,7 @@ ul.tabbernav
  margin:0;
  padding: 3px 0;
  border-bottom: 1px solid #CCCCCC;
+ font-size: 10px;
 }
 
 ul.tabbernav li
@@ -42,6 +43,7 @@ ul.tabbernav li
 
 ul.tabbernav li a
 {
+	
  padding: 3px 0.5em;
  margin-left: 3px;
  border: 1px solid #CCCCCC;
@@ -65,7 +67,7 @@ ul.tabbernav li a:hover
 ul.tabbernav li.tabberactive a
 {
 
- font-size: 16px;
+ font-size: 12px;
  font-weight: bold;
  background-color: #FFF;
  border-bottom: 1px solid #FFF;
