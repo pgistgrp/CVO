@@ -282,7 +282,19 @@ public class SystemInit extends MatchingTask {
         Random random = new Random();
         
         WebUtils.setCurrentUser(new UserInfo(admin));
-        CCT cct = cctService.createCCT("CCT Test.", "To test cct.", "This is a test.");
+        CCT cct = cctService.createCCT(
+                "CCT Test.",
+                "In order to determine what needs to be improved about our transportation system, "
+               +"we first need to know what the problems are. "
+               +"Therefore, the first task is brainstorming concerns.",
+                "For this task, we are asking you to add concerns to your profile. "
+               +"These concerns will be visible to other participants, "
+               +"and will be used in later sessions to determine how to turn our concerns "
+               +"into suggestions for decision makers. Below, you’ll find a box in which to type "
+               +"your concern. You will be asked to ‘tag’ your concerns, so that others may find your "
+               +"concern more easily. The sidebar to the right of your concerns is your way of seeing "
+               +"what others are writing about. You may navigate by either tags or concerns."
+        );
         
         File file = new File(dataPath, "concerns.txt");
         BufferedReader reader = new BufferedReader(new FileReader(file));

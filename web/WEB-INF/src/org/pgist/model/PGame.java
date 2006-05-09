@@ -106,7 +106,7 @@ public class PGame {
     /**
      * @return
      * 
-     * @hibernate.property not-null="true"
+     * @hibernate.property type="text" not-null="true"
      */
     public String getInstruction() {
         return instruction;
@@ -121,7 +121,7 @@ public class PGame {
     /**
      * @return
      * 
-     * @hibernate.property not-null="true"
+     * @hibernate.property type="text" not-null="true"
      */
     public String getPurpose() {
         return purpose;
