@@ -1,6 +1,7 @@
 package org.pgist.cvo;
 
 import java.util.*;
+import org.pgist.util.PageSetting;
 
 
 /**
@@ -23,15 +24,15 @@ public interface TagDAO extends CVODAO {
      * @throws Exception
      */
     List addTags(String[] tags) throws Exception;
-    
+
     /**
      * Get all valid tags in the system.
-     * 
+     *
      * @return A collection of Tag objects.
      * @throws Exception
      */
     Collection getAllTags() throws Exception;
-    
+
     /**
      * Search in the given CCT, and find those tags appeared in this CCT and which are the top count
      * being referenced.
@@ -44,6 +45,14 @@ public interface TagDAO extends CVODAO {
     Collection getTagsByRank(CCT cct, int count) throws Exception;
 
     /**
+     * Get the result on the setting page and return the result.
+     *
+     * @param setting PageSetting
+     * @return List
+     */
+    List getStopWords(PageSetting setting);
+
+    /**
      * Search in the given CCT, and find those tags appeared in this CCT and which are referenced at least
      * threshold times.
      *
@@ -53,5 +62,6 @@ public interface TagDAO extends CVODAO {
      * @throws Exception
      */
     Collection getTagsByThreshold(CCT cct, int threshold) throws Exception;
+
 
 }//interface TagDAO
