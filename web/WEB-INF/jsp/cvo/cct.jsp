@@ -239,32 +239,42 @@ function deleteCookie(name, path, domain) {
 		}
 	}
 	
-	function saveTheConcern(){
+function saveTheConcern(){
 		var concern = $('addConcern').value;
 		$("indicator").style.visibility = "visible";
 		//$('explaination').innerHTML = "";
-		CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:concernTags}, function(data){
-			if (data.successful){
-				showMyConcerns(data.concern.id);
-				Effect.CloseDown('tagConcerns');
-				//Reset add concerns textbox and Clear comma separated concerns tag list
-				$('btnContinue').disabled=false;
-				$('addConcern').value = "";
-				$('addConcern').style.background="#FFF";
-				$('addConcern').style.color="#333";
-				$('addConcern').focus();
-				showTagCloud();
+		CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:concernTags}, {
+			callback:function(data){
+				if (data.successful){
+					showMyConcerns(data.concern.id);
+					Effect.CloseDown('tagConcerns');
+					//Reset add concerns textbox and Clear comma separated concerns tag list
+					$('btnContinue').disabled=false;
+					$('addConcern').value = "";
+					$('addConcern').style.background="#FFF";
+					$('addConcern').style.color="#333";
+					$('addConcern').focus();
+					showTagCloud();
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+				showTheError();
 			}
 	});
 	$("indicator").style.visibility = "hidden";
 }
 
 function showTagCloud(){
-		CCTAgent.getTagCloud({cctId:cctId,type:0,count:25}, function(data){
-			if (data.successful){
-				$('sidebar_tags').innerHTML = data.html;
-					      <p><textarea class="textareaAddConcern" name="addConcern" cols="50" rows="2" id="addConcern"></textarea></p>
-	}
+		CCTAgent.getTagCloud({cctId:cctId,type:0,count:25}, {
+			callback:function(data){
+				if (data.successful){
+					$('sidebar_tags').innerHTML = data.html;
+					<p><textarea class="textareaAddConcern" name="addConcern" cols="50" rows="2" id="addConcern"></textarea></p>
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+				showTheError();
+			}
 			//$("indicator").style.visibility = "hidden";
 	});
 }
@@ -277,50 +287,66 @@ function getRandomConcerns(){
 }
 
 function showConcerns(theType){
-	CCTAgent.getConcerns({cctId:cctId,type:theType,count:7}, function(data){
-		if (data.successful){
-			$('sidebar_concerns').innerHTML = data.html;
+	CCTAgent.getConcerns({cctId:cctId,type:theType,count:7}, {
+		callback:function(data){
+			if (data.successful){
+				$('sidebar_concerns').innerHTML = data.html;
+			}
+		},
+		errorHandler:function(errorString, exception){ 
+				showTheError();
 		}
 	});
 }
 
 function showMyConcerns(id){
-	CCTAgent.getConcerns({cctId:cctId,type:0,count:-1}, function(data){
-/*	$('sidebar_concernsContainer')
-					<span class="title_section">Other Participant's Concerns</span>
-				<p>To help you create your concerns, Below are examples of other participant concerns in random order.</p>
-				<p><a href="JavaScript:getRandomConcerns();">Get more random concerns!</a></p>
-				*/
-			if (data.successful){
-				$('myConcernsList').innerHTML = data.html;
-				if (id != undefined){
-				Effect.Yellow('concernId' + id, {duration: 4, endcolor:'#EEEEEE'})
-				}
-				if (data.total == 0){
-					document.getElementById("myConcernsList").innerHTML = '<p class="explaination">None created yet.  Please add a concern above.  Please refer to other participant\'s concerns on the right column for examples.</p>';
-				}
+	CCTAgent.getConcerns({cctId:cctId,type:0,count:-1}, {
+			callback:function(data){
+					if (data.successful){
+						$('myConcernsList').innerHTML = data.html;
+						if (id != undefined){
+							Effect.Yellow('concernId' + id, {duration: 4, endcolor:'#EEEEEE'})
+						}
+						if (data.total == 0){
+							document.getElementById("myConcernsList").innerHTML = '<p class="explaination">None created yet.  Please add a concern above.  Please refer to other participant\'s concerns on the right column for examples.</p>';
+						}
+					}
+			},
+			errorHandler:function(errorString, exception){ 
+					showTheError();
 			}
 		});
 	}
 
 function getConcernsByTag(id){
-		CCTAgent.getConcernsByTag({tagRefId:id,count:-1}, function(data){
-			if (data.successful){
-				//$("sidebar_concerns").style.display = "none";
-				Effect.Yellow('sidebar_concerns');
-				$('sidebar_concerns').innerHTML = data.html;
-				$('myTab').tabber.tabShow(1);
-			}
+		CCTAgent.getConcernsByTag({tagRefId:id,count:-1}, {
+		callback:function(data){
+				if (data.successful){
+					//$("sidebar_concerns").style.display = "none";
+					Effect.Yellow('sidebar_concerns');
+					$('sidebar_concerns').innerHTML = data.html;
+					$('myTab').tabber.tabShow(1);
+					location.href='#SideConcernsTop';
+				}
+			},
+		errorHandler:function(errorString, exception){ 
+				showTheError();
+		}
 		});
 }
 
 function goPage(pageNum){
-CCTAgent.getConcerns({cctId:cctId,type:2,count:7, page:pageNum}, function(data){
-		if (data.successful){
-			$('sidebar_concerns').innerHTML = data.html;
-			Effect.Yellow('sidebar_concerns');
+	CCTAgent.getConcerns({cctId:cctId,type:2,count:7, page:pageNum}, {
+		callback:function(data){
+				if (data.successful){
+					$('sidebar_concerns').innerHTML = data.html;
+					Effect.Yellow('sidebar_concerns');
+				}
+			},
+		errorHandler:function(errorString, exception){ 
+				showTheError();
 		}
-	});
+		});
 }
 
 function tabFocus(num){
@@ -328,37 +354,35 @@ function tabFocus(num){
 }
 
 function tagSearch(theTag){
-CCTAgent.searchTags({cctId:cctId,tag:theTag}, function(data){
-	  $('tagIndicator').style.visibility = 'visible';
-		if (data.successful){
-			//alert(data.count);
-			//if (data.count == 1){
-				//$('topTags').innerHTML = data.tag.tag.name;
-				//getConcernsByTag(data.tag.id);
-				//$('myTab').tabber.tabShow(1);
-			//}
-			if ($('txtSearch').value == ""){
-				$('searchTag_title').innerHTML = '<span class="title_section2">Tag Query:</span>'; 
-				$('topTags').innerHTML = "";
-				$('tagSearchResults').innerHTML = '<span class="highlight">Please type in your query or <a href="javascript:showTagCloud();">clear query</a>&nbsp;to view top tags again.</span>';
-			  $('tagIndicator').style.visibility = 'hidden';
-			  
-			}
-			
-			if ($('txtSearch').value != ""){
-				$('searchTag_title').innerHTML = '<span class="title_section2">Tag Query:</span>'; 
-				$('tagSearchResults').innerHTML = '<span class="highlight">' + data.count +' tags match your query&nbsp;&nbsp;(<a href="javascript:showTagCloud();">clear query</a>)</span>';
-				$('topTags').innerHTML = data.html;
-				$('tagIndicator').style.visibility = 'hidden';
-			}
-			
-			if (data.count == 0 || $('txtSearch').value == "_"){
-				$('tagSearchResults').innerHTML = '<span class=\"highlight\">No tag matches found! Please try a different search or <a href="javascript:showTagCloud();">clear the query</a>&nbsp;to view top tags again.</span>';
-				$('topTags').innerHTML = "";
-				$('tagIndicator').style.visibility = 'hidden';
-			}
-			
-		}
+CCTAgent.searchTags({cctId:cctId,tag:theTag},{
+		callback:function(data){
+			  $('tagIndicator').style.visibility = 'visible';
+				if (data.successful){
+					if ($('txtSearch').value == ""){
+						$('searchTag_title').innerHTML = '<span class="title_section2">Tag Query:</span>'; 
+						$('topTags').innerHTML = "";
+						$('tagSearchResults').innerHTML = '<span class="highlight">Please type in your query or <a href="javascript:showTagCloud();">clear query</a>&nbsp;to view top tags again.</span>';
+					  $('tagIndicator').style.visibility = 'hidden';
+					  
+					}
+					
+					if ($('txtSearch').value != ""){
+						$('searchTag_title').innerHTML = '<span class="title_section2">Tag Query:</span>'; 
+						$('tagSearchResults').innerHTML = '<span class="highlight">' + data.count +' tags match your query&nbsp;&nbsp;(<a href="javascript:showTagCloud();">clear query</a>)</span>';
+						$('topTags').innerHTML = data.html;
+						$('tagIndicator').style.visibility = 'hidden';
+					}
+					
+					if (data.count == 0 || $('txtSearch').value == "_"){
+						$('tagSearchResults').innerHTML = '<span class=\"highlight\">No tag matches found! Please try a different search or <a href="javascript:showTagCloud();">clear the query</a>&nbsp;to view top tags again.</span>';
+						$('topTags').innerHTML = "";
+						$('tagIndicator').style.visibility = 'hidden';
+					}
+				}
+		},
+		errorHandler:function(errorString, exception){ 
+					showTheError();
+		}		
 	});
 }
 
@@ -379,27 +403,38 @@ function glossaryPopup(term){
 function editConcernPopup(concernId){
   var currentConcern = '';
 	lightboxDisplay('inline');
-	CCTAgent.getConcernById(concernId, function(data){
-		if (data.successful){
-				currentConcern = data.concern.content;
-				os = "";
-				os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
-				os += '<h2>Edit My Concern</h2><br>';
-				os += '<textarea style="height: 150px; width: 100%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p>';
-				os += '<input type="button" id="modifyConcern" value="Submit Edits!" onClick="editConcern('+concernId+')">';
-				os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')">';
-				$('lightbox').innerHTML = os;
+	CCTAgent.getConcernById(concernId, {
+		callback:function(data){
+			if (data.successful){
+					currentConcern = data.concern.content;
+					os = "";
+					os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
+					os += '<h2>Edit My Concern</h2><br>';
+					os += '<textarea style="height: 150px; width: 100%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p>';
+					os += '<input type="button" id="modifyConcern" value="Submit Edits!" onClick="editConcern('+concernId+')">';
+					os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')">';
+					$('lightbox').innerHTML = os;
+			}
+		},
+		errorHandler:function(errorString, exception){ 
+				showTheError();
 		}
+	
 	});
 
 }
 	
 function editConcern(concernId){
 	newConcern = $('editConcern').value;
-	CCTAgent.editConcern({concernId:concernId, concern:newConcern}, function(data){
-		if (data.successful){
-			lightboxDisplay('none');
-			showMyConcerns(concernId);
+	CCTAgent.editConcern({concernId:concernId, concern:newConcern}, {
+		callback:function(data){
+				if (data.successful){
+					lightboxDisplay('none');
+					showMyConcerns(concernId);
+				}
+		},
+		errorHandler:function(errorString, exception){ 
+				showTheError();
 		}
 	});
 }
@@ -408,29 +443,32 @@ function editTagsPopup(concernId){
 		tagHolderId = 1;
 		concernTags = "";
 		
-		CCTAgent.getConcernById(concernId, function (data) {
-		if (data.successful){
-			
-		lightboxDisplay('inline');
-		os = "";
-		os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
-		os += '<h2>Edit My Concern\'s Tags</h2><p></p>';
-		os += '<ul id="editTagsList" class="tagsList"> '+data.id+ '</ul>';
-		os += '<p></p><form name="editTagList" onsubmit="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\'); return false;"><input type="text" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="submit" name="addTag" id="addTag" value="Add Tag!"></p>';
-		//os += '<a href="javascript:editTags('+concernId+');">TestIt</a>';
-		os += '<div style="display: none;" id="editTagValidation"></div>';
-		os += '<hr><input type="button" value="Submit Edits" onClick="editTags('+concernId+')">';
-		os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')"></form>';
-			$('lightbox').innerHTML = os;
-			var str= "";
-			for(i=0; i < data.concern.tags.length; i++){
-				str += '<li id="tag'+data.concern.tags[i].tag.id+'" class="tagsList">'+ data.concern.tags[i].tag.name +'&nbsp;<a href="javascript:removeFromGeneratedTags(\'' + data.concern.tags[i].tag.name + '\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></li>';
-				concernTags += data.concern.tags[i].tag.name + ',';
-			}
-			document.getElementById('editTagsList').innerHTML = str;
-
+		CCTAgent.getConcernById(concernId, {
+		callback:function(data) {
+				if (data.successful){
+					
+							lightboxDisplay('inline');
+							os = "";
+							os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
+							os += '<h2>Edit My Concern\'s Tags</h2><p></p>';
+							os += '<ul id="editTagsList" class="tagsList"> '+data.id+ '</ul>';
+							os += '<p></p><form name="editTagList" onsubmit="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\'); return false;"><input type="text" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="submit" name="addTag" id="addTag" value="Add Tag!"></p>';
+							//os += '<a href="javascript:editTags('+concernId+');">TestIt</a>';
+							os += '<div style="display: none;" id="editTagValidation"></div>';
+							os += '<hr><input type="button" value="Submit Edits" onClick="editTags('+concernId+')">';
+							os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')"></form>';
+								$('lightbox').innerHTML = os;
+								var str= "";
+								for(i=0; i < data.concern.tags.length; i++){
+									str += '<li id="tag'+data.concern.tags[i].tag.id+'" class="tagsList">'+ data.concern.tags[i].tag.name +'&nbsp;<a href="javascript:removeFromGeneratedTags(\'' + data.concern.tags[i].tag.name + '\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></li>';
+									concernTags += data.concern.tags[i].tag.name + ',';
+								}
+								document.getElementById('editTagsList').innerHTML = str;
+				}
+		},
+		errorHandler:function(errorString, exception){ 
+				showTheError();
 		}
-		
 	});
 
 }
@@ -442,16 +480,21 @@ function removeLastComma(str){
 
 function editTags(concernId){
 	removeLastComma(concernTags);
-	CCTAgent.editTags({concernId:concernId, tags:concernTags}, function(data){
-		if (data.successful){ 
-			lightboxDisplay('none');
-			showMyConcerns(concernId);
-			concernTags = "";
-		}
-		
-		if (data.successful != true){
-			alert(data.reason);
-			concernTags = "";
+	CCTAgent.editTags({concernId:concernId, tags:concernTags}, {
+		callback:function(data){
+			if (data.successful){ 
+				lightboxDisplay('none');
+				showMyConcerns(concernId);
+				concernTags = "";
+			}
+			
+			if (data.successful != true){
+				alert(data.reason);
+				concernTags = "";
+			}
+		},
+		errorHandler:function(errorString, exception){ 
+				showTheError();
 		}
 	});
 }
@@ -459,10 +502,15 @@ function editTags(concernId){
 function delConcern(concernId){
 	var destroy = confirm ("Are you sure you want to delete this concern? Note: there is no undo.")
 	if (destroy){
-			CCTAgent.deleteConcern({concernId:concernId}, function(data){
-				if (data.successful){
-					showMyConcerns();
-				}
+			CCTAgent.deleteConcern({concernId:concernId}, {
+			callback:function(data){	
+					if (data.successful){
+						showMyConcerns();
+					}
+			},
+			errorHandler:function(errorString, exception){ 
+				showTheError();
+			}
 			});
 	}
 }
@@ -478,6 +526,13 @@ function ifEnter(field,event) {
 	return true;
 }   
 
+function showTheError(errorString, exception){
+					$('overview').style.display = 'none';
+				$('slate').style.display = 'none';
+				$('bar').style.display = 'none';
+				$('caughtException').style.display = 'block';
+				$('caughtException').innerHTML +='<p>If this problem persists, please <A HREF="mailto:webmaster@pgist.org?subject=LIT Website Problem>contact our webmaster</a></p>';
+}
 </script>
 </Head>
 <body>
@@ -513,13 +568,13 @@ function ifEnter(field,event) {
 	</div>
 </div>	
 
-  <div id="overview">
+ <div id="overview">
 	  	<h3>Overview and Instructions</h3> 
 	  	<p class="indent"><strong>Overview: </strong>${cctForm.cct.purpose}</p>
 	  	<p class="indent"><strong>Instructions: </strong>${cctForm.cct.instruction}</p>
  </div>
 
-  
+ <div id="caughtException"><h2>A Problem has Occured</h2><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
  <div id="slate">
   		<h2>Add your concern</h2><br>What is one of your concerns about the Central Puget Sound Transportation System?  View examples of concerns in the right column (<a href="javascript:tabFocus(1);">concerns tab</a>).
 		    <form name="brainstorm" method="post" onSubmit="addTagToList('tagsList', 'theTag',5'tagValidation'); return false;">
@@ -552,7 +607,7 @@ function ifEnter(field,event) {
 					  	</ol>
 				  	</div>
 				  	
-						<h2>Finished brainstorming concerns?</h2>
+						<a name="finished"></a><h2>Finished brainstorming concerns?</h2>
 						<div id="finished_container">
 							<div id="finished_p">When you are satisfied with your concerns list above, please use the button on the right to continue to the next step!</div>
 							<div id="finished_img"><input type="button" value="Continue to Next Step"></div>
@@ -561,7 +616,7 @@ function ifEnter(field,event) {
 
   </div>
 <!--START SIDEBAR -->
-<div id="bar">
+<div id="bar"><a name="SideConcernsTop"></a>
 	<div class="tabber" id="myTab">
 		  <div id="sidebar_tags" class="tabbertab">
 	    	<H2>Current Task</H2>
