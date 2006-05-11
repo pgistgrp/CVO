@@ -312,13 +312,17 @@ public class CCTServiceImpl implements CCTService {
     }//searchTags()
 
 
-    public void editStopWord(Long id, String updatedName){
-    }
-
-
     public void createStopWord(String name) {
 
     }
+
+
+
+    public void editStopWord(Long id, String updatedName){
+
+    }
+
+
 
 
     public void deleteStopWord(Long id){
@@ -327,7 +331,7 @@ public class CCTServiceImpl implements CCTService {
 
 
     public List getStopWords(PageSetting setting){
-        return null;
+        return tagDAO.getStopWords(setting);
     }
 
 
