@@ -1,7 +1,7 @@
 package org.pgist.cvo;
 
 import java.util.Collection;
-
+import java.util.List;
 import org.pgist.util.PageSetting;
 
 
@@ -23,7 +23,7 @@ public interface CCTService {
 
     /**
      * Create a CCT object.
-     * 
+     *
      * @param name
      * @param purpose
      * @param instruction
@@ -46,12 +46,12 @@ public interface CCTService {
      * Save the given Concern object to database.<br>
      * Depending on the Concern object persisted or not, this method will automatically Insert/Update
      * the Concern object to database.
-     * 
+     *
      * @param concern
      * @throws Exception
      */
     void save(Concern concern) throws Exception;
-    
+
     /**
      * Get a CCT object by the given cctId.
      *
@@ -144,7 +144,7 @@ public interface CCTService {
 
     /**
      * Get the Concern object with id concernId.
-     * 
+     *
      * @param concernId the id of the Concern object.
      * @return The Concern object.
      * @throws Exception
@@ -153,7 +153,7 @@ public interface CCTService {
 
     /**
      * Delete the given Concern object.
-     * 
+     *
      * @param concern The Concern object.
      * @throws Exception
      */
@@ -161,7 +161,7 @@ public interface CCTService {
 
     /**
      * Edit the tag list of the given Concern object.
-     * 
+     *
      * @param concern The Concern object.
      * @param tags A list of string, each element will be a tag.
      * @throws Exception
@@ -170,7 +170,7 @@ public interface CCTService {
 
     /**
      * Get the total number of concerns in a CCT object.
-     * 
+     *
      * @param cctId A CCT object which the current user is working on.
      * @param whose The mode to count the total number of concerns.<br>
      *        <ul>
@@ -185,7 +185,7 @@ public interface CCTService {
 
     /**
      * Get the TagReference object with the given tagRefId.
-     * 
+     *
      * @param tagRefId
      * @return The TagReference object
      * @throws Exception
@@ -201,5 +201,10 @@ public interface CCTService {
      */
     Collection searchTags(CCT cct, String tag) throws Exception;
 
+    void editStopWord(Long id, String updatedName);
+    void createStopWord(String name);
+    void deleteStopWord(Long id);
+    //List getStopWords(PageSetting setting);
+    List getStopWords();
 
 }//interface CCTService

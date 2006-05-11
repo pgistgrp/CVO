@@ -26,6 +26,13 @@ public interface TagDAO extends CVODAO {
     List addTags(String[] tags) throws Exception;
 
     /**
+     * add the given string into the database, return a StopWord insance.
+     * @param s String
+     * @return StopWord
+     */
+    StopWord createStopWord(String s);
+
+    /**
      * Get all valid tags in the system.
      *
      * @return A collection of Tag objects.
@@ -43,6 +50,7 @@ public interface TagDAO extends CVODAO {
      * @throws Exception
      */
     Collection getTagsByRank(CCT cct, int count) throws Exception;
+
 
     /**
      * Get the result on the setting page and return the result.

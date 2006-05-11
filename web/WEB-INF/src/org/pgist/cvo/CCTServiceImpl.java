@@ -11,6 +11,7 @@ import org.pgist.system.UserDAO;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
+import java.util.List;
 
 
 /**
@@ -62,23 +63,23 @@ public class CCTServiceImpl implements CCTService {
 
     public CCT createCCT(String name, String purpose, String instruction) throws Exception {
         CategoryReference catRef = new CategoryReference();
-        
+
         CCT cct = new CCT();
-        
+
         catRef.setCct(cct);
         cct.setRootCategory(catRef);
-        
+
         cct.setName(name);
         cct.setPurpose(purpose);
         cct.setInstruction(instruction);
         cct.setCreateTime(new Date());
-        
+
         Long id = WebUtils.currentUserId();
         User user = userDAO.getUserById(id, true, false);
         cct.setCreator(user);
-        
+
         cctDAO.save(cct);
-        
+
         return cct;
     }//createCCT()
 
@@ -91,8 +92,8 @@ public class CCTServiceImpl implements CCTService {
     public void save(Concern concern) throws Exception {
         cctDAO.save(concern);
     }//save()
-    
-    
+
+
     public CCT getCCTById(Long cctId) throws Exception {
         return cctDAO.getCCTById(cctId);
     }//getCCTById()
@@ -101,22 +102,22 @@ public class CCTServiceImpl implements CCTService {
     public Concern createConcern(Long cctId, String concern, String[] tagStrs) throws Exception {
         CCT cct = cctDAO.getCCTById(cctId);
         if (cct==null) throw new Exception("cct not found");
-        
+
         Concern c = new Concern();
         c.setCct(cct);
         c.setCreateTime(new Date());
         c.setContent(concern);
-        
+
         Long id = WebUtils.currentUserId();
         User user = userDAO.getUserById(id, true, false);
         c.setAuthor(user);
-        
+
         synchronized (this) {
             Tag tag = null;
             TagReference ref = null;
             for (String tagName : tagStrs) {
                 if (tagName==null || "".equals(tagName.trim())) continue;
-                
+
                 tag = analyzer.tagExists(tagName.trim());
                 if (tag!=null) {
                     ref = cctDAO.getTagReferenceByTagId(cct.getId(), tag.getId());
@@ -134,9 +135,9 @@ public class CCTServiceImpl implements CCTService {
                     tag.setDescription(tagName);
                     tag.setStatus(Tag.STATUS_CANDIDATE);
                     cctDAO.save(tag);
-                    
+
                     analyzer.addTag(tag);
-                    
+
                     ref = new TagReference();
                     ref.setTag(tag);
                     ref.setTimes(1);
@@ -147,7 +148,7 @@ public class CCTServiceImpl implements CCTService {
                 c.getTags().add(ref);
             }//for
         }//synchronized
-        
+
         cctDAO.save(c);
         cctDAO.save(cct);
 
@@ -198,11 +199,11 @@ public class CCTServiceImpl implements CCTService {
 
     public void deleteConcern(Concern concern) throws Exception {
         CCT cct = concern.getCct();
-        
+
         synchronized (this) {
             Set oldTags = new HashSet(concern.getTags());
             concern.getTags().clear();
-            
+
             for (Object object : oldTags) {
                 TagReference ref = (TagReference) object;
                 ref.setTimes(ref.getTimes()-1);
@@ -213,10 +214,10 @@ public class CCTServiceImpl implements CCTService {
                 }
             }//for
         }//synchronized
-        
+
         concern.setDeleted(true);
         concern.setCreateTime(new Date());
-        
+
         cctDAO.save(concern);
         cctDAO.save(cct);
     }//deleteConcern()
@@ -228,11 +229,11 @@ public class CCTServiceImpl implements CCTService {
             System.out.print("---> "+tagStrs[i]);
         }
         System.out.println();
-        
+
         //Collection tags = analyzer.ensureTags(tagStrs);
-        
+
         CCT cct = concern.getCct();
-        
+
         synchronized (this) {
             Map<String, TagReference> oldTags = new HashMap<String, TagReference>();
             Set<TagReference> tags = concern.getTags();
@@ -240,12 +241,12 @@ public class CCTServiceImpl implements CCTService {
                 oldTags.put(one.getTag().getName(), one);
             }
             tags.clear();
-            
+
             Tag tag = null;
             TagReference ref = null;
             for (String tagName : tagStrs) {
                 if (tagName==null || "".equals(tagName.trim())) continue;
-                
+
                 ref = oldTags.get(tagName);
                 if (ref!=null) {
                     oldTags.remove(tagName);
@@ -277,7 +278,7 @@ public class CCTServiceImpl implements CCTService {
                 }
                 tags.add(ref);
             }//for
-            
+
             //Decrease the times of the old tags
             Collection<TagReference> collection = oldTags.values();
             for (TagReference one : collection) {
@@ -288,7 +289,7 @@ public class CCTServiceImpl implements CCTService {
                     cctDAO.save(one);
                 }
             }
-            
+
             concern.setCreateTime(new Date());
             cctDAO.save(concern);
             cctDAO.save(cct);
@@ -310,5 +311,16 @@ public class CCTServiceImpl implements CCTService {
         return cctDAO.searchTags(cct.getId(), tag);
     }//searchTags()
 
+    public void editStopWord(Long id, String updatedName){
+    }
+    public void createStopWord(String name) {
 
+    }
+    public void deleteStopWord(Long id){
+
+    }
+    //public List getStopWords(PageSetting setting){
+    public List getStopWords(){
+        return null;
+    }
 }//class CCTServiceImpl
