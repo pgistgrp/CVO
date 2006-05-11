@@ -311,25 +311,24 @@ public class CCTServiceImpl implements CCTService {
         return cctDAO.searchTags(cct.getId(), tag);
     }//searchTags()
 
-    
+
     public void editStopWord(Long id, String updatedName){
     }
-    
-    
+
+
     public void createStopWord(String name) {
 
     }
-    
-    
+
+
     public void deleteStopWord(Long id){
 
     }
-    
-    
-    //public List getStopWords(PageSetting setting){
-    public List getStopWords(){
+
+
+    public List getStopWords(PageSetting setting){
         return null;
     }
-    
-    
+
+
 }//class CCTServiceImpl

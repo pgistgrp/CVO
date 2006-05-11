@@ -16,22 +16,23 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.util.PageSetting;
 
 public class StopWordAction extends Action {
-    
-    
+
+
     private CCTService cctService = null;
-    
+
 
     public StopWordAction() {
     }
-    
+
 
     public void setCctService(CCTService cctService) {
         this.cctService = cctService;
     }
-    
-    
+
+
     /*
      * ---------------------------------------------------------------------
      */
@@ -43,10 +44,10 @@ public class StopWordAction extends Action {
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
         CCTForm cctform = (CCTForm) form;
-        cctform.setStopWords(cctService.getStopWords());
-        
+        cctform.setStopWords(cctService.getStopWords(new PageSetting(1)));
+
         return mapping.findForward("list");
     }//execute()
-    
-    
+
+
 }//class StopWordAction

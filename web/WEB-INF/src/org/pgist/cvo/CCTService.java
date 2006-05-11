@@ -202,13 +202,13 @@ public interface CCTService {
     Collection searchTags(CCT cct, String tag) throws Exception;
 
     void editStopWord(Long id, String updatedName);
-    
+
     void createStopWord(String name);
-    
+
     void deleteStopWord(Long id);
-    
-    //List getStopWords(PageSetting setting);
-    
-    List getStopWords();
+
+    List getStopWords(PageSetting setting);
+
+    //List getStopWords();
 
 }//interface CCTService

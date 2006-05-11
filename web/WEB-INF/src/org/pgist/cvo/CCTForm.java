@@ -76,9 +76,11 @@ public class CCTForm extends ActionForm {
         this.tags = tags;
     }
 
+
     public void setStopWords(List stopWords) {
         this.stopWords = stopWords;
     }
+
 
     public List getStopWords() {
         return this.stopWords;
