@@ -26,7 +26,7 @@ h1 {
 	font-family: "Trebuchet MS", Arial, Verdana, sans-serif;
 	margin-top: 15px;
 	margin-bottom: 0px;
-  color:#999;;
+  color:#999;
   font-size:2.3em;
   letter-spacing:-1px;
 }
@@ -113,7 +113,7 @@ hr {
   letter-spacing:-1px;
   margin:15px 0 0 0;
   margin-top:0px;
-  color:#06c;
+  color:#8DAD1F;
   margin-bottom:3px;
   font-size: 1.5em;
   font-weight: 300;
@@ -128,12 +128,12 @@ hr {
 }
 
 .participantName {
-	color: #8DAD1F;
+	color: #999;
 	font-size: 15px;	
 }
 
 .participantName a{
-	color: #8DAD1F;
+	color: #06c;
 	font-size: 15px;
 	text-decoration: underline;
 }
@@ -303,11 +303,11 @@ li.tagsList{
 
 
 #slate {
-	border: 1px solid #CCCCCC;
-	border-top: 3px solid #CCCCCC;
+	border: 1px solid #ccc;
+	border-top: 3px solid #E7FF96;
 	width: 63%;
 	float: left;
-	background-color: #EEEEEE;
+	background-color: #F3FFCB;
 	padding: 5px;
 	position: relative;
 	top: +15px;
@@ -331,8 +331,12 @@ li.tagsList{
 }
 
 #validation{
-	font-size: 14px;
-	color: red;	
+	background: #FFCCCC;
+	padding: 5px;
+	border: 1px solid #FF0000;
+	border-left: 5px solid #FF0000;
+	width: 90%;
+	margin: auto;
 }
 
 
@@ -557,7 +561,7 @@ width: 20px
 /* /////////////////////////////  Tags and Concerns////////////////////////// */
 
 .theConcern:hover{
-	background:#ddd;
+	background:#E7FF96;
 }
 
 .smallHelp {
@@ -726,3 +730,10 @@ width: 20px
 	font-size: 10px;
 	color:#888;
 }
+
+
+/* ///////////////////////////// TAG MANAGEMENT ////////////////////////// */
+
+#fullSlate {
+	border: 1px solid #ccc;
+	border-top: 3px solid #8DAD1F;
