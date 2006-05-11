@@ -89,8 +89,7 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
         query.setMaxResults(setting.getRowOfPage());
 
         return query.list();
-
-    }
+    }//getStopWords()
     
 
 }//class TagDAOImpl
