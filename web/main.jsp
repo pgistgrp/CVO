@@ -18,6 +18,10 @@
   <p><html:link page="/cctlist.do">Concerns Collector Tool</html:link>
 </pg:show>
 
+<pg:show roles="moderator">
+  <p><html:link page="/stopword.do">StopWords Management Tool</html:link>
+</pg:show>
+
 <p><html:link page="/test.jsp">Test</html:link>
 
 <p><html:link page="/concernManagement.do">Concern Management</html:link>

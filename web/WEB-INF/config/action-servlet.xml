@@ -33,6 +33,11 @@
     </bean>
     
     
+    <bean name="/stopword" class="org.pgist.cvo.StopWordAction">
+        <property name="cctService" ref="cctService"/>
+    </bean>
+    
+    
     <!--bean name="/cvolist" class="org.pgist.cvo.CVOListAction">
         <property name="userDAO" ref="userDAO"/>
         <property name="cvoDAO" ref="cvoDAO"/>

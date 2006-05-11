@@ -58,6 +58,11 @@
         </action>
         
         
+        <action path="/stopword" type="org.pgist.cvo.StopWordAction" name="cctForm" scope="request">
+            <forward name="list" path="/WEB-INF/jsp/cvo/stopWords.jsp"/>
+        </action>
+        
+        
         <action path="/cvolist" type="org.pgist.cvo.CVOListAction" name="cvoForm" scope="request">
             <forward name="list" path="/WEB-INF/jsp/cvo/index.jsp"/>
         </action>

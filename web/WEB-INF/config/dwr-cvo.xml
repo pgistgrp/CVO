@@ -29,6 +29,10 @@
       <param name="include" value="id, name, deleted"/>
     </convert>
 
+    <convert converter="bean" match="org.pgist.cvo.StopWord">
+      <param name="include" value="id, name"/>
+    </convert>
+
 
     <convert converter="bean" match="org.pgist.cvo.CategoryReference">
       <param name="include" value="id, category"/>
