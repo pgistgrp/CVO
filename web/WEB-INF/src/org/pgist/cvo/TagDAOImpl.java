@@ -71,7 +71,8 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
 
     private static String hql_getStopWords1 = "select count(sw.id) from StopWord sw";
 
-    private static String hql_getStopWords2 = "from StopWord sw order by sw.name;";
+    private static String hql_getStopWords2 = "from StopWord sw order by sw.name";
+    
 
     public List getStopWords(PageSetting setting) {
         List result = new ArrayList();
@@ -90,5 +91,6 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
         return query.list();
 
     }
+    
 
 }//class TagDAOImpl

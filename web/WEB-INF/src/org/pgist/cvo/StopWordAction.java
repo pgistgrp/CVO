@@ -17,26 +17,36 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-public class StopWordAction {
+public class StopWordAction extends Action {
+    
+    
     private CCTService cctService = null;
+    
 
     public StopWordAction() {
-   }
+    }
+    
 
-   public void setCctService(CCTService cctService) {
-       this.cctService = cctService;
-   }
+    public void setCctService(CCTService cctService) {
+        this.cctService = cctService;
+    }
+    
+    
+    /*
+     * ---------------------------------------------------------------------
+     */
 
-   public ActionForward execute(
-           ActionMapping mapping,
-           ActionForm form,
-           javax.servlet.http.HttpServletRequest request,
-           javax.servlet.http.HttpServletResponse response
-   ) throws java.lang.Exception {
-       CCTForm cctform = (CCTForm) form;
-       //cctform.setCcts(cctService.getCCTs());
-       cctform.setStopWords(cctService.getStopWords()) ;
-
-       return mapping.findForward("list");
-   }//execute()
-}
+    public ActionForward execute(
+            ActionMapping mapping,
+            ActionForm form,
+            javax.servlet.http.HttpServletRequest request,
+            javax.servlet.http.HttpServletResponse response
+    ) throws java.lang.Exception {
+        CCTForm cctform = (CCTForm) form;
+        cctform.setStopWords(cctService.getStopWords());
+        
+        return mapping.findForward("list");
+    }//execute()
+    
+    
+}//class StopWordAction
