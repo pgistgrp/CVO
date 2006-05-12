@@ -782,6 +782,31 @@ public class CCTAgent {
         return map;
     } //searchTags()
 
+    /**
+     *
+     * @param params Map
+     * @return Map
+     */
+    public Map createStopWord(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+
+        String name = (String) params.get("name");
+        if (name == null || "".equals(name.trim())) {
+            map.put("reason", "StopWord name can not be empty.");
+            return map;
+        }
+
+        try {
+            StopWord stopWord = cctService.createStopWord(name);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+
+        return map;
+    } //createStopWord()
 
     /**
      * Get the stop word list.
@@ -829,5 +854,6 @@ public class CCTAgent {
 
         return map;
     }
+
 
 } //class CCTAgent

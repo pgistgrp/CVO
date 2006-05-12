@@ -312,8 +312,10 @@ public class CCTServiceImpl implements CCTService {
     }//searchTags()
 
 
-    public void createStopWord(String name) {
-
+    public StopWord createStopWord(String name) {
+        StopWord stopWord = new StopWord();
+        stopWord.setName(name);
+        return stopWord;
     }
 
 
