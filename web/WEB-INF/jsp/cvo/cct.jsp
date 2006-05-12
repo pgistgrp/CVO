@@ -575,7 +575,7 @@ function showTheError(errorString, exception){
  </div>
 
  <div id="caughtException"><h2>A Problem has Occured</h2><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
- <div id="slate">
+ <div id="slate" class="slate leftBox">
   		<h2>Add your concern</h2><br>What is one of your concerns about the Central Puget Sound Transportation System?  View examples of concerns in the right column (<a href="javascript:tabFocus(1);">concerns tab</a>).
 		    <form name="brainstorm" method="post" onSubmit="addTagToList('tagsList', 'theTag','tagValidation'); return false;">
 			      <p><textarea class="textareaAddConcern" onkeypress="ifEnter(this,event);" name="addConcern" cols="20" rows="2" id="addConcern"></textarea></p>

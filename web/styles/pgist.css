@@ -272,6 +272,24 @@ hr {
 
 /* ///////////////////////////// SLATE ////////////////////////// */
 	
+
+.slate{
+	background-color: #F3FFCB;
+	padding: 5px;
+	position: relative;
+	top: +15px;
+	border: 1px solid #ccc;
+	border-top: 3px solid #E7FF96;
+}
+.fullBox {
+	width: 99%;
+}
+	
+.leftBox{
+	width: 63%;
+	float: left;
+}
+
 ul.tagsList{
 	margin: 0;
 	padding: 0;
@@ -301,17 +319,6 @@ li.tagsList{
   padding: 5px;
 }
 
-
-#slate {
-	border: 1px solid #ccc;
-	border-top: 3px solid #E7FF96;
-	width: 63%;
-	float: left;
-	background-color: #F3FFCB;
-	padding: 5px;
-	position: relative;
-	top: +15px;
-}
 
 #bar{
 	width: 33%;
@@ -733,7 +740,3 @@ width: 20px
 
 
 /* ///////////////////////////// TAG MANAGEMENT ////////////////////////// */
-
-#fullSlate {
-	border: 1px solid #ccc;
-	border-top: 3px solid #8DAD1F;
