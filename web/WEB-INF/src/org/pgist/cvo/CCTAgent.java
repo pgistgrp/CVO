@@ -99,25 +99,25 @@ public class CCTAgent {
     public Map createCCT(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
-        
+
         String name = (String) params.get("name");
         if (name==null || "".equals(name.trim())) {
             map.put("reason", "name can not be empty.");
             return map;
         }
-        
+
         String purpose = (String) params.get("purpose");
         if (purpose==null || "".equals(purpose.trim())) {
             map.put("reason", "purpose can not be empty.");
             return map;
         }
-        
+
         String instruction = (String) params.get("instruction");
         if (instruction==null || "".equals(instruction.trim())) {
             map.put("reason", "instruction can not be empty.");
             return map;
         }
-        
+
         try {
             CCT cct = cctService.createCCT(name, purpose, instruction);
             map.put("successful", true);
@@ -125,7 +125,7 @@ public class CCTAgent {
             e.printStackTrace();
             map.put("reason", e.getMessage());
         }
-        
+
         return map;
     }//createCCT()
 
@@ -148,15 +148,15 @@ public class CCTAgent {
      */
     public Map prepareConcern(Map params) throws Exception {
         Map map = new HashMap();
-        
+
         String concern = (String) params.get("concern");
-        
+
         Collection tags = cctService.getSuggestedTags(concern);//
         System.out.println("====returned back to cctagent: get tags=" + tags.size());
         //String[] tags = {"Traffic", "Transit", "Bus"};
         map.put("tags", tags);
         map.put("successful", new Boolean(true));
-        
+
         return map;
     }//prepareConcern()
 
@@ -180,17 +180,17 @@ public class CCTAgent {
     public Map saveConcern(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
-        
+
         Long cctId = new Long((String) params.get("cctId"));
-        
+
         String concern = (String) params.get("concern");
         if (concern==null || "".equals(concern.trim())) {
             map.put("reason", "concern can not be empty.");
             return map;
         }
-        
+
         String tags = (String) params.get("tags");
-        
+
         try {
             Concern c = cctService.createConcern(cctId, concern, tags.split(","));
             map.put("concern", c);
@@ -199,7 +199,7 @@ public class CCTAgent {
             e.printStackTrace();
             map.put("reason", e.getMessage());
         }
-        
+
         return map;
     }//saveConcern()
 
@@ -262,17 +262,17 @@ public class CCTAgent {
                 case 0:
                     concerns =  cctService.getMyConcerns(cct);
                     map.put("total", ""+cctService.getConcernsTotal(cct, 1));
-                    
+
                     request.setAttribute("showIcon", new Boolean(true));
-                    
+
                     url = "/WEB-INF/jsp/cvo/concerns.jsp";
                     break;
                 case 1:
                     concerns =  cctService.getOthersConcerns(cct, count);
                     map.put("total", ""+cctService.getConcernsTotal(cct, 2));
-                    
+
                     request.setAttribute("showIcon", new Boolean(false));
-                    
+
                     url = "/WEB-INF/jsp/cvo/concerns.jsp";
                     break;
                 case 2:
@@ -285,10 +285,10 @@ public class CCTAgent {
                     }
                     concerns =  cctService.getRandomConcerns(cct, setting);
                     map.put("total", ""+setting.getRowSize());
-                    
+
                     request.setAttribute("setting", setting);
                     request.setAttribute("showIcon", new Boolean(false));
-                    
+
                     url = "/WEB-INF/jsp/cvo/concerns.jsp";
                     break;
                 default:
@@ -425,7 +425,7 @@ public class CCTAgent {
      */
     public Map getConcernById(Long id) {
         Map map = new HashMap();
-        
+
         try {
             Concern concern = cctService.getConcernById(id);
             if (concern==null) {
@@ -440,11 +440,11 @@ public class CCTAgent {
             map.put("successful", false);
             map.put("reason", e.getMessage());
         }
-        
+
         return map;
     }//getConcernById
-    
-    
+
+
     /**
      * Get concerns attached to a tag.
      *
@@ -486,8 +486,8 @@ public class CCTAgent {
         try {
             Collection concerns = cctService.getConcernsByTag(tagRefId, count);
             TagReference tagRef = cctService.getTagReferenceById(tagRefId);
-            
-            
+
+
             request.setAttribute("showIcon", new Boolean(false));
             request.setAttribute("showTitle", new Boolean(true));
             request.setAttribute("tagRef", tagRef);
@@ -524,17 +524,17 @@ public class CCTAgent {
      */
     public Map editConcern(Map params) {
         Map map = new HashMap();
-        
+
         Long concernId = null;
         Concern concern = null;
-        
+
         String newConcern = (String) params.get("concern");
         if (newConcern==null || "".equals(newConcern.trim())) {
             map.put("successful", new Boolean(false));
             map.put("reason", "Concern string can't be empty.");
             return map;
         }
-        
+
         try {
             concernId = new Long((String) params.get("concernId"));
             concern = cctService.getConcernById(concernId);
@@ -552,7 +552,7 @@ public class CCTAgent {
             }
             return map;
         }
-        
+
         //Check if the current user is the author of this concern.
         try {
             Long userId = WebUtils.currentUserId();
@@ -572,7 +572,7 @@ public class CCTAgent {
             map.put("reason", e.getMessage());
             return map;
         }
-        
+
         return map;
     }//editConcern()
 
@@ -592,10 +592,10 @@ public class CCTAgent {
      */
     public Map deleteConcern(Map params) {
         Map map = new HashMap();
-        
+
         Long concernId = null;
         Concern concern = null;
-        
+
         try {
             concernId = new Long((String) params.get("concernId"));
             concern = cctService.getConcernById(concernId);
@@ -613,7 +613,7 @@ public class CCTAgent {
             }
             return map;
         }
-        
+
         //Check if the current user is the author of this concern.
         try {
             Long userId = WebUtils.currentUserId();
@@ -631,7 +631,7 @@ public class CCTAgent {
             map.put("reason", e.getMessage());
             return map;
         }
-        
+
         return map;
     }//deleteConcern()
 
@@ -653,10 +653,10 @@ public class CCTAgent {
      */
     public Map editTags(Map params) {
         Map map = new HashMap();
-        
+
         Long concernId = null;
         Concern concern = null;
-        
+
         try {
             concernId = new Long((String) params.get("concernId"));
             concern = cctService.getConcernById(concernId);
@@ -675,9 +675,9 @@ public class CCTAgent {
             }
             return map;
         }
-        
+
         System.out.println("---> 11111111111");
-        
+
         //Check if the current user is the author of this concern.
         try {
             Long userId = WebUtils.currentUserId();
@@ -701,14 +701,14 @@ public class CCTAgent {
             map.put("reason", e.getMessage());
             return map;
         }
-        
+
         return map;
     }//editTags()
-    
-    
+
+
     /**
      * Search all matched tags in the given CCT by tag name. Approximate match is used for the tag string.
-     * 
+     *
      * @param params A map contains:<br>
      *         <ul>
      *           <li>cctId - long int, the current CCT instance id</li>
@@ -730,9 +730,9 @@ public class CCTAgent {
      */
     public Map searchTags(HttpServletRequest request, Map params) {
         Map map = new HashMap();
-        
+
         CCT cct = null;
-        
+
         try {
             Long cctId = new Long((String) params.get("cctId"));
             cct = cctService.getCCTById(cctId);
@@ -743,13 +743,13 @@ public class CCTAgent {
             else map.put("reason", e.getMessage());
             return map;
         }
-        
+
         String tag = (String) params.get("tag");
         if (tag==null || tag.trim().equals("")) {
             map.put("successful", new Boolean(false));
             map.put("reason", "tag string to be searched is required!");
         }
-        
+
         try {
             Collection tags = cctService.searchTags(cct, tag);
             map.put("count", tags.size());
@@ -763,9 +763,28 @@ public class CCTAgent {
             map.put("successful", false);
             map.put("reason", e.getMessage());
         }
-        
+
         return map;
     }//searchTags()
 
+
+    public Map getStopWords(Map params){
+        Map map = new HashMap();
+
+        String s = (String)params.get("page");
+        int page = Integer.parseInt(s);
+        PageSetting setting = new PageSetting(20);
+        setting.setPage(page+1);
+        cctService.getStopWords(setting);
+                try {
+                    map.put("html", map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/getStopWords.jsp")));
+                }
+                catch(Exception e) {
+                    e.printStackTrace();
+                    map.put("successful", false);
+                    map.put("reason", e.getMessage());
+                }
+        return map;
+    }
 
 }//class CCTAgent
