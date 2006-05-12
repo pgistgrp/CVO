@@ -70,7 +70,7 @@ public class CCTAgent {
      *         </ul>
      * @throws Exception
      */
-    public Map getCCTs(Map params)  throws Exception {
+    public Map getCCTs(Map params) throws Exception {
         Map map = new HashMap();
 
         Collection list = cctService.getCCTs();
@@ -78,7 +78,7 @@ public class CCTAgent {
         map.put("ccts", list);
 
         return map;
-    }//getCCTs()
+    } //getCCTs()
 
 
     /**
@@ -101,19 +101,19 @@ public class CCTAgent {
         map.put("successful", false);
 
         String name = (String) params.get("name");
-        if (name==null || "".equals(name.trim())) {
+        if (name == null || "".equals(name.trim())) {
             map.put("reason", "name can not be empty.");
             return map;
         }
 
         String purpose = (String) params.get("purpose");
-        if (purpose==null || "".equals(purpose.trim())) {
+        if (purpose == null || "".equals(purpose.trim())) {
             map.put("reason", "purpose can not be empty.");
             return map;
         }
 
         String instruction = (String) params.get("instruction");
-        if (instruction==null || "".equals(instruction.trim())) {
+        if (instruction == null || "".equals(instruction.trim())) {
             map.put("reason", "instruction can not be empty.");
             return map;
         }
@@ -121,13 +121,13 @@ public class CCTAgent {
         try {
             CCT cct = cctService.createCCT(name, purpose, instruction);
             map.put("successful", true);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
         }
 
         return map;
-    }//createCCT()
+    } //createCCT()
 
 
     /**
@@ -151,14 +151,15 @@ public class CCTAgent {
 
         String concern = (String) params.get("concern");
 
-        Collection tags = cctService.getSuggestedTags(concern);//
-        System.out.println("====returned back to cctagent: get tags=" + tags.size());
+        Collection tags = cctService.getSuggestedTags(concern); //
+        System.out.println("====returned back to cctagent: get tags=" +
+                           tags.size());
         //String[] tags = {"Traffic", "Transit", "Bus"};
         map.put("tags", tags);
         map.put("successful", new Boolean(true));
 
         return map;
-    }//prepareConcern()
+    } //prepareConcern()
 
 
     /**
@@ -184,7 +185,7 @@ public class CCTAgent {
         Long cctId = new Long((String) params.get("cctId"));
 
         String concern = (String) params.get("concern");
-        if (concern==null || "".equals(concern.trim())) {
+        if (concern == null || "".equals(concern.trim())) {
             map.put("reason", "concern can not be empty.");
             return map;
         }
@@ -195,13 +196,13 @@ public class CCTAgent {
             Concern c = cctService.createConcern(cctId, concern, tags.split(","));
             map.put("concern", c);
             map.put("successful", true);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
         }
 
         return map;
-    }//saveConcern()
+    } //saveConcern()
 
 
     /**
@@ -236,19 +237,20 @@ public class CCTAgent {
      *         </ul>
      * @throws Exception
      */
-    public Map getConcerns(HttpServletRequest request, Map params) throws Exception {
+    public Map getConcerns(HttpServletRequest request, Map params) throws
+            Exception {
         Map map = new HashMap();
 
         Long cctId = new Long((String) params.get("cctId"));
 
         if (!(cctId > 0)) {
-          map.put("successful", new Boolean(false));
-          map.put("reason", "No CCTId is given.");
-          return map;
+            map.put("successful", new Boolean(false));
+            map.put("reason", "No CCTId is given.");
+            return map;
         }
 
-        int count = Integer.parseInt( (String) params.get("count"));
-        if (! (count > 0)) count = 10;
+        int count = Integer.parseInt((String) params.get("count"));
+        if (!(count > 0)) count = 10;
 
         CCT cct = cctService.getCCTById(cctId);
 
@@ -257,44 +259,44 @@ public class CCTAgent {
         String url = "";
 
         try {
-            type = new Integer((String)params.get("type"));
-            switch(type.intValue()) {
-                case 0:
-                    concerns =  cctService.getMyConcerns(cct);
-                    map.put("total", ""+cctService.getConcernsTotal(cct, 1));
+            type = new Integer((String) params.get("type"));
+            switch (type.intValue()) {
+            case 0:
+                concerns = cctService.getMyConcerns(cct);
+                map.put("total", "" + cctService.getConcernsTotal(cct, 1));
 
-                    request.setAttribute("showIcon", new Boolean(true));
+                request.setAttribute("showIcon", new Boolean(true));
 
-                    url = "/WEB-INF/jsp/cvo/concerns.jsp";
-                    break;
-                case 1:
-                    concerns =  cctService.getOthersConcerns(cct, count);
-                    map.put("total", ""+cctService.getConcernsTotal(cct, 2));
+                url = "/WEB-INF/jsp/cvo/concerns.jsp";
+                break;
+            case 1:
+                concerns = cctService.getOthersConcerns(cct, count);
+                map.put("total", "" + cctService.getConcernsTotal(cct, 2));
 
-                    request.setAttribute("showIcon", new Boolean(false));
+                request.setAttribute("showIcon", new Boolean(false));
 
-                    url = "/WEB-INF/jsp/cvo/concerns.jsp";
-                    break;
-                case 2:
-                    PageSetting setting = new PageSetting();
-                    setting.setRowOfPage(count);
-                    try {
-                        setting.setPage(Integer.parseInt((String) params.get("page")));
-                    } catch (Exception e) {
-                        setting.setPage(1);
-                    }
-                    concerns =  cctService.getRandomConcerns(cct, setting);
-                    map.put("total", ""+setting.getRowSize());
+                url = "/WEB-INF/jsp/cvo/concerns.jsp";
+                break;
+            case 2:
+                PageSetting setting = new PageSetting();
+                setting.setRowOfPage(count);
+                try {
+                    setting.setPage(Integer.parseInt((String) params.get("page")));
+                } catch (Exception e) {
+                    setting.setPage(1);
+                }
+                concerns = cctService.getRandomConcerns(cct, setting);
+                map.put("total", "" + setting.getRowSize());
 
-                    request.setAttribute("setting", setting);
-                    request.setAttribute("showIcon", new Boolean(false));
+                request.setAttribute("setting", setting);
+                request.setAttribute("showIcon", new Boolean(false));
 
-                    url = "/WEB-INF/jsp/cvo/concerns.jsp";
-                    break;
-                default:
-                    map.put("successful", new Boolean(false));
-                    map.put("reason", "Not sure who's concern is wanted. Please set type to 0 (current user) or 1 (others').");
-                    return map;
+                url = "/WEB-INF/jsp/cvo/concerns.jsp";
+                break;
+            default:
+                map.put("successful", new Boolean(false));
+                map.put("reason", "Not sure who's concern is wanted. Please set type to 0 (current user) or 1 (others').");
+                return map;
             }
 
             request.setAttribute("showTitle", new Boolean(false));
@@ -307,7 +309,7 @@ public class CCTAgent {
         } catch (Exception e) {
             e.printStackTrace();
             map.put("successful", new Boolean(false));
-            if (type==null) {
+            if (type == null) {
                 map.put("reason", "Not sure who's concern is wanted. Please set type to 0 (current user) or 1 (others').");
             } else {
                 map.put("reason", e.getMessage());
@@ -316,7 +318,7 @@ public class CCTAgent {
         }
 
         return map;
-    }//getConcerns()
+    } //getConcerns()
 
 
     /**
@@ -356,20 +358,20 @@ public class CCTAgent {
             type = Integer.parseInt((String) params.get("type"));
             Long cctId = new Long((String) params.get("cctId"));
             cct = cctService.getCCTById(cctId);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             map.put("successful", false);
-            if (type==-1) map.put("reason", "Wrong invocation type!");
-            if (cct==null) map.put("reason", "No CCTId is given.");
+            if (type == -1) map.put("reason", "Wrong invocation type!");
+            if (cct == null) map.put("reason", "No CCTId is given.");
             return map;
         }
 
-        if (type==0) {
+        if (type == 0) {
             int count = -1;
             try {
                 count = Integer.parseInt((String) params.get("count"));
-                if (count<1) count = 2;
-            } catch(Exception e) {
+                if (count < 1) count = 2;
+            } catch (Exception e) {
                 e.printStackTrace();
                 count = 2;
             }
@@ -378,20 +380,22 @@ public class CCTAgent {
                 Collection tags = cctService.getTagsByRank(cct, count);
                 request.setAttribute("tags", tags);
                 map.put("successful", true);
-                map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/tagCloud.jsp"));
-            } catch(Exception e) {
+                map.put("html",
+                        WebContextFactory.get().forwardToString(
+                                "/WEB-INF/jsp/cvo/tagCloud.jsp"));
+            } catch (Exception e) {
                 e.printStackTrace();
                 map.put("successful", false);
                 map.put("reason", "Error: " + e.getMessage());
                 return map;
             }
-        } else if (type==1) {
+        } else if (type == 1) {
             int threshhold = -1;
             try {
                 threshhold = Integer.parseInt((String) params.get("count"));
-                if (threshhold<1) threshhold = 10;
-                else if (threshhold>100) threshhold = 100;
-            } catch(Exception e) {
+                if (threshhold < 1) threshhold = 10;
+                else if (threshhold > 100) threshhold = 100;
+            } catch (Exception e) {
                 threshhold = 10;
             }
 
@@ -399,8 +403,10 @@ public class CCTAgent {
                 Collection tags = cctService.getTagsByThreshold(cct, threshhold);
                 request.setAttribute("tags", tags);
                 map.put("successful", true);
-                map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/tagCloud.jsp"));
-            } catch(Exception e) {
+                map.put("html",
+                        WebContextFactory.get().forwardToString(
+                                "/WEB-INF/jsp/cvo/tagCloud.jsp"));
+            } catch (Exception e) {
                 map.put("successful", false);
                 map.put("reason", "Error: " + e.getMessage());
                 return map;
@@ -410,7 +416,7 @@ public class CCTAgent {
         }
 
         return map;
-    }//getTagCloud()
+    } //getTagCloud()
 
 
     /**
@@ -428,9 +434,9 @@ public class CCTAgent {
 
         try {
             Concern concern = cctService.getConcernById(id);
-            if (concern==null) {
+            if (concern == null) {
                 map.put("successful", false);
-                map.put("reason", "concern not found with id "+id);
+                map.put("reason", "concern not found with id " + id);
                 return map;
             }
             map.put("successful", true);
@@ -442,7 +448,7 @@ public class CCTAgent {
         }
 
         return map;
-    }//getConcernById
+    } //getConcernById
 
 
     /**
@@ -475,8 +481,8 @@ public class CCTAgent {
         try {
             tagRefId = new Long((String) params.get("tagRefId"));
             count = Integer.parseInt((String) params.get("count"));
-        } catch(NumberFormatException e) {
-            if (tagRefId==null) {
+        } catch (NumberFormatException e) {
+            if (tagRefId == null) {
                 map.put("successful", new Boolean(false));
                 map.put("reason", "tagRefId is required!");
                 return map;
@@ -487,14 +493,15 @@ public class CCTAgent {
             Collection concerns = cctService.getConcernsByTag(tagRefId, count);
             TagReference tagRef = cctService.getTagReferenceById(tagRefId);
 
-
             request.setAttribute("showIcon", new Boolean(false));
             request.setAttribute("showTitle", new Boolean(true));
             request.setAttribute("tagRef", tagRef);
             request.setAttribute("concerns", concerns);
 
-            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/concerns.jsp"));
-        } catch(Exception e) {
+            map.put("html",
+                    WebContextFactory.get().forwardToString(
+                            "/WEB-INF/jsp/cvo/concerns.jsp"));
+        } catch (Exception e) {
             e.printStackTrace();
             map.put("successful", new Boolean(false));
             map.put("reason", e.getMessage());
@@ -504,7 +511,7 @@ public class CCTAgent {
         map.put("successful", new Boolean(true));
 
         return map;
-    }//getConcernsByTag()
+    } //getConcernsByTag()
 
 
     /**
@@ -529,7 +536,7 @@ public class CCTAgent {
         Concern concern = null;
 
         String newConcern = (String) params.get("concern");
-        if (newConcern==null || "".equals(newConcern.trim())) {
+        if (newConcern == null || "".equals(newConcern.trim())) {
             map.put("successful", new Boolean(false));
             map.put("reason", "Concern string can't be empty.");
             return map;
@@ -545,10 +552,11 @@ public class CCTAgent {
             }
         } catch (Exception e) {
             map.put("successful", new Boolean(false));
-            if (concernId==null) {
+            if (concernId == null) {
                 map.put("reason", "concernId is required.");
             } else {
-                map.put("reason", "failed to extract concern object with id "+concernId);
+                map.put("reason",
+                        "failed to extract concern object with id " + concernId);
             }
             return map;
         }
@@ -557,7 +565,7 @@ public class CCTAgent {
         try {
             Long userId = WebUtils.currentUserId();
             User user = userDAO.getUserById(userId, true, false);
-            if (user.getId().doubleValue()==concern.getAuthor().getId()) {
+            if (user.getId().doubleValue() == concern.getAuthor().getId()) {
                 concern.setContent(newConcern);
                 concern.setCreateTime(new Date());
                 cctService.save(concern);
@@ -574,7 +582,7 @@ public class CCTAgent {
         }
 
         return map;
-    }//editConcern()
+    } //editConcern()
 
 
     /**
@@ -606,10 +614,11 @@ public class CCTAgent {
             }
         } catch (Exception e) {
             map.put("successful", new Boolean(false));
-            if (concernId==null) {
+            if (concernId == null) {
                 map.put("reason", "concernId is required.");
             } else {
-                map.put("reason", "failed to extract concern object with id "+concernId);
+                map.put("reason",
+                        "failed to extract concern object with id " + concernId);
             }
             return map;
         }
@@ -618,7 +627,7 @@ public class CCTAgent {
         try {
             Long userId = WebUtils.currentUserId();
             User user = userDAO.getUserById(userId, true, false);
-            if (user.getId().doubleValue()==concern.getAuthor().getId()) {
+            if (user.getId().doubleValue() == concern.getAuthor().getId()) {
                 cctService.deleteConcern(concern);
                 map.put("successful", new Boolean(true));
             } else {
@@ -633,7 +642,7 @@ public class CCTAgent {
         }
 
         return map;
-    }//deleteConcern()
+    } //deleteConcern()
 
 
     /**
@@ -668,10 +677,11 @@ public class CCTAgent {
             System.out.println("---> 000000000");
         } catch (Exception e) {
             map.put("successful", new Boolean(false));
-            if (concernId==null) {
+            if (concernId == null) {
                 map.put("reason", "concernId is required.");
             } else {
-                map.put("reason", "failed to extract concern object with id "+concernId);
+                map.put("reason",
+                        "failed to extract concern object with id " + concernId);
             }
             return map;
         }
@@ -684,9 +694,9 @@ public class CCTAgent {
             User user = userDAO.getUserById(userId, true, false);
             String tagStr = (String) params.get("tags");
             String tags[] = null;
-            if (tagStr==null) tagStr = "";
+            if (tagStr == null) tagStr = "";
             tags = tagStr.trim().split(",");
-            if (user.getId().doubleValue()==concern.getAuthor().getId()) {
+            if (user.getId().doubleValue() == concern.getAuthor().getId()) {
                 concern.setCreateTime(new Date());
                 cctService.editConcernTags(concern, tags);
                 map.put("successful", new Boolean(true));
@@ -703,7 +713,7 @@ public class CCTAgent {
         }
 
         return map;
-    }//editTags()
+    } //editTags()
 
 
     /**
@@ -736,16 +746,16 @@ public class CCTAgent {
         try {
             Long cctId = new Long((String) params.get("cctId"));
             cct = cctService.getCCTById(cctId);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             map.put("successful", false);
-            if (cct==null) map.put("reason", "No cctId is given.");
+            if (cct == null) map.put("reason", "No cctId is given.");
             else map.put("reason", e.getMessage());
             return map;
         }
 
         String tag = (String) params.get("tag");
-        if (tag==null || tag.trim().equals("")) {
+        if (tag == null || tag.trim().equals("")) {
             map.put("successful", new Boolean(false));
             map.put("reason", "tag string to be searched is required!");
         }
@@ -753,9 +763,11 @@ public class CCTAgent {
         try {
             Collection tags = cctService.searchTags(cct, tag);
             map.put("count", tags.size());
-            if (tags.size()>0) {
+            if (tags.size() > 0) {
                 request.setAttribute("tags", tags);
-                map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/tagSearch.jsp"));
+                map.put("html",
+                        WebContextFactory.get().forwardToString(
+                                "/WEB-INF/jsp/cvo/tagSearch.jsp"));
             }
             map.put("successful", true);
         } catch (Exception e) {
@@ -765,26 +777,30 @@ public class CCTAgent {
         }
 
         return map;
-    }//searchTags()
+    } //searchTags()
 
 
-    public Map getStopWords(Map params){
+    public Map getStopWords(HttpServletRequest request, Map params) {
         Map map = new HashMap();
 
-        String s = (String)params.get("page");
+        String s = (String) params.get("page");
         int page = Integer.parseInt(s);
         PageSetting setting = new PageSetting(20);
-        setting.setPage(page+1);
-        cctService.getStopWords(setting);
-                try {
-                    map.put("html", map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/getStopWords.jsp")));
-                }
-                catch(Exception e) {
-                    e.printStackTrace();
-                    map.put("successful", false);
-                    map.put("reason", e.getMessage());
-                }
+        setting.setPage(page);
+
+        try {
+            Collection stopWords = cctService.getStopWords(setting);
+            request.setAttribute("stopWords", stopWords);
+            map.put("html",
+                    map.put("html",
+                            WebContextFactory.get().forwardToString(
+                                    "/WEB-INF/jsp/cvo/getStopWords.jsp")));
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("successful", false);
+            map.put("reason", e.getMessage());
+        }
         return map;
     }
 
-}//class CCTAgent
+} //class CCTAgent
