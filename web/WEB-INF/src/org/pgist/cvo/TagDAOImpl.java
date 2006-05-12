@@ -67,14 +67,19 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
         return getHibernateTemplate().find(hql_getAllTags, new Integer(Tag.STATUS_REJECTED));
     }//getAllTags
 
+    private static String hql_getAllStopWords = "from StopWord sw";
+
+    public List getAllStopWords() {
+        return getHibernateTemplate().find(hql_getAllTags);
+    }
+
 
 
     private static String hql_getStopWords1 = "select count(sw.id) from StopWord sw";
 
     private static String hql_getStopWords2 = "from StopWord sw order by sw.name";
-    
 
-    public List getStopWords(PageSetting setting) {
+        public List getStopWords(PageSetting setting) {
         List result = new ArrayList();
 
         List list = getHibernateTemplate().find(hql_getStopWords1);
@@ -90,6 +95,6 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
 
         return query.list();
     }//getStopWords()
-    
+
 
 }//class TagDAOImpl

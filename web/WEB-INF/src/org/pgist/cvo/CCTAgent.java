@@ -798,6 +798,7 @@ public class CCTAgent {
         }
 
         try {
+
             StopWord stopWord = cctService.createStopWord(name);
             map.put("successful", true);
         } catch (Exception e) {

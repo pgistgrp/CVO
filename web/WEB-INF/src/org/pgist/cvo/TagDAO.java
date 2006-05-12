@@ -40,6 +40,10 @@ public interface TagDAO extends CVODAO {
      */
     Collection getAllTags() throws Exception;
 
+
+    List getAllStopWords();
+
+
     /**
      * Search in the given CCT, and find those tags appeared in this CCT and which are the top count
      * being referenced.
@@ -72,4 +76,4 @@ public interface TagDAO extends CVODAO {
     Collection getTagsByThreshold(CCT cct, int threshold) throws Exception;
 
 
-}//interface TagDAO
+} //interface TagDAO

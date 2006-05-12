@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.Iterator;
 
 import org.pgist.system.UserDAO;
 import org.pgist.users.User;
@@ -58,10 +59,11 @@ public class CCTServiceImpl implements CCTService {
 
     public Collection getCCTs() throws Exception {
         return cctDAO.getCCTs();
-    }//getCCTs()
+    } //getCCTs()
 
 
-    public CCT createCCT(String name, String purpose, String instruction) throws Exception {
+    public CCT createCCT(String name, String purpose, String instruction) throws
+            Exception {
         CategoryReference catRef = new CategoryReference();
 
         CCT cct = new CCT();
@@ -81,27 +83,28 @@ public class CCTServiceImpl implements CCTService {
         cctDAO.save(cct);
 
         return cct;
-    }//createCCT()
+    } //createCCT()
 
 
     public void save(CCT cct) throws Exception {
         cctDAO.save(cct);
-    }//save()
+    } //save()
 
 
     public void save(Concern concern) throws Exception {
         cctDAO.save(concern);
-    }//save()
+    } //save()
 
 
     public CCT getCCTById(Long cctId) throws Exception {
         return cctDAO.getCCTById(cctId);
-    }//getCCTById()
+    } //getCCTById()
 
 
-    public Concern createConcern(Long cctId, String concern, String[] tagStrs) throws Exception {
+    public Concern createConcern(Long cctId, String concern, String[] tagStrs) throws
+            Exception {
         CCT cct = cctDAO.getCCTById(cctId);
-        if (cct==null) throw new Exception("cct not found");
+        if (cct == null)throw new Exception("cct not found");
 
         Concern c = new Concern();
         c.setCct(cct);
@@ -116,18 +119,18 @@ public class CCTServiceImpl implements CCTService {
             Tag tag = null;
             TagReference ref = null;
             for (String tagName : tagStrs) {
-                if (tagName==null || "".equals(tagName.trim())) continue;
+                if (tagName == null || "".equals(tagName.trim()))continue;
 
                 tag = analyzer.tagExists(tagName.trim());
-                if (tag!=null) {
+                if (tag != null) {
                     ref = cctDAO.getTagReferenceByTagId(cct.getId(), tag.getId());
-                    if (ref==null) {
+                    if (ref == null) {
                         ref = new TagReference();
                         ref.setCctId(cct.getId());
                         ref.setTag(tag);
                         ref.setTimes(1);
                     } else {
-                        ref.setTimes(ref.getTimes()+1);
+                        ref.setTimes(ref.getTimes() + 1);
                     }
                 } else {
                     tag = new Tag();
@@ -146,55 +149,61 @@ public class CCTServiceImpl implements CCTService {
                 }
                 cctDAO.save(ref);
                 c.getTags().add(ref);
-            }//for
-        }//synchronized
+            } //for
+        } //synchronized
 
         cctDAO.save(c);
         cctDAO.save(cct);
 
         return c;
-    }//createConcern()
+    } //createConcern()
 
 
     public Collection getMyConcerns(CCT cct) throws Exception {
         return cctDAO.getMyConcerns(cct.getId(), WebUtils.currentUserId());
-    }//getMyConcerns()
+    } //getMyConcerns()
 
 
     public Collection getOthersConcerns(CCT cct, int count) throws Exception {
-        return cctDAO.getOthersConcerns(cct.getId(), WebUtils.currentUserId(), count);
-    }//getOthersConcerns()
+        return cctDAO.getOthersConcerns(cct.getId(), WebUtils.currentUserId(),
+                                        count);
+    } //getOthersConcerns()
 
 
-    public Collection getRandomConcerns(CCT cct, PageSetting setting) throws Exception {
-        return cctDAO.getRandomConcerns(cct.getId(), WebUtils.currentUserId(), setting);
-    }//getRandomConcerns()
+    public Collection getRandomConcerns(CCT cct, PageSetting setting) throws
+            Exception {
+        return cctDAO.getRandomConcerns(cct.getId(), WebUtils.currentUserId(),
+                                        setting);
+    } //getRandomConcerns()
 
 
     public Collection getTagsByRank(CCT cct, int count) throws Exception {
         return tagDAO.getTagsByRank(cct, count);
-    }//getTagsByRank()
+    } //getTagsByRank()
 
 
-    public Collection getTagsByThreshold(CCT cct, int threshold) throws Exception {
+    public Collection getTagsByThreshold(CCT cct, int threshold) throws
+            Exception {
         return tagDAO.getTagsByThreshold(cct, threshold);
-    }//getTagsByThreshold()
+    } //getTagsByThreshold()
 
 
-    public Collection getConcernsByTag(Long tagRefId, int count) throws Exception {
+    public Collection getConcernsByTag(Long tagRefId, int count) throws
+            Exception {
         TagReference tagRef = tagDAO.getTagReferenceById(tagRefId);
-        if (tagRef==null) throw new Exception("Requested TagReference doesn't exist.");
+        if (tagRef == null)throw new Exception(
+                "Requested TagReference doesn't exist.");
         return cctDAO.getConcernsByTag(tagRef, count);
-    }//getConcernsByTag()
+    } //getConcernsByTag()
 
-    public Collection getSuggestedTags(String statement) throws Exception{
-    	return analyzer.parseTextTokenized(statement);
-    }//getSuggestedTags
+    public Collection getSuggestedTags(String statement) throws Exception {
+        return analyzer.parseTextTokenized(statement);
+    } //getSuggestedTags
 
 
     public Concern getConcernById(Long concernId) throws Exception {
         return cctDAO.getConcernById(concernId);
-    }//getConcernById()
+    } //getConcernById()
 
 
     public void deleteConcern(Concern concern) throws Exception {
@@ -206,27 +215,28 @@ public class CCTServiceImpl implements CCTService {
 
             for (Object object : oldTags) {
                 TagReference ref = (TagReference) object;
-                ref.setTimes(ref.getTimes()-1);
-                if (ref.getTimes()<1) {
+                ref.setTimes(ref.getTimes() - 1);
+                if (ref.getTimes() < 1) {
                     cctDAO.delete(ref);
                 } else {
                     cctDAO.save(ref);
                 }
-            }//for
-        }//synchronized
+            } //for
+        } //synchronized
 
         concern.setDeleted(true);
         concern.setCreateTime(new Date());
 
         cctDAO.save(concern);
         cctDAO.save(cct);
-    }//deleteConcern()
+    } //deleteConcern()
 
 
-    public void editConcernTags(Concern concern, String[] tagStrs) throws Exception {
+    public void editConcernTags(Concern concern, String[] tagStrs) throws
+            Exception {
         System.out.println("tag array: ");
         for (int i = 0; i < tagStrs.length; i++) {
-            System.out.print("---> "+tagStrs[i]);
+            System.out.print("---> " + tagStrs[i]);
         }
         System.out.println();
 
@@ -235,7 +245,8 @@ public class CCTServiceImpl implements CCTService {
         CCT cct = concern.getCct();
 
         synchronized (this) {
-            Map<String, TagReference> oldTags = new HashMap<String, TagReference>();
+            Map<String,
+                    TagReference> oldTags = new HashMap<String, TagReference>();
             Set<TagReference> tags = concern.getTags();
             for (TagReference one : tags) {
                 oldTags.put(one.getTag().getName(), one);
@@ -245,23 +256,24 @@ public class CCTServiceImpl implements CCTService {
             Tag tag = null;
             TagReference ref = null;
             for (String tagName : tagStrs) {
-                if (tagName==null || "".equals(tagName.trim())) continue;
+                if (tagName == null || "".equals(tagName.trim()))continue;
 
                 ref = oldTags.get(tagName);
-                if (ref!=null) {
+                if (ref != null) {
                     oldTags.remove(tagName);
                 } else {
                     tag = analyzer.tagExists(tagName);
-                    if (tag!=null) {
+                    if (tag != null) {
                         tag = cctDAO.getTagById(tag.getId());
-                        ref = cctDAO.getTagReferenceByTagId(cct.getId(), tag.getId());
-                        if (ref==null) {
+                        ref = cctDAO.getTagReferenceByTagId(cct.getId(),
+                                tag.getId());
+                        if (ref == null) {
                             ref = new TagReference();
                             ref.setCctId(cct.getId());
                             ref.setTag(tag);
                             ref.setTimes(1);
                         } else {
-                            ref.setTimes(ref.getTimes()+1);
+                            ref.setTimes(ref.getTimes() + 1);
                         }
                     } else {
                         tag = new Tag();
@@ -277,13 +289,13 @@ public class CCTServiceImpl implements CCTService {
                     cctDAO.save(ref);
                 }
                 tags.add(ref);
-            }//for
+            } //for
 
             //Decrease the times of the old tags
             Collection<TagReference> collection = oldTags.values();
             for (TagReference one : collection) {
-                one.setTimes(one.getTimes()-1);
-                if (one.getTimes()<1) {
+                one.setTimes(one.getTimes() - 1);
+                if (one.getTimes() < 1) {
                     cctDAO.delete(one);
                 } else {
                     cctDAO.save(one);
@@ -293,48 +305,52 @@ public class CCTServiceImpl implements CCTService {
             concern.setCreateTime(new Date());
             cctDAO.save(concern);
             cctDAO.save(cct);
-        }//synchronized
-    }//editConcernTags()
+        } //synchronized
+    } //editConcernTags()
 
 
     public int getConcernsTotal(CCT cct, int whose) throws Exception {
         return cctDAO.getConcernsTotal(cct, whose, WebUtils.currentUserId());
-    }//getConcernsTotal()
+    } //getConcernsTotal()
 
 
     public TagReference getTagReferenceById(Long tagRefId) throws Exception {
         return tagDAO.getTagReferenceById(tagRefId);
-    }//getTagReferenceById()
+    } //getTagReferenceById()
 
 
     public Collection searchTags(CCT cct, String tag) throws Exception {
         return cctDAO.searchTags(cct.getId(), tag);
-    }//searchTags()
+    } //searchTags()
 
 
     public StopWord createStopWord(String name) {
         StopWord stopWord = new StopWord();
+        List allStopWords = tagDAO.getAllStopWords();
+        Iterator it = allStopWords.iterator();
+        while (it.hasNext()) {
+            StopWord sw = (StopWord) it.next();
+            if (sw.name.compareToIgnoreCase(name) == 0)
+                return stopWord;
+        }
         stopWord.setName(name);
         return stopWord;
     }
 
 
-
-    public void editStopWord(Long id, String updatedName){
-
-    }
-
-
-
-
-    public void deleteStopWord(Long id){
+    public void editStopWord(Long id, String updatedName) {
 
     }
 
 
-    public List getStopWords(PageSetting setting){
+    public void deleteStopWord(Long id) {
+
+    }
+
+
+    public List getStopWords(PageSetting setting) {
         return tagDAO.getStopWords(setting);
     }
 
 
-}//class CCTServiceImpl
+} //class CCTServiceImpl
