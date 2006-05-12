@@ -3,7 +3,7 @@ package org.pgist.cvo;
 import java.util.Collection;
 import java.util.List;
 import org.apache.struts.action.ActionForm;
-
+import org.pgist.util.PageSetting;
 
 /**
  *
@@ -24,6 +24,8 @@ public class CCTForm extends ActionForm {
     private Category category;
 
     private Collection tags;
+
+    private PageSetting setting;
 
     private List stopWords;
 
@@ -84,6 +86,16 @@ public class CCTForm extends ActionForm {
 
     public List getStopWords() {
         return this.stopWords;
+    }
+
+
+    public void setPageSetting(PageSetting setting) {
+        this.setting = setting;
+    }
+
+
+    public PageSetting getPageSetting() {
+        return this.setting;
     }
 
 

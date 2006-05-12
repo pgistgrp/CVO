@@ -4,8 +4,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+import org.pgist.cvo.CCTForm;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import org.pgist.system.UserDAO;
 import org.pgist.users.User;
@@ -29,6 +30,8 @@ public class CCTAgent {
 
 
     private CCTService cctService = null;
+
+    private CCTForm cctForm = null;
 
     private UserDAO userDAO = null;
 
@@ -789,8 +792,11 @@ public class CCTAgent {
         setting.setPage(page);
 
         try {
-            Collection stopWords = cctService.getStopWords(setting);
+            List stopWords = cctService.getStopWords(setting);
+            cctForm.setStopWords(stopWords);
+            cctForm.setPageSetting(setting);
             request.setAttribute("stopWords", stopWords);
+            request.setAttribute("cctForm",cctForm);
             map.put("html",
                     WebContextFactory.get().forwardToString(
                             "/WEB-INF/jsp/cvo/getStopWords.jsp"));
