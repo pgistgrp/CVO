@@ -795,16 +795,17 @@ public class CCTAgent {
             List stopWords = cctService.getStopWords(setting);
             cctForm.setStopWords(stopWords);
             cctForm.setPageSetting(setting);
-            request.setAttribute("stopWords", stopWords);
-            request.setAttribute("cctForm",cctForm);
+            request.setAttribute("cctForm", cctForm);
             map.put("html",
                     WebContextFactory.get().forwardToString(
                             "/WEB-INF/jsp/cvo/getStopWords.jsp"));
+            map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
             map.put("successful", false);
             map.put("reason", e.getMessage());
         }
+
         return map;
     }
 

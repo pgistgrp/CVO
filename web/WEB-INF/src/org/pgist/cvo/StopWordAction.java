@@ -46,6 +46,7 @@ public class StopWordAction extends Action {
         CCTForm cctform = (CCTForm) form;
         PageSetting setting = new PageSetting(20);
         setting.setPage(1);
+        cctform.setPageSetting(setting);
         cctform.setStopWords(cctService.getStopWords(setting));
 
         return mapping.findForward("list");
