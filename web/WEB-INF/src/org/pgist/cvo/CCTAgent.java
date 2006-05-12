@@ -792,9 +792,8 @@ public class CCTAgent {
             Collection stopWords = cctService.getStopWords(setting);
             request.setAttribute("stopWords", stopWords);
             map.put("html",
-                    map.put("html",
-                            WebContextFactory.get().forwardToString(
-                                    "/WEB-INF/jsp/cvo/getStopWords.jsp")));
+                    WebContextFactory.get().forwardToString(
+                            "/WEB-INF/jsp/cvo/getStopWords.jsp"));
         } catch (Exception e) {
             e.printStackTrace();
             map.put("successful", false);
