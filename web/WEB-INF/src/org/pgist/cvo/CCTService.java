@@ -203,7 +203,7 @@ public interface CCTService {
 
     void editStopWord(Long id, String updatedName);
 
-    StopWord createStopWord(String name);
+    StopWord createStopWord(String name)  throws Exception ;
 
     void deleteStopWord(Long id);
 

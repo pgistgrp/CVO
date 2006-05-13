@@ -73,7 +73,12 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
         return getHibernateTemplate().find(hql_getAllTags);
     }
 
+    private static final String hql_searchStopWord = "select sw from StopWord sw where lower(tr.tag.name) like ?";
 
+
+    public Collection searchStopWord(String stopWord) throws Exception {
+        return getHibernateTemplate().find(hql_searchStopWord, new Object[] {stopWord + '%'});
+    }
 
     private static String hql_getStopWords1 = "select count(sw.id) from StopWord sw";
 

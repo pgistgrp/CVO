@@ -324,16 +324,16 @@ public class CCTServiceImpl implements CCTService {
     } //searchTags()
 
 
-    public StopWord createStopWord(String name) {
+    public Collection searchStopWord(String stopWord) throws Exception {
+        return tagDAO.searchStopWord(stopWord);
+    } //searchStopWord()
+
+
+    public StopWord createStopWord(String name) throws Exception  {
         StopWord stopWord = new StopWord();
-        List allStopWords = tagDAO.getAllStopWords();
-        Iterator it = allStopWords.iterator();
-        while (it.hasNext()) {
-            StopWord sw = (StopWord) it.next();
-            if (sw.name.compareToIgnoreCase(name) == 0)
-                return stopWord;
-        }
-        stopWord.setName(name);
+        if (searchStopWord(name).size() != 0)
+                return null;
+            stopWord.setName(name);
         return stopWord;
     }
 

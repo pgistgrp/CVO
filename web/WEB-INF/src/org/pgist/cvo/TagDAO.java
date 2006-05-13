@@ -40,7 +40,7 @@ public interface TagDAO extends CVODAO {
      */
     Collection getAllTags() throws Exception;
 
-
+    Collection searchStopWord(String stopWord) throws Exception;
     List getAllStopWords();
 
 
