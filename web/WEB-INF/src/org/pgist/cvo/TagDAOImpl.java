@@ -26,16 +26,17 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
 
     public List addTags(String[] tags) throws Exception {
         return null;
-    }//addTags()
+    } //addTags()
 
-    public StopWord createStopWord(String s){
+    public StopWord createStopWord(String s) {
         StopWord sw = new StopWord();
         sw.setName(s);
         getHibernateTemplate().saveOrUpdate(sw);
         return sw;
     }
 
-    private static String hql_getTagsByRank = "from TagReference tr where tr.cctId=? order by tr.times desc, tr.tag.name";
+    private static String hql_getTagsByRank =
+            "from TagReference tr where tr.cctId=? order by tr.times desc, tr.tag.name";
 
 
     public Collection getTagsByRank(CCT cct, int count) throws Exception {
@@ -43,32 +44,35 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
         List list = getHibernateTemplate().find(hql_getTagsByRank, cct.getId());
         Collections.sort(list, comparator);
         return list;
-    }//getTagsByRank()
+    } //getTagsByRank()
 
 
     private static String getTagsByThreshold = "from TagReference tr where tr.cctId=? and tr.times>? order by tr.times desc, tr.tag.name";
 
 
-    public Collection getTagsByThreshold(CCT cct, int threshold) throws Exception {
-        List list =  getHibernateTemplate().find(
+    public Collection getTagsByThreshold(CCT cct, int threshold) throws
+            Exception {
+        List list = getHibernateTemplate().find(
                 getTagsByThreshold,
                 new Object[] {
-                        cct.getId(),
-                        new Integer(threshold),
-                }
-        );
+                cct.getId(),
+                new Integer(threshold),
+        }
+                );
         Collections.sort(list, comparator);
         return list;
-    }//getTagsByThreshold()
+    } //getTagsByThreshold()
 
 
     private static String hql_getAllTags = "from Tag t where t.status!=?";
 
 
     public Collection getAllTags() throws Exception {
-        getHibernateTemplate().setMaxResults(-1);
-        return getHibernateTemplate().find(hql_getAllTags, new Integer(Tag.STATUS_REJECTED));
-    }//getAllTags
+        getHibernateTemplate().setMaxResults( -1);
+        return getHibernateTemplate().find(hql_getAllTags,
+                                           new Integer(Tag.STATUS_REJECTED));
+    } //getAllTags
+
 
     private static String hql_getAllStopWords = "from StopWord sw";
 
@@ -76,25 +80,30 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
         return getHibernateTemplate().find(hql_getAllTags);
     }
 
-    private static final String hql_searchStopWord = "from StopWord sw where lower(sw.name) == ?";
 
+    private static final String hql_searchStopWord =
+            "from StopWord sw where lower(sw.name) = ?";
 
     public Collection searchStopWord(String stopWord) throws Exception {
-        return getHibernateTemplate().find(hql_searchStopWord, new Object[] {stopWord + '%'});
+        return getHibernateTemplate().find(hql_searchStopWord,
+                                           new Object[] {stopWord + '%'});
     }
 
-    private static String hql_getStopWords1 = "select count(sw.id) from StopWord sw";
 
-    private static String hql_getStopWords2 = "from StopWord sw order by sw.name";
+    private static String hql_getStopWords1 =
+            "select count(sw.id) from StopWord sw";
 
-        public List getStopWords(PageSetting setting) {
+    private static String hql_getStopWords2 =
+            "from StopWord sw order by sw.name";
+
+    public List getStopWords(PageSetting setting) {
         List result = new ArrayList();
 
         List list = getHibernateTemplate().find(hql_getStopWords1);
-        if (list==null || list.size()==0) return result;
+        if (list == null || list.size() == 0)return result;
 
         int total = ((Integer) list.get(0)).intValue();
-        if (setting.getRowOfPage()==-1) setting.setRowOfPage(total);
+        if (setting.getRowOfPage() == -1) setting.setRowOfPage(total);
         setting.setRowSize(total);
 
         Query query = getSession().createQuery(hql_getStopWords2);
@@ -102,7 +111,7 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
         query.setMaxResults(setting.getRowOfPage());
 
         return query.list();
-    }//getStopWords()
+    } //getStopWords()
 
 
-}//class TagDAOImpl
+} //class TagDAOImpl
