@@ -199,16 +199,19 @@ public interface CCTService {
      * @return A collection of matched TagReference objects.
      * @throws Exception
      */
+    Collection searchTags(CCT cct, String tag) throws Exception;
+
+
+    StopWord createStopWord(String name)  throws Exception ;
 
 
     void editStopWord(Long id, String updatedName);
 
-    StopWord createStopWord(String name)  throws Exception ;
 
     void deleteStopWord(Long id);
 
+
     List getStopWords(PageSetting setting);
 
-    //List getStopWords();
 
 }//interface CCTService
