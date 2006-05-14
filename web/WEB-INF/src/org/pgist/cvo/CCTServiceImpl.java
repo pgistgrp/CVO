@@ -333,7 +333,7 @@ public class CCTServiceImpl implements CCTService {
     }//createStopWord()
 
 
-    public List getStopWords(PageSetting setting) {
+    public List getStopWords(PageSetting setting) throws Exception{
         return tagDAO.getStopWords(setting);
     }//getStopWords()
 
@@ -343,7 +343,7 @@ public class CCTServiceImpl implements CCTService {
     } //searchStopWord()
 
 
-    public boolean deleteStopWord(Long id) {
+    public boolean deleteStopWord(Long id) throws Exception {
         return tagDAO.deleteStopWord(id);
     }//deleteStopWord()
 

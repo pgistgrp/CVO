@@ -64,7 +64,7 @@ public interface TagDAO extends CVODAO {
      * @param s String
      * @return StopWord
      */
-    StopWord createStopWord(String s);
+    StopWord createStopWord(String s) throws Exception;
 
     /**
      * Delete the stopWord whose id is the parameter id
@@ -72,7 +72,7 @@ public interface TagDAO extends CVODAO {
      * stopword and return true;
      * @param id Long
      */
-    boolean deleteStopWord(Long id);
+    boolean deleteStopWord(Long id) throws Exception;
 
     /**
      * Get the result on the setting page and return the result.
@@ -80,9 +80,10 @@ public interface TagDAO extends CVODAO {
      * @param setting PageSetting
      * @return List
      */
-    List getStopWords(PageSetting setting);
+    List getStopWords(PageSetting setting) throws Exception;
 
     Collection searchStopWord(String stopWord) throws Exception;
-    List getAllStopWords();
+
+    List getAllStopWords() throws Exception;
 
 } //interface TagDAO
