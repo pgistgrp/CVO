@@ -802,7 +802,6 @@ public class CCTAgent {
         }
 
         try {
-
             StopWord stopWord = cctService.createStopWord(name);
             if (stopWord == null) {
                 map.put("reason", "StopWord has existed in the database.");
@@ -822,12 +821,35 @@ public class CCTAgent {
      * Delete a stopWord whose ID is the value stored in params.
      * @param params A Map contains: <br>
      *         <ul>
-     *           <li>id - int, the id of the stopword to be destroyed.</li>
+     *           <li>stopwordid - int, the id of the stopword to be destroyed.</li>
      *         </ul>
      * @return Map
      */
     public Map deleteStopWord(Map params) {
-        return null;
+        Map map = new HashMap();
+        map.put("successful", false);
+
+        String s = (String) params.get("stopwordid");
+        Long id = Long.parseLong(s);
+
+        if (id < 1) {
+            map.put("reason", "This concern is already deleted.");
+            return map;
+        }
+        try {
+            boolean isOutOfBoundary = cctService.deleteStopWord(id);
+            if (!isOutOfBoundary) {
+                map.put("reason",
+                        "The id you typed does not exist in the database.");
+                return map;
+            }
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+
+        return map;
     }
 
     /**

@@ -35,12 +35,14 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
         return null;
     } //addTags()
 
+
     public StopWord createStopWord(String s) {
         StopWord sw = new StopWord();
         sw.setName(s);
         getHibernateTemplate().saveOrUpdate(sw);
         return sw;
     }
+
 
     private static String hql_getTagsByRank =
             "from TagReference tr where tr.cctId=? order by tr.times desc, tr.tag.name";
@@ -85,6 +87,16 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
 
     public List getAllStopWords() {
         return getHibernateTemplate().find(hql_getAllTags);
+    }
+
+
+    public boolean deleteStopWord(Long id){
+        if(id < 1 || id > this.getAllStopWords().size())
+            return false;
+        StopWord sw = new StopWord();
+        sw.setId(id);
+        getHibernateTemplate().delete(sw);
+        return true;
     }
 
 

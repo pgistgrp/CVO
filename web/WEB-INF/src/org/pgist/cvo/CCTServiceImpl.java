@@ -343,8 +343,8 @@ public class CCTServiceImpl implements CCTService {
     } //searchStopWord()
 
 
-    public void deleteStopWord(Long id) {
-
+    public boolean deleteStopWord(Long id) {
+        return tagDAO.deleteStopWord(id);
     }//deleteStopWord()
 
 } //class CCTServiceImpl

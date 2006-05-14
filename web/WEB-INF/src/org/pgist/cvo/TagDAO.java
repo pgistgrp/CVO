@@ -25,12 +25,6 @@ public interface TagDAO extends CVODAO {
      */
     List addTags(String[] tags) throws Exception;
 
-    /**
-     * add the given string into the database, return a StopWord insance.
-     * @param s String
-     * @return StopWord
-     */
-    StopWord createStopWord(String s);
 
     /**
      * Get all valid tags in the system.
@@ -39,9 +33,6 @@ public interface TagDAO extends CVODAO {
      * @throws Exception
      */
     Collection getAllTags() throws Exception;
-
-    Collection searchStopWord(String stopWord) throws Exception;
-    List getAllStopWords();
 
 
     /**
@@ -57,14 +48,6 @@ public interface TagDAO extends CVODAO {
 
 
     /**
-     * Get the result on the setting page and return the result.
-     *
-     * @param setting PageSetting
-     * @return List
-     */
-    List getStopWords(PageSetting setting);
-
-    /**
      * Search in the given CCT, and find those tags appeared in this CCT and which are referenced at least
      * threshold times.
      *
@@ -75,5 +58,31 @@ public interface TagDAO extends CVODAO {
      */
     Collection getTagsByThreshold(CCT cct, int threshold) throws Exception;
 
+
+    /**
+     * Add the given string into the database, return a StopWord insance.
+     * @param s String
+     * @return StopWord
+     */
+    StopWord createStopWord(String s);
+
+    /**
+     * Delete the stopWord whose id is the parameter id
+     * if id is out of the boundary, return false; otherwise, delete the
+     * stopword and return true;
+     * @param id Long
+     */
+    boolean deleteStopWord(Long id);
+
+    /**
+     * Get the result on the setting page and return the result.
+     *
+     * @param setting PageSetting
+     * @return List
+     */
+    List getStopWords(PageSetting setting);
+
+    Collection searchStopWord(String stopWord) throws Exception;
+    List getAllStopWords();
 
 } //interface TagDAO

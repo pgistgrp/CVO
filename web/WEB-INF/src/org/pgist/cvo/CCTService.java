@@ -217,9 +217,10 @@ public interface CCTService {
     List getStopWords(PageSetting setting);
 
     /**
-     * Delete the stopword instance whose ID number equals id.
+     * Delete the stopword instance whose ID number equals id. if out of the
+     * boundary, return false; otherwise delete it and return true.
      * @param id Long
      */
-    void deleteStopWord(Long id);
+    boolean deleteStopWord(Long id);
 
 }//interface CCTService
