@@ -201,14 +201,25 @@ public interface CCTService {
      */
     Collection searchTags(CCT cct, String tag) throws Exception;
 
-
+    /**
+     * Create a StopWord instance.
+     * @param name String
+     * @return StopWord
+     * @throws Exception
+     */
     StopWord createStopWord(String name)  throws Exception ;
 
-
-    void deleteStopWord(Long id);
-
-
+    /**
+     * Get the StopWord List with the given page number.
+     * @param setting PageSetting
+     * @return List
+     */
     List getStopWords(PageSetting setting);
 
+    /**
+     * Delete the stopword instance whose ID number equals id.
+     * @param id Long
+     */
+    void deleteStopWord(Long id);
 
 }//interface CCTService

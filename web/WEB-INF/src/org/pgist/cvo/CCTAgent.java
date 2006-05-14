@@ -783,8 +783,12 @@ public class CCTAgent {
     } //searchTags()
 
     /**
-     *
-     * @param params Map
+     * Create a stopWord in a JSP, CCTService stores it into the database. No
+     * duplicate allowed.
+     * @param params A Map contains: <br>
+     *         <ul>
+     *           <li>name - String, the name of the stopword to be created.</li>
+     *         </ul>
      * @return Map
      */
     public Map createStopWord(Map params) {
@@ -812,6 +816,19 @@ public class CCTAgent {
 
         return map;
     } //createStopWord()
+
+
+    /**
+     * Delete a stopWord whose ID is the value stored in params.
+     * @param params A Map contains: <br>
+     *         <ul>
+     *           <li>id - int, the id of the stopword to be destroyed.</li>
+     *         </ul>
+     * @return Map
+     */
+    public Map deleteStopWord(Map params) {
+        return null;
+    }
 
     /**
      * Get the stop word list.
