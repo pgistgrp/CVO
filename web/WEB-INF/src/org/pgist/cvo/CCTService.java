@@ -199,7 +199,7 @@ public interface CCTService {
      * @return A collection of matched TagReference objects.
      * @throws Exception
      */
-    Collection searchTags(CCT cct, String tag) throws Exception;
+
 
     void editStopWord(Long id, String updatedName);
 
