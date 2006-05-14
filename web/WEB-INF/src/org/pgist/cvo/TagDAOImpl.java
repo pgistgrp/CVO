@@ -93,9 +93,7 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
     public boolean deleteStopWord(Long id){
         if(id < 1 || id > this.getAllStopWords().size())
             return false;
-        StopWord sw = new StopWord();
-        sw.setId(id);
-        getHibernateTemplate().delete(sw);
+        getHibernateTemplate().delete(id);
         return true;
     }
 
