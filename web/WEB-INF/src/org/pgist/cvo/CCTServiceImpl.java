@@ -334,6 +334,7 @@ public class CCTServiceImpl implements CCTService {
         if (searchStopWord(name).size() != 0)
                 return null;
             stopWord.setName(name);
+
         return stopWord;
     }
 

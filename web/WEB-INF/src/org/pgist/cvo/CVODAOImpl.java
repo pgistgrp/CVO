@@ -6,16 +6,16 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 
 /**
- * 
+ *
  * @author kenny
  *
  */
 public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
-    
-    
+
+
     private static Random random = new Random();
-    
-    
+
+
     public void refresh(Object object) throws Exception {
         getHibernateTemplate().refresh(object);
     }//refresh()
@@ -34,8 +34,8 @@ public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
     public Tag getTagById(Long tagId) throws Exception {
         return (Tag) getHibernateTemplate().get(Tag.class, tagId);
     }//getTagById()
-    
-    
+
+
     public TagReference getTagReferenceById(Long refId) throws Exception {
         return (TagReference) getHibernateTemplate().get(TagReference.class, refId);
     }//getTagReferenceById()
@@ -60,6 +60,12 @@ public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
     public void save(Tag tag) throws Exception {
         getHibernateTemplate().saveOrUpdate(tag);
     }//save()
+
+
+    public void save(StopWord stopWord) throws Exception {
+       getHibernateTemplate().saveOrUpdate(stopWord);
+   }//save()
+
 
 
     public void save(TagReference ref) throws Exception {

@@ -29,7 +29,10 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
     }//addTags()
 
     public StopWord createStopWord(String s){
-        return new StopWord();
+        StopWord sw = new StopWord();
+        sw.setName(s);
+        getHibernateTemplate().saveOrUpdate(sw);
+        return sw;
     }
 
     private static String hql_getTagsByRank = "from TagReference tr where tr.cctId=? order by tr.times desc, tr.tag.name";
