@@ -14,6 +14,13 @@ import org.hibernate.Query;
  *
  */
 public class TagDAOImpl extends CVODAOImpl implements TagDAO {
+    public TagDAOImpl() {
+        try {
+            jbInit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
 
     private TagReferenceComparator comparator = new TagReferenceComparator(false);
@@ -85,10 +92,9 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
             "from StopWord sw where lower(sw.name) = ?";
 
     public Collection searchStopWord(String stopWord) throws Exception {
-        stopWord = stopWord.toLowerCase();
         return getHibernateTemplate().find(hql_searchStopWord,
-                                           new Object[] {stopWord});
-    }
+                                           stopWord.toLowerCase());
+    } //searchStopWord()
 
 
     private static String hql_getStopWords1 =
@@ -114,5 +120,7 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
         return query.list();
     } //getStopWords()
 
+    private void jbInit() throws Exception {
+    }
 
 } //class TagDAOImpl

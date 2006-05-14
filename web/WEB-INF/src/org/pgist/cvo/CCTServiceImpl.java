@@ -329,11 +329,11 @@ public class CCTServiceImpl implements CCTService {
     } //searchStopWord()
 
 
-    public StopWord createStopWord(String name) throws Exception  {
+    public StopWord createStopWord(String name) throws Exception {
         StopWord stopWord = new StopWord();
         if (tagDAO.searchStopWord(name).size() != 0)
-                return null;
-            stopWord.setName(name);
+            return null;
+        stopWord.setName(name);
 
         return stopWord;
     }
