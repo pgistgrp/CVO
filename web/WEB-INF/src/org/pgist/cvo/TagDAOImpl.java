@@ -85,6 +85,7 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
             "from StopWord sw where lower(sw.name) = ?";
 
     public Collection searchStopWord(String stopWord) throws Exception {
+        stopWord = stopWord.toLowerCase();
         return getHibernateTemplate().find(hql_searchStopWord,
                                            new Object[] {stopWord});
     }
