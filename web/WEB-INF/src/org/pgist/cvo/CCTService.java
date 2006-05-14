@@ -1,7 +1,7 @@
 package org.pgist.cvo;
 
 import java.util.Collection;
-import java.util.List;
+
 import org.pgist.util.PageSetting;
 
 
@@ -201,26 +201,5 @@ public interface CCTService {
      */
     Collection searchTags(CCT cct, String tag) throws Exception;
 
-    /**
-     * Create a StopWord instance.
-     * @param name String
-     * @return StopWord
-     * @throws Exception
-     */
-    StopWord createStopWord(String name)  throws Exception ;
-
-    /**
-     * Get the StopWord List with the given page number.
-     * @param setting PageSetting
-     * @return List
-     */
-    List getStopWords(PageSetting setting) throws Exception;
-
-    /**
-     * Delete the stopword instance whose ID number equals id. if out of the
-     * boundary, return false; otherwise delete it and return true.
-     * @param id Long
-     */
-    boolean deleteStopWord(Long id) throws Exception;
 
 }//interface CCTService

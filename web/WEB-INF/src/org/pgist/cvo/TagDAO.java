@@ -1,7 +1,7 @@
 package org.pgist.cvo;
 
-import java.util.*;
-import org.pgist.util.PageSetting;
+import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -58,32 +58,5 @@ public interface TagDAO extends CVODAO {
      */
     Collection getTagsByThreshold(CCT cct, int threshold) throws Exception;
 
-
-    /**
-     * Add the given string into the database, return a StopWord insance.
-     * @param s String
-     * @return StopWord
-     */
-    StopWord createStopWord(String s) throws Exception;
-
-    /**
-     * Delete the stopWord whose id is the parameter id
-     * if id is out of the boundary, return false; otherwise, delete the
-     * stopword and return true;
-     * @param id Long
-     */
-    boolean deleteStopWord(Long id) throws Exception;
-
-    /**
-     * Get the result on the setting page and return the result.
-     *
-     * @param setting PageSetting
-     * @return List
-     */
-    List getStopWords(PageSetting setting) throws Exception;
-
-    Collection searchStopWord(String stopWord) throws Exception;
-
-    List getAllStopWords() throws Exception;
 
 } //interface TagDAO

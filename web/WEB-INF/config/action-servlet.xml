@@ -34,7 +34,7 @@
     
     
     <bean name="/stopword" class="org.pgist.cvo.StopWordAction">
-        <property name="cctService" ref="cctService"/>
+        <property name="stopWordService" ref="stopWordService"/>
     </bean>
     
     

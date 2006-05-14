@@ -86,5 +86,26 @@
     </bean>
     
     
+    <bean id="stopWordDAO" class="org.pgist.cvo.StopWordDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+    
+    
+    <bean id="stopWordService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.cvo.StopWordServiceImpl">
+                <property name="stopWordDAO" ref="stopWordDAO"/>
+            </bean>
+        </property>
+    </bean>
+    
+    
+    <bean id="stopWordAgent" class="org.pgist.cvo.StopWordAgent">
+        <property name="stopWordService" ref="stopWordService"/>
+    </bean>
+    
+    
 </beans>
 

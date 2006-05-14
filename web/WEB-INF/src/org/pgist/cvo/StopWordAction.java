@@ -1,42 +1,33 @@
 package org.pgist.cvo;
-/**
- *
- * <p>Title: </p>
- *
- * <p>Description: </p>
- *
- * <p>Copyright: Copyright (c) 2006</p>
- *
- * <p>Company: PGIST</p>
- *
- * @author Jie
- * @version 1.0
- */
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.util.PageSetting;
 
+
+/**
+ * 
+ * @author Jie Wu
+ *
+ */
 public class StopWordAction extends Action {
 
 
-    private CCTService cctService = null;
+    private StopWordService stopWordService = null;
 
 
-    public StopWordAction() {
-    }
-
-
-    public void setCctService(CCTService cctService) {
-        this.cctService = cctService;
+    public void setStopWordService(StopWordService stopWordService) {
+        this.stopWordService = stopWordService;
     }
 
 
     /*
      * ---------------------------------------------------------------------
      */
-
+    
+    
     public ActionForward execute(
             ActionMapping mapping,
             ActionForm form,
@@ -47,7 +38,7 @@ public class StopWordAction extends Action {
         PageSetting setting = new PageSetting(20);
         setting.setPage(1);
         cctform.setPageSetting(setting);
-        cctform.setStopWords(cctService.getStopWords(setting));
+        cctform.setStopWords(stopWordService.getStopWords(setting));
 
         return mapping.findForward("list");
     }//execute()

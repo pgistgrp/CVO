@@ -25,6 +25,7 @@ public class StopWord {
     public void setId(Long id) {
         this.id = id;
     }
+    
 
     /**
      * @return

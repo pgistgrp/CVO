@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.List;
 
 import org.pgist.system.UserDAO;
 import org.pgist.users.User;
@@ -323,28 +322,4 @@ public class CCTServiceImpl implements CCTService {
     } //searchTags()
 
 
-    public StopWord createStopWord(String name) throws Exception {
-        StopWord stopWord = new StopWord();
-        if (tagDAO.searchStopWord(name).size() != 0)
-            return null;
-        stopWord.setName(name);
-
-        return stopWord;
-    }//createStopWord()
-
-
-    public List getStopWords(PageSetting setting) throws Exception{
-        return tagDAO.getStopWords(setting);
-    }//getStopWords()
-
-
-    public Collection searchStopWord(String stopWord) throws Exception {
-        return tagDAO.searchStopWord(stopWord);
-    } //searchStopWord()
-
-
-    public boolean deleteStopWord(Long id) throws Exception {
-        return tagDAO.deleteStopWord(id);
-    }//deleteStopWord()
-
-} //class CCTServiceImpl
+}//class CCTServiceImpl

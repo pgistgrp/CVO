@@ -91,6 +91,14 @@
     </create>
 
 
+    <create creator="spring" javascript="StopWordAgent">
+      <param name="beanName" value="stopWordAgent"/>
+      <include method="getStopWords"/>
+      <include method="createStopWord"/>
+      <include method="deleteStopWord"/>
+    </create>
+
+
   </allow>
 
 
