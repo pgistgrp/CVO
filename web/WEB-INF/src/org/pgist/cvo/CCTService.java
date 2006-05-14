@@ -205,9 +205,6 @@ public interface CCTService {
     StopWord createStopWord(String name)  throws Exception ;
 
 
-    void editStopWord(Long id, String updatedName);
-
-
     void deleteStopWord(Long id);
 
 
