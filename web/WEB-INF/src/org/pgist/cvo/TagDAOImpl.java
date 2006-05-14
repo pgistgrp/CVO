@@ -86,7 +86,7 @@ public class TagDAOImpl extends CVODAOImpl implements TagDAO {
 
     public Collection searchStopWord(String stopWord) throws Exception {
         return getHibernateTemplate().find(hql_searchStopWord,
-                                           new Object[] {stopWord + '%'});
+                                           new Object[] {stopWord});
     }
 
 
