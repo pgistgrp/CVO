@@ -47,6 +47,7 @@ public class StopWordAgent {
      * @param params A Map contains: <br>
      *         <ul>
      *           <li>page - int, the page number of current stopword list.</li>
+     *           <li>count - int, the max count of stopwords displayed on a page.</li>
      *         </ul>
      * @return A Map contains: <br>
      *         <ul>
@@ -66,10 +67,25 @@ public class StopWordAgent {
     public Map getStopWords(HttpServletRequest request, Map params) {
         Map map = new HashMap();
 
-        String s = (String) params.get("page");
-        int page = Integer.parseInt(s);
-        PageSetting setting = new PageSetting(20);
-        setting.setPage(page);
+        PageSetting setting = null;
+        
+        String s = (String) params.get("count");
+        try {
+            int count = Integer.parseInt(s);
+            setting = new PageSetting(count);
+        } catch (Exception e) {
+            e.printStackTrace();
+            setting = new PageSetting(20);
+        }
+
+        s = (String) params.get("page");
+        try {
+            int page = Integer.parseInt(s);
+            setting.setPage(page);
+        } catch (Exception e) {
+            e.printStackTrace();
+            setting.setPage(1);
+        }
 
         try {
             List stopWords = stopWordService.getStopWords(setting);

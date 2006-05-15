@@ -135,7 +135,6 @@ public class CCTAgent {
      *
      * @param params A map contains:<br>
      *         <ul>
-     *           <li>cctId - long int, the current CCT instance id</li>
      *           <li>concern - A string, the new concern which user entered</li>
      *         </ul>
      * @return A map contains:<br>

@@ -16,10 +16,17 @@ public class StopWordAction extends Action {
 
 
     private StopWordService stopWordService = null;
+    
+    private int count = 20;
 
 
     public void setStopWordService(StopWordService stopWordService) {
         this.stopWordService = stopWordService;
+    }
+
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
 
@@ -35,11 +42,11 @@ public class StopWordAction extends Action {
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
         CCTForm cctform = (CCTForm) form;
-        PageSetting setting = new PageSetting(20);
+        PageSetting setting = new PageSetting(count);
         setting.setPage(1);
         cctform.setPageSetting(setting);
         cctform.setStopWords(stopWordService.getStopWords(setting));
-
+        
         return mapping.findForward("list");
     }//execute()
 
