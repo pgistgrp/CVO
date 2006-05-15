@@ -119,8 +119,8 @@ function deleteCookie(name, path, domain) {
 			document.getElementById('validation').innerHTML = 'Please fill in your concern above.';
 			Effect.OpenUp('validation');
 			Effect.CloseDown('tagConcerns');
-			Effect.Yellow('validation', {duration: 4, endcolor:'#FFCCCC'});
-			Effect.Yellow('theTag', {duration: 10, endcolor:'#F3FFCB'});
+			Effect.Yellow('validation', {duration: 4, endcolor:'#EEF3D8'});
+			Effect.Yellow('theTag', {duration: 10, endcolor:'#EEF3D8'});
 			return false;
 			
 		}else{
@@ -305,7 +305,7 @@ function showMyConcerns(id){
 					if (data.successful){
 						$('myConcernsList').innerHTML = data.html;
 						if (id != undefined){
-							Effect.Yellow('concernId' + id, {duration: 4, endcolor:'#F3FFCB'})
+							Effect.Yellow('concernId' + id, {duration: 4, endcolor:'#EEF3D8'})
 						}
 						if (data.total == 0){
 							document.getElementById("myConcernsList").innerHTML = '<p class="explaination">None created yet.  Please add a concern above.  Please refer to other participant\'s concerns on the right column for examples.</p>';

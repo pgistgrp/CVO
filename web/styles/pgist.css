@@ -19,27 +19,27 @@ h1 {
 	margin-top: 15px;
 	margin-bottom: 0px;
   color:#8DAD1F;
-  font-size:2.3em;
+  font-size:2.1em;
 }
 
 .title_page{
 	font-family: "Trebuchet MS", Arial, Verdana, sans-serif;
 	margin-top: 15px;
 	margin-bottom: 0px;
-  color:#999;
-  font-size:2.3em;
+  color:#0061A8;
+  font-size:2.1em;
   letter-spacing:-1px;
 }
 
 h2{
-  color:#888;
+  color:#98A072;
   margin-bottom:3px;
   font-size: 1.7em;
 }
 
 h3{
   font-size: 1.7em;
-	color: #999;
+	color: #98A072;
 }
 
 p {
@@ -51,7 +51,7 @@ p {
 b.big{
  font-size: 16px;
  font-weight: bold;
- color: #06c;
+ color: #0061A8;
  margin-bottom: 0px;
  padding-bottom: 0px;
 }
@@ -61,7 +61,7 @@ p.indent{
 }
 
 p.topBorder {
-	border-top: 1px solid #06c;
+	border-top: 1px solid #0061A8;
 	padding-bottom: 5px;
 }
 
@@ -79,7 +79,7 @@ p.explaination {
 
 .actionMenu a{
 	font-size: 10px;
-	color: #06c;
+	color: #0061A8;
 }
 
 body a{
@@ -89,7 +89,7 @@ body a{
 
 body a:hover{
 	color: #EEE;
-	background-color: #06c;
+	background-color: #0061A8;
 }
 
 a:visited{
@@ -113,7 +113,7 @@ hr {
   letter-spacing:-1px;
   margin:15px 0 0 0;
   margin-top:0px;
-  color:#8DAD1F;
+  color:#98A072;
   margin-bottom:3px;
   font-size: 1.5em;
   font-weight: 300;
@@ -133,7 +133,7 @@ hr {
 }
 
 .participantName a{
-	color: #06c;
+	color: #0061A8;
 	font-size: 15px;
 	text-decoration: underline;
 }
@@ -152,7 +152,7 @@ hr {
 
 #decorBar {
 	width: 100%;
-	border-top: thick solid #06c;
+	border-top: thick solid #0061A8;
 	left: 0px;
 	top: 0px;
 	height: 5px;
@@ -165,7 +165,7 @@ hr {
 	width: 486px;
 	height: 82px;
 	position: absolute;
-	top: 0;
+	top: 10px;
 	left:0;
 	text-align: left; 
 }
@@ -274,13 +274,21 @@ hr {
 	
 
 .slate{
-	background-color: #F3FFCB;
+	background-color: #EEF3D8;
 	padding: 5px;
 	position: relative;
 	top: +15px;
 	border: 1px solid #ccc;
-	border-top: 3px solid #E7FF96;
+	border-top: 3px solid #98A072;
 }
+
+.suppSlate{
+	border: 1px solid #ccc;
+	padding: 5px;
+	position: relative;
+	top: +15px;
+}
+
 .fullBox {
 	width: 99%;
 }
@@ -288,6 +296,10 @@ hr {
 .leftBox{
 	width: 63%;
 	float: left;
+}
+
+.contrast{
+
 }
 
 ul.tagsList{
@@ -443,7 +455,7 @@ li.tagsList{
 
 .prevNext a:hover{
 	color: #EEE;
-	background: #06c;
+	background: #0061A8;
 }
 
 #searchTag_container{
@@ -531,7 +543,7 @@ li.tagsList{
 .title_form {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 23px;
-	color: #06c;
+	color: #0061A8;
 	font-weight: bold;	
 }
 
@@ -568,7 +580,7 @@ width: 20px
 /* /////////////////////////////  Tags and Concerns////////////////////////// */
 
 .theConcern:hover{
-	background:#E7FF96;
+	background:#E2FF66;
 }
 
 .smallHelp {

@@ -4,7 +4,7 @@
   REQUIRED to hide the non-active tab content.
   But do not hide them in the print stylesheet!
   --------------------------------------------------*/
-.tabberlive .tabbertabhide {
+.tabberlive .tabbertabhide{
  display:none;
 }
 
@@ -72,13 +72,13 @@ ul.tabbernav li.tabberactive a
  background-color: #FFF;
  border-bottom: 1px solid #FFF;
  border-top: 2px solid #FF67B3;
- color: #06c;
+ color: #0061A8;
  /*cool pink color color: #FF67B3; */
 }
 
 ul.tabbernav li.tabberactive a:hover
 {
- color: #06c;
+ color: #0061A8;
  background: #FFF;
  border-bottom: 1px solid white;
 }
@@ -87,8 +87,9 @@ ul.tabbernav li.tabberactive a:hover
   .tabbertab = the tab content
   Add style only after the tabber interface is set up (.tabberlive)
   --------------------------------------------------*/
-  
-.tabberlive .tabbertab {
+
+
+.tabberlive .tabbertab{
  padding:5px;
  border:1px solid #CCCCCC;
  border-top:0;
@@ -105,6 +106,7 @@ ul.tabbernav li.tabberactive a:hover
 
  /* overflow:auto; */
 }
+
 
 /* If desired, hide the heading since a heading is provided by the tab */
 .tabberlive .tabbertab h2 {

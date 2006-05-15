@@ -16,9 +16,15 @@
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/StopWordAgent.js'></script>
 
 <script type="text/javascript">
-	  var cctId = ${cctForm.cct.id};
+	window.onload(doOnLoad());
+  
+
+function doOnLoad(){
+		goToStopWordPage(0);
+	}
 function validateForm()
 	{
 		if(""==document.forms.brainstorm.addConcern.value)
@@ -26,8 +32,8 @@ function validateForm()
 			document.getElementById('validation').innerHTML = 'Please fill in your concern above.';
 			Effect.OpenUp('validation');
 			Effect.CloseDown('tagConcerns');
-			Effect.Yellow('validation', {duration: 4, endcolor:'#FFCCCC'});
-			Effect.Yellow('theTag', {duration: 10, endcolor:'#F3FFCB'});
+			Effect.Yellow('validation', {duration: 4, endcolor:'#EEF3D8'});
+			Effect.Yellow('theTag', {duration: 10, endcolor:'#EEF3D8'});
 			return false;
 			
 		}else{
@@ -58,7 +64,7 @@ function validateForm()
 			$('addConcern').style.color="#CCC";
 			var concern = $('addConcern').value;
 			document.getElementById("indicator").style.visibility = "visible";
-			CCTAgent.prepareConcern({cctId:cctId,concern:concern}, function(data) {
+			CCTAgent.prepareConcern({concern:concern}, function(data) {
 				if (data.successful){
 					for(i=0; i < data.tags.length; i++){
 						concernTags += data.tags[i] + ',';
@@ -70,6 +76,18 @@ function validateForm()
 		}
 	}
 	
+		function renderTags(tags,type){
+		sty = (type == 1)?"tagsList":"suggestedTagsList";
+		var str= "";
+		tagtemp = tags.split(",");
+		
+		for(i=0; i < tagtemp.length; i++){
+			if(tagtemp [i] != ""){
+				str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:removeFromGeneratedTags(\''+ tagtemp [i] +'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';	
+			}
+		}	
+		return str;
+	}
 	
 function ifEnter(field,event) {
 	var theCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
@@ -83,11 +101,38 @@ function ifEnter(field,event) {
 }   
 
 function showTheError(errorString, exception){
-					$('overview').style.display = 'none';
+				$('overview').style.display = 'none';
 				$('slate').style.display = 'none';
 				$('bar').style.display = 'none';
 				$('caughtException').style.display = 'block';
 				$('caughtException').innerHTML +='<p>If this problem persists, please <A HREF="mailto:webmaster@pgist.org?subject=LIT Website Problem>contact our webmaster</a></p>';
+}
+
+function goToStopWordPage(pageNum){
+	StopWordAgent.getStopWords({page:pageNum}, {
+		callback:function(data){
+				if (data.successful){
+					$('excludeList').innerHTML = data.html;
+				}
+			},
+		errorHandler:function(errorString, exception){ 
+				showTheError();
+		}
+		});
+}
+
+function createStopWord(stopWord){
+	StopWordAgent.createStopWord({name:stopWord}, {
+		callback:function(data){
+				if (data.successful){
+					alert(stopWord);
+					goToStopWordPage(0);
+				}
+			},
+		errorHandler:function(errorString, exception){ 
+				showTheError();
+		}
+		});
 }
 </script>
 </Head>
@@ -135,26 +180,29 @@ function showTheError(errorString, exception){
 	
 	 <div id="caughtException"><h2>A Problem has Occured</h2><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
 	<div class="tabber" id="myTab">
-			  <div id="sidebar_tags" class="tabbertab">
-		    	<H2>Include List</H2>
-		    	<span class="title_section">Include List</span><br>Words that will be matched and suggested when a user submits a concern.  Below are the current words in the include list database.  Please use the textbox at the bottom to add new words to the list.
-		    	<p>stop words inserted here</p>
-		    	<hr>
-		    	<input type="text" id="theIncludeWord" class="tagTextbox" name="theIncludeWord" size="15"><input type="button" name="addInclude" id="addInclude" value="Add Word to List" onclick="addTagToList('tagsList','theTag','tagValidation');return false;">
-		    </div>
-	
-		    <div id="sidebar_concernsContainer" class="tabbertab">
-		    	<h2>Exclude List</h2>
-		    	<span class="title_section">Exclude List</span><br>Words that will be "thrown away" upon concern submission. Below are the current words in the exclude list database. Please use the textbox at the bottom to add new words to the list.
-		    	<p>stop words inserted here</p>
-		    	<hr>
-		    	<input type="text" id="theExcludeWord" class="tagTextbox" name="theExcludeWord" size="15"><input type="button" name="addExclude" id="addExclude" value="Add Word to List" onclick="addTagToList('tagsList','theTag','tagValidation');return false;">
-					<div id="sidebar_concerns">
+		    	<div id="tab_excludeList"  class="tabbertab">
+				    	<h2>Exclude List</h2>
+				    	<span class="title_section">Exclude List</span><br>Words that will be "thrown away" upon concern submission. Below are the current words in the exclude list database. Please use the textbox at the bottom to add new words to the list.
+				    	<p>
+				    		<ul class="tagsList" id="excludeList">
+								</ul>	   
+							</p>
+				    	<hr>
+				    	<input type="text" id="theExcludeWord" class="tagTextbox" name="theExcludeWord" size="15"><input type="button" name="addExclude" id="addExclude" value="Add Word to List" onclick="createStopWord($('theExcludeWord').value);return false;">
 					</div>
-		    </div>
+				  <div id="tab_includeList" class="tabbertab">
+			    	<H2>Include List</H2>
+			    	<span class="title_section">Include List</span><br>Words that will be matched and suggested when a user submits a concern.  Below are the current words in the include list database.  Please use the textbox at the bottom to add new words to the list.
+			    	<p>
+			    		<ul class="tagsList" id="includeList">
+							</ul>	   
+						</p>
+			    	<hr>
+			    	<input type="text" id="theIncludeWord" class="tagTextbox" name="theIncludeWord" size="15"><input type="button" name="addInclude" id="addInclude" value="Add Word to List" onclick="addTagToList('tagsList','theTag','tagValidation');return false;">
+			    </div>
 	</div>
 	
-	<div id="testConcern" class="slate fullBox">
+	<div id="testConcern" class="suppSlate fullBox">
 		<h2>Test Stopwords</h2><br>Add a string of text that you would like to test.
 		<form name="brainstorm" method="post" onSubmit="addTagToList('tagsList', 'theTag','tagValidation'); return false;">
 			      <p><textarea class="textareaAddConcern" onkeypress="ifEnter(this,event);" name="addConcern" cols="20" rows="2" id="addConcern"></textarea></p>
@@ -166,9 +214,10 @@ function showTheError(errorString, exception){
 			      <div style="display: none;" id="validation"></div>
 				    <div id="tagConcerns" style="display: none;">
 						    <div id="tags" style="background-color: #FFF; border: 5Px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;">
-						    	<h3>Results</h3>
+						    	<h3>Results</h3><p></p>
 									<ul class="tagsList" id="tagsList">
 									</ul>	    
+									<p align="right"><input type="button" name="editConcern" value="Edit Concern" onClick="resetForm();"> </p>
 						    </div>
 						    <br>
 				    </div>
