@@ -74,7 +74,6 @@ public class StopWordAgent {
             int count = Integer.parseInt(s);
             setting = new PageSetting(count);
         } catch (Exception e) {
-            e.printStackTrace();
             setting = new PageSetting(20);
         }
 

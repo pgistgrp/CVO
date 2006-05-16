@@ -246,6 +246,28 @@
     </attribute>
   </tag>
   
+  <tag>
+    <name>modulo</name>
+    <tag-class>org.pgist.tags.ModuloTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Show contents according to modulo</description>
+    <attribute>
+      <name>parameter</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>folding</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>value</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
   
 </taglib>
 
