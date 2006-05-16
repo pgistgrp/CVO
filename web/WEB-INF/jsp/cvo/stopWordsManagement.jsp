@@ -7,7 +7,7 @@
 <title>PGIST Portal - Let's Improve Transportation</title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <style type="text/css" media="screen">@import "/styles/pgist.css";</style>
-<style type="text/css" media="screen">@import "/styles/tabs.css";</style>
+<style type="text/css" media="screen">@import "/styles/tabsFull.css";</style>
 
 <script src="/scripts/tabs.js" type="text/javascript"></script>
 <script src="/scripts/prototype.js" type="text/javascript"></script>
@@ -25,6 +25,7 @@
 function doOnLoad(){
 		goToStopWordPage(0);
 	}
+
 function validateForm()
 	{
 		if(""==document.forms.brainstorm.addConcern.value)
@@ -45,12 +46,14 @@ function validateForm()
 			return true;
 		}
 	}
-	
 	function resetForm()
 	{
-		$('btnContinue').disabled=false;
+		alert($('btnContinue'));
+		//$('btnContinue').disabled=false;
+		alert("2");
 		Effect.CloseDown('tagConcerns');
 		Effect.CloseDown('validation');
+		alert("3");
 		$('addConcern').style.background="#FFF";
 		$('addConcern').style.color="#333";
 	}
@@ -76,14 +79,14 @@ function validateForm()
 		}
 	}
 	
-		function renderTags(tags,type){
+	function renderTags(tags,type){
 		sty = (type == 1)?"tagsList":"suggestedTagsList";
 		var str= "";
 		tagtemp = tags.split(",");
 		
 		for(i=0; i < tagtemp.length; i++){
 			if(tagtemp [i] != ""){
-				str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:removeFromGeneratedTags(\''+ tagtemp [i] +'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';	
+				str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:addStopWordFromResults(\''+ tagtemp [i] +'\');"><img src="/images/addItem.gif" alt="Add this Tag to Stop Word List!" border="0"></a></span></li>';	
 			}
 		}	
 		return str;
@@ -109,10 +112,37 @@ function showTheError(errorString, exception){
 }
 
 function goToStopWordPage(pageNum){
-	StopWordAgent.getStopWords({page:pageNum}, {
+	StopWordAgent.getStopWords({page:pageNum, count: 75}, {
 		callback:function(data){
 				if (data.successful){
 					$('excludeList').innerHTML = data.html;
+				}
+				//if (id != undefined){
+					//		Effect.Yellow('stopWord' + id, {duration: 4, endcolor:'#EEF3D8'})
+			//	}
+			},
+		errorHandler:function(errorString, exception){ 
+				showTheError();
+		}
+		});
+}
+
+function addStopWordFromResults(stopWord){
+	createStopWord(stopWord);
+	removeFromGeneratedTags(stopWord);
+}
+function createStopWord(stopWord){
+	StopWordAgent.createStopWord({name:stopWord}, {
+		callback:function(data){
+				if (data.successful){
+					Effect.CloseDown('excludeWordValidation');
+					goToStopWordPage(0);
+					$('theExcludeWord').value = '';
+					$('theExcludeWord').focus();
+				}
+				if (data.successful != true){
+						document.getElementById('excludeWordValidation').innerHTML = 'The stop word you entered already exists in the database.  Please try again.';
+						Effect.OpenUp('excludeWordValidation');
 				}
 			},
 		errorHandler:function(errorString, exception){ 
@@ -121,11 +151,10 @@ function goToStopWordPage(pageNum){
 		});
 }
 
-function createStopWord(stopWord){
-	StopWordAgent.createStopWord({name:stopWord}, {
+function deleteStopWord(stopWordID){
+	StopWordAgent.deleteStopWord({id:stopWordID}, {
 		callback:function(data){
 				if (data.successful){
-					alert(stopWord);
 					goToStopWordPage(0);
 				}
 			},
@@ -134,6 +163,25 @@ function createStopWord(stopWord){
 		}
 		});
 }
+
+var tagHolderId = 1;
+function removeFromGeneratedTags(name){
+		if(name == "")return;
+		var indexNum = concernTags.indexOf(name +',');
+		if (indexNum > 0){
+			firstpart = concernTags.substring(0, indexNum);
+			secondpart = concernTags.substring(indexNum + name.length + 1, concernTags.length);
+			concernTags = firstpart + secondpart;
+		}else if (indexNum == 0){
+			concernTags = concernTags.substring(indexNum + name.length +1, concernTags.length);
+		}
+
+		if (tagHolderId == 0){
+			document.getElementById('tagsList').innerHTML = renderTags( concernTags, 1);
+		}else{
+			document.getElementById('editTagsList').innerHTML = renderTags( concernTags, 1);
+		}
+	}
 </script>
 </Head>
 <body>
@@ -157,7 +205,7 @@ function createStopWord(stopWord){
 	<div id="lightbox"></div>
 	<!-- LIGHTBOX -->
 	<div id="pageTitle">
-	<span class="title_page">Moderator Dashboard: </span><h1>Tag Management</h1>
+	<span class="title_page">Moderator Dashboard: </span><h1>Stop Word Management Tool</h1>
 		<div id="bread">
 		<ul>
 			<li class="first"><a href="null">Moderator Dashboard</a>
@@ -187,18 +235,24 @@ function createStopWord(stopWord){
 				    		<ul class="tagsList" id="excludeList">
 								</ul>	   
 							</p>
+				    	<div id="excludeListBreaker" class="breaker">
 				    	<hr>
-				    	<input type="text" id="theExcludeWord" class="tagTextbox" name="theExcludeWord" size="15"><input type="button" name="addExclude" id="addExclude" value="Add Word to List" onclick="createStopWord($('theExcludeWord').value);return false;">
+				    	<form name="createExcludeWord" method="post" onSubmit="createStopWord($('theExcludeWord').value);return false;">
+				    		<input type="text" id="theExcludeWord" class="tagTextbox" name="theExcludeWord" size="15"><input type="button" name="addExclude" id="addExclude" value="Add Word to List" onclick="createStopWord($('theExcludeWord').value);return false;">
+								<div style="display: none;" id="excludeWordValidation" class="validation"></div>
+							</form>
+							</div>
 					</div>
 				  <div id="tab_includeList" class="tabbertab">
 			    	<H2>Include List</H2>
 			    	<span class="title_section">Include List</span><br>Words that will be matched and suggested when a user submits a concern.  Below are the current words in the include list database.  Please use the textbox at the bottom to add new words to the list.
 			    	<p>
-			    		<ul class="tagsList" id="includeList">
+			    		<ul class="stopWordList" id="includeList">
 							</ul>	   
 						</p>
 			    	<hr>
 			    	<input type="text" id="theIncludeWord" class="tagTextbox" name="theIncludeWord" size="15"><input type="button" name="addInclude" id="addInclude" value="Add Word to List" onclick="addTagToList('tagsList','theTag','tagValidation');return false;">
+			    	<div style="display: none;" id="includeWordValidation" class="validation"></div>
 			    </div>
 	</div>
 	
@@ -221,6 +275,7 @@ function createStopWord(stopWord){
 						    </div>
 						    <br>
 				    </div>
+	 </form>
 	</div>
 </div>
 

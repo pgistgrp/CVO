@@ -298,8 +298,22 @@ hr {
 	float: left;
 }
 
-.contrast{
 
+ul.stopWordList{
+  width: 100%;
+  margin: 0;
+  padding-bottom: 5px;
+  list-style: none;
+}
+ 
+
+.col0, .col1, .col2, .col3, .col4 {
+  float: left;
+	width: 20%
+}
+ 
+.breaker{
+	clear: both;
 }
 
 ul.tagsList{
@@ -350,6 +364,15 @@ li.tagsList{
 }
 
 #validation{
+	background: #FFCCCC;
+	padding: 5px;
+	border: 1px solid #FF0000;
+	border-left: 5px solid #FF0000;
+	width: 90%;
+	margin: auto;
+}
+
+.validation{
 	background: #FFCCCC;
 	padding: 5px;
 	border: 1px solid #FF0000;
@@ -585,6 +608,18 @@ width: 20px
 
 .smallHelp {
 	font-size: .85em;
+}
+
+.includeExclude{
+	font-size: 12px;
+	margin-right: 5px;
+	line-height: 20px;
+	margin-top: 10px;
+	color: #878;
+	padding: 1px;
+	border: 1px solid #CDC;
+	text-decoration: none;
+	font-weight: normal;
 }
 
 .tags{
