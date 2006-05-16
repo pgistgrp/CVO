@@ -1,5 +1,7 @@
 package org.pgist.cvo;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,7 +114,11 @@ public class StopWordAgent {
      *         <ul>
      *           <li>name - String, the name of the stopword to be created.</li>
      *         </ul>
-     * @return Map
+     * @return A Map contains: <br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
      */
     public Map createStopWord(Map params) {
         Map map = new HashMap();
@@ -146,7 +152,11 @@ public class StopWordAgent {
      *         <ul>
      *           <li>id - int, the id of the stopword to be destroyed.</li>
      *         </ul>
-     * @return Map
+     * @return A Map contains: <br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
      */
     public Map deleteStopWord(Map params) {
         Map map = new HashMap();
@@ -174,6 +184,40 @@ public class StopWordAgent {
 
         return map;
     }//deleteStopWord()
+    
+    
+    /**
+     * Search for stopwords which begin with the given string.
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>name - string, the name pattern to be searched.</li>
+     *         </ul>
+     * @return A Map contains: <br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>stopWords - a list of StopWord objects.
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
+    public Map searchStopWords(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+
+        String name = (String) params.get("name");
+
+        try {
+            Collection stopWords = stopWordService.searchStopWord(name);
+            if (stopWords==null) stopWords = new ArrayList();
+            map.put("stopWords", stopWords);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+
+        return map;
+    }//searchStopWords
     
 
 } //class StopWordAgent

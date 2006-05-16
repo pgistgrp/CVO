@@ -47,11 +47,11 @@ public class StopWordDAOImpl extends HibernateDaoSupport implements StopWordDAO 
     }//deleteStopWord()
 
 
-    private static final String hql_searchStopWord = "from StopWord sw where lower(sw.name) = ?";
+    private static final String hql_searchStopWord = "from StopWord sw where lower(sw.name) like ?";
     
 
     public Collection searchStopWord(String stopWord) throws Exception {
-        return getHibernateTemplate().find(hql_searchStopWord, stopWord.toLowerCase());
+        return getHibernateTemplate().find(hql_searchStopWord, stopWord.toLowerCase()+"%");
     } //searchStopWord()
 
 
