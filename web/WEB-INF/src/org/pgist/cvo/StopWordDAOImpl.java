@@ -30,7 +30,7 @@ public class StopWordDAOImpl extends HibernateDaoSupport implements StopWordDAO 
     }//save()
 
 
-    private static String hql_getAllStopWords = "from StopWord sw";
+    private static String hql_getAllStopWords = "from StopWord sw order by sw.name";
     
 
     public List getAllStopWords() throws Exception{
