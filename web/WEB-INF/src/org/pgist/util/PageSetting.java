@@ -37,12 +37,8 @@ public class PageSetting {
     }
 
 
-    public PageSetting(int page) {
-        if (page<1) {
-            this.page = 1;
-        } else {
-            this.page = page;
-        }
+    public PageSetting(int rowOfPage) {
+        this.rowOfPage = rowOfPage;
     }
 
     
