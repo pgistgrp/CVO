@@ -28,19 +28,19 @@ function doOnLoad(){
 
 function validateForm()
 	{
-		if(""==document.forms.brainstorm.addConcern.value)
+		if(""==document.forms.testStopWord.addConcern.value)
 		{
 			document.getElementById('validation').innerHTML = 'Please fill in your concern above.';
 			Effect.OpenUp('validation');
 			Effect.CloseDown('tagConcerns');
 			Effect.Yellow('validation', {duration: 4, endcolor:'#EEF3D8'});
-			Effect.Yellow('theTag', {duration: 10, endcolor:'#EEF3D8'});
+			//Effect.Yellow('theTag', {duration: 10, endcolor:'#EEF3D8'});
 			return false;
 			
 		}else{
 			Effect.CloseDown('validation');
 			Effect.OpenUp('tagConcerns');
-			Effect.Yellow('tags', {duration: 4, endcolor:'#FFFFFF'});
+			//Effect.Yellow('tags', {duration: 4, endcolor:'#FFFFFF'});
 			//$('theTag').value = "add tag";
 			//$('theTag').focus();
 			return true;
@@ -48,12 +48,10 @@ function validateForm()
 	}
 	function resetForm()
 	{
-		alert($('btnContinue'));
-		//$('btnContinue').disabled=false;
-		alert("2");
+	
+		$('btnContinue').disabled=false;
 		Effect.CloseDown('tagConcerns');
 		Effect.CloseDown('validation');
-		alert("3");
 		$('addConcern').style.background="#FFF";
 		$('addConcern').style.color="#333";
 	}
@@ -141,7 +139,7 @@ function createStopWord(stopWord){
 					$('theExcludeWord').focus();
 				}
 				if (data.successful != true){
-						document.getElementById('excludeWordValidation').innerHTML = 'The stop word you entered already exists in the database.  Please try again.';
+						document.getElementById('excludeWordValidation').innerHTML = 'The stop word you entered already exists in the database.  Please enter a different stop word.&nbsp;&nbsp;<a href="javascript:Effect.CloseDown(\'excludeWordValidation\');">Close</a>';
 						Effect.OpenUp('excludeWordValidation');
 				}
 			},
@@ -152,6 +150,8 @@ function createStopWord(stopWord){
 }
 
 function deleteStopWord(stopWordID){
+	var destroy = confirm ('Are you sure you want to delete this stop word? Note: there is no undo.')
+	if (destroy){
 	StopWordAgent.deleteStopWord({id:stopWordID}, {
 		callback:function(data){
 				if (data.successful){
@@ -162,6 +162,7 @@ function deleteStopWord(stopWordID){
 				showTheError();
 		}
 		});
+	}
 }
 
 var tagHolderId = 1;
@@ -198,7 +199,7 @@ function removeFromGeneratedTags(name){
 	
 				</form>	
 		</div>
-		<div id="mainNav">Home&nbsp;&nbsp;&nbsp;&nbsp;<span class="active">Current Task</span>&nbsp;&nbsp;&nbsp;&nbsp;Discussion&nbsp;&nbsp;&nbsp;&nbsp;Maps&nbsp;&nbsp;&nbsp;&nbsp;Library&nbsp;&nbsp;</div>
+		<div id="mainNav">Moderator Home&nbsp;&nbsp;&nbsp;&nbsp;Agenda Manager&nbsp;&nbsp;&nbsp;&nbsp;<span class="active">Databases</span>&nbsp;&nbsp;&nbsp;&nbsp;Synthesize Concerns&nbsp;&nbsp;&nbsp;&nbsp;Manage Discussionb&nbsp;&nbsp;</div>
 	</div>
 	<!-- LIGHTBOX -->
 	<div id="overlay"></div>
@@ -258,7 +259,7 @@ function removeFromGeneratedTags(name){
 	
 	<div id="testConcern" class="suppSlate fullBox">
 		<h2>Test Stopwords</h2><br>Add a string of text that you would like to test.
-		<form name="brainstorm" method="post" onSubmit="addTagToList('tagsList', 'theTag','tagValidation'); return false;">
+		<form name="testStopWord" method="post" onSubmit="addTagToList('tagsList', 'theTag','tagValidation'); return false;">
 			      <p><textarea class="textareaAddConcern" onkeypress="ifEnter(this,event);" name="addConcern" cols="20" rows="2" id="addConcern"></textarea></p>
 			      <p class="indent">
 				      <input type="button" id="btnContinue" name="Continue" value="Continue" onclick="prepareConcern();">
