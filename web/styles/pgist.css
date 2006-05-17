@@ -198,19 +198,50 @@ hr {
   text-align: right; 
 }
 
-#mainNav{
-	width: 100%;
-	height: 20px;
-  position: absolute;
-  bottom: 0;
-  font-size: 12px;
-  text-align: right; 
+
+#navContent{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	padding-right: 5px;
+	padding-bottom: 3px;
 }
 
-#mainNav .active{
-	color: #FFFF00;
-	font-weight: bold;
+#navContent ul{
+	display: inline;
 }
+
+#navContent ul li{
+	margin-left: 0;
+	border: none;
+	list-style: none;
+	display: inline;
+}
+.navigation a{
+	color: #fff;
+	text-decoration: none;
+	padding: 4px;
+	font-size: 1.00em;
+	font-weight: 300;
+	margin-left: 4px;
+}
+
+.navigation a:hover{
+	border: 1px solid #355800;
+	background: #FFF;
+	border-bottom: 1px solid #fff;
+	color: #355800;
+	padding: 3px;
+}
+
+.active a{
+	color: #355800;
+	border: 1px solid #355800;
+	background: #FFF;
+	border-bottom: 1px solid #fff;
+	padding: 3px;
+}
+
 
 .searchBox{
 	background: #FFF;
@@ -379,6 +410,16 @@ li.tagsList{
 	border-left: 5px solid #FF0000;
 	width: 90%;
 	margin: auto;
+}
+
+.successful{
+	background: #EEF3D8;
+	padding: 1px;
+	border: 1px solid #355800;
+	border-left: 5px solid #355800;
+	width: 90%;
+	margin: auto;
+	margin-top: 10px;
 }
 
 

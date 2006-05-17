@@ -536,21 +536,29 @@ function showTheError(errorString, exception){
 </script>
 </Head>
 <body>
-
+<!-- HEADER -->
 <div id="decorBar"></div>
 <div id="container">
 
 <div id="searchNavContiner">
-	<div id="logo"><img src="/images/logo.png"></div>
-	<div id="authentication">Welcome, ${baseuser.firstname} [&nbsp;<a href="/logout.do">logout</a>&nbsp;]</div>
-	<div id="mainSearch">
-			<form name="mainSearch" method="post" onSubmit="search();">
-				<input type="text" ID="tbx1" class="searchBox" style="padding-left: 5px; padding-right:20px; background: url('/images/search.gif') no-repeat right;" value="Search" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;"/>
-
-			</form>	
-	</div>
-	<div id="mainNav">Home&nbsp;&nbsp;&nbsp;&nbsp;<span class="active">Current Task</span>&nbsp;&nbsp;&nbsp;&nbsp;Discussion&nbsp;&nbsp;&nbsp;&nbsp;Maps&nbsp;&nbsp;&nbsp;&nbsp;Library&nbsp;&nbsp;</div>
+		<div id="logo" style="top: 0px;"><img src="/images/logo4.png"></div>
+		<div id="authentication">Welcome, ${baseuser.firstname} [&nbsp;<a href="/logout.do">logout</a>&nbsp;]</div>
+		<div id="mainSearch">
+				<form name="mainSearch" method="post" onSubmit="search();">
+					<input type="text" ID="tbx1" class="searchBox" style="padding-left: 5px; padding-right:20px; background: url('/images/search.gif') no-repeat right;" value="Search" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;">
+				</form>	
+		</div>
+	  <div id="navContent" class="navigation">
+	  	<ul>
+	  		<li><a href="modHome.jsp">Home</a></li>
+				<li><a href-"modAgendaManager.jsp">Current Task</a></li>
+				<li><span class="active"><a href="modDatabases.jsp">Discussion Room</a></span></li>
+				<li><a href="modSynthesize.jsp">Map Center</a></li>
+				<li><a href="modDiscussion.jsp">Resource Library</a></li>
+			</ul>
+		</div>
 </div>
+<!-- END HEADER -->
 <!-- LIGHTBOX -->
 <div id="overlay"></div>
 <div id="lightbox"></div>
