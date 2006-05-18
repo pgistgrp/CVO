@@ -16,3 +16,29 @@
 	<pg:modulo parameter="index" folding="5" value="5"><li class="col4"><span class="includeExclude"><bean:write name="stopword" property="name"/>&nbsp;<a href="javascript:deleteStopWord(${stopword.id});"><img src="/images/trash.gif" alt="Delete this Stop Word!" border="0"></a></span></li></pg:modulo>
 
 </logic:iterate>
+
+			<div id="prevNext_container">
+					
+					<div id="previous"><span class="prevNext">
+						<logic:equal name="setting" property="page" value="1">
+							<a href="javascript:goPage(${setting.pageSize});">
+						</logic:equal>
+						
+						<logic:notEqual name="setting" property="page" value="1">	
+							<a href="javascript:goPage(${setting.page}-1);">
+						</logic:notEqual>
+						&#171; prev page</a></span>
+					</div>
+
+					<div id="next"><span class="prevNext">
+						<logic:equal name="setting" property="page" value="${setting.pageSize}">
+							<a href="javascript:goPage(1);">
+						</logic:equal>
+						
+						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
+							<a href="javascript:goPage(${setting.page}+1);">
+						</logic:notEqual>
+						next page &#187; </a></span>
+					</div>
+				</div>
+				</div>

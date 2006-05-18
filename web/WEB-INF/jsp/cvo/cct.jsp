@@ -541,7 +541,7 @@ function showTheError(errorString, exception){
 <div id="container">
 
 <div id="searchNavContiner">
-		<div id="logo" style="top: 0px;"><img src="/images/logo4.png"></div>
+		<div id="logo" style="top: 30px;"><img src="/images/logo2.png"></div>
 		<div id="authentication">Welcome, ${baseuser.firstname} [&nbsp;<a href="/logout.do">logout</a>&nbsp;]</div>
 		<div id="mainSearch">
 				<form name="mainSearch" method="post" onSubmit="search();">

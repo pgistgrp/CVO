@@ -236,7 +236,7 @@ StopWordAgent.searchStopWords({name:stopWord},{
 <div id="container">
 
 <div id="searchNavContiner">
-		<div id="logo" style="top: 0px;"><img src="/images/logo4.png"></div>
+		<div id="logo" style="top: 30px;"><img src="/images/logo2.png"></div>
 		<div id="authentication">Welcome, ${baseuser.firstname} [&nbsp;<a href="/logout.do">logout</a>&nbsp;]</div>
 		<div id="mainSearch">
 				<form name="mainSearch" method="post" onSubmit="search();">
@@ -298,6 +298,14 @@ StopWordAgent.searchStopWords({name:stopWord},{
 								</ul>	   
 							</p>
 				    	<div id="excludeListBreaker" class="breaker">
+				    	<!--PAGINATION -->
+				    	<div id="excludePagination" style="padding-top:10px;">
+				    		<a href="javascript:goToStopWordPage(1);">Previous</a>&nbsp;&nbsp;<a href="javascript:goToStopWordPage(2);">Next</a>
+<i>				    		</i>
+				    	</div>
+				    		
+				    	
+				    	<!--END PAGINATION -->
 				    	<hr>
 				    	<form name="createExcludeWord" method="post" onSubmit="createStopWord($('theExcludeWord').value);return false;">
 				    		<input type="text" id="theExcludeWord" class="tagTextbox" name="theExcludeWord" size="15"><input type="button" name="addExclude" id="addExclude" value="Add Word to List" onclick="createStopWord($('theExcludeWord').value);return false;">
