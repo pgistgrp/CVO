@@ -278,7 +278,10 @@ public class StopWordAgent {
     
     /**
      * Create a new tag with the given name.
-     * @param name - string, name of the new tag.
+     * @param name - A Map contains: <br>
+     *         <ul>
+     *           <li>string, name of the new tag.</li>
+     *         </ul>
      * @return A Map contains: <br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -286,9 +289,11 @@ public class StopWordAgent {
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
-    public Map createTag(String name) {
+    public Map createTag(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
+        
+        String name = (String) params.get("name");
         
         if (name==null || "".equals(name.trim())) {
             map.put("reason", "tag name can't be empty.");
@@ -309,25 +314,24 @@ public class StopWordAgent {
     
     
     /**
-     * Delete tag with the given name.
-     * @param name - string, name of the tag to be deleted.
+     * Delete tag with the given tag id.
+     * @param name - A Map contains: <br>
+     *         <ul>
+     *           <li>int, id of the tag to be deleted.</li>
+     *         </ul>
      * @return A Map contains: <br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
-    public Map deleteTag(String name) {
+    public Map deleteTag(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
-        if (name==null || "".equals(name.trim())) {
-            map.put("reason", "tag name can't be empty.");
-            return map;
-        }
-        
         try {
-            stopWordService.deleteTag(name);
+            Long id = new Long((String) params.get("id"));
+            stopWordService.deleteTag(id);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

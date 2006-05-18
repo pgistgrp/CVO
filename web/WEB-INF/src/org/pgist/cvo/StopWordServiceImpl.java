@@ -80,9 +80,9 @@ public class StopWordServiceImpl implements StopWordService {
     }//createTag()
 
 
-    public void deleteTag(String name) throws Exception {
-        Tag tag = stopWordDAO.getTagByName(name);
-        if (tag==null) throw new Exception("Tag "+name+" not exists.");
+    public void deleteTag(Long id) throws Exception {
+        Tag tag = stopWordDAO.getTagById(id);
+        if (tag==null) throw new Exception("Tag with id "+id+" not exists.");
         
         tag.setStatus(Tag.STATUS_REJECTED);
         stopWordDAO.save(tag);

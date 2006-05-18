@@ -115,16 +115,26 @@ public class StopWordDAOImpl extends HibernateDaoSupport implements StopWordDAO 
     }//getTagByName()
 
 
+    public Tag getTagById(Long id) throws Exception {
+        Tag tag = (Tag) getHibernateTemplate().load(Tag.class, id);
+        if (tag==null || tag.getStatus()==Tag.STATUS_REJECTED) return null;
+        return tag;
+    }//getTagById()
+
+
     public void save(Tag tag) throws Exception {
         getHibernateTemplate().saveOrUpdate(tag);
     }//save()
 
 
-    private static final String hql_searchTag = "from Tag t where lower(t.name) like ?";
+    private static final String hql_searchTag = "from Tag t where t.status!=? and lower(t.name) like ?";
     
 
     public Collection searchTag(String name) throws Exception {
-        return getHibernateTemplate().find(hql_searchTag, name.toLowerCase()+"%");
+        return getHibernateTemplate().find(hql_searchTag, new Object[] {
+                new Integer(Tag.STATUS_REJECTED),
+                name.toLowerCase()+"%",
+        });
     }//searchTag()
 
 

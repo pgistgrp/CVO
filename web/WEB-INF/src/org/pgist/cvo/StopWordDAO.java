@@ -33,6 +33,8 @@ public interface StopWordDAO {
     void save(Tag tag) throws Exception;
 
     Collection searchTag(String name) throws Exception;
+
+    Tag getTagById(Long id) throws Exception;
     
 
 }//interface StopWordDAO
