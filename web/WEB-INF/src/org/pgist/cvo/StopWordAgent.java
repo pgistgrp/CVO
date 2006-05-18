@@ -278,10 +278,7 @@ public class StopWordAgent {
     
     /**
      * Create a new tag with the given name.
-     * @param params A Map contains: <br>
-     *         <ul>
-     *           <li>name - string, name of the new tag.</li>
-     *         </ul>
+     * @param name - string, name of the new tag.
      * @return A Map contains: <br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -313,10 +310,7 @@ public class StopWordAgent {
     
     /**
      * Delete tag with the given name.
-     * @param params A Map contains: <br>
-     *         <ul>
-     *           <li>name - string, name of the tag to be deleted.</li>
-     *         </ul>
+     * @param name - string, name of the tag to be deleted.
      * @return A Map contains: <br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
