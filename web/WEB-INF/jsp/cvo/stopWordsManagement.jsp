@@ -185,7 +185,7 @@ function createStopWord(stopWord){
 }
 
 function createTag(tag){
-	StopWordAgent.createTag({name:tag}, {
+	StopWordAgent.createTag(tag, {
 		callback:function(data){
 				if (data.successful){
 					Effect.CloseDown('includeWordValidation');
@@ -216,7 +216,7 @@ function createTag(tag){
 function deleteStopWord(stopWordID){
 	var destroy = confirm ('Are you sure you want to delete this stop word? Note: there is no undo.')
 	if (destroy){
-	StopWordAgent.deleteStopWord({id:stopWordID}, {
+	StopWordAgent.deleteStopWord(stopWordID, {
 		callback:function(data){
 				if (data.successful){
 					$('txtSearchExclude').value = $('txtSearchExclude').defaultValue;
