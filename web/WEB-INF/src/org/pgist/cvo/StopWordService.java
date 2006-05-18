@@ -21,6 +21,8 @@ public interface StopWordService {
     Tag createTag(String name) throws Exception;
 
     void deleteTag(String name) throws Exception;
+
+    Collection searchTag(String name) throws Exception;
     
 
 }//interface StopWordService

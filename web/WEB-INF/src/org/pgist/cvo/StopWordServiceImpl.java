@@ -89,6 +89,11 @@ public class StopWordServiceImpl implements StopWordService {
         
         analyzer.removeTag(tag);
     }//deleteTag()
+
+
+    public Collection searchTag(String name) throws Exception {
+        return stopWordDAO.searchTag(name);
+    }//searchTag()
     
 
 } //class CCTServiceImpl

@@ -120,4 +120,12 @@ public class StopWordDAOImpl extends HibernateDaoSupport implements StopWordDAO 
     }//save()
 
 
+    private static final String hql_searchTag = "from Tag t where lower(t.name) like ?";
+    
+
+    public Collection searchTag(String name) throws Exception {
+        return getHibernateTemplate().find(hql_searchTag, name.toLowerCase()+"%");
+    }//searchTag()
+
+
 }//class StopWordDAOImpl
