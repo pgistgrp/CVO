@@ -90,10 +90,8 @@ public class StopWordAgent {
 
         try {
             List stopWords = stopWordService.getStopWords(setting);
-            CCTForm cctForm = new CCTForm();
-            cctForm.setStopWords(stopWords);
-            cctForm.setPageSetting(setting);
-            request.setAttribute("cctForm", cctForm);
+            request.setAttribute("stopWords", stopWords);
+            request.setAttribute("setting", setting);
             map.put("html", WebContextFactory.get().forwardToString(
                     "/WEB-INF/jsp/cvo/stopWords.jsp"));
             map.put("successful", true);
@@ -218,6 +216,19 @@ public class StopWordAgent {
 
         return map;
     }//searchStopWords
+    
+    
+    /**
+     * Get the tag list.
+     * @param params
+     * @return
+     */
+    public Map getTags(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        return map;
+    }//getTags()
     
 
 } //class StopWordAgent

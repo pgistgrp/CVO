@@ -41,11 +41,11 @@ public class StopWordAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-        CCTForm cctform = (CCTForm) form;
         PageSetting setting = new PageSetting(count);
         setting.setPage(1);
-        cctform.setPageSetting(setting);
-        cctform.setStopWords(stopWordService.getStopWords(setting));
+        
+        request.setAttribute("stopWords", stopWordService.getStopWords(setting));
+        request.setAttribute("setting", setting);
         
         return mapping.findForward("list");
     }//execute()
