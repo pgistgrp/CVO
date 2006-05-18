@@ -535,4 +535,14 @@ public class TagAnalyzer {
 		return stopwords;
 	}
 
+    
+    /**
+     * Remove a tag from the tag list.
+     *
+     */
+    public void removeTag(Tag tag) {
+        // TODO To be finished by Gruiong
+    }//removeTag()
+    
+
 }//class TagAnalyzer

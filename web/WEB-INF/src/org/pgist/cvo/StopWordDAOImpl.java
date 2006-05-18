@@ -78,4 +78,46 @@ public class StopWordDAOImpl extends HibernateDaoSupport implements StopWordDAO 
     } //getStopWords()
 
 
+    private static String hql_getTags1 = "select count(t.id) from Tag t where t.status!=?";
+
+    private static String hql_getTags2 = "from Tag t where t.status!=? order by t.name";
+    
+
+    public List getTags(PageSetting setting) throws Exception {
+        List result = new ArrayList();
+
+        List list = getHibernateTemplate().find(hql_getTags1, new Integer(Tag.STATUS_REJECTED));
+        if (list == null || list.size() == 0) return result;
+
+        int total = ((Integer) list.get(0)).intValue();
+        if (setting.getRowOfPage() == -1) setting.setRowOfPage(total);
+        setting.setRowSize(total);
+
+        Query query = getSession().createQuery(hql_getTags2);
+        query.setInteger(0, Tag.STATUS_REJECTED);
+        query.setFirstResult(setting.getFirstRow());
+        query.setMaxResults(setting.getRowOfPage());
+
+        return query.list();
+    }//getTags()
+
+    
+    private static final String hql_getTagByName = "from Tag t where t.status!=? and lower(t.name)=?";
+    
+
+    public Tag getTagByName(String name) throws Exception {
+        List list = getHibernateTemplate().find(hql_getTagByName, new Object[] {
+                new Integer(Tag.STATUS_REJECTED),
+                name.toLowerCase(),
+        });
+        if (list.size()==0) return null;
+        return (Tag) list.get(0);
+    }//getTagByName()
+
+
+    public void save(Tag tag) throws Exception {
+        getHibernateTemplate().saveOrUpdate(tag);
+    }//save()
+
+
 }//class StopWordDAOImpl

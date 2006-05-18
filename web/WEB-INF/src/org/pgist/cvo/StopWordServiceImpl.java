@@ -15,10 +15,17 @@ public class StopWordServiceImpl implements StopWordService {
 
 
     private StopWordDAO stopWordDAO = null;
+    
+    private TagAnalyzer analyzer = null;
 
 
     public void setStopWordDAO(StopWordDAO stopWordDAO) {
         this.stopWordDAO = stopWordDAO;
+    }
+
+
+    public void setAnalyzer(TagAnalyzer analyzer) {
+        this.analyzer = analyzer;
     }
 
 
@@ -51,6 +58,37 @@ public class StopWordServiceImpl implements StopWordService {
     public boolean deleteStopWord(Long id) throws Exception {
         return stopWordDAO.deleteStopWord(id);
     }//deleteStopWord()
+
+
+    public List getTags(PageSetting setting) throws Exception {
+        return stopWordDAO.getTags(setting);
+    }//getTags()
+
+
+    public Tag createTag(String name) throws Exception {
+        Tag tag = stopWordDAO.getTagByName(name);
+        if (tag!=null) throw new Exception("Tag "+name+" already exists.");
+        
+        tag = new Tag();
+        tag.setName(name);
+        tag.setDescription(name);
+        stopWordDAO.save(tag);
+        
+        analyzer.addTag(tag);
+        
+        return tag;
+    }//createTag()
+
+
+    public void deleteTag(String name) throws Exception {
+        Tag tag = stopWordDAO.getTagByName(name);
+        if (tag==null) throw new Exception("Tag "+name+" not exists.");
+        
+        tag.setStatus(Tag.STATUS_REJECTED);
+        stopWordDAO.save(tag);
+        
+        analyzer.removeTag(tag);
+    }//deleteTag()
     
 
 } //class CCTServiceImpl

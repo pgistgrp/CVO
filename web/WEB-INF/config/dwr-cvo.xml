@@ -97,6 +97,9 @@
       <include method="createStopWord"/>
       <include method="deleteStopWord"/>
       <include method="searchStopWords"/>
+      <include method="getTags"/>
+      <include method="createTag"/>
+      <include method="deleteTag"/>
     </create>
 
 

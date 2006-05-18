@@ -25,6 +25,12 @@ public interface StopWordDAO {
     List getStopWords(PageSetting setting) throws Exception;
     
     void save(StopWord stopWord) throws Exception;
+
+    List getTags(PageSetting setting) throws Exception;
+
+    Tag getTagByName(String name) throws Exception;
+
+    void save(Tag tag) throws Exception;
     
 
 }//interface StopWordDAO

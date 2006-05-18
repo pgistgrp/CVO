@@ -97,6 +97,7 @@
         <property name="target">
             <bean class="org.pgist.cvo.StopWordServiceImpl">
                 <property name="stopWordDAO" ref="stopWordDAO"/>
+                <property name="analyzer" ref="tagAnalyzer"/>
             </bean>
         </property>
     </bean>

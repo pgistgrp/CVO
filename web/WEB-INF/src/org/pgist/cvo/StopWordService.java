@@ -15,6 +15,12 @@ public interface StopWordService {
     Collection searchStopWord(String stopWord) throws Exception;
 
     boolean deleteStopWord(Long id) throws Exception;
+
+    List getTags(PageSetting setting) throws Exception;
+
+    Tag createTag(String name) throws Exception;
+
+    void deleteTag(String name) throws Exception;
     
 
 }//interface StopWordService
