@@ -86,7 +86,7 @@ function validateForm()
 		
 		for(i=0; i < tagtemp.length; i++){
 			if(tagtemp [i] != ""){
-				str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:addStopWordFromResults(\''+ tagtemp [i] +'\');"><img src="/images/removeItem_lite.gif" alt="Exclude this Tag!" border="0"></a><a href="javascript:addStopWordFromResults(\''+ tagtemp [i] +'\');"><img src="/images/addItem_lite.gif" alt="Include this Tag!" border="0"></a></span></li>';	
+				str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:addStopWordFromResults(\''+ tagtemp [i] +'\');"><img src="/images/removeItem_lite.gif" alt="Exclude this Tag!" border="0"></a><a href="javascript:addTagfromResults(\''+ tagtemp [i] +'\');"><img src="/images/addItem_lite.gif" alt="Include this Tag!" border="0"></a></span></li>';	
 			}
 		}	
 		return str;
@@ -189,9 +189,8 @@ function createTag(tag){
 		callback:function(data){
 				if (data.successful){
 					Effect.CloseDown('includeWordValidation');
-					goToStopWordPage(0);
+					goToTagPage(0);
 					//$('includeExcludeLog').style.display = 'block';
-					
 					$('includeExcludeLog').className ="successful";
 					Effect.OpenUp('includeExcludeLog');
 					$('includeExcludeLog').innerHTML = '<h2>Successful!</h2><br>&nbsp;&nbsp;<img src="/images/removeItem.gif" alt="Include" border="0">&nbsp;The word "<b>' + tag +'</b>" has been successfully added to the tag list!';
@@ -199,7 +198,8 @@ function createTag(tag){
 					//$('theIncludeWord').focus();
 				}
 				if (data.successful != true){
-						document.getElementById('includeWordValidation').innerHTML = 'The tag you entered already exists in the database.  Please enter a different stop word.&nbsp;&nbsp;<a href="javascript:Effect.CloseDown(\'excludeWordValidation\');">Close</a>';
+						alert(data.reason);
+						document.getElementById('includeWordValidation').innerHTML = 'The tag you entered already exists in the database.  Please enter a different stop word.&nbsp;&nbsp;<a href="javascript:Effect.CloseDown(\'includeWordValidation\');">Close</a>';
 						Effect.OpenUp('includeWordValidation');
 						
 						$('includeIncludeLog').className ="validation";
@@ -230,14 +230,17 @@ function deleteStopWord(stopWordID){
 	}
 }
 
-function deleteTag(tagID){
+function deleteTag(tag){
 	var destroy = confirm ('Are you sure you want to delete this Tag? Note: there is no undo.')
 	if (destroy){
-	StopWordAgent.deleteStopWord({id:tagID}, {
+	StopWordAgent.deleteStopWord({id:tag}, {
 		callback:function(data){
 				if (data.successful){
-					$('txtSearchExclude').value = $('txtSearchExclude').defaultValue;
+					$('txtSearchInclude').value = $('txtSearchInclude').defaultValue;
 					goToTagPage(0);
+				}
+				if (data.successful != true){
+					alert(data.reason);
 				}
 			},
 		errorHandler:function(errorString, exception){ 
@@ -297,6 +300,36 @@ StopWordAgent.searchStopWords({name:stopWord},{
 	});
 }
 
+function searchTags(tag){
+StopWordAgent.searchTags({name:tag},{
+		callback:function(data){
+			  $('tagSearchIndicator').style.visibility = 'visible';
+				if (data.successful){
+					if ($('txtSearchInclude').value == ""){
+						goToTagPage(0);
+						$('tagSearchIndicator').style.visibility = 'hidden';
+					}
+					
+					if ($('txtSearchInclude').value != ""){
+						if (data.successful) {
+							$('includeListCont').innerHTML = "";
+						  for (var i=0; i<data.tags.length; i++) {
+						   $('includeListCont').innerHTML += '<li><span class="includeExclude">'+data.tags[i].name+'<a href="javascript:deleteTag(\''+ data.tags[i].id +'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
+						  }				
+						}
+					
+						$('tagSearchIndicator').style.visibility = 'hidden';
+					}					
+				}
+				if (data.successful != true){
+					alert(data.reason);
+				}
+		},
+		errorHandler:function(errorString, exception){ 
+					showTheError();
+		}		
+	});
+}
 </script>
 </Head>
 <body>
@@ -306,7 +339,7 @@ StopWordAgent.searchStopWords({name:stopWord},{
 <div id="container">
 
 <div id="searchNavContiner">
-		<div id="logo" style="top: 30px;"><img src="/images/logo2.png"></div>
+		<div id="logo" style="top: 30px;"><img src="/images/logo2.png" alt="logo" border="0"></div>
 		<div id="authentication">Welcome, ${baseuser.firstname} [&nbsp;<a href="/logout.do">logout</a>&nbsp;]</div>
 		<div id="mainSearch">
 				<form name="mainSearch" method="post" onSubmit="search();">
@@ -380,7 +413,7 @@ StopWordAgent.searchStopWords({name:stopWord},{
 			    	
 				    	<div id="searchInclude_form" style="position: relative;">
 								<form name="searchInclude" method="post" onSubmit="searchTags($('txtSearchInclude').value); return false;">
-									<input type="text" id="txtSearchInclude" name="txtSearchInclude" style="width:120px; padding-left: 1px; padding-right: 20px; margin-right:5px; background: url('/images/search_light.gif') no-repeat right; background-color: #FFFFFF;" class="searchTagTextbox" value="Search Tags" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" onkeyup="searchStopWords($('txtSearchExclude').value);"><div id="stopWordSearchIndicator" style="visibility:hidden; position: absolute; right:0; margin-right: 150px;"><img src="/images/indicator.gif"></div>
+									<input type="text" id="txtSearchInclude" name="txtSearchInclude" style="width:120px; padding-left: 1px; padding-right: 20px; margin-right:5px; background: url('/images/search_light.gif') no-repeat right; background-color: #FFFFFF;" class="searchTagTextbox" value="Search Tags" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" onkeyup="searchTags($('txtSearchInclude').value);"><div id="tagSearchIndicator" style="visibility:hidden; position: absolute; right:0; margin-right: 150px;"><img src="/images/indicator.gif"></div>
 								</form>			
 							</div>
 				    	<span class="title_section">Tags List (include words <img src="/images/addItem.gif" alt="Include" border="0">)</span><br>Words that will be matched and suggested upon submission of concern.  Below are the current words in the include list database.  Please use the textbox at the bottom to add new words to the list.
@@ -390,7 +423,10 @@ StopWordAgent.searchStopWords({name:stopWord},{
 							</p>
 				    	<div id="includeListBreaker" class="breaker">
 			    	<hr>
-			    	<input type="text" id="theIncludeWord" class="tagTextbox" name="theIncludeWord" size="15"><input type="button" name="addInclude" id="addInclude" value="Add Word to List" onclick="addTagToList('tagsList','theTag','tagValidation');return false;">
+			    		<form name="createIncludeWord" method="post" onSubmit="createTag($('theIncludeWord').value);return false;">
+				    		<input type="text" id="theIncludeWord" class="tagTextbox" name="theIncludeWord" size="15"><input type="button" name="addInclude" id="addInclude" value="Add Word to List" onclick="createTag($('theIncludeWord').value);return false;">
+								<div style="display: none; height: 15px;" id="includeWordValidation" class="validation"></div>
+							</form>
 			    	<div style="display: none;" id="includeWordValidation" class="validation"></div>
 			    </div>
 	</div>
