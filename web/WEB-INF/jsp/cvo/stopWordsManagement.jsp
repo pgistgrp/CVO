@@ -24,6 +24,7 @@
 
 function doOnLoad(){
 		goToStopWordPage(0);
+		goToTagPage(0);
 	}
 
 function validateForm()
@@ -111,11 +112,28 @@ function showTheError(errorString, exception){
 }
 
 function goToStopWordPage(pageNum){
-	StopWordAgent.getStopWords({page:pageNum, count: 175}, {
+	StopWordAgent.getStopWords({page:pageNum, count: 150}, {
 		callback:function(data){
 				if (data.successful){
 					
-					$('excludeList').innerHTML = data.html;
+					$('excludeListCont').innerHTML = data.html;
+				}
+				//if (id != undefined){
+					//		Effect.Yellow('stopWord' + id, {duration: 4, endcolor:'#EEF3D8'})
+			//	}
+			},
+		errorHandler:function(errorString, exception){ 
+				showTheError();
+		}
+		});
+}
+
+function goToTagPage(pageNum){
+	StopWordAgent.getTags({page:pageNum, count: 150}, {
+		callback:function(data){
+				if (data.successful){
+					
+					$('includeListCont').innerHTML = data.html;
 				}
 				//if (id != undefined){
 					//		Effect.Yellow('stopWord' + id, {duration: 4, endcolor:'#EEF3D8'})
@@ -131,6 +149,12 @@ function addStopWordFromResults(stopWord){
 	createStopWord(stopWord);
 	removeFromGeneratedTags(stopWord);
 }
+
+function addTagfromResults(tag){
+	createTag(tag);
+	removeFromGeneratedTags(tag);
+}
+
 function createStopWord(stopWord){
 	StopWordAgent.createStopWord({name:stopWord}, {
 		callback:function(data){
@@ -152,6 +176,35 @@ function createStopWord(stopWord){
 						$('includeExcludeLog').className ="validation";
 						Effect.OpenUp('includeExcludeLog');
 						$('includeExcludeLog').innerHTML = '<h2>A problem has occured.</h2><br>The word "<b>' + stopWord +'</b>" already exists in the database!';
+				}
+			},
+		errorHandler:function(errorString, exception){ 
+				showTheError();
+		}
+		});
+}
+
+function createTag(tag){
+	StopWordAgent.createTag({name:tag}, {
+		callback:function(data){
+				if (data.successful){
+					Effect.CloseDown('includeWordValidation');
+					goToStopWordPage(0);
+					//$('includeExcludeLog').style.display = 'block';
+					
+					$('includeExcludeLog').className ="successful";
+					Effect.OpenUp('includeExcludeLog');
+					$('includeExcludeLog').innerHTML = '<h2>Successful!</h2><br>&nbsp;&nbsp;<img src="/images/removeItem.gif" alt="Include" border="0">&nbsp;The word "<b>' + tag +'</b>" has been successfully added to the tag list!';
+					$('theIncludeWord').value = '';
+					//$('theIncludeWord').focus();
+				}
+				if (data.successful != true){
+						document.getElementById('includeWordValidation').innerHTML = 'The tag you entered already exists in the database.  Please enter a different stop word.&nbsp;&nbsp;<a href="javascript:Effect.CloseDown(\'excludeWordValidation\');">Close</a>';
+						Effect.OpenUp('includeWordValidation');
+						
+						$('includeIncludeLog').className ="validation";
+						Effect.OpenUp('includeIncludeLog');
+						$('includeIncludeLog').innerHTML = '<h2>A problem has occured.</h2><br>The word "<b>' + tag +'</b>" already exists in the database!';
 				}
 			},
 		errorHandler:function(errorString, exception){ 
@@ -208,9 +261,9 @@ StopWordAgent.searchStopWords({name:stopWord},{
 					
 					if ($('txtSearchExclude').value != ""){
 						if (data.successful) {
-							$('excludeList').innerHTML = "";
+							$('excludeListCont').innerHTML = "";
 						  for (var i=0; i<data.stopWords.length; i++) {
-						   $('excludeList').innerHTML += '<li><span class="includeExclude">'+data.stopWords[i].name+'<a href="javascript:deleteStopWord(\''+ data.stopWords[i].id +'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
+						   $('excludeListCont').innerHTML += '<li><span class="includeExclude">'+data.stopWords[i].name+'<a href="javascript:deleteStopWord(\''+ data.stopWords[i].id +'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
 						  }				
 						}
 					
@@ -294,32 +347,31 @@ StopWordAgent.searchStopWords({name:stopWord},{
 				    	<span class="title_section">Stop Word List (exclude words <img src="/images/removeItem.gif" alt="Exclude" border="0">)</span><br>Words to be excluded upon concern submission. Below are the current words in the stop words list. Please use the textbox at the bottom to add new words to the list.
 
 				    	<p>
-				    		<ul class="tagsList" id="excludeList">
-								</ul>	   
+				    		<div id="excludeListCont" style="list-style:none; margin:auto;">
+								</div>	   
 							</p>
 				    	<div id="excludeListBreaker" class="breaker">
-				    	<!--PAGINATION -->
-				    	<div id="excludePagination" style="padding-top:10px;">
-				    		<a href="javascript:goToStopWordPage(1);">Previous</a>&nbsp;&nbsp;<a href="javascript:goToStopWordPage(2);">Next</a>
-<i>				    		</i>
-				    	</div>
-				    		
-				    	
-				    	<!--END PAGINATION -->
 				    	<hr>
 				    	<form name="createExcludeWord" method="post" onSubmit="createStopWord($('theExcludeWord').value);return false;">
 				    		<input type="text" id="theExcludeWord" class="tagTextbox" name="theExcludeWord" size="15"><input type="button" name="addExclude" id="addExclude" value="Add Word to List" onclick="createStopWord($('theExcludeWord').value);return false;">
-								<div style="display: none;" id="excludeWordValidation" class="validation"></div>
+								<div style="display: none; height: 15px;" id="excludeWordValidation" class="validation"></div>
 							</form>
 							</div>
 					</div>
 				  <div id="tab_includeList" class="tabbertab">
 			    	<H2>Tags List</H2>
-			    	<span class="title_section">Tags List (include words <img src="/images/addItem.gif" alt="Include" border="0">)</span><br>Words that will be matched and suggested upon submission of concern.  Below are the current words in the include list database.  Please use the textbox at the bottom to add new words to the list.
-			    	<p>
-			    		<ul class="stopWordList" id="includeList">
-							</ul>	   
-						</p>
+			    	
+				    	<div id="searchInclude_form" style="position: relative;">
+								<form name="searchInclude" method="post" onSubmit="searchTags($('txtSearchInclude').value); return false;">
+									<input type="text" id="txtSearchInclude" name="txtSearchInclude" style="width:120px; padding-left: 1px; padding-right: 20px; margin-right:5px; background: url('/images/search_light.gif') no-repeat right; background-color: #FFFFFF;" class="searchTagTextbox" value="Search Tags" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" onkeyup="searchStopWords($('txtSearchExclude').value);"><div id="stopWordSearchIndicator" style="visibility:hidden; position: absolute; right:0; margin-right: 150px;"><img src="/images/indicator.gif"></div>
+								</form>			
+							</div>
+				    	<span class="title_section">Tags List (include words <img src="/images/addItem.gif" alt="Include" border="0">)</span><br>Words that will be matched and suggested upon submission of concern.  Below are the current words in the include list database.  Please use the textbox at the bottom to add new words to the list.
+				    	<p>
+				    		<div id="includeListCont" style="list-style:none; margin:auto;">
+								</div>	   
+							</p>
+				    	<div id="includeListBreaker" class="breaker">
 			    	<hr>
 			    	<input type="text" id="theIncludeWord" class="tagTextbox" name="theIncludeWord" size="15"><input type="button" name="addInclude" id="addInclude" value="Add Word to List" onclick="addTagToList('tagsList','theTag','tagValidation');return false;">
 			    	<div style="display: none;" id="includeWordValidation" class="validation"></div>
@@ -342,7 +394,7 @@ StopWordAgent.searchStopWords({name:stopWord},{
 									<ul class="tagsList" id="tagsList">
 									</ul>	    
 									<p></p>
-									<div id="includeExcludeLog" class="successful" style="display: none"></div>
+									<div id="includeExcludeLog" class="successful" style="display: none; height:50px;"></div>
 									<p align="right"><input type="button" name="editConcern" value="Edit Concern" onClick="resetForm();"> </p>
 						    </div>
 						    <br>
