@@ -230,6 +230,23 @@ function deleteStopWord(stopWordID){
 	}
 }
 
+function deleteTag(tagID){
+	var destroy = confirm ('Are you sure you want to delete this Tag? Note: there is no undo.')
+	if (destroy){
+	StopWordAgent.deleteStopWord({id:tagID}, {
+		callback:function(data){
+				if (data.successful){
+					$('txtSearchExclude').value = $('txtSearchExclude').defaultValue;
+					goToTagPage(0);
+				}
+			},
+		errorHandler:function(errorString, exception){ 
+				showTheError();
+		}
+		});
+	}
+}
+
 var tagHolderId = 1;
 function removeFromGeneratedTags(name){
 		if(name == "")return;
