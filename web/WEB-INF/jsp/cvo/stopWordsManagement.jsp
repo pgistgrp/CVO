@@ -230,10 +230,10 @@ function deleteStopWord(stopWordID){
 	}
 }
 
-function deleteTag(tag){
+function deleteTag(tagID){
 	var destroy = confirm ('Are you sure you want to delete this Tag? Note: there is no undo.')
 	if (destroy){
-	StopWordAgent.deleteStopWord({id:tag}, {
+	StopWordAgent.deleteStopWord({id:tagID}, {
 		callback:function(data){
 				if (data.successful){
 					$('txtSearchInclude').value = $('txtSearchInclude').defaultValue;

@@ -7,15 +7,15 @@
 
 <logic:iterate id="tag" name="tags" indexId="index">
 	  	
-	<pg:modulo parameter="index" folding="5" value="0"><li class="col0"><span class="includeExclude"><bean:write name="tag" property="name"/>&nbsp;<a href="javascript:deleteTag('${tag.name}');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li></pg:modulo>
+	<pg:modulo parameter="index" folding="5" value="0"><li class="col0"><span class="includeExclude"><bean:write name="tag" property="name"/>&nbsp;<a href="javascript:deleteTag(${tag.id});"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li></pg:modulo>
 	
-	<pg:modulo parameter="index" folding="5" value="1"><li class="col1"><span class="includeExclude"><bean:write name="tag" property="name"/>&nbsp;<a href="javascript:deleteTag('${tag.name}');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li></pg:modulo>
+	<pg:modulo parameter="index" folding="5" value="1"><li class="col1"><span class="includeExclude"><bean:write name="tag" property="name"/>&nbsp;<a href="javascript:deleteTag(${tag.id});"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li></pg:modulo>
 	
-	<pg:modulo parameter="index" folding="5" value="2"><li class="col2"><span class="includeExclude"><bean:write name="tag" property="name"/>&nbsp;<a href="javascript:deleteTag('${tag.name}');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li></pg:modulo>
+	<pg:modulo parameter="index" folding="5" value="2"><li class="col2"><span class="includeExclude"><bean:write name="tag" property="name"/>&nbsp;<a href="javascript:deleteTag(${tag.id});"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li></pg:modulo>
 	
-	<pg:modulo parameter="index" folding="5" value="4"><li class="col3"><span class="includeExclude"><bean:write name="tag" property="name"/>&nbsp;<a href="javascript:deleteTag('${tag.name}');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li></pg:modulo>
+	<pg:modulo parameter="index" folding="5" value="4"><li class="col3"><span class="includeExclude"><bean:write name="tag" property="name"/>&nbsp;<a href="javascript:deleteTag(${tag.id});"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li></pg:modulo>
 	
-	<pg:modulo parameter="index" folding="5" value="5"><li class="col4"><span class="includeExclude"><bean:write name="tag" property="name"/>&nbsp;<a href="javascript:deleteTag('${tag.name}');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li></pg:modulo>
+	<pg:modulo parameter="index" folding="5" value="5"><li class="col4"><span class="includeExclude"><bean:write name="tag" property="name"/>&nbsp;<a href="javascript:deleteTag(${tag.id});"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li></pg:modulo>
 
 </logic:iterate>
 </ul>
