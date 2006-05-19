@@ -193,7 +193,7 @@ function createTag(tag){
 					//$('includeExcludeLog').style.display = 'block';
 					$('includeExcludeLog').className ="successful";
 					Effect.OpenUp('includeExcludeLog');
-					$('includeExcludeLog').innerHTML = '<h2>Successful!</h2><br>&nbsp;&nbsp;<img src="/images/removeItem.gif" alt="Include" border="0">&nbsp;The word "<b>' + tag +'</b>" has been successfully added to the tag list!';
+					$('includeExcludeLog').innerHTML = '<h2>Successful!</h2><br>&nbsp;&nbsp;<img src="/images/addItem.gif" alt="Include" border="0">&nbsp;The word "<b>' + tag +'</b>" has been successfully added to the tag list!';
 					$('theIncludeWord').value = '';
 					//$('theIncludeWord').focus();
 				}
@@ -233,7 +233,7 @@ function deleteStopWord(stopWordID){
 function deleteTag(tagID){
 	var destroy = confirm ('Are you sure you want to delete this Tag? Note: there is no undo.')
 	if (destroy){
-	StopWordAgent.deleteStopWord({id:tagID}, {
+	StopWordAgent.deleteTag({id:tagID}, {
 		callback:function(data){
 				if (data.successful){
 					$('txtSearchInclude').value = $('txtSearchInclude').defaultValue;
@@ -455,7 +455,7 @@ StopWordAgent.searchTags({name:tag},{
 	 </form>
 	</div>
 </div>
-
+</div>
 <div id="footerContainer">
 	<div id="footer"><a href="http://www.pgist.org" target="_blank"><img src="/images/footer_pgist.jpg" alt="Powered by the PGIST Portal" border="0" align="right"></a></div>
 	<div id="nsf">This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.</div>
