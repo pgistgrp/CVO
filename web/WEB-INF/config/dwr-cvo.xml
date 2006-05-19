@@ -100,7 +100,7 @@
       <include method="getTags"/>
       <include method="createTag"/>
       <include method="deleteTag"/>
-      <include method="searchTag"/>
+      <include method="searchTags"/>
     </create>
 
 
