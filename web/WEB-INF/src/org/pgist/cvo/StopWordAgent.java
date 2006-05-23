@@ -128,10 +128,6 @@ public class StopWordAgent {
 
         try {
             StopWord stopWord = stopWordService.createStopWord(name);
-            if (stopWord == null) {
-                map.put("reason", "StopWord has existed in the database.");
-                return map;
-            }
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

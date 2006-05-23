@@ -35,6 +35,10 @@ public interface StopWordDAO {
     Collection searchTag(String name) throws Exception;
 
     Tag getTagById(Long id) throws Exception;
+
+    boolean checkStopWord(String name) throws Exception;
+
+    boolean checkTag(String name) throws Exception;
     
 
 }//interface StopWordDAO

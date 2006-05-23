@@ -138,4 +138,25 @@ public class StopWordDAOImpl extends HibernateDaoSupport implements StopWordDAO 
     }//searchTag()
 
 
+    private static final String hql_checkStopWord = "from StopWord sw where lower(sw.name)=?";
+    
+    
+    public boolean checkStopWord(String name) throws Exception {
+        List list = getHibernateTemplate().find(hql_checkStopWord, name.toLowerCase());
+        return list.size()>0;
+    }//checkStopWord()
+
+
+    private static final String hql_checkTag = "from Tag tag where tag.status<>? and lower(sw.name)=?";
+    
+    
+    public boolean checkTag(String name) throws Exception {
+        List list = getHibernateTemplate().find(hql_checkTag, new Object[] {
+                Tag.STATUS_REJECTED,
+                name.toLowerCase(),
+        });
+        return list.size()>0;
+    }//checkTag()
+
+
 }//class StopWordDAOImpl

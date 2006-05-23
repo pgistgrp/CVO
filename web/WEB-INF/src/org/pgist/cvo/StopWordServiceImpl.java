@@ -35,7 +35,13 @@ public class StopWordServiceImpl implements StopWordService {
 
 
     public StopWord createStopWord(String name) throws Exception {
-        if (stopWordDAO.searchStopWord(name).size() != 0) return null;
+        //check if this word is already a stop word in the database
+        if (stopWordDAO.checkStopWord(name))
+            throw new Exception("StopWord has existed in the database.");
+        
+        //check if this word is already a tag in the database
+        if (stopWordDAO.checkTag(name))
+            throw new Exception(name + " is a tag in the database.");
         
         StopWord stopWord = new StopWord();
         stopWord.setName(name);
