@@ -38,6 +38,16 @@
     </bean>
     
     
+    <bean name="/cstlist" class="org.pgist.cvo.CCTListAction">
+        <property name="cctService" ref="cctService"/>
+    </bean>
+    
+    
+    <bean name="/cstview" class="org.pgist.cvo.CSTViewAction">
+        <property name="cctService" ref="cctService"/>
+    </bean>
+    
+    
     <!--bean name="/cvolist" class="org.pgist.cvo.CVOListAction">
         <property name="userDAO" ref="userDAO"/>
         <property name="cvoDAO" ref="cvoDAO"/>

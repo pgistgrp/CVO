@@ -1,13 +1,11 @@
 package org.pgist.cvo;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.pgist.system.UserDAO;
 import org.pgist.util.PageSetting;
 
 import uk.ltd.getahead.dwr.WebContextFactory;
@@ -30,8 +28,6 @@ public class CSTAgent {
     
     private CSTService cstService = null;
 
-    private UserDAO userDAO = null;
-
 
     /**
      * This is not an AJAX service method.
@@ -50,16 +46,6 @@ public class CSTAgent {
      */
     public void setCstService(CSTService cstService) {
         this.cstService = cstService;
-    }
-
-
-    /**
-     * This is not an AJAX service method.
-     *
-     * @param userDAO
-     */
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
     }
 
 

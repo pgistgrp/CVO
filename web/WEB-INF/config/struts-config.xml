@@ -63,7 +63,17 @@
         </action>
         
         
-        <action path="/cvolist" type="org.pgist.cvo.CVOListAction" name="cvoForm" scope="request">
+        <action path="/cstlist" type="org.pgist.cvo.CSTListAction" name="cctForm" scope="request">
+            <forward name="list" path="/WEB-INF/jsp/cvo/cstlist.jsp"/>
+        </action>
+        
+        
+        <action path="/cstview" type="org.pgist.cvo.CSTViewAction" name="cctForm" scope="request">
+            <forward name="view" path="/WEB-INF/jsp/cvo/cst.jsp"/>
+        </action>
+        
+        
+        <!--action path="/cvolist" type="org.pgist.cvo.CVOListAction" name="cvoForm" scope="request">
             <forward name="list" path="/WEB-INF/jsp/cvo/index.jsp"/>
         </action>
         
@@ -75,7 +85,7 @@
         
         <action path="/concernManagement" type="org.pgist.cvo.ConcernManagementAction" name="cvoForm" scope="request">
             <forward name="main" path="/WEB-INF/jsp/cvo/concernManagement.jsp"/>
-        </action>
+        </action-->
         
         
         <!-- Workflow Management Actions -->

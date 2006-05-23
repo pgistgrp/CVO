@@ -82,7 +82,6 @@
     <bean id="cstAgent" class="org.pgist.cvo.CSTAgent">
         <property name="cctService" ref="cctService"/>
         <property name="cstService" ref="cstService"/>
-        <property name="userDAO" ref="userDAO"/>
     </bean>
     
     
