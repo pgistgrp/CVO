@@ -26,6 +26,10 @@
   <p><html:link page="/cstlist.do">Concerns Synthesis Tool</html:link>
 </pg:show>
 
+<pg:show roles="moderator">
+  <p><html:link page="/sdclist.do">Structured Discussion for Concerns</html:link>
+</pg:show>
+
 <p><html:link page="/test.jsp">Test</html:link>
 
 <p><html:link page="/concernManagement.do">Concern Management</html:link>

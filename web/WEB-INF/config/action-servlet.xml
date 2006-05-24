@@ -38,12 +38,22 @@
     </bean>
     
     
-    <bean name="/cstlist" class="org.pgist.cvo.CCTListAction">
+    <bean name="/cstlist" class="org.pgist.cvo.CSTListAction">
         <property name="cctService" ref="cctService"/>
     </bean>
     
     
     <bean name="/cstview" class="org.pgist.cvo.CSTViewAction">
+        <property name="cctService" ref="cctService"/>
+    </bean>
+    
+    
+    <bean name="/sdclist" class="org.pgist.cvo.SDCListAction">
+        <property name="cctService" ref="cctService"/>
+    </bean>
+    
+    
+    <bean name="/sdcview" class="org.pgist.cvo.SDCViewAction">
         <property name="cctService" ref="cctService"/>
     </bean>
     

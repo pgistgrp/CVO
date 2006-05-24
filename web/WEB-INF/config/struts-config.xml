@@ -73,6 +73,16 @@
         </action>
         
         
+        <action path="/sdclist" type="org.pgist.cvo.SDCListAction" name="cctForm" scope="request">
+            <forward name="list" path="/WEB-INF/jsp/cvo/sdclist.jsp"/>
+        </action>
+        
+        
+        <action path="/sdcview" type="org.pgist.cvo.SDCViewAction" name="cctForm" scope="request">
+            <forward name="view" path="/WEB-INF/jsp/cvo/sdc.jsp"/>
+        </action>
+        
+        
         <!--action path="/cvolist" type="org.pgist.cvo.CVOListAction" name="cvoForm" scope="request">
             <forward name="list" path="/WEB-INF/jsp/cvo/index.jsp"/>
         </action>
