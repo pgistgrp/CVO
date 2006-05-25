@@ -38,6 +38,8 @@
                <value>org/pgist/cvo/TagReference.hbm.xml</value>
                <value>org/pgist/cvo/StopWord.hbm.xml</value>
                <value>org/pgist/cvo/Concern.hbm.xml</value>
+               <value>org/pgist/cvo/Summary.hbm.xml</value>
+               <value>org/pgist/cvo/SummaryRevision.hbm.xml</value>
                <value>org/pgist/workflow/DecisionSituation.hbm.xml</value>
                <value>org/pgist/wfengine/WorkflowEnvironment.hbm.xml</value>
                <value>org/pgist/wfengine/RunningContext.hbm.xml</value>
