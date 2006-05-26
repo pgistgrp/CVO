@@ -1,6 +1,5 @@
 package org.pgist.cvo;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -75,10 +74,15 @@ public class CSTServiceImpl implements CSTService {
         CCT cct = cctDAO.getCCTById(cctId);
         if (cct==null) throw new Exception("no such cct.");
         
-        CategoryReference parent = cstDAO.getCategoryReferenceById(parentId);
-        if (parent==null) parent = cct.getRootCategory();
+        CategoryReference parent = null;
+        if (parentId==null) {
+            parent = cct.getRootCategory();
+        } else {
+            parent = cstDAO.getCategoryReferenceById(parentId);
+            if (parent==null) parent = cct.getRootCategory();
+        }
         
-        if (parent.getCct().getId().longValue()!=cct.getId().longValue()) throw new Exception("no such category reference in this cct.");
+        if (!parent.getCct().getId().equals(cct.getId())) throw new Exception("no such category reference in this cct.");
         
         CategoryReference categoryReference = cstDAO.getCategoryReferenceByName(cctId, name);
         if (categoryReference==null) {
@@ -93,7 +97,6 @@ public class CSTServiceImpl implements CSTService {
             categoryReference.setCct(cct);
         }
         categoryReference.getParents().add(parent);
-        parent.getChildren().add(categoryReference);
         
         cstDAO.save(categoryReference);
         cstDAO.save(cct);
@@ -230,6 +233,16 @@ public class CSTServiceImpl implements CSTService {
         
         //TODO finish saving summary
     }//saveSummary()
+
+
+    public Collection getRealtedTags(Long cctId, Long categoryId, PageSetting setting) throws Exception {
+        return cstDAO.getRealtedTags(cctId, categoryId, setting);
+    }//getRealtedTags()
+
+
+    public Collection getUnrelatedTags(Long cctId, Long categoryId, PageSetting setting) throws Exception {
+        return cstDAO.getUnrelatedTags(cctId, categoryId, setting);
+    }//getUnrelatedTags()
 
 
 }//class CSTServiceImpl

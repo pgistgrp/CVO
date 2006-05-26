@@ -19,5 +19,9 @@ public interface CSTDAO extends CVODAO {
 
     Collection getConcernsByTag(Long cctId, Long tagRefId, PageSetting setting) throws Exception;
     
+    Collection getRealtedTags(Long cctId, Long categoryId, PageSetting setting) throws Exception;
+
+    Collection getUnrelatedTags(Long cctId, Long categoryId, PageSetting setting) throws Exception;
+
     
 }//interface CSTDAO

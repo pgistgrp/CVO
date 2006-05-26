@@ -86,6 +86,7 @@
       <include method="getCategories"/>
       <include method="getConcerns"/>
       <include method="getTags"/>
+      <include method="getOrphanTags"/>
       <include method="relateTag"/>
       <include method="saveSummary"/>
     </create>
