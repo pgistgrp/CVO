@@ -150,7 +150,13 @@ public class CSTServiceImpl implements CSTService {
         CCT cct = cctDAO.getCCTById(cctId);
         if (cct==null) throw new Exception("no such cct.");
         
-        CategoryReference parent = cstDAO.getCategoryReferenceById(parentId);
+        CategoryReference parent = null;
+        if (parentId==null) {
+            parent = cct.getRootCategory();
+        } else {
+            parent = cstDAO.getCategoryReferenceById(parentId);
+        }
+        
         if (parent==null) throw new Exception("no such category reference.");
         
         if (parent.getCct().getId().longValue()!=cct.getId().longValue()) throw new Exception("no such category reference in this cct.");
