@@ -36,6 +36,8 @@ public interface CSTService {
     Collection getRealtedTags(Long cctId, Long categoryId, PageSetting setting) throws Exception;
 
     Collection getUnrelatedTags(Long cctId, Long categoryId, PageSetting setting) throws Exception;
+
+    Collection getOrphanTags(Long cctId, PageSetting setting) throws Exception;
     
     
 }//interface CSTService

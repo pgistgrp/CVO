@@ -116,4 +116,17 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
     }//getUnrelatedTags()
 
 
+    private static final String hql_getOrphanTags = "select ref from TagReference ref where ref.cctId=? and ref.id not in "
+        + "(select distinct tag from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id) "
+        + "order by ref.tag.name asc";
+    
+    
+    public Collection getOrphanTags(Long cctId, PageSetting setting) throws Exception {
+        return getHibernateTemplate().find(hql_getOrphanTags, new Object[] {
+                cctId,
+                cctId,
+        });
+    }//getOrphanTags()
+
+
 }//class CSTDAOImpl

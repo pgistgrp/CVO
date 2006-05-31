@@ -234,9 +234,39 @@ public class CSTAgent {
      *         </ul>
      * @throws Exception
      */
-    public Map getOrphanTags(Map params) {
+    public Map getOrphanTags(HttpServletRequest request, Map params) {
         Map map = new HashMap();
         map.put("successful", false);
+        
+        Long cctId = new Long((String) params.get("cctId"));
+        try {
+            CCT cct = cctService.getCCTById(cctId);
+            if (cct==null) {
+                map.put("reason", "no such cct!");
+                return map;
+            }
+            
+            int page = 1;
+            String pageStr = (String) params.get("page");
+            if (pageStr!=null || !"".equals(pageStr.trim())) page = Integer.parseInt(pageStr);
+            
+            PageSetting setting = new PageSetting();
+            setting.setPage(page);
+            
+            Collection tags = cstService.getOrphanTags(cctId, setting);
+            
+            request.setAttribute("cct", cct);
+            request.setAttribute("tags", tags);
+            request.setAttribute("setting", setting);
+            
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/orphanTags.jsp"));
+            
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("successful", false);
+            map.put("reason", e.getMessage());
+        }
         
         return map;
     }//getOrphanTags()

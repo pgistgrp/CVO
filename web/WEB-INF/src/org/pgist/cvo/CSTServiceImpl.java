@@ -251,4 +251,9 @@ public class CSTServiceImpl implements CSTService {
     }//getUnrelatedTags()
 
 
+    public Collection getOrphanTags(Long cctId, PageSetting setting) throws Exception {
+        return cstDAO.getOrphanTags(cctId, setting);
+    }//getOrphanTags()
+
+
 }//class CSTServiceImpl
