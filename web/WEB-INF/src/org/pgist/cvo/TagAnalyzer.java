@@ -27,16 +27,16 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 /**
- * 
+ *
  * <p>
  * Title: Tag analysis for text information
  * </p>
- * 
+ *
  * <p>
  * Description: This class provides the function of extracting tags based on tag
  * database and suggesting new tags based on nautral language processing
  * </p>
- * 
+ *
  * @author Guirong
  * @version 1.0
  */
@@ -66,7 +66,7 @@ public class TagAnalyzer {
 	 * end of a tag
 	 */
 	private long[][] tag_tree = null;
-	
+
 	private Set stop_words = null;
 
 	private static Document parse(URL url) throws DocumentException {
@@ -205,7 +205,7 @@ public class TagAnalyzer {
 				if (!found){
 					if(!stop_words.contains(t.termText().toLowerCase()))
 						suggestedStrings.add(t.termText());
-					
+
 					t = tkz.next();
 				}
 			}//while
@@ -225,9 +225,9 @@ public class TagAnalyzer {
 
 		return suggestedStrings;
 	}//parseTextTokenized()
-	
+
 	/**
-	 * 
+	 *
 	 * @param elements
 	 *            List: a list of elements
 	 * @return String
@@ -252,7 +252,7 @@ public class TagAnalyzer {
 	/**
 	 * This method recursively finds the longest matched part of a string
 	 * against the tree, starting from a given position in the tree.
-	 * 
+	 *
 	 * @param tree
 	 *            long[][]
 	 * @param start
@@ -290,7 +290,7 @@ public class TagAnalyzer {
 
 	/**
 	 * Add a given node to the tree.
-	 * 
+	 *
 	 * @param tree
 	 *            long[][]
 	 * @param tag
@@ -298,7 +298,7 @@ public class TagAnalyzer {
 	 */
 	public synchronized void addTag(Tag tag) {
 		if(all_tags == null) rebuildTree();
-		
+
 		try {
 			//tagDAO.save(tag);
 			all_tags.add(tag);
@@ -316,17 +316,17 @@ public class TagAnalyzer {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Tag tagExists(String tagName){
 		if( tagName == null )
 			return null;
-		
+
 		if( "".equals(tagName) )
 			return null;
-			
+
 		if( all_tags == null )
 			rebuildTree();
-		
+
 		long[] setting = { 0, -1 };
 		String str = tagName.trim().toLowerCase();
 		int m = matchString(tag_tree, 0, str, setting);
@@ -342,7 +342,7 @@ public class TagAnalyzer {
 	 * The result of this method will be a refreshed tag_tree
 	 */
 	public void rebuildTree() {
-		
+
 		List all_tags_temp = new ArrayList();
 		long[][] tag_tree_temp;
 
@@ -418,7 +418,7 @@ public class TagAnalyzer {
 	/**
 	 * For the given tagStr, check if exist corresponding Tag object, if yes
 	 * then return it; else create a new Tag object and return it.
-	 * 
+	 *
 	 * @param tagStr
 	 *            The tag string
 	 * @return A Tag object.
@@ -428,9 +428,9 @@ public class TagAnalyzer {
 		if (all_tags == null) {
 			rebuildTree();
 		}
-		
+
 		List list = new ArrayList(tagStrs.length);
-		
+
 		Set set = new HashSet();
 		for (int i = 0; i < tagStrs.length; i++) {
 			String str = tagStrs[i].toUpperCase();
@@ -474,7 +474,7 @@ public class TagAnalyzer {
 	}//ensureTags()
 
 	/**
-	 * 
+	 *
 	 * @param tree
 	 *            long[][] - tags as stored in an array.
 	 * @param tag
@@ -513,38 +513,60 @@ public class TagAnalyzer {
 					2);
 		}
 	}
-	
-	private Set loadStopWords(){
-		Set stopwords = new TreeSet();
-		List list = stopWordDAO.getAllStopWords();
-		
-		for(int i=0; i<list.size(); i++){
-			String sw = ( (StopWord)list.get(i) ).getName().toLowerCase().trim();
-			if( "".compareTo( sw ) == 0) 
-				continue;
-		    
-			if(!stopwords.contains(s)) 
-				stopwords.add(s);
-			
-		}
-				
+
+        /**
+         *
+         * This method is for internal use. It reads the database into the memory
+         * @return Set
+         */
+        private Set loadStopWords(){
+        Set stopwords = new TreeSet();
+                try {
+                    List list = stopWordDAO.getAllStopWords();
+
+                    for (int i = 0; i < list.size(); i++) {
+                        String sw = ((StopWord) list.get(i)).getName().
+                                    toLowerCase().trim();
+                        if ("".compareTo(sw) == 0) {
+                            continue;
+                        }
+
+                        if (!stopwords.contains(sw)) {
+                            stopwords.add(sw);
+                            System.out.println(">>>>added stop word: " + sw);
+                        }
+
+                    }
+                } catch (Exception ex) {
+                }
+
 		return stopwords;
 	}
-	
-	public synchronized void addStopWord(String sw){
-		if( stop_words == null ) stop_words = new TreeSet();
-		
-		if(!stop_words.contains(ws)) {
-			
-			stop_words.add(sw);		
+
+        /**
+         * Add a stop word represented by a string into the memory only. No database
+         * operation is performed.
+         * @param sw String
+         */
+        public synchronized void addStopWord(String sw){
+        if( stop_words == null ) stop_words = new TreeSet();
+
+		if(!stop_words.contains(sw)) {
+
+			stop_words.add(sw);
 		}
 	}
 
-	public boolean stopWordExits(String sw){
-		if( stop_words == null ) return false;
+        /**
+         * To see if a string exists in the memory as a stop word.
+         * @param sw String
+         * @return boolean
+         */
+        public boolean stopWordExits(String sw){
+        if( stop_words == null ) return false;
 		return( stop_words.contains( sw ) );
 	}
-    
+
     /**
      * Remove a tag from the tag list.
      *
@@ -553,6 +575,6 @@ public class TagAnalyzer {
         // TODO To be finished by Gruiong
 		// this method is not necessary, as this calss is not a "tag manager"
     }//removeTag()
-    
+
 
 }//class TagAnalyzer
