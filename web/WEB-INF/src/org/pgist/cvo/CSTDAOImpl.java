@@ -116,16 +116,31 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
     }//getUnrelatedTags()
 
 
-    private static final String hql_getOrphanTags = "select ref from TagReference ref where ref.cctId=? and ref.id not in "
+    private static final String hql_getOrphanTags1 = "select count(ref.id) from TagReference ref where ref.cctId=? and ref.id not in "
+        + "(select distinct tag from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id) ";
+    private static final String hql_getOrphanTags2 = "select ref from TagReference ref where ref.cctId=? and ref.id not in "
         + "(select distinct tag from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id) "
         + "order by ref.tag.name asc";
     
     
     public Collection getOrphanTags(Long cctId, PageSetting setting) throws Exception {
-        return getHibernateTemplate().find(hql_getOrphanTags, new Object[] {
+        List list = getHibernateTemplate().find(hql_getOrphanTags1, new Object[] {
                 cctId,
                 cctId,
         });
+        
+        int count = ((Integer) list.get(0)).intValue();
+        if (count==0) return new ArrayList();
+        
+        if (setting.getRowOfPage()<1) setting.setRowOfPage(count);
+        setting.setRowSize(count);
+        
+        Query query = getSession().createQuery(hql_getOrphanTags2);
+        query.setLong(0, cctId);
+        query.setLong(1, cctId);
+        query.setMaxResults(setting.getRowOfPage());
+        query.setFirstResult(setting.getFirstRow());
+        return query.list();
     }//getOrphanTags()
 
 
