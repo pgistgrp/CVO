@@ -43,9 +43,14 @@ import org.dom4j.io.SAXReader;
 public class TagAnalyzer {
 
 	private TagDAO tagDAO = null;
+	private StopWordDAO stopWordDAO = null;
 
 	public void setTagDAO(TagDAO tagDAO) {
 		this.tagDAO = tagDAO;
+	}
+
+	public void setStopWordDAO(StopWordDAO stopDAO) {
+		this.stopWordDAO = stopDAO;
 	}
 
 	/*
@@ -337,13 +342,13 @@ public class TagAnalyzer {
 	 * The result of this method will be a refreshed tag_tree
 	 */
 	public void rebuildTree() {
-		stop_words = loadStopWords();
 		
 		List all_tags_temp = new ArrayList();
 		long[][] tag_tree_temp;
 
 		try {
 			Collection tags = tagDAO.getAllTags();
+			stop_words = loadStopWords();
 			System.out.println("====start to build tree, with " + tags.size()
 					+ " tags.");
 
@@ -511,30 +516,34 @@ public class TagAnalyzer {
 	
 	private Set loadStopWords(){
 		Set stopwords = new TreeSet();
-        try {
-			URL url = this.getClass().getResource("stopwords.txt") ;
-			System.out.println("====file location: " + url.toString());
-			Reader reader = new BufferedReader( new InputStreamReader(url.openStream()));
-			Tokenizer tkz = new StandardTokenizer(reader);
-			try {
-			    Token t = tkz.next();
-			    while (t != null) {
-			        String s = t.termText().toLowerCase();
-			        System.out.println("==add stop word: " + s);
-			        if(!stopwords.contains(s))
-			            stopwords.add(s);
-
-			        t = tkz.next();
-			    }
-			}catch (Exception ex){}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}catch (IOException exio){}
+		List list = stopWordDAO.getAllStopWords();
 		
+		for(int i=0; i<list.size(); i++){
+			String sw = ( (StopWord)list.get(i) ).getName().toLowerCase().trim();
+			if( "".compareTo( sw ) == 0) 
+				continue;
+		    
+			if(!stopwords.contains(s)) 
+				stopwords.add(s);
+			
+		}
+				
 		return stopwords;
 	}
+	
+	public synchronized void addStopWord(String sw){
+		if( stop_words == null ) stop_words = new TreeSet();
+		
+		if(!stop_words.contains(ws)) {
+			
+			stop_words.add(sw);		
+		}
+	}
 
+	public boolean stopWordExits(String sw){
+		if( stop_words == null ) return false;
+		return( stop_words.contains( sw ) );
+	}
     
     /**
      * Remove a tag from the tag list.
@@ -542,6 +551,7 @@ public class TagAnalyzer {
      */
     public void removeTag(Tag tag) {
         // TODO To be finished by Gruiong
+		// this method is not necessary, as this calss is not a "tag manager"
     }//removeTag()
     
 
