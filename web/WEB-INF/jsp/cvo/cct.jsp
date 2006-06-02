@@ -269,7 +269,7 @@ function showTagCloud(){
 			callback:function(data){
 				if (data.successful){
 					$('sidebar_tags').innerHTML = data.html;
-					<p><textarea class="textareaAddConcern" name="addConcern" cols="50" rows="2" id="addConcern"></textarea></p>
+					//<p><textarea class="textareaAddConcern" name="addConcern" cols="50" rows="2" id="addConcern"></textarea></p>
 				}
 			},
 			errorHandler:function(errorString, exception){ 
@@ -644,8 +644,9 @@ function showTheError(errorString, exception){
 	
 	</div>
 </div>
-</div>
+
 <!--END SIDEBAR -->
+</div>
 <div id="footerContainer">
 	<div id="footer"><a href="http://www.pgist.org" target="_blank"><img src="/images/footer_pgist.jpg" alt="Powered by the PGIST Portal" border="0" align="right"></a></div>
 	<div id="nsf">This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.</div>

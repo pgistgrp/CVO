@@ -198,7 +198,7 @@ function createTag(tag){
 					//$('theIncludeWord').focus();
 				}
 				if (data.successful != true){
-						alert(data.reason);
+						//alert(data.reason);
 						document.getElementById('includeWordValidation').innerHTML = 'The tag you entered already exists in the database.  Please enter a different stop word.&nbsp;&nbsp;<a href="javascript:Effect.CloseDown(\'includeWordValidation\');">Close</a>';
 						Effect.OpenUp('includeWordValidation');
 						
@@ -416,8 +416,8 @@ StopWordAgent.searchTags({name:tag},{
 									<input type="text" id="txtSearchInclude" name="txtSearchInclude" style="width:120px; padding-left: 1px; padding-right: 20px; margin-right:5px; background: url('/images/search_light.gif') no-repeat right; background-color: #FFFFFF;" class="searchTagTextbox" value="Search Tags" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" onkeyup="searchTags($('txtSearchInclude').value);"><div id="tagSearchIndicator" style="visibility:hidden; position: absolute; right:0; margin-right: 150px;"><img src="/images/indicator.gif"></div>
 								</form>			
 							</div>
-				    	<span class="title_section">Tags List (include words <img src="/images/addItem.gif" alt="Include" border="0">)</span><br>Words that will be matched and suggested upon submission of concern.  Below are the current words in the include list database.  Please use the textbox at the bottom to add new words to the list.
-				    	<p>
+							
+				    	<p><span class="title_section">Tags List (include words <img src="/images/addItem.gif" alt="Exclude" border="0">)</span><br>Words that will be matched and suggested upon submission of concern. Below are the current words in the include list database. Please use the textbox at the bottom to add new words to the list.
 				    		<div id="includeListCont" style="list-style:none; margin:auto;">
 								</div>	   
 							</p>

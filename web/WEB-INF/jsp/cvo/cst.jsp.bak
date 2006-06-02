@@ -166,7 +166,7 @@
 								if (destroy){
 									new Effect.SwitchOff('tag' + tagId, {afterFinish: function(){showTags(categoryId,0);}});
 								}
-								getTags(categoryId, 0, 1);
+								getTags(categoryId, 0, 0);
 						}
 						if (data.successful != true){
 							alert(data.reason);

@@ -145,6 +145,7 @@ hr {
 }
 
 /* ///////////////////////////// Header ////////////////////////// */
+/* ///////////////////////////// Header ////////////////////////// */
 
 #authentication{
 	padding-top: 10px;
@@ -374,6 +375,7 @@ li.tagsList{
 	position: relative;
 	width: 99%;
   padding: 5px;
+  -moz-border-radius: 16px;
 }
 
 
@@ -793,6 +795,8 @@ width: 20px
 	font-size: 10px;
 	font-weight: bold;
 }
+
+
 #lightbox.done img{
 	width:100%;
 	height:100%;
@@ -827,4 +831,39 @@ width: 20px
 }
 
 
-/* ///////////////////////////// TAG MANAGEMENT ////////////////////////// */
+/* ///////////////////////////// CST Specific ////////////////////////// */
+#panelContainer {
+	width:100%;
+	padding-top:20px;
+}
+
+#panelCats,#panelTagsInCats {
+	padding: 5px;
+	float: left;
+	width:30%;
+	position: relative;
+}
+#panelTagsInCats {
+	margin-left: 2%;
+	margin-right: 2%;
+}
+
+#panelTICContent, #panelCatsContent{
+	border: 1px solid #ccc;
+	width: 100%;
+	padding: 5px;
+	position:absolute;
+	overflow: auto;
+	top:0;
+	margin-top: 70px;
+	height: 200px;
+}
+
+.panelTitle{
+	width: 100%;
+	height: 40px;
+}
+
+#summary{
+	clear: both;
+}
