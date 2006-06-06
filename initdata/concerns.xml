@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<concerns cct="test">
+
+
+    <!--
+        [] Attribute "time" of <concern> is optional.
+        [] The content of <cct> is the attribute "id" in <cct> of ccts.xml
+    -->
+    
+    
+    <concern>
+        <participant type="loginname">SmithSam</participant>
+        <content>We need a light rail system to commute from the suburbs to Seattle more quickly</content>
+        <tags>
+            <tag>travel</tag>
+            <tag>suburb</tag>
+            <tag>bus</tag>
+            <tag>light rail</tag>
+            <tag>commute</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">SmithSam</participant>
+        <content>Buses are overcrowded.</content>
+        <tags>
+            <tag>bus</tag>
+            <tag>transportation planning</tag>
+            <tag>decision making</tag>
+            <tag>accountability</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">BrownBob</participant>
+        <content>Disabled riders need input in vehicle purchases by Metro</content>
+        <tags>
+            <tag>bus</tag>
+            <tag>Metro</tag>
+            <tag>disabled</tag>
+            <tag>public involvement</tag>
+            <tag>accessibility</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">BrownBob</participant>
+        <content>Restrooms at Metro transit stations need to be handicapped accessible</content>
+        <tags>
+            <tag>Metro</tag>
+            <tag>accessibility</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">BrownBob</participant>
+        <content>All transit planners should be transit users.</content>
+        <tags>
+            <tag>bus</tag>
+            <tag>transportation planning</tag>
+            <tag>decision making</tag>
+            <tag>accountability</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">JonesJane</participant>
+        <content>Transportation systems should be safe</content>
+        <tags>
+            <tag>safety</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">JonesJane</participant>
+        <content>Transportation systems should promote livability and walkability</content>
+        <tags>
+            <tag>transportation planning</tag>
+            <tag>livability</tag>
+            <tag>walkability</tag>
+            <tag>density</tag>
+            <tag>downtown</tag>
+            <tag>sprawl</tag>
+            <tag>health</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">JonesJane</participant>
+        <content>The alaskan way viaduct is unsafe</content>
+        <tags>
+            <tag>safety</tag>
+            <tag>alaskan way viaduct</tag>
+            <tag>earthquake</tag>
+            <tag>funding</tag>
+            <tag>commute</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">RobinsonRob</participant>
+        <content>Seattle needs to support more bicycle commuting</content>
+        <tags>
+            <tag>bicycle</tag>
+            <tag>commute</tag>
+            <tag>congestion</tag>
+            <tag>health</tag>
+            <tag>sprawl</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">DoeDiane</participant>
+        <content>The transportation system should be more accessible to all citizens</content>
+        <tags>
+            <tag>accessibility</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">JohnsonJohn</participant>
+        <content>We should not continue to fund a reliance on motor vehicles</content>
+        <tags>
+            <tag>transportation planning</tag>
+            <tag>funding</tag>
+            <tag>car</tag>
+            <tag>taxes</tag>
+            <tag>alternative</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">JohnsonJohn</participant>
+        <content>We should not add more lanes to the 520 bridge</content>
+        <tags>
+            <tag>520 bridge</tag>
+            <tag>taxes</tag>
+            <tag>hov lanes</tag>
+            <tag>traffic</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">JohnsonJohn</participant>
+        <content>Planning agencies are not well coordinated</content>
+        <tags>
+            <tag>transportation planning</tag>
+            <tag>agencies</tag>
+            <tag>coordination</tag>
+            <tag>decision making</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">PerkinsPeter</participant>
+        <content>Bus stops should be spaced at convenient locations</content>
+        <tags>
+            <tag>bus</tag>
+            <tag>accessibility</tag>
+            <tag>elderly</tag>
+            <tag>commuting</tag>
+            <tag>convenience</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">PerkinsPeter</participant>
+        <content>There should be "no smoking" signs at bus stops</content>
+        <tags>
+            <tag>bus</tag>
+            <tag>bus stop</tag>
+            <tag>health</tag>
+            <tag>smoking</tag>
+            <tag>safety</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">PerkinsPeter</participant>
+        <content>Metro representatives should attend community meetings</content>
+        <tags>
+            <tag>Metro</tag>
+            <tag>community</tag>
+            <tag>public involvement</tag>
+            <tag>transportation planning</tag>
+            <tag>accountability</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">GarfieldGary</participant>
+        <content>Metro and Sound Transit do not understand their customers</content>
+        <tags>
+            <tag>Metro</tag>
+            <tag>Sound Transit</tag>
+            <tag>demographics</tag>
+            <tag>transportation planning</tag>
+            <tag>public involvement</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">MurphyMary</participant>
+        <content>Non-commuter vehicles shouldn't drive in commuter lanes</content>
+        <tags>
+            <tag>hov lanes</tag>
+            <tag>commuting</tag>
+            <tag>law enforcement</tag>
+            <tag>safety</tag>
+            <tag>congestion</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">MurphyMary</participant>
+        <content>HOV lanes should be converted into regular lanes</content>
+        <tags>
+            <tag>hov lanes</tag>
+            <tag>commuting</tag>
+            <tag>I-405</tag>
+            <tag>congestion</tag>
+        </tags>
+    </concern>
+    
+    
+    <concern>
+        <participant type="loginname">MurphyMary</participant>
+        <content>More data traffic data should be gathered when making transportation decisions</content>
+        <tags>
+            <tag>tranportation planning</tag>
+            <tag>research</tag>
+            <tag>demographics</tag>
+            <tag>commuting</tag>
+            <tag>traffic</tag>
+        </tags>
+    </concern>
+    
+    
+</concerns>
+

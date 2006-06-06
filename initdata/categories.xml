@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<categories>
+
+    <!--
+        Syntax:
+            [] There's always an implicit root category
+            [] Attribute "name" is optional for <category>, and if it's omitted, the category will be the child of root category
+            [] Element <tag> is optional
+    -->
+    
+    
+    <category name="safty">
+        <tag>safe</tag>
+        <tag>damage</tag>
+    </category>
+    
+    
+    <category name="transportation" parent="safty">
+        <tag>bus</tag>
+        <tag>transportation planning</tag>
+    </category>
+    
+    
+    <category name="environment">
+        <tag>noise</tag>
+        <tag>polution</tag>
+    </category>
+    
+    
+    <category name="economy"/>
+    
+    
+</categories>
+

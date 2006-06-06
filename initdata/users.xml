@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+
+
+    <user>
+        <loginname>SmithSam</loginname>
+        <lastname>Smith</lastname>
+        <firstname>Sam</firstname>
+        <password encrypted="false">SmithSam</password>
+        <email>smithsam@pgist.org</email>
+        <gender>Male</gender>
+        <roles>
+            <role>participant<role>
+        </roles>
+    </user>
+    
+    
+    <user>
+        <loginname>BrownBob</loginname>
+        <lastname>Brown</lastname>
+        <firstname>Bob</firstname>
+        <password encrypted="false">BrownBob</password>
+        <email>brownbob@pgist.org</email>
+        <gender>Male</gender>
+        <roles>
+            <role>participant<role>
+        </roles>
+    </user>
+    
+    
+    <user>
+        <loginname>JonesJane</loginname>
+        <lastname>Jones</lastname>
+        <firstname>Jane</firstname>
+        <password encrypted="false">JonesJane</password>
+        <email>jonesjane@pgist.org</email>
+        <gender>Female</gender>
+        <roles>
+            <role>participant<role>
+        </roles>
+    </user>
+    
+    
+    <user>
+        <loginname>RobinsonRob</loginname>
+        <lastname>Robinson</lastname>
+        <firstname>RRob</firstname>
+        <password encrypted="false">RobinsonRob</password>
+        <email>robinsonrob@pgist.org</email>
+        <gender>Male</gender>
+        <roles>
+            <role>participant<role>
+        </roles>
+    </user>
+    
+    
+    <user>
+        <loginname>DoeDiane</loginname>
+        <lastname>Doe</lastname>
+        <firstname>Diane</firstname>
+        <password encrypted="false">DoeDiane</password>
+        <email>doediane@pgist.org</email>
+        <gender>Male</gender>
+        <roles>
+            <role>participant<role>
+        </roles>
+    </user>
+    
+    
+    <user>
+        <loginname>JohnsonJohn</loginname>
+        <lastname>Johnson</lastname>
+        <firstname>John</firstname>
+        <password encrypted="false">JohnsonJohn</password>
+        <email>johnsonjohn@pgist.org</email>
+        <gender>Male</gender>
+        <roles>
+            <role>participant<role>
+        </roles>
+    </user>
+    
+    
+    <user>
+        <loginname>PerkinsPeter</loginname>
+        <lastname>Perkins</lastname>
+        <firstname>Peter</firstname>
+        <password encrypted="false">PerkinsPeter</password>
+        <email>perkinspeter@pgist.org</email>
+        <gender>Male</gender>
+        <roles>
+            <role>participant<role>
+        </roles>
+    </user>
+    
+    
+    <user>
+        <loginname>GarfieldGary</loginname>
+        <lastname>Garfield</lastname>
+        <firstname>Gary</firstname>
+        <password encrypted="false">GarfieldGary</password>
+        <email>garfieldgary@pgist.org</email>
+        <gender>Male</gender>
+        <roles>
+            <role>participant<role>
+        </roles>
+    </user>
+    
+    
+    <user>
+        <loginname>MurphyMary</loginname>
+        <lastname>Murphy</lastname>
+        <firstname>Mary</firstname>
+        <password encrypted="false">MurphyMary</password>
+        <email>murphymary@pgist.org</email>
+        <gender>Male</gender>
+        <roles>
+            <role>participant<role>
+        </roles>
+    </user>
+    
+    
+</users>
+
