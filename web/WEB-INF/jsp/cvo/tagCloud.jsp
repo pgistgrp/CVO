@@ -2,8 +2,8 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 
-<h2>Current Task</h2>
-<span class="title_section">Tag Cloud</span><br>
+<h2>Tags</h2>
+<span class="title_section">Read other people's concerns</span><br>
 Click on any of these tags to view the concerns attached to each tag.  Use these tags to help you navigate and find other participant's concerns to help you create your own!<p></p>
 
 <div id="searchTag_container">

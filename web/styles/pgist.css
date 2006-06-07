@@ -43,8 +43,6 @@ h3{
 }
 
 p {
-	font-size: 12px;
-	line-height: 15px;
 	color: #333;
 }
 
@@ -58,6 +56,11 @@ b.big{
 
 p.indent{
 	padding-left: 20px;
+}
+
+p.overview{
+	font-size: 14px;
+	color: #666;
 }
 
 p.topBorder {
@@ -376,6 +379,7 @@ li.tagsList{
 	width: 99%;
   padding: 5px;
   -moz-border-radius: 16px;
+
 }
 
 
@@ -489,6 +493,12 @@ li.tagsList{
 
 .highlight{
 	background:#ffc;
+}
+
+.help{
+	font-size: 11px;
+	color: #666;
+	font-weight: normal;
 }
 
 #prevNext_container{

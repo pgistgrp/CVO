@@ -526,6 +526,12 @@ function ifEnter(field,event) {
 	return true;
 }   
 
+function showFinished(){
+	location.href = '#finished';
+	Effect.Yellow('btnNextStep', {duration: 8, endcolor:'#EEF3D8'});
+	Effect.Yellow('finished_p', {duration: 8, endcolor:'#EEF3D8'});
+}
+
 function showTheError(errorString, exception){
 					$('overview').style.display = 'none';
 				$('slate').style.display = 'none';
@@ -551,9 +557,7 @@ function showTheError(errorString, exception){
 	  <div id="navContent" class="navigation">
 	  	<ul>
 	  		<li><a href="modHome.jsp">Home</a></li>
-				<li><a href-"modAgendaManager.jsp">Current Task</a></li>
-				<li><span class="active"><a href="modDatabases.jsp">Discussion Room</a></span></li>
-				<li><a href="modSynthesize.jsp">Map Center</a></li>
+				<li><span class="active"><a href-"modAgendaManager.jsp">Current Task</a></span></li>
 				<li><a href="modDiscussion.jsp">Resource Library</a></li>
 			</ul>
 		</div>
@@ -578,17 +582,20 @@ function showTheError(errorString, exception){
 
  <div id="overview">
 	  	<h3>Overview and Instructions</h3> 
-	  	<p class="indent"><strong>Overview: </strong>${cctForm.cct.purpose}</p>
-	  	<p class="indent"><strong>Instructions: </strong>${cctForm.cct.instruction}</p>
+	  	<p class="overview indent"><strong>Overview: </strong><br><!--${cctForm.cct.purpose}-->Before we can determine how to best improve the transportation system, we need to know what the problems are.</p>
+	  	<p class="overview indent"><strong>Instructions: </strong><br><!--${cctForm.cct.instruction}-->Our first task is to brainstorm concerns about the transportation system. What problems do you encounter in your daily trips to work, shopping, and errands? In what ways do you feel our current transportation system fails to meet the needs of our growing region? Write your concerns below. </p>
+	  	<p class="overview indent">"Tags" are an easy way to explore the wide variety of concerns contributed by other participants. Simply click on a tag to read concerns related to that idea.</p>
+	  	<p class="indent"><span class="help">[ <a href="allSteps.jsp">Read more</a> about how this step fits into the bigger picture. ]</span></p>
+</p>
  </div>
 
  <div id="caughtException"><h2>A Problem has Occured</h2><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
  <div id="slate" class="slate leftBox">
-  		<h2>Add your concern</h2><br>What is one of your concerns about the Central Puget Sound Transportation System?  View examples of concerns in the right column (<a href="javascript:tabFocus(1);">concerns tab</a>).
+  		<h2>Add your concern</h2><br>Describe <strong>one</strong> problem with our transportation system. You can add more concerns later
 		    <form name="brainstorm" method="post" onSubmit="addTagToList('tagsList', 'theTag','tagValidation'); return false;">
 			      <p><textarea class="textareaAddConcern" onkeypress="ifEnter(this,event);" name="addConcern" cols="20" rows="2" id="addConcern"></textarea></p>
 			      <p class="indent">
-				      <input type="button" id="btnContinue" name="Continue" value="Continue" onclick="prepareConcern();">
+				      <input type="button" id="btnContinue" name="Continue" value="Submit Concern" onclick="prepareConcern();">
 				      <input type="reset" name="Reset" value="Reset" onClick="resetForm();"> 
 				      <span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>
 			      </p>
@@ -608,7 +615,7 @@ function showTheError(errorString, exception){
 						    <br>
 				    </div>
 				
-				<h2>List of my created concerns</h2><br>Finished? Please submit concerns <a href="#finished">below</a>.<p></p>
+				<h2>Concerns you've contributed so far</h2><br>Finished? Click 'continue to next step' <a href="javascript:showFinished();">below</a>.<p></p>
 			      <div id="myConcernsList" class="indent">
 			 
 				      <ol id="myConcerns">
@@ -617,8 +624,8 @@ function showTheError(errorString, exception){
 				  	
 						<a name="finished"></a><h2>Finished brainstorming concerns?</h2>
 						<div id="finished_container">
-							<div id="finished_p">When you are satisfied with your concerns list above, please use the button on the right to continue to the next step!</div>
-							<div id="finished_img"><input type="button" value="Continue to Next Step"></div>
+							<div id="finished_p">When you are satisfied with your list of concerns, click "continue to next step" to move on.</div>
+							<div id="finished_img"><input type="button" id="btnNextStep" value="Continue to Next Step"></div>
 						</div>
 		    </form>
 
@@ -627,19 +634,13 @@ function showTheError(errorString, exception){
 <div id="bar"><a name="SideConcernsTop"></a>
 	<div class="tabber" id="myTab">
 		  <div id="sidebar_tags" class="tabbertab">
-	    	<H2>Current Task</H2>
+	    	<H2>Tags</H2>
 	    </div>
 
 	    <div id="sidebar_concernsContainer" class="tabbertab">
-	    	<h2>Discussion</h2>
+	    	<h2>Concerns</h2>
 				<div id="sidebar_concerns">
 				</div>
-	    </div>
-	    <div id="sidebar_map" class="tabbertab">
-	    	<H2>Maps</H2>
-	    </div>
-		  <div id="sidebar_library" class="tabbertab">
-	    	<H2>Library</H2>
 	    </div>
 	
 	</div>
