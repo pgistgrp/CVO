@@ -9,26 +9,612 @@
     -->
     
     
-    <category name="safty">
-        <tag>safe</tag>
-        <tag>damage</tag>
-    </category>
-    
-    
-    <category name="transportation" parent="safty">
+    <category name="travel">
+        <tag>congestion</tag>
+        <tag>modalities</tag>
+        <tag>modality</tag>
+        <tag>bottleneck</tag>
+        <tag>carpooling</tag>
+        <tag>carpool</tag>
+        <tag>car-pool</tag>
+        <tag>carpooled</tag>
+        <tag>carpooling</tag>
+        <tag>commuter</tag>
+        <tag>commuters</tag>
+        <tag>commutes</tag>
+        <tag>commuting</tag>
+        <tag>ferries</tag>
+        <tag>ferry</tag>
+        <tag>gridlock</tag>
+        <tag>HOV</tag>
+        <tag>high occupancy vehicle</tag>
+        <tag>HOVlane</tag>
+        <tag>high occupancy vehicle lane</tag>
+        <tag>jam</tag>
+        <tag>lane</tag>
+        <tag>lanes</tag>
+        <tag>mass transit</tag>
+        <tag>motorists</tag>
+        <tag>multi-occupancy</tag>
+        <tag>number of cars</tag>
+        <tag>flexibility</tag>
+        <tag>rider friendly</tag>
+        <tag>rider-friendly</tag>
+        <tag>riders</tag>
+        <tag>ridership</tag>
+        <tag>rider-ship</tag>
+        <tag>sounder</tag>
+        <tag>sounders</tag>
+        <tag>subway</tag>
+        <tag>subways</tag>
+        <tag>telecommuted</tag>
+        <tag>telecommuting</tag>
+        <tag>vanpool</tag>
+        <tag>vanpooling</tag>
+        <tag>vanpools</tag>
+        <tag>UPass</tag>
+        <tag>interstate 5</tag>
+        <tag>interstate 90</tag>
+        <tag>interstate 405</tag>
+        <tag>520 bridge</tag>
+        <tag>corridor</tag>
+        <tag>alaskan way</tag>
+        <tag>corridor</tag>
+        <tag>eastside</tag>
+        <tag>I-405</tag>
+        <tag>I-405</tag>
+        <tag>I-5</tag>
+        <tag>I-90</tag>
+        <tag>mode</tag>
+        <tag>occupancy</tag>
+        <tag>overcrowded</tag>
+        <tag>passengers</tag>
+        <tag>airlines</tag>
+        <tag>airplane</tag>
+        <tag>airplanes</tag>
+        <tag>airport</tag>
+        <tag>automobile</tag>
+        <tag>automobiles</tag>
+        <tag>busing</tag>
+        <tag>car</tag>
+        <tag>cars</tag>
+        <tag>connection</tag>
+        <tag>connections</tag>
+        <tag>crosswalk</tag>
+        <tag>drivers</tag>
+        <tag>driving</tag>
+        <tag>freeway</tag>
+        <tag>freeways</tag>
+        <tag>planes</tag>
+        <tag>rail</tag>
+        <tag>scooter</tag>
+        <tag>shuttles</tag>
+        <tag>shuttles</tag>
+        <tag>sidewalk</tag>
+        <tag>streetcar</tag>
+        <tag>suburb</tag>
+        <tag>suburban</tag>
+        <tag>suburbs</tag>
+        <tag>SUV</tag>
+        <tag>sport utility vehicle</tag>
+        <tag>SUVs</tag>
+        <tag>sport utility vehicles</tag>
+        <tag>traffic</tag>
+        <tag>train</tag>
+        <tag>trains</tag>
+        <tag>transit</tag>
+        <tag>transportation</tag>
+        <tag>transportations</tag>
+        <tag>transporting</tag>
+        <tag>transport</tag>
+        <tag>travel</tag>
+        <tag>trip</tag>
+        <tag>trips</tag>
+        <tag>trolley</tag>
+        <tag>trolleys</tag>
+        <tag>tunnel</tag>
+        <tag>tunnels</tag>
+        <tag>van</tag>
+        <tag>vans</tag>
+        <tag>vehicle</tag>
+        <tag>vehicles</tag>
+        <tag>flexcar</tag>
+        <tag>alternative</tag>
+        <tag>alternatives</tag>
+        <tag>sounder</tag>
+        <tag>amtrak</tag>
         <tag>bus</tag>
-        <tag>transportation planning</tag>
+        <tag>cycle</tag>
+        <tag>cyclist</tag>
+        <tag>cyclists</tag>
+        <tag>flexcar</tag>
+        <tag>Greyhound</tag>
+        <tag>metro</tag>
+        <tag>monorail</tag>
+        <tag>modes</tag>
+        <tag>pedestrian</tag>
+        <tag>pedestrian-friendly</tag>
+        <tag>pedestrians</tag>
+        <tag>walking</tag>
+        <tag>work</tag>
+    </category>
+  
+    <category name="hazards">
+        <tag>accidents</tag>
+        <tag>disaster</tag>
+        <tag>earthquake</tag>
+        <tag>earthquakes</tag>
+        <tag>hijacker</tag>
+        <tag>hijack</tag>
+        <tag>drinking</tag>
+        <tag>potholes</tag>
+        <tag>safely</tag>
+        <tag>safety</tag>
+        <tag>security</tag>
+        <tag>terrorist</tag>
+        <tag>terrorists</tag>
+        <tag>threaten</tag>
+        <tag>threatened</tag>
+        <tag>threatening</tag>
+        <tag>vandalism</tag>
+    </category>
+  
+    <category name="accessibility">
+        <tag>ADA</tag>
+        <tag>accessability</tag>
+        <tag>accessibility</tag>
+        <tag>accessible</tag>
+        <tag>americans with disabilities act</tag>
+        <tag>disabilities</tag>
+        <tag>disability</tag>
+        <tag>disabilties</tag>
+        <tag>disable</tag>
+        <tag>disabled</tag>
+        <tag>handicapped</tag>
+        <tag>mobility</tag>
+        <tag>access</tag>
+        <tag>wheelchair</tag>
+        <tag>wheelchairs</tag>
     </category>
     
+    <category name="bicycling">
+        <tag>bikeways</tag>
+        <tag>bicycle</tag>
+        <tag>bicycled</tag>
+        <tag>bicycle-related</tag>
+        <tag>bicycles</tag>
+        <tag>bicycling</tag>
+        <tag>bikability</tag>
+        <tag>bike</tag>
+        <tag>Bike</tag>
+        <tag>bikers</tag>
+        <tag>bikes</tag>
+        <tag>bike-to-work</tag>
+        <tag>bikeways</tag>
+        <tag>biking</tag>
+    </category>
+  
+    <category name="funding">
+        <tag>excise tax</tag>
+        <tag>afford</tag>
+        <tag>affordability</tag>
+        <tag>affordable</tag>
+        <tag>allocating</tag>
+        <tag>excise tax</tag>
+        <tag>financial</tag>
+        <tag>funding</tag>
+        <tag>money</tag>
+        <tag>tax</tag>
+        <tag>taxation</tag>
+        <tag>taxed</tag>
+        <tag>taxes</tag>
+        <tag>toll</tag>
+        <tag>tolls</tag>
+        <tag>budget</tag>
+        <tag>support</tag>
+    </category>
+    
+    <category name="decision making">
+        <tag>eminent domain</tag>
+        <tag>criteria</tag>
+        <tag>equitable</tag>
+        <tag>feasibility</tag>
+        <tag>municipal</tag>
+        <tag>accountability</tag>
+        <tag>accountable</tag>
+        <tag>decision</tag>
+        <tag>eminent domain</tag>
+        <tag>equitable</tag>
+        <tag>facilitating</tag>
+        <tag>facilitation</tag>
+        <tag>facilitator</tag>
+        <tag>facilitators</tag>
+        <tag>feasibility</tag>
+        <tag>logistic</tag>
+        <tag>logistics</tag>
+        <tag>planning</tag>
+        <tag>policy</tag>
+        <tag>pre-planning</tag>
+        <tag>proposals</tag>
+        <tag>scenario</tag>
+        <tag>solution</tag>
+        <tag>solutions</tag>
+        <tag>viability</tag>
+        <tag>viable</tag>
+        <tag>administration</tag>
+        <tag>committee</tag>
+        <tag>coordination</tag>
+        <tag>cost benefit</tag>
+        <tag>cost/benefit</tag>
+        <tag>cost-benefit</tag>
+        <tag>criteria</tag>
+        <tag>democrat</tag>
+        <tag>democratic</tag>
+        <tag>best practice</tag>
+        <tag>best practices</tag>
+        <tag>future</tag>
+        <tag>future vision</tag>
+        <tag>legislative</tag>
+        <tag>legislators</tag>
+        <tag>legislature</tag>
+        <tag>management</tag>
+        <tag>needs</tag>
+        <tag>officials</tag>
+        <tag>consequences</tag>
+        <tag>elected</tag>
+        <tag>agenda</tag>
+        <tag>plan</tag>
+        <tag>planner</tag>
+        <tag>planners</tag>
+        <tag>processes</tag>
+        <tag>soft solution</tag>
+        <tag>soft solutions</tag>
+        <tag>timeline</tag>
+        <tag>transparent</tag>
+        <tag>vision</tag>
+        <tag>zoning</tag>
+        <tag>facts</tag>
+        <tag>GIS</tag>
+        <tag>geographic information system</tag>
+        <tag>information</tag>
+        <tag>model</tag>
+        <tag>models</tag>
+        <tag>programs</tag>
+        <tag>research</tag>
+        <tag>researched</tag>
+        <tag>researcher</tag>
+        <tag>researching</tag>
+        <tag>study</tag>
+        <tag>system</tag>
+        <tag>systems</tag>
+    </category>	
+    
+    <category name="public participation">
+        <tag>referendum</tag>
+        <tag>referendums</tag>
+        <tag>advocacy</tag>
+        <tag>advocacy</tag>
+        <tag>advocating</tag>
+        <tag>civic</tag>
+        <tag>activism</tag>
+        <tag>activity</tag>
+        <tag>awareness</tag>
+        <tag>ballot</tag>
+        <tag>ballots</tag>
+        <tag>collaboratively</tag>
+        <tag>debate</tag>
+        <tag>debating</tag>
+        <tag>democracy</tag>
+        <tag>discussion</tag>
+        <tag>discussions</tag>
+        <tag>engagement</tag>
+        <tag>forum</tag>
+        <tag>grassroots</tag>
+        <tag>hearing</tag>
+        <tag>hearings</tag>
+        <tag>initiative</tag>
+        <tag>initiatives</tag>
+        <tag>involvement</tag>
+        <tag>meeting</tag>
+        <tag>meetings</tag>
+        <tag>participating</tag>
+        <tag>participation</tag>
+        <tag>petitions</tag>
+        <tag>policies</tag>
+        <tag>public</tag>
+        <tag>referendum</tag>
+        <tag>referendums</tag>
+        <tag>viewpoints</tag>
+        <tag>vote</tag>
+        <tag>voted</tag>
+        <tag>voter</tag>
+        <tag>voters</tag>
+        <tag>votes</tag>
+        <tag>voting</tag>
+        <tag>voice</tag>
+        <tag>voices</tag>
+        <tag>citizen</tag>
+        <tag>citizens</tag>
+        <tag>education</tag>
+        <tag>demographics</tag>
+        <tag>issues</tag>
+        <tag>opinions</tag>
+        <tag>dialogue</tag>
+        <tag>input</tag>
+        <tag>interest</tag>
+        <tag>media</tag>
+        <tag>people</tag>
+        <tag>surveys</tag>
+        <tag>users</tag>
+    </category>
+    
+    <category name="groups">
+        <tag>DOT</tag>
+        <tag>FTA</tag>
+        <tag>NSF</tag>
+        <tag>washDOT</tag>
+        <tag>wsDOT</tag>
+        <tag>waDOT</tag>
+        <tag>WCCD</tag>
+        <tag>agencies</tag>
+        <tag>agency</tag>
+        <tag>bureaucracy</tag>
+        <tag>bureaucrats</tag>
+        <tag>council</tag>
+        <tag>department</tag>
+        <tag>department of transportation</tag>
+        <tag>federal</tag>
+        <tag>FTA</tag>
+        <tag>federal transit administration</tag>
+        <tag>government</tag>
+        <tag>governmental</tag>
+        <tag>governmentally</tag>
+        <tag>group</tag>
+        <tag>groups</tag>
+        <tag>NSF</tag>
+        <tag>national science foundation</tag>
+        <tag>organization</tag>
+        <tag>organizations</tag>
+        <tag>planning agency</tag>
+        <tag>WashDOT</tag>
+        <tag>Washington Department of Transportation</tag>
+        <tag>WCCD</tag>
+        <tag>Washington Coalition of Citizens with disAbilities</tag>
+        <tag>spokesperson</tag>
+        <tag>regulatory</tag>
+    </category>
     
     <category name="environment">
+        <tag>carbon</tag>
+        <tag>atmosphere</tag>
+        <tag>decibel</tag>
+        <tag>ecologically</tag>
+        <tag>ecology</tag>
+        <tag>emission</tag>
+        <tag>emissions</tag>
+        <tag>environment</tag>
+        <tag>environmental</tag>
+        <tag>environmentally</tag>
+        <tag>habitat</tag>
+        <tag>nature</tag>
         <tag>noise</tag>
-        <tag>polution</tag>
+        <tag>pollution</tag>
+        <tag>wildlife</tag>
+        <tag>air</tag>
+        <tag>garbage</tag>
+        <tag>gas</tag>
+        <tag>gasoline</tag>
+        <tag>coal</tag>
+        <tag>sustainability</tag>
+        <tag>sustainable</tag>
+        <tag>sustaining</tag>
+        <tag>waste</tag>
+        <tag>water</tag>
+    </category>
+  
+    <category name="quality of life">
+        <tag>livable</tag>
+        <tag>ghettoize</tag>
+        <tag>aesthetic</tag>
+        <tag>aesthetically</tag>
+        <tag>convenience</tag>
+        <tag>convenient</tag>
+        <tag>crowding</tag>
+        <tag>crowd</tag>
+        <tag>decongestion</tag>
+        <tag>density</tag>
+        <tag>congested</tag>
+        <tag>congestion</tag>
+        <tag>congestions</tag>
+        <tag>esthetic</tag>
+        <tag>esthetically</tag>
+        <tag>family</tag>
+        <tag>ghettoize</tag>
+        <tag>ghettoized</tag>
+        <tag>impact</tag>
+        <tag>impacts</tag>
+        <tag>life</tag>
+        <tag>livable</tag>
+        <tag>overcrowding</tag>
+        <tag>favorite</tag>
+        <tag>Image makeover</tag>
+        <tag>sensitive</tag>
+        <tag>sensitivity</tag>
+        <tag>sprawl</tag>
+        <tag>sprawled</tag>
+        <tag>sprawling</tag>
+        <tag>useful</tag>
+        <tag>walkability</tag>
+        <tag>walkable</tag>
+        <tag>urban</tag>
     </category>
     
+    <category name="economy">
+        <tag>Boeing</tag>
+        <tag>business</tag>
+        <tag>Business</tag>
+        <tag>businesses</tag>
+        <tag>Businesses</tag>
+        <tag>economic</tag>
+        <tag>economically</tag>
+        <tag>economy</tag>
+        <tag>employment</tag>
+        <tag>entrepreneurial</tag>
+        <tag>factory</tag>
+        <tag>industry</tag>
+        <tag>job</tag>
+        <tag>jobs</tag>
+        <tag>Microsoft</tag>
+        <tag>Microsofties</tag>
+        <tag>owners</tag>
+        <tag>shareholders</tag>
+        <tag>tourist</tag>
+    </category>
+  
+    <category name="infrastructure">
+        <tag>mega-project</tag>
+        <tag>mega-projects</tag>
+        <tag>mega project</tag>
+        <tag>mega projects</tag>
+        <tag>infrastructure</tag>
+        <tag>causeway</tag>
+        <tag>retrofit</tag>
+        <tag>retrofitting</tag>
+        <tag>bridge</tag>
+        <tag>construction</tag>
+        <tag>curb</tag>
+        <tag>highway</tag>
+        <tag>highways</tag>
+        <tag>infrastructure</tag>
+        <tag>interstate</tag>
+        <tag>interstates</tag>
+        <tag>lighting</tag>
+        <tag>mega-project</tag>
+        <tag>mega-projects</tag>
+        <tag>mega-transportation</tag>
+        <tag>parking</tag>
+        <tag>freight</tag>
+        <tag>freight mobility</tag>
+        <tag>park</tag>
+        <tag>paved</tag>
+        <tag>port</tag>
+        <tag>road</tag>
+        <tag>roads</tag>
+        <tag>route</tag>
+        <tag>routes</tag>
+        <tag>runway</tag>
+        <tag>street</tag>
+        <tag>Street</tag>
+    </category>
     
-    <category name="economy"/>
+    <category name="construction">
+        <tag>improvement</tag>
+        <tag>improvements</tag>
+        <tag>overhaul</tag>
+        <tag>build</tag>
+        <tag>building</tag>
+        <tag>contractor</tag>
+        <tag>contractors</tag>
+        <tag>development</tag>
+        <tag>dig</tag>
+        <tag>growth</tag>
+        <tag>project</tag>
+        <tag>projects</tag>
+        <tag>rerouting</tag>
+        <tag>re-routing</tag>
+        <tag>retrofitting</tag>
+        <tag>seismic</tag>
+        <tag>site</tag>
+        <tag>viaduct</tag>
+    </category>
     
+    <category name="places">
+        <tag>district</tag>
+        <tag>downtown</tag>
+        <tag>local</tag>
+        <tag>area</tag>
+        <tag>neighborhood</tag>
+        <tag>neighborhoods</tag>
+        <tag>neighbors</tag>
+        <tag>place</tag>
+        <tag>places</tag>
+        <tag>rural</tag>
+        <tag>seattle</tag>
+        <tag>stadiums</tag>
+        <tag>sub-regional</tag>
+        <tag>town</tag>
+        <tag>waterfront</tag>
+        <tag>zone</tag>
+        <tag>zones</tag>
+    </category>
+    
+    <category name="social">
+        <tag>low-income</tag>
+        <tag>backyard</tag>
+        <tag>communities</tag>
+        <tag>community</tag>
+        <tag>home</tag>
+        <tag>homeless</tag>
+        <tag>houses</tag>
+        <tag>Housing</tag>
+        <tag>poor</tag>
+        <tag>revitalization</tag>
+        <tag>revitalize</tag>
+        <tag>school</tag>
+        <tag>schools</tag>
+    </category>
+    
+    <category name="government">
+        <tag>cantwell</tag>
+        <tag>cities</tag>
+        <tag>city</tag>
+        <tag>civic</tag>
+        <tag>county</tag>
+        <tag>governor</tag>
+        <tag>Gregoire</tag>
+        <tag>liberal</tag>
+        <tag>licensing</tag>
+        <tag>mayor</tag>
+        <tag>McDermott</tag>
+        <tag>metropolitan</tag>
+        <tag>municipal</tag>
+        <tag>political</tag>
+        <tag>politicians</tag>
+        <tag>region</tag>
+        <tag>regional</tag>
+        <tag>republican</tag>
+        <tag>senate</tag>
+        <tag>senator</tag>
+    </category>
+    
+    <category name="uncategorized">
+        <tag>decentralized</tag>
+        <tag>canal</tag>
+        <tag>charge</tag>
+        <tag>college</tag>
+        <tag>computer</tag>
+        <tag>deadline</tag>
+        <tag>decentralized</tag>
+        <tag>internet</tag>
+        <tag>map</tag>
+        <tag>non-transportation</tag>
+        <tag>online</tag>
+        <tag>pattern</tag>
+        <tag>population</tag>
+        <tag>progress</tag>
+        <tag>quality</tag>
+        <tag>science</tag>
+        <tag>service</tag>
+        <tag>technology</tag>
+        <tag>tremendous</tag>
+        <tag>utilize</tag>
+        <tag>utilized</tag>
+        <tag>utilizing</tag>
+        <tag>website</tag>
+        <tag>works</tag>
+        <tag>world</tag>
+    </category>
+  
     
 </categories>
 
