@@ -2,13 +2,13 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 
-<h2>Tags</h2>
-<span class="title_section">Read other people's concerns</span><br>
-Click on any of these tags to view the concerns attached to each tag.  Use these tags to help you navigate and find other participant's concerns to help you create your own!<p></p>
+<h2>Tags</h2><!--Assigns Tab Name -->
+<h4>Read other people's concerns</h4><br>
+Click on a tag below to browse concerns.<p></p>
 
 <div id="searchTag_container">
 		<div id="searchTag_title">
-				<span class="title_section2">Top 25 Tags</span>
+				Top 25 Tags
 		</div>
 		<div id="searchTag_form">
 				<form name="searchTags" method="post" onSubmit="tagSearch($('txtSearch').value); return false;">

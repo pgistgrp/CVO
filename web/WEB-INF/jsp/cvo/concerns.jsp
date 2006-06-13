@@ -3,7 +3,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <logic:notEqual name="showTitle" value="true">
 		<logic:notEqual name="showIcon" value="true">
-			<span class="title_section">Read other people's concerns</span>
+			<h4>Read other people's concerns</h4>
 			<br>
 		  To help you create your concerns, below are examples of other participant concerns in random order.  Use the buttons on the bottom of this column to view more pages of random concerns.
 			<p></p>
@@ -11,7 +11,7 @@
 </logic:notEqual>
 
 <logic:equal name="showTitle" value="true">
-	<span class="closeBox">[ <a href="javascript:goPage(${setting.page});">Clear Filter</a> ]</span>
+	<span class="closeBox">[ <a href="javascript:goPage(${setting.page});">Clear Selected</a> ]</span>
 	<br><span class="title_section">Concerns tagged with: </span>
 		<span class="tagSize${tagRef.fontSize}"><a href="javascript:getConcernsByTag(${tagRef.id});">${tagRef.tag.name}</a></span>&nbsp;
 	<p></p>
@@ -24,7 +24,7 @@
 							<br>
 						</logic:notEqual>
 						<logic:equal name="type" value="0">
-								<span class="myConcerns">
+								<span class="concerns">
 						</logic:equal>
 						<logic:notEqual name="type" value="0">
 							<span class="concerns">
