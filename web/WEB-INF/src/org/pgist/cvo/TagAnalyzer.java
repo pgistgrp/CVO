@@ -549,13 +549,31 @@ public class TagAnalyzer {
          * @param sw String
          */
         public synchronized void addStopWord(String sw){
-        if( stop_words == null ) stop_words = new TreeSet();
+            if (stop_words == null)
+                stop_words = new TreeSet();
 
-		if(!stop_words.contains(sw)) {
+            if (!stop_words.contains(sw)) {
 
-			stop_words.add(sw);
-		}
+                stop_words.add(sw);
+            }
 	}
+
+        /**
+         * Remove the given stop word from memeory storage.
+         * @param sw String
+         */
+        public synchronized void deleteStopWord(Long id){
+            if (stop_words == null)
+                return;
+            StopWord sw = null;
+            try {
+                sw = stopWordDAO.getStopWordById(id);
+                if (!stop_words.contains(sw.getName())) {
+                    stop_words.remove(sw.getName());
+                }
+            } catch (Exception ex) {
+            }
+        }
 
         /**
          * To see if a string exists in the memory as a stop word.

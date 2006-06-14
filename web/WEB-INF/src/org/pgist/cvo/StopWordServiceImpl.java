@@ -15,7 +15,7 @@ public class StopWordServiceImpl implements StopWordService {
 
 
     private StopWordDAO stopWordDAO = null;
-    
+
     private TagAnalyzer analyzer = null;
 
 
@@ -38,15 +38,16 @@ public class StopWordServiceImpl implements StopWordService {
         //check if this word is already a stop word in the database
         if (stopWordDAO.checkStopWord(name))
             throw new Exception("StopWord has existed in the database.");
-        
+
         //check if this word is already a tag in the database
         if (stopWordDAO.checkTag(name))
             throw new Exception(name + " is a tag in the database.");
-        
+
         StopWord stopWord = new StopWord();
         stopWord.setName(name);
         stopWordDAO.save(stopWord);
-        
+        analyzer.addStopWord(name);
+
         return stopWord;
     }//createStopWord()
 
@@ -62,6 +63,7 @@ public class StopWordServiceImpl implements StopWordService {
 
 
     public boolean deleteStopWord(Long id) throws Exception {
+        analyzer.deleteStopWord(id);
         return stopWordDAO.deleteStopWord(id);
     }//deleteStopWord()
 
@@ -74,14 +76,14 @@ public class StopWordServiceImpl implements StopWordService {
     public Tag createTag(String name) throws Exception {
         Tag tag = stopWordDAO.getTagByName(name);
         if (tag!=null) throw new Exception("Tag "+name+" already exists.");
-        
+
         tag = new Tag();
         tag.setName(name);
         tag.setDescription(name);
         stopWordDAO.save(tag);
-        
+
         analyzer.addTag(tag);
-        
+
         return tag;
     }//createTag()
 
@@ -89,10 +91,10 @@ public class StopWordServiceImpl implements StopWordService {
     public void deleteTag(Long id) throws Exception {
         Tag tag = stopWordDAO.getTagById(id);
         if (tag==null) throw new Exception("Tag with id "+id+" not exists.");
-        
+
         tag.setStatus(Tag.STATUS_REJECTED);
         stopWordDAO.save(tag);
-        
+
         analyzer.removeTag(tag);
     }//deleteTag()
 
@@ -100,6 +102,6 @@ public class StopWordServiceImpl implements StopWordService {
     public Collection searchTag(String name) throws Exception {
         return stopWordDAO.searchTag(name);
     }//searchTag()
-    
+
 
 } //class CCTServiceImpl
