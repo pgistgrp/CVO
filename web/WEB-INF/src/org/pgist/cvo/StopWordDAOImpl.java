@@ -147,7 +147,7 @@ public class StopWordDAOImpl extends HibernateDaoSupport implements StopWordDAO 
     }//checkStopWord()
 
 
-    private static final String hql_checkTag = "from Tag tag where tag.status<>? and lower(sw.name)=?";
+    private static final String hql_checkTag = "from Tag tag where tag.status<>? and lower(tag.name)=?";
     
     
     public boolean checkTag(String name) throws Exception {
