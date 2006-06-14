@@ -34,6 +34,8 @@ public interface StopWordDAO {
 
     Collection searchTag(String name) throws Exception;
 
+    StopWord getStopWordById(Long id) throws Exception;
+    
     Tag getTagById(Long id) throws Exception;
 
     boolean checkStopWord(String name) throws Exception;

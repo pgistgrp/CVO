@@ -25,7 +25,7 @@ public class Category implements Node {
     
     protected Set children = new HashSet();
     
-    protected SortedSet tags = new TreeSet();
+    protected SortedSet tags = new TreeSet(new TagComparator());
     
     protected boolean deleted = false;
     

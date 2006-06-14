@@ -66,9 +66,9 @@ public class StopWordDAOImpl extends HibernateDaoSupport implements StopWordDAO 
         List list = getHibernateTemplate().find(hql_getStopWords1);
         if (list == null || list.size() == 0)return result;
 
-        int total = ((Integer) list.get(0)).intValue();
-        if (setting.getRowOfPage() == -1) setting.setRowOfPage(total);
+        int total = ((Number) list.get(0)).intValue();
         setting.setRowSize(total);
+        if (setting.getRowOfPage() == -1) setting.setRowOfPage(total);
 
         Query query = getSession().createQuery(hql_getStopWords2);
         query.setFirstResult(setting.getFirstRow());
@@ -113,6 +113,11 @@ public class StopWordDAOImpl extends HibernateDaoSupport implements StopWordDAO 
         if (list.size()==0) return null;
         return (Tag) list.get(0);
     }//getTagByName()
+
+
+    public StopWord getStopWordById(Long id) throws Exception {
+        return (StopWord) getHibernateTemplate().load(StopWord.class, id);
+    }//getStopWordById()
 
 
     public Tag getTagById(Long id) throws Exception {

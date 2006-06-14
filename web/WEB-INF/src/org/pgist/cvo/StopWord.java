@@ -29,7 +29,7 @@ public class StopWord {
 
     /**
      * @return
-     * @hibernate.property not-null="true"
+     * @hibernate.property not-null="true" unique="true"
      */
     public String getName() {
         return name;
