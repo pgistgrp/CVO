@@ -1,6 +1,5 @@
 package org.pgist.ddl;
 
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -21,13 +20,19 @@ public class CCTHandler extends Handler {
     public void doImports(Element root) throws Exception {
         List ccts = root.elements("cct");
         
-        DateFormat format = DateFormat.getInstance();
-        
         for (int i=0,n=ccts.size(); i<n; i++) {
             Element element = (Element) ccts.get(i);
             
-            CCT cct = new CCT();
-            cct.setDeleted(false);
+            
+            String name = element.elementTextTrim("name");
+            if (name==null || "".equals(name)) throw new Exception("name is required for cct");
+            
+            CCT cct = getCCTByName(name);
+            if (cct==null) {
+                cct = new CCT();
+                cct.setName(name);
+                cct.setDeleted(false);
+            }
             
             String loginname = element.elementTextTrim("creator");
             User creator = getUserByLoginName(loginname);
@@ -42,16 +47,12 @@ public class CCTHandler extends Handler {
                 cct.setCreateTime(createTime);
             }
             
-            String name = element.elementTextTrim("name");
-            if (name==null || "".equals(name)) throw new Exception("name is required for cct");
-            
             String purpose = element.elementTextTrim("purpose");
             if (purpose==null || "".equals(purpose)) throw new Exception("purpose is required for cct");
             
             String instruction = element.elementTextTrim("instruction");
             if (instruction==null || "".equals(instruction)) throw new Exception("instruction is required for cct");
             
-            cct.setName(name);
             cct.setPurpose(purpose);
             cct.setInstruction(instruction);
             
@@ -82,7 +83,7 @@ public class CCTHandler extends Handler {
             instruction.setText(cct.getInstruction());
             
             Element createTime = one.addElement("createTime");
-            createTime.setText(cct.getCreateTime().toString());
+            createTime.setText(format.format(cct.getCreateTime()));
         }//for
     }//doExports()
     

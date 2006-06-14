@@ -4,7 +4,7 @@
     <!--
         Syntax:
             [] There's always an implicit root category
-            [] Attribute "name" is optional for <category>, and if it's omitted, the category will be the child of root category
+            [] Attribute "parent" is optional for <category>, and if it's omitted, the category will be the child of root category
             [] Element <tag> is optional
     -->
     

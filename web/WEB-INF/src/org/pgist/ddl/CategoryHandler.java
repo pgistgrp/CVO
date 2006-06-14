@@ -28,14 +28,21 @@ public class CategoryHandler extends Handler {
         for (int i=0,n=categories.size(); i<n; i++) {
             Element element = (Element) categories.get(i);
             
-            Category category = new Category();
-            
             String name = element.attributeValue("name");
             if (name==null || "".equals(name)) throw new Exception("name is required for category");
-            category.setName(name);
-            category.setDeleted(false);
+            
+            Category category = getCategoryByName(name);
+            
+            if (category==null) {
+                category = new Category();
+                category.setName(name);
+                category.setDeleted(false);
+            } else {
+                category.getChildren().clear();
+            }
             
             Category parent = rootCategory;
+            
             String parentName = element.attributeValue("parent");
             if (parentName!=null && !"".equals(parentName)) {
                 parent = getCategoryByName(parentName);

@@ -64,31 +64,34 @@
     </target>
 
 
-    <target name="schema" depends="compile, mapping">
-        <taskdef name="schema" classname="org.hibernate.tool.hbm2ddl.SchemaExportTask">
-            <classpath refid="classpath"/>
-        </taskdef>
-        <schema config="${src}/hibernate.cfg.xml" quiet="no" text="no" drop="no" delimiter=";" output="databaseschema.sql">
-        </schema>
-    </target>
-
-
-    <target name="updateschema" depends="compile, mapping">
-        <taskdef name="schemaupdate" classname="org.hibernate.tool.hbm2ddl.SchemaUpdateTask">
-            <classpath refid="classpath"/>
-        </taskdef>
-        <schemaupdate config="${src}/hibernate.cfg.xml" quiet="no" text="no">
-        </schemaupdate>
-    </target>
-
-
-    <target name="initdb" depends="compile, mapping">
+    <target name="createdb" depends="mapping">
         <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
         </taskdef>
-        <SystemInit configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
+        <SystemInit action="createdb" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
+    </target>
+    
+    
+    <target name="updatedb" depends="mapping">
+        <taskdef name="SystemInit" classname="com.eicms.tests.SystemInit" classpathref="classpath">
+        </taskdef>
+        <SystemInit action="updatedb" configPath="${web}/WEB-INF/config"/>
     </target>
 
 
+    <target name="restoredb" depends="mapping">
+        <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
+        </taskdef>
+        <SystemInit action="createdb" configPath="${web}/WEB-INF/config" dataPath="${base}/backup"/>
+    </target>
+    
+    
+    <target name="backupdb" depends="mapping">
+        <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
+        </taskdef>
+        <SystemInit action="backup" configPath="${web}/WEB-INF/config" dataPath="${base}/backup"/>
+    </target>
+    
+    
     <target name="test" depends="compile, mapping">
         <taskdef name="SimpleTest" classname="org.pgist.tests.SimpleTest">
             <classpath refid="classpath"/>

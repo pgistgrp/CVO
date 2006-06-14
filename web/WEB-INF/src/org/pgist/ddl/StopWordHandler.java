@@ -20,13 +20,16 @@ public class StopWordHandler extends Handler {
         for (int i=0,n=stopwords.size(); i<n; i++) {
             Element element = (Element) stopwords.get(i);
             
-            StopWord stopword = new StopWord();
-            
             String name = element.getTextTrim();
             if (name==null || "".equals(name)) throw new Exception("name is required for stopword");
-            stopword.setName(name);
             
-            saveStopWord(stopword);
+            StopWord stopword = getStopWordByName(name);
+            
+            if (stopword==null) {
+                stopword = new StopWord();
+                stopword.setName(name);
+                saveStopWord(stopword);
+            }
         }//for i
     }//imports()
     

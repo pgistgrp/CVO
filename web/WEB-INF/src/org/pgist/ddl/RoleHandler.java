@@ -20,17 +20,18 @@ public class RoleHandler extends Handler {
         for (int i=0,n=roles.size(); i<n; i++) {
             Element element = (Element) roles.get(i);
             
-            Role role = new Role();
-            
-            role.setDeleted(false);
-            role.setInternal(true);
-            
             String name = element.getTextTrim();
             if (name==null || "".equals(name)) throw new Exception("name is required for role");
-            role.setName(name);
-            role.setDescription(name);
             
-            saveRole(role);
+            Role role = getRoleByName(name);
+            if (role==null) {
+                role = new Role();
+                role.setName(name);
+                role.setDescription(name);
+                role.setDeleted(false);
+                role.setInternal(true);
+                saveRole(role);
+            }
         }//for i
     }//imports()
     

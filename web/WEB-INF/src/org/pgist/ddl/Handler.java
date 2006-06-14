@@ -2,9 +2,12 @@ package org.pgist.ddl;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.text.DateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -31,6 +34,10 @@ import org.pgist.users.User;
  */
 public abstract class Handler {
     
+    
+    protected static final Random random = new Random();
+    
+    protected static final DateFormat format = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, Locale.ENGLISH);
     
     protected String name;
     

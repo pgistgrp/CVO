@@ -1,10 +1,8 @@
 package org.pgist.ddl;
 
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -21,9 +19,6 @@ import org.pgist.users.User;
  *
  */
 public class ConcernHandler extends Handler {
-    
-    
-    private Random random = new Random();
     
     
     public void doImports(Element root) throws Exception {
@@ -64,7 +59,7 @@ public class ConcernHandler extends Handler {
             if (createTimeStr==null || "".equals(createTimeStr)) {
                 concern.setCreateTime(new Date());
             } else {
-                Date createTime = DateFormat.getInstance().parse(createTimeStr);
+                Date createTime = format.parse(createTimeStr);
                 concern.setCreateTime(createTime);
             }
             
@@ -113,6 +108,8 @@ public class ConcernHandler extends Handler {
             Element content = one.addElement("content");
             content.setText(concern.getContent());
             
+            Element createTime = one.addElement("createTime");
+            createTime.setText(format.format(concern.getCreateTime()));
             Element tags = one.addElement("tags");
             
             for (Iterator iter=concern.getTags().iterator(); iter.hasNext(); ) {
