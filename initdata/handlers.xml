@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<handlers>
+
+
+    <handler name="roles">org.pgist.ddl.RoleHandler</handler>
+    
+    <handler name="users">org.pgist.ddl.UserHandler</handler>
+    
+    <handler name="stopwords">org.pgist.ddl.StopWordHandler</handler>
+    
+    <handler name="tags">org.pgist.ddl.TagHandler</handler>
+    
+    <handler name="categories">org.pgist.ddl.CategoryHandler</handler>
+    
+    <handler name="ccts">org.pgist.ddl.CCTHandler</handler>
+    
+    <handler name="concerns">org.pgist.ddl.ConcernHandler</handler>
+    
+    
+</handlers>
+
