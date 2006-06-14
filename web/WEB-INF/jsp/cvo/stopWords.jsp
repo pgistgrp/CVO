@@ -13,9 +13,9 @@
 	
 	<pg:modulo parameter="index" folding="5" value="2"><li class="col2"><span class="includeExclude"><bean:write name="stopword" property="name"/>&nbsp;<a href="javascript:deleteStopWord(${stopword.id});"><img src="/images/trash.gif" alt="Delete this Stop Word!" border="0"></a></span></li></pg:modulo>
 	
-	<pg:modulo parameter="index" folding="5" value="4"><li class="col3"><span class="includeExclude"><bean:write name="stopword" property="name"/>&nbsp;<a href="javascript:deleteStopWord(${stopword.id});"><img src="/images/trash.gif" alt="Delete this Stop Word!" border="0"></a></span></li></pg:modulo>
+	<pg:modulo parameter="index" folding="5" value="3"><li class="col3"><span class="includeExclude"><bean:write name="stopword" property="name"/>&nbsp;<a href="javascript:deleteStopWord(${stopword.id});"><img src="/images/trash.gif" alt="Delete this Stop Word!" border="0"></a></span></li></pg:modulo>
 	
-	<pg:modulo parameter="index" folding="5" value="5"><li class="col4"><span class="includeExclude"><bean:write name="stopword" property="name"/>&nbsp;<a href="javascript:deleteStopWord(${stopword.id});"><img src="/images/trash.gif" alt="Delete this Stop Word!" border="0"></a></span></li></pg:modulo>
+	<pg:modulo parameter="index" folding="5" value="4"><li class="col4"><span class="includeExclude"><bean:write name="stopword" property="name"/>&nbsp;<a href="javascript:deleteStopWord(${stopword.id});"><img src="/images/trash.gif" alt="Delete this Stop Word!" border="0"></a></span></li></pg:modulo>
 
 </logic:iterate>
 </ul>

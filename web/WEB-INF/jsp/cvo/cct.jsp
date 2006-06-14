@@ -254,7 +254,7 @@ function saveTheConcern(){
 					$('addConcern').style.background="#FFF";
 					$('addConcern').style.color="#333";
 					$('addConcern').focus();
-					showTagCloud();
+					//showTagCloud();
 				}
 			},
 			errorHandler:function(errorString, exception){ 

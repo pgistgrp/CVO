@@ -170,6 +170,7 @@ function createStopWord(stopWord){
 					//$('theExcludeWord').focus();
 				}
 				if (data.successful != true){
+						alert(data.reason);
 						document.getElementById('excludeWordValidation').innerHTML = 'The stop word you entered already exists in the database.  Please enter a different stop word.&nbsp;&nbsp;<a href="javascript:Effect.CloseDown(\'excludeWordValidation\');">Close</a>';
 						Effect.OpenUp('excludeWordValidation');
 						
