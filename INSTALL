@@ -1,0 +1,38 @@
+
+-- PGIST system is based on Java 1.5+, Tomcat 5.5.12+, PostGreSQL 8.1+. So the first thing is to download and install those softwares.
+
+-- PGIST source codes are management by CVS server, so make sure one kind of cvs client can work on your machine.
+
+-- PGIST source codes will be compiled/deployed by Apache Ant, so make sure the command ant can work on your machine.
+
+-- PGIST CVS server is protected by SSH, so make sure you can create a ssh tunnel from your machine to PGIST server.
+
+
+1. Create ssh tunnel from your machine to PGIST server.
+   Basically use such command as:
+      $ /usr/bin/ssh -2 -N -f -L 6666:localhost:2401 username@128.95.212.210
+   Which will map the 2401 port of PGIST server to 6666 port on your machine.
+   
+2. Check out source codes from the CVS server.
+   Basically use such command as:
+      $ /usr/bin/cvs -d:pserver:username@localhost:6666/opt/cvsroot/repository2 login
+      $ /usr/bin/cvs -d:pserver:username@localhost:6666/opt/cvsroot/repository2 co CVO
+   Which will create a directory CVO on your machine.
+   
+3. Under CVO, Copy build-sample.properties to build.properties, and setup your correct Tomcat position.
+   Modify CVO/web/WEB-INF/config/context-database.xml, setup the correct database connection parameters.
+
+4. Under CVO, create your database with:
+      $ ant createdb
+   Which will create the whole database schema and initialize it with data from directory initdata.
+   
+5. Under CVO, deploy PGIST system with:
+      $ ant deploy
+   Which will copy the runtime files to your Tomcat.
+   
+6. Open a browser, and visit:
+   http://localhost:8080
+   
+
+Enjoy it!
+
