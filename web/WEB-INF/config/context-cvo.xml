@@ -3,21 +3,21 @@
 
 <beans>
 
-    
+
     <bean id="cctDAO" class="org.pgist.cvo.CCTDAOImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
     </bean>
-    
-    
+
+
     <bean id="cstDAO" class="org.pgist.cvo.CSTDAOImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
     </bean>
-    
-    
+
+
     <bean id="cvoDAO" parent="baseTransactionProxy">
         <property name="target">
             <bean class="org.pgist.cvo.CVODAOImpl1">
@@ -27,28 +27,29 @@
             </bean>
         </property>
     </bean>
-    
-    
+
+
     <bean id="tagDAO" class="org.pgist.cvo.TagDAOImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
     </bean>
-    
-    
+
+
     <bean id="tagMatcher" class="org.pgist.cvo.TagMatcher">
         <property name="tagDAO">
           <ref local="tagDAO"/>
         </property>
     </bean>
-    
-    
-    
+
+
+
     <bean id="tagAnalyzer" class="org.pgist.cvo.TagAnalyzer">
         <property name="tagDAO" ref="tagDAO"/>
+        <property name="stopWordDAO" ref="stopWordDAO"/>
     </bean>
-    
-    
+
+
     <bean id="cctService" parent="baseTransactionProxy">
         <property name="target">
             <bean class="org.pgist.cvo.CCTServiceImpl">
@@ -59,14 +60,14 @@
             </bean>
         </property>
     </bean>
-    
-    
+
+
     <bean id="cctAgent" class="org.pgist.cvo.CCTAgent">
         <property name="cctService" ref="cctService"/>
         <property name="userDAO" ref="userDAO"/>
     </bean>
-    
-    
+
+
     <bean id="cstService" parent="baseTransactionProxy">
         <property name="target">
             <bean class="org.pgist.cvo.CSTServiceImpl">
@@ -77,21 +78,21 @@
             </bean>
         </property>
     </bean>
-    
-    
+
+
     <bean id="cstAgent" class="org.pgist.cvo.CSTAgent">
         <property name="cctService" ref="cctService"/>
         <property name="cstService" ref="cstService"/>
     </bean>
-    
-    
+
+
     <bean id="stopWordDAO" class="org.pgist.cvo.StopWordDAOImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
     </bean>
-    
-    
+
+
     <bean id="stopWordService" parent="baseTransactionProxy">
         <property name="target">
             <bean class="org.pgist.cvo.StopWordServiceImpl">
@@ -100,12 +101,12 @@
             </bean>
         </property>
     </bean>
-    
-    
+
+
     <bean id="stopWordAgent" class="org.pgist.cvo.StopWordAgent">
         <property name="stopWordService" ref="stopWordService"/>
     </bean>
-    
-    
+
+
 </beans>
 

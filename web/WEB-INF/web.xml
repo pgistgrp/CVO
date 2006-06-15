@@ -1,38 +1,23 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-    version="2.4">
-
-
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" version="2.4">
   <display-name>CVO Test Application</display-name>
-
-
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
-      /WEB-INF/config/context-database.xml
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/config/context-database.xml
       /WEB-INF/config/context-system.xml
       /WEB-INF/config/context-webservice.xml
       /WEB-INF/config/context-workflow.xml
       /WEB-INF/config/context-cvo.xml
-      /WEB-INF/config/context-pgames.xml
-		</param-value>
-	</context-param>
-
-  <context-param>
-      <param-name>org.pgist.CONFIG_DIR</param-name>
-      <param-value>/WEB-INF/config</param-value>
+      /WEB-INF/config/context-pgames.xml</param-value>
   </context-param>
-
-
+  <context-param>
+    <param-name>org.pgist.CONFIG_DIR</param-name>
+    <param-value>/WEB-INF/config</param-value>
+  </context-param>
   <filter>
-    	<filter-name>OpenSessionInViewFilter</filter-name>
-      <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+    <filter-name>OpenSessionInViewFilter</filter-name>
+    <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
   </filter>
-
-
   <filter>
     <filter-name>pgist filter</filter-name>
     <filter-class>org.pgist.web.PgistFilter</filter-class>
@@ -49,58 +34,45 @@
       <param-value>/login.do, /register.do</param-value>
     </init-param>
   </filter>
-
-
   <filter-mapping>
-      <filter-name>OpenSessionInViewFilter</filter-name>
-      <servlet-name>action</servlet-name>
+    <filter-name>OpenSessionInViewFilter</filter-name>
+    <servlet-name>action</servlet-name>
   </filter-mapping>
-
   <filter-mapping>
-      <filter-name>OpenSessionInViewFilter</filter-name>
-      <url-pattern>/dwr/exec/*</url-pattern>
+    <filter-name>OpenSessionInViewFilter</filter-name>
+    <url-pattern>/dwr/exec/*</url-pattern>
   </filter-mapping>
-  
   <filter-mapping>
-      <filter-name>pgist filter</filter-name>
-      <servlet-name>action</servlet-name>
+    <filter-name>pgist filter</filter-name>
+    <servlet-name>action</servlet-name>
   </filter-mapping>
-
   <filter-mapping>
-      <filter-name>pgist filter</filter-name>
-      <url-pattern>/dwr/exec/*</url-pattern>
+    <filter-name>pgist filter</filter-name>
+    <url-pattern>/dwr/exec/*</url-pattern>
   </filter-mapping>
-  
-  
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
-
-
   <listener>
     <listener-class>org.pgist.web.PgistListener</listener-class>
   </listener>
-
-
   <servlet>
     <servlet-name>SystemInitServlet</servlet-name>
     <servlet-class>org.pgist.servlets.SystemInitServlet</servlet-class>
     <init-param>
-       <param-name>org.pgist.CONFIG_PATH</param-name>
-       <param-value>/WEB-INF/config</param-value>
+      <param-name>org.pgist.CONFIG_PATH</param-name>
+      <param-value>/WEB-INF/config</param-value>
     </init-param>
     <init-param>
-       <param-name>org.pgist.EMAIL_CONFIG</param-name>
-       <param-value>email-config.xml</param-value>
+      <param-name>org.pgist.EMAIL_CONFIG</param-name>
+      <param-value>email-config.xml</param-value>
     </init-param>
     <init-param>
-       <param-name>org.pgist.MANAGED_FILE_PATH</param-name>
-       <param-value>/tmp/upload_files</param-value>
+      <param-name>org.pgist.MANAGED_FILE_PATH</param-name>
+      <param-value>/tmp/upload_files</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
-
-
   <servlet>
     <servlet-name>action</servlet-name>
     <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
@@ -118,11 +90,9 @@
     </init-param>
     <load-on-startup>2</load-on-startup>
   </servlet>
-
-
   <servlet>
-    <servlet-name>dwr-invoker</servlet-name>
     <display-name>DWR Servlet</display-name>
+    <servlet-name>dwr-invoker</servlet-name>
     <servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
     <init-param>
       <param-name>config</param-name>
@@ -141,48 +111,66 @@
       <param-value>WEB-INF/config/dwr-pgames.xml</param-value>
     </init-param>
     <init-param>
-       <param-name>debug</param-name>
-       <param-value>true</param-value>
+      <param-name>debug</param-name>
+      <param-value>true</param-value>
     </init-param>
   </servlet>
-
-
   <servlet-mapping>
     <servlet-name>action</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
-
-
   <servlet-mapping>
     <servlet-name>dwr-invoker</servlet-name>
     <url-pattern>/dwr/*</url-pattern>
   </servlet-mapping>
-
-
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-
-
   <error-page>
-		<error-code>400</error-code>
-		<location>/PathNotFound.jsf</location>
+    <error-code>400</error-code>
+    <location>/PathNotFound.jsf</location>
   </error-page>
-
   <error-page>
-		<error-code>404</error-code>
-		<location>/PageNotFound.jsf</location>
+    <error-code>404</error-code>
+    <location>/PageNotFound.jsf</location>
   </error-page>
-
-
-	<taglib>
-	    <taglib-uri>http://www.pgist.org/pgtaglib</taglib-uri>
-	    <taglib-location>
-	       /WEB-INF/config/pgist-taglib.tld
-	    </taglib-location>
-	</taglib>
-
-
+  <jsp-config>
+    <taglib>
+      <taglib-uri>/WEB-INF/struts-bean.tld</taglib-uri>
+      <taglib-location>/WEB-INF/struts-bean.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>/WEB-INF/struts-html.tld</taglib-uri>
+      <taglib-location>/WEB-INF/struts-html.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>/WEB-INF/struts-logic.tld</taglib-uri>
+      <taglib-location>/WEB-INF/struts-logic.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>/WEB-INF/struts-tiles.tld</taglib-uri>
+      <taglib-location>/WEB-INF/struts-tiles.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>/WEB-INF/struts-nested.tld</taglib-uri>
+      <taglib-location>/WEB-INF/struts-nested.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
+      <taglib-location>/WEB-INF/c.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>http://java.sun.com/jsp/jstl/xml</taglib-uri>
+      <taglib-location>/WEB-INF/x.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>http://java.sun.com/jsp/jstl/fmt</taglib-uri>
+      <taglib-location>/WEB-INF/fmt.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>http://java.sun.com/jsp/jstl/sql</taglib-uri>
+      <taglib-location>/WEB-INF/sql.tld</taglib-location>
+    </taglib>
+  </jsp-config>
 </web-app>
-

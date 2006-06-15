@@ -1,175 +1,88 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-
-<!DOCTYPE struts-config PUBLIC
-          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
-          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
-
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
 <struts-config>
-
-
-    <form-beans>
-        <form-bean name="searchForm" type="org.pgist.search.SearchForm"/>
-        <form-bean name="userForm" type="org.pgist.system.UserForm"/>
-        <form-bean name="cctForm" type="org.pgist.cvo.CCTForm"/>
-        <form-bean name="cvoForm" type="org.pgist.cvo.CVOForm"/>
-        <form-bean name="workflowForm" type="org.pgist.workflow.WorkflowForm"/>
-    </form-beans>
-
-
-    <global-exceptions>
-    </global-exceptions>
-
-
-    <global-forwards>
-        <forward name="login" path="/index.jsp"/>
-        <forward name="main" path="/main.jsp"/>
-        <forward name="register" path="/register.jsp"/>
-        <forward name="error" path="/error.jsp"/>
-        <forward name="workflow" path="/workflow.do"/>
-    </global-forwards>
-
-
-    <action-mappings>
-    
-    
-        <action path="/login" type="org.pgist.system.LoginAction" name="userForm" scope="request"/>
-        
-        
-        <action path="/logout" type="org.pgist.system.LogoutAction"/>
-        
-
-        <action path="/register" type="org.pgist.system.RegisterAction" name="userForm" scope="request"/>
-        
-        
-        <action path="/search" type="org.pgist.search.SearchAction" name="searchForm" scope="request">
-            <forward name="index" path="/WEB-INF/jsp/search/index.jsp"/>
-            <forward name="results" path="/WEB-INF/jsp/search/results.jsp"/>
-        </action>
-        
-        
-        <action path="/cctlist" type="org.pgist.cvo.CCTListAction" name="cctForm" scope="request">
-            <forward name="list" path="/WEB-INF/jsp/cvo/cctlist.jsp"/>
-        </action>
-        
-        
-        <action path="/cctview" type="org.pgist.cvo.CCTViewAction" name="cctForm" scope="request">
-            <forward name="view" path="/WEB-INF/jsp/cvo/cct.jsp"/>
-        </action>
-        
-        
-        <action path="/stopword" type="org.pgist.cvo.StopWordAction" name="cctForm" scope="request">
-            <forward name="list" path="/WEB-INF/jsp/cvo/stopWordsManagement.jsp"/>
-        </action>
-        
-        
-        <action path="/cstlist" type="org.pgist.cvo.CSTListAction" name="cctForm" scope="request">
-            <forward name="list" path="/WEB-INF/jsp/cvo/cstlist.jsp"/>
-        </action>
-        
-        
-        <action path="/cstview" type="org.pgist.cvo.CSTViewAction" name="cctForm" scope="request">
-            <forward name="view" path="/WEB-INF/jsp/cvo/cst.jsp"/>
-        </action>
-        
-        
-        <action path="/sdclist" type="org.pgist.cvo.SDCListAction" name="cctForm" scope="request">
-            <forward name="list" path="/WEB-INF/jsp/cvo/sdclist.jsp"/>
-        </action>
-        
-        
-        <action path="/sdcview" type="org.pgist.cvo.SDCViewAction" name="cctForm" scope="request">
-            <forward name="view" path="/WEB-INF/jsp/cvo/sdc.jsp"/>
-        </action>
-        
-        
-        <!--action path="/cvolist" type="org.pgist.cvo.CVOListAction" name="cvoForm" scope="request">
-            <forward name="list" path="/WEB-INF/jsp/cvo/index.jsp"/>
-        </action>
-        
-        
-        <action path="/cvoview" type="org.pgist.cvo.CVOViewAction" name="cvoForm" scope="request">
-            <forward name="view" path="/WEB-INF/jsp/cvo/cct.jsp"/>
-        </action>
-        
-        
-        <action path="/concernManagement" type="org.pgist.cvo.ConcernManagementAction" name="cvoForm" scope="request">
-            <forward name="main" path="/WEB-INF/jsp/cvo/concernManagement.jsp"/>
-        </action-->
-        
-        
-        <!-- Workflow Management Actions -->
-        
-        
-        <action path="/situationList" type="org.pgist.workflow.SituationListAction" name="workflowForm" scope="request">
-            <forward name="list" path="/WEB-INF/jsp/workflow/situationList.jsp"/>
-        </action>
-        
-        
-        <action path="/agendaDisplay" type="org.pgist.workflow.AgendaDisplayAction" name="workflowForm" scope="request">
-            <forward name="moderator" path="/WEB-INF/jsp/workflow/agendaDisplay-moderator.jsp"/>
-            <forward name="member" path="/WEB-INF/jsp/workflow/agendaDisplay-member.jsp"/>
-        </action>
-        
-        
-        <action path="/participate" type="org.pgist.workflow.ParticipateAction" name="workflowForm" scope="request">
-        </action>
-        
-        
-        <action path="/complete" type="org.pgist.workflow.CompleteAction" name="workflowForm" scope="request">
-        </action>
-        
-        
-        <action path="/workflow" type="org.pgist.workflow.WorkflowAction" name="workflowForm" scope="request">
-            <forward name="meetings" path="/WEB-INF/jsp/workflow/showMeetings.jsp"/>
-            <forward name="pmethods" path="/WEB-INF/jsp/workflow/showPmethods.jsp"/>
-            <forward name="pgames" path="/WEB-INF/jsp/workflow/showPgames.jsp"/>
-            <forward name="pacts" path="/WEB-INF/jsp/workflow/showPacts.jsp"/>
-        </action>
-        
-        
-        <action path="/brainStorming" type="org.pgist.workflow.pgame.brainstorming.BrainStormingAction" name="workflowForm" scope="request">
-            <forward name="show" path="/WEB-INF/jsp/pgame/BrainStorming/brainStorming.jsp"/>
-        </action>
-        
-        
-        <action path="/review" type="org.pgist.workflow.pgame.review.ReviewAction" name="workflowForm" scope="request">
-            <forward name="show" path="/WEB-INF/jsp/pgame/Review/reviewDiscuss.html"/>
-        </action>
-        
-        
-        <action path="/prioritize" type="org.pgist.workflow.pgame.prioritize.PrioritizeAction" name="workflowForm" scope="request">
-            <forward name="show" path="/WEB-INF/jsp/pgame/Prioritize/prioritizeMain.html"/>
-        </action>
-        
-        
-        <action path="/hierarchy" type="org.pgist.workflow.pgame.hierarchy.HierarchyAction" name="workflowForm" scope="request">
-            <forward name="show" path="/WEB-INF/jsp/pgame/Hierarchy/hierarchyMain.html"/>
-        </action>
-        
-        
-        <action path="/qna" type="org.pgist.workflow.pgame.question.QnAAction" name="workflowForm" scope="request">
-            <forward name="show" path="/WEB-INF/jsp/pgame/Question/qnAMain.html"/>
-        </action>
-        
-        
-        <action path="/sensitivity" type="org.pgist.workflow.pgame.sensitivity.SensitivityAnalysisAction" name="workflowForm" scope="request">
-            <forward name="show" path="/WEB-INF/jsp/pgame/Sensitivity/sensitivityMain.html"/>
-        </action>
-        
-        
-    </action-mappings>
-    
-    
-    <controller>
-        <set-property property="processorClass" value="org.springframework.web.struts.DelegatingRequestProcessor"/>
-    </controller>
-    
-    
-    <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
-      <set-property property="contextConfigLocation" value="/WEB-INF/config/action-servlet.xml"/>
-    </plug-in>
-    
-    
+  <form-beans>
+    <form-bean name="searchForm" type="org.pgist.search.SearchForm" />
+    <form-bean name="userForm" type="org.pgist.system.UserForm" />
+    <form-bean name="cctForm" type="org.pgist.cvo.CCTForm" />
+    <form-bean name="cvoForm" type="org.pgist.cvo.CVOForm" />
+    <form-bean name="workflowForm" type="org.pgist.workflow.WorkflowForm" />
+  </form-beans>
+  <global-forwards>
+    <forward name="login" path="/index.jsp" />
+    <forward name="main" path="/main.jsp" />
+    <forward name="register" path="/register.jsp" />
+    <forward name="error" path="/error.jsp" />
+    <forward name="workflow" path="/workflow.do" />
+  </global-forwards>
+  <action-mappings>
+    <action name="userForm" path="/login" scope="request" type="org.pgist.system.LoginAction" />
+    <action path="/logout" type="org.pgist.system.LogoutAction" />
+    <action name="userForm" path="/register" scope="request" type="org.pgist.system.RegisterAction" />
+    <action name="searchForm" path="/search" scope="request" type="org.pgist.search.SearchAction">
+      <forward name="index" path="/WEB-INF/jsp/search/index.jsp" />
+      <forward name="results" path="/WEB-INF/jsp/search/results.jsp" />
+    </action>
+    <action name="cctForm" path="/cctlist" scope="request" type="org.pgist.cvo.CCTListAction">
+      <forward name="list" path="/WEB-INF/jsp/cvo/cctlist.jsp" />
+    </action>
+    <action name="cctForm" path="/cctview" scope="request" type="org.pgist.cvo.CCTViewAction">
+      <forward name="view" path="/WEB-INF/jsp/cvo/cct.jsp" />
+    </action>
+    <action name="cctForm" path="/stopword" scope="request" type="org.pgist.cvo.StopWordAction">
+      <forward name="list" path="/WEB-INF/jsp/cvo/stopWordsManagement.jsp" />
+    </action>
+    <action name="cctForm" path="/cstlist" scope="request" type="org.pgist.cvo.CSTListAction">
+      <forward name="list" path="/WEB-INF/jsp/cvo/cstlist.jsp" />
+    </action>
+    <action name="cctForm" path="/cstview" scope="request" type="org.pgist.cvo.CSTViewAction">
+      <forward name="view" path="/WEB-INF/jsp/cvo/cst.jsp" />
+    </action>
+    <action name="cctForm" path="/sdclist" scope="request" type="org.pgist.cvo.SDCListAction">
+      <forward name="list" path="/WEB-INF/jsp/cvo/sdclist.jsp" />
+    </action>
+    <action name="cctForm" path="/sdcview" scope="request" type="org.pgist.cvo.SDCViewAction">
+      <forward name="view" path="/WEB-INF/jsp/cvo/sdc.jsp" />
+    </action>
+    <action name="workflowForm" path="/situationList" scope="request" type="org.pgist.workflow.SituationListAction">
+      <forward name="list" path="/WEB-INF/jsp/workflow/situationList.jsp" />
+    </action>
+    <action name="workflowForm" path="/agendaDisplay" scope="request" type="org.pgist.workflow.AgendaDisplayAction">
+      <forward name="moderator" path="/WEB-INF/jsp/workflow/agendaDisplay-moderator.jsp" />
+      <forward name="member" path="/WEB-INF/jsp/workflow/agendaDisplay-member.jsp" />
+    </action>
+    <action name="workflowForm" path="/participate" scope="request" type="org.pgist.workflow.ParticipateAction" />
+    <action name="workflowForm" path="/complete" scope="request" type="org.pgist.workflow.CompleteAction" />
+    <action name="workflowForm" path="/workflow" scope="request" type="org.pgist.workflow.WorkflowAction">
+      <forward name="meetings" path="/WEB-INF/jsp/workflow/showMeetings.jsp" />
+      <forward name="pmethods" path="/WEB-INF/jsp/workflow/showPmethods.jsp" />
+      <forward name="pgames" path="/WEB-INF/jsp/workflow/showPgames.jsp" />
+      <forward name="pacts" path="/WEB-INF/jsp/workflow/showPacts.jsp" />
+    </action>
+    <action name="workflowForm" path="/brainStorming" scope="request" type="org.pgist.workflow.pgame.brainstorming.BrainStormingAction">
+      <forward name="show" path="/WEB-INF/jsp/pgame/BrainStorming/brainStorming.jsp" />
+    </action>
+    <action name="workflowForm" path="/review" scope="request" type="org.pgist.workflow.pgame.review.ReviewAction">
+      <forward name="show" path="/WEB-INF/jsp/pgame/Review/reviewDiscuss.html" />
+    </action>
+    <action name="workflowForm" path="/prioritize" scope="request" type="org.pgist.workflow.pgame.prioritize.PrioritizeAction">
+      <forward name="show" path="/WEB-INF/jsp/pgame/Prioritize/prioritizeMain.html" />
+    </action>
+    <action name="workflowForm" path="/hierarchy" scope="request" type="org.pgist.workflow.pgame.hierarchy.HierarchyAction">
+      <forward name="show" path="/WEB-INF/jsp/pgame/Hierarchy/hierarchyMain.html" />
+    </action>
+    <action name="workflowForm" path="/qna" scope="request" type="org.pgist.workflow.pgame.question.QnAAction">
+      <forward name="show" path="/WEB-INF/jsp/pgame/Question/qnAMain.html" />
+    </action>
+    <action name="workflowForm" path="/sensitivity" scope="request" type="org.pgist.workflow.pgame.sensitivity.SensitivityAnalysisAction">
+      <forward name="show" path="/WEB-INF/jsp/pgame/Sensitivity/sensitivityMain.html" />
+    </action>
+  </action-mappings>
+  <controller>
+    <set-property property="processorClass" value="org.springframework.web.struts.DelegatingRequestProcessor" />
+  </controller>
+  <message-resources parameter="ApplicationResources" />
+  <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+    <set-property property="contextConfigLocation" value="/WEB-INF/config/action-servlet.xml" />
+  </plug-in>
 </struts-config>
-

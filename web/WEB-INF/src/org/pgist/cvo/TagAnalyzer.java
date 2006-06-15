@@ -82,76 +82,6 @@ public class TagAnalyzer {
 		return document;
 	}
 
-	public Collection parseTextTokenized_old(String statement) {
-		System.out.println(">>>>parse string: " + statement);
-		if (all_tags == null) {
-			rebuildTree();
-		}
-
-		Collection suggestedStrings = new HashSet();
-
-		long[][] tag_id_count = new long[all_tags.size()][2];
-		for (int k = 0; k < tag_id_count.length; k++) {
-			tag_id_count[k][0] = ((Tag) all_tags.get(k)).getId();
-			tag_id_count[k][1] = 0;
-		}
-
-		Reader reader = new StringReader(statement);
-		Tokenizer tkz = new LowerCaseTokenizer(reader); // StandardTokenizer
-
-		try {
-			Token t = tkz.next();
-			while (t != null) {
-				//find the logest appearance
-				String foundtext = "";
-				String trytext = t.termText();
-				boolean found = false;
-				long[] setting = { 0, -1 };
-				int m = matchString(tag_tree, 0, trytext, setting);
-				while (m == (foundtext.length() + trytext.length())) {
-					found = true;
-					foundtext += trytext;
-
-					t = tkz.next();
-					if (t == null)
-						break;
-
-					trytext = " " + t.termText();
-
-					if (setting[0] >= 0)
-						m += matchString(tag_tree, (int) setting[0], trytext,
-								setting);
-					else
-						break;
-				}
-
-				if (foundtext.length() > 0) {
-					if (setting[1] >= 0) {
-						tag_id_count[(int) setting[1]][1]++;
-						setting[1] = -1;
-					}
-				}
-
-				if (!found)
-					t = tkz.next();
-			}//while
-
-			tkz.close();
-		} catch (Exception e) {
-			System.out
-					.println("error in parseTextTokenized: " + e.getMessage());
-			e.printStackTrace();
-		}
-
-		//put all the found tags in the suggestedStrings
-		for (int k = 0; k < tag_id_count.length; k++)
-			if (tag_id_count[k][1] > 0) {
-				suggestedStrings.add(((Tag) all_tags.get(k)).getName());
-			}
-
-		return suggestedStrings;
-	}//parseTextTokenized()
-
 	public Collection parseTextTokenized(String statement) {
 		System.out.println(">>>>parse string: " + statement);
 		if (all_tags == null) {
@@ -167,7 +97,7 @@ public class TagAnalyzer {
 		}
 
 		Reader reader = new StringReader(statement);
-		Tokenizer tkz = new LowerCaseTokenizer(reader); // StandardTokenizer
+		Tokenizer tkz = new LowerCaseTokenizer(reader); //StandardTokenizer
 
 		try {
 			Token t = tkz.next();
@@ -414,64 +344,6 @@ public class TagAnalyzer {
 			printTreeNice(t, (int) t[start][2], firstpart);
 		}
 	}
-
-	/**
-	 * For the given tagStr, check if exist corresponding Tag object, if yes
-	 * then return it; else create a new Tag object and return it.
-	 *
-	 * @param tagStr
-	 *            The tag string
-	 * @return A Tag object.
-	 */
-	public synchronized Collection ensureTags(String[] tagStrs)
-			throws Exception {
-		if (all_tags == null) {
-			rebuildTree();
-		}
-
-		List list = new ArrayList(tagStrs.length);
-
-		Set set = new HashSet();
-		for (int i = 0; i < tagStrs.length; i++) {
-			String str = tagStrs[i].toUpperCase();
-			if(!set.contains(str))
-				set.add(str);
-			else
-				tagStrs[i] = "";
-		}
-
-		// this portion should be synchronized
-		for (int i = 0; i < tagStrs.length; i++) {
-			if (tagStrs[i] == null)
-				continue;
-			tagStrs[i] = tagStrs[i].trim();
-			if ("".equals(tagStrs[i]))
-				continue;
-
-			long[] setting = { 0, -1 };
-			int m = matchString(tag_tree, 0, tagStrs[i].toLowerCase(), setting);
-			if (m == tagStrs[i].length() && setting[1] > 0) { //if tag exists
-				System.out.println("==ensure: tag exist: " + tagStrs[i]);
-				list.add((Tag) all_tags.get((int) setting[1]));
-			} else {
-				System.out.println("==ensure: new tag: " + tagStrs[i]);
-				Tag tag = new Tag();
-				tag.setName(tagStrs[i]);
-				tag.setDescription(tagStrs[i]);
-				tag.setStatus(Tag.STATUS_CANDIDATE);
-
-				list.add(tag);
-				addTag(tag);
-				//tagDAO.save(tag);
-			}
-		}// for i
-		for (int i = 0; i < list.size(); i++) {
-			System.out
-					.println(">>return tag: " + ((Tag) list.get(i)).getName());
-		}
-
-		return list;
-	}//ensureTags()
 
 	/**
 	 *
