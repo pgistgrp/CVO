@@ -47,7 +47,8 @@ public class UserHandler extends Handler {
             String password = element.elementTextTrim("password");
             if (password==null || "".equals(password)) throw new Exception("password is required for user");
             user.setPassword(password);
-            boolean encrypted = "true".equals(element.attributeValue("password/encrypted"));
+            
+            boolean encrypted = "true".equals(element.valueOf("password/@encrypted"));
             if (!encrypted) user.encodePassword();
             
             String email = element.elementTextTrim("email");
