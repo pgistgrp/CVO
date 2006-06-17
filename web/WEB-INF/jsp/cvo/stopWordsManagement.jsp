@@ -365,7 +365,7 @@ StopWordAgent.searchTags({name:tag},{
 	<div id="lightbox"></div>
 	<!-- END LIGHTBOX -->
 	<div id="pageTitle">
-	<span class="title_page">Moderator Dashboard: </span><h1>Stop Word and Tag Database Management Tool</h1>
+	<h2>Moderator Dashboard: </h2><h3>Stop Word and Tag Database Management Tool</h3>
 		<div id="bread">
 		<ul>
 			<li class="first"><a href="null">Moderator Dashboard</a>
@@ -381,7 +381,7 @@ StopWordAgent.searchTags({name:tag},{
 	</div>	
 	
 	 <div id="overview">
-		  	<h3>Overview and Instructions</h3> 
+		  	<h4>Overview and Instructions</h4> 
 		  	<p class="indent"><strong>Overview: </strong>${cctForm.cct.purpose}</p>
 		  	<p class="indent"><strong>Instructions: </strong>${cctForm.cct.instruction}</p>
 	 </div>
@@ -395,7 +395,7 @@ StopWordAgent.searchTags({name:tag},{
 									<input type="text" id="txtSearchExclude" name="txtSearchExclude" style="width:120px; padding-left: 1px; padding-right: 20px; margin-right:5px; background: url('/images/search_light.gif') no-repeat right; background-color: #FFFFFF;" class="searchTagTextbox" value="Search Stop Words" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" onkeyup="searchStopWords($('txtSearchExclude').value);"><div id="stopWordSearchIndicator" style="visibility:hidden; position: absolute; right:0; margin-right: 150px;"><img src="/images/indicator.gif"></div>
 								</form>			
 							</div>
-				    	<span class="title_section">Stop Word List (exclude words <img src="/images/removeItem.gif" alt="Exclude" border="0">)</span><br>Words to be excluded upon concern submission. Below are the current words in the stop words list. Please use the textbox at the bottom to add new words to the list.
+				    	<h4>top Word List (exclude words <img src="/images/removeItem.gif" alt="Exclude" border="0">)</h4><br>Words to be excluded upon concern submission. Below are the current words in the stop words list. Please use the textbox at the bottom to add new words to the list.
 
 				    	<p>
 				    		<div id="excludeListCont" style="list-style:none; margin:auto;">
@@ -418,7 +418,7 @@ StopWordAgent.searchTags({name:tag},{
 								</form>			
 							</div>
 							
-				    	<p><span class="title_section">Tags List (include words <img src="/images/addItem.gif" alt="Exclude" border="0">)</span><br>Words that will be matched and suggested upon submission of concern. Below are the current words in the include list database. Please use the textbox at the bottom to add new words to the list.
+				    	<p><h4>Tags List (include words <img src="/images/addItem.gif" alt="Exclude" border="0">)</h4><br>Words that will be matched and suggested upon submission of concern. Below are the current words in the include list database. Please use the textbox at the bottom to add new words to the list.
 				    		<div id="includeListCont" style="list-style:none; margin:auto;">
 								</div>	   
 							</p>
@@ -433,7 +433,7 @@ StopWordAgent.searchTags({name:tag},{
 	</div>
 	
 	<div id="testConcern" class="suppSlate fullBox">
-		<h2>Test Stopwords and Suggested Tags</h2><br>Add a string of text that you would like to test.  This will return suggested and unmatched tags from a participant's perspective.
+		<h4>Test Stopwords and Suggested Tags</h4><br>Add a string of text that you would like to test.  This will return suggested and unmatched tags from a participant's perspective.
 		<form name="testStopWord" method="post" onSubmit="addTagToList('tagsList', 'theTag','tagValidation'); return false;">
 			      <p><textarea class="textareaAddConcern" onkeypress="ifEnter(this,event);" name="addConcern" cols="20" rows="2" id="addConcern"></textarea></p>
 			      <p class="indent">
