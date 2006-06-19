@@ -12,13 +12,17 @@
 <script src="/scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 
 <script type="text/javascript">
-
+	
+	window.onresize=message;
+	function message() {
+	  alert("The window has been resized!");
+	}
 	function moreDiscussion(){
-		new Effect.BlindDown('testDiscussion', {scaleFrom:100.0, scaleTo:170.0, afterFinish: function(){
+		new Effect.BlindDown('testDiscussion', {duration: 0.5, scaleFrom:100.0, scaleTo:170.0, afterFinish: function(){
 				$('testDiscussion').style.height = '275px';
 			}});
 		
-		new Effect.BlindUp('testSlate', {scaleFrom:100.0, scaleTo:54.0, afterFinish: function(){
+		new Effect.BlindUp('testSlate', {duration: 0.5, scaleFrom:100.0, scaleTo:54.0, afterFinish: function(){
 				$('testSlate').style.height = '150px';
 				$('testSlate').style.display = 'block';
 			}});
@@ -26,11 +30,11 @@
 	}
 	
 	function moreObject(){
-		new Effect.BlindDown('testSlate', {scaleFrom:100.0, scaleTo:170.0, afterFinish: function(){
+		new Effect.BlindDown('testSlate', {duration: 0.5, scaleFrom:100.0, scaleTo:170.0, afterFinish: function(){
 				$('testSlate').style.height = '275px'; 
 			}});
 	
-		new Effect.BlindUp('testDiscussion', {scaleFrom:100.0, scaleTo:54.0, afterFinish: function(){
+		new Effect.BlindUp('testDiscussion', {duration: 0.5, scaleFrom:100.0, scaleTo:54.0, afterFinish: function(){
 				$('testDiscussion').style.height = '150px';
 				$('testDiscussion').style.display = 'block';
 			}});
