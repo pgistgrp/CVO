@@ -552,6 +552,14 @@
 
     <stopword>ha</stopword>
     
+    <stopword>I'm</stopword>
+
+    <stopword>I am</stopword>
+
+    <stopword>I am concerned with</stopword>
+
+    <stopword>I'm concerned with</stopword>
+    
 
 </stopwords>
 
