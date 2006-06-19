@@ -166,7 +166,7 @@
 								if (destroy){
 									new Effect.SwitchOff('tag' + tagId, {afterFinish: function(){showTags(categoryId,0);}});
 								}
-								getTags(categoryId, 0, 0);
+								getTags(categoryId, 0, 1);
 						}
 						if (data.successful != true){
 							alert(data.reason);
@@ -293,6 +293,19 @@ function editCategory(categoryId,category){
 		</div>
 </div>
 
+      
+    <script type="text/javascript" language="javascript" charset="utf-8">
+    // <![CDATA[
+      new Draggable('tag105',{revert:true});
+      new Draggable('tag344',{revert:true});
+      Droppables.add('panelTICContent', {
+        accept: 'dragtags',
+        hoverclass: 'drophover',
+        onDrop: function(element) 
+          { $('panelTICContent').innerHTML = 
+              'Dropped the ' + element.alt + ' on me.'; }});
+    // ]]>
+    </script>
 
 
 </body>

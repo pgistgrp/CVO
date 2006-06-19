@@ -293,6 +293,17 @@ function editCategory(categoryId,category){
 		</div>
 </div>
 
+      
+    <script type="text/javascript" language="javascript" charset="utf-8">
+    // <![CDATA[
+      Droppables.add('panelTICContent', {
+        accept: 'dragtags',
+        hoverclass: 'drophover',
+        onDrop: function(element) 
+          { $('panelTICContent').innerHTML = 
+              'Dropped the ' + element.alt + ' on me.'; }});
+    // ]]>
+    </script>
 
 
 </body>

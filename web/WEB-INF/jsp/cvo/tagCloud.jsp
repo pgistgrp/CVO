@@ -4,11 +4,11 @@
 
 <h2>Tags</h2><!--Assigns Tab Name -->
 <h4>Read other people's concerns</h4><br>
-Click on a tag below to browse concerns.<p></p>
+"Tags" are an easy way to explore the wide variety of concerns contributed by other participants. Simply click on a tag to read concerns related to that idea. Click on a tag below to browse concerns.<p></p>
 
 <div id="searchTag_container">
 		<div id="searchTag_title">
-				Top 25 Tags
+				<h5>Top 25 Tags</h5>
 		</div>
 		<div id="searchTag_form">
 				<form name="searchTags" method="post" onSubmit="tagSearch($('txtSearch').value); return false;">

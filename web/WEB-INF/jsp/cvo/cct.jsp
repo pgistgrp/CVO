@@ -110,7 +110,7 @@ function deleteCookie(name, path, domain) {
 	function doOnLoad(){
 		showConcerns(2);
 		showMyConcerns();
-		//showTagCloud();
+		showTagCloud();
 	}
 	function validateForm()
 	{
@@ -325,7 +325,7 @@ function getConcernsByTag(id){
 					//$("sidebar_concerns").style.display = "none";
 					Effect.Yellow('sidebar_concerns');
 					$('sidebar_concerns').innerHTML = data.html;
-					$('myTab').tabber.tabShow(0);
+					$('myTab').tabber.tabShow(1);
 					location.href='#SideConcernsTop';
 				}
 			},
@@ -596,17 +596,15 @@ function getWinH(){
 </div>	
 
  <div id="overview">
-	  	<h4>Overview and Instructions</h4> 
-	  	<p class="indent"><!--${cctForm.cct.purpose}-->Before we can determine how to best improve the transportation system, we need to know what the problems are.</p>
-	  	<p class="indent"><!--${cctForm.cct.instruction}-->Our first task is to brainstorm concerns about the transportation system. What problems do you encounter in your daily trips to work, shopping, and errands? In what ways do you feel our current transportation system fails to meet the needs of our growing region? Write your concerns below. </p>
-	  	<p class="indent">"Tags" are an easy way to explore the wide variety of concerns contributed by other participants. Simply click on a tag to read concerns related to that idea.</p>
+	  	<h4>Overview</h4> 
+	  	<p class="indent"><!--${cctForm.cct.purpose}-->Before we can determine how to best improve the transportation system, we need to know what the problems are. Our first task is to brainstorm concerns about the transportation system.</p>
 	  	<p class="indent"><small>[ <a href="allSteps.jsp">Read more</a> about how this step fits into the bigger picture. ]</small></p>
 </p>
  </div>
 
  <div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
  <div id="slate" class="slate leftBox">
-  		<h4>Add your concern</h4><br>Describe <strong>one</strong> problem with our transportation system. You can add more concerns later
+  		<h4>Add your concern</h4><br>What problems do you encounter in your daily trips to work, shopping, and errands? In what ways do you feel our current transportation system fails to meet the needs of our growing region? <p>Describe <strong>one</strong> problem with our transportation system. You can add more concerns later</p>
 		    <form name="brainstorm" method="post" onSubmit="addTagToList('tagsList', 'theTag','tagValidation'); return false;">
 			      <p><textarea class="textareaAddConcern" onkeypress="ifEnter(this,event);" name="addConcern" cols="20" rows="2" id="addConcern"></textarea></p>
 			      <p class="indent">
@@ -641,20 +639,25 @@ function getWinH(){
 
   </div>
 <!--START SIDEBAR -->
+<!--
 <div id="tagSelector">
 	Tag Selected:
 	<span class="closeBox">[ <a href="javascript:goPage(${setting.page});">Clear Selected</a> ]</span>
 	<div class="pullDown" style="left: 50%;"><span class="pullDown"><img src="/images/pulldown.gif"></span></div>
 </div>
+-->
 <div id="bar"><a name="SideConcernsTop"></a>
 	<div class="tabber" id="myTab">
-		
 			<div id="sidebar_currentTaskContainer" class="tabbertab">
 	    	<h2>Concerns</h2>
 				<div id="sidebar_concerns">
 				</div>
 	    </div>
-			
+	    <div id="sidebar_tags" class="tabbertab">
+	    	<H2>Tags</H2>
+	    </div>
+
+			<!--
 			<div id="sidebar_discussionContainer" class="tabbertab">
 	    	<h2>Discussion</h2>
 				<div id="sidebar_concerns"><h4>Discussion...</h4>
@@ -666,7 +669,7 @@ function getWinH(){
 				<div id="sidebar_discussion"><h4>Resources</h4>
 				</div>
 	    </div>
-	
+			-->
 	</div>
 </div>
 

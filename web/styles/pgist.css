@@ -579,6 +579,7 @@ li.tagsList{
 	color: #878;
 	padding: 1px;
 	border: 1px solid #CDC;
+	border-bottom: 1px solid #069;
 	text-decoration: none;
 	font-weight: normal;
 }
@@ -597,6 +598,7 @@ li.tagsList{
 	padding-left: 2px;
 	padding-right: 2px;
 	border: 1px solid #CDC;
+	border-bottom: 1px solid #069;
 	text-decoration: none;
 	margin-right: 3px;
 }
