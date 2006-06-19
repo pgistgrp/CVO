@@ -325,7 +325,7 @@ function getConcernsByTag(id){
 					//$("sidebar_concerns").style.display = "none";
 					Effect.Yellow('sidebar_concerns');
 					$('sidebar_concerns').innerHTML = data.html;
-					$('myTab').tabber.tabShow(1);
+					$('myTab').tabber.tabShow(0);
 					location.href='#SideConcernsTop';
 				}
 			},
