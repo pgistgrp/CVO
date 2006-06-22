@@ -1,9 +1,9 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-sdfasdf
+Orphan Tags:
 <ul>
-<logic:iterate id="category" name="categories">
-	<li id="cat${category.id}">${category.category.name}&nbsp;[ <a href="javascript:deleteCategory(${category.id});">x</a> ]</li>
+<logic:iterate id="tag" name="tags">
+	<li style="list-style: none;" id="tag${tag.id}">[<a href="javascript:relateTag(${tag.id});"><strong>&larr;</strong></a>] [ ? ] <a href="javascript:getConcerns(${tag.id});">${tag.tag.name}</a></li>
 </logic:iterate>
 </ul>

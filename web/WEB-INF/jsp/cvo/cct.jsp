@@ -246,7 +246,7 @@ function saveTheConcern(){
 		CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:concernTags}, {
 			callback:function(data){
 				if (data.successful){
-					showMyConcerns(data.concern.id);
+					
 					Effect.CloseDown('tagConcerns');
 					//Reset add concerns textbox and Clear comma separated concerns tag list
 					$('btnContinue').disabled=false;
@@ -255,6 +255,8 @@ function saveTheConcern(){
 					$('addConcern').style.color="#333";
 					$('addConcern').focus();
 					//showTagCloud();
+					showMyConcerns(data.concern.id);
+					
 				}
 			},
 			errorHandler:function(errorString, exception){ 
@@ -305,7 +307,7 @@ function showMyConcerns(id){
 					if (data.successful){
 						$('myConcernsList').innerHTML = data.html;
 						if (id != undefined){
-							Effect.Yellow('concernId' + id, {duration: 4, endcolor:'#EEF3D8'})
+							Effect.Yellow('concernId' + id, {duration: 4, endcolor:'#EEF3D8', afterFinish: function(){showMyConcerns();}})
 						}
 						if (data.total == 0){
 							document.getElementById("myConcernsList").innerHTML = '<p><small>None created yet.  Please add a concern above.  Please refer to other participant\'s concerns on the right column for examples.</small></p>';
@@ -326,7 +328,7 @@ function getConcernsByTag(id){
 					Effect.Yellow('sidebar_concerns');
 					$('sidebar_concerns').innerHTML = data.html;
 					$('myTab').tabber.tabShow(0);
-					location.href='#SideConcernsTop';
+					new Element.scrollTo('SideConcernsTop'); //location.href='#SideConcernsTop';
 				}
 			},
 		errorHandler:function(errorString, exception){ 
@@ -410,7 +412,7 @@ function editConcernPopup(concernId){
 					os = "";
 					os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
 					os += '<h2>Edit My Concern</h2><br>';
-					os += '<textarea style="height: 150px; width: 100%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p>';
+					os += '<form><textarea style="height: 150px; width: 100%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p></form>';
 					os += '<input type="button" id="modifyConcern" value="Submit Edits!" onClick="editConcern('+concernId+')">';
 					os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')">';
 					$('lightbox').innerHTML = os;
@@ -586,9 +588,12 @@ function getWinH(){
 <h2>Current Task: </h2><h3>Brainstorm Concerns</h3>
 	<div id="bread">
 	<ul>
-		<li class="first"><a href="null">LIT Process</a>
+		<li class="first"><a href="null">Home</a>
 			<ul>
-				<li>&#187; <a href="null">Brainstorm Concerns</a></li>
+				<li>&#187; <a href="null">Current Task</a></li>
+				<ul>
+					<li>&#187; <a href="null">Brainstorm Concerns</a></li>
+				</ul>
 			</ul>
 		</li>
 	</ul>
@@ -604,7 +609,7 @@ function getWinH(){
 
  <div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
  <div id="slate" class="slate leftBox">
-  		<h4>Add your concern</h4><br>What problems do you encounter in your daily trips to work, shopping, and errands? In what ways do you feel our current transportation system fails to meet the needs of our growing region? <p>Describe <strong>one</strong> problem with our transportation system. You can add more concerns later</p>
+  		<h4>Add your concern</h4><br>What problems do you encounter in your daily trips to work outside the home, shopping, and errands? In what ways do you feel our current transportation system fails to meet the needs of our growing region? <p>Describe <strong>one</strong> problem with our transportation system. You can add more concerns later</p>
 		    <form name="brainstorm" method="post" onSubmit="addTagToList('tagsList', 'theTag','tagValidation'); return false;">
 			      <p><textarea class="textareaAddConcern" onkeypress="ifEnter(this,event);" name="addConcern" cols="20" rows="2" id="addConcern"></textarea></p>
 			      <p class="indent">
@@ -616,10 +621,10 @@ function getWinH(){
 				    <div id="tagConcerns" style="display: none;">
 						    <div id="tags" style="background-color: #FFF; border: 5Px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;">
 						    	<h4>Tag Your Concern</h4>
-						    	<p>The tags below are suggested tags for your concern.  Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed). <br><span class="glossary">[ what are <a href="javascript:glossaryPopup('tag');">tags</a>? ]</span></p>
-									<ul class="tagsList" id="tagsList">
-									</ul>	    
-									
+						    	<p></p>   
+									<p>Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed).  <span class="glossary">[ what are <a href="javascript:glossaryPopup('tag');">tags</a>? ]</span></p>
+									<b>Suggested Tags for your concern:</b>  <ul class="tagsList" id="tagsList">
+									</ul>	 
 									<p><input type="text" id="theTag" class="tagTextbox" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList('tagsList','theTag','tagValidation');return false;"></p>
 									<div style="display: none; padding-left: 20px;" id="tagValidation"></div>
 									<hr>
@@ -646,7 +651,7 @@ function getWinH(){
 	<div class="pullDown" style="left: 50%;"><span class="pullDown"><img src="/images/pulldown.gif"></span></div>
 </div>
 -->
-<div id="bar"><a name="SideConcernsTop"></a>
+<div id="bar"><a id="SideConcernsTop" name="SideConcernsTop"></a>
 	<div class="tabber" id="myTab">
 			<div id="sidebar_currentTaskContainer" class="tabbertab">
 	    	<h2>Concerns</h2>

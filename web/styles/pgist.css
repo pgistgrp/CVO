@@ -19,7 +19,7 @@ body a:hover{ background:#06c; color:#eee;}
 		position: relative;
 		top: +15px;
 		border: 1px solid #ccc;
-		border-top: 3px solid #98A072;}
+		border-top: 1px solid #98A072;}
 	
 	.suppSlate{
 		border: 1px solid #ccc;
@@ -272,8 +272,8 @@ small{
 .actionMenu{
 	font-size: 10px;
 	color: #333;
-	width: 350px;
-	font-weight: bold;}
+	width: 100%;
+	}
 
 .actionMenu a{
 	font-size: 10px;
@@ -685,7 +685,7 @@ li.tagsList{
 	overflow: auto;
 	top:0;
 	margin-top: 70px;
-	height: 200px;
+	height: 350px;
 }
 
 .panelTitle{

@@ -10,9 +10,8 @@
 <style type="text/css" media="screen">@import "/styles/tabsFull.css";</style>
 
 <script src="/scripts/tabs.js" type="text/javascript"></script>
-<script src="/scripts/prototype.js" type="text/javascript"></script>
-<script src="/scripts/effects.js" type="text/javascript"></script>
-<script src="/scripts/combo.js" type="text/javascript"></script>
+	<script src="/scripts/prototype.js" type="text/javascript"></script>
+	<script src="/scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
@@ -32,16 +31,16 @@ function validateForm()
 		if(""==document.forms.testStopWord.addConcern.value)
 		{
 			document.getElementById('validation').innerHTML = 'Please fill in your concern above.';
-			Effect.OpenUp('validation');
-			Effect.CloseDown('tagConcerns');
-			Effect.Yellow('validation', {duration: 4, endcolor:'#EEF3D8'});
-			//Effect.Yellow('theTag', {duration: 10, endcolor:'#EEF3D8'});
+			Effect.BlindDown('validation');
+			Effect.BlindUp('tagConcerns');
+			Effect.Highlight('validation', {duration: 4, endcolor:'#EEF3D8'});
+			//Effect.Highlight('theTag', {duration: 10, endcolor:'#EEF3D8'});
 			return false;
 			
 		}else{
-			Effect.CloseDown('validation');
-			Effect.OpenUp('tagConcerns');
-			//Effect.Yellow('tags', {duration: 4, endcolor:'#FFFFFF'});
+			Effect.BlindUp('validation');
+			Effect.BlindDown('tagConcerns');
+			//Effect.Highlight('tags', {duration: 4, endcolor:'#FFFFFF'});
 			//$('theTag').value = "add tag";
 			//$('theTag').focus();
 			return true;
@@ -51,8 +50,8 @@ function validateForm()
 	{
 	
 		$('btnContinue').disabled=false;
-		Effect.CloseDown('tagConcerns');
-		Effect.CloseDown('validation');
+		Effect.BlindUp('tagConcerns');
+		Effect.BlindUp('validation');
 		$('addConcern').style.background="#FFF";
 		$('addConcern').style.color="#333";
 	}
@@ -86,7 +85,8 @@ function validateForm()
 		
 		for(i=0; i < tagtemp.length; i++){
 			if(tagtemp [i] != ""){
-				str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:addStopWordFromResults(\''+ tagtemp [i] +'\');"><img src="/images/removeItem_lite.gif" alt="Exclude this Tag!" border="0"></a><a href="javascript:addTagfromResults(\''+ tagtemp [i] +'\');"><img src="/images/addItem_lite.gif" alt="Include this Tag!" border="0"></a></span></li>';	
+				str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls"> </span></li>';	
+				//&nbsp;<a href="javascript:addStopWordFromResults(\''+ tagtemp [i] +'\');"> <img src="/images/removeItem_lite.gif" alt="Exclude this Tag!" border="0"></a><a href="javascript:addTagfromResults(\''+ tagtemp [i] +'\');"><img src="/images/addItem_lite.gif" alt="Include this Tag!" border="0"></a>
 			}
 		}	
 		return str;
@@ -119,7 +119,7 @@ function goToStopWordPage(pageNum){
 					$('excludeListCont').innerHTML = data.html;
 				}
 				//if (id != undefined){
-					//		Effect.Yellow('stopWord' + id, {duration: 4, endcolor:'#EEF3D8'})
+					//		Effect.Highlight('stopWord' + id, {duration: 4, endcolor:'#EEF3D8'})
 			//	}
 			},
 		errorHandler:function(errorString, exception){ 
@@ -136,7 +136,7 @@ function goToTagPage(pageNum){
 					$('includeListCont').innerHTML = data.html;
 				}
 				//if (id != undefined){
-					//		Effect.Yellow('stopWord' + id, {duration: 4, endcolor:'#EEF3D8'})
+					//		Effect.Highlight('stopWord' + id, {duration: 4, endcolor:'#EEF3D8'})
 			//	}
 			},
 		errorHandler:function(errorString, exception){ 
@@ -159,24 +159,24 @@ function createStopWord(stopWord){
 	StopWordAgent.createStopWord({name:stopWord}, {
 		callback:function(data){
 				if (data.successful){
-					Effect.CloseDown('excludeWordValidation');
+					Effect.BlindUp('excludeWordValidation');
 					goToStopWordPage(0);
 					//$('includeExcludeLog').style.display = 'block';
 					
 					$('includeExcludeLog').className ="successful";
-					Effect.OpenUp('includeExcludeLog');
+					Effect.BlindDown('includeExcludeLog');
 					$('includeExcludeLog').innerHTML = '<h2>Successful!</h2><br>&nbsp;&nbsp;<img src="/images/removeItem.gif" alt="Include" border="0">&nbsp;The word "<b>' + stopWord +'</b>" has been successfully added to the stop word list!';
 					$('theExcludeWord').value = '';
 					//$('theExcludeWord').focus();
 				}
 				if (data.successful != true){
 						alert(data.reason);
-						document.getElementById('excludeWordValidation').innerHTML = 'The stop word you entered already exists in the database.  Please enter a different stop word.&nbsp;&nbsp;<a href="javascript:Effect.CloseDown(\'excludeWordValidation\');">Close</a>';
-						Effect.OpenUp('excludeWordValidation');
+						//document.getElementById('excludeWordValidation').innerHTML = 'The stop word you entered already exists in the database.  Please enter a different stop word.&nbsp;&nbsp;<a href="javascript:Effect.BlindUp(\'excludeWordValidation\');">Close</a>';
+						//Effect.BlindDown('excludeWordValidation');
 						
-						$('includeExcludeLog').className ="validation";
-						Effect.OpenUp('includeExcludeLog');
-						$('includeExcludeLog').innerHTML = '<h2>A problem has occured.</h2><br>The word "<b>' + stopWord +'</b>" already exists in the database!';
+						//$('includeExcludeLog').className ="validation";
+						//Effect.BlindDown('includeExcludeLog');
+						//$('includeExcludeLog').innerHTML = '<h2>A problem has occured.</h2><br>The word "<b>' + stopWord +'</b>" already exists in the database!';
 				}
 			},
 		errorHandler:function(errorString, exception){ 
@@ -189,22 +189,22 @@ function createTag(tag){
 	StopWordAgent.createTag({name:tag}, {
 		callback:function(data){
 				if (data.successful){
-					Effect.CloseDown('includeWordValidation');
+					Effect.BlindUp('includeWordValidation');
 					goToTagPage(0);
 					//$('includeExcludeLog').style.display = 'block';
 					$('includeExcludeLog').className ="successful";
-					Effect.OpenUp('includeExcludeLog');
+					Effect.BlindDown('includeExcludeLog');
 					$('includeExcludeLog').innerHTML = '<h2>Successful!</h2><br>&nbsp;&nbsp;<img src="/images/addItem.gif" alt="Include" border="0">&nbsp;The word "<b>' + tag +'</b>" has been successfully added to the tag list!';
 					$('theIncludeWord').value = '';
 					//$('theIncludeWord').focus();
 				}
 				if (data.successful != true){
 						//alert(data.reason);
-						document.getElementById('includeWordValidation').innerHTML = 'The tag you entered already exists in the database.  Please enter a different stop word.&nbsp;&nbsp;<a href="javascript:Effect.CloseDown(\'includeWordValidation\');">Close</a>';
-						Effect.OpenUp('includeWordValidation');
+						document.getElementById('includeWordValidation').innerHTML = 'The tag you entered already exists in the database.  Please enter a different stop word.&nbsp;&nbsp;<a href="javascript:Effect.BlindUp(\'includeWordValidation\');">Close</a>';
+						Effect.BlindDown('includeWordValidation');
 						
 						$('includeIncludeLog').className ="validation";
-						Effect.OpenUp('includeIncludeLog');
+						Effect.BlindDown('includeIncludeLog');
 						$('includeIncludeLog').innerHTML = '<h2>A problem has occured.</h2><br>The word "<b>' + tag +'</b>" already exists in the database!';
 				}
 			},
