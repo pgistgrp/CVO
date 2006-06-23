@@ -389,6 +389,10 @@ ul.tagsList{
 	line-height: 15px;
 }
 
+ul.tagsList img{
+	padding-left: 3px;
+}
+
 li.tagsList{
 	line-height: 25px;
 	margin-right: 3px;
@@ -441,7 +445,7 @@ li.tagsList{
 	display: block;
 	width: 93%;
 
-	font-size: 16px;
+	font-size: 13px;
 	color: #333333;
 	margin-left: 20px;
 	margin-right: 20px;

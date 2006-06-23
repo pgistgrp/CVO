@@ -144,6 +144,7 @@ function deleteCookie(name, path, domain) {
 	
 	function prepareConcern(){
 		concernTags = "";
+		potentialTags = "";
 		tagHolderId = 0;
 		if (validateForm()){
 			$('btnContinue').disabled=true;
@@ -156,7 +157,12 @@ function deleteCookie(name, path, domain) {
 					for(i=0; i < data.tags.length; i++){
 						concernTags += data.tags[i] + ',';
 					}
+					for(i=0; i < data.potentialtags.length; i++){
+          	potentialTags += data.potentialtags[i] + ',';
+					}
 					document.getElementById('tagsList').innerHTML = renderTags( concernTags, 1);  // + renderTags( data.suggested, 0);
+					document.getElementById('tagsList').innerHTML += renderTags(potentialTags, 1);
+					concernTags += potentialTags;
 				}
 				document.getElementById("indicator").style.visibility = "hidden";
 			} );
@@ -535,9 +541,7 @@ function showFinished(){
 }
 
 function showTheError(errorString, exception){
-					$('overview').style.display = 'none';
-				$('slate').style.display = 'none';
-				$('bar').style.display = 'none';
+				$('container').style.display = 'none';
 				$('caughtException').style.display = 'block';
 				$('caughtException').innerHTML +='<p>If this problem persists, please <A HREF="mailto:webmaster@pgist.org?subject=LIT Website Problem>contact our webmaster</a></p>';
 }
@@ -607,7 +611,7 @@ function getWinH(){
 </p>
  </div>
 
- <div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
+ 
  <div id="slate" class="slate leftBox">
   		<h4>Add your concern</h4><br>What problems do you encounter in your daily trips to work outside the home, shopping, and errands? In what ways do you feel our current transportation system fails to meet the needs of our growing region? <p>Describe <strong>one</strong> problem with our transportation system. You can add more concerns later</p>
 		    <form name="brainstorm" method="post" onSubmit="addTagToList('tagsList', 'theTag','tagValidation'); return false;">
@@ -623,7 +627,7 @@ function getWinH(){
 						    	<h4>Tag Your Concern</h4>
 						    	<p></p>   
 									<p>Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed).  <span class="glossary">[ what are <a href="javascript:glossaryPopup('tag');">tags</a>? ]</span></p>
-									<b>Suggested Tags for your concern:</b>  <ul class="tagsList" id="tagsList">
+									<b>Suggested Tags for your Concern:</b>  <ul class="tagsList" id="tagsList">
 									</ul>	 
 									<p><input type="text" id="theTag" class="tagTextbox" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList('tagsList','theTag','tagValidation');return false;"></p>
 									<div style="display: none; padding-left: 20px;" id="tagValidation"></div>
@@ -662,7 +666,7 @@ function getWinH(){
 	    	<H2>Tags</H2>
 	    </div>
 
-			<!--
+			
 			<div id="sidebar_discussionContainer" class="tabbertab">
 	    	<h2>Discussion</h2>
 				<div id="sidebar_concerns"><h4>Discussion...</h4>
@@ -674,11 +678,12 @@ function getWinH(){
 				<div id="sidebar_discussion"><h4>Resources</h4>
 				</div>
 	    </div>
-			-->
+			
 	</div>
 </div>
-
+<div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
 <!--END SIDEBAR -->
+
 </div>
 
 <div id="footerContainer">

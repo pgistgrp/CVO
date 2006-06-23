@@ -39,7 +39,8 @@ function validateForm()
 
 		}else{
 			Effect.BlindUp('validation');
-			Effect.BlindDown('tagConcerns');
+			prepareConcern();
+			Effect.BlindDown('tagConcerns');	
 			//Effect.Highlight('tags', {duration: 4, endcolor:'#FFFFFF'});
 			//$('theTag').value = "add tag";
 			//$('theTag').focus();
@@ -57,40 +58,49 @@ function validateForm()
 	}
 
 	function prepareConcern(){
+		
 		$('includeExcludeLog').style.display = 'none';
 		concernTags = "";
-                potentialTags = "";
+    potentialTags = "";
 		tagHolderId = 0;
-		if (validateForm()){
-			$('btnContinue').disabled=true;
-			$('addConcern').style.background="#EEE";
-			$('addConcern').style.color="#CCC";
-			var concern = $('addConcern').value;
-			document.getElementById("indicator").style.visibility = "visible";
-			CCTAgent.prepareConcern({concern:concern}, function(data) {
-				if (data.successful){
-					for(i=0; i < data.tags.length; i++){
-						concernTags += data.tags[i] + ',';
-					}
-					for(i=0; i < data.potentialtags.length; i++){
-                                                potentialTags += data.potentialtags[i] + ',';
-					}
-					document.getElementById('tagsList').innerHTML = renderTags( concernTags, 1);  // + renderTags( data.suggested, 0);
+		
+		$('btnContinue').disabled=true;
+		$('addConcern').style.background="#EEE";
+		$('addConcern').style.color="#CCC";
+		var concern = $('addConcern').value;
+		document.getElementById("indicator").style.visibility = "visible";
+		CCTAgent.prepareConcern({concern:concern}, function(data) {
+			if (data.successful){
+				for(i=0; i < data.tags.length; i++){
+					concernTags += data.tags[i] + ',';
 				}
-				document.getElementById("indicator").style.visibility = "hidden";
-			} );
-		}
+				for(i=0; i < data.potentialtags.length; i++){
+          potentialTags += data.potentialtags[i] + ',';
+				}
+				
+				document.getElementById('tagsList').innerHTML = '<h5>Words Already in Tags List</h5><br> '+ renderTags(concernTags, 0);
+				document.getElementById('tagsList').innerHTML += '<p><h5>Potential Stopwords and Tags</h5><br> '+renderTags(potentialTags, 1)+'</p>';
+
+			}
+			document.getElementById("indicator").style.visibility = "hidden";
+		} );
+		
 	}
 
 	function renderTags(tags,type){
-		sty = (type == 1)?"tagsList":"suggestedTagsList";
+		
 		var str= "";
 		tagtemp = tags.split(",");
 
 		for(i=0; i < tagtemp.length; i++){
 			if(tagtemp [i] != ""){
-				str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls"> </span></li>';
-				//&nbsp;<a href="javascript:addStopWordFromResults(\''+ tagtemp [i] +'\');"> <img src="/images/removeItem_lite.gif" alt="Exclude this Tag!" border="0"></a><a href="javascript:addTagfromResults(\''+ tagtemp [i] +'\');"><img src="/images/addItem_lite.gif" alt="Include this Tag!" border="0"></a>
+				if(type==0){
+					str += '<li class="tagsList">'+ tagtemp [i] +  '</span><span class="tagsList_controls"> </span></li>';	
+				}
+				
+				if(type==1){
+					str += '<li class="tagsList">'+ tagtemp [i] +  '</span><span class="tagsList_controls"><a href="javascript:addStopWordFromResults(\''+ tagtemp [i] +'\');"><img src="/images/removeItem_lite.gif" alt="Exclude this Tag!" border="0"></a><a href="javascript:addTagfromResults(\''+ tagtemp [i] +'\');"><img src="/images/addItem_lite.gif" alt="Include this Tag!" border="0"></a></span></li>';	
+				}
 			}
 		}
 		return str;
@@ -99,7 +109,7 @@ function validateForm()
 function ifEnter(field,event) {
 	var theCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
 	if (theCode == 13){
-	prepareConcern();
+	validateForm();
 	$('theTag').focus();
 	return false;
 	}
@@ -108,12 +118,11 @@ function ifEnter(field,event) {
 }
 
 function showTheError(errorString, exception){
-				$('overview').style.display = 'none';
-				$('slate').style.display = 'none';
-				$('bar').style.display = 'none';
+				$('container').style.display = 'none';
 				$('caughtException').style.display = 'block';
 				$('caughtException').innerHTML +='<p>If this problem persists, please <A HREF="mailto:webmaster@pgist.org?subject=LIT Website Problem>contact our webmaster</a></p>';
 }
+
 
 function goToStopWordPage(pageNum){
 	StopWordAgent.getStopWords({page:pageNum, count: 150}, {
@@ -151,12 +160,12 @@ function goToTagPage(pageNum){
 
 function addStopWordFromResults(stopWord){
 	createStopWord(stopWord);
-	removeFromGeneratedTags(stopWord);
+	//new Effect.Highlight('tagsList', {duration: 0.1, beforeStart: function(){createStopWord(stopWord);},afterFinish: function(){ prepareConcern();}});
 }
 
 function addTagfromResults(tag){
 	createTag(tag);
-	removeFromGeneratedTags(tag);
+	//new Effect.Highlight('tagsList', {duration: 0.1, beforeStart: function(){createTag(tag);},afterFinish: function(){ prepareConcern();}});		
 }
 
 function createStopWord(stopWord){
@@ -165,23 +174,19 @@ function createStopWord(stopWord){
 				if (data.successful){
 					Effect.BlindUp('excludeWordValidation');
 					goToStopWordPage(0);
-					//$('includeExcludeLog').style.display = 'block';
-
-					$('includeExcludeLog').className ="successful";
-					Effect.BlindDown('includeExcludeLog');
-					$('includeExcludeLog').innerHTML = '<h2>Successful!</h2><br>&nbsp;&nbsp;<img src="/images/removeItem.gif" alt="Include" border="0">&nbsp;The word "<b>' + stopWord +'</b>" has been successfully added to the stop word list!';
+					prepareConcern();
+					$('includeExcludeLog').innerHTML = '<h2>Successful!</h2><img src="/images/removeItem.gif" alt="Include" border="0">&nbsp;The word "<b>' + stopWord +'</b>" has been successfully added to the stop word list!';
+					Effect.Appear('includeExcludeLog', {duration: 1, afterFinish:function(){Effect.SwitchOff('includeExcludeLog', {duration: 1});}});
+					
 					$('theExcludeWord').value = '';
-					//$('theExcludeWord').focus();
+					$('theExcludeWord').focus();
 				}
 				if (data.successful != true){
 						alert(data.reason);
-						//document.getElementById('excludeWordValidation').innerHTML = 'The stop word you entered already exists in the database.  Please enter a different stop word.&nbsp;&nbsp;<a href="javascript:Effect.BlindUp(\'excludeWordValidation\');">Close</a>';
-						//Effect.BlindDown('excludeWordValidation');
-
 						//$('includeExcludeLog').className ="validation";
-						//Effect.BlindDown('includeExcludeLog');
-						//$('includeExcludeLog').innerHTML = '<h2>A problem has occured.</h2><br>The word "<b>' + stopWord +'</b>" already exists in the database!';
-				}
+						//$('includeExcludeLog').innerHTML = '<h4>ERROR!</h4>&nbsp;'+ data.reason.toString();
+						//new Effect.toggle('includeExcludeLog', 'appear', {duration: 1, afterFinish:function(){new Effect.toggle('includeExcludeLog', 'appear', {duration: 1});}});
+					}
 			},
 		errorHandler:function(errorString, exception){
 				showTheError();
@@ -195,21 +200,18 @@ function createTag(tag){
 				if (data.successful){
 					Effect.BlindUp('includeWordValidation');
 					goToTagPage(0);
-					//$('includeExcludeLog').style.display = 'block';
-					$('includeExcludeLog').className ="successful";
-					Effect.BlindDown('includeExcludeLog');
+					prepareConcern();
 					$('includeExcludeLog').innerHTML = '<h2>Successful!</h2><br>&nbsp;&nbsp;<img src="/images/addItem.gif" alt="Include" border="0">&nbsp;The word "<b>' + tag +'</b>" has been successfully added to the tag list!';
+					Effect.Appear('includeExcludeLog', {duration: 1, afterFinish:function(){Effect.SwitchOff('includeExcludeLog', {duration: 1});}});
+					
 					$('theIncludeWord').value = '';
-					//$('theIncludeWord').focus();
+					$('theIncludeWord').focus();
 				}
 				if (data.successful != true){
-						//alert(data.reason);
-						document.getElementById('includeWordValidation').innerHTML = 'The tag you entered already exists in the database.  Please enter a different stop word.&nbsp;&nbsp;<a href="javascript:Effect.BlindUp(\'includeWordValidation\');">Close</a>';
-						Effect.BlindDown('includeWordValidation');
-
-						$('includeIncludeLog').className ="validation";
-						Effect.BlindDown('includeIncludeLog');
-						$('includeIncludeLog').innerHTML = '<h2>A problem has occured.</h2><br>The word "<b>' + tag +'</b>" already exists in the database!';
+						alert(data.reason);
+						//$('includeExcludeLog').className ="validation";
+						//$('includeExcludeLog').innerHTML = '<h4>ERROR!</h4>&nbsp;'+ data.reason.toString();
+						//new Effect.toggle('includeExcludeLog', 'appear', {duration: 1, afterFinish:function(){new Effect.toggle('includeExcludeLog', 'appear', {duration: 1});}});
 				}
 			},
 		errorHandler:function(errorString, exception){
@@ -255,54 +257,36 @@ function deleteTag(tagID){
 	}
 }
 
-var tagHolderId = 1;
-function removeFromGeneratedTags(name){
-		if(name == "")return;
-		var indexNum = concernTags.indexOf(name +',');
-		if (indexNum > 0){
-			firstpart = concernTags.substring(0, indexNum);
-			secondpart = concernTags.substring(indexNum + name.length + 1, concernTags.length);
-			concernTags = firstpart + secondpart;
-		}else if (indexNum == 0){
-			concernTags = concernTags.substring(indexNum + name.length +1, concernTags.length);
-		}
-
-		if (tagHolderId == 0){
-			document.getElementById('tagsList').innerHTML = renderTags( concernTags, 1);
-		}else{
-			document.getElementById('editTagsList').innerHTML = renderTags( concernTags, 1);
-		}
-	}
 
 function searchStopWords(stopWord){
-StopWordAgent.searchStopWords({name:stopWord},{
-		callback:function(data){
-			  $('stopWordSearchIndicator').style.visibility = 'visible';
-				if (data.successful){
-					if ($('txtSearchExclude').value == ""){
-						goToStopWordPage(0);
-						$('stopWordSearchIndicator').style.visibility = 'hidden';
-					}
-
-					if ($('txtSearchExclude').value != ""){
-						if (data.successful) {
-							$('excludeListCont').innerHTML = "";
-						  for (var i=0; i<data.stopWords.length; i++) {
-						   $('excludeListCont').innerHTML += '<li><span class="includeExclude">'+data.stopWords[i].name+'<a href="javascript:deleteStopWord(\''+ data.stopWords[i].id +'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
-						  }
+	StopWordAgent.searchStopWords({name:stopWord},{
+			callback:function(data){
+				  $('stopWordSearchIndicator').style.visibility = 'visible';
+					if (data.successful){
+						if ($('txtSearchExclude').value == ""){
+							goToStopWordPage(0);
+							$('stopWordSearchIndicator').style.visibility = 'hidden';
 						}
-
-						$('stopWordSearchIndicator').style.visibility = 'hidden';
+	
+						if ($('txtSearchExclude').value != ""){
+							if (data.successful) {
+								$('excludeListCont').innerHTML = "";
+							  for (var i=0; i<data.stopWords.length; i++) {
+							   $('excludeListCont').innerHTML += '<li><span class="includeExclude">'+data.stopWords[i].name+'<a href="javascript:deleteStopWord(\''+ data.stopWords[i].id +'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
+							  }
+							}
+	
+							$('stopWordSearchIndicator').style.visibility = 'hidden';
+						}
 					}
-				}
-				if (data.successful != true){
-					alert(data.reason);
-				}
-		},
-		errorHandler:function(errorString, exception){
-					showTheError();
-		}
-	});
+					if (data.successful != true){
+						alert(data.reason);
+					}
+			},
+			errorHandler:function(errorString, exception){
+						showTheError();
+			}
+		});
 }
 
 function searchTags(tag){
@@ -390,7 +374,7 @@ StopWordAgent.searchTags({name:tag},{
 		  	<p class="indent"><strong>Instructions: </strong>${cctForm.cct.instruction}</p>
 	 </div>
 
-	 <div id="caughtException"><h2>A Problem has Occured</h2><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
+	
 	<div class="tabber" id="myTab">
 		    	<div id="tab_excludeList"  class="tabbertab">
 				    	<h2>Stop Word List</h2>
@@ -435,24 +419,25 @@ StopWordAgent.searchTags({name:tag},{
 			    	<div style="display: none;" id="includeWordValidation" class="validation"></div>
 			    </div>
 	</div>
-
+<div id="includeExcludeLog" class="successful" style="display: none;"></div>
 	<div id="testConcern" class="suppSlate fullBox">
 		<h4>Test Stopwords and Suggested Tags</h4><br>Add a string of text that you would like to test.  This will return suggested and unmatched tags from a participant's perspective.
 		<form name="testStopWord" method="post" onSubmit="addTagToList('tagsList', 'theTag','tagValidation'); return false;">
 			      <p><textarea class="textareaAddConcern" onkeypress="ifEnter(this,event);" name="addConcern" cols="20" rows="2" id="addConcern"></textarea></p>
 			      <p class="indent">
-				      <input type="button" id="btnContinue" name="Continue" value="Continue" onclick="prepareConcern();">
+				      <input type="button" id="btnContinue" name="Continue" value="Continue" onclick="validateForm();">
 				      <input type="reset" name="Reset" value="Reset" onClick="resetForm();">
 				      <span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>
 			      </p>
 			      <div style="display: none;" id="validation"></div>
+			      
 				    <div id="tagConcerns" style="display: none;">
 						    <div id="tags" style="background-color: #FFF; border: 5Px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;">
-						    	<h3>Results</h3><p></p>
+						    	<h3>Results (with stopwords removed)</h3><p></p>
 									<ul class="tagsList" id="tagsList">
 									</ul>
 									<p></p>
-									<div id="includeExcludeLog" class="successful" style="display: none; height:50px;"></div>
+									
 									<p align="right"><input type="button" name="editConcern" value="Edit Concern" onClick="resetForm();"> </p>
 						    </div>
 						    <br>
@@ -460,6 +445,7 @@ StopWordAgent.searchTags({name:tag},{
 	 </form>
 	</div>
 </div>
+ <div id="caughtException"><h2>A Problem has Occured</h2><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
 </div>
 <div id="footerContainer">
 	<div id="footer"><a href="http://www.pgist.org" target="_blank"><img src="/images/footer_pgist.jpg" alt="Powered by the PGIST Portal" border="0" align="right"></a></div>

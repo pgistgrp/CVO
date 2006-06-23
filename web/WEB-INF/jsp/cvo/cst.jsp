@@ -312,18 +312,18 @@ function editCategory(categoryId,category){
 		}
 	});
 }
-		function showTheError(errorString, exception){
-					$('overview').style.display = 'none';
-				$('slate').style.display = 'none';
-				$('bar').style.display = 'none';
+function showTheError(errorString, exception){
+				$('container').style.display = 'none';
 				$('caughtException').style.display = 'block';
 				$('caughtException').innerHTML +='<p>If this problem persists, please <A HREF="mailto:webmaster@pgist.org?subject=LIT Website Problem>contact our webmaster</a></p>';
-		}
+}
+
 		
 	</script>
 </head>
 <body>
 	<!-- LIGHTBOX -->
+<div id="container">
 	<div id="overlay"></div>
 	<div id="lightbox"></div>
 	<!-- END LIGHTBOX -->
@@ -374,7 +374,8 @@ function editCategory(categoryId,category){
 
 
 
-      
+</div>
+ <div id="caughtException"><h2>A Problem has Occured</h2><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
 
 </body>
 
