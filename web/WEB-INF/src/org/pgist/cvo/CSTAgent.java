@@ -69,6 +69,7 @@ public class CSTAgent {
      *                  The following variables are available for use in the jsp:
      *                  <ul>
      *                    <li>cct - A CCT object</li>
+     *                    <li>rootId - the id of root CategoryReference object, which is invisible to the user.</li>
      *                    <li>categories - A list of CategoryReference objects</li>
      *                  </ul>
      *           </li>
@@ -84,8 +85,12 @@ public class CSTAgent {
         try {
             CCT cct = cctService.getCCTById(cctId);
             if (cct!=null) {
-                Set set = cct.getRootCategory().getChildren();
+                CategoryReference root = cct.getRootCategory();
+                map.put("rootId", root.getId());
                 
+                Set set = root.getChildren();
+                
+                request.setAttribute("rootId", root.getId());
                 request.setAttribute("cct", cct);
                 request.setAttribute("categories", set);
                 map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/cstCategories.jsp"));
