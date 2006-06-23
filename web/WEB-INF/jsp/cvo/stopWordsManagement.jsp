@@ -59,7 +59,7 @@ function validateForm()
 	function prepareConcern(){
 		$('includeExcludeLog').style.display = 'none';
 		concernTags = "";
-                potentialtags = "";
+                potentialTags = "";
 		tagHolderId = 0;
 		if (validateForm()){
 			$('btnContinue').disabled=true;
@@ -73,7 +73,7 @@ function validateForm()
 						concernTags += data.tags[i] + ',';
 					}
 					for(i=0; i < data.potentialtags.length; i++){
-                                                potentialtags += data.potentialtags[i] + ',';
+                                                potentialTags += data.potentialtags[i] + ',';
 					}
 					document.getElementById('tagsList').innerHTML = renderTags( concernTags, 1);  // + renderTags( data.suggested, 0);
 				}
