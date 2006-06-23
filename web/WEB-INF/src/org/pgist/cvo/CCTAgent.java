@@ -140,23 +140,24 @@ public class CCTAgent {
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
-     *           <li>tags - a string array each element is a tag name</li>
+     *           <li>tags - a string array each element is name for an existing tag</li>
+     *           <li>potentialtags - a string array each element is a possible tag name</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      * @throws Exception
      */
     public Map prepareConcern(Map params) throws Exception {
-        Map map = new HashMap();
-
         String concern = (String) params.get("concern");
 
-        Collection tags = cctService.getSuggestedTags(concern); //
-        System.out.println("====returned back to cctagent: get tags=" +
-                           tags.size());
+        Map map = cctService.getSuggestedTags(concern); //
         //String[] tags = {"Traffic", "Transit", "Bus"};
-        map.put("tags", tags);
-        map.put("successful", new Boolean(true));
 
+        if(map != null)
+            map.put("successful", new Boolean(true));
+        else{
+            map.put("successful", new Boolean(false));
+            map.put("reason", "Exception in tag analyzer.");
+        }
         return map;
     } //prepareConcern()
 
@@ -777,6 +778,6 @@ public class CCTAgent {
 
         return map;
     } //searchTags()
-    
+
 
 } //class CCTAgent

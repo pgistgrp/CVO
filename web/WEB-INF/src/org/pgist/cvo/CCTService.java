@@ -3,6 +3,7 @@ package org.pgist.cvo;
 import java.util.Collection;
 
 import org.pgist.util.PageSetting;
+import java.util.Map;
 
 
 /**
@@ -127,10 +128,10 @@ public interface CCTService {
     /**
      *
      * @param statement String
-     * @return Collection
+     * @return Map
      * @throws Exception
      */
-    Collection getSuggestedTags(String statement) throws Exception;
+    Map getSuggestedTags(String statement) throws Exception;
 
     /**
      * Get concerns by the given tagRefId.

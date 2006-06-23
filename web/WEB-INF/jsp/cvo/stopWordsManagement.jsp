@@ -19,7 +19,7 @@
 
 <script type="text/javascript">
 	window.onload(doOnLoad());
-  
+
 
 function doOnLoad(){
 		goToStopWordPage(0);
@@ -36,7 +36,7 @@ function validateForm()
 			Effect.Highlight('validation', {duration: 4, endcolor:'#EEF3D8'});
 			//Effect.Highlight('theTag', {duration: 10, endcolor:'#EEF3D8'});
 			return false;
-			
+
 		}else{
 			Effect.BlindUp('validation');
 			Effect.BlindDown('tagConcerns');
@@ -48,17 +48,18 @@ function validateForm()
 	}
 	function resetForm()
 	{
-	
+
 		$('btnContinue').disabled=false;
 		Effect.BlindUp('tagConcerns');
 		Effect.BlindUp('validation');
 		$('addConcern').style.background="#FFF";
 		$('addConcern').style.color="#333";
 	}
-	
+
 	function prepareConcern(){
 		$('includeExcludeLog').style.display = 'none';
 		concernTags = "";
+                potentialtags = "";
 		tagHolderId = 0;
 		if (validateForm()){
 			$('btnContinue').disabled=true;
@@ -71,37 +72,40 @@ function validateForm()
 					for(i=0; i < data.tags.length; i++){
 						concernTags += data.tags[i] + ',';
 					}
+					for(i=0; i < data.potentialtags.length; i++){
+                                                potentialtags += data.potentialtags[i] + ',';
+					}
 					document.getElementById('tagsList').innerHTML = renderTags( concernTags, 1);  // + renderTags( data.suggested, 0);
 				}
 				document.getElementById("indicator").style.visibility = "hidden";
 			} );
 		}
 	}
-	
+
 	function renderTags(tags,type){
 		sty = (type == 1)?"tagsList":"suggestedTagsList";
 		var str= "";
 		tagtemp = tags.split(",");
-		
+
 		for(i=0; i < tagtemp.length; i++){
 			if(tagtemp [i] != ""){
-				str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls"> </span></li>';	
+				str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls"> </span></li>';
 				//&nbsp;<a href="javascript:addStopWordFromResults(\''+ tagtemp [i] +'\');"> <img src="/images/removeItem_lite.gif" alt="Exclude this Tag!" border="0"></a><a href="javascript:addTagfromResults(\''+ tagtemp [i] +'\');"><img src="/images/addItem_lite.gif" alt="Include this Tag!" border="0"></a>
 			}
-		}	
+		}
 		return str;
 	}
-	
+
 function ifEnter(field,event) {
 	var theCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
 	if (theCode == 13){
 	prepareConcern();
 	$('theTag').focus();
 	return false;
-	} 
+	}
 	else
 	return true;
-}   
+}
 
 function showTheError(errorString, exception){
 				$('overview').style.display = 'none';
@@ -115,14 +119,14 @@ function goToStopWordPage(pageNum){
 	StopWordAgent.getStopWords({page:pageNum, count: 150}, {
 		callback:function(data){
 				if (data.successful){
-					
+
 					$('excludeListCont').innerHTML = data.html;
 				}
 				//if (id != undefined){
 					//		Effect.Highlight('stopWord' + id, {duration: 4, endcolor:'#EEF3D8'})
 			//	}
 			},
-		errorHandler:function(errorString, exception){ 
+		errorHandler:function(errorString, exception){
 				showTheError();
 		}
 		});
@@ -132,14 +136,14 @@ function goToTagPage(pageNum){
 	StopWordAgent.getTags({page:pageNum, count: 150}, {
 		callback:function(data){
 				if (data.successful){
-					
+
 					$('includeListCont').innerHTML = data.html;
 				}
 				//if (id != undefined){
 					//		Effect.Highlight('stopWord' + id, {duration: 4, endcolor:'#EEF3D8'})
 			//	}
 			},
-		errorHandler:function(errorString, exception){ 
+		errorHandler:function(errorString, exception){
 				showTheError();
 		}
 		});
@@ -162,7 +166,7 @@ function createStopWord(stopWord){
 					Effect.BlindUp('excludeWordValidation');
 					goToStopWordPage(0);
 					//$('includeExcludeLog').style.display = 'block';
-					
+
 					$('includeExcludeLog').className ="successful";
 					Effect.BlindDown('includeExcludeLog');
 					$('includeExcludeLog').innerHTML = '<h2>Successful!</h2><br>&nbsp;&nbsp;<img src="/images/removeItem.gif" alt="Include" border="0">&nbsp;The word "<b>' + stopWord +'</b>" has been successfully added to the stop word list!';
@@ -173,13 +177,13 @@ function createStopWord(stopWord){
 						alert(data.reason);
 						//document.getElementById('excludeWordValidation').innerHTML = 'The stop word you entered already exists in the database.  Please enter a different stop word.&nbsp;&nbsp;<a href="javascript:Effect.BlindUp(\'excludeWordValidation\');">Close</a>';
 						//Effect.BlindDown('excludeWordValidation');
-						
+
 						//$('includeExcludeLog').className ="validation";
 						//Effect.BlindDown('includeExcludeLog');
 						//$('includeExcludeLog').innerHTML = '<h2>A problem has occured.</h2><br>The word "<b>' + stopWord +'</b>" already exists in the database!';
 				}
 			},
-		errorHandler:function(errorString, exception){ 
+		errorHandler:function(errorString, exception){
 				showTheError();
 		}
 		});
@@ -202,13 +206,13 @@ function createTag(tag){
 						//alert(data.reason);
 						document.getElementById('includeWordValidation').innerHTML = 'The tag you entered already exists in the database.  Please enter a different stop word.&nbsp;&nbsp;<a href="javascript:Effect.BlindUp(\'includeWordValidation\');">Close</a>';
 						Effect.BlindDown('includeWordValidation');
-						
+
 						$('includeIncludeLog').className ="validation";
 						Effect.BlindDown('includeIncludeLog');
 						$('includeIncludeLog').innerHTML = '<h2>A problem has occured.</h2><br>The word "<b>' + tag +'</b>" already exists in the database!';
 				}
 			},
-		errorHandler:function(errorString, exception){ 
+		errorHandler:function(errorString, exception){
 				showTheError();
 		}
 		});
@@ -224,7 +228,7 @@ function deleteStopWord(stopWordID){
 					goToStopWordPage(0);
 				}
 			},
-		errorHandler:function(errorString, exception){ 
+		errorHandler:function(errorString, exception){
 				showTheError();
 		}
 		});
@@ -244,7 +248,7 @@ function deleteTag(tagID){
 					alert(data.reason);
 				}
 			},
-		errorHandler:function(errorString, exception){ 
+		errorHandler:function(errorString, exception){
 				showTheError();
 		}
 		});
@@ -269,7 +273,7 @@ function removeFromGeneratedTags(name){
 			document.getElementById('editTagsList').innerHTML = renderTags( concernTags, 1);
 		}
 	}
-	
+
 function searchStopWords(stopWord){
 StopWordAgent.searchStopWords({name:stopWord},{
 		callback:function(data){
@@ -279,25 +283,25 @@ StopWordAgent.searchStopWords({name:stopWord},{
 						goToStopWordPage(0);
 						$('stopWordSearchIndicator').style.visibility = 'hidden';
 					}
-					
+
 					if ($('txtSearchExclude').value != ""){
 						if (data.successful) {
 							$('excludeListCont').innerHTML = "";
 						  for (var i=0; i<data.stopWords.length; i++) {
 						   $('excludeListCont').innerHTML += '<li><span class="includeExclude">'+data.stopWords[i].name+'<a href="javascript:deleteStopWord(\''+ data.stopWords[i].id +'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
-						  }				
+						  }
 						}
-					
+
 						$('stopWordSearchIndicator').style.visibility = 'hidden';
-					}					
+					}
 				}
 				if (data.successful != true){
 					alert(data.reason);
 				}
 		},
-		errorHandler:function(errorString, exception){ 
+		errorHandler:function(errorString, exception){
 					showTheError();
-		}		
+		}
 	});
 }
 
@@ -310,25 +314,25 @@ StopWordAgent.searchTags({name:tag},{
 						goToTagPage(0);
 						$('tagSearchIndicator').style.visibility = 'hidden';
 					}
-					
+
 					if ($('txtSearchInclude').value != ""){
 						if (data.successful) {
 							$('includeListCont').innerHTML = "";
 						  for (var i=0; i<data.tags.length; i++) {
 						   $('includeListCont').innerHTML += '<li><span class="includeExclude">'+data.tags[i].name+'<a href="javascript:deleteTag(\''+ data.tags[i].id +'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
-						  }				
+						  }
 						}
-					
+
 						$('tagSearchIndicator').style.visibility = 'hidden';
-					}					
+					}
 				}
 				if (data.successful != true){
 					alert(data.reason);
 				}
 		},
-		errorHandler:function(errorString, exception){ 
+		errorHandler:function(errorString, exception){
 					showTheError();
-		}		
+		}
 	});
 }
 </script>
@@ -345,7 +349,7 @@ StopWordAgent.searchTags({name:tag},{
 		<div id="mainSearch">
 				<form name="mainSearch" method="post" onSubmit="search();">
 					<input type="text" ID="tbx1" class="searchBox" style="padding-left: 5px; padding-right:20px; background: url('/images/search.gif') no-repeat right;" value="Search" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;">
-				</form>	
+				</form>
 		</div>
 	  <div id="navContent" class="navigation">
 	  	<ul>
@@ -358,8 +362,8 @@ StopWordAgent.searchTags({name:tag},{
 		</div>
 </div>
 <!-- END HEADER -->
-	
-	
+
+
 	<!-- LIGHTBOX -->
 	<div id="overlay"></div>
 	<div id="lightbox"></div>
@@ -378,14 +382,14 @@ StopWordAgent.searchTags({name:tag},{
 			</li>
 		</ul>
 		</div>
-	</div>	
-	
+	</div>
+
 	 <div id="overview">
-		  	<h4>Overview and Instructions</h4> 
+		  	<h4>Overview and Instructions</h4>
 		  	<p class="indent"><strong>Overview: </strong>${cctForm.cct.purpose}</p>
 		  	<p class="indent"><strong>Instructions: </strong>${cctForm.cct.instruction}</p>
 	 </div>
-	
+
 	 <div id="caughtException"><h2>A Problem has Occured</h2><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
 	<div class="tabber" id="myTab">
 		    	<div id="tab_excludeList"  class="tabbertab">
@@ -393,13 +397,13 @@ StopWordAgent.searchTags({name:tag},{
 				    	<div id="searchExclude_form" style="position: relative;">
 								<form name="searchExclude" method="post" onSubmit="searchStopWords($('txtSearchExclude').value); return false;">
 									<input type="text" id="txtSearchExclude" name="txtSearchExclude" style="width:120px; padding-left: 1px; padding-right: 20px; margin-right:5px; background: url('/images/search_light.gif') no-repeat right; background-color: #FFFFFF;" class="searchTagTextbox" value="Search Stop Words" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" onkeyup="searchStopWords($('txtSearchExclude').value);"><div id="stopWordSearchIndicator" style="visibility:hidden; position: absolute; right:0; margin-right: 150px;"><img src="/images/indicator.gif"></div>
-								</form>			
+								</form>
 							</div>
 				    	<h4>top Word List (exclude words <img src="/images/removeItem.gif" alt="Exclude" border="0">)</h4><br>Words to be excluded upon concern submission. Below are the current words in the stop words list. Please use the textbox at the bottom to add new words to the list.
 
 				    	<p>
 				    		<div id="excludeListCont" style="list-style:none; margin:auto;">
-								</div>	   
+								</div>
 							</p>
 				    	<div id="excludeListBreaker" class="breaker">
 				    	<hr>
@@ -411,16 +415,16 @@ StopWordAgent.searchTags({name:tag},{
 					</div>
 				  <div id="tab_includeList" class="tabbertab">
 			    	<H2>Tags List</H2>
-			    	
+
 				    	<div id="searchInclude_form" style="position: relative;">
 								<form name="searchInclude" method="post" onSubmit="searchTags($('txtSearchInclude').value); return false;">
 									<input type="text" id="txtSearchInclude" name="txtSearchInclude" style="width:120px; padding-left: 1px; padding-right: 20px; margin-right:5px; background: url('/images/search_light.gif') no-repeat right; background-color: #FFFFFF;" class="searchTagTextbox" value="Search Tags" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" onkeyup="searchTags($('txtSearchInclude').value);"><div id="tagSearchIndicator" style="visibility:hidden; position: absolute; right:0; margin-right: 150px;"><img src="/images/indicator.gif"></div>
-								</form>			
+								</form>
 							</div>
-							
+
 				    	<p><h4>Tags List (include words <img src="/images/addItem.gif" alt="Exclude" border="0">)</h4><br>Words that will be matched and suggested upon submission of concern. Below are the current words in the include list database. Please use the textbox at the bottom to add new words to the list.
 				    		<div id="includeListCont" style="list-style:none; margin:auto;">
-								</div>	   
+								</div>
 							</p>
 				    	<div id="includeListBreaker" class="breaker">
 			    	<hr>
@@ -431,14 +435,14 @@ StopWordAgent.searchTags({name:tag},{
 			    	<div style="display: none;" id="includeWordValidation" class="validation"></div>
 			    </div>
 	</div>
-	
+
 	<div id="testConcern" class="suppSlate fullBox">
 		<h4>Test Stopwords and Suggested Tags</h4><br>Add a string of text that you would like to test.  This will return suggested and unmatched tags from a participant's perspective.
 		<form name="testStopWord" method="post" onSubmit="addTagToList('tagsList', 'theTag','tagValidation'); return false;">
 			      <p><textarea class="textareaAddConcern" onkeypress="ifEnter(this,event);" name="addConcern" cols="20" rows="2" id="addConcern"></textarea></p>
 			      <p class="indent">
 				      <input type="button" id="btnContinue" name="Continue" value="Continue" onclick="prepareConcern();">
-				      <input type="reset" name="Reset" value="Reset" onClick="resetForm();"> 
+				      <input type="reset" name="Reset" value="Reset" onClick="resetForm();">
 				      <span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>
 			      </p>
 			      <div style="display: none;" id="validation"></div>
@@ -446,7 +450,7 @@ StopWordAgent.searchTags({name:tag},{
 						    <div id="tags" style="background-color: #FFF; border: 5Px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;">
 						    	<h3>Results</h3><p></p>
 									<ul class="tagsList" id="tagsList">
-									</ul>	    
+									</ul>
 									<p></p>
 									<div id="includeExcludeLog" class="successful" style="display: none; height:50px;"></div>
 									<p align="right"><input type="button" name="editConcern" value="Edit Concern" onClick="resetForm();"> </p>

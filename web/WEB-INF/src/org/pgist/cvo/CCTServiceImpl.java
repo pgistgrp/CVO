@@ -194,7 +194,7 @@ public class CCTServiceImpl implements CCTService {
         return cctDAO.getConcernsByTag(tagRef, count);
     } //getConcernsByTag()
 
-    public Collection getSuggestedTags(String statement) throws Exception {
+    public Map getSuggestedTags(String statement) throws Exception {
         return analyzer.parseTextTokenized(statement);
     } //getSuggestedTags
 

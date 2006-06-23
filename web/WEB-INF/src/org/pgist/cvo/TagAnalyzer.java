@@ -25,6 +25,8 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -69,35 +71,24 @@ public class TagAnalyzer {
 
 	private Set stop_words = null;
 
-	private static Document parse(URL url) throws DocumentException {
-		SAXReader reader = new SAXReader();
-		Document document = reader.read(url);
-		return document;
-	}
-
-	private static Document parse(String s) throws DocumentException {
-		SAXReader reader = new SAXReader();
-		Document document = reader.read(new StringReader(s));
-
-		return document;
-	}
-
-	public Collection parseTextTokenized(String statement) {
-		System.out.println(">>>>parse string: " + statement);
-		if (all_tags == null) {
+	public Map parseTextTokenized(String statement) {
+            Map map = new HashMap();
+            if (all_tags == null) {
 			rebuildTree();
-		}
+            }
 
 		Collection suggestedStrings = new HashSet();
+                Collection existingTags = new HashSet();
 
 		long[][] tag_id_count = new long[all_tags.size()][2];
 		for (int k = 0; k < tag_id_count.length; k++) {
 			tag_id_count[k][0] = ((Tag) all_tags.get(k)).getId();
 			tag_id_count[k][1] = 0;
 		}
+                int newtagnumber = 0;
 
-		Reader reader = new StringReader(statement);
-		Tokenizer tkz = new LowerCaseTokenizer(reader); //StandardTokenizer
+		Reader reader = new StringReader(statement.toLowerCase());
+		Tokenizer tkz = new StandardTokenizer(reader); //LowerCaseTokenizer
 
 		try {
 			Token t = tkz.next();
@@ -133,9 +124,10 @@ public class TagAnalyzer {
 				}
 
 				if (!found){
-					if(!stop_words.contains(t.termText().toLowerCase()))
-						suggestedStrings.add(t.termText());
-
+					if(!stop_words.contains(t.termText().toLowerCase())){
+                                            suggestedStrings.add(t.termText());
+                                            newtagnumber ++;
+                                        }
 					t = tkz.next();
 				}
 			}//while
@@ -150,35 +142,60 @@ public class TagAnalyzer {
 		//put all the found tags in the suggestedStrings
 		for (int k = 0; k < tag_id_count.length; k++)
 			if (tag_id_count[k][1] > 0) {
-				suggestedStrings.add(((Tag) all_tags.get(k)).getName());
+				existingTags.add(((Tag) all_tags.get(k)).getName());
 			}
 
-		return suggestedStrings;
+                map.put("tags", existingTags);
+                map.put("potentialtags", suggestedStrings);
+
+		return map;
 	}//parseTextTokenized()
 
-	/**
-	 *
-	 * @param elements
-	 *            List: a list of elements
-	 * @return String
-	 */
-	private String makeSuggest(List elements) {
-		String s = "";
-		for (int i = 0; i < elements.size(); i++) {
-			if (s.length() > 0)
-				s += " ";
+        public Map parseText(String statement) {
+            Map parseResults = new HashMap();
+            Collection suggestedStrings = new HashSet();
 
-			String str = ((Element) elements.get(i)).getText();
-			if (i == 0) {
-				if (str.length() > 2 && str.compareToIgnoreCase("the") != 0)
-					s += str;
-			} else {
-				s += str;
-			}
-		}
-		return s;
-	}
+            long[][] tag_id_count = new long[all_tags.size()][2];
+            for (int k = 0; k < tag_id_count.length; k++) {
+                    tag_id_count[k][0] = ((Tag) all_tags.get(k)).getId();
+                    tag_id_count[k][1] = 0;
+            }
 
+            StringBuffer inText = new StringBuffer(statement.toLowerCase());
+            int cursorText = 0;
+            int nextStart = 0;
+            while(cursorText < inText.length()){
+                long foundTag = -1;
+                int cursorTree = 1;
+                while(cursorTree >= 0){
+                    if(tag_tree[cursorTree][0] == inText.charAt(cursorText)){
+                        if (tag_tree[cursorTree][3] > 0) {
+                            foundTag = tag_tree[cursorTree][3];
+                            nextStart = cursorText;
+                        }
+
+                        cursorTree = (int) tag_tree[cursorTree][1];
+                        cursorText++;
+                    }else{
+                        cursorTree = (int) tag_tree[cursorTree][2];
+                    }
+                }
+
+                //do something with foundTag
+                if(foundTag > 0){
+                    tag_id_count[(int) foundTag][1]++;
+                    cursorText = nextStart + 1;
+                }
+
+                //to avoid getting partial word
+                while(inText.charAt(cursorText) >= 'a' &&
+                            inText.charAt(cursorText) <= 'Z' )
+                          cursorText++;
+
+            }
+
+            return parseResults;
+        }
 	/**
 	 * This method recursively finds the longest matched part of a string
 	 * against the tree, starting from a given position in the tree.
