@@ -77,10 +77,17 @@ function validateForm()
 				for(i=0; i < data.potentialtags.length; i++){
           potentialTags += data.potentialtags[i] + ',';
 				}
-				
-				document.getElementById('tagsList').innerHTML = '<h5>Words Already in Tags List</h5><br> '+ renderTags(concernTags, 0);
-				document.getElementById('tagsList').innerHTML += '<p><h5>Potential Stopwords and Tags</h5><br> '+renderTags(potentialTags, 1)+'</p>';
 
+				if (concernTags != ''){
+					document.getElementById('tagsList').innerHTML = '<h5>Words Already in Tags List</h5><br> '+ renderTags(concernTags, 0);
+				}else{
+					document.getElementById('tagsList').innerHTML = '<p>There are no tags in your inputted text.</p>';
+				}
+				if (potentialTags != ''){
+					document.getElementById('tagsList').innerHTML += '<p><h5>Potential Stopwords and Tags</h5></p><p> '+renderTags(potentialTags, 1)+'</p>';
+				}else{
+					document.getElementById('tagsList').innerHTML += '<p><h5>Potential Stopwords and Tags</h5></p><p>No potential tags available - all words in your inputted text are either stop words or tags.</p>';
+				}
 			}
 			document.getElementById("indicator").style.visibility = "hidden";
 		} );
@@ -176,7 +183,7 @@ function createStopWord(stopWord){
 					goToStopWordPage(0);
 					prepareConcern();
 					$('includeExcludeLog').innerHTML = '<h2>Successful!</h2><img src="/images/removeItem.gif" alt="Include" border="0">&nbsp;The word "<b>' + stopWord +'</b>" has been successfully added to the stop word list!';
-					Effect.Appear('includeExcludeLog', {duration: 1, afterFinish:function(){Effect.SwitchOff('includeExcludeLog', {duration: 1});}});
+					Effect.Appear('includeExcludeLog', {duration: 0.8, afterFinish:function(){Effect.SwitchOff('includeExcludeLog', {duration: 1});}});
 					
 					$('theExcludeWord').value = '';
 					$('theExcludeWord').focus();
@@ -202,7 +209,7 @@ function createTag(tag){
 					goToTagPage(0);
 					prepareConcern();
 					$('includeExcludeLog').innerHTML = '<h2>Successful!</h2><br>&nbsp;&nbsp;<img src="/images/addItem.gif" alt="Include" border="0">&nbsp;The word "<b>' + tag +'</b>" has been successfully added to the tag list!';
-					Effect.Appear('includeExcludeLog', {duration: 1, afterFinish:function(){Effect.SwitchOff('includeExcludeLog', {duration: 1});}});
+					Effect.Appear('includeExcludeLog', {duration: 0.8, afterFinish:function(){Effect.SwitchOff('includeExcludeLog', {duration: .5});}});
 					
 					$('theIncludeWord').value = '';
 					$('theIncludeWord').focus();
