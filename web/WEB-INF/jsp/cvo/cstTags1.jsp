@@ -9,3 +9,10 @@
 		<li id="tag${tag.id}" style="list-style: none;">[<a href="javascript:relateTag(${tag.id});"><strong>&larr;</strong></a>]&nbsp;<a href="javascript:getConcerns(${tag.id});">${tag.tag.name}</a></li>
 	</logic:iterate>
 </ul>
+
+orphanTags:
+<ul>
+	<logic:iterate id="tag" name="orphanTags">
+		<li id="tag${tag.id}" style="list-style: none;">[<a href="javascript:relateTag(${tag.id});"><strong>&larr;</strong></a>]&nbsp;<a href="javascript:getConcerns(${tag.id});">${tag.tag.name}</a></li>
+	</logic:iterate>
+</ul>

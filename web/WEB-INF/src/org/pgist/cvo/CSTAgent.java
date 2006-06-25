@@ -119,6 +119,8 @@ public class CSTAgent {
      *           <li>page - int, the page to be displayed of unrelated tags</li>
      *           <li>count - int, tag number to be displayed on a page, -1 denotes all</li>
      *           <li>type - int, type==0 denotes related tags; type==1 denotes unrelated tags.</li>
+     *           <li>orphanPage - int, the page to be displayed of orphan tags</li>
+     *           <li>orphanCount - int, orphan tag number to be displayed on a page, -1 denotes all</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
@@ -133,6 +135,7 @@ public class CSTAgent {
      *                    <li>tags - A list of related TagReference objects</li>
      *                    <li>orphanTags - A list of related TagReference objects (only for type==1)</li>
      *                    <li>setting - A PageSetting object</li>
+     *                    <li>orphanSetting - A PageSetting object for orphan tags</li>
      *                  </ul>
      *           </li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
@@ -155,12 +158,10 @@ public class CSTAgent {
             
             CategoryReference ref = cstService.getCategoryReferenceById(categoryId);
             if (ref==null) {
-                map.put("successful", false);
                 map.put("reason", "CategoryReference doesn't exist.");
                 return map;
             }
             if (ref.getCct().getId().longValue()!=cct.getId().longValue()) {
-                map.put("successful", false);
                 map.put("reason", "CategoryReference object is not in this CCT object");
                 return map;
             }
@@ -176,11 +177,7 @@ public class CSTAgent {
             setting.setRowOfPage(count);
             
             String pageStr = (String) params.get("page");
-            int page = 1;
-            try {
-                page = Integer.parseInt(pageStr);
-            } catch (Exception e) {
-            }
+            int page = Integer.parseInt(pageStr);
             setting.setPage(page);
             
             Collection tags = null;
@@ -190,6 +187,22 @@ public class CSTAgent {
                 tags = cstService.getRealtedTags(cctId, categoryId, setting);
             } else if ("1".equals(type)) {
                 tags = cstService.getUnrelatedTags(cctId, categoryId, setting);
+                
+                PageSetting orphanSetting = new PageSetting();
+                
+                String orphanPageStr = (String) params.get("orphanPage");
+                int orphanPage = Integer.parseInt(orphanPageStr);
+                orphanSetting.setPage(orphanPage);
+                
+                String orphanCountStr = (String) params.get("orphanCount");
+                int orphanCount = -1;
+                if (orphanCountStr!=null && !"".equals(orphanCountStr)) {
+                    orphanCount = Integer.parseInt(orphanPageStr);
+                }
+                orphanSetting.setRowOfPage(orphanCount);
+                
+                Collection orphanTags = cstService.getOrphanTags(cctId, orphanSetting);
+                request.setAttribute("orphanTags", orphanTags);
             } else {
                 map.put("reason", "unknown type: "+type);
                 return map;
@@ -209,7 +222,6 @@ public class CSTAgent {
             map.put("successful", true);
         } catch(Exception e) {
             e.printStackTrace();
-            map.put("successful", false);
             map.put("reason", e.getMessage());
         }
         
@@ -224,6 +236,7 @@ public class CSTAgent {
      *         <ul>
      *           <li>cctId - long int, the current CCT instance id</li>
      *           <li>page - int, the page to be displayed of unrelated tags</li>
+     *           <li>count - int, the rows number per page</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
@@ -256,7 +269,12 @@ public class CSTAgent {
             String pageStr = (String) params.get("page");
             if (pageStr!=null || !"".equals(pageStr.trim())) page = Integer.parseInt(pageStr);
             
+            int count = -1;
+            String countStr = (String) params.get("count");
+            if (countStr!=null || !"".equals(countStr.trim())) count = Integer.parseInt(countStr);
+            
             PageSetting setting = new PageSetting();
+            setting.setRowOfPage(count);
             setting.setPage(page);
             
             Collection tags = cstService.getOrphanTags(cctId, setting);

@@ -93,13 +93,38 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
     }//getRealtedTags()
 
 
-    private static final String hql_getUnrelatedTags1 = "select count(cct.tagRefs.id) from CCT cct where cct.tagRefs.id not in (select cr.tags.id from CategoryReference cr where cr.id=?)";
+    private static final String hql_getUnrelatedTags1 =
+         "select count(tr.id) from TagReference tr where "
+       + " tr.cctId=? "
+       + " and tr.id not in (select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id) "
+       + " and tr.tag.id not in (select cr.tags.id from CategoryReference cr where cr.id=?) ";
     
-    private static final String hql_getUnrelatedTags2 = "from TagReference tr where tr.cctId=? and tr.id not in (select cr.tags.id from CategoryReference cr where cr.id=?) order by tr.tag.name";
+    
+    private static final String hql_getUnrelatedTags2 =
+        "from TagReference tr where "
+       + " tr.cctId=? "
+       + " and tr.id not in (select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id) "
+       + " and tr.tag.id not in (select cr.tags.id from CategoryReference cr where cr.id=?) "
+       + " order by tr.tag.name";
     
     
+    /**
+     * get tag references which are not related to the given categoryId, and also not the orphan tags.
+     * 
+     * @param cctId
+     * @param categoryId
+     * @param setting
+     * @return
+     * @throws Exception
+     * 
+     */
     public Collection getUnrelatedTags(Long cctId, Long categoryId, PageSetting setting) throws Exception {
-        List list = getHibernateTemplate().find(hql_getUnrelatedTags1, categoryId);
+        List list = getHibernateTemplate().find(hql_getUnrelatedTags1, new Object[] {
+                cctId,
+                cctId,
+                categoryId,
+        });
+        
         if (list.size()==0) return new ArrayList();
         
         int count = ((Integer) list.get(0)).intValue();
@@ -108,7 +133,8 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
         
         Query query = getSession().createQuery(hql_getUnrelatedTags2);
         query.setLong(0, cctId);
-        query.setLong(1, categoryId);
+        query.setLong(1, cctId);
+        query.setLong(2, categoryId);
         query.setMaxResults(setting.getRowOfPage());
         query.setFirstResult(setting.getFirstRow());
         

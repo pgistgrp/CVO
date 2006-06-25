@@ -1,32 +1,20 @@
 package org.pgist.cvo;
 
-import java.io.FileNotFoundException;
 import java.io.Reader;
-import java.io.BufferedReader;
 import java.io.StringReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.lucene.analysis.LowerCaseTokenizer;
 import org.apache.lucene.analysis.Token;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.standard.StandardTokenizer;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *

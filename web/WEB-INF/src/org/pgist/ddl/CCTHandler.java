@@ -6,6 +6,7 @@ import java.util.List;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.pgist.cvo.CCT;
+import org.pgist.cvo.CategoryReference;
 import org.pgist.users.User;
 
 
@@ -55,6 +56,11 @@ public class CCTHandler extends Handler {
             
             cct.setPurpose(purpose);
             cct.setInstruction(instruction);
+            
+            CategoryReference catRef = new CategoryReference();
+            catRef.setCct(cct);
+            
+            cct.setRootCategory(catRef);
             
             saveCCT(cct);
         }//for i
