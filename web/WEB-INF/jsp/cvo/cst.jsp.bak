@@ -136,7 +136,7 @@ ol#root {  padding-left: 5px; margin-top: 2px; margin-bottom: 1px; list-style: n
 					
 						if (data.successful){
 							$('panelCatsContent').innerHTML = data.html;
-							collapseAll(["ol"]); openBookMark();
+							//collapseAll(["ol"]); openBookMark();
 							
 						}
 						if (data.successful != true){

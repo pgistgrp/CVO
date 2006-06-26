@@ -30,10 +30,11 @@ function validateForm()
 	{
 		if(""==document.forms.testStopWord.addConcern.value)
 		{
-			document.getElementById('validation').innerHTML = 'Please fill in your concern above.';
-			Effect.BlindDown('validation');
+			$('includeExcludeLog').className ="validation";
+			document.getElementById('includeExcludeLog').innerHTML = 'Please fill in your test concern below.';
+			Effect.BlindDown('includeExcludeLog');
 			Effect.BlindUp('tagConcerns');
-			Effect.Highlight('validation', {duration: 4, endcolor:'#EEF3D8'});
+			//Effect.Highlight('validation', {duration: 4, endcolor:'#EEF3D8'});
 			//Effect.Highlight('theTag', {duration: 10, endcolor:'#EEF3D8'});
 			return false;
 
@@ -50,11 +51,11 @@ function validateForm()
 	function resetForm()
 	{
 
-		$('btnContinue').disabled=false;
+		//$('btnContinue').disabled=false;
 		Effect.BlindUp('tagConcerns');
-		Effect.BlindUp('validation');
-		$('addConcern').style.background="#FFF";
-		$('addConcern').style.color="#333";
+		//Effect.BlindUp('includeExcludeLog');
+		//$('addConcern').style.background="#FFF";
+		//$('addConcern').style.color="#333";
 	}
 
 	function prepareConcern(){
@@ -64,9 +65,9 @@ function validateForm()
     potentialTags = "";
 		tagHolderId = 0;
 		
-		$('btnContinue').disabled=true;
-		$('addConcern').style.background="#EEE";
-		$('addConcern').style.color="#CCC";
+		//$('btnContinue').disabled=true;
+		//$('addConcern').style.background="#EEE";
+		//$('addConcern').style.color="#CCC";
 		var concern = $('addConcern').value;
 		document.getElementById("indicator").style.visibility = "visible";
 		CCTAgent.prepareConcern({concern:concern}, function(data) {
@@ -75,7 +76,7 @@ function validateForm()
 					concernTags += data.tags[i] + ',';
 				}
 				for(i=0; i < data.potentialtags.length; i++){
-          potentialTags += data.potentialtags[i] + ',';
+          potentialTags += data.potentialtags[i].replace(/'/g, "\\\'") + ','; 
 				}
 
 				if (concernTags != ''){
@@ -445,7 +446,7 @@ StopWordAgent.searchTags({name:tag},{
 									</ul>
 									<p></p>
 									
-									<p align="right"><input type="button" name="editConcern" value="Edit Concern" onClick="resetForm();"> </p>
+									<p align="right"><input type="button" name="editConcern" value="close" onClick="resetForm();"> </p>
 						    </div>
 						    <br>
 				    </div>
