@@ -16,6 +16,8 @@
     
     <handler name="concerns">org.pgist.ddl.ConcernHandler</handler>
     
+    <handler name="glossary">org.pgist.ddl.GlossaryHandler</handler>
+    
     
 </handlers>
 

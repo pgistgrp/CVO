@@ -23,6 +23,8 @@ import org.pgist.cvo.Concern;
 import org.pgist.cvo.StopWord;
 import org.pgist.cvo.Tag;
 import org.pgist.cvo.TagReference;
+import org.pgist.glossary.Term;
+import org.pgist.glossary.TermCategory;
 import org.pgist.users.Role;
 import org.pgist.users.User;
 
@@ -40,7 +42,7 @@ public abstract class Handler {
     protected static final DateFormat format = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, Locale.ENGLISH);
     
     protected String name;
-    
+
     protected static File dataPath;
     
     private static Session session;
@@ -60,6 +62,10 @@ public abstract class Handler {
     private static final Map<Long, Concern> concernMap = new HashMap<Long, Concern>();
     
     private static final Map<Tag, TagReference> tagRefMap = new HashMap<Tag, TagReference>();
+    
+    private static final Map<String, Term> termMap = new HashMap<String, Term>();
+    
+    private static final Map<String, TermCategory> termCatMap = new HashMap<String, TermCategory>();
     
     
     public void setName(String name) {
@@ -355,6 +361,73 @@ public abstract class Handler {
             return status;
         }
     }//parseTagStatus()
+    
+    
+    private static final String hql_getTerms = "from Term order by name";
+    
+    
+    @SuppressWarnings("unchecked")
+    protected List<Term> getTerms() {
+        Query query = session.createQuery(hql_getTerms);
+        return (List<Term>) query.list();
+    }//getTerms()
+
+
+    private static final String hql_getTermByName = "from Term t where t.name=?";
+    
+    
+    protected Term getTermByName(String name) {
+        if (termMap.containsKey(name)) return termMap.get(name);
+        
+        Query query = session.createQuery(hql_getTermByName);
+        query.setString(0, name);
+        List list = query.list();
+        if (list.size()==0) return null;
+        
+        Term term = (Term) list.get(0);
+        termMap.put(term.getName(), term);
+        
+        return term;
+    }//getTermByName()
+
+
+    protected void saveTerm(Term term) {
+        if (!termMap.containsValue(term)) {
+            termMap.put(term.getName(), term);
+        }
+        session.saveOrUpdate(term);
+    }//saveTerm()
+
+
+    private static final String hql_getTermCatByName = "from TermCategory tc where tc.name=?";
+    
+    
+    protected TermCategory getTermCatByName(String name) {
+        if (termCatMap.containsKey(name)) return termCatMap.get(name);
+        
+        Query query = session.createQuery(hql_getTermCatByName);
+        query.setString(0, name);
+        List list = query.list();
+        if (list.size()==0) return null;
+        
+        TermCategory tc = (TermCategory) list.get(0);
+        termCatMap.put(tc.getName(), tc);
+        
+        return tc;
+    }//getTermByName()
+
+
+    protected void saveTermCat(TermCategory termCategory) {
+        if (!termCatMap.containsValue(termCategory)) {
+            termCatMap.put(termCategory.getName(), termCategory);
+        }
+        session.saveOrUpdate(termCategory);
+    }//saveTerm()
+
+
+    /*
+     * ------------------------------------------------------------------------
+     */
     
     
     abstract protected void doImports(Element root) throws Exception;

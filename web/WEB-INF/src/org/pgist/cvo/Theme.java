@@ -1,8 +1,7 @@
 package org.pgist.cvo;
 
-import java.util.Date;
-
-import org.pgist.users.User;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 
 /**
@@ -18,11 +17,17 @@ public class Theme {
     
     protected String name = "";
     
-    protected User creator;
-    
-    protected Date createTime;
-    
     protected boolean deleted = false;
+    
+    protected SortedSet parents = new TreeSet();
+    
+    protected SortedSet children = new TreeSet();
+    
+    protected Long oid;
+    
+    protected int otype;
+    
+    protected Object obj;
     
     
     /**
@@ -60,27 +65,47 @@ public class Theme {
      * 
      * @hibernate.property not-null="true"
      */
-    public Date getCreateTime() {
-        return createTime;
+    public String getName() {
+        return name;
     }
 
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setName(String name) {
+        this.name = name;
     }
 
 
     /**
      * @return
-     * @hibernate.many-to-one column="creator_id" lazy="true"
+     * 
+     * @hibernate.set lazy="true" cascade="all" table="pgist_cvo_theme_theme_link" order-by="child_id"
+     * @hibernate.collection-key column="parent_id"
+     * @hibernate.collection-many-to-many column="child_id" class="org.pgist.cvo.Theme"
      */
-    public User getCreator() {
-        return creator;
+    public SortedSet getParents() {
+        return parents;
+    }
+    
+    
+    public void setParents(SortedSet parents) {
+        this.parents = parents;
     }
 
 
-    public void setCreator(User creator) {
-        this.creator = creator;
+    /**
+     * @return
+     * 
+     * @hibernate.set lazy="true" cascade="all" table="pgist_cvo_theme_theme_link" order-by="parent_id"
+     * @hibernate.collection-key column="child_id"
+     * @hibernate.collection-many-to-many column="parent_id" class="org.pgist.cvo.Theme"
+     */
+    public SortedSet getChildren() {
+        return children;
+    }
+
+
+    public void setChildren(SortedSet children) {
+        this.children = children;
     }
 
 
@@ -89,13 +114,43 @@ public class Theme {
      * 
      * @hibernate.property not-null="true"
      */
-    public String getName() {
-        return name;
+    public Long getOid() {
+        return oid;
     }
 
 
-    public void setName(String name) {
-        this.name = name;
+    public void setOid(Long oid) {
+        this.oid = oid;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.property not-null="true"
+     */
+    public int getOtype() {
+        return otype;
+    }
+
+
+    public void setOtype(int otype) {
+        this.otype = otype;
+    }
+
+
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
+    public Object getObj() {
+        return obj;
+    }
+
+
+    public void setObj(Object obj) {
+        this.obj = obj;
     }
 
 

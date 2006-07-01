@@ -40,6 +40,10 @@
                <value>org/pgist/cvo/Concern.hbm.xml</value>
                <value>org/pgist/cvo/Summary.hbm.xml</value>
                <value>org/pgist/cvo/SummaryRevision.hbm.xml</value>
+               <value>org/pgist/glossary/Term.hbm.xml</value>
+               <value>org/pgist/glossary/TermLink.hbm.xml</value>
+               <value>org/pgist/glossary/TermSource.hbm.xml</value>
+               <value>org/pgist/glossary/TermCategory.hbm.xml</value>
                <value>org/pgist/workflow/DecisionSituation.hbm.xml</value>
                <value>org/pgist/wfengine/WorkflowEnvironment.hbm.xml</value>
                <value>org/pgist/wfengine/RunningContext.hbm.xml</value>
