@@ -105,8 +105,25 @@
     </create>
 
 
+    <create creator="spring" javascript="GlossaryAgent">
+      <param name="beanName" value="glossaryAgent"/>
+      <include method="getTerms"/>
+      <include method="getTerm"/>
+      <include method="saveTerm"/>
+    </create>
+    
+    
   </allow>
 
 
+  <signatures>
+    <![CDATA[
+    import java.util.Map;
+    import org.pgist.glossary.GlossaryAgent;
+    GlossaryAgent.saveTerm(Map<String, String> params, String[] relatedTerms, String[] links, String[] sources, String[] categories);
+    ]]>
+  </signatures>
+  
+  
 </dwr>
 

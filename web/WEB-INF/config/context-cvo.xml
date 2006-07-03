@@ -108,5 +108,26 @@
     </bean>
 
 
+    <bean id="glossaryDAO" class="org.pgist.glossary.GlossaryDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
+    <bean id="glossaryService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.glossary.GlossaryServiceImpl">
+                <property name="glossaryDAO" ref="glossaryDAO"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="glossaryAgent" class="org.pgist.glossary.GlossaryAgent">
+        <property name="glossaryService" ref="glossaryService"/>
+    </bean>
+
+
 </beans>
 

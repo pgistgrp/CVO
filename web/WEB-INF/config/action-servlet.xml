@@ -58,6 +58,11 @@
     </bean>
     
     
+    <bean name="/glossaryManage" class="org.pgist.glossary.GlossaryManageAction">
+        <property name="glossaryService" ref="glossaryService"/>
+    </bean>
+    
+    
     <!--bean name="/cvolist" class="org.pgist.cvo.CVOListAction">
         <property name="userDAO" ref="userDAO"/>
         <property name="cvoDAO" ref="cvoDAO"/>

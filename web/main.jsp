@@ -30,6 +30,14 @@
   <p><html:link page="/sdclist.do">Structured Discussion for Concerns</html:link>
 </pg:show>
 
+<pg:show roles="moderator">
+  <p><html:link page="/glossaryManage.do?count=20">Glossary Management Tool</html:link>
+</pg:show>
+
+<br>
+<br>
+<br>
+
 <p><html:link page="/test.jsp">Test</html:link>
 
 <p><html:link page="/concernManagement.do">Concern Management</html:link>

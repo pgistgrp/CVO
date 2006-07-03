@@ -13,13 +13,23 @@ public class PageSetting {
 
     
     private int page = 1;
+    
     private int rowSize = 0;
+    
     private int pageSize = 0;
+    
     private int rowOfPage = 10;
+    
     private int pageOfScreen = 10;
+    
     private int head = 1;
+    
     private int tail = 1;
+    
+    private String filter = null;
+    
     private Map parameters = new HashMap();
+    
     private int[] options = {
         10,
         15,
@@ -52,6 +62,16 @@ public class PageSetting {
     }
 
 
+    public void setPage(String page) {
+        try {
+            this.page = Integer.parseInt(page);
+            if (this.page<1) this.page = 1;
+        } catch (Exception e) {
+            this.page = 1;
+        }
+    }
+
+
     public int getPageSize() {
         return pageSize;
     }
@@ -79,6 +99,17 @@ public class PageSetting {
 
     public void setRowOfPage(int rowOfPage) {
         this.rowOfPage = rowOfPage;
+        if (this.rowOfPage<=0) this.rowOfPage = -1;
+    }
+
+
+    public void setRowOfPage(String rowOfPage) {
+        try {
+            this.rowOfPage = Integer.parseInt(rowOfPage);
+            if (this.rowOfPage<=0) this.rowOfPage = -1;
+        } catch(Exception e) {
+            this.rowOfPage = -1;
+        }
     }
 
 
@@ -106,6 +137,17 @@ public class PageSetting {
         return tail;
     }
     
+    
+    public String getFilter() {
+        return filter;
+    }
+
+
+    public void setFilter(String filter) {
+        this.filter = filter;
+    }
+
+
     public int[] getOptions() {
         return options;
     }
@@ -159,6 +201,6 @@ public class PageSetting {
     public void set(String name, Object value) {
         parameters.put(name, value);
     }
-    
-    
+
+
 }
