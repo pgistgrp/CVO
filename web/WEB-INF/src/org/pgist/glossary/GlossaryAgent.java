@@ -38,9 +38,9 @@ public class GlossaryAgent {
     
     
     /**
-     * Get glossary terms with the given contions.
+     * Get glossary terms with the given conditions.
      * 
-     * @param params A map contains:<br>
+     * @param params - A map contains:<br>
      *         <ul>
      *           <li>prefix - String, prefix to filtering terms</li>
      *           <li>count - int, the term number to be displayed in a page</li>
@@ -88,7 +88,7 @@ public class GlossaryAgent {
     /**
      * Get term object with the given termId.
      * 
-     * @param params A map contains:<br>
+     * @param params - A map contains:<br>
      *         <ul>
      *           <li>id - int, id of term object</li>
      *           <li>type - string, 'view' | 'edit'</li>
@@ -144,7 +144,7 @@ public class GlossaryAgent {
     /**
      * Save the given term object.
      * 
-     * @param params A map contains:<br>
+     * @param params - A map contains:<br>
      *         <ul>
      *           <li>id - int, id of term object, -1 denotes to create a new term, else modify an existing term</li>
      *           <li>name - string, the name of term</li>

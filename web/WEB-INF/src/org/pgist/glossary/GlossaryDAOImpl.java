@@ -17,13 +17,13 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO {
     
     
-    private static String hql_getTerms_11 = "select count(t.id) from Term t";
+    private static String hql_getTerms_11 = "select count(t.id) from Term t where t.deleted=?";
     
-    private static String hql_getTerms_12 = "from Term t order by t.name";
+    private static String hql_getTerms_12 = "from Term t where t.deleted=? order by t.name";
     
-    private static String hql_getTerms_21 = "select count(t.id) from Term t where t.name like ?";
+    private static String hql_getTerms_21 = "select count(t.id) from Term t where t.deleted=? and t.name like ?";
     
-    private static String hql_getTerms_22 = "from Term t where t.name like ? order by t.name";
+    private static String hql_getTerms_22 = "from Term t where t.deleted=? and t.name like ? order by t.name";
     
     
     public Collection getTerms(PageSetting setting) throws Exception {
@@ -32,9 +32,12 @@ public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO 
         List list = null;
         
         if (filter==null) {
-            list = getHibernateTemplate().find(hql_getTerms_11);
+            list = getHibernateTemplate().find(hql_getTerms_11, false);
         } else {
-            list = getHibernateTemplate().find(hql_getTerms_21, filter+'%');
+            list = getHibernateTemplate().find(hql_getTerms_21, new Object[] {
+                    false,
+                    filter+'%'
+            });
         }
         
         int count = ((Number) list.get(0)).intValue();
@@ -47,9 +50,11 @@ public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO 
         Query query = null;
         if (filter==null) {
             query = getSession().createQuery(hql_getTerms_12);
+            query.setBoolean(0, false);
         } else {
             query = getSession().createQuery(hql_getTerms_22);
-            query.setString(0, filter+'%');
+            query.setBoolean(0, false);
+            query.setString(1, filter+'%');
         }
         query.setFirstResult(setting.getFirstRow());
         query.setMaxResults(setting.getRowOfPage());
@@ -59,15 +64,17 @@ public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO 
 
 
     public Term getTermById(Long id) throws Exception {
-        return (Term) getHibernateTemplate().load(Term.class, id);
+        Term term = (Term) getHibernateTemplate().load(Term.class, id);
+        if (term==null || term.isDeleted()) return null;
+        return term;
     }//getTermById()
     
     
-    private static String hql_getTermByName = "from Term t where t.name=?";
+    private static String hql_getTermByName = "from Term t where t.deleted=? and t.name=?";
     
 
     public Term getTermByName(String name) throws Exception {
-        List list = getHibernateTemplate().find(hql_getTermByName, name);
+        List list = getHibernateTemplate().find(hql_getTermByName, new Object[] {false, name});
         if (list.size()==0) return null;
         return (Term) list.get(0);
     }//getTermByName()
