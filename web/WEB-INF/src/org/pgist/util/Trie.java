@@ -23,6 +23,14 @@ public class Trie {
     
     public Pair longestPrefix(String s, Node node){
         Pair pair = new Pair();
+        int n = s.length();
+        Node p, q = node;
+        int i = 0;
+        while(q != null){
+        	p = q;
+        	q = q.getChild(s.charAt(i));
+        	
+        }
         return pair;
     }
     
@@ -44,7 +52,7 @@ public class Trie {
         
     }
     
-    public void build(List objects){
+    public void build(Collection objects){
         
     }
     
@@ -73,6 +81,13 @@ public class Trie {
         /** Creates a new instance of Node */
         public Node(char ch) {
             c = ch;
+        }
+        
+        public Node getChild(char ch){
+        	if(children == null)
+        		return null;
+        	
+        	return (Node)children.get("" + ch);
         }
         
         public Node addChild(char letter){
