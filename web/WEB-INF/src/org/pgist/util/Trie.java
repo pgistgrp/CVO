@@ -63,8 +63,8 @@ public class Trie {
     	return output;
     }
     
-    public String mark(String text){
-        return "";
+    public int[][] mark(String text){
+        return null;
     }
     
     class Pair{
