@@ -1,0 +1,53 @@
+#header_object{
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	margin: auto;
+	margin-left: auto;
+	margin-right: auto;
+	background: #fff;
+	padding: 10px;
+	padding-top: 5px;
+	width: 90%;
+	}
+#object{
+	border: 1px solid #ccc;
+	border-top: 0px solid #fff;
+	width: 90%;
+	margin: auto;
+	height: 51%;
+	overflow: auto;
+	padding: 10px;
+	padding-top: 0px;
+}
+#discussion{
+	border: 1px solid #ccc;
+	border-top: 0px solid #fff !important;  
+	width: 85%;
+	margin: auto;
+	height: 25%;
+	overflow: auto;
+	padding: 10px;
+	padding-top: 0px;
+}
+#header_discussion{
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	margin: auto;
+	margin-left: auto;
+	margin-right: auto;
+	background: #fff;
+	padding: 10px;
+	padding-top: 5px;
+	width: 85%;
+}
+#toggle{
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	margin: auto; 
+	background: #eee;
+	width: 85%;
+	text-align: center;
+	padding: 0px 10px 0px 10px;
+	height: 9px;
+	}
