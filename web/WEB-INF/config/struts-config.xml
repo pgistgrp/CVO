@@ -47,6 +47,9 @@
     <action name="cctForm" path="/glossaryManage" scope="request" type="org.pgist.glossary.GlossaryManageAction">
       <forward name="list" path="/WEB-INF/jsp/glossary/gmMain.jsp" />
     </action>
+    <action name="cctForm" path="/alphaGlossary" scope="request" type="org.pgist.glossary.AlphabeticGlossaryAction">
+      <forward name="list" path="/WEB-INF/jsp/glossary/alphaTerms.jsp" />
+    </action>
     <action name="workflowForm" path="/situationList" scope="request" type="org.pgist.workflow.SituationListAction">
       <forward name="list" path="/WEB-INF/jsp/workflow/situationList.jsp" />
     </action>

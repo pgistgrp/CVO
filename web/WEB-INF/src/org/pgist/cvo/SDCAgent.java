@@ -190,7 +190,7 @@ public class SDCAgent {
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
-     *           <li>posts - a list of Post objects</li>
+     *           <li>posts - a list of DiscussionPost objects</li>
      *         </ul>
      */
     public Map getDiscussion(Map params) {

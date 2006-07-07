@@ -13,8 +13,18 @@ import org.pgist.util.PageSetting;
 public interface GlossaryDAO {
     
     
+    Collection getAllTerms() throws Exception;
+
     Collection getTerms(PageSetting setting) throws Exception;
 
+    Collection getTermsByName(String filter, boolean ascending) throws Exception;
+    
+    Collection getTermsByViews(String filter, boolean ascending) throws Exception;
+    
+    Collection getTermsByComments(String filter, boolean ascending) throws Exception;
+    
+    Collection getTermsByCreateTime(String filter, boolean ascending) throws Exception;
+    
     Term getTermById(Long id) throws Exception;
 
     Term getTermByName(String name) throws Exception;
@@ -23,5 +33,5 @@ public interface GlossaryDAO {
 
     TermCategory getCategoryByName(String name) throws Exception;
 
-    
+
 }//interface GlossaryDAO

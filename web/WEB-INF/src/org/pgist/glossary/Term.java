@@ -37,11 +37,15 @@ public class Term {
     
     private Date createTime;
     
+    private Date modifyTime;
+    
     private int refCount;
     
     private int hitCount;
     
     private int commentCount;
+    
+    private char initial;
     
     private Set categories = new HashSet();
     
@@ -194,6 +198,20 @@ public class Term {
 
     /**
      * @return
+     * @hibernate.property
+     */
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
+    }
+
+
+    /**
+     * @return
      * @hibernate.property not-null="true"
      */
     public int getCommentCount() {
@@ -217,6 +235,20 @@ public class Term {
 
     public void setHitCount(int hitCount) {
         this.hitCount = hitCount;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public char getInitial() {
+        return initial;
+    }
+
+
+    public void setInitial(char initial) {
+        this.initial = initial;
     }
 
 
@@ -255,6 +287,11 @@ public class Term {
      */
     
     
+    public String toString() {
+        return this.name;
+    }//toString()
+    
+    
     public String getCategoryList() {
         StringBuffer sb = new StringBuffer();
         
@@ -267,7 +304,7 @@ public class Term {
         }
         
         return sb.toString();
-    }
+    }//getCategoryList()
     
     
 }//class Term

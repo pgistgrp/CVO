@@ -34,6 +34,8 @@
   <p><html:link page="/glossaryManage.do?count=20">Glossary Management Tool</html:link>
 </pg:show>
 
+<p><html:link page="/alphaGlossary.do">Alphabetic Glossary</html:link>
+
 <br>
 <br>
 <br>

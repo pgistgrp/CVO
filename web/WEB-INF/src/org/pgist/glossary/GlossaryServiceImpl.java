@@ -31,6 +31,20 @@ public class GlossaryServiceImpl implements GlossaryService {
     }//getTerms()
 
 
+    public Collection getTerms(String filter, String sort, String direction) throws Exception {
+        if (sort==null || "".equalsIgnoreCase(sort.trim()) || "name".equalsIgnoreCase(sort.trim())) {
+            glossaryDAO.getTermsByName(filter, !"desc".equals(direction));
+        } else if ("views".equalsIgnoreCase(sort)) {
+            glossaryDAO.getTermsByViews(filter, !"desc".equals(direction));
+        } else if ("comments".equalsIgnoreCase(sort)) {
+            glossaryDAO.getTermsByComments(filter, !"desc".equals(direction));
+        } else if ("createtime".equalsIgnoreCase(sort)) {
+            glossaryDAO.getTermsByCreateTime(filter, !"desc".equals(direction));
+        }
+        return null;
+    }//getTerms()
+    
+    
     public Term getTermById(Long id) throws Exception {
         return glossaryDAO.getTermById(id);
     }//getTermById()
@@ -72,6 +86,6 @@ public class GlossaryServiceImpl implements GlossaryService {
         
         glossaryDAO.saveTerm(term);
     }//saveTerm()
-    
-    
+
+
 }//class GlossaryServiceImpl

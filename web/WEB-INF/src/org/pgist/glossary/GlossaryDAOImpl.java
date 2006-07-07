@@ -17,6 +17,14 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO {
     
     
+    private static String hql_getAllTerms = "from Term t where t.deleted=? order by t.name";
+    
+    
+    public Collection getAllTerms() throws Exception {
+        return getHibernateTemplate().find(hql_getAllTerms, false);
+    }//getAllTerms()
+
+
     private static String hql_getTerms_11 = "select count(t.id) from Term t where t.deleted=?";
     
     private static String hql_getTerms_12 = "from Term t where t.deleted=? order by t.name";
@@ -61,6 +69,98 @@ public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO 
         
         return query.list();
     }//getTerms()
+
+
+    private static String hql_getTermsByName_1 = "from Term t where t.deleted=? order by t.name ";
+    
+    private static String hql_getTermsByName_2 = "from Term t where t.deleted=? and t.name like ? order by t.name ";
+    
+    
+    public Collection getTermsByName(String filter, boolean ascending) throws Exception {
+        String ascend = ascending ? "asc" : "desc";
+        
+        Query query = null;
+        
+        if (filter==null || "".equals(filter.trim())) {
+            query = getSession().createQuery(hql_getTermsByName_1+ascend);
+            query.setBoolean(0, false);
+        } else {
+            query = getSession().createQuery(hql_getTermsByName_2+ascend);
+            query.setBoolean(0, false);
+            query.setString(1, '%'+filter+'%');
+        }
+        
+        return query.list();
+    }//getTermsByName()
+
+
+    private static String hql_getTermsByViews_1 = "from Term t where t.deleted=? order by t.initial, t.refCount";
+    
+    private static String hql_getTermsByViews_2 = "from Term t where t.deleted=? and t.name like ? order by t.initial, t.refCount";
+    
+    
+    public Collection getTermsByViews(String filter, boolean ascending) throws Exception {
+        String ascend = ascending ? "asc" : "desc";
+        
+        Query query = null;
+        
+        if (filter==null || "".equals(filter.trim())) {
+            query = getSession().createQuery(hql_getTermsByViews_1+ascend);
+            query.setBoolean(0, false);
+        } else {
+            query = getSession().createQuery(hql_getTermsByViews_2+ascend);
+            query.setBoolean(0, false);
+            query.setString(1, '%'+filter+'%');
+        }
+        
+        return query.list();
+    }//getTermsByViews()
+
+
+    private static String hql_getTermsByComments_1 = "from Term t where t.deleted=? order by t.initial, t.commentCount";
+    
+    private static String hql_getTermsByComments_2 = "from Term t where t.deleted=? and t.name like ? order by t.initial, t.commentCount";
+    
+    
+    public Collection getTermsByComments(String filter, boolean ascending) throws Exception {
+        String ascend = ascending ? "asc" : "desc";
+        
+        Query query = null;
+        
+        if (filter==null || "".equals(filter.trim())) {
+            query = getSession().createQuery(hql_getTermsByComments_1+ascend);
+            query.setBoolean(0, false);
+        } else {
+            query = getSession().createQuery(hql_getTermsByComments_2+ascend);
+            query.setBoolean(0, false);
+            query.setString(1, '%'+filter+'%');
+        }
+        
+        return query.list();
+    }//getTermsByComments()
+
+
+    private static String hql_getTermsByCreateTime_1 = "from Term t where t.deleted=? order by t.initial, t.createTime";
+    
+    private static String hql_getTermsByCreateTime_2 = "from Term t where t.deleted=? and t.name like ? order by t.initial, t.createTime";
+    
+    
+    public Collection getTermsByCreateTime(String filter, boolean ascending) throws Exception {
+        String ascend = ascending ? "asc" : "desc";
+        
+        Query query = null;
+        
+        if (filter==null || "".equals(filter.trim())) {
+            query = getSession().createQuery(hql_getTermsByCreateTime_1+ascend);
+            query.setBoolean(0, false);
+        } else {
+            query = getSession().createQuery(hql_getTermsByCreateTime_2+ascend);
+            query.setBoolean(0, false);
+            query.setString(1, '%'+filter+'%');
+        }
+        
+        return query.list();
+    }//getTermsByCreateTime()
 
 
     public Term getTermById(Long id) throws Exception {

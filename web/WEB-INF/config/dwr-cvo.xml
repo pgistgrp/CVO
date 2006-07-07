@@ -39,24 +39,13 @@
     </convert>
 
 
-    <!-- DWR Agents -->
+    <convert converter="bean" match="org.pgist.glossary.Term">
+      <param name="exclude" value="relatedTerms"/>
+    </convert>
 
-    <!--create creator="spring" javascript="CVOAgent">
-      <param name="beanName" value="cvoAgent"/>
-      <include method="getCVOList"/>
-      <include method="createCVO"/>
-      <include method="extractConcern"/>
-      <include method="createConcern"/>
-      <include method="getPost"/>
-      <include method="createPost"/>
-      <include method="getPostGroups"/>
-      <include method="getCategoryTags"/>
-      <include method="createCategory"/>
-      <include method="addTagToCategory"/>
-      <include method="deleteTagFromCategory"/>
-      <include method="moveCategory"/>
-      <include method="createTag"/>
-    </create-->
+
+    <!-- DWR Agents -->
+    
 
     <create creator="spring" javascript="CCTAgent">
       <param name="beanName" value="cctAgent"/>
@@ -110,6 +99,29 @@
       <include method="getTerms"/>
       <include method="getTerm"/>
       <include method="saveTerm"/>
+    </create>
+    
+    
+    <create creator="spring" javascript="GlossaryPublicAgent">
+      <param name="beanName" value="glossaryAgent"/>
+      <include method="getTerms"/>
+      <include method="getTermHTML"/>
+      <include method="getTermObject"/>
+      <include method="proposeTerm"/>
+    </create>
+    
+    
+    <create creator="spring" javascript="GlossarySidebarAgent">
+      <param name="beanName" value="glossarySidebarAgent"/>
+      <include method="searchTerms"/>
+      <include method="getTerm"/>
+    </create>
+    
+    
+    <create creator="spring" javascript="TagSidebarAgent">
+      <param name="beanName" value="tagSidebarAgent"/>
+      <include method="searchTerms"/>
+      <include method="getTerm"/>
     </create>
     
     

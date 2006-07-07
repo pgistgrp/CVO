@@ -26,7 +26,7 @@ public class DiscussibleDAOImpl extends HibernateDaoSupport implements Discussib
     }//getDiscussible()
     
     
-    private static final String hql_getBriefList = "from Post p where p.deleted=? and p.root.id=? order by p.time desc";
+    private static final String hql_getBriefList = "from DiscussionPost p where p.deleted=? and p.root.id=? order by p.time desc";
     
     
     /**

@@ -54,7 +54,7 @@ public class CVODAOImpl1 extends HibernateDaoSupport implements CVODAO1 {
     }//getCVOById()
 
 
-    private final static String hql_getPostById = "from Post post where post.id=:id";
+    private final static String hql_getPostById = "from DiscussionPost post where post.id=:id";
     
     
     public Post getPostById(Long id) throws Exception {
