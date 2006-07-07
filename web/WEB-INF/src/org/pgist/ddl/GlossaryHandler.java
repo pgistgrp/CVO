@@ -34,7 +34,9 @@ public class GlossaryHandler extends Handler {
                 term = new Term();
             }
             
+            name = Character.toUpperCase(name.charAt(0)) + name.substring(1).toLowerCase();
             term.setName(name);
+            term.setInitial(name.charAt(0));
             term.setDeleted(false);
             
             String shortDefinition = element.elementTextTrim("shortDefinition");
@@ -71,7 +73,7 @@ public class GlossaryHandler extends Handler {
                         relatedTerm = new Term();
                         relatedTerm.setName(relatedTermName);
                         relatedTerm.setCreateTime(new Date());
-                        saveTerm(relatedTerm);
+                        termMap.put(relatedTermName.toLowerCase(), relatedTerm);
                     }
                     
                     term.getRelatedTerms().add(relatedTerm);
@@ -136,8 +138,13 @@ public class GlossaryHandler extends Handler {
             if (commentCount==null || "".equals(commentCount)) term.setCommentCount(0);
             else term.setCommentCount(Integer.parseInt(commentCount));
             
-            saveTerm(term);
+            termMap.put(name.toLowerCase(), term);
         }//for i
+        
+        for (Term term : termMap.values()) {
+            saveTerm(term);
+        }//for term
+
     }//imports()
     
     

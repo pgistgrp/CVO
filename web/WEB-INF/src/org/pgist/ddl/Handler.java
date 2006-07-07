@@ -45,27 +45,27 @@ public abstract class Handler {
 
     protected static File dataPath;
     
-    private static Session session;
+    protected static Session session;
     
-    private static final Map<String, Role> roleMap = new HashMap<String, Role>();
+    protected static final Map<String, Role> roleMap = new HashMap<String, Role>();
     
-    private static final Map<String, User> userMap = new HashMap<String, User>();
+    protected static final Map<String, User> userMap = new HashMap<String, User>();
     
-    private static final Map<String, StopWord> stopwordMap = new HashMap<String, StopWord>();
+    protected static final Map<String, StopWord> stopwordMap = new HashMap<String, StopWord>();
     
-    private static final Map<String, Tag> tagMap = new HashMap<String, Tag>();
+    protected static final Map<String, Tag> tagMap = new HashMap<String, Tag>();
     
-    private static final Map<String, Category> categoryMap = new HashMap<String, Category>();
+    protected static final Map<String, Category> categoryMap = new HashMap<String, Category>();
     
-    private static final Map<String, CCT> cctMap = new HashMap<String, CCT>();
+    protected static final Map<String, CCT> cctMap = new HashMap<String, CCT>();
     
-    private static final Map<Long, Concern> concernMap = new HashMap<Long, Concern>();
+    protected static final Map<Long, Concern> concernMap = new HashMap<Long, Concern>();
     
-    private static final Map<Tag, TagReference> tagRefMap = new HashMap<Tag, TagReference>();
+    protected static final Map<Tag, TagReference> tagRefMap = new HashMap<Tag, TagReference>();
     
-    private static final Map<String, Term> termMap = new HashMap<String, Term>();
+    protected static final Map<String, Term> termMap = new HashMap<String, Term>();
     
-    private static final Map<String, TermCategory> termCatMap = new HashMap<String, TermCategory>();
+    protected static final Map<String, TermCategory> termCatMap = new HashMap<String, TermCategory>();
     
     
     public void setName(String name) {
