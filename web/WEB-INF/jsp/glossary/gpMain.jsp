@@ -1,6 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -54,6 +55,14 @@
 </style>
 </head>
 <body>
+
+<!-- TO BE DELETED -->
+<br><br><br><br>
+Test for "highlight" tag:<br>
+<pg:highlight text="tion" style="color:white; background-color:red;">
+  Java 5 introduces a new feature: annotation. Anybody who want to use this new feature should read carefully the specification. 
+</pg:highlight>
+<br><br><br><br>
 
 <div id="header"><!--<jsp:include page="gmTerms.jsp"/>--><img src="/images/logo_reflect.gif"></div>
 <div id="container">
