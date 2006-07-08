@@ -95,7 +95,7 @@ Test for "highlight" tag:<br>
 		<h3>Proposed Glossary Terms by Participants - Waiting for Moderator Approval</h3>
 	</div>
 	<div id="slate" class="leftBox">
-	  <div id="list"><jsp:include page="gpTerms.jsp"/></div>
+	  <div id="list"><jsp:include page="gpTermsAlpha.jsp"/></div>
 	</div>
 
 

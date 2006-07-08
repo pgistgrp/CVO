@@ -194,7 +194,11 @@ public class GlossaryManageAgent {
             String extDefinition = (String) params.get("extDefinition");
             term.setExtDefinition(extDefinition);
             
-            glossaryService.saveTerm(term, relatedTerms, links, sources, categories);
+            if (id==-1) {
+                glossaryService.createTerm(term, relatedTerms, links, sources, categories, Term.STATUS_OFFICIAL);
+            } else {
+                glossaryService.updateTerm(term, relatedTerms, links, sources, categories);
+            }
             
             map.put("successful", true);
         } catch (Exception e) {

@@ -71,21 +71,33 @@ public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO 
     }//getTerms()
 
 
-    private static String hql_getTermsByName_1 = "from Term t where t.deleted=? order by t.name ";
+    private String formatStatus(int[] status) {
+        StringBuffer sb = new StringBuffer();
+        
+        for (int i=0; i<status.length; i++) {
+            if (i>0) sb.append(',');
+            sb.append(status[i]);
+        }
+        
+        return sb.toString();
+    }//formatStatus()
     
-    private static String hql_getTermsByName_2 = "from Term t where t.deleted=? and t.name like ? order by t.name ";
+    
+    private static String hql_getTermsByName_1 = "from Term t where t.deleted=? and t.status in (#status) order by t.name ";
+    
+    private static String hql_getTermsByName_2 = "from Term t where t.deleted=? and t.status in (#status) and t.name like ? order by t.name ";
     
     
-    public Collection getTermsByName(String filter, boolean ascending) throws Exception {
+    public Collection getTermsByName(String filter, boolean ascending, int[] status) throws Exception {
         String ascend = ascending ? "asc" : "desc";
         
         Query query = null;
         
         if (filter==null || "".equals(filter.trim())) {
-            query = getSession().createQuery(hql_getTermsByName_1+ascend);
+            query = getSession().createQuery(hql_getTermsByName_1.replace("#status", formatStatus(status))+ascend);
             query.setBoolean(0, false);
         } else {
-            query = getSession().createQuery(hql_getTermsByName_2+ascend);
+            query = getSession().createQuery(hql_getTermsByName_2.replace("#status", formatStatus(status))+ascend);
             query.setBoolean(0, false);
             query.setString(1, '%'+filter+'%');
         }
@@ -94,21 +106,21 @@ public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO 
     }//getTermsByName()
 
 
-    private static String hql_getTermsByViews_1 = "from Term t where t.deleted=? order by t.initial, t.refCount";
+    private static String hql_getTermsByViews_1 = "from Term t where t.deleted=? and t.status in (#status) order by t.initial, t.refCount";
     
-    private static String hql_getTermsByViews_2 = "from Term t where t.deleted=? and t.name like ? order by t.initial, t.refCount";
+    private static String hql_getTermsByViews_2 = "from Term t where t.deleted=? and t.status in (#status) and t.name like ? order by t.initial, t.refCount";
     
     
-    public Collection getTermsByViews(String filter, boolean ascending) throws Exception {
+    public Collection getTermsByViews(String filter, boolean ascending, int[] status) throws Exception {
         String ascend = ascending ? "asc" : "desc";
         
         Query query = null;
         
         if (filter==null || "".equals(filter.trim())) {
-            query = getSession().createQuery(hql_getTermsByViews_1+ascend);
+            query = getSession().createQuery(hql_getTermsByViews_1.replace("#status", formatStatus(status))+ascend);
             query.setBoolean(0, false);
         } else {
-            query = getSession().createQuery(hql_getTermsByViews_2+ascend);
+            query = getSession().createQuery(hql_getTermsByViews_2.replace("#status", formatStatus(status))+ascend);
             query.setBoolean(0, false);
             query.setString(1, '%'+filter+'%');
         }
@@ -117,21 +129,21 @@ public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO 
     }//getTermsByViews()
 
 
-    private static String hql_getTermsByComments_1 = "from Term t where t.deleted=? order by t.initial, t.commentCount";
+    private static String hql_getTermsByComments_1 = "from Term t where t.deleted=? and t.status in (#status) order by t.initial, t.commentCount";
     
-    private static String hql_getTermsByComments_2 = "from Term t where t.deleted=? and t.name like ? order by t.initial, t.commentCount";
+    private static String hql_getTermsByComments_2 = "from Term t where t.deleted=? and t.status in (#status) and t.name like ? order by t.initial, t.commentCount";
     
     
-    public Collection getTermsByComments(String filter, boolean ascending) throws Exception {
+    public Collection getTermsByComments(String filter, boolean ascending, int[] status) throws Exception {
         String ascend = ascending ? "asc" : "desc";
         
         Query query = null;
         
         if (filter==null || "".equals(filter.trim())) {
-            query = getSession().createQuery(hql_getTermsByComments_1+ascend);
+            query = getSession().createQuery(hql_getTermsByComments_1.replace("#status", formatStatus(status))+ascend);
             query.setBoolean(0, false);
         } else {
-            query = getSession().createQuery(hql_getTermsByComments_2+ascend);
+            query = getSession().createQuery(hql_getTermsByComments_2.replace("#status", formatStatus(status))+ascend);
             query.setBoolean(0, false);
             query.setString(1, '%'+filter+'%');
         }
@@ -140,21 +152,21 @@ public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO 
     }//getTermsByComments()
 
 
-    private static String hql_getTermsByCreateTime_1 = "from Term t where t.deleted=? order by t.initial, t.createTime";
+    private static String hql_getTermsByCreateTime_1 = "from Term t where t.deleted=? and t.status in (#status) order by t.initial, t.createTime";
     
-    private static String hql_getTermsByCreateTime_2 = "from Term t where t.deleted=? and t.name like ? order by t.initial, t.createTime";
+    private static String hql_getTermsByCreateTime_2 = "from Term t where t.deleted=? and t.status in (#status) and t.name like ? order by t.initial, t.createTime";
     
     
-    public Collection getTermsByCreateTime(String filter, boolean ascending) throws Exception {
+    public Collection getTermsByCreateTime(String filter, boolean ascending, int[] status) throws Exception {
         String ascend = ascending ? "asc" : "desc";
         
         Query query = null;
         
         if (filter==null || "".equals(filter.trim())) {
-            query = getSession().createQuery(hql_getTermsByCreateTime_1+ascend);
+            query = getSession().createQuery(hql_getTermsByCreateTime_1.replace("#status", formatStatus(status))+ascend);
             query.setBoolean(0, false);
         } else {
-            query = getSession().createQuery(hql_getTermsByCreateTime_2+ascend);
+            query = getSession().createQuery(hql_getTermsByCreateTime_2.replace("#status", formatStatus(status))+ascend);
             query.setBoolean(0, false);
             query.setString(1, '%'+filter+'%');
         }

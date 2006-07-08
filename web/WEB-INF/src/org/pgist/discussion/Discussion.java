@@ -17,7 +17,7 @@ public class Discussion {
     
     protected Long targetId;
     
-    protected int targetType;
+    protected String targetType;
     
     protected DiscussionPost root;
     
@@ -54,12 +54,12 @@ public class Discussion {
      * @return
      * @hibernate.property not-null="true"
      */
-    public int getTargetType() {
+    public String getTargetType() {
         return targetType;
     }
 
 
-    public void setTargetType(int targetType) {
+    public void setTargetType(String targetType) {
         this.targetType = targetType;
     }
 

@@ -38,7 +38,7 @@ public class GlossaryPublicAction extends Action {
         String filter = "";
         String sort = "name";
         String direction = "asc";
-        Collection terms = glossaryService.getTerms(filter, sort, direction);
+        Collection terms = glossaryService.getTerms(filter, sort, direction, new int[] {Term.STATUS_OFFICIAL});
         
         request.setAttribute("filter", filter);
         request.setAttribute("sort", sort);

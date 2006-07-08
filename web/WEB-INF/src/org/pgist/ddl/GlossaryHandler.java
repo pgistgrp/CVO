@@ -29,6 +29,9 @@ public class GlossaryHandler extends Handler {
             String name = element.attributeValue("name");
             if (name==null || "".equals(name)) throw new Exception("name is required for term");
             
+            String status = element.attributeValue("status");
+            if (status==null || "".equals(status)) status = "official";
+            
             Term term = getTermByName(name);
             if (term==null) {
                 term = new Term();
@@ -36,6 +39,15 @@ public class GlossaryHandler extends Handler {
             
             name = Character.toUpperCase(name.charAt(0)) + name.substring(1).toLowerCase();
             term.setName(name);
+            
+            if ("pending".equalsIgnoreCase(status)) {
+                term.setStatus(Term.STATUS_PENDING);
+            } else if ("official".equalsIgnoreCase(status)) {
+                term.setStatus(Term.STATUS_OFFICIAL);
+            } else {
+                throw new Exception("Unknown status for term: "+name);
+            }
+            
             term.setInitial(name.charAt(0));
             term.setDeleted(false);
             
@@ -156,6 +168,17 @@ public class GlossaryHandler extends Handler {
         for (Term term : terms) {
             Element one = root.addElement("term");
             one.addAttribute("name", term.getName());
+            
+            switch(term.getStatus()) {
+                case Term.STATUS_PENDING:
+                    one.addAttribute("status", "pending");
+                    break;
+                case Term.STATUS_OFFICIAL:
+                    one.addAttribute("status", "official");
+                    break;
+                default:
+                    throw new Exception("Unknown status for term: "+term.getName());
+            }//switch
             
             one.addElement("shortDefinition").setText(term.getShortDefinition());
             one.addElement("extDefinition").setText(term.getExtDefinition());

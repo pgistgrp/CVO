@@ -17,13 +17,13 @@ public interface GlossaryDAO {
 
     Collection getTerms(PageSetting setting) throws Exception;
 
-    Collection getTermsByName(String filter, boolean ascending) throws Exception;
+    Collection getTermsByName(String filter, boolean ascending, int[] status) throws Exception;
     
-    Collection getTermsByViews(String filter, boolean ascending) throws Exception;
+    Collection getTermsByViews(String filter, boolean ascending, int[] status) throws Exception;
     
-    Collection getTermsByComments(String filter, boolean ascending) throws Exception;
+    Collection getTermsByComments(String filter, boolean ascending, int[] status) throws Exception;
     
-    Collection getTermsByCreateTime(String filter, boolean ascending) throws Exception;
+    Collection getTermsByCreateTime(String filter, boolean ascending, int[] status) throws Exception;
     
     Term getTermById(Long id) throws Exception;
 

@@ -17,6 +17,11 @@ import org.pgist.users.User;
 public class Term {
 
     
+    public static final int STATUS_PENDING  = 0;
+    
+    public static final int STATUS_OFFICIAL = 1;
+    
+    
     private Long id;
     
     private String name;
@@ -30,6 +35,8 @@ public class Term {
     private Set links = new HashSet();
     
     private Set sources = new HashSet();
+    
+    private int status;
     
     private boolean deleted = false;
     
@@ -151,6 +158,20 @@ public class Term {
 
     public void setSources(Set sources) {
         this.sources = sources;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getStatus() {
+        return status;
+    }
+
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
 
