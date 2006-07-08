@@ -53,6 +53,9 @@ public class GlossaryPublicAgent {
      *                  The following variables are available for use in the jsp:
      *                  <ul>
      *                    <li>terms - A list of Term objects</li>
+     *                    <li>filter - string</li>
+     *                    <li>sort - string, ['name' | 'views' | 'comments', 'createtime']</li>
+     *                    <li>direction - string, ['asc' | 'desc']</li>
      *                  </ul>
      *           </li>
      *         </ul>
