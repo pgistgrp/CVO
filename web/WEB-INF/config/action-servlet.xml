@@ -63,6 +63,11 @@
     </bean>
     
     
+    <bean name="/glossaryPublic" class="org.pgist.glossary.GlossaryPublicAction">
+        <property name="glossaryService" ref="glossaryService"/>
+    </bean>
+    
+    
     <bean name="/alphaGlossary" class="org.pgist.glossary.AlphabeticGlossaryAction">
         <property name="glossaryService" ref="glossaryService"/>
     </bean>

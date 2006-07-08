@@ -94,8 +94,8 @@
     </create>
 
 
-    <create creator="spring" javascript="GlossaryAgent">
-      <param name="beanName" value="glossaryAgent"/>
+    <create creator="spring" javascript="GlossaryManageAgent">
+      <param name="beanName" value="glossaryManageAgent"/>
       <include method="getTerms"/>
       <include method="getTerm"/>
       <include method="saveTerm"/>
@@ -103,7 +103,7 @@
     
     
     <create creator="spring" javascript="GlossaryPublicAgent">
-      <param name="beanName" value="glossaryAgent"/>
+      <param name="beanName" value="glossaryPublicAgent"/>
       <include method="getTerms"/>
       <include method="getTermHTML"/>
       <include method="getTermObject"/>
@@ -111,7 +111,7 @@
     </create>
     
     
-    <create creator="spring" javascript="GlossarySidebarAgent">
+    <!--create creator="spring" javascript="GlossarySidebarAgent">
       <param name="beanName" value="glossarySidebarAgent"/>
       <include method="searchTerms"/>
       <include method="getTerm"/>
@@ -122,7 +122,7 @@
       <param name="beanName" value="tagSidebarAgent"/>
       <include method="searchTerms"/>
       <include method="getTerm"/>
-    </create>
+    </create-->
     
     
   </allow>

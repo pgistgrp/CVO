@@ -32,16 +32,17 @@ public class GlossaryServiceImpl implements GlossaryService {
 
 
     public Collection getTerms(String filter, String sort, String direction) throws Exception {
+        Collection terms = null;
         if (sort==null || "".equalsIgnoreCase(sort.trim()) || "name".equalsIgnoreCase(sort.trim())) {
-            glossaryDAO.getTermsByName(filter, !"desc".equals(direction));
+            terms = glossaryDAO.getTermsByName(filter, !"desc".equals(direction));
         } else if ("views".equalsIgnoreCase(sort)) {
-            glossaryDAO.getTermsByViews(filter, !"desc".equals(direction));
+            terms = glossaryDAO.getTermsByViews(filter, !"desc".equals(direction));
         } else if ("comments".equalsIgnoreCase(sort)) {
-            glossaryDAO.getTermsByComments(filter, !"desc".equals(direction));
+            terms = glossaryDAO.getTermsByComments(filter, !"desc".equals(direction));
         } else if ("createtime".equalsIgnoreCase(sort)) {
-            glossaryDAO.getTermsByCreateTime(filter, !"desc".equals(direction));
+            terms = glossaryDAO.getTermsByCreateTime(filter, !"desc".equals(direction));
         }
-        return null;
+        return terms;
     }//getTerms()
     
     

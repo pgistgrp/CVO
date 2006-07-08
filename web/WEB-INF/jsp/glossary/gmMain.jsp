@@ -8,13 +8,13 @@
 <link rel="stylesheet" type="text/css" href="/styles/default.css">
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
-<script type='text/javascript' src='/dwr/interface/GlossaryAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/GlossaryManageAgent.js'></script>
 
 <script type="text/javascript">
 
 
 		function getTerm(id, type){
-				GlossaryAgent.getTerm({id:id, type:type}, {
+				GlossaryManageAgent.getTerm({id:id, type:type}, {
 				callback:function(data){
 					if (data.successful){ 
 							$('slate').innerHTML = data.html;

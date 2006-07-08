@@ -124,7 +124,12 @@
     </bean>
 
 
-    <bean id="glossaryAgent" class="org.pgist.glossary.GlossaryAgent">
+    <bean id="glossaryManageAgent" class="org.pgist.glossary.GlossaryManageAgent">
+        <property name="glossaryService" ref="glossaryService"/>
+    </bean>
+
+
+    <bean id="glossaryPublicAgent" class="org.pgist.glossary.GlossaryPublicAgent">
         <property name="glossaryService" ref="glossaryService"/>
     </bean>
 
