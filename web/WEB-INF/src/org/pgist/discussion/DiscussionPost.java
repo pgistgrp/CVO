@@ -1,8 +1,6 @@
 package org.pgist.discussion;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.pgist.users.User;
 
@@ -16,22 +14,21 @@ import org.pgist.users.User;
 public class DiscussionPost {
     
     
-    public static final int CATEGORY_CONCERN = 1;
-    
-    public static final int CATEGORY_COMMENT = 2;
-    
-    
     protected Long id;
+    
+    protected Long discussionId;
     
     protected DiscussionPost parent;
     
-    protected Set children = new HashSet();
+    protected DiscussionPost quote;
     
     protected String content = "";
     
     protected User owner;
     
     protected Date time;
+    
+    protected boolean deleted;
     
     
     /**
@@ -50,33 +47,45 @@ public class DiscussionPost {
     
     /**
      * @return
-     * @hibernate.many-to-one column="parent_id" lazy="true"
+     * @hibernate.property not-null="true"
+     */
+    public Long getDiscussionId() {
+        return discussionId;
+    }
+
+
+    public void setDiscussionId(Long discussionId) {
+        this.discussionId = discussionId;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.many-to-one column="quote_id" lazy="true"
      */
     public DiscussionPost getParent() {
         return parent;
     }
-    
-    
+
+
     public void setParent(DiscussionPost parent) {
         this.parent = parent;
     }
-    
-    
+
+
     /**
      * @return
-     * @hibernate.set lazy="true" table="pgist_discourse_post" order-by="id" cascade="all"
-     * @hibernate.collection-key column="parent_id"
-     * @hibernate.collection-one-to-many class="org.pgist.model.Post"
+     * @hibernate.many-to-one column="quote_id" lazy="true"
      */
-    public Set getChildren() {
-        return children;
+    public DiscussionPost getQuote() {
+        return quote;
     }
     
     
-    public void setChildren(Set children) {
-        this.children = children;
+    public void setQuote(DiscussionPost quote) {
+        this.quote = quote;
     }
-
+    
     
     /**
      * @return
@@ -120,22 +129,18 @@ public class DiscussionPost {
     }
 
 
-    /*
-     * ------------------------------------------------------------------------
+    /**
+     * @return
+     * @hibernate.property not-null="true"
      */
-    
+    public boolean isDeleted() {
+        return deleted;
+    }
 
-    public DiscussionPost addChild(String content, User owner) {
-        DiscussionPost post = new DiscussionPost();
-        
-        post.setParent(this);
-        this.getChildren().add(post);
-        post.setContent(content);
-        post.setOwner(owner);
-        post.setTime(new Date());
-        
-        return post;
-    }//addChild()
-    
-    
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+
 }//class DiscussionPost

@@ -10,16 +10,13 @@ package org.pgist.discussion;
 public class Discussion {
 
     
-    public static enum TargetType { term, tag, concern };
-    
-    
     protected Long id;
     
     protected Long targetId;
     
     protected String targetType;
     
-    protected DiscussionPost root;
+    protected boolean deleted;
     
     
     /**
@@ -66,16 +63,16 @@ public class Discussion {
 
     /**
      * @return
-     * @hibernate.many-to-one column="root_id" lazy="true" class="org.pgist.discussion.DiscussionPost"
+     * @hibernate.property not-null="true"
      */
-    public DiscussionPost getRoot() {
-        return root;
+    public boolean isDeleted() {
+        return deleted;
     }
 
 
-    public void setRoot(DiscussionPost root) {
-        this.root = root;
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
-    
-    
+
+
 }//class Discussion

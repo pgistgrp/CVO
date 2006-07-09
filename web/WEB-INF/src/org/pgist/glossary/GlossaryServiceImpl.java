@@ -1,7 +1,11 @@
 package org.pgist.glossary;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
+import org.pgist.discussion.Discussion;
+import org.pgist.discussion.DiscussionDAO;
+import org.pgist.discussion.DiscussionPost;
 import org.pgist.util.PageSetting;
 
 
@@ -15,12 +19,19 @@ public class GlossaryServiceImpl implements GlossaryService {
     
     private GlossaryDAO glossaryDAO;
     
+    private DiscussionDAO discussionDAO;
+    
     
     public void setGlossaryDAO(GlossaryDAO glossaryDAO) {
         this.glossaryDAO = glossaryDAO;
     }
     
     
+    public void setDiscussionDAO(DiscussionDAO discussionDAO) {
+        this.discussionDAO = discussionDAO;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */
@@ -126,6 +137,38 @@ public class GlossaryServiceImpl implements GlossaryService {
         
         glossaryDAO.saveTerm(term);
     }//createTerm()
+
+
+    public Collection getComments(Term term) throws Exception {
+        //get discussion
+        Discussion discussion = discussionDAO.getDiscussion(Term.class.getName(), term.getId());
+        if (discussion==null) {
+            return new ArrayList(0);
+        } else {
+            //get comments
+            Collection comments = discussionDAO.getPosts(discussion);
+            return comments;
+        }
+    }//getComments()
+
+
+    public DiscussionPost createComment(Long id, Long quoteId, String comment) throws Exception {
+        Term term = glossaryDAO.getTermById(id);
+        if (term==null) throw new Exception("term with id "+id+" is not found!");
+        
+        Discussion discussion = discussionDAO.getDiscussion(Term.class.getName(), term.getId());
+        if (discussion==null) {
+            discussion = discussionDAO.createDiscussion(Term.class.getName(), term.getId());
+        }
+        
+        DiscussionPost quote = null;
+        if (quoteId!=null) {
+            quote = discussionDAO.getPostById(quoteId);
+            if (quote==null) throw new Exception("quoted post with id "+quoteId+" is not found!");
+        }
+        
+        return discussionDAO.createPost(discussion, quote, comment);
+    }//createComment
 
 
 }//class GlossaryServiceImpl

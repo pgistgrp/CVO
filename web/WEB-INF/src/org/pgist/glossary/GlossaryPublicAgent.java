@@ -1,10 +1,16 @@
 package org.pgist.glossary;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.pgist.discussion.Discussion;
+import org.pgist.discussion.DiscussionDAO;
+import org.pgist.discussion.DiscussionPost;
+import org.pgist.ws.DiscussibleDAO;
 
 import uk.ltd.getahead.dwr.WebContextFactory;
 
@@ -266,7 +272,13 @@ public class GlossaryPublicAgent {
                 return map;
             }
             
-            //TODO: get comments
+            request.setAttribute("term", term);
+            
+            Collection comments = glossaryService.getComments(term);
+            request.setAttribute("comments", comments);
+            
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/glossary/gpComments.jsp"));
+            map.put("successful", true);
         } catch (Exception e) {
             map.put("reason", e.getMessage());
         }
@@ -282,6 +294,7 @@ public class GlossaryPublicAgent {
      *         <ul>
      *           <li>id - int, id of the term object</li>
      *           <li>comment - string, content of comment</li>
+     *           <li>quote - int, id of the quoted DiscussionPost object. Optional, default is null.</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
@@ -295,14 +308,12 @@ public class GlossaryPublicAgent {
         
         try {
             Long id = new Long((String) params.get("id"));
+            Long quoteId = new Long((String) params.get("quote"));
+            String comment = (String) params.get("comment");
             
-            Term term = glossaryService.getTermById(id);
-            if (term==null) {
-                map.put("reason", "term with id "+id+" is not found!");
-                return map;
-            }
+            DiscussionPost newPost = glossaryService.createComment(id, quoteId, comment);
             
-            //TODO: create comments
+            map.put("successful", true);
         } catch (Exception e) {
             map.put("reason", e.getMessage());
         }

@@ -108,6 +108,8 @@
       <include method="getTermHTML"/>
       <include method="getTermObject"/>
       <include method="proposeTerm"/>
+      <include method="getComments"/>
+      <include method="createComment"/>
     </create>
     
     

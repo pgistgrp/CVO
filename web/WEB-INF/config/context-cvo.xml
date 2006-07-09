@@ -108,6 +108,13 @@
     </bean>
 
 
+    <bean id="discussionDAO" class="org.pgist.discussion.DiscussionDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
     <bean id="glossaryDAO" class="org.pgist.glossary.GlossaryDAOImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
@@ -119,6 +126,7 @@
         <property name="target">
             <bean class="org.pgist.glossary.GlossaryServiceImpl">
                 <property name="glossaryDAO" ref="glossaryDAO"/>
+                <property name="discussionDAO" ref="discussionDAO"/>
             </bean>
         </property>
     </bean>
