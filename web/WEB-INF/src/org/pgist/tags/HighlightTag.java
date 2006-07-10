@@ -83,11 +83,9 @@ public class HighlightTag extends BodyTagSupport {
         
         if (content==null || "".equals(content)) return SKIP_BODY;
         
-        System.out.println("threshold ---> "+threshold);
-        
         if (text==null || "".equals(text) || text.length()<threshold) {
             try {
-                body.getEnclosingWriter().print(text);
+                body.getEnclosingWriter().print(content);
             } catch (Exception e) {
                 throw new JspException(e);
             }
