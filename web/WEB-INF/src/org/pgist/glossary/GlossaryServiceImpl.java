@@ -37,8 +37,8 @@ public class GlossaryServiceImpl implements GlossaryService {
      */
 
 
-    public Collection getTerms(PageSetting setting) throws Exception {
-        return glossaryDAO.getTerms(setting);
+    public Collection getTerms(PageSetting setting, boolean prefixed) throws Exception {
+        return glossaryDAO.getTerms(setting, prefixed);
     }//getTerms()
 
 

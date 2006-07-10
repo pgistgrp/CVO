@@ -70,7 +70,7 @@ public class GlossaryManageAgent {
             setting.setRowOfPage((String) params.get("count"));
             setting.setPage((String) params.get("page"));
             
-            Collection terms = glossaryService.getTerms(setting);
+            Collection terms = glossaryService.getTerms(setting, true);
             
             request.setAttribute("setting", setting);
             request.setAttribute("terms", terms);

@@ -34,7 +34,7 @@ public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO 
     private static String hql_getTerms_22 = "from Term t where t.deleted=? and t.name like ? order by t.name";
     
     
-    public Collection getTerms(PageSetting setting) throws Exception {
+    public Collection getTerms(PageSetting setting, boolean prefixed) throws Exception {
         String filter = setting.getFilter();
         
         List list = null;
@@ -44,7 +44,7 @@ public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO 
         } else {
             list = getHibernateTemplate().find(hql_getTerms_21, new Object[] {
                     false,
-                    filter+'%'
+                    prefixed ? filter+'%' : '%'+filter+'%',
             });
         }
         
@@ -62,7 +62,7 @@ public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO 
         } else {
             query = getSession().createQuery(hql_getTerms_22);
             query.setBoolean(0, false);
-            query.setString(1, filter+'%');
+            query.setString(1, prefixed ? filter+'%' : '%'+filter+'%');
         }
         query.setFirstResult(setting.getFirstRow());
         query.setMaxResults(setting.getRowOfPage());

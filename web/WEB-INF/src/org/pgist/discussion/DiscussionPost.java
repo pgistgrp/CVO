@@ -61,7 +61,7 @@ public class DiscussionPost {
 
     /**
      * @return
-     * @hibernate.many-to-one column="quote_id" lazy="true"
+     * @hibernate.many-to-one column="parent_id" lazy="true"
      */
     public DiscussionPost getParent() {
         return parent;

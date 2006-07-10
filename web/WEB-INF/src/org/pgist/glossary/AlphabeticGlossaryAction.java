@@ -44,7 +44,7 @@ public class AlphabeticGlossaryAction extends Action {
         PageSetting setting = new PageSetting(count);
         setting.setPage(1);
         
-        request.setAttribute("terms", glossaryService.getTerms(setting));
+        request.setAttribute("terms", glossaryService.getTerms(setting, true));
         request.setAttribute("setting", setting);
         
         return mapping.findForward("list");

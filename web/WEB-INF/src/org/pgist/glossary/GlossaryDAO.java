@@ -15,7 +15,7 @@ public interface GlossaryDAO {
     
     Collection getAllTerms() throws Exception;
 
-    Collection getTerms(PageSetting setting) throws Exception;
+    Collection getTerms(PageSetting setting, boolean prefixed) throws Exception;
 
     Collection getTermsByName(String filter, boolean ascending, int[] status) throws Exception;
     

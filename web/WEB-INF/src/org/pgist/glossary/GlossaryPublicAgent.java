@@ -1,16 +1,12 @@
 package org.pgist.glossary;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.pgist.discussion.Discussion;
-import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.DiscussionPost;
-import org.pgist.ws.DiscussibleDAO;
 
 import uk.ltd.getahead.dwr.WebContextFactory;
 

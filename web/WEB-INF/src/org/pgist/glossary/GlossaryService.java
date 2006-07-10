@@ -14,7 +14,7 @@ import org.pgist.util.PageSetting;
 public interface GlossaryService {
     
     
-    Collection getTerms(PageSetting setting) throws Exception;
+    Collection getTerms(PageSetting setting, boolean prefixed) throws Exception;
     
 
     Collection getTerms(String filter, String sort, String direction, int[] status) throws Exception;
