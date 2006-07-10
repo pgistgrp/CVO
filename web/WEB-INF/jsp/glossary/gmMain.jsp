@@ -55,9 +55,9 @@
 </head>
 <body>
 
-<div id="header"><!--<jsp:include page="gmTerms.jsp"/>--><img src="/images/logo_reflect.gif"></div>
-<div id="container">
 
+<div id="container">
+<div id="header"><!--<jsp:include page="gmTerms.jsp"/>--><img src="/images/logo_reflect.gif"></div>
 	<div id="col-left">
 	<div>
 	<h3>Moderator Control Panel Menu</h3>
