@@ -1,6 +1,8 @@
 package org.pgist.tags;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyContent;
@@ -74,23 +76,29 @@ public class HighlightTag extends BodyTagSupport {
         
         if (content==null || "".equals(content)) return SKIP_BODY;
         
+        if (text==null || "".equals(text)) {
+            try {
+                body.getEnclosingWriter().print(text);
+            } catch (Exception e) {
+                throw new JspException(e);
+            }
+        }
+        
+        Pattern pattern = Pattern.compile(text, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(content);
+        
         StringBuffer sb = new StringBuffer();
         
         int start = 0;
-        int index = -1;
-        int length = text.length();
-        int contentLen = content.length();
-        
-        while((index = content.indexOf(text, start)) >= 0) {
-            sb.append(content.substring(start, index));
+        while (matcher.find()) {
+            sb.append(content.substring(start, matcher.start()));
             sb.append("<span ").append(attribute).append("=\"").append(value).append("\">");
-            sb.append(content.substring(index, index+length));
+            sb.append(content.substring(matcher.start(), matcher.end()));
             sb.append("</span>");
-            start = index + length;
-            if (start>=contentLen) break;
-        }//while
+            start = matcher.end();
+        }
         
-        if (index==-1) {
+        if (start<content.length()-1) {
             sb.append(content.substring(start));
         }
         

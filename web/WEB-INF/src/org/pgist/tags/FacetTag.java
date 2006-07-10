@@ -43,4 +43,4 @@ public class FacetTag extends BodyTagSupport {
     }//doEndTag()
 
 
-}
+}//class FacetTag
