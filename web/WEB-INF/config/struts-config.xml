@@ -51,7 +51,7 @@
       <forward name="list" path="/WEB-INF/jsp/glossary/gpMain.jsp" />
     </action>
     <action name="cctForm" path="/glossaryView" scope="request" type="org.pgist.glossary.GlossaryViewAction">
-      <forward name="list" path="/WEB-INF/jsp/glossary/gptermView.jsp" />
+      <forward name="view" path="/WEB-INF/jsp/glossary/gptermView.jsp" />
     </action>
     <action name="cctForm" path="/alphaGlossary" scope="request" type="org.pgist.glossary.AlphabeticGlossaryAction">
       <forward name="list" path="/WEB-INF/jsp/glossary/alphaTerms.jsp" />
