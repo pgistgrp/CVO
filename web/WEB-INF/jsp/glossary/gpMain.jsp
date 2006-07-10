@@ -59,7 +59,7 @@
 <!-- TO BE DELETED -->
 <br><br><br><br>
 Test for "highlight" tag:<br>
-<pg:highlight text="tion" style="color:white; background-color:red;">
+<pg:highlight text="tion" style="color:white; background-color:red;" threshold="6">
   Java 5 introduces a new feature: annotation. Anybody who want to use this new feature should read carefully the specification. 
 </pg:highlight>
 <br><br><br><br>

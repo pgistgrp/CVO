@@ -85,7 +85,7 @@ public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO 
     
     private static String hql_getTermsByName_1 = "from Term t where t.deleted=? and t.status in (#status) order by t.name ";
     
-    private static String hql_getTermsByName_2 = "from Term t where t.deleted=? and t.status in (#status) and (t.name like ? or t.shortDefinition like ?) order by t.name ";
+    private static String hql_getTermsByName_2 = "from Term t where t.deleted=? and t.status in (#status) and (lower(t.name) like ? or lower(t.shortDefinition) like ?) order by t.name ";
     
     
     public Collection getTermsByName(String filter, boolean ascending, int[] status) throws Exception {
@@ -99,8 +99,8 @@ public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO 
         } else {
             query = getSession().createQuery(hql_getTermsByName_2.replace("#status", formatStatus(status))+ascend);
             query.setBoolean(0, false);
-            query.setString(1, '%'+filter+'%');
-            query.setString(2, '%'+filter+'%');
+            query.setString(1, '%'+filter.toLowerCase()+'%');
+            query.setString(2, '%'+filter.toLowerCase()+'%');
         }
         
         return query.list();

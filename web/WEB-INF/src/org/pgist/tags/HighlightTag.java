@@ -25,6 +25,8 @@ public class HighlightTag extends BodyTagSupport {
     
     private String styleClass;
     
+    private int threshold = 0;
+    
     
     private void clear() {
         text = null;
@@ -53,6 +55,11 @@ public class HighlightTag extends BodyTagSupport {
     }
 
 
+    public void setThreshold(int threshold) {
+        this.threshold = threshold;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */
@@ -76,12 +83,15 @@ public class HighlightTag extends BodyTagSupport {
         
         if (content==null || "".equals(content)) return SKIP_BODY;
         
-        if (text==null || "".equals(text)) {
+        System.out.println("threshold ---> "+threshold);
+        
+        if (text==null || "".equals(text) || text.length()<threshold) {
             try {
                 body.getEnclosingWriter().print(text);
             } catch (Exception e) {
                 throw new JspException(e);
             }
+            return SKIP_BODY;
         }
         
         Pattern pattern = Pattern.compile(text, Pattern.CASE_INSENSITIVE);
