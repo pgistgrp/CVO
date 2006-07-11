@@ -1,7 +1,9 @@
 package org.pgist.glossary;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -78,10 +80,20 @@ public class GlossaryPublicAgent {
             
             Collection terms = glossaryService.getTerms(filter, sort, direction, new int[] {Term.STATUS_OFFICIAL});
             
+            char ch = 0;
+            List initials = new ArrayList(27);
+            for (Term term : (Collection<Term>) terms) {
+                if (ch!=term.getInitial()) {
+                    ch = term.getInitial();
+                    initials.add(new Character(ch));
+                }
+            }
+            
             request.setAttribute("filter", filter);
             request.setAttribute("sort", sort);
             request.setAttribute("direction", direction);
             request.setAttribute("terms", terms);
+            request.setAttribute("initials", initials);
             
             if (sort==null || "".equals(sort) || "name".equalsIgnoreCase(sort)) {
                 map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/glossary/gpTermsAlpha.jsp"));
