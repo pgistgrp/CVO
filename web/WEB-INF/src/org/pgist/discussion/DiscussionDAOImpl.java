@@ -35,21 +35,20 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getDiscussion()
     
 
-    private static final String hql_getPosts_A = "from DiscussionPost p where p.discussionId=? and p.deleted=? and p.parent=? order by p.id";
+    private static final String hql_getPosts_A = "from DiscussionPost p where p.discussionId=? and p.deleted=? and p.parent is null order by p.id";
     
     
     public Collection getPosts(Discussion discussion) throws Exception {
         return getHibernateTemplate().find(hql_getPosts_A, new Object[] {
                 discussion.getId(),
                 false,
-                null,
         });
     }//getPosts()
     
     
-    private static final String hql_getPosts_B_1 = "select count(p.id) from DiscussionPost p where p.discussionId=? and p.deleted=? and p.parent=? order by p.id";
+    private static final String hql_getPosts_B_1 = "select count(p.id) from DiscussionPost p where p.discussionId=? and p.deleted=? and p.parent is null order by p.id";
     
-    private static final String hql_getPosts_B_2 = "from DiscussionPost p where p.discussionId=? and p.deleted=? and p.parent=? order by p.id";
+    private static final String hql_getPosts_B_2 = "from DiscussionPost p where p.discussionId=? and p.deleted=? and p.parent is null order by p.id";
     
     
     public Collection getPosts(Discussion discussion, PageSetting setting) throws Exception {
@@ -57,7 +56,6 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         List list = getHibernateTemplate().find(hql_getPosts_B_1, new Object[] {
                 discussion.getId(),
                 false,
-                null,
         });
         
         int count = ((Number) list.get(0)).intValue();
@@ -70,7 +68,6 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         Query query = getSession().createQuery(hql_getPosts_B_2);
         query.setLong(0, discussion.getId());
         query.setBoolean(1, false);
-        query.setEntity(2, null);
         query.setFirstResult(setting.getFirstRow());
         query.setMaxResults(setting.getRowOfPage());
         
@@ -78,26 +75,26 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getPosts()
     
     
-    private static final String hql_getReplies_A = "from DiscussionPost p where p.parent=? and p.deleted=? order by p.id";
+    private static final String hql_getReplies_A = "from DiscussionPost p where p.parent.id=? and p.deleted=? order by p.id";
     
     
     public Collection getReplies(DiscussionPost post) throws Exception {
         return getHibernateTemplate().find(hql_getReplies_A, new Object[] {
-                post,
+                post.getId(),
                 false,
         });
     }//getReplies()
     
     
-    private static final String hql_getReplies_B_1 = "select count(p.id) from DiscussionPost p where p.parent=? and p.deleted=? order by p.id";
+    private static final String hql_getReplies_B_1 = "select count(p.id) from DiscussionPost p where p.parent.id=? and p.deleted=? order by p.id";
     
-    private static final String hql_getReplies_B_2 = "from DiscussionPost p where p.parent=? and p.deleted=? order by p.id";
+    private static final String hql_getReplies_B_2 = "from DiscussionPost p where p.parent.id=? and p.deleted=? order by p.id";
     
     
     public Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception {
         //get total rows number
         List list = getHibernateTemplate().find(hql_getReplies_B_1, new Object[] {
-                post,
+                post.getId(),
                 false,
         });
         
@@ -109,7 +106,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         //get rows
         Query query = getSession().createQuery(hql_getReplies_B_2);
-        query.setEntity(0, post);
+        query.setEntity(0, post.getId());
         query.setBoolean(1, false);
         query.setFirstResult(setting.getFirstRow());
         query.setMaxResults(setting.getRowOfPage());
