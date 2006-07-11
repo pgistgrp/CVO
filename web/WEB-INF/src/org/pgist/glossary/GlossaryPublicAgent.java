@@ -319,13 +319,20 @@ public class GlossaryPublicAgent {
         
         try {
             Long id = new Long((String) params.get("id"));
-            Long quoteId = new Long((String) params.get("quote"));
+            
+            Long quoteId = null;
+            String quote = (String) params.get("quote");
+            if (quote!=null && !"".equals(quote.trim())) {
+                quoteId = new Long(quote);
+            }
+            
             String comment = (String) params.get("comment");
             
             DiscussionPost newPost = glossaryService.createComment(id, quoteId, comment);
             
             map.put("successful", true);
         } catch (Exception e) {
+            e.printStackTrace();
             map.put("reason", e.getMessage());
         }
         
