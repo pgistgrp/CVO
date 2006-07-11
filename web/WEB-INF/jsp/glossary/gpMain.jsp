@@ -72,41 +72,7 @@
 			});
 		}
 		
-		function getComments(termId){
-				GlossaryPublicAgent.getComments({id:termId}, {
-				callback:function(data){
-
-					if (data.successful){ 
-							alert('ready to go');
-					}
-
-					if (data.successful != true){
-						alert(data.reason);
-					}
-				},
-				errorHandler:function(errorString, exception){ 
-						//showTheError();
-				}
-			});
-		}		
-		
-	  function createComment(termId, comment, quote){
-				GlossaryPublicAgent.createComment({id:termId, comment:comment, quote:quote}, {
-				callback:function(data){
-
-					if (data.successful){ 
-							alert('ready to go');
-					}
-
-					if (data.successful != true){
-						alert(data.reason);
-					}
-				},
-				errorHandler:function(errorString, exception){ 
-						//showTheError();
-				}
-			});
-		}	
+	
 		function clearResults(){
 			$('txtSearch').value = $('txtSearch').defaultValue;
 			getTerms('_');
@@ -193,7 +159,7 @@
 	<!-- END LIGHTBOX -->
 	<h1>Glossary Terms</h1>
 	<h3>Listing of All Glossary Terms</h3>
-	<div id="slate" class="leftBox">
+	<div id="slate">
 		<div id="filterTerms">
 		<form id="form1" name="form1" method="post" action="">
 		  <label>Filter Glossary 

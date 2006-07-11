@@ -793,3 +793,5 @@ width: 20px
 #slateRounded br{
 	display: none;
 }
+
+th {background-color: #8DAD1F; color:#333;}
