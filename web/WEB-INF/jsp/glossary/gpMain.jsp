@@ -121,7 +121,7 @@
 		function proposeTermCont(){
 			lightboxDisplay('inline');
 			os = '';
-			os = '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
+			os = '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/closelabel.gif" border="0"></a></span>'
 			os += $('proposeForm').innerHTML;
 			$('lightbox').innerHTML = os;
 		}
