@@ -1,7 +1,45 @@
 /* CSS Document */
 
 /* Main Position CSS Template by John Le BETA 1 6/15/2006*/
+/* Headings H1-H6 */
+h1, h2, h3, h4, h5, h6{
+	font-family: "Trebuchet MS", Arial, Verdana, sans-serif;
+  letter-spacing:-1px;
+  margin:15px 0 0 0;
+  margin-top:0px;
+  /*display:inline;*/
+  font-weight: 400;
+  }
 
+
+h1 {
+
+}
+
+
+h2{
+	margin-top: 15px;
+	margin-bottom: 0px;
+  color:#0061A8;
+  font-size:1.6em;
+}
+
+h3{
+	margin-top: 15px;
+	margin-bottom: 0px;
+  color:#8DAD1F;
+  font-size:1.6em;
+}
+
+h4{
+	  color:#98A072;
+	  margin-bottom:3px;
+	  font-size: 1.4em;}
+
+h5{
+		color: #999;
+	  font-size: 1.4em;
+}
 body {
 
 }
