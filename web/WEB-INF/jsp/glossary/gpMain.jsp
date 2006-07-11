@@ -127,11 +127,31 @@
 		}
 		
 		function proposeTermPrep(name, shortDef, fullDef, source1, source2, source3, termlink1, termlink2, termlink3){		
-			
+			//validate sources and termlinks
+			if(name == '' || shortDef == '' || fullDef == ''){
+				alert('Please make sure all required fields are filled out');
+			}else{
 			sources = new Array(source1,source2,source3);
+				for (var i=0; i<sources.length; i++)
+				{
+					if(sources[i] == 'http://' || sources[i] == ''){
+						delete sources[i];
+					}
+				}
 			links = new Array(termlink1,termlink2,termlink3);
-			
-			proposeTerm(name,shortDef, fullDef, links, sources)
+				for (var i=0; i<links.length; i++)
+				{
+					if(links[i] == 'http://' || links[i] == ''){
+						delete links[i];
+					}
+				}
+			proposeTerm(name,shortDef, fullDef, links, sources);
+			//alert(name);
+			//alert(shortDef);
+			//alert(fullDef);
+			//alert(links);
+			//alert(sources);
+			}
 		}
 		
 		function proposeTerm(name,shortDef, fullDef, links, sources){
@@ -139,7 +159,7 @@
 				callback:function(data){
 
 					if (data.successful){ 
-							alert('Your term has been proposed! Thank you!');
+							$('proposeForm').innerHTML = '<h3>Thank you for your term proposal!</h3><br><p>Your term has been submitted to the moderator for approval.  You will be notified after moderator review.</p><p><a href="javascript: lightboxDisplay(\'none\');">Close Box</a></p>';
 					}else{
 						  alert(data.reason);
 					}
