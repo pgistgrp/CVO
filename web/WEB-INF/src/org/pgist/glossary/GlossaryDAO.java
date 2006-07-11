@@ -33,5 +33,9 @@ public interface GlossaryDAO {
 
     TermCategory getCategoryByName(String name) throws Exception;
 
+    void saveTermLink(TermLink link) throws Exception;
+
+    void saveTermSource(TermSource source) throws Exception;
+    
 
 }//interface GlossaryDAO

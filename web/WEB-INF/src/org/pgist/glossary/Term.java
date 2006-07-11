@@ -26,6 +26,8 @@ public class Term {
     
     private String name;
     
+    private String abbreviation;
+    
     private String shortDefinition = "";
     
     private String extDefinition = "";
@@ -51,6 +53,8 @@ public class Term {
     private int hitCount;
     
     private int commentCount;
+    
+    private boolean flaged = false;
     
     private char initial;
     
@@ -85,6 +89,20 @@ public class Term {
     }
     
     
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public String getAbbreviation() {
+        return abbreviation;
+    }
+
+
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
+    }
+
+
     /**
      * @return
      * @hibernate.property not-null="true"
@@ -242,6 +260,20 @@ public class Term {
 
     public void setCommentCount(int commentCount) {
         this.commentCount = commentCount;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public boolean isFlaged() {
+        return flaged;
+    }
+
+
+    public void setFlaged(boolean flaged) {
+        this.flaged = flaged;
     }
 
 

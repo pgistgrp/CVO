@@ -193,11 +193,6 @@ public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO 
     }//getTermByName()
     
     
-    public void saveTerm(Term term) throws Exception {
-        getHibernateTemplate().saveOrUpdate(term);
-    }//saveTerm()
-
-
     private static String hql_getCategoryByName = "from TermCategory tc where tc.name=?";
     
 
@@ -206,6 +201,21 @@ public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO 
         if (list.size()==0) return null;
         return (TermCategory) list.get(0);
     }//getCategoryByName()
+
+
+    public void saveTermLink(TermLink link) throws Exception {
+        getHibernateTemplate().saveOrUpdate(link);
+    }//saveTermLink()
+
+
+    public void saveTermSource(TermSource source) throws Exception {
+        getHibernateTemplate().saveOrUpdate(source);
+    }//saveTermSource()
+
+
+    public void saveTerm(Term term) throws Exception {
+        getHibernateTemplate().saveOrUpdate(term);
+    }//saveTerm()
 
 
 }//class GlossaryDAOImpl

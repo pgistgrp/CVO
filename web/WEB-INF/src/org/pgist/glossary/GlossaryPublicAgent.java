@@ -210,6 +210,8 @@ public class GlossaryPublicAgent {
             term.setRefCount(0);
             term.setHitCount(0);
             term.setCommentCount(0);
+            term.setAbbreviation("");
+            term.setFlaged(true);
             
             String name = (String) params.get("name");
             if (name==null || "".equals(name)) {
@@ -224,10 +226,17 @@ public class GlossaryPublicAgent {
             String extDefinition = (String) params.get("fullDef");
             term.setExtDefinition(extDefinition);
             
+            System.out.println("--------> "+params);
+            System.out.println("--------> "+relatedTerms);
+            System.out.println("--------> "+links);
+            System.out.println("--------> "+sources);
+            System.out.println("--------> "+categories);
+            
             glossaryService.createTerm(term, relatedTerms, links, sources, categories, Term.STATUS_PENDING);
             
             map.put("successful", true);
         } catch (Exception e) {
+            e.printStackTrace();
             map.put("reason", e.getMessage());
         }
         

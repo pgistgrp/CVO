@@ -2,6 +2,7 @@ package org.pgist.glossary;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.pgist.discussion.Discussion;
 import org.pgist.discussion.DiscussionDAO;
@@ -106,34 +107,57 @@ public class GlossaryServiceImpl implements GlossaryService {
         term.getSources().clear();
         term.getCategories().clear();
         term.setStatus(status);
+        term.setCreateTime(new Date());
         
-        for (int i=0; i<relatedTerms.length; i++) {
-            if (relatedTerms[i]==null || "".equals(relatedTerms[i].trim())) continue;
-            
-            Term one = glossaryDAO.getTermByName(relatedTerms[i].trim());
-            if (one==null) throw new Exception("Term "+relatedTerms[i]+" is not found!");
-            term.getRelatedTerms().add(one);
-        }//for i
+        String name = Character.toUpperCase(term.getName().charAt(0))+term.getName().toLowerCase().substring(1);
+        term.setName(name);
+        term.setInitial(name.charAt(0));
         
-        for (int i=0; i<links.length; i++) {
-            if (links[i]==null || "".equals(links[i].trim())) continue;
-            
-            term.getLinks().add(links[i]);
-        }//for i
+        if (relatedTerms!=null) {
+            for (int i=0; i<relatedTerms.length; i++) {
+                if (relatedTerms[i]==null || "".equals(relatedTerms[i].trim())) continue;
+                
+                Term one = glossaryDAO.getTermByName(relatedTerms[i].trim());
+                glossaryDAO.saveTerm(one);
+                
+                if (one==null) throw new Exception("Term "+relatedTerms[i]+" is not found!");
+                term.getRelatedTerms().add(one);
+            }//for i
+        }
         
-        for (int i=0; i<sources.length; i++) {
-            if (sources[i]==null || "".equals(sources[i].trim())) continue;
-            
-            term.getSources().add(sources[i]);
-        }//for i
+        if (links!=null) {
+            for (int i=0; i<links.length; i++) {
+                if (links[i]==null || "".equals(links[i].trim())) continue;
+                
+                TermLink link = new TermLink();
+                link.setLink(links[i]);
+                glossaryDAO.saveTermLink(link);
+                
+                term.getLinks().add(link);
+            }//for i
+        }
         
-        for (int i=0; i<categories.length; i++) {
-            if (categories[i]==null || "".equals(categories[i].trim())) continue;
-            
-            TermCategory one = glossaryDAO.getCategoryByName(categories[i].trim());
-            if (one==null) throw new Exception("Category "+categories[i]+" is not found!");
-            term.getCategories().add(one);
-        }//for i
+        if (sources!=null) {
+            for (int i=0; i<sources.length; i++) {
+                if (sources[i]==null || "".equals(sources[i].trim())) continue;
+                
+                TermSource source = new TermSource();
+                source.setSource(sources[i]);
+                glossaryDAO.saveTermSource(source);
+                
+                term.getSources().add(source);
+            }//for i
+        }
+        
+        if (categories!=null) {
+            for (int i=0; i<categories.length; i++) {
+                if (categories[i]==null || "".equals(categories[i].trim())) continue;
+                
+                TermCategory one = glossaryDAO.getCategoryByName(categories[i].trim());
+                if (one==null) throw new Exception("Category "+categories[i]+" is not found!");
+                term.getCategories().add(one);
+            }//for i
+        }
         
         glossaryDAO.saveTerm(term);
     }//createTerm()

@@ -40,6 +40,10 @@ public class GlossaryHandler extends Handler {
             name = Character.toUpperCase(name.charAt(0)) + name.substring(1).toLowerCase();
             term.setName(name);
             
+            String abbreviation = element.elementTextTrim("shortDefinition");
+            if (abbreviation==null) abbreviation = "";
+            term.setAbbreviation(abbreviation);
+            
             if ("pending".equalsIgnoreCase(status)) {
                 term.setStatus(Term.STATUS_PENDING);
             } else if ("official".equalsIgnoreCase(status)) {
@@ -182,6 +186,9 @@ public class GlossaryHandler extends Handler {
             
             one.addElement("shortDefinition").setText(term.getShortDefinition());
             one.addElement("extDefinition").setText(term.getExtDefinition());
+            
+            Element abbreviation = one.addElement("abbreviation");
+            abbreviation.setText(term.getAbbreviation());
             
             Element creator = one.addElement("creator");
             creator.addAttribute("type", "loginname");
