@@ -226,12 +226,6 @@ public class GlossaryPublicAgent {
             String extDefinition = (String) params.get("fullDef");
             term.setExtDefinition(extDefinition);
             
-            System.out.println("--------> "+params);
-            System.out.println("--------> "+relatedTerms);
-            System.out.println("--------> "+links);
-            System.out.println("--------> "+sources);
-            System.out.println("--------> "+categories);
-            
             glossaryService.createTerm(term, relatedTerms, links, sources, categories, Term.STATUS_PENDING);
             
             map.put("successful", true);

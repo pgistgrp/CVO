@@ -8,6 +8,7 @@ import org.pgist.discussion.Discussion;
 import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.DiscussionPost;
 import org.pgist.util.PageSetting;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -108,6 +109,7 @@ public class GlossaryServiceImpl implements GlossaryService {
         term.getCategories().clear();
         term.setStatus(status);
         term.setCreateTime(new Date());
+        term.setCreator(glossaryDAO.getUserById(WebUtils.currentUserId()));
         
         String name = Character.toUpperCase(term.getName().charAt(0))+term.getName().toLowerCase().substring(1);
         term.setName(name);

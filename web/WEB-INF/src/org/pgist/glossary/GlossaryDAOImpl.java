@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.pgist.system.BaseDAOImpl;
 import org.pgist.util.PageSetting;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 
 /**
@@ -14,7 +14,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author kenny
  *
  */
-public class GlossaryDAOImpl extends HibernateDaoSupport implements GlossaryDAO {
+public class GlossaryDAOImpl extends BaseDAOImpl implements GlossaryDAO {
     
     
     private static String hql_getAllTerms = "from Term t where t.deleted=? order by t.name";

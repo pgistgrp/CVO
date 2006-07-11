@@ -2,6 +2,7 @@ package org.pgist.glossary;
 
 import java.util.Collection;
 
+import org.pgist.system.BaseDAO;
 import org.pgist.util.PageSetting;
 
 
@@ -10,7 +11,7 @@ import org.pgist.util.PageSetting;
  * @author kenny
  *
  */
-public interface GlossaryDAO {
+public interface GlossaryDAO extends BaseDAO {
     
     
     Collection getAllTerms() throws Exception;
