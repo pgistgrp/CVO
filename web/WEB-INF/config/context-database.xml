@@ -46,6 +46,7 @@
                <value>org/pgist/glossary/TermLink.hbm.xml</value>
                <value>org/pgist/glossary/TermSource.hbm.xml</value>
                <value>org/pgist/glossary/TermCategory.hbm.xml</value>
+               <value>org/pgist/glossary/TermViewRecord.hbm.xml</value>
                <value>org/pgist/workflow/DecisionSituation.hbm.xml</value>
                <value>org/pgist/wfengine/WorkflowEnvironment.hbm.xml</value>
                <value>org/pgist/wfengine/RunningContext.hbm.xml</value>

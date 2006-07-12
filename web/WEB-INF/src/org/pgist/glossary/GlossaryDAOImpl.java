@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.pgist.system.BaseDAOImpl;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -216,6 +218,35 @@ public class GlossaryDAOImpl extends BaseDAOImpl implements GlossaryDAO {
     public void saveTerm(Term term) throws Exception {
         getHibernateTemplate().saveOrUpdate(term);
     }//saveTerm()
+
+
+    private static final String hql_getViewedCount = "select count(distinct tvr.user.id) from TermViewRecord tvr where tvr.term.id=?";
+    
+    
+    public int getViewedCount(Term term) throws Exception {
+        List list = getHibernateTemplate().find(hql_getViewedCount, term.getId());
+        return ((Number) list.get(0)).intValue();
+    }//getViewedCount()
+
+
+    private static final String hql_setViewedByCurrentUser = "select count(tvr.id) from TermViewRecord tvr where tvr.term.id=? and tvr.user.id=?";
+    
+    
+    synchronized public void setViewedByCurrentUser(Term term) throws Exception {
+        User user = getUserById(WebUtils.currentUserId());
+        
+        List list = getHibernateTemplate().find(hql_setViewedByCurrentUser, new Object[] {
+                term.getId(),
+                user.getId(),
+        });
+        int count = ((Number) list.get(0)).intValue();
+        if (count==0) {
+            TermViewRecord record = new TermViewRecord();
+            record.setTerm(term);
+            record.setUser(user);
+            getHibernateTemplate().save(record);
+        }
+    }//setViewedByCurrentUser()
 
 
 }//class GlossaryDAOImpl

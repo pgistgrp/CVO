@@ -211,6 +211,9 @@ public class GlossaryServiceImpl implements GlossaryService {
 
     synchronized public void increaseViewCount(Term term) throws Exception {
         term.setViewCount(term.getViewCount()+1);
+        
+        //set view count for current user
+        glossaryDAO.setViewedByCurrentUser(term);
     }//increaseViewCount()
 
 
