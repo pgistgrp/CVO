@@ -63,7 +63,7 @@
 <div id="container">
 	<div id="slate" class="leftBox">
 		<p><a href="glossaryPublic.do">Back to All Glossary Terms</a></p>
-		<h1>${term.name}</h1> | Created on ${term.createTime} by ${term.creator}
+		<h1>${term.name}</h1> | Created on ${term.createTime} by ${term.creator.loginname}
 		<p></p>
 		<p>${term.shortDefinition}</p>
 		<p>${term.extDefinition}</p>
@@ -97,16 +97,15 @@
 		</c:if>
 		
 		
-		<div id="comments"><!--comments load here onLoad --></div>
-		<div id="newCommentForm">
-			
-		<h2>Comment on this Term</h2><br>
-		  <form id="commentForm" name="commentForm" method="post" action="" style="padding-top: 20px;">
-				<textarea style="height: 50px; width: 100%;" name="newComment" id="newComment" cols="50" rows="5"></textarea></p>
-				<input type="button" id="createComment" value="Create Comment!" onClick="createComment(${term.id},'this is my test');">
-			</form>
-		</div>
-		<a href="javascript:createComment(${term.id}, $('newComment').value);">test</a>
+		<div id="comments"><!--comments load here onLoad --></div> <br> <div 
+		id="newCommentForm"> <h2>Add a Comment</h2><br> <form id="commentForm" 
+		name="commentForm" method="post" action="" style="padding-top: 20px;"> 
+		<textarea style="height: 50px; width: 100%;" name="newComment" 
+		id="newComment" cols="50" rows="5"></textarea></p> <input type="button" 
+		id="createComment" value="Create Comment!" 
+		onclick="createComment(${term.id}, $('newComment').value);"> </form> </div> 
+		<a href="javascript:createComment(${term.id}, 
+		$('newComment').value);">test</a>
 		
 		<p><a href="glossaryPublic.do">Back to All Glossary Terms</a></p>
 	</div>
