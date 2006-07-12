@@ -31,7 +31,7 @@
 </pg:show>
 
 <pg:show roles="moderator">
-  <p><html:link page="/glossaryManage.do?count=20">Glossary Management Tool</html:link>
+  <p><html:link page="/glossaryManage.do">Glossary Management Tool</html:link>
 </pg:show>
 
 <p><html:link page="/glossaryPublic.do">Glossary Public View</html:link>

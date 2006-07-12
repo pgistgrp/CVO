@@ -99,6 +99,7 @@
       <include method="getTerms"/>
       <include method="getTerm"/>
       <include method="saveTerm"/>
+      <include method="deleteTerm"/>
     </create>
     
     

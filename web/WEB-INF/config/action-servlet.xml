@@ -73,11 +73,6 @@
     </bean>
     
     
-    <bean name="/alphaGlossary" class="org.pgist.glossary.AlphabeticGlossaryAction">
-        <property name="glossaryService" ref="glossaryService"/>
-    </bean>
-    
-    
     <!--bean name="/cvolist" class="org.pgist.cvo.CVOListAction">
         <property name="userDAO" ref="userDAO"/>
         <property name="cvoDAO" ref="cvoDAO"/>
