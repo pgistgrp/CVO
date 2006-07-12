@@ -15,7 +15,7 @@
       <td><pg:highlight text="ad" style="color:white; background-color:red;"><a href="javascript:getTerm(${term.id}, 'view');">${term.name}</a></pg:highlight></td>
       <td><pg:highlight text="ad" style="color:white; background-color:red;">${term.shortDefinition}</pg:highlight></td>
       <td>${term.commentCount}</td>
-      <td>${term.hitCount}</td>
+      <td>${term.viewCount}</td>
       <td>${term.createTime}</td>
       <td>edit&nbsp;&nbsp;|&nbsp;&nbsp;del</td>
     </tr>

@@ -48,9 +48,9 @@ public class Term {
     
     private Date modifyTime;
     
-    private int refCount;
+    private int viewCount;
     
-    private int hitCount;
+    private int highlightCount;
     
     private int commentCount;
     
@@ -281,13 +281,13 @@ public class Term {
      * @return
      * @hibernate.property not-null="true"
      */
-    public int getHitCount() {
-        return hitCount;
+    public int getHighlightCount() {
+        return highlightCount;
     }
 
 
-    public void setHitCount(int hitCount) {
-        this.hitCount = hitCount;
+    public void setHighlightCount(int hitCount) {
+        this.highlightCount = hitCount;
     }
 
 
@@ -309,13 +309,13 @@ public class Term {
      * @return
      * @hibernate.property not-null="true"
      */
-    public int getRefCount() {
-        return refCount;
+    public int getViewCount() {
+        return viewCount;
     }
 
 
-    public void setRefCount(int refCount) {
-        this.refCount = refCount;
+    public void setViewCount(int refCount) {
+        this.viewCount = refCount;
     }
 
 

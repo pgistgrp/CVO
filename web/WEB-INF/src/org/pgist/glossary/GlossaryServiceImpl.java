@@ -178,7 +178,7 @@ public class GlossaryServiceImpl implements GlossaryService {
     }//getComments()
 
 
-    public DiscussionPost createComment(Long id, Long quoteId, String comment) throws Exception {
+    synchronized public DiscussionPost createComment(Long id, Long quoteId, String comment) throws Exception {
         Term term = glossaryDAO.getTermById(id);
         if (term==null) throw new Exception("term with id "+id+" is not found!");
         
@@ -193,6 +193,8 @@ public class GlossaryServiceImpl implements GlossaryService {
             if (quote==null) throw new Exception("quoted post with id "+quoteId+" is not found!");
         }
         
+        term.setCommentCount(term.getCommentCount()+1);
+        
         return discussionDAO.createPost(discussion, quote, comment);
     }//createComment
 
@@ -205,6 +207,16 @@ public class GlossaryServiceImpl implements GlossaryService {
         
         glossaryDAO.saveTerm(term);
     }//setFlag()
+
+
+    synchronized public void increaseViewCount(Term term) throws Exception {
+        term.setViewCount(term.getViewCount()+1);
+    }//increaseViewCount()
+
+
+    synchronized public void increaseHighlightCount(Term term) throws Exception {
+        term.setHighlightCount(term.getHighlightCount()+1);
+    }//increaseViewCount()
 
 
 }//class GlossaryServiceImpl

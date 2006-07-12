@@ -143,12 +143,12 @@ public class GlossaryHandler extends Handler {
             }
             
             String refCount = element.elementTextTrim("refCount");
-            if (refCount==null || "".equals(refCount)) term.setRefCount(0);
-            else term.setRefCount(Integer.parseInt(refCount));
+            if (refCount==null || "".equals(refCount)) term.setViewCount(0);
+            else term.setViewCount(Integer.parseInt(refCount));
             
             String hitCount = element.elementTextTrim("hitCount");
-            if (hitCount==null || "".equals(hitCount)) term.setHitCount(0);
-            else term.setHitCount(Integer.parseInt(hitCount));
+            if (hitCount==null || "".equals(hitCount)) term.setHighlightCount(0);
+            else term.setHighlightCount(Integer.parseInt(hitCount));
             
             String commentCount = element.elementTextTrim("commentCount");
             if (commentCount==null || "".equals(commentCount)) term.setCommentCount(0);
@@ -221,8 +221,8 @@ public class GlossaryHandler extends Handler {
                 oneCategory.setText(category.getName());
             }
             
-            one.addElement("refCount").setText(""+term.getRefCount());
-            one.addElement("hitCount").setText(""+term.getHitCount());
+            one.addElement("refCount").setText(""+term.getViewCount());
+            one.addElement("hitCount").setText(""+term.getHighlightCount());
             one.addElement("commentCount").setText(""+term.getCommentCount());
         }//for
     }//doExports()

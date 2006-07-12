@@ -81,6 +81,8 @@
       <property name="transactionManager" ref="transactionManager"/>
       <property name="transactionAttributes">
         <props>
+          <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+          <prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
           <prop key="add*">PROPAGATION_REQUIRED</prop>
           <prop key="save*">PROPAGATION_REQUIRED</prop>
           <prop key="set*">PROPAGATION_REQUIRED</prop>
@@ -88,10 +90,9 @@
           <prop key="edit*">PROPAGATION_REQUIRED</prop>
           <prop key="create*">PROPAGATION_REQUIRED</prop>
           <prop key="delete*">PROPAGATION_REQUIRED</prop>
-          <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
-          <prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
           <prop key="relate*">PROPAGATION_REQUIRED</prop>
           <prop key="derelate*">PROPAGATION_REQUIRED</prop>
+          <prop key="increase*">PROPAGATION_REQUIRED</prop>
         </props>
       </property>
     </bean>

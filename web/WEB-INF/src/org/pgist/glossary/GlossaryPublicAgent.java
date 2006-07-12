@@ -146,6 +146,8 @@ public class GlossaryPublicAgent {
             
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/glossary/gpTermView.jsp"));
             
+            glossaryService.increaseViewCount(term);
+            
             map.put("successful", true);
         } catch (Exception e) {
             map.put("reason", e.getMessage());
@@ -183,6 +185,8 @@ public class GlossaryPublicAgent {
                 return map;
             }
             
+            glossaryService.increaseViewCount(term);
+            
             map.put("term", term);
             map.put("relatedTerms", term.getRelatedTerms());
             map.put("successful", true);
@@ -219,8 +223,8 @@ public class GlossaryPublicAgent {
         
         try {
             Term term = new Term();
-            term.setRefCount(0);
-            term.setHitCount(0);
+            term.setViewCount(0);
+            term.setHighlightCount(0);
             term.setCommentCount(0);
             term.setAbbreviation("");
             term.setFlaged(true);

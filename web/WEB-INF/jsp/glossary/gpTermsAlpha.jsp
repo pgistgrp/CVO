@@ -20,7 +20,7 @@ Jump to starts with letter:
 	      <td><logic:notEqual name="storeInitial" value="${term.initial}"><a name="<bean:write name="term" property="initial"/>"><bean:define id="storeInitial" value="${term.initial}" /></logic:notEqual><a href="glossaryView.do?id=${term.id}"><pg:highlight text="${filter}" style="color:white; background-color:red;">${term.name}</pg:highlight></a></td>
 	      <td><pg:highlight text="${filter}" style="color:white; background-color:red;">${term.shortDefinition}</pg:highlight></td>
 	      <td style="text-align: center">${term.commentCount}</td>
-	      <td style="text-align: center">${term.hitCount}</td>
+	      <td style="text-align: center">${term.viewCount}</td>
 	    </tr>
 	  </logic:iterate>
 </table>

@@ -38,6 +38,7 @@ public class GlossaryViewAction extends Action {
         Long id = new Long(request.getParameter("id"));
         
         Term term = glossaryService.getTermById(id);
+        glossaryService.increaseViewCount(term);
         
         request.setAttribute("term", term);
         

@@ -195,8 +195,8 @@ public class GlossaryManageAgent {
             Long id = new Long((String) params.get("id"));
             if (id==-1) {
                 term = new Term();
-                term.setRefCount(0);
-                term.setHitCount(0);
+                term.setViewCount(0);
+                term.setHighlightCount(0);
                 term.setCommentCount(0);
             } else {
                 term = glossaryService.getTermById(id);
@@ -234,6 +234,19 @@ public class GlossaryManageAgent {
     }//saveTerm()
     
     
+    /**
+     * Delete the given term object.
+     * 
+     * @param params - A map contains:<br>
+     *         <ul>
+     *           <li>id - int, id of term object, -1 denotes to create a new term, else modify an existing term</li>
+     *         </ul>
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
     public Map deleteTerm(Map params) {
         Map map = new HashMap();
         map.put("successful", false);

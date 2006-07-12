@@ -36,6 +36,9 @@ public interface GlossaryService {
 
 
     void setFlag(Long id) throws Exception;
+    
+    
+    void increaseViewCount(Term term) throws Exception;
 
     
 }//interface GlossaryService
