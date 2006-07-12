@@ -197,4 +197,14 @@ public class GlossaryServiceImpl implements GlossaryService {
     }//createComment
 
 
+    public void setFlag(Long id) throws Exception {
+        Term term = glossaryDAO.getTermById(id);
+        if (term==null) throw new Exception("term with id "+id+" is not found!");
+        
+        if (!term.isFlaged()) term.setFlaged(true);
+        
+        glossaryDAO.saveTerm(term);
+    }//setFlag()
+
+
 }//class GlossaryServiceImpl

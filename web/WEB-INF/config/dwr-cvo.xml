@@ -110,6 +110,7 @@
       <include method="proposeTerm"/>
       <include method="getComments"/>
       <include method="createComment"/>
+      <include method="setFlag"/>
     </create>
     
     

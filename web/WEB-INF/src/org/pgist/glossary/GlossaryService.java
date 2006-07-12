@@ -34,5 +34,8 @@ public interface GlossaryService {
     
     DiscussionPost createComment(Long id, Long quoteId, String comment) throws Exception;
 
+
+    void setFlag(Long id) throws Exception;
+
     
 }//interface GlossaryService

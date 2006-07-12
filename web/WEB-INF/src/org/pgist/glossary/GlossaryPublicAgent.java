@@ -340,4 +340,36 @@ public class GlossaryPublicAgent {
     }//createComment()
     
     
+    /**
+     * Set flag on the given glossary term, that somebody doesn't agree with the definition of this term.
+     * 
+     * @param params - A map contains:<br>
+     *         <ul>
+     *           <li>id - int, id of the term object</li>
+     *         </ul>
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
+    public Map setFlag(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long id = new Long((String) params.get("id"));
+            
+            glossaryService.setFlag(id);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//setFlag()
+    
+    
 }//class GlossaryPublicAgent
