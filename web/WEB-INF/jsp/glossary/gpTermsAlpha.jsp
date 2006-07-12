@@ -21,6 +21,8 @@ Jump to starts with letter:
 	      <td><pg:highlight text="${filter}" style="color:white; background-color:red;">${term.shortDefinition}</pg:highlight></td>
 	      <td style="text-align: center">${term.commentCount}</td>
 	      <td style="text-align: center">${term.viewCount}</td>
+	      <td style="text-align: center">${term.participantCount}</td>
+	      <td style="text-align: center">${term.averageCount}</td>
 	    </tr>
 	  </logic:iterate>
 </table>

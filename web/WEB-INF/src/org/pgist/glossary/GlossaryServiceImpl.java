@@ -40,7 +40,13 @@ public class GlossaryServiceImpl implements GlossaryService {
 
 
     public Collection getTerms(PageSetting setting, boolean prefixed) throws Exception {
-        return glossaryDAO.getTerms(setting, prefixed);
+        Collection terms = glossaryDAO.getTerms(setting, prefixed);
+        
+        for (Term term : (Collection<Term>) terms) {
+            glossaryDAO.getStatistics(term);
+        }//for term
+        
+        return terms;
     }//getTerms()
 
 
@@ -55,6 +61,11 @@ public class GlossaryServiceImpl implements GlossaryService {
         } else if ("createtime".equalsIgnoreCase(sort)) {
             terms = glossaryDAO.getTermsByCreateTime(filter, !"desc".equals(direction), status);
         }
+        
+        for (Term term : (Collection<Term>) terms) {
+            glossaryDAO.getStatistics(term);
+        }//for term
+        
         return terms;
     }//getTerms()
     

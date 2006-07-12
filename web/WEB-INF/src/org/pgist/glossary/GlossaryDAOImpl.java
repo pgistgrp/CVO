@@ -220,13 +220,20 @@ public class GlossaryDAOImpl extends BaseDAOImpl implements GlossaryDAO {
     }//saveTerm()
 
 
-    private static final String hql_getViewedCount = "select count(distinct tpr.user.id) from TermParticipantRecord tpr where tpr.term.id=?";
+    private static final String hql_getStatistics = "select count(distinct tpr.user.id) from TermParticipantRecord tpr where tpr.term.id=?";
     
     
-    public int getViewedCount(Term term) throws Exception {
-        List list = getHibernateTemplate().find(hql_getViewedCount, term.getId());
-        return ((Number) list.get(0)).intValue();
-    }//getViewedCount()
+    public void getStatistics(Term term) throws Exception {
+        List list = getHibernateTemplate().find(hql_getStatistics, term.getId());
+        term.setParticipantCount(((Number) list.get(0)).intValue());
+        
+        int averageCount = 0;
+        int viewCount = term.getViewCount();
+        int participantCount = term.getParticipantCount();
+        
+        if (participantCount!=0) averageCount = (int) Math.ceil(viewCount/participantCount);
+        term.setAverageCount(averageCount);
+    }//getStatistics()
 
 
     private static final String hql_setViewedByCurrentUser = "select count(tpr.id) from TermParticipantRecord tpr where tpr.term.id=? and tpr.user.id=?";

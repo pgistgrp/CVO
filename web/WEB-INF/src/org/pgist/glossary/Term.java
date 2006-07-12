@@ -48,11 +48,30 @@ public class Term {
     
     private Date modifyTime;
     
+    /**
+     * times of the term being viewed by participant
+     */
     private int viewCount;
     
+    /**
+     * times of the term being highlighted
+     */
     private int highlightCount;
     
+    /**
+     * times of the term being commented
+     */
     private int commentCount;
+    
+    /**
+     * count of participants who viewed the term
+     */
+    private int participantCount;
+    
+    /**
+     * average participant clicks per view - which is the viewCount divided by the participantCount
+     */
+    private int averageCount;
     
     private boolean flaged = false;
     
@@ -358,6 +377,31 @@ public class Term {
         
         return sb.toString();
     }//getCategoryList()
+
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+
+    public int getParticipantCount() {
+        return participantCount;
+    }
+
+
+    public void setParticipantCount(int participantCount) {
+        this.participantCount = participantCount;
+    }
+
+
+    public int getAverageCount() {
+        return averageCount;
+    }
+
+
+    public void setAverageCount(int averageCount) {
+        this.averageCount = averageCount;
+    }
     
     
 }//class Term
