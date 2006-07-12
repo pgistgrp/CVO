@@ -220,7 +220,7 @@ public class GlossaryDAOImpl extends BaseDAOImpl implements GlossaryDAO {
     }//saveTerm()
 
 
-    private static final String hql_getViewedCount = "select count(distinct tvr.user.id) from TermViewRecord tvr where tvr.term.id=?";
+    private static final String hql_getViewedCount = "select count(distinct tpr.user.id) from TermParticipantRecord tpr where tpr.term.id=?";
     
     
     public int getViewedCount(Term term) throws Exception {
@@ -229,7 +229,7 @@ public class GlossaryDAOImpl extends BaseDAOImpl implements GlossaryDAO {
     }//getViewedCount()
 
 
-    private static final String hql_setViewedByCurrentUser = "select count(tvr.id) from TermViewRecord tvr where tvr.term.id=? and tvr.user.id=?";
+    private static final String hql_setViewedByCurrentUser = "select count(tpr.id) from TermParticipantRecord tpr where tpr.term.id=? and tpr.user.id=?";
     
     
     synchronized public void setViewedByCurrentUser(Term term) throws Exception {
@@ -241,7 +241,7 @@ public class GlossaryDAOImpl extends BaseDAOImpl implements GlossaryDAO {
         });
         int count = ((Number) list.get(0)).intValue();
         if (count==0) {
-            TermViewRecord record = new TermViewRecord();
+            TermParticipantRecord record = new TermParticipantRecord();
             record.setTerm(term);
             record.setUser(user);
             getHibernateTemplate().save(record);
