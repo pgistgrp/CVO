@@ -71,7 +71,9 @@ public class GlossaryServiceImpl implements GlossaryService {
     
     
     public Term getTermById(Long id) throws Exception {
-        return glossaryDAO.getTermById(id);
+        Term term = glossaryDAO.getTermById(id);
+        glossaryDAO.getStatistics(term);
+        return term;
     }//getTermById()
 
 
