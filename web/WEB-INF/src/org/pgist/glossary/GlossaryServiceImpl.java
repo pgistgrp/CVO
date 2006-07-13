@@ -39,6 +39,11 @@ public class GlossaryServiceImpl implements GlossaryService {
      */
 
 
+    public Collection getTerms(int[] status) throws Exception {
+        return glossaryDAO.getTermsByName(null, true, status);
+    }//getTerms()
+
+
     public Collection getTerms(PageSetting setting, boolean prefixed) throws Exception {
         Collection terms = glossaryDAO.getTerms(setting, prefixed);
         
@@ -178,6 +183,12 @@ public class GlossaryServiceImpl implements GlossaryService {
     }//createTerm()
 
 
+    public void deleteTerm(Term term) throws Exception {
+        term.setDeleted(true);
+        glossaryDAO.saveTerm(term);
+    }//deleteTerm()
+
+
     public Collection getComments(Term term) throws Exception {
         //get discussion
         Discussion discussion = discussionDAO.getDiscussion(Term.class.getName(), term.getId());
@@ -233,6 +244,22 @@ public class GlossaryServiceImpl implements GlossaryService {
     synchronized public void increaseHighlightCount(Term term) throws Exception {
         term.setHighlightCount(term.getHighlightCount()+1);
     }//increaseViewCount()
+
+
+    public void acceptTerm(Term term) throws Exception {
+        if (term.getStatus()==Term.STATUS_PENDING) {
+            term.setStatus(Term.STATUS_OFFICIAL);
+            glossaryDAO.saveTerm(term);
+        }
+    }//acceptTerm()
+
+
+    public void rejectTerm(Term term) throws Exception {
+        if (term.getStatus()==Term.STATUS_PENDING) {
+            term.setDeleted(true);
+            glossaryDAO.saveTerm(term);
+        }
+    }//rejectTerm()
 
 
 }//class GlossaryServiceImpl

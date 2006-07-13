@@ -14,6 +14,9 @@ import org.pgist.util.PageSetting;
 public interface GlossaryService {
     
     
+    Collection getTerms(int[] status) throws Exception;
+
+    
     Collection getTerms(PageSetting setting, boolean prefixed) throws Exception;
     
 
@@ -29,6 +32,9 @@ public interface GlossaryService {
     void createTerm(Term term, String[] relatedTerms, String[] links, String[] sources, String[] categories, int status_pending) throws Exception;
     
 
+    void deleteTerm(Term term) throws Exception;
+
+
     Collection getComments(Term term) throws Exception;
     
     
@@ -40,5 +46,11 @@ public interface GlossaryService {
     
     void increaseViewCount(Term term) throws Exception;
 
+
+    void acceptTerm(Term term) throws Exception;
     
+    
+    void rejectTerm(Term term) throws Exception;
+
+
 }//interface GlossaryService

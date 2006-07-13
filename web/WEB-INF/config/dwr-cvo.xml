@@ -97,9 +97,13 @@
     <create creator="spring" javascript="GlossaryManageAgent">
       <param name="beanName" value="glossaryManageAgent"/>
       <include method="getTerms"/>
+      <include method="getProposedTerms"/>
       <include method="getTerm"/>
       <include method="saveTerm"/>
       <include method="deleteTerm"/>
+      <include method="acceptTerm"/>
+      <include method="rejectTerm"/>
+      <include method="searchTerm"/>
     </create>
     
     
