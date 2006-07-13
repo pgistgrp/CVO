@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+
+    <template name="term_rejected">
+        <description>Send an email to participant to inform him that the term he proposed is rejectd.</description>
+        <subject>The glossary term you proposed at PGIST is rejected.</subject>
+        <notes>Variable: ${term}, ${user}, ${reason}</notes>
+        <content>Dear participant of PGIST,\n\nThe glossary term "${term.name}" you proposed at PGIST is rejected. The moderator of PGIST gives the following reason:\n\n${reason}\n\nThank you for your participation.\n\nPGIST group.</content>
+    </template>
+    
+    
+</templates>
+
