@@ -109,9 +109,9 @@ public class GlossaryDAOImpl extends BaseDAOImpl implements GlossaryDAO {
     }//getTermsByName()
 
 
-    private static String hql_getTermsByViews_1 = "from Term t where t.deleted=? and t.status in (#status) order by t.initial, t.refCount";
+    private static String hql_getTermsByViews_1 = "from Term t where t.deleted=? and t.status in (#status) order by t.initial, t.viewCount ";
     
-    private static String hql_getTermsByViews_2 = "from Term t where t.deleted=? and t.status in (#status) and t.name like ? order by t.initial, t.refCount";
+    private static String hql_getTermsByViews_2 = "from Term t where t.deleted=? and t.status in (#status) and t.name like ? order by t.viewCount ";
     
     
     public Collection getTermsByViews(String filter, boolean ascending, int[] status) throws Exception {
@@ -132,9 +132,9 @@ public class GlossaryDAOImpl extends BaseDAOImpl implements GlossaryDAO {
     }//getTermsByViews()
 
 
-    private static String hql_getTermsByComments_1 = "from Term t where t.deleted=? and t.status in (#status) order by t.initial, t.commentCount";
+    private static String hql_getTermsByComments_1 = "from Term t where t.deleted=? and t.status in (#status) order by t.initial, t.commentCount ";
     
-    private static String hql_getTermsByComments_2 = "from Term t where t.deleted=? and t.status in (#status) and t.name like ? order by t.initial, t.commentCount";
+    private static String hql_getTermsByComments_2 = "from Term t where t.deleted=? and t.status in (#status) and t.name like ? order by t.commentCount ";
     
     
     public Collection getTermsByComments(String filter, boolean ascending, int[] status) throws Exception {
@@ -155,9 +155,9 @@ public class GlossaryDAOImpl extends BaseDAOImpl implements GlossaryDAO {
     }//getTermsByComments()
 
 
-    private static String hql_getTermsByCreateTime_1 = "from Term t where t.deleted=? and t.status in (#status) order by t.initial, t.createTime";
+    private static String hql_getTermsByCreateTime_1 = "from Term t where t.deleted=? and t.status in (#status) order by t.initial, t.createTime ";
     
-    private static String hql_getTermsByCreateTime_2 = "from Term t where t.deleted=? and t.status in (#status) and t.name like ? order by t.initial, t.createTime";
+    private static String hql_getTermsByCreateTime_2 = "from Term t where t.deleted=? and t.status in (#status) and t.name like ? order by t.createTime ";
     
     
     public Collection getTermsByCreateTime(String filter, boolean ascending, int[] status) throws Exception {
