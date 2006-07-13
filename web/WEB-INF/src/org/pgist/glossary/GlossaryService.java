@@ -50,7 +50,7 @@ public interface GlossaryService {
     void acceptTerm(Term term) throws Exception;
     
     
-    void rejectTerm(Term term) throws Exception;
+    void rejectTerm(Term term, String reason) throws Exception;
 
 
 }//interface GlossaryService

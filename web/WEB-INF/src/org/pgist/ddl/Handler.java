@@ -3,6 +3,7 @@ package org.pgist.ddl;
 import java.io.File;
 import java.io.FileWriter;
 import java.text.DateFormat;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -25,6 +26,7 @@ import org.pgist.cvo.Tag;
 import org.pgist.cvo.TagReference;
 import org.pgist.glossary.Term;
 import org.pgist.glossary.TermCategory;
+import org.pgist.system.EmailTemplate;
 import org.pgist.users.Role;
 import org.pgist.users.User;
 
@@ -423,6 +425,21 @@ public abstract class Handler {
         }
         session.saveOrUpdate(termCategory);
     }//saveTerm()
+    
+    
+    private static final String hql_getTemplates = "from EmailTemplate";
+    
+    
+    @SuppressWarnings("unchecked")
+    protected List<EmailTemplate> getTemplates() {
+        Query query = session.createQuery(hql_getTemplates);
+        return (List<EmailTemplate>) query.list();
+    }//getTemplates()
+    
+    
+    protected void persist(Object obj) {
+        session.saveOrUpdate(obj);
+    }//persist()
 
 
     /*

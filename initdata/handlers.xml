@@ -6,6 +6,8 @@
     
     <handler name="users">org.pgist.ddl.UserHandler</handler>
     
+    <handler name="emailtemplates">org.pgist.ddl.EmailTemplateHandler</handler>
+    
     <handler name="stopwords">org.pgist.ddl.StopWordHandler</handler>
     
     <handler name="tags">org.pgist.ddl.TagHandler</handler>

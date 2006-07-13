@@ -127,6 +127,7 @@
             <bean class="org.pgist.glossary.GlossaryServiceImpl">
                 <property name="glossaryDAO" ref="glossaryDAO"/>
                 <property name="discussionDAO" ref="discussionDAO"/>
+                <property name="emailSender" ref="emailSender"/>
             </bean>
         </property>
     </bean>

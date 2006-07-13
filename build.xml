@@ -72,7 +72,7 @@
     
     
     <target name="updatedb" depends="mapping">
-        <taskdef name="SystemInit" classname="com.eicms.tests.SystemInit" classpathref="classpath">
+        <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
         </taskdef>
         <SystemInit action="updatedb" configPath="${web}/WEB-INF/config"/>
     </target>

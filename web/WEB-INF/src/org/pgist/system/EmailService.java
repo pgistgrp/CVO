@@ -1,8 +1,6 @@
 package org.pgist.system;
 
-import java.util.Map;
-
-import org.pgist.users.User;
+import java.util.Collection;
 
 
 /**
@@ -10,12 +8,19 @@ import org.pgist.users.User;
  * @author kenny
  *
  */
-public class EmailService {
+public interface EmailService {
     
     
-    public void send(User user, String templateName, Map values) {
-        
-    }//send()
+    EmailTemplate getTemplateById(Long id) throws Exception;
     
     
-}//class EmailService
+    EmailTemplate getTemplateByName(String name) throws Exception;
+    
+
+    void saveTemplate(EmailTemplate template) throws Exception;
+    
+
+    Collection getTemplates() throws Exception;
+    
+    
+}//interface EmailService

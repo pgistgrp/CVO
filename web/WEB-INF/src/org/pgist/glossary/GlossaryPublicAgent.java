@@ -29,6 +29,11 @@ public class GlossaryPublicAgent {
     private GlossaryService glossaryService;
     
     
+    /**
+     * This is not an AJAX service method.
+     * 
+     * @param glossaryService
+     */
     public void setGlossaryService(GlossaryService glossaryService) {
         this.glossaryService = glossaryService;
     }

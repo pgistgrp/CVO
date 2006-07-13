@@ -3,10 +3,13 @@ package org.pgist.glossary;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.pgist.discussion.Discussion;
 import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.DiscussionPost;
+import org.pgist.system.EmailSender;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 
@@ -23,6 +26,8 @@ public class GlossaryServiceImpl implements GlossaryService {
     
     private DiscussionDAO discussionDAO;
     
+    private EmailSender emailSender;
+    
     
     public void setGlossaryDAO(GlossaryDAO glossaryDAO) {
         this.glossaryDAO = glossaryDAO;
@@ -31,6 +36,11 @@ public class GlossaryServiceImpl implements GlossaryService {
     
     public void setDiscussionDAO(DiscussionDAO discussionDAO) {
         this.discussionDAO = discussionDAO;
+    }
+
+
+    public void setEmailSender(EmailSender emailSender) {
+        this.emailSender = emailSender;
     }
 
 
@@ -254,10 +264,17 @@ public class GlossaryServiceImpl implements GlossaryService {
     }//acceptTerm()
 
 
-    public void rejectTerm(Term term) throws Exception {
+    public void rejectTerm(Term term, String reason) throws Exception {
         if (term.getStatus()==Term.STATUS_PENDING) {
             term.setDeleted(true);
             glossaryDAO.saveTerm(term);
+            
+            Map values = new HashMap();
+            values.put("term", term);
+            values.put("user", term.getCreator());
+            values.put("reason", reason);
+            
+            emailSender.send(term.getCreator(), "term_rejected", values);
         }
     }//rejectTerm()
 
