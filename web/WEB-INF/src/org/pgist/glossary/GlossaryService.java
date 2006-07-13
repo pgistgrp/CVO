@@ -38,7 +38,13 @@ public interface GlossaryService {
     Collection getComments(Term term) throws Exception;
     
     
+    DiscussionPost getCommentById(Long id) throws Exception;
+
+
     DiscussionPost createComment(Long id, Long quoteId, String comment) throws Exception;
+    
+    
+    void deleteComment(Term term, DiscussionPost comment) throws Exception;
 
 
     void setFlag(Long id) throws Exception;

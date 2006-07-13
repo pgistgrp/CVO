@@ -47,4 +47,10 @@ public interface DiscussionDAO {
     DiscussionPost getPostById(Long id) throws Exception;
     
     
+    void deleteDiscussion(Discussion discussion) throws Exception;
+    
+    
+    void deletePost(DiscussionPost post) throws Exception;
+    
+    
 }//interface DiscussionDAO

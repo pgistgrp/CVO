@@ -174,6 +174,18 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     public DiscussionPost getPostById(Long id) throws Exception {
         return (DiscussionPost) getHibernateTemplate().load(DiscussionPost.class, id);
     }//getPostById()
+
+
+    public void deleteDiscussion(Discussion discussion) throws Exception {
+        discussion.setDeleted(true);
+        getHibernateTemplate().saveOrUpdate(discussion);
+    }//deleteDiscussion()
+
+
+    public void deletePost(DiscussionPost post) throws Exception {
+        post.setDeleted(true);
+        getHibernateTemplate().saveOrUpdate(post);
+    }//deletePost()
     
     
 }//class DiscussionDAOImpl
