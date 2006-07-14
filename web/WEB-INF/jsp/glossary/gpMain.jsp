@@ -12,23 +12,53 @@
 <script type='text/javascript' src='/dwr/interface/GlossaryPublicAgent.js'></script>
 
 <script type="text/javascript">
-
-
-		function getTerms(term){
+	
+		window.onload = doOnLoad();
+	
+		var sort = "name";
+		var direction = "";
+		function doOnLoad(){
+			getTerms('_', "name");
+			setSort('name');
+		}
+		
+		function setSort(thisSort){
+			headings = document.getElementsByTagName("th"); 
+			for (var i = 0; i < headings.length; i++) { 
+				if (headings[i].id != 'def'){
+			    if (headings[i].id == thisSort){
+			    	headings[i].innerHTML = thisSort;
+			    }else{
+			    	headings[i].innerHTML = '<a href="javascript: getTerms(\'_\',\''+ headings[i].id +'\');">'+ headings[i].innerHTML +'</a>';
+			    }
+			  }  
+			}
+		}	
+		
+		function switchDir(currentDir){
+			
+		}
+		function getTerms(term,sortby){
+		if ($('txtSearch') != null){
 					if (term != $('txtSearch').defaultValue || term != '') {
 						$('clearSearch').style.display = "inline";
 					}
-				GlossaryPublicAgent.getTerms({filter:term}, {
+		}
+				GlossaryPublicAgent.getTerms({filter:term, sort:sortby, direction:'asc'}, {
 				callback:function(data){
-
+			
 					if (data.successful){ 
+							sort = sortby;
 							$('list').innerHTML = "";
 							$('list').innerHTML += data.html;
+							
+							setSort(sort);
 					}
 
 					if (data.successful != true){
 						alert(data.reason);
 					}
+					
 				},
 				errorHandler:function(errorString, exception){ 
 						//showTheError();
@@ -36,24 +66,7 @@
 			});
 		}
 		
-		function getTermHTML(termId){
-				GlossaryPublicAgent.getTerms({id:termId}, {
-				callback:function(data){
 
-					if (data.successful){ 
-							alert('ready to go');
-					}
-
-					if (data.successful != true){
-						alert(data.reason);
-					}
-				},
-				errorHandler:function(errorString, exception){ 
-						//showTheError();
-				}
-			});
-		}
-		
 		function getTermObject(termId){
 				GlossaryPublicAgent.getTermObject({id:termId}, {
 				callback:function(data){
@@ -157,6 +170,7 @@
 	<div id="overlay"></div>
 	<div id="lightbox" style="top: 50%; height: 450px; overflow: auto;"></div> <!-- make this %80 of window height -->
 	<!-- END LIGHTBOX -->
+	<p><a href="javascript:setSort('name');">Test it</a></p>
 	<h1>Glossary Terms</h1>
 	<h3>Listing of All Glossary Terms</h3>
 	<div id="slate">
@@ -169,7 +183,7 @@
 		</form>
 		<p><a href="javascript:proposeTermCont();">Propose a Glossary Term</a></p>
 	</div>
-	  <div id="list"><jsp:include page="gpTermsAlpha.jsp"/></div>
+	  <div id="list"></div>
 	</div>
 	
 	<div id="footer" style="clear:both;">

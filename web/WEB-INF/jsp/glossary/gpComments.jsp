@@ -2,10 +2,21 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
-<<<<<<< gpComments.jsp
-<h2>Comments on this Term</h2>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<script src="/scripts/prototype.js" type="text/javascript"></script>
+<script src="/scripts/scriptaculous.js?load=effects" type="text/javascript"></script>
+<br>
+<c:if test="${fn:length(comments) != 0}">
+	<h2>${fn:length(comments)} Comment(s) on this Term</h2>
+
+</c:if>
+
 <logic:iterate id="comment" name="comments">
-
-	<p>${comment.owner.loginname} on ${comment.time} added the following comment:<br> ${comment.content}</p>
-
+	<div id="aCommentCont" style="width: 80%;">
+		<div id="comment-attributes${comment.id}" style="background-color:#E9EFD3"><h4>${comment.owner.loginname}</h4> on ${comment.time} added the following comment:</div>
+		<div id="comment-content${comment.id}">${comment.content}</div>
+		<div id="quote${comment.id}" style="text-align:right;"><a href="javascript: location.href='#newComment'; new Effect.Highlight('newComment'); $('newComment').value += '<blockquote><b>Quoting ${comment.owner.loginname} on ${comment.time}</b><br>'+ $('comment-content${comment.id}').innerHTML +'</blockquote>'; void(0);">Quote</a></div>
+	</div>
+	<br>
 </logic:iterate>
