@@ -14,49 +14,58 @@
 <script type="text/javascript">
 	
 		window.onload = doOnLoad();
-	
-		var sort = "name";
-		var direction = "";
+		var direction = "asc";
+		
 		function doOnLoad(){
-			getTerms('_', "name");
-			setSort('name');
+			getTerms("", "name");
+			
 		}
 		
-		function setSort(thisSort){
+		function setSort(thisSort, term){
 			headings = document.getElementsByTagName("th"); 
 			for (var i = 0; i < headings.length; i++) { 
 				if (headings[i].id != 'def'){
 			    if (headings[i].id == thisSort){
-			    	headings[i].innerHTML = thisSort;
+			    	if(direction == 'asc'){
+			    		headings[i].innerHTML = thisSort + '&nbsp;&nbsp;<a href="javascript:sortDir(\'desc\',\'' + thisSort + '\', \''+ term +'\');"><img src="/images/sort_' + direction +'.gif" border="0"></a>';
+			   		}else{
+			   			headings[i].innerHTML = thisSort + '&nbsp;&nbsp;<a href="javascript:sortDir(\'asc\',\'' + thisSort + '\', \''+ term +'\');"><img src="/images/sort_' + direction +'.gif" border="0"></a>';
+			   		}
 			    }else{
-			    	headings[i].innerHTML = '<a href="javascript: getTerms(\'_\',\''+ headings[i].id +'\');">'+ headings[i].innerHTML +'</a>';
+			    	headings[i].innerHTML = '<a href="javascript: getTerms(\''+ term +'\',\''+ headings[i].id +'\');">'+ headings[i].innerHTML +'</a>';
 			    }
 			  }  
 			}
 		}	
 		
-		function switchDir(currentDir){
-			
+		function sortDir(switchTo, thisSort, term){
+				direction = switchTo;
+				getTerms(term, thisSort); 
 		}
+		
 		function getTerms(term,sortby){
-		if ($('txtSearch') != null){
-					if (term != $('txtSearch').defaultValue || term != '') {
-						$('clearSearch').style.display = "inline";
-					}
-		}
-				GlossaryPublicAgent.getTerms({filter:term, sort:sortby, direction:'asc'}, {
+				if ($('loading-indicator') != null ){ 
+					$('loading-indicator').style.display = "inline";
+				}
+				if ($('txtSearch') != null){
+							if ($('txtSearch').value != $('txtSearch').defaultValue) {
+								$('clearSearch').style.display = "inline";
+								$('clearSearch').innerHTML = '<a href="javascript: clearResults(\''+ sortby +'\');">Clear Search</a>';
+							}
+				}
+				
+				GlossaryPublicAgent.getTerms({filter:term, sort:sortby, direction:direction}, {
 				callback:function(data){
-			
-					if (data.successful){ 
-							sort = sortby;
+					if (data.successful){ 	
 							$('list').innerHTML = "";
 							$('list').innerHTML += data.html;
-							
-							setSort(sort);
+							setSort(sortby, term);
+							direction = "asc"; //reset direction
+							$('loading-indicator').style.display = "none";
 					}
-
 					if (data.successful != true){
 						alert(data.reason);
+						$('loading-indicator').style.display = "none";
 					}
 					
 				},
@@ -86,9 +95,9 @@
 		}
 		
 	
-		function clearResults(){
+		function clearResults(sortby){
 			$('txtSearch').value = $('txtSearch').defaultValue;
-			getTerms('_');
+			getTerms('', sortby);
 			$('clearSearch').style.display = "none";
 		}
 		
@@ -125,11 +134,7 @@
 					}
 				}
 			proposeTerm(name,shortDef, fullDef, links, sources);
-			//alert(name);
-			//alert(shortDef);
-			//alert(fullDef);
-			//alert(links);
-			//alert(sources);
+
 			}
 		}
 		
@@ -160,26 +165,27 @@
 #slate ul{display:inline; margin:0; padding:0}
 #slate li{list-style: none; display:inline; padding: 3px;}
 
+#loading-indicator{width: 100px; position: absolute; top:0; left:0; background-color: red; z-index: 1; padding: 3px; color: #fff;}
 </style>
 </head>
 <body>
-
+<div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 <div id="container">
 <div id="header"><!--<jsp:include page="gmTerms.jsp"/>--><img src="/images/logo_reflect.gif"></div>
 		<!-- LIGHTBOX -->
 	<div id="overlay"></div>
 	<div id="lightbox" style="top: 50%; height: 450px; overflow: auto;"></div> <!-- make this %80 of window height -->
 	<!-- END LIGHTBOX -->
-	<p><a href="javascript:setSort('name');">Test it</a></p>
+	
 	<h1>Glossary Terms</h1>
 	<h3>Listing of All Glossary Terms</h3>
 	<div id="slate">
 		<div id="filterTerms">
 		<form id="form1" name="form1" method="post" action="">
 		  <label>Filter Glossary 
-		  <input type="text" id="txtSearch" name="txtSearch" style="width:120px; padding-left: 1px; padding-right: 20px; margin-right:5px; background: url('/images/search_light.gif') no-repeat right; background-color: #FFFFFF; color: #999;" class="txtSearch" value="Search Terms" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" onkeyup="getTerms($('txtSearch').value);"><div id="txtSearchIndicator" style="visibility:hidden; position: absolute; right:0; margin-right: 150px;"><img src="/images/indicator.gif"></div>
+		  <input type="text" id="txtSearch" name="txtSearch" style="width:120px; padding-left: 1px; padding-right: 20px; margin-right:5px; background: url('/images/search_light.gif') no-repeat right; background-color: #FFFFFF; color: #999;" class="txtSearch" value="Search Terms" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" onkeyup="getTerms($('txtSearch').value, 'name');"><div id="txtSearchIndicator" style="visibility:hidden; position: absolute; right:0; margin-right: 150px;"><img src="/images/indicator.gif"></div>
 		  </label>
-		  <div id="clearSearch" style="display: none;"><a href="javascript: clearResults();">Clear Search</a></div>
+		  <div id="clearSearch" style="display: none;"></div>
 		</form>
 		<p><a href="javascript:proposeTermCont();">Propose a Glossary Term</a></p>
 	</div>
