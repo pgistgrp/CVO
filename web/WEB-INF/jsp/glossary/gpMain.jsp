@@ -17,8 +17,8 @@
 		var direction = "asc";
 		
 		function doOnLoad(){
+			direction = "asc";
 			getTerms("", "name");
-			
 		}
 		
 		function setSort(thisSort, term){
@@ -165,7 +165,7 @@
 #slate ul{display:inline; margin:0; padding:0}
 #slate li{list-style: none; display:inline; padding: 3px;}
 
-#loading-indicator{width: 100px; position: absolute; top:0; left:0; background-color: red; z-index: 1; padding: 3px; color: #fff;}
+#loading-indicator{width: 100px; position: fixed; top:0; left:0; background-color: red; z-index: 1; padding: 3px; color: #fff;} /*fixed positioning needs ie 6- hack */
 </style>
 </head>
 <body>
