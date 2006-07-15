@@ -220,20 +220,16 @@ public class GlossaryDAOImpl extends BaseDAOImpl implements GlossaryDAO {
     }//saveTerm()
 
 
-    private static final String hql_getStatistics = "select count(distinct tpr.user.id) from TermParticipantRecord tpr where tpr.term.id=?";
-    
-    
-    public void getStatistics(Term term) throws Exception {
-        List list = getHibernateTemplate().find(hql_getStatistics, term.getId());
-        term.setParticipantCount(((Number) list.get(0)).intValue());
+    private void adjustStatistics(Term term) throws Exception {
+        int participantCount = term.getParticipantCount()+1;
+        term.setParticipantCount(participantCount);
         
         int averageCount = 0;
-        int viewCount = term.getViewCount();
-        int participantCount = term.getParticipantCount();
-        
-        if (participantCount!=0) averageCount = (int) Math.ceil(viewCount/participantCount);
+        if (participantCount!=0) averageCount = (int) Math.ceil(term.getViewCount()/participantCount);
         term.setAverageCount(averageCount);
-    }//getStatistics()
+        
+        getHibernateTemplate().saveOrUpdate(term);
+    }//adjustStatistics()
 
 
     private static final String hql_setViewedByCurrentUser = "select count(tpr.id) from TermParticipantRecord tpr where tpr.term.id=? and tpr.user.id=?";
@@ -246,12 +242,16 @@ public class GlossaryDAOImpl extends BaseDAOImpl implements GlossaryDAO {
                 term.getId(),
                 user.getId(),
         });
+        
         int count = ((Number) list.get(0)).intValue();
+        
         if (count==0) {
             TermParticipantRecord record = new TermParticipantRecord();
             record.setTerm(term);
             record.setUser(user);
             getHibernateTemplate().save(record);
+            
+            adjustStatistics(term);
         }
     }//setViewedByCurrentUser()
 

@@ -117,6 +117,16 @@ public class Tag {
     public void setCount(int count) {
         this.count = count;
     }
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
+    public String toString() {
+        return name;
+    }
 
 
 }//class Tag

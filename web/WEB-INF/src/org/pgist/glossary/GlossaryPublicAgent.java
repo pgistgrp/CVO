@@ -231,7 +231,6 @@ public class GlossaryPublicAgent {
             term.setViewCount(0);
             term.setHighlightCount(0);
             term.setCommentCount(0);
-            term.setAbbreviation("");
             term.setFlaged(true);
             
             String name = (String) params.get("name");

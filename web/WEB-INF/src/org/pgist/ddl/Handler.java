@@ -3,7 +3,6 @@ package org.pgist.ddl;
 import java.io.File;
 import java.io.FileWriter;
 import java.text.DateFormat;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -64,10 +63,6 @@ public abstract class Handler {
     protected static final Map<Long, Concern> concernMap = new HashMap<Long, Concern>();
     
     protected static final Map<Tag, TagReference> tagRefMap = new HashMap<Tag, TagReference>();
-    
-    protected static final Map<String, Term> termMap = new HashMap<String, Term>();
-    
-    protected static final Map<String, TermCategory> termCatMap = new HashMap<String, TermCategory>();
     
     
     public void setName(String name) {
@@ -375,58 +370,43 @@ public abstract class Handler {
     }//getTerms()
 
 
-    private static final String hql_getTermByName = "from Term t where t.name=?";
+    private static final String hql_getTermByName1 = "from Term t where lower(t.name)=?";
+    
+    private static final String hql_getTermByName2 = "from Term t where lower(t.acronym.name)=?";
     
     
     protected Term getTermByName(String name) {
-        if (termMap.containsKey(name)) return termMap.get(name);
-        
-        Query query = session.createQuery(hql_getTermByName);
-        query.setString(0, name);
+        Query query = session.createQuery(hql_getTermByName1);
+        query.setString(0, name.toLowerCase());
         List list = query.list();
-        if (list.size()==0) return null;
+        if (list.size()==0) {
+            query = session.createQuery(hql_getTermByName2);
+            query.setString(0, name.toLowerCase());
+            list = query.list();
+            if (list.size()==0) return null;
+        }
         
         Term term = (Term) list.get(0);
-        termMap.put(term.getName(), term);
         
         return term;
     }//getTermByName()
-
-
-    protected void saveTerm(Term term) {
-        if (!termMap.containsValue(term)) {
-            termMap.put(term.getName(), term);
-        }
-        session.saveOrUpdate(term);
-    }//saveTerm()
 
 
     private static final String hql_getTermCatByName = "from TermCategory tc where tc.name=?";
     
     
     protected TermCategory getTermCatByName(String name) {
-        if (termCatMap.containsKey(name)) return termCatMap.get(name);
-        
         Query query = session.createQuery(hql_getTermCatByName);
         query.setString(0, name);
         List list = query.list();
         if (list.size()==0) return null;
         
         TermCategory tc = (TermCategory) list.get(0);
-        termCatMap.put(tc.getName(), tc);
         
         return tc;
     }//getTermByName()
 
 
-    protected void saveTermCat(TermCategory termCategory) {
-        if (!termCatMap.containsValue(termCategory)) {
-            termCatMap.put(termCategory.getName(), termCategory);
-        }
-        session.saveOrUpdate(termCategory);
-    }//saveTerm()
-    
-    
     private static final String hql_getTemplates = "from EmailTemplate";
     
     

@@ -42,10 +42,6 @@ public interface GlossaryDAO extends BaseDAO {
     /*
      * viewed count on the user basis
      */
-    
-    
-    void getStatistics(Term term) throws Exception;
-    
     void setViewedByCurrentUser(Term term) throws Exception;
     
 

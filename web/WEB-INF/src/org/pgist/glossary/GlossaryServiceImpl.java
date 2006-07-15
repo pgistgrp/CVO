@@ -57,10 +57,6 @@ public class GlossaryServiceImpl implements GlossaryService {
     public Collection getTerms(PageSetting setting, boolean prefixed) throws Exception {
         Collection terms = glossaryDAO.getTerms(setting, prefixed);
         
-        for (Term term : (Collection<Term>) terms) {
-            glossaryDAO.getStatistics(term);
-        }//for term
-        
         return terms;
     }//getTerms()
 
@@ -77,17 +73,12 @@ public class GlossaryServiceImpl implements GlossaryService {
             terms = glossaryDAO.getTermsByCreateTime(filter, !"desc".equals(direction), status);
         }
         
-        for (Term term : (Collection<Term>) terms) {
-            glossaryDAO.getStatistics(term);
-        }//for term
-        
         return terms;
     }//getTerms()
     
     
     public Term getTermById(Long id) throws Exception {
         Term term = glossaryDAO.getTermById(id);
-        glossaryDAO.getStatistics(term);
         return term;
     }//getTermById()
 

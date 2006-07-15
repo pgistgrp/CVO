@@ -26,7 +26,7 @@ public class Term {
     
     private String name;
     
-    private String abbreviation;
+    private TermAcronym acronym;
     
     private String shortDefinition = "";
     
@@ -37,6 +37,8 @@ public class Term {
     private Set links = new HashSet();
     
     private Set sources = new HashSet();
+    
+    private Set variations = new HashSet();
     
     private int status;
     
@@ -110,21 +112,21 @@ public class Term {
     
     /**
      * @return
-     * @hibernate.property
+     * @hibernate.many-to-one column="acronym_id" class="org.pgist.glossary.TermAcronym" casecad="all" lazy="true"
      */
-    public String getAbbreviation() {
-        return abbreviation;
+    public TermAcronym getAcronym() {
+        return acronym;
     }
 
 
-    public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
+    public void setAcronym(TermAcronym acronym) {
+        this.acronym = acronym;
     }
 
 
     /**
      * @return
-     * @hibernate.property not-null="true"
+     * @hibernate.property type="text" not-null="true"
      */
     public String getShortDefinition() {
         return shortDefinition;
@@ -152,7 +154,7 @@ public class Term {
     
     /**
      * @return
-     * @hibernate.set lazy="false" table="pgist_glossary_term_link_link" cascade="all" order-by="link_id"
+     * @hibernate.set lazy="true" table="pgist_glossary_term_link_link" cascade="all" lazy="true" order-by="link_id"
      * @hibernate.collection-key column="term_id"
      * @hibernate.collection-many-to-many column="link_id" class="org.pgist.glossary.TermLink"
      */
@@ -168,7 +170,7 @@ public class Term {
 
     /**
      * @return
-     * @hibernate.set lazy="false" table="pgist_glossary_term_term_link" cascade="all" order-by="term_id"
+     * @hibernate.set lazy="true" table="pgist_glossary_term_term_link" cascade="all" lazy="true" order-by="term_id"
      * @hibernate.collection-key column="related_term_id"
      * @hibernate.collection-many-to-many column="term_id" class="org.pgist.glossary.Term"
      */
@@ -184,7 +186,7 @@ public class Term {
 
     /**
      * @return
-     * @hibernate.set lazy="false" table="pgist_glossary_term_source_link" cascade="all" order-by="source_id"
+     * @hibernate.set lazy="true" table="pgist_glossary_term_source_link" cascade="all" lazy="true" order-by="source_id"
      * @hibernate.collection-key column="term_id"
      * @hibernate.collection-many-to-many column="source_id" class="org.pgist.glossary.TermSource"
      */
@@ -195,6 +197,16 @@ public class Term {
 
     public void setSources(Set sources) {
         this.sources = sources;
+    }
+
+
+    public Set getVariations() {
+        return variations;
+    }
+
+
+    public void setVariations(Set variations) {
+        this.variations = variations;
     }
 
 
@@ -228,7 +240,7 @@ public class Term {
 
     /**
      * @return
-     * @hibernate.many-to-one column="creator_id" class="org.pgist.users.User" casecad="all"
+     * @hibernate.many-to-one column="creator_id" class="org.pgist.users.User" lazy="true" casecad="all"
      */
     public User getCreator() {
         return creator;
@@ -354,6 +366,34 @@ public class Term {
     }
     
     
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getParticipantCount() {
+        return participantCount;
+    }
+
+
+    public void setParticipantCount(int participantCount) {
+        this.participantCount = participantCount;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getAverageCount() {
+        return averageCount;
+    }
+
+
+    public void setAverageCount(int averageCount) {
+        this.averageCount = averageCount;
+    }
+    
+    
     /*
      * ------------------------------------------------------------------------
      */
@@ -378,30 +418,5 @@ public class Term {
         return sb.toString();
     }//getCategoryList()
 
-    
-    /*
-     * ------------------------------------------------------------------------
-     */
-    
-
-    public int getParticipantCount() {
-        return participantCount;
-    }
-
-
-    public void setParticipantCount(int participantCount) {
-        this.participantCount = participantCount;
-    }
-
-
-    public int getAverageCount() {
-        return averageCount;
-    }
-
-
-    public void setAverageCount(int averageCount) {
-        this.averageCount = averageCount;
-    }
-    
     
 }//class Term
