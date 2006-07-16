@@ -23,6 +23,24 @@ public class BaseUser {
     
     protected String email = "";
     
+    protected String homeAddr = "";
+    
+    protected String city = "";
+    
+    protected String state = "";
+    
+    protected String zipcode = "";
+    
+    protected String ethnicity = "";
+    
+    protected int familyCount = 1;
+    
+    protected boolean official = false;
+    
+    protected boolean transportAgency = false;
+    
+    protected int agencyType = 1;
+    
     protected boolean gender = true;
     
     private boolean enabled;
@@ -144,6 +162,128 @@ public class BaseUser {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public String getHomeAddr() {
+        return homeAddr;
+    }
+
+
+    public void setHomeAddr(String homeAddr) {
+        this.homeAddr = homeAddr;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public String getCity() {
+        return city;
+    }
+
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public String getState() {
+        return state;
+    }
+
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public String getZipcode() {
+        return zipcode;
+    }
+
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public String getEthnicity() {
+        return ethnicity;
+    }
+
+
+    public void setEthnicity(String ethnicity) {
+        this.ethnicity = ethnicity;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public int getFamilyCount() {
+        return familyCount;
+    }
+
+
+    public void setFamilyCount(int familyCount) {
+        this.familyCount = familyCount;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public boolean isOfficial() {
+        return official;
+    }
+
+
+    public void setOfficial(boolean official) {
+        this.official = official;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public boolean isTransportAgency() {
+        return transportAgency;
+    }
+
+
+    public void setTransportAgency(boolean transportAgency) {
+        this.transportAgency = transportAgency;
+    }
+
+
+    public int getAgencyType() {
+        return agencyType;
+    }
+
+
+    public void setAgencyType(int agencyType) {
+        this.agencyType = agencyType;
     }
 
 

@@ -13,6 +13,10 @@ public class UserForm extends ActionForm {
     
     private String password1;
     
+    private String ethnicity1;
+    
+    private String reason;
+    
     private boolean save;
     
     
@@ -36,6 +40,26 @@ public class UserForm extends ActionForm {
     }
 
 
+    public String getEthnicity1() {
+        return ethnicity1;
+    }
+
+
+    public void setEthnicity1(String ethnicity1) {
+        this.ethnicity1 = ethnicity1;
+    }
+
+
+    public String getReason() {
+        return reason;
+    }
+
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+
     public boolean isSave() {
         return save;
     }
@@ -46,4 +70,4 @@ public class UserForm extends ActionForm {
     }
 
 
-}
+}//class UserForm
