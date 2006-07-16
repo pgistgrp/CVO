@@ -276,7 +276,7 @@
         <creator type="loginname">admin</creator>
         <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
         <relatedTerms>
-            <term>liquified natural gas</term>
+            <term>liquefied natural gas</term>
             <term>compressed natural gas</term>
         </relatedTerms>
         <links/>
@@ -1426,7 +1426,7 @@
         <creator type="loginname">admin</creator>
         <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
         <relatedTerms>
-            <term>central business distract</term>
+            <term>central business district</term>
         </relatedTerms>
         <links/>
         <sources><source><![CDATA[<i>Mineta Transportation Institute Glossary</i>. The Norman Y. Mineta International Institute for Surface Transportation Policy Studies. Accessed 2006/07/12. http://transweb.sjsu.edu/comglos.htm.]]></source></sources>
@@ -1522,9 +1522,7 @@
         <extDefinition> The DOT includes the Federal Highway Administration and the Federal Transit Administration, among others. There are also state DOTs (WashDOT in Washington)</extDefinition>
         <creator type="loginname">admin</creator>
         <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <relatedTerms>
-            <term>washdot</term>
-        </relatedTerms>
+        <relatedTerms/>
         <links/>
         <sources><source><![CDATA[<i>Mineta Transportation Institute Glossary</i>. The Norman Y. Mineta International Institute for Surface Transportation Policy Studies. Accessed 2006/07/12. http://transweb.sjsu.edu/comglos.htm.]]></source></sources>
         <categories>
@@ -1599,7 +1597,7 @@
         <extDefinition></extDefinition>
         <creator type="loginname">admin</creator>
         <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <relatedTerms/>
+        <relatedTerms><term>appropriations</term></relatedTerms>
         <links/>
         <sources><source><![CDATA[<i>Mineta Transportation Institute Glossary</i>. The Norman Y. Mineta International Institute for Surface Transportation Policy Studies. Accessed 2006/07/12. http://transweb.sjsu.edu/comglos.htm.]]></source></sources>
         <categories>
@@ -2917,6 +2915,7 @@
             <category>public</category>
         </categories>
         <abbreviation>LNG</abbreviation>
+        <variations><variation>liquified natural gas</variation></variations>
         <viewCount>0</viewCount>
         <highlightCount>0</highlightCount>
         <commentCount>0</commentCount>
@@ -3013,7 +3012,7 @@
         <commentCount>0</commentCount>
     </term>
 
-    <term name="Mass Transit">
+    <term name="mass transit">
         <shortDefinition>Transportation by bus, rail, or other conveyance, either publicly or privately owned, which provides to the public general or special service on a regular and continuing basis.</shortDefinition>
         <extDefinition>Also known as "mass transportation," and "transit".</extDefinition>
         <creator type="loginname">admin</creator>
@@ -3037,9 +3036,7 @@
         <extDefinition></extDefinition>
         <creator type="loginname">admin</creator>
         <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <relatedTerms>
-            <term>Surface Transportation Assistance Act</term>
-        </relatedTerms>
+        <relatedTerms/>
         <links/>
         <sources><source><![CDATA[<i>Mineta Transportation Institute Glossary</i>. The Norman Y. Mineta International Institute for Surface Transportation Policy Studies. Accessed 2006/07/12. http://transweb.sjsu.edu/comglos.htm.]]></source></sources>
         <categories>
@@ -3168,10 +3165,7 @@
         <extDefinition></extDefinition>
         <creator type="loginname">admin</creator>
         <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <relatedTerms>
-            <term>TIP</term>
-            <term>Lists highway and transit and transit projects for which the region hopes to capture funds.</term>
-        </relatedTerms>
+        <relatedTerms/>
         <links/>
         <sources><source><![CDATA[<i>Mineta Transportation Institute Glossary</i>. The Norman Y. Mineta International Institute for Surface Transportation Policy Studies. Accessed 2006/07/12. http://transweb.sjsu.edu/comglos.htm.]]></source></sources>
         <categories>
@@ -3185,7 +3179,7 @@
     </term>
 
     <term name="metropolitan transportation plan">
-        <shortDefinition>The result of the process of developing and discussing a city's official transportation strategy</shortDefinition>
+        <shortDefinition>The result of the process of developing and discussing a city's official transportation strategy.  Lists highway and transit and transit projects for which the region hopes to capture funds.</shortDefinition>
         <extDefinition></extDefinition>
         <creator type="loginname">admin</creator>
         <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
@@ -3908,7 +3902,7 @@
         <creator type="loginname">admin</creator>
         <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
         <relatedTerms>
-            <term>liquified natural gas</term>
+            <term>liquefied natural gas</term>
             <term>compressed natural gas</term>
         </relatedTerms>
         <links/>
@@ -4822,7 +4816,7 @@
         <extDefinition>The TIP is prepared annually with the cooperation of local governments, transit operators and WashDOT. Depending on the funding source it covers a three- to seven-year period.</extDefinition>
         <creator type="loginname">admin</creator>
         <createTime>July 1, 2006 9:25:20 AM PDT</createTime>
-        <relatedTerms/>
+        <relatedTerms><term>department of transportation</term></relatedTerms>
         <links/>
         <sources><source><![CDATA[<i>Mineta Transportation Institute Glossary</i>. The Norman Y. Mineta International Institute for Surface Transportation Policy Studies. Accessed 2006/07/12. http://transweb.sjsu.edu/comglos.htm.]]></source></sources>
         <categories>
@@ -4979,7 +4973,7 @@
         <creator type="loginname">admin</creator>
         <createTime>July 1, 2006 9:25:20 AM PDT</createTime>
         <relatedTerms>
-            <term>department of transportation</term>
+            <term>Department of Transportation</term>
             <term>king county department of transportation</term>
         </relatedTerms>
         <links/>
@@ -6516,108 +6510,53 @@ and others.</shortDefinition>
        <commentCount></commentCount>
        <internal>true</internal>
     </term>
-   
-    <term name="liquified natural gas" notes="this is a temperory term added by Kenny">
-        <shortDefinition></shortDefinition>
-        <extDefinition></extDefinition>
-        <creator type="loginname">admin</creator>
-        <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <links/>
-        <viewCount>0</viewCount>
-        <highlightCount>0</highlightCount>
-        <commentCount>0</commentCount>
-    </term>
 
-    <term name="mass transit" notes="this is a temperory term added by Kenny">
-        <shortDefinition></shortDefinition>
+    <term name="air pollution">
+        <shortDefinition>The presence of unwanted material in the air in sufficient amount and under such circumstances as to interfere significantly with human comfort, health, or welfare, or with full use and enjoyment of property.</shortDefinition>
         <extDefinition></extDefinition>
         <creator type="loginname">admin</creator>
         <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <links/>
-        <viewCount>0</viewCount>
-        <highlightCount>0</highlightCount>
-        <commentCount>0</commentCount>
-    </term>
-
-    <term name="Surface Transportation Assistance Act" notes="this is a temperory term added by Kenny">
-        <shortDefinition></shortDefinition>
-        <extDefinition></extDefinition>
-        <creator type="loginname">admin</creator>
-        <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <links/>
-        <viewCount>0</viewCount>
-        <highlightCount>0</highlightCount>
-        <commentCount>0</commentCount>
-    </term>
-
-    <term name="air pollution" notes="this is a temperory term added by Kenny">
-        <shortDefinition></shortDefinition>
-        <extDefinition></extDefinition>
-        <creator type="loginname">admin</creator>
-        <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <viewCount>0</viewCount>
-        <highlightCount>0</highlightCount>
-        <commentCount>0</commentCount>
-    </term>
-
-    <term name="washdot" notes="this is a temperory term added by Kenny">
-        <shortDefinition></shortDefinition>
-        <extDefinition></extDefinition>
-        <creator type="loginname">admin</creator>
-        <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <viewCount>0</viewCount>
-        <highlightCount>0</highlightCount>
-        <commentCount>0</commentCount>
-    </term>
-
-    <term name="Lists highway and transit and transit projects for which the region hopes to capture funds." notes="this is a temperory term added by Kenny">
-        <shortDefinition></shortDefinition>
-        <extDefinition></extDefinition>
-        <creator type="loginname">admin</creator>
-        <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <relatedTerms/>
-        <links/>
+         <sources>
+           <source><![CDATA[Gray, Benita H., ed. <i>Urban Public Transportation Glossary</i>. Washington, D.C.: Transportation Research Board, 1989.]]></source>
+       </sources>
         <viewCount>0</viewCount>
         <highlightCount>0</highlightCount>
         <commentCount>0</commentCount>
     </term>
     
-    <term name="privatization" notes="this is a temperory term added by Kenny">
-        <shortDefinition></shortDefinition>
+    <term name="privatization">
+        <shortDefinition>Privatization is the process of transferring property from public ownership to private ownership and/or transferring the management of a service or activity from the government to the private sector. Privatisation can be partial or complete. It may also carry conditions as to the change in ownership.</shortDefinition>
         <extDefinition></extDefinition>
         <creator type="loginname">admin</creator>
         <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
+        <sources><source><![CDATA["Privatization." Wikipedia, The Free Encyclopedia. 10 Jul 2006, 00:43 UTC. Wikimedia Foundation, Inc. 15 Jul 2006 <http://en.wikipedia.org/w/index.php?title=Privatization&oldid=62964576>]]>.</source></sources>
         <viewCount>0</viewCount>
         <highlightCount>0</highlightCount>
         <commentCount>0</commentCount>
     </term>
 
-    <term name="central business distract" notes="this is a temperory term added by Kenny">
-        <shortDefinition></shortDefinition>
+    <term name="appropriations">
+        <shortDefinition>In general, appropriations are moneys set aside for some specific use.  The legislature must approve an appropriations bill for the expenditure of tax money by the government, usually for a specific purpose and period of time. </shortDefinition>
         <extDefinition></extDefinition>
         <creator type="loginname">admin</creator>
         <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
+        <variations>
+          <variation>appropriation</variation>
+          <variation>appropriations bill</variation>
+          <variation>supply bill</variation>
+        </variations>
         <viewCount>0</viewCount>
         <highlightCount>0</highlightCount>
         <commentCount>0</commentCount>
     </term>
 
-    <term name="appropriations" notes="this is a temperory term added by Kenny">
-        <shortDefinition></shortDefinition>
+    <term name="right-of-way">
+        <shortDefinition>Either the privilege (granted by law, permit, or easement) to travel through another person's land, or, in traffic, the principle which determines which vehicle has precedence when more than one vehicle is trying to occupy the same space.</shortDefinition>
         <extDefinition></extDefinition>
         <creator type="loginname">admin</creator>
         <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
         <viewCount>0</viewCount>
-        <highlightCount>0</highlightCount>
-        <commentCount>0</commentCount>
-    </term>
-
-    <term name="right-of-way" notes="this is a temperory term added by Kenny">
-        <shortDefinition></shortDefinition>
-        <extDefinition></extDefinition>
-        <creator type="loginname">admin</creator>
-        <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <viewCount>0</viewCount>
+        <variations><variation>easement</variation></variations>
         <highlightCount>0</highlightCount>
         <commentCount>0</commentCount>
     </term>
