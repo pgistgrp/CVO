@@ -200,6 +200,12 @@ public class Term {
     }
 
 
+    /**
+     * @return
+     * @hibernate.set lazy="true" order-by="id" cascade="all"
+     * @hibernate.collection-key column="term_id"
+     * @hibernate.collection-one-to-many class="org.pgist.glossary.TermVariation"
+     */
     public Set getVariations() {
         return variations;
     }
