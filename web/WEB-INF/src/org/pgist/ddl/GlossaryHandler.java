@@ -133,15 +133,28 @@ public class GlossaryHandler extends Handler {
             Element sourcesElement = element.element("sources");
             if (sourcesElement!=null) {
                 List sources = sourcesElement.elements("source");
-                for (int j=0,m=sources.size(); j<m; j++) {
-                    Element sourceElement = (Element) sources.get(j);
-                    String source = sourceElement.getText();
+                for (Element sourceElement : (List<Element>) sources) {
+                    /*
+                     * citation is required
+                     */
+                    String citation = sourceElement.elementTextTrim("citation");
+                    if (citation==null || "".equals(citation.trim())) continue;
+                    citation = citation.trim();
                     
-                    if (source==null || "".equals(source.trim())) continue;
-                    source = source.trim();
+                    /*
+                     * url is not required
+                     */
+                    String url = sourceElement.elementTextTrim("url");
+                    if (url!=null) {
+                        url = url.trim();
+                        if ("".equals(url)) {
+                            url = null;
+                        }
+                    }
                     
                     TermSource termSource = new TermSource();
-                    termSource.setSource(source);
+                    termSource.setCitation(citation);
+                    termSource.setUrl(url);
                     
                     persist(termSource);
                     
@@ -257,7 +270,7 @@ public class GlossaryHandler extends Handler {
             Element sources = one.addElement("sources");
             for (TermSource source : (Set<TermSource>)term.getSources()) {
                 Element oneSource = sources.addElement("source");
-                oneSource.setText(source.getSource());
+                oneSource.setText(source.getCitation());
             }
             
             Element categories = one.addElement("categories");

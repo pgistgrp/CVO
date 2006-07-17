@@ -163,7 +163,7 @@ public class GlossaryServiceImpl implements GlossaryService {
                 if (sources[i]==null || "".equals(sources[i].trim())) continue;
                 
                 TermSource source = new TermSource();
-                source.setSource(sources[i]);
+                source.setCitation(sources[i]);
                 glossaryDAO.saveTermSource(source);
                 
                 term.getSources().add(source);
