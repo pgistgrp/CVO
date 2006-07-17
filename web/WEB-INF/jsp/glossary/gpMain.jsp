@@ -10,7 +10,8 @@
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
 <script type='text/javascript' src='/dwr/interface/GlossaryPublicAgent.js'></script>
-
+<script src="/scripts/prototype.js" type="text/javascript"></script>
+<script src="/scripts/scriptaculous.js?load=effects" type="text/javascript"></script>
 <script type="text/javascript">
 	
 		window.onload = doOnLoad();
@@ -112,6 +113,9 @@
 			os = '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/closelabel.gif" border="0"></a></span>'
 			os += $('proposeForm').innerHTML;
 			$('lightbox').innerHTML = os;
+			
+
+			
 		}
 		
 		function proposeTermPrep(name, shortDef, fullDef, source1, source2, source3, termlink1, termlink2, termlink3){		
@@ -144,6 +148,8 @@
 
 					if (data.successful){ 
 							$('proposeForm').innerHTML = '<h3>Thank you for your term proposal!</h3><br><p>Your term has been submitted to the moderator for approval.  You will be notified after moderator review.</p><p><a href="javascript: lightboxDisplay(\'none\');">Close Box</a></p>';
+							//clear Array
+							sourceList = "";
 					}else{
 						  alert(data.reason);
 					}
@@ -153,6 +159,39 @@
 				}
 			});
 		}
+
+		sourceList = new Array();
+		termList = new Array();
+		function addItemToList(list, type, value1, value2){
+			if (list == 'sourceList'){
+				if (type == 'book'){
+					asource = value2 + ' by ' + value1;
+				}else{
+					asource = value1;
+				}
+				sourceList.push(asource);
+				$('sourceList').innerHTML = "";
+				for (var i=0; i<sourceList.length; i++)
+				{
+					$('sourceList').innerHTML += '<li id="source'+ i +'">'+ sourceList[i] +'</li>';
+				}
+				$('txtauthor').value = $('txtauthor').defaultValue;
+				$('txttitle').value = $('txttitle').defaultValue;
+				$('txturl').value = $('txturl').defaultValue;
+				Effect.BlindUp('addSourceFormCont');
+			}else{
+				aterm = value1;
+				termList.push(aterm);
+				$('termList').innerHTML = "";
+				for (var i=0; i<termList.length; i++)
+				{
+					$('termList').innerHTML += '<li id="term'+ i +'">'+ termList[i] +'</li>';
+				}
+				$('txttermurl').value = $('txttermurl').defaultValue;
+			  Effect.BlindUp('addTermsFormCont');
+			}	
+		}
+		
 
 </script>
 <!-- Template 4 CSS -->
@@ -171,7 +210,7 @@ tr:hover {background-color: #eee;}
 <body>
 <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 <div id="container">
-<div id="header"><!--<jsp:include page="gmTerms.jsp"/>--><img src="/images/logo_reflect.gif"></div>
+<div id="header"><img src="/images/logo_reflect.gif"></div>
 		<!-- LIGHTBOX -->
 	<div id="overlay"></div>
 	<div id="lightbox" style="top: 50%; height: 450px; overflow: auto;"></div> <!-- make this %80 of window height -->
@@ -213,19 +252,34 @@ tr:hover {background-color: #eee;}
     <textarea name="extDef" id="extDef" style="width: 100%"></textarea>
     </label>
   </p>
- 
+ 	<div id="section_sources">
   <label>Sources (at least 1 is required)</label><br />
-  	1. <input name="source1" type="text" id="source1" value="http://" style="width: 95%" /><br />
-  	2. <input name="source2" type="text" id="source2" value="http://" style="width: 95%" /><br />
-  	3. <input name="source3" type="text" id="source3" value="http://" style="width: 95%" />
+ 		<div id="sourceList">No sources have been created yet.</div><br>
+  	<div id="addSourceFormCont" style="display:none; padding: 5px; width: 100%; background-color: #ddd; margin-bottom: 5px;">
+	  		What type of source is it?
+				<select id="sourceType" name="sourceType">
+							<option value="" onclick="Effect.BlindUp('addURLForm'); Effect.BlindUp('addBookForm');">Please select source type</option>
+						  <option value="book" onclick="Effect.BlindDown('addBookForm'); Effect.BlindUp('addURLForm');">Book</option>
+						  <option value="url" onclick="Effect.BlindDown('addURLForm'); Effect.BlindUp('addBookForm');">URL</option>
+				</select>	
+	
+	  		<div id="addBookForm" style="display: none;"><input name="author" type="text" id="txtauthor" value="Author" style="width: 30%" />&nbsp;&nbsp;<input name="author" type="text" id="txttitle" value="Title" style="width: 60%" /><br><a href="javascript: addItemToList('sourceList','book', $('txtauthor').value,$('txttitle').value);">Add this Book Source</a></div>
+	  		<div id="addURLForm" style="display: none;"><input name="url" type="text" id="txturl" value="http://" style="width: 95%" /><br><a href="javascript: addItemToList('sourceList','url', $('txturl').value,'');">Add this URL Source</a></div>
+  	</div>
+  	<div id="addSourceLink"><a href="javascript: Effect.toggle('addSourceFormCont', 'blind'); void(0);">Add a Source</a></div>
+  </div>
   
-  
+  <br />
   <label>Term Links (optional)</label><br />
-  	1. <input name="termlink1" type="text" id="termlink1" value="http://" style="width: 95%" /><br />
-  	2. <input name="termlink2" type="text" id="termlink2" value="http://" style="width: 95%" /><br />
-  	3. <input name="termlink3" type="text" id="termlink3" value="http://" style="width: 95%" />
-  
+ 		<div id="termList">No term links have been created yet.</div><br>
+  	<div id="addTermsFormCont" style="display:none; padding: 5px; width: 100%; background-color: #ddd; margin-bottom: 5px;">
+	  		<div id="addURLForm"><input name="url" type="text" id="txttermurl" value="http://" style="width: 95%" /><br><a href="javascript: addItemToList('termList','url', $('txttermurl').value,'');">Add this URL Source</a></div>
+  	</div>
+  	<div id="addTermLink"><a href="javascript: Effect.toggle('addTermsFormCont', 'blind'); void(0);">Add a Term Link</a></div>
+ 
+  <br>
 	<p><input type="button" value="Cancel" onClick="lightboxDisplay('none')"><input type="button" value="propose term" onClick="proposeTermPrep($('termName').value,$('shortDef').value,$('extDef').value, $('source1').value, $('source2').value, $('source3').value,$('termlink1').value,$('termlink2').value,$('termlink3').value);"></p>
+   </div>
   </form>
 </div>
   
