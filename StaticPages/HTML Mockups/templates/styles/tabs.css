@@ -31,7 +31,7 @@ ul.tabbernav
 {
  margin:0;
  padding: 3px 0;
- border-bottom: 1px solid #CCCCCC;
+ border-bottom: 1px solid #F2E3EB;
  font-size: 10px;
 }
 
@@ -47,7 +47,7 @@ ul.tabbernav li a
 	
  padding: 3px 0.5em;
  margin-left: 3px;
- border: 1px solid #CCCCCC;
+ border: 1px solid #E9EFD3;
  border-bottom: none;
  background: #FFF;
  text-decoration: none;
@@ -59,10 +59,10 @@ ul.tabbernav li a:visited { color: #666; }
 
 ul.tabbernav li a:hover
 {
- color: #EEE;
- background: #AFCAE7;
+ color: #C0C0C0;
+ background-color: #EBEFF2;
  border-color: #CCCCCC;
- border-top: 2px solid #FF67B3;
+ /*border-top: 2px solid #FF67B3;*/
 }
 
 ul.tabbernav li.tabberactive a
@@ -70,9 +70,9 @@ ul.tabbernav li.tabberactive a
 
  font-size: 12px;
  font-weight: bold;
- background-color: #EEE;
+ background-color: #E9EFD3;
  border-bottom: 2px solid #EEE;
- border-top: 2px solid #FF67B3;
+ /*border-top: 2px solid #FF67B3;*/
  color: #0061A8;
  /*cool pink color color: #FF67B3; */
 }
@@ -92,7 +92,7 @@ ul.tabbernav li.tabberactive a:hover
 
 .tabberlive .tabbertab{
  padding:5px;
- border:1px solid #CCCCCC;
+ border:1px solid #C0D7F6;
  border-top:0;
 
  background-color: #FFF;
