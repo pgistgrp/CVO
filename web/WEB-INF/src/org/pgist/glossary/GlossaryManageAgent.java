@@ -269,6 +269,7 @@ public class GlossaryManageAgent {
             if (id==-1) {
                 glossaryService.createTerm(term, relatedTerms, links, sources, categories, Term.STATUS_OFFICIAL);
             } else {
+                if (term.getStatus()==Term.STATUS_PENDING) term.setStatus(Term.STATUS_OFFICIAL);
                 glossaryService.updateTerm(term, relatedTerms, links, sources, categories);
             }
             
