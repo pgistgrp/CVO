@@ -83,45 +83,64 @@ public class GlossaryServiceImpl implements GlossaryService {
     }//getTermById()
 
 
-    public void updateTerm(Term term, String[] relatedTerms, String[] links, String[] sources, String[] categories) throws Exception {
+    public void updateTerm(Term term, String[] relatedTerms, String[] links, String[][] sources, String[] categories) throws Exception {
         term.getRelatedTerms().clear();
         term.getLinks().clear();
         term.getSources().clear();
         term.getCategories().clear();
         
-        for (int i=0; i<relatedTerms.length; i++) {
-            if (relatedTerms[i]==null || "".equals(relatedTerms[i].trim())) continue;
-            
-            Term one = glossaryDAO.getTermByName(relatedTerms[i].trim());
-            if (one==null) throw new Exception("Term "+relatedTerms[i]+" is not found!");
-            term.getRelatedTerms().add(one);
-        }//for i
+        if (relatedTerms!=null) {
+            for (int i=0; i<relatedTerms.length; i++) {
+                if (relatedTerms[i]==null || "".equals(relatedTerms[i].trim())) continue;
+                
+                Term one = glossaryDAO.getTermByName(relatedTerms[i].trim());
+                glossaryDAO.saveTerm(one);
+                
+                if (one==null) throw new Exception("Term "+relatedTerms[i]+" is not found!");
+                term.getRelatedTerms().add(one);
+            }//for i
+        }
         
-        for (int i=0; i<links.length; i++) {
-            if (links[i]==null || "".equals(links[i].trim())) continue;
-            
-            term.getLinks().add(links[i]);
-        }//for i
+        if (links!=null) {
+            for (int i=0; i<links.length; i++) {
+                if (links[i]==null || "".equals(links[i].trim())) continue;
+                
+                TermLink link = new TermLink();
+                link.setLink(links[i]);
+                glossaryDAO.saveTermLink(link);
+                
+                term.getLinks().add(link);
+            }//for i
+        }
         
-        for (int i=0; i<sources.length; i++) {
-            if (sources[i]==null || "".equals(sources[i].trim())) continue;
-            
-            term.getSources().add(sources[i]);
-        }//for i
+        if (sources!=null) {
+            for (int i=0; i<sources.length; i++) {
+                if (sources[i][0]==null || "".equals(sources[i][0].trim())) continue;
+                
+                TermSource source = new TermSource();
+                source.setCitation(sources[i][0]);
+                source.setUrl(sources[i][1]);
+                glossaryDAO.saveTermSource(source);
+                
+                term.getSources().add(source);
+            }//for i
+        }
         
-        for (int i=0; i<categories.length; i++) {
-            if (categories[i]==null || "".equals(categories[i].trim())) continue;
-            
-            TermCategory one = glossaryDAO.getCategoryByName(categories[i].trim());
-            if (one==null) throw new Exception("Category "+categories[i]+" is not found!");
-            term.getCategories().add(one);
-        }//for i
+        if (categories!=null) {
+            for (int i=0; i<categories.length; i++) {
+                if (categories[i]==null || "".equals(categories[i].trim())) continue;
+                
+                TermCategory one = glossaryDAO.getCategoryByName(categories[i].trim());
+                if (one==null) throw new Exception("Category "+categories[i]+" is not found!");
+                term.getCategories().add(one);
+            }//for i
+        }
         
         glossaryDAO.saveTerm(term);
     }//updateTerm()
 
 
-    public void createTerm(Term term, String[] relatedTerms, String[] links, String[] sources, String[] categories, int status) throws Exception {
+    public void createTerm(Term term, String[] relatedTerms, String[] links, String[][] sources, String[] categories, int status) throws Exception {
         term.getRelatedTerms().clear();
         term.getLinks().clear();
         term.getSources().clear();
@@ -160,10 +179,11 @@ public class GlossaryServiceImpl implements GlossaryService {
         
         if (sources!=null) {
             for (int i=0; i<sources.length; i++) {
-                if (sources[i]==null || "".equals(sources[i].trim())) continue;
+                if (sources[i][0]==null || "".equals(sources[i][0].trim())) continue;
                 
                 TermSource source = new TermSource();
-                source.setCitation(sources[i]);
+                source.setCitation(sources[i][0]);
+                source.setUrl(sources[i][1]);
                 glossaryDAO.saveTermSource(source);
                 
                 term.getSources().add(source);

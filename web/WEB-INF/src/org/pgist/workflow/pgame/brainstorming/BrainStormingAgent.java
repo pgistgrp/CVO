@@ -9,13 +9,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.IndexWriter;
+import org.directwebremoting.WebContextFactory;
 import org.pgist.model.Post;
 import org.pgist.search.SearchHelper;
 import org.pgist.system.UserDAO;
 import org.pgist.users.User;
-
-import uk.ltd.getahead.dwr.WebContext;
-import uk.ltd.getahead.dwr.WebContextFactory;
 
 
 /**
@@ -134,18 +132,15 @@ public class BrainStormingAgent {
     }//createPost()
     
     
-    public String getPostGroups(Map params) throws Exception {
+    public String getPostGroups(HttpServletRequest request, Map params) throws Exception {
         BrainStorming brainStorming = brainStormingDAO.getBrainStormingById(new Long((String) (params.get("brainStormingId"))));
-        
-        WebContext context = WebContextFactory.get();
-        HttpServletRequest request = context.getHttpServletRequest();
         request.setAttribute("brainStorming", brainStorming);
         
         String myPost = (String) params.get("myPost");
         if ("0".equals(myPost)) {
-            return context.forwardToString("/WEB-INF/jsp/pgame/BrainStorming/myPostGroups.jsp");
+            return WebContextFactory.get().forwardToString("/WEB-INF/jsp/pgame/BrainStorming/myPostGroups.jsp");
         } else {
-            return context.forwardToString("/WEB-INF/jsp/pgame/BrainStorming/postGroups.jsp");
+            return WebContextFactory.get().forwardToString("/WEB-INF/jsp/pgame/BrainStorming/postGroups.jsp");
         }
     }//getPostGroups()
     

@@ -26,10 +26,10 @@ public interface GlossaryService {
     Term getTermById(Long id) throws Exception;
     
 
-    void updateTerm(Term term, String[] relatedTerms, String[] links, String[] sources, String[] categories) throws Exception;
+    void updateTerm(Term term, String[] relatedTerms, String[] links, String[][] sources, String[] categories) throws Exception;
     
 
-    void createTerm(Term term, String[] relatedTerms, String[] links, String[] sources, String[] categories, int status_pending) throws Exception;
+    void createTerm(Term term, String[] relatedTerms, String[] links, String[][] sources, String[] categories, int status_pending) throws Exception;
     
 
     void deleteTerm(Term term) throws Exception;

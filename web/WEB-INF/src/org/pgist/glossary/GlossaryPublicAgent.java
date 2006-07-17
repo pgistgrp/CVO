@@ -8,9 +8,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.directwebremoting.WebContextFactory;
 import org.pgist.discussion.DiscussionPost;
-
-import uk.ltd.getahead.dwr.WebContextFactory;
 
 
 /**
@@ -212,17 +211,15 @@ public class GlossaryPublicAgent {
      *           <li>shortDef - string, short definition of term</li>
      *           <li>fullDef - string, full definition of term</li>
      *         </ul>
-     * @param relatedTerms - array of string, array of related terms
-     * @param links - array of string, array of term links
-     * @param sources - array of string, array of term sources
-     * @param categories - array of string, array of term categories
+     * @param links - string[], array of term links
+     * @param sources - string[][], string[x][0] is the citation of the xth TermSource, string[x][1] is the url of the xth TermSource
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
-    public Map proposeTerm(Map params, String[] relatedTerms, String[] links, String[] sources, String[] categories) {
+    public Map proposeTerm(Map params, String[] links, String[][] sources) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -246,7 +243,7 @@ public class GlossaryPublicAgent {
             String extDefinition = (String) params.get("fullDef");
             term.setExtDefinition(extDefinition);
             
-            glossaryService.createTerm(term, relatedTerms, links, sources, categories, Term.STATUS_PENDING);
+            glossaryService.createTerm(term, null, links, sources, null, Term.STATUS_PENDING);
             
             map.put("successful", true);
         } catch (Exception e) {

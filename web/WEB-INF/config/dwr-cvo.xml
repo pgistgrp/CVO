@@ -44,6 +44,9 @@
     </convert>
 
 
+    <convert converter="bean" match="org.pgist.glossary.TermSource"/>
+
+
     <!-- DWR Agents -->
     
 
@@ -138,9 +141,6 @@
 
   <signatures>
     <![CDATA[
-    import java.util.Map;
-    import org.pgist.glossary.GlossaryAgent;
-    GlossaryAgent.saveTerm(Map<String, String> params, String[] relatedTerms, String[] links, String[] sources, String[] categories);
     ]]>
   </signatures>
   

@@ -6,11 +6,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.directwebremoting.WebContextFactory;
 import org.pgist.glossary.GlossaryService;
 import org.pgist.glossary.Term;
 import org.pgist.util.PageSetting;
-
-import uk.ltd.getahead.dwr.WebContextFactory;
 
 
 /**

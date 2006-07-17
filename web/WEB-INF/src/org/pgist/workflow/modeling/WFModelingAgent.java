@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.pgist.util.WebUtils;
+import org.directwebremoting.WebContextFactory;
 
 
 /**
@@ -44,7 +44,7 @@ public class WFModelingAgent {
     public Map getDefinitionAsTree(HttpServletRequest request, HttpServletResponse response, int type, Long id) throws Exception {
         Map map = new HashMap();
         
-        map.put("html", WebUtils.forwardToString(request, response, "/test.jsp"));
+        map.put("html", WebContextFactory.get().forwardToString("/test.jsp"));
         map.put("successful", new Boolean(true));
         return map;
     }//getDefinitionAsTree()
@@ -62,7 +62,7 @@ public class WFModelingAgent {
     public Map getDefinitionSheet(HttpServletRequest request, HttpServletResponse response, int type, Long id) throws Exception {
         Map map = new HashMap();
         
-        map.put("html", WebUtils.forwardToString(request, response, "/test.jsp"));
+        map.put("html", WebContextFactory.get().forwardToString("/test.jsp"));
         map.put("successful", new Boolean(true));
         return map;
     }//getDefinitionSheet()
@@ -79,7 +79,7 @@ public class WFModelingAgent {
     public Map getTemplateList(HttpServletRequest request, HttpServletResponse response, int type) throws Exception {
         Map map = new HashMap();
         
-        map.put("html", WebUtils.forwardToString(request, response, "/test.jsp"));
+        map.put("html", WebContextFactory.get().forwardToString("/test.jsp"));
         map.put("successful", new Boolean(true));
         return map;
     }//getTemplateList()
@@ -126,7 +126,7 @@ public class WFModelingAgent {
     public Map insertEntity(HttpServletRequest request, HttpServletResponse response, Map params) throws Exception {
         Map map = new HashMap();
         
-        map.put("html", WebUtils.forwardToString(request, response, "/test.jsp"));
+        map.put("html", WebContextFactory.get().forwardToString("/test.jsp"));
         map.put("successful", new Boolean(true));
         return map;
     }//insertEntity()
@@ -141,7 +141,7 @@ public class WFModelingAgent {
     public Map insertConnector(HttpServletRequest request, HttpServletResponse response, Map params) throws Exception {
         Map map = new HashMap();
         
-        map.put("html", WebUtils.forwardToString(request, response, "/test.jsp"));
+        map.put("html", WebContextFactory.get().forwardToString("/test.jsp"));
         map.put("successful", new Boolean(true));
         return map;
     }//insertConnector()

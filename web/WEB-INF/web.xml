@@ -40,7 +40,7 @@
   </filter-mapping>
   <filter-mapping>
     <filter-name>OpenSessionInViewFilter</filter-name>
-    <url-pattern>/dwr/exec/*</url-pattern>
+    <url-pattern>/dwr/*</url-pattern>
   </filter-mapping>
   <filter-mapping>
     <filter-name>pgist filter</filter-name>
@@ -48,7 +48,7 @@
   </filter-mapping>
   <filter-mapping>
     <filter-name>pgist filter</filter-name>
-    <url-pattern>/dwr/exec/*</url-pattern>
+    <url-pattern>/dwr/*</url-pattern>
   </filter-mapping>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

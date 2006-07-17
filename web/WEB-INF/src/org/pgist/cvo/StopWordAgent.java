@@ -8,9 +8,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.directwebremoting.WebContextFactory;
 import org.pgist.util.PageSetting;
-
-import uk.ltd.getahead.dwr.WebContextFactory;
 
 
 /**

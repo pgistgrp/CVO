@@ -8,10 +8,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.directwebremoting.WebContextFactory;
 import org.pgist.discussion.DiscussionPost;
 import org.pgist.util.PageSetting;
-
-import uk.ltd.getahead.dwr.WebContextFactory;
 
 
 /**
@@ -224,17 +223,17 @@ public class GlossaryManageAgent {
      *           <li>shortDefinition - string, the short definition of term</li>
      *           <li>extDefinition - string, the extended definition of term</li>
      *         </ul>
-     * @param relatedTerms - array of string, array of related terms
-     * @param links - array of string, array of term links
-     * @param sources - array of string, array of term sources
-     * @param categories - array of string, array of term categories
+     * @param relatedTerms - string[], array of related terms
+     * @param links - string[], array of term links
+     * @param sources - string[][], string[x][0] is the citation of the xth TermSource, string[x][1] is the url of the xth TermSource
+     * @param categories - string[], array of term categories
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
-    public Map saveTerm(Map params, String[] relatedTerms, String[] links, String[] sources, String[] categories) {
+    public Map saveTerm(Map params, String[] relatedTerms, String[] links, String[][] sources, String[] categories) {
         Map map = new HashMap();
         map.put("successful", false);
         

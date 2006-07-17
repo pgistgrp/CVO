@@ -119,7 +119,7 @@
 			if(name == '' || shortDef == '' || fullDef == ''){
 				alert('Please make sure all required fields are filled out');
 			}else{
-			sources = new Array(source1,source2,source3);
+			sources = new Array([source1,'link'],[source2,'link'],[source3, 'link']);
 				for (var i=0; i<sources.length; i++)
 				{
 					if(sources[i] == 'http://' || sources[i] == ''){
@@ -139,7 +139,7 @@
 		}
 		
 		function proposeTerm(name,shortDef, fullDef, links, sources){
-				GlossaryPublicAgent.proposeTerm({name:name, shortDef:shortDef, fullDef:fullDef}, null, links, sources, null, {
+				GlossaryPublicAgent.proposeTerm({name:name, shortDef:shortDef, fullDef:fullDef}, links, sources, {
 				callback:function(data){
 
 					if (data.successful){ 

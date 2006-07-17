@@ -11,14 +11,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.IndexWriter;
+import org.directwebremoting.WebContextFactory;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
 import org.pgist.search.SearchHelper;
 import org.pgist.system.UserDAO;
 import org.pgist.users.User;
-
-import uk.ltd.getahead.dwr.WebContext;
-import uk.ltd.getahead.dwr.WebContextFactory;
 
 
 /**
@@ -202,20 +200,18 @@ public class CVOAgent {
     }//createPost()
     
     
-    public String getPostGroups(Map params) throws Exception {
+    public String getPostGroups(HttpServletRequest request, Map params) throws Exception {
         CVOForm form = new CVOForm();
         CVO cvo = cvoDAO.getCVOById(new Long((String) (params.get("cvoId"))));
         form.setRoot(cvo.getDiscourseObject().getRoot());
         
-        WebContext context = WebContextFactory.get();
-        HttpServletRequest request = context.getHttpServletRequest();
         request.setAttribute("cvoForm", form);
         
         String myPost = (String) params.get("myPost");
         if ("0".equals(myPost)) {
-            return context.forwardToString("/WEB-INF/jsp/cvo/myPostGroups.jsp");
+            return WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/myPostGroups.jsp");
         } else {
-            return context.forwardToString("/WEB-INF/jsp/cvo/postGroups.jsp");
+            return WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/postGroups.jsp");
         }
     }//getPostGroups()
     

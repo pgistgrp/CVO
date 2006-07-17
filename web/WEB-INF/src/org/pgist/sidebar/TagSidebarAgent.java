@@ -10,8 +10,6 @@ import org.pgist.glossary.GlossaryService;
 import org.pgist.glossary.Term;
 import org.pgist.util.PageSetting;
 
-import uk.ltd.getahead.dwr.WebContextFactory;
-
 
 /**
  * DWR AJAX Agent class.<br>
