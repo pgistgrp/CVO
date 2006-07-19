@@ -1,0 +1,177 @@
+/* Main Position CSS Template by John Le BETA 1 6/15/2006 */
+
+/*
+Table of Contents
+- HTML Elements (No Headings)
+- ID's
+- Classes
+- All Spiffy Box Related CSS
+*/
+
+/* HTML Elements */
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+}
+
+/* ID's */
+#bar {
+	padding: 0em;
+}
+#caughtException {
+	padding: 5px;
+	width: 90%;
+	margin: auto;
+	margin-top: 10px;
+	display: none;
+}
+#clear {
+	clear: both;
+}
+#col-left {
+	width: 64%;
+	float: left;
+	height: 100%;
+}
+#col-right {
+	width: 35%;
+	float: right;	
+	height: 100%;
+}
+#cont-resize {
+	min-height: 400px;
+}
+#container {
+	min-width: 675px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1em;
+	margin-bottom: 0px;
+	width: 90%;
+	position: relative;
+}
+#discussion {
+	/*padding: .1em .4em .1em .4em;
+	height: 54%;
+	width: 95%;*/
+	margin: auto;
+	margin-left: auto;
+	margin-right: auto;
+	width: 85%;
+	height: 25%;
+	overflow: auto;
+	padding: 10px;
+	padding-top: 0px;
+}
+#footer {
+	padding: .4em;
+}
+#header_discussion{
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	background: #fff;
+	margin: auto;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	padding-top: 5px;
+	width: 85%;
+}
+#header_object{
+	margin: auto;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	padding-top: 5px;
+	width: 90%;
+	}
+#main {
+	margin: 0px auto;
+}
+#object {
+	padding: .1em .4em .1em .4em;
+	width: 90%;
+	margin: auto;
+	height: 51%;
+	overflow: auto;
+	padding: 10px;
+	padding-top: 0px;
+}
+#post {
+	padding: .1em .4em .1em .4em;
+}
+#replies {
+	padding: .1em .4em .1em .4em;
+	margin: auto;
+	width: 95%;
+}
+#slate {
+	margin-bottom: 1em;
+	padding: .4em;
+	height: 40%;
+}
+#suppSlate {
+	margin-bottom: 1em;
+	padding: .4em;
+	height: 29%;
+	
+}
+#tabber {
+	padding: 0em .4em .1em .4em;
+}
+#tagSelector {
+	padding: 0em .4em .1em .4em;
+	margin: 0em 0em 0em 0em;
+	right: 0;
+	z-index: 1;
+}
+#themesummary {
+	margin-bottom: 1em;
+	padding: .4em;
+	height: 2em;
+}
+#toggle{
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	background: #eee;
+	margin: auto; 	
+	width: 85%;
+	text-align: center;
+	padding: 0px 10px 0px 10px;
+	height: 9px;
+	}
+
+/* Classes */
+/*Maybe Delete this */
+.scroller {
+	overflow: auto;
+}
+
+/* SpiffyBox CSS */
+/* set the image to use and establish the lower-right position */ 
+.cssbox, .cssbox_body, .cssbox_head, .cssbox_head h2{ 
+	background: transparent url(../images/img.php.png) no-repeat bottom right} 
+.cssbox{ /* intended total box width - padding-right(next) */ 
+	width: 98% !important; /* IE Win = width - padding */ 
+	width: 98%; /* the gap on the right edge of the image (not content padding) */ 
+	padding-right:15px; /* use to position the box */
+	margin:20px auto} /* set the top-right image */ 
+.cssbox_head{
+	background-position:top right; /* pull the right image over on top of border */ 
+	margin-right:-15px; /* right-image-gap + right-inside padding */ 
+	padding-right:40px} /* set the top-left image */ 
+.cssbox_head h2{ 
+	background-position:top left; 
+	margin:0; /* reset main site styles*/ 
+	border:0; /* ditto */ /* padding-left = image gap + interior padding ... no padding-right */ 
+	padding:25px 0 15px 40px; 
+	height:auto !important; 
+	height:1%
+	} /* IE Holly Hack */ /* set the lower-left corner image */ 
+.cssbox_body{ 
+	background-position:bottom left; 
+	margin-right:25px; /* interior-padding right */ 
+	padding:15px 0 15px 5px} /* mirror .cssbox_head right/left */
+/* End SpiffyBox CSS */

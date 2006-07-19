@@ -407,7 +407,7 @@ function showTheError(errorString, exception){
 		<div id="slate" style="border: 0px solid #fff;">  <!-- how do i make this as big as the floating accordian div -->
 
 			<h3>Concerns Summary Builder</h3>
-			<p>Click on a theme to view/edit</p>
+			<p>Click on the theme name to view/edit</p>
 				   <div id="accordionDiv" style="padding-bottom: 20px;">
 				      <div id="overviewPanel">
 				           <div id="overviewheader" class="accordionTabTitleBar ">Theme: Public Transportation</div>

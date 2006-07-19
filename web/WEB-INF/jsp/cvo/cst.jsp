@@ -350,16 +350,7 @@ function showTheError(errorString, exception){
 	<div id="lightbox"></div>
 	<!-- END LIGHTBOX -->
 	<div id="pageTitle">
-	<h1>Moderator Dashboard: </h1><h2>Concerns Synthesis Tool</h2>
-		<div id="bread">
-		<ul>
-			<li class="first"><a href="null">Moderator Dashboard</a>
-				<ul>
-					<li>&#187; <a href="null">Concerns Synthesis Tool</a></li>
-				</ul>
-			</li>
-		</ul>
-		</div>
+		<h1>Moderator Dashboard: </h1><h2>Concerns Synthesis Tool</h2>
 	</div>	
 
 		<!-- Overview SpiffyBox -->
