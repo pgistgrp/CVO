@@ -48,6 +48,11 @@
     </bean>
     
     
+    <bean name="/catsTree" class="org.pgist.cvo.CatsTreeAction">
+        <property name="cctService" ref="cctService"/>
+    </bean>
+    
+    
     <bean name="/sdclist" class="org.pgist.cvo.SDCListAction">
         <property name="cctService" ref="cctService"/>
     </bean>

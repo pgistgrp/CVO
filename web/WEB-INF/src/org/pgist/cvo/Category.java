@@ -129,6 +129,11 @@ public class Category implements Node {
      */
     
     
+    public String toString() {
+        return name;
+    }
+    
+    
     public String getCaption() {
         return name;
     }

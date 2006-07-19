@@ -295,6 +295,18 @@
     </attribute>
   </tag>
 
+  <tag>
+    <name>treeXML</name>
+    <tag-class>org.pgist.tags.TreeXMLTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Tree XML Tag</description>
+    <attribute>
+      <name>root</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
 
 </taglib>
 

@@ -42,18 +42,32 @@
 	
 	<script type="text/javascript">
 		var cctId = ${cctForm.cct.id};
+    var tree1 = null;
+    
 		window.onload(doOnLoad());
 
+    function preLoadImages(){
+      var imSrcAr = new Array("line1.gif","line2.gif","line3.gif","line4.gif","minus2.gif","minus3.gif","minus4.gif","plus2.gif","plus3.gif","plus4.gif","book.gif","books_open.gif","books_close.gif","magazines_open.gif","magazines_close.gif","tombs.gif","tombs_mag.gif","book_titel.gif","iconCheckAll.gif")
+      var imAr = new Array(0);
+      for(var i=0;i<imSrcAr.length;i++){
+        imAr[imAr.length] = new Image();
+        imAr[imAr.length-1].src = "/images/dhtmlXTree/"+imSrcAr[i];
+      }
+    }
+    
 		function doOnLoad(){
-		//	preLoadImages();
-		//	tree1=new dhtmlXTreeObject(document.getElementById('panelCatsContent'),"100%","100%",0);
-			//tree1.setImagePath("/images/dhtmlXTree/");
-			//tree1.setDragHandler();
-			//tree1.enableCheckBoxes(true)
-			//tree1.enableThreeStateCheckboxes(true);
-			//tree1.enableDragAndDrop(true);
-			
-			//getOrphanTags();
+			preLoadImages();
+      
+      tree1=new dhtmlXTreeObject($('panelCatsContent'),"100%","100%",0);
+      tree1.setImagePath("/images/dhtmlXTree/");
+      tree1.setDragHandler();
+      tree1.enableCheckBoxes(true)
+      tree1.enableThreeStateCheckboxes(true);
+      tree1.enableDragAndDrop(true);
+      //tree1.loadXML("/tree3.xml");//catsTree.do?cctId=${cctForm.cct.id}");
+      
+			//getCategories();
+			getOrphanTags();
 			//getTags(12,1,1);
 		}
 		

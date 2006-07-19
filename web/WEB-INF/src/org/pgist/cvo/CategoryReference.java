@@ -5,6 +5,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.pgist.model.Node;
+
 
 /**
  * 
@@ -12,7 +14,7 @@ import java.util.TreeSet;
  *
  * @hibernate.class table="pgist_cvo_category_refs" lazy="true"
  */
-public class CategoryReference {
+public class CategoryReference implements Node {
     
     
     protected Long id;
@@ -121,6 +123,21 @@ public class CategoryReference {
 
     public void setTags(SortedSet tags) {
         this.tags = tags;
+    }
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
+    public String toString() {
+        return getCategory().toString();
+    }
+
+
+    public String getCaption() {
+        return getCategory().toString();
     }
     
     

@@ -54,6 +54,10 @@
             <forward name="view" path="/WEB-INF/jsp/cvo/cst.jsp" />
         </action>
         
+        <action name="cctForm" path="/catsTree" scope="request" type="org.pgist.cvo.CatsTreeAction">
+            <forward name="view" path="/WEB-INF/jsp/cvo/cstCategories.jsp" />
+        </action>
+        
         <action name="cctForm" path="/sdclist" scope="request" type="org.pgist.cvo.SDCListAction">
             <forward name="list" path="/WEB-INF/jsp/cvo/sdclist.jsp" />
         </action>
