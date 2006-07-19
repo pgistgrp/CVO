@@ -178,16 +178,16 @@ Rico.Accordion.prototype = {
 
    setOptions: function(options) {
       this.options = {
-         expandedBg          : '#99CC33',
-         hoverBg             : '#99CC33',
-         collapsedBg         : '#C5E188',
+         expandedBg          : '#006699',
+         hoverBg             : '#006699',
+         collapsedBg         : '#EEEEEE',
          expandedTextColor   : '#ffffff',
          expandedFontWeight  : 'bold',
          hoverTextColor      : '#ffffff',
          collapsedTextColor  : '#333333',
          collapsedFontWeight : 'normal',
          hoverTextColor      : '#ffffff',
-         borderColor         : '#1f669b',
+         borderColor         : '#EEEEEE',
          panelHeight         : 200,
          onHideTab           : null,
          onShowTab           : null,
