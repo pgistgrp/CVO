@@ -780,8 +780,8 @@ label {
 	border-color: black;
 	border-width: 1px;
 	width: 300px;
-	height: 25px;
-	font-size: 18px;
+	height: 1.3EM;
+	font-size: 1.2em;
 	color: #333333;
 }
 

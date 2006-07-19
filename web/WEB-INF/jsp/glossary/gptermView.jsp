@@ -112,7 +112,7 @@
 	<div id="header"><img src="/images/logo_reflect.gif"></div>
 	<div id="slate" class="leftBox">
 		<p><a href="glossaryPublic.do">Back to All Glossary Terms</a></p>
-		<h1>${term.name}</h1> | Created on ${term.createTime} by ${term.creator.loginname}
+		<h1>${term.name}</h1>
 		<p></p>
 		<p>${term.shortDefinition}</p>
 		<p>${term.extDefinition}</p>
@@ -130,6 +130,22 @@
 			</tr>	
 		  </table>
 		</div>
+		
+		<c:if test="${term.acronym != null }">
+		<h3>Abbreviation</h3>
+		<ul>
+				<li>${term.acronym}</li>
+		</ul>
+		</c:if>
+		
+		<c:if test="${fn:length(term.variations) != 0}">
+				<h3>Variations</h3>
+				<ul>
+				<logic:iterate id="onevariation" property="variations" name="term">
+					<li>${onevariation.name}</li>
+				</logic:iterate>
+				</ul>
+		</c:if>
 		
 		<c:if test="${fn:length(term.sources) != 0}">
 				<h3>Sources</h3>
@@ -153,7 +169,7 @@
 		<h3>Related Terms</h3>
 		<ul>
 			<logic:iterate id="oneterm" property="relatedTerms" name="term">
-				<li>${oneterm}</li>
+				<li><a href="glossaryView.do?id=${oneterm.id}">${oneterm}</a></li>
 			</logic:iterate>
 		</ul>
 		</c:if>
