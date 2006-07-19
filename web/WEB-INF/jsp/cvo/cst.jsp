@@ -58,13 +58,6 @@
 		function doOnLoad(){
 			preLoadImages();
       
-      tree1=new dhtmlXTreeObject($('panelCatsContent'),"100%","100%",0);
-      tree1.setImagePath("/images/dhtmlXTree/");
-      tree1.setDragHandler();
-      tree1.enableCheckBoxes(true)
-      tree1.enableThreeStateCheckboxes(true);
-      tree1.enableDragAndDrop(true);
-      //tree1.loadXML("/tree3.xml");//catsTree.do?cctId=${cctForm.cct.id}");
       
 			//getCategories();
 			getOrphanTags();
@@ -366,11 +359,7 @@ function showTheError(errorString, exception){
 
 	
 	<div id="cont-resize">
-		<div id="col-left">
-			
-			left column
-			<p>Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah</p>
-		</div>
+		<div id="col-left"></div>
 		
 		<div id="col">
 			
@@ -480,6 +469,15 @@ function showTheError(errorString, exception){
 <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 <script type="text/javascript">
 dosize();
+
+      tree1=new dhtmlXTreeObject("col-left","100%","100%",0);
+      tree1.setImagePath("/images/dhtmlXTree/");
+      tree1.setDragHandler();
+      tree1.enableCheckBoxes(true)
+      tree1.enableThreeStateCheckboxes(true);
+      tree1.enableDragAndDrop(true);
+      tree1.loadXML("/tree3.xml");//catsTree.do?cctId=${cctForm.cct.id}");
+
 </script>
 
 </body>
