@@ -20,7 +20,7 @@
 <logic:iterate id="concern" name="concerns">
 			<div id="concernId${concern.id}" class="theConcern">
 						<logic:notEqual name="type" value="0">
-							<span class="participantName"><b><a href="userProfile${concern.id}.jsp"><bean:write name="concern" property="author.firstname" />&nbsp;<bean:write name="concern" property="author.lastname" /></b></a>&nbsp;said:</span>
+							<span class="participantName"><a href="userProfile${concern.id}.jsp"><bean:write name="concern" property="author.loginname" /></a></span>&nbsp;said:
 							<br>
 						</logic:notEqual>
 						<logic:equal name="type" value="0">
@@ -37,7 +37,7 @@
 							</span>
 						</logic:iterate>
 						<logic:equal name="type" value="0">
-						<div id=actionMenu class="actionMenu">Actions: <a href="javascript:editConcernPopup(${concern.id});">edit concern</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:editTagsPopup('${concern.id}');">edit tags</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:delConcern(${concern.id});">delete entire concern</a></div>
+						<div id=actionMenu class="actionMenu"><strong>Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});">edit concern</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:editTagsPopup('${concern.id}');">edit tags</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:delConcern(${concern.id});">delete entire concern</a></div>
 						<br>
 						</logic:equal>
 			</div>

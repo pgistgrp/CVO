@@ -186,7 +186,7 @@ function saveTheConcern(){
 		var concern = $('addConcern').value;
 		//concernTags = '\"' + concernTags +'\"';
 		$('indicator').style.visibility = "visible";
-		alert('cctId:' + cctId + ', concern: ' + concern + ', tags: ' + concernTags);
+		//alert('cctId:' + cctId + ', concern: ' + concern + ', tags: ' + concernTags);
 		CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:concernTags}, {
 			callback:function(data){
 				if (data.successful){

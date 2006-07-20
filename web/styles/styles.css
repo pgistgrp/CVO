@@ -193,6 +193,11 @@ h5	{
 	color: #7888A9;
 }
 
+.participantName a{
+	color: #0061A8;
+	font-size: 1.0em;
+	text-decoration: underline;}
+
 /* TAG STYLES */
 
 .tags{  /* used for all tags except for tags in tagcloud */
@@ -243,8 +248,6 @@ li.tagsList{
 /* END TAG STYLES */
 
 
-
-
 .indent {
 	padding-left: 20px;
 }
@@ -268,4 +271,10 @@ textarea.addConcern {
 	margin-left: 20px;
 	margin-right: 20px;
 	word-wrap: break-word;
+}
+
+
+/* Element styles */
+strong{
+	color: #0061A8;
 }

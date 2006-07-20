@@ -289,6 +289,8 @@ tabberObj.prototype.init = function(e)
   /* If the user specified an onLoad function, call it now. */
   if (typeof this.onLoad == 'function') {
     this.onLoad({tabber:this});
+
+    /*dosize();*/
   }
 
   return this;
@@ -459,8 +461,9 @@ function tabberAutomatic(tabberArgs)
       divs[i].tabber = new tabberObj(tabberArgs);
     }
   }
-  
+
   return this;
+  
 }
 
 
@@ -473,7 +476,7 @@ function tabberAutomaticOnLoad(tabberArgs)
      so it will run after the document has finished loading.
   */
   var oldOnLoad;
-
+	
   if (!tabberArgs) { tabberArgs = {}; }
 
   /* Taken from: http://simon.incutio.com/archive/2004/05/26/addLoadEvent */
@@ -488,8 +491,10 @@ function tabberAutomaticOnLoad(tabberArgs)
     window.onload = function() {
       oldOnLoad();
       tabberAutomatic(tabberArgs);
+	  
     };
   }
+
 }
 
 
