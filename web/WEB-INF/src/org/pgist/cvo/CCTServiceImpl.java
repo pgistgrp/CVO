@@ -60,26 +60,31 @@ public class CCTServiceImpl implements CCTService {
     } //getCCTs()
 
 
-    public CCT createCCT(String name, String purpose, String instruction) throws
-            Exception {
-        CategoryReference catRef = new CategoryReference();
-
+    public CCT createCCT(String name, String purpose, String instruction) throws Exception {
+        Date time = new Date();
         CCT cct = new CCT();
 
+        CategoryReference catRef = new CategoryReference();
         catRef.setCct(cct);
+        
         cct.setRootCategory(catRef);
-
+        
+        Theme theme = new Theme();
+        theme.setCreateTime(time);
+        
+        cct.setRootTheme(theme);
+        
         cct.setName(name);
         cct.setPurpose(purpose);
         cct.setInstruction(instruction);
-        cct.setCreateTime(new Date());
-
+        cct.setCreateTime(time);
+        
         Long id = WebUtils.currentUserId();
         User user = userDAO.getUserById(id, true, false);
         cct.setCreator(user);
-
+        
         cctDAO.save(cct);
-
+        
         return cct;
     } //createCCT()
 

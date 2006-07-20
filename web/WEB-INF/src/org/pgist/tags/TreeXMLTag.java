@@ -44,7 +44,7 @@ public class TreeXMLTag extends TagSupport {
         JspWriter writer = pageContext.getOut();
         
         try {
-            writer.println("<tree id=\""+root.getId()+"\">");
+            writer.println("<tree id=\"0\">");
             
             for (Node node : (Set<Node>) root.getChildren()) {
                 processNode(writer, node);

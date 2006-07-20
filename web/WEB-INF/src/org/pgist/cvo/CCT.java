@@ -24,6 +24,8 @@ public class CCT extends PGame {
     
     private CategoryReference rootCategory = new CategoryReference();
     
+    private Theme rootTheme = new Theme();
+    
     
     /**
      * @return
@@ -86,6 +88,21 @@ public class CCT extends PGame {
 
     public void setRootCategory(CategoryReference rootCategory) {
         this.rootCategory = rootCategory;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="root_theme_id" cascade="all" lazy="true"
+     */
+    public Theme getRootTheme() {
+        return rootTheme;
+    }
+
+
+    public void setRootTheme(Theme rootTheme) {
+        this.rootTheme = rootTheme;
     }
 
 

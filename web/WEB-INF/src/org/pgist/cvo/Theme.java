@@ -1,7 +1,8 @@
 package org.pgist.cvo;
 
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -19,15 +20,13 @@ public class Theme {
     
     protected boolean deleted = false;
     
-    protected SortedSet parents = new TreeSet();
+    protected Set parents = new HashSet();
     
-    protected SortedSet children = new TreeSet();
+    protected Set children = new HashSet();
     
-    protected Long oid;
+    protected String summary = "";
     
-    protected int otype;
-    
-    protected Object obj;
+    protected Date createTime;
     
     
     /**
@@ -82,12 +81,12 @@ public class Theme {
      * @hibernate.collection-key column="parent_id"
      * @hibernate.collection-many-to-many column="child_id" class="org.pgist.cvo.Theme"
      */
-    public SortedSet getParents() {
+    public Set getParents() {
         return parents;
     }
     
     
-    public void setParents(SortedSet parents) {
+    public void setParents(Set parents) {
         this.parents = parents;
     }
 
@@ -99,12 +98,12 @@ public class Theme {
      * @hibernate.collection-key column="child_id"
      * @hibernate.collection-many-to-many column="parent_id" class="org.pgist.cvo.Theme"
      */
-    public SortedSet getChildren() {
+    public Set getChildren() {
         return children;
     }
 
 
-    public void setChildren(SortedSet children) {
+    public void setChildren(Set children) {
         this.children = children;
     }
 
@@ -114,43 +113,28 @@ public class Theme {
      * 
      * @hibernate.property not-null="true"
      */
-    public Long getOid() {
-        return oid;
+    public Date getCreateTime() {
+        return createTime;
     }
 
 
-    public void setOid(Long oid) {
-        this.oid = oid;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
 
     /**
      * @return
      * 
-     * @hibernate.property not-null="true"
+     * @hibernate.property not-null="true" type="text"
      */
-    public int getOtype() {
-        return otype;
+    public String getSummary() {
+        return summary;
     }
 
 
-    public void setOtype(int otype) {
-        this.otype = otype;
-    }
-
-
-    /*
-     * ------------------------------------------------------------------------
-     */
-    
-    
-    public Object getObj() {
-        return obj;
-    }
-
-
-    public void setObj(Object obj) {
-        this.obj = obj;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
 

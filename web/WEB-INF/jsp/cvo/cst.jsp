@@ -44,8 +44,6 @@
 		var cctId = ${cctForm.cct.id};
     var tree1 = null;
     
-		window.onload(doOnLoad());
-
     function preLoadImages(){
       var imSrcAr = new Array("line1.gif","line2.gif","line3.gif","line4.gif","minus2.gif","minus3.gif","minus4.gif","plus2.gif","plus3.gif","plus4.gif","book.gif","books_open.gif","books_close.gif","magazines_open.gif","magazines_close.gif","tombs.gif","tombs_mag.gif","book_titel.gif","iconCheckAll.gif")
       var imAr = new Array(0);
@@ -58,6 +56,13 @@
 		function doOnLoad(){
 			preLoadImages();
       
+      tree1=new dhtmlXTreeObject("col-left","100%","100%",0);
+      tree1.setImagePath("/images/dhtmlXTree/");
+      tree1.setDragHandler();
+      tree1.enableCheckBoxes(true)
+      tree1.enableThreeStateCheckboxes(true);
+      tree1.enableDragAndDrop(true);
+      tree1.loadXML("/catsTree.do?cctId=${cctForm.cct.id}");
       
 			//getCategories();
 			getOrphanTags();
@@ -335,8 +340,7 @@ function showTheError(errorString, exception){
 
 </style>
 </head>
-<body onResize="dosize()">
-<!--<body onLoad="dosize()" onResize="dosize()">-->
+<body onResize="dosize()" onload="doOnLoad()">
 <div id="container">
 
 	<div id="overlay"></div>
@@ -469,14 +473,6 @@ function showTheError(errorString, exception){
 <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 <script type="text/javascript">
 dosize();
-
-      tree1=new dhtmlXTreeObject("col-left","100%","100%",0);
-      tree1.setImagePath("/images/dhtmlXTree/");
-      tree1.setDragHandler();
-      tree1.enableCheckBoxes(true)
-      tree1.enableThreeStateCheckboxes(true);
-      tree1.enableDragAndDrop(true);
-      tree1.loadXML("/tree3.xml");//catsTree.do?cctId=${cctForm.cct.id}");
 
 </script>
 
