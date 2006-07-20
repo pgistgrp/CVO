@@ -1110,6 +1110,12 @@ dhtmlXTreeObject.prototype.clearCut=function(){
 
 
 dhtmlXTreeObject.prototype._moveNode=function(itemObject,targetObject){
+
+	if(this._checkSibling(itemObject,targetObject)){
+		this.deleteItem(itemObject.id);
+		return 0; //targetObject
+	}
+
 	var mode=this.dadmodec;
 	if(mode==1)
 	{
@@ -1198,6 +1204,7 @@ dhtmlXTreeObject.prototype.getNextId=function(){
 }
 
 dhtmlXTreeObject.prototype._copyNodeTo=function(itemObject,targetObject){
+	if(this._checkSibling(itemObject,targetObject))return 0;
 
 	var newnode = this._cloneNode(itemObject, targetObject, itemObject.childsCount);
 
