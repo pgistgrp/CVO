@@ -34,10 +34,6 @@ public class CCTHandler extends Handler {
                 cct = new CCT();
                 cct.setName(name);
                 cct.setDeleted(false);
-                
-                Theme theme = new Theme();
-                theme.setCreateTime(new Date());
-                cct.setRootTheme(theme);
             }
             
             String loginname = element.elementTextTrim("creator");

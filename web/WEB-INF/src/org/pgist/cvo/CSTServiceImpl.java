@@ -1,6 +1,7 @@
 package org.pgist.cvo;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -76,31 +77,70 @@ public class CSTServiceImpl implements CSTService {
         
         CategoryReference parent = null;
         if (parentId==null) {
+            /*
+             * Use root category as the parent category
+             */
             parent = cct.getRootCategory();
         } else {
+            /*
+             * Get the parent category
+             */
             parent = cstDAO.getCategoryReferenceById(parentId);
+            
+            /*
+             * If parent category not exists, still use the root category
+             */
             if (parent==null) parent = cct.getRootCategory();
         }
         
+        /*
+         * check if the parent category is in the specified cct
+         */
         if (!parent.getCct().getId().equals(cct.getId())) throw new Exception("no such category reference in this cct.");
         
+        /*
+         * get the child category reference
+         */
         CategoryReference categoryReference = cstDAO.getCategoryReferenceByName(cctId, name);
+        
         if (categoryReference==null) {
+            /*
+             * it's a new category reference
+             */
+            
+            /*
+             * check if a category with this tag name exists
+             */
             Category category = cstDAO.getCategoryByName(name);
             if (category==null) {
+                /*
+                 * not exists, create a new category with this tag name
+                 */
                 category = new Category();
                 category.setName(name);
                 cstDAO.save(category);
             }
+            
+            /*
+             * create the new category reference
+             */
             categoryReference = new CategoryReference();
             categoryReference.setCategory(category);
             categoryReference.setCct(cct);
         }
-        categoryReference.getParents().add(parent);
+        
+        /*
+         * now a category reference with the given tag name is ready for use
+         */
+        
+        /*
+         * establish parent-child relationship
+         */
+        parent.getChildren().add(categoryReference);
         
         cstDAO.save(categoryReference);
         cstDAO.save(cct);
-    }//addChildCategory()
+    }//addChildCategoryReference()
 
 
     public void editCategoryReference(Long cctId, Long catRefId, String name) throws Exception {
@@ -112,7 +152,9 @@ public class CSTServiceImpl implements CSTService {
         
         if (catRef.getCct().getId().longValue()!=cct.getId().longValue()) throw new Exception("no such category reference in this cct.");
         
-        //cut off the relationships between parents and this child
+        /*
+         * cut off the relationships between parents and this child
+         */
         Set parents = new HashSet(catRef.getParents());
         for (Object object : parents) {
             CategoryReference one = (CategoryReference) object;
@@ -233,14 +275,6 @@ public class CSTServiceImpl implements CSTService {
     }//getConcernsByTag()
 
 
-    public void saveSummary(Long cctId, String summary) throws Exception {
-        CCT cct = cctDAO.getCCTById(cctId);
-        if (cct==null) throw new Exception("no such cct.");
-        
-        //TODO finish saving summary
-    }//saveSummary()
-
-
     public Collection getRealtedTags(Long cctId, Long categoryId, PageSetting setting) throws Exception {
         return cstDAO.getRealtedTags(cctId, categoryId, setting);
     }//getRealtedTags()
@@ -254,6 +288,22 @@ public class CSTServiceImpl implements CSTService {
     public Collection getOrphanTags(Long cctId, PageSetting setting) throws Exception {
         return cstDAO.getOrphanTags(cctId, setting);
     }//getOrphanTags()
+
+
+    public void saveSummary(Long cctId, Long themeId, String summary) throws Exception {
+        if (summary==null || "".equals(summary.trim())) throw new Exception("summary can't be empty.");
+        
+        CCT cct = cctDAO.getCCTById(cctId);
+        if (cct==null) throw new Exception("no such cct.");
+        
+        Theme theme = cstDAO.getThemeById(themeId);
+        if (theme==null) throw new Exception("no such theme.");
+        
+        theme.setSummary(summary);
+        theme.setCreateTime(new Date());
+        
+        cstDAO.save(theme);
+    }//saveSummary()
 
 
 }//class CSTServiceImpl

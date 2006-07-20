@@ -27,6 +27,8 @@ public class CategoryReference implements Node {
     
     protected Category category;
     
+    protected Theme theme = new Theme();
+    
     /**
      * The associated TagReference objects
      */
@@ -97,7 +99,7 @@ public class CategoryReference implements Node {
 
     /**
      * @return
-     * @hibernate.many-to-one column="category_id" lazy="true" class="org.pgist.cvo.Category" cascade="all"
+     * @hibernate.many-to-one column="category_id" lazy="true" cascade="all"
      */
     public Category getCategory() {
         return category;
@@ -106,6 +108,21 @@ public class CategoryReference implements Node {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="theme_id" lazy="true" cascade="all"
+     */
+    public Theme getTheme() {
+        return theme;
+    }
+
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
     }
 
 

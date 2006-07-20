@@ -180,4 +180,14 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
     }//getOrphanTags()
 
 
+    public Theme getThemeById(Long themeId) throws Exception {
+        return (Theme) getHibernateTemplate().load(Theme.class, themeId);
+    }//getThemeById()
+
+
+    public void save(Theme theme) throws Exception {
+        getHibernateTemplate().saveOrUpdate(theme);
+    }//save()
+
+
 }//class CSTDAOImpl

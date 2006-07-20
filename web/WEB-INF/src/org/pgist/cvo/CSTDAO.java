@@ -25,5 +25,9 @@ public interface CSTDAO extends CVODAO {
 
     Collection getOrphanTags(Long cctId, PageSetting setting) throws Exception;
 
+    Theme getThemeById(Long themeId) throws Exception;
+
+    void save(Theme theme) throws Exception;
+
     
 }//interface CSTDAO

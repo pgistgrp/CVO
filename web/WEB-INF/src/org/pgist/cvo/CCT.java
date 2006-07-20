@@ -24,8 +24,6 @@ public class CCT extends PGame {
     
     private CategoryReference rootCategory = new CategoryReference();
     
-    private Theme rootTheme = new Theme();
-    
     
     /**
      * @return
@@ -45,7 +43,7 @@ public class CCT extends PGame {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" cascade="all" table="pgist_cvo_concerns" order-by="createTime desc"
+     * @hibernate.set lazy="true" cascade="all" order-by="createTime desc"
      * @hibernate.collection-key column="cct_id"
      * @hibernate.collection-one-to-many class="org.pgist.cvo.Concern"
      */
@@ -88,21 +86,6 @@ public class CCT extends PGame {
 
     public void setRootCategory(CategoryReference rootCategory) {
         this.rootCategory = rootCategory;
-    }
-
-
-    /**
-     * @return
-     * 
-     * @hibernate.many-to-one column="root_theme_id" cascade="all" lazy="true"
-     */
-    public Theme getRootTheme() {
-        return rootTheme;
-    }
-
-
-    public void setRootTheme(Theme rootTheme) {
-        this.rootTheme = rootTheme;
     }
 
 

@@ -31,13 +31,13 @@ public interface CSTService {
 
     Object[] getConcernsByTag(Long cctId, Long tagId, PageSetting setting) throws Exception;
 
-    void saveSummary(Long cctId, String summary) throws Exception;
-
     Collection getRealtedTags(Long cctId, Long categoryId, PageSetting setting) throws Exception;
 
     Collection getUnrelatedTags(Long cctId, Long categoryId, PageSetting setting) throws Exception;
 
     Collection getOrphanTags(Long cctId, PageSetting setting) throws Exception;
-    
+
+    void saveSummary(Long cctId, Long themeId, String summary) throws Exception;
+
     
 }//interface CSTService

@@ -72,8 +72,6 @@ public class CCTServiceImpl implements CCTService {
         Theme theme = new Theme();
         theme.setCreateTime(time);
         
-        cct.setRootTheme(theme);
-        
         cct.setName(name);
         cct.setPurpose(purpose);
         cct.setInstruction(instruction);

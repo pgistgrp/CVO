@@ -1,8 +1,6 @@
 package org.pgist.cvo;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 
 /**
@@ -16,17 +14,13 @@ public class Theme {
     
     protected Long id;
     
-    protected String name = "";
-    
     protected boolean deleted = false;
-    
-    protected Set parents = new HashSet();
-    
-    protected Set children = new HashSet();
     
     protected String summary = "";
     
-    protected Date createTime;
+    protected CategoryReference catRef;
+    
+    protected Date createTime = new Date();
     
     
     /**
@@ -62,49 +56,30 @@ public class Theme {
     /**
      * @return
      * 
-     * @hibernate.property not-null="true"
+     * @hibernate.property not-null="true" type="text"
      */
-    public String getName() {
-        return name;
+    public String getSummary() {
+        return summary;
     }
 
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
 
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" cascade="all" table="pgist_cvo_theme_theme_link" order-by="child_id"
-     * @hibernate.collection-key column="parent_id"
-     * @hibernate.collection-many-to-many column="child_id" class="org.pgist.cvo.Theme"
+     * @hibernate.many-to-one column="catref_id" lazy="true"
      */
-    public Set getParents() {
-        return parents;
-    }
-    
-    
-    public void setParents(Set parents) {
-        this.parents = parents;
+    public CategoryReference getCatRef() {
+        return catRef;
     }
 
 
-    /**
-     * @return
-     * 
-     * @hibernate.set lazy="true" cascade="all" table="pgist_cvo_theme_theme_link" order-by="parent_id"
-     * @hibernate.collection-key column="child_id"
-     * @hibernate.collection-many-to-many column="parent_id" class="org.pgist.cvo.Theme"
-     */
-    public Set getChildren() {
-        return children;
-    }
-
-
-    public void setChildren(Set children) {
-        this.children = children;
+    public void setCatRef(CategoryReference catRef) {
+        this.catRef = catRef;
     }
 
 
@@ -120,21 +95,6 @@ public class Theme {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-
-    /**
-     * @return
-     * 
-     * @hibernate.property not-null="true" type="text"
-     */
-    public String getSummary() {
-        return summary;
-    }
-
-
-    public void setSummary(String summary) {
-        this.summary = summary;
     }
 
 

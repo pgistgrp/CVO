@@ -17,6 +17,10 @@
       <param name="include" value="id, content, author, createTime, deleted, tags"/>
     </convert>
 
+    <convert converter="bean" match="org.pgist.cvo.StopWord">
+      <param name="include" value="id, name"/>
+    </convert>
+
     <convert converter="bean" match="org.pgist.cvo.Tag">
       <param name="include" value="id, name, description, status, count"/>
     </convert>
@@ -29,22 +33,23 @@
       <param name="include" value="id, name, deleted"/>
     </convert>
 
-    <convert converter="bean" match="org.pgist.cvo.StopWord">
-      <param name="include" value="id, name"/>
-    </convert>
-
-
     <convert converter="bean" match="org.pgist.cvo.CategoryReference">
       <param name="include" value="id, category"/>
     </convert>
 
-
+    <convert converter="bean" match="org.pgist.cvo.Theme"/>
+    
     <convert converter="bean" match="org.pgist.glossary.Term">
       <param name="exclude" value="relatedTerms"/>
     </convert>
 
-
     <convert converter="bean" match="org.pgist.glossary.TermSource"/>
+    
+    <convert converter="bean" match="org.pgist.glossary.TermLink"/>
+    
+    <convert converter="bean" match="org.pgist.glossary.TermAcronym"/>
+    
+    <convert converter="bean" match="org.pgist.glossary.TermVariation"/>
 
 
     <!-- DWR Agents -->
@@ -75,11 +80,11 @@
       <include method="deleteCategory"/>
       <include method="derelateTag"/>
       <include method="editCategory"/>
-      <include method="getCategories"/>
       <include method="getConcerns"/>
       <include method="getTags"/>
       <include method="getOrphanTags"/>
       <include method="relateTag"/>
+      <include method="getThemes"/>
       <include method="saveSummary"/>
     </create>
 
