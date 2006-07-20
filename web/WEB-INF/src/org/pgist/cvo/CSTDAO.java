@@ -29,5 +29,7 @@ public interface CSTDAO extends CVODAO {
 
     void save(Theme theme) throws Exception;
 
+    void delete(CategoryReference ref) throws Exception;
+
     
 }//interface CSTDAO

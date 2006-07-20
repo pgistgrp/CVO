@@ -3,6 +3,7 @@ package org.pgist.cvo;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 import org.pgist.system.UserDAO;
@@ -71,7 +72,7 @@ public class CSTServiceImpl implements CSTService {
     }//getCategoryByName()
     
     
-    public void addChildCategoryReference(Long cctId, Long parentId, String name) throws Exception {
+    public void addCategoryReference(Long cctId, Long parentId, String name) throws Exception {
         CCT cct = cctDAO.getCCTById(cctId);
         if (cct==null) throw new Exception("no such cct.");
         
@@ -140,9 +141,206 @@ public class CSTServiceImpl implements CSTService {
         
         cstDAO.save(categoryReference);
         cstDAO.save(cct);
-    }//addChildCategoryReference()
+    }//addCategoryReference()
 
 
+    public void copyCategoryReference(Long cctId, Long parentId, Long categoryId) throws Exception {
+        CCT cct = cctDAO.getCCTById(cctId);
+        if (cct==null) throw new Exception("no such cct.");
+        
+        CategoryReference parent = null;
+        
+        if (parentId==null) {
+            /*
+             * Use root category as the parent category
+             */
+            parent = cct.getRootCategory();
+        } else {
+            /*
+             * Get the parent category
+             */
+            parent = cstDAO.getCategoryReferenceById(parentId);
+            
+            /*
+             * If parent category not exists, still use the root category
+             */
+            if (parent==null) parent = cct.getRootCategory();
+        }
+        
+        /*
+         * check if the parent category is in the specified cct
+         */
+        if (!parent.getCct().getId().equals(cct.getId())) throw new Exception("no such category reference in this cct.");
+        
+        /*
+         * get the category reference
+         */
+        CategoryReference categoryReference = cstDAO.getCategoryReferenceById(categoryId);
+        
+        if (categoryReference==null) throw new Exception("no such category reference");
+        if (categoryReference.getCct().getId()!=cctId) throw new Exception("no such category reference in this cct.");
+        
+        /*
+         * check if parent can be the parent of this category
+         * RULE: child can't appear in parent's uptree route
+         */
+        LinkedList<CategoryReference> stack = new LinkedList<CategoryReference>();
+        stack.addAll(parent.getParents());
+        while (!stack.isEmpty()) {
+            CategoryReference one = stack.poll();
+            if (one==categoryReference) throw new Exception("A category cannot be both parent and child of another category");
+            stack.addAll(one.getParents());
+        }//while
+        
+        /*
+         * establish parent-child relationship
+         */
+        parent.getChildren().add(categoryReference);
+        
+        cstDAO.save(categoryReference);
+        cstDAO.save(cct);
+    }//copyCategoryReference()
+    
+    
+    public void duplicateCategoryReference(Long cctId, Long parentId, Long categoryId, String name) throws Exception {
+        CCT cct = cctDAO.getCCTById(cctId);
+        if (cct==null) throw new Exception("no such cct.");
+        
+        CategoryReference parent = null;
+        
+        if (parentId==null) {
+            /*
+             * Use root category as the parent category
+             */
+            parent = cct.getRootCategory();
+        } else {
+            /*
+             * Get the parent category
+             */
+            parent = cstDAO.getCategoryReferenceById(parentId);
+            
+            /*
+             * If parent category not exists, still use the root category
+             */
+            if (parent==null) parent = cct.getRootCategory();
+        }
+        
+        /*
+         * check if the parent category is in the specified cct
+         */
+        if (!parent.getCct().getId().equals(cct.getId())) throw new Exception("no such category reference in this cct.");
+        
+        /*
+         * get the category reference
+         */
+        CategoryReference categoryReference = cstDAO.getCategoryReferenceById(categoryId);
+        
+        if (categoryReference==null) throw new Exception("no such category reference");
+        if (categoryReference.getCct().getId()!=cctId) throw new Exception("no such category reference in this cct.");
+        
+        CategoryReference newCat = new CategoryReference();
+        newCat.setCategory(categoryReference.getCategory());
+        newCat.setCct(cct);
+        newCat.getChildren().addAll(categoryReference.getChildren());
+        newCat.getParents().add(parent);
+        
+        cstDAO.save(newCat);
+        
+        /*
+         * establish parent-child relationship
+         */
+        parent.getChildren().add(newCat);
+        
+        cstDAO.save(categoryReference);
+        cstDAO.save(cct);
+    }//duplicateCategoryReference()
+    
+    
+    public void moveCategoryReference(Long cctId, Long parent0Id, Long parent1Id, Long categoryId) throws Exception {
+        CCT cct = cctDAO.getCCTById(cctId);
+        if (cct==null) throw new Exception("no such cct.");
+        
+        CategoryReference parent0 = null;
+        
+        if (parent0Id==null) {
+            /*
+             * Use root category as the parent category
+             */
+            parent0 = cct.getRootCategory();
+        } else {
+            /*
+             * Get the parent category
+             */
+            parent0 = cstDAO.getCategoryReferenceById(parent0Id);
+            
+            /*
+             * If parent category not exists, still use the root category
+             */
+            if (parent0==null) throw new Exception("parent0 is not found");
+        }
+        
+        CategoryReference parent1 = null;
+        
+        if (parent1Id==null) {
+            /*
+             * Use root category as the parent category
+             */
+            parent1 = cct.getRootCategory();
+        } else {
+            /*
+             * Get the parent category
+             */
+            parent1 = cstDAO.getCategoryReferenceById(parent1Id);
+            
+            /*
+             * If parent category not exists, still use the root category
+             */
+            if (parent1==null) throw new Exception("parent1 is not found");
+        }
+        
+        /*
+         * check if the parent category is in the specified cct
+         */
+        if (!parent0.getCct().getId().equals(cct.getId())) throw new Exception("no such category reference in this cct.");
+        if (!parent1.getCct().getId().equals(cct.getId())) throw new Exception("no such category reference in this cct.");
+        if (parent0==parent1) throw new Exception("no need to move");
+        
+        /*
+         * get the category reference
+         */
+        CategoryReference categoryReference = cstDAO.getCategoryReferenceById(categoryId);
+        
+        if (categoryReference==null) throw new Exception("no such category reference");
+        if (categoryReference.getCct().getId()!=cctId) throw new Exception("no such category reference in this cct.");
+        
+        /*
+         * check if parent1 can be the parent of this category
+         * RULE: child can't appear in parent's uptree route
+         */
+        LinkedList<CategoryReference> stack = new LinkedList<CategoryReference>();
+        stack.addAll(parent1.getParents());
+        while (!stack.isEmpty()) {
+            CategoryReference one = stack.poll();
+            if (one==categoryReference) throw new Exception("A category cannot be both parent and child of another category");
+            stack.addAll(one.getParents());
+        }//while
+        
+        /*
+         * cutoff categoryReference with its parent
+         */
+        parent0.getChildren().remove(categoryReference);
+        categoryReference.getParents().remove(parent0);
+        
+        /*
+         * establish parent-child relationship
+         */
+        parent1.getChildren().add(categoryReference);
+        
+        cstDAO.save(categoryReference);
+        cstDAO.save(cct);
+    }//moveCategoryReference()
+    
+    
     public void editCategoryReference(Long cctId, Long catRefId, String name) throws Exception {
         CCT cct = cctDAO.getCCTById(cctId);
         if (cct==null) throw new Exception("no such cct.");
@@ -210,6 +408,23 @@ public class CSTServiceImpl implements CSTService {
         
         parent.getChildren().remove(catRef);
         catRef.getParents().remove(parent);
+        
+        /*
+         * recursively delete those category references which have no parent. 
+         */
+        LinkedList<CategoryReference> stack = new LinkedList<CategoryReference>();
+        stack.add(catRef);
+        while (!stack.isEmpty()) {
+            CategoryReference one = stack.poll();
+            /*
+             * check if it still has parents.
+             */
+            Set parents = one.getParents();
+            if (parents.size()==0) {
+                stack.addAll(one.getChildren());
+                cstDAO.delete(one);
+            }
+        }//while
         
         cstDAO.save(parent);
         cstDAO.save(catRef);

@@ -190,4 +190,9 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
     }//save()
 
 
+    public void delete(CategoryReference ref) throws Exception {
+        getHibernateTemplate().delete(ref);
+    }//delete()
+
+
 }//class CSTDAOImpl

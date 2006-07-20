@@ -61,8 +61,8 @@ public class CSTAgent {
      *
      * @param params A map contains:<br>
      *         <ul>
-     *           <li>cctId - long int, the current CCT instance id</li>
-     *           <li>categoryId - long int, the id of a CategoryReference object</li>
+     *           <li>cctId - int, the current CCT instance id</li>
+     *           <li>categoryId - int, the id of a CategoryReference object</li>
      *           <li>page - int, the page to be displayed of unrelated tags</li>
      *           <li>count - int, tag number to be displayed on a page, -1 denotes all</li>
      *           <li>type - int, type==0 denotes related tags; type==1 denotes unrelated tags.</li>
@@ -87,7 +87,6 @@ public class CSTAgent {
      *           </li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
-     * @throws Exception
      */
     public Map getTags(HttpServletRequest request, Map params) {
         Map map = new HashMap();
@@ -181,7 +180,7 @@ public class CSTAgent {
      *
      * @param params A map contains:<br>
      *         <ul>
-     *           <li>cctId - long int, the current CCT instance id</li>
+     *           <li>cctId - int, the current CCT instance id</li>
      *           <li>page - int, the page to be displayed of unrelated tags, optional, default is 1</li>
      *           <li>count - int, the rows number per page, optional, default is -1, which means to get all tags</li>
      *         </ul>
@@ -198,7 +197,6 @@ public class CSTAgent {
      *           </li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
-     * @throws Exception
      */
     public Map getOrphanTags(HttpServletRequest request, Map params) {
         Map map = new HashMap();
@@ -248,20 +246,28 @@ public class CSTAgent {
     
     
     /**
-     * Add a new category to the given CCT.
-     *
+     * Add a new category to the given CCT.<br>
+     * <ul>
+     *    <li>
+     *       if a category with this name exists, use it directly (in this case, addCategory() works the same as copyCategory());<br>
+     *       else create a new category.
+     *    </li>
+     *    <li>
+     *       add the category to the tree, if parent is specified, the category will be added to be child of this parent;<br>
+     *       otherwise, it will be added to the root category of cct. Root category is invisible to user.
+     *    </li>
+     * <ul>
      * @param params A map contains:<br>
      *         <ul>
-     *           <li>cctId - long int, the current CCT instance id</li>
-     *           <li>category - string, name of the new category</li>
-     *           <li>parentId - long int, the parent CategoryReference instance id, if invalid, rootId will be used.</li>
+     *           <li>cctId - int, the current CCT instance id</li>
+     *           <li>parentId - int, the parent CategoryReference instance id, if null or invalid, rootId will be used.</li>
+     *           <li>name - string, name of the new category</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
-     * @throws Exception
      */
     public Map addCategory(Map params) {
         Map map = new HashMap();
@@ -275,14 +281,14 @@ public class CSTAgent {
         
         try {
             Long cctId = new Long((String) params.get("cctId"));
-            String name = (String) params.get("category");
+            String name = (String) params.get("name");
             
             if (name==null || "".equals(name.trim())) {
                 map.put("reason", "can't create a category which name is empty.");
                 return map;
             }
             
-            cstService.addChildCategoryReference(cctId, parentId, name);
+            cstService.addCategoryReference(cctId, parentId, name);
             map.put("successful", true);
         } catch(Exception e) {
             e.printStackTrace();
@@ -294,20 +300,197 @@ public class CSTAgent {
     
     
     /**
-     * Edit the category (name) in the given CCT.
-     *
+     * Copy one category from one parent to another parent.
+     * 
      * @param params A map contains:<br>
      *         <ul>
-     *           <li>cctId - long int, the current CCT instance id</li>
-     *           <li>categoryId - long int, id of the CategoryReference object</li>
-     *           <li>category - the new category name</li>
+     *           <li>cctId - int, the current CCT instance id</li>
+     *           <li>categoryId - int, id of the CategoryReference to be copied</li>
+     *           <li>parentId - int, the new parent CategoryReference instance id, if null or invalid, rootId will be used.</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
-     * @throws Exception
+     */
+    public Map copyCategory(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long categoryId = null;
+        try {
+            categoryId = new Long((String)params.get("categoryId"));
+        } catch (Exception e) {
+            map.put("reason", "invalid categoryId");
+            return map;
+        }
+        
+        Long parentId = null;
+        try {
+            parentId = new Long((String)params.get("parentId"));
+        } catch (Exception e) {
+        }
+        
+        Long cctId = null;
+        try {
+            cctId = new Long((String)params.get("cctId"));
+        } catch (Exception e) {
+            map.put("reason", "invalid cctId");
+            return map;
+        }
+        
+        try {
+            cstService.copyCategoryReference(cctId, parentId, categoryId);
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//copyCategory()
+    
+    
+    /**
+     * Duplicate from the specified category and add the new category to be child of the specified parent.<br>
+     * 
+     * Duplicate is difference from Copy in that, duplicate will create a new category with a new name,
+     * but Copy just use the existed category.<br>
+     * 
+     * Note that the new category by duplicate will own the same tags as the original cateogry.<br>
+     * 
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>cctId - int, the current CCT instance id</li>
+     *           <li>categoryId - int, id of the CategoryReference to be duplicate</li>
+     *           <li>name - string, name of the new CategoryReference</li>
+     *           <li>parentId - int, the parent CategoryReference instance id, if null or invalid, rootId will be used.</li>
+     *         </ul>
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
+    public Map duplicateCategory(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        String name = (String) params.get("name");
+        if (name==null || "".equals(name.trim())) {
+            map.put("reason", "can't create a category which name is empty.");
+            return map;
+        }
+        
+        Long categoryId = null;
+        try {
+            categoryId = new Long((String)params.get("categoryId"));
+        } catch (Exception e) {
+            map.put("reason", "invalid categoryId");
+            return map;
+        }
+        
+        Long parentId = null;
+        try {
+            parentId = new Long((String)params.get("parentId"));
+        } catch (Exception e) {
+        }
+        
+        Long cctId = null;
+        try {
+            cctId = new Long((String)params.get("cctId"));
+        } catch (Exception e) {
+            map.put("reason", "invalid cctId");
+            return map;
+        }
+        
+        try {
+            cstService.duplicateCategoryReference(cctId, parentId, categoryId, name);
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//duplicateCategory()
+    
+    
+    /**
+     * Move one category from parent0 to parent1.
+     * 
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>cctId - int, the current CCT instance id</li>
+     *           <li>categoryId - int, id of the CategoryReference to be copied</li>
+     *           <li>parent0Id - int, the old parent CategoryReference instance id</li>
+     *           <li>parent1Id - int, the new parent CategoryReference instance id, if null or invalid, rootId will be used.</li>
+     *         </ul>
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
+    public Map moveCategory(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long categoryId = null;
+        try {
+            categoryId = new Long((String)params.get("categoryId"));
+        } catch (Exception e) {
+            map.put("reason", "invalid categoryId");
+            return map;
+        }
+        
+        Long parent0Id = null;
+        try {
+            parent0Id = new Long((String)params.get("parent0Id"));
+        } catch (Exception e) {
+        }
+        
+        Long parent1Id = null;
+        try {
+            parent1Id = new Long((String)params.get("parent1Id"));
+        } catch (Exception e) {
+        }
+        
+        Long cctId = null;
+        try {
+            cctId = new Long((String)params.get("cctId"));
+        } catch (Exception e) {
+            map.put("reason", "invalid cctId");
+            return map;
+        }
+        
+        try {
+            cstService.moveCategoryReference(cctId, parent0Id, parent1Id, categoryId);
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//moveCategory()
+    
+    
+    /**
+     * Edit the name of the specified category
+     *
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>cctId - int, the current CCT instance id</li>
+     *           <li>categoryId - int, id of the CategoryReference object</li>
+     *           <li>name - the new category name</li>
+     *         </ul>
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
      */
     public Map editCategory(Map params) {
         Map map = new HashMap();
@@ -316,7 +499,7 @@ public class CSTAgent {
         try {
             Long cctId = new Long((String) params.get("cctId"));
             Long categoryId = new Long((String) params.get("categoryId"));
-            String name = (String) params.get("category");
+            String name = (String) params.get("name");
             
             if (name==null || "".equals(name.trim())) {
                 map.put("reason", "can't create a category which name is empty.");
@@ -341,16 +524,15 @@ public class CSTAgent {
      *
      * @param params A map contains:<br>
      *         <ul>
-     *           <li>cctId - long int, the current CCT instance id</li>
-     *           <li>parentId - long int, id of the parent CategoryReference object</li>
-     *           <li>categoryId - long int, id of the CategoryReference object</li>
+     *           <li>cctId - int, the current CCT instance id</li>
+     *           <li>parentId - int, id of the parent CategoryReference object</li>
+     *           <li>categoryId - int, id of the CategoryReference object</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
-     * @throws Exception
      */
     public Map deleteCategory(Map params) {
         Map map = new HashMap();
@@ -383,16 +565,15 @@ public class CSTAgent {
      *
      * @param params A map contains:<br>
      *         <ul>
-     *           <li>cctId - long int, the current CCT instance id</li>
-     *           <li>categoryId - long int, id of the CategoryReference object</li>
-     *           <li>tagId - long int, id of the TagReference object</li>
+     *           <li>cctId - int, the current CCT instance id</li>
+     *           <li>categoryId - int, id of the CategoryReference object</li>
+     *           <li>tagId - int, id of the TagReference object</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
-     * @throws Exception
      */
     public Map relateTag(Map params) {
         Map map = new HashMap();
@@ -421,16 +602,15 @@ public class CSTAgent {
      *
      * @param params A map contains:<br>
      *         <ul>
-     *           <li>cctId - long int, the current CCT instance id</li>
-     *           <li>categoryId - long int, id of the CategoryReference object</li>
-     *           <li>tagId - long int, id of the TagReference object</li>
+     *           <li>cctId - int, the current CCT instance id</li>
+     *           <li>categoryId - int, id of the CategoryReference object</li>
+     *           <li>tagId - int, id of the TagReference object</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
-     * @throws Exception
      */
     public Map derelateTag(Map params) {
         Map map = new HashMap();
@@ -459,8 +639,8 @@ public class CSTAgent {
      *
      * @param params A map contains:<br>
      *         <ul>
-     *           <li>cctId - long int, the current CCT instance id</li>
-     *           <li>tagId - long int, id of the TagReference object</li>
+     *           <li>cctId - int, the current CCT instance id</li>
+     *           <li>tagId - int, id of the TagReference object</li>
      *           <li>page - int, page of concerns to be displayed</li>
      *         </ul>
      * @return A map contains:<br>
@@ -477,7 +657,6 @@ public class CSTAgent {
      *                  </ul>
      *           </li>
      *         </ul>
-     * @throws Exception
      */
     public Map getConcerns(HttpServletRequest request, Map params) {
         Map map = new HashMap();
@@ -523,7 +702,7 @@ public class CSTAgent {
      * 
      * @param params A map contains:<br>
      *         <ul>
-     *           <li>cctId - long int, the current CCT instance id</li>
+     *           <li>cctId - int, the current CCT instance id</li>
      *           <li>
      *               asHTML - boolean, optional, default is false.
      *                      if html==true, return a string generated from a jsp file;
@@ -596,7 +775,6 @@ public class CSTAgent {
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
-     * @throws Exception
      */
     public Map saveSummary(Map params) {
         Map map = new HashMap();
