@@ -43,11 +43,16 @@ body {
 #cont-resize {
 	min-height: 400px;
 }
+#cont-toggle {
+	
+	height: 100%;
+	margin-left: -18px;
+}
 #container {
 	min-width: 675px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 1em;
+	margin-top: 0;
 	margin-bottom: 0px;
 	width: 90%;
 	position: relative;
@@ -64,9 +69,34 @@ body {
 	overflow: auto;
 	padding: 10px;
 	padding-top: 0px;
+	
 }
 #footer {
 	padding: .4em;
+}
+#footer_clouds {
+	background-image: url(/images/footerclouds.png);
+	background-position: left bottom;
+	background-repeat: repeat-x;
+	margin-top: 25px;
+	height: 252px;
+	bottom: 0px;
+	width: 100%;
+	
+}
+#footer_text {
+	padding-top: 180px;
+	bottom: 0px;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+}
+#footprints {
+	
+}
+#header {
+	width: 100%;
+	height: 15px;
 }
 #header_discussion{
 	border-left: 1px solid #ccc;
@@ -78,6 +108,7 @@ body {
 	padding: 10px;
 	padding-top: 5px;
 	width: 85%;
+
 }
 #header_object{
 	margin: auto;
@@ -87,6 +118,34 @@ body {
 	padding-top: 5px;
 	width: 90%;
 	}
+	
+#lightbox{
+	display:none;
+	position: absolute;
+	top:60%;
+	left:50%;
+	z-index:9999;
+	width:400px;
+	margin:-220px 0 0 -250px;
+	text-align:left;
+	padding: 15px;
+
+}
+
+#lightbox[id]{
+	position:fixed;
+}
+	
+
+#login {
+	text-align: right;	
+	min-width: 675px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0px;
+	width: 90%;
+	position: relative;
+}
 #main {
 	margin: 0px auto;
 }
@@ -99,6 +158,24 @@ body {
 	padding: 10px;
 	padding-top: 0px;
 }
+
+#overlay{
+	display:none;
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	z-index:5000;
+	background-color:#000;
+	-moz-opacity: 0.8;
+	opacity:.80;
+	filter: alpha(opacity=80);
+}
+
+#overlay[id]{
+	position:fixed;
+}
 #post {
 	padding: .1em .4em .1em .4em;
 }
@@ -107,10 +184,30 @@ body {
 	margin: auto;
 	width: 95%;
 }
+#searchbox {
+	text-align: right;
+	margin-bottom: 10px;
+	position: absolute;
+	right: 21px;
+	top: 12px;
+
+}
+#searchresults {
+	display: none;
+}
 #slate {
 	margin-bottom: 1em;
 	padding: .4em;
 	height: 40%;
+}
+#subtitle {
+	
+}
+#submit {
+	width: 20px;
+	position: absolute;
+	right: 0px;
+	top: 12px;
 }
 #suppSlate {
 	margin-bottom: 1em;
@@ -144,15 +241,32 @@ body {
 	}
 
 /* Classes */
+
+.imgright {
+	float: right;
+	margin-left: 10px;
+}
+input.search {
+	height: 16px;
+	width: 120px;
+}
 /*Maybe Delete this */
 .scroller {
 	overflow: auto;
 }
 
+.closeBox{
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	right: 0;
+	padding-right: 5px;
+	font-size: 10px;}
+
 /* SpiffyBox CSS */
 /* set the image to use and establish the lower-right position */ 
-.cssbox, .cssbox_body, .cssbox_head, .cssbox_head h2{ 
-	background: transparent url(../images/img.php.png) no-repeat bottom right} 
+.cssbox, .cssbox_body, .cssbox_head, .cssbox_head h3{ 
+	background: transparent url(/images/img.php.png) no-repeat bottom right} 
 .cssbox{ /* intended total box width - padding-right(next) */ 
 	width: 98% !important; /* IE Win = width - padding */ 
 	width: 98%; /* the gap on the right edge of the image (not content padding) */ 
@@ -162,16 +276,20 @@ body {
 	background-position:top right; /* pull the right image over on top of border */ 
 	margin-right:-15px; /* right-image-gap + right-inside padding */ 
 	padding-right:40px} /* set the top-left image */ 
-.cssbox_head h2{ 
+.cssbox_head h3{ 
 	background-position:top left; 
 	margin:0; /* reset main site styles*/ 
 	border:0; /* ditto */ /* padding-left = image gap + interior padding ... no padding-right */ 
-	padding:25px 0 15px 40px; 
+	padding:15px 0 0px 18px; 
 	height:auto !important; 
 	height:1%
 	} /* IE Holly Hack */ /* set the lower-left corner image */ 
 .cssbox_body{ 
 	background-position:bottom left; 
 	margin-right:25px; /* interior-padding right */ 
-	padding:15px 0 15px 5px} /* mirror .cssbox_head right/left */
+	padding: 1px 0 5px 5px
+	} /* mirror .cssbox_head right/left */
+.cssbox_body p {
+	padding: 0px 0px 0px 14px;
+}
 /* End SpiffyBox CSS */

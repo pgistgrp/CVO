@@ -13,11 +13,13 @@
   .tabberlive = after the tabber interface is set up
   --------------------------------------------------*/
 .tabber {
-
+	height: 100%;
+	overflow: auto;
 }
-.tabberlive {
- margin-top:1em;
 
+
+.tabberlive {
+	margin-top:1em;
 }
 
 /*--------------------------------------------------
@@ -30,7 +32,7 @@ ul.tabbernav
 {
  margin:0;
  padding: 3px 0;
- border-bottom: 1px solid #CCCCCC;
+ border-bottom: 1px solid #F2E3EB;
  font-size: 10px;
 }
 
@@ -46,9 +48,9 @@ ul.tabbernav li a
 	
  padding: 3px 0.5em;
  margin-left: 3px;
- border: 1px solid #CCCCCC;
+ border: 1px solid #E9EFD3;
  border-bottom: none;
- background: #EEE;
+ background: #FFF;
  text-decoration: none;
  padding-bottom: 5px;
 }
@@ -58,10 +60,10 @@ ul.tabbernav li a:visited { color: #666; }
 
 ul.tabbernav li a:hover
 {
- color: #EEE;
- background: #AFCAE7;
+ color: #C0C0C0;
+ background-color: #EBEFF2;
  border-color: #CCCCCC;
- border-top: 2px solid #FF67B3;
+ /*border-top: 2px solid #FF67B3;*/
 }
 
 ul.tabbernav li.tabberactive a
@@ -69,18 +71,19 @@ ul.tabbernav li.tabberactive a
 
  font-size: 12px;
  font-weight: bold;
- background-color: #FFF;
- border-bottom: 2px solid #FFF;
- border-top: 2px solid #FF67B3;
+ background-color: #E9EFD3;
+ border-bottom: 1px solid #E9EFD3;
+ /*border-top: 2px solid #FF67B3;*/
  color: #0061A8;
  /*cool pink color color: #FF67B3; */
 }
 
 ul.tabbernav li.tabberactive a:hover
 {
- color: #0061A8;
- background: #FFF;
- border-bottom: 1px solid white;
+	 color: #0061A8;
+	 background: #E9EFD3;
+	 border-bottom: 1px solid #E9EFD3;
+	 border-color: #E9EFD3;
 }
 
 /*--------------------------------------------------
@@ -90,21 +93,24 @@ ul.tabbernav li.tabberactive a:hover
 
 
 .tabberlive .tabbertab{
- padding:5px;
- border:1px solid #CCCCCC;
+ padding: 5px;
+ border: 1px solid #C0D7F6;
  border-top:0;
+
  background-color: #FFF;
  
 
  /* If you don't want the tab size changing whenever a tab is changed
     you can set a fixed height */
 
- /* height:200px; */
 
  /* If you set a fix height set overflow to auto and you will get a
     scrollbar when necessary */
 
- /* overflow:auto; */
+ /* 100% */
+ 	overflow: auto;
+	position: relative;
+	height: 90%;	
 }
 
 
@@ -124,4 +130,19 @@ ul.tabbernav li.tabberactive a:hover
 .tabberlive#tab2 .tabbertab {
  height:200px;
  overflow:auto;
+}
+
+#bar {
+	padding: 0em;
+	height: 100%;
+}
+#myTab {
+	/*border: 1px solid #00FF00;*/
+	height: 90%;
+	margin-top: 0px;
+}
+
+#myHeader {
+	height: 90%;
+	margin-top: 0px;
 }

@@ -1,105 +1,39 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>PGIST Portal - Let's Improve Transportation</title>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<style type="text/css" media="screen">@import "/styles/tabs.css";</style>
-<style type="text/css" media="screen">@import "/styles/pgist.css";</style>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Step 1 - Let's Improve Transportation</title>
 
-<script type="text/javascript">
+<!-- Site Wide CSS -->
+<style type="text/css" media="screen">@import "styles/position.css";</style>
+<style type="text/css" media="screen">@import "styles/styles.css";</style>
+<style type="text/css" media="screen">@import "styles/tabs.css";</style>
+<style type="text/css" media="screen">@import "styles/headertabs.css";</style>
+<!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
+<!-- End Site Wide CSS -->
 
-/* Optional: Temporarily hide the "tabber" class so it does not "flash"
-   on the page as plain HTML. After tabber runs, the class is changed
-   to "tabberlive" and it will appear. */
 
-document.write('<style type="text/css">.tabber{display:none;}<\/style>');
+<!-- Site Wide JavaScript -->
+<script src="scripts/headercookies.js" type="text/javascript"></script>
+<script src="scripts/headertabs.js" type="text/javascript"></script>
+<script src="scripts/tabcookies.js" type="text/javascript"></script>
+<script src="scripts/tabs.js" type="text/javascript"></script>
+<script src="scripts/tags.js" type="text/javascript"></script>
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script src="scripts/findxy.js" type="text/javascript"></script>
+<script src="scripts/search.js" type="text/javascript"></script>
+<!-- End Site Wide JavaScript -->
 
-/*==================================================
-  Set the tabber options (must do this before including tabber.js)
-  ==================================================*/
-var tabberOptions = {
-
-  'cookie':"tabber", /* Name to use for the cookie */
-
-  'onLoad': function(argsObj)
-  {
-    var t = argsObj.tabber;
-    var i;
-
-    /* Optional: Add the id of the tabber to the cookie name to allow
-       for multiple tabber interfaces on the site.  If you have
-       multiple tabber interfaces (even on different pages) I suggest
-       setting a unique id on each one, to avoid having the cookie set
-       the wrong tab.
-    */
-    if (t.id) {
-      t.cookie = t.id + t.cookie;
-    }
-
-    /* If a cookie was previously set, restore the active tab */
-    i = parseInt(getCookie(t.cookie));
-    if (isNaN(i)) { return; }
-    t.tabShow(i);
-    
-  },
-
-  'onClick':function(argsObj)
-  {
-    var c = argsObj.tabber.cookie;
-    var i = argsObj.index;
-    
-    setCookie(c, i);
-  }
-};
-
-/*==================================================
-  Cookie functions
-  ==================================================*/
-function setCookie(name, value, expires, path, domain, secure) {
-    document.cookie= name + "=" + escape(value) +
-        ((expires) ? "; expires=" + expires.toGMTString() : "") +
-        ((path) ? "; path=" + path : "") +
-        ((domain) ? "; domain=" + domain : "") +
-        ((secure) ? "; secure" : "");
-}
-
-function getCookie(name) {
-    var dc = document.cookie;
-    var prefix = name + "=";
-    var begin = dc.indexOf("; " + prefix);
-    if (begin == -1) {
-        begin = dc.indexOf(prefix);
-        if (begin != 0) return null;
-    } else {
-        begin += 2;
-    }
-    var end = document.cookie.indexOf(";", begin);
-    if (end == -1) {
-        end = dc.length;
-    }
-    return unescape(dc.substring(begin + prefix.length, end));
-}
-function deleteCookie(name, path, domain) {
-    if (getCookie(name)) {
-        document.cookie = name + "=" +
-            ((path) ? "; path=" + path : "") +
-            ((domain) ? "; domain=" + domain : "") +
-            "; expires=Thu, 01-Jan-70 00:00:01 GMT";
-    }
-}
-
-</script>
-
-<script src="/scripts/tabs.js" type="text/javascript"></script>
-<script src="/scripts/prototype.js" type="text/javascript"></script>
-<script src="/scripts/effects.js" type="text/javascript"></script>
-<script src="/scripts/combo.js" type="text/javascript"></script>
+<!-- DWR JavaScript Libraries -->
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
+<!-- End DWR JavaScript Libraries -->
+
 
 <script type="text/javascript">
   var cctId = ${cctForm.cct.id};
@@ -110,23 +44,23 @@ function deleteCookie(name, path, domain) {
 	function doOnLoad(){
 		showConcerns(2);
 		showMyConcerns();
-		showTagCloud();
+		//showTagCloud();
 	}
 	function validateForm()
 	{
 		if(""==document.forms.brainstorm.addConcern.value)
 		{
 			document.getElementById('validation').innerHTML = 'Please fill in your concern above.';
-			Effect.OpenUp('validation');
-			Effect.CloseDown('tagConcerns');
-			Effect.Yellow('validation', {duration: 4, endcolor:'#EEF3D8'});
-			Effect.Yellow('theTag', {duration: 10, endcolor:'#EEF3D8'});
+			new Effect.BlindDown('validation');
+			new Effect.BlindUp('tagConcerns');
+			new Effect.Highlight('validation', {duration: 4, endcolor:'#EEF3D8'});
+			new Effect.Highlight('theTag', {duration: 10, endcolor:'#EEF3D8'});
 			return false;
 			
 		}else{
-			Effect.CloseDown('validation');
-			Effect.OpenUp('tagConcerns');
-			Effect.Yellow('tags', {duration: 4, endcolor:'#FFFFFF'});
+			new Effect.BlindUp('validation');
+			new Effect.BlindDown('tagConcerns');
+			new Effect.Highlight('tags', {duration: 4, endcolor:'#FFFFFF'});
 			//$('theTag').value = "add tag";
 			//$('theTag').focus();
 			return true;
@@ -135,9 +69,10 @@ function deleteCookie(name, path, domain) {
 	
 	function resetForm()
 	{
+		$('addConcern').value = '';
 		$('btnContinue').disabled=false;
-		Effect.CloseDown('tagConcerns');
-		Effect.CloseDown('validation');
+		Effect.BlindUp('tagConcerns');
+		Effect.BlindUp('validation');
 		$('addConcern').style.background="#FFF";
 		$('addConcern').style.color="#333";
 	}
@@ -151,7 +86,8 @@ function deleteCookie(name, path, domain) {
 			$('addConcern').style.background="#EEE";
 			$('addConcern').style.color="#CCC";
 			var concern = $('addConcern').value;
-			document.getElementById("indicator").style.visibility = "visible";
+			$('indicator').style.visibility = "visible";
+			
 			CCTAgent.prepareConcern({cctId:cctId,concern:concern}, function(data) {
 				if (data.successful){
 					for(i=0; i < data.tags.length; i++){
@@ -231,42 +167,46 @@ function deleteCookie(name, path, domain) {
 		if(""==$(theTagTextboxId).value)
 		{
 			$(validationId).innerHTML = 'Please add your tag above.  Tag can not be blank.';
-			Effect.OpenUp(validationId);
-			Effect.Yellow(validationId, {duration: 20, endcolor:'#FFFFFF'});			
+			new Effect.BlindDown(validationId);
+			new Effect.Highlight(validationId, {duration: 20, endcolor:'#FFFFFF'});			
 		}else{
-			Effect.CloseDown(validationId);
+			new Effect.BlindUp(validationId);
 			uniqueTagCounter++;
 			newTagId = 'userTag' + uniqueTagCounter;
 			editingTags[newTagId] = document.getElementById(theTagTextboxId).value;
 			document.getElementById(theListId).innerHTML += '<li id="'+ newTagId +'" class="tagsList">'+ document.getElementById(theTagTextboxId).value +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:removeFromList(\''+ newTagId +'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
 			concernTags += document.getElementById(theTagTextboxId).value + ',';
-			Effect.Yellow(theTagTextboxId, {duration: 4, endcolor:'#FFFFFF'});
+			new Effect.Highlight(theTagTextboxId, {duration: 4, endcolor:'#FFFFFF'});
 			$(theTagTextboxId).value = "";
 		}
 	}
 	
 function saveTheConcern(){
+		
 		var concern = $('addConcern').value;
-		$("indicator").style.visibility = "visible";
-		//$('explaination').innerHTML = "";
+		//concernTags = '\"' + concernTags +'\"';
+		$('indicator').style.visibility = "visible";
+		alert('cctId:' + cctId + ', concern: ' + concern + ', tags: ' + concernTags);
 		CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:concernTags}, {
 			callback:function(data){
 				if (data.successful){
-					
-					Effect.CloseDown('tagConcerns');
-					//Reset add concerns textbox and Clear comma separated concerns tag list
+					//alert(concernTags);
+					new Effect.BlindUp('tagConcerns');
 					$('btnContinue').disabled=false;
 					$('addConcern').value = "";
 					$('addConcern').style.background="#FFF";
 					$('addConcern').style.color="#333";
 					$('addConcern').focus();
 					//showTagCloud();
+					//alert(concernTags);
 					showMyConcerns(data.concern.id);
+					concernTags = '';
+					$('theTag').value = '';
 					
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-				showTheError();
+				alert(data.reason);
 			}
 	});
 	$("indicator").style.visibility = "hidden";
@@ -290,7 +230,7 @@ function showTagCloud(){
 function getRandomConcerns(){
 	//$("sidebar_concerns").style.display = "none";
 	//Effect.FadeIn('sidebar_concerns');
-	Effect.Yellow('sidebar_concerns');
+	new Effect.Highlight('sidebar_concerns');
 	showConcerns(2);
 }
 
@@ -313,7 +253,7 @@ function showMyConcerns(id){
 					if (data.successful){
 						$('myConcernsList').innerHTML = data.html;
 						if (id != undefined){
-							Effect.Yellow('concernId' + id, {duration: 4, endcolor:'#EEF3D8', afterFinish: function(){showMyConcerns();}})
+							new Effect.Highlight('concernId' + id, {duration: 4, endcolor:'#EEF3D8', afterFinish: function(){showMyConcerns();}})
 						}
 						if (data.total == 0){
 							document.getElementById("myConcernsList").innerHTML = '<p><small>None created yet.  Please add a concern above.  Please refer to other participant\'s concerns on the right column for examples.</small></p>';
@@ -330,8 +270,7 @@ function getConcernsByTag(id){
 		CCTAgent.getConcernsByTag({tagRefId:id,count:-1}, {
 		callback:function(data){
 				if (data.successful){
-					//$("sidebar_concerns").style.display = "none";
-					Effect.Yellow('sidebar_concerns');
+					new Effect.Highlight('sidebar_concerns');
 					$('sidebar_concerns').innerHTML = data.html;
 					$('myTab').tabber.tabShow(0);
 					new Element.scrollTo('SideConcernsTop'); //location.href='#SideConcernsTop';
@@ -348,7 +287,7 @@ function goPage(pageNum){
 		callback:function(data){
 				if (data.successful){
 					$('sidebar_concerns').innerHTML = data.html;
-					Effect.Yellow('sidebar_concerns');
+					new Effect.Highlight('sidebar_concerns', {duration: 0.5});
 				}
 			},
 		errorHandler:function(errorString, exception){ 
@@ -403,8 +342,8 @@ function lightboxDisplay(action){
 function glossaryPopup(term){
 	lightboxDisplay('inline');
 	os = "";
-	os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
-	os += '<br><h2>Glossary Term: '+ term +'</h2>';
+	os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/closelabel.gif" border="0"></a></span>'
+	os += '<br><h4>Glossary Term: '+ term +'</h4>';
 	os += '<p>Tags helps make your concerns easier to find, since all this info is searchable later. Imagine this applied to thousands of concerns!</p>';
 	$('lightbox').innerHTML = os;
 }
@@ -416,8 +355,8 @@ function editConcernPopup(concernId){
 			if (data.successful){
 					currentConcern = data.concern.content;
 					os = "";
-					os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
-					os += '<h2>Edit My Concern</h2><br>';
+					os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/closelabel.gif" border="0"></a></span>'
+					os += '<h4>Edit My Concern</h4><br>';
 					os += '<form><textarea style="height: 150px; width: 100%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p></form>';
 					os += '<input type="button" id="modifyConcern" value="Submit Edits!" onClick="editConcern('+concernId+')">';
 					os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')">';
@@ -457,10 +396,10 @@ function editTagsPopup(concernId){
 					
 							lightboxDisplay('inline');
 							os = "";
-							os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
-							os += '<h2>Edit My Concern\'s Tags</h2><p></p>';
+							os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/closelabel.gif" border="0"></a></span>'
+							os += '<h4>Edit My Concern\'s Tags</h4><p></p>';
 							os += '<ul id="editTagsList" class="tagsList"> '+data.id+ '</ul>';
-							os += '<p></p><form name="editTagList" onsubmit="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\'); return false;"><input type="text" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="submit" name="addTag" id="addTag" value="Add Tag!"></p>';
+							os += '<p></p><form name="editTagList" action="" onsubmit="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\'); return false;"><input type="text" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onClick="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\');"></p>';
 							//os += '<a href="javascript:editTags('+concernId+');">TestIt</a>';
 							os += '<div style="display: none;" id="editTagValidation"></div>';
 							os += '<hr><input type="button" value="Submit Edits" onClick="editTags('+concernId+')">';
@@ -536,8 +475,7 @@ function ifEnter(field,event) {
 
 function showFinished(){
 	location.href = '#finished';
-	Effect.Yellow('btnNextStep', {duration: 4, endcolor:'#EEF3D8'});
-	Effect.Yellow('h2Finished', {duration: 4, endcolor:'#EEF3D8'});
+	new Effect.Highlight('suppSlate', {duration: 4, endcolor:'#EEF3D8'});
 }
 
 function showTheError(errorString, exception){
@@ -566,130 +504,175 @@ function getWinH(){
 <!-- HEADER -->
 <div id="decorBar"></div>
 <div id="container">
-
-<div id="searchNavContiner">
-		<div id="logo" style="top: 30px;"><img src="/images/logo2.png"></div>
-		<div id="authentication">Welcome, ${baseuser.firstname} [&nbsp;<a href="/logout.do">logout</a>&nbsp;]</div>
-		<div id="mainSearch">
-				<form name="mainSearch" method="post" onSubmit="search();">
-					<input type="text" ID="tbx1" class="searchBox" style="padding-left: 5px; padding-right:20px; background: url('/images/search.gif') no-repeat right;" value="Search" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;">
-				</form>	
-		</div>
-	  <div id="navContent" class="navigation">
-	  	<ul>
-	  		<li><a href="modHome.jsp">Home</a></li>
-				<li><span class="active"><a href-"modAgendaManager.jsp">Current Task</a></span></li>
-				<li><a href="modDiscussion.jsp">Resource Library</a></li>
-			</ul>
-		</div>
-</div>
-<!-- END HEADER -->
-<!-- LIGHTBOX -->
-<div id="overlay"></div>
-<div id="lightbox"></div>
-<!-- LIGHTBOX -->
-<div id="pageTitle">
-<h2>Current Task: </h2><h3>Brainstorm Concerns</h3>
-	<div id="bread">
-	<ul>
-		<li class="first"><a href="null">Home</a>
-			<ul>
-				<li>&#187; <a href="null">Current Task</a></li>
-				<ul>
-					<li>&#187; <a href="null">Brainstorm Concerns</a></li>
-				</ul>
-			</ul>
-		</li>
-	</ul>
-	</div>
-</div>	
-
- <div id="overview">
-	  	<h4>Overview</h4> 
-	  	<p class="indent"><!--${cctForm.cct.purpose}-->Before we can determine how to best improve the transportation system, we need to know what the problems are. Our first task is to brainstorm concerns about the transportation system.</p>
-	  	<p class="indent"><small>[ <a href="allSteps.jsp">Read more</a> about how this step fits into the bigger picture. ]</small></p>
-</p>
- </div>
-
- 
- <div id="slate" class="slate leftBox">
-  		<h4>Add your concern</h4><br>What problems do you encounter in your daily trips to work outside the home, shopping, and errands? In what ways do you feel our current transportation system fails to meet the needs of our growing region? <p>Describe <strong>one</strong> problem with our transportation system. You can add more concerns later</p>
-		    <form name="brainstorm" method="post" onSubmit="addTagToList('tagsList', 'theTag','tagValidation'); return false;">
-			      <p><textarea class="textareaAddConcern" onkeypress="ifEnter(this,event);" name="addConcern" cols="20" rows="2" id="addConcern"></textarea></p>
-			      <p class="indent">
-				      <input type="button" id="btnContinue" name="Continue" value="Submit Concern" onclick="prepareConcern();">
-				      <input type="reset" name="Reset" value="Reset" onClick="resetForm();"> 
-				      <span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>
-			      </p>
-			      <div style="display: none;" id="validation"></div>
-				    <div id="tagConcerns" style="display: none;">
-						    <div id="tags" style="background-color: #FFF; border: 5Px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;">
-						    	<h4>Tag Your Concern</h4>
-						    	<p></p>   
-									<p>Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed).  <span class="glossary">[ what are <a href="javascript:glossaryPopup('tag');">tags</a>? ]</span></p>
-									<b>Suggested Tags for your Concern:</b>  <ul class="tagsList" id="tagsList">
-									</ul>	 
-									<p><input type="text" id="theTag" class="tagTextbox" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList('tagsList','theTag','tagValidation');return false;"></p>
-									<div style="display: none; padding-left: 20px;" id="tagValidation"></div>
-									<hr>
-									<span class="title_section">Finished Tagging? <br><input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern();"></span><input type="button" value="Cancel - back to edit my concern" onclick="javascript:resetForm();">
-						    </div>
-						    <br>
-				    </div>
-				
-				<h4>Concerns you've contributed so far</h4><br>Finished? Click 'continue to next step' <a href="javascript:showFinished();">below</a>.<p></p>
-			      <div id="myConcernsList" class="indent">
-				      <ol id="myConcerns">
-					  	</ol>
-				  	</div>
-						<a name="finished"></a><h4 style="float: left;" id="h4Finished">Finished brainstorming concerns?</h4>
-						<div id="finished_img"><input type="button" id="btnNextStep" value="Continue to Next Step"></div>
-		    </form>
-
-  </div>
-<!--START SIDEBAR -->
-<!--
-<div id="tagSelector">
-	Tag Selected:
-	<span class="closeBox">[ <a href="javascript:goPage(${setting.page});">Clear Selected</a> ]</span>
-	<div class="pullDown" style="left: 50%;"><span class="pullDown"><img src="/images/pulldown.gif"></span></div>
-</div>
--->
-<div id="bar"><a id="SideConcernsTop" name="SideConcernsTop"></a>
-	<div class="tabber" id="myTab">
-			<div id="sidebar_currentTaskContainer" class="tabbertab">
-	    	<h2>Concerns</h2>
-				<div id="sidebar_concerns">
-				</div>
-	    </div>
-	    <div id="sidebar_tags" class="tabbertab">
-	    	<H2>Tags</H2>
-	    </div>
-
-			
-			<div id="sidebar_discussionContainer" class="tabbertab">
-	    	<h2>Discussion</h2>
-				<div id="sidebar_concerns"><h4>Discussion...</h4>
-				</div>
-	    </div>
+	<!-- START LIGHTBOX -->
+	<div id="overlay"></div>
+	<div id="lightbox" class="blueBB"></div>
+	<!-- END LIGHTBOX -->
+	<!--START Title Header -->
+	
+	<div id="headerbar">
+	<!-- Search -->
+	  <form id="mysearch" name="form1" method="post" action="">
 	    
-	    <div id="sidebar_resourcesContainer" class="tabbertab">
-	    	<h2>Resources</h2>
-				<div id="sidebar_discussion"><h4>Resources</h4>
-				</div>
-	    </div>
-			
+	<div id="searchbox">
+		<input name="search" type="text" class="search" value="Search" />
 	</div>
-</div>
-<div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
-<!--END SIDEBAR -->
+	<div id="submit">
+	        <img src="images/btn_search_1.png" name="Image1" width="19" height="19" border="0" id="Image1" onClick="sendForm();return false;" onMouseDown="MM_swapImage('Image1','','images/btn_search_3.png',1)" onMouseOver="MM_swapImage('Image1','','images/btn_search_2.png',1)" onMouseOut="MM_swapImgRestore()">    
+	</div>
+	<div id="searchresults"></div>
+	  </form>
+	<!-- End Search -->
+	<a id="TitleHeader" name="TitleHeader"></a>
+	
+		<div class="header" id="myHeader">
+			<div id="header_currentMenuContainer" class="headertab">
+		    	<h2>Tab 1</h2>
+					<div id="header_submenu1" class="submenulinks">
+						<a href="#">Sub Navigation 1a</a> <a href="#">Sub Navigation 2a</a> <a href="#">Sub Navigation 3a</a> <a href="#">Sub Navigation 4a</a>
+					</div>
+		    </div>			
+				<div id="sidebar_tab2" class="headertab">
+		    	<h2>Tab 2</h2>
+					<div id="header_submenu2" class="submenulinks">
+						<a href="#">Sub Navigation 1b</a> <a href="#">Sub Navigation 2b</a> <a href="#">Sub Navigation 3b</a> <a href="#">Sub Navigation 4b</a> 
+					</div>
+		    </div>	    
+		    <div id="sidebar_tab3" class="headertab">
+		    	<h2>Tab 3</h2>
+					<div id="header_submenu3" class="submenulinks">
+						<a href="#">Sub Navigation 1c</a> <a href="#">Sub Navigation 2c</a> <a href="#">Sub Navigation 3c</a> <a href="#">Sub Navigation 4c</a> 
+					</div>
+		    </div>
+		</div>
+	</div>
+	<!--END Title Header -->
+	
+	<!-- Sub Title -->
+	<div id="subheader">
+	<h1>Step 1:</h1> <h2>Brainstorm Concerns</h2>
+	</div>
+	<div id="footprints">
+	<p>LIT Process >> Step 1: Brainstorm >> Concerns</p>
+	</div>
+	<!-- End Sub Title -->
+	
+	<!-- Overview SpiffyBox -->
+	<div class="cssbox">
+	<div class="cssbox_head">
+	<h3>Overview and Instructions</h3>
+	</div>
+	<div class="cssbox_body">
+		<p>Before we can determine how to best improve the transportation system, we need to know what the problems are. Our first task is to brainstorm concerns about the transportation system.</p><p>[ Read more about how this step fits into the bigger picture. ]</p>
+	</div>
+	</div>
+	<!-- End Overview -->
+	
+	
+	<div id="col-left">
+		<div id="slate" class="blueBB">
+	  		<h4>Add your concern</h4><br>What problems do you encounter in your daily trips to work outside the home, shopping, and errands? In what ways do you feel our current transportation system fails to meet the needs of our growing region? <p>Describe <strong>one</strong> problem with our transportation system. You can add more concerns later</p>
+			    <form name="brainstorm" method="post" onSubmit="addTagToList('tagsList', 'theTag','tagValidation'); return false;">
+				      <p><textarea class="addConcern" onkeypress="ifEnter(this,event);" name="addConcern" cols="20" rows="2" id="addConcern"></textarea></p>
+				      <p class="indent">
+					      <input type="button" id="btnContinue" name="Continue" value="Submit Concern" onclick="prepareConcern();">
+					      <input type="reset" name="Reset" value="Reset" onClick="resetForm();"> 
+					      <span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>
+				      </p>
+				      
+				      <div style="display: none;" id="validation"></div>
+				      
+				      
+					    <div id="tagConcerns" style="display: none;">
+							    <div id="tags" style="background-color: #FFF; border: 5Px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;">
+							    	<h4>Tag Your Concern</h4>
+							    	<p></p>   
+										<p>Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed).  <span class="glossary">[ what are <a href="javascript:glossaryPopup('tag');">tags</a>? ]</span></p>
+										<b>Suggested Tags for your Concern:</b>  <ul class="tagsList" id="tagsList">
+										</ul>	 
+										<p><input type="text" id="theTag" class="tagTextbox" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList('tagsList','theTag','tagValidation');return false;"></p>
+										<div style="display: none; padding-left: 20px;" id="tagValidation"></div>
+									
+										<span class="title_section">Finished Tagging? <br><a href="javascript:saveTheConcern();">DO IT</a><input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern(); void(0);"></span><input type="button" value="Cancel - back to edit my concern" onclick="javascript:resetForm();">
+							    </div>
+							    <br>
+					    </div>
+					
+					<h4>Concerns you've contributed so far</h4><br>Finished? Click 'continue to next step' <a href="javascript:showFinished();">below</a>.<p></p>
+				      <div id="myConcernsList" class="indent">
+					      <ol id="myConcerns">
+						  	</ol>
+					  	</div>
+
+			    </form>
+		</div>
+	
+		<div id="suppSlate">
+   		<a name="finished"></a><h4 id="h4Finished">Finished brainstorming concerns?</h4>
+   		<p>The next step in the process is to discuss your concerns with other participants [...]</p>
+			<input type="button" id="btnNextStep" value="Continue to Next Step">
+		</div>
+	</div>
+	
+	<div id="col-right">
+		<!--START Tabs -->
+	<div id="bar">
+	<a id="SideConcernsTop" name="SideConcernsTop"></a>
+		<div class="tabber" id="myTab">
+		<!--START Tag Selector -->
+		<div id="tagSelector">
+			Tag Selected: <b>Safety</b> [ <a href="javascript:goPage(${setting.page});">Clear Selected</a> ]
+			<div id="pullDown" style="text-align:right;"><a href="javascript: expandTagSelector();">Browse All Tags</a></div>
+			<div id="allTags" style="display: none;">
+				<h1>All Currently Available Tags</h1>
+		
+			</div>
+		</div>
+			
+	<!--END Tag Selector -->
+	
+				<div id="sidebar_currentTaskContainer" class="tabbertab">
+		    	<h2>Concerns</h2>
+					<div id="sidebar_concerns"><h4>Concerns</h4>
+						<p> Quisque lobortis placerat felis. Vivamus nisi orci, suscipit sed, semper non, nonummy quis, ligula. Etiam condimentum mauris vitae nisl. Curabitur sem. Quisque eget velit quis dolor convallis tempor. Nulla facilisis hendrerit orci. Nam laoreet enim a erat. Nullam hendrerit ligula eu eros. Suspendisse viverra magna id dui. Nulla dictum ornare velit. Duis a sem. Etiam pulvinar. Nunc at purus at diam eleifend vulputate. Maecenas ullamcorper velit ut leo. Aliquam erat volutpat. Integer leo elit, vehicula at, tempor et, ornare a, augue. Phasellus sagittis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean aliquet faucibus tellus. Donec ipsum. Nullam scelerisque. Etiam lacus. Fusce enim risus, vulputate sed, egestas et, euismod vel, augue. Vestibulum eget turpis. Integer nonummy magna a massa. Sed consectetuer pharetra augue. Praesent dolor. Curabitur ullamcorper. </p>
+					</div>
+		    </div>
+						
+				<div id="sidebar_discussionContainer" class="tabbertab">
+		    	<h2>Other Discussion</h2>
+					<div id="sidebar_concerns"><h4>Other Discussion</h4>
+						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi dictum velit eget nunc hendrerit volutpat. Aliquam egestas purus in eros. Quisque lobortis placerat felis. Vivamus nisi orci, suscipit sed, semper non, nonummy quis, ligula. Etiam condimentum mauris vitae nisl.. </p>
+					</div>
+		    </div>
+		    
+		    <div id="sidebar_resourcesContainer" class="tabbertab">
+		    	<h2>Resources</h2>
+					<div id="sidebar_discussion"><h4>Resources</h4>
+						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi dictum velit eget nunc hendrerit volutpat. Aliquam egestas purus in eros. Quisque lobortis placerat felis. Vivamus nisi orci, suscipit sed, semper non, nonummy quis, ligula. Etiam condimentum mauris vitae nisl. Curabitur sem. Quisque eget velit quis dolor convallis tempor. Nulla facilisis hendrerit orci. Nam laoreet enim a erat. Nullam hendrerit ligula eu eros. Suspendisse viverra magna id dui. Nulla dictum ornare velit. Duis a sem. Etiam pulvinar. Nunc at purus at diam eleifend vulputate. Maecenas ullamcorper velit ut leo. Aliquam erat volutpat. Integer leo elit, vehicula at, tempor et, ornare a, augue. Phasellus sagittis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean aliquet faucibus tellus. Donec ipsum. Nullam scelerisque. Etiam lacus. Fusce enim risus, vulputate sed, egestas et, euismod vel, augue. Vestibulum eget turpis. Integer nonummy magna a massa. Sed consectetuer pharetra augue. Praesent dolor. Curabitur ullamcorper. </p>
+					</div>
+		    </div>
+		</div>
+	</div>
+	<div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
+	<!--END Tabs -->
+	</div>
+	
+	<div id="clear">
+	</div>
 
 </div>
 
-<div id="footerContainer">
-	<div id="footer"><a href="http://www.pgist.org" target="_blank"><img src="/images/footer_pgist.jpg" alt="Powered by the PGIST Portal" border="0" align="right"></a></div>
-	<div id="nsf">This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.</div>
-</div>
+<!-- Start Footer -->
+<div id="footer_clouds">
 
+	<div id="footer_text">
+	<img src="/images/footerlogo.png" alt="PGIST Logo" width="156" height="51" class="imgright"/><br />This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.    </div>
+
+</div>
+<!-- End Footer -->
+<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
+<script type="text/javascript">
+	findxy();
+</script>
 </body>
 </html>
