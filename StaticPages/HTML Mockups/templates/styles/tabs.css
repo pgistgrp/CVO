@@ -16,9 +16,10 @@
 	height: 100%;
 	overflow: auto;
 }
-.tabberlive {
- margin-top:1em;
 
+
+.tabberlive {
+	margin-top:1em;
 }
 
 /*--------------------------------------------------
@@ -71,7 +72,7 @@ ul.tabbernav li.tabberactive a
  font-size: 12px;
  font-weight: bold;
  background-color: #E9EFD3;
- border-bottom: 2px solid #EEE;
+ border-bottom: 1px solid #E9EFD3;
  /*border-top: 2px solid #FF67B3;*/
  color: #0061A8;
  /*cool pink color color: #FF67B3; */
@@ -79,9 +80,10 @@ ul.tabbernav li.tabberactive a
 
 ul.tabbernav li.tabberactive a:hover
 {
- color: #0061A8;
- background: #FFF;
- border-bottom: 1px solid white;
+	 color: #0061A8;
+	 background: #E9EFD3;
+	 border-bottom: 1px solid #E9EFD3;
+	 border-color: #E9EFD3;
 }
 
 /*--------------------------------------------------
@@ -91,8 +93,8 @@ ul.tabbernav li.tabberactive a:hover
 
 
 .tabberlive .tabbertab{
- padding:5px;
- border:1px solid #C0D7F6;
+ padding: 5px;
+ border: 1px solid #C0D7F6;
  border-top:0;
 
  background-color: #FFF;
@@ -136,6 +138,11 @@ ul.tabbernav li.tabberactive a:hover
 }
 #myTab {
 	/*border: 1px solid #00FF00;*/
+	height: 90%;
+	margin-top: 0px;
+}
+
+#myHeader {
 	height: 90%;
 	margin-top: 0px;
 }
