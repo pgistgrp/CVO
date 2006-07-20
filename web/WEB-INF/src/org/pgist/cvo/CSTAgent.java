@@ -211,12 +211,16 @@ public class CSTAgent {
             }
             
             int page = 1;
-            String pageStr = (String) params.get("page");
-            if (pageStr!=null || !"".equals(pageStr.trim())) page = Integer.parseInt(pageStr);
+            try {
+                page = Integer.parseInt((String) params.get("page"));
+            } catch (Exception e) {
+            }
             
             int count = -1;
-            String countStr = (String) params.get("count");
-            if (countStr!=null || !"".equals(countStr.trim())) count = Integer.parseInt(countStr);
+            try {
+                count = Integer.parseInt((String) params.get("count"));
+            } catch (Exception e) {
+            }
             
             PageSetting setting = new PageSetting();
             setting.setRowOfPage(count);

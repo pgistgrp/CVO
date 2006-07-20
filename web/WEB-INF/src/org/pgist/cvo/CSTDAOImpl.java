@@ -22,7 +22,7 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
     public Category getCategoryByName(String name) throws Exception {
         List list = getHibernateTemplate().find(hql_getCategoryByName, new Object[] {
                 new Boolean(false),
-                name
+                name.toLowerCase()
         });
         if (list.size()>0) return (Category) list.get(0);
         return null;
@@ -142,9 +142,9 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
     }//getUnrelatedTags()
 
 
-    private static final String hql_getOrphanTags1 = "select count(ref.id) from TagReference ref where ref.cctId=? and ref.id not in "
+    private static final String hql_getOrphanTags1 = "select count(distinct ref.id) from TagReference ref where ref.cctId=? and ref.id not in "
         + "(select distinct tag from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id) ";
-    private static final String hql_getOrphanTags2 = "select ref from TagReference ref where ref.cctId=? and ref.id not in "
+    private static final String hql_getOrphanTags2 = "select distinct ref, ref.tag.name from TagReference ref where ref.cctId=? and ref.id not in "
         + "(select distinct tag from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id) "
         + "order by ref.tag.name asc";
     
@@ -166,7 +166,17 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
         query.setLong(1, cctId);
         query.setMaxResults(setting.getRowOfPage());
         query.setFirstResult(setting.getFirstRow());
-        return query.list();
+        
+        List tmp = query.list();
+        
+        if (tmp.size()==0) return new ArrayList();
+        
+        list = new ArrayList(tmp.size());
+        for (Object[] objs : (List<Object[]>) tmp) {
+            list.add(objs[0]);
+        }
+        
+        return list;
     }//getOrphanTags()
 
 
