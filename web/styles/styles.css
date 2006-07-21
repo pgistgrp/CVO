@@ -5,6 +5,16 @@ Table of Contents
 - HTML Elements (All Heading CSS)
 - ID's
 - Classes
+	- tag classes
+	
+	
+Color Pallette
+- Bright green (see h1): #8DAD1F
+- Light green (see tagSelector): #E9EFD3
+- Medium green (see tagSel Border): #F2E3EB
+- Dark green (see h4): #98A072
+- Dark purpleish (see h2): #6C6C6C
+- Medium blue (see h3): #98A072
 */
 
 /* HTML Elements */
@@ -75,6 +85,13 @@ h5	{
 #clear {
 
 	}
+	
+#col-crud-options, #col-option{
+	background: #E9EFD3;
+	border: 1px solid #98A072;
+	}
+	
+
 #col-left {
 	
 	}

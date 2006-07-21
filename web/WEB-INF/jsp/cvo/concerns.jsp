@@ -11,7 +11,7 @@
 </logic:notEqual>
 
 <logic:equal name="showTitle" value="true">
-	<span class="closeBox">[ <a href="javascript:goPage(${setting.page});">Clear Selected</a> ]</span>
+	<span class="closeBox">[ <a href="javascript:goPage(${setting.page});">Clear Filter</a> ]</span>
 	<br><span class="title_section">Concerns tagged with: </span>
 		<span class="tagSize${tagRef.fontSize}"><a href="javascript:getConcernsByTag(${tagRef.id});">${tagRef.tag.name}</a></span>&nbsp;
 	<p></p>

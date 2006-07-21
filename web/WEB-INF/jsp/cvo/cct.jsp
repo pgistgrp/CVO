@@ -599,7 +599,7 @@ function getWinH(){
 							    <br>
 					    </div>
 					
-					<h4>Concerns you've contributed so far</h4><br>Finished? Click 'continue to next step' <a href="javascript:showFinished();">below</a>.<p></p>
+					<h4>Concerns you've contributed so far</h4><br>Finished? Click 'Continue' <a href="javascript:showFinished();">below</a>.<p></p>
 				      <div id="myConcernsList" class="indent">
 					      <ol id="myConcerns">
 						  	</ol>
@@ -610,8 +610,8 @@ function getWinH(){
 	
 		<div id="suppSlate">
    		<a name="finished"></a><h4 id="h4Finished">Finished brainstorming concerns?</h4>
-   		<p>The next step in the process is to discuss your concerns with other participants [...]</p>
-			<input type="button" id="btnNextStep" value="Continue to Next Step">
+   		<p>The next step in the process is to discuss your concerns with other participants.</p>
+			<input type="button" id="btnNextStep" value="Continue">
 		</div>
 	</div>
 	
@@ -622,10 +622,10 @@ function getWinH(){
 		<div class="tabber" id="myTab">
 		<!--START Tag Selector -->
 		<div id="tagSelector">
-			<div id="filterTags">Sidebar Filtered By: <span class="tags">Not Working Yet</span>&nbsp; &nbsp;[ <a href="javascript:goPage(${setting.page});">Clear Selected</a> ]</div>
+			<div id="filterTags">Sidebar Filtered By: <span class="tags">Not Working Yet</span>&nbsp; &nbsp;[ <a href="javascript:goPage(${setting.page});">Clear Filter</a> ]</div>
 			<div id="manualFilter">
 				<p>Change sidebar filter: <input type="text" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" name="manualFilter" id="manualFilter" class="search" value="Search within all tags"></p>
-				<div id="browseTags" style="text-align:right;"><a href="javascript: expandTagSelector(); getTagCloud();">Browse All Tags</a></div>
+				<div id="browseTags" style="text-align:right;"><a href="javascript: expandTagSelector();">Browse All Tags</a></div>
 			</div>
 			<div id="allTags">
 			</div>
@@ -635,8 +635,7 @@ function getWinH(){
 	
 				<div id="sidebar_currentTaskContainer" class="tabbertab">
 		    	<h2>Concerns</h2>
-					<div id="sidebar_concerns"><h4>Concerns</h4>
-						<p> Quisque lobortis placerat felis. Vivamus nisi orci, suscipit sed, semper non, nonummy quis, ligula. Etiam condimentum mauris vitae nisl. Curabitur sem. Quisque eget velit quis dolor convallis tempor. Nulla facilisis hendrerit orci. Nam laoreet enim a erat. Nullam hendrerit ligula eu eros. Suspendisse viverra magna id dui. Nulla dictum ornare velit. Duis a sem. Etiam pulvinar. Nunc at purus at diam eleifend vulputate. Maecenas ullamcorper velit ut leo. Aliquam erat volutpat. Integer leo elit, vehicula at, tempor et, ornare a, augue. Phasellus sagittis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean aliquet faucibus tellus. Donec ipsum. Nullam scelerisque. Etiam lacus. Fusce enim risus, vulputate sed, egestas et, euismod vel, augue. Vestibulum eget turpis. Integer nonummy magna a massa. Sed consectetuer pharetra augue. Praesent dolor. Curabitur ullamcorper. </p>
+					<div id="sidebar_concerns">
 					</div>
 		    </div>
 						

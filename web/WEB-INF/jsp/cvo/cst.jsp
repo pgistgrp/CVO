@@ -41,7 +41,7 @@
 	
 	<script type="text/javascript">
 		
-		window.onload="doOnLoad();
+		//window.onload="doOnLoad();
 		var cctId = ${cctForm.cct.id};
     var tree1 = null;
     
@@ -421,13 +421,23 @@ function showTheError(errorString, exception){
 				<input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
 				<input type="button" value="Edit" onclick="tree1.unSelectAll();"><br>
 				<input type="checkbox" onclick="tree1.switchCopyMode()">Copy mode
+				<p><a href="javascript: new Effect.toggle('col-crud-options', 'blind'); void(0); new Effect.BlindUp('col-option'); void(0);">Show Editing Options</a></p>
 			</div>
 		</div>
 		<!-- End Overview -->
 
 	
 	<div id="cont-resize">
-		<div id="col-left"></div>
+		<div id="col-left">
+			<div id="col-crud-options" style="display:none;"><span class="closeBox"><a href="javascript: new Effect.BlindUp('col-crud-options'); void(0);">hide options</a></span>
+				<h4>Editing Options</h4>
+				<small>Delete&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript: new Effect.BlindUp('col-crud-options'); void(0); new Effect.BlindDown('col-option'); void(0);">Rename</a>&nbsp;&nbsp;|&nbsp;&nbsp;Create Copy&nbsp;&nbsp;|&nbsp;&nbsp;Edit Summary</small>
+			</div>
+			<div id="col-option" style="display: none;"><span class="closeBox"><a href="javascript: new Effect.BlindDown('col-crud-options'); void(0); new Effect.BlindUp('col-option'); void(0);">back to all options</a></span>
+				<h4>Editing Options</h4>
+				Rename to: <input type="text" style="width: 50%;" id="newName"><input type="button" id="btnNewName" value="Submit"><br>
+			</div>
+		</div>
 		
 		<div id="col">
 			
