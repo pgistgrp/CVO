@@ -20,11 +20,11 @@ public interface CSTService {
     
     CategoryReference getCategoryReferenceById(Long categoryId) throws Exception;
     
-    void addCategoryReference(Long cctId, Long parentId, String name) throws Exception;
+    CategoryReference addCategoryReference(Long cctId, Long parentId, String name) throws Exception;
 
     void copyCategoryReference(Long cctId, Long parentId, Long categoryId) throws Exception;
     
-    void duplicateCategoryReference(Long cctId, Long parentId, Long categoryId, String name) throws Exception;
+    CategoryReference duplicateCategoryReference(Long cctId, Long parentId, Long categoryId, String name) throws Exception;
 
     void moveCategoryReference(Long cctId, Long parent0Id, Long parent1Id, Long categoryId) throws Exception;
 

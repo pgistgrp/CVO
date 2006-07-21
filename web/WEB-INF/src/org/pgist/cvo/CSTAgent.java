@@ -267,6 +267,7 @@ public class CSTAgent {
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *           <li>newId - int, id of the new CategoryReference instance</li>
      *         </ul>
      */
     public Map addCategory(Map params) {
@@ -288,7 +289,10 @@ public class CSTAgent {
                 return map;
             }
             
-            cstService.addCategoryReference(cctId, parentId, name);
+            CategoryReference newCat = cstService.addCategoryReference(cctId, parentId, name);
+            
+            map.put("newId", newCat.getId());
+            
             map.put("successful", true);
         } catch(Exception e) {
             e.printStackTrace();
@@ -371,6 +375,7 @@ public class CSTAgent {
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *           <li>newId - int, id of the new CategoryReference instance</li>
      *         </ul>
      */
     public Map duplicateCategory(Map params) {
@@ -406,7 +411,10 @@ public class CSTAgent {
         }
         
         try {
-            cstService.duplicateCategoryReference(cctId, parentId, categoryId, name);
+            CategoryReference newCat = cstService.duplicateCategoryReference(cctId, parentId, categoryId, name);
+            
+            map.put("newId", newCat.getId());
+            
             map.put("successful", true);
         } catch(Exception e) {
             e.printStackTrace();

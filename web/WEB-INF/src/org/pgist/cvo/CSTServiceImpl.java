@@ -74,7 +74,7 @@ public class CSTServiceImpl implements CSTService {
     }//getCategoryByName()
     
     
-    public void addCategoryReference(Long cctId, Long parentId, String name) throws Exception {
+    public CategoryReference addCategoryReference(Long cctId, Long parentId, String name) throws Exception {
         CCT cct = cctDAO.getCCTById(cctId);
         if (cct==null) throw new Exception("no such cct.");
         
@@ -147,6 +147,7 @@ public class CSTServiceImpl implements CSTService {
         
         cstDAO.save(categoryReference);
         
+        return categoryReference;
     }//addCategoryReference()
 
 
@@ -208,7 +209,7 @@ public class CSTServiceImpl implements CSTService {
     }//copyCategoryReference()
     
     
-    public void duplicateCategoryReference(Long cctId, Long parentId, Long categoryId, String name) throws Exception {
+    public CategoryReference duplicateCategoryReference(Long cctId, Long parentId, Long categoryId, String name) throws Exception {
         CCT cct = cctDAO.getCCTById(cctId);
         if (cct==null) throw new Exception("no such cct.");
         
@@ -268,8 +269,9 @@ public class CSTServiceImpl implements CSTService {
          */
         parent.getChildren().add(newCat);
         
-        cstDAO.save(categoryReference);
-        cstDAO.save(cct);
+        cstDAO.save(parent);
+        
+        return newCat;
     }//duplicateCategoryReference()
     
     
