@@ -18,8 +18,6 @@ public class Theme {
     
     protected String summary = "";
     
-    protected CategoryReference catRef;
-    
     protected Date createTime = new Date();
     
     
@@ -65,21 +63,6 @@ public class Theme {
 
     public void setSummary(String summary) {
         this.summary = summary;
-    }
-
-
-    /**
-     * @return
-     * 
-     * @hibernate.many-to-one column="catref_id" lazy="true"
-     */
-    public CategoryReference getCatRef() {
-        return catRef;
-    }
-
-
-    public void setCatRef(CategoryReference catRef) {
-        this.catRef = catRef;
     }
 
 

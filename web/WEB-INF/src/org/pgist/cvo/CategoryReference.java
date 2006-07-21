@@ -51,7 +51,7 @@ public class CategoryReference implements Node {
     
     /**
      * @return
-     * @hibernate.many-to-one column="cct_id" lazy="true" class="org.pgist.cvo.CCT" cascade="all"
+     * @hibernate.many-to-one column="cct_id" lazy="true" class="org.pgist.cvo.CCT"
      */
     public CCT getCct() {
         return cct;
@@ -66,7 +66,7 @@ public class CategoryReference implements Node {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" cascade="all" table="pgist_cvo_catref_catref_link" order-by="child_id"
+     * @hibernate.set lazy="true" table="pgist_cvo_catref_catref_link" order-by="child_id"
      * @hibernate.collection-key column="parent_id"
      * @hibernate.collection-many-to-many column="child_id" class="org.pgist.cvo.CategoryReference"
      */
@@ -83,7 +83,7 @@ public class CategoryReference implements Node {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" cascade="all" table="pgist_cvo_catref_catref_link" order-by="parent_id"
+     * @hibernate.set lazy="true" cascade="all-delete-orphan" table="pgist_cvo_catref_catref_link" order-by="parent_id"
      * @hibernate.collection-key column="child_id"
      * @hibernate.collection-many-to-many column="parent_id" class="org.pgist.cvo.CategoryReference"
      */
@@ -99,7 +99,7 @@ public class CategoryReference implements Node {
 
     /**
      * @return
-     * @hibernate.many-to-one column="category_id" lazy="true" cascade="all"
+     * @hibernate.many-to-one column="category_id" lazy="true"
      */
     public Category getCategory() {
         return category;
@@ -113,8 +113,7 @@ public class CategoryReference implements Node {
 
     /**
      * @return
-     * 
-     * @hibernate.many-to-one column="theme_id" lazy="true" cascade="all"
+     * @hibernate.many-to-one column="theme_id" lazy="true" class="org.pgist.cvo.Theme" cascade="all"
      */
     public Theme getTheme() {
         return theme;

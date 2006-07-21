@@ -424,7 +424,7 @@ public class CSTAgent {
      *         <ul>
      *           <li>cctId - int, the current CCT instance id</li>
      *           <li>categoryId - int, id of the CategoryReference to be copied</li>
-     *           <li>parent0Id - int, the old parent CategoryReference instance id</li>
+     *           <li>parent0Id - int, the old parent CategoryReference instance id, if null or invalid, rootId will be used.</li>
      *           <li>parent1Id - int, the new parent CategoryReference instance id, if null or invalid, rootId will be used.</li>
      *         </ul>
      * @return A map contains:<br>
@@ -736,10 +736,7 @@ public class CSTAgent {
                 return map;
             }
             
-            List themes = new ArrayList(20);
-            for (CategoryReference ref : (Set<CategoryReference>) cct.getRootCategory().getChildren()) {
-                themes.add(ref.getTheme());
-            }
+            List themes = cstService.getThemes(cct);
             
             if ("true".equals((String) params.get("asHTML"))) {
                 request.setAttribute("cct", cct);

@@ -1,9 +1,11 @@
 package org.pgist.cvo;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.pgist.system.UserDAO;
@@ -128,6 +130,9 @@ public class CSTServiceImpl implements CSTService {
             categoryReference = new CategoryReference();
             categoryReference.setCategory(category);
             categoryReference.setCct(cct);
+            categoryReference.getTheme().setCreateTime(new Date());
+            
+            cstDAO.save(categoryReference);
         }
         
         /*
@@ -140,7 +145,7 @@ public class CSTServiceImpl implements CSTService {
         parent.getChildren().add(categoryReference);
         
         cstDAO.save(categoryReference);
-        cstDAO.save(cct);
+        
     }//addCategoryReference()
 
 
@@ -242,7 +247,7 @@ public class CSTServiceImpl implements CSTService {
         newCat.setCategory(categoryReference.getCategory());
         newCat.setCct(cct);
         newCat.getChildren().addAll(categoryReference.getChildren());
-        newCat.getParents().add(parent);
+        newCat.getTheme().setCreateTime(new Date());
         
         cstDAO.save(newCat);
         
@@ -326,10 +331,9 @@ public class CSTServiceImpl implements CSTService {
         }//while
         
         /*
-         * cutoff categoryReference with its parent
+         * cutoff categoryReference from its parent
          */
         parent0.getChildren().remove(categoryReference);
-        categoryReference.getParents().remove(parent0);
         
         /*
          * establish parent-child relationship
@@ -351,38 +355,24 @@ public class CSTServiceImpl implements CSTService {
         if (catRef.getCct().getId().longValue()!=cct.getId().longValue()) throw new Exception("no such category reference in this cct.");
         
         /*
-         * cut off the relationships between parents and this child
+         * check if category reference with the same name exists.
          */
-        Set parents = new HashSet(catRef.getParents());
-        for (Object object : parents) {
-            CategoryReference one = (CategoryReference) object;
-            one.getChildren().remove(catRef);
-        }//for
-        catRef.getParents().clear();
-        
         CategoryReference categoryReference = cstDAO.getCategoryReferenceByName(cctId, name);
-        if (categoryReference==null) {
-            Category category = cstDAO.getCategoryByName(name);
-            if (category==null) {
-                category = new Category();
-                category.setName(name);
-                cstDAO.save(category);
-            }
-            categoryReference = new CategoryReference();
-            categoryReference.setCct(cct);
-            categoryReference.setCategory(category);
-            cstDAO.save(categoryReference);
+        if (categoryReference!=null) throw new Exception("category with the same already exists.");
+        
+        Category category = cstDAO.getCategoryByName(name);
+        if (category==null) {
+            category = new Category();
+            category.setName(name);
+            cstDAO.save(category);
         }
         
-        //create new relationships
-        categoryReference.getChildren().addAll(catRef.getChildren());
-        categoryReference.getParents().addAll(parents);
-        for (Object object : parents) {
-            CategoryReference one = (CategoryReference) object;
-            one.getChildren().add(categoryReference);
-        }//for
+        /*
+         * point catRef to the new category
+         */
+        catRef.setCategory(category);
         
-        cstDAO.save(categoryReference);
+        cstDAO.save(catRef);
     }//editCategoryReference()
 
 
@@ -395,9 +385,8 @@ public class CSTServiceImpl implements CSTService {
             parent = cct.getRootCategory();
         } else {
             parent = cstDAO.getCategoryReferenceById(parentId);
+            if (parent==null) parent = cct.getRootCategory();
         }
-        
-        if (parent==null) throw new Exception("no such category reference.");
         
         if (parent.getCct().getId().longValue()!=cct.getId().longValue()) throw new Exception("no such category reference in this cct.");
         
@@ -407,27 +396,12 @@ public class CSTServiceImpl implements CSTService {
         if (catRef.getCct().getId().longValue()!=cct.getId().longValue()) throw new Exception("no such category reference in this cct.");
         
         parent.getChildren().remove(catRef);
-        catRef.getParents().remove(parent);
         
-        /*
-         * recursively delete those category references which have no parent. 
-         */
-        LinkedList<CategoryReference> stack = new LinkedList<CategoryReference>();
-        stack.add(catRef);
-        while (!stack.isEmpty()) {
-            CategoryReference one = stack.poll();
-            /*
-             * check if it still has parents.
-             */
-            Set parents = one.getParents();
-            if (parents.size()==0) {
-                stack.addAll(one.getChildren());
-                cstDAO.delete(one);
-            }
-        }//while
+        if (catRef.getParents().size()==0) {
+            //cstDAO.delete(catRef);
+        }
         
         cstDAO.save(parent);
-        cstDAO.save(catRef);
     }//deleteCategoryReference()
 
 
@@ -519,6 +493,17 @@ public class CSTServiceImpl implements CSTService {
         
         cstDAO.save(theme);
     }//saveSummary()
+
+
+    public List getThemes(CCT cct) throws Exception {
+        List themes = new ArrayList(cct.getRootCategory().getChildren().size());
+        
+        for (CategoryReference ref : (Set<CategoryReference>) cct.getRootCategory().getChildren()) {
+            themes.add(ref.getTheme());
+        }//for
+        
+        return themes;
+    }//getThemes()
 
 
 }//class CSTServiceImpl

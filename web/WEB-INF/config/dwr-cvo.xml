@@ -77,6 +77,9 @@
     <create creator="spring" javascript="CSTAgent">
       <param name="beanName" value="cstAgent"/>
       <include method="addCategory"/>
+      <include method="copyCategory"/>
+      <include method="duplicateCategory"/>
+      <include method="moveCategory"/>
       <include method="deleteCategory"/>
       <include method="derelateTag"/>
       <include method="editCategory"/>
