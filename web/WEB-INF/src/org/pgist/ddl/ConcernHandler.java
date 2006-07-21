@@ -81,6 +81,8 @@ public class ConcernHandler extends Handler {
                     }
                     
                     TagReference tagRef = ensureTagReference(cct, tag);
+                    saveTagReference(tagRef);
+                    
                     concern.getTags().add(tagRef);
                 }//for j
             }

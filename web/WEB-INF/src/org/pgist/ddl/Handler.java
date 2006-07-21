@@ -334,7 +334,9 @@ public abstract class Handler {
     
     protected TagReference ensureTagReference(CCT cct, Tag tag) throws Exception {
         if (tagRefMap.containsKey(tag)) {
-            return (TagReference) tagRefMap.get(tag);
+            TagReference tagRef = (TagReference) tagRefMap.get(tag);
+            tagRef.setTimes(tagRef.getTimes()+1);
+            return tagRef;
         } else {
             TagReference tagRef = new TagReference();
             tagRef.setTag(tag);
