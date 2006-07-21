@@ -45,6 +45,7 @@
 		var cctId = ${cctForm.cct.id};
     var tree1 = null;
     
+    
     function preLoadImages(){
       var imSrcAr = new Array("line1.gif","line2.gif","line3.gif","line4.gif","minus2.gif","minus3.gif","minus4.gif","plus2.gif","plus3.gif","plus4.gif","book.gif","books_open.gif","books_close.gif","magazines_open.gif","magazines_close.gif","tombs.gif","tombs_mag.gif","book_titel.gif","iconCheckAll.gif")
       var imAr = new Array(0);
@@ -57,13 +58,14 @@
 		function doOnLoad(){
 			//preLoadImages();
       
-     // tree1=new dhtmlXTreeObject("col-left","100%","100%",0);
-      //tree1.setImagePath("/images/dhtmlXTree/");
-      //tree1.setDragHandler();
-      //tree1.enableCheckBoxes(true)
-      //tree1.enableThreeStateCheckboxes(true);
-      //tree1.enableDragAndDrop(true);
-     // tree1.loadXML("/catsTree.do?cctId=${cctForm.cct.id}");
+      tree1=new dhtmlXTreeObject("col-left","100%","100%",0);
+      tree1.setImagePath("/images/dhtmlXTree/");
+      tree1.setDragHandler(moveNodeHandler);
+      tree1.enableCheckBoxes(true)
+      tree1.enableThreeStateCheckboxes(true);
+      tree1.enableDragAndDrop(true);
+      tree1.loadXML("/catsTree.do?cctId=${cctForm.cct.id}");
+      tree1.cctId = cctId;
       
 			//getCategories();
 			getOrphanTags();
@@ -311,7 +313,62 @@ function showTheError(errorString, exception){
 	function editTheme(value){
 		alert(value);
 	}
+
+	//--------------------------------------
+	function checkaddcategory(e){
+		if(e.keyCode == 13)addcategory();
+	}
+	
+	function addcategory(){
+		if(document.getElementById("newcatetext").value != ""){
+			var catname = document.getElementById("newcatetext").value;
+			var parentId = (tree1.lastSelected) ? tree1.lastSelected.parentObject.dataId : 0;
+			//alert("new cate: " + catname + "; parent=" + parentId);
+			CSTAgent.addCategory({cctId:cctId, parentId:parentId, name:catname},{
+				callback:function(data){
+					if (data.successful){ 
+						tree1.insertNewItemUnderSelected(document.getElementById("newcatetext").value);
+						document.getElementById("newcatetext").value = "";
+						/////to do: display a message...
+					}
+					
+					if (data.successful != true){
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+						showTheError();
+				}
+			});			
+		}
+	}
+	
+	function globalKeyHandler(e){
+		if(e.keyCode==46)
+			tree1.deleteSelectedItem();
+	}
+	
+	function treeClickHandler(){
+		if(!tree1.clickedOn)
+			tree1.unSelectAll();
 		
+		tree1.clickedOn = false;
+	}
+	
+	function moveNodeHandler(cateid,p0id, p1id){
+		alert("cateid=" + cateid + ", p0id=" + p0id + ", p1id=" + p1id);
+		CSTAgent.moveCategory({cctId: cctId, categoryId: cateid, parent0Id: p0id, parent1Id: p1id},{
+			callback:function(data){
+				if (data.successful) return 1;
+				else return 0;
+			},errorHandler:function(errorString, exception){ 
+				showTheError();
+				return 0;
+			}
+		});
+	}
+	//------------------------------------
+
 	</script>
 	
 	<style type="text/css"> 
@@ -341,7 +398,8 @@ function showTheError(errorString, exception){
 
 </style>
 </head>
-<body onResize="dosize()">
+
+<body onResize="dosize()" onkeydown="globalKeyHandler(event);">
 <div id="container">
 
 	<div id="overlay"></div>
@@ -357,7 +415,12 @@ function showTheError(errorString, exception){
 				<h3>Overview and Instructions</h3>
 			</div>
 			<div class="cssbox_body">
-				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam in erat sed leo suscipit adipiscing. Nam sapien sapien, ultricies dignissim, suscipit sit amet, condimentum sed, felis. Vivamus vitae quam in justo fringilla porttitor. Praesent non est nec leo dignissim rhoncus. Curabitur tincidunt mauris eget arcu. Maecenas at nisi. Integer pulvinar. Integer malesuada consectetuer massa. Nullam sem. Sed justo sem, vestibulum non, nonummy id, suscipit ut, quam. Nullam viverra turpis nec augue. Donec quis odio et sem sagittis tristique. </p>
+				<input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
+				<input type="button" value="Add categoey" onclick="addcategory();"><br>
+				<input type="button" value="Delete" onclick="tree1.deleteSelectedItem();">
+				<input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
+				<input type="button" value="Edit" onclick="tree1.unSelectAll();"><br>
+				<input type="checkbox" onclick="tree1.switchCopyMode()">Copy mode
 			</div>
 		</div>
 		<!-- End Overview -->
@@ -474,7 +537,7 @@ function showTheError(errorString, exception){
 <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 <script type="text/javascript">
 dosize();
-
+doOnLoad();
 </script>
 
 </body>

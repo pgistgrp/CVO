@@ -8,6 +8,7 @@ This version of Software is free for using in non-commercial applications. For c
 function dhtmlXTreeObject(htmlObject,width,height,rootId){
 	this.largestId = 0;
 	this.clickedOn = false;
+	this.cctId = -1;
 	
 	this._isOpera=(navigator.userAgent.indexOf('Opera')!= -1);
 	
@@ -319,12 +320,12 @@ dhtmlXTreeObject.prototype.insertNewItem=function(parentId,itemId,itemText,itemA
 	if(!parentObject)return(-1);
 	return this._attachChildNode(parentObject,itemId,itemText,itemActionHandler,image1,image2,image3,optionStr,childs);
 };
-dhtmlXTreeObject.prototype.insertNewItemUnderSelected=function(labeltext){
+dhtmlXTreeObject.prototype.insertNewItemUnderSelected=function(labeltext,dataId){
 	//this._alertSelected();
 	if(this.lastSelected)
-		var newitem = this.insertNewItem(this.lastSelected.parentObject.id,this.getNextId(),labeltext);
+		var newitem = this.insertNewItem(this.lastSelected.parentObject.id,dataId,labeltext);	//this.getNextId()
 	else
-		var newitem = this.insertNewItem(0,this.getNextId(),labeltext);
+		var newitem = this.insertNewItem(0,dataId,labeltext);	//this.getNextId()
 	if(this.lastSelected)this._updateNodeOtherOccur(this.lastSelected.parentObject,newitem);
 	this._openItem(newitem);
 };
@@ -1252,17 +1253,22 @@ dhtmlXTreeObject.prototype._updateNodeOtherOccur=function(itemObject,newChildObj
 
 dhtmlXTreeObject.prototype._moveNodeTo=function(itemObject,targetObject,beforeNode){
 
-	this._updateNodeOtherOccur(targetObject,itemObject);
-	//
-
 	if(targetObject.mytype)
 		var framesMove=(itemObject.treeNod.lWin!=targetObject.lWin);
 	else
 		var framesMove=(itemObject.treeNod.lWin!=targetObject.treeNod.lWin);
 	
-	if(this.dragFunc)
-		if(!this.dragFunc(itemObject.id,targetObject.id,(beforeNode?beforeNode.id:null),itemObject.treeNod,targetObject.treeNod))
+	alert("will do move now");
+	if(this.dragFunc){
+		//if(!this.dragFunc(itemObject.id,targetObject.id,(beforeNode?beforeNode.id:null),itemObject.treeNod,targetObject.treeNod))
+		alert("will call agent now.");
+		if(!this.dragFunc(itemObject.dataId,itemObject.parentObject.dataId, targetObject.dataId))
 			return false;
+		
+	}
+	//------------
+	this._updateNodeOtherOccur(targetObject,itemObject);
+	//-------------
 	
 	if((targetObject.XMLload==0)&&(this.XMLsource))
 	{
@@ -2045,8 +2051,18 @@ dhtmlXTreeObject.prototype._drag=function(sourceHtmlObject,dhtmlObject,targetHtm
 			z.selectItem(newID);			
 		}
 		else{
-			var newID=this._moveNode(sourceHtmlObject.parentObject,targetHtmlObject.parentObject);
-			z.selectItem(newID);
+//			CSTAgent.moveCategory({cctID:844,categoryId:sourceHtmlObject.parentObject.dataId,
+//			parent0Id:sourceHtmlObject.parentObject.parentObject.dataId, parent1Id: targetHtmlObject.parentObject.dataId
+//			},{callback:function(data){
+//					if(data.successful){
+						var newID=this._moveNode(sourceHtmlObject.parentObject,targetHtmlObject.parentObject);
+						z.selectItem(newID);					
+//					}
+//				},errorHandler:function(errorString, exception){ 
+//					showTheError();
+//				}
+//			});
+/**/			
 		}
 	}
 	
