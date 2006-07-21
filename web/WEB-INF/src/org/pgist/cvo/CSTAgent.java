@@ -379,7 +379,7 @@ public class CSTAgent {
         
         String name = (String) params.get("name");
         if (name==null || "".equals(name.trim())) {
-            map.put("reason", "can't create a category which name is empty.");
+            map.put("reason", "please give the name of the new category.");
             return map;
         }
         
@@ -787,7 +787,6 @@ public class CSTAgent {
             map.put("successful", true);
         } catch(Exception e) {
             e.printStackTrace();
-            map.put("successful", false);
             map.put("reason", e.getMessage());
             return map;
         }

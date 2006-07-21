@@ -16,6 +16,8 @@ public class Theme {
     
     protected boolean deleted = false;
     
+    protected String title = "";
+    
     protected String summary = "";
     
     protected Date createTime = new Date();
@@ -48,6 +50,21 @@ public class Theme {
     
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.property not-null="true"
+     */
+    public String getTitle() {
+        return title;
+    }
+
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 

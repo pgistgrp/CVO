@@ -174,7 +174,7 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
         list = new ArrayList(tmp.size());
         for (Object[] objs : (List<Object[]>) tmp) {
             list.add(objs[0]);
-        }
+        }//for
         
         return list;
     }//getOrphanTags()

@@ -131,6 +131,7 @@ public class CSTServiceImpl implements CSTService {
             categoryReference.setCategory(category);
             categoryReference.setCct(cct);
             categoryReference.getTheme().setCreateTime(new Date());
+            categoryReference.getTheme().setTitle(category.getName());
             
             cstDAO.save(categoryReference);
         }
@@ -236,6 +237,12 @@ public class CSTServiceImpl implements CSTService {
         if (!parent.getCct().getId().equals(cct.getId())) throw new Exception("no such category reference in this cct.");
         
         /*
+         * check if another category with same name exists
+         */
+        Category category = cstDAO.getCategoryByName(name);
+        if (category!=null) throw new Exception("there already exist a category named "+name);
+        
+        /*
          * get the category reference
          */
         CategoryReference categoryReference = cstDAO.getCategoryReferenceById(categoryId);
@@ -243,11 +250,16 @@ public class CSTServiceImpl implements CSTService {
         if (categoryReference==null) throw new Exception("no such category reference");
         if (categoryReference.getCct().getId()!=cctId) throw new Exception("no such category reference in this cct.");
         
+        category = new Category();
+        category.setName(name);
+        cstDAO.save(category);
+        
         CategoryReference newCat = new CategoryReference();
-        newCat.setCategory(categoryReference.getCategory());
+        newCat.setCategory(category);
         newCat.setCct(cct);
         newCat.getChildren().addAll(categoryReference.getChildren());
         newCat.getTheme().setCreateTime(new Date());
+        newCat.getTheme().setTitle(categoryReference.getCategory().getName());
         
         cstDAO.save(newCat);
         
@@ -367,6 +379,8 @@ public class CSTServiceImpl implements CSTService {
             cstDAO.save(category);
         }
         
+        catRef.getTheme().setTitle(name);
+        
         /*
          * point catRef to the new category
          */
@@ -398,7 +412,7 @@ public class CSTServiceImpl implements CSTService {
         parent.getChildren().remove(catRef);
         
         if (catRef.getParents().size()==0) {
-            //cstDAO.delete(catRef);
+            cstDAO.delete(catRef);
         }
         
         cstDAO.save(parent);

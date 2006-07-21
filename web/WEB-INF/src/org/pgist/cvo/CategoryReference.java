@@ -29,9 +29,6 @@ public class CategoryReference implements Node {
     
     protected Theme theme = new Theme();
     
-    /**
-     * The associated TagReference objects
-     */
     protected SortedSet tags = new TreeSet();
     
     
@@ -66,7 +63,7 @@ public class CategoryReference implements Node {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="pgist_cvo_catref_catref_link" order-by="child_id"
+     * @hibernate.set inverse="true" lazy="true" table="pgist_cvo_catref_catref_link" order-by="child_id"
      * @hibernate.collection-key column="parent_id"
      * @hibernate.collection-many-to-many column="child_id" class="org.pgist.cvo.CategoryReference"
      */
@@ -83,7 +80,7 @@ public class CategoryReference implements Node {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" cascade="all-delete-orphan" table="pgist_cvo_catref_catref_link" order-by="parent_id"
+     * @hibernate.set lazy="true" table="pgist_cvo_catref_catref_link" order-by="parent_id"
      * @hibernate.collection-key column="child_id"
      * @hibernate.collection-many-to-many column="parent_id" class="org.pgist.cvo.CategoryReference"
      */
