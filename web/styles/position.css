@@ -149,6 +149,14 @@ body {
 #main {
 	margin: 0px auto;
 }
+
+#next{
+   position: absolute;
+   right: 0;
+   width: 50%;
+   text-align: right; 
+}
+
 #object {
 	padding: .1em .4em .1em .4em;
 	width: 90%;
@@ -179,6 +187,21 @@ body {
 #post {
 	padding: .1em .4em .1em .4em;
 }
+
+#prevNext_container{
+   position: relative;
+   height: 20px;
+   width: 98%;
+   margin: auto;
+}
+
+#previous{
+   position: absolute;
+   left: 0;
+   width: 50%;
+}
+
+
 #replies {
 	padding: .1em .4em .1em .4em;
 	margin: auto;

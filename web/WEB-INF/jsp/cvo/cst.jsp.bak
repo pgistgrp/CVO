@@ -7,7 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>CST</title>
 
-	<title>PGIST Portal - Let's Improve Transportation</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<!--CSS Libraries -->
 
@@ -17,10 +16,11 @@
 	<style type="text/css" media="screen">@import "/styles/tabs.css";</style>
 
  	<!--JavaScript Libraries -->
- 	<script src="/scripts/prototype.js" type="text/javascript"></script>
- 	<script src="/scripts/rico.js" type="text/javascript"></script>
+
  	<script src="/scripts/tabcookies.js" type="text/javascript"></script>
  	<script src="/scripts/tabs.js" type="text/javascript"></script>
+ 	 	<script src="/scripts/prototype.js" type="text/javascript"></script>
+ 	<script src="/scripts/rico.js" type="text/javascript"></script>
 	<script src="/scripts/scriptaculous.js?load=effects,controls" type="text/javascript"></script>
 	<script src="/scripts/tags.js" type="text/javascript"></script>
 	
@@ -42,17 +42,29 @@
 	
 	<script type="text/javascript">
 		var cctId = ${cctForm.cct.id};
-		window.onload(doOnLoad());
-
+    var tree1 = null;
+    
+    function preLoadImages(){
+      var imSrcAr = new Array("line1.gif","line2.gif","line3.gif","line4.gif","minus2.gif","minus3.gif","minus4.gif","plus2.gif","plus3.gif","plus4.gif","book.gif","books_open.gif","books_close.gif","magazines_open.gif","magazines_close.gif","tombs.gif","tombs_mag.gif","book_titel.gif","iconCheckAll.gif")
+      var imAr = new Array(0);
+      for(var i=0;i<imSrcAr.length;i++){
+        imAr[imAr.length] = new Image();
+        imAr[imAr.length-1].src = "/images/dhtmlXTree/"+imSrcAr[i];
+      }
+    }
+    
 		function doOnLoad(){
-		//	preLoadImages();
-		//	tree1=new dhtmlXTreeObject(document.getElementById('panelCatsContent'),"100%","100%",0);
-			//tree1.setImagePath("/images/dhtmlXTree/");
-			//tree1.setDragHandler();
-			//tree1.enableCheckBoxes(true)
-			//tree1.enableThreeStateCheckboxes(true);
-			//tree1.enableDragAndDrop(true);
-			
+			//preLoadImages();
+      
+     // tree1=new dhtmlXTreeObject("col-left","100%","100%",0);
+      //tree1.setImagePath("/images/dhtmlXTree/");
+      //tree1.setDragHandler();
+      //tree1.enableCheckBoxes(true)
+      //tree1.enableThreeStateCheckboxes(true);
+      //tree1.enableDragAndDrop(true);
+     // tree1.loadXML("/catsTree.do?cctId=${cctForm.cct.id}");
+      
+			//getCategories();
 			//getOrphanTags();
 			//getTags(12,1,1);
 		}
@@ -328,24 +340,14 @@ function showTheError(errorString, exception){
 
 </style>
 </head>
-<body onResize="dosize()">
-<!--<body onLoad="dosize()" onResize="dosize()">-->
+<body onResize="dosize()" onload="doOnLoad()">
 <div id="container">
 
 	<div id="overlay"></div>
 	<div id="lightbox"></div>
 	<!-- END LIGHTBOX -->
 	<div id="pageTitle">
-	<h1>Moderator Dashboard: </h1><h2>Concerns Synthesis Tool</h2>
-		<div id="bread">
-		<ul>
-			<li class="first"><a href="null">Moderator Dashboard</a>
-				<ul>
-					<li>&#187; <a href="null">Concerns Synthesis Tool</a></li>
-				</ul>
-			</li>
-		</ul>
-		</div>
+		<h1>Moderator Dashboard: </h1><h2>Concerns Synthesis Tool</h2>
 	</div>	
 
 		<!-- Overview SpiffyBox -->
@@ -361,11 +363,7 @@ function showTheError(errorString, exception){
 
 	
 	<div id="cont-resize">
-		<div id="col-left">
-			
-			left column
-			<p>Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah</p>
-		</div>
+		<div id="col-left"></div>
 		
 		<div id="col">
 			
@@ -475,6 +473,7 @@ function showTheError(errorString, exception){
 <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 <script type="text/javascript">
 dosize();
+
 </script>
 
 </body>

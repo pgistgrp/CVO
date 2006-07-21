@@ -197,6 +197,20 @@ h5	{
 	color: #0061A8;
 	font-size: 1.0em;
 	text-decoration: underline;}
+	
+.prevNext a{
+	border: 1px solid #CCCCCC;
+	padding: 2px;
+	font-size: 10px;
+	font-weight: bold;
+	background: #EEE;
+}
+
+.prevNext a:hover{
+	color: #EEE;
+	background: #0061A8;
+}
+
 
 /* TAG STYLES */
 
@@ -215,7 +229,7 @@ h5	{
 	text-decoration: none;
 }
 
-.tags a:hover{
+.tags a:hover,.tagSize1 a:hover, .tagSize2 a:hover, .tagSize3 a:hover, .tagSize4 a:hover{
 	background-color: #C0D7F6;
 }
 
@@ -243,6 +257,40 @@ li.tagsList{
 	display: inline;
 	color: #878;
 	text-decoration: none;
+}
+
+
+.tagSize1 a, .tagSize2 a, .tagSize3 a, .tagSize4 a{
+	color: #878;
+	padding: 1px;
+	padding-left: 2px;
+	padding-right: 2px;
+	border: 1px solid #C0D7F6;
+	text-decoration: none;
+	margin-right: 3px;
+}
+
+.tagSize1 a{
+	font-size: 0.9em;
+}
+
+.tagSize2 a{
+	font-size: 1.4em;
+}
+
+.tagSize3 a{
+	font-size: 1.8em;
+}
+
+.tagSize4 a{
+	font-size: 2.4em;
+	font-weight: bold;
+}
+
+.tagSize1, .tagSize2, .tagSize3, .tagSize4{
+	margin-right: 5px;
+	line-height: 40px;
+	margin-top: 10px;
 }
 
 /* END TAG STYLES */

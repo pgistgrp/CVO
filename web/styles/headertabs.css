@@ -33,7 +33,7 @@ ul.headernav
  margin:0;
  padding: 3px 0;
  /*border-bottom: 1px solid #F2E3EB; */
- font-size: 10px;
+ font-size: 0.9em;
  margin-right: 10px;
  text-align: right;
 }
@@ -71,7 +71,7 @@ ul.headernav li a:hover
 ul.headernav li.headeractive a
 {
 
- font-size: 12px;
+ font-size: 1.3em;
  font-weight: bold;
  background-color: #7888A9;
  border-bottom: 1px solid #7888A9;

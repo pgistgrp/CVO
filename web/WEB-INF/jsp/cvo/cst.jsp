@@ -7,7 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>CST</title>
 
-	<title>PGIST Portal - Let's Improve Transportation</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<!--CSS Libraries -->
 
@@ -41,6 +40,8 @@
 	
 	
 	<script type="text/javascript">
+		
+		window.onload="doOnLoad();
 		var cctId = ${cctForm.cct.id};
     var tree1 = null;
     
@@ -54,15 +55,15 @@
     }
     
 		function doOnLoad(){
-			preLoadImages();
+			//preLoadImages();
       
-      tree1=new dhtmlXTreeObject("col-left","100%","100%",0);
-      tree1.setImagePath("/images/dhtmlXTree/");
-      tree1.setDragHandler();
-      tree1.enableCheckBoxes(true)
-      tree1.enableThreeStateCheckboxes(true);
-      tree1.enableDragAndDrop(true);
-      tree1.loadXML("/catsTree.do?cctId=${cctForm.cct.id}");
+     // tree1=new dhtmlXTreeObject("col-left","100%","100%",0);
+      //tree1.setImagePath("/images/dhtmlXTree/");
+      //tree1.setDragHandler();
+      //tree1.enableCheckBoxes(true)
+      //tree1.enableThreeStateCheckboxes(true);
+      //tree1.enableDragAndDrop(true);
+     // tree1.loadXML("/catsTree.do?cctId=${cctForm.cct.id}");
       
 			//getCategories();
 			getOrphanTags();
@@ -340,7 +341,7 @@ function showTheError(errorString, exception){
 
 </style>
 </head>
-<body onResize="dosize()" onload="doOnLoad()">
+<body onResize="dosize()">
 <div id="container">
 
 	<div id="overlay"></div>

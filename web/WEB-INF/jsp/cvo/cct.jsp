@@ -44,7 +44,7 @@
 	function doOnLoad(){
 		showConcerns(2);
 		showMyConcerns();
-		//showTagCloud();
+		
 	}
 	function validateForm()
 	{
@@ -197,7 +197,7 @@ function saveTheConcern(){
 					$('addConcern').style.background="#FFF";
 					$('addConcern').style.color="#333";
 					$('addConcern').focus();
-					//showTagCloud();
+					//getTagCloud();
 					//alert(concernTags);
 					showMyConcerns(data.concern.id);
 					concernTags = '';
@@ -212,12 +212,12 @@ function saveTheConcern(){
 	$("indicator").style.visibility = "hidden";
 }
 
-function showTagCloud(){
-		CCTAgent.getTagCloud({cctId:cctId,type:0,count:25}, {
+function getTagCloud(){
+		CCTAgent.getTagCloud({cctId:cctId,type:0,count:1000}, {
 			callback:function(data){
 				if (data.successful){
-					$('sidebar_tags').innerHTML = data.html;
-					//<p><textarea class="textareaAddConcern" name="addConcern" cols="50" rows="2" id="addConcern"></textarea></p>
+					$('allTags').innerHTML = data.html;
+					
 				}
 			},
 			errorHandler:function(errorString, exception){ 
@@ -274,6 +274,7 @@ function getConcernsByTag(id){
 					$('sidebar_concerns').innerHTML = data.html;
 					$('myTab').tabber.tabShow(0);
 					new Element.scrollTo('SideConcernsTop'); //location.href='#SideConcernsTop';
+					shrinkTagSelector();
 				}
 			},
 		errorHandler:function(errorString, exception){ 
@@ -306,22 +307,22 @@ CCTAgent.searchTags({cctId:cctId,tag:theTag},{
 			  $('tagIndicator').style.visibility = 'visible';
 				if (data.successful){
 					if ($('txtSearch').value == ""){
-						$('searchTag_title').innerHTML = '<span class="title_section2">Tag Query:</span>'; 
+						
 						$('topTags').innerHTML = "";
-						$('tagSearchResults').innerHTML = '<span class="highlight">Please type in your query or <a href="javascript:showTagCloud();">clear query</a>&nbsp;to view top tags again.</span>';
+						$('tagSearchResults').innerHTML = '<span class="highlight">Please type in your query or <a href="javascript:getTagCloud();">clear query</a>&nbsp;to view top tags again.</span>';
 					  $('tagIndicator').style.visibility = 'hidden';
 					  
 					}
 					
 					if ($('txtSearch').value != ""){
-						$('searchTag_title').innerHTML = '<span class="title_section2">Tag Query:</span>'; 
-						$('tagSearchResults').innerHTML = '<span class="highlight">' + data.count +' tags match your query&nbsp;&nbsp;(<a href="javascript:showTagCloud();">clear query</a>)</span>';
+				
+						$('tagSearchResults').innerHTML = '<span class="highlight">' + data.count +' tags match your query&nbsp;&nbsp;(<a href="javascript:getTagCloud();">clear query</a>)</span>';
 						$('topTags').innerHTML = data.html;
 						$('tagIndicator').style.visibility = 'hidden';
 					}
 					
 					if (data.count == 0 || $('txtSearch').value == "_"){
-						$('tagSearchResults').innerHTML = '<span class=\"highlight\">No tag matches found! Please try a different search or <a href="javascript:showTagCloud();">clear the query</a>&nbsp;to view top tags again.</span>';
+						$('tagSearchResults').innerHTML = '<span class=\"highlight\">No tag matches found! Please try a different search or <a href="javascript:getTagCloud();">clear the query</a>&nbsp;to view top tags again.</span>';
 						$('topTags').innerHTML = "";
 						$('tagIndicator').style.visibility = 'hidden';
 					}
@@ -500,7 +501,7 @@ function getWinH(){
 }
 </script>
 </Head>
-<body>
+<body onResize="findxy();">
 <!-- HEADER -->
 <div id="decorBar"></div>
 <div id="container">
@@ -515,10 +516,10 @@ function getWinH(){
 	  <form id="mysearch" name="form1" method="post" action="">
 	    
 	<div id="searchbox">
-		<input name="search" type="text" class="search" value="Search" />
+		<input name="search" type="text" class="search" value="Search" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" />
 	</div>
 	<div id="submit">
-	        <img src="images/btn_search_1.png" name="Image1" width="19" height="19" border="0" id="Image1" onClick="sendForm();return false;" onMouseDown="MM_swapImage('Image1','','images/btn_search_3.png',1)" onMouseOver="MM_swapImage('Image1','','images/btn_search_2.png',1)" onMouseOut="MM_swapImgRestore()">    
+	        <img src="/images/btn_search_1.png" name="Image1" width="19" height="19" border="0" id="Image1" onClick="sendForm();return false;" onMouseDown="MM_swapImage('Image1','','/images/btn_search_3.png',1)" onMouseOver="MM_swapImage('Image1','','/images/btn_search_2.png',1)" onMouseOut="MM_swapImgRestore()">    
 	</div>
 	<div id="searchresults"></div>
 	  </form>
@@ -527,19 +528,19 @@ function getWinH(){
 	
 		<div class="header" id="myHeader">
 			<div id="header_currentMenuContainer" class="headertab">
-		    	<h2>Tab 1</h2>
+		    	<h2>Home</h2>
 					<div id="header_submenu1" class="submenulinks">
 						<a href="#">Sub Navigation 1a</a> <a href="#">Sub Navigation 2a</a> <a href="#">Sub Navigation 3a</a> <a href="#">Sub Navigation 4a</a>
 					</div>
 		    </div>			
 				<div id="sidebar_tab2" class="headertab">
-		    	<h2>Tab 2</h2>
+		    	<h2>Current Task</h2>
 					<div id="header_submenu2" class="submenulinks">
 						<a href="#">Sub Navigation 1b</a> <a href="#">Sub Navigation 2b</a> <a href="#">Sub Navigation 3b</a> <a href="#">Sub Navigation 4b</a> 
 					</div>
 		    </div>	    
 		    <div id="sidebar_tab3" class="headertab">
-		    	<h2>Tab 3</h2>
+		    	<h2>Learn More</h2>
 					<div id="header_submenu3" class="submenulinks">
 						<a href="#">Sub Navigation 1c</a> <a href="#">Sub Navigation 2c</a> <a href="#">Sub Navigation 3c</a> <a href="#">Sub Navigation 4c</a> 
 					</div>
@@ -593,7 +594,7 @@ function getWinH(){
 										<p><input type="text" id="theTag" class="tagTextbox" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList('tagsList','theTag','tagValidation');return false;"></p>
 										<div style="display: none; padding-left: 20px;" id="tagValidation"></div>
 									
-										<span class="title_section">Finished Tagging? <br><a href="javascript:saveTheConcern();">DO IT</a><input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern(); void(0);"></span><input type="button" value="Cancel - back to edit my concern" onclick="javascript:resetForm();">
+										<span class="title_section">Finished Tagging? <br><input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern(); void(0);"></span><input type="button" value="Cancel - back to edit my concern" onclick="javascript:resetForm();">
 							    </div>
 							    <br>
 					    </div>
@@ -621,11 +622,12 @@ function getWinH(){
 		<div class="tabber" id="myTab">
 		<!--START Tag Selector -->
 		<div id="tagSelector">
-			Tag Selected: <b>Safety</b> [ <a href="javascript:goPage(${setting.page});">Clear Selected</a> ]
-			<div id="pullDown" style="text-align:right;"><a href="javascript: expandTagSelector();">Browse All Tags</a></div>
-			<div id="allTags" style="display: none;">
-				<h1>All Currently Available Tags</h1>
-		
+			<div id="filterTags">Sidebar Filtered By: <span class="tags">Not Working Yet</span>&nbsp; &nbsp;[ <a href="javascript:goPage(${setting.page});">Clear Selected</a> ]</div>
+			<div id="manualFilter">
+				<p>Change sidebar filter: <input type="text" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" name="manualFilter" id="manualFilter" class="search" value="Search within all tags"></p>
+				<div id="browseTags" style="text-align:right;"><a href="javascript: expandTagSelector(); getTagCloud();">Browse All Tags</a></div>
+			</div>
+			<div id="allTags">
 			</div>
 		</div>
 			
