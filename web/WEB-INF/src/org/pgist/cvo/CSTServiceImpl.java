@@ -258,7 +258,7 @@ public class CSTServiceImpl implements CSTService {
         CategoryReference newCat = new CategoryReference();
         newCat.setCategory(category);
         newCat.setCct(cct);
-        newCat.getChildren().addAll(categoryReference.getChildren());
+        newCat.getTags().addAll(categoryReference.getTags());
         newCat.getTheme().setCreateTime(new Date());
         newCat.getTheme().setTitle(categoryReference.getCategory().getName());
         
