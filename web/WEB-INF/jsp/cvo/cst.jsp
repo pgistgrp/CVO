@@ -210,8 +210,8 @@
 		
 		//get tags and populate the pane
 		//$('catetagstitle') = "Tags associated with category \"" + labeltext + "\"";
-		getTags(clickid, 0, 0,1);
-		getTags(clickid, 0, 1, 1);
+		getTags(clickid, 1, 0,1);
+		getTags(clickid, 1, 1, 1);
 		//getTags(clickid, 0, 1);
 	}
 	
