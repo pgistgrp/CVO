@@ -1,11 +1,9 @@
 package org.pgist.cvo;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -114,17 +112,17 @@ public class CSTAgent {
             
             PageSetting setting = new PageSetting();
             
-            String countStr = (String) params.get("count");
-            int count = -1;
             try {
-                count = Integer.parseInt(countStr);
+                setting.setRowOfPage(Integer.parseInt((String) params.get("count")));
             } catch (Exception e) {
+                setting.setRowOfPage(-1);
             }
-            setting.setRowOfPage(count);
             
-            String pageStr = (String) params.get("page");
-            int page = Integer.parseInt(pageStr);
-            setting.setPage(page);
+            try {
+                setting.setPage(Integer.parseInt((String) params.get("page")));
+            } catch (Exception e) {
+                setting.setPage(1);
+            }
             
             Collection tags = null;
             
@@ -136,18 +134,20 @@ public class CSTAgent {
                 
                 PageSetting orphanSetting = new PageSetting();
                 
-                String orphanPageStr = (String) params.get("orphanPage");
-                int orphanPage = Integer.parseInt(orphanPageStr);
-                orphanSetting.setPage(orphanPage);
-                
-                String orphanCountStr = (String) params.get("orphanCount");
-                int orphanCount = -1;
-                if (orphanCountStr!=null && !"".equals(orphanCountStr)) {
-                    orphanCount = Integer.parseInt(orphanPageStr);
+                try {
+                    orphanSetting.setPage(Integer.parseInt((String) params.get("orphanPage")));
+                } catch (Exception e) {
+                    orphanSetting.setPage(1);
                 }
-                orphanSetting.setRowOfPage(orphanCount);
+                
+                try {
+                    orphanSetting.setRowOfPage(Integer.parseInt((String) params.get("orphanCount")));
+                } catch (Exception e) {
+                    orphanSetting.setRowOfPage(-1);
+                }
                 
                 Collection orphanTags = cstService.getOrphanTags(cctId, orphanSetting);
+                
                 request.setAttribute("orphanTags", orphanTags);
             } else {
                 map.put("reason", "unknown type: "+type);
