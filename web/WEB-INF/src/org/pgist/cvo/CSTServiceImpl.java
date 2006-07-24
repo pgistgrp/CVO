@@ -3,7 +3,6 @@ package org.pgist.cvo;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -374,7 +373,7 @@ public class CSTServiceImpl implements CSTService {
          * check if category reference with the same name exists.
          */
         CategoryReference categoryReference = cstDAO.getCategoryReferenceByName(cctId, name);
-        if (categoryReference!=null) throw new Exception("category with the same already exists.");
+        if (categoryReference!=null) throw new Exception("category with the same name already exists.");
         
         Category category = cstDAO.getCategoryByName(name);
         if (category==null) {
