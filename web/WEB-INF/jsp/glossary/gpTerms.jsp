@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 		
 	
-<table id="termListTable" class="listtable" cellspacing="1" frame="box" rules="all" width="100%">
+<table id="termListTable" class="blueBB" cellspacing="2" cellpadding="4" frame="box" rules="all" width="100%">
 	 <tr>
   	<th style="text-align: left" id="name">name</th><th style="text-align: left" id="def">Short Definition</th><th style="text-align:center" id="comments">comments</a></th><th style="text-align:center" id="views">views</th>
    </tr>

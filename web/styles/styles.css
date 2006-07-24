@@ -347,3 +347,5 @@ textarea.addConcern {
 strong{
 	color: #0061A8;
 }
+
+th{background: #E9EFD3; text-transform: capitalize;}

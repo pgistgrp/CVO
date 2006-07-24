@@ -502,8 +502,12 @@ function getWinH(){
 </script>
 </Head>
 <body onResize="findxy();">
-<!-- HEADER -->
-<div id="decorBar"></div>
+<!-- Header -->
+<div id="header">
+
+</div>
+<div id="login"><a href="/logout.do"><img src="images/btn_logout.gif" border="0"/></a></div>
+<!-- End Header -->
 <div id="container">
 	<!-- START LIGHTBOX -->
 	<div id="overlay"></div>
@@ -674,6 +678,7 @@ function getWinH(){
 <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 <script type="text/javascript">
 	findxy();
+	
 </script>
 </body>
 </html>

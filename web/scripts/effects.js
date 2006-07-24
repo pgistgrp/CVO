@@ -920,6 +920,26 @@ Effect.Pulsate = function(element) {
     }, options), {transition: reverser}));
 }
 
+
+Effect.PhaseIn = function(element) {
+  element = $(element);
+  new Effect.BlindDown(element, arguments[1] || {});
+  new Effect.Appear(element, arguments[2] || arguments[1] || {});
+}
+
+Effect.PhaseOut = function(element) {
+  element = $(element);
+  new Effect.Fade(element, arguments[1] || {});
+  new Effect.BlindUp(element, arguments[2] || arguments[1] || {});
+}
+
+Effect.Phase = function(element) {
+  element = $(element);
+  if (element.style.display == 'none')
+    new Effect.PhaseIn(element, arguments[1] || {}, arguments[2] || arguments[1] || {});
+  else new Effect.PhaseOut(element, arguments[1] || {}, arguments[2] || arguments[1] || {});
+}
+
 Effect.Fold = function(element) {
   element = $(element);
   var oldStyle = {
@@ -943,6 +963,7 @@ Effect.Fold = function(element) {
   }}, arguments[1] || {}));
 };
 
+
 ['setOpacity','getOpacity','getInlineOpacity','forceRerendering','setContentZoom',
  'collectTextNodes','collectTextNodesIgnoreClass','childrenWithClassName'].each( 
   function(f) { Element.Methods[f] = Element[f]; }
@@ -955,4 +976,4 @@ Element.Methods.visualEffect = function(element, effect, options) {
   return $(element);
 };
 
-Element.addMethods();
+//Element.addMethods();

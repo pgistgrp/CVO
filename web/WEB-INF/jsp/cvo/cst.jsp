@@ -96,12 +96,12 @@
 			callback:function(data){
 				if (data.successful){
 					if (type == 0){
-						document.getElementById('col').innerHTML = 'Tags within ' + currentCategory.label;
+						document.getElementById('col').innerHTML = '<h4>Tags within ' + currentCategory.label + '</h4>';
 						document.getElementById('col').innerHTML += data.html;
 					}
 					if (type == 1){
 						////todo: get rid of the first line, check the jsp template
-						$('sidebar_tags').innerHTML = 'Tags not in ' + currentCategory.label;
+						$('sidebar_tags').innerHTML = '<h4>Tags not in ' + currentCategory.label + '</h4>';
 						$('sidebar_tags').innerHTML += data.html;
 					}
 				}else{
@@ -181,6 +181,7 @@
 							callback:function(data){
 								if (data.successful){
 									tree1.deleteSelectedItem();
+									new Effect.PhaseOut('col-crud-options'); 
 								}
 							}
 				});
@@ -196,6 +197,7 @@
 						callback:function(data){
 							if (data.successful){
 								tree1.modifyItemName(tree1.lastSelected.parentObject.dataId, newtext);
+								new Effect.PhaseOut('col-option'); 
 							}else
 								alert(data.reason);
 						}
@@ -210,9 +212,16 @@
 		
 		//get tags and populate the pane
 		//$('catetagstitle') = "Tags associated with category \"" + labeltext + "\"";
-		getTags(clickid, 1, 0,1);
-		getTags(clickid, 1, 1, 1);
+		getTags(clickid, 0, 0,1);
+		getTags(clickid, 0, 1, 1);
 		//getTags(clickid, 0, 1);
+		if ($('col-crud-options').style.display == 'none'){
+		new Effect.PhaseIn('col-crud-options'); 
+	}else{
+		new Effect.Highlight('col-crud-options');
+	}
+		new Effect.PhaseOut('col-option',  {duration: .5});
+		location.href="#colsTop";
 	}
 	
 	function unselectall(mode){
@@ -221,14 +230,15 @@
 			$('selcatetext').value = '';
 			currentCategory=null;
 			document.getElementById('col').innerHTML = "";
+			new Effect.PhaseOut('col-crud-options', {duration: .5}); 
+			new Effect.PhaseOut('col-option',  {duration: .5});
 		}
 		tree1.clickedOn = false;
 	}
 	
 	function moveNodeHandler(sourceO, targetO){
-		params = {cctId: cctId, categoryId: sourceO.dataId};
-		if(sourceO.parentObject.id!=0)params.parent0Id = sourceO.parentObject.dataId;
-		if(targetO.id!=0)params.parent1Id = targetO.dataId;
+	alert("source=" + sourceO.id + "; target=" + targetO.id);
+		params = {cctId: cctId, categoryId: sourceO.dataId, parent0Id: sourceO.parentObject.dataId, parent1Id: targetO.dataId};
 		CSTAgent.moveCategory(params,{
 			callback:function(data){
 				if (data.successful){
@@ -236,10 +246,7 @@
 					tree1.selectItem(newID);
 					return true;
 				}
-				else{
-					alert(data.reason);
-					return false;
-				}
+				else return false;
 			}
 		});
 	}
@@ -269,6 +276,7 @@
 					var newitem = tree1.insertNewItem(obj1.parentObject.id,data.newId,"Similar to "+ obj1.label);
 					tree1.selectItem(newitem.id);
 					getTags(data.newId, 0, 0);
+					new Effect.PhaseOut('col-crud-options'); 
 				}else
 					alert(data.reason);
 			}});
@@ -321,31 +329,21 @@
 				<h3>Overview and Instructions</h3>
 			</div>
 			<div class="cssbox_body">
-				<input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
-				<input type="button" value="Add categoey" onclick="addcategory();"><br>
-				<input type="button" value="Unselest all" onclick="unselectall(true);">
-				<input type="button" value="Delete" onclick="deleteSelectedCategory();">
-				<input type="text" id="selcatetext" onkeydown="checkaddcategory(event)">
-				<input type="button" value="Modify" onclick="modifySelectedCategory();"><br>
-				<input type="button" value="Duplicate" onclick="duplicateSelectedCategory();">
-
-				<input type="checkbox" onclick="tree1.switchCopyMode()">Copy mode
-				<p><a href="javascript: new Effect.toggle('col-crud-options', 'blind'); void(0); new Effect.BlindUp('col-option'); void(0);">Show Editing Options</a></p>
+				<p>Lorem Ipsum [...]</p>
 			</div>
 		</div>
 		<!-- End Overview -->
 
 	
 	<div id="cont-resize">
+				<a name="colsTop"></a>
+				<input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
+				<input type="button" value="Add Category" onclick="addcategory();"><br>
+				<!--<input type="button" value="Unselect All" onclick="unselectall(true);">-->
+
+			<input type="checkbox" onclick="tree1.switchCopyMode()">Copy mode <small>(or ctrl + drag)</small>
+		
 		<div id="col-left" onclick="unselectall(!tree1.clickedOn)">
-			<div id="col-crud-options" style="display:none;"><span class="closeBox"><a href="javascript: new Effect.BlindUp('col-crud-options'); void(0);">hide options</a></span>
-				<h4>Editing Options</h4>
-				<small>Delete&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript: new Effect.BlindUp('col-crud-options'); void(0); new Effect.BlindDown('col-option'); void(0);">Rename</a>&nbsp;&nbsp;|&nbsp;&nbsp;Create Copy&nbsp;&nbsp;|&nbsp;&nbsp;Edit Summary</small>
-			</div>
-			<div id="col-option" style="display: none;"><span class="closeBox"><a href="javascript: new Effect.BlindDown('col-crud-options'); void(0); new Effect.BlindUp('col-option'); void(0);">back to all options</a></span>
-				<h4>Editing Options</h4>
-				Rename to: <input type="text" style="width: 50%;" id="newName"><input type="button" id="btnNewName" value="Submit"><br>
-			</div>
 		</div>
 		
 		<div id="col">
@@ -378,6 +376,14 @@
 		</div>
 	
 		<div id="clear">
+			<div id="col-crud-options" style="display:none;"><span class="closeBox"><a href="javascript: new Effect.PhaseOut('col-crud-options'); void(0);">hide options</a></span>
+				<h4>Editing Options</h4>
+				<small><a href="javascript: deleteSelectedCategory();">Delete</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript: new Effect.PhaseOut('col-crud-options'); void(0); new Effect.PhaseIn('col-option'); void(0);">Rename</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:duplicateSelectedCategory();">Duplicate</a>&nbsp;&nbsp;|&nbsp;&nbsp;Edit Summary</small>
+			</div>
+			<div id="col-option" style="display: none;"><span class="closeBox"><a href="javascript: new Effect.PhaseIn('col-crud-options'); void(0); new Effect.PhaseOut('col-option'); void(0);">back to all options</a></span>
+				<h4>Editing Options</h4>
+			Rename to: <form name="modifyCategory" action="" method="GET" onsubmit="javascript: modifySelectedCategory(); return false;"><input type="text" style="width: 50%;" id="selcatetext" onkeydown="checkaddcategory(event)"><input type="button" id="btnNewName" value="Modify" onclick="modifySelectedCategory();"></form><br>
+			</div>
 		</div>
 
 		<div id="spacer">

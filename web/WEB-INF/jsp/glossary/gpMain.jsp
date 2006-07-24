@@ -6,20 +6,41 @@
 <html>
 <head>
 <title>Glossary Public View</title>
-<link rel="stylesheet" type="text/css" href="/styles/pgist.css">
+
+
+<!-- Site Wide CSS -->
+<style type="text/css" media="screen">@import "styles/position.css";</style>
+<style type="text/css" media="screen">@import "styles/styles.css";</style>
+<style type="text/css" media="screen">@import "styles/tabs.css";</style>
+<style type="text/css" media="screen">@import "styles/headertabs.css";</style>
+<!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
+<!-- End Site Wide CSS -->
+
+
+<!-- Site Wide JavaScript -->
+<script src="scripts/headercookies.js" type="text/javascript"></script>
+<script src="scripts/headertabs.js" type="text/javascript"></script>
+<script src="scripts/tabcookies.js" type="text/javascript"></script>
+<script src="scripts/tabs.js" type="text/javascript"></script>
+<script src="scripts/tags.js" type="text/javascript"></script>
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script src="scripts/findxy.js" type="text/javascript"></script>
+<script src="scripts/search.js" type="text/javascript"></script>
+<!-- End Site Wide JavaScript -->
+
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
 <script type='text/javascript' src='/dwr/interface/GlossaryPublicAgent.js'></script>
-<script src="/scripts/prototype.js" type="text/javascript"></script>
-<script src="/scripts/scriptaculous.js?load=effects" type="text/javascript"></script>
+
 <script type="text/javascript">
-	
-		window.onload = doOnLoad();
+
 		var direction = "asc";
 		
 		function doOnLoad(){
 			direction = "asc";
 			getTerms("", "name");
+			
 		}
 		
 		function setSort(thisSort, term){
@@ -220,30 +241,88 @@
 		
 
 </script>
-<!-- Template 4 CSS -->
-<style type="text/css" media="screen">@import "styles/position.css";</style>
-<style type="text/css" media="screen">@import "styles/styles.css";</style>
-<!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
-<!-- End Template 4 CSS -->
 
 <style>
 #slate ul{display:inline; margin:0; padding:0}
 #slate li{list-style: none; display:inline; padding: 3px;}
-tr:hover {background-color: #eee;}
+tr:hover {background-color: #F1F7FF;}
+
 #loading-indicator{width: 100px; position: fixed; top:0; left:0; background-color: red; z-index: 1; padding: 3px; color: #fff;} /*fixed positioning needs ie 6- hack */
 </style>
 </head>
 <body>
+	<!-- Header -->
+<div id="header">
+
+</div>
+<div id="login"><a href="/logout.do"><img src="images/btn_logout.gif" border="0"/></a></div>
+<!-- End Header -->
 <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 <div id="container">
-<div id="header"><img src="/images/logo_reflect.gif"></div>
-		<!-- LIGHTBOX -->
+	<!-- START LIGHTBOX -->
 	<div id="overlay"></div>
-	<div id="lightbox" style="top: 50%; height: 450px; overflow: auto;"></div> <!-- make this %80 of window height -->
+	<div id="lightbox" class="blueBB" style="top: 50%; height: 450px; overflow: auto;"></div>
 	<!-- END LIGHTBOX -->
+	<!--START Title Header -->
 	
-	<h1>Glossary Terms</h1>
-	<h3>Listing of All Glossary Terms</h3>
+	<div id="headerbar">
+	<!-- Search -->
+	  <form id="mysearch" name="form1" method="post" action="">
+	    
+	<div id="searchbox">
+		<input name="search" type="text" class="search" value="Search" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" />
+	</div>
+	<div id="submit">
+	        <img src="/images/btn_search_1.png" name="Image1" width="19" height="19" border="0" id="Image1" onClick="sendForm();return false;" onMouseDown="MM_swapImage('Image1','','/images/btn_search_3.png',1)" onMouseOver="MM_swapImage('Image1','','/images/btn_search_2.png',1)" onMouseOut="MM_swapImgRestore()">    
+	</div>
+	<div id="searchresults"></div>
+	  </form>
+	<!-- End Search -->
+	<a id="TitleHeader" name="TitleHeader"></a>
+	
+		<div class="header" id="myHeader">
+			<div id="header_currentMenuContainer" class="headertab">
+		    	<h2>Home</h2>
+					<div id="header_submenu1" class="submenulinks">
+						<a href="#">Sub Navigation 1a</a> <a href="#">Sub Navigation 2a</a> <a href="#">Sub Navigation 3a</a> <a href="#">Sub Navigation 4a</a>
+					</div>
+		    </div>			
+				<div id="sidebar_tab2" class="headertab">
+		    	<h2>Current Task</h2>
+					<div id="header_submenu2" class="submenulinks">
+						<a href="#">Sub Navigation 1b</a> <a href="#">Sub Navigation 2b</a> <a href="#">Sub Navigation 3b</a> <a href="#">Sub Navigation 4b</a> 
+					</div>
+		    </div>	    
+		    <div id="sidebar_tab3" class="headertab">
+		    	<h2>Learn More</h2>
+					<div id="header_submenu3" class="submenulinks">
+						<a href="#">Sub Navigation 1c</a> <a href="#">Sub Navigation 2c</a> <a href="#">Sub Navigation 3c</a> <a href="#">Sub Navigation 4c</a> 
+					</div>
+		    </div>
+		</div>
+	</div>
+	<!--END Title Header -->
+	
+	<!-- Sub Title -->
+	<div id="subheader">
+	<h1>Learn More: </h1> <h2>Listing of All Glossary Terms</h2>
+	</div>
+	<div id="footprints">
+	<p>Learn More >> Glossary</p>
+	</div>
+	<!-- End Sub Title -->
+	
+	<!-- Overview SpiffyBox -->
+	<div class="cssbox">
+	<div class="cssbox_head">
+	<h3>Overview and Instructions</h3>
+	</div>
+	<div class="cssbox_body">
+		<p>[...]</p>
+	</div>
+	</div>
+	<!-- End Overview -->
+
 	<div id="slate">
 		<div id="filterTerms">
 		<form id="form1" name="form1" method="post" action="">
@@ -257,11 +336,16 @@ tr:hover {background-color: #eee;}
 	  <div id="list"></div>
 	</div>
 	
-	<div id="footer" style="clear:both;">
-	footer
-	</div>
-</div>
 
+</div>
+<!-- Start Footer -->
+<div id="footer_clouds">
+
+	<div id="footer_text">
+	<a href="http://www.pgist.org"><img src="/images/footerlogo.png" alt="PGIST Logo" width="156" height="51" class="imgright" border="0"/></a><br />This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.    </div>
+
+</div>
+<!-- End Footer -->
 <div id="proposeForm" style="display:none;">
 			<h2>Propose a New Term</h2>
 			<form id="proposeForm" name="proposeForm" method="post" action="" style="padding-top: 20px;">
@@ -300,5 +384,10 @@ tr:hover {background-color: #eee;}
 </div>
   
 
+<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
+<script type="text/javascript">
+	doOnLoad();
+	
+</script>
 </body>
 </html>

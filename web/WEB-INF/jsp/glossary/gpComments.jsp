@@ -8,13 +8,13 @@
 <script src="/scripts/scriptaculous.js?load=effects" type="text/javascript"></script>
 <br>
 <c:if test="${fn:length(comments) != 0}">
-	<h2>${fn:length(comments)} Comment(s) on this Term</h2>
+	<h3>${fn:length(comments)} Comment(s) on this Term</h3>
 
 </c:if>
 
 <logic:iterate id="comment" name="comments">
 	<div id="aCommentCont" style="width: 80%;">
-		<div id="comment-attributes${comment.id}" style="background-color:#E9EFD3"><h4>${comment.owner.loginname}</h4> on ${comment.time} added the following comment:</div>
+		<div id="comment-attributes${comment.id}" style="background-color:#E9EFD3"><span class="participantName"><a href="#">${comment.owner.loginname}</a></span> on ${comment.time} added the following comment:</div>
 		<div id="comment-content${comment.id}">${comment.content}</div>
 		<div id="quote${comment.id}" style="text-align:right;"><a href="javascript: location.href='#newComment'; new Effect.Highlight('newComment'); $('newComment').value += '<blockquote><b>Quoting ${comment.owner.loginname} on ${comment.time}</b><br>'+ $('comment-content${comment.id}').innerHTML +'</blockquote>'; void(0);">Quote</a></div>
 	</div>

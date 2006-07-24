@@ -17,7 +17,7 @@
 
  	<!--JavaScript Libraries -->
  	<script src="/scripts/prototype.js" type="text/javascript"></script>
- 	<script src="/scripts/rico.js" type="text/javascript"></script>
+ 	<script src="/scripts/rico_simple.js" type="text/javascript"></script>
  	<script src="/scripts/tabcookies.js" type="text/javascript"></script>
  	<script src="/scripts/tabs.js" type="text/javascript"></script>
 	<script src="/scripts/scriptaculous.js?load=effects,controls" type="text/javascript"></script>
@@ -38,13 +38,12 @@
 	<script src="/scripts/resize_t5.js" type="text/javascript"></script>
 	<!-- End Template 5 Specific -->
 	
-	
 	<script type="text/javascript">
 		
 		//window.onload="doOnLoad();
 		var cctId = ${cctForm.cct.id};
     var tree1 = null;
-    
+    var currentCategory = null;
     
     function preLoadImages(){
       var imSrcAr = new Array("line1.gif","line2.gif","line3.gif","line4.gif","minus2.gif","minus3.gif","minus4.gif","plus2.gif","plus3.gif","plus4.gif","book.gif","books_open.gif","books_close.gif","magazines_open.gif","magazines_close.gif","tombs.gif","tombs_mag.gif","book_titel.gif","iconCheckAll.gif")
@@ -66,254 +65,77 @@
       tree1.enableDragAndDrop(true);
       tree1.loadXML("/catsTree.do?cctId=${cctForm.cct.id}");
       tree1.cctId = cctId;
+      tree1.setDragCopyHandler(copyNodeHandler);
+      //tree1.setDragDuplicateHandler(duplicateNodeHandler);
+      tree1.setOnClickHandler(treeClickHandler);
       
+/**/      
 			//getCategories();
 			getOrphanTags();
 			//getTags(12,1,1);
 		}
 		
-		function preLoadImages(){
-			var imSrcAr = new Array("line1.gif","line2.gif","line3.gif","line4.gif","minus2.gif","minus3.gif","minus4.gif","plus2.gif","plus3.gif","plus4.gif","book.gif","books_open.gif","books_close.gif","magazines_open.gif","magazines_close.gif","tombs.gif","tombs_mag.gif","book_titel.gif","iconCheckAll.gif")
-			var imAr = new Array(0);
-			for(var i=0;i<imSrcAr.length;i++){
-				imAr[imAr.length] = new Image();
-				imAr[imAr.length-1].src = "/images/dhtmlXTree/"+imSrcAr[i];
-			}
-		}	
-		
-
-		
-		function addCategory(category, parentId){
-				CSTAgent.addCategory({cctId:cctId, category:category, parentId:parentId}, {
-				callback:function(data){
-						if (data.successful){
-							getCategories();
-							$('txtAddCategory').value='';
-							$('txtAddCategory').focus();
-						}
-						if (data.successful != true){
-							alert(data.reason);
-						}
-					},
-				errorHandler:function(errorString, exception){ 
-						showTheError();
-				}
-				});
-		}		
-		
-		function deleteCategory(categoryId, parentId){
-				CSTAgent.deleteCategory({cctId:cctId, parentId:parentId, categoryId:categoryId}, {
-				callback:function(data){
-						if (data.successful){
-								var destroy = confirm ("Are you sure you want to delete this category? Note: there is no undo.")
-								if (destroy){
-									new Effect.Fade('cat'+categoryId, {duration: 0.5, afterFinish: function(){getCategories();}});
-								}
-								$('panelTICContent').innerHTML = 'Start by choosing a category in the first column.';
-								$('panel_tags').innerHTML = '';
-						}
-						if (data.successful != true){
-							alert(data.reason);
-						}
-					},
-				errorHandler:function(errorString, exception){ 
-						showTheError();
-				}
-				});
-		}	
-		
-		function getCategories(){
-				CSTAgent.getCategories({cctId:cctId}, {
-				callback:function(data){
-					
-						if (data.successful){
-							$('panelCatsContent').innerHTML = data.html;
-							//collapseAll(["ol"]); openBookMark();
-							
-						}
-						if (data.successful != true){
-							alert(data.reason);
-						}
-					},
-				errorHandler:function(errorString, exception){ 
-						showTheError();
-				}
-				});
-		}
-		
-		function getConcerns(tagId, page){
-				CSTAgent.getConcerns({cctId:cctId, tagId: tagId, page: page}, {
-				callback:function(data){
-						if (data.successful){
-							tabberSwitch(1);
-							$('panel_concernsContainer').innerHTML = data.html;
-						}
-						if (data.successful != true){
-							alert(data.reason);
-						}
-					},
-				errorHandler:function(errorString, exception){ 
-						showTheError();
-				}
-				});
-		}
-		
-		function tabberSwitch(tab){
-			$('myTab').tabber.tabShow(tab);
-		}
-		
-		var currentCategory = "";
-		function showTags(categoryId, page){
-			
-			//showing related and unrelated tags
-			currentCategory = categoryId;
-			getTags(categoryId, page, 1, 0);
-			getTags(categoryId, page, 0, 0);
-			tabberSwitch(0);
-
-		}
-		
-		function getTags(categoryId, page, type, tagId){
-				CSTAgent.getTags({cctId:cctId, categoryId:categoryId, page:page, type: type}, {
-				callback:function(data){
-					if (type == 1){
-						$('panel_tags').innerHTML = 'Tags within ' + currentCategory;
-						$('panel_tags').innerHTML += data.html;
-					}
-					if (type == 0){
-						$('panelTICContent').innerHTML = 'Tags not in ' + currentCategory;
-						$('panelTICContent').innerHTML = data.html;
-					}
-					//if (tagId != 0){
-						//alert('tag'+ tagId);
-					//}
-					if (data.successful != true){
-							alert(data.reason);
-					}
-				},
-				errorHandler:function(errorString, exception){ 
-						showTheError();
-				}
-				});
-		}
-		
 		function getOrphanTags(){
+				
 				CSTAgent.getOrphanTags({cctId:cctId, page:0, count: -1}, {
 				callback:function(data){
 						if (data.successful){
-							$('sidebar_tags').innerHTML += data.html;
+						//alert("good");	
+						$('sidebar_tags').innerHTML += data.html;
 						}
-					},
-				errorHandler:function(errorString, exception){ 
-						showTheError();
-				}
+					}
 				});
 		}
-		
+
+		function tabberSwitch(tab){
+			$('myTab').tabber.tabShow(tab);
+		}
+
+		function getTags(categoryId, page, type, orphanpage){
+			CSTAgent.getTags({cctId:cctId, categoryId:categoryId, page:page, type: type, orphanPage:orphanpage}, {
+			callback:function(data){
+				if (data.successful){
+					if (type == 0){
+						document.getElementById('col').innerHTML = '<h4>Tags within ' + currentCategory.label + '</h4>';
+						document.getElementById('col').innerHTML += data.html;
+					}
+					if (type == 1){
+						////todo: get rid of the first line, check the jsp template
+						$('sidebar_tags').innerHTML = '<h4>Tags not in ' + currentCategory.label + '</h4>';
+						$('sidebar_tags').innerHTML += data.html;
+					}
+				}else{
+					alert("Getting tags not successful: " + data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+					showTheError();
+			}
+			});
+		}
+
 		function relateTag(tagId){
-				CSTAgent.relateTag({cctId:cctId, categoryId:currentCategory, tagId:tagId}, {
-				callback:function(data){
-						if (data.successful){
-							new Effect.SwitchOff('tag' + tagId);
+			if(currentCategory == null)return;
+			CSTAgent.relateTag({cctId:cctId, categoryId:currentCategory.dataId, tagId:tagId}, {
+			callback:function(data){
+					if (data.successful){
+						new Effect.SwitchOff('tag' + tagId);
+					
+						getTags(currentCategory.dataId, 0, 0, tagId);
 						
-							getTags(currentCategory, 0, 0, tagId);
-							
-						}
-						if (data.successful != true){
-							alert(data.reason);
-						}
-					},
-				errorHandler:function(errorString, exception){ 
-						showTheError();
-				}
-				});
+					}
+					if (data.successful != true){
+						alert(data.reason);
+					}
+				},
+			errorHandler:function(errorString, exception){ 
+					showTheError();
+			}
+			});
 		}	
+
 		
-		function derelateTag(categoryId, tagId){
-				CSTAgent.derelateTag({cctId:cctId, categoryId:categoryId, tagId:tagId}, {
-				callback:function(data){
-						if (data.successful){
-									//new Effect.SwitchOff('tag' + tagId);
-									new Effect.Fade('tag'+tagId, {duration: 0.5, afterFinish: function(){getTags(categoryId, 0, 1, tagId);}});
-								  //getTags(categoryId, 0, 1, tagId);
-								  
-								 
-						}
-						if (data.successful != true){
-							alert(data.reason);
-						}
-					},
-				errorHandler:function(errorString, exception){ 
-						showTheError();
-				}
-				});
-		}		
 		
-	function editTags(concernId){
-	removeLastComma(concernTags);
-	CCTAgent.editTags({concernId:concernId, tags:concernTags}, {
-		callback:function(data){
-			if (data.successful){ 
-				lightboxDisplay('none');
-				showMyConcerns(concernId);
-				concernTags = "";
-			}
-			
-			if (data.successful != true){
-				alert(data.reason);
-				concernTags = "";
-			}
-		},
-		errorHandler:function(errorString, exception){ 
-				showTheError();
-		}
-	});
-}
-
-function editCatsPopup(categoryId, category){
-			lightboxDisplay('inline');
-			os = "";
-			os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/close.gif" border="0"></a></span>'
-			os += '<h2>Edit Category</h2><p></p>';
-			os += '<input type="text" id="txtEditCategory" class="txtAddCategory" value=\''+ category +'\'<br>';
-			os += '<hr><input type="button" value="Submit Edits" onClick="editCategory('+categoryId+',\'make this the value\')">';
-			//os += '<hr><a href="javascript:editCategory('+categoryId+',\''+ newcategory +'\')">Submit</a>';
-			os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')"></form>';
-			$('lightbox').innerHTML = os;
-}
-
-function lightboxDisplay(action){
-	$('overlay').style.display = action;
-	$('lightbox').style.display = action;
-}
-
-function editCategory(categoryId,category){
-		CSTAgent.editCategory({cctId:cctId, categoryId:categoryId, category:category},{
-		callback:function(data){
-			if (data.successful){ 
-				lightboxDisplay('none');
-				getCategories();
-			}
-			
-			if (data.successful != true){
-				alert(data.reason);
-			}
-		},
-		errorHandler:function(errorString, exception){ 
-				showTheError();
-		}
-	});
-}
-function showTheError(errorString, exception){
-				$('container').style.display = 'none';
-				$('caughtException').style.display = 'block';
-				$('caughtException').innerHTML +='<p>If this problem persists, please <A HREF="mailto:webmaster@pgist.org?subject=LIT Website Problem>contact our webmaster</a></p>';
-}
-
-	function editTheme(value){
-		alert(value);
-	}
-
 	//--------------------------------------
 	function checkaddcategory(e){
 		if(e.keyCode == 13)addcategory();
@@ -327,7 +149,8 @@ function showTheError(errorString, exception){
 			CSTAgent.addCategory({cctId:cctId, parentId:parentId, name:catname},{
 				callback:function(data){
 					if (data.successful){ 
-						tree1.insertNewItemUnderSelected(document.getElementById("newcatetext").value);
+						tree1.insertNewItemUnderSelected(document.getElementById("newcatetext").value,
+						data.newId);
 						document.getElementById("newcatetext").value = "";
 						/////to do: display a message...
 					}
@@ -336,42 +159,133 @@ function showTheError(errorString, exception){
 						alert(data.reason);
 					}
 				},
-				errorHandler:function(errorString, exception){ 
-						showTheError();
-				}
+				errorHandler:function(errorString){ alert("oops, exception: " + errorString);}
 			});			
 		}
 	}
 	
 	function globalKeyHandler(e){
 		if(e.keyCode==46)
-			tree1.deleteSelectedItem();
+			deleteSelectedCategory();
+	}
+		
+	function deleteSelectedCategory(){
+		if(tree1.lastSelected!=null){
+			if(confirm("Are you sure you want to delete category \"" + tree1.lastSelected.parentObject.label + "\"")){
+				if(tree1.lastSelected.parentObject.parentObject.id == 0)
+					var params = {cctId: cctId, categoryId: tree1.lastSelected.parentObject.dataId};
+				else
+					var params = {cctId: cctId, categoryId: tree1.lastSelected.parentObject.dataId,parentId: tree1.lastSelected.parentObject.parentObject.dataId}
+	
+				CSTAgent.deleteCategory(params, {
+							callback:function(data){
+								if (data.successful){
+									tree1.deleteSelectedItem();
+									new Effect.PhaseOut('col-crud-options'); 
+								}
+							}
+				});
+			}
+		}
+	}
+
+	function modifySelectedCategory(){
+		var newtext = document.getElementById("selcatetext").value;
+		if(tree1.lastSelected!=null && newtext!=""){
+			var params = {cctId: cctId, categoryId: tree1.lastSelected.parentObject.dataId, name:newtext};
+			CSTAgent.editCategory(params, {
+						callback:function(data){
+							if (data.successful){
+								tree1.modifyItemName(tree1.lastSelected.parentObject.dataId, newtext);
+								new Effect.PhaseOut('col-option'); 
+							}else
+								alert(data.reason);
+						}
+			});
+		}
 	}
 	
-	function treeClickHandler(){
-		if(!tree1.clickedOn)
-			tree1.unSelectAll();
+	function treeClickHandler(clickid, lastid, labeltext){
 		
+		document.getElementById("selcatetext").value = labeltext;
+		currentCategory = tree1.lastSelected.parentObject;
+		
+		//get tags and populate the pane
+		//$('catetagstitle') = "Tags associated with category \"" + labeltext + "\"";
+		getTags(clickid, 0, 0,1);
+		getTags(clickid, 0, 1, 1);
+		//getTags(clickid, 0, 1);
+		if ($('col-crud-options').style.display == 'none'){
+		new Effect.PhaseIn('col-crud-options'); 
+	}else{
+		new Effect.Highlight('col-crud-options');
+	}
+		new Effect.PhaseOut('col-option',  {duration: .5});
+		location.href="#colsTop";
+	}
+	
+	function unselectall(mode){
+		if(mode){
+			tree1.unSelectAll();
+			$('selcatetext').value = '';
+			currentCategory=null;
+			document.getElementById('col').innerHTML = "";
+			new Effect.PhaseOut('col-crud-options', {duration: .5}); 
+			new Effect.PhaseOut('col-option',  {duration: .5});
+		}
 		tree1.clickedOn = false;
 	}
 	
-	function moveNodeHandler(cateid,p0id, p1id){
-		alert("cateid=" + cateid + ", p0id=" + p0id + ", p1id=" + p1id);
-		CSTAgent.moveCategory({cctId: cctId, categoryId: cateid, parent0Id: p0id, parent1Id: p1id},{
+	function moveNodeHandler(sourceO, targetO){
+	alert("source=" + sourceO.id + "; target=" + targetO.id);
+		params = {cctId: cctId, categoryId: sourceO.dataId, parent0Id: sourceO.parentObject.dataId, parent1Id: targetO.dataId};
+		CSTAgent.moveCategory(params,{
 			callback:function(data){
-				if (data.successful) return 1;
-				else return 0;
-			},errorHandler:function(errorString, exception){ 
-				showTheError();
-				return 0;
+				if (data.successful){
+					var newID=tree1._moveNode(sourceO,targetO);
+					tree1.selectItem(newID);
+					return true;
+				}
+				else return false;
 			}
 		});
 	}
+	
+	function copyNodeHandler(sourceO, targetO){
+		CSTAgent.copyCategory({cctId: cctId, categoryId: sourceO.dataId, parentId: targetO.dataId},{
+			callback:function(data){
+				if (data.successful){
+					var newID=tree1._copyNodeTo(sourceO,targetO);
+					tree1.selectItem(newID);
+					return true;
+				}
+				else return false;
+			}
+		});
+	}
+	
+	function duplicateSelectedCategory(){
+		if(tree1.lastSelected!=null){
+			var obj1 = tree1.lastSelected.parentObject;
+			var params = {cctId:cctId,categoryId:obj1.dataId, name:"Similar to "+ obj1.label};
+			if(obj1.parentObject.Id!=0)
+				params.parentId = obj1.parentObject.dataId;
+			CSTAgent.duplicateCategory(params, 
+			{callback:function(data){
+				if(data.successful){
+					var newitem = tree1.insertNewItem(obj1.parentObject.id,data.newId,"Similar to "+ obj1.label);
+					tree1.selectItem(newitem.id);
+					getTags(data.newId, 0, 0);
+					new Effect.PhaseOut('col-crud-options'); 
+				}else
+					alert(data.reason);
+			}});
+		}
+	}
 	//------------------------------------
-
 	</script>
 	
-	<style type="text/css"> 
+<style type="text/css"> 
    .accordionTabTitleBar { 
       font-size: 12px; 
       padding : 2px 6px 2px 6px;
@@ -415,34 +329,25 @@ function showTheError(errorString, exception){
 				<h3>Overview and Instructions</h3>
 			</div>
 			<div class="cssbox_body">
-				<input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
-				<input type="button" value="Add categoey" onclick="addcategory();"><br>
-				<input type="button" value="Delete" onclick="tree1.deleteSelectedItem();">
-				<input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
-				<input type="button" value="Edit" onclick="tree1.unSelectAll();"><br>
-				<input type="checkbox" onclick="tree1.switchCopyMode()">Copy mode
-				<p><a href="javascript: new Effect.toggle('col-crud-options', 'blind'); void(0); new Effect.BlindUp('col-option'); void(0);">Show Editing Options</a></p>
+				<p>Lorem Ipsum [...]</p>
 			</div>
 		</div>
 		<!-- End Overview -->
 
 	
 	<div id="cont-resize">
-		<div id="col-left">
-			<div id="col-crud-options" style="display:none;"><span class="closeBox"><a href="javascript: new Effect.BlindUp('col-crud-options'); void(0);">hide options</a></span>
-				<h4>Editing Options</h4>
-				<p>Delete&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript: new Effect.BlindUp('col-crud-options'); void(0); new Effect.BlindDown('col-option'); void(0);">Rename</a>&nbsp;&nbsp;|&nbsp;&nbsp;Create Copy&nbsp;&nbsp;|&nbsp;&nbsp;Edit Summary</p>
-			</div>
-			<div id="col-option" style="display: none;"><span class="closeBox"><a href="javascript: new Effect.BlindDown('col-crud-options'); void(0); new Effect.BlindUp('col-option'); void(0);">back to all options</a></span>
-				<h4>Editing Options</h4>
-				Rename to: <input type="text" style="width: 50%;" id="newName"><input type="button" id="btnNewName" value="Submit"><br>
-			</div>
+				<a name="colsTop"></a>
+				<input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
+				<input type="button" value="Add Category" onclick="addcategory();"><br>
+				<!--<input type="button" value="Unselect All" onclick="unselectall(true);">-->
+
+				<input type="checkbox" onclick="tree1.switchCopyMode()">Copy mode
+		
+		<div id="col-left" onclick="unselectall(!tree1.clickedOn)">
 		</div>
 		
 		<div id="col">
-			
-			Just a column
-			<p>Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah</p>
+			<p>Select a category in the left to see tags assciated with it.</p>
 		</div>
 		<div id="col-right">
 				<!--START Tabs -->
@@ -471,6 +376,14 @@ function showTheError(errorString, exception){
 		</div>
 	
 		<div id="clear">
+			<div id="col-crud-options" style="display:none;"><span class="closeBox"><a href="javascript: new Effect.PhaseOut('col-crud-options'); void(0);">hide options</a></span>
+				<h4>Editing Options</h4>
+				<small><a href="javascript: deleteSelectedCategory();">Delete</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript: new Effect.PhaseOut('col-crud-options'); void(0); new Effect.PhaseIn('col-option'); void(0);">Rename</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:duplicateSelectedCategory();">Duplicate</a>&nbsp;&nbsp;|&nbsp;&nbsp;Edit Summary</small>
+			</div>
+			<div id="col-option" style="display: none;"><span class="closeBox"><a href="javascript: new Effect.PhaseIn('col-crud-options'); void(0); new Effect.PhaseOut('col-option'); void(0);">back to all options</a></span>
+				<h4>Editing Options</h4>
+			Rename to: <form name="modifyCategory" action="" method="GET" onsubmit="javascript: modifySelectedCategory(); return false;"><input type="text" style="width: 50%;" id="selcatetext" onkeydown="checkaddcategory(event)"><input type="button" id="btnNewName" value="Modify" onclick="modifySelectedCategory();"></form><br>
+			</div>
 		</div>
 
 		<div id="spacer">
@@ -484,21 +397,19 @@ function showTheError(errorString, exception){
 				      <div id="overviewPanel">
 				           <div id="overviewheader" class="accordionTabTitleBar ">Theme: Public Transportation</div>
 				           <div id="overviewtext">
-												<p id="editme1">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam accumsan tincidunt libero. Nunc ut lectus. Sed ante urna, semper vitae, rhoncus consectetuer, porta vitae, urna. Donec in neque. Suspendisse porta, felis non malesuada consectetuer, massa erat interdum nunc, id luctus turpis metus ac sapien. Duis risus. Aenean tempor. Etiam porttitor elementum risus. Sed accumsan aliquet felis. Nunc tellus metus, commodo at, venenatis vitae, vehicula eu, orci. Curabitur nulla justo, lacinia id, sagittis eget, bibendum vitae, pede. Nulla id justo nec odio sagittis pulvinar. Maecenas iaculis. Nam vitae leo sed ligula molestie tempus. Ut vestibulum tortor eu nisi. Maecenas placerat. Morbi a libero. Cras sapien. Etiam placerat neque eu pede. Mauris lectus leo, rutrum sed, varius nec, pulvinar id, dui. Etiam imperdiet luctus elit. Vivamus dapibus odio et elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur aliquet tortor id justo. Integer quis metus ornare velit nonummy pellentesque. Aenean egestas, turpis nec dictum pulvinar, nulla est porttitor dui, cursus nonummy dolor tortor ut ligula. In porttitor elit vitae ligula. </p>
-												
-												<script type="text/javascript">
-													new Ajax.InPlaceEditor('editme1', 'url', {rows: 10, cols: 70, onFailure: function(transport) { editTheme(this.id);}})
-												</script>
+								<p id="editme1">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam accumsan tincidunt libero. Nunc ut lectus. Sed ante urna, semper vitae, rhoncus consectetuer, porta vitae, urna. Donec in neque. Suspendisse porta, felis non malesuada consectetuer, massa erat interdum nunc, id luctus turpis metus ac sapien. Duis risus. Aenean tempor. Etiam porttitor elementum risus. Sed accumsan aliquet felis. Nunc tellus metus, commodo at, venenatis vitae, vehicula eu, orci. Curabitur nulla justo, lacinia id, sagittis eget, bibendum vitae, pede. Nulla id justo nec odio sagittis pulvinar. Maecenas iaculis. Nam vitae leo sed ligula molestie tempus. Ut vestibulum tortor eu nisi. Maecenas placerat. Morbi a libero. Cras sapien. Etiam placerat neque eu pede. Mauris lectus leo, rutrum sed, varius nec, pulvinar id, dui. Etiam imperdiet luctus elit. Vivamus dapibus odio et elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur aliquet tortor id justo. Integer quis metus ornare velit nonummy pellentesque. Aenean egestas, turpis nec dictum pulvinar, nulla est porttitor dui, cursus nonummy dolor tortor ut ligula. In porttitor elit vitae ligula. </p>
+								<script type="text/javascript">
+									new Ajax.InPlaceEditor('editme1', 'url', {rows: 10, cols: 70, onFailure: function(transport) { editTheme(this.id);}})
+								</script>				
 				           </div>
 				      </div>
 				      <div id="anotherPanel">
 				           <div id="overviewheader2"  class="accordionTabTitleBar ">Theme: Safety</div>
 				           <div id="overviewtext2">
 				           			<p id="editme2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam accumsan tincidunt libero. Nunc ut lectus. Sed ante urna, semper vitae, rhoncus consectetuer, porta vitae, urna. Donec in neque. Suspendisse porta, felis non malesuada consectetuer, massa erat interdum nunc, id luctus turpis metus ac sapien. Duis risus. Aenean tempor. Etiam porttitor elementum risus. Sed accumsan aliquet felis. Nunc tellus metus, commodo at, venenatis vitae, vehicula eu, orci. Curabitur nulla justo, lacinia id, sagittis eget, bibendum vitae, pede. Nulla id justo nec odio sagittis pulvinar. Maecenas iaculis. Nam vitae leo sed ligula molestie tempus. Ut vestibulum tortor eu nisi. Maecenas placerat. Morbi a libero. Cras sapien. Etiam placerat neque eu pede. Mauris lectus leo, rutrum sed, varius nec, pulvinar id, dui. Etiam imperdiet luctus elit. Vivamus dapibus odio et elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur aliquet tortor id justo. Integer quis metus ornare velit nonummy pellentesque. Aenean egestas, turpis nec dictum pulvinar, nulla est porttitor dui, cursus nonummy dolor tortor ut ligula. In porttitor elit vitae ligula. </p>
-												
-												<script type="text/javascript">
-													new Ajax.InPlaceEditor('editme2', '/demoajaxreturn.html', {rows: 10, cols: 70});
-												</script>	
+								<script type="text/javascript">
+									new Ajax.InPlaceEditor('editme2', '/demoajaxreturn.html', {rows: 10, cols: 70});
+								</script>					
 				           	
 				           </div>
 				      </div>
@@ -506,10 +417,9 @@ function showTheError(errorString, exception){
 				           <div id="overviewheader3"  class="accordionTabTitleBar ">Theme: Traffic</div>
 				           <div id="overviewtext3">
 				           			<p id="editme3">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam accumsan tincidunt libero. Nunc ut lectus. Sed ante urna, semper vitae, rhoncus consectetuer, porta vitae, urna. Donec in neque. Suspendisse porta, felis non malesuada consectetuer, massa erat interdum nunc, id luctus turpis metus ac sapien. Duis risus. Aenean tempor. Etiam porttitor elementum risus. Sed accumsan aliquet felis. Nunc tellus metus, commodo at, venenatis vitae, vehicula eu, orci. Curabitur nulla justo, lacinia id, sagittis eget, bibendum vitae, pede. Nulla id justo nec odio sagittis pulvinar. Maecenas iaculis. Nam vitae leo sed ligula molestie tempus. Ut vestibulum tortor eu nisi. Maecenas placerat. Morbi a libero. Cras sapien. Etiam placerat neque eu pede. Mauris lectus leo, rutrum sed, varius nec, pulvinar id, dui. Etiam imperdiet luctus elit. Vivamus dapibus odio et elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur aliquet tortor id justo. Integer quis metus ornare velit nonummy pellentesque. Aenean egestas, turpis nec dictum pulvinar, nulla est porttitor dui, cursus nonummy dolor tortor ut ligula. In porttitor elit vitae ligula. </p>
-												
-												<script type="text/javascript">
-													new Ajax.InPlaceEditor('editme3', '/demoajaxreturn.html', {rows: 10, cols: 70});
-												</script>
+								<script type="text/javascript">
+									new Ajax.InPlaceEditor('editme3', '/demoajaxreturn.html', {rows: 10, cols: 70});
+								</script>				
 				           	
 				           	
 				           </div>
@@ -517,18 +427,18 @@ function showTheError(errorString, exception){
 				      <div id="anotherPanel3">
 				           <div id="overviewheader4"  class="accordionTabTitleBar ">Theme: [...]</div>
 				           <div id="overviewtext4">
-				           			<p id="editme4">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam accumsan tincidunt libero. Nunc ut lectus. Sed ante urna, semper vitae, rhoncus consectetuer, porta vitae, urna. Donec in neque. Suspendisse porta, felis non malesuada consectetuer, massa erat interdum nunc, id luctus turpis metus ac sapien. Duis risus. Aenean tempor. Etiam porttitor elementum risus. Sed accumsan aliquet felis. Nunc tellus metus, commodo at, venenatis vitae, vehicula eu, orci. Curabitur nulla justo, lacinia id, sagittis eget, bibendum vitae, pede. Nulla id justo nec odio sagittis pulvinar. Maecenas iaculis. Nam vitae leo sed ligula molestie tempus. Ut vestibulum tortor eu nisi. Maecenas placerat. Morbi a libero. Cras sapien. Etiam placerat neque eu pede. Mauris lectus leo, rutrum sed, varius nec, pulvinar id, dui. Etiam imperdiet luctus elit. Vivamus dapibus odio et elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur aliquet tortor id justo. Integer quis metus ornare velit nonummy pellentesque. Aenean egestas, turpis nec dictum pulvinar, nulla est porttitor dui, cursus nonummy dolor tortor ut ligula. In porttitor elit vitae ligula. </p>
-												
-												<script type="text/javascript">
-													new Ajax.InPlaceEditor('editme4', '/demoajaxreturn.html', {rows: 10, cols: 70});
-												</script>
+				           			<p id="editme4">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam accumsan tincidunt libero. Nunc ut lectus. Sed ante urna, semper vitae, rhoncus consectetuer, porta vitae, urna. Donec in neque. Suspendisse porta, felis non malesuada consectetuer, massa erat interdum nunc, id luctus turpis metus ac sapien. Duis risus. Aenean tempor. Etiam porttitor elementum risus. Sed accumsan aliquet felis. Nunc tellus metus, commodo at, venenatis vitae, vehicula eu, orci. Curabitur nulla justo, lacinia id, sagittis eget, bibendum vitae, pede. Nulla id justo nec odio sagittis pulvinar. Maecenas iaculis. Nam vitae leo sed ligula molestie tempus. Ut vestibulum tortor eu nisi. Maecenas placerat. Morbi a libero. Cras sapien. Etiam placerat neque eu pede. Mauris lectus leo, rutrum sed, varius nec, pulvinar id, dui. Etiam imperdiet luctus elit. Vivamus dapibus odio et elit. 
+								Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur aliquet tortor id justo. Integer quis metus ornare velit nonummy pellentesque. Aenean egestas, turpis nec dictum pulvinar, nulla est porttitor dui, cursus nonummy dolor tortor ut ligula. In porttitor elit vitae ligula. </p>
+				
+								<script type="text/javascript">
+									new Ajax.InPlaceEditor('editme4', '/demoajaxreturn.html', {rows: 10, cols: 70});
+								</script>				
 				           	
 				           	
 				           </div>
 				      </div>
 				   </div>		
-				<script>new Rico.Accordion( $('accordionDiv'), {panelHeight:150});</script>
-
+				   <script>new Rico.Accordion( $('accordionDiv'), {panelHeight:150});</script>
 		</div>
 	</div>
 	<!--

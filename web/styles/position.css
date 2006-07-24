@@ -29,13 +29,17 @@ body {
 }
 #clear {
 	clear: both;
+	position: relative;
 }
 #col-crud-options, #col-option{
 	position: absolute;
 	bottom: 0;
-	width: 93%;
+	left: 0;
+
+	width: 24%;
 	height: 50px;
 	padding: 10px;
+	z-index:5000;
 }
 
 #col-left {
