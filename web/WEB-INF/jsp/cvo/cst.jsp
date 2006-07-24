@@ -226,8 +226,9 @@
 	}
 	
 	function moveNodeHandler(sourceO, targetO){
-	alert("source=" + sourceO.id + "; target=" + targetO.id);
-		params = {cctId: cctId, categoryId: sourceO.dataId, parent0Id: sourceO.parentObject.dataId, parent1Id: targetO.dataId};
+		params = {cctId: cctId, categoryId: sourceO.dataId};
+		if(sourceO.parentObject.id!=0)params.parent0Id = sourceO.parentObject.dataId;
+		if(targetO.id!=0)params.parent1Id = targetO.dataId;
 		CSTAgent.moveCategory(params,{
 			callback:function(data){
 				if (data.successful){
@@ -235,7 +236,10 @@
 					tree1.selectItem(newID);
 					return true;
 				}
-				else return false;
+				else{
+					alert(data.reason);
+					return false;
+				}
 			}
 		});
 	}
