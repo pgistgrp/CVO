@@ -261,8 +261,12 @@
 				params.parentId = obj1.parentObject.dataId;
 			CSTAgent.duplicateCategory(params, 
 			{callback:function(data){
-				var newitem = tree1.insertNewItem(obj1.parentObject.id,data.newId,"Similar to "+ obj1.label);
-				tree1.selectItem(newitem.id);
+				if(data.successful){
+					var newitem = tree1.insertNewItem(obj1.parentObject.id,data.newId,"Similar to "+ obj1.label);
+				//tree1.selectItem(newitem.id);
+				//getTags(data.newId, 0, 0);
+				}else
+					alert(data.reason);
 			}});
 		}
 	}
