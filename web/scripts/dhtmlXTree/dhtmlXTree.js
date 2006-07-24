@@ -769,10 +769,10 @@ dhtmlXTreeObject.prototype._unselectItem=function(node){
 }
 
 dhtmlXTreeObject.prototype.onRowSelect=function(e,htmlObject,mode){
-	setmessage("--------onRowSelect-------\n");
+	
 	if(!htmlObject)htmlObject=this.parentObject.span.parentNode;
 	htmlObject.parentObject.span.className="selectedTreeRow";
-	
+	htmlObject.parentObject.treeNod.clickedOn = true;	
 	
 	if(htmlObject.parentObject.scolor)htmlObject.parentObject.span.style.color=htmlObject.parentObject.scolor;
 	if((htmlObject.parentObject.treeNod.lastSelected)&&(htmlObject.parentObject.treeNod.lastSelected!=htmlObject))
@@ -790,11 +790,11 @@ dhtmlXTreeObject.prototype.onRowSelect=function(e,htmlObject,mode){
 		
 		if((e)&&(e.button==2)&&(htmlObject.parentObject.treeNod.arFunc))
 			{htmlObject.parentObject.treeNod.arFunc(htmlObject.parentObject.id);}
-		if(htmlObject.parentObject.actionHandler)htmlObject.parentObject.actionHandler(htmlObject.parentObject.id,lastId);
+		if(htmlObject.parentObject.actionHandler)htmlObject.parentObject.actionHandler(htmlObject.parentObject.dataId,lastId, htmlObject.parentObject.label); //(htmlObject.parentObject.id,lastId);
 	}
 
 	htmlObject.parentObject.treeNod._selectSameItem(htmlObject.parentObject);
-	htmlObject.parentObject.treeNod.clickedOn = true;
+	
 };
 
 
@@ -1258,17 +1258,7 @@ dhtmlXTreeObject.prototype._moveNodeTo=function(itemObject,targetObject,beforeNo
 	else
 		var framesMove=(itemObject.treeNod.lWin!=targetObject.treeNod.lWin);
 	
-	alert("will do move now");
-	if(this.dragFunc){
-		//if(!this.dragFunc(itemObject.id,targetObject.id,(beforeNode?beforeNode.id:null),itemObject.treeNod,targetObject.treeNod))
-		alert("will call agent now.");
-		if(!this.dragFunc(itemObject.dataId,itemObject.parentObject.dataId, targetObject.dataId))
-			return false;
-		
-	}
-	//------------
 	this._updateNodeOtherOccur(targetObject,itemObject);
-	//-------------
 	
 	if((targetObject.XMLload==0)&&(this.XMLsource))
 	{
@@ -1858,8 +1848,22 @@ dhtmlXTreeObject.prototype.deleteSelectedItem=function(itemId){
 				this.lastSelected.parentObject);
 				
 			this.selectItem(toBeSelected, 1);
-		}else
+		}else{
 			this.deleteItem(this.getSelectedItemId(), "true");
+			this.lastSelected = null;
+		}
+	}
+};
+
+
+//modify name, apply to all instances in the tree
+dhtmlXTreeObject.prototype.modifyItemName=function(dataId,newname){
+	for(var i=0; i<this.globalNodeStorage.length; i++){
+		if(this.globalNodeStorage[i].dataId == dataId)
+		{
+			this.globalNodeStorage[i].label = newname;
+			this.globalNodeStorage[i].span.innerHTML=newname;
+		}
 	}
 };
 
@@ -1955,6 +1959,10 @@ dhtmlXTreeObject.prototype.getChildItemIdByIndex=function(itemId,index){
 
 dhtmlXTreeObject.prototype.setDragHandler=function(func){if(typeof(func)=="function")this.dragFunc=func;else this.dragFunc=eval(func);};
 
+dhtmlXTreeObject.prototype.setDragCopyHandler=function(func){if(typeof(func)=="function")this.dragCopyFunc=func;else this.dragCopyFunc=eval(func);};
+
+dhtmlXTreeObject.prototype.setDragDuplicateHandler=function(func){if(typeof(func)=="function")this.dragDupFunc=func;else this.dragDupFunc=eval(func);};
+
 
 dhtmlXTreeObject.prototype._clearMove=function(htmlNode){
 	if((htmlNode.parentObject)&&(htmlNode.parentObject.span)){
@@ -2047,22 +2055,20 @@ dhtmlXTreeObject.prototype._drag=function(sourceHtmlObject,dhtmlObject,targetHtm
 	if((!this.dragMove)||(this.dragMove()))
 	{
 		if(this.dragger.ctrlKey || this.dragger.copyMode){
-			var newID=this._copyNodeTo(sourceHtmlObject.parentObject,targetHtmlObject.parentObject);
-			z.selectItem(newID);			
+			if(this.dragCopyFunc){
+				this.dragCopyFunc(sourceHtmlObject.parentObject,targetHtmlObject.parentObject);
+			}else{
+				var newID=this._copyNodeTo(sourceHtmlObject.parentObject,targetHtmlObject.parentObject);
+				z.selectItem(newID);
+			}			
 		}
 		else{
-//			CSTAgent.moveCategory({cctID:844,categoryId:sourceHtmlObject.parentObject.dataId,
-//			parent0Id:sourceHtmlObject.parentObject.parentObject.dataId, parent1Id: targetHtmlObject.parentObject.dataId
-//			},{callback:function(data){
-//					if(data.successful){
-						var newID=this._moveNode(sourceHtmlObject.parentObject,targetHtmlObject.parentObject);
-						z.selectItem(newID);					
-//					}
-//				},errorHandler:function(errorString, exception){ 
-//					showTheError();
-//				}
-//			});
-/**/			
+			if(this.dragFunc){
+				this.dragFunc(sourceHtmlObject.parentObject,targetHtmlObject.parentObject);
+			}else{
+				var newID=this._moveNode(sourceHtmlObject.parentObject,targetHtmlObject.parentObject);
+				z.selectItem(newID);
+			}
 		}
 	}
 	
