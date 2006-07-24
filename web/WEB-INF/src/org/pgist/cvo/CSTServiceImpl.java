@@ -238,12 +238,6 @@ public class CSTServiceImpl implements CSTService {
         if (!parent.getCct().getId().equals(cct.getId())) throw new Exception("no such category reference in this cct.");
         
         /*
-         * check if another category with same name exists
-         */
-        Category category = cstDAO.getCategoryByName(name);
-        if (category!=null) throw new Exception("there already exist a category named "+name);
-        
-        /*
          * get the category reference
          */
         CategoryReference categoryReference = cstDAO.getCategoryReferenceById(categoryId);
@@ -251,18 +245,26 @@ public class CSTServiceImpl implements CSTService {
         if (categoryReference==null) throw new Exception("no such category reference");
         if (categoryReference.getCct().getId()!=cctId) throw new Exception("no such category reference in this cct.");
         
-        category = new Category();
-        category.setName(name);
-        cstDAO.save(category);
+        CategoryReference newCat = null;
+        Category category = cstDAO.getCategoryByName(name);
+        if (category==null) {
+            category = new Category();
+            category.setName(name);
+            category.setDeleted(false);
+            cstDAO.save(category);
+        } else {
+            newCat = cstDAO.getCategoryReferenceById(category.getId());
+        }
         
-        CategoryReference newCat = new CategoryReference();
-        newCat.setCategory(category);
-        newCat.setCct(cct);
-        newCat.getTags().addAll(categoryReference.getTags());
-        newCat.getTheme().setCreateTime(new Date());
-        newCat.getTheme().setTitle(categoryReference.getCategory().getName());
-        
-        cstDAO.save(newCat);
+        if (newCat==null) {
+            newCat = new CategoryReference();
+            newCat.setCategory(category);
+            newCat.setCct(cct);
+            newCat.getTags().addAll(categoryReference.getTags());
+            newCat.getTheme().setCreateTime(new Date());
+            newCat.getTheme().setTitle(categoryReference.getCategory().getName());
+            cstDAO.save(newCat);
+        }
         
         /*
          * establish parent-child relationship

@@ -29,7 +29,7 @@ public class CategoryReference implements Node {
     
     protected Theme theme = new Theme();
     
-    protected SortedSet tags = new TreeSet();
+    protected SortedSet tags = new TreeSet(new TagReferenceComparator());
     
     
     /**
