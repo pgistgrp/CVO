@@ -91,20 +91,18 @@
 			$('myTab').tabber.tabShow(tab);
 		}
 
-		function getTags(categoryId, page, type, tagId){
-			CSTAgent.getTags({cctId:cctId, categoryId:categoryId, page:page, type: type,count:-1}, {
+		function getTags(categoryId, page, type, orphanpage){
+			CSTAgent.getTags({cctId:cctId, categoryId:categoryId, page:page, type: type, orphanPage:orphanpage}, {
 			callback:function(data){
-				//if (tagId != 0){
-					//alert('tag'+ tagId);
-				//}
 				if (data.successful){
 					if (type == 0){
 						document.getElementById('col').innerHTML = 'Tags within ' + currentCategory.label;
 						document.getElementById('col').innerHTML += data.html;
 					}
 					if (type == 1){
-						$('panelTICContent').innerHTML = 'Tags not in ' + currentCategory.label;
-						$('panelTICContent').innerHTML = data.html;
+						////todo: get rid of the first line, check the jsp template
+						$('sidebar_tags').innerHTML = 'Tags not in ' + currentCategory.label;
+						$('sidebar_tags').innerHTML += data.html;
 					}
 				}else{
 					alert("Getting tags not successful: " + data.reason);
@@ -198,7 +196,8 @@
 						callback:function(data){
 							if (data.successful){
 								tree1.modifyItemName(tree1.lastSelected.parentObject.dataId, newtext);
-							}
+							}else
+								alert(data.reason);
 						}
 			});
 		}
@@ -211,7 +210,9 @@
 		
 		//get tags and populate the pane
 		//$('catetagstitle') = "Tags associated with category \"" + labeltext + "\"";
-		getTags(clickid, 0, 0);
+		getTags(clickid, 0, 0,1);
+		getTags(clickid, 0, 1, 1);
+		//getTags(clickid, 0, 1);
 	}
 	
 	function unselectall(mode){
@@ -225,9 +226,8 @@
 	}
 	
 	function moveNodeHandler(sourceO, targetO){
-		//alert("cateid=" + cateid + ", p0id=" + p0id + ", p1id=" + p1id);
-		if(sourceO.parentObject.id == 0)var params = {cctId: cctId, categoryId: sourceO.dataId,parent1Id: targetO.dataId};
-		else var params = {cctId: cctId, categoryId: sourceO.dataId, parent0Id: sourceO.parentObject.dataId, parent1Id: targetO.dataId};
+	alert("source=" + sourceO.id + "; target=" + targetO.id);
+		params = {cctId: cctId, categoryId: sourceO.dataId, parent0Id: sourceO.parentObject.dataId, parent1Id: targetO.dataId};
 		CSTAgent.moveCategory(params,{
 			callback:function(data){
 				if (data.successful){
@@ -263,8 +263,8 @@
 			{callback:function(data){
 				if(data.successful){
 					var newitem = tree1.insertNewItem(obj1.parentObject.id,data.newId,"Similar to "+ obj1.label);
-				//tree1.selectItem(newitem.id);
-				//getTags(data.newId, 0, 0);
+					tree1.selectItem(newitem.id);
+					getTags(data.newId, 0, 0);
 				}else
 					alert(data.reason);
 			}});
