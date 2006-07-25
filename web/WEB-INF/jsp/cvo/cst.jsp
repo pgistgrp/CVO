@@ -253,7 +253,6 @@
 	}
 	
 	function moveNodeHandler(sourceO, targetO){
-	alert("source=" + sourceO.id + "; target=" + targetO.id);
 		params = {cctId: cctId, categoryId: sourceO.dataId, parent0Id: sourceO.parentObject.dataId, parent1Id: targetO.dataId};
 		CSTAgent.moveCategory(params,{
 			callback:function(data){
