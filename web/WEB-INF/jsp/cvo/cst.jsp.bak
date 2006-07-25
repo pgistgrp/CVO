@@ -341,7 +341,7 @@
 				<input type="button" value="Add Category" onclick="addcategory();"><br>
 				<!--<input type="button" value="Unselect All" onclick="unselectall(true);">-->
 
-				<input type="checkbox" onclick="tree1.switchCopyMode()">Copy mode
+			<input type="checkbox" onclick="tree1.switchCopyMode()">Copy mode <small>(or ctrl + drag)</small>
 		
 		<div id="col-left" onclick="unselectall(!tree1.clickedOn)">
 		</div>

@@ -220,7 +220,7 @@
 	}else{
 		new Effect.Highlight('col-crud-options');
 	}
-		new Effect.PhaseOut('col-option',  {duration: .5});
+		new Effect.PhaseOut('col-option');
 		location.href="#colsTop";
 	}
 	
@@ -230,8 +230,8 @@
 			$('selcatetext').value = '';
 			currentCategory=null;
 			document.getElementById('col').innerHTML = "";
-			new Effect.PhaseOut('col-crud-options', {duration: .5}); 
-			new Effect.PhaseOut('col-option',  {duration: .5});
+			new Effect.PhaseOut('col-crud-options'); 
+			new Effect.PhaseOut('col-option');
 		}
 		tree1.clickedOn = false;
 	}
