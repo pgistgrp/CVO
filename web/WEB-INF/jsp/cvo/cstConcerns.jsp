@@ -2,7 +2,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 
-<p align="right">[ <a href="javascript:tabberSwitch(0);">Clear Selection</a> ]</p>
+<p align="right">[ <a href="javascript:$('myTab').tabber.tabShow(0); void(0);">Back to all tags</a> ]</p>
 <br><span class="title_section">Viewing Tag:</span>
 <logic:iterate id="concern" name="concerns">
 			<div id="concernId${concern.id}" class="theConcern">

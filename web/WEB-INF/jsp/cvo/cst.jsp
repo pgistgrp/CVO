@@ -82,7 +82,7 @@
 			os += '<div id="anotherPanel3">';
 			os +='<div id="overviewheader4"  class="accordionTabTitleBar ">Theme: [...]</div>';
 			os +='<div id="overviewtext4">';
-			os +='<p id="editme4">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam accumsan tincidunt libero. Nunc ut lectus. Sed ante urna, semper vitae, rhoncus consectetuer, porta vitae, urna. Donec in neque. Suspendisse porta, felis non malesuada consectetuer, massa erat interdum nunc, id luctus turpis metus ac sapien. Duis risus. Aenean tempor. Etiam porttitor elementum risus. Sed accumsan aliquet felis. Nunc tellus metus, commodo at, venenatis vitae, vehicula eu, orci. Curabitur nulla justo, lacinia id, sagittis eget, bibendum vitae, pede. Nulla id justo nec odio sagittis pulvinar. Maecenas iaculis. Nam vitae leo sed ligula molestie tempus. Ut vestibulum tortor eu nisi. Maecenas placerat. Morbi a libero. Cras sapien. Etiam placerat neque eu pede. Mauris lectus leo, rutrum sed, varius nec, pulvinar id, dui. Etiam imperdiet luctus elit. Vivamus dapibus odio et elit. </p>';
+			os +='Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam accumsan tincidunt libero. Nunc ut lectus. Sed ante urna, semper vitae, rhoncus consectetuer, porta vitae, urna. Donec in neque. Suspendisse porta, felis non malesuada consectetuer, massa erat interdum nunc, id luctus turpis metus ac sapien. Duis risus. Aenean tempor. Etiam porttitor elementum risus. Sed accumsan aliquet felis. Nunc tellus metus, commodo at, venenatis vitae, vehicula eu, orci. Curabitur nulla justo, lacinia id, sagittis eget, bibendum vitae, pede. Nulla id justo nec odio sagittis pulvinar. Maecenas iaculis. Nam vitae leo sed ligula molestie tempus. Ut vestibulum tortor eu nisi. Maecenas placerat. Morbi a libero. Cras sapien. Etiam placerat neque eu pede. Mauris lectus leo, rutrum sed, varius nec, pulvinar id, dui. Etiam imperdiet luctus elit. Vivamus dapibus odio et elit.';
 		 // new Ajax.InPlaceEditor('editme4', '/demoajaxreturn.html', {rows: 10, cols: 70});
 			os +='</div>';						
 			os +='</div>';							
@@ -135,7 +135,7 @@
 			CSTAgent.relateTag({cctId:cctId, categoryId:currentCategory.dataId, tagId:tagId}, {
 			callback:function(data){
 					if (data.successful){
-						new Effect.SwitchOff('tag' + tagId);
+						new Effect.Fade('tag' + tagId, {duration: 0.5});
 					
 						getTags(currentCategory.dataId, 0, 0, tagId);
 						
@@ -151,7 +151,42 @@
 		}	
 
 		
+		function derelateTag(categoryId, tagId){
+				CSTAgent.derelateTag({cctId:cctId, categoryId:categoryId, tagId:tagId}, {
+				callback:function(data){
+						if (data.successful){
+									//new Effect.SwitchOff('tag' + tagId);
+									new Effect.Fade('tag'+tagId, {duration: 0.5, afterFinish: function(){getTags(categoryId, 0, 1, tagId);}});
+								  getTags(categoryId, 0, 1);
+								  
+								 
+						}
+						if (data.successful != true){
+							alert(data.reason);
+						}
+					},
+				errorHandler:function(errorString, exception){ 
+						showTheError();
+				}
+				});
+		}		
 		
+		function getConcerns(tagId, page){
+				CSTAgent.getConcerns({cctId:cctId, tagId: tagId, page: page}, {
+				callback:function(data){
+						if (data.successful){
+							$('myTab').tabber.tabShow(1);
+							$('sidebar_concerns').innerHTML = data.html;
+						}
+						if (data.successful != true){
+							alert(data.reason);
+						}
+					},
+				errorHandler:function(errorString, exception){ 
+						showTheError();
+				}
+				});
+		}
 	//--------------------------------------
 	function checkaddcategory(e){
 		if(e.keyCode == 13)addcategory();
