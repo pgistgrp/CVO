@@ -290,7 +290,9 @@
 				if(data.successful){
 					var newitem = tree1.insertNewItem(obj1.parentObject.id,data.newId,"Similar to "+ obj1.label);
 					tree1.selectItem(newitem.id);
-					getTags(data.newId, 0, 0);
+					
+					//getTags(data.newId, 0, 0);
+					treeClickHandler(data.newId, data.newId, "Similar to "+ obj1.label)
 					new Effect.PhaseOut('col-crud-options'); 
 				}else
 					alert(data.reason);
