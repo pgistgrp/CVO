@@ -78,6 +78,7 @@
 		function getThemes(){
 			
 			//for each theme - this co
+			
 			os = '';
 			os += '<div id="anotherPanel3">';
 			os +='<div id="overviewheader4"  class="accordionTabTitleBar ">Theme: [...]</div>';
@@ -248,7 +249,7 @@
 						callback:function(data){
 							if (data.successful){
 								tree1.modifyItemName(tree1.lastSelected.parentObject.dataId, newtext);
-								new Effect.PhaseOut('col-option'); 
+								new Effect.Fade('col-option'); 
 							}else
 								alert(data.reason);
 						}
@@ -271,18 +272,21 @@
 	}else{
 		new Effect.Highlight('col-crud-options');
 	}
-		new Effect.PhaseOut('col-option');
+		new Effect.Fade('col-option');
 		location.href="#colsTop";
 	}
 	
 	function unselectall(mode){
 		if(mode){
 			tree1.unSelectAll();
+			//Reset col2 and col3
 			$('selcatetext').value = '';
+			getOrphanTags();
+			
 			currentCategory=null;
 			document.getElementById('col').innerHTML = "";
-			new Effect.Fade('col-crud-options'); 
-			new Effect.Fade('col-option');
+			$('col-crud-options').style.display = "none"; 
+			$('col-option').style.display = "none";;
 		}
 		tree1.clickedOn = false;
 	}
@@ -430,9 +434,9 @@
 		<div id="clear">
 			<div id="col-crud-options" style="display:none;"><span class="closeBox"><a href="javascript: new Effect.PhaseOut('col-crud-options'); void(0);">hide options</a></span>
 				<h4>Editing Options</h4>
-				<small><a href="javascript: deleteSelectedCategory();">Delete</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript: new Effect.PhaseOut('col-crud-options'); void(0); new Effect.PhaseIn('col-option'); void(0);">Rename</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:duplicateSelectedCategory();">Duplicate</a>&nbsp;&nbsp;|&nbsp;&nbsp;Edit Summary</small>
+				<small><a href="javascript: deleteSelectedCategory();">Delete</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript: new Effect.PhaseOut('col-crud-options'); void(0); new Effect.Appear('col-option'); void(0);">Rename</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:duplicateSelectedCategory();">Duplicate</a>&nbsp;&nbsp;|&nbsp;&nbsp;Edit Summary</small>
 			</div>
-			<div id="col-option" style="display: none;"><span class="closeBox"><a href="javascript: new Effect.PhaseIn('col-crud-options'); void(0); new Effect.PhaseOut('col-option'); void(0);">back to all options</a></span>
+			<div id="col-option" style="display: none;"><span class="closeBox"><a href="javascript: new Effect.PhaseIn('col-crud-options'); void(0); new Effect.Fade('col-option'); void(0);">back to all options</a></span>
 				<h4>Editing Options</h4>
 			Rename to: <form name="modifyCategory" action="" method="GET" onsubmit="javascript: modifySelectedCategory(); return false;"><input type="text" style="width: 50%;" id="selcatetext" onkeydown="checkaddcategory(event)"><input type="button" id="btnNewName" value="Modify" onclick="modifySelectedCategory();"></form><br>
 			</div>
