@@ -39,7 +39,7 @@
 	<!-- End Template 5 Specific -->
 	
 	<script type="text/javascript">
-		
+		///////////////////////////////////////////////////new change/////////////////////////
 		//window.onload="doOnLoad();
 		var cctId = ${cctForm.cct.id};
     var tree1 = null;
@@ -281,8 +281,8 @@
 			$('selcatetext').value = '';
 			currentCategory=null;
 			document.getElementById('col').innerHTML = "";
-			new Effect.PhaseOut('col-crud-options'); 
-			new Effect.PhaseOut('col-option');
+			new Effect.Fade('col-crud-options'); 
+			new Effect.Fade('col-option');
 		}
 		tree1.clickedOn = false;
 	}

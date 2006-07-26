@@ -281,8 +281,8 @@
 			$('selcatetext').value = '';
 			currentCategory=null;
 			document.getElementById('col').innerHTML = "";
-			new Effect.PhaseOut('col-crud-options'); 
-			new Effect.PhaseOut('col-option');
+			$('col-crud-options').style.display = "none"; 
+			$('col-option').style.display = "none";;
 		}
 		tree1.clickedOn = false;
 	}

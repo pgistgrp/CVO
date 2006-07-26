@@ -976,4 +976,4 @@ Element.Methods.visualEffect = function(element, effect, options) {
   return $(element);
 };
 
-//Element.addMethods();
+Element.addMethods();
