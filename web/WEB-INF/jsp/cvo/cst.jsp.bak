@@ -76,20 +76,22 @@
 		}
 		
 		function getThemes(){
-			
-			//for each theme - this co
-			
-			os = '';
-			os += '<div id="anotherPanel3">';
-			os +='<div id="overviewheader4"  class="accordionTabTitleBar ">Theme: [...]</div>';
-			os +='<div id="overviewtext4">';
-			os +='Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam accumsan tincidunt libero. Nunc ut lectus. Sed ante urna, semper vitae, rhoncus consectetuer, porta vitae, urna. Donec in neque. Suspendisse porta, felis non malesuada consectetuer, massa erat interdum nunc, id luctus turpis metus ac sapien. Duis risus. Aenean tempor. Etiam porttitor elementum risus. Sed accumsan aliquet felis. Nunc tellus metus, commodo at, venenatis vitae, vehicula eu, orci. Curabitur nulla justo, lacinia id, sagittis eget, bibendum vitae, pede. Nulla id justo nec odio sagittis pulvinar. Maecenas iaculis. Nam vitae leo sed ligula molestie tempus. Ut vestibulum tortor eu nisi. Maecenas placerat. Morbi a libero. Cras sapien. Etiam placerat neque eu pede. Mauris lectus leo, rutrum sed, varius nec, pulvinar id, dui. Etiam imperdiet luctus elit. Vivamus dapibus odio et elit.';
-		 // new Ajax.InPlaceEditor('editme4', '/demoajaxreturn.html', {rows: 10, cols: 70});
-			os +='</div>';						
-			os +='</div>';							
+			CSTAgent.getThemes({cctId:cctId,asHTML:true}, {
+			callback:function(data){
+				if (data.successful){
+					$('accordionDiv').innerHTML= data.html;
 
-			$('accordionDiv').innerHTML = os;
-			new Rico.Accordion( $('accordionDiv'), {panelHeight:150});
+				   new Ajax.InPlaceEditor('editSummary1808', '/demoajaxreturn.html', {rows:15,cols:40});
+				  new Rico.Accordion( $('accordionDiv'), {panelHeight:150});
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+					alert(errorString + exception);
+			}
+			});
+	
 		}
 		
 		function getOrphanTags(){
@@ -204,6 +206,7 @@
 						tree1.insertNewItemUnderSelected(document.getElementById("newcatetext").value,
 						data.newId);
 						document.getElementById("newcatetext").value = "";
+						getThemes();
 						/////to do: display a message...
 					}
 					
@@ -233,7 +236,8 @@
 							callback:function(data){
 								if (data.successful){
 									tree1.deleteSelectedItem();
-									new Effect.PhaseOut('col-crud-options'); 
+									new Effect.PhaseOut('col-crud-options');
+									getThemes(); 
 								}
 							}
 				});
@@ -250,6 +254,7 @@
 							if (data.successful){
 								tree1.modifyItemName(tree1.lastSelected.parentObject.dataId, newtext);
 								new Effect.Fade('col-option'); 
+								getThemes();
 							}else
 								alert(data.reason);
 						}
@@ -279,12 +284,13 @@
 	function unselectall(mode){
 		if(mode){
 			tree1.unSelectAll();
-			//Reset col2 and col3
 			$('selcatetext').value = '';
-			getOrphanTags();
+
 			
 			currentCategory=null;
 			document.getElementById('col').innerHTML = "";
+			$('sidebar_tags').innerHTML = '';
+			getOrphanTags();
 			$('col-crud-options').style.display = "none"; 
 			$('col-option').style.display = "none";;
 		}
@@ -298,6 +304,7 @@
 				if (data.successful){
 					var newID=tree1._moveNode(sourceO,targetO);
 					tree1.selectItem(newID);
+					getThemes();
 					return true;
 				}
 				else return false;
@@ -311,6 +318,7 @@
 				if (data.successful){
 					var newID=tree1._copyNodeTo(sourceO,targetO);
 					tree1.selectItem(newID);
+					getThemes();
 					return true;
 				}
 				else return false;
@@ -333,6 +341,7 @@
 					//getTags(data.newId, 0, 0);
 					treeClickHandler(data.newId, data.newId, "Similar to "+ obj1.label)
 					new Effect.PhaseOut('col-crud-options'); 
+					getThemes();
 				}else
 					alert(data.reason);
 			}});
