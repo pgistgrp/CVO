@@ -752,7 +752,8 @@ public class CSTAgent {
                 
                 long[] idList = new long[themes.size()];
                 for (int i=0, n=themes.size(); i<n; i++) {
-                    idList[i] = ((Number) themes.get(i)).longValue();
+                    Theme theme = (Theme) themes.get(i);
+                    idList[i] = theme.getId();
                 }
                 
                 map.put("idList", idList);
