@@ -724,6 +724,7 @@ public class CSTAgent {
      *                  The following variables are available for use in the jsp:
      *                  <ul>
      *                    <li>cct - the current CCT object</li>
+     *                    <li>idList - int array, of Theme object id</li>
      *                    <li>themes - a list of Theme objects</li>
      *                  </ul>
      *           </li>
@@ -748,6 +749,13 @@ public class CSTAgent {
             if ("true".equals((String) params.get("asHTML"))) {
                 request.setAttribute("cct", cct);
                 request.setAttribute("themes", themes);
+                
+                long[] idList = new long[themes.size()];
+                for (int i=0, n=themes.size(); i<n; i++) {
+                    idList[i] = ((Number) themes.get(i)).longValue();
+                }
+                map.put("idList", idList);
+                
                 map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/cstThemes.jsp"));
             } else {
                 map.put("themes", themes);
