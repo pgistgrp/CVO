@@ -114,9 +114,7 @@
 		}
 
 	function keepBreaks(string){
-		//string.replace(/\'/g,"\\'");
-		//string.replace(/\"/g,'\\"');
-		
+
 		return string.replace(/\n/g,"<br>");
 	}
 		

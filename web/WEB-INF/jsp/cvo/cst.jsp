@@ -75,14 +75,21 @@
 			//getTags(12,1,1);
 		}
 		
-		function getThemes(){
+		var editingThemeId = '';
+		function getThemes(themeId){
 			CSTAgent.getThemes({cctId:cctId,asHTML:true}, {
 			callback:function(data){
 				if (data.successful){
 					$('accordionDiv').innerHTML= data.html;
-
-				  
-				  new Rico.Accordion( $('accordionDiv'), {panelHeight:150});
+			 		for(var i=0;i < data.idList.length;i++){
+			 			 
+       			 var temp = new Ajax.InPlaceEditor('editSummary'+ data.idList[i], 'nopage.html', 
+       			 {highlightendcolor: '#EEEEEE', okText:'Save Summary', rows: 5, cols: 5, callback: function(form, value) 
+       			 { saveSummary(this.formId,value); }, onFailure: function(){}}); 
+       			 
+      		}
+				  themeAccordian =  new Rico.Accordion($('accordionDiv'), {panelHeight:150});
+				  activateTab(editingThemeId);
 				}else{
 					alert(data.reason);
 				}
@@ -92,6 +99,48 @@
 			}
 			});
 	
+		}
+		var themeAccordian = null;
+		
+		function activateTab(themeId){
+			if (themeId == ''){return;}
+			for (var i=0; i < themeAccordian.accordionTabs.length; i++){
+				var tempId = themeAccordian.accordionTabs[i].content.id.replace(/[a-zA-Z\-]/g,'');
+				if(tempId == (themeId)){
+					themeAccordian.accordionTabs[i].showExpanded();
+					themeAccordian.showTab(themeAccordian.accordionTabs[i]);
+				}else{
+					themeAccordian.accordionTabs[i].showCollapsed();
+				}
+			}
+		}
+		
+		
+		function saveSummary(themeId, summaryString){
+			themeId = themeId.replace(/[a-zA-Z\-]/g, '');
+			editingThemeId = themeId;
+			summaryString = keepBreaks(summaryString);
+			
+			CSTAgent.saveSummary({cctId:cctId, themeId:themeId, summary:summaryString}, {
+			callback:function(data){
+				if (data.successful){
+					$('editSummary'+ themeId).innerHTML = summaryString;
+					getThemes(themeId);
+					
+				
+					
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+					alert(errorString + exception);
+			}
+			});
+		}
+		
+		function keepBreaks(string){
+			return string.replace(/\n/g,"<br>");
 		}
 		
 		function getOrphanTags(){
@@ -358,7 +407,7 @@
       border-top-color: #DDDDDD; 
       border-bottom-color : #DDDDDD;
       border-width: 1px 0px 1px 0px; 
-     
+      text-transform: capitalize;
       cursor:pointer;
    } 
    .accordionTabContentBox { 
@@ -371,7 +420,7 @@
    .inplaceeditor-form textarea { 
    		width: 95%;
    		height: 100px;
-   		padding: 0px 5px 0px 5px;
+   		
    		
    }
 
@@ -408,7 +457,7 @@
 
 			<input type="checkbox" onclick="tree1.switchCopyMode()">Copy mode <small>(or ctrl + drag)</small>
 		
-		<div id="col-left" onclick="unselectall(!tree1.clickedOn)">
+		<div id="col-left" style="text-transform: capitalize;" onclick="unselectall(!tree1.clickedOn)">
 		</div>
 		
 		<div id="col">
@@ -456,7 +505,7 @@
 		
 		<div id="slate" style="border: 0px solid #fff;">  <!-- how do i make this as big as the floating accordian div -->
 
-			<h3>Concerns Summary Builder</h3>
+			<h3>Step _ -Create a Summary for Each Theme</h3>
 			<p>Click on the theme name to view/edit</p>
 				   <div id="accordionDiv" style="padding-bottom: 20px;">
 							<!--Insert themes here -->
@@ -472,8 +521,10 @@
 	<div id="clear">
 	</div>
 	
+
 	<div id="spacer">
 	</div>
+	
 
 </div>
 
