@@ -39,7 +39,7 @@
 	<!-- End Template 5 Specific -->
 	
 	<script type="text/javascript">
-		
+		///////////////////////////////////////////////////new change/////////////////////////
 		//window.onload="doOnLoad();
 		var cctId = ${cctForm.cct.id};
     var tree1 = null;
