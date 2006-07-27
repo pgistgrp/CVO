@@ -383,8 +383,15 @@
 					
 					//getTags(data.newId, 0, 0);
 					treeClickHandler(data.newId, data.newId, "Similar to "+ obj1.label)
-					new Effect.PhaseOut('col-crud-options'); 
 					getThemes();
+					if ($('col-crud-options').style.display == 'none'){
+						new Effect.PhaseIn('col-crud-options'); 
+					}else{
+						new Effect.Highlight('col-crud-options');
+					}
+					new Effect.Fade('col-option');
+					location.href="#colsTop";
+					
 				}else
 					alert(data.reason);
 			}});
@@ -452,7 +459,7 @@
 				<a name="colsTop"></a>
 				<input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
 				<input type="button" value="Add Category" onclick="addcategory();"><br>
-				<!--<input type="button" value="Unselect All" onclick="unselectall(true);">-->
+				<input type="button" value="Unselect All" onclick="unselectall(true);">
 
 			<input type="checkbox" onclick="tree1.switchCopyMode()">Copy mode <small>(or ctrl + drag)</small>
 		

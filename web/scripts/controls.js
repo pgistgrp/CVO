@@ -569,11 +569,13 @@ Ajax.InPlaceEditor.prototype = {
     }
   },
   hasHTMLLineBreaks: function(string) {
-    if (!this.options.handleLineBreaks) return false;
-    return string.match(/<br/i) || string.match(/<p>/i);
+   if (!this.options.handleLineBreaks) return false;
+   return string.match(/<br/i) || string.match(/<p>/i);
+
   },
   convertHTMLLineBreaks: function(string) {
     return string.replace(/<br>/gi, "\n").replace(/<br\/>/gi, "\n").replace(/<\/p>/gi, "\n").replace(/<p>/gi, "");
+    
   },
   createEditField: function() {
     var text;
@@ -604,6 +606,7 @@ Ajax.InPlaceEditor.prototype = {
       var textArea = document.createElement("textarea");
       textArea.obj = this;
       textArea.name = "value";
+      
       textArea.value = this.convertHTMLLineBreaks(text);
       textArea.rows = this.options.rows;
       textArea.cols = this.options.cols || 40;
@@ -619,7 +622,8 @@ Ajax.InPlaceEditor.prototype = {
     this.form.appendChild(this.editField);
   },
   getText: function() {
-    return this.element.innerHTML;
+    //return this.element.innerHTML;
+    return "blah blah blah";
   },
   loadExternalText: function() {
     Element.addClassName(this.form, this.options.loadingClassName);
