@@ -81,15 +81,16 @@
 			callback:function(data){
 				if (data.successful){
 					$('accordionDiv').innerHTML= data.html;
-			 		for(var i=0;i < data.idList.length;i++){
-			 			 
-       			 var temp = new Ajax.InPlaceEditor('editSummary'+ data.idList[i], 'nopage.html', 
-       			 {highlightendcolor: '#EEEEEE', okText:'Save Summary', rows: 5, cols: 5, callback: function(form, value) 
-       			 { saveSummary(this.formId,value); }, onFailure: function(){}}); 
+			 		for(var i in data.themesMap){
+						var temp = new Ajax.InPlaceEditor('editSummary'+ data.themesMap[i].id, 'nopage.html', 
+       			 			{highlightendcolor: '#EEEEEE', okText:'Save Summary', rows: 5, cols: 5, callback: function(form, value) 
+       			 			{ saveSummary(this.formId,value); }, onFailure: function(){}}); 
        			 
       		}
+				  themeAccordian = themeCollection = null; //hope this can release the memory
 				  themeAccordian =  new Rico.Accordion($('accordionDiv'), {panelHeight:150});
-				  activateTab(editingThemeId);
+				  themeCollection = data.themesMap;
+				  activateTab(editingThemeId, false);
 				}else{
 					alert(data.reason);
 				}
@@ -101,14 +102,15 @@
 	
 		}
 		var themeAccordian = null;
+		var themeCollection = null;
 		
-		function activateTab(themeId){
+		function activateTab(themeId, animation){
 			if (themeId == ''){return;}
 			for (var i=0; i < themeAccordian.accordionTabs.length; i++){
 				var tempId = themeAccordian.accordionTabs[i].content.id.replace(/[a-zA-Z\-]/g,'');
 				if(tempId == (themeId)){
 					themeAccordian.accordionTabs[i].showExpanded();
-					themeAccordian.showTab(themeAccordian.accordionTabs[i]);
+					themeAccordian.showTab(themeAccordian.accordionTabs[i],animation);
 				}else{
 					themeAccordian.accordionTabs[i].showCollapsed();
 				}
@@ -310,12 +312,16 @@
 		
 		document.getElementById("selcatetext").value = labeltext;
 		currentCategory = tree1.lastSelected.parentObject;
-		alert(currentCategory.dataId);
-		//get tags and populate the pane
-		//$('catetagstitle') = "Tags associated with category \"" + labeltext + "\"";
+		
 		getTags(clickid, 0, 0,1);
 		getTags(clickid, 0, 1, 1);
-		//getTags(clickid, 0, 1);
+
+		tempcateid = tree1.getTopLevelNode(currentCategory).dataId;
+		tempthemeid = themeCollection[tempcateid].id;
+		if(tempthemeid != editingThemeId){
+			activateTab(tempthemeid, false);
+		}
+		
 		if ($('col-crud-options').style.display == 'none'){
 		new Effect.PhaseIn('col-crud-options'); 
 	}else{
