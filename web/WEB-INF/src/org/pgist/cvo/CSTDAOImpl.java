@@ -96,15 +96,15 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
     private static final String hql_getUnrelatedTags1 =
          "select count(tr.id) from TagReference tr where "
        + " tr.cctId=? "
-       + " and tr.id not in (select distinct tagref.id from TagReference tagref, CategoryReference cr where cr.id=? and tagref.id in cr.tags.id) "
-       + " and tr.tag.id not in (select cr.tags.id from CategoryReference cr where cr.id=?) ";
+       + " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id))"
+       + " and tr.id not in (select cr.tags.id from CategoryReference cr where cr.id=?) ";
     
     
     private static final String hql_getUnrelatedTags2 =
         "from TagReference tr where "
        + " tr.cctId=? "
-       + " and tr.id not in (select distinct tagref.id from TagReference tagref, CategoryReference cr where cr.id=? and tagref.id in cr.tags.id) "
-       + " and tr.tag.id not in (select cr.tags.id from CategoryReference cr where cr.id=?) "
+       + " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id))"
+       + " and tr.id not in (select cr.tags.id from CategoryReference cr where cr.id=?) "
        + " order by tr.tag.name";
     
     
@@ -121,7 +121,7 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
     public Collection getUnrelatedTags(Long cctId, Long categoryId, PageSetting setting) throws Exception {
         List list = getHibernateTemplate().find(hql_getUnrelatedTags1, new Object[] {
                 cctId,
-                categoryId,
+                cctId,
                 categoryId,
         });
         
@@ -133,7 +133,7 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
         
         Query query = getSession().createQuery(hql_getUnrelatedTags2);
         query.setLong(0, cctId);
-        query.setLong(1, categoryId);
+        query.setLong(1, cctId);
         query.setLong(2, categoryId);
         query.setMaxResults(setting.getRowOfPage());
         query.setFirstResult(setting.getFirstRow());
