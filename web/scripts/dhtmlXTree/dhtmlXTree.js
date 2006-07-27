@@ -2142,5 +2142,14 @@ dhtmlXTreeObject.prototype._getPrevNode=function(node,mode){
 	else return -1;
 };
 
-
+/**
+  * find the top-most ancestor for a given node.
+**/
+dhtmlXTreeObject.prototype.getTopLevelNode=function(item){
+	if(!item || !item.parentObject)return null;
+	while(item.parentObject.id != 0){
+		item = item.parentObject;
+	}
+	return item;
+}
 
