@@ -76,6 +76,7 @@
 		$('addConcern').style.background="#FFF";
 		$('addConcern').style.color="#333";
 	}
+
 	
 	function prepareConcern(){
 		concernTags = "";
@@ -94,7 +95,7 @@
 						concernTags += data.tags[i] + ',';
 					}
 					for(i=0; i < data.potentialtags.length; i++){
-          	potentialTags += data.potentialtags[i] + ',';
+          				potentialTags += data.potentialtags[i] + ',';
 					}
 					document.getElementById('tagsList').innerHTML = renderTags( concernTags, 1);  // + renderTags( data.suggested, 0);
 					document.getElementById('tagsList').innerHTML += renderTags(potentialTags, 1);
@@ -335,6 +336,37 @@ CCTAgent.searchTags({cctId:cctId,tag:theTag},{
 }
 
 
+function sidebarTagSearch(theTag){
+CCTAgent.searchTags({cctId:cctId,tag:theTag},{
+		callback:function(data){
+			  //$('tagIndicator').style.visibility = 'visible';
+			  
+				if (data.successful){
+					
+					if ($('txtmanualFilter').value == ''){
+				  			$('sidebarSearchResults').style.display="none";
+					}
+					
+					if (theTag != ""){		
+						if($('sidebarSearchResults').style.display == 'none'){
+							new Effect.Appear('sidebarSearchResults', {duration: 0.5});		
+						}		
+						$('sidebarSearchResults').innerHTML = $('sidebarSearchResults').innerHTML = '<span class="closeBox"><a href="javascript:Effect.Fade(\'sidebarSearchResults\', {duration: 0.5}); void(0);">Close</a></span><h3>' + data.count +' tag(s)</h3>match your query.  Click on the tag below to set the new filter.<br>' + data.html;
+						//$('tagIndicator').style.visibility = 'hidden';
+					}
+					
+					if (data.count == 0 || theTag == "_"){
+						$('sidebarSearchResults').innerHTML = '<span class="closeBox"><a href="javascript:Effect.Fade(\'sidebarSearchResults\', {duration: 0.5}); void(0);">Close</a></span><p>No tag matches found! Please try a different search.</p> ';
+						//$('tagIndicator').style.visibility = 'hidden';
+					}
+				}
+		},
+		errorHandler:function(errorString, exception){ 
+					showTheError();
+		}		
+	});
+}
+
 function lightboxDisplay(action){
 	$('overlay').style.display = action;
 	$('lightbox').style.display = action;
@@ -518,18 +550,16 @@ function getWinH(){
 	<div id="headerbar">
 	<!-- Search -->
 	  <form id="mysearch" name="form1" method="post" action="">
-	    
-	<div id="searchbox">
-		<input name="search" type="text" class="search" value="Search" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" />
-	</div>
-	<div id="submit">
-	        <img src="/images/btn_search_1.png" name="Image1" width="19" height="19" border="0" id="Image1" onClick="sendForm();return false;" onMouseDown="MM_swapImage('Image1','','/images/btn_search_3.png',1)" onMouseOver="MM_swapImage('Image1','','/images/btn_search_2.png',1)" onMouseOut="MM_swapImgRestore()">    
-	</div>
-	<div id="searchresults"><span class="closeBox"><a href="javascript:Effect.Fade('searchresults'); void(0);">Close</a></span><h4>Glossary Term: Lorem Ipsum</h4><p><strong>Short Def:</strong>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Pellentesque sed tortor. [<a href="#">more</a>...]</p><a href="#">Found in 9 other documents</a></div>
+			<div id="searchbox">
+				<input name="search" type="text" class="search" value="Search" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" />
+			</div>
+			<div id="submit">
+			        <img src="/images/btn_search_1.png" name="Image1" width="19" height="19" border="0" id="Image1" onClick="sendForm();return false;" onMouseDown="MM_swapImage('Image1','','/images/btn_search_3.png',1)" onMouseOver="MM_swapImage('Image1','','/images/btn_search_2.png',1)" onMouseOut="MM_swapImgRestore()">    
+			</div>
+			<div id="searchresults" style="display: none;"><span class="closeBox"><a href="javascript:Effect.PhaseOut('searchresults'); void(0);">Close</a></span><h3>Glossary Term Found:</h3><h4>Lorem Ipsum</h4><p><strong>Short Definition: </strong>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Pellentesque sed tortor. [<a href="#">more...</a>]</p><a href="#">Found in 9 other documents</a></div>
 	  </form>
 	<!-- End Search -->
 	<a id="TitleHeader" name="TitleHeader"></a>
-	
 		<div class="header" id="myHeader">
 			<div id="header_currentMenuContainer" class="headertab">
 		    	<h2>Home</h2>
@@ -628,7 +658,8 @@ function getWinH(){
 		<div id="tagSelector">
 			<div id="filterTags">Sidebar Filtered By: <span class="tags">Not Working Yet</span>&nbsp; &nbsp;[ <a href="javascript:goPage(${setting.page});">Clear Filter</a> ]</div>
 			<div id="manualFilter">
-				<p>Change sidebar filter: <input type="text" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" name="manualFilter" id="manualFilter" class="search" value="Search within all tags"></p>
+				<p>Change sidebar filter: <input type="text"  onkeyup="sidebarTagSearch($('txtmanualFilter').value);" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" name="txtmanualFilter" id="txtmanualFilter" class="search" value="Search within all tags"></p>
+				<div id="sidebarSearchResults" style="display: none;"></div>
 				<div id="browseTags" style="text-align:right;"><a href="javascript: expandTagSelector();">Browse All Tags</a></div>
 			</div>
 			<div id="allTags">

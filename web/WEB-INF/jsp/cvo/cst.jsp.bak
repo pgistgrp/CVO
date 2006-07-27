@@ -310,7 +310,7 @@
 		
 		document.getElementById("selcatetext").value = labeltext;
 		currentCategory = tree1.lastSelected.parentObject;
-		alert(currentCategory.id);
+		alert(currentCategory.dataId);
 		//get tags and populate the pane
 		//$('catetagstitle') = "Tags associated with category \"" + labeltext + "\"";
 		getTags(clickid, 0, 0,1);
