@@ -235,7 +235,12 @@ body {
 
 }
 #searchresults {
-	display: none;
+	margin-bottom: 10px;
+	position: absolute;
+	right: 0px;
+	top: 32px;
+	width: 230px;
+	z-index: 1000;
 }
 #slate {
 	margin-bottom: 1em;

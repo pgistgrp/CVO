@@ -525,7 +525,7 @@ function getWinH(){
 	<div id="submit">
 	        <img src="/images/btn_search_1.png" name="Image1" width="19" height="19" border="0" id="Image1" onClick="sendForm();return false;" onMouseDown="MM_swapImage('Image1','','/images/btn_search_3.png',1)" onMouseOver="MM_swapImage('Image1','','/images/btn_search_2.png',1)" onMouseOut="MM_swapImgRestore()">    
 	</div>
-	<div id="searchresults"></div>
+	<div id="searchresults"><span class="closeBox"><a href="javascript:Effect.Fade('searchresults'); void(0);">Close</a></span><h4>Glossary Term: Lorem Ipsum</h4><p><strong>Short Def:</strong>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Pellentesque sed tortor. [<a href="#">more</a>...]</p><a href="#">Found in 9 other documents</a></div>
 	  </form>
 	<!-- End Search -->
 	<a id="TitleHeader" name="TitleHeader"></a>

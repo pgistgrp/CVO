@@ -158,6 +158,14 @@ h5	{
 	border-top: 0px;
 	}
 
+#searchresults {
+	border-left: 1px solid #F2E3EB;
+	border-right: 1px solid #F2E3EB;
+	border-top: 3px solid #98A072;
+	border-bottom: 3px solid #98A072;
+	background: #E9EFD3;
+}
+
 #slate {
 	border: 1px solid #CCCCCC;
 	}

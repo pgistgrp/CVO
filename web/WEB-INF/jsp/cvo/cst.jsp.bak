@@ -310,7 +310,7 @@
 		
 		document.getElementById("selcatetext").value = labeltext;
 		currentCategory = tree1.lastSelected.parentObject;
-		
+		alert(currentCategory.id);
 		//get tags and populate the pane
 		//$('catetagstitle') = "Tags associated with category \"" + labeltext + "\"";
 		getTags(clickid, 0, 0,1);
@@ -383,7 +383,6 @@
 					
 					//getTags(data.newId, 0, 0);
 					treeClickHandler(data.newId, data.newId, "Similar to "+ obj1.label)
-					
 					getThemes();
 					if ($('col-crud-options').style.display == 'none'){
 						new Effect.PhaseIn('col-crud-options'); 
