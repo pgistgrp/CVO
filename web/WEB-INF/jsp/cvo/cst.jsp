@@ -56,7 +56,7 @@
     
 		function doOnLoad(){
 			//preLoadImages();
-      
+      resetCols()
       tree1=new dhtmlXTreeObject("col-left","100%","100%",0);
       tree1.setImagePath("/images/dhtmlXTree/");
       tree1.setDragHandler(moveNodeHandler);
@@ -148,8 +148,7 @@
 				CSTAgent.getOrphanTags({cctId:cctId, page:0, count: -1}, {
 				callback:function(data){
 						if (data.successful){
-						//alert("good");	
-						$('sidebar_tags').innerHTML += data.html;
+							$('sidebar_tags').innerHTML += data.html;
 						}
 					}
 				});
@@ -187,10 +186,7 @@
 			CSTAgent.relateTag({cctId:cctId, categoryId:currentCategory.dataId, tagId:tagId}, {
 			callback:function(data){
 					if (data.successful){
-						new Effect.Fade('tag' + tagId, {duration: 0.5});
-					
-						getTags(currentCategory.dataId, 0, 0, tagId);
-						
+						new Effect.Fade('tag' + tagId, {duration: 0.5, afterFinish: function(){getTags(currentCategory.dataId, 0, 1, tagId);getTags(currentCategory.dataId, 0, 0, tagId);}});
 					}
 					if (data.successful != true){
 						alert(data.reason);
@@ -208,9 +204,8 @@
 				callback:function(data){
 						if (data.successful){
 									//new Effect.SwitchOff('tag' + tagId);
-									new Effect.Fade('tag'+tagId, {duration: 0.5, afterFinish: function(){getTags(categoryId, 0, 1, tagId);}});
-								  getTags(categoryId, 0, 1);
-								  
+									new Effect.Fade('tag'+tagId, {duration: 0.5, afterFinish: function(){getTags(categoryId, 0, 1, tagId);getTags(categoryId, 0, 0, tagId);}});
+
 								 
 						}
 						if (data.successful != true){
@@ -267,7 +262,7 @@
 			});			
 		}
 	}
-	
+
 	function globalKeyHandler(e){
 		if(e.keyCode==46)
 			deleteSelectedCategory();
@@ -337,8 +332,7 @@
 
 			
 			currentCategory=null;
-			document.getElementById('col').innerHTML = "";
-			$('sidebar_tags').innerHTML = '';
+			resetCols()
 			getOrphanTags();
 			$('col-crud-options').style.display = "none"; 
 			$('col-option').style.display = "none";;
@@ -395,6 +389,11 @@
 					alert(data.reason);
 			}});
 		}
+	}
+	
+	function resetCols(){
+		$('col').innerHTML = '<h4>Select a category in the left to see tags assciated with it.</h4>';
+		$('sidebar_tags').innerHTML = '<h4>Orphan Tags</h4>';
 	}
 	//------------------------------------
 	</script>
@@ -457,11 +456,11 @@
 
 			<input type="checkbox" onclick="tree1.switchCopyMode()">Copy mode <small>(or ctrl + drag)</small>
 		
-		<div id="col-left" style="text-transform: capitalize;" onclick="unselectall(!tree1.clickedOn)">
+		<div id="col-left" style="text-transform: capitalize; " onclick="unselectall(!tree1.clickedOn)">
 		</div>
 		
 		<div id="col">
-			<p>Select a category in the left to see tags assciated with it.</p>
+			
 		</div>
 		<div id="col-right">
 				<!--START Tabs -->
@@ -471,7 +470,7 @@
 								<!-- AB 1 -->
 						    <div id="sidebar_tags_header" class="tabbertab">
 						    	<H2>Tags</H2>
-						    	<div id="sidebar_tags"><h4>Tags</h4>
+						    	<div id="sidebar_tags">
 						    		<!-- load tags into this div -->
 									</div>
 						    </div>

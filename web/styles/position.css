@@ -42,6 +42,10 @@ body {
 	z-index:5000;
 }
 
+#col{
+	overflow: auto;
+}
+
 #col-left {
 	width: 64%;
 	float: left;
