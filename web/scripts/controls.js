@@ -623,6 +623,9 @@ Ajax.InPlaceEditor.prototype = {
   },
   getText: function() {
     //return this.element.innerHTML;
+    alert(this.element.innerHTML);
+    //alert(this.element.innerText);
+    alert(this.element.childNodes[0].innerHTML);
     return "blah blah blah";
   },
   loadExternalText: function() {
@@ -698,7 +701,7 @@ Ajax.InPlaceEditor.prototype = {
   },
   showSaving: function() {
     this.oldInnerHTML = this.element.innerHTML;
-    this.element.innerHTML = this.options.savingText;
+    //this.element.innerHTML = this.options.savingText;
     Element.addClassName(this.element, this.options.savingClassName);
     this.element.style.backgroundColor = this.originalBackground;
     Element.show(this.element);
