@@ -20,6 +20,7 @@
  	<script src="/scripts/rico_simple.js" type="text/javascript"></script>
  	<script src="/scripts/tabcookies.js" type="text/javascript"></script>
  	<script src="/scripts/tabs.js" type="text/javascript"></script>
+ 	<script src="/scripts/editor_simple.js" type="text/javascript"></script>
 	<script src="/scripts/scriptaculous.js?load=effects,controls" type="text/javascript"></script>
 	<script src="/scripts/tags.js" type="text/javascript"></script>
 	
@@ -44,6 +45,11 @@
 		var cctId = ${cctForm.cct.id};
     var tree1 = null;
     var currentCategory = null;
+     var currentTheme  = null;
+     var themeCollection = null;
+     var previousCategory = null;
+     var previousTheme = null;
+
     
     function preLoadImages(){
       var imSrcAr = new Array("line1.gif","line2.gif","line3.gif","line4.gif","minus2.gif","minus3.gif","minus4.gif","plus2.gif","plus3.gif","plus4.gif","book.gif","books_open.gif","books_close.gif","magazines_open.gif","magazines_close.gif","tombs.gif","tombs_mag.gif","book_titel.gif","iconCheckAll.gif")
@@ -60,7 +66,7 @@
       tree1=new dhtmlXTreeObject("col-left","100%","100%",0);
       tree1.setImagePath("/images/dhtmlXTree/");
       tree1.setDragHandler(moveNodeHandler);
-      tree1.enableCheckBoxes(true)
+      tree1.enableCheckBoxes(false);
       tree1.enableThreeStateCheckboxes(true);
       tree1.enableDragAndDrop(true);
       tree1.loadXML("/catsTree.do?cctId=${cctForm.cct.id}");
@@ -80,17 +86,24 @@
 			CSTAgent.getThemes({cctId:cctId,asHTML:true}, {
 			callback:function(data){
 				if (data.successful){
-					$('accordionDiv').innerHTML= data.html;
-			 		for(var i in data.themesMap){
-						var temp = new Ajax.InPlaceEditor('editSummary'+ data.themesMap[i].id, 'nopage.html', 
-       			 			{highlightendcolor: '#EEEEEE', okText:'Save Summary', rows: 5, cols: 5, callback: function(form, value) 
-       			 			{ saveSummary(this.formId,value); }, onFailure: function(){}}); 
-       			 
-      		}
-				  themeAccordian = themeCollection = null; //hope this can release the memory
-				  themeAccordian =  new Rico.Accordion($('accordionDiv'), {panelHeight:150});
+				  themeCollection = null;
 				  themeCollection = data.themesMap;
-				  activateTab(editingThemeId, false);
+				  if(previousTheme){ //this guy should be updated as well
+				  	for(i=0; i<data.themes.length; i++)
+						if(previousTheme.id == data.themes[i].id){
+							previousTheme = null;
+							previousTheme = data.themes[i];
+							break;
+						}
+				  }
+				  if(currentTheme){ //this guy should be updated as well
+				  	for(i=0; i<data.themes.length; i++)
+						if(currentTheme.id == data.themes[i].id){
+							currentTheme = null;
+							currentTheme = data.themes[i];
+							break;
+						}
+				  }
 				}else{
 					alert(data.reason);
 				}
@@ -102,7 +115,6 @@
 	
 		}
 		var themeAccordian = null;
-		var themeCollection = null;
 		
 		function activateTab(themeId, animation){
 			if (themeId == ''){return;}
@@ -118,19 +130,22 @@
 		}
 		
 		
-		function saveSummary(themeId, summaryString){
-			themeId = themeId.replace(/[a-zA-Z\-]/g, '');
-			editingThemeId = themeId;
-			summaryString = keepBreaks(summaryString);
+		function saveSummary(theTheme, theSummary){
+			if(theTheme)
+				themeId  = theTheme.id;
+			else 
+				themeId = currentTheme.id;
 			
+			if(theSummary)
+				summaryString = theSummary;
+			else
+				summaryString = editor1.getContent();
+				
 			CSTAgent.saveSummary({cctId:cctId, themeId:themeId, summary:summaryString}, {
 			callback:function(data){
 				if (data.successful){
-					$('editSummary'+ themeId).innerHTML = summaryString;
-					getThemes(themeId);
-					
-				
-					
+					editor1.setMessage("Summary saved.");	
+					getThemes ();
 				}else{
 					alert(data.reason);
 				}
@@ -301,6 +316,7 @@
 								tree1.modifyItemName(tree1.lastSelected.parentObject.dataId, newtext);
 								new Effect.Fade('col-option'); 
 								getThemes();
+								editor1.setMessage('View/edit summary for theme "' + newtext + '"');
 							}else
 								alert(data.reason);
 						}
@@ -313,15 +329,31 @@
 		document.getElementById("selcatetext").value = labeltext;
 		currentCategory = tree1.lastSelected.parentObject;
 		
-		getTags(clickid, 0, 0,1);
-		getTags(clickid, 0, 1, 1);
+		tempcate = tree1.getTopLevelNode(currentCategory);
+		if(themeCollection != null){
+			currentTheme = themeCollection[tempcate.dataId];
+			if(previousTheme != currentTheme)
+			{ 	//this means that the editor should be reloaded.
+					if(previousTheme)
+						if(previousTheme.summary != editor1.getContent())
+						{
+							if(confirm ("Summery for theme \"" + previousTheme.title + "\" is changed. Do you want to save?"))
+							  	saveSummary (previousTheme,editor1.getContent());
+						  }
+					previousTheme  = currentTheme ;
+					if(currentTheme.summary == ""){
 
-		tempcateid = tree1.getTopLevelNode(currentCategory).dataId;
-		tempthemeid = themeCollection[tempcateid].id;
-		if(tempthemeid != editingThemeId){
-			activateTab(tempthemeid, false);
+						editor1.setMessage("Generate summary for theme \"" + tempcate.label + "\""); 
+					}else{
+						editor1.setMessage("View/edit summary for theme \"" + tempcate.label + "\"");
+					}
+					editor1.putContent (currentTheme.summary);
+			}
 		}
 		
+		getTags(clickid, 0, 0,1);
+		getTags(clickid, 0, 1, 1);
+	
 		if ($('col-crud-options').style.display == 'none'){
 		new Effect.PhaseIn('col-crud-options'); 
 	}else{
@@ -336,7 +368,6 @@
 			tree1.unSelectAll();
 			$('selcatetext').value = '';
 
-			
 			currentCategory=null;
 			resetCols()
 			getOrphanTags();
@@ -347,16 +378,45 @@
 	}
 	
 	function moveNodeHandler(sourceO, targetO){
-		params = {cctId: cctId, categoryId: sourceO.dataId, parent0Id: sourceO.parentObject.dataId, parent1Id: targetO.dataId};
+		params = {cctId: cctId, categoryId: sourceO.dataId};
+		if(sourceO.parentObject.id != 0)
+			params.parent0Id = sourceO.parentObject.dataId;			
+		if(targetO.id != 0)
+			params.parent1Id = targetO.dataId;
+			
 		CSTAgent.moveCategory(params,{
 			callback:function(data){
 				if (data.successful){
+					getThemes();
+					if(sourceO.parentObject.id == 0){	//it's a theme, possibly merge summery
+						var sourceTheme = themeCollection[sourceO.dataId];
+						if(sourceTheme.summary!=""){
+							if(confirm("Merge the summary for \"" + sourceTheme.title + "\" to the new theme?")){
+								tempcate = tree1.getTopLevelNode(targetO);
+								if(themeCollection != null){
+									currentTheme = themeCollection[tempcate.dataId];
+									if(previousTheme)
+										if(previousTheme.summary != editor1.getContent())
+										{
+											if(confirm ("Summery for theme \"" + previousTheme.title + "\" is changed. Do you want to save?"))
+												saveSummary (previousTheme,editor1.getContent());
+										  }
+									previousTheme  = currentTheme ;
+									
+									editor1.putContent (currentTheme.summary + "<br>" + sourceTheme.summary);								
+								}
+							
+							}
+						}
+					}
 					var newID=tree1._moveNode(sourceO,targetO);
 					tree1.selectItem(newID);
-					getThemes();
 					return true;
 				}
-				else return false;
+				else{ 
+					alert(data.reason);
+					return false;
+				}
 			}
 		});
 	}
@@ -385,10 +445,10 @@
 			{callback:function(data){
 				if(data.successful){
 					var newitem = tree1.insertNewItem(obj1.parentObject.id,data.newId,"Similar to "+ obj1.label);
-					tree1.selectItem(newitem.id);
+					//tree1.selectItem(newitem.id);
 					
 					//getTags(data.newId, 0, 0);
-					treeClickHandler(data.newId, data.newId, "Similar to "+ obj1.label)
+					//treeClickHandler(data.newId, data.newId, "Similar to "+ obj1.label)
 					getThemes();
 					if ($('col-crud-options').style.display == 'none'){
 						new Effect.PhaseIn('col-crud-options'); 
@@ -516,13 +576,25 @@
 		</div>
 		
 		<div id="slate" style="border: 0px solid #fff;">  <!-- how do i make this as big as the floating accordian div -->
+<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 
 			<h3>Step _ -Create a Summary for Each Theme</h3>
-			<p>Click on the theme name to view/edit</p>
-				   <div id="accordionDiv" style="padding-bottom: 20px;">
-							<!--Insert themes here -->
-				   </div>		
-				 
+<script type="text/javascript">
+dosize();
+doOnLoad();
+getThemes();
+
+    var editor1 = new WYSIWYG_Editor('editor1', 'Please select a theme to begin generating summary.');
+    editor1.display();
+    editor1.setMessage("Click on the theme name to view/edit.");
+
+</script>				  
+			 <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			 	<tbody><tr>        <td align="right">         
+			 		 <button type="button" style="padding: 0pt 1em;" onclick="saveSummary()">Save summery</button>
+			 		 <button type="button" style="padding: 0pt 1em;">Discard</button>     
+			 		 </td>    </tr>   </tbody>
+			 		 </table>	 
 		</div>
 	</div>
 	<!--
@@ -540,12 +612,7 @@
 
 </div>
 
-<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
-<script type="text/javascript">
-dosize();
-doOnLoad();
-getThemes();
-</script>
+
 
 </body>
 </html>
