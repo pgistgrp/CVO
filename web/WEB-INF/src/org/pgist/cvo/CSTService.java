@@ -38,6 +38,8 @@ public interface CSTService {
 
     Object[] getConcernsByTag(Long cctId, Long tagId, PageSetting setting) throws Exception;
 
+    Object[] getConcernsByTags(Long cctId, int[] tagIds, PageSetting setting) throws Exception;
+
     Collection getRealtedTags(Long cctId, Long categoryId, PageSetting setting) throws Exception;
 
     Collection getUnrelatedTags(Long cctId, Long categoryId, PageSetting setting) throws Exception;

@@ -100,5 +100,10 @@
     </bean>
 
 
+    <bean id="sdAgent" class="org.pgist.discussion.SDAgent">
+        <property name="sdService" ref="sdService"/>
+    </bean>
+
+
 </beans>
 

@@ -481,6 +481,26 @@ public class CSTServiceImpl implements CSTService {
     }//getConcernsByTag()
 
 
+    public Object[] getConcernsByTags(Long cctId, int[] tagIds, PageSetting setting) throws Exception {
+        Object[] values = new Object[3];
+        
+        CCT cct = cctDAO.getCCTById(cctId);
+        if (cct==null) throw new Exception("no such cct.");
+        values[0] = cct;
+        
+        List tags = new ArrayList(tagIds.length);
+        for (int id : tagIds) {
+            TagReference ref = cstDAO.getTagReferenceById(new Long(id));
+            tags.add(ref);
+        }
+        values[1] = tags;
+        
+        values[2] = cstDAO.getConcernsByTags(cctId, tagIds, setting);
+        
+        return values;
+    }//getConcernsByTags()
+
+
     public Collection getRealtedTags(Long cctId, Long categoryId, PageSetting setting) throws Exception {
         return cstDAO.getRealtedTags(cctId, categoryId, setting);
     }//getRealtedTags()

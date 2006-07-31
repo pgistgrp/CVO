@@ -155,6 +155,13 @@ public class PageSetting {
 
     public void setRowSize(int rowSize) {
         this.rowSize = rowSize;
+        
+        if (rowOfPage==-1) {
+            head = 1;
+            tail = rowOfPage;
+            return;
+        }
+        
         pageSize = (int)Math.ceil(((float)rowSize)/rowOfPage);
         
         if (page<=0) {

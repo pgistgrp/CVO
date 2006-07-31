@@ -127,7 +127,7 @@ public class SDAgent {
     
     
     /**
-     * Get replies with the given conditions
+     * Get second level discussion (replies) with the given conditions
      * 
      * @param params params A map contains:
      *   <ul>

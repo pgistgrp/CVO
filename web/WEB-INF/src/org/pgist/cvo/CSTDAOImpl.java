@@ -1,6 +1,7 @@
 package org.pgist.cvo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -71,6 +72,50 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
     }//getConcernsByTag()
     
     
+    private static final String hql_getConcernsByTags1 = "select count(distinct c.id) from Concern c where c.deleted=? and c.cct.id=? and c.tags.id in (##)";
+    
+    private static final String hql_getConcernsByTags2 = "select distinct c from Concern c where c.deleted=? and c.cct.id=? and c.tags.id in (##) order by c.id";
+    
+    
+    public Collection getConcernsByTags(Long cctId, int[] tagIds, PageSetting setting) throws Exception {
+        StringBuffer sb = new StringBuffer();
+        boolean first = true;
+        for (int id : tagIds) {
+            if (first) {
+                first = false;
+            } else {
+                sb.append(',');
+            }
+            sb.append(id);
+        }//for
+        
+        /*
+         * query for count
+         */
+        List list = getHibernateTemplate().find(hql_getConcernsByTags1.replace("##", sb.toString()), new Object[] {
+                false,
+                cctId,
+        });
+        
+        int count = ((Number) list.get(0)).intValue();
+        setting.setRowSize(count);
+        
+        if (count==0) return new ArrayList();
+        
+        /*
+         * query for results
+         */
+        Query query = getSession().createQuery(hql_getConcernsByTags2.replace("##", sb.toString()));
+        query.setBoolean(0, false);
+        query.setLong(1, cctId);
+        
+        query.setFirstResult(setting.getFirstRow());
+        if (setting.getRowOfPage()>0) query.setMaxResults(setting.getRowOfPage());
+        
+        return query.list();
+    }//getConcernsByTags()
+
+
     private static final String hql_getRealtedTags1 = "select count(cr.tags.id) from CategoryReference cr where cr.id=?";
     
     private static final String hql_getRealtedTags2 = "from TagReference tr where tr.id in (select cr.tags.id from CategoryReference cr where cr.id=?) order by tr.tag.name";

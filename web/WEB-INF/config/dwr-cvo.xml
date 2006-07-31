@@ -84,6 +84,7 @@
       <include method="derelateTag"/>
       <include method="editCategory"/>
       <include method="getConcerns"/>
+      <include method="getConcernsByTags"/>
       <include method="getTags"/>
       <include method="getOrphanTags"/>
       <include method="relateTag"/>
@@ -131,6 +132,13 @@
     </create>
     
     
+    <create creator="spring" javascript="SDAgent">
+      <param name="beanName" value="sdAgent"/>
+      <include method="getPosts"/>
+      <include method="getReplies"/>
+    </create>
+
+
     <!--create creator="spring" javascript="GlossarySidebarAgent">
       <param name="beanName" value="glossarySidebarAgent"/>
       <include method="searchTerms"/>
