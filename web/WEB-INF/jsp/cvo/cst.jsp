@@ -60,6 +60,10 @@
       }
     }
     
+    function setThemeTitle(themetitle){
+    	document.getElementById("summaryEditorTitle").innerHTML = themetitle;
+    }
+    
 		function doOnLoad(){
 			//preLoadImages();
       resetCols()
@@ -114,23 +118,10 @@
 			});
 	
 		}
-		var themeAccordian = null;
-		
-		function activateTab(themeId, animation){
-			if (themeId == ''){return;}
-			for (var i=0; i < themeAccordian.accordionTabs.length; i++){
-				var tempId = themeAccordian.accordionTabs[i].content.id.replace(/[a-zA-Z\-]/g,'');
-				if(tempId == (themeId)){
-					themeAccordian.accordionTabs[i].showExpanded();
-					themeAccordian.showTab(themeAccordian.accordionTabs[i],animation);
-				}else{
-					themeAccordian.accordionTabs[i].showCollapsed();
-				}
-			}
-		}
-		
-		
+				
 		function saveSummary(theTheme, theSummary){
+			if(!currentTheme)return;
+			
 			if(theTheme)
 				themeId  = theTheme.id;
 			else 
@@ -316,7 +307,7 @@
 								tree1.modifyItemName(tree1.lastSelected.parentObject.dataId, newtext);
 								new Effect.Fade('col-option'); 
 								getThemes();
-								editor1.setMessage('View/edit summary for theme "' + newtext + '"');
+								setThemeTitle('View/edit summary for theme "' + newtext + '"');
 							}else
 								alert(data.reason);
 						}
@@ -343,14 +334,15 @@
 					previousTheme  = currentTheme ;
 					if(currentTheme.summary == ""){
 
-						editor1.setMessage("Generate summary for theme \"" + tempcate.label + "\""); 
+						setThemeTitle("Generate summary for theme \"" + tempcate.label + "\""); 
 					}else{
-						editor1.setMessage("View/edit summary for theme \"" + tempcate.label + "\"");
+						setThemeTitle("View/edit summary for theme \"" + tempcate.label + "\"");
 					}
 					editor1.putContent (currentTheme.summary);
 			}
 		}
 		
+		if(currentTheme)document.getElementById("ss").disabled = false;
 		getTags(clickid, 0, 0,1);
 		getTags(clickid, 0, 1, 1);
 	
@@ -360,7 +352,7 @@
 		new Effect.Highlight('col-crud-options');
 	}
 		new Effect.Fade('col-option');
-		location.href="#colsTop";
+		//location.href="#colsTop";
 	}
 	
 	function unselectall(mode){
@@ -578,7 +570,7 @@
 		<div id="slate" style="border: 0px solid #fff;">  <!-- how do i make this as big as the floating accordian div -->
 <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 
-			<h3>Step _ -Create a Summary for Each Theme</h3>
+			<h3>Step _ - <span id="summaryEditorTitle">Click on the theme name to view/edit.</span></h3>
 <script type="text/javascript">
 dosize();
 doOnLoad();
@@ -586,13 +578,11 @@ getThemes();
 
     var editor1 = new WYSIWYG_Editor('editor1', 'Please select a theme to begin generating summary.');
     editor1.display();
-    editor1.setMessage("Click on the theme name to view/edit.");
 
 </script>				  
 			 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 			 	<tbody><tr>        <td align="right">         
-			 		 <button type="button" style="padding: 0pt 1em;" onclick="saveSummary()">Save summery</button>
-			 		 <button type="button" style="padding: 0pt 1em;">Discard</button>     
+			 		 <button id="ss" type="button" disabled="true" style="padding: 0pt 1em;" onclick="saveSummary()">Save summery</button>
 			 		 </td>    </tr>   </tbody>
 			 		 </table>	 
 		</div>

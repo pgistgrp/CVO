@@ -198,6 +198,10 @@ WYSIWYG_Editor.prototype._display_editor = function (){
 **/
 WYSIWYG_Editor.prototype.setMessage=function(msg){
 	document.getElementById("wysiwyg_message").innerHTML = msg;
+	if(Effect){
+		document.getElementById("wysiwyg_message").style.display = "none";
+		new Effect.Appear('wysiwyg_message', {afterFinish: function(){ new Effect.Fade('wysiwyg_message',{duration: 5});}});
+	}
 }
 
 /**
