@@ -75,6 +75,7 @@ public class SystemInit extends MatchingTask {
                 configPath + "/context-system.xml",
                 configPath + "/context-webservice.xml",
                 configPath + "/context-workflow.xml",
+                configPath + "/context-base.xml",
                 configPath + "/context-cvo.xml",
                 configPath + "/context-pgames.xml",
             }

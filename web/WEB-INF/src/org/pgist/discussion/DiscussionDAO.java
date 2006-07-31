@@ -2,6 +2,7 @@ package org.pgist.discussion;
 
 import java.util.Collection;
 
+import org.pgist.system.BaseDAO;
 import org.pgist.util.PageSetting;
 
 
@@ -11,7 +12,10 @@ import org.pgist.util.PageSetting;
  * @author kenny
  *
  */
-public interface DiscussionDAO {
+public interface DiscussionDAO extends BaseDAO {
+    
+    
+    Discussion getDiscussion(Class klass, Long targetId) throws Exception;
     
     
     Discussion getDiscussion(String targetType, Long targetId) throws Exception;
@@ -51,6 +55,11 @@ public interface DiscussionDAO {
     
     
     void deletePost(DiscussionPost post) throws Exception;
+
+
+    //temp
+    
+    Collection getInfoStructures() throws Exception;
     
     
 }//interface DiscussionDAO

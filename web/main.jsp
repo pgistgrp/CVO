@@ -27,7 +27,7 @@
 </pg:show>
 
 <pg:show roles="moderator">
-  <p><html:link page="/sdclist.do">Structured Discussion for Concerns</html:link>
+  <p><html:link page="/sdlist.do">Structured Discussion List</html:link>
 </pg:show>
 
 <pg:show roles="moderator">

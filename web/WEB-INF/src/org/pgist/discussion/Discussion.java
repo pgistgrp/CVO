@@ -31,8 +31,8 @@ public class Discussion {
     public void setId(Long id) {
         this.id = id;
     }
-
-
+    
+    
     /**
      * @return
      * @hibernate.property not-null="true"

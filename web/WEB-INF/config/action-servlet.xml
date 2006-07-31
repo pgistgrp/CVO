@@ -58,6 +58,16 @@
     </bean>
     
     
+    <bean name="/sdlist" class="org.pgist.discussion.SDListAction">
+        <property name="sdService" ref="sdService"/>
+    </bean>
+    
+    
+    <bean name="/sd" class="org.pgist.discussion.SDAction">
+        <property name="sdService" ref="sdService"/>
+    </bean>
+    
+    
     <bean name="/sdcview" class="org.pgist.cvo.SDCViewAction">
         <property name="cctService" ref="cctService"/>
     </bean>

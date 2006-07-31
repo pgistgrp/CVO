@@ -26,7 +26,9 @@ public class DiscussionPost {
     
     protected User owner;
     
-    protected Date time;
+    protected int views;
+    
+    protected Date createTime;
     
     protected boolean deleted;
     
@@ -119,13 +121,27 @@ public class DiscussionPost {
      * @return
      * @hibernate.property not-null="true"
      */
-    public Date getTime() {
-        return time;
+    public int getViews() {
+        return views;
     }
 
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setViews(int views) {
+        this.views = views;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
 

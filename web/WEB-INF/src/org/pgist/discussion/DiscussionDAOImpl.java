@@ -19,6 +19,11 @@ import org.pgist.util.WebUtils;
 public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     
     
+    public Discussion getDiscussion(Class klass, Long targetId) throws Exception {
+        return getDiscussion(klass.getName(), targetId);
+    }//getDiscussion()
+    
+    
     private static final String hql_getDiscussion = "from Discussion d where d.deleted=? and d.targetType=? and d.targetId=?";
     
     
@@ -142,7 +147,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         post.setOwner(getUserById(WebUtils.currentUserId()));
         post.setParent(null);
         post.setQuote(quote);
-        post.setTime(new Date());
+        post.setCreateTime(new Date());
         
         getHibernateTemplate().save(post);
         
@@ -160,7 +165,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         reply.setContent(content);
         reply.setDeleted(false);
-        reply.setTime(new Date());
+        reply.setCreateTime(new Date());
         reply.setParent(post);
         reply.setQuote(quote);
         reply.setOwner(getUserById(WebUtils.currentUserId()));
@@ -186,6 +191,14 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         post.setDeleted(true);
         getHibernateTemplate().saveOrUpdate(post);
     }//deletePost()
+
+
+    private static final String hql_getInfoStructures = "from InfoStructure";
     
     
+    public Collection getInfoStructures() throws Exception {
+        return getHibernateTemplate().find(hql_getInfoStructures);
+    }//getInfoStructures()
+
+
 }//class DiscussionDAOImpl

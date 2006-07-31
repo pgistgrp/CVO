@@ -58,6 +58,14 @@
             <forward name="view" path="/WEB-INF/jsp/cvo/cstCategories.jsp" />
         </action>
         
+        <action path="/sdlist" scope="request" type="org.pgist.discussion.SDListAction">
+            <forward name="list" path="/WEB-INF/jsp/discussion/sdList.jsp"/>
+        </action>
+        
+        <action path="/sd" scope="request" type="org.pgist.discussion.SDAction">
+            <forward name="main" path="/WEB-INF/jsp/discussion/sdMain.jsp"/>
+        </action>
+        
         <action name="cctForm" path="/sdclist" scope="request" type="org.pgist.cvo.SDCListAction">
             <forward name="list" path="/WEB-INF/jsp/cvo/sdclist.jsp" />
         </action>
