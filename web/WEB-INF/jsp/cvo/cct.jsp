@@ -56,7 +56,7 @@
 			new Effect.Highlight('validation', {duration: 4, endcolor:'#EEF3D8'});
 			new Effect.Highlight('theTag', {duration: 10, endcolor:'#EEF3D8'});
 			return false;
-			
+
 		}else{
 			new Effect.BlindUp('validation');
 			new Effect.BlindDown('tagConcerns');
@@ -66,6 +66,7 @@
 			return true;
 		}
 	}
+	
 	
 	function resetForm()
 	{
@@ -107,6 +108,7 @@
 	}
 	
 	var tagHolderId = 1;
+
 	function removeFromGeneratedTags(name){
 		if(name == "")return;
 		var indexNum = concernTags.indexOf(name +',');
@@ -276,6 +278,10 @@ function getConcernsByTag(id){
 					$('myTab').tabber.tabShow(0);
 					new Element.scrollTo('SideConcernsTop'); //location.href='#SideConcernsTop';
 					shrinkTagSelector();
+					if($('sidebarSearchResults').style.display != 'none'){
+						new Effect.Fade('sidebarSearchResults', {duration: 0.5});	
+						$('txtmanualFilter').value = 	$('txtmanualFilter').defaultValue;
+					}	
 				}
 			},
 		errorHandler:function(errorString, exception){ 
@@ -326,6 +332,7 @@ CCTAgent.searchTags({cctId:cctId,tag:theTag},{
 						$('tagSearchResults').innerHTML = '<span class=\"highlight\">No tag matches found! Please try a different search or <a href="javascript:getTagCloud();">clear the query</a>&nbsp;to view top tags again.</span>';
 						$('topTags').innerHTML = "";
 						$('tagIndicator').style.visibility = 'hidden';
+						
 					}
 				}
 		},
@@ -411,7 +418,7 @@ function editConcern(concernId){
 				if (data.successful){
 					lightboxDisplay('none');
 					showMyConcerns(concernId);
-				}
+				}  
 		},
 		errorHandler:function(errorString, exception){ 
 				showTheError();

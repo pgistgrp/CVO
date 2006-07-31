@@ -75,6 +75,10 @@ h5	{
 #bar {
 	
 }
+
+#btnNextStep{
+	font-size: 0.8em;
+}
 #bar-content { /*delete? */
 
 }
@@ -105,6 +109,10 @@ h5	{
 #discussion {
 	border: 1px solid #CCCCCC;
 	border-top: 0px solid #fff !important;  
+}
+
+#finished{
+	border: 1px solid #CCCCCC;
 	
 }
 #footer {

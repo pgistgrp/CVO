@@ -171,11 +171,11 @@ WYSIWYG_Editor.prototype._display_editor = function (){
     document.write('      <table width="100%" border="0" cellspacing="0" cellpadding="0">');
     document.write('       <tr>');
     document.write('        <td>');
-    document.write('         <div id="'+this.instance_name+'_toolbars" style="padding-top:5px">');
+    document.write('         <div id="'+this.instance_name+'_toolbars" style="padding-top:5px; position: relative;"><div id="wysiwyg_message" style="position: display:none; absolute; top: 0; right: 0; text-align: right"></div>');
 
         document.write('          <img alt="Bold" title="Bold" class="butClass" src="'+this.wysiwyg_path+'/bold.png" onClick="'+this.instance_name+'.doTextFormat(\'bold\',\'\')">');
         document.write('          <img alt="Italic" title="Italic" class="butClass" src="'+this.wysiwyg_path+'/italic.png" onClick="'+this.instance_name+'.doTextFormat(\'italic\',\'\')">');
-        document.write('          <img alt="Underline" title="Underline" class="butClass" src="'+this.wysiwyg_path+'/underline.png" onClick="'+this.instance_name+'.doTextFormat(\'underline\',\'\')">');
+        //document.write('          <img alt="Underline" title="Underline" class="butClass" src="'+this.wysiwyg_path+'/underline.png" onClick="'+this.instance_name+'.doTextFormat(\'underline\',\'\')">');
 
         document.write('         <img alt="|" src="'+this.wysiwyg_path+'/separator.png">');
 
@@ -186,7 +186,7 @@ WYSIWYG_Editor.prototype._display_editor = function (){
         document.write('          <img alt="Redo" title="Redo" class="butClass" src="'+this.wysiwyg_path+'/redo.gif" onClick="'+this.instance_name+'.doTextFormat(\'redo\',\'\')">');
 
     document.write('         </div>');
-    document.write('        </td><td width="400" id="wysiwyg_message"></td>');
+    document.write('        </td>');
     document.write('       </tr>');
     document.write('      </table>');
 
@@ -199,8 +199,7 @@ WYSIWYG_Editor.prototype._display_editor = function (){
 WYSIWYG_Editor.prototype.setMessage=function(msg){
 	document.getElementById("wysiwyg_message").innerHTML = msg;
 	if(Effect){
-		document.getElementById("wysiwyg_message").style.display = "none";
-		new Effect.Appear('wysiwyg_message', {afterFinish: function(){ new Effect.Fade('wysiwyg_message',{duration: 5});}});
+		new Effect.Appear('wysiwyg_message', {afterFinish: function(){ new Effect.Fade('wysiwyg_message',{duration: 1});}});
 	}
 }
 

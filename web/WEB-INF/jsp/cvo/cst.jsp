@@ -107,6 +107,7 @@
 							currentTheme = data.themes[i];
 							break;
 						}
+															
 				  }
 				}else{
 					alert(data.reason);
@@ -135,7 +136,7 @@
 			CSTAgent.saveSummary({cctId:cctId, themeId:themeId, summary:summaryString}, {
 			callback:function(data){
 				if (data.successful){
-					editor1.setMessage("Summary saved.");	
+					editor1.setMessage("saving summary...<img src='/images/indicator.gif'>");	
 					getThemes ();
 				}else{
 					alert(data.reason);
@@ -190,14 +191,17 @@
 		}
 
 		function relateTag(tagId){
+			$('savingIndicator').style.display = "inline";
 			if(currentCategory == null)return;
 			CSTAgent.relateTag({cctId:cctId, categoryId:currentCategory.dataId, tagId:tagId}, {
 			callback:function(data){
 					if (data.successful){
+						Effect.Fade('savingIndicator');
 						new Effect.Fade('tag' + tagId, {duration: 0.5, afterFinish: function(){getTags(currentCategory.dataId, 0, 1, tagId);getTags(currentCategory.dataId, 0, 0, tagId);}});
 					}
 					if (data.successful != true){
 						alert(data.reason);
+						Effect.Fade('savingIndicator');
 					}
 				},
 			errorHandler:function(errorString, exception){ 
@@ -208,16 +212,17 @@
 
 		
 		function derelateTag(categoryId, tagId){
+			$('savingIndicator').style.display = "inline";
 				CSTAgent.derelateTag({cctId:cctId, categoryId:categoryId, tagId:tagId}, {
 				callback:function(data){
 						if (data.successful){
 									//new Effect.SwitchOff('tag' + tagId);
 									new Effect.Fade('tag'+tagId, {duration: 0.5, afterFinish: function(){getTags(categoryId, 0, 1, tagId);getTags(categoryId, 0, 0, tagId);}});
-
-								 
+									Effect.Fade('savingIndicator');
 						}
 						if (data.successful != true){
 							alert(data.reason);
+							Effect.Fade('savingIndicator');
 						}
 					},
 				errorHandler:function(errorString, exception){ 
@@ -248,7 +253,9 @@
 	}
 	
 	function addcategory(){
+		
 		if(document.getElementById("newcatetext").value != ""){
+			$('savingIndicator').style.display = "inline";
 			var catname = document.getElementById("newcatetext").value;
 			var parentId = (tree1.lastSelected) ? tree1.lastSelected.parentObject.dataId : 0;
 			//alert("new cate: " + catname + "; parent=" + parentId);
@@ -259,15 +266,19 @@
 						data.newId);
 						document.getElementById("newcatetext").value = "";
 						getThemes();
+						Effect.Fade('savingIndicator');
 						/////to do: display a message...
 					}
 					
 					if (data.successful != true){
+						Effect.Fade('savingIndicator');
 						alert(data.reason);
 					}
 				},
 				errorHandler:function(errorString){ alert("oops, exception: " + errorString);}
 			});			
+		}else{
+		alert("Category can't be blank.");
 		}
 	}
 
@@ -277,16 +288,19 @@
 	}
 		
 	function deleteSelectedCategory(){
+		
 		if(tree1.lastSelected!=null){
 			if(confirm("Are you sure you want to delete category \"" + tree1.lastSelected.parentObject.label + "\"")){
+				$('savingIndicator').style.display = "inline";
 				if(tree1.lastSelected.parentObject.parentObject.id == 0)
 					var params = {cctId: cctId, categoryId: tree1.lastSelected.parentObject.dataId};
 				else
 					var params = {cctId: cctId, categoryId: tree1.lastSelected.parentObject.dataId,parentId: tree1.lastSelected.parentObject.parentObject.dataId}
-	
+					
 				CSTAgent.deleteCategory(params, {
 							callback:function(data){
 								if (data.successful){
+									Effect.Fade('savingIndicator');
 									tree1.deleteSelectedItem();
 									new Effect.PhaseOut('col-crud-options');
 									getThemes(); 
@@ -298,12 +312,15 @@
 	}
 
 	function modifySelectedCategory(){
+		
 		var newtext = document.getElementById("selcatetext").value;
 		if(tree1.lastSelected!=null && newtext!=""){
+			$('savingIndicator').style.display = "inline";
 			var params = {cctId: cctId, categoryId: tree1.lastSelected.parentObject.dataId, name:newtext};
 			CSTAgent.editCategory(params, {
 						callback:function(data){
 							if (data.successful){
+								Effect.Fade('savingIndicator');
 								tree1.modifyItemName(tree1.lastSelected.parentObject.dataId, newtext);
 								new Effect.Fade('col-option'); 
 								getThemes();
@@ -312,6 +329,8 @@
 								alert(data.reason);
 						}
 			});
+		}else{
+			alert("Category can't be blank.");	
 		}
 	}
 	
@@ -342,7 +361,11 @@
 			}
 		}
 		
-		if(currentTheme)document.getElementById("ss").disabled = false;
+		if(!currentTheme==null){
+			document.getElementById("ss").disabled = true;
+		}else{
+			document.getElementById("ss").disabled = false;
+		}
 		getTags(clickid, 0, 0,1);
 		getTags(clickid, 0, 1, 1);
 	
@@ -414,6 +437,7 @@
 	}
 	
 	function copyNodeHandler(sourceO, targetO){
+		$('savingIndicator').style.display = "inline";
 		CSTAgent.copyCategory({cctId: cctId, categoryId: sourceO.dataId, parentId: targetO.dataId},{
 			callback:function(data){
 				if (data.successful){
@@ -421,6 +445,7 @@
 					tree1.selectItem(newID);
 					getThemes();
 					return true;
+					Effect.Fade('savingIndicator');
 				}
 				else return false;
 			}
@@ -428,9 +453,11 @@
 	}
 	
 	function duplicateSelectedCategory(){
+		
 		if(tree1.lastSelected!=null){
 			var obj1 = tree1.lastSelected.parentObject;
 			var params = {cctId:cctId,categoryId:obj1.dataId, name:"Similar to "+ obj1.label};
+			$('savingIndicator').style.display = "inline";
 			if(obj1.parentObject.Id!=0)
 				params.parentId = obj1.parentObject.dataId;
 			CSTAgent.duplicateCategory(params, 
@@ -449,9 +476,11 @@
 					}
 					new Effect.Fade('col-option');
 					location.href="#colsTop";
-					
+					Effect.Fade('savingIndicator');
 				}else
+					
 					alert(data.reason);
+					Effect.Fade('savingIndicator');
 			}});
 		}
 	}
@@ -497,6 +526,10 @@
 	<div id="overlay"></div>
 	<div id="lightbox"></div>
 	<!-- END LIGHTBOX -->
+	
+	<!-- Start Moderator Navigation -->
+	
+	<!-- End Moderator Navigation -->
 	<div id="pageTitle">
 		<h1>Moderator Dashboard: </h1><h2>Concerns Synthesis Tool</h2>
 	</div>	
@@ -507,7 +540,7 @@
 				<h3>Overview and Instructions</h3>
 			</div>
 			<div class="cssbox_body">
-				<p>Lorem Ipsum [...]</p>
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Mauris volutpat metus id est. Praesent nunc leo, condimentum quis, feugiat non, aliquam a, urna. Phasellus risus. Integer id diam. Duis a ligula eget massa ultricies pellentesque. Pellentesque est dui, imperdiet id, volutpat et, dignissim et, pede. Praesent lacinia, felis a cursus egestas, dolor lorem semper metus, rutrum egestas pede massa vitae elit. In in arcu. Nam vulputate diam vel diam. Curabitur quis lectus sed nulla mattis pretium. Mauris vitae turpis. Vivamus accumsan sodales sem. Aliquam commodo. Praesent pharetra, lectus in placerat lacinia, ipsum elit accumsan ipsum, vitae dignissim velit ipsum fringilla mauris.</p>
 			</div>
 		</div>
 		<!-- End Overview -->
@@ -528,6 +561,7 @@
 			
 		</div>
 		<div id="col-right">
+				<div id="savingIndicator" style="display: none;">Saving...<img src="/images/indicator.gif"></div>
 				<!--START Tabs -->
 				<div id="bar">
 					<a id="SideConcernsTop" name="SideConcernsTop"></a>
@@ -560,46 +594,45 @@
 			</div>
 			<div id="col-option" style="display: none;"><span class="closeBox"><a href="javascript: new Effect.PhaseIn('col-crud-options'); void(0); new Effect.Fade('col-option'); void(0);">back to all options</a></span>
 				<h4>Editing Options</h4>
-			Rename to: <form name="modifyCategory" action="" method="GET" onsubmit="javascript: modifySelectedCategory(); return false;"><input type="text" style="width: 50%;" id="selcatetext" onkeydown="checkaddcategory(event)"><input type="button" id="btnNewName" value="Modify" onclick="modifySelectedCategory();"></form><br>
+				Rename to: <form name="modifyCategory" action="" method="GET" onsubmit="javascript: modifySelectedCategory(); return false;"><input type="text" style="width: 50%;" id="selcatetext" onkeydown="checkaddcategory(event)"><input type="button" id="btnNewName" value="Modify" onclick="modifySelectedCategory();"></form><br>
 			</div>
 		</div>
 
 		<div id="spacer">
 		</div>
 		
-		<div id="slate" style="border: 0px solid #fff;">  <!-- how do i make this as big as the floating accordian div -->
-<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
-
-			<h3>Step _ - <span id="summaryEditorTitle">Click on the theme name to view/edit.</span></h3>
-<script type="text/javascript">
-dosize();
-doOnLoad();
-getThemes();
-
-    var editor1 = new WYSIWYG_Editor('editor1', 'Please select a theme to begin generating summary.');
-    editor1.display();
-
-</script>				  
-			 <table border="0" cellpadding="0" cellspacing="0" width="100%">
-			 	<tbody><tr>        <td align="right">         
-			 		 <button id="ss" type="button" disabled="true" style="padding: 0pt 1em;" onclick="saveSummary()">Save summery</button>
-			 		 </td>    </tr>   </tbody>
-			 		 </table>	 
+		<div id="wysiwyg" style="padding-bottom: 10px"'> 
+			<h3>Step X - <span id="summaryEditorTitle">Click on the theme name to view/edit.</span></h3>
+		
+			<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->	
+			<script type="text/javascript">
+				dosize();
+				doOnLoad();
+				getThemes();
+				
+				var editor1 = new WYSIWYG_Editor('editor1', 'Please select a theme to begin generating summary.');
+				    editor1.display();
+			
+			</script>				  
+	     		<!-- END Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
+			<div id="frmSaveSummary" style="text-align: right"><button id="ss" type="button" disabled="true" style="padding: 0pt 1em;" onclick="saveSummary()">Save summery</button></div>
 		</div>
-	</div>
-	<!--
-	<div id="footer">
-	Footer and NSF
-	</div>
-		-->
+		
+			 
+		<div id="spacer" style="text-align: right;"></div>
+		
+		<div id="finished">
+			<a name="finished"></a>
+	   		<h3 id="headerFinished">Finished synthesizing concerns?
+	   		<input type="button" id="btnNextStep" class="floatright" value="Publish Concern Themes">	
+	   		</h3>
+	   		<p>blah blah.... Publish concern themes to participants....			</p>
+		</div>
+	
 	<div id="clear">
 	</div>
-	
-
 	<div id="spacer">
 	</div>
-	
-
 </div>
 
 

@@ -20,6 +20,8 @@ body {
 #bar {
 	padding: 0em;
 }
+
+
 #caughtException {
 	padding: 5px;
 	width: 90%;
@@ -56,6 +58,7 @@ body {
 	width: 35%;
 	float: right;	
 	height: 100%;
+	position: relative;
 }
 #cont-resize {
 	min-height: 400px;
@@ -90,6 +93,7 @@ body {
 	padding-top: 0px;
 	
 }
+
 #footer {
 	padding: .4em;
 }
@@ -231,6 +235,12 @@ body {
 	margin: auto;
 	width: 95%;
 }
+
+#savingIndicator{
+	position: absolute;
+	right:0;
+	top:0;
+}
 #searchbox {
 	text-align: right;
 	margin-bottom: 10px;
@@ -250,7 +260,7 @@ body {
 }
 
 #sidebarSearchResults{
-	top: 20px; 
+	
 }
 #slate {
 	margin-bottom: 1em;
@@ -320,6 +330,11 @@ input.search {
 	padding-right: 5px;
 	font-size: 10px;}
 
+ .floatright{
+float: right;
+margin: 0 0 10px 10px;
+padding: 2px;}
+
 /* SpiffyBox CSS */
 /* set the image to use and establish the lower-right position */ 
 .cssbox, .cssbox_body, .cssbox_head, .cssbox_head h3{ 
@@ -350,3 +365,4 @@ input.search {
 	padding: 0px 0px 0px 14px;
 }
 /* End SpiffyBox CSS */
+
