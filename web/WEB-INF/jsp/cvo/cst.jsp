@@ -181,8 +181,11 @@
 						document.getElementById('col').innerHTML = '<h4>Tags within ' + currentCategory.label + '</h4>';
 						document.getElementById('col').innerHTML += data.html;
 						
+						
+						
 						if (data.tags.length > 0){
-							$('col').innerHTML += '<a href="javascript:getConcernsByTags();">Show concerns with the above tags</a>';
+							getConcernsByTags(0);
+							$('col').innerHTML += '<a href="javascript:getConcernsByTags(1); new Effect.Highlight(\'sidebar_concerns\'); void(0);">Show concerns with the above tags</a>';
 						}
 						
 					}
@@ -243,14 +246,16 @@
 				});
 		}		
 			
-		function getConcernsByTags(){
+		function getConcernsByTags(visibility){
 			//eventually make  paginated
-			alert(relatedTagsArr);
-				CSTAgent.getConcernsByTags({cctId:cctId, page: 1, count: -1, tags: relatedTagsArr}, {
+				CSTAgent.getConcernsByTags({cctId:cctId, page: 1, count: -1}, relatedTagsArr, {
 				callback:function(data){
 						if (data.successful){
-							
-							$('myTab').tabber.tabShow(1);
+							if (visibility == 1){	
+								$('myTab').tabber.tabShow(1);
+							}else{
+								$('myTab').tabber.tabShow(0);
+							}
 							$('sidebar_concerns').innerHTML = data.html;
 						}
 						if (data.successful != true){
@@ -400,7 +405,7 @@
 		}
 		getTags(clickid, 0, 0,1);
 		getTags(clickid, 0, 1, 1);
-	
+		
 		if ($('col-crud-options').style.display == 'none'){
 		new Effect.PhaseIn('col-crud-options'); 
 	}else{
@@ -408,6 +413,7 @@
 	}
 		new Effect.Fade('col-option');
 		//location.href="#colsTop";
+		
 	}
 	
 	function unselectall(mode){
