@@ -14,10 +14,10 @@ import org.pgist.util.PageSetting;
 public interface SDService {
     
     
-    InfoStructure getInfoStructureById(Long id) throws Exception;
+    InfoStructure getInfoStructureById(Long isid) throws Exception;
     
     
-    InfoObject getInfoObjectById(Long isid) throws Exception;
+    InfoObject getInfoObjectById(Long ioid) throws Exception;
 
 
     DiscussionPost getPostById(Long postid) throws Exception;
@@ -27,6 +27,9 @@ public interface SDService {
     
     
     Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception;
+
+
+    void createPost(String className, Long targetId, String content) throws Exception;
 
 
     //temp

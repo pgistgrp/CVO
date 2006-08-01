@@ -27,13 +27,13 @@ public class SDServiceImpl implements SDService {
      */
     
     
-    public InfoStructure getInfoStructureById(Long id) throws Exception {
-        return (InfoStructure) discussionDAO.load(InfoStructure.class, id);
+    public InfoStructure getInfoStructureById(Long isid) throws Exception {
+        return (InfoStructure) discussionDAO.load(InfoStructure.class, isid);
     }//getInfoStructureById()
 
 
-    public InfoObject getInfoObjectById(Long isid) throws Exception {
-        return (InfoObject) discussionDAO.load(InfoObject.class, isid);
+    public InfoObject getInfoObjectById(Long ioid) throws Exception {
+        return (InfoObject) discussionDAO.load(InfoObject.class, ioid);
     }//getInfoObjectById()
     
     
@@ -69,6 +69,14 @@ public class SDServiceImpl implements SDService {
     public Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception {
         return discussionDAO.getReplies(post, setting);
     }//getReplies()
+
+
+    public void createPost(String className, Long targetId, String content) throws Exception {
+        Discussion discussion = discussionDAO.getDiscussion(className, targetId);
+        if (discussion==null) throw new Exception("can't find this discussion.");
+        
+        discussionDAO.createPost(discussion, content);
+    }//createPost()
 
 
     //temp
