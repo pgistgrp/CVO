@@ -166,16 +166,28 @@
 		function tabberSwitch(tab){
 			$('myTab').tabber.tabShow(tab);
 		}
-
+		var relatedTagsArr = [];
 		function getTags(categoryId, page, type, orphanpage){
 			CSTAgent.getTags({cctId:cctId, categoryId:categoryId, page:page, type: type, orphanPage:orphanpage}, {
 			callback:function(data){
 				if (data.successful){
-					if (type == 0){
+					if (type == 0){			
+						
+						relatedTagsArr = [];
+					    for(i=0; i<data.tags.length; i++){
+							relatedTagsArr.push(data.tags[i].id);
+					    }
+						
 						document.getElementById('col').innerHTML = '<h4>Tags within ' + currentCategory.label + '</h4>';
 						document.getElementById('col').innerHTML += data.html;
+						
+						if (data.tags.length > 0){
+							$('col').innerHTML += '<a href="javascript:getConcernsByTags();">Show concerns with the above tags</a>';
+						}
+						
 					}
 					if (type == 1){
+
 						////todo: get rid of the first line, check the jsp template
 						$('sidebar_tags').innerHTML = '<h4>Tags not in ' + currentCategory.label + '</h4>';
 						$('sidebar_tags').innerHTML += data.html;
@@ -230,6 +242,26 @@
 				}
 				});
 		}		
+			
+		function getConcernsByTags(){
+			//eventually make  paginated
+			alert(relatedTagsArr);
+				CSTAgent.getConcernsByTags({cctId:cctId, page: 1, count: -1, tags: relatedTagsArr}, {
+				callback:function(data){
+						if (data.successful){
+							
+							$('myTab').tabber.tabShow(1);
+							$('sidebar_concerns').innerHTML = data.html;
+						}
+						if (data.successful != true){
+							alert(data.reason);
+						}
+					},
+				errorHandler:function(errorString, exception){ 
+						showTheError();
+				}
+				});
+		}
 		
 		function getConcerns(tagId, page){
 				CSTAgent.getConcerns({cctId:cctId, tagId: tagId, page: page}, {

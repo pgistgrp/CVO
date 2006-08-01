@@ -7,6 +7,3 @@
 	<li id="tag${tag.id}" style="list-style: none;"><a href="javascript:getConcerns(${tag.id});">${tag.tag.name}</a>&nbsp;[<a href="javascript:derelateTag(${catRef.id}, ${tag.id});">&rarr;</a>]</li>
 </logic:iterate>
 </ul>
-
-<!-- show if tags length > 0 -->
-<a href="">Show concerns with the above tags</a>
