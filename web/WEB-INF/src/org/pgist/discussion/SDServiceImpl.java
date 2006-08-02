@@ -42,6 +42,11 @@ public class SDServiceImpl implements SDService {
     }//getPostById()
 
 
+    public Discussion getDiscussionById(Long did) throws Exception {
+        return (Discussion) discussionDAO.getDiscussion(Discussion.class, did);
+    }//getDiscussionById()
+
+
     public Collection getInfoStructures() throws Exception {
         return discussionDAO.getInfoStructures();
     }//getInfoStructures()
@@ -77,6 +82,22 @@ public class SDServiceImpl implements SDService {
         
         discussionDAO.createPost(discussion, content);
     }//createPost()
+
+
+    public void createReply(DiscussionPost parent, DiscussionPost quote, String content) throws Exception {
+        discussionDAO.createReply(parent, quote, content);
+    }//createReply()
+
+
+    public void deletePost(DiscussionPost post) throws Exception {
+        post.setDeleted(true);
+    }//deletePost()
+
+
+    public void editPost(DiscussionPost post, String content) throws Exception {
+        post.setContent(content);
+        discussionDAO.save(post);
+    }//editPost()
 
 
     //temp

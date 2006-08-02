@@ -21,6 +21,9 @@ public interface DiscussionDAO extends BaseDAO {
     Discussion getDiscussion(String targetType, Long targetId) throws Exception;
     
     
+    DiscussionPost getPostById(Long id) throws Exception;
+    
+    
     Collection getPosts(Discussion discussion) throws Exception;
     
     
@@ -48,9 +51,6 @@ public interface DiscussionDAO extends BaseDAO {
     DiscussionPost createReply(DiscussionPost post, DiscussionPost quote, String content) throws Exception;
 
 
-    DiscussionPost getPostById(Long id) throws Exception;
-    
-    
     void deleteDiscussion(Discussion discussion) throws Exception;
     
     

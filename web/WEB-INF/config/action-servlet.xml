@@ -68,6 +68,11 @@
     </bean>
     
     
+    <bean name="/sdThread" class="org.pgist.discussion.SDThreadAction">
+        <property name="sdService" ref="sdService"/>
+    </bean>
+    
+    
     <bean name="/sdcview" class="org.pgist.cvo.SDCViewAction">
         <property name="cctService" ref="cctService"/>
     </bean>

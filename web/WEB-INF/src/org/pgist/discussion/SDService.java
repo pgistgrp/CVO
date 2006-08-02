@@ -20,6 +20,9 @@ public interface SDService {
     InfoObject getInfoObjectById(Long ioid) throws Exception;
 
 
+    Discussion getDiscussionById(Long did) throws Exception;
+
+
     DiscussionPost getPostById(Long postid) throws Exception;
 
 
@@ -30,6 +33,15 @@ public interface SDService {
 
 
     void createPost(String className, Long targetId, String content) throws Exception;
+
+
+    void createReply(DiscussionPost parent, DiscussionPost quote, String content) throws Exception;
+
+
+    void deletePost(DiscussionPost post) throws Exception;
+
+
+    void editPost(DiscussionPost post, String content) throws Exception;
 
 
     //temp

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
 import org.pgist.util.PageSetting;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -129,7 +130,7 @@ public class SDAgent {
     /**
      * Get second level discussion (replies) with the given conditions
      * 
-     * @param params params A map contains:
+     * @param params A map contains:
      *   <ul>
      *     <li>isid - int, id of a InfoStructure object</li>
      *     <li>ioid - int, id of a InfoObject object. Optional, default value is null, means the discussion is on InfoStructure object</li>
@@ -234,7 +235,7 @@ public class SDAgent {
     /**
      * Get the discussion targets view
      * 
-     * @param params params params A map contains:
+     * @param params A map contains:
      *   <ul>
      *     <li>isid - int, id of a InfoStructure object</li>
      *   </ul>
@@ -290,7 +291,7 @@ public class SDAgent {
     /**
      * Create a new Post to the given target
      * 
-     * @param params params params params A map contains:
+     * @param params A map contains:
      *   <ul>
      *     <li>isid - int, id of a InfoStructure object</li>
      *     <li>target - string, ["structure" | "object"]. Optional, default is "structure"</li>
@@ -355,11 +356,74 @@ public class SDAgent {
     }//createPost()
     
     
+    /**
+     * Create a new reply to a discussion.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>isid - int, id of a InfoStructure object</li>
+     *     <li>pid - int, id of the parent DiscussionPost object</li>
+     *     <li>qid - int, id of the quoted DiscussionPost object. Optional, default is null, means no quote.</li>
+     *     <li>content - string, content of the post</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
     public Map createReply(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
+        String content = (String) params.get("content");
+        if (content==null || "".equals(content)) {
+            map.put("reason", "content can't be empty.");
+            return map;
+        }
+        
+        Long isid = null;
+        InfoStructure structure = null;
+        
+        Long pid = null;
+        DiscussionPost parent = null;
+        
+        Long qid = null;
+        DiscussionPost quote = null;
+        
         try {
+            isid = new Long((String) params.get("isid"));
+            if (isid==null) {
+                map.put("reason", "no such InfoStructure object");
+                return map;
+            }
+            
+            structure = sdService.getInfoStructureById(isid);
+            if (structure==null) {
+                map.put("reason", "no such InfoStructure object");
+                return map;
+            }
+            
+            pid = new Long((String) params.get("pid"));
+            if (pid==null) {
+                map.put("reason", "no such DiscussionPost object");
+                return map;
+            }
+            
+            parent = sdService.getPostById(pid);
+            if (parent==null) {
+                map.put("reason", "no such DiscussionPost object");
+                return map;
+            }
+            
+            qid = new Long((String) params.get("qid"));
+            if (qid!=null) {
+                quote = sdService.getPostById(qid);
+            }
+            
+            sdService.createReply(parent, quote, content);
+            
             map.put("successful", true);
         } catch (Exception e) {
             map.put("reason", e.getMessage());
@@ -370,11 +434,46 @@ public class SDAgent {
     }//createReply()
     
     
+    /**
+     * Delete the given DiscussionPost object.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>pid - int, id of the DiscussionPost object</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
     public Map deletePost(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
+        Long pid = null;
+        DiscussionPost post = null;
+        
         try {
+            pid = new Long((String) params.get("pid"));
+            if (pid==null) {
+                map.put("reason", "no such DiscussionPost object");
+                return map;
+            }
+            
+            post = sdService.getPostById(pid);
+            if (post==null) {
+                map.put("reason", "no such DiscussionPost object");
+                return map;
+            }
+            
+            if (post.getOwner().getId()==WebUtils.currentUserId()) {
+                sdService.deletePost(post);
+            } else {
+                map.put("reason", "You are not the owner of this Discussion Post");
+            }
+            
             map.put("successful", true);
         } catch (Exception e) {
             map.put("reason", e.getMessage());
@@ -385,26 +484,53 @@ public class SDAgent {
     }//deletePost()
     
     
-    public Map deleteReply(Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        try {
-            map.put("successful", true);
-        } catch (Exception e) {
-            map.put("reason", e.getMessage());
-            return map;
-        }
-        
-        return map;
-    }//deleteReply()
-    
-    
+    /**
+     * Edit the content of the given Discussion Post object.
+     * 
+     * @param params params A map contains:
+     *   <ul>
+     *     <li>pid - int, id of the DiscussionPost object</li>
+     *     <li>content - string, content of the post</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
     public Map editPost(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
+        String content = (String) params.get("content");
+        if (content==null || "".equals(content)) {
+            map.put("reason", "content can't be empty.");
+            return map;
+        }
+        
+        Long pid = null;
+        DiscussionPost post = null;
+        
         try {
+            pid = new Long((String) params.get("pid"));
+            if (pid==null) {
+                map.put("reason", "no such DiscussionPost object");
+                return map;
+            }
+            
+            post = sdService.getPostById(pid);
+            if (post==null) {
+                map.put("reason", "no such DiscussionPost object");
+                return map;
+            }
+            
+            if (post.getOwner().getId()==WebUtils.currentUserId()) {
+                sdService.editPost(post, content);
+            } else {
+                map.put("reason", "You are not the owner of this Discussion Post");
+            }
+            
             map.put("successful", true);
         } catch (Exception e) {
             map.put("reason", e.getMessage());
