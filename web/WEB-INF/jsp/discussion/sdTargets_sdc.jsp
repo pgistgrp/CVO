@@ -4,8 +4,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 
 
-
-<logic:iterate id="infoObject" name="structure.infoObjects">
+<logic:iterate id="infoObject" property="infoObjects" name="structure">
 		<p>${infoObject.id}</p>
 </logic:iterate>
 

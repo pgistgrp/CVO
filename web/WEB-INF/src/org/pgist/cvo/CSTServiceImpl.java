@@ -565,9 +565,15 @@ public class CSTServiceImpl implements CSTService {
         info.setType("sdc");
         
         for (CategoryReference ref : (Set<CategoryReference>) cct.getRootCategory().getChildren()) {
-            Theme theme = ref.getTheme();
+            ref.getCategory();
+            ref.getCct();
+            ref.getChildren();
+            ref.getParents();
+            ref.getTags();
+            ref.getTheme();
+            
             InfoObject obj = new InfoObject();
-            obj.setObject(theme);
+            obj.setObject(ref);
             
             info.getInfoObjects().add(obj);
         }//for
