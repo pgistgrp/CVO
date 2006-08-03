@@ -25,11 +25,6 @@ public class SDAgent {
     private SDService sdService;
     
     
-    public SDService getSdService() {
-        return sdService;
-    }
-    
-    
     public void setSdService(SDService sdService) {
         this.sdService = sdService;
     }

@@ -137,6 +137,11 @@
       <param name="beanName" value="sdAgent"/>
       <include method="getPosts"/>
       <include method="getReplies"/>
+      <include method="getTargets"/>
+      <include method="createPost"/>
+      <include method="createReply"/>
+      <include method="editPost"/>
+      <include method="deletePost"/>
     </create>
 
 
