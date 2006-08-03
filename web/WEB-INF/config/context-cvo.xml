@@ -54,6 +54,7 @@
                 <property name="cctDAO" ref="cctDAO"/>
                 <property name="cstDAO" ref="cstDAO"/>
                 <property name="tagDAO" ref="tagDAO"/>
+                <property name="discussionDAO" ref="discussionDAO"/>
             </bean>
         </property>
     </bean>

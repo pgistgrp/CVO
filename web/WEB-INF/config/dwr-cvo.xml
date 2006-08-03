@@ -91,6 +91,7 @@
       <include method="getThemes"/>
       <include method="getThemeByCatRef"/>
       <include method="saveSummary"/>
+      <include method="publish"/>
     </create>
 
 

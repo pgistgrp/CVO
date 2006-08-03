@@ -51,4 +51,9 @@ public interface CSTService {
     List getThemes(CCT cct) throws Exception;
 
     
+    //temp
+    
+    void publish(Long cctId) throws Exception;
+
+    
 }//interface CSTService

@@ -103,6 +103,7 @@
           <prop key="copy*">PROPAGATION_REQUIRED</prop>
           <prop key="duplicate*">PROPAGATION_REQUIRED</prop>
           <prop key="move*">PROPAGATION_REQUIRED</prop>
+          <prop key="publish*">PROPAGATION_REQUIRED</prop>
         </props>
       </property>
     </bean>

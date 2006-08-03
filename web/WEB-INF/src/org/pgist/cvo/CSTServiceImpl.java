@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.pgist.discussion.DiscussionDAO;
+import org.pgist.discussion.InfoObject;
+import org.pgist.discussion.InfoStructure;
 import org.pgist.system.UserDAO;
 import org.pgist.util.PageSetting;
 
@@ -21,11 +24,13 @@ public class CSTServiceImpl implements CSTService {
     
     private CCTDAO cctDAO = null;
 
-    private CSTDAO cstDAO;
+    private CSTDAO cstDAO = null;
     
     private TagDAO tagDAO = null;
 
     private UserDAO userDAO = null;
+    
+    private DiscussionDAO discussionDAO = null;
 
     
     public void setCstDAO(CSTDAO cstDAO) {
@@ -45,6 +50,11 @@ public class CSTServiceImpl implements CSTService {
 
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
+    }
+
+
+    public void setDiscussionDAO(DiscussionDAO discussionDAO) {
+        this.discussionDAO = discussionDAO;
     }
 
 
@@ -541,6 +551,29 @@ public class CSTServiceImpl implements CSTService {
         
         return themes;
     }//getThemes()
+
+
+    /*
+     * temp
+     */
+    
+    
+    public void publish(Long cctId) throws Exception {
+        CCT cct = cctDAO.getCCTById(cctId);
+        
+        InfoStructure info = new InfoStructure();
+        info.setType("sdc");
+        
+        for (CategoryReference ref : (Set<CategoryReference>) cct.getRootCategory().getChildren()) {
+            Theme theme = ref.getTheme();
+            InfoObject obj = new InfoObject();
+            obj.setObject(theme);
+            
+            info.getInfoObjects().add(obj);
+        }//for
+        
+        discussionDAO.save(info);
+    }//publish()
 
 
 }//class CSTServiceImpl

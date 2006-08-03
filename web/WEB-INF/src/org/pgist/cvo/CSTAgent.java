@@ -10,6 +10,9 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
+import org.pgist.discussion.InfoObject;
+import org.pgist.discussion.InfoStructure;
+import org.pgist.discussion.SDService;
 import org.pgist.util.PageSetting;
 
 
@@ -29,7 +32,7 @@ public class CSTAgent {
     private CCTService cctService = null;
     
     private CSTService cstService = null;
-
+    
 
     /**
      * This is not an AJAX service method.
@@ -942,6 +945,42 @@ public class CSTAgent {
         
         return map;
     }//saveSummary()
+    
+    
+    /**
+     * Temporarily publish the themes. If the themes are already published, they will be updated.<br>
+     * 
+     * Later this functionality should be done by workflow engine.
+     * 
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>cctId - int, the current CCT instance id</li>
+     *         </ul>
+     *         
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
+    public Map publish(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long cctId = new Long((String) params.get("cctId"));
+            
+            cstService.publish(cctId);
+            
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//publish()
     
     
 }//class CSTAgent
