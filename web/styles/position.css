@@ -121,17 +121,24 @@ body {
 	width: 100%;
 	height: 15px;
 }
+#header_cat {
+	margin: auto;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	padding-top: 5px;
+	padding-bottom: 0px;
+	width: 85%;
+}
 #header_discussion{
-	border-left: 1px solid #ccc;
-	border-right: 1px solid #ccc;
 	background: #fff;
 	margin: auto;
 	margin-left: auto;
 	margin-right: auto;
 	padding: 10px;
 	padding-top: 5px;
+	padding-bottom: 0px;
 	width: 85%;
-
 }
 #header_object{
 	margin: auto;
@@ -139,9 +146,12 @@ body {
 	margin-right: auto;
 	padding: 10px;
 	padding-top: 5px;
+	padding-bottom: 3px;
 	width: 90%;
 	}
-	
+#header_title {
+	float: left;
+}
 #lightbox{
 	display:none;
 	position: absolute;
@@ -192,8 +202,50 @@ body {
 	height: 51%;
 	overflow: auto;
 	padding: 10px;
-	padding-top: 0px;
+	padding-top: 3px;
 }
+#object_column {
+	margin-left: auto;
+	margin-right: auto;
+}
+#object_column ul {
+	margin: 0 0 1em 0em;
+	padding: 0;
+}
+#object_column ul li {
+	/* Stipulate the height of each item so that 
+	vertical return = items * height */
+	font-size: .85em;
+	line-height: 2em;
+
+	/* Clear the default margins & padding 
+	so we can style the list from scratch */
+	margin: 0;
+	padding: 0;
+}
+#object_column ul li{
+	display: block;
+	width: 15em;
+}
+#object_column_left{
+	float: left;
+	width: 27%;
+	
+}
+#object_column_center{
+	float: left;
+	width: 33%;
+	margin-left: 3px;
+	margin-right: 3px;
+}
+#object_column_right{
+	float: left;
+	width: 29%;
+}
+#object_question {
+	margin-left: 2em;
+}
+
 
 #overlay{
 	display:none;
@@ -291,6 +343,17 @@ body {
 	right: 0;
 	z-index: 1;
 }
+#themeSelector {
+	float: right;
+}
+#themeSelector form {
+	margin:0px;
+	display: inline;
+}
+#themeSelector label {
+	font-size: .8em;
+	color: #999999;
+}
 #themesummary {
 	margin-bottom: 1em;
 	padding: .4em;
@@ -299,7 +362,6 @@ body {
 #toggle{
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;
-	background: #eee;
 	margin: auto; 	
 	width: 85%;
 	text-align: center;
@@ -309,17 +371,8 @@ body {
 
 /* Classes */
 
-.imgright {
-	float: right;
-	margin-left: 10px;
-}
-input.search {
-	height: 16px;
-	width: 120px;
-}
-/*Maybe Delete this */
-.scroller {
-	overflow: auto;
+.clear {
+	clear: both;
 }
 
 .closeBox{
@@ -334,6 +387,43 @@ input.search {
 float: right;
 margin: 0 0 10px 10px;
 padding: 2px;}
+
+.header_cat_title {
+	float: left;
+	width: 50%;
+}
+.header_cat_replies {
+	float: left;
+	width: 15%;
+}
+.header_cat_author {
+	float: left;
+	width: 15%;
+}
+.header_cat_lastpost {
+	float: left;
+	width: 15%;
+}
+
+.imgright {
+	float: right;
+	margin-left: 10px;
+}
+input.search {
+	height: 16px;
+	width: 120px;
+}
+.scroller {
+	overflow: auto;
+}
+.slateBox{
+	margin-top: 10px;
+	padding: 5px;
+}
+.sidepadding {
+	padding-left: 10px;
+	/*padding-right: 10px;*/
+}
 
 /* SpiffyBox CSS */
 /* set the image to use and establish the lower-right position */ 

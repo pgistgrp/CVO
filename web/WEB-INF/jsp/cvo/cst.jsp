@@ -284,6 +284,39 @@
 				}
 				});
 		}
+		
+				function getConcerns(tagId, page){
+				CSTAgent.getConcerns({cctId:cctId, tagId: tagId, page: page}, {
+				callback:function(data){
+						if (data.successful){
+							$('myTab').tabber.tabShow(1);
+							$('sidebar_concerns').innerHTML = data.html;
+						}
+						if (data.successful != true){
+							alert(data.reason);
+						}
+					},
+				errorHandler:function(errorString, exception){ 
+						showTheError();
+				}
+				});
+		}
+		
+		function publish(){
+				CSTAgent.publish({cctId:cctId}, {
+				callback:function(data){
+						if (data.successful){
+							alert("Good work Zhong!");
+						}
+						if (data.successful != true){
+							alert("Back to debugging Zhong" + data.reason);
+						}
+					},
+				errorHandler:function(errorString, exception){ 
+						showTheError();
+				}
+				});
+		}
 	//--------------------------------------
 	function checkaddcategory(e){
 		if(e.keyCode == 13)addcategory();
@@ -662,7 +695,7 @@
 		<div id="finished">
 			<a name="finished"></a>
 	   		<h3 id="headerFinished">Finished synthesizing concerns?
-	   		<input type="button" id="btnNextStep" class="floatright" value="Publish Concern Themes">	
+	   		<input type="button" id="btnNextStep" class="floatright" onclick="publish();" value="Publish Concern Themes">	
 	   		</h3>
 	   		<p>blah blah.... Publish concern themes to participants....			</p>
 		</div>
