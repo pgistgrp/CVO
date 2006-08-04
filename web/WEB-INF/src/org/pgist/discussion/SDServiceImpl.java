@@ -81,7 +81,15 @@ public class SDServiceImpl implements SDService {
 
     public void createPost(String className, Long targetId, String content) throws Exception {
         Discussion discussion = discussionDAO.getDiscussion(className, targetId);
-        if (discussion==null) throw new Exception("can't find this discussion.");
+        
+        if (discussion==null) {
+            discussion = new Discussion();
+            discussion.setDeleted(false);
+            discussion.setTargetId(targetId);
+            discussion.setTargetType(className);
+            
+            discussionDAO.save(discussion);
+        }
         
         discussionDAO.createPost(discussion, content);
     }//createPost()
