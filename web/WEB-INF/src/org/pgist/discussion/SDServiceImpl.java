@@ -1,5 +1,6 @@
 package org.pgist.discussion;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.pgist.cvo.CategoryReference;
@@ -66,6 +67,8 @@ public class SDServiceImpl implements SDService {
              */
             discussion = discussionDAO.getDiscussion(InfoObject.class, infoObj.getId());
         }
+        
+        if (discussion==null) return new ArrayList();
         
         return discussionDAO.getPosts(discussion, setting);
     }//getPosts()
