@@ -142,6 +142,7 @@
       <include method="createReply"/>
       <include method="editPost"/>
       <include method="deletePost"/>
+      <include method="getSummary"/>
     </create>
 
 
