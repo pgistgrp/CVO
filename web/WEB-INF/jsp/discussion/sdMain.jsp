@@ -55,10 +55,10 @@
 				SDAgent.getTargets({isid:${structure.id}}, {
 				callback:function(data){
 						if (data.successful){
-							$('object_column').innerHTML = data.html;
-							alert(register);
-							register('object_column');
-							
+							$('object_column').innerHTML = data.source.html;
+              alert(data.source.html);
+              alert(data.source.script);
+              eval(data.source.script);
 						}else{
 							alert(data.reason);
 						}

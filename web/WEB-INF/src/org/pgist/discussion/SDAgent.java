@@ -7,7 +7,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
+import org.pgist.tags.FragmentTag;
 import org.pgist.util.PageSetting;
+import org.pgist.util.PageSource;
 import org.pgist.util.WebUtils;
 
 
@@ -274,7 +276,16 @@ public class SDAgent {
             
             request.setAttribute("structure", structure);
             
-            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/discussion/sdTargets_"+structure.getType()+".jsp"));
+            PageSource source = new PageSource();
+            map.put("source", source);
+            
+            String file = "/WEB-INF/jsp/discussion/sdTargets_"+structure.getType()+".jsp";
+            
+            request.setAttribute(FragmentTag.FRAGMENT_TYPE, FragmentTag.HTML);
+            source.setHtml(WebContextFactory.get().forwardToString(file));
+            
+            request.setAttribute(FragmentTag.FRAGMENT_TYPE, FragmentTag.SCRIPT);
+            source.setScript(WebContextFactory.get().forwardToString(file));
             
             map.put("structure", structure);
             
@@ -588,7 +599,14 @@ public class SDAgent {
             if (type==null || "".equals(type) || "asHTML".equals(type)) {
                 request.setAttribute("infoObject", infoObject);
                 
-                map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/discussion/sdcSummary.jsp"));
+                PageSource source = new PageSource();
+                map.put("source", source);
+                
+                request.setAttribute(FragmentTag.FRAGMENT_TYPE, FragmentTag.HTML);
+                source.setHtml(WebContextFactory.get().forwardToString("/WEB-INF/jsp/discussion/sdcSummary.jsp"));
+                
+                request.setAttribute(FragmentTag.FRAGMENT_TYPE, FragmentTag.SCRIPT);
+                source.setScript(WebContextFactory.get().forwardToString("/WEB-INF/jsp/discussion/sdcSummary.jsp"));
             } else if ("asObject".equals(type)) {
                 map.put("infoObject", infoObject);
             } else {

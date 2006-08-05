@@ -307,6 +307,18 @@
     </attribute>
   </tag>
 
+  <tag>
+    <name>fragment</name>
+    <tag-class>org.pgist.tags.FragmentTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>render diffrent parts in jsp file</description>
+    <attribute>
+      <name>type</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+  
 
 </taglib>
 
