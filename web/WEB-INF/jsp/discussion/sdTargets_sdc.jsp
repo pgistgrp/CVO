@@ -6,7 +6,7 @@
 <pg:fragment type="html">
   <ul>
     <logic:iterate id="infoObject" property="infoObjects" name="structure">
-        <li><a href="javascript: infoStructure.getTargetPanes(${infoObject.object.id})';">${infoObject.object.theme.title}</a></li>
+        <li><a href="javascript: infoStructure.getTargetPanes(${infoObject.object.id});">${infoObject.object.theme.title}</a></li>
     </logic:iterate>
   </ul>
 </pg:fragment>
@@ -16,7 +16,7 @@
     SDAgent.getSummary({ioid:ioid}, {
       callback:function(data){
           if (data.successful){
-            $(targetDivId).innerHTML = data.html;
+            $('object_column').innerHTML = data.source.html;
           }else{
             alert(data.reason);
           }
