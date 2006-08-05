@@ -129,6 +129,7 @@ body {
 	padding-top: 5px;
 	padding-bottom: 0px;
 	width: 85%;
+	position: relative;
 }
 #header_discussion{
 	background: #fff;
@@ -139,6 +140,7 @@ body {
 	padding-top: 5px;
 	padding-bottom: 0px;
 	width: 85%;
+	position: relative;
 }
 #header_object{
 	margin: auto;
@@ -149,6 +151,10 @@ body {
 	padding-bottom: 3px;
 	width: 90%;
 	}
+
+#header_newDiscussion{
+	position: relative;
+}
 #header_title {
 	float: left;
 }
@@ -186,6 +192,13 @@ body {
 #manualFilter{
 	text-align: right;
 	position: relative;
+}
+#newDiscussion{
+	width: 80%;
+	 margin: auto;
+	 position: absolute;
+	 z-index: 120;
+	 padding: 5px;
 }
 
 #next{

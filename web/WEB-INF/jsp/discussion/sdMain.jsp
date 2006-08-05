@@ -42,29 +42,54 @@
 
 <script type="text/javascript">
 	//Start Global Variables
-	 var isid = ${structure.id};
-	//End Global Variables
-	
-	
-	function doOnLoad(){
-		getTargets();
-	}
-	
-	function getTargets(){
-				SDAgent.getTargets({isid:isid}, {
+     //var isid = ${structure.id};
+	 var targetObject = null;
+	 var infoStructure = {
+	 	 isid: ${structure.id},
+	 	 type: "${structure.type}",
+	 	 instructions: "These are the instructions for blah blah",
+	 	 data: null,
+	 	 
+	 	 
+	 	 getTargets: function(){
+				SDAgent.getTargets({isid:${structure.id}}, {
 				callback:function(data){
 						if (data.successful){
 							$('object_column').innerHTML = data.html;
-						}
-						if (data.successful != true){
+							alert(register);
+							register('object_column');
+							
+						}else{
 							alert(data.reason);
 						}
 					},
 				errorHandler:function(errorString, exception){ 
-						showTheError();
+						alert("get targets error:" + errorString + exception);
+				}
+				});
+			},
+	 	};
+	//End Global Variables
+	
+			
+		function getPosts(ioid){
+			
+				SDAgent.getPosts({isid:isid, ioid:ioid}, {
+				callback:function(data){
+						if (data.successful){
+							$('discussion').innerHTML = data.html;
+						}
+						if (data.successful != true){
+							alert("error:" + data.reason);
+						}
+					},
+				errorHandler:function(errorString, exception){ 
+						alert(errorString + exception);
 				}
 				});
 		}
+		//$('object_column').innerHTML = '<ul>';
+
 </script>
 </head>
 
@@ -115,13 +140,9 @@
 		<form id="ThemeSelector" name="ThemeSelector" method="post" action="">
 		  <label>
 		  Jump To:
-		  <select name="selecttheme">
-		  
-		    <option>Select a Theme</option>
-		    <option>Theme A</option>
-		    <option>Theme B</option>
-		    <option>Theme C</option>
-	        </select>
+		  <select name="selecttheme" id="selecttheme" onchange="getTargetPanes(this.value);">		  
+		    <option value = "-1">Select a Theme</option>
+	      </select>
 		  </label>
 		  </form>
 		  </div>
@@ -163,8 +184,17 @@
 		</div>
 		<div id="toggle"><a href="javascript:moreObject();"><img src="images/slideDown.gif" alt="More Discussion Space!" width="82" height="9" border="0"></a></div>
 		<div id="header_discussion" class="allBlue">
+			<div id="newDiscussion" class="greenBB" style="display: none;">
+				<div id="header_newDiscussion" class="allGreen"><h3 style="display: inline;">New Discussion</h3><span id="closeNewDiscussion" class="closeBox"><a href="javascript:new Effect.toggle('newDiscussion', 'blind', {duration: 0.5}); void(0);">Close</a></span></div>
+				<p><strong>SDC New Discussion Title</strong><p>SDC New Discussion Paragraph</p></p>
+				<p><label>Post Title</label><br><input type="text" /></p>
+				<p><label>Your Thoughts</label><br><textarea></textarea></p>
+				<p><label>Tag your post (comma separated)</label><br><input type="text" /></p>
+				<input type="button" value="Create Discussion">
+			</div>
 			<div class="sidepadding">
 		  <h4>Discussion about All Concern Themes</h4>
+		  <span id="btnNewDiscussion" class="closeBox"><a href="javascript:new Effect.toggle('newDiscussion', 'blind', {duration: 0.5}); void(0);">New Discussion</a></span>
 		  Feel like a theme is missing from the above list? Have a question about the summary process? Discuss here.
 		  	</div>
 		</div>
@@ -289,7 +319,7 @@
 <!-- End Footer -->
 <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 <script type="text/javascript">
-	doOnLoad();
+	infoStructure.getTargets();
 	dosize();
 </script>
 

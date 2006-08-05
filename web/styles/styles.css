@@ -161,6 +161,10 @@ h5	{
 #main {
 
 	}
+	
+#newDiscussion{
+	
+}
 #object {
 	border: 1px solid #CCCCCC;
 	border-top: 0px solid #FFFFFF;
@@ -224,10 +228,19 @@ h5	{
 	border-color: #C0D7F6 !important;
 	border-width: 2px;
 }
+
+.allGreen{
+	background-color: #98A072 !important;
+	border: 2px solid #98A072 !important;
+}
 .blueBB { /*Blue Borders and Background */
 	background-color: #EBEFF2 !important;
 	border-color: #C0D7F6 !important;
 	border-width: 2px;
+}
+.greenBB{/*green Borders and Background */
+	background-color: #E9EFD3 !important;
+	border: 2px solid  #98A072 !important;
 }
 .disc_row_a {
 
