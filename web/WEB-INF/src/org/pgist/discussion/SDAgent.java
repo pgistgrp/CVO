@@ -318,7 +318,9 @@ public class SDAgent {
      *     <li>isid - int, id of a InfoStructure object</li>
      *     <li>target - string, ["structure" | "object"]. Optional, default is "structure"</li>
      *     <li>targetId - int, id of the InfoObject object, required when target=="object"</li>
+     *     <li>title - string, title of the post. Optional.</li>
      *     <li>content - string, content of the post</li>
+     *     <li>tags - string, comma separated tag names. Optional.</li>
      *   </ul>
      *   
      * @return A map contains:<br>
@@ -333,11 +335,18 @@ public class SDAgent {
         
         String type = (String) params.get("target");
         
+        String title = (String) params.get("title");
+        if (title==null) title = "";
+        
         String content = (String) params.get("content");
         if (content==null || "".equals(content)) {
             map.put("reason", "content can't be empty.");
             return map;
         }
+        
+        String tagStr = (String) params.get("tags");
+        if (tagStr==null) tagStr = "";
+        String[] tags = tagStr.split(",");
         
         Long isid = null;
         InfoStructure structure = null;
@@ -366,7 +375,7 @@ public class SDAgent {
                 target = structure;
             }
             
-            sdService.createPost(target.getClass().getName(), targetId, content);
+            sdService.createPost(target.getClass().getName(), targetId, title, content, tags);
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -386,7 +395,9 @@ public class SDAgent {
      *     <li>isid - int, id of a InfoStructure object</li>
      *     <li>pid - int, id of the parent DiscussionPost object</li>
      *     <li>qid - int, id of the quoted DiscussionPost object. Optional, default is null, means no quote.</li>
+     *     <li>title - string, title of the post. Optional.</li>
      *     <li>content - string, content of the post</li>
+     *     <li>tags - string, comma separated tag names. Optional.</li>
      *   </ul>
      *   
      * @return A map contains:<br>
@@ -399,11 +410,18 @@ public class SDAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
+        String title = (String) params.get("title");
+        if (title==null) title = "";
+        
         String content = (String) params.get("content");
         if (content==null || "".equals(content)) {
             map.put("reason", "content can't be empty.");
             return map;
         }
+        
+        String tagStr = (String) params.get("tags");
+        if (tagStr==null) tagStr = "";
+        String[] tags = tagStr.split(",");
         
         Long isid = null;
         InfoStructure structure = null;
@@ -444,7 +462,7 @@ public class SDAgent {
                 quote = sdService.getPostById(qid);
             }
             
-            sdService.createReply(parent, quote, content);
+            sdService.createReply(parent, quote, title, content, tags);
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -512,7 +530,9 @@ public class SDAgent {
      * @param params params A map contains:
      *   <ul>
      *     <li>pid - int, id of the DiscussionPost object</li>
+     *     <li>title - string, title of the post. Optional.</li>
      *     <li>content - string, content of the post</li>
+     *     <li>tags - string, comma separated tag names. Optional.</li>
      *   </ul>
      *   
      * @return A map contains:<br>
@@ -525,11 +545,18 @@ public class SDAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
+        String title = (String) params.get("title");
+        if (title==null) title = "";
+        
         String content = (String) params.get("content");
         if (content==null || "".equals(content)) {
             map.put("reason", "content can't be empty.");
             return map;
         }
+        
+        String tagStr = (String) params.get("tags");
+        if (tagStr==null) tagStr = "";
+        String[] tags = tagStr.split(",");
         
         Long pid = null;
         DiscussionPost post = null;
@@ -548,7 +575,7 @@ public class SDAgent {
             }
             
             if (post.getOwner().getId()==WebUtils.currentUserId()) {
-                sdService.editPost(post, content);
+                sdService.editPost(post, title, content, tags);
             } else {
                 map.put("reason", "You are not the owner of this Discussion Post");
             }

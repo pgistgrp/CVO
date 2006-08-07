@@ -1,6 +1,8 @@
 package org.pgist.discussion;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.pgist.users.User;
 
@@ -22,7 +24,11 @@ public class DiscussionPost {
     
     protected DiscussionPost quote;
     
+    protected String title = "";
+    
     protected String content = "";
+    
+    protected Set tags = new HashSet();
     
     protected User owner;
     
@@ -91,6 +97,20 @@ public class DiscussionPost {
     
     /**
      * @return
+     * @hibernate.property not-null="true"
+     */
+    public String getTitle() {
+        return title;
+    }
+
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+
+    /**
+     * @return
      * @hibernate.property type="text" not-null="true"
      */
     public String getContent() {
@@ -100,6 +120,23 @@ public class DiscussionPost {
     
     public void setContent(String content) {
         this.content = content;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.set lazy="true" table="pgist_dpost_tag_link" order-by="tag_id"
+     * @hibernate.collection-key column="dpost_id"
+     * @hibernate.collection-many-to-many column="tag_id" class="org.pgist.cvo.Tag"
+     */
+    public Set getTags() {
+        return tags;
+    }
+
+
+    public void setTags(Set tags) {
+        this.tags = tags;
     }
 
 

@@ -32,21 +32,20 @@ public interface SDService {
     Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception;
 
 
-    void createPost(String className, Long targetId, String content) throws Exception;
+    DiscussionPost createPost(String className, Long targetId, String title, String content, String[] tags) throws Exception;
 
 
-    void createReply(DiscussionPost parent, DiscussionPost quote, String content) throws Exception;
+    DiscussionPost createReply(DiscussionPost parent, DiscussionPost quote, String title, String content, String[] tags) throws Exception;
 
 
     void deletePost(DiscussionPost post) throws Exception;
 
 
-    void editPost(DiscussionPost post, String content) throws Exception;
+    void editPost(DiscussionPost post, String title, String content, String[] tags) throws Exception;
 
 
     //temp
     Collection getInfoStructures() throws Exception;
-    void saveIt() throws Exception;
 
 
 }//interface SDService

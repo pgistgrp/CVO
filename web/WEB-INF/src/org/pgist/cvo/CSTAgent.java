@@ -10,9 +10,6 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
-import org.pgist.discussion.InfoObject;
-import org.pgist.discussion.InfoStructure;
-import org.pgist.discussion.SDService;
 import org.pgist.util.PageSetting;
 
 

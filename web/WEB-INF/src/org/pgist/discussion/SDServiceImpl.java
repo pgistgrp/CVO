@@ -79,7 +79,7 @@ public class SDServiceImpl implements SDService {
     }//getReplies()
 
 
-    public void createPost(String className, Long targetId, String content) throws Exception {
+    public DiscussionPost createPost(String className, Long targetId, String title, String content, String[] tags) throws Exception {
         Discussion discussion = discussionDAO.getDiscussion(className, targetId);
         
         if (discussion==null) {
@@ -91,12 +91,12 @@ public class SDServiceImpl implements SDService {
             discussionDAO.save(discussion);
         }
         
-        discussionDAO.createPost(discussion, content);
+        return discussionDAO.createPost(discussion, null, title, content, tags);
     }//createPost()
 
 
-    public void createReply(DiscussionPost parent, DiscussionPost quote, String content) throws Exception {
-        discussionDAO.createReply(parent, quote, content);
+    public DiscussionPost createReply(DiscussionPost parent, DiscussionPost quote, String title, String content, String[] tags) throws Exception {
+        return discussionDAO.createReply(parent, quote, title, content, tags);
     }//createReply()
 
 
@@ -105,52 +105,9 @@ public class SDServiceImpl implements SDService {
     }//deletePost()
 
 
-    public void editPost(DiscussionPost post, String content) throws Exception {
-        post.setContent(content);
-        discussionDAO.save(post);
+    public void editPost(DiscussionPost post, String title, String content, String[] tags) throws Exception {
+        discussionDAO.editPost(post, title, content, tags);
     }//editPost()
-
-
-    //temp
-    
-    
-    public void saveIt() throws Exception {
-        InfoStructure structure = new InfoStructure();
-        structure.setType("sdc");
-        
-        CategoryReference ref = (CategoryReference) discussionDAO.load(CategoryReference.class, new Long(1810));
-        
-        ref.getCategory();
-        ref.getChildren();
-        ref.getChildren();
-        ref.getCct();
-        ref.getTags();
-        ref.getTheme();
-        
-        InfoObject obj = new InfoObject();
-        obj.setObject(ref);
-        discussionDAO.save(obj);
-        
-        structure.getInfoObjects().add(obj);
-        
-//        ref = (CategoryReference) discussionDAO.load(CategoryReference.class, new Long(1813));
-//        
-//        obj = new InfoObject();
-//        obj.setObject(ref);
-//        discussionDAO.save(obj);
-//        
-//        structure.getInfoObjects().add(obj);
-//        
-//        ref = (CategoryReference) discussionDAO.load(CategoryReference.class, new Long(1816));
-//        
-//        obj = new InfoObject();
-//        obj.setObject(ref);
-//        discussionDAO.save(obj);
-//        
-//        structure.getInfoObjects().add(obj);
-        
-        discussionDAO.save(structure);
-    }//saveIt()
 
 
 }//class SDServiceImpl

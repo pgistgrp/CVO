@@ -39,16 +39,13 @@ public interface DiscussionDAO extends BaseDAO {
     Discussion createDiscussion(String targetType, Long targetId) throws Exception;
     
     
-    DiscussionPost createPost(Discussion discussion, String content) throws Exception;
+    DiscussionPost createPost(Discussion discussion, DiscussionPost quote, String title, String content, String[] tags) throws Exception;
     
     
-    DiscussionPost createPost(Discussion discussion, DiscussionPost quote, String content) throws Exception;
+    DiscussionPost createReply(DiscussionPost post, DiscussionPost quote, String title, String content, String[] tags) throws Exception;
     
     
-    DiscussionPost createReply(DiscussionPost post, String content) throws Exception;
-    
-    
-    DiscussionPost createReply(DiscussionPost post, DiscussionPost quote, String content) throws Exception;
+    void editPost(DiscussionPost post, String title, String content, String[] tags) throws Exception;
 
 
     void deleteDiscussion(Discussion discussion) throws Exception;
@@ -60,6 +57,6 @@ public interface DiscussionDAO extends BaseDAO {
     //temp
     
     Collection getInfoStructures() throws Exception;
-    
-    
+
+
 }//interface DiscussionDAO
