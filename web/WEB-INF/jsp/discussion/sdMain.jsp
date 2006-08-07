@@ -55,16 +55,17 @@
 				SDAgent.getTargets({isid:${structure.id}}, {
 				callback:function(data){
 						if (data.successful){
+
 							$('object_column').innerHTML = data.source.html;
-              alert(data.source.html);
-              alert(data.source.script);
-              eval(data.source.script);
+             				alert(data.source.html);
+              				alert(data.source.script);
+              				eval(data.source.script);
 						}else{
-							alert(data.reason);
+							//alert(data.reason);
 						}
 					},
 				errorHandler:function(errorString, exception){ 
-						alert("get targets error:" + errorString + exception);
+						//alert("get targets error:" + errorString + exception);
 				}
 				});
 			},
