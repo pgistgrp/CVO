@@ -71,7 +71,10 @@ h5	{
 	color: #999;
 	font-size: 1.4em;
 	}
-
+img a:hover {
+	background:!important;
+	text-decoration: none !important;
+}
 /* CSS ID's */
 #bar {
 	
@@ -114,7 +117,7 @@ h5	{
 
 #finished{
 	border: 1px solid #CCCCCC;
-	
+	background-color: #CCCCCC;
 }
 #footer {
 	border: 1px solid #CCCCCC;
@@ -243,9 +246,12 @@ h5	{
 	border: 2px solid  #98A072 !important;
 }
 .disc_row_a {
-
+	margin-top: 3px;
+	margin-bottom: 3px;
 }
 .disc_row_b {
+	margin-top: 3px;
+	margin-bottom: 3px;
 	background-color: #F1F7FF;
 }
 .darkblue {

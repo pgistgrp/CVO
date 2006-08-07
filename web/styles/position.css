@@ -20,7 +20,11 @@ body {
 #bar {
 	padding: 0em;
 }
-
+#btnNewDiscussion {
+	float: right;
+	width: 125px;
+	height: 20px;
+}
 
 #caughtException {
 	padding: 5px;
@@ -93,7 +97,17 @@ body {
 	padding-top: 0px;
 	
 }
-
+#disc_title {
+	float: left;
+}
+#finished {
+	margin-top: 1em;
+	margin-right: auto;
+	margin-left: auto;
+	width: 90%;
+	padding-left: 10px;
+	padding-right: 10px;
+}
 #footer {
 	padding: .4em;
 }
@@ -408,10 +422,12 @@ padding: 2px;}
 .header_cat_replies {
 	float: left;
 	width: 15%;
+	text-align: center;
 }
 .header_cat_author {
 	float: left;
 	width: 15%;
+	text-align: center;
 }
 .header_cat_lastpost {
 	float: left;

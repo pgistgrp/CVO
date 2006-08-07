@@ -138,10 +138,10 @@
 		<h5>All Concern Themes</h5>
 		</div>
 		<div id="themeSelector">
-		<form id="ThemeSelector" name="ThemeSelector" method="post" action="">
+		<form id="Tselector" name="ThemeSelector" method="post" action="">
 		  <label>
 		  Jump To:
-		  <select name="selecttheme" id="selecttheme" onchange="getTargetPanes(this.value);">		  
+		  <select name="selecttheme" id="selecttheme" onChange="getTargetPanes(this.value);">		  
 		    <option value = "-1">Select a Theme</option>
 	      </select>
 		  </label>
@@ -180,13 +180,13 @@
 			</div>
 		</div>
 		<div id="object_question" class="smalltext">
-			Does this list of concern themes adequately reflect concerns expressed by participants? Yes No
+			Does this list of concern themes adequately reflect concerns expressed by participants? <img src="images/btn_yes_s.gif" alt="YES"> <img src="images/btn_no_s.gif" alt="NO">
 		</div>
 		</div>
 		<div id="toggle"><a href="javascript:moreObject();"><img src="images/slideDown.gif" alt="More Discussion Space!" width="82" height="9" border="0"></a></div>
 		<div id="header_discussion" class="allBlue">
 			<div id="newDiscussion" class="greenBB" style="display: none;">
-				<div id="header_newDiscussion" class="allGreen"><h3 style="display: inline;">New Discussion</h3><span id="closeNewDiscussion" class="closeBox"><a href="javascript:new Effect.toggle('newDiscussion', 'blind', {duration: 0.5}); void(0);">Close</a></span></div>
+				<div id="header_newDiscussion" class="allGreen">New Discussion<span id="closeNewDiscussion" class="closeBox"><a href="javascript:new Effect.toggle('newDiscussion', 'blind', {duration: 0.5}); void(0);">Close</a></span></div>
 				<p><strong>SDC New Discussion Title</strong><p>SDC New Discussion Paragraph</p></p>
 				<p><label>Post Title</label><br><input type="text" /></p>
 				<p><label>Your Thoughts</label><br><textarea></textarea></p>
@@ -194,9 +194,11 @@
 				<input type="button" value="Create Discussion">
 			</div>
 			<div class="sidepadding">
-		  <h4>Discussion about All Concern Themes</h4>
-		  <span id="btnNewDiscussion" class="closeBox"><a href="javascript:new Effect.toggle('newDiscussion', 'blind', {duration: 0.5}); void(0);">New Discussion</a></span>
-		  Feel like a theme is missing from the above list? Have a question about the summary process? Discuss here.
+			
+		  <div id="disc_title"><h5>Discussion about All Concern Themes</h5></div>
+		  <div id="btnNewDiscussion"><a href="javascript:new Effect.toggle('newDiscussion', 'blind', {duration: 0.5}); void(0);"><img src="images/btn_newdiscussion.gif" border="0" alt="New Discussion"></a>&nbsp;</div>
+		  <br />
+		  <span class="smalltext">Feel like a theme is missing from the above list? Have a question about the summary process? Discuss here.</span>
 		  	</div>
 		</div>
 		<div id="header_cat">
@@ -209,56 +211,60 @@
 		<div id="discussion" class="blueBB">
 			<div class="disc_row_a">
 			<div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006 by: SafetyMan</a></div><div class="clear"></div>
+			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
 			</div>
 			</div>
 			
 			<div class="disc_row_b"><div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006 by: SafetyMan</a></div><div class="clear"></div>
+			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
 			</div>
 			</div>
 						<div class="disc_row_a">
 			<div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006 by: SafetyMan</a></div><div class="clear"></div>
+			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
 			</div>
 			</div>
 			
 			<div class="disc_row_b"><div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006 by: SafetyMan</a></div><div class="clear"></div>
+			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
 			</div>
 			</div>
 						<div class="disc_row_a">
 			<div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006 by: SafetyMan</a></div><div class="clear"></div>
+			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
 			</div>
 			</div>
 			
 			<div class="disc_row_b"><div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006 by: SafetyMan</a></div><div class="clear"></div>
+			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
 			</div>
 			</div>
 						<div class="disc_row_a">
 			<div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006 by: SafetyMan</a></div><div class="clear"></div>
+			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
 			</div>
 			</div>
 			
 			<div class="disc_row_b"><div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006 by: SafetyMan</a></div><div class="clear"></div>
+			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
 			</div>
 			</div>
 						<div class="disc_row_a">
 			<div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006 by: SafetyMan</a></div><div class="clear"></div>
+			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
 			</div>
 			</div>
 			
 			<div class="disc_row_b"><div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006 by: SafetyMan</a></div><div class="clear"></div>
+			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
 			</div>
 			</div>
 		</div>
+		<br />
+		<div id="finished">Finished? (We need some style for this)</div>
 	  </div>
+	  
+	  
 	</div>
 	
 	<div id="col-right">
