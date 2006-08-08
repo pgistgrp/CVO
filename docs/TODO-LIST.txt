@@ -5,7 +5,7 @@
 
 [] Edit Concern (Jordan)
 [] Edit Tags (Jordan)
-[] Date/Time formatting to 8/8/06 9:37a (Jordan)
+[ok] Date/Time formatting to 8/8/06 9:37a (Jordan)
 
 
 -------------- Backend --------------
@@ -16,7 +16,7 @@
 [] Integration of TagAnalyzer with CCT (Zhong)
 
 
-
+[] Discussion Post replies (Zhong)
 [] Discussion Post order => Last post Desc (Zhong)
 
 
