@@ -375,7 +375,7 @@ public class SDAgent {
                 target = structure;
             }
             
-            sdService.createPost(target.getClass().getName(), targetId, title, content, tags);
+            sdService.createPost(structure.getType(), targetId, title, content, tags);
             
             map.put("successful", true);
         } catch (Exception e) {

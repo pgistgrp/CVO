@@ -60,12 +60,12 @@ public class SDServiceImpl implements SDService {
             /*
              * The discussion is on InfoStructure
              */
-            discussion = discussionDAO.getDiscussion(InfoStructure.class, structure.getId());
+            discussion = discussionDAO.getDiscussion(structure.getType(), structure.getId());
         } else {
             /*
              * The discussion is on InfoObject
              */
-            discussion = discussionDAO.getDiscussion(InfoObject.class, infoObj.getId());
+            discussion = discussionDAO.getDiscussion(structure.getType(), infoObj.getId());
         }
         
         if (discussion==null) return new ArrayList();
@@ -79,14 +79,14 @@ public class SDServiceImpl implements SDService {
     }//getReplies()
 
 
-    public DiscussionPost createPost(String className, Long targetId, String title, String content, String[] tags) throws Exception {
-        Discussion discussion = discussionDAO.getDiscussion(className, targetId);
+    public DiscussionPost createPost(String type, Long targetId, String title, String content, String[] tags) throws Exception {
+        Discussion discussion = discussionDAO.getDiscussion(type, targetId);
         
         if (discussion==null) {
             discussion = new Discussion();
             discussion.setDeleted(false);
             discussion.setTargetId(targetId);
-            discussion.setTargetType(className);
+            discussion.setTargetType(type);
             
             discussionDAO.save(discussion);
         }
