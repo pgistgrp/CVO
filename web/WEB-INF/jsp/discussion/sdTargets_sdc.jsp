@@ -14,16 +14,17 @@
 <pg:fragment type="script">
 
   infoStructure.getDetails = function(ioid){
+  alert("hi there");
     SDAgent.getSummary({ioid:ioid}, {
       callback:function(data){
           if (data.successful){
            $(infoStructure.isDivElement).innerHTML = data.source.html;
           }else{
-            alert(data.reason);
+            alert("data.successful != true" + data.reason);
           }
       },
       errorHandler:function(errorString, exception){
-          alert(errorString + exception);
+          alert("getDetails Error" + errorString + exception);
       }
     });
   };

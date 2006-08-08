@@ -243,7 +243,7 @@
 #slate li{list-style: none; display:inline; padding: 3px;}
 tr:hover {background-color: #F1F7FF;}
 
-#loading-indicator{width: 100px; position: fixed; top:0; left:0; background-color: red; z-index: 1; padding: 3px; color: #fff;} /*fixed positioning needs ie 6- hack */
+
 </style>
 </head>
 <body>

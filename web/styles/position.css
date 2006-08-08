@@ -189,7 +189,16 @@ body {
 	position:fixed;
 }
 	
-
+#loading-indicator{
+	width: 100px; 
+	position: fixed; 
+	top:0; 
+	left:0; 
+	background-color: red; 
+	z-index: 1; 
+	padding: 3px; 
+	color: #fff;} /*fixed positioning needs ie 6- hack */
+	
 #login {
 	text-align: right;	
 	min-width: 675px;

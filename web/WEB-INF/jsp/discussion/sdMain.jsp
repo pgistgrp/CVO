@@ -45,39 +45,45 @@
 	//Start Global Variables
      //var isid = ${structure.id};
 	 var targetObject = null;
-	 var infoStructure = {
-	 	 isid: ${structure.id},
-	 	 type: "${structure.type}",
-	 	 instructions: "These are the instructions for blah blah",
-	 	 data: null,
-	 	 isDivElement: 'object_column',
-	 	 isDivDiscussion: 'discussion',
+	 function InfoStructure(){
+	 	 this.isid = ${structure.id};
+	 	 this.type = "${structure.type}";
+	 	 this.instructions = "These are the instructions for blah blah";
+	 	 this.data = null;
+	 	 this.isDivElement =  'object_column';
+	 	 this.isDivDiscussion = 'discussion';
+	 	 this.targetType = 'structure';
+	 	 this.targetId = null;
 	 	 
-	 	 getTargetPanes: function(ioid){
-	 	 	infoStructure.getPosts(ioid);
-	 	 	//infoStructure.getDetails(ioid);
-	 	},
-	 	 
-	 	 getTargets: function(){
+	 	 this.getTargetPanes = function(ioid){
+	 	 	this.getPosts(ioid);
+	 	 	//this.getDetails(ioid);
+	 		
+	 	};
+	 	
+	 	 this.getTargets = function(){
+	 	 		displayIndicator(true);
 				SDAgent.getTargets({isid:${structure.id}}, {
 				callback:function(data){
 						if (data.successful){
 							$(infoStructure.isDivElement).innerHTML = data.source.html;
               				eval(data.source.script);
+              				 displayIndicator(false);
 						}else{
 							alert(data.reason);
+							 displayIndicator(false);
 						}
 					},
 				errorHandler:function(errorString, exception){ 
 						alert("get targets error:" + errorString + exception);
 				}
 				});
-			},
-	 	 createPost: function(){
+			};
+	 	 this.createPost = function(){
 	 	 		var newPostTitle = $('txtNewPostTitle').value;
 	 	 		var newPost = $('txtNewPost').value;
 	 	 		var newPostTags = $('txtNewPostTags').value;
-	 	 		
+
 	 	 		//validation
 	 	 		if(newPostTitle == '' || newPost == ''){
 	 	 			alert("Either your title or post was left blank.  Please fill it in.");
@@ -85,14 +91,15 @@
 	 	 		}//end validation
 	 	 		
 	 	 		
-				SDAgent.createPost({isid:${structure.id}, title: newPostTitle, content: newPost, tags:newPostTags}, {
+				SDAgent.createPost({isid:${structure.id}, target: infoStructure.targetType, targetId: infoStructure.targetId, title: newPostTitle, content: newPost, tags:newPostTags}, {
 				callback:function(data){
 						if (data.successful){
-							 infoStructure.getPosts();
+							
+							 infoStructure.getPosts(infoStructure.targetId);
 							 //clear textfields
 							 $('txtNewPostTitle').value = '';
 							 $('txtNewPost').value = '';
-							 $('txtNewPostTags') = '';
+							 $('txtNewPostTags').value = '';
 							 new Effect.toggle('newDiscussion', 'blind', {duration: 0.5});
 						}else{
 							alert(data.reason);
@@ -103,26 +110,40 @@
 						alert("create post error:" + errorString + exception);
 				}
 				});
-			},
+			};
 			
-	    getPosts: function(ioid){
-	    SDAgent.getPosts({isid:infoStructure.isid, ioid:ioid}, {
-	      callback:function(data){
-	          if (data.successful){
-	           $(infoStructure.isDivDiscussion).innerHTML = data.html;
-	          }else{
-	            alert(data.reason);
-	          }
-	      },
-	      errorHandler:function(errorString, exception){
-	          alert("get posts error:" + errorString + exception);
-	      }
-	    });
-	  },
+		this.getPosts = function(ioid){
+			if(ioid != undefined){
+				infoStructure.targetType = 'object';
+				infoStructure.targetId = ioid;
+		  	}
+		    displayIndicator(true);
+		    SDAgent.getPosts({isid:${structure.id}, ioid:ioid}, {
+		      callback:function(data){
+		          if (data.successful){
+		          //alert(data.html);
+		          $(infoStructure.isDivDiscussion).innerHTML = data.html;
+		           displayIndicator(false);
+		          }else{
+		          	 displayIndicator(false);
+		            alert(data.reason);
+		          }
+		      },
+		      errorHandler:function(errorString, exception){
+		          alert("get posts error:" + errorString + exception);
+		      }
+		    });
+		  };
 	};
 	//End Global Variables
 	
-
+	function displayIndicator(show){
+		if (show){
+			$('loading-indicator').style.display = "inline";	
+		}else{
+			$('loading-indicator').style.display = "none";	
+		}
+	}
 
 </script>
 </head>
@@ -135,7 +156,7 @@
 	<div id="overlay" style="display: none;"></div>
 	<div id="lightbox" style="display: none;" class="blueBB"></div>
 	<!-- END LIGHTBOX -->
-
+   <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 	
 	<!-- Sub Title -->
 	<div id="subheader">
@@ -229,7 +250,7 @@
 			<div class="sidepadding">
 			
 		  <div id="disc_title"><h5>Discussion about All Concern Themes</h5></div>
-		  <div id="btnNewDiscussion"><a href="javascript:$('newDiscussion', 'blind', {duration: 0.5}); void(0);"><img src="images/btn_newdiscussion.gif" border="0" alt="New Discussion"></a>&nbsp;</div>
+		  <div id="btnNewDiscussion"><a href="javascript:new Effect.toggle('newDiscussion', 'blind', {duration: 0.5}); void(0);"><img src="images/btn_newdiscussion.gif" border="0" alt="New Discussion"></a>&nbsp;</div>
 		  <br />
 		  <span class="smalltext">Feel like a theme is missing from the above list? Have a question about the summary process? Discuss here.</span>
 		  	</div>
@@ -242,56 +263,9 @@
 			</div>
 		</div>
 		<div id="discussion" class="blueBB">
-			<div class="disc_row_a">
-			<div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
-			</div>
-			</div>
+
 			
-			<div class="disc_row_b"><div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
-			</div>
-			</div>
-						<div class="disc_row_a">
-			<div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
-			</div>
-			</div>
-			
-			<div class="disc_row_b"><div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
-			</div>
-			</div>
-						<div class="disc_row_a">
-			<div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
-			</div>
-			</div>
-			
-			<div class="disc_row_b"><div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
-			</div>
-			</div>
-						<div class="disc_row_a">
-			<div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
-			</div>
-			</div>
-			
-			<div class="disc_row_b"><div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
-			</div>
-			</div>
-						<div class="disc_row_a">
-			<div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
-			</div>
-			</div>
-			
-			<div class="disc_row_b"><div class="sidepadding">
-			<div class="header_cat_title" ><a href="#">This doesn't reflect my concerns at all</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">John</a></div><div class="header_cat_lastpost"><a href="#">May 18, 2006</a></div><div class="clear"></div>
-			</div>
-			</div>
+
 		</div>
 		<br />
 		<div id="finished">Finished? (We need some style for this)</div>
@@ -359,6 +333,7 @@
 <!-- End Footer -->
 <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 <script type="text/javascript">
+	var infoStructure = new InfoStructure(); 
 	infoStructure.getTargets();
 	infoStructure.getPosts();
 	dosize();

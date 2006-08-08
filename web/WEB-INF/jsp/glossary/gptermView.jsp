@@ -130,8 +130,8 @@
 <!-- End Header -->
 <div id="container">
 	<!-- START LIGHTBOX -->
-	<div id="overlay"></div>
-	<div id="lightbox" class="blueBB" style="top: 50%; height: 450px; overflow: auto;"></div>
+	<div id="overlay" style="display: none;"></div>
+	<div id="lightbox" style="display: none;" class="blueBB"></div>
 	<!-- END LIGHTBOX -->
 	<!--START Title Header -->
 	

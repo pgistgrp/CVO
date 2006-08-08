@@ -5,8 +5,9 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 
 <logic:iterate id="post" name="posts">
-	<div class="disc_row_a">
+<div class="disc_row_a">
 		<div class="sidepadding">
 		<div class="header_cat_title" ><a href="javascript:getPost(${post.id});">${post.title}</a></div><div class="header_cat_replies">5</div><div class="header_cat_author"><a href="#">${post.owner.loginname}</a></div><div class="header_cat_lastpost"><small><fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}</small></div><div class="clear"></div>
 	</div>
+</div>
 </logic:iterate>
