@@ -977,3 +977,11 @@ Element.Methods.visualEffect = function(element, effect, options) {
 };
 
 Element.addMethods();
+
+function lightboxDisplay(show){
+	if (show){
+		new Effect.Appear('overlay',{duration: 0.3, from: 0, to: 0.9, afterFinish: function(){new Effect.Appear('lightbox', {duration: 0.5});}});
+	}else{
+		new Effect.Fade('lightbox', {duration: 0.3, afterFinish: function(){new Effect.Fade('overlay', {duration: 0.3, from: 0.9, to:0});}});
+	}
+}

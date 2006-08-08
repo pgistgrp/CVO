@@ -173,7 +173,7 @@ body {
 	float: left;
 }
 #lightbox{
-	display:none;
+
 	position: absolute;
 	top:60%;
 	left:50%;
@@ -275,7 +275,6 @@ body {
 
 
 #overlay{
-	display:none;
 	position:absolute;
 	top:0;
 	left:0;

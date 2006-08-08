@@ -594,8 +594,9 @@
 <body onResize="dosize()" onkeydown="globalKeyHandler(event);">
 <div id="container">
 
-	<div id="overlay"></div>
-	<div id="lightbox"></div>
+	<!-- START LIGHTBOX -->
+	<div id="overlay" style="display: none;"></div>
+	<div id="lightbox" style="display: none;" class="blueBB"></div>
 	<!-- END LIGHTBOX -->
 	
 	<!-- Start Moderator Navigation -->

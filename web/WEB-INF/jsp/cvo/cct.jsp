@@ -374,32 +374,29 @@ CCTAgent.searchTags({cctId:cctId,tag:theTag},{
 	});
 }
 
-function lightboxDisplay(action){
-	$('overlay').style.display = action;
-	$('lightbox').style.display = action;
-}
+
 
 function glossaryPopup(term){
-	lightboxDisplay('inline');
+	lightboxDisplay(true);
 	os = "";
-	os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/closelabel.gif" border="0"></a></span>'
+	os += '<span class="closeBox"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></span>'
 	os += '<br><h4>Glossary Term: '+ term +'</h4>';
 	os += '<p>Tags helps make your concerns easier to find, since all this info is searchable later. Imagine this applied to thousands of concerns!</p>';
 	$('lightbox').innerHTML = os;
 }
 function editConcernPopup(concernId){
   var currentConcern = '';
-	lightboxDisplay('inline');
+	lightboxDisplay(true);
 	CCTAgent.getConcernById(concernId, {
 		callback:function(data){
 			if (data.successful){
 					currentConcern = data.concern.content;
 					os = "";
-					os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/closelabel.gif" border="0"></a></span>'
+					os += '<span class="closeBox"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></span>'
 					os += '<h4>Edit My Concern</h4><br>';
 					os += '<form><textarea style="height: 150px; width: 100%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p></form>';
 					os += '<input type="button" id="modifyConcern" value="Submit Edits!" onClick="editConcern('+concernId+')">';
-					os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')">';
+					os += '<input type="button" value="Cancel" onClick="lightboxDisplay()">';
 					$('lightbox').innerHTML = os;
 			}
 		},
@@ -416,7 +413,7 @@ function editConcern(concernId){
 	CCTAgent.editConcern({concernId:concernId, concern:newConcern}, {
 		callback:function(data){
 				if (data.successful){
-					lightboxDisplay('none');
+					lightboxDisplay();
 					showMyConcerns(concernId);
 				}  
 		},
@@ -434,16 +431,16 @@ function editTagsPopup(concernId){
 		callback:function(data) {
 				if (data.successful){
 					
-							lightboxDisplay('inline');
+							lightboxDisplay(true);
 							os = "";
-							os += '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/closelabel.gif" border="0"></a></span>'
+							os += '<span class="closeBox"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></span>'
 							os += '<h4>Edit My Concern\'s Tags</h4><p></p>';
 							os += '<ul id="editTagsList" class="tagsList"> '+data.id+ '</ul>';
 							os += '<p></p><form name="editTagList" action="" onsubmit="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\'); return false;"><input type="text" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onClick="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\');"></p>';
 							//os += '<a href="javascript:editTags('+concernId+');">TestIt</a>';
 							os += '<div style="display: none;" id="editTagValidation"></div>';
 							os += '<hr><input type="button" value="Submit Edits" onClick="editTags('+concernId+')">';
-							os += '<input type="button" value="Cancel" onClick="lightboxDisplay(\'none\')"></form>';
+							os += '<input type="button" value="Cancel" onClick="lightboxDisplay()"></form>';
 								$('lightbox').innerHTML = os;
 								var str= "";
 								for(i=0; i < data.concern.tags.length; i++){
@@ -470,7 +467,7 @@ function editTags(concernId){
 	CCTAgent.editTags({concernId:concernId, tags:concernTags}, {
 		callback:function(data){
 			if (data.successful){ 
-				lightboxDisplay('none');
+				lightboxDisplay();
 				showMyConcerns(concernId);
 				concernTags = "";
 			}
@@ -549,8 +546,8 @@ function getWinH(){
 <!-- End Header -->
 <div id="container">
 	<!-- START LIGHTBOX -->
-	<div id="overlay"></div>
-	<div id="lightbox" class="blueBB"></div>
+	<div id="overlay" style="display: none;"></div>
+	<div id="lightbox" style="display: none;" class="blueBB"></div>
 	<!-- END LIGHTBOX -->
 	<!--START Title Header -->
 	

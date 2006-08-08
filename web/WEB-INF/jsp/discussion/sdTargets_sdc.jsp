@@ -12,11 +12,12 @@
 </pg:fragment>
 
 <pg:fragment type="script">
-  infoStructure.getTargetPanes = function(ioid){
+
+  infoStructure.getDetails = function(ioid){
     SDAgent.getSummary({ioid:ioid}, {
       callback:function(data){
           if (data.successful){
-            $('object_column').innerHTML = data.source.html;
+           $(infoStructure.isDivElement).innerHTML = data.source.html;
           }else{
             alert(data.reason);
           }
@@ -26,4 +27,5 @@
       }
     });
   };
+  
 </pg:fragment>

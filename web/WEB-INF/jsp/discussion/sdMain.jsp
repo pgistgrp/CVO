@@ -1,6 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
@@ -49,47 +50,79 @@
 	 	 type: "${structure.type}",
 	 	 instructions: "These are the instructions for blah blah",
 	 	 data: null,
+	 	 isDivElement: 'object_column',
+	 	 isDivDiscussion: 'discussion',
 	 	 
+	 	 getTargetPanes: function(ioid){
+	 	 	infoStructure.getPosts(ioid);
+	 	 	//infoStructure.getDetails(ioid);
+	 	},
 	 	 
 	 	 getTargets: function(){
 				SDAgent.getTargets({isid:${structure.id}}, {
 				callback:function(data){
 						if (data.successful){
-
-							$('object_column').innerHTML = data.source.html;
-             				alert(data.source.html);
-              				alert(data.source.script);
+							$(infoStructure.isDivElement).innerHTML = data.source.html;
               				eval(data.source.script);
 						}else{
-							//alert(data.reason);
+							alert(data.reason);
 						}
 					},
 				errorHandler:function(errorString, exception){ 
-						//alert("get targets error:" + errorString + exception);
+						alert("get targets error:" + errorString + exception);
 				}
 				});
 			},
-	 	};
-	//End Global Variables
-	
-			
-		function getPosts(ioid){
-			
-				SDAgent.getPosts({isid:isid, ioid:ioid}, {
+	 	 createPost: function(){
+	 	 		var newPostTitle = $('txtNewPostTitle').value;
+	 	 		var newPost = $('txtNewPost').value;
+	 	 		var newPostTags = $('txtNewPostTags').value;
+	 	 		
+	 	 		//validation
+	 	 		if(newPostTitle == '' || newPost == ''){
+	 	 			alert("Either your title or post was left blank.  Please fill it in.");
+	 	 			return;
+	 	 		}//end validation
+	 	 		
+	 	 		
+				SDAgent.createPost({isid:${structure.id}, title: newPostTitle, content: newPost, tags:newPostTags}, {
 				callback:function(data){
 						if (data.successful){
-							$('discussion').innerHTML = data.html;
-						}
-						if (data.successful != true){
-							alert("error:" + data.reason);
+							 infoStructure.getPosts();
+							 //clear textfields
+							 $('txtNewPostTitle').value = '';
+							 $('txtNewPost').value = '';
+							 $('txtNewPostTags') = '';
+							 new Effect.toggle('newDiscussion', 'blind', {duration: 0.5});
+						}else{
+							alert(data.reason);
+							new Effect.toggle('newDiscussion', 'blind', {duration: 0.5});
 						}
 					},
 				errorHandler:function(errorString, exception){ 
-						alert(errorString + exception);
+						alert("create post error:" + errorString + exception);
 				}
 				});
-		}
-		//$('object_column').innerHTML = '<ul>';
+			},
+			
+	    getPosts: function(ioid){
+	    SDAgent.getPosts({isid:infoStructure.isid, ioid:ioid}, {
+	      callback:function(data){
+	          if (data.successful){
+	           $(infoStructure.isDivDiscussion).innerHTML = data.html;
+	          }else{
+	            alert(data.reason);
+	          }
+	      },
+	      errorHandler:function(errorString, exception){
+	          alert("get posts error:" + errorString + exception);
+	      }
+	    });
+	  },
+	};
+	//End Global Variables
+	
+
 
 </script>
 </head>
@@ -99,8 +132,8 @@
 
 <div id="container">
 	<!-- START LIGHTBOX -->
-	<div id="overlay"></div>
-	<div id="lightbox" class="blueBB"></div>
+	<div id="overlay" style="display: none;"></div>
+	<div id="lightbox" style="display: none;" class="blueBB"></div>
 	<!-- END LIGHTBOX -->
 
 	
@@ -188,15 +221,15 @@
 			<div id="newDiscussion" class="greenBB" style="display: none;">
 				<div id="header_newDiscussion" class="allGreen">New Discussion<span id="closeNewDiscussion" class="closeBox"><a href="javascript:new Effect.toggle('newDiscussion', 'blind', {duration: 0.5}); void(0);">Close</a></span></div>
 				<p><strong>SDC New Discussion Title</strong><p>SDC New Discussion Paragraph</p></p>
-				<p><label>Post Title</label><br><input type="text" /></p>
-				<p><label>Your Thoughts</label><br><textarea></textarea></p>
-				<p><label>Tag your post (comma separated)</label><br><input type="text" /></p>
-				<input type="button" value="Create Discussion">
+				<p><label>Post Title</label><br><input type="text" id="txtNewPostTitle"/></p>
+				<p><label>Your Thoughts</label><br><textarea id="txtNewPost"></textarea></p>
+				<p><label>Tag your post (comma separated)</label><br><input id="txtNewPostTags" type="text" /></p>
+				<input type="button" onclick="infoStructure.createPost();" value="Create Discussion">
 			</div>
 			<div class="sidepadding">
 			
 		  <div id="disc_title"><h5>Discussion about All Concern Themes</h5></div>
-		  <div id="btnNewDiscussion"><a href="javascript:new Effect.toggle('newDiscussion', 'blind', {duration: 0.5}); void(0);"><img src="images/btn_newdiscussion.gif" border="0" alt="New Discussion"></a>&nbsp;</div>
+		  <div id="btnNewDiscussion"><a href="javascript:$('newDiscussion', 'blind', {duration: 0.5}); void(0);"><img src="images/btn_newdiscussion.gif" border="0" alt="New Discussion"></a>&nbsp;</div>
 		  <br />
 		  <span class="smalltext">Feel like a theme is missing from the above list? Have a question about the summary process? Discuss here.</span>
 		  	</div>
@@ -327,6 +360,7 @@
 <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 <script type="text/javascript">
 	infoStructure.getTargets();
+	infoStructure.getPosts();
 	dosize();
 </script>
 

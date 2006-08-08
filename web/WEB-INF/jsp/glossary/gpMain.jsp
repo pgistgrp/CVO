@@ -123,15 +123,11 @@
 			$('clearSearch').style.display = "none";
 		}
 		
-		function lightboxDisplay(action){
-			$('overlay').style.display = action;
-			$('lightbox').style.display = action;
-		}
 		
 		function proposeTermCont(){
-			lightboxDisplay('inline');
+			lightboxDisplay(true);
 			os = '';
-			os = '<span class="closeBox"><a href="javascript: lightboxDisplay(\'none\');"><img src="/images/closelabel.gif" border="0"></a></span>'
+			os = '<span class="closeBox"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></span>'
 			os += $('proposeForm').innerHTML;
 			$('lightbox').innerHTML = os;
 			
@@ -172,7 +168,7 @@
 				callback:function(data){
 
 					if (data.successful){ 
-							$('proposeForm').innerHTML = '<h3>Thank you for your term proposal!</h3><br><p>Your term has been submitted to the moderator for approval.  You will be notified after moderator review.</p><p><a href="javascript: lightboxDisplay(\'none\');">Close Box</a></p>';
+							$('proposeForm').innerHTML = '<h3>Thank you for your term proposal!</h3><br><p>Your term has been submitted to the moderator for approval.  You will be notified after moderator review.</p><p><a href="javascript: lightboxDisplay();">Close Box</a></p>';
 							//clear Array
 							sourceList = "";
 					}else{
@@ -260,7 +256,8 @@ tr:hover {background-color: #F1F7FF;}
 <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 <div id="container">
 	<!-- START LIGHTBOX -->
-	<div id="overlay"></div>
+
+	<div id="overlay" style="display: none;></div>
 	<div id="lightbox" class="blueBB" style="top: 50%; height: 450px; overflow: auto;"></div>
 	<!-- END LIGHTBOX -->
 	<!--START Title Header -->
@@ -378,7 +375,7 @@ tr:hover {background-color: #F1F7FF;}
 			  <a href="javascript: Effect.toggle('addTermsFormCont', 'blind'); void(0);">Add a Term Link</a>
 			  <br>
 				</div>
-				<p><input type="button" value="Cancel" onClick="lightboxDisplay('none')"><input type="button" value="propose term" onClick="proposeTermPrep($('termName').value,$('shortDef').value,$('extDef').value, $('source1').value, $('source2').value, $('source3').value,$('termlink1').value,$('termlink2').value,$('termlink3').value);"></p>   
+				<p><input type="button" value="Cancel" onClick="lightboxDisplay()"><input type="button" value="propose term" onClick="proposeTermPrep($('termName').value,$('shortDef').value,$('extDef').value, $('source1').value, $('source2').value, $('source3').value,$('termlink1').value,$('termlink2').value,$('termlink3').value);"></p>   
 		  
 		  </form>
 </div>
