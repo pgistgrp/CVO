@@ -560,10 +560,11 @@ public class SDAgent {
                 return map;
             }
             
-            if (post.getOwner().getId()==WebUtils.currentUserId()) {
+            if (post.getOwner().getId().equals(WebUtils.currentUserId())) {
                 sdService.deletePost(post);
             } else {
                 map.put("reason", "You are not the owner of this Discussion Post");
+                return map;
             }
             
             map.put("successful", true);
