@@ -7,7 +7,7 @@
 <pg:fragment type="html">
   <ul>
     <logic:iterate id="infoObject" property="infoObjects" name="structure">
-        <li><a href="javascript: infoStructure.getTargetPanes(${infoObject.object.id});">${infoObject.object.theme.title}</a></li>
+        <li><a href="javascript: infoStructure.getTargetPanes(${infoObject.id});">${infoObject.object.theme.title}</a></li>
     </logic:iterate>
   </ul>
 </pg:fragment>

@@ -38,6 +38,58 @@ public class SDAgent {
     
     
     /**
+     * Get a DiscussionPost object by the given id.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>id - int, id of a DiscussionObject object</li>
+     *   </ul>
+     * 
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>post - a DiscussionPost object (valid when successful==true)</li>
+     *   </ul>
+     */
+    public Map getPostById(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long id = null;
+        try {
+            id = new Long((String) params.get("id"));
+            if (id==null) {
+                map.put("reason", "can't find this DiscussionPost");
+                return map;
+            }
+        } catch (Exception e) {
+            map.put("reason", "can't find this DiscussionPost");
+            return map;
+        }
+        
+        
+        try {
+            DiscussionPost post = sdService.getPostById(id);
+            
+            if (post==null) {
+                map.put("reason", "can't find this DiscussionPost");
+                return map;
+            }
+            
+            map.put("post", post);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//getPostById()
+    
+    
+    /**
      * Get first level discussion (posts) with the given conditions.
      * 
      * @param params A map contains:

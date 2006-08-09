@@ -144,6 +144,7 @@
     
     <create creator="spring" javascript="SDAgent">
       <param name="beanName" value="sdAgent"/>
+      <include method="getPostById"/>
       <include method="getPosts"/>
       <include method="getReplies"/>
       <include method="getTargets"/>
