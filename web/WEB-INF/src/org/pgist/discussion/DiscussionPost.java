@@ -34,6 +34,8 @@ public class DiscussionPost {
     
     protected int views;
     
+    protected int replies;
+    
     protected Date createTime;
     
     protected boolean deleted;
@@ -165,6 +167,20 @@ public class DiscussionPost {
 
     public void setViews(int views) {
         this.views = views;
+    }
+
+
+    /**
+     * @return
+     * hibernate.property not-null="true"
+     */
+    public int getReplies() {
+        return replies;
+    }
+
+
+    public void setReplies(int replies) {
+        this.replies = replies;
     }
 
 
