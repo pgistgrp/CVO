@@ -100,7 +100,7 @@ public class SDServiceImpl implements SDService {
 
 
     public void deletePost(DiscussionPost post) throws Exception {
-        post.setDeleted(true);
+        discussionDAO.deletePost(post);
     }//deletePost()
 
 
