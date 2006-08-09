@@ -97,6 +97,7 @@ body {
 	padding-top: 0px;
 	
 }
+
 #disc_title {
 	float: left;
 }
@@ -217,10 +218,9 @@ body {
 	position: relative;
 }
 #newDiscussion{
-	width: 80%;
+	width: 95%;
 	 margin: auto;
-	 position: absolute;
-	 z-index: 120;
+	display: block;
 	 padding: 5px;
 }
 

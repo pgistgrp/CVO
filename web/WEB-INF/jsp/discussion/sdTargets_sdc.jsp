@@ -7,19 +7,26 @@
 <pg:fragment type="html">
   <ul>
     <logic:iterate id="infoObject" property="infoObjects" name="structure">
-        <li><a href="javascript: infoStructure.getTargetPanes(${infoObject.id});">${infoObject.object.theme.title}</a></li>
+        <li><a href="javascript: infoStructure.getTargetPanes(${infoObject.id}); infoStructure.assignTargetHeaders('${infoObject.object.theme.title}');">${infoObject.object.theme.title}</a></li>
     </logic:iterate>
   </ul>
 </pg:fragment>
 
 <pg:fragment type="script">
-
+  infoStructure.defaultObjectTitle = "All Concern Themes";
+  infoStructure.defaultDiscussionTitle = "All Concern Themes";
+  infoStructure.defaultSidebarTitle = "All Concern Themes";
+  infoStructure.sideBarTheme = "Concerns related to";
+  infoStructure.defaultTargetNavText = "To view the summary of a concern theme, click on the theme name.";
+  
+  
   infoStructure.getDetails = function(ioid){
-
     SDAgent.getSummary({ioid:ioid}, {
       callback:function(data){
           if (data.successful){
+          $(infoStructure.isDivTargetNavText).innerHTML = '<a href="javascript:infoStructure.getTargets(); infoStructure.getPosts();">Back to '+ infoStructure.defaultObjectTitle +'</a>';
            $(infoStructure.isDivElement).innerHTML = data.source.html;
+           
           }else{
             alert("data.successful != true" + data.reason);
           }

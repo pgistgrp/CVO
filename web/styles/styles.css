@@ -245,6 +245,13 @@ img a:hover {
 	background-color: #E9EFD3 !important;
 	border: 2px solid  #98A072 !important;
 }
+
+.whiteBlueBB{
+	background-color: #FFF !important;
+	border: 2px solid #C0D7F6 !important;
+	margin: 0 10px;
+	padding: 10px;
+}
 .disc_row_a {
 	margin-top: 3px;
 	margin-bottom: 3px;

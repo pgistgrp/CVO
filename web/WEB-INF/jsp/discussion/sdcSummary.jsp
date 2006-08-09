@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 
 <pg:fragment type="html">
-  <p>${infoObject.object.theme.content}</p>
+  <p>${infoObject.object.theme.summary}</p>
 </pg:fragment>
 
 <pg:fragment type="script">
