@@ -3,6 +3,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 
+
 <pg:fragment type="html">
   <ul>
     <logic:iterate id="infoObject" property="infoObjects" name="structure">
@@ -14,7 +15,7 @@
 <pg:fragment type="script">
 
   infoStructure.getDetails = function(ioid){
-  alert("hi there");
+
     SDAgent.getSummary({ioid:ioid}, {
       callback:function(data){
           if (data.successful){

@@ -57,7 +57,7 @@
 	 	 
 	 	 this.getTargetPanes = function(ioid){
 	 	 	this.getPosts(ioid);
-	 	 	//this.getDetails(ioid);
+	 	 	this.getDetails(ioid);
 	 		
 	 	};
 	 	
