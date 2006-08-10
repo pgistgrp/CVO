@@ -15,17 +15,14 @@ body {
 	height: 100%;
 	width: 100%;
 }
-
+input.search {
+	height: 16px;
+	width: 120px;
+}
 /* ID's */
 #bar {
 	padding: 0em;
 }
-#btnNewDiscussion {
-	float: right;
-	width: 125px;
-	height: 20px;
-}
-
 #caughtException {
 	padding: 5px;
 	width: 90%;
@@ -35,34 +32,16 @@ body {
 }
 #clear {
 	clear: both;
-	position: relative;
 }
-#col-crud-options, #col-option{
-	position: absolute;
-	bottom: 0;
-	left: 0;
-
-	width: 24%;
-	height: 50px;
-	padding: 10px;
-	z-index:5000;
-}
-
-#col{
-	overflow: auto;
-}
-
 #col-left {
 	width: 64%;
 	float: left;
 	height: 100%;
-	position: relative;
 }
 #col-right {
 	width: 35%;
 	float: right;	
 	height: 100%;
-	position: relative;
 }
 #cont-resize {
 	min-height: 400px;
@@ -81,8 +60,6 @@ body {
 	width: 90%;
 	position: relative;
 }
-
-
 #discussion {
 	/*padding: .1em .4em .1em .4em;
 	height: 54%;
@@ -97,12 +74,8 @@ body {
 	padding-top: 0px;
 	
 }
-
-#disc_title {
-	float: left;
-}
 #finished {
-	margin-top: 1em;
+	margin-top: .5em;
 	margin-right: auto;
 	margin-left: auto;
 	width: 90%;
@@ -113,7 +86,7 @@ body {
 	padding: .4em;
 }
 #footer_clouds {
-	background-image: url(/images/footerclouds.png);
+	background-image: url(../images/footerclouds.png);
 	background-position: left bottom;
 	background-repeat: repeat-x;
 	margin-top: 25px;
@@ -141,10 +114,10 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	padding: 10px;
-	padding-top: 5px;
+	padding-top: 0px;
 	padding-bottom: 0px;
 	width: 85%;
-	position: relative;
+	line-height: 1em;
 }
 #header_discussion{
 	background: #fff;
@@ -153,9 +126,8 @@ body {
 	margin-right: auto;
 	padding: 10px;
 	padding-top: 5px;
-	padding-bottom: 0px;
+	padding-bottom: 5px;
 	width: 85%;
-	position: relative;
 }
 #header_object{
 	margin: auto;
@@ -165,41 +137,10 @@ body {
 	padding-top: 5px;
 	padding-bottom: 3px;
 	width: 90%;
-	}
-
-#header_newDiscussion{
-	position: relative;
 }
 #header_title {
 	float: left;
 }
-#lightbox{
-
-	position: absolute;
-	top:60%;
-	left:50%;
-	z-index:9999;
-	width:400px;
-	margin:-220px 0 0 -250px;
-	text-align:left;
-	padding: 15px;
-
-}
-
-#lightbox[id]{
-	position:fixed;
-}
-	
-#loading-indicator{
-	width: 100px; 
-	position: fixed; 
-	top:0; 
-	left:0; 
-	background-color: red; 
-	z-index: 1; 
-	padding: 3px; 
-	color: #fff;} /*fixed positioning needs ie 6- hack */
-	
 #login {
 	text-align: right;	
 	min-width: 675px;
@@ -212,25 +153,6 @@ body {
 #main {
 	margin: 0px auto;
 }
-
-#manualFilter{
-	text-align: right;
-	position: relative;
-}
-#newDiscussion{
-	width: 95%;
-	 margin: auto;
-	display: block;
-	 padding: 5px;
-}
-
-#next{
-   position: absolute;
-   right: 0;
-   width: 50%;
-   text-align: right; 
-}
-
 #object {
 	padding: .1em .4em .1em .4em;
 	width: 90%;
@@ -281,52 +203,13 @@ body {
 #object_question {
 	margin-left: 2em;
 }
-
-
-#overlay{
-	position:absolute;
-	top:0;
-	left:0;
-	width:100%;
-	height:100%;
-	z-index:5000;
-	background-color:#000;
-	-moz-opacity: 0.8;
-	opacity:.80;
-	filter: alpha(opacity=80);
-}
-
-#overlay[id]{
-	position:fixed;
-}
 #post {
 	padding: .1em .4em .1em .4em;
 }
-
-#prevNext_container{
-   position: relative;
-   height: 20px;
-   width: 98%;
-   margin: auto;
-}
-
-#previous{
-   position: absolute;
-   left: 0;
-   width: 50%;
-}
-
-
 #replies {
 	padding: .1em .4em .1em .4em;
 	margin: auto;
 	width: 95%;
-}
-
-#savingIndicator{
-	position: absolute;
-	right:0;
-	top:0;
 }
 #searchbox {
 	text-align: right;
@@ -336,18 +219,8 @@ body {
 	top: 12px;
 
 }
-#searchresults, #sidebarSearchResults{
-	margin-bottom: 10px;
-	position: absolute;
-	right: 0px;
-	top: 32px;
-	width: 230px;
-	z-index: 1000;
-	padding: 5px;
-}
-
-#sidebarSearchResults{
-	
+#searchresults {
+	display: none;
 }
 #slate {
 	margin-bottom: 1em;
@@ -405,67 +278,31 @@ body {
 	}
 
 /* Classes */
-
 .clear {
 	clear: both;
 }
-
-.closeBox{
-	margin: 0;
-	padding: 0;
-	position: absolute;
-	right: 0;
-	padding-right: 5px;
-	font-size: 10px;}
-
- .floatright{
-float: right;
-margin: 0 0 10px 10px;
-padding: 2px;}
-
-.header_cat_title {
-	float: left;
-	width: 50%;
-}
-.header_cat_replies {
-	float: left;
-	width: 15%;
-	text-align: center;
-}
-.header_cat_author {
-	float: left;
-	width: 15%;
-	text-align: center;
-}
-.header_cat_lastpost {
-	float: left;
-	width: 15%;
-}
-
 .imgright {
 	float: right;
 	margin-left: 10px;
 }
-input.search {
-	height: 16px;
-	width: 120px;
+.pages {
+	text-align: center;
+	margin: .5em;
 }
 .scroller {
 	overflow: auto;
-}
-.slateBox{
-	margin-top: 10px;
-	padding: 5px;
 }
 .sidepadding {
 	padding-left: 10px;
 	/*padding-right: 10px;*/
 }
-
+.textcenter {
+	text-align: center;
+}
 /* SpiffyBox CSS */
 /* set the image to use and establish the lower-right position */ 
 .cssbox, .cssbox_body, .cssbox_head, .cssbox_head h3{ 
-	background: transparent url(/images/img.php.png) no-repeat bottom right} 
+	background: transparent url(../images/img.php.png) no-repeat bottom right} 
 .cssbox{ /* intended total box width - padding-right(next) */ 
 	width: 98% !important; /* IE Win = width - padding */ 
 	width: 98%; /* the gap on the right edge of the image (not content padding) */ 
@@ -492,4 +329,5 @@ input.search {
 	padding: 0px 0px 0px 14px;
 }
 /* End SpiffyBox CSS */
+
 
