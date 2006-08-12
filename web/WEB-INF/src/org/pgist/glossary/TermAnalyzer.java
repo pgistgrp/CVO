@@ -22,7 +22,7 @@ public class TermAnalyzer {
 
     public void setGlossaryDAO(GlossaryDAO glossaryDAO) throws Exception {
         this.glossaryDAO = glossaryDAO;
-        trie.build(glossaryDAO.getAllTerms());
+        //trie.build(glossaryDAO.getAllTerms());
     }
     
     
@@ -31,9 +31,9 @@ public class TermAnalyzer {
      */
     
     
-    public int[][] mark(String text) {
-        return trie.mark(text);
-    }//mark()
+    //public int[][] mark(String text) {
+    //    return trie.mark(text);
+    //}//mark()
     
     
 }//class TermAnalyzer

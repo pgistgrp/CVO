@@ -33,8 +33,8 @@ public class InfoObject {
      * @return object
      * 
      * @hibernate.any id-type="long" cascade="all" meta-type="string"
-     * @hibernate.any-column name="class_id"
      * @hibernate.any-column name="class_name"
+     * @hibernate.any-column name="class_id"
      */
     public Object getObject() {
         return object;
