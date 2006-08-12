@@ -212,7 +212,7 @@ public class Trie {
                     if (node.object!=null) {
                         if (index==length-1) {
                             result.setTail(length);
-                            result.setObject(candidate.object);
+                            result.setObject(node.object);
                             
                             return result;
                         }
@@ -342,6 +342,11 @@ public class Trie {
     public TrieScanner highlight(String paragraph) {
         return new HighlighScanner(paragraph, root);
     }//highlight()
+    
+    
+    public TrieScanner suggest(String paragraph) {
+        return null;
+    }//suggest()
     
     
     /*
