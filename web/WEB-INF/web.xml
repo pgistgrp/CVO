@@ -72,24 +72,6 @@
   </listener>
   
   <servlet>
-    <servlet-name>SystemInitServlet</servlet-name>
-    <servlet-class>org.pgist.servlets.SystemInitServlet</servlet-class>
-    <init-param>
-      <param-name>org.pgist.CONFIG_PATH</param-name>
-      <param-value>/WEB-INF/config</param-value>
-    </init-param>
-    <init-param>
-      <param-name>org.pgist.EMAIL_CONFIG</param-name>
-      <param-value>email-config.xml</param-value>
-    </init-param>
-    <init-param>
-      <param-name>org.pgist.MANAGED_FILE_PATH</param-name>
-      <param-value>/tmp/upload_files</param-value>
-    </init-param>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  
-  <servlet>
     <servlet-name>action</servlet-name>
     <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
     <init-param>
