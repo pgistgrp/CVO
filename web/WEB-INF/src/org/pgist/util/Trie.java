@@ -286,19 +286,17 @@ public class Trie {
     }
     
     
-    public void add(Object object) {
-        String word = object.toString().trim();
+    public void add(String phrase, Object object) {
+        if (phrase==null || phrase.length()==0) return;
         
-        if (word==null || word.length()==0) return;
-        
-        word = word.toLowerCase();
-        int n = word.length();
+        phrase = phrase.toLowerCase();
+        int n = phrase.length();
         
         TrieNode parent = root;
         TrieNode node = null;
         
         for (int i=0; i<n; i++) {
-            char ch = word.charAt(i);
+            char ch = phrase.charAt(i);
             node = parent.match(ch);
             
             if (node==null) {
@@ -369,12 +367,12 @@ public class Trie {
             while ((s=reader.readLine())!=null) {
                 s = s.trim();
                 if (s.length()==0) continue;
-                trie.add(s);
+                trie.add(s, s);
                 set.add(s);
             }
-            trie.add("human right");
-            trie.add("right of way");
-            trie.add("right");
+            trie.add("human right", "human right");
+            trie.add("right of way", "right of way");
+            trie.add("right", "right");
             set.add("human right");
             set.add("right of way");
             set.add("right");

@@ -48,6 +48,14 @@
 
 <p><html:link page="/situationList.do">Situation List</html:link>
 
+
+<p>
+<pg:termHighlight>
+  This is a test for glossary terms: Advocacy organization, Air quality, Short Range Transit Plan,
+  Transportation Improvement Program, Auto-restricted zone. All these terms should be linked.
+</pg:termHighlight>
+
+
 </body>
 </html:html>
 

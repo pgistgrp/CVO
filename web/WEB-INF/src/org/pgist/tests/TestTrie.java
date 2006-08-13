@@ -22,7 +22,7 @@ public class TestTrie extends TestCase {
          * Create dictionary
          */
         for (int i=0; i<dict.length; i++) {
-            trie.add(dict[i]);
+            trie.add(dict[i], dict[i]);
         }//for i
         
         return trie;

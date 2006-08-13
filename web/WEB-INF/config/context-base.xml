@@ -57,6 +57,11 @@
     </bean>
 
 
+    <bean id="termAnalyzer" class="org.pgist.glossary.TermAnalyzer">
+        <property name="glossaryDAO" ref="glossaryDAO"/>
+    </bean>
+
+
     <bean id="glossaryManageAgent" class="org.pgist.glossary.GlossaryManageAgent">
         <property name="glossaryService" ref="glossaryService"/>
     </bean>

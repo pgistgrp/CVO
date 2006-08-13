@@ -18,7 +18,7 @@ public class HighlightTag extends BodyTagSupport {
 
     
     private static final long serialVersionUID = -7932209094743723372L;
-
+    
     private String text;
     
     private String style;
