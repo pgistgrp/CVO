@@ -55,6 +55,8 @@
                <value>org/pgist/glossary/TermParticipantRecord.hbm.xml</value>
                <value>org/pgist/workflow/DecisionSituation.hbm.xml</value>
                <value>org/pgist/wfengine/WorkflowEnvironment.hbm.xml</value>
+               <value>org/pgist/wfengine/Environment.hbm.xml</value>
+               <value>org/pgist/wfengine/EnvironmentVariable.hbm.xml</value>
                <value>org/pgist/wfengine/RunningContext.hbm.xml</value>
                <value>org/pgist/wfengine/Workflow.hbm.xml</value>
                <value>org/pgist/wfengine/Activity.hbm.xml</value>
