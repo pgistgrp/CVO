@@ -1,7 +1,7 @@
 #object{
 	border: 1px solid #ccc;
 	border-top: 0px solid #fff;
-	width: 90%;
+	width: 95%;
 	margin: auto;
 	height: 25%;
 	overflow: auto;
@@ -15,14 +15,14 @@
 	height: 40%;
 	overflow: auto;
 	padding: 0px;
-	width: 88%;
+	width: 92%;
 	padding-top: 0px;
 }
 #toggle{
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;
 	margin: auto; 	
-	width: 88%;
+	width: 92%;
 	text-align: center;
 	padding: 0px 0px 0px 0px;
 	height: 9px;
@@ -35,7 +35,7 @@
 	padding: 0px;
 	padding-top: 5px;
 	padding-bottom: 0px;
-	width: 88%;
+	width: 92%;
 }
 #header_cat {
 	margin: auto;
@@ -44,5 +44,8 @@
 	padding: 0px;
 	padding-top: 5px;
 	padding-bottom: 0px;
-	width: 88%;
+	width: 92%;
+}
+#header_object {
+	width: 95%;
 }
