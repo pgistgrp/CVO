@@ -50,7 +50,7 @@
 
 
 <p>
-<pg:termHighlight>
+<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
   This is a test for glossary terms: Advocacy organization, Air quality, Short Range Transit Plan,
   Transportation Improvement Program, Auto-restricted zone. All these terms should be linked.
 </pg:termHighlight>
