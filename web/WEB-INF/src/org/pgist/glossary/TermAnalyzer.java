@@ -56,6 +56,13 @@ public class TermAnalyzer {
     }//reload()
     
     
+    /**
+     * Hight the given text
+     * 
+     * @param text the paragraph to be highlighted.
+     * @param count the maximum number of phrased to be highlighted.
+     * @return a List of ScanResult objects
+     */
     public List highlight(String text, int count) {
         TrieScanner scanner = trie.highlight(text);
         
