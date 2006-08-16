@@ -12,6 +12,10 @@ import java.util.SortedSet;
 public class Tag {
     
     
+    public static final int TYPE_INCLUDED = 0;
+    
+    public static final int TYPE_EXCLUDED = 1;
+    
     public static final int STATUS_OFFICIAL  = 1;
 
     public static final int STATUS_CANDIDATE = 2;
@@ -26,6 +30,8 @@ public class Tag {
     protected String description = "";
     
     protected SortedSet categories;
+    
+    private int type = TYPE_INCLUDED;
     
     private int status = STATUS_CANDIDATE;
     
@@ -88,6 +94,20 @@ public class Tag {
 
     public void setCategories(SortedSet categories) {
         this.categories = categories;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getType() {
+        return type;
+    }
+
+
+    public void setType(int type) {
+        this.type = type;
     }
 
 

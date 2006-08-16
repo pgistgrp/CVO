@@ -1,11 +1,5 @@
 package org.pgist.util;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
-
 
 /**
  * Trie structure.<br>
@@ -160,29 +154,81 @@ public class Trie {
     }//class TrieNode
     
     
-    private class HighlighScanner extends TrieScanner {
+    /**
+     * Inner Class AbstractTrieScanner
+     */
+    private abstract class AbstractTrieScanner implements TrieScanner {
         
         
-        private TrieNode parent;
+        protected TrieNode parent;
         
-        private TrieNode candidate;
+        protected TrieNode candidate;
+        
+        protected String para;
+        
+        protected char ch;
+        
+        protected int index;
+        
+        protected int point = 0;
+        
+        protected int length;
         
         
-        public HighlighScanner(String paragraph, TrieNode root) {
+        protected AbstractTrieScanner(String paragraph) {
             para = paragraph.toLowerCase();
             index = 0;
             length = para.length();
             ch = para.charAt(index);
             candidate = null;
             
-            if (ch<'a' && ch>'z') skip();
+            if (ch<'0' || ( ch>'9' && ch<'a' ) || ch>'z') skip();
         }
         
         
         /**
-         * Scan for next unit.
+         * skip to the next beginning
+         * 
+         * @return tail of the skipped unit
          */
-        public ScanResult scan() {
+        protected int skip() {
+            int tail = -1;
+            
+            if ( ch=='\'' || (ch>='0' && ch<='9') || (ch>='a' && ch<='z') ) {
+                while (index<length-1) {
+                    index++;
+                    ch = para.charAt(index);
+                    if (ch!='\'' && ( ch<'0' || (ch>'9' && ch<'a') || ch>'z' )) {
+                        tail = index;
+                        break;
+                    }
+                }//while
+                if (index==length) return index;
+            }
+            
+            while (index<length-1) {
+                index++;
+                ch = para.charAt(index);
+                if ( (ch>='0' && ch<='9') || (ch>='a' && ch<='z') ) break;
+            }//while
+            
+            return tail;
+        }//skip()
+        
+        
+        public boolean eop() {
+            return index>=length-1;
+        }//eop()
+        
+        
+        /**
+         * Scan for next unit.
+         * 
+         * @param ext if true, the scanner will return the unmatched unit as the ScanResult.
+         *            else, only the matched unit will be returned (The match field of ScanResult will reflect this).
+         * @return A ScanResult object
+         */
+        protected ScanResult scan(boolean ext) {
             if (index>=length) return null;
             
             ScanResult result = new ScanResult(index);
@@ -190,12 +236,13 @@ public class Trie {
             parent = root;
             candidate = null;
             point = 0;
+            int tail = -1;
             
             TrieNode node = null;
             
             while (index<length) {
                 node = parent.match(ch);
-                //parent.print(ch);
+                
                 if (node==null) {
                     if (candidate!=null) {
                         result.setObject(candidate.object);
@@ -205,8 +252,21 @@ public class Trie {
                         skip();
                         return result;
                     } else {
-                        skip();
-                        return null;
+                        if (ext) {
+                            if ( (ch>'0' && ch<'9') || (ch>'a' && ch<'z') ) {
+                                tail = skip();
+                            } else {
+                                tail = index;
+                                skip();
+                            }
+                            if (tail==-1) return null;
+                            result.setTail(tail);
+                            result.setMatched(false);
+                            return result;
+                        } else {
+                            skip();
+                            return null;
+                        }
                     }
                 } else {
                     if (node.object!=null) {
@@ -218,7 +278,7 @@ public class Trie {
                         }
                         
                         char chr = para.charAt(index+1);
-                        if (chr<'a' || chr>'z') {
+                        if (chr<'0' || (chr>'9' && chr<'a') || chr>'z') {
                             candidate = node;
                             point = index;
                             result.setTail(index+1);
@@ -273,7 +333,39 @@ public class Trie {
         }//scan()
         
         
+    }//class AbstractTrieScanner
+    
+
+    private class HighlighScanner extends AbstractTrieScanner {
+        
+        
+        public HighlighScanner(String paragraph) {
+            super(paragraph);
+        }
+        
+        
+        public ScanResult scan() {
+            return scan(false);
+        }//scan()
+        
+        
     }//class HighlighScanner
+    
+    
+    private class SuggestScanner extends AbstractTrieScanner {
+        
+        
+        public SuggestScanner(String paragraph) {
+            super(paragraph);
+        }
+        
+        
+        public ScanResult scan() {
+            return scan(true);
+        }//scan()
+        
+        
+    }//class SuggestScanner
     
     
     private TrieNode root;
@@ -338,12 +430,12 @@ public class Trie {
     
     
     public TrieScanner highlight(String paragraph) {
-        return new HighlighScanner(paragraph, root);
+        return new HighlighScanner(paragraph);
     }//highlight()
     
     
     public TrieScanner suggest(String paragraph) {
-        return null;
+        return new SuggestScanner(paragraph);
     }//suggest()
     
     
