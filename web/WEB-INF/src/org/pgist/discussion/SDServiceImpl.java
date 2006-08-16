@@ -38,7 +38,14 @@ public class SDServiceImpl implements SDService {
     
     
     public DiscussionPost getPostById(Long postid) throws Exception {
-        return discussionDAO.getPostById(postid);
+        DiscussionPost post = discussionDAO.getPostById(postid);
+        
+        /*
+         * increase the view times
+         */
+        discussionDAO.increaseViews(post);
+        
+        return post;
     }//getPostById()
 
 

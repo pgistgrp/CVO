@@ -52,6 +52,9 @@ public interface DiscussionDAO extends BaseDAO {
     
     
     void deletePost(DiscussionPost post) throws Exception;
+    
+    
+    void increaseViews(DiscussionPost post) throws Exception;
 
 
     //temp

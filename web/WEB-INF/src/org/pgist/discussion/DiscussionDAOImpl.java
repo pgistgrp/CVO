@@ -238,9 +238,17 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//deleteDiscussion()
 
 
+    private static final String hql_deletePost = "update DiscussionPost set replies = replies-1 where id=?";
+    
+    
     public void deletePost(DiscussionPost post) throws Exception {
         post.setDeleted(true);
         getHibernateTemplate().saveOrUpdate(post);
+        
+        DiscussionPost parent = post.getParent();
+        if (parent!=null) {
+            getSession().createQuery(hql_deletePost).setLong(0, parent.getId()).executeUpdate();
+        }
     }//deletePost()
 
 
@@ -250,6 +258,14 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     public Collection getInfoStructures() throws Exception {
         return getHibernateTemplate().find(hql_getInfoStructures);
     }//getInfoStructures()
+    
+    
+    private static final String hql_increaseViews = "update DiscussionPost set views=views+1 where id=?";
+    
+    
+    public void increaseViews(DiscussionPost post) throws Exception {
+        getSession().createQuery(hql_increaseViews).setLong(0, post.getId());
+    }//increaseViews()
 
 
 }//class DiscussionDAOImpl
