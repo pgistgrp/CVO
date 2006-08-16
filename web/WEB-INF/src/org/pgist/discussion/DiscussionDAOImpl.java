@@ -134,7 +134,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getReplies()
     
     
-    private static final String hql_getReplies_B_1 = "select count(p.id) from DiscussionPost p where p.parent.id=? and p.deleted=? order by p.id";
+    private static final String hql_getReplies_B_1 = "select count(p.id) from DiscussionPost p where p.parent.id=? and p.deleted=?";
     
     private static final String hql_getReplies_B_2 = "from DiscussionPost p where p.parent.id=? and p.deleted=? order by p.id";
     
