@@ -9,7 +9,7 @@ Table of Contents
 
 /* HTML Elements */
 body {
-	font-family: "Trebuchet MS", Arial, Verdana, sans-serif;
+	font-family: Arial, Verdana, sans-serif;
 	font-size: .9em;
 	line-height: 1.5em;
 	background-image: url(../images/bg_gradient.png);
@@ -233,6 +233,14 @@ h5	{
 	background: #EEE;
 }
 
+.quickPostContents{
+	padding: 0px 5px;
+	margin-left: 15px;
+	background: #fff;
+	color: #333;
+	border: 1px solid #C0D7F6;
+}
+
 .disc_row_a {
 
 
@@ -282,5 +290,97 @@ input.search {
 	padding-left: 3px;
 	padding-top: 2px;
 }
+
+
+/*Tag Styles*/
+
+
+.tags{
+	font-size: 12px;
+	margin-right: 5px;
+	line-height: 20px;
+	margin-top: 10px;
+}
+	
+.tags a{
+	color: #878;
+	padding: 1px;
+	border: 1px solid #CDC;
+	border-bottom: 1px solid #069;
+	text-decoration: none;
+	font-weight: normal;
+}
+
+.tags a:hover{
+	color: #eee;
+}
+
+.concerns{
+	font-size: 13px;
+}
+
+.tagSize1 a, .tagSize2 a, .tagSize3 a, .tagSize4 a{
+	color: #878;
+	padding: 1px;
+	padding-left: 2px;
+	padding-right: 2px;
+	border: 1px solid #CDC;
+	border-bottom: 1px solid #069;
+	text-decoration: none;
+	margin-right: 3px;
+}
+
+.tagSize1 a{
+	font-size: 14px;
+	font-weight: normal;
+}
+
+.tagSize2 a{
+	font-size: 18px;
+	font-weight: normal;
+}
+
+.tagSize3 a{
+	font-size: 20px;
+	font-weight: normal;
+}
+
+.tagSize4 a{
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.tagSize1, .tagSize2, .tagSize3, .tagSize4{
+	margin-right: 5px;
+	line-height: 25px;
+	margin-top: 10px;
+}
+
+ul.tagsList{
+	margin: 0;
+	padding: 0;
+	border: none;
+	list-style: none;
+	display: inline;
+	line-height: 15px;
+}
+
+ul.tagsList img{
+	padding-left: 3px;
+}
+
+li.tagsList{
+	line-height: 25px;
+	margin-right: 3px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	padding: 2px;
+	border: 1px solid #CDC;
+	list-style: none;
+	display: inline;
+	color: #878;
+	text-decoration: none;
+}
+
 
 
