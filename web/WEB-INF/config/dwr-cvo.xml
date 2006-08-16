@@ -63,6 +63,7 @@
 	 <convert converter="bean" match="org.pgist.discussion.DiscussionPost"/>
     <!-- DWR Agents -->
     
+<convert converter="array" match="[D"/>
 
     <create creator="spring" javascript="CCTAgent">
       <param name="beanName" value="cctAgent"/>
@@ -155,6 +156,16 @@
       <include method="getSummary"/>
     </create>
 
+    <create creator="spring" javascript="ProjectAgent">
+      <param name="beanName" value="projectAgent"/>
+      <include method="getProject"/>
+      <include method="getProjects"/>
+      <include method="saveProject"/>
+      <include method="saveAlternative"/>
+      <include method="saveFootprint"/>
+      <include method="getFootprint"/>
+      <include method="getFootprints"/>
+    </create>
 
     <!--create creator="spring" javascript="GlossarySidebarAgent">
       <param name="beanName" value="glossarySidebarAgent"/>

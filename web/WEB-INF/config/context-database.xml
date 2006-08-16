@@ -66,6 +66,7 @@
                <value>org/pgist/voting/VotePackage.hbm.xml</value>
                <value>org/pgist/voting/VoteSheet.hbm.xml</value>
                <value>org/pgist/voting/VoteItem.hbm.xml</value>
+			   <value>org/pgist/projects/Project.hbm.xml</value>
            </list>
         </property>
         <property name="hibernateProperties">
