@@ -178,7 +178,6 @@
 	  	}
 		}
 		
-		
 		this.getPost = function(postId){
 		if(objExpanded){
 				moreDiscussion();

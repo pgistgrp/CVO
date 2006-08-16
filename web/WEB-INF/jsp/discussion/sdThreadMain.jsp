@@ -44,34 +44,47 @@
 
 
 <script type="text/javascript">
- function createReply(){
-	var newReplyTitle = $('txtnewReplyTitle').value;
-	var newReply = $('txtnewReply').value;
-	var newReplyTags = $('newReplyTags').value;
-    SDAgent.createReply({isid:${structure.id}, pid:${post.id}, title:newReplyTitle, content:newReply, tags: newReplyTags}, {
-      callback:function(data){
-          if (data.successful){
-          		alert("it worked");
-          		//discussion.getReplies();           
-          }else{
-            alert("data.successful != true" + data.reason);
-          }
-      },
-      errorHandler:function(errorString, exception){
-          alert("getDetails Error" + errorString + exception);
-      }
-    });
-  }
+		 function createReply(){
+			var newReplyTitle = $('txtnewReplyTitle').value;
+			var newReply = $('txtnewReply').value;
+			var newReplyTags = $('newReplyTags').value;
+		    SDAgent.createReply({isid:${structure.id}, pid:${post.id}, title:newReplyTitle, content:newReply, tags: newReplyTags}, {
+		      callback:function(data){
+		          if (data.successful){
+		          		getReplies();           
+		          }else{
+		            alert("data.successful != true" + data.reason);
+		          }
+		      },
+		      errorHandler:function(errorString, exception){
+		          alert("getDetails Error" + errorString + exception);
+		      }
+		    });
+		  }
+		
+		 function getReplies(){
+		      SDAgent.createReply({isid:${structure.id}, ioid: ${object.id}, postid:${post.id}, {
+		      callback:function(data){
+		          if (data.successful){
+		          			$('postReplies').innerHTML = data.html;         
+		          }else{
+		            alert("data.successful != true" + data.reason);
+		          }
+		      },
+		      errorHandler:function(errorString, exception){
+		          alert("getDetails Error" + errorString + exception);
+		      }
+		    });
+		  }
   
-
 </script>
 
 </head>
-<body>
+<body> 
 <div id="container">
   <div id="col-left">
     <div id="themesummary">
-	Theme Summary
+	<a href="javascript: getReplies">Get Replies</a>
 	
 	</div>
 	
@@ -114,5 +127,7 @@
 
 </div>
 <!-- End Footer -->
-
+<script type="text/javascript">
+	getReplies();
+</script>
 </html:html>

@@ -27,7 +27,7 @@
 						</logic:iterate>
 						<small>- click on a tag to view concerns with the same tag.</small>
 					</ul>
-					<p>8 Replies | <a href="sdThread.do?isid=${structure.id}&pid=${post.id}">Participate in this Discussion</a></p>
+					<p>8 Replies | <a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">Participate in this Discussion</a></p>
 					</div>
 				</td>
 			</tr>
