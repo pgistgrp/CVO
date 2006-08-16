@@ -219,22 +219,7 @@
 		}
 	}
 	
-	function getElementsByClassName(classname) {
-	    if (document.getElementsByTagName) {
-	         var els = document.getElementsByTagName("*");
-	         var c = new RegExp('/b^|' + classname + '|$/b');
-	         final = new Array();
-	         var n=0;
-	         for (var i=0; i < els.length; i++) {
-	              if (els[i].className) {
-	                   if(c.test(els[i].className)) {
-	                   final[n] = els[i];
-	                   n++;
-	                   }
-	              }
-	         }
-	         return final;
-	    } else{return false;}
+
  
 </script>
 </head>

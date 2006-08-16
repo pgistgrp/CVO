@@ -44,11 +44,11 @@
 
 
 <script type="text/javascript">
-	function createReply(){
+ function createReply(){
 	var newReplyTitle = $('txtnewReplyTitle').value;
 	var newReply = $('txtnewReply').value;
 	var newReplyTags = $('newReplyTags').value;
-    SDAgent.getSummary({isid:${structure.id}, pid:${post.id}, title:newReplyTitle, content:newReply, tags: newReplyTags}, {
+    SDAgent.createReply({isid:${structure.id}, pid:${post.id}, title:newReplyTitle, content:newReply, tags: newReplyTags}, {
       callback:function(data){
           if (data.successful){
           		alert("it worked");
@@ -61,7 +61,9 @@
           alert("getDetails Error" + errorString + exception);
       }
     });
-  };
+  }
+  
+
 </script>
 
 </head>
