@@ -509,15 +509,19 @@ public class SDAgent {
                 return map;
             }
             
-            qid = new Long((String) params.get("qid"));
-            if (qid!=null) {
-                quote = sdService.getPostById(qid);
+            try {
+                qid = new Long((String) params.get("qid"));
+                if (qid!=null) {
+                    quote = sdService.getPostById(qid);
+                }
+            } catch (Exception ex) {
             }
             
             sdService.createReply(parent, quote, title, content, tags);
             
             map.put("successful", true);
         } catch (Exception e) {
+            e.printStackTrace();
             map.put("reason", e.getMessage());
             return map;
         }

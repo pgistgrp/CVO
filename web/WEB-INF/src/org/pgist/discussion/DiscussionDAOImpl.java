@@ -199,6 +199,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     public DiscussionPost createReply(DiscussionPost post, DiscussionPost quote, String title, String content, String[] tags) throws Exception {
         DiscussionPost reply = new DiscussionPost();
         
+        reply.setDiscussionId(post.getDiscussionId());
         reply.setTitle(title);
         reply.setContent(content);
         reply.setDeleted(false);
