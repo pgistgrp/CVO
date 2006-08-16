@@ -32,9 +32,9 @@ public class DiscussionPost {
     
     protected User owner;
     
-    protected int views;
+    protected int views = 0;
     
-    protected int replies;
+    protected int replies = 0;
     
     protected Date createTime;
     
@@ -172,7 +172,7 @@ public class DiscussionPost {
 
     /**
      * @return
-     * hibernate.property not-null="true"
+     * @hibernate.property not-null="true"
      */
     public int getReplies() {
         return replies;

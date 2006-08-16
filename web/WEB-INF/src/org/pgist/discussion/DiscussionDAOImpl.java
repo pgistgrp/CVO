@@ -195,6 +195,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         return post;
     }//createPost()
 
+    
+    private static final String hql_createReply = "update DiscussionPost set replies = replies + 1 where id=?";
+    
 
     public DiscussionPost createReply(DiscussionPost post, DiscussionPost quote, String title, String content, String[] tags) throws Exception {
         DiscussionPost reply = new DiscussionPost();
@@ -211,6 +214,8 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         setPostTags(post, tags);
         
         getHibernateTemplate().save(reply);
+        
+        getSession().createQuery(hql_createReply).setLong(0, post.getId()).executeUpdate();
         
         return reply;
     }//createReply()
