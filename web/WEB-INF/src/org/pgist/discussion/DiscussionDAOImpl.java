@@ -154,7 +154,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         //get rows
         Query query = getSession().createQuery(hql_getReplies_B_2);
-        query.setEntity(0, post.getId());
+        query.setLong(0, post.getId());
         query.setBoolean(1, false);
         query.setFirstResult(setting.getFirstRow());
         query.setMaxResults(setting.getRowOfPage());
