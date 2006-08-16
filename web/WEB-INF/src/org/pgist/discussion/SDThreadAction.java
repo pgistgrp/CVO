@@ -15,7 +15,7 @@ import org.pgist.util.PageSetting;
  * SDAction accepts paramters from the request:
  *   <ul>
  *     <li>isid - int, the id of a InfoStructure object</li>
- *     <li>ioid - int, the id of a InfoObject object</li>
+ *     <li>ioid - int, the id of a InfoObject object. Optional, can be empty if the discussion is on the whole structure.</li>
  *     <li>pid - int, the id of a DiscussionPost object</li>
  *     <li>page - int, current page number. Optional, default is 1.</li>
  *     <li>count - int, the number of reply posts to be showned in one page. Optional, default is -1, means show all posts.</li>
@@ -26,7 +26,7 @@ import org.pgist.util.PageSetting;
  * available (in request/attribute):
  *   <ul>
  *     <li>structure - an InfoStructure object</li>
- *     <li>object - an InfoObject object</li>
+ *     <li>object - an InfoObject object. If the discussion is on the whole structure, object is null.</li>
  *     <li>post - a DiscussionPost object</li>
  *     <li>setting - a PageSetting object</li>
  *     <li>replies - A list of DiscussionPost objects.</li>
@@ -76,16 +76,21 @@ public class SDThreadAction extends Action {
         /*
          * ioid of a InfoObject object
          */
-        Long ioid = new Long(request.getParameter("ioid"));
-        
-        /*
-         * Load the specified InfoStructure object from database.
-         */
-        InfoObject infoObj = sdService.getInfoObjectById(ioid);
-        
-        if (infoObj==null) throw new Exception("InfoObject with id "+ioid+" is not found.");
-        
-        request.setAttribute("object", infoObj);
+        String ioidStr = request.getParameter("ioid");
+        if (ioidStr!=null && !"".equals(ioidStr.trim())) {
+            Long ioid = new Long(ioidStr);
+            
+            /*
+             * Load the specified InfoStructure object from database.
+             */
+            InfoObject infoObj = sdService.getInfoObjectById(ioid);
+            
+            if (infoObj==null) throw new Exception("InfoObject with id "+ioid+" is not found.");
+            
+            request.setAttribute("object", infoObj);
+        } else {
+            request.setAttribute("object", "");
+        }
         
         Long pid = new Long(request.getParameter("pid"));
         DiscussionPost post = sdService.getPostById(pid);
