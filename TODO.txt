@@ -2,8 +2,13 @@
 //////////  SDC  //////////  
 
 Zhong:
-[] post.views
-[] post object for most recent post (accessible from sdMain.jsp)
+[ok] post.views
+[ok] post object for most recent post (accessible from sdMain.jsp)
+     post.lastAuthor <= author of most recent post
+     post.lastReply.owner
+[ok] post object for most recent post (accessible from sdMain.jsp)
+     post.lastCreateTime <= create time of most recent post
+     post.lastReply.createTime
 [] sorting posts
 [] voting
 [] related concerns and related discussion for sidebar

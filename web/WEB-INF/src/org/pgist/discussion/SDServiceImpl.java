@@ -40,11 +40,6 @@ public class SDServiceImpl implements SDService {
     public DiscussionPost getPostById(Long postid) throws Exception {
         DiscussionPost post = discussionDAO.getPostById(postid);
         
-        /*
-         * increase the view times
-         */
-        discussionDAO.increaseViews(post);
-        
         return post;
     }//getPostById()
 
@@ -114,6 +109,11 @@ public class SDServiceImpl implements SDService {
     public void editPost(DiscussionPost post, String title, String content, String[] tags) throws Exception {
         discussionDAO.editPost(post, title, content, tags);
     }//editPost()
+
+
+    public void increaseViews(DiscussionPost post) throws Exception {
+        discussionDAO.increaseViews(post);
+    }//increaseViews()
 
 
 }//class SDServiceImpl

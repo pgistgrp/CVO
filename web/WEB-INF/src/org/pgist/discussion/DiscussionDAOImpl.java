@@ -119,10 +119,30 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         query.setFirstResult(setting.getFirstRow());
         query.setMaxResults(setting.getRowOfPage());
         
-        return query.list();
+        list = query.list();
+        
+        //get the last reply
+        for (int i=0; i<list.size(); i++) {
+            DiscussionPost post = (DiscussionPost) list.get(i);
+            post.setLastReply(getLastReply(post));
+        }//for i
+        
+        return list;
     }//getPosts()
     
     
+    private static final String hql_getLastReply = "from DiscussionPost p where p.parent.id=? order by p.id desc";
+    
+    
+    private DiscussionPost getLastReply(DiscussionPost post) {
+        List list = getHibernateTemplate().find(hql_getLastReply, post.getId());
+        
+        if (list.size()==0) return null;
+        
+        return (DiscussionPost) list.get(0);
+    }//getLastReply()
+
+
     private static final String hql_getReplies_A = "from DiscussionPost p where p.parent.id=? and p.deleted=? order by p.id";
     
     
@@ -264,7 +284,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     
     
     public void increaseViews(DiscussionPost post) throws Exception {
-        getSession().createQuery(hql_increaseViews).setLong(0, post.getId());
+        getSession().createQuery(hql_increaseViews).setLong(0, post.getId()).executeUpdate();
     }//increaseViews()
 
 

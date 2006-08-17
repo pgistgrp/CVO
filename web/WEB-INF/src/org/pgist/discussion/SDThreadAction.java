@@ -98,6 +98,11 @@ public class SDThreadAction extends Action {
         if (post!=null) {
             request.setAttribute("post", post);
             
+            /*
+             * increase the view times
+             */
+            sdService.increaseViews(post);
+            
             PageSetting setting = new PageSetting();
             setting.setPage(request.getParameter("page"));
             setting.setRowOfPage(request.getParameter("count"));

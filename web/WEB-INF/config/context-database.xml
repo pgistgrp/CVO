@@ -119,6 +119,7 @@
           <prop key="relate*">PROPAGATION_REQUIRED</prop>
           <prop key="derelate*">PROPAGATION_REQUIRED</prop>
           <prop key="increase*">PROPAGATION_REQUIRED</prop>
+          <prop key="decrease*">PROPAGATION_REQUIRED</prop>
           <prop key="copy*">PROPAGATION_REQUIRED</prop>
           <prop key="duplicate*">PROPAGATION_REQUIRED</prop>
           <prop key="move*">PROPAGATION_REQUIRED</prop>

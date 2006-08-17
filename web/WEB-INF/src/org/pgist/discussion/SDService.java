@@ -48,4 +48,7 @@ public interface SDService {
     Collection getInfoStructures() throws Exception;
 
 
+    void increaseViews(DiscussionPost post) throws Exception;
+
+
 }//interface SDService

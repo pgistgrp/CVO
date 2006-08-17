@@ -40,6 +40,8 @@ public class DiscussionPost {
     
     protected boolean deleted;
     
+    protected DiscussionPost lastReply;
+    
     
     /**
      * @return
@@ -209,6 +211,21 @@ public class DiscussionPost {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+
+    /**
+     * lastReply is not a persistent property
+     * 
+     * @return
+     */
+    public DiscussionPost getLastReply() {
+        return lastReply;
+    }
+
+
+    public void setLastReply(DiscussionPost lastReply) {
+        this.lastReply = lastReply;
     }
 
 
