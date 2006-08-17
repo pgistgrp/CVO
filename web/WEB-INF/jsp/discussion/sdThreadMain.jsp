@@ -52,6 +52,9 @@
 		      callback:function(data){
 		          if (data.successful){
 		          		getReplies();           
+          				$('txtnewReplyTitle').value = '';
+						$('txtnewReply').value = '';
+						$('newReplyTags').value = '';
 		          }else{
 		            alert("data.successful != true" + data.reason);
 		          }
@@ -83,10 +86,6 @@
 <body> 
 <div id="container">
   <div id="col-left">
-    <div id="themesummary">
-	<a href="javascript: getReplies">Get Replies</a>
-	
-	</div>
 	
 	<div id="backToDiscussion" style="text-align: right;"><a href="sd.do?isid=${structure.id}">Back to Discussion</a></div>
 	<div id="post" class="blueBB">

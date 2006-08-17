@@ -8,8 +8,8 @@
 
 
 <logic:iterate id="reply" name="replies">
-	<div id="reply${reply.id}" class="blueBB">
-		 <h4>theme >> ${reply.title}</h4>
+	<div id="reply${reply.id}" class="post">
+		 <h4>Re: ${post.title} >> ${reply.title}</h4>
 		<small>Posted on <fmt:formatDate value="${reply.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${reply.owner.loginname}</small>
 		<p>${reply.content}</p>
 		<ul class="tagsList"><strong>tags: </strong>
