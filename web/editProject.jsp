@@ -208,18 +208,17 @@ function saveFootprint(){
 			serialcoords[i][j+1] = coords[i][j/2].y;
 		}
 	}
-	$('errormessage').innerHTML = serialcoords;
+	//$('errormessage').innerHTML = serialcoords;
 	
-	ProjectAgent.saveFootprint({pid:editProjectId,
-								coords:serialcoords},
+	ProjectAgent.saveFootprint(editProjectId,serialcoords,
 								{callback:function(data){
 											if(data.successful){
 												alert("footprint saved..");
 											}else{
-												alert(data.reason);
+												alert("Not successful: " + data.reason);
 											}
-											}
-	});
+										}
+								});
 }
 
 function deleteLastPoint(){
@@ -295,6 +294,7 @@ function saveProject(){
 								if(data.successful){
 									editProjectId = data.pid;
 									alert("Project saved with id = " + editProjectId);
+									$('editfpoptions').style.display = "inline";
 								}
 							}}
 	);
@@ -416,7 +416,7 @@ body {
 
 	</td>
   <td>
-  <table width="100%" border="1"><form name="fpparams" id="fpparams">
+  <table width="100%" border="1" id="editfpoptions" style="display:none"><form name="fpparams" id="fpparams">
   <tr>
     <td width="100"><input type="radio" id="fptype" name="fptype" value="POINT" />&nbsp;Point(s)</td>
     <td><input type="checkbox" name="chkMultiPnt" value="checkbox"  onclick="multiplepoints=!multiplepoints;"/>
@@ -427,7 +427,7 @@ Allow multiple points
     <td width="100" rowspan="3">
 	  <div align="center">
 	    <input name="button54" type="button" onclick="clearInputLine()" value="Clear" />
-	    <input type="button" name="btnsave" value="Save footprint" onclick="saveFootprint();" />	
+	    <input type="button" id="btnsavefp" value="Save footprint" onclick="saveFootprint();"/>	
 	    </div></td>
   </tr>
   <tr>

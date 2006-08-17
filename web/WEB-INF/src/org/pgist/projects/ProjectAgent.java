@@ -104,18 +104,16 @@ public class ProjectAgent {
 		
 	}
 	
-	public Map saveFootprint(Map fpparams){
-		Map result = new HashMap();		
+	public Map saveFootprint(long pid, double[][] coords){
+		Map result = new HashMap();
 		try {
 			//long pid, double[][] coords, int[] parts, String geoType
-			Long pid = new Long((String)(fpparams.get("pid")));
+			//Long pid = new Long((String)(fpparams.get("pid")));
 			System.out.println("--pid=" + pid);
-			System.out.println("--coords=" + fpparams.get("coords").toString());
-			String[][] coords = (String[][]) (fpparams.get("coords"));
 			System.out.println("--array len=" + coords.length);
 			Project p = (Project) projectService.getProject(pid);
 			int[] parts = {0};
-			//projectService.saveFootprint(connection, p , coords, parts, "LINE");
+			projectService.saveFootprint(connection, p , coords, parts, "LINE");
 			result.put("successful", true);
 		} catch (Exception e) {
 			// TODO: handle exception

@@ -63,8 +63,6 @@
 	 <convert converter="bean" match="org.pgist.discussion.DiscussionPost"/>
     <!-- DWR Agents -->
     
-<convert converter="array" match="[D"/>
-
     <create creator="spring" javascript="CCTAgent">
       <param name="beanName" value="cctAgent"/>
       <include method="getCCTs"/>
