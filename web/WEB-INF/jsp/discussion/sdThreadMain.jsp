@@ -52,7 +52,7 @@
 		      callback:function(data){
 		          if (data.successful){
 		          		getReplies();           
-          				$('txtnewReplyTitle').value = '';
+          				$('txtnewReplyTitle').value = 'Re: ${post.title} ';
 						$('txtnewReply').value = '';
 						$('newReplyTags').value = '';
 		          }else{

@@ -21,7 +21,7 @@
 			<tr class="disc_row_a">
 				<td colspan="5">
 					<div id="quickPostContents${post.id}" class="quickPostContents" style="display: none;">
-					<p><b>Preview: </b>${fn:substring(post.content, 0, 150)} [ <a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">more</a>... ]</p>
+					<p><b>Preview: </b>${fn:substring(post.content, 0, 250)} [ <a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">more</a>... ]</p>
 					<ul class="tagsList">
 						<logic:iterate id="tag" name="post" property="tags">
 							<li class="tagsList"><small>${tag.name}</small></li>

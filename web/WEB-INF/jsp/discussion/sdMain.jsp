@@ -177,7 +177,7 @@
 			    });
 	  	}
 		}
-		
+		/*
 		this.getPost = function(postId){
 		if(objExpanded){
 				moreDiscussion();
@@ -205,7 +205,7 @@
 	          displayIndicator(false);
 	      }
 	    });
-		}
+		}*/
 	};
 	
 	//End Global Variables
