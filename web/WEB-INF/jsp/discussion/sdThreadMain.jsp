@@ -57,22 +57,22 @@
 		          }
 		      },
 		      errorHandler:function(errorString, exception){
-		          alert("getDetails Error" + errorString + exception);
+		          alert("createReply Error" + errorString + exception);
 		      }
 		    });
 		  }
 		
 		 function getReplies(){
-		      SDAgent.createReply({isid:${structure.id}, ioid: ${object.id}, postid:${post.id}, {
+		      SDAgent.getReplies({isid:${structure.id}, ioid:${object.id}, postid:${post.id}}, {
 		      callback:function(data){
 		          if (data.successful){
 		          			$('postReplies').innerHTML = data.html;         
 		          }else{
-		            alert("data.successful != true" + data.reason);
+		            alert("data.successful != true: " + data.reason);
 		          }
 		      },
 		      errorHandler:function(errorString, exception){
-		          alert("getDetails Error" + errorString + exception);
+		          alert("getReplies Error" + errorString + exception);
 		      }
 		    });
 		  }
