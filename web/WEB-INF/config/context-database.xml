@@ -75,6 +75,10 @@
                <prop key="hibernate.show_sql">true</prop>
                <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
                <prop key="hibernate.default_batch_fetch_size">20</prop>
+               <prop key="hibernate.c3p0.min_size">5</prop>
+               <prop key="hibernate.c3p0.max_size">20</prop>
+               <prop key="hibernate.c3p0.timeout">1800</prop>
+               <prop key="hibernate.c3p0.max_statements">100</prop>
            </props>
         </property>
     </bean>
