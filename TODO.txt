@@ -3,8 +3,7 @@
 
 Zhong:
 [] post.views
-[] post.lastAuthor <= author of most recent post
-[] post.lastCreateTime <= create time of most recent post
+[] post object for most recent post (accessible from sdMain.jsp)
 [] sorting posts
 [] voting
 [] related concerns and related discussion for sidebar
