@@ -243,15 +243,14 @@ public class GlossaryServiceImpl implements GlossaryService {
             if (quote==null) throw new Exception("quoted post with id "+quoteId+" is not found!");
         }
         
-        term.setCommentCount(term.getCommentCount()+1);
+        glossaryDAO.increaseCommentCount(term);
         
         return discussionDAO.createPost(discussion, quote, "", comment, null);
     }//createComment
 
 
     synchronized public void deleteComment(Term term, DiscussionPost comment) throws Exception {
-        term.setCommentCount(term.getCommentCount()-1);
-        glossaryDAO.saveTerm(term);
+        glossaryDAO.decreaseCommentCount(term);
         discussionDAO.deletePost(comment);
     }//deleteComment()
 
@@ -266,16 +265,16 @@ public class GlossaryServiceImpl implements GlossaryService {
     }//setFlag()
 
 
-    synchronized public void increaseViewCount(Term term) throws Exception {
-        term.setViewCount(term.getViewCount()+1);
+    public void increaseViewCount(Term term) throws Exception {
+        glossaryDAO.increaseViewCount(term);
         
         //set view count for current user
         glossaryDAO.setViewedByCurrentUser(term);
     }//increaseViewCount()
 
 
-    synchronized public void increaseHighlightCount(Term term) throws Exception {
-        term.setHighlightCount(term.getHighlightCount()+1);
+    public void increaseHighlightCount(Term term) throws Exception {
+        glossaryDAO.increaseHighlightCount(term);
     }//increaseViewCount()
 
 

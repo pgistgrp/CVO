@@ -38,6 +38,22 @@ public interface GlossaryDAO extends BaseDAO {
 
     void saveTermSource(TermSource source) throws Exception;
     
+    void increaseCommentCount(Term term) throws Exception;
+    
+    void decreaseCommentCount(Term term) throws Exception;
+    
+    void increaseParticipantCount(Term term) throws Exception;
+    
+    void decreaseParticipantCount(Term term) throws Exception;
+    
+    void increaseViewCount(Term term) throws Exception;
+    
+    void decreaseViewCount(Term term) throws Exception;
+    
+    void increaseHighlightCount(Term term) throws Exception;
+    
+    void decreaseHighlightCount(Term term) throws Exception;
+    
     
     /*
      * viewed count on the user basis

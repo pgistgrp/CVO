@@ -221,8 +221,9 @@ public class GlossaryDAOImpl extends BaseDAOImpl implements GlossaryDAO {
 
 
     private void adjustStatistics(Term term) throws Exception {
-        int participantCount = term.getParticipantCount()+1;
-        term.setParticipantCount(participantCount);
+        increaseParticipantCount(term);
+        
+        int participantCount = term.getParticipantCount();
         
         int averageCount = 0;
         if (participantCount!=0) averageCount = (int) Math.ceil(term.getViewCount()/participantCount);
@@ -254,6 +255,70 @@ public class GlossaryDAOImpl extends BaseDAOImpl implements GlossaryDAO {
             adjustStatistics(term);
         }
     }//setViewedByCurrentUser()
+
+
+    private static final String hql_decreaseCommentCount = "update Term set commentCount=commentCount-1 where id=?";
+    
+    
+    public void decreaseCommentCount(Term term) throws Exception {
+        getSession().createQuery(hql_decreaseCommentCount).setLong(0, term.getId()).executeUpdate();
+    }//decreaseCommentCount()
+
+
+    private static final String hql_increaseCommentCount = "update Term set commentCount=commentCount+1 where id=?";
+    
+    
+    public void increaseCommentCount(Term term) throws Exception {
+        getSession().createQuery(hql_increaseCommentCount).setLong(0, term.getId()).executeUpdate();
+    }//increaseCommentCount()
+
+
+    private static final String hql_decreaseParticipantCount = "update Term set participantCount=participantCount-1 where id=?";
+    
+    
+    public void decreaseParticipantCount(Term term) throws Exception {
+        getSession().createQuery(hql_decreaseParticipantCount).setLong(0, term.getId()).executeUpdate();
+    }//decreaseParticipantCount()
+
+
+    private static final String hql_increaseParticipantCount = "update Term set participantCount=participantCount+1 where id=?";
+    
+    
+    public void increaseParticipantCount(Term term) throws Exception {
+        getSession().createQuery(hql_increaseParticipantCount).setLong(0, term.getId()).executeUpdate();
+    }//increaseParticipantCount()
+
+
+    private static final String hql_decreaseViewCount = "update Term set viewCount=viewCount-1 where id=?";
+    
+    
+    public void decreaseViewCount(Term term) throws Exception {
+        getSession().createQuery(hql_decreaseViewCount).setLong(0, term.getId()).executeUpdate();
+    }//decreaseViewCount()
+
+
+    private static final String hql_increaseViewCount = "update Term set viewCount=viewCount+1 where id=?";
+    
+    
+    public void increaseViewCount(Term term) throws Exception {
+        getSession().createQuery(hql_increaseViewCount).setLong(0, term.getId()).executeUpdate();
+    }//increaseViewCount()
+
+
+    private static final String hql_decreaseHighlightCount = "update Term set highlightCount=highlightCount-1 where id=?";
+    
+    
+    public void decreaseHighlightCount(Term term) throws Exception {
+        getSession().createQuery(hql_decreaseHighlightCount).setLong(0, term.getId()).executeUpdate();
+    }//decreaseHighlightCount()
+
+
+    private static final String hql_increaseHighlightCount = "update Term set highlightCount=highlightCount+1 where id=?";
+    
+    
+    public void increaseHighlightCount(Term term) throws Exception {
+        getSession().createQuery(hql_increaseHighlightCount).setLong(0, term.getId()).executeUpdate();
+    }//increaseHighlightCount()
 
 
 }//class GlossaryDAOImpl
