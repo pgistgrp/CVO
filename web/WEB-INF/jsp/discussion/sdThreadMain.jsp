@@ -56,7 +56,7 @@
 						$('txtnewReply').value = '';
 						$('newReplyTags').value = '';
 		          }else{
-		            alert("data.successful != true" + data.reason);
+		            alert(data.reason);
 		          }
 		      },
 		      errorHandler:function(errorString, exception){
@@ -89,24 +89,25 @@
 	
 	<div id="backToDiscussion" style="text-align: right;"><a href="sd.do?isid=${structure.id}">Back to Discussion</a></div>
 	<div id="post" class="blueBB">
-		 <h3>theme >> ${post.title}</h3>
+		 <h3><a href="sd.do?isid=${structure.id}">${object.object.theme.title}</a> >> ${post.title}</h3>
 		<small>Posted on <fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}</small>
 		<p>${post.content}</p>
 		<ul class="tagsList"><strong>tags: </strong>
 			<logic:iterate id="tag" name="post" property="tags">
 				<li class="tagsList">${tag.name}</li>
 			</logic:iterate>
-		<small>- click on a tag to view concerns with the same tag.</small>
-		<div id="replyTo${post.id}" style="text-align: right;"><a href="javascript:replyToPost(${post.id});">Reply to this Post</a></div>
+		<small>- click on a tag to view other discussions with the same tag.</small>
+		<div id="replyTo${post.id}" style="text-align: right;"><a href="javascript:location.href='#replyAnchor';  new Effect.Pulsate('newReply', {duration: .8, from: 0.5}); void(0);">Reply to this Post</a></div>
 	</div>
 	<div id="replies" class="blueBB">
 			<div id="postReplies">
 				<!-- replies will be loaded here via DWR -->
 			</div>
-			<div id="newReply" class="blueBB" style="border-top: 2px solid #C0D7F6">
+			<a name="replyAnchor"></a>
+			<div id="newReply" class="greenBB" style="padding: 5px 10px; margin-top: 20px; border-top: 2px solid #C0D7F6">
 				<h3>Post a Reply</h3>
 				<form>
-					<p><label>Post Title</label><br><input style="width:100%" type="text" id="txtnewReplyTitle"/></p>
+					<p><label>Post Title</label><br><input style="width:100%" type="text" value="Re: ${post.title} " id="txtnewReplyTitle"/></p>
 					<p><label>Your Thoughts</label><br><textarea style="width:100%" id="txtnewReply"></textarea></p>
 					<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="newReplyTags" type="text" /></p>
 					<input type="button" onclick="createReply();" value="Submit Reply">

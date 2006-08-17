@@ -3,8 +3,21 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 
-
 <pg:fragment type="html">
+<div id="themeSelector">
+		<form id="Tselector" name="ThemeSelector" method="post" action="">
+		  <label>
+		  Jump To:
+		  <select name="selecttheme" id="selecttheme" onChange="javascript: infoStructure.getTargetPanes(this.value); infoStructure.assignTargetHeaders(this.innerValue);">		  
+		    <option value = "-1">Select a Theme</option>
+		    <logic:iterate id="infoObject" property="infoObjects" name="structure">
+		        <option value ="${infoObject.id}">${infoObject.object.theme.title}</option>
+		    </logic:iterate>		
+	      </select>
+		  </label>
+		  </form>
+ </div>
+
   <ul>
     <logic:iterate id="infoObject" property="infoObjects" name="structure">
         <li><a href="javascript: infoStructure.getTargetPanes(${infoObject.id}); infoStructure.assignTargetHeaders('${infoObject.object.theme.title}');">${infoObject.object.theme.title}</a></li>

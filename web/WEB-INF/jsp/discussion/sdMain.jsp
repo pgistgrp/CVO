@@ -218,7 +218,21 @@
 		}
 	}
 	
-
+	function closeAllContentsExcept(id, className){
+		var activeRecord = className + id;
+		var allRecords = document.getElementsByClassName(className);
+		
+		for(i = 0; i < allRecords.length; i++){
+			if(allRecords[i].id == activeRecord){
+				new Effect.toggle(allRecords[i].id,'blind', {duration: 0.4});
+			}else{
+				if(allRecords[i].style.display != 'none'){
+				new Effect.BlindUp(allRecords[i].id, {duration: 0.4});
+				}
+			}
+		}
+		//new Effect.toggle('quickPostContents${post.id}', 'blind', {duration: 0.3}); void(0);"	
+	}
  
 </script>
 </head>
@@ -266,16 +280,7 @@
 		<div id="header_title">
 		<h5 id="targetTitle"></h5>
 		</div>
-		<div id="themeSelector">
-		<form id="Tselector" name="ThemeSelector" method="post" action="">
-		  <label>
-		  Jump To:
-		  <select name="selecttheme" id="selecttheme" onChange="getTargetPanes(this.value);">		  
-		    <option value = "-1">Select a Theme</option>
-	      </select>
-		  </label>
-		  </form>
-		  </div>
+
 		  <div class="clear">
 		  <span class="smalltext">Last modified: June 2, 2006 by the Moderator</span>
 </div>
@@ -286,23 +291,17 @@
 		<div id="object_column">
 			<div id="object_column_left">
 				<ul
-				><li><a href="#">Argue</a> <span class="smalltext">(5 Disscussions)</span></li
-				><li><a href="#">Donec</a> <span class="smalltext">(5 Disscussions)</span></li
-				><li><a href="#">Dictum</a> <span class="smalltext">(7 Disscussions)</span></li
+
 				></ul>
 			</div>
 			<div id="object_column_center">
 				<ul
-				><li><a href="#">Pollution</a> <span class="smalltext">(0 Disscussions)</span></li
-				><li><a href="#">Public Transportation</a> <span class="smalltext">(0)</span></li
-				><li><a href="#">Safety</a> <span class="smalltext">(17 Disscussions)</span></li
+
 				></ul>
 			</div>
 			<div id="object_column_right">
 				<ul
-				><li><a href="#">Utellus</a> <span class="smalltext">(0 Disscussions)</span></li
-				><li><a href="#">Viverra</a> <span class="smalltext">(0 Disscussions)</span></li
-				><li><a href="#">Zip</a> <span class="smalltext">(17 Disscussions)</span></li
+
 				></ul>
 			</div>
 			<div class="clear">
@@ -337,8 +336,9 @@
           <tr>
             <td width="45%"><a href="#">Title</a></td>
             <td width="10%" class="textcenter"><a href="#">Replies</a></td>
+            <td width="10%" class="textcenter"><a href="#">Views</a></td>
             <td width="20%" class="textcenter"><a href="#">Author</a></td>
-            <td width="25%"><a href="#">Last Post</a></td>
+            <td width="15%"><a href="#">Last Post</a></td>
           </tr>
 		  </table>
 		</div>

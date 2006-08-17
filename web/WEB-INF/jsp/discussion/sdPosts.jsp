@@ -13,21 +13,22 @@
 <table width="95%" border="0" cellspacing="0">
 	<logic:iterate id="post" name="posts">
 		<tr class="disc_row_a">
-			<td width="45%"><a href="javascript:new Effect.toggle('quickPostContents${post.id}', 'blind', {duration: 0.3}); void(0);">${post.title}</a></td>
-			<td width="10%" class="textcenter">1</td>
+			<td width="45%"><a href="javascript:closeAllContentsExcept(${post.id}, 'quickPostContents')">${post.title}</a></td>
+			<td width="10%" class="textcenter">${post.replies}</td>
+			<td width="10%" class="textcenter">${post.views}</td>	
 			<td width="20%" class="textcenter"><a href="#">${post.owner.loginname}</a></td>
-			<td width="25%"><small><fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}</small></td>
+			<td width="15%"><small><fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}</small></td>
 			<tr class="disc_row_a">
-				<td colspan="4">
+				<td colspan="5">
 					<div id="quickPostContents${post.id}" class="quickPostContents" style="display: none;">
-					<p><b>Discussion post preview: </b>${post.content}</p>
+					<p><b>Preview: </b>${fn:substring(post.content, 0, 150)} [ <a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">more</a>... ]</p>
 					<ul class="tagsList">
 						<logic:iterate id="tag" name="post" property="tags">
-							<li class="tagsList">${tag.name}</li>
+							<li class="tagsList"><small>${tag.name}</small></li>
 						</logic:iterate>
 						<small>- click on a tag to view concerns with the same tag.</small>
 					</ul>
-					<p>8 Replies | <a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">Participate in this Discussion</a></p>
+					<p><small><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.replies} Replies - Participate in this Discussion</a></small></p>
 					</div>
 				</td>
 			</tr>

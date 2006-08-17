@@ -1,0 +1,28 @@
+
+//////////  SDC  //////////  
+
+Zhong:
+[] post.views
+[] post.lastAuthor <= author of most recent post
+[] post.lastCreateTime <= create time of most recent post
+[] sorting posts
+[] voting
+[] related concerns and related discussion for sidebar
+
+Jordan:
+[] jump to select box
+[] integrate new layout
+
+John:
+[] css for new design
+[] site-wide header and footer
+[] jsp:include header and footer
+
+Misc. Front End for Future:
+[] Validations
+[] Error Messages
+[] Integrate rich textbox editor
+[] Integrate tag selector
+
+//////////  END SDC  //////////  
+

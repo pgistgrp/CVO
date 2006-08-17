@@ -9,13 +9,16 @@
 
 <logic:iterate id="reply" name="replies">
 	<div id="reply${reply.id}" class="post">
-		 <h4>Re: ${post.title} >> ${reply.title}</h4>
-		<small>Posted on <fmt:formatDate value="${reply.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${reply.owner.loginname}</small>
+		 <div id="replyHeader"><strong>${reply.title}</strong> - <small>Posted on <fmt:formatDate value="${reply.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${reply.owner.loginname}</small></div>
+		
 		<p>${reply.content}</p>
+		
+	 <c:if test="${fn:length(reply.tags) != 0}">
 		<ul class="tagsList"><strong>tags: </strong>
 			<logic:iterate id="tag" name="reply" property="tags">
-				<li class="tagsList">${tag.name}</li>
+				<li class="tagsList"><small>${tag.name}</small></li>
 			</logic:iterate>
-		<small>- click on a tag to view concerns with the same tag.</small>
+		<small>- click on a tag to view discussions with the same tag.</small>
+	</c:if>
 	</div>
 </logic:iterate>
