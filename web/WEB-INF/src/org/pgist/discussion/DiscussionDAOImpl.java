@@ -211,7 +211,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         if (quote!=null) reply.setQuote(quote);
         reply.setOwner(getUserById(WebUtils.currentUserId()));
         
-        setPostTags(post, tags);
+        setPostTags(reply, tags);
         
         getHibernateTemplate().save(reply);
         
