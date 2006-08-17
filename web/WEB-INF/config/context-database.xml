@@ -4,18 +4,30 @@
 <beans>
     
     
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName">
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass">
            <value>org.postgresql.Driver</value>
         </property>
-        <property name="url">
+        <property name="jdbcUrl">
            <value>jdbc:postgresql://localhost/cvotest</value>
         </property>
-        <property name="username">
+        <property name="user">
            <value>pgist</value>
         </property>
         <property name="password">
            <value>ppgis.2005</value>
+        </property>
+        <property name="minPoolSize">
+           <value>5</value>
+        </property>
+        <property name="maxPoolSize">
+           <value>20</value>
+        </property>
+        <property name="maxStatements">
+           <value>20</value>
+        </property>
+        <property name="maxStatementsPerConnection">
+           <value>100</value>
         </property>
     </bean>
     
@@ -66,7 +78,7 @@
                <value>org/pgist/voting/VotePackage.hbm.xml</value>
                <value>org/pgist/voting/VoteSheet.hbm.xml</value>
                <value>org/pgist/voting/VoteItem.hbm.xml</value>
-			   <value>org/pgist/projects/Project.hbm.xml</value>
+               <value>org/pgist/projects/Project.hbm.xml</value>
            </list>
         </property>
         <property name="hibernateProperties">
