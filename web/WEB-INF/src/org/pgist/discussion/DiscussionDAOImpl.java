@@ -220,7 +220,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//createPost()
 
     
-    private static final String hql_createReply_1 = "update DiscussionPost set replies = replies + 1 and lastActivated=current_time() where id=?";
+    private static final String hql_createReply_1 = "update DiscussionPost set replies=replies+1, lastActivated=? where id=?";
     
 
     public DiscussionPost createReply(DiscussionPost post, DiscussionPost quote, String title, String content, String[] tags) throws Exception {
@@ -240,7 +240,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         getHibernateTemplate().save(reply);
         
-        getSession().createQuery(hql_createReply_1).setLong(0, post.getId()).executeUpdate();
+        getSession().createQuery(hql_createReply_1)
+        .setTimestamp(0, new Date())
+        .setLong(1, post.getId()).executeUpdate();
         
         return reply;
     }//createReply()

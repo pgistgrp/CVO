@@ -9,7 +9,7 @@ Zhong:
 [ok] post object for most recent post (accessible from sdMain.jsp)
      post.lastCreateTime <= create time of most recent post
      post.lastReply.createTime
-[] sorting posts
+[ok] sorting posts
 [] voting
 [] related concerns and related discussion for sidebar
 
