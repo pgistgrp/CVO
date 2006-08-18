@@ -20,6 +20,8 @@ public class InfoStructure {
     
     private List infoObjects = new ArrayList();
     
+    private int voting;
+    
     
     /**
      * @return
@@ -66,6 +68,20 @@ public class InfoStructure {
 
     public void setInfoObjects(List infoObjects) {
         this.infoObjects = infoObjects;
+    }
+    
+    
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getVoting() {
+        return voting;
+    }
+
+
+    public void setVoting(int voting) {
+        this.voting = voting;
     }
     
     

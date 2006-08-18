@@ -3,6 +3,7 @@ package org.pgist.discussion;
 import java.util.Collection;
 
 import org.pgist.system.BaseDAO;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 
 
@@ -55,6 +56,18 @@ public interface DiscussionDAO extends BaseDAO {
     
     
     void increaseViews(DiscussionPost post) throws Exception;
+
+
+    InfoVoting getVoting(InfoStructure structure, User user) throws Exception;
+
+
+    InfoVoting getVoting(InfoObject infoObject, User user) throws Exception;
+
+
+    void increaseVoting(InfoStructure structure) throws Exception;
+
+
+    void increaseVoting(InfoObject object) throws Exception;
 
 
     //temp

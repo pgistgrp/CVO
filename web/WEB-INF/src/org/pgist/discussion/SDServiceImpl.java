@@ -3,7 +3,9 @@ package org.pgist.discussion;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -114,6 +116,56 @@ public class SDServiceImpl implements SDService {
     public void increaseViews(DiscussionPost post) throws Exception {
         discussionDAO.increaseViews(post);
     }//increaseViews()
+
+
+    public InfoVoting getVoting(InfoStructure structure) throws Exception {
+        User user = (User) discussionDAO.load(User.class, WebUtils.currentUserId());
+        
+        return discussionDAO.getVoting(structure, user);
+    }//getVoting()
+
+
+    public InfoVoting getVoting(InfoObject infoObject) throws Exception {
+        User user = (User) discussionDAO.load(User.class, WebUtils.currentUserId());
+        
+        return discussionDAO.getVoting(infoObject, user);
+    }//getVoting()
+
+
+    public boolean setVoting(InfoStructure structure, boolean agree) throws Exception {
+        User user = (User) discussionDAO.load(User.class, WebUtils.currentUserId());
+        InfoVoting voting =  discussionDAO.getVoting(structure, user);
+        if (voting!=null) return false;
+        
+        voting = new InfoVoting();
+        voting.setStructure(structure);
+        voting.setOwner(user);
+        voting.setVoting(agree);
+        
+        discussionDAO.save(voting);
+        
+        discussionDAO.increaseVoting(structure);
+        
+        return true;
+    }//setVoting()
+
+
+    public boolean setVoting(InfoObject object, boolean agree) throws Exception {
+        User user = (User) discussionDAO.load(User.class, WebUtils.currentUserId());
+        InfoVoting voting =  discussionDAO.getVoting(object, user);
+        if (voting!=null) return false;
+        
+        voting = new InfoVoting();
+        voting.setObject(object);
+        voting.setOwner(user);
+        voting.setVoting(agree);
+        
+        discussionDAO.save(voting);
+        
+        discussionDAO.increaseVoting(object);
+        
+        return true;
+    }//setVoting()
 
 
 }//class SDServiceImpl

@@ -14,6 +14,8 @@ public class InfoObject {
     
     private Object object;
     
+    private int voting;
+    
     
     /**
      * @return
@@ -43,6 +45,20 @@ public class InfoObject {
     
     public void setObject(Object object) {
         this.object = object;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getVoting() {
+        return voting;
+    }
+
+
+    public void setVoting(int voting) {
+        this.voting = voting;
     }
     
     

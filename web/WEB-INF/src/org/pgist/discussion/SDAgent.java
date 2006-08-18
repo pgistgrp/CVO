@@ -298,6 +298,7 @@ public class SDAgent {
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *     <li>structure - an InfoStructure object (valid when successful==true)</li>
+     *     <li>voting - an InfoVoting object, null if the current participant has not voted. (valid when successful==true)</li>
      *     <li>
      *       source - a PageSource object (valid when successful==true), it has the following properties:
      *       <ul>
@@ -340,6 +341,10 @@ public class SDAgent {
             }
             
             request.setAttribute("structure", structure);
+            
+            InfoVoting voting = sdService.getVoting(structure);
+            
+            if (voting!=null) request.setAttribute("voting", voting);
             
             PageSource source = new PageSource();
             map.put("source", source);
@@ -586,7 +591,7 @@ public class SDAgent {
     /**
      * Edit the content of the given Discussion Post object.
      * 
-     * @param params params A map contains:
+     * @param params A map contains:
      *   <ul>
      *     <li>pid - int, id of the DiscussionPost object</li>
      *     <li>title - string, title of the post. Optional.</li>
@@ -652,7 +657,7 @@ public class SDAgent {
     /**
      * Get the summary of the given Theme.
      * 
-     * @param params params A map contains:
+     * @param params A map contains:
      *   <ul>
      *     <li>ioid - int, id of the InfoObject object</li>
      *     <li>type - string, ["asHTML" | "asObject"]. Optional, default is "asHTML"</li>
@@ -663,6 +668,7 @@ public class SDAgent {
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *     <li>infoObject - An InfoObject object (valid when successful==false and type==asObject)</li>
+     *     <li>voting - an InfoVoting object, null if the current participant has not voted. (valid when successful==true)</li>
      *     <li>
      *       source - a PageSource object (valid when successful==true), it has the following properties:
      *       <ul>
@@ -697,6 +703,11 @@ public class SDAgent {
                 map.put("reason", "no such DiscussionPost object");
                 return map;
             }
+            
+            InfoVoting voting = sdService.getVoting(infoObject);
+            
+            if (voting!=null) request.setAttribute("voting", voting);
+            
         } catch (Exception e) {
             map.put("reason", "no such DiscussionPost object");
             return map;
@@ -731,6 +742,76 @@ public class SDAgent {
         
         return map;
     }//getSummary()
+    
+    
+    /**
+     * Set the voting choice on the given InfoStructure OR InfoObject.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>isid - int, id of the InfoStructure object. Must be omitted if ioid is given.</li>
+     *     <li>ioid - int, id of the InfoObject object. Must be omitted if isid is given.</li>
+     *     <li>agree - boolean, whether or not the current user agree with the current object.</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map setVoting(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long isid = null;
+        Long ioid = null;
+        
+        try {
+            isid = new Long((String) params.get("isid"));
+        } catch (Exception e) {
+        }
+        
+        try {
+            ioid = new Long((String) params.get("ioid"));
+        } catch (Exception e) {
+        }
+        
+        if (isid==null && ioid==null) {
+            map.put("reason", "Either isid or ioid has to be given.");
+            return map;
+        }
+        
+        try {
+            boolean agree = "true".equals(map.get("agree"));
+            
+            if (isid!=null) {
+                InfoStructure structure = sdService.getInfoStructureById(isid);
+                if (structure==null) {
+                    map.put("reason", "Can't find the given InfoStructure object.");
+                    return map;
+                }
+                
+                sdService.setVoting(structure, agree);
+            } else if (ioid!=null) {
+                InfoObject object = sdService.getInfoObjectById(ioid);
+                if (object==null) {
+                    map.put("reason", "Can't find the given InfoObject object.");
+                    return map;
+                }
+                
+                sdService.setVoting(object, agree);
+            }
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//setVoting()
     
     
 }//class SDAgent

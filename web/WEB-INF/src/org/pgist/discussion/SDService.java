@@ -44,11 +44,23 @@ public interface SDService {
     void editPost(DiscussionPost post, String title, String content, String[] tags) throws Exception;
 
 
+    void increaseViews(DiscussionPost post) throws Exception;
+
+
+    InfoVoting getVoting(InfoStructure structure) throws Exception;
+
+
+    InfoVoting getVoting(InfoObject infoObject) throws Exception;
+
+
+    boolean setVoting(InfoStructure structure, boolean agree) throws Exception;
+
+
+    boolean setVoting(InfoObject object, boolean agree) throws Exception;
+
+
     //temp
     Collection getInfoStructures() throws Exception;
-
-
-    void increaseViews(DiscussionPost post) throws Exception;
 
 
 }//interface SDService

@@ -10,7 +10,7 @@ Zhong:
      post.lastCreateTime <= create time of most recent post
      post.lastReply.createTime
 [ok] sorting posts
-[] voting
+[ok] voting
 [] related concerns and related discussion for sidebar
 
 Jordan:

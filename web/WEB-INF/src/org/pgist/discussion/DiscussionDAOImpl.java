@@ -8,6 +8,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.pgist.cvo.Tag;
 import org.pgist.system.BaseDAOImpl;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 
@@ -293,6 +294,52 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     public void increaseViews(DiscussionPost post) throws Exception {
         getSession().createQuery(hql_increaseViews).setLong(0, post.getId()).executeUpdate();
     }//increaseViews()
+
+
+    private static final String hql_getVoting_1 = "from InfoVoting i where i.structure.id=? and i.object.id is null and i.owner.id=?";
+    
+    
+    public InfoVoting getVoting(InfoStructure structure, User user) throws Exception {
+        List list = getHibernateTemplate().find(hql_getVoting_1, new Object[] {
+                structure.getId(),
+                user.getId(),
+        });
+        
+        if (list.size()==0) return null;
+        return (InfoVoting) list.get(0);
+    }//getVoting()
+
+
+    private static final String hql_getVoting_2 = "from InfoVoting i where i.structure.id is null and i.object.id=? and i.owner.id=?";
+    
+    
+    public InfoVoting getVoting(InfoObject infoObject, User user) throws Exception {
+        List list = getHibernateTemplate().find(hql_getVoting_2, new Object[] {
+                infoObject.getId(),
+                user.getId(),
+        });
+        
+        if (list.size()==0) return null;
+        return (InfoVoting) list.get(0);
+    }//getVoting()
+
+
+    private static final String hql_increaseVoting_1 = "update InfoStructure i set i.voting=i.voting+1 where i.id=?";
+    
+    
+    public void increaseVoting(InfoStructure structure) throws Exception {
+        getSession().createQuery(hql_increaseVoting_1).setLong(0, structure.getId())
+        .executeUpdate();
+    }//increaseVoting()
+
+
+    private static final String hql_increaseVoting_2 = "update InfoObject i set i.voting=i.voting+1 where i.id=?";
+    
+    
+    public void increaseVoting(InfoObject object) throws Exception {
+        getSession().createQuery(hql_increaseVoting_2).setLong(0, object.getId())
+        .executeUpdate();
+    }//increaseVoting()
 
 
 }//class DiscussionDAOImpl
