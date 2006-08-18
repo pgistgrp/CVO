@@ -105,7 +105,7 @@
 	 	 		//validation
 	 	 		if(newPostTitle == '' || newPost == ''){
 	 	 			alert("Either your title or post was left blank.  Please fill it in.");
-	 	 			return;
+	 	 			return
 	 	 		}//end validation
 				SDAgent.createPost({isid:${structure.id}, target: infoStructure.targetType, targetId: infoStructure.targetId, title: newPostTitle, content: newPost, tags:newPostTags}, {
 				callback:function(data){

@@ -17,7 +17,20 @@
 			<td width="10%" class="textcenter">${post.replies}</td>
 			<td width="10%" class="textcenter">${post.views}</td>	
 			<td width="20%" class="textcenter"><a href="#">${post.owner.loginname}</a></td>
-			<td width="15%"><small><fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}</small></td>
+			<td width="15%">
+				<small>
+
+		    <c:choose>
+		      <c:when test="${post.lastReply == null }">
+		     		<fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}
+		      </c:when>
+		
+		      <c:otherwise>
+		      		<fmt:formatDate value="${post.lastReply.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.lastReply.owner.loginname}
+		      </c:otherwise>
+		    </c:choose>
+				
+				</small></td>
 			<tr class="disc_row_a">
 				<td colspan="5">
 					<div id="quickPostContents${post.id}" class="quickPostContents" style="display: none;">
