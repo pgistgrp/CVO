@@ -14,13 +14,17 @@ Zhong:
 [] related concerns and related discussion for sidebar
 
 Jordan:
+[ok] bug - new discussion on entire IS 
+[] voting on IO
+[] sorting posts on sdMain
 [] jump to select box
-[] integrate new layout
+[] help integrate new layout
 
 John:
 [] css for new design
 [] site-wide header and footer
 [] jsp:include header and footer
+[] integrate new layout
 
 Misc. Front End for Future:
 [] Validations
