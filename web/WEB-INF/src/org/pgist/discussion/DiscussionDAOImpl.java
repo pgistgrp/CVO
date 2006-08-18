@@ -83,7 +83,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getDiscussion()
     
 
-    private static final String hql_getPosts_A = "from DiscussionPost p where p.discussionId=? and p.deleted=? and p.parent is null order by p.id";
+    private static final String hql_getPosts_A = "from DiscussionPost p where p.discussionId=? and p.deleted=? and p.parent is null order by p.lastActivated desc";
     
     
     public Collection getPosts(Discussion discussion) throws Exception {
@@ -96,7 +96,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     
     private static final String hql_getPosts_B_1 = "select count(p.id) from DiscussionPost p where p.discussionId=? and p.deleted=? and p.parent is null";
     
-    private static final String hql_getPosts_B_2 = "from DiscussionPost p where p.discussionId=? and p.deleted=? and p.parent is null order by p.id";
+    private static final String hql_getPosts_B_2 = "from DiscussionPost p where p.discussionId=? and p.deleted=? and p.parent is null order by p.lastActivated desc";
     
     
     public Collection getPosts(Discussion discussion, PageSetting setting) throws Exception {
@@ -206,7 +206,11 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         post.setOwner(getUserById(WebUtils.currentUserId()));
         post.setParent(null);
         if (quote!=null) post.setQuote(quote);
-        post.setCreateTime(new Date());
+        
+        Date date = new Date();
+        
+        post.setCreateTime(date);
+        post.setLastActivated(date);
         
         setPostTags(post, tags);
         
@@ -216,7 +220,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//createPost()
 
     
-    private static final String hql_createReply = "update DiscussionPost set replies = replies + 1 where id=?";
+    private static final String hql_createReply_1 = "update DiscussionPost set replies = replies + 1 and lastActivated=current_time() where id=?";
     
 
     public DiscussionPost createReply(DiscussionPost post, DiscussionPost quote, String title, String content, String[] tags) throws Exception {
@@ -226,6 +230,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         reply.setTitle(title);
         reply.setContent(content);
         reply.setDeleted(false);
+        
         reply.setCreateTime(new Date());
         reply.setParent(post);
         if (quote!=null) reply.setQuote(quote);
@@ -235,7 +240,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         getHibernateTemplate().save(reply);
         
-        getSession().createQuery(hql_createReply).setLong(0, post.getId()).executeUpdate();
+        getSession().createQuery(hql_createReply_1).setLong(0, post.getId()).executeUpdate();
         
         return reply;
     }//createReply()

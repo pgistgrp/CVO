@@ -89,7 +89,7 @@ public class SDThreadAction extends Action {
             
             request.setAttribute("object", infoObj);
         } else {
-            request.setAttribute("object", "");
+            request.setAttribute("object", null);
         }
         
         Long pid = new Long(request.getParameter("pid"));

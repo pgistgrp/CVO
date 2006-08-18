@@ -38,6 +38,8 @@ public class DiscussionPost {
     
     protected Date createTime;
     
+    protected Date lastActivated;
+    
     protected boolean deleted;
     
     protected DiscussionPost lastReply;
@@ -197,6 +199,20 @@ public class DiscussionPost {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public Date getLastActivated() {
+        return lastActivated;
+    }
+
+
+    public void setLastActivated(Date lastActivated) {
+        this.lastActivated = lastActivated;
     }
 
 
