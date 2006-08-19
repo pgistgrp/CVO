@@ -1,13 +1,11 @@
 package org.pgist.tag;
 
-import java.util.SortedSet;
-
 
 /**
  *
  * @author kenny
  *
- * @hibernate.class table="pgist_cvo_tags" lazy="true"
+ * @hibernate.class table="pgist_tags" lazy="true"
  */
 public class Tag {
     
@@ -26,10 +24,6 @@ public class Tag {
     protected Long id;
     
     protected String name;
-    
-    protected String description = "";
-    
-    protected SortedSet categories;
     
     private int type = TYPE_INCLUDED;
     
@@ -63,37 +57,6 @@ public class Tag {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-
-    /**
-     * @return
-     * @hibernate.property not-null="true"
-     */
-    public String getDescription() {
-        return description;
-    }
-
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-
-    /**
-     * @return
-     *
-     * @hibernate.set lazy="true" table="pgist_cvo_cat_tag_link" sort="org.pgist.cvo.CategoryComparator"
-     * @hibernate.collection-key column="tag_id"
-     * @hibernate.collection-many-to-many column="category_id" class="org.pgist.cvo.Category"
-     */
-    public SortedSet getCategories() {
-        return categories;
-    }
-
-
-    public void setCategories(SortedSet categories) {
-        this.categories = categories;
     }
 
 

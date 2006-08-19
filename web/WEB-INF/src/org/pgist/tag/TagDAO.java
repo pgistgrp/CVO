@@ -1,7 +1,8 @@
 package org.pgist.tag;
 
 import java.util.Collection;
-import java.util.List;
+
+import org.pgist.system.BaseDAO;
 
 
 /**
@@ -10,20 +11,20 @@ import java.util.List;
  * @author kenny
  *
  */
-public interface TagDAO {
+public interface TagDAO extends BaseDAO {
 
 
     /**
-     * Add the given tags to the database, return a list of corresponding Tag objects.<br>
-     * Each tag string will be check if it's already in the tag library. If it's already in the
+     * Add the given tag to the database.<br>
+     * Tag string will be checked if it's already in the tag library. If it's already in the
      * library, get the Tag object from database; if not, create a new Tag object and save it to
      * the database.
      *
-     * @param tags A list of string, each is a tag.
-     * @return A list of Tag object
+     * @param tags A tag string.
+     * @return A Tag object
      * @throws Exception
      */
-    List addTags(String[] tags) throws Exception;
+    Tag addTag(String tag) throws Exception;
 
 
     /**
@@ -33,30 +34,16 @@ public interface TagDAO {
      * @throws Exception
      */
     Collection getAllTags() throws Exception;
-
-
+    
+    
     /**
-     * Search in the given CCT, and find those tags appeared in this CCT and which are the top count
-     * being referenced.
-     *
-     * @param cctId
-     * @param count
-     * @return
+     * Get all included OR excluded tags.
+     * 
+     * @param included if true, return included tags, else return excluded tags.
+     * @return A collection of Tag objects.
      * @throws Exception
      */
-    //Collection getTagsByRank(CCT cct, int count) throws Exception;
+    Collection getTags(boolean included) throws Exception;
 
 
-    /**
-     * Search in the given CCT, and find those tags appeared in this CCT and which are referenced at least
-     * threshold times.
-     *
-     * @param cctId
-     * @param threshold
-     * @return
-     * @throws Exception
-     */
-    //Collection getTagsByThreshold(CCT cct, int threshold) throws Exception;
-
-
-} //interface TagDAO
+}//interface TagDAO

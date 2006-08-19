@@ -1,10 +1,10 @@
 package org.pgist.tag;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.hibernate.Query;
+import org.pgist.system.BaseDAOImpl;
 
 
 /**
@@ -12,10 +12,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author kenny
  *
  */
-public class TagDAOImpl extends HibernateDaoSupport implements TagDAO {
-
-
-    private TagReferenceComparator comparator = new TagReferenceComparator(false);
+public class TagDAOImpl extends BaseDAOImpl implements TagDAO {
 
 
     /*
@@ -23,44 +20,47 @@ public class TagDAOImpl extends HibernateDaoSupport implements TagDAO {
      */
 
 
-    public List addTags(String[] tags) throws Exception {
-        return null;
-    } //addTags()
-
-
-    private static String hql_getTagsByRank = "from TagReference tr where tr.cctId=? order by tr.times desc, tr.tag.name";
-
-/*
-    public Collection getTagsByRank(CCT cct, int count) throws Exception {
-        getHibernateTemplate().setMaxResults(count);
-        List list = getHibernateTemplate().find(hql_getTagsByRank, cct.getId());
-        Collections.sort(list, comparator);
-        return list;
-    } //getTagsByRank()
-
-
-    private static String getTagsByThreshold = "from TagReference tr where tr.cctId=? and tr.times>? order by tr.times desc, tr.tag.name";
-
-
-    public Collection getTagsByThreshold(CCT cct, int threshold) throws Exception {
-        List list = getHibernateTemplate().find(
-                getTagsByThreshold,
-                new Object[] {
-                cct.getId(),
-                new Integer(threshold),
+    private static final String hql_addTag = "from Tag t where t.status!=? and lower(t.name)=?";
+    
+    
+    synchronized public Tag addTag(String tag) throws Exception {
+        List list = getHibernateTemplate().find(hql_addTag, new Object[] {
+                new Integer(Tag.STATUS_REJECTED),
+                tag.toLowerCase(),
         });
-        Collections.sort(list, comparator);
-        return list;
-    } //getTagsByThreshold()
-*/
+        
+        if (list.size()==0) return null;
+        return (Tag) list.get(0);
+    }//addTag()
+
 
     private static String hql_getAllTags = "from Tag t where t.status!=?";
 
 
     public Collection getAllTags() throws Exception {
-        getHibernateTemplate().setMaxResults( -1);
-        return getHibernateTemplate().find(hql_getAllTags, new Integer(Tag.STATUS_REJECTED));
+        Query query = getSession().createQuery(hql_getAllTags);
+        query.setInteger(0, Tag.STATUS_REJECTED);
+        
+        return query.list();
     } //getAllTags
+
+
+    private static String hql_getTags = "from Tag t where t.status!=? and t.type=?";
+
+
+    public Collection getTags(boolean included) throws Exception {
+        Query query = getSession().createQuery(hql_getTags);
+        
+        query.setInteger(0, Tag.STATUS_REJECTED);
+        
+        if (included) {
+            query.setInteger(1, Tag.TYPE_INCLUDED);
+        } else {
+            query.setInteger(1, Tag.TYPE_EXCLUDED);
+        }
+        
+        return query.list();
+    } //getTags
 
 
 }//class TagDAOImpl
