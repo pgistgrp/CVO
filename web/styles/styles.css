@@ -251,6 +251,12 @@ h5	{
 
 
 }
+
+.disc_row_a small, .disc_row_b small{
+	color: #666;
+	margin-left: 10px;
+	display: block;
+}
 .disc_row_b {
 	background-color: #C0D7F6;
 }

@@ -13,12 +13,12 @@
 <table width="95%" border="0" cellspacing="0">
 	<logic:iterate id="post" name="posts">
 		<tr class="disc_row_a">
-			<td width="45%"><a href="javascript:closeAllContentsExcept(${post.id}, 'quickPostContents')">${post.title}</a></td>
+			<td width="45%"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.title}</a></td>
 			<td width="10%" class="textcenter">${post.replies}</td>
 			<td width="10%" class="textcenter">${post.views}</td>	
 			<td width="20%" class="textcenter"><a href="#">${post.owner.loginname}</a></td>
 			<td width="15%">
-				<small>
+				<span class="smallText">
 
 		    <c:choose>
 		      <c:when test="${post.lastReply == null }">
@@ -30,9 +30,12 @@
 		      </c:otherwise>
 		    </c:choose>
 				
-				</small></td>
+				</span></td>
 			<tr class="disc_row_a">
 				<td colspan="5">
+					<small>${fn:substring(post.content, 0, 250)}... </small>
+					<!--
+					Quick Preview Toggle Mode: Call with: javascript:closeAllContentsExcept(${post.id}, 'quickPostContents')  -- Removed for better interaction.
 					<div id="quickPostContents${post.id}" class="quickPostContents" style="display: none;">
 					<p><b>Preview: </b>${fn:substring(post.content, 0, 250)} [ <a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">more</a>... ]</p>
 					<ul class="tagsList">
@@ -43,6 +46,7 @@
 					</ul>
 					<p><small><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.replies} Replies - Participate in this Discussion</a></small></p>
 					</div>
+					-->
 				</td>
 			</tr>
 		</tr>		

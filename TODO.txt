@@ -14,7 +14,8 @@ Zhong:
 [] related concerns and related discussion for sidebar
 
 Jordan:
-[ok] bug - new discussion on entire IS 
+[ok] bug - new discussion on entire IS
+[ok] Glossary word finder tags on Summary 
 [] voting on IO
 [] sorting posts on sdMain
 [] jump to select box

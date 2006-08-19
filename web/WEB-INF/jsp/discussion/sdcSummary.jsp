@@ -4,7 +4,9 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 
 <pg:fragment type="html">
-  <p>${infoObject.object.theme.summary}</p>
+	<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
+	  <p>${infoObject.object.theme.summary}</p>
+	</pg:termHighlight>
 </pg:fragment>
 
 <pg:fragment type="script">
