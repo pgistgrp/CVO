@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.pgist.tag.Tag;
 import org.pgist.util.PageSetting;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 

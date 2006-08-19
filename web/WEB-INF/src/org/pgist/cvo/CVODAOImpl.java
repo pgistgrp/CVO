@@ -2,7 +2,7 @@ package org.pgist.cvo;
 
 import java.util.Random;
 
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.pgist.system.BaseDAOImpl;
 
 
 /**
@@ -10,7 +10,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author kenny
  *
  */
-public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
+public class CVODAOImpl extends BaseDAOImpl implements CVODAO {
 
 
     private static Random random = new Random();
@@ -29,11 +29,6 @@ public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
     public Concern getConcernById(Long concernId) throws Exception {
         return (Concern) getHibernateTemplate().get(Concern.class, concernId);
     }//getConcernById()
-
-
-    public Tag getTagById(Long tagId) throws Exception {
-        return (Tag) getHibernateTemplate().get(Tag.class, tagId);
-    }//getTagById()
 
 
     public TagReference getTagReferenceById(Long refId) throws Exception {
@@ -57,11 +52,6 @@ public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
     }//save()
 
 
-    public void save(Tag tag) throws Exception {
-        getHibernateTemplate().saveOrUpdate(tag);
-    }//save()
-
-
     public void save(StopWord stopWord) throws Exception {
        getHibernateTemplate().saveOrUpdate(stopWord);
    }//save()
@@ -70,11 +60,6 @@ public class CVODAOImpl extends HibernateDaoSupport implements CVODAO {
 
     public void save(TagReference ref) throws Exception {
         getHibernateTemplate().saveOrUpdate(ref);
-    }//save()
-
-
-    public void save(Category category) throws Exception {
-        getHibernateTemplate().saveOrUpdate(category);
     }//save()
 
 

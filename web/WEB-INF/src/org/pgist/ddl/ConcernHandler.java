@@ -8,8 +8,8 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.Concern;
-import org.pgist.cvo.Tag;
 import org.pgist.cvo.TagReference;
+import org.pgist.tag.Tag;
 import org.pgist.users.User;
 
 
@@ -76,7 +76,6 @@ public class ConcernHandler extends Handler {
                         tag = new Tag();
                         tag.setName(tagName);
                         tag.setStatus(parseTagStatus(element.attributeValue("status")));
-                        tag.setDescription(tagName);
                         saveTag(tag);
                     }
                     

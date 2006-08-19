@@ -11,6 +11,8 @@ import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
 import org.pgist.system.UserDAO;
+import org.pgist.tag.Category;
+import org.pgist.tag.TagDAO;
 import org.pgist.util.PageSetting;
 
 
@@ -64,7 +66,7 @@ public class CSTServiceImpl implements CSTService {
     
     
     public void save(Category category) throws Exception {
-        cstDAO.save(category);
+        tagDAO.save(category);
     }//save()
 
 
@@ -130,7 +132,7 @@ public class CSTServiceImpl implements CSTService {
                  */
                 category = new Category();
                 category.setName(name);
-                cstDAO.save(category);
+                tagDAO.save(category);
             }
             
             /*
@@ -260,7 +262,7 @@ public class CSTServiceImpl implements CSTService {
             category = new Category();
             category.setName(name);
             category.setDeleted(false);
-            cstDAO.save(category);
+            tagDAO.save(category);
         } else {
             newCat = cstDAO.getCategoryReferenceById(category.getId());
         }
@@ -389,7 +391,7 @@ public class CSTServiceImpl implements CSTService {
         if (category==null) {
             category = new Category();
             category.setName(name);
-            cstDAO.save(category);
+            tagDAO.save(category);
         }
         
         catRef.getTheme().setTitle(name);

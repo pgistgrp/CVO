@@ -1,5 +1,7 @@
 package org.pgist.cvo;
 
+import org.pgist.system.BaseDAO;
+
 
 /**
  * A generic Data Access Object for abstract CVO.
@@ -7,7 +9,7 @@ package org.pgist.cvo;
  * @author kenny
  *
  */
-public interface CVODAO {
+public interface CVODAO extends BaseDAO {
 
     
     /**
@@ -29,16 +31,6 @@ public interface CVODAO {
      * @throws Exception
      */
     Concern getConcernById(Long concernId) throws Exception;
-    
-    /**
-     * Get a Tag object with the given tagId.<br>
-     * Note: this object has three kind of status. Check status before use.
-     * 
-     * @param tagId The id of the Tag object.
-     * @return The requested Tag object.
-     * @throws Exception
-     */
-    Tag getTagById(Long tagId) throws Exception;
     
     /**
      * Get a TagReference object with the given tagId.<br>
@@ -78,16 +70,6 @@ public interface CVODAO {
      */
     void save(Concern concern) throws Exception;
     
-    /**
-     * Save the given Tag object to database.<br>
-     * If the Tag object is already persisted, update the database; if not, create a new
-     * Tag object and insert it to the database.
-     * 
-     * @param tag
-     * @throws Exception
-     */
-    void save(Tag tag) throws Exception;
-    
     
     /**
      * Save the given TagReference object to database.<br>
@@ -108,15 +90,6 @@ public interface CVODAO {
      * @throws Exception
      */
     void save(CategoryReference ref) throws Exception;
-    
-    /**
-     * Save the given Category object to database.<br>
-     * If the Category object is already persisted, update the database; if not, create a new
-     * Category object and insert it to the database.
-     * @param category
-     * @throws Exception
-     */
-    void save(Category category) throws Exception;
     
     void refresh(Object object) throws Exception;
     

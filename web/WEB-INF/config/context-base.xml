@@ -4,7 +4,7 @@
 <beans>
 
 
-    <bean id="tagDAO" class="org.pgist.cvo.TagDAOImpl">
+    <bean id="tagDAO" class="org.pgist.tag.TagDAOImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>

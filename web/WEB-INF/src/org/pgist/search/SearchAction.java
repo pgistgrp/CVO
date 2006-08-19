@@ -17,7 +17,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.cvo.CVO;
-import org.pgist.cvo.CVODAO1;
 import org.pgist.model.Post;
 
 
@@ -31,16 +30,9 @@ public class SearchAction extends Action {
     
     private SearchHelper searchHelper;
     
-    private CVODAO1 cvoDAO;
-    
     
     public void setSearchHelper(SearchHelper searchHelper) {
         this.searchHelper = searchHelper;
-    }
-
-
-    public void setCvoDAO(CVODAO1 cvoDAO) {
-        this.cvoDAO = cvoDAO;
     }
 
 
@@ -76,11 +68,11 @@ public class SearchAction extends Action {
                 map.put("doc", doc);
                 if ("concern".equals(type) || "comment".equals(type)) {
                     String id = doc.get("id");
-                    Post post = cvoDAO.getPostById(new Long(id));
+                    //Post post = cvoDAO.getPostById(new Long(id));
                     String cvoId = doc.get("cvoId");
-                    CVO cvo = cvoDAO.getCVOById(new Long(cvoId));
-                    map.put("cvo", cvo);
-                    map.put("post", post);
+                    //CVO cvo = cvoDAO.getCVOById(new Long(cvoId));
+                    //map.put("cvo", cvo);
+                    //map.put("post", post);
                 }
                 list.add(map);
             }//for i

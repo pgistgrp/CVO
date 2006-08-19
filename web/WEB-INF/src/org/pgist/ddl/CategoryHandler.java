@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
-import org.pgist.cvo.Category;
-import org.pgist.cvo.Tag;
+import org.pgist.tag.Category;
+import org.pgist.tag.Tag;
 
 
 /**
@@ -57,7 +57,6 @@ public class CategoryHandler extends Handler {
                 if (tag==null) {
                     tag = new Tag();
                     tag.setName(tagName);
-                    tag.setDescription(tagName);
                     tag.setCount(0);
                     tag.setStatus(Tag.STATUS_OFFICIAL);
                     saveTag(tag);

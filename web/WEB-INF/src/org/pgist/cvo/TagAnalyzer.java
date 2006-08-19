@@ -15,6 +15,8 @@ import java.util.TreeSet;
 import org.apache.lucene.analysis.Token;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.standard.StandardTokenizer;
+import org.pgist.tag.Tag;
+import org.pgist.tag.TagDAO;
 
 /**
  *
@@ -239,8 +241,8 @@ public class TagAnalyzer {
 			all_tags.add(tag);
 			System.out.println("++++ add new tag: " + tag.getName() );
 			System.out.println("---- buffer usage: " + + tag_tree[0][3] + "/" + tag_tree.length);
-			if (tag_tree.length > (tag_tree[0][3] + tag.name.length())) {
-				addNode(tag_tree, tag.name, all_tags.size() - 1, 0, 1, 1);
+			if (tag_tree.length > (tag_tree[0][3] + tag.getName().length())) {
+				addNode(tag_tree, tag.getName(), all_tags.size() - 1, 0, 1, 1);
 			} else {
 				System.out.println("++++ buffer full (" + tag_tree[0][3] + "/" + tag_tree.length
 						+ "need to rebuild tree ++++");

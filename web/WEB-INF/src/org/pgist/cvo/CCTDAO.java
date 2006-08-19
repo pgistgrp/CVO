@@ -87,4 +87,28 @@ public interface CCTDAO extends CVODAO {
     TagReference getTagReferenceByTagId(Long cctId, Long tagId) throws Exception;
 
 
+    /**
+     * Search in the given CCT, and find those tags appeared in this CCT and which are the top count
+     * being referenced.
+     *
+     * @param cctId
+     * @param count
+     * @return
+     * @throws Exception
+     */
+    Collection getTagsByRank(CCT cct, int count) throws Exception;
+
+
+    /**
+     * Search in the given CCT, and find those tags appeared in this CCT and which are referenced at least
+     * threshold times.
+     *
+     * @param cctId
+     * @param threshold
+     * @return
+     * @throws Exception
+     */
+    Collection getTagsByThreshold(CCT cct, int threshold) throws Exception;
+
+
 }//interface CCTDAO

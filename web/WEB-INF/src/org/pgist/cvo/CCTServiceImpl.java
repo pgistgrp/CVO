@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.pgist.system.UserDAO;
+import org.pgist.tag.Tag;
+import org.pgist.tag.TagDAO;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
@@ -133,9 +135,8 @@ public class CCTServiceImpl implements CCTService {
                 } else {
                     tag = new Tag();
                     tag.setName(tagName);
-                    tag.setDescription(tagName);
                     tag.setStatus(Tag.STATUS_CANDIDATE);
-                    cctDAO.save(tag);
+                    tagDAO.save(tag);
 
                     analyzer.addTag(tag);
 
@@ -176,19 +177,19 @@ public class CCTServiceImpl implements CCTService {
 
 
     public Collection getTagsByRank(CCT cct, int count) throws Exception {
-        return tagDAO.getTagsByRank(cct, count);
+        return cctDAO.getTagsByRank(cct, count);
     } //getTagsByRank()
 
 
     public Collection getTagsByThreshold(CCT cct, int threshold) throws
             Exception {
-        return tagDAO.getTagsByThreshold(cct, threshold);
+        return cctDAO.getTagsByThreshold(cct, threshold);
     } //getTagsByThreshold()
 
 
     public Collection getConcernsByTag(Long tagRefId, int count) throws
             Exception {
-        TagReference tagRef = tagDAO.getTagReferenceById(tagRefId);
+        TagReference tagRef = cctDAO.getTagReferenceById(tagRefId);
         if (tagRef == null)throw new Exception(
                 "Requested TagReference doesn't exist.");
         return cctDAO.getConcernsByTag(tagRef, count);
@@ -262,7 +263,7 @@ public class CCTServiceImpl implements CCTService {
                 } else {
                     tag = analyzer.tagExists(tagName);
                     if (tag != null) {
-                        tag = cctDAO.getTagById(tag.getId());
+                        tag = tagDAO.getTagById(tag.getId());
                         ref = cctDAO.getTagReferenceByTagId(cct.getId(),
                                 tag.getId());
                         if (ref == null) {
@@ -274,11 +275,7 @@ public class CCTServiceImpl implements CCTService {
                             ref.setTimes(ref.getTimes() + 1);
                         }
                     } else {
-                        tag = new Tag();
-                        tag.setName(tagName);
-                        tag.setDescription(tagName);
-                        tag.setStatus(Tag.STATUS_CANDIDATE);
-                        cctDAO.save(tag);
+                        tagDAO.addTag(tagName, Tag.TYPE_INCLUDED, Tag.STATUS_CANDIDATE);
                         ref = new TagReference();
                         ref.setTag(tag);
                         ref.setTimes(1);
@@ -313,7 +310,7 @@ public class CCTServiceImpl implements CCTService {
 
 
     public TagReference getTagReferenceById(Long tagRefId) throws Exception {
-        return tagDAO.getTagReferenceById(tagRefId);
+        return cctDAO.getTagReferenceById(tagRefId);
     } //getTagReferenceById()
 
 

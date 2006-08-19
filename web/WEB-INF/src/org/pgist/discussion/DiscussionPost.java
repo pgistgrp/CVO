@@ -134,7 +134,7 @@ public class DiscussionPost {
      * 
      * @hibernate.set lazy="true" table="pgist_dpost_tag_link" order-by="tag_id"
      * @hibernate.collection-key column="dpost_id"
-     * @hibernate.collection-many-to-many column="tag_id" class="org.pgist.cvo.Tag"
+     * @hibernate.collection-many-to-many column="tag_id" class="org.pgist.tag.Tag"
      */
     public Set getTags() {
         return tags;

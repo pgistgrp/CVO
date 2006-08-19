@@ -3,6 +3,7 @@ package org.pgist.cvo;
 import java.util.Collection;
 import java.util.List;
 
+import org.pgist.tag.Tag;
 import org.pgist.util.PageSetting;
 
 
@@ -79,7 +80,6 @@ public class StopWordServiceImpl implements StopWordService {
 
         tag = new Tag();
         tag.setName(name);
-        tag.setDescription(name);
         stopWordDAO.save(tag);
 
         analyzer.addTag(tag);

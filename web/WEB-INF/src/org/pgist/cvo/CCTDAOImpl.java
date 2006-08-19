@@ -2,6 +2,7 @@ package org.pgist.cvo;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -16,6 +17,9 @@ import org.pgist.util.PageSetting;
 public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
     
     
+    private TagReferenceComparator comparator = new TagReferenceComparator(false);
+
+
     private static final String hql_getCCTs = "from CCT c where c.deleted=? order by c.id";
     
     
@@ -155,6 +159,32 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
         }
         return null;
     }//getTagReferenceByTagId()
+
+
+    private static String hql_getTagsByRank = "from TagReference tr where tr.cctId=? order by tr.times desc, tr.tag.name";
+
+
+    public Collection getTagsByRank(CCT cct, int count) throws Exception {
+        getHibernateTemplate().setMaxResults(count);
+        List list = getHibernateTemplate().find(hql_getTagsByRank, cct.getId());
+        Collections.sort(list, comparator);
+        return list;
+    } //getTagsByRank()
+
+
+    private static String getTagsByThreshold = "from TagReference tr where tr.cctId=? and tr.times>? order by tr.times desc, tr.tag.name";
+
+
+    public Collection getTagsByThreshold(CCT cct, int threshold) throws Exception {
+        List list = getHibernateTemplate().find(
+                getTagsByThreshold,
+                new Object[] {
+                cct.getId(),
+                new Integer(threshold),
+        });
+        Collections.sort(list, comparator);
+        return list;
+    } //getTagsByThreshold()
 
 
 }//class CCTDAOImpl

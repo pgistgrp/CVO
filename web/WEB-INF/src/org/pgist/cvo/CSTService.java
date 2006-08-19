@@ -3,6 +3,7 @@ package org.pgist.cvo;
 import java.util.Collection;
 import java.util.List;
 
+import org.pgist.tag.Category;
 import org.pgist.util.PageSetting;
 
 

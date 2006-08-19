@@ -21,15 +21,15 @@
       <param name="include" value="id, name"/>
     </convert>
 
-    <convert converter="bean" match="org.pgist.cvo.Tag">
-      <param name="include" value="id, name, description, status, count"/>
+    <convert converter="bean" match="org.pgist.tag.Tag">
+      <param name="include" value="id, name, status, count"/>
     </convert>
 
     <convert converter="bean" match="org.pgist.cvo.TagReference">
       <param name="include" value="id, tag, times, cctId"/>
     </convert>
 
-    <convert converter="bean" match="org.pgist.cvo.Category">
+    <convert converter="bean" match="org.pgist.tag.Category">
       <param name="include" value="id, name, deleted"/>
     </convert>
 

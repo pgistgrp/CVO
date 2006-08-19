@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
-import org.pgist.cvo.Tag;
+import org.pgist.tag.Tag;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
@@ -45,7 +45,6 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
                 } else {
                     tag = new Tag();
                     tag.setName(tagName);
-                    tag.setDescription(tagName);
                     tag.setCount(1);
                     tag.setStatus(Tag.STATUS_OFFICIAL);
                     

@@ -15,21 +15,30 @@ import org.pgist.system.BaseDAOImpl;
 public class TagDAOImpl extends BaseDAOImpl implements TagDAO {
 
 
-    /*
-     * ------------------------------------------------------------------------
-     */
+    public Tag getTagById(Long id) throws Exception {
+        return (Tag) getHibernateTemplate().load(Tag.class, id);
+    }//getTagById()
 
 
     private static final String hql_addTag = "from Tag t where t.status!=? and lower(t.name)=?";
     
     
-    synchronized public Tag addTag(String tag) throws Exception {
+    synchronized public Tag addTag(String name, int type, int status) throws Exception {
         List list = getHibernateTemplate().find(hql_addTag, new Object[] {
                 new Integer(Tag.STATUS_REJECTED),
-                tag.toLowerCase(),
+                name.toLowerCase(),
         });
         
-        if (list.size()==0) return null;
+        if (list.size()==0) {
+            Tag t = new Tag();
+            t.setName(name.toLowerCase());
+            t.setType(type);
+            t.setStatus(status);
+            
+            save(t);
+            
+            return t;
+        }
         return (Tag) list.get(0);
     }//addTag()
 

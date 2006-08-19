@@ -45,10 +45,10 @@
                <value>org/pgist/model/DiscourseObject.hbm.xml</value>
                <value>org/pgist/model/Post.hbm.xml</value>
                <value>org/pgist/model/PGame.hbm.xml</value>
+               <value>org/pgist/tag/Category.hbm.xml</value>
+               <value>org/pgist/tag/Tag.hbm.xml</value>
                <value>org/pgist/cvo/Theme.hbm.xml</value>
-               <value>org/pgist/cvo/Category.hbm.xml</value>
                <value>org/pgist/cvo/CategoryReference.hbm.xml</value>
-               <value>org/pgist/cvo/Tag.hbm.xml</value>
                <value>org/pgist/cvo/TagReference.hbm.xml</value>
                <value>org/pgist/cvo/StopWord.hbm.xml</value>
                <value>org/pgist/cvo/Concern.hbm.xml</value>

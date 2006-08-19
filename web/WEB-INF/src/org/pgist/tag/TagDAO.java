@@ -20,11 +20,13 @@ public interface TagDAO extends BaseDAO {
      * library, get the Tag object from database; if not, create a new Tag object and save it to
      * the database.
      *
-     * @param tags A tag string.
+     * @param tag A tag string.
+     * @param type tag type
+     * @param status tag status
      * @return A Tag object
      * @throws Exception
      */
-    Tag addTag(String tag) throws Exception;
+    Tag addTag(String tag, int type, int status) throws Exception;
 
 
     /**
@@ -44,6 +46,9 @@ public interface TagDAO extends BaseDAO {
      * @throws Exception
      */
     Collection getTags(boolean included) throws Exception;
+
+
+    Tag getTagById(Long id) throws Exception;
 
 
 }//interface TagDAO

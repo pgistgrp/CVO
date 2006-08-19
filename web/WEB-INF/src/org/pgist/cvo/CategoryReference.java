@@ -6,6 +6,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.pgist.model.Node;
+import org.pgist.tag.Category;
 
 
 /**

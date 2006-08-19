@@ -78,9 +78,9 @@ public class Category implements Node {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="pgist_cvo_categories" order-by="name"
+     * @hibernate.set lazy="true" table="pgist_categories" order-by="name"
      * @hibernate.collection-key column="parent_id"
-     * @hibernate.collection-one-to-many class="org.pgist.cvo.Category"
+     * @hibernate.collection-one-to-many class="org.pgist.tag.Category"
      */
     public Set getChildren() {
         return children;
@@ -95,9 +95,9 @@ public class Category implements Node {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="pgist_cvo_cat_tag_link" order-by="tag_id" sort="org.pgist.cvo.TagComparator"
+     * @hibernate.set lazy="true" table="pgist_cat_tag_link" order-by="tag_id" sort="org.pgist.tag.TagComparator"
      * @hibernate.collection-key column="category_id"
-     * @hibernate.collection-many-to-many column="tag_id" class="org.pgist.cvo.Tag"
+     * @hibernate.collection-many-to-many column="tag_id" class="org.pgist.tag.Tag"
      */
     public SortedSet getTags() {
         return tags;

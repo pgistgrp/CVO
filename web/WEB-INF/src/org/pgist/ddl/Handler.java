@@ -18,14 +18,14 @@ import org.dom4j.io.XMLWriter;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.pgist.cvo.CCT;
-import org.pgist.cvo.Category;
 import org.pgist.cvo.Concern;
 import org.pgist.cvo.StopWord;
-import org.pgist.cvo.Tag;
 import org.pgist.cvo.TagReference;
 import org.pgist.glossary.Term;
 import org.pgist.glossary.TermCategory;
 import org.pgist.system.EmailTemplate;
+import org.pgist.tag.Category;
+import org.pgist.tag.Tag;
 import org.pgist.users.Role;
 import org.pgist.users.User;
 
