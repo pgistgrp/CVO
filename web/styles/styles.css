@@ -260,6 +260,8 @@ h5	{
 .disc_row_b {
 	background-color: #C0D7F6;
 }
+
+.glossHighlight, .glossHighlight a{text-decoration: none; border-bottom: 1px dotted blue}
 .greenBB{/*green Borders and Background */
 	background-color: #E9EFD3 !important;
 	border: 2px solid  #98A072 !important;

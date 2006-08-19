@@ -66,7 +66,14 @@
 		  }
 		
 		 function getReplies(){
-		      SDAgent.getReplies({isid:${structure.id}, ioid:${object.id}, postid:${post.id}}, {
+		 		var ioid = '${object.id}';
+		 		if(ioid == ''){
+		 			ioid = null;
+		 		}else{
+		 			ioid = '${object.id}';
+		 		}
+		 	
+		      SDAgent.getReplies({isid:${structure.id}, ioid:ioid, postid:${post.id}}, {
 		      callback:function(data){
 		          if (data.successful){
 		          			$('postReplies').innerHTML = data.html;         

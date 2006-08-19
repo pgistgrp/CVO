@@ -15,6 +15,7 @@ Zhong:
 
 Jordan:
 [ok] bug - new discussion on entire IS
+[ok] bug - reply to discussion on entire IS
 [ok] Glossary word finder tags on Summary 
 [] voting on IO
 [] sorting posts on sdMain
