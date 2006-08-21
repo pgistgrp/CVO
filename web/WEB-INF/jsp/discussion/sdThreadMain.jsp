@@ -20,9 +20,7 @@
 
 <!-- Site Wide JavaScript -->
 <script src="scripts/headercookies.js" type="text/javascript"></script>
-<script src="scripts/headertabs.js" type="text/javascript"></script>
 <script src="scripts/tabcookies.js" type="text/javascript"></script>
-<script src="scripts/tabs.js" type="text/javascript"></script>
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
@@ -44,6 +42,9 @@
 
 
 <script type="text/javascript">
+		/* global vars */
+			var countPerPage = 10; //numer of posts per page
+		/* end global vars */
 		 function createReply(){
 			var newReplyTitle = $('txtnewReplyTitle').value;
 			var newReply = $('txtnewReply').value;
@@ -73,7 +74,13 @@
 		 			ioid = '${object.id}';
 		 		}
 		 	
-		      SDAgent.getReplies({isid:${structure.id}, ioid:ioid, postid:${post.id}}, {
+		 		var page = 1;
+		 		if (<%= request.getParameter("page") %> != null){
+		 			page = <%= request.getParameter("page") %>;	
+		 		}
+		 		
+
+		      SDAgent.getReplies({isid:${structure.id}, ioid:ioid, postid:${post.id}, page: page, count: countPerPage}, {
 		      callback:function(data){
 		          if (data.successful){
 		          			$('postReplies').innerHTML = data.html;         
