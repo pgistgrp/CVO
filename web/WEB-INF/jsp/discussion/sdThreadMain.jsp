@@ -126,14 +126,7 @@
 	<jsp:include page="sdTabber.jsp" />
 
 </div>
-<!-- Start Footer -->
-<div id="footer_clouds">
 
-	<div id="footer_text">
-	<img src="images/footerlogo.png" alt="PGIST Logo" width="156" height="51" class="imgright"/><br />This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.    </div>
-
-</div>
-<!-- End Footer -->
 <script type="text/javascript">
 	getReplies();
 </script>

@@ -18,9 +18,7 @@
 
 <!-- Site Wide JavaScript -->
 <script src="scripts/headercookies.js" type="text/javascript"></script>
-<script src="scripts/headertabs.js" type="text/javascript"></script>
 <script src="scripts/tabcookies.js" type="text/javascript"></script>
-<script src="scripts/tabs.js" type="text/javascript"></script>
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
@@ -360,14 +358,7 @@
 	<jsp:include page="sdTabber.jsp" />
 
 </div>
-<!-- Start Footer -->
-<div id="footer_clouds">
 
-	<div id="footer_text">
-	<img src="images/footerlogo.png" alt="PGIST Logo" width="156" height="51" class="imgright"/><br />This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.    </div>
-
-</div>
-<!-- End Footer -->
 <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 <script type="text/javascript">
 	var infoStructure = new InfoStructure(); 
@@ -375,7 +366,6 @@
 	infoStructure.getTargets();
 	infoStructure.getPosts();
 	dosize();
-	moreObject();
 
 </script>
 
