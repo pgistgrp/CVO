@@ -307,9 +307,7 @@
 			<div class="clear">
 			</div>
 		</div>
-		<div id="object_question" class="smalltext">
-			Does this list of concern themes adequately reflect concerns expressed by participants? <img src="images/btn_yes_s.gif" alt="YES"> <img src="images/btn_no_s.gif" alt="NO">
-		</div>
+
 		</div>
 		<div id="toggle"><a href="javascript:moreObject();"><img src="images/slideDown.gif" alt="More Discussion Space!" width="82" height="9" border="0"></a></div>
 		<div id="header_discussion" class="allBlue">

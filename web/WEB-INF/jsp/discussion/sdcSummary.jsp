@@ -12,3 +12,6 @@
 <pg:fragment type="script">
 
 </pg:fragment>
+	<div id="object_question" class="smalltext">
+		Does this summary adequately reflect concerns expressed by participants? <a href="javascript:setVote(1, ${infoObject.object.id});"><img src="images/btn_yes_s.gif" alt="YES" border="0"><a href="javascript:setVote(0, ${infoObject.object.id});"><img src="images/btn_no_s.gif" alt="NO" border="0"></a>
+	</div>

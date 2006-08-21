@@ -25,14 +25,11 @@
 
 
 
-More Pages: 
-	<logic:notEqual name="setting" property="page" value="1">	
-		<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.object.id}&page=${setting.page - 1}">&#171; prev page</a>
 
-	</logic:notEqual>
+
 	
-	<c:if test="${setting.pageSize >= 1}">
-
+	<c:if test="${setting.pageSize > 1}">
+	More Pages: 
 					<ul>
 						<c:forEach var="i" begin="1" end="${setting.pageSize}" step="1">
 							    <c:choose>
@@ -46,6 +43,10 @@ More Pages:
 						</c:forEach>
 					</ul>
 	</c:if>
+	
+	<logic:notEqual name="setting" property="page" value="1">	
+		<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.object.id}&page=${setting.page - 1}">&#171; prev page</a>
+	</logic:notEqual>
 	
 	<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
 		<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.object.id}&page=${setting.page + 1}">next page &#187; </a>

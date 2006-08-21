@@ -23,6 +23,11 @@
         <li><a href="javascript: infoStructure.getTargetPanes(${infoObject.id}); infoStructure.assignTargetHeaders('${infoObject.object.theme.title}');">${infoObject.object.theme.title}</a></li>
     </logic:iterate>
   </ul>
+  
+  
+<div id="object_question" class="smalltext">
+	Does this list of concern themes adequately reflect concerns expressed by participants? <img src="images/btn_yes_s.gif" alt="YES"> <img src="images/btn_no_s.gif" alt="NO">
+</div>
 </pg:fragment>
 
 <pg:fragment type="script">
