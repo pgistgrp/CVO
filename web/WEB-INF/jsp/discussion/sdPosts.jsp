@@ -13,7 +13,7 @@
 <table width="95%" border="0" cellspacing="0">
 	<logic:iterate id="post" name="posts">
 		<tr class="disc_row_a">
-			<td width="45%"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.title}</a></td>
+			<td width="45%"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a></td>
 			<td width="10%" class="textcenter">${post.replies}</td>
 			<td width="10%" class="textcenter">${post.views}</td>	
 			<td width="20%" class="textcenter"><a href="#">${post.owner.loginname}</a></td>

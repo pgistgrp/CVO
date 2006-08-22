@@ -96,6 +96,24 @@
 				}
 				});
 			};
+	 	 this.setVote = function(agree, ioid){
+	 	 		displayIndicator(true);
+				SDAgent.setVoting({ioid: ioid, agree:agree}, {
+				callback:function(data){
+						if (data.successful){
+              				 displayIndicator(false);
+              				 alert("thank you for your vote");
+              				 $('object_question').innerHTML = "Your vote has been recorded.  Thank you for your participation.";
+						}else{
+							alert(data.reason);
+							 displayIndicator(false);
+						}
+					},
+				errorHandler:function(errorString, exception){ 
+						alert("get targets error:" + errorString + exception);
+				}
+				});
+			};
 	 	 this.createPost = function(){
 	 	 		var newPostTitle = $('txtNewPostTitle').value;
 	 	 		var newPost = $('txtNewPost').value;
