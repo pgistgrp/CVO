@@ -66,6 +66,10 @@
             <forward name="main" path="/WEB-INF/jsp/discussion/sdMain.jsp"/>
         </action>
         
+        <action path="/sdRoom" scope="request" type="org.pgist.discussion.SDRoomAction">
+            <forward name="main" path="/WEB-INF/jsp/discussion/sdRoomMain.jsp"/>
+        </action>
+        
         <action path="/sdThread" scope="request" type="org.pgist.discussion.SDThreadAction">
             <forward name="main" path="/WEB-INF/jsp/discussion/sdThreadMain.jsp"/>
         </action>

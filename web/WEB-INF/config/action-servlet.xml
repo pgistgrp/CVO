@@ -68,6 +68,11 @@
     </bean>
     
     
+    <bean name="/sdRoom" class="org.pgist.discussion.SDRoomAction">
+        <property name="sdService" ref="sdService"/>
+    </bean>
+    
+    
     <bean name="/sdThread" class="org.pgist.discussion.SDThreadAction">
         <property name="sdService" ref="sdService"/>
     </bean>
