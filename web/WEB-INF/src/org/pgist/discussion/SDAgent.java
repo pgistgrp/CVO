@@ -706,7 +706,10 @@ public class SDAgent {
             
             InfoVoting voting = sdService.getVoting(infoObject);
             
-            if (voting!=null) request.setAttribute("voting", voting);
+            if (voting!=null) {
+                request.setAttribute("voting", voting);
+                map.put("voting", voting);
+            }
             
         } catch (Exception e) {
             map.put("reason", "no such DiscussionPost object");
