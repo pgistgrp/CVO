@@ -323,9 +323,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getVoting()
 
 
-    private static final String hql_increaseVoting_11 = "update InfoStructure i set i.numVote=i.numVote+1, i. where i.id=?";
+    private static final String hql_increaseVoting_11 = "update InfoStructure i set i.numVote=i.numVote+1 where i.id=?";
     
-    private static final String hql_increaseVoting_12 = "update InfoStructure i set i.numAgree=i.numAgree+1, i. where i.id=?";
+    private static final String hql_increaseVoting_12 = "update InfoStructure i set i.numAgree=i.numAgree+1 where i.id=?";
     
     
     public void increaseVoting(InfoStructure structure, boolean agree) throws Exception {

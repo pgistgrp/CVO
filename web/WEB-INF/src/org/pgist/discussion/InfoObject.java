@@ -14,9 +14,13 @@ public class InfoObject {
     
     private Object object;
     
+    private int numDiscussion;
+    
     private int numAgree;
     
     private int numVote;
+    
+    private DiscussionPost lastPost;
     
     
     /**
@@ -68,6 +72,20 @@ public class InfoObject {
      * @return
      * @hibernate.property not-null="true"
      */
+    public int getNumDiscussion() {
+        return numDiscussion;
+    }
+
+
+    public void setNumDiscussion(int numDiscussion) {
+        this.numDiscussion = numDiscussion;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
     public int getNumVote() {
         return numVote;
     }
@@ -75,6 +93,21 @@ public class InfoObject {
 
     public void setNumVote(int numVote) {
         this.numVote = numVote;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="last_post"
+     */
+    public DiscussionPost getLastPost() {
+        return lastPost;
+    }
+
+
+    public void setLastPost(DiscussionPost lastPost) {
+        this.lastPost = lastPost;
     }
     
     

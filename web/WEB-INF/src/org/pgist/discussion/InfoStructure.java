@@ -20,10 +20,13 @@ public class InfoStructure {
     
     private List infoObjects = new ArrayList();
     
+    private int numDiscussion;
+    
     private int numAgree;
     
     private int numVote;
     
+    private DiscussionPost lastPost;
     
     /**
      * @return
@@ -77,6 +80,20 @@ public class InfoStructure {
      * @return
      * @hibernate.property not-null="true"
      */
+    public int getNumDiscussion() {
+        return numDiscussion;
+    }
+
+
+    public void setNumDiscussion(int numDiscussion) {
+        this.numDiscussion = numDiscussion;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
     public int getNumAgree() {
         return numAgree;
     }
@@ -101,6 +118,21 @@ public class InfoStructure {
     }
     
     
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="last_post"
+     */
+    public DiscussionPost getLastPost() {
+        return lastPost;
+    }
+
+
+    public void setLastPost(DiscussionPost lastPost) {
+        this.lastPost = lastPost;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */
