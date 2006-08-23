@@ -14,7 +14,9 @@ public class InfoObject {
     
     private Object object;
     
-    private int voting;
+    private int numAgree;
+    
+    private int numVote;
     
     
     /**
@@ -52,13 +54,27 @@ public class InfoObject {
      * @return
      * @hibernate.property not-null="true"
      */
-    public int getVoting() {
-        return voting;
+    public int getNumAgree() {
+        return numAgree;
     }
 
 
-    public void setVoting(int voting) {
-        this.voting = voting;
+    public void setNumAgree(int numAgree) {
+        this.numAgree = numAgree;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getNumVote() {
+        return numVote;
+    }
+
+
+    public void setNumVote(int numVote) {
+        this.numVote = numVote;
     }
     
     

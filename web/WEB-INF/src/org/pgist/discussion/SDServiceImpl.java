@@ -144,7 +144,7 @@ public class SDServiceImpl implements SDService {
         
         discussionDAO.save(voting);
         
-        discussionDAO.increaseVoting(structure);
+        discussionDAO.increaseVoting(structure, agree);
         
         return true;
     }//setVoting()
@@ -162,7 +162,7 @@ public class SDServiceImpl implements SDService {
         
         discussionDAO.save(voting);
         
-        discussionDAO.increaseVoting(object);
+        discussionDAO.increaseVoting(object, agree);
         
         return true;
     }//setVoting()

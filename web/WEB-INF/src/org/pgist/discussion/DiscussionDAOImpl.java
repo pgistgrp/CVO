@@ -323,21 +323,29 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getVoting()
 
 
-    private static final String hql_increaseVoting_1 = "update InfoStructure i set i.voting=i.voting+1 where i.id=?";
+    private static final String hql_increaseVoting_11 = "update InfoStructure i set i.numVote=i.numVote+1, i. where i.id=?";
+    
+    private static final String hql_increaseVoting_12 = "update InfoStructure i set i.numAgree=i.numAgree+1, i. where i.id=?";
     
     
-    public void increaseVoting(InfoStructure structure) throws Exception {
-        getSession().createQuery(hql_increaseVoting_1).setLong(0, structure.getId())
-        .executeUpdate();
+    public void increaseVoting(InfoStructure structure, boolean agree) throws Exception {
+        getSession().createQuery(hql_increaseVoting_11).setLong(0, structure.getId()).executeUpdate();
+        if (agree) {
+            getSession().createQuery(hql_increaseVoting_12).setLong(0, structure.getId()).executeUpdate();
+        }
     }//increaseVoting()
 
 
-    private static final String hql_increaseVoting_2 = "update InfoObject i set i.voting=i.voting+1 where i.id=?";
+    private static final String hql_increaseVoting_21 = "update InfoObject i set i.numVote=i.numVote+1 where i.id=?";
+    
+    private static final String hql_increaseVoting_22 = "update InfoObject i set i.numAgree=i.numAgree+1 where i.id=?";
     
     
-    public void increaseVoting(InfoObject object) throws Exception {
-        getSession().createQuery(hql_increaseVoting_2).setLong(0, object.getId())
-        .executeUpdate();
+    public void increaseVoting(InfoObject object, boolean agree) throws Exception {
+        getSession().createQuery(hql_increaseVoting_21).setLong(0, object.getId()).executeUpdate();
+        if (agree) {
+            getSession().createQuery(hql_increaseVoting_22).setLong(0, object.getId()).executeUpdate();
+        }
     }//increaseVoting()
 
 

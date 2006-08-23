@@ -64,10 +64,10 @@ public interface DiscussionDAO extends BaseDAO {
     InfoVoting getVoting(InfoObject infoObject, User user) throws Exception;
 
 
-    void increaseVoting(InfoStructure structure) throws Exception;
+    void increaseVoting(InfoStructure structure, boolean agree) throws Exception;
 
 
-    void increaseVoting(InfoObject object) throws Exception;
+    void increaseVoting(InfoObject object, boolean agree) throws Exception;
 
 
     //temp

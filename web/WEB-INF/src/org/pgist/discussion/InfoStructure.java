@@ -20,7 +20,9 @@ public class InfoStructure {
     
     private List infoObjects = new ArrayList();
     
-    private int voting;
+    private int numAgree;
+    
+    private int numVote;
     
     
     /**
@@ -75,13 +77,27 @@ public class InfoStructure {
      * @return
      * @hibernate.property not-null="true"
      */
-    public int getVoting() {
-        return voting;
+    public int getNumAgree() {
+        return numAgree;
     }
 
 
-    public void setVoting(int voting) {
-        this.voting = voting;
+    public void setNumAgree(int numAgree) {
+        this.numAgree = numAgree;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getNumVote() {
+        return numVote;
+    }
+
+
+    public void setNumVote(int numVote) {
+        this.numVote = numVote;
     }
     
     
@@ -104,6 +120,6 @@ public class InfoStructure {
             getInfoObjects().add(obj);
         }
     }//addObjects()
-    
-    
+
+
 }//class InfoStructure
