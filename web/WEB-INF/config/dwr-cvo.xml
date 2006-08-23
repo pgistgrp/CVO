@@ -61,6 +61,9 @@
 	 <convert converter="bean" match="org.pgist.discussion.Discussion"/>
 	
 	 <convert converter="bean" match="org.pgist.discussion.DiscussionPost"/>
+   
+	 <convert converter="bean" match="org.pgist.discussion.InfoVoting"/>
+   
     <!-- DWR Agents -->
     
     <create creator="spring" javascript="CCTAgent">
