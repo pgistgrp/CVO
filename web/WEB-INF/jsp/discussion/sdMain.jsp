@@ -103,7 +103,7 @@
 						if (data.successful){
               				 displayIndicator(false);
               				 alert("thank you for your vote");
-              				 $('object_question').innerHTML = "Your vote has been recorded.  Thank you for your participation.";
+              				 infoStructure.getDetails(ioid);
 						}else{
 							alert(data.reason);
 							 displayIndicator(false);

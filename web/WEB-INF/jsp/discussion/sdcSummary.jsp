@@ -9,9 +9,8 @@
 	</pg:termHighlight>
 </pg:fragment>
 
-
 	<div id="object_question" class="smalltext">
-		Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoStructure.setVote(1, ${infoObject.object.id});"><img src="images/btn_yes_s.gif" alt="YES" border="0"><a href="javascript:infoStructure.setVote(0, ${infoObject.object.id});"><img src="images/btn_no_s.gif" alt="NO" border="0"></a>
+		
 	</div>
 	
 	<pg:fragment type="script">

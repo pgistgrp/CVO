@@ -44,6 +44,13 @@
           if (data.successful){
           $(infoStructure.isDivTargetNavText).innerHTML = '<a href="javascript:infoStructure.getTargets(); infoStructure.getPosts();">Back to '+ infoStructure.defaultObjectTitle +'</a>';
            $(infoStructure.isDivElement).innerHTML = data.source.html;
+
+           	if(data.voting == null){
+           		
+           		$('object_question').innerHTML = 'Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoStructure.setVote(1,' +ioid+ ');"><img src="images/btn_yes_s.gif" alt="YES" border="0"><a href="javascript:infoStructure.setVote(0, ' +ioid+ ');"><img src="images/btn_no_s.gif" alt="NO" border="0"></a>';
+           	}else{
+           		$('object_question') = 'Your vote has been recorded. Thank you for your participation.';
+           	}
            
           }else{
             alert("data.successful != true" + data.reason);
