@@ -51,19 +51,22 @@
     
     <convert converter="bean" match="org.pgist.glossary.TermVariation"/>
 
-	<convert converter="bean" match="org.pgist.discussion.InfoStructure">
-		 	<param name="include" value="id,type,infoObjects"/>
-	 </convert>
-	
-	 <convert converter="bean" match="org.pgist.discussion.InfoObject">
-	 	<param name="include" value="id,object"/>
-	 </convert>
-	 <convert converter="bean" match="org.pgist.discussion.Discussion"/>
-	
-	 <convert converter="bean" match="org.pgist.discussion.DiscussionPost"/>
-   
-	 <convert converter="bean" match="org.pgist.discussion.InfoVoting"/>
-   
+    <convert converter="bean" match="org.pgist.discussion.InfoStructure">
+        <param name="include" value="id,type,infoObjects"/>
+    </convert>
+  
+    <convert converter="bean" match="org.pgist.discussion.InfoObject">
+        <param name="include" value="id,object"/>
+    </convert>
+    
+    <convert converter="bean" match="org.pgist.discussion.Discussion"/>
+    
+    <convert converter="bean" match="org.pgist.discussion.DiscussionPost"/>
+    
+    <convert converter="bean" match="org.pgist.discussion.InfoVoting">
+        <param name="include" value="id, structure, object, voting, owner"/>
+    </convert>
+    
     <!-- DWR Agents -->
     
     <create creator="spring" javascript="CCTAgent">
