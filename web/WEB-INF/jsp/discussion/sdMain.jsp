@@ -86,6 +86,13 @@
               				 infoStructure.assignTargetHeaders();
               				 $(infoStructure.isDivTargetNavText).innerHTML =  infoStructure.defaultTargetNavText;  //reset navText
               				 infoStructure.targetId = null; //reset targetId
+              				 if(data.voting == null){
+              				 	alert(data.structure.voting);
+			           		$('structure_question').innerHTML = 'Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoStructure.setVote(true,${structure.id},\'isid\');"><img src="images/btn_yes_s.gif" alt="YES" border="0"><a href="javascript:infoStructure.setVote(false, ${structure.id},\'isid\');"><img src="images/btn_no_s.gif" alt="NO" border="0"></a>';
+			           	}else{
+			           		alert(data.structure.voting);
+			           		$('structure_question').innerHTML = 'Your vote has been recorded. Thank you for your participation.';
+			           	}
 						}else{
 							alert(data.reason);
 							 displayIndicator(false);
@@ -96,23 +103,43 @@
 				}
 				});
 			};
-	 	 this.setVote = function(agree, ioid){
+	 	 this.setVote = function(agree, ioid, type){
 	 	 		displayIndicator(true);
-				SDAgent.setVoting({ioid: ioid, agree:agree}, {
-				callback:function(data){
-						if (data.successful){
-              				 displayIndicator(false);
-              				 alert("thank you for your vote");
-              				 infoStructure.getDetails(ioid);
-						}else{
-							alert(data.reason);
-							 displayIndicator(false);
-						}
-					},
-				errorHandler:function(errorString, exception){ 
-						alert("get targets error:" + errorString + exception);
+	 	 		if (type == 'isid'){
+					SDAgent.setVoting({isid: ${structure.id}, agree:agree}, {
+					callback:function(data){
+							if (data.successful){
+	              				 displayIndicator(false);
+	              				 //alert("thank you for your vote");
+	              				 infoStructure.getTargets();
+							}else{
+								alert(data.reason);
+								 displayIndicator(false);
+							}
+						},
+					errorHandler:function(errorString, exception){ 
+							alert("get targets error:" + errorString + exception);
+					}
+					});
 				}
-				});
+	 	 		
+	 	 		if (type == 'ioid'){
+					SDAgent.setVoting({ioid: ioid, agree:agree}, {
+					callback:function(data){
+							if (data.successful){
+	              				 displayIndicator(false);
+	              				 //alert("thank you for your vote");
+	              				 infoStructure.getDetails(ioid);
+							}else{
+								alert(data.reason);
+								 displayIndicator(false);
+							}
+						},
+					errorHandler:function(errorString, exception){ 
+							alert("get targets error:" + errorString + exception);
+					}
+					});
+				}
 			};
 	 	 this.createPost = function(){
 	 	 		var newPostTitle = $('txtNewPostTitle').value;
@@ -334,6 +361,7 @@
 			  <div id="btnNewDiscussion"><a href="javascript:new Effect.toggle('newDiscussion', 'blind', {duration: 0.5}); void(0); "><img src="images/btn_newdiscussion.gif" border="0" alt="New Discussion"></a>&nbsp;</div>
 			  <br />
 			  <span class="smalltext">Feel like a theme is missing from the above list? Have a question about the summary process? Discuss here.</span>
+
 		  	</div>
 			<div id="newDiscussion" class="greenBB" style="display: none;">
 				<div id="header_newDiscussion" class="allGreen">New Discussion<span id="closeNewDiscussion" class="closeBox"><a href="javascript:new Effect.toggle('newDiscussion', 'blind', {duration: 0.5}); void(0);">Close</a></span></div>

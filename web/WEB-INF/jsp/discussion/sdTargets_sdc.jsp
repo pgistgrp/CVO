@@ -24,10 +24,7 @@
     </logic:iterate>
   </ul>
   
-  
-<div id="object_question" class="smalltext">
-	Does this list of concern themes adequately reflect concerns expressed by participants? <img src="images/btn_yes_s.gif" alt="YES"> <img src="images/btn_no_s.gif" alt="NO">
-</div>
+<div id="structure_question"></div>
 </pg:fragment>
 
 <pg:fragment type="script">
@@ -46,10 +43,9 @@
            $(infoStructure.isDivElement).innerHTML = data.source.html;
 
            	if(data.voting == null){
-           		
-           		$('object_question').innerHTML = 'Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoStructure.setVote(1,' +ioid+ ');"><img src="images/btn_yes_s.gif" alt="YES" border="0"><a href="javascript:infoStructure.setVote(0, ' +ioid+ ');"><img src="images/btn_no_s.gif" alt="NO" border="0"></a>';
+           		$('object_question').innerHTML = 'Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoStructure.setVote(true,' +ioid+ ',\"ioid\");"><img src="images/btn_yes_s.gif" alt="YES" border="0"><a href="javascript:infoStructure.setVote(false, ' +ioid+ ',\"ioid\");"><img src="images/btn_no_s.gif" alt="NO" border="0"></a>';
            	}else{
-           		$('object_question') = 'Your vote has been recorded. Thank you for your participation.';
+           		$('object_question').innerHTML = 'Your vote has been recorded. Thank you for your participation.';
            	}
            
           }else{
