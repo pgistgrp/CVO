@@ -82,24 +82,68 @@ public class SDServiceImpl implements SDService {
     }//getReplies()
 
 
-    public DiscussionPost createPost(String type, Long targetId, String title, String content, String[] tags) throws Exception {
-        Discussion discussion = discussionDAO.getDiscussion(type, targetId);
+    public DiscussionPost createPost(InfoStructure structure, String title, String content, String[] tags) throws Exception {
+        String type = InfoStructure.class.getName();
+        Long id = structure.getId();
+        
+        Discussion discussion = discussionDAO.getDiscussion(type, id);
         
         if (discussion==null) {
-            discussion = new Discussion();
-            discussion.setDeleted(false);
-            discussion.setTargetId(targetId);
-            discussion.setTargetType(type);
-            
-            discussionDAO.save(discussion);
+            discussion = discussionDAO.createDiscussion(type, id);
         }
         
-        return discussionDAO.createPost(discussion, null, title, content, tags);
+        DiscussionPost post = discussionDAO.createPost(discussion, title, content, tags);
+        
+        /*
+         * record the last post
+         */
+        structure.setLastPost(post);
+        
+        structure.setRespTime(post.getCreateTime());
+        
+        /*
+         * count the discussions
+         */
+        discussionDAO.increaseDiscussions(structure);
+        
+        discussionDAO.save(structure);
+        
+        return post;
     }//createPost()
 
 
-    public DiscussionPost createReply(DiscussionPost parent, DiscussionPost quote, String title, String content, String[] tags) throws Exception {
-        return discussionDAO.createReply(parent, quote, title, content, tags);
+    public DiscussionPost createPost(InfoObject object, String title, String content, String[] tags) throws Exception {
+        String type = InfoObject.class.getName();
+        Long id = object.getId();
+        
+        Discussion discussion = discussionDAO.getDiscussion(type, id);
+        
+        if (discussion==null) {
+            discussion = discussionDAO.createDiscussion(type, id);
+        }
+        
+        DiscussionPost post = discussionDAO.createPost(discussion, title, content, tags);
+        
+        /*
+         * record the last post
+         */
+        object.setLastPost(post);
+        
+        object.setRespTime(post.getCreateTime());
+        
+        /*
+         * count the discussions
+         */
+        discussionDAO.increaseDiscussions(object);
+        
+        discussionDAO.save(object);
+        
+        return post;
+    }//createPost()
+
+
+    public DiscussionReply createReply(DiscussionPost parent, String title, String content, String[] tags) throws Exception {
+        return discussionDAO.createReply(parent, title, content, tags);
     }//createReply()
 
 

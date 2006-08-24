@@ -375,8 +375,7 @@ public class SDAgent {
      * @param params A map contains:
      *   <ul>
      *     <li>isid - int, id of a InfoStructure object</li>
-     *     <li>target - string, ["structure" | "object"]. Optional, default is "structure"</li>
-     *     <li>targetId - int, id of the InfoObject object, required when target=="object"</li>
+     *     <li>ioid - int, id of the InfoObject object. Optinal. If omitted, the dicussion is on the whole structure.</li>
      *     <li>title - string, title of the post. Optional.</li>
      *     <li>content - string, content of the post</li>
      *     <li>tags - string, comma separated tag names. Optional.</li>
@@ -391,8 +390,6 @@ public class SDAgent {
     public Map createPost(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
-        
-        String type = (String) params.get("target");
         
         String title = (String) params.get("title");
         if (title==null) title = "";
@@ -410,8 +407,8 @@ public class SDAgent {
         Long isid = null;
         InfoStructure structure = null;
         
-        Long targetId = null;
-        Object target = null;
+        Long ioid = null;
+        InfoObject object = null;
         
         try {
             isid = new Long((String) params.get("isid"));
@@ -426,18 +423,29 @@ public class SDAgent {
                 return map;
             }
             
-            if ("object".equals(type)) {
-                targetId = new Long((String) params.get("targetId"));
-                target = sdService.getInfoObjectById(targetId);
-            } else if (type==null || "structure".equals(type)) {
-                targetId = isid;
-                target = structure;
+            try {
+                ioid = new Long((String) params.get("ioid"));
+            } catch(Exception e) {
             }
             
-            sdService.createPost(structure.getType(), targetId, title, content, tags);
+            if (ioid!=null) {
+                object = sdService.getInfoObjectById(ioid);
+                
+                if (object==null) {
+                    map.put("reason", "no such InfoObject object");
+                    return map;
+                }
+            }
+            
+            if (object==null) {
+                sdService.createPost(structure, title, content, tags);
+            } else {
+                sdService.createPost(object, title, content, tags);
+            }
             
             map.put("successful", true);
         } catch (Exception e) {
+            e.printStackTrace();
             map.put("reason", e.getMessage());
             return map;
         }
@@ -524,7 +532,7 @@ public class SDAgent {
             } catch (Exception ex) {
             }
             
-            sdService.createReply(parent, quote, title, content, tags);
+            sdService.createReply(parent, title, content, tags);
             
             map.put("successful", true);
         } catch (Exception e) {

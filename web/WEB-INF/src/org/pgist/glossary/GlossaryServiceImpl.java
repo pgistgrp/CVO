@@ -228,7 +228,7 @@ public class GlossaryServiceImpl implements GlossaryService {
     }//getCommentById()
 
 
-    synchronized public DiscussionPost createComment(Long id, Long quoteId, String comment) throws Exception {
+    synchronized public DiscussionPost createComment(Long id, String comment) throws Exception {
         Term term = glossaryDAO.getTermById(id);
         if (term==null) throw new Exception("term with id "+id+" is not found!");
         
@@ -237,15 +237,9 @@ public class GlossaryServiceImpl implements GlossaryService {
             discussion = discussionDAO.createDiscussion(Term.class.getName(), term.getId());
         }
         
-        DiscussionPost quote = null;
-        if (quoteId!=null) {
-            quote = discussionDAO.getPostById(quoteId);
-            if (quote==null) throw new Exception("quoted post with id "+quoteId+" is not found!");
-        }
-        
         glossaryDAO.increaseCommentCount(term);
         
-        return discussionDAO.createPost(discussion, quote, "", comment, null);
+        return discussionDAO.createPost(discussion, "", comment, null);
     }//createComment
 
 

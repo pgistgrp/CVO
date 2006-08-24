@@ -24,7 +24,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     private static final String hql_setPostTags = "from Tag where lower(name)=?";
     
     
-    private void setPostTags(DiscussionPost post, String[] tags) throws Exception {
+    private void setPostTags(GenericPost post, String[] tags) throws Exception {
         List list = null;
         Tag tag = null;
         Query query = getSession().createQuery(hql_setPostTags);
@@ -83,7 +83,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getDiscussion()
     
 
-    private static final String hql_getPosts_A = "from DiscussionPost p where p.discussionId=? and p.deleted=? and p.parent is null order by p.lastActivated desc";
+    private static final String hql_getPosts_A = "from DiscussionPost p where p.discussion.id=? and p.deleted=? order by p.replyTime desc";
     
     
     public Collection getPosts(Discussion discussion) throws Exception {
@@ -94,9 +94,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getPosts()
     
     
-    private static final String hql_getPosts_B_1 = "select count(p.id) from DiscussionPost p where p.discussionId=? and p.deleted=? and p.parent is null";
+    private static final String hql_getPosts_B_1 = "select count(p.id) from DiscussionPost p where p.discussion.id=? and p.deleted=?";
     
-    private static final String hql_getPosts_B_2 = "from DiscussionPost p where p.discussionId=? and p.deleted=? and p.parent is null order by p.lastActivated desc";
+    private static final String hql_getPosts_B_2 = "from DiscussionPost p where p.discussion.id=? and p.deleted=? order by p.replyTime desc";
     
     
     public Collection getPosts(Discussion discussion, PageSetting setting) throws Exception {
@@ -119,23 +119,18 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         query.setFirstResult(setting.getFirstRow());
         query.setMaxResults(setting.getRowOfPage());
         
-        list = query.list();
-        
-        //get the last reply
-        for (int i=0; i<list.size(); i++) {
-            DiscussionPost post = (DiscussionPost) list.get(i);
-            post.setLastReply(getLastReply(post));
-        }//for i
-        
-        return list;
+        return query.list();
     }//getPosts()
     
     
-    private static final String hql_getLastReply = "from DiscussionPost p where p.parent.id=? order by p.id desc";
+    private static final String hql_getLastReply = "from DiscussionReply p where p.parent.id=? and p.deleted=? order by p.id desc";
     
     
     private DiscussionPost getLastReply(DiscussionPost post) {
-        List list = getHibernateTemplate().find(hql_getLastReply, post.getId());
+        List list = getHibernateTemplate().find(hql_getLastReply, new Object[] {
+                post.getId(),
+                false,
+        });
         
         if (list.size()==0) return null;
         
@@ -143,7 +138,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getLastReply()
 
 
-    private static final String hql_getReplies_A = "from DiscussionPost p where p.parent.id=? and p.deleted=? order by p.id";
+    private static final String hql_getReplies_A = "from DiscussionReply p where p.parent.id=? and p.deleted=? order by p.id desc";
     
     
     public Collection getReplies(DiscussionPost post) throws Exception {
@@ -154,9 +149,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getReplies()
     
     
-    private static final String hql_getReplies_B_1 = "select count(p.id) from DiscussionPost p where p.parent.id=? and p.deleted=?";
+    private static final String hql_getReplies_B_1 = "select count(p.id) from DiscussionReply p where p.parent.id=? and p.deleted=?";
     
-    private static final String hql_getReplies_B_2 = "from DiscussionPost p where p.parent.id=? and p.deleted=? order by p.id";
+    private static final String hql_getReplies_B_2 = "from DiscussionReply p where p.parent.id=? and p.deleted=? order by p.id desc";
     
     
     public Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception {
@@ -196,53 +191,51 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//createDiscussion()
     
     
-    public DiscussionPost createPost(Discussion discussion, DiscussionPost quote, String title, String content, String[] tags) throws Exception {
+    public DiscussionPost createPost(Discussion discussion, String title, String content, String[] tags) throws Exception {
         DiscussionPost post = new DiscussionPost();
+        
+        Date date = new Date();
         
         post.setTitle(title);
         post.setContent(content);
         post.setDeleted(false);
-        post.setDiscussionId(discussion.getId());
+        post.setDiscussion(discussion);
         post.setOwner(getUserById(WebUtils.currentUserId()));
-        post.setParent(null);
-        if (quote!=null) post.setQuote(quote);
-        
-        Date date = new Date();
-        
         post.setCreateTime(date);
-        post.setLastActivated(date);
+        post.setReplyTime(date);
         
         setPostTags(post, tags);
         
-        getHibernateTemplate().save(post);
+        save(post);
         
         return post;
     }//createPost()
-
     
-    private static final String hql_createReply_1 = "update DiscussionPost set replies=replies+1, lastActivated=? where id=?";
     
-
-    public DiscussionPost createReply(DiscussionPost post, DiscussionPost quote, String title, String content, String[] tags) throws Exception {
-        DiscussionPost reply = new DiscussionPost();
+    private static final String hql_createReply_1 = "update DiscussionPost set replies=replies+1 where id=?";
+    
+    
+    public DiscussionReply createReply(DiscussionPost post, String title, String content, String[] tags) throws Exception {
+        DiscussionReply reply = new DiscussionReply();
         
-        reply.setDiscussionId(post.getDiscussionId());
         reply.setTitle(title);
         reply.setContent(content);
         reply.setDeleted(false);
         
         reply.setCreateTime(new Date());
         reply.setParent(post);
-        if (quote!=null) reply.setQuote(quote);
         reply.setOwner(getUserById(WebUtils.currentUserId()));
         
         setPostTags(reply, tags);
         
-        getHibernateTemplate().save(reply);
+        /*
+         * count the replies
+         */
+        getSession().createQuery(hql_createReply_1).setLong(0, post.getId()).executeUpdate();
         
-        getSession().createQuery(hql_createReply_1)
-        .setTimestamp(0, new Date())
-        .setLong(1, post.getId()).executeUpdate();
+        save(reply);
+        
+        post.setLastReply(reply);
         
         return reply;
     }//createReply()
@@ -261,21 +254,21 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
 
     public void deleteDiscussion(Discussion discussion) throws Exception {
         discussion.setDeleted(true);
-        getHibernateTemplate().saveOrUpdate(discussion);
+        save(discussion);
+        
+        /*
+         * TODO: Do we still allow participants to delete their posts?
+         */
     }//deleteDiscussion()
 
 
-    private static final String hql_deletePost = "update DiscussionPost set replies = replies-1 where id=?";
-    
-    
     public void deletePost(DiscussionPost post) throws Exception {
         post.setDeleted(true);
-        getHibernateTemplate().saveOrUpdate(post);
+        save(post);
         
-        DiscussionPost parent = post.getParent();
-        if (parent!=null) {
-            getSession().createQuery(hql_deletePost).setLong(0, parent.getId()).executeUpdate();
-        }
+        /*
+         * TODO: Do we still allow participants to delete their posts?
+         */
     }//deletePost()
 
 
@@ -287,6 +280,22 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getInfoStructures()
     
     
+    private static final String hql_increaseDiscussions_1 = "update InfoStructure set numDiscussion=numDiscussion+1 where id=?";
+    
+    
+    public void increaseDiscussions(InfoStructure structure) throws Exception {
+        getSession().createQuery(hql_increaseDiscussions_1).setLong(0, structure.getId()).executeUpdate();
+    }//increaseDiscussions()
+
+
+    private static final String hql_increaseDiscussions_2 = "update InfoObject set numDiscussion=numDiscussion+1 where id=?";
+    
+    
+    public void increaseDiscussions(InfoObject object) throws Exception {
+        getSession().createQuery(hql_increaseDiscussions_2).setLong(0, object.getId()).executeUpdate();
+    }//increaseDiscussions()
+
+
     private static final String hql_increaseViews = "update DiscussionPost set views=views+1 where id=?";
     
     

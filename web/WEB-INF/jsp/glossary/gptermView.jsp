@@ -88,7 +88,7 @@
 	  	}
 	  	
 	  	if ($('newComment').value != ''){
-				GlossaryPublicAgent.createComment({id:termId, comment:comment, quote:null}, {
+				GlossaryPublicAgent.createComment({id:termId, comment:comment}, {
 				callback:function(data){
 					if (data.successful){ 
 							getComments(${term.id});

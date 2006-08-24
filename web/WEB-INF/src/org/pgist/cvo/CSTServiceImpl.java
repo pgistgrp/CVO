@@ -563,8 +563,11 @@ public class CSTServiceImpl implements CSTService {
     public void publish(Long cctId) throws Exception {
         CCT cct = cctDAO.getCCTById(cctId);
         
+        Date date = new Date();
+        
         InfoStructure info = new InfoStructure();
         info.setType("sdc");
+        info.setRespTime(date);
         
         for (CategoryReference ref : (Set<CategoryReference>) cct.getRootCategory().getChildren()) {
             ref.getCategory();
@@ -576,6 +579,7 @@ public class CSTServiceImpl implements CSTService {
             
             InfoObject obj = new InfoObject();
             obj.setObject(ref);
+            obj.setRespTime(date);
             
             info.getInfoObjects().add(obj);
         }//for

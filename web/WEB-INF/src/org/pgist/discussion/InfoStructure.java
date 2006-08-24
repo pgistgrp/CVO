@@ -1,8 +1,8 @@
 package org.pgist.discussion;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -11,36 +11,12 @@ import java.util.List;
  *
  * @hibernate.class table="pgist_info_structure" lazy="true"
  */
-public class InfoStructure {
+public class InfoStructure extends GenericInfo {
     
-    
-    private Long id;
     
     private String type;
     
-    private List infoObjects = new ArrayList();
-    
-    private int numDiscussion;
-    
-    private int numAgree;
-    
-    private int numVote;
-    
-    private DiscussionPost lastPost;
-    
-    /**
-     * @return
-     * 
-     * @hibernate.id generator-class="native"
-     */
-    public Long getId() {
-        return id;
-    }
-    
-    
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private Set infoObjects = new HashSet();
     
     
     /**
@@ -61,78 +37,20 @@ public class InfoStructure {
     /**
      * @return
      * 
-     * @hibernate.list table="pgist_info_object" lazy="true" cascade="all"
+     * @hibernate.set lazy="true" cascade="all" order-by="response_time desc"
      * @hibernate.collection-one-to-many class="org.pgist.discussion.InfoObject"
-     * @hibernate.collection-index column="child_index"
-     * @hibernate.collection-key column="parent_id"
+     * @hibernate.collection-key column="structure_id"
      */
-    public List getInfoObjects() {
+    public Set getInfoObjects() {
         return infoObjects;
     }
 
 
-    public void setInfoObjects(List infoObjects) {
+    public void setInfoObjects(Set infoObjects) {
         this.infoObjects = infoObjects;
     }
     
     
-    /**
-     * @return
-     * @hibernate.property not-null="true"
-     */
-    public int getNumDiscussion() {
-        return numDiscussion;
-    }
-
-
-    public void setNumDiscussion(int numDiscussion) {
-        this.numDiscussion = numDiscussion;
-    }
-
-
-    /**
-     * @return
-     * @hibernate.property not-null="true"
-     */
-    public int getNumAgree() {
-        return numAgree;
-    }
-
-
-    public void setNumAgree(int numAgree) {
-        this.numAgree = numAgree;
-    }
-
-
-    /**
-     * @return
-     * @hibernate.property not-null="true"
-     */
-    public int getNumVote() {
-        return numVote;
-    }
-
-
-    public void setNumVote(int numVote) {
-        this.numVote = numVote;
-    }
-    
-    
-    /**
-     * @return
-     * 
-     * @hibernate.many-to-one column="last_post"
-     */
-    public DiscussionPost getLastPost() {
-        return lastPost;
-    }
-
-
-    public void setLastPost(DiscussionPost lastPost) {
-        this.lastPost = lastPost;
-    }
-
-
     /*
      * ------------------------------------------------------------------------
      */

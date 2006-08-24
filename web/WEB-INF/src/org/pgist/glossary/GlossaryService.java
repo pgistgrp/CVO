@@ -41,7 +41,7 @@ public interface GlossaryService {
     DiscussionPost getCommentById(Long id) throws Exception;
 
 
-    DiscussionPost createComment(Long id, Long quoteId, String comment) throws Exception;
+    DiscussionPost createComment(Long id, String comment) throws Exception;
     
     
     void deleteComment(Term term, DiscussionPost comment) throws Exception;

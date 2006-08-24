@@ -40,10 +40,10 @@ public interface DiscussionDAO extends BaseDAO {
     Discussion createDiscussion(String targetType, Long targetId) throws Exception;
     
     
-    DiscussionPost createPost(Discussion discussion, DiscussionPost quote, String title, String content, String[] tags) throws Exception;
+    DiscussionPost createPost(Discussion discussion, String title, String content, String[] tags) throws Exception;
     
     
-    DiscussionPost createReply(DiscussionPost post, DiscussionPost quote, String title, String content, String[] tags) throws Exception;
+    DiscussionReply createReply(DiscussionPost post, String title, String content, String[] tags) throws Exception;
     
     
     void editPost(DiscussionPost post, String title, String content, String[] tags) throws Exception;
@@ -55,6 +55,12 @@ public interface DiscussionDAO extends BaseDAO {
     void deletePost(DiscussionPost post) throws Exception;
     
     
+    void increaseDiscussions(InfoStructure structure) throws Exception;
+
+
+    void increaseDiscussions(InfoObject object) throws Exception;
+
+
     void increaseViews(DiscussionPost post) throws Exception;
 
 

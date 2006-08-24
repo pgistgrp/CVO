@@ -14,9 +14,9 @@
 
 <logic:iterate id="comment" name="comments">
 	<div id="aCommentCont" style="width: 80%;">
-		<div id="comment-attributes${comment.id}" style="background-color:#E9EFD3"><span class="participantName"><a href="#">${comment.owner.loginname}</a></span> on ${comment.time} added the following comment:</div>
+		<div id="comment-attributes${comment.id}" style="background-color:#E9EFD3"><span class="participantName"><a href="#">${comment.owner.loginname}</a></span> on ${comment.createTime} added the following comment:</div>
 		<div id="comment-content${comment.id}">${comment.content}</div>
-		<div id="quote${comment.id}" style="text-align:right;"><a href="javascript: location.href='#newComment'; new Effect.Highlight('newComment'); $('newComment').value += '<blockquote><b>Quoting ${comment.owner.loginname} on ${comment.time}</b><br>'+ $('comment-content${comment.id}').innerHTML +'</blockquote>'; void(0);">Quote</a></div>
+		<div id="quote${comment.id}" style="text-align:right;"><a href="javascript: location.href='#newComment'; new Effect.Highlight('newComment'); $('newComment').value += '<blockquote><b>Quoting ${comment.owner.loginname} on ${comment.createTime}</b><br>'+ $('comment-content${comment.id}').innerHTML +'</blockquote>'; void(0);">Quote</a></div>
 	</div>
 	<br>
 </logic:iterate>

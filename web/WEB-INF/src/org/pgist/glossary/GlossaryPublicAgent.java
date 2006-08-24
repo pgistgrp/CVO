@@ -310,7 +310,6 @@ public class GlossaryPublicAgent {
      *         <ul>
      *           <li>id - int, id of the term object</li>
      *           <li>comment - string, content of comment</li>
-     *           <li>quote - int, id of the quoted DiscussionPost object. Optional, default is null.</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
@@ -325,15 +324,9 @@ public class GlossaryPublicAgent {
         try {
             Long id = new Long((String) params.get("id"));
             
-            Long quoteId = null;
-            String quote = (String) params.get("quote");
-            if (quote!=null && !"".equals(quote.trim())) {
-                quoteId = new Long(quote);
-            }
-            
             String comment = (String) params.get("comment");
             
-            DiscussionPost newPost = glossaryService.createComment(id, quoteId, comment);
+            DiscussionPost newPost = glossaryService.createComment(id, comment);
             
             map.put("successful", true);
         } catch (Exception e) {
