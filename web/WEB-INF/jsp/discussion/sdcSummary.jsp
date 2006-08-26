@@ -9,8 +9,9 @@
 	</pg:termHighlight>
 </pg:fragment>
 
+
+	<span class="smalltext">${infoObject.numAgree} of ${infoObject.numVote} participants have said that this list of concern themes adequately reflects concerns expressed by participants.</span><br />
 	<div id="object_question" class="smalltext">
-		
 	</div>
 	
 	<pg:fragment type="script">

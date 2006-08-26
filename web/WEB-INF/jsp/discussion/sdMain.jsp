@@ -10,19 +10,14 @@
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/position.css";</style>
 <style type="text/css" media="screen">@import "styles/styles.css";</style>
-<style type="text/css" media="screen">@import "styles/tabs.css";</style>
-<style type="text/css" media="screen">@import "styles/headertabs.css";</style>
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 
 
 <!-- Site Wide JavaScript -->
-<script src="scripts/headercookies.js" type="text/javascript"></script>
-<script src="scripts/tabcookies.js" type="text/javascript"></script>
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-<script src="scripts/findxy.js" type="text/javascript"></script>
 <script src="scripts/search.js" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
 
@@ -32,10 +27,7 @@
 <!-- End DWR JavaScript Libraries -->
 
 <!--SDX Specific  Libraries-->
-<script src="scripts/resize.js" type="text/javascript"></script>
-<script src="scripts/expand.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
-<style type="text/css" media="screen">@import "styles/toggle_sdc.css";</style>
 <!--End SDX Specific  Libraries-->
 
 
@@ -86,13 +78,15 @@
               				 infoStructure.assignTargetHeaders();
               				 $(infoStructure.isDivTargetNavText).innerHTML =  infoStructure.defaultTargetNavText;  //reset navText
               				 infoStructure.targetId = null; //reset targetId
-              				 if(data.voting == null){
-              				 	alert(data.structure.voting);
-			           		$('structure_question').innerHTML = 'Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoStructure.setVote(true,${structure.id},\'isid\');"><img src="images/btn_yes_s.gif" alt="YES" border="0"><a href="javascript:infoStructure.setVote(false, ${structure.id},\'isid\');"><img src="images/btn_no_s.gif" alt="NO" border="0"></a>';
-			           	}else{
-			           		alert(data.structure.voting);
-			           		$('structure_question').innerHTML = 'Your vote has been recorded. Thank you for your participation.';
-			           	}
+              				 
+              				 if(data.voting) { 
+		              				 if(data.voting == null){
+						           		$('structure_question').innerHTML = '<span class="smalltext">Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoStructure.setVote(true,${structure.id},\'isid\');"><img src="images/btn_yes_s.gif" alt="YES" border="0"><a href="javascript:infoStructure.setVote(false, ${structure.id},\'isid\');"><img src="images/btn_no_s.gif" alt="NO" border="0"></a></span>';
+						           }
+					          }else{
+						           		$('structure_question').innerHTML = '<span class="smalltext">Your vote has been recorded. Thank you for your participation.</span>';
+						      }
+					        
 						}else{
 							alert(data.reason);
 							 displayIndicator(false);
@@ -160,10 +154,10 @@
 							 $('txtNewPostTitle').value = '';
 							 $('txtNewPost').value = '';
 							 $('txtNewPostTags').value = '';
-							 new Effect.toggle('newDiscussion', 'blind', {duration: 0.5});
+							 toggleNewDiscussion();
 						}else{
 							alert(data.reason);
-							new Effect.toggle('newDiscussion', 'blind', {duration: 0.5});
+							 toggleNewDiscussion();
 						}
 					},
 				errorHandler:function(errorString, exception){ 
@@ -173,9 +167,7 @@
 			};
 			
 		this.getPosts = function(ioid){
-			if($(discussion.discussionDivSort).style.display == "none"){
-				new Effect.BlindDown(discussion.discussionDivSort, {duration: 0.5});
-			}
+
 			if(ioid != undefined){
 				infoStructure.targetType = 'object';
 				infoStructure.targetId = ioid;
@@ -278,17 +270,31 @@
 		}
 		//new Effect.toggle('quickPostContents${post.id}', 'blind', {duration: 0.3}); void(0);"	
 	}
+	
+	function toggleNewDiscussion(){
+		if ($('newDiscussion').style.display == 'none'){
+			new Effect.toggle('newDiscussion', 'blind', {duration: 0.5});
+			$('sidebarbottom_disc').style.display = 'none';	
+			$('sidebarbottom_newdisc').style.display = 'block';	
+		}else{
+			new Effect.toggle('newDiscussion', 'blind', {duration: 0.5, afterFinish: function(){
+			$('sidebarbottom_disc').style.display = 'block';	
+			$('sidebarbottom_newdisc').style.display = 'none';		
+			}});		
+		}
+	}
  
 </script>
 </head>
 
 
-<body onResize="dosize()">
+<body>
 
 <div id="container">
+	<jsp:include page="/header.jsp" />
 	<!-- START LIGHTBOX -->
-	<div id="overlay" style="display: none;"></div>
-	<div id="lightbox" style="display: none;" class="blueBB"></div>
+		<div id="overlay" style="display: none;"></div>
+		<div id="lightbox" style="display: none;" class="blueBB"></div>
 	<!-- END LIGHTBOX -->
    <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 	
@@ -301,115 +307,151 @@
 	</div>
 	<!-- End Sub Title -->
 	
-	<!-- Overview SpiffyBox -->
-	<div class="cssbox">
+	<div id="container">
+
+<!-- Overview SpiffyBox -->
+<div class="cssbox">
 	<div class="cssbox_head">
-	<h3>Overview and Instructions</h3>
+		<h3>Overview and Instructions</h3>
 	</div>
 	<div class="cssbox_body">
-		<p>Before we can determine how to best improve the transportation system, we need to know what the problems are. Our first task is to brainstorm concerns about the transportation system.</p><p>[ Read more about how this step fits into the bigger picture. ]</p>
+		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam interdum. Donec accumsan, purus ut viverra pharetra, augue tellus vehicula orci, eget consectetuer neque tortor id
+		ante. Proin vehicula imperdiet ante. Mauris vehicula velit sed arcu. Ut aliquam pede ac arcu. Phasellus dictum condimentum nisl. Quisque elementum dictum nibh. Curabitur
+		auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luctus lorem a magna.</p>
 	</div>
+</div>
+<!-- End Overview -->
+
+<div id="cont-main">
+<html:link action="/sdRoom.do" paramId="isid" paramName="structure" paramProperty="id">Back to Discussion Room List</html:link><span class="smalltext">Jump To: Put a select here</span>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td id="maintop"><img src="" alt="" height="1" width="1"/></td>
+<td><img src="images/sidebar_top.gif" alt="sidebartop" /></td>
+</tr>
+<tr>
+<td valign="top" id="maincontent">
+<!-- Main Content starts Here-->
+<h4>Step 1. Summary of Participant Concerns </h4>
+<div id="object">
+<div class="padding">
+<h4>All Concern Themes &raquo;</h4>
+<h5>Safety</h5>
+	<p>
+		Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam interdum. Donec accumsan,
+	purus ut viverra pharetra, augue tellus vehicula orci, eget consectetuer neque tortor id ante.
+	Proin vehicula imperdiet ante. Mauris vehicula velit sed arcu. Ut aliquam pede ac arcu.
+	Phasellus dictum condimentum nisl. Quisque elementum dictum nibh. Curabitur auctor
+	faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luctus lorem a
+	magna.
+	Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam interdum. Donec accumsan,
+	purus ut viverra pharetra, augue tellus vehicula orci, eget consectetuer neque tortor id ante.
+	Proin vehicula imperdiet ante. Mauris vehicula velit sed arcu. Ut aliquam pede ac arcu.
+	Phasellus dictum condimentum nisl. Quisque elementum dictum nibh. Curabitur auctor
+	faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luctus lorem a
+	magna.
+	</p>
+	<p class="textalignright">
+		<span class="smalltext">4 of 15 participants have said that this list of concern themes adequately reflects concerns expressed by participants. <br />
+		Does this list of concern themes adequately reflect concerns expressed by participants? Yes No
+	</span>
+	</p>
 	</div>
-	<!-- End Overview -->
-	
-
-
-<div id="cont-resize">
-<div>
 </div>
-<h4>Summary of Participant Concerns</h4>
-	<div id="col-left">
-	
-	<div id="cont-toggle">
-		<div id="header_object" class="allBlue">
-		<div id="header_title">
-		<h5 id="targetTitle"></h5>
-		</div>
+<!-- End Object -->
+<p class="textalignright">&nbsp;</p>
+		</td>
 
-		  <div class="clear">
-		  <span class="smalltext">Last modified: June 2, 2006 by the Moderator</span>
+<td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
+  <div id="sidebar_content">
+    <h4>Other Discussions filtered by:</h4>
+<h5>Accidents</h5>
+
+<div class="sidebardisc">
+<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
 </div>
-		</div>
-		<div id="object" class="blueBB">
-		<span class="smalltext">4 of 15 participants have said that this list of concern themes adequately reflects concerns expressed by participants.</span><br />
-		<p id="targetNavText"></p>
-		<div id="object_column">
-			<div id="object_column_left">
-				<ul
+<div class="sidebardisc">
+<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
+</div>
+<div class="sidebardisc">
+<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
+</div>
+<div class="sidebardisc">
+<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
+</div>
+<!-- End sidebarcontents-->
+</td>
+<!-- End Right Col -->
+</tr>
 
-				></ul>
-			</div>
-			<div id="object_column_center">
-				<ul
+</table>
+<div id="sidebarbottom_disc" style="text-align:right; display: block;"><img src="/images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
+<div id="sidebarbottom_newdisc" style="text-align:right; display: none;"><img src="/images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
 
-				></ul>
-			</div>
-			<div id="object_column_right">
-				<ul
 
-				></ul>
-			</div>
-			<div class="clear">
-			</div>
-		</div>
+</div>
+<!-- End cont-main -->
+<div id="newDiscussion" style="display: none">
+<div id="newdisc_title" >
+	New Discussion
+	<span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();">Close</a></span>
+</div> <!-- End newdisc_title -->
+<div id="newdisc_content" class="greenBB">
+	<p>SDC New Discussion Paragraph</p>
+	<form>
+		<p><label>Post Title</label><br><input style="width:100%" type="text" id="txtNewPostTitle"/></p>
+		<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea></p>
+		<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="txtNewPostTags" type="text" /></p>
+		<input type="button" onClick="infoStructure.createPost();" value="Create Discussion">
+	</form>
+</div>
+</div>
 
-		</div>
-		<div id="toggle"><a href="javascript:moreObject();"><img src="images/slideDown.gif" alt="More Discussion Space!" width="82" height="9" border="0"></a></div>
-		<div id="header_discussion" class="allBlue">
-			<div class="sidepadding">
-			  <div id="disc_title"><h5 id="targetDiscussionTitle"></h5></div>
-			  <div id="btnNewDiscussion"><a href="javascript:new Effect.toggle('newDiscussion', 'blind', {duration: 0.5}); void(0); "><img src="images/btn_newdiscussion.gif" border="0" alt="New Discussion"></a>&nbsp;</div>
-			  <br />
-			  <span class="smalltext">Feel like a theme is missing from the above list? Have a question about the summary process? Discuss here.</span>
 
-		  	</div>
-			<div id="newDiscussion" class="greenBB" style="display: none;">
-				<div id="header_newDiscussion" class="allGreen">New Discussion<span id="closeNewDiscussion" class="closeBox"><a href="javascript:new Effect.toggle('newDiscussion', 'blind', {duration: 0.5}); void(0);">Close</a></span></div>
-				<p><strong>SDC New Discussion Title</strong><p>SDC New Discussion Paragraph</p></p>
-				<form>
-					<p><label>Post Title</label><br><input style="width:90%" type="text" id="txtNewPostTitle"/></p>
-					<p><label>Your Thoughts</label><br><textarea style="width:90%" id="txtNewPost"></textarea></p>
-					<p><label>Tag your post (comma separated)</label><br><input style="width:90%" id="txtNewPostTags" type="text" /></p>
-					<input type="button" onClick="infoStructure.createPost();" value="Create Discussion">
-				</form>
-			</div>
-
-		</div>
-		<div id="header_cat">
-		<table width="95%" border="0">
-          <tr>
-            <td width="45%"><a href="#">Title</a></td>
-            <td width="10%" class="textcenter"><a href="#">Replies</a></td>
-            <td width="10%" class="textcenter"><a href="#">Views</a></td>
-            <td width="20%" class="textcenter"><a href="#">Author</a></td>
-            <td width="15%"><a href="#">Last Post</a></td>
-          </tr>
-		  </table>
-		</div>
-		<div id="discussion" class="blueBB">
-		<!-- Disscussion Area -->
-
-		</div>
-		<br />
-		<div id="finished">Finished? (We need some style for this)</div>
+<div id="discussion-cont">
+	<span class="padding"><h4>Step 3. Discussions about Safety (11 Discussions)</h4></span><span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();">New Discussion</a></span>
+	  <div id="discussion">
+		  <tr class="disc_row_a">
+			<td><a href="#">Pot Holes</a></td>
+			<td class="textcenter"><a href="#">John Le</a><br /></td>
+			<td class="textcenter">May 20, 2006 by: Jim Jack</td>
+			<td class="textcenter"><a href="#">20</a></td>
+			<td class="textcenter"><a href="#">68</a></td>
+		  </tr>
 	  </div>
-	  
-	  
-	</div>
-	
-	<div id="col-right">
-	
-	<jsp:include page="sdTabber.jsp" />
-
 </div>
 
+
+<div class="pages">
+	<span class="pages_prev">&#171; PREV</span>
+	<span class="pages_current">1</span>
+	<a href="#" title="Page 2">2</a> 
+	<a href="#" title="Page 3">3</a> 
+	<a href="#" title="Page 4">4</a>
+	<a href="#" title="Page 5">5</a>  
+	...
+	<a href="#" title="Page 99">99</a>
+	<a href="#" title="Page 100">100</a>
+	<a href="#" class="pages_nextprev" title="Next Page">NEXT &#187;</a>
+</div>
+	
+<div id="finished" class="borderblue">
+	<h4>Step 4. Finished?</h4><br />
+	Go back or continue... [add buttons] [Cancel]
+</div>
+
+</div> <!-- End container -->
+<!-- Start Footer -->
+<jsp:include page="/footer.jsp" />
+
+<!-- End Footer -->
 <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 <script type="text/javascript">
 	var infoStructure = new InfoStructure(); 
 	var discussion = new Discussion();
-	infoStructure.getTargets();
+	//infoStructure.getTargets();
 	infoStructure.getPosts();
-	dosize();
+	
 
 </script>
 

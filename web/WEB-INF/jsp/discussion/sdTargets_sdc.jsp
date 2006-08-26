@@ -4,6 +4,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 
 <pg:fragment type="html">
+<!--
 <div id="themeSelector">
 		<form id="Tselector" name="ThemeSelector" method="post" action="">
 		  <label>
@@ -17,17 +18,31 @@
 		  </label>
 		  </form>
  </div>
+ -->
 
-  <ul>
+        <table width="100%" border="0" cellspacing="0">
+          <tr class="objectblue">
+            <td width="50%"><a href="#">Concern Theme </a></td>
+			<td width="40%"><a href="#">Last Post</a></td>
+            <td width="10%" class="textcenter"><a href="#">Discussions</a></td> 
+          </tr>		 
     <logic:iterate id="infoObject" property="infoObjects" name="structure">
-        <li><a href="javascript: infoStructure.getTargetPanes(${infoObject.id}); infoStructure.assignTargetHeaders('${infoObject.object.theme.title}');">${infoObject.object.theme.title}</a></li>
-    </logic:iterate>
-  </ul>
+    	<!--<c:forEach var="infoObject" items="${structure.infoObjects}" varStatus="loop">-->
+          <tr class="disc_row_a">
+            <td><a href="/sd.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</a><br /><span class="smalltext">Discuss concerns related to traffic</span></td>
+            <td><a href="#">Viva La Tables!!</a><br /><span class="smalltext"><span class="textright">6-03-2006</span> By John Le</span></td>
+            <td class="textcenter"><a href="#">20</a></td>
+          </tr>		  
+    </logic:iterate>	  
+        </table>
+ <br />
+  <span class="smalltext">${structure.numAgree} of ${structure.numVote} participants have said that this list of concern themes adequately reflects concerns expressed by participants.</span><br />
   
 <div id="structure_question"></div>
 </pg:fragment>
 
 <pg:fragment type="script">
+	/*
   infoStructure.defaultObjectTitle = "All Concern Themes";
   infoStructure.defaultDiscussionTitle = "All Concern Themes";
   infoStructure.defaultSidebarTitle = "All Concern Themes";
@@ -43,7 +58,7 @@
            $(infoStructure.isDivElement).innerHTML = data.source.html;
 
            	if(data.voting == null){
-           		$('object_question').innerHTML = 'Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoStructure.setVote(true,' +ioid+ ',\"ioid\");"><img src="images/btn_yes_s.gif" alt="YES" border="0"><a href="javascript:infoStructure.setVote(false, ' +ioid+ ',\"ioid\");"><img src="images/btn_no_s.gif" alt="NO" border="0"></a>';
+           		$('object_question').innerHTML = 'Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoStructure.setVote(true,' +ioid+ ',\'ioid\');"><img src="images/btn_yes_s.gif" alt="YES" border="0"><a href="javascript:infoStructure.setVote(false, ' +ioid+ ',\'ioid\');"><img src="images/btn_no_s.gif" alt="NO" border="0"></a>';
            	}else{
            		$('object_question').innerHTML = 'Your vote has been recorded. Thank you for your participation.';
            	}
@@ -57,5 +72,5 @@
       }
     });
   };
-  
+  */
 </pg:fragment>

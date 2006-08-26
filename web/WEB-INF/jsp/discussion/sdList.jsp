@@ -18,7 +18,7 @@
     <logic:iterate id="structure" name="structures">
     <tr>
       <td>
-        <html:link action="/sd.do" paramId="isid" paramName="structure" paramProperty="id">
+        <html:link action="/sdRoom.do" paramId="isid" paramName="structure" paramProperty="id">
           <bean:write name="structure" property="type"/>
         </html:link>
       </td>

@@ -12,19 +12,14 @@
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/position.css";</style>
 <style type="text/css" media="screen">@import "styles/styles.css";</style>
-<style type="text/css" media="screen">@import "styles/tabs.css";</style>
-<style type="text/css" media="screen">@import "styles/headertabs.css";</style>
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 
 
 <!-- Site Wide JavaScript -->
-<script src="scripts/headercookies.js" type="text/javascript"></script>
-<script src="scripts/tabcookies.js" type="text/javascript"></script>
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-<script src="scripts/findxy.js" type="text/javascript"></script>
 <script src="scripts/search.js" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
 
@@ -34,10 +29,8 @@
 <!-- End DWR JavaScript Libraries -->
 
 <!--SDX Specific  Libraries-->
-<script src="scripts/resize.js" type="text/javascript"></script>
-<script src="scripts/expand.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
-<style type="text/css" media="screen">@import "styles/toggle_sdc.css";</style>
+
 <!--End SDX Specific  Libraries-->
 
 
@@ -99,10 +92,52 @@
 </head>
 <body> 
 <div id="container">
-  <div id="col-left">
+<jsp:include page="/header.jsp" />
+<!-- Header -->
+
+
+<div id="cont-top">
+
+
+<!-- Sub Title -->
+<div id="subheader">
+<h1>Step 1 Brainstorm Concerns:</h1> <h2>Discuss Concerns Summary</h2>
+</div>
+<div id="footprints">
+<span class="smalltext">LIT Process >> Step 1 Brainstorm Concerns >> Discuss Concerns Summary</span>
+</div>
+<!-- End Sub Title -->
+
+
+<!-- Overview SpiffyBox -->
+<div class="cssbox">
+<div class="cssbox_head">
+<h3>Overview and Instructions</h3>
+</div>
+<div class="cssbox_body">
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam interdum. Donec accumsan, purus ut viverra pharetra, augue tellus vehicula orci, eget consectetuer neque tortor id
+ante. Proin vehicula imperdiet ante. Mauris vehicula velit sed arcu. Ut aliquam pede ac arcu. Phasellus dictum condimentum nisl. Quisque elementum dictum nibh. Curabitur
+auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luctus lorem a magna.</p>
+</div>
+</div>
+<!-- End Overview -->
+
+</div> <!-- End cont-top -->
+
+<div id="cont-main">
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td id="maintop"><img src="" alt="" height="1" width="1"/></td>
+<td><img src="images/sidebar_top.gif" alt="sidebartop" /></td>
+</tr>
+<tr>
+<td valign="top" id="maincontent">
+<!-- Main Content starts Here-->
+<div id="object">
 	
-	<div id="backToDiscussion" style="text-align: right;"><a href="sd.do?isid=${structure.id}">Back to Discussion</a></div>
 	<div id="post" class="blueBB">
+		<div id="backToDiscussion" style="text-align: right;"><a href="sd.do?isid=${structure.id}">Back to Discussion</a></div>
 		 <h3><a href="sd.do?isid=${structure.id}">${object.object.theme.title}</a> >> ${post.title}</h3>
 		<small>Posted on <fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}</small>
 		<p>${post.content}</p>
@@ -112,8 +147,9 @@
 			</logic:iterate>
 		<small>- click on a tag to view other discussions with the same tag.</small>
 		<div id="replyTo${post.id}" style="text-align: right;"><a href="javascript:location.href='#replyAnchor';  new Effect.Pulsate('newReply', {duration: .8, from: 0.5}); void(0);">Reply to this Post</a></div>
-	</div>
-	<div id="replies" class="blueBB">
+	</div><!--end post-->
+   <div id="extrapadding" class="padding-sides">
+	<div id="replies-cont" class="greyscheme">
 			<div id="postReplies">
 				<!-- replies will be loaded here via DWR -->
 			</div>
@@ -127,14 +163,43 @@
 					<input type="button" onclick="createReply();" value="Submit Reply">
 				</form>
 			</div>
-	</div>
-	</div>
-  <div id="col-right">
-	<jsp:include page="sdTabber.jsp" />
+	</div><!-- End replies-cont -->
+	<br />
+	</div><!-- End extrapadding -->
 
+	  
+	</div>
+	<div id="backToDiscussion" style="text-align: right;"><a href="sd.do?isid=${structure.id}">Back to Discussion</a></div>
+
+</td>
+<td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
+  <div id="sidebar_content">
+    <h4>Other Discussions filtered by:</h4>
+<h5>Accidents</h5>
+
+<div class="sidebardisc">
+<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
 </div>
 
+<!-- End sidebarcontents-->
+ </td><!-- End Right Col -->
+</tr>
+
+</table>
+<div id="sidebarbottom" style="text-align:right;"><img src="images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
+
+
+</div>
+<!-- End cont-main -->
+
+</div> <!-- End container -->
+<!-- Start Footer -->
+<jsp:include page="/footer.jsp" />
+
+<!-- End Footer -->
 <script type="text/javascript">
 	getReplies();
 </script>
 </html:html>
+
+

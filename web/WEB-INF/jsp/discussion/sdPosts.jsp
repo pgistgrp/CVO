@@ -10,9 +10,16 @@
 	<p>Currently there are no discussions for this concern theme.  If you would like to create a discussion, please click on the '<a href="javascript:new Effect.toggle('newDiscussion', 'blind', {duration: 0.5}); void(0);">new discussion</a>' above.</p>
 </c:if>
 
-<table width="95%" border="0" cellspacing="0">
-	<logic:iterate id="post" name="posts">
-		<tr class="disc_row_a">
+<table width="100%" border="0" cellspacing="0">
+	  <tr class="objectblue">
+		<td width="40%"><a href="#">Discussion Title</a></td>
+		<td width="10%" class="textcenter"><a href="#">Author</a></td>
+		<td width="10%" class="textcenter"><a href="#">Last Post</a></td>
+		<td width="20%" class="textcenter"><a href="#">Replies</a></td>
+		<td width="15%" class="textcenter"><a href="#">Views</a></td>
+	  </tr>
+	<c:forEach var="post" items="${posts}" varStatus="loop">
+		<tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
 			<td width="45%"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a></td>
 			<td width="10%" class="textcenter">${post.replies}</td>
 			<td width="10%" class="textcenter">${post.views}</td>	
@@ -31,7 +38,7 @@
 		    </c:choose>
 				
 				</span></td>
-			<tr class="disc_row_a">
+			<tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
 				<td colspan="5">
 					<small>${fn:substring(post.content, 0, 250)}... </small>
 					<!--
@@ -50,5 +57,5 @@
 				</td>
 			</tr>
 		</tr>		
-	</logic:iterate>
+	</c:forEach>
 </table>

@@ -1,283 +1,257 @@
-/* Main Position CSS Template by John Le BETA 1 6/15/2006 */
+/* PGIST CSS POSITION File */
+/* John Le & Jordan Isip */
 
-/*
-Table of Contents
-- HTML Elements (No Headings)
-- ID's
-- Classes
-- All Spiffy Box Related CSS
-*/
-
-/* HTML Elements */
+html, body {
+	height: 100%;
+}
 body {
+	height: 100%;
 	margin: 0;
 	padding: 0;
-	height: 100%;
 	width: 100%;
+	/* Set font size trick as jordan again */
 }
 input.search {
-	height: 16px;
+	height: 15px;
 	width: 120px;
 }
-/* ID's */
-#bar {
+#bar { /*merged*/
 	padding: 0em;
 }
-#caughtException {
-	padding: 5px;
-	width: 90%;
-	margin: auto;
-	margin-top: 10px;
-	display: none;
+#container {
+	position: relative;
+    min-height: 100%;
+	margin: 0;
 }
-#clear {
-	clear: both;
+#cont-main {
+	margin-left: 10px;
+	margin-right: 10px;
+	min-width: 800px;
+	position: relative;
+	/*margin-bottom: 1em;*/
 }
-#col-left {
+#cont-top {
+	margin-left: 10px;
+	margin-right: 10px;
+	min-width: 800px;
+}
+#col-left { /*merged*/
 	width: 64%;
 	float: left;
 	height: 100%;
 }
-#col-right {
+#col-right { /*merged*/
 	width: 35%;
 	float: right;	
 	height: 100%;
 }
-#cont-resize {
-	min-height: 400px;
+#discussion-cont {
+	border-left: 1px solid #7888A9;
+	border-bottom: 1px solid #7888A9;
+	border-right: 1px solid #7888A9;
+	/*padding: 5px;*/
+	background-color: #C0D7F6;
+	margin-right: 15px;
+	margin-left: 15px;
 }
-#cont-toggle {
-	
-	height: 100%;
-	margin-left: -18px;
-}
-#container {
-	min-width: 675px;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 0;
-	margin-bottom: 0px;
-	width: 95%;
-	position: relative;
-}
-#discussion {
-	/*padding: .1em .4em .1em .4em;
-	height: 54%;
-	width: 95%;*/
-	margin: auto;
-	margin-left: auto;
-	margin-right: auto;
-	width: 85%;
-	height: 25%;
-	overflow: auto;
-	padding: 10px;
-	padding-top: 0px;
-	
+#discussion-cont td {
+	padding-left: 3px;
+	padding-right: 3px;
 }
 #finished {
-	margin-top: .5em;
-	margin-right: auto;
-	margin-left: auto;
-	width: 90%;
+	margin-top: 2em;
+	margin-right: 15px;
+	margin-left: 15px;
+	padding: 5px;
 	padding-left: 10px;
 	padding-right: 10px;
 }
 #footer {
-	padding: .4em;
-}
-#footer_clouds {
-	background-image: url(../images/footerclouds.png);
-	background-position: left bottom;
-	background-repeat: repeat-x;
+	/*position: absolute;*/
+	bottom: 0;
 	margin-top: 25px;
 	height: 252px;
-	bottom: 0px;
 	width: 100%;
-	
 }
 #footer_text {
 	padding-top: 180px;
 	bottom: 0px;
-	width: 90%;
-	margin-left: auto;
-	margin-right: auto;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 #footprints {
-	
+	margin-top: 0;
 }
 #header {
 	width: 100%;
 	height: 15px;
 }
-#header_cat {
-	margin: auto;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 10px;
+#headerbar {
+	height: 20px;
+	width: 100%;
+	text-align: right;
+}
+#headerbuttons {
+	position: absolute;
+	right: 15px;
+	top: 87px;
+	margin: 0;
+	bottom: 0;
+}
+#headerbuttons a{
+	padding: 2px 6px 3px 6px;
+}
+#headernav {
+
+	margin-bottom: 10px;
+	margin-top: 20px;
+	padding: 0em;
+	padding-top: 40px;
+}
+#maintop {
+	background: #EBEFF2;
+	border-left: 1px solid #CCCCCC !important;
+	border-top: 1px solid #CCCCCC !important;
+	height: 14px;
+	padding: 0 10px;
+}
+#maincontent {
+	background: #EBEFF2;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	padding: 0 10px;
+}
+#myHeader {
+	height: 90%;
+	margin-top: 0px;
+}
+#newDiscussion {
+	margin-left: 35px;
+	margin-right: 35px;
+}
+#newdisc_content {
+	padding: 5px;
 	padding-top: 0px;
-	padding-bottom: 0px;
-	width: 85%;
-	line-height: 1em;
 }
-#header_discussion{
-	background: #fff;
-	margin: auto;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 10px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	width: 85%;
-}
-#header_object{
-	margin: auto;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 10px;
-	padding-top: 5px;
-	padding-bottom: 3px;
-	width: 90%;
-}
-#header_title {
-	float: left;
+#newdisc_title {
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 4px;
 }
 #login {
-	text-align: right;	
-	min-width: 675px;
-	margin-left: auto;
-	margin-right: auto;
 	margin-bottom: 0px;
-	width: 90%;
-	position: relative;
-}
-#main {
-	margin: 0px auto;
-}
-#object {
-	padding: .1em .4em .1em .4em;
-	width: 90%;
-	margin: auto;
-	height: 51%;
-	overflow: auto;
-	padding: 10px;
-	padding-top: 3px;
-}
-#object_column {
 	margin-left: auto;
 	margin-right: auto;
+	position: relative;
+	text-align: right;	
+	width: 90%;
 }
-#object_column ul {
-	margin: 0 0 1em 0em;
-	padding: 0;
-}
-#object_column ul li {
-	/* Stipulate the height of each item so that 
-	vertical return = items * height */
-	font-size: .85em;
-	line-height: 2em;
-
-	/* Clear the default margins & padding 
-	so we can style the list from scratch */
-	margin: 0;
-	padding: 0;
-}
-#object_column ul li{
-	display: block;
-	width: 15em;
-}
-#object_column_left{
-	float: left;
-	width: 27%;
-	
-}
-#object_column_center{
-	float: left;
-	width: 33%;
-	margin-left: 3px;
-	margin-right: 3px;
-}
-#object_column_right{
-	float: left;
-	width: 29%;
-}
-#object_question {
-	margin-left: 2em;
+#object td {
+	padding-left: 3px;
+	padding-right: 3px;
 }
 #post {
 	padding: .1em .4em .1em .4em;
 }
-#replies {
+#replies { /*merged*/
 	padding: .1em .4em .1em .4em;
 	margin: auto;
 	width: 95%;
 }
-#searchbox {
+#searchbox { /*merged*/
 	text-align: right;
 	margin-bottom: 10px;
 	position: absolute;
-	right: 21px;
-	top: 12px;
-
+	right: 41px;
+	top: 52px;
 }
 #searchresults {
 	display: none;
 }
-#slate {
+#slate { /*merged*/
 	margin-bottom: 1em;
 	padding: .4em;
 	height: 40%;
 }
-#subtitle {
-	
+#sidebar {
+	border: 1px solid #7888A9;
+	border-bottom: 0px;
+	background-color: #FFFFFF;
+	padding: 0px;
+	margin: 0;
+	/*height: 100%;
+	height: 410px;*/
+	height: 100%;
+}
+#sidebarmiddle {
+	background-image: url(/images/sidebar_middle.gif);
+	background-repeat: repeat-y;
+}
+#sidebartd { /* may not use */
+	position: relative;
+	padding-bottom: 30px;
+} 
+
+#sidebar_content {
+	margin: 10px;
+	margin-top: 5px;
+	margin-left: 20px;
+	height: 100%;
+	/*margin-bottom: 70px;*/
+}
+#sidebarbottom {
+
+}
+#sidebarbottom_disc {
+	margin-left: 5px;
+	background-color: #C0D7F6;
+	border-left: 1px solid #7888A9;
+}
+#sidebarbottom_newdisc {
+	margin-left: 25px;
+	background-color: #999999;
+}
+#sidebarnavi {
+	position: absolute;
+	bottom: 2px;
+	margin-right: 3px;
+	background-color: #FFFFFF;
+	/*
+	margin-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	*/
+}
+#subheader {
+	margin-top: 1em;
+	margin-bottom: 0;
 }
 #submit {
+	width: 20px;
+	position: absolute;
+	right: 20px;
+	top: 52px;
+}
+#submit { /*merged*/
 	width: 20px;
 	position: absolute;
 	right: 0px;
 	top: 12px;
 }
-#suppSlate {
+#suppSlate { /*merged*/
 	margin-bottom: 1em;
 	padding: .4em;
 	height: 29%;
-	
-}
-#tabber {
-	padding: 0em .4em .1em .4em;
 }
 #tagSelector {
-	padding: 0em .4em .1em .4em;
-	margin: 0em 0em 0em 0em;
-	right: 0;
-	z-index: 1;
+	background-color: #EFEFEF;
+	border-bottom: 1px solid #7888A9;
+	color:#666666;
+	padding: 3px;
+	margin: 0;
 }
-#themeSelector {
-	float: right;
-}
-#themeSelector form {
-	margin:0px;
-	display: inline;
-}
-#themeSelector label {
-	font-size: .8em;
-	color: #999999;
-}
-#themesummary {
-	margin-bottom: 1em;
-	padding: .4em;
-	height: 2em;
-}
-#toggle{
-	border-left: 1px solid #ccc;
-	border-right: 1px solid #ccc;
-	margin: auto; 	
-	width: 85%;
-	text-align: center;
-	padding: 0px 10px 0px 10px;
-	height: 9px;
-	}
 
-/* Classes */
+/*CSS Classes */
 .clear {
 	clear: both;
 }
@@ -285,29 +259,51 @@ input.search {
 	float: right;
 	margin-left: 10px;
 }
+.jumpmenu {
+	float: right;
+	text-align: right;
+	margin-right: 275px;
+}
+.padding {
+	padding: 5px;
+}
+.padding-sides {
+	padding-left: 5px;
+	padding-right: 5px;
+}
 .pages {
 	text-align: center;
 	margin: .5em;
 }
-.scroller {
-	overflow: auto;
-}
-.sidepadding {
-	padding-left: 10px;
-	/*padding-right: 10px;*/
+.sidebardisc {
+	margin-right: 10px;
+	margin-left: 10px;
+	line-height:normal;
+	margin-top: 15px;
 }
 .textcenter {
 	text-align: center;
 }
+.textright { /* possibly not being used */
+	float: right;
+	margin-right: 10px;
+	text-align: right;
+}
+.textalignright {
+	text-align: right;
+	margin-top: 0;
+}
 /* SpiffyBox CSS */
 /* set the image to use and establish the lower-right position */ 
 .cssbox, .cssbox_body, .cssbox_head, .cssbox_head h3{ 
-	background: transparent url(../images/img.php.png) no-repeat bottom right} 
+	background: transparent url(/images/img.php.png) no-repeat bottom right} 
 .cssbox{ /* intended total box width - padding-right(next) */ 
-	width: 98% !important; /* IE Win = width - padding */ 
+	width: 99% !important; /* IE Win = width - padding */ 
 	width: 98%; /* the gap on the right edge of the image (not content padding) */ 
 	padding-right:15px; /* use to position the box */
-	margin:20px auto} /* set the top-right image */ 
+	margin:20px auto;
+	} /* set the top-right image */ 
+	
 .cssbox_head{
 	background-position:top right; /* pull the right image over on top of border */ 
 	margin-right:-15px; /* right-image-gap + right-inside padding */ 
@@ -329,5 +325,3 @@ input.search {
 	padding: 0px 0px 0px 14px;
 }
 /* End SpiffyBox CSS */
-
-

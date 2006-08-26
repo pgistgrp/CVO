@@ -1,10 +1,12 @@
-/* Main Style CSS Template by John Le BETA 1 6/15/2006*/
+/* PGIST CSS Style File */
+/* John Le & Jordan Isip */
 
-/*
-Table of Contents
-- HTML Elements (All Heading CSS)
-- ID's
-- Classes
+/* 
+Color Guide 
+Dark Blue: #7888A9
+Medium Blue: #C0D7F6
+Light Blue: #EBEFF2
+Weird Green in logo: #8DAD1F
 */
 
 /* HTML Elements */
@@ -12,7 +14,7 @@ body {
 	font-family: Arial, Verdana, sans-serif;
 	font-size: .9em;
 	line-height: 1.5em;
-	background-image: url(../images/bg_gradient.png);
+	background-image: url(/images/bg_gradient.png);
 	background-position: top;
 	background-repeat: repeat-x;
 	background-color: #EEEEEE;
@@ -49,157 +51,90 @@ h3 {
 	margin-bottom: 0px;
 	color:#0061A8;
 	font-size:1.5em;
+	
 	}
 h4 {
 	/*color:#98A072;*/
 	color: #999999;
 	margin-bottom:3px;
 	font-size: 1.4em;
+	display:inline;
 	}
 h5	{
 	color: #7888A9;
 	font-size: 1.4em;
+	display:inline;
 	}
-
-/* CSS ID's */
-#bar {
-	
-}
-#bar-content { /*delete? */
-
-}
+h6 {
+	color: #999999;
+	margin-bottom:3px;
+	font-size: 1.2em;
+	letter-spacing: 0px;
+	}
 #caughtException {
 	background: #FFCCCC;
 	border: 1px solid #FF0000;
 	border-left: 5px solid #FF0000;
 }
-#clear {
-
-	}
-#col-left {
-	
-	}
-#col-right {
-
-	}
-#container {
-
-	}	
-#discussion {
-	border: 1px solid #CCCCCC;
-	border-top: 0px solid #fff !important;  
-	
-}
 #finished {
-	border: 1px solid #999999;
 	background-color: #C0D7F6;
 }
 #footer {
-	border: 1px solid #CCCCCC;
+	background-image: url(/images/footerclouds.png);
+	background-position: left bottom;
+	background-repeat: repeat-x;
 	}
 #footer_text {
 	font-size: .8em;
 	line-height: 1.2em;
 	color: #999999;
 	}
-#footprints {
-
-}
-#footprints p{
-	font-size: .9em;
-	color: #7888A9;
-}
 #header {
 	border-bottom: 3px solid #6C6352;;
 	background-color: #7888A9;
-	background-image: url(../images/texture_diag.png);
+	background-image: url(/images/texture_diag.png);
 	background-position:left;
 	background-repeat: repeat;	
 }
-#header_cat {
-	border-left: 1px solid #7888A9;
-	border-right: 1px solid #7888A9;
-	background: #7888A9;
-	}
-#header_cat a:link {
+#headerbar {
+	background-color: #7888A9;
+	border-bottom: 3px solid #C0D7F6;
 	color: #FFFFFF;
 }
-
-#header_discussion{
-	border-left: 1px solid #ccc;
-	border-right: 1px solid #ccc;
-	background: #fff;
-	}
-#header_object{
-	border-left: 1px solid #ccc;
-	border-right: 1px solid #ccc;
-	border-top: 1px solid #ccc;
-	background: #fff;
-	}
-#main {
-
-	}
-#object {
-	border: 1px solid #CCCCCC;
-	border-top: 0px solid #FFFFFF;
-	}
-#object_column ul li a {
-	color: #000099;
-	text-decoration: underline;
+#headerbuttons a{
+	border: 1px solid #7888A9;
+	border-bottom: 0px;
+	text-decoration: none;
 }
-#object_column ul li a:hover {
-	color: #FFF; /* white */
+#headerbuttons a:hover {
 	background-color: #C0D7F6;
+	color: #666666;
 }
-#overview {
-	border: 1px solid #CCCCCC;
-	}
-#post {
-	border: 1px solid #CCCCCC;
-	}
-#replyHeader{
-	color: #fff;
-	background-color: #7888A9 !important;
-	border-color: #C0D7F6 !important;
-	border-width: 2px;
+#headernav {
+	background-image: url(/images/mainlogo.png);
+	background-position: top left;
+	background-repeat: no-repeat;
 }
-#replies {
-	border: 1px solid #CCCCCC;
-	border-top: 0px;
-	}
-#slate {
-	border: 1px solid #CCCCCC;
-	}
-#submit {
-	border: 1px solid #CCCCCC;
-	border-left: 0px;
+#newDiscussion {
+	border-left: 1px solid #7888A9;
+	border-right: 1px solid #7888A9;
 }
-#suppSlate {
-	border: 1px solid #CCCCCC;
-	}
-#tabber {
-	border-style: solid;
-	border-color: #CCCCCC;
-	border-width: 0px 0px 1px 0px;
-	}
-#tagSelector {
-	border-width: 0px 1px 0px 1px;
-	border-style: solid;
-	border-color: #F2E3EB; 
-	background-color: #E9EFD3;
-	}
-#themesummary {
-	border: 1px solid #CCCCCC;
-	}
-#toggle{
-	border-left: 1px solid #C0D7F6;
-	border-right: 1px solid #C0D7F6;
-	background-color: #7888A9;
-	background-image: url(../images/texture_diag.png);
-	background-position:left;
-	background-repeat: repeat;	
-	}
+#newdisc_title {
+	background-color: #999999;
+
 	
+}
+/*
+#sidebarnavi {
+	border-bottom: 1px solid #7888A9;
+	border-right: 1px solid #7888A9;
+	}
+	*/
+#submit {
+	/*border: 1px solid #CCCCCC;*/
+	border-left: 0px;
+	padding: 0;
+}
 /* Classes */
 .allBlue { /*Blue Borders and Background */
 	background-color: #C0D7F6 !important;
@@ -215,70 +150,73 @@ h5	{
 	border-color: #C0D7F6 !important;
 	border-width: 2px;
 }
+.bluescheme {
+	border: 1px solid #7888A9;
+	border-top-width: 5px;
+	background-color: #EBEFF2;
+}
+.borderblue {
+	border: 1px solid #7888A9;
+}
 .darkblue {
 	background-color: #7888A9 !important;
 	border-color: #7888A9 !important;
 }
-
-.smalltext { /* used for footprints */
-	font-family: Arial, Verdana, sans-serif;
-	font-size: .9em;
-	color: #7888A9;
+.darkgrey {
+	background-color: #999999;
+	color: #FFFFFF;
 }
-
-.participantName a{
-	color: #0061A8;
-	font-size: 1.0em;
-	text-decoration: underline;}
-	
-.prevNext a{
-	border: 1px solid #CCCCCC;
-	padding: 2px;
-	font-size: 10px;
-	font-weight: bold;
-	background: #EEE;
-}
-
-.quickPostContents{
-	padding: 0px 5px;
-	margin-left: 15px;
-	background: #fff;
-	color: #333;
-	border: 1px solid #C0D7F6;
-}
-
 .disc_row_a {
-
-
-}
-
-.disc_row_a small, .disc_row_b small{
-	color: #666;
-	margin-left: 10px;
-	display: block;
+	background-color: #EBEFF2;
 }
 .disc_row_b {
 	background-color: #C0D7F6;
 }
-
-.glossHighlight, .glossHighlight a{text-decoration: none; border-bottom: 1px dotted blue}
+.glossHighlight, .glossHighlight a {
+	text-decoration: none; 
+	border-bottom: 1px dotted blue;
+	}
 .greenBB{/*green Borders and Background */
 	background-color: #E9EFD3 !important;
 	border: 2px solid  #98A072 !important;
+}
+.greyscheme {
+	border: 1px solid #666666;
+	background-color: #CCCCCC;
+	padding: 10px;
+}
+.greyonwhite {
+	border: 1px solid #666666;
+	background-color: #FFFFFF;
+}
+.headerbuttons_selected {
+	background-color: #7888A9;
+	color: #FFFFFF;
+}
+.objectblue, .objectblue a {
+	background-color: #7888A9 !important;
+	border-color: #7888A9 !important;
+	color: #FFFFFF;
+}
+.objectblue a:hover {
+	color: #C0D7F6 !important;
 }
 .pages {
 
 }
 .pages a, .pages span{
-	border: 1px solid #999999;
+	border: 1px solid #7888A9;
 	text-decoration: none;
 	padding: .0em;
 	padding-right: .4em;
 	padding-left: .4em;
 }
+.pages a {
+	color: #7888A9;
+}
 .pages_current {
 	color: #FFF;
-	background-color: #999999;
+	background-color: #7888A9;
 }
 .pages_prev {
 	color: #CCCCCC;
@@ -287,25 +225,39 @@ h5	{
 .pages_nextprev {
 
 }
-.smalltext { 
-	font-size: .75em;
-	line-height: 1.2em;
+.participantName a { /*merged*/
+	color: #0061A8;
+	font-size: 1.0em;
+	text-decoration: underline;
+}
+	
+.prevNext a{ /*merged*/
+	border: 1px solid #CCCCCC;
+	padding: 2px;
+	font-size: 10px;
+	font-weight: bold;
+	background: #EEE;
+}
+.quickPostContents { /*merged*/
+	padding: 0px 5px;
+	margin-left: 15px;
+	background: #fff;
+	color: #333;
+	border: 1px solid #C0D7F6;
+}
+.replies {
+	border: 1px solid #666666;
+	background-color: #FFFFFF;
+}
+.sidebarstyle {
+	border: 1px solid #7888A9;
+	background-color: #FFFFFF;
+}
+.smalltext { /* used for footprints */
+	font-family: Arial, Verdana, sans-serif;
+	font-size: .9em;
 	color: #7888A9;
 }
-.whitelinks {
-	
-}
-
-
-input.search {
-	border: 1px solid #CCCCCC;
-	border-right: 0px;
-	color: #C0C0C0;
-	padding-left: 3px;
-	padding-top: 2px;
-}
-
-
 /*Tag Styles*/
 
 
