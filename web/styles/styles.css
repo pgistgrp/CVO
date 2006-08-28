@@ -74,7 +74,11 @@ h6 {
 #btn_search_1 {
 	margin: 0;
 	vertical-align: bottom;
+
+}
+#btn_logout {
 	background-color: #FFFFFF !important;
+	border: 0;
 }
 #caughtException {
 	background: #FFCCCC;

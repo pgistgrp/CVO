@@ -2,7 +2,7 @@
 
 </div>
 
-<div id="login"><img src="images/btn_logout.gif" alt="logout" width="126" height="21" /></div>
+<div id="login"><a href="/logout.do"><img src="images/btn_logout.gif" alt="logout" width="126" height="21" id="btn_logout"/></a></div>
 
 <div id="cont-top">
 <!--START Title Header -->
@@ -27,6 +27,6 @@
 		<!-- ENd Navi -->
 	</div> <!-- End headerbar -->
 	<div id="headerbar">Sub 1 &nbsp; Sub 2 &nbsp; Sub 3 &nbsp; Sub 4 &nbsp;</div><!-- End headerguide -->
-<!--END Title Header -->
+
 
 
