@@ -15,8 +15,15 @@ input.search {
 	height: 15px;
 	width: 120px;
 }
+#addConcern {
+	width: 90%;
+}
 #bar { /*merged*/
 	padding: 0em;
+}
+#caughtException {
+	margin-top: 10px;
+	display: none;
 }
 #container {
 	position: relative;
@@ -184,7 +191,7 @@ input.search {
 	height: 100%;
 }
 #sidebarmiddle {
-	background-image: url(/images/sidebar_middle.gif);
+	background-image: url(../images/sidebar_middle.gif);
 	background-repeat: repeat-y;
 }
 #sidebartd { /* may not use */
@@ -296,7 +303,7 @@ input.search {
 /* SpiffyBox CSS */
 /* set the image to use and establish the lower-right position */ 
 .cssbox, .cssbox_body, .cssbox_head, .cssbox_head h3{ 
-	background: transparent url(/images/img.php.png) no-repeat bottom right} 
+	background: transparent url(../images/img.php.png) no-repeat bottom right} 
 .cssbox{ /* intended total box width - padding-right(next) */ 
 	width: 99% !important; /* IE Win = width - padding */ 
 	width: 98%; /* the gap on the right edge of the image (not content padding) */ 

@@ -14,7 +14,7 @@ body {
 	font-family: Arial, Verdana, sans-serif;
 	font-size: .9em;
 	line-height: 1.5em;
-	background-image: url(/images/bg_gradient.png);
+	background-image: url(../images/bg_gradient.png);
 	background-position: top;
 	background-repeat: repeat-x;
 	background-color: #EEEEEE;
@@ -80,7 +80,7 @@ h6 {
 	background-color: #C0D7F6;
 }
 #footer {
-	background-image: url(/images/footerclouds.png);
+	background-image: url(../images/footerclouds.png);
 	background-position: left bottom;
 	background-repeat: repeat-x;
 	}
