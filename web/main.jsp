@@ -19,10 +19,9 @@
 
 <h3>Public View</h3>
 <ul>
-<li><pg:show roles="member, moderator">
-  <html:link page="/cctlist.do">Concerns Collector Tool</html:link>
-</pg:show></li>
+<li><pg:show roles="member, moderator"><html:link page="/cctlist.do">Concerns Collector Tool</html:link></pg:show></li>
 <li><html:link page="/glossaryPublic.do">Glossary Public View</html:link></li>
+<li><pg:show roles="member, moderator"><html:link page="/sdlist.do">Structured Discussion List</html:link></pg:show></li>
 </ul>
 
 <h3>Moderator Tools</h3>
@@ -30,7 +29,6 @@
 <li><pg:show users="admin"><a href="/userlist.do">User Management</a></pg:show></li>
 <li><pg:show roles="moderator"><html:link page="/stopword.do">StopWords Management Tool</html:link></pg:show></li>
 <li><pg:show roles="moderator"><html:link page="/cstlist.do">Concerns Synthesis Tool</html:link></pg:show></li>
-<li><pg:show roles="moderator"><html:link page="/sdlist.do">Structured Discussion List</html:link></pg:show></li>
 <li><pg:show roles="moderator"><html:link page="/glossaryManage.do">Glossary Management Tool</html:link></pg:show></li>
 </ul>
 
@@ -48,7 +46,7 @@
   Transportation Improvement Program, Auto-restricted zone. All these terms should be linked.
 </pg:termHighlight>
 -->
-
+</div>
 </body>
 </html:html>
 
