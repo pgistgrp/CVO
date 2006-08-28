@@ -411,13 +411,7 @@
 <div id="discussion-cont">
 	<span class="padding"><h4>Step 3. Discussions about Safety (11 Discussions)</h4></span><span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();">New Discussion</a></span>
 	  <div id="discussion">
-		  <tr class="disc_row_a">
-			<td><a href="#">Pot Holes</a></td>
-			<td class="textcenter"><a href="#">John Le</a><br /></td>
-			<td class="textcenter">May 20, 2006 by: Jim Jack</td>
-			<td class="textcenter"><a href="#">20</a></td>
-			<td class="textcenter"><a href="#">68</a></td>
-		  </tr>
+			<!-- load discussion posts -->
 	  </div>
 </div>
 

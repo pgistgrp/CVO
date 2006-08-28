@@ -1,7 +1,10 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <pg:fragment type="html">
 <!--
@@ -26,14 +29,15 @@
 			<td width="40%"><a href="#">Last Post</a></td>
             <td width="10%" class="textcenter"><a href="#">Discussions</a></td> 
           </tr>		 
-    <logic:iterate id="infoObject" property="infoObjects" name="structure">
-    	<!--<c:forEach var="infoObject" items="${structure.infoObjects}" varStatus="loop">-->
-          <tr class="disc_row_a">
+
+    <c:forEach var="infoObject" items="${structure.infoObjects}" varStatus="loop">
+          <tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
             <td><a href="/sd.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</a><br /><span class="smalltext">Discuss concerns related to traffic</span></td>
             <td><a href="#">Viva La Tables!!</a><br /><span class="smalltext"><span class="textright">6-03-2006</span> By John Le</span></td>
             <td class="textcenter"><a href="#">20</a></td>
           </tr>		  
-    </logic:iterate>	  
+    </c:forEach>
+	  
         </table>
  <br />
   <span class="smalltext">${structure.numAgree} of ${structure.numVote} participants have said that this list of concern themes adequately reflects concerns expressed by participants.</span><br />
