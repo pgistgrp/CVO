@@ -344,7 +344,10 @@ public class SDAgent {
             
             InfoVoting voting = sdService.getVoting(structure);
             
-            if (voting!=null) request.setAttribute("voting", voting);
+            if (voting!=null) {
+                map.put("voting", voting);
+                request.setAttribute("voting", voting);
+            }
             
             PageSource source = new PageSource();
             map.put("source", source);
@@ -361,6 +364,7 @@ public class SDAgent {
             
             map.put("successful", true);
         } catch (Exception e) {
+            e.printStackTrace();
             map.put("reason", e.getMessage());
             return map;
         }
