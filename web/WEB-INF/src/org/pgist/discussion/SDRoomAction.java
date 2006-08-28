@@ -75,7 +75,7 @@ public class SDRoomAction extends Action {
          */
         InfoStructure structure = sdService.getInfoStructureById(isid);
         
-        if (structure!=null) return mapping.findForward("error");
+        if (structure==null) return mapping.findForward("error");
         
         request.setAttribute("structure", structure);
             
