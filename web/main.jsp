@@ -12,9 +12,7 @@
 
 <body>
 <!-- Header -->
-
 <jsp:include page="/header.jsp" />
-
 <!-- End Header -->
 
 <h3>Public View</h3>
