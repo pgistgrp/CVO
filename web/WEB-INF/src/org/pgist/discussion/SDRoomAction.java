@@ -12,6 +12,7 @@ import org.apache.struts.action.ActionMapping;
  * SDRoomAction accepts paramters from the request:
  *   <ul>
  *     <li>isid - the id of a InfoStructure object</li>
+ *     <li>ioid - the id of a InfoObject object</li>
  *   </ul>
  *   
  * When executing, SDRoomAction forwards to the jsp file mapped to name "main" in
@@ -45,6 +46,7 @@ public class SDRoomAction extends Action {
      * are available for use:
      *   <ul>
      *     <li>structure - a InfoStructure object</li>
+     *     <li>object - a InfoObject object</li>
      *   </ul>
      *   
      * If the object doesn't exist or failed to be loaded, it forwards to page with the
@@ -64,21 +66,34 @@ public class SDRoomAction extends Action {
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
         /*
-         * id of a InfoStructure object
+         * isid of a InfoStructure object
          */
-        Long id = new Long((String) request.getParameter("isid"));
+        Long isid = new Long((String) request.getParameter("isid"));
         
         /*
          * Load the specified InfoStructure object from database.
          */
-        InfoStructure structure = sdService.getInfoStructureById(id);
+        InfoStructure structure = sdService.getInfoStructureById(isid);
         
-        if (structure!=null) {
-            request.setAttribute("structure", structure);
-            return mapping.findForward("main");
-        }
+        if (structure!=null) return mapping.findForward("error");
         
-        return mapping.findForward("error");
+        request.setAttribute("structure", structure);
+            
+        /*
+         * ioid of a InfoObject object
+         */
+        Long ioid = new Long((String) request.getParameter("ioid"));
+        
+        /*
+         * Load the specified InfoObject object from database.
+         */
+        InfoObject object = sdService.getInfoObjectById(ioid);
+        
+        if (object==null) return mapping.findForward("error");
+        
+        request.setAttribute("object", object);
+        
+        return mapping.findForward("main");
     }//execute()
     
     

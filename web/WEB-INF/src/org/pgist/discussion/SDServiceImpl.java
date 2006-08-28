@@ -63,12 +63,12 @@ public class SDServiceImpl implements SDService {
             /*
              * The discussion is on InfoStructure
              */
-            discussion = discussionDAO.getDiscussion(structure.getType(), structure.getId());
+            discussion = discussionDAO.getDiscussion(InfoStructure.class.getName(), structure.getId());
         } else {
             /*
              * The discussion is on InfoObject
              */
-            discussion = discussionDAO.getDiscussion(structure.getType(), infoObj.getId());
+            discussion = discussionDAO.getDiscussion(InfoObject.class.getName(), infoObj.getId());
         }
         
         if (discussion==null) return new ArrayList();

@@ -528,7 +528,7 @@ public class CSTServiceImpl implements CSTService {
     }//getOrphanTags()
 
 
-    public void saveSummary(Long cctId, Long themeId, String summary) throws Exception {
+    public void saveSummary(Long cctId, Long themeId, String description, String summary) throws Exception {
         if (summary==null || "".equals(summary.trim())) throw new Exception("summary can't be empty.");
         
         CCT cct = cctDAO.getCCTById(cctId);
@@ -537,6 +537,7 @@ public class CSTServiceImpl implements CSTService {
         Theme theme = cstDAO.getThemeById(themeId);
         if (theme==null) throw new Exception("no such theme.");
         
+        theme.setDescription(description);
         theme.setSummary(summary);
         theme.setCreateTime(new Date());
         

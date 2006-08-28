@@ -914,6 +914,7 @@ public class CSTAgent {
      *         <ul>
      *           <li>cctId - int, the current CCT instance id</li>
      *           <li>themeId - int, theme id</li>
+     *           <li>description - string, description to this theme</li>
      *           <li>summary - string, the new summary to be saved</li>
      *         </ul>
      * @return A map contains:<br>
@@ -929,9 +930,10 @@ public class CSTAgent {
         try {
             Long cctId = new Long((String) params.get("cctId"));
             Long themeId = new Long((String) params.get("themeId"));
+            String description = (String) params.get("description");
             String summary = (String) params.get("summary");
             
-            cstService.saveSummary(cctId, themeId, summary);
+            cstService.saveSummary(cctId, themeId, description, summary);
             
             map.put("successful", true);
         } catch(Exception e) {

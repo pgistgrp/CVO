@@ -18,6 +18,8 @@ public class Theme {
     
     protected String title = "";
     
+    protected String description = "";
+    
     protected String summary = "";
     
     protected Date createTime = new Date();
@@ -65,6 +67,21 @@ public class Theme {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.property not-null="true"
+     */
+    public String getDescription() {
+        return description;
+    }
+
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 

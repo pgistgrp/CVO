@@ -18,7 +18,7 @@
 		<td width="20%" class="textcenter"><a href="#">Replies</a></td>
 		<td width="15%" class="textcenter"><a href="#">Views</a></td>
 	  </tr>
-	  ${posts}
+	  
 	<c:forEach var="post" items="${posts}" varStatus="loop">
 		<tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
 			<td width="45%"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a></td>

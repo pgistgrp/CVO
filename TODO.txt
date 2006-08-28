@@ -11,12 +11,12 @@ Zhong:
      post.lastReply.createTime
 [ok] sorting posts
 [ok] voting
-[] Voting - 'undefined' on data.voting in getTargets()
+[ok] Voting - 'undefined' on data.voting in getTargets()
 [] related concerns and related discussion for sidebar
-[] getPosts bug
+[ok] getPosts bug
 [] add description field to theme object (for sd.do)
 [] add api for concerns sidebar
-[] object accessible through SDRoomAction
+[ok] object accessible through SDRoomAction
 
 for later:
 [] discussion relevency in sidebar

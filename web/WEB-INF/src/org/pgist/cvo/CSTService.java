@@ -47,7 +47,7 @@ public interface CSTService {
 
     Collection getOrphanTags(Long cctId, PageSetting setting) throws Exception;
 
-    void saveSummary(Long cctId, Long themeId, String summary) throws Exception;
+    void saveSummary(Long cctId, Long themeId, String description, String summary) throws Exception;
 
     List getThemes(CCT cct) throws Exception;
 
