@@ -74,6 +74,7 @@ h6 {
 #btn_search_1 {
 	margin: 0;
 	vertical-align: bottom;
+	background-color: #FFFFFF !important;
 }
 #caughtException {
 	background: #FFCCCC;
@@ -84,7 +85,7 @@ h6 {
 	background-color: #C0D7F6;
 }
 #footer {
-	background-image: url(../images/footerclouds.png);
+	background-image: url(/images/footerclouds.png);
 	background-position: left bottom;
 	background-repeat: repeat-x;
 }
@@ -118,7 +119,7 @@ h6 {
 
 }
 #headerbuttons a{
-	padding: 2px 6px 1px 6px;
+	padding: 2px 6px 3px 6px;
 	border: 1px solid #7888A9;
 	border-bottom: 0px;
 	text-decoration: none;
@@ -133,7 +134,7 @@ h6 {
 #headernav {
 	padding: 0em;
 	padding-top: 20px;
-	background-image: url(images/mainlogo.png);
+	background-image: url(/images/mainlogo.png);
 	background-position: bottom left;
 	background-repeat: no-repeat;
 }

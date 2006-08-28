@@ -17,8 +17,8 @@
 		<div id="searchbox">
 			<input name="search" type="text" class="search" value="Search" />
 		    
-			<a href="javascript:;" onmouseout="MM_swapImgRestore();" onmouseover="MM_swapImage('btn_search_1','','images/btn_search_2.png',1);" onclick="sendForm();return false;">
-			<img name="btn_search_1" src="images/btn_search_1.png" width="19" height="21" border="0" id="btn_search_1" alt="submit" />
+			<a href="javascript:;" onmouseout="MM_swapImgRestore();" onmouseover="MM_swapImage('btn_search_1','','images/btn_search_2.gif',1);" onclick="sendForm();return false;">
+			<img name="btn_search_1" src="images/btn_search_1.gif" width="19" height="21" border="0" id="btn_search_1" alt="submit" />
 			</a></div> 
 		<!-- End searchbox -->
 		<div id="submit"></div>
