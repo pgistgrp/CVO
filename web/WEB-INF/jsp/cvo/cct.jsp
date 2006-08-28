@@ -537,8 +537,6 @@ $('slate').style.Height = winH;
 
 <!-- Header -->
 
-
-<div id="cont-top">
 <jsp:include page="/header.jsp" />
 <!-- Sub Title -->
 <div id="subheader">

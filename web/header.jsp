@@ -1,8 +1,3 @@
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
-<%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html:html>
-<!-- Header -->
 <div id="header">
 
 </div>
@@ -34,5 +29,5 @@
 	</div> <!-- End headerbar -->
 	<div id="headerbar">Sub 1 &nbsp; Sub 2 &nbsp; Sub 3 &nbsp; Sub 4 &nbsp;</div><!-- End headerguide -->
 <!--END Title Header -->
-</html:html>
+
 
