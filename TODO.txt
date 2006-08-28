@@ -14,7 +14,7 @@ Zhong:
 [ok] Voting - 'undefined' on data.voting in getTargets()
 [] related concerns and related discussion for sidebar
 [ok] getPosts bug
-[] add description field to theme object (for sd.do)
+[ok] add description field to theme object (for sd.do)
 [] add api for concerns sidebar
 [ok] object accessible through SDRoomAction
 

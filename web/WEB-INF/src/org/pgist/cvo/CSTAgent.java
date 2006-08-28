@@ -931,7 +931,9 @@ public class CSTAgent {
             Long cctId = new Long((String) params.get("cctId"));
             Long themeId = new Long((String) params.get("themeId"));
             String description = (String) params.get("description");
+            if (description==null) description = "";
             String summary = (String) params.get("summary");
+            if (summary==null) summary = "";
             
             cstService.saveSummary(cctId, themeId, description, summary);
             
