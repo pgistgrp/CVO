@@ -12,13 +12,12 @@
 </head>
 
 <body>
-
   <h2>Structured Discussion List</h2>
   <table id="sdListTable" class="listtable" cellspacing="1" frame="box" rules="all" width="100%">
     <logic:iterate id="structure" name="structures">
     <tr>
       <td>
-        <html:link action="/sdRoom.do" paramId="isid" paramName="structure" paramProperty="id">
+        <html:link action="/sd.do" paramId="isid" paramName="structure" paramProperty="id">
           <bean:write name="structure" property="type"/>
         </html:link>
       </td>

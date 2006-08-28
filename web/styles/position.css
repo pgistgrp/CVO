@@ -58,8 +58,8 @@ input.search {
 	border-right: 1px solid #7888A9;
 	/*padding: 5px;*/
 	background-color: #C0D7F6;
-	margin-right: 15px;
-	margin-left: 15px;
+	margin-right: 25px;
+	margin-left: 25px;
 }
 #discussion-cont td {
 	padding-left: 3px;
@@ -210,7 +210,7 @@ input.search {
 
 }
 #sidebarbottom_disc {
-	margin-left: 5px;
+	margin-left: 15px;
 	background-color: #C0D7F6;
 	border-left: 1px solid #7888A9;
 }

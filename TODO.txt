@@ -11,6 +11,7 @@ Zhong:
      post.lastReply.createTime
 [ok] sorting posts
 [ok] voting
+[] Voting - 'undefined' on data.voting in getTargets()
 [] related concerns and related discussion for sidebar
 [] getPosts bug
 [] add description field to theme object (for sd.do)

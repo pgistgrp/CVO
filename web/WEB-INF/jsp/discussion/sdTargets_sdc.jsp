@@ -32,7 +32,7 @@
 
     <c:forEach var="infoObject" items="${structure.infoObjects}" varStatus="loop">
           <tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
-            <td><a href="/sd.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</a><br /><span class="smalltext">Discuss concerns related to traffic</span></td>
+            <td><a href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</a><br /><span class="smalltext">Discuss concerns related to traffic</span></td>
             <td><a href="#">Viva La Tables!!</a><br /><span class="smalltext"><span class="textright">6-03-2006</span> By John Le</span></td>
             <td class="textcenter"><a href="#">20</a></td>
           </tr>		  
