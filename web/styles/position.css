@@ -89,32 +89,8 @@ input.search {
 #footprints {
 	margin-top: 0;
 }
-#header {
-	width: 100%;
-	height: 15px;
-}
-#headerbar {
-	height: 20px;
-	width: 100%;
-	text-align: right;
-}
-#headerbuttons {
-	position: absolute;
-	right: 15px;
-	top: 87px;
-	margin: 0;
-	bottom: 0;
-}
-#headerbuttons a{
-	padding: 2px 6px 3px 6px;
-}
-#headernav {
 
-	margin-bottom: 10px;
-	margin-top: 20px;
-	padding: 0em;
-	padding-top: 40px;
-}
+
 #maintop {
 	background: #EBEFF2;
 	border-left: 1px solid #CCCCCC !important;
@@ -145,14 +121,6 @@ input.search {
 	padding-right: 5px;
 	padding-bottom: 4px;
 }
-#login {
-	margin-bottom: 0px;
-	margin-left: auto;
-	margin-right: auto;
-	position: relative;
-	text-align: right;	
-	width: 90%;
-}
 #object td {
 	padding-left: 3px;
 	padding-right: 3px;
@@ -164,13 +132,6 @@ input.search {
 	padding: .1em .4em .1em .4em;
 	margin: auto;
 	width: 95%;
-}
-#searchbox { /*merged*/
-	text-align: right;
-	margin-bottom: 10px;
-	position: absolute;
-	right: 41px;
-	top: 52px;
 }
 #searchresults {
 	display: none;

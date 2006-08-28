@@ -6,7 +6,8 @@
 <div id="header">
 
 </div>
-<div id="login"><img src="/images/btn_logout.gif" /></div>
+
+<div id="login"><img src="images/btn_logout.gif" alt="logout" width="126" height="21" /></div>
 
 <div id="cont-top">
 <!--START Title Header -->
@@ -15,16 +16,20 @@
 		<form id="mysearch" name="mysearch" method="post" action="">    
 		<div id="searchbox">
 			<input name="search" type="text" class="search" value="Search" />
-		</div> <!-- End searchbox -->
-		<div id="submit">
-			<img src="images/btn_search_1.png" name="Image1" width="19" height="19" border="0" id="Image1" onClick="sendForm();return false;" onMouseDown="MM_swapImage('Image1','','images/btn_search_3.png',1)" onMouseOver="MM_swapImage('Image1','','images/btn_search_2.png',1)" onMouseOut="MM_swapImgRestore()">
-		</div><!-- End submit -->
+		    
+			<a href="javascript:;" onmouseout="MM_swapImgRestore();" onmouseover="MM_swapImage('btn_search_1','','images/btn_search_2.png',1);" onclick="sendForm();return false;">
+			<img name="btn_search_1" src="images/btn_search_1.png" width="19" height="21" border="0" id="btn_search_1" alt="submit" />
+			</a></div> 
+		<!-- End searchbox -->
+		<div id="submit"></div>
+		<!-- End submit -->
 		<div id="searchresults"></div>
 		</form>
 		<!-- End Search -->
 		<!-- Navigation -->
 			<div id="headerbuttons">
-				<a href="#" class="headerbuttons_selected">Home</a> <a href="#">Current Task</a> <a href="#">Resource Library</a>			</div>
+				<a href="#" class="headerbuttons_selected">Home</a> <a href="#">Current Task</a> <a href="#">Resource Library</a>
+			</div>
 		<!-- ENd Navi -->
 	</div> <!-- End headerbar -->
 	<div id="headerbar">Sub 1 &nbsp; Sub 2 &nbsp; Sub 3 &nbsp; Sub 4 &nbsp;</div><!-- End headerguide -->
