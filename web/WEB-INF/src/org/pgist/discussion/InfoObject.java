@@ -16,7 +16,7 @@ public class InfoObject extends GenericInfo {
     /**
      * @return object
      * 
-     * @hibernate.any id-type="long" cascade="all" meta-type="string"
+     * @hibernate.any id-type="long" meta-type="string"
      * @hibernate.any-column name="class_name"
      * @hibernate.any-column name="class_id"
      */

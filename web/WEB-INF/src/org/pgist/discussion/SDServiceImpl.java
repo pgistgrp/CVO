@@ -3,6 +3,7 @@ package org.pgist.discussion;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.pgist.cvo.CategoryReference;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
@@ -95,6 +96,17 @@ public class SDServiceImpl implements SDService {
         DiscussionPost post = discussionDAO.createPost(discussion, title, content, tags);
         
         /*
+         * preload object
+         */
+        CategoryReference ref = (CategoryReference) object.getObject();
+        ref.getCategory();
+        ref.getCct();
+        ref.getChildren();
+        ref.getParents();
+        ref.getTags();
+        ref.getTheme();
+        
+        /*
          * record the last post
          */
         structure.setLastPost(post);
@@ -123,6 +135,17 @@ public class SDServiceImpl implements SDService {
         }
         
         DiscussionPost post = discussionDAO.createPost(discussion, title, content, tags);
+        
+        /*
+         * preload object
+         */
+        CategoryReference ref = (CategoryReference) object.getObject();
+        ref.getCategory();
+        ref.getCct();
+        ref.getChildren();
+        ref.getParents();
+        ref.getTags();
+        ref.getTheme();
         
         /*
          * record the last post
