@@ -4,33 +4,65 @@
 <html:html>
 <head>
 <title>PGIST main page</title>
+<!-- Site Wide CSS -->
+<style type="text/css" media="screen">@import "styles/position.css";</style>
+<style type="text/css" media="screen">@import "styles/styles.css";</style>
+<!-- End Site Wide CSS -->
+<!-- Site Wide JS -->
+<script src="scripts/search.js" type="text/javascript"></script>
+<style type="text/css">
+#login {
+	margin: auto;
+	margin-right: auto;
+	margin-left: auto;
+	width: 300px;
+	border: 10px solid #CCCCCC;
+	padding: 15px;
+}
+#pgistlogo {
+	margin: auto;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+}
+</style>
 </head>
 
-<body bgcolor="white">
+<body>
+<br />
+<div id="pgistlogo">
+<img src="images/logo.gif" alt="pgistlogo" >
+</div><br />
 
 <html:form action="/login.do" method="POST" focus="user.loginname">
-  <h2>Welcome to PGIST.
-  <table>
-    <tr>
-      <td>User Name:</td>
-      <td><html:text property="user.loginname"/></td>
-    </tr>
-    <tr>
-      <td>Password:</td>
-      <td><html:password property="user.password" redisplay="false"/></td>
-    </tr>
-    <tr>
-      <td colspan="2"><html:submit property="submit" value="Login"/> (<a href="register.do">Register</a>)</td>
-    </tr>
-  </table>
+  <div align="center">
+    <table id="login">
+      <tr>
+        <td>User Name:</td>
+          <td><html:text property="user.loginname"/></td>
+        </tr>
+      <tr>
+        <td>Password:</td>
+          <td><html:password property="user.password" redisplay="false"/></td>
+        </tr>
+      <tr>
+        <td>&nbsp;</td>
+	      <td align="right"><html:submit property="submit" value="Login"/>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+      <tr>
+        <td>&nbsp;</td>
+	      <td align="right">(<a href="register.do">Register</a>)</td>
+        </tr>
+    </table>
+  </div>
 </html:form>
 
-<br>
-<br>
-<a href="/pgist-docs/index.html">Javadoc</a>
-
-<!--tags:discussion discussible="null" url="/test.do" count="10"/-->
-
+<div align="center"><a href="/pgist-docs/index.html">Javadoc</a>
+  
+  
+    <!--tags:discussion discussible="null" url="/test.do" count="10"/-->
+  
+</div>
 </body>
 </html:html>
 
