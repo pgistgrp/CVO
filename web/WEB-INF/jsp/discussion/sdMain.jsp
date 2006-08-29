@@ -28,9 +28,20 @@
 
 <!--SDX Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
+
+<c:if test="${structure.type == 'sdmap'}">
+
+	<script type='text/javascript' src='scripts/map.js'></script>
+	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxTwM0brOpm-All5BF6PoaKBxRWWERTgXzfGnh96tes2zXXrBXrWwWigIQ" type="text/javascript"></script>
+	<script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
+	<style type="text/css">
+		v\:* {
+		  behavior:url(#default#VML);
+		}
+	</style>
+</c:if>
+
 <!--End SDX Specific  Libraries-->
-
-
 <script type="text/javascript">
 	 function InfoStructure(){
 		this.isDivElement = 'object';
@@ -43,13 +54,13 @@
 							$(infoStructure.isDivElement).innerHTML = data.source.html;
               				eval(data.source.script);
               				//displayIndicator(false);
-              				 alert(data.voting);
-              				 if(data.voting) { 
-		              				 if(data.voting == null){
-						           		$('structure_question').innerHTML = '<span class="smalltext">Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoStructure.setVote(true,${structure.id},\'isid\');"><img src="images/btn_yes_s.gif" alt="YES" border="0"><a href="javascript:infoStructure.setVote(false, ${structure.id},\'isid\');"><img src="images/btn_no_s.gif" alt="NO" border="0"></a></span>';
-						           }
+              				 //alert(data.voting);
+              				 
+		              		 if(data.voting == null || data.voting == undefined){
+						           $('structure_question').innerHTML = '<span class="smalltext">Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoStructure.setVote(true);"><img src="images/btn_yes_s.gif" alt="YES" border="0"><a href="javascript:infoStructure.setVote(false);"><img src="images/btn_no_s.gif" alt="NO" border="0"></a></span>';
+
 					          }else{
-						           		$('structure_question').innerHTML = '<span class="smalltext">Your vote has been recorded. Thank you for your participation.</span>';
+						           $('structure_question').innerHTML = '<span class="smalltext">Your vote has been recorded. Thank you for your participation.</span>';
 						      }
 					        
 						}else{
@@ -63,12 +74,38 @@
 				});
 			};
 
-	};
+	 	 this.setVote = function(agree){
+					SDAgent.setVoting({isid: ${structure.id}, agree:agree}, {
+					callback:function(data){
+							if (data.successful){
+	              				 alert("thank you for your vote");
+	              				 infoStructure.getTargets();
+							}else{
+								alert(data.reason);
+								 displayIndicator(false);
+							}
+						},
+					errorHandler:function(errorString, exception){ 
+							alert("get targets error:" + errorString + exception);
+					}
+					});
+				};
+			};
 </script>
 
 </head>
 
-<body>
+<c:choose>
+  <c:when test="${structure.type == 'sdmap'}">
+ 		<body onunload="GUnload()">
+  </c:when>
+
+  <c:otherwise>
+  		<body>
+  </c:otherwise>
+</c:choose>
+
+
 <div id="container">
 <jsp:include page="/header.jsp" />
 <!-- Header -->
@@ -112,15 +149,18 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 <tr>
 <td valign="top" id="maincontent">
 <!-- Main Content starts Here-->
+
+<c:if test="${structure.type == 'sdmap'}">
+	<div id="map" style="width: 100%; height: 400px;"></div>
+</c:if>
+
 <span class="textright"><span class="smalltext">Jump To: Put a select here</span></span>
 <h4>Concern Theme Rooms</h4>
 <div id="object" class="borderblue">
 	<!-- load discussion rooms -->
 </div><!-- End Object -->
 		
-		<p class="textalignright">
-			<span class="smalltext">${structure.numAgree} of ${structure.numVote} participants have said that this list of concern themes adequately reflects concerns expressed by participants.</span>
-		</p>
+<br />
 		<h4>Talk to the Morderator (needs a better name) </h4>
 		<div class="borderblue">
 		<table width="100%" border="0" cellspacing="0">
@@ -173,11 +213,21 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 <script type="text/javascript">
 	var infoStructure = new InfoStructure(); 
-
 	infoStructure.getTargets();
-
 	
-
+	<c:if test="${structure.type == 'sdmap'}">
+		var pgistmap = new PGISTMap('map');
+		var idList = new Array();
+		<c:forEach var="infoObject" items="${structure.infoObjects}">
+			idList[idList.length] = ${infoObject.id};
+		</c:forEach>
+		
+		pgistmap.setProjectList(idList);
+		pgistmap.projectClickHandler = function(projId){
+			//this is a callback function to load the sidebar_bottom
+			
+		}
+	</c:if>
 </script>
 </body>
 

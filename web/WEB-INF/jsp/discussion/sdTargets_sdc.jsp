@@ -23,7 +23,7 @@
  </div>
  -->
 
-        <table width="100%" border="0" cellspacing="0">
+    <table width="100%" border="0" cellspacing="0">
           <tr class="objectblue">
             <td width="50%"><a href="#">Concern Theme </a></td>
 			<td width="40%"><a href="#">Last Post</a></td>
@@ -32,49 +32,28 @@
 
     <c:forEach var="infoObject" items="${structure.infoObjects}" varStatus="loop">
           <tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
-            <td><a href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</a><br /><span class="smalltext">Discuss concerns related to traffic</span></td>
-            <td><a href="#">Viva La Tables!!</a><br /><span class="smalltext"><span class="textright">6-03-2006</span> By John Le</span></td>
-            <td class="textcenter"><a href="#">20</a></td>
+            <td><a href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</a><br /><span class="smalltext">Discuss concerns related to ${infoObject.object.theme.title}</span></td>
+ 		    <c:choose>
+		      <c:when test="${infoObject.lastPost.id != null}">
+		     		 <td><a href="/sdThread.do?isid=${structure.id}&pid=${infoObject.lastPost.id}&ioid=${infoObject.id}">${infoObject.lastPost.title}</a><br /><span class="smalltext"><span class="textright"><fmt:formatDate value="${structure.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> </span> By: ${structure.lastPost.owner.loginname}</span></td>
+		      </c:when>
+		      <c:otherwise>
+		      	<td>No current discussions</td>
+		      </c:otherwise>
+		    </c:choose>          
+
+            <td class="textcenter"><a href="#">${infoObject.numDiscussion}</a></td>
           </tr>		  
     </c:forEach>
 	  
         </table>
- <br />
-  <span class="smalltext">${structure.numAgree} of ${structure.numVote} participants have said that this list of concern themes adequately reflects concerns expressed by participants.</span><br />
-  
-<div id="structure_question"></div>
+
+<div id="structure_question_status" style="text-align: right;">
+	<span class="smalltext">${structure.numAgree} of ${structure.numVote} participants have said that this list of concern themes adequately reflects concerns expressed by participants.</span><br />
+</div>
+<div id="structure_question" style="text-align: right;"></div>
 </pg:fragment>
 
 <pg:fragment type="script">
-	/*
-  infoStructure.defaultObjectTitle = "All Concern Themes";
-  infoStructure.defaultDiscussionTitle = "All Concern Themes";
-  infoStructure.defaultSidebarTitle = "All Concern Themes";
-  infoStructure.sideBarTheme = "Concerns related to";
-  infoStructure.defaultTargetNavText = "To view the summary of a concern theme, click on the theme name.";
-  
-  
-  infoStructure.getDetails = function(ioid){
-    SDAgent.getSummary({ioid:ioid}, {
-      callback:function(data){
-          if (data.successful){
-          $(infoStructure.isDivTargetNavText).innerHTML = '<a href="javascript:infoStructure.getTargets(); infoStructure.getPosts();">Back to '+ infoStructure.defaultObjectTitle +'</a>';
-           $(infoStructure.isDivElement).innerHTML = data.source.html;
-
-           	if(data.voting == null){
-           		$('object_question').innerHTML = 'Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoStructure.setVote(true,' +ioid+ ',\'ioid\');"><img src="images/btn_yes_s.gif" alt="YES" border="0"><a href="javascript:infoStructure.setVote(false, ' +ioid+ ',\'ioid\');"><img src="images/btn_no_s.gif" alt="NO" border="0"></a>';
-           	}else{
-           		$('object_question').innerHTML = 'Your vote has been recorded. Thank you for your participation.';
-           	}
-           
-          }else{
-            alert("data.successful != true" + data.reason);
-          }
-      },
-      errorHandler:function(errorString, exception){
-          alert("getDetails Error" + errorString + exception);
-      }
-    });
-  };
-  */
+	
 </pg:fragment>

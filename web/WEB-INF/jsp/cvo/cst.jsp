@@ -133,7 +133,7 @@
 			else
 				summaryString = editor1.getContent();
 				
-			CSTAgent.saveSummary({cctId:cctId, themeId:themeId, summary:summaryString}, {
+			CSTAgent.saveSummary({cctId:cctId, themeId:themeId, summary:summaryString, description: "discuss concerns about"}, {
 			callback:function(data){
 				if (data.successful){
 					editor1.setMessage("saving summary...<img src='/images/indicator.gif'>");	

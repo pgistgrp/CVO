@@ -18,6 +18,7 @@ Zhong:
 [] add api for concerns sidebar
 [ok] object accessible through SDRoomAction
 
+
 for later:
 [] discussion relevency in sidebar
 
@@ -28,13 +29,13 @@ Jordan:
 [] voting on IO
 [] sorting posts on sdMain
 [] jump to select box
-[] help integrate new layout
+[ok] help integrate new layout
+[ok] site-wide header and footer
+[ok] jsp:include header and footer
 
 John:
-[] css for new design
-[] site-wide header and footer
-[] jsp:include header and footer
-[] integrate new layout
+[ok] css for new design
+[ok] integrate new layout
 
 Misc. Front End for Future:
 [] Validations
