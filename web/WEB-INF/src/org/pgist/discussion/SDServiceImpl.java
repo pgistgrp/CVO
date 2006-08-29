@@ -96,17 +96,6 @@ public class SDServiceImpl implements SDService {
         DiscussionPost post = discussionDAO.createPost(discussion, title, content, tags);
         
         /*
-         * preload object
-         */
-        CategoryReference ref = (CategoryReference) object.getObject();
-        ref.getCategory();
-        ref.getCct();
-        ref.getChildren();
-        ref.getParents();
-        ref.getTags();
-        ref.getTheme();
-        
-        /*
          * record the last post
          */
         structure.setLastPost(post);
