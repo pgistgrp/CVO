@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.pgist.projects;
 
 import java.sql.Connection;
@@ -11,6 +8,8 @@ import java.util.HashMap;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.postgresql.jdbc3.Jdbc3Connection;
+import org.postgresql.PGConnection;
+import org.postgis.Geometry;
 
 /**
  * @author Guirong
@@ -37,24 +36,7 @@ public class ProjectAgent {
 	}
 	
 	
-	//-------------------------------
-	public ProjectAgent(){
-		getDBConn();	//is it possible to inject a connection to this agent?
-	}
-	
-	private void getDBConn(){
-		try{
-			Class.forName("org.postgresql.Driver");
-			String url = "jdbc:postgresql://localhost:5432/gisdata";
-			connection = DriverManager.getConnection(url, "pgist", "ppgis.2005");
-			((Jdbc3Connection)connection).addDataType("geometry","org.postgis.PGgeometry");
-		    ((Jdbc3Connection)connection).addDataType("box3d","org.postgis.PGbox3d");
-		}catch(Exception e){
-			System.out.println("==!!" + e.getMessage());
-			return;
-		}
-	}
-	
+	//-------------------------------	
 	/**
 	 * 
 	 * @param pId
@@ -72,7 +54,20 @@ public class ProjectAgent {
 	}
 	public Map getProjects(String criteria){
 		Map result = new HashedMap();
-		//projectDAO.getAllProjects();
+		if(criteria == null)criteria = "";
+		
+		try{
+			List projects = projectService.getProjects(criteria);
+			result.put("projects", projects);
+			for(int i=0; i<projects.size(); i++){
+				System.out.println("-->get project: " + ((Project)projects.get(i)).getName());
+			}
+			result.put("successful", true);
+		}catch(Exception e){
+			e.printStackTrace();
+			result.put("successful", false);
+			result.put("reason", e.getMessage());
+		}
 		return result;
 	}
 	
@@ -85,8 +80,11 @@ public class ProjectAgent {
 		
 		Project p = new Project();
 		p.setName((String)prjparams.get("name"));
-		p.setDescrption((String)prjparams.get("description"));
+		p.setDescription((String)prjparams.get("description"));
 		p.setCost(Double.valueOf((String)prjparams.get("cost")));
+		if(prjparams.get("fpids") != null)
+			p.setFpids( (String)prjparams.get("fpids") );
+		
 		try{
 			projectService.saveProject(p);
 			result.put("successful", true);
@@ -95,26 +93,55 @@ public class ProjectAgent {
 			result.put("successful", false);
 			result.put("reason", e.getMessage());
 		}
-		
-		
+	
 		return result;
 	}
 	
-	public void saveAlternative(long pid, Map altparams){
-		
-	}
-	
-	public Map saveFootprint(long pid, double[][] coords){
+	public Map saveAlternative(long pid, Map altparams){
 		Map result = new HashMap();
 		try {
-			//long pid, double[][] coords, int[] parts, String geoType
-			//Long pid = new Long((String)(fpparams.get("pid")));
 			System.out.println("--pid=" + pid);
-			System.out.println("--array len=" + coords.length);
 			Project p = (Project) projectService.getProject(pid);
-			int[] parts = {0};
-			projectService.saveFootprint(connection, p , coords, parts, "LINE");
-			result.put("successful", true);
+			if(p == null){
+				result.put("successful", false);
+				result.put("reason", "Can't find this project.");				
+			}else{				
+				ProjectAlternative a = new ProjectAlternative();
+				a.setName((String)altparams.get("name"));
+				a.setDescription((String)altparams.get("description"));
+				a.setCost(Double.valueOf((String)altparams.get("cost")));
+				projectService.saveProject(p, a);
+								
+				result.put("successful", true);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			result.put("successful", false);
+			result.put("reason", e.getMessage());
+		}		
+		return result;
+	}
+	
+	public Map saveFootprint(long pid, double[][][] coords, String geoType, String fpids){
+		Map result = new HashMap();
+		try {
+			System.out.println("--pid=" + pid);
+			Project p = (Project) projectService.getProject(pid);
+			if(p == null){
+				result.put("successful", false);
+				result.put("reason", "Can't find this project.");				
+			}else{				
+				if(geoType.compareToIgnoreCase("POLYGON")==0){	//this handles known footprint ids
+					p.setFpids(fpids);
+					p.setGeoType(Geometry.MULTIPOLYGON);
+					projectService.saveProject(p);
+				}else{
+					projectService.saveFootprint(p , coords, geoType);
+				}
+				
+				result.put("successful", true);
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -124,13 +151,24 @@ public class ProjectAgent {
 		return result;
 	}
 
-	public double[][] getFootprint(long fpid){
+	public double[][][] getFootprint(long fpid){
 		return null;
 	}
 	
-	public Map getFootprints(String criteria){
-		return null;
+	public Map getFootprints(String fpids){
+		Map result = new HashMap();
+		try {
+			System.out.println("--fpids=" + fpids);
+			Map footprints = projectService.getFootprints(fpids);
+			result.put("footprints", footprints);
+			result.put("successful", true);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			result.put("successful", false);
+			result.put("reason", e.getMessage());
+		}		
+		return result;
 	}
 	
-
 }

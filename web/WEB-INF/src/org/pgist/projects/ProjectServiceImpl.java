@@ -39,20 +39,22 @@ public class ProjectServiceImpl implements ProjectService{
 		return projectDAO.getProject(pId);
 	}
 	public List getProjects(String criteria) throws Exception{
-		return projectDAO.getAllProjects();
+		return projectDAO.getProjects(criteria);
 	}
 	public void saveProject(Project project) throws Exception{
 		projectDAO.save(project);
 	}
 	public void saveProject(Project project, ProjectAlternative alternative) throws Exception{
-		projectDAO.save(alternative);
+		projectDAO.save(project, alternative);
 	}
-	public void saveFootprint(Connection conn, Project project, double[][] coords, int[] parts, String geoType) throws Exception{
-		projectDAO.saveFootprint(conn, project, coords, parts, geoType);
+	public void saveFootprint(Project project, double[][][] coords, String geoType) throws Exception{
+		projectDAO.saveFootprint(project, coords, geoType);
 	}
-	public Map getFootprints(String criteria){
-		return null;
+	public Map getFootprints(String fpids) throws Exception{
+		return projectDAO.getFootprints(fpids);
 	}
-
+	public double[][][] getFootprint(Long fpid) throws Exception{
+		return projectDAO.getFootprint(fpid);
+	}
 
 }

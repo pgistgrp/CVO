@@ -23,6 +23,7 @@ public class Project {
 	 */
 	private String fpids;
 	private int geoType;
+	private String annoString;
 	
 	private Long id;
 	private String name;
@@ -66,7 +67,7 @@ public class Project {
 		return name;
 	}
 
-	public void setDescrption(String d){
+	public void setDescription(String d){
 		this.description = d;
 	}
 	
@@ -75,7 +76,7 @@ public class Project {
      * 
      * @hibernate.property
      */
-	public String getDescrption(){
+	public String getDescription(){
 		return this.description;
 	}
 
@@ -92,6 +93,30 @@ public class Project {
 		return this.geoType;
 	}
 	
+	public void setAlternatives(List alts){
+		this.alternatives = alts;
+	}
+
+	/**
+	 * @hibernate.list lazy="false" cascade="all-delete-orphan"
+	 * @hibernate.collection-one-to-many class="org.pgist.projects.ProjectAlternative"
+	 * @hibernate.collection-index column="index"
+	 * @hibernate.collection-key column="project_id"
+	 * 
+	 * @return
+	 */
+	public List getAlternatives(){
+		return this.alternatives;
+	}
+	
+	public void addAlternative(ProjectAlternative a){
+		this.alternatives.add(a);
+	}
+
+	public void removeAlternative(ProjectAlternative a){
+		this.alternatives.remove(a);
+	}
+
 	public void setFpids(String fpids){
 		this.fpids = fpids;
 	}
@@ -104,4 +129,19 @@ public class Project {
 	public String getFpids(){
 		return this.fpids;
 	}
+	
+    /**
+     * This attribute is used for map display. It has the format of 
+     * "color,width,opacity,anchorX,anchorY,
+     * shiftHorizontalAnchor,shiftVerticalAnchor,shiftHorizontalFeature, shiftVerticalFeature"
+     * @hibernate.property
+     */
+	public String getAnnoString(){
+		return this.annoString;
+	}
+
+	public void setAnnoString(String anno){
+		this.annoString = anno;
+	}
+
 }

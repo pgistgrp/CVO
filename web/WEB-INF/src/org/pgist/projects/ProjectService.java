@@ -14,8 +14,9 @@ import java.util.Map;
 public interface ProjectService {
 	public Project getProject(Long pId) throws Exception;
 	public List getProjects(String criteria) throws Exception;
+	public double[][][] getFootprint(Long fpid) throws Exception;
 	public Map getFootprints(String criteria) throws Exception;
 	public void saveProject(Project project) throws Exception;
 	public void saveProject(Project project, ProjectAlternative alternative) throws Exception;
-	public void saveFootprint(Connection conn, Project project, double[][] coords, int[] parts, String geoType) throws Exception;
+	public void saveFootprint(Project project, double[][][] coords,String geoType) throws Exception;
 }

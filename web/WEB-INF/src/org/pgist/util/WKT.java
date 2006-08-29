@@ -3,6 +3,8 @@
  */
 package org.pgist.util;
 
+import java.util.Iterator;
+
 import org.postgis.*;
 
 /**
@@ -65,24 +67,44 @@ public class WKT {
 	 * Convert geomtry object into coordinates array.
 	 * @param geom
 	 * @return
-	 */public static double[][] geomToArray(PGgeometry geom, int[] parts){
+	 */public static double[][][] geomToArray(PGgeometry geom){
 		if(geom == null)return null;
-		double[][] coords = null; 
+		double[][][] coords = null; 
 		
 		if( geom.getGeoType() == Geometry.MULTILINESTRING){
 			MultiLineString mls = (MultiLineString)geom.getGeometry();
-			coords = new double[mls.getLines().length][];
-			parts = new int[mls.getLines().length];	//for line strings, each part is only one segment
+			coords = new double[1][mls.getLines().length][];
 			
 			for(int i=0; i<mls.getLines().length; i++ ){
 				LineString ls = mls.getLines()[i];
-				coords[i] = new double[ls.getPoints().length*2];
-				parts[i] = 1;  //for line strings, each part is only one segment
+				coords[0][i] = new double[ls.getPoints().length*2];
 				for(int j=0; j<ls.getPoints().length*2; j=j+2){
-					coords[i][j] = ls.getPoints()[j/2].x;
-					coords[i][j+1] = ls.getPoints()[j/2].y;
-					//System.out.println(this.coords[i][j] + " " + this.coords[i][j+1] + "\n");
+					coords[0][i][j] = ls.getPoints()[j/2].x;
+					coords[0][i][j+1] = ls.getPoints()[j/2].y;
 				}
+			}
+		}else if( geom.getGeoType() == Geometry.MULTIPOLYGON){
+			MultiPolygon mply = (MultiPolygon)geom.getGeometry();
+			
+			coords = new double[mply.numPolygons()][][]; //double[numlinestrings][];
+			for(int i=0; i<mply.numPolygons(); i++){
+				Polygon po = mply.getPolygon(i);
+				coords[i] = new double[po.numRings()][];
+				for(int j=0; j<po.numRings(); j++){
+					LinearRing lr = po.getRing(j);
+					coords[i][j] = new double[lr.numPoints()*2];
+					for(int n=0; n<lr.numPoints()*2; n=n+2){
+						coords[i][j][n] = lr.getPoints()[n/2].x;
+						coords[i][j][n+1] = lr.getPoints()[n/2].y;
+					}
+				}				
+			}			
+		}else{	//for all other types, take as points
+			MultiPoint mpnt = (MultiPoint)geom.getGeometry();
+			coords = new double[1][1][mpnt.numPoints()*2];
+			for(int n=0; n<mpnt.numPoints()*2; n=n+2){
+				coords[0][0][n] = mpnt.getPoints()[n/2].x;
+				coords[0][0][n+1] = mpnt.getPoints()[n/2].y;
 			}
 		}
 

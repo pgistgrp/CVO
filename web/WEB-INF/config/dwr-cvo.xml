@@ -67,6 +67,10 @@
         <param name="include" value="id, structure, object, voting, owner"/>
     </convert>
     
+	 <convert converter="bean" match="org.pgist.projects.Project"/>
+	 
+	 <convert converter="bean" match="org.pgist.projects.ProjectAlternative"/>
+	 
     <!-- DWR Agents -->
     
     <create creator="spring" javascript="CCTAgent">

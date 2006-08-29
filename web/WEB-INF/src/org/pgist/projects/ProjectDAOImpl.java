@@ -17,6 +17,9 @@ import org.postgis.*;
 import org.postgresql.jdbc3.Jdbc3Connection;
 
 public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
+	private static final String pfTableName = "pgist_data_project_footprint";
+	private static final String pfTableName2 = "pgist_data_county";
+	private static final String pfSequenceName = "gis_proj_footprint_id";
 	
 	/*
 	 * this is to be handled by BaseDAOImpl 
@@ -26,8 +29,10 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 		getHibernateTemplate().saveOrUpdate(p);
 	}
 	
-	public void save(ProjectAlternative a) throws Exception{
+	public void save(Project p, ProjectAlternative a) throws Exception{
 		getHibernateTemplate().saveOrUpdate(a);
+		p.addAlternative(a);
+		this.save(p);
 	}
 
 	/**
@@ -39,29 +44,34 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	 * then find out how many lines are needed for each part.
 	 * @throws Exception
 	 */
-	public void saveFootprint(Connection conn, Project p, double[][] coordinates, int[] parts, String geoType) throws Exception{
+	public void saveFootprint(Project p, double[][][] coordinates, String geoType) throws Exception{
+		Connection conn = getSession().connection();
 		
-		//create a footprint record and remember the id
 		String wkt = null;
+		int geometrytype = Geometry.MULTIPOINT;	//set to point by default
+		
 		if(geoType.compareToIgnoreCase("LINE") == 0){
-			wkt = WKT.lineWKT(coordinates);
+			wkt = WKT.lineWKT(coordinates[0]);
+			geometrytype = Geometry.MULTILINESTRING;
 		}else if(geoType.compareToIgnoreCase("POINT") == 0){
-			wkt = WKT.pointWKT(coordinates[0]);
+			wkt = WKT.pointWKT(coordinates[0][0]);
 		}
 		
+		System.out.println("-->new geom: " + wkt);
 		synchronized(conn){
 			Statement s = conn.createStatement();
-			s.executeUpdate("insert into gis_project_footprint (the_geom) "
+			s.executeUpdate("insert into " + pfTableName + " (the_geom) "
 					+ "values (GeomFromText('" + wkt + "'))");
 			
 			//use this to retrieve the last inserted footprint id
-			ResultSet r = s.executeQuery("select currval('gis_proj_footprint_id')");
+			ResultSet r = s.executeQuery("select currval('" + pfSequenceName + "')");
 			if(r.next()){
 				long newfpid = r.getLong(1);			
-				System.out.println("==inserted new geometry: id=" + newfpid + ", wkt=" + wkt);
+				System.out.println("==>>inserted new geometry: id=" + newfpid + ", wkt=" + wkt);
 				
 				//put this into the project and save it
 				p.setFpids("" + newfpid);
+				p.setGeoType(geometrytype);
 				this.save(p);
 			}
 		}
@@ -77,37 +87,37 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	}
 	
 	private static String hql_getProjects = "from Project as project";
-	public List getAllProjects(){
-        Query query = getSession().createQuery(hql_getProjects);
-		
-		return query.list();
-	}
 	
 	/**
 	 * Given the criteria, return a map containing a set of porejects, 
 	 * and a set(as a hashmap) of footprints indexed by footprint IDs.
-	 * @param String criteria: takes the form of "project.id = 15"
+	 * @param String criteria: takes the form of "project.id = 15", "" will return all projects
 	 */
 	public List getProjects(String criteria){
-        Query query = getSession().createQuery(hql_getProjects + " where " + criteria);
+		Query query = null;
+		if(criteria == null || criteria.length()==0)
+			query = getSession().createQuery(hql_getProjects);
+		else
+			query = getSession().createQuery(hql_getProjects + " where " + criteria);
 		
 		return query.list();
 	}
 	
-	public double[][] getFootprint(Connection conn, long fpid){
-		//do query on project table
+	public double[][][] getFootprint(long fpid){
+
+		Connection conn = getSession().connection();
+		
 		Statement s;
 		ResultSet r;
 		try {
 			s = conn.createStatement();
-			r = s.executeQuery("select the_geom from gis_project_footprint" +
+			r = s.executeQuery("select the_geom from " + pfTableName +
 					" where id=" + fpid);
 			
 			if(!r.next())return null;
 			
 			PGgeometry geom = (PGgeometry)r.getObject(1);
-			int[] parts = {};
-			return WKT.geomToArray(geom, parts);
+			return WKT.geomToArray(geom);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -120,21 +130,28 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	 * return a map, containing a list of footprint ids and
 	 * coordinates 
 	 */
-	public Map getFootprints(Connection conn, String fpids){
+	public Map getFootprints(String fpids){
+		Connection conn = getSession().connection();
 		Map footprints = new HashMap();
+		
+		String whereclause = (fpids.length()==0)?"":" where id in (" + fpids + ")";
 		
 		try {
 			Statement s = conn.createStatement();
-			ResultSet r = s.executeQuery("select id, the_geom from gis_project_footprint" +
-					" where id in (" + fpids + ")");
+			ResultSet r = s.executeQuery("select id, the_geom from " +
+					"(select id, the_geom from " + pfTableName + 
+					" union select id, the_geom from " + pfTableName2 + ") as allfps " +
+					whereclause);
 			
 			while(r.next()){
 				Long id = r.getLong(1);
 				PGgeometry geom = (PGgeometry)r.getObject(2);
 				int[] parts = {};
 				
-				footprints.put(id, 
-						WKT.geomToArray(geom, parts));
+				double[][][] coords = new double[1][][]; 
+				coords = WKT.geomToArray(geom);
+				System.out.println("==>>id=" + id + ";coords length: " + coords.length);
+				footprints.put(id, coords);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
