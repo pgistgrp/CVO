@@ -12,11 +12,12 @@ body {
 	/* Set font size trick as jordan again */
 }
 input.search {
-	height: 15px;
+	height: 20px;
 	width: 120px;
 }
 #addConcern {
 	width: 90%;
+	height: 80px;
 }
 #bar { /*merged*/
 	padding: 0em;
@@ -152,6 +153,9 @@ input.search {
 	height: 410px;*/
 	height: 100%;
 }
+#sidebar_container {
+	margin-left: 14px;
+}
 #sidebarmiddle {
 	background-image: url(../images/sidebar_middle.gif);
 	background-repeat: repeat-y;
@@ -164,10 +168,10 @@ input.search {
 #sidebar_content {
 	margin: 10px;
 	margin-top: 5px;
-	margin-left: 20px;
 	height: 100%;
 	/*margin-bottom: 70px;*/
 }
+
 #sidebarbottom {
 
 }
@@ -191,6 +195,12 @@ input.search {
 	padding-right: 10px;
 	*/
 }
+#sidebarSearchResults {
+	padding: 10px;
+	background-color: #EEEEEE;
+	border: 1px solid #999999;
+	border-top: 0px;
+}
 #subheader {
 	margin-top: 1em;
 	margin-bottom: 0;
@@ -213,13 +223,14 @@ input.search {
 	height: 29%;
 }
 #tagSelector {
-	background-color: #EFEFEF;
-	border-bottom: 1px solid #7888A9;
-	color:#666666;
+	background-color: #EEEEEE;
+	border: 1px solid #999999;
+	color: #999999;
 	padding: 3px;
-	margin: 0;
+	width: 258px;
+	right: 0;
+	z-index: 1;
 }
-
 /*CSS Classes */
 .clear {
 	clear: both;

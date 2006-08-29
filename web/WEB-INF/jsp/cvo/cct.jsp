@@ -265,14 +265,13 @@ function getConcernsByTag(id){
 	CCTAgent.getConcernsByTag({tagRefId:id,count:-1}, {
 	callback:function(data){
 			if (data.successful){
-				new Effect.Highlight('sidebar_content');
+				new Effect.Highlight('sidebar_content', {endcolor: '#DAE1E7'});
 				$('sidebar_content').innerHTML = data.html;
-				$('myTab').tabber.tabShow(0);
-				new Element.scrollTo('SideConcernsTop'); //location.href='#SideConcernsTop';
+				//new Element.scrollTo('SideConcernsTop'); //location.href='#SideConcernsTop';
 				shrinkTagSelector();
 				if($('sidebarSearchResults').style.display != 'none'){
-					new Effect.Fade('sidebarSearchResults', {duration: 0.5});	
-					$('txtmanualFilter').value = 	$('txtmanualFilter').defaultValue;
+					new Effect.Fade('sidebarSearchResults', {duration: 0.5, endcolor:'#EEEEEE'});	
+					$('txtmanualFilter').value = $('txtmanualFilter').defaultValue;
 				}	
 			}
 		},
@@ -287,7 +286,7 @@ CCTAgent.getConcerns({cctId:cctId,type:2,count:5, page:pageNum}, {
 	callback:function(data){
 			if (data.successful){
 				$('sidebar_content').innerHTML = data.html;
-				new Effect.Highlight('sidebar_content', {duration: 0.5});
+				new Effect.Highlight('sidebar_content', {duration: 0.5, endcolor: '#DAE1E7'});
 			}
 		},
 	errorHandler:function(errorString, exception){ 
@@ -342,11 +341,11 @@ CCTAgent.searchTags({cctId:cctId,tag:theTag},{
 		  
 			if (data.successful){
 				
-				if ($('txtmanualFilter').value == ''){
+				if ($('txtmanualFilter').value == '' || $('txtmanualFilter').value == $('txtmanualFilter').defaultValue){
 						$('sidebarSearchResults').style.display="none";
 				}
 				
-				if (theTag != ""){		
+				if (theTag != "" || theTag != null ){		
 					if($('sidebarSearchResults').style.display == 'none'){
 						new Effect.Appear('sidebarSearchResults', {duration: 0.5});		
 					}		
@@ -619,34 +618,40 @@ $('slate').style.Height = winH;
 <!-- End Main Content -->
 </td>
 <td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
+<div id="sidebar_container">
+<div id="tagSelector">
+	<div id="tagform">
+	<h6>Sidebar filtered by:</h6>
+	[Tags ] [Tags] [Tags]<br />
+	<form action="" method="get">
+	Sidebar Filter: 
+	  <input name="tagSearch" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value)" />
+	</form>
+	</div>
+	<div id="pullDown" class="textright"><a href="javascript: expandTagSelector();">Expand</a></div>
+	<div id="allTags" style="display: none;"></div>
+	<div class="clear"></div>
+	
+</div>
+<div id="tagSelector_spacer" style="display: none;"><!-- Duplicate tagSelector to work as a spacer during expand effect -->
+	<h6>Sidebar filtered by:</h6>
+	[Tags ] [Tags] [Tags]<br />
+	<form action="" method="get">
+	Sidebar Filter: 
+	  <input name="tagSearch" id="tagSearch_spacer" type="text" style="visibility: hidden;"/>
+	</form>
+	<div id="pullDown_spacer" class="textright" style="visibility: hidden;">Expand</div>
+	<div id="allTags_spacer" style="visibility: hidden;"></div>
+	<div class="clear"></div>
+</div>
+<div id="sidebarSearchResults" style="display: none;"></div>
   <div id="sidebar_content">
-    <h4>Other Discussions filtered by:</h4>
-<h5>Accidents</h5>
-
-<div class="sidebardisc">
-<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
-</div>
-<div class="sidebardisc">
-<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
-</div>
-<div class="sidebardisc">
-<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
-</div>
-<div class="sidebardisc">
-<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
-</div>
-<div class="sidebardisc">
-<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
-</div>
-<div class="sidebardisc">
-<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
-</div>
-
 
 
 <div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
 
-<!-- End sidebarcontents-->
+</div><!-- End sidebarcontents-->
+</div><!-- sidebar container-->
  </td><!-- End Right Col -->
 </tr>
 

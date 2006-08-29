@@ -22,7 +22,7 @@
 		<!-- End Search -->
 		<!-- Navigation -->
 			<div id="headerbuttons">
-				<a href="#" class="headerbuttons_selected">Home</a> <a href="#">Current Task</a> <a href="#">Resource Library</a>
+				<a href="main.do" class="headerbuttons_selected">Home</a> <a href="#">Current Task</a> <a href="#">Resource Library</a>
 			</div>
 		<!-- ENd Navi -->
 	</div> <!-- End headerbar -->

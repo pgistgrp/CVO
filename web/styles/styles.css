@@ -173,6 +173,10 @@ h6 {
 	border-left: 0px;
 	padding: 0;
 }
+#tagSearch {
+	margin: 0;
+
+}
 /* Classes */
 .allBlue { /*Blue Borders and Background */
 	background-color: #C0D7F6 !important;

@@ -1,6 +1,8 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+
+
 <logic:notEqual name="showTitle" value="true">
 		<logic:notEqual name="showIcon" value="true">
 			<h4>Read other people's concerns</h4>
@@ -49,7 +51,7 @@
 <logic:notEqual name="showTitle" value="true">
 		<logic:notEqual name="showIcon" value="true">
 			<p>
-				<div id="prevNext_container">
+		  <div id="prevNext_container">
 					
 					<div id="previous"><span class="prevNext">
 						<logic:equal name="setting" property="page" value="1">
@@ -72,7 +74,7 @@
 						</logic:notEqual>
 						next page &#187; </a></span>
 					</div>
-				</div>
+		  </div>
 			</p>
 		</logic:notEqual>
 </logic:notEqual>

@@ -8,6 +8,8 @@
 <style type="text/css" media="screen">@import "styles/position.css";</style>
 <style type="text/css" media="screen">@import "styles/styles.css";</style>
 <!-- End Site Wide CSS -->
+<!-- Site Wide JS -->
+<script src="scripts/search.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -17,16 +19,24 @@
 
 <h3>Public View</h3>
 <ul>
-<li><pg:show roles="member, moderator"><html:link page="/cctlist.do">Concerns Collector Tool</html:link></pg:show></li>
-<li><html:link page="/glossaryPublic.do">Glossary Public View</html:link></li>
-<li><pg:show roles="member, moderator"><html:link page="/sdlist.do">Structured Discussion List</html:link></pg:show></li>
+<li><pg:show roles="member, moderator"><html:link page="/cctlist.do">Concerns Collector Tool</html:link></pg:show> 
+* 
+</li>
+<li><html:link page="/glossaryPublic.do">Glossary Public View</html:link> 
+* 
+</li>
+<li><pg:show roles="member, moderator">
+  <html:link page="/sdlist.do">Structured Discussion List * </html:link>
+</pg:show></li>
 </ul>
 
 <h3>Moderator Tools</h3>
 <ul>
 <li><pg:show users="admin"><a href="/userlist.do">User Management</a></pg:show></li>
 <li><pg:show roles="moderator"><html:link page="/stopword.do">StopWords Management Tool</html:link></pg:show></li>
-<li><pg:show roles="moderator"><html:link page="/cstlist.do">Concerns Synthesis Tool</html:link></pg:show></li>
+<li><pg:show roles="moderator"><html:link page="/cstlist.do">Concerns Synthesis Tool</html:link></pg:show> 
+* 
+</li>
 <li><pg:show roles="moderator"><html:link page="/glossaryManage.do">Glossary Management Tool</html:link></pg:show></li>
 </ul>
 
