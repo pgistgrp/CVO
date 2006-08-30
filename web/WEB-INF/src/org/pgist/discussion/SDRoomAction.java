@@ -78,20 +78,23 @@ public class SDRoomAction extends Action {
         if (structure==null) return mapping.findForward("error");
         
         request.setAttribute("structure", structure);
+        
+        try {
+            /*
+             * ioid of a InfoObject object
+             */
+            Long ioid = new Long((String) request.getParameter("ioid"));
             
-        /*
-         * ioid of a InfoObject object
-         */
-        Long ioid = new Long((String) request.getParameter("ioid"));
-        
-        /*
-         * Load the specified InfoObject object from database.
-         */
-        InfoObject object = sdService.getInfoObjectById(ioid);
-        
-        if (object==null) return mapping.findForward("error");
-        
-        request.setAttribute("object", object);
+            /*
+             * Load the specified InfoObject object from database.
+             */
+            InfoObject object = sdService.getInfoObjectById(ioid);
+            
+            if (object==null) return mapping.findForward("error");
+            
+            request.setAttribute("object", object);
+        } catch(Exception e) {
+        }
         
         return mapping.findForward("main");
     }//execute()
