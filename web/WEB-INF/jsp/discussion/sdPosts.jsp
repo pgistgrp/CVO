@@ -66,3 +66,28 @@
 		</tr>		
 	</c:forEach>
 </table>
+
+
+	<c:if test="${setting.pageSize > 1}">
+	More Pages: 
+					<ul>
+						<c:forEach var="i" begin="1" end="${setting.pageSize}" step="1">
+							    <c:choose>
+							      <c:when test="${setting.page == i }">
+							     		<li class="activePage">${i}</li>
+							      </c:when>
+							      <c:otherwise>
+							      		<li><a href="sdRoom.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=${i}">${i}</a></li>
+							      </c:otherwise>
+							    </c:choose>
+						</c:forEach>
+					</ul>
+	
+	<c:if test="${setting.page > 1}">
+		<a href="sdRoom.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=${setting.page - 1}">&#171; prev page</a>
+	</c:if>
+	
+	<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
+		<a href="sdRoom.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=${setting.page + 1}">next page &#187; </a>
+	</logic:notEqual>
+	</c:if>

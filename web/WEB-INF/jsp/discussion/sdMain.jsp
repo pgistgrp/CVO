@@ -1,8 +1,10 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
 <head>
@@ -28,7 +30,7 @@
 
 <!--SDX Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
-
+<!--
 <c:if test="${structure.type == 'sdmap'}">
 
 	<script type='text/javascript' src='scripts/map.js'></script>
@@ -40,7 +42,7 @@
 		}
 	</style>
 </c:if>
-
+-->
 <!--End SDX Specific  Libraries-->
 <script type="text/javascript">
 	 function InfoStructure(){
@@ -149,12 +151,12 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 <tr>
 <td valign="top" id="maincontent">
 <!-- Main Content starts Here-->
-
+<!--
 <c:if test="${structure.type == 'sdmap'}">
 	<div id="map" style="width: 100%; height: 400px;"></div>
 </c:if>
+-->
 
-<span class="textright"><span class="smalltext">Jump To: Put a select here</span></span>
 <h4>Concern Theme Rooms</h4>
 <div id="object" class="borderblue">
 	<!-- load discussion rooms -->
@@ -164,13 +166,19 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 		<h4>Talk to the Morderator (needs a better name) </h4>
 		<div class="borderblue">
 		<table width="100%" border="0" cellspacing="0">
-          <tr class="disc_row_b">
-            <td width="50%"><a href="#">Discussion about all concern Themes </a><br />
-              <span class="smalltext">Do you feel like a corner theme is missing or unnecessary from the above list? Discuss here. </span></td>
-            <td width="40%"><a href="#">Singing Hampsters</a><br />
-                <span class="smalltext"><span class="textright">6-03-2006</span> By Adam </span></td>
-            <td width="10%" class="textcenter"><a href="#">12</a></td>
-          </tr>	    
+		          <tr class="disc_row_b">
+		            <td><a href="/sdRoom.do?isid=${structure.id}">Discussion about all concern themes</a><br /><span class="smalltext">Do you feel like a corner theme is missing or unnecessary from the above list? Discuss here</span></td>
+		 		    <c:choose>
+				      <c:when test="${structure.lastPost.id != null}">
+				     		 <td><a href="/sdThread.do?isid=${structure.id}&pid=${structure.lastPost.id}">${structure.lastPost.title}</a><br /><span class="smalltext"><span class="textright"><fmt:formatDate value="${structure.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> </span> By: ${structure.lastPost.owner.loginname}</span></td>
+				      </c:when>
+				      <c:otherwise>
+				      	<td>No current discussions</td>
+				      </c:otherwise>
+				    </c:choose>          
+		
+		            <td class="textcenter"><a href="/sdRoom.do?isid=${structure.id}">${structure.numDiscussion}</a></td>
+		          </tr>		    
         </table>
 		</div>
 
@@ -214,20 +222,20 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 <script type="text/javascript">
 	var infoStructure = new InfoStructure(); 
 	infoStructure.getTargets();
-	
+/*
 	<c:if test="${structure.type == 'sdmap'}">
 		var pgistmap = new PGISTMap('map');
 		var idList = new Array();
 		<c:forEach var="infoObject" items="${structure.infoObjects}">
-			idList[idList.length] = ${infoObject.id};
+			idList[idList.length] = '${infoObject.id}';
 		</c:forEach>
-		
 		pgistmap.setProjectList(idList);
 		pgistmap.projectClickHandler = function(projId){
 			//this is a callback function to load the sidebar_bottom
 			
 		}
 	</c:if>
+	*/
 </script>
 </body>
 

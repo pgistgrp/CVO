@@ -15,7 +15,7 @@
 	margin: auto;
 	margin-right: auto;
 	margin-left: auto;
-	width: 300px;
+	width: 320px;
 	border: 10px solid #CCCCCC;
 	padding: 15px;
 }
@@ -31,7 +31,7 @@
 <body>
 <br />
 <div id="pgistlogo">
-<img src="images/logo.gif" alt="pgistlogo" >
+<img src="images/mainlogo.png" alt="pgistlogo" >
 </div><br />
 
 <html:form action="/login.do" method="POST" focus="user.loginname">
@@ -47,11 +47,7 @@
         </tr>
       <tr>
         <td>&nbsp;</td>
-	      <td align="right"><html:submit property="submit" value="Login"/>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        </tr>
-      <tr>
-        <td>&nbsp;</td>
-	      <td align="right">(<a href="register.do">Register</a>)</td>
+	      <td align="right">(<a href="register.do">Register</a>) <html:submit property="submit" value="Login"/> </td>
         </tr>
     </table>
   </div>

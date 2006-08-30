@@ -42,7 +42,7 @@
 		      </c:otherwise>
 		    </c:choose>          
 
-            <td class="textcenter"><a href="#">${infoObject.numDiscussion}</a></td>
+            <td class="textcenter"><a href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.numDiscussion}</a></td>
           </tr>		  
     </c:forEach>
 	  
