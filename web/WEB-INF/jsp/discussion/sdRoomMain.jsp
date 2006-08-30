@@ -50,7 +50,8 @@
 				this.getTargets();
 		};
 	 	this.getTargets = function(){
-	 		if (${object.id} != null){
+	 		if (<%= request.getParameter("ioid") %> != null){
+	 		
 	 		SDAgent.getSummary({ioid: ${object.id}}, {
 					callback:function(data){
 							if (data.successful){

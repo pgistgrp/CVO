@@ -167,17 +167,19 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 		<div class="borderblue">
 		<table width="100%" border="0" cellspacing="0">
 		          <tr class="disc_row_b">
-		            <td><a href="/sdRoom.do?isid=${structure.id}">Discussion about all concern themes</a><br /><span class="smalltext">Do you feel like a corner theme is missing or unnecessary from the above list? Discuss here</span></td>
+		            <td width="50%"><a href="/sdRoom.do?isid=${structure.id}&ioid=">Discussion about all concern themes</a><br /><span class="smalltext">Do you feel like a corner theme is missing or unnecessary from the above list? Discuss here</span></td>
+		 		    <td width="40%"><span class="smalltext" style="font-size: 80%;">
 		 		    <c:choose>
 				      <c:when test="${structure.lastPost.id != null}">
-				     		 <td><a href="/sdThread.do?isid=${structure.id}&pid=${structure.lastPost.id}">${structure.lastPost.title}</a><br /><span class="smalltext"><span class="textright"><fmt:formatDate value="${structure.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> </span> By: ${structure.lastPost.owner.loginname}</span></td>
+				     		 <a href="/sdThread.do?isid=${structure.id}&pid=${structure.lastPost.id}">${structure.lastPost.title}</a><br />
+				      		Posted on: <fmt:formatDate value="${structure.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${structure.lastPost.owner.loginname}
 				      </c:when>
 				      <c:otherwise>
-				      	<td>No current discussions</td>
+				      		No current discussions
 				      </c:otherwise>
 				    </c:choose>          
-		
-		            <td class="textcenter"><a href="/sdRoom.do?isid=${structure.id}">${structure.numDiscussion}</a></td>
+					</td>
+		            <td width="10%" class="textcenter"><a href="/sdRoom.do?isid=${structure.id}&ioid=">${structure.numDiscussion}</a></td>
 		          </tr>		    
         </table>
 		</div>
