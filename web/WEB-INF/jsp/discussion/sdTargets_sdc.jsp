@@ -33,15 +33,18 @@
     <c:forEach var="infoObject" items="${structure.infoObjects}" varStatus="loop">
           <tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
             <td><a href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</a><br /><span class="smalltext">Discuss concerns related to ${infoObject.object.theme.title}</span></td>
+			<td><span class="smalltext" style="font-size: 80%;">
+			
  		    <c:choose>
 		      <c:when test="${infoObject.lastPost.id != null}">
-		     		 <td><a href="/sdThread.do?isid=${structure.id}&pid=${infoObject.lastPost.id}&ioid=${infoObject.id}">${infoObject.lastPost.title}</a><br /><span class="smalltext"><span class="textright"><fmt:formatDate value="${structure.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> </span> By: ${structure.lastPost.owner.loginname}</span></td>
+		     		 <a href="/sdThread.do?isid=${structure.id}&pid=${infoObject.lastPost.id}&ioid=${infoObject.id}">${infoObject.lastPost.title}</a><br />
+		     		Posted on: <fmt:formatDate value="${structure.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${structure.lastPost.owner.loginname}
 		      </c:when>
 		      <c:otherwise>
-		      	<td>No current discussions</td>
+		      	No current discussions
 		      </c:otherwise>
 		    </c:choose>          
-
+			</span></td>
             <td class="textcenter"><a href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.numDiscussion}</a></td>
           </tr>		  
     </c:forEach>

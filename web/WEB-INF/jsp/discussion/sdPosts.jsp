@@ -12,7 +12,7 @@
 	  <tr class="objectblue">
 		<td width="40%"><a href="#">Discussion Title</a></td>
 		<td width="10%" class="textcenter"><a href="#">Author</a></td>
-		<td width="10%" class="textcenter"><a href="#">Last Post</a></td>
+		<td width="10%"><a href="#">Last Post</a></td>
 		<td width="20%" class="textcenter"><a href="#">Replies</a></td>
 		<td width="15%" class="textcenter"><a href="#">Views</a></td>
 	  </tr>
@@ -27,28 +27,30 @@
 
 	<c:forEach var="post" items="${posts}" varStatus="loop">
 		<tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
-			<td width="45%"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a></td>
-			<td width="10%" class="textcenter">${post.replies}</td>
-			<td width="10%" class="textcenter">${post.views}</td>	
-			<td width="20%" class="textcenter"><a href="#">${post.owner.loginname}</a></td>
-			<td width="15%">
-			<span class="smallText">
+			<td width="40%"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a><br /><span class="smalltext">${fn:substring(post.content, 0, 150)}... </span></td>
+			<td width="10%" class="textcenter"><a href="#">${post.owner.loginname}</a></td>
+			<td width="10%">
+			<span class="smalltext" style="font-size: 80%;">
 
 		    <c:choose>
 		      <c:when test="${post.lastReply == null }">
-		     		<fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}
+		     		<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a><br />
+		     		Posted on: <fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}
 		      </c:when>
 		
 		      <c:otherwise>
-		      		<fmt:formatDate value="${post.lastReply.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.lastReply.owner.loginname}
+		      		<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1#${post.lastReply.id}">${post.lastReply.title}</a><br />
+		      		Posted on:  <fmt:formatDate value="${post.lastReply.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.lastReply.owner.loginname}
 		      </c:otherwise>
 		    </c:choose>
 				
 			</span></td>
-			<tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
+			<td width="20%" class="textcenter">${post.replies}</td>	
+			<td width="15%" class="textcenter"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.views}</a></td>
+			<!--<tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
 				<td colspan="5">
 					<small>${fn:substring(post.content, 0, 250)}... </small>
-					<!--
+					
 					Quick Preview Toggle Mode: Call with: javascript:closeAllContentsExcept(${post.id}, 'quickPostContents')  -- Removed for better interaction.
 					<div id="quickPostContents${post.id}" class="quickPostContents" style="display: none;">
 					<p><b>Preview: </b>${fn:substring(post.content, 0, 250)} [ <a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">more</a>... ]</p>
@@ -60,9 +62,9 @@
 					</ul>
 					<p><small><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.replies} Replies - Participate in this Discussion</a></small></p>
 					</div>
-					-->
+					
 				</td>
-			</tr>
+			</tr>-->
 		</tr>		
 	</c:forEach>
 </table>

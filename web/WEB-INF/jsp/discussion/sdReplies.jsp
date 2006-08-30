@@ -8,7 +8,7 @@
 
 
 <logic:iterate id="reply" name="replies">
-	<div id="reply${reply.id}" class="replies">
+	<div id="reply${reply.id}" class="replies"><a name="${reply.id}"></a>
 		 <div id="replies_title" class="darkgrey">
 		 	<span class="padding-sides"><strong>${reply.title}</strong> - <small>Posted on <fmt:formatDate value="${reply.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${reply.owner.loginname}</small></span>
 		 </div>
