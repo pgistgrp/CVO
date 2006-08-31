@@ -30,25 +30,29 @@
 
 
 	
-	<c:if test="${setting.pageSize > 1}">
-	More Pages: 
-					<ul>
-						<c:forEach var="i" begin="1" end="${setting.pageSize}" step="1">
-							    <c:choose>
-							      <c:when test="${setting.page == i }">
-							     		<li class="activePage">${i}</li>
-							      </c:when>
-							      <c:otherwise>
-							      		<li><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.object.id}&page=${i}">${i}</a></li>
-							      </c:otherwise>
-							    </c:choose>
-						</c:forEach>
-					</ul>
-	</c:if>
-	<c:if test="${setting.page > 1}">
-		<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.object.id}&page=${setting.page - 1}">&#171; prev page</a>
-	</c:if>
 	
-	<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-		<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.object.id}&page=${setting.page + 1}">next page &#187; </a>
-	</logic:notEqual>
+	<c:if test="${setting.pageSize > 1}">
+		<div class="pages">
+				More Pages: 
+				<ul>
+					<c:forEach var="i" begin="1" end="${setting.pageSize}" step="1">
+						    <c:choose>
+						      <c:when test="${setting.page == i }">
+						     		<li class="pages_current">${i}</li>
+						      </c:when>
+						      <c:otherwise>
+						      		<li><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.object.id}&page=${i}">${i}</a></li>
+						      </c:otherwise>
+						    </c:choose>
+					</c:forEach>
+				</ul>
+				
+				<c:if test="${setting.page > 1}">
+					<span class="pages_nextprev"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.object.id}&page=${setting.page - 1}">&#171; prev page</a></span>
+				</c:if>
+				
+				<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
+					<span class="pages_nextprev"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.object.id}&page=${setting.page + 1}">next page &#187; </a></span>
+				</logic:notEqual>
+		</div>
+	</c:if>

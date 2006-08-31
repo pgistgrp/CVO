@@ -251,10 +251,12 @@ h6 {
 .objectblue a:hover {
 	color: #C0D7F6 !important;
 }
-.pages {
-
+.pages{text-align: left;}
+.pages ul {
+	display:inline;
 }
-.pages a, .pages span{
+.pages li, .pages span{
+	display:inline;
 	border: 1px solid #7888A9;
 	text-decoration: none;
 	padding: .0em;
@@ -263,6 +265,7 @@ h6 {
 }
 .pages a {
 	color: #7888A9;
+	text-decoration: none;
 }
 .pages_current {
 	color: #FFF;
@@ -272,7 +275,7 @@ h6 {
 	color: #CCCCCC;
 	border-color: #CCCCCC !important;
 }
-.pages_nextprev {
+.pages_nextprev{
 
 }
 .participantName a { /*merged*/

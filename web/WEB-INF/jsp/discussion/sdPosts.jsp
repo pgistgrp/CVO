@@ -27,7 +27,7 @@
 
 	<c:forEach var="post" items="${posts}" varStatus="loop">
 		<tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
-			<td><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a><br /><span class="smalltext">${fn:substring(post.content, 0, 150)}... </span></td>
+			<td><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a><br /><span class="smalltext">${fn:substring(post.content, 0, 125)}... </span></td>
 			<td width="150" class="textcenter"><a href="#">${post.owner.loginname}</a></td>
 			<td width="200">
 			<span class="smalltext" style="font-size: 80%;">
@@ -70,26 +70,4 @@
 </table>
 
 
-	<c:if test="${setting.pageSize > 1}">
-	More Pages: 
-					<ul>
-						<c:forEach var="i" begin="1" end="${setting.pageSize}" step="1">
-							    <c:choose>
-							      <c:when test="${setting.page == i }">
-							     		<li class="activePage">${i}</li>
-							      </c:when>
-							      <c:otherwise>
-							      		<li><a href="sdRoom.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=${i}">${i}</a></li>
-							      </c:otherwise>
-							    </c:choose>
-						</c:forEach>
-					</ul>
-	
-	<c:if test="${setting.page > 1}">
-		<a href="sdRoom.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=${setting.page - 1}">&#171; prev page</a>
-	</c:if>
-	
-	<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-		<a href="sdRoom.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=${setting.page + 1}">next page &#187; </a>
-	</logic:notEqual>
-	</c:if>
+

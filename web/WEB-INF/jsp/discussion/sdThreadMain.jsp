@@ -177,7 +177,7 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 				<h3>Post a Reply</h3>
 				<form>
 					<p><label>Post Title</label><br><input style="width:100%" type="text" value="Re: ${post.title} " id="txtnewReplyTitle"/></p>
-					<p><label>Your Thoughts</label><br><textarea style="width:100%" id="txtnewReply"></textarea></p>
+					<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtnewReply"></textarea></p>
 					<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="newReplyTags" type="text" /></p>
 					<input type="button" onClick="createReply();" value="Submit Reply">
 				</form>
@@ -236,7 +236,7 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 
 </div>
 <!-- End cont-main -->
-<div class="backToDiscussion"><a href="sd.do?isid=${structure.id}">Back to Discussion</a></div>
+<div class="backToDiscussion"><a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}">Back to Discussion</a></div>
 </div> <!-- End container -->
 <!-- Start Footer -->
 <jsp:include page="/footer.jsp" />

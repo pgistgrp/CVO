@@ -398,19 +398,7 @@
 </div>
 
 
-<div class="pages">
-	<span class="pages_prev">&#171; PREV</span>
-	<span class="pages_current">1</span>
-	<a href="#" title="Page 2">2</a> 
-	<a href="#" title="Page 3">3</a> 
-	<a href="#" title="Page 4">4</a>
-	<a href="#" title="Page 5">5</a>  
-	...
-	<a href="#" title="Page 99">99</a>
-	<a href="#" title="Page 100">100</a>
-	<a href="#" class="pages_nextprev" title="Next Page">NEXT &#187;</a>
-</div>
-	
+
 <div id="finished" class="greenBB">
 	<h4>Step 4. Finished?</h4><br />
 	Go back or continue... [add buttons] [Cancel]
