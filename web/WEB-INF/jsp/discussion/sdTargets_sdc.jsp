@@ -25,7 +25,7 @@
 
     <table width="100%" cellspacing="0" class="tabledisc">
           <tr class="objectblue">
-            <td width="50%"><a href="#">Concern Theme </a></td>
+            <td width="50%"><a href="#">Concern Theme</a></td>
 			<td width="40%"><a href="#">Last Post</a></td>
             <td width="10%" class="textcenter"><a href="#">Discussions</a></td> 
           </tr>		 
