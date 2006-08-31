@@ -138,7 +138,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getLastReply()
 
 
-    private static final String hql_getReplies_A = "from DiscussionReply p where p.parent.id=? and p.deleted=? order by p.id desc";
+    private static final String hql_getReplies_A = "from DiscussionReply p where p.parent.id=? and p.deleted=? order by p.id";
     
     
     public Collection getReplies(DiscussionPost post) throws Exception {
@@ -151,7 +151,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     
     private static final String hql_getReplies_B_1 = "select count(p.id) from DiscussionReply p where p.parent.id=? and p.deleted=?";
     
-    private static final String hql_getReplies_B_2 = "from DiscussionReply p where p.parent.id=? and p.deleted=? order by p.id desc";
+    private static final String hql_getReplies_B_2 = "from DiscussionReply p where p.parent.id=? and p.deleted=? order by p.id";
     
     
     public Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception {
@@ -236,6 +236,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         save(reply);
         
         post.setLastReply(reply);
+        post.setReplyTime(reply.getCreateTime());
         
         return reply;
     }//createReply()

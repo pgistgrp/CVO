@@ -17,8 +17,8 @@ Zhong:
 [ok] add description field to theme object (for sd.do)
 [] add api for concerns sidebar
 [ok] object accessible through SDRoomAction
-[] default sort for posts: lastPost createtime desc (newest on top)
-[] default sort for replies (in sdThread): replies createTime asc (newest on bottom)
+[ok] default sort for posts: lastPost createtime desc (newest on top)
+[ok] default sort for replies (in sdThread): replies createTime asc (newest on bottom)
 
 
 for later:
