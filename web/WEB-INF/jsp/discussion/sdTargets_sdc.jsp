@@ -23,7 +23,7 @@
  </div>
  -->
 
-    <table width="100%" border="0" cellspacing="0">
+    <table width="100%" cellspacing="0" class="tabledisc">
           <tr class="objectblue">
             <td width="50%"><a href="#">Concern Theme </a></td>
 			<td width="40%"><a href="#">Last Post</a></td>
@@ -32,13 +32,14 @@
 
     <c:forEach var="infoObject" items="${structure.infoObjects}" varStatus="loop">
           <tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
-            <td><a href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</a><br /><span class="smalltext">Discuss concerns related to ${infoObject.object.theme.title}</span></td>
-			<td><span class="smalltext" style="font-size: 80%;">
+		  <!--<tr>-->
+            <td  ><a href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</a><br /><span class="smalltext">Discuss concerns related to ${infoObject.object.theme.title}</span></td>
+			<td ><span class="smalltext" style="font-size: 80%;">
 			
  		    <c:choose>
 		      <c:when test="${infoObject.lastPost.id != null}">
 		     		 <a href="/sdThread.do?isid=${structure.id}&pid=${infoObject.lastPost.id}&ioid=${infoObject.id}">${infoObject.lastPost.title}</a><br />
-		     		Posted on: <fmt:formatDate value="${structure.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${structure.lastPost.owner.loginname}
+		     		Posted on: <fmt:formatDate value="${structure.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${infoObject.lastPost.owner.loginname}
 		      </c:when>
 		      <c:otherwise>
 		      	No current discussions
@@ -49,7 +50,7 @@
           </tr>		  
     </c:forEach>
 	  
-        </table>
+  </table>
 
 <div id="structure_question_status" style="text-align: right;">
 	<span class="smalltext">${structure.numAgree} of ${structure.numVote} participants have said that this list of concern themes adequately reflects concerns expressed by participants.</span><br />

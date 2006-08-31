@@ -8,7 +8,7 @@
 
 
 
-<table width="100%" border="0" cellspacing="0">
+<table width="100%" border="0" cellspacing="0" class="tabledisc" >
 	  <tr class="objectblue">
 		<td width="40%"><a href="#">Discussion Title</a></td>
 		<td width="10%" class="textcenter"><a href="#">Author</a></td>
