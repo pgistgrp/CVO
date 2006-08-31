@@ -1,7 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -50,8 +50,7 @@
 				this.getTargets();
 		};
 	 	this.getTargets = function(){
-	 		if (<%= request.getParameter("ioid") %> != null){
-	 		
+	 		if (${object.id} != null){
 	 		SDAgent.getSummary({ioid: ${object.id}}, {
 					callback:function(data){
 							if (data.successful){
@@ -284,12 +283,9 @@
 	</div>
 </div>
 <!-- End Overview -->
-
-<div id="cont-main">
-
-<div id="backToDiscussion">
-			<form id="Tselector" name="ThemeSelector" method="post" action="">
-			  <html:link action="/sd.do" paramId="isid" paramName="structure" paramProperty="id">Back to Discussion Room List</html:link>
+<div class="backToDiscussion">
+			<div id="tselector">
+		
 			  <label>
 			  Jump To:
 			  <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">		  
@@ -299,7 +295,13 @@
 			    </c:forEach>	
 		      </select>
 			  </label>
-			  </form>
+	
+			</div>	
+			  <div id="backdisc"><a href="sd.do?isid=${structure.id}">Back to Discussion</a></div>	  
+</div>
+<div id="cont-main">
+<div id="backToDiscussion">
+
 </div>
 
 <table width="100%" border="0" cellpadding="0" cellspacing="0">

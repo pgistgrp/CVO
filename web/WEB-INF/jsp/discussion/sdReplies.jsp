@@ -8,22 +8,22 @@
 
 
 <logic:iterate id="reply" name="replies">
-
 	<div id="reply${reply.id}" class="replies">
-		 <div id="replies_title" class="bluetitle"><a name="${reply.id}"></a>
-
+		 <div id="replies_title" class="bluetitle">
 		 	<span class="padding-sides"><strong>${reply.title}</strong> - <small>Posted on <fmt:formatDate value="${reply.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${reply.owner.loginname}</small></span>
 		 </div>
-		
-		<p>${reply.content}</p>
+		<div class="padding">
+		${reply.content}<br />
 		
 	 <c:if test="${fn:length(reply.tags) != 0}">
+	 	<br />
 		<ul class="tagsList"><strong>tags: </strong>
 			<logic:iterate id="tag" name="reply" property="tags">
 				<li class="tagsList"><small>${tag.name}</small></li>
 			</logic:iterate>
 		<small>- click on a tag to view discussions with the same tag.</small>
 	</c:if>
+		</div>
 	</div>
 	<br />
 </logic:iterate>

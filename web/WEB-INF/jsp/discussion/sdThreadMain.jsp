@@ -124,10 +124,9 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 
 </div> <!-- End cont-top -->
 
-<div id="cont-main">
-<div id="backToDiscussion">
-			<form id="Tselector" name="ThemeSelector" method="post" action="">
-				<a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}">Back to Discussion</a>
+<div class="backToDiscussion">
+			<div id="tselector">
+			<!--<form id="Tselector" name="ThemeSelector" method="post" action="">-->
 			  <label>
 			  Jump To:
 			  <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">		  
@@ -137,8 +136,12 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 			    </c:forEach>	
 		      </select>
 			  </label>
-			  </form>
+			<!--  </form> -->
+			</div>	
+			  <div id="backdisc"><a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}">Back to Discussion</a></div>	  
 </div>
+
+<div id="cont-main">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr>
 <td id="maintop"><img src="" alt="" height="1" width="1"/></td>
@@ -154,11 +157,14 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 		 <h3><a href="sd.do?isid=${structure.id}">All concern themes</a> &raquo;  <a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}">${object.object.theme.title}</a> &raquo;   ${post.title}</h3>
 		<small>Posted on <fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}</small>
 		<p>${post.content}</p>
+		<c:if test="${fn:length(reply.tags) != 0}">
 		<ul class="tagsList"><strong>tags: </strong>
 			<logic:iterate id="tag" name="post" property="tags">
 				<li class="tagsList">${tag.name}</li>
 			</logic:iterate>
 		<small>- click on a tag to view other discussions with the same tag.</small>
+		</ul>
+		</c:if>
 		<div id="replyTo${post.id}" style="text-align: right;"><a href="javascript:location.href='#replyAnchor';  new Effect.Pulsate('newReply', {duration: .8, from: 0.5}); void(0);">Reply to this Post</a></div>
 	</div><!--end post-->
    <div id="extrapadding" class="padding-sides">
@@ -173,7 +179,7 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 					<p><label>Post Title</label><br><input style="width:100%" type="text" value="Re: ${post.title} " id="txtnewReplyTitle"/></p>
 					<p><label>Your Thoughts</label><br><textarea style="width:100%" id="txtnewReply"></textarea></p>
 					<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="newReplyTags" type="text" /></p>
-					<input type="button" onclick="createReply();" value="Submit Reply">
+					<input type="button" onClick="createReply();" value="Submit Reply">
 				</form>
 			</div>
 	</div><!-- End replies-cont -->
@@ -182,7 +188,7 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 
 	  
 	</div>
-	<div id="backToDiscussion" style="text-align: right;"><a href="sd.do?isid=${structure.id}">Back to Discussion</a></div>
+
 
 </td>
 <td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
@@ -204,7 +210,7 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 
 </div>
 <!-- End cont-main -->
-
+<div class="backToDiscussion"><a href="sd.do?isid=${structure.id}">Back to Discussion</a></div>
 </div> <!-- End container -->
 <!-- Start Footer -->
 <jsp:include page="/footer.jsp" />

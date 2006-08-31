@@ -99,7 +99,7 @@
 
 <c:choose>
   <c:when test="${structure.type == 'sdmap'}">
- 		<body onunload="GUnload()">
+ 		<body onUnload="GUnload()">
   </c:when>
 
   <c:otherwise>
@@ -163,9 +163,9 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 </div><!-- End Object -->
 		
 <br />
-		<h4>Talk to the Morderator (needs a better name) </h4>
+		<h4>Talk to the Moderator (needs a better name) </h4>
 		<div class="borderblue">
-		<table width="100%" border="0" cellspacing="0">
+		<table width="100%" cellspacing="0" class="tabledisc">
 		          <tr class="disc_row_b">
 		            <td width="50%"><a href="/sdRoom.do?isid=${structure.id}&ioid=">Discussion about all concern themes</a><br /><span class="smalltext">Do you feel like a corner theme is missing or unnecessary from the above list? Discuss here</span></td>
 		 		    <td width="40%"><span class="smalltext" style="font-size: 80%;">
