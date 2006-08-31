@@ -136,7 +136,7 @@
 			CSTAgent.saveSummary({cctId:cctId, themeId:themeId, summary:summaryString, description: "discuss concerns about"}, {
 			callback:function(data){
 				if (data.successful){
-					editor1.setMessage("saving summary...<img src='/images/indicator.gif'>");	
+					editor1.setMessage("summary saved.");	
 					getThemes ();
 				}else{
 					alert(data.reason);
@@ -593,7 +593,7 @@
 
 <body onResize="dosize()" onkeydown="globalKeyHandler(event);">
 <div id="container">
-
+	<jsp:include page="/header.jsp" />
 	<!-- START LIGHTBOX -->
 	<div id="overlay" style="display: none;"></div>
 	<div id="lightbox" style="display: none;" class="blueBB"></div>
@@ -659,7 +659,7 @@
 				<!--END Tabs -->
 		</div>
 	
-		<div id="clear">
+		<div id="clear" style="clear:both">
 			<div id="col-crud-options" style="display:none;"><span class="closeBox"><a href="javascript: new Effect.PhaseOut('col-crud-options'); void(0);">hide options</a></span>
 				<h4>Editing Options</h4>
 				<small><a href="javascript: deleteSelectedCategory();">Delete</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript: new Effect.PhaseOut('col-crud-options'); void(0); new Effect.Appear('col-option'); void(0);">Rename</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:duplicateSelectedCategory();">Duplicate</a>&nbsp;&nbsp;|&nbsp;&nbsp;Edit Summary</small>
@@ -687,7 +687,7 @@
 			
 			</script>				  
 	     		<!-- END Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
-			<div id="frmSaveSummary" style="text-align: right"><button id="ss" type="button" disabled="true" style="padding: 0pt 1em;" onclick="saveSummary()">Save summery</button></div>
+			<div id="frmSaveSummary" style="text-align: right"><span id="wysiwyg_message" style="position: display:none;"></span><button id="ss" type="button" disabled="true" style="padding: 0pt 1em;" onclick="saveSummary()">Save summery</button></div>
 		</div>
 		
 			 
@@ -701,13 +701,13 @@
 	   		<p>blah blah.... Publish concern themes to participants....			</p>
 		</div>
 	
-	<div id="clear">
-	</div>
-	<div id="spacer">
-	</div>
+
 </div>
+</div>
+<!-- Start Footer -->
+<jsp:include page="/footer.jsp" />
 
-
+<!-- End Footer -->
 
 </body>
 </html>

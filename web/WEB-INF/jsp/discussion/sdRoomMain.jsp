@@ -50,7 +50,7 @@
 				this.getTargets();
 		};
 	 	this.getTargets = function(){
-	 		if (${object.id} != null){
+	 		//if (${object.id} != null){
 	 		SDAgent.getSummary({ioid: ${object.id}}, {
 					callback:function(data){
 							if (data.successful){
@@ -71,9 +71,9 @@
 							alert("get targets error:" + errorString + exception);
 					}
 					});
-	 			}else{
-	 				$(infoObject.objectDiv).innerHTML ="list of concern themes";
-	 			}
+	 			//}else{
+	 			//	$(infoObject.objectDiv).innerHTML ="list of concern themes";
+	 			//}
 
 	 	};
 	 
@@ -355,6 +355,7 @@
 </div>
 <div id="sidebarSearchResults" style="display: none;"></div>
   <div id="sidebar_content">
+	<h5 id="targetSideBarTitle"></h5>
 	Add Tag stuff here
 
 <div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>

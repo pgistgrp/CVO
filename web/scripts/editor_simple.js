@@ -171,8 +171,6 @@ WYSIWYG_Editor.prototype._display_editor = function (){
     document.write('      <table width="100%" border="0" cellspacing="0" cellpadding="0">');
     document.write('       <tr>');
     document.write('        <td>');
-    document.write('         <div id="'+this.instance_name+'_toolbars" style="padding-top:5px; position: relative;"><div id="wysiwyg_message" style="position: display:none; absolute; top: 0; right: 0; text-align: right"></div>');
-
         document.write('          <img alt="Bold" title="Bold" class="butClass" src="'+this.wysiwyg_path+'/bold.png" onClick="'+this.instance_name+'.doTextFormat(\'bold\',\'\')">');
         document.write('          <img alt="Italic" title="Italic" class="butClass" src="'+this.wysiwyg_path+'/italic.png" onClick="'+this.instance_name+'.doTextFormat(\'italic\',\'\')">');
         //document.write('          <img alt="Underline" title="Underline" class="butClass" src="'+this.wysiwyg_path+'/underline.png" onClick="'+this.instance_name+'.doTextFormat(\'underline\',\'\')">');
