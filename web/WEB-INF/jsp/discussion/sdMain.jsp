@@ -93,6 +93,7 @@
 					});
 				};
 			};
+			
 </script>
 
 </head>
@@ -158,53 +159,70 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 -->
 
 <h4>Concern Theme Rooms</h4>
-<div id="object" class="borderblue">
+<div id="object">
 	<!-- load discussion rooms -->
 </div><!-- End Object -->
 		
 <br />
 		<h4>Talk to the Moderator (needs a better name) </h4>
-		<div class="borderblue">
-		<table width="100%" cellspacing="0" class="tabledisc">
+		<div>
+		<table width="100%" class="tabledisc">
 		          <tr class="disc_row_b">
-		            <td width="50%"><a href="/sdRoom.do?isid=${structure.id}&ioid=">Discussion about all concern themes</a><br /><span class="smalltext">Do you feel like a corner theme is missing or unnecessary from the above list? Discuss here</span></td>
-		 		    <td width="40%"><span class="smalltext" style="font-size: 80%;">
+		            <td><div class="padding-sides"><a href="/sdRoom.do?isid=${structure.id}&ioid=">Discussion about all concern themes</a><br /><span class="smalltext">Do you feel like a corner theme is missing or unnecessary from the above list? Discuss here</span></div></td>
+		 		    <td width="150"><span class="smalltext" style="font-size: 80%;">
 		 		    <c:choose>
 				      <c:when test="${structure.lastPost.id != null}">
-				     		 <a href="/sdThread.do?isid=${structure.id}&pid=${structure.lastPost.id}">${structure.lastPost.title}</a><br />
+				     		<div class="padding-sides">
+							<a href="/sdThread.do?isid=${structure.id}&pid=${structure.lastPost.id}">${structure.lastPost.title}</a><br />
 				      		Posted on: <fmt:formatDate value="${structure.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${structure.lastPost.owner.loginname}
+							</div>
 				      </c:when>
 				      <c:otherwise>
-				      		No current discussions
+				      		<span class="padding-sides">No current discussions</span>
 				      </c:otherwise>
 				    </c:choose>          
 					</td>
-		            <td width="10%" class="textcenter"><a href="/sdRoom.do?isid=${structure.id}&ioid=">${structure.numDiscussion}</a></td>
+		            <td width="100" class="textcenter"><a href="/sdRoom.do?isid=${structure.id}&ioid=">${structure.numDiscussion}</a></td>
 		          </tr>		    
-        </table>
+        </table><br>
 		</div>
 
 
 <td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
-  <div id="sidebar_content">
-    <h4>Other Discussions filtered by:</h4>
-  
-	<h5>Accidents</h5>
-
-	<div class="sidebardisc">
-	<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
+<div id="sidebar_container">
+<div id="tagSelector">
+	<div id="tagform">
+	<h6>Sidebar filtered by:</h6>
+	[Tags ] [Tags] [Tags]<br />
+	<form action="" method="get">
+	Sidebar Filter: 
+	  <input name="tagSearch" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value)" />
+	</form>
 	</div>
-	<div class="sidebardisc">
-	<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
-	</div>
-	<div class="sidebardisc">
-	<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
-	</div>
-	<div class="sidebardisc">
-	<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
-	</div>
+	<div id="pullDown" class="textright"><a href="javascript: expandTagSelector();">Expand</a></div>
+	<div id="allTags" style="display: none;"></div>
+	<div class="clear"></div>
+	
 </div>
-<!-- End sidebarcontents-->
+<div id="tagSelector_spacer" style="display: none;"><!-- Duplicate tagSelector to work as a spacer during expand effect -->
+	<h6>Sidebar filtered by:</h6>
+	[Tags ] [Tags] [Tags]<br />
+	<form action="" method="get">
+	Sidebar Filter: 
+	  <input name="tagSearch" id="tagSearch_spacer" type="text" style="visibility: hidden;"/>
+	</form>
+	<div id="pullDown_spacer" class="textright" style="visibility: hidden;">Expand</div>
+	<div id="allTags_spacer" style="visibility: hidden;"></div>
+	<div class="clear"></div>
+</div>
+<div id="sidebarSearchResults" style="display: none;"></div>
+  <div id="sidebar_content">
+
+
+<div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
+
+</div><!-- End sidebarcontents-->
+</div><!-- sidebar container-->
  </td><!-- End Right Col -->
 </tr>
 

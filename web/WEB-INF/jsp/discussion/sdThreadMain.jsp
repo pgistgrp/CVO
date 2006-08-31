@@ -153,7 +153,7 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 
 <div id="object">
 	
-	<div id="post" class="blueBB">
+	<div id="post">
 		 <h3><a href="sd.do?isid=${structure.id}">All concern themes</a> &raquo;  <a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}">${object.object.theme.title}</a> &raquo;   ${post.title}</h3>
 		<small>Posted on <fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}</small>
 		<p>${post.content}</p>
@@ -192,15 +192,41 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 
 </td>
 <td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
-  <div id="sidebar_content">
-    <h4>Other Discussions filtered by:</h4>
-<h5>Accidents</h5>
-
-<div class="sidebardisc">
-<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
+<div id="sidebar_container">
+<div id="tagSelector">
+	<div id="tagform">
+	<h6>Sidebar filtered by:</h6>
+	[Tags ] [Tags] [Tags]<br />
+	<form action="" method="get">
+	Sidebar Filter: 
+	  <input name="tagSearch" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value)" />
+	</form>
+	</div>
+	<div id="pullDown" class="textright"><a href="javascript: expandTagSelector();">Expand</a></div>
+	<div id="allTags" style="display: none;"></div>
+	<div class="clear"></div>
+	
 </div>
+<div id="tagSelector_spacer" style="display: none;"><!-- Duplicate tagSelector to work as a spacer during expand effect -->
+	<h6>Sidebar filtered by:</h6>
+	[Tags ] [Tags] [Tags]<br />
+	<form action="" method="get">
+	Sidebar Filter: 
+	  <input name="tagSearch" id="tagSearch_spacer" type="text" style="visibility: hidden;"/>
+	</form>
+	<div id="pullDown_spacer" class="textright" style="visibility: hidden;">Expand</div>
+	<div id="allTags_spacer" style="visibility: hidden;"></div>
+	<div class="clear"></div>
+</div>
+<div id="sidebarSearchResults" style="display: none;"></div>
+  <div id="sidebar_content">
 
-<!-- End sidebarcontents-->
+
+<div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
+
+</div><!-- End sidebarcontents-->
+</div><!-- sidebar container-->
+
  </td><!-- End Right Col -->
 </tr>
 

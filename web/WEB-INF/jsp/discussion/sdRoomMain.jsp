@@ -327,24 +327,40 @@
 		</td>
 
 <td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
+<div id="sidebar_container">
+<div id="tagSelector">
+	<div id="tagform">
+	<h6>Sidebar filtered by:</h6>
+	[Tags ] [Tags] [Tags]<br />
+	<form action="" method="get">
+	Sidebar Filter: 
+	  <input name="tagSearch" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value)" />
+	</form>
+	</div>
+	<div id="pullDown" class="textright"><a href="javascript: expandTagSelector();">Expand</a></div>
+	<div id="allTags" style="display: none;"></div>
+	<div class="clear"></div>
+	
+</div>
+<div id="tagSelector_spacer" style="display: none;"><!-- Duplicate tagSelector to work as a spacer during expand effect -->
+	<h6>Sidebar filtered by:</h6>
+	[Tags ] [Tags] [Tags]<br />
+	<form action="" method="get">
+	Sidebar Filter: 
+	  <input name="tagSearch" id="tagSearch_spacer" type="text" style="visibility: hidden;"/>
+	</form>
+	<div id="pullDown_spacer" class="textright" style="visibility: hidden;">Expand</div>
+	<div id="allTags_spacer" style="visibility: hidden;"></div>
+	<div class="clear"></div>
+</div>
+<div id="sidebarSearchResults" style="display: none;"></div>
   <div id="sidebar_content">
-    <h4>Other Discussions filtered by: </h4>
-<h5 id="targetSideBarTitle"></h5>
-<div id="sidebar_object">
-<div class="sidebardisc">
-<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
-</div>
-<div class="sidebardisc">
-<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
-</div>
-<div class="sidebardisc">
-<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
-</div>
-<div class="sidebardisc">
-<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
-</div>
-</div>
-<!-- End sidebarcontents-->
+	Add Tag stuff here
+
+<div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
+
+</div><!-- End sidebarcontents-->
+</div><!-- sidebar container-->
 </td>
 <!-- End Right Col -->
 </tr>
@@ -394,7 +410,7 @@
 	<a href="#" class="pages_nextprev" title="Next Page">NEXT &#187;</a>
 </div>
 	
-<div id="finished" class="borderblue">
+<div id="finished" class="greenBB">
 	<h4>Step 4. Finished?</h4><br />
 	Go back or continue... [add buttons] [Cancel]
 </div>

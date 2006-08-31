@@ -10,11 +10,11 @@
 
 <table width="100%" border="0" cellspacing="0" class="tabledisc" >
 	  <tr class="objectblue">
-		<td width="40%"><a href="#">Discussion Title</a></td>
-		<td width="10%" class="textcenter"><a href="#">Author</a></td>
-		<td width="10%"><a href="#">Last Post</a></td>
-		<td width="20%" class="textcenter"><a href="#">Replies</a></td>
-		<td width="15%" class="textcenter"><a href="#">Views</a></td>
+		<td><a href="#">Discussion Title</a></td>
+		<td width="150" class="textcenter"><a href="#">Author</a></td>
+		<td width="200"><a href="#">Last Post</a></td>
+		<td width="100" class="textcenter"><a href="#">Replies</a></td>
+		<td width="100" class="textcenter"><a href="#">Views</a></td>
 	  </tr>
 
 	<c:if test="${fn:length(posts) == 0}">
@@ -27,9 +27,9 @@
 
 	<c:forEach var="post" items="${posts}" varStatus="loop">
 		<tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
-			<td width="40%"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a><br /><span class="smalltext">${fn:substring(post.content, 0, 150)}... </span></td>
-			<td width="10%" class="textcenter"><a href="#">${post.owner.loginname}</a></td>
-			<td width="10%">
+			<td><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a><br /><span class="smalltext">${fn:substring(post.content, 0, 150)}... </span></td>
+			<td width="150" class="textcenter"><a href="#">${post.owner.loginname}</a></td>
+			<td width="200">
 			<span class="smalltext" style="font-size: 80%;">
 
 		    <c:choose>
@@ -45,8 +45,8 @@
 		    </c:choose>
 				
 			</span></td>
-			<td width="20%" class="textcenter">${post.replies}</td>	
-			<td width="15%" class="textcenter"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.views}</a></td>
+			<td width="100" class="textcenter">${post.replies}</td>	
+			<td width="100" class="textcenter"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.views}</a></td>
 			<!--<tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
 				<td colspan="5">
 					<small>${fn:substring(post.content, 0, 250)}... </small>

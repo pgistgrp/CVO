@@ -62,10 +62,10 @@ select {
 	height: 100%;
 }
 #discussion-cont {
-	border-left: 1px solid #7888A9;
+	/*border-left: 1px solid #7888A9;
 	border-bottom: 1px solid #7888A9;
 	border-right: 1px solid #7888A9;
-	/*padding: 5px;*/
+	*//*padding: 5px;*/
 	background-color: #C0D7F6;
 	margin-right: 25px;
 	margin-left: 25px;
@@ -185,7 +185,7 @@ select {
 #sidebarbottom_disc {
 	margin-left: 15px;
 	background-color: #C0D7F6;
-	border-left: 1px solid #7888A9;
+
 }
 #sidebarbottom_newdisc {
 	margin-left: 25px;

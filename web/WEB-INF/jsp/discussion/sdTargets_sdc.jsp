@@ -23,11 +23,11 @@
  </div>
  -->
 
-    <table width="100%" cellspacing="0" class="tabledisc">
+    <table width="100%" class="tabledisc">
           <tr class="objectblue">
-            <td width="50%"><a href="#">Concern Theme</a></td>
-			<td width="40%"><a href="#">Last Post</a></td>
-            <td width="10%" class="textcenter"><a href="#">Discussions</a></td> 
+            <td><a href="#">Concern Theme</a></td>
+			<td width="150"><a href="#">Last Post</a></td>
+            <td width="100" class="textcenter"><a href="#">Discussions</a></td> 
           </tr>		 
 
     <c:forEach var="infoObject" items="${structure.infoObjects}" varStatus="loop">

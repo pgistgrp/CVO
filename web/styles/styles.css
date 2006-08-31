@@ -307,10 +307,11 @@ h6 {
 	font-size: .9em;
 	color: #7888A9;
 }
+.tabledisc {
+	border-collapse: collapse;
+}
 .tabledisc td{
 	border: 1px solid #7888A9;
-	border-top: 0px;
-	border-left: 0px;
 }
 /*Tag Styles*/
 
