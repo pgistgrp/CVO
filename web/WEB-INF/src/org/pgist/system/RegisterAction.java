@@ -52,6 +52,7 @@ public class RegisterAction extends Action {
      *                        it can be "other", and in this situation, ethnicity1 must be valid.<br>
      *                        else it must contain a value other than -1 or empty.</li>
      *   <li>ethnicity1     - string, ethnicity1 of the new user. When user.ethnicity is "other", ethnicity1 must be provided.</li>
+     * </ul>
      */
     public ActionForward execute(
             ActionMapping mapping,
