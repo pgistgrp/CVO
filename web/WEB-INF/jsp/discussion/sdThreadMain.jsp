@@ -228,7 +228,99 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 </div>
 <div id="sidebarSearchResults" style="display: none;"></div>
   <div id="sidebar_content">
+<!-- start mock disc -->
+  	<div><span class="participantName"><a href="">Who voted to
+revise the summary? </a></span><br />
+	  <small>"I can't believe this.  is the web site broken?  this is like
+the monorail vote, over and over and <a href="href://">...</a>"</small>
+(<span class="participantName" style="text-align:right"><a
+href="href://" style="color:#0061A8">Avery</a></span> in<strong>
+Public Transportation </strong>) <br />
+	  <span class="tags"><a href="javascript:getConcernsByTag(902);">bus
+stops</a></span>
+	  <span class="tags"><a
+href="javascript:getConcernsByTag(885);">work</a></span>
+	  <span class="tags"><a
+href="javascript:getConcernsByTag(894);">I-405</a></span>
+  </div>
+<br />
+  	<div><span class="participantName"><a href="">Yes!!! I
+agree!!! </a></span><br />
+	  <small>"Very well said guys.  I have nothing to add to except I
+agree with everything everybody has already<a
+href="href://">...</a>"</small> (<span class="participantName"
+style="text-align:right"><a href="href://"
+style="color:#0061A8">MissBryana</a></span> in
+<strong>Safety</strong>) <br />
+	  <span class="tags"><a
+href="javascript:getConcernsByTag(902);">safety</a></span>
+	  <span class="tags"><a
+href="javascript:getConcernsByTag(885);">commuting</a></span>
+	  <span class="tags"><a
+href="javascript:getConcernsByTag(894);">traffic</a></span>
+  </div>
+<br />
+  	<div><span class="participantName"><a href="">Okay, but
+what about vehicle taxes?  </a></span><br />
+	  <small>"The most important &quot;concern&quot; I wrote was about
+taxing SUVs to pay for alternative transportation<a
+href="href://">...</a>"</small> (<a href="href://"
+style="color:#0061A8">unicycler</a> in <strong>Alternatives</strong>)
+<br />
+	  <span class="tags"><a
+href="javascript:getConcernsByTag(902);">taxes</a></span>
+	  <span class="tags"><a 
+href="javascript:getConcernsByTag(885);">tax</a></span>
+	  <span class="tags"><a 
+href="javascript:getConcernsByTag(894);">SUV</a></span>
+  </div>
+<br />
+  	<div><span class="participantName"><a href="">Nice summary,
+but this is the real world </a></span><br />
+	  <small>"Somebody has to figure out how to pay for this stuff, and my
+hunch is they'll just decide to raise<a href="href://">...</a>"</small>
+(<a href="href://" style="color:#0061A8">Moreno</a> in
+<strong>Funding</strong>) <br />
+	  <span class="tags"><a
+href="javascript:getConcernsByTag(902);">money</a></span>
+	  <span class="tags"><a 
+href="javascript:getConcernsByTag(885);">tax</a></span>
+	  <span class="tags"><a
+href="javascript:getConcernsByTag(894);">funding</a></span>
+  </div>
+<br />
+  	<div><span class="participantName"><a href="">Fixing
+congestion  </a></span><br />
+	  <small>"You can't build your way out of congestion.  Did anybody
+read the recent article in the Times about<a
+href="href://">...</a>"</small> (<span class="participantName"
+style="text-align:right"><a href="href://"
+style="color:#0061A8">GIJoel</a></span> in
+<strong>Congestion</strong>) <br />
+	  <span class="tags"><a
+href="javascript:getConcernsByTag(902);">congestion</a></span>
+	  <span class="tags"><a
+href="javascript:getConcernsByTag(885);">traveling</a></span>
+	  <span class="tags"><a
+href="javascript:getConcernsByTag(894);">construction</a></span>
+  </div>
+	<br />
+		<div><span class="participantName"><a href="">TThompson:
+what are you talking about? </a></span><br />
+	  <small>"Did you even read the summary before going off on a rant
+like that?  Nobody is saying that we need<a
+href="href://">...</a>"</small> (<span class="participantName"
+style="text-align:right"><a href="href://">ofradical</a></span> in
+<strong>Public Transportation</strong>)<br />
+	  <span class="tags"><a
+href="javascript:getConcernsByTag(902);">light rail </a></span>
+	  <span class="tags"><a
+href="javascript:getConcernsByTag(885);">metro</a></span>
+	  <span class="tags"><a
+href="javascript:getConcernsByTag(894);">monorail</a></span>
+  </div>
 
+<!-- end mock disc -->
 
 <div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
 
