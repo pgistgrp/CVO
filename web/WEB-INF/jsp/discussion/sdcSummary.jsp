@@ -10,10 +10,10 @@
 	</pg:termHighlight>
 </pg:fragment>
 
-<div id="structure_question_status" style="text-align: right;">
-	<span class="smalltext">${infoObject.numAgree} of ${infoObject.numVote} participants have said that this list of concern themes adequately reflects concerns expressed by participants.</span><br />
+<div id="structure_question_status">
+	<span class="smalltext">${infoObject.numAgree} of ${infoObject.numVote} participants have said that this summary adequately reflects concerns expressed by participants.</span><br />
 </div>
-<div id="structure_question" style="text-align: right;"></div>
+<div id="structure_question"></div>
 	<pg:fragment type="script">
 
 </pg:fragment>

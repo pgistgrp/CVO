@@ -37,20 +37,27 @@
 <script type="text/javascript">
 		/* global vars */
 			var countPerPage = 10; //numer of posts per page
+			var lastPage = 1
 		/* end global vars */
-		 function createReply(){
+		 function createReply(page){
+		 	lastPage = page;
 		 	displayIndicator(true);
 			var newReplyTitle = $('txtnewReplyTitle').value;
 			var newReply = $('txtnewReply').value;
 			var newReplyTags = $('newReplyTags').value;
 		    SDAgent.createReply({isid:${structure.id}, pid:${post.id}, title:newReplyTitle, content:newReply, tags: newReplyTags}, {
 		      callback:function(data){
-		          if (data.successful){
-		          		getReplies();           
+		          if (data.successful){     
           				$('txtnewReplyTitle').value = 'Re: ${post.title} ';
 						$('txtnewReply').value = '';
 						$('newReplyTags').value = '';
+						if (${setting.page} != lastPage){
+							location.href='sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=' + lastPage;
+						}else{
+							getReplies();	
+						}
 						displayIndicator(false);
+						
 		          }else{
 		            alert(data.reason);
 		            displayIndicator(false);
@@ -81,7 +88,7 @@
 		      callback:function(data){
 		          if (data.successful){
 		          			
-		          			$('postReplies').innerHTML = data.html;         
+		          			$('replies-cont').innerHTML = data.html;         
 		          			displayIndicator(false);
 		          }else{
 		            alert("data.successful != true: " + data.reason);
@@ -117,7 +124,7 @@
 <h1>Step 1 Brainstorm Concerns:</h1> <h2>Discuss Concerns Summary</h2>
 </div>
 <div id="footprints">
-<span class="smalltext">LIT Process >> Step 1 Brainstorm Concerns >> Discuss Concerns Summary</span>
+<span class="smalltext"><a href="#">Participate</a> &raquo; <a href="#">Step 1 Brainstorm Concerns</a> &raquo; <a href="sd.do?isid=${structure.id}">Step 1b Review Summaries</a> &raquo; <a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}">${object.object}</a> &raquo; ${post.title}</span>
 </div>
 <!-- End Sub Title -->
 
@@ -182,20 +189,7 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 	</div><!--end post-->
    <div id="extrapadding" class="padding-sides">
 	<div id="replies-cont" class="greyscheme">
-			<h4>Replies to ${post.title}</h4>
-			<div id="postReplies">
-				<!-- replies will be loaded here via DWR -->
-			</div>
-			<a name="replyAnchor"></a>
-			<div id="newReply" class="greenBB" style="padding: 5px 10px; margin-top: 20px; border-top: 2px solid #C0D7F6">
-				<h3>Post a Reply</h3>
-				<form>
-					<p><label>Post Title</label><br><input style="width:100%" type="text" value="Re: ${post.title} " id="txtnewReplyTitle"/></p>
-					<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtnewReply"></textarea></p>
-					<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="newReplyTags" type="text" /></p>
-					<input type="button" onClick="createReply();" value="Submit Reply">
-				</form>
-			</div>
+		<!--load replies and post reply form here -->
 	</div><!-- End replies-cont -->
 	<br />
 	</div><!-- End extrapadding -->

@@ -45,7 +45,12 @@
 	 	this.assignTargetHeaders = function(){
 	 			var targetTitle = "${object.object}";
 				$('targetTitle').innerHTML = '<html:link action="/sd.do" paramId="isid" paramName="structure" paramProperty="id">'+ this.roomsTitle +'</html:link>  &raquo; ' + targetTitle; //object title div id
-				$('targetDiscussionTitle').innerHTML = "${object.numDiscussion} Discussion(s) about " + targetTitle;//discussion title div id
+				$('targetDiscussionTitle').innerHTML = targetTitle;//discussion title div id
+				if (${object.numDiscussion} == 1){
+				 	$('targetDiscussionTitle').innerHTML += ' - ${object.numDiscussion} Discussion';
+				}else{
+					$('targetDiscussionTitle').innerHTML += ' - ${object.numDiscussion} Discussions';
+				}
 				$('targetSideBarTitle').innerHTML = 'filtered by: ' + targetTitle;//sidebar title div id
 				this.getTargets();
 		};
@@ -265,10 +270,10 @@
 	
 	<!-- Sub Title -->
 	<div id="subheader">
-	<h1>Step 1:</h1> <h2>Brainstorm Concerns</h2>
+	<h1>Step 1b:</h1> <h2>Review Summaries</h2>
 	</div>
 	<div id="footprints">
-	<p>LIT Process >> Step 1: Brainstorm >> Concerns</p>
+	<span class="smalltext"><a href="#">Participate</a> &raquo; <a href="#">Step 1 Brainstorm Concerns</a> &raquo; <a href="sd.do?isid=${structure.id}">Step 1b Review Summaries</a> &raquo; ${object.object}</span>
 	</div>
 	<!-- End Sub Title -->
 	
@@ -297,7 +302,7 @@
 		 	 </select>
 			</label>
 		</div>	<!-- end tselector -->
-		<div id="backdisc"><a href="sd.do?isid=${structure.id}">Back to Discussion</a></div>	  
+		<div id="backdisc"><a href="sd.do?isid=${structure.id}">Back to All Concern Themes</a></div>	  
 	</div> <!-- end backtodiscussion -->
 	<div id="cont-main">
 		<table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -308,7 +313,7 @@
 				<tr>
 						<td valign="top" id="maincontent">
 							<!-- Main Content starts Here-->
-							<h4>Step 1. Summary of Participant Concerns </h4>
+							<h4>Summarization of Participant Concerns </h4>
 							<div id="object">
 								<div class="padding">
 									<h5 id = "targetTitle"></h5>
@@ -350,7 +355,56 @@
 								<div id="sidebarSearchResults" style="display: none;"></div>
 								  <div id="sidebar_content">
 									<h5 id="targetSideBarTitle"></h5>
-									Add Tag stuff here
+												<!-- Fake concerns -->
+												<div id="concernId887" class="theConcern">
+										            <span class="participantName"><a href="userProfile887.jsp">DoeDiane</a></span>&nbsp;said:
+										            <br>
+										            <span class="concerns">"The transportation system should be more accessible to all citizens"</span><br>
+										            <span class="tags"><a href="javascript:getConcernsByTag(864);">accessibility</a></span>            
+										        </div>
+										
+										        <div id="concernId918" class="theConcern">
+										            <span class="participantName"><a href="userProfile918.jsp">MurphyMary</a></span>&nbsp;said:
+										            <br>
+										            <span class="concerns">"Non-commuter vehicles shouldn't drive in commuter lanes"</span><br>
+										            <span class="tags"><a href="javascript:getConcernsByTag(902);">commuting</a></span>
+										            <span class="tags"><a href="javascript:getConcernsByTag(885);">congestion</a></span>
+										            <span class="tags"><a href="javascript:getConcernsByTag(894);">hov lanes</a></span>
+										            <span class="tags"><a href="javascript:getConcernsByTag(917);">law enforcement</a></span>
+										            <span class="tags"><a href="javascript:getConcernsByTag(868);">safety</a></span>    
+										        </div>
+										
+										        <div id="concernId878" class="theConcern">
+										            <span class="participantName"><a href="userProfile878.jsp">JonesJane</a></span>&nbsp;said:
+										            <br>
+										            <span class="concerns">"Transportation systems should promote livability and walkability"</span><br>
+										            <span class="tags"><a href="javascript:getConcernsByTag(873);">density</a></span>
+										            <span class="tags"><a href="javascript:getConcernsByTag(874);">downtown</a></span>
+										            <span class="tags"><a href="javascript:getConcernsByTag(877);">health</a></span>
+										            <span class="tags"><a href="javascript:getConcernsByTag(871);">livability</a></span>
+										            <span class="tags"><a href="javascript:getConcernsByTag(875);">sprawl</a></span>
+										            <span class="tags"><a href="javascript:getConcernsByTag(855);">transportation planning</a></span>
+										            <span class="tags"><a href="javascript:getConcernsByTag(872);">walkability</a></span>                    
+										        </div>
+										
+										        <div id="concernId891" class="theConcern">
+										            <span class="participantName"><a href="userProfile891.jsp">JohnsonJohn</a></span>&nbsp;said:
+										            <br>
+										            <span class="concerns">"We should not continue to fund a reliance on motor vehicles"</span><br>
+										            <span class="tags"><a href="javascript:getConcernsByTag(890);">alternative</a></span>
+										            <span class="tags"><a href="javascript:getConcernsByTag(888);">car</a></span>
+										            <span class="tags"><a href="javascript:getConcernsByTag(882);">funding</a></span>
+										            <span class="tags"><a href="javascript:getConcernsByTag(889);">taxes</a></span>
+										            <span class="tags"><a href="javascript:getConcernsByTag(855);">transportation planning</a></span>        
+										        </div>
+										
+										        <div id="concernId866" class="theConcern">
+										            <span class="participantName"><a href="userProfile866.jsp">BrownBob</a></span>&nbsp;said:<br>
+										            <span class="concerns">"Restrooms at Metro transit stations need to be handicapped accessible"</span><br>
+										            <span class="tags"><a href="javascript:getConcernsByTag(860);">Metro</a></span>
+										            <span class="tags"><a href="javascript:getConcernsByTag(864);">accessibility</a></span>
+										        </div>
+												<!-- end fake concerns -->
 								
 								<div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
 								

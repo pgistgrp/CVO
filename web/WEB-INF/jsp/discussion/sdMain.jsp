@@ -124,10 +124,10 @@
 		<div id="cont-top">
 		<!-- Sub Title -->
 		<div id="subheader">
-		<h1>Step 1 Brainstorm Concerns:</h1> <h2>Discuss Concerns Summary</h2>
+		<h1>Step 1b</h1> <h2>Review Summaries</h2>
 		</div>
 		<div id="footprints">
-		<span class="smalltext">LIT Process >> Step 1 Brainstorm Concerns >> Discuss Concerns Summary</span>
+		<span class="smalltext"><a href="#">Participate</a> &raquo; <a href="#">Step 1 Brainstorm Concerns</a> &raquo; Step 1b Review Summaries</span>
 		</div>
 		<!-- End Sub Title -->
 		<!-- Overview SpiffyBox -->
@@ -222,56 +222,7 @@
 		<!-- End Duplicate tagSelector to work as a spacer during expand effect -->
 		<div id="sidebarSearchResults" style="display: none;"></div>
 		  <div id="sidebar_content">
-			<!-- Fake concerns -->
-<div id="concernId887" class="theConcern">
-            <span class="participantName"><a href="userProfile887.jsp">DoeDiane</a></span>&nbsp;said:
-            <br>
-            <span class="concerns">"The transportation system should be more accessible to all citizens"</span><br>
-            <span class="tags"><a href="javascript:getConcernsByTag(864);">accessibility</a></span>            
-        </div>
-
-        <div id="concernId918" class="theConcern">
-            <span class="participantName"><a href="userProfile918.jsp">MurphyMary</a></span>&nbsp;said:
-            <br>
-            <span class="concerns">"Non-commuter vehicles shouldn't drive in commuter lanes"</span><br>
-            <span class="tags"><a href="javascript:getConcernsByTag(902);">commuting</a></span>
-            <span class="tags"><a href="javascript:getConcernsByTag(885);">congestion</a></span>
-            <span class="tags"><a href="javascript:getConcernsByTag(894);">hov lanes</a></span>
-            <span class="tags"><a href="javascript:getConcernsByTag(917);">law enforcement</a></span>
-            <span class="tags"><a href="javascript:getConcernsByTag(868);">safety</a></span>    
-        </div>
-
-        <div id="concernId878" class="theConcern">
-            <span class="participantName"><a href="userProfile878.jsp">JonesJane</a></span>&nbsp;said:
-            <br>
-            <span class="concerns">"Transportation systems should promote livability and walkability"</span><br>
-            <span class="tags"><a href="javascript:getConcernsByTag(873);">density</a></span>
-            <span class="tags"><a href="javascript:getConcernsByTag(874);">downtown</a></span>
-            <span class="tags"><a href="javascript:getConcernsByTag(877);">health</a></span>
-            <span class="tags"><a href="javascript:getConcernsByTag(871);">livability</a></span>
-            <span class="tags"><a href="javascript:getConcernsByTag(875);">sprawl</a></span>
-            <span class="tags"><a href="javascript:getConcernsByTag(855);">transportation planning</a></span>
-            <span class="tags"><a href="javascript:getConcernsByTag(872);">walkability</a></span>                    
-        </div>
-
-        <div id="concernId891" class="theConcern">
-            <span class="participantName"><a href="userProfile891.jsp">JohnsonJohn</a></span>&nbsp;said:
-            <br>
-            <span class="concerns">"We should not continue to fund a reliance on motor vehicles"</span><br>
-            <span class="tags"><a href="javascript:getConcernsByTag(890);">alternative</a></span>
-            <span class="tags"><a href="javascript:getConcernsByTag(888);">car</a></span>
-            <span class="tags"><a href="javascript:getConcernsByTag(882);">funding</a></span>
-            <span class="tags"><a href="javascript:getConcernsByTag(889);">taxes</a></span>
-            <span class="tags"><a href="javascript:getConcernsByTag(855);">transportation planning</a></span>        
-        </div>
-
-        <div id="concernId866" class="theConcern">
-            <span class="participantName"><a href="userProfile866.jsp">BrownBob</a></span>&nbsp;said:<br>
-            <span class="concerns">"Restrooms at Metro transit stations need to be handicapped accessible"</span><br>
-            <span class="tags"><a href="javascript:getConcernsByTag(860);">Metro</a></span>
-            <span class="tags"><a href="javascript:getConcernsByTag(864);">accessibility</a></span>
-        </div>
-		<!-- end fake concerns -->
+			<!-- mock discussion -->
 		
 		<div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
 		

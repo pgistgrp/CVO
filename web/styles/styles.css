@@ -171,6 +171,11 @@ h6 {
 #newdisc_title {
 	background-color: #999999;	
 }
+
+#object p{
+	font-size: 1.2em;
+	line-height: 25px;
+}
 #searchbox { /*merged*/
 	text-align: right;
 	margin-bottom: 10px;
