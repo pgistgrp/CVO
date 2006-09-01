@@ -3,12 +3,33 @@
 <html:html>
 <head>
 <title>Register</title>
-
+<!-- Site Wide CSS -->
+<style type="text/css" media="screen">@import "styles/position.css";</style>
+<style type="text/css" media="screen">@import "styles/styles.css";</style>
+<!-- End Site Wide CSS -->
+<style type="text/css">
+#register {
+	margin: auto;
+	margin-right: auto;
+	margin-left: auto;
+	width: 320px;
+	border: 10px solid #CCCCCC;
+	padding: 15px;
+}
+#pgistlogo {
+	margin: auto;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+}
+</style>
 </head>
 
 <body>
-
-<h1>Registration Form</h1>
+<br /><br />
+<div id="pgistlogo">
+<img src="images/mainlogo.png" alt="pgistlogo" >
+</div>
 <html:form action="/register.do" method="POST" focus="loginname">
 <html:hidden property="save" value="true"/>
 <html:hidden property="user.homeAddr" value="12345 Home Address"/>
@@ -18,8 +39,10 @@
 <html:hidden property="user.ethnicity" value="Purple Default"/>	
 <html:hidden property="user.isOfficial" value="no"/>	
 <html:hidden property="user.isTransportationAgency" value="no"/>	
-<input name="role" type="radio" class="inputRadio" value="DecisionMaker" checked> Make this hidden
-<table>
+<input name="role" type="hidden" class="inputRadio" value="DecisionMaker">
+<div align="center">
+<h3>Registration Form</h3><br />
+<table id="register">
 	<tr>
 		<td>E-mail Address</td>
 		<td><html:text property="user.email"/></td>
@@ -45,13 +68,14 @@
 	</tr>
 	<tr>
 		<td></td>
-		<td><html:submit property="submit" value="Submit"/><input type="reset" name="Reset" value="Cancel"></td>
+		<td align="right"><html:submit property="submit" value="Submit"/><input type="reset" name="Reset" value="Cancel"></td>
 	</tr>
  <table>
-		 
+</div>	 
 
 
 </html:form>
+
 </body>
 </html:html>
 
