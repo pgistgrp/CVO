@@ -231,7 +231,8 @@ select {
 }
 #tagSelector {
 	background-color: #EEEEEE;
-	border: 1px solid #999999;
+	border: 1px solid #CCCCCC;
+	
 	color: #999999;
 	padding: 3px;
 	width: 258px;
@@ -290,6 +291,9 @@ select {
 .textalignright {
 	text-align: right;
 	margin-top: 0;
+}
+.theConcern {
+	margin-top: 10px;
 }
 /* SpiffyBox CSS */
 /* set the image to use and establish the lower-right position */ 

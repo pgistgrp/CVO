@@ -343,10 +343,11 @@ h6 {
 .tags a{
 	color: #878;
 	padding: 1px;
-	border: 1px solid #CDC;
-	border-bottom: 1px solid #069;
+	border: 1px solid #C5D0E4;
+	/*border-bottom: 1px solid #069;*/
 	text-decoration: none;
 	font-weight: normal;
+	
 }
 
 .tags a:hover{
@@ -362,8 +363,7 @@ h6 {
 	padding: 1px;
 	padding-left: 2px;
 	padding-right: 2px;
-	border: 1px solid #CDC;
-	border-bottom: 1px solid #069;
+	border: 1px solid #C5D0E4;
 	text-decoration: none;
 	margin-right: 3px;
 }
