@@ -162,10 +162,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         });
         
         int count = ((Number) list.get(0)).intValue();
+        if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
         setting.setRowSize(count);
         if (count==0) return new ArrayList();
-        
-        if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
         
         //get rows
         Query query = getSession().createQuery(hql_getReplies_B_2);

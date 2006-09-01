@@ -150,7 +150,7 @@ public class RegisterAction extends Action {
         
         //TODO: Check if user already exists
         
-        Role role = userDAO.getRoleByName("member");
+        Role role = userDAO.getRoleByName("participant");
         user.addRole(role);
         
         user.encodePassword();
@@ -161,4 +161,4 @@ public class RegisterAction extends Action {
     }//execute()
     
     
-}
+}//class RegisterAction
