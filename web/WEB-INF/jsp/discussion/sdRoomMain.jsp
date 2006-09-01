@@ -54,7 +54,7 @@
 	 		SDAgent.getSummary({ioid: ${object.id}}, {
 					callback:function(data){
 							if (data.successful){
-	              				 //displayIndicator(false);
+	              				 displayIndicator(true);
 	              				 $(infoObject.objectDiv).innerHTML = data.source.html; 
 	              				
 	              			  if(data.voting == null || data.voting == undefined){
@@ -62,6 +62,7 @@
 					          }else{
 						           $('structure_question').innerHTML = '<span class="smalltext">Your vote has been recorded. Thank you for your participation.</span>';
 						      }
+						      displayIndicator(false);
 							}else{
 								alert(data.reason);
 								 //displayIndicator(false);
@@ -79,17 +80,15 @@
 	 
 
 	 	 this.setVote = function(agree){
-	 	 		displayIndicator(true);
-
 					SDAgent.setVoting({ioid: ${object.id}, agree:agree}, {
 					callback:function(data){
 							if (data.successful){ 
-	              				 alert("thank you for your vote");
+								displayIndicator(true);
+	              				// alert("thank you for your vote");
 	              				 infoObject.getTargets();
 	              				 displayIndicator(false);
 							}else{
 								alert(data.reason);
-								 displayIndicator(false);
 							}
 						},
 					errorHandler:function(errorString, exception){ 
@@ -107,7 +106,7 @@
 	 	 			return
 	 	 		}//end validation
 
-
+				
 				SDAgent.createPost({isid:${structure.id}, ioid: ${object.id}, title: newPostTitle, content: newPost, tags:newPostTags}, {
 				callback:function(data){
 						if (data.successful){
@@ -130,7 +129,6 @@
 			
 		this.getPosts = function(){
 		    //alert(${object.id});
-		    displayIndicator(true);
 	    	var page = 1;
 	 		if (<%= request.getParameter("page") %> != null){
 	 			page = <%= request.getParameter("page") %>;	
@@ -138,10 +136,10 @@
 		    SDAgent.getPosts({isid:${structure.id}, ioid:${object.id}, page: page, count: 10}, {
 		      callback:function(data){
 		          if (data.successful){
+		          	displayIndicator(true);
 		          $(infoObject.discussionDiv).innerHTML = data.html;
 		           displayIndicator(false);
 		          }else{
-		          	 displayIndicator(false);
 		            alert(data.reason);
 		          }
 		      },
@@ -235,13 +233,17 @@
 	*/
 	function toggleNewDiscussion(){
 		if ($('newDiscussion').style.display == 'none'){
+			displayIndicator(true);
 			new Effect.toggle('newDiscussion', 'blind', {duration: 0.5});
 			$('sidebarbottom_disc').style.display = 'none';	
 			$('sidebarbottom_newdisc').style.display = 'block';	
+			displayIndicator(false);
 		}else{
+			displayIndicator(true);
 			new Effect.toggle('newDiscussion', 'blind', {duration: 0.5, afterFinish: function(){
 			$('sidebarbottom_disc').style.display = 'block';	
-			$('sidebarbottom_newdisc').style.display = 'none';		
+			$('sidebarbottom_newdisc').style.display = 'none';	
+			displayIndicator(false);	
 			}});		
 		}
 	}
@@ -254,10 +256,7 @@
 
 <div id="container">
 	<jsp:include page="/header.jsp" />
-	<!-- START LIGHTBOX -->
-		<div id="overlay" style="display: none;"></div>
-		<div id="lightbox" style="display: none;" class="blueBB"></div>
-	<!-- END LIGHTBOX -->
+		
    <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 	
 	<!-- Sub Title -->
@@ -269,140 +268,122 @@
 	</div>
 	<!-- End Sub Title -->
 	
-	<div id="container">
-
-<!-- Overview SpiffyBox -->
-<div class="cssbox">
-	<div class="cssbox_head">
-		<h3>Overview and Instructions</h3>
+	<!-- Overview SpiffyBox -->
+	<div class="cssbox">
+		<div class="cssbox_head">
+			<h3>Overview and Instructions</h3>
+		</div>
+		<div class="cssbox_body">
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam interdum. Donec accumsan, purus ut viverra pharetra, augue tellus vehicula orci, eget consectetuer neque tortor id
+			ante. Proin vehicula imperdiet ante. Mauris vehicula velit sed arcu. Ut aliquam pede ac arcu. Phasellus dictum condimentum nisl. Quisque elementum dictum nibh. Curabitur
+			auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luctus lorem a magna.</p>
+		</div>
 	</div>
-	<div class="cssbox_body">
-		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam interdum. Donec accumsan, purus ut viverra pharetra, augue tellus vehicula orci, eget consectetuer neque tortor id
-		ante. Proin vehicula imperdiet ante. Mauris vehicula velit sed arcu. Ut aliquam pede ac arcu. Phasellus dictum condimentum nisl. Quisque elementum dictum nibh. Curabitur
-		auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luctus lorem a magna.</p>
+	<!-- End Overview -->
+	
+	<div class="backToDiscussion">
+		<div id="tselector">
+			<label>
+			Jump To:
+			 <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">		  
+				<option value = "${object.id}">Select a Theme</option>
+				<c:forEach var="infoObject" items="${structure.infoObjects}">
+					   <option value="${infoObject.id}">${infoObject.object}</option>
+				</c:forEach>	
+		 	 </select>
+			</label>
+		</div>	<!-- end tselector -->
+		<div id="backdisc"><a href="sd.do?isid=${structure.id}">Back to Discussion</a></div>	  
+	</div> <!-- end backtodiscussion -->
+	<div id="cont-main">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+						<td id="maintop"><img src="" alt="" height="1" width="1"/></td>
+						<td><img src="images/sidebar_top.gif" alt="sidebartop" /></td>
+				</tr>
+				<tr>
+						<td valign="top" id="maincontent">
+							<!-- Main Content starts Here-->
+							<h4>Step 1. Summary of Participant Concerns </h4>
+							<div id="object">
+								<div class="padding">
+									<h5 id = "targetTitle"></h5>
+									<div id="object-content">
+										<!-- load object here -->
+									</div><!--end object content -->
+								</div> <!-- end padding -->
+							</div> <!-- end object -->
+							<p class="textalignright">&nbsp;</p>
+						</td> <!-- end td main content -->
+						
+						<td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
+							<div id="sidebar_container">
+									<div id="tagSelector">
+										<div id="tagform">
+											<h6>Sidebar filtered by:</h6>
+											[Tags ] [Tags] [Tags]<br />
+											<form action="" method="get">
+												Sidebar Filter: 
+												 <input name="tagSearch" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value)" />
+											</form>
+										</div><!-- end tagform -->
+										<div id="pullDown" class="textright"><a href="javascript: expandTagSelector();">Expand</a></div>
+										<div id="allTags" style="display: none;"><!--load tags --></div>
+										<div class="clear"></div>
+									</div> <!-- end tag selector -->
+									<div id="tagSelector_spacer" style="display: none;"><!-- Duplicate tagSelector to work as a spacer during expand effect -->
+									<h6>Sidebar filtered by:</h6>
+									[Tags ] [Tags] [Tags]<br />
+									<form action="" method="get">
+									Sidebar Filter: 
+									  <input name="tagSearch" id="tagSearch_spacer" type="text" style="visibility: hidden;"/>
+									</form>
+									<div id="pullDown_spacer" class="textright" style="visibility: hidden;">Expand</div>
+									<div id="allTags_spacer" style="visibility: hidden;"></div>
+									<div class="clear"></div>
+								</div>
+								
+								<div id="sidebarSearchResults" style="display: none;"></div>
+								  <div id="sidebar_content">
+									<h5 id="targetSideBarTitle"></h5>
+									Add Tag stuff here
+								
+								<div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
+								
+								</div><!-- End sidebarcontents-->
+								</div><!-- sidebar container-->
+					</td>
+				<!-- End Right Col -->
+				</tr>
+		</table>
+		<div id="sidebarbottom_disc" style="text-align:right; display: block;"><img src="/images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
+		<div id="sidebarbottom_newdisc" style="text-align:right; display: none;"><img src="/images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
+	</div><!-- End cont-main -->
+	<div id="newDiscussion" style="display: none">
+		<div id="newdisc_title" >
+			New Discussion
+			<span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();">Close</a></span>
+		</div> <!-- End newdisc_title -->
+		<div id="newdisc_content" class="greenBB">
+			<p>SDC New Discussion Paragraph</p>
+			<form>
+				<p><label>Post Title</label><br><input style="width:100%" type="text" id="txtNewPostTitle"/></p>
+				<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea></p>
+				<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="txtNewPostTags" type="text" /></p>
+				<input type="button" onClick="infoObject.createPost();" value="Create Discussion">
+			</form>
+		</div>
 	</div>
-</div>
-<!-- End Overview -->
-<div class="backToDiscussion">
-			<div id="tselector">
 		
-			  <label>
-			  Jump To:
-			  <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">		  
-			    <option value = "${object.id}">Select a Theme</option>
-			   <c:forEach var="infoObject" items="${structure.infoObjects}">
-			       <option value="${infoObject.id}">${infoObject.object}</option>
-			    </c:forEach>	
-		      </select>
-			  </label>
-	
-			</div>	
-			  <div id="backdisc"><a href="sd.do?isid=${structure.id}">Back to Discussion</a></div>	  
-</div>
-<div id="cont-main">
-<div id="backToDiscussion">
-
-</div>
-
-<table width="100%" border="0" cellpadding="0" cellspacing="0">
-<tr>
-<td id="maintop"><img src="" alt="" height="1" width="1"/></td>
-<td><img src="images/sidebar_top.gif" alt="sidebartop" /></td>
-</tr>
-<tr>
-<td valign="top" id="maincontent">
-<!-- Main Content starts Here-->
-<h4>Step 1. Summary of Participant Concerns </h4>
-<div id="object">
-<div class="padding">
-<h5 id = "targetTitle"></h5>
-	<div id="object-content">
-		<!-- load object here -->
+	<div id="discussion-cont">
+		<span class="padding"><h4 id="targetDiscussionTitle"></h4></span><span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();">New Discussion</a></span>
+		<div id="discussion"><!-- load discussion posts --></div>
 	</div>
-
+		
+	<div id="finished" class="greenBB">
+		<h4>Step 4. Finished?</h4><br />
+		Go back or continue... [add buttons] [Cancel]
 	</div>
-</div>
-<!-- End Object -->
-<p class="textalignright">&nbsp;</p>
-		</td>
-
-<td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
-<div id="sidebar_container">
-<div id="tagSelector">
-	<div id="tagform">
-	<h6>Sidebar filtered by:</h6>
-	[Tags ] [Tags] [Tags]<br />
-	<form action="" method="get">
-	Sidebar Filter: 
-	  <input name="tagSearch" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value)" />
-	</form>
-	</div>
-	<div id="pullDown" class="textright"><a href="javascript: expandTagSelector();">Expand</a></div>
-	<div id="allTags" style="display: none;"></div>
-	<div class="clear"></div>
-	
-</div>
-<div id="tagSelector_spacer" style="display: none;"><!-- Duplicate tagSelector to work as a spacer during expand effect -->
-	<h6>Sidebar filtered by:</h6>
-	[Tags ] [Tags] [Tags]<br />
-	<form action="" method="get">
-	Sidebar Filter: 
-	  <input name="tagSearch" id="tagSearch_spacer" type="text" style="visibility: hidden;"/>
-	</form>
-	<div id="pullDown_spacer" class="textright" style="visibility: hidden;">Expand</div>
-	<div id="allTags_spacer" style="visibility: hidden;"></div>
-	<div class="clear"></div>
-</div>
-<div id="sidebarSearchResults" style="display: none;"></div>
-  <div id="sidebar_content">
-	<h5 id="targetSideBarTitle"></h5>
-	Add Tag stuff here
-
-<div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
-
-</div><!-- End sidebarcontents-->
-</div><!-- sidebar container-->
-</td>
-<!-- End Right Col -->
-</tr>
-
-</table>
-<div id="sidebarbottom_disc" style="text-align:right; display: block;"><img src="/images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
-<div id="sidebarbottom_newdisc" style="text-align:right; display: none;"><img src="/images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
-
-
-</div>
-<!-- End cont-main -->
-<div id="newDiscussion" style="display: none">
-<div id="newdisc_title" >
-	New Discussion
-	<span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();">Close</a></span>
-</div> <!-- End newdisc_title -->
-<div id="newdisc_content" class="greenBB">
-	<p>SDC New Discussion Paragraph</p>
-	<form>
-		<p><label>Post Title</label><br><input style="width:100%" type="text" id="txtNewPostTitle"/></p>
-		<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea></p>
-		<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="txtNewPostTags" type="text" /></p>
-		<input type="button" onClick="infoObject.createPost();" value="Create Discussion">
-	</form>
-</div>
-</div>
-
-
-<div id="discussion-cont">
-	<span class="padding"><h4 id="targetDiscussionTitle"></h4></span><span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();">New Discussion</a></span>
-	  <div id="discussion">
-			<!-- load discussion posts -->
-	  </div>
-</div>
-
-
-
-<div id="finished" class="greenBB">
-	<h4>Step 4. Finished?</h4><br />
-	Go back or continue... [add buttons] [Cancel]
-</div>
 
 </div> <!-- End container -->
 <!-- Start Footer -->

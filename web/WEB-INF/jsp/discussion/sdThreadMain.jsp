@@ -45,10 +45,12 @@
 		    SDAgent.createReply({isid:${structure.id}, pid:${post.id}, title:newReplyTitle, content:newReply, tags: newReplyTags}, {
 		      callback:function(data){
 		          if (data.successful){
+		          		displayIndicator(true);
 		          		getReplies();           
           				$('txtnewReplyTitle').value = 'Re: ${post.title} ';
 						$('txtnewReply').value = '';
 						$('newReplyTags').value = '';
+						displayIndicator(false);
 		          }else{
 		            alert(data.reason);
 		          }
@@ -76,7 +78,9 @@
 		      SDAgent.getReplies({isid:${structure.id}, ioid:ioid, postid:${post.id}, page: page, count: countPerPage}, {
 		      callback:function(data){
 		          if (data.successful){
+		          			displayIndicator(true);
 		          			$('postReplies').innerHTML = data.html;         
+		          			displayIndicator(false);
 		          }else{
 		            alert("data.successful != true: " + data.reason);
 		          }
@@ -86,7 +90,13 @@
 		      }
 		    });
 		  }
-  
+  		function displayIndicator(show){
+		if (show){
+			$('loading-indicator').style.display = "inline";	
+		}else{
+			$('loading-indicator').style.display = "none";	
+		}
+	}
 </script>
 
 </head>

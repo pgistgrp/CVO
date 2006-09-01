@@ -34,6 +34,9 @@
 	<c:if test="${setting.pageSize > 1}">
 		<div class="pages">
 				More Pages: 
+				<c:if test="${setting.page > 1}">
+					<span class="pages_nextprev"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.object.id}&page=${setting.page - 1}">&#171; prev page</a></span>
+				</c:if>
 				<ul>
 					<c:forEach var="i" begin="1" end="${setting.pageSize}" step="1">
 						    <c:choose>
@@ -46,11 +49,7 @@
 						    </c:choose>
 					</c:forEach>
 				</ul>
-				
-				<c:if test="${setting.page > 1}">
-					<span class="pages_nextprev"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.object.id}&page=${setting.page - 1}">&#171; prev page</a></span>
-				</c:if>
-				
+								
 				<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
 					<span class="pages_nextprev"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.object.id}&page=${setting.page + 1}">next page &#187; </a></span>
 				</logic:notEqual>

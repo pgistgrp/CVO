@@ -47,16 +47,13 @@
 <script type="text/javascript">
 	 function InfoStructure(){
 		this.isDivElement = 'object';
-
 	 	 this.getTargets = function(){
-	 	 		//displayIndicator(true);
 				SDAgent.getTargets({isid:${structure.id}}, {
 				callback:function(data){
 						if (data.successful){
+							displayIndicator(true);
 							$(infoStructure.isDivElement).innerHTML = data.source.html;
               				eval(data.source.script);
-              				//displayIndicator(false);
-              				 //alert(data.voting);
               				 
 		              		 if(data.voting == null || data.voting == undefined){
 						           $('structure_question').innerHTML = '<span class="smalltext">Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoStructure.setVote(true);"><img src="images/btn_yes_s.gif" alt="YES" border="0"><a href="javascript:infoStructure.setVote(false);"><img src="images/btn_no_s.gif" alt="NO" border="0"></a></span>';
@@ -64,7 +61,7 @@
 					          }else{
 						           $('structure_question').innerHTML = '<span class="smalltext">Your vote has been recorded. Thank you for your participation.</span>';
 						      }
-					        
+					        displayIndicator(false);
 						}else{
 							alert(data.reason);
 							 displayIndicator(false);
@@ -80,11 +77,12 @@
 					SDAgent.setVoting({isid: ${structure.id}, agree:agree}, {
 					callback:function(data){
 							if (data.successful){
-	              				 alert("thank you for your vote");
+	              				 //alert("thank you for your vote");
+	              				 displayIndicator(true);
 	              				 infoStructure.getTargets();
+	              				 displayIndicator(false);
 							}else{
 								alert(data.reason);
-								 displayIndicator(false);
 							}
 						},
 					errorHandler:function(errorString, exception){ 
@@ -94,10 +92,18 @@
 				};
 			};
 			
+		function displayIndicator(show){
+		if (show){
+			$('loading-indicator').style.display = "inline";	
+		}else{
+			$('loading-indicator').style.display = "none";	
+		}
+	}
+			
 </script>
 
 </head>
-
+<!--
 <c:choose>
   <c:when test="${structure.type == 'sdmap'}">
  		<body onUnload="GUnload()">
@@ -105,134 +111,128 @@
 
   <c:otherwise>
   		<body>
-  </c:otherwise>
-</c:choose>
+ </c:otherwise>
+</c:choose>-->
 
-
+<body>
 <div id="container">
-<jsp:include page="/header.jsp" />
-<!-- Header -->
-
-
-<div id="cont-top">
-
-
-<!-- Sub Title -->
-<div id="subheader">
-<h1>Step 1 Brainstorm Concerns:</h1> <h2>Discuss Concerns Summary</h2>
-</div>
-<div id="footprints">
-<span class="smalltext">LIT Process >> Step 1 Brainstorm Concerns >> Discuss Concerns Summary</span>
-</div>
-<!-- End Sub Title -->
-
-
-<!-- Overview SpiffyBox -->
-<div class="cssbox">
-<div class="cssbox_head">
-<h3>Overview and Instructions</h3>
-</div>
-<div class="cssbox_body">
-<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam interdum. Donec accumsan, purus ut viverra pharetra, augue tellus vehicula orci, eget consectetuer neque tortor id
-ante. Proin vehicula imperdiet ante. Mauris vehicula velit sed arcu. Ut aliquam pede ac arcu. Phasellus dictum condimentum nisl. Quisque elementum dictum nibh. Curabitur
-auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luctus lorem a magna.</p>
-</div>
-</div>
-<!-- End Overview -->
-
-</div> <!-- End cont-top -->
-
-<div id="cont-main">
-
-<table width="100%" border="0" cellpadding="0" cellspacing="0">
-<tr>
-<td id="maintop"><img src="#" alt="" height="1" width="1"/></td>
-<td><img src="images/sidebar_top.gif" alt="sidebartop" /></td>
-</tr>
-<tr>
-<td valign="top" id="maincontent">
-<!-- Main Content starts Here-->
-<!--
-<c:if test="${structure.type == 'sdmap'}">
-	<div id="map" style="width: 100%; height: 400px;"></div>
-</c:if>
--->
-
-<h4>Concern Theme Rooms</h4>
-<div id="object">
-	<!-- load discussion rooms -->
-</div><!-- End Object -->
-		
-<br />
-		<h4>Talk to the Moderator (needs a better name) </h4>
-		<div>
-		<table width="100%" class="tabledisc">
-		          <tr class="disc_row_b">
-		            <td><div class="padding-sides"><a href="/sdRoom.do?isid=${structure.id}&ioid=">Discussion about all concern themes</a><br /><span class="smalltext">Do you feel like a corner theme is missing or unnecessary from the above list? Discuss here</span></div></td>
-		 		    <td width="150"><span class="smalltext" style="font-size: 80%;">
-		 		    <c:choose>
-				      <c:when test="${structure.lastPost.id != null}">
-				     		<div class="padding-sides">
-							<a href="/sdThread.do?isid=${structure.id}&pid=${structure.lastPost.id}">${structure.lastPost.title}</a><br />
-				      		Posted on: <fmt:formatDate value="${structure.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${structure.lastPost.owner.loginname}
-							</div>
-				      </c:when>
-				      <c:otherwise>
-				      		<span class="padding-sides">No current discussions</span>
-				      </c:otherwise>
-				    </c:choose>          
-					</td>
-		            <td width="100" class="textcenter"><a href="/sdRoom.do?isid=${structure.id}&ioid=">${structure.numDiscussion}</a></td>
-		          </tr>		    
-        </table><br>
+		 <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
+		<jsp:include page="/header.jsp" />
+		<!-- Header -->
+		<div id="cont-top">
+		<!-- Sub Title -->
+		<div id="subheader">
+		<h1>Step 1 Brainstorm Concerns:</h1> <h2>Discuss Concerns Summary</h2>
 		</div>
-
-
-<td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
-<div id="sidebar_container">
-<div id="tagSelector">
-	<div id="tagform">
-	<h6>Sidebar filtered by:</h6>
-	[Tags ] [Tags] [Tags]<br />
-	<form action="" method="get">
-	Sidebar Filter: 
-	  <input name="tagSearch" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value)" />
-	</form>
-	</div>
-	<div id="pullDown" class="textright"><a href="javascript: expandTagSelector();">Expand</a></div>
-	<div id="allTags" style="display: none;"></div>
-	<div class="clear"></div>
-	
-</div>
-<div id="tagSelector_spacer" style="display: none;"><!-- Duplicate tagSelector to work as a spacer during expand effect -->
-	<h6>Sidebar filtered by:</h6>
-	[Tags ] [Tags] [Tags]<br />
-	<form action="" method="get">
-	Sidebar Filter: 
-	  <input name="tagSearch" id="tagSearch_spacer" type="text" style="visibility: hidden;"/>
-	</form>
-	<div id="pullDown_spacer" class="textright" style="visibility: hidden;">Expand</div>
-	<div id="allTags_spacer" style="visibility: hidden;"></div>
-	<div class="clear"></div>
-</div>
-<div id="sidebarSearchResults" style="display: none;"></div>
-  <div id="sidebar_content">
-
-
-<div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
-
-</div><!-- End sidebarcontents-->
-</div><!-- sidebar container-->
- </td><!-- End Right Col -->
-</tr>
-
-</table>
-<div id="sidebarbottom" style="text-align:right;"><img src="images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
-
-
-</div>
-<!-- End cont-main -->
-
+		<div id="footprints">
+		<span class="smalltext">LIT Process >> Step 1 Brainstorm Concerns >> Discuss Concerns Summary</span>
+		</div>
+		<!-- End Sub Title -->
+		<!-- Overview SpiffyBox -->
+		<div class="cssbox">
+			<div class="cssbox_head">
+				<h3>Overview and Instructions</h3>
+			</div>
+			<div class="cssbox_body">
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam interdum. Donec accumsan, purus ut viverra pharetra, augue tellus vehicula orci, eget consectetuer neque tortor id
+				ante. Proin vehicula imperdiet ante. Mauris vehicula velit sed arcu. Ut aliquam pede ac arcu. Phasellus dictum condimentum nisl. Quisque elementum dictum nibh. Curabitur
+				auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luctus lorem a magna.</p>
+			</div>
+		</div>
+		<!-- End Overview -->
+		
+		</div> <!-- End cont-top -->
+		
+		<div id="cont-main">
+		
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+		<tr>
+		<td id="maintop"><img src="#" alt="" height="1" width="1"/></td>
+		<td><img src="images/sidebar_top.gif" alt="sidebartop" /></td>
+		</tr>
+		<tr>
+		<td valign="top" id="maincontent">
+		<!-- Main Content starts Here-->
+		<!--
+		<c:if test="${structure.type == 'sdmap'}">
+			<div id="map" style="width: 100%; height: 400px;"></div>
+		</c:if>
+		-->
+		
+		<h4>Concern Theme Rooms</h4>
+		<div id="object">
+			<!-- load discussion rooms -->
+		</div><!-- End Object -->
+				
+		<br />
+				<h4>Talk to the Moderator (needs a better name) </h4>
+				<div>
+				<table width="100%" class="tabledisc">
+				          <tr class="disc_row_b">
+				            <td><div class="padding-sides"><a href="/sdRoom.do?isid=${structure.id}&ioid=">Discussion about all concern themes</a><br /><span class="smalltext">Do you feel like a corner theme is missing or unnecessary from the above list? Discuss here</span></div></td>
+				 		    <td width="150"><span class="smalltext" style="font-size: 80%;">
+				 		    <c:choose>
+						      <c:when test="${structure.lastPost.id != null}">
+						     		<div class="padding-sides">
+									<a href="/sdThread.do?isid=${structure.id}&pid=${structure.lastPost.id}">${structure.lastPost.title}</a><br />
+						      		Posted on: <fmt:formatDate value="${structure.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${structure.lastPost.owner.loginname}
+									</div>
+						      </c:when>
+						      <c:otherwise>
+						      		<span class="padding-sides">No current discussions</span>
+						      </c:otherwise>
+						    </c:choose>          
+							</td>
+				            <td width="100" class="textcenter"><a href="/sdRoom.do?isid=${structure.id}&ioid=">${structure.numDiscussion}</a></td>
+				          </tr>		    
+		        </table><br>
+				</div>
+		
+		
+		<td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
+		<div id="sidebar_container">
+		<div id="tagSelector">
+			<div id="tagform">
+			<h6>Sidebar filtered by:</h6>
+			[Tags ] [Tags] [Tags]<br />
+			<form action="" method="get">
+			Sidebar Filter: 
+			  <input name="tagSearch" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value)" />
+			</form>
+			</div>
+			<div id="pullDown" class="textright"><a href="javascript: expandTagSelector();">Expand</a></div>
+			<div id="allTags" style="display: none;"></div>
+			<div class="clear"></div>
+			
+		</div>
+		<!-- Duplicate tagSelector to work as a spacer during expand effect -->
+		<div id="tagSelector_spacer" style="display: none;">
+			<h6>Sidebar filtered by:</h6>
+			[Tags ] [Tags] [Tags]<br />
+			<form action="" method="get">
+			Sidebar Filter: 
+			  <input name="tagSearch" id="tagSearch_spacer" type="text" style="visibility: hidden;"/>
+			</form>
+			<div id="pullDown_spacer" class="textright" style="visibility: hidden;">Expand</div>
+			<div id="allTags_spacer" style="visibility: hidden;"></div>
+			<div class="clear"></div>
+		</div>
+		<!-- End Duplicate tagSelector to work as a spacer during expand effect -->
+		<div id="sidebarSearchResults" style="display: none;"></div>
+		  <div id="sidebar_content">
+		
+		
+		<div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
+		
+		</div><!-- End sidebarcontents-->
+		</div><!-- sidebar container-->
+		 </td><!-- End Right Col -->
+		</tr>
+		
+		</table>
+		<div id="sidebarbottom" style="text-align:right;"><img src="images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
+		<!--end sidebar-->
+		</div><!-- End cont-main -->
 </div> <!-- End container -->
 
 <!-- Start Footer -->

@@ -144,6 +144,17 @@ h6 {
 	background-position: bottom left;
 	background-repeat: no-repeat;
 }
+#loading-indicator{
+	display: none;
+	background-color: red;
+	color: white;
+	position: fixed;
+	top: 0;
+	left:0;
+	padding: 3px;
+	z-index: 500;
+}
+
 #login {
 	margin-bottom: 0px;
 	margin-left: auto;
@@ -254,6 +265,8 @@ h6 {
 .pages{text-align: left;}
 .pages ul {
 	display:inline;
+	margin:0;
+	padding:0;
 }
 .pages li, .pages span{
 	display:inline;
