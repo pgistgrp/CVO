@@ -1,7 +1,5 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html:html>
-<head>
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en"><head>
 <title>Register</title>
 
 <style>
@@ -10,6 +8,8 @@
 </head>
 
 
+
+<html:html>
 <div id="container">
 <div id="slate" class="leftBox">
 
@@ -21,7 +21,7 @@
       Demo</h2>
   <table>
     <tr>
-      <td>User Name:</td>
+      <td>User Names:</td>
       <td><html:text property="user.loginname"/></td>
     </tr>
     <tr>
