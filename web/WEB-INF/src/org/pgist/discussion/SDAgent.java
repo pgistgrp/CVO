@@ -234,7 +234,7 @@ public class SDAgent {
             String ioidStr = (String) params.get("ioid");
             if (ioidStr!=null && !"".equals(ioidStr)) {
                 ioid = new Long(ioidStr);
-                object = sdService.getInfoObjectById(isid);
+                object = sdService.getInfoObjectById(ioid);
                 if (object==null) {
                     map.put("reason", "no such InfoStructure object");
                     return map;
