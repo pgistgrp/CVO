@@ -51,10 +51,10 @@
 		};
 	 	this.getTargets = function(){
 	 		//if (${object.id} != null){
+	 		displayIndicator(true);
 	 		SDAgent.getSummary({ioid: ${object.id}}, {
 					callback:function(data){
 							if (data.successful){
-	              				 displayIndicator(true);
 	              				 $(infoObject.objectDiv).innerHTML = data.source.html; 
 	              				
 	              			  if(data.voting == null || data.voting == undefined){
@@ -65,7 +65,7 @@
 						      displayIndicator(false);
 							}else{
 								alert(data.reason);
-								 //displayIndicator(false);
+								 displayIndicator(false);
 							}
 						},
 					errorHandler:function(errorString, exception){ 
@@ -80,15 +80,15 @@
 	 
 
 	 	 this.setVote = function(agree){
+	 	 			displayIndicator(true);
 					SDAgent.setVoting({ioid: ${object.id}, agree:agree}, {
 					callback:function(data){
 							if (data.successful){ 
-								displayIndicator(true);
-	              				// alert("thank you for your vote");
-	              				 infoObject.getTargets();
+	              				 new Effect.Fade('structure_question', {afterFinish: function(){infoObject.getTargets(); new Effect.Appear('structure_question');}});
 	              				 displayIndicator(false);
 							}else{
 								alert(data.reason);
+								displayIndicator(false);
 							}
 						},
 					errorHandler:function(errorString, exception){ 
@@ -97,6 +97,7 @@
 					});
 			};
 	 	 this.createPost = function(){
+	 	 		displayIndicator(true);
 	 	 		var newPostTitle = $('txtNewPostTitle').value;
 	 	 		var newPost = $('txtNewPost').value;
 	 	 		var newPostTags = $('txtNewPostTags').value;
@@ -116,9 +117,11 @@
 							 $('txtNewPost').value = '';
 							 $('txtNewPostTags').value = '';
 							 toggleNewDiscussion();
+							 displayIndicator(false);
 						}else{
 							alert(data.reason);
 							 toggleNewDiscussion();
+							 displayIndicator(false);
 						}
 					},
 				errorHandler:function(errorString, exception){ 
@@ -128,7 +131,7 @@
 			};
 			
 		this.getPosts = function(){
-		    //alert(${object.id});
+		    displayIndicator(true);
 	    	var page = 1;
 	 		if (<%= request.getParameter("page") %> != null){
 	 			page = <%= request.getParameter("page") %>;	
@@ -136,11 +139,11 @@
 		    SDAgent.getPosts({isid:${structure.id}, ioid:${object.id}, page: page, count: 10}, {
 		      callback:function(data){
 		          if (data.successful){
-		          	displayIndicator(true);
 		          $(infoObject.discussionDiv).innerHTML = data.html;
 		           displayIndicator(false);
 		          }else{
 		            alert(data.reason);
+		            displayIndicator(false);
 		          }
 		      },
 		      errorHandler:function(errorString, exception){
@@ -152,20 +155,21 @@
 	
 	function Discussion(){
 		this.discussionDivSort = "header_cat";
-		
+		displayIndicator(true);
 		this.deletePost = function(postId){
 		var destroy = confirm ("Are you sure you want to delete this post? Note: there is no undo.")
 		if (destroy){
 			    SDAgent.deletePost({pid: postId}, {
 			      callback:function(data){
 			          if (data.successful){
-								displayIndicator(true);
+								
 			          			$('discussion-post'+postId).innerHTML = "deleting...";
 			          			setTimeout("new Effect.DropOut('discussion-post-cont"+postId+"', {afterFinish: function(){infoObject.getPosts(infoObject.targetId)}});", 1000);
 			          			displayIndicator(false);
 								
 			          }else{
 			           	 alert(data.reason);
+			           	 displayIndicator(false);
 			          }
 			      },
 			      errorHandler:function(errorString, exception){

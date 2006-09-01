@@ -39,13 +39,13 @@
 			var countPerPage = 10; //numer of posts per page
 		/* end global vars */
 		 function createReply(){
+		 	displayIndicator(true);
 			var newReplyTitle = $('txtnewReplyTitle').value;
 			var newReply = $('txtnewReply').value;
 			var newReplyTags = $('newReplyTags').value;
 		    SDAgent.createReply({isid:${structure.id}, pid:${post.id}, title:newReplyTitle, content:newReply, tags: newReplyTags}, {
 		      callback:function(data){
 		          if (data.successful){
-		          		displayIndicator(true);
 		          		getReplies();           
           				$('txtnewReplyTitle').value = 'Re: ${post.title} ';
 						$('txtnewReply').value = '';
@@ -53,6 +53,7 @@
 						displayIndicator(false);
 		          }else{
 		            alert(data.reason);
+		            displayIndicator(false);
 		          }
 		      },
 		      errorHandler:function(errorString, exception){
@@ -62,6 +63,7 @@
 		  }
 		
 		 function getReplies(){
+		 		displayIndicator(true);
 		 		var ioid = '${object.id}';
 		 		if(ioid == ''){
 		 			ioid = null;
@@ -78,11 +80,12 @@
 		      SDAgent.getReplies({isid:${structure.id}, ioid:ioid, postid:${post.id}, page: page, count: countPerPage}, {
 		      callback:function(data){
 		          if (data.successful){
-		          			displayIndicator(true);
+		          			
 		          			$('postReplies').innerHTML = data.html;         
 		          			displayIndicator(false);
 		          }else{
 		            alert("data.successful != true: " + data.reason);
+		            displayIndicator(false);
 		          }
 		      },
 		      errorHandler:function(errorString, exception){
@@ -104,7 +107,7 @@
 <div id="container">
 <jsp:include page="/header.jsp" />
 <!-- Header -->
-
+  <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 
 <div id="cont-top">
 
@@ -179,6 +182,7 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 	</div><!--end post-->
    <div id="extrapadding" class="padding-sides">
 	<div id="replies-cont" class="greyscheme">
+			<h4>Replies to ${post.title}</h4>
 			<div id="postReplies">
 				<!-- replies will be loaded here via DWR -->
 			</div>

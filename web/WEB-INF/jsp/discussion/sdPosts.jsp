@@ -27,7 +27,7 @@
 
 	<c:forEach var="post" items="${posts}" varStatus="loop">
 		<tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
-			<td><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a><br /><span class="smalltext">${fn:substring(post.content, 0, 125)}... </span></td>
+			<td><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a><br /><span class="smalltext"  style="font-size: 80%;">${fn:substring(post.content, 0, 125)}... </span></td>
 			<td width="150" class="textcenter"><a href="#">${post.owner.loginname}</a></td>
 			<td width="200">
 			<span class="smalltext" style="font-size: 80%;">

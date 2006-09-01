@@ -46,12 +46,13 @@
 <!--End SDX Specific  Libraries-->
 <script type="text/javascript">
 	 function InfoStructure(){
+	 	displayIndicator(true);
 		this.isDivElement = 'object';
 	 	 this.getTargets = function(){
 				SDAgent.getTargets({isid:${structure.id}}, {
 				callback:function(data){
 						if (data.successful){
-							displayIndicator(true);
+							
 							$(infoStructure.isDivElement).innerHTML = data.source.html;
               				eval(data.source.script);
               				 
@@ -74,15 +75,16 @@
 			};
 
 	 	 this.setVote = function(agree){
+	 	 			displayIndicator(true);
 					SDAgent.setVoting({isid: ${structure.id}, agree:agree}, {
 					callback:function(data){
 							if (data.successful){
 	              				 //alert("thank you for your vote");
-	              				 displayIndicator(true);
-	              				 infoStructure.getTargets();
+	              				 new Effect.Fade('structure_question', {afterFinish: function(){infoStructure.getTargets(); new Effect.Appear('structure_question');}});
 	              				 displayIndicator(false);
 							}else{
 								alert(data.reason);
+								 displayIndicator(false);
 							}
 						},
 					errorHandler:function(errorString, exception){ 

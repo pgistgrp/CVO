@@ -33,9 +33,10 @@
 	
 	<c:if test="${setting.pageSize > 1}">
 		<div class="pages">
+			<h1>object.id = ${object.id}</h1>
 				More Pages: 
 				<c:if test="${setting.page > 1}">
-					<span class="pages_nextprev"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.object.id}&page=${setting.page - 1}">&#171; prev page</a></span>
+					<span class="pages_nextprev"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.id}&page=${setting.page - 1}">&#171; prev page</a></span>
 				</c:if>
 				<ul>
 					<c:forEach var="i" begin="1" end="${setting.pageSize}" step="1">
@@ -44,14 +45,14 @@
 						     		<li class="pages_current">${i}</li>
 						      </c:when>
 						      <c:otherwise>
-						      		<li><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.object.id}&page=${i}">${i}</a></li>
+						      		<li><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.id}&page=${i}">${i}</a></li>
 						      </c:otherwise>
 						    </c:choose>
 					</c:forEach>
 				</ul>
 								
 				<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-					<span class="pages_nextprev"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.object.id}&page=${setting.page + 1}">next page &#187; </a></span>
+					<span class="pages_nextprev"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${infoObject.id}&page=${setting.page + 1}">next page &#187; </a></span>
 				</logic:notEqual>
 		</div>
 	</c:if>
