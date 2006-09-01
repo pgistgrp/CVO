@@ -81,17 +81,18 @@
 					if (data.successful){ 	
 							$('list').innerHTML = "";
 							$('list').innerHTML += data.html;
+							//$('list').innerHTML = data.html;
 							setSort(sortby, term);
 							direction = "asc"; //reset direction
-							$('loading-indicator').style.display = "none";
-					}
-					if (data.successful != true){
+						$('loading-indicator').style.display = "none";
+					}else{
 						alert(data.reason);
 						$('loading-indicator').style.display = "none";
 					}
 					
 				},
 				errorHandler:function(errorString, exception){ 
+				alert(errorString+" "+exception);
 						//showTheError();
 				}
 			});
