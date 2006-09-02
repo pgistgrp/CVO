@@ -176,6 +176,7 @@
       <include method="saveFootprint"/>
       <include method="getFootprint"/>
       <include method="getFootprints"/>
+      <include method="enableProjectDiscussion"/>
     </create>
 
     <!--create creator="spring" javascript="GlossarySidebarAgent">
