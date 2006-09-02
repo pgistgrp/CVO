@@ -10,6 +10,7 @@
 
 <table width="100%" border="0" cellspacing="0" class="tabledisc" >
 	  <tr class="objectblue">
+	  	<td width="40" class="textcenter">Status</td>
 		<td><a href="#">Discussion Title</a></td>
 		<td width="150" class="textcenter"><a href="#">Author</a></td>
 		<td width="200"><a href="#">Last Post</a></td>
@@ -24,9 +25,20 @@
 			</td>
 		</tr>
 	</c:if>
-
+<jsp:useBean id="today" class="java.util.Date"/>
 	<c:forEach var="post" items="${posts}" varStatus="loop">
+		<c:set var="fmtLastPostDate"><fmt:formatDate value="${post.createTime}" pattern="yyyy/MM/dd"/></c:set>
+    	<c:set var="fmtLastReplyDate"><fmt:formatDate value="${post.lastReply.createTime}" pattern="yyyy/MM/dd"/></c:set>
+    	<c:set var="fmtToday"><fmt:formatDate value="${today}" pattern="yyyy/MM/dd"/></c:set>
 		<tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
+		  <c:choose>
+		  <c:when test="${fmtToday == fmtLastPostDate || fmtToday == fmtLastReplyDate }">
+		  	 <td width="40" class="textcenter"><img src="/images/balloonactive2.gif" alt="Replies within the last 24 hours" /></td>
+		  </c:when>
+		  <c:otherwise>
+		  	 <td width="40" class="textcenter"><img src="/images/ballooninactive2.gif" alt="No replies within the last 24 hours" /></td>
+		  </c:otherwise>
+		  </c:choose>
 			<td><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a><br /><span class="smalltext"  style="font-size: 80%;">${fn:substring(post.content, 0, 125)}... </span></td>
 			<td width="150" class="textcenter"><a href="#">${post.owner.loginname}</a></td>
 			<td width="200">

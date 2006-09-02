@@ -25,15 +25,30 @@
 
     <table width="100%" class="tabledisc">
           <tr class="objectblue">
+          	<td width="40" class="textcenter">Status</td>
             <td><a href="#">Concern Theme</a></td>
 			<td width="150"><a href="#">Last Post</a></td>
             <td width="100" class="textcenter"><a href="#">Discussions</a></td> 
           </tr>		 
-
+	<jsp:useBean id="today" class="java.util.Date"/>
     <c:forEach var="infoObject" items="${structure.infoObjects}" varStatus="loop">
+    	<c:set var="fmtLastPostDate"><fmt:formatDate value="${infoObject.lastPost.createTime}" pattern="yyyy/MM/dd"/></c:set>
+    	<c:set var="fmtToday"><fmt:formatDate value="${today}" pattern="yyyy/MM/dd"/></c:set>
+    	
+    	
           <tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
-		  <!--<tr>-->
-            <td  ><a href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</a><br /><span class="smalltext">Discuss concerns related to ${infoObject.object.theme.title}</span></td>
+		  <!--<tr>-->    
+		  <c:choose>
+		  <c:when test="${fmtToday == fmtLastPostDate}">
+		  	 <td width="40" class="textcenter"><img src="/images/balloonactive2.gif" alt="Posts within the last 24 hours" /></td>
+		  </c:when>
+		  <c:otherwise>
+		  	 <td width="40" class="textcenter"><img src="/images/ballooninactive2.gif" alt="No posts within the last 24 hours" /></td>
+		  </c:otherwise>
+		  </c:choose>
+			
+
+            <td><a href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</a><br /><span class="smalltext">Discuss concerns related to ${infoObject.object.theme.title}</span></td>
 			<td ><span class="smalltext" style="font-size: 80%;">
 			
  		    <c:choose>
