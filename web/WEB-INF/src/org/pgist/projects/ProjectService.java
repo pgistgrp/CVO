@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.pgist.projects;
 
@@ -19,4 +19,5 @@ public interface ProjectService {
 	public void saveProject(Project project) throws Exception;
 	public void saveProject(Project project, ProjectAlternative alternative) throws Exception;
 	public void saveFootprint(Project project, double[][][] coords,String geoType) throws Exception;
+        public void makeProjectsDiscussable(String criteria) throws Exception;
 }

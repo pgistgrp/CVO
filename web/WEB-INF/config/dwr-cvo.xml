@@ -38,41 +38,43 @@
     </convert>
 
     <convert converter="bean" match="org.pgist.cvo.Theme"/>
-    
+
     <convert converter="bean" match="org.pgist.glossary.Term">
       <param name="exclude" value="relatedTerms"/>
     </convert>
 
     <convert converter="bean" match="org.pgist.glossary.TermSource"/>
-    
+
     <convert converter="bean" match="org.pgist.glossary.TermLink"/>
-    
+
     <convert converter="bean" match="org.pgist.glossary.TermAcronym"/>
-    
+
     <convert converter="bean" match="org.pgist.glossary.TermVariation"/>
 
     <convert converter="bean" match="org.pgist.discussion.InfoStructure">
         <param name="include" value="id,type,infoObjects"/>
     </convert>
-  
+
     <convert converter="bean" match="org.pgist.discussion.InfoObject">
         <param name="include" value="id,object"/>
     </convert>
-    
+
     <convert converter="bean" match="org.pgist.discussion.Discussion"/>
-    
+
     <convert converter="bean" match="org.pgist.discussion.DiscussionPost"/>
-    
+
     <convert converter="bean" match="org.pgist.discussion.InfoVoting">
         <param name="include" value="id, structure, object, voting, owner"/>
     </convert>
-    
+
 	 <convert converter="bean" match="org.pgist.projects.Project"/>
-	 
+
 	 <convert converter="bean" match="org.pgist.projects.ProjectAlternative"/>
-	 
+
+         <convert converter="bean" match="org.pgist.projects.Package"/>
+
     <!-- DWR Agents -->
-    
+
     <create creator="spring" javascript="CCTAgent">
       <param name="beanName" value="cctAgent"/>
       <include method="getCCTs"/>
@@ -137,8 +139,8 @@
       <include method="rejectTerm"/>
       <include method="searchTerm"/>
     </create>
-    
-    
+
+
     <create creator="spring" javascript="GlossaryPublicAgent">
       <param name="beanName" value="glossaryPublicAgent"/>
       <include method="getTerms"/>
@@ -149,8 +151,8 @@
       <include method="createComment"/>
       <include method="setFlag"/>
     </create>
-    
-    
+
+
     <create creator="spring" javascript="SDAgent">
       <param name="beanName" value="sdAgent"/>
       <include method="getPostById"/>
@@ -181,15 +183,15 @@
       <include method="searchTerms"/>
       <include method="getTerm"/>
     </create>
-    
-    
+
+
     <create creator="spring" javascript="TagSidebarAgent">
       <param name="beanName" value="tagSidebarAgent"/>
       <include method="searchTerms"/>
       <include method="getTerm"/>
     </create-->
-    
-    
+
+
   </allow>
 
 
@@ -197,7 +199,7 @@
     <![CDATA[
     ]]>
   </signatures>
-  
-  
+
+
 </dwr>
 

@@ -2,8 +2,8 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-    
-    
+
+
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass">
            <value>org.postgresql.Driver</value>
@@ -30,8 +30,8 @@
            <value>100</value>
         </property>
     </bean>
-    
-    
+
+
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
         <property name="dataSource">
            <ref local="dataSource"/>
@@ -83,6 +83,7 @@
 
 			   <value>org/pgist/projects/Project.hbm.xml</value>
 			   <value>org/pgist/projects/ProjectAlternative.hbm.xml</value>
+                           <value>org/pgist/projects/Package.hbm.xml</value>
 
            </list>
         </property>
@@ -99,15 +100,15 @@
            </props>
         </property>
     </bean>
-    
-    
+
+
     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory">
            <ref local="sessionFactory" />
         </property>
     </bean>
-    
-    
+
+
     <bean id="baseTransactionProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
       <property name="transactionManager" ref="transactionManager"/>
       <property name="transactionAttributes">
@@ -132,7 +133,7 @@
         </props>
       </property>
     </bean>
-    
-    
+
+
 </beans>
 

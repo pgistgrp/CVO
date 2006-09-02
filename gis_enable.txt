@@ -1,0 +1,89 @@
+
+
+createlang -U <dbadmin name> plpgsql cvotest
+
+C:\Program Files\PostgreSQL\8.1\bin>psql -U <dbadmin name> -d cvotest -f "C:\Program Files\PostgreSQL\8.1\s
+hare\contrib\lwpostgis.sql"
+
+C:\Program Files\PostgreSQL\8.1\bin>psql -U <dbadmin name> -d cvotest -f "C:\Program Files\PostgreSQL\8.1\s
+hare\contrib\spatial_ref_sys.sql"
+
+CREATE SEQUENCE gis_proj_footprint_id
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
+ALTER TABLE gis_proj_footprint_id OWNER TO pgist;
+
+CREATE TABLE pgist_data_county
+(
+  id int4 NOT NULL DEFAULT nextval('gis_proj_footprint_id'::regclass),
+  name varchar,
+  state_name varchar,
+  state_fips varchar,
+  cnty_fips varchar,
+  fips varchar,
+  pgist_pgis numeric,
+  pop2000 int8,
+  pop2001 numeric,
+  pop00_sqmi numeric,
+  white int8,
+  black int8,
+  ameri_es int8,
+  asian int8,
+  hawn_pi int8,
+  other int8,
+  mult_race int8,
+  hispanic int8,
+  males int8,
+  females int8,
+  age_under5 int8,
+  age_5_17 int8,
+  age_18_21 int8,
+  age_22_29 int8,
+  age_30_39 int8,
+  age_40_49 int8,
+  age_50_64 int8,
+  age_65_up int8,
+  med_age numeric,
+  med_age_m numeric,
+  med_age_f numeric,
+  households int8,
+  ave_hh_sz numeric,
+  hsehld_1_m int8,
+  hsehld_1_f int8,
+  marhh_chd int8,
+  marhh_no_c int8,
+  mhh_child int8,
+  fhh_child int8,
+  families int8,
+  ave_fam_sz numeric,
+  hse_units int8,
+  vacant int8,
+  owner_occ int8,
+  renter_occ int8,
+  no_farms97 numeric,
+  avg_size97 numeric,
+  crop_acr97 numeric,
+  avg_sale97 numeric,
+  shape_area numeric,
+  shape_len numeric,
+  the_geom geometry,
+  CONSTRAINT gis_base_county_pkey PRIMARY KEY (id),
+  CONSTRAINT enforce_dims_the_geom CHECK (ndims(the_geom) = 2),
+  CONSTRAINT enforce_geotype_the_geom CHECK (geometrytype(the_geom) = 'MULTIPOLYGON'::text OR the_geom IS NULL),
+  CONSTRAINT enforce_srid_the_geom CHECK (srid(the_geom) = -1)
+) 
+WITHOUT OIDS;
+ALTER TABLE pgist_data_county OWNER TO pgist;
+
+
+CREATE TABLE pgist_data_project_footprint
+(
+  id int4 NOT NULL DEFAULT nextval('gis_proj_footprint_id'::regclass),
+  the_geom geometry,
+  CONSTRAINT gis_project_footprint_pkey PRIMARY KEY (id)
+) 
+WITHOUT OIDS;
+ALTER TABLE pgist_data_project_footprint OWNER TO pgist;

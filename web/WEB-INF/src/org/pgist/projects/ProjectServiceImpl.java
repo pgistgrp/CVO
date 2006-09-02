@@ -1,14 +1,13 @@
 /**
- * 
+ *
  */
 package org.pgist.projects;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.Date;
 
-import org.postgresql.jdbc3.Jdbc3Connection;
+import org.pgist.discussion.*;
 
 /**
  * @author Guirong
@@ -17,24 +16,33 @@ import org.postgresql.jdbc3.Jdbc3Connection;
 public class ProjectServiceImpl implements ProjectService{
 	private ProjectDAO projectDAO = null;
 	private Connection connection = null;
-		
-	public ProjectDAO getProjectDAO(){
+    private DiscussionDAO discussionDAO;
+
+    public ProjectDAO getProjectDAO(){
 		return this.projectDAO;
 	}
 
 	public void setProjectDAO(ProjectDAO p){
 		this.projectDAO = p;
 	}
-	
+
 	public Connection getConnection(){
 		return this.connection;
 	}
-	
-	public void setConnection(Connection c){
+
+    public DiscussionDAO getDiscussionDAO() {
+        return discussionDAO;
+    }
+
+    public void setConnection(Connection c){
 		this.connection = c;
 	}
 
-	//-----------------------------------------------
+    public void setDiscussionDAO(DiscussionDAO discussionDAO) {
+        this.discussionDAO = discussionDAO;
+    }
+
+    //-----------------------------------------------
 	public Project getProject(Long pId) throws Exception{
 		return projectDAO.getProject(pId);
 	}
@@ -56,5 +64,24 @@ public class ProjectServiceImpl implements ProjectService{
 	public double[][][] getFootprint(Long fpid) throws Exception{
 		return projectDAO.getFootprint(fpid);
 	}
+
+        public void makeProjectsDiscussable(String criteria) throws Exception {
+            Date date = new Date();
+
+            InfoStructure info = new InfoStructure();
+            info.setType("sdmap");
+            info.setRespTime(date);
+
+            for (Project project : (Set<Project>) projectDAO.getProjects(criteria)) {
+                InfoObject obj = new InfoObject();
+                obj.setObject(project);
+                obj.setRespTime(date);
+
+                info.getInfoObjects().add(obj);
+            }//for
+
+            discussionDAO.save(info);
+        }//publish()
+
 
 }

@@ -17,6 +17,7 @@ v\:* {
 </style>
 
 <script type="text/javascript">
+var pgistmap = null;
 //<![CDATA[
 
 /**
@@ -29,40 +30,26 @@ v\:* {
  * <b>when to use: </b> page load or equavelent
  */
 function load() {
-  if (GBrowserIsCompatible()) {
-	map = new GMap2(document.getElementById("map"),{mapTypes: [G_SATELLITE_MAP,G_NORMAL_MAP]});
-	map.addControl(new GLargeMapControl());
-	map.addControl(new GMapTypeControl());
-	map.setCenter(new GLatLng(47.65985278,-122.3224667),12,G_NORMAL_MAP);
-	map.enableContinuousZoom();
-	map.enableDoubleClickZoom();
-	map.mouseWheel = true;
-	map.setMapType(G_SATELLITE_MAP);
+ pgistmap = new PGISTMap('map');
+ pgistmap.setAfterDataLoadHandler(showAllProjects);
+ pgistmap.setProjectSelection();
+ pgistmap.projectClickHandler='openProject';
+}
 
-	
-	GEvent.addDomListener(document.getElementById("map"), "DOMMouseScroll",wheelZoom); // Firefox
-	GEvent.addDomListener(document.getElementById("map"), "mousewheel",	wheelZoom); // IE
-	
-//	GEvent.addListener(map, "zoomend", function(oldlevel, newlevel){
-//		redrawBubbles(editProject);
-//	});
-  }
-
-   document.afterDataLoad = function(){
-		alert('after load');
-	  };
-  
-  getProjects();
+function openProject(projectid){
+	alert("This alert box will be replaced by a page load action to the project page with id=" + projectid);
 }
 
 function showAllProjects(){
-	map.clearOverlays();
-	for(i=0; i<projectList.length; i++){
-		if(projectList[i].fpids && projectList[i].fpids!=""){	
-			redrawProjectFootprint(projectList[i]);
-			for(var j=0; j<projectList[i].bubblemarkers.length; j++){
-				map.removeOverlay(projectList[i].bubblemarkers[j]);
-				map.addOverlay(projectList[i].bubblemarkers[j]);
+	
+	pgistmap.map.clearOverlays();
+
+	for(i=0; i<pgistmap.projectList.length; i++){
+		if(pgistmap.projectList[i].fpids && pgistmap.projectList[i].fpids!=""){	
+			pgistmap.redrawProjectFootprint(pgistmap.projectList[i]);
+			
+			for(var j=0; j<pgistmap.projectList[i].bubblemarkers.length; j++){
+				pgistmap.map.addOverlay(pgistmap.projectList[i].bubblemarkers[j]);
 			}			
 		}
 	}
