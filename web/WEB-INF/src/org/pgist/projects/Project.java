@@ -25,7 +25,7 @@ public class Project {
     private String description;
     private List alternatives = new ArrayList();
     private double cost;
-    private int mode;
+    private int transMode;
     private String sponsor;
 
     public void setCost(double co){
@@ -143,8 +143,9 @@ public class Project {
      *
      * @hibernate.property
      */
-    public int getMode() {
-        return mode;
+    public int getTransMode() {
+
+        return transMode;
     }
 
     /**
@@ -160,8 +161,9 @@ public class Project {
 		this.annoString = anno;
 	}
 
-    public void setMode(int mode) {
-        this.mode = mode;
+    public void setTransMode(int transMode) {
+
+        this.transMode = transMode;
     }
 
     public void setSponsor(String sponsor) {

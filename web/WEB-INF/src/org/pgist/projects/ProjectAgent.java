@@ -178,6 +178,7 @@ public class ProjectAgent {
                 result.put("successful", true);
             } catch (Exception ex) {
                 result.put("successful", false);
+                ex.printStackTrace();
                 result.put("reason", ex.getMessage());
             }
 

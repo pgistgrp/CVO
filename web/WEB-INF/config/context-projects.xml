@@ -14,6 +14,7 @@
         <property name="target">
             <bean class="org.pgist.projects.ProjectServiceImpl">
                 <property name="projectDAO" ref="projectDAO"/>
+                <property name="discussionDAO" ref="discussionDAO"/>
             </bean>
         </property>
     </bean>

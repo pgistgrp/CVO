@@ -72,7 +72,8 @@ public class ProjectServiceImpl implements ProjectService{
             info.setType("sdmap");
             info.setRespTime(date);
 
-            for (Project project : (Set<Project>) projectDAO.getProjects(criteria)) {
+            for (Project project : (List<Project>) projectDAO.getProjects(criteria)) {
+                System.out.println("-->>enable project " + project.getName());
                 InfoObject obj = new InfoObject();
                 obj.setObject(project);
                 obj.setRespTime(date);

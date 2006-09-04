@@ -54,6 +54,18 @@ function showAllProjects(){
 		}
 	}
 }
+
+function enableDiscussion(){
+	ProjectAgent.enableProjectDiscussion({callback:function(data){
+								if(data.successful){	
+									alert("Enabled");
+								}else{
+									alert("Enable discussion not successful: " + data.reason);
+								}
+								
+							}}
+	);
+}
     
 </script>
 <style type="text/css">
@@ -215,7 +227,7 @@ Allow multiple points
      </td>
     </tr>
   </table>
-
+<input type="button" value="Enable discussion on projects" onclick="enableDiscussion()" />
 <script language="JavaScript">
   load();
   
