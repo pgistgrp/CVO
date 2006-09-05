@@ -46,11 +46,13 @@
 	 			var targetTitle = "${object.object}";
 				$('targetTitle').innerHTML = '<html:link action="/sd.do" paramId="isid" paramName="structure" paramProperty="id">'+ this.roomsTitle +'</html:link>  &raquo; ' + targetTitle; //object title div id
 				$('targetDiscussionTitle').innerHTML = targetTitle;//discussion title div id
-				if (${object.numDiscussion} == 1){
-				 	$('targetDiscussionTitle').innerHTML += ' - ${object.numDiscussion} Discussion';
-				}else{
-					$('targetDiscussionTitle').innerHTML += ' - ${object.numDiscussion} Discussions';
-				}
+				//if ("${object.numDiscussion}" == undefined){
+					if (${object.numDiscussion} == 1){
+					 	$('targetDiscussionTitle').innerHTML += ' - ${object.numDiscussion} Discussion';
+					}else{
+						$('targetDiscussionTitle').innerHTML += ' - ${object.numDiscussion} Discussions';
+					}
+				//}
 				$('targetSideBarTitle').innerHTML = 'filtered by: ' + targetTitle;//sidebar title div id
 				this.getTargets();
 		};
