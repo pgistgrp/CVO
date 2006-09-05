@@ -110,7 +110,7 @@
 </script>
 
 </head>
-<body> 
+<body onLoad="MM_preloadImages('images/btn_postreply_b.gif')"> 
 <div id="container">
 <jsp:include page="/header.jsp" />
 <!-- Header -->
@@ -197,7 +197,7 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 		<small>- click on a tag to view other discussions with the same tag.</small>
 		</ul>
 		</c:if>
-		<div id="replyTo${post.id}" style="text-align: right;"><a href="javascript:location.href='#replyAnchor';  new Effect.Pulsate('newReply', {duration: .8, from: 0.5}); void(0);">Reply to this Post</a></div>
+		<div id="replyTo${post.id}" style="text-align: right;"><a href="javascript:location.href='#replyAnchor';  new Effect.Pulsate('newReply', {duration: .8, from: 0.5}); void(0);"><img src="images/btn_postreply_a.gif" alt="Post Reply" name="postreplya" width="74" height="20" class="button" id="postreplya" onMouseOver="MM_swapImage('postreplya','','images/btn_postreply_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></div>
 	</div><!--end post-->
    <div id="extrapadding" class="padding-sides">
 	<div id="replies-cont" class="greyscheme">
@@ -333,7 +333,9 @@ href="javascript:getConcernsByTag(894);">monorail</a></span>
   </div>
 
 <!-- end mock disc -->
-
+<!-- PREV and NEXT Buttons -->
+<span class="textright"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></span><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()">
+<!-- End PREV and NEXT Buttons -->
 <div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
 
 </div><!-- End sidebarcontents-->

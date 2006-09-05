@@ -57,7 +57,7 @@
               				eval(data.source.script);
               				 
 		              		 if(data.voting == null || data.voting == undefined){
-						           $('structure_question').innerHTML = '<span class="smalltext">Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoStructure.setVote(true);"><img src="images/btn_yes_s.gif" alt="YES" border="0"><a href="javascript:infoStructure.setVote(false);"><img src="images/btn_no_s.gif" alt="NO" border="0"></a></span>';
+						           $('structure_question').innerHTML = '<span class="smalltext">Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoStructure.setVote(true);"><img src="images/btn_yes_a.gif" alt="Yes" name="yes" class="button" id="yes"><a href="javascript:infoStructure.setVote(false);"><img src="images/btn_no_a.gif" alt="No" name="no" class="button" id="no"></a></span>';
 
 					          }else{
 						           $('structure_question').innerHTML = '<span class="smalltext">Your vote has been recorded. Thank you for your participation.</span>';
@@ -300,7 +300,9 @@ href="javascript:getConcernsByTag(885);">access</a></span>
 href="javascript:getConcernsByTag(894);">commuting</a></span>
   </div>
   <!-- end mock discussion-->
-		
+<!-- PREV and NEXT Buttons -->
+<span class="textright"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></span><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()">
+<!-- End PREV and NEXT Buttons -->
 		<div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
 		
 		</div><!-- End sidebarcontents-->

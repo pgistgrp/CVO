@@ -21,7 +21,8 @@
 	<c:if test="${fn:length(posts) == 0}">
 		<tr>
 			<td colspan="5">
-				<p>Currently there are no discussions for this concern theme.  If you would like to create a discussion, please click on the '<a href="javascript:new Effect.toggle('newDiscussion', 'blind', {duration: 0.5}); void(0);">new discussion</a>' above.</p><br />
+				<p>Currently there are no topics for this concern theme.  If you would like to create a topic, please click on the '<a href="javascript:new Effect.toggle('newDiscussion', 'blind', {duration: 0.5}); void(0);">new Topic </a>' above.</p>
+				<br />
 			</td>
 		</tr>
 	</c:if>

@@ -34,7 +34,8 @@
 
 
 <script type="text/javascript">
-	//Start Global Variables
+<!--
+//Start Global Variables
 
 	 function InfoObject(){
 	 	 this.objectDiv =  'object-content';
@@ -88,7 +89,7 @@
 	              				 $(infoObject.objectDiv).innerHTML = data.source.html; 
 	              				
 	              			  if(data.voting == null || data.voting == undefined){
-						           $('structure_question').innerHTML = '<span class="smalltext">Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoObject.setVote(true);"><img src="images/btn_yes_s.gif" alt="YES" border="0"><a href="javascript:infoObject.setVote(false);"><img src="images/btn_no_s.gif" alt="NO" border="0"></a></span>';
+						           $('structure_question').innerHTML = '<span class="smalltext">Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoObject.setVote(true);"><img src="images/btn_yes_a.gif" alt="YES" border="0"><a href="javascript:infoObject.setVote(false);"><img src="images/btn_no_a.gif" alt="NO" border="0"></a></span>';
 					          }else{
 						           $('structure_question').innerHTML = '<span class="smalltext">Your vote has been recorded. Thank you for your participation.</span>';
 						      }
@@ -300,12 +301,35 @@
 			}});		
 		}
 	}
- 
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
 </script>
 </head>
 
 
-<body>
+<body onLoad="MM_preloadImages('images/btn_continue_b.gif')">
 
 <div id="container">
 	<jsp:include page="/header.jsp" />
@@ -450,11 +474,14 @@
 										            <span class="tags"><a href="javascript:getConcernsByTag(864);">accessibility</a></span>
 										        </div>
 												<!-- end fake concerns -->
+												<!-- PREV and NEXT Buttons -->
+												<span class="textright"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></span><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()">
+												<!-- End PREV and NEXT Buttons -->
 								
 								<div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
 								
 								</div><!-- End sidebarcontents-->
-								</div><!-- sidebar container-->
+						  </div><!-- sidebar container-->
 					</td>
 				<!-- End Right Col -->
 				</tr>
@@ -479,14 +506,13 @@
 	</div>
 		
 	<div id="discussion-cont">
-		<span class="padding"><h4 id="targetDiscussionTitle"></h4></span><span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();">New Discussion</a></span>
+		<span class="padding"><h4 id="targetDiscussionTitle"></h4></span><span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();"><img src="images/btn_newtopic_a.gif" alt="New Topic" name="newtopic" class="button" id="newtopic" onMouseOver="MM_swapImage('newtopic','','images/btn_newtopic_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></span>
 		<div id="discussion"><!-- load discussion posts --></div>
 	</div>
 		
 	<div id="finished" class="greenBB">
 		<h4>Step 4. Finished?</h4><br />
-		Go back or continue... [add buttons] [Cancel]
-	</div>
+		Go back or continue... <img src="images/btn_continue_a.gif" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_continue_b.gif',1)" onMouseOut="MM_swapImgRestore()"><img src="images/btn_cancel_a.gif" alt="Cancel" name="cancel" class="button" id="cancel" onMouseOver="MM_swapImage('cancel','','images/btn_cancel_b.gif',1)" onMouseOut="MM_swapImgRestore()"></div>
 
 </div> <!-- End container -->
 <!-- Start Footer -->
