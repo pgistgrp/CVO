@@ -214,10 +214,8 @@ public class CCTServiceImpl implements CCTService {
 
             for (Object object : oldTags) {
                 TagReference ref = (TagReference) object;
-                ref.setTimes(ref.getTimes() - 1);
-                if (ref.getTimes() < 1) {
-                    cctDAO.delete(ref);
-                } else {
+                if (ref.getTimes() > 0) {
+                    ref.setTimes(ref.getTimes() - 1);
                     cctDAO.save(ref);
                 }
             } //for
@@ -244,8 +242,7 @@ public class CCTServiceImpl implements CCTService {
         CCT cct = concern.getCct();
 
         synchronized (this) {
-            Map<String,
-                    TagReference> oldTags = new HashMap<String, TagReference>();
+            Map<String, TagReference> oldTags = new HashMap<String, TagReference>();
             Set<TagReference> tags = concern.getTags();
             for (TagReference one : tags) {
                 oldTags.put(one.getTag().getName(), one);
@@ -264,8 +261,7 @@ public class CCTServiceImpl implements CCTService {
                     tag = analyzer.tagExists(tagName);
                     if (tag != null) {
                         tag = tagDAO.getTagById(tag.getId());
-                        ref = cctDAO.getTagReferenceByTagId(cct.getId(),
-                                tag.getId());
+                        ref = cctDAO.getTagReferenceByTagId(cct.getId(), tag.getId());
                         if (ref == null) {
                             ref = new TagReference();
                             ref.setCctId(cct.getId());
@@ -275,7 +271,7 @@ public class CCTServiceImpl implements CCTService {
                             ref.setTimes(ref.getTimes() + 1);
                         }
                     } else {
-                        tagDAO.addTag(tagName, Tag.TYPE_INCLUDED, Tag.STATUS_CANDIDATE);
+                        tag = tagDAO.addTag(tagName, Tag.TYPE_INCLUDED, Tag.STATUS_CANDIDATE);
                         ref = new TagReference();
                         ref.setTag(tag);
                         ref.setTimes(1);

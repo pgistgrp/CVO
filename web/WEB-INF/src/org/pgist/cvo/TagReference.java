@@ -37,7 +37,7 @@ public class TagReference {
     
     /**
      * @return
-     * @hibernate.many-to-one column="tag_id" lazy="true" class="org.pgist.tag.Tag" cascade="all"
+     * @hibernate.many-to-one column="tag_id" lazy="true" class="org.pgist.tag.Tag" cascade="save-update"
      */
     public Tag getTag() {
         return tag;
