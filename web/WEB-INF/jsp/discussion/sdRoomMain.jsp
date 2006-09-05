@@ -40,24 +40,47 @@
 	 	 this.objectDiv =  'object-content';
 	 	 this.discussionDiv = 'discussion';
 	 	 this.sidebarDiv = 'sidebar_object';
-	 	 this.roomsTitle = "All Concern Themes"; //used to display the room selector title (for link back to all rooms)
+	 	 this.ISTitle = "All Concern Themes"; // title of entire info structure
+	 	 
+	 	 this.getISList = function(){
+	 	 	var list = "";
+	 	   <c:forEach var="infoObject" items="${structure.infoObjects}">
+			      list += '<p>${infoObject.object}</p>';
+			</c:forEach>	
+	 	 	return list;
+	 	};
 
 	 	this.assignTargetHeaders = function(){
+	 	<c:choose>
+	 		<c:when test="${object != null}">
 	 			var targetTitle = "${object.object}";
-				$('targetTitle').innerHTML = '<html:link action="/sd.do" paramId="isid" paramName="structure" paramProperty="id">'+ this.roomsTitle +'</html:link>  &raquo; ' + targetTitle; //object title div id
+				$('targetTitle').innerHTML = '<html:link action="/sd.do" paramId="isid" paramName="structure" paramProperty="id">'+ this.ISTitle +'</html:link>  &raquo; ' + targetTitle; //object title div id
 				$('targetDiscussionTitle').innerHTML = targetTitle;//discussion title div id
-				//if ("${object.numDiscussion}" == undefined){
 					if (${object.numDiscussion} == 1){
 					 	$('targetDiscussionTitle').innerHTML += ' - ${object.numDiscussion} Discussion';
 					}else{
 						$('targetDiscussionTitle').innerHTML += ' - ${object.numDiscussion} Discussions';
 					}
-				//}
 				$('targetSideBarTitle').innerHTML = 'filtered by: ' + targetTitle;//sidebar title div id
-				this.getTargets();
+			</c:when>
+			<c:otherwise> //for entire info structure
+				 var targetTitle = this.ISTitle;
+				$('targetTitle').innerHTML = '<html:link action="/sd.do" paramId="isid" paramName="structure" paramProperty="id">'+ this.ISTitle +'</html:link>  &raquo; ' + this.ISTitle + ' List'; //object title div id
+				$('targetDiscussionTitle').innerHTML = targetTitle;//discussion title div id
+					if (${structure.numDiscussion} == 1){
+					 	$('targetDiscussionTitle').innerHTML += ' - ${structure.numDiscussion} Discussion';
+					}else{
+						$('targetDiscussionTitle').innerHTML += ' - ${structure.numDiscussion} Discussions';
+					}
+				$('targetSideBarTitle').innerHTML = 'filtered by: ' + this.ISTitle;//sidebar title div id
+			
+			</c:otherwise>
+			</c:choose>
+			this.getTargets();
 		};
 	 	this.getTargets = function(){
-	 		//if (${object.id} != null){
+	 		<c:choose>
+	 		<c:when test="${object != null}">
 	 		displayIndicator(true);
 	 		SDAgent.getSummary({ioid: ${object.id}}, {
 					callback:function(data){
@@ -79,14 +102,17 @@
 							alert("get targets error:" + errorString + exception);
 					}
 					});
-	 			//}else{
-	 			//	$(infoObject.objectDiv).innerHTML ="list of concern themes";
-	 			//}
-
+			</c:when>
+			<c:otherwise>
+				$(infoObject.objectDiv).innerHTML = this.getISList();;
+			</c:otherwise>
+			</c:choose>
 	 	};
 	 
 
 	 	 this.setVote = function(agree){
+
+	 		<c:if test="${object != null}">
 	 	 			displayIndicator(true);
 					SDAgent.setVoting({ioid: ${object.id}, agree:agree}, {
 					callback:function(data){
@@ -102,6 +128,8 @@
 							alert("get targets error:" + errorString + exception);
 					}
 					});
+			</c:if>
+
 			};
 	 	 this.createPost = function(){
 	 	 		displayIndicator(true);
@@ -114,8 +142,14 @@
 	 	 			return
 	 	 		}//end validation
 
-				
+			<c:choose>
+	 		<c:when test="${object != null}">
 				SDAgent.createPost({isid:${structure.id}, ioid: ${object.id}, title: newPostTitle, content: newPost, tags:newPostTags}, {
+			</c:when>
+			<c:otherwise>
+				SDAgent.createPost({isid:${structure.id}, title: newPostTitle, content: newPost, tags:newPostTags}, {
+			</c:otherwise>
+			</c:choose>
 				callback:function(data){
 						if (data.successful){
 							 infoObject.getPosts();
@@ -143,7 +177,15 @@
 	 		if (<%= request.getParameter("page") %> != null){
 	 			page = <%= request.getParameter("page") %>;	
 	 		}
-		    SDAgent.getPosts({isid:${structure.id}, ioid:${object.id}, page: page, count: 10}, {
+		   
+			<c:choose>
+	 		<c:when test="${object != null}">
+				 SDAgent.getPosts({isid:${structure.id}, ioid:${object.id}, page: page, count: 10}, {
+			</c:when>
+			<c:otherwise>
+				 SDAgent.getPosts({isid:${structure.id},page: page, count: 10}, {
+			</c:otherwise>
+			</c:choose>
 		      callback:function(data){
 		          if (data.successful){
 		          $(infoObject.discussionDiv).innerHTML = data.html;
@@ -298,6 +340,7 @@
 			Jump To:
 			 <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">		  
 				<option value = "${object.id}">Select a Theme</option>
+				<option value = "">All Concern Themes</option>
 				<c:forEach var="infoObject" items="${structure.infoObjects}">
 					   <option value="${infoObject.id}">${infoObject.object}</option>
 				</c:forEach>	

@@ -151,6 +151,7 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 			  Jump To:
 			  <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">		  
 			    <option value = "${object.id}">Select a Theme</option>
+			    <option value = "">All Concern Themes</option>
 			   <c:forEach var="infoObject" items="${structure.infoObjects}">
 			       <option value="${infoObject.id}">${infoObject.object}</option>
 			    </c:forEach>	
@@ -174,7 +175,18 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 <div id="object">
 	
 	<div id="post">
-		 <h3><a href="sd.do?isid=${structure.id}">All concern themes</a> &raquo;  <a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}">${object.object.theme.title}</a> &raquo;   ${post.title}</h3>
+		 <h3>
+		 	<a href="sd.do?isid=${structure.id}">All concern themes</a> &raquo;  
+		 	<c:choose>
+		 		<c:when test="${object != null}">
+		 			<a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}">${object.object.theme.title}</a> &raquo;   
+		 		</c:when>
+		 		<c:otherwise>
+		 			<a href="sdRoom.do?isid=${structure.id}">All Concern Themes List</a> &raquo;   
+		 		</c:otherwise>
+		 	</c:choose>
+		 	${post.title}
+		 </h3>
 		<small>Posted on <fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}</small>
 		<p>${post.content}</p>
 		<c:if test="${fn:length(reply.tags) != 0}">

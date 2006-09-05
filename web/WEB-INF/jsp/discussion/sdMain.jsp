@@ -171,7 +171,7 @@
 				<div>
 				<table width="100%" class="tabledisc">
 				          <tr class="disc_row_b">
-				            <td><div class="padding-sides"><a href="/sdRoom.do?isid=${structure.id}&ioid=">Discussion about all concern themes</a><br /><span class="smalltext">Do you feel like a corner theme is missing or unnecessary from the above list? Discuss here</span></div></td>
+				            <td><div class="padding-sides"><a href="/sdRoom.do?isid=${structure.id}">Discussion about all concern themes</a><br /><span class="smalltext">Do you feel like a corner theme is missing or unnecessary from the above list? Discuss here</span></div></td>
 				 		    <td width="150"><span class="smalltext" style="font-size: 80%;">
 				 		    <c:choose>
 						      <c:when test="${structure.lastPost.id != null}">
@@ -196,7 +196,7 @@
 		<div id="tagSelector">
 			<div id="tagform">
 			<h6>Sidebar filtered by:</h6>
-			[Tags ] [Tags] [Tags]<br />
+			No Selected Tags<br />
 			<form action="" method="get">
 			Sidebar Filter: 
 			  <input name="tagSearch" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value)" />
@@ -210,7 +210,7 @@
 		<!-- Duplicate tagSelector to work as a spacer during expand effect -->
 		<div id="tagSelector_spacer" style="display: none;">
 			<h6>Sidebar filtered by:</h6>
-			[Tags ] [Tags] [Tags]<br />
+			No Selected Tags<br />
 			<form action="" method="get">
 			Sidebar Filter: 
 			  <input name="tagSearch" id="tagSearch_spacer" type="text" style="visibility: hidden;"/>
@@ -222,6 +222,7 @@
 		<!-- End Duplicate tagSelector to work as a spacer during expand effect -->
 		<div id="sidebarSearchResults" style="display: none;"></div>
 		  <div id="sidebar_content">
+		  <h4>Hot Discussions</h4>
 			<!-- mock discussion -->
 			<div><span class="participantName"><a
 href="">This doesn't reflect my concerns at all</a></span><br />

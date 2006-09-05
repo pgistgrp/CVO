@@ -7,22 +7,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <pg:fragment type="html">
-<!--
-<div id="themeSelector">
-		<form id="Tselector" name="ThemeSelector" method="post" action="">
-		  <label>
-		  Jump To:
-		  <select name="selecttheme" id="selecttheme" onChange="javascript: infoStructure.getTargetPanes(this.value); infoStructure.assignTargetHeaders(this.innerValue);">		  
-		    <option value = "-1">Select a Theme</option>
-		    <logic:iterate id="infoObject" property="infoObjects" name="structure">
-		        <option value ="${infoObject.id}">${infoObject.object.theme.title}</option>
-		    </logic:iterate>		
-	      </select>
-		  </label>
-		  </form>
- </div>
- -->
-
     <table width="100%" class="tabledisc">
           <tr class="objectblue">
           	<td width="40" class="textcenter">Status</td>
