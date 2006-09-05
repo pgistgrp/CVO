@@ -171,7 +171,19 @@
 				<div>
 				<table width="100%" class="tabledisc">
 				          <tr class="disc_row_b">
-				            <td><div class="padding-sides"><a href="/sdRoom.do?isid=${structure.id}">Discussion about all concern themes</a><br /><span class="smalltext">Do you feel like a corner theme is missing or unnecessary from the above list? Discuss here</span></div></td>
+							<jsp:useBean id="today" class="java.util.Date"/>
+							<c:set var="fmtLastPostDate"><fmt:formatDate value="${structure.lastPost.createTime}" pattern="yyyy/MM/dd"/></c:set>
+    						<c:set var="fmtToday"><fmt:formatDate value="${today}" pattern="yyyy/MM/dd"/></c:set>
+							
+							  <c:choose>
+							  <c:when test="${fmtToday == fmtLastPostDate}">
+							  	 <td width="40" class="textcenter"><img src="/images/balloonactive2.gif" alt="Posts within the last 24 hours" /></td>
+							  </c:when>
+							  <c:otherwise>
+							  	 <td width="40" class="textcenter"><img src="/images/ballooninactive2.gif" alt="No posts within the last 24 hours" /></td>
+							  </c:otherwise>
+							  </c:choose>
+							  <td><div class="padding-sides"><a href="/sdRoom.do?isid=${structure.id}">Discussion about all concern themes</a><br /><span class="smalltext">Do you feel like a corner theme is missing or unnecessary from the above list? Discuss here</span></div></td>
 				 		    <td width="150"><span class="smalltext" style="font-size: 80%;">
 				 		    <c:choose>
 						      <c:when test="${structure.lastPost.id != null}">
