@@ -481,6 +481,8 @@ if (destroy){
 		callback:function(data){	
 				if (data.successful){
 					showMyConcerns();
+				}else{
+					alert(data.reason);	
 				}
 		},
 		errorHandler:function(errorString, exception){ 
@@ -532,6 +534,9 @@ $('slate').style.Height = winH;
 </head>
 
 <body>
+<div id="overlay" style="display: none;"></div>
+<div id="lightbox" style="display: none;"></div>
+
 <div id="container">
 
 <!-- Header -->
