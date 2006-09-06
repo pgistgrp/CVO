@@ -43,7 +43,7 @@ var PGISTMap = function(mapdiv) {
 		this.pgiconsize = 22;
 		this.bubbleicons = new Array();
 		var pgicon = new GIcon(G_DEFAULT_ICON); //must use this argument to be able to fire event
-		pgicon.image = "http://localhost:8080/images/ltr_1.png";
+		pgicon.image = "/images/ltr_1.png";
 		pgicon.iconSize = new GSize(this.pgiconsize, this.pgiconsize);
 		pgicon.iconAnchor = new GPoint(this.pgiconsize/2, this.pgiconsize/2);
 		pgicon.shadow = "";
@@ -52,7 +52,7 @@ var PGISTMap = function(mapdiv) {
 		
 		for(var i=1; i<39; i++){ //39 for 40 icons
 			pgicon = new GIcon(pgicon); 
-			pgicon.image = "http://localhost:8080/images/ltr_" + (i+1) + ".png";
+			pgicon.image = "/images/ltr_" + (i+1) + ".png";
 			this.bubbleicons['ltr_' + i] = pgicon;
 		}
 	
