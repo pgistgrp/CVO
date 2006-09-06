@@ -37,8 +37,8 @@
 <html:hidden property="user.state" value="wa default"/>
 <html:hidden property="user.zipcode" value="55555"/>
 <html:hidden property="user.ethnicity" value="Purple Default"/>	
-<html:hidden property="user.isOfficial" value="no"/>	
-<html:hidden property="user.isTransportationAgency" value="no"/>	
+<html:hidden property="user.isOfficial" value="yes"/>	
+<html:hidden property="user.isTransportationAgency" value="yes"/>	
 <input name="role" type="hidden" class="inputRadio" value="DecisionMaker">
 <div align="center">
 <h3>Registration Form</h3><br />

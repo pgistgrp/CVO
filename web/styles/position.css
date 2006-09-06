@@ -98,7 +98,11 @@ select {
 #footprints {
 	margin-top: 0;
 }
-
+#legend {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
 
 #maintop {
 	/*background: #EBEFF2;*/

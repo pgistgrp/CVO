@@ -200,6 +200,10 @@
 				            <td width="100" class="textcenter"><a href="/sdRoom.do?isid=${structure.id}&ioid=">${structure.numDiscussion}</a></td>
 				          </tr>		    
 		        </table><br>
+				
+				<div id="legend" class="smalltext">
+					<img src="/images/balloonactive2.gif" alt="active" class="button">
+				 Recent Post  <img src="/images/ballooninactive2.gif" alt="active" width="20" height="21" class="button"> No Recent Post </div>
 				</div>
 		
 		
@@ -207,7 +211,7 @@
 		<div id="sidebar_container">
 		<div id="tagSelector">
 			<div id="tagform">
-			<h6>Sidebar filtered by:</h6>
+			<h6> Sidebar filtered by:</h6>
 			No Selected Tags<br />
 			<form action="" method="get">
 			Sidebar Filter: 

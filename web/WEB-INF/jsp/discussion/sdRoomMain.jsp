@@ -509,7 +509,11 @@ function MM_swapImage() { //v3.0
 		<span class="padding"><h4 id="targetDiscussionTitle"></h4></span><span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();"><img src="images/btn_newtopic_a.gif" alt="New Topic" name="newtopic" class="button" id="newtopic" onMouseOver="MM_swapImage('newtopic','','images/btn_newtopic_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></span>
 		<div id="discussion"><!-- load discussion posts --></div>
 	</div>
-		
+	<div id="legend" class="smalltext">
+	<img src="/images/balloonactive2.gif" alt="active" class="button">
+	Recent Post  <img src="/images/ballooninactive2.gif" alt="active" width="20" height="21" class="button"> No Recent Post </div>
+	</div>
+
 	<div id="finished" class="greenBB">
 		<h4>Step 4. Finished?</h4><br />
 		Go back or continue... <img src="images/btn_continue_a.gif" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_continue_b.gif',1)" onMouseOut="MM_swapImgRestore()"><img src="images/btn_cancel_a.gif" alt="Cancel" name="cancel" class="button" id="cancel" onMouseOver="MM_swapImage('cancel','','images/btn_cancel_b.gif',1)" onMouseOut="MM_swapImgRestore()"></div>
