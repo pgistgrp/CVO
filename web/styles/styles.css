@@ -365,6 +365,12 @@ h6 {
 	border-collapse: collapse;
 }
 .tabledisc td{
+	border: 1px solid #7888A9;
+}
+.tabledisc_green {
+	border-collapse: collapse;
+}
+.tabledisc_green td{
 	border: 1px solid #98A072;
 }
 /*Tag Styles*/

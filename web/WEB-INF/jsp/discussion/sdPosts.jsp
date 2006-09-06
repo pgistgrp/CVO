@@ -8,7 +8,7 @@
 
 
 
-<table width="100%" border="0" cellspacing="0" class="tabledisc" >
+<table width="100%" border="0" cellspacing="0" class="tabledisc_green" >
 	  <tr class="objectgreen">
 	  	<td width="40" class="textcenter">Status</td>
 		<td><a href="#">Topic Title</a></td>
