@@ -89,7 +89,7 @@
 	              				 $(infoObject.objectDiv).innerHTML = data.source.html; 
 	              				
 	              			  if(data.voting == null || data.voting == undefined){
-						           $('structure_question').innerHTML = '<span class="smalltext">Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoObject.setVote(true);"><img src="images/btn_yes_a.gif" alt="YES" border="0"><a href="javascript:infoObject.setVote(false);"><img src="images/btn_no_a.gif" alt="NO" border="0"></a></span>';
+						           $('structure_question').innerHTML = '<span class="smalltext">Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoObject.setVote("true");"><img src="images/btn_yes_a.gif" alt="YES" border="0"><a href="javascript:infoObject.setVote("false");"><img src="images/btn_no_a.gif" alt="NO" border="0"></a></span>';
 					          }else{
 						           $('structure_question').innerHTML = '<span class="smalltext">Your vote has been recorded. Thank you for your participation.</span>';
 						      }
@@ -506,7 +506,7 @@ function MM_swapImage() { //v3.0
 	</div>
 		
 	<div id="discussion-cont">
-		<span class="padding"><h4 id="targetDiscussionTitle" class="darkgreytext"></h4></span><span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();"><img src="images/btn_newtopic_a.gif" alt="New Topic" name="newtopic" class="button" id="newtopic" onMouseOver="MM_swapImage('newtopic','','images/btn_newtopic_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></span>
+		<span class="padding"><h4 id="targetDiscussionTitle"></h4></span><span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();"><img src="images/btn_newtopic_a.gif" alt="New Topic" name="newtopic" class="button" id="newtopic" onMouseOver="MM_swapImage('newtopic','','images/btn_newtopic_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></span>
 		<div id="discussion"><!-- load discussion posts --></div>
 	</div>
 		
