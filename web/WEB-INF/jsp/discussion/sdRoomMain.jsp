@@ -506,7 +506,7 @@ function MM_swapImage() { //v3.0
 	</div>
 		
 	<div id="discussion-cont">
-		<div class="textright"><span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();"><img src="images/btn_gnewtopic_a.gif" alt="New Topic" name="newtopic" class="button" id="newtopic" onMouseOver="MM_swapImage('newtopic','','images/btn_gnewtopic_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></span></div><span class="padding"><h4 id="targetDiscussionTitle"></h4></span>
+		<span class="padding"><h4 id="targetDiscussionTitle"></h4></span><span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();"><img src="images/btn_gnewtopic_a.gif" alt="New Topic" name="newtopic" class="button" id="newtopic" onMouseOver="MM_swapImage('newtopic','','images/btn_gnewtopic_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></span>
 		<div id="discussion"><!-- load discussion posts --></div>
 	</div>
 	<div id="legend" class="smalltext">
