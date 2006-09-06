@@ -9,9 +9,9 @@
 
 
 <table width="100%" border="0" cellspacing="0" class="tabledisc" >
-	  <tr class="objectblue">
+	  <tr class="objectgreen">
 	  	<td width="40" class="textcenter">Status</td>
-		<td><a href="#">Discussion Title</a></td>
+		<td><a href="#">Topic  Title</a></td>
 		<td width="150" class="textcenter"><a href="#">Author</a></td>
 		<td width="200"><a href="#">Last Post</a></td>
 		<td width="100" class="textcenter"><a href="#">Replies</a></td>
@@ -31,7 +31,7 @@
 		<c:set var="fmtLastPostDate"><fmt:formatDate value="${post.createTime}" pattern="yyyy/MM/dd"/></c:set>
     	<c:set var="fmtLastReplyDate"><fmt:formatDate value="${post.lastReply.createTime}" pattern="yyyy/MM/dd"/></c:set>
     	<c:set var="fmtToday"><fmt:formatDate value="${today}" pattern="yyyy/MM/dd"/></c:set>
-		<tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
+		<tr class="${((loop.index % 2) == 0) ? 'disc_row_c' : 'disc_row_d'}">
 		  <c:choose>
 		  <c:when test="${fmtToday == fmtLastPostDate || fmtToday == fmtLastReplyDate }">
 		  	 <td width="40" class="textcenter"><img src="/images/balloonactive2.gif" alt="Replies within the last 24 hours" /></td>

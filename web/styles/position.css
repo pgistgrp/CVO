@@ -64,9 +64,9 @@ select {
 #discussion-cont {
 	/*border-left: 1px solid #7888A9;
 	border-right: 1px solid #7888A9;*/
-	border-bottom: 3px solid #7888A9;
+	border-bottom: 3px solid #98A072;
 	/*padding: 5px;*/
-	background-color: #C5D0E4;
+	background-color: #C5C9AF; /*#C5D0E4;*/
 	margin-right: 25px;
 	margin-left: 25px;
 }
@@ -184,7 +184,7 @@ select {
 }
 #sidebarbottom_disc {
 	margin-left: 15px;
-	background-color: #C5D0E4;
+	background-color: #C5C9AF;
 
 }
 #sidebarbottom_newdisc {
