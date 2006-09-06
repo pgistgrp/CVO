@@ -19,6 +19,7 @@ Zhong:
 [ok] object accessible through SDRoomAction
 [ok] default sort for posts: lastPost createtime desc (newest on top)
 [ok] default sort for replies (in sdThread): replies createTime asc (newest on bottom)
+[] CCT edit tags and delete concerns (hibernate error)
 
 
 for later:
@@ -30,7 +31,7 @@ Jordan:
 [ok] Glossary word finder tags on Summary 
 [ok] voting on IO
 [] sorting posts on sdMain
-[] jump to select box
+[ok] jump to select box
 [ok] help integrate new layout
 [ok] site-wide header and footer
 [ok] jsp:include header and footer

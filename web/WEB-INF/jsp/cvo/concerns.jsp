@@ -1,7 +1,9 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-
+<%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <logic:notEqual name="showTitle" value="true">
 		<logic:notEqual name="showIcon" value="true">
@@ -19,8 +21,8 @@
 	<p></p>
 </logic:equal>
 
-<logic:iterate id="concern" name="concerns">
-			<div id="concernId${concern.id}" class="theConcern">
+	<c:forEach var="concern" items="${concerns}" varStatus="loop">
+			<div id="concernId${concern.id}" class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
 						<logic:notEqual name="type" value="0">
 							<span class="participantName"><a href="userProfile${concern.id}.jsp"><bean:write name="concern" property="author.loginname" /></a></span>&nbsp;said:
 							<br>
@@ -44,7 +46,7 @@
 						</logic:equal>
 			</div>
 	<p></p>
-</logic:iterate>
+</c:forEach>
 
 
 
