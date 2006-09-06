@@ -19,7 +19,7 @@ Zhong:
 [ok] object accessible through SDRoomAction
 [ok] default sort for posts: lastPost createtime desc (newest on top)
 [ok] default sort for replies (in sdThread): replies createTime asc (newest on bottom)
-[] CCT edit tags and delete concerns (hibernate error)
+[ok] CCT edit tags and delete concerns (hibernate error)
 
 
 for later:
