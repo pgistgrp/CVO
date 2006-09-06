@@ -798,7 +798,7 @@ public class SDAgent {
         }
         
         try {
-            boolean agree = "true".equals(map.get("agree"));
+            boolean agree = "true".equalsIgnoreCase((String) params.get("agree"));
             
             if (isid!=null) {
                 InfoStructure structure = sdService.getInfoStructureById(isid);
