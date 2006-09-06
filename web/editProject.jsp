@@ -7,7 +7,7 @@
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
 
-<script type='text/javascript' src='/scripts/maps.js'></script>
+<script type='text/javascript' src='/scripts/pgistgmap.js'></script>
 
 
 <style type="text/css">

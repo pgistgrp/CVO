@@ -174,7 +174,7 @@ public class ProjectAgent {
         public Map enableProjectDiscussion(){
             Map result = new HashMap();
             try {
-                projectService.makeProjectsDiscussable("");
+                projectService.publishProjects("");
                 result.put("successful", true);
             } catch (Exception ex) {
                 result.put("successful", false);

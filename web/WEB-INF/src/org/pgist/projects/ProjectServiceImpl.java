@@ -65,7 +65,7 @@ public class ProjectServiceImpl implements ProjectService{
 		return projectDAO.getFootprint(fpid);
 	}
 
-        public void makeProjectsDiscussable(String criteria) throws Exception {
+        public void publishProjects(String criteria) throws Exception {
             Date date = new Date();
 
             InfoStructure info = new InfoStructure();
