@@ -25,6 +25,7 @@
 <script type='text/javascript' src='/dwr/util.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
 <!-- End DWR JavaScript Libraries -->
+<script src="scripts/lightbox.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 	
@@ -370,8 +371,8 @@ CCTAgent.searchTags({cctId:cctId,tag:theTag},{
 function glossaryPopup(term){
 lightboxDisplay(true);
 os = "";
-os += '<span class="closeBox"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></span>'
-os += '<br><h4>Glossary Term: '+ term +'</h4>';
+os += '<div id="closeBox" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>'
+os += '<h4>Glossary Term: '+ term +'</h4><br>';
 os += '<p>Tags helps make your concerns easier to find, since all this info is searchable later. Imagine this applied to thousands of concerns!</p>';
 $('lightbox').innerHTML = os;
 }
@@ -383,9 +384,9 @@ CCTAgent.getConcernById(concernId, {
 		if (data.successful){
 				currentConcern = data.concern.content;
 				os = "";
-				os += '<span class="closeBox"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></span>'
+				os += '<div id="closeBox" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>'
 				os += '<h4>Edit My Concern</h4><br>';
-				os += '<form><textarea style="height: 150px; width: 100%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p></form>';
+				os += '<form><textarea style="margin: 2%; height: 150px; width: 95%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p></form>';
 				os += '<input type="button" id="modifyConcern" value="Submit Edits!" onClick="editConcern('+concernId+')">';
 				os += '<input type="button" value="Cancel" onClick="lightboxDisplay()">';
 				$('lightbox').innerHTML = os;
@@ -424,8 +425,8 @@ function editTagsPopup(concernId){
 				
 						lightboxDisplay(true);
 						os = "";
-						os += '<span class="closeBox"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></span>'
-						os += '<h4>Edit My Concern\'s Tags</h4><p></p>';
+						os += '<div id="closeBox" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>'
+						os += '<h4>Edit My Concern\'s Tags</h4><br />';
 						os += '<ul id="editTagsList" class="tagsList"> '+data.id+ '</ul>';
 						os += '<p></p><form name="editTagList" action="" onsubmit="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\'); return false;"><input type="text" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onClick="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\');"></p>';
 						//os += '<a href="javascript:editTags('+concernId+');">TestIt</a>';
@@ -529,13 +530,110 @@ alert(winH);
 $('slate').style.Height = winH;
 }
 
-</script>
+function lightboxDisplay(show){
+	if (show){
+		$('overlay').style.display = 'block';
+		$('lightcontainer').style.display = 'inline';
+	}else{
+		$('overlay').style.display = 'none';
+		$('lightcontainer').style.display = 'none';
+	}
+}
 
+</script>
+<style type="text/css" />
+
+.leightpadding{
+
+padding:0em 1em 1em 1em;
+
+
+}
+
+.leightcontainer{
+ 	display: none;
+ 	position: absolute;
+ 	top: 50%;
+ 	left: 50%;
+ 	margin-left: -200px;
+ 	margin-top: -150px;
+ 	width:400px;
+ 	height: 300px;
+ 	background-color: white;
+ 	text-align: left;
+ 	z-index:1002;
+ 	overflow:hidden;
+	border: 5px solid #E1E1E1;
+}
+
+.leightbox {
+ 	color: #333;
+ 	position:absolute;
+ 	top:30px;
+ 	height:100%;
+ 	width:100%;
+ 	background-color: white;
+ 	text-align: left;
+ 	z-index:1002;
+ 	overflow:auto;	
+
+
+}
+
+.leightbar{
+	position:absolute;
+	top:0%;
+	height:30px;
+	width:100%;
+	background-color:#0066FF;
+	z-index:1002;
+	overflow:hidden;
+}
+
+#overlay{
+ 	display:none;
+ 	position:absolute;
+ 	top:0;
+ 	left:0;
+ 	width:100%;
+ 	height:100%;
+ 	z-index:1000;
+ 	background-color:#333;
+ 	-moz-opacity: 0.8;
+ 	opacity:.80;
+ 	filter: alpha(opacity=80);
+}
+
+img{
+border:0;
+
+}
+
+.lbclose{
+float:right;
+
+}
+
+
+
+.lightbox[id]{ /* IE6 and below Can't See This */    position:fixed;    
+}#overlay[id]{ /* IE6 and below Can't See This */    position:fixed;    
+}
+
+
+</style>
 </head>
 
-<body>
-<div id="overlay" style="display: none;"></div>
-<div id="lightbox" style="display: none;"></div>
+<body onResize = "sizeMe();">
+<div id="overlay"></div>
+<div id="lightcontainer" class="leightcontainer">
+ 	<div id="lightbox" class="leightbox">
+ 		<div id="lightboxpadding" class="leightpadding">
+ 			<h3>Editing Attributes for Glossary Term: ...</h3>
+ 		</div>
+ 	</div>
+</div>
+
 
 <div id="container">
 
@@ -618,7 +716,7 @@ $('slate').style.Height = winH;
 <div id="suppSlate" class="borderblue">
 	<a name="finished"></a><h4 id="h4Finished">Finished brainstorming concerns?</h4>
 	<p>The next step in the process is to discuss your concerns with other participants.</p>
-	<input type="button" id="btnNextStep" value="Continue">
+	<input type="button" id="btnNextStep" value="Continue" onClick="location.href='sd.do?isid=2061'">
 </div>
 <!-- End Main Content -->
 </td>

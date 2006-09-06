@@ -208,5 +208,5 @@ conheight=(.7*document.body.clientHeight)-30;
 }else{
 conheight=(.7*window.innerHeight)-30;
 }
-document.getElementById("lightbox1").style.height=conheight+"px";
+document.getElementById("lightbox").style.height=conheight+"px";
 }

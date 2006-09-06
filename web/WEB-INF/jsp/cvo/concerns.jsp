@@ -22,7 +22,7 @@
 </logic:equal>
 
 	<c:forEach var="concern" items="${concerns}" varStatus="loop">
-			<div id="concernId${concern.id}" class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
+			<div id="concernId${concern.id}" class="theConcern"><!--${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_a'}-->
 						<logic:notEqual name="type" value="0">
 							<span class="participantName"><a href="userProfile${concern.id}.jsp"><bean:write name="concern" property="author.loginname" /></a></span>&nbsp;said:
 							<br>

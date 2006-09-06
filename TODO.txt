@@ -49,3 +49,9 @@ Misc. Front End for Future:
 
 //////////  END SDC  //////////  
 
+/////////    CCT    /////////
+[] Tags can't be removed with appostrophe (suggested tags)
+
+
+/////////  END CCT   /////////
+
