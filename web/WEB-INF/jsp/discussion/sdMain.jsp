@@ -57,7 +57,7 @@
               				eval(data.source.script);
               				 
 		              		 if(data.voting == null || data.voting == undefined){
-						           $('structure_question').innerHTML = '<span class="smalltext">Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoStructure.setVote("true");"><img src="images/btn_yes_a.gif" alt="Yes" name="yes" class="button" id="yes"><a href="javascript:infoStructure.setVote("false");"><img src="images/btn_no_a.gif" alt="No" name="no" class="button" id="no"></a></span>';
+						           $('structure_question').innerHTML = '<span class="smalltext">Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoStructure.setVote(\'true\');"><img src="images/btn_yes_a.gif" alt="Yes" name="yes" class="button" id="yes"><a href="javascript:infoStructure.setVote(\'false\');"><img src="images/btn_no_a.gif" alt="No" name="no" class="button" id="no"></a></span>';
 
 					          }else{
 						           $('structure_question').innerHTML = '<span class="smalltext">Your vote has been recorded. Thank you for your participation.</span>';
