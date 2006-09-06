@@ -491,8 +491,8 @@ function MM_swapImage() { //v3.0
 	</div><!-- End cont-main -->
 	<div id="newDiscussion" style="display: none">
 		<div id="newdisc_title" >
-		<h3 style="display: inline">New Topic</h3>
-			<span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();">Close</a></span>
+			<div class="textright"><span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();"><img src="/images/btn_close.gif" class="button"></a></span></div>
+			<h3 style="display: inline">New Topic</h3>
 		</div> <!-- End newdisc_title -->
 		<div id="newdisc_content" class="greenBB">
 			<p>SDC New Topic Paragraph</p>
@@ -506,7 +506,7 @@ function MM_swapImage() { //v3.0
 	</div>
 		
 	<div id="discussion-cont">
-		<span class="padding"><h4 id="targetDiscussionTitle"></h4></span><span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();"><img src="images/btn_newtopic_a.gif" alt="New Topic" name="newtopic" class="button" id="newtopic" onMouseOver="MM_swapImage('newtopic','','images/btn_newtopic_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></span>
+		<div class="textright"><span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();"><img src="images/btn_gnewtopic_a.gif" alt="New Topic" name="newtopic" class="button" id="newtopic" onMouseOver="MM_swapImage('newtopic','','images/btn_gnewtopic_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></span></div><span class="padding"><h4 id="targetDiscussionTitle"></h4></span>
 		<div id="discussion"><!-- load discussion posts --></div>
 	</div>
 	<div id="legend" class="smalltext">
@@ -516,7 +516,7 @@ function MM_swapImage() { //v3.0
 
 	<div id="finished" class="greenBB">
 		<h4>Step 4. Finished?</h4><br />
-		Go back or continue... <img src="images/btn_continue_a.gif" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_continue_b.gif',1)" onMouseOut="MM_swapImgRestore()"><img src="images/btn_cancel_a.gif" alt="Cancel" name="cancel" class="button" id="cancel" onMouseOver="MM_swapImage('cancel','','images/btn_cancel_b.gif',1)" onMouseOut="MM_swapImgRestore()"></div>
+		Go back or continue... <img src="images/btn_gcontinue_a.gif" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_gcontinue_b.gif',1)" onMouseOut="MM_swapImgRestore()"><img src="images/btn_gcancel_a.gif" alt="Cancel" name="cancel" class="button" id="cancel" onMouseOver="MM_swapImage('cancel','','images/btn_gcancel_b.gif',1)" onMouseOut="MM_swapImgRestore()"></div>
 
 </div> <!-- End container -->
 <!-- Start Footer -->
