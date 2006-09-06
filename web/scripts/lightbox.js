@@ -3,13 +3,22 @@ Created By: Chris Campbell
 Website: http://particletree.com
 Date: 2/1/2006
 
+Adapted By: Simon de Haan
+Website: http://blog.eight.nl
+Date: 21/2/2006
+
 Inspired by the lightbox implementation found at http://www.huddletogether.com/projects/lightbox/
+And the lightbox gone wild by ParticleTree at http://particletree.com/features/lightbox-gone-wild/
+
 */
 
 /*-------------------------------GLOBAL VARIABLES------------------------------------*/
 
 var detect = navigator.userAgent.toLowerCase();
 var OS,browser,version,total,thestring;
+var initialized=false;
+
+
 
 /*-----------------------------------------------------------------------------------------------*/
 
@@ -51,7 +60,7 @@ function checkIt(string) {
 
 /*-----------------------------------------------------------------------------------------------*/
 
-Event.observe(window, 'load', initialize, false);
+//Event.observe(window, 'load', initialize, false);
 Event.observe(window, 'load', getBrowserInfo, false);
 Event.observe(window, 'unload', Event.unloadCache, false);
 
@@ -63,20 +72,32 @@ lightbox.prototype = {
 	xPos : 0,
 
 	initialize: function(ctrl) {
-		this.content = ctrl.href;
+		this.content = ctrl.rel;
 		Event.observe(ctrl, 'click', this.activate.bindAsEventListener(this), false);
 		ctrl.onclick = function(){return false;};
 	},
 	
 	// Turn everything on - mainly the IE fixes
 	activate: function(){
+		//alert("activate called");
 		if (browser == 'Internet Explorer'){
 			this.getScroll();
 			this.prepareIE('100%', 'hidden');
-			this.setScroll(0,0);
+			this.setScroll(0,.15*window.innerHeight);
 			this.hideSelects('hidden');
+		}else{
+		this.getScroll();
+		this.setScroll(0,.15*window.innerHeight);
+		bod = document.getElementsByTagName('body')[0];
+		bod.style.height = "100%";
+		bod.style.overflow = "hidden";
+  
+		htm = document.getElementsByTagName('html')[0];
+		htm.style.height = "100%";
+		htm.style.overflow = "hidden";
 		}
-		this.displayLightbox("block");
+		this.displayLightbox("inline");
+		
 	},
 	
 	// Ie requires height to 100% and overflow hidden or else you can scroll down past the lightbox
@@ -111,29 +132,16 @@ lightbox.prototype = {
 	
 	setScroll: function(x, y){
 		window.scrollTo(x, y); 
+		
 	},
 	
 	displayLightbox: function(display){
 		$('overlay').style.display = display;
-		$('lightbox').style.display = display;
-		if(display != 'none') this.loadInfo();
-	},
-	
-	// Begin Ajax request based off of the href of the clicked linked
-	loadInfo: function() {
-		var myAjax = new Ajax.Request(
-        this.content,
-        {method: 'post', parameters: "", onComplete: this.processInfo.bindAsEventListener(this)}
-		);
+		$(this.content).style.display = display;
+		if(display != 'none') this.actions();
+		document.getElementById("leightbar").style.display='inline';
+		document.getElementById("leightcontainer").style.display='inline';
 		
-	},
-	
-	// Display Ajax response
-	processInfo: function(response){
-		info = "<div id='lbContent'>" + response.responseText + "</div>";
-		new Insertion.Before($('lbLoadMessage'), info)
-		$('lightbox').className = "done";	
-		this.actions();			
 	},
 	
 	// Search through new links within the lightbox, and attach click event
@@ -144,32 +152,27 @@ lightbox.prototype = {
 			Event.observe(lbActions[i], 'click', this[lbActions[i].rel].bindAsEventListener(this), false);
 			lbActions[i].onclick = function(){return false;};
 		}
-
-	},
-	
-	// Example of creating your own functionality once lightbox is initiated
-	insert: function(e){
-	   link = Event.element(e).parentNode;
-	   Element.remove($('lbContent'));
-	 
-	   var myAjax = new Ajax.Request(
-			  link.href,
-			  {method: 'post', parameters: "", onComplete: this.processInfo.bindAsEventListener(this)}
-	   );
-	 
 	},
 	
 	// Example of creating your own functionality once lightbox is initiated
 	deactivate: function(){
-		Element.remove($('lbContent'));
-		
 		if (browser == "Internet Explorer"){
-			this.setScroll(0,this.yPos);
+			//this.setScroll(0,this.yPos);
 			this.prepareIE("auto", "auto");
 			this.hideSelects("visible");
 		}
-		
+		bod = document.getElementsByTagName('body')[0];
+		bod.style.height = "auto";
+		bod.style.overflow = "auto";
+  
+		htm = document.getElementsByTagName('html')[0];
+		htm.style.height = "auto";
+		htm.style.overflow = "auto";
 		this.displayLightbox("none");
+		document.getElementById("leightbar").style.display='none';
+		document.getElementById("leightcontainer").style.display='none';
+		
+		this.setScroll(0,this.yPos);
 	}
 }
 
@@ -188,11 +191,22 @@ function initialize(){
 // Overlay holds the shadow
 // Lightbox is the centered square that the content is put into.
 function addLightboxMarkup() {
+
 	bod 				= document.getElementsByTagName('body')[0];
+
 	overlay 			= document.createElement('div');
-	overlay.id		= 'overlay';
-	lb					= document.createElement('div');
-	lb.id				= 'lightbox';
+	overlay.id			= 'overlay';
+
 	bod.appendChild(overlay);
-	bod.appendChild(lb);
+	
+}
+//resizes lightbox called by onload and onresize of body
+function sizeMe(){
+var conheight="";
+if (browser=="Internet Explorer"){
+conheight=(.7*document.body.clientHeight)-30;
+}else{
+conheight=(.7*window.innerHeight)-30;
+}
+document.getElementById("lightbox1").style.height=conheight+"px";
 }
