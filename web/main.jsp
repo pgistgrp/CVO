@@ -19,25 +19,24 @@
 
 <h3>Public View</h3>
 <ul>
-<li><pg:show roles="member, moderator"><html:link page="/cctlist.do">Concerns Collector Tool</html:link></pg:show> 
+<li><pg:show roles="participant, moderator"><html:link page="/cctlist.do">Concerns Collector Tool</html:link></pg:show> 
 * 
 </li>
 <li><html:link page="/glossaryPublic.do">Glossary Public View</html:link> 
 * 
 </li>
-<li><pg:show roles="member, moderator">
+<li><pg:show roles="participant, moderator">
   <html:link page="/sdlist.do">Structured Discussion List * </html:link>
 </pg:show></li>
 </ul>
 
+<pg:show roles="moderator">
 <h3>Moderator Tools</h3>
 <ul>
-<li><pg:show users="admin"><a href="/userlist.do">User Management</a></pg:show></li>
-<li><pg:show roles="moderator"><html:link page="/stopword.do">StopWords Management Tool</html:link></pg:show></li>
-<li><pg:show roles="moderator"><html:link page="/cstlist.do">Concerns Synthesis Tool</html:link></pg:show> 
-* 
-</li>
-<li><pg:show roles="moderator"><html:link page="/glossaryManage.do">Glossary Management Tool</html:link></pg:show></li>
+<pg:show users="admin"><li><a href="/userlist.do">User Management</a></li></pg:show>
+<li><html:link page="/stopword.do">StopWords Management Tool</html:link></li>
+<li><html:link page="/cstlist.do">Concerns Synthesis Tool</html:link>*</li>
+<li><html:link page="/glossaryManage.do">Glossary Management Tool</html:link></li>
 </ul>
 
 <h3>Developement Tools</h3>
@@ -47,7 +46,7 @@
 <li><html:link page="/search.do">Search</html:link></li>
 <li><html:link page="/situationList.do">Situation List</html:link></li>
 </ul>
-
+</pg:show>
 <!-- Sorry Zhong
 <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
   This is a test for glossary terms: Advocacy organization, Air quality, Short Range Transit Plan,
