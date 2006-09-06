@@ -184,7 +184,7 @@
 							  </c:otherwise>
 							  </c:choose>
 							  <td><div class="padding-sides"><a href="/sdRoom.do?isid=${structure.id}">Discussion about all concern themes</a><br /><span class="smalltext">Do you feel like a corner theme is missing or unnecessary from the above list? Discuss here</span></div></td>
-				 		    <td width="150"><span class="smalltext" style="font-size: 80%;">
+				 		    <td><span class="smalltext" style="font-size: 80%;">
 				 		    <c:choose>
 						      <c:when test="${structure.lastPost.id != null}">
 						     		<div class="padding-sides">

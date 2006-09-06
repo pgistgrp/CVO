@@ -58,9 +58,9 @@
 				$('targetTitle').innerHTML = '<html:link action="/sd.do" paramId="isid" paramName="structure" paramProperty="id">'+ this.ISTitle +'</html:link>  &raquo; ' + targetTitle; //object title div id
 				$('targetDiscussionTitle').innerHTML = targetTitle;//discussion title div id
 					if (${object.numDiscussion} == 1){
-					 	$('targetDiscussionTitle').innerHTML += ' - ${object.numDiscussion} Discussion';
+					 	$('targetDiscussionTitle').innerHTML += ' - ${object.numDiscussion} Topic';
 					}else{
-						$('targetDiscussionTitle').innerHTML += ' - ${object.numDiscussion} Discussions';
+						$('targetDiscussionTitle').innerHTML += ' - ${object.numDiscussion} Topics';
 					}
 				$('targetSideBarTitle').innerHTML = 'filtered by: ' + targetTitle;//sidebar title div id
 			</c:when>
@@ -491,11 +491,11 @@ function MM_swapImage() { //v3.0
 	</div><!-- End cont-main -->
 	<div id="newDiscussion" style="display: none">
 		<div id="newdisc_title" >
-			New Discussion
+		<h3 style="display: inline">New Topic</h3>
 			<span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();">Close</a></span>
 		</div> <!-- End newdisc_title -->
 		<div id="newdisc_content" class="greenBB">
-			<p>SDC New Discussion Paragraph</p>
+			<p>SDC New Topic Paragraph</p>
 			<form>
 				<p><label>Post Title</label><br><input style="width:100%" type="text" id="txtNewPostTitle"/></p>
 				<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea></p>
