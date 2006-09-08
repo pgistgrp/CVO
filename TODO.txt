@@ -20,6 +20,7 @@ Zhong:
 [ok] default sort for posts: lastPost createtime desc (newest on top)
 [ok] default sort for replies (in sdThread): replies createTime asc (newest on bottom)
 [ok] CCT edit tags and delete concerns (hibernate error)
+[] Global (will be needed on every page) feedback/bug form
 
 
 for later:
