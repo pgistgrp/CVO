@@ -33,8 +33,8 @@
     </bean>
     
     
-    <bean name="/stopword" class="org.pgist.cvo.StopWordAction">
-        <property name="stopWordService" ref="stopWordService"/>
+    <bean name="/tagging" class="org.pgist.tagging.TaggingAction">
+        <property name="taggingService" ref="taggingService"/>
     </bean>
     
     

@@ -1,6 +1,6 @@
 package org.pgist.cvo;
 
-import org.pgist.tag.Tag;
+import org.pgist.tagging.Tag;
 
 
 /**
@@ -37,7 +37,7 @@ public class TagReference {
     
     /**
      * @return
-     * @hibernate.many-to-one column="tag_id" lazy="true" class="org.pgist.tag.Tag" cascade="save-update"
+     * @hibernate.many-to-one column="tag_id" lazy="true" class="org.pgist.tagging.Tag" cascade="save-update"
      */
     public Tag getTag() {
         return tag;

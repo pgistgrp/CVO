@@ -1,5 +1,8 @@
 package org.pgist.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Trie structure.<br>
@@ -30,7 +33,7 @@ public class Trie {
         
         public char ch = 0;
         
-        public boolean hasNext = false;
+        public int childSize = 0;
         
         public TrieNode[][] nexts = null;
         
@@ -39,14 +42,14 @@ public class Trie {
         
         public TrieNode(char ch) {
             this.ch = ch;
-            hasNext = false;
+            childSize = 0;
             nexts = null;
             object = null;
         }
         
         
         public TrieNode match(char x) {
-            if (!hasNext) return null;
+            if (childSize==0) return null;
             
             int mod = x % 10;
             
@@ -67,12 +70,11 @@ public class Trie {
          * @return A TrieNode object of x
          */
         synchronized public TrieNode add(char x) {
-            if (!hasNext) {
+            if (childSize==0) {
                 /*
                  * Lazily create the char array
                  */
                 nexts = new TrieNode[10][0];
-                hasNext = true;
             }
             
             /*
@@ -92,6 +94,8 @@ public class Trie {
                     if (nexts[mod][i].ch==x) return nexts[mod][i];
                 }
             }//for i
+            
+            childSize++;
             
             TrieNode node = new TrieNode(x);
             
@@ -114,6 +118,19 @@ public class Trie {
         }//add()
         
         
+        synchronized public void remove(TrieNode node) {
+            for (int i=0; i<10; i++) {
+                for (int j=0; j<nexts[i].length; j++) {
+                    if (nexts[i][j]==node) {
+                        nexts[i][j] = null;
+                        childSize--;
+                        return;
+                    }
+                }//for j
+            }//for i
+        }//remove()
+        
+        
         public String toString() {
             if (ch==0) return "";
             else return ""+ch;
@@ -124,7 +141,7 @@ public class Trie {
             if (ch!=0) System.out.print(x+" --> "+ch);
             else System.out.print(x+" --> ");
             int mod = x % 10;
-            if (hasNext && nexts[mod]!=null) {
+            if (childSize>0 && nexts[mod]!=null) {
                 for (int i=0; i<nexts[mod].length; i++) {
                     if (nexts[mod][i]!=null) System.out.print(","+nexts[mod][i].ch);
                 }
@@ -253,7 +270,7 @@ public class Trie {
                         return result;
                     } else {
                         if (ext) {
-                            if ( (ch>'0' && ch<'9') || (ch>'a' && ch<'z') ) {
+                            if ( (ch>='0' && ch<='9') || (ch>='a' && ch<='z')) {
                                 tail = skip();
                             } else {
                                 tail = index;
@@ -373,7 +390,7 @@ public class Trie {
     
     public Trie() {
         root = new TrieNode((char) 0);
-        root.hasNext = false;
+        root.childSize = 0;
         root.ch = 0;
     }
     
@@ -402,9 +419,56 @@ public class Trie {
     }//add()
     
     
-    synchronized public void remove(String word) {
-        //TODO
+    synchronized public Object remove(String word) {
+        if (word==null || word.length()==0) return null;
+        
+        word = word.toLowerCase();
+        
+        int n = word.length();
+        
+        List parents = new ArrayList(n-1);
+        
+        TrieNode parent = root;
+        TrieNode node = null;
+        
+        for (int i=0; i<n; i++) {
+            parents.add(parent);
+            node = parent.match(word.charAt(i));
+            if (node==null) {
+                parents.clear();
+                return null;
+            }
+            parent = node;
+        }//for i
+        
+        if (node!=null) {
+            Object obj = node.object;
+            
+            if (node.childSize>0) {
+                node.object = null;
+            } else {
+                for (int i=n-1; i>=0; i--) {
+                    parent = (TrieNode) parents.get(i);
+                    parent.remove(node);
+                    if (parent.childSize>0 || parent.object!=null) break;
+                    node = parent;
+                }//for i
+            }
+            
+            parents.clear();
+            return obj;
+        }
+        
+        parents.clear();
+        return null;
     }//remove()
+    
+    
+    synchronized public void clear() {
+        root = new TrieNode((char) 0);
+        root.childSize = 0;
+        root.ch = 0;
+    }//clear()
     
     
     public Object find(String word) {

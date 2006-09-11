@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
-import org.pgist.tag.Tag;
+import org.pgist.tagging.Tag;
 
 
 /**
@@ -28,6 +28,7 @@ public class TagHandler extends Handler {
                 tag = new Tag();
                 tag.setName(name);
                 tag.setStatus(parseTagStatus(element.attributeValue("status")));
+                tag.setType(parseTagType(element.attributeValue("type")));
                 tag.setCount(0);
                 saveTag(tag);
             }

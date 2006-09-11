@@ -10,6 +10,8 @@ import java.util.Map;
  *
  * @author kenny
  *
+ * @soap.service urn="CCTService" scope="Request"
+ * @axis.service urn="CCTService" scope="request"
  */
 public interface CCTService {
 
@@ -17,6 +19,9 @@ public interface CCTService {
     /**
      * Get all the CCT objects from the database.
      *
+     * @soap.method
+     * @axis.method
+     * 
      * @return A collection of CCT objects.
      * @throws Exception
      */
@@ -128,10 +133,10 @@ public interface CCTService {
     /**
      *
      * @param statement String
-     * @return Map
+     * @return A 2D array of strings. string[0] is an array of matched tags, string[1] is the suggested words
      * @throws Exception
      */
-    Map getSuggestedTags(String statement) throws Exception;
+    String[][] getSuggestedTags(String statement) throws Exception;
 
     /**
      * Get concerns by the given tagRefId.

@@ -10,6 +10,564 @@
     
     <tag>accountability</tag>
     
+    <tag type="exclude">a</tag>
+
+    <tag type="exclude">able</tag>
+
+    <tag type="exclude">about</tag>
+
+    <tag type="exclude">absolutely</tag>
+
+    <tag type="exclude">accordingly</tag>
+
+    <tag type="exclude">actually</tag>
+
+    <tag type="exclude">affected</tag>
+
+    <tag type="exclude">affecting</tag>
+
+    <tag type="exclude">after</tag>
+
+    <tag type="exclude">again</tag>
+
+    <tag type="exclude">against</tag>
+
+    <tag type="exclude">all</tag>
+
+    <tag type="exclude">almost</tag>
+
+    <tag type="exclude">already</tag>
+
+    <tag type="exclude">also</tag>
+
+    <tag type="exclude">although</tag>
+
+    <tag type="exclude">always</tag>
+
+    <tag type="exclude">am</tag>
+
+    <tag type="exclude">ame</tag>
+
+    <tag type="exclude">among</tag>
+
+    <tag type="exclude">an</tag>
+
+    <tag type="exclude">and</tag>
+
+    <tag type="exclude">another</tag>
+
+    <tag type="exclude">any</tag>
+
+    <tag type="exclude">anyone</tag>
+
+    <tag type="exclude">apparently</tag>
+
+    <tag type="exclude">are</tag>
+
+    <tag type="exclude">arise</tag>
+
+    <tag type="exclude">as</tag>
+
+    <tag type="exclude">asidee</tag>
+
+    <tag type="exclude">at</tag>
+
+    <tag type="exclude">away</tag>
+
+    <tag type="exclude">back</tag>
+
+    <tag type="exclude">basically</tag>
+
+    <tag type="exclude">be</tag>
+
+    <tag type="exclude">became</tag>
+
+    <tag type="exclude">because</tag>
+
+    <tag type="exclude">become</tag>
+
+    <tag type="exclude">becomes</tag>
+
+    <tag type="exclude">been</tag>
+
+    <tag type="exclude">before</tag>
+
+    <tag type="exclude">being</tag>
+
+    <tag type="exclude">believe</tag>
+
+    <tag type="exclude">better</tag>
+
+    <tag type="exclude">between</tag>
+
+    <tag type="exclude">both</tag>
+
+    <tag type="exclude">briefly</tag>
+
+    <tag type="exclude">but</tag>
+
+    <tag type="exclude">by</tag>
+
+    <tag type="exclude">can</tag>
+
+    <tag type="exclude">cannot</tag>
+
+    <tag type="exclude">certain</tag>
+
+    <tag type="exclude">certainly</tag>
+
+    <tag type="exclude">come</tag>
+
+    <tag type="exclude">could</tag>
+
+    <tag type="exclude">did</tag>
+
+    <tag type="exclude">do</tag>
+
+    <tag type="exclude">does</tag>
+
+    <tag type="exclude">doing</tag>
+
+    <tag type="exclude">don</tag>
+
+    <tag type="exclude">done</tag>
+
+    <tag type="exclude">during</tag>
+
+    <tag type="exclude">each</tag>
+
+    <tag type="exclude">either</tag>
+
+    <tag type="exclude">else</tag>
+
+    <tag type="exclude">enough</tag>
+
+    <tag type="exclude">etc</tag>
+
+    <tag type="exclude">ever</tag>
+
+    <tag type="exclude">every</tag>
+
+    <tag type="exclude">fact</tag>
+
+    <tag type="exclude">following</tag>
+
+    <tag type="exclude">for</tag>
+
+    <tag type="exclude">found</tag>
+
+    <tag type="exclude">from</tag>
+
+    <tag type="exclude">further</tag>
+
+    <tag type="exclude">gave</tag>
+
+    <tag type="exclude">get</tag>
+
+    <tag type="exclude">gets</tag>
+
+    <tag type="exclude">give</tag>
+
+    <tag type="exclude">given</tag>
+
+    <tag type="exclude">giving</tag>
+
+    <tag type="exclude">go</tag>
+
+    <tag type="exclude">going</tag>
+
+    <tag type="exclude">gone</tag>
+
+    <tag type="exclude">got</tag>
+
+    <tag type="exclude">had</tag>
+
+    <tag type="exclude">hardly</tag>
+
+    <tag type="exclude">has</tag>
+
+    <tag type="exclude">have</tag>
+
+    <tag type="exclude">having</tag>
+
+    <tag type="exclude">here</tag>
+
+    <tag type="exclude">how</tag>
+
+    <tag type="exclude">however</tag>
+
+    <tag type="exclude">i</tag>
+
+    <tag type="exclude">if</tag>
+
+    <tag type="exclude">im</tag>
+
+    <tag type="exclude">in</tag>
+
+    <tag type="exclude">into</tag>
+
+    <tag type="exclude">is</tag>
+
+    <tag type="exclude">it</tag>
+
+    <tag type="exclude">itself</tag>
+
+    <tag type="exclude">just</tag>
+
+    <tag type="exclude">keep</tag>
+
+    <tag type="exclude">kept</tag>
+
+    <tag type="exclude">knew</tag>
+
+    <tag type="exclude">know</tag>
+
+    <tag type="exclude">knowledge</tag>
+
+    <tag type="exclude">largely</tag>
+
+    <tag type="exclude">like</tag>
+
+    <tag type="exclude">made</tag>
+
+    <tag type="exclude">mainly</tag>
+
+    <tag type="exclude">make</tag>
+
+    <tag type="exclude">many</tag>
+
+    <tag type="exclude">me</tag>
+
+    <tag type="exclude">mean</tag>
+
+    <tag type="exclude">might</tag>
+
+    <tag type="exclude">more</tag>
+
+    <tag type="exclude">most</tag>
+
+    <tag type="exclude">mostly</tag>
+
+    <tag type="exclude">much</tag>
+
+    <tag type="exclude">must</tag>
+
+    <tag type="exclude">my</tag>
+
+    <tag type="exclude">nearly</tag>
+
+    <tag type="exclude">necessarily</tag>
+
+    <tag type="exclude">neither</tag>
+
+    <tag type="exclude">next</tag>
+
+    <tag type="exclude">no</tag>
+
+    <tag type="exclude">none</tag>
+
+    <tag type="exclude">nor</tag>
+
+    <tag type="exclude">normally</tag>
+
+    <tag type="exclude">not</tag>
+
+    <tag type="exclude">noted</tag>
+
+    <tag type="exclude">now</tag>
+
+    <tag type="exclude">obtain</tag>
+
+    <tag type="exclude">obtained</tag>
+
+    <tag type="exclude">of</tag>
+
+    <tag type="exclude">off</tag>
+
+    <tag type="exclude">often</tag>
+
+    <tag type="exclude">ok</tag>
+
+    <tag type="exclude">on</tag>
+
+    <tag type="exclude">one</tag>
+
+    <tag type="exclude">only</tag>
+
+    <tag type="exclude">or</tag>
+
+    <tag type="exclude">other</tag>
+
+    <tag type="exclude">our</tag>
+
+    <tag type="exclude">out</tag>
+
+    <tag type="exclude">over</tag>
+
+    <tag type="exclude">owing</tag>
+
+    <tag type="exclude">particularly</tag>
+
+    <tag type="exclude">past</tag>
+
+    <tag type="exclude">people</tag>
+
+    <tag type="exclude">perhaps</tag>
+
+    <tag type="exclude">please</tag>
+
+    <tag type="exclude">poorly</tag>
+
+    <tag type="exclude">possible</tag>
+
+    <tag type="exclude">possibly</tag>
+
+    <tag type="exclude">potentially</tag>
+
+    <tag type="exclude">predomiantly</tag>
+
+    <tag type="exclude">present</tag>
+
+    <tag type="exclude">previously</tag>
+
+    <tag type="exclude">primarily</tag>
+
+    <tag type="exclude">probably</tag>
+
+    <tag type="exclude">prompt</tag>
+
+    <tag type="exclude">put</tag>
+
+    <tag type="exclude">quickly</tag>
+
+    <tag type="exclude">quite</tag>
+
+    <tag type="exclude">r</tag>
+
+    <tag type="exclude">rather</tag>
+
+    <tag type="exclude">readily</tag>
+
+    <tag type="exclude">really</tag>
+
+    <tag type="exclude">recently</tag>
+
+    <tag type="exclude">regarding</tag>
+
+    <tag type="exclude">regardless</tag>
+
+    <tag type="exclude">relatively</tag>
+
+    <tag type="exclude">respectively</tag>
+
+    <tag type="exclude">resulted</tag>
+
+    <tag type="exclude">resulting</tag>
+
+    <tag type="exclude">results</tag>
+
+    <tag type="exclude">said</tag>
+
+    <tag type="exclude">same</tag>
+
+    <tag type="exclude">seem</tag>
+
+    <tag type="exclude">seen</tag>
+
+    <tag type="exclude">several</tag>
+
+    <tag type="exclude">shall</tag>
+
+    <tag type="exclude">she</tag>
+
+    <tag type="exclude">should</tag>
+
+    <tag type="exclude">show</tag>
+
+    <tag type="exclude">showed</tag>
+
+    <tag type="exclude">shown</tag>
+
+    <tag type="exclude">shows</tag>
+
+    <tag type="exclude">significantly</tag>
+
+    <tag type="exclude">similar</tag>
+
+    <tag type="exclude">similarly</tag>
+
+    <tag type="exclude">since</tag>
+
+    <tag type="exclude">slightly</tag>
+
+    <tag type="exclude">so</tag>
+
+    <tag type="exclude">some</tag>
+
+    <tag type="exclude">something</tag>
+
+    <tag type="exclude">sometime</tag>
+
+    <tag type="exclude">somewhat</tag>
+
+    <tag type="exclude">soon</tag>
+
+    <tag type="exclude">specifically</tag>
+
+    <tag type="exclude">state</tag>
+
+    <tag type="exclude">states</tag>
+
+    <tag type="exclude">stop</tag>
+
+    <tag type="exclude">strongly</tag>
+
+    <tag type="exclude">substantially</tag>
+
+    <tag type="exclude">successfully</tag>
+
+    <tag type="exclude">such</tag>
+
+    <tag type="exclude">sufficiently</tag>
+
+    <tag type="exclude">t</tag>
+
+    <tag type="exclude">take</tag>
+
+    <tag type="exclude">than</tag>
+
+    <tag type="exclude">that</tag>
+
+    <tag type="exclude">the</tag>
+
+    <tag type="exclude">their</tag>
+
+    <tag type="exclude">theirs</tag>
+
+    <tag type="exclude">them</tag>
+
+    <tag type="exclude">then</tag>
+
+    <tag type="exclude">there</tag>
+
+    <tag type="exclude">therefore</tag>
+
+    <tag type="exclude">these</tag>
+
+    <tag type="exclude">they</tag>
+
+    <tag type="exclude">thing</tag>
+
+    <tag type="exclude">things</tag>
+
+    <tag type="exclude">think</tag>
+
+    <tag type="exclude">this</tag>
+
+    <tag type="exclude">those</tag>
+
+    <tag type="exclude">though</tag>
+
+    <tag type="exclude">through</tag>
+
+    <tag type="exclude">throughout</tag>
+
+    <tag type="exclude">to</tag>
+
+    <tag type="exclude">too</tag>
+
+    <tag type="exclude">toward</tag>
+
+    <tag type="exclude">transportation</tag>
+
+    <tag type="exclude">two</tag>
+
+    <tag type="exclude">um</tag>
+
+    <tag type="exclude">under</tag>
+
+    <tag type="exclude">unless</tag>
+
+    <tag type="exclude">until</tag>
+
+    <tag type="exclude">upon</tag>
+
+    <tag type="exclude">use</tag>
+
+    <tag type="exclude">used</tag>
+
+    <tag type="exclude">usefullness</tag>
+
+    <tag type="exclude">usefully</tag>
+
+    <tag type="exclude">using</tag>
+
+    <tag type="exclude">usually</tag>
+
+    <tag type="exclude">various</tag>
+
+    <tag type="exclude">very</tag>
+
+    <tag type="exclude">was</tag>
+
+    <tag type="exclude">way</tag>
+
+    <tag type="exclude">ways</tag>
+
+    <tag type="exclude">we</tag>
+
+    <tag type="exclude">well</tag>
+
+    <tag type="exclude">went</tag>
+
+    <tag type="exclude">were</tag>
+
+    <tag type="exclude">what</tag>
+
+    <tag type="exclude">when</tag>
+
+    <tag type="exclude">where</tag>
+
+    <tag type="exclude">whether</tag>
+
+    <tag type="exclude">which</tag>
+
+    <tag type="exclude">while</tag>
+
+    <tag type="exclude">who</tag>
+
+    <tag type="exclude">whose</tag>
+
+    <tag type="exclude">why</tag>
+
+    <tag type="exclude">widely</tag>
+
+    <tag type="exclude">will</tag>
+
+    <tag type="exclude">with</tag>
+
+    <tag type="exclude">within</tag>
+
+    <tag type="exclude">without</tag>
+
+    <tag type="exclude">would</tag>
+
+    <tag type="exclude">ya</tag>
+
+    <tag type="exclude">yet</tag>
+
+    <tag type="exclude">you</tag>
+
+    <tag type="exclude">ha</tag>
+    
+    <tag type="exclude">I'm</tag>
+
+    <tag type="exclude">I am</tag>
+
+    <tag type="exclude">I am concerned with</tag>
+
+    <tag type="exclude">I'm concerned with</tag>
+    
     
 </tags>
 

@@ -42,8 +42,8 @@
             <forward name="view" path="/WEB-INF/jsp/cvo/cct.jsp" />
         </action>
         
-        <action name="cctForm" path="/stopword" scope="request" type="org.pgist.cvo.StopWordAction">
-            <forward name="list" path="/WEB-INF/jsp/cvo/stopWordsManagement.jsp" />
+        <action path="/tagging" scope="request" type="org.pgist.tagging.TaggingAction">
+            <forward name="list" path="/WEB-INF/jsp/tagging/taggingMain.jsp" />
         </action>
         
         <action name="cctForm" path="/cstlist" scope="request" type="org.pgist.cvo.CSTListAction">

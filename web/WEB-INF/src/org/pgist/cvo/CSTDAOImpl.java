@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Query;
-import org.pgist.tag.Category;
+import org.pgist.tagging.Category;
 import org.pgist.util.PageSetting;
 
 

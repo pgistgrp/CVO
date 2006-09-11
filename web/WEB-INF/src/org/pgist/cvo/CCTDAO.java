@@ -109,6 +109,24 @@ public interface CCTDAO extends CVODAO {
      * @throws Exception
      */
     Collection getTagsByThreshold(CCT cct, int threshold) throws Exception;
+    
+    
+    /**
+     * Increase the reference times of the given TagReference object.
+     * 
+     * @param ref
+     * @throws Exception
+     */
+    void increaseRefTimes(TagReference ref) throws Exception;
+    
+
+    /**
+     * Decrease the reference times of the given TagReference object.
+     * 
+     * @param ref
+     * @throws Exception
+     */
+    void decreaseRefTimes(TagReference ref) throws Exception;
 
 
 }//interface CCTDAO

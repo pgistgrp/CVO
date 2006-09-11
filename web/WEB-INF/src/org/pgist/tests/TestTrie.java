@@ -402,7 +402,7 @@ public class TestTrie extends TestCase {
         }//while
         
         if (!found) assertTrue("No phrase is matched.", false);
-    }//testHighlight11()
+    }//testHighlight12()
     
     
     /**
@@ -411,6 +411,8 @@ public class TestTrie extends TestCase {
     public void testSuggest1() {
         String[] dict = {
                 "right of way",
+                "on",
+                "the",
         };
         
         Trie trie = createTrie(dict);
@@ -437,14 +439,41 @@ public class TestTrie extends TestCase {
                     matched = result.getObject().toString();
                 } else {
                     matched = para.substring(result.getFrom(), result.getTail()).toLowerCase();
+                    if (set.contains(matched)) set.remove(matched);
                 }
-                if (set.contains(matched)) set.remove(matched);
             }
         }//while
         
-        assertEquals("There's some pharses which are not suggested!", set.isEmpty(), true);
-        //if (!found) assertTrue("No phrase is matched.", false);
+        assertEquals("There's some pharses which are not suggested!", set.size(), dict.length);
+        for (int i=0; i<dict.length; i++) {
+            assertTrue("There's some pharses which are not matched!", set.contains(dict[i]));
+        }
     }//testSuggest1()
+    
+    
+    public void testRemove1() {
+        String[] dict = {
+                "abcda",
+                "abcdg",
+                "abcdeg",
+                "abcdefg",
+                "abcdefghij",
+        };
+        
+        Trie trie;
+        
+        for (int i=0; i<dict.length; i++) {
+            trie = createTrie(dict);
+            trie.remove(dict[i]);
+            for (int j=0; j<dict.length; j++) {
+                if (i==j) {
+                    assertEquals("Failed remove "+dict[i], null, trie.find(dict[j]));
+                } else {
+                    assertEquals("Failed remove "+dict[i], dict[j], trie.find(dict[j]));
+                }
+            }//for j
+        }//for i
+    }//testRemove1()
     
     
 }//class TagMatcherTest

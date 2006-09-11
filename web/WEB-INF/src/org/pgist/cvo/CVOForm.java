@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.apache.struts.action.ActionForm;
 import org.pgist.model.DiscourseObject;
 import org.pgist.model.Post;
-import org.pgist.tag.Category;
+import org.pgist.tagging.Category;
 
 
 /**

@@ -77,7 +77,7 @@ public class CCTAgent {
         map.put("ccts", list);
 
         return map;
-    } //getCCTs()
+    }//getCCTs()
 
 
     /**
@@ -126,7 +126,7 @@ public class CCTAgent {
         }
 
         return map;
-    } //createCCT()
+    }//createCCT()
 
 
     /**
@@ -143,22 +143,26 @@ public class CCTAgent {
      *           <li>potentialtags - a string array each element is a possible tag name</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
-     * @throws Exception
      */
-    public Map prepareConcern(Map params) throws Exception {
-        String concern = (String) params.get("concern");
-
-        Map map = cctService.getSuggestedTags(concern); //
-        //String[] tags = {"Traffic", "Transit", "Bus"};
-
-        if(map != null)
+    public Map prepareConcern(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            String concern = (String) params.get("concern");
+            
+            String[][] tags = cctService.getSuggestedTags(concern);
+            
+            map.put("tags", tags[0]);
+            map.put("potentialtags", tags[1]);
+            
             map.put("successful", new Boolean(true));
-        else{
-            map.put("successful", new Boolean(false));
-            map.put("reason", "Exception in tag analyzer.");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        
         return map;
-    } //prepareConcern()
+    }//prepareConcern()
 
 
     /**
@@ -201,7 +205,7 @@ public class CCTAgent {
         }
 
         return map;
-    } //saveConcern()
+    }//saveConcern()
 
 
     /**
@@ -317,7 +321,7 @@ public class CCTAgent {
         }
 
         return map;
-    } //getConcerns()
+    }//getConcerns()
 
 
     /**
@@ -415,7 +419,7 @@ public class CCTAgent {
         }
 
         return map;
-    } //getTagCloud()
+    }//getTagCloud()
 
 
     /**
@@ -447,7 +451,7 @@ public class CCTAgent {
         }
 
         return map;
-    } //getConcernById
+    }//getConcernById
 
 
     /**
@@ -510,7 +514,7 @@ public class CCTAgent {
         map.put("successful", new Boolean(true));
 
         return map;
-    } //getConcernsByTag()
+    }//getConcernsByTag()
 
 
     /**
@@ -581,7 +585,7 @@ public class CCTAgent {
         }
 
         return map;
-    } //editConcern()
+    }//editConcern()
 
 
     /**
@@ -641,7 +645,7 @@ public class CCTAgent {
         }
 
         return map;
-    } //deleteConcern()
+    }//deleteConcern()
 
 
     /**
@@ -712,7 +716,7 @@ public class CCTAgent {
         }
 
         return map;
-    } //editTags()
+    }//editTags()
 
 
     /**
@@ -776,7 +780,7 @@ public class CCTAgent {
         }
 
         return map;
-    } //searchTags()
+    }//searchTags()
 
 
-} //class CCTAgent
+}//class CCTAgent

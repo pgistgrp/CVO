@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
-import org.pgist.tag.Category;
-import org.pgist.tag.Tag;
+import org.pgist.tagging.Category;
+import org.pgist.tagging.Tag;
 
 
 /**

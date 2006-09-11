@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.pgist.glossary.TermAnalyzer;
 import org.pgist.search.SearchHelper;
+import org.pgist.tagging.TagAnalyzer;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.orm.hibernate3.SessionHolder;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
@@ -61,6 +62,17 @@ public class PgistListener implements ServletContextListener {
             sf = (SessionFactory) context.getBean("sessionFactory");
             session = SessionFactoryUtils.getSession(sf, true);
             TransactionSynchronizationManager.bindResource(sf, new SessionHolder(session));
+            
+            /*
+             * Config Tag Analyzer
+             */
+            
+            try {
+                TagAnalyzer tagAnalyzer = (TagAnalyzer) context.getBean("tagAnalyzer");
+                tagAnalyzer.reload();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
             
             /*
              * Config Term Analyzer

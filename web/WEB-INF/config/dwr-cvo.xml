@@ -17,19 +17,15 @@
       <param name="include" value="id, content, author, createTime, deleted, tags"/>
     </convert>
 
-    <convert converter="bean" match="org.pgist.cvo.StopWord">
-      <param name="include" value="id, name"/>
-    </convert>
-
-    <convert converter="bean" match="org.pgist.tag.Tag">
-      <param name="include" value="id, name, status, count"/>
+    <convert converter="bean" match="org.pgist.tagging.Tag">
+      <param name="include" value="id, name, status, type, count"/>
     </convert>
 
     <convert converter="bean" match="org.pgist.cvo.TagReference">
       <param name="include" value="id, tag, times, cctId"/>
     </convert>
 
-    <convert converter="bean" match="org.pgist.tag.Category">
+    <convert converter="bean" match="org.pgist.tagging.Category">
       <param name="include" value="id, name, deleted"/>
     </convert>
 
@@ -115,8 +111,8 @@
     </create>
 
 
-    <create creator="spring" javascript="StopWordAgent">
-      <param name="beanName" value="stopWordAgent"/>
+    <create creator="spring" javascript="TaggingAgent">
+      <param name="beanName" value="taggingAgent"/>
       <include method="getStopWords"/>
       <include method="createStopWord"/>
       <include method="deleteStopWord"/>

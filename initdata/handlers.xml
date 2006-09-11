@@ -8,8 +8,6 @@
     
     <handler name="emailtemplates">org.pgist.ddl.EmailTemplateHandler</handler>
     
-    <handler name="stopwords">org.pgist.ddl.StopWordHandler</handler>
-    
     <handler name="tags">org.pgist.ddl.TagHandler</handler>
     
     <handler name="categories">org.pgist.ddl.CategoryHandler</handler>

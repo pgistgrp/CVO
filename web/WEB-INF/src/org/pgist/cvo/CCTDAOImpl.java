@@ -187,4 +187,25 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
     } //getTagsByThreshold()
 
 
+    private static String hql_increaseRefTimes = "update TagReference tr set tr.times=tr.times+1 where tr.id=?";
+
+
+    public void increaseRefTimes(TagReference ref) throws Exception {
+        getSession().createQuery(hql_increaseRefTimes).setLong(0, ref.getId()).executeUpdate();
+    }//increaseRefTimes()
+
+
+    private static String hql_decreaseRefTimes = "update TagReference tr set tr.times=tr.times-1 where tr.id=?";
+
+
+    public void decreaseRefTimes(TagReference ref) throws Exception {
+        getSession().createQuery(hql_decreaseRefTimes).setLong(0, ref.getId()).executeUpdate();
+        if (ref.getTimes()<=0) {
+            delete(ref);
+        } else {
+            save(ref);
+        }
+    }//decreaseRefTimes()
+
+
 }//class CCTDAOImpl

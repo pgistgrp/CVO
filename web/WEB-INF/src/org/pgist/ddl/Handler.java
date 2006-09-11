@@ -19,13 +19,12 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.Concern;
-import org.pgist.cvo.StopWord;
 import org.pgist.cvo.TagReference;
 import org.pgist.glossary.Term;
 import org.pgist.glossary.TermCategory;
 import org.pgist.system.EmailTemplate;
-import org.pgist.tag.Category;
-import org.pgist.tag.Tag;
+import org.pgist.tagging.Category;
+import org.pgist.tagging.Tag;
 import org.pgist.users.Role;
 import org.pgist.users.User;
 
@@ -51,8 +50,6 @@ public abstract class Handler {
     protected static final Map<String, Role> roleMap = new HashMap<String, Role>();
     
     protected static final Map<String, User> userMap = new HashMap<String, User>();
-    
-    protected static final Map<String, StopWord> stopwordMap = new HashMap<String, StopWord>();
     
     protected static final Map<String, Tag> tagMap = new HashMap<String, Tag>();
     
@@ -126,24 +123,6 @@ public abstract class Handler {
     }//getUserByLoginName()
     
     
-    private static final String hql_getStopWordByName = "from StopWord sw where sw.name=?";
-    
-    
-    protected StopWord getStopWordByName(String stopwordName) throws Exception {
-        if (stopwordMap.containsKey(stopwordName)) return stopwordMap.get(stopwordName);
-        
-        Query query = session.createQuery(hql_getStopWordByName);
-        query.setString(0, stopwordName);
-        List list = query.list();
-        if (list.size()==0) return null;
-        
-        StopWord stopWord = (StopWord) list.get(0);
-        stopwordMap.put(stopWord.getName(), stopWord);
-        
-        return stopWord;
-    }//getTagByName()
-    
-    
     private static final String hql_getTagByName = "from Tag t where t.name=?";
     
     
@@ -214,14 +193,6 @@ public abstract class Handler {
     }//saveUser()
     
     
-    protected void saveStopWord(StopWord stopWord) throws Exception {
-        if (!stopwordMap.containsValue(stopWord)) {
-            stopwordMap.put(stopWord.getName(), stopWord);
-        }
-        session.saveOrUpdate(stopWord);
-    }//saveStopWord()
-    
-    
     protected void saveTag(Tag tag) throws Exception {
         if (!tagMap.containsValue(tag)) {
             tagMap.put(tag.getName(), tag);
@@ -283,13 +254,6 @@ public abstract class Handler {
     
     
     private static final String hql_getStopWords = "from StopWord order by id";
-    
-    
-    @SuppressWarnings("unchecked")
-    protected List<StopWord> getStopWords() {
-        Query query = session.createQuery(hql_getStopWords);
-        return (List<StopWord>) query.list();
-    }//getStopWords()
     
     
     private static final String hql_getTags = "from Tag order by id";
@@ -362,6 +326,17 @@ public abstract class Handler {
     }//parseTagStatus()
     
     
+    protected int parseTagType(String type) throws Exception {
+        if (type==null || "".equals(type) || "include".equalsIgnoreCase(type)) {
+            return Tag.TYPE_INCLUDED;
+        } else if ("exclude".equalsIgnoreCase(type)) {
+            return Tag.TYPE_EXCLUDED;
+        } else {
+            throw new Exception("invalid tag type: "+type);
+        }
+    }//parseTagType()
+
+
     private static final String hql_getTerms = "from Term order by name";
     
     

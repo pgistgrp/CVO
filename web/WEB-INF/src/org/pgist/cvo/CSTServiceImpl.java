@@ -11,8 +11,8 @@ import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
 import org.pgist.system.UserDAO;
-import org.pgist.tag.Category;
-import org.pgist.tag.TagDAO;
+import org.pgist.tagging.Category;
+import org.pgist.tagging.TagDAO;
 import org.pgist.util.PageSetting;
 
 

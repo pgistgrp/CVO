@@ -1,138 +1,221 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" version="2.4">
-  <display-name>CVO Test Application</display-name>
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>/WEB-INF/config/context-database.xml
-      /WEB-INF/config/context-system.xml
-      /WEB-INF/config/context-webservice.xml
-      classpath:/config/context-workflow.xml
-      /WEB-INF/config/context-base.xml
-      /WEB-INF/config/context-cvo.xml
-      /WEB-INF/config/context-pgames.xml
-	  /WEB-INF/config/context-projects.xml</param-value>
-  </context-param>
-  <context-param>
-    <param-name>org.pgist.CONFIG_DIR</param-name>
-    <param-value>/WEB-INF/config</param-value>
-  </context-param>
-  <filter>
-    <filter-name>OpenSessionInViewFilter</filter-name>
-    <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
-  </filter>
-  <filter>
-    <filter-name>pgist filter</filter-name>
-    <filter-class>org.pgist.web.PgistFilter</filter-class>
-    <init-param>
-      <param-name>force-close-connection</param-name>
-      <param-value>false</param-value>
-    </init-param>
-    <init-param>
-      <param-name>login-url</param-name>
-      <param-value>/index.jsp</param-value>
-    </init-param>
-    <init-param>
-      <param-name>ignore-url</param-name>
-      <param-value>/login.do, /register.do</param-value>
-    </init-param>
-  </filter>
-  <filter-mapping>
-    <filter-name>OpenSessionInViewFilter</filter-name>
-    <servlet-name>action</servlet-name>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>OpenSessionInViewFilter</filter-name>
-    <url-pattern>/dwr/*</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>pgist filter</filter-name>
-    <servlet-name>action</servlet-name>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>pgist filter</filter-name>
-    <url-pattern>/dwr/*</url-pattern>
-  </filter-mapping>
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-  <listener>
-    <listener-class>org.pgist.web.PgistListener</listener-class>
-  </listener>
-  <servlet>
-    <init-param>
-      <param-name>org.pgist.CONFIG_PATH</param-name>
-      <param-value>/WEB-INF/config</param-value>
-    </init-param>
-    <init-param>
-      <param-name>org.pgist.EMAIL_CONFIG</param-name>
-      <param-value>email-config.xml</param-value>
-    </init-param>
-    <init-param>
-      <param-name>org.pgist.MANAGED_FILE_PATH</param-name>
-      <param-value>/tmp/upload_files</param-value>
-    </init-param>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet>
-    <servlet-name>action</servlet-name>
-    <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
-    <init-param>
-      <param-name>config</param-name>
-      <param-value>/WEB-INF/config/struts-config.xml</param-value>
-    </init-param>
-    <init-param>
-      <param-name>debug</param-name>
-      <param-value>2</param-value>
-    </init-param>
-    <init-param>
-      <param-name>detail</param-name>
-      <param-value>2</param-value>
-    </init-param>
-    <load-on-startup>2</load-on-startup>
-  </servlet>
-  <servlet>
-    <display-name>DWR Servlet</display-name>
-    <servlet-name>dwr-invoker</servlet-name>
-    <servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
-    <init-param>
-      <param-name>config</param-name>
-      <param-value>WEB-INF/config/dwr.xml</param-value>
-    </init-param>
-    <init-param>
-      <param-name>config-webservice</param-name>
-      <param-value>WEB-INF/config/dwr-webservice.xml</param-value>
-    </init-param>
-    <init-param>
-      <param-name>config-cvo</param-name>
-      <param-value>WEB-INF/config/dwr-cvo.xml</param-value>
-    </init-param>
-    <init-param>
-      <param-name>config-pgames</param-name>
-      <param-value>WEB-INF/config/dwr-pgames.xml</param-value>
-    </init-param>
-    <init-param>
-      <param-name>debug</param-name>
-      <param-value>true</param-value>
-    </init-param>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>action</servlet-name>
-    <url-pattern>*.do</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>dwr-invoker</servlet-name>
-    <url-pattern>/dwr/*</url-pattern>
-  </servlet-mapping>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
-  <error-page>
-    <error-code>400</error-code>
-    <location>/PathNotFound.jsf</location>
-  </error-page>
-  <error-page>
-    <error-code>404</error-code>
-    <location>/PageNotFound.jsf</location>
-  </error-page>
+
+    <display-name>CVO Test Application</display-name>
+    
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/config/context-database.xml
+            /WEB-INF/config/context-system.xml
+            /WEB-INF/config/context-webservice.xml
+            classpath:/config/context-workflow.xml
+            /WEB-INF/config/context-base.xml
+            /WEB-INF/config/context-cvo.xml
+            /WEB-INF/config/context-pgames.xml
+            /WEB-INF/config/context-projects.xml
+        </param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>org.pgist.CONFIG_DIR</param-name>
+        <param-value>/WEB-INF/config</param-value>
+    </context-param>
+    
+    <filter>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+    </filter>
+    
+    <filter>
+        <filter-name>pgist filter</filter-name>
+        <filter-class>org.pgist.web.PgistFilter</filter-class>
+        <init-param>
+            <param-name>force-close-connection</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>login-url</param-name>
+            <param-value>/index.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ignore-url</param-name>
+            <param-value>/login.do, /register.do</param-value>
+        </init-param>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <servlet-name>action</servlet-name>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <url-pattern>/dwr/*</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>pgist filter</filter-name>
+        <servlet-name>action</servlet-name>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>pgist filter</filter-name>
+        <url-pattern>/dwr/*</url-pattern>
+    </filter-mapping>
+    
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+    <listener>
+        <listener-class>org.pgist.web.PgistListener</listener-class>
+    </listener>
+    
+    <servlet>
+        <init-param>
+            <param-name>org.pgist.CONFIG_PATH</param-name>
+            <param-value>/WEB-INF/config</param-value>
+        </init-param>
+        <init-param>
+            <param-name>org.pgist.EMAIL_CONFIG</param-name>
+            <param-value>email-config.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>org.pgist.MANAGED_FILE_PATH</param-name>
+            <param-value>/tmp/upload_files</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>action</servlet-name>
+        <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>/WEB-INF/config/struts-config.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>2</param-value>
+        </init-param>
+        <init-param>
+            <param-name>detail</param-name>
+            <param-value>2</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <display-name>DWR Servlet</display-name>
+        <servlet-name>dwr-invoker</servlet-name>
+        <servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>WEB-INF/config/dwr.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>config-webservice</param-name>
+            <param-value>WEB-INF/config/dwr-webservice.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>config-cvo</param-name>
+            <param-value>WEB-INF/config/dwr-cvo.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>config-pgames</param-name>
+            <param-value>WEB-INF/config/dwr-pgames.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </servlet>
+    
+    <!-- Axis 2 servlet -->
+    
+    <servlet>
+        <servlet-name>AxisServlet</servlet-name>
+        <display-name>Apache-Axis Servlet</display-name>
+        <servlet-class>org.apache.axis2.transport.http.AxisServlet</servlet-class>
+        <!--init-param>
+            <param-name>axis2.xml.path</param-name>
+            <param-value>/WEB-INF/config/axis2.xml</param-value>
+            <param-name>axis2.xml.url</param-name>
+            <param-value>http://localhost:8080/axis/axis2.xml</param-value>
+            <param-name>axis2.repository.path</param-name>
+            <param-value>/WEB-INF/config</param-value>
+            <param-name>axis2.repository.url</param-name>
+            <param-value>http://localhost:8080/axis</param-value>
+        </init-param-->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>AxisRESTServlet</servlet-name>
+        <display-name>Apache-Axis Servlet (REST)</display-name>
+        <servlet-class>org.apache.axis2.transport.http.AxisRESTServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>AxisAdminServlet</servlet-name>
+        <display-name>Apache-Axis AxisAdmin Servlet (REST)</display-name>
+        <servlet-class>org.apache.axis2.transport.http.AxisAdminServlet</servlet-class>
+    </servlet>
+    
+    
+    <servlet-mapping>
+        <servlet-name>action</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>dwr-invoker</servlet-name>
+        <url-pattern>/dwr/*</url-pattern>
+    </servlet-mapping>
+    
+    
+    <!-- Axis 2 servlet mappings -->
+    
+    <servlet-mapping>
+        <servlet-name>AxisRESTServlet</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>AxisServlet</servlet-name>
+        <url-pattern>/servlet/AxisServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>AxisServlet</servlet-name>
+        <url-pattern>*.jws</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>AxisServlet</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>AxisAdminServlet</servlet-name>
+        <url-pattern>/axis2-admin/*</url-pattern>
+    </servlet-mapping>
+    
+    
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    
+    <error-page>
+        <error-code>400</error-code>
+        <location>/PathNotFound.jsf</location>
+    </error-page>
+    
+    <error-page>
+        <error-code>404</error-code>
+        <location>/PageNotFound.jsf</location>
+    </error-page>
+    
 </web-app>
+

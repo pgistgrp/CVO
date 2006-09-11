@@ -52,12 +52,6 @@ public class CVODAOImpl extends BaseDAOImpl implements CVODAO {
     }//save()
 
 
-    public void save(StopWord stopWord) throws Exception {
-       getHibernateTemplate().saveOrUpdate(stopWord);
-   }//save()
-
-
-
     public void save(TagReference ref) throws Exception {
         getHibernateTemplate().saveOrUpdate(ref);
     }//save()

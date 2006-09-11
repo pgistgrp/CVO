@@ -7,6 +7,7 @@
     <property file="${base}/build.properties"/>
     
     <property name="web" value="web" />
+    <property name="temp" value="${web}/temp" />
     <property name="src" value="${web}/WEB-INF/src" />
     <property name="deplib" value="lib" />
     <property name="lib" value="${web}/WEB-INF/lib" />
@@ -31,6 +32,7 @@
     <target name="init">
         <tstamp/>
         <mkdir dir="${build}" />
+        <mkdir dir="${temp}" />
     </target>
 
 
@@ -160,5 +162,44 @@
     </target>
 
   
+    <target name="axis">
+        <!--axis-admin port="${target.port}" hostname="${target.server}" failonerror="true" debug="true"
+            servletpath="${target.appname}/services/AdminService" xmlfile="${endpoint-stub.wsdd}"
+        /-->
+        
+        <!--taskdef name="templatedoclet" classname="xdoclet.DocletTask" classpathref="classpath"/>
+        
+        <tstamp>
+            <format property="TODAY" pattern="dd-MM-yy"/>
+        </tstamp>
+        
+        <templatedoclet destdir="${build}" verbose="1">
+            <fileset dir="${src}">
+                <include name="**/*.java"/>
+            </fileset>
+            <template templateFile="web/WEB-INF/config/axis-wsdd.xdt" destinationFile="deploy.wsdd">
+                <configParam name="Xmlencoding" value="utf-8" />
+            </template>
+        </templatedoclet-->
+        
+        
+    </target>
+    
+    
+    <target name="webservice" description="Web Service with XDoclet">
+        <taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask" classpathref="classpath"/>
+        <ejbdoclet destdir="${temp}">
+            <fileset dir="${src}">
+                <include name="**/*.java"/>
+            </fileset>
+            <axisdeploy destDir="${temp}"
+                contextProviderUrl="localhost:8080"
+                contextFactoryName="org.jnp.interfaces.NamingContextFactory"
+            />
+            <axisundeploy destDir="${temp}"/>
+        </ejbdoclet>
+    </target>
+    
+    
 </project>
 

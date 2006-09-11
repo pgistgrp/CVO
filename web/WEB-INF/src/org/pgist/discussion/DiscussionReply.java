@@ -34,7 +34,7 @@ public class DiscussionReply extends GenericPost {
      * 
      * @hibernate.set lazy="true" table="pgist_dreply_tag_link" order-by="tag_id"
      * @hibernate.collection-key column="dreply_id"
-     * @hibernate.collection-many-to-many column="tag_id" class="org.pgist.tag.Tag"
+     * @hibernate.collection-many-to-many column="tag_id" class="org.pgist.tagging.Tag"
      */
     public Set getTags() {
         return tags;

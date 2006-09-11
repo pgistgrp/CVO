@@ -34,7 +34,7 @@
 <h3>Moderator Tools</h3>
 <ul>
 <pg:show users="admin"><li><a href="/userlist.do">User Management</a></li></pg:show>
-<li><html:link page="/stopword.do">StopWords Management Tool</html:link></li>
+<li><html:link page="/tagging.do">Tags/StopWords Management Tool</html:link></li>
 <li><html:link page="/cstlist.do">Concerns Synthesis Tool</html:link>*</li>
 <li><html:link page="/glossaryManage.do">Glossary Management Tool</html:link></li>
 </ul>

@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
-import org.pgist.tag.Tag;
+import org.pgist.tagging.Tag;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
