@@ -152,6 +152,19 @@ lightbox.prototype = {
 			Event.observe(lbActions[i], 'click', this[lbActions[i].rel].bindAsEventListener(this), false);
 			lbActions[i].onclick = function(){return false;};
 		}
+
+		
+		//Attaches click event to the save and close link in the lightbox
+		lbsaveclose= document.getElementsByClassName("lbsaveclose");
+		
+		for(ij=0; ij<lbsaveclose.length; ij++){
+			var lbs=lbsaveclose[ij].id;
+			//alert("id: "+lbs);
+			Event.observe(lbsaveclose[ij], 'click', this[lbsaveclose[ij].rel].bindAsEventListener(this), false);
+			lbsaveclose[ij].onclick=function(){saveEditedAttributes(lbs); getTerms(); return false;};
+		}
+
+
 	},
 	
 	// Example of creating your own functionality once lightbox is initiated
@@ -198,6 +211,7 @@ function addLightboxMarkup() {
 	overlay.id			= 'overlay';
 
 	bod.appendChild(overlay);
+
 	
 }
 //resizes lightbox called by onload and onresize of body
@@ -208,5 +222,7 @@ conheight=(.7*document.body.clientHeight)-30;
 }else{
 conheight=(.7*window.innerHeight)-30;
 }
-document.getElementById("lightbox").style.height=conheight+"px";
+document.getElementById("lightbox1").style.height=conheight+"px";
+
+	
 }
