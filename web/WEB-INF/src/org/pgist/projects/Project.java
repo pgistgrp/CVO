@@ -3,14 +3,15 @@
  */
 package org.pgist.projects;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Guirong
  * @hibernate.class table="pgist_data_projects" lazy="true"
  */
 public class Project {
+    public static int PGIST_PROJECT_MODE_ROAD = 0;
+    public static int PGIST_PROJECT_MODE_TRANSIT = 1;
 
     /**
      * fpid: a comman-delimited footprint id list for
@@ -27,6 +28,7 @@ public class Project {
     private double cost;
     private int transMode;
     private String sponsor;
+    private Corridor corridor;
 
     public void setCost(double co){
 		this.cost = co;
@@ -149,12 +151,17 @@ public class Project {
     }
 
     /**
-     * @return
-     *
      * @hibernate.property
      */
     public String getSponsor() {
         return sponsor;
+    }
+
+    /**
+     * @hibernate.property
+     */
+    public Corridor getCorridor() {
+        return corridor;
     }
 
     public void setAnnoString(String anno){
@@ -168,6 +175,10 @@ public class Project {
 
     public void setSponsor(String sponsor) {
         this.sponsor = sponsor;
+    }
+
+    public void setCorridor(Corridor corridor) {
+        this.corridor = corridor;
     }
 
 }

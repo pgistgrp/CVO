@@ -3,13 +3,17 @@
  */
 package org.pgist.projects;
 
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Guirong
  * @hibernate.class table="pgist_data_packages" lazy="true"
  */
 public class Package {
+    public static int PGIST_PACKAGE_TYPE_PPP = 0;//preliminary personal package
+    public static int PGIST_PACKAGE_TYPE_SPP = 1;//submitted personal package
+    public static int PGIST_PACKAGE_TYPE_CPP = 2;//clustered personal package
+
     private Set projects;
     private String name;
     private String author;
@@ -20,12 +24,11 @@ public class Package {
     private double year4Cost;
     private double year5Cost;
     private Long id;
+    private int type;
+    private Set fundingSources;
 
     /**
-     *
-     * @return Set
-     *
-     * @hibernate.set lazy="false" table="pgist_data_pack_proj" cascade="none"
+     * @hibernate.set lazy="true" table="pgist_data_pack_proj" cascade="none"
      * @hibernate.collection-key column="package_id"
      * @hibernate.collection-many-to-many column="proj_id" class="org.pgist.projects.Project"
      */
@@ -110,6 +113,22 @@ public class Package {
         return id;
     }
 
+    /**
+     * @hibernate.property
+     */
+    public int getType() {
+        return type;
+    }
+
+    /**
+     * @hibernate.set lazy="true" table="pgist_ag_pack_fund" cascade="none"
+     * @hibernate.collection-key column="package_id"
+     * @hibernate.collection-many-to-many column="fund_id" class="org.pgist.projects.FundingSource"
+     */
+    public Set getFundingSources() {
+        return fundingSources;
+    }
+
     public double getTotalCost() {
         return (this.year1Cost + this.year2Cost + this.year3Cost
                 + this.year4Cost + this.year5Cost);
@@ -154,6 +173,14 @@ public class Package {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setFundingSources(Set fundingSources) {
+        this.fundingSources = fundingSources;
     }
 
 
