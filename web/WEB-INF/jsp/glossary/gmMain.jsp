@@ -137,7 +137,7 @@
 			
 		}
 		var globtermlinkarray=new Array();
-		globtermlinkarray.push("very first element");
+		
 		function dummy(data){
 		if(data.successful){
 					//var asdfarray = new Array();
@@ -301,7 +301,7 @@
 		});
 		alert("end of save: "+globtermlinkarray);
 		globtermlinkarray=new Array();
-		globtermlinkarray.push("very first element");
+		
 		//alert(globtermlinkarray);
 		}		
 		
