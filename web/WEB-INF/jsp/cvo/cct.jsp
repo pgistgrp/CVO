@@ -716,7 +716,7 @@ float:right;
 <div id="suppSlate" class="borderblue">
 	<a name="finished"></a><h4 id="h4Finished">Finished brainstorming concerns?</h4>
 	<p>The next step in the process is to discuss your concerns with other participants.</p>
-	<input type="button" id="btnNextStep" value="Continue" onClick="location.href='sd.do?isid=2061'">
+	<input type="button" id="btnNextStep" value="Continue" onClick="location.href='cctConfirm.do'">
 </div>
 <!-- End Main Content -->
 </td>

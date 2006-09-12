@@ -21,6 +21,10 @@ Zhong:
 [ok] default sort for replies (in sdThread): replies createTime asc (newest on bottom)
 [ok] CCT edit tags and delete concerns (hibernate error)
 [] Global (will be needed on every page) feedback/bug form
+[] Registration redirect (if successful, redirect to succcess page or main page, if not, display message)
+[] CCT redirect (if user clicks on 'continue' when finished inputting concerns, this button should go to cctConfirm.jsp - in CVO folder)
+[] Is it possible to access main.jsp without having to login each time?
+[] Link to most recent CCT instance.  We would like to link to this through the breadcrumb links - how can we do this?
 
 
 for later:

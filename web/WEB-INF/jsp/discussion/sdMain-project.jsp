@@ -56,7 +56,7 @@
 							$(infoStructure.mapDivElement).innerHTML = data.source.html;
               				eval(data.source.script);
               				 
-					        //displayIndicator(false);
+					        displayIndicator(false);
 						}else{
 							alert(data.reason);
 							 displayIndicator(false);
@@ -315,21 +315,7 @@ href="javascript:getConcernsByTag(894);">commuting</a></span>
 <script type="text/javascript">
 	var infoStructure = new InfoStructure(); 
 	infoStructure.getTargets();
-/*	<c:if test="${structure.type == 'sdmap'}">
-		var pgistmap = new PGISTMap('object');
 
-		var idList = new Array();
-		<c:forEach var="infoObject" items="${structure.infoObjects}">
-			idList[idList.length] = '${infoObject.id}';
-		</c:forEach>
-		alert(idList);
-		//pgistmap.setProjectList(idList);
-		//pgistmap.projectClickHandler = function(projId){
-			//this is a callback function to load the sidebar_bottom
-			
-		//}
-	</c:if>
-	*/
 </script>
 </body>
 

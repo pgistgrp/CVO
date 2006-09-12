@@ -29,7 +29,7 @@ var PGISTMap = function(mapdiv) {
 		this.mapListener = null;
 
 		this.projectList  = null;
-		this.featureOverlays = new Array();
+		this.featureOverlays = new Array(); //line overlays to be drawn
 		
 		//these variables are only useful when editing projects  
 		this.editProject = null;
@@ -490,7 +490,7 @@ PGISTMap.prototype.prepareOverlays=function(allFootprints){
 							if(PGISTGeometryType[project.geoType] == "LINE" 
 							|| PGISTGeometryType[project.geoType] == "POLYGON"){
 								//featureOverlays['_'+fpids[i]+'_'+k+'_'+l] = 
-								if(project.id==1830 || project.id==1831)var linecolor = '#00ff00';
+								if(project.id==1830 || project.id==1831)var linecolor = '#00ff00'; //if project mode == road show as green.
 								else var linecolor = '#ff0000';
 								fpoverlay =	makeline(allFootprints[fpids[i]][k][l],linecolor,5,1.0);
 								
@@ -522,27 +522,7 @@ PGISTMap.prototype.prepareOverlays=function(allFootprints){
 						if(PGISTGeometryType[project.geoType] == "LINE" 
 						|| PGISTGeometryType[project.geoType] == "POLYGON"){
 							
-							var midpoint = (allFootprints[fpids[i]][k][l].length/2 - (allFootprints[fpids[i]][k][l].length/2)%2)/2;
-
-/*							//TODO: this is intended to make bubble for each alternative
-							if(project.alternatives){
-								var na = project.alternatives.length;
-
-								var altindex = 0;
-								for(var n=(0-(na-na%2)/2);n<=(na-na%2)/2;n++){
-									if(n==0 && na%2==0 && na!=0){continue;}
-									
-									var infoHTML = "Project: " + project.name;
-									if(na>0) infoHTML += ' - Alternative ' + project.alternatives[altindex].name;
-									var bubble = createMarker(new GLatLng(allFootprints[fpids[i]][k][l][midpoint*2 + 1]
-									,allFootprints[fpids[i]][k][l][midpoint*2]), 
-										infoHTML, this.bubbleicons['ltr_'+j]); //'b' + n]);////////////needs change
-									project.bubblemarkers.push( bubble );
-									
-									altindex++;
-								}
-							}else{}
-*/								
+							var midpoint = (allFootprints[fpids[i]][k][l].length/2 - (allFootprints[fpids[i]][k][l].length/2)%2)/2;							
 								var infoHTML = "<h3>Project: " + project.name + "</h3>"; 
 								infoHTML += '<a href="'
 									+ this.discussionActionURL + '?isid=' + this.infoStructureId
