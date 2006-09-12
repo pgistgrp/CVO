@@ -136,39 +136,69 @@
 				return tmparray;
 			
 		}
-		
-		var bool=false;
-		function getTermLinksByTermId(termid){
-		
-			var tmparray = new Array();
-			bool=true;
-		//asdfg.push("first element");
-			GlossaryManageAgent.getTerm({id:termid, type:"edit"},{
-			callback:function(data){
-				if(data.successful){
+		var globtermlinkarray=new Array();
+		globtermlinkarray.push("very first element");
+		function dummy(data){
+		if(data.successful){
+					//var asdfarray = new Array();
+					//alert("it ran");
 					
-					alert("it ran");
-		//alert(data.term.links[0].link);
-		//tmparray.concat(data.term.links);
-		//tmparray.splice(data.term.links.length,0,data.term.links[0].link);
-		
+		//asdfarray.push("test link");
 				for (var ct=0; ct<data.term.links.length;ct++){
-					//if(data.term.links[ct].link!="" && data.term.links[ct].link!=undefined){
-						tmparray.push(data.term.links[ct].link);
-						//alert("getting terms..."+tmparray[ct]);
-					//}
+					
+						globtermlinkarray.push(data.term.links[ct].link);
+						//alert("in dummy: "+data.term.links[ct].link);
+					
 				}
+				//alert("in dummy array: "+asdfarray[0]);
+					return globtermlinkarray;
 		
 				}else{
 					alert("error from getTermLinksByTermId: "+data.reason);
 				}
+		}
+		
+		function getTermLinksByTermId(termid){
+		//var bool=false;
+			//var tmparray = new Array();
+			//bool=true;
+		//asdfg.push("first element");
+			GlossaryManageAgent.getTerm({id:termid, type:"edit"},{
+			callback:function(data){
+				dummy(data);
+				
+			/*
+				if(data.successful){
+					
+					alert("it ran");
+					bool=true;
+		
+				for (var ct=0; ct<data.term.links.length;ct++){
+					
+						tmparray.push(data.term.links[ct].link);
+						
+					
+				}
+					return tmparray;
+		
+				}else{
+					alert("error from getTermLinksByTermId: "+data.reason);
+				}*/
 			},
 			errorHandler:function(errorString, exception){
 			alert(errorString+" "+exception);
 			}
-		});
-		alert(bool);
+		});/*
+		alert("first alert: "+bool);
+		//alert("second alert: "+bool);
+		if(bool==false){
+		if(bool==true){
+		alert("second if: "+bool);
 		}
+		}else{
+		alert("else: "+bool);
+		}*/
+	}
 		/*
 		function getCategoriesByTermId(termid){
 			var tmparray = new Array();
@@ -195,22 +225,33 @@
 				return tmparray;
 			
 		}*/
-		function nothing(){
 		
-		}
 		
 		
 		function saveEditedAttributes(tid){//tid, tname, tsd, ted, tlinks, tsources, tcats)
+		
+		
+			//alert("asdfarray: "+asdfarray[0]);
+			//alert("asdfarray second time: "+asdfarray[0]);
+			getTermLinksByTermId(tid);
 			var tidlinks=new Array();
-			var tmpar = getTermLinksByTermId(tid);
+			tidlinks=tidlinks.concat(globtermlinkarray);
+			
+			/*if(tidlinks[0]==undefined){
+			alert('tidlinks is undefined');
+			}*/
+			
+			/*if(globtermlinkarray[0]==undefined){
+			alert("global is also undefined");
+			}*/
+			//var tmpar = new Array();
+			//tmpar=tmpar.concat(getTermLinksByTermId(tid));
 			//for(var ct=0;ct<=tmpar.length;ct++){
-			nothing();
-			//tidlinks.push(tmpar[2]);
-			alert("tmpar="+tmpar);
-			alert("tidlinks="+tidlinks);
+			//tidlinks=tidlinks.concat(tmpar);
+			//alert("save edited: "+tmpar[0]);
 			//}
-			/*
-			if(tmpar!=undefined && tmpar[0]!=""){
+			//tidlinks=tidlinks.concat(getTermLinksByTermId(tid));
+			/*if(tmpar[0]!=undefined && tmpar[0]!=""){
 			tidlinks=tidlinks.concat(getTermLinksByTermId(tid));
 			alert("get term links from save attributes: "+tmpar[0]);
 			}*/
@@ -222,10 +263,14 @@
 		//alert("tidlinks: "+tidlinks[0]);
 		//tidlinks=tidlinks.concat(getTermLinksByTermId(tid));
 		if($('edaddtermlink').value!="Http://"){
-		tidlinks.push($('edaddtermlink').value);
+			//if(tidlinks[0]==undefined){
+				//tidlinks[0]=$('edaddtermlink').value;
+			//}else{
+				tidlinks.push($('edaddtermlink').value);
+			//}
 		}
 		
-		var tidsources =new Array();
+		//var tidsources =new Array();
 		//tidsources=tidsources.concat(getSourcesByTermId(tid));
 		
 		/*if($('edaddsource').value!="Http://"){
@@ -239,12 +284,13 @@
 		//var tidcats=new Array();
 		//tidcats=tidcats.concat(getCategoriesByTermId(tid));
 		//tidcats.concat(getCategoriesByTermId(tid));
-		
-			GlossaryManageAgent.saveTerm({id:tid, name:$('edtermname').value, shortDefinition:$('edtermshortdef').value, extDefinition:document.getElementById('edtermextdef').value}, [], tidlinks, tidsources, [],{
+		alert("end of method: " + globtermlinkarray);
+			GlossaryManageAgent.saveTerm({id:tid, name:$('edtermname').value, shortDefinition:$('edtermshortdef').value, extDefinition:document.getElementById('edtermextdef').value}, [], tidlinks, [], [],{
 			callback:function(data){
 				if (data.successful){
 				//getTerms();
 					//alert("saved successfully");
+					alert("successful: "+globtermlinkarray);
 				}else{
 					alert("Reason for failure: "+data.reason);
 				}
@@ -253,8 +299,10 @@
 			alert(errorString+" "+exception);
 			}
 		});
-		
-		
+		alert("end of save: "+globtermlinkarray);
+		globtermlinkarray=new Array();
+		globtermlinkarray.push("very first element");
+		//alert(globtermlinkarray);
 		}		
 		
 		
