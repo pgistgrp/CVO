@@ -17,12 +17,16 @@ public class ChoiceModelerServiceImpl implements ChoiceModelerService {
     public void setProvider(WebServiceProvider provider) {
         this.provider = provider;
     }
-    
-    
+
+
     /*
      * ------------------------------------------------------------------------
      */
     
+    
+    public String echo(String name) throws Exception {
+        return (String) provider.call("echo", name);
+    }//echo()
     
     
 }//class ChoiceModelerServiceImpl

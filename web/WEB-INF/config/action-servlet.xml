@@ -98,6 +98,12 @@
     </bean>
     
     
+    <bean name="/cm" class="org.pgist.cm.ChoiceModelerAction">
+        <property name="choiceModelerService" ref="choiceModelerService"/>
+    </bean>
+    
+    
+    
     <!--bean name="/cvolist" class="org.pgist.cvo.CVOListAction">
         <property name="userDAO" ref="userDAO"/>
         <property name="cvoDAO" ref="cvoDAO"/>

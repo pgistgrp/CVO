@@ -38,7 +38,7 @@ public class PgistListener implements ServletContextListener {
         /*
          * Config Search Helper
          */
-        
+        /*
         SearchHelper helper = (SearchHelper) context.getBean("searchHelper");
         
         String contextPath = servletContext.getRealPath("/");
@@ -47,7 +47,7 @@ public class PgistListener implements ServletContextListener {
         }
         
         helper.setContextPath(contextPath);
-        
+        */
         /*
          * The following operations need the OpenSessionInView
          */
