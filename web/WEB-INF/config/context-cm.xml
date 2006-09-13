@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+
+    <bean id="cmWSProvider" class="org.pgist.ws.WebServiceProviderImpl">
+        <property name="props">
+            <props>
+                <prop key="protocol">http</prop>
+                <prop key="hostname">localhost</prop>
+                <prop key="port">9080</prop>
+                <prop key="service">/axis/services/ChoiceModeler</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <bean id="choiceModelerService" class="org.pgist.cm.ChoiceModelerServiceImpl">
+        <property name="provider" ref="cmWSProvider"/>
+    </bean>
+
+
+    <bean id="coiceModelerAgent" class="org.pgist.cm.CoiceModelerAgent">
+        <property name="choiceModelerService" ref="choiceModelerService"/>
+    </bean>
+
+
+</beans>
+
