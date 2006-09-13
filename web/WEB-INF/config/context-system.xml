@@ -50,5 +50,27 @@
     </bean>
     
     
+    <bean id="systemDAO" class="org.pgist.system.SystemDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
+    <bean id="systemService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.system.SystemServiceImpl">
+                <property name="systemDAO" ref="systemDAO"/>
+                <property name="userDAO" ref="userDAO"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="systemAgent" class="org.pgist.system.SystemAgent">
+        <property name="systemService" ref="systemService"/>
+    </bean>
+
+
 </beans>
 

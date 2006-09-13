@@ -14,16 +14,5 @@
     </bean>
     
     
-    <!-- DiscussionAgent -->
-    
-    
-    <bean id="discussionAgent" parent="baseTransactionProxy">
-      <property name="target">
-        <bean class="org.pgist.ws.DiscussionAgent">
-        </bean>
-      </property>
-    </bean>
-    
-    
 </beans>
 

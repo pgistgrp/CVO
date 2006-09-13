@@ -16,6 +16,14 @@
     </convert>
 
     <convert converter="bean" match="org.pgist.util.PageSource"/>
+    
+    <convert converter="bean" match="org.pgist.system.Feedback"/>
+
+
+    <create creator="spring" javascript="SystemAgent">
+      <param name="beanName" value="systemAgent"/>
+      <include method="createFeedback"/>
+    </create>
 
 
   </allow>

@@ -39,6 +39,7 @@
         <property name="mappingResources">
            <list>
                <value>org/pgist/system/EmailTemplate.hbm.xml</value>
+               <value>org/pgist/system/Feedback.hbm.xml</value>
                <value>org/pgist/users/User.hbm.xml</value>
                <value>org/pgist/users/Role.hbm.xml</value>
                <value>org/pgist/model/Discussible.hbm.xml</value>

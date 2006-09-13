@@ -25,13 +25,6 @@
     </create>
 
 
-    <create creator="spring" javascript="DiscussionAgent">
-      <param name="beanName" value="discussionAgent"/>
-      <include method="getDiscussionBrief"/>
-      <include method="postComment"/>
-    </create>
-
-
   </allow>
 
 

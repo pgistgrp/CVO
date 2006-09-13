@@ -10,6 +10,8 @@
 <!-- End Site Wide CSS -->
 <!-- Site Wide JS -->
 <script src="scripts/search.js" type="text/javascript"></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/util.js'></script>
 </head>
 
 <body>
@@ -54,6 +56,9 @@
 </pg:termHighlight>
 -->
 </div>
+
+<pg:feedback id="feedbackDiv" action="login.do"/>
+
 </body>
 </html:html>
 
