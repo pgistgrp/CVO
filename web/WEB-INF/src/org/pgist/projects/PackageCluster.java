@@ -1,70 +1,111 @@
 package org.pgist.projects;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+
 
 /**
- * @author Mike and Guirong
- * @hibernate.class table="pgist_ag_packcluster" lazy="true"
+ * @author  Mike and Guirong
+ * @hibernate.class  table="pgist_ag_packcluster" lazy="true"
  */
-class PackageCluster {
+public class PackageCluster {
+    
+    
     private Long id;
+    
     private String info;
+    
     private int numPeople;
-    private Set packages = new HashSet();
-
+    
+    private Set<Package> packages = new HashSet<Package>();
+    
+    
     /**
-     * @hibernate.id generator-class="native"
+     * @hibernate.id  generator-class="native"
+     * @uml.property  name="id"
      */
     public Long getId() {
         return id;
     }
-
+    
+    
+    /**
+     * @param id  the id to set
+     * @uml.property  name="id"
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    
     /**
      * @hibernate.property
+     * @uml.property  name="info"
      */
     public String getInfo() {
         return info;
     }
-
+    
+    
+    /**
+     * @param info  the info to set
+     * @uml.property  name="info"
+     */
+    public void setInfo(String info) {
+        this.info = info;
+    }
+    
+    
     /**
      * @hibernate.property
+     * @uml.property  name="numPeople"
      */
     public int getNumPeople() {
         return numPeople;
     }
-
+    
+    
     /**
-     * @hibernate.set lazy="true" table="pgist_ag_cluster_pack" cascade="none"
-     * @hibernate.collection-key column="cluster_id"
-     * @hibernate.collection-many-to-many column="package_id" class="org.pgist.projects.Package"
+     * @param numPeople  the numPeople to set
+     * @uml.property  name="numPeople"
      */
-    public Set getPackages() {
-
-        return packages;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
     public void setNumPeople(int numPeople) {
         this.numPeople = numPeople;
     }
-
-    public void setPackages(Set packages) {
-
+    
+    
+    /**
+     * @hibernate.set  lazy="true" table="pgist_ag_cluster_pack" cascade="none"
+     * @hibernate.collection-key  column="cluster_id"
+     * @hibernate.collection-many-to-many  column="package_id" class="org.pgist.projects.Package"
+     * @uml.property  name="packages"
+     */
+    public Set<Package> getPackages() {
+        return packages;
+    }
+    
+    
+    /**
+     * @param packages  the packages to set
+     * @uml.property  name="packages"
+     */
+    public void setPackages(Set<Package> packages) {
         this.packages = packages;
     }
-
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
     public void addPackage(Package p){
-        this.packages.add(p);
+        packages.add(p);
     }
-
+    
+    
     public void removePackage(Package p){
-        this.packages.remove(p);
+        packages.remove(p);
     }
-}
+    
+    
+}//class PackageCluster

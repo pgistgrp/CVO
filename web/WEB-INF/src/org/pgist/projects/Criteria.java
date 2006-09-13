@@ -2,97 +2,156 @@ package org.pgist.projects;
 
 import java.util.*;
 
+
 /**
- * @author Mike and Guirong
- * @hibernate.class table="pgist_ag_criteria" lazy="true"
+ * @author  Mike and Guirong
+ * 
+ * @hibernate.class  table="pgist_criteria" lazy="true"
  */
-class Criteria {
+public class Criteria {
+    
+    
     private Long id;
+    
     private String name;
+    
     private String na;
+    
     private String high;
+    
     private String medium;
+    
     private String low;
-    private Set moes;
-
-
+    
+    private Set<MOE> moes = new HashSet<MOE>();
+    
+    
     /**
-     * @hibernate.id generator-class="native"
+     * @hibernate.id  generator-class="native"
+     * @uml.property  name="id"
      */
     public Long getId() {
         return id;
     }
-
+    
+    
     /**
-     * @hibernate.property not-null="true"
+     * @param id  the id to set
+     * @uml.property  name="id"
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    
+    /**
+     * @hibernate.property  not-null="true"
+     * @uml.property  name="name"
      */
     public String getName() {
         return name;
     }
-
+    
+    
     /**
-     * @hibernate.property not-null="true" comment="if a score for this project and criterion is not applicapable"
+     * @param name  the name to set
+     * @uml.property  name="name"
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    
+    /**
+     * @hibernate.property  not-null="true" comment="if a score for this project and criterion is not applicapable"
+     * @uml.property  name="na"
      */
     public String getNa() {
         return na;
     }
-
+    
+    
     /**
-     * @hibernate.property not-null="true"
+     * @param na  the na to set
+     * @uml.property  name="na"
+     */
+    public void setNa(String na) {
+        this.na = na;
+    }
+    
+    
+    /**
+     * @hibernate.property  not-null="true"
+     * @uml.property  name="high"
      */
     public String getHigh() {
         return high;
     }
-
+    
+    
     /**
-     * @hibernate.property not-null="true"
+     * @param high  the high to set
+     * @uml.property  name="high"
+     */
+    public void setHigh(String high) {
+        this.high = high;
+    }
+    
+    
+    /**
+     * @hibernate.property  not-null="true"
+     * @uml.property  name="medium"
      */
     public String getMedium() {
         return medium;
     }
-
+    
+    
     /**
-     * @hibernate.property not-null="true"
+     * @param medium  the medium to set
+     * @uml.property  name="medium"
+     */
+    public void setMedium(String medium) {
+        this.medium = medium;
+    }
+    
+    
+    /**
+     * @hibernate.property  not-null="true"
+     * @uml.property  name="low"
      */
     public String getLow() {
         return low;
     }
-
+    
+    
     /**
-     *
-     * @hibernate.set lazy="false" table="pgist_ag_moe" cascade="none"
-     * @hibernate.collection-key column="criterion_id"
-     * @hibernate.collection-many-to-many column="moe_id" class="org.pgist.projects.MOE"
+     * @param low  the low to set
+     * @uml.property  name="low"
      */
-    public Set getMoes() {
-        return moes;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setNa(String na) {
-        this.na = na;
-    }
-
-    public void setHigh(String high) {
-        this.high = high;
-    }
-
-    public void setMedium(String medium) {
-        this.medium = medium;
-    }
-
     public void setLow(String low) {
         this.low = low;
     }
-
-    public void setMoes(Set moes) {
+    
+    
+    /**
+     * @hibernate.set  lazy="false" table="pgist_ag_moe" cascade="none"
+     * @hibernate.collection-key  column="criterion_id"
+     * @hibernate.collection-many-to-many  column="moe_id" class="org.pgist.projects.MOE"
+     * @uml.property  name="moes"
+     */
+    public Set<MOE> getMoes() {
+        return moes;
+    }
+    
+    
+    /**
+     * @param moes  the moes to set
+     * @uml.property  name="moes"
+     */
+    public void setMoes(Set<MOE> moes) {
         this.moes = moes;
     }
-}
+    
+    
+}//class Criteria

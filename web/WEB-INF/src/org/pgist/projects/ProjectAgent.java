@@ -1,39 +1,45 @@
 package org.pgist.projects;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
-
 import org.apache.commons.collections.map.HashedMap;
-import org.postgresql.jdbc3.Jdbc3Connection;
-import org.postgresql.PGConnection;
 import org.postgis.Geometry;
 
+
 /**
- * @author Guirong
- *
+ * @author  Guirong
  */
 public class ProjectAgent {
+    
+    
 	private Connection connection = null;
+    
+	/**
+     * @uml.property   name="projectService"
+     */
 	private ProjectService projectService = null;	//need injection
-
+	
+    
 	/**
-	 * This is not an AJAX method
-	 * @return
-	 */
+     * This is not an AJAX method
+     * @return
+     * @uml.property  name="projectService"
+     */
 	public ProjectService getProjectService(){
-		return this.projectService;
-	}
-
+        return this.projectService;
+    }
+	
+    
 	/**
-	 * This is not an AJAX method
-	 * @param ps
-	 */
+     * This is not an AJAX method
+     * @param  ps
+     * @uml.property  name="projectService"
+     */
 	public void setProjectService(ProjectService ps){
-		this.projectService = ps;
-	}
+        this.projectService = ps;
+    }
 
 
 	//-------------------------------
