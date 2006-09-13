@@ -5,12 +5,13 @@
     
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/config/context-database.xml
+        <param-value>
+            /WEB-INF/config/context-database.xml
             /WEB-INF/config/context-system.xml
-            /WEB-INF/config/context-webservice.xml
             classpath:/config/context-workflow.xml
             /WEB-INF/config/context-base.xml
             /WEB-INF/config/context-cvo.xml
+            /WEB-INF/config/context-cm.xml
             /WEB-INF/config/context-pgames.xml
             /WEB-INF/config/context-projects.xml
         </param-value>

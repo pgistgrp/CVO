@@ -2,8 +2,8 @@ package org.pgist.projects;
 
 
 /**
- * @author  Guirong
- * @hibernate.class  table="pgist_data_alternatives" lazy="true"
+ * @author Guirong
+ * @hibernate.class table="pgist_data_alternatives" lazy="true"
  */
 public class ProjectAlternative extends Project {
     
@@ -13,18 +13,13 @@ public class ProjectAlternative extends Project {
     
 	/**
      * @return
-     * @hibernate.many-to-one  column="project_id" class="org.pgist.projects.Project" cascade="none"
-     * @uml.property  name="project"
+     * @hibernate.many-to-one column="project_id" cascade="none"
      */
 	public Project getProject(){
 		return this.project;
 	}
     
     
-    /**
-     * @param project  the project to set
-     * @uml.property  name="project"
-     */
     public void setProject(Project p){
         this.project = p;
     }

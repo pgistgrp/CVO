@@ -2,7 +2,9 @@ package org.pgist.projects;
 
 
 /**
- * @author  guirong
+ * @author guirong
+ * 
+ * @hibernate.class table="pgist_vehicle" lazy="true"
  */
 public class Vehicle {
     
@@ -15,54 +17,42 @@ public class Vehicle {
     
     
     /**
-     * @return  the id
-     * @uml.property  name="id"
+     * @return
+     * @hibernate.id generator-class="native"
      */
     public Long getId() {
         return id;
     }
     
     
-    /**
-     * @param id  the id to set
-     * @uml.property  name="id"
-     */
     public void setId(Long id) {
         this.id = id;
     }
     
     
     /**
-     * @return  the milesPerGallon
-     * @uml.property  name="milesPerGallon"
+     * @return the milesPerGallon
+     * @hibernate.property
      */
     public float getMilesPerGallon() {
         return milesPerGallon;
     }
     
     
-    /**
-     * @param milesPerGallon  the milesPerGallon to set
-     * @uml.property  name="milesPerGallon"
-     */
     public void setMilesPerGallon(float milesPerGallon) {
         this.milesPerGallon = milesPerGallon;
     }
     
     
     /**
-     * @return  the milesPerYear
-     * @uml.property  name="milesPerYear"
+     * @return the milesPerYear
+     * @hibernate.property
      */
     public float getMilesPerYear() {
         return milesPerYear;
     }
     
     
-    /**
-     * @param milesPerYear  the milesPerYear to set
-     * @uml.property  name="milesPerYear"
-     */
     public void setMilesPerYear(float milesPerYear) {
         this.milesPerYear = milesPerYear;
     }

@@ -9,23 +9,19 @@ import org.postgis.Geometry;
 
 
 /**
- * @author  Guirong
+ * @author Guirong
  */
 public class ProjectAgent {
     
     
 	private Connection connection = null;
     
-	/**
-     * @uml.property   name="projectService"
-     */
-	private ProjectService projectService = null;	//need injection
+	private ProjectService projectService = null;
 	
     
 	/**
      * This is not an AJAX method
      * @return
-     * @uml.property  name="projectService"
      */
 	public ProjectService getProjectService(){
         return this.projectService;
@@ -34,15 +30,18 @@ public class ProjectAgent {
     
 	/**
      * This is not an AJAX method
-     * @param  ps
-     * @uml.property  name="projectService"
+     * @param ps
      */
 	public void setProjectService(ProjectService ps){
         this.projectService = ps;
     }
 
 
-	//-------------------------------
+	/*
+     * ------------------------------------------------------------------------
+	 */
+    
+    
 	/**
 	 *
 	 * @param pId
@@ -58,6 +57,8 @@ public class ProjectAgent {
 			return null;
 		}
 	}
+    
+    
 	public Map getProjects(String criteria){
 		Map result = new HashedMap();
 		if(criteria == null)criteria = "";
@@ -76,7 +77,7 @@ public class ProjectAgent {
 		}
 		return result;
 	}
-
+	
 	public Map saveProject(Map prjparams){
 		Map result = new HashMap();
 		if(prjparams == null){
@@ -102,7 +103,8 @@ public class ProjectAgent {
 
 		return result;
 	}
-
+	
+    
 	public Map saveAlternative(long pid, Map altparams){
 		Map result = new HashMap();
 		try {
@@ -128,7 +130,8 @@ public class ProjectAgent {
 		}
 		return result;
 	}
-
+	
+    
 	public Map saveFootprint(long pid, double[][][] coords, String geoType, String fpids){
 		Map result = new HashMap();
 		try {
@@ -156,11 +159,13 @@ public class ProjectAgent {
 		}
 		return result;
 	}
-
+	
+    
 	public double[][][] getFootprint(long fpid){
 		return null;
 	}
-
+	
+    
 	public Map getFootprints(String fpids){
 		Map result = new HashMap();
 		try {
@@ -176,19 +181,21 @@ public class ProjectAgent {
 		}
 		return result;
 	}
-
-        public Map enableProjectDiscussion(){
-            Map result = new HashMap();
-            try {
-                projectService.publishProjects("");
-                result.put("successful", true);
-            } catch (Exception ex) {
-                result.put("successful", false);
-                ex.printStackTrace();
-                result.put("reason", ex.getMessage());
-            }
-
-            return result;
+	
+    
+    public Map enableProjectDiscussion(){
+        Map result = new HashMap();
+        try {
+            projectService.publishProjects("");
+            result.put("successful", true);
+        } catch (Exception ex) {
+            result.put("successful", false);
+            ex.printStackTrace();
+            result.put("reason", ex.getMessage());
         }
 
-}
+        return result;
+    }
+    
+    
+}//class ProjectAgent

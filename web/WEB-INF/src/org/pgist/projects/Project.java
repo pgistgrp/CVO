@@ -6,8 +6,9 @@ import java.util.List;
 
 
 /**
- * @author  Guirong
- * @hibernate.class  table="pgist_projects" lazy="true"
+ * @author Guirong
+ * 
+ * @hibernate.class table="pgist_projects" lazy="true"
  */
 public class Project {
     
@@ -45,37 +46,27 @@ public class Project {
     
     
     /**
-     * @param id  the id to set
-     * @uml.property  name="id"
-     */
-    public void setId(Long id){
-        this.id = id;
-    }
-    
-    
-    /**
-     * @hibernate.id  generator-class="native"
-     * @uml.property  name="id"
+     * @hibernate.id generator-class="native"
      */
     public Long getId(){
         return this.id;
     }
     
     
+    public void setId(Long id){
+        this.id = id;
+    }
+    
+    
     /**
      * @return
      * @hibernate.property
-     * @uml.property  name="cost"
      */
 	public double getCost(){
 		return this.cost;
 	}
 	
     
-    /**
-     * @param cost  the cost to set
-     * @uml.property  name="cost"
-     */
     public void setCost(double co){
         this.cost = co;
     }
@@ -83,18 +74,13 @@ public class Project {
     
     /**
      * @return
-     * @hibernate.property  not-null="true"
-     * @uml.property  name="name"
+     * @hibernate.property not-null="true"
      */
     public String getName(){
         return name;
     }
     
     
-	/**
-     * @param name  the name to set
-     * @uml.property  name="name"
-     */
 	public void setName(String n){
 		this.name = n;
 	}
@@ -103,17 +89,12 @@ public class Project {
     /**
      * @return
      * @hibernate.property
-     * @uml.property  name="description"
      */
 	public String getDescription(){
 		return this.description;
 	}
 	
     
-    /**
-     * @param description  the description to set
-     * @uml.property  name="description"
-     */
     public void setDescription(String d){
         this.description = d;
     }
@@ -122,7 +103,6 @@ public class Project {
     /**
      * @return
      * @hibernate.property
-     * @uml.property  name="geoType"
      */
 	public int getGeoType(){
 		return this.geoType;
@@ -130,8 +110,7 @@ public class Project {
 	
     
     /**
-     * @param geoType  the geoType to set
-     * @uml.property  name="geoType"
+     * @param the geoType to set
      */
     public void setGeoType(int t){
         this.geoType = t;
@@ -140,21 +119,16 @@ public class Project {
     
     /**
      * @return
-     * @hibernate.list  lazy="false" cascade="all-delete-orphan"
-     * @hibernate.collection-one-to-many  class="org.pgist.projects.ProjectAlternative"
+     * @hibernate.list lazy="false" cascade="all-delete-orphan"
+     * @hibernate.collection-one-to-many class="org.pgist.projects.ProjectAlternative"
      * @hibernate.collection-index  column="index"
-     * @hibernate.collection-key  column="project_id"
-     * @uml.property  name="alternatives"
+     * @hibernate.collection-key column="project_id"
      */
     public List<ProjectAlternative> getAlternatives(){
         return this.alternatives;
     }
     
     
-	/**
-     * @param alternatives  the alternatives to set
-     * @uml.property  name="alternatives"
-     */
 	public void setAlternatives(List<ProjectAlternative> alts){
 		this.alternatives = alts;
 	}
@@ -163,17 +137,12 @@ public class Project {
     /**
      * @return
      * @hibernate.property
-     * @uml.property  name="fpids"
      */
 	public String getFpids(){
 		return this.fpids;
 	}
 	
     
-    /**
-     * @param fpids  the fpids to set
-     * @uml.property  name="fpids"
-     */
     public void setFpids(String fpids){
         this.fpids = fpids;
     }
@@ -182,17 +151,12 @@ public class Project {
     /**
      * This attribute is used for map display. It has the format of "color,width,opacity,anchorX,anchorY, shiftHorizontalAnchor,shiftVerticalAnchor,shiftHorizontalFeature, shiftVerticalFeature"
      * @hibernate.property
-     * @uml.property  name="annoString"
      */
 	public String getAnnoString(){
 		return this.annoString;
 	}
     
 	
-    /**
-     * @param annoString  the annoString to set
-     * @uml.property  name="annoString"
-     */
     public void setAnnoString(String anno){
         this.annoString = anno;
     }
@@ -201,7 +165,6 @@ public class Project {
     /**
      * @return
      * @hibernate.property
-     * @uml.property  name="transMode"
      */
     public int getTransMode() {
 
@@ -209,10 +172,6 @@ public class Project {
     }
     
     
-    /**
-     * @param transMode  the transMode to set
-     * @uml.property  name="transMode"
-     */
     public void setTransMode(int transMode) {
         this.transMode = transMode;
     }
@@ -220,35 +179,25 @@ public class Project {
     
     /**
      * @hibernate.property
-     * @uml.property  name="sponsor"
      */
     public String getSponsor() {
         return sponsor;
     }
     
     
-    /**
-     * @param sponsor  the sponsor to set
-     * @uml.property  name="sponsor"
-     */
     public void setSponsor(String sponsor) {
         this.sponsor = sponsor;
     }
     
     
     /**
-     * @hibernate.property
-     * @uml.property  name="corridor"
+     * @hibernate.many-to-one column="corridor_id" cascade="all" lazy="true"
      */
     public Corridor getCorridor() {
         return corridor;
     }
     
     
-    /**
-     * @param corridor  the corridor to set
-     * @uml.property  name="corridor"
-     */
     public void setCorridor(Corridor corridor) {
         this.corridor = corridor;
     }

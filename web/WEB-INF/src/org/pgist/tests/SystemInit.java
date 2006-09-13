@@ -73,11 +73,12 @@ public class SystemInit extends MatchingTask {
             new String[] {
                 configPath + "/context-database.xml",
                 configPath + "/context-system.xml",
-                configPath + "/context-webservice.xml",
                 "classpath:/config/context-workflow.xml",
                 configPath + "/context-base.xml",
                 configPath + "/context-cvo.xml",
                 configPath + "/context-pgames.xml",
+                configPath + "/context-cm.xml",
+                configPath + "/context-projects.xml",
             }
         );
         
