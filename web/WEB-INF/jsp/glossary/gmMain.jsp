@@ -97,6 +97,9 @@
 		
 			});
 		}
+		
+		
+		
 		var gotTerms=false;
 		function getTerms(term,sortby){
 		
@@ -148,6 +151,7 @@
 			GlossaryManageAgent.saveTerm({id:tid, name:$('edtermname'+tid).value, shortDefinition:$('edtermshortdef'+tid).value, extDefinition:document.getElementById('edtermextdef'+tid).value}, [], globalTermLinks, globalSourceLinks, globalCategoryLinks,{
 			callback:function(data){
 				if (data.successful){
+				refreshSavedTerm(tid,$('edtermname'+tid).value, $('edtermshortdef'+tid).value);
 				saveFinished=true;
 				}else{
 					alert("Reason for failure: "+data.reason);
@@ -162,7 +166,11 @@
 		
 		
 		}		
+		function refreshSavedTerm(tid,name,shortDef){
+			$('glossaryViewLink'+tid).innerHTML=name;
+			$('termShortDefinitionCell'+tid).innerHTML=shortDef;
 		
+		}
 		
 		
  function closeAllContentsExcept(id, className){
@@ -227,8 +235,8 @@
 		function contIntervalCall(a,type,tid){
 			 if(type=='saveTerm'){
 				clearInterval(a);
-				getTerms("", "name");
-				isTermsGotten();
+				/*getTerms("", "name");
+				isTermsGotten();*/
 			}else if(type=='getTerms'){
 				clearInterval(a);
 		

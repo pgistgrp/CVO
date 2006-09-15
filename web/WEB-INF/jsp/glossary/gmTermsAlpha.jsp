@@ -17,11 +17,11 @@ Jump to starts with letter:
   <bean:define id="storeInitial" value="" />
 	  <logic:iterate id="term" name="terms">
 	    <tr id="glossaryTerm${term.id}">
-	      <td><logic:notEqual name="storeInitial" value="${term.initial}"><a name="<bean:write name="term" property="initial"/>"><bean:define id="storeInitial" value="${term.initial}" /></logic:notEqual><a href="glossaryView.do?id=${term.id}"><pg:highlight text="${filter}" style="color:white; background-color:red;">${term.name}</pg:highlight></a></td>
-	      <td><pg:highlight text="${filter}" style="color:white; background-color:red;">${term.shortDefinition}</pg:highlight></td>
+	      <td><logic:notEqual name="storeInitial" value="${term.initial}"><a name="<bean:write name="term" property="initial"/>"><bean:define id="storeInitial" value="${term.initial}" /></logic:notEqual><a id='glossaryViewLink${term.id}' href="glossaryView.do?id=${term.id}"><pg:highlight text="${filter}" style="color:white; background-color:red;">${term.name}</pg:highlight></a></td>
+	      <td id='termShortDefinitionCell${term.id}'><pg:highlight text="${filter}" style="color:white; background-color:red;">${term.shortDefinition}</pg:highlight></td>
 	      <td style="text-align: center">${term.commentCount}</td>
 	      <td style="text-align: center">${term.viewCount}</td>
-		  <td style="text-align: center"><a href="#${term.id}" onclick='openEditBox(${term.id}); return false;' rel="lightbox1" class="lbOn">edit attributes</a>|<a href='javascript:deleteTerm(${term.id});'>del</a></td>
+		  <td style="text-align: center"><a href="#${term.id}" onclick='openEditBox(${term.id}); return false;'>edit attributes</a>|<a href='javascript:deleteTerm(${term.id});'>del</a></td>
 	    </tr>
 		<tr>
 		<td id='editrow${term.id}' colspan=5>
