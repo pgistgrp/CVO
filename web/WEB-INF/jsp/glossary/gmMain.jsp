@@ -181,6 +181,7 @@
   
   for(i = 0; i < allRecords.length; i++){
    if(allRecords[i].id == activeRecord){
+	$(allRecords[i].id).style.backgroundColor='white';
   // document.getElementById(activeRow).style.visibility='visible';
    //document.getElementById(activeRecord).style.display='inline';
    //new Effect.toggle(activeRow,'blind',{duration: 0.4});
@@ -326,13 +327,13 @@
 					globalTermLinks.push(termlinkarray[tl].link);
 				}
 				
-				lboxhtml.innerHTML="<div><table rules='all'><tbody><tr><td><label>Term Name:</label><br /><input id='edtermname"+termid+"' type='text' value='"+data.term.name+"'/><br />"+
-				"<label>Short Definition</label><br /><input id='edtermshortdef"+termid+"' type='text' value='"+data.term.shortDefinition+"'/></td>"+
-				"<td rowspan=2><label>Sources</label><br /><div id='sourcelinks"+termid+"'>"+satml+
-				"</div><br /><label>Add Source</label><br /><textarea id='edaddsourcecitation"+termid+"'>Citation</textarea><br /><input id='edaddsource"+termid+"' type='text' value='Http:"+'//'+"'/>"+
+				lboxhtml.innerHTML="<div style='border:thick solid #C0C0C0;'><table rules='all'><tbody><tr><td cellspacing=10 style='width:50%;'><div style='margin:2%;'><label>Term Name:</label><br /><input style='width:100%;' id='edtermname"+termid+"' type='text' value='"+data.term.name+"'/><br />"+
+				"<label>Short Definition</label><br /><input style='width:100%;' id='edtermshortdef"+termid+"' type='text' value='"+data.term.shortDefinition+"'/></div></td>"+
+				"<td rowspan=2><div style='margin:2%;'><label>Sources</label><br /><div id='sourcelinks"+termid+"'>"+satml+
+				"</div><br /><label>Add Source</label><br /><textarea style='width:100%;'id='edaddsourcecitation"+termid+"'>Citation</textarea><br /><input style='width:100%;' id='edaddsource"+termid+"' type='text' value='Http:"+'//'+"'/>"+
 				"<br /><a href='#' onclick='addSourceLink("+termid+"); return false;'>Add Source</a><label><br /><br />Term Links</label><br /><div id='termlinks"+termid+"'>"+tatml+
-				"</div><br /><label>Add Link</label><br /><input id='edaddtermlink"+termid+"' type='text' value='Http:"+'//'+"'/><br /><a href='#' onclick='addTermLink("+termid+"); return false;'>Add Link</a></td></tr><tr><td><label>Extended Definition</label><br />"+
-				"<textarea id='edtermextdef"+termid+"'>"+data.term.extDefinition+"</textarea></td></tr><tr><td colspan=2><a href='#' onclick='closeEdit("+termid+"); return false;'>Cancel</a>&nbsp;<a href='#' onclick='saveClose("+termid+"); return false;'>Save and Close</a></td></tr></tbody></table></div>";
+				"</div><br /><label>Add Link</label><br /><input style='width:100%;' id='edaddtermlink"+termid+"' type='text' value='Http:"+'//'+"'/><br /><a href='#' onclick='addTermLink("+termid+"); return false;'>Add Link</a></div></td></tr><tr><td><div style='margin:2%;'><label>Extended Definition</label><br />"+
+				"<textarea style='width:100%; height:100%;' id='edtermextdef"+termid+"'>"+data.term.extDefinition+"</textarea></div></td></tr><tr><td colspan=2><div style='margin:0.5%; float:right;'><a href='#' onclick='closeEdit("+termid+"); return false;'>Cancel</a>&nbsp;<a href='#' onclick='saveClose("+termid+"); return false;'>Save and Close</a></div></td></tr></tbody></table></div>";
 				//lboxhtml.innerHTML="<table cellspacing=10 rules='all'><tr><td><label>Term Name:</label><br /><input type='text' /><br /><label>Short Definition:</label><br /><input type='text'/></td><td rowspan=2><ol><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li></ol></td></tr><tr><td><label>Extended Definition</label><br /><textarea style=''>something</textarea></td></tr><tr><td colspan=2 ><a href='#'>Save and Close</a></td></tr></table>";
 					/*lboxhtml.innerHTML="<h3>Editing Attributes for Glossary Term: "+data.term.name+"</h3>"+
 "<div><label>Glossary Term</label><br /><input id='edtermname"+termid+"' type='text' value='"+data.term.name+"'/></div>"+
@@ -521,8 +522,6 @@ editbox.style.display='block';
 editbox.style.backgroundColor='white';
 
 $('overlay').style.display='inline';
-
-editrow.style.visibility='visible';
 new Effect.toggle(editid,'blind');
 
 //new Effect.toggle(editrowid,'blind');
