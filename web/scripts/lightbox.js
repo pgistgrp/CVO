@@ -74,7 +74,7 @@ lightbox.prototype = {
 	initialize: function(ctrl) {
 		this.content = ctrl.rel;
 		Event.observe(ctrl, 'click', this.activate.bindAsEventListener(this), false);
-		ctrl.onclick = function(){return false;};
+		ctrl.onclick = function(){return false;};//getTermArrays(ctrl.id); 
 	},
 	
 	// Turn everything on - mainly the IE fixes

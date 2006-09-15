@@ -21,15 +21,99 @@ Jump to starts with letter:
 	      <td><pg:highlight text="${filter}" style="color:white; background-color:red;">${term.shortDefinition}</pg:highlight></td>
 	      <td style="text-align: center">${term.commentCount}</td>
 	      <td style="text-align: center">${term.viewCount}</td>
-		  <td style="text-align: center"><a href="#lightbox1" onmouseover="changeLightBox(${term.id});" lbox=${term.id} rel="lightbox1" class="lbOn">edit attributes</a>|<a href='javascript:deleteTerm(${term.id});'>del</a></td>
+		  <td style="text-align: center"><a href="#${term.id}" onclick='openEditBox(${term.id}); return false;' rel="lightbox1" class="lbOn">edit attributes</a>|<a href='javascript:deleteTerm(${term.id});'>del</a></td>
 	    </tr>
+		<tr>
+		<td id='editrow${term.id}' colspan=5>
+		<div id='editbox${term.id}' class='editbox' style='display:none;'><div>Future lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightbox</div></div>
+	  	</td>
+		</tr>
 	  </logic:iterate>
-	  <!--   <tr style="background-color: rgb(204, 0, 51);">
+	  </table>
+	  <!--  onmouseover="openEditBox(${term.id});" <tr style="background-color: rgb(204, 0, 51);">
 	      <td><a href="http://69.91.143.23:8080/glossaryView.do?id=1668">agh</a></td>
 	      <td>This is not an actual term. Delete me.</td>
 	      <td style="text-align: center;">0</td>
 	      <td style="text-align: center;">1</td>
 		  <td style="text-align: center;"><a href="#lightbox1" rel="lightbox1" class="lbOn">edit attributes</a>|<a href="">del</a></td>
-	    </tr>-->
+	    </tr>  changeLightBox(${term.id});onmouseout="clearArrays();"-->
 		
-</table>
+		
+		<!--<div id="leightcontainer" class="leightcontainer">
+	<div id="leightbar" class="leightbar">
+		<div class="lbclose"><a href='#' class="lbAction" rel="deactivate"><img id="closebut" class="close" onmouseout="javascript:this.src='images/closeinactivesm.gif'" onmouseover="javascript:this.src='images/closeactivesm.gif'" src='images/closeinactivesm.gif'/></a>
+		</div>
+	</div>
+
+	<div id="lightbox1" class="leightbox">
+		
+		<div id="lightboxpadding" class="leightpadding">
+			
+			<h3>Editing Attributes for Glossary Term: ...</h3>
+			<div>
+				<label>Glossary Term</label>
+				<br />
+				<input type='text' value='...'/>
+			</div>
+			<br />
+			<div>
+				<label>Short Definition</label>
+				<br />
+				<input type='text' value='definition'/>
+			</div>
+			<br />
+		
+			<div>
+				<label>Full Definition (optional - leave blank if none exists)</label>
+				<br />
+				<textarea rows=5 style='width:75%'>Full Definition goes here</textarea>
+			</div>
+			<br />
+			<div>
+				<label>Sources</label>
+				<br />
+				<a href=''>Source URL #1</a>
+				<br />
+				<a href=''>Source URL #2</a>
+				<br />
+				<label>Add Source:&nbsp;</label><input type='text' value='Http://'/>
+			</div>
+			<br />
+			<div>
+				<label>Term Links</label>
+				<br />
+				No links have been created.
+				<br />
+				<label>Add Link:&nbsp;</label><input type='text' value='Http://'/>
+			</div>
+			<br />
+		
+			<div>
+				<label>
+					Related Terms
+				</label>
+				<p>
+					Automatically added related terms: term #1, term #2
+				</p>
+		
+				<label>
+					Manual relate a term
+				</label>
+				<input type='text' value=''/>
+			</div>
+			<br />
+			<div>
+				<label>
+					Participant Comments
+				</label>
+				<br />
+				NoSUV on August 28,2006 added the following comment:
+				<br/>
+				Comment #1&nbsp; | <a href=''>Delete</a>
+			</div>
+			<div style='float:right;'>
+				<a style='background-color:#CCFF99;' href=''>Cancel</a>&nbsp;<a style='background-color:#CCFF99;' href='' class='lbsaveclose' rel='deactivate123'>Save and Close</a>
+			</div>
+		</div>
+	</div>
+</div>-->

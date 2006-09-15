@@ -35,15 +35,33 @@
 
 <script type="text/javascript">
 
-
-
 		var direction = "asc";
 		
 		function doOnLoad(){
 			direction = "asc";
 			getProposedTerms();
 			getTerms("", "name");
+			isTermsGotten();
 			
+		}
+		
+		var yscrollPos=0;
+		var xscrollPos=0;
+		function getScrollPos(){
+			if (self.pageYOffset) {
+				yscrollPos = self.pageYOffset;
+				xscrollPos = self.pageXOffset;
+			} else if (document.documentElement && document.documentElement.scrollTop){
+				yscrollPos = document.documentElement.scrollTop; 
+				xscrollPos = document.documentElement.scrollLeft;
+			} else if (document.body) {
+				yscrollPos = document.body.scrollTop;
+				xscrollPos = document.body.scrollLeft;
+			}
+		}
+		
+		function setScrollPos(){
+			window.scrollTo(xscrollPos,yscrollPos);
 		}
 		
 		function deleteTerm(termid){
@@ -79,7 +97,7 @@
 		
 			});
 		}
-
+		var gotTerms=false;
 		function getTerms(term,sortby){
 		
 				GlossaryManageAgent.getTerms({filter:term, sort:sortby, direction:direction}, {
@@ -90,7 +108,8 @@
 						setSort(sortby, term);
 						direction = "asc"; //reset direction
 						$('loading-indicator').style.display = "none";
-						initialize(); //initializes lightbox links. Placed here so generated links are also made active
+						//initializes lightbox links. Placed here so generated links are also made active
+						gotTerms=true;
 					}else{
 						alert(data.reason);
 						$('loading-indicator').style.display = "none";
@@ -99,198 +118,37 @@
 				},
 				errorHandler:function(errorString, exception){ 
 				alert(errorString+" "+exception);
-						//showTheError();
+						/*showTheError();*/
 				}
 			});
 		
 		}
+		var globalSourceLinks=new Array();
+		var globalTermLinks = new Array();
+		var globalCategoryLinks=new Array();
 		
 		
-		function getSourcesByTermId(termid){
-			var tmparray=new Array();
-			GlossaryManageAgent.getTerm({id:termid, type:"edit"},{
-			callback:function(data){
-			if(data.successful){
-				
-				for(var ct=0; ct<data.term.sources.length;ct++){
-					
-						var sourcearray = new Array();
-						sourcearray.push(data.term.sources[ct].citation);
-						sourcearray.push(data.term.sources[ct].url);
-						tmparray.push(sourcearray);
-					
-				}
-				
-				//tmparray=new Array(sourcearray.length);
-				
-				
-			}else{
-				alert(data.reason);
-			}
-			},
-			errorHandler:function(errorString, exception){
-			alert(errorString+" "+exception);
-			}
-			});
-			
-				return tmparray;
-			
-		}
-		var globtermlinkarray=new Array();
-		
-		function dummy(data){
-		if(data.successful){
-					//var asdfarray = new Array();
-					//alert("it ran");
-					
-		//asdfarray.push("test link");
-				for (var ct=0; ct<data.term.links.length;ct++){
-					
-						globtermlinkarray.push(data.term.links[ct].link);
-						//alert("in dummy: "+data.term.links[ct].link);
-					
-				}
-				//alert("in dummy array: "+asdfarray[0]);
-					return globtermlinkarray;
-		
-				}else{
-					alert("error from getTermLinksByTermId: "+data.reason);
-				}
-		}
-		
-		function getTermLinksByTermId(termid){
-		//var bool=false;
-			//var tmparray = new Array();
-			//bool=true;
-		//asdfg.push("first element");
-			GlossaryManageAgent.getTerm({id:termid, type:"edit"},{
-			callback:function(data){
-				dummy(data);
-				
-			/*
-				if(data.successful){
-					
-					alert("it ran");
-					bool=true;
-		
-				for (var ct=0; ct<data.term.links.length;ct++){
-					
-						tmparray.push(data.term.links[ct].link);
-						
-					
-				}
-					return tmparray;
-		
-				}else{
-					alert("error from getTermLinksByTermId: "+data.reason);
-				}*/
-			},
-			errorHandler:function(errorString, exception){
-			alert(errorString+" "+exception);
-			}
-		});/*
-		alert("first alert: "+bool);
-		//alert("second alert: "+bool);
-		if(bool==false){
-		if(bool==true){
-		alert("second if: "+bool);
-		}
-		}else{
-		alert("else: "+bool);
-		}*/
-	}
-		/*
-		function getCategoriesByTermId(termid){
-			var tmparray = new Array();
-			GlossaryManageAgent.getTerm({id:termid, type:"edit"},{
-			callback:function(data){
-				if(data.successful){
-		
-		
-					for(var ct=0; ct<data.term.categories.length;ct++){
-						
-							tmparray.push(data.term.categories[ct].name);
-						
-					}
-		
-				}else{
-					alert(data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){
-				alert(errorString+" "+exception);
-			}
-			});
-			
-				return tmparray;
-			
-		}*/
-		
-		
-		
+		var saveFinished=false;
 		function saveEditedAttributes(tid){//tid, tname, tsd, ted, tlinks, tsources, tcats)
 		
-		
-			//alert("asdfarray: "+asdfarray[0]);
-			//alert("asdfarray second time: "+asdfarray[0]);
-			getTermLinksByTermId(tid);
-			var tidlinks=new Array();
-			tidlinks=tidlinks.concat(globtermlinkarray);
-			
-			/*if(tidlinks[0]==undefined){
-			alert('tidlinks is undefined');
-			}*/
-			
-			/*if(globtermlinkarray[0]==undefined){
-			alert("global is also undefined");
-			}*/
-			//var tmpar = new Array();
-			//tmpar=tmpar.concat(getTermLinksByTermId(tid));
-			//for(var ct=0;ct<=tmpar.length;ct++){
-			//tidlinks=tidlinks.concat(tmpar);
-			//alert("save edited: "+tmpar[0]);
-			//}
-			//tidlinks=tidlinks.concat(getTermLinksByTermId(tid));
-			/*if(tmpar[0]!=undefined && tmpar[0]!=""){
-			tidlinks=tidlinks.concat(getTermLinksByTermId(tid));
-			alert("get term links from save attributes: "+tmpar[0]);
-			}*/
-			
-		//alert(tidlinks);
-		//tidlinks.concat(getTermLinksByTermId(tid));
-		//tidlinks=tidlinks.concat(getTermLinksByTermId(tid));
-		
-		//alert("tidlinks: "+tidlinks[0]);
-		//tidlinks=tidlinks.concat(getTermLinksByTermId(tid));
-		if($('edaddtermlink').value!="Http://"){
-			//if(tidlinks[0]==undefined){
-				//tidlinks[0]=$('edaddtermlink').value;
-			//}else{
-				tidlinks.push($('edaddtermlink').value);
-			//}
+		/*if($('edaddtermlink'+tid).value!="Http://"){
+			globalTermLinks.push($('edaddtermlink'+tid).value);
+				
 		}
+		//alert("in saved edited attributes:"+globalTermLinks);
 		
-		//var tidsources =new Array();
-		//tidsources=tidsources.concat(getSourcesByTermId(tid));
-		
-		/*if($('edaddsource').value!="Http://"){
+		if($('edaddsource'+tid).value!="Http://"){
 		var tmpsource=new Array();
-		tmpsource.push('test citation');
-		tmpsource.push(($('edaddsource').value));
-		tidsources.push(tmpsource);
-		//tidsources.push(['test citation', 'test url']);
-		//tidsources.push(['test citation', $('edaddsource').value]);
+		tmpsource.push($('edaddsourcecitation'+tid).value);
+		tmpsource.push($('edaddsource'+tid).value);
+		globalSourceLinks.push(tmpsource);*/
+		/*globalSourceLinks.push(['test citation', 'test url']);
+		globalSourceLinks.push(['test citation', $('edaddsource').value]);
 		}*/
-		//var tidcats=new Array();
-		//tidcats=tidcats.concat(getCategoriesByTermId(tid));
-		//tidcats.concat(getCategoriesByTermId(tid));
-		alert("end of method: " + globtermlinkarray);
-			GlossaryManageAgent.saveTerm({id:tid, name:$('edtermname').value, shortDefinition:$('edtermshortdef').value, extDefinition:document.getElementById('edtermextdef').value}, [], tidlinks, [], [],{
+			GlossaryManageAgent.saveTerm({id:tid, name:$('edtermname'+tid).value, shortDefinition:$('edtermshortdef'+tid).value, extDefinition:document.getElementById('edtermextdef'+tid).value}, [], globalTermLinks, globalSourceLinks, globalCategoryLinks,{
 			callback:function(data){
 				if (data.successful){
-				//getTerms();
-					//alert("saved successfully");
-					alert("successful: "+globtermlinkarray);
+				saveFinished=true;
 				}else{
 					alert("Reason for failure: "+data.reason);
 				}
@@ -298,52 +156,205 @@
 			errorHandler:function(errorString, exception){
 			alert(errorString+" "+exception);
 			}
+			
 		});
-		alert("end of save: "+globtermlinkarray);
-		globtermlinkarray=new Array();
 		
-		//alert(globtermlinkarray);
+		
+		
 		}		
 		
 		
-		function changeLightBox(termid){
+		
+ function closeAllContentsExcept(id, className){
+ 
+  var activeRecord = className + id;
+  var activeRow= 'editrow'+id;
+  var allRecords = document.getElementsByClassName(className);
+  
+  for(i = 0; i < allRecords.length; i++){
+   if(allRecords[i].id == activeRecord){
+  // document.getElementById(activeRow).style.visibility='visible';
+   //document.getElementById(activeRecord).style.display='inline';
+   //new Effect.toggle(activeRow,'blind',{duration: 0.4});
+    new Effect.BlindDown(allRecords[i].id,{duration: 0.4});
+   }else{
+    if(allRecords[i].style.display != 'none'){
+    new Effect.BlindUp(allRecords[i].id, {duration: 0.4});
+	
+    }
+   }
+  }
+  //new Effect.toggle('quickPostContents${post.id}', 'blind', {duration: 0.3}); void(0);" 
+ }
+ 
+		function saveClose(tid){
+			closeEdit(tid); 
+			saveEditedAttributes(tid);
+			isSaved();
+			/*while(!saveFinished){
+							
+			}
+			saveFinished=false;
+			saveFinished=false;*/
+		}
+		
+		function openEditBox(tid){
+			changeEditBoxContent(tid);
+			isContentChanged(tid);
+		
+		}
+		
+		var isContentChangedInterval;
+		
+		function isContentChanged(tid){
+			isContentChangedInterval=setInterval('if(changedContent){changedContent=false; contIntervalCall(isContentChangedInterval,"openEditBox","'+tid+'");}',100);
+		}
+		
+		var isSavedInterval;
+		
+		function isSaved(){
+			isSavedInterval=setInterval('if(saveFinished){saveFinished=false; contIntervalCall(isSavedInterval,"saveTerm","");}',100);
+		
+		}
+		
+		var gotTermsInterval;
+		
+		function isTermsGotten(){
+			gotTermsInterval=setInterval('if(gotTerms){gotTerms=false; contIntervalCall(gotTermsInterval,"getTerms","");}',100);
+		
+		}
+		
+		function contIntervalCall(a,type,tid){
+			 if(type=='saveTerm'){
+				clearInterval(a);
+				getTerms("", "name");
+				isTermsGotten();
+			}else if(type=='getTerms'){
+				clearInterval(a);
+		
+			}else if(type=='openEditBox'){
+				clearInterval(a);
+				//edit(tid);
+				closeAllContentsExcept(tid,'editbox');
+				
+			}
+		
+		}
+		
+		function deleteSourceLink(arrid,tid){
+			globalSourceLinks.splice(arrid,1);
+			generateSourceLinks(tid);
+		}
+		
+		
+		function generateSourceLinks(tid){
+			var gsl="";
+			for (var sa=0; sa<globalSourceLinks.length; sa++){
+					gsl+="<a href='"+globalSourceLinks[sa][1]+"'>"+globalSourceLinks[sa][0]+"</a><br /><br />[ <a href='#' onclick='deleteSourceLink("+sa+","+tid+"); return false;'>delete source</a> ]<br /><br />";
+					
+				}
+		
+			$('sourcelinks'+tid).innerHTML=gsl;
+		}
+		
+		function deleteTermLink(arrid,tid){
+			globalTermLinks.splice(arrid,1);
+			generateTermLinks(tid);
+		
+		
+		}
+		
+		function generateTermLinks(tid){
+			var gtl="";
+			for (var tl=0; tl<globalTermLinks.length; tl++){
+					
+					gtl+="<a href='"+globalTermLinks[tl]+"'>"+globalTermLinks[tl]+"</a>&nbsp;&nbsp;[ <a href='#' onclick='deleteTermLink("+tl+","+tid+"); return false;'>delete term link</a> ]<br />";
+				}
+			$('termlinks'+tid).innerHTML=gtl;
+		
+		}
+		
+		function addSourceLink(tid){
+			var cit=$('edaddsourcecitation'+tid).value;
+			var url=$('edaddsource'+tid).value;
+			globalSourceLinks.push([cit,url]);
+			$('edaddsourcecitation'+tid).value="Citation";
+			$('edaddsource'+tid).value="Http://";
+			generateSourceLinks(tid);
+		}
+		
+		function addTermLink(tid){
+			var url=$('edaddtermlink'+tid).value;
+			globalTermLinks.push(url);
+			$('edaddtermlink'+tid).value="Http://";
+			generateTermLinks(tid);
+		
+		}
+		
+		var changedContent=false;
+		function changeEditBoxContent(termid){
 			GlossaryManageAgent.getTerm({id:termid, type:"edit"}, {
 			callback:function(data){
 				if(data.successful){
+				globalTermLinks=new Array();
+				globalSourceLinks=new Array();
 				var sourcearray=data.term.sources;
 				var termlinkarray=data.term.links;
-				//var relatedtermarray=data.term.relatedTerms;
-				var lboxhtml = $('lightboxpadding');
-					lboxhtml.innerHTML="<h3>Editing Attributes for Glossary Term: "+data.term.name+"</h3>"+
-"<div><label>Glossary Term</label><br /><input id='edtermname' type='text' value='"+data.term.name+"'/></div>"+
-"<br /><div><label>Short Definition</label><br /><input id='edtermshortdef' type='text' value='"+data.term.shortDefinition+"'/>"+
+				
+				var lboxhtml = $('editbox'+termid);
+				
+				var satml="";
+				
+				for (var sa=0; sa<sourcearray.length; sa++){
+					satml+="<a href='"+sourcearray[sa].url+"'>"+sourcearray[sa].citation+"</a><br /><br />[ <a href='#' onclick='deleteSourceLink("+sa+","+termid+"); return false;'>delete source</a> ]<br /><br />";
+					globalSourceLinks.push([sourcearray[sa].citation,sourcearray[sa].url]);
+				}
+				
+				var tatml="";
+				
+				for (var tl=0; tl<termlinkarray.length; tl++){
+					
+					tatml+="<a href='"+termlinkarray[tl].link+"'>"+termlinkarray[tl].link+"</a>&nbsp;&nbsp;[ <a href='#' onclick='deleteTermLink("+tl+","+termid+"); return false;'>delete term link</a> ]<br />";
+					globalTermLinks.push(termlinkarray[tl].link);
+				}
+				
+				lboxhtml.innerHTML="<div><table rules='all'><tbody><tr><td><label>Term Name:</label><br /><input id='edtermname"+termid+"' type='text' value='"+data.term.name+"'/><br />"+
+				"<label>Short Definition</label><br /><input id='edtermshortdef"+termid+"' type='text' value='"+data.term.shortDefinition+"'/></td>"+
+				"<td rowspan=2><label>Sources</label><br /><div id='sourcelinks"+termid+"'>"+satml+
+				"</div><br /><label>Add Source</label><br /><textarea id='edaddsourcecitation"+termid+"'>Citation</textarea><br /><input id='edaddsource"+termid+"' type='text' value='Http:"+'//'+"'/>"+
+				"<br /><a href='#' onclick='addSourceLink("+termid+"); return false;'>Add Source</a><label><br /><br />Term Links</label><br /><div id='termlinks"+termid+"'>"+tatml+
+				"</div><br /><label>Add Link</label><br /><input id='edaddtermlink"+termid+"' type='text' value='Http:"+'//'+"'/><br /><a href='#' onclick='addTermLink("+termid+"); return false;'>Add Link</a></td></tr><tr><td><label>Extended Definition</label><br />"+
+				"<textarea id='edtermextdef"+termid+"'>"+data.term.extDefinition+"</textarea></td></tr><tr><td colspan=2><a href='#' onclick='closeEdit("+termid+"); return false;'>Cancel</a>&nbsp;<a href='#' onclick='saveClose("+termid+"); return false;'>Save and Close</a></td></tr></tbody></table></div>";
+				//lboxhtml.innerHTML="<table cellspacing=10 rules='all'><tr><td><label>Term Name:</label><br /><input type='text' /><br /><label>Short Definition:</label><br /><input type='text'/></td><td rowspan=2><ol><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li></ol></td></tr><tr><td><label>Extended Definition</label><br /><textarea style=''>something</textarea></td></tr><tr><td colspan=2 ><a href='#'>Save and Close</a></td></tr></table>";
+					/*lboxhtml.innerHTML="<h3>Editing Attributes for Glossary Term: "+data.term.name+"</h3>"+
+"<div><label>Glossary Term</label><br /><input id='edtermname"+termid+"' type='text' value='"+data.term.name+"'/></div>"+
+"<br /><div><label>Short Definition</label><br /><input id='edtermshortdef"+termid+"' type='text' value='"+data.term.shortDefinition+"'/>"+
 "</div><br /><div><label>Full Definition (optional - leave blank if none exists)</label>"+
-"<br /><textarea id='edtermextdef' rows=5 style='width:75%'>"+data.term.extDefinition+"</textarea></div><br /><div>"+
+"<br /><textarea id='edtermextdef"+termid+"' rows=5 style='width:75%'>"+data.term.extDefinition+"</textarea></div><br /><div>"+
 "<label>Sources</label>";
 var satml="";
 for (var sa=0; sa<sourcearray.length; sa++){
 satml+="<a href='"+sourcearray[sa].url+"'>"+sourcearray[sa].citation+"</a><br />";
+globalSourceLinks.push([sourcearray[sa].citation,sourcearray[sa].url]);
 
 }
 lboxhtml.innerHTML+=satml;
-lboxhtml.innerHTML+="<br /><label>Add Source:</label>&nbsp;<input id='edaddsource' type='text' value='Http:"+'//'+"'/></div><br /><br />"+
+lboxhtml.innerHTML+="<br /><label>Add Source:</label>&nbsp;<input id='edaddsource"+termid+"' type='text' value='Http:"+'//'+"'/></div><br /><br />"+
 "<div><label>Term Links</label><br />";
 
 for (var tl=0; tl<termlinkarray.length; tl++){
+globalTermLinks.push(termlinkarray[tl].link);
 lboxhtml.innerHTML+="<a href='"+termlinkarray[tl].link+"'>"+termlinkarray[tl].link+"</a><br />";
 
-}
-lboxhtml.innerHTML+="<label>Add Link:</label>&nbsp;<input id='edaddtermlink' type='text' value='Http:"+'//'+"'/></div><br /><br />";
-/*for(var rt=0; rt<relatedtermarray.length;rt++){
-lboxhtml.innerHTML+=relatedtermarray[rt]+",&nbsp;";
 
-}*/
-//lboxhtml.innerHTML+="<div><label>Participant Comments</label>";
+}
+lboxhtml.innerHTML+="<label>Add Link:</label>&nbsp;<input id='edaddtermlink"+termid+"' type='text' value='Http:"+'//'+"'/></div><br /><br />";
+
 
 //add participant comments
-lboxhtml.innerHTML+="<div style='float:right;'><a href='#' class='lbAction' rel='deactivate'>Cancel</a>&nbsp;<a class='lbsaveclose' rel='deactivate' id='"+termid+"' href='#' style='background-color:#CCFF99;'>Save and Close</a></div>";
-//if(data.term.name!=$('edtermname').value && data.term.shortDefinition!=$('edtermshortdef').value && data.term.extDefinition!=$('edtermextdef').value
-		
+lboxhtml.innerHTML+="<div style='float:right;'><a href='#' onclick='closeEdit("+termid+");'>Cancel</a>&nbsp;<a onclick='saveClose("+termid+");' href='#' style='background-color:#CCFF99;'>Save and Close</a></div>";
+//if(data.term.name!=$('edtermname').value && data.term.shortDefinition!=$('edtermshortdef').value && data.term.extDefinition!=$('edtermextdef').value......closeEdit("+termid+"); saveEditedAttributes("+termid+"); getTerms();
+		*/changedContent=true;
 				}else{
 					alert(data.reason);
 				}
@@ -376,16 +387,18 @@ lboxhtml.innerHTML+="<div style='float:right;'><a href='#' class='lbAction' rel=
 		function sortDir(switchTo, thisSort, term){
 				direction = switchTo;
 				getTerms(term, thisSort); 
+				isTermsGotten();
 		}
 </script>
 
 <!--Lightbox script-->
-
+<!--
 <script type="text/javascript" src="scripts/prototype.js"></script>
-<script type="text/javascript" src="scripts/lightbox.js"></script>
+<script type="text/javascript" src="scripts/lightbox.js"></script>-->
 
 
 <!--Lightbox style-->
+<!--
 <style type="text/css" />
 
 .leightpadding{
@@ -462,93 +475,73 @@ float:right;
 .lightbox[id]{ /* IE6 and below Can't See This */    position:fixed;    }#overlay[id]{ /* IE6 and below Can't See This */    position:fixed;    }
 
 
+
 </style>
+-->
+
+<style type='text/css'>
+#overlay{
+	display:none;
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	z-index:1000;
+	background-color:#333;
+	-moz-opacity: 0.8;
+	opacity:.80;
+	filter: alpha(opacity=80);
+}
+
+
+
+</style>
+<script type='text/javascript'>
+function edit(boxid){
+var editid='editbox'+boxid;
+var editrowid='editrow'+boxid;
+
+var editrow=document.getElementById(editrowid);
+var editbox=document.getElementById(editid);
+
+
+
+
+
+editbox.style.display='block';
+editbox.style.backgroundColor='white';
+
+$('overlay').style.display='inline';
+
+editrow.style.visibility='visible';
+new Effect.toggle(editid,'blind');
+
+//new Effect.toggle(editrowid,'blind');
+
+//document.getElementsByClassName
+
+}
+function closeEdit(boxid){
+var editid='editbox'+boxid;
+var editrowid='editrow'+boxid;
+var editrow=document.getElementById(editrowid);
+var editbox=document.getElementById(editid);
+//editbox.style.display='none';
+new Effect.toggle(editbox,'blind');
+//editrow.style.visibility='hidden';
+$('overlay').style.display='none';
+}
+</script>
 
 </head>
-<body onload="sizeMe();" onresize="sizeMe();">
+<body>
 
 
 
-<div id="leightcontainer" class="leightcontainer">
-	<div id="leightbar" class="leightbar">
-		<div class="lbclose"><a href='#' class="lbAction" rel="deactivate"><img id="closebut" class="close" onmouseout="javascript:this.src='images/closeinactivesm.gif'" onmouseover="javascript:this.src='images/closeactivesm.gif'" src='images/closeinactivesm.gif'/></a>
-		</div>
-	</div>
 
-	<div id="lightbox1" class="leightbox">
-		
-		<div id="lightboxpadding" class="leightpadding">
-			
-			<h3>Editing Attributes for Glossary Term: ...</h3>
-			<div>
-				<label>Glossary Term</label>
-				<br />
-				<input type='text' value='...'/>
-			</div>
-			<br />
-			<div>
-				<label>Short Definition</label>
-				<br />
-				<input type='text' value='definition'/>
-			</div>
-			<br />
-		
-			<div>
-				<label>Full Definition (optional - leave blank if none exists)</label>
-				<br />
-				<textarea rows=5 style='width:75%'>Full Definition goes here</textarea>
-			</div>
-			<br />
-			<div>
-				<label>Sources</label>
-				<br />
-				<a href=''>Source URL #1</a>
-				<br />
-				<a href=''>Source URL #2</a>
-				<br />
-				<label>Add Source:&nbsp;</label><input type='text' value='Http://'/>
-			</div>
-			<br />
-			<div>
-				<label>Term Links</label>
-				<br />
-				No links have been created.
-				<br />
-				<label>Add Link:&nbsp;</label><input type='text' value='Http://'/>
-			</div>
-			<br />
-		
-			<div>
-				<label>
-					Related Terms
-				</label>
-				<p>
-					Automatically added related terms: term #1, term #2
-				</p>
-		
-				<label>
-					Manual relate a term
-				</label>
-				<input type='text' value=''/>
-			</div>
-			<br />
-			<div>
-				<label>
-					Participant Comments
-				</label>
-				<br />
-				NoSUV on August 28,2006 added the following comment:
-				<br/>
-				Comment #1&nbsp; | <a href=''>Delete</a>
-			</div>
-			<div style='float:right;'>
-				<a style='background-color:#CCFF99;' href=''>Cancel</a>&nbsp;<a style='background-color:#CCFF99;' href='' class='lbsaveclose' rel='deactivate123'>Save and Close</a>
-			</div>
-		</div>
-	</div>
-</div>
 	
-	<a href="#lightbox1" rel="lightbox1" class="lbOn">Test Lightbox</a>
+	
 	<!-- Header -->
 
 <div id="login"><a href="http://69.91.143.23:8080/logout.do"><img src="glossaryTermManagement_files/btn_logout.gif" border="0"></a></div>
@@ -556,6 +549,7 @@ float:right;
 <div style="display: inline;" id="loading-indicator">Loading... <img src="glossaryTermManagement_files/indicator_arrows.gif"></div>
 <div id="container">
 
+<div id="overlay"></div>
 	<!-- START LIGHTBOX -->
 
 	<!--<div id="overlay" lightbox="" class="blueBB" style="display: none;"></div>-->
