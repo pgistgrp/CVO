@@ -371,7 +371,7 @@ function MM_swapImage() { //v3.0
 		 	 </select>
 			</label>
 		</div>	<!-- end tselector -->
-		<div id="backdisc"><a href="sd.do?isid=${structure.id}">Back to All Concern Themes</a></div>	  
+		<div id="backdisc"><a href="sd.do?isid=${structure.id}"><img src="images/btn_back_a.gif" alt="Back" name="back" class="button" id="next" onMouseOver="MM_swapImage('back','','images/btn_back_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></div>	  
 	</div> <!-- end backtodiscussion -->
 	<div id="cont-main">
 		<table width="100%" border="0" cellpadding="0" cellspacing="0">

@@ -159,7 +159,7 @@ auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luct
 			  </label>
 			<!--  </form> -->
 			</div>	
-			  <div id="backdisc"><a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}">Back to Discussion</a></div>	  
+			  <div id="backdisc"><a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}"><img src="images/btn_back_a.gif" alt="back" name="back" class="button" id="back" onMouseOver="MM_swapImage('back','','images/btn_back_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></div>	  
 </div>
 
 <div id="cont-main">
@@ -350,7 +350,7 @@ href="javascript:getConcernsByTag(894);">monorail</a></span>
 
 </div>
 <!-- End cont-main -->
-<div class="backToDiscussion"><a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}">Back to Discussion</a></div>
+<div class="backToDiscussion"><a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}"><img src="images/btn_back_a.gif" alt="back" name="back" class="button" id="back" onMouseOver="MM_swapImage('back','','images/btn_back_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></div>
 </div> <!-- End container -->
 <!-- Start Footer -->
 <jsp:include page="/footer.jsp" />

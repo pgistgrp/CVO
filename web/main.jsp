@@ -9,6 +9,8 @@
 <style type="text/css" media="screen">@import "styles/styles.css";</style>
 <!-- End Site Wide CSS -->
 <!-- Site Wide JS -->
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 <script src="scripts/search.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
@@ -57,7 +59,12 @@
 -->
 </div>
 
-<pg:feedback id="feedbackDiv" action="login.do"/>
+<p>Found a bug?  Problem accessing a part on the page?  <a href="javascript:Effect.toggle('feedbackForm','blind');">Send us feedback.</a></p>
+<div id="feedbackForm" style="display: none;">
+	<h3>Feedback/Bug Report Form</h3>
+	<p>If you came across a bug, please help us by reporting it to our development team.  blah blah blah blah.....please describe in as much detail as possible....blah blah</p>
+	<pg:feedback id="feedbackDiv" action="login.do" />
+</div>
 
 </body>
 </html:html>

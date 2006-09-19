@@ -1,12 +1,13 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html:html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>PGIST: SDC Stage 1</title>
+<title>PGIST: Step 1: Brainstorm Concerns</title>
 
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/position.css";</style>
@@ -658,6 +659,7 @@ float:right;
 <div class="cssbox_body">
 <p>Before we can determine how to best improve the transportation system, we need to know what the problems are. Our first task is to brainstorm concerns about the transportation system.</p>
 <p>[ Read more about how this step fits into the bigger picture. ]</p>
+
 </div>
 </div>
 <!-- End Overview -->
@@ -765,9 +767,20 @@ float:right;
 </div>
 <!-- End cont-main -->
 </div> <!-- End container -->
+
+<!-- start feedback form -->
+<p>Found a bug?  Problem accessing a part on the page?  <a href="javascript:Effect.toggle('feedbackForm','blind');">Send us feedback.</a></p>
+<div id="feedbackForm" style="display: none;">
+	<h3>Feedback/Bug Report Form</h3>
+	<p>If you came across a bug, please help us by reporting it to our development team.  blah blah blah blah.....please describe in as much detail as possible....blah blah</p>
+	<pg:feedback id="feedbackDiv" action="cctView.do" />
+</div>
+
+<!-- after submit run: javascript:Effect.toggle('feedbackForm','blind'); -->
+<!-- end feedback form -->
+
 <!-- Start Footer -->
 <jsp:include page="/footer.jsp" />
 <!-- End Footer -->
-
 </body>
-</html>
+</html:html>

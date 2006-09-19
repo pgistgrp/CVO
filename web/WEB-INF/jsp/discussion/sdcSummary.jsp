@@ -5,15 +5,18 @@
 
 
 <pg:fragment type="html">
+	<div class="voting">
+		<h4>Quick Vote</h4>
+		<div id="structure_question_status">
+			<p><span class="smalltext" style="line-height: 15px; font-style: italic; "><strong>${infoObject.numAgree} of ${infoObject.numVote}</strong> participants have said that this summary adequately reflects concerns expressed by participants.</span></p>
+		</div>
+		<div id="structure_question"></div>
+</div>
 	<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
 	  <p>${infoObject.object.theme.summary}</p>
 	</pg:termHighlight>
 </pg:fragment>
 
-<div id="structure_question_status">
-	<span class="smalltext">${infoObject.numAgree} of ${infoObject.numVote} participants have said that this summary adequately reflects concerns expressed by participants.</span><br />
-</div>
-<div id="structure_question"></div>
 	<pg:fragment type="script">
 
 </pg:fragment>
