@@ -21,11 +21,11 @@ Jump to starts with letter:
 	      <td id='termShortDefinitionCell${term.id}'><pg:highlight text="${filter}" style="color:white; background-color:red;">${term.shortDefinition}</pg:highlight></td>
 	      <td style="text-align: center">${term.commentCount}</td>
 	      <td style="text-align: center">${term.viewCount}</td>
-		  <td style="text-align: center"><a href="#${term.id}" onclick='openEditBox(${term.id}); return false;'>edit attributes</a>|<a href='javascript:deleteTerm(${term.id});'>del</a></td>
+		  <td style="text-align: center"><a href="#${term.id}" onclick='openEditBox(${term.id});'>edit</a>&nbsp;|&nbsp;<a href='javascript:deleteConfirm("${term.name}",${term.id});'>del</a></td>
 	    </tr>
 		<tr>
 		<td id='editrow${term.id}' colspan=5>
-		<div id='editbox${term.id}' class='editbox' style='display:none;'><div>Future lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightboxFuture lightbox</div></div>
+		<a href='editbox${term.id}'></a><div id='editbox${term.id}' class='editbox' style='display:none;'><div></div></div>
 	  	</td>
 		</tr>
 	  </logic:iterate>

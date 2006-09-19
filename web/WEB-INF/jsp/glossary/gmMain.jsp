@@ -36,12 +36,12 @@
 <script type="text/javascript">
 
 		var direction = "asc";
-		
+	
 		function doOnLoad(){
 			direction = "asc";
 			getProposedTerms();
 			getTerms("", "name");
-			isTermsGotten();
+			
 			
 		}
 		
@@ -64,13 +64,23 @@
 			window.scrollTo(xscrollPos,yscrollPos);
 		}
 		
+		function deleteConfirm(termstring,tid){
+			var dletebox=confirm("Do you really wish to delete \""+termstring+"\"?");
+			if(dletebox==true){
+				deleteTerm(tid);
+			}
+		
+		}
+		
 		function deleteTerm(termid){
 		GlossaryManageAgent.deleteTerm({id:termid},{
 		callback:function(data){
 			if (data.successful){
 				new Effect.Fade('glossaryTerm' + termid);
+				new Effect.Fade('editbox'+termid);
+				new Effect.Fade('editrow'+termid);
 			}else{
-			alert(data.reason);
+			alert("deleteTerm failure reason: "+data.reason);
 			}
 		},
 			errorHandler:function(errorString, exception){
@@ -87,7 +97,7 @@
 						$('proposedList').innerHTML="";
 						$('proposedList').innerHTML+=data.html;
 					}else{
-						alert(data.reason);
+						alert("getProposedTerms failure reason: "+data.reason);
 					}
 				},
 				errorHandler:function(errorString, exception){
@@ -109,19 +119,20 @@
 						$('list').innerHTML = "";
 						$('list').innerHTML += data.html;
 						setSort(sortby, term);
-						direction = "asc"; //reset direction
+						direction = "asc";
 						$('loading-indicator').style.display = "none";
-						//initializes lightbox links. Placed here so generated links are also made active
+						
 						gotTerms=true;
+						isTermsGotten();
 					}else{
-						alert(data.reason);
+						alert("getTerms failure reason: "+data.reason);
 						$('loading-indicator').style.display = "none";
 					}
 					
 				},
 				errorHandler:function(errorString, exception){ 
 				alert(errorString+" "+exception);
-						/*showTheError();*/
+						
 				}
 			});
 		
@@ -132,29 +143,17 @@
 		
 		
 		var saveFinished=false;
-		function saveEditedAttributes(tid){//tid, tname, tsd, ted, tlinks, tsources, tcats)
+		function saveEditedAttributes(tid){
+		$('saving-indicator').style.display = "inline";
 		
-		/*if($('edaddtermlink'+tid).value!="Http://"){
-			globalTermLinks.push($('edaddtermlink'+tid).value);
-				
-		}
-		//alert("in saved edited attributes:"+globalTermLinks);
-		
-		if($('edaddsource'+tid).value!="Http://"){
-		var tmpsource=new Array();
-		tmpsource.push($('edaddsourcecitation'+tid).value);
-		tmpsource.push($('edaddsource'+tid).value);
-		globalSourceLinks.push(tmpsource);*/
-		/*globalSourceLinks.push(['test citation', 'test url']);
-		globalSourceLinks.push(['test citation', $('edaddsource').value]);
-		}*/
 			GlossaryManageAgent.saveTerm({id:tid, name:$('edtermname'+tid).value, shortDefinition:$('edtermshortdef'+tid).value, extDefinition:document.getElementById('edtermextdef'+tid).value}, [], globalTermLinks, globalSourceLinks, globalCategoryLinks,{
 			callback:function(data){
 				if (data.successful){
 				refreshSavedTerm(tid,$('edtermname'+tid).value, $('edtermshortdef'+tid).value);
 				saveFinished=true;
+				isSaved();
 				}else{
-					alert("Reason for failure: "+data.reason);
+					alert("saveEditedAttributes failure reason: "+data.reason);
 				}
 			},
 			errorHandler:function(errorString, exception){
@@ -173,77 +172,106 @@
 		}
 		
 		
- function closeAllContentsExcept(id, className){
- 
-  var activeRecord = className + id;
-  var activeRow= 'editrow'+id;
-  var allRecords = document.getElementsByClassName(className);
-  
-  for(i = 0; i < allRecords.length; i++){
-   if(allRecords[i].id == activeRecord){
-	$(allRecords[i].id).style.backgroundColor='white';
-  // document.getElementById(activeRow).style.visibility='visible';
-   //document.getElementById(activeRecord).style.display='inline';
-   //new Effect.toggle(activeRow,'blind',{duration: 0.4});
-    new Effect.BlindDown(allRecords[i].id,{duration: 0.4});
-   }else{
-    if(allRecords[i].style.display != 'none'){
-    new Effect.BlindUp(allRecords[i].id, {duration: 0.4});
+		function openUp(id, className){
+		
+			var activeRecord = className+id;
+			
+			if(currentopenbox==''){
+			$(activeRecord).style.backgroundColor='white';
+			new Effect.BlindDown(activeRecord, {duration: 0.4});
+			currentopenbox=activeRecord;
+			}else{
+			if(currentopenbox!=activeRecord){
+			new Effect.BlindUp(currentopenbox,{duration:0.4});
+			$(activeRecord).style.backgroundColor='white';
+			new Effect.BlindDown(activeRecord, {duration: 0.4});
+			currentopenbox=activeRecord;
+			
+			}else{
+			
+			
+			}
+			}
+			
+			
+		var t = setTimeout('location.hash="'+activeRecord+'"',500);
+		
+		
+		}
 	
-    }
-   }
-  }
-  //new Effect.toggle('quickPostContents${post.id}', 'blind', {duration: 0.3}); void(0);" 
- }
  
 		function saveClose(tid){
 			closeEdit(tid); 
 			saveEditedAttributes(tid);
-			isSaved();
-			/*while(!saveFinished){
-							
-			}
-			saveFinished=false;
-			saveFinished=false;*/
+			
 		}
 		
 		function openEditBox(tid){
 			changeEditBoxContent(tid);
-			isContentChanged(tid);
+			
 		
 		}
 		
-		var isContentChangedInterval;
 		
+		var currentopenbox='';
 		function isContentChanged(tid){
-			isContentChangedInterval=setInterval('if(changedContent){changedContent=false; contIntervalCall(isContentChangedInterval,"openEditBox","'+tid+'");}',100);
+		
+			if(changedContent){
+				changedContent=false;
+		
+				openUp(tid, 'editbox');
+		
+			}else{
+		
+		
+				var t =setTimeout('isContentChanged('+tid+');',100);
+		
+			}
+			
 		}
 		
-		var isSavedInterval;
+		
 		
 		function isSaved(){
-			isSavedInterval=setInterval('if(saveFinished){saveFinished=false; contIntervalCall(isSavedInterval,"saveTerm","");}',100);
+		
+		if(saveFinished){
+		saveFinished=false;
+		$('saving-indicator').style.display = "none";
+		
+		}else{
+		
+		var t =setTimeout('isSaved();',100);
 		
 		}
 		
-		var gotTermsInterval;
+		
+		}
+		
+		
 		
 		function isTermsGotten(){
-			gotTermsInterval=setInterval('if(gotTerms){gotTerms=false; contIntervalCall(gotTermsInterval,"getTerms","");}',100);
+		
+		if(gotTerms){
+		gotTerms=false;
+		}else{
+		
+		var t =setTimeout('isTermsGotten();',100);
+		
+		}
+			
 		
 		}
 		
 		function contIntervalCall(a,type,tid){
 			 if(type=='saveTerm'){
 				clearInterval(a);
-				/*getTerms("", "name");
-				isTermsGotten();*/
+				
 			}else if(type=='getTerms'){
 				clearInterval(a);
 		
 			}else if(type=='openEditBox'){
 				clearInterval(a);
-				//edit(tid);
+				
 				closeAllContentsExcept(tid,'editbox');
 				
 			}
@@ -259,7 +287,7 @@
 		function generateSourceLinks(tid){
 			var gsl="";
 			for (var sa=0; sa<globalSourceLinks.length; sa++){
-					gsl+="<a href='"+globalSourceLinks[sa][1]+"'>"+globalSourceLinks[sa][0]+"</a><br /><br />[ <a href='#' onclick='deleteSourceLink("+sa+","+tid+"); return false;'>delete source</a> ]<br /><br />";
+					gsl+="<a href='"+globalSourceLinks[sa][1]+"'>"+globalSourceLinks[sa][0]+"</a><br /><br /><button type='button' onclick='deleteSourceLink("+sa+","+tid+"); return false;'>Delete Source</button><br /><br />";
 					
 				}
 		
@@ -277,7 +305,7 @@
 			var gtl="";
 			for (var tl=0; tl<globalTermLinks.length; tl++){
 					
-					gtl+="<a href='"+globalTermLinks[tl]+"'>"+globalTermLinks[tl]+"</a>&nbsp;&nbsp;[ <a href='#' onclick='deleteTermLink("+tl+","+tid+"); return false;'>delete term link</a> ]<br />";
+					gtl+="<a href='"+globalTermLinks[tl]+"'>"+globalTermLinks[tl]+"</a>&nbsp;&nbsp; <button type='button' onclick='deleteTermLink("+tl+","+tid+"); return false;'>Delete Term Link</button><br />";
 				}
 			$('termlinks'+tid).innerHTML=gtl;
 		
@@ -305,67 +333,39 @@
 			GlossaryManageAgent.getTerm({id:termid, type:"edit"}, {
 			callback:function(data){
 				if(data.successful){
-				globalTermLinks=new Array();
-				globalSourceLinks=new Array();
-				var sourcearray=data.term.sources;
-				var termlinkarray=data.term.links;
+					globalTermLinks=new Array();
+					globalSourceLinks=new Array();
+					var sourcearray=data.term.sources;
+					var termlinkarray=data.term.links;
 				
-				var lboxhtml = $('editbox'+termid);
+					var lboxhtml = $('editbox'+termid);
 				
-				var satml="";
+					var satml="";
 				
-				for (var sa=0; sa<sourcearray.length; sa++){
-					satml+="<a href='"+sourcearray[sa].url+"'>"+sourcearray[sa].citation+"</a><br /><br />[ <a href='#' onclick='deleteSourceLink("+sa+","+termid+"); return false;'>delete source</a> ]<br /><br />";
-					globalSourceLinks.push([sourcearray[sa].citation,sourcearray[sa].url]);
-				}
+					for (var sa=0; sa<sourcearray.length; sa++){
+						satml+="<a href='"+sourcearray[sa].url+"'>"+sourcearray[sa].citation+"</a><br /><br /><button type='button' onclick='deleteSourceLink("+sa+","+termid+"); return false;'>Delete Source</button><br /><br />";
+						globalSourceLinks.push([sourcearray[sa].citation,sourcearray[sa].url]);
+					}
 				
-				var tatml="";
+					var tatml="";
 				
-				for (var tl=0; tl<termlinkarray.length; tl++){
+					for (var tl=0; tl<termlinkarray.length; tl++){
 					
-					tatml+="<a href='"+termlinkarray[tl].link+"'>"+termlinkarray[tl].link+"</a>&nbsp;&nbsp;[ <a href='#' onclick='deleteTermLink("+tl+","+termid+"); return false;'>delete term link</a> ]<br />";
-					globalTermLinks.push(termlinkarray[tl].link);
-				}
+						tatml+="<a href='"+termlinkarray[tl].link+"'>"+termlinkarray[tl].link+"</a>&nbsp;&nbsp; <button type='button' onclick='deleteTermLink("+tl+","+termid+"); return false;'>Delete Term Link</button><br />";
+						globalTermLinks.push(termlinkarray[tl].link);
+					}
 				
-				lboxhtml.innerHTML="<div style='border:thick solid #C0C0C0;'><table rules='all'><tbody><tr><td cellspacing=10 style='width:50%;'><div style='margin:2%;'><label>Term Name:</label><br /><input style='width:100%;' id='edtermname"+termid+"' type='text' value='"+data.term.name+"'/><br />"+
-				"<label>Short Definition</label><br /><input style='width:100%;' id='edtermshortdef"+termid+"' type='text' value='"+data.term.shortDefinition+"'/></div></td>"+
-				"<td rowspan=2><div style='margin:2%;'><label>Sources</label><br /><div id='sourcelinks"+termid+"'>"+satml+
-				"</div><br /><label>Add Source</label><br /><textarea style='width:100%;'id='edaddsourcecitation"+termid+"'>Citation</textarea><br /><input style='width:100%;' id='edaddsource"+termid+"' type='text' value='Http:"+'//'+"'/>"+
-				"<br /><a href='#' onclick='addSourceLink("+termid+"); return false;'>Add Source</a><label><br /><br />Term Links</label><br /><div id='termlinks"+termid+"'>"+tatml+
-				"</div><br /><label>Add Link</label><br /><input style='width:100%;' id='edaddtermlink"+termid+"' type='text' value='Http:"+'//'+"'/><br /><a href='#' onclick='addTermLink("+termid+"); return false;'>Add Link</a></div></td></tr><tr><td><div style='margin:2%;'><label>Extended Definition</label><br />"+
-				"<textarea style='width:100%; height:100%;' id='edtermextdef"+termid+"'>"+data.term.extDefinition+"</textarea></div></td></tr><tr><td colspan=2><div style='margin:0.5%; float:right;'><a href='#' onclick='closeEdit("+termid+"); return false;'>Cancel</a>&nbsp;<a href='#' onclick='saveClose("+termid+"); return false;'>Save and Close</a></div></td></tr></tbody></table></div>";
-				//lboxhtml.innerHTML="<table cellspacing=10 rules='all'><tr><td><label>Term Name:</label><br /><input type='text' /><br /><label>Short Definition:</label><br /><input type='text'/></td><td rowspan=2><ol><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li></ol></td></tr><tr><td><label>Extended Definition</label><br /><textarea style=''>something</textarea></td></tr><tr><td colspan=2 ><a href='#'>Save and Close</a></td></tr></table>";
-					/*lboxhtml.innerHTML="<h3>Editing Attributes for Glossary Term: "+data.term.name+"</h3>"+
-"<div><label>Glossary Term</label><br /><input id='edtermname"+termid+"' type='text' value='"+data.term.name+"'/></div>"+
-"<br /><div><label>Short Definition</label><br /><input id='edtermshortdef"+termid+"' type='text' value='"+data.term.shortDefinition+"'/>"+
-"</div><br /><div><label>Full Definition (optional - leave blank if none exists)</label>"+
-"<br /><textarea id='edtermextdef"+termid+"' rows=5 style='width:75%'>"+data.term.extDefinition+"</textarea></div><br /><div>"+
-"<label>Sources</label>";
-var satml="";
-for (var sa=0; sa<sourcearray.length; sa++){
-satml+="<a href='"+sourcearray[sa].url+"'>"+sourcearray[sa].citation+"</a><br />";
-globalSourceLinks.push([sourcearray[sa].citation,sourcearray[sa].url]);
-
-}
-lboxhtml.innerHTML+=satml;
-lboxhtml.innerHTML+="<br /><label>Add Source:</label>&nbsp;<input id='edaddsource"+termid+"' type='text' value='Http:"+'//'+"'/></div><br /><br />"+
-"<div><label>Term Links</label><br />";
-
-for (var tl=0; tl<termlinkarray.length; tl++){
-globalTermLinks.push(termlinkarray[tl].link);
-lboxhtml.innerHTML+="<a href='"+termlinkarray[tl].link+"'>"+termlinkarray[tl].link+"</a><br />";
-
-
-}
-lboxhtml.innerHTML+="<label>Add Link:</label>&nbsp;<input id='edaddtermlink"+termid+"' type='text' value='Http:"+'//'+"'/></div><br /><br />";
-
-
-//add participant comments
-lboxhtml.innerHTML+="<div style='float:right;'><a href='#' onclick='closeEdit("+termid+");'>Cancel</a>&nbsp;<a onclick='saveClose("+termid+");' href='#' style='background-color:#CCFF99;'>Save and Close</a></div>";
-//if(data.term.name!=$('edtermname').value && data.term.shortDefinition!=$('edtermshortdef').value && data.term.extDefinition!=$('edtermextdef').value......closeEdit("+termid+"); saveEditedAttributes("+termid+"); getTerms();
-		*/changedContent=true;
+					lboxhtml.innerHTML="<div border:thick solid #C0C0C0;'><table style='width:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='edtermname"+termid+"' type='text' value='"+data.term.name+"'/><br />"+
+				"<label><strong>Short Definition</strong></label><br /><input type='text' maxlength=256 size=25 id='edtermshortdef"+termid+"' value='"+data.term.shortDefinition+"'/></div></td>"+
+				"<td rowspan=2><div style='margin:2%;'><label><strong>Sources</strong></label><br /><div id='sourcelinks"+termid+"'>"+satml+
+				"</div><br /><label><strong>Add Source</strong></label><br /><textarea style='width:90%;' id='edaddsourcecitation"+termid+"'>Citation</textarea><br /><input style='width:50%;' id='edaddsource"+termid+"' type='text' value='Http:"+'//'+"'/>"+
+				"<br /><button type='button' onclick='addSourceLink("+termid+"); return false;'>Add Source</button><br /><br /><label><strong>Term Links</strong></label><br /><div id='termlinks"+termid+"'>"+tatml+
+				"</div><br /><label>Add Link</label><br /><input style='width:50%;' id='edaddtermlink"+termid+"' type='text' value='Http:"+'//'+"'/><br /><button type='button' onclick='addTermLink("+termid+"); return false;'>Add Link</button></div></td></tr><tr><td><div style='margin:2%;'><label><strong>Extended Definition</strong></label><br />"+
+				"<textarea style='width:90%; height:100%;' id='edtermextdef"+termid+"'>"+data.term.extDefinition+"</textarea></div></td></tr><tr><td style='width:50%;'></td><td style=''><div style='margin:0.5%; float:right;'><button type='button' onclick='closeEdit("+termid+"); return false;'>Cancel</button>&nbsp;<button type='button' onclick='saveClose("+termid+"); return false;'>Save and Close</button></div></td></tr></tbody></table></div>";
+					changedContent=true;
+					isContentChanged(termid);
 				}else{
-					alert(data.reason);
+					alert("changeEditBoxContent failure reason: "+data.reason);
 				}
 			},
 			errorHandler:function(errorString, exception){
@@ -396,111 +396,20 @@ lboxhtml.innerHTML+="<div style='float:right;'><a href='#' onclick='closeEdit("+
 		function sortDir(switchTo, thisSort, term){
 				direction = switchTo;
 				getTerms(term, thisSort); 
-				isTermsGotten();
+				
 		}
 </script>
 
-<!--Lightbox script-->
-<!--
-<script type="text/javascript" src="scripts/prototype.js"></script>
-<script type="text/javascript" src="scripts/lightbox.js"></script>-->
-
-
-<!--Lightbox style-->
-<!--
-<style type="text/css" />
-
-.leightpadding{
-
-padding:0em 1em 1em 1em;
-
-
-}
-
-.leightcontainer{
-	display: none;
-	position: absolute;
-	top: 15%;
-	left: 15%;
-	width: 70%;
-	height: 70%;
-	background-color: white;
-	text-align: left;
-	z-index:1002;
-	overflow:hidden;	
-
-}
-
-.leightbox {
-	color: #333;
-	display: none;
-	position:absolute;
-	top:30px;
-	height:90%;
-	width:100%;
-	background-color: white;
-	text-align: left;
-	z-index:1002;
-	overflow:auto;	
-}
-
-.leightbar{
-display:none;
-position:absolute;
-top:0%;
-height:30px;
-width:100%;
-background-color:#0066FF;
-z-index:1002;
-overflow:hidden;
-}
-
-#overlay{
-	display:none;
-	position:absolute;
-	top:0;
-	left:0;
-	width:100%;
-	height:100%;
-	z-index:1000;
-	background-color:#333;
-	-moz-opacity: 0.8;
-	opacity:.80;
-	filter: alpha(opacity=80);
-}
-
-img{
-border:0;
-
-}
-
-.lbclose{
-float:right;
-
-}
-
-
-
-.lightbox[id]{ /* IE6 and below Can't See This */    position:fixed;    }#overlay[id]{ /* IE6 and below Can't See This */    position:fixed;    }
-
-
-
-</style>
--->
-
 <style type='text/css'>
-#overlay{
-	display:none;
-	position:absolute;
-	top:0;
+#saving-indicator{
+	display: none;
+	background-color: red;
+	color: white;
+	position: fixed;
+	top: 0;
 	left:0;
-	width:100%;
-	height:100%;
-	z-index:1000;
-	background-color:#333;
-	-moz-opacity: 0.8;
-	opacity:.80;
-	filter: alpha(opacity=80);
+	padding: 3px;
+	z-index: 500;
 }
 
 
@@ -537,7 +446,8 @@ var editbox=document.getElementById(editid);
 //editbox.style.display='none';
 new Effect.toggle(editbox,'blind');
 //editrow.style.visibility='hidden';
-$('overlay').style.display='none';
+currentopenbox='';
+
 }
 </script>
 
@@ -554,9 +464,10 @@ $('overlay').style.display='none';
 <div id="login"><a href="http://69.91.143.23:8080/logout.do"><img src="glossaryTermManagement_files/btn_logout.gif" border="0"></a></div>
 <!-- End Header -->
 <div style="display: inline;" id="loading-indicator">Loading... <img src="glossaryTermManagement_files/indicator_arrows.gif"></div>
+<div style="display: none;" id="saving-indicator">Saving... <img src="glossaryTermManagement_files/indicator_arrows.gif"></div>
 <div id="container">
 
-<div id="overlay"></div>
+
 	<!-- START LIGHTBOX -->
 
 	<!--<div id="overlay" lightbox="" class="blueBB" style="display: none;"></div>-->
@@ -592,7 +503,7 @@ $('overlay').style.display='none';
 	
 	<div id="proposedList">
 	<h3>Proposed Glossary Terms by Participants - Waiting for Moderator Approval</h3>
-	<table frame="box" rules="all">
+	<table width='100%' frame="box" rules="all">
 	<tbody>
 	<tr><th style="text-align: center;" width="89">Term&nbsp;&nbsp;</th><th style="text-align: left;" width="514">Short Definition&nbsp;&nbsp;</th><th style="text-align: center;" width="146">Proposed By:</th>
 	</tr><tr>
@@ -615,7 +526,7 @@ $('overlay').style.display='none';
 	</div>
 	<!-- End Sub Title -->
 	<!--new glossary term button-->
-	<div style="background-color: rgb(204, 255, 51); float: right;"><a href="">new glossary term</a></div>
+	<div style="background-color: rgb(204, 255, 51); "><a href="">new glossary term</a></div>
 	<!-- Overview SpiffyBox -->
 	<!-- End Overview -->
 <div id="slate">
@@ -686,7 +597,7 @@ are limited to certain times; public transit, emergency vehicles, and
 	
 <br>
 	<!--new glossary term button-->
-	<div style="background-color: rgb(204, 255, 51); float: right;"><a href="">new glossary term</a></div>
+	<div style="background-color: rgb(204, 255, 51); "><a href="">new glossary term</a></div>
 <br>
 <!-- Start Footer -->
 <div id="footer_clouds">
