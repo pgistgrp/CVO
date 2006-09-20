@@ -1,5 +1,6 @@
 package org.pgist.cvo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.pgist.users.User;
@@ -11,7 +12,7 @@ import org.pgist.users.User;
  *
  * @hibernate.class table="pgist_cvo_summary_revision" lazy="true"
  */
-public class SummaryRevision {
+public class SummaryRevision implements Serializable {
     
     
     private Long id;

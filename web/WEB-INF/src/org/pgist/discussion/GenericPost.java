@@ -1,5 +1,6 @@
 package org.pgist.discussion;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +13,7 @@ import org.pgist.users.User;
  * @author kenny
  *
  */
-public abstract class GenericPost {
+public abstract class GenericPost implements Serializable {
     
     
     protected Long id;

@@ -1,5 +1,7 @@
 package org.pgist.glossary;
 
+import java.io.Serializable;
+
 
 /**
  * Glossary Links
@@ -7,7 +9,7 @@ package org.pgist.glossary;
  *
  * @hibernate.class table="pgist_glossary_link"
  */
-public class TermLink {
+public class TermLink implements Serializable {
 
 
     private Long id;

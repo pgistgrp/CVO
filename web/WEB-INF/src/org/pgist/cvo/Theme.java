@@ -1,5 +1,6 @@
 package org.pgist.cvo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -9,7 +10,7 @@ import java.util.Date;
  *
  * @hibernate.class table="pgist_themes" lazy="true"
  */
-public class Theme {
+public class Theme implements Serializable {
     
     
     protected Long id;

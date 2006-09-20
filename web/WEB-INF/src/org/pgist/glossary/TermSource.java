@@ -1,5 +1,7 @@
 package org.pgist.glossary;
 
+import java.io.Serializable;
+
 
 /**
  * Glossary Sources
@@ -7,7 +9,7 @@ package org.pgist.glossary;
  *
  * @hibernate.class table="pgist_glossary_source"
  */
-public class TermSource {
+public class TermSource implements Serializable {
 
 
     private Long id;

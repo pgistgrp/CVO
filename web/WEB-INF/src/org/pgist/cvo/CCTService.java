@@ -3,7 +3,6 @@ package org.pgist.cvo;
 import java.util.Collection;
 
 import org.pgist.util.PageSetting;
-import java.util.Map;
 
 
 /**

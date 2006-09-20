@@ -1,5 +1,7 @@
 package org.pgist.projects;
 
+import java.io.Serializable;
+
 /**
  * Measure of Effeciency
  * 
@@ -7,7 +9,7 @@ package org.pgist.projects;
  * 
  * @hibernate.class table="pgist_ag_moe" lazy="true"
  */
-public class MOE {
+public class MOE implements Serializable {
     
     
     private Long id;

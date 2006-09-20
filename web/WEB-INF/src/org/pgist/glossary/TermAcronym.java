@@ -1,5 +1,7 @@
 package org.pgist.glossary;
 
+import java.io.Serializable;
+
 
 /**
  * Acronym of a Glossary Term
@@ -8,7 +10,7 @@ package org.pgist.glossary;
  *
  * @hibernate.class table="pgist_glossary_acronym"
  */
-public class TermAcronym {
+public class TermAcronym implements Serializable {
 
 
     private Long id;

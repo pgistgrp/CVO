@@ -1,5 +1,7 @@
 package org.pgist.users;
 
+import java.io.Serializable;
+
 import org.pgist.util.MD5;
 
 
@@ -8,7 +10,7 @@ import org.pgist.util.MD5;
  * @author kenny
  *
  */
-public class BaseUser {
+public class BaseUser implements Serializable {
     
     
     private Long id;

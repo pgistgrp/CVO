@@ -6,8 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
-import org.pgist.tagging.Tag;
+import org.pgist.cvo.Concern;
 import org.pgist.system.BaseDAOImpl;
+import org.pgist.tagging.Tag;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
@@ -356,6 +357,123 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
             getSession().createQuery(hql_increaseVoting_22).setLong(0, object.getId()).executeUpdate();
         }
     }//increaseVoting()
+
+
+    private static final String hql_getInfoTagLink_1 = "from InfoTagLink itl where itl.isid=?";
+    
+    
+    public InfoTagLink getInfoTagLink(InfoStructure structure) throws Exception {
+        Query query = getSession().createQuery(hql_getInfoTagLink_1);
+        query.setLong(0, structure.getId());
+        query.setMaxResults(1);
+        InfoTagLink itl = (InfoTagLink) query.uniqueResult();
+        return itl;
+    }//getInfoTagLink()
+
+
+    private static final String hql_getInfoTagLink_2 = "from InfoTagLink itl where itl.ioid=?";
+    
+    
+    public InfoTagLink getInfoTagLink(InfoObject object) throws Exception {
+        Query query = getSession().createQuery(hql_getInfoTagLink_2);
+        query.setLong(0, object.getId());
+        query.setMaxResults(1);
+        InfoTagLink itl = (InfoTagLink) query.uniqueResult();
+        return itl;
+    }//getInfoTagLink()
+
+
+    private static final String hql_getConcerns_A_1 = "select count(distinct c.id) from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.isid=?)";
+    
+    private static final String hql_getConcerns_A_2 = "select c.id from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.isid=?) group by c.id order by count(refs) desc";
+    
+    public Collection getConcerns(InfoStructure structure, PageSetting setting) throws Exception {
+        InfoTagLink link = getInfoTagLink(structure);
+        
+        Long cctId = link.getCctId();
+        
+        List concerns = new ArrayList();
+        Query query = null;
+        
+        //get count
+        
+        query = getSession().createQuery(hql_getConcerns_A_1);
+        query.setLong(0, cctId);
+        query.setLong(1, structure.getId());
+        
+        List list = query.list();
+        
+        int count = ((Number) list.get(0)).intValue();
+        
+        if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
+        
+        setting.setRowSize(count);
+        
+        if (count==0) return concerns;
+        
+        //get records
+        
+        query = getSession().createQuery(hql_getConcerns_A_2);
+        query.setLong(0, cctId);
+        query.setLong(1, structure.getId());
+        
+        query.setFirstResult(setting.getFirstRow());
+        query.setMaxResults(setting.getRowOfPage());
+        
+        for (Number one : (List<Number>) query.list()) {
+            Concern concern = (Concern) getHibernateTemplate().load(Concern.class, one);
+            concerns.add(concern);
+        }//for
+        
+        return concerns;
+    }//getConcerns()
+
+
+    private static final String hql_getConcerns_B_1 = "select count(distinct c.id) from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.ioid=?)";
+    
+    private static final String hql_getConcerns_B_2 = "select c.id from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.ioid=?) group by c.id order by count(refs) desc";
+    
+    
+    public Collection getConcerns(InfoObject object, PageSetting setting) throws Exception {
+        InfoTagLink link = getInfoTagLink(object);
+        
+        Long cctId = link.getCctId();
+        
+        List concerns = new ArrayList();
+        Query query = null;
+        
+        //get count
+        
+        query = getSession().createQuery(hql_getConcerns_B_1);
+        query.setLong(0, cctId);
+        query.setLong(1, object.getId());
+        
+        List list = query.list();
+        
+        int count = ((Number) list.get(0)).intValue();
+        
+        if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
+        
+        setting.setRowSize(count);
+        
+        if (count==0) return concerns;
+        
+        //get records
+        
+        query = getSession().createQuery(hql_getConcerns_B_2);
+        query.setLong(0, cctId);
+        query.setLong(1, object.getId());
+        
+        query.setFirstResult(setting.getFirstRow());
+        query.setMaxResults(setting.getRowOfPage());
+        
+        for (Number one : (List<Number>) query.list()) {
+            Concern concern = (Concern) getHibernateTemplate().load(Concern.class, one);
+            concerns.add(concern);
+        }//for
+        
+        return concerns;
+    }//getConcerns()
 
 
 }//class DiscussionDAOImpl

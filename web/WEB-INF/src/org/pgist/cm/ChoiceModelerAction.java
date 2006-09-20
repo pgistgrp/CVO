@@ -1,5 +1,7 @@
 package org.pgist.cm;
 
+import java.util.List;
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -43,6 +45,20 @@ public class ChoiceModelerAction extends Action {
         
         request.setAttribute("name", name);
         request.setAttribute("greeting", greeting);
+        
+        List list = choiceModelerService.getList();
+        
+        request.setAttribute("list", list);
+        
+        int[] x = new int[] { 10, 11, 12 };
+        
+        int[] y = choiceModelerService.getArray(x);
+        
+        for (int i=0; i<y.length; i++) {
+            System.out.println("----> "+y[i]);
+        }//for i
+        
+        choiceModelerService.test();
         
         return mapping.findForward("main");
     }//execute()

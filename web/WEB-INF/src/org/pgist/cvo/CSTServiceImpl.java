@@ -5,12 +5,13 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 
 import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
-import org.pgist.system.UserDAO;
+import org.pgist.discussion.InfoTagLink;
 import org.pgist.tagging.Category;
 import org.pgist.tagging.TagDAO;
 import org.pgist.util.PageSetting;
@@ -30,8 +31,6 @@ public class CSTServiceImpl implements CSTService {
     
     private TagDAO tagDAO = null;
 
-    private UserDAO userDAO = null;
-    
     private DiscussionDAO discussionDAO = null;
 
     
@@ -47,11 +46,6 @@ public class CSTServiceImpl implements CSTService {
 
     public void setTagDAO(TagDAO tagDAO) {
         this.tagDAO = tagDAO;
-    }
-
-
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
     }
 
 
@@ -566,9 +560,10 @@ public class CSTServiceImpl implements CSTService {
         
         Date date = new Date();
         
-        InfoStructure info = new InfoStructure();
-        info.setType("sdc");
-        info.setRespTime(date);
+        InfoStructure structure = new InfoStructure();
+        structure.setType("sdc");
+        structure.setRespTime(date);
+        discussionDAO.save(structure);
         
         for (CategoryReference ref : (Set<CategoryReference>) cct.getRootCategory().getChildren()) {
             ref.getCategory();
@@ -581,11 +576,32 @@ public class CSTServiceImpl implements CSTService {
             InfoObject obj = new InfoObject();
             obj.setObject(ref);
             obj.setRespTime(date);
+            discussionDAO.save(obj);
             
-            info.getInfoObjects().add(obj);
-        }//for
+            structure.getInfoObjects().add(obj);
+            
+            Queue queue = new LinkedList();
+            queue.add(ref);
+            while (!queue.isEmpty()) {
+                CategoryReference one = (CategoryReference) queue.poll();
+                for (CategoryReference child : (Set<CategoryReference>) one.getChildren()) {
+                    queue.offer(child);
+                }
+                
+                for (TagReference two : (Set<TagReference>) one.getTags()) {
+                    InfoTagLink link = new InfoTagLink();
+                    link.setIsid(structure.getId());
+                    link.setIoid(obj.getId());
+                    link.setCctId(cct.getId());
+                    link.setTagId(two.getTag().getId());
+                    discussionDAO.save(link);
+                }//for two
+                
+            }//while
+            
+        }//for ref
         
-        discussionDAO.save(info);
+        discussionDAO.save(structure);
     }//publish()
 
 

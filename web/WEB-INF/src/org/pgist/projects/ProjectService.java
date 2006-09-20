@@ -23,7 +23,7 @@ public interface ProjectService {
     
 	public void saveProject(Project project, ProjectAlternative alternative) throws Exception;
     
-	public void saveFootprint(Project project, double[][][] coords,String geoType) throws Exception;
+	public void saveFootprint(ProjectAlternative pa, double[][][] coords,String geoType) throws Exception;
     
     public void publishProjects(String criteria) throws Exception;
     

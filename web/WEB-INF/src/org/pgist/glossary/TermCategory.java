@@ -1,5 +1,7 @@
 package org.pgist.glossary;
 
+import java.io.Serializable;
+
 
 /**
  * Category for Glossary Term
@@ -7,7 +9,7 @@ package org.pgist.glossary;
  *
  * @hibernate.class table="pgist_glossary_category"
  */
-public class TermCategory {
+public class TermCategory implements Serializable {
 
     
     private Long id;

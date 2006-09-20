@@ -1,5 +1,6 @@
 package org.pgist.projects;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,7 +10,7 @@ import java.util.Set;
  * 
  * @hibernate.class table="pgist_ag_packcluster" lazy="true"
  */
-public class PackageCluster {
+public class PackageCluster implements Serializable {
     
     
     private Long id;

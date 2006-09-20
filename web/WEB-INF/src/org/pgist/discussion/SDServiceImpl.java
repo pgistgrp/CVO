@@ -3,6 +3,7 @@ package org.pgist.discussion;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.pgist.cvo.CCTDAO;
 import org.pgist.cvo.CategoryReference;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
@@ -19,12 +20,19 @@ public class SDServiceImpl implements SDService {
     
     private DiscussionDAO discussionDAO;
     
+    private CCTDAO cctDAO;
+    
     
     public void setDiscussionDAO(DiscussionDAO discussionDAO) {
         this.discussionDAO = discussionDAO;
     }
     
     
+    public void setCctDAO(CCTDAO cctDAO) {
+        this.cctDAO = cctDAO;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */
@@ -222,6 +230,16 @@ public class SDServiceImpl implements SDService {
         
         return true;
     }//setVoting()
+
+
+    public Collection getConcerns(InfoStructure structure, PageSetting setting) throws Exception {
+        return discussionDAO.getConcerns(structure, setting);
+    }//getConcerns()
+
+
+    public Collection getConcerns(InfoObject object, PageSetting setting) throws Exception {
+        return discussionDAO.getConcerns(object, setting);
+    }//getConcerns()
 
 
 }//class SDServiceImpl

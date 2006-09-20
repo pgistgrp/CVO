@@ -1,5 +1,6 @@
 package org.pgist.voting;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import org.pgist.users.User;
  *
  * @hibernate.class table="pgist_vote_sheet"
  */
-public class VoteSheet {
+public class VoteSheet implements Serializable {
     
     
     private Long id;

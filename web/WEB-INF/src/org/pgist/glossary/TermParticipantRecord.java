@@ -1,5 +1,7 @@
 package org.pgist.glossary;
 
+import java.io.Serializable;
+
 import org.pgist.users.User;
 
 
@@ -9,7 +11,7 @@ import org.pgist.users.User;
  *
  * @hibernate.class table="pgist_glossary_term_participant"
  */
-public class TermParticipantRecord {
+public class TermParticipantRecord implements Serializable {
     
     
     private Long id;

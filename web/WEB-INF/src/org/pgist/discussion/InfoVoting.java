@@ -1,5 +1,7 @@
 package org.pgist.discussion;
 
+import java.io.Serializable;
+
 import org.pgist.users.User;
 
 
@@ -9,7 +11,7 @@ import org.pgist.users.User;
  *
  * @hibernate.class table="pgist_info_voting" lazy="true"
  */
-public class InfoVoting {
+public class InfoVoting implements Serializable {
     
     
     private Long id;

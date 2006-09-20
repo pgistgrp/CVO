@@ -34,7 +34,7 @@ public interface ProjectDAO extends BaseDAO {
 	public Map getFootprints(String fpids) throws Exception;
 	
     
-	public void saveFootprint(Project p, double[][][] coords, String type) throws Exception;
+	public void saveFootprint(ProjectAlternative pa, double[][][] coords, String type) throws Exception;
 	
     
 	public Package getPackage(Long pid) throws Exception;

@@ -1,5 +1,6 @@
 package org.pgist.voting;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,7 +11,7 @@ import java.util.Set;
  *
  * @hibernate.class table="pgist_vote_package"
  */
-public class VotePackage {
+public class VotePackage implements Serializable {
     
     
     private Long id;

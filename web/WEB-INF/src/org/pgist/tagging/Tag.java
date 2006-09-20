@@ -1,5 +1,7 @@
 package org.pgist.tagging;
 
+import java.io.Serializable;
+
 
 /**
  *
@@ -7,7 +9,7 @@ package org.pgist.tagging;
  *
  * @hibernate.class table="pgist_tags" lazy="true"
  */
-public class Tag {
+public class Tag implements Serializable {
     
     
     public static final int TYPE_INCLUDED = 0;

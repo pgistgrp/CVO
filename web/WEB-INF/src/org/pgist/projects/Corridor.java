@@ -1,11 +1,13 @@
 package org.pgist.projects;
 
+import java.io.Serializable;
+
 /**
  * @author Guirong
  * 
  * @hibernate.class table="pgist_corridors" lazy="true"
  */
-public class Corridor {
+public class Corridor implements Serializable {
     
     
     private Long id;

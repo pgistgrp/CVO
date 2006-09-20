@@ -1,5 +1,6 @@
 package org.pgist.cvo;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -13,7 +14,7 @@ import org.pgist.users.User;
  *
  * @hibernate.class table="pgist_cvo_concerns" lazy="true"
  */
-public class Concern {
+public class Concern implements Serializable {
     
     
     protected Long id;

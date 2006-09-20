@@ -161,6 +161,7 @@
       <include method="deletePost"/>
       <include method="getSummary"/>
       <include method="setVoting"/>
+      <include method="getConcerns"/>
     </create>
 
     <create creator="spring" javascript="ProjectAgent">

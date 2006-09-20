@@ -56,6 +56,7 @@
                <value>org/pgist/cvo/SummaryRevision.hbm.xml</value>
                <value>org/pgist/discussion/InfoStructure.hbm.xml</value>
                <value>org/pgist/discussion/InfoObject.hbm.xml</value>
+               <value>org/pgist/discussion/InfoTagLink.hbm.xml</value>
                <value>org/pgist/discussion/InfoVoting.hbm.xml</value>
                <value>org/pgist/discussion/Discussion.hbm.xml</value>
                <value>org/pgist/discussion/DiscussionPost.hbm.xml</value>
@@ -81,6 +82,7 @@
                <value>org/pgist/voting/VoteSheet.hbm.xml</value>
                <value>org/pgist/voting/VoteItem.hbm.xml</value>
                <value>org/pgist/projects/FundingSource.hbm.xml</value>
+               <value>org/pgist/projects/FundingSourceAlternative.hbm.xml</value>
                <value>org/pgist/projects/MOE.hbm.xml</value>
                <value>org/pgist/projects/Corridor.hbm.xml</value>
                <value>org/pgist/projects/Criteria.hbm.xml</value>

@@ -71,8 +71,8 @@ public class ProjectServiceImpl implements ProjectService{
 	}
     
     
-	public void saveFootprint(Project project, double[][][] coords, String geoType) throws Exception{
-		projectDAO.saveFootprint(project, coords, geoType);
+	public void saveFootprint(ProjectAlternative pa, double[][][] coords, String geoType) throws Exception{
+		projectDAO.saveFootprint(pa, coords, geoType);
 	}
     
     

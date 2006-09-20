@@ -1,5 +1,6 @@
 package org.pgist.discussion;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -8,7 +9,7 @@ import java.util.Date;
  * @author kenny
  *
  */
-public abstract class GenericInfo {
+public abstract class GenericInfo implements Serializable {
     
     
     protected Long id;

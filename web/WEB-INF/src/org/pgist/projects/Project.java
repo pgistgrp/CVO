@@ -1,21 +1,16 @@
 package org.pgist.projects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-
 /**
- * @author Guirong
+ * @author Guirong, kenny
  * 
  * @hibernate.class table="pgist_projects" lazy="true"
  */
-public class Project {
-    
-    
-    public static int PGIST_PROJECT_MODE_ROAD = 0;
-    
-    public static int PGIST_PROJECT_MODE_TRANSIT = 1;
+public class Project implements Serializable {
     
     
     private Long id;
@@ -24,25 +19,11 @@ public class Project {
     
     private String description;
     
-    /**
-     * fpid: a comma-delimited footprint id list for
-     * this porject, e.g., "1,2", or "1"
-     */
-    private String fpids;
-    
-    private int geoType;
-    
-    private String annoString;
+    private Corridor corridor;
     
     private List<ProjectAlternative> alternatives = new ArrayList<ProjectAlternative>();
     
-    private double cost;
-    
-    private int transMode;
-    
-    private String sponsor;
-    
-    private Corridor corridor;
+    private ProjectAlternative selected = null;
     
     
     /**
@@ -55,20 +36,6 @@ public class Project {
     
     public void setId(Long id){
         this.id = id;
-    }
-    
-    
-    /**
-     * @return
-     * @hibernate.property
-     */
-	public double getCost(){
-		return this.cost;
-	}
-	
-    
-    public void setCost(double co){
-        this.cost = co;
     }
     
     
@@ -102,23 +69,22 @@ public class Project {
     
     /**
      * @return
-     * @hibernate.property
+     * 
+     * @hibernate.many-to-one column="corridor_id" cascade="all" lazy="true"
      */
-	public int getGeoType(){
-		return this.geoType;
-	}
-	
+    public Corridor getCorridor() {
+        return corridor;
+    }
     
-    /**
-     * @param the geoType to set
-     */
-    public void setGeoType(int t){
-        this.geoType = t;
+    
+    public void setCorridor(Corridor corridor) {
+        this.corridor = corridor;
     }
     
     
     /**
      * @return
+     * 
      * @hibernate.list lazy="false" cascade="all-delete-orphan"
      * @hibernate.collection-one-to-many class="org.pgist.projects.ProjectAlternative"
      * @hibernate.collection-index  column="index"
@@ -136,70 +102,16 @@ public class Project {
 	
     /**
      * @return
-     * @hibernate.property
+     * 
+     * @hibernate.many-to-one column="alternative_id" cascade="none"
      */
-	public String getFpids(){
-		return this.fpids;
-	}
-	
-    
-    public void setFpids(String fpids){
-        this.fpids = fpids;
+    public ProjectAlternative getSelected() {
+        return selected;
     }
-    
-    
-    /**
-     * This attribute is used for map display. It has the format of "color,width,opacity,anchorX,anchorY, shiftHorizontalAnchor,shiftVerticalAnchor,shiftHorizontalFeature, shiftVerticalFeature"
-     * @hibernate.property
-     */
-	public String getAnnoString(){
-		return this.annoString;
-	}
-    
-	
-    public void setAnnoString(String anno){
-        this.annoString = anno;
-    }
-    
-    
-    /**
-     * @return
-     * @hibernate.property
-     */
-    public int getTransMode() {
 
-        return transMode;
-    }
-    
-    
-    public void setTransMode(int transMode) {
-        this.transMode = transMode;
-    }
-    
-    
-    /**
-     * @hibernate.property
-     */
-    public String getSponsor() {
-        return sponsor;
-    }
-    
-    
-    public void setSponsor(String sponsor) {
-        this.sponsor = sponsor;
-    }
-    
-    
-    /**
-     * @hibernate.many-to-one column="corridor_id" cascade="all" lazy="true"
-     */
-    public Corridor getCorridor() {
-        return corridor;
-    }
-    
-    
-    public void setCorridor(Corridor corridor) {
-        this.corridor = corridor;
+
+    public void setSelected(ProjectAlternative selected) {
+        this.selected = selected;
     }
     
     
@@ -216,6 +128,6 @@ public class Project {
     public void removeAlternative(ProjectAlternative a){
         alternatives.remove(a);
     }
-    
-    
+
+
 }//class Project

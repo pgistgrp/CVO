@@ -1,5 +1,6 @@
 package org.pgist.system;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.pgist.users.User;
@@ -11,7 +12,7 @@ import org.pgist.users.User;
  *
  * @hibernate.class table="pgist_feedbacks" lazy="true"
  */
-public class Feedback {
+public class Feedback implements Serializable {
     
     
     private Long id;

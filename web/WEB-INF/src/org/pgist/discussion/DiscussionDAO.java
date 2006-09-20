@@ -76,6 +76,18 @@ public interface DiscussionDAO extends BaseDAO {
     void increaseVoting(InfoObject object, boolean agree) throws Exception;
 
 
+    InfoTagLink getInfoTagLink(InfoStructure structure) throws Exception;
+
+
+    InfoTagLink getInfoTagLink(InfoObject object) throws Exception;
+
+
+    Collection getConcerns(InfoStructure structure, PageSetting setting) throws Exception;
+    
+
+    Collection getConcerns(InfoObject object, PageSetting setting) throws Exception;
+
+
     //temp
     
     Collection getInfoStructures() throws Exception;

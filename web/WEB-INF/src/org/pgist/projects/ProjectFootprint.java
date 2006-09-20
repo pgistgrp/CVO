@@ -1,11 +1,13 @@
 package org.pgist.projects;
 
+import java.io.Serializable;
+
 
 /**
  * @author Guirong
  *
  */
-public class ProjectFootprint {
+public class ProjectFootprint implements Serializable {
     
     
 	public static int GEOMTRY_TYPE_POINT = 0;

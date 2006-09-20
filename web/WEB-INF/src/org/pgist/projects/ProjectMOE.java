@@ -1,12 +1,14 @@
 package org.pgist.projects;
 
+import java.io.Serializable;
+
 
 /**
  * @author Mike and Guirong
  * 
  * @hibernate.class table="pgist_ag_proj_moe" lazy="true"
  */
-public class ProjectMOE {
+public class ProjectMOE implements Serializable {
     
     
     private Project project;

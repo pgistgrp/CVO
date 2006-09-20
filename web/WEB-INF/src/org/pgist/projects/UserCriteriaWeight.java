@@ -1,5 +1,6 @@
 package org.pgist.projects;
 
+import java.io.Serializable;
 import java.util.Date;
 import org.pgist.users.User;
 
@@ -9,7 +10,7 @@ import org.pgist.users.User;
  * 
  * @hibernate.class table="pgist_ag_user_crit_weight" lazy="true"
  */
-public class UserCriteriaWeight {
+public class UserCriteriaWeight implements Serializable {
     
     
     private int id;

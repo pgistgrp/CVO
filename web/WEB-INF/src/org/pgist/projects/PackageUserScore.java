@@ -1,5 +1,6 @@
 package org.pgist.projects;
 
+import java.io.Serializable;
 import java.util.Date;
 import org.pgist.users.User;
 
@@ -9,7 +10,7 @@ import org.pgist.users.User;
  * 
  * @hibernate.class table="pgist_cm_pack_user_score" lazy="true"
  */
-public class PackageUserScore {
+public class PackageUserScore implements Serializable {
     
     
     private Long id;

@@ -1,12 +1,14 @@
 package org.pgist.projects;
 
+import java.io.Serializable;
+
 
 /**
  * @author guirong
  * 
  * @hibernate.class table="pgist_vehicle" lazy="true"
  */
-public class Vehicle {
+public class Vehicle implements Serializable {
     
     
     private Long id;

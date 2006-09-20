@@ -1,5 +1,6 @@
 package org.pgist.projects;
 
+import java.io.Serializable;
 import java.util.*;
 
 
@@ -8,7 +9,7 @@ import java.util.*;
  * 
  * @hibernate.class table="pgist_criteria" lazy="true"
  */
-public class Criteria {
+public class Criteria implements Serializable {
     
     
     private Long id;

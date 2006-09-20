@@ -1,5 +1,6 @@
 package org.pgist.projects;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +11,7 @@ import java.util.Set;
  * 
  * @hibernate.class table="pgist_packages" lazy="true"
  */
-public class Package {
+public class Package implements Serializable {
     
     
     public static int PGIST_PACKAGE_TYPE_PPP = 0;//preliminary personal package

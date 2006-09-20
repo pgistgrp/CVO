@@ -18,6 +18,9 @@ public interface TagDAO extends BaseDAO {
     Tag getTagById(Long id) throws Exception;
     
 
+    Tag getTagByName(String name) throws Exception;
+
+
     /**
      * Add the given tag to the database.<br>
      * Tag string will be checked if it's already in the tag library. If it's already in the

@@ -1,12 +1,14 @@
 package org.pgist.projects;
 
+import java.io.Serializable;
+
 
 /**
  * @author Mike and Guirong
  * 
  * @hibernate.class table="pgist_ag_pack_crit" lazy="true"
  */
-public class PackageCriteria {
+public class PackageCriteria implements Serializable {
     
     
     private Long id;

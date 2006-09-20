@@ -1,5 +1,6 @@
 package org.pgist.cvo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  *
  * @hibernate.class table="pgist_cvo_summary" lazy="true"
  */
-public class Summary {
+public class Summary implements Serializable {
     
     
     private Long id;

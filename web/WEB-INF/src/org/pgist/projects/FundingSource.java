@@ -1,21 +1,25 @@
 package org.pgist.projects;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 
 /**
  * @author Mike and Guirong
  * 
- * @hibernate.class table="pgist_ag_funding_source" lazy="true"
+ * @hibernate.class table="pgist_funding_source" lazy="true"
  */
-public class FundingSource {
+public class FundingSource implements Serializable {
     
     
     private Long id;
     
     private String name;
     
-    private Float totalRevenue;
+    private Set alternatives = new HashSet();
     
-    private Float avgPersonalTax;
+    private FundingSourceAlternative selected = null;
     
     
     /**
@@ -42,31 +46,37 @@ public class FundingSource {
     public void setName(String name) {
         this.name = name;
     }
-    
-    
+
+
     /**
-     * @hibernate.property not-null="true"
+     * @return
+     * 
+     * @hibernate.set lazy="true" cascade="all"
+     * @hibernate.collection-key column="source_id"
+     * @hibernate.collection-one-to-many class="org.pgist.projects.FundingSourceAlternative"
      */
-    public Float getTotalRevenue() {
-        return totalRevenue;
+    public Set getAlternatives() {
+        return alternatives;
     }
-    
-    
-    public void setTotalRevenue(Float totalRevenue) {
-        this.totalRevenue = totalRevenue;
+
+
+    public void setAlternatives(Set alternatives) {
+        this.alternatives = alternatives;
     }
-    
-    
+
+
     /**
-     * @hibernate.property not-null="true"
+     * @return
+     * 
+     * @hibernate.many-to-one column="alternative_id" cascade="none"
      */
-    public Float getAvgPersonalTax() {
-        return avgPersonalTax;
+    public FundingSourceAlternative getSelected() {
+        return selected;
     }
-    
-    
-    public void setAvgPersonalTax(Float avgPersonalTax) {
-        this.avgPersonalTax = avgPersonalTax;
+
+
+    public void setSelected(FundingSourceAlternative selected) {
+        this.selected = selected;
     }
     
     

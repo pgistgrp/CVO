@@ -88,9 +88,9 @@ public class ProjectAgent {
 		Project p = new Project();
 		p.setName((String)prjparams.get("name"));
 		p.setDescription((String)prjparams.get("description"));
-		p.setCost(Double.valueOf((String)prjparams.get("cost")));
+		//p.setCost(Double.valueOf((String)prjparams.get("cost")));
 		if(prjparams.get("fpids") != null)
-			p.setFpids( (String)prjparams.get("fpids") );
+			;//p.setFpids( (String)prjparams.get("fpids") );
 
 		try{
 			projectService.saveProject(p);
@@ -142,11 +142,11 @@ public class ProjectAgent {
 				result.put("reason", "Can't find this project.");
 			}else{
 				if(geoType.compareToIgnoreCase("POLYGON")==0){	//this handles known footprint ids
-					p.setFpids(fpids);
-					p.setGeoType(Geometry.MULTIPOLYGON);
+					//p.setFpids(fpids);
+					//p.setGeoType(Geometry.MULTIPOLYGON);
 					projectService.saveProject(p);
 				}else{
-					projectService.saveFootprint(p , coords, geoType);
+					//projectService.saveFootprint(p , coords, geoType);
 				}
 
 				result.put("successful", true);

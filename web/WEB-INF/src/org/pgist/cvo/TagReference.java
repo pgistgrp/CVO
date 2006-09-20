@@ -1,5 +1,7 @@
 package org.pgist.cvo;
 
+import java.io.Serializable;
+
 import org.pgist.tagging.Tag;
 
 
@@ -9,7 +11,7 @@ import org.pgist.tagging.Tag;
  *
  * @hibernate.class table="pgist_cvo_tag_refs" lazy="true"
  */
-public class TagReference {
+public class TagReference implements Serializable {
     
     
     protected Long id;

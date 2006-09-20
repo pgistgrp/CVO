@@ -1,5 +1,6 @@
 package org.pgist.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +15,7 @@ import org.pgist.users.User;
  * @hibernate.class table="pgist_discourse_post" lazy="true"
  * @hibernate.cache usage="read-write"
  */
-public class Post {
+public class Post implements Serializable {
     
     
     public static final int CATEGORY_CONCERN = 1;

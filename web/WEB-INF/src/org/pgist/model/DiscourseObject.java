@@ -1,5 +1,7 @@
 package org.pgist.model;
 
+import java.io.Serializable;
+
 import org.pgist.users.User;
 
 
@@ -9,7 +11,7 @@ import org.pgist.users.User;
  *
  * @hibernate.class table="pgist_discourse_object"
  */
-public class DiscourseObject {
+public class DiscourseObject implements Serializable {
     
     
     protected Long id;

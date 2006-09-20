@@ -1,5 +1,6 @@
 package org.pgist.glossary;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -14,7 +15,7 @@ import org.pgist.users.User;
  *
  * @hibernate.class table="pgist_glossary_term"
  */
-public class Term {
+public class Term implements Serializable {
 
     
     public static final int STATUS_PENDING  = 0;

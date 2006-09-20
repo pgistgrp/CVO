@@ -1,5 +1,7 @@
 package org.pgist.discussion;
 
+import java.io.Serializable;
+
 
 /**
  * 
@@ -7,7 +9,7 @@ package org.pgist.discussion;
  *
  * @hibernate.class table="pgist_dicussion" lazy="true"
  */
-public class Discussion {
+public class Discussion implements Serializable {
 
     
     protected Long id;

@@ -1,5 +1,6 @@
 package org.pgist.cvo;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedSet;
@@ -15,7 +16,7 @@ import org.pgist.tagging.Category;
  *
  * @hibernate.class table="pgist_cvo_category_refs" lazy="true"
  */
-public class CategoryReference implements Node {
+public class CategoryReference implements Node, Serializable {
     
     
     protected Long id;

@@ -1,12 +1,14 @@
 package org.pgist.users;
 
+import java.io.Serializable;
+
 
 /**
  * PGIST Role class.
  * @author kenny
  * @hibernate.class table="pgist_role"
  */
-public class Role {
+public class Role implements Serializable {
 
     
     private Long id;

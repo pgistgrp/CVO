@@ -12,9 +12,9 @@ import org.pgist.system.BaseDAOImpl;
 import org.pgist.util.WKT;
 
 import org.apache.commons.collections.map.HashedMap;
-import org.pgist.system.BaseDAOImpl;
 import org.postgis.*;
 import org.postgresql.jdbc3.Jdbc3Connection;
+
 
 public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	private static final String pfTableName = "pgist_data_project_footprint";
@@ -44,7 +44,7 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	 * then find out how many lines are needed for each part.
 	 * @throws Exception
 	 */
-	public void saveFootprint(Project p, double[][][] coordinates, String geoType) throws Exception{
+	public void saveFootprint(ProjectAlternative pa, double[][][] coordinates, String geoType) throws Exception{
 		Connection conn = getSession().connection();
 		
 		String wkt = null;
@@ -66,17 +66,18 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 			//use this to retrieve the last inserted footprint id
 			ResultSet r = s.executeQuery("select currval('" + pfSequenceName + "')");
 			if(r.next()){
-				long newfpid = r.getLong(1);			
+				long newfpid = r.getLong(1);
 				System.out.println("==>>inserted new geometry: id=" + newfpid + ", wkt=" + wkt);
 				
 				//put this into the project and save it
-				p.setFpids("" + newfpid);
-				p.setGeoType(geometrytype);
-				this.save(p);
+				pa.setFpids("" + newfpid);
+				pa.setGeoType(geometrytype);
+				this.save(pa);
 			}
 		}
 					
-	}
+	}//saveFootprint()
+    
 
 	public void save(Package p) throws Exception{
 		getHibernateTemplate().saveOrUpdate(p);		
