@@ -836,6 +836,7 @@ public class SDAgent {
      *     <ul>
      *       <li>isid - the id of the current InfoStructure object</li>
      *       <li>ioid - the id of the current InfoObject object. (Optional, if omitted means at the InfoStructure level)</li>
+     *       <li>tags - a comma separated string of tag ids to filter the concerns. (Optional)</li>
      *       <li>count - int, concerns shown per page. (Optional, default is -1, means show all)</li>
      *       <li>page - int, current page number (Optional, default is 1).</li>
      *     </ul>
@@ -844,6 +845,7 @@ public class SDAgent {
      *     <ul>
      *       <li>successful - a boolean value denoting if the operation succeeds</li>
      *       <li>reason - reason why operation failed (valid when successful==false)</li>
+     *       <li>num - number of tags this structure/object relates</li>
      *       <li>
      *         source - a PageSource object (valid when successful==true), it has the following properties:
      *         <ul>
@@ -854,6 +856,7 @@ public class SDAgent {
      *                 <li>structure - An InfoStructure object</li>
      *                 <li>object - An InfoObject object (valid if ioid is provided)</li>
      *                 <li>setting - An PageSetting object</li>
+     *                 <li>num - number of tags this structure/object relates</li>
      *               </ul>
      *           </li>
      *           <li>script - a Javascript segment.<br>
@@ -863,6 +866,7 @@ public class SDAgent {
      *                 <li>structure - An InfoStructure object</li>
      *                 <li>object - An InfoObject object (valid if ioid is provided)</li>
      *                 <li>setting - An PageSetting object</li>
+     *                 <li>num - number of tags this structure/object relates</li>
      *               </ul>
      *           </li>
      *         </ul>
@@ -909,14 +913,18 @@ public class SDAgent {
             
             request.setAttribute("structure", structure);
             
+            String ids = (String) params.get("tags");
+            
             PageSetting setting = new PageSetting();
             setting.setRowOfPage(count);
             setting.setPage(page);
             
             Collection concerns = null;
+            int num = 0;
             
             if (ioid==null) {
-                concerns = sdService.getConcerns(structure, setting);
+                concerns = sdService.getConcerns(structure, ids, setting);
+                num = sdService.getTagCount(structure);
             } else {
                 InfoObject object = sdService.getInfoObjectById(ioid);
                 
@@ -927,13 +935,17 @@ public class SDAgent {
                 
                 request.setAttribute("object", object);
                 
-                concerns = sdService.getConcerns(object, setting);
+                num = sdService.getTagCount(object);
+                
+                concerns = sdService.getConcerns(object, ids, setting);
             }
             
             request.setAttribute("concerns", concerns);
+            request.setAttribute("num", num);
             
             PageSource source = new PageSource();
             map.put("source", source);
+            map.put("num", num);
             
             request.setAttribute(FragmentTag.FRAGMENT_TYPE, FragmentTag.HTML);
             source.setHtml(WebContextFactory.get().forwardToString("/WEB-INF/jsp/discussion/sidebar-concerns.jsp"));

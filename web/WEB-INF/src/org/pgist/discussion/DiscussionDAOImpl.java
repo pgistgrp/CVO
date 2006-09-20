@@ -383,21 +383,34 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getInfoTagLink()
 
 
-    private static final String hql_getConcerns_A_1 = "select count(distinct c.id) from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.isid=?)";
+    private static final String hql_getConcerns_A_11 = "select count(distinct c.id) from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.isid=?)";
     
-    private static final String hql_getConcerns_A_2 = "select c.id from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.isid=?) group by c.id order by count(refs) desc";
+    private static final String hql_getConcerns_A_12 = "select c.id from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.isid=?) group by c.id order by count(refs) desc";
     
-    public Collection getConcerns(InfoStructure structure, PageSetting setting) throws Exception {
+    private static final String hql_getConcerns_A_21 = "select count(distinct c.id) from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.isid=?) and refs.tag.id in (##)";
+    
+    private static final String hql_getConcerns_A_22 = "select c.id from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.isid=?) and refs.tag.id in (##) group by c.id order by count(refs) desc";
+    
+    
+    public Collection getConcerns(InfoStructure structure, String ids, PageSetting setting) throws Exception {
         InfoTagLink link = getInfoTagLink(structure);
         
         Long cctId = link.getCctId();
         
+        boolean all = (ids==null || ids.trim().length()==0);
+        
         List concerns = new ArrayList();
+        
         Query query = null;
         
         //get count
         
-        query = getSession().createQuery(hql_getConcerns_A_1);
+        if (all) {
+            query = getSession().createQuery(hql_getConcerns_A_11);
+        } else {
+            query = getSession().createQuery(hql_getConcerns_A_21.replace("##", ids));
+        }
+        
         query.setLong(0, cctId);
         query.setLong(1, structure.getId());
         
@@ -413,7 +426,12 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         //get records
         
-        query = getSession().createQuery(hql_getConcerns_A_2);
+        if (all) {
+            query = getSession().createQuery(hql_getConcerns_A_21);
+        } else {
+            query = getSession().createQuery(hql_getConcerns_A_22.replace("##", ids));
+        }
+        
         query.setLong(0, cctId);
         query.setLong(1, structure.getId());
         
@@ -429,22 +447,34 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getConcerns()
 
 
-    private static final String hql_getConcerns_B_1 = "select count(distinct c.id) from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.ioid=?)";
+    private static final String hql_getConcerns_B_11 = "select count(distinct c.id) from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.ioid=?)";
     
-    private static final String hql_getConcerns_B_2 = "select c.id from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.ioid=?) group by c.id order by count(refs) desc";
+    private static final String hql_getConcerns_B_12 = "select c.id from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.ioid=?) group by c.id order by count(refs) desc";
+    
+    private static final String hql_getConcerns_B_21 = "select count(distinct c.id) from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.ioid=?) and refs.tag.id in (##)";
+    
+    private static final String hql_getConcerns_B_22 = "select c.id from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.ioid=?) and refs.tag.id in (##) group by c.id order by count(refs) desc";
     
     
-    public Collection getConcerns(InfoObject object, PageSetting setting) throws Exception {
+    public Collection getConcerns(InfoObject object, String ids, PageSetting setting) throws Exception {
         InfoTagLink link = getInfoTagLink(object);
         
         Long cctId = link.getCctId();
         
+        boolean all = (ids==null || ids.trim().length()==0);
+        
         List concerns = new ArrayList();
+        
         Query query = null;
         
         //get count
         
-        query = getSession().createQuery(hql_getConcerns_B_1);
+        if (all) {
+            query = getSession().createQuery(hql_getConcerns_B_11);
+        } else {
+            query = getSession().createQuery(hql_getConcerns_B_21.replace("##", ids));
+        }
+        
         query.setLong(0, cctId);
         query.setLong(1, object.getId());
         
@@ -460,7 +490,12 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         //get records
         
-        query = getSession().createQuery(hql_getConcerns_B_2);
+        if (all) {
+            query = getSession().createQuery(hql_getConcerns_B_12);
+        } else {
+            query = getSession().createQuery(hql_getConcerns_B_22.replace("##", ids));
+        }
+        
         query.setLong(0, cctId);
         query.setLong(1, object.getId());
         
@@ -474,6 +509,34 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         return concerns;
     }//getConcerns()
+
+
+    private static final String hql_getTagCount_1 = "select count(distinct link.tagId) from InfoTagLink link where link.isid=?";
+    
+    
+    public int getTagCount(InfoStructure structure) throws Exception {
+        Query query = getSession().createQuery(hql_getTagCount_1);
+        
+        query.setLong(0, structure.getId());
+        
+        Number num = (Number) query.uniqueResult();
+        
+        return num.intValue();
+    }//getTagCount()
+
+
+    private static final String hql_getTagCount_2 = "select count(distinct link.tagId) from InfoTagLink link where link.ioid=?";
+    
+    
+    public int getTagCount(InfoObject object) throws Exception {
+        Query query = getSession().createQuery(hql_getTagCount_2);
+        
+        query.setLong(0, object.getId());
+        
+        Number num = (Number) query.uniqueResult();
+        
+        return num.intValue();
+    }//getTagCount()
 
 
 }//class DiscussionDAOImpl

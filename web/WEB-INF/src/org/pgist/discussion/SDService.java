@@ -62,10 +62,16 @@ public interface SDService {
     boolean setVoting(InfoObject object, boolean agree) throws Exception;
 
 
-    Collection getConcerns(InfoStructure structure, PageSetting setting) throws Exception;
+    Collection getConcerns(InfoStructure structure, String ids, PageSetting setting) throws Exception;
 
 
-    Collection getConcerns(InfoObject object, PageSetting setting) throws Exception;
+    Collection getConcerns(InfoObject object, String ids, PageSetting setting) throws Exception;
+
+
+    int getTagCount(InfoStructure structure) throws Exception;
+
+
+    int getTagCount(InfoObject object) throws Exception;
 
 
     //temp

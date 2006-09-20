@@ -232,14 +232,24 @@ public class SDServiceImpl implements SDService {
     }//setVoting()
 
 
-    public Collection getConcerns(InfoStructure structure, PageSetting setting) throws Exception {
-        return discussionDAO.getConcerns(structure, setting);
+    public Collection getConcerns(InfoStructure structure, String ids, PageSetting setting) throws Exception {
+        return discussionDAO.getConcerns(structure, ids, setting);
     }//getConcerns()
 
 
-    public Collection getConcerns(InfoObject object, PageSetting setting) throws Exception {
-        return discussionDAO.getConcerns(object, setting);
+    public Collection getConcerns(InfoObject object, String ids, PageSetting setting) throws Exception {
+        return discussionDAO.getConcerns(object, ids, setting);
     }//getConcerns()
+
+
+    public int getTagCount(InfoStructure structure) throws Exception {
+        return discussionDAO.getTagCount(structure);
+    }//getTagCount()
+
+
+    public int getTagCount(InfoObject object) throws Exception {
+        return discussionDAO.getTagCount(object);
+    }//getTagCount()
 
 
 }//class SDServiceImpl
