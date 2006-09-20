@@ -2,10 +2,11 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>		
 		
 		
-		
-		
+		<c:if test="${fn:length(term.sources) != 0}">
 		<table id="proposedTermListTable" class="blueBB" cellspacing="2" cellpadding="4" frame="box" rules="all" width="100%">
 	 <tr>
   	<th style="text-align: left" id="name">term</th><th style="text-align: left" id="def">a short definition</th><th style="text-align:center" id="proposedBy">proposed by</th>
@@ -27,7 +28,7 @@
 		  <td style="text-align: center;"><a href="#lightbox1" rel="lightbox1" class="lbOn">edit attributes</a>|<a href="">del</a></td>
 	    </tr>-->
 </table>
-
+</c:if>
 
 
 

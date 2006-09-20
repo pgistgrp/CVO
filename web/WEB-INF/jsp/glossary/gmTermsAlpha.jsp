@@ -16,6 +16,7 @@ Jump to starts with letter:
    </tr>
   <bean:define id="storeInitial" value="" />
 	  <logic:iterate id="term" name="terms">
+	 
 	    <tr id="glossaryTerm${term.id}">
 	      <td><logic:notEqual name="storeInitial" value="${term.initial}"><a name="<bean:write name="term" property="initial"/>"><bean:define id="storeInitial" value="${term.initial}" /></logic:notEqual><a id='glossaryViewLink${term.id}' href="glossaryView.do?id=${term.id}"><pg:highlight text="${filter}" style="color:white; background-color:red;">${term.name}</pg:highlight></a></td>
 	      <td id='termShortDefinitionCell${term.id}'><pg:highlight text="${filter}" style="color:white; background-color:red;">${term.shortDefinition}</pg:highlight></td>
