@@ -12,6 +12,8 @@
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
 <script type='text/javascript' src='/dwr/interface/GlossaryPublicAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/GlossaryManageAgent.js'></script>
+
 
 
 <!-- Site Wide CSS -->
@@ -34,6 +36,77 @@
 		
 		function doOnLoad(){
 			getComments(${term.id});
+			isCommentsLoaded();
+			//modApprove("${term.name}",${term.id});
+			
+		}
+		
+		function isCommentsLoaded(){
+		
+			if(gotComments){
+				gotComments=false;
+			}else{
+				var t=setTimeout('isCommentsLoaded();',500);
+			}
+		}
+		
+		
+		
+		//function modApprove(tname, tid){
+	/*$('modApproval').innerHTML="<strong>The term "+tname+" is awaiting moderator approval</strong><br /><br />Moderator Options: "+
+	"<button type='button' onclick=\"acceptTerm("+tid+");\">Accept</button>&nbsp;<button type='button' onclick=\"giveReason("+tid+");\">Decline</button>";
+	*///$('modApproval').style.display='inline';
+//}
+
+		function giveReason(tid){
+		
+			/*$('modReasondiv').innerHTML="<strong>Reason for Declining Term</strong><br />This reason will be emailed to the participant that proposed this glossary term."+
+			"<br /><textarea id='modReasontext' rows=5 cols=20 value=''></textarea><br /><button type='button' onclick='rejectTerm("+tid+",\""+$("modReasontext").value+"\");'>Delete Term and Send Reason</button>";
+		*/
+		$('modApproval').style.display='none';
+		$('modReasondiv').style.display='block';
+		
+		}
+
+		function acceptTerm(tid){
+			GlossaryManageAgent.acceptTerm({id:tid},{
+			callback:function(data){
+				if(data.successful){
+					alert('term accepted!');
+				}else{
+					alert("acceptTerm failure reason: "+data.reason);
+				
+				}
+			},
+			errorHandler:function(errorString, exception){
+				alert(errorString+" "+exception);
+			
+			}
+		});
+		
+		
+		
+		}
+		
+		function rejectTerm(tid,reasonString){
+		alert(String(reasonString));
+			GlossaryManageAgent.rejectTerm({id:tid, reason:reasonString},{
+			callback:function(data){
+				if(data.successful){
+					alert('term rejected with the reason: '+reasonString);
+				}else{
+					alert("rejectTerm failure reason: "+data.reason);
+				
+				}
+			},
+			errorHandler:function(errorString, exception){
+				alert(errorString+" "+exception);
+			
+			}
+		});
+		
+		
+		
 		}
 		
 		
@@ -48,7 +121,7 @@
 					}
 
 					if (data.successful != true){
-						alert(data.reason);
+						alert("setFlag failure reason: "+data.reason);
 					}
 				},
 				errorHandler:function(errorString, exception){ 
@@ -57,16 +130,18 @@
 			});
 		}	
 		
+		var gotComments=false;
 		function getComments(termId){
 				GlossaryPublicAgent.getComments({id:termId}, {
 				callback:function(data){
 
 					if (data.successful){ 
 							$('comments').innerHTML = data.html;
+							gotComments=true;
 					}
 
 					if (data.successful != true){
-						alert(data.reason);
+						alert("getComments failure reason: "+data.reason);
 					}
 				},
 				errorHandler:function(errorString, exception){ 
@@ -94,7 +169,7 @@
 							
 					}
 					if (data.successful != true){
-						alert(data.reason);
+						alert("createComment failure reason: "+data.reason);
 					}
 				},
 				errorHandler:function(errorString, exception){ 
@@ -116,8 +191,6 @@
 
 </head>
 <body>
-	
-
 
 
 <div id="container">
@@ -126,6 +199,16 @@
 	<!-- End Header -->
 	<!-- Sub Title -->
 	<div id="subheader">
+	
+	<pg:show roles="admin, moderator">
+	<div style='background-color:gray; font-size:x-large;' id="modApproval"><strong>The term ${term.name} is awaiting moderator approval</strong><br /><br />Moderator Options: 
+	<button type='button' onclick='acceptTerm(${term.id});'>Accept</button>&nbsp;<button type='button' onclick='giveReason(${term.id});'>Decline</button></div>
+	<br />
+	<div style='display:none; border:thick solid #666666; font-size:large;' id='modReasondiv'><div><strong>Reason for Declining Term</strong></div>
+	<div>This reason will be emailed to the participant that proposed this glossary term.</div>
+	<div style='margin:1%;'><textarea style='height:100%; width:100%;' id='modReasontext'></textarea></div><button type='button' onclick='rejectTerm(${term.id},$("modReasontext").value)'>Delete Term and Send Reason</button></div>
+</pg:show>
+<br />
 	<h1>Learn More: </h1> <h2>Listing of All Glossary Terms</h2>
 	</div>
 	<div id="footprints">

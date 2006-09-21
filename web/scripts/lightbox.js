@@ -96,6 +96,7 @@ lightbox.prototype = {
 		htm.style.height = "100%";
 		htm.style.overflow = "hidden";
 		}
+		alert("display lightbox");
 		this.displayLightbox("inline");
 		
 	},
@@ -136,11 +137,12 @@ lightbox.prototype = {
 	},
 	
 	displayLightbox: function(display){
+		alert('display lightbox!');
 		$('overlay').style.display = display;
 		$(this.content).style.display = display;
 		if(display != 'none') this.actions();
-		document.getElementById("leightbar").style.display='inline';
-		document.getElementById("leightcontainer").style.display='inline';
+		document.getElementById("lightbar").style.display='inline';
+		document.getElementById("lightcontainer").style.display='inline';
 		
 	},
 	
@@ -155,14 +157,14 @@ lightbox.prototype = {
 
 		
 		//Attaches click event to the save and close link in the lightbox
-		lbsaveclose= document.getElementsByClassName("lbsaveclose");
+		/*lbsaveclose= document.getElementsByClassName("lbsaveclose");
 		
 		for(ij=0; ij<lbsaveclose.length; ij++){
 			var lbs=lbsaveclose[ij].id;
 			//alert("id: "+lbs);
 			Event.observe(lbsaveclose[ij], 'click', this[lbsaveclose[ij].rel].bindAsEventListener(this), false);
 			lbsaveclose[ij].onclick=function(){saveEditedAttributes(lbs); getTerms(); return false;};
-		}
+		}*/
 
 
 	},
@@ -193,6 +195,7 @@ lightbox.prototype = {
 
 // Onload, make all links that need to trigger a lightbox active
 function initialize(){
+	
 	addLightboxMarkup();
 	lbox = document.getElementsByClassName('lbOn');
 	for(i = 0; i < lbox.length; i++) {
@@ -222,7 +225,79 @@ conheight=(.7*document.body.clientHeight)-30;
 }else{
 conheight=(.7*window.innerHeight)-30;
 }
-document.getElementById("lightbox1").style.height=conheight+"px";
-
-	
+//document.getElementById("lightbox1").style.height=conheight+"px";
+document.getElementById("lightbox").style.height=conheight+"px";
 }
+var yPos;
+function rgetScroll(){
+
+		if (self.pageYOffset) {
+			yPos = self.pageYOffset;
+		} else if (document.documentElement && document.documentElement.scrollTop){
+			yPos = document.documentElement.scrollTop; 
+		} else if (document.body) {
+			yPos = document.body.scrollTop;
+		}
+	}
+	
+	function rsetScroll(x, y){
+		window.scrollTo(x, y); 
+		
+	}
+	
+	function hideSelects(visibility){
+		var selects = document.getElementsByTagName('select');
+		for(i = 0; i < selects.length; i++) {
+			selects[i].style.visibility = visibility;
+		}
+	}
+	
+	function prepareIE(height, overflow){
+		var bod = document.getElementsByTagName('body')[0];
+		bod.style.height = height;
+		bod.style.overflow = overflow;
+  
+		var htm = document.getElementsByTagName('html')[0];
+		htm.style.height = height;
+		htm.style.overflow = overflow; 
+	}
+	
+function centerDisable(){
+getBrowserInfo();
+if (browser == 'Internet Explorer'){
+			rgetScroll();
+			prepareIE('100%', 'hidden');
+			rsetScroll(0,.95*window.innerHeight);
+			hideSelects('hidden');
+		}else{
+		rgetScroll();
+		rsetScroll(0,.95*window.innerHeight);
+		var bod = document.getElementsByTagName('body')[0];
+		bod.style.height = "100%";
+		bod.style.overflow = "hidden";
+  
+		htm = document.getElementsByTagName('html')[0];
+		htm.style.height = "100%";
+		htm.style.overflow = "hidden";
+		}
+		
+}
+
+	function centerReenable(){
+		if (browser == "Internet Explorer"){
+			//this.setScroll(0,this.yPos);
+			prepareIE("auto", "auto");
+			hideSelects("visible");
+		}
+		var bod = document.getElementsByTagName('body')[0];
+		bod.style.height = "auto";
+		bod.style.overflow = "auto";
+  
+		var htm = document.getElementsByTagName('html')[0];
+		htm.style.height = "auto";
+		htm.style.overflow = "auto";
+		
+		//document.getElementById("lightcontainer").style.display='none';
+		
+		rsetScroll(0,yPos);
+	}

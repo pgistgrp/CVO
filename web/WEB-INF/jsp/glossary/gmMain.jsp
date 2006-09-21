@@ -41,9 +41,22 @@
 			direction = "asc";
 			getProposedTerms();
 			getTerms("", "name");
+			isTermsGotten();
 			
 			
 		}
+		var agt=navigator.userAgent.toLowerCase();
+function sz(t) {
+a = t.value.split('\n');
+b=1;
+for (x=0;x < a.length; x++) {
+ if (a[x].length >= t.cols) b+= Math.floor(a[x].length/t.cols);
+ }
+b+= a.length;
+if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
+}
+		
+		
 		
 		var yscrollPos=0;
 		var xscrollPos=0;
@@ -120,10 +133,10 @@
 						$('list').innerHTML += data.html;
 						setSort(sortby, term);
 						direction = "asc";
-						$('loading-indicator').style.display = "none";
+						
 						
 						gotTerms=true;
-						isTermsGotten();
+						//isTermsGotten();
 					}else{
 						alert("getTerms failure reason: "+data.reason);
 						$('loading-indicator').style.display = "none";
@@ -146,7 +159,7 @@
 			if(data.successful){
 			
 			saveFinished=true;
-			isNewTermSaved();
+			//isNewTermSaved();
 			}else{
 			alert("saveNewTerm failure reason: "+data.reason);
 			$('saving-indicator').style.display='none';
@@ -165,7 +178,7 @@
 		
 		
 		
-		var globalSourceLinks=[['','']];
+		var globalSourceLinks=new Array();
 		var globalTermLinks = new Array();
 		var globalCategoryLinks=new Array();
 		
@@ -179,7 +192,7 @@
 				if (data.successful){
 				refreshSavedTerm(tid,$('edtermname'+tid).value, $('edtermshortdef'+tid).value);
 				saveFinished=true;
-				isSaved();
+				//isSaved();
 				}else{
 					alert("saveEditedAttributes failure reason: "+data.reason);
 					$('saving-indicator').style.display="none";
@@ -234,6 +247,7 @@
 		function saveClose(tid){
 			closeEdit(tid,'editbox'); 
 			saveEditedAttributes(tid);
+			isSaved();
 			highlightChanged('glossaryTerm'+tid,'yellow');
 //			$('glossaryTerm'+tid).style.backgroundColor='yellow';
 			
@@ -244,25 +258,40 @@
 			closeEdit(tid,'newTerm');
 			
 			saveNewTerm(tname, shortd, extd, globalTermLinks, globalSourceLinks);
+			isNewTermSaved();
 			
 			getTerms();
-			
-			
-			jumpTo('newTerm'+tid);
-			$('newTerm'+tid).style.display='none';
+			isTermsGottenJump('edit',tname);
+			//alert(tname.charAt(0).toUpperCase()+tname.substr(1));
 			//new Effect.toggle('newTerm'+tid,'blind',{duration:0.4});
+			$('newTerm'+tid).style.display='none';
+			
+			//jumpTo('edit'+tename);
 			
 			
 		}
 		
+		function isTermsGottenJump(prefix,tname){
+		
+		if(gotTerms){
+		gotTerms=false;
+		$('saving-indicator').style.display='none';
+		
+		var tename=tname.charAt(0).toUpperCase()+tname.substr(1).toLowerCase();
+			jumpTo('edit'+tename);
+			}else{
+			var t =setTimeout("isTermsGottenJump(\""+prefix+"\",\""+tname+"\")",5000);
+			}
+		}
+		
 		function openCreateTermBox(tid){
 		
-		globalSourceLinks=globalSourceLinks=[['','']];
+		globalSourceLinks=new Array();
 		globalTermLinks = new Array();
 		globalCategoryLinks=new Array();
 			//new Effect.toggle('newTerm'+tid, 'blind',{duration:0.4});
 			
-			$('newTerm'+tid).style.display='inline';
+			$('newTerm'+tid).style.display='block';
 			jumpTo('newTerm'+tid);
 		}
 		
@@ -280,6 +309,7 @@
 		
 		function openEditBox(tid){
 			changeEditBoxContent(tid);
+			isContentChanged(tid);
 			
 		
 		}
@@ -308,6 +338,7 @@
 		$('saving-indicator').style.display="none";
 		
 		getTerms();
+		isTermsGotten();
 		
 		}else{
 		var t =setTimeout('isNewTermSaved();',100);
@@ -336,6 +367,7 @@
 		
 		if(gotTerms){
 		gotTerms=false;
+		$('loading-indicator').style.display = "none";
 		}else{
 		
 		var t =setTimeout('isTermsGotten();',100);
@@ -438,15 +470,15 @@
 						globalTermLinks.push(termlinkarray[tl].link);
 					}
 				
-					lboxhtml.innerHTML="<div border:thick solid #C0C0C0;'><table style='width:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='edtermname"+termid+"' type='text' value='"+data.term.name+"'/><br />"+
-				"<label><strong>Short Definition</strong></label><br /><input type='text' maxlength=256 size=25 id='edtermshortdef"+termid+"' value='"+data.term.shortDefinition+"'/></div></td>"+
+					lboxhtml.innerHTML="<div border:thick solid #C0C0C0;'><table style='width:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='edtermname"+termid+"' type='text' value=\""+data.term.name+"\"/><br />"+
+				"<label><strong>Short Definition</strong></label><br /><textarea style='width:90%; height:100%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='edtermshortdef"+termid+"'>"+data.term.shortDefinition+"</textarea></div></td>"+
 				"<td rowspan=2><div style='margin:2%;'><label><strong>Sources</strong></label><br /><div id='sourcelinks"+termid+"'>"+satml+
-				"</div><br /><label><strong>Add Source</strong></label><br /><textarea style='width:90%;' id='edaddsourcecitation"+termid+"'>Citation</textarea><br /><input style='width:50%;' id='edaddsource"+termid+"' type='text' value='Http:"+'//'+"'/>"+
+				"</div><br /><label><strong>Add Source</strong></label><br /><textarea style='width:90%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='edaddsourcecitation"+termid+"'>Citation</textarea><br /><input style='width:50%;' id='edaddsource"+termid+"' type='text' value='Http:"+'//'+"'/>"+
 				"<br /><button type='button' onclick='addSourceLink("+termid+"); return false;'>Add Source</button><br /><br /><label><strong>Term Links</strong></label><br /><div id='termlinks"+termid+"'>"+tatml+
 				"</div><br /><label>Add Link</label><br /><input style='width:50%;' id='edaddtermlink"+termid+"' type='text' value='Http:"+'//'+"'/><br /><button type='button' onclick='addTermLink("+termid+"); return false;'>Add Link</button></div></td></tr><tr><td><div style='margin:2%;'><label><strong>Extended Definition</strong></label><br />"+
-				"<textarea style='width:90%; height:100%;' id='edtermextdef"+termid+"'>"+data.term.extDefinition+"</textarea></div></td></tr><tr><td style='width:50%;'></td><td style=''><div style='margin:0.5%; float:right;'><button type='button' onclick='closeEdit("+termid+",\"editbox\"); return false;'>Cancel</button>&nbsp;<button type='button' onclick='saveClose("+termid+"); return false;'>Save and Close</button></div></td></tr></tbody></table></div>";
+				"<textarea rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' style='width:90%; height:100%;' id='edtermextdef"+termid+"'>"+data.term.extDefinition+"</textarea></div></td></tr><tr><td style='width:50%;'></td><td style=''><div style='margin:0.5%; float:right;'><button type='button' onclick='closeEdit("+termid+",\"editbox\"); return false;'>Cancel</button>&nbsp;<button type='button' onclick='saveClose("+termid+"); return false;'>Save and Close</button></div></td></tr></tbody></table></div>";
 					changedContent=true;
-					isContentChanged(termid);
+					//isContentChanged(termid);
 				}else{
 					alert("changeEditBoxContent failure reason: "+data.reason);
 				}
@@ -470,7 +502,7 @@
 			   			headings[i].innerHTML = thisSort + '&nbsp;&nbsp;<a href="javascript:sortDir(\'asc\',\'' + thisSort + '\', \''+ term +'\');"><img src="/images/sort_' + direction +'.gif" border="0"></a>';
 			   		}
 			    }else{
-			    	headings[i].innerHTML = '<a href="javascript: getTerms(\''+ term +'\',\''+ headings[i].id +'\');">'+ headings[i].innerHTML +'</a>';
+			    	headings[i].innerHTML = '<a href="javascript: getTerms(\''+ term +'\',\''+ headings[i].id +'\'); isTermsGotten();">'+ headings[i].innerHTML +'</a>';
 			    }
 			  }  
 			}
@@ -479,7 +511,7 @@
 		function sortDir(switchTo, thisSort, term){
 				direction = switchTo;
 				getTerms(term, thisSort); 
-				
+				isTermsGotten();
 		}
 </script>
 
@@ -535,6 +567,8 @@ var t=setTimeout('jumpTo("glossaryTerm'+boxid+'");',500);
 var t = setTimeout('jumpTo("'+editid+'");',500);
 }
 }
+
+
 
 
 </script>
@@ -610,13 +644,13 @@ tr:hover {background-color: #F1F7FF;}
 	<!--new glossary term button-->
 	<br />
 	<div style="background-color: rgb(204, 255, 51); "><a href="javascript:openCreateTermBox(1);">new glossary term</a></div>
-	<div id='newTerm1' style='display:none;'><div border:thick solid #C0C0C0;><table style='width:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='edtermname-1' type='text' value=''/><br />
-				<label><strong>Short Definition</strong></label><br /><input type='text' maxlength=256 size=25 id='edtermshortdef-1' value=''/></div></td>
+	<div id='newTerm1' style='display:none;'><div border:thick solid #C0C0C0;><table style='width:100%; height:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='edtermname-1' type='text' value=''/><br />
+				<label><strong>Short Definition</strong></label><br /><textarea style='width:90%; height:100%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='edtermshortdef-1'></textarea></div></td>
 				<td rowspan=2><div style='margin:2%;'><label><strong>Sources</strong></label><br /><div id='sourcelinks-1'>
-				</div><br /><label><strong>Add Source</strong></label><br /><textarea style='width:90%;' id='edaddsourcecitation-1'>Citation</textarea><br /><input style='width:50%;' id='edaddsource-1' type='text' value='Http://'/>
+				</div><br /><label><strong>Add Source</strong></label><br /><textarea style='width:90%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='edaddsourcecitation-1'>Citation</textarea><br /><input style='width:50%;' id='edaddsource-1' type='text' value='Http://'/>
 				<br /><button type='button' onclick='addSourceLink(-1); return false;'>Add Source</button><br /><br /><label><strong>Term Links</strong></label><br /><div id='termlinks-1'>
-				</div><br /><label>Add Link</label><br /><input style='width:50%;' id='edaddtermlink-1' type='text' value='Http://'/><br /><button type='button' onclick='addTermLink(-1); return false;'>Add Link</button></div></td></tr><tr><td><div style='margin:2%;'><label><strong>Extended Definition</strong></label><br />
-				<textarea style='width:90%; height:100%;' id='edtermextdef-1'></textarea></div></td></tr><tr><td style='width:50%;'></td><td style=''><div style='margin:0.5%; float:right;'><button type='button' onclick='closeEdit(1,"newTerm"); return false;'>Cancel</button>&nbsp;<button type='button' onclick='saveNewTermClose(1,$("edtermname-1").value, $("edtermshortdef-1").value, $("edtermextdef-1").value); $("edtermname-1").value=""; $("edtermshortdef-1").value=""; $("edtermextdef-1").value=""; $("sourcelinks-1").innerHTML=""; $("termlinks-1").innerHTML=""; return false;'>Save and Close</button></div></td></tr></tbody></table></div></div>
+				</div><br /><label>Add Link</label><br /><input style='width:50%;' id='edaddtermlink-1' type='text' value='Http://'/><br /><button type='button' onclick='addTermLink(-1); return false;'>Add Link</button></div></td></tr><tr style=''><td style=''><div style='min-height:100%; margin:2%;'><label><strong>Extended Definition</strong></label><br />
+				<textarea rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' style='width:90%; height:100%;' id='edtermextdef-1'></textarea></div></td></tr><tr style=''><td style='width:50%;'></td><td style=''><div style='margin:0.5%; float:right;'><button type='button' onclick='closeEdit(1,"newTerm"); return false;'>Cancel</button>&nbsp;<button type='button' onclick='saveNewTermClose(1,$("edtermname-1").value, $("edtermshortdef-1").value, $("edtermextdef-1").value); $("edtermname-1").value=""; $("edtermshortdef-1").value=""; $("edtermextdef-1").value=""; $("sourcelinks-1").innerHTML=""; $("termlinks-1").innerHTML=""; return false;'>Save and Close</button></div></td></tr></tbody></table></div></div>
 	<br />
 	<!-- Overview SpiffyBox -->
 	<!-- End Overview -->
@@ -632,8 +666,7 @@ tr:hover {background-color: #F1F7FF;}
 	</div>
 	  <div id="list"><!--Load glossary terms-->
 	<div>
-	<p>
-	</p>
+	
 	
 	</div>
 	<br>
@@ -649,12 +682,12 @@ tr:hover {background-color: #F1F7FF;}
 	<!--new glossary term button-->
 	<div style="background-color: rgb(204, 255, 51); "><a href="javascript:openCreateTermBox(2);">new glossary term</a></div>
 		<div id='newTerm2' style='display:none;'><div border:thick solid #C0C0C0;><table style='width:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='edtermname-2' type='text' value=''/><br />
-				<label><strong>Short Definition</strong></label><br /><input type='text' maxlength=256 size=25 id='edtermshortdef-2' value=''/></div></td>
+				<label><strong>Short Definition</strong></label><br /><textarea style='width:90%; height:100%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='edtermshortdef-2'></textarea></div></td>
 				<td rowspan=2><div style='margin:2%;'><label><strong>Sources</strong></label><br /><div id='sourcelinks-2'>
-				</div><br /><label><strong>Add Source</strong></label><br /><textarea style='width:90%;' id='edaddsourcecitation-2'>Citation</textarea><br /><input style='width:50%;' id='edaddsource-2' type='text' value='Http://'/>
+				</div><br /><label><strong>Add Source</strong></label><br /><textarea style='width:90%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='edaddsourcecitation-2'>Citation</textarea><br /><input style='width:50%;' id='edaddsource-2' type='text' value='Http://'/>
 				<br /><button type='button' onclick='addSourceLink(-2); return false;'>Add Source</button><br /><br /><label><strong>Term Links</strong></label><br /><div id='termlinks-2'>
 				</div><br /><label>Add Link</label><br /><input style='width:50%;' id='edaddtermlink-2' type='text' value='Http://'/><br /><button type='button' onclick='addTermLink(-2); return false;'>Add Link</button></div></td></tr><tr><td><div style='margin:2%;'><label><strong>Extended Definition</strong></label><br />
-				<textarea style='width:90%; height:100%;' id='edtermextdef-2'></textarea></div></td></tr><tr><td style='width:50%;'></td><td style=''><div style='margin:0.5%; float:right;'><button type='button' onclick='closeEdit(2,"newTerm"); return false;'>Cancel</button>&nbsp;<button type='button' onclick='saveNewTermClose(2,$("edtermname-2").value, $("edtermshortdef-2").value, $("edtermextdef-2").value); $("edtermname-2").value=""; $("edtermshortdef-2").value=""; $("edtermextdef-2").value=""; $("sourcelinks-2").innerHTML=""; $("termlinks-2").innerHTML=""; return false;'>Save and Close</button></div></td></tr></tbody></table></div></div>
+				<textarea rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' style='width:90%; height:100%;' id='edtermextdef-2'></textarea></div></td></tr><tr><td style='width:50%;'></td><td style=''><div style='margin:0.5%; float:right;'><button type='button' onclick='closeEdit(2,"newTerm"); return false;'>Cancel</button>&nbsp;<button type='button' onclick='saveNewTermClose(2,$("edtermname-2").value, $("edtermshortdef-2").value, $("edtermextdef-2").value); $("edtermname-2").value=""; $("edtermshortdef-2").value=""; $("edtermextdef-2").value=""; $("sourcelinks-2").innerHTML=""; $("termlinks-2").innerHTML=""; return false;'>Save and Close</button></div></td></tr></tbody></table></div></div>
 <br>
 <!-- Start Footer -->
 <div id="footer_clouds">

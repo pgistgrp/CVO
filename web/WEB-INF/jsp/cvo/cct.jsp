@@ -35,9 +35,12 @@ var concernTags = "";
 doOnLoad();
 
 
+
+
 function doOnLoad(){
 	showConcerns(2);
 	showMyConcerns();
+	
 	
 }
 function validateForm()
@@ -244,6 +247,7 @@ CCTAgent.getConcerns({cctId:cctId,type:theType,count:5}, {
 }
 
 function showMyConcerns(id){
+
 CCTAgent.getConcerns({cctId:cctId,type:0,count:-1}, {
 		callback:function(data){
 				if (data.successful){
@@ -380,6 +384,7 @@ os += '<h4>Glossary Term: '+ term +'</h4><br>';
 os += '<p>Tags helps make your concerns easier to find, since all this info is searchable later. Imagine this applied to thousands of concerns!</p>';
 $('lightbox').innerHTML = os;
 }
+
 function editConcernPopup(concernId){
 var currentConcern = '';
 lightboxDisplay(true);
@@ -394,6 +399,7 @@ CCTAgent.getConcernById(concernId, {
 				os += '<input type="button" id="modifyConcern" value="Submit Edits!" onClick="editConcern('+concernId+')">';
 				os += '<input type="button" value="Cancel" onClick="lightboxDisplay()">';
 				$('lightbox').innerHTML = os;
+				
 		}
 	},
 	errorHandler:function(errorString, exception){ 
@@ -403,6 +409,12 @@ CCTAgent.getConcernById(concernId, {
 });
 
 }
+
+//-----------------------------------------------------------------------------------------
+
+
+//-------------
+
 
 function editConcern(concernId){
 newConcern = $('editConcern').value;
@@ -538,9 +550,11 @@ function lightboxDisplay(show){
 	if (show){
 		$('overlay').style.display = 'block';
 		$('lightcontainer').style.display = 'inline';
+		centerDisable();
 	}else{
 		$('overlay').style.display = 'none';
 		$('lightcontainer').style.display = 'none';
+		centerReenable();
 	}
 }
 
