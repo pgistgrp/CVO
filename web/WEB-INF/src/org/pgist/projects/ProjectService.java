@@ -11,21 +11,21 @@ import java.util.Map;
 public interface ProjectService {
     
     
-	public Project getProject(Long pId) throws Exception;
+	Project getProject(Long pId) throws Exception;
     
-	public List getProjects(String criteria) throws Exception;
+	List getProjects(String criteria) throws Exception;
     
-	public double[][][] getFootprint(Long fpid) throws Exception;
+	double[][][] getFootprint(Long fpid) throws Exception;
     
-	public Map getFootprints(String criteria) throws Exception;
+	Map getFootprints(String criteria) throws Exception;
     
-	public void saveProject(Project project) throws Exception;
+	void saveProject(Project project) throws Exception;
     
-	public void saveProject(Project project, ProjectAlternative alternative) throws Exception;
+	void saveProject(Project project, ProjectAlternative alternative) throws Exception;
     
-	public void saveFootprint(ProjectAlternative pa, double[][][] coords,String geoType) throws Exception;
+	void saveFootprint(ProjectAlternative pa, double[][][] coords,String geoType) throws Exception;
     
-    public void publishProjects(String criteria) throws Exception;
+    void publishProjects(String criteria) throws Exception;
     
     
 }//interface ProjectService

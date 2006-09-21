@@ -41,6 +41,7 @@
 <li><html:link page="/tagging.do">Tags/StopWords Management Tool</html:link></li>
 <li><html:link page="/cstlist.do">Concerns Synthesis Tool</html:link>*</li>
 <li><html:link page="/glossaryManage.do">Glossary Management Tool</html:link></li>
+<li><html:link page="/feedback.do">Reviewing Feedbacks</html:link></li>
 </ul>
 
 <h3>Developement Tools</h3>
@@ -51,12 +52,6 @@
 <li><html:link page="/situationList.do">Situation List</html:link></li>
 </ul>
 </pg:show>
-<!-- Sorry Zhong
-<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
-  This is a test for glossary terms: Advocacy organization, Air quality, Short Range Transit Plan,
-  Transportation Improvement Program, Auto-restricted zone. All these terms should be linked.
-</pg:termHighlight>
--->
 </div>
 
 <p>Found a bug?  Problem accessing a part on the page?  <a href="javascript:Effect.toggle('feedbackForm','blind');">Send us feedback.</a></p>

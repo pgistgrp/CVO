@@ -13,31 +13,31 @@ import org.pgist.system.BaseDAO;
 public interface ProjectDAO extends BaseDAO {
     
     
-	public void save(Project p) throws Exception;
+	void save(Project p) throws Exception;
 	
     
-	public void save(Project p, ProjectAlternative a) throws Exception;
+	void save(Project p, ProjectAlternative a) throws Exception;
 	
     
-	public void save(Package p) throws Exception;
+	void save(Package p) throws Exception;
 	
     
-	public Project getProject(long pid) throws Exception;
+	Project getProject(long pid) throws Exception;
 	
     
-	public List getProjects(String criteria) throws Exception;
+	List getProjects(String criteria) throws Exception;
 	
     
-	public double[][][] getFootprint(long fpid) throws Exception;
+	double[][][] getFootprint(long fpid) throws Exception;
 	
     
-	public Map getFootprints(String fpids) throws Exception;
+	Map getFootprints(String fpids) throws Exception;
 	
     
-	public void saveFootprint(ProjectAlternative pa, double[][][] coords, String type) throws Exception;
+	void saveFootprint(ProjectAlternative pa, double[][][] coords, String type) throws Exception;
 	
     
-	public Package getPackage(Long pid) throws Exception;
+	Package getPackage(Long pid) throws Exception;
 	
     
 }//interface ProjectDAO

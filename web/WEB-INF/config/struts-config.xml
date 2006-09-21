@@ -29,6 +29,10 @@
         
         <action name="userForm" path="/register" scope="request" type="org.pgist.system.RegisterAction" />
         
+        <action path="/feedback" scope="request" type="org.pgist.system.FeedbackAction">
+            <forward name="main" path="/WEB-INF/jsp/system/feedbackMain.jsp" />
+        </action>
+        
         <action name="searchForm" path="/search" scope="request" type="org.pgist.search.SearchAction">
             <forward name="index" path="/WEB-INF/jsp/search/index.jsp" />
             <forward name="results" path="/WEB-INF/jsp/search/results.jsp" />

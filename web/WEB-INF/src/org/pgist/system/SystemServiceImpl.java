@@ -1,8 +1,10 @@
 package org.pgist.system;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.pgist.users.User;
+import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 
 
@@ -46,6 +48,11 @@ public class SystemServiceImpl implements SystemService {
         
         systemDAO.save(feedback);
     }//createFeedback()
+
+
+    public Collection getFeedbacks(PageSetting setting) throws Exception {
+        return systemDAO.getFeedbacks(setting);
+    }//getFeedbacks()
     
     
 }//class SystemServiceImpl

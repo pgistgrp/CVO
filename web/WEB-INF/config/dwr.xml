@@ -23,6 +23,7 @@
     <create creator="spring" javascript="SystemAgent">
       <param name="beanName" value="systemAgent"/>
       <include method="createFeedback"/>
+      <include method="getFeedbacks"/>
     </create>
 
 
