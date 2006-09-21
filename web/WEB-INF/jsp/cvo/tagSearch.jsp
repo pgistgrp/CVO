@@ -7,9 +7,9 @@
 <c:choose>
 	<c:when test='${fn:length(tags) != 0}'>
 		<h3>Search Results: ${fn:length(tags)} tag(s)</h3>match your query.  Click on the tag below to set a new filter.<br>
-		<logic:iterate id="tagRef" name="tags">
+		<c:forEach items="${tags}" var="tagRef">
 			  <span class="tagSize${tagRef.fontSize}"><a href="javascript:getConcernsByTag(${tagRef.id});">${tagRef.tag.name}</a></span>
-		</logic:iterate>
+		</c:forEach>
 	</c:when>
 	<c:otherwise>
 		<span class="closeBox"><a href="javascript:Effect.Fade('sidebarSearchResults', {duration: 0.5}); void(0);">Close</a></span><p>No tag matches found! Please try a different search.</p>

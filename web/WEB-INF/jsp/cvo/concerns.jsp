@@ -27,11 +27,11 @@
 						</logic:notEqual>
 						"<bean:write name="concern" property="content" />"</span><br>
 						
-						<logic:iterate id="tagref" property="tags" name="concern">
-							<span class="tags">
-							<a href="javascript:getConcernsByTag(${tagref.id});">${tagref.tag.name}</a>
-							</span>
-						</logic:iterate>
+
+								<c:forEach items="${concern.tags}" var="tagref">
+										<span class="tags"><a href="javascript:getConcernsByTag(${tagref.id});">${tagref.tag.name}</a></span>
+								</c:forEach>
+
 						<logic:equal name="type" value="0">
 						<div id=actionMenu class="actionMenu"><strong>Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});">edit concern</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:editTagsPopup('${concern.id}');">edit tags</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:delConcern(${concern.id});">delete entire concern</a></div>
 						<br>
@@ -47,18 +47,7 @@
 			<p>
 		  <div id="prevNext_container">
 					
-					<div id="previous"><span class="prevNext">
-						<logic:equal name="setting" property="page" value="1">
-							<a href="javascript:goPage(${setting.pageSize});">
-						</logic:equal>
-						
-						<logic:notEqual name="setting" property="page" value="1">	
-							<a href="javascript:goPage(${setting.page}-1);">
-						</logic:notEqual>
-						&#171; prev page</a></span>
-					</div>
-
-					<div id="next"><span class="prevNext">
+					<div id="next"><span class="textright">
 						<logic:equal name="setting" property="page" value="${setting.pageSize}">
 							<a href="javascript:goPage(1);">
 						</logic:equal>
@@ -66,8 +55,21 @@
 						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
 							<a href="javascript:goPage(${setting.page}+1);">
 						</logic:notEqual>
-						next page &#187; </a></span>
+						<img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></span>
 					</div>
+					
+					
+					<div id="previous">
+						<logic:equal name="setting" property="page" value="1">
+							<a href="javascript:goPage(${setting.pageSize});">
+						</logic:equal>
+						
+						<logic:notEqual name="setting" property="page" value="1">	
+							<a href="javascript:goPage(${setting.page}-1);">
+						</logic:notEqual>
+						<img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+					</div>
+
 		  </div>
 			</p>
 		</logic:notEqual>

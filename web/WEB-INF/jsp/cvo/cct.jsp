@@ -265,9 +265,9 @@ CCTAgent.getConcerns({cctId:cctId,type:0,count:-1}, {
 function getConcernsByTag(id){
 	CCTAgent.getConcernsByTag({tagRefId:id,count:-1}, {
 	callback:function(data){
-			if (data.successful){
+			if (data.successful){ 
 				new Effect.Highlight('sidebar_content', {endcolor: '#DAE1E7'});
-				$('sidebar_content').innerHTML = data.html;
+				$('sidebar_content').innerHTML = data.html;//tagSearch.jsp
 				//new Element.scrollTo('SideConcernsTop'); //location.href='#SideConcernsTop';
 				shrinkTagSelector();
 				$('addFilter').style.display = 'none';
@@ -337,6 +337,12 @@ CCTAgent.searchTags({cctId:cctId,tag:theTag},{
 }
 
 function sidebarTagSearch(theTag,key){
+if ($('txtmanualFilter').value == ''  || $('txtmanualFilter').value == null || $('txtmanualFilter').value == undefined){
+	$('btnClearSearch').style.display = 'none';
+}else{
+	$('btnClearSearch').style.display = 'inline';
+}
+
 if (key.keyCode == 8 && theTag.length < 1){
 	return false;	
 }
@@ -345,7 +351,7 @@ if (key.keyCode == 8 && theTag.length < 1){
 CCTAgent.searchTags({cctId:cctId,tag:theTag},{
 	callback:function(data){
 			if (data.successful){
-				if($('sidebarSearchResults').style.display == 'none' && $('txtmanualFilter').value.length > 1){
+				if($('sidebarSearchResults').style.display == 'none' && $('txtmanualFilter').value.length > 2){
 					new Effect.Appear('sidebarSearchResults', {duration: 0.5});		
 				}		
 				if ($('txtmanualFilter').value.length <= 1 || $('txtmanualFilter').value == "" || $('txtmanualFilter').value == $('txtmanualFilter').defaultValue || $('txtmanualFilter').value == " " || $('txtmanualFilter').value == null ||$('txtmanualFilter').value == '&#x2408;'){
@@ -536,6 +542,16 @@ function lightboxDisplay(show){
 		$('overlay').style.display = 'none';
 		$('lightcontainer').style.display = 'none';
 	}
+}
+
+function clearSearch(divId){
+	$(divId).value = "";	
+	$(divId).focus();
+	$('btnClearSearch').style.display = 'none';
+}
+
+function closeSearchResults(){
+ new Effect.Fade('sidebarSearchResults', {duration: 0.3});
 }
 
 </script>
@@ -736,7 +752,7 @@ float:right;
 		<div id="addFilter" style="display: none;">
 			<p class="textright"><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);">close</a></p>
 			<b>Add a Tag Filter:</b> 
-			<input name="tagSearch" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value, event)" />
+			<input name="txtmanualFilter" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value, event)" /><span id="btnClearSearch" style="display: none;"><a href="javascript:clearSearch('txtmanualFilter'); closeSearchResults();">Clear</a></span>
 			<p>or <a href="javascript: expandTagSelector();">Browse All Tags</a>
 				
 			<div id="sidebarSearchResults" style="display: none;"><!-- tag search results are loaded here --></div>
