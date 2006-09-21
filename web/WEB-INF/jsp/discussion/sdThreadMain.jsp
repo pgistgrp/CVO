@@ -346,11 +346,20 @@ href="javascript:getConcernsByTag(894);">monorail</a></span>
 
 </table>
 <div id="sidebarbottom" style="text-align:right;"><img src="images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
+<div class="backToDiscussion"><a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}"><img src="images/btn_back_a.gif" alt="back2" name="back" class="button" id="back2" onMouseOver="MM_swapImage('back2','','images/btn_back_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></div>
 
-
+<div id="finished" class="greenBB">
+	<h4>Ready for the next step?</h4><br />
+	<p>Click on the continue button to go on to step 2 where you will review and weigh criteria to evaluate proposed transportation projects.  Go back to your <a href="main.do">home page</a> or  <img src="images/btn_gcontinue_a.gif" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_gcontinue_b.gif',1)" onMouseOut="MM_swapImgRestore()"></p>
+</div>
+<!-- start feedback form -->
+	<p>Found a bug?  Problem accessing a part on the page?  <a href="javascript:Effect.toggle('feedbackForm','blind');">Send us feedback.</a></p>
+	<div id="feedbackForm" style="display: none;">
+		<pg:feedback id="feedbackDiv" action="sdThread.do" />
+	</div>
+<!-- end feedback form -->
 </div>
 <!-- End cont-main -->
-<div class="backToDiscussion"><a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}"><img src="images/btn_back_a.gif" alt="back" name="back" class="button" id="back" onMouseOver="MM_swapImage('back','','images/btn_back_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></div>
 </div> <!-- End container -->
 <!-- Start Footer -->
 <jsp:include page="/footer.jsp" />

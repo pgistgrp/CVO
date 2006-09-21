@@ -205,7 +205,11 @@
 					<img src="/images/balloonactive2.gif" alt="active" class="button">
 				 Recent Post  <img src="/images/ballooninactive2.gif" alt="active" width="20" height="21" class="button"> No Recent Post </div>
 				</div>
-		
+				
+			<div id="finished" class="greenBB">
+				<h4>Ready for the next step?</h4><br />
+				<p>Click on the continue button to go on to step 2 where you will review and weigh criteria to evaluate proposed transportation projects.  Go back to your <a href="main.do">home page</a> or  <img src="images/btn_gcontinue_a.gif" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_gcontinue_b.gif',1)" onMouseOut="MM_swapImgRestore()"></p>
+			</div>
 		
 		<td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
 		<div id="sidebar_container">
@@ -329,6 +333,14 @@ href="javascript:getConcernsByTag(894);">commuting</a></span>
 		</table>
 		<div id="sidebarbottom" style="text-align:right;"><img src="images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
 		<!--end sidebar-->
+	
+		
+		<!-- start feedback form -->
+	<p>Found a bug?  Problem accessing a part on the page?  <a href="javascript:Effect.toggle('feedbackForm','blind');">Send us feedback.</a></p>
+	<div id="feedbackForm" style="display: none;">
+		<pg:feedback id="feedbackDiv" action="sdMain.do" />
+	</div>
+<!-- end feedback form -->
 		</div><!-- End cont-main -->
 </div> <!-- End container -->
 

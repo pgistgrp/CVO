@@ -10,9 +10,9 @@
     <table width="100%" class="tabledisc">
           <tr class="objectblue">
           	<td width="40" class="textcenter">Status</td>
-            <td><a href="#">Concern Theme</a></td>
-			<td width="150"><a href="#">Last Post</a></td>
-            <td width="100" class="textcenter"><a href="#">Discussions</a></td> 
+            <td>Concern Themes</td>
+			<td width="150">Last Post</td>
+            <td width="100" class="textcenter">Discussions</td> 
           </tr>		 
 	<jsp:useBean id="today" class="java.util.Date"/>
     <c:forEach var="infoObject" items="${structure.infoObjects}" varStatus="loop">

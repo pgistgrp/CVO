@@ -513,11 +513,21 @@ function MM_swapImage() { //v3.0
 	<img src="/images/balloonactive2.gif" alt="active" class="button">
 	Recent Post  <img src="/images/ballooninactive2.gif" alt="active" width="20" height="21" class="button"> No Recent Post </div>
 	</div>
+	
+	<div id="backdisc"><a href="sd.do?isid=${structure.id}"><img src="images/btn_back_a.gif" alt="Back" name="back" class="button" id="next" onMouseOver="MM_swapImage('back','','images/btn_back_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></div>	  
 
-	<div id="finished" class="greenBB">
-		<h4>Step 4. Finished?</h4><br />
-		Go back or continue... <img src="images/btn_gcontinue_a.gif" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_gcontinue_b.gif',1)" onMouseOut="MM_swapImgRestore()"><img src="images/btn_gcancel_a.gif" alt="Cancel" name="cancel" class="button" id="cancel" onMouseOver="MM_swapImage('cancel','','images/btn_gcancel_b.gif',1)" onMouseOut="MM_swapImgRestore()"></div>
+<div id="finished" class="greenBB">
+	<h4>Ready for the next step?</h4><br />
+	<p>Click on the continue button to go on to step 2 where you will review and weigh criteria to evaluate proposed transportation projects.  Go back to your <a href="main.do">home page</a> or  <img src="images/btn_gcontinue_a.gif" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_gcontinue_b.gif',1)" onMouseOut="MM_swapImgRestore()"></p>
+</div>
 
+
+<!-- start feedback form -->
+	<p>Found a bug?  Problem accessing a part on the page?  <a href="javascript:Effect.toggle('feedbackForm','blind');">Send us feedback.</a></p>
+	<div id="feedbackForm" style="display: none;">
+		<pg:feedback id="feedbackDiv" action="sdRoom.do" />
+	</div>
+<!-- end feedback form -->
 </div> <!-- End container -->
 <!-- Start Footer -->
 <jsp:include page="/footer.jsp" />

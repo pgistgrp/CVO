@@ -11,11 +11,11 @@
 <table width="100%" border="0" cellspacing="0" class="tabledisc_green" >
 	  <tr class="objectgreen">
 	  	<td width="40" class="textcenter">Status</td>
-		<td><a href="#">Topic Title</a></td>
-		<td width="150" class="textcenter"><a href="#">Author</a></td>
-		<td width="200"><a href="#">Last Post</a></td>
-		<td width="100" class="textcenter"><a href="#">Replies</a></td>
-		<td width="100" class="textcenter"><a href="#">Views</a></td>
+		<td>Topic Title</td>
+		<td width="150" class="textcenter">Author</td>
+		<td width="200">Last Post</td>
+		<td width="100" class="textcenter">Replies</td>
+		<td width="100" class="textcenter">Views</td>
 	  </tr>
 
 	<c:if test="${fn:length(posts) == 0}">

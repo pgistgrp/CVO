@@ -5,14 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<logic:notEqual name="showTitle" value="true">
-		<logic:notEqual name="showIcon" value="true">
-			<h4>Read other people's concerns</h4>
-			<br>
-		  To help you create your concerns, below are examples of other participant concerns in random order.  Use the buttons on the bottom of this column to view more pages of random concerns.
-			<p></p>
-		</logic:notEqual>
-</logic:notEqual>
 
 <logic:equal name="showTitle" value="true">
 	<span class="closeBox">[ <a href="javascript:goPage(${setting.page});">Clear Filter</a> ]</span>

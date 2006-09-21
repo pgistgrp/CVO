@@ -54,7 +54,7 @@ function validateForm()
 	}else{
 		new Effect.BlindUp('validation');
 		new Effect.BlindDown('tagConcerns');
-		new Effect.Highlight('tags', {duration: 4, endcolor:'#FFFFFF'});
+		new Effect.Highlight('tags', {duration: 4, endcolor:'#F1F7FF'});
 		//$('theTag').value = "add tag";
 		//$('theTag').focus();
 		return true;
@@ -220,7 +220,6 @@ function getTagCloud(){
 		errorHandler:function(errorString, exception){ 
 			showTheError();
 		}
-		//$("indicator").style.visibility = "hidden";
 });
 }
 
@@ -271,9 +270,11 @@ function getConcernsByTag(id){
 				$('sidebar_content').innerHTML = data.html;
 				//new Element.scrollTo('SideConcernsTop'); //location.href='#SideConcernsTop';
 				shrinkTagSelector();
+				$('addFilter').style.display = 'none';
 				if($('sidebarSearchResults').style.display != 'none'){
 					new Effect.Fade('sidebarSearchResults', {duration: 0.5, endcolor:'#EEEEEE'});	
 					$('txtmanualFilter').value = $('txtmanualFilter').defaultValue;
+					
 				}	
 			}
 		},
@@ -335,29 +336,25 @@ CCTAgent.searchTags({cctId:cctId,tag:theTag},{
 });
 }
 
+function sidebarTagSearch(theTag,key){
+if (key.keyCode == 8 && theTag.length < 1){
+	return false;	
+}
 
-function sidebarTagSearch(theTag){
+
 CCTAgent.searchTags({cctId:cctId,tag:theTag},{
 	callback:function(data){
-		  //$('tagIndicator').style.visibility = 'visible';
-		  
 			if (data.successful){
-				
-				if ($('txtmanualFilter').value == '' || $('txtmanualFilter').value == $('txtmanualFilter').defaultValue){
+				if($('sidebarSearchResults').style.display == 'none' && $('txtmanualFilter').value.length > 1){
+					new Effect.Appear('sidebarSearchResults', {duration: 0.5});		
+				}		
+				if ($('txtmanualFilter').value.length <= 1 || $('txtmanualFilter').value == "" || $('txtmanualFilter').value == $('txtmanualFilter').defaultValue || $('txtmanualFilter').value == " " || $('txtmanualFilter').value == null ||$('txtmanualFilter').value == '&#x2408;'){
 						$('sidebarSearchResults').style.display="none";
 				}
+				$('sidebarSearchResults').innerHTML = $('sidebarSearchResults').innerHTML = data.html;
 				
-				if (theTag != "" || theTag != null ){		
-					if($('sidebarSearchResults').style.display == 'none'){
-						new Effect.Appear('sidebarSearchResults', {duration: 0.5});		
-					}		
-					$('sidebarSearchResults').innerHTML = $('sidebarSearchResults').innerHTML = '<span class="closeBox"><a href="javascript:Effect.Fade(\'sidebarSearchResults\', {duration: 0.5}); void(0);">Close</a></span><h3>' + data.count +' tag(s)</h3>match your query.  Click on the tag below to set the new filter.<br>' + data.html;
-					//$('tagIndicator').style.visibility = 'hidden';
-				}
-				
-				if (data.count == 0 || theTag == "_"){
+				if (data.count == 0){
 					$('sidebarSearchResults').innerHTML = '<span class="closeBox"><a href="javascript:Effect.Fade(\'sidebarSearchResults\', {duration: 0.5}); void(0);">Close</a></span><p>No tag matches found! Please try a different search.</p> ';
-					//$('tagIndicator').style.visibility = 'hidden';
 				}
 			}
 	},
@@ -692,7 +689,7 @@ float:right;
 	
 	
 	<div id="tagConcerns" style="display: none;">
-		<div id="tags" style="background-color: #FFF; border: 5Px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;">
+		<div id="tags" style="background-color: #F1F7FF; border: 5Px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;">
 		<h4>Tag Your Concern</h4>
 		<p></p>   
 		<p>Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed).  <span class="glossary">[ what are <a href="javascript:glossaryPopup('tag');">tags</a>? ]</span></p>
@@ -715,41 +712,44 @@ float:right;
 	</form>
 </div>
 	
-<div id="suppSlate" class="borderblue">
-	<a name="finished"></a><h4 id="h4Finished">Finished brainstorming concerns?</h4>
-	<p>The next step in the process is to discuss your concerns with other participants.</p>
-	<input type="button" id="btnNextStep" value="Continue" onClick="location.href='cctConfirm.do'">
+<div id="suppSlate" class="greenBB">
+	<a name="finished"></a><h4 id="h4Finished">Ready for the next step?</h4>
+	<p>Click on the continue button to go on to stage 2 of step 1.  The next part in the process is to discuss your concerns with other participants.   Go back to your <a href="main.do">home page</a> or  <img src="images/btn_gcontinue_a.gif" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_gcontinue_b.gif',1)" onMouseOut="MM_swapImgRestore()"></p>
 </div>
 <!-- End Main Content -->
 </td>
 <td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
 <div id="sidebar_container">
-<div id="tagSelector">
-	<div id="tagform">
-	<h6>Sidebar filtered by:</h6>
-	[Tags ] [Tags] [Tags]<br />
-	<form action="" method="get">
-	Sidebar Filter: 
-	  <input name="tagSearch" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value)" />
-	</form>
+<div id="sidebarHeader" style="padding: 5px;">
+	<h4>Other Concerns</h4>
+	<p>
+	 To help you create your concerns, below are examples of other participant concerns. 
+	</p>
+</div>
+	<div id="tagSelector">
+		<div id="tagform">
+		<div class="textright">Show All Concerns</div>
+		<h6>Filter(s):</h6> (no current filters)
+		<!-- insert filter list here -->
+		<p><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);">Add a Tag Filter</a></p>
+		
+		<div id="addFilter" style="display: none;">
+			<p class="textright"><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);">close</a></p>
+			<b>Add a Tag Filter:</b> 
+			<input name="tagSearch" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value, event)" />
+			<p>or <a href="javascript: expandTagSelector();">Browse All Tags</a>
+				
+			<div id="sidebarSearchResults" style="display: none;"><!-- tag search results are loaded here --></div>
+		</div>
+		
 	</div>
-	<div id="pullDown" class="textright"><a href="javascript: expandTagSelector();">Expand</a></div>
+	<div id="pullDown" class="textright"></div>
 	<div id="allTags" style="display: none;"></div>
 	<div class="clear"></div>
 	
 </div>
-<div id="tagSelector_spacer" style="display: none;"><!-- Duplicate tagSelector to work as a spacer during expand effect -->
-	<h6>Sidebar filtered by:</h6>
-	[Tags ] [Tags] [Tags]<br />
-	<form action="" method="get">
-	Sidebar Filter: 
-	  <input name="tagSearch" id="tagSearch_spacer" type="text" style="visibility: hidden;"/>
-	</form>
-	<div id="pullDown_spacer" class="textright" style="visibility: hidden;">Expand</div>
-	<div id="allTags_spacer" style="visibility: hidden;"></div>
-	<div class="clear"></div>
-</div>
-<div id="sidebarSearchResults" style="display: none;"></div>
+
+
   <div id="sidebar_content">
 
 
@@ -764,20 +764,17 @@ float:right;
 <div id="sidebarbottom" style="text-align:right;"><img src="images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
 
 
+<!-- start feedback form -->
+	<p>Found a bug?  Problem accessing a part on the page?  <a href="javascript:Effect.toggle('feedbackForm','blind');">Send us feedback.</a></p>
+	<div id="feedbackForm" style="display: none;">
+		<pg:feedback id="feedbackDiv" action="cctView.do" />
+	</div>
+<!-- end feedback form -->
 </div>
 <!-- End cont-main -->
+
 </div> <!-- End container -->
 
-<!-- start feedback form -->
-<p>Found a bug?  Problem accessing a part on the page?  <a href="javascript:Effect.toggle('feedbackForm','blind');">Send us feedback.</a></p>
-<div id="feedbackForm" style="display: none;">
-	<h3>Feedback/Bug Report Form</h3>
-	<p>If you came across a bug, please help us by reporting it to our development team.  blah blah blah blah.....please describe in as much detail as possible....blah blah</p>
-	<pg:feedback id="feedbackDiv" action="cctView.do" />
-</div>
-
-<!-- after submit run: javascript:Effect.toggle('feedbackForm','blind'); -->
-<!-- end feedback form -->
 
 <!-- Start Footer -->
 <jsp:include page="/footer.jsp" />

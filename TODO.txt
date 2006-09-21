@@ -1,5 +1,5 @@
 
-//////////  SDC  //////////  
+//////////  For Pre-Alpha Test  //////////  
 
 Zhong:
 [ok] post.views
@@ -22,12 +22,11 @@ Zhong:
 [ok] CCT edit tags and delete concerns (hibernate error)
 [ok] Global (will be needed on every page) feedback/bug form
 [] E-mail notification for discussion posts
+[] E-mail notification on mod Feedback Form
 [] Google Map Guirong Code Fixes (after usability test)
 [] Stopwords Issues
+[] multiple filters on sidebar
 
-
-for later:
-[] discussion relevency in sidebar
 
 Jordan:
 [ok] bug - new discussion on entire IS
@@ -41,26 +40,39 @@ Jordan:
 [ok] site-wide header and footer
 [ok] jsp:include header and footer
 [] "19 tags" bug
+[] Report Bugs form
+[] Fix breadcrumb links
+[] SDC Sidebar
+[] Consistent Finished Div
+[] Remove sorting TH Links
 
 John:
 [ok] css for new design
 [ok] integrate new layout
 [] Registration redirect (if successful, redirect to succcess page or main page, if not, display message)
 [] CCT redirect (if user clicks on 'continue' when finished inputting concerns, this button should go to cctConfirm.jsp - in CVO folder)
-[] Is it possible to access main.jsp without having to login each time?
+[] main.do redirect
 [] Link to most recent CCT instance.  We would like to link to this through the breadcrumb links - how can we do this?
+[] CRUD Validations
+[] Change links on main.jsp - hard code (if necessary) to newest instance of component.
+[] Temp header
+
+Issac:
+[] Fix Lightbox on CCT
+[] Error Messages
+
+Adam:
+[] Interface for mod feedback
+[] "Wait for others" page
+[] Wordsmith CCT, SDC, CST
+[] Overview and Instructions for each page
+[] Read more page
+[] Keep line breaks in posts
+
 
 Misc. Front End for Future:
-[] Validations
-[] Error Messages
 [] Integrate rich textbox editor
 [] Integrate tag selector
-
-//////////  END SDC  //////////  
-
-/////////    CCT    /////////
 [] Tags can't be removed with appostrophe (suggested tags)
 
-
-/////////  END CCT   /////////
 

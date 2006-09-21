@@ -207,10 +207,9 @@ select {
 	*/
 }
 #sidebarSearchResults {
-	padding: 10px;
-	background-color: #EEEEEE;
-	border: 1px solid #999999;
-	border-top: 0px;
+	padding: 5px;
+	background-color: #DAE1E7;
+	border-top: 1px solid #ccc;
 }
 #subheader {
 	margin-top: 1em;
@@ -234,10 +233,9 @@ select {
 	height: 29%;
 }
 #tagSelector {
-	background-color: #EEEEEE;
+	background-color: #E9EFD3;
 	border: 1px solid #CCCCCC;
-	
-	color: #999999;
+	color: #333;
 	padding: 3px;
 	width: 258px;
 	right: 0;
@@ -297,7 +295,12 @@ select {
 	margin-top: 0;
 }
 .theConcern {
-	margin-top: 10px;
+	margin-top: 8px;
+	padding: 2px;
+}
+
+.theConcern:hover{
+	background: #F1F7FF;
 }
 /* SpiffyBox CSS */
 /* set the image to use and establish the lower-right position */ 
