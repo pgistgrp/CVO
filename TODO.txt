@@ -24,8 +24,8 @@ Zhong:
 [] E-mail notification for discussion posts
 [] E-mail notification on mod Feedback Form
 [] Google Map Guirong Code Fixes (after usability test)
-[] Stopwords Issues
-[] multiple filters on sidebar
+[] multiple filters on sidebar AND
+[] sidebar - other posts in random order for threadmain (for now)
 
 
 Jordan:
@@ -39,12 +39,12 @@ Jordan:
 [ok] help integrate new layout
 [ok] site-wide header and footer
 [ok] jsp:include header and footer
-[] "19 tags" bug
-[] Report Bugs form
+[ok] "19 tags" bug
+[ok] Report Bugs form
 [] Fix breadcrumb links
 [] SDC Sidebar
-[] Consistent Finished Div
-[] Remove sorting TH Links
+[ok] Consistent Finished Div
+[ok] Remove sorting TH Links
 
 John:
 [ok] css for new design
@@ -56,6 +56,7 @@ John:
 [] CRUD Validations
 [] Change links on main.jsp - hard code (if necessary) to newest instance of component.
 [] Temp header
+[] Stopwords Issues
 
 Issac:
 [] Fix Lightbox on CCT
