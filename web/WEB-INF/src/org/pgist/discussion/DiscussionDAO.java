@@ -82,8 +82,14 @@ public interface DiscussionDAO extends BaseDAO {
     InfoTagLink getInfoTagLink(InfoObject object) throws Exception;
 
 
+    Collection getConcerns(InfoStructure structure, PageSetting setting) throws Exception;
+
+
     Collection getConcerns(InfoStructure structure, String ids, PageSetting setting) throws Exception;
     
+
+    Collection getConcerns(InfoObject object, PageSetting setting) throws Exception;
+
 
     Collection getConcerns(InfoObject object, String ids, PageSetting setting) throws Exception;
 

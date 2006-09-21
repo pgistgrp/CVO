@@ -233,12 +233,20 @@ public class SDServiceImpl implements SDService {
 
 
     public Collection getConcerns(InfoStructure structure, String ids, PageSetting setting) throws Exception {
-        return discussionDAO.getConcerns(structure, ids, setting);
+        if (ids==null || ids.trim().length()==0) {
+            return discussionDAO.getConcerns(structure, setting);
+        } else {
+            return discussionDAO.getConcerns(structure, ids, setting);
+        }
     }//getConcerns()
 
 
     public Collection getConcerns(InfoObject object, String ids, PageSetting setting) throws Exception {
-        return discussionDAO.getConcerns(object, ids, setting);
+        if (ids==null || ids.trim().length()==0) {
+            return discussionDAO.getConcerns(object, setting);
+        } else {
+            return discussionDAO.getConcerns(object, ids, setting);
+        }
     }//getConcerns()
 
 

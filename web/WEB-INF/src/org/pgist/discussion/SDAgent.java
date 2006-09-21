@@ -964,4 +964,17 @@ public class SDAgent {
     }//getConcerns()
     
     
+    public Map getDiscussions(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            map.put("successful", false);
+        } catch (Exception e) {
+        }
+        
+        return map;
+    }//getDiscussions()
+    
+    
 }//class SDAgent

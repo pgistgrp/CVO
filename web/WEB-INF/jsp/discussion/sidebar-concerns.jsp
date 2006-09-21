@@ -7,6 +7,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <pg:fragment type="html">
+			<logic:iterate id="concern" name="concerns">
+				<p>${concern.content}</p>
+			</logic:iterate>
 </pg:fragment>
 
 <pg:fragment type="script">
