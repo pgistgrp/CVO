@@ -22,11 +22,11 @@
 		<!-- End Search -->
 		<!-- Navigation -->
 			<div id="headerbuttons">
-				<a href="main.do">Home</a> <a href="#" class="headerbuttons_selected">Participate</a> <a href="#">Learn More</a>
+				<a href="main.do">Home</a><!--<a href="#" class="headerbuttons_selected">Participate</a> <a href="#">Learn More</a>-->
 			</div>
 		<!-- ENd Navi -->
 	</div> <!-- End headerbar -->
-	<div id="headerbar">Sub 1 &nbsp; Sub 2 &nbsp; Sub 3 &nbsp; Sub 4 &nbsp;</div><!-- End headerguide -->
+	<div id="headerbar"><!--Sub 1 &nbsp; Sub 2 &nbsp; Sub 3 &nbsp; Sub 4 &nbsp;--></div><!-- End headerguide -->
 
 
 
