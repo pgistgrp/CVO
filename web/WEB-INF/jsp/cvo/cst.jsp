@@ -306,10 +306,10 @@
 				CSTAgent.publish({cctId:cctId}, {
 				callback:function(data){
 						if (data.successful){
-							alert("Good work Zhong!");
+							location.href="/sdlist.do"
 						}
 						if (data.successful != true){
-							alert("Back to debugging Zhong" + data.reason);
+							alert("There was a problem publishing concern themes:" + data.reason);
 						}
 					},
 				errorHandler:function(errorString, exception){ 

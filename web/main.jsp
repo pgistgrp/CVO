@@ -1,5 +1,7 @@
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
 <head>
@@ -21,7 +23,7 @@
 <jsp:include page="/header.jsp" />
 <!-- End Header -->
 
-<h3>Public View</h3>
+<h3>Welcome, ${baseuser.loginname}</h3>
 <ul>
 <li><pg:show roles="participant, moderator"><html:link page="/cctlist.do">Concerns Collector Tool</html:link></pg:show> 
 * 
