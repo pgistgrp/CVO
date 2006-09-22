@@ -141,6 +141,8 @@
           <prop key="duplicate*">PROPAGATION_REQUIRED</prop>
           <prop key="move*">PROPAGATION_REQUIRED</prop>
           <prop key="publish*">PROPAGATION_REQUIRED</prop>
+          <prop key="accept*">PROPAGATION_REQUIRED</prop>
+          <prop key="reject*">PROPAGATION_REQUIRED</prop>
         </props>
       </property>
     </bean>
