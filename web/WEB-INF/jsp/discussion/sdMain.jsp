@@ -124,7 +124,8 @@
 		<div id="cont-top">
 		<!-- Sub Title -->
 		<div id="subheader">
-		<h1>Step 1b</h1> <h2>Review Summaries</h2>
+		<h1>Step 1b:</h1> 
+		<h2>Review Summaries</h2>
 		</div>
 		<div id="footprints">
 		<span class="smalltext"><a href="#">Participate</a> &raquo; <a href="#">Step 1 Brainstorm Concerns</a> &raquo; Step 1b Review Summaries</span>
@@ -133,12 +134,10 @@
 		<!-- Overview SpiffyBox -->
 		<div class="cssbox">
 			<div class="cssbox_head">
-				<h3>Overview and Instructions</h3>
+				<h3>Overview</h3>
 			</div>
 			<div class="cssbox_body">
-				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam interdum. Donec accumsan, purus ut viverra pharetra, augue tellus vehicula orci, eget consectetuer neque tortor id
-				ante. Proin vehicula imperdiet ante. Mauris vehicula velit sed arcu. Ut aliquam pede ac arcu. Phasellus dictum condimentum nisl. Quisque elementum dictum nibh. Curabitur
-				auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luctus lorem a magna.</p>
+				<p>Several participants have submitted their concerns about the transportation system and the moderator has taken these concerns and clustered them into themes, listed below. Each theme has concerns and their tags associated with it, and the moderator has composed a summary description of the theme. Please review these themes and discuss how you think they approprirately or inappropriately articulate the concerns submitted by participants. Use the right coumn to explore concerns. </p>
 				
 				<p>[ <a href="/readmore.jsp">Read more about how this step fits into the bigger picture.</a> ]</p>
 			</div>
@@ -163,13 +162,13 @@
 		</c:if>
 		-->
 		
-		<h4>Concern Theme Rooms</h4>
+		<h4>Select a Theme to Review and Discuss Concern Summary </h4>
 		<div id="object">
 			<!-- load discussion rooms -->
 		</div><!-- End Object -->
 				
 		<br />
-				<h4>Talk to the Moderator (needs a better name) </h4>
+				<h4>Talk to the Moderator </h4>
 				<div>
 				<table width="100%" class="tabledisc">
 				          <tr class="disc_row_b">
@@ -185,7 +184,8 @@
 							  	 <td width="40" class="textcenter"><img src="/images/ballooninactive2.gif" alt="No posts within the last 24 hours" /></td>
 							  </c:otherwise>
 							  </c:choose>
-							  <td><div class="padding-sides"><a href="/sdRoom.do?isid=${structure.id}">Discussion about all concern themes</a><br /><span class="smalltext">Do you feel like a corner theme is missing or unnecessary from the above list? Discuss here</span></div></td>
+							  <td><div class="padding-sides"><a href="/sdRoom.do?isid=${structure.id}">Discussion about all concern themes</a><br />
+							    <span class="smalltext">Do you feel like a theme is missing  from the above list? Have a question about the summary process? Discuss here</span></div></td>
 				 		    <td><span class="smalltext" style="font-size: 80%;">
 				 		    <c:choose>
 						      <c:when test="${structure.lastPost.id != null}">
@@ -217,14 +217,14 @@
 		<div id="sidebar_container">
 		<div id="tagSelector">
 			<div id="tagform">
-			<h6> Sidebar filtered by:</h6>
+			<h6> Concerns filtered by:</h6>
 			No Selected Tags<br />
 			<form action="" method="get">
-			Sidebar Filter: 
+			Search for a tag: 
 			  <input name="tagSearch" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value)" />
 			</form>
 			</div>
-			<div id="pullDown" class="textright"><a href="javascript: expandTagSelector();">Expand</a></div>
+			<div id="pullDown" class="textright"><a href="javascript: expandTagSelector();">Browse All Tags</a></div>
 			<div id="allTags" style="display: none;"></div>
 			<div class="clear"></div>
 			
