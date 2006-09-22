@@ -3,12 +3,13 @@ package org.pgist.system;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
 import org.pgist.util.PageSetting;
-
+import java.util.Collection;
 
 /**
  * DWR AJAX Agent class.<br>
@@ -120,6 +121,15 @@ public class SystemAgent {
             
             request.setAttribute("feedbacks", feedbacks);
             request.setAttribute("setting", setting);
+            
+            /*John's code inverse the collection */
+            ArrayList temp = new ArrayList();
+            temp.addAll(feedbacks);
+            feedbacks.clear();
+            for(int i = 0; i<temp.size(); i++){
+            	feedbacks.add(temp.get(i));
+            }
+            // End Johns bad code
             
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/feedbacks.jsp"));
             
