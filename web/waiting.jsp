@@ -46,8 +46,8 @@
 </div>
 <div class="cssbox_body">
 
-<p>We will continue to collect&nbsp;concerns from participants until <font color="#ff0000"><b>11:59pm on Thursday, September 28</b></font>. Feel free to return to the <font color="#3366ff"><u><b>Brainstorm Concerns</b></u></font> page to review other participant's concerns, edit your own concerns, or add some more.</p>
-<p>On <font color="#cc0000"><b>Friday Sept. 29</b></font>, the moderator will review concerns and summarize them in the form of concern themes. When the concern themes are ready for participant review and discussion, the moderator will send you an email. At that point you will be able evaluate how well the summaries represents your concerns and others', and discuss whether revisions are necessary.</p>
+<p>We will continue to collect&nbsp;concerns from participants until<font color="#ff0000"><b> 11:59pm on Sunday, October 1st</b></font>. Feel free to return to the <font color="#3366ff"><u><b>Brainstorm Concerns</b></u></font> page to review other participant's concerns, edit your own concerns, or add some more.</p>
+<p>On <strong><font color="#cc0000">Monday, October 2nd</font></strong>, the moderator will review concerns and summarize them in the form of concern themes. When the concern themes are ready for participant review and discussion, the moderator will send you an email. At that point you will be able evaluate how well the summaries represents your concerns and others', and discuss whether revisions are necessary.</p>
 </div>
 </div>
 <!-- End Overview -->
