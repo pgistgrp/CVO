@@ -34,14 +34,14 @@ public class LoginAction extends Action {
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
         //Invalidate the Session
-    	HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(false);
         if (session!=null) session.invalidate();
         
         UserForm uform = (UserForm) form;
+        
         String loginname = uform.getUser().getLoginname();
         String password = uform.getUser().getPassword();
         
-        // Return error msg to user
         if((loginname==null || "".equals(loginname)) && !(password==null || "".equals(password))){
         	uform.setReason("Please Enter a User Name.");  
         	return mapping.findForward("login");
@@ -51,9 +51,9 @@ public class LoginAction extends Action {
         }
         
         if (loginname==null || "".equals(loginname)) {
-        	
             return mapping.findForward("login");
         }
+        
         
         if (password==null || "".equals(password)) {
             return mapping.findForward("login");
@@ -64,17 +64,16 @@ public class LoginAction extends Action {
             session = request.getSession(true);
             
             UserInfo userInfo = new UserInfo(user);
+            request.setAttribute("baseuser", userInfo);
             session.setAttribute("user", userInfo);
             WebUtils.setCurrentUser(userInfo);
             
             return mapping.findForward("main");
-        } else if(!user.checkPassword(password)){
+        }else if(!user.checkPassword(password)){
         	uform.setReason("Your Password is Invalid. Please Try Again.");
+        	return mapping.findForward("login");
         } 
-        /* I wanted to make it return an error message if the user account doesn't exist in the DB*/
-        /*else if(user==null ){
-        	uform.setReason("Your User Name is Invalid. Please Try Again or Register.");
-        }*/
+        
         
         return mapping.findForward("login");
     }//execute()
