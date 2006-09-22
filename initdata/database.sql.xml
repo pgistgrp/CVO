@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statements>
+
+    <statement>
+        <description>drop view if exists</description>
+        <script>
+          <![CDATA[
+            DROP VIEW view_concern_tags;
+          ]]>
+        </script>
+    </statement>
+    
+    <statement>
+        <description>view for concern-tagref-isid-ioid-cctid link</description>
+        <script>
+          <![CDATA[
+            CREATE VIEW view_concern_tags AS
+              SELECT c.id AS cid, tr.id AS trid, it.isid AS isid, it.ioid AS ioid, it.cctid AS cctid
+              FROM pgist_cvo_concerns c, pgist_info_tag it, pgist_cvo_tag_refs tr, pgist_cvo_concern_tag_link ctl
+              WHERE c.id=ctl.concern_id AND ctl.tagref_id=tr.id AND it.tagid=tr.id;
+          ]]>
+        </script>
+    </statement>
+    
+    <statement>
+        <description>GRANT</description>
+        <script>
+          <![CDATA[
+            GRANT ALL ON view_concern_tags TO pgist;
+          ]]>
+        </script>
+    </statement>
+
+</statements>
+
