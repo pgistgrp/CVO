@@ -341,12 +341,12 @@ CCTAgent.searchTags({cctId:cctId,tag:theTag},{
 }
 
 function sidebarTagSearch(theTag,key){
-	
 		//showing and hiding clear search action
-		if (theTag != "")){
+		if (theTag != ""){
 			$('btnClearSearch').style.display = 'inline';
 		}else{
-			$('btnClearSearch').style.display = 'none';
+			closeSearchResults();
+			clearSearch();
 		}
 		
 		//hack to disable backspace on input box when length < 1 - "19 tags hack"
@@ -354,31 +354,36 @@ function sidebarTagSearch(theTag,key){
 			return false;	
 		}
 		
+		//if the query is greater than 2 chars do the action if not keep it hidden
+		
 		if($('txtmanualFilter').value.length > 2){
-				CCTAgent.searchTags({cctId:cctId,tag:theTag},{
-					callback:function(data){
-							if (data.successful){
-								if($('sidebarSearchResults').style.display == 'none'){
-									new Effect.Appear('sidebarSearchResults', {duration: 0.5});		
-								}		
-								if ($('txtmanualFilter').value.length <= 1 || $('txtmanualFilter').value == "" || $('txtmanualFilter').value == $('txtmanualFilter').defaultValue || $('txtmanualFilter').value == " " || $('txtmanualFilter').value == null){
-										$('sidebarSearchResults').style.display="none";
-								}
-								$('sidebarSearchResults').innerHTML = $('sidebarSearchResults').innerHTML = data.html;
-								
-								if (data.count == 0){
-									$('sidebarSearchResults').innerHTML = '<span class="closeBox"><a href="javascript:Effect.Fade(\'sidebarSearchResults\', {duration: 0.5}); void(0);">Close</a></span><p>No tag matches found! Please try a different search.</p> ';
-								}
-							}
-					},
-					errorHandler:function(errorString, exception){ 
-								showTheError();
-					}		
-				});
+			sidebarSearchTagsAction(theTag);
+		}else{
+			$('sidebarSearchResults').style.display == 'none'
 		}
 }
 
-
+function sidebarSearchTagsAction(theTag){
+		CCTAgent.searchTags({cctId:cctId,tag:theTag},{
+			callback:function(data){
+					if (data.successful){
+						//show results if hidden
+						if($('sidebarSearchResults').style.display == 'none'){
+							new Effect.Appear('sidebarSearchResults', {duration: 0.5});		
+						}		
+						
+						$('sidebarSearchResults').innerHTML = $('sidebarSearchResults').innerHTML = data.html;
+						
+						if (data.count == 0){
+							$('sidebarSearchResults').innerHTML = '<span class="closeBox"><a href="javascript:Effect.Fade(\'sidebarSearchResults\', {duration: 0.5}); void(0);">Close</a></span><p>No tag matches found! Please try a different search.</p> ';
+						}
+					}
+			},
+			errorHandler:function(errorString, exception){ 
+						showTheError();
+			}		
+		});	
+}
 
 function glossaryPopup(term){
 lightboxDisplay(true);
@@ -562,9 +567,9 @@ function lightboxDisplay(show){
 	}
 }
 
-function clearSearch(divId){
-	$(divId).value = "";	
-	$(divId).focus();
+function clearSearch(){
+	$('txtmanualFilter').value = "";	
+	$('txtmanualFilter').focus();
 	$('btnClearSearch').style.display = 'none';
 }
 
@@ -770,7 +775,9 @@ float:right;
 		<div id="addFilter" style="display: none;">
 			<p class="textright"><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);">close</a></p>
 			<b>Add a Tag Filter:</b> 
-			<input name="txtmanualFilter" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value, event)" /><span id="btnClearSearch" style="display: none;"><a href="javascript:clearSearch('txtmanualFilter'); closeSearchResults();">Clear</a></span>
+			<form id="frmSidebarTagSearch" onSubmit="sidebarSearchTagsAction($('txtmanualFilter').value); return false;">
+				<input name="txtmanualFilter" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value, event)" onkeyup="sidebarTagSearch(this.value, event)" /><span id="btnClearSearch" style="display: none;"><a href="javascript:clearSearch(); closeSearchResults();">Clear</a></span>
+			</form>
 			<p>or <a href="javascript: expandTagSelector();">Browse All Tags</a>
 				
 			<div id="sidebarSearchResults" style="display: none;"><!-- tag search results are loaded here --></div>
