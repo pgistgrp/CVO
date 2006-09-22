@@ -168,9 +168,9 @@
 		</div><!-- End Object -->
 				
 		<br />
-				<h4>Talk to the Moderator </h4>
+				<h4>&nbsp;</h4>
 				<div>
-				<table width="100%" class="tabledisc">
+				  <table width="100%" class="tabledisc">
 				          <tr class="disc_row_b">
 							<jsp:useBean id="today" class="java.util.Date"/>
 							<c:set var="fmtLastPostDate"><fmt:formatDate value="${structure.lastPost.createTime}" pattern="yyyy/MM/dd"/></c:set>
@@ -206,7 +206,7 @@
 				<div id="legend" class="smalltext">
 					<img src="/images/balloonactive2.gif" alt="active" class="button">
 				 Recent Post  <img src="/images/ballooninactive2.gif" alt="active" width="20" height="21" class="button"> No Recent Post </div>
-				</div>
+			</div>
 				
 			<div id="finished" class="greenBB">
 				<h4>Ready for the next step?</h4><br />
