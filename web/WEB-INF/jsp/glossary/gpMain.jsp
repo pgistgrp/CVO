@@ -100,7 +100,7 @@
 							alert('ready to go');
 					}
 
-					if (data.successful != true){
+					else{
 						alert(data.reason);
 					}
 				},
@@ -122,6 +122,7 @@
 			globalSourceLinks=new Array();
 			globalTermLinks = new Array();
 			$('proposeTermBox').style.display='block';
+			location.hash='proposeTermBox';
 			
 
 			
@@ -165,8 +166,8 @@
 							//$('proposeForm').innerHTML = '<h3>Thank you for your term proposal!</h3><br><p>Your term has been submitted to the moderator for approval.  You will be notified after moderator review.</p><p><a href="javascript: lightboxDisplay();">Close Box</a></p>';
 							//clear Array
 							//sourceList = "";
-							
-							alert("Term successfully proposed");
+							$('proposeTermResult').innerHTML='<h3>Thank you for your term proposal!</h3><br><p>Your term has been submitted to the moderator for approval.  You will be notified after moderator review.<p><button type="button" onclick="$(\'proposeTermResult\').style.display=\'none\';">Close</button>';
+							$('proposeTermResult').style.display='block';
 					}else{
 						  alert("reason for proposeTerm failure: "+data.reason);
 					}
@@ -346,6 +347,7 @@ tr:hover {background-color: #F1F7FF;}
 		  <div id="clearSearch" style="display: none;"></div>
 		</form>
 		<p><a href="javascript:proposeTermCont();">Propose a Glossary Term</a></p>
+		<div id='proposeTermResult' style='display:none;'></div>
 		<div id='proposeTermBox' style='display:none;border:thick solid #C0C0C0;'><div><table style='width:100%; height:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='proptermname-1' type='text' value=''/><br />
 				<label><strong>Short Definition</strong></label><br /><textarea style='width:90%; height:100%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='proptermshortdef-1'></textarea></div></td>
 				<td rowspan=2><div style='margin:2%;'><label><strong>Sources</strong></label><br /><div id='sourcelinks-1'>

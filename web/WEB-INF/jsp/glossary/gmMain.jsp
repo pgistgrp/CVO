@@ -377,21 +377,7 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 		
 		}
 		
-		function contIntervalCall(a,type,tid){
-			 if(type=='saveTerm'){
-				clearInterval(a);
-				
-			}else if(type=='getTerms'){
-				clearInterval(a);
-		
-			}else if(type=='openEditBox'){
-				clearInterval(a);
-				
-				closeAllContentsExcept(tid,'editbox');
-				
-			}
-		
-		}
+
 		
 		function deleteSourceLink(arrid,tid){
 			globalSourceLinks.splice(arrid,1);
@@ -470,7 +456,7 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 						globalTermLinks.push(termlinkarray[tl].link);
 					}
 				
-					lboxhtml.innerHTML="<div border:thick solid #C0C0C0;'><table style='width:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='edtermname"+termid+"' type='text' value=\""+data.term.name+"\"/><br />"+
+					lboxhtml.innerHTML="<div style='border:thick solid #C0C0C0;'><table style='width:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='edtermname"+termid+"' type='text' value=\""+data.term.name+"\"/><br />"+
 				"<label><strong>Short Definition</strong></label><br /><textarea style='width:90%; height:100%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='edtermshortdef"+termid+"'>"+data.term.shortDefinition+"</textarea></div></td>"+
 				"<td rowspan=2><div style='margin:2%;'><label><strong>Sources</strong></label><br /><div id='sourcelinks"+termid+"'>"+satml+
 				"</div><br /><label><strong>Add Source</strong></label><br /><textarea style='width:90%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='edaddsourcecitation"+termid+"'>Citation</textarea><br /><input style='width:50%;' id='edaddsource"+termid+"' type='text' value='Http:"+'//'+"'/>"+
@@ -644,7 +630,7 @@ tr:hover {background-color: #F1F7FF;}
 	<!--new glossary term button-->
 	<br />
 	<div style="background-color: rgb(204, 255, 51); "><a href="javascript:openCreateTermBox(1);">new glossary term</a></div>
-	<div id='newTerm1' style='display:none;'><div border:thick solid #C0C0C0;><table style='width:100%; height:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='edtermname-1' type='text' value=''/><br />
+	<div id='newTerm1' style='display:none; border:thick solid #C0C0C0;'><div ><table style='width:100%; height:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='edtermname-1' type='text' value=''/><br />
 				<label><strong>Short Definition</strong></label><br /><textarea style='width:90%; height:100%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='edtermshortdef-1'></textarea></div></td>
 				<td rowspan=2><div style='margin:2%;'><label><strong>Sources</strong></label><br /><div id='sourcelinks-1'>
 				</div><br /><label><strong>Add Source</strong></label><br /><textarea style='width:90%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='edaddsourcecitation-1'>Citation</textarea><br /><input style='width:50%;' id='edaddsource-1' type='text' value='Http://'/>
@@ -681,7 +667,7 @@ tr:hover {background-color: #F1F7FF;}
 <br>
 	<!--new glossary term button-->
 	<div style="background-color: rgb(204, 255, 51); "><a href="javascript:openCreateTermBox(2);">new glossary term</a></div>
-		<div id='newTerm2' style='display:none;'><div border:thick solid #C0C0C0;><table style='width:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='edtermname-2' type='text' value=''/><br />
+		<div id='newTerm2' style='display:none; border:thick solid #C0C0C0;'><div ><table style='width:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='edtermname-2' type='text' value=''/><br />
 				<label><strong>Short Definition</strong></label><br /><textarea style='width:90%; height:100%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='edtermshortdef-2'></textarea></div></td>
 				<td rowspan=2><div style='margin:2%;'><label><strong>Sources</strong></label><br /><div id='sourcelinks-2'>
 				</div><br /><label><strong>Add Source</strong></label><br /><textarea style='width:90%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='edaddsourcecitation-2'>Citation</textarea><br /><input style='width:50%;' id='edaddsource-2' type='text' value='Http://'/>

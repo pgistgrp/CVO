@@ -72,7 +72,7 @@
 			GlossaryManageAgent.acceptTerm({id:tid},{
 			callback:function(data){
 				if(data.successful){
-					alert('term accepted!');
+					
 				}else{
 					alert("acceptTerm failure reason: "+data.reason);
 				
@@ -93,7 +93,7 @@
 			GlossaryManageAgent.rejectTerm({id:tid, reason:reasonString},{
 			callback:function(data){
 				if(data.successful){
-					alert('term rejected with the reason: '+reasonString);
+					
 				}else{
 					alert("rejectTerm failure reason: "+data.reason);
 				
@@ -120,11 +120,12 @@
 							}
 					}
 
-					if (data.successful != true){
+					else{
 						alert("setFlag failure reason: "+data.reason);
 					}
 				},
 				errorHandler:function(errorString, exception){ 
+				alert(errorString+" "+exception);
 						//showTheError();
 				}
 			});
@@ -140,11 +141,12 @@
 							gotComments=true;
 					}
 
-					if (data.successful != true){
+					else{
 						alert("getComments failure reason: "+data.reason);
 					}
 				},
 				errorHandler:function(errorString, exception){ 
+				alert(errorString+" "+exception);
 						//showTheError();
 				}
 			});
@@ -168,11 +170,12 @@
 							//alert(numComment);
 							
 					}
-					if (data.successful != true){
+					else{
 						alert("createComment failure reason: "+data.reason);
 					}
 				},
 				errorHandler:function(errorString, exception){ 
+				alert(errorString+" "+exception);
 						//showTheError();
 				}
 			});
