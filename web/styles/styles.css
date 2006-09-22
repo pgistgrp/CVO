@@ -308,6 +308,14 @@ h6 {
 	background-color: #7888A9;
 	color: #FFFFFF;
 }
+
+.indentLeft{
+	padding-left: 10px;
+}
+
+.indentBox{
+	padding: 10px;
+}
 .objectblue, .objectblue a {
 	background-color: #7888A9 !important;
 	border-color: #7888A9 !important;
