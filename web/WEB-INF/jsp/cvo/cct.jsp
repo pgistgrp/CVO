@@ -341,37 +341,41 @@ CCTAgent.searchTags({cctId:cctId,tag:theTag},{
 }
 
 function sidebarTagSearch(theTag,key){
-if ($('txtmanualFilter').value == ''  || $('txtmanualFilter').value == null || $('txtmanualFilter').value == undefined){
-	$('btnClearSearch').style.display = 'none';
-}else{
-	$('btnClearSearch').style.display = 'inline';
-}
-
-if (key.keyCode == 8 && theTag.length < 1){
-	return false;	
-}
-
-
-CCTAgent.searchTags({cctId:cctId,tag:theTag},{
-	callback:function(data){
-			if (data.successful){
-				if($('sidebarSearchResults').style.display == 'none' && $('txtmanualFilter').value.length > 2){
-					new Effect.Appear('sidebarSearchResults', {duration: 0.5});		
-				}		
-				if ($('txtmanualFilter').value.length <= 1 || $('txtmanualFilter').value == "" || $('txtmanualFilter').value == $('txtmanualFilter').defaultValue || $('txtmanualFilter').value == " " || $('txtmanualFilter').value == null ||$('txtmanualFilter').value == '&#x2408;'){
-						$('sidebarSearchResults').style.display="none";
-				}
-				$('sidebarSearchResults').innerHTML = $('sidebarSearchResults').innerHTML = data.html;
-				
-				if (data.count == 0){
-					$('sidebarSearchResults').innerHTML = '<span class="closeBox"><a href="javascript:Effect.Fade(\'sidebarSearchResults\', {duration: 0.5}); void(0);">Close</a></span><p>No tag matches found! Please try a different search.</p> ';
-				}
-			}
-	},
-	errorHandler:function(errorString, exception){ 
-				showTheError();
-	}		
-});
+	
+		//showing and hiding clear search action
+		if (theTag != "")){
+			$('btnClearSearch').style.display = 'inline';
+		}else{
+			$('btnClearSearch').style.display = 'none';
+		}
+		
+		//hack to disable backspace on input box when length < 1 - "19 tags hack"
+		if (key.keyCode == 8 && theTag.length < 1){
+			return false;	
+		}
+		
+		if($('txtmanualFilter').value.length > 2){
+				CCTAgent.searchTags({cctId:cctId,tag:theTag},{
+					callback:function(data){
+							if (data.successful){
+								if($('sidebarSearchResults').style.display == 'none'){
+									new Effect.Appear('sidebarSearchResults', {duration: 0.5});		
+								}		
+								if ($('txtmanualFilter').value.length <= 1 || $('txtmanualFilter').value == "" || $('txtmanualFilter').value == $('txtmanualFilter').defaultValue || $('txtmanualFilter').value == " " || $('txtmanualFilter').value == null){
+										$('sidebarSearchResults').style.display="none";
+								}
+								$('sidebarSearchResults').innerHTML = $('sidebarSearchResults').innerHTML = data.html;
+								
+								if (data.count == 0){
+									$('sidebarSearchResults').innerHTML = '<span class="closeBox"><a href="javascript:Effect.Fade(\'sidebarSearchResults\', {duration: 0.5}); void(0);">Close</a></span><p>No tag matches found! Please try a different search.</p> ';
+								}
+							}
+					},
+					errorHandler:function(errorString, exception){ 
+								showTheError();
+					}		
+				});
+		}
 }
 
 
@@ -685,7 +689,7 @@ float:right;
 </div>
 <div class="cssbox_body">
 <p>Before we can determine how to best improve the transportation system, we need to know what the problems are. Our first task is to brainstorm concerns about the transportation system.</p>
-<p>[ Read more about how this step fits into the bigger picture. ]</p>
+<p>[ <a href="/readmore.jsp">Read more about how this step fits into the bigger picture.</a> ]</p>
 
 </div>
 </div>
