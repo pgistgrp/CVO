@@ -66,6 +66,24 @@ public class RegisterAction extends Action {
         
         User user = uform.getUser();
         
+        String firstname = user.getFirstname();
+        if (firstname==null || "".equals(firstname)) {
+            uform.setReason("First Name is required.");
+            return mapping.findForward("register");
+        }
+        
+        String lastname = user.getLastname();
+        if (lastname==null || "".equals(lastname)) {
+            uform.setReason("Last Name is required.");
+            return mapping.findForward("register");
+        }
+        
+        String email = user.getEmail();
+        if (email==null || "".equals(email)) {
+            uform.setReason("Email is required.");
+            return mapping.findForward("register");
+        }
+        
         String loginname = user.getLoginname();
         if (loginname==null || "".equals(loginname)) {
             uform.setReason("Preferred LIT ID is required.");
@@ -85,25 +103,7 @@ public class RegisterAction extends Action {
         }
         
         if (!password.equals(password1)) {
-            uform.setReason("Re-type Password must conform to Password.");
-            return mapping.findForward("register");
-        }
-        
-        String firstname = user.getFirstname();
-        if (firstname==null || "".equals(firstname)) {
-            uform.setReason("First Name is required.");
-            return mapping.findForward("register");
-        }
-        
-        String lastname = user.getLastname();
-        if (lastname==null || "".equals(lastname)) {
-            uform.setReason("Last Name is required.");
-            return mapping.findForward("register");
-        }
-        
-        String email = user.getEmail();
-        if (email==null || "".equals(email)) {
-            uform.setReason("Email is required.");
+            uform.setReason("Both Password fields must match.");
             return mapping.findForward("register");
         }
         

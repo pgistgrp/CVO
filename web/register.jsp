@@ -22,6 +22,7 @@
 	margin-left: auto;
 	text-align: center;
 }
+.red {color: #FF0000}
 </style>
 </head>
 
@@ -30,7 +31,7 @@
 <div id="pgistlogo">
 <img src="images/mainlogo.png" alt="pgistlogo" >
 </div>
-<html:form action="/register.do" method="POST" focus="loginname">
+<html:form action="/register.do" method="POST">
 <html:hidden property="save" value="true"/>
 <html:hidden property="user.homeAddr" value="12345 Home Address"/>
 <html:hidden property="user.city" value="default city"/>
@@ -44,16 +45,17 @@
 <h3>Registration Form</h3><br />
 <table id="register">
 	<tr>
-		<td>E-mail Address</td>
-		<td><html:text property="user.email"/></td>
-	</tr>
-	<tr>
 		<td>First Name</td>
 		<td><html:text property="user.firstname"/></td>
 	</tr>
 	<tr> 		
 		<td>Last Name</td>
 		<td><html:text property="user.lastname"/></td>
+	</tr>
+	<tr>
+		<td>E-mail Address</td>
+		<td><html:text property="user.email"/></td>
+	</tr>
 	<tr>
 		<td>Preferred ID</td>
 		<td><html:text property="user.loginname"/></td>
@@ -71,6 +73,7 @@
 		<td align="right"><html:submit property="submit" value="Submit"/><input type="reset" name="Reset" value="Cancel"></td>
 	</tr>
  <table>
+ <span class="red">${userForm.reason}</span>
 </div>	 
 
 
