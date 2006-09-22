@@ -168,7 +168,6 @@
 		</div><!-- End Object -->
 				
 		<br />
-				<h4>&nbsp;</h4>
 				<div>
 				  <table width="100%" class="tabledisc">
 				          <tr class="disc_row_b">
