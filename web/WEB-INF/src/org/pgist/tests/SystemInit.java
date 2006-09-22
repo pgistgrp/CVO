@@ -1,12 +1,18 @@
 package org.pgist.tests;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.loader.AntClassLoader2;
 import org.apache.tools.ant.taskdefs.MatchingTask;
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -82,10 +88,34 @@ public class SystemInit extends MatchingTask {
             }
         );
         
+        sessionFactory = (SessionFactory) appContext.getBean("sessionFactory");
+        session = SessionFactoryUtils.getSession(sessionFactory, true);
+        TransactionSynchronizationManager.bindResource(sessionFactory, new SessionHolder(session));
+        
         LocalSessionFactoryBean slfb = (LocalSessionFactoryBean) appContext.getBean("&sessionFactory");
+        
         if ("createdb".equalsIgnoreCase(action)) {
             slfb.dropDatabaseSchema();
             slfb.createDatabaseSchema();
+            
+            //run additional sql scripts
+            Connection connection = session.connection();
+            Statement stmt = connection.createStatement();
+            
+            SAXReader reader = new SAXReader();
+            Document document = reader.read(new File(dataPath, "database.sql.xml"));
+            Element root = document.getRootElement();
+            
+            List elements = root.elements("statement");
+            for (int i=0; i<elements.size(); i++) {
+                Element element = (Element) elements.get(i);
+                String sql = element.elementTextTrim("script");
+                try {
+                    stmt.executeUpdate(sql);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }//for i
         } else if ("restoredb".equalsIgnoreCase(action)) {
             slfb.dropDatabaseSchema();
             slfb.createDatabaseSchema();
@@ -93,10 +123,6 @@ public class SystemInit extends MatchingTask {
             slfb.updateDatabaseSchema();
             return false;
         }
-        
-        sessionFactory = (SessionFactory) appContext.getBean("sessionFactory");
-        session = SessionFactoryUtils.getSession(sessionFactory, true);
-        TransactionSynchronizationManager.bindResource(sessionFactory, new SessionHolder(session));
         
         return true;
     }//setUp()

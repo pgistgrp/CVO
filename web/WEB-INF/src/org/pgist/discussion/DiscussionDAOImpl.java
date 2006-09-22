@@ -388,9 +388,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getInfoTagLink()
 
 
-    private static final String hql_getConcerns_A_11 = "select count(distinct c.id) from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.isid=?)";
+    private static final String sql_getConcerns_A_11 = "select count(distinct v.cid) from view_concern_tags v where v.cctid=:cctid and v.isid=:isid";
     
-    private static final String hql_getConcerns_A_12 = "select c.id from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.isid=?) group by c.id order by count(refs) desc";
+    private static final String sql_getConcerns_A_12 = "select v.cid from view_concern_tags v where v.cctid=:cctid and v.isid=:isid group by v.cid order by count(v.cid) desc";
     
     
     public Collection getConcerns(InfoStructure structure, PageSetting setting) throws Exception {
@@ -400,16 +400,18 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         List concerns = new ArrayList();
         
+        String sql = sql_getConcerns_A_11.replace(":cctid", cctId.toString()).replace(":isid", structure.getId().toString());
+        
+        Connection connection = getSession().connection();
+        Statement stmt = connection.createStatement();
+        
         //get count
         
-        Query query = getSession().createQuery(hql_getConcerns_A_11);;
+        ResultSet rs = stmt.executeQuery(sql);
         
-        query.setLong(0, cctId);
-        query.setLong(1, structure.getId());
+        rs.next();
         
-        List list = query.list();
-        
-        int count = ((Number) list.get(0)).intValue();
+        int count = rs.getInt(1);
         
         if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
         
@@ -419,26 +421,20 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         //get records
         
-        query = getSession().createQuery(hql_getConcerns_A_12);
+        sql = sql_getConcerns_A_12.replace(":cctid", cctId.toString()).replace(":isid", structure.getId().toString());
         
-        query.setLong(0, cctId);
-        query.setLong(1, structure.getId());
+        rs = stmt.executeQuery(sql+" offset "+setting.getFirstRow()+" limit "+setting.getRowOfPage());
         
-        query.setFirstResult(setting.getFirstRow());
-        query.setMaxResults(setting.getRowOfPage());
-        
-        for (Number one : (List<Number>) query.list()) {
-            Concern concern = (Concern) getHibernateTemplate().load(Concern.class, one);
+        while (rs.next()) {
+            Concern concern = (Concern) getHibernateTemplate().load(Concern.class, rs.getLong(1));
             concerns.add(concern);
-        }//for
+        }//while
         
         return concerns;
     }//getConcerns()
 
 
-    private static final String sql_getConcerns_A_20 = "select distinct link.tagId from InfoTagLink link where link.isid=?";
-    
-    private static final String sql_getConcerns_A_21 = "select c.id as xid from pgist_cvo_concerns c, pgist_cvo_concern_tag_link link, pgist_cvo_tag_refs ref where c.cct_id=##cid and link.tagref_id=ref.id and link.concern_id=c.id and ref.tag_id=";
+    private static final String sql_getConcerns_A_21 = "select distinct v.cid as xid from view_concern_tags v where v.cctid=:cctid and v.isid=:isid and trid=";
     
     
     public Collection getConcerns(InfoStructure structure, String ids, PageSetting setting) throws Exception {
@@ -448,21 +444,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         List concerns = new ArrayList();
         
-        Set tags = new HashSet();
         String[] idArray = ids.split(",");
-        for (int i=0; i<idArray.length; i++) {
-            if (idArray[i]==null || idArray[i].trim().length()==0) continue;
-            tags.add(new Long(idArray[i]));
-        }//for id
-        
-        List wholeTags = getHibernateTemplate().find(sql_getConcerns_A_20, structure.getId());
-        
-        tags.removeAll(wholeTags);
-        
-        if (tags.size()>0) {
-            setting.setRowSize(0);
-            return concerns;
-        }
         
         StringBuilder sb = new StringBuilder();
         
@@ -470,11 +452,11 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
             if (i>0) sb.append(" INTERSECT ");
             sb.append(sql_getConcerns_A_21).append(idArray[i]);
         }
-        String piece = sb.toString();
+        String piece = sb.toString().replace(":cctid", cctId.toString()).replace(":isid", structure.getId().toString());
         
         //get count
         
-        String sql = "select count(distinct x.xid) from ("+piece.replace("##cid", cctId.toString())+") as x";
+        String sql = "select count(distinct x.xid) from ("+piece+") as x";
         
         Connection connection = getSession().connection();
         
@@ -495,7 +477,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         stmt = connection.createStatement();
         
-        sql = piece.replace("##cid", cctId.toString())+" order by xid desc offset "+setting.getFirstRow()+" limit "+setting.getRowOfPage();
+        sql = piece+" order by xid desc offset "+setting.getFirstRow()+" limit "+setting.getRowOfPage();
         
         rs = stmt.executeQuery(sql);
         
@@ -509,9 +491,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getConcerns()
 
 
-    private static final String hql_getConcerns_B_11 = "select count(distinct c.id) from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.ioid=?)";
+    private static final String sql_getConcerns_B_11 = "select count(distinct v.cid) from view_concern_tags v where v.cctid=:cctid and v.ioid=:ioid";
     
-    private static final String hql_getConcerns_B_12 = "select c.id from Concern c join c.tags refs where c.cct.id=? and refs.tag.id in (select link.tagId from InfoTagLink link where link.ioid=?) group by c.id order by count(refs) desc";
+    private static final String sql_getConcerns_B_12 = "select v.cid from view_concern_tags v where v.cctid=:cctid and v.ioid=:ioid group by v.cid order by count(v.cid) desc";
     
     
     public Collection getConcerns(InfoObject object, PageSetting setting) throws Exception {
@@ -521,16 +503,18 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         List concerns = new ArrayList();
         
+        String sql = sql_getConcerns_B_11.replace(":cctid", cctId.toString()).replace(":ioid", object.getId().toString());
+        
+        Connection connection = getSession().connection();
+        Statement stmt = connection.createStatement();
+        
         //get count
         
-        Query query = getSession().createQuery(hql_getConcerns_B_11);;
+        ResultSet rs = stmt.executeQuery(sql);
         
-        query.setLong(0, cctId);
-        query.setLong(1, object.getId());
+        rs.next();
         
-        List list = query.list();
-        
-        int count = ((Number) list.get(0)).intValue();
+        int count = rs.getInt(1);
         
         if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
         
@@ -540,26 +524,20 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         //get records
         
-        query = getSession().createQuery(hql_getConcerns_B_12);
+        sql = sql_getConcerns_A_12.replace(":cctid", cctId.toString()).replace(":ioid", object.getId().toString());
         
-        query.setLong(0, cctId);
-        query.setLong(1, object.getId());
+        rs = stmt.executeQuery(sql+" offset "+setting.getFirstRow()+" limit "+setting.getRowOfPage());
         
-        query.setFirstResult(setting.getFirstRow());
-        query.setMaxResults(setting.getRowOfPage());
-        
-        for (Number one : (List<Number>) query.list()) {
-            Concern concern = (Concern) getHibernateTemplate().load(Concern.class, one);
+        while (rs.next()) {
+            Concern concern = (Concern) getHibernateTemplate().load(Concern.class, rs.getLong(1));
             concerns.add(concern);
-        }//for
+        }//while
         
         return concerns;
     }//getConcerns()
 
 
-    private static final String sql_getConcerns_B_20 = "select distinct link.tagId from InfoTagLink link where link.ioid=?";
-    
-    private static final String hql_getConcerns_B_21 = "select c.id as xid from pgist_cvo_concerns c, pgist_cvo_concern_tag_link link, pgist_cvo_tag_refs ref where c.cct_id=##cid and link.tagref_id=ref.id and link.concern_id=c.id and ref.tag_id=";
+    private static final String sql_getConcerns_B_21 = "select distinct v.cid as xid from view_concern_tags v where v.cctid=:cctid and v.ioid=:ioid and trid=";
     
     
     public Collection getConcerns(InfoObject object, String ids, PageSetting setting) throws Exception {
@@ -569,33 +547,19 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         List concerns = new ArrayList();
         
-        Set tags = new HashSet();
         String[] idArray = ids.split(",");
-        for (int i=0; i<idArray.length; i++) {
-            if (idArray[i]==null || idArray[i].trim().length()==0) continue;
-            tags.add(new Long(idArray[i]));
-        }//for id
-        
-        List wholeTags = getHibernateTemplate().find(sql_getConcerns_B_20, object.getId());
-        
-        tags.removeAll(wholeTags);
-        
-        if (tags.size()>0) {
-            setting.setRowSize(0);
-            return concerns;
-        }
         
         StringBuilder sb = new StringBuilder();
         
         for (int i=0; i<idArray.length; i++) {
             if (i>0) sb.append(" INTERSECT ");
-            sb.append(sql_getConcerns_A_21).append(idArray[i]);
+            sb.append(sql_getConcerns_B_21).append(idArray[i]);
         }
-        String piece = sb.toString();
+        String piece = sb.toString().replace(":cctid", cctId.toString()).replace(":ioid", object.getId().toString());
         
         //get count
         
-        String sql = "select count(distinct x.xid) from ("+piece.replace("##cid", cctId.toString())+") as x";
+        String sql = "select count(distinct x.xid) from ("+piece+") as x";
         
         Connection connection = getSession().connection();
         
@@ -616,7 +580,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         stmt = connection.createStatement();
         
-        sql = piece.replace("##cid", cctId.toString())+" order by xid desc offset "+setting.getFirstRow()+" limit "+setting.getRowOfPage();
+        sql = piece+" order by xid desc offset "+setting.getFirstRow()+" limit "+setting.getRowOfPage();
         
         rs = stmt.executeQuery(sql);
         

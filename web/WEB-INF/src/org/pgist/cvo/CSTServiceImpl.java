@@ -593,7 +593,7 @@ public class CSTServiceImpl implements CSTService {
                     link.setIsid(structure.getId());
                     link.setIoid(obj.getId());
                     link.setCctId(cct.getId());
-                    link.setTagId(two.getTag().getId());
+                    link.setTagId(two.getId());
                     discussionDAO.save(link);
                 }//for two
                 

@@ -23,6 +23,8 @@ public class DiscussionPost extends GenericPost {
     
     protected Date replyTime;
     
+    protected boolean emailNotify = false;
+    
     
     /**
      * @return
@@ -105,6 +107,20 @@ public class DiscussionPost extends GenericPost {
      */
     public Set getTags() {
         return tags;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public boolean isEmailNotify() {
+        return emailNotify;
+    }
+
+
+    public void setEmailNotify(boolean emailNotify) {
+        this.emailNotify = emailNotify;
     }
 
 
