@@ -11,11 +11,11 @@
     <bean name="/logout" class="org.pgist.system.LogoutAction">
     </bean>
 	
-    
+    <!--
     <bean name="/main" class="org.pgist.system.MainAction">
         <property name="userDAO" ref="userDAO"/>
     </bean>
-	
+	-->
     <bean name="/register" class="org.pgist.system.RegisterAction">
         <property name="userDAO" ref="userDAO"/>
     </bean>

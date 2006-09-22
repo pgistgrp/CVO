@@ -122,7 +122,7 @@ public class SystemAgent {
             request.setAttribute("feedbacks", feedbacks);
             request.setAttribute("setting", setting);
             
-            /*John's code inverse the collection *//*
+            /*John's code inverse the collection */
             ArrayList temp = new ArrayList();
             temp.addAll(feedbacks);
             feedbacks.clear();
@@ -130,7 +130,7 @@ public class SystemAgent {
             	feedbacks.add(temp.get(i));
             }
             // End Johns bad code
-            */
+            
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/feedbacks.jsp"));
             
             map.put("successful", true);
