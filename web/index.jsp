@@ -25,6 +25,7 @@
 	margin-left: auto;
 	text-align: center;
 }
+.red {color: #FF0000}
 </style>
 </head>
 
@@ -50,6 +51,7 @@
 	      <td align="right">(<a href="register.do">Register</a>) <html:submit property="submit" value="Login"/> </td>
         </tr>
     </table>
+	 <span class="red">${userForm.reason}</span>
   </div>
 </html:form>
 
