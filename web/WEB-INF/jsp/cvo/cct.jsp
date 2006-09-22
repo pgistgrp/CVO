@@ -690,10 +690,10 @@ float:right;
 <!-- Overview SpiffyBox -->
 <div class="cssbox">
 <div class="cssbox_head">
-<h3>Overview and Instructions</h3>
+<h3>Overview</h3>
 </div>
 <div class="cssbox_body">
-<p>Before we can determine how to best improve the transportation system, we need to know what the problems are. Our first task is to brainstorm concerns about the transportation system.</p>
+<p>Before we can determine how to best improve the transportation system, we need to know what the problems are. Our first task is to brainstorm concerns about the transportation system. To help you create your concerns, the right column displays concerns from other participants. Use the buttons at the bottom of this column to view more pages of concerns, or search for particular concerns by tags. </p>
 <p>[ <a href="/readmore.jsp">Read more about how this step fits into the bigger picture.</a> ]</p>
 
 </div>
