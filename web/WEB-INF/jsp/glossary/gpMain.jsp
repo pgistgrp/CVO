@@ -119,11 +119,9 @@
 		
 		
 		function proposeTermCont(){
-			lightboxDisplay(true);
-			os = '';
-			os = '<span class="closeBox"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></span>'
-			os += $('proposeForm').innerHTML;
-			$('lightbox').innerHTML = os;
+			globalSourceLinks=new Array();
+			globalTermLinks = new Array();
+			$('proposeTermBox').style.display='block';
 			
 
 			
@@ -157,19 +155,24 @@
 			
 			//convert sourceList and termList arrays into a 2D array.
 			
+				
 			
 				GlossaryPublicAgent.proposeTerm({name:name, shortDef:shortDef, fullDef:fullDef}, links, sources, {
+				
 				callback:function(data){
 
 					if (data.successful){ 
-							$('proposeForm').innerHTML = '<h3>Thank you for your term proposal!</h3><br><p>Your term has been submitted to the moderator for approval.  You will be notified after moderator review.</p><p><a href="javascript: lightboxDisplay();">Close Box</a></p>';
+							//$('proposeForm').innerHTML = '<h3>Thank you for your term proposal!</h3><br><p>Your term has been submitted to the moderator for approval.  You will be notified after moderator review.</p><p><a href="javascript: lightboxDisplay();">Close Box</a></p>';
 							//clear Array
-							sourceList = "";
+							//sourceList = "";
+							
+							alert("Term successfully proposed");
 					}else{
-						  alert(data.reason);
+						  alert("reason for proposeTerm failure: "+data.reason);
 					}
 				},
 				errorHandler:function(errorString, exception){ 
+						alert(errorString+" "+exception);
 						//showTheError();
 				}
 			});
@@ -228,7 +231,70 @@
 			  Effect.BlindUp('addTermsFormCont');
 			}	
 		}
+			var agt=navigator.userAgent.toLowerCase();
+function sz(t) {
+a = t.value.split('\n');
+b=1;
+for (x=0;x < a.length; x++) {
+ if (a[x].length >= t.cols) b+= Math.floor(a[x].length/t.cols);
+ }
+b+= a.length;
+if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
+}
+
+ 		var globalSourceLinks=new Array();
+		var globalTermLinks = new Array();
 		
+		
+function deleteSourceLink(arrid,tid){
+			globalSourceLinks.splice(arrid,1);
+			generateSourceLinks(tid);
+		}
+		
+		
+		function generateSourceLinks(tid){
+			var gsl="";
+			for (var sa=0; sa<globalSourceLinks.length; sa++){
+					gsl+="<a href='"+globalSourceLinks[sa][1]+"'>"+globalSourceLinks[sa][0]+"</a><br /><br /><button type='button' onclick='deleteSourceLink("+sa+","+tid+"); return false;'>Delete Source</button><br /><br />";
+					
+				}
+		
+			$('sourcelinks'+tid).innerHTML=gsl;
+		}
+		
+		function deleteTermLink(arrid,tid){
+			globalTermLinks.splice(arrid,1);
+			generateTermLinks(tid);
+		
+		
+		}
+		
+		function generateTermLinks(tid){
+			var gtl="";
+			for (var tl=0; tl<globalTermLinks.length; tl++){
+					
+					gtl+="<a href='"+globalTermLinks[tl]+"'>"+globalTermLinks[tl]+"</a>&nbsp;&nbsp; <button type='button' onclick='deleteTermLink("+tl+","+tid+"); return false;'>Delete Term Link</button><br />";
+				}
+			$('termlinks'+tid).innerHTML=gtl;
+		
+		}
+		
+		function addSourceLink(tid){
+			var cit=$('propaddsourcecitation'+tid).value;
+			var url=$('propaddsource'+tid).value;
+			globalSourceLinks.push([cit,url]);
+			$('propaddsourcecitation'+tid).value="Citation";
+			$('propaddsource'+tid).value="Http://";
+			generateSourceLinks(tid);
+		}
+		
+		function addTermLink(tid){
+			var url=$('propaddtermlink'+tid).value;
+			globalTermLinks.push(url);
+			$('propaddtermlink'+tid).value="Http://";
+			generateTermLinks(tid);
+		
+		}
 
 </script>
 
@@ -280,6 +346,13 @@ tr:hover {background-color: #F1F7FF;}
 		  <div id="clearSearch" style="display: none;"></div>
 		</form>
 		<p><a href="javascript:proposeTermCont();">Propose a Glossary Term</a></p>
+		<div id='proposeTermBox' style='display:none;border:thick solid #C0C0C0;'><div><table style='width:100%; height:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='proptermname-1' type='text' value=''/><br />
+				<label><strong>Short Definition</strong></label><br /><textarea style='width:90%; height:100%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='proptermshortdef-1'></textarea></div></td>
+				<td rowspan=2><div style='margin:2%;'><label><strong>Sources</strong></label><br /><div id='sourcelinks-1'>
+				</div><br /><label><strong>Add Source</strong></label><br /><textarea style='width:90%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='propaddsourcecitation-1'>Citation</textarea><br /><input style='width:50%;' id='propaddsource-1' type='text' value='Http://'/>
+				<br /><button type='button' onclick='addSourceLink(-1); return false;'>Add Source</button><br /><br /><label><strong>Term Links</strong></label><br /><div id='termlinks-1'>
+				</div><br /><label>Add Link</label><br /><input style='width:50%;' id='propaddtermlink-1' type='text' value='Http://'/><br /><button type='button' onclick='addTermLink(-1); return false;'>Add Link</button></div></td></tr><tr style=''><td style=''><div style='min-height:100%; margin:2%;'><label><strong>Extended Definition</strong></label><br />
+				<textarea rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' style='width:90%; height:100%;' id='proptermextdef-1'></textarea></div></td></tr><tr style=''><td style='width:50%;'></td><td style=''><div style='margin:0.5%; float:right;'><button type='button' onclick="javascript:$('proposeTermBox').style.display='none'; return false;">Cancel</button>&nbsp;<button type='button' onclick='proposeTerm($("proptermname-1").value, $("proptermshortdef-1").value, $("proptermextdef-1").value); $("proptermname-1").value=""; $("proptermshortdef-1").value=""; $("proptermextdef-1").value=""; $("sourcelinks-1").innerHTML=""; $("termlinks-1").innerHTML=""; $("proposeTermBox").style.display="none"; return false;'>Save and Close</button></div></td></tr></tbody></table></div></div>
 	</div>
 	  <div id="list"></div>
 	</div>
