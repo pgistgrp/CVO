@@ -126,7 +126,7 @@ public class SystemAgent {
             ArrayList temp = new ArrayList();
             temp.addAll(feedbacks);
             feedbacks.clear();
-            for(int i = 0; i<temp.size(); i++){
+            for(int i = temp.size(); i>=0; i--){
             	feedbacks.add(temp.get(i));
             }
             // End Johns bad code
