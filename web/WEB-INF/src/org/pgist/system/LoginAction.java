@@ -54,6 +54,7 @@ public class LoginAction extends Action {
             session = request.getSession(true);
             
             UserInfo userInfo = new UserInfo(user);
+            request.setAttribute("baseuser", userInfo);
             session.setAttribute("user", userInfo);
             WebUtils.setCurrentUser(userInfo);
             
