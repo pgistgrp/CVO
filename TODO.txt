@@ -34,7 +34,7 @@ Jordan:
 [ok] Glossary word finder tags on Summary 
 [ok] voting on IO
 [] sorting posts on sdMain
-[] object.description
+[] object.description in CCT and shown in SDC
 [ok] jump to select box
 [ok] help integrate new layout
 [ok] site-wide header and footer
@@ -45,33 +45,43 @@ Jordan:
 [] SDC Sidebar
 [ok] Consistent Finished Div
 [ok] Remove sorting TH Links
+[ok] cst publish redirect
+[ok] submit tagsearch on enter
 
 John:
 [ok] css for new design
 [ok] integrate new layout
-[] Registration redirect (if successful, redirect to succcess page or main page, if not, display message)
+[ok] Registration redirect (if successful, redirect to succcess page or main page, if not, display message)
 [] CCT redirect (if user clicks on 'continue' when finished inputting concerns, this button should go to cctConfirm.jsp - in CVO folder)
 [] main.do redirect
 [] Link to most recent CCT instance.  We would like to link to this through the breadcrumb links - how can we do this?
 [] CRUD Validations
 [] Change links on main.jsp - hard code (if necessary) to newest instance of component.
-[] Temp header
 [] Stopwords Issues
 
 Issac:
-[] Fix Lightbox on CCT
+[ok] Fix Lightbox on CCT
 [] Error Messages
+[ok] Keep line breaks in posts
+[ok] Mod Glossary
+[ok] Finish Public Glossary
+[] No script on inputs
 
 Adam:
-[] Interface for mod feedback
-[] "Wait for others" page
-[] Wordsmith CCT, SDC, CST
-[] Overview and Instructions for each page
-[] Read more page
-[] Keep line breaks in posts
+[ok] Temp header
+[ok] Interface for mod feedback
+[ok] "Wait for others" page
+[ok] Wordsmith CCT, SDC, CST
+[ok] Overview and Instructions for each page
+[ok] Read more page
 
 
 Misc. Front End for Future:
+[] Sidebar concern #/length
+[] GPTermview Layout
+[] When to unflag term
+[] Concerns pagination in sidebar CCT (after filter)
+[] Moderator tools layout
 [] Integrate rich textbox editor
 [] Integrate tag selector
 [] Tags can't be removed with appostrophe (suggested tags)
