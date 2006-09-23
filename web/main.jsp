@@ -56,12 +56,8 @@
 </pg:show>
 </div>
 
-<p>Found a bug?  Problem accessing a part on the page?  <a href="javascript:Effect.toggle('feedbackForm','blind');">Send us feedback.</a></p>
-<div id="feedbackForm" style="display: none;">
-	<h3>Feedback/Bug Report Form</h3>
-	<p>If you came across a bug, please help us by reporting it to our development team.  blah blah blah blah.....please describe in as much detail as possible....blah blah</p>
+
 	<pg:feedback id="feedbackDiv" action="login.do" />
-</div>
 
 </body>
 </html:html>

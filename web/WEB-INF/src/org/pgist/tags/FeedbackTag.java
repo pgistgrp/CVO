@@ -55,7 +55,13 @@ public class FeedbackTag extends SimpleTagSupport {
     public void doTag() throws JspException, IOException {
         JspWriter writer = getJspContext().getOut();
         
-        //external js files
+        writer.write("<div id=\"feedbackForm\" style=\"display:none;\">");
+        writer.write("<div style='float:right;'><a href=\"javascript:Effect.toggle('feedbackForm','blind');\"><img src=\"/images/closeinactivesm.gif\" alt=\"close Feedback Form\" onmouseover=\"javascript:this.src='/images/closeactivesm.gif'; this.style.cursor='pointer'; \" onmouseout=\"javascript:this.src='/images/closeinactivesm.gif'; this.style.cursor='auto';\" border=\"0\"></a></div>");
+       
+        writer.write("<h3>Feedback/Bug Report Form</h3>");
+        writer.write("<p>If you came across a bug, please help us by reporting it to our development team. Please describe bugs and issues in as much detail as possible.</p>");
+        
+        //      external js files
         writer.write("<script src=\"/dwr/interface/SystemAgent.js\"></script>");
         
         writer.write("<script>");
@@ -72,30 +78,13 @@ public class FeedbackTag extends SimpleTagSupport {
         writer.write("}");
         writer.write("</script>");
         
-        //div head
-        writer.write("<div id=\"");
-        writer.write(id);
-        writer.write("\" ");
-        
-        if (style!=null && style.trim().length()>0) {
-            writer.write("style=\"");
-            writer.write(style);
-            writer.write("\" ");
-        }
-        
-        if (styleClass!=null && styleClass.trim().length()>0) {
-            writer.write("class=\"");
-            writer.write(styleClass);
-            writer.write("\" ");
-        }
-        
-        writer.write(">");
-        
-        writer.write("Feedback:<br>");
-        writer.write("<textarea id=\"feedback_input\"></textarea>");
-        writer.write("<br><input type=\"button\" value=\"Submit\" onclick=\"createFeedback();\">");
-        
+        writer.write("<div id=\"feedbackDiv\">Feedback:<br><textarea id=\"feedback_input\"></textarea><br><input value=\"Submit\" onclick=\"createFeedback();\" type=\"button\"></div>");
+
         writer.write("</div>");
+        
+        //user msg
+        writer.write("<p>Found a bug? Problem accessing a part of the page? <a href=\"#feedbackForm\" onclick=\"javascript:Effect.toggle('feedbackForm','blind'); setTimeout('location.hash=\\\'#feedbackDiv\\\';',900);\">Send us feedback.</a></p>"); 
+ 
     }//doTag()
     
     
