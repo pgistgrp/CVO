@@ -3,9 +3,14 @@
  */
 package org.pgist.util;
 
-import java.util.Iterator;
-
-import org.postgis.*;
+import org.postgis.Geometry;
+import org.postgis.LineString;
+import org.postgis.LinearRing;
+import org.postgis.MultiLineString;
+import org.postgis.MultiPoint;
+import org.postgis.MultiPolygon;
+import org.postgis.PGgeometry;
+import org.postgis.Polygon;
 
 /**
  * This class provides some utilities to convert form coordinates to 

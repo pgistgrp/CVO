@@ -15,8 +15,6 @@ import javax.mail.internet.MimeMessage;
 import org.apache.commons.beanutils.BeanUtils;
 import org.pgist.users.User;
 
-import org.pgist.system.EmailTemplate;
-
 
 /**
  * 

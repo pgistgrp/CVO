@@ -8,7 +8,7 @@ import java.util.Set;
  * 
  * @author kenny
  *
- * @hibernate.class table="pgist_dicussion_post" lazy="true"
+ * @hibernate.class table="pgist_discussion_post" lazy="true"
  */
 public class DiscussionPost extends GenericPost {
     
@@ -24,6 +24,11 @@ public class DiscussionPost extends GenericPost {
     protected Date replyTime;
     
     protected boolean emailNotify = false;
+    
+    /**
+     * value is a transient variable which can hold any object temporarilly
+     */
+    private Object value;
     
     
     /**
@@ -121,6 +126,21 @@ public class DiscussionPost extends GenericPost {
 
     public void setEmailNotify(boolean emailNotify) {
         this.emailNotify = emailNotify;
+    }
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+
+
+    public Object getValue() {
+        return value;
+    }
+
+
+    public void setValue(Object value) {
+        this.value = value;
     }
 
 

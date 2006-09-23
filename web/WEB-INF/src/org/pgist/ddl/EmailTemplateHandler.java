@@ -5,7 +5,6 @@ import java.util.List;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.pgist.system.EmailTemplate;
-import org.pgist.users.Role;
 
 
 /**

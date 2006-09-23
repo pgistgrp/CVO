@@ -7,7 +7,7 @@ import java.util.Set;
  * 
  * @author kenny
  *
- * @hibernate.class table="pgist_dicussion_reply" lazy="true"
+ * @hibernate.class table="pgist_discussion_reply" lazy="true"
  */
 public class DiscussionReply extends GenericPost {
     

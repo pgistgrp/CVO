@@ -1,15 +1,14 @@
 package org.pgist.system;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
 import org.pgist.util.PageSetting;
-import java.util.Collection;
 
 /**
  * DWR AJAX Agent class.<br>

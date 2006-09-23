@@ -68,10 +68,16 @@ public interface SDService {
     Collection getConcerns(InfoObject object, String ids, PageSetting setting) throws Exception;
 
 
-    int getTagCount(InfoStructure structure) throws Exception;
+    int getConcernTagCount(InfoStructure structure) throws Exception;
 
 
-    int getTagCount(InfoObject object) throws Exception;
+    int getConcernTagCount(InfoObject object) throws Exception;
+
+
+    Collection getContextPosts(Long isid, Long pid, String ids, PageSetting setting) throws Exception;
+
+
+    int getPostTagCount(Long isid, Long postId) throws Exception;
 
 
     //temp

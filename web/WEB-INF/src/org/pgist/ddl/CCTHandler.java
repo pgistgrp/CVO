@@ -7,7 +7,6 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.CategoryReference;
-import org.pgist.cvo.Theme;
 import org.pgist.users.User;
 
 

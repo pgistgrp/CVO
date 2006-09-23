@@ -1,9 +1,13 @@
 package org.pgist.projects;
 
 import java.sql.Connection;
-import java.util.*;
 import java.util.Date;
-import org.pgist.discussion.*;
+import java.util.List;
+import java.util.Map;
+
+import org.pgist.discussion.DiscussionDAO;
+import org.pgist.discussion.InfoObject;
+import org.pgist.discussion.InfoStructure;
 
 
 /**

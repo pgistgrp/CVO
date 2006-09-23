@@ -1,7 +1,8 @@
 package org.pgist.projects;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**

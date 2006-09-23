@@ -1,7 +1,5 @@
 package org.pgist.web;
 
-import java.io.File;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -9,7 +7,6 @@ import javax.servlet.ServletContextListener;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.pgist.glossary.TermAnalyzer;
-import org.pgist.search.SearchHelper;
 import org.pgist.tagging.TagAnalyzer;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.orm.hibernate3.SessionHolder;

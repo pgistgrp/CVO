@@ -15,7 +15,7 @@ Zhong:
 [] related concerns and related discussion for sidebar
 [ok] getPosts bug
 [ok] add description field to theme object (for sd.do)
-[] add api for concerns sidebar
+[ok] add api for concerns sidebar
 [ok] object accessible through SDRoomAction
 [ok] default sort for posts: lastPost createtime desc (newest on top)
 [ok] default sort for replies (in sdThread): replies createTime asc (newest on bottom)
@@ -24,7 +24,7 @@ Zhong:
 [] E-mail notification for discussion posts
 [] E-mail notification on mod Feedback Form
 [] Google Map Guirong Code Fixes (after usability test)
-[] multiple filters on sidebar AND
+[ok] multiple filters on sidebar AND
 [] sidebar - other posts in random order for threadmain (for now)
 
 

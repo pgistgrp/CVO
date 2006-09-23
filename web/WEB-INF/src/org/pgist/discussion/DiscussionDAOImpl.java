@@ -1,14 +1,13 @@
 package org.pgist.discussion;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Query;
 import org.pgist.cvo.Concern;
@@ -594,32 +593,106 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getConcerns()
 
 
-    private static final String hql_getTagCount_1 = "select count(distinct link.tagId) from InfoTagLink link where link.isid=?";
+    private static final String hql_getConcernTagCount_1 = "select count(distinct link.tagId) from InfoTagLink link where link.isid=?";
     
     
-    public int getTagCount(InfoStructure structure) throws Exception {
-        Query query = getSession().createQuery(hql_getTagCount_1);
+    public int getConcernTagCount(InfoStructure structure) throws Exception {
+        Query query = getSession().createQuery(hql_getConcernTagCount_1);
         
         query.setLong(0, structure.getId());
         
         Number num = (Number) query.uniqueResult();
         
         return num.intValue();
-    }//getTagCount()
+    }//getConcernTagCount()
 
 
-    private static final String hql_getTagCount_2 = "select count(distinct link.tagId) from InfoTagLink link where link.ioid=?";
+    private static final String hql_getConcernTagCount_2 = "select count(distinct link.tagId) from InfoTagLink link where link.ioid=?";
     
     
-    public int getTagCount(InfoObject object) throws Exception {
-        Query query = getSession().createQuery(hql_getTagCount_2);
+    public int getConcernTagCount(InfoObject object) throws Exception {
+        Query query = getSession().createQuery(hql_getConcernTagCount_2);
         
         query.setLong(0, object.getId());
         
         Number num = (Number) query.uniqueResult();
         
         return num.intValue();
-    }//getTagCount()
+    }//getConcernTagCount()
+
+
+    private static final String sql_getDiscussions_A_1 = "SELECT count(distinct pid) from view_post_reply_tags v where v.isid=:isid and v.pid<>:pid and v.tid in (select tid from view_post_reply_tags where pid=:pid);";
+    
+    private static final String sql_getDiscussions_A_2 = "SELECT pid, ioid from view_post_reply_tags v where v.isid=:isid and v.pid<>:pid and v.tid in (select tid from view_post_reply_tags where pid=:pid) group by pid, ioid order by count(pid) desc;";
+    
+    
+    public Collection getContextPosts(Long isid, Long pid, PageSetting setting) throws Exception {
+        List posts = new ArrayList();
+        
+        Connection connection = getSession().connection();
+        Statement stmt = connection.createStatement();
+        
+        String sql = sql_getDiscussions_A_1.replace(":isid", isid.toString()).replace(":pid", pid.toString());
+        
+        //get count
+        
+        ResultSet rs = stmt.executeQuery(sql);
+        
+        rs.next();
+        
+        int count = rs.getInt(1);
+        
+        setting.setRowSize(count);
+        
+        if (count==0) return posts;
+        
+        //get records
+        
+        sql = sql_getDiscussions_A_2.replace(":isid", isid.toString()).replace(":pid", pid.toString());
+        
+        rs = stmt.executeQuery(sql);
+        
+        while (rs.next()) {
+            Long postId = rs.getLong(1);
+            Long ioid = rs.getLong(2);
+            
+            DiscussionPost post = (DiscussionPost) getHibernateTemplate().load(DiscussionPost.class, postId);
+            
+            if (ioid>0) {
+                InfoObject obj = (InfoObject) getHibernateTemplate().load(InfoObject.class, ioid);
+                post.setValue(obj.getObject());
+            }
+            
+            posts.add(post);
+        }//while
+        
+        return posts;
+    }//getContextPosts()
+
+
+    public Collection getContextPosts(Long isid, Long pid, String ids, PageSetting setting) throws Exception {
+        return null;
+    }//getContextPosts()
+
+
+    private static final String sql_getPostTagCount = "select count(distinct tid) from view_post_reply_tags where isid=? and pid=?";
+    
+    
+    public int getPostTagCount(Long isid, Long postId) throws Exception {
+        Connection connection = getSession().connection();
+        PreparedStatement pstmt = connection.prepareStatement(sql_getPostTagCount);
+        
+        pstmt.setLong(1, isid);
+        pstmt.setLong(2, postId);
+        
+        ResultSet rs = pstmt.executeQuery();
+        
+        rs.next();
+        
+        int num = rs.getInt(1);
+        
+        return num;
+    }//getPostTagCount()
 
 
 }//class DiscussionDAOImpl

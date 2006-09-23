@@ -250,14 +250,28 @@ public class SDServiceImpl implements SDService {
     }//getConcerns()
 
 
-    public int getTagCount(InfoStructure structure) throws Exception {
-        return discussionDAO.getTagCount(structure);
-    }//getTagCount()
+    public int getConcernTagCount(InfoStructure structure) throws Exception {
+        return discussionDAO.getConcernTagCount(structure);
+    }//getConcernTagCount()
 
 
-    public int getTagCount(InfoObject object) throws Exception {
-        return discussionDAO.getTagCount(object);
-    }//getTagCount()
+    public int getConcernTagCount(InfoObject object) throws Exception {
+        return discussionDAO.getConcernTagCount(object);
+    }//getConcernTagCount()
+
+
+    public Collection getContextPosts(Long isid, Long pid, String ids, PageSetting setting) throws Exception {
+        if (ids==null || ids.trim().length()==0) {
+            return discussionDAO.getContextPosts(isid, pid, setting);
+        } else {
+            return discussionDAO.getContextPosts(isid, pid, ids, setting);
+        }
+    }//getContextPosts()
+
+
+    public int getPostTagCount(Long isid, Long postId) throws Exception {
+        return discussionDAO.getPostTagCount(isid, postId);
+    }//getPostTagCount()
 
 
 }//class SDServiceImpl

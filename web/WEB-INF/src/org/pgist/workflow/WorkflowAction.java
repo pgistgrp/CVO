@@ -10,7 +10,6 @@ import org.apache.struts.action.ActionMapping;
 import org.pgist.wfengine.Activity;
 import org.pgist.wfengine.Workflow;
 import org.pgist.wfengine.activity.GroupActivity;
-import org.pgist.wfengine.activity.PActActivity;
 import org.pgist.wfengine.activity.PGameActivity;
 
 

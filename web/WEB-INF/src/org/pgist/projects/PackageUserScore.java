@@ -2,6 +2,7 @@ package org.pgist.projects;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import org.pgist.users.User;
 
 

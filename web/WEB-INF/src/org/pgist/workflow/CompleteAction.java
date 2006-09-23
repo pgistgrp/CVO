@@ -1,10 +1,6 @@
 package org.pgist.workflow;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.struts.action.Action;
@@ -15,7 +11,6 @@ import org.pgist.wfengine.Activity;
 import org.pgist.wfengine.Workflow;
 import org.pgist.wfengine.WorkflowEngine;
 import org.pgist.wfengine.activity.GroupActivity;
-import org.pgist.wfengine.activity.PActActivity;
 import org.pgist.wfengine.activity.PGameActivity;
 
 

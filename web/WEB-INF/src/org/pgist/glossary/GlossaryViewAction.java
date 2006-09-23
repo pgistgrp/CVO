@@ -1,7 +1,5 @@
 package org.pgist.glossary;
 
-import java.util.Collection;
-
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;

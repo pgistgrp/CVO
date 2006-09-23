@@ -1,19 +1,18 @@
 package org.pgist.projects;
 
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
-import java.sql.*;
 
 import org.hibernate.Query;
-
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.util.WKT;
-
-import org.apache.commons.collections.map.HashedMap;
-import org.postgis.*;
-import org.postgresql.jdbc3.Jdbc3Connection;
+import org.postgis.Geometry;
+import org.postgis.PGgeometry;
 
 
 public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {

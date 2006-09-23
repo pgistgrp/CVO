@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 
  * @author kenny
  *
- * @hibernate.class table="pgist_dicussion" lazy="true"
+ * @hibernate.class table="pgist_discussion" lazy="true"
  */
 public class Discussion implements Serializable {
 

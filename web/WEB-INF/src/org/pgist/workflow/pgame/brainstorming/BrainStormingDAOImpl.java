@@ -2,8 +2,6 @@ package org.pgist.workflow.pgame.brainstorming;
 
 import java.util.List;
 
-import org.hibernate.Query;
-import org.pgist.cvo.CVO;
 import org.pgist.model.Post;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 

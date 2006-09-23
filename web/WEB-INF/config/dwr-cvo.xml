@@ -162,6 +162,7 @@
       <include method="getSummary"/>
       <include method="setVoting"/>
       <include method="getConcerns"/>
+      <include method="getContextPosts"/>
     </create>
 
     <create creator="spring" javascript="ProjectAgent">

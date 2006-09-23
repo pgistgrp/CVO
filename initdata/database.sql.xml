@@ -31,5 +31,39 @@
         </script>
     </statement>
 
+    <statement>
+        <description>drop view if exists</description>
+        <script>
+          <![CDATA[
+            DROP VIEW view_post_reply_tags;
+          ]]>
+        </script>
+    </statement>
+    
+    <statement>
+        <description>view for post-reply-tags link</description>
+        <script>
+          <![CDATA[
+            CREATE VIEW view_post_reply_tags AS
+              SELECT s.id AS isid, 0 AS ioid, d.id AS did, p.id AS pid, 0 AS rid, t.tag_id AS tid FROM pgist_discussion d, pgist_discussion_post p, pgist_dpost_tag_link t, pgist_info_structure s WHERE d.targetid=s.id and p.discussion_id=d.id and t.dpost_id=p.id
+            UNION
+              SELECT s.id AS isid, o.id AS ioid, d.id AS did, p.id AS pid, 0 AS rid, t.tag_id AS tid FROM pgist_discussion d, pgist_discussion_post p, pgist_dpost_tag_link t, pgist_info_structure s, pgist_info_object o WHERE d.targetid=o.id and p.discussion_id=d.id and t.dpost_id=p.id and o.structure_id=s.id
+            UNION
+              SELECT s.id AS isid, 0 AS ioid, d.id AS did, p.id AS pid, r.id AS rid, t.tag_id AS tid FROM pgist_discussion d, pgist_discussion_post p, pgist_discussion_reply r, pgist_dreply_tag_link t, pgist_info_structure s WHERE d.targetid=s.id and p.discussion_id=d.id and t.dreply_id=r.id and p.id=r.parent_id
+            UNION
+              SELECT s.id AS isid, o.id AS ioid, d.id AS did, p.id AS pid, r.id AS rid, t.tag_id AS tid FROM pgist_discussion d, pgist_discussion_post p, pgist_discussion_reply r, pgist_dreply_tag_link t, pgist_info_structure s, pgist_info_object o WHERE d.targetid=o.id and p.discussion_id=d.id and t.dreply_id=r.id and o.structure_id=s.id and r.parent_id=p.id;
+          ]]>
+        </script>
+    </statement>
+    
+    <statement>
+        <description>GRANT</description>
+        <script>
+          <![CDATA[
+            GRANT ALL ON view_post_reply_tags TO pgist;
+          ]]>
+        </script>
+    </statement>
+
 </statements>
 
