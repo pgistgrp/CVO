@@ -670,8 +670,64 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getContextPosts()
 
 
+    private static final String sql_getContextPosts_B = "select distinct v.pid as xid, v.ioid as yid from view_post_reply_tags v where v.isid=:isid and v.pid<>:pid and v.tid=";
+    
+    
     public Collection getContextPosts(Long isid, Long pid, String ids, PageSetting setting) throws Exception {
-        return null;
+        List posts = new ArrayList();
+        
+        String[] idArray = ids.split(",");
+        
+        StringBuilder sb = new StringBuilder();
+        
+        for (int i=0; i<idArray.length; i++) {
+            if (i>0) sb.append(" INTERSECT ");
+            sb.append(sql_getContextPosts_B).append(idArray[i]);
+        }
+        String piece = sb.toString().replace(":isid", isid.toString()).replace(":pid", pid.toString());
+        
+        //get count
+        
+        String sql = "select count(distinct x.xid) from ("+piece+") as x";
+        
+        Connection connection = getSession().connection();
+        
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        
+        rs.next();
+        
+        int count = rs.getInt(1);
+        
+        if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
+        
+        setting.setRowSize(count);
+        
+        if (count==0) return posts;
+        
+        //get records
+        
+        stmt = connection.createStatement();
+        
+        sql = piece+" order by xid desc offset "+setting.getFirstRow()+" limit "+setting.getRowOfPage();
+        
+        rs = stmt.executeQuery(sql);
+        
+        while (rs.next()) {
+            Long postId = rs.getLong(1);
+            Long ioid = rs.getLong(2);
+            
+            DiscussionPost post = (DiscussionPost) getHibernateTemplate().load(DiscussionPost.class, postId);
+            
+            if (ioid>0) {
+                InfoObject obj = (InfoObject) getHibernateTemplate().load(InfoObject.class, ioid);
+                post.setValue(obj.getObject());
+            }
+            
+            posts.add(post);
+        }//while
+        
+        return posts;
     }//getContextPosts()
 
 
