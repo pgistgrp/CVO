@@ -23,7 +23,7 @@ import org.pgist.users.User;
  * @author kenny
  *
  */
-public class GlossaryHandler extends Handler {
+public class GlossaryHandler extends XMLHandler {
     
     
     public void doImports(Element root) throws Exception {

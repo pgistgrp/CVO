@@ -12,7 +12,7 @@ import org.pgist.users.Role;
  * @author kenny
  *
  */
-public class RoleHandler extends Handler {
+public class RoleHandler extends XMLHandler {
     
     
     public void doImports(Element root) throws Exception {

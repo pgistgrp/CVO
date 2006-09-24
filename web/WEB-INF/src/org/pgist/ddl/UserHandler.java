@@ -14,7 +14,7 @@ import org.pgist.users.User;
  * @author kenny
  *
  */
-public class UserHandler extends Handler {
+public class UserHandler extends XMLHandler {
     
     
     public void doImports(Element root) throws Exception {

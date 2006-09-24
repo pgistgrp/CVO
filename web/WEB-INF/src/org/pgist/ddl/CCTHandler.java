@@ -15,7 +15,7 @@ import org.pgist.users.User;
  * @author kenny
  *
  */
-public class CCTHandler extends Handler {
+public class CCTHandler extends XMLHandler {
     
     
     public void doImports(Element root) throws Exception {

@@ -12,7 +12,7 @@ import org.pgist.system.EmailTemplate;
  * @author kenny
  *
  */
-public class EmailTemplateHandler extends Handler {
+public class EmailTemplateHandler extends XMLHandler {
     
     
     public void doImports(Element root) throws Exception {

@@ -14,7 +14,7 @@ import org.pgist.tagging.Tag;
  * @author kenny
  *
  */
-public class CategoryHandler extends Handler {
+public class CategoryHandler extends XMLHandler {
     
     
     public void doImports(Element root) throws Exception {

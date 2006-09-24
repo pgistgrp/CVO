@@ -2,7 +2,7 @@ package org.pgist.tests;
 
 import java.io.File;
 import java.sql.Connection;
-import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,27 +95,43 @@ public class SystemInit extends MatchingTask {
         LocalSessionFactoryBean slfb = (LocalSessionFactoryBean) appContext.getBean("&sessionFactory");
         
         if ("createdb".equalsIgnoreCase(action)) {
+            
+            SAXReader reader = new SAXReader();
+            Document document = reader.read(new File(dataPath, "schema.sql.xml"));
+            Element root = document.getRootElement();
+            
+            List<SchemaManager> managers = new ArrayList<SchemaManager>();
+            
+            List scripts = root.elements("script");
+            for (int i=0; i<scripts.size(); i++) {
+                Element element = (Element) scripts.get(i);
+                
+                String file = element.elementTextTrim("file");
+                
+                SchemaManager manager = null;
+                
+                manager = new SchemaManager();
+                
+                manager.setFile(new File(dataPath, file));
+                
+                managers.add(manager);
+            }//for i
+            
+            Connection connection = session.connection();
+            
+            //drop additional schemas
+            for (int i=0; i<managers.size(); i++) {
+                managers.get(i).executeDrop(connection);
+            }
+            
             slfb.dropDatabaseSchema();
             slfb.createDatabaseSchema();
             
-            //run additional sql scripts
-            Connection connection = session.connection();
-            Statement stmt = connection.createStatement();
+            //create additional schemas
+            for (int i=0; i<managers.size(); i++) {
+                managers.get(i).executeCreate(connection);
+            }
             
-            SAXReader reader = new SAXReader();
-            Document document = reader.read(new File(dataPath, "database.sql.xml"));
-            Element root = document.getRootElement();
-            
-            List elements = root.elements("statement");
-            for (int i=0; i<elements.size(); i++) {
-                Element element = (Element) elements.get(i);
-                String sql = element.elementTextTrim("script");
-                try {
-                    stmt.executeUpdate(sql);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }//for i
         } else if ("restoredb".equalsIgnoreCase(action)) {
             slfb.dropDatabaseSchema();
             slfb.createDatabaseSchema();

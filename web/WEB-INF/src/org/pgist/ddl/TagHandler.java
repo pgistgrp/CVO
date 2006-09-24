@@ -12,7 +12,7 @@ import org.pgist.tagging.Tag;
  * @author kenny
  *
  */
-public class TagHandler extends Handler {
+public class TagHandler extends XMLHandler {
     
     
     public void doImports(Element root) throws Exception {

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scripts>
+
+
+    <script>
+        <description>initialize postgis-pgist data</description>
+        <file>PostGIS/postgis-pgist.xml</file>
+    </script>
+
+
+    <script>
+        <description>initialize database views</description>
+        <file>database-views.xml</file>
+    </script>
+    
+    
+</scripts>
+
