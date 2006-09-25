@@ -115,7 +115,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-					alert(errorString + exception);
+					alert("getThemes: "+errorString+" "+exception);
 			}
 			});
 	
@@ -144,7 +144,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-					alert(errorString + exception);
+					alert("saveSummary: "+errorString+" "+exception);
 			}
 			});
 		}
@@ -201,7 +201,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-					showTheError();
+					alert("getTags: "+errorString+" "+exception);
 			}
 			});
 		}
@@ -221,7 +221,8 @@
 					}
 				},
 			errorHandler:function(errorString, exception){ 
-					showTheError();
+			alert("relateTag: "+errorString+ " "+exception);
+					//showTheError();
 			}
 			});
 		}	
@@ -242,7 +243,7 @@
 						}
 					},
 				errorHandler:function(errorString, exception){ 
-						showTheError();
+						alert("derelateTag: "+errorString+" "+exception);
 				}
 				});
 		}		
@@ -264,7 +265,7 @@
 						}
 					},
 				errorHandler:function(errorString, exception){ 
-						showTheError();
+						alert("getConcernsByTags: "+errorString+" "+exception);
 				}
 				});
 		}
@@ -281,7 +282,7 @@
 						}
 					},
 				errorHandler:function(errorString, exception){ 
-						showTheError();
+						alert("getConcerns: "+errorString+" "+exception);
 				}
 				});
 		}
@@ -298,7 +299,7 @@
 						}
 					},
 				errorHandler:function(errorString, exception){ 
-						showTheError();
+						alert("getConcerns: "+errorString+" "+exception);
 				}
 				});
 		}
@@ -314,7 +315,7 @@
 						}
 					},
 				errorHandler:function(errorString, exception){ 
-						showTheError();
+						alert("publish: "+errorString+" "+exception);
 				}
 				});
 		}
@@ -346,7 +347,7 @@
 						alert(data.reason);
 					}
 				},
-				errorHandler:function(errorString){ alert("oops, exception: " + errorString);}
+				errorHandler:function(errorString, exception){alert("addcategory: "+errorString+" "+exception);}
 			});			
 		}else{
 		alert("Category can't be blank.");
@@ -376,6 +377,9 @@
 									new Effect.PhaseOut('col-crud-options');
 									getThemes(); 
 								}
+							},
+							errorHandler:function(errorString, exception){
+							alert("deleteSelectedCategory: "+errorString+" "+exception);
 							}
 				});
 			}
@@ -396,9 +400,13 @@
 								new Effect.Fade('col-option'); 
 								getThemes();
 								setThemeTitle('View/edit summary for theme "' + newtext + '"');
-							}else
-								alert(data.reason);
-						}
+							}else{
+								alert("modifySelectedCategory failure reason: "+data.reason);
+							}
+						},
+						errorHandler:function(errorString, exception){
+							alert("modifySelectedCategory: "+errorString+" "+exception);
+							}
 			});
 		}else{
 			alert("Category can't be blank.");	
@@ -504,6 +512,9 @@
 					alert(data.reason);
 					return false;
 				}
+			},
+			errorHandler:function(errorString, exception){
+							alert("moveNodeHandler: "+errorString+" "+exception);
 			}
 		});
 	}
@@ -520,6 +531,9 @@
 					Effect.Fade('savingIndicator');
 				}
 				else return false;
+			},
+			errorHandler:function(errorString, exception){
+							alert("copyNodeHandler: "+errorString+" "+exception);
 			}
 		});
 	}
@@ -553,7 +567,11 @@
 					
 					alert(data.reason);
 					Effect.Fade('savingIndicator');
-			}});
+			},
+			errorHandler:function(errorString, exception){
+							alert(errorString+" "+exception);
+			}
+		});
 		}
 	}
 	

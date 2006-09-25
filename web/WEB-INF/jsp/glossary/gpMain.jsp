@@ -85,7 +85,7 @@
 					
 				},
 				errorHandler:function(errorString, exception){ 
-				alert(errorString+" "+exception);
+				alert("getTerms: "+errorString+" "+exception);
 						//showTheError();
 				}
 			});
@@ -105,6 +105,7 @@
 					}
 				},
 				errorHandler:function(errorString, exception){ 
+						alert("getTermObject: "+errorString+" "+exception);
 						//showTheError();
 				}
 			});
@@ -173,7 +174,7 @@
 					}
 				},
 				errorHandler:function(errorString, exception){ 
-						alert(errorString+" "+exception);
+						alert("proposeTerm: "+errorString+" "+exception);
 						//showTheError();
 				}
 			});

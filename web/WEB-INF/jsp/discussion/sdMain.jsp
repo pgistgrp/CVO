@@ -69,7 +69,7 @@
 						}
 					},
 				errorHandler:function(errorString, exception){ 
-						alert("get targets error:" + errorString + exception);
+						alert("get targets error: " + errorString +" "+ exception);
 				}
 				});
 			};
@@ -88,7 +88,7 @@
 							}
 						},
 					errorHandler:function(errorString, exception){ 
-							alert("get targets error:" + errorString + exception);
+							alert("setVote:" + errorString + exception);
 					}
 					});
 				};

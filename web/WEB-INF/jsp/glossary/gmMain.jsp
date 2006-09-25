@@ -52,26 +52,6 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 }
 		
 		
-		
-		var yscrollPos=0;
-		var xscrollPos=0;
-		function getScrollPos(){
-			if (self.pageYOffset) {
-				yscrollPos = self.pageYOffset;
-				xscrollPos = self.pageXOffset;
-			} else if (document.documentElement && document.documentElement.scrollTop){
-				yscrollPos = document.documentElement.scrollTop; 
-				xscrollPos = document.documentElement.scrollLeft;
-			} else if (document.body) {
-				yscrollPos = document.body.scrollTop;
-				xscrollPos = document.body.scrollLeft;
-			}
-		}
-		
-		function setScrollPos(){
-			window.scrollTo(xscrollPos,yscrollPos);
-		}
-		
 		function deleteConfirm(termstring,tid){
 			var dletebox=confirm("Do you really wish to delete \""+termstring+"\"?");
 			if(dletebox==true){
@@ -92,7 +72,7 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 			}
 		},
 			errorHandler:function(errorString, exception){
-			alert(errorString+" "+exception);
+			alert("deleteTerm: "+errorString+" "+exception);
 			}
 		});
 		}
@@ -105,11 +85,11 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 						$('proposedList').innerHTML="";
 						$('proposedList').innerHTML+=data.html;
 					}else{
-						alert("getProposedTerms failure reason: "+data.reason);
+						alert("deleteTerm failure reason: "+data.reason);
 					}
 				},
 				errorHandler:function(errorString, exception){
-				alert(errorString+" "+exception);
+				alert("getProposedTerms: "+errorString+" "+exception);
 				}
 			
 		
@@ -139,7 +119,7 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 					
 				},
 				errorHandler:function(errorString, exception){ 
-				alert(errorString+" "+exception);
+				alert("getTerms: "+errorString+" "+exception);
 						
 				}
 			});
@@ -161,7 +141,7 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 			}
 			},
 			errorHandler:function(errorString, exception){
-			alert(errorString+" "+exception);
+			alert("saveNewTerm: "+errorString+" "+exception);
 			}
 			
 		});
@@ -194,7 +174,7 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 				}
 			},
 			errorHandler:function(errorString, exception){
-			alert(errorString+" "+exception);
+			alert("saveEditedAttributes: "+errorString+" "+exception);
 			}
 			
 		});
@@ -465,7 +445,7 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 				}
 			},
 			errorHandler:function(errorString, exception){
-			alert(errorString+" "+exception);
+			alert("changeEditBoxContent: "+errorString+" "+exception);
 			}
 			
 			
@@ -494,25 +474,9 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 				getTerms(term, thisSort); 
 				isTermsGotten();
 		}
-</script>
-
-<style type='text/css'>
-#saving-indicator{
-	display: none;
-	background-color: red;
-	color: white;
-	position: fixed;
-	top: 0;
-	left:0;
-	padding: 3px;
-	z-index: 500;
-}
-
-
-
-</style>
-<script type='text/javascript'>
-function edit(boxid){
+		
+		
+		function edit(boxid){
 var editid='editbox'+boxid;
 var editrowid='editrow'+boxid;
 
@@ -550,9 +514,23 @@ var t = setTimeout('jumpTo("'+editid+'");',500);
 }
 
 
-
-
 </script>
+
+<style type='text/css'>
+#saving-indicator{
+	display: none;
+	background-color: red;
+	color: white;
+	position: fixed;
+	top: 0;
+	left:0;
+	padding: 3px;
+	z-index: 500;
+}
+
+
+
+</style>
 
 </head>
 

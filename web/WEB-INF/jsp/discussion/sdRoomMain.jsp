@@ -126,7 +126,7 @@
 							}
 						},
 					errorHandler:function(errorString, exception){ 
-							alert("get targets error:" + errorString + exception);
+							alert("setVote error:" + errorString + exception);
 					}
 					});
 			</c:if>

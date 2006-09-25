@@ -206,7 +206,7 @@ function saveTheConcern(){
 			}
 		},
 		errorHandler:function(errorString, exception){ 
-			alert(data.reason);
+			alert("saveTheConcern: "+errorString+" "+exception);
 		}
 });
 $("indicator").style.visibility = "hidden";
@@ -221,7 +221,8 @@ function getTagCloud(){
 			}
 		},
 		errorHandler:function(errorString, exception){ 
-			showTheError();
+		alert("getTagCloud: "+errorString+" "+exception);
+			//showTheError();
 		}
 });
 }
@@ -241,7 +242,8 @@ CCTAgent.getConcerns({cctId:cctId,type:theType,count:5}, {
 		}
 	},
 	errorHandler:function(errorString, exception){ 
-			showTheError();
+			alert("getRandomConcerns: "+errorString+" "+exception);
+			//showTheError();
 	}
 });
 }
@@ -261,7 +263,8 @@ CCTAgent.getConcerns({cctId:cctId,type:0,count:-1}, {
 				}
 		},
 		errorHandler:function(errorString, exception){ 
-				showTheError();
+		alert("showMyConcerns: "+errorString+" "+exception);
+				//showTheError();
 		}
 	});
 }
@@ -283,7 +286,8 @@ function getConcernsByTag(id){
 			}
 		},
 	errorHandler:function(errorString, exception){ 
-			showTheError();
+			alert("getConcernsByTag: "+errorString+" "+exception);
+			//showTheError();
 	}
 	});
 }
@@ -297,7 +301,8 @@ CCTAgent.getConcerns({cctId:cctId,type:2,count:5, page:pageNum}, {
 			}
 		},
 	errorHandler:function(errorString, exception){ 
-			showTheError();
+			alert("goPage: "+errorString+" "+exception);
+			//showTheError();
 	}
 	});
 }
@@ -335,7 +340,8 @@ CCTAgent.searchTags({cctId:cctId,tag:theTag},{
 			}
 	},
 	errorHandler:function(errorString, exception){ 
-				showTheError();
+				alert("tagSearch: "+errorString+" "+exception);
+				//showTheError();
 	}		
 });
 }
@@ -380,7 +386,8 @@ function sidebarSearchTagsAction(theTag){
 					}
 			},
 			errorHandler:function(errorString, exception){ 
-						showTheError();
+						alert("sidebarSearchTagsAction: "+errorString+" "+exception);
+						//showTheError();
 			}		
 		});	
 }
@@ -412,17 +419,14 @@ CCTAgent.getConcernById(concernId, {
 		}
 	},
 	errorHandler:function(errorString, exception){ 
-			showTheError();
+			alert("editConcernPopup: "+errorString+" "+exception);
+			//showTheError();
 	}
 
 });
 
 }
 
-//-----------------------------------------------------------------------------------------
-
-
-//-------------
 
 
 function editConcern(concernId){
@@ -435,7 +439,8 @@ CCTAgent.editConcern({concernId:concernId, concern:newConcern}, {
 			}  
 	},
 	errorHandler:function(errorString, exception){ 
-			showTheError();
+			alert("editConcern: "+errorString+" "+exception);
+			//showTheError();
 	}
 });
 }
@@ -468,7 +473,8 @@ function editTagsPopup(concernId){
 			}
 	},
 	errorHandler:function(errorString, exception){ 
-			showTheError();
+			alert("editTagsPopup: "+errorString+" "+exception);
+			//showTheError();
 	}
 });
 
@@ -495,7 +501,8 @@ CCTAgent.editTags({concernId:concernId, tags:concernTags}, {
 		}
 	},
 	errorHandler:function(errorString, exception){ 
-			showTheError();
+			alert("editTags: "+errorString+" "+exception);
+			//showTheError();
 	}
 });
 }
@@ -512,7 +519,8 @@ if (destroy){
 				}
 		},
 		errorHandler:function(errorString, exception){ 
-			showTheError();
+			alert("delConcern: "+errorString+" "+exception);
+			//showTheError();
 		}
 		});
 }

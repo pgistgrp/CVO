@@ -81,7 +81,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){
-				alert(errorString+" "+exception);
+				alert("acceptTerm: "+errorString+" "+exception);
 			
 			}
 		});
@@ -103,7 +103,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){
-				alert(errorString+" "+exception);
+				alert("rejectTerm: "+errorString+" "+exception);
 			
 			}
 		});
@@ -128,7 +128,7 @@
 					}
 				},
 				errorHandler:function(errorString, exception){ 
-				alert(errorString+" "+exception);
+				alert("setFlag: "+errorString+" "+exception);
 						//showTheError();
 				}
 			});
@@ -149,7 +149,7 @@
 					}
 				},
 				errorHandler:function(errorString, exception){ 
-				alert(errorString+" "+exception);
+				alert("getComments: "+errorString+" "+exception);
 						//showTheError();
 				}
 			});
@@ -178,7 +178,7 @@
 					}
 				},
 				errorHandler:function(errorString, exception){ 
-				alert(errorString+" "+exception);
+				alert("createComment1: "+errorString+" "+exception);
 						//showTheError();
 				}
 			});
