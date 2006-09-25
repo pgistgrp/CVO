@@ -62,7 +62,7 @@
 </div>
 <a name="replyAnchor"></a>
 <div id="newReply" class="greenBB" style="padding: 5px 10px; margin-top: 20px; border-top: 2px solid #C0D7F6">
-	<h3>Post a Reply</h3>
+	<h4>Post a Reply</h4>
 	<form>
 		<p><label>Post Title</label><br><input style="width:100%" type="text" value="Re: ${post.title} " id="txtnewReplyTitle"/></p>
 		<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtnewReply"></textarea></p>
