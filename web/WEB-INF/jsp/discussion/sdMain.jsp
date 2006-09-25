@@ -226,7 +226,7 @@
 				
 			<div id="finished" class="greenBB">
 				<h4>Ready for the next step?</h4><br />
-				<p>Click on the continue button to go on to step 2 where you will review and weigh criteria to evaluate proposed transportation projects.  Go back to your <a href="main.do">home page</a> or  <a href="files/sdcWaiting.jsp"><img src="images/btn_gcontinue_a.gif" border="0" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_gcontinue_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></p>
+				<p>Click on the continue button to go on to step 2 where you will review and weigh criteria to evaluate proposed transportation projects.  Go back to your <a href="main.do">home page</a> or  <a href="sdcWaiting.jsp"><img src="images/btn_gcontinue_a.gif" border="0" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_gcontinue_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></p>
 			</div>
 		
 		<td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
