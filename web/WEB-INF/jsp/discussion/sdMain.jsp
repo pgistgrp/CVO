@@ -92,8 +92,25 @@
 					}
 					});
 				};
-			};
 			
+			
+			 this.getConcerns = function(tags){
+	 	 			//displayIndicator(true);
+					SDAgent.getConcerns({isid: ${structure.id}, tags:tags}, {
+					callback:function(data){
+							if (data.successful){
+	              				 alert("it worked" + data.html);
+							}else{
+								alert(data.reason);
+								// displayIndicator(false);
+							}
+						},
+					errorHandler:function(errorString, exception){ 
+							alert("get targets error:" + errorString + exception);
+					}
+					});
+				};
+			};
 		function displayIndicator(show){
 		if (show){
 			$('loading-indicator').style.display = "inline";	
@@ -243,84 +260,8 @@
 		<!-- End Duplicate tagSelector to work as a spacer during expand effect -->
 		<div id="sidebarSearchResults" style="display: none;"></div>
 		  <div id="sidebar_content">
-		  <h4>Hot Discussions</h4>
-			<!-- mock discussion -->
-			<div><span class="participantName"><a
-href="">This doesn't reflect my concerns at all</a></span><br />
-	  <small>"First of all, only one of my concerns is even touched on in
-the summary for safety, even though I<a href="href://">...</a>"</small>
-(<span class="participantName"><a href=""
-style="color:#0061A8">ChiCummins</a></span> in
-<strong>Safety)</strong><br />
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(902);">commuting</a></span>
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(885);">congestion</a></span>
-	  <span class="tags"><a href="javascript:getConcernsByTag(894);">hov
-lanes</a></span>
-  </div>
-	<br />
-	<div><span class="participantName"><a href="">Works for me
-</a></span><br />
-	  <small>"Looks good... I like what PetePeterson said about
-encouraging pedestrian traffic downtown during the<a
-href="href://">...</a>"</small> (<a href="href://"
-style="color:#0061A8"><span class="participantName">Ida
-Fitzgerald</span></a> in<strong> Congestion) </strong><br />
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(902);">pollution</a></span>
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(885);">bicycles</a></span>
-  </div>
-	<br />
-	<div>
-	  <span class="participantName"><a href="">You're missing the
-point </a></span><br />
-	  <small>"It's not about how many cars are on the road, it's about how
-congested the roads are.  It's more<a href="href://">...</a>"</small>
-<span class="participantName">(<a href="href://"
-style="color:#0061A8">Roy Thompson</a> </span>in
-<strong>Congestion</strong>)<br />
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(902);">commuting</a></span>
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(885);">congestion</a></span>
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(894);">capacity</a></span>
-  </div>
-<br />
-	<div><span class="participantName"><a href="">Focus on
-providing service to everybody </a></span><br />
-	  <small>"The summary is decent, but you need to rewrite it so that
-people get the message that the bus system<a
-href="href://">...</a>"</small> (<span class="participantName"
-style="text-align:right"><a href="href://"
-style="color:#0061A8">SGould48</a></span> in
-<strong>Accessibility</strong>)<br />
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(902);">accessibility</a></span>
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(885);">metro</a></span>
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(894);">access</a></span>
-  </div>
-	<br />
-	<div><span class="participantName"><a href="">Let's move on
-</a></span><br />
-	  <small>"I don't think we're going to get a consensus on the exact
-wording of the summary, but don't we all<a
-href="href://">...</a>"</small> (<span class="participantName"
-style="text-align:right"><a href="href://"
-style="color:#0061A8">XueCrain</a></span> in
-<strong>Accessibility</strong>) <br />
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(902);">disabled</a></span>
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(885);">access</a></span>
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(894);">commuting</a></span>
-  </div>
-  <!-- end mock discussion-->
+		  <h4>Concerns from Participants</h4>
+			<a href="javascript:infoStructure.getConcerns('t');">Get Concerns</a>
 <!-- PREV and NEXT Buttons -->
 <span class="textright"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></span><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()">
 <!-- End PREV and NEXT Buttons -->

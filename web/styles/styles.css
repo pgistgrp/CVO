@@ -259,6 +259,10 @@ h6 {
 	border-bottom: 3px solid #C0D7F6;
 	color: #FFFFFF;
 }
+
+.bluetitle a{
+	color: #FFF;
+}
 .borderblue {
 	border: 1px solid #7888A9;
 }
@@ -496,6 +500,10 @@ li.tagsList{
 	text-decoration: none;
 }
 
+li.tagsList a{
+	text-decoration: none;
+	color: #878;
+}
 .post{
 	background: #fff;
 	margin-top: 10px;

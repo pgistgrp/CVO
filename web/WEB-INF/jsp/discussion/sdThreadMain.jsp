@@ -182,7 +182,7 @@
 
 <div id="object">
 	
-	<div id="post">
+	<div id="post${post.id}">
 		 <h3>
 		 	<a href="sd.do?isid=${structure.id}">All concern themes</a> &raquo;  
 		 	<c:choose>
@@ -195,8 +195,12 @@
 		 	</c:choose>
 		 	${post.title}
 		 </h3>
-		<small>Posted on <fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}</small>
-		<p>${post.content}</p>
+		 
+		 <div class="bluetitle">
+		 	<span class="padding-sides"><strong>${post.title}</strong> - <small>Posted on <fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}</small></span>
+		 </div>
+		<div class="padding">
+		${post.content}
 		<c:if test="${fn:length(reply.tags) != 0}">
 		<ul class="tagsList"><strong>tags: </strong>
 			<logic:iterate id="tag" name="post" property="tags">
@@ -205,8 +209,10 @@
 		<small>- click on a tag to view other discussions with the same tag.</small>
 		</ul>
 		</c:if>
+		</div>
 		<div id="replyTo${post.id}" style="text-align: right;"><a href="javascript:location.href='#replyAnchor';  new Effect.Pulsate('newReply', {duration: .8, from: 0.5}); void(0);"><img src="images/btn_postreply_a.gif" alt="Post Reply" name="postreplya" width="74" height="20" class="button" id="postreplya" onMouseOver="MM_swapImage('postreplya','','images/btn_postreply_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></div>
 	</div><!--end post-->
+
    <div id="extrapadding" class="padding-sides">
 	<div id="replies-cont" class="greyscheme">
 		<!--load replies and post reply form here -->
@@ -248,97 +254,20 @@
 </div>
 <div id="sidebarSearchResults" style="display: none;"></div>
   <div id="sidebar_content">
+ <h3>Related Discussions</h3>
 <!-- start mock disc -->
-  	<div><span class="participantName"><a href="">Who voted to
-revise the summary? </a></span><br />
-	  <small>"I can't believe this.  is the web site broken?  this is like
-the monorail vote, over and over and <a href="href://">...</a>"</small>
-(<span class="participantName" style="text-align:right"><a
-href="href://" style="color:#0061A8">Avery</a></span> in<strong>
-Public Transportation </strong>) <br />
-	  <span class="tags"><a href="javascript:getConcernsByTag(902);">bus
-stops</a></span>
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(885);">work</a></span>
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(894);">I-405</a></span>
-  </div>
-<br />
-  	<div><span class="participantName"><a href="">Yes!!! I
-agree!!! </a></span><br />
-	  <small>"Very well said guys.  I have nothing to add to except I
-agree with everything everybody has already<a
-href="href://">...</a>"</small> (<span class="participantName"
-style="text-align:right"><a href="href://"
-style="color:#0061A8">MissBryana</a></span> in
-<strong>Safety</strong>) <br />
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(902);">safety</a></span>
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(885);">commuting</a></span>
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(894);">traffic</a></span>
-  </div>
-<br />
-  	<div><span class="participantName"><a href="">Okay, but
-what about vehicle taxes?  </a></span><br />
-	  <small>"The most important &quot;concern&quot; I wrote was about
-taxing SUVs to pay for alternative transportation<a
-href="href://">...</a>"</small> (<a href="href://"
-style="color:#0061A8">unicycler</a> in <strong>Alternatives</strong>)
-<br />
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(902);">taxes</a></span>
-	  <span class="tags"><a 
-href="javascript:getConcernsByTag(885);">tax</a></span>
-	  <span class="tags"><a 
-href="javascript:getConcernsByTag(894);">SUV</a></span>
-  </div>
-<br />
-  	<div><span class="participantName"><a href="">Nice summary,
-but this is the real world </a></span><br />
-	  <small>"Somebody has to figure out how to pay for this stuff, and my
-hunch is they'll just decide to raise<a href="href://">...</a>"</small>
-(<a href="href://" style="color:#0061A8">Moreno</a> in
-<strong>Funding</strong>) <br />
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(902);">money</a></span>
-	  <span class="tags"><a 
-href="javascript:getConcernsByTag(885);">tax</a></span>
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(894);">funding</a></span>
-  </div>
-<br />
-  	<div><span class="participantName"><a href="">Fixing
-congestion  </a></span><br />
-	  <small>"You can't build your way out of congestion.  Did anybody
-read the recent article in the Times about<a
-href="href://">...</a>"</small> (<span class="participantName"
-style="text-align:right"><a href="href://"
-style="color:#0061A8">GIJoel</a></span> in
-<strong>Congestion</strong>) <br />
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(902);">congestion</a></span>
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(885);">traveling</a></span>
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(894);">construction</a></span>
-  </div>
-	<br />
-		<div><span class="participantName"><a href="">TThompson:
-what are you talking about? </a></span><br />
-	  <small>"Did you even read the summary before going off on a rant
-like that?  Nobody is saying that we need<a
-href="href://">...</a>"</small> (<span class="participantName"
-style="text-align:right"><a href="href://">ofradical</a></span> in
-<strong>Public Transportation</strong>)<br />
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(902);">light rail </a></span>
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(885);">metro</a></span>
-	  <span class="tags"><a
-href="javascript:getConcernsByTag(894);">monorail</a></span>
-  </div>
+<div id="reply2152" class="replies">
+		 <div id="replies_title" class="bluetitle">
+		 	<span class="padding-sides"><strong><a href="#">Test</a></strong> - <small>Posted on 09/25/06, 09:51 AM by: <strong>admin</strong> in discussion room <strong>Safety</strong></small></span>
+		 </div>
+		<div class="padding">
+		<small>This text will be limited to 100 characters... </small>
+		<br />
+		<ul class="tagsList"><span class="smalltext"><strong>tags:</strong></small>
+			<li class="tagsList"><small><a href="#">asdf</a></small></li>
+		</ul>
+		</div>
+</div>
 
 <!-- end mock disc -->
 <!-- PREV and NEXT Buttons -->
