@@ -278,10 +278,9 @@
 	
 		
 		<!-- start feedback form -->
-	<p>Found a bug?  Problem accessing a part on the page?  <a href="javascript:Effect.toggle('feedbackForm','blind');">Send us feedback.</a></p>
-	<div id="feedbackForm" style="display: none;">
+		
 		<pg:feedback id="feedbackDiv" action="sdMain.do" />
-	</div>
+	
 <!-- end feedback form -->
 		</div><!-- End cont-main -->
 </div> <!-- End container -->

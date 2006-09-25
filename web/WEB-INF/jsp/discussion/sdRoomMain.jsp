@@ -532,14 +532,14 @@ function MM_swapImage() { //v3.0
 
 
 <!-- start feedback form -->
-	<p>Found a bug?  Problem accessing a part on the page?  <a href="javascript:Effect.toggle('feedbackForm','blind');">Send us feedback.</a></p>
-	<div id="feedbackForm" style="display: none;">
 		<pg:feedback id="feedbackDiv" action="sdRoom.do" />
-	</div>
+	
 <!-- end feedback form -->
 </div> <!-- End container -->
 <!-- Start Footer -->
 <jsp:include page="/footer.jsp" />
+
+
 
 <!-- End Footer -->
 <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->

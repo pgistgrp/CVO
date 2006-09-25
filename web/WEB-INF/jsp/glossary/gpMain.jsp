@@ -361,6 +361,11 @@ tr:hover {background-color: #F1F7FF;}
 	
 
 </div>
+
+<!--feedback form-->
+<pg:feedback id="feedbackDiv" action="glossaryPublic.do" />
+<!--end feedback form-->
+
 <!-- Start Footer -->
 <jsp:include page="/footer.jsp" />
 
@@ -401,6 +406,8 @@ tr:hover {background-color: #F1F7FF;}
 		  
 		  </form>
 </div>
+
+
   
 
 <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->

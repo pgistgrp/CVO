@@ -678,6 +678,10 @@ tr:hover {background-color: #F1F7FF;}
 <!-- Start Footer -->
 <div id="footer_clouds">
 
+<pg:feedback id="feedbackDiv" action="glossaryManage.do" />
+
+
+
 	<div id="footer_text">
 	<a href="http://www.pgist.org/"><img src="glossaryTermManagement_files/footerlogo.png" alt="PGIST Logo" class="imgright" border="0" height="51" width="156"></a><br>This
 research is funded by National Science Foundation, Division of

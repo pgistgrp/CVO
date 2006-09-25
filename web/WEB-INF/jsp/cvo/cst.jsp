@@ -710,8 +710,15 @@ categories, each with 1 or 2 tags in it.</li></ol><li><b>Identify themes and sum
 
 </div>
 </div>
+<!--feedback form-->
+
+<pg:feedback id="feedbackDiv" action="cstView.do" />
+
+<!--end feedback form-->
 <!-- Start Footer -->
 <jsp:include page="/footer.jsp" />
+
+
 
 <!-- End Footer -->
 

@@ -290,16 +290,16 @@
 	<p>Click on the continue button to go on to step 2 where you will review and weigh criteria to evaluate proposed transportation projects.  Go back to your <a href="main.do">home page</a> or  <img src="images/btn_gcontinue_a.gif" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_gcontinue_b.gif',1)" onMouseOut="MM_swapImgRestore()"></p>
 </div>
 <!-- start feedback form -->
-	<p>Found a bug?  Problem accessing a part on the page?  <a href="javascript:Effect.toggle('feedbackForm','blind');">Send us feedback.</a></p>
-	<div id="feedbackForm" style="display: none;">
+
 		<pg:feedback id="feedbackDiv" action="sdThread.do" />
-	</div>
+		
 <!-- end feedback form -->
 </div>
 <!-- End cont-main -->
 </div> <!-- End container -->
 <!-- Start Footer -->
 <jsp:include page="/footer.jsp" />
+
 
 <!-- End Footer -->
 <script type="text/javascript">
