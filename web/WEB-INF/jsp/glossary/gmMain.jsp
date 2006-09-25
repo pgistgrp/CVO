@@ -598,7 +598,7 @@ tr:hover {background-color: #F1F7FF;}
 	
 	
 	<!--Proposed Glossary Terms-->
-	<h3>Proposed Glossary Terms by Participants - Waiting for Moderator Approval</h3>
+
 	<div id="proposedList">
 	<!-- load proposed terms here -->
 	</div>

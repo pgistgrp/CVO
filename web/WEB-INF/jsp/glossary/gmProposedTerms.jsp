@@ -7,13 +7,14 @@
 		
 		
 
-
+ <logic:iterate id="term" name="terms">
+<c:if test="${fn:length(terms) != 0}">
+	<h3>Proposed Glossary Terms by Participants - Waiting for Moderator Approval</h3>
 		<table id="proposedTermListTable" class="blueBB" cellspacing="2" cellpadding="4" frame="box" rules="all" width="100%">
 	 <tr>
   	<th style="text-align: left" id="name">term</th><th style="text-align: left" id="def">a short definition</th><th style="text-align:center" id="proposedBy">proposed by</th>
    </tr>
-  <logic:iterate id="term" name="terms">
-<c:if test="${fn:length(terms) != 0}">
+ 
 	    <tr>
 	      <td><a href="glossaryView.do?id=${term.id}">${(term.name)}</a></td>
 	      <td>${term.shortDefinition}</td>
