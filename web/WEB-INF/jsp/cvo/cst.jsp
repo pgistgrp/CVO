@@ -1,6 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -592,6 +593,7 @@
 </head>
 
 <body onResize="dosize()" onkeydown="globalKeyHandler(event);">
+
 <div id="container">
 	<jsp:include page="/header.jsp" />
 	<!-- START LIGHTBOX -->
@@ -679,7 +681,7 @@ categories, each with 1 or 2 tags in it.</li></ol><li><b>Identify themes and sum
 		<div id="spacer">
 		</div>
 		
-		<div id="wysiwyg" style="padding-bottom: 10px"'> 
+		<div id="wysiwyg" style="padding-bottom: 10px;"> 
 			<h3>Step X - <span id="summaryEditorTitle">Click on the theme name to view/edit.</span></h3>
 		
 			<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->	
@@ -699,6 +701,10 @@ categories, each with 1 or 2 tags in it.</li></ol><li><b>Identify themes and sum
 			 
 		<div id="spacer" style="text-align: right;"></div>
 		
+		<!--footer-->
+		
+		
+		<!--end footer-->
 		<div id="finished">
 			<a name="finished"></a>
 	   		<h3 id="headerFinished">Finished synthesizing concerns?
@@ -710,11 +716,10 @@ categories, each with 1 or 2 tags in it.</li></ol><li><b>Identify themes and sum
 
 </div>
 </div>
-<!--feedback form-->
 
-<pg:feedback id="feedbackDiv" action="cstView.do" />
+<div>
 
-<!--end feedback form-->
+</div>
 <!-- Start Footer -->
 <jsp:include page="/footer.jsp" />
 
@@ -722,6 +727,11 @@ categories, each with 1 or 2 tags in it.</li></ol><li><b>Identify themes and sum
 
 <!-- End Footer -->
 
+<!--feedback form-->
+
+<pg:feedback id="feedbackDiv" action="cstview.do" />
+
+<!--end feedback form-->
 </body>
 </html>
     
