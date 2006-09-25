@@ -76,8 +76,9 @@ select {
 }
 #finished {
 	margin-top: 2em;
-	margin-right: 15px;
-	margin-left: 15px;
+	margin-bottom: 1em;
+	margin-right: 0px;
+	margin-left: 0px;
 	padding: 5px;
 	padding-left: 10px;
 	padding-right: 10px;
