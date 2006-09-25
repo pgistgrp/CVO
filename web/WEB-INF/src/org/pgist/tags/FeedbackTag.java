@@ -78,7 +78,7 @@ public class FeedbackTag extends SimpleTagSupport {
         writer.write("}");
         writer.write("</script>");
         
-        writer.write("<div id=\"feedbackDiv\">Feedback:<br><textarea id=\"feedback_input\"></textarea><br><input value=\"Submit\" onclick=\"createFeedback();javascript:Effect.toggle('feedbackForm','blind')\" type=\"button\"></div>");
+        writer.write("<div id=\"feedbackDiv\">Feedback:<br><textarea id=\"feedback_input\"></textarea><br><input value=\"Submit\" onclick=\"createFeedback();new Effect.Fade('feedbackForm');\" type=\"button\"></div>");
 
         writer.write("</div>");
         
