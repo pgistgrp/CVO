@@ -1,6 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 		
 Jump to starts with letter:
@@ -17,7 +18,16 @@ Jump to starts with letter:
   <bean:define id="storeInitial" value="" />
 	  <logic:iterate id="term" name="terms">
 	 
-	    <tr id="glossaryTerm${term.id}">
+	 <c:choose>
+	 	<c:when test="${term.flaged}">
+	 
+			<tr style='background-color:yellow;' id="glossaryTerm${term.id}">
+		</c:when>
+		<c:otherwise>
+			<tr id="glossaryTerm${term.id}">
+		</c:otherwise>
+	</c:choose>
+	 	 <!--   <tr id="glossaryTerm${term.id}">-->
 	      <td><logic:notEqual name="storeInitial" value="${term.initial}"><a name="<bean:write name="term" property="initial"/>"><bean:define id="storeInitial" value="${term.initial}" /></logic:notEqual><a id='glossaryViewLink${term.id}' href="glossaryView.do?id=${term.id}"><pg:highlight text="${filter}" style="color:white; background-color:red;">${term.name}</pg:highlight></a></td>
 	      <td id='termShortDefinitionCell${term.id}'><pg:highlight text="${filter}" style="color:white; background-color:red;">${term.shortDefinition}</pg:highlight></td>
 	      <td style="text-align: center">${term.commentCount}</td>

@@ -135,7 +135,7 @@
 	 	 this.createPost = function(){
 	 	 		displayIndicator(true);
 	 	 		var newPostTitle = $('txtNewPostTitle').value;
-	 	 		var newPost = $('txtNewPost').value;
+	 	 		var newPost = validateInput($('txtNewPost').value);
 	 	 		var newPostTags = $('txtNewPostTags').value;
 	 	 		//validation
 	 	 		if(newPostTitle == '' || newPost == ''){
@@ -202,6 +202,14 @@
 		    });
 		  };
 	};
+	
+	function validateInput(string){
+			string=string.replace(/>/g,"//>//");
+			string=string.replace(/</g,"//<//");
+			string=string.replace(/\n/g,"<br>");
+
+			return string;
+	}
 	
 	function Discussion(){
 		this.discussionDivSort = "header_cat";

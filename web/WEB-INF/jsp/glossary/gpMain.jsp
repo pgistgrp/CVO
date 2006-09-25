@@ -79,7 +79,7 @@
 							direction = "asc"; //reset direction
 						$('loading-indicator').style.display = "none";
 					}else{
-						alert(data.reason);
+						alert("reason for getTerms failure: "+data.reason);
 						$('loading-indicator').style.display = "none";
 					}
 					
@@ -101,7 +101,7 @@
 					}
 
 					else{
-						alert(data.reason);
+						alert("reason for getTermObject failure: "+data.reason);
 					}
 				},
 				errorHandler:function(errorString, exception){ 

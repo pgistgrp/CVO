@@ -43,7 +43,7 @@
 		 	lastPage = page;
 		 	displayIndicator(true);
 			var newReplyTitle = $('txtnewReplyTitle').value;
-			var newReply = $('txtnewReply').value;
+			var newReply = validateInput($('txtnewReply').value);
 			var newReplyTags = $('newReplyTags').value;
 		    SDAgent.createReply({isid:${structure.id}, pid:${post.id}, title:newReplyTitle, content:newReply, tags: newReplyTags}, {
 		      callback:function(data){
@@ -69,6 +69,14 @@
 		    });
 		  }
 		
+		function validateInput(string){
+			string=string.replace(/>/g,"//>//");
+			string=string.replace(/</g,"//<//");
+			string=string.replace(/\n/g,"<br>");
+
+			return string;
+	}
+	
 		 function getReplies(){
 		 		displayIndicator(true);
 		 		var ioid = '${object.id}';

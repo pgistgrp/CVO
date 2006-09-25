@@ -96,7 +96,7 @@ lightbox.prototype = {
 		htm.style.height = "100%";
 		htm.style.overflow = "hidden";
 		}
-		alert("display lightbox");
+		
 		this.displayLightbox("inline");
 		
 	},

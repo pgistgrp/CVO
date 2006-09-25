@@ -52,11 +52,12 @@
 		
 		
 		
-		//function modApprove(tname, tid){
+		function modApprove(){
 	/*$('modApproval').innerHTML="<strong>The term "+tname+" is awaiting moderator approval</strong><br /><br />Moderator Options: "+
 	"<button type='button' onclick=\"acceptTerm("+tid+");\">Accept</button>&nbsp;<button type='button' onclick=\"giveReason("+tid+");\">Decline</button>";
-	*///$('modApproval').style.display='inline';
-//}
+	*/
+	$('modApproval').style.display='block';
+}
 
 		function giveReason(tid){
 		
@@ -72,7 +73,8 @@
 			GlossaryManageAgent.acceptTerm({id:tid},{
 			callback:function(data){
 				if(data.successful){
-					
+					$('modApproval').style.display='none';
+					alert('The term has been accepted');
 				}else{
 					alert("acceptTerm failure reason: "+data.reason);
 				
@@ -89,12 +91,13 @@
 		}
 		
 		function rejectTerm(tid,reasonString){
-		alert(String(reasonString));
 			GlossaryManageAgent.rejectTerm({id:tid, reason:reasonString},{
 			callback:function(data){
 				if(data.successful){
-					
+				$('modReasondiv').style.display='none';
+					alert('The term has been rejected');
 				}else{
+				$('modReasondiv').style.display='none';
 					alert("rejectTerm failure reason: "+data.reason);
 				
 				}
@@ -203,15 +206,24 @@
 	<!-- Sub Title -->
 	<div id="subheader">
 	
-	<pg:show roles="admin, moderator">
-	<div style='background-color:gray; font-size:x-large;' id="modApproval"><strong>The term ${term.name} is awaiting moderator approval</strong><br /><br />Moderator Options: 
-	<button type='button' onclick='acceptTerm(${term.id});'>Accept</button>&nbsp;<button type='button' onclick='giveReason(${term.id});'>Decline</button></div>
-	<br />
-	<div style='display:none; border:thick solid #666666; font-size:large;' id='modReasondiv'><div><strong>Reason for Declining Term</strong></div>
-	<div>This reason will be emailed to the participant that proposed this glossary term.</div>
-	<div style='margin:1%;'><textarea style='height:100%; width:100%;' id='modReasontext'></textarea></div><button type='button' onclick='rejectTerm(${term.id},$("modReasontext").value)'>Delete Term and Send Reason</button></div>
-</pg:show>
-<br />
+
+
+	
+	<logic:equal name="term" property="status" value="0">
+		<pg:show roles="admin, moderator">
+		
+			<div style='background-color:gray; font-size:x-large;' id="modApproval"><strong>The term ${term.name} is awaiting moderator approval</strong><br /><br />Moderator Options: 
+			<button type='button' onclick='acceptTerm(${term.id});'>Accept</button>&nbsp;<button type='button' onclick='giveReason(${term.id});'>Decline</button></div>
+			<br />
+			<div style='display:none; border:thick solid #666666; font-size:large;' id='modReasondiv'><div><strong>Reason for Declining Term</strong></div>
+			<div>This reason will be emailed to the participant that proposed this glossary term.</div>
+			<div style='margin:1%;'><textarea style='height:100%; width:100%;' id='modReasontext'></textarea></div><button type='button' onclick='javascript:rejectTerm(${term.id},$("modReasontext").value);'>Delete Term and Send Reason</button></div>
+			<br />
+			
+		</pg:show>
+	</logic:equal>
+
+
 	<h1>Learn More: </h1> <h2>Listing of All Glossary Terms</h2>
 	</div>
 	<div id="footprints">
@@ -222,7 +234,14 @@
 <!-- add if moderator options -->
 
 <div id="slate"  class="blueBB" width="80%;" >
+
+<pg:show roles="admin, moderator">
+	<p><a href="glossaryManage.do">Back to Glossary Management</a></p>
+</pg:show>
+
+<pg:show roles="participant">
 		<p><a href="glossaryPublic.do">Back to All Glossary Terms</a></p>
+</pg:show>
 		<h1>${term.name}</h1>
 		<p></p>
 		<p>${term.shortDefinition}</p>
