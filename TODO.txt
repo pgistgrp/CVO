@@ -12,7 +12,7 @@ Zhong:
 [ok] sorting posts
 [ok] voting
 [ok] Voting - 'undefined' on data.voting in getTargets()
-[] related concerns and related discussion for sidebar
+[ok] related concerns and related discussion for sidebar
 [ok] getPosts bug
 [ok] add description field to theme object (for sd.do)
 [ok] add api for concerns sidebar
@@ -25,7 +25,7 @@ Zhong:
 [] E-mail notification on mod Feedback Form
 [] Google Map Guirong Code Fixes (after usability test)
 [ok] multiple filters on sidebar AND
-[] sidebar - other posts in random order for threadmain (for now)
+[ok] sidebar - other posts in random order for threadmain (for now)
 
 
 Jordan:
