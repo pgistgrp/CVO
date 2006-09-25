@@ -7,30 +7,25 @@
 <head>
 <title>Glossary Management View</title>
 
-
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/position.css";</style>
 <style type="text/css" media="screen">@import "styles/styles.css";</style>
-<style type="text/css" media="screen">@import "styles/tabs.css";</style>
-<style type="text/css" media="screen">@import "styles/headertabs.css";</style>
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 
 
 <!-- Site Wide JavaScript -->
-<script src="scripts/headercookies.js" type="text/javascript"></script>
-<script src="scripts/headertabs.js" type="text/javascript"></script>
-<script src="scripts/tabcookies.js" type="text/javascript"></script>
-<script src="scripts/tabs.js" type="text/javascript"></script>
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-<script src="scripts/findxy.js" type="text/javascript"></script>
 <script src="scripts/search.js" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
 
+<!-- DWR JavaScript Libraries -->
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
+<!-- End DWR JavaScript Libraries -->
+
 <script type='text/javascript' src='/dwr/interface/GlossaryManageAgent.js'></script>
 
 <script type="text/javascript">
@@ -569,57 +564,43 @@ tr:hover {background-color: #F1F7FF;}
 
 </style>
 <body>
-
-
-
-
-	
-	
-	<!-- Header -->
-
-<div id="login"><a href="http://69.91.143.23:8080/logout.do"><img src="glossaryTermManagement_files/btn_logout.gif" border="0"></a></div>
-<!-- End Header -->
+	<jsp:include page="/header.jsp" />
 <div style="display: inline;" id="loading-indicator">Loading... <img src="glossaryTermManagement_files/indicator_arrows.gif"></div>
 <div style="display: none;" id="saving-indicator">Saving... <img src="glossaryTermManagement_files/indicator_arrows.gif"></div>
+
 <div id="container">
 
-
-	<!-- START LIGHTBOX -->
-
-	<!--<div id="overlay" lightbox="" class="blueBB" style="display: none;"></div>-->
-	<!-- END LIGHTBOX -->
-	<!--START Title Header -->
+		
+		<!-- Header -->
+		<div id="cont-top">
+		<!-- Sub Title -->
+		<div id="subheader">
+		<h1>Moderator Tools:</h1> 
+		<h2>Glossary Term Management</h2>
+		</div>
+		<div id="footprints">
+		<span class="smalltext"><a href="#">Participate</a> &raquo; <a href="#">Moderator Tools</a> &raquo; Glossary Term Management</span>
+		</div>
+		<!-- End Sub Title -->
+		<!-- Overview SpiffyBox -->
+		<div class="cssbox">
+			<div class="cssbox_head">
+				<h3>Overview</h3>
+			</div>
+			<div class="cssbox_body">
+				<p>Glossary term management instructions</p>
+				
+			</div>
+		</div>
+		<!-- End Overview -->
+		
+		</div> <!-- End cont-top -->
 	
-	<div id="headerbar">
-	<!-- Search -->
-	  <form id="mysearch" name="form1" method="post" action="">
-	    
-	<div id="searchbox">
-		<input name="search" class="search" value="Search" type="text">
-	</div>
-	<div id="submit">
-	        <img src="glossaryTermManagement_files/searchinactivesm.gif" onmouseover="javascript:this.src='glossaryTermManagement_files/searchactivesm.gif'" onmouseout="javascript:this.src='glossaryTermManagement_files/searchinactivesm.gif'" name="Image1" id="Image1" border="0" height="19" width="19">    
-	</div>
-	<div id="searchresults"></div>
-	  </form>
-	<!-- End Search -->
-	<a id="TitleHeader" name="TitleHeader"></a>
-	
-  </div>
-	<!--END Title Header -->
-	<!---->
-	<h1>Databases: Glossary Terms</h1>
-	<div>
-	<h2>Overview and Instructions</h2>
-	<div><p>....Instructions go here...</p>
-	</div>
-	</div>
 	
 	<!--Proposed Glossary Terms-->
 	<h3>Proposed Glossary Terms by Participants - Waiting for Moderator Approval</h3>
 	<div id="proposedList">
-	
-	
+	<!-- load proposed terms here -->
 	</div>
 	
 	<!-- Sub Title -->

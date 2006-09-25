@@ -23,20 +23,20 @@
 <script type='text/javascript' src='/dwr/util.js'></script>
 <script type='text/javascript' src='/dwr/interface/SystemAgent.js'></script>
 <!-- End DWR JavaScript Libraries -->
-</head><body>
 
 <script type="text/javascript">
-	 window.onload= getFeedbacks();
-	 
 	 function getFeedbacks(){
 	 		var page = 1;
+	 		displayIndicator(true);
 			SystemAgent.getFeedbacks({count:-1, page: page}, {
 			callback:function(data){
 					if (data.successful){
 						$('feedbacks').innerHTML = data.html;
+						displayIndicator(false);
 					}
 					if (data.successful != true){
 						alert(data.reason);
+						displayIndicator(false);
 					}
 				},
 			errorHandler:function(errorString, exception){ 
@@ -44,8 +44,19 @@
 			}
 			});
 	}
+	
+	function displayIndicator(show){
+		if (show){
+			$('loading-indicator').style.display = "inline";	
+		}else{
+			$('loading-indicator').style.display = "none";	
+		}
+	}
 		
 </script>
+</head><body onload="getFeedbacks();">
+<div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
+
 
 
 <!-- Header -->
