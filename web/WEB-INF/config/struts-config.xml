@@ -22,7 +22,8 @@
     
     
     <action-mappings>
-    
+    	<action path="/main" scope="request" type="org.pgist.system.MainAction" />
+		
         <action name="userForm" path="/login" scope="request" type="org.pgist.system.LoginAction" />
         
         <action path="/logout" type="org.pgist.system.LogoutAction" />
