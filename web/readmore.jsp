@@ -42,7 +42,9 @@
 <!-- Overview SpiffyBox -->
 <div class="cssbox">
 <div class="cssbox_head">
-<h3>Overview and Instructions</h3>
+<h3>Overview</h3>
+</div>
+<div class="cssbox_body">
 </div>
 </div>
 <!-- End Overview -->
