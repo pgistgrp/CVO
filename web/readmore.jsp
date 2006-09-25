@@ -44,10 +44,6 @@
 <div class="cssbox_head">
 <h3>Overview and Instructions</h3>
 </div>
-<div class="cssbox_body">
-<p>There are five steps in the Let's Improve Transportation decision process. In this usability test, you will only participate in Step 1. To learn about how this step fits into the bigger picture, read on.</p>
-
-</div>
 </div>
 <!-- End Overview -->
 
