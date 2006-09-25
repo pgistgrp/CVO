@@ -80,65 +80,68 @@ public class RegisterAction extends Action {
         
         String email = user.getEmail();
         if (email==null || "".equals(email)) {
-            uform.setReason("Email is required.");
+            uform.setReason("Email is Required.");
+            return mapping.findForward("register");
+        } else if (email.indexOf("@")== -1 || email.indexOf(".")==-1){
+        	uform.setReason("Please Enter a valid Email Address.");
             return mapping.findForward("register");
         }
         
         String loginname = user.getLoginname();
         if (loginname==null || "".equals(loginname)) {
-            uform.setReason("Preferred LIT ID is required.");
+            uform.setReason("Preferred LIT ID is Required.");
             return mapping.findForward("register");
         }
         
         String password = user.getPassword();
         if (password==null || "".equals(password)) {
-            uform.setReason("Password is required.");
+            uform.setReason("Password is Required.");
             return mapping.findForward("register");
         }
         
         String password1 = uform.getPassword1();
         if (password1==null || "".equals(password1)) {
-            uform.setReason("Re-type Password is required.");
+            uform.setReason("Re-type Password is Required.");
             return mapping.findForward("register");
         }
         
         if (!password.equals(password1)) {
-            uform.setReason("Both Password fields must match.");
+            uform.setReason("Both Password Fields Must Match.");
             return mapping.findForward("register");
         }
         
         String homeAddr = user.getHomeAddr();
         if (homeAddr==null || "".equals(homeAddr)) {
-            uform.setReason("Home Address is required.");
+            uform.setReason("Home Address is Required.");
             return mapping.findForward("register");
         }
         
         String city = user.getCity();
         if (city==null || "".equals(city)) {
-            uform.setReason("City is required.");
+            uform.setReason("City is Required.");
             return mapping.findForward("register");
         }
         
         String state = user.getState();
         if (state==null || "".equals(state)) {
-            uform.setReason("State is required.");
+            uform.setReason("State is Required.");
             return mapping.findForward("register");
         }
         
         String zipcode = user.getZipcode();
         if (zipcode==null || "".equals(zipcode)) {
-            uform.setReason("ZIP/Postal Code is required.");
+            uform.setReason("ZIP/Postal Code is Required.");
             return mapping.findForward("register");
         }
         
         String ethnicity = user.getEthnicity();
         if (ethnicity==null || "".equals(ethnicity) || "-1".equals(ethnicity)) {
-            uform.setReason("Ethnicity is required.");
+            uform.setReason("Ethnicity is Required.");
             return mapping.findForward("register");
         } else if ("other".equals(ethnicity)) {
             String eth = uform.getEthnicity1();
             if (eth==null || "".equals(eth.trim())) {
-                uform.setReason("Ethnicity (other) is required.");
+                uform.setReason("Ethnicity (other) is Required.");
                 return mapping.findForward("register");
             }
             user.setEthnicity(eth);
