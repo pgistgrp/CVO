@@ -30,6 +30,7 @@
 
 <!--SDX Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
 <!--
 <c:if test="${structure.type == 'sdmap'}">
 
@@ -92,24 +93,6 @@
 					}
 					});
 				};
-			
-			
-			 this.getConcerns = function(tags){
-	 	 			//displayIndicator(true);
-					SDAgent.getConcerns({isid: ${structure.id}, tags:tags}, {
-					callback:function(data){
-							if (data.successful){
-	              				 alert("it worked" + data.html);
-							}else{
-								alert(data.reason);
-								// displayIndicator(false);
-							}
-						},
-					errorHandler:function(errorString, exception){ 
-							alert("get targets error:" + errorString + exception);
-					}
-					});
-				};
 			};
 		function displayIndicator(show){
 		if (show){
@@ -118,7 +101,135 @@
 			$('loading-indicator').style.display = "none";	
 		}
 	}
+	//sidebar functionality
+	
+		//sidebar global vars
+		var currentFilterArr = new Array();
+		var cctId = 1171; 
+		//end sidebar global vars
+		function getConcerns(){
+ 	 			//displayIndicator(true);
+ 	 			
+ 	 			//sidebarFilter
+ 	 			var filters = "";
+ 	 			filters += '<ul>';
+ 	 			for(i=0; i<currentFilterArr.length; i++){
+ 	 				filters += '<li>'+currentFilterArr[i]+'</li><ul>';
+ 	 			}
+ 	 			filters += '</ul>';
+ 	 			$('ulfilters').innerHTML = filters;
+ 	 			
+ 	 			//show all concerns link
+ 	 				if(currentFilterArr.length == 0){
+ 	 					$('showAllLink').style.display = 'none';
+ 	 				}else{
+ 	 					$('showAllLink').style.display = 'inline';
+ 	 				}
+ 	 			
+ 	 			var currentFilter = currentFilterArr.toString();
+ 	 			alert("currentFilter:" + currentFilter);
+				SDAgent.getConcerns({isid: ${structure.id}, tags: currentFilter}, {
+				callback:function(data){
+						if (data.successful){
+              				 $('sidebar_content').innerHTML = data.source.html;
+							//using partial sidebar-concerns.jsp
+						}else{
+							alert(data.reason);
+							// displayIndicator(false);
+						}
+					},
+				errorHandler:function(errorString, exception){ 
+						alert("get targets error:" + errorString + exception);
+				}
+				});
+		}
+		
+		function addFilter(tagRefId){
+				tagRefId.toString();
+				currentFilterArr.push(tagRefId);
+				getConcerns();
+		}
+		
+		function removeFilter(){
+				currentFilterArr.pop();
+				getConcerns();
+		}
+		
+		function changeCurrentFilter(tagRefId){
+				currentFilterArr.pop();
+				addFilter(tagRefId);
+		}
+		
+		function clearFilter(){
+			currentFilterArr = [];
+			getConcerns();	
+		}
+		
+		//functions lifted from CCT
+		function sidebarTagSearch(theTag,key){
+			//showing and hiding clear search action
+			if (theTag != ""){
+				$('btnClearSearch').style.display = 'inline';
+			}else{
+				closeSearchResults();
+				clearSearch();
+		}
 			
+			//hack to disable backspace on input box when length < 1 - "19 tags hack"
+			if (key.keyCode == 8 && theTag.length < 1){
+				return false;	
+			}
+			
+			//if the query is greater than 2 chars do the action if not keep it hidden
+			
+			if($('txtmanualFilter').value.length > 2){
+				sidebarSearchTagsAction(theTag);
+			}else{
+				$('sidebarSearchResults').style.display == 'none'
+			}
+	}
+	
+		function sidebarSearchTagsAction(theTag){
+				CCTAgent.searchTags({cctId:cctId,tag:theTag},{
+					callback:function(data){
+							if (data.successful){
+								//show results if hidden
+								if($('sidebarSearchResults').style.display == 'none'){
+									new Effect.Appear('sidebarSearchResults', {duration: 0.5});		
+								}		
+								
+								$('sidebarSearchResults').innerHTML = $('sidebarSearchResults').innerHTML = data.html;
+								
+								if (data.count == 0){
+									$('sidebarSearchResults').innerHTML = '<span class="closeBox"><a href="javascript:Effect.Fade(\'sidebarSearchResults\', {duration: 0.5}); void(0);">Close</a></span><p>No tag matches found! Please try a different search.</p> ';
+								}
+							}
+					},
+					errorHandler:function(errorString, exception){ 
+								alert("sidebarSearchTagsAction: "+errorString+" "+exception);
+								//showTheError();
+					}		
+				});	
+		}
+		
+		function getConcernsByTag(tagRefId){
+			addFilter(tagRefId);	
+			$('addFilter').style.display = 'none';
+			if($('sidebarSearchResults').style.display != 'none'){
+				closeSearchResults();
+			}
+		}
+	
+	function clearSearch(){
+	$('txtmanualFilter').value = "";	
+	$('txtmanualFilter').focus();
+	$('btnClearSearch').style.display = 'none';
+	}
+	
+	function closeSearchResults(){
+	 new Effect.Fade('sidebarSearchResults', {duration: 0.3});
+	}
+//end sidebar functionality
 </script>
 
 </head>
@@ -230,45 +341,46 @@
 			</div>
 		
 		<td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
-		<div id="sidebar_container">
-		<div id="tagSelector">
-			<div id="tagform">
-			<h6> Concerns filtered by:</h6>
-			No Selected Tags<br />
-			<form action="" method="get">
-			Search for a tag: 
-			  <input name="tagSearch" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value)" />
-			</form>
-			</div>
-			<div id="pullDown" class="textright"><a href="javascript: expandTagSelector();">Browse All Tags</a></div>
-			<div id="allTags" style="display: none;"></div>
-			<div class="clear"></div>
-			
-		</div>
-		<!-- Duplicate tagSelector to work as a spacer during expand effect -->
-		<div id="tagSelector_spacer" style="display: none;">
-			<h6>Sidebar filtered by:</h6>
-			No Selected Tags<br />
-			<form action="" method="get">
-			Sidebar Filter: 
-			  <input name="tagSearch" id="tagSearch_spacer" type="text" style="visibility: hidden;"/>
-			</form>
-			<div id="pullDown_spacer" class="textright" style="visibility: hidden;">Expand</div>
-			<div id="allTags_spacer" style="visibility: hidden;"></div>
-			<div class="clear"></div>
-		</div>
-		<!-- End Duplicate tagSelector to work as a spacer during expand effect -->
-		<div id="sidebarSearchResults" style="display: none;"></div>
-		  <div id="sidebar_content">
-		  <h4>Concerns from Participants</h4>
-			<a href="javascript:infoStructure.getConcerns('t');">Get Concerns</a>
-<!-- PREV and NEXT Buttons -->
-<span class="textright"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></span><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()">
-<!-- End PREV and NEXT Buttons -->
-		<div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
+<div id="sidebar_container">
+<div id="sidebarHeader" style="padding: 5px;">
+	<h4>Other Concerns</h4>
+	<p>
+	 <!-- optional context sidebar paragraph -->
+	 
+	 <!-- end optional context sidebar paragraph -->
+	</p>
+</div>
+<!-- start tagselector -->
+	<div id="tagSelector">
+		<div id="tagform">
+		<div id="showAllLink" class="textright"><a href="javascript:clearFilter();">Show All Concerns</a></div>
+		<h6>Filter(s):</h6><span id="ulfilters"></span>
+		<!-- insert filter list here -->
+		<p><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);">Add a Tag Filter</a></p>
 		
-		</div><!-- End sidebarcontents-->
-		</div><!-- sidebar container-->
+		<div id="addFilter" style="display: none;">
+			<span class="textright"><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);"><img src="images/close1.gif" alt="Close" name="closeresults" class="button" id="closeresults" onMouseOver="MM_swapImage('closeresults','','images/close.gif',1)" onMouseOut="MM_swapImgRestore()"></a></a></span>
+			<b>Add a Tag Filter:</b> 
+			<form id="frmSidebarTagSearch" onSubmit="sidebarSearchTagsAction($('txtmanualFilter').value); return false;">
+				<input name="txtmanualFilter" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value, event)" onkeyup="sidebarTagSearch(this.value, event)" /><span id="btnClearSearch" style="display: none;"><a href="javascript:clearSearch(); closeSearchResults();"><img src="/images/clearText.gif" border="0" alt="clear textbox" /></a></span>
+			</form>
+			<p>or <a href="javascript: expandTagSelector();">Browse All Tags</a>
+				
+			<div id="sidebarSearchResults" style="display: none;"><!-- tag search results are loaded here --></div>
+		</div>
+		
+	</div>
+	<div id="pullDown" class="textright"></div>
+	<div id="allTags" style="display: none;"></div>
+	<div class="clear"></div>
+	
+</div>
+<!-- end tag selector -->
+
+ <div id="sidebar_content">
+
+</div><!-- End sidebarcontents-->
+</div><!-- sidebar container-->
 		 </td><!-- End Right Col -->
 		</tr>
 		
@@ -293,6 +405,7 @@
 <script type="text/javascript">
 	var infoStructure = new InfoStructure(); 
 	infoStructure.getTargets();
+	getConcerns();
 /*
 	<c:if test="${structure.type == 'sdmap'}">
 		var pgistmap = new PGISTMap('map');
