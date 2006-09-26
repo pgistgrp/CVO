@@ -588,7 +588,7 @@ tr:hover {background-color: #F1F7FF;}
 	<!-- End Sub Title -->
 	<!--new glossary term button-->
 	<br />
-	<div style="background-color: rgb(204, 255, 51); "><a href="javascript:openCreateTermBox(1);">new glossary term</a></div>
+	<div style="background-color: rgb(204, 255, 51); "><a href="javascript:openCreateTermBox(1);"><img src="http://128.95.212.210:8080/images/btn_newterm_a.gif" alt="Add a new term" name="newTerm" class="button" id="newTerm" onmouseover="MM_swapImage('newTerm','','images/btn_newterm_b.gif',1)" onmouseout="MM_swapImgRestore()"></a></div>
 	<div id='newTerm1' style='display:none; border:thick solid #C0C0C0;'><div ><table style='width:100%; height:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='edtermname-1' type='text' value=''/><br />
 				<label><strong>Short Definition</strong></label><br /><textarea style='width:90%; height:100%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='edtermshortdef-1'></textarea></div></td>
 				<td rowspan=2><div style='margin:2%;'><label><strong>Sources</strong></label><br /><div id='sourcelinks-1'>
@@ -625,7 +625,7 @@ tr:hover {background-color: #F1F7FF;}
 	
 <br>
 	<!--new glossary term button-->
-	<div style="background-color: rgb(204, 255, 51); "><a href="javascript:openCreateTermBox(2);">new glossary term</a></div>
+	<div style="background-color: rgb(204, 255, 51); "><a href="javascript:openCreateTermBox(2);"><img src="http://128.95.212.210:8080/images/btn_newterm_a.gif" alt="Add a new term" name="newTerm" class="button" id="newTerm" onmouseover="MM_swapImage('newTerm','','images/btn_newterm_b.gif',1)" onmouseout="MM_swapImgRestore()"></a></div>
 		<div id='newTerm2' style='display:none; border:thick solid #C0C0C0;'><div ><table style='width:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='edtermname-2' type='text' value=''/><br />
 				<label><strong>Short Definition</strong></label><br /><textarea style='width:90%; height:100%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='edtermshortdef-2'></textarea></div></td>
 				<td rowspan=2><div style='margin:2%;'><label><strong>Sources</strong></label><br /><div id='sourcelinks-2'>
