@@ -150,22 +150,15 @@
 				});
 		}
 		
+		var tempTag = "";
 		function getTagByTagRef(tagRefId){
-			var tag = "tag" + tagRefId;
-			/*
-			CCTAgent.getTagByTagRefID({id: tagRefId}, {
-			callback:function(data){
+			CCTAgent.getTagByTagRefId(tagRefId, function(data){
 			if (data.successful){
-            			alert(data);
-					}else{
-						alert(data.reason);
-					}
-				},
-			errorHandler:function(errorString, exception){ 
-					alert("get targets error:" + errorString + exception);
-			}
-			});*/
-			return tag	
+            			tempTag = data.tag.name;
+            }
+            });
+          	setTimeout(50);
+			return tempTag;
 		}
 		
 		function addFilter(tagRefId){

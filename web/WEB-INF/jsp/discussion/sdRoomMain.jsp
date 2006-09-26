@@ -30,6 +30,7 @@
 
 <!--SDX Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
 <!--End SDX Specific  Libraries-->
 
 
@@ -62,7 +63,7 @@
 					}else{
 						$('targetDiscussionTitle').innerHTML += ' - ${object.numDiscussion} Topics';
 					}
-				$('targetSideBarTitle').innerHTML = 'filtered by: ' + targetTitle;//sidebar title div id
+			
 			</c:when>
 			<c:otherwise> //for entire info structure
 				 var targetTitle = this.ISTitle;
@@ -332,7 +333,223 @@ function MM_swapImage() { //v3.0
   var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
    if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
 }
+
+	/////////////////////sidebar functionality////////////////////////////
+	
+	
+		//sidebar global vars
+		var currentFilterArr = new Array();
+		var cctId = 1171; 
+		
+		//end sidebar global vars
+		function getConcerns(page){
+				displayIndicator(true);
+				//pagination
+				var sidebarPage = 1
+				if (page != undefined){
+					sidebarPage = page;
+				}
+ 	 				 			
+ 	 			//sidebarFilter
+ 	 			var filters = "";
+ 	 			filters += '<ul class="filter">';
+ 	 			for(i=0; i<currentFilterArr.length; i++){
+ 	 				filters += '<li><input type="checkbox" id="filtercheck'+getTagByTagRef(currentFilterArr[i])+'" onclick="checkFilter(this)" checked=true /> '+getTagByTagRef(currentFilterArr[i])+'<ul class="filter">';
+ 	 			}//removeUlFilter('+[i]+');"
+ 	 			filters += '</ul>';
+ 	 			$('ulfilters').innerHTML = filters;
+ 	 			
+ 	 			//show all concerns link
+ 	 				if(currentFilterArr.length == 0){
+ 	 					$('showAllLink').style.display = 'none';
+ 	 				}else{
+ 	 					$('showAllLink').style.display = 'inline';
+ 	 				}
+ 	 			
+ 	 			var currentFilter = currentFilterArr.toString();
+				SDAgent.getConcerns({isid: ${structure.id}, tags: currentFilter, count: "5", page: sidebarPage}, {
+				callback:function(data){
+						if (data.successful){
+              				 $('sidebar_content').innerHTML = data.source.html;//using partial sidebar-concerns.jsp
+							displayIndicator(false);
+						}else{
+							alert(data.reason);
+							displayIndicator(false);
+						}
+					},
+				errorHandler:function(errorString, exception){ 
+						alert("get targets error:" + errorString + exception);
+				}
+				});
+		}
+		
+		function checkFilter(checkbox){
+			if(checkbox.checked){
+				
+			}else{
+				
+			}	
+		}
+		
+		function getTagByTagRef(tagRefId){
+			var tag = "tag" + tagRefId;
+			/*
+			CCTAgent.getTagByTagRefID({id: tagRefId}, {
+			callback:function(data){
+			if (data.successful){
+            			alert(data);
+					}else{
+						alert(data.reason);
+					}
+				},
+			errorHandler:function(errorString, exception){ 
+					alert("get targets error:" + errorString + exception);
+			}
+			});*/
+			return tag	
+		}
+		
+		function addFilter(tagRefId){
+				tagRefId.toString();
+				currentFilterArr.push(tagRefId);
+				getConcerns();
+		}
+		
+		function removeFilter(){
+				currentFilterArr.pop();
+				getConcerns();
+		}
+		
+		function removeUlFilter(index){
+				currentFilterArr.splice(index, 1);
+				getConcerns();
+		}
+		
+		function changeCurrentFilter(tagRefId){
+				currentFilterArr.pop();
+				addFilter(tagRefId);
+		}
+		
+		function clearFilter(){
+			clearFilters = confirm("Are you sure? This action will remove all of your filters.");
+			if(clearFilters){
+			currentFilterArr = [];
+			getConcerns()	;
+			}
+		}
+		function clearSearch(){
+			$('txtmanualFilter').value = "";	
+			$('txtmanualFilter').focus();
+			$('btnClearSearch').style.display = 'none';
+		}
+			
+		function closeSearchResults(){
+			 new Effect.Fade('sidebarSearchResults', {duration: 0.3});
+		}
+		
+		//functions lifted from CCT
+		function sidebarTagSearch(theTag,key){
+				//showing and hiding clear search action
+				if (theTag != ""){
+					$('btnClearSearch').style.display = 'inline';
+				}else{
+					closeSearchResults();
+					clearSearch();
+			}
+				//hack to disable backspace on input box when length < 1 - "19 tags hack"
+				if (key.keyCode == 8 && theTag.length < 1){
+					return false;	
+				}
+				
+				//if the query is greater than 2 chars do the action if not keep it hidden
+				if($('txtmanualFilter').value.length > 2){
+					sidebarSearchTagsAction(theTag);
+				}else{
+					$('sidebarSearchResults').style.display == 'none'
+				}
+			}
+	
+		function sidebarSearchTagsAction(theTag){
+				CCTAgent.searchTags({cctId:cctId,tag:theTag},{
+					callback:function(data){
+							if (data.successful){
+								//show results if hidden
+								if($('sidebarSearchResults').style.display == 'none'){
+									new Effect.Appear('sidebarSearchResults', {duration: 0.5});		
+								}		
+								
+								$('sidebarSearchResults').innerHTML = $('sidebarSearchResults').innerHTML = data.html;
+								
+								if (data.count == 0){
+									$('sidebarSearchResults').innerHTML = '<span class="closeBox"><a href="javascript:Effect.Fade(\'sidebarSearchResults\', {duration: 0.5}); void(0);">Close</a></span><p>No tag matches found! Please try a different search.</p> ';
+								}
+							}
+					},
+					errorHandler:function(errorString, exception){ 
+								alert("sidebarSearchTagsAction: "+errorString+" "+exception);
+								//showTheError();
+					}		
+				});	
+		}
+		
+	function getConcernsByTag(tagRefId){
+			addFilter(tagRefId);	
+			$('addFilter').style.display = 'none';
+			if($('sidebarSearchResults').style.display != 'none'){
+				closeSearchResults();
+			}
+			clearSearch();
+			shrinkTagSelector();
+	}
+	
+	function getTagCloud(){
+			CCTAgent.getTagCloud({cctId:cctId,type:0,count:1000}, {
+				callback:function(data){
+					if (data.successful){
+						$('allTags').innerHTML = data.html;
+						
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("getTagCloud: "+errorString+" "+exception);
+					//showTheError();
+				}
+		});
+		}
+
+		function tagSearch(theTag){
+		CCTAgent.searchTags({cctId:cctId,tag:theTag},{
+			callback:function(data){
+				  $('tagIndicator').style.visibility = 'visible';
+					if (data.successful){
+						if ($('txtSearch').value == ""){
+							$('topTags').innerHTML = "";
+							$('tagSearchResults').innerHTML = '<span class="highlight">Please type in your query or <a href="javascript:getTagCloud();">clear query</a>&nbsp;to view top tags again.</span>';
+						  	$('tagIndicator').style.visibility = 'hidden';
+						}
+						if ($('txtSearch').value != ""){
+							$('tagSearchResults').innerHTML = '<span class="highlight">' + data.count +' tags match your query&nbsp;&nbsp;(<a href="javascript:getTagCloud();">clear query</a>)</span>';
+							$('topTags').innerHTML = data.html;
+							$('tagIndicator').style.visibility = 'hidden';
+						}
+						if (data.count == 0 || $('txtSearch').value == "_"){
+							$('tagSearchResults').innerHTML = '<span class=\"highlight\">No tag matches found! Please try a different search or <a href="javascript:getTagCloud();">clear the query</a>&nbsp;to view top tags again.</span>';
+							$('topTags').innerHTML = "";
+							$('tagIndicator').style.visibility = 'hidden';
+							
+						}
+					}
+			},
+			errorHandler:function(errorString, exception){ 
+						alert("tagSearch: "+errorString+" "+exception);
+						//showTheError();
+			}		
+		});
+		}
+	/////////////////////end sidebar functionality////////////////////////////
 //-->
+
+
 </script>
 </head>
 
@@ -404,93 +621,46 @@ function MM_swapImage() { //v3.0
 						</td> <!-- end td main content -->
 						
 						<td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
-							<div id="sidebar_container">
-									<div id="tagSelector">
-										<div id="tagform">
-											<h6>Sidebar filtered by:</h6>
-											[Tags ] [Tags] [Tags]<br />
-											<form action="" method="get">
-												Sidebar Filter: 
-												 <input name="tagSearch" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value)" />
-											</form>
-										</div><!-- end tagform -->
-										<div id="pullDown" class="textright"><a href="javascript: expandTagSelector();">Expand</a></div>
-										<div id="allTags" style="display: none;"><!--load tags --></div>
-										<div class="clear"></div>
-									</div> <!-- end tag selector -->
-									<div id="tagSelector_spacer" style="display: none;"><!-- Duplicate tagSelector to work as a spacer during expand effect -->
-									<h6>Sidebar filtered by:</h6>
-									[Tags ] [Tags] [Tags]<br />
-									<form action="" method="get">
-									Sidebar Filter: 
-									  <input name="tagSearch" id="tagSearch_spacer" type="text" style="visibility: hidden;"/>
-									</form>
-									<div id="pullDown_spacer" class="textright" style="visibility: hidden;">Expand</div>
-									<div id="allTags_spacer" style="visibility: hidden;"></div>
-									<div class="clear"></div>
-								</div>
-								
-								<div id="sidebarSearchResults" style="display: none;"></div>
-								  <div id="sidebar_content">
-									<h5 id="targetSideBarTitle"></h5>
-												<!-- Fake concerns -->
-												<div id="concernId887" class="theConcern">
-										            <span class="participantName"><a href="userProfile887.jsp">DoeDiane</a></span>&nbsp;said:
-										            <br>
-										            <span class="concerns">"The transportation system should be more accessible to all citizens"</span><br>
-										            <span class="tags"><a href="javascript:getConcernsByTag(864);">accessibility</a></span>            
-										        </div>
-										
-										        <div id="concernId918" class="theConcern">
-										            <span class="participantName"><a href="userProfile918.jsp">MurphyMary</a></span>&nbsp;said:
-										            <br>
-										            <span class="concerns">"Non-commuter vehicles shouldn't drive in commuter lanes"</span><br>
-										            <span class="tags"><a href="javascript:getConcernsByTag(902);">commuting</a></span>
-										            <span class="tags"><a href="javascript:getConcernsByTag(885);">congestion</a></span>
-										            <span class="tags"><a href="javascript:getConcernsByTag(894);">hov lanes</a></span>
-										            <span class="tags"><a href="javascript:getConcernsByTag(917);">law enforcement</a></span>
-										            <span class="tags"><a href="javascript:getConcernsByTag(868);">safety</a></span>    
-										        </div>
-										
-										        <div id="concernId878" class="theConcern">
-										            <span class="participantName"><a href="userProfile878.jsp">JonesJane</a></span>&nbsp;said:
-										            <br>
-										            <span class="concerns">"Transportation systems should promote livability and walkability"</span><br>
-										            <span class="tags"><a href="javascript:getConcernsByTag(873);">density</a></span>
-										            <span class="tags"><a href="javascript:getConcernsByTag(874);">downtown</a></span>
-										            <span class="tags"><a href="javascript:getConcernsByTag(877);">health</a></span>
-										            <span class="tags"><a href="javascript:getConcernsByTag(871);">livability</a></span>
-										            <span class="tags"><a href="javascript:getConcernsByTag(875);">sprawl</a></span>
-										            <span class="tags"><a href="javascript:getConcernsByTag(855);">transportation planning</a></span>
-										            <span class="tags"><a href="javascript:getConcernsByTag(872);">walkability</a></span>                    
-										        </div>
-										
-										        <div id="concernId891" class="theConcern">
-										            <span class="participantName"><a href="userProfile891.jsp">JohnsonJohn</a></span>&nbsp;said:
-										            <br>
-										            <span class="concerns">"We should not continue to fund a reliance on motor vehicles"</span><br>
-										            <span class="tags"><a href="javascript:getConcernsByTag(890);">alternative</a></span>
-										            <span class="tags"><a href="javascript:getConcernsByTag(888);">car</a></span>
-										            <span class="tags"><a href="javascript:getConcernsByTag(882);">funding</a></span>
-										            <span class="tags"><a href="javascript:getConcernsByTag(889);">taxes</a></span>
-										            <span class="tags"><a href="javascript:getConcernsByTag(855);">transportation planning</a></span>        
-										        </div>
-										
-										        <div id="concernId866" class="theConcern">
-										            <span class="participantName"><a href="userProfile866.jsp">BrownBob</a></span>&nbsp;said:<br>
-										            <span class="concerns">"Restrooms at Metro transit stations need to be handicapped accessible"</span><br>
-										            <span class="tags"><a href="javascript:getConcernsByTag(860);">Metro</a></span>
-										            <span class="tags"><a href="javascript:getConcernsByTag(864);">accessibility</a></span>
-										        </div>
-												<!-- end fake concerns -->
-												<!-- PREV and NEXT Buttons -->
-												<span class="textright"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></span><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()">
-												<!-- End PREV and NEXT Buttons -->
-								
-								<div id="caughtException"><h4>A Problem has Occured</h4><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
-								
-								</div><!-- End sidebarcontents-->
-						  </div><!-- sidebar container-->
+					<div id="sidebar_container">
+					<div id="sidebarHeader" style="padding: 5px;">
+						<h4>Participant Concerns</h4>
+						<p>
+						 <!-- optional context sidebar paragraph -->
+						 
+						 <!-- end optional context sidebar paragraph -->
+						</p>
+					</div>
+					<!-- start tagselector -->
+						<div id="tagSelector">
+							<div id="tagform">
+							<div id="showAllLink" class="textright"><a href="javascript:clearFilter();">Show All Concerns</a></div>
+							<h6>Filter(s):</h6><span id="ulfilters"></span>
+							<!-- insert filter list here -->
+							<p><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);">Add a Tag Filter</a></p>
+							
+							<div id="addFilter" style="display: none;">
+								<span class="textright"><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);"><img src="images/close1.gif" alt="Close" name="closeresults" class="button" id="closeresults" onMouseOver="MM_swapImage('closeresults','','images/close.gif',1)" onMouseOut="MM_swapImgRestore()"></a></a></span>
+								<b>Add a Tag Filter:</b> 
+								<form id="frmSidebarTagSearch" onSubmit="sidebarSearchTagsAction($('txtmanualFilter').value); return false;">
+									<input name="txtmanualFilter" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value, event)" onkeyup="sidebarTagSearch(this.value, event)" /><span id="btnClearSearch" style="display: none;"><a href="javascript:clearSearch(); closeSearchResults();"><img src="/images/clearText.gif" border="0" alt="clear textbox" /></a></span>
+								</form>
+								<p>or <a href="javascript: expandTagSelector();">Browse All Tags</a>
+									
+								<div id="sidebarSearchResults" style="display: none;"><!-- tag search results are loaded here --></div>
+							</div>
+							
+						</div>
+						<div id="pullDown" class="textright"></div>
+						<div id="allTags" style="display: none;"></div>
+						<div class="clear"></div>
+						
+					</div>
+					<!-- end tag selector -->
+					
+					 <div id="sidebar_content">
+					
+					</div><!-- End sidebarcontents-->
+					</div><!-- sidebar container-->
 					</td>
 				<!-- End Right Col -->
 				</tr>
@@ -550,6 +720,7 @@ function MM_swapImage() { //v3.0
 
 	infoObject.getPosts();
 	infoObject.assignTargetHeaders();
+	getConcerns();
 
 </script>
 
