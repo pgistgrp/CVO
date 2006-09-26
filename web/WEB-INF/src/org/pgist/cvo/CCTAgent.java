@@ -823,7 +823,7 @@ public class CCTAgent {
 	    	Tag myTag = ref.getTag();
 	    	//request.setAttribute("tag", myTag);
 	    	
-	    	map.put("tag", true);
+	    	map.put("tag", myTag);
 	    	
 	    	map.put("successful", true);    	
     	} catch (Exception e) {
