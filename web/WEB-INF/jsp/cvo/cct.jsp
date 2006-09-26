@@ -409,24 +409,33 @@ CCTAgent.getConcernById(concernId, {
 	callback:function(data){
 		if (data.successful){
 				currentConcern = data.concern.content;
-				
+				/*os = "";
+    os += '<div id="closeBox" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>'
+    os += '<h4>Edit My Concern</h4><br>';
+    os += '<form id="editmyconcern"><textarea style="margin: 2%; height: 150px; width: 95%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p></form>';
+    os += '<input type="button" id="modifyConcern" value="Submit Edits!" onClick="editConcern('+concernId+')">';
+    os += '<input type="button" value="Cancel" onClick="lightboxDisplay()">';
+    $('lightbox').innerHTML = os;*/
 				os = "";
+				
+				
+				
 				os += '<div id="closeBox" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>'
 				os += '<h4>Edit My Concern</h4><br>';
 
-				os += '<form><div style="position:relative; margin:2%;"><textarea style="position:fixed; height: 150px; width: 200px;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p></form>';
+				os += '<div style="position:relative; margin:2%;"><textarea style="position:fixed; height: 150px; width: 200px;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea>';
 				
 				if(browser=="Internet Explorer"){
-				os += '<div style="position:relative;"><input type="button" id="modifyConcern" value="Submit Edits!" onClick="javascript:editConcern('+concernId+');">';
+				os += '<div style="position:relative;"><input type="button" id="modifyConcern" value="Submit Edits!" onclick="javascript:editConcern('+concernId+');"/>';
 
 				os += '<input type="button" value="Cancel" onClick="lightboxDisplay()"></div></div>';
-				}
-				else{
-				os += '<div style="position:relative; top:150px;"><input type="button" id="modifyConcern" value="Submit Edits!" onClick="javascript:editConcern('+concernId+');">';
+				}else{
+				os += '<div style="position:relative; top:150px;"><input type="button" id="modifyConcern" value="Submit Edits!" onclick="javascript:editConcern('+concernId+');"/>';
 
 				os += '<input type="button" value="Cancel" onClick="lightboxDisplay()"></div></div>';
 				}
 				$('lightbox').innerHTML = os;
+				
 				
 		}
 	},
@@ -440,22 +449,22 @@ CCTAgent.getConcernById(concernId, {
 }
 
 
-
-function editConcern(concernId){
-newConcern = $('editConcern').value;
-CCTAgent.editConcern({concernId:concernId, concern:newConcern}, {
-	callback:function(data){
-			if (data.successful){
-				lightboxDisplay();
-				showMyConcerns(concernId);
-			}  
-	},
-	errorHandler:function(errorString, exception){ 
+	function editConcern(concernId){
+	newConcern = $('editConcern').value;
+	CCTAgent.editConcern({concernId:concernId, concern:newConcern}, {
+		callback:function(data){
+				if (data.successful){
+					lightboxDisplay();
+					showMyConcerns(concernId);
+				}  
+		},
+		errorHandler:function(errorString, exception){ 
 			alert("editConcern: "+errorString+" "+exception);
 			//showTheError();
+		}
+	});
 	}
-});
-}
+	
 
 function editTagsPopup(concernId){
 	tagHolderId = 1;
