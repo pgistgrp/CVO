@@ -474,6 +474,13 @@ h6 {
 	margin-top: 10px;
 }
 
+ul.filter{
+	padding-left: 20px;
+	padding-top: 5px;
+	list-style: square;
+	font-size: 0.9em;
+}
+
 ul.tagsList{
 	margin: 0;
 	padding: 0;

@@ -106,15 +106,21 @@
 		//sidebar global vars
 		var currentFilterArr = new Array();
 		var cctId = 1171; 
+		
 		//end sidebar global vars
-		function getConcerns(){
- 	 			//displayIndicator(true);
- 	 			
+		function getConcerns(page){
+				displayIndicator(true);
+				//pagination
+				var sidebarPage = 1
+				if (page != undefined){
+					sidebarPage = page;
+				}
+ 	 				 			
  	 			//sidebarFilter
  	 			var filters = "";
- 	 			filters += '<ul>';
+ 	 			filters += '<ul class="filter">';
  	 			for(i=0; i<currentFilterArr.length; i++){
- 	 				filters += '<li>'+currentFilterArr[i]+'</li><ul>';
+ 	 				filters += '<li>'+getTagByTagRef(currentFilterArr[i])+'  <a href="javascript:removeUlFilter('+[i]+');"><img src="/images/trash.gif" border="0" alt="remove filter" /></a><ul class="filter">';
  	 			}
  	 			filters += '</ul>';
  	 			$('ulfilters').innerHTML = filters;
@@ -127,21 +133,25 @@
  	 				}
  	 			
  	 			var currentFilter = currentFilterArr.toString();
- 	 			alert("currentFilter:" + currentFilter);
-				SDAgent.getConcerns({isid: ${structure.id}, tags: currentFilter}, {
+				SDAgent.getConcerns({isid: ${structure.id}, tags: currentFilter, count: "5", page: sidebarPage}, {
 				callback:function(data){
 						if (data.successful){
-              				 $('sidebar_content').innerHTML = data.source.html;
-							//using partial sidebar-concerns.jsp
+              				 $('sidebar_content').innerHTML = data.source.html;//using partial sidebar-concerns.jsp
+							displayIndicator(false);
 						}else{
 							alert(data.reason);
-							// displayIndicator(false);
+							displayIndicator(false);
 						}
 					},
 				errorHandler:function(errorString, exception){ 
 						alert("get targets error:" + errorString + exception);
 				}
 				});
+		}
+		
+		function getTagByTagRef(tagRefId){
+			var tag = "tag" + tagRefId;
+			return tag	
 		}
 		
 		function addFilter(tagRefId){
@@ -155,39 +165,54 @@
 				getConcerns();
 		}
 		
+		function removeUlFilter(index){
+				currentFilterArr.splice(index, 1);
+				getConcerns();
+		}
+		
 		function changeCurrentFilter(tagRefId){
 				currentFilterArr.pop();
 				addFilter(tagRefId);
 		}
 		
 		function clearFilter(){
+			clearFilters = confirm("Are you sure? This action will remove all of your filters.");
+			if(clearFilters){
 			currentFilterArr = [];
-			getConcerns();	
+			getConcerns()	;
+			}
+		}
+		function clearSearch(){
+			$('txtmanualFilter').value = "";	
+			$('txtmanualFilter').focus();
+			$('btnClearSearch').style.display = 'none';
+		}
+			
+		function closeSearchResults(){
+			 new Effect.Fade('sidebarSearchResults', {duration: 0.3});
 		}
 		
 		//functions lifted from CCT
 		function sidebarTagSearch(theTag,key){
-			//showing and hiding clear search action
-			if (theTag != ""){
-				$('btnClearSearch').style.display = 'inline';
-			}else{
-				closeSearchResults();
-				clearSearch();
-		}
-			
-			//hack to disable backspace on input box when length < 1 - "19 tags hack"
-			if (key.keyCode == 8 && theTag.length < 1){
-				return false;	
+				//showing and hiding clear search action
+				if (theTag != ""){
+					$('btnClearSearch').style.display = 'inline';
+				}else{
+					closeSearchResults();
+					clearSearch();
 			}
-			
-			//if the query is greater than 2 chars do the action if not keep it hidden
-			
-			if($('txtmanualFilter').value.length > 2){
-				sidebarSearchTagsAction(theTag);
-			}else{
-				$('sidebarSearchResults').style.display == 'none'
+				//hack to disable backspace on input box when length < 1 - "19 tags hack"
+				if (key.keyCode == 8 && theTag.length < 1){
+					return false;	
+				}
+				
+				//if the query is greater than 2 chars do the action if not keep it hidden
+				if($('txtmanualFilter').value.length > 2){
+					sidebarSearchTagsAction(theTag);
+				}else{
+					$('sidebarSearchResults').style.display == 'none'
+				}
 			}
-	}
 	
 		function sidebarSearchTagsAction(theTag){
 				CCTAgent.searchTags({cctId:cctId,tag:theTag},{
@@ -212,23 +237,60 @@
 				});	
 		}
 		
-		function getConcernsByTag(tagRefId){
+	function getConcernsByTag(tagRefId){
 			addFilter(tagRefId);	
 			$('addFilter').style.display = 'none';
 			if($('sidebarSearchResults').style.display != 'none'){
 				closeSearchResults();
 			}
+			clearSearch();
+			shrinkTagSelector();
+	}
+	
+	function getTagCloud(){
+			CCTAgent.getTagCloud({cctId:cctId,type:0,count:1000}, {
+				callback:function(data){
+					if (data.successful){
+						$('allTags').innerHTML = data.html;
+						
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("getTagCloud: "+errorString+" "+exception);
+					//showTheError();
+				}
+		});
 		}
-	
-	function clearSearch(){
-	$('txtmanualFilter').value = "";	
-	$('txtmanualFilter').focus();
-	$('btnClearSearch').style.display = 'none';
-	}
-	
-	function closeSearchResults(){
-	 new Effect.Fade('sidebarSearchResults', {duration: 0.3});
-	}
+
+		function tagSearch(theTag){
+		CCTAgent.searchTags({cctId:cctId,tag:theTag},{
+			callback:function(data){
+				  $('tagIndicator').style.visibility = 'visible';
+					if (data.successful){
+						if ($('txtSearch').value == ""){
+							$('topTags').innerHTML = "";
+							$('tagSearchResults').innerHTML = '<span class="highlight">Please type in your query or <a href="javascript:getTagCloud();">clear query</a>&nbsp;to view top tags again.</span>';
+						  	$('tagIndicator').style.visibility = 'hidden';
+						}
+						if ($('txtSearch').value != ""){
+							$('tagSearchResults').innerHTML = '<span class="highlight">' + data.count +' tags match your query&nbsp;&nbsp;(<a href="javascript:getTagCloud();">clear query</a>)</span>';
+							$('topTags').innerHTML = data.html;
+							$('tagIndicator').style.visibility = 'hidden';
+						}
+						if (data.count == 0 || $('txtSearch').value == "_"){
+							$('tagSearchResults').innerHTML = '<span class=\"highlight\">No tag matches found! Please try a different search or <a href="javascript:getTagCloud();">clear the query</a>&nbsp;to view top tags again.</span>';
+							$('topTags').innerHTML = "";
+							$('tagIndicator').style.visibility = 'hidden';
+							
+						}
+					}
+			},
+			errorHandler:function(errorString, exception){ 
+						alert("tagSearch: "+errorString+" "+exception);
+						//showTheError();
+			}		
+		});
+		}
 //end sidebar functionality
 </script>
 
@@ -343,7 +405,7 @@
 		<td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
 <div id="sidebar_container">
 <div id="sidebarHeader" style="padding: 5px;">
-	<h4>Other Concerns</h4>
+	<h4>Participant Concerns</h4>
 	<p>
 	 <!-- optional context sidebar paragraph -->
 	 

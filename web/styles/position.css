@@ -248,6 +248,10 @@ select {
 #tselector {
 	float: right;
 }
+
+#ulFilters{
+	margin-left: 10px;
+}
 /*CSS Classes */
 .backToDiscussion {
 	margin-right: 295px;
