@@ -157,7 +157,7 @@
             			tempTag = data.tag.name;
             }
             });
-          	setTimeout(50);
+
 			return tempTag;
 		}
 		
