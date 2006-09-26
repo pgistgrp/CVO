@@ -80,6 +80,7 @@
       <include method="getConcerns"/>
       <include method="getConcernById"/>
       <include method="getConcernsByTag"/>
+	  <include method="getTagByTagRefId"/>
       <include method="getTagCloud"/>
       <include method="editConcern"/>
       <include method="editTags"/>
