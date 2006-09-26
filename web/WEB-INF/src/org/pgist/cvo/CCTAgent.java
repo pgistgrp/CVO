@@ -14,6 +14,7 @@ import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 import org.pgist.tagging.Tag;
 
+
 /**
  * DWR AJAX Agent class.<br>
  * Provide AJAX services to client programs.<br>
@@ -789,11 +790,10 @@ public class CCTAgent {
      * 
      * @param tag A string which will be searched in tags.
      */
-    public Map getTagByID(HttpServletRequest request, Long tagId) {
+    public Map getTagByTagRef(HttpServletRequest request, TagReference tagRef) {
     	Map map = new HashMap();
     	try {
-	    	TagReference ref = cctService.getTagReferenceById(tagId);
-	    	Tag myTag = ref.getTag();
+	    	Tag myTag = tagRef.getTag();
 	    	request.setAttribute("tag", myTag);
 	    	
 	    	map.put("successful", true);    	
