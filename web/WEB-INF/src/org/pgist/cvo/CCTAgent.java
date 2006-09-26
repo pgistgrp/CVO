@@ -801,13 +801,15 @@ public class CCTAgent {
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
-    public Map getTagByTagRefID(HttpServletRequest request, Long tagId) {
+    public Map getTagByTagRefId(HttpServletRequest request, Long tagId) {
     	Map map = new HashMap();
     	try {
 	    	TagReference ref = cctService.getTagReferenceById(tagId);
 	    	Tag myTag = ref.getTag();
 	    	request.setAttribute("tag", myTag);
+	    	
 	    	//map.put("tag", myTag);
+	    	
 	    	map.put("successful", true);    	
     	} catch (Exception e) {
     		e.printStackTrace();
@@ -815,6 +817,6 @@ public class CCTAgent {
             map.put("reason", e.getMessage());  		
     	}
     	return map;
-    } //getTagByTagRefID()
+    } //getTagByTagRefId()
 
 }//class CCTAgent
