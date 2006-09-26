@@ -217,7 +217,7 @@ public class GlossaryServiceImpl implements GlossaryService {
             return new ArrayList(0);
         } else {
             //get comments
-            Collection comments = discussionDAO.getPosts(discussion);
+            Collection comments = discussionDAO.getPosts(discussion, true);
             return comments;
         }
     }//getComments()

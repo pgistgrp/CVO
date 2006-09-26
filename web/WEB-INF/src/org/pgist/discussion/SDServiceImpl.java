@@ -65,7 +65,7 @@ public class SDServiceImpl implements SDService {
     }//getInfoStructures()
 
 
-    public Collection getPosts(InfoStructure structure, InfoObject infoObj, PageSetting setting) throws Exception {
+    public Collection getPosts(InfoStructure structure, InfoObject infoObj, PageSetting setting, boolean order) throws Exception {
         Discussion discussion = null;
         
         if (infoObj==null) {
@@ -82,7 +82,7 @@ public class SDServiceImpl implements SDService {
         
         if (discussion==null) return new ArrayList();
         
-        return discussionDAO.getPosts(discussion, setting);
+        return discussionDAO.getPosts(discussion, setting, order);
     }//getPosts()
 
 

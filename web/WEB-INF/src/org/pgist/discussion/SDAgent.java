@@ -158,7 +158,7 @@ public class SDAgent {
             setting.setPage((String) params.get("page"));
             setting.setRowOfPage((String) params.get("count"));
             
-            Collection posts = sdService.getPosts(structure, object, setting);
+            Collection posts = sdService.getPosts(structure, object, setting, false);
             
             request.setAttribute("structure", structure);
             request.setAttribute("object", object);

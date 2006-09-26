@@ -88,11 +88,11 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getDiscussion()
     
 
-    private static final String hql_getPosts_A = "from DiscussionPost p where p.discussion.id=? and p.deleted=? order by p.replyTime desc";
+    private static final String hql_getPosts_A = "from DiscussionPost p where p.discussion.id=? and p.deleted=? order by p.replyTime";
     
     
-    public Collection getPosts(Discussion discussion) throws Exception {
-        return getHibernateTemplate().find(hql_getPosts_A, new Object[] {
+    public Collection getPosts(Discussion discussion, boolean order) throws Exception {
+        return getHibernateTemplate().find(hql_getPosts_A + (order?"":" desc"), new Object[] {
                 discussion.getId(),
                 false,
         });
@@ -101,10 +101,10 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     
     private static final String hql_getPosts_B_1 = "select count(p.id) from DiscussionPost p where p.discussion.id=? and p.deleted=?";
     
-    private static final String hql_getPosts_B_2 = "from DiscussionPost p where p.discussion.id=? and p.deleted=? order by p.replyTime desc";
+    private static final String hql_getPosts_B_2 = "from DiscussionPost p where p.discussion.id=? and p.deleted=? order by p.replyTime";
     
     
-    public Collection getPosts(Discussion discussion, PageSetting setting) throws Exception {
+    public Collection getPosts(Discussion discussion, PageSetting setting, boolean order) throws Exception {
         //get total rows number
         List list = getHibernateTemplate().find(hql_getPosts_B_1, new Object[] {
                 discussion.getId(),
@@ -118,7 +118,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
         
         //get rows
-        Query query = getSession().createQuery(hql_getPosts_B_2);
+        Query query = getSession().createQuery(hql_getPosts_B_2 + (order?"":" desc"));
         query.setLong(0, discussion.getId());
         query.setBoolean(1, false);
         query.setFirstResult(setting.getFirstRow());

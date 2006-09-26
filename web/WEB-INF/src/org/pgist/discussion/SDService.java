@@ -26,7 +26,7 @@ public interface SDService {
     DiscussionPost getPostById(Long postid) throws Exception;
 
 
-    Collection getPosts(InfoStructure structure, InfoObject infoObj, PageSetting setting) throws Exception;
+    Collection getPosts(InfoStructure structure, InfoObject infoObj, PageSetting setting, boolean order) throws Exception;
     
     
     Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception;
