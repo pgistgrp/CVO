@@ -22,6 +22,16 @@
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 
+<style type="text/css">
+	#term-text {width:60%;float:left;margin-right:20px;}
+	#right-col 
+	{
+		width:30%;
+		float:left;
+		padding:10px;
+		background:#DEE3E7;
+		border:2px solid #9CB6C6; }
+</style>
 
 <!-- Site Wide JavaScript -->
 
@@ -205,7 +215,7 @@
 	<!-- End Header -->
 	<!-- Sub Title -->
 	<div id="subheader">
-	
+
 
 
 	
@@ -234,19 +244,16 @@
 <!-- add if moderator options -->
 
 <div id="slate"  class="blueBB" width="80%;" >
+		<div id="term-text">
 
-<pg:show roles="admin, moderator">
-	<p><a href="glossaryManage.do">Back to Glossary Management</a></p>
-</pg:show>
-
-<pg:show roles="participant">
-		<p><a href="glossaryPublic.do">Back to All Glossary Terms</a></p>
-</pg:show>
 		<h1>${term.name}</h1>
 		<p></p>
 		<p>${term.shortDefinition}</p>
-		<p>${term.extDefinition}</p>
-		<p><a href="javascript:setFlag(1);"><img src="/images/flag_icon.gif" border="0"></a>&nbsp;<a href="javascript:setFlag(1);">Flag moderator to review this term's definition and/or comments</a></p>
+		<p>${term.extDefinition}<br />
+	<pg:show roles="participant">
+		<a href="glossaryPublic.do">Back to All Glossary Terms</a>
+</pg:show></p>
+		<p><a href="javascript:setFlag(1);"><img src="/images/icon_flag3.gif" border="0"></a>&nbsp;<a href="javascript:setFlag(1);">Flag moderator to review this term's definition and/or comments</a></p>
 
 		<div id="commentStats" style="padding-top: 10px;">
 			<h3>Statistics</h3>
@@ -261,32 +268,30 @@
 		  </table>
 		</div>
 		
-		<c:if test="${term.acronym != null }">
-		<h3>Abbreviation</h3>
-		<ul>
-				<li>${term.acronym}</li>
-		</ul>
-		</c:if>
+	
+		<div id="comments" style="width:100%"><!--comments load here onLoad --></div> <br> 
+		<div id="feedback" style="display: none; background-color:#ffc; color: #333; width:100%;"></div>
+		<div id="newCommentForm"> <h3>Add a Comment</h3> (html OK)<br><div id="reply-to"></div> 
+		<form name="commentForm" action="" onsubmit="createComment1(${term.id}, $('newComment').value); return false;">
+			<textarea style="height: 50px; width: 80%;" name="newComment" id="newComment" cols="50" rows="5"></textarea></p> 
+			<br><input type="button" id="createComment" value="Submit Comment" onclick="createComment1(${term.id}, $('newComment').value);">
+		</form> 
+
+		</div> 
+
 		
-		<c:if test="${fn:length(term.variations) != 0}">
-				<h3>Variations</h3>
-				<ul>
-				<logic:iterate id="onevariation" property="variations" name="term">
-					<li>${onevariation.name}</li>
-				</logic:iterate>
-				</ul>
-		</c:if>
-		
-		<c:if test="${fn:length(term.sources) != 0}">
-				<h3>Sources</h3>
-				<ul>
-				<logic:iterate id="onesource" property="sources" name="term">
-					<li><a href="${onesource}">${onesource}</a></li>
-				</logic:iterate>
-				</ul>
-		</c:if>
-		
-		<c:if test="${fn:length(term.links) != 0}">
+		<br>
+		<a href="glossaryPublic.do">Back to All Glossary Terms</a>
+
+	</div>
+</div>
+
+	<div id="right-col">
+		<pg:show roles="admin, moderator">
+	<p><a href="glossaryManage.do">Back to Glossary Management</a></p>
+</pg:show>
+
+	<c:if test="${fn:length(term.links) != 0}">
 		<h3>Term Links</h3>
 		<ul>
 			<logic:iterate id="onelink" property="links" name="term">
@@ -303,25 +308,37 @@
 			</logic:iterate>
 		</ul>
 		</c:if>
-	
-		<div id="comments"><!--comments load here onLoad --></div> <br> 
-		<div id="feedback" style="display: none; background-color:#ffc; color: #333; width:80%;"></div>
-		<div id="newCommentForm"> <h3>Add a Comment</h3> (html OK)<br><div id="reply-to"></div> 
-		<form name="commentForm" action="" onsubmit="createComment1(${term.id}, $('newComment').value); return false;">
-			<textarea style="height: 50px; width: 80%;" name="newComment" id="newComment" cols="50" rows="5"></textarea></p> 
-			<br><input type="button" id="createComment" value="Submit Comment" onclick="createComment1(${term.id}, $('newComment').value);">
-		</form> 
-
-		</div> 
-
 		
-		<br>
-		<p><a href="glossaryPublic.do">Back to All Glossary Terms</a></p>
-
+<c:if test="${term.acronym != null }">
+		<h3>Abbreviation</h3>
+		<ul>
+				<li>${term.acronym}</li>
+		</ul>
+		</c:if>
+		
+		<c:if test="${fn:length(term.variations) != 0}">
+				<h3>Variations</h3>
+				<ul>
+				<logic:iterate id="onevariation" property="variations" name="term">
+					<li>${onevariation.name}</li>
+				</logic:iterate>
+				</ul>
+		</c:if>
+		
+		<c:if test="${fn:length(term.sources) != 0}">
+		<h3>Sources</h3>
+		<ul>
+		<logic:iterate id="onesource" property="sources" name="term">
+			<li><a href="${onesource}">${onesource}</a></li>
+		</logic:iterate>
+		</ul>
+		</c:if>
+		
 	</div>
 </div>
 
 <!-- Start Footer -->
+<div style="clear:both"></div>
 <jsp:include page="/footer.jsp" />
 
 <!-- End Footer -->
