@@ -218,16 +218,39 @@ function addLightboxMarkup() {
 	
 }
 //resizes lightbox called by onload and onresize of body
+
 function sizeMe(){
 var conheight="";
+var buttontop="";
 if (browser=="Internet Explorer"){
 conheight=(.7*document.body.clientHeight)-30;
+
 }else{
 conheight=(.7*window.innerHeight)-30;
+
 }
 //document.getElementById("lightbox1").style.height=conheight+"px";
 document.getElementById("lightbox").style.height=conheight+"px";
+
+
 }
+/*
+function poseButtons(buttonid){
+	currentButtonid=buttonid;
+var conheight="";
+var buttontop="";
+if (browser=="Internet Explorer"){
+conheight=(.7*document.body.clientHeight)-30;
+buttontop=(.5*document.body.clientHeight);
+}else{
+conheight=(.7*window.innerHeight)-30;
+buttontop=(.5*window.innerHeight);
+}
+	//document.getElementById(String(buttonid)).style.position="fixed";
+	//document.getElementById(String(buttonid)).style.top=conheight+30+"px";
+	//document.getElementById(String(buttonid)).style.left=buttontop+"px";
+}
+*/
 var yPos;
 function rgetScroll(){
 

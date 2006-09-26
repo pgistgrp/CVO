@@ -405,15 +405,27 @@ function editConcernPopup(concernId){
 var currentConcern = '';
 lightboxDisplay(true);
 CCTAgent.getConcernById(concernId, {
+
 	callback:function(data){
 		if (data.successful){
 				currentConcern = data.concern.content;
+				
 				os = "";
 				os += '<div id="closeBox" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>'
 				os += '<h4>Edit My Concern</h4><br>';
-				os += '<form id="editmyconcern"><textarea style="margin: 2%; height: 150px; width: 95%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p></form>';
-				os += '<input type="button" id="modifyConcern" value="Submit Edits!" onClick="editConcern('+concernId+')">';
-				os += '<input type="button" value="Cancel" onClick="lightboxDisplay()">';
+
+				os += '<form><div style="position:relative; margin:2%;"><textarea style="position:fixed; height: 150px; width: 200px;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p></form>';
+				
+				if(browser=="Internet Explorer"){
+				os += '<div style="position:relative;"><input type="button" id="modifyConcern" value="Submit Edits!" onClick="javascript:editConcern('+concernId+');">';
+
+				os += '<input type="button" value="Cancel" onClick="lightboxDisplay()"></div></div>';
+				}
+				else{
+				os += '<div style="position:relative; top:150px;"><input type="button" id="modifyConcern" value="Submit Edits!" onClick="javascript:editConcern('+concernId+');">';
+
+				os += '<input type="button" value="Cancel" onClick="lightboxDisplay()"></div></div>';
+				}
 				$('lightbox').innerHTML = os;
 				
 		}
@@ -458,11 +470,11 @@ function editTagsPopup(concernId){
 						os += '<div id="closeBox" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>'
 						os += '<h4>Edit My Concern\'s Tags</h4><br />';
 						os += '<ul id="editTagsList" class="tagsList"> '+data.id+ '</ul>';
-						os += '<p></p><form name="editTagList" action="" onsubmit="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\'); return false;"><input type="text" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onClick="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\');"></p>';
+						os += '<p></p><form name="editTagList" action="" onsubmit="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\'); return false;"><div style="position:relative; margin:2%;"><input type="text" style="position:fixed;" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"></div><div style="position:relative; top:20px;"><input type="button" name="addTag" id="addTag" value="Add Tag!" onClick="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\');"></div></p>';
 						//os += '<a href="javascript:editTags('+concernId+');">TestIt</a>';
 						os += '<div style="display: none;" id="editTagValidation"></div>';
-						os += '<hr><input type="button" value="Submit Edits" onClick="editTags('+concernId+')">';
-						os += '<input type="button" value="Cancel" onClick="lightboxDisplay()"></form>';
+						os += '<div style="position:relative; top:20px;"><hr><input type="button" id="subeditTags" value="Submit Edits" onClick="editTags('+concernId+')">';
+						os += '<input type="button" value="Cancel" onClick="lightboxDisplay()"></div></form>';
 							$('lightbox').innerHTML = os;
 							var str= "";
 							for(i=0; i < data.concern.tags.length; i++){
