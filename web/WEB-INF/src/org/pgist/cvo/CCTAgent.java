@@ -802,22 +802,10 @@ public class CCTAgent {
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
-    public Map getTagByTagRefId(Long tagId) {
+    public Map getTagByTagRefId(String strTagId) {
     	Map map = new HashMap();
-    	/*
-    	CCT cct = null;
-    	
-        try {
-            Long cctId = new Long((String) params.get("cctId"));
-            cct = cctService.getCCTById(cctId);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("successful", false);
-            if (cct == null) map.put("reason", "No cctId is given.");
-            else map.put("reason", e.getMessage());
-            return map;
-        }*/
-        
+  
+        Long tagId = Long.parseLong(strTagId);
     	try {
 	    	TagReference ref = cctService.getTagReferenceById(tagId);
 	    	Tag myTag = ref.getTag();
