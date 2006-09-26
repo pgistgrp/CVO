@@ -46,7 +46,7 @@
 <li><html:link page="/feedback.do">Reviewing Feedbacks</html:link></li>
 </ul>
 
-<h3>Developement Tools</h3>
+<h3>Development Tools</h3>
 <ul>
 <li><html:link page="/test.jsp">Test</html:link></li>
 <li><html:link page="/concernManagement.do">Concern Management</html:link></li>

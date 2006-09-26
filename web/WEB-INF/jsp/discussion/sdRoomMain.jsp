@@ -525,11 +525,12 @@ function MM_swapImage() { //v3.0
 	
 	<div id="backdisc"><a href="sd.do?isid=${structure.id}"><img src="images/btn_back_a.gif" alt="Back" name="back" class="button" id="next" onMouseOver="MM_swapImage('back','','images/btn_back_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></div>	  
 
+<div class="padding-finished">
 <div id="finished" class="greenBB">
 	<h4>Ready for the next step?</h4><br />
 	<p>Click on the continue button to go on to step 2 where you will review and weigh criteria to evaluate proposed transportation projects.  Go back to your <a href="main.do">home page</a> or  <a href="/sdcWaiting.jsp"><img border="0" src="images/btn_gcontinue_a.gif" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_gcontinue_b.gif',1)" onMouseOut="MM_swapImgRestore()"></p>
 </div>
-
+</span>
 
 <!-- start feedback form -->
 		<pg:feedback id="feedbackDiv" action="sdRoom.do" />
