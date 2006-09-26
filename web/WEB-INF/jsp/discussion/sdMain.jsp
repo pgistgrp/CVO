@@ -121,7 +121,8 @@
  	 			var filters = "";
  	 			filters += '<ul class="filter">';
  	 			for(i=0; i<currentFilterArr.length; i++){
- 	 				filters += '<li>'+getTagByTagRef(currentFilterArr[i])+'  <a href="javascript:removeUlFilter('+[i]+');"><img src="/images/trash.gif" border="0" alt="remove filter" /></a><ul class="filter">';
+ 	 				getTagByTagRef(currentFilterArr[i])
+ 	 				filters += '<li>'+ retTagName() +'  <a href="javascript:removeUlFilter('+[i]+');"><img src="/images/trash.gif" border="0" alt="remove filter" /></a><ul class="filter">';
  	 			}
  	 			filters += '</ul>';
  	 			$('ulfilters').innerHTML = filters;
@@ -149,16 +150,27 @@
 				}
 				});
 		}
-		
 		var tempTag = "";
+		var bool = false;
 		function getTagByTagRef(tagRefId){
 			CCTAgent.getTagByTagRefId(tagRefId, function(data){
 			if (data.successful){
             			tempTag = data.tag.name;
+            			bool = true;
+            			     			
             }
             });
 
-			return tempTag;
+			
+		}
+		
+		function retTagName(){
+			if (bool){
+				bool = false;
+				return tempTag;
+			}else{
+				setTimeout("retTagName()", 500);
+			}
 		}
 		
 		function addFilter(tagRefId){
