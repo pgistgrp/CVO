@@ -101,7 +101,8 @@
 			$('loading-indicator').style.display = "none";	
 		}
 	}
-	//sidebar functionality
+	/////////////////////sidebar functionality////////////////////////////
+	
 	
 		//sidebar global vars
 		var currentFilterArr = new Array();
@@ -304,7 +305,7 @@
 			}		
 		});
 		}
-//end sidebar functionality
+	/////////////////////end sidebar functionality////////////////////////////
 </script>
 
 </head>
