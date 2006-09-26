@@ -12,7 +12,7 @@ import org.pgist.system.UserDAO;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
-
+import org.pgist.tagging.Tag;
 
 /**
  * DWR AJAX Agent class.<br>
@@ -782,5 +782,27 @@ public class CCTAgent {
         return map;
     }//searchTags()
 
+    /**
+     * Get a specific tag based upon the ID.
+     * 
+     * @param id an int<br>
+     * 
+     * @param tag A string which will be searched in tags.
+     */
+    public Map getTagByID(HttpServletRequest request, Long tagId) {
+    	Map map = new HashMap();
+    	try {
+	    	TagReference ref = cctService.getTagReferenceById(tagId);
+	    	Tag myTag = ref.getTag();
+	    	request.setAttribute("tag", myTag);
+	    	
+	    	map.put("successful", true);    	
+    	} catch (Exception e) {
+    		e.printStackTrace();
+            map.put("successful", false);
+            map.put("reason", e.getMessage());  		
+    	}
+    	return map;
+    }
 
 }//class CCTAgent
