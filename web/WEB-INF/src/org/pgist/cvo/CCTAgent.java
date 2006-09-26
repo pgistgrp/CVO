@@ -806,8 +806,9 @@ public class CCTAgent {
     	Map map = new HashMap();
     	try {
 	    	Tag myTag = tagRef.getTag();
-	    	request.setAttribute("tag", myTag);
+	    	//request.setAttribute("tag", myTag);
 	    	
+	    	map.put("tag", myTag);
 	    	map.put("successful", true);    	
     	} catch (Exception e) {
     		e.printStackTrace();
