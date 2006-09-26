@@ -151,6 +151,19 @@
 		
 		function getTagByTagRef(tagRefId){
 			var tag = "tag" + tagRefId;
+			/*
+			CCTAgent.getTagByTagRefID({id: tagRefId}, {
+			callback:function(data){
+			if (data.successful){
+            			alert(data);
+					}else{
+						alert(data.reason);
+					}
+				},
+			errorHandler:function(errorString, exception){ 
+					alert("get targets error:" + errorString + exception);
+			}
+			});*/
 			return tag	
 		}
 		
