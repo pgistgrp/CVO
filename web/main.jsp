@@ -25,15 +25,20 @@
 
 <h3>Welcome, ${baseuser.loginname}</h3>
 <ul>
-<li><pg:show roles="participant, moderator"><html:link page="/cctlist.do">Concerns Collector Tool</html:link></pg:show> 
-* 
-</li>
-<li><html:link page="/glossaryPublic.do">Glossary Public View</html:link> 
-* 
-</li>
 <li><pg:show roles="participant, moderator">
-  <html:link page="/sdlist.do">Structured Discussion List * </html:link>
+  <html:link page="/cctlist.do">Step 1a: Brainstorm Concerns </html:link>
+</pg:show> 
+* 
+</li>
+
+<li><pg:show roles="participant, moderator">
+  <html:link page="/sdlist.do">Step 1b: Discuss Concerns Summaries* </html:link>
 </pg:show></li>
+
+<li>
+  <html:link page="/glossaryPublic.do">Learn More: Public Glossary </html:link> 
+* 
+</li>
 </ul>
 
 <pg:show roles="moderator">
