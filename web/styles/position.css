@@ -167,6 +167,7 @@ select {
 }
 #sidebar_container {
 	margin-left: 14px;
+	font-size: 95%;
 }
 #sidebarmiddle {
 	background-image: url(../images/sidebar_middle.gif);
