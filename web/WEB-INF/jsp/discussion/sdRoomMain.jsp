@@ -438,21 +438,22 @@ function MM_swapImage() { //v3.0
 		}
 		
 		function getTagByTagRef(tagRefId){
-			var tag = "tag" + tagRefId;
-			
-			CCTAgent.getTagByTagRefID({id: tagRefId}, {
+			var tagRef = tagRefId.toString;
+			CCTAgent.getTagByTagRefId({id: tagRef}, {
 			callback:function(data){
 			if (data.successful){
+            			
             			alert(data);
+            			$('tempvars').innerHTML = data;
 					}else{
 						alert(data.reason);
 					}
 				},
 			errorHandler:function(errorString, exception){ 
-					alert("get targets error:" + errorString + exception);
+					alert("get tagbytagref error:" + errorString + exception);
 			}
 			});
-			return tag	
+			return $('tempvars').innerHTML;	
 		}
 		
 		function Filter(tagRefId, status, bool){
@@ -722,6 +723,7 @@ function MM_swapImage() { //v3.0
 					 <div id="sidebar_content">
 					
 					</div><!-- End sidebarcontents-->
+					<div id="tempvars" style="display: none;"></div>
 					</div><!-- sidebar container-->
 					</td>
 				<!-- End Right Col -->
@@ -769,6 +771,7 @@ function MM_swapImage() { //v3.0
 	
 <!-- end feedback form -->
 </div> <!-- End container -->
+
 <!-- Start Footer -->
 <jsp:include page="/footer.jsp" />
 
