@@ -352,22 +352,13 @@ function MM_swapImage() { //v3.0
 					sidebarPage = page;
 				}
 
- 	 			//sidebarFilter
- 	 			var filters = "";
- 	 			//alert(${object.object.theme.title});
  	 			var currentFilter = new Array();
- 	 			filters += '<ul class="filter">';
  	 			for(i=0; i<currentFilterArr.length; i++){
  	 				if(currentFilterArr[i].removeable){
-	 	 				filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+(currentFilterArr[i].tagRefId);
-	 	 				filters += '&nbsp;<a href="javascript: removeUlFilter('+i+');"><img src="/images/trash.gif" alt="remove filter" border="0" /></a>';
-	 	 				filters +='<ul class="filter">';
 	 	 				if(currentFilterArr[i].status == "checked"){
 	 	 					currentFilter.push(currentFilterArr[i].tagRefId);
 	 	 				}
  	 				}else{ //if ioid
- 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkIOIDFilter('+i+')"  '+ currentFilterArr[i].status +' />Theme Filter (numTags)';
-	 	 				filters +='<ul class="filter">';
 	 	 				if(currentFilterArr[i].status == "checked"){
 	 	 					filterIOID = true;
 	 	 				}else{
@@ -375,8 +366,7 @@ function MM_swapImage() { //v3.0
 	 	 				}
  	 				}
  	 			}
- 	 			filters += '</ul>';
- 	 			$('ulfilters').innerHTML = filters;
+
  	 			
  	 			//show all concerns link
  	 				if(currentFilter.length == 0){
@@ -396,6 +386,25 @@ function MM_swapImage() { //v3.0
 				callback:function(data){
 						if (data.successful){
               				 $('sidebar_content').innerHTML = data.source.html;//using partial sidebar-concerns.jsp
+              			//sidebarFilter
+		 	 			var filters = "";
+		 	 			//alert(${object.object.theme.title});
+		 	 			filters += '<ul class="filter">';
+						
+		 	 			for(i=0; i<currentFilterArr.length; i++){
+		 	 				if(currentFilterArr[i].removeable){
+			 	 				filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+(currentFilterArr[i].tagRefId);
+			 	 				filters += '&nbsp;<a href="javascript: removeUlFilter('+i+');"><img src="/images/trash.gif" alt="remove filter" border="0" /></a>';
+			 	 				filters +='<ul class="filter">';
+		 	 				}else{ //if ioid
+		 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkIOIDFilter('+i+')"  '+ currentFilterArr[i].status +' />Theme Filter ('+ data.num +' tags)';
+			 	 				filters +='<ul class="filter">';
+		 	 				}
+		 	 			}
+		 	 			filters += '</ul>';
+		 	 			$('ulfilters').innerHTML = filters;
+		 	 			
+              				 
 							displayIndicator(false);
 						}else{
 							alert(data.reason);

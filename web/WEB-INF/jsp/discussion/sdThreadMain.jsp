@@ -135,10 +135,9 @@
 				}
 
  	 			//sidebarFilter
- 	 			var filters = "";
- 	 			//alert(${object.object.theme.title});
  	 			var currentFilter = new Array();
  	 			for(i=0; i<currentFilterArr.length; i++){
+ 	 				if(currentFilterArr[i].removeable){
 	 	 				if(currentFilterArr[i].status == "checked"){
 	 	 					currentFilter.push(currentFilterArr[i].tagRefId);
 	 	 				}
@@ -146,9 +145,10 @@
 	 	 				if(currentFilterArr[i].status == "checked"){
 	 	 					filterPID = true;
 	 	 				}else{
-	 	 					filterPID = false;	
+	 	 					filterPOID = false;	
 	 	 				}
  	 				}
+ 	 			}
  	 			
 
  	 			//show all concerns link
@@ -167,7 +167,6 @@
 				
 				SDAgent.getContextPosts({isid: ${structure.id},pid: pid, tags: currentFilterString, count: "5", page: sidebarPage}, {
 				callback:function(data){
-					alert(data.num);
 						if (data.successful){
               				 $('sidebar_content').innerHTML = data.source.html;//using partial sidebar-concerns.jsp
 	              				 
@@ -180,13 +179,12 @@
 					 	 				filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+(currentFilterArr[i].tagRefId);
 					 	 				filters += '&nbsp;<a href="javascript: removeUlFilter('+i+');"><img src="/images/trash.gif" alt="remove filter" border="0" /></a>';
 					 	 				filters +='<ul class="filter">';
-					 	 				if(currentFilterArr[i].status == "checked"){
 				 	 				}else{ //if ioid
-				 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkPIDFilter('+i+')"  '+ currentFilterArr[i].status +' />current post\'s tags';
+				 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkPIDFilter('+i+')"  '+ currentFilterArr[i].status +' />current post\'s '+ data.num +' tags';
 					 	 				filters +='<ul class="filter">';
 				 	 				}
-				 	 			}
-			 	 			}
+				 	 		}
+			 	 			
 			 	 			filters += '</ul>';
 			 	 			$('ulfilters').innerHTML = filters;
               				
