@@ -670,10 +670,7 @@ padding:0em 1em 1em 1em;
  	filter: alpha(opacity=80);
 }
 
-img{
-border:0;
 
-}
 
 .lbclose{
 float:right;
@@ -834,16 +831,21 @@ float:right;
 <div id="sidebarbottom" style="text-align:right;"><img src="images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
 
 
-<!-- start feedback form -->
 
-		<pg:feedback id="feedbackDiv" action="cctView.do" />
+		
+		
+		
 
-<!-- end feedback form -->
 </div>
 <!-- End cont-main -->
 
 </div> <!-- End container -->
 
+
+<!-- start feedback form -->
+<pg:feedback id="feedbackDiv" action="cctView.do" />
+
+<!-- end feedback form -->
 
 <!-- Start Footer -->
 <jsp:include page="/footer.jsp" />

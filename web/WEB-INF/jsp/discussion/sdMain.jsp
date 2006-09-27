@@ -489,13 +489,15 @@
 		<!--end sidebar-->
 	
 		
-		<!-- start feedback form -->
+		
+		</div><!-- End cont-main -->
+</div> <!-- End container -->
+
+<!-- start feedback form -->
 		
 		<pg:feedback id="feedbackDiv" action="sdMain.do" />
 	
 <!-- end feedback form -->
-		</div><!-- End cont-main -->
-</div> <!-- End container -->
 
 <!-- Start Footer -->
 <jsp:include page="/footer.jsp" />
