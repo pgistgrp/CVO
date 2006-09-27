@@ -37,6 +37,7 @@ Zhong:
 [] data.num for SDRoom
 [] structure in SDAgent getContextPosts
 [] tag search for discussion post tags
+[] On update of summary in CST, delete all votes related to given summary.
 
 Jordan:
 [ok] bug - new discussion on entire IS
