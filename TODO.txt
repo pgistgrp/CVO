@@ -36,7 +36,7 @@ Zhong:
 [] getContextPosts - if PID is blank, return all discussion posts within ISID
 [] data.num for SDRoom
 [] structure in SDAgent getContextPosts
-
+[] tag search for discussion post tags
 
 Jordan:
 [ok] bug - new discussion on entire IS
@@ -61,11 +61,8 @@ John:
 [ok] css for new design
 [ok] integrate new layout
 [ok] Registration redirect (if successful, redirect to succcess page or main page, if not, display message)
-[] CCT redirect (if user clicks on 'continue' when finished inputting concerns, this button should go to cctConfirm.jsp - in CVO folder)
-[] main.do redirect
-[] Link to most recent CCT instance.  We would like to link to this through the breadcrumb links - how can we do this?
-[] CRUD Validations
-[] Change links on main.jsp - hard code (if necessary) to newest instance of component.
+[ok] CCT redirect (if user clicks on 'continue' when finished inputting concerns, this button should go to cctConfirm.jsp - in CVO folder)
+[ok] main.do redirect
 [] Stopwords Issues
 
 Issac:

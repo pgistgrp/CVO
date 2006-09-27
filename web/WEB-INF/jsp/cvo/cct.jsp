@@ -793,10 +793,8 @@ float:right;
 </div>
 	<div id="tagSelector">
 		<div id="tagform">
-		<div class="textright">Show All Concerns</div>
-		<h6>Filter(s):</h6> (no current filters)
 		<!-- insert filter list here -->
-		<p><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);">Add a Tag Filter</a></p>
+		<p><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);">Add a Filter</a></p>
 		
 		<div id="addFilter" style="display: none;">
 			<span class="textright"><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);"><img src="images/close1.gif" alt="Close" name="closeresults" class="button" id="closeresults" onMouseOver="MM_swapImage('closeresults','','images/close.gif',1)" onMouseOut="MM_swapImgRestore()"></a></a></span>

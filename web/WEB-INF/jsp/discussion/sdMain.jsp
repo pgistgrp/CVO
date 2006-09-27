@@ -140,6 +140,13 @@
  	 				}else{
  	 					$('showAllLink').style.display = 'inline';
  	 				}
+ 	 				
+ 	 			//show title
+ 	 				if(currentFilterArr.length == 0){
+ 	 					$('filterheader').style.display = 'none';
+ 	 				}else{
+ 	 					$('filterheader').style.display = 'inline';
+ 	 				}
  	 			
 				var currentFilterString = currentFilter.toString();
 				SDAgent.getConcerns({isid: ${structure.id},tags: currentFilterString, count: "5", page: sidebarPage}, {
@@ -454,7 +461,7 @@
 	<div id="tagSelector">
 		<div id="tagform">
 		<div id="showAllLink" class="textright"><a href="javascript:clearFilter();">Show All Concerns</a></div>
-		<h6>Filter(s):</h6><span id="ulfilters"></span>
+		<h6 id="filterheader">Filter(s):</h6><span id="ulfilters"></span>
 		<!-- insert filter list here -->
 		<p><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);">Add a Tag Filter</a></p>
 		
