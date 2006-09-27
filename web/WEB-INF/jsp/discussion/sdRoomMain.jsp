@@ -393,7 +393,7 @@ function MM_swapImage() { //v3.0
 						
 		 	 			for(i=0; i<currentFilterArr.length; i++){
 		 	 				if(currentFilterArr[i].removeable){
-			 	 				filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+getTagByTagRef(currentFilterArr[i].tagRefId);
+			 	 				filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+ currentFilterArr[i].tagName;
 			 	 				filters += '&nbsp;<a href="javascript: removeUlFilter('+i+');"><img src="/images/trash.gif" alt="remove filter" border="0" /></a>';
 			 	 				filters +='<ul class="filter">';
 		 	 				}else{ //if ioid
@@ -437,40 +437,37 @@ function MM_swapImage() { //v3.0
 			getConcerns();
 		}
 		
-		function getTagByTagRef(tagRefId){
-			var tagRef = tagRefId.toString;
-			CCTAgent.getTagByTagRefId({id: tagRef}, {
-			callback:function(data){
-			if (data.successful){
-            			
-            			alert(data);
-            			$('tempvars').innerHTML = data;
-					}else{
-						alert(data.reason);
-					}
-				},
-			errorHandler:function(errorString, exception){ 
-					alert("get tagbytagref error:" + errorString + exception);
-			}
-			});
-			return $('tempvars').innerHTML;	
-		}
 		
-		function Filter(tagRefId, status, bool){
+		function Filter(tagRefId, status, bool, tagName){
 			this.tagRefId = tagRefId;
+			this.tagName = tagName;
 			this.status = status;
 			this.removeable = bool
 		}
 		
 		function addFilter(tagRefId){
-				tagRefId.toString();
-				var filterInstance = new Filter(tagRefId, "checked", true);
-				currentFilterArr.push(filterInstance);
-				getConcerns();
+				var tagRef = tagRefId.toString();
+				CCTAgent.getTagByTagRefId(tagRef, {
+				callback:function(data){
+				if (data.successful){
+	            			var tagName = data.tag.name;
+	            			var filterInstance = new Filter(tagRefId, "checked", true, tagName);
+							currentFilterArr.push(filterInstance);
+							getConcerns();
+						}else{
+							alert(data.reason);
+						}
+					},
+				errorHandler:function(errorString, exception){ 
+						alert("get tagbytagref error:" + errorString + exception);
+				}
+				});
+				
+
 		}
 		
 		function addIOIDFilter(){
-			var filterInstance = new Filter(${object.id}, "checked", false);
+			var filterInstance = new Filter(${object.id}, "checked", false, "Theme Filter");
 			currentFilterArr.push(filterInstance)
 			getConcerns();	
 		}

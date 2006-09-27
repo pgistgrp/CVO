@@ -176,7 +176,7 @@
 			 	 			filters += '<ul class="filter">';
 			 	 			for(i=0; i<currentFilterArr.length; i++){
 				 	 			if(currentFilterArr[i].removeable){
-					 	 				filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+(currentFilterArr[i].tagRefId);
+					 	 				filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+ currentFilterArr[i].tagName;
 					 	 				filters += '&nbsp;<a href="javascript: removeUlFilter('+i+');"><img src="/images/trash.gif" alt="remove filter" border="0" /></a>';
 					 	 				filters +='<ul class="filter">';
 				 	 				}else{ //if ioid
@@ -243,21 +243,36 @@
 			return tag	
 		}
 		
-		function Filter(tagRefId, status, bool){
+		function Filter(tagRefId, status, bool, tagName){
 			this.tagRefId = tagRefId;
+			this.tagName = tagName;
 			this.status = status;
 			this.removeable = bool
 		}
 		
 		function addFilter(tagRefId){
-				tagRefId.toString();
-				var filterInstance = new Filter(tagRefId, "checked", true);
-				currentFilterArr.push(filterInstance);
-				getContextPosts();
+				var tagRef = tagRefId.toString();
+				CCTAgent.getTagByTagRefId(tagRef, {
+				callback:function(data){
+				if (data.successful){
+	            			var tagName = data.tag.name;
+	            			var filterInstance = new Filter(tagRefId, "checked", true, tagName);
+							currentFilterArr.push(filterInstance);
+							getContextPosts();
+						}else{
+							alert(data.reason);
+						}
+					},
+				errorHandler:function(errorString, exception){ 
+						alert("get tagbytagref error:" + errorString + exception);
+				}
+				});
+				
+
 		}
 		
 		function addPIDFilter(){
-			var filterInstance = new Filter(${object.id}, "checked", false);
+			var filterInstance = new Filter(${object.id}, "checked", false, "Post Filter");
 			currentFilterArr.push(filterInstance)
 			getContextPosts();	
 		}
@@ -483,13 +498,16 @@
 		 </div>
 		<div class="padding">
 		${post.content}
+		
 		<c:if test="${fn:length(post.tags) != 0}">
+		<p>
 		<ul class="tagsList"><strong>Tags: </strong>
 			<c:forEach items="${post.tags}" var="tag">
-					<li class="tagsList">${tag.name}</li>
+					<li class="tagsList"><a href="javascript:changeCurrentFilter(${tag.id});">${tag.name}</a></li>
 			</c:forEach>
 		<small>- click on a tag to view other discussions with the same tag.</small>
 		</ul>
+		</p>
 		</c:if>
 		</div>
 		<div id="replyTo${post.id}" style="text-align: right;"><a href="javascript:location.href='#replyAnchor';  new Effect.Pulsate('newReply', {duration: .8, from: 0.5}); void(0);"><img src="images/btn_postreply_a.gif" alt="Post Reply" name="postreplya" width="74" height="20" class="button" id="postreplya" onMouseOver="MM_swapImage('postreplya','','images/btn_postreply_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></div>

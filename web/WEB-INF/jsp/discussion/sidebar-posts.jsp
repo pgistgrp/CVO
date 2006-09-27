@@ -21,13 +21,22 @@
 						 	<c:if test="${post.value != null}"> 
 						 		in discussion room <strong><a href="/sdRoomMain.do?isid=${structure.id}&ioid=${post.value.category.id}">${post.value.category.name}</a></strong>
 						 	</c:if>
+						 
 						 	</small>
 						 	</span>
 						 </div>
 						<div class="padding">
 						<small>${post.content}</small>
 						<br />
-
+							<c:if test="${fn:length(post.tags) != 0}">
+							<p>
+							<ul class="tagsList smalltext"><strong>Tags: </strong>
+								<c:forEach items="${post.tags}" var="tag">
+										<li class="tagsList"><a href="javascript: changeCurrentFilter(${tag.id});">${tag.name}</a></li>
+								</c:forEach>
+							</ul>
+							</p>
+							</c:if>
 						</div>
 				</div>
 				<p></p>

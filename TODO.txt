@@ -43,7 +43,6 @@ Jordan:
 [ok] bug - reply to discussion on entire IS
 [ok] Glossary word finder tags on Summary 
 [ok] voting on IO
-[] sorting posts on sdMain
 [] object.description in CCT and shown in SDC
 [ok] jump to select box
 [ok] help integrate new layout
@@ -76,6 +75,7 @@ Issac:
 [ok] Mod Glossary
 [ok] Finish Public Glossary
 [] No script on inputs
+[] sorting posts on sdMain
 
 Adam:
 [ok] Temp header
