@@ -32,7 +32,7 @@ Zhong:
 [?] Bug: getConcerns bug when using IOID.  => reason:ERROR: syntax error at or near ":",successful: false, 
 [ok] Getting CCT variable in SDC
    Now the InfoStructure object has a cctId field, and InfoObject object has a field "stucture" which points to a InfoStructure object.
-
+[] CST Bug: Error: org.pgist.tagging.Tag.getHibernateLazyInitializer()Lorg/hibernate/proxy/LazyInitializer;
 
 Jordan:
 [ok] bug - new discussion on entire IS

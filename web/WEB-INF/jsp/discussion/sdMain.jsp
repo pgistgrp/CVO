@@ -108,8 +108,11 @@
 		var currentFilterArr = new Array();
 		var cctId = 1171; 
 		
+		
+		
 		//end sidebar global vars
 		function getConcerns(page){
+			//alert("cctid: ${cct.id}");
 				displayIndicator(true);
 				//pagination
 				var sidebarPage = 1
@@ -119,27 +122,27 @@
 
  	 			//sidebarFilter
  	 			var filters = "";
- 	 			var currentFilter = "";
+ 	 			var currentFilter = new Array();
  	 			filters += '<ul class="filter">';
  	 			for(i=0; i<currentFilterArr.length; i++){
  	 				
  	 				filters += '<li><input type="checkbox" id="filtercheck'+currentFilterArr[i].tagRefId+'" onclick="checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+getTagByTagRef(currentFilterArr[i].tagRefId)+'<ul class="filter">';
  	 				if(currentFilterArr[i].status == "checked"){
- 	 					currentFilter += currentFilterArr[i].tagRefId + ',';
+ 	 					currentFilter.push(currentFilterArr[i].tagRefId);
  	 				}
  	 			}
  	 			filters += '</ul>';
  	 			$('ulfilters').innerHTML = filters;
  	 			
  	 			//show all concerns link
- 	 				if(currentFilterArr.length == 0){
+ 	 				if(currentFilter.length == 0){
  	 					$('showAllLink').style.display = 'none';
  	 				}else{
  	 					$('showAllLink').style.display = 'inline';
  	 				}
  	 			
-
-				SDAgent.getConcerns({isid: ${structure.id},tags: currentFilter, count: "5", page: sidebarPage}, {
+				var currentFilterString = currentFilter.toString();
+				SDAgent.getConcerns({isid: ${structure.id},tags: currentFilterString, count: "5", page: sidebarPage}, {
 				callback:function(data){
 						if (data.successful){
               				 $('sidebar_content').innerHTML = data.source.html;//using partial sidebar-concerns.jsp

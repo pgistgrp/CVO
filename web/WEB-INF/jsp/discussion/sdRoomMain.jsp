@@ -340,9 +340,11 @@ function MM_swapImage() { //v3.0
 		//sidebar global vars
 		var currentFilterArr = new Array();
 		var cctId = 1171; 
+		var filterIOID = false;
 		
 		//end sidebar global vars
 		function getConcerns(page){
+			//alert("cctid: ${cct.id}");
 				displayIndicator(true);
 				//pagination
 				var sidebarPage = 1
@@ -352,27 +354,44 @@ function MM_swapImage() { //v3.0
 
  	 			//sidebarFilter
  	 			var filters = "";
- 	 			var currentFilter = "";
+ 	 			var currentFilter = new Array();
  	 			filters += '<ul class="filter">';
  	 			for(i=0; i<currentFilterArr.length; i++){
- 	 				
- 	 				filters += '<li><input type="checkbox" id="filtercheck'+currentFilterArr[i].tagRefId+'" onclick="checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+getTagByTagRef(currentFilterArr[i].tagRefId)+'<ul class="filter">';
- 	 				if(currentFilterArr[i].status == "checked"){
- 	 					currentFilter += currentFilterArr[i].tagRefId + ',';
+ 	 				if(currentFilterArr[i].removeable){
+	 	 				filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+(currentFilterArr[i].tagRefId);
+	 	 				filters += '&nbsp;<a href="javascript: removeUlFilter('+i+');"><img src="/images/trash.gif" alt="remove filter" border="0" /></a>';
+	 	 				filters +='<ul class="filter">';
+	 	 				if(currentFilterArr[i].status == "checked"){
+	 	 					currentFilter.push(currentFilterArr[i].tagRefId);
+	 	 				}
+ 	 				}else{ //if ioid
+ 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkIOIDFilter('+i+')"  '+ currentFilterArr[i].status +' /> Theme Filter (numTags)';
+	 	 				filters +='<ul class="filter">';
+	 	 				if(currentFilterArr[i].status == "checked"){
+	 	 					filterIOID = true;
+	 	 				}else{
+	 	 					filterIOID = false;	
+	 	 				}
  	 				}
  	 			}
  	 			filters += '</ul>';
  	 			$('ulfilters').innerHTML = filters;
  	 			
  	 			//show all concerns link
- 	 				if(currentFilterArr.length == 0){
+ 	 				if(currentFilter.length == 0){
  	 					$('showAllLink').style.display = 'none';
  	 				}else{
  	 					$('showAllLink').style.display = 'inline';
  	 				}
  	 			
-
-				SDAgent.getConcerns({isid: ${structure.id}, ioid: ${object.id},tags: currentFilter, count: "5", page: sidebarPage}, {
+				var currentFilterString = currentFilter.toString();
+				if(filterIOID){ //check if filtering by ioid or not
+					var ioid = ${object.id};
+				}else{
+					var ioid = "";
+				}
+				
+				SDAgent.getConcerns({isid: ${structure.id},ioid: ioid, tags: currentFilterString, count: "5", page: sidebarPage}, {
 				callback:function(data){
 						if (data.successful){
               				 $('sidebar_content').innerHTML = data.source.html;//using partial sidebar-concerns.jsp
@@ -397,6 +416,16 @@ function MM_swapImage() { //v3.0
 			getConcerns();
 		}
 		
+		function checkIOIDFilter(index){
+			if(currentFilterArr[index].status == "unchecked"){
+				currentFilterArr[index].status = "checked";
+			}else{
+				currentFilterArr[index].status = "unchecked";
+			}
+			filterIOID = true;
+			getConcerns();
+		}
+		
 		function getTagByTagRef(tagRefId){
 			var tag = "tag" + tagRefId;
 			/*
@@ -415,17 +444,23 @@ function MM_swapImage() { //v3.0
 			return tag	
 		}
 		
-		function Filter(tagRefId, status){
+		function Filter(tagRefId, status, bool){
 			this.tagRefId = tagRefId;
 			this.status = status;
+			this.removeable = bool
 		}
 		
 		function addFilter(tagRefId){
 				tagRefId.toString();
-
-				var filterInstance = new Filter(tagRefId, "checked");
+				var filterInstance = new Filter(tagRefId, "checked", true);
 				currentFilterArr.push(filterInstance);
 				getConcerns();
+		}
+		
+		function addIOIDFilter(){
+			var filterInstance = new Filter(${object.id}, "checked", false);
+			currentFilterArr.push(filterInstance)
+			getConcerns();	
 		}
 		
 		function removeFilter(){
@@ -439,7 +474,10 @@ function MM_swapImage() { //v3.0
 		}
 		
 		function changeCurrentFilter(tagRefId){
-				currentFilterArr.pop();
+				
+				if (!filterIOID || currentFilterArr.length > 1) {//if filtering by ioid, add a new filter, not change it
+					currentFilterArr.pop()
+				};
 				addFilter(tagRefId);
 		}
 		
@@ -733,8 +771,7 @@ function MM_swapImage() { //v3.0
 
 	infoObject.getPosts();
 	infoObject.assignTargetHeaders();
-	getConcerns();
-
+	addIOIDFilter();
 </script>
 
 </body>
