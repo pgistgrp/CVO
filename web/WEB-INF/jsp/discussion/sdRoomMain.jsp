@@ -354,6 +354,7 @@ function MM_swapImage() { //v3.0
 
  	 			//sidebarFilter
  	 			var filters = "";
+ 	 			//alert(${object.object.theme.title});
  	 			var currentFilter = new Array();
  	 			filters += '<ul class="filter">';
  	 			for(i=0; i<currentFilterArr.length; i++){
@@ -365,7 +366,7 @@ function MM_swapImage() { //v3.0
 	 	 					currentFilter.push(currentFilterArr[i].tagRefId);
 	 	 				}
  	 				}else{ //if ioid
- 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkIOIDFilter('+i+')"  '+ currentFilterArr[i].status +' /> Theme Filter (numTags)';
+ 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkIOIDFilter('+i+')"  '+ currentFilterArr[i].status +' />Theme Filter (numTags)';
 	 	 				filters +='<ul class="filter">';
 	 	 				if(currentFilterArr[i].status == "checked"){
 	 	 					filterIOID = true;
@@ -402,9 +403,10 @@ function MM_swapImage() { //v3.0
 						}
 					},
 				errorHandler:function(errorString, exception){ 
-						alert("get targets error:" + errorString + exception);
+						alert("get concerns error:" + errorString + exception);
 				}
 				});
+				
 		}
 		
 		function checkFilter(index){
