@@ -33,7 +33,9 @@
 <br />
 <div id="pgistlogo">
 <img src="images/mainlogo.png" alt="pgistlogo" >
-</div><br />
+</div>
+<center><h3>Note: User name and password are case sensitive</h3></center> 
+<br />
 
 <html:form action="/login.do" method="POST" focus="user.loginname">
   <div align="center">
