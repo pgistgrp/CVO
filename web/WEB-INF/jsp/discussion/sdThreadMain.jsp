@@ -145,7 +145,7 @@
 	 	 				if(currentFilterArr[i].status == "checked"){
 	 	 					filterPID = true;
 	 	 				}else{
-	 	 					filterPOID = false;	
+	 	 					filterPID = false;	
 	 	 				}
  	 				}
  	 			}
@@ -342,7 +342,7 @@
 				});	
 		}
 		
-	function getContextPostsByTag(tagRefId){
+	function getConcernsByTag(tagRefId){
 			addFilter(tagRefId);	
 			$('addFilter').style.display = 'none';
 			if($('sidebarSearchResults').style.display != 'none'){
@@ -483,10 +483,10 @@
 		 </div>
 		<div class="padding">
 		${post.content}
-		<c:if test="${fn:length(reply.tags) != 0}">
-		<ul class="tagsList"><strong>tags: </strong>
-			<c:forEach items="${post.tags}" var="tagref">
-						<li class="tagsList">${tag.name}</li>
+		<c:if test="${fn:length(post.tags) != 0}">
+		<ul class="tagsList"><strong>Tags: </strong>
+			<c:forEach items="${post.tags}" var="tag">
+					<li class="tagsList">${tag.name}</li>
 			</c:forEach>
 		<small>- click on a tag to view other discussions with the same tag.</small>
 		</ul>

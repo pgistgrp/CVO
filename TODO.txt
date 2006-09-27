@@ -33,6 +33,10 @@ Zhong:
 [ok] Getting CCT variable in SDC
    Now the InfoStructure object has a cctId field, and InfoObject object has a field "stucture" which points to a InfoStructure object.
 [] CST Bug: Error: org.pgist.tagging.Tag.getHibernateLazyInitializer()Lorg/hibernate/proxy/LazyInitializer;
+[] getContextPosts - if PID is blank, return all discussion posts within ISID
+[] data.num for SDRoom
+[] structure in SDAgent getContextPosts
+
 
 Jordan:
 [ok] bug - new discussion on entire IS

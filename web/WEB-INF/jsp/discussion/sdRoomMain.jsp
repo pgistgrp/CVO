@@ -393,7 +393,7 @@ function MM_swapImage() { //v3.0
 						
 		 	 			for(i=0; i<currentFilterArr.length; i++){
 		 	 				if(currentFilterArr[i].removeable){
-			 	 				filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+(currentFilterArr[i].tagRefId);
+			 	 				filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+getTagByTagRef(currentFilterArr[i].tagRefId);
 			 	 				filters += '&nbsp;<a href="javascript: removeUlFilter('+i+');"><img src="/images/trash.gif" alt="remove filter" border="0" /></a>';
 			 	 				filters +='<ul class="filter">';
 		 	 				}else{ //if ioid
@@ -439,7 +439,7 @@ function MM_swapImage() { //v3.0
 		
 		function getTagByTagRef(tagRefId){
 			var tag = "tag" + tagRefId;
-			/*
+			
 			CCTAgent.getTagByTagRefID({id: tagRefId}, {
 			callback:function(data){
 			if (data.successful){
@@ -451,7 +451,7 @@ function MM_swapImage() { //v3.0
 			errorHandler:function(errorString, exception){ 
 					alert("get targets error:" + errorString + exception);
 			}
-			});*/
+			});
 			return tag	
 		}
 		
