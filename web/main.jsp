@@ -28,16 +28,14 @@
 <li><pg:show roles="participant, moderator">
   <html:link page="/cctlist.do">Step 1a: Brainstorm Concerns </html:link>
 </pg:show> 
-* 
 </li>
 
 <li><pg:show roles="participant, moderator">
-  <html:link page="/sdlist.do">Step 1b: Discuss Concerns Summaries* </html:link>
+  <html:link page="/sdlist.do">Step 1b: Discuss Concerns Summaries</html:link>
 </pg:show></li>
 
 <li>
   <html:link page="/glossaryPublic.do">Learn More: Public Glossary </html:link> 
-* 
 </li>
 </ul>
 
@@ -46,7 +44,7 @@
 <ul>
 <pg:show users="admin"><li><a href="/userlist.do">User Management</a></li></pg:show>
 <li><html:link page="/tagging.do">Tags/StopWords Management Tool</html:link></li>
-<li><html:link page="/cstlist.do">Concerns Synthesis Tool</html:link>*</li>
+<li><html:link page="/cstlist.do">Concerns Synthesis Tool</html:link></li>
 <li><html:link page="/glossaryManage.do">Glossary Management Tool</html:link></li>
 <li><html:link page="/feedback.do">Reviewing Feedbacks</html:link></li>
 </ul>
