@@ -24,6 +24,7 @@
  	<script src="/scripts/editor_simple.js" type="text/javascript"></script>
 	<script src="/scripts/scriptaculous.js?load=effects,controls" type="text/javascript"></script>
 	<script src="/scripts/tags.js" type="text/javascript"></script>
+	<script src="scripts/search.js" type="text/javascript"></script>
 	
 	<!--DHTML XTree Libraries -->
 	<script src="/scripts/dhtmlXTree/dhtmlXTree.js" type="text/javascript"></script>	
