@@ -26,6 +26,11 @@ Zhong:
 [] Google Map Guirong Code Fixes (after usability test)
 [ok] multiple filters on sidebar AND
 [ok] sidebar - other posts in random order for threadmain (for now)
+[] Import stopwords/tags from XML 
+[] Bug: Some tags in SDC don't return any concerns when clicked on - they should return at least one (the concern that contained the original tag that was clicked on)
+[] CCT Sidebar Filtering
+[] Bug: getConcerns bug when using IOID.  => reason:ERROR: syntax error at or near ":",successful: false, 
+[] Getting CCT variable in SDC
 
 
 Jordan:

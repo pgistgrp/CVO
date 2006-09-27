@@ -349,13 +349,18 @@ function MM_swapImage() { //v3.0
 				if (page != undefined){
 					sidebarPage = page;
 				}
- 	 				 			
+
  	 			//sidebarFilter
  	 			var filters = "";
+ 	 			var currentFilter = "";
  	 			filters += '<ul class="filter">';
  	 			for(i=0; i<currentFilterArr.length; i++){
- 	 				filters += '<li><input type="checkbox" id="filtercheck'+getTagByTagRef(currentFilterArr[i])+'" onclick="checkFilter(this)" checked=true /> '+getTagByTagRef(currentFilterArr[i])+'<ul class="filter">';
- 	 			}//removeUlFilter('+[i]+');"
+ 	 				
+ 	 				filters += '<li><input type="checkbox" id="filtercheck'+currentFilterArr[i].tagRefId+'" onclick="checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+getTagByTagRef(currentFilterArr[i].tagRefId)+'<ul class="filter">';
+ 	 				if(currentFilterArr[i].status == "checked"){
+ 	 					currentFilter += currentFilterArr[i].tagRefId + ',';
+ 	 				}
+ 	 			}
  	 			filters += '</ul>';
  	 			$('ulfilters').innerHTML = filters;
  	 			
@@ -366,8 +371,8 @@ function MM_swapImage() { //v3.0
  	 					$('showAllLink').style.display = 'inline';
  	 				}
  	 			
- 	 			var currentFilter = currentFilterArr.toString();
-				SDAgent.getConcerns({isid: ${structure.id}, tags: currentFilter, count: "5", page: sidebarPage}, {
+
+				SDAgent.getConcerns({isid: ${structure.id}, ioid: ${object.id},tags: currentFilter, count: "5", page: sidebarPage}, {
 				callback:function(data){
 						if (data.successful){
               				 $('sidebar_content').innerHTML = data.source.html;//using partial sidebar-concerns.jsp
@@ -383,12 +388,13 @@ function MM_swapImage() { //v3.0
 				});
 		}
 		
-		function checkFilter(checkbox){
-			if(checkbox.checked){
-				
+		function checkFilter(index){
+			if(currentFilterArr[index].status == "unchecked"){
+				currentFilterArr[index].status = "checked";
 			}else{
-				
-			}	
+				currentFilterArr[index].status = "unchecked";
+			}
+			getConcerns();
 		}
 		
 		function getTagByTagRef(tagRefId){
@@ -409,9 +415,16 @@ function MM_swapImage() { //v3.0
 			return tag	
 		}
 		
+		function Filter(tagRefId, status){
+			this.tagRefId = tagRefId;
+			this.status = status;
+		}
+		
 		function addFilter(tagRefId){
 				tagRefId.toString();
-				currentFilterArr.push(tagRefId);
+
+				var filterInstance = new Filter(tagRefId, "checked");
+				currentFilterArr.push(filterInstance);
 				getConcerns();
 		}
 		
@@ -431,12 +444,12 @@ function MM_swapImage() { //v3.0
 		}
 		
 		function clearFilter(){
-			clearFilters = confirm("Are you sure? This action will remove all of your filters.");
-			if(clearFilters){
-			currentFilterArr = [];
-			getConcerns()	;
+			for(i=0; i<currentFilterArr.length; i++){
+				currentFilterArr[i].status = "unchecked";	
 			}
+			getConcerns()	;
 		}
+		
 		function clearSearch(){
 			$('txtmanualFilter').value = "";	
 			$('txtmanualFilter').focus();
