@@ -14,11 +14,28 @@ import java.util.Set;
 public class InfoStructure extends GenericInfo {
     
     
+    private Long cctId;
+    
     private String type;
     
     private Set infoObjects = new HashSet();
     
     
+    /**
+     * @return
+     * 
+     * @hibernate.property not-null="true"
+     */
+    public Long getCctId() {
+        return cctId;
+    }
+
+
+    public void setCctId(Long cctId) {
+        this.cctId = cctId;
+    }
+
+
     /**
      * @return
      * 

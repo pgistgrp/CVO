@@ -8,7 +8,7 @@
             <description>drop view if exists</description>
             <script>
               <![CDATA[
-                DROP VIEW view_post_reply_tags;
+                DROP VIEW view_post_reply_tags CASCADE;
               ]]>
             </script>
         </statement>
@@ -17,7 +17,16 @@
             <description>drop view if exists</description>
             <script>
               <![CDATA[
-                DROP VIEW view_concern_tags;
+                DROP VIEW view_concern_tags CASCADE;
+              ]]>
+            </script>
+        </statement>
+        
+        <statement exception="suppress">
+            <description>drop view if exists</description>
+            <script>
+              <![CDATA[
+                DROP VIEW view_info_structure_tags CASCADE;
               ]]>
             </script>
         </statement>
@@ -28,13 +37,25 @@
     <creates>
     
         <statement exception="throw">
+            <description>view for isid-tagid link</description>
+            <script>
+              <![CDATA[
+                CREATE VIEW view_info_structure_tags AS
+                  SELECT DISTINCT s.id AS isid, l.tagref_id AS trid
+                  FROM pgist_info_structure s, pgist_info_object o, pgist_cvo_category_refs cat, pgist_cvo_catref_tagref_link l
+                  ORDER BY s.id, l.tagref_id;
+              ]]>
+            </script>
+        </statement>
+        
+        <statement exception="throw">
             <description>view for concern-tagref-isid-ioid-cctid link</description>
             <script>
               <![CDATA[
                 CREATE VIEW view_concern_tags AS
-                  SELECT c.id AS cid, tr.id AS trid, it.isid AS isid, it.ioid AS ioid, it.cctid AS cctid
-                  FROM pgist_cvo_concerns c, pgist_info_tag it, pgist_cvo_tag_refs tr, pgist_cvo_concern_tag_link ctl
-                  WHERE c.id=ctl.concern_id AND ctl.tagref_id=tr.id AND it.tagid=tr.id;
+                  SELECT s.cctid as cctid, 0 as isid, 0 as ioid, c.id as cid, l.tagref_id as trid from pgist_info_structure s, pgist_cvo_concerns c, pgist_cvo_concern_tag_link l where s.cctid=c.cct_id and l.concern_id=c.id and l.tagref_id not in (select trid from view_info_structure_tags)
+                  UNION
+                  SELECT s.cctid as cctid, s.id as isid, o.id as ioid, c.id as cid, l.tagref_id as trid from pgist_info_structure s, pgist_info_object o, pgist_cvo_concerns c, pgist_cvo_concern_tag_link l where s.cctid=c.cct_id and o.structure_id=s.id and l.concern_id=c.id and l.tagref_id in (select trid from view_info_structure_tags);
               ]]>
             </script>
         </statement>

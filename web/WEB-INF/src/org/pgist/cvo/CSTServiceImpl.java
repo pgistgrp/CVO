@@ -5,13 +5,11 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Set;
 
 import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
-import org.pgist.discussion.InfoTagLink;
 import org.pgist.tagging.Category;
 import org.pgist.tagging.TagDAO;
 import org.pgist.util.PageSetting;
@@ -563,6 +561,7 @@ public class CSTServiceImpl implements CSTService {
         InfoStructure structure = new InfoStructure();
         structure.setType("sdc");
         structure.setRespTime(date);
+        structure.setCctId(cctId);
         discussionDAO.save(structure);
         
         for (CategoryReference ref : (Set<CategoryReference>) cct.getRootCategory().getChildren()) {
@@ -579,26 +578,6 @@ public class CSTServiceImpl implements CSTService {
             discussionDAO.save(obj);
             
             structure.getInfoObjects().add(obj);
-            
-            Queue queue = new LinkedList();
-            queue.add(ref);
-            while (!queue.isEmpty()) {
-                CategoryReference one = (CategoryReference) queue.poll();
-                for (CategoryReference child : (Set<CategoryReference>) one.getChildren()) {
-                    queue.offer(child);
-                }
-                
-                for (TagReference two : (Set<TagReference>) one.getTags()) {
-                    InfoTagLink link = new InfoTagLink();
-                    link.setIsid(structure.getId());
-                    link.setIoid(obj.getId());
-                    link.setCctId(cct.getId());
-                    link.setTagId(two.getId());
-                    discussionDAO.save(link);
-                }//for two
-                
-            }//while
-            
         }//for ref
         
         discussionDAO.save(structure);

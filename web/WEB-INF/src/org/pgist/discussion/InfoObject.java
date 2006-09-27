@@ -10,9 +10,25 @@ package org.pgist.discussion;
 public class InfoObject extends GenericInfo {
     
     
+    private InfoStructure structure;
+    
     private Object object;
     
     
+    /**
+     * @return
+     * @hibernate.many-to-one column="structure_id" lazy="true"
+     */
+    public InfoStructure getStructure() {
+        return structure;
+    }
+
+
+    public void setStructure(InfoStructure structure) {
+        this.structure = structure;
+    }
+
+
     /**
      * @return object
      * 
