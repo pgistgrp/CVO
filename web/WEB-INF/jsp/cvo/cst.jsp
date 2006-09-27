@@ -213,7 +213,9 @@
 			callback:function(data){
 					if (data.successful){
 						Effect.Fade('savingIndicator');
-						new Effect.Fade('tag' + tagId, {duration: 0.5, afterFinish: function(){getTags(currentCategory.dataId, 0, 1, tagId);getTags(currentCategory.dataId, 0, 0, tagId);}});
+						//new Effect.Fade('tag' + tagId, {duration: 0.5, afterFinish: function(){getTags(currentCategory.dataId, 0, 1, tagId);getTags(currentCategory.dataId, 0, 0, tagId);}});
+						getTags(currentCategory.dataId, 0, 1, tagId);
+						getTags(currentCategory.dataId, 0, 0, tagId);
 					}
 					if (data.successful != true){
 						alert(data.reason);
@@ -234,8 +236,10 @@
 				callback:function(data){
 						if (data.successful){
 									//new Effect.SwitchOff('tag' + tagId);
-									new Effect.Fade('tag'+tagId, {duration: 0.5, afterFinish: function(){getTags(categoryId, 0, 1, tagId);getTags(categoryId, 0, 0, tagId);}});
+									//new Effect.Fade('tag'+tagId, {duration: 0.5, afterFinish: function(){getTags(categoryId, 0, 1, tagId);getTags(categoryId, 0, 0, tagId);}});
 									Effect.Fade('savingIndicator');
+									getTags(categoryId, 0, 1, tagId);
+									getTags(categoryId, 0, 0, tagId);
 						}
 						if (data.successful != true){
 							alert(data.reason);
@@ -611,12 +615,13 @@
 </head>
 
 <body onResize="dosize()" onkeydown="globalKeyHandler(event);">
-
+<div id="savingIndicator" style="display: none; background-color:#FF0000;position:fixed;">&nbsp;Saving...<img src="/images/indicator.gif">&nbsp;</div>
 <div id="container">
 	<jsp:include page="/header.jsp" />
 	<!-- START LIGHTBOX -->
 	<div id="overlay" style="display: none;"></div>
 	<div id="lightbox" style="display: none;" class="blueBB"></div>
+	
 	<!-- END LIGHTBOX -->
 	
 	<!-- Start Moderator Navigation -->
@@ -659,7 +664,7 @@ categories, each with 1 or 2 tags in it.</li></ol><li><b>Identify themes and sum
 			
 		</div>
 		<div id="col-right">
-				<div id="savingIndicator" style="display: none;">Saving...<img src="/images/indicator.gif"></div>
+				
 				<!--START Tabs -->
 				<div id="bar">
 					<a id="SideConcernsTop" name="SideConcernsTop"></a>
@@ -686,8 +691,8 @@ categories, each with 1 or 2 tags in it.</li></ol><li><b>Identify themes and sum
 		</div>
 	
 		<div id="clear" style="clear:both">
-			<div id="col-crud-options" style="display:none;"><span class="closeBox"><a href="javascript: new Effect.PhaseOut('col-crud-options'); void(0);">hide options</a></span>
-				<h4>Editing Options</h4>
+			<div id="col-crud-options" style="display:none;"><span class="closeBox"><a href="javascript: new Effect.PhaseOut('col-crud-options'); void(0);"><img src="images/close.gif" border="0" alt="Hide" name="Hide" class="button" style="margin-bottom:3px;" id="hide" onMouseOver="MM_swapImage('hide','','images/close1.gif',1)" onMouseOut="MM_swapImgRestore()"></a></span>
+				<h4>Editing Options:</h4>
 				<small><a href="javascript: deleteSelectedCategory();">Delete</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript: new Effect.PhaseOut('col-crud-options'); void(0); new Effect.Appear('col-option'); void(0);">Rename</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:duplicateSelectedCategory();">Duplicate</a>&nbsp;&nbsp;|&nbsp;&nbsp;Edit Summary</small>
 			</div>
 			<div id="col-option" style="display: none;"><span class="closeBox"><a href="javascript: new Effect.PhaseIn('col-crud-options'); void(0); new Effect.Fade('col-option'); void(0);">back to all options</a></span>
@@ -719,10 +724,8 @@ categories, each with 1 or 2 tags in it.</li></ol><li><b>Identify themes and sum
 			 
 		<div id="spacer" style="text-align: right;"></div>
 		
-		<!--footer-->
 		
-		
-		<!--end footer-->
+
 		<div id="finished">
 			<a name="finished"></a>
 	   		<h3 id="headerFinished">Finished synthesizing concerns?
@@ -730,26 +733,22 @@ categories, each with 1 or 2 tags in it.</li></ol><li><b>Identify themes and sum
 	   		</h3>
 	   		<p>blah blah.... Publish concern themes to participants....			</p>
 		</div>
-	
-
 </div>
 </div>
 
-<div>
-
-</div>
-<!-- Start Footer -->
-<jsp:include page="/footer.jsp" />
-
-
-
-<!-- End Footer -->
 
 <!--feedback form-->
 
+<div style="margin-top:130px;margin-left: 10px;">
 <pg:feedback id="feedbackDiv" action="cstview.do" />
+</div>
 
 <!--end feedback form-->
+
+<!-- Start Footer -->
+<jsp:include page="/footer.jsp" />
+<!-- End Footer -->
+
 </body>
 </html>
     
