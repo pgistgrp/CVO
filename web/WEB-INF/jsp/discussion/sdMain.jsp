@@ -116,13 +116,17 @@
 				if (page != undefined){
 					sidebarPage = page;
 				}
- 	 				 			
+
  	 			//sidebarFilter
  	 			var filters = "";
+ 	 			var currentFilter = "";
  	 			filters += '<ul class="filter">';
  	 			for(i=0; i<currentFilterArr.length; i++){
- 	 				getTagByTagRef(currentFilterArr[i])
- 	 				filters += '<li>'+ retTagName() +'  <a href="javascript:removeUlFilter('+[i]+');"><img src="/images/trash.gif" border="0" alt="remove filter" /></a><ul class="filter">';
+ 	 				
+ 	 				filters += '<li><input type="checkbox" id="filtercheck'+currentFilterArr[i].tagRefId+'" onclick="checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+getTagByTagRef(currentFilterArr[i].tagRefId)+'<ul class="filter">';
+ 	 				if(currentFilterArr[i].status == "checked"){
+ 	 					currentFilter += currentFilterArr[i].tagRefId + ',';
+ 	 				}
  	 			}
  	 			filters += '</ul>';
  	 			$('ulfilters').innerHTML = filters;
@@ -134,8 +138,8 @@
  	 					$('showAllLink').style.display = 'inline';
  	 				}
  	 			
- 	 			var currentFilter = currentFilterArr.toString();
-				SDAgent.getConcerns({isid: ${structure.id}, tags: currentFilter, count: "5", page: sidebarPage}, {
+
+				SDAgent.getConcerns({isid: ${structure.id},tags: currentFilter, count: "5", page: sidebarPage}, {
 				callback:function(data){
 						if (data.successful){
               				 $('sidebar_content').innerHTML = data.source.html;//using partial sidebar-concerns.jsp
@@ -150,32 +154,44 @@
 				}
 				});
 		}
-		var tempTag = "";
-		var bool = false;
-		function getTagByTagRef(tagRefId){
-			CCTAgent.getTagByTagRefId(tagRefId, function(data){
-			if (data.successful){
-            			tempTag = data.tag.name;
-            			bool = true;
-            			     			
-            }
-            });
-
-			
+		
+		function checkFilter(index){
+			if(currentFilterArr[index].status == "unchecked"){
+				currentFilterArr[index].status = "checked";
+			}else{
+				currentFilterArr[index].status = "unchecked";
+			}
+			getConcerns();
 		}
 		
-		function retTagName(){
-			if (bool){
-				bool = false;
-				return tempTag;
-			}else{
-				setTimeout("retTagName()", 500);
+		function getTagByTagRef(tagRefId){
+			var tag = "tag" + tagRefId;
+			/*
+			CCTAgent.getTagByTagRefID({id: tagRefId}, {
+			callback:function(data){
+			if (data.successful){
+            			alert(data);
+					}else{
+						alert(data.reason);
+					}
+				},
+			errorHandler:function(errorString, exception){ 
+					alert("get targets error:" + errorString + exception);
 			}
+			});*/
+			return tag	
+		}
+		
+		function Filter(tagRefId, status){
+			this.tagRefId = tagRefId;
+			this.status = status;
 		}
 		
 		function addFilter(tagRefId){
 				tagRefId.toString();
-				currentFilterArr.push(tagRefId);
+
+				var filterInstance = new Filter(tagRefId, "checked");
+				currentFilterArr.push(filterInstance);
 				getConcerns();
 		}
 		
@@ -195,12 +211,12 @@
 		}
 		
 		function clearFilter(){
-			clearFilters = confirm("Are you sure? This action will remove all of your filters.");
-			if(clearFilters){
-			currentFilterArr = [];
-			getConcerns()	;
+			for(i=0; i<currentFilterArr.length; i++){
+				currentFilterArr[i].status = "unchecked";	
 			}
+			getConcerns()	;
 		}
+		
 		function clearSearch(){
 			$('txtmanualFilter').value = "";	
 			$('txtmanualFilter').focus();
