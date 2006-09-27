@@ -510,7 +510,7 @@
 		</p>
 		</c:if>
 		</div>
-		<div id="replyTo${post.id}" style="text-align: right;"><a href="javascript:location.href='#replyAnchor';  new Effect.Pulsate('newReply', {duration: .8, from: 0.5}); void(0);"><img src="images/btn_postreply_a.gif" alt="Post Reply" name="postreplya" width="74" height="20" class="button" id="postreplya" onMouseOver="MM_swapImage('postreplya','','images/btn_postreply_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></div>
+		<div id="replyTo${post.id}" style="text-align: right;"><a href="javascript:location.href='#replyAnchor';  new Effect.Pulsate('newReply', {duration: .8, from: 0.5}); void(0);"><img src="images/btn_postreply_a.gif" alt="Post Reply" name="postreplya" width="69" height="19" class="button" id="postreplya" onMouseOver="MM_swapImage('postreplya','','images/btn_postreply_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></div>
 	</div><!--end post-->
 
    <div id="extrapadding" class="padding-sides">
@@ -578,14 +578,16 @@
 	<h4>Ready for the next step?</h4><br />
 	<p>Click on the continue button to go on to step 2 where you will review and weigh criteria to evaluate proposed transportation projects.  Go back to your <a href="main.do">home page</a> or  <a href="sdcWaiting.jsp"><img border="0" src="images/btn_gcontinue_a.gif" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_gcontinue_b.gif',1)" onMouseOut="MM_swapImgRestore()"></p>
 </div>
+
+</div>
+<!-- End cont-main -->
+</div> <!-- End container -->
+
 <!-- start feedback form -->
 
 		<pg:feedback id="feedbackDiv" action="sdThread.do" />
 		
 <!-- end feedback form -->
-</div>
-<!-- End cont-main -->
-</div> <!-- End container -->
 <!-- Start Footer -->
 <jsp:include page="/footer.jsp" />
 
