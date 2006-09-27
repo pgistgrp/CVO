@@ -329,7 +329,7 @@
 		<h3>Sources</h3>
 		<ul>
 		<logic:iterate id="onesource" property="sources" name="term">
-			<li><a href="${onesource}">${onesource}</a></li>
+			<li><a href="${onesource.url}">${onesource}</a></li>
 		</logic:iterate>
 		</ul>
 		</c:if>
