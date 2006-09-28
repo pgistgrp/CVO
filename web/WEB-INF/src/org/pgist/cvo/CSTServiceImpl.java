@@ -537,7 +537,9 @@ public class CSTServiceImpl implements CSTService {
          * clear votings if it has
          */
         Long oid = cstDAO.getInfoObjectIdByThemeId(themeId);
-        discussionDAO.deleteVotings(oid);
+        if (oid!=null) {
+            discussionDAO.deleteVotings(oid);
+        }
         
         cstDAO.save(theme);
     }//saveSummary()
