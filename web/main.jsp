@@ -55,10 +55,10 @@
 <li><html:link page="/concernManagement.do">Concern Management</html:link></li>
 <li><html:link page="/search.do">Search</html:link></li>
 <li><html:link page="/situationList.do">Situation List</html:link></li>
+<li><html:link page="/pgist-docs/index.html">Javadoc</html:link></li>
 </ul>
 </pg:show>
 </div>
-
 
 	<pg:feedback id="feedbackDiv" action="login.do" />
 
