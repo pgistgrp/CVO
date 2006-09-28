@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Query;
+import org.pgist.cvo.CategoryReference;
 import org.pgist.cvo.Concern;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.tagging.Tag;
@@ -707,6 +709,86 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getContextPosts()
 
 
+    private static final String hql_getContextPosts_A_1 = "select count(p.id) from DiscussionPost p where p.discussion.targetId in (select o.id from InfoObject o where o.structure.id=?)";
+    
+    private static final String hql_getContextPosts_A_2 = "from DiscussionPost p where p.discussion.targetId in (select o.id from InfoObject o where o.structure.id=?) order by p.id desc";
+    
+    
+    public Collection getContextPosts(Long isid, PageSetting setting) throws Exception {
+        List list = new ArrayList();
+        
+        Query query = null;
+        
+        query = getSession().createQuery(hql_getContextPosts_A_1);
+        query.setLong(0, isid);
+        query.setMaxResults(1);
+        
+        int count = ((Number) query.uniqueResult()).intValue();
+        
+        if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
+        
+        setting.setRowSize(count);
+        
+        if (count==0) return list;
+        
+        query = getSession().createQuery(hql_getContextPosts_A_2);
+        query.setLong(0, isid);
+        
+        query.setFirstResult(setting.getFirstRow());
+        query.setMaxResults(setting.getRowOfPage());
+        
+        list = query.list();
+        
+        for (DiscussionPost post : (List<DiscussionPost>) list) {
+            if (post.getDiscussion().getTargetType().equals(InfoObject.class.getName())) {
+                InfoObject obj = (InfoObject) getHibernateTemplate().load(InfoObject.class, post.getDiscussion().getTargetId());
+                post.setValue(obj);
+            }
+        }//for list
+        
+        return list;
+    }//getContextPosts()
+
+
+    private static final String hql_getContextPosts_B_1 = "select count(p.id) from DiscussionPost p where p.discussion.targetId in (select o.id from InfoObject o where o.structure.id=?) and p.tags.id in (##)";
+    
+    private static final String hql_getContextPosts_B_2 = "from DiscussionPost p where p.discussion.targetId in (select o.id from InfoObject o where o.structure.id=?) and p.tags.id in (##) order by p.id desc";
+    
+    
+    public Collection getContextPosts(Long isid, String ids, PageSetting setting) throws Exception {
+        List list = new ArrayList();
+        
+        Query query = getSession().createQuery(hql_getContextPosts_B_1.replace("##", ids));
+        query.setLong(0, isid);
+        query.setMaxResults(1);
+        
+        int count = ((Number) query.uniqueResult()).intValue();
+        
+        if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
+        
+        setting.setRowSize(count);
+        
+        if (count==0) return list;
+        
+        query = getSession().createQuery(hql_getContextPosts_B_2.replace("##", ids));
+        query.setLong(0, isid);
+        
+        query.setFirstResult(setting.getFirstRow());
+        query.setMaxResults(setting.getRowOfPage());
+        
+        list = query.list();
+        
+        for (DiscussionPost post : (List<DiscussionPost>) list) {
+            if (post.getDiscussion().getTargetType().equals(InfoObject.class.getName())) {
+                InfoObject obj = (InfoObject) getHibernateTemplate().load(InfoObject.class, post.getDiscussion().getTargetId());
+                post.setValue(obj);
+            }
+        }//for list
+        
+        return list;
+    }//getContextPosts()
+
+
     private static final String sql_getPostTagCount = "select count(distinct tid) from view_post_reply_tags where isid=? and pid=?";
     
     
@@ -725,6 +807,33 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         return num;
     }//getPostTagCount()
+
+
+    private static final String sql_searchTags = "select distinct tid from view_dpost_tag_link where target in (##) and tname like ?";
+    
+    
+    public Collection searchTags(InfoStructure structure, String tag) throws Exception {
+        List list = new ArrayList();
+        
+        StringBuilder sb = new StringBuilder(structure.getId().toString());
+        for (InfoObject obj : (Set<InfoObject>) structure.getInfoObjects()) {
+            sb.append(',').append(obj.getId().toString());
+        }
+        
+        Connection connection = getSession().connection();
+        PreparedStatement pstmt = connection.prepareStatement(sql_searchTags.replace("##", sb.toString()));
+        
+        pstmt.setString(1, '%'+tag+'%');
+        
+        ResultSet rs = pstmt.executeQuery();
+        
+        while (rs.next()) {
+            Tag one = (Tag) getHibernateTemplate().load(Tag.class, rs.getLong(1));
+            list.add(one);
+        }//while
+        
+        return list;
+    }//searchTags()
 
 
 }//class DiscussionDAOImpl

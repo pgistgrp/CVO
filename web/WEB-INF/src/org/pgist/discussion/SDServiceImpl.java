@@ -262,9 +262,17 @@ public class SDServiceImpl implements SDService {
 
     public Collection getContextPosts(Long isid, Long pid, String ids, PageSetting setting) throws Exception {
         if (ids==null || ids.trim().length()==0) {
-            return discussionDAO.getContextPosts(isid, pid, setting);
+            if (pid==null) {
+                return discussionDAO.getContextPosts(isid, setting);
+            } else {
+                return discussionDAO.getContextPosts(isid, pid, setting);
+            }
         } else {
-            return discussionDAO.getContextPosts(isid, pid, ids, setting);
+            if (pid==null) {
+                return discussionDAO.getContextPosts(isid, ids, setting);
+            } else {
+                return discussionDAO.getContextPosts(isid, pid, ids, setting);
+            }
         }
     }//getContextPosts()
 
@@ -272,6 +280,11 @@ public class SDServiceImpl implements SDService {
     public int getPostTagCount(Long isid, Long postId) throws Exception {
         return discussionDAO.getPostTagCount(isid, postId);
     }//getPostTagCount()
+
+
+    public Collection searchTags(InfoStructure structure, String tag) throws Exception {
+        return discussionDAO.searchTags(structure, tag);
+    }//searchTags()
 
 
 }//class SDServiceImpl

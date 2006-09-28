@@ -31,11 +31,10 @@ Zhong:
 [] CCT Sidebar Filtering
 [?] Bug: getConcerns bug when using IOID.  => reason:ERROR: syntax error at or near ":",successful: false, 
 [ok] Getting CCT variable in SDC
-   Now the InfoStructure object has a cctId field, and InfoObject object has a field "stucture" which points to a InfoStructure object.
 [] CST Bug: Error: org.pgist.tagging.Tag.getHibernateLazyInitializer()Lorg/hibernate/proxy/LazyInitializer;
-[] getContextPosts - if PID is blank, return all discussion posts within ISID
-[] data.num for SDRoom
-[] structure in SDAgent getContextPosts
+[ok] getContextPosts - if PID is blank, return all discussion posts within ISID
+[ok] data.num for SDRoom
+[ok] structure in SDAgent getContextPosts
 [] tag search for discussion post tags
 [] On update of summary in CST, delete all votes related to given summary.
 

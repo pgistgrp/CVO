@@ -2,11 +2,9 @@ package org.pgist.discussion;
 
 import java.util.Collection;
 
-import org.pgist.cvo.CategoryReference;
 import org.pgist.system.BaseDAO;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
-
 
 
 /**
@@ -101,7 +99,16 @@ public interface DiscussionDAO extends BaseDAO {
     Collection getContextPosts(Long isid, Long pid, String ids, PageSetting setting) throws Exception;
 
 
+    Collection getContextPosts(Long isid, PageSetting setting) throws Exception;
+
+
+    Collection getContextPosts(Long isid, String ids, PageSetting setting) throws Exception;
+
+
     int getPostTagCount(Long isid, Long postId) throws Exception;
+
+
+    Collection searchTags(InfoStructure structure, String tag) throws Exception;
 
 
     //temp

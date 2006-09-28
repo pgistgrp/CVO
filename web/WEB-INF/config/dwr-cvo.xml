@@ -164,6 +164,7 @@
       <include method="setVoting"/>
       <include method="getConcerns"/>
       <include method="getContextPosts"/>
+      <include method="searchTags"/>
     </create>
 
     <create creator="spring" javascript="ProjectAgent">

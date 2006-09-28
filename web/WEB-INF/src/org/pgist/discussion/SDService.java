@@ -80,6 +80,9 @@ public interface SDService {
     int getPostTagCount(Long isid, Long postId) throws Exception;
 
 
+    Collection searchTags(InfoStructure structure, String tag) throws Exception;
+
+
     //temp
     Collection getInfoStructures() throws Exception;
 
