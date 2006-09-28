@@ -379,7 +379,7 @@
 		<h2>Review Summaries</h2>
 		</div>
 		<div id="footprints">
-		<span class="smalltext">Participate &raquo; <a href="">Step 1a Brainstorm Concerns</a> &raquo; Step 1b Review Summaries</span>
+		<span class="smalltext"><a href="http://128.95.212.210:8080/main.do">Participate</a> &gt;&gt; <a href="http://128.95.212.210:8080/cctview.do?cctId=1171">Step 1a Brainstorm Concerns</a> >> Step 1b: Review Summaries</span>
 		</div>
 		<!-- End Sub Title -->
 		<!-- Overview SpiffyBox -->
