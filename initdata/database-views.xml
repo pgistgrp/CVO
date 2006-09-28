@@ -26,7 +26,7 @@
             <description>drop view if exists</description>
             <script>
               <![CDATA[
-                DROP TABLE view_dpost_tag_link CASCADE;
+                DROP VIEW view_dpost_tag_link CASCADE;
               ]]>
             </script>
         </statement>

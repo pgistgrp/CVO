@@ -35,7 +35,7 @@ Zhong:
 [ok] getContextPosts - if PID is blank, return all discussion posts within ISID
 [ok] data.num for SDRoom
 [ok] structure in SDAgent getContextPosts
-[] tag search for discussion post tags
+[ok] tag search for discussion post tags
 [] On update of summary in CST, delete all votes related to given summary.
 
 Jordan:
