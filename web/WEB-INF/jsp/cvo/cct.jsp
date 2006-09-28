@@ -707,10 +707,10 @@ float:right;
 <jsp:include page="/header.jsp" />
 <!-- Sub Title -->
 <div id="subheader">
-<h1>Step 1a Brainstorm Concerns:</h1> <h2>Discuss Concerns Summary</h2>
+<h1>Step 1a: Brainstorm Concerns</h1>
 </div>
 <div id="footprints">
-<span class="smalltext">Participate >> <a href='#'>Step 1a Brainstorm Concerns</a> >> Discuss Concerns Summary</span>
+<span class="smalltext"><a href="http://128.95.212.210:8080/main.do">Participate</a> >> <a href='http://128.95.212.210:8080/cctview.do?cctId=1171'>Step 1a Brainstorm Concerns</a></span>
 </div>
 <!-- End Sub Title -->
 
