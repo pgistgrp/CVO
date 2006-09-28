@@ -17,7 +17,14 @@
 					<div id="concernId${concern.id}" class="theConcern"><!--${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_a'}-->
 									<small><strong><bean:write name="concern" property="author.loginname" /></strong>&nbsp;said:</small>
 									<br>
-									<span class="concerns">"<bean:write name="concern" property="content" />"</span><br>
+									<span class="concerns">
+										
+										"${fn:substring(concern.content, 0, 150)}"
+										<c:if test="${fn:length(concern.content) > 150}">
+											 [...] 
+										</c:if>
+										
+									</span><br>
 					
 									<c:forEach items="${concern.tags}" var="tagref">
 											<span class="tags"><a href="javascript:changeCurrentFilter(${tagref.id});">${tagref.tag.name}</a></span>

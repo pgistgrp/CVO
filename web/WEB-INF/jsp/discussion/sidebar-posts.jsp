@@ -26,7 +26,12 @@
 						 	</span>
 						 </div>
 						<div class="padding">
-						<small>${post.content}</small>
+						<small>
+						"${fn:substring(post.content, 0, 100)}"
+								<c:if test="${fn:length(post.content) > 100}">
+									 [...] 
+						</c:if>
+						</small>
 						<br />
 							<c:if test="${fn:length(post.tags) != 0}">
 							<p>
