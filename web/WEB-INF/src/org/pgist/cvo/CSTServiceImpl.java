@@ -578,6 +578,8 @@ public class CSTServiceImpl implements CSTService {
             discussionDAO.save(obj);
             
             structure.getInfoObjects().add(obj);
+            
+            cstDAO.publish(structure, obj, ref);
         }//for ref
         
         discussionDAO.save(structure);

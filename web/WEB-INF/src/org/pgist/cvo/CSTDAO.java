@@ -2,6 +2,8 @@ package org.pgist.cvo;
 
 import java.util.Collection;
 
+import org.pgist.discussion.InfoObject;
+import org.pgist.discussion.InfoStructure;
 import org.pgist.tagging.Category;
 import org.pgist.util.PageSetting;
 
@@ -34,5 +36,7 @@ public interface CSTDAO extends CVODAO {
 
     void delete(CategoryReference ref) throws Exception;
 
-    
+    void publish(InfoStructure structure, InfoObject obj, CategoryReference ref) throws Exception;
+
+
 }//interface CSTDAO

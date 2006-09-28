@@ -2,6 +2,7 @@ package org.pgist.discussion;
 
 import java.util.Collection;
 
+import org.pgist.cvo.CategoryReference;
 import org.pgist.system.BaseDAO;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
