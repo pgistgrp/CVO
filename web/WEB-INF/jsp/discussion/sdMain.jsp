@@ -463,10 +463,10 @@
 				<p>Click on the continue button to go on to step 2 where you will review and weigh criteria to evaluate proposed transportation projects.  Go back to your <a href="main.do">home page</a> or  <a href="/sdcWaiting.jsp"><img src="images/btn_gcontinue_a.gif" border="0" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_gcontinue_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></p>
 			</div>
 		
-		<td width="280" style="border:thin solid red;" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
-<div id="sidebar_container" style="border:thin solid red;">
-<div id="sidebarHeader" style="padding: 5px;" style="border:thin solid red;">
-	<h4 style="border:thin solid red;">Participants' Concerns</h4>
+		<td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
+<div id="sidebar_container">
+<div id="sidebarHeader" style="padding: 5px;">
+	<h4>Participants' Concerns</h4>
 <p>Here is a list of everyone's concerns from the last step.  You can filter these concerns by typing the name of a tag in the box below.</p>
 	 <!-- optional context sidebar paragraph -->
 	 
@@ -500,7 +500,7 @@
 </div>
 <!-- end tag selector -->
 
- <div id="sidebar_content" style="border:thin solid red;">
+ <div id="sidebar_content">
 
 </div><!-- End sidebarcontents-->
 </div><!-- sidebar container-->
@@ -509,7 +509,7 @@
 		</tr>
 		
 		</table>
-		<div id="sidebarbottom" style="text-align:right; border:thin solid red;"><img src="images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
+		<div id="sidebarbottom" style="text-align:right;"><img src="images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
 		<!--end sidebar-->
 	
 		

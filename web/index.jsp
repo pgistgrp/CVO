@@ -34,7 +34,6 @@
 <div id="pgistlogo">
 <img src="images/mainlogo.png" alt="pgistlogo" >
 </div>
-<center><h3>Note: User name and password are case sensitive</h3></center> 
 <br />
 
 <html:form action="/login.do" method="POST" focus="user.loginname">
@@ -57,7 +56,7 @@
   </div>
 </html:form>
 
-<div align="center"><a href="/pgist-docs/index.html">Javadoc</a>
+<div align="center">
   
   
     <!--tags:discussion discussible="null" url="/test.do" count="10"/-->
