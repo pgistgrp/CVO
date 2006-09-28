@@ -45,6 +45,10 @@
 <h3>Overview</h3>
 </div>
 <div class="cssbox_body">
+<p>There are five steps in the <i>Let's Improve Transportation</i> decision
+process. When this website is complete, participants will be able to
+take part in all 5 steps. Right now, only Step 1: Discuss Concerns is
+ready for use.</p>
 </div>
 </div>
 <!-- End Overview -->
