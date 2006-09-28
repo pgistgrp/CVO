@@ -536,10 +536,14 @@ public class CSTServiceImpl implements CSTService {
         /*
          * clear votings if it has
          */
+        System.out.println("Jordan check this: ----> 1111");
         Long oid = cstDAO.getInfoObjectIdByThemeId(themeId);
+        System.out.println("Jordan check this: ----> 2222");
         if (oid!=null) {
+            System.out.println("Jordan check this: ----> 3333");
             discussionDAO.deleteVotings(oid);
         }
+        System.out.println("Jordan check this: ----> 4444");
         
         cstDAO.save(theme);
     }//saveSummary()
