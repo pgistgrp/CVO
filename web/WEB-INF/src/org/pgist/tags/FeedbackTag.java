@@ -65,9 +65,12 @@ public class FeedbackTag extends SimpleTagSupport {
         writer.write("<script src=\"/dwr/interface/SystemAgent.js\"></script>");
         
         writer.write("<script>");
+        writer.write("var detect = '<p>***USER SYSTEM INFO*** </p>';");
+        writer.write("detect += navigator.userAgent;");
         writer.write("function createFeedback() {");
         writer.write("  s = $('feedback_input').value;");
         writer.write("  if (s.length==0) { alert('Please input your feedback.'); return; }");
+        writer.write("  s += detect; ");
         writer.write("  action = '"+action+"';");
         writer.write("  SystemAgent.createFeedback(");
         writer.write("    {feedback:s, action:action}, function(data) {");
