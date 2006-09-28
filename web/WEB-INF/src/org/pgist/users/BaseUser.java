@@ -74,7 +74,7 @@ public class BaseUser implements Serializable {
     
     
     public void setLoginname(String loginname) {
-        this.loginname = loginname;
+        this.loginname = loginname.toLowerCase();
     }
 
 
