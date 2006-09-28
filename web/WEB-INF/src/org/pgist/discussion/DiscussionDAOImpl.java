@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Query;
-import org.pgist.cvo.CategoryReference;
 import org.pgist.cvo.Concern;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.tagging.Tag;
@@ -834,6 +833,16 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         return list;
     }//searchTags()
+
+
+    private static final String hql_deleteVotings = "delete InfoVoting iv where iv.object.id=?";
+    
+    
+    public void deleteVotings(Long infoObjectId) throws Exception {
+        Query query = getSession().createQuery(hql_deleteVotings);
+        query.setLong(0, infoObjectId);
+        query.executeUpdate();
+    }//deleteVotings()
 
 
 }//class DiscussionDAOImpl

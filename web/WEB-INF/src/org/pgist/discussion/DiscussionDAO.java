@@ -111,6 +111,9 @@ public interface DiscussionDAO extends BaseDAO {
     Collection searchTags(InfoStructure structure, String tag) throws Exception;
 
 
+    void deleteVotings(Long infoObjectId) throws Exception;
+
+
     //temp
     
     Collection getInfoStructures() throws Exception;

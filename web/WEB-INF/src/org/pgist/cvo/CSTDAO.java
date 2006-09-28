@@ -38,5 +38,7 @@ public interface CSTDAO extends CVODAO {
 
     void publish(InfoStructure structure, InfoObject obj, CategoryReference ref) throws Exception;
 
+    Long getInfoObjectIdByThemeId(Long themeId) throws Exception;
+
 
 }//interface CSTDAO

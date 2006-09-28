@@ -2,6 +2,8 @@ package org.pgist.cvo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -281,6 +283,34 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
             }//for two
         }//while
     }//publish()
+
+
+    private static final String hql_getInfoObjectIdByThemeId = "select cr.id from CategoryReference cr where cr.theme.id=?";
+    
+    private static final String sql_getInfoObjectIdByThemeId = "select ioid from pgist_cst_cat_tag_link where crid=";
+    
+    
+    public Long getInfoObjectIdByThemeId(Long themeId) throws Exception {
+        Query query = null;
+        
+        query = getSession().createQuery(hql_getInfoObjectIdByThemeId);
+        
+        query.setLong(0, themeId);
+        query.setMaxResults(1);
+        
+        Long id = ((Number) query.uniqueResult()).longValue();
+        
+        Connection connection = getSession().connection();
+        Statement stmt = connection.createStatement();
+        
+        ResultSet rs = stmt.executeQuery(sql_getInfoObjectIdByThemeId+id);
+        
+        if (rs.next()) {
+            return rs.getLong(1);
+        }
+        
+        return null;
+    }//getInfoObjectIdByThemeId()
 
 
 }//class CSTDAOImpl

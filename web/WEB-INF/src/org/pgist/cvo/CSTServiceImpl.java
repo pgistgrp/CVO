@@ -533,6 +533,12 @@ public class CSTServiceImpl implements CSTService {
         theme.setSummary(summary);
         theme.setCreateTime(new Date());
         
+        /*
+         * clear votings if it has
+         */
+        Long oid = cstDAO.getInfoObjectIdByThemeId(themeId);
+        discussionDAO.deleteVotings(oid);
+        
         cstDAO.save(theme);
     }//saveSummary()
 

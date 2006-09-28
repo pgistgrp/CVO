@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
-import org.pgist.cvo.CCT;
 import org.pgist.tags.FragmentTag;
 import org.pgist.util.PageSetting;
 import org.pgist.util.PageSource;
