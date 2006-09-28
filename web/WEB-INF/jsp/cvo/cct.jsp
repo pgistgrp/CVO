@@ -7,7 +7,7 @@
 <html:html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>PGIST: Step 1: Brainstorm Concerns</title>
+<title>PGIST: Step 1a: Brainstorm Concerns</title>
 
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/position.css";</style>
@@ -705,10 +705,10 @@ float:right;
 <jsp:include page="/header.jsp" />
 <!-- Sub Title -->
 <div id="subheader">
-<h1>Step 1 Brainstorm Concerns:</h1> <h2>Discuss Concerns Summary</h2>
+<h1>Step 1a Brainstorm Concerns:</h1> <h2>Discuss Concerns Summary</h2>
 </div>
 <div id="footprints">
-<span class="smalltext">LIT Process >> Step 1 Brainstorm Concerns >> Discuss Concerns Summary</span>
+<span class="smalltext">Participate >> <a href='#'>Step 1a Brainstorm Concerns</a> >> Discuss Concerns Summary</span>
 </div>
 <!-- End Sub Title -->
 

@@ -363,7 +363,7 @@
 		<h2>Review Summaries</h2>
 		</div>
 		<div id="footprints">
-		<span class="smalltext"><a href="#">Participate</a> &raquo; <a href="#">Step 1 Brainstorm Concerns</a> &raquo; Step 1b Review Summaries</span>
+		<span class="smalltext">Participate &raquo; <a href="">Step 1a Brainstorm Concerns</a> &raquo; Step 1b Review Summaries</span>
 		</div>
 		<!-- End Sub Title -->
 		<!-- Overview SpiffyBox -->
@@ -447,10 +447,10 @@
 				<p>Click on the continue button to go on to step 2 where you will review and weigh criteria to evaluate proposed transportation projects.  Go back to your <a href="main.do">home page</a> or  <a href="/sdcWaiting.jsp"><img src="images/btn_gcontinue_a.gif" border="0" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_gcontinue_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></p>
 			</div>
 		
-		<td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
-<div id="sidebar_container">
-<div id="sidebarHeader" style="padding: 5px;">
-	<h4>Participant Concerns</h4>
+		<td width="280" style="border:thin solid red;" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
+<div id="sidebar_container" style="border:thin solid red;">
+<div id="sidebarHeader" style="padding: 5px;" style="border:thin solid red;">
+	<h4 style="border:thin solid red;">Participant Concerns</h4>
 	<p>
 	 <!-- optional context sidebar paragraph -->
 	 
@@ -458,9 +458,9 @@
 	</p>
 </div>
 <!-- start tagselector -->
-	<div id="tagSelector">
+	<div id="tagSelector" style="border:thin solid red;">
 		<div id="tagform">
-		<div id="showAllLink" class="textright"><a href="javascript:clearFilter();">Show All Concerns</a></div>
+		<div id="showAllLink" class="textright" style="text-align:right;"><a href="javascript:clearFilter();">Show All Concerns</a></div>
 		<h6 id="filterheader">Filter(s):</h6><span id="ulfilters"></span>
 		<!-- insert filter list here -->
 		<p><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);">Add a Tag Filter</a></p>
@@ -471,7 +471,7 @@
 			<form id="frmSidebarTagSearch" onSubmit="sidebarSearchTagsAction($('txtmanualFilter').value); return false;">
 				<input name="txtmanualFilter" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value, event)" onkeyup="sidebarTagSearch(this.value, event)" /><span id="btnClearSearch" style="display: none;"><a href="javascript:clearSearch(); closeSearchResults();"><img src="/images/clearText.gif" border="0" alt="clear textbox" /></a></span>
 			</form>
-			<p>or <a href="javascript: expandTagSelector();">Browse All Tags</a>
+			<p>or <a href="javascript: expandTagSelector();">Browse All Tags</a></p>
 				
 			<div id="sidebarSearchResults" style="display: none;"><!-- tag search results are loaded here --></div>
 		</div>
@@ -484,15 +484,16 @@
 </div>
 <!-- end tag selector -->
 
- <div id="sidebar_content">
+ <div id="sidebar_content" style="border:thin solid red;">
 
 </div><!-- End sidebarcontents-->
 </div><!-- sidebar container-->
+
 		 </td><!-- End Right Col -->
 		</tr>
 		
 		</table>
-		<div id="sidebarbottom" style="text-align:right;"><img src="images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
+		<div id="sidebarbottom" style="text-align:right; border:thin solid red;"><img src="images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
 		<!--end sidebar-->
 	
 		
