@@ -839,6 +839,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     
     
     public void deleteVotings(Long infoObjectId) throws Exception {
+        System.out.println("Jordan check this: ----> 000000000000");
         Query query = getSession().createQuery(hql_deleteVotings);
         System.out.println("Jordan check this: ----> "+query+"   "+infoObjectId);
         query.setLong(0, infoObjectId);
