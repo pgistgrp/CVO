@@ -332,9 +332,10 @@ tr:hover {background-color: #F1F7FF;}
 	<div class="cssbox">
 	<div class="cssbox_head">
 	<h3>Overview and Instructions</h3>
+	
 	</div>
 	<div class="cssbox_body">
-		<p>[...]</p>
+		<p>This glossary contains some suggested definitions for terms you may encounter when discussing transportation issues.  To search for a term, begin typing in the "Filter Glossary" box and the glossary will be searched as you type.  You can also browse alphabetically.  Click on the name of a given term to get more information about it.  If you disagree with the definition of a term, you can flag it for the moderator, or leave a comment about it on the page for that term.</p>
 	</div>
 	</div>
 	<!-- End Overview -->
