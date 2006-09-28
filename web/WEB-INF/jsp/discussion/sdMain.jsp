@@ -15,6 +15,22 @@
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 
+<style type="text/css">
+#showAllLink
+{
+	position:relative;
+        float:right;
+        bottom:1.8em;
+	background-color: #E9EFD3;
+	border: 1px solid #CCCCCC;
+	border-bottom:0px;
+	color: #333;
+	text-align:center;
+        height:1.5em;
+        width:150px;
+        z-index:1001;
+}
+</style>
 
 <!-- Site Wide JavaScript -->
 <script src="scripts/tags.js" type="text/javascript"></script>
@@ -450,18 +466,18 @@
 		<td width="280" style="border:thin solid red;" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
 <div id="sidebar_container" style="border:thin solid red;">
 <div id="sidebarHeader" style="padding: 5px;" style="border:thin solid red;">
-	<h4 style="border:thin solid red;">Participant Concerns</h4>
-	<p>
+	<h4 style="border:thin solid red;">Participants' Concerns</h4>
+<p>Here is a list of everyone's concerns from the last step.  You can filter these concerns by typing the name of a tag in the box below.</p>
 	 <!-- optional context sidebar paragraph -->
 	 
 	 <!-- end optional context sidebar paragraph -->
 	</p>
 </div>
 <!-- start tagselector -->
-	<div id="tagSelector" style="border:thin solid red;">
+	<div id="tagSelector">
+		<div id="showAllLink"><a href="javascript:clearFilter();">Show All Concerns</a></div>
 		<div id="tagform">
-		<div id="showAllLink" class="textright" style="text-align:right;"><a href="javascript:clearFilter();">Show All Concerns</a></div>
-		<h6 id="filterheader">Filter(s):</h6><span id="ulfilters"></span>
+		<h6 id="filterheader">Filter All Concerns By:</h6><span id="ulfilters"></span>
 		<!-- insert filter list here -->
 		<p><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);">Add a Tag Filter</a></p>
 		

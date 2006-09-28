@@ -9,22 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>PGIST: Step 1a: Brainstorm Concerns</title>
 
-<style type="text/css">
-#showAllConcernsBox
-{
-	position:relative;
-        float:right;
-        bottom:1.8em;
-	background-color: #E9EFD3;
-	border: 1px solid #CCCCCC;
-	border-bottom:0px;
-	color: #333;
-	text-align:center;
-        height:1.5em;
-        width:150px;
-        z-index:1001;
-}
-</style>
+
 
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/position.css";</style>
@@ -809,9 +794,6 @@ float:right;
 	</p>
 </div>
 	<div id="tagSelector">
-		<div id="showAllConcernsBox">
-		Show All Concerns
-		</div>
 		<div id="tagform">
 		<!-- insert filter list here -->
 		<p><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);">Add a Filter</a></p>
