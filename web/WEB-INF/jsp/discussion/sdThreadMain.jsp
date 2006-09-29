@@ -263,8 +263,7 @@
 				SDAgent.getTagById(tagRef, {
 				callback:function(data){
 				if (data.successful){
-	            			var tagName = data.id;
-	            			alert(tagName);
+	            			var tagName = data.tag.name;
 	            			var filterInstance = new Filter(tagRefId, "checked", true, tagName);
 							currentFilterArr.push(filterInstance);
 							getContextPosts();
