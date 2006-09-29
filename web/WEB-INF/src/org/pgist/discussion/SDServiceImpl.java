@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.pgist.cvo.CCTDAO;
 import org.pgist.cvo.CategoryReference;
+import org.pgist.tagging.Tag;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
@@ -286,5 +287,8 @@ public class SDServiceImpl implements SDService {
         return discussionDAO.searchTags(structure, tag);
     }//searchTags()
 
+    public Tag findTagById(Long tagId) throws Exception {
+    	return discussionDAO.findTagById(tagId);
+    } //findTagById()
 
 }//class SDServiceImpl

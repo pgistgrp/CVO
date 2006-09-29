@@ -2,6 +2,7 @@ package org.pgist.discussion;
 
 import java.util.Collection;
 
+import org.pgist.tagging.Tag;
 import org.pgist.util.PageSetting;
 
 
@@ -82,7 +83,8 @@ public interface SDService {
 
     Collection searchTags(InfoStructure structure, String tag) throws Exception;
 
-
+    Tag findTagById(Long tagId) throws Exception; //John 9/29
+    
     //temp
     Collection getInfoStructures() throws Exception;
 

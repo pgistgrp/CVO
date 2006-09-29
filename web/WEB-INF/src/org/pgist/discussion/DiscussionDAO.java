@@ -3,6 +3,7 @@ package org.pgist.discussion;
 import java.util.Collection;
 
 import org.pgist.system.BaseDAO;
+import org.pgist.tagging.Tag;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 
@@ -110,6 +111,7 @@ public interface DiscussionDAO extends BaseDAO {
 
     Collection searchTags(InfoStructure structure, String tag) throws Exception;
 
+    Tag findTagById(Long tagId) throws Exception; //John Added 9/29
 
     void deleteVotings(Long infoObjectId) throws Exception;
 

@@ -833,8 +833,11 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         return list;
     }//searchTags()
-
-
+    
+    public Tag findTagById(Long tagId) throws Exception {
+        return (Tag) getHibernateTemplate().load(Tag.class, tagId);
+    }//findTagById()
+    
     private static final String hql_deleteVotings = "delete InfoVoting iv where iv.object.id=?";
     
     
