@@ -8,7 +8,10 @@
 <title>PGIST main page</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/position.css";</style>
-<style type="text/css" media="screen">@import "styles/styles.css";</style>
+<style type="text/css" media="screen">
+@import "styles/styles.css";
+.style1 {color: #808080}
+</style>
 <!-- End Site Wide CSS -->
 <!-- Site Wide JS -->
 <script src="scripts/prototype.js" type="text/javascript"></script>
@@ -30,9 +33,13 @@
 </pg:show> 
 </li>
 
-<li><pg:show roles="participant, moderator">
-  <html:link page="/sdlist.do">Step 1b: Discuss Concerns Summaries</html:link>
-</pg:show></li>
+<li>
+  <span class="style1">
+  <pg:show roles="participant, moderator">
+    Step 1b: Discuss Concerns Summaries</pg:show>
+  </span>
+  <pg:show roles="participant, moderator"> <strong>(Currently Locked, Step 1b Begins Monday, October 2nd)</strong></pg:show>
+</li>
 
 <li>
   <html:link page="/glossaryPublic.do">Learn More: Public Glossary </html:link> 
@@ -47,6 +54,9 @@
 <li><html:link page="/cstlist.do">Concerns Synthesis Tool</html:link></li>
 <li><html:link page="/glossaryManage.do">Glossary Management Tool</html:link></li>
 <li><html:link page="/feedback.do">Reviewing Feedbacks</html:link></li>
+
+<li><pg:show roles="participant, moderator"><html:link page="/sdlist.do">Step 1b: Discuss Concerns Summaries</html:link></pg:show></li>
+
 </ul>
 
 <h3>Development Tools</h3>
