@@ -38,7 +38,7 @@
   <pg:show roles="participant, moderator">
     Step 1b: Discuss Concerns Summaries</pg:show>
   </span>
-  <pg:show roles="participant, moderator"> (Currently Locked, Step 1b Begins Monday, October 2nd)</pg:show>
+  <pg:show roles="participant, moderator"> (Currently Locked, Step 1b Opens Monday, October 2nd)</pg:show>
 </li>
 
 <li>
