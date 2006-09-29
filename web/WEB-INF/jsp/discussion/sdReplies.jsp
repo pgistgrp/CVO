@@ -16,13 +16,14 @@
 		 	<span class="padding-sides"><strong>${reply.title}</strong> - <small>Posted on <fmt:formatDate value="${reply.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${reply.owner.loginname}</small></span>
 		 </div>
 		<div class="padding">
-		${reply.content}<br />
+		${reply.content}
+		<br />
 		
 	 <c:if test="${fn:length(reply.tags) != 0}">
 	 	<br />
 		<ul class="tagsList"><strong>tags: </strong>
 			<logic:iterate id="tag" name="reply" property="tags">
-				<li class="tagsList"><small>${tag.name}</small></li>
+				<li class="tagsList"><small><a href="javascript:changeCurrentFilter(${tag.id});">${tag.name}</a></small></li>
 			</logic:iterate>
 		<small>- click on a tag to view discussions with the same tag.</small>
 	</c:if>

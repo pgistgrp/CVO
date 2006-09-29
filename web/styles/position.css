@@ -150,6 +150,19 @@ select {
 #searchresults {
 	display: none;
 }
+#showAllLink{
+	position:relative;
+    float:right;
+    bottom:1.8em;
+	background-color: #E9EFD3;
+	border: 1px solid #CCCCCC;
+	border-bottom:0px;
+	color: #333;
+	text-align:center;
+    height:1.5em;
+    width:150px;
+    z-index:1001;
+}
 #slate { /*merged*/
 	margin-bottom: 1em;
 	padding: .4em;

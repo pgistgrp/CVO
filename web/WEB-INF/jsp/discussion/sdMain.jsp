@@ -15,22 +15,6 @@
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 
-<style type="text/css">
-#showAllLink
-{
-	position:relative;
-        float:right;
-        bottom:1.8em;
-	background-color: #E9EFD3;
-	border: 1px solid #CCCCCC;
-	border-bottom:0px;
-	color: #333;
-	text-align:center;
-        height:1.5em;
-        width:150px;
-        z-index:1001;
-}
-</style>
 
 <!-- Site Wide JavaScript -->
 <script src="scripts/tags.js" type="text/javascript"></script>
@@ -121,10 +105,10 @@
 	
 	
 		//sidebar global vars
+		var gblioid= "";
 		var currentFilterArr = new Array();
-		var cctId = 1171; 
-		
-		
+		var cctId = ${structure.cctId}; 
+		var filterIOID = false;
 		
 		//end sidebar global vars
 		function getConcerns(page){
@@ -136,25 +120,27 @@
 					sidebarPage = page;
 				}
 
- 	 			//sidebarFilter
- 	 			var filters = "";
  	 			var currentFilter = new Array();
- 	 			filters += '<ul class="filter">';
  	 			for(i=0; i<currentFilterArr.length; i++){
- 	 				
- 	 				filters += '<li><input type="checkbox" id="filtercheck'+currentFilterArr[i].tagRefId+'" onclick="checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+getTagByTagRef(currentFilterArr[i].tagRefId)+'<ul class="filter">';
- 	 				if(currentFilterArr[i].status == "checked"){
- 	 					currentFilter.push(currentFilterArr[i].tagRefId);
+ 	 				if(currentFilterArr[i].removeable){
+	 	 				if(currentFilterArr[i].status == "checked"){
+	 	 					currentFilter.push(currentFilterArr[i].tagRefId);
+	 	 				}
+ 	 				}else{ //if ioid
+	 	 				if(currentFilterArr[i].status == "checked"){
+	 	 					filterIOID = true;
+	 	 				}else{
+	 	 					filterIOID = false;	
+	 	 				}
  	 				}
  	 			}
- 	 			filters += '</ul>';
- 	 			$('ulfilters').innerHTML = filters;
+
  	 			
  	 			//show all concerns link
- 	 				if(currentFilter.length == 0){
- 	 					$('showAllLink').style.display = 'none';
- 	 				}else{
+ 	 				if(currentFilter.length > 0){
  	 					$('showAllLink').style.display = 'inline';
+ 	 				}else{
+ 	 					$('showAllLink').style.display = 'none';
  	 				}
  	 				
  	 			//show title
@@ -165,10 +151,34 @@
  	 				}
  	 			
 				var currentFilterString = currentFilter.toString();
-				SDAgent.getConcerns({isid: ${structure.id},tags: currentFilterString, count: "5", page: sidebarPage}, {
+				if(filterIOID){ //check if filtering by ioid or not
+					var ioid = gblioid;
+				}else{
+					var ioid = "";
+				}
+				
+				SDAgent.getConcerns({isid: ${structure.id},ioid: gblioid, tags: currentFilterString, count: "5", page: sidebarPage}, {
 				callback:function(data){
 						if (data.successful){
               				 $('sidebar_content').innerHTML = data.source.html;//using partial sidebar-concerns.jsp
+              			//sidebarFilter
+		 	 			var filters = "";
+		 	 			filters += '<ul class="filter">';
+						
+		 	 			for(i=0; i<currentFilterArr.length; i++){
+		 	 				if(currentFilterArr[i].removeable){
+			 	 				filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+ currentFilterArr[i].tagName;
+			 	 				filters += '&nbsp;<a href="javascript: removeUlFilter('+i+');"><img src="/images/trash.gif" alt="remove filter" border="0" /></a>';
+			 	 				filters +='<ul class="filter">';
+		 	 				}else{ //if ioid
+		 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkIOIDFilter('+i+')"  '+ currentFilterArr[i].status +' />Theme: "${object.object}" Filter ('+ data.num +' tags)';
+			 	 				filters +='<ul class="filter">';
+		 	 				}
+		 	 			}
+		 	 			filters += '</ul>';
+		 	 			$('ulfilters').innerHTML = filters;
+		 	 			
+              				 
 							displayIndicator(false);
 						}else{
 							alert(data.reason);
@@ -176,9 +186,10 @@
 						}
 					},
 				errorHandler:function(errorString, exception){ 
-						alert("get targets error:" + errorString + exception);
+						alert("get concerns error:" + errorString + exception);
 				}
 				});
+				
 		}
 		
 		function checkFilter(index){
@@ -190,35 +201,53 @@
 			getConcerns();
 		}
 		
-		function getTagByTagRef(tagRefId){
-			var tag = "tag" + tagRefId;
-			/*
-			CCTAgent.getTagByTagRefID({id: tagRefId}, {
-			callback:function(data){
-			if (data.successful){
-            			alert(data);
-					}else{
-						alert(data.reason);
-					}
-				},
-			errorHandler:function(errorString, exception){ 
-					alert("get targets error:" + errorString + exception);
+		function checkIOIDFilter(index){
+			if(currentFilterArr[index].status == "unchecked"){
+				currentFilterArr[index].status = "checked";
+			}else{
+				currentFilterArr[index].status = "unchecked";
 			}
-			});*/
-			return tag	
+			filterIOID = true;
+			getConcerns();
 		}
 		
-		function Filter(tagRefId, status){
+		
+		function Filter(tagRefId, status, bool, tagName){
 			this.tagRefId = tagRefId;
+			this.tagName = tagName;
 			this.status = status;
+			this.removeable = bool
 		}
 		
 		function addFilter(tagRefId){
-				tagRefId.toString();
+				var tagRef = tagRefId.toString();
+				CCTAgent.getTagByTagRefId(tagRef, {
+				callback:function(data){
+				if (data.successful){
+	            			var tagName = data.tag.name;
+	            			var filterInstance = new Filter(tagRefId, "checked", true, tagName);
+							currentFilterArr.push(filterInstance);
+							getConcerns();
+						}else{
+							alert(data.reason);
+						}
+					},
+				errorHandler:function(errorString, exception){ 
+						alert("get tagbytagref error:" + errorString + exception);
+				}
+				});
+				
 
-				var filterInstance = new Filter(tagRefId, "checked");
-				currentFilterArr.push(filterInstance);
-				getConcerns();
+		}
+		
+		function addIOIDFilter(){
+			var filterInstance = new Filter(gblioid, "checked", false, "Theme Filter");
+			currentFilterArr.push(filterInstance)
+			
+			<c:if test="${object.id != null}">
+				gblioid= ${object.id};
+			</c:if>
+			getConcerns();	
 		}
 		
 		function removeFilter(){
@@ -232,7 +261,10 @@
 		}
 		
 		function changeCurrentFilter(tagRefId){
-				currentFilterArr.pop();
+				
+				if (!filterIOID || currentFilterArr.length > 1) {//if filtering by ioid, add a new filter, not change it
+					currentFilterArr.pop()
+				};
 				addFilter(tagRefId);
 		}
 		
