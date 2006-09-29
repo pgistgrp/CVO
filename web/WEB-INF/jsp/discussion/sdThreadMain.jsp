@@ -547,7 +547,7 @@
 						<div id="tagSelector">
 							<div id="showAllLink"><a href="javascript:clearFilter();">Show All Concerns</a></div>
 							<div id="tagform">
-							<h6 id="filterheader">Filter All Concerns By:</h6><span id="ulfilters"></span>
+							<h6 id="filterheader">Filter All Discussion By:</h6><span id="ulfilters"></span>
 							<!-- insert filter list here -->
 							<p><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);">Add a Tag Filter</a></p>
 							

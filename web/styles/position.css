@@ -151,9 +151,9 @@ select {
 	display: none;
 }
 #showAllLink{
-	position:relative;
-    float:right;
-    bottom:1.8em;
+	position:absolute;
+	top: -20px;
+    right:5px;
 	background-color: #E9EFD3;
 	border: 1px solid #CCCCCC;
 	border-bottom:0px;
@@ -161,8 +161,10 @@ select {
 	text-align:center;
     height:1.5em;
     width:150px;
-    z-index:1001;
+    z-index:1010;
 }
+
+
 #slate { /*merged*/
 	margin-bottom: 1em;
 	padding: .4em;
@@ -255,6 +257,7 @@ select {
 	width: 258px;
 	right: 0;
 	z-index: 1;
+	position: relative;
 }
 #themeselectorbox {
 	float: right;
