@@ -677,7 +677,6 @@ public class CCTAgent {
                 map.put("reason", "This concern is already deleted.");
                 return map;
             }
-            System.out.println("---> 000000000");
         } catch (Exception e) {
             map.put("successful", new Boolean(false));
             if (concernId == null) {
@@ -688,8 +687,6 @@ public class CCTAgent {
             }
             return map;
         }
-
-        System.out.println("---> 11111111111");
 
         //Check if the current user is the author of this concern.
         try {

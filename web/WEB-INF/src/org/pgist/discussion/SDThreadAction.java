@@ -101,9 +101,7 @@ public class SDThreadAction extends Action {
             /*
              * increase the view times
              */
-            System.out.println("----> before");
             sdService.increaseViews(post);
-            System.out.println("----> after");
             
             PageSetting setting = new PageSetting();
             setting.setPage(request.getParameter("page"));
