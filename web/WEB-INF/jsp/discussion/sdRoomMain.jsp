@@ -369,10 +369,10 @@ function MM_swapImage() { //v3.0
 
  	 			
  	 			//show all concerns link
- 	 				if(currentFilter.length == 0){
- 	 					$('showAllLink').style.display = 'none';
- 	 				}else{
+ 	 				if(currentFilter.length > 0){
  	 					$('showAllLink').style.display = 'inline';
+ 	 				}else{
+ 	 					$('showAllLink').style.display = 'none';
  	 				}
  	 				
  	 			//show title
@@ -395,7 +395,6 @@ function MM_swapImage() { //v3.0
               				 $('sidebar_content').innerHTML = data.source.html;//using partial sidebar-concerns.jsp
               			//sidebarFilter
 		 	 			var filters = "";
-		 	 			//alert(${object.object.theme.title});
 		 	 			filters += '<ul class="filter">';
 						
 		 	 			for(i=0; i<currentFilterArr.length; i++){
@@ -404,7 +403,7 @@ function MM_swapImage() { //v3.0
 			 	 				filters += '&nbsp;<a href="javascript: removeUlFilter('+i+');"><img src="/images/trash.gif" alt="remove filter" border="0" /></a>';
 			 	 				filters +='<ul class="filter">';
 		 	 				}else{ //if ioid
-		 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkIOIDFilter('+i+')"  '+ currentFilterArr[i].status +' />Theme Filter ('+ data.num +' tags)';
+		 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkIOIDFilter('+i+')"  '+ currentFilterArr[i].status +' />Theme: "${object.object}" Filter ('+ data.num +' tags)';
 			 	 				filters +='<ul class="filter">';
 		 	 				}
 		 	 			}
@@ -709,7 +708,7 @@ function MM_swapImage() { //v3.0
 								<span class="textright"><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);"><img src="images/close1.gif" alt="Close" name="closeresults" class="button" id="closeresults" onMouseOver="MM_swapImage('closeresults','','images/close.gif',1)" onMouseOut="MM_swapImgRestore()"></a></a></span>
 								<b>Add a Tag Filter:</b> 
 								<form id="frmSidebarTagSearch" onSubmit="sidebarSearchTagsAction($('txtmanualFilter').value); return false;">
-									<input name="txtmanualFilter" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value, event)" onkeyup="sidebarTagSearch(this.value, event)" /><span id="btnClearSearch" style="display: none;"><a href="javascript:clearSearch(); closeSearchResults();"><img src="/images/clearText.gif" border="0" alt="clear textbox" /></a></span>
+									<input name="txtmanualFilter" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value, event)" onKeyUp="sidebarTagSearch(this.value, event)" /><span id="btnClearSearch" style="display: none;"><a href="javascript:clearSearch(); closeSearchResults();"><img src="/images/clearText.gif" border="0" alt="clear textbox" /></a></span>
 								</form>
 								<p>or <a href="javascript: expandTagSelector();">Browse All Tags</a>
 									

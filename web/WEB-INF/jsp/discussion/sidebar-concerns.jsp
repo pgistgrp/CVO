@@ -10,7 +10,7 @@
 <pg:fragment type="html">
 	<c:choose>
 		<c:when test="${fn:length(concerns) == 0}">
-				<p>No concerns with your current filters could be found.  Try removing one of your filters.</p>
+				<p>No concerns with the current filters could be found.  Try removing a filter.</p>
 		</c:when>
 		<c:otherwise>
 			<c:forEach var="concern" items="${concerns}" varStatus="loop">
@@ -65,6 +65,7 @@
 </pg:fragment>
 
 <pg:fragment type="script">
+
 
 </pg:fragment>
 

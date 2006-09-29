@@ -15,11 +15,11 @@
 			<c:forEach var="post" items="${posts}" varStatus="loop">
 				<div id="contextpost${post.id}" class="replies">
 						 <div id="replies_title" class="bluetitle">
-						 	<span class="padding-sides"><strong><a href="/sdThread.do?isid=${post.value.category.parent}&ioid=${post.value.category.id}&pid=${post.id}">${post.title}</a></strong> - 
+						 	<span class="padding-sides"><strong><a href="/sdThread.do?isid=${structure.cctId}&ioid=${post.value.category.id}&pid=${post.id}">${post.title}</a></strong> - 
 						 	<small><fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/>
 						 	<strong>${post.owner.loginname}</strong>
 						 	<c:if test="${post.value != null}"> 
-						 		in discussion room <strong><a href="/sdRoomMain.do?isid=${structure.id}&ioid=${post.value.category.id}">${post.value.category.name}</a></strong>
+						 		in discussion room <strong><a href="/sdRoomMain.do?isid=${structure.cctId}&ioid=${post.value.category.id}">${post.value.category.name}</a></strong>
 						 	</c:if>
 						 
 						 	</small>

@@ -48,7 +48,7 @@
 		    SDAgent.createReply({isid:${structure.id}, pid:${post.id}, title:newReplyTitle, content:newReply, tags: newReplyTags}, {
 		      callback:function(data){
 		          if (data.successful){     
-          				$('txtnewReplyTitle').value = 'Re: ${post.title} ';
+          				$('txtnewReplyTitle').value = "Re: ${post.title}";
 						$('txtnewReply').value = '';
 						$('newReplyTags').value = '';
 						if (${setting.page} != lastPage){
@@ -153,10 +153,10 @@
 
 
  	 			//show all concerns link
- 	 				if(currentFilter.length == 0){
- 	 					$('showAllLink').style.display = 'none';
- 	 				}else{
+ 	 				if(currentFilter.length > 0){
  	 					$('showAllLink').style.display = 'inline';
+ 	 				}else{
+ 	 					$('showAllLink').style.display = 'none';
  	 				}
  	 				
  	 			//show title
@@ -343,7 +343,7 @@
 			}
 	
 		function sidebarSearchTagsAction(theTag){
-				CCTAgent.searchTags({cctId:cctId,tag:theTag},{
+				SDAgent.searchTags({isid:${structure.id},tag:theTag},{
 					callback:function(data){
 							if (data.successful){
 								//show results if hidden
@@ -376,7 +376,7 @@
 	}
 	
 	function getTagCloud(){
-			CCTAgent.getTagCloud({cctId:cctId,type:0,count:1000}, {
+			SDAgent.getTagCloud({cctId:cctId,type:0,count:1000}, {
 				callback:function(data){
 					if (data.successful){
 						$('allTags').innerHTML = data.html;
@@ -555,7 +555,7 @@
 								<span class="textright"><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);"><img src="images/close1.gif" alt="Close" name="closeresults" class="button" id="closeresults" onMouseOver="MM_swapImage('closeresults','','images/close.gif',1)" onMouseOut="MM_swapImgRestore()"></a></a></span>
 								<b>Add a Tag Filter:</b> 
 								<form id="frmSidebarTagSearch" onSubmit="sidebarSearchTagsAction($('txtmanualFilter').value); return false;">
-									<input name="txtmanualFilter" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value, event)" onkeyup="sidebarTagSearch(this.value, event)" /><span id="btnClearSearch" style="display: none;"><a href="javascript:clearSearch(); closeSearchResults();"><img src="/images/clearText.gif" border="0" alt="clear textbox" /></a></span>
+									<input name="txtmanualFilter" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value, event)" onKeyUp="sidebarTagSearch(this.value, event)" /><span id="btnClearSearch" style="display: none;"><a href="javascript:clearSearch(); closeSearchResults();"><img src="/images/clearText.gif" border="0" alt="clear textbox" /></a></span>
 								</form>
 								<p>or <a href="javascript: expandTagSelector();">Browse All Tags</a>
 									

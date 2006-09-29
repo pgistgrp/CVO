@@ -133,7 +133,7 @@ function renderTags(tags,type){
 	
 	for(i=0; i < tagtemp.length; i++){
 		if(tagtemp [i] != ""){
-			str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:removeFromGeneratedTags(\''+ tagtemp [i] +'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';	
+			str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=javascript:removeFromGeneratedTags("'+ tagtemp [i] +'");><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';	
 		}
 	}	
 	return str;
