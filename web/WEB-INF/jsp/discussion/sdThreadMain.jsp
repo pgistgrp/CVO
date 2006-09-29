@@ -260,19 +260,20 @@
 		
 		function addFilter(tagRefId){
 				var tagRef = tagRefId.toString();
-				CCTAgent.getTagByTagRefId(tagRef, {
+				SDAgent.getTagById(tagRef, {
 				callback:function(data){
 				if (data.successful){
-	            			var tagName = data.tag.name;
+	            			var tagName = data.tag;
+	            			alert(tagName);
 	            			var filterInstance = new Filter(tagRefId, "checked", true, tagName);
 							currentFilterArr.push(filterInstance);
 							getContextPosts();
 						}else{
-							alert("Discussion tag search has not been setup yet.");
+							alert("There was an error displaying the filters. Please notify the moderator.");
 						}
 					},
 				errorHandler:function(errorString, exception){ 
-						alert("get tagbytagref error:" + errorString + exception);
+						alert("get getTagById error:" + errorString + exception);
 				}
 				});
 				
