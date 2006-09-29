@@ -516,17 +516,52 @@ var t = setTimeout('jumpTo("'+editid+'");',500);
 
 </script>
 
-<style type='text/css'>
+<style type="text/css">
 #saving-indicator{
 	display: none;
 	background-color: red;
 	color: white;
-	position: fixed;
+	position:absolute;
 	top: 0;
 	left:0;
 	padding: 3px;
 	z-index: 500;
 }
+
+#loading-indicator{
+	
+	background-color: red;
+	color: white;
+	position:absolute;
+	top: 0;
+	left:0;
+	padding: 3px;
+	z-index: 500;
+}
+
+div > div#saving-indicator{
+position:fixed;
+}
+
+div > div#loading-indicator{
+position:fixed;
+}
+</style>
+<!--[if gte IE 5.5]><![if lt IE 7]>
+		<style type="text/css">
+#loading-indicator {
+left: expression( ( 0 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+}
+
+#saving-indicator {
+left: expression( ( 0 + ( fixme = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+top: expression( ( 0 + ( fixme = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+}
+		</style>
+		<![endif]><![endif]-->
+<style type='text/css'>
+
 
 
 
@@ -543,8 +578,8 @@ tr:hover {background-color: #F1F7FF;}
 </style>
 <body>
 	<jsp:include page="/header.jsp" />
-<div style="display: inline;" id="loading-indicator">Loading... <img src="glossaryTermManagement_files/indicator_arrows.gif"></div>
-<div style="display: none;" id="saving-indicator">Saving... <img src="glossaryTermManagement_files/indicator_arrows.gif"></div>
+<div style="display: inline;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif" alt="Loading" /></div>
+<div style="display: none;" id="saving-indicator">Saving... <img src="/images/indicator_arrows.gif" alt="Saving" /></div>
 
 <div id="container">
 
