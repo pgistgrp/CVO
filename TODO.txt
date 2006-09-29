@@ -37,6 +37,8 @@ Zhong:
 [ok] structure in SDAgent getContextPosts
 [ok] tag search for discussion post tags
 [ok] On update of summary in CST, delete all votes related to given summary.
+[] IOID in sidebar-posts
+
 
 Jordan:
 [ok] bug - new discussion on entire IS
