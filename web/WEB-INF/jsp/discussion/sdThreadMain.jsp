@@ -121,7 +121,7 @@
 	
 		//sidebar global vars
 		var currentFilterArr = new Array();
-		var cctId = 1171; 
+		var cctId = ${structure.cctId}; 
 		var filterPID = false;
 		
 		//end sidebar global vars
@@ -484,11 +484,11 @@
 <tr>
 <td valign="top" id="maincontent">
 <!-- Main Content starts Here-->
-
+<h4>View Discussion</h4>
 <div id="object">
 	
 	<div id="post${post.id}">
-		 <h3>
+		 <h5>
 		 	<a href="sd.do?isid=${structure.id}">All concern themes</a> &raquo;  
 		 	<c:choose>
 		 		<c:when test="${object != null}">
@@ -499,7 +499,7 @@
 		 		</c:otherwise>
 		 	</c:choose>
 		 	${post.title}
-		 </h3>
+		 </h5>
 		 
 		 <div class="bluetitle">
 		 	<span class="padding-sides"><strong>${post.title}</strong> - <small>Posted on <fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}</small></span>
@@ -604,7 +604,7 @@
 <script type="text/javascript">
 	getReplies();
 	addPIDFilter();
-	alert("cctid: ${cctForm.cct.id}");
+
 </script>
 </html:html>
 

@@ -339,7 +339,7 @@ function MM_swapImage() { //v3.0
 	
 		//sidebar global vars
 		var currentFilterArr = new Array();
-		var cctId = 1171; 
+		var cctId = ${structure.cctId}; 
 		var filterIOID = false;
 		
 		//end sidebar global vars
