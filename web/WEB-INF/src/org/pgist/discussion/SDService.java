@@ -83,7 +83,12 @@ public interface SDService {
 
     Collection searchTags(InfoStructure structure, String tag) throws Exception;
 
-    Tag findTagById(Long tagId) throws Exception; //John 9/29
+
+    Collection getTagCloud(InfoStructure structure, PageSetting setting) throws Exception;
+
+
+    Tag findTagById(Long tagId) throws Exception;
+    
     
     //temp
     Collection getInfoStructures() throws Exception;

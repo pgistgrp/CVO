@@ -14,6 +14,7 @@ import org.hibernate.Query;
 import org.pgist.cvo.Concern;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.tagging.Tag;
+import org.pgist.tagging.TagInfo;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
@@ -846,6 +847,55 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         query.setLong(0, infoObjectId);
         query.executeUpdate();
     }//deleteVotings()
+
+
+    private static final String sql_getTagCloud_1 = "select count(distinct tid) from view_dpost_tag_link where target in (##)";
+    
+    private static final String sql_getTagCloud_2 = "select tid, count(tid) from view_dpost_tag_link where target in (##) group by tid order by count(tid)";
+    
+    
+    public Collection getTagCloud(InfoStructure structure, PageSetting setting) throws Exception {
+        List list = new ArrayList();
+        
+        Connection connection = getSession().connection();
+        Statement stmt = connection.createStatement();
+        
+        StringBuilder sb = new StringBuilder(structure.getId().toString());
+        
+        for (InfoObject obj : (Set<InfoObject>) structure.getInfoObjects()) {
+            sb.append(",").append(obj.getId().toString());
+        }//for
+        
+        String ids = sb.toString();
+        
+        ResultSet rs = stmt.executeQuery(sql_getTagCloud_1.replace("##", ids));
+        
+        rs.next();
+        
+        int count = rs.getInt(1);
+        if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
+        setting.setRowSize(count);
+        
+        if (count==0) return list;
+        
+        rs = stmt.executeQuery(sql_getTagCloud_2.replace("##", ids)+" offset "+setting.getFirstRow()+" limit "+setting.getRowOfPage());
+        
+        while (rs.next()) {
+            Long id = rs.getLong(1);
+            int times = rs.getInt(2);
+            
+            Tag tag = (Tag) getHibernateTemplate().load(Tag.class, id);
+            
+            TagInfo info = new TagInfo();
+            info.setId(id);
+            info.setName(tag.getName());
+            info.setTimes(times);
+            
+            list.add(info);
+        }//while
+        
+        return list;
+    }//getTagCloud()
 
 
 }//class DiscussionDAOImpl

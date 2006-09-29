@@ -1,5 +1,6 @@
 package org.pgist.discussion;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -290,5 +291,10 @@ public class SDServiceImpl implements SDService {
     public Tag findTagById(Long tagId) throws Exception {
     	return discussionDAO.findTagById(tagId);
     } //findTagById()
+
+    public Collection getTagCloud(InfoStructure structure, PageSetting setting) throws Exception {
+        return discussionDAO.getTagCloud(structure, setting);
+    }//getTagCloud()
+
 
 }//class SDServiceImpl

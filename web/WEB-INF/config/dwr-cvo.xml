@@ -165,6 +165,7 @@
       <include method="getConcerns"/>
       <include method="getContextPosts"/>
       <include method="searchTags"/>
+      <include method="getTagCloud"/>
       <include method="getTagById"/>
     </create>
 
