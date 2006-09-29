@@ -38,6 +38,7 @@ Zhong:
 [ok] tag search for discussion post tags
 [ok] On update of summary in CST, delete all votes related to given summary.
 [] IOID in sidebar-posts
+[] SDAgent.getTagCloud();
 
 
 Jordan:

@@ -280,7 +280,7 @@
 		}
 		
 		function addPIDFilter(){
-			var filterInstance = new Filter(${object.id}, "checked", false, "Post Filter");
+			var filterInstance = new Filter(${post.id}, "checked", false, "Post Filter");
 			currentFilterArr.push(filterInstance)
 			getContextPosts();	
 		}

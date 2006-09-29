@@ -37,7 +37,9 @@
 <script type="text/javascript">
 <!--
 //Start Global Variables
-
+	<c:if test="${object.id != null}">
+		var gblioid= "";
+	</c:if>
 	 function InfoObject(){
 	 	 this.objectDiv =  'object-content';
 	 	 this.discussionDiv = 'discussion';
@@ -74,7 +76,7 @@
 					}else{
 						$('targetDiscussionTitle').innerHTML += ' - ${structure.numDiscussion} Discussions';
 					}
-				$('targetSideBarTitle').innerHTML = 'filtered by: ' + this.ISTitle;//sidebar title div id
+
 			
 			</c:otherwise>
 			</c:choose>
@@ -116,7 +118,7 @@
 
 	 		<c:if test="${object != null}">
 	 	 			displayIndicator(true);
-					SDAgent.setVoting({ioid: ${object.id}, agree:agree}, {
+					SDAgent.setVoting({ioid: gblioid, agree:agree}, {
 					callback:function(data){
 							if (data.successful){ 
 	              				 new Effect.Fade('structure_question', {afterFinish: function(){infoObject.getTargets(); new Effect.Appear('structure_question');}});
@@ -146,7 +148,7 @@
 
 			<c:choose>
 	 		<c:when test="${object != null}">
-				SDAgent.createPost({isid:${structure.id}, ioid: ${object.id}, title: newPostTitle, content: newPost, tags:newPostTags}, {
+				SDAgent.createPost({isid:${structure.id}, ioid: gblioid, title: newPostTitle, content: newPost, tags:newPostTags}, {
 			</c:when>
 			<c:otherwise>
 				SDAgent.createPost({isid:${structure.id}, title: newPostTitle, content: newPost, tags:newPostTags}, {
@@ -182,7 +184,7 @@
 		   
 			<c:choose>
 	 		<c:when test="${object != null}">
-				 SDAgent.getPosts({isid:${structure.id}, ioid:${object.id}, page: page, count: 10}, {
+				 SDAgent.getPosts({isid:${structure.id}, ioid:gblioid, page: page, count: 10}, {
 			</c:when>
 			<c:otherwise>
 				 SDAgent.getPosts({isid:${structure.id},page: page, count: 10}, {
@@ -384,12 +386,12 @@ function MM_swapImage() { //v3.0
  	 			
 				var currentFilterString = currentFilter.toString();
 				if(filterIOID){ //check if filtering by ioid or not
-					var ioid = ${object.id};
+					var ioid = gblioid;
 				}else{
 					var ioid = "";
 				}
 				
-				SDAgent.getConcerns({isid: ${structure.id},ioid: ioid, tags: currentFilterString, count: "5", page: sidebarPage}, {
+				SDAgent.getConcerns({isid: ${structure.id},ioid: gblioid, tags: currentFilterString, count: "5", page: sidebarPage}, {
 				callback:function(data){
 						if (data.successful){
               				 $('sidebar_content').innerHTML = data.source.html;//using partial sidebar-concerns.jsp
@@ -473,8 +475,12 @@ function MM_swapImage() { //v3.0
 		}
 		
 		function addIOIDFilter(){
-			var filterInstance = new Filter(${object.id}, "checked", false, "Theme Filter");
+			var filterInstance = new Filter(gblioid, "checked", false, "Theme Filter");
 			currentFilterArr.push(filterInstance)
+			
+			<c:if test="${object.id != null}">
+				gblioid= ${object.id};
+			</c:if>
 			getConcerns();	
 		}
 		
@@ -788,7 +794,10 @@ function MM_swapImage() { //v3.0
 
 	infoObject.getPosts();
 	infoObject.assignTargetHeaders();
-	addIOIDFilter();
+	<c:if test="${object.id != null}">
+		addIOIDFilter();
+	</c:if>
+	
 </script>
 
 </body>
