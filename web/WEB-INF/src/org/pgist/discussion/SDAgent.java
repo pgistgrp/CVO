@@ -1190,6 +1190,7 @@ public class SDAgent {
          
          try {   
              Tag myTag = sdService.findTagById(tagId);
+             map.put("tag", myTag);
              
          } catch (Exception e) {
              e.printStackTrace();
