@@ -387,6 +387,34 @@
 	/////////////////////end sidebar functionality////////////////////////////
 </script>
 
+<style type="text/css">
+
+#loading-indicator{
+	
+	background-color: red;
+	color: white;
+	position:absolute;
+	top: 0;
+	left:0;
+	padding: 3px;
+	z-index: 500;
+}
+
+
+
+div > div#loading-indicator{
+position:fixed;
+}
+</style>
+<!--[if gte IE 5.5]><![if lt IE 7]>
+		<style type="text/css">
+#loading-indicator {
+left: expression( ( 0 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+}
+		</style>
+		<![endif]><![endif]-->
+
 </head>
 <!--
 <c:choose>
@@ -404,6 +432,7 @@
 		 <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 		<jsp:include page="/header.jsp" />
 		<!-- Header -->
+		</div>
 		<div id="cont-top">
 		<!-- Sub Title -->
 		<div id="subheader">
@@ -479,7 +508,8 @@
 						      <c:otherwise>
 						      		<span class="padding-sides">No current discussions</span>
 						      </c:otherwise>
-						    </c:choose>          
+						    </c:choose>  
+							</span><!--Added-->        
 							</td>
 				            <td width="100" class="textcenter"><a href="/sdRoom.do?isid=${structure.id}&ioid=">${structure.numDiscussion}</a></td>
 				          </tr>		    
@@ -503,7 +533,7 @@
 	 <!-- optional context sidebar paragraph -->
 	 
 	 <!-- end optional context sidebar paragraph -->
-	</p>
+	<!--</p> Deleted-->
 </div>
 <!-- start tagselector -->
 	<div id="tagSelector">
@@ -514,7 +544,9 @@
 		<p><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);">Add a Tag Filter</a></p>
 		
 		<div id="addFilter" style="display: none;">
-			<span class="textright"><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);"><img src="images/close1.gif" alt="Close" name="closeresults" class="button" id="closeresults" onMouseOver="MM_swapImage('closeresults','','images/close.gif',1)" onMouseOut="MM_swapImgRestore()"></a></a></span>
+			<span class="textright"><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);"><img src="images/close1.gif" alt="Close" name="closeresults" class="button" id="closeresults" onMouseOver="MM_swapImage('closeresults','','images/close.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+			<!--</a> Deleted-->
+			</span>
 			<b>Add a Tag Filter:</b> 
 			<form id="frmSidebarTagSearch" onSubmit="sidebarSearchTagsAction($('txtmanualFilter').value); return false;">
 				<input name="txtmanualFilter" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value, event)" onkeyup="sidebarTagSearch(this.value, event)" /><span id="btnClearSearch" style="display: none;"><a href="javascript:clearSearch(); closeSearchResults();"><img src="/images/clearText.gif" border="0" alt="clear textbox" /></a></span>
@@ -538,6 +570,7 @@
 </div><!-- sidebar container-->
 
 		 </td><!-- End Right Col -->
+		 </td><!--Added-->
 		</tr>
 		
 		</table>

@@ -625,6 +625,34 @@ function MM_swapImage() { //v3.0
 
 
 </script>
+
+<style type="text/css">
+
+#loading-indicator{
+	
+	background-color: red;
+	color: white;
+	position:absolute;
+	top: 0;
+	left:0;
+	padding: 3px;
+	z-index: 500;
+}
+
+
+
+div > div#loading-indicator{
+position:fixed;
+}
+</style>
+<!--[if gte IE 5.5]><![if lt IE 7]>
+		<style type="text/css">
+#loading-indicator {
+left: expression( ( 0 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+}
+		</style>
+		<![endif]><![endif]-->
 </head>
 
 
@@ -740,7 +768,8 @@ function MM_swapImage() { //v3.0
 				<!-- End Right Col -->
 				</tr>
 		</table>
-		<div id="sidebarbottom_disc" style="text-align:right; display: block;"><img src="/images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
+		<!--changed  display:block;-->
+		<div id="sidebarbottom_disc" style="text-align:right; display:block;"><img src="/images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
 		<div id="sidebarbottom_newdisc" style="text-align:right; display: none;"><img src="/images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
 	</div><!-- End cont-main -->
 	<div id="newDiscussion" style="display: none">

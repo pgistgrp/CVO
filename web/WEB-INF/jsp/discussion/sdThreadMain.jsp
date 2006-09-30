@@ -422,6 +422,34 @@
 	/////////////////////end sidebar functionality////////////////////////////
 </script>
 
+<style type="text/css">
+
+#loading-indicator{
+	
+	background-color: red;
+	color: white;
+	position:absolute;
+	top: 0;
+	left:0;
+	padding: 3px;
+	z-index: 500;
+}
+
+
+
+div > div#loading-indicator{
+position:fixed;
+}
+</style>
+<!--[if gte IE 5.5]><![if lt IE 7]>
+		<style type="text/css">
+#loading-indicator {
+left: expression( ( 0 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+}
+		</style>
+		<![endif]><![endif]-->
+
 </head>
 <body onLoad="MM_preloadImages('images/btn_postreply_b.gif')"> 
 <div id="container">
