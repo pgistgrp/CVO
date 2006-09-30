@@ -31,14 +31,14 @@ Zhong:
 [] CCT Sidebar Filtering
 [?] Bug: getConcerns bug when using IOID.  => reason:ERROR: syntax error at or near ":",successful: false, 
 [ok] Getting CCT variable in SDC
-[] CST Bug: Error: org.pgist.tagging.Tag.getHibernateLazyInitializer()Lorg/hibernate/proxy/LazyInitializer;
+[?] CST Bug: Error: org.pgist.tagging.Tag.getHibernateLazyInitializer()Lorg/hibernate/proxy/LazyInitializer;
 [ok] getContextPosts - if PID is blank, return all discussion posts within ISID
 [ok] data.num for SDRoom
 [ok] structure in SDAgent getContextPosts
 [ok] tag search for discussion post tags
 [ok] On update of summary in CST, delete all votes related to given summary.
-[] IOID in sidebar-posts
-[] SDAgent.getTagCloud();
+[ok] IOID in sidebar-posts
+[ok] SDAgent.getTagCloud();
 
 
 Jordan:
