@@ -17,7 +17,16 @@
             <description>drop view if exists</description>
             <script>
               <![CDATA[
-                DROP VIEW view_concern_tags CASCADE;
+                DROP VIEW view_structure_concern_tags CASCADE;
+              ]]>
+            </script>
+        </statement>
+        
+        <statement exception="suppress">
+            <description>drop view if exists</description>
+            <script>
+              <![CDATA[
+                DROP VIEW view_cct_concern_tags CASCADE;
               ]]>
             </script>
         </statement>
@@ -64,7 +73,17 @@
             <description>view for concern-tagref-isid-ioid-cctid link</description>
             <script>
               <![CDATA[
-                CREATE VIEW view_concern_tags AS
+                CREATE VIEW view_cct_concern_tags AS
+                  SELECT c.cct_id as cctid, c.id as cid, c.author_id as uid, l.tagref_id as trid from pgist_cvo_concerns c, pgist_cvo_concern_tag_link l where c.deleted is false and c.id=l.concern_id;
+              ]]>
+            </script>
+        </statement>
+        
+        <statement exception="throw">
+            <description>view for concern-tagref-isid-ioid-cctid link</description>
+            <script>
+              <![CDATA[
+                CREATE VIEW view_structure_concern_tags AS
                   SELECT s.cctid as cctid, 0 as isid, 0 as ioid, c.id as cid, l.tagref_id as trid from pgist_info_structure s, pgist_cvo_concerns c, pgist_cvo_concern_tag_link l where s.cctid=c.cct_id and l.concern_id=c.id and l.tagref_id not in (select trid from pgist_cst_cat_tag_link)
                   UNION
                   SELECT l2.cctid as cctid, l2.isid as isid, l2.ioid as ioid, l1.concern_id as cid, l2.trid as trid  from pgist_cvo_concern_tag_link l1 join pgist_cst_cat_tag_link l2 on l1.tagref_id=trid;

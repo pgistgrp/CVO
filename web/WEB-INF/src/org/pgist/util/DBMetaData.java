@@ -19,7 +19,10 @@ public class DBMetaData {
     public static final String TABLE_CAT_TAG_IN_CST = "pgist_cst_cat_tag_link";
     
     
-    public static final String VIEW_CONCERN_TAG_IN_STRUCTURE = "view_concern_tags";
+    public static final String VIEW_CONCERN_TAG_IN_CCT = "view_cct_concern_tags";
+    
+    
+    public static final String VIEW_CONCERN_TAG_IN_STRUCTURE = "view_structure_concern_tags";
     
     
     public static final String VIEW_POST_REPLY_TAG_IN_DISCUSSION = "view_post_reply_tags";
