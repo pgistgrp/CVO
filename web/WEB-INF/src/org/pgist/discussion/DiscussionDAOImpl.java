@@ -16,6 +16,7 @@ import org.pgist.system.BaseDAOImpl;
 import org.pgist.tagging.Tag;
 import org.pgist.tagging.TagInfo;
 import org.pgist.users.User;
+import org.pgist.util.DBMetaData;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 
@@ -365,9 +366,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//increaseVoting()
 
 
-    private static final String sql_getConcerns_A_11 = "select count(distinct v.cid) from view_concern_tags v where v.cctid=:cctid and v.isid=:isid";
+    private static final String sql_getConcerns_A_11 = "select count(distinct v.cid) from "+DBMetaData.VIEW_CONCERN_TAG_IN_STRUCTURE+" v where v.cctid=:cctid and v.isid=:isid";
     
-    private static final String sql_getConcerns_A_12 = "select v.cid from view_concern_tags v where v.cctid=:cctid and v.isid=:isid group by v.cid order by count(v.cid) desc";
+    private static final String sql_getConcerns_A_12 = "select v.cid from "+DBMetaData.VIEW_CONCERN_TAG_IN_STRUCTURE+" v where v.cctid=:cctid and v.isid=:isid group by v.cid order by count(v.cid) desc";
     
     
     public Collection getConcerns(InfoStructure structure, PageSetting setting) throws Exception {
@@ -407,9 +408,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getConcerns()
 
 
-    private static final String sql_getConcerns_A_20 = "SELECT cid as xid from view_concern_tags where cctid=:cctid and isid=:isid";
+    private static final String sql_getConcerns_A_20 = "SELECT cid as xid from "+DBMetaData.VIEW_CONCERN_TAG_IN_STRUCTURE+" where cctid=:cctid and isid=:isid";
     
-    private static final String sql_getConcerns_A_21 = "select distinct v.cid as xid from view_concern_tags v where v.cctid=:cctid and trid=";
+    private static final String sql_getConcerns_A_21 = "select distinct v.cid as xid from "+DBMetaData.VIEW_CONCERN_TAG_IN_STRUCTURE+" v where v.cctid=:cctid and trid=";
     
     
     public Collection getConcerns(InfoStructure structure, String ids, PageSetting setting) throws Exception {
@@ -461,9 +462,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getConcerns()
 
 
-    private static final String sql_getConcerns_B_11 = "select count(distinct v.cid) from view_concern_tags v where v.cctid=:cctid and v.isid=:isid and v.ioid=:ioid";
+    private static final String sql_getConcerns_B_11 = "select count(distinct v.cid) from "+DBMetaData.VIEW_CONCERN_TAG_IN_STRUCTURE+" v where v.cctid=:cctid and v.isid=:isid and v.ioid=:ioid";
     
-    private static final String sql_getConcerns_B_12 = "select v.cid from view_concern_tags v where v.cctid=:cctid and v.isid=:isid and v.ioid=:ioid group by v.cid order by count(v.cid) desc";
+    private static final String sql_getConcerns_B_12 = "select v.cid from "+DBMetaData.VIEW_CONCERN_TAG_IN_STRUCTURE+" v where v.cctid=:cctid and v.isid=:isid and v.ioid=:ioid group by v.cid order by count(v.cid) desc";
     
     
     public Collection getConcerns(InfoObject object, PageSetting setting) throws Exception {
@@ -505,9 +506,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getConcerns()
 
 
-    private static final String sql_getConcerns_B_20 = "SELECT cid as xid from view_concern_tags where cctid=:cctid and isid=:isid and ioid=:ioid";
+    private static final String sql_getConcerns_B_20 = "SELECT cid as xid from "+DBMetaData.VIEW_CONCERN_TAG_IN_STRUCTURE+" where cctid=:cctid and isid=:isid and ioid=:ioid";
     
-    private static final String sql_getConcerns_B_21 = "select distinct v.cid as xid from view_concern_tags v where v.cctid=:cctid and v.trid=";
+    private static final String sql_getConcerns_B_21 = "select distinct v.cid as xid from "+DBMetaData.VIEW_CONCERN_TAG_IN_STRUCTURE+" v where v.cctid=:cctid and v.trid=";
     
     
     public Collection getConcerns(InfoObject object, String ids, PageSetting setting) throws Exception {
@@ -562,7 +563,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getConcerns()
 
 
-    private static final String sql_getConcernTagCount_1 = "select count(distinct trid) from view_concern_tags where cctid=? and isid=?";
+    private static final String sql_getConcernTagCount_1 = "select count(distinct trid) from "+DBMetaData.VIEW_CONCERN_TAG_IN_STRUCTURE+" where cctid=? and isid=?";
     
     
     public int getConcernTagCount(InfoStructure structure) throws Exception {
@@ -580,7 +581,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getConcernTagCount()
 
 
-    private static final String sql_getConcernTagCount_2 = "select count(distinct trid) from view_concern_tags where cctid=? and isid=? and ioid=?";
+    private static final String sql_getConcernTagCount_2 = "select count(distinct trid) from "+DBMetaData.VIEW_CONCERN_TAG_IN_STRUCTURE+" where cctid=? and isid=? and ioid=?";
     
     
     public int getConcernTagCount(InfoObject object) throws Exception {
@@ -599,9 +600,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getConcernTagCount()
 
 
-    private static final String sql_getDiscussions_A_1 = "SELECT count(distinct pid) from view_post_reply_tags v where v.isid=:isid and v.pid<>:pid and v.tid in (select tid from view_post_reply_tags where pid=:pid);";
+    private static final String sql_getDiscussions_A_1 = "SELECT count(distinct pid) from "+DBMetaData.VIEW_POST_REPLY_TAG_IN_DISCUSSION+" v where v.isid=:isid and v.pid<>:pid and v.tid in (select tid from view_post_reply_tags where pid=:pid);";
     
-    private static final String sql_getDiscussions_A_2 = "SELECT pid, ioid from view_post_reply_tags v where v.isid=:isid and v.pid<>:pid and v.tid in (select tid from view_post_reply_tags where pid=:pid) group by pid, ioid order by count(pid) desc;";
+    private static final String sql_getDiscussions_A_2 = "SELECT pid, ioid from "+DBMetaData.VIEW_POST_REPLY_TAG_IN_DISCUSSION+" v where v.isid=:isid and v.pid<>:pid and v.tid in (select tid from view_post_reply_tags where pid=:pid) group by pid, ioid order by count(pid) desc;";
     
     
     public Collection getContextPosts(Long isid, Long pid, PageSetting setting) throws Exception {
@@ -648,7 +649,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getContextPosts()
 
 
-    private static final String sql_getContextPosts_B = "select distinct v.pid as xid, v.ioid as yid from view_post_reply_tags v where v.isid=:isid and v.pid<>:pid and v.tid=";
+    private static final String sql_getContextPosts_B = "select distinct v.pid as xid, v.ioid as yid from "+DBMetaData.VIEW_POST_REPLY_TAG_IN_DISCUSSION+" v where v.isid=:isid and v.pid<>:pid and v.tid=";
     
     
     public Collection getContextPosts(Long isid, Long pid, String ids, PageSetting setting) throws Exception {
@@ -789,7 +790,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getContextPosts()
 
 
-    private static final String sql_getPostTagCount = "select count(distinct tid) from view_post_reply_tags where isid=? and pid=?";
+    private static final String sql_getPostTagCount = "select count(distinct tid) from "+DBMetaData.VIEW_POST_REPLY_TAG_IN_DISCUSSION+" where isid=? and pid=?";
     
     
     public int getPostTagCount(Long isid, Long postId) throws Exception {
@@ -809,7 +810,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getPostTagCount()
 
 
-    private static final String sql_searchTags = "select distinct tid from view_dpost_tag_link where target in (##) and tname like ?";
+    private static final String sql_searchTags = "select distinct tid from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where target in (##) and tname like ?";
     
     
     public Collection searchTags(InfoStructure structure, String tag) throws Exception {
@@ -849,9 +850,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//deleteVotings()
 
 
-    private static final String sql_getTagCloud_1 = "select count(distinct tid) from view_dpost_tag_link where target in (##)";
+    private static final String sql_getTagCloud_1 = "select count(distinct tid) from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where target in (##)";
     
-    private static final String sql_getTagCloud_2 = "select tid, count(tid) from view_dpost_tag_link where target in (##) group by tid order by count(tid)";
+    private static final String sql_getTagCloud_2 = "select tid, count(tid) from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where target in (##) group by tid order by count(tid)";
     
     
     public Collection getTagCloud(InfoStructure structure, PageSetting setting) throws Exception {

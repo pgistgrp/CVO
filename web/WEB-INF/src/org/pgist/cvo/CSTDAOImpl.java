@@ -15,6 +15,7 @@ import org.hibernate.Query;
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
 import org.pgist.tagging.Category;
+import org.pgist.util.DBMetaData;
 import org.pgist.util.PageSetting;
 
 
@@ -251,7 +252,7 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
     }//delete()
 
     
-    private static final String sql_publish = "INSERT INTO pgist_cst_cat_tag_link (cctid,isid,ioid,crid,trid) VALUES (?,?,?,?,?)";
+    private static final String sql_publish = "INSERT INTO "+DBMetaData.TABLE_CAT_TAG_IN_CST+" (cctid,isid,ioid,crid,trid) VALUES (?,?,?,?,?)";
     
 
     public void publish(InfoStructure structure, InfoObject obj, CategoryReference ref) throws Exception {
@@ -287,7 +288,7 @@ public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
 
     private static final String hql_getInfoObjectIdByThemeId = "select cr.id from CategoryReference cr where cr.theme.id=?";
     
-    private static final String sql_getInfoObjectIdByThemeId = "select ioid from pgist_cst_cat_tag_link where crid=";
+    private static final String sql_getInfoObjectIdByThemeId = "select ioid from "+DBMetaData.TABLE_CAT_TAG_IN_CST+" where crid=";
     
     
     public Long getInfoObjectIdByThemeId(Long themeId) throws Exception {
