@@ -120,6 +120,16 @@ public interface CCTService {
     Collection getTagsByRank(CCT cct, int count) throws Exception;
 
     /**
+     * Get the top N tags in the given cctId according to the frequency of reference.
+     *
+     * @param cctId A CCT object which the current user is working on.
+     * @param setting The page setting.
+     * @return A collection of Tag objects.
+     * @throws Exception
+     */
+    Collection getTagCloud(CCT cct, PageSetting setting) throws Exception;
+    
+    /**
      * Get tags whose reference times are greater than the given threshold.
      *
      * @param cctId A CCT object which the current user is working on.

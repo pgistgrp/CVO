@@ -98,7 +98,16 @@ public interface CCTDAO extends CVODAO {
      */
     Collection getTagsByRank(CCT cct, int count) throws Exception;
 
-
+    /**
+     * Get the top N tags in the given cctId according to the frequency of reference.
+     *
+     * @param cctId A CCT object which the current user is working on.
+     * @param setting The page setting.
+     * @return A collection of Tag objects.
+     * @throws Exception
+     */
+    Collection getTagCloud(CCT cct, PageSetting setting) throws Exception;
+    
     /**
      * Search in the given CCT, and find those tags appeared in this CCT and which are referenced at least
      * threshold times.

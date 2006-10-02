@@ -392,7 +392,9 @@ public class CCTAgent {
                 setting.setRowOfPage(count);
                 setting.setPage(page);
                 
-                Collection tags = cctService.getTagsByRank(cct, count);
+                //Collection tags = cctService.getTagsByRank(cct, count);
+                Collection tags = cctService.getTagCloud(cct, setting);
+                
                 request.setAttribute("tags", tags);
                 request.setAttribute("setting", setting);
                 map.put("successful", true);
