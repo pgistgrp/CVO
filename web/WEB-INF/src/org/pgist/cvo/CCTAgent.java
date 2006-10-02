@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
+import org.pgist.discussion.InfoStructure;
 import org.pgist.system.UserDAO;
 import org.pgist.tagging.Tag;
 import org.pgist.users.User;
@@ -346,6 +347,7 @@ public class CCTAgent {
      *                  The following variables are available for use in the jsp:
      *                  <ul>
      *                    <li>tags - a list of TagReference objects</li>
+     *                    <li>setting - An PageSetting object</li>
      *                  </ul>
      *           </li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
@@ -378,10 +380,21 @@ public class CCTAgent {
                 e.printStackTrace();
                 count = 2;
             }
-
+            
+            int page = 1;
             try {
+                page = Integer.parseInt((String) params.get("page"));
+            } catch (Exception e) {
+            }
+            
+            try {
+            	PageSetting setting = new PageSetting();
+                setting.setRowOfPage(count);
+                setting.setPage(page);
+                
                 Collection tags = cctService.getTagsByRank(cct, count);
                 request.setAttribute("tags", tags);
+                request.setAttribute("setting", setting);
                 map.put("successful", true);
                 map.put("html",
                         WebContextFactory.get().forwardToString(
@@ -818,6 +831,8 @@ public class CCTAgent {
     	}
     	return map;
     } //getTagByTagRefId()
+    
+
     
     
 }//class CCTAgent
