@@ -810,10 +810,12 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getPostTagCount()
 
 
-    private static final String sql_searchTags = "select distinct tid from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where target in (##) and tname like ?";
+    private static final String sql_searchTags_1 = "select count(distinct tid) from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where target in (##) and tname like ?";
+    
+    private static final String sql_searchTags_2 = "select distinct tid, tname from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where target in (##) and tname like ? order by tname";
     
     
-    public Collection searchTags(InfoStructure structure, String tag) throws Exception {
+    public Collection searchTags(InfoStructure structure, String tag, PageSetting setting) throws Exception {
         List list = new ArrayList();
         
         StringBuilder sb = new StringBuilder(structure.getId().toString());
@@ -822,11 +824,24 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         }
         
         Connection connection = getSession().connection();
-        PreparedStatement pstmt = connection.prepareStatement(sql_searchTags.replace("##", sb.toString()));
+        PreparedStatement pstmt = connection.prepareStatement(sql_searchTags_1.replace("##", sb.toString()));
         
         pstmt.setString(1, '%'+tag+'%');
         
         ResultSet rs = pstmt.executeQuery();
+        
+        rs.next();
+        int count = rs.getInt(1);
+        if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
+        setting.setRowSize(count);
+        
+        if (count==0) return list;
+        
+        pstmt = connection.prepareStatement(sql_searchTags_2.replace("##", sb.toString())+" OFFSET "+setting.getFirstRow()+" LIMIT "+setting.getRowOfPage());
+        
+        pstmt.setString(1, '%'+tag+'%');
+        
+        rs = pstmt.executeQuery();
         
         while (rs.next()) {
             Tag one = (Tag) getHibernateTemplate().load(Tag.class, rs.getLong(1));

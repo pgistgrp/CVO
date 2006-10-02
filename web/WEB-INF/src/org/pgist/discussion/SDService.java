@@ -6,7 +6,6 @@ import org.pgist.tagging.Tag;
 import org.pgist.util.PageSetting;
 
 
-
 /**
  * 
  * @author kenny
@@ -81,7 +80,7 @@ public interface SDService {
     int getPostTagCount(Long isid, Long postId) throws Exception;
 
 
-    Collection searchTags(InfoStructure structure, String tag) throws Exception;
+    Collection searchTags(InfoStructure structure, String tag, PageSetting setting) throws Exception;
 
 
     Collection getTagCloud(InfoStructure structure, PageSetting setting) throws Exception;

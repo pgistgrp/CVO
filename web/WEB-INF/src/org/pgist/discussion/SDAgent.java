@@ -1095,6 +1095,8 @@ public class SDAgent {
      *         <ul>
      *           <li>isid - long int, the current InfoStructure instance id</li>
      *           <li>tag - A string, all or part of a Tag name</li>
+     *           <li>count - int, discussion shown per page. (Optional, default is -1, means show all)</li>
+     *           <li>page - int, current page number (Optional, default is 1).</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
@@ -1106,6 +1108,7 @@ public class SDAgent {
      *                  The following variables are available for use in the jsp:
      *                  <ul>
      *                    <li>structure - A InfoStructure object</li>
+     *                    <li>setting - An PageSetting object</li>
      *                    <li>tags - A list of Tag objects</li>
      *                  </ul>
      *           </li>
@@ -1130,6 +1133,18 @@ public class SDAgent {
             return map;
         }
 
+        int count = -1;
+        try {
+            count = Integer.parseInt((String) params.get("count"));
+        } catch (Exception e) {
+        }
+        
+        int page = 1;
+        try {
+            page = Integer.parseInt((String) params.get("page"));
+        } catch (Exception e) {
+        }
+        
         try {
             InfoStructure structure = sdService.getInfoStructureById(isid);
             if (structure==null) {
@@ -1137,15 +1152,19 @@ public class SDAgent {
                 return map;
             }
             
-            Collection tags = sdService.searchTags(structure, tag);
+            PageSetting setting = new PageSetting();
+            setting.setRowOfPage(count);
+            setting.setPage(page);
+            
+            Collection tags = sdService.searchTags(structure, tag, setting);
             
             map.put("count", tags.size());
             
-            if (tags.size() > 0) {
-                request.setAttribute("structure", structure);
-                request.setAttribute("tags", tags);
-                map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/discussion/tagSearch.jsp"));
-            }
+            request.setAttribute("structure", structure);
+            request.setAttribute("tags", tags);
+            request.setAttribute("setting", setting);
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/discussion/tagSearch.jsp"));
+            
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1222,6 +1241,7 @@ public class SDAgent {
      *                  <ul>
      *                    <li>structure - an InfoStructure object</li>
      *                    <li>tags - a list of TagInfo objects</li>
+     *                    <li>setting - An PageSetting object</li>
      *                  </ul>
      *           </li>
      *         </ul>
@@ -1264,11 +1284,11 @@ public class SDAgent {
             
             Collection tags = sdService.getTagCloud(structure, setting);
             
-            if (tags.size() > 0) {
-                request.setAttribute("structure", structure);
-                request.setAttribute("tags", tags);
-                map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/discussion/tagCloud.jsp"));
-            }
+            request.setAttribute("structure", structure);
+            request.setAttribute("setting", setting);
+            request.setAttribute("tags", tags);
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/discussion/tagCloud.jsp"));
+            
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

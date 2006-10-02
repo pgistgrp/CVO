@@ -109,7 +109,7 @@ public interface DiscussionDAO extends BaseDAO {
     int getPostTagCount(Long isid, Long postId) throws Exception;
 
 
-    Collection searchTags(InfoStructure structure, String tag) throws Exception;
+    Collection searchTags(InfoStructure structure, String tag, PageSetting setting) throws Exception;
 
     Tag findTagById(Long tagId) throws Exception; //John Added 9/29
 
