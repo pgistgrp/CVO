@@ -509,6 +509,7 @@ function MM_swapImage() { //v3.0
 				currentFilterArr[i].status = "unchecked";	
 			}
 			getConcerns()	;
+			shrinkTagSelector();
 		}
 		
 		function clearSearch(){

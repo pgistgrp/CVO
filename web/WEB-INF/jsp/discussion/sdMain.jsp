@@ -273,6 +273,7 @@
 				currentFilterArr[i].status = "unchecked";	
 			}
 			getConcerns()	;
+			shrinkTagSelector();
 		}
 		
 		function clearSearch(){

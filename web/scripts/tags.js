@@ -10,7 +10,8 @@
 				
 				}
 		function shrinkTagSelector(){
-				new Effect.Shrink('allTags', {duration: 0.6, direction: 'top-right', afterFinish: function(){$('tagSelector').style.width = "";$('tagSelector').style.position = "";$('tagSelector').style.borderwidth = ""; $('tagform').style.display = 'inline';}}); 			
-				
+			if($('allTags').style.display != 'none'){
+				new Effect.Shrink('allTags', {duration: 0.2, direction: 'top-right', afterFinish: function(){$('tagSelector').style.width = "";$('tagSelector').style.position = "";$('tagSelector').style.borderwidth = ""; $('tagform').style.display = 'inline';}}); 			
+			}
 		}
 	

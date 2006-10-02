@@ -308,6 +308,7 @@
 				currentFilterArr[i].status = "unchecked";	
 			}
 			getContextPosts()	;
+			shrinkTagSelector();
 		}
 		
 		function clearSearch(){
