@@ -703,7 +703,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 		<div id="backdisc"><a href="sd.do?isid=${structure.id}"><img src="images/btn_back_a.gif" alt="Back" name="back" class="button" id="next" onMouseOver="MM_swapImage('back','','images/btn_back_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></div>	  
 	</div> <!-- end backtodiscussion -->
 	<div id="cont-main">
-		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+		<table border="0" cellpadding="0" cellspacing="0">
 				<tr>
 						<td id="maintop"><img src="" alt="" height="1" width="1"/></td>
 						<td><img src="images/sidebar_top.gif" alt="sidebartop" /></td>
@@ -838,6 +838,12 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 </script>
 
 </body>
+<style type="text/css">
+	<!--[if IE]>
+	#tablediscwidth {width:90%}
+	<![endif]-->
 
+	#tablediscwidth {width:100%}
+</style>
 </html:html>
 

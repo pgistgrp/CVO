@@ -15,6 +15,18 @@
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 
+<style type="text/css">
+	<!--[if IE]>
+	#sidebarbottom {
+		right:19px;}
+	<![endif]-->
+	
+	
+	#sidebarbottom {
+	  position:absolute;
+	  right:0px;
+	}
+</style>
 
 <!-- Site Wide JavaScript -->
 <script src="scripts/tags.js" type="text/javascript"></script>
@@ -461,7 +473,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 		
 		<div id="cont-main">
 		
-		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+		<table border="0" cellpadding="0" cellspacing="0">
 		<tr>
 		<td id="maintop"><img src="#" alt="" height="1" width="1"/></td>
 		<td><img src="images/sidebar_top.gif" alt="sidebartop" /></td>
@@ -482,7 +494,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 				
 		<br />
 				<div>
-				  <table width="100%" class="tabledisc">
+				  <table class="tabledisc">
 				          <tr class="disc_row_b">
 							<jsp:useBean id="today" class="java.util.Date"/>
 							<c:set var="fmtLastPostDate"><fmt:formatDate value="${structure.lastPost.createTime}" pattern="yyyy/MM/dd"/></c:set>
