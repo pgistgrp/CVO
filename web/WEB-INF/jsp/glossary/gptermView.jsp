@@ -165,8 +165,9 @@
 			});
 		}		
 		var numComment = ${term.commentCount}
+		
 	  function createComment1(termId, comment){
-	  	comment = keepBreaks(comment);
+	  	comment = validateInput(comment);
 	  	if (numComment == 4){
 	  		setFlag(0);
 	  	}
@@ -201,6 +202,14 @@
 	function keepBreaks(string){
 
 		return string.replace(/\n/g,"<br>");
+	}
+	
+		function validateInput(string){
+			string=string.replace(/>/g,"//>//");
+			string=string.replace(/</g,"//<//");
+			string=string.replace(/\n/g,"<br>");
+
+			return string;
 	}
 		
 </script>
