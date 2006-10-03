@@ -88,7 +88,7 @@ public class Feedback implements Serializable {
     /**
      * @return
      * 
-     * @hibernate.property not-null="true"
+     * @hibernate.property not-null="true" type="text"
      */
     public String getContent() {
         return content;
