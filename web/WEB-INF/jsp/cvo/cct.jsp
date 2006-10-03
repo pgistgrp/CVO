@@ -947,7 +947,7 @@ float:right;
 <td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
 					<div id="sidebar_container">
 					<div id="sidebarHeader" style="padding: 5px;">
-						<h4>Participant Concerns</h4>
+						<h4>Other Participants' Concerns</h4>
 						<p>
 						 <!-- optional context sidebar paragraph -->
 						 

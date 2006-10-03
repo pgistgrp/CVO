@@ -38,10 +38,10 @@
 		  	 <td width="40" class="textcenter"><img src="/images/ballooninactive2.gif" alt="No replies within the last 24 hours" /></td>
 		  </c:otherwise>
 		  </c:choose>
-			<td><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a><br /><span class="smalltext"  style="font-size: 80%;">${fn:substring(post.content, 0, 125)}... </span></td>
-			<td width="150" class="textcenter"><a href="#">${post.owner.loginname}</a></td>
+			<td><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a><br /><span class="smalltext"  style="font-size: 80%; color: #98A072;">${fn:substring(post.content, 0, 125)}... </span></td>
+			<td width="150" class="textcenter">${post.owner.loginname}</td>
 			<td width="200">
-			<span class="smalltext" style="font-size: 80%;">
+			<span class="smalltext" style="font-size: 80%; color: #98A072;">
 
 		    <c:choose>
 		      <c:when test="${post.lastReply == null }">
