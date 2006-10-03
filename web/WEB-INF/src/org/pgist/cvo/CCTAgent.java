@@ -422,6 +422,7 @@ public class CCTAgent {
                 
                 Collection tags = cctService.getTagCloud(cct, setting);
                 request.setAttribute("tags", tags);
+                request.setAttribute("setting", setting);
                 map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/tagCloud.jsp"));
                 
                 map.put("successful", true);
