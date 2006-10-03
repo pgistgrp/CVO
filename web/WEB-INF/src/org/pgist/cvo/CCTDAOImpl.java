@@ -8,8 +8,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import javax.security.jacc.WebUserDataPermission;
-
 import org.hibernate.Query;
 import org.pgist.util.DBMetaData;
 import org.pgist.util.PageSetting;
@@ -322,7 +320,7 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
         
         if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
         
-        setting.setRowOfPage(count);
+        setting.setRowSize(count);
         
         if (count==0) return list;
         
