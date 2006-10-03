@@ -878,7 +878,7 @@ public class CCTAgent {
             return map;
         }
         
-        boolean contextAware = "true".equals((String) params.get("contextAware"));
+        boolean contextAware = !("false".equals((String) params.get("contextAware")));
         
         String tags = (String) params.get("tags");
         
