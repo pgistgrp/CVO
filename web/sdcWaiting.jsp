@@ -6,7 +6,14 @@
 <html:html>
 <html><head><title>Let's Improve Transportation</title><!-- Site Wide CSS -->
 
+<script type="text/javascript">
 
+function displayFeedback()
+{
+	document.getElementById("feedbackForm").style.display = "block";
+}
+
+</script>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/position.css";</style>
 <style type="text/css" media="screen">@import "styles/styles.css";</style>
@@ -24,11 +31,11 @@
 <script type='text/javascript' src='/dwr/util.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
 <!-- End DWR JavaScript Libraries -->
-</head><body>
+</head><body onLoad="displayFeedback();">
 <!-- Header -->
 
 <!-- Header -->
-
+	
 <jsp:include page="/header.jsp" />
 <!-- Sub Title -->
 <div id="subheader">
