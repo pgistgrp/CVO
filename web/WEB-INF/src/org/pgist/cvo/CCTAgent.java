@@ -335,9 +335,11 @@ public class CCTAgent {
      *             <ul>
      *               <li>type==0, search top count tags which are the hottest</li>
      *               <li>type==1, search tags which are over a specific threshhold</li>
+     *               <li>type==2, search all tags</li>
      *             </ul>
      *           </li>
-     *           <li>count - valid when type==0, default is 10</li>
+     *           <li>count - valid when type==0, default is 10; or type==2, default is -1</li>
+     *           <li>page - valid when type==2, default is 1</li>
      *           <li>threshhold - valid when type==1, default is 2</li>
      *         </ul>
      * @return A map contains:<br>
@@ -381,26 +383,11 @@ public class CCTAgent {
                 count = 2;
             }
             
-            int page = 1;
             try {
-                page = Integer.parseInt((String) params.get("page"));
-            } catch (Exception e) {
-            }
-            
-            try {
-            	PageSetting setting = new PageSetting();
-                setting.setRowOfPage(count);
-                setting.setPage(page);
-                
-                //Collection tags = cctService.getTagsByRank(cct, count);
-                Collection tags = cctService.getTagCloud(cct, setting);
-                
+                Collection tags = cctService.getTagsByRank(cct, count);
                 request.setAttribute("tags", tags);
-                request.setAttribute("setting", setting);
+                map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/tagCloud.jsp"));
                 map.put("successful", true);
-                map.put("html",
-                        WebContextFactory.get().forwardToString(
-                                "/WEB-INF/jsp/cvo/tagCloud.jsp"));
             } catch (Exception e) {
                 e.printStackTrace();
                 map.put("successful", false);
@@ -420,14 +407,26 @@ public class CCTAgent {
             try {
                 Collection tags = cctService.getTagsByThreshold(cct, threshhold);
                 request.setAttribute("tags", tags);
+                map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/tagCloud.jsp"));
                 map.put("successful", true);
-                map.put("html",
-                        WebContextFactory.get().forwardToString(
-                                "/WEB-INF/jsp/cvo/tagCloud.jsp"));
             } catch (Exception e) {
                 map.put("successful", false);
                 map.put("reason", "Error: " + e.getMessage());
                 return map;
+            }
+        } else if (type == 2) {
+            try {
+                PageSetting setting = new PageSetting();
+                setting.setRowOfPage((String) params.get("count"));
+                setting.setPage((String) params.get("page"));
+                
+                Collection tags = cctService.getTagCloud(cct, setting);
+                request.setAttribute("tags", tags);
+                map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/tagCloud.jsp"));
+                
+                map.put("successful", true);
+            } catch (Exception e) {
+                map.put("reason", e.getMessage());
             }
         } else {
             map.put("reason", "Wrong invocation type!");

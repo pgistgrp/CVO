@@ -301,4 +301,9 @@ public class CCTServiceImpl implements CCTService {
     } //searchTags()
 
 
+    public Collection getTagCloud(CCT cct, PageSetting setting) throws Exception {
+        return cctDAO.getTagCloud(cct, setting);
+    }//getTagCloud()
+
+
 }//class CCTServiceImpl

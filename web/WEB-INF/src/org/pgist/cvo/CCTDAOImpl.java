@@ -172,26 +172,30 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
     } //getTagsByRank()
     
     
-    private static final String getTagCloud1 = "select count(tr.id) from TagReference tr where tr.deleted=? and tr.cct.id=?";
+    private static final String getTagCloud1 = "select count(tr.id) from TagReference tr where tr.cctId=?";
+    
     private static final String getTagCloud2 = "from TagReference tr where tr.cctId=? order by tr.times desc, tr.tag.name";
-
+    
+    
     public Collection getTagCloud(CCT cct, PageSetting setting) throws Exception {
     	List result = new ArrayList();
-    	Long cctId = cct.getId();
-        List list = getHibernateTemplate().find(getTagCloud1, cct.getId());
-        if (list==null || list.size()==0) return result;
         
-        int total = ((Integer) list.get(0)).intValue();
+        List list = getHibernateTemplate().find(getTagCloud1, cct.getId());
+        
+        int total = ((Number) list.get(0)).intValue();
         if (setting.getRowOfPage()==-1) setting.setRowOfPage(total);
         setting.setRowSize(total);
         
-        Query query = getSession().createQuery(getTagCloud1);
+        if (total==0) return result;
+        
+        Query query = getSession().createQuery(getTagCloud2);
+        
+        query.setLong(0, cct.getId());
+        
         query.setFirstResult(setting.getFirstRow());
         query.setMaxResults(setting.getRowOfPage());
-        query.setBoolean(0, false);
-        query.setLong(1, cctId);
-        return query.list();
         
+        return query.list();
     } //getTagCloud()
 
 
