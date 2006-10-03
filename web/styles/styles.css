@@ -85,6 +85,11 @@ h6 {
 	margin: 0px auto; 
 	padding: 2px;
 }
+
+#allTags{
+	border: 2px solid #A3A794;
+	padding: 5px;
+}
 	
 #btn_search_1 {
 	margin: 0;
@@ -258,6 +263,23 @@ h6 {
 	background-color: #7888A9;
 	border-bottom: 3px solid #C0D7F6;
 	color: #FFFFFF;
+}
+
+.bluetitle-side{
+	background: #CCC;
+	border-bottom: 3px solid #7888A9;
+	font-size: 0.85em;
+	color: #545F76;
+}
+.bluetitle-side, .bluetitle-side a{
+	color: #545F76;
+}
+
+.bluetitle-side a{font-weight: normal;}
+
+.bluebody-side{
+	background: #EEE;
+	color: #777;
 }
 
 .bluetitle a{
@@ -438,7 +460,7 @@ h6 {
 	font-size: 13px;
 }
 
-.tagSize1 a, .tagSize2 a, .tagSize3 a, .tagSize4 a{
+.tagSize0 a, .tagSize1 a, .tagSize2 a, .tagSize3 a, .tagSize4 a{
 	color: #878;
 	padding: 1px;
 	padding-left: 2px;
@@ -446,6 +468,11 @@ h6 {
 	border: 1px solid #C5D0E4;
 	text-decoration: none;
 	margin-right: 3px;
+}
+
+.tagSize0 a{
+	font-size: 10px;
+	font-weight: normal;
 }
 
 .tagSize1 a{
@@ -512,6 +539,11 @@ li.tagsList{
 li.tagsList a{
 	text-decoration: none;
 	color: #878;
+}
+
+li.tagsList a:hover{
+	text-decoration: none;
+	color: #FFF;
 }
 .post{
 	background: #fff;

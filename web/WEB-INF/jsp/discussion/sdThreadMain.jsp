@@ -39,6 +39,14 @@
 			var countPerPage = 10; //numer of posts per page
 			var lastPage = 1
 		/* end global vars */
+		
+		function removeDoubleQuotes(str){
+		charToRemove = '"';
+		regExp = new RegExp("["+charToRemove+"]","g");
+		return str.replace(regExp,"");
+		
+		}
+
 		 function createReply(page){
 		 	lastPage = page;
 		 	displayIndicator(true);
@@ -48,7 +56,6 @@
 		    SDAgent.createReply({isid:${structure.id}, pid:${post.id}, title:newReplyTitle, content:newReply, tags: newReplyTags}, {
 		      callback:function(data){
 		          if (data.successful){     
-          				$('txtnewReplyTitle').value = "Re: ${post.title}";
 						$('txtnewReply').value = '';
 						$('newReplyTags').value = '';
 						if (${setting.page} != lastPage){
@@ -173,7 +180,7 @@
 					var pid = "";
 				}
 				
-				SDAgent.getContextPosts({isid: ${structure.id},pid: pid, tags: currentFilterString, count: "5", page: sidebarPage}, {
+				SDAgent.getContextPosts({isid: ${structure.id},pid: pid, tags: currentFilterString, count: "4", page: sidebarPage}, {
 				callback:function(data){
 						if (data.successful){
               				 $('sidebar_content').innerHTML = data.source.html;//using partial sidebar-concerns.jsp
@@ -188,7 +195,7 @@
 					 	 				filters += '&nbsp;<a href="javascript: removeUlFilter('+i+');"><img src="/images/trash.gif" alt="remove filter" border="0" /></a>';
 					 	 				filters +='<ul class="filter">';
 				 	 				}else{ //if ioid
-				 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkPIDFilter('+i+')"  '+ currentFilterArr[i].status +' />current post\'s '+ data.num +' tags';
+				 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkPIDFilter('+i+')"  '+ currentFilterArr[i].status +' />current discussion tags';
 					 	 				filters +='<ul class="filter">';
 				 	 				}
 				 	 		}
@@ -376,8 +383,13 @@
 			shrinkTagSelector();
 	}
 	
-	function getTagCloud(){
-			SDAgent.getTagCloud({cctId:cctId,type:0,count:1000}, {
+	function getTagCloud(goToPage){
+		if(goToPage == undefined){
+			var page = 1	
+		}else{
+			var page = goToPage;	
+		}
+			SDAgent.getTagCloud({isid: ${structure.id}, page: page, count: 50}, {
 				callback:function(data){
 					if (data.successful){
 						$('allTags').innerHTML = data.html;
@@ -391,8 +403,13 @@
 		});
 		}
 
-		function tagSearch(theTag){
-		CCTAgent.searchTags({cctId:cctId,tag:theTag},{
+		function tagSearch(theTag, key){ //in all tags section
+		//hack to disable backspace on input box when length < 1 - "19 tags hack"
+		if (key.keyCode == 8 && theTag.length < 1){
+			return false;	
+		}
+			
+		SDAgent.searchTags({isid:${structure.id},tag:theTag},{
 			callback:function(data){
 				  $('tagIndicator').style.visibility = 'visible';
 					if (data.successful){
@@ -574,7 +591,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 					</div>
 					<!-- start tagselector -->
 						<div id="tagSelector">
-							<div id="showAllLink"><a href="javascript:clearFilter();">Show All Concerns</a></div>
+							<div id="showAllLink"><a href="javascript:clearFilter();">Show All Discussions</a></div>
 							<div id="tagform">
 							<h6 id="filterheader">Filter All Discussion By:</h6><span id="ulfilters"></span>
 							<!-- insert filter list here -->

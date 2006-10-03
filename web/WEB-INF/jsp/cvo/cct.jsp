@@ -214,8 +214,14 @@ function saveTheConcern(){
 $("indicator").style.visibility = "hidden";
 }
 
-function getTagCloud(){
-	CCTAgent.getTagCloud({cctId:cctId,type:0,count:1000}, {
+	function getTagCloud(goToPage){
+		if(goToPage == undefined){
+			var page = 1	
+		}else{
+			var page = goToPage;	
+		}
+
+		CCTAgent.getTagCloud({cctId:cctId,type:2, page: page, count:50}, {
 		callback:function(data){
 			if (data.successful){
 				$('allTags').innerHTML = data.html;
@@ -275,7 +281,7 @@ function getConcernsByTag(id){
 	CCTAgent.getConcernsByTag({tagRefId:id,count:-1}, {
 	callback:function(data){
 			if (data.successful){ 
-				new Effect.Highlight('sidebar_content', {endcolor: '#DAE1E7'});
+
 				$('sidebar_content').innerHTML = data.html;//tagSearch.jsp
 				//new Element.scrollTo('SideConcernsTop'); //location.href='#SideConcernsTop';
 				shrinkTagSelector();
@@ -299,7 +305,7 @@ CCTAgent.getConcerns({cctId:cctId,type:2,count:5, page:pageNum}, {
 	callback:function(data){
 			if (data.successful){
 				$('sidebar_content').innerHTML = data.html;
-				new Effect.Highlight('sidebar_content', {duration: 0.5, endcolor: '#DAE1E7'});
+
 			}
 		},
 	errorHandler:function(errorString, exception){ 

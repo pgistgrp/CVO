@@ -353,8 +353,14 @@
 			shrinkTagSelector();
 	}
 	
-	function getTagCloud(){
-			CCTAgent.getTagCloud({cctId:cctId,type:0,count:1000}, {
+	
+	function getTagCloud(goToPage){
+		if(goToPage == undefined){
+			var page = 1	
+		}else{
+			var page = goToPage;	
+		}
+			CCTAgent.getTagCloud({cctId:cctId,type:2, page: page, count:50}, {
 				callback:function(data){
 					if (data.successful){
 						$('allTags').innerHTML = data.html;
