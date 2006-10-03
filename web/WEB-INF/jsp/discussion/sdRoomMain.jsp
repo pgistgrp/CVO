@@ -5,9 +5,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html:html>
-<head>
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en"><head>
 <title>Structured Discussion Main</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/position.css";</style>
@@ -750,7 +748,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 									<span class="textright"><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);"><img src="images/close1.gif" alt="Close" name="closeresults" class="button" id="closeresults" onMouseOver="MM_swapImage('closeresults','','images/close.gif',1)" onMouseOut="MM_swapImgRestore()"></a></a></span>
 									<b>Add a Tag Filter:</b> 
 									<form id="frmSidebarTagSearch" onSubmit="sidebarSearchTagsAction($('txtmanualFilter').value); return false;">
-										<input name="txtmanualFilter" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value, event)" onkeyup="sidebarTagSearch(this.value, event)" /><span id="btnClearSearch" style="display: none;"><a href="javascript:clearSearch(); closeSearchResults();"><img src="/images/clearText.gif" border="0" alt="clear textbox" /></a></span>
+										<input name="txtmanualFilter" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value, event)" onKeyUp="sidebarTagSearch(this.value, event)" /><span id="btnClearSearch" style="display: none;"><a href="javascript:clearSearch(); closeSearchResults();"><img src="/images/clearText.gif" border="0" alt="clear textbox" /></a></span>
 									</form>
 									<p>or <a href="javascript: expandTagSelector();">Browse All Tags</a></p>
 										
@@ -795,9 +793,11 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 	</div>
 		
 	<div id="discussion-cont">
-		<span class="padding"><h4 id="targetDiscussionTitle"></h4></span><span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();"><img src="images/btn_gnewtopic_a.gif" alt="New Topic" name="newtopic" class="button" id="newtopic" onMouseOver="MM_swapImage('newtopic','','images/btn_gnewtopic_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></span>
-		<div id="discussion"><!-- load discussion posts --></div>
-	</div>
+		<div id="discussion-inner">
+			<span class="padding"><h4 id="targetDiscussionTitle"></h4></span><span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();"><img src="images/btn_gnewtopic_a.gif" alt="New Topic" name="newtopic" class="button" id="newtopic" onMouseOver="MM_swapImage('newtopic','','images/btn_gnewtopic_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></span>
+			<div id="discussion"><!-- load discussion posts --></div>
+		</div><!-- end discussion-inner -->
+	</div><!-- end discussion-cont -->
 	<div id="legend" class="smalltext">
 	<img src="/images/balloonactive2.gif" alt="active" class="button">
 	Recent Post  <img src="/images/ballooninactive2.gif" alt="active" width="20" height="21" class="button"> No Recent Post </div>
@@ -843,6 +843,8 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 </script>
 
 </body>
+
+<html:html>
 <style type="text/css">
 	<!--[if IE]>
 	#tablediscwidth {width:90%}

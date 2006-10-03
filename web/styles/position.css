@@ -74,6 +74,9 @@ select {
 	padding-left: 3px;
 	padding-right: 3px;
 }
+#discussion-inner {
+	width: 100%;
+}
 #finished {
 	margin-top: 2em;
 	margin-bottom: 1em;

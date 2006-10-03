@@ -8,6 +8,7 @@
 
 <table width="100%" border="0" cellspacing="0" class="tabledisc_green" >
 	  <tr class="objectgreen">
+	  
 	  	<td width="40" class="textcenter">Status</td>
 		<td>Topic Title</td>
 		<td width="150" class="textcenter">Author</td>
@@ -18,26 +19,29 @@
 
 	<c:if test="${fn:length(posts) == 0}">
 		<tr>
-			<td colspan="5">
+			<td colspan="6">
 				<p>Currently there are no topics for this concern theme.  If you would like to create a topic, please click on the '<a href="javascript:new Effect.toggle('newDiscussion', 'blind', {duration: 0.5}); void(0);">new Topic </a>' above.</p>
 				<br />
 			</td>
 		</tr>
 	</c:if>
+	
 <jsp:useBean id="today" class="java.util.Date"/>
 	<c:forEach var="post" items="${posts}" varStatus="loop">
 		<c:set var="fmtLastPostDate"><fmt:formatDate value="${post.createTime}" pattern="yyyy/MM/dd"/></c:set>
     	<c:set var="fmtLastReplyDate"><fmt:formatDate value="${post.lastReply.createTime}" pattern="yyyy/MM/dd"/></c:set>
     	<c:set var="fmtToday"><fmt:formatDate value="${today}" pattern="yyyy/MM/dd"/></c:set>
 		<tr class="${((loop.index % 2) == 0) ? 'disc_row_c' : 'disc_row_d'}">
+		  
+		 
+		  <td width="40" class="textcenter">
 		  <c:choose>
-		  <c:when test="${fmtToday == fmtLastPostDate || fmtToday == fmtLastReplyDate }">
-		  	 <td width="40" class="textcenter"><img src="/images/balloonactive2.gif" alt="Replies within the last 24 hours" /></td>
-		  </c:when>
-		  <c:otherwise>
-		  	 <td width="40" class="textcenter"><img src="/images/ballooninactive2.gif" alt="No replies within the last 24 hours" /></td>
-		  </c:otherwise>
+		  <c:when test="${fmtToday == fmtLastPostDate || fmtToday == fmtLastReplyDate }"><img src="/images/balloonactive2.gif" alt="Replies within the last 24 hours" /></c:when>
+		  <c:otherwise><img src="/images/ballooninactive2.gif" alt="No replies within the last 24 hours" /></c:otherwise>
 		  </c:choose>
+		  </td>
+		  
+		  
 			<td><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a><br /><span class="smalltext"  style="font-size: 80%; color: #98A072;">${fn:substring(post.content, 0, 125)}... </span></td>
 			<td width="150" class="textcenter">${post.owner.loginname}</td>
 			<td width="200">
