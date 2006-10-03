@@ -31,10 +31,10 @@
 <jsp:include page="/header.jsp" />
 <!-- Sub Title -->
 <div id="subheader">
-<h1>Let's Improve Transportation:</h1> <h2>Decision Process</h2>
+<h1>Let's Improve Transportation:</h1> <h2>Waiting to Discuss Summaries</h2>
 </div>
 <div id="footprints">
-<span class="smalltext">LIT Process >>Read More</span>
+<span class="smalltext"><a href="http://128.95.212.210:8080/main.do">Participate</a> » <a href="http://128.95.212.210:8080/cctview.do?cctId=1171">Step 1a Brainstorm Concerns</a> » Waiting to Discuss Summaries
 </div>
 <!-- End Sub Title -->
 

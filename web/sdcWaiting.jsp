@@ -32,10 +32,10 @@
 <jsp:include page="/header.jsp" />
 <!-- Sub Title -->
 <div id="subheader">
-<h1>Let's Improve Transportation:</h1> <h2>Decision Process</h2>
+<h1>Let's Improve Transportation:</h1> <h2>Finished with Step 1</h2>
 </div>
 <div id="footprints">
-<span class="smalltext">LIT Process >>Read More</span>
+<span class="smalltext"><a href="main.do">Participate</a> » <a href="sd.do?isid=2150">Step 1b Review Summaries</a> » Finished with Step 1
 </div>
 <!-- End Sub Title -->
 

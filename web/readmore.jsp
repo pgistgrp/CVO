@@ -34,7 +34,7 @@
 <h1>Let's Improve Transportation:</h1> <h2>Decision Process</h2>
 </div>
 <div id="footprints">
-<span class="smalltext">LIT Process >>Read More</span>
+<span class="smalltext"><a href="main.do">Participate</a> » Read More
 </div>
 <!-- End Sub Title -->
 
