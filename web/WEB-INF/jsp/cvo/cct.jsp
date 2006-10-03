@@ -295,7 +295,7 @@ CCTAgent.getConcernById(concernId, {
 				os += '<div id="closeBox" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>'
 				os += '<h4>Edit My Concern</h4><br>';
 
-				os += '<div style="position:relative; margin:2%;"><textarea style="position:fixed; height: 150px; width: 200px;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea>';
+				os += '<div style="position:relative; margin:2%;"><textarea style="position:fixed; height: 150px; width: 390px;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea>';
 				
 				if(navigator.appName=="Microsoft Internet Explorer"){
 				os += '<div style="position:relative;"><input type="button" id="modifyConcern" value="Submit Edits!" onclick="javascript:editConcern('+concernId+');"/>';
