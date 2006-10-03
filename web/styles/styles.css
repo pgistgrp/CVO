@@ -300,16 +300,16 @@ h6 {
 	color: #666666 !important;
 }
 .disc_row_a {
-	background-color: #EBEFF2;
+	background-color: #E6F5FF;
 }
 .disc_row_b {
 	background-color: #DAE1E7;
 }
 .disc_row_c {
-	background-color: #E9EFD3;
+	background-color: #E2E6CF;
 }
 .disc_row_d {
-	background-color: #D2DFA8;
+	background-color: #FBFFE6;
 }
 .glossHighlight, .glossHighlight a {
 	text-decoration: none; 
@@ -343,15 +343,15 @@ h6 {
 	padding: 10px;
 }
 .objectblue, .objectblue a {
-	background-color: #7888A9 !important;
-	border-color: #7888A9 !important;
+	background-color: #00497B !important;
+	border-bottom: 2px solid #0069B0 !important;
 	color: #FFFFFF;
 }
 .objectblue a:hover {
 	color: #C0D7F6 !important;
 }
 .objectgreen, .objectgreen a {
-	background-color: #98A072 !important;
+	background-color: #8A8D7B !important;
 	border-color: #98A072 !important;
 	color: #FFFFFF;
 }
