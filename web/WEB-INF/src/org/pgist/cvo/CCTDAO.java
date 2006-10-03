@@ -136,6 +136,12 @@ public interface CCTDAO extends CVODAO {
      * @throws Exception
      */
     void decreaseRefTimes(TagReference ref) throws Exception;
+    
+    
+    Collection getContextConcerns(CCT cct, PageSetting setting, boolean contextAware) throws Exception;
+    
+    
+    Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware) throws Exception;
 
 
 }//interface CCTDAO

@@ -306,4 +306,13 @@ public class CCTServiceImpl implements CCTService {
     }//getTagCloud()
 
 
+    public Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware) throws Exception {
+        if (tags==null || "".equals(tags.trim())) {
+            return cctDAO.getContextConcerns(cct, setting, contextAware);
+        } else {
+            return cctDAO.getContextConcerns(cct, setting, tags.trim(), contextAware);
+        }
+    }//getContextConcerns()
+
+
 }//class CCTServiceImpl

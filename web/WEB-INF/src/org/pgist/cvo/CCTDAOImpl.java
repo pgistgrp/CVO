@@ -1,12 +1,19 @@
 package org.pgist.cvo;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.security.jacc.WebUserDataPermission;
+
 import org.hibernate.Query;
+import org.pgist.util.DBMetaData;
 import org.pgist.util.PageSetting;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -233,6 +240,102 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
             save(ref);
         }
     }//decreaseRefTimes()
+
+
+    private static final String hql_getContextConcerns_A_11 = "select count(c.id) from Concern c where c.deleted=? and c.cct.id=?";
+    
+    private static final String hql_getContextConcerns_A_12 = "select count(c.id) from Concern c where c.deleted=? and c.cct.id=? and c.author.id<>?";
+    
+    private static final String hql_getContextConcerns_A_21 = "from Concern c where c.deleted=? and c.cct.id=? order by c.id";
+    
+    private static final String hql_getContextConcerns_A_22 = "from Concern c where c.deleted=? and c.cct.id=? and c.author.id<>? order by c.id";
+    
+    
+    public Collection getContextConcerns(CCT cct, PageSetting setting, boolean contextAware) throws Exception {
+        List list = new ArrayList();
+        
+        Query query = null;
+        
+        if (contextAware) {
+            query = getSession().createQuery(hql_getContextConcerns_A_12);
+            query.setLong(2, WebUtils.currentUserId());
+        } else {
+            query = getSession().createQuery(hql_getContextConcerns_A_11);
+        }
+        query.setBoolean(0, contextAware);
+        query.setLong(1, cct.getId());
+        
+        int count = ((Number) query.uniqueResult()).intValue();
+        
+        if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
+        
+        setting.setRowSize(count);
+        
+        if (count==0) return list;
+        
+        if (contextAware) {
+            query = getSession().createQuery(hql_getContextConcerns_A_22);
+            query.setLong(2, WebUtils.currentUserId());
+        } else {
+            query = getSession().createQuery(hql_getContextConcerns_A_21);
+        }
+        query.setBoolean(0, contextAware);
+        query.setLong(1, cct.getId());
+        query.setFirstResult(setting.getFirstRow());
+        query.setMaxResults(setting.getRowOfPage());
+        
+        return query.list();
+    }//getContextConcerns()
+
+
+    private static final String sql_getContextConcerns_B = "SELECT cid from "+DBMetaData.VIEW_CONCERN_TAG_IN_CCT+" where cctid=:cctid and trid=";
+    
+    
+    public Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware) throws Exception {
+        List list = new ArrayList();
+        
+        Connection connection = getSession().connection();
+        Statement stmt = connection.createStatement();
+        
+        long uid = WebUtils.currentUserId();
+        
+        StringBuilder sb = new StringBuilder();
+        
+        String[] ids = tags.split(",");
+        int index = 0;
+        for (String id : ids) {
+            if (id==null || "".equals(id.trim())) continue;
+            index++;
+            if (index>1) sb.append(" INTERSECT ");
+            sb.append(sql_getContextConcerns_B).append(id);
+            if (contextAware) sb.append(" and uid<>").append(uid);
+        }//for
+        
+        String piece = sb.toString().replace(":cctid", cct.getId().toString());
+        
+        //get count
+        ResultSet rs = stmt.executeQuery("select count(distinct x.cid) from ("+piece+") as x");
+        
+        rs.next();
+        
+        int count = rs.getInt(1);
+        
+        if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
+        
+        setting.setRowOfPage(count);
+        
+        if (count==0) return list;
+        
+        //get records
+        rs = stmt.executeQuery("SELECT distinct x.cid, count(x.cid) from ("+piece+") as x group by x.cid order by count(x.cid)");
+        
+        while (rs.next()) {
+            Long one = rs.getLong(1);
+            list.add(getHibernateTemplate().load(Concern.class, one));
+        }//while
+        
+        return list;
+    }//getContextConcerns()
 
 
 }//class CCTDAOImpl
