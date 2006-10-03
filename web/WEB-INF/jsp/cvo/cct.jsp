@@ -237,28 +237,7 @@ CCTAgent.getConcerns({cctId:cctId,type:0,count:-1}, {
 	});
 }
 
-function getConcernsByTag(id){
-	CCTAgent.getConcernsByTag({tagRefId:id,count:-1}, {
-	callback:function(data){
-			if (data.successful){ 
 
-				$('sidebar_content').innerHTML = data.html;//tagSearch.jsp
-				//new Element.scrollTo('SideConcernsTop'); //location.href='#SideConcernsTop';
-				shrinkTagSelector();
-				$('addFilter').style.display = 'none';
-				if($('sidebarSearchResults').style.display != 'none'){
-					new Effect.Fade('sidebarSearchResults', {duration: 0.5, endcolor:'#EEEEEE'});	
-					$('txtmanualFilter').value = $('txtmanualFilter').defaultValue;
-					
-				}	
-			}
-		},
-	errorHandler:function(errorString, exception){ 
-			alert("getConcernsByTag: "+errorString+" "+exception);
-			//showTheError();
-	}
-	});
-}
 
 function tabFocus(num){
 $('myTab').tabber.tabShow(num);
@@ -714,7 +693,7 @@ function lightboxDisplay(show){
 			if($('sidebarSearchResults').style.display != 'none'){
 				closeSearchResults();
 			}
-			clearSearch();
+			//clearSearch();
 			shrinkTagSelector();
 	}
 	

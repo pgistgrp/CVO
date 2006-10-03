@@ -379,7 +379,7 @@
 			if($('sidebarSearchResults').style.display != 'none'){
 				closeSearchResults();
 			}
-			clearSearch();
+		
 			shrinkTagSelector();
 	}
 	
@@ -559,8 +559,8 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 			<c:forEach items="${post.tags}" var="tag">
 					<li class="tagsList"><a href="javascript:changeCurrentFilter(${tag.id});">${tag.name}</a></li>
 			</c:forEach>
-		<small>- click on a tag to view other discussions with the same tag.</small>
 		</ul>
+		<small>- click on a tag to view other discussions with the same tag.</small>
 		</p>
 		</c:if>
 		</div>

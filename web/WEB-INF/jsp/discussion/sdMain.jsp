@@ -349,7 +349,7 @@
 			if($('sidebarSearchResults').style.display != 'none'){
 				closeSearchResults();
 			}
-			clearSearch();
+			//clearSearch();
 			shrinkTagSelector();
 	}
 	

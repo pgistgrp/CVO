@@ -571,7 +571,7 @@ function MM_swapImage() { //v3.0
 			if($('sidebarSearchResults').style.display != 'none'){
 				closeSearchResults();
 			}
-			clearSearch();
+	
 			shrinkTagSelector();
 	}
 	
