@@ -571,7 +571,7 @@ function MM_swapImage() { //v3.0
 			if($('sidebarSearchResults').style.display != 'none'){
 				closeSearchResults();
 			}
-	
+			clearSearch();
 			shrinkTagSelector();
 	}
 	
@@ -782,6 +782,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 			<h3 style="display: inline">New Topic</h3>
 		</div> <!-- End newdisc_title -->
 		<div id="newdisc_content" class="greenBB">
+			<div id="newdisc_inner">
 			<p>SDC New Topic Paragraph</p>
 			<form>
 				<p><label>Post Title</label><br><input style="width:100%" type="text" id="txtNewPostTitle"/></p>
@@ -789,6 +790,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 				<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="txtNewPostTags" type="text" /></p>
 				<input type="button" onClick="infoObject.createPost();" value="Create Discussion">
 			</form>
+			</div>
 		</div>
 	</div>
 		

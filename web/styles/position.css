@@ -56,9 +56,6 @@ select {
 	float: left;
 	height: 100%;
 }
-#col {
-	overflow: auto;
-}
 #col-right { /*merged*/
 	width: 35%;
 	float: right;	
@@ -132,9 +129,13 @@ select {
 	margin-left: 35px;
 	margin-right: 35px;
 }
+
 #newdisc_content {
 	padding: 5px;
 	padding-top: 0px;
+}
+#newdisc_inner {
+	width: 100%;
 }
 #newdisc_title {
 	padding-left: 5px;
