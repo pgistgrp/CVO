@@ -8,12 +8,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
-import org.pgist.discussion.InfoStructure;
 import org.pgist.system.UserDAO;
 import org.pgist.tagging.Tag;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
+
 
 /**
  * DWR AJAX Agent class.<br>

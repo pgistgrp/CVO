@@ -260,7 +260,7 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
         } else {
             query = getSession().createQuery(hql_getContextConcerns_A_11);
         }
-        query.setBoolean(0, contextAware);
+        query.setBoolean(0, false);
         query.setLong(1, cct.getId());
         
         int count = ((Number) query.uniqueResult()).intValue();
@@ -277,7 +277,7 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
         } else {
             query = getSession().createQuery(hql_getContextConcerns_A_21);
         }
-        query.setBoolean(0, contextAware);
+        query.setBoolean(0, false);
         query.setLong(1, cct.getId());
         query.setFirstResult(setting.getFirstRow());
         query.setMaxResults(setting.getRowOfPage());
