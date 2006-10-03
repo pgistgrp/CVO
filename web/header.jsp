@@ -7,6 +7,7 @@
 <div id="cont-top">
 <!--START Title Header -->
 	<div id="headernav">
+		<span style="position: absolute; left:10px; top:38px;"><a href="/main.do"><img src="/images/mainlogo.png" alt="LIT LOGO" border="0"/></a></span>
 			<!-- Search --><!--
 		<form id="mysearch" name="mysearch" method="post" action="">    
 		<div id="searchbox">

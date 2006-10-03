@@ -173,9 +173,6 @@ h6 {
 #headernav {
 	padding: 0em;
 	padding-top: 20px;
-	background-image: url(/images/mainlogo.png);
-	background-position: bottom left;
-	background-repeat: no-repeat;
 }
 #loading-indicator{
 	display: none;
