@@ -71,7 +71,7 @@ public interface UserDAO {
     void updateProfile(User user) throws Exception;
 
 
-    void saveUser(User user);
+    void saveUser(User user) throws Exception;
 
 
 }//class UserDAO

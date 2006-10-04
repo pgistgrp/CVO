@@ -20,7 +20,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
 
     
-    public void saveUser(User user) {
+    public void saveUser(User user) throws Exception {
         getSession().saveOrUpdate(user);
     }//saveUser()
 
