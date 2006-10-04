@@ -43,7 +43,7 @@
 	 	 this.ISTitle = "All Concern Themes"; // title of entire info structure
 	 	 
 	 	 this.getISList = function(){
-	 	 	var list = "";
+	 	 	var list = "Below is a list of all the themes the moderator has identified in the concerns you and other participants submitted during Step 1a: Brainstorm Concerns. Each theme has its own room.  This room is for discussing whether any themes on that list should be added, removed, or changed.";
 	 	   <c:forEach var="infoObject" items="${structure.infoObjects}">
 			      list += '<p>${infoObject.object}</p>';
 			</c:forEach>	
