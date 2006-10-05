@@ -72,6 +72,14 @@ function resetForm()
 	$('addConcern').style.color="#333";
 }
 
+function cancelSubmit(){
+	Effect.BlindUp('tagConcerns');
+	Effect.BlindUp('validation');
+	$('addConcern').style.background="#FFF";
+	$('addConcern').style.color="#333";
+	$('btnContinue').disabled=false;
+}
+
 
 function prepareConcern(){
 	concernTags = "";
@@ -915,7 +923,7 @@ float:right;
 		<p><input type="text" id="theTag" class="tagTextbox" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList('tagsList','theTag','tagValidation');return false;"></p>
 		<div style="display: none; padding-left: 20px;" id="tagValidation"></div>
 		
-		<span class="title_section">Finished Tagging? <br><input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern(); void(0);"></span><input type="button" value="Cancel - back to edit my concern" onclick="javascript:resetForm();">
+		<span class="title_section">Finished Tagging? <br><input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern(); void(0);"></span><input type="button" value="Cancel - back to edit my concern" onclick="javascript:cancelSubmit();">
 		</div>
 		<br>
 		</div>
