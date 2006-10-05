@@ -46,8 +46,21 @@ public class CriteriaMgrAction extends Action {
         
         if ("manage".equals(action)) {
             return mapping.findForward("manage");
-        } else if ("".equals(action)) {
+        } else if ("assoc".equals(action)) {
+            Long cctId = null;
             
+            try {
+                cctId = new Long((String) request.getParameter("cctId"));
+            } catch (Exception e) {
+            }
+            
+            if (cctId!=null) {
+                CCT cct = cctService.getCCTById(cctId);
+                if (cct!=null) {
+                    request.setAttribute("cct", cct);
+                    return mapping.findForward("assoc");
+                }
+            }
         }
         
         Collection ccts = cctService.getCCTs();
