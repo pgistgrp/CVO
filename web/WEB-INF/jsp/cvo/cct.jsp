@@ -17,7 +17,9 @@
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 
-
+<style type="text/css">
+.trashcan {width:.8em;height:.8em;}
+</style>
 <!-- Site Wide JavaScript -->
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
@@ -139,7 +141,7 @@ function renderTags(tags,type){
 
 		
 		
-			str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=javascript:removeFromGeneratedTags("'+ tagtemp[i] +'");><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';	
+			str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=javascript:removeFromGeneratedTags("'+ tagtemp[i] +'");><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';	
 				
 
 		}
