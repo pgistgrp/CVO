@@ -70,5 +70,10 @@
     </bean>
 
 
+    <bean id="criteriaAgent" class="org.pgist.cvo.CriteriaAgent">
+        <property name="criteriaService" ref="criteriaService"/>
+    </bean>
+
+
 </beans>
 

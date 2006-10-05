@@ -113,6 +113,19 @@
     </create>
 
 
+    <create creator="spring" javascript="CriteriaAgent">
+      <param name="beanName" value="criteriaAgent"/>
+      <include method="addCriterion"/>
+      <include method="deleteCriterion"/>
+      <include method="editCriterion"/>
+      <include method="relateCriteria"/>
+      <include method="derelateCriteria"/>
+      <include method="getCriteria"/>
+      <include method="getCriterionById"/>
+      <include method="publish"/>
+    </create>
+
+
     <create creator="spring" javascript="TaggingAgent">
       <param name="beanName" value="taggingAgent"/>
       <include method="getStopWords"/>
