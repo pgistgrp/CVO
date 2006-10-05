@@ -88,7 +88,7 @@
 	              				 $(infoObject.objectDiv).innerHTML = data.source.html; 
 	              				
 	              			  if(data.voting == null || data.voting == undefined){
-						           $('structure_question').innerHTML = '<span class="smalltext">Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoObject.setVote(\'true\');"><img src="/images/btn_yes_a.gif" alt="YES" class="button"><a href="javascript:infoObject.setVote(\'false\');"><img src="/images/btn_no_a.gif" alt="NO" class="button"></a></span>';
+						           $('structure_question').innerHTML = '<span class="smalltext">Do you feel this summary adequately reflects concerns expressed by participants? <a href="javascript:infoObject.setVote(\'true\');"><img src="/images/btn_yes_a.gif" alt="YES" class="button"><a href="javascript:infoObject.setVote(\'false\');"><img src="/images/btn_no_a.gif" alt="NO" class="button"></a></span>';
 					          }else{
 						           $('structure_question').innerHTML = '<span class="smalltext">Your vote has been recorded. Thank you for your participation.</span>';
 						      }
@@ -683,7 +683,14 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 			<h3>Overview and Instructions</h3>
 		</div>
 		<div class="cssbox_body">
-			<p>Several participants have submitted their concerns about the transportation system and the moderator has taken these concerns and clustered them into themes, listed below. Each theme has concerns and their tags associated with it, and the moderator has composed a summary description of the theme. Please review these themes and discuss how you think they appropriately or innapropriately articulate the concerns submitted by participants. Use the right column (the sidebar) to explore concerns. </p>
+			<p>Several participants have brainstormed concerns about the
+transportation system. The moderator has reviewed these concerns and
+clustered them into themes. The moderator also composed a summary
+description of the theme. Each theme is associated with a set of tags
+and concerns. In this step you can review the concern theme summaries and discuss
+how well you feel they "fit" your own concerns and those expressed by
+other participants. You can use the right column (the sidebar) to
+review all concerns. </p>
 							
 				<p>[ <a href="/readmore.jsp">Read more about how this step fits into the bigger picture.</a> ]</p>
 		</div>
@@ -714,7 +721,16 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 				<tr>
 						<td valign="top" id="maincontent">
 							<!-- Main Content starts Here-->
-							<h4>Summarization of Participant Concerns </h4>
+							<script type="text/javascript">
+								<c:choose>
+									<c:when test="${object.id==null}">
+										document.write("<h4>Summarization of Participant Concerns</h4>");
+									</c:when>
+									<c:otherwise>
+										document.write("<h4>Summarization of Participant Concerns about ${object.object}</h4>");
+									</c:otherwise>
+								</c:choose>
+							</script>
 							<div id="object">
 								<div class="padding">
 									<h5 id = "targetTitle"></h5>
@@ -810,7 +826,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 <div class="padding-finished">
 <div id="finished" class="greenBB">
 	<h4>Ready for the next step?</h4><br />
-	<p>Click on the continue button to go on to step 2 where you will review and weigh criteria to evaluate proposed transportation projects.  Go back to your <a href="main.do">home page</a> or  <a href="/sdcWaiting.jsp"><img border="0" src="images/btn_gcontinue_a.gif" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_gcontinue_b.gif',1)" onMouseOut="MM_swapImgRestore()"></p>
+	<p>Click continue to go on to step 2 where we will review and weigh criteria to evaluate proposed transportation projects.  Go back to your <a href="main.do">home page</a> or  <a href="/sdcWaiting.jsp"><img border="0" src="images/btn_gcontinue_a.gif" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_gcontinue_b.gif',1)" onMouseOut="MM_swapImgRestore()"></p>
 </div>
 </span>
 
