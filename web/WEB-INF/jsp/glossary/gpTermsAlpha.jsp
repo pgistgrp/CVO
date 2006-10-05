@@ -9,7 +9,7 @@ Jump to starts with letter:
 		<li><a href="#${initial}">${initial}</a></li>
 	</logic:iterate>
 	</ul>
-		
+	
 <table id="termListTable" class="blueBB" cellspacing="2" cellpadding="4" frame="box" rules="all" width="100%">
 	 <tr>
   	<th style="text-align: left" id="name">name</th><th style="text-align: left" id="def">a short definition</th><th style="text-align:center" id="comments">comments</a></th><th style="text-align:center" id="views">views</th>

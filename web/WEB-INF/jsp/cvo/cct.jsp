@@ -192,12 +192,19 @@ function addTagToList(theListId,theTagTextboxId,validationId){
 		$(theTagTextboxId).value = "";
 	}
 }
-
+function displaySaveIndicator(show){
+if(show){
+$('saving-indicator').style.display="inline";
+}else{
+$('saving-indicator').style.display="none";
+}
+}
 function saveTheConcern(){
 	
 	var concern = $('addConcern').value;
 	//concernTags = '\"' + concernTags +'\"';
-	$('indicator').style.visibility = "visible";
+	//$('indicator').style.visibility = "visible";
+	displaySaveIndicator(true);
 	//alert('cctId:' + cctId + ', concern: ' + concern + ', tags: ' + concernTags);
 	CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:concernTags}, {
 		callback:function(data){
@@ -214,14 +221,15 @@ function saveTheConcern(){
 				showMyConcerns(data.concern.id);
 				concernTags = '';
 				$('theTag').value = '';
-				
+				displaySaveIndicator(false);
 			}
 		},
 		errorHandler:function(errorString, exception){ 
 			alert("saveTheConcern: "+errorString+" "+exception);
+			displaySaveIndicator(false);
 		}
 });
-$("indicator").style.visibility = "hidden";
+//$("indicator").style.visibility = "hidden";
 }
 
 
@@ -530,6 +538,7 @@ function lightboxDisplay(show){
 				CCTAgent.getContextConcerns({cctId: cctId,tags: currentFilterString, count: "5", page: sidebarPage}, {
 				callback:function(data){
 						if (data.successful){
+						displayIndicator(true);
               				 $('sidebar_content').innerHTML = data.html;//using partial sidebar-concerns.jsp
               			//sidebarFilter
 		 	 			var filters = "";
@@ -846,6 +855,51 @@ float:right;
 
 
 </style>
+
+<style type="text/css">
+#saving-indicator{
+	display: none;
+	background-color: red;
+	color: white;
+	position:absolute;
+	top: 0;
+	left:0;
+	padding: 3px;
+	z-index: 500;
+}
+
+#loading-indicator{
+	
+	background-color: red;
+	color: white;
+	position:absolute;
+	top: 0;
+	left:0;
+	padding: 3px;
+	z-index: 500;
+}
+
+div > div#saving-indicator{
+position:fixed;
+}
+
+div > div#loading-indicator{
+position:fixed;
+}
+</style>
+<!--[if gte IE 5.5]><![if lt IE 7]>
+		<style type="text/css">
+#loading-indicator {
+left: expression( ( 0 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+}
+
+#saving-indicator {
+left: expression( ( 0 + ( fixme = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+top: expression( ( 0 + ( fixme = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+}
+		</style>
+		<![endif]><![endif]-->
 </head>
 
 <body onResize = "sizeMe();">
@@ -875,6 +929,7 @@ float:right;
 <!-- End Sub Title -->
 
 <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
+<div id="saving-indicator">Saving... <img src="/images/indicator_arrows.gif"></div>
 <!-- Overview SpiffyBox -->
 <div class="cssbox">
 <div class="cssbox_head">
