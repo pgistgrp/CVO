@@ -2,6 +2,8 @@ package org.pgist.cvo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -24,6 +26,8 @@ public class Theme implements Serializable {
     protected String summary = "";
     
     protected Date createTime = new Date();
+    
+    protected Set criteria = new HashSet();
     
     
     /**
@@ -113,6 +117,16 @@ public class Theme implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+
+    public Set getCriteria() {
+        return criteria;
+    }
+
+
+    public void setCriteria(Set criteria) {
+        this.criteria = criteria;
     }
 
 
