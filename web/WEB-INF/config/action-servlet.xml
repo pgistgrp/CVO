@@ -65,6 +65,11 @@
     </bean>
     
     
+    <bean name="/criteriaMgr" class="org.pgist.cvo.CriteriaMgrAction">
+        <property name="criteriaService" ref="criteriaService"/>
+    </bean>
+    
+    
     <bean name="/sdlist" class="org.pgist.discussion.SDListAction">
         <property name="sdService" ref="sdService"/>
     </bean>
