@@ -2,6 +2,7 @@ package org.pgist.discussion;
 
 import java.util.Collection;
 
+import org.pgist.cvo.Concern;
 import org.pgist.tagging.Tag;
 import org.pgist.util.PageSetting;
 
@@ -61,7 +62,10 @@ public interface SDService {
 
     boolean setVoting(InfoObject object, boolean agree) throws Exception;
 
-
+    
+    Concern getConcernById(Long tagId) throws Exception;
+    
+    
     Collection getConcerns(InfoStructure structure, String ids, PageSetting setting) throws Exception;
 
 

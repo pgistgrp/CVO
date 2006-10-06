@@ -12,6 +12,7 @@ import org.pgist.util.PageSetting;
 import org.pgist.util.PageSource;
 import org.pgist.util.WebUtils;
 import org.pgist.tagging.Tag;
+import org.pgist.cvo.Concern;
 
 
 /**
@@ -868,6 +869,47 @@ public class SDAgent {
         
         return map;
     }//setVoting()
+    
+    
+    /**
+     * Get a concern by its Id
+     * 
+     * @param string id - the Id of the concern as a string
+     * 
+     * @return a map contains:<br>
+     *     <ul>
+     *       <li>successful - a boolean value denoting if the operation succeeds</li>
+     *       <li>reason - reason why operation failed (valid when successful==false)</li>
+     *       <li>concern - conern object</li>
+     *       </li>
+     *     </ul>
+     */
+    public Map getConcernById(HttpServletRequest request, String strId) {
+    	Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long Id;
+        
+        try {
+            Id = Long.parseLong(strId);
+        } catch (Exception e) {
+            map.put("reason", "Could not convert ID from String");
+            return map;
+        }
+        
+        try {
+            Concern myConcern = sdService.getConcernById(Id);
+            map.put("concern", myConcern);
+            map.put("successful", true);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+    	return map;
+    }
     
     
     /**
