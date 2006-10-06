@@ -87,7 +87,15 @@ public class RegisterAction extends Action {
             return mapping.findForward("register");
         }
         
+       
         String loginname = user.getLoginname();
+        
+        if(userDAO.getUserByName(loginname, true, false)!=null) {
+        	uform.setReason("The ID already exist. Please pick a differnt ID.");
+            return mapping.findForward("register");
+        }
+        
+        
         if (loginname==null || "".equals(loginname)) {
             uform.setReason("Preferred LIT ID is Required.");
             return mapping.findForward("register");
