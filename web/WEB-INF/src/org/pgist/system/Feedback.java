@@ -25,6 +25,8 @@ public class Feedback implements Serializable {
     
     private String content;
     
+    private String email;
+    
     
     /**
      * @return
@@ -99,5 +101,9 @@ public class Feedback implements Serializable {
         this.content = content;
     }
 
-
+    public void setEmail(String email) {
+    	this.email = email;
+    }
+    
+    
 }//class Feedback

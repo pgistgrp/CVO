@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.pgist.users.User;
+import org.pgist.users.BaseUser;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 
@@ -45,6 +46,12 @@ public class SystemServiceImpl implements SystemService {
         
         User user = userDAO.getUserById(WebUtils.currentUserId(), true, false);
         feedback.setUser(user);
+        
+        BaseUser baseuser = new BaseUser();
+        String email = baseuser.getEmail();
+        feedback.setEmail(email);
+        
+        
         
         systemDAO.save(feedback);
     }//createFeedback()
