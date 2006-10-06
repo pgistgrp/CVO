@@ -6,9 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html:html>
-<head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>PGIST: Step 1a: Brainstorm Concerns</title>
 <!-- Site Wide CSS -->
@@ -292,7 +290,7 @@ CCTAgent.getConcernById(concernId, {
 				os += '<div id="closeBox" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>'
 				os += '<h4>Edit My Concern</h4><br>';
 
-				os += '<div style="position:relative; margin:2%;"><textarea style="position:fixed; height: 150px; width: 390px;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea>';
+				os += '<div style="position:relative; margin:2%;"><textarea style="position:fixed; height: 150px; width: 390px;" name="editConcern" id="editConcern" cols="50" rows="5">' +currentConcern+ '</textarea>';
 				
 				if(navigator.appName=="Microsoft Internet Explorer"){
 				os += '<div style="position:relative;"><input type="button" id="modifyConcern" value="Submit Edits!" onclick="javascript:editConcern('+concernId+');"/>';
@@ -571,6 +569,70 @@ function lightboxDisplay(show){
 				
 		}
 		
+
+		
+function viewSidebarConcern(conId){
+		
+var currentConcern = '';
+concernTags='';
+
+CCTAgent.getConcernById(conId, {
+
+	callback:function(data){
+		if (data.successful){
+				currentConcern = data.concern.content;
+				/*os = "";
+    os += '<div id="closeBox" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>'
+    os += '<h4>Edit My Concern</h4><br>';
+    os += '<form id="editmyconcern"><textarea style="margin: 2%; height: 150px; width: 95%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p></form>';
+    os += '<input type="button" id="modifyConcern" value="Submit Edits!" onClick="editConcern('+concernId+')">';
+    os += '<input type="button" value="Cancel" onClick="lightboxDisplay()">';
+    $('lightbox').innerHTML = os;*/
+				os = "";
+				
+				
+				
+				os += '<div id="closeBox" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>'
+				os += '<h4>Concern</h4><br>';
+
+				os += '<div style=" margin:2%; overflow:hidden;"><div style="width:380px; max-height:235px; overflow:scroll;" name="viewSidebarConcern" id="viewSidebarConcern">' +currentConcern;
+				
+				//os+='<div style="overflow:scroll; width:370px; max-height:85px;">';
+				
+				/*if(navigator.appName=="Microsoft Internet Explorer"){
+				os += '<div style="position:relative;"><input type="button" id="modifyConcern" value="Submit Edits!" onclick="javascript:editConcern('+concernId+');"/>';
+
+				os += '<input type="button" value="Cancel" onClick="lightboxDisplay()"></div></div>';
+				}else{
+				os += '<div style="position:relative; top:150px;"><input type="button" id="modifyConcern" value="Submit Edits!" onclick="javascript:editConcern('+concernId+');"/>';
+
+				os += '<input type="button" value="Cancel" onClick="lightboxDisplay()"></div></div>';
+				}*/
+				os+='<br />';
+							for(i=0; i < data.concern.tags.length; i++){
+							
+								concernTags +='<span class="tags" style="border:solid thin gray; padding:1px;"><a href="javascript:lightboxDisplay(); changeCurrentFilter('+data.concern.tags[i].id+ ');">'+ data.concern.tags[i].tag.name + '</a></span> \n';
+							}
+							
+							os+=concernTags;
+							os+='</div></div>';
+				
+				lightboxDisplay(true);
+				$('lightbox').innerHTML = os;
+				
+				
+		}
+	},
+	errorHandler:function(errorString, exception){ 
+			alert("viewSidebarConcern: "+errorString+" "+exception);
+			//showTheError();
+	}
+
+});
+
+}
+		
+
 		function checkFilter(index){
 			if(currentFilterArr[index].status == "unchecked"){
 				currentFilterArr[index].status = "checked";
@@ -856,6 +918,8 @@ float:right;
 
 </style>
 
+
+<html:html>
 <style type="text/css">
 #saving-indicator{
 	display: none;

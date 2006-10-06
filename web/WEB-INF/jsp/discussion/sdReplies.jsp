@@ -65,7 +65,7 @@
 <div id="newReply" class="greenBB" style="padding: 5px 10px; margin-top: 20px; border-top: 2px solid #C0D7F6">
 	<h4>Post a Reply</h4>
 	<form>
-		<p><label>Post Title</label><br><input style="width:100%" type="text" value="Re: ${post.title}" id="txtnewReplyTitle"/></p>
+		<p><label>Post Title</label><br><input maxlength=100 size=100 type="text" value="Re: ${post.title}" id="txtnewReplyTitle"/></p>
 		<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtnewReply"></textarea></p>
 		<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="newReplyTags" type="text" /></p>
 		<input type="button" onClick="createReply(${setting.pageSize});" value="Submit Reply">

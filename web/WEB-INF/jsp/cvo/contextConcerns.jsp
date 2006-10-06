@@ -22,7 +22,7 @@
 										
 										"${fn:substring(concern.content, 0, 150)}"
 										<c:if test="${fn:length(concern.content) > 150}">
-											 [...] 
+											 <a href='javascript:viewSidebarConcern(${concern.id});' >[...]</a> 
 										</c:if>
 										
 									</span><br>

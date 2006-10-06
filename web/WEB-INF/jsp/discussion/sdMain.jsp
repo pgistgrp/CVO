@@ -113,6 +113,31 @@
 			$('loading-indicator').style.display = "none";	
 		}
 	}
+	
+			function setSort(thisSort, term){
+			headings = document.getElementsByTagName("td"); 
+			for (var i = 0; i < headings.length; i++) { 
+				if (headings[i].id != 'def' && headings[i].id!='actions'){
+			    if (headings[i].id == thisSort){
+			    	if(direction == 'asc'){
+			    		headings[i].innerHTML = thisSort + '&nbsp;&nbsp;<a href="javascript:sortDir(\'desc\',\'' + thisSort + '\', \''+ term +'\');"><img src="/images/sort_' + direction +'.gif" border="0"></a>';
+			   		}else{
+			   			headings[i].innerHTML = thisSort + '&nbsp;&nbsp;<a href="javascript:sortDir(\'asc\',\'' + thisSort + '\', \''+ term +'\');"><img src="/images/sort_' + direction +'.gif" border="0"></a>';
+			   		}
+			    }else{
+			    	headings[i].innerHTML = '<a href="javascript: getTerms(\''+ term +'\',\''+ headings[i].id +'\'); isTermsGotten();">'+ headings[i].innerHTML +'</a>';
+			    }
+			  }  
+			}
+		}	
+		
+		function sortDir(switchTo, thisSort, term){
+				direction = switchTo;
+				getTerms(term, thisSort); 
+				isTermsGotten();
+		}
+	
+	
 	/////////////////////sidebar functionality////////////////////////////
 	
 	

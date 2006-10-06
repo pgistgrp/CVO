@@ -801,7 +801,7 @@ review all concerns. </p>
 			<div id="newdisc_inner">
 			<p>SDC New Topic Paragraph</p>
 			<form>
-				<p><label>Post Title</label><br><input maxlength=100 style="width:100%" type="text" id="txtNewPostTitle"/></p>
+				<p><label>Post Title</label><br><input maxlength=100 size=100 type="text" id="txtNewPostTitle"/></p>
 				<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea></p>
 				<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="txtNewPostTags" type="text" /></p>
 				<input type="button" onClick="infoObject.createPost();" value="Create Discussion">
