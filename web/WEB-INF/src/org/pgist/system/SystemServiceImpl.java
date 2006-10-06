@@ -51,8 +51,6 @@ public class SystemServiceImpl implements SystemService {
         String email = baseuser.getEmail();
         feedback.setEmail(email);
         
-        
-        
         systemDAO.save(feedback);
     }//createFeedback()
 

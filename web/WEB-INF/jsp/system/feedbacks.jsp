@@ -12,7 +12,7 @@
 	<div id="feedbackInstance${feedback.id}" class="bluescheme">
 		<div class="bluetitle">
 			<span class="textright"><fmt:formatDate value="${feedback.createTime}" pattern="MM/dd/yy, hh:mm aaa"/></span>
-			<strong>${feedback.user.loginname}</strong> said:
+			<strong>${feedback.user.loginname}</strong> (${feedback.user.email}) said:
 		</div>
 		<div class="indentBox">
 			<p>RE: <b>${feedback.action}</b></p>
