@@ -181,7 +181,7 @@
       <include method="searchTags"/>
       <include method="getTagCloud"/>
       <include method="getTagById"/>
-	  <include method="getConcernById"/>
+	  
     </create>
 
     <create creator="spring" javascript="ProjectAgent">

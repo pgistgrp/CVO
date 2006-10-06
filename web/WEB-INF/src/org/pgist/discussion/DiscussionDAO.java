@@ -76,8 +76,10 @@ public interface DiscussionDAO extends BaseDAO {
 
     void increaseVoting(InfoObject object, boolean agree) throws Exception;
 
+    /*
     Concern getConcernById(Long tagId) throws Exception;
-
+	*/
+    
     Collection getConcerns(InfoStructure structure, PageSetting setting) throws Exception;
 
 

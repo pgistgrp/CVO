@@ -62,9 +62,9 @@ public interface SDService {
 
     boolean setVoting(InfoObject object, boolean agree) throws Exception;
 
-    
+    /*
     Concern getConcernById(Long tagId) throws Exception;
-    
+    */
     
     Collection getConcerns(InfoStructure structure, String ids, PageSetting setting) throws Exception;
 

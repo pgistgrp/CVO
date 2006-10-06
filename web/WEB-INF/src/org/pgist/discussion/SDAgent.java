@@ -883,7 +883,7 @@ public class SDAgent {
      *       <li>concern - conern object</li>
      *       </li>
      *     </ul>
-     */
+     *//*
     public Map getConcernById(HttpServletRequest request, String strId) {
     	Map map = new HashMap();
         map.put("successful", false);
@@ -910,7 +910,7 @@ public class SDAgent {
         
     	return map;
     }
-    
+    */
     
     /**
      * Get the related concerns in this SDX instance for sidebar.
