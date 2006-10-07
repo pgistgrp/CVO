@@ -9,7 +9,7 @@
 <logic:equal name="showTitle" value="true">
 	<span class="closeBox">[ <a href="javascript:goPage(${setting.page});">Clear Filter</a> ]</span>
 	<br><span class="title_section">Concerns about: </span>
-		<span class="tagSize${tagRef.fontSize}"><a href="javascript:getConcernsByTag(${tagRef.id});">${tagRef.tag.name}</a></span>&nbsp;
+		<span class="tagSize${tagRef.fontSize}"><a href="javascript:sideBar.changeCurrentFilter(${tagRef.id});">${tagRef.tag.name}</a></span>&nbsp;
 	<p></p>
 </logic:equal>
 
@@ -29,7 +29,7 @@
 						
 
 								<c:forEach items="${concern.tags}" var="tagref">
-										<span class="tags"><a href="javascript:getConcernsByTag(${tagref.id});">${tagref.tag.name}</a></span>
+										<span class="tags"><a href="javascript:sideBar.changeCurrentFilter(${tagref.id});">${tagref.tag.name}</a></span>
 								</c:forEach>
 
 						<logic:equal name="type" value="0">
@@ -53,7 +53,7 @@
 						</logic:equal>
 						
 						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-							<a href="javascript:goPage(${setting.page}+1);"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<a href="javascript:sideBar.getSidebarItems(${setting.page}+1);"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
 						</span>
 					</div>
@@ -65,7 +65,7 @@
 						</logic:equal>
 						
 						<logic:notEqual name="setting" property="page" value="1">	
-							<a href="javascript:goPage(${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<a href="javascript:sideBar.getSidebarItems(${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
 						
 					</div>

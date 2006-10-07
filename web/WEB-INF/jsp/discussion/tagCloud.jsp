@@ -12,8 +12,8 @@
 
 <div id="searchTag_container">
 		<div id="searchTag_form">
-				<form name="searchTags" method="post" onSubmit="tagSearch($('txtSearch').value, event); return false;">
-					<input type="text" id="txtSearch" name="txtSearch"  class="search" value="Search for Tags" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" onkeyup="tagSearch($('txtSearch').value, event);"><div id="tagIndicator" style="visibility:hidden;"><img src="/images/indicator.gif"></div>
+				<form name="searchTags" method="post" onSubmit="sideBar.tagSearch($('txtSearch').value, event); return false;">
+					<input type="text" id="txtSearch" name="txtSearch"  class="search" value="Search for Tags" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" onkeyup="sideBar.tagSearch($('txtSearch').value, event);"><div id="tagIndicator" style="visibility:hidden;"><img src="/images/indicator.gif"></div>
 				</form>		
 		
 		</div>
@@ -21,7 +21,7 @@
 <div id="tagSearchResults"></div>
 <div id="topTags">
 	<c:forEach items="${tags}" var="tag">
-	  	<span class="tagSize${tag.times}"><a href="javascript:getConcernsByTag(${tag.id});">${tag.name}</a></span>&nbsp;
+	  	<span class="tagSize${tag.times}"><a href="javascript:sideBar.addFilter(${tag.id});">${tag.name}</a></span>&nbsp;
 	</c:forEach>
 </div>
 
@@ -34,7 +34,7 @@
 				</logic:equal>
 				
 				<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-					<a href="javascript:getTagCloud(${setting.page}+1);"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+					<a href="javascript:sideBar.getTagCloud(${setting.page}+1);"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 				</logic:notEqual>
 				</span>
 			</div>
@@ -46,7 +46,7 @@
 				</logic:equal>
 				
 				<logic:notEqual name="setting" property="page" value="1">	
-					<a href="javascript:getTagCloud(${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+					<a href="javascript:sideBar.getTagCloud(${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 				</logic:notEqual>
 				
 			</div>

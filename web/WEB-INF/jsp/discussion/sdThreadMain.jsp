@@ -29,6 +29,7 @@
 <!-- End DWR JavaScript Libraries -->
 
 <!--SDX Specific  Libraries-->
+<script src="scripts/SideBar.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
 <!--End SDX Specific  Libraries-->
@@ -47,7 +48,7 @@
 		
 		}
 
-		 function createReply(page){
+		function createReply(page){
 		 	lastPage = page;
 		 	displayIndicator(true);
 			var newReplyTitle = $('txtnewReplyTitle').value;
@@ -115,329 +116,106 @@
 		      }
 		    });
 		  }
-  		function displayIndicator(show){
-		if (show){
-			$('loading-indicator').style.display = "inline";	
-		}else{
-			$('loading-indicator').style.display = "none";	
-		}
-	}
-	
-		/////////////////////sidebar functionality////////////////////////////
-	
-	
-		//sidebar global vars
-		var currentFilterArr = new Array();
-		var cctId = ${structure.cctId}; 
-		var filterPID = false;
-		
-		//end sidebar global vars
-		function getContextPosts(page){
-				
-				displayIndicator(true);
-				//pagination
-				var sidebarPage = 1
-				if (page != undefined){
-					sidebarPage = page;
-				}
 
- 	 			//sidebarFilter
- 	 			var currentFilter = new Array();
- 	 			for(i=0; i<currentFilterArr.length; i++){
- 	 				if(currentFilterArr[i].removeable){
-	 	 				if(currentFilterArr[i].status == "checked"){
-	 	 					currentFilter.push(currentFilterArr[i].tagRefId);
-	 	 				}
- 	 				}else{ //if ioid
-	 	 				if(currentFilterArr[i].status == "checked"){
-	 	 					filterPID = true;
-	 	 				}else{
-	 	 					filterPID = false;	
-	 	 				}
- 	 				}
- 	 			}
- 	 			
-
-
- 	 			//show all concerns link
- 	 				if(currentFilter.length > 0 || filterPID == true){
- 	 					$('showAllLink').style.display = 'inline';
- 	 				}else{
- 	 					$('showAllLink').style.display = 'none';
- 	 				}
- 	 				
- 	 			//show title
- 	 				if(currentFilterArr.length == 0){
- 	 					$('filterheader').style.display = 'none';
- 	 				}else{
- 	 					$('filterheader').style.display = 'inline';
- 	 				}
- 	 			
-				var currentFilterString = currentFilter.toString();
-				if(filterPID){ //check if filtering by pid or not
-					var pid = ${post.id};
-				}else{
-					var pid = "";
-				}
-				
-				SDAgent.getContextPosts({isid: ${structure.id},pid: pid, tags: currentFilterString, count: "4", page: sidebarPage}, {
-				callback:function(data){
-						if (data.successful){
-              				 $('sidebar_content').innerHTML = data.source.html;//using partial sidebar-concerns.jsp
-	              				 
-	              			//sidebarFilter
-			 	 			var filters = "";
-			 	 			var currentFilter = new Array();
-			 	 			filters += '<ul class="filter">';
-			 	 			for(i=0; i<currentFilterArr.length; i++){
-				 	 			if(currentFilterArr[i].removeable){
-					 	 				filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+ currentFilterArr[i].tagName;
-					 	 				filters += '&nbsp;<a href="javascript: removeUlFilter('+i+');"><img src="/images/trash.gif" alt="remove filter" border="0" /></a>';
-					 	 				filters +='<ul class="filter">';
-				 	 				}else{ //if ioid
-				 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="checkPIDFilter('+i+')"  '+ currentFilterArr[i].status +' />current discussion tags';
-					 	 				filters +='<ul class="filter">';
-				 	 				}
-				 	 		}
-			 	 			
-			 	 			filters += '</ul>';
-			 	 			$('ulfilters').innerHTML = filters;
-              				
-              				 
-              				 
-              				 
-              				 
-              				 
-							displayIndicator(false);
-						}else{
-							alert(data.reason);
-							displayIndicator(false);
-						}
-					},
-				errorHandler:function(errorString, exception){ 
-						alert("get concerns error:" + errorString + exception);
-				}
-				});
-				
-		}
+	
+		 ///////////////////////////////////////// START SIDEBAR //////////////////////////////////////
+	 
+	 /*  Requires: SideBar.js *************************** See file for element ID needs
+	Create a new Instance of SideBar
+		params
+			- Structure id
+			- Object id
+			- CCT Id
+			- Object title
+			- Title of Entire Info structure
+			- Count of items in sideBar
+			- Show all link text
+			- Filter header text
+			- Tag cloud count
 		
-		function checkFilter(index){
-			if(currentFilterArr[index].status == "unchecked"){
-				currentFilterArr[index].status = "checked";
-			}else{
-				currentFilterArr[index].status = "unchecked";
-			}
-			getContextPosts();
-		}
-		
-		function checkPIDFilter(index){
-			if(currentFilterArr[index].status == "unchecked"){
-				currentFilterArr[index].status = "checked";
-			}else{
-				currentFilterArr[index].status = "unchecked";
-			}
-			filterPID = true;
-			getContextPosts();
-		}
-		
-		function getTagByTagRef(tagRefId){
-			var tag = "tag" + tagRefId;
-			/*
-			CCTAgent.getTagByTagRefID({id: tagRefId}, {
+	Methods to define for this Instance
+		sidebar.getAbstractItems(tags, page);
+		sideBar.convertAbstractFilter(tagRefId);
+		sideBar.sidebarSearchTagsAction(theTag)
+		sideBar.getAbStractTagCloud(page)
+		sideBar.getAbstractTagCloudResults(theTag)
+	*/
+	var sideBar = new SideBar("${structure.id}", "${object.id}","${structure.cctId}","${object.object}", "Other Discussion Posts", 5, "Show All Discussions", "Filter All Discussions By", 50, "${post.id}" ); 
+	sideBar.getAbstractItems = function(tags, page){
+		SDAgent.getContextPosts({isid: this.structureId,pid: this.postId, tags: tags, count: this.itemsCount, page: page}, {
 			callback:function(data){
-			if (data.successful){
-            			alert(data);
+					if (data.successful){
+	          			$(sideBar.divContent).innerHTML = data.source.html;//using partial sidebar-concerns.jsp
+						sideBar.renderFilters();		 	 						            				 
+						displayIndicator(false);
 					}else{
 						alert(data.reason);
+						displayIndicator(false);
 					}
 				},
 			errorHandler:function(errorString, exception){ 
-					alert("get targets error:" + errorString + exception);
+					alert("get concerns error:" + errorString + exception);
 			}
-			});*/
-			return tag	
-		}
-		
-		function Filter(tagRefId, status, bool, tagName){
-			this.tagRefId = tagRefId;
-			this.tagName = tagName;
-			this.status = status;
-			this.removeable = bool
-		}
-		
-		function addFilter(tagRefId){
-				var tagRef = tagRefId.toString();
-				SDAgent.getTagById(tagRef, {
-				callback:function(data){
-				if (data.successful){
-	            			var tagName = data.tag.name;
-	            			var filterInstance = new Filter(tagRefId, "checked", true, tagName);
-							currentFilterArr.push(filterInstance);
-							getContextPosts();
-						}else{
-							alert("There was an error displaying the filters. Please notify the moderator.");
-						}
-					},
-				errorHandler:function(errorString, exception){ 
-						alert("get getTagById error:" + errorString + exception);
-				}
-				});
-				
-
-		}
-		
-		function addPIDFilter(){
-			var filterInstance = new Filter(${post.id}, "checked", false, "Post Filter");
-			currentFilterArr.push(filterInstance)
-			getContextPosts();	
-		}
-		
-		function removeFilter(){
-				currentFilterArr.pop();
-				getContextPosts();
-		}
-		
-		function removeUlFilter(index){
-				currentFilterArr.splice(index, 1);
-				getContextPosts();
-		}
-		
-		function changeCurrentFilter(tagRefId){
-				
-				if (!filterPID || currentFilterArr.length > 1) {//if filtering by pid, add a new filter, not change it
-					currentFilterArr.pop()
-				};
-				addFilter(tagRefId);
-		}
-		
-		function clearFilter(){
-			for(i=0; i<currentFilterArr.length; i++){
-				currentFilterArr[i].status = "unchecked";	
-			}
-			getContextPosts()	;
-			shrinkTagSelector();
-		}
-		
-		function clearSearch(){
-			$('txtmanualFilter').value = "";	
-			$('txtmanualFilter').focus();
-			$('btnClearSearch').style.display = 'none';
-		}
-			
-		function closeSearchResults(){
-			 new Effect.Fade('sidebarSearchResults', {duration: 0.3});
-		}
-		
-		//functions lifted from CCT
-		function sidebarTagSearch(theTag,key){
-				//showing and hiding clear search action
-				if (theTag != ""){
-					$('btnClearSearch').style.display = 'inline';
-				}else{
-					closeSearchResults();
-					clearSearch();
-			}
-				//hack to disable backspace on input box when length < 1 - "19 tags hack"
-				if (key.keyCode == 8 && theTag.length < 1){
-					return false;	
-				}
-				
-				//if the query is greater than 2 chars do the action if not keep it hidden
-				if($('txtmanualFilter').value.length > 2){
-					sidebarSearchTagsAction(theTag);
-				}else{
-					$('sidebarSearchResults').style.display == 'none'
-				}
-			}
+		});	
+	};
 	
-		function sidebarSearchTagsAction(theTag){
-				SDAgent.searchTags({isid:${structure.id},tag:theTag},{
+	sideBar.convertAbstractFilter = function(tagRefId){
+		SDAgent.getTagById(tagRefId, {
+		callback:function(data){
+		if (data.successful){
+          			var tagName = data.tag.name;
+					sideBar.addFilterToArr(tagRefId, tagName)
+				}else{
+					alert(data.reason);
+				}
+		},
+		errorHandler:function(errorString, exception){ 
+				alert("get tagbytagref error:" + errorString + exception);
+		}
+		});
+	};
+
+		sideBar.sidebarSearchTagsAction = function(theTag){
+			SDAgent.searchTags({isid:this.structureId,tag:theTag},{
+				callback:function(data){
+						if (data.successful){
+							sideBar.renderSearchTagResults(data);
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+							alert("sidebarSearchTagsAction: "+errorString+" "+exception);
+							//showTheError();
+				}		
+			});	
+		};
+
+		sideBar.getAbStractTagCloud = function(page){
+			SDAgent.getTagCloud({isid:this.structureId, page: page, count:this.tagCloudCount}, {
 					callback:function(data){
-							if (data.successful){
-								//show results if hidden
-								if($('sidebarSearchResults').style.display == 'none'){
-									new Effect.Appear('sidebarSearchResults', {duration: 0.5});		
-								}		
-								
-								$('sidebarSearchResults').innerHTML = $('sidebarSearchResults').innerHTML = data.html;
-								
-								if (data.count == 0){
-									$('sidebarSearchResults').innerHTML = '<span class="closeBox"><a href="javascript:Effect.Fade(\'sidebarSearchResults\', {duration: 0.5}); void(0);">Close</a></span><p>No tag matches found! Please try a different search.</p> ';
-								}
-							}
+						if (data.successful){
+							$(sideBar.divAllTags).innerHTML = data.html;	
+						}
 					},
 					errorHandler:function(errorString, exception){ 
-								alert("sidebarSearchTagsAction: "+errorString+" "+exception);
-								//showTheError();
-					}		
-				});	
-		}
-		
-	function getConcernsByTag(tagRefId){
-			addFilter(tagRefId);	
-			$('addFilter').style.display = 'none';
-			if($('sidebarSearchResults').style.display != 'none'){
-				closeSearchResults();
-			}
-		
-			shrinkTagSelector();
-	}
-	
-	function getTagCloud(goToPage){
-		if(goToPage == undefined){
-			var page = 1	
-		}else{
-			var page = goToPage;	
-		}
-			SDAgent.getTagCloud({isid: ${structure.id}, page: page, count: 50}, {
-				callback:function(data){
-					if (data.successful){
-						$('allTags').innerHTML = data.html;
-						
+					alert("getTagCloud: "+errorString+" "+exception);
 					}
+			});
+		}
+		
+		sideBar.getAbstractTagCloudResults = function(theTag){
+			SDAgent.searchTags({isid:this.structureId,tag:theTag},{
+				callback:function(data){
+						if (data.successful){
+							sideBar.renderTagCloudSearchResults(data);
+						}
 				},
 				errorHandler:function(errorString, exception){ 
-				alert("getTagCloud: "+errorString+" "+exception);
-					//showTheError();
-				}
-		});
+							alert("tagSearch: "+errorString+" "+exception);
+				}		
+			});
 		}
+	///////////////////////////////////////// END SIDEBAR //////////////////////////////////////
 
-		function tagSearch(theTag, key){ //in all tags section
-		//hack to disable backspace on input box when length < 1 - "19 tags hack"
-		if (key.keyCode == 8 && theTag.length < 1){
-			return false;	
-		}
-			
-		SDAgent.searchTags({isid:${structure.id},tag:theTag},{
-			callback:function(data){
-				  $('tagIndicator').style.visibility = 'visible';
-					if (data.successful){
-						if ($('txtSearch').value == ""){
-							$('topTags').innerHTML = "";
-							$('tagSearchResults').innerHTML = '<span class="highlight">Please type in your query or <a href="javascript:getTagCloud();">clear query</a>&nbsp;to view top tags again.</span>';
-						  	$('tagIndicator').style.visibility = 'hidden';
-						}
-						if ($('txtSearch').value != ""){
-							$('tagSearchResults').innerHTML = '<span class="highlight">' + data.count +' tags match your query&nbsp;&nbsp;(<a href="javascript:getTagCloud();">clear query</a>)</span>';
-							$('topTags').innerHTML = data.html;
-							$('tagIndicator').style.visibility = 'hidden';
-						}
-						if (data.count == 0 || $('txtSearch').value == "_"){
-							$('tagSearchResults').innerHTML = '<span class=\"highlight\">No tag matches found! Please try a different search or <a href="javascript:getTagCloud();">clear the query</a>&nbsp;to view top tags again.</span>';
-							$('topTags').innerHTML = "";
-							$('tagIndicator').style.visibility = 'hidden';
-							
-						}
-					}
-			},
-			errorHandler:function(errorString, exception){ 
-						alert("tagSearch: "+errorString+" "+exception);
-						//showTheError();
-			}		
-		});
-		}
-	/////////////////////end sidebar functionality////////////////////////////
 </script>
 
 <style type="text/css">
@@ -580,45 +358,46 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 
 </td>
 <td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
-					<div id="sidebar_container">
+				<div id="sidebar_container">
 					<div id="sidebarHeader" style="padding: 5px;">
-						<h4>Other Discussions</h4>
+						<h4 id="sidebarTitle"></h4>
 						<p>
 						 <!-- optional context sidebar paragraph -->
 						 
 						 <!-- end optional context sidebar paragraph -->
 						</p>
 					</div>
-					<!-- start tagselector -->
-						<div id="tagSelector">
-							<div id="showAllLink"><a href="javascript:clearFilter();">Show All Discussions</a></div>
-							<div id="tagform">
-							<h6 id="filterheader">Filter All Discussion By:</h6><span id="ulfilters"></span>
-							<!-- insert filter list here -->
-							<p><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);">Add a Tag Filter</a></p>
-							
-							<div id="addFilter" style="display: none;">
-								<span class="textright"><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);"><img src="images/close1.gif" alt="Close" name="closeresults" class="button" id="closeresults" onMouseOver="MM_swapImage('closeresults','','images/close.gif',1)" onMouseOut="MM_swapImgRestore()"></a></a></span>
-								<b>Add a Tag Filter:</b> 
-								<form id="frmSidebarTagSearch" onSubmit="sidebarSearchTagsAction($('txtmanualFilter').value); return false;">
-									<input name="txtmanualFilter" id="txtmanualFilter" type="text" onKeyDown="sidebarTagSearch(this.value, event)" onkeyup="sidebarTagSearch(this.value, event)" /><span id="btnClearSearch" style="display: none;"><a href="javascript:clearSearch(); closeSearchResults();"><img src="/images/clearText.gif" border="0" alt="clear textbox" /></a></span>
-								</form>
-								<p>or <a href="javascript: expandTagSelector();">Browse All Tags</a></p>
-									
-								<div id="sidebarSearchResults" style="display: none;"><!-- tag search results are loaded here --></div>
+						<!-- start tagselector -->
+							<div id="tagSelector">
+								<div id="showAllLink"></div>
+								<div id="tagform">
+								<h6 id="filterheader"></h6><span id="ulfilters"></span>
+								<!-- insert filter list here -->
+								<p><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);">Add a Tag Filter</a></p>
+								
+								<div id="addFilter" style="display: none;">
+									<span class="textright"><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);"><img src="images/close1.gif" alt="Close" name="closeresults" class="button" id="closeresults" onMouseOver="MM_swapImage('closeresults','','images/close.gif',1)" onMouseOut="MM_swapImgRestore()"></a></a></span>
+									<b>Add a Tag Filter:</b> 
+									<form id="frmSidebarTagSearch" onSubmit="sideBar.sidebarSearchTagsAction($('txtmanualFilter').value); return false;">
+										<input name="txtmanualFilter" id="txtmanualFilter" type="text" onKeyDown="sideBar.sidebarTagSearch(this.value, event)" onKeyUp="sideBar.sidebarTagSearch(this.value, event)" /><span id="btnClearSearch" style="display: none;"><a href="javascript:sideBar.clearSearch(); sideBar.closeSearchResults();"><img src="/images/clearText.gif" border="0" alt="clear textbox" /></a></span>
+									</form>
+									<p>or <a href="javascript: expandTagSelector();">Browse All Tags</a></p>
+										
+									<div id="sidebarSearchResults" style="display: none;"><!-- tag search results are loaded here --></div>
+								</div>
+								
 							</div>
+							<div id="pullDown" class="textright"></div>
+							<div id="allTags" style="display: none;"></div>
+							<div class="clear"></div>
 							
 						</div>
-						<div id="pullDown" class="textright"></div>
-						<div id="allTags" style="display: none;"></div>
-						<div class="clear"></div>
-						
-					</div>
-					<!-- end tag selector -->
+						<!-- end tag selector -->
 					
 					 <div id="sidebar_content">
 					
 					</div><!-- End sidebarcontents-->
+					<div id="tempvars" style="display: none;"></div>
 					</div><!-- sidebar container-->
 
  </td><!-- End Right Col -->
@@ -649,7 +428,12 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 <!-- End Footer -->
 <script type="text/javascript">
 	getReplies();
-	addPIDFilter();
+	sideBar.assignTitle();
+	if(sideBar.objectId != ""){
+		sideBar.addIOIDFilter();
+	}else{
+		sideBar.getSidebarItems();
+	}
 
 </script>
 </html:html>

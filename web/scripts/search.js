@@ -25,3 +25,11 @@ function sendForm() {
 document.mysearch.submit();
 }
 
+//Loading indicator
+		function displayIndicator(show){
+			if (show){
+				$('loading-indicator').style.display = "inline";	
+			}else{
+				$('loading-indicator').style.display = "none";	
+			}
+		}

@@ -51,10 +51,7 @@
 	  
   </table>
 
-<div id="structure_question_status">
-	<span class="smalltext">${structure.numAgree} of ${structure.numVote} participants have said that this list of concern themes adequately reflects concerns expressed by participants.</span><br />
-</div>
-<div id="structure_question"></div>
+
 </pg:fragment>
 
 <pg:fragment type="script">

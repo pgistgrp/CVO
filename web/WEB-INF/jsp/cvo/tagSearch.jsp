@@ -8,7 +8,7 @@
 	<c:when test='${fn:length(tags) != 0}'>
 		<h3>Search Results: ${fn:length(tags)} tag(s)</h3>match your query.  Click on the tag below to set a new filter.<br>
 		<c:forEach items="${tags}" var="tagRef">
-			  <span class="tagSize${tagRef.fontSize}"><a href="javascript:getConcernsByTag(${tagRef.id});">${tagRef.tag.name}</a></span>
+			  <span class="tagSize${tagRef.fontSize}"><a href="javascript:sideBar.addFilter(${tagRef.id});">${tagRef.tag.name}</a></span>
 		</c:forEach>
 	</c:when>
 	<c:otherwise>

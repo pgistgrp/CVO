@@ -7,7 +7,7 @@
 				$('tagSelector').style.margin = "0";
 				$('tagform').style.display = 'none';
 				
-				new Effect.BlindDown('allTags', {duration: 0.2,  beforeUpdate: function(){getTagCloud();}}); 
+				new Effect.BlindDown('allTags', {duration: 0.2,  beforeUpdate: function(){sideBar.getTagCloud();}}); 
 				if($('showAllLink') != undefined){
 					currentShowAllLink = $('showAllLink').style.display;
 					$('showAllLink').style.display = 'none';

@@ -28,7 +28,7 @@
 									</span><br>
 					
 									<c:forEach items="${concern.tags}" var="tagref">
-											<span class="tags"><a href="javascript:changeCurrentFilter(${tagref.id});">${tagref.tag.name}</a></span>
+											<span class="tags"><a href="javascript:sideBar.changeCurrentFilter(${tagref.id});">${tagref.tag.name}</a></span>
 									</c:forEach>
 					</div>
 			<p></p>
@@ -42,7 +42,7 @@
 						</logic:equal>
 						
 						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-							<a href="javascript:getContextConcerns(${setting.page}+1);"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<a href="javascript:sideBar.getSidebarItems(${setting.page}+1);"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
 						</span>
 					</div>
@@ -54,7 +54,7 @@
 						</logic:equal>
 						
 						<logic:notEqual name="setting" property="page" value="1">	
-							<a href="javascript:getContextConcerns(${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<a href="javascript:sideBar.getSidebarItems(${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
 						
 					</div>
