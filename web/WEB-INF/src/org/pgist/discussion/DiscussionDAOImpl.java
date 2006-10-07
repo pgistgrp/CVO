@@ -326,7 +326,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getVoting()
 
 
-    private static final String hql_getVoting_2 = "from InfoVoting i where i.structure.id is null and i.object.id=? and i.owner.id=?";
+    private static final String hql_getVoting_2 = "from InfoVoting i where i.object.id=? and i.owner.id=?";
     
     
     public InfoVoting getVoting(InfoObject infoObject, User user) throws Exception {

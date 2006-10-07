@@ -7,12 +7,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
+import org.pgist.tagging.Tag;
 import org.pgist.tags.FragmentTag;
 import org.pgist.util.PageSetting;
 import org.pgist.util.PageSource;
 import org.pgist.util.WebUtils;
-import org.pgist.tagging.Tag;
-import org.pgist.cvo.Concern;
 
 
 /**
@@ -69,7 +68,6 @@ public class SDAgent {
             map.put("reason", "can't find this DiscussionPost");
             return map;
         }
-        
         
         try {
             DiscussionPost post = sdService.getPostById(id);
@@ -806,8 +804,8 @@ public class SDAgent {
      * 
      * @param params A map contains:
      *   <ul>
-     *     <li>isid - int, id of the InfoStructure object. Must be omitted if ioid is given.</li>
-     *     <li>ioid - int, id of the InfoObject object. Must be omitted if isid is given.</li>
+     *     <li>isid - int, id of the InfoStructure object. Required.</li>
+     *     <li>ioid - int, id of the InfoObject object. Optional.</li>
      *     <li>agree - boolean, whether or not the current user agree with the current object.</li>
      *   </ul>
      *   
@@ -827,6 +825,8 @@ public class SDAgent {
         try {
             isid = new Long((String) params.get("isid"));
         } catch (Exception e) {
+            map.put("reason", "Can't find the given InfoStructure object.");
+            return map;
         }
         
         try {
@@ -834,23 +834,18 @@ public class SDAgent {
         } catch (Exception e) {
         }
         
-        if (isid==null && ioid==null) {
-            map.put("reason", "Either isid or ioid has to be given.");
-            return map;
-        }
-        
         try {
             boolean agree = "true".equalsIgnoreCase((String) params.get("agree"));
             
-            if (isid!=null) {
-                InfoStructure structure = sdService.getInfoStructureById(isid);
-                if (structure==null) {
-                    map.put("reason", "Can't find the given InfoStructure object.");
-                    return map;
-                }
-                
+            InfoStructure structure = sdService.getInfoStructureById(isid);
+            if (structure==null) {
+                map.put("reason", "Can't find the given InfoStructure object.");
+                return map;
+            }
+            
+            if (ioid==null) {
                 sdService.setVoting(structure, agree);
-            } else if (ioid!=null) {
+            } else {
                 InfoObject object = sdService.getInfoObjectById(ioid);
                 if (object==null) {
                     map.put("reason", "Can't find the given InfoObject object.");

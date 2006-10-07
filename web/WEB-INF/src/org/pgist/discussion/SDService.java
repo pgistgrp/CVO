@@ -2,7 +2,6 @@ package org.pgist.discussion;
 
 import java.util.Collection;
 
-import org.pgist.cvo.Concern;
 import org.pgist.tagging.Tag;
 import org.pgist.util.PageSetting;
 

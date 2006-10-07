@@ -3,8 +3,8 @@ package org.pgist.system;
 import java.util.Collection;
 import java.util.Date;
 
-import org.pgist.users.User;
 import org.pgist.users.BaseUser;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 

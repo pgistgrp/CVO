@@ -221,6 +221,7 @@ public class SDServiceImpl implements SDService {
         if (voting!=null) return false;
         
         voting = new InfoVoting();
+        voting.setStructure(object.getStructure());
         voting.setObject(object);
         voting.setOwner(user);
         voting.setVoting(agree);
