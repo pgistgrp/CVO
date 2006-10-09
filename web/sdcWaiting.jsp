@@ -42,7 +42,7 @@ function displayFeedback()
 <h1>Let's Improve Transportation:</h1> <h2>Finished with Step 1</h2>
 </div>
 <div id="footprints">
-<span class="smalltext"><a href="main.do">Participate</a> » <a href="sd.do?isid=2150">Step 1b Review Summaries</a> » Finished with Step 1
+<span class="smalltext"><a href="main.do">Participate</a> » <a href="/sd.do?isid=2951">Step 1b Review Summaries</a> » Finished with Step 1
 </div>
 <!-- End Sub Title -->
 
@@ -54,7 +54,7 @@ function displayFeedback()
 </div>
 <div class="cssbox_body">
 
-<p>You've finished the Step 1 functionality we wanted to test. You may continue discussing the concern theme summaries until midnight on October 4th, when discussion in this step ends. If any additional revisions to the summaries are made before October 4, the moderator will notify you by email.</p>
+<p>You've finished the Step 1 functionality we wanted to test. You may continue <a href="/sd.do?isid=2951">discussing the concern theme summaries</A> until midnight on Thursday, October 12th, when discussion in this step ends. If any additional revisions to the summaries are made before October 12th, the moderator will notify you by email.</p>
 <p>Remember, these summaries do not represent the end of the conversation about participant concerns. They are merely a snapshot in time that we can use in Step 2 to help evaluate the criteria. (However, Step 2 is not ready for testing, so this is the end of the road for now!)</p>
 
 <p>After the text concludes we will analyze the feedback you left us and make improvements in preparation for the next test.</p>

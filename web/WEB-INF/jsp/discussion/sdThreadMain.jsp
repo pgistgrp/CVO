@@ -277,7 +277,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 <h1>Step 1 Brainstorm Concerns:</h1> <h2>Review Summaries</h2>
 </div>
 <div id="footprints">
-<span class="smalltext"><a href="http://128.95.212.210:8080/main.do">Participate</a> &raquo; <a href="http://128.95.212.210:8080/cctview.do?cctId=1171">Step 1a Brainstorm Concerns</a> &raquo; <a href="sd.do?isid=${structure.id}">Step 1b Review Summaries</a> &raquo; <a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}">${object.object}</a> &raquo; ${post.title}</span>
+<span class="smalltext"><a href="/main.do">Participate</a> &raquo; <a href="/cctview.do?cctId=1171">Step 1a Brainstorm Concerns</a> &raquo; <a href="sd.do?isid=${structure.id}">Step 1b Review Summaries</a> &raquo; <a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}">${object.object}</a> &raquo; ${post.title}</span>
 </div>
 <!-- End Sub Title -->
 

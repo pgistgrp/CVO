@@ -29,16 +29,13 @@
 <h3>Welcome, ${baseuser.loginname}</h3>
 <ul>
 <li><pg:show roles="participant, moderator">
-  <html:link page="/cctlist.do">Step 1a: Brainstorm Concerns </html:link>
+  <html:link page="/cctlist.do">Step 1a: Brainstorm Concerns </html:link> [This step has finished.  New concerns will not be included in summaries]
 </pg:show> 
 </li>
 
-<li>
-  <span class="style1">
-  <pg:show roles="participant, moderator">
-    Step 1b: Discuss Concerns Summaries</pg:show>
-  </span>
-  <pg:show roles="participant, moderator"> (Currently Locked, Step 1b Opens Monday, October 9th)</pg:show>
+<li><pg:show roles="participant, moderator">
+  <html:link page="/sd.do?isid=2951">Step 1b: Discuss Summaries</html:link>
+</pg:show> 
 </li>
 
 <li>
