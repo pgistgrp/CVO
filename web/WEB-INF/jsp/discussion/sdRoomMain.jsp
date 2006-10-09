@@ -63,6 +63,7 @@
 							if (data.successful){
 								
 	              			  $(infoObject.objectDiv).innerHTML = data.source.html; 
+	              			 // alert("data.voting = " + data.voting);
 	              			  if(data.voting == null || data.voting == undefined){
 						           $(infoObject.votingQuestionDiv).innerHTML = '<span class="smalltext">Do you feel this summary adequately reflects concerns expressed by participants? <a href="javascript:infoObject.setVote(\'true\');"><img src="/images/btn_yes_a.gif" alt="YES" class="button"><a href="javascript:infoObject.setVote(\'false\');"><img src="/images/btn_no_a.gif" alt="NO" class="button"></a></span>';
 					          }else{ //user has already voted
@@ -103,7 +104,7 @@
 		sideBar.getAbStractTagCloud(page)
 		sideBar.getAbstractTagCloudResults(theTag)
 	*/
-	var sideBar = new SideBar("${structure.id}", "${object.id}","${structure.cctId}","${object.object}", "Participant Concerns", 5, "Show All Concerns", "Filter All Concerns By", 50, "" ); 
+	var sideBar = new SideBar("${structure.id}", "${object.id}","${structure.cctId}","${object.object}", "Participant Concerns", 3, "Show All Concerns", "Filter All Concerns By", 50, "" ); 
 	
 	sideBar.addIOIDFilter = function(){
 		var filterInstance = new Filter(this.objectId, "checked", false, "Current Theme Filter");

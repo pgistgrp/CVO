@@ -76,11 +76,11 @@
 		/*************** Set Vote************** */
 	 	 this.setVote = function(agree){
 	 	 			displayIndicator(true);
-	 	 			alert("structure" + infoObject.structureId + "object " + infoObject.objectId + "vote " + agree);
+					//alert("structure" + infoObject.structureId + "object " + infoObject.objectId + "vote " + agree);
 					SDAgent.setVoting({isid: infoObject.structureId, ioid: infoObject.objectId, agree:agree}, {
 					callback:function(data){
 							if (data.successful){ 
-								alert("successful");
+								//alert("successful");
 	              				 new Effect.Fade(infoObject.votingQuestionDiv, {afterFinish: function(){infoObject.getTargets(); new Effect.Appear(infoObject.votingQuestionDiv);}});
 	              				 displayIndicator(false);
 							}else{
