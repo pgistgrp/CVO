@@ -76,7 +76,7 @@
 		/*************** Set Vote************** */
 	 	 this.setVote = function(agree){
 	 	 			displayIndicator(true);
-	 	 			//alert("structure" + infoObject.structureId + "object " + infoObject.objectId + "vote " + agree);
+	 	 			alert("structure" + infoObject.structureId + "object " + infoObject.objectId + "vote " + agree);
 					SDAgent.setVoting({isid: infoObject.structureId, ioid: infoObject.objectId, agree:agree}, {
 					callback:function(data){
 							if (data.successful){ 

@@ -134,7 +134,7 @@
 	 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="sideBar.checkIOIDFilter('+i+')"  '+ currentFilterArr[i].status +' />Current Post Filter';
 		 	 				filters +='<ul class="filter">';
 	 	 				}else{ //if ioid
-	 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="sideBar.checkIOIDFilter('+i+')"  '+ currentFilterArr[i].status +' />Theme: "'+sideBar.objectTitle +'" Filter';
+	 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="sideBar.checkIOIDFilter('+i+')"  '+ currentFilterArr[i].status +' />' + currentFilterArr[i].tagName;
 		 	 				filters +='<ul class="filter">';
 	 	 				}
 	 	 			}
@@ -171,8 +171,7 @@
 					this.getSidebarItems();	
 				}
 				/***************Add FilterInstance to Filter************* */
-				this.addObjectFilter = function(){
-					var filterInstance = new Filter(this.objectId, "checked", false, "Theme Filter");
+				this.addObjectFilter = function(filterInstance){
 					currentFilterArr.push(filterInstance)
 					this.getSidebarItems();	
 				};

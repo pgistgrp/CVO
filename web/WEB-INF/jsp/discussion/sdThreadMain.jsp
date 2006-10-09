@@ -145,7 +145,8 @@
 	var sideBar = new SideBar("${structure.id}", "${object.id}","${structure.cctId}","${object.object}", "Other Discussion Posts", 5, "Show All Discussions", "Filter All Discussions By", 50, "${post.id}" ); 
 	
 	sideBar.addPIDFilter = function(){
-		var filterInstance = new Filter(this.objectId, "checked", false, "Theme Filter");
+		var filterInstance = new Filter(this.objectId, "checked", false, "Current Post");
+		this.addObjectFilter(filterInstance);
 	};
 	
 	

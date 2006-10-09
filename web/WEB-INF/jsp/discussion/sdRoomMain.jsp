@@ -104,8 +104,20 @@
 		sideBar.getAbstractTagCloudResults(theTag)
 	*/
 	var sideBar = new SideBar("${structure.id}", "${object.id}","${structure.cctId}","${object.object}", "Participant Concerns", 5, "Show All Concerns", "Filter All Concerns By", 50, "" ); 
+	
+	sideBar.addIOIDFilter = function(){
+		var filterInstance = new Filter(this.objectId, "checked", false, "Current Theme Filter");
+		this.addObjectFilter(filterInstance);
+	};
+	
 	sideBar.getAbstractItems = function(tags, page){
-		SDAgent.getConcerns({isid: this.structureId,ioid: this.objectId, tags: tags, count: this.itemsCount, page: page}, {
+		if(sideBar.filterObject){
+			var ioid = this.objectId;
+		}else{
+			var ioid = "";	//clear pid to find all posts
+		}
+		//alert(ioid);
+		SDAgent.getConcerns({isid: this.structureId,ioid: ioid, tags: tags, count: this.itemsCount, page: page}, {
 			callback:function(data){
 					if (data.successful){
 	          			$(sideBar.divContent).innerHTML = data.source.html;//using partial sidebar-concerns.jsp
@@ -406,11 +418,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 	infoObject.getTargets();
 	
 	sideBar.assignTitle();
-	if(sideBar.objectId != ""){
-		sideBar.addObjectFilter();
-	}else{
-		sideBar.getSidebarItems();
-	}
+	sideBar.addIOIDFilter();
 
 </script>
 
