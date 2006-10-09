@@ -140,7 +140,15 @@
 		sideBar.getAbStractTagCloud(page)
 		sideBar.getAbstractTagCloudResults(theTag)
 	*/
+	
+	
 	var sideBar = new SideBar("${structure.id}", "${object.id}","${structure.cctId}","${object.object}", "Other Discussion Posts", 5, "Show All Discussions", "Filter All Discussions By", 50, "${post.id}" ); 
+	
+	sideBar.addPIDFilter = function(){
+		var filterInstance = new Filter(this.objectId, "checked", false, "Theme Filter");
+	};
+	
+	
 	sideBar.getAbstractItems = function(tags, page){
 		//alert(sideBar.filterObject);
 		if(sideBar.filterObject){
@@ -436,11 +444,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 <script type="text/javascript">
 	getReplies();
 	sideBar.assignTitle();
-	if(sideBar.objectId != ""){
-		sideBar.addObjectFilter();
-	}else{
-		sideBar.getSidebarItems();
-	}
+	sideBar.addPIDFilter();
 
 </script>
 </html:html>
