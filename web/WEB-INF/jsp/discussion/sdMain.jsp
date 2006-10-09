@@ -105,7 +105,7 @@
 		sideBar.getAbStractTagCloud(page)
 		sideBar.getAbstractTagCloudResults(theTag)
 	*/
-	var sideBar = new SideBar("${structure.id}", "${object.id}","${structure.cctId}","${object.object}", "Participant Concerns", 5, "Show All Concerns", "Filter All Concerns By", 50, ""); 
+	var sideBar = new SideBar("${structure.id}", "${object.id}","${structure.cctId}","${object.object}", "Participant Concerns", 3, "Show All Concerns", "Filter All Concerns By", 50, ""); 
 	sideBar.getAbstractItems = function(tags, page){
 		SDAgent.getConcerns({isid: this.structureId,ioid: this.objectId, tags: tags, count: this.itemsCount, page: page}, {
 			callback:function(data){

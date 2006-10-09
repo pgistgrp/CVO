@@ -117,7 +117,7 @@
 		}else{
 			var ioid = "";	//clear pid to find all posts
 		}
-		//alert(ioid);
+		alert("isid: "+this.structureId +"ioid: "+ioid+" tags: "+tags+"count: "+this.itemsCount+" page: "+page);
 		SDAgent.getConcerns({isid: this.structureId,ioid: ioid, tags: tags, count: this.itemsCount, page: page}, {
 			callback:function(data){
 					if (data.successful){

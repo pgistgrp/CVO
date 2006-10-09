@@ -23,7 +23,7 @@
 	 	<br />
 		<ul class="tagsList"><strong>tags: </strong>
 			<logic:iterate id="tag" name="reply" property="tags">
-				<li class="tagsList"><small><a href="javascript:changeCurrentFilter(${tag.id});">${tag.name}</a></small></li>
+				<li class="tagsList"><small><a href="javascript:sideBar.changeCurrentFilter(${tag.id});">${tag.name}</a></small></li>
 			</logic:iterate>
 		<small>- click on a tag to view discussions with the same tag.</small>
 	</c:if>

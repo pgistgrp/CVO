@@ -351,7 +351,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 		<p>
 		<ul class="tagsList"><strong>Tags: </strong>
 			<c:forEach items="${post.tags}" var="tag">
-					<li class="tagsList"><a href="javascript:changeCurrentFilter(${tag.id});">${tag.name}</a></li>
+					<li class="tagsList"><a href="javascript:sideBar.changeCurrentFilter(${tag.id});">${tag.name}</a></li>
 			</c:forEach>
 		</ul>
 		<small>- click on a tag to view other discussions with the same tag.</small>
