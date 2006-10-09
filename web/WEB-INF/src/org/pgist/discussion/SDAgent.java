@@ -770,6 +770,12 @@ public class SDAgent {
             } else {
                 InfoStructure structure = sdService.getInfoStructureById(isid);
                 
+                InfoVoting voting = sdService.getVoting(structure);
+                if (voting!=null) {
+                    request.setAttribute("voting", voting);
+                    map.put("voting", voting);
+                }
+                
                 if (type==null || "".equals(type) || "asHTML".equals(type)) {
                     request.setAttribute("infoStructure", structure);
                     
