@@ -134,11 +134,7 @@ if(show){
 }
 
 
-function viewAllTags(concernid){
-	SDAgent.getConcernById({
 
-
-}
 
 
 
