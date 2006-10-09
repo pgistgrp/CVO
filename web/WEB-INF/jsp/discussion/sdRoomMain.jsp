@@ -63,7 +63,7 @@
 							if (data.successful){
 								
 	              			  $(infoObject.objectDiv).innerHTML = data.source.html; 
-	              			  alert("data.voting = " + data.voting);
+	              			  //alert("data.voting = " + data.voting);
 	              			  if(data.voting == null || data.voting == undefined){
 						           $(infoObject.votingQuestionDiv).innerHTML = '<span class="smalltext">Do you feel this summary adequately reflects concerns expressed by participants? <a href="javascript:infoObject.setVote(\'true\');"><img src="/images/btn_yes_a.gif" alt="YES" class="button"><a href="javascript:infoObject.setVote(\'false\');"><img src="/images/btn_no_a.gif" alt="NO" class="button"></a></span>';
 					          }else{ //user has already voted
@@ -420,8 +420,11 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 	infoObject.getTargets();
 	
 	sideBar.assignTitle();
+	if(sideBar.objectId != ""){
 	sideBar.addIOIDFilter();
-
+	}else{
+	sideBar.getSidebarItems();	
+	}
 </script>
 
 </body>

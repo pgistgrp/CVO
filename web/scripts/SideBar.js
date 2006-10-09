@@ -50,6 +50,8 @@
 			 	 this.divSearchTagCloudResults = 'tagSearchResults'; //Div Id that contains the results for the tag search in the tag cloud.
 				 this.divTagCloud = 'topTags'; //Div id that contains the tags in the tag cloud
 				 this.divAddFilter = 'addFilter'; //Div that contains the manual add tag textbox
+			 	 this.closeLightBoxDiv = 'closeBox'; //Div that closes that lightbox
+			 	 this.lightBoxDiv = 'lightbox'; //Div that contains the lightbox
 			 	 
 			 	 var currentFilterArr = new Array();
 				 
@@ -119,6 +121,26 @@
 						
 			 	};
 			 	
+			 	
+			 	
+				/***************Render Item in Lightbox************** */
+					this.renderItemDetails = function(data){
+						var currentItem = data.content;
+							os = "";
+							os += '<div id="'+ sideBar.closeLightBoxDiv +'" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>'
+							os += '<h4>'+ sideBar.lightBoxTitle +'</h4><br>';
+							os += '<div style=" margin:2%; overflow:hidden;"><div style="width:380px; max-height:235px; overflow:auto;" name="viewSidebarConcern" id="viewSidebarConcern">' + currentItem;			
+							os +='<br />';
+							for(i=0; i < data.tags.length; i++){
+								os +='<span class="tags"><a href="javascript:lightboxDisplay(); sideBar.changeCurrentFilter('+data.tags[i].id+ ');">'+ data.tags[i].tag.name + '</a></span> \n';
+							}
+							os+='</div></div>';
+							lightboxDisplay(true);
+							$('lightbox').innerHTML = os;	
+						
+					}
+
+
 			 	/***************Render Sidebar Filters.************** */
 			 	this.renderFilters = function(){
 				    //render sidebar filters

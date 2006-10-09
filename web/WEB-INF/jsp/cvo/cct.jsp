@@ -493,6 +493,7 @@ function lightboxDisplay(show){
 		sideBar.sidebarSearchTagsAction(theTag)
 		sideBar.getAbStractTagCloud(page)
 		sideBar.getAbstractTagCloudResults(theTag)
+		sideBar.viewItemDetails(id)
 	*/
 	var sideBar = new SideBar("${structure.id}", "${object.id}","${cctForm.cct.id}","${object.object}", "All Participant' Concerns", 5, "Show All Concerns", "Filter All Concerns By", 50, "" ); 
 	sideBar.getAbstractItems = function(tags, page){
@@ -549,115 +550,7 @@ function lightboxDisplay(show){
 					callback:function(data){
 						if (data.successful){
 							$(sideBar.divAllTags).innerHTML = data.html;	
-/*
-=======
 
-		
-function viewSidebarConcern(conId){
-		
-var currentConcern = '';
-concernTags='';
-
-CCTAgent.getConcernById(conId, {
-
-	callback:function(data){
-		if (data.successful){
-				currentConcern = data.concern.content;
-				/*os = "";
-    os += '<div id="closeBox" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>'
-    os += '<h4>Edit My Concern</h4><br>';
-    os += '<form id="editmyconcern"><textarea style="margin: 2%; height: 150px; width: 95%;" name="editConcern" id="editConcern" cols="50" rows="5" id="addConcern">' +currentConcern+ '</textarea></p></form>';
-    os += '<input type="button" id="modifyConcern" value="Submit Edits!" onClick="editConcern('+concernId+')">';
-    os += '<input type="button" value="Cancel" onClick="lightboxDisplay()">';
-    $('lightbox').innerHTML = os;*/
-    /*
-				os = "";
-				
-				
-				
-				os += '<div id="closeBox" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>'
-				os += '<h4>Concern</h4><br>';
-
-				os += '<div style=" margin:2%; overflow:hidden;"><div style="width:380px; max-height:235px; overflow:scroll;" name="viewSidebarConcern" id="viewSidebarConcern">' +currentConcern;
-				
-				//os+='<div style="overflow:scroll; width:370px; max-height:85px;">';
-				
-				/*if(navigator.appName=="Microsoft Internet Explorer"){
-				os += '<div style="position:relative;"><input type="button" id="modifyConcern" value="Submit Edits!" onclick="javascript:editConcern('+concernId+');"/>';
-
-				os += '<input type="button" value="Cancel" onClick="lightboxDisplay()"></div></div>';
-				}else{
-				os += '<div style="position:relative; top:150px;"><input type="button" id="modifyConcern" value="Submit Edits!" onclick="javascript:editConcern('+concernId+');"/>';
-
-				os += '<input type="button" value="Cancel" onClick="lightboxDisplay()"></div></div>';
-				}*/
-				
-				/*
-				os+='<br />';
-							for(i=0; i < data.concern.tags.length; i++){
-							
-								concernTags +='<span class="tags" style="border:solid thin gray; padding:1px;"><a href="javascript:lightboxDisplay(); changeCurrentFilter('+data.concern.tags[i].id+ ');">'+ data.concern.tags[i].tag.name + '</a></span> \n';
-							}
-							
-							os+=concernTags;
-							os+='</div></div>';
-				
-				lightboxDisplay(true);
-				$('lightbox').innerHTML = os;
-				
-				
-		}
-	},
-	errorHandler:function(errorString, exception){ 
-			alert("viewSidebarConcern: "+errorString+" "+exception);
-			//showTheError();
-	}
-
-});
-
-}
-		
-
-		function checkFilter(index){
-			if(currentFilterArr[index].status == "unchecked"){
-				currentFilterArr[index].status = "checked";
-			}else{
-				currentFilterArr[index].status = "unchecked";
-			}
-			getContextConcerns();
-		}
-		
-		function checkIOIDFilter(index){
-			if(currentFilterArr[index].status == "unchecked"){
-				currentFilterArr[index].status = "checked";
-			}else{
-				currentFilterArr[index].status = "unchecked";
-			}
-			filterIOID = true;
-			getContextConcerns();
-		}
-		
-		
-		function Filter(tagRefId, status, bool, tagName){
-			this.tagRefId = tagRefId;
-			this.tagName = tagName;
-			this.status = status;
-			this.removeable = bool
-		}
-		
-		function addFilter(tagRefId){
-				var tagRef = tagRefId.toString();
-				CCTAgent.getTagByTagRefId(tagRef, {
-				callback:function(data){
-				if (data.successful){
-	            			var tagName = data.tag.name;
-	            			var filterInstance = new Filter(tagRefId, "checked", true, tagName);
-							currentFilterArr.push(filterInstance);
-							getContextConcerns();
-						}else{
-							alert(data.reason);
->>>>>>> 1.124
-*/
 						}
 					},
 					errorHandler:function(errorString, exception){ 
@@ -678,7 +571,24 @@ CCTAgent.getConcernById(conId, {
 				}		
 			});
 		}
+		
+		/***************View item details.************** */
+		sideBar.viewItemDetails = function(conId){				
+		CCTAgent.getConcernById(conId, {
+				callback:function(data){
+					if (data.successful){
+							sideBar.lightBoxTitle = "View Entire Concern"; //Title of lightbox
+							sideBar.renderItemDetails(data.concern); //add contents to lightbox 
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+						alert("viewSidebarConcern: "+errorString+" "+exception);
+						//showTheError();
+				}
+			});
+		};
 	///////////////////////////////////////// END SIDEBAR //////////////////////////////////////
+
 
 
 </script>
