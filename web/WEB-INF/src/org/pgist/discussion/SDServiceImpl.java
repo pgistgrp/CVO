@@ -3,6 +3,7 @@ package org.pgist.discussion;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.pgist.cvo.Concern;
 import org.pgist.cvo.CCTDAO;
 import org.pgist.cvo.CategoryReference;
 import org.pgist.tagging.Tag;
@@ -233,7 +234,13 @@ public class SDServiceImpl implements SDService {
         return true;
     }//setVoting()
 
-
+    
+    public Concern getConcernById(Long Id) throws Exception {
+    	Concern myConcern = discussionDAO.getConcernById(Id);
+    	return myConcern;
+    } //getConcernById()
+    
+    
     public Collection getConcerns(InfoStructure structure, String ids, PageSetting setting) throws Exception {
         if (ids==null || ids.trim().length()==0) {
             return discussionDAO.getConcerns(structure, setting);

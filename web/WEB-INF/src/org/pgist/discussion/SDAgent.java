@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.pgist.cvo.Concern;
 import org.directwebremoting.WebContextFactory;
 import org.pgist.tagging.Tag;
 import org.pgist.tags.FragmentTag;
@@ -884,7 +885,7 @@ public class SDAgent {
      *       <li>concern - conern object</li>
      *       </li>
      *     </ul>
-     *//*
+     */
     public Map getConcernById(HttpServletRequest request, String strId) {
     	Map map = new HashMap();
         map.put("successful", false);
@@ -911,7 +912,7 @@ public class SDAgent {
         
     	return map;
     }
-    */
+    
     
     /**
      * Get the related concerns in this SDX instance for sidebar.

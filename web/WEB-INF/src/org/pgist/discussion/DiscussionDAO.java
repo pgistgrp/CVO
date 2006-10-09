@@ -2,6 +2,7 @@ package org.pgist.discussion;
 
 import java.util.Collection;
 
+import org.pgist.cvo.Concern;
 import org.pgist.system.BaseDAO;
 import org.pgist.tagging.Tag;
 import org.pgist.users.User;
@@ -75,9 +76,9 @@ public interface DiscussionDAO extends BaseDAO {
 
     void increaseVoting(InfoObject object, boolean agree) throws Exception;
 
-    /*
+    
     Concern getConcernById(Long tagId) throws Exception;
-	*/
+	
     
     Collection getConcerns(InfoStructure structure, PageSetting setting) throws Exception;
 

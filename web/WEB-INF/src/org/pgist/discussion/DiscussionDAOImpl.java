@@ -365,11 +365,13 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         }
     }//increaseVoting()
 
-    /*
-    public Concern getConcernById(Long tagId) throws Exception {
-        return (Concern) getHibernateTemplate().load(Concern.class, tagId);
+    
+    public Concern getConcernById(Long Id) throws Exception {
+    	
+        return (Concern) getHibernateTemplate().load(Concern.class, Id);
+    	
     }//getConcernById()
-    */
+    
     
     private static final String sql_getConcerns_A_11 = "select count(distinct v.cid) from "+DBMetaData.VIEW_CONCERN_TAG_IN_STRUCTURE+" v where v.cctid=:cctid and v.isid=:isid";
     
