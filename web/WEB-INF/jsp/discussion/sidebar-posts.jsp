@@ -29,7 +29,7 @@
 						<small>
 						"${fn:substring(post.content, 0, 100)}"
 								<c:if test="${fn:length(post.content) > 100}">
-									 [...] 
+									 [<a href="/sdThread.do?isid=${structure.id}&ioid=${post.value.id}&pid=${post.id}">...</a>] 
 						</c:if>
 						</small>
 						<br />
@@ -55,7 +55,7 @@
 						</logic:equal>
 						
 						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-							<a href="javascript:sideBar.getContextPosts(${setting.page}+1);"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<a href="javascript:sideBar.getSidebarItems(${setting.page}+1);"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
 						</span>
 					</div>
@@ -67,7 +67,7 @@
 						</logic:equal>
 						
 						<logic:notEqual name="setting" property="page" value="1">	
-							<a href="javascript:sideBar.getContextPosts(${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<a href="javascript:sideBar.getSidebarItems(${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
 						
 					</div>

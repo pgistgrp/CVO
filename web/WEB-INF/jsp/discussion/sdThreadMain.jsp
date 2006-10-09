@@ -142,7 +142,14 @@
 	*/
 	var sideBar = new SideBar("${structure.id}", "${object.id}","${structure.cctId}","${object.object}", "Other Discussion Posts", 5, "Show All Discussions", "Filter All Discussions By", 50, "${post.id}" ); 
 	sideBar.getAbstractItems = function(tags, page){
-		SDAgent.getContextPosts({isid: this.structureId,pid: this.postId, tags: tags, count: this.itemsCount, page: page}, {
+		//alert(sideBar.filterObject);
+		if(sideBar.filterObject){
+			var pid = ${post.id};
+		}else{
+			var pid = "";	//clear pid to find all posts
+		}
+		//alert("isid:"  +this.structureId+"pid: "+ pid + "tags: " + tags + "count: " +this.itemsCount+ " page: " +page);
+		SDAgent.getContextPosts({isid: this.structureId,pid: pid, tags: tags, count: this.itemsCount, page: page}, {
 			callback:function(data){
 					if (data.successful){
 	          			$(sideBar.divContent).innerHTML = data.source.html;//using partial sidebar-concerns.jsp
@@ -430,7 +437,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 	getReplies();
 	sideBar.assignTitle();
 	if(sideBar.objectId != ""){
-		sideBar.addIOIDFilter();
+		sideBar.addObjectFilter();
 	}else{
 		sideBar.getSidebarItems();
 	}

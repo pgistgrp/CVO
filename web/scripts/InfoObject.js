@@ -76,11 +76,11 @@
 		/*************** Set Vote************** */
 	 	 this.setVote = function(agree){
 	 	 			displayIndicator(true);
-	 	 			alert("structure" + this.structureId + "object " + this.objectId + "vote " + agree);
-					SDAgent.setVoting({isid: this.structureId, ioid: this.objectId, agree:agree}, {
+	 	 			//alert("structure" + infoObject.structureId + "object " + infoObject.objectId + "vote " + agree);
+					SDAgent.setVoting({isid: infoObject.structureId, ioid: infoObject.objectId, agree:agree}, {
 					callback:function(data){
 							if (data.successful){ 
-								alert("structure" + this.structureId + "object " + this.objectId + "vote " + agree);
+								alert("successful");
 	              				 new Effect.Fade(infoObject.votingQuestionDiv, {afterFinish: function(){infoObject.getTargets(); new Effect.Appear(infoObject.votingQuestionDiv);}});
 	              				 displayIndicator(false);
 							}else{
@@ -106,10 +106,13 @@
 				SDAgent.createPost({isid:this.structureId, ioid: this.objectId, title: newPostTitle, content: newPost, tags:newPostTags}, {
 				callback:function(data){
 						if (data.successful){
-							 infoObject.getPosts();
 							 infoObject.clearNewDiscussionInputs();
 							 infoObject.toggleNewDiscussion();
 							 displayIndicator(false);
+							 if(infoObject.currentDiscPage != 1){
+							 	infoObject.currentDiscPage = 1
+							 }
+							 infoObject.getPosts();
 						}else{
 							alert(data.reason);
 							 infoObject.toggleNewDiscussion();

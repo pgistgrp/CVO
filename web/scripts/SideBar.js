@@ -32,6 +32,8 @@
 			 	 this.tagCloudCount = tagCount; //number of tags in the tag cloud
 			 	 this.postId = postId;
 			 	 
+			 	 this.filterObject = false; //change this to filterSlate
+			 	 
 			 	 /*----Input ID's - these id's of input elements have changing content or gets read by the javascript ---- */
 				 this.txtManualFilter = 'txtmanualFilter'; //textbox id to add a manual tag filter
 				 this.btnClearSearch = 'btnClearSearch'; //link id that clears the search
@@ -50,7 +52,7 @@
 				 this.divAddFilter = 'addFilter'; //Div that contains the manual add tag textbox
 			 	 
 			 	 var currentFilterArr = new Array();
-				 var filterIOID = false; //change this to filterSlate
+				 
 				 
 				 
 				 /***************Get Sidebar Items************** */
@@ -80,18 +82,18 @@
 		 	 				if(currentFilterArr[i].status == "checked"){
 		 	 					currentFilter.push(currentFilterArr[i].tagRefId);
 		 	 				}
-		 				}else{ //if ioid
+		 				}else{ //if filtering by object
 		 	 				if(currentFilterArr[i].status == "checked"){
-		 	 					filterIOID = true;
+		 	 					this.filterObject = true;
 		 	 				}else{
-		 	 					filterIOID = false;	
+		 	 					this.filterObject = false;	
 		 	 				}
 		 				}
 		 			}
 		
 		 			
 		 			//show all items link and assign show all link text to div
-		 				if(currentFilter.length > 0 || filterIOID == true){
+		 				if(currentFilter.length > 0 || this.filterObject == true){
 		 					$(this.divShowAllLink).style.display = 'inline';
 		 					$(this.divShowAllLink).innerHTML = '<a href="javascript:sideBar.clearFilter();">'+ this.showAllLinkText +'</a>';
 		 				}else{
@@ -108,12 +110,11 @@
 		 				}*/
 		 			
 						var currentFilterString = currentFilter.toString();
-						if(filterIOID){ //check if filtering by ioid or not
+						if(this.filterObject){ //check if filtering by ioid or not
 							var ioid = this.objectId;
 						}else{
 							var ioid = "";
 						}
-						
 						this.getAbstractItems(currentFilterString, sidebarPage);
 						
 			 	};
@@ -128,6 +129,9 @@
 	 	 				if(currentFilterArr[i].removeable){
 		 	 				filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="sideBar.checkFilter('+i+')"  '+ currentFilterArr[i].status +' /> '+ currentFilterArr[i].tagName;
 		 	 				filters += '&nbsp;<a href="javascript: sideBar.removeUlFilter('+i+');"><img src="/images/trash.gif" alt="remove filter" border="0" /></a>';
+		 	 				filters +='<ul class="filter">';
+	 	 				}else if(currentFilterArr[i].removeable != true && sideBar.postId != ""){ //if PID
+	 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="sideBar.checkIOIDFilter('+i+')"  '+ currentFilterArr[i].status +' />Current Post Filter';
 		 	 				filters +='<ul class="filter">';
 	 	 				}else{ //if ioid
 	 	 					filters += '<li><input type="checkbox" id="filtercheck'+i+'" onclick="sideBar.checkIOIDFilter('+i+')"  '+ currentFilterArr[i].status +' />Theme: "'+sideBar.objectTitle +'" Filter';
@@ -150,7 +154,7 @@
 				/***************Checks the checkbox of an IO Filter************* */
 				this.checkIOIDFilter = function(index){
 					this.checkFilter(index);
-					filterIOID = true;
+					this.filterObject = true;
 				};
 				
 				/***************Get Tag by TagID - From Separate File************* */
@@ -167,7 +171,7 @@
 					this.getSidebarItems();	
 				}
 				/***************Add FilterInstance to Filter************* */
-				this.addIOIDFilter = function(){
+				this.addObjectFilter = function(){
 					var filterInstance = new Filter(this.objectId, "checked", false, "Theme Filter");
 					currentFilterArr.push(filterInstance)
 					this.getSidebarItems();	
@@ -187,7 +191,7 @@
 				
 				/***************Changes current filter unless filtering by IO************* */
 				this.changeCurrentFilter = function(tagRefId){
-						if (!filterIOID || currentFilterArr.length > 1) {//if filtering by ioid, add a new filter, not change it
+						if (!this.filterObject || currentFilterArr.length > 1) {//if filtering by ioid, add a new filter, not change it
 							currentFilterArr.pop()
 						};
 						this.addFilter(tagRefId);
