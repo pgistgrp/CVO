@@ -191,6 +191,22 @@
 				}		
 			});
 		}
+		
+		/***************View item details.************** */
+		sideBar.viewItemDetails = function(conId){				
+		SDAgent.getConcernById(conId, {
+				callback:function(data){
+					if (data.successful){
+							sideBar.lightBoxTitle = "View Entire Concern"; //Title of lightbox
+							sideBar.renderItemDetails(data.concern); //add contents to lightbox 
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+						alert("viewSidebarConcern: "+errorString+" "+exception);
+						//showTheError();
+				}
+			});
+		};
 	///////////////////////////////////////// END SIDEBAR //////////////////////////////////////
 			 	 
 
