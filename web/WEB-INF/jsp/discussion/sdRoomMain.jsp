@@ -63,7 +63,7 @@
 							if (data.successful){
 								
 	              			  $(infoObject.objectDiv).innerHTML = data.source.html; 
-	              			 // alert("data.voting = " + data.voting);
+	              			  alert("data.voting = " + data.voting);
 	              			  if(data.voting == null || data.voting == undefined){
 						           $(infoObject.votingQuestionDiv).innerHTML = '<span class="smalltext">Do you feel this summary adequately reflects concerns expressed by participants? <a href="javascript:infoObject.setVote(\'true\');"><img src="/images/btn_yes_a.gif" alt="YES" class="button"><a href="javascript:infoObject.setVote(\'false\');"><img src="/images/btn_no_a.gif" alt="NO" class="button"></a></span>';
 					          }else{ //user has already voted
@@ -98,6 +98,7 @@
 			- PostID
 		
 	Methods to define for this Instance
+		sidebar.add__filter() //adds filterInstance and adds it to addOjbectFilter(filterInstance)
 		sidebar.getAbstractItems(tags, page);
 		sideBar.convertAbstractFilter(tagRefId);
 		sideBar.sidebarSearchTagsAction(theTag)
@@ -117,7 +118,7 @@
 		}else{
 			var ioid = "";	//clear pid to find all posts
 		}
-		alert("isid: "+this.structureId +"ioid: "+ioid+" tags: "+tags+"count: "+this.itemsCount+" page: "+page);
+		//alert("isid: "+this.structureId +"ioid: "+ioid+" tags: "+tags+"count: "+this.itemsCount+" page: "+page);
 		SDAgent.getConcerns({isid: this.structureId,ioid: ioid, tags: tags, count: this.itemsCount, page: page}, {
 			callback:function(data){
 					if (data.successful){
