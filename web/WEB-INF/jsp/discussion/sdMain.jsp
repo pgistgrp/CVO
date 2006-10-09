@@ -125,6 +125,22 @@
 		});	
 	};
 
+function displayIndicator(show){
+if(show){
+	$('loading-indicator').style.display="inline";
+	}else{
+	$('loading-indicator').style.display="none";
+	}
+}
+
+
+function viewAllTags(concernid){
+	SDAgent.getConcernById({
+
+
+}
+
+
 
 	
 	function setSort(thisSort, term){
