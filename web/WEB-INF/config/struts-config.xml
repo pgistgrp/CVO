@@ -66,6 +66,12 @@
             <forward name="view" path="/WEB-INF/jsp/cvo/cstCategories.jsp" />
         </action>
         
+        <action path="/projectMgr" scope="request" type="org.pgist.projects.ProjectMgrAction">
+            <forward name="list" path="/WEB-INF/jsp/projects/projectsList.jsp"/>
+            <forward name="create" path="/WEB-INF/jsp/projects/editProject.jsp"/>
+            <forward name="edit" path="/WEB-INF/jsp/projects/editProject.jsp"/>
+        </action>
+        
         <action path="/criteriaMgr" scope="request" type="org.pgist.cvo.CriteriaMgrAction">
             <forward name="list" path="/WEB-INF/jsp/criteria/criteriaList.jsp"/>
             <forward name="manage" path="/WEB-INF/jsp/criteria/criteriaMgr.jsp"/>

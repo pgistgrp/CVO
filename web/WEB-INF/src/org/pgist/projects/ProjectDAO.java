@@ -1,5 +1,6 @@
 package org.pgist.projects;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,9 @@ public interface ProjectDAO extends BaseDAO {
 	
     
 	Package getPackage(Long pid) throws Exception;
+
+
+    Collection getProjects() throws Exception;
 	
     
 }//interface ProjectDAO

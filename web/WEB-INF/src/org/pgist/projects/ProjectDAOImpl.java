@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +87,7 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 		return (Project)getHibernateTemplate().load(Project.class, pid);
 	}
 	
-	private static String hql_getProjects = "from Project as project";
+	private static String hql_getProjects_1 = "from Project as project";
 	
 	/**
 	 * Given the criteria, return a map containing a set of porejects, 
@@ -96,9 +97,9 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	public List getProjects(String criteria){
 		Query query = null;
 		if(criteria == null || criteria.length()==0)
-			query = getSession().createQuery(hql_getProjects);
+			query = getSession().createQuery(hql_getProjects_1);
 		else
-			query = getSession().createQuery(hql_getProjects + " where " + criteria);
+			query = getSession().createQuery(hql_getProjects_1 + " where " + criteria);
 		
 		return query.list();
 	}
@@ -164,5 +165,14 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	public Package getPackage(Long pid){
 		return null;
 	}
+
+    
+    private static String hql_getProjects_2 = "from Project p";
+    
+    
+    public Collection getProjects() throws Exception {
+        return getHibernateTemplate().find(hql_getProjects_2);
+    }//getProjects()
 	
-}
+    
+}//class ProjectDAOImpl

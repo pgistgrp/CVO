@@ -59,6 +59,11 @@
     </bean>
     
     
+    <bean name="/projectMgr" class="org.pgist.projects.ProjectMgrAction">
+        <property name="projectService" ref="projectService"/>
+    </bean>
+    
+    
     <bean name="/criteriaMgr" class="org.pgist.cvo.CriteriaMgrAction">
         <property name="criteriaService" ref="criteriaService"/>
         <property name="cctService" ref="cctService"/>

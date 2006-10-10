@@ -1,6 +1,7 @@
 package org.pgist.projects;
 
 import java.sql.Connection;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -108,6 +109,16 @@ public class ProjectServiceImpl implements ProjectService{
 
         discussionDAO.save(info);
     }//publish()
+
+
+    public Project getProjectById(Long pid) throws Exception {
+        return projectDAO.getProject(pid);
+    }//getProjectById()
+
+
+    public Collection getProjects() throws Exception {
+        return projectDAO.getProjects();
+    }//getProjects()
 
 
 }//class ProjectServiceImpl
