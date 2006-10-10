@@ -32,6 +32,7 @@
 <script src="scripts/InfoObject.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
+<script src="scripts/lightbox.js" type="text/javascript"></script>
 <!--End SDX Specific  Libraries-->
 
 
@@ -193,8 +194,9 @@
 		}
 		
 		/***************View item details.************** */
-		sideBar.viewItemDetails = function(conId){				
-		SDAgent.getConcernById(conId, {
+		sideBar.viewItemDetails = function(conId){	
+		var conIdStr = conId.toString();			
+		SDAgent.getConcernById(conIdStr, {
 				callback:function(data){
 					if (data.successful){
 							sideBar.lightBoxTitle = "View Entire Concern"; //Title of lightbox
@@ -210,14 +212,114 @@
 	///////////////////////////////////////// END SIDEBAR //////////////////////////////////////
 			 	 
 
-
-
+	///////////////////////////////////////// START LIGHTBOX //////////////////////////////////////
+	
+		function lightboxDisplay(show){
+			if (show){
+				$('overlay').style.display = 'block';
+				$('lightcontainer').style.display = 'inline';
+				centerDisable();
+			}else{
+				$('overlay').style.display = 'none';
+				$('lightcontainer').style.display = 'none';
+				centerReenable();
+			}
+		}
+			function displayIndicator(show){
+				if (show){
+					$('loading-indicator').style.display = "inline";	
+				}else{
+					$('loading-indicator').style.display = "none";	
+				}
+			}
+	///////////////////////////////////////// END LIGHTBOX //////////////////////////////////////
 //-->
-
-
 </script>
+<style type="text/css" />
 
-<style type="text/css">
+.leightpadding{
+
+padding:0em 1em 1em 1em;
+
+
+}
+#loading-indicator{
+	
+	background-color: red;
+	color: white;
+	position:absolute;
+	top: 0;
+	left:0;
+	padding: 3px;
+	z-index: 500;
+}
+.leightcontainer{
+ 	display: none;
+ 	position: absolute;
+ 	top: 50%;
+ 	left: 50%;
+ 	margin-left: -200px;
+ 	margin-top: -150px;
+ 	width:400px;
+ 	height: 300px;
+ 	background-color: white;
+ 	text-align: left;
+ 	z-index:1002;
+ 	overflow:hidden;
+	border: 5px solid #E1E1E1;
+}
+
+.leightbox {
+ 	color: #333;
+ 	position:absolute;
+ 	top:30px;
+ 	height:100%;
+ 	width:100%;
+ 	background-color: white;
+ 	text-align: left;
+ 	z-index:1002;
+ 	overflow:auto;	
+
+
+}
+
+.leightbar{
+	position:absolute;
+	top:0%;
+	height:30px;
+	width:100%;
+	background-color:#0066FF;
+	z-index:1002;
+	overflow:hidden;
+}
+
+#overlay{
+ 	display:none;
+ 	position:absolute;
+ 	top:0;
+ 	left:0;
+ 	width:100%;
+ 	height:100%;
+ 	z-index:1000;
+ 	background-color:#333;
+ 	-moz-opacity: 0.8;
+ 	opacity:.80;
+ 	filter: alpha(opacity=80);
+}
+
+
+
+.lbclose{
+float:right;
+
+}
+
+
+
+.lightbox[id]{ /* IE6 and below Can't See This */    position:fixed;    
+}#overlay[id]{ /* IE6 and below Can't See This */    position:fixed;    
+}
+
 
 #loading-indicator{
 	
@@ -248,7 +350,14 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 
 
 <body onLoad="MM_preloadImages('images/btn_continue_b.gif')">
-
+<div id="overlay"></div>
+<div id="lightcontainer" class="leightcontainer">
+ 	<div id="lightbox" class="leightbox">
+ 		<div id="lightboxpadding" class="leightpadding">
+ 			<h3>Editing Attributes for Glossary Term: ...</h3>
+ 		</div>
+ 	</div>
+</div>
 <div id="container">
 	<jsp:include page="/header.jsp" />
 		

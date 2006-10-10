@@ -44,6 +44,7 @@
 <script src="scripts/SideBar.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
+<script src="scripts/lightbox.js" type="text/javascript"></script>
 <!--
 <c:if test="${structure.type == 'sdmap'}">
 
@@ -126,10 +127,13 @@
 	};
 	
 			/***************View item details.************** */
-		sideBar.viewItemDetails = function(conId){				
-		SDAgent.getConcernById(conId, {
+	sideBar.viewItemDetails = function(conId){				
+		var conIdStr = conId.toString();		
+		
+		SDAgent.getConcernById(conIdStr, { // requires lightbox script
 				callback:function(data){
 					if (data.successful){
+							//alert(conIdStr);	
 							sideBar.lightBoxTitle = "View Entire Concern"; //Title of lightbox
 							sideBar.renderItemDetails(data.concern); //add contents to lightbox 
 					}
@@ -139,49 +143,7 @@
 						//showTheError();
 				}
 			});
-		};
-
-function displayIndicator(show){
-if(show){
-	$('loading-indicator').style.display="inline";
-	}else{
-	$('loading-indicator').style.display="none";
-	}
-}
-
-
-
-
-
-
-	
-	function setSort(thisSort, term){
-			headings = document.getElementsByTagName("td"); 
-			for (var i = 0; i < headings.length; i++) { 
-				if (headings[i].id != 'def' && headings[i].id!='actions'){
-			    if (headings[i].id == thisSort){
-			    	if(direction == 'asc'){
-			    		headings[i].innerHTML = thisSort + '&nbsp;&nbsp;<a href="javascript:sortDir(\'desc\',\'' + thisSort + '\', \''+ term +'\');"><img src="/images/sort_' + direction +'.gif" border="0"></a>';
-			   		}else{
-			   			headings[i].innerHTML = thisSort + '&nbsp;&nbsp;<a href="javascript:sortDir(\'asc\',\'' + thisSort + '\', \''+ term +'\');"><img src="/images/sort_' + direction +'.gif" border="0"></a>';
-			   		}
-			    }else{
-			    	headings[i].innerHTML = '<a href="javascript: getTerms(\''+ term +'\',\''+ headings[i].id +'\'); isTermsGotten();">'+ headings[i].innerHTML +'</a>';
-			    }
-			  }  
-			}
-		}	
-		
-		function sortDir(switchTo, thisSort, term){
-				direction = switchTo;
-				getTerms(term, thisSort); 
-				isTermsGotten();
-		}
-	
-	
-	/////////////////////sidebar functionality////////////////////////////
-	
-
+	};
 	
 	sideBar.convertAbstractFilter = function(tagRefId){
 		CCTAgent.getTagByTagRefId(tagRefId, {
@@ -240,11 +202,144 @@ if(show){
 		}
 	///////////////////////////////////////// END SIDEBAR //////////////////////////////////////
 
+		function displayIndicator(show){
+		if(show){
+			$('loading-indicator').style.display="inline";
+			}else{
+			$('loading-indicator').style.display="none";
+			}
+		}
+		
+		
+	function setSort(thisSort, term){
+			headings = document.getElementsByTagName("td"); 
+			for (var i = 0; i < headings.length; i++) { 
+				if (headings[i].id != 'def' && headings[i].id!='actions'){
+			    if (headings[i].id == thisSort){
+			    	if(direction == 'asc'){
+			    		headings[i].innerHTML = thisSort + '&nbsp;&nbsp;<a href="javascript:sortDir(\'desc\',\'' + thisSort + '\', \''+ term +'\');"><img src="/images/sort_' + direction +'.gif" border="0"></a>';
+			   		}else{
+			   			headings[i].innerHTML = thisSort + '&nbsp;&nbsp;<a href="javascript:sortDir(\'asc\',\'' + thisSort + '\', \''+ term +'\');"><img src="/images/sort_' + direction +'.gif" border="0"></a>';
+			   		}
+			    }else{
+			    	headings[i].innerHTML = '<a href="javascript: getTerms(\''+ term +'\',\''+ headings[i].id +'\'); isTermsGotten();">'+ headings[i].innerHTML +'</a>';
+			    }
+			  }  
+			}
+		}	
+		
+		function sortDir(switchTo, thisSort, term){
+				direction = switchTo;
+				getTerms(term, thisSort); 
+				isTermsGotten();
+		}
+		
+		///////////////////////////////////////// START LIGHTBOX //////////////////////////////////////
+	
+		function lightboxDisplay(show){
+			if (show){
+				$('overlay').style.display = 'block';
+				$('lightcontainer').style.display = 'inline';
+				centerDisable();
+			}else{
+				$('overlay').style.display = 'none';
+				$('lightcontainer').style.display = 'none';
+				centerReenable();
+			}
+		}
+			function displayIndicator(show){
+				if (show){
+					$('loading-indicator').style.display = "inline";	
+				}else{
+					$('loading-indicator').style.display = "none";	
+				}
+			}
 
 </script>
+<style type="text/css" />
 
-<style type="text/css">
+.leightpadding{
 
+padding:0em 1em 1em 1em;
+
+
+}
+#loading-indicator{
+	
+	background-color: red;
+	color: white;
+	position:absolute;
+	top: 0;
+	left:0;
+	padding: 3px;
+	z-index: 500;
+}
+.leightcontainer{
+ 	display: none;
+ 	position: absolute;
+ 	top: 50%;
+ 	left: 50%;
+ 	margin-left: -200px;
+ 	margin-top: -150px;
+ 	width:400px;
+ 	height: 300px;
+ 	background-color: white;
+ 	text-align: left;
+ 	z-index:1002;
+ 	overflow:hidden;
+	border: 5px solid #E1E1E1;
+}
+
+.leightbox {
+ 	color: #333;
+ 	position:absolute;
+ 	top:30px;
+ 	height:100%;
+ 	width:100%;
+ 	background-color: white;
+ 	text-align: left;
+ 	z-index:1002;
+ 	overflow:auto;	
+
+
+}
+
+.leightbar{
+	position:absolute;
+	top:0%;
+	height:30px;
+	width:100%;
+	background-color:#0066FF;
+	z-index:1002;
+	overflow:hidden;
+}
+
+#overlay{
+ 	display:none;
+ 	position:absolute;
+ 	top:0;
+ 	left:0;
+ 	width:100%;
+ 	height:100%;
+ 	z-index:1000;
+ 	background-color:#333;
+ 	-moz-opacity: 0.8;
+ 	opacity:.80;
+ 	filter: alpha(opacity=80);
+}
+
+
+
+.lbclose{
+float:right;
+
+}
+
+
+
+.lightbox[id]{ /* IE6 and below Can't See This */    position:fixed;    
+}#overlay[id]{ /* IE6 and below Can't See This */    position:fixed;    
+}
 #loading-indicator{
 	
 	background-color: red;
@@ -284,6 +379,14 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 </c:choose>-->
 
 <body>
+	<div id="overlay"></div>
+	<div id="lightcontainer" class="leightcontainer">
+ 	<div id="lightbox" class="leightbox">
+ 		<div id="lightboxpadding" class="leightpadding">
+
+ 		</div>
+ 	</div>
+</div>
 <div id="container">
 		 <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 		<jsp:include page="/header.jsp" />

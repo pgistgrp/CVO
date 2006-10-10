@@ -589,7 +589,24 @@ function lightboxDisplay(show){
 		};
 	///////////////////////////////////////// END SIDEBAR //////////////////////////////////////
 
-
+function lightboxDisplay(show){
+	if (show){
+		$('overlay').style.display = 'block';
+		$('lightcontainer').style.display = 'inline';
+		centerDisable();
+	}else{
+		$('overlay').style.display = 'none';
+		$('lightcontainer').style.display = 'none';
+		centerReenable();
+	}
+}
+	function displayIndicator(show){
+		if (show){
+			$('loading-indicator').style.display = "inline";	
+		}else{
+			$('loading-indicator').style.display = "none";	
+		}
+	}
 
 </script>
 <style type="text/css" />
