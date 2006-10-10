@@ -19,7 +19,8 @@
   <html:form action="/cstlist.do" method="POST">
     <h2>CST List</h2>
     <table id="cstListTable" class="listtable" cellspacing="1" frame="box" rules="all" width="100%">
-      <logic:iterate id="cct" property="ccts" name="cctForm">
+    	<c:
+      <logic:iterate id="project" property="projects" name="">
       <tr>
         <td><html:link action="/cstview.do" paramId="cctId" paramName="cct" paramProperty="id"><bean:write name="cct" property="name"/></html:link></td>
       </tr>
