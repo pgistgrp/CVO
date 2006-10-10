@@ -21,14 +21,14 @@
     <c:forEach var="project" items="${projects}">
     <tr>
       <td>
-        <html:link action="/projectMgr.do" paramId="id" paramName="project" paramProperty="id">
-          <bean:write name="project" property="name"/>
-        </html:link>
+      	 <bean:write name="project" property="name"/>
+        [ <html:link action="/projectMgr.do?action=edit" paramId="id" paramName="project" paramProperty="id">edit</html:link> ]
+        [ <html:link action="/projectMgr.do?action=delete" paramId="id" paramName="project" paramProperty="id">delete</html:link> ]
       </td>
     </tr>
     </c:forEach>
   </table>
-
+		[ <html:link action="/projectMgr.do?action=create">new project</html:link> ]
 </body>
 </html:html>
 
