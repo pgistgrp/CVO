@@ -52,13 +52,68 @@ public class ProjectAgent {
 		try {
 			return (Project)projectService.getProject(pId);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
 	}
     
     
+    /**
+     * Get a Project object by id
+     *
+     * @param id, int
+     * 
+     * @return a Project object
+     */
+    public Project getProjectById(long id){
+        try {
+            return (Project) projectService.getProjectById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }//getProjectById()
+    
+    
+    /**
+     * Create a new Project with the given information.
+     * 
+     * @param params A map contains:
+     *     <ul>
+     *       <li>name - string, name of the Project object</li>
+     *       <li>description - string, description of the project</li>
+     *     </ul>
+     * 
+     * @return A map contains:
+     *     <ul>
+     *       <li>successful - a boolean value denoting if the operation succeeds</li>
+     *       <li>reason - reason why operation failed (valid when successful==false)</li>
+     *       <li>id - the id of the new Project object</li>
+     *     </ul>
+     */
+    public Map createProject(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            String name = (String) params.get("name");
+            String description = (String) params.get("description");
+            
+            Project project = projectService.createProject(name, description);
+            
+            map.put("id", project.getId());
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//createProject()
+   
+   
 	public Map getProjects(String criteria){
 		Map result = new HashedMap();
 		if(criteria == null)criteria = "";

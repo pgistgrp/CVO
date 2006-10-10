@@ -13,7 +13,7 @@ public interface ProjectService {
     
     
     Project getProjectById(Long pid) throws Exception;
-
+    
 	Project getProject(Long pId) throws Exception;
     
     Collection getProjects() throws Exception;
@@ -31,6 +31,9 @@ public interface ProjectService {
 	void saveFootprint(ProjectAlternative pa, double[][][] coords,String geoType) throws Exception;
     
     void publishProjects(String criteria) throws Exception;
-
+    
+    
+    Project createProject(String name, String description) throws Exception;
+    
     
 }//interface ProjectService

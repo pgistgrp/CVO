@@ -188,6 +188,7 @@
       <param name="beanName" value="projectAgent"/>
       <include method="getProject"/>
       <include method="getProjects"/>
+      <include method="createProject"/>
       <include method="saveProject"/>
       <include method="saveAlternative"/>
       <include method="saveFootprint"/>

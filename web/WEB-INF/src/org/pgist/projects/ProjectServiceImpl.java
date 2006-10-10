@@ -121,4 +121,16 @@ public class ProjectServiceImpl implements ProjectService{
     }//getProjects()
 
 
+    public Project createProject(String name, String description) throws Exception {
+        Project project = new Project();
+        
+        project.setName(name);
+        project.setDescription(description);
+        
+        projectDAO.save(project);
+        
+        return project;
+    }//createProject()
+
+
 }//class ProjectServiceImpl

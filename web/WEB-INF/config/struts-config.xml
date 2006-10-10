@@ -68,7 +68,6 @@
         
         <action path="/projectMgr" scope="request" type="org.pgist.projects.ProjectMgrAction">
             <forward name="list" path="/WEB-INF/jsp/projects/projectsList.jsp"/>
-            <forward name="create" path="/WEB-INF/jsp/projects/editProject.jsp"/>
             <forward name="edit" path="/WEB-INF/jsp/projects/editProject.jsp"/>
         </action>
         

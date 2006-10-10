@@ -44,39 +44,23 @@ public class ProjectMgrAction extends Action {
             request.setAttribute("projects", projects);
             
             return mapping.findForward("list");
-        } else {
-            boolean edit = !"-1".equals(id);
-            request.setAttribute("edit", edit);
-            
-            //get the create/edit page
-            try {
-                edit = false;
-                
-                Project project = null;
-                
-                Long pid = new Long(id);
-                
-                if (pid==-1) {
-                    //create
-                    project = new Project();
-                    project.setId(-1L);
-                    project.setName("New Project");
-                } else {
-                    //edit
-                    project = projectService.getProjectById(pid);
-                }
-                
-                request.setAttribute("project", project);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return mapping.findForward("error");
-            }
-            
-            request.setAttribute("edit", edit);
-            
-            if (edit) return mapping.findForward("edit");
-            else return mapping.findForward("create");
         }
+        
+        //get the edit page
+        try {
+            Project project = null;
+            
+            Long pid = new Long(id);
+            
+            project = projectService.getProjectById(pid);
+            
+            request.setAttribute("project", project);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return mapping.findForward("error");
+        }
+        
+        return mapping.findForward("edit");
     }//execute()
     
     
