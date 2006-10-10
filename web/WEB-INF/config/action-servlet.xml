@@ -22,9 +22,6 @@
     <bean name="/feedback" class="org.pgist.system.FeedbackAction">
         <property name="systemService" ref="systemService"/>
     </bean>
-    
-    <bean name="/usercp" class="org.pgist.system.UsercpAction">
-    </bean>
 	
     
     <bean name="/cctlist" class="org.pgist.cvo.CCTListAction">
