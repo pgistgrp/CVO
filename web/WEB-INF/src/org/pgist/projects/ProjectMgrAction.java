@@ -73,9 +73,10 @@ public class ProjectMgrAction extends Action {
             }
             
             request.setAttribute("edit", edit);
+            
+            if (edit) return mapping.findForward("edit");
+            else return mapping.findForward("create");
         }
-        
-        return mapping.findForward("error");
     }//execute()
     
     
