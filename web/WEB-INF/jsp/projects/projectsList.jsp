@@ -28,7 +28,7 @@
     </tr>
     </c:forEach>
   </table>
-		[ <html:link action="/projectMgr.do?action=create">new project</html:link> ]
+		[ <html:link action="/projectMgr.do?id=-1">new project</html:link> ]
 </body>
 </html:html>
 
