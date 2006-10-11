@@ -63,12 +63,6 @@
         <param name="include" value="id, structure, object, voting, owner"/>
     </convert>
 
-	 <convert converter="bean" match="org.pgist.projects.Project"/>
-
-	 <convert converter="bean" match="org.pgist.projects.ProjectAlternative"/>
-
-   <convert converter="bean" match="org.pgist.projects.Package"/>
-
     <!-- DWR Agents -->
 
     <create creator="spring" javascript="CCTAgent">
@@ -109,19 +103,6 @@
       <include method="getThemes"/>
       <include method="getThemeByCatRef"/>
       <include method="saveSummary"/>
-      <include method="publish"/>
-    </create>
-
-
-    <create creator="spring" javascript="CriteriaAgent">
-      <param name="beanName" value="criteriaAgent"/>
-      <include method="addCriterion"/>
-      <include method="deleteCriterion"/>
-      <include method="editCriterion"/>
-      <include method="relateCriteria"/>
-      <include method="derelateCriteria"/>
-      <include method="getCriteria"/>
-      <include method="getCriterionById"/>
       <include method="publish"/>
     </create>
 
@@ -183,32 +164,6 @@
       <include method="getTagById"/>
 	  <include method="getConcernById"/>
     </create>
-
-    <create creator="spring" javascript="ProjectAgent">
-      <param name="beanName" value="projectAgent"/>
-      <include method="getProject"/>
-      <include method="getProjects"/>
-      <include method="createProject"/>
-      <include method="saveProject"/>
-      <include method="saveAlternative"/>
-      <include method="saveFootprint"/>
-      <include method="getFootprint"/>
-      <include method="getFootprints"/>
-      <include method="enableProjectDiscussion"/>
-    </create>
-
-    <!--create creator="spring" javascript="GlossarySidebarAgent">
-      <param name="beanName" value="glossarySidebarAgent"/>
-      <include method="searchTerms"/>
-      <include method="getTerm"/>
-    </create>
-
-
-    <create creator="spring" javascript="TagSidebarAgent">
-      <param name="beanName" value="tagSidebarAgent"/>
-      <include method="searchTerms"/>
-      <include method="getTerm"/>
-    </create-->
 
 
   </allow>

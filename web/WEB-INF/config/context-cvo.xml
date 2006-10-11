@@ -18,13 +18,6 @@
     </bean>
 
 
-    <bean id="criteriaDAO" class="org.pgist.cvo.CriteriaDAOImpl">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory" />
-        </property>
-    </bean>
-
-
     <bean id="cctService" parent="baseTransactionProxy">
         <property name="target">
             <bean class="org.pgist.cvo.CCTServiceImpl">
@@ -58,20 +51,6 @@
     <bean id="cstAgent" class="org.pgist.cvo.CSTAgent">
         <property name="cctService" ref="cctService"/>
         <property name="cstService" ref="cstService"/>
-    </bean>
-
-
-    <bean id="criteriaService" parent="baseTransactionProxy">
-        <property name="target">
-            <bean class="org.pgist.cvo.CriteriaServiceImpl">
-                <property name="criteriaDAO" ref="criteriaDAO"/>
-            </bean>
-        </property>
-    </bean>
-
-
-    <bean id="criteriaAgent" class="org.pgist.cvo.CriteriaAgent">
-        <property name="criteriaService" ref="criteriaService"/>
     </bean>
 
 

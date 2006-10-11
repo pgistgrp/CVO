@@ -10,6 +10,7 @@
         </property>
     </bean>
 
+
     <bean id="projectService" parent="baseTransactionProxy">
         <property name="target">
             <bean class="org.pgist.projects.ProjectServiceImpl">
@@ -19,9 +20,11 @@
         </property>
     </bean>
 
+
     <bean id="projectAgent" class="org.pgist.projects.ProjectAgent">
         <property name="projectService" ref="projectService"/>
     </bean>
+
 
 </beans>
 

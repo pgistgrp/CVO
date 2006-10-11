@@ -2,6 +2,8 @@ package org.pgist.projects;
 
 import java.io.Serializable;
 
+import org.pgist.criteria.Criteria;
+
 
 /**
  * @author Mike and Guirong

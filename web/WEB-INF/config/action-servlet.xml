@@ -64,7 +64,12 @@
     </bean>
     
     
-    <bean name="/criteriaMgr" class="org.pgist.cvo.CriteriaMgrAction">
+    <bean name="/fundingMgr" class="org.pgist.funding.FundingMgrAction">
+        <property name="fundingService" ref="fundingService"/>
+    </bean>
+    
+    
+    <bean name="/criteriaMgr" class="org.pgist.criteria.CriteriaMgrAction">
         <property name="criteriaService" ref="criteriaService"/>
         <property name="cctService" ref="cctService"/>
     </bean>

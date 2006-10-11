@@ -49,6 +49,7 @@
 <pg:show users="admin"><li><a href="/userlist.do">User Management</a></li></pg:show>
 <li><html:link page="/criteriaMgr.do">Criteria Management Tool</html:link></li>
 <li><html:link page="/projectMgr.do">Projects Management Tool</html:link></li>
+<li><html:link page="/fundingMgr.do">Funding Source Management Tool</html:link></li>
 <li><html:link page="/tagging.do">Tags/StopWords Management Tool</html:link></li>
 <li><html:link page="/cstlist.do">Concerns Synthesis Tool</html:link></li>
 <li><html:link page="/glossaryManage.do">Glossary Management Tool</html:link></li>

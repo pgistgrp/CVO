@@ -13,6 +13,8 @@
             /WEB-INF/config/context-cvo.xml
             /WEB-INF/config/context-cm.xml
             /WEB-INF/config/context-pgames.xml
+            /WEB-INF/config/context-criteria.xml
+            /WEB-INF/config/context-funding.xml
             /WEB-INF/config/context-projects.xml
         </param-value>
     </context-param>
@@ -123,8 +125,16 @@
             <param-value>WEB-INF/config/dwr-cvo.xml</param-value>
         </init-param>
         <init-param>
-            <param-name>config-pgames</param-name>
-            <param-value>WEB-INF/config/dwr-pgames.xml</param-value>
+            <param-name>config-criteria</param-name>
+            <param-value>WEB-INF/config/dwr-criteria.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>config-funding</param-name>
+            <param-value>WEB-INF/config/dwr-funding.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>config-projects</param-name>
+            <param-value>WEB-INF/config/dwr-projects.xml</param-value>
         </init-param>
         <init-param>
             <param-name>debug</param-name>

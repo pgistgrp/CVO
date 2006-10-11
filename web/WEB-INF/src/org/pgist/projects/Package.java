@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.pgist.funding.FundingSource;
+
 
 /**
  * @author Guirong
@@ -204,7 +206,7 @@ public class Package implements Serializable {
     /**
      * @hibernate.set lazy="true" table="pgist_ag_pack_fund" cascade="none"
      * @hibernate.collection-key column="package_id"
-     * @hibernate.collection-many-to-many  column="fund_id" class="org.pgist.projects.FundingSource"
+     * @hibernate.collection-many-to-many  column="fund_id" class="org.pgist.funding.FundingSource"
      */
     public Set<FundingSource> getFundingSources() {
         return fundingSources;

@@ -77,14 +77,11 @@
                <value>org/pgist/wfengine/Template.hbm.xml</value>
                <value>org/pgist/wfengine/Task.hbm.xml</value>
                <value>org/pgist/wfengine/AccessManager.hbm.xml</value>
-               <value>org/pgist/voting/VotePackage.hbm.xml</value>
-               <value>org/pgist/voting/VoteSheet.hbm.xml</value>
-               <value>org/pgist/voting/VoteItem.hbm.xml</value>
-               <value>org/pgist/projects/FundingSource.hbm.xml</value>
-               <value>org/pgist/projects/FundingSourceAlternative.hbm.xml</value>
-               <value>org/pgist/projects/MOE.hbm.xml</value>
+               <value>org/pgist/criteria/MOE.hbm.xml</value>
+               <value>org/pgist/criteria/Criteria.hbm.xml</value>
+               <value>org/pgist/funding/FundingSource.hbm.xml</value>
+               <value>org/pgist/funding/FundingSourceAlternative.hbm.xml</value>
                <value>org/pgist/projects/Corridor.hbm.xml</value>
-               <value>org/pgist/projects/Criteria.hbm.xml</value>
                <value>org/pgist/projects/Package.hbm.xml</value>
                <value>org/pgist/projects/Project.hbm.xml</value>
                <value>org/pgist/projects/ProjectAlternative.hbm.xml</value>
