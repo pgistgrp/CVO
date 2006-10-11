@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+
+    <bean id="fundingDAO" class="org.pgist.funding.FundingDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
+    <bean id="fundingService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.funding.FundingServiceImpl">
+                <property name="fundingDAO" ref="fundingDAO"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="fundingAgent" class="org.pgist.funding.FundingAgent">
+        <property name="fundingService" ref="fundingService"/>
+    </bean>
+
+
+</beans>
+
