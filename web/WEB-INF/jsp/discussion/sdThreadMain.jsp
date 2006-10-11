@@ -15,6 +15,7 @@
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 
+<script language="javascript" type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
 
 <!-- Site Wide JavaScript -->
 <script src="scripts/tags.js" type="text/javascript"></script>
@@ -35,6 +36,7 @@
 <!--End SDX Specific  Libraries-->
 
 
+
 <script type="text/javascript">
 		/* global vars */
 			var countPerPage = 10; //numer of posts per page
@@ -52,12 +54,15 @@
 		 	lastPage = page;
 		 	displayIndicator(true);
 			var newReplyTitle = $('txtnewReplyTitle').value;
-			var newReply = validateInput($('txtnewReply').value);
+			//var newReply = validateInput($('txtnewReply').value);
+			var newReply = tinyMCE.getContent();
+			
 			var newReplyTags = $('newReplyTags').value;
 		    SDAgent.createReply({isid:${structure.id}, pid:${post.id}, title:newReplyTitle, content:newReply, tags: newReplyTags}, {
 		      callback:function(data){
 		          if (data.successful){     
 						$('txtnewReply').value = '';
+						tinyMCE.setContent('');
 						$('newReplyTags').value = '';
 						if (${setting.page} != lastPage){
 							location.href='sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=' + lastPage;
@@ -65,6 +70,7 @@
 							getReplies();	
 						}
 						displayIndicator(false);
+						
 						
 		          }else{
 		            alert(data.reason);
@@ -106,15 +112,20 @@
 		          			
 		          			$('replies-cont').innerHTML = data.html;         
 		          			displayIndicator(false);
+							
+
+
 		          }else{
 		            alert("data.successful != true: " + data.reason);
 		            displayIndicator(false);
 		          }
 		      },
+			  async:false,
 		      errorHandler:function(errorString, exception){
 		          alert("getReplies Error" + errorString + exception);
 		      }
 		    });
+			tinyMCE.execCommand('mceAddControl',false,'txtnewReply');
 		  }
 
 	
@@ -448,6 +459,15 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 	sideBar.addPIDFilter();
 
 </script>
+<script type="text/javascript">
+tinyMCE.init({
+	mode : "exact",
+	elements : "txtnewReply",
+	theme : "simple",
+	content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css"
+});
+</script>
+
 </html:html>
 
 

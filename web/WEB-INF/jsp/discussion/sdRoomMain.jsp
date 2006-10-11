@@ -14,6 +14,8 @@
 <!-- End Site Wide CSS -->
 
 
+<script language="javascript" type="text/javascript" src="/scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+
 <!-- Site Wide JavaScript -->
 <script src="scripts/search.js" type="text/javascript"></script>
 <script src="scripts/tags.js" type="text/javascript"></script>
@@ -35,7 +37,15 @@
 <script src="scripts/lightbox.js" type="text/javascript"></script>
 <!--End SDX Specific  Libraries-->
 
+<script language="javascript" type="text/javascript">
+tinyMCE.init({
+	mode : "exact",
+	elements: "txtNewPost",
+	theme : "simple",
+	content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css"
+});
 
+</script>
 <script type="text/javascript">
 <!--
 	///////////////////////////////////////// START INFO OBJECT //////////////////////////////////////

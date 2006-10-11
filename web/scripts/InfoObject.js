@@ -36,7 +36,7 @@
 	 	 //Make sure ID's of Inputs and Divs match when putting the following in a separate file.
 	 	 /*----Input ID's - these id's of input elements have changing content or gets read by the javascript ---- */
 	 	 this.newPostTitleInput = "txtNewPostTitle";   //new post title input box
-	 	 this.newPostBodyInput = "txtNewPost"; //new post input text area
+	 	 this.newPostBodyInput = "txtNewPost"; //new post input text area --- now uses tinyMCE.getContent() to get input
 	 	 this.newPostTagsInput = "txtNewPostTags"; //new post tags input box
 	 	 
 	 	 /*----Divs - these divs have changing content or gets read by the javascript ---- */
@@ -100,7 +100,9 @@
 	 	 		displayIndicator(true);
 	
 	 	 		var newPostTitle = $(this.newPostTitleInput).value;
-	 	 		var newPost = validateInput($(this.newPostBodyInput).value);
+	 	 		//var newPost = validateInput($(this.newPostBodyInput).value);
+				var newPost= tinyMCE.getContent();
+				tinyMCE.setContent('');
 	 	 		var newPostTags = $(this.newPostTagsInput).value;
 	 	 		
 				SDAgent.createPost({isid:this.structureId, ioid: this.objectId, title: newPostTitle, content: newPost, tags:newPostTags}, {

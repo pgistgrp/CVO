@@ -16,6 +16,8 @@
 	<style type="text/css" media="screen">@import "/styles/styles.css";</style>
 	<style type="text/css" media="screen">@import "/styles/tabs.css";</style>
 
+
+	<script type="text/javascript" src="/temp/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
  	<!--JavaScript Libraries -->
  	<script src="/scripts/prototype.js" type="text/javascript"></script>
  	<script src="/scripts/rico_simple.js" type="text/javascript"></script>
@@ -40,6 +42,19 @@
 	<style type="text/css" media="screen">@import "/styles/template5.css";</style>
 	<script src="/scripts/resize_t5.js" type="text/javascript"></script>
 	<!-- End Template 5 Specific -->
+	
+	
+
+	<script language="javascript" type="text/javascript">
+tinyMCE.init({
+	mode : "exact",
+	elements: "sumtext",
+	theme : "simple"
+});
+
+</script>
+	
+	
 	
 	<script type="text/javascript">
 		///////////////////////////////////////////////////new change/////////////////////////
@@ -133,12 +148,14 @@
 			if(theSummary)
 				summaryString = theSummary;
 			else
-				summaryString = editor1.getContent();
+				//summaryString = //editor1.getContent();
+				summaryString=tinyMCE.getContent();
 				
 			CSTAgent.saveSummary({cctId:cctId, themeId:themeId, summary:summaryString, description: "discuss concerns about"}, {
 			callback:function(data){
 				if (data.successful){
-					editor1.setMessage("summary saved.");	
+				
+					//editor1.setMessage("summary saved.");	
 					getThemes ();
 				}else{
 					alert(data.reason);
@@ -429,10 +446,11 @@
 			if(previousTheme != currentTheme)
 			{ 	//this means that the editor should be reloaded.
 					if(previousTheme)
-						if(previousTheme.summary != editor1.getContent())
+						if(previousTheme.summary != tinyMCE.getContent())
 						{
-							if(confirm ("Summery for theme \"" + previousTheme.title + "\" is changed. Do you want to save?"))
-							  	saveSummary (previousTheme,editor1.getContent());
+							if(confirm ("Summary for theme \"" + previousTheme.title + "\" is changed. Do you want to save?"))
+							  	//saveSummary (previousTheme,editor1.getContent());
+								saveSummary(previousTheme,tinyMCE.getContent());
 						  }
 					previousTheme  = currentTheme ;
 					if(currentTheme.summary == ""){
@@ -441,7 +459,9 @@
 					}else{
 						setThemeTitle("View/edit summary for theme \"" + tempcate.label + "\"");
 					}
-					editor1.putContent (currentTheme.summary);
+					//editor1.putContent (currentTheme.summary);
+					tinyMCE.setContent(currentTheme.summary);
+					
 			}
 		}
 		
@@ -496,14 +516,18 @@
 								if(themeCollection != null){
 									currentTheme = themeCollection[tempcate.dataId];
 									if(previousTheme)
-										if(previousTheme.summary != editor1.getContent())
+										//if(previousTheme.summary != editor1.getContent())
+										if(previousTheme.summary!= tinyMCE.getContent())
 										{
 											if(confirm ("Summery for theme \"" + previousTheme.title + "\" is changed. Do you want to save?"))
-												saveSummary (previousTheme,editor1.getContent());
+												//saveSummary (previousTheme,editor1.getContent());
+												saveSummary(previousTheme,tinyMCE.getContent());
 										  }
 									previousTheme  = currentTheme ;
 									
-									editor1.putContent (currentTheme.summary + "<br>" + sourceTheme.summary);								
+									//editor1.putContent (currentTheme.summary + "<br>" + sourceTheme.summary);				
+									tinyMCE.setContent(currentTheme.summary + "<br>" + sourceTheme.summary);		
+											
 								}
 							
 							}
@@ -714,15 +738,18 @@ categories, each with 1 or 2 tags in it.</li></ol><li><b>Identify themes and sum
 				doOnLoad();
 				getThemes();
 				
-				var editor1 = new WYSIWYG_Editor('editor1', 'Please select a theme to begin generating summary.');
-				    editor1.display();
+				//var editor1 = new WYSIWYG_Editor('editor1', 'Please select a theme to begin generating summary.');
+				  //  editor1.display();
 			
 			</script>				  
 	     		<!-- END Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
-			<div id="frmSaveSummary" style="text-align: right"><span id="wysiwyg_message" style="position: display:none;"></span><button id="ss" type="button" disabled="true" style="padding: 0pt 1em;" onclick="saveSummary()">Save summery</button></div>
+			<!--<div id="frmSaveSummary" style="text-align: right"><span id="wysiwyg_message" style="position: display:none;"></span><button id="ss" type="button" disabled="true" style="padding: 0pt 1em;" onclick="saveSummary()">Save summery</button></div>-->
 		</div>
 		
-			 
+		<div id="frmSaveSummary" style="text-align:right;">
+			 <textarea id="sumtext" style="width:100%; height:140px;"></textarea>
+			 <button id="ss" type="button" disabled="true" style="padding: 0pt 1em;" onclick="saveSummary()">Save summary</button>
+			 </div>
 		<div id="spacer" style="text-align: right;"></div>
 		
 		
