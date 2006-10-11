@@ -13,6 +13,16 @@
 
 <body>
   <h2>Edit Project.</h2>
+  
+  Variables for this page
+  <ul>
+  	<li>Project Id = ${project.id} </li>
+  	<li>If true, editing mode.  If false, create mode. :: ${edit}</li>
+  	<li></li>
+  	<li></li>
+  	<li></li>
+  </ul>
+  	
 
 </body>
 </html:html>

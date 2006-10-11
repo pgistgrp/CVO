@@ -497,7 +497,7 @@ function lightboxDisplay(show){
 	*/
 	var sideBar = new SideBar("${structure.id}", "${object.id}","${cctForm.cct.id}","${object.object}", "All Participant' Concerns", 5, "Show All Concerns", "Filter All Concerns By", 50, "" ); 
 	sideBar.getAbstractItems = function(tags, page){
-		CCTAgent.getContextConcerns({cctId: this.cctId,tags: tags, count: this.itemsCount, page: page}, {
+		CCTAgent.getContextConcerns({cctId: this.cctId,tags: tags, count: this.itemsCount, page: page, contextAware: false}, {
 			callback:function(data){
 					if (data.successful){
 	          			$(sideBar.divContent).innerHTML = data.html;//using partial sidebar-concerns.jsp
