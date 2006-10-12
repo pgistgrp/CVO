@@ -17,8 +17,7 @@
 
 <body>
   <h2>Criteria List</h2>
-  <html:link page="/criteriaMgr.do?action=manage">Manage Criteria</html:link>
-   
+
   <table id="sdListTable" class="listtable" cellspacing="1" frame="box" rules="all" width="100%">
     <c:forEach var="cct" items="${ccts}">
     <tr>

@@ -8,7 +8,7 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
 <head>
-<title>Associate Criteria</title>
+<title>Associate and Publish Criteria</title>
 <!-- Site Wide JavaScript -->
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
