@@ -46,29 +46,46 @@
 <pg:show roles="moderator">
 <h3>Moderator Tools</h3>
 <ul>
-<pg:show users="admin"><li><a href="/userlist.do">User Management</a></li></pg:show>
-<li><html:link page="/criteriaMgr.do">Criteria Management Tool</html:link></li>
-<li><html:link page="/criteriaPublish.do">Criteria Publish Tool</html:link></li>
-<li><html:link page="/projectMgr.do">Projects Management Tool</html:link></li>
-<li><html:link page="/projectPublish.do">Projects Publish Tool</html:link></li>
-<li><html:link page="/fundingMgr.do">Funding Source Management Tool</html:link></li>
-<li><html:link page="/fundingPublish.do">Funding Source Publish Tool</html:link></li>
-<li><html:link page="/tagging.do">Tags/StopWords Management Tool</html:link></li>
-<li><html:link page="/cstlist.do">Concerns Synthesis Tool</html:link></li>
-<li><html:link page="/glossaryManage.do">Glossary Management Tool</html:link></li>
-<li><html:link page="/feedback.do">Reviewing Feedbacks</html:link></li>
-
-<li><pg:show roles="participant, moderator"><html:link page="/sdlist.do">Step 1b: Discuss Concerns Summaries</html:link></pg:show></li>
-
+	<li><html:link page="/feedback.do">Reviewing Feedbacks</html:link></li>
+	<li>Step 0</li>
+		<ul>
+			<pg:show users="admin"><li><a href="/userlist.do">User Management</a></li></pg:show>
+			<li><html:link page="/tagging.do">Tags/StopWords Management Tool</html:link></li>
+			<li><html:link page="/glossaryManage.do">Glossary Management Tool</html:link></li>
+		</ul>
+	<li>Step 1</li>
+		<ul>
+			<li><html:link page="/cstlist.do">Concerns Synthesis Tool</html:link></li>
+			<li><pg:show roles="participant, moderator"><html:link page="/sdlist.do">Step 1b: Discuss Concerns Summaries</html:link></pg:show></li>
+		</ul>
+	<li>Step 2</li>
+		<ul>
+			<li><html:link page="/criteriaMgr.do">Criteria Management Tool</html:link></li>
+			<li><html:link page="/criteriaPublish.do">Criteria Publish Tool</html:link></li>
+		</ul>
+	<li>Step 3</li>
+		<ul>
+			<li><html:link page="/editProject.jsp">Test Edit Projects</html:link></li>
+			<li><html:link page="/projectMgr.do">Projects Management Tool</html:link></li>
+			<li><html:link page="/projectPublish.do">Projects Publish Tool</html:link></li>
+			<li><html:link page="/fundingMgr.do">Funding Source Management Tool</html:link></li>
+			<li><html:link page="/fundingPublish.do">Funding Source Publish Tool</html:link></li>
+		</ul>
+	<li>Step 4</li>
+		<ul>
+			<li>Packages Management Tool</li>
+			<li>Packages Publish Tool</li>
+		</ul>
 </ul>
 
 <h3>Development Tools</h3>
 <ul>
-<li><html:link page="/test.jsp">Test</html:link></li>
-<li><html:link page="/concernManagement.do">Concern Management</html:link></li>
-<li><html:link page="/search.do">Search</html:link></li>
-<li><html:link page="/situationList.do">Situation List</html:link></li>
-<li><html:link page="/pgist-docs/index.html">Javadoc</html:link></li>
+	<li><html:link page="/thematic_map.htm">Test Thematic Map</html:link></li>
+	<li><html:link page="/concernManagement.do">Concern Management</html:link></li>
+	<li><html:link page="/search.do">Search</html:link></li>
+	<li><html:link page="/situationList.do">Situation List</html:link></li>
+	<li><html:link page="/pgist-docs/index.html">Javadoc</html:link></li>
+	<li><html:link page="/dwr/index.html">DWR Test</html:link></li>
 </ul>
 </pg:show>
 </div>
