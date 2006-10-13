@@ -30,7 +30,6 @@ public class CriteriaAgent {
      * 
      * @param params a Map contains:
      *   <ul>
-     *     <li>cctId - int, the id of an CCT object</li>
      *     <li>name - string, name of the criteia</li>
      *     <li>low - string, descript</li>
      *     <li>medium - string, descript</li>
@@ -64,7 +63,6 @@ public class CriteriaAgent {
      * 
      * @param params a Map contains:
      *   <ul>
-     *     <li>cctId - int, the id of an CCT object</li>
      *     <li>id - int, the id of the criterion to be deleted</li>
      *   </ul>
      * @return a Map contains:
@@ -89,11 +87,10 @@ public class CriteriaAgent {
     
     
     /**
-     * Add one new criterion to the system.
+     * Edit an existing criterion.
      * 
      * @param params a Map contains:
      *   <ul>
-     *     <li>cctId - int, the id of an CCT object</li>
      *     <li>id - int, the id of the Criteria to be edited</li>
      *     <li>name - string, name of the criteia</li>
      *     <li>low - string, descript</li>
@@ -220,7 +217,7 @@ public class CriteriaAgent {
     
     
     /**
-     * Add one all or unrelated criteria to the given theme.
+     * Get all unrelated criteria to the given theme.
      * 
      * @param params a Map contains:
      *   <ul>
@@ -242,7 +239,7 @@ public class CriteriaAgent {
      *     </li>
      *   </ul>
      */
-    public Map getCriteria(Map params) {
+    public Map getAvailableCriteria(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -254,7 +251,7 @@ public class CriteriaAgent {
         }
         
         return map;
-    }//getCriteria()
+    }//getAvailableCriteria()
     
     
     /**
