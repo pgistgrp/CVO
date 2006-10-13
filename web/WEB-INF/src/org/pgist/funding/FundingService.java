@@ -13,6 +13,9 @@ import org.pgist.util.PageSetting;
 public interface FundingService {
     
     
+    Collection getFundingSources() throws Exception;
+
+
     Collection getFundingSources(PageSetting setting) throws Exception;
     
     
@@ -20,6 +23,18 @@ public interface FundingService {
 
 
     void editFundingSource(Long id, String name) throws Exception;
+
+
+    FundingSourceAlternative createFundingSourceAlt(String name, float revenue, float taxRate) throws Exception;
+
+
+    void editFundingSourceAlt(Long id, String name, float revenue, float taxRate) throws Exception;
+
+
+    void deleteFundingSource(Long id) throws Exception;
     
     
+    void deleteFundingSourceAlt(Long id) throws Exception;
+
+
 }//interface FundingService

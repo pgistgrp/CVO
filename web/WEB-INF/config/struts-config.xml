@@ -76,9 +76,16 @@
             <forward name="edit" path="/WEB-INF/jsp/projects/editFunding.jsp"/>
         </action>
         
+        <action path="/fundingPublish" scope="request" type="org.pgist.funding.FundingPublishAction">
+            <forward name="main" path="/WEB-INF/jsp/projects/fundingPublish.jsp"/>
+        </action>
+        
         <action path="/criteriaMgr" scope="request" type="org.pgist.criteria.CriteriaMgrAction">
-            <forward name="list" path="/WEB-INF/jsp/criteria/criteriaList.jsp"/>
-            <forward name="manage" path="/WEB-INF/jsp/criteria/criteriaMgr.jsp"/>
+            <forward name="list" path="/WEB-INF/jsp/criteria/criteriaMgr.jsp"/>
+        </action>
+        
+        <action path="/criteriaPublish" scope="request" type="org.pgist.criteria.CriteriaPublishAction">
+            <forward name="list" path="/WEB-INF/jsp/criteria/cctList.jsp"/>
             <forward name="assoc" path="/WEB-INF/jsp/criteria/criteriaAssoc.jsp"/>
         </action>
         

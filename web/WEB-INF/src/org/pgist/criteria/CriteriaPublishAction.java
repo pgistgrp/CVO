@@ -44,15 +44,17 @@ public class CriteriaPublishAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-        String cctId = (String) request.getParameter("cctId");
+        String action = (String) request.getParameter("action");
         
-        if (cctId==null || cctId.length()==0) {
+        if (action==null || action.length()==0) {
             Collection ccts = cctService.getCCTs();
             
             request.setAttribute("ccts", ccts);
             
             return mapping.findForward("list");
         } else {
+            String cctId = (String) request.getParameter("cctId");
+            
             Long id = new Long(cctId);
             CCT cct = cctService.getCCTById(id);
             

@@ -21,6 +21,9 @@ public interface FundingDAO extends BaseDAO {
     
     
     FundingSource getFundingSourceByName(String name) throws Exception;
+
+
+    Collection getFundingSources() throws Exception;
     
     
 }//interface FundingDAO

@@ -1,5 +1,7 @@
 package org.pgist.criteria;
 
+import java.util.Collection;
+
 
 /**
  * 
@@ -9,7 +11,7 @@ package org.pgist.criteria;
 public interface CriteriaService {
     
     
-    
+    Collection getCriterias() throws Exception;
     
     
 }//interface CriteriaService

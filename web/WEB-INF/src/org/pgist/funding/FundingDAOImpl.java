@@ -17,6 +17,11 @@ import org.pgist.util.PageSetting;
 public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
     
     
+    public Collection getFundingSources() throws Exception {
+        return null;
+    }//getFundingSources()
+
+
     private static final String hql_getFundingSources_1 = "select count(fs.id) from FundingSource fs";
     
     private static final String hql_getFundingSources_2 = "from FundingSource fs order by fs.id";

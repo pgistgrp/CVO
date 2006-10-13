@@ -155,4 +155,163 @@ public class FundingAgent {
     }//editFundingSource()
     
     
+    /**
+     * Delete a given funding source
+     * 
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>id - int, id of the FundingSource object</li>
+     *   </ul>
+     *   
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map deleteFundingSource(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long id = new Long((String) params.get("id"));
+            
+            fundingService.deleteFundingSource(id);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//deleteFundingSource()
+    
+    
+    /**
+     * Create a new funding source alt
+     * 
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>id - int, the id of the funding source this alt associated</li>
+     *     <li>name - string, name of the funding source alt</li>
+     *     <li>revenue - float, revenue of the funding source alt</li>
+     *     <li>taxRate - float, tax rate of the funding source alt</li>
+     *   </ul>
+     *   
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>id - the id of the newly created funding source alt</li>
+     *   </ul>
+     */
+    public Map createFundingSourceAlt(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            String name = (String) params.get("name");
+            if (name==null || name.trim().length()==0) {
+                map.put("reason", "name is required.");
+            }
+            
+            float revenue = new Float((String) params.get("revenue"));
+            float taxRate = new Float((String) params.get("taxRate"));
+            
+            FundingSourceAlternative alt = fundingService.createFundingSourceAlt(name, revenue, taxRate);
+            
+            map.put("id", alt.getId());
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//createFundingSourceAlt()
+    
+    
+    /**
+     * Edit a given funding source alt
+     * 
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>id - int, id of the FundingSourceAlternative object</li>
+     *     <li>name - string, name of the funding source alt</li>
+     *     <li>revenue - float, revenue of the funding source alt</li>
+     *     <li>taxRate - float, tax rate of the funding source alt</li>
+     *   </ul>
+     *   
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map editFundingSourceAlt(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long id = new Long((String) params.get("id"));
+            
+            String name = (String) params.get("name");
+            if (name==null || name.trim().length()==0) {
+                map.put("reason", "name is required.");
+            }
+            
+            float revenue = new Float((String) params.get("revenue"));
+            float taxRate = new Float((String) params.get("taxRate"));
+            
+            fundingService.editFundingSourceAlt(id, name, revenue, taxRate);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//editFundingSourceAlt()
+    
+    
+    /**
+     * Delete a given funding source alt
+     * 
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>id - int, id of the FundingSourceAlternative object</li>
+     *   </ul>
+     *   
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map deleteFundingSourceAlt(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long id = new Long((String) params.get("id"));
+            
+            fundingService.deleteFundingSourceAlt(id);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//deleteFundingSourceAlt()
+    
+    
 }//class FundingAgent

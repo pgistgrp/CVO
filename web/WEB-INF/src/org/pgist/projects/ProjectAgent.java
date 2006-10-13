@@ -42,20 +42,24 @@ public class ProjectAgent {
 	 */
     
     
-	/**
-	 *
-	 * @param pId
-	 * @return
-	 * A map containing the project object and the coordinates
-	 */
-	public Project getProject(long pId){
-		try {
-			return (Project)projectService.getProject(pId);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+    public Map getProjects(String criteria){
+        Map result = new HashedMap();
+        if(criteria == null)criteria = "";
+
+        try{
+            List projects = projectService.getProjects(criteria);
+            result.put("projects", projects);
+            for(int i=0; i<projects.size(); i++){
+                System.out.println("-->get project: " + ((Project)projects.get(i)).getName());
+            }
+            result.put("successful", true);
+        }catch(Exception e){
+            e.printStackTrace();
+            result.put("successful", false);
+            result.put("reason", e.getMessage());
+        }
+        return result;
+    }//getProjects()
     
     
     /**
@@ -112,9 +116,82 @@ public class ProjectAgent {
         
         return map;
     }//createProject()
-   
-   
-	public Map getProjects(String criteria){
+    
+    
+    /**
+     * Edit a Project with the given information.
+     * 
+     * @param params A map contains:
+     *     <ul>
+     *       <li>id - int, id of the Project object</li>
+     *       <li>name - string, name of the Project object</li>
+     *       <li>description - string, description of the project</li>
+     *       <li>corId - int, id of a Corridor object</li>
+     *     </ul>
+     * 
+     * @return A map contains:
+     *     <ul>
+     *       <li>successful - a boolean value denoting if the operation succeeds</li>
+     *       <li>reason - reason why operation failed (valid when successful==false)</li>
+     *       <li>id - the id of the new Project object</li>
+     *     </ul>
+     */
+    public Map createProject0(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            String name = (String) params.get("name");
+            String description = (String) params.get("description");
+            
+            Long corId = null;
+            
+            try {
+                corId = new Long((String) params.get("corId"));
+            } catch (Exception e) {
+            }
+            
+            //Project project = projectService.createProject(name, description, corId);
+            
+            //map.put("id", project.getId());
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//createProject()
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /**
+	 *
+	 * @param pId
+	 * @return
+	 * A map containing the project object and the coordinates
+	 */
+	public Project getProject(long pId){
+		try {
+			return (Project)projectService.getProject(pId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+    
+    
+	public Map getProjects0(String criteria){
 		Map result = new HashedMap();
 		if(criteria == null)criteria = "";
 

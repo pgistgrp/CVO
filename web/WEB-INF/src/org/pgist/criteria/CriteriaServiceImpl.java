@@ -1,5 +1,7 @@
 package org.pgist.criteria;
 
+import java.util.Collection;
+
 
 /**
  * 
@@ -15,11 +17,16 @@ public class CriteriaServiceImpl implements CriteriaService {
     public void setCriteriaDAO(CriteriaDAO criteriaDAO) {
         this.criteriaDAO = criteriaDAO;
     }
-    
-    
+
+
     /*
      * ------------------------------------------------------------------------
      */
+    
+    
+    public Collection getCriterias() throws Exception {
+        return null;
+    }//getCriterias()
     
     
 }//class CriteriaServiceImpl

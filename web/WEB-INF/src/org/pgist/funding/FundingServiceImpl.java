@@ -26,6 +26,11 @@ public class FundingServiceImpl implements FundingService {
      */
     
     
+    public Collection getFundingSources() throws Exception {
+        return fundingDAO.getFundingSources();
+    }//getFundingSources()
+
+
     public Collection getFundingSources(PageSetting setting) throws Exception {
         return fundingDAO.getFundingSources(setting);
     }//getFundingSources()
@@ -52,6 +57,23 @@ public class FundingServiceImpl implements FundingService {
         
         fundingDAO.save(funding);
     }//editFundingSource()
+
+
+    public FundingSourceAlternative createFundingSourceAlt(String name, float revenue, float taxRate) throws Exception {
+        return null;
+    }//createFundingSourceAlt()
+
+
+    public void editFundingSourceAlt(Long id, String name, float revenue, float taxRate) throws Exception {
+    }//editFundingSourceAlt()
+
+
+    public void deleteFundingSource(Long id) throws Exception {
+    }//deleteFundingSource()
+
+
+    public void deleteFundingSourceAlt(Long id) throws Exception {
+    }//deleteFundingSourceAlt()
 
 
 }//class FundingServiceImpl

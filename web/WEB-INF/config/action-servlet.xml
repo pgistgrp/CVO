@@ -69,7 +69,17 @@
     </bean>
     
     
+    <bean name="/fundingPublish" class="org.pgist.funding.FundingMgrAction">
+        <property name="fundingService" ref="fundingService"/>
+    </bean>
+    
+    
     <bean name="/criteriaMgr" class="org.pgist.criteria.CriteriaMgrAction">
+        <property name="criteriaService" ref="criteriaService"/>
+    </bean>
+    
+    
+    <bean name="/criteriaPublish" class="org.pgist.criteria.CriteriaPublishAction">
         <property name="criteriaService" ref="criteriaService"/>
         <property name="cctService" ref="cctService"/>
     </bean>
