@@ -22,7 +22,7 @@
     <c:forEach var="cct" items="${ccts}">
     <tr>
       <td>
-        <html:link action="/criteriaMgr.do?action=assoc" paramId="cctId" paramName="cct" paramProperty="id">
+        <html:link action="/criteriaPublish.do?action=assoc" paramId="cctId" paramName="cct" paramProperty="id">
           <bean:write name="cct" property="name"/>
         </html:link>
       </td>

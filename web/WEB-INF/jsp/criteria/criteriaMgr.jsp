@@ -42,7 +42,7 @@
 */
 
 // Global Variables
-	var cctId = "${cct.id}";
+
 
 // END Global Variables
 // START CriteriaAgent DWR Functions - For more info See: http://localhost:8080/pgist-docs/org/pgist/criteria/CriteriaAgent.html
@@ -52,7 +52,6 @@
 		    Add one new criterion to the system.
 		    Parameters:
 		        params - a Map contains:
-		            * cctId - int, the id of an CCT object
 		            * name - string, name of the criteia
 		            * low - string, descript
 		            * medium - string, descript
@@ -67,7 +66,7 @@
 		    		 * Use the returned ID to highlight newly created criterion (Effect.Highlight(ID);)
 		 */
 		function addCriterion(name, low, medium, high){
-		CriteriaAgent.addCriterion({cctId:cctId, name: name, low: low, medium: medium, high: high}, {
+		CriteriaAgent.addCriterion({name: name, low: low, medium: medium, high: high}, {
 				callback:function(data){
 						if (data.successful){
 							
@@ -85,7 +84,6 @@
 			    Delete a criterion from the system.
 			    Parameters:
 			        params - a Map contains:
-			            * cctId - int, the id of an CCT object
 			            * id - int, the id of the criterion to be deleted
 			    Returns:
 			        a Map contains:
@@ -95,7 +93,7 @@
 		    			 * On Successful, fade element that contains the criterion (Effect.Fade("criterion"+id));
 		 */
 		function deleteCriterion(id){
-		CriteriaAgent.deleteCriterion({cctId:cctId, id: id}, {
+		CriteriaAgent.deleteCriterion({id: id}, {
 				callback:function(data){
 						if (data.successful){
 							//new Effect.Fade("criterion"+id);
@@ -109,10 +107,9 @@
 
 		/** editCriterion
 		public java.util.Map editCriterion(java.util.Map params)
-	    Update criterion to the system.
+	    Update an exisiting criterion.
 	    Parameters:
 	        params - a Map contains:
-	            * cctId - int, the id of an CCT object
 	            * id - int, the id of the Criteria to be edited
 	            * name - string, name of the criteia
 	            * low - string, descript
@@ -127,7 +124,7 @@
 		    	 * Use the given ID to highlight modified criterion (Effect.Highlight(ID);)
 		 */
 		function editCriterion(name, low, medium, high){
-		CriteriaAgent.addCriterion({cctId:cctId, name: name, low: low, medium: medium, high: high}, {
+		CriteriaAgent.addCriterion({name: name, low: low, medium: medium, high: high}, {
 				callback:function(data){
 						if (data.successful){
 							
@@ -149,7 +146,7 @@
 
 <body>
   <h3>Moderator Tools &raquo; Manage Criteria</h3> 
-  <p><a href="criteriaMgr.do?action=assoc&cctId=${cct.id}">Associate criteria to themes</a></p>
+  
   <h4>All Criteria in All Decision Situations</h4>
   <ul id="criteriaList">
   <c:forEach var="criterion" items="${criteria}">
