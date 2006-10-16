@@ -776,7 +776,12 @@ categories, each with 1 or 2 tags in it.</li></ol><li><b>Identify themes and sum
 <!-- Start Footer -->
 <jsp:include page="/footer.jsp" />
 <!-- End Footer -->
-
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-797433-1";
+urchinTracker();
+</script>
 </body>
 </html>
     

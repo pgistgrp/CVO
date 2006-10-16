@@ -12,6 +12,7 @@
 @import "styles/styles.css";
 .style1 {color: #808080}
 </style>
+
 <!-- End Site Wide CSS -->
 <!-- Site Wide JS -->
 <script src="scripts/prototype.js" type="text/javascript"></script>
@@ -91,7 +92,12 @@
 </div>
 
 	<pg:feedback id="feedbackDiv" action="login.do" />
-
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-797433-1";
+urchinTracker();
+</script>
 </body>
 </html:html>
 
