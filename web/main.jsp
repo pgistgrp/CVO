@@ -5,7 +5,7 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
 <head>
-<title>PGIST main page</title>
+<title>Let's Improve Transportation!</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/position.css";</style>
 <style type="text/css" media="screen">

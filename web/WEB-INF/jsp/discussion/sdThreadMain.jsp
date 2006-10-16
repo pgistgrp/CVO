@@ -8,7 +8,7 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
 <head>
-<title>LIT Discussion: ${post.title}</title>
+<title>Step 1b: ${post.title}</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/position.css";</style>
 <style type="text/css" media="screen">@import "styles/styles.css";</style>
