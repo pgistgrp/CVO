@@ -17,7 +17,7 @@
 	<style type="text/css" media="screen">@import "/styles/tabs.css";</style>
 
 
-	<script type="text/javascript" src="/temp/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+	<script type="text/javascript" src="/scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
  	<!--JavaScript Libraries -->
  	<script src="/scripts/prototype.js" type="text/javascript"></script>
  	<script src="/scripts/rico_simple.js" type="text/javascript"></script>
@@ -49,7 +49,8 @@
 tinyMCE.init({
 	mode : "exact",
 	elements: "sumtext",
-	theme : "simple"
+	theme : "simple",
+	content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css"
 });
 
 </script>

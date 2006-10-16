@@ -366,6 +366,10 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 		</style>
 		<![endif]><![endif]-->
 
+<style type="text/css">
+
+
+</style>
 </head>
 <!--
 <c:choose>
@@ -417,7 +421,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 		
 		</div> <!-- End cont-top -->
 		
-		<div id="cont-main">
+		<div id="cont-main" style="margin-left:0px; margin-right:0px;"><!--Test change remove style-->
 		
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tr>
@@ -439,7 +443,13 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 		</div><!-- End Object -->
 				
 		<br />
-				<div>
+		<style type="text/css">
+		#secobject td{
+			padding-left: 3px;
+			padding-right: 3px;
+		}
+		</style>
+				<div id="secobject">
 				  <table class="tabledisc" width="100%">
 				          <tr class="disc_row_b">
 							<jsp:useBean id="today" class="java.util.Date"/>
@@ -448,14 +458,14 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 							
 							  <c:choose>
 							  <c:when test="${fmtToday == fmtLastPostDate}">
-							  	 <td width="40" class="textcenter"><img src="/images/balloonactive2.gif" alt="Posts within the last 24 hours" /></td>
+							  	 <td width="44" class="textcenter"><img src="/images/balloonactive2.gif" alt="Posts within the last 24 hours" /></td>
 							  </c:when>
 							  <c:otherwise>
-							  	 <td width="40" class="textcenter"><img src="/images/ballooninactive2.gif" alt="No posts within the last 24 hours" /></td>
+							  	 <td width="44" class="textcenter"><img src="/images/ballooninactive2.gif" alt="No posts within the last 24 hours" /></td>
 							  </c:otherwise>
 							  </c:choose>
-							  <td><div class="padding-sides"><a href="/sdRoom.do?isid=${structure.id}">Discussion about all concern themes</a><br />
-				 		    <td><span class="smalltext" style="font-size: 80%;">
+							  <td><span class="padding-sides"><a href="/sdRoom.do?isid=${structure.id}">Discussion about all concern themes</a></span></td><!---->
+				 		    <td width="150"><span class="smalltext" style="font-size: 80%;">
 				 		    <c:choose>
 						      <c:when test="${structure.lastPost.id != null}">
 						     		<div class="padding-sides">
@@ -467,7 +477,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 						      		<span class="padding-sides">No current discussions</span>
 						      </c:otherwise>
 						    </c:choose>  
-							</span><!--Added-->        
+							</span><!--span Added-->        
 							</td>
 				            <td width="100" class="textcenter"><a href="/sdRoom.do?isid=${structure.id}&ioid=">${structure.numDiscussion}</a></td>
 				          </tr>		    
@@ -560,6 +570,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 		sideBar.getSidebarItems();
 	}
 
+alert($('container').offsetWidth);
 </script>
 </body>
 

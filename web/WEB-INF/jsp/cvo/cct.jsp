@@ -740,6 +740,10 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 #saving-indicator {
 left: expression( ( 0 + ( fixme = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
 top: expression( ( 0 + ( fixme = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+
+#viewSidebarConcern {
+left: expression( (146 + (fixside=document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
 }
 		</style>
 		<![endif]><![endif]-->

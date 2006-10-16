@@ -125,11 +125,18 @@
 			 	
 				/***************Render Item in Lightbox************** */
 					this.renderItemDetails = function(data){
+						var browser = navigator.appName;
 						var currentItem = data.content;
+						
 							os = "";
-							os += '<div id="'+ sideBar.closeLightBoxDiv +'" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>'
+							os += '<div id="'+ sideBar.closeLightBoxDiv +'" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>';
 							os += '<h4>'+ sideBar.lightBoxTitle +'</h4><br>';
-							os += '<div style=" margin:2%; overflow:hidden;"><div style="width:380px; max-height:235px; overflow:auto;" name="viewSidebarConcern" id="viewSidebarConcern">' + currentItem;			
+							if(browser=="Microsoft Internet Explorer"){
+								alert("MS");
+								os+='<div style="margin:2%;"><div style="width:390px; height:215px; overflow:auto;" name="viewSidebarConcern" id="viewSidebarConcern">'+currentItem;
+							}else{
+								os += '<div style=" margin:2%; overflow:hidden;"><div style="width:385px; max-height:215px; overflow:auto;" name="viewSidebarConcern" id="viewSidebarConcern">' + currentItem;
+							}
 							os +='<br />';
 							for(i=0; i < data.tags.length; i++){
 								os +='<span class="tags"><a href="javascript:lightboxDisplay(); sideBar.changeCurrentFilter('+data.tags[i].id+ ');">'+ data.tags[i].tag.name + '</a></span> \n';
