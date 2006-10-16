@@ -58,6 +58,11 @@ public class SystemServiceImpl implements SystemService {
     public Collection getFeedbacks(PageSetting setting) throws Exception {
         return systemDAO.getFeedbacks(setting);
     }//getFeedbacks()
+
+
+	public User getCurrentUser() throws Exception {
+		return userDAO.getUserById(WebUtils.currentUserId(), true, false);
+	}
     
     
 }//class SystemServiceImpl

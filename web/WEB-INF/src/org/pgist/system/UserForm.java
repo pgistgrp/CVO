@@ -13,6 +13,8 @@ public class UserForm extends ActionForm {
     
     private String password1;
     
+    private String currentpassword; //Only used for profile update
+    
     private String ethnicity1;
     
     private String reason;
@@ -34,12 +36,20 @@ public class UserForm extends ActionForm {
         return password1;
     }
 
-
+   
     public void setPassword1(String password1) {
         this.password1 = password1;
     }
 
-
+    public void setCurrentpassword(String currentpassword) {
+        this.currentpassword = currentpassword;
+    }
+    
+    public String getCurrentpassword() {
+    	return currentpassword;
+    }
+    
+    
     public String getEthnicity1() {
         return ethnicity1;
     }

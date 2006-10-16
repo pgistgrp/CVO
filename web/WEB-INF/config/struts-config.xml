@@ -23,7 +23,9 @@
     
     
     <action-mappings>
-		<action path="/usercp" scope="request" type="org.pgist.system.UsercpAction" />
+		<!--<action path="/usercp" scope="request" type="org.pgist.system.UsercpAction" />-->
+		
+		<action name="userForm" path="/usercp" scope="request" type="org.pgist.system.UsercpAction" />
 	
     	<action path="/main" scope="request" type="org.pgist.system.MainAction" />
 		

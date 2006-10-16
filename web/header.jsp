@@ -23,7 +23,7 @@
 		<!-- End Search -->
 		<!-- Navigation -->
 			<div id="headerbuttons">
-				<a href="main.do">Home</a><!--<a href="#" class="headerbuttons_selected">Participate</a> <a href="#">Learn More</a>-->
+				<a href="main.do">Home</a> <a href="usercp.do">User Settings</a> <!--<a href="#" class="headerbuttons_selected">Participate</a> <a href="#">Learn More</a>-->
 			</div>
 		<!-- ENd Navi -->
 	</div> <!-- End headerbar -->

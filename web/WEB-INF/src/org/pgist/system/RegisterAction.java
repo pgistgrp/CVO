@@ -85,8 +85,7 @@ public class RegisterAction extends Action {
         } else if (email.indexOf("@")== -1 || email.indexOf(".")==-1){
         	uform.setReason("Please Enter a valid Email Address.");
             return mapping.findForward("register");
-        }
-        
+        }        
        
         String loginname = user.getLoginname();
         
