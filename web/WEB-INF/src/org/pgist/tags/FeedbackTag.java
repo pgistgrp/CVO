@@ -87,7 +87,13 @@ public class FeedbackTag extends SimpleTagSupport {
         
         //user msg
         writer.write("<p>Found a bug? Problem accessing a part of the page? <a href=\"#feedbackForm\" onclick=\"javascript:Effect.toggle('feedbackForm','blind'); setTimeout('location.hash=\\\'#feedbackDiv\\\';',900);\">Send us feedback.</a></p>"); 
- 
+        //Google Analytics
+        writer.write("<script src=\"http://www. google-analytics.com/urchin.js\" type=\"text/javascript\">");
+        writer.write("</script>");
+        writer.write("<script type=\"text/javascript\">");
+        writer.write("_uacct = \"UA-797433-1\";");
+        writer.write("urchinTracker();");
+        writer.write("</script>");
     }//doTag()
     
     
