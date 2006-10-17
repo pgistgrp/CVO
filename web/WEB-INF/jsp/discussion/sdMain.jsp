@@ -5,9 +5,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html:html>
-<head>
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en"><head>
 <title>Step 1b: Discuss Summaries - Main</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/position.css";</style>
@@ -366,6 +364,8 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 		</style>
 		<![endif]><![endif]-->
 
+
+<html:html>
 <style type="text/css">
 
 
@@ -570,7 +570,6 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 		sideBar.getSidebarItems();
 	}
 
-alert($('container').offsetWidth);
 </script>
 </body>
 

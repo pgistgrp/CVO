@@ -114,7 +114,6 @@
 		          			displayIndicator(false);
 							
 
-
 		          }else{
 		            alert("data.successful != true: " + data.reason);
 		            displayIndicator(false);
@@ -125,6 +124,7 @@
 		          alert("getReplies Error" + errorString + exception);
 		      }
 		    });
+			tinyMCE.idCounter=0;
 			tinyMCE.execCommand('mceAddControl',false,'txtnewReply');
 		  }
 
@@ -280,7 +280,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 <!-- Header -->
   <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 
-<div id="cont-top">
+<div id="cont-top" style="margin-left:0px; margin-right:0px; padding-left:0px; padding-right:0px;">
 
 
 <!-- Sub Title -->
@@ -326,7 +326,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 			  <div id="backdisc"><a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}"><img src="images/btn_back_a.gif" alt="back" name="back" class="button" id="back" onMouseOver="MM_swapImage('back','','images/btn_back_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></div>	  
 </div>
 
-<div id="cont-main">
+<div id="cont-main" style="margin-left:0px; margin-right:0px;">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr>
 <td id="maintop"><img src="" alt="" height="1" width="1"/></td>
@@ -454,19 +454,20 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 
 <!-- End Footer -->
 <script type="text/javascript">
-	getReplies();
-	sideBar.assignTitle();
-	sideBar.addPIDFilter();
-
-</script>
-<script type="text/javascript">
 tinyMCE.init({
 	mode : "exact",
-	elements : "txtnewReply",
 	theme : "simple",
 	content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css"
 });
 </script>
+<script type="text/javascript">
+	getReplies();
+	sideBar.assignTitle();
+	sideBar.addPIDFilter();
+$('container').style.width="1659";
+$('container').style.paddingLeft="0";
+</script>
+
 
 </html:html>
 

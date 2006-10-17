@@ -42,19 +42,19 @@
 		  </td>
 		  
 		  
-			<td><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a><br /><span class="smalltext"  style="font-size: 80%; color: #98A072;">${fn:substring(post.content, 0, 125)}... </span></td>
+			<td><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1" style="text-transform:capitalize;">${post.title}</a><br /><span class="smalltext"  style="font-size: 80%; color: #98A072;">${fn:substring(post.content, 0, 125)}... </span></td>
 			<td width="150" class="textcenter">${post.owner.loginname}</td>
 			<td width="200">
 			<span class="smalltext" style="font-size: 80%; color: #98A072;">
 
 		    <c:choose>
 		      <c:when test="${post.lastReply == null }">
-		     		<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1">${post.title}</a><br />
+		     		<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1" style="text-transform:capitalize;">${post.title}</a><br />
 		     		Posted on: <fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}
 		      </c:when>
 		
 		      <c:otherwise>
-		      		<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1#${post.lastReply.id}">${post.lastReply.title}</a><br />
+		      		<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=1#${post.lastReply.id}" style="text-transform:capitalize;">${post.lastReply.title}</a><br />
 		      		Posted on:  <fmt:formatDate value="${post.lastReply.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.lastReply.owner.loginname}
 		      </c:otherwise>
 		    </c:choose>

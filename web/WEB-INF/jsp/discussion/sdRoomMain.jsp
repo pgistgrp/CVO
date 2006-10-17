@@ -418,7 +418,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 		</div>	<!-- end tselector -->
 		<div id="backdisc"><a href="sd.do?isid=${structure.id}"><img src="images/btn_back_a.gif" alt="Back" name="back" class="button" id="next" onMouseOver="MM_swapImage('back','','images/btn_back_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></div>	  
 	</div> <!-- end backtodiscussion -->
-	<div id="cont-main">
+	<div id="cont-main" style="margin-left:0px; margin-right:0px;">
 		<table border="0" cellpadding="0" cellspacing="0">
 				<tr>
 						<td id="maintop"><img src="" alt="" height="1" width="1"/></td>
@@ -518,7 +518,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 		
 	<div id="discussion-cont">
 		<div id="discussion-inner">
-			<span class="padding"><h4 id="targetDiscussionTitle"></h4></span><span id="closeNewDiscussion" class="closeBox"><a href="javascript:infoObject.toggleNewDiscussion();"><img src="images/btn_gnewtopic_a.gif" alt="New Topic" name="newtopic" class="button" id="newtopic" onMouseOver="MM_swapImage('newtopic','','images/btn_gnewtopic_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></span>
+			<span class="padding"><h4 id="targetDiscussionTitle" style="text-transform:capitalize;"></h4></span><span id="closeNewDiscussion" class="closeBox"><a href="javascript:infoObject.toggleNewDiscussion();"><img src="images/btn_gnewtopic_a.gif" alt="New Topic" name="newtopic" class="button" id="newtopic" onMouseOver="MM_swapImage('newtopic','','images/btn_gnewtopic_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></span>
 			<div id="discussion"><!-- load discussion posts --></div>
 		</div><!-- end discussion-inner -->
 	</div><!-- end discussion-cont -->
