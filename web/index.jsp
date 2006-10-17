@@ -56,12 +56,19 @@
   </div>
 </html:form>
 
-<div align="center">
+<div style="margin: auto; margin-top: 20px; width: 320px;">
   
-  
-    <!--tags:discussion discussible="null" url="/test.do" count="10"/-->
-  
+<h1>Are <span style="color: #355800">you</span> concerned about the state of our transportation system?</h1>
+<p>What do you think about plans to build light rail to Northgate, replace the Alaskan Way Viaduct, or expand I-405? How should we pay for these improvements?
+ What do you think about plans to build light rail to Northgate, replace the Alaskan Way Viaduct, or expand I-405? How should we pay for these improvements?</p>
+ 
+ <p><b style="color: #355800">Good question!</b> This website is designed to help you learn about the diverse concerns of other citizens and to understand how these concerns may be related to your own. Finding these relationships is the first step to identifying what kinds of transportation solutions we can all get excited about.</p>
+
+<p align="right" style="font-size: 1.3em"><a href="readmore.jsp">Learn more</a> or <a href="register.do">register now</a>!</p>
+	<!--tags:discussion discussible="null" url="/test.do" count="10"/-->
+ 
 </div>
+
 </body>
 </html:html>
 
