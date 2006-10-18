@@ -12,7 +12,7 @@
 <script src="scripts/search.js" type="text/javascript"></script>
 <style type="text/css">
 
-body{text-align: center;}
+body{text-align: center; font-size: 1.0em;}
 #smallcontainer{
 	text-align: left;
 	margin-right: auto;
@@ -57,15 +57,18 @@ body{text-align: center;}
 				      <tr>
 				        <td>&nbsp;</td>
 					      <td align="right">(<a href="register.do">Register</a>) <html:submit property="submit" value="Login"/> </td>
-				        </tr>
+				      </tr>
+				      <tr>
+				      	<td colspan="2" style="color: red">${userForm.reason}</td>
+				      </tr>
 				    </table>
-					 <span class="red">${userForm.reason}</span>
+		
 				  </div>
 				</html:form>
 				
 				<div style="margin-top: 20px; ">
 				  
-				<h1>Are <span style="color: #355800">you</span> concerned about the state of our transportation system?</h1>
+				<h1 style="font-size: 1.6em">Are <span style="color: #355800">you</span> concerned about the state of our transportation system?</h1>
 				<p>What do you think about plans to build light rail to Northgate, replace the Alaskan Way Viaduct, or expand I-405? How should we pay for these improvements?
 				 What do you think about plans to build light rail to Northgate, replace the Alaskan Way Viaduct, or expand I-405? How should we pay for these improvements?</p>
 				 
