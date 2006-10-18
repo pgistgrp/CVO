@@ -5,7 +5,6 @@ import java.util.Collection;
 import org.pgist.cvo.Concern;
 import org.pgist.system.BaseDAO;
 import org.pgist.tagging.Tag;
-import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 
 
@@ -26,6 +25,9 @@ public interface DiscussionDAO extends BaseDAO {
     DiscussionPost getPostById(Long id) throws Exception;
     
     
+    DiscussionReply getReplyById(Long id) throws Exception;
+
+
     Collection getPosts(Discussion discussion, boolean order) throws Exception;
     
     
@@ -65,18 +67,18 @@ public interface DiscussionDAO extends BaseDAO {
     void increaseViews(DiscussionPost post) throws Exception;
 
 
-    InfoVoting getVoting(InfoStructure structure, User user) throws Exception;
-
-
-    InfoVoting getVoting(InfoObject infoObject, User user) throws Exception;
-
-
     void increaseVoting(InfoStructure structure, boolean agree) throws Exception;
 
 
     void increaseVoting(InfoObject object, boolean agree) throws Exception;
 
     
+    void increaseVoting(DiscussionPost post, boolean agree) throws Exception;
+
+
+    void increaseVoting(DiscussionReply reply, boolean agree) throws Exception;
+
+
     Concern getConcernById(Long tagId) throws Exception;
 	
     
@@ -121,8 +123,8 @@ public interface DiscussionDAO extends BaseDAO {
 
 
     Collection getTagCloud(InfoStructure structure, PageSetting setting) throws Exception;
-
-
+    
+    
     //temp
     
     Collection getInfoStructures() throws Exception;

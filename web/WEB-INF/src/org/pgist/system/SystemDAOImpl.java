@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.hibernate.Query;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -42,6 +44,40 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
         
         return query.list();
     }//getFeedbacks()
+
+    
+    private static final String hql_getVoting = "from YesNoVoting v where v.targetType=? and v.targetId=? and v.owner=?";
+    
+    
+    public YesNoVoting getVoting(int targetType, Long targetId) throws Exception {
+        Query query = getSession().createQuery(hql_getVoting);
+        
+        query.setInteger(0, targetType);
+        query.setLong(1, targetId);
+        query.setLong(2, WebUtils.currentUserId());
+        query.setMaxResults(1);
+        
+        return (YesNoVoting) query.uniqueResult();
+    }//getVoting()
+
+
+    public boolean setVoting(int targetType, Long targetId, boolean agree) throws Exception {
+        YesNoVoting voting = getVoting(targetType, targetId);
+        if (voting!=null) return false;
+        
+        User user = (User) load(User.class, WebUtils.currentUserId());
+        
+        voting = new YesNoVoting();
+        
+        voting.setTargetType(targetType);
+        voting.setTargetId(targetId);
+        voting.setOwner(user);
+        voting.setVoting(agree);
+        
+        save(voting);
+        
+        return true;
+    }//setVoting()
     
     
 }//class SystemDAOImpl

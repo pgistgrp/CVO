@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.pgist.cvo.Concern;
 import org.directwebremoting.WebContextFactory;
+import org.pgist.system.SystemService;
+import org.pgist.system.YesNoVoting;
 import org.pgist.tagging.Tag;
 import org.pgist.tags.FragmentTag;
 import org.pgist.util.PageSetting;
@@ -28,12 +30,19 @@ public class SDAgent {
      */
     private SDService sdService;
     
+    private SystemService systemService;
+    
     
     public void setSdService(SDService sdService) {
         this.sdService = sdService;
     }
     
     
+    public void setSystemService(SystemService systemService) {
+        this.systemService = systemService;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */
@@ -52,6 +61,7 @@ public class SDAgent {
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *     <li>post - a DiscussionPost object (valid when successful==true)</li>
+     *     <li>voting - a YesNoVoting object (may be null if the current user hasn't voted yet.)</li>
      *   </ul>
      */
     public Map getPostById(Map params) {
@@ -79,6 +89,11 @@ public class SDAgent {
             }
             
             map.put("post", post);
+            
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_Discussion_POST, id);
+            if (voting!=null) {
+                map.put("voting", voting);
+            }
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -201,9 +216,11 @@ public class SDAgent {
      *             <ul>
      *               <li>structure - An InfoStructure object</li>
      *               <li>object - An InfoObject object</li>
-     *               <li>post - A DiscussionPost object</li>
+     *               <li>post - A DiscussionPost object, it may contains a YesNoVoting object in the field
+     *               named "object" or null if the current user has not voted on this post yet.</li>
      *               <li>setting - A PageSetting object</li>
-     *               <li>replies - A list of DiscussionPost objects</li>
+     *               <li>replies - A list of DiscussionPost objects, each object has a field named "object"
+     *                which is a YesNoVoting object or null if the current user has not voted on this reply yet.</li>
      *             </ul>
      *     </li>
      *   </ul>
@@ -254,6 +271,10 @@ public class SDAgent {
                 return map;
             }
             
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_Discussion_POST, post.getId());
+            if (voting!=null) {
+                request.setAttribute("voting", voting);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
@@ -299,7 +320,7 @@ public class SDAgent {
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *     <li>structure - an InfoStructure object (valid when successful==true)</li>
-     *     <li>voting - an InfoVoting object, null if the current participant has not voted. (valid when successful==true)</li>
+     *     <li>voting - an YesNoVoting object, null if the current participant has not voted. (valid when successful==true)</li>
      *     <li>
      *       source - a PageSource object (valid when successful==true), it has the following properties:
      *       <ul>
@@ -343,7 +364,7 @@ public class SDAgent {
             
             request.setAttribute("structure", structure);
             
-            InfoVoting voting = sdService.getVoting(structure);
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_INFO_STRUCTURE, isid);
             
             if (voting!=null) {
                 map.put("voting", voting);
@@ -682,7 +703,7 @@ public class SDAgent {
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *     <li>infoObject - An InfoObject object (valid when successful==false and type==asObject)</li>
-     *     <li>voting - an InfoVoting object, null if the current participant has not voted. (valid when successful==true)</li>
+     *     <li>voting - an YesNoVoting object, null if the current participant has not voted. (valid when successful==true)</li>
      *     <li>
      *       source - a PageSource object (valid when successful==true), it has the following properties:
      *       <ul>
@@ -691,7 +712,7 @@ public class SDAgent {
      *           the following variables are available for use in jsp page:
      *             <ul>
      *               <li>infoObject - An InfoObject object</li>
-     *               <li>voting - An InfoVoting object</li>
+     *               <li>voting - An YesNoVoting object</li>
      *             </ul>
      *           Or if ioid is not given and isid is given,
      *           generated by /WEB-INF/jsp/discussion/sdcStructureSummary.jsp if ioid is given<br>
@@ -705,7 +726,7 @@ public class SDAgent {
      *           the following variables are available for use in jsp page:
      *             <ul>
      *               <li>infoObject - An InfoObject object</li>
-     *               <li>voting - An InfoVoting object</li>
+     *               <li>voting - An YesNoVoting object</li>
      *             </ul>
      *           Or if ioid is not given and isid is given,
      *           generated by /WEB-INF/jsp/discussion/sdcStructureSummary.jsp if ioid is given<br>
@@ -745,7 +766,7 @@ public class SDAgent {
             if (ioid!=null) {
                 InfoObject infoObject = sdService.getInfoObjectById(ioid);
                 
-                InfoVoting voting = sdService.getVoting(infoObject);
+                YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_INFO_OBJECT, ioid);
                 if (voting!=null) {
                     request.setAttribute("voting", voting);
                     map.put("voting", voting);
@@ -771,7 +792,7 @@ public class SDAgent {
             } else {
                 InfoStructure structure = sdService.getInfoStructureById(isid);
                 
-                InfoVoting voting = sdService.getVoting(structure);
+                YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_INFO_STRUCTURE, isid);
                 if (voting!=null) {
                     request.setAttribute("voting", voting);
                     map.put("voting", voting);
@@ -807,13 +828,148 @@ public class SDAgent {
     
     
     /**
-     * Set the voting choice on the given InfoStructure OR InfoObject.
+     * Get a target for the given room.
      * 
      * @param params A map contains:
      *   <ul>
-     *     <li>isid - int, id of the InfoStructure object. Required.</li>
-     *     <li>ioid - int, id of the InfoObject object. Optional.</li>
-     *     <li>agree - boolean, whether or not the current user agree with the current object.</li>
+     *     <li>isid - int, id of the InfoStructure object, can be ommitted if ioid is given</li>
+     *     <li>ioid - int, id of the InfoObject object. Optional, if isid is given</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>voting - an YesNoVoting object, null if the current participant has not voted. (valid when successful==true)</li>
+     *     <li>
+     *       source - a PageSource object (valid when successful==true), it has the following properties:
+     *       <br>xxx means a type string constant in InfoStructure object.
+     *       <ul>
+     *         <li>html - a HTML source segment.<br>
+     *           generated by /WEB-INF/jsp/discussion/xxxStructureTarget.jsp if ioid is given<br>
+     *           the following variables are available for use in jsp page:
+     *             <ul>
+     *               <li>infoObject - An InfoObject object</li>
+     *               <li>voting - An YesNoVoting object</li>
+     *             </ul>
+     *           Or if ioid is not given and isid is given,
+     *           generated by /WEB-INF/jsp/discussion/xxxStructureTarget.jsp if ioid is given<br>
+     *           the following variables are available for use in jsp page:
+     *             <ul>
+     *               <li>infoStructure - An InfoStructure object</li>
+     *             </ul>
+     *         </li>
+     *         <li>script - a Javascript segment.<br>
+     *           generated by /WEB-INF/jsp/discussion/xxxTarget.jsp if ioid is given<br>
+     *           the following variables are available for use in jsp page:
+     *             <ul>
+     *               <li>infoObject - An InfoObject object</li>
+     *               <li>voting - An YesNoVoting object</li>
+     *             </ul>
+     *           Or if ioid is not given and isid is given,
+     *           generated by /WEB-INF/jsp/discussion/xxxTarget.jsp if ioid is given<br>
+     *           the following variables are available for use in jsp page:
+     *             <ul>
+     *               <li>infoStructure - An InfoStructure object</li>
+     *             </ul>
+     *         </li>
+     *       </ul>
+     *     </li>
+     *   </ul>
+     */
+    public Map getTarget(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long isid = null;
+        try {
+            isid = new Long((String) params.get("isid"));
+        } catch (Exception e) {
+        }
+        
+        Long ioid = null;
+        try {
+            ioid = new Long((String) params.get("ioid"));
+        } catch (Exception e) {
+        }
+        
+        if (isid==null && ioid==null) {
+            map.put("reason", "Either isid or ioid is required.");
+            return map;
+        }
+        
+        try {
+            String type = null;
+            
+            if (ioid!=null) {
+                InfoObject infoObject = sdService.getInfoObjectById(ioid);
+                
+                type = infoObject.getStructure().getType();
+                
+                YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_INFO_OBJECT, ioid);
+                if (voting!=null) {
+                    request.setAttribute("voting", voting);
+                    map.put("voting", voting);
+                }
+                
+                request.setAttribute("infoObject", infoObject);
+                
+                PageSource source = new PageSource();
+                map.put("source", source);
+                
+                request.setAttribute(FragmentTag.FRAGMENT_TYPE, FragmentTag.HTML);
+                source.setHtml(WebContextFactory.get().forwardToString("/WEB-INF/jsp/discussion/"+type+"Target.jsp"));
+                
+                request.setAttribute(FragmentTag.FRAGMENT_TYPE, FragmentTag.SCRIPT);
+                source.setScript(WebContextFactory.get().forwardToString("/WEB-INF/jsp/discussion/"+type+"Target.jsp"));
+            } else {
+                InfoStructure structure = sdService.getInfoStructureById(isid);
+                
+                type = structure.getType();
+                
+                YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_INFO_STRUCTURE, isid);
+                if (voting!=null) {
+                    request.setAttribute("voting", voting);
+                    map.put("voting", voting);
+                }
+                
+                request.setAttribute("infoStructure", structure);
+                
+                PageSource source = new PageSource();
+                map.put("source", source);
+                
+                request.setAttribute(FragmentTag.FRAGMENT_TYPE, FragmentTag.HTML);
+                source.setHtml(WebContextFactory.get().forwardToString("/WEB-INF/jsp/discussion/"+type+"StructureTarget.jsp"));
+                
+                request.setAttribute(FragmentTag.FRAGMENT_TYPE, FragmentTag.SCRIPT);
+                source.setScript(WebContextFactory.get().forwardToString("/WEB-INF/jsp/discussion/"+type+"StructureTarget.jsp"));
+            }
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//getTarget()
+    
+    
+    /**
+     * Set the voting choice on the given target.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>target - string, the voting taget. Required. Valid values include:
+     *       <ul>
+     *         <li>"structure" - InfoStructure</li>
+     *         <li>"object" - InfoObject</li>
+     *         <li>"post" - DiscussionPost</li>
+     *         <li>"reply" - DiscussionReply</li>
+     *       </ul>
+     *     </li>
+     *     <li>id - int, id of the target object. Required.</li>
+     *     <li>agree - string, "true" or "false". Whether or not the current user agree with the current object.</li>
      *   </ul>
      *   
      * @return A map contains:<br>
@@ -826,41 +982,35 @@ public class SDAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
-        Long isid = null;
-        Long ioid = null;
-        
+        Long id = null;
         try {
-            isid = new Long((String) params.get("isid"));
+            id = new Long((String) params.get("id"));
         } catch (Exception e) {
-            map.put("reason", "Can't find the given InfoStructure object.");
+            map.put("reason", "id is required.");
             return map;
         }
         
-        try {
-            ioid = new Long((String) params.get("ioid"));
-        } catch (Exception e) {
-        }
+        boolean agree = "true".equalsIgnoreCase((String) params.get("agree"));
         
         try {
-            boolean agree = "true".equalsIgnoreCase((String) params.get("agree"));
+            String target = (String) params.get("target");
             
-            InfoStructure structure = sdService.getInfoStructureById(isid);
-            if (structure==null) {
-                map.put("reason", "Can't find the given InfoStructure object.");
+            int type = 0;
+            
+            if ("structure".equals(target)) {
+                type = YesNoVoting.TYPE_INFO_STRUCTURE;
+            } else if ("object".equals(target)) {
+                type = YesNoVoting.TYPE_INFO_OBJECT;
+            } else if ("post".equals(target)) {
+                type = YesNoVoting.TYPE_Discussion_POST;
+            } else if ("reply".equals(target)) {
+                type = YesNoVoting.TYPE_Discussion_REPLY;
+            } else {
+                map.put("reason", "Unknown target type: "+target);
                 return map;
             }
             
-            if (ioid==null) {
-                sdService.setVoting(structure, agree);
-            } else {
-                InfoObject object = sdService.getInfoObjectById(ioid);
-                if (object==null) {
-                    map.put("reason", "Can't find the given InfoObject object.");
-                    return map;
-                }
-                
-                sdService.setVoting(object, agree);
-            }
+            sdService.setVoting(type, id, agree);
             
             map.put("successful", true);
         } catch (Exception e) {

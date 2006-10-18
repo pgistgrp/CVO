@@ -40,6 +40,7 @@
            <list>
                <value>org/pgist/system/EmailTemplate.hbm.xml</value>
                <value>org/pgist/system/Feedback.hbm.xml</value>
+               <value>org/pgist/system/YesNoVoting.hbm.xml</value>
                <value>org/pgist/users/User.hbm.xml</value>
                <value>org/pgist/users/Role.hbm.xml</value>
                <value>org/pgist/model/Discussible.hbm.xml</value>
@@ -56,7 +57,6 @@
                <value>org/pgist/cvo/SummaryRevision.hbm.xml</value>
                <value>org/pgist/discussion/InfoStructure.hbm.xml</value>
                <value>org/pgist/discussion/InfoObject.hbm.xml</value>
-               <value>org/pgist/discussion/InfoVoting.hbm.xml</value>
                <value>org/pgist/discussion/Discussion.hbm.xml</value>
                <value>org/pgist/discussion/DiscussionPost.hbm.xml</value>
                <value>org/pgist/discussion/DiscussionReply.hbm.xml</value>

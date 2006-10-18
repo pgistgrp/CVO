@@ -14,11 +14,11 @@ public abstract class GenericInfo implements Serializable {
     
     protected Long id;
     
-    protected int numDiscussion;
+    protected int numDiscussion = 0;
     
-    protected int numAgree;
+    protected int numAgree = 0;
     
-    protected int numVote;
+    protected int numVote = 0;
     
     private Date respTime;
     

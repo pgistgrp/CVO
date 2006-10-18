@@ -28,7 +28,13 @@ public abstract class GenericPost implements Serializable {
     
     protected Date createTime;
     
+    protected int numAgree;
+    
+    protected int numVote;
+    
     protected boolean deleted;
+    
+    protected Object object;
     
     
     /**
@@ -113,6 +119,34 @@ public abstract class GenericPost implements Serializable {
      * @return
      * @hibernate.property not-null="true"
      */
+    public int getNumAgree() {
+        return numAgree;
+    }
+
+
+    public void setNumAgree(int numAgree) {
+        this.numAgree = numAgree;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getNumVote() {
+        return numVote;
+    }
+
+
+    public void setNumVote(int numVote) {
+        this.numVote = numVote;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
     public boolean isDeleted() {
         return deleted;
     }
@@ -120,6 +154,21 @@ public abstract class GenericPost implements Serializable {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
+    public Object getObject() {
+        return object;
+    }
+
+
+    public void setObject(Object object) {
+        this.object = object;
     }
 
 

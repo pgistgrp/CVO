@@ -19,6 +19,10 @@
     
     <convert converter="bean" match="org.pgist.system.Feedback"/>
 
+    <convert converter="bean" match="org.pgist.system.YesNoVoting">
+        <param name="include" value="id, targetType, targetId, voting, owner"/>
+    </convert>
+
 
     <create creator="spring" javascript="SystemAgent">
       <param name="beanName" value="systemAgent"/>

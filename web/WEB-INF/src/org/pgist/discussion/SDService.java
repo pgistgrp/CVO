@@ -51,18 +51,6 @@ public interface SDService {
     void increaseViews(DiscussionPost post) throws Exception;
 
 
-    InfoVoting getVoting(InfoStructure structure) throws Exception;
-
-
-    InfoVoting getVoting(InfoObject infoObject) throws Exception;
-
-
-    boolean setVoting(InfoStructure structure, boolean agree) throws Exception;
-
-
-    boolean setVoting(InfoObject object, boolean agree) throws Exception;
-
-    
     Concern getConcernById(Long Id) throws Exception;
     
     
@@ -91,6 +79,15 @@ public interface SDService {
 
 
     Tag findTagById(Long tagId) throws Exception;
+    
+    
+    DiscussionPost getDiscussionPostById(Long id) throws Exception;
+
+
+    DiscussionReply getDiscussionReplyById(Long id) throws Exception;
+
+
+    public boolean setVoting(int targetType, Long targetId, boolean agree) throws Exception;
     
     
     //temp

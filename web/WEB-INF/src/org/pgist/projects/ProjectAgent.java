@@ -119,24 +119,29 @@ public class ProjectAgent {
     
     
     /**
-     * Edit a Project with the given information.
+     * Create a new Project Alt with the given information.
      * 
      * @param params A map contains:
      *     <ul>
-     *       <li>id - int, id of the Project object</li>
-     *       <li>name - string, name of the Project object</li>
-     *       <li>description - string, description of the project</li>
-     *       <li>corId - int, id of a Corridor object</li>
+     *       <li>id - int, id of a Project object</li>
+     *       <li>name - string, name for ProjectAlternative</li>
+     *       <li>description - string, description for ProjectAlternative</li>
+     *       <li>cost - float, cost</li>
+     *       <li>sponsor - string, name of sponsor</li>
+     *       <li>geotype - int</li>
+     *       <li>annoString - string</li>
+     *       <li>transMod - int</li>
      *     </ul>
      * 
      * @return A map contains:
      *     <ul>
      *       <li>successful - a boolean value denoting if the operation succeeds</li>
      *       <li>reason - reason why operation failed (valid when successful==false)</li>
-     *       <li>id - the id of the new Project object</li>
+     *       <li>id - the id of the new ProjectAlternative object</li>
+     *       <li>fpid - the id of the new footprint</li>
      *     </ul>
      */
-    public Map createProject0(Map params) {
+    public Map createProjectAlt(Map params, double[][][] footprint) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -144,16 +149,10 @@ public class ProjectAgent {
             String name = (String) params.get("name");
             String description = (String) params.get("description");
             
-            Long corId = null;
+            ProjectAlternative projectAlt = projectService.createProjectAlt(params, footprint);
             
-            try {
-                corId = new Long((String) params.get("corId"));
-            } catch (Exception e) {
-            }
-            
-            //Project project = projectService.createProject(name, description, corId);
-            
-            //map.put("id", project.getId());
+            map.put("id", projectAlt.getId());
+            map.put("fpid", projectAlt.getFpids());
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -163,7 +162,85 @@ public class ProjectAgent {
         }
         
         return map;
-    }//createProject()
+    }//createProjectAlt()
+    
+    
+    /**
+     * Edit a Project Alt with the given information.
+     * 
+     * @param params A map contains:
+     *     <ul>
+     *       <li>id - int, id of a ProjectAlt object</li>
+     *       <li>name - string, name for ProjectAlternative</li>
+     *       <li>description - string, description for ProjectAlternative</li>
+     *       <li>cost - float, cost</li>
+     *       <li>sponsor - string, name of sponsor</li>
+     *       <li>geotype - int</li>
+     *       <li>annoString - string</li>
+     *       <li>transMod - int</li>
+     *     </ul>
+     * 
+     * @return A map contains:
+     *     <ul>
+     *       <li>successful - a boolean value denoting if the operation succeeds</li>
+     *       <li>reason - reason why operation failed (valid when successful==false)</li>
+     *       <li>fpid - the id of the new footprint</li>
+     *     </ul>
+     */
+    public Map editProjectAlt(Map params, double[][][] footprint) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long id = new Long((String) params.get("id"));
+            
+            projectService.editProject(id, params, footprint);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//editProjectAlt()
+    
+    
+    /**
+     * Delete a Project Alt.
+     * 
+     * @param params A map contains:
+     *     <ul>
+     *       <li>id - int, id of a ProjectAlt object</li>
+     *     </ul>
+     * 
+     * @return A map contains:
+     *     <ul>
+     *       <li>successful - a boolean value denoting if the operation succeeds</li>
+     *       <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     </ul>
+     */
+    public Map deleteProjectAlt(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long id = new Long((String) params.get("id"));
+            
+            projectService.deleteProjectAlt(id);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//deleteProjectAlt()
+    
+    
     
     
     

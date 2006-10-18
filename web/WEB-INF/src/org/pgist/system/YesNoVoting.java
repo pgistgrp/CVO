@@ -1,4 +1,4 @@
-package org.pgist.discussion;
+package org.pgist.system;
 
 import java.io.Serializable;
 
@@ -9,16 +9,25 @@ import org.pgist.users.User;
  * 
  * @author kenny
  *
- * @hibernate.class table="pgist_info_voting" lazy="true"
+ * @hibernate.class table="pgist_yes_no_voting" lazy="true"
  */
-public class InfoVoting implements Serializable {
+public class YesNoVoting implements Serializable {
+    
+    
+    public static final int TYPE_INFO_STRUCTURE = 0;
+    
+    public static final int TYPE_INFO_OBJECT = 1;
+    
+    public static final int TYPE_Discussion_POST = 2;
+    
+    public static final int TYPE_Discussion_REPLY = 3;
     
     
     private Long id;
     
-    private InfoStructure structure;
+    private int targetType;
     
-    private InfoObject object;
+    private Long targetId;
     
     private boolean voting;
     
@@ -41,29 +50,29 @@ public class InfoVoting implements Serializable {
 
     /**
      * @return
-     * @hibernate.many-to-one column="structure_id" lazy="true"
+     * @hibernate.property not-null="true"
      */
-    public InfoStructure getStructure() {
-        return structure;
+    public Long getTargetId() {
+        return targetId;
     }
 
 
-    public void setStructure(InfoStructure structure) {
-        this.structure = structure;
+    public void setTargetId(Long targetId) {
+        this.targetId = targetId;
     }
 
 
     /**
      * @return
-     * @hibernate.many-to-one column="object_id" lazy="true"
+     * @hibernate.property not-null="true"
      */
-    public InfoObject getObject() {
-        return object;
+    public int getTargetType() {
+        return targetType;
     }
 
 
-    public void setObject(InfoObject object) {
-        this.object = object;
+    public void setTargetType(int targetType) {
+        this.targetType = targetType;
     }
 
 
@@ -95,4 +104,4 @@ public class InfoVoting implements Serializable {
     }
     
     
-}//class InfoVoting
+}//class PostVoting

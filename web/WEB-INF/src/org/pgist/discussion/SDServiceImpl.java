@@ -3,13 +3,12 @@ package org.pgist.discussion;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.pgist.cvo.Concern;
-import org.pgist.cvo.CCTDAO;
 import org.pgist.cvo.CategoryReference;
+import org.pgist.cvo.Concern;
+import org.pgist.system.SystemDAO;
+import org.pgist.system.YesNoVoting;
 import org.pgist.tagging.Tag;
-import org.pgist.users.User;
 import org.pgist.util.PageSetting;
-import org.pgist.util.WebUtils;
 
 
 /**
@@ -22,7 +21,7 @@ public class SDServiceImpl implements SDService {
     
     private DiscussionDAO discussionDAO;
     
-    private CCTDAO cctDAO;
+    private SystemDAO systemDAO;
     
     
     public void setDiscussionDAO(DiscussionDAO discussionDAO) {
@@ -30,8 +29,8 @@ public class SDServiceImpl implements SDService {
     }
     
     
-    public void setCctDAO(CCTDAO cctDAO) {
-        this.cctDAO = cctDAO;
+    public void setSystemDAO(SystemDAO systemDAO) {
+        this.systemDAO = systemDAO;
     }
 
 
@@ -89,7 +88,12 @@ public class SDServiceImpl implements SDService {
 
 
     public Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception {
-        return discussionDAO.getReplies(post, setting);
+        Collection list = discussionDAO.getReplies(post, setting);
+        for (DiscussionReply reply : (Collection<DiscussionReply>) list) {
+            YesNoVoting voting = systemDAO.getVoting(YesNoVoting.TYPE_Discussion_REPLY, reply.getId());
+            reply.setObject(voting);
+        }//for
+        return list;
     }//getReplies()
 
 
@@ -184,56 +188,31 @@ public class SDServiceImpl implements SDService {
     }//increaseViews()
 
 
-    public InfoVoting getVoting(InfoStructure structure) throws Exception {
-        User user = (User) discussionDAO.load(User.class, WebUtils.currentUserId());
+    public boolean setVoting(int targetType, Long targetId, boolean agree) throws Exception {
+        if (!systemDAO.setVoting(targetType, targetId, agree)) return false;
         
-        return discussionDAO.getVoting(structure, user);
-    }//getVoting()
-
-
-    public InfoVoting getVoting(InfoObject infoObject) throws Exception {
-        User user = (User) discussionDAO.load(User.class, WebUtils.currentUserId());
-        
-        return discussionDAO.getVoting(infoObject, user);
-    }//getVoting()
-
-
-    public boolean setVoting(InfoStructure structure, boolean agree) throws Exception {
-        User user = (User) discussionDAO.load(User.class, WebUtils.currentUserId());
-        InfoVoting voting =  discussionDAO.getVoting(structure, user);
-        if (voting!=null) return false;
-        
-        voting = new InfoVoting();
-        voting.setStructure(structure);
-        voting.setOwner(user);
-        voting.setVoting(agree);
-        
-        discussionDAO.save(voting);
-        
-        discussionDAO.increaseVoting(structure, agree);
+        switch(targetType) {
+            case YesNoVoting.TYPE_INFO_STRUCTURE: {
+                InfoStructure structure = getInfoStructureById(targetId);
+                discussionDAO.increaseVoting(structure, agree);
+                break; }
+            case YesNoVoting.TYPE_INFO_OBJECT: {
+                InfoObject object = getInfoObjectById(targetId);
+                discussionDAO.increaseVoting(object, agree);
+                break; }
+            case YesNoVoting.TYPE_Discussion_POST:
+                DiscussionPost post = getDiscussionPostById(targetId);
+                discussionDAO.increaseVoting(post, agree);
+            case YesNoVoting.TYPE_Discussion_REPLY:
+                DiscussionReply reply = getDiscussionReplyById(targetId);
+                discussionDAO.increaseVoting(reply, agree);
+            default:
+                 //UNKNOWN TYPE
+        }//switch
         
         return true;
     }//setVoting()
-
-
-    public boolean setVoting(InfoObject object, boolean agree) throws Exception {
-        User user = (User) discussionDAO.load(User.class, WebUtils.currentUserId());
-        InfoVoting voting =  discussionDAO.getVoting(object, user);
-        if (voting!=null) return false;
-        
-        voting = new InfoVoting();
-        voting.setStructure(object.getStructure());
-        voting.setObject(object);
-        voting.setOwner(user);
-        voting.setVoting(agree);
-        
-        discussionDAO.save(voting);
-        
-        discussionDAO.increaseVoting(object, agree);
-        
-        return true;
-    }//setVoting()
-
+    
     
     public Concern getConcernById(Long Id) throws Exception {
     	Concern myConcern = discussionDAO.getConcernById(Id);
@@ -302,6 +281,16 @@ public class SDServiceImpl implements SDService {
     public Collection getTagCloud(InfoStructure structure, PageSetting setting) throws Exception {
         return discussionDAO.getTagCloud(structure, setting);
     }//getTagCloud()
+
+
+    public DiscussionPost getDiscussionPostById(Long id) throws Exception {
+        return discussionDAO.getPostById(id);
+    }//getDiscussionPostById()
+
+
+    public DiscussionReply getDiscussionReplyById(Long id) throws Exception {
+        return discussionDAO.getReplyById(id);
+    }//getDiscussionReplyById()
 
 
 }//class SDServiceImpl

@@ -312,4 +312,121 @@ public class CriteriaAgent {
     }//publish()
     
     
+    /**
+     * Choose one Criteria to work on for the current participant.
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>isid - int, the id of an InfoStructure object</li>
+     *     <li>critId - int, the id of an Criteria object</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map addCriterionSlider(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//addCriterionSlider()
+    
+    
+    /**
+     * Delete one Criteria from the current participant
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>isid - int, the id of an InfoStructure object</li>
+     *     <li>critId - int, the id of an Criteria object</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map deleteCriterionSlider(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//deleteCriterionSlider()
+    
+    
+    /**
+     * Get all the weights of the current participant to the given InfoStructure
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>isid - int, the id of an InfoStructure object</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>weights - a list of CriteriaWeight object</li>
+     *   </ul>
+     */
+    public Map getWeights(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//getWeights()
+    
+    
+    /**
+     * Get all the weights of the current participant to the given InfoStructure
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>isid - int, the id of an InfoStructure object</li>
+     *     <li>critId - int, the id of an Criteria object</li>
+     *     <li>weight - int, weight value</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map setWeight(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//setWeight()
+    
+    
 }//class CriteriaAgent

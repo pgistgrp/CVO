@@ -65,4 +65,9 @@ public class SystemServiceImpl implements SystemService {
 	}
     
     
+    public YesNoVoting getVoting(int targetType, Long targetId) throws Exception {
+        return systemDAO.getVoting(targetType, targetId);
+    }//getVoting()
+
+
 }//class SystemServiceImpl

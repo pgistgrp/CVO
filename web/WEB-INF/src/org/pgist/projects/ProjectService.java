@@ -34,6 +34,12 @@ public interface ProjectService {
     
     
     Project createProject(String name, String description) throws Exception;
+
+    ProjectAlternative createProjectAlt(Map params, double[][][] footprint) throws Exception;
+
+    void editProject(Long id, Map params, double[][][] footprint) throws Exception;
+
+    void deleteProjectAlt(Long id) throws Exception;
     
     
 }//interface ProjectService

@@ -21,4 +21,7 @@ public interface SystemService {
 	User getCurrentUser() throws Exception;
     
     
+    YesNoVoting getVoting(int targetType, Long targetId) throws Exception;
+    
+    
 }//interface SystemService

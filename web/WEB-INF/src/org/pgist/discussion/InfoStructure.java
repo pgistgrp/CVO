@@ -14,6 +14,21 @@ import java.util.Set;
 public class InfoStructure extends GenericInfo {
     
     
+    private static final String TYPE_SDC = "sdc";
+    
+    private static final String TYPE_SDCRIT = "sdcrit";
+    
+    private static final String TYPE_SDP = "sdp";
+    
+    private static final String TYPE_SDF = "sdf";
+    
+    private static final String TYPE_SDPKG = "sdpkg";
+    
+    private static final String TYPE_SDCP = "sdcp";
+    
+    private static final String TYPE_SDRR = "sdrr";
+    
+    
     private Long cctId;
     
     private String type;

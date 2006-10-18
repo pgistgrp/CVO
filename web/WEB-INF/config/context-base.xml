@@ -75,6 +75,7 @@
         <property name="target">
             <bean class="org.pgist.discussion.SDServiceImpl">
                 <property name="discussionDAO" ref="discussionDAO"/>
+                <property name="systemDAO" ref="systemDAO"/>
             </bean>
         </property>
     </bean>
@@ -82,6 +83,7 @@
 
     <bean id="sdAgent" class="org.pgist.discussion.SDAgent">
         <property name="sdService" ref="sdService"/>
+        <property name="systemService" ref="systemService"/>
     </bean>
 
 

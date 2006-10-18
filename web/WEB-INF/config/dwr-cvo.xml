@@ -59,10 +59,6 @@
 
     <convert converter="bean" match="org.pgist.discussion.DiscussionPost"/>
 
-    <convert converter="bean" match="org.pgist.discussion.InfoVoting">
-        <param name="include" value="id, structure, object, voting, owner"/>
-    </convert>
-
     <!-- DWR Agents -->
 
     <create creator="spring" javascript="CCTAgent">

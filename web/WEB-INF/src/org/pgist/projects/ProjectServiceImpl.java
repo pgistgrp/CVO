@@ -133,4 +133,20 @@ public class ProjectServiceImpl implements ProjectService{
     }//createProject()
 
 
+    public ProjectAlternative createProjectAlt(Map params, double[][][] footprint) throws Exception {
+        // TODO Auto-generated method stub
+        return null;
+    }//createProjectAlt()
+
+
+    public void editProject(Long id, Map params, double[][][] footprint) throws Exception {
+        // TODO Auto-generated method stub
+    }//editProject()
+
+
+    public void deleteProjectAlt(Long id) throws Exception {
+        // TODO Auto-generated method stub
+    }//deleteProjectAlt()
+
+
 }//class ProjectServiceImpl

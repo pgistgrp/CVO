@@ -15,7 +15,6 @@ import org.pgist.cvo.Concern;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.tagging.Tag;
 import org.pgist.tagging.TagInfo;
-import org.pgist.users.User;
 import org.pgist.util.DBMetaData;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
@@ -312,34 +311,6 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//increaseViews()
 
 
-    private static final String hql_getVoting_1 = "from InfoVoting i where i.structure.id=? and i.object.id is null and i.owner.id=?";
-    
-    
-    public InfoVoting getVoting(InfoStructure structure, User user) throws Exception {
-        List list = getHibernateTemplate().find(hql_getVoting_1, new Object[] {
-                structure.getId(),
-                user.getId(),
-        });
-        
-        if (list.size()==0) return null;
-        return (InfoVoting) list.get(0);
-    }//getVoting()
-
-
-    private static final String hql_getVoting_2 = "from InfoVoting i where i.object.id=? and i.owner.id=?";
-    
-    
-    public InfoVoting getVoting(InfoObject infoObject, User user) throws Exception {
-        List list = getHibernateTemplate().find(hql_getVoting_2, new Object[] {
-                infoObject.getId(),
-                user.getId(),
-        });
-        
-        if (list.size()==0) return null;
-        return (InfoVoting) list.get(0);
-    }//getVoting()
-
-
     private static final String hql_increaseVoting_11 = "update InfoStructure i set i.numVote=i.numVote+1 where i.id=?";
     
     private static final String hql_increaseVoting_12 = "update InfoStructure i set i.numAgree=i.numAgree+1 where i.id=?";
@@ -366,6 +337,32 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//increaseVoting()
 
     
+    private static final String hql_increaseVoting_31 = "update DiscussionPost p set p.numVote=p.numVote+1 where p.id=?";
+    
+    private static final String hql_increaseVoting_32 = "update DiscussionPost p set p.numAgree=p.numAgree+1 where p.id=?";
+    
+    
+    public void increaseVoting(DiscussionPost post, boolean agree) throws Exception {
+        getSession().createQuery(hql_increaseVoting_31).setLong(0, post.getId()).executeUpdate();
+        if (agree) {
+            getSession().createQuery(hql_increaseVoting_32).setLong(0, post.getId()).executeUpdate();
+        }
+    }//increaseVoting()
+
+
+    private static final String hql_increaseVoting_41 = "update DiscussionReply r set r.numVote=r.numVote+1 where r.id=?";
+    
+    private static final String hql_increaseVoting_42 = "update DiscussionReply r set r.numAgree=r.numAgree+1 where r.id=?";
+    
+    
+    public void increaseVoting(DiscussionReply reply, boolean agree) throws Exception {
+        getSession().createQuery(hql_increaseVoting_41).setLong(0, reply.getId()).executeUpdate();
+        if (agree) {
+            getSession().createQuery(hql_increaseVoting_42).setLong(0, reply.getId()).executeUpdate();
+        }
+    }//increaseVoting()
+
+
     public Concern getConcernById(Long Id) throws Exception {
     	
         return (Concern) getHibernateTemplate().load(Concern.class, Id);
@@ -919,6 +916,11 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         return list;
     }//getTagCloud()
+
+
+    public DiscussionReply getReplyById(Long id) throws Exception {
+        return (DiscussionReply) getHibernateTemplate().load(DiscussionReply.class, id);
+    }//getReplyById()
 
 
 }//class DiscussionDAOImpl
