@@ -8,11 +8,12 @@
 
 <div id="postReplies">
 <c:if test="${fn:length(reply.tags) != 0}">
-	<h4>Replies to ${post.title}</h4>
+	<h4 style="text-transform:capitalize;">Replies to ${post.title}</h4>
 </c:if>
 <logic:iterate id="reply" name="replies">
 	<div id="reply${reply.id}" class="replies">
 		 <div id="replies_title" class="bluetitle">
+
 		 	<div id="voting-reply${reply.id}" style="float:right; font-weight: bold; font-size: 0.8em;">
 			 	${reply.numAgree} of ${reply.numVote} participants agree with ${reply.owner.loginname} 
 
@@ -27,7 +28,8 @@
 				</c:choose>
 
 			</div>
-		 	<span class="padding-sides"><strong>${reply.title}</strong> - <small>Posted on <fmt:formatDate value="${reply.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${reply.owner.loginname}</small></span>
+		 	<span class="padding-sides"><strong style="text-transform:capitalize;">${reply.title}</strong> - <small>Posted on <fmt:formatDate value="${reply.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${reply.owner.loginname}</small></span>
+
 		 </div>
 		<div class="padding">
 		${reply.content}
@@ -79,7 +81,7 @@
 <div id="newReply" class="greenBB" style="padding: 5px 10px; margin-top: 20px; border-top: 2px solid #C0D7F6">
 	<h4>Post a Reply</h4>
 	<form>
-		<p><label>Post Title</label><br><input maxlength=100 size=100 type="text" value="Re: ${post.title}" id="txtnewReplyTitle"/></p>
+		<p><label>Post Title</label><br><input style="text-transform:capitalize;" maxlength=100 size=100 type="text" value="Re: ${post.title}" id="txtnewReplyTitle"/></p>
 		<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtnewReply"></textarea></p>
 		<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="newReplyTags" type="text" /></p>
 		<input type="button" onClick="createReply(${setting.pageSize});" value="Submit Reply">

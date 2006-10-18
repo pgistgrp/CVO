@@ -501,7 +501,6 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 		</div> <!-- End newdisc_title -->
 		<div id="newdisc_content" class="greenBB">
 			<div id="newdisc_inner">
-			<p>SDC New Topic Paragraph</p>
 			<form>
 				<p><label>Post Title</label><br><input maxlength=100 size=100 type="text" id="txtNewPostTitle"/></p>
 				<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea></p>

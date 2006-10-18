@@ -8,7 +8,7 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
 <head>
-<title>Step 1b: ${post.title}</title>
+<title style="text-transform:capitalize;">Step 1b: ${post.title}</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/position.css";</style>
 <style type="text/css" media="screen">@import "styles/styles.css";</style>
@@ -311,7 +311,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 <h1>Step 1 Brainstorm Concerns:</h1> <h2>Review Summaries</h2>
 </div>
 <div id="footprints">
-<span class="smalltext"><a href="/main.do">Participate</a> &raquo; <a href="/cctview.do?cctId=1171">Step 1a Brainstorm Concerns</a> &raquo; <a href="sd.do?isid=${structure.id}">Step 1b Review Summaries</a> &raquo; <a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}">${object.object}</a> &raquo; ${post.title}</span>
+<span class="smalltext" style="text-transform:capitalize;"><a href="/main.do">Participate</a> &raquo; <a href="/cctview.do?cctId=1171">Step 1a Brainstorm Concerns</a> &raquo; <a href="sd.do?isid=${structure.id}">Step 1b Review Summaries</a> &raquo; <a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}">${object.object}</a> &raquo; ${post.title}</span>
 </div>
 <!-- End Sub Title -->
 
@@ -366,16 +366,17 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 		 	<a href="sd.do?isid=${structure.id}">All concern themes</a> &raquo;  
 		 	<c:choose>
 		 		<c:when test="${object != null}">
-		 			<a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}">${object.object.theme.title}</a> &raquo;   
+		 			<a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}" style="text-transform:capitalize;">${object.object.theme.title}</a> &raquo;   
 		 		</c:when>
 		 		<c:otherwise>
 		 			<a href="sdRoom.do?isid=${structure.id}">All Concern Themes List</a> &raquo;   
 		 		</c:otherwise>
 		 	</c:choose>
-		 	${post.title}
+		 	<span style="text-transform:capitalize;">${post.title}</span>
 		 </h5>
 		 
 		 <div class="bluetitle">
+
 		 	<div id="voting-post${post.id}" style="float:right; font-weight: bold; font-size: 0.8em;">
 			 	${post.numAgree} of ${post.numVote} participants agree with ${post.owner.loginname} 
 
@@ -391,7 +392,8 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 
 			</div>
 		 	
-		 	<span class="padding-sides"><strong>${post.title}</strong> - <small>Posted on <fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}</small></span>
+		 	<span class="padding-sides"><strong style="text-transform:capitalize;">${post.title}</strong> - <small>Posted on <fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}</small></span>
+
 		 </div>
 		<div class="padding">
 		${post.content}
