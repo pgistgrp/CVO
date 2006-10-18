@@ -6,6 +6,8 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.system.SystemService;
+import org.pgist.system.YesNoVoting;
 import org.pgist.util.PageSetting;
 
 
@@ -42,12 +44,19 @@ public class SDThreadAction extends Action {
      */
     private SDService sdService;
     
+    private SystemService systemService;
+    
     
     public void setSdService(SDService sdService) {
         this.sdService = sdService;
     }
     
     
+    public void setSystemService(SystemService systemService) {
+        this.systemService = systemService;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */
@@ -97,6 +106,12 @@ public class SDThreadAction extends Action {
         
         if (post!=null) {
             request.setAttribute("post", post);
+            
+            /*
+             * Get the voting information
+             */
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_Discussion_POST, pid);
+            post.setObject(voting);
             
             /*
              * increase the view times

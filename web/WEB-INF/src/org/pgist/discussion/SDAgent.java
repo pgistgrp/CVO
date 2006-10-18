@@ -411,6 +411,7 @@ public class SDAgent {
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>id - int, the id of the new Post</li>
      *   </ul>
      */
     public Map createPost(Map params) {
@@ -463,12 +464,15 @@ public class SDAgent {
                 }
             }
             
+            DiscussionPost post = null;
+            
             if (object==null) {
-                sdService.createPost(structure, title, content, tags);
+                post = sdService.createPost(structure, title, content, tags);
             } else {
-                sdService.createPost(object, title, content, tags);
+                post = sdService.createPost(object, title, content, tags);
             }
             
+            map.put("id", post.getId());
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -497,6 +501,7 @@ public class SDAgent {
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>id - int, the id of the new reply</li>
      *   </ul>
      */
     public Map createReply(Map params) {
@@ -558,8 +563,9 @@ public class SDAgent {
             } catch (Exception ex) {
             }
             
-            sdService.createReply(parent, title, content, tags);
+            DiscussionReply reply = sdService.createReply(parent, title, content, tags);
             
+            map.put("reply", reply.getId());
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
