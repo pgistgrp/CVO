@@ -75,11 +75,7 @@ tinyMCE.init({
 								
 	              			  $(infoObject.objectDiv).innerHTML = data.source.html; 
 	              			  //alert("data.voting = " + data.voting);
-	              			  if(data.voting == null || data.voting == undefined){
-						           $(infoObject.votingQuestionDiv).innerHTML = '<span class="smalltext">Do you feel this summary adequately reflects concerns expressed by participants? <a href="javascript:infoObject.setVote(\'true\');"><img src="/images/btn_yes_a.gif" alt="YES" class="button"><a href="javascript:infoObject.setVote(\'false\');"><img src="/images/btn_no_a.gif" alt="NO" class="button"></a></span>';
-					          }else{ //user has already voted
-						           $(infoObject.votingQuestionDiv).innerHTML = '<span class="smalltext">Your vote has been recorded. Thank you for your participation.</span>';
-						      }
+
 						      displayIndicator(false);
 							}else{
 							  alert(data.reason);

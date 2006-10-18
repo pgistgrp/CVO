@@ -128,6 +128,29 @@
 			tinyMCE.execCommand('mceAddControl',false,'txtnewReply');
 		  }
 
+
+		/*************** Set Vote************** */
+	 	 function setVote(target, id, agree){
+	 	 			displayIndicator(true);
+					//alert("structure" + infoObject.structureId + "object " + infoObject.objectId + "vote " + agree);
+					SDAgent.setVoting({target: target, id: id, agree:agree}, {
+					callback:function(data){
+							if (data.successful){ 
+								//alert("successful");
+								var votingDiv = 'voting-'+target+id;
+	              				 new Effect.Fade(votingDiv, {afterFinish: function(){getReplies();new Effect.Appear(votingDiv);}});
+	              				 displayIndicator(false);
+							}else{
+								alert(data.reason);
+								displayIndicator(false);
+							}
+						},
+					errorHandler:function(errorString, exception){ 
+							alert("setVote error:" + errorString + exception);
+					}
+					});
+
+		};
 	
 		 ///////////////////////////////////////// START SIDEBAR //////////////////////////////////////
 	 
@@ -353,7 +376,21 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 		 </h5>
 		 
 		 <div class="bluetitle">
-		 	<span style="float:right; font-weight: bold; font-size: 0.8em;">0 of 0 participants agree with ${post.owner.loginname} <a href="#"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> <a href="#"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a></span>
+		 	<div id="voting-post${post.id}" style="float:right; font-weight: bold; font-size: 0.8em;">
+			 	${post.numAgree} of ${post.numVote} participants agree with ${post.owner.loginname} 
+
+			 	<c:choose>
+			 		<c:when test="${post.object == null}">
+						<a href="javascript:setVote('post',${post.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
+			 			<a href="javascript:setVote('post',${post.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
+					</c:when>
+					<c:otherwise>
+						<img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/>
+					</c:otherwise>
+				</c:choose>
+
+			</div>
+		 	
 		 	<span class="padding-sides"><strong>${post.title}</strong> - <small>Posted on <fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}</small></span>
 		 </div>
 		<div class="padding">
