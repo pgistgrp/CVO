@@ -13,6 +13,7 @@
 <logic:iterate id="reply" name="replies">
 	<div id="reply${reply.id}" class="replies">
 		 <div id="replies_title" class="bluetitle">
+		 	<span style="float:right; font-weight: bold; font-size: 0.8em;">0 of 0 participants agree with ${reply.owner.loginname} <a href="#"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> <a href="#"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a></span>
 		 	<span class="padding-sides"><strong>${reply.title}</strong> - <small>Posted on <fmt:formatDate value="${reply.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${reply.owner.loginname}</small></span>
 		 </div>
 		<div class="padding">
