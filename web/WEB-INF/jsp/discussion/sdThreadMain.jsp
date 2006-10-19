@@ -377,7 +377,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 		 
 		 <div class="bluetitle">
 
-		 	<div id="voting-post${post.id}" style="float:right; font-weight: bold; font-size: 0.8em;">
+		 	<div id="voting-post${post.id}" class="votingDisc">
 			 	${post.numAgree} of ${post.numVote} participants agree with ${post.owner.loginname} 
 
 			 	<c:choose>

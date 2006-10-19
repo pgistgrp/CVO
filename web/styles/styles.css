@@ -264,6 +264,7 @@ h6 {
 	background-color: #7888A9;
 	border-bottom: 3px solid #C0D7F6;
 	color: #FFFFFF;
+	height: 20px;
 }
 
 .bluetitle-side{
@@ -557,4 +558,12 @@ li.tagsList a:hover{
 	border: 3px solid #ccc; 
 	padding: 5px; 
 	margin: 10px;
+}
+
+.votingDisc{
+	float:right; 
+	font-weight: bold; 
+	font-size: 0.8em;
+	margin-right: 5px; 
+	margin-top: 2px;
 }

@@ -14,7 +14,7 @@
 	<div id="reply${reply.id}" class="replies">
 		 <div id="replies_title" class="bluetitle">
 
-		 	<div id="voting-reply${reply.id}" style="float:right; font-weight: bold; font-size: 0.8em;">
+		 	<div id="voting-reply${reply.id}" class="votingDisc">
 			 	${reply.numAgree} of ${reply.numVote} participants agree with ${reply.owner.loginname} 
 
 			 	<c:choose>
