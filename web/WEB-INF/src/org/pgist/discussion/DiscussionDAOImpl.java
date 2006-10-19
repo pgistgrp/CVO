@@ -866,7 +866,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     public void deleteVotings(Long infoObjectId) throws Exception {
         Query query = getSession().createQuery(hql_deleteVotings);
         query.setInteger(0, YesNoVoting.TYPE_INFO_OBJECT);
-        query.setLong(0, infoObjectId);
+        query.setLong(1, infoObjectId);
         query.executeUpdate();
     }//deleteVotings()
 
