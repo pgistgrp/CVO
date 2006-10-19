@@ -61,15 +61,16 @@
 		    SDAgent.createReply({isid:${structure.id}, pid:${post.id}, title:newReplyTitle, content:newReply, tags: newReplyTags}, {
 		      callback:function(data){
 		          if (data.successful){     
-		          		setVote('post', data.id, 'agree');
+		          		
 						$('txtnewReply').value = '';
 						tinyMCE.setContent('');
 						$('newReplyTags').value = '';
-						if (${setting.page} != lastPage){
-							location.href='sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=' + lastPage;
-						}else{
-							getReplies();	
-						}
+						setVote('reply', data.id, 'true');
+						//if (${setting.page} != lastPage){
+							//location.href='sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=' + lastPage;
+						//}else{
+							//getReplies();	
+						//}
 						displayIndicator(false);
 						
 						
@@ -139,7 +140,11 @@
 							if (data.successful){ 
 								//alert("successful");
 								var votingDiv = 'voting-'+target+id;
-	              				 new Effect.Fade(votingDiv, {afterFinish: function(){getReplies();new Effect.Appear(votingDiv);}});
+								if($(votingDiv) != undefined){
+	              				 	new Effect.Fade(votingDiv, {afterFinish: function(){getReplies(); new Effect.Appear(votingDiv);}});
+	              				}else{
+	              					getReplies();	
+	              				}
 	              				 displayIndicator(false);
 							}else{
 								alert(data.reason);
