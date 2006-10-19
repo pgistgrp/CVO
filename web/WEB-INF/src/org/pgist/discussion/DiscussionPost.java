@@ -66,7 +66,7 @@ public class DiscussionPost extends GenericPost {
      * @hibernate.property not-null="true"
      */
     public int getViews() {
-        return views/2;
+        return views;
     }
 
 
