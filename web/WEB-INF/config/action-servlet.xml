@@ -110,6 +110,7 @@
     
     <bean name="/sdThread" class="org.pgist.discussion.SDThreadAction">
         <property name="sdService" ref="sdService"/>
+        <property name="systemService" ref="systemService"/>
     </bean>
     
     
