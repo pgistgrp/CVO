@@ -13,6 +13,7 @@ import java.util.Set;
 import org.hibernate.Query;
 import org.pgist.cvo.Concern;
 import org.pgist.system.BaseDAOImpl;
+import org.pgist.system.YesNoVoting;
 import org.pgist.tagging.Tag;
 import org.pgist.tagging.TagInfo;
 import org.pgist.util.DBMetaData;
@@ -859,11 +860,12 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         return (Tag) getHibernateTemplate().load(Tag.class, tagId);
     }//findTagById()
     
-    private static final String hql_deleteVotings = "delete InfoVoting iv where iv.object.id=?";
+    private static final String hql_deleteVotings = "delete YesNoVoting v where v.targetType=? and v.targetId=?";
     
     
     public void deleteVotings(Long infoObjectId) throws Exception {
         Query query = getSession().createQuery(hql_deleteVotings);
+        query.setInteger(0, YesNoVoting.TYPE_INFO_OBJECT);
         query.setLong(0, infoObjectId);
         query.executeUpdate();
     }//deleteVotings()
