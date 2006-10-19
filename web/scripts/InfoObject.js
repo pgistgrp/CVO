@@ -108,6 +108,7 @@
 				SDAgent.createPost({isid:this.structureId, ioid: this.objectId, title: newPostTitle, content: newPost, tags:newPostTags}, {
 				callback:function(data){
 						if (data.successful){
+						     infoObject.setVote("post", data.id, "true"); //set initial vote
 							 infoObject.clearNewDiscussionInputs();
 							 infoObject.toggleNewDiscussion();
 							 displayIndicator(false);

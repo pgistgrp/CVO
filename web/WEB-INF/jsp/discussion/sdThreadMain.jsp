@@ -61,6 +61,7 @@
 		    SDAgent.createReply({isid:${structure.id}, pid:${post.id}, title:newReplyTitle, content:newReply, tags: newReplyTags}, {
 		      callback:function(data){
 		          if (data.successful){     
+		          		setVote('post', data.id, 'agree');
 						$('txtnewReply').value = '';
 						tinyMCE.setContent('');
 						$('newReplyTags').value = '';
