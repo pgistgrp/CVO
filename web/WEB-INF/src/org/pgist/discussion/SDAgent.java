@@ -565,7 +565,7 @@ public class SDAgent {
             
             DiscussionReply reply = sdService.createReply(parent, title, content, tags);
             
-            map.put("reply", reply.getId());
+            map.put("id", reply.getId());
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
