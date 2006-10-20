@@ -40,6 +40,7 @@
 	
 var cctId = ${cctForm.cct.id};
 var concernTags = "";
+var selectConcernTags="";
 
 function validateForm()
 {
@@ -78,12 +79,14 @@ function cancelSubmit(){
 	Effect.BlindUp('validation');
 	$('addConcern').style.background="#FFF";
 	$('addConcern').style.color="#333";
+	$('selectTagsList').innerHTML="";
 	$('btnContinue').disabled=false;
 }
 
 
 function prepareConcern(){
 	concernTags = "";
+	selectConcernTags="";
 	potentialTags = "";
 	tagHolderId = 0;
 	if (validateForm()){
@@ -104,6 +107,7 @@ function prepareConcern(){
 				document.getElementById('tagsList').innerHTML = renderTags( concernTags, 1);  // + renderTags( data.suggested, 0);
 				document.getElementById('tagsList').innerHTML += renderTags(potentialTags, 1);
 				concernTags += potentialTags;
+				
 			}
 			document.getElementById("indicator").style.visibility = "hidden";
 		} );
@@ -126,25 +130,156 @@ function removeFromGeneratedTags(name){
 	if (tagHolderId == 0){
 		document.getElementById('tagsList').innerHTML = renderTags( concernTags, 1);
 	}else{
-		document.getElementById('editTagsList').innerHTML = renderTags( concernTags, 1);
+		document.getElementById('editTagsList').innerHTML = renderTags( concernTags, 3);
+		if(concernTags==""){
+		$('editTagsList').innerHTML="You must add 3 or more tags to continue";
+		}
+	}
+	
+	
+}
+
+var selectedTags = new Array();
+
+//adds a tag using name to selectTagsList this is for a user input tag
+function addSelectedTag(name){
+//function addTagToList(theListId,theTagTextboxId,validationId){
+	
+	if(name!=""){
+		//new Effect.BlindUp(validationId);
+		if(isSelectedTagsEmpty()){
+		$('selectTagsList').innerHTML="";
+		}
+		uniqueTagCounter++;
+		newTagId = 'userTag' + uniqueTagCounter;
+		selectedTags[newTagId] = document.getElementById(name).value;
+		document.getElementById(name).value='';
+		document.getElementById('selectTagsList').innerHTML += '<li id="'+ newTagId +'" class="tagsList">'+ selectedTags[newTagId] +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:removeFromSelectedTagList(\''+ newTagId +'\');"><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
+		selectConcernTags += selectedTags[newTagId] + ',';
+		
+		
+	}
+	
+}
+	
+	//removes tag from selectTagList by tagId
+function removeFromSelectedTagList(tagId){
+	
+	//function removeFromList(tagId){
+	
+	d = document.getElementById('selectTagsList'); 
+	d_nested = document.getElementById(tagId); 
+	
+	if (selectedTags[tagId] != null){
+		var indexNum = selectConcernTags.indexOf(selectedTags[tagId]+',');
+		if (indexNum > 0){
+			firstpart = selectConcernTags.substring(0, indexNum);
+			secondpart = selectConcernTags.substring(indexNum + selectedTags[tagId].length + 1, selectConcernTags.length);
+			selectConcernTags = firstpart + secondpart;
+		}else if (indexNum == 0){
+			selectConcernTags = selectConcernTags.substring(indexNum + selectedTags[tagId].length +1, selectConcernTags.length);
+		}
+	}
+	
+	throwaway_node = d.removeChild(d_nested);
+	if(isSelectedTagsEmpty()){
+	$('selectTagsList').innerHTML="You must select 3 or more tags to continue";
+	}
+
+}
+
+function addFromSuggestedToSelected(name){
+
+if(name==""){
+return;
+}
+if(isSelectedTagsEmpty()){
+$('selectTagsList').innerHTML="";
+}
+removeFromGeneratedTags(name);
+addToSelectedList(name);
+
+}
+
+function addToSelectedList(name){
+if(isSelectedTagsEmpty()){
+$('selectTagsList').innerHTML="";
+}
+
+	$('selectTagsList').innerHTML+='<li class="tagsList">'+ name +'<span class="tagsList_controls">&nbsp;<a href=\'javascript:removeSelectedTag("'+name+'");\'><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
+selectConcernTags+=name+',';
+
+}
+//removes selected tag with name from selectTagsList
+function removeSelectedTag(name){
+	if(name == "")return;
+	var indexNum = selectConcernTags.indexOf(name +',');
+	if (indexNum > 0){
+		firstpart = selectConcernTags.substring(0, indexNum);
+		secondpart = selectConcernTags.substring(indexNum + name.length + 1, selectConcernTags.length);
+		selectConcernTags = firstpart + secondpart;
+	}else if (indexNum == 0){
+		selectConcernTags = selectConcernTags.substring(indexNum + name.length +1, selectConcernTags.length);
+	}
+
+	if (tagHolderId == 0){
+		document.getElementById('selectTagsList').innerHTML = renderTags( selectConcernTags, 2);
+	}else{
+		document.getElementById('editTagsList').innerHTML = renderTags( concernTags,3);
+	}
+if(isSelectedTagsEmpty()){
+	$('selectTagsList').innerHTML="You must select 3 or more tags to continue";
 	}
 }
 
 function renderTags(tags,type){
-	sty = (type == 1)?"tagsList":"suggestedTagsList";
+
+	//sty = (type == 1)?"tagsList":"suggestedTagsList";
+	if(isSelectedTagsEmpty()){
+	$('selectTagsList').innerHTML="";
+	}
+	sty="tagsList";
 	var str= "";
 	tagtemp = tags.split(",");
-	
+	if(type==1){
 	for(i=0; i < tagtemp.length; i++){
 		if(tagtemp [i] != ""){
 
 		
 		
-			str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=javascript:removeFromGeneratedTags("'+ tagtemp[i] +'");><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';	
-				
+			//str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=javascript:removeFromGeneratedTags("'+ tagtemp[i] +'");><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';	
+				str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=\'javascript:addFromSuggestedToSelected("'+ tagtemp[i] +'");\'>+</a></span></li>';
 
 		}
 	}	
+	}else if(type==2){
+		for(i=0; i < tagtemp.length; i++){
+		if(tagtemp [i] != ""){
+
+		
+		
+			//str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=javascript:removeFromGeneratedTags("'+ tagtemp[i] +'");><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';	
+				str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=\'javascript:removeSelectedTag("'+ tagtemp[i] +'");\'><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
+
+		}
+	}	
+	}else if(type=3){
+	for(i=0; i < tagtemp.length; i++){
+		if(tagtemp [i] != ""){
+
+		
+		//changed trashcan to -
+			str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=\'javascript:removeFromGeneratedTags("'+ tagtemp[i] +'");\'><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';	
+				//str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=javascript:removeFromSelectedTagList("'+ tagtemp[i] +'");>-</a></span></li>';
+
+		}
+	}	
+	
+	
+	}
+	if(isSelectedTagsEmpty()){
+	$('selectTagsList').innerHTML="You must select 3 or more tags to continue";
+	}
 	return str;
 }
 
@@ -153,6 +288,7 @@ function removeFromList(tagId){
 	if (tagHolderId == 1){
 		d = document.getElementById('editTagsList'); 
 	}else{
+	alert('tagsList');
 		d = document.getElementById('tagsList'); 
 	}
 	d_nested = document.getElementById(tagId); 
@@ -169,8 +305,26 @@ function removeFromList(tagId){
 	}
 	
 	throwaway_node = d.removeChild(d_nested);
+	if(isSelectedTagsEmpty()){
+	$('selectTagsList').innerHTML="You must select 3 or more tags to continue";
+	}
+	if(concernTags==""){
+	$('editTagsList').innerHTML="You must select 3 or more tags to continue";
+	}
 
 }
+
+function isSelectedTagsEmpty(){
+if(selectConcernTags==""){
+
+return true;
+}
+
+
+return false;
+
+}
+
 
 var uniqueTagCounter = 0;
 function addTagToList(theListId,theTagTextboxId,validationId){
@@ -181,11 +335,14 @@ function addTagToList(theListId,theTagTextboxId,validationId){
 		new Effect.BlindDown(validationId);
 		new Effect.Highlight(validationId, {duration: 20, endcolor:'#FFFFFF'});			
 	}else{
+	if(concernTags==""){
+	$('editTagsList').innerHTML="";
+	}
 		new Effect.BlindUp(validationId);
 		uniqueTagCounter++;
 		newTagId = 'userTag' + uniqueTagCounter;
 		editingTags[newTagId] = document.getElementById(theTagTextboxId).value;
-		document.getElementById(theListId).innerHTML += '<li id="'+ newTagId +'" class="tagsList">'+ document.getElementById(theTagTextboxId).value +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:removeFromList(\''+ newTagId +'\');"><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
+		document.getElementById(theListId).innerHTML += '<li id="'+ newTagId +'" class="tagsList">'+ document.getElementById(theTagTextboxId).value +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:removeFromList(\''+ newTagId +'\');"><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
 		concernTags += document.getElementById(theTagTextboxId).value + ',';
 		new Effect.Highlight(theTagTextboxId, {duration: 4, endcolor:'#FFFFFF'});
 		$(theTagTextboxId).value = "";
@@ -199,13 +356,17 @@ $('saving-indicator').style.display="none";
 }
 }
 function saveTheConcern(){
-	
+alert(selectConcernTags);
+alert(selectConcernTags.split(',').length-1);
+	if(selectConcernTags.split(',').length-1<3){
+	alert("You must select 3 or more tags");
+	}else{
 	var concern = $('addConcern').value;
 	//concernTags = '\"' + concernTags +'\"';
 	//$('indicator').style.visibility = "visible";
 	displaySaveIndicator(true);
 	//alert('cctId:' + cctId + ', concern: ' + concern + ', tags: ' + concernTags);
-	CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:concernTags}, {
+	CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:selectConcernTags}, {
 		callback:function(data){
 			if (data.successful){
 				//alert(concernTags);
@@ -219,6 +380,9 @@ function saveTheConcern(){
 				//alert(concernTags);
 				showMyConcerns(data.concern.id);
 				concernTags = '';
+				selectConcernTags='';
+				
+				$('selectTagsList').innerHTML='';
 				$('theTag').value = '';
 				displaySaveIndicator(false);
 			}
@@ -229,6 +393,7 @@ function saveTheConcern(){
 		}
 });
 //$("indicator").style.visibility = "hidden";
+}
 }
 
 
@@ -333,7 +498,7 @@ CCTAgent.getConcernById(concernId, {
 	});
 	}
 	
-
+var editTagList=new Array();
 function editTagsPopup(concernId){
 	tagHolderId = 1;
 	concernTags = "";
@@ -351,10 +516,10 @@ function editTagsPopup(concernId){
 						os += '<ul id="editTagsList" class="tagsList"> '+data.id+ '</ul>';
 						
 						if(navigator.appName=="Netscape"){
-						os += '<p></p><span style="margin:2%;"><input type="text" style="position:fixed;" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" style="position:relative;left:120px; bottom:5px;" onClick="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\');"></span></p>';
+						os += '<p><form method="post" onSubmit="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\');return false;"><span style="margin:2%;"><input type="text" style="position:fixed;" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" style="position:relative;left:120px; bottom:5px;" onClick="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\');"></span></form></p>';
 						//os += '<a href="javascript:editTags('+concernId+');">TestIt</a>';
 						}else{
-						os += '<p></p><span style="margin:2%;"><input type="text" style="" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" style="" onClick="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\');"></span></p>';
+						os += '<p><form method="post" onSubmit="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\'); return false;"><span style="margin:2%;"><input type="text" style="" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" style="" onClick="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\');"></span></form></p>';
 						}
 						os += '<div style="display: none;" id="editTagValidation"></div>';
 						os += '<div style="position:relative; top:20px;"><hr><input type="button" id="subeditTags" value="Submit Edits" onClick="editTags('+concernId+')">';
@@ -362,7 +527,8 @@ function editTagsPopup(concernId){
 							$('lightbox').innerHTML = os;
 							var str= "";
 							for(i=0; i < data.concern.tags.length; i++){
-								str += '<li id="tag'+data.concern.tags[i].tag.id+'" class="tagsList">'+ data.concern.tags[i].tag.name +'&nbsp;<a href=javascript:removeFromGeneratedTags("' + data.concern.tags[i].tag.name + '");><img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></li>';
+							
+								str += '<li id="tag'+data.concern.tags[i].tag.id+'" class="tagsList">'+ data.concern.tags[i].tag.name +'&nbsp;<a href=\'javascript:removeFromGeneratedTags("' + data.concern.tags[i].tag.name + '");\'><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></li>';//<img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></li>';
 								concernTags += data.concern.tags[i].tag.name + ',';
 							}
 							document.getElementById('editTagsList').innerHTML = str;
@@ -382,6 +548,9 @@ concernTags = str;
 }
 
 function editTags(concernId){
+if(concernTags.split(',').length-1<3){
+alert("You must select 3 or more tags");
+}else{
 removeLastComma(concernTags);
 CCTAgent.editTags({concernId:concernId, tags:concernTags}, {
 	callback:function(data){
@@ -401,6 +570,7 @@ CCTAgent.editTags({concernId:concernId, tags:concernTags}, {
 			//showTheError();
 	}
 });
+}
 }
 
 function delConcern(concernId){
@@ -423,6 +593,7 @@ if (destroy){
 }
 
 function ifEnter(field,event) {
+
 var theCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
 if (theCode == 13){
 prepareConcern();
@@ -806,7 +977,7 @@ top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.do
 <!-- Main Content starts Here-->
 <div id="slate" class="borderblue">
 	<h4>Add your concern</h4><br>What problems do you encounter in your daily trips to work outside the home, shopping, and errands? In what ways do you feel our current transportation system fails to meet the needs of our growing region? <p>Describe <strong>one</strong> problem with our transportation system. You can add more concerns later</p>
-	<form name="brainstorm" method="post" onSubmit="addTagToList('tagsList', 'theTag','tagValidation'); return false;">
+	<form name="brainstorm" method="post" onSubmit="addSelectedTag('theTag'); return false;"><!-- onSubmit="addTagToList('tagsList', 'theTag','tagValidation'); return false;">-->
 	<p><textarea onkeypress="ifEnter(this,event);" name="addConcern" cols="20" rows="2" id="addConcern"></textarea></p>
 	<p class="indent">
 	<input type="button" id="btnContinue" name="Continue" value="Submit Concern" onclick="prepareConcern();">
@@ -824,7 +995,10 @@ top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.do
 		<p>Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed).  <span class="glossary">[ what are <a href="javascript:glossaryPopup('tag');">tags</a>? ]</span></p>
 		<b>Suggested Tags for your Concern:</b>  <ul class="tagsList" id="tagsList">
 		</ul>	 
-		<p><input type="text" id="theTag" class="tagTextbox" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addTagToList('tagsList','theTag','tagValidation');return false;"></p>
+		<br>
+		<b>Selected Tags for your Concern:</b> <ul class="tagsList" id="selectTagsList">
+		</ul>
+		<p><input type="text" id="theTag" class="tagTextbox" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addSelectedTag('theTag');return false;"></p>
 		<div style="display: none; padding-left: 20px;" id="tagValidation"></div>
 		
 		<span class="title_section">Finished Tagging? <br><input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern(); void(0);"></span><input type="button" value="Cancel - back to edit my concern" onclick="javascript:cancelSubmit();">
