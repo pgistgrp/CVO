@@ -60,6 +60,11 @@ public class LoginAction extends Action {
         }
         
         User user = userDAO.getUserByName(loginname, true, false);
+        if(user == null) {
+        	uform.setReason("Invalid User Name.");
+        	return mapping.findForward("login");
+        }
+        
         if (user!=null && user.checkPassword(password)) {
             session = request.getSession(true);
             
@@ -69,12 +74,12 @@ public class LoginAction extends Action {
             WebUtils.setCurrentUser(userInfo);
             
             return mapping.findForward("main");
-        }else if(!user.checkPassword(password)){
+        } else if(!user.checkPassword(password)){
         	uform.setReason("Your Password is Invalid. Please Try Again.");
         	return mapping.findForward("login");
         } 
         
-        
+        uform.setReason("An unknown error occured. Please email pgistfeedback@gmail.com");
         return mapping.findForward("login");
     }//execute()
     

@@ -17,7 +17,7 @@ body{text-align: center; font-size: 1.0em;}
 	text-align: left;
 	margin-right: auto;
 	margin-left: auto;
-	width: 320px;
+	width: 350px;
 }
 
 #wrapper{
@@ -25,7 +25,7 @@ body{text-align: center; font-size: 1.0em;}
 }
 #login {
 	border: 10px solid #CCCCCC;
-	padding: 15px;
+	padding: 13px;
 }
 #pgistlogo {
 	text-align: center;
@@ -46,23 +46,24 @@ body{text-align: center; font-size: 1.0em;}
 				<html:form action="/login.do" method="POST" focus="user.loginname">
 				  <div>
 				    <table id="login">
-				      <tr>
-				        <td>User Name:</td>
-				          <td><html:text property="user.loginname"/></td>
-				        </tr>
-				      <tr>
-				        <td>Password:</td>
-				          <td><html:password property="user.password" redisplay="false"/></td>
-				        </tr>
-				      <tr>
-				        <td>&nbsp;</td>
-					      <td align="right">(<a href="register.do">Register</a>) <html:submit property="submit" value="Login"/> </td>
-				      </tr>
-				      <tr>
-				      	<td colspan="2" style="color: red">${userForm.reason}</td>
-				      </tr>
-				    </table>
-		
+                      <tr>
+                        <td>User Name:</td>
+                        <td><html:text property="user.loginname"/></td>
+                      </tr>
+                      <tr>
+                        <td>Password:</td>
+                        <td><html:password property="user.password" redisplay="false"/></td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td align="right">(<a href="register.do">Register</a>)
+                          <html:submit property="submit" value="Login"/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" style="color: red; font-size: .8em;"><div align="center">${userForm.reason}</div></td>
+                      </tr>
+                    </table>
 				  </div>
 				</html:form>
 				
@@ -74,7 +75,7 @@ body{text-align: center; font-size: 1.0em;}
 				 
 				 <p><b style="color: #355800">Good question!</b> This website is designed to help you learn about the diverse concerns of other citizens and to understand how these concerns may be related to your own. Finding these relationships is the first step to identifying what kinds of transportation solutions we can all get excited about.</p>
 				
-				<p align="right" style="font-size: 1.3em"><a href="readmore.jsp">Learn more</a> or <a href="register.do">register now</a>!</p>
+				<p align="right" style="font-size: 1.3em"><a href="readmore.jsp">Learn More</a> or <a href="register.do">Register Now</a>!</p>
 					<!--tags:discussion discussible="null" url="/test.do" count="10"/-->
 				 
 				</div>
