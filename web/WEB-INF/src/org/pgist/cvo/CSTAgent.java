@@ -69,6 +69,7 @@ public class CSTAgent {
      *           <li>orphanPage - int, the page to be displayed of orphan tags, only for type==1</li>
      *           <li>orphanCount - int, orphan tag number to be displayed on a page, -1 denotes all, only for type==1</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -192,6 +193,7 @@ public class CSTAgent {
      *           <li>page - int, the page to be displayed of unrelated tags, optional, default is 1</li>
      *           <li>count - int, the rows number per page, optional, default is -1, which means to get all tags</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -264,12 +266,14 @@ public class CSTAgent {
      *       otherwise, it will be added to the root category of cct. Root category is invisible to user.
      *    </li>
      * <ul>
+     * 
      * @param params A map contains:<br>
      *         <ul>
      *           <li>cctId - int, the current CCT instance id</li>
      *           <li>parentId - int, the parent CategoryReference instance id, if null or invalid, rootId will be used.</li>
      *           <li>name - string, name of the new category</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -319,6 +323,7 @@ public class CSTAgent {
      *           <li>categoryId - int, id of the CategoryReference to be copied</li>
      *           <li>parentId - int, the new parent CategoryReference instance id, if null or invalid, rootId will be used.</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -378,6 +383,7 @@ public class CSTAgent {
      *           <li>name - string, name of the new CategoryReference</li>
      *           <li>parentId - int, the parent CategoryReference instance id, if null or invalid, rootId will be used.</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -442,6 +448,7 @@ public class CSTAgent {
      *           <li>parent0Id - int, the old parent CategoryReference instance id, if null or invalid, rootId will be used.</li>
      *           <li>parent1Id - int, the new parent CategoryReference instance id, if null or invalid, rootId will be used.</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -501,6 +508,7 @@ public class CSTAgent {
      *           <li>categoryId - int, id of the CategoryReference object</li>
      *           <li>name - the new category name</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -543,6 +551,7 @@ public class CSTAgent {
      *           <li>parentId - int, id of the parent CategoryReference object</li>
      *           <li>categoryId - int, id of the CategoryReference object</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -584,6 +593,7 @@ public class CSTAgent {
      *           <li>categoryId - int, id of the CategoryReference object</li>
      *           <li>tagId - int, id of the TagReference object</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -621,6 +631,7 @@ public class CSTAgent {
      *           <li>categoryId - int, id of the CategoryReference object</li>
      *           <li>tagId - int, id of the TagReference object</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -658,6 +669,7 @@ public class CSTAgent {
      *           <li>tagId - int, id of the TagReference object</li>
      *           <li>page - int, page of concerns to be displayed</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -783,6 +795,7 @@ public class CSTAgent {
      *                      else return javascript objects of Theme object
      *           </li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -857,6 +870,7 @@ public class CSTAgent {
      *                      else return javascript objects of Theme object
      *           </li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -916,7 +930,9 @@ public class CSTAgent {
      *           <li>themeId - int, theme id</li>
      *           <li>description - string, description to this theme</li>
      *           <li>summary - string, the new summary to be saved</li>
+     *           <li>tags - string, comma separated tag name list</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -934,8 +950,10 @@ public class CSTAgent {
             if (description==null) description = "";
             String summary = (String) params.get("summary");
             if (summary==null) summary = "";
+            String tags = (String) params.get("summary");
+            if (tags==null) tags = "";
             
-            cstService.saveSummary(cctId, themeId, description, summary);
+            cstService.saveSummary(cctId, themeId, description, summary, tags);
             
             map.put("successful", true);
         } catch(Exception e) {

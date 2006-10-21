@@ -11,6 +11,7 @@ import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
 import org.pgist.tagging.Category;
+import org.pgist.tagging.Tag;
 import org.pgist.tagging.TagDAO;
 import org.pgist.util.PageSetting;
 
@@ -520,7 +521,7 @@ public class CSTServiceImpl implements CSTService {
     }//getOrphanTags()
 
 
-    public void saveSummary(Long cctId, Long themeId, String description, String summary) throws Exception {
+    public void saveSummary(Long cctId, Long themeId, String description, String summary, String tags) throws Exception {
         if (summary==null || "".equals(summary.trim())) throw new Exception("summary can't be empty.");
         
         CCT cct = cctDAO.getCCTById(cctId);
@@ -539,6 +540,22 @@ public class CSTServiceImpl implements CSTService {
         Long oid = cstDAO.getInfoObjectIdByThemeId(themeId);
         if (oid!=null) {
             discussionDAO.deleteVotings(oid);
+        }
+        
+        /*
+         * clear tags if it has
+         */
+        theme.getTags().clear();
+        
+        for (String tagStr : tags.split(",")) {
+            if (tagStr!=null && tagStr.trim().length()!=0) {
+                tagStr = tagStr.trim();
+                Tag tag = tagDAO.getTagByName(tagStr);
+                if (tag==null) {
+                    tagDAO.addTag(tagStr, Tag.STATUS_OFFICIAL, true);
+                }
+                theme.getTags().add(tag);
+            }
         }
         
         cstDAO.save(theme);

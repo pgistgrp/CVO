@@ -29,6 +29,8 @@ public class Theme implements Serializable {
     
     protected Set criteria = new HashSet();
     
+    protected Set tags = new HashSet();
+    
     
     /**
      * @return
@@ -127,6 +129,20 @@ public class Theme implements Serializable {
 
     public void setCriteria(Set criteria) {
         this.criteria = criteria;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.many-to-one column="tag_id" lazy="true" class="org.pgist.tagging.Tag"
+     */
+    public Set getTags() {
+        return tags;
+    }
+
+
+    public void setTags(Set tags) {
+        this.tags = tags;
     }
 
 
