@@ -134,7 +134,10 @@ public class Theme implements Serializable {
 
     /**
      * @return
-     * @hibernate.many-to-one column="tag_id" lazy="true" class="org.pgist.tagging.Tag"
+     * 
+     * @hibernate.set lazy="true" cascade="all" table="pgist_theme_tag_link" order-by="id"
+     * @hibernate.collection-key column="theme_id"
+     * @hibernate.collection-one-to-many class="org.pgist.tagging.Tag"
      */
     public Set getTags() {
         return tags;
