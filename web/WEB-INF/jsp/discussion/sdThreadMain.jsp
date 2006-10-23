@@ -502,7 +502,10 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 <script type="text/javascript">
 tinyMCE.init({
 	mode : "exact",
-	theme : "simple",
+	theme : "advanced",
+	theme_advanced_buttons1 : "bold, italic, bullist, numlist,undo, redo,link",
+	theme_advanced_buttons2 : "",
+	theme_advanced_buttons3 : "",
 	content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css"
 });
 </script>

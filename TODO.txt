@@ -21,14 +21,11 @@ Zhong:
 [ok] default sort for replies (in sdThread): replies createTime asc (newest on bottom)
 [ok] CCT edit tags and delete concerns (hibernate error)
 [ok] Global (will be needed on every page) feedback/bug form
-[] E-mail notification for discussion posts
-[] E-mail notification on mod Feedback Form
-[] Google Map Guirong Code Fixes (after usability test)
 [ok] multiple filters on sidebar AND
 [ok] sidebar - other posts in random order for threadmain (for now)
 [ok] Import stopwords/tags from XML 
 [ok] Bug: Some tags in SDC don't return any concerns when clicked on - they should return at least one (the concern that contained the original tag that was clicked on)
-[] CCT Sidebar Filtering
+[ok] CCT Sidebar Filtering
 [?] Bug: getConcerns bug when using IOID.  => reason:ERROR: syntax error at or near ":",successful: false, 
 [ok] Getting CCT variable in SDC
 [?] CST Bug: Error: org.pgist.tagging.Tag.getHibernateLazyInitializer()Lorg/hibernate/proxy/LazyInitializer;
@@ -39,7 +36,9 @@ Zhong:
 [ok] On update of summary in CST, delete all votes related to given summary.
 [ok] IOID in sidebar-posts
 [ok] SDAgent.getTagCloud();
-
+[ ] Google Map Guirong Code Fixes (after usability test)
+[ ] CST Summary Tags
+[ ] infoObject.lastPost = post with the most recent reply
 
 Jordan:
 [ok] bug - new discussion on entire IS
@@ -53,14 +52,16 @@ Jordan:
 [ok] jsp:include header and footer
 [ok] "19 tags" bug
 [ok] Report Bugs form
-[] Fix breadcrumb links
-[] SDC Sidebar
+[ok] Fix breadcrumb links
+[ok] SDC Sidebar
 [ok] Consistent Finished Div
 [ok] Remove sorting TH Links
 [ok] cst publish redirect
 [ok] submit tagsearch on enter
 
 John:
+[] E-mail notification for discussion posts
+[] E-mail notification on mod Feedback Form
 [ok] css for new design
 [ok] integrate new layout
 [ok] Registration redirect (if successful, redirect to succcess page or main page, if not, display message)
@@ -70,11 +71,11 @@ John:
 
 Issac:
 [ok] Fix Lightbox on CCT
-[] Error Messages
+[ok] Error Messages
 [ok] Keep line breaks in posts
 [ok] Mod Glossary
 [ok] Finish Public Glossary
-[] No script on inputs
+[ok] No script on inputs
 [] sorting posts on sdMain
 
 Adam:

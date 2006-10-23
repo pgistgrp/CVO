@@ -38,7 +38,7 @@
  		    <c:choose>
 		      <c:when test="${infoObject.lastPost.id != null}">
 		     		 <a href="/sdThread.do?isid=${structure.id}&pid=${infoObject.lastPost.id}&ioid=${infoObject.id}">${infoObject.lastPost.title}</a><br />
-		     		Posted on: <fmt:formatDate value="${structure.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${infoObject.lastPost.owner.loginname}
+		     		Posted on: <fmt:formatDate value="${infoObject.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${infoObject.lastPost.owner.loginname}
 		      </c:when>
 		      <c:otherwise>
 		      	No current discussions
