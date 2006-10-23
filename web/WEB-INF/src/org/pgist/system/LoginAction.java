@@ -79,7 +79,6 @@ public class LoginAction extends Action {
         	return mapping.findForward("login");
         } 
         
-        uform.setReason("An unknown error occured. Please email pgistfeedback@gmail.com");
         return mapping.findForward("login");
     }//execute()
     
