@@ -324,7 +324,7 @@ tr:hover {background-color: #F1F7FF;}
 	<h1>Learn More: </h1> <h2>Listing of All Glossary Terms</h2>
 	</div>
 	<div id="footprints">
-	<p>Learn More >> Glossary</p>
+	<p> <a href="/main.do">Participate</A> &raquo; Glossary</p>
 	</div>
 	<!-- End Sub Title -->
 	
