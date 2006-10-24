@@ -39,6 +39,9 @@ Zhong:
 [ ] Google Map Guirong Code Fixes (after usability test)
 [ok] CST Summary Tags
 [ok] infoObject.lastPost = post with the most recent reply
+[ ] E-mail notification for discussion posts
+[ ] E-mail notification on mod Feedback Form
+
 
 Jordan:
 [ok] bug - new discussion on entire IS
@@ -60,8 +63,7 @@ Jordan:
 [ok] submit tagsearch on enter
 
 John:
-[] E-mail notification for discussion posts
-[] E-mail notification on mod Feedback Form
+
 [ok] css for new design
 [ok] integrate new layout
 [ok] Registration redirect (if successful, redirect to succcess page or main page, if not, display message)

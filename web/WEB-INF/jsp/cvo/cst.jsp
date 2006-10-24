@@ -142,6 +142,7 @@ tinyMCE.init({
 		}
 				
 		function saveSummary(theTheme, theSummary){
+			var summaryTags = $('summaryTags').innerHTML;
 			if(!currentTheme)return;
 			
 			if(theTheme)
@@ -155,7 +156,7 @@ tinyMCE.init({
 				//summaryString = //editor1.getContent();
 				summaryString=tinyMCE.getContent();
 				
-			CSTAgent.saveSummary({cctId:cctId, themeId:themeId, summary:summaryString, description: "discuss concerns about"}, {
+			CSTAgent.saveSummary({cctId:cctId, themeId:themeId, summary:summaryString, description: "discuss concerns about", tags: summaryTags}, {
 			callback:function(data){
 				if (data.successful){
 					alert('Summary has been saved.');
@@ -752,7 +753,7 @@ categories, each with 1 or 2 tags in it.</li></ol><li><b>Identify themes and sum
 		
 		<div id="frmSaveSummary">
 			 <textarea id="sumtext" style="width:100%; height:140px;"></textarea>
-			 <p>Tags: <input type="text" style="width: 200px"/> (comma separated)</p>
+			 <p>Tags: <input id="summaryTags" type="text" style="width: 200px"/> (comma separated)</p>
 			 <p><button id="ss" type="button" disabled="true" style="padding: 0pt 1em;" onclick="saveSummary()">Save summary</button></p>
 			 </div>
 		<div id="spacer" style="text-align: right;"></div>
