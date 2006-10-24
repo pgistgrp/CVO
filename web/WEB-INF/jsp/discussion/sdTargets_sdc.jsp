@@ -16,7 +16,7 @@
           </tr>		 
 	<jsp:useBean id="today" class="java.util.Date"/>
     <c:forEach var="infoObject" items="${structure.infoObjects}" varStatus="loop">
-    	<c:set var="fmtLastPostDate"><fmt:formatDate value="${infoObject.lastPost.createTime}" pattern="yyyy/MM/dd"/></c:set>
+    	<c:set var="fmtLastPostDate"><fmt:formatDate value="${infoObject.discussion.lastPost.createTime}" pattern="yyyy/MM/dd"/></c:set>
     	<c:set var="fmtToday"><fmt:formatDate value="${today}" pattern="yyyy/MM/dd"/></c:set>
     	
     	
@@ -36,16 +36,16 @@
 			<td ><span class="smalltext" style="font-size: 80%;">
 			
  		    <c:choose>
-		      <c:when test="${infoObject.lastPost.id != null}">
-		     		 <a href="/sdThread.do?isid=${structure.id}&pid=${infoObject.lastPost.id}&ioid=${infoObject.id}">${infoObject.lastPost.title}</a><br />
-		     		Posted on: <fmt:formatDate value="${infoObject.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${infoObject.lastPost.owner.loginname}
+		      <c:when test="${infoObject.discussion.lastPost.id != null}">
+		     		 <a href="/sdThread.do?isid=${structure.id}&pid=${infoObject.discussion.lastPost.id}&ioid=${infoObject.id}">${infoObject.discussion.lastPost.title}</a><br />
+		     		Posted on: <fmt:formatDate value="${infoObject.discussion.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${infoObject.discussion.lastPost.owner.loginname}
 		      </c:when>
 		      <c:otherwise>
 		      	No current discussions
 		      </c:otherwise>
 		    </c:choose>          
 			</span></td>
-            <td class="textcenter"><a href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.numDiscussion}</a></td>
+            <td class="textcenter"><a href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.discussion.numPosts}</a></td>
           </tr>		  
     </c:forEach>
 	  

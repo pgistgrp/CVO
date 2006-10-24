@@ -142,7 +142,7 @@ tinyMCE.init({
 		}
 				
 		function saveSummary(theTheme, theSummary){
-			var summaryTags = $('summaryTags').innerHTML;
+			var summaryTags = $('summaryTags').value;
 			if(!currentTheme)return;
 			
 			if(theTheme)
@@ -156,6 +156,7 @@ tinyMCE.init({
 				//summaryString = //editor1.getContent();
 				summaryString=tinyMCE.getContent();
 				
+			//alert("cctId: " + cctId + " themeId: " + themeId + " summary:  " + summaryString + " tags: " + summaryTags);
 			CSTAgent.saveSummary({cctId:cctId, themeId:themeId, summary:summaryString, description: "discuss concerns about", tags: summaryTags}, {
 			callback:function(data){
 				if (data.successful){
@@ -467,6 +468,11 @@ tinyMCE.init({
 					//editor1.putContent (currentTheme.summary);
 					tinyMCE.setContent(currentTheme.summary);
 					
+					$('summaryTags').value = "";
+
+					for(i=0; i< currentTheme.tags.length; i++){
+						$('summaryTags').value += currentTheme.tags[i].name + ","
+					}
 			}
 		}
 		

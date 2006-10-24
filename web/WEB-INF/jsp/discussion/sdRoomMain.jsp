@@ -67,7 +67,7 @@ tinyMCE.init({
 		infoObject.getTargets();
 	*/
 
-	var infoObject = new InfoObject("${structure.id}","${object.id}","${object.object}", "${object.numDiscussion}", "${structure.numDiscussion}", "All Concern Themes", '<%= request.getParameter("page") %>');
+	var infoObject = new InfoObject("${structure.id}","${object.id}","${object.object}", "${object.discussion.numPosts}", "${structure.discussion.numPosts}", "All Concern Themes", '<%= request.getParameter("page") %>');
 	 
 	/*************** Get Targets - If IOID is ommitted, return sdcSummary.jsp::else, returns sdcStructureSummary.jsp************** */
 	 infoObject.getTargets = function(){

@@ -105,6 +105,7 @@
 				tinyMCE.setContent('');
 	 	 		var newPostTags = $(this.newPostTagsInput).value;
 	 	 		
+	 	 		//alert("ISID: " + this.structureId + "IOID: " + this.objectId + "Title: " + newPostTitle + "Content: " + newPost + "Tags: " + newPostTags);
 				SDAgent.createPost({isid:this.structureId, ioid: this.objectId, title: newPostTitle, content: newPost, tags:newPostTags}, {
 				callback:function(data){
 						if (data.successful){
@@ -164,6 +165,7 @@
 				SDAgent.getPosts({isid:this.structureId, ioid:this.objectId, page: page, count: 10}, {
 			      callback:function(data){
 			          if (data.successful){
+			         // alert(data.html);
 			          $(infoObject.discussionDiv).innerHTML = data.html;
 			           displayIndicator(false);
 			          }else{

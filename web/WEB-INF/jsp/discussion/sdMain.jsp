@@ -5,7 +5,8 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en"><head>
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<head>
 <title>Step 1b: Discuss Summaries - Main</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/position.css";</style>
@@ -254,7 +255,7 @@
 			}
 
 </script>
-<style type="text/css" />
+<style type="text/css" >
 
 .leightpadding{
 
@@ -365,11 +366,8 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 		<![endif]><![endif]-->
 
 
+
 <html:html>
-<style type="text/css">
-
-
-</style>
 </head>
 <!--
 <c:choose>
@@ -453,9 +451,8 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 				  <table class="tabledisc" width="100%">
 				          <tr class="disc_row_b">
 							<jsp:useBean id="today" class="java.util.Date"/>
-							<c:set var="fmtLastPostDate"><fmt:formatDate value="${structure.lastPost.createTime}" pattern="yyyy/MM/dd"/></c:set>
+							<c:set var="fmtLastPostDate"><fmt:formatDate value="${structure.discussion.lastPost.createTime}" pattern="yyyy/MM/dd"/></c:set>
     						<c:set var="fmtToday"><fmt:formatDate value="${today}" pattern="yyyy/MM/dd"/></c:set>
-							
 							  <c:choose>
 							  <c:when test="${fmtToday == fmtLastPostDate}">
 							  	 <td width="44" class="textcenter"><img src="/images/balloonactive2.gif" alt="Posts within the last 24 hours" /></td>
@@ -464,13 +461,13 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 							  	 <td width="44" class="textcenter"><img src="/images/ballooninactive2.gif" alt="No posts within the last 24 hours" /></td>
 							  </c:otherwise>
 							  </c:choose>
-							  <td><span class="padding-sides"><a href="/sdRoom.do?isid=${structure.id}">Discussion about all concern themes</a></span></td><!---->
+							  <td><span class="padding-sides"><a href="/sdRoom.do?isid=${structure.id}">Discussion about all concern themes</a></span></td>
 				 		    <td width="150"><span class="smalltext" style="font-size: 80%;">
 				 		    <c:choose>
-						      <c:when test="${structure.lastPost.id != null}">
+						      <c:when test="${structure.discussion.lastPost.id != null}">
 						     		<div class="padding-sides">
-									<a href="/sdThread.do?isid=${structure.id}&pid=${structure.lastPost.id}">${structure.lastPost.title}</a><br />
-						      		Posted on: <fmt:formatDate value="${structure.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${structure.lastPost.owner.loginname}
+									<a href="/sdThread.do?isid=${structure.id}&pid=${structure.discussion.lastPost.id}">${structure.discussion.lastPost.title}</a><br />
+						      		Posted on: <fmt:formatDate value="${structure.discussion.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${structure.discussion.lastPost.owner.loginname}
 									</div>
 						      </c:when>
 						      <c:otherwise>
@@ -479,7 +476,7 @@ top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? documen
 						    </c:choose>  
 							</span><!--span Added-->        
 							</td>
-				            <td width="100" class="textcenter"><a href="/sdRoom.do?isid=${structure.id}&ioid=">${structure.numDiscussion}</a></td>
+				            <td width="100" class="textcenter"><a href="/sdRoom.do?isid=${structure.id}&ioid=">${structure.discussion.numPosts}</a></td>
 				          </tr>		    
 		        </table><br>
 				
