@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.pgist.cvo.Concern;
 import org.directwebremoting.WebContextFactory;
+import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
 import org.pgist.system.YesNoVoting;
 import org.pgist.tagging.Tag;
@@ -32,6 +33,8 @@ public class SDAgent {
     
     private SystemService systemService;
     
+    private EmailSender emailSender;
+    
     
     public void setSdService(SDService sdService) {
         this.sdService = sdService;
@@ -40,6 +43,11 @@ public class SDAgent {
     
     public void setSystemService(SystemService systemService) {
         this.systemService = systemService;
+    }
+
+
+    public void setEmailSender(EmailSender emailSender) {
+        this.emailSender = emailSender;
     }
 
 

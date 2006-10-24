@@ -288,19 +288,11 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getInfoStructures()
     
     
-    private static final String hql_increaseDiscussions_1 = "update InfoStructure set numDiscussion=numDiscussion+1 where id=?";
+    private static final String hql_increaseDiscussions = "update Discussion set numPosts=numPosts+1 where id=?";
     
     
-    public void increaseDiscussions(InfoStructure structure) throws Exception {
-        getSession().createQuery(hql_increaseDiscussions_1).setLong(0, structure.getId()).executeUpdate();
-    }//increaseDiscussions()
-
-
-    private static final String hql_increaseDiscussions_2 = "update InfoObject set numDiscussion=numDiscussion+1 where id=?";
-    
-    
-    public void increaseDiscussions(InfoObject object) throws Exception {
-        getSession().createQuery(hql_increaseDiscussions_2).setLong(0, object.getId()).executeUpdate();
+    public void increaseDiscussions(Discussion discussion) throws Exception {
+        getSession().createQuery(hql_increaseDiscussions).setLong(0, discussion.getId()).executeUpdate();
     }//increaseDiscussions()
 
 

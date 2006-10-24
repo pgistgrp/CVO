@@ -14,15 +14,13 @@ public abstract class GenericInfo implements Serializable {
     
     protected Long id;
     
-    protected int numDiscussion = 0;
-    
     protected int numAgree = 0;
     
     protected int numVote = 0;
     
-    private Date respTime;
+    protected Date respTime;
     
-    protected DiscussionPost lastPost;
+    protected Discussion discussion = new Discussion();
     
     
     /**
@@ -36,20 +34,6 @@ public abstract class GenericInfo implements Serializable {
     
     public void setId(Long id) {
         this.id = id;
-    }
-    
-    
-    /**
-     * @return
-     * @hibernate.property not-null="true"
-     */
-    public int getNumDiscussion() {
-        return numDiscussion;
-    }
-    
-    
-    public void setNumDiscussion(int numDiscussion) {
-        this.numDiscussion = numDiscussion;
     }
     
     
@@ -97,17 +81,16 @@ public abstract class GenericInfo implements Serializable {
 
     /**
      * @return
-     * 
-     * @hibernate.many-to-one column="last_post"
+     * @hibernate.property column="discussion_id" not-null="true"
      */
-    public DiscussionPost getLastPost() {
-        return lastPost;
+    public Discussion getDiscussion() {
+        return discussion;
     }
-    
-    
-    public void setLastPost(DiscussionPost lastPost) {
-        this.lastPost = lastPost;
+
+
+    public void setDiscussion(Discussion discussion) {
+        this.discussion = discussion;
     }
-    
-    
+
+
 }//abstract class GenericInfo

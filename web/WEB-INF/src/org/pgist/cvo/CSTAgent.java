@@ -950,7 +950,7 @@ public class CSTAgent {
             if (description==null) description = "";
             String summary = (String) params.get("summary");
             if (summary==null) summary = "";
-            String tags = (String) params.get("summary");
+            String tags = (String) params.get("tags");
             if (tags==null) tags = "";
             
             cstService.saveSummary(cctId, themeId, description, summary, tags);

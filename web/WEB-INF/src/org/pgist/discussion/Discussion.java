@@ -18,6 +18,10 @@ public class Discussion implements Serializable {
     
     protected String targetType;
     
+    protected DiscussionPost lastPost;
+    
+    protected int numPosts = 0;
+    
     protected boolean deleted;
     
     
@@ -63,6 +67,35 @@ public class Discussion implements Serializable {
     }
 
 
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="last_post"
+     */
+    public DiscussionPost getLastPost() {
+        return lastPost;
+    }
+    
+    
+    public void setLastPost(DiscussionPost lastPost) {
+        this.lastPost = lastPost;
+    }
+    
+    
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getNumPosts() {
+        return numPosts;
+    }
+    
+    
+    public void setNumPosts(int numPosts) {
+        this.numPosts = numPosts;
+    }
+    
+    
     /**
      * @return
      * @hibernate.property not-null="true"

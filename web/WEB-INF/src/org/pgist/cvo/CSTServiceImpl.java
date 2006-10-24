@@ -552,7 +552,7 @@ public class CSTServiceImpl implements CSTService {
                 tagStr = tagStr.trim();
                 Tag tag = tagDAO.getTagByName(tagStr);
                 if (tag==null) {
-                    tagDAO.addTag(tagStr, Tag.STATUS_OFFICIAL, true);
+                    tag = tagDAO.addTag(tagStr, Tag.STATUS_OFFICIAL, true);
                 }
                 theme.getTags().add(tag);
             }

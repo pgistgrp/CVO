@@ -37,8 +37,8 @@ Zhong:
 [ok] IOID in sidebar-posts
 [ok] SDAgent.getTagCloud();
 [ ] Google Map Guirong Code Fixes (after usability test)
-[ ] CST Summary Tags
-[ ] infoObject.lastPost = post with the most recent reply
+[ok] CST Summary Tags
+[ok] infoObject.lastPost = post with the most recent reply
 
 Jordan:
 [ok] bug - new discussion on entire IS

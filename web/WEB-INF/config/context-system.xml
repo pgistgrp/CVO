@@ -44,7 +44,7 @@
             </props>
         </property>
         <property name="contentType"><value>text/plain; charset=UTF-8</value></property>
-        <property name="from"><value>service@pgist.org</value></property>
+        <property name="from"><value>service@localhost</value></property>
         <property name="username"><value>service</value></property>
         <property name="password"><value>123456</value></property>
     </bean>

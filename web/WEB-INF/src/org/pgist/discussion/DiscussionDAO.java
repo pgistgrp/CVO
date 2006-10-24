@@ -58,10 +58,7 @@ public interface DiscussionDAO extends BaseDAO {
     void deletePost(DiscussionPost post) throws Exception;
     
     
-    void increaseDiscussions(InfoStructure structure) throws Exception;
-
-
-    void increaseDiscussions(InfoObject object) throws Exception;
+    void increaseDiscussions(Discussion discussion) throws Exception;
 
 
     void increaseViews(DiscussionPost post) throws Exception;

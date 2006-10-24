@@ -112,14 +112,14 @@ public class SDServiceImpl implements SDService {
         /*
          * record the last post
          */
-        structure.setLastPost(post);
+        discussion.setLastPost(post);
         
         structure.setRespTime(post.getCreateTime());
         
         /*
          * count the discussions
          */
-        discussionDAO.increaseDiscussions(structure);
+        discussionDAO.increaseDiscussions(discussion);
         
         discussionDAO.save(structure);
         
@@ -131,11 +131,7 @@ public class SDServiceImpl implements SDService {
         String type = InfoObject.class.getName();
         Long id = object.getId();
         
-        Discussion discussion = discussionDAO.getDiscussion(type, id);
-        
-        if (discussion==null) {
-            discussion = discussionDAO.createDiscussion(type, id);
-        }
+        Discussion discussion = object.getDiscussion();
         
         DiscussionPost post = discussionDAO.createPost(discussion, title, content, tags);
         
@@ -153,14 +149,14 @@ public class SDServiceImpl implements SDService {
         /*
          * record the last post
          */
-        object.setLastPost(post);
+        discussion.setLastPost(post);
         
         object.setRespTime(post.getCreateTime());
         
         /*
          * count the discussions
          */
-        discussionDAO.increaseDiscussions(object);
+        discussionDAO.increaseDiscussions(discussion);
         
         discussionDAO.save(object);
         
@@ -169,6 +165,13 @@ public class SDServiceImpl implements SDService {
 
 
     public DiscussionReply createReply(DiscussionPost parent, String title, String content, String[] tags) throws Exception {
+        Discussion discussion = parent.getDiscussion();
+        
+        /*
+         * record the last post
+         */
+        discussion.setLastPost(parent);
+        
         return discussionDAO.createReply(parent, title, content, tags);
     }//createReply()
 
