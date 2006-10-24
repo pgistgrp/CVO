@@ -81,7 +81,10 @@
 					callback:function(data){
 							if (data.successful){ 
 								//alert("successful");
-	              				 new Effect.Fade(infoObject.votingQuestionDiv, {afterFinish: function(){infoObject.getTargets(); new Effect.Appear(infoObject.votingQuestionDiv);}});
+								if($(infoObject.votingQuestionDiv) != undefined){
+	              				 	new Effect.Fade(infoObject.votingQuestionDiv, {afterFinish: function(){infoObject.getTargets(); new Effect.Appear(infoObject.votingQuestionDiv);}});
+	              				}
+	              				 
 	              				 displayIndicator(false);
 							}else{
 								alert(data.reason);
