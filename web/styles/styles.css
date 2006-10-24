@@ -530,7 +530,7 @@ li.tagsList{
 	margin-right: 3px;
 	margin-bottom: 20px;
 	margin-top: 20px;
-	padding: 2px;
+	padding: 0px;
 	border: 1px solid #CDC;
 	list-style: none;
 	display: inline;

@@ -16,7 +16,7 @@
 <!-- End Site Wide CSS -->
 
 <style type="text/css">
-.trashcan {width:.8em;height:.8em;}
+.trashcan {height:1em;width:1.2em;}
 </style>
 <!-- Site Wide JavaScript -->
 <script src="scripts/tags.js" type="text/javascript"></script>
@@ -248,7 +248,7 @@ function renderTags(tags,type){
 		
 		
 			//str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=javascript:removeFromGeneratedTags("'+ tagtemp[i] +'");><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';	
-				str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=\'javascript:addFromSuggestedToSelected("'+ tagtemp[i] +'");\'>+</a></span></li>';
+				str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=\'javascript:addFromSuggestedToSelected("'+ tagtemp[i] +'");\'><img class="trashcan" src="/images/btn_add.gif" alt="Add this Tag!" border="0"></a></span></li>';
 
 		}
 	}	
@@ -288,7 +288,7 @@ function removeFromList(tagId){
 	if (tagHolderId == 1){
 		d = document.getElementById('editTagsList'); 
 	}else{
-	alert('tagsList');
+	
 		d = document.getElementById('tagsList'); 
 	}
 	d_nested = document.getElementById(tagId); 
@@ -356,8 +356,8 @@ $('saving-indicator').style.display="none";
 }
 }
 function saveTheConcern(){
-alert(selectConcernTags);
-alert(selectConcernTags.split(',').length-1);
+
+
 	if(selectConcernTags.split(',').length-1<3){
 	alert("You must select 3 or more tags");
 	}else{
@@ -978,7 +978,7 @@ top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.do
 <div id="slate" class="borderblue">
 	<h4>Add your concern</h4><br>What problems do you encounter in your daily trips to work outside the home, shopping, and errands? In what ways do you feel our current transportation system fails to meet the needs of our growing region? <p>Describe <strong>one</strong> problem with our transportation system. You can add more concerns later</p>
 	<form name="brainstorm" method="post" onSubmit="addSelectedTag('theTag'); return false;"><!-- onSubmit="addTagToList('tagsList', 'theTag','tagValidation'); return false;">-->
-	<p><textarea onkeypress="ifEnter(this,event);" name="addConcern" cols="20" rows="2" id="addConcern"></textarea></p>
+	<p><div><div><textarea onkeypress="ifEnter(this,event);" name="addConcern" cols="20" rows="2" id="addConcern"></textarea></div></div></p>
 	<p class="indent">
 	<input type="button" id="btnContinue" name="Continue" value="Submit Concern" onclick="prepareConcern();">
 	<input type="reset" name="Reset" value="Reset" onClick="resetForm();"> 
