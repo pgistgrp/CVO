@@ -65,31 +65,10 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//setPostTags()
     
     
-    public Discussion getDiscussion(Class klass, Long targetId) throws Exception {
-        return getDiscussion(klass.getName(), targetId);
-    }//getDiscussion()
-    
-    
     public DiscussionPost getPostById(Long id) throws Exception {
         return (DiscussionPost) getHibernateTemplate().load(DiscussionPost.class, id);
     }//getPostById()
 
-
-    private static final String hql_getDiscussion = "from Discussion d where d.deleted=? and d.targetType=? and d.targetId=?";
-    
-    
-    public Discussion getDiscussion(String targetType, Long targetId) throws Exception {
-        List list = getHibernateTemplate().find(hql_getDiscussion, new Object[] {
-                false,
-                targetType,
-                targetId,
-        });
-        
-        if (list.size()==0) return null;
-        
-        return (Discussion) list.get(0);
-    }//getDiscussion()
-    
 
     private static final String hql_getPosts_A = "from DiscussionPost p where p.discussion.id=? and p.deleted=? order by p.replyTime";
     
@@ -183,19 +162,6 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         return query.list();
     }//getReplies()
-    
-    
-    public Discussion createDiscussion(String targetType, Long targetId) throws Exception {
-        Discussion discussion = new Discussion();
-        
-        discussion.setDeleted(false);
-        discussion.setTargetType(targetType);
-        discussion.setTargetId(targetId);
-        
-        getHibernateTemplate().save(discussion);
-        
-        return discussion;
-    }//createDiscussion()
     
     
     public DiscussionPost createPost(Discussion discussion, String title, String content, String[] tags) throws Exception {
@@ -292,7 +258,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     
     
     public void increaseDiscussions(Discussion discussion) throws Exception {
-        getSession().createQuery(hql_increaseDiscussions).setLong(0, discussion.getId()).executeUpdate();
+        Query query = getSession().createQuery(hql_increaseDiscussions);
+        query.setLong(0, discussion.getId());
+        query.executeUpdate();
     }//increaseDiscussions()
 
 
@@ -410,15 +378,13 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     private static final String sql_getConcerns_A_21 = "select distinct v.cid as xid from "+DBMetaData.VIEW_CONCERN_TAG_IN_STRUCTURE+" v where v.cctid=:cctid and trid=";
     
     
-    public Collection getConcerns(InfoStructure structure, String ids, PageSetting setting) throws Exception {
+    public Collection getConcerns(InfoStructure structure, Long[] ids, PageSetting setting) throws Exception {
         List concerns = new ArrayList();
-        
-        String[] idArray = ids.split(",");
         
         StringBuilder sb = new StringBuilder(sql_getConcerns_A_20);
         
-        for (int i=0; i<idArray.length; i++) {
-            sb.append(" INTERSECT ").append(sql_getConcerns_A_21).append(idArray[i]);
+        for (int i=0; i<ids.length; i++) {
+            sb.append(" INTERSECT ").append(sql_getConcerns_A_21).append(ids[i]);
         }
         String piece = sb.toString().replace(":cctid", structure.getCctId().toString()).replace(":isid", structure.getId().toString());
         
@@ -508,18 +474,16 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     private static final String sql_getConcerns_B_21 = "select distinct v.cid as xid from "+DBMetaData.VIEW_CONCERN_TAG_IN_STRUCTURE+" v where v.cctid=:cctid and v.trid=";
     
     
-    public Collection getConcerns(InfoObject object, String ids, PageSetting setting) throws Exception {
+    public Collection getConcerns(InfoObject object, Long[] ids, PageSetting setting) throws Exception {
         InfoStructure structure = object.getStructure();
         
         List concerns = new ArrayList();
         
-        String[] idArray = ids.split(",");
-        
         StringBuilder sb = new StringBuilder(sql_getConcerns_B_20);
         
-        for (int i=0; i<idArray.length; i++) {
+        for (int i=0; i<ids.length; i++) {
             sb.append(" INTERSECT ");
-            sb.append(sql_getConcerns_B_21).append(idArray[i]);
+            sb.append(sql_getConcerns_B_21).append(ids[i]);
         }
         String piece = sb.toString().replace(":cctid", structure.getCctId().toString()).replace(":isid", structure.getId().toString()).replace(":ioid", object.getId().toString());
         
@@ -597,6 +561,32 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getConcernTagCount()
 
 
+    private static final String sql_getRelatedInfo = "select isid, ioid from view_structure_discussions where did=?";
+    
+    
+    public Object getRelatedInfo(Discussion discussion) throws Exception {
+        Connection conn = getSession().connection();
+        
+        PreparedStatement pstmt = conn.prepareStatement(sql_getRelatedInfo);
+        
+        pstmt.setLong(1, discussion.getId());
+        
+        ResultSet rs = pstmt.executeQuery();
+        
+        if (rs.next()) {
+            Long isid = rs.getLong("isid");
+            Long ioid = rs.getLong("ioid");
+            if (ioid!=0) {
+                return getHibernateTemplate().load(InfoObject.class, ioid);
+            } else {
+                return getHibernateTemplate().load(InfoStructure.class, isid);
+            }
+        }
+        
+        return null;
+    }//getRelatedInfo()
+
+
     private static final String sql_getDiscussions_A_1 = "SELECT count(distinct pid) from "+DBMetaData.VIEW_POST_REPLY_TAG_IN_DISCUSSION+" v where v.isid=:isid and v.pid<>:pid and v.tid in (select tid from view_post_reply_tags where pid=:pid);";
     
     private static final String sql_getDiscussions_A_2 = "SELECT pid, ioid from "+DBMetaData.VIEW_POST_REPLY_TAG_IN_DISCUSSION+" v where v.isid=:isid and v.pid<>:pid and v.tid in (select tid from view_post_reply_tags where pid=:pid) group by pid, ioid order by count(pid) desc;";
@@ -649,16 +639,14 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     private static final String sql_getContextPosts_B = "select distinct v.pid as xid, v.ioid as yid from "+DBMetaData.VIEW_POST_REPLY_TAG_IN_DISCUSSION+" v where v.isid=:isid and v.pid<>:pid and v.tid=";
     
     
-    public Collection getContextPosts(Long isid, Long pid, String ids, PageSetting setting) throws Exception {
+    public Collection getContextPosts(Long isid, Long pid, Long[] ids, PageSetting setting) throws Exception {
         List posts = new ArrayList();
-        
-        String[] idArray = ids.split(",");
         
         StringBuilder sb = new StringBuilder();
         
-        for (int i=0; i<idArray.length; i++) {
+        for (int i=0; i<ids.length; i++) {
             if (i>0) sb.append(" INTERSECT ");
-            sb.append(sql_getContextPosts_B).append(idArray[i]);
+            sb.append(sql_getContextPosts_B).append(ids[i]);
         }
         String piece = sb.toString().replace(":isid", isid.toString()).replace(":pid", pid.toString());
         
@@ -707,9 +695,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getContextPosts()
 
 
-    private static final String hql_getContextPosts_A_1 = "select count(p.id) from DiscussionPost p where p.discussion.targetId in (select o.id from InfoObject o where o.structure.id=?)";
+    private static final String hql_getContextPosts_A_1 = "select count(p.id) from DiscussionPost p where p.discussion.id in (select o.discussion.id from InfoObject o where o.structure.id=?)";
     
-    private static final String hql_getContextPosts_A_2 = "from DiscussionPost p where p.discussion.targetId in (select o.id from InfoObject o where o.structure.id=?) order by p.id desc";
+    private static final String hql_getContextPosts_A_2 = "from DiscussionPost p where p.discussion.id in (select o.discussion.id from InfoObject o where o.structure.id=?) order by p.id desc";
     
     
     public Collection getContextPosts(Long isid, PageSetting setting) throws Exception {
@@ -735,28 +723,26 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         query.setFirstResult(setting.getFirstRow());
         query.setMaxResults(setting.getRowOfPage());
         
-        list = query.list();
-        
-        for (DiscussionPost post : (List<DiscussionPost>) list) {
-            if (post.getDiscussion().getTargetType().equals(InfoObject.class.getName())) {
-                InfoObject obj = (InfoObject) getHibernateTemplate().load(InfoObject.class, post.getDiscussion().getTargetId());
-                post.setValue(obj);
-            }
-        }//for list
-        
-        return list;
+        return query.list();
     }//getContextPosts()
 
 
-    private static final String hql_getContextPosts_B_1 = "select count(p.id) from DiscussionPost p where p.discussion.targetId in (select o.id from InfoObject o where o.structure.id=?) and p.tags.id in (##)";
+    private static final String hql_getContextPosts_B_1 = "select count(p.id) from DiscussionPost p where p.discussion.id in (select o.discussion.id from InfoObject o where o.structure.id=?) and p.tags.id in (##)";
     
-    private static final String hql_getContextPosts_B_2 = "from DiscussionPost p where p.discussion.targetId in (select o.id from InfoObject o where o.structure.id=?) and p.tags.id in (##) order by p.id desc";
+    private static final String hql_getContextPosts_B_2 = "from DiscussionPost p where p.discussion.id in (select o.discussion.id from InfoObject o where o.structure.id=?) and p.tags.id in (##) order by p.id desc";
     
     
-    public Collection getContextPosts(Long isid, String ids, PageSetting setting) throws Exception {
+    public Collection getContextPosts(Long isid, Long[] ids, PageSetting setting) throws Exception {
         List list = new ArrayList();
         
-        Query query = getSession().createQuery(hql_getContextPosts_B_1.replace("##", ids));
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i<ids.length; i++) {
+            if (i>0) sb.append(',');
+            sb.append(ids[i]);
+        }
+        String idstring = sb.toString();
+        
+        Query query = getSession().createQuery(hql_getContextPosts_B_1.replace("##", idstring));
         query.setLong(0, isid);
         query.setMaxResults(1);
         
@@ -768,22 +754,13 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         if (count==0) return list;
         
-        query = getSession().createQuery(hql_getContextPosts_B_2.replace("##", ids));
+        query = getSession().createQuery(hql_getContextPosts_B_2.replace("##", idstring));
         query.setLong(0, isid);
         
         query.setFirstResult(setting.getFirstRow());
         query.setMaxResults(setting.getRowOfPage());
         
-        list = query.list();
-        
-        for (DiscussionPost post : (List<DiscussionPost>) list) {
-            if (post.getDiscussion().getTargetType().equals(InfoObject.class.getName())) {
-                InfoObject obj = (InfoObject) getHibernateTemplate().load(InfoObject.class, post.getDiscussion().getTargetId());
-                post.setValue(obj);
-            }
-        }//for list
-        
-        return list;
+        return query.list();
     }//getContextPosts()
 
 
@@ -807,9 +784,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getPostTagCount()
 
 
-    private static final String sql_searchTags_1 = "select count(distinct tid) from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where target in (##) and tname like ?";
+    private static final String sql_searchTags_1 = "select count(distinct tid) from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where did in (##) and tname like ?";
     
-    private static final String sql_searchTags_2 = "select distinct tid, tname from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where target in (##) and tname like ? order by tname";
+    private static final String sql_searchTags_2 = "select distinct tid, tname from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where did in (##) and tname like ? order by tname";
     
     
     public Collection searchTags(InfoStructure structure, String tag, PageSetting setting) throws Exception {
@@ -817,7 +794,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         StringBuilder sb = new StringBuilder(structure.getId().toString());
         for (InfoObject obj : (Set<InfoObject>) structure.getInfoObjects()) {
-            sb.append(',').append(obj.getId().toString());
+            sb.append(',').append(obj.getDiscussion().getId().toString());
         }
         
         Connection connection = getSession().connection();
@@ -852,6 +829,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         return (Tag) getHibernateTemplate().load(Tag.class, tagId);
     }//findTagById()
     
+    
     private static final String hql_deleteVotings = "delete YesNoVoting v where v.targetType=? and v.targetId=?";
     
     
@@ -863,9 +841,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//deleteVotings()
 
 
-    private static final String sql_getTagCloud_1 = "select count(distinct tid) from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where target in (##)";
+    private static final String sql_getTagCloud_1 = "select count(distinct tid) from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where did in (##)";
     
-    private static final String sql_getTagCloud_2 = "select tid, count(tid) from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where target in (##) group by tid order by count(tid)";
+    private static final String sql_getTagCloud_2 = "select tid, count(tid) from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where did in (##) group by tid order by count(tid)";
     
     
     public Collection getTagCloud(InfoStructure structure, PageSetting setting) throws Exception {
@@ -877,7 +855,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         StringBuilder sb = new StringBuilder(structure.getId().toString());
         
         for (InfoObject obj : (Set<InfoObject>) structure.getInfoObjects()) {
-            sb.append(",").append(obj.getId().toString());
+            sb.append(",").append(obj.getDiscussion().getId().toString());
         }//for
         
         String ids = sb.toString();
@@ -915,6 +893,45 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     public DiscussionReply getReplyById(Long id) throws Exception {
         return (DiscussionReply) getHibernateTemplate().load(DiscussionReply.class, id);
     }//getReplyById()
+
+
+    public Discussion getDiscussionById(Long did) throws Exception {
+        return (Discussion) load(Discussion.class, did);
+    }//getDiscussionById()
+
+    
+    private static final String hql_processId = "select tr.id from TagReference tr, CCT cct, InfoStructure istr where istr.id=? and istr.cctId=cct.id and tr.cctId=cct.id and tr.tagId=?";
+    
+    
+    public Long processId(Long isid, Long tagId) {
+        List list = getHibernateTemplate().find(hql_processId, new Object[] {
+                isid,
+                tagId
+        });
+        
+        if (list.size()>0) return (Long) list.get(0);
+        
+        return null;
+    }//processId()
+    
+    
+    public Long[] processIds(Long isid, String ids, boolean tagId) throws Exception {
+        ArrayList list = new ArrayList();
+        
+        for (String s : ids.split(",")) {
+            if (s!=null && s.length()>0) {
+                Long id = new Long(s);
+                if (tagId)  id = processId(isid, id);
+                if (id!=null) list.add(id);
+            }
+        }
+        
+        Long[] result = new Long[list.size()];
+        
+        for (int i=0; i<list.size(); i++) result[i] = (Long) list.get(i);
+        
+        return result;
+    }//processIds()
 
 
 }//class DiscussionDAOImpl

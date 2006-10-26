@@ -41,6 +41,15 @@
         </statement>
         
         <statement exception="suppress">
+            <description>drop view if exists</description>
+            <script>
+              <![CDATA[
+                DROP VIEW view_structure_discussions CASCADE;
+              ]]>
+            </script>
+        </statement>
+        
+        <statement exception="suppress">
             <description>drop table if exists</description>
             <script>
               <![CDATA[
@@ -65,6 +74,18 @@
                   crid bigint,
                   trid bigint
                 );
+              ]]>
+            </script>
+        </statement>
+        
+        <statement exception="throw">
+            <description>view for isid-ioid-did link</description>
+            <script>
+              <![CDATA[
+                CREATE VIEW view_structure_discussions AS
+                  SELECT s.id as isid, 0 as ioid, d.id as did from pgist_discussion d, pgist_info_structure s where d.id=s.discussion_id
+                  UNION
+                  SELECT s.id as isid, o.id as ioid, d.id as did from pgist_discussion d, pgist_info_structure s, pgist_info_object o where d.id=o.discussion_id and o.structure_id=s.id;
               ]]>
             </script>
         </statement>
@@ -96,13 +117,13 @@
             <script>
               <![CDATA[
                 CREATE VIEW view_post_reply_tags AS
-                  SELECT s.id AS isid, 0 AS ioid, d.id AS did, p.id AS pid, 0 AS rid, t.tag_id AS tid FROM pgist_discussion d, pgist_discussion_post p, pgist_dpost_tag_link t, pgist_info_structure s WHERE d.targetid=s.id and p.discussion_id=d.id and t.dpost_id=p.id
+                  SELECT s.id AS isid, 0 AS ioid, d.id AS did, p.id AS pid, 0 AS rid, t.tag_id AS tid FROM pgist_discussion d, pgist_discussion_post p, pgist_dpost_tag_link t, pgist_info_structure s WHERE d.id=s.discussion_id and p.discussion_id=d.id and t.dpost_id=p.id
                 UNION
-                  SELECT s.id AS isid, o.id AS ioid, d.id AS did, p.id AS pid, 0 AS rid, t.tag_id AS tid FROM pgist_discussion d, pgist_discussion_post p, pgist_dpost_tag_link t, pgist_info_structure s, pgist_info_object o WHERE d.targetid=o.id and p.discussion_id=d.id and t.dpost_id=p.id and o.structure_id=s.id
+                  SELECT s.id AS isid, o.id AS ioid, d.id AS did, p.id AS pid, 0 AS rid, t.tag_id AS tid FROM pgist_discussion d, pgist_discussion_post p, pgist_dpost_tag_link t, pgist_info_structure s, pgist_info_object o WHERE d.id=o.discussion_id and p.discussion_id=d.id and t.dpost_id=p.id and o.structure_id=s.id
                 UNION
-                  SELECT s.id AS isid, 0 AS ioid, d.id AS did, p.id AS pid, r.id AS rid, t.tag_id AS tid FROM pgist_discussion d, pgist_discussion_post p, pgist_discussion_reply r, pgist_dreply_tag_link t, pgist_info_structure s WHERE d.targetid=s.id and p.discussion_id=d.id and t.dreply_id=r.id and p.id=r.parent_id
+                  SELECT s.id AS isid, 0 AS ioid, d.id AS did, p.id AS pid, r.id AS rid, t.tag_id AS tid FROM pgist_discussion d, pgist_discussion_post p, pgist_discussion_reply r, pgist_dreply_tag_link t, pgist_info_structure s WHERE d.id=s.discussion_id and p.discussion_id=d.id and t.dreply_id=r.id and p.id=r.parent_id
                 UNION
-                  SELECT s.id AS isid, o.id AS ioid, d.id AS did, p.id AS pid, r.id AS rid, t.tag_id AS tid FROM pgist_discussion d, pgist_discussion_post p, pgist_discussion_reply r, pgist_dreply_tag_link t, pgist_info_structure s, pgist_info_object o WHERE d.targetid=o.id and p.discussion_id=d.id and t.dreply_id=r.id and o.structure_id=s.id and r.parent_id=p.id;
+                  SELECT s.id AS isid, o.id AS ioid, d.id AS did, p.id AS pid, r.id AS rid, t.tag_id AS tid FROM pgist_discussion d, pgist_discussion_post p, pgist_discussion_reply r, pgist_dreply_tag_link t, pgist_info_structure s, pgist_info_object o WHERE d.id=o.structure_id and p.discussion_id=d.id and t.dreply_id=r.id and o.structure_id=s.id and r.parent_id=p.id;
               ]]>
             </script>
         </statement>
@@ -112,7 +133,7 @@
             <script>
               <![CDATA[
                 CREATE VIEW view_dpost_tag_link AS
-                  SELECT d.targetid as target, p.discussion_id as did, p.id as pid, l.tag_id as tid, t.name as tname from pgist_discussion_post p, pgist_discussion d, pgist_dpost_tag_link l, pgist_tags t where p.discussion_id=d.id and l.dpost_id=p.id and l.tag_id=t.id;
+                  SELECT p.discussion_id as did, p.id as pid, l.tag_id as tid, t.name as tname from pgist_discussion_post p, pgist_discussion d, pgist_dpost_tag_link l, pgist_tags t where p.discussion_id=d.id and l.dpost_id=p.id and l.tag_id=t.id;
               ]]>
             </script>
         </statement>
@@ -121,4 +142,3 @@
     
 
 </statements>
-

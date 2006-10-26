@@ -16,12 +16,9 @@ import org.pgist.util.PageSetting;
 public interface DiscussionDAO extends BaseDAO {
     
     
-    Discussion getDiscussion(Class klass, Long targetId) throws Exception;
-    
-    
-    Discussion getDiscussion(String targetType, Long targetId) throws Exception;
-    
-    
+    Discussion getDiscussionById(Long did) throws Exception;
+
+
     DiscussionPost getPostById(Long id) throws Exception;
     
     
@@ -38,9 +35,6 @@ public interface DiscussionDAO extends BaseDAO {
     
     
     Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception;
-    
-    
-    Discussion createDiscussion(String targetType, Long targetId) throws Exception;
     
     
     DiscussionPost createPost(Discussion discussion, String title, String content, String[] tags) throws Exception;
@@ -76,19 +70,22 @@ public interface DiscussionDAO extends BaseDAO {
     void increaseVoting(DiscussionReply reply, boolean agree) throws Exception;
 
 
+    Long[] processIds(Long isid, String ids, boolean tagId) throws Exception;
+
+
     Concern getConcernById(Long tagId) throws Exception;
 	
     
     Collection getConcerns(InfoStructure structure, PageSetting setting) throws Exception;
 
 
-    Collection getConcerns(InfoStructure structure, String ids, PageSetting setting) throws Exception;
+    Collection getConcerns(InfoStructure structure, Long[] ids, PageSetting setting) throws Exception;
     
 
     Collection getConcerns(InfoObject object, PageSetting setting) throws Exception;
 
 
-    Collection getConcerns(InfoObject object, String ids, PageSetting setting) throws Exception;
+    Collection getConcerns(InfoObject object, Long[] ids, PageSetting setting) throws Exception;
 
 
     int getConcernTagCount(InfoStructure structure) throws Exception;
@@ -97,16 +94,19 @@ public interface DiscussionDAO extends BaseDAO {
     int getConcernTagCount(InfoObject object) throws Exception;
 
 
+    Object getRelatedInfo(Discussion discussion) throws Exception;
+
+
     Collection getContextPosts(Long isid, Long pid, PageSetting setting) throws Exception;
 
 
-    Collection getContextPosts(Long isid, Long pid, String ids, PageSetting setting) throws Exception;
+    Collection getContextPosts(Long isid, Long pid, Long[] ids, PageSetting setting) throws Exception;
 
 
     Collection getContextPosts(Long isid, PageSetting setting) throws Exception;
 
 
-    Collection getContextPosts(Long isid, String ids, PageSetting setting) throws Exception;
+    Collection getContextPosts(Long isid, Long[] ids, PageSetting setting) throws Exception;
 
 
     int getPostTagCount(Long isid, Long postId) throws Exception;

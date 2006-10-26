@@ -42,7 +42,7 @@ Zhong:
 [ ] E-mail notification for discussion posts
 [ ] E-mail notification on mod Feedback Form
 [ ] Get sideBar items accepts TagRefId or TagId
-[ ] createPost without IOID
+[ok] createPost without IOID
 
 
 Jordan:

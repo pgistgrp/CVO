@@ -1,15 +1,11 @@
 package org.pgist.glossary;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.pgist.discussion.Discussion;
 import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.DiscussionPost;
-import org.pgist.system.EmailSender;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 
@@ -26,8 +22,6 @@ public class GlossaryServiceImpl implements GlossaryService {
     
     private DiscussionDAO discussionDAO;
     
-    private EmailSender emailSender;
-    
     
     public void setGlossaryDAO(GlossaryDAO glossaryDAO) {
         this.glossaryDAO = glossaryDAO;
@@ -36,11 +30,6 @@ public class GlossaryServiceImpl implements GlossaryService {
     
     public void setDiscussionDAO(DiscussionDAO discussionDAO) {
         this.discussionDAO = discussionDAO;
-    }
-
-
-    public void setEmailSender(EmailSender emailSender) {
-        this.emailSender = emailSender;
     }
 
 
@@ -211,15 +200,7 @@ public class GlossaryServiceImpl implements GlossaryService {
 
 
     public Collection getComments(Term term) throws Exception {
-        //get discussion
-        Discussion discussion = discussionDAO.getDiscussion(Term.class.getName(), term.getId());
-        if (discussion==null) {
-            return new ArrayList(0);
-        } else {
-            //get comments
-            Collection comments = discussionDAO.getPosts(discussion, true);
-            return comments;
-        }
+        return discussionDAO.getPosts(term.getDiscussion(), true);
     }//getComments()
 
 
@@ -232,10 +213,7 @@ public class GlossaryServiceImpl implements GlossaryService {
         Term term = glossaryDAO.getTermById(id);
         if (term==null) throw new Exception("term with id "+id+" is not found!");
         
-        Discussion discussion = discussionDAO.getDiscussion(Term.class.getName(), term.getId());
-        if (discussion==null) {
-            discussion = discussionDAO.createDiscussion(Term.class.getName(), term.getId());
-        }
+        Discussion discussion = term.getDiscussion();
         
         glossaryDAO.increaseCommentCount(term);
         
@@ -284,13 +262,6 @@ public class GlossaryServiceImpl implements GlossaryService {
         if (term.getStatus()==Term.STATUS_PENDING) {
             term.setDeleted(true);
             glossaryDAO.saveTerm(term);
-            
-            Map values = new HashMap();
-            values.put("term", term);
-            values.put("user", term.getCreator());
-            values.put("reason", reason);
-            
-            emailSender.send(term.getCreator(), "term_rejected", values);
         }
     }//rejectTerm()
 

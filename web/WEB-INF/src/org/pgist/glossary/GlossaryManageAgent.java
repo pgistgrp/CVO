@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
 import org.pgist.discussion.DiscussionPost;
+import org.pgist.system.EmailSender;
 import org.pgist.util.PageSetting;
 
 
@@ -24,9 +25,11 @@ import org.pgist.util.PageSetting;
  *
  */
 public class GlossaryManageAgent {
-
+    
     
     private GlossaryService glossaryService;
+    
+    private EmailSender emailSender;
     
     
     /**
@@ -39,6 +42,11 @@ public class GlossaryManageAgent {
     }
     
     
+    public void setEmailSender(EmailSender emailSender) {
+        this.emailSender = emailSender;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */
@@ -48,6 +56,7 @@ public class GlossaryManageAgent {
      * Get proposed glossary terms by participants.
      * 
      * @param params - empty<br>
+     * 
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -90,6 +99,7 @@ public class GlossaryManageAgent {
      *           <li>sort - string, ['name' | 'views' | 'comments', 'createtime'], optional, default is 'name'</li>
      *           <li>direction - string, ['asc' | 'desc'], optional, default is 'asc'</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -161,6 +171,7 @@ public class GlossaryManageAgent {
      *           <li>id - int, id of term object</li>
      *           <li>type - string, 'view' | 'edit'</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -226,10 +237,15 @@ public class GlossaryManageAgent {
      *           <li>shortDefinition - string, the short definition of term</li>
      *           <li>extDefinition - string, the extended definition of term</li>
      *         </ul>
+     *         
      * @param relatedTerms - string[], array of related terms
+     * 
      * @param links - string[], array of term links
+     * 
      * @param sources - string[][], string[x][0] is the citation of the xth TermSource, string[x][1] is the url of the xth TermSource
+     * 
      * @param categories - string[], array of term categories
+     * 
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -292,6 +308,7 @@ public class GlossaryManageAgent {
      *         <ul>
      *           <li>id - int, id of term object to be deleted</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -329,6 +346,7 @@ public class GlossaryManageAgent {
      *         <ul>
      *           <li>id - int, id of proposed term object to be accepted</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -367,10 +385,12 @@ public class GlossaryManageAgent {
      *           <li>id - int, id of proposed term object to be accepted</li>
      *           <li>reason - string, why the term is rejected</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *           <li>email - Whether or not the email is sent out. "success" | "failure".</li>
      *         </ul>
      */
     public Map rejectTerm(Map params) {
@@ -390,6 +410,19 @@ public class GlossaryManageAgent {
             
             glossaryService.rejectTerm(term, reason);
             
+            try {
+                Map values = new HashMap();
+                values.put("term", term);
+                values.put("user", term.getCreator());
+                values.put("reason", reason);
+                
+                emailSender.send(term.getCreator(), "term_rejected", values);
+                
+                map.put("email", "success");
+            } catch (Exception e) {
+                map.put("email", "failure");
+            }
+            
             map.put("successful", true);
         } catch (Exception e) {
             map.put("reason", e.getMessage());
@@ -406,6 +439,7 @@ public class GlossaryManageAgent {
      *         <ul>
      *           <li>prefix - string, prefix to be matched.</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -453,6 +487,7 @@ public class GlossaryManageAgent {
      *         <ul>
      *           <li>id - int, id of the term object</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -502,6 +537,7 @@ public class GlossaryManageAgent {
      *           <li>termId - int, id of the term object</li>
      *           <li>commentId - int, id of the DiscussionPost object</li>
      *         </ul>
+     *         
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>

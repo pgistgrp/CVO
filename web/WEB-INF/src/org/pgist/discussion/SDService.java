@@ -54,10 +54,10 @@ public interface SDService {
     Concern getConcernById(Long Id) throws Exception;
     
     
-    Collection getConcerns(InfoStructure structure, String ids, PageSetting setting) throws Exception;
+    Collection getConcerns(InfoStructure structure, String ids, PageSetting setting, boolean tagId) throws Exception;
 
 
-    Collection getConcerns(InfoObject object, String ids, PageSetting setting) throws Exception;
+    Collection getConcerns(InfoObject object, String ids, PageSetting setting, boolean tagId) throws Exception;
 
 
     int getConcernTagCount(InfoStructure structure) throws Exception;
@@ -66,7 +66,7 @@ public interface SDService {
     int getConcernTagCount(InfoObject object) throws Exception;
 
 
-    Collection getContextPosts(Long isid, Long pid, String ids, PageSetting setting) throws Exception;
+    Collection getContextPosts(Long isid, Long pid, String ids, PageSetting setting, boolean tagId) throws Exception;
 
 
     int getPostTagCount(Long isid, Long postId) throws Exception;

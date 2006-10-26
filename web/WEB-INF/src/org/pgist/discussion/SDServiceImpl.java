@@ -1,5 +1,6 @@
 package org.pgist.discussion;
 
+import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -57,7 +58,7 @@ public class SDServiceImpl implements SDService {
 
 
     public Discussion getDiscussionById(Long did) throws Exception {
-        return (Discussion) discussionDAO.getDiscussion(Discussion.class, did);
+        return discussionDAO.getDiscussionById(did);
     }//getDiscussionById()
 
 
@@ -73,12 +74,12 @@ public class SDServiceImpl implements SDService {
             /*
              * The discussion is on InfoStructure
              */
-            discussion = discussionDAO.getDiscussion(InfoStructure.class.getName(), structure.getId());
+            discussion = structure.getDiscussion();
         } else {
             /*
              * The discussion is on InfoObject
              */
-            discussion = discussionDAO.getDiscussion(InfoObject.class.getName(), infoObj.getId());
+            discussion = infoObj.getDiscussion();
         }
         
         if (discussion==null) return new ArrayList();
@@ -101,11 +102,7 @@ public class SDServiceImpl implements SDService {
         String type = InfoStructure.class.getName();
         Long id = structure.getId();
         
-        Discussion discussion = discussionDAO.getDiscussion(type, id);
-        
-        if (discussion==null) {
-            discussion = discussionDAO.createDiscussion(type, id);
-        }
+        Discussion discussion = structure.getDiscussion();
         
         DiscussionPost post = discussionDAO.createPost(discussion, title, content, tags);
         
@@ -223,20 +220,20 @@ public class SDServiceImpl implements SDService {
     } //getConcernById()
     
     
-    public Collection getConcerns(InfoStructure structure, String ids, PageSetting setting) throws Exception {
+    public Collection getConcerns(InfoStructure structure, String ids, PageSetting setting, boolean tagId) throws Exception {
         if (ids==null || ids.trim().length()==0) {
             return discussionDAO.getConcerns(structure, setting);
         } else {
-            return discussionDAO.getConcerns(structure, ids, setting);
+            return discussionDAO.getConcerns(structure, discussionDAO.processIds(structure.getId(), ids, tagId), setting);
         }
     }//getConcerns()
 
 
-    public Collection getConcerns(InfoObject object, String ids, PageSetting setting) throws Exception {
+    public Collection getConcerns(InfoObject object, String ids, PageSetting setting, boolean tagId) throws Exception {
         if (ids==null || ids.trim().length()==0) {
             return discussionDAO.getConcerns(object, setting);
         } else {
-            return discussionDAO.getConcerns(object, ids, setting);
+            return discussionDAO.getConcerns(object, discussionDAO.processIds(object.getStructure().getId(), ids, tagId), setting);
         }
     }//getConcerns()
 
@@ -251,20 +248,28 @@ public class SDServiceImpl implements SDService {
     }//getConcernTagCount()
 
 
-    public Collection getContextPosts(Long isid, Long pid, String ids, PageSetting setting) throws Exception {
+    public Collection getContextPosts(Long isid, Long pid, String ids, PageSetting setting, boolean tagId) throws Exception {
+        Collection list = null;
+        
         if (ids==null || ids.trim().length()==0) {
             if (pid==null) {
-                return discussionDAO.getContextPosts(isid, setting);
+                list = discussionDAO.getContextPosts(isid, setting);
             } else {
-                return discussionDAO.getContextPosts(isid, pid, setting);
+                list = discussionDAO.getContextPosts(isid, pid, setting);
             }
         } else {
             if (pid==null) {
-                return discussionDAO.getContextPosts(isid, ids, setting);
+                list = discussionDAO.getContextPosts(isid, discussionDAO.processIds(isid, ids, tagId), setting);
             } else {
-                return discussionDAO.getContextPosts(isid, pid, ids, setting);
+                return discussionDAO.getContextPosts(isid, pid, discussionDAO.processIds(isid, ids, tagId), setting);
             }
         }
+        
+        for (DiscussionPost post : (Collection<DiscussionPost>) list) {
+            post.setObject(discussionDAO.getRelatedInfo(post.getDiscussion()));
+        }//for
+        
+        return list;
     }//getContextPosts()
 
 

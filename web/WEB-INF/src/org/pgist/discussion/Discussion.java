@@ -10,13 +10,9 @@ import java.io.Serializable;
  * @hibernate.class table="pgist_discussion" lazy="true"
  */
 public class Discussion implements Serializable {
-
+    
     
     protected Long id;
-    
-    protected Long targetId;
-    
-    protected String targetType;
     
     protected DiscussionPost lastPost;
     
@@ -39,34 +35,6 @@ public class Discussion implements Serializable {
     }
     
     
-    /**
-     * @return
-     * @hibernate.property not-null="true"
-     */
-    public Long getTargetId() {
-        return targetId;
-    }
-
-
-    public void setTargetId(Long targetId) {
-        this.targetId = targetId;
-    }
-
-
-    /**
-     * @return
-     * @hibernate.property not-null="true"
-     */
-    public String getTargetType() {
-        return targetType;
-    }
-
-
-    public void setTargetType(String targetType) {
-        this.targetType = targetType;
-    }
-
-
     /**
      * @return
      * 

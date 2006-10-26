@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.pgist.discussion.Discussion;
 import org.pgist.users.User;
 
 
@@ -82,6 +83,8 @@ public class Term implements Serializable {
     
     private Set categories = new HashSet();
     
+    private Discussion discussion = new Discussion();
+    
     
     /**
      * @return
@@ -113,7 +116,7 @@ public class Term implements Serializable {
     
     /**
      * @return
-     * @hibernate.many-to-one column="acronym_id" class="org.pgist.glossary.TermAcronym" casecad="all" lazy="true"
+     * @hibernate.many-to-one column="acronym_id" casecad="all" lazy="true"
      */
     public TermAcronym getAcronym() {
         return acronym;
@@ -247,7 +250,7 @@ public class Term implements Serializable {
 
     /**
      * @return
-     * @hibernate.many-to-one column="creator_id" class="org.pgist.users.User" lazy="true" casecad="all"
+     * @hibernate.many-to-one column="creator_id" lazy="true" casecad="all"
      */
     public User getCreator() {
         return creator;
@@ -401,6 +404,20 @@ public class Term implements Serializable {
     }
     
     
+    /**
+     * @return
+     * @hibernate.many-to-one column="discussion_id" lazy="true" cascade="all"
+     */
+    public Discussion getDiscussion() {
+        return discussion;
+    }
+
+
+    public void setDiscussion(Discussion discussion) {
+        this.discussion = discussion;
+    }
+
+    
     /*
      * ------------------------------------------------------------------------
      */
@@ -425,5 +442,5 @@ public class Term implements Serializable {
         return sb.toString();
     }//getCategoryList()
 
-    
+
 }//class Term

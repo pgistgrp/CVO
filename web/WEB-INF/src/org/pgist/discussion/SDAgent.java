@@ -1085,7 +1085,8 @@ public class SDAgent {
      *     <ul>
      *       <li>isid - the id of the current InfoStructure object</li>
      *       <li>ioid - the id of the current InfoObject object. (Optional, if omitted means at the InfoStructure level)</li>
-     *       <li>tags - a comma separated string of tag reference ids to filter the concerns. (Optional)</li>
+     *       <li>type - the type of the tag id. "tag" means tag id, "tagref" means tag reference id</li>
+     *       <li>tags - a comma separated string of tag/reference (depends on type) ids to filter the concerns. (Optional)</li>
      *       <li>count - int, concerns shown per page. (Optional, default is -1, means show all)</li>
      *       <li>page - int, current page number (Optional, default is 1).</li>
      *     </ul>
@@ -1173,8 +1174,10 @@ public class SDAgent {
             Collection concerns = null;
             int num = 0;
             
+            String type = (String) params.get("type");
+            
             if (ioid==null) {
-                concerns = sdService.getConcerns(structure, ids, setting);
+                concerns = sdService.getConcerns(structure, ids, setting, "tag".equals(type));
                 num = sdService.getConcernTagCount(structure);
             } else {
                 InfoObject object = sdService.getInfoObjectById(ioid);
@@ -1188,7 +1191,7 @@ public class SDAgent {
                 
                 num = sdService.getConcernTagCount(object);
                 
-                concerns = sdService.getConcerns(object, ids, setting);
+                concerns = sdService.getConcerns(object, ids, setting, "tag".equals(type));
             }
             
             request.setAttribute("setting", setting);
@@ -1223,7 +1226,8 @@ public class SDAgent {
      *     <ul>
      *       <li>isid - the id of the current InfoStructure object</li>
      *       <li>pid - the id of the current DiscussionPost object. (Optional, if omitted, return all posts)</li>
-     *       <li>tags - a comma separated string of tag ids (NOT tag reference id) to filter the discussion. (Optional)</li>
+     *       <li>type - the type of the tag id. "tag" means tag id, "tagref" means tag reference id</li>
+     *       <li>tags - a comma separated string of tag/reference (depends on type) ids filter the discussion. (Optional)</li>
      *       <li>count - int, discussion shown per page. (Optional, default is -1, means show all)</li>
      *       <li>page - int, current page number (Optional, default is 1).</li>
      *     </ul>
@@ -1305,7 +1309,9 @@ public class SDAgent {
             Collection posts = null;
             int num = 0;
             
-            posts = sdService.getContextPosts(isid, pid, ids, setting);
+            String type = (String) params.get("type");
+            
+            posts = sdService.getContextPosts(isid, pid, ids, setting, "tag".equals(type));
             
             if (pid!=null) {
                 num = sdService.getPostTagCount(isid, pid);

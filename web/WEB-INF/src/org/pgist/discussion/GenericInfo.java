@@ -81,7 +81,7 @@ public abstract class GenericInfo implements Serializable {
 
     /**
      * @return
-     * @hibernate.property column="discussion_id" not-null="true"
+     * @hibernate.many-to-one column="discussion_id" lazy="true" not-null="true" cascade="all"
      */
     public Discussion getDiscussion() {
         return discussion;
