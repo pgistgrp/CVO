@@ -32,6 +32,8 @@ public abstract class GenericPost implements Serializable {
     
     protected int numVote;
     
+    protected boolean emailNotify = false;
+    
     protected boolean deleted;
     
     protected Object object;
@@ -143,6 +145,20 @@ public abstract class GenericPost implements Serializable {
     }
 
 
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public boolean isEmailNotify() {
+        return emailNotify;
+    }
+
+
+    public void setEmailNotify(boolean emailNotify) {
+        this.emailNotify = emailNotify;
+    }
+    
+    
     /**
      * @return
      * @hibernate.property not-null="true"

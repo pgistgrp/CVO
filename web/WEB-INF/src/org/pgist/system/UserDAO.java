@@ -1,5 +1,6 @@
 package org.pgist.system;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.pgist.exceptions.RoleExistException;
@@ -72,6 +73,9 @@ public interface UserDAO {
 
 
     void saveUser(User user) throws Exception;
+
+
+    Collection getUsersByRole(String role) throws Exception;
 
 
 }//class UserDAO

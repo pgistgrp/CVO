@@ -14,10 +14,15 @@ import org.pgist.util.PageSetting;
 public interface SystemService {
     
     
-    void createFeedback(String action, String s) throws Exception;
-
+    Collection getUsersByRole(String role) throws Exception;
+    
+    
+    Feedback createFeedback(String action, String s) throws Exception;
+    
+    
     Collection getFeedbacks(PageSetting setting) throws Exception;
-
+    
+    
 	User getCurrentUser() throws Exception;
     
     

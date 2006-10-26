@@ -69,6 +69,7 @@
 
     <bean id="systemAgent" class="org.pgist.system.SystemAgent">
         <property name="systemService" ref="systemService"/>
+        <property name="emailSender" ref="emailSender"/>
     </bean>
 
 

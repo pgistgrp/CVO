@@ -23,8 +23,6 @@ public class DiscussionPost extends GenericPost {
     
     protected Date replyTime;
     
-    protected boolean emailNotify = false;
-    
     /**
      * value is a transient variable which can hold any object temporarilly
      */
@@ -115,20 +113,6 @@ public class DiscussionPost extends GenericPost {
     }
 
 
-    /**
-     * @return
-     * @hibernate.property
-     */
-    public boolean isEmailNotify() {
-        return emailNotify;
-    }
-
-
-    public void setEmailNotify(boolean emailNotify) {
-        this.emailNotify = emailNotify;
-    }
-    
-    
     /*
      * ------------------------------------------------------------------------
      */

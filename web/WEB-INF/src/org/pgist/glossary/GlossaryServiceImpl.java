@@ -217,7 +217,7 @@ public class GlossaryServiceImpl implements GlossaryService {
         
         glossaryDAO.increaseCommentCount(term);
         
-        return discussionDAO.createPost(discussion, "", comment, null);
+        return discussionDAO.createPost(discussion, "", comment, null, false);
     }//createComment
 
 

@@ -3,16 +3,18 @@ package org.pgist.discussion;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.pgist.cvo.Concern;
 import org.directwebremoting.WebContextFactory;
+import org.pgist.cvo.Concern;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
 import org.pgist.system.YesNoVoting;
 import org.pgist.tagging.Tag;
 import org.pgist.tags.FragmentTag;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.PageSource;
 import org.pgist.util.WebUtils;
@@ -413,6 +415,7 @@ public class SDAgent {
      *     <li>title - string, title of the post. Optional.</li>
      *     <li>content - string, content of the post</li>
      *     <li>tags - string, comma separated tag names. Optional.</li>
+     *     <li>emailNotify - string, "true" means sending email notification, "false" means not. Default is "false".</li>
      *   </ul>
      *   
      * @return A map contains:<br>
@@ -474,10 +477,12 @@ public class SDAgent {
             
             DiscussionPost post = null;
             
+            String emailNotify = (String) params.get("ioid");
+            
             if (object==null) {
-                post = sdService.createPost(structure, title, content, tags);
+                post = sdService.createPost(structure, title, content, tags, "true".equals(emailNotify));
             } else {
-                post = sdService.createPost(object, title, content, tags);
+                post = sdService.createPost(object, title, content, tags, "true".equals(emailNotify));
             }
             
             map.put("id", post.getId());
@@ -503,6 +508,7 @@ public class SDAgent {
      *     <li>title - string, title of the post. Optional.</li>
      *     <li>content - string, content of the post</li>
      *     <li>tags - string, comma separated tag names. Optional.</li>
+     *     <li>emailNotify - string, "true" means sending email notification, "false" means not. Default is "false".</li>
      *   </ul>
      *   
      * @return A map contains:<br>
@@ -571,10 +577,27 @@ public class SDAgent {
             } catch (Exception ex) {
             }
             
-            DiscussionReply reply = sdService.createReply(parent, title, content, tags);
+            String emailNotify = (String) params.get("ioid");
+            
+            DiscussionReply reply = sdService.createReply(parent, title, content, tags, "true".equals(emailNotify));
             
             map.put("id", reply.getId());
             map.put("successful", true);
+            
+            //sending email notification
+            try {
+                Map values = new HashMap();
+                values.put("reply", reply);
+                
+                Set set = sdService.getEmailUsers(parent, reply);
+                
+                for (User user : (Set<User>) set) {
+                    values.put("user", user);
+                    emailSender.send(user, "post_reply", values);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());

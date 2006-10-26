@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 
 /**
@@ -25,6 +26,8 @@ public class SystemAgent {
     
     private SystemService systemService;
     
+    private EmailSender emailSender;
+    
     
     /**
      * This is not an AJAX service method.
@@ -36,6 +39,11 @@ public class SystemAgent {
     }
     
     
+    public void setEmailSender(EmailSender emailSender) {
+        this.emailSender = emailSender;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */
@@ -74,7 +82,21 @@ public class SystemAgent {
                 return map;
             }
             
-            systemService.createFeedback(action, s);
+            Feedback feedback = systemService.createFeedback(action, s);
+            
+            try {
+                Map values = new HashMap();
+                values.put("feedback", feedback);
+                
+                Collection moderators = systemService.getUsersByRole("moderator");
+                
+                for (User moderator : (Collection<User>) moderators) {
+                    values.put("moderator", moderator);
+                    emailSender.send(moderator, "feedback", values);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             
             map.put("successful", true);
         } catch (Exception e) {

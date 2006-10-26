@@ -1,6 +1,7 @@
 package org.pgist.discussion;
 
 import java.util.Collection;
+import java.util.Set;
 
 import org.pgist.cvo.Concern;
 import org.pgist.system.BaseDAO;
@@ -37,10 +38,10 @@ public interface DiscussionDAO extends BaseDAO {
     Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception;
     
     
-    DiscussionPost createPost(Discussion discussion, String title, String content, String[] tags) throws Exception;
+    DiscussionPost createPost(Discussion discussion, String title, String content, String[] tags, boolean emailNotify) throws Exception;
     
     
-    DiscussionReply createReply(DiscussionPost post, String title, String content, String[] tags) throws Exception;
+    DiscussionReply createReply(DiscussionPost post, String title, String content, String[] tags, boolean emailNotify) throws Exception;
     
     
     void editPost(DiscussionPost post, String title, String content, String[] tags) throws Exception;
@@ -122,6 +123,9 @@ public interface DiscussionDAO extends BaseDAO {
     Collection getTagCloud(InfoStructure structure, PageSetting setting) throws Exception;
     
     
+    Set getEmailUsers(DiscussionPost parent, DiscussionReply reply) throws Exception;
+
+
     //temp
     
     Collection getInfoStructures() throws Exception;

@@ -39,8 +39,8 @@ Zhong:
 [ ] Google Map Guirong Code Fixes (after usability test)
 [ok] CST Summary Tags
 [ok] infoObject.lastPost = post with the most recent reply
-[ ] E-mail notification for discussion posts
-[ ] E-mail notification on mod Feedback Form
+[ok] E-mail notification for discussion posts
+[ok] E-mail notification on mod Feedback Form
 [ok] Get sideBar items accepts TagRefId or TagId
 [ok] createPost without IOID
 

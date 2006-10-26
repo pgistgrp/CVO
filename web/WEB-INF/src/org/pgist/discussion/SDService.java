@@ -1,6 +1,7 @@
 package org.pgist.discussion;
 
 import java.util.Collection;
+import java.util.Set;
 
 import org.pgist.cvo.Concern;
 import org.pgist.tagging.Tag;
@@ -33,13 +34,13 @@ public interface SDService {
     Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception;
 
 
-    DiscussionPost createPost(InfoStructure structure, String title, String content, String[] tags) throws Exception;
+    DiscussionPost createPost(InfoStructure structure, String title, String content, String[] tags, boolean emailNotify) throws Exception;
     
     
-    DiscussionPost createPost(InfoObject object, String title, String content, String[] tags) throws Exception;
+    DiscussionPost createPost(InfoObject object, String title, String content, String[] tags, boolean emailNotify) throws Exception;
     
     
-    DiscussionReply createReply(DiscussionPost parent, String title, String content, String[] tags) throws Exception;
+    DiscussionReply createReply(DiscussionPost parent, String title, String content, String[] tags, boolean emailNotify) throws Exception;
 
 
     void deletePost(DiscussionPost post) throws Exception;
@@ -90,6 +91,9 @@ public interface SDService {
     public boolean setVoting(int targetType, Long targetId, boolean agree) throws Exception;
     
     
+    Set getEmailUsers(DiscussionPost parent, DiscussionReply reply) throws Exception;
+
+
     //temp
     Collection getInfoStructures() throws Exception;
 

@@ -37,7 +37,12 @@ public class SystemServiceImpl implements SystemService {
      */
     
     
-    public void createFeedback(String action, String s) throws Exception {
+    public Collection getUsersByRole(String role) throws Exception {
+        return userDAO.getUsersByRole(role);
+    }//getUsersByRole()
+
+
+    public Feedback createFeedback(String action, String s) throws Exception {
         Feedback feedback = new Feedback();
         
         feedback.setAction(action);
@@ -52,6 +57,8 @@ public class SystemServiceImpl implements SystemService {
         feedback.setEmail(email);
         
         systemDAO.save(feedback);
+        
+        return feedback;
     }//createFeedback()
 
 

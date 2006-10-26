@@ -1,8 +1,8 @@
 package org.pgist.discussion;
 
-import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 import org.pgist.cvo.CategoryReference;
 import org.pgist.cvo.Concern;
@@ -98,13 +98,10 @@ public class SDServiceImpl implements SDService {
     }//getReplies()
 
 
-    public DiscussionPost createPost(InfoStructure structure, String title, String content, String[] tags) throws Exception {
-        String type = InfoStructure.class.getName();
-        Long id = structure.getId();
-        
+    public DiscussionPost createPost(InfoStructure structure, String title, String content, String[] tags, boolean emailNotify) throws Exception {
         Discussion discussion = structure.getDiscussion();
         
-        DiscussionPost post = discussionDAO.createPost(discussion, title, content, tags);
+        DiscussionPost post = discussionDAO.createPost(discussion, title, content, tags, emailNotify);
         
         /*
          * record the last post
@@ -124,13 +121,10 @@ public class SDServiceImpl implements SDService {
     }//createPost()
 
 
-    public DiscussionPost createPost(InfoObject object, String title, String content, String[] tags) throws Exception {
-        String type = InfoObject.class.getName();
-        Long id = object.getId();
-        
+    public DiscussionPost createPost(InfoObject object, String title, String content, String[] tags, boolean emailNotify) throws Exception {
         Discussion discussion = object.getDiscussion();
         
-        DiscussionPost post = discussionDAO.createPost(discussion, title, content, tags);
+        DiscussionPost post = discussionDAO.createPost(discussion, title, content, tags, emailNotify);
         
         /*
          * preload object
@@ -161,7 +155,7 @@ public class SDServiceImpl implements SDService {
     }//createPost()
 
 
-    public DiscussionReply createReply(DiscussionPost parent, String title, String content, String[] tags) throws Exception {
+    public DiscussionReply createReply(DiscussionPost parent, String title, String content, String[] tags, boolean emailNotify) throws Exception {
         Discussion discussion = parent.getDiscussion();
         
         /*
@@ -169,7 +163,7 @@ public class SDServiceImpl implements SDService {
          */
         discussion.setLastPost(parent);
         
-        return discussionDAO.createReply(parent, title, content, tags);
+        return discussionDAO.createReply(parent, title, content, tags, emailNotify);
     }//createReply()
 
 
@@ -299,6 +293,11 @@ public class SDServiceImpl implements SDService {
     public DiscussionReply getDiscussionReplyById(Long id) throws Exception {
         return discussionDAO.getReplyById(id);
     }//getDiscussionReplyById()
+
+
+    public Set getEmailUsers(DiscussionPost parent, DiscussionReply reply) throws Exception {
+        return discussionDAO.getEmailUsers(parent, reply);
+    }//getEmailUsers()
 
 
 }//class SDServiceImpl

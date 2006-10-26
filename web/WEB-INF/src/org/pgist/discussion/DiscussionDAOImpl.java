@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ import org.pgist.system.BaseDAOImpl;
 import org.pgist.system.YesNoVoting;
 import org.pgist.tagging.Tag;
 import org.pgist.tagging.TagInfo;
+import org.pgist.users.User;
 import org.pgist.util.DBMetaData;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
@@ -164,7 +166,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getReplies()
     
     
-    public DiscussionPost createPost(Discussion discussion, String title, String content, String[] tags) throws Exception {
+    public DiscussionPost createPost(Discussion discussion, String title, String content, String[] tags, boolean emailNotify) throws Exception {
         DiscussionPost post = new DiscussionPost();
         
         Date date = new Date();
@@ -176,6 +178,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         post.setOwner(getUserById(WebUtils.currentUserId()));
         post.setCreateTime(date);
         post.setReplyTime(date);
+        post.setEmailNotify(emailNotify);
         
         setPostTags(post, tags);
         
@@ -188,7 +191,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     private static final String hql_createReply_1 = "update DiscussionPost set replies=replies+1 where id=?";
     
     
-    public DiscussionReply createReply(DiscussionPost post, String title, String content, String[] tags) throws Exception {
+    public DiscussionReply createReply(DiscussionPost post, String title, String content, String[] tags, boolean emailNotify) throws Exception {
         DiscussionReply reply = new DiscussionReply();
         
         reply.setTitle(title);
@@ -198,6 +201,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         reply.setCreateTime(new Date());
         reply.setParent(post);
         reply.setOwner(getUserById(WebUtils.currentUserId()));
+        reply.setEmailNotify(emailNotify);
         
         setPostTags(reply, tags);
         
@@ -932,6 +936,30 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         return result;
     }//processIds()
+
+
+    private static final String hql_getEmailUsers = "select r.owner from DiscussionReply r where r.parent.id=? and r.id<>?";
+    
+    
+    public Set getEmailUsers(DiscussionPost parent, DiscussionReply reply) throws Exception {
+        List list = getHibernateTemplate().find(hql_getEmailUsers, new Object[] {
+                parent.getId(),
+                reply.getId(),
+        });
+        
+        Long owner = reply.getOwner().getId();
+        
+        Set set = new HashSet();
+        if (parent.getOwner().getId()!=owner) set.add(parent.getOwner());
+        
+        for (User user : (Set<User>) list) {
+            if (user.getId()==owner) continue;
+            
+            set.add(user);
+        }//for
+        
+        return set;
+    }//getEmailUsers()
 
 
 }//class DiscussionDAOImpl

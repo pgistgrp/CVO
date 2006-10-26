@@ -1,5 +1,6 @@
 package org.pgist.system;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -435,6 +436,14 @@ public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
         if (user.getPassword().length()<=31) user.encodePassword();
         session.update(user);
     }//updateProfile()
+
+
+    private static final String hql_getUsersByRole = "from User where roles.name=?";
+    
+    
+    public Collection getUsersByRole(String role) throws Exception {
+        return getHibernateTemplate().find(hql_getUsersByRole, role.toLowerCase());
+    }//getUsersByRole()
 
 
 }//class UserDAO
