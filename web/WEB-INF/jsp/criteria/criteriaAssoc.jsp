@@ -52,8 +52,33 @@
 </head>
 
 <body>
-  <h2>Associate Criteria</h2>
-
+<div id="container" style="width: 600px">
+	<h1>Associate Criteria to Themes</h1>
+	<p>Select criteria for each theme.  Use the "save" button at the bottom of the form to save the relationship.</p>
+	<form id="AssocCriteria" name="AssocCriteria" method="post" action="">
+	<div id="themes" style="float: left; width: 300px;">
+	  <h3>Themes List</h3>
+	  <p><input name="Theme" type="radio" value="Theme1" />Theme 1</p>
+	  <p><input name="Theme" type="radio" value="Theme2" />Theme 2</p>
+	  <p><input name="Theme" type="radio" value="Theme3" />Theme 3</p>
+	  <p><input name="Theme" type="radio" value="Theme4" />Theme 4</p>
+	</div>
+	
+	<div id="criteria" style="margin-left: 300px;">
+	  <h3>Criteria List</h3>
+	  <p><small>ctrl + click to select multiple</small></p>
+	  <select name="CriteriaList" size="10" multiple="multiple" id="CriteriaList" style="width: 100%;">
+	    <option value="Criteria1">Criteria1</option>
+	    <option value="Criteria2">Criteria2</option>
+	    <option value="Criteria3">Criteria3</option>
+	    <option value="Criteria4">Criteria4</option>
+      </select>
+	  <div id="submit" style="text-align:right;"><input type="button" value="Save" /></div>
+	  <div id="feedback" style="font-size: 0.8em; font-weight: bold; text-align:center; background: #BFFFBF; border: 3px solid #008F00;">Relationship was successfully saved!</div>
+	  </div>
+	</form>
+	<div id="clear" style="clear: left;">Finished?  <input type="button" value="Publish!" /></div>
+</div>
 </body>
 </html:html>
 

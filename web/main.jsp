@@ -29,25 +29,55 @@
 
 <h3>Welcome, ${baseuser.loginname}</h3>
 <ul>
-<li><pg:show roles="participant, moderator">
+	<pg:show roles="participant">
+<li>
   <html:link page="/cctlist.do">Step 1a: Brainstorm Concerns </html:link> [This step has finished.  New concerns will not be included in summaries]
-</pg:show> 
-</li>
-
-<li><pg:show roles="participant, moderator">
-  <html:link page="/sd.do?isid=2951">Step 1b: Discuss Summaries</html:link>
-</pg:show> 
 </li>
 
 <li>
-  <html:link page="/glossaryPublic.do">Learn More: Public Glossary </html:link> 
+  <html:link page="/sd.do?isid=2951">Step 1b: Discuss Summaries</html:link>
+</li>
+</pg:show> 
+<li>
+  <html:link page="/glossaryPublic.do">Learn More: Public Glossary</html:link> 
 </li>
 </ul>
 
 <pg:show roles="moderator">
+<h3>Public Components</h3>
+<ul>
+	<li><html:link page="#">Public Home</html:link></li>
+	<li>Step 1</li>
+		<ul>
+			<li><html:link page="cctlist.do">Brainstorm Concerns</html:link></li>
+			<li><html:link page="sdlist.do">Discuss Summaries</html:link></li>
+		</ul>
+	<li>Step 2</li>
+		<ul>
+			<li><html:link page="#">Review Criteria</html:link></li>
+			<li><html:link page="#">Weigh Criteria</html:link></li>
+		</ul>
+	<li>Step 3</li>
+		<ul>
+			<li><html:link page="#">Review Projects</html:link></li>
+			<li><html:link page="#">Express Funding Packages</html:link></li>
+			<li><html:link page="#">Create Personal Package</html:link></li>
+		</ul>
+	<li>Step 4</li>
+		<ul>
+			<li><html:link page="#">Review Packages</html:link></li>
+		</ul>
+	<li>Step 5</li>
+		<ul>
+			<li><html:link page="#">Review Report</html:link></li>
+		</ul>
+</ul>
 <h3>Moderator Tools</h3>
 <ul>
-	<li><html:link page="/feedback.do">Reviewing Feedbacks</html:link></li>
+	<li><html:link page="#">Reviewing Feedbacks</html:link></li>
+	<li><html:link page="#">Contact Participants</html:link></li>
+	<li><html:link page="#">Create a Voting Poll</html:link></li>
+	<li><html:link page="#">Manage Workflow</html:link></li>
 	<li>Step 0</li>
 		<ul>
 			<pg:show users="admin"><li><a href="/userlist.do">User Management</a></li></pg:show>
@@ -57,7 +87,7 @@
 	<li>Step 1</li>
 		<ul>
 			<li><html:link page="/cstlist.do">Concerns Synthesis Tool</html:link></li>
-			<li><pg:show roles="participant, moderator"><html:link page="/sdlist.do">Step 1b: Discuss Concerns Summaries</html:link></pg:show></li>
+			<li><html:link page="/sdList.do">Step 1b: Discuss Summaries</html:link></li>
 		</ul>
 	<li>Step 2</li>
 		<ul>
