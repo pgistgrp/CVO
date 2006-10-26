@@ -50,7 +50,7 @@
 	<li>Step 1</li>
 		<ul>
 			<li><html:link page="cctlist.do">Brainstorm Concerns</html:link></li>
-			<li><html:link page="sdlist.do">Discuss Summaries</html:link></li>
+			<li><html:link page="sdList.do">Discuss Summaries</html:link></li>
 		</ul>
 	<li>Step 2</li>
 		<ul>
