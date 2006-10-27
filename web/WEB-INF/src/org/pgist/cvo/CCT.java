@@ -22,6 +22,8 @@ public class CCT extends PGame {
     
     private Set tagRefs = new HashSet();
     
+    private Set criteria = new HashSet();
+    
     private CategoryReference rootCategory = new CategoryReference();
     
     
@@ -73,8 +75,25 @@ public class CCT extends PGame {
         this.tagRefs = tagRefs;
     }
 
-
+    
     /**
+     * @return
+     * 
+     * @hibernate.set lazy="true" cascade="all" table="pgist_cvo_criteria_link" order-by="id"
+     * @hibernate.collection-key column="cct_id"
+     * @hibernate.collection-one-to-many class="org.pgist.criteria.Criteria"
+     */
+    public Set getCriteria() {
+		return criteria;
+	}
+
+
+	public void setCriteria(Set criteria) {
+		this.criteria = criteria;
+	}
+
+
+	/**
      * @return
      * 
      * @hibernate.many-to-one column="root_cat_ref_id" cascade="all" lazy="true"

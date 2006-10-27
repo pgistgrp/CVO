@@ -47,7 +47,32 @@ public class CriteriaAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
+        String name = (String) params.get("name");
+    	String low = (String) params.get("low");
+    	String medium = (String) params.get("medium");
+    	String high = (String) params.get("high");
+    	String na = (String) params.get("na");
+    	
+    	if(name==null || "".equals(name.trim())){
+    		map.put("reason", "Criterion name cannot be empty.");
+    		return map;
+    	}
+    	if(low==null || "".equals(low.trim())){
+    		map.put("reason", "Criterion low cannot be empty.");
+    		return map;
+    	}
+    	if(medium==null || "".equals(medium.trim())){
+    		map.put("reason", "Criterion medium cannot be empty.");
+    		return map;
+    	}
+    	if(high==null || "".equals(high.trim())){
+    		map.put("reason", "Criterion high cannot be empty.");
+    		return map;
+    	}
+    	
         try {
+        	Criteria criteria = criteriaService.addCriterion(name, low, medium, high, na);
+        	map.put("id", criteria.getId());
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,7 +88,7 @@ public class CriteriaAgent {
      * 
      * @param params a Map contains:
      *   <ul>
-     *     <li>id - int, the id of the criterion to be deleted</li>
+     *     <li>id - String, the id of the criterion to be deleted</li>
      *   </ul>
      * @return a Map contains:
      *   <ul>
@@ -75,7 +100,17 @@ public class CriteriaAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
+        String strId = (String)params.get("id");
+        
+        if(strId==null || "".equals(strId.trim())){
+        	map.put("reason", "Criterion id cannot be null.");
+    		return map;	
+        }
+        
+        Long id = Long.parseLong(strId); 
+        
         try {
+        	criteriaService.deleteCriterion(id);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,7 +143,39 @@ public class CriteriaAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
+        String strId = (String) params.get("id");
+        String name = (String) params.get("name");
+    	String low = (String) params.get("low");
+    	String medium = (String) params.get("medium");
+    	String high = (String) params.get("high");
+    	String na = (String) params.get("na");
+    	
+    	if(strId==null || "".equals(strId.trim())){
+        	map.put("reason", "Criterion id cannot be null.");
+    		return map;	
+        }
+    	if(name==null || "".equals(name.trim())){
+    		map.put("reason", "Criterion name cannot be empty.");
+    		return map;
+    	}
+    	if(low==null || "".equals(low.trim())){
+    		map.put("reason", "Criterion low cannot be empty.");
+    		return map;
+    	}
+    	if(medium==null || "".equals(medium.trim())){
+    		map.put("reason", "Criterion medium cannot be empty.");
+    		return map;
+    	}
+    	if(high==null || "".equals(high.trim())){
+    		map.put("reason", "Criterion high cannot be empty.");
+    		return map;
+    	}
+        
+        Long id = Long.parseLong(strId); 
+       
         try {
+        	Criteria c = criteriaService.getCriterionById(id);
+        	criteriaService.editCriterion(c, name, low, medium, high, na);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -259,21 +326,31 @@ public class CriteriaAgent {
      * 
      * @param params a Map contains:
      *   <ul>
-     *     <li>cctId - int, the id of an CCT object</li>
      *     <li>id - int, id of the Criteia object</li>
      *   </ul>
      * @return a Map contains:
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *     <li>criterion - reason why operation failed (valid when successful==false)</li>
+     *     <li>criterion - if successful the criteria object</li>
      *   </ul>
      */
     public Map getCriterionById(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
+        String strId = (String)params.get("id");
+        
+        if(strId==null || "".equals(strId.trim())){
+        	map.put("reason", "Criterion id cannot be null.");
+    		return map;	
+        }
+        
+        Long id = Long.parseLong(strId);
+        
         try {
+        	Criteria c = criteriaService.getCriterionById(id);
+        	map.put("criterion", c);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
