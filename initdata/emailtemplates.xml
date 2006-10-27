@@ -4,57 +4,45 @@
 
     <template name="term_rejected">
         <description>Send an email to participant to inform him that the term he proposed is rejectd.</description>
-        <subject>The glossary term you proposed at PGIST is rejected.</subject>
+        <subject>Let's Improve Transportation: your glossary submission has been rejected.</subject>
         <notes>Variable: ${term}, ${user}, ${reason}</notes>
-        <content>Dear participant of PGIST,
+        <content>%{user},
     
-    The glossary term "${term.name}" you proposed at PGIST is rejected.
+    You recently submitted the term "${term.name}" to the Let's Improve Transportation 	glossary.  After reviewing your submission, the moderator has decided not to include it in the public glossary, for the following reason:
     
-    The moderator of PGIST gives the following reason:
+    "${reason}"
     
-    ${reason}
+    Thank you for your participation,
     
-    Thank you for your participation.
-    
-    PGIST group.</content>
+    Let's Improve Transportation!</content>
     </template>
     
     
     <template name="post_reply">
         <description>Send an email notification to participants whose post are replied.</description>
-        <subject>The glossary term you proposed at PGIST is rejected.</subject>
+        <subject>Let's Improve Transportation: Re: ${yourPostTitle}</subject>
         <notes>Variable: ${reply}, ${user}</notes>
-        <content>Dear participant of PGIST,
-    The glossary term "${term.name}" you proposed at PGIST is rejected.
+        <content>${user},
     
-    The moderator of PGIST gives the following reason:
-    
-    ${reason}
+    Another participant has responded to your post!  Click the following link to view the discussion:
     
     ${url}
     
-    Thank you for your participation.
+ 		Thanks for your participation,
     
-    PGIST group.</content>
+    Let's Improve Transportation!</content>
     </template>
     
     
     <template name="feedback">
         <description>Send an email notification to moderator that participant commits a feedback.</description>
-        <subject>The glossary term you proposed at PGIST is rejected.</subject>
+        <subject>LIT: New feedback item submitted</subject>
         <notes>Variable: ${feedback}</notes>
-        <content>Dear participant of PGIST,
-    The glossary term "${term.name}" you proposed at PGIST is rejected.
-    
-    The moderator of PGIST gives the following reason:
-    
-    ${reason}
-    
-    ${url}
-    
-    Thank you for your participation.
-    
-    PGIST group.</content>
+        <content>
+        A user has just submitted the following feedback:
+        
+        ${feedback}
+        </content>
     </template>
     
     
