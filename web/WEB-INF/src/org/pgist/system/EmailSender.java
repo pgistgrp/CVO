@@ -1,6 +1,7 @@
 package org.pgist.system;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -35,6 +36,8 @@ public class EmailSender {
     private String username;
     
     private String password;
+    
+    private Map templates = new HashMap();
     
     private Pattern pattern = Pattern.compile("\\$\\{.*?\\}");
     
@@ -130,7 +133,13 @@ public class EmailSender {
     
     
     public void send(User user, String templateName, Map values) throws Exception {
-        EmailTemplate template = emailDAO.getTemplateByName(templateName);
+        EmailTemplate template = (EmailTemplate) templates.get(templateName);
+        
+        if (template==null) {
+            template = emailDAO.getTemplateByName(templateName);
+            templates.put(templateName, template);
+        }
+        
         send(user.getEmail(), template.getSubject(), merge(template, values));
     }//send()
     

@@ -593,6 +593,8 @@ public class SDAgent {
                 
                 for (User user : (Set<User>) set) {
                     values.put("user", user);
+                    //TODO, url
+                    values.put("url", "");
                     emailSender.send(user, "post_reply", values);
                 }
             } catch (Exception e) {

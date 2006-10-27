@@ -6,7 +6,7 @@
         <description>Send an email to participant to inform him that the term he proposed is rejectd.</description>
         <subject>Let's Improve Transportation: your glossary submission has been rejected.</subject>
         <notes>Variable: ${term}, ${user}, ${reason}</notes>
-        <content>%{user},
+        <content>%{user.loginname},
     
     You recently submitted the term "${term.name}" to the Let's Improve Transportation 	glossary.  After reviewing your submission, the moderator has decided not to include it in the public glossary, for the following reason:
     
@@ -22,7 +22,7 @@
         <description>Send an email notification to participants whose post are replied.</description>
         <subject>Let's Improve Transportation: Re: ${yourPostTitle}</subject>
         <notes>Variable: ${reply}, ${user}</notes>
-        <content>${user},
+        <content>${user.loginname},
     
     Another participant has responded to your post!  Click the following link to view the discussion:
     

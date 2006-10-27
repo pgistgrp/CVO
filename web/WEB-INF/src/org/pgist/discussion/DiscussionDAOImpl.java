@@ -952,7 +952,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         Set set = new HashSet();
         if (parent.getOwner().getId()!=owner) set.add(parent.getOwner());
         
-        for (User user : (Set<User>) list) {
+        for (User user : (List<User>) list) {
             if (user.getId()==owner) continue;
             
             set.add(user);
