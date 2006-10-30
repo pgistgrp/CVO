@@ -20,7 +20,7 @@
     
     <template name="post_reply">
         <description>Send an email notification to participants whose post are replied.</description>
-        <subject>Let's Improve Transportation: Re: ${yourPostTitle}</subject>
+        <subject>Let's Improve Transportation: Re: ${reply.title}</subject>
         <notes>Variable: ${reply}, ${user}</notes>
         <content>${user.loginname},
     
