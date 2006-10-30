@@ -1,0 +1,325 @@
+/* HTML Elements */
+/* ------------- */
+		
+		body
+		{
+		text-align:center;
+		padding:0px;
+		margin:0px;
+		width:100%;
+		font-family:arial,sans-serif;
+		font-size:.8em;
+		background: url('images/background-main.jpg') repeat-x #FFFBFF;
+		}
+		
+     fieldset
+     {
+     border: 0px;
+     margin: 0;
+     padding: 0;
+     }
+		
+		h2
+		{
+		font-size:2em;
+		margin:0px auto;
+		padding:0px;
+		}
+
+		h3
+		{
+		font-size:1.3em;
+		margin:0px;
+		padding:0px;
+		}
+
+
+/* COLORS and COLOR SCHEMES */
+/* ------------------------ */
+
+
+		.box1 /* used in the voting tally, and topic titles under #discussion */
+
+		{
+		border:1px solid #C6D78C;
+		background:#EFEFDE;
+		}
+
+		.box2  /* Used in the Overview box */
+		{
+		color:#3B4429;
+		background: #EEF7DD;
+		border: 2px solid #B4D579;
+		}
+		
+		.box3 /* Used in the DIV containing the Summary */
+		{
+		border:1px solid #D6E7EF;
+		background:#F7FBFF;
+		}
+
+		.box4 /* Used for header buttons except currentBox */
+		{
+		background:#E7F2F7;
+		border: 1px solid #BDD7E7;
+		}
+		
+		.box5 /*used for buttons outside the header, such as the New Topic button */
+		{
+		border:1px solid #F2AF27;
+		background:#FFDF94;
+		}
+		
+		.currentBox
+		{
+		background: #EEF7DD;
+		border: 1px solid #B4D579;
+		}
+
+		.headerColor {color:#31496B;}
+		
+/* STRUCTURAL ELEMENTS (Mostly IDs) */
+/* -------------------------------- */
+
+		#container
+		{
+		width:950px;
+		margin:10px auto 0px auto;
+		text-align:left;
+		}
+
+		#discussion
+		{
+		margin:0px;
+		}
+				
+		#discussionHeader
+		{
+		margin:1em 2em 1em 0em;
+		width:680px;
+		height:50px;
+		position:relative;
+		}		
+
+		#header {}
+		
+		#headerContainer
+		{
+		width:950px;
+		margin:auto;
+		text-align:left;
+		}
+
+		#headerMenu {
+		background: #D6E7EF;
+		border-top: 2px solid #ADCFDE;
+		border-bottom: 2px solid #ADCFDE;
+		margin-bottom:2em;
+		height:2.5em;
+		}		
+		
+		#headerNext
+		{
+		padding:2px 5px;
+		margin:4px;
+		}
+
+		#headerTitle
+		{
+		padding:2px 5px;
+		margin:4px;
+		display:inline;
+		margin-right10px;
+		margin-left:0px;
+		padding-left:0px;
+		}		
+
+		#object
+		{
+		margin:1em auto;
+		}
+		
+		#overview
+		{
+		width:950;
+		margin:1em auto;
+		padding:5px;
+		border-width:1px;
+		}
+
+		#sortingMenu
+		{
+		font-weight:400;
+		font-size:.8em;
+		width:350px;
+		position:absolute;
+		right:0px;
+		bottom:0px;
+		}
+
+		#summary
+		{
+		width:795px;
+		margin-left:10px;
+		padding:5px;
+		}
+		
+		#votingMenu
+		{
+		width:130px;
+		font-size:.7em;
+		text-align:center;
+		}
+
+		#votingMenuTally
+		{
+		color:#31496B;
+		padding:5px;
+		}
+
+
+/* GLOBAL CLASSES */
+/* -------------- */
+
+		.clear {clear:both;} /* Including a div with this class between two other divs without 
+		height declarations makes sure that they don't overlap.*/
+		
+		.clearLeft {clear:left}
+		.clearRight {clear:right} 
+
+		
+		.floatLeft {float:left}
+		.floatRight {float:right}
+
+				
+/* SPECIFIC CLASSES */
+/* ------- */
+
+		.button 
+		{
+		padding:1px 2px;
+		margin:1px 2px 0px 0px;
+		}
+		
+    .colRight
+    {
+    width: 230px;
+    padding: 5px;
+    margin-left: 15px;
+		}
+		
+		.discussionBody
+		{
+		
+		}
+		
+		.discussionComments
+		{
+		text-align:right;
+		}
+		
+		.discussion-left
+		{
+		width:680px;
+		padding-left:5px;
+		margin-bottom:10px;
+		}
+		
+		.discussionRow
+		{
+		clear:both;
+		}
+		
+		.discussionRowHeader
+		{
+		padding:2px 5px 5px 2px;
+		}
+
+		.discussionVoting
+		{
+		float:right;
+		font-size:.8em;
+		font-weight:bold;
+		}
+
+		.discussionVoting img {vertical-align:middle;}
+
+		.discussion-right
+		{
+		text-align:center;
+		}
+
+		.headerButton
+		{
+		-moz-border-radius:10px;
+		padding:3px 7px;
+		margin:4px;
+		}
+		
+		.headerButtonCurrent
+		{
+		-moz-border-radius:10px;
+		padding:3px 7px;
+		margin:4px;
+		}
+
+    .padding5
+    {
+    padding: 5px;
+    }
+
+		.pagination
+		{
+		text-align:right;
+		clear: left;
+		margin-bottom: 25px;
+		}
+
+		.sectionTitle
+		{
+		width:330px;
+		position:absolute;
+		bottom:0px;
+		}
+
+		.smallText
+		{
+		font-size:.8em;
+		}
+
+    .tagsList
+    {
+    list-style: none;
+    margin: 0;
+    padding:0;
+  	}
+  	
+    .tagsInline
+    {
+    display: inline;
+    float: left;
+    margin: 0px;
+    padding: 2px;
+    list-style: none;
+    margin-right: 5px;
+  	}
+		
+/* LINKS */
+/* ----- */
+
+		/* Link classes for the buttons in the header */
+		.headerButton a:link{color:#31496B;}
+		.headerButton a:visited{color:#31496B;}
+		.headerButton a:hover{color:#31496B;text-decoration:none;}
+		.headerButton a:active{color:#31496B;}
+		
+		.headerButtonCurrent a:link{color:#31496B;}
+		.headerButtonCurrent a:visited{color:#31496B;}
+		.headerButtonCurrent a:hover{color:#31496B;text-decoration:none;}
+		.headerButtonCurrent a:active{color:#31496B;}
+		
+		/* link classes for the Next button in the header */
+		#headerNext a:link{color:#6B531D;text-decoration:none;font-weight:bold;}
+		#headerNext a:visited{color:#6B531D;text-decoration:none;font-weight:bold;}
+		#headerNext a:hover{color:#6B531D;text-decoration:none;font-weight:bold;}
+		#headerNext a:active{color:#6B531D;text-decoration:none;font-weight:bold;}
