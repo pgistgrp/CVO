@@ -28,6 +28,7 @@
         <include method="getCriteria"/>
         <include method="getCriterionById"/>
         <include method="publish"/>
+		<include method="getAllCriterion"/>
     </create>
 
 

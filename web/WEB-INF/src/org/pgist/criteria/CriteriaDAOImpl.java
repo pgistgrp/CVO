@@ -1,5 +1,6 @@
 package org.pgist.criteria;
 
+import java.util.Collection;
 import java.util.Map;
 
 import org.pgist.discussion.DiscussionReply;
@@ -59,6 +60,14 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     public Criteria getCriterionById(Long id) throws Exception {
     	return (Criteria) getHibernateTemplate().load(Criteria.class, id);
     }//getCriterionById()
+    
+    
+    private static final String hql_getAllCriterion = "from Criteria c order by c.id";
+    
+    
+    public Collection getAllCriterion() throws Exception {    	
+    	return getHibernateTemplate().find(hql_getAllCriterion);
+    }
     
     
 }//class CriteriaDAOImpl

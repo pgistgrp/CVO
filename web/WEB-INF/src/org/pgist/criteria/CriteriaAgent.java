@@ -2,6 +2,7 @@ package org.pgist.criteria;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Collection;
 
 
 /**
@@ -504,6 +505,35 @@ public class CriteriaAgent {
         
         return map;
     }//setWeight()
+    
+    
+    /**
+     * Get all the Criterion Available
+     * @param params An empty map.
+     * @return a Map contains:
+     *   <ul>
+     *     <li>criteria - A list of Criteria objects</li>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map getAllCriterion(Map params) {
+    	
+    	Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+        	Collection criteria = criteriaService.getAllCriterion();
+        	map.put("criteria", criteria);
+            map.put("successful", true);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    } //getAllCriterion()
     
     
 }//class CriteriaAgent

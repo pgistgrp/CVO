@@ -50,4 +50,9 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getCriterionByID()
     
     
+    public Collection getAllCriterion() throws Exception {
+    	return criteriaDAO.getAllCriterion();
+    }//getAllCriterion()
+    
+    
 }//class CriteriaServiceImpl

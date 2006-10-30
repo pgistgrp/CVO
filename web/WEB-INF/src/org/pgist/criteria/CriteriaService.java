@@ -27,4 +27,6 @@ public interface CriteriaService {
     Criteria getCriterionById(Long id) throws Exception;
     
     
+    Collection getAllCriterion() throws Exception;
+    
 }//interface CriteriaService

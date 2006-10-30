@@ -1,5 +1,6 @@
 package org.pgist.criteria;
 
+import java.util.Collection;
 import java.util.Map;
 
 import org.pgist.system.BaseDAO;
@@ -23,6 +24,9 @@ public interface CriteriaDAO extends BaseDAO {
 	
 	
 	Criteria getCriterionById(Long id) throws Exception;
+	
+	
+	Collection getAllCriterion() throws Exception;
 	
 	
 }//interface CriteriaDAO
