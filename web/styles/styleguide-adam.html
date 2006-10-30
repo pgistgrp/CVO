@@ -1,0 +1,131 @@
+<html>
+	<head>
+		<title>Style Guide</title>
+		<style type="text/css">
+		</style>
+	</head>
+	<body style="font-family:arial">
+		<h3>Notes</h3>
+
+		<h2>HTML Elements</h2>
+		<div style="margin-left:20px;">
+
+			<h3>body</h3>
+			<p>The body has a text-align:center declaration so that the #container DIV is centered in internet explorer.  This declaration would cause the text of the page to be centered if a text-align:left declaration wasn't made in the #header and #container sections.  The font is set to .8em Arial.</p>
+
+			<h3 style="font-size:2em;margin:0px auto;padding:0px;">H2</h3>
+			<p>Size 2em, and has no margin or padding.  It inherits its color.  Currently, it's being used to show the score in large letters in the voting tally box at the top of the page.</p>
+
+			<h3 style="font-size:1.3em;margin:0px;padding:0px;">H3</h3>
+			<p>The only change made to this style are that its height is set at 1.3em.  H3 is being used for the titles of most sections.</p>
+
+		</div>
+
+		<h2>Colors and Color Schemes</h2>
+		<div style="margin-left:20px;">
+
+			<h3 style="border:1px solid #C6D78C;background:#EFEFDE;">.box1</h3>
+			<p>Used in the voting tally, and topic titles under #discussion</p>
+			<h3 style="color:#3B4429;background: #EEF7DD;border: 2px solid #B4D579;">.box2</h3>
+			<p>Used in the Overview box</p>
+			<h3 style="border:1px solid #D6E7EF;background:#F7FBFF;">.box3</h3>
+			<p>Used in the DIV containing the Summary</p>
+			<h3 style="background:#E7F2F7;border: 1px solid #BDD7E7;">.box4</h3>
+			<p>Used for header buttons except currentBox</p>
+			<h3 style="border:1px solid #F2AF27;background:#FFDF94;">.box5</h3>
+			<p>Used for buttons outside the header, such as the New Topic button. ALso used for the Next Step button.</p>
+			<h3 style="border:1px solid #FFE3B9;background:#FFF1DC;">.box6</h3>
+			<p>Used in addconcern div</p>
+			<h3 style="border:1px solid #FFE8B8;background:#FFFAF0;">.box7</h3>
+			<p>Lighter version of .box6, used for my concern</p>
+			<h3 style="border:1px solid #D6E5EE;background:#F4F9FB;">.box8</h3>
+			<p>Used for other people's concerns</p>
+			<h3 style="background: #EEF7DD;border: 1px solid #B4D579;">.currentBox</h3>
+			<p>Used to highlight the current step in the #headerMenu</p>
+			<h3 style="color:#31496B;">.headerColor</h3>
+			<p>This is the color for many headers</p>
+		</div>
+
+		<h2>Structural Elements</h2>
+		<div style="margin-left:20px;">
+
+			<h3>#colRight</h3>
+			<p>Used for the "Add Concerns" box. Draws a 230px wide box with a padding of 5px and a margin-left of 15px.</p>
+
+			<h3>#container</h3>
+			<p>Wraps the entire document, except for the #header and the #headerMenu.  It's currently set at a width of 950px, so that it will have some white space around the sides at 1024 resolution.  It's got a text-align:left declaration to override the text centering in the body element.  The #container is subdivided into two divs: (from to bottom) the #object, and the #discussion.</p>
+
+			<h3>#header</h3>
+			<p>No current styles.  This DIV should be loaded with the contents of another file, containing the LIT logo, and the global search box.</p>
+
+			<h3>#headerMenu</h3>
+			<p>This div is the blue stripe at the top of the page.</p>
+
+			<h3>#object</h3>
+			<p>Contains the object. #object has a margin declaration.</p>
+
+			<h3>#sortingMenu</h3>
+			<p>Contains the sorting and filtering controls, and also the title of the discussion area (wrapped in H3 elements).</p>
+
+		</div>
+
+
+		<h2>Global Classes</h2>
+		<div style="margin-left:20px;">
+			<h3>.clearBoth, .clearLeft, .clearRight</h3>
+			<p>Used to apply the respective clearance declarations to div elements.  .clearBoth is a class that is given the property clear:both in order to fix what appears to be a bug in Firefox that causes DIVs without height declarations to overlap.</p>
+
+			<h3>.floatLeft, .floatRight</h3>
+			<p>Used to give the respective float declarations to div elements.</p>
+		</div>
+
+	</div>
+
+	<h2>Specific Classes</h2>
+	<div style="margin-left:20px;">
+		<h3>.button</h3>
+		<p>Used for buttons throughout the page.  Applies very narrow margins and padding.  Does not contain a color (use one of the .box color schemes for that) or position (use one of the global classes for that).</p>
+
+	 <h3>.discussionBody</h3>
+	 <p>Contains the main text of a discussion item (e.g. the contents of a post or reply).  No styles are currently applied.</p>
+	 
+	 <h3>discussionComments</h3>
+	 <p>Contains the comment count for a discussion item.  Text in this div is right aligned.</p>
+	 
+	 <h3>discussion-left</h3>
+	 <p>A wrapper that contains discussionTitle, discussionBody, discussionComments, etc.  It is 680px wide, with padding and a margin.</p>	 
+	 
+	 <h3>.headerButton</h3>
+	 <p>Used for buttons in the #headerMenu</p>
+	 
+	 <h3>.headerButtonCurrent</h3>
+	 <p>Used for the button in the #headerMenu that contains the current step in the LIT process. Has the same style as .headerButton.</p>
+	 
+	 <h3 style="font-size:.8em">.smallText</h3>
+	 <p>Used for small text, such as the text in the sorting menu, or in .buttons.  Has a font size of .8em.</p>
+	 
+	 <h3>.tagsList</h3>
+	<p>A wrapper for tags which sets list-style to "none", and sets padding and margin to 0.</p>
+	
+	<h3>.tagsInLine</h3>
+	<p>Used for tags.  Makes them float next to each other.</p>
+	
+	</div>
+
+	<h2>Link Styles</h2>
+	<div style="margin-left:20px;">
+	
+	<h3>.headerButton a</h3>
+	<p>Applies a style to links in the .headerButtons in the #headerMenu.</p>
+	
+	<h3>.headerButtonCurrent a</h3>
+	<p>Applies a style to the current LIT process substep link in the #headerMenu.</p>
+	
+	<h3>#headerNext a</h3>
+	<p>Applies a style to links in the "next step" button in the #headerMenu.</p>
+	
+	</div>
+
+
+</body>
+</html>
