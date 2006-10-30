@@ -69,6 +69,24 @@
 		border:1px solid #F2AF27;
 		background:#FFDF94;
 		}
+				
+		.box6 /* used in addconcern div */ 
+		{
+		border:1px solid #FFE3B9;
+		background:#FFF1DC;
+		}
+		
+		.box7 /* lighter version of contrast2, used for my concern */ 
+		{
+		border:1px solid #FFE8B8;
+		background:#FFFAF0;
+		}
+		
+		.box8 /* used for other people's concerns */ 
+		{
+		border:1px solid #D6E5EE;
+		background:#F4F9FB;
+		}
 		
 		.currentBox
 		{
@@ -181,7 +199,7 @@
 /* GLOBAL CLASSES */
 /* -------------- */
 
-		.clear {clear:both;} /* Including a div with this class between two other divs without 
+		.clearBoth {clear:both;} /* Including a div with this class between two other divs without 
 		height declarations makes sure that they don't overlap.*/
 		
 		.clearLeft {clear:left}
@@ -222,7 +240,7 @@
 		{
 		width:680px;
 		padding-left:5px;
-		margin-bottom:10px;
+		margin-bottom: 10px;
 		}
 		
 		.discussionRow
