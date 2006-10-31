@@ -845,7 +845,7 @@ public class CCTAgent {
      *     <li>count - number of records shown per page. Optional, default is -1, means all records.</li>
      *     <li>page - page number. Optional, default is 1.</li>
      *     <li>contextAware - boolean, if context aware. If true, returned concerns don't include those of current user. Optional, default is true.</li>
-     *     <li>desc - boolean, to sort descending or not</li>
+     *     <li>desc - boolean, to sort descending or not. Optional true by default</li>
      *   </ul>
      * 
      * @return A map contains:

@@ -272,10 +272,10 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
         if (count==0) return list;
         
         if (contextAware) {
-            query = getSession().createQuery(hql_getContextConcerns_A_22 + (desc?"":" desc"));
+            query = getSession().createQuery(hql_getContextConcerns_A_22 + (desc?" desc":""));
             query.setLong(2, WebUtils.currentUserId());
         } else {
-            query = getSession().createQuery(hql_getContextConcerns_A_21 + (desc?"":" desc"));
+            query = getSession().createQuery(hql_getContextConcerns_A_21 + (desc?" desc":""));
         }
         query.setBoolean(0, false);
         query.setLong(1, cct.getId());
@@ -325,7 +325,7 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
         if (count==0) return list;
         
         //get records
-        rs = stmt.executeQuery("SELECT distinct x.cid, count(x.cid) from ("+piece+") as x group by x.cid order by count(x.cid)" + (desc?"":" desc"));
+        rs = stmt.executeQuery("SELECT distinct x.cid, count(x.cid) from ("+piece+") as x group by x.cid order by count(x.cid)" + (desc?" desc":""));
         
         while (rs.next()) {
             Long one = rs.getLong(1);
