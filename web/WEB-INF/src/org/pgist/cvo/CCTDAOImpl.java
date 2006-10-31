@@ -248,12 +248,12 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
     
     private static final String hql_getContextConcerns_A_22 = "from Concern c where c.deleted=? and c.cct.id=? and c.author.id<>? order by c.id";
     
-    
-    public Collection getContextConcerns(CCT cct, PageSetting setting, boolean contextAware) throws Exception {
+   
+    public Collection getContextConcerns(CCT cct, PageSetting setting, boolean contextAware, boolean desc) throws Exception {
         List list = new ArrayList();
         
         Query query = null;
-        
+        		
         if (contextAware) {
             query = getSession().createQuery(hql_getContextConcerns_A_12);
             query.setLong(2, WebUtils.currentUserId());
@@ -272,10 +272,10 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
         if (count==0) return list;
         
         if (contextAware) {
-            query = getSession().createQuery(hql_getContextConcerns_A_22);
+            query = getSession().createQuery(hql_getContextConcerns_A_22 + (desc?"":" desc"));
             query.setLong(2, WebUtils.currentUserId());
         } else {
-            query = getSession().createQuery(hql_getContextConcerns_A_21);
+            query = getSession().createQuery(hql_getContextConcerns_A_21 + (desc?"":" desc"));
         }
         query.setBoolean(0, false);
         query.setLong(1, cct.getId());
@@ -289,7 +289,7 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
     private static final String sql_getContextConcerns_B = "SELECT cid from "+DBMetaData.VIEW_CONCERN_TAG_IN_CCT+" where cctid=:cctid and trid=";
     
     
-    public Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware) throws Exception {
+    public Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware, boolean desc) throws Exception {
         List list = new ArrayList();
         
         Connection connection = getSession().connection();
@@ -325,7 +325,7 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
         if (count==0) return list;
         
         //get records
-        rs = stmt.executeQuery("SELECT distinct x.cid, count(x.cid) from ("+piece+") as x group by x.cid order by count(x.cid)");
+        rs = stmt.executeQuery("SELECT distinct x.cid, count(x.cid) from ("+piece+") as x group by x.cid order by count(x.cid)" + (desc?"":" desc"));
         
         while (rs.next()) {
             Long one = rs.getLong(1);

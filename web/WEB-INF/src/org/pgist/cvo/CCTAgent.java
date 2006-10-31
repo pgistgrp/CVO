@@ -845,6 +845,7 @@ public class CCTAgent {
      *     <li>count - number of records shown per page. Optional, default is -1, means all records.</li>
      *     <li>page - page number. Optional, default is 1.</li>
      *     <li>contextAware - boolean, if context aware. If true, returned concerns don't include those of current user. Optional, default is true.</li>
+     *     <li>desc - boolean, to sort descending or not</li>
      *   </ul>
      * 
      * @return A map contains:
@@ -879,6 +880,7 @@ public class CCTAgent {
         }
         
         boolean contextAware = !("false".equals((String) params.get("contextAware")));
+        boolean desc = !("false".equals((String) params.get("desc")));
         
         String tags = (String) params.get("tags");
         
@@ -887,7 +889,7 @@ public class CCTAgent {
             setting.setRowOfPage((String) params.get("count"));
             setting.setPage((String) params.get("page"));
             
-            Collection concerns = cctService.getContextConcerns(cct, setting, tags, contextAware);
+            Collection concerns = cctService.getContextConcerns(cct, setting, tags, contextAware, desc);
             
             request.setAttribute("concerns", concerns);
             request.setAttribute("setting", setting);
