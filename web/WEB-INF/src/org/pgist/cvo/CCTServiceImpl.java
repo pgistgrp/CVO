@@ -316,11 +316,23 @@ public class CCTServiceImpl implements CCTService {
 
 
     public Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware, boolean desc) throws Exception {
+        Collection concerns = null;
+        
         if (tags==null || "".equals(tags.trim())) {
-            return cctDAO.getContextConcerns(cct, setting, contextAware, desc);
+            concerns = cctDAO.getContextConcerns(cct, setting, contextAware, desc);
         } else {
-            return cctDAO.getContextConcerns(cct, setting, tags.trim(), contextAware, desc);
+            concerns = cctDAO.getContextConcerns(cct, setting, tags.trim(), contextAware, desc);
         }
+        
+        /**
+         * put the voting object for current user to concern
+         */
+        for (Concern one : (Collection<Concern>) concerns) {
+            YesNoVoting voting = systemDAO.getVoting(YesNoVoting.TYPE_CONCERN, one.getId());
+            one.setObject(voting);
+        }
+        
+        return concerns;
     }//getContextConcerns()
 
 
