@@ -79,6 +79,7 @@
       <include method="getConcernsByTag"/>
       <include method="searchTags"/>
       <include method="getContextConcerns"/>
+      <include method="setVoting"/>
     </create>
 
 

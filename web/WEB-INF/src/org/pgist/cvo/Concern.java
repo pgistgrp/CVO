@@ -33,6 +33,12 @@ public class Concern implements Serializable {
     
     protected int sortOrder = 0;
     
+    protected int numAgree = 0;
+    
+    protected int numVote = 0;
+    
+    protected Object object = null;
+    
     
     /**
      * @return
@@ -146,6 +152,49 @@ public class Concern implements Serializable {
 
     public void setSortOrder(int sortOrder) {
         this.sortOrder = sortOrder;
+    }
+    
+    
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getNumAgree() {
+        return numAgree;
+    }
+
+
+    public void setNumAgree(int numAgree) {
+        this.numAgree = numAgree;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getNumVote() {
+        return numVote;
+    }
+
+
+    public void setNumVote(int numVote) {
+        this.numVote = numVote;
+    }
+
+
+    /*
+     * ------------------------------------------------------------------------
+     */
+
+
+    public Object getObject() {
+        return object;
+    }
+
+
+    public void setObject(Object object) {
+        this.object = object;
     }
 
 

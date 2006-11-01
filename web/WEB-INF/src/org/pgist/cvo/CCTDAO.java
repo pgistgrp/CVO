@@ -143,5 +143,8 @@ public interface CCTDAO extends CVODAO {
     
     Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware, boolean desc) throws Exception;
 
+    
+    void increaseVoting(Concern concern, boolean agree) throws Exception;
+
 
 }//interface CCTDAO

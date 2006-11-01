@@ -100,7 +100,7 @@ public class SDAgent {
             
             map.put("post", post);
             
-            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_Discussion_POST, id);
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_DISCUSSION_POST, id);
             if (voting!=null) {
                 map.put("voting", voting);
             }
@@ -281,7 +281,7 @@ public class SDAgent {
                 return map;
             }
             
-            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_Discussion_POST, post.getId());
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_DISCUSSION_POST, post.getId());
             if (voting!=null) {
                 request.setAttribute("voting", voting);
             }
@@ -1041,9 +1041,9 @@ public class SDAgent {
             } else if ("object".equals(target)) {
                 type = YesNoVoting.TYPE_INFO_OBJECT;
             } else if ("post".equals(target)) {
-                type = YesNoVoting.TYPE_Discussion_POST;
+                type = YesNoVoting.TYPE_DISCUSSION_POST;
             } else if ("reply".equals(target)) {
-                type = YesNoVoting.TYPE_Discussion_REPLY;
+                type = YesNoVoting.TYPE_DISCUSSION_REPLY;
             } else {
                 map.put("reason", "Unknown target type: "+target);
                 return map;

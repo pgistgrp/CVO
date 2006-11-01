@@ -219,5 +219,8 @@ public interface CCTService {
     
     Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware, boolean desc) throws Exception;
 
+    
+    boolean setVotingOnConcern(Long id, boolean agree) throws Exception;
+
 
 }//interface CCTService

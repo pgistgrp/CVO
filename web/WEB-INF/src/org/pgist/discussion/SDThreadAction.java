@@ -110,7 +110,7 @@ public class SDThreadAction extends Action {
             /*
              * Get the voting information
              */
-            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_Discussion_POST, pid);
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_DISCUSSION_POST, pid);
             post.setObject(voting);
             
             /*

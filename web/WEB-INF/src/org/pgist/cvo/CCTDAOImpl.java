@@ -336,4 +336,17 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
     }//getContextConcerns()
 
 
+    private static final String hql_increaseVoting_11 = "update Concern c set c.numVote=c.numVote+1 where c.id=?";
+    
+    private static final String hql_increaseVoting_12 = "update Concern c set c.numAgree=c.numAgree+1 where c.id=?";
+    
+    
+    public void increaseVoting(Concern concern, boolean agree) throws Exception {
+        getSession().createQuery(hql_increaseVoting_11).setLong(0, concern.getId()).executeUpdate();
+        if (agree) {
+            getSession().createQuery(hql_increaseVoting_12).setLong(0, concern.getId()).executeUpdate();
+        }
+    }//increaseVoting()
+
+
 }//class CCTDAOImpl

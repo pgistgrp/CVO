@@ -18,9 +18,11 @@ public class YesNoVoting implements Serializable {
     
     public static final int TYPE_INFO_OBJECT = 1;
     
-    public static final int TYPE_Discussion_POST = 2;
+    public static final int TYPE_DISCUSSION_POST = 2;
     
-    public static final int TYPE_Discussion_REPLY = 3;
+    public static final int TYPE_DISCUSSION_REPLY = 3;
+    
+    public static final int TYPE_CONCERN = 4;
     
     
     private Long id;

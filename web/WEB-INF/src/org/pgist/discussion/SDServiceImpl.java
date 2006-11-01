@@ -91,7 +91,7 @@ public class SDServiceImpl implements SDService {
     public Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception {
         Collection list = discussionDAO.getReplies(post, setting);
         for (DiscussionReply reply : (Collection<DiscussionReply>) list) {
-            YesNoVoting voting = systemDAO.getVoting(YesNoVoting.TYPE_Discussion_REPLY, reply.getId());
+            YesNoVoting voting = systemDAO.getVoting(YesNoVoting.TYPE_DISCUSSION_REPLY, reply.getId());
             reply.setObject(voting);
         }//for
         return list;
@@ -194,10 +194,10 @@ public class SDServiceImpl implements SDService {
                 InfoObject object = getInfoObjectById(targetId);
                 discussionDAO.increaseVoting(object, agree);
                 break; }
-            case YesNoVoting.TYPE_Discussion_POST:
+            case YesNoVoting.TYPE_DISCUSSION_POST:
                 DiscussionPost post = getDiscussionPostById(targetId);
                 discussionDAO.increaseVoting(post, agree);
-            case YesNoVoting.TYPE_Discussion_REPLY:
+            case YesNoVoting.TYPE_DISCUSSION_REPLY:
                 DiscussionReply reply = getDiscussionReplyById(targetId);
                 discussionDAO.increaseVoting(reply, agree);
             default:

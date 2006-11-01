@@ -25,6 +25,7 @@
                 <property name="cctDAO" ref="cctDAO"/>
                 <property name="tagDAO" ref="tagDAO"/>
                 <property name="analyzer" ref="tagAnalyzer"/>
+                <property name="systemDAO" ref="systemDAO"/>
             </bean>
         </property>
     </bean>
@@ -33,6 +34,7 @@
     <bean id="cctAgent" class="org.pgist.cvo.CCTAgent">
         <property name="cctService" ref="cctService"/>
         <property name="userDAO" ref="userDAO"/>
+        <property name="systemService" ref="systemService"/>
     </bean>
 
 

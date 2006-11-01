@@ -5,7 +5,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.pgist.system.SystemDAO;
 import org.pgist.system.UserDAO;
+import org.pgist.system.YesNoVoting;
 import org.pgist.tagging.Tag;
 import org.pgist.tagging.TagAnalyzer;
 import org.pgist.tagging.TagDAO;
@@ -30,6 +32,8 @@ public class CCTServiceImpl implements CCTService {
 
     private TagAnalyzer analyzer = null;
 
+    private SystemDAO systemDAO;
+    
 
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
@@ -48,6 +52,11 @@ public class CCTServiceImpl implements CCTService {
 
     public void setAnalyzer(TagAnalyzer analyzer) {
         this.analyzer = analyzer;
+    }
+
+
+    public void setSystemDAO(SystemDAO systemDAO) {
+        this.systemDAO = systemDAO;
     }
 
 
@@ -313,6 +322,17 @@ public class CCTServiceImpl implements CCTService {
             return cctDAO.getContextConcerns(cct, setting, tags.trim(), contextAware, desc);
         }
     }//getContextConcerns()
+
+
+    public boolean setVotingOnConcern(Long id, boolean agree) throws Exception {
+        if (!systemDAO.setVoting(YesNoVoting.TYPE_CONCERN, id, agree)) return false;
+        
+        Concern concern = cctDAO.getConcernById(id);
+        
+        cctDAO.increaseVoting(concern, agree);
+        
+        return true;
+    }//setVotingOnConcern()
 
 
 }//class CCTServiceImpl

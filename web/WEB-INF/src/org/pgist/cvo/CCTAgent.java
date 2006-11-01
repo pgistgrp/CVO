@@ -8,7 +8,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
+import org.pgist.system.SystemService;
 import org.pgist.system.UserDAO;
+import org.pgist.system.YesNoVoting;
 import org.pgist.tagging.Tag;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
@@ -31,6 +33,8 @@ public class CCTAgent {
     private CCTService cctService = null;
 
     private UserDAO userDAO = null;
+    
+    private SystemService systemService;
 
 
     /**
@@ -40,6 +44,16 @@ public class CCTAgent {
      */
     public void setCctService(CCTService cctService) {
         this.cctService = cctService;
+    }
+
+
+    /**
+     * This is not an AJAX service method.
+     *
+     * @param userDAO
+     */
+    public void setSystemService(SystemService systemService) {
+        this.systemService = systemService;
     }
 
 
@@ -445,6 +459,7 @@ public class CCTAgent {
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>concern - a Concern object. (valid when successful==true)</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *           <li>voting - a YesNoVoting object (may be null if the current user hasn't voted yet.)</li>
      *         </ul>
      */
     public Map getConcernById(Long id) {
@@ -452,11 +467,18 @@ public class CCTAgent {
 
         try {
             Concern concern = cctService.getConcernById(id);
+            
             if (concern == null) {
                 map.put("successful", false);
                 map.put("reason", "concern not found with id " + id);
                 return map;
             }
+            
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_CONCERN, id);
+            if (voting!=null) {
+                map.put("voting", voting);
+            }
+            
             map.put("successful", true);
             map.put("concern", concern);
         } catch (Exception e) {
@@ -905,6 +927,49 @@ public class CCTAgent {
         
         return map;
     }//getContextConcerns()
+    
+    
+    /**
+     * Set the voting choice on the given concern.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>id - int, id of the Concern object. Required.</li>
+     *     <li>agree - string, "true" or "false". Whether or not the current user agree with the current object.</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map setVoting(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long id = null;
+        try {
+            id = new Long((String) params.get("id"));
+        } catch (Exception e) {
+            map.put("reason", "id is required.");
+            return map;
+        }
+        
+        boolean agree = "true".equalsIgnoreCase((String) params.get("agree"));
+        
+        try {
+            cctService.setVotingOnConcern(id, agree);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//setVoting()
     
     
 }//class CCTAgent

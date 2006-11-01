@@ -88,7 +88,7 @@ public interface SDService {
     DiscussionReply getDiscussionReplyById(Long id) throws Exception;
 
 
-    public boolean setVoting(int targetType, Long targetId, boolean agree) throws Exception;
+    boolean setVoting(int targetType, Long targetId, boolean agree) throws Exception;
     
     
     Set getEmailUsers(DiscussionPost parent, DiscussionReply reply) throws Exception;
