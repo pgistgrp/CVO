@@ -12,12 +12,12 @@
 		background: url('images/background-main.jpg') repeat-x #FFFBFF;
 		}
 		
-     fieldset
-     {
-     border: 0px;
-     margin: 0;
-     padding: 0;
-     }
+		 fieldset
+		 {
+		 border: 0px;
+		 margin: 0;
+		 padding: 0;
+		 }
 		
 		h2
 		{
@@ -33,6 +33,7 @@
 		padding:0px;
 		}
 
+		img {border:0px;}
 
 /* COLORS and COLOR SCHEMES */
 /* ------------------------ */
@@ -98,6 +99,14 @@
 		
 /* STRUCTURAL ELEMENTS (Mostly IDs) */
 /* -------------------------------- */
+		
+		
+		#allDiscussionsBox /* The box that contains the "all discussions" link on sdMain */
+		{
+		padding:10px;
+		margin:1em auto;
+		width: 280px;
+		}
 
 		#container
 		{
@@ -208,6 +217,10 @@
 		
 		.floatLeft {float:left}
 		.floatRight {float:right}
+		
+		.centerAlign {text-align:center}
+		.leftAlign {text-align:left}
+		.rightAlign {text-align:right}
 
 				
 /* SPECIFIC CLASSES */
@@ -219,11 +232,11 @@
 		margin:1px 2px 0px 0px;
 		}
 		
-    .colRight
-    {
-    width: 230px;
-    padding: 5px;
-    margin-left: 15px;
+		.colRight
+		{
+		width: 230px;
+		padding: 5px;
+		margin-left: 15px;
 		}
 		
 		.discussionBody
@@ -253,6 +266,8 @@
 		padding:2px 5px 5px 2px;
 		}
 
+		.discussionText {padding-top:5px;}
+		
 		.discussionVoting
 		{
 		float:right;
@@ -281,10 +296,10 @@
 		margin:4px;
 		}
 
-    .padding5
-    {
-    padding: 5px;
-    }
+		.padding5
+		{
+		padding: 5px;
+		}
 
 		.pagination
 		{
@@ -305,25 +320,41 @@
 		font-size:.8em;
 		}
 
-    .tagsList
-    {
-    list-style: none;
-    margin: 0;
-    padding:0;
-  	}
+		.tagsList
+		{
+		list-style: none;
+		margin: 0;
+		padding:0;
+		}
+		
+		.tagsInline
+		{
+		display: inline;
+		float: left;
+		margin: 0px;
+		padding: 2px;
+		list-style: none;
+		margin-right: 5px;
+		}
   	
-    .tagsInline
-    {
-    display: inline;
-    float: left;
-    margin: 0px;
-    padding: 2px;
-    list-style: none;
-    margin-right: 5px;
-  	}
+		.themeBox /* The container that discussion themes go in on sdMain */
+		{
+		width:300px;
+		height:200px;
+		overflow:hidden;
+		margin:16px;
+		margin-left:0px;
+		margin-bottom:5px;
+		}
 		
 /* LINKS */
 /* ----- */
+
+		/* Main link class throughout the site */
+		a:link { color:#31496B; }
+		a:visited { color:#31496B; }
+		a:hover { color:#31496B;text-decoration:none}
+		a:active { color:#31496B; }
 
 		/* Link classes for the buttons in the header */
 		.headerButton a:link{color:#31496B;}
