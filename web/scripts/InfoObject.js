@@ -73,9 +73,8 @@
 		};
 		
 	 
-		/*************** Set Vote************** */
+		/*************** Set Vote************** *//*
 	 	 this.setVote = function(target, id, agree){
-	 	 			displayIndicator(true);
 					//alert("structure" + infoObject.structureId + "object " + infoObject.objectId + "vote " + agree);
 					SDAgent.setVoting({target: target, id: id, agree:agree}, {
 					callback:function(data){
@@ -85,10 +84,8 @@
 	              				 	new Effect.Fade(infoObject.votingQuestionDiv, {afterFinish: function(){infoObject.getTargets(); new Effect.Appear(infoObject.votingQuestionDiv);}});
 	              				}
 	              				 
-	              				 displayIndicator(false);
 							}else{
 								alert(data.reason);
-								displayIndicator(false);
 							}
 						},
 					errorHandler:function(errorString, exception){ 
@@ -96,11 +93,10 @@
 					}
 					});
 
-		};
+		};*/
 			
 		/*************** New Discussion Post: if successful, reload discussion posts************** */
 	 	 this.createPost = function(){
-	 	 		displayIndicator(true);
 	
 	 	 		var newPostTitle = $(this.newPostTitleInput).value;
 	 	 		//var newPost = validateInput($(this.newPostBodyInput).value);
@@ -115,7 +111,6 @@
 						     infoObject.setVote("post", data.id, "true"); //set initial vote
 							 infoObject.clearNewDiscussionInputs();
 							 infoObject.toggleNewDiscussion();
-							 displayIndicator(false);
 							 if(infoObject.currentDiscPage != 1){
 							 	infoObject.currentDiscPage = 1
 							 }
@@ -123,7 +118,6 @@
 						}else{
 							alert(data.reason);
 							 infoObject.toggleNewDiscussion();
-							 displayIndicator(false);
 						}
 					},
 				errorHandler:function(errorString, exception){ 
@@ -142,24 +136,19 @@
 		/*************** Scriptaculous toggle effect for the new discussion div************* */
 	  	this.toggleNewDiscussion =  function(){
 			if ($(this.newDiscussionDiv).style.display == 'none'){
-				displayIndicator(true);
 				new Effect.toggle(this.newDiscussionDiv, 'blind', {duration: 0.5});
 				$(this.sidebarBottomDiv1).style.display = 'none';	
 				$(this.sidebarBottomDiv2).style.display = 'block';	
-				displayIndicator(false);
 			}else{
-				displayIndicator(true);
 				new Effect.toggle(this.newDiscussionDiv, 'blind', {duration: 0.5, afterFinish: function(){
 					$(infoObject.sidebarBottomDiv1).style.display = 'block';	
 					$(infoObject.sidebarBottomDiv2).style.display = 'none';	
-					displayIndicator(false);	
 				}});		
 			}
 		};
 			
 		/***************Get all posts for the given infoObject.  If infoObject is omitted, get infoStructure discussions. Partial: SDPosts.jsp************** */
 		this.getPosts = function(){
-			    displayIndicator(true);
 		    	var page = 1;
 		 		if (this.currentDiscPage != null){
 		 			page = this.currentDiscPage;	
@@ -170,10 +159,8 @@
 			          if (data.successful){
 			         // alert(data.html);
 			          $(infoObject.discussionDiv).innerHTML = data.html;
-			           displayIndicator(false);
 			          }else{
 			            alert(data.reason);
-			            displayIndicator(false);
 			          }
 			      },
 			      errorHandler:function(errorString, exception){

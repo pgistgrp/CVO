@@ -9,34 +9,58 @@
 
 
 <pg:fragment type="html">
-	<div class="voting">
-		<h4>Quick Vote</h4>
-		<div id="structure_question_status">
-			<p><span class="smalltext" style="line-height: 15px; font-style: italic; "><strong>${infoObject.numAgree} of ${infoObject.numVote}</strong> participants have said that this summary adequately reflects concerns expressed by participants.</span></p>
-		</div>
-		<div id="structure_question">
-			<c:choose>
-				<c:when test="${voting == null}">
-					<span class="smalltext">Do you feel this summary adequately reflects concerns expressed by participants? <a href="javascript:infoObject.setVote('object',${infoObject.id}, 'true');"><img src="/images/btn_yes_a.gif" alt="YES" class="button"><a href="javascript:infoObject.setVote('object', ${infoObject.id}, 'true');"><img src="/images/btn_no_a.gif" alt="NO" class="button"></a></span>
-				</c:when>
-				<c:otherwise>
-					<span class="smalltext">Your vote has been recorded. Thank you for your participation.</span>
-				</c:otherwise>
-			</c:choose>
-		</div>
+	
+		<!-- Begin voting tally menu -->
+<div id="votingMenu" class="floatLeft"><div id="voting-object${infoObject.id}">
+	<div id="votingMenuTally" class="box1">
+		<span id="structure_question_status">
+			<h2>${infoObject.numAgree} of ${infoObject.numVote}</h2>
+		agree with summary</div>
+	</span>
+	<p>Does this summary reflect the group's concerns?</p>
+	<span id="structure_question">
+
+		<c:choose>
+			<c:when test="${voting == null}">
+				<a href="javascript:infoObject.setVote('object',${infoObject.id}, 'true');"><img src="images/btn_thumbsup_large.png" alt="YES" class="floatRight" style="margin-right:5px;"><a href="javascript:infoObject.setVote('object', ${infoObject.id}, 'true');"><img src="images/btn_thumbsdown_large.png" alt="NO" class="floatLeft" margin-left:5px;"></a></span>
+			</c:when>
+			<c:otherwise>
+				<div class="box3" style="text-align:left;padding:2px;">Your vote has been recorded. Thank you for your participation.</div>
+			</c:otherwise>
+		</c:choose>
+	</span></div>
 </div>
-	<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
+	<!-- end voting tally menu -->
+	
+	
+	
+	<!-- begin summary -->
+		<div id="summary" class="box3 floatLeft">
+				<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
 	  <p>${infoObject.object.theme.summary}</p>
 	</pg:termHighlight>
-
-	Tags highlighted by the moderator: 
+		Tags highlighted by the moderator: 
 	<ul class="tagsList">
 	<c:forEach var="tag" items="${infoObject.object.theme.tags}">
 		<li class="tagsList"><small><a href="javascript: sideBar.changeCurrentFilter(${tag.id});">${tag.name}</a></small></li>
 	</c:forEach>		
 	</ul>
+		</div>
+  <!-- end summary -->
+  
+  	
+	
+	
+</div>
+
+
 </pg:fragment>
 
 	<pg:fragment type="script">
 
 </pg:fragment>
+
+
+
+
+

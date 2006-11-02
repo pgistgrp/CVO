@@ -7,49 +7,50 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <pg:fragment type="html">
-    <table width="100%" class="tabledisc">
-          <tr class="objectblue">
-          	<td width="40" class="textcenter">Status</td>
-            <td>Concern Themes</td>
-			<td width="150">Last Post</td>
-            <td width="100" class="textcenter">Discussions</td> 
-          </tr>		 
 	<jsp:useBean id="today" class="java.util.Date"/>
     <c:forEach var="infoObject" items="${structure.infoObjects}" varStatus="loop">
     	<c:set var="fmtLastPostDate"><fmt:formatDate value="${infoObject.discussion.lastPost.createTime}" pattern="yyyy/MM/dd"/></c:set>
     	<c:set var="fmtToday"><fmt:formatDate value="${today}" pattern="yyyy/MM/dd"/></c:set>
     	
-    	
-          <tr class="${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_b'}">
-		  <!--<tr>-->    
-		  <c:choose>
-		  <c:when test="${fmtToday == fmtLastPostDate}">
-		  	 <td width="40" class="textcenter"><img src="/images/balloonactive2.gif" alt="Posts within the last 24 hours" /></td>
-		  </c:when>
-		  <c:otherwise>
-		  	 <td width="40" class="textcenter"><img src="/images/ballooninactive2.gif" alt="No posts within the last 24 hours" /></td>
-		  </c:otherwise>
-		  </c:choose>
-			
+ 
 
-            <td><a style="text-transform:capitalize;" href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</a><br /><span class="smalltext">Discuss concerns related to ${infoObject.object.theme.title}</span></td>
-			<td ><span class="smalltext" style="font-size: 80%;">
-			
- 		    <c:choose>
+<!-- Begin a theme concern box -->
+
+<div class="themeBox floatLeft">
+			<h3 class="headerColor"><a style="text-transform:capitalize;" href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</a></h3>
+			<p><c:out value="${fn:substring(infoObject.object.theme.summary, 0, 200)}" />
+				
+			<span class="smallText"> ... <a style="text-transform:capitalize;" href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">More</a></span></p>
+			<span class="smallText"><span id="topicCount">
+			<c:choose>
+			  <c:when test="${fmtToday == fmtLastPostDate}">
+			  	<img src="/images/balloonactive2.gif" alt="Posts within the last 24 hours" class="floatLeft"/>
+			  </c:when>
+			  <c:otherwise>
+			  	 <img src="/images/ballooninactive2.gif" alt="No posts within the last 24 hours" class="floatLeft"/>
+			  </c:otherwise>
+		  </c:choose>
+				&nbsp;There are <strong>${infoObject.discussion.numPosts}</strong> topics in this theme
+				<p><strong>Latest post</strong><br />
+					<c:choose>
 		      <c:when test="${infoObject.discussion.lastPost.id != null}">
-		     		 <a href="/sdThread.do?isid=${structure.id}&pid=${infoObject.discussion.lastPost.id}&ioid=${infoObject.id}">${infoObject.discussion.lastPost.title}</a><br />
-		     		Posted on: <fmt:formatDate value="${infoObject.discussion.lastPost.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${infoObject.discussion.lastPost.owner.loginname}
+		     		 "<a href="/sdThread.do?isid=${structure.id}&pid=${infoObject.discussion.lastPost.id}&ioid=${infoObject.id}">${infoObject.discussion.lastPost.title}</a>"<br />
+		     		by ${infoObject.discussion.lastPost.owner.loginname}
 		      </c:when>
 		      <c:otherwise>
 		      	No current discussions
 		      </c:otherwise>
-		    </c:choose>          
-			</span></td>
-            <td class="textcenter"><a href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.discussion.numPosts}</a></td>
-          </tr>		  
+		    </c:choose>     
+				</p>
+			</span>
+		</span>
+	</div>
+
+<!-- End a theme concern box -->
+			
+						
+         
     </c:forEach>
-	  
-  </table>
 
 
 </pg:fragment>
@@ -57,3 +58,5 @@
 <pg:fragment type="script">
 	
 </pg:fragment>
+
+
