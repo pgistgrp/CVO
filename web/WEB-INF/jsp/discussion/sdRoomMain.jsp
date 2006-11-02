@@ -15,6 +15,7 @@
 <!-- End Site Wide CSS -->
 <script language="javascript" type="text/javascript" src="/scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
 <!-- Site Wide JavaScript -->
+<script src="scripts/search.js" type="text/javascript"></script>
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
@@ -24,11 +25,11 @@
 <script type='text/javascript' src='/dwr/util.js'></script>
 <!-- End DWR JavaScript Libraries -->
 <!--SDX Specific  Libraries-->
-<script src="scripts/InfoObject.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
 <!--End SDX Specific  Libraries-->
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
+	<!--
 		tinyMCE.init({
 			mode : "exact",
 			elements: "txtNewPost",
@@ -39,33 +40,34 @@
 			content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css"
 		});
 
-	</script>
-<script type="text/javascript">
-		<!--
 		///////////////////////////////////////// START INFO OBJECT //////////////////////////////////////
-		/*  Requires: InfoObject.js ***************************  See file for element ID needs
-		Create a new Instance of InfoObject
-		params
-		- Structure id
-		- Object id
-		- Object title
-		- Number of Object Discussions
-		- Number of Structure Discussions
-		- Title of Structure
-		- Current Discussion Page
 
-		Methods to define for this Instance
-		infoObject.getTargets();
-		*/
-
-		var infoObject = new InfoObject("${structure.id}","${object.id}","${object.object}", "${object.discussion.numPosts}", "${structure.discussion.numPosts}", "All Concern Themes", '<%= request.getParameter("page") %>');
-
+		var io = new Object;
+		//Global Var Settings
+		io.structureId = "${structure.id}";
+		io.objectId = "${object.id}";
+		io.currentFilter = '';
+		io.currentPage = 1;
+		io.postCount = 5;
+		
+		/*----Input ID's - these id's of input elements have changing content or gets read by the javascript ---- */
+	 	 io.newPostTitleInput = "txtNewPostTitle";   //new post title input box
+	 	 io.newPostTagsInput = "txtNewPostTags"; //new post tags input box
+	 	 
+	 	 /*----Divs - these divs have changing content or gets read by the javascript ---- */
+	 	 io.sidebarDiv = 'sidebar_object'; //div that contains the sidebar
+	 	 io.objectDiv =  'object-content'; //div that contains the object
+	 	 io.discussionDiv = 'discussion'; //div that contains the discussion
+	 	 io.votingQuestionDiv = 'structure_question' //div that contains the voting question
+	 	 io.newDiscussionDiv = 'newDiscussion'; //the new discussion pull down
+	 	 io.filterAnchor = '#filterJump';
+		
 		/*************** Get Targets - If IOID is ommitted, return sdcSummary.jsp::else, returns sdcStructureSummary.jsp************** */
-		infoObject.getTargets = function(){
-			SDAgent.getSummary({isid: this.structureId, ioid: this.objectId  }, {
+		io.getTargets = function(){
+			SDAgent.getSummary({isid: io.structureId, ioid: io.objectId  }, {
 				callback:function(data){
 					if (data.successful){
-						$(infoObject.objectDiv).innerHTML = data.source.html;
+						$(io.objectDiv).innerHTML = data.source.html;
 						}else{
 							alert(data.reason);
 						}
@@ -77,7 +79,7 @@
 			};
 
 		/*************** Set Vote************** */
-	 	 infoObject.setVote = function(target, id, agree){
+	 	 io.setVote = function(target, id, agree){
 					//alert("structure" + infoObject.structureId + "object " + infoObject.objectId + "vote " + agree);
 					SDAgent.setVoting({target: target, id: id, agree:agree}, {
 					callback:function(data){
@@ -85,9 +87,11 @@
 								//alert("successful");
 								var votingDiv = 'voting-'+target+id;
 								if($(votingDiv) != undefined){
-	              				 	new Effect.Fade(votingDiv, {afterFinish: function(){infoObject.getPosts(); new Effect.Appear(votingDiv);}});
+	              				 	new Effect.Fade(votingDiv, {afterFinish:function(){io.getPosts(); io.getTargets(); new Effect.Appear(votingDiv); new Effect.Highlight('discussion'+id);}});
+	              				 	
 	              				}else{
-	              					infoObject.getPosts();	
+	              					io.getPosts();	
+	              					io.getTargets();
 	              				}
 							}else{
 								alert(data.reason);
@@ -99,18 +103,104 @@
 					});
 
 		};
+		/*************** Get Posts: sidebar-posts.jsp************** */
+		io.getPosts = function(tag, page, jump){
+				if(jump){
+					location.href = io.filterAnchor;
+				}
+				//alert("structure: " + io.structureId + " tags: " + tags + " page: " + page);
+				SDAgent.getContextPosts({isid:io.structureId, tag: tag,  type:"tagRef", page: page, count: io.postCount}, {
+			      callback:function(data){
+			          if (data.successful){
+			          $(io.discussionDiv).innerHTML = data.source.html;
+			          }else{
+			            alert(data.reason);
+			          }
+			      },
+			      errorHandler:function(errorString, exception){
+			          alert("get posts error:" + errorString + exception);
+			      }
+			    });
+			  };
+		
+		io.goToPage = function(page){
+			io.getPosts(io.currentFilter,page,true); 
+		}
+
+	 	 
+			
+		/*************** New Discussion Post: if successful, reload discussion posts************** */
+	 	 io.createPost = function(){
+	 	 		var newPostTitle = $(io.newPostTitleInput).value;
+				var newPost= tinyMCE.getContent();
+	 	 		var newPostTags = $(io.newPostTagsInput).value;
+	 	 		
+	 	 		//alert("ISID: " + this.structureId + "IOID: " + this.objectId + "Title: " + newPostTitle + "Content: " + newPost + "Tags: " + newPostTags);
+				SDAgent.createPost({isid:io.structureId, ioid: io.objectId, title: newPostTitle, content: newPost, tags:newPostTags}, {
+				callback:function(data){
+						if (data.successful){
+						     io.setVote("post", data.id, "true"); //set initial vote
+							 io.clearNewDiscussionInputs();
+							 io.toggleNewDiscussion();
+							 if(io.currentDiscPage != 1){
+							 	io.currentDiscPage = 1
+							 }
+							 io.getPosts();
+						}else{
+							alert(data.reason);
+						}
+					},
+				errorHandler:function(errorString, exception){ 
+						alert("create post error:" + errorString + exception);
+				}
+				});
+			};
+			
+		/*************** Clear all discussion input boxes - triggered after a new post is created ************** */
+		io.clearNewDiscussionInputs =  function(){
+	 	 		$(io.newPostTitleInput).value = "";
+	 	 		tinyMCE.setContent('');
+	 	 		$(io.newPostTagsInput).value = "";
+		};
+			
+		io.toggleNewDiscussion = function(){
+			new Effect.toggle(io.newDiscussionDiv, 'slide', {duration: 0.5});	
+		}
+		
 	
+		io.changeCurrentFilter = function(tagRefId){
+		io.getPosts(tagRefId, 1, true);
+		cct.currentFilter = tagRefId;
+		if (tagRefId != ''){
+				CCTAgent.getTagByTagRefId(cct.currentFilter, {
+				callback:function(data){
+				if (data.successful){
+		          			var tagName = data.tag.name;
+							$(cct.divFilteredBy).innerHTML = '<h3 style="color: red">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
+						}else{
+							alert(data.reason);
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+						alert("get tagbytagref error:" + errorString + exception);
+				}
+				});
+		}else{
+			cct.currentFilter = '';	
+			$(cct.divFilteredBy).innerHTML = '';
+		}
+	}
+		 
+	function validateInput(string){
+			string=string.replace(/>/g,"//>//");
+			string=string.replace(/</g,"//<//");
+			string=string.replace(/\n/g,"<br>");
+
+			return string;
+	}
 
 			//-->
 		</script>
-<!--[if gte IE 5.5]><![if lt IE 7]>
-		<style type="text/css">
-		#loading-indicator {
-		left: expression( ( 0 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
-		top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
-		}
-		</style>
-		<![endif]><![endif]-->
 </head>
 <body>
 
@@ -150,12 +240,12 @@
     <!--end object content -->
   </div>
   <!-- end object -->
-  <div class="clearBoth"></div>
+  <div class="clearBoth"></div><a name="filterJump"></a>
   <!-- The discussionHeader sits on top of the discussion and contains the title of the
 			discussion area, and the sorting menu -->
   <div id="discussionHeader">
     <div class="sectionTitle">
-      <h3 class="headerColor">Discussion about ${object.object}</h3>
+      <h3 class="headerColor">${object.discussion.numPosts} Discussion(s) about ${object.object}</h3>
       <div class="button smallText box5 floatLeft"> <a href="javascript:Effect.toggle('newDiscussion','slide',{duration:1.5});">Start a New Topic</a></div>
     </div>
     <div id="sortingMenu"> sort discussion by:
@@ -186,13 +276,14 @@
 								<p><label>Post Title</label><br><input maxlength=100 size=100 type="text" id="txtNewPostTitle"/></p>
 								<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea></p>
 								<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="txtNewPostTags" type="text" /></p>
-								<input type="button" onClick="infoObject.createPost();" value="Create Discussion">
+								<input type="button" onClick="io.createPost();" value="Create Discussion">
 							</form>
 						</div>
 					</div>
 				</div>
 				</div>
 					<!-- End hidden "new topic" DIV -->	
+					
 <div id="discussion">
   <!-- load discussion posts -->
 </div>
@@ -206,9 +297,9 @@
 <!-- End Footer -->
 <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 <script type="text/javascript">
-			infoObject.getPosts();
+			io.getPosts();
 			//infoObject.assignTargetHeaders();
-			infoObject.getTargets();
+			io.getTargets();
 
 
 		</script>

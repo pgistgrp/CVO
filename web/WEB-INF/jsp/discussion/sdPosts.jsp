@@ -31,7 +31,14 @@
 		
 			<div class="discussionRow">
 				<div class="discussion-left floatLeft">
-					<div class="discussionRowHeader box1">
+						<c:choose>
+								<c:when test="${baseuser.id == post.owner.id}">
+									<div class="discussionRowHeader box6">			
+								</c:when>
+								<c:otherwise>
+									<div class="discussionRowHeader box1">
+								</c:otherwise>
+						</c:choose>
 						<div id="voting-post${post.id}" class="discussionVoting">
 							${post.numAgree} of ${post.numVote} participants agree with this post
 							<c:choose>
@@ -47,7 +54,15 @@
 						<span class="discussionTitle">
 							${post.title}
 					</div>
-					<div class="discussionBody">
+					
+						<c:choose>
+								<c:when test="${baseuser.id == post.owner.id}">
+									<div class="discussionBody box7">		
+								</c:when>
+								<c:otherwise>
+									<div class="discussionBody">
+								</c:otherwise>
+						</c:choose>
 						<div class="discussionText">
 							<p>${post.content}</p>
 							<h3>- ${post.owner.loginname}</h3>
@@ -59,13 +74,25 @@
 				  <c:otherwise>
 					<img src="/images/ballooninactive2.gif" alt="No replies within the last 24 hours" /></c:otherwise>
 				  </c:choose>&nbsp;
-							${post.replies} Replies
+							<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.replies} Replies</a>
 						</div>
-						<div class="discussionTagsList">
-							<c:forEach var="tag" items="${post.tags}">
-								<a href="javascript:changeCurrentFilter(${tag.id});">${tag.name}</a>,&nbsp;
-							</c:forEach>
-						</div>
+						<c:if test="${fn:length(post.tags) > 0}">
+							<ul class="tagsInline">
+								<li class="tagsInline"><strong>Tags:</strong> </li>
+								<c:forEach var="tag" items="${post.tags}">
+									<c:choose>
+										<c:when test="${baseuser.id == post.owner.id}">
+											<li class="box6 tagsInline">		
+										</c:when>
+										<c:otherwise>
+											<li class="box8 tagsInline">
+										</c:otherwise>
+									</c:choose>
+									<a href="javascript:changeCurrentFilter(${tag.id});">${tag.name}</a></li>
+								</c:forEach>
+							</ul>
+							<div style="clear: left;"></div>
+						</c:if>
 					</div>
 				</div>
 				<div class="discussion-right">
@@ -78,5 +105,6 @@
 		</c:forEach>
 
 	</c:otherwise>
+
 		
 </c:choose>

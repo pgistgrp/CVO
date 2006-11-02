@@ -31,7 +31,7 @@
 	 	 this.numObjectDiscussions = objNum; //number of object discussions
 	 	 this.numStructureDiscussions = strucNum	;
 	 	 this.ISTitle = strucTitle;
-	 	 this.currentDiscPage = currentPage;
+	 	 this.currentDiscPage = 1;
 	 	
 	 	 //Make sure ID's of Inputs and Divs match when putting the following in a separate file.
 	 	 /*----Input ID's - these id's of input elements have changing content or gets read by the javascript ---- */
@@ -49,49 +49,9 @@
 	 	 this.discTitleDiv = 'targetDiscussionTitle';
 	 	 
 
-		/***************Assign Target Headers************** */
-	 	this.assignTargetHeaders = function(){
-	 		if(this.objectId != ""){ //for info object
-				$(this.discTitleDiv).innerHTML = '<html:link action="/sd.do" paramId="isid" paramName="structure" paramProperty="id">'+ this.ISTitle +'</html:link>  &raquo; ' + this.objectTitle; //object title div id
-				$(this.discTitleDiv).innerHTML = this.objectTitle;//discussion title div id
-				if (this.numObjectDiscussions == 1){
-				 	$(this.discTitleDiv).innerHTML += ' - ' +this.numObjectDiscussions+' Topic';
-				}else{
-					$(this.discTitleDiv).innerHTML += ' - ' +this.numObjectDiscussions+' Topics';
-				}
-			}else{//for entire info structure
-				$(this.discTitleDiv).innerHTML = '<html:link action="/sd.do" paramId="isid" paramName="structure" paramProperty="id">'+ this.ISTitle +'</html:link>  &raquo; ' + this.ISTitle + ' List'; //object title div id
-				$(this.discTitleDiv).innerHTML = this.ISTitle;//discussion title div id
-					if (this.numStructureDiscussions == 1){
-					 	$(this.discTitleDiv).innerHTML += ' - ' +this.numStructureDiscussions+' Topic';
-					}else{
-						$(this.discTitleDiv).innerHTML +=  ' - ' +this.numStructureDiscussions+' Topics';
-					}
-			}
-		};
-		
-	 
-		/*************** Set Vote************** *//*
-	 	 this.setVote = function(target, id, agree){
-					//alert("structure" + infoObject.structureId + "object " + infoObject.objectId + "vote " + agree);
-					SDAgent.setVoting({target: target, id: id, agree:agree}, {
-					callback:function(data){
-							if (data.successful){ 
-								//alert("successful");
-								if($(infoObject.votingQuestionDiv) != undefined){
-	              				 	new Effect.Fade(infoObject.votingQuestionDiv, {afterFinish: function(){infoObject.getTargets(); new Effect.Appear(infoObject.votingQuestionDiv);}});
-	              				}
-	              				 
-							}else{
-								alert(data.reason);
-							}
-						},
-					errorHandler:function(errorString, exception){ 
-							alert("setVote error:" + errorString + exception);
-					}
-					});
 
-		};*/
+	 
+
 			
 		/*************** New Discussion Post: if successful, reload discussion posts************** */
 	 	 this.createPost = function(){
@@ -131,37 +91,9 @@
 	 	 		$(this.newPostTagsInput).value = "";
 		};
 			
-		/*************** Scriptaculous toggle effect for the new discussion div************* */
-	  	this.toggleNewDiscussion =  function(){
-			if ($(this.newDiscussionDiv).style.display == 'none'){
-				new Effect.toggle(this.newDiscussionDiv, 'blind', {duration: 0.5});
-			}else{
-				new Effect.toggle(this.newDiscussionDiv, 'blind', {duration: 0.5, afterFinish: function(){
-				}});		
-			}
-		};
+
 			
-		/***************Get all posts for the given infoObject.  If infoObject is omitted, get infoStructure discussions. Partial: SDPosts.jsp************** */
-		this.getPosts = function(){
-		    	var page = 1;
-		 		if (this.currentDiscPage != null){
-		 			page = this.currentDiscPage;	
-		 		}
-			   
-				SDAgent.getPosts({isid:this.structureId, ioid:this.objectId, page: page, count: 10}, {
-			      callback:function(data){
-			          if (data.successful){
-			         // alert(data.html);
-			          $(infoObject.discussionDiv).innerHTML = data.html;
-			          }else{
-			            alert(data.reason);
-			          }
-			      },
-			      errorHandler:function(errorString, exception){
-			          alert("get posts error:" + errorString + exception);
-			      }
-			    });
-			  };
+
 	}; //end InfoObject
 	
 		 

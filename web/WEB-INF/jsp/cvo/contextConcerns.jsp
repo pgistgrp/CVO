@@ -52,7 +52,7 @@
 												<c:forEach items="${concern.tags}" var="tagref">
 													<c:choose>
 														<c:when test="${baseuser.id == concern.author.id}">
-															<li class="box7 tagsInline">		
+															<li class="box6 tagsInline">		
 														</c:when>
 														<c:otherwise>
 															<li class="box8 tagsInline">
@@ -79,6 +79,7 @@
 			</c:forEach>
 
 		  <div class="pagination">
+		  				You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
 						<logic:equal name="setting" property="page" value="1">
 							<img src="images/btn_prev_fade.gif" alt="No Previous Pages" />
 						</logic:equal>

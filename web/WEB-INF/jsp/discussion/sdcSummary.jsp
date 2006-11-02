@@ -39,12 +39,15 @@
 				<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
 	  <p>${infoObject.object.theme.summary}</p>
 	</pg:termHighlight>
-		Tags highlighted by the moderator: 
-	<ul class="tagsList">
-	<c:forEach var="tag" items="${infoObject.object.theme.tags}">
-		<li class="tagsList"><small><a href="javascript: sideBar.changeCurrentFilter(${tag.id});">${tag.name}</a></small></li>
-	</c:forEach>		
-	</ul>
+	
+			<ul class="tagsInline">
+				<li class="tagsInline"><strong>Tags highlighted by the moderator:</strong> </li>
+				<c:forEach var="tag" items="${infoObject.object.theme.tags}">
+					<li class="box8 tagsInline"><a href="javascript:changeCurrentFilter(${tag.id});">${tag.name}</a></li>
+				</c:forEach>
+			</ul>
+			<div style="clear: left;"></div>
+
 		</div>
   <!-- end summary -->
   

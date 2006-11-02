@@ -6,74 +6,112 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<pg:fragment type="html">
-	<c:choose>
-		<c:when test="${fn:length(posts) == 0}">
-				<p>No posts with your current filters could be found.  Try removing one of your filters.</p>
-		</c:when>
-		<c:otherwise>
-			<c:forEach var="post" items="${posts}" varStatus="loop">
-				<div id="contextpost${post.id}" class="replies">
-						 <div id="replies_title" class="bluetitle-side">
-						 	<span class="padding-sides"><strong><a href="/sdThread.do?isid=${structure.id}&ioid=${post.value.id}&pid=${post.id}">${post.title}</a></strong> - 
-						 	<small><fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/>
-						 	<strong>${post.owner.loginname}</strong>
-						 	<c:if test="${post.value != null}"> 
-						 		in discussion room <strong><a href="/sdRoom.do?isid=${structure.id}&ioid=${post.value.id}">${post.value.object.category.name}</a></strong>
-						 	</c:if>
-						 
-						 	</small>
-						 	</span>
-						 </div>
-						<div class="padding bluebody-side">
-						<small>
-						"${fn:substring(post.content, 0, 100)}"
-								<c:if test="${fn:length(post.content) > 100}">
-									 [<a href="/sdThread.do?isid=${structure.id}&ioid=${post.value.id}&pid=${post.id}">...</a>] 
-						</c:if>
-						</small>
-						<br />
-							<c:if test="${fn:length(post.tags) != 0}">
-							<p>
-							<ul class="tagsList smalltext"><strong>Tags: </strong>
-								<c:forEach items="${post.tags}" var="tag">
-										<li class="tagsList"><a href="javascript: sideBar.changeCurrentFilter(${tag.id});">${tag.name}</a></li>
-								</c:forEach>
-							</ul>
-							</p>
-							</c:if>
-						</div>
-				</div>
-				<p></p>
-		</c:forEach>
 
-		  <div id="prevNext_container">
-					
-					<div id="next"><span class="textright">
-						<logic:equal name="setting" property="page" value="${setting.pageSize}">
-							<img src="images/btn_next_fade.gif" alt="No Additional Pages" />
-						</logic:equal>
-						
-						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-							<a href="javascript:sideBar.getSidebarItems(${setting.page}+1);"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
-						</logic:notEqual>
-						</span>
+
+<c:choose>
+	<c:when test="${fn:length(posts) <= 0}">
+		<div class="box2 padding5 centerAlign"><h3 class="headerColor">There aren't any topics yet!</h3><p>Why not <a href="javascript:Effect.toggle('newDiscussion','blind',{duration: 0.2});">start the first discussion</a>?</div>
+	</c:when>
+	<c:otherwise>
+		
+		
+		<c:forEach var="post" items="${posts}" varStatus="loop">
+		
+			<div id="discussion${post.id}" class="discussionRow">
+				<div class="discussion-left floatLeft">
+						<c:choose>
+								<c:when test="${baseuser.id == post.owner.id}">
+									<div class="discussionRowHeader box6">			
+								</c:when>
+								<c:otherwise>
+									<div class="discussionRowHeader box1">
+								</c:otherwise>
+						</c:choose>
+						<div id="voting-post${post.id}" class="discussionVoting">
+							${post.numAgree} of ${post.numVote} participants agree with this post
+							<c:choose>
+								<c:when test="${post.object == null}">
+									<a href="javascript:infoObject.setVote('post',${post.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
+									<a href="javascript:infoObject.setVote('post',${post.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
+								</c:when>
+								<c:otherwise>
+									<img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/>
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<span class="discussionTitle">
+							${post.title}
 					</div>
 					
-					
-					<div id="previous">
+						<c:choose>
+								<c:when test="${baseuser.id == post.owner.id}">
+									<div class="discussionBody box7">		
+								</c:when>
+								<c:otherwise>
+									<div class="discussionBody">
+								</c:otherwise>
+						</c:choose>
+						<div class="discussionText">
+							<p>${post.content}</p>
+							<h3>- ${post.owner.loginname}</h3>
+						</div>
+						<div class="discussionComments">
+							 <c:choose>
+				  <c:when test="${fmtToday == fmtLastPostDate || fmtToday == fmtLastReplyDate }">
+					<img src="/images/balloonactive2.gif" alt="Replies within the last 24 hours" /></c:when>
+				  <c:otherwise>
+					<img src="/images/ballooninactive2.gif" alt="No replies within the last 24 hours" /></c:otherwise>
+				  </c:choose>&nbsp;
+							<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.replies} Replies</a>
+						</div>
+						<c:if test="${fn:length(post.tags) > 0}">
+							<ul class="tagsInline">
+								<li class="tagsInline"><strong>Tags:</strong> </li>
+								<c:forEach var="tag" items="${post.tags}">
+									<c:choose>
+										<c:when test="${baseuser.id == post.owner.id}">
+											<li class="box6 tagsInline">		
+										</c:when>
+										<c:otherwise>
+											<li class="box8 tagsInline">
+										</c:otherwise>
+									</c:choose>
+									<a href="javascript:io.getPosts(${tag.id},0,true);">${tag.name}</a></li>
+								</c:forEach>
+							</ul>
+							<div style="clear: left;"></div>
+						</c:if>
+					</div>
+				</div>
+				<div class="discussion-right">
+					<img src="images/icon_people_1.gif">
+				</div>
+			</div>
+		
+		
+		<!-- End New Style -->
+		</c:forEach>
+		
+				  <div class="pagination discussion-left">
+				  		You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
 						<logic:equal name="setting" property="page" value="1">
 							<img src="images/btn_prev_fade.gif" alt="No Previous Pages" />
 						</logic:equal>
-						
 						<logic:notEqual name="setting" property="page" value="1">	
-							<a href="javascript:sideBar.getSidebarItems(${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<a href="javascript:io.goToPage(${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
 						
-					</div>
+						
+						<logic:equal name="setting" property="page" value="${setting.pageSize}">
+							<img src="images/btn_next_fade.gif" alt="No Additional Pages" />
+						</logic:equal>
+						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
+							<a href="javascript:io.goToPage(${setting.page}+1)"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+						</logic:notEqual>
+		  			</div>
 
-		  </div>
-		</c:otherwise>
-	</c:choose>
 
-</pg:fragment>
+	</c:otherwise>
+
+		
+</c:choose>
