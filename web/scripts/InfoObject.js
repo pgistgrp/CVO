@@ -47,8 +47,6 @@
 	 	 this.newDiscussionDiv = 'newDiscussion'; //the new discussion pull down
 	 	 this.IOTitleDiv = 'targetTitle';
 	 	 this.discTitleDiv = 'targetDiscussionTitle';
-	 	 this.sidebarBottomDiv1 = 'sidebarbottom_disc' //the bottom of the sidebar that changes when a new discussion is toggled
-	 	 this.sidebarBottomDiv2 = 'sidebarbottom_newdisc' //the bottom of the sidebar that changes when a new discussion is toggled
 	 	 
 
 		/***************Assign Target Headers************** */
@@ -137,12 +135,8 @@
 	  	this.toggleNewDiscussion =  function(){
 			if ($(this.newDiscussionDiv).style.display == 'none'){
 				new Effect.toggle(this.newDiscussionDiv, 'blind', {duration: 0.5});
-				$(this.sidebarBottomDiv1).style.display = 'none';	
-				$(this.sidebarBottomDiv2).style.display = 'block';	
 			}else{
 				new Effect.toggle(this.newDiscussionDiv, 'blind', {duration: 0.5, afterFinish: function(){
-					$(infoObject.sidebarBottomDiv1).style.display = 'block';	
-					$(infoObject.sidebarBottomDiv2).style.display = 'none';	
 				}});		
 			}
 		};
