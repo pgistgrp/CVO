@@ -84,8 +84,11 @@ var allNewConcernTags = new Array;
 		return true
 	}
 		
+	function goToPage(page){
+		getContextConcerns(cct.currentFilter,page,true); 
+		//new Effect.Highlight('discussion-cont',{startcolor: "#D6E7EF"});
+	}
 	function checkMyConcerns(){
-	
 		if($(cct.chbxMyConcerns).checked != true){
 			$(cct.divFilteredBy).style.display = 'inline';
 			getContextConcerns(cct.currentFilter, 0, false);
@@ -770,7 +773,7 @@ top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.do
 
 				</div><!-- end left col -->
 				
-				<div id="colRight" class="floatLeft box6"><!-- right col -->
+				<div id="colRight" class="floatLeft box6 colRight"><!-- right col -->
 					<h3>Add your own Concern</h3>
 					<fieldset>
 						<textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type your concern here.</textarea>
