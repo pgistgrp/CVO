@@ -42,11 +42,75 @@
 */
 
 // Global Variables
-
+		var isid = "${structure.id}";
+		var cctId = "${cctId.id}";
 
 // END Global Variables
 // START DWR Functions
+		function getAvailableCriteria(themeId){
+				CriteriaAgent.getAvailableCriteria({cctId: cctId, themeId: themeId}, {
+				callback:function(data){
+						if (data.successful){
+							alert("getAvailableCriteria Successful");
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("getAvailableCriteria Error: "+errorString+" "+exception);
+				}
+			});
+		}
+		
+		function derelateCriteria(themeId, critIds){
+				CriteriaAgent.derelateCriteria({cctId: cctId, themeId: themeId, ids: critIds}, {
+				callback:function(data){
+						if (data.successful){
+							alert("derelateCriteria Successful");
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("derelateCriteria Error: "+errorString+" "+exception);
+				}
+			});
+		}
+		
+		function relateCriteria(themeId, critIds){
+				CriteriaAgent.relateCriteria({cctId: cctId, themeId: themeId, ids: critIds}, {
+				callback:function(data){
+						if (data.successful){
+							alert("relateCriteria Successful");
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("relateCriteria Error: "+errorString+" "+exception);
+				}
+			});
+		}
+		
+		function getThemes(cctId: cctId){
+				CriteriaAgent.getThemes({cctId: cctId}, {
+				callback:function(data){
+						if (data.successful){
+							alert("getThemes Successful");
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("getThemes Error: "+errorString+" "+exception);
+				}
+			});
+		}
 
+		function publish(cctId: cctId){
+				CriteriaAgent.publish({cctId: cctId}, {
+				callback:function(data){
+						if (data.successful){
+							alert("publish Successful");
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("publish Error: "+errorString+" "+exception);
+				}
+			});
+		}
 // END DWR Functions
 </script>
 </head>

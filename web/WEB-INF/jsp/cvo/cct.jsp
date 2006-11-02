@@ -10,14 +10,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Step 1a: Brainstorm Concerns</title>
 <!-- Site Wide CSS -->
-<style type="text/css" media="screen">@import "styles/position.css";</style>
-<style type="text/css" media="screen">@import "styles/styles.css";</style>
-<!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
+<style type="text/css" media="screen">@import "styles/lit.css";</style>
 <!-- End Site Wide CSS -->
 
-<style type="text/css">
-.trashcan {height:1em;width:1.2em;}
-</style>
 <!-- Site Wide JavaScript -->
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
@@ -31,399 +26,339 @@
 <!-- End DWR JavaScript Libraries -->
 
 <!--CCT Specific  Libraries-->
-<script src="scripts/SideBar.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
 <!--End CCT Specific  Libraries-->
 <script src="scripts/lightbox.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-	
+//START Global Variables
 var cctId = ${cctForm.cct.id};
 var concernTags = "";
 var selectConcernTags="";
-
-function validateForm()
-{
-	if(""==document.forms.brainstorm.addConcern.value)
-	{
-		document.getElementById('validation').innerHTML = 'Please fill in your concern above.';
-		new Effect.BlindDown('validation');
-		new Effect.BlindUp('tagConcerns');
-		new Effect.Highlight('validation', {duration: 4, endcolor:'#EEF3D8'});
-		new Effect.Highlight('theTag', {duration: 10, endcolor:'#EEF3D8'});
-		return false;
-
-	}else{
-		new Effect.BlindUp('validation');
-		new Effect.BlindDown('tagConcerns');
-		new Effect.Highlight('tags', {duration: 4, endcolor:'#F1F7FF'});
-		//$('theTag').value = "add tag";
-		//$('theTag').focus();
-		return true;
-	}
-}
-
-
-function resetForm()
-{
-	$('addConcern').value = '';
-	$('btnContinue').disabled=false;
-	Effect.BlindUp('tagConcerns');
-	Effect.BlindUp('validation');
-	$('addConcern').style.background="#FFF";
-	$('addConcern').style.color="#333";
-}
-
-function cancelSubmit(){
-	Effect.BlindUp('tagConcerns');
-	Effect.BlindUp('validation');
-	$('addConcern').style.background="#FFF";
-	$('addConcern').style.color="#333";
-	$('selectTagsList').innerHTML="";
-	$('btnContinue').disabled=false;
-}
+var cct = new Object;
+var showOnlyMyConcerns = false;
+var newConcernTagsArray = new Array();
+var newConcernSelectedTagsArray = new Array();
+var allNewConcernTags = new Array;
+//Element IDs - allows for easier maintanence.
+	cct.divDiscussionCont = 'discussion-cont';
+	cct.divTagNewConcern = 'tagNewConcern';
+	cct.divAddConcernTagsList = 'addConcernTagsList';
+	cct.divFilteredBy = 'filteredBy';
+	cct.divSearchResults = 'searchResults';
+	cct.filterAnchor = "#filterJump";
+//Input Element IDs
+	cct.txtAddConcern = 'txtAddConcern';
+	cct.btnContinueCont = 'btnContinueCont';
+	cct.chbxMyConcerns = 'myconcerns';
+	
+//Settings
+	cct.currentPage = 0;
+	cct.currentFilter = '';  //Default tag filter
+	cct.numTagsInNewConcern = 2;
+	cct.concernsPerPage = 8;
 
 
-function prepareConcern(){
-	concernTags = "";
-	selectConcernTags="";
-	potentialTags = "";
-	tagHolderId = 0;
-	if (validateForm()){
-		$('btnContinue').disabled=true;
-		$('addConcern').style.background="#EEE";
-		$('addConcern').style.color="#CCC";
-		var concern = $('addConcern').value;
-		$('indicator').style.visibility = "visible";
-		
-		CCTAgent.prepareConcern({cctId:cctId,concern:concern}, function(data) {
-			if (data.successful){
-				for(i=0; i < data.tags.length; i++){
-					concernTags += data.tags[i] + ',';
-				}
-				for(i=0; i < data.potentialtags.length; i++){
-					potentialTags += data.potentialtags[i] + ',';
-				}
-				document.getElementById('tagsList').innerHTML = renderTags( concernTags, 1);  // + renderTags( data.suggested, 0);
-				document.getElementById('tagsList').innerHTML += renderTags(potentialTags, 1);
-				concernTags += potentialTags;
-				
+
+//END Global Variables
+
+//START CCT Clean up
+	function getContextConcerns(tags, page, jump){
+		if(jump){
+			location.href = cct.filterAnchor;
+		}
+		cct.currentPage = page;
+		CCTAgent.getContextConcerns({cctId: this.cctId,tags: tags, count: cct.concernsPerPage, page: page, contextAware: false, desc: true}, {
+			callback:function(data){
+					if (data.successful){
+						$(cct.divDiscussionCont).innerHTML = data.html;
+						
+					}else{
+						alert(data.reason);
+					}
+				},
+			errorHandler:function(errorString, exception){ 
+					alert("getContextConcerns error:" + errorString + exception);
 			}
-			document.getElementById("indicator").style.visibility = "hidden";
-		} );
+		});	
+		return true
 	}
-}
-
-var tagHolderId = 1;
-
-function removeFromGeneratedTags(name){
-	if(name == "")return;
-	var indexNum = concernTags.indexOf(name +',');
-	if (indexNum > 0){
-		firstpart = concernTags.substring(0, indexNum);
-		secondpart = concernTags.substring(indexNum + name.length + 1, concernTags.length);
-		concernTags = firstpart + secondpart;
-	}else if (indexNum == 0){
-		concernTags = concernTags.substring(indexNum + name.length +1, concernTags.length);
-	}
-
-	if (tagHolderId == 0){
-		document.getElementById('tagsList').innerHTML = renderTags( concernTags, 1);
-	}else{
-		document.getElementById('editTagsList').innerHTML = renderTags( concernTags, 3);
-		if(concernTags==""){
-		$('editTagsList').innerHTML="You must add 3 or more tags to continue";
-		}
-	}
-	
-	
-}
-
-var selectedTags = new Array();
-
-//adds a tag using name to selectTagsList this is for a user input tag
-function addSelectedTag(name){
-//function addTagToList(theListId,theTagTextboxId,validationId){
-	
-	if(name!=""){
-		//new Effect.BlindUp(validationId);
-		if(isSelectedTagsEmpty()){
-		$('selectTagsList').innerHTML="";
-		}
-		uniqueTagCounter++;
-		newTagId = 'userTag' + uniqueTagCounter;
-		selectedTags[newTagId] = document.getElementById(name).value;
-		document.getElementById(name).value='';
-		document.getElementById('selectTagsList').innerHTML += '<li id="'+ newTagId +'" class="tagsList">'+ selectedTags[newTagId] +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:removeFromSelectedTagList(\''+ newTagId +'\');"><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
-		selectConcernTags += selectedTags[newTagId] + ',';
 		
-		
-	}
+	function checkMyConcerns(){
 	
-}
-	
-	//removes tag from selectTagList by tagId
-function removeFromSelectedTagList(tagId){
-	
-	//function removeFromList(tagId){
-	
-	d = document.getElementById('selectTagsList'); 
-	d_nested = document.getElementById(tagId); 
-	
-	if (selectedTags[tagId] != null){
-		var indexNum = selectConcernTags.indexOf(selectedTags[tagId]+',');
-		if (indexNum > 0){
-			firstpart = selectConcernTags.substring(0, indexNum);
-			secondpart = selectConcernTags.substring(indexNum + selectedTags[tagId].length + 1, selectConcernTags.length);
-			selectConcernTags = firstpart + secondpart;
-		}else if (indexNum == 0){
-			selectConcernTags = selectConcernTags.substring(indexNum + selectedTags[tagId].length +1, selectConcernTags.length);
+		if($(cct.chbxMyConcerns).checked != true){
+			$(cct.divFilteredBy).style.display = 'inline';
+			getContextConcerns(cct.currentFilter, 0, false);
+			
+		}else{
+			$(cct.divFilteredBy).style.display = 'none';
+			showMyConcerns();
+			
 		}
 	}
 	
-	throwaway_node = d.removeChild(d_nested);
-	if(isSelectedTagsEmpty()){
-	$('selectTagsList').innerHTML="You must select 3 or more tags to continue";
+	function showMyConcerns(){
+		CCTAgent.getConcerns({cctId:cctId,type:0,count:-1}, {
+				callback:function(data){
+						if (data.successful){
+							$(cct.divDiscussionCont).innerHTML = data.html;
+							if (data.total == 0){
+								$(cct.divDiscussionCont).innerHTML = '<p>None created yet.  Please add a concern.</p>';
+							}
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("showMyConcerns: "+errorString+" "+exception);
+						//showTheError();
+				}
+		});
 	}
 
-}
-
-function addFromSuggestedToSelected(name){
-
-if(name==""){
-return;
-}
-if(isSelectedTagsEmpty()){
-$('selectTagsList').innerHTML="";
-}
-removeFromGeneratedTags(name);
-addToSelectedList(name);
-
-}
-
-function addToSelectedList(name){
-if(isSelectedTagsEmpty()){
-$('selectTagsList').innerHTML="";
-}
-
-	$('selectTagsList').innerHTML+='<li class="tagsList">'+ name +'<span class="tagsList_controls">&nbsp;<a href=\'javascript:removeSelectedTag("'+name+'");\'><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
-selectConcernTags+=name+',';
-
-}
-//removes selected tag with name from selectTagsList
-function removeSelectedTag(name){
-	if(name == "")return;
-	var indexNum = selectConcernTags.indexOf(name +',');
-	if (indexNum > 0){
-		firstpart = selectConcernTags.substring(0, indexNum);
-		secondpart = selectConcernTags.substring(indexNum + name.length + 1, selectConcernTags.length);
-		selectConcernTags = firstpart + secondpart;
-	}else if (indexNum == 0){
-		selectConcernTags = selectConcernTags.substring(indexNum + name.length +1, selectConcernTags.length);
-	}
-
-	if (tagHolderId == 0){
-		document.getElementById('selectTagsList').innerHTML = renderTags( selectConcernTags, 2);
-	}else{
-		document.getElementById('editTagsList').innerHTML = renderTags( concernTags,3);
-	}
-if(isSelectedTagsEmpty()){
-	$('selectTagsList').innerHTML="You must select 3 or more tags to continue";
-	}
-}
-
-function renderTags(tags,type){
-
-	//sty = (type == 1)?"tagsList":"suggestedTagsList";
-	if(isSelectedTagsEmpty()){
-	$('selectTagsList').innerHTML="";
-	}
-	sty="tagsList";
-	var str= "";
-	tagtemp = tags.split(",");
-	if(type==1){
-	for(i=0; i < tagtemp.length; i++){
-		if(tagtemp [i] != ""){
-
-		
-		
-			//str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=javascript:removeFromGeneratedTags("'+ tagtemp[i] +'");><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';	
-				str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=\'javascript:addFromSuggestedToSelected("'+ tagtemp[i] +'");\'><img class="trashcan" src="/images/btn_add.gif" alt="Add this Tag!" border="0"></a></span></li>';
-
-		}
-	}	
-	}else if(type==2){
-		for(i=0; i < tagtemp.length; i++){
-		if(tagtemp [i] != ""){
-
-		
-		
-			//str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=javascript:removeFromGeneratedTags("'+ tagtemp[i] +'");><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';	
-				str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=\'javascript:removeSelectedTag("'+ tagtemp[i] +'");\'><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
-
-		}
-	}	
-	}else if(type=3){
-	for(i=0; i < tagtemp.length; i++){
-		if(tagtemp [i] != ""){
-
-		
-		//changed trashcan to -
-			str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=\'javascript:removeFromGeneratedTags("'+ tagtemp[i] +'");\'><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';	
-				//str += '<li class="' + sty + '">'+ tagtemp [i] +'</span><span class="tagsList_controls">&nbsp;<a href=javascript:removeFromSelectedTagList("'+ tagtemp[i] +'");>-</a></span></li>';
-
-		}
-	}	
 	
-	
-	}
-	if(isSelectedTagsEmpty()){
-	$('selectTagsList').innerHTML="You must select 3 or more tags to continue";
-	}
-	return str;
-}
-
-var editingTags = new Array();
-function removeFromList(tagId){
-	if (tagHolderId == 1){
-		d = document.getElementById('editTagsList'); 
-	}else{
-	
-		d = document.getElementById('tagsList'); 
-	}
-	d_nested = document.getElementById(tagId); 
-	
-	if (editingTags[tagId] != null){
-		var indexNum = concernTags.indexOf(editingTags[tagId]+',');
-		if (indexNum > 0){
-			firstpart = concernTags.substring(0, indexNum);
-			secondpart = concernTags.substring(indexNum + editingTags[tagId].length + 1, concernTags.length);
-			concernTags = firstpart + secondpart;
-		}else if (indexNum == 0){
-			concernTags = concernTags.substring(indexNum + editingTags[tagId].length +1, concernTags.length);
+	//ADD Concern Functions
+	function validateForm(){
+		if($(cct.txtAddConcern).value == "" ||$(cct.txtAddConcern).value  == $(cct.txtAddConcern).defaultValue ){
+				alert('Please fill in your concern above.');
+				return false;
+		}else{
+				new Effect.BlindDown(cct.divTagNewConcern, {duration: 0.2});
+				swapContinue(true);
+				return true;
 		}
 	}
 	
-	throwaway_node = d.removeChild(d_nested);
-	if(isSelectedTagsEmpty()){
-	$('selectTagsList').innerHTML="You must select 3 or more tags to continue";
-	}
-	if(concernTags==""){
-	$('editTagsList').innerHTML="You must select 3 or more tags to continue";
+	function resetForm(){
+		$(cct.txtAddConcern).value = '';
 	}
 
-}
-
-function isSelectedTagsEmpty(){
-if(selectConcernTags==""){
-
-return true;
-}
-
-
-return false;
-
-}
-
-
-var uniqueTagCounter = 0;
-function addTagToList(theListId,theTagTextboxId,validationId){
+	function cancelSubmit(){
+		Effect.BlindUp(cct.divTagNewConcern, {duration: 0.2});
+	}
 	
-	if(""==$(theTagTextboxId).value)
-	{
-		$(validationId).innerHTML = 'Please add your tag above.  Tag can not be blank.';
-		new Effect.BlindDown(validationId);
-		new Effect.Highlight(validationId, {duration: 20, endcolor:'#FFFFFF'});			
-	}else{
-	if(concernTags==""){
-	$('editTagsList').innerHTML="";
-	}
-		new Effect.BlindUp(validationId);
-		uniqueTagCounter++;
-		newTagId = 'userTag' + uniqueTagCounter;
-		editingTags[newTagId] = document.getElementById(theTagTextboxId).value;
-		document.getElementById(theListId).innerHTML += '<li id="'+ newTagId +'" class="tagsList">'+ document.getElementById(theTagTextboxId).value +'</span><span class="tagsList_controls">&nbsp;<a href="javascript:removeFromList(\''+ newTagId +'\');"><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></span></li>';
-		concernTags += document.getElementById(theTagTextboxId).value + ',';
-		new Effect.Highlight(theTagTextboxId, {duration: 4, endcolor:'#FFFFFF'});
-		$(theTagTextboxId).value = "";
-	}
-}
-function displaySaveIndicator(show){
-if(show){
-$('saving-indicator').style.display="inline";
-}else{
-$('saving-indicator').style.display="none";
-}
-}
-function saveTheConcern(){
-
-
-	if(selectConcernTags.split(',').length-1<3){
-	alert("You must select 3 or more tags");
-	}else{
-	var concern = $('addConcern').value;
-	//concernTags = '\"' + concernTags +'\"';
-	//$('indicator').style.visibility = "visible";
-	displaySaveIndicator(true);
-	//alert('cctId:' + cctId + ', concern: ' + concern + ', tags: ' + concernTags);
-	CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:selectConcernTags}, {
-		callback:function(data){
-			if (data.successful){
-				//alert(concernTags);
-				new Effect.BlindUp('tagConcerns');
-				$('btnContinue').disabled=false;
-				$('addConcern').value = "";
-				$('addConcern').style.background="#FFF";
-				$('addConcern').style.color="#333";
-				$('addConcern').focus();
-				//getTagCloud();
-				//alert(concernTags);
-				showMyConcerns(data.concern.id);
-				concernTags = '';
-				selectConcernTags='';
-				
-				$('selectTagsList').innerHTML='';
-				$('theTag').value = '';
-				displaySaveIndicator(false);
-			}
-		},
-		errorHandler:function(errorString, exception){ 
-			alert("saveTheConcern: "+errorString+" "+exception);
-			displaySaveIndicator(false);
+	function swapContinue(showContinue){
+		if(!showContinue){
+			$(cct.btnContinueCont).innerHTML = '<input id="btnContinue" type="button" value="continue" onClick="prepareConcern(); swapContinue(true);" />';
+			$(cct.txtAddConcern).disabled = false;
+		}else{
+			$(cct.btnContinueCont).innerHTML = '<input id="btnCancelNewConcern" type="button" value="cancel" onClick="cancelSubmit(); swapContinue();" /><input id="btnSubmitNewConcern" type="button" value="submit" onClick="saveConcern();" />';
+			$(cct.txtAddConcern).disabled = true;
 		}
-});
-//$("indicator").style.visibility = "hidden";
-}
-}
+	}
 
-
-
-
-function showMyConcerns(id){
-CCTAgent.getConcerns({cctId:cctId,type:0,count:-1}, {
-		callback:function(data){
+	function prepareConcern(){  //Find tags and potential tags to render
+		var concernTags = new Array;
+		var potentialTags = new Array;
+		var concern = $(cct.txtAddConcern).value;
+		
+		if (validateForm()){	
+			CCTAgent.prepareConcern({cctId:cctId,concern:concern}, function(data) {
 				if (data.successful){
-					$('myConcernsList').innerHTML = data.html;
-					if (id != undefined){
-						new Effect.Highlight('concernId' + id, {duration: 4, endcolor:'#EEF3D8', afterFinish: function(){showMyConcerns();}})
+					newConcernTagsArray = [];
+					for(i=0; i< data.tags.length; i++){
+						concernTags.push(data.tags[i]);
 					}
-					if (data.total == 0){
-						document.getElementById("myConcernsList").innerHTML = '<p><small>None created yet.  Please add a concern above.  Please refer to other participant\'s concerns on the right column for examples.</small></p>';
+					for(i=0; i < data.potentialtags.length; i++){
+						potentialTags.push(data.potentialtags[i]);
 					}
+					allNewConcernTags = concernTags.concat(potentialTags);
+					for(i=0; i < allNewConcernTags.length; i++){
+						addToConcernTagsArray(allNewConcernTags[i], "unchecked");
+					}
+				
+					$(cct.divAddConcernTagsList).innerHTML = renderTags();  
+				}else{
+					alert(data.reason);	
 				}
-		},
-		errorHandler:function(errorString, exception){ 
-		alert("showMyConcerns: "+errorString+" "+exception);
-				//showTheError();
+			} );
 		}
+	}
+	
+
+	function renderTags(){
+		var str= "";
+		//newConcernTagsArray = []; //clears array - this function send each tag to addtoConcernTagsArray function to push each tag into newConcernTagsArray
+		for(i=0; i < newConcernTagsArray.length; i++){
+			if(newConcernTagsArray[i] != ""){
+				str += '<li><input type="checkbox" '+newConcernTagsArray[i].status+' onclick="checkNewConcernTag('+ i +');" />'+ newConcernTagsArray[i].tagName +'</li>';
+			}
+		}	
+		return str;
+	}
+	
+	function checkNewConcernTag(index){
+		if(newConcernTagsArray[index].status == "unchecked"){
+			newConcernTagsArray[index].status = "checked";
+		}else{
+			newConcernTagsArray[index].status = "unchecked";
+		}
+		
+	}
+	
+	function NewConcernTag(tagName, status){
+		this.tagName = tagName;
+		this.status = status;
+	}
+	
+	function addToConcernTagsArray(tagName, status){
+		var newConcernTagInstance = new NewConcernTag(tagName, status);
+		newConcernTagsArray.push(newConcernTagInstance);	
+
+	}
+	
+	function addManualTag(){
+		var manualTag = $('manualTag').value;
+		addToConcernTagsArray(manualTag, "checked");	
+		$(cct.divAddConcernTagsList).innerHTML = renderTags();
+		$('manualTag').value = ""; //clear textbox
+		
+		//for(i=0; i< newConcernTagsArray.length; i++){
+		//	alert(newConcernTagsArray[i].tagName + " status:" + newConcernTagsArray[i].status);	
+		//}
+		
+	}
+	
+
+	
+	function getSelectedTags(){
+		newConcernSelectedTagsArray = [];
+		for(i=0; i<newConcernTagsArray.length; i++){
+			if(newConcernTagsArray[i].status == 'checked'){
+				newConcernSelectedTagsArray.push(newConcernTagsArray[i].tagName);
+			}
+		}	
+		//alert(newConcernSelectedTagsArray);
+	}
+				
+	function saveConcern(){
+		getSelectedTags();
+		
+		if(newConcernSelectedTagsArray.length<cct.numTagsInNewConcern){
+		alert("You must at least 2 tags");
+		}else{
+		var concern = $(cct.txtAddConcern).value;
+		var newConcernSelectedTagsString = '';
+		for (i=0; i<newConcernSelectedTagsArray.length; i++){
+			newConcernSelectedTagsString += newConcernSelectedTagsArray[i] + ',';	
+		}
+		//alert(newConcernSelectedTagsString);
+		//alert('cctId:' + cctId + ', concern: ' + concern + ', tags: ' + newConcernSelectedTagsString);
+		//alert(newConcernSelectedTagsString);
+
+		CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:newConcernSelectedTagsString}, {
+			callback:function(data){
+				if (data.successful){
+					getContextConcerns(cct.currentFilter, 0, true); 	
+					setVote(data.concern.id, "true")
+					swapContinue(false);
+					$(cct.txtAddConcern).value = '';
+					Effect.BlindUp(cct.divTagNewConcern);
+
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+				alert("saveTheConcern: "+errorString+" "+exception);
+
+			}
 	});
-}
+
+	}
+	}
+	
+	 	function setVote(id, agree){
+			CCTAgent.setVoting({id: id, agree:agree}, {
+			callback:function(data){
+					if (data.successful){ 
+						if($('concernVote'+id) != undefined){
+            				 new Effect.Fade('concernVote'+id, {afterFinish: function(){getContextConcerns(cct.currentFilter,cct.currentPage, false); new Effect.Appear('concernVote'+id);}});
+            			}else{ //newly created concern
+            				getContextConcerns(cct.currentFilter, cct.currentPage, false); 	
+            			}
+					}else{
+						alert(data.reason);
+					}
+				},
+			errorHandler:function(errorString, exception){ 
+					alert("setVote error:" + errorString + exception);
+			}
+			});
+		};
+	//END ADD Concern Functions
+	
+		function deleteConcern(concernId){
+		var destroy = confirm ("Are you sure you want to delete this concern? Note: there is no undo.")
+		if (destroy){
+				CCTAgent.deleteConcern({concernId:concernId}, {
+				callback:function(data){	
+						if (data.successful){
+							new Effect.Puff('concern'+concernId, {afterFinish:function(){getContextConcerns(cct.currentFilter,cct.currentPage,false);}});
+						}else{
+							alert(data.reason);	
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+					alert("delConcern: "+errorString+" "+exception);
+					//showTheError();
+				}
+				});
+		}
+	}
+	
+	function changeCurrentFilter(tagRefId){
+		getContextConcerns(tagRefId, 0, true);
+		cct.currentFilter = tagRefId;
+		if (tagRefId != ''){
+				CCTAgent.getTagByTagRefId(cct.currentFilter, {
+				callback:function(data){
+				if (data.successful){
+		          			var tagName = data.tag.name;
+							$(cct.divFilteredBy).innerHTML = '<h3 style="color: red">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
+						}else{
+							alert(data.reason);
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+						alert("get tagbytagref error:" + errorString + exception);
+				}
+				});
+		}else{
+			cct.currentFilter = '';	
+			$(cct.divFilteredBy).innerHTML = '';
+		}
+	}
+	
+	function customFilter(query, key){
+		if (key.keyCode == 8 && query.length < 1){
+			return false;	
+		}
+		if(query.length > 3){
+			customFilterAction(query);	
+		}
+	}
+	
+	function customFilterAction(query){
+			CCTAgent.searchTags({cctId:this.cctId,tag:query},{
+				callback:function(data){
+						if (data.successful){
+							if($(cct.divSearchResults).style.display == 'none'){
+								new Effect.Appear(cct.divSearchResults, {duration: 0.5});		
+							}		
+							
+							$(cct.divSearchResults).innerHTML = $(cct.divSearchResults).innerHTML = data.html;
+							if (data.count == 0){
+								$(cct.divSearchResults).innerHTML = '<span class="closeBox"><a href="javascript:Effect.Fade('+cct.divSearchResults+', {duration: 0.5}); void(0);">Close</a></span><p>No tag matches found! Please try a different search.</p> ';
+							}
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+							alert("sidebarSearchTagsAction: "+errorString+" "+exception);
+							//showTheError();
+				}		
+			});	
+	};
 
 
+	//END CCT Cleanup
 
-function tabFocus(num){
-$('myTab').tabber.tabShow(num);
-}
 
 function glossaryPopup(term){
 lightboxDisplay(true);
@@ -548,7 +483,7 @@ concernTags = str;
 }
 
 function editTags(concernId){
-if(concernTags.split(',').length-1<3){
+if(concernTags.split(',').length-1<cct.numTagsInNewConcern){
 alert("You must select 3 or more tags");
 }else{
 removeLastComma(concernTags);
@@ -573,24 +508,7 @@ CCTAgent.editTags({concernId:concernId, tags:concernTags}, {
 }
 }
 
-function delConcern(concernId){
-var destroy = confirm ("Are you sure you want to delete this concern? Note: there is no undo.")
-if (destroy){
-		CCTAgent.deleteConcern({concernId:concernId}, {
-		callback:function(data){	
-				if (data.successful){
-					showMyConcerns();
-				}else{
-					alert(data.reason);	
-				}
-		},
-		errorHandler:function(errorString, exception){ 
-			alert("delConcern: "+errorString+" "+exception);
-			//showTheError();
-		}
-		});
-}
-}
+
 
 function ifEnter(field,event) {
 
@@ -604,10 +522,6 @@ else
 return true;
 }   
 
-function showFinished(){
-location.href = '#finished';
-new Effect.Highlight('suppSlate', {duration: 4, endcolor:'#EEF3D8'});
-}
 
 var winH;
 function getWinH(){
@@ -642,123 +556,7 @@ function lightboxDisplay(show){
 			$('loading-indicator').style.display = "none";	
 		}
 	}
-	 ///////////////////////////////////////// START SIDEBAR //////////////////////////////////////
-	 
-	 /*  Requires: SideBar.js *************************** See file for element ID needs
-	Create a new Instance of SideBar
-		params
-			- Structure id
-			- Object id
-			- CCT Id
-			- Object title
-			- Title of Entire Info structure
-			- Count of items in sideBar
-			- Show all link text
-			- Filter header text
-			- Tag cloud count
-			- PostID
-		
-	Methods to define for this Instance
-		sidebar.getAbstractItems(tags, page);
-		sideBar.convertAbstractFilter(tagRefId);
-		sideBar.sidebarSearchTagsAction(theTag)
-		sideBar.getAbStractTagCloud(page)
-		sideBar.getAbstractTagCloudResults(theTag)
-		sideBar.viewItemDetails(id)
-	*/
-	var sideBar = new SideBar("${structure.id}", "${object.id}","${cctForm.cct.id}","${object.object}", "All Participant' Concerns", 5, "Show All Concerns", "Filter All Concerns By", 50, "" ); 
-	sideBar.getAbstractItems = function(tags, page){
-		CCTAgent.getContextConcerns({cctId: this.cctId,tags: tags, count: this.itemsCount, page: page, contextAware: false}, {
-			callback:function(data){
-					if (data.successful){
-	          			$(sideBar.divContent).innerHTML = data.html;//using partial sidebar-concerns.jsp
-						sideBar.renderFilters();		 	 						            				 
-						displayIndicator(false);
-					}else{
-						alert(data.reason);
-						displayIndicator(false);
-					}
-				},
-			errorHandler:function(errorString, exception){ 
-					alert("get concerns error:" + errorString + exception);
-			}
-		});	
-	};
-	
-	sideBar.convertAbstractFilter = function(tagRefId){
-		CCTAgent.getTagByTagRefId(tagRefId, {
-		callback:function(data){
-		if (data.successful){
-          			var tagName = data.tag.name;
-					sideBar.addFilterToArr(tagRefId, tagName)
-				}else{
-					alert(data.reason);
-				}
-		},
-		errorHandler:function(errorString, exception){ 
-				alert("get tagbytagref error:" + errorString + exception);
-		}
-		});
-	};
-	
-		sideBar.sidebarSearchTagsAction = function(theTag){
-			CCTAgent.searchTags({cctId:this.cctId,tag:theTag},{
-				callback:function(data){
-						if (data.successful){
-							sideBar.renderSearchTagResults(data);
-						}
-				},
-				errorHandler:function(errorString, exception){ 
-							alert("sidebarSearchTagsAction: "+errorString+" "+exception);
-							//showTheError();
-				}		
-			});	
-		};
-		
 
-		sideBar.getAbStractTagCloud = function(page){
-			CCTAgent.getTagCloud({cctId:this.cctId,type:2, page: page, count:this.tagCloudCount}, {
-					callback:function(data){
-						if (data.successful){
-							$(sideBar.divAllTags).innerHTML = data.html;	
-
-						}
-					},
-					errorHandler:function(errorString, exception){ 
-					alert("getTagCloud: "+errorString+" "+exception);
-					}
-			});
-		}
-		
-		sideBar.getAbstractTagCloudResults = function(theTag){
-			CCTAgent.searchTags({cctId:this.cctId,tag:theTag},{
-				callback:function(data){
-						if (data.successful){
-							sideBar.renderTagCloudSearchResults(data);
-						}
-				},
-				errorHandler:function(errorString, exception){ 
-							alert("tagSearch: "+errorString+" "+exception);
-				}		
-			});
-		}
-		
-		/***************View item details.************** */
-		sideBar.viewItemDetails = function(conId){				
-		CCTAgent.getConcernById(conId, {
-				callback:function(data){
-					if (data.successful){
-							sideBar.lightBoxTitle = "View Entire Concern"; //Title of lightbox
-							sideBar.renderItemDetails(data.concern); //add contents to lightbox 
-					}
-				},
-				errorHandler:function(errorString, exception){ 
-						alert("viewSidebarConcern: "+errorString+" "+exception);
-						//showTheError();
-				}
-			});
-		};
-	///////////////////////////////////////// END SIDEBAR //////////////////////////////////////
 
 function lightboxDisplay(show){
 	if (show){
@@ -771,13 +569,7 @@ function lightboxDisplay(show){
 		centerReenable();
 	}
 }
-	function displayIndicator(show){
-		if (show){
-			$('loading-indicator').style.display = "inline";	
-		}else{
-			$('loading-indicator').style.display = "none";	
-		}
-	}
+
 
 </script>
 <style type="text/css" />
@@ -921,184 +713,104 @@ top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.do
 </head>
 
 <body onResize = "sizeMe();">
-<div id="overlay"></div>
-<div id="lightcontainer" class="leightcontainer">
- 	<div id="lightbox" class="leightbox">
- 		<div id="lightboxpadding" class="leightpadding">
- 			<h3>Editing Attributes for Glossary Term: ...</h3>
- 		</div>
- 	</div>
-</div>
 
-
-<div id="container">
-
-<!-- Header -->
-
-<jsp:include page="/header.jsp" />
-<!-- Sub Title -->
-<div id="subheader">
-
-<h1>Step 1a: Brainstorm Concerns</h1>
-</div>
-<div id="footprints">
-<span class="smalltext"><a href="http://128.95.212.210:8080/main.do">Participate</a> >> <a href='http://128.95.212.210:8080/cctview.do?cctId=1171'>Step 1a Brainstorm Concerns</a></span>
-</div>
-<!-- End Sub Title -->
-
-<div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
-<div id="saving-indicator">Saving... <img src="/images/indicator_arrows.gif"></div>
-<!-- Overview SpiffyBox -->
-<div class="cssbox">
-<div class="cssbox_head">
-<h3>Overview</h3>
-</div>
-<div class="cssbox_body">
-<p>Before we can determine how to best improve the transportation system, we need to know what the problems are. Our first task is to brainstorm concerns about the transportation system. To help you create your concerns, the right column displays concerns from other participants. Use the buttons at the bottom of this column to view more pages of concerns, or search for particular concerns by tags. </p>
-<p>[ <a href="/readmore.jsp">Read more about how this step fits into the bigger picture.</a> ]</p>
-
-</div>
-</div>
-<!-- End Overview -->
-
-</div> <!-- End cont-top -->
-
-
-
-<div id="cont-main">
-
-<table width="100%" border="0" cellpadding="0" cellspacing="0">
-<tr>
-<td id="maintop"><img src="" alt="" height="1" width="1"/></td>
-<td><img src="images/sidebar_top.gif" alt="sidebartop" /></td>
-</tr>
-<tr>
-<td valign="top" id="maincontent">
-<!-- Main Content starts Here-->
-<div id="slate" class="borderblue">
-	<h4>Add your concern</h4><br>What problems do you encounter in your daily trips to work outside the home, shopping, and errands? In what ways do you feel our current transportation system fails to meet the needs of our growing region? <p>Describe <strong>one</strong> problem with our transportation system. You can add more concerns later</p>
-	<form name="brainstorm" method="post" onSubmit="addSelectedTag('theTag'); return false;"><!-- onSubmit="addTagToList('tagsList', 'theTag','tagValidation'); return false;">-->
-	<p><div><div><textarea onkeypress="ifEnter(this,event);" name="addConcern" cols="20" rows="2" id="addConcern"></textarea></div></div></p>
-	<p class="indent">
-	<input type="button" id="btnContinue" name="Continue" value="Submit Concern" onclick="prepareConcern();">
-	<input type="reset" name="Reset" value="Reset" onClick="resetForm();"> 
-	<span id="indicator" style="visibility:hidden;"><img src="/images/indicator.gif"></span>
-	</p>
-	
-	<div style="display: none;" id="validation"></div>
-	
-	
-	<div id="tagConcerns" style="display: none;">
-		<div id="tags" style="background-color: #F1F7FF; border: 5Px solid #BBBBBB; margin:auto; padding: 5px; width: 70%;">
-		<h4>Tag Your Concern</h4>
-		<p></p>   
-		<p>Please delete those that do not apply to your concern and use the textbox below to add more tags (if needed).  <span class="glossary">[ what are <a href="javascript:glossaryPopup('tag');">tags</a>? ]</span></p>
-		<b>Suggested Tags for your Concern:</b>  <ul class="tagsList" id="tagsList">
-		</ul>	 
-		<br>
-		<b>Selected Tags for your Concern:</b> <ul class="tagsList" id="selectTagsList">
-		</ul>
-		<p><input type="text" id="theTag" class="tagTextbox" name="theTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onclick="addSelectedTag('theTag');return false;"></p>
-		<div style="display: none; padding-left: 20px;" id="tagValidation"></div>
-		
-		<span class="title_section">Finished Tagging? <br><input type="button" name="saveConcern" value="Add Concern to List!" onclick="saveTheConcern(); void(0);"></span><input type="button" value="Cancel - back to edit my concern" onclick="javascript:cancelSubmit();">
-		</div>
-		<br>
-		</div>
-		
-		<h4>Concerns you've contributed so far</h4><br>Finished? Click 'Continue' <a href="javascript:showFinished();">below</a>.<p></p>
-		<div id="myConcernsList" class="indent">
-		<ol id="myConcerns">
-		</ol>
+<!-- Begin the header - loaded from a separate file -->
+	<div id="header">
+		<p>Load separate file here</p>
 	</div>
-	
-	</form>
-</div>
-	
-<div id="suppSlate" class="greenBB">
-	<a name="finished"></a><h4 id="h4Finished">Ready for the next step?</h4>
-	<p>Click on the continue button to go on to stage 2 of step 1.  The next part in the process is to discuss your concerns with other participants.   Go back to your <a href="main.do">home page</a> or  <a href="/waiting.jsp"><img src="images/btn_gcontinue_a.gif" alt="Continue" name="continue" class="button" id="continue" onMouseOver="MM_swapImage('continue','','images/btn_gcontinue_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></p>
-</div>
-<!-- End Main Content -->
-</td>
-<td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
-						<div id="sidebar_container">
-					<div id="sidebarHeader" style="padding: 5px;">
-						<h4 id="sidebarTitle"></h4>
-						<p>
-						 <!-- optional context sidebar paragraph -->
-						 
-						 <!-- end optional context sidebar paragraph -->
-						</p>
+<!-- End header -->
+
+    <!-- Begin header menu - The wide ribbon underneath the logo -->
+    <div id="headerMenu">
+        <div id="headerContainer">
+            <div id="headerTitle" class="floatLeft">
+                <h3 class="headerColor">Step 1: Brainstorm Concerns</h3>
+            </div>
+            <div class="headerButton box4 floatLeft currentBox"><a href=http://mail.yahoo.com/config/login?/"#">1a: Brainstorm Concerns</a></div>
+            <div class="headerButtonCurrent floatLeft"><a href=http://mail.yahoo.com/config/login?/"#">1b: Discuss Summaries</A></div>
+            <div id="headerNext" class="box5 floatRight"><a href=http://mail.yahoo.com/config/login?/"#">Next Step</A></div>
+        </div>
+    </div>
+    <!-- End header menu --> 
+<!-- #container is the container that wraps around all the main page content -->
+	<div id="container">
+<!-- begin "overview and instructions" area -->
+		<div id="overview" class="box2">
+			<h3>Overview and Instructions</h3>
+		<p>Before we can determine how to best improve the transportation system, we need to know what the problems are. Our first task is to brainstorm concerns about the transportation system. To help you create your concerns, the right column displays concerns from other participants. Use the buttons at the bottom of this column to view more pages of concerns, or search for particular concerns by tags.</p>
+		</div>
+<!-- end overview -->
+		<a name="filterJump"></a>
+		<div id="discussion" style="background-image: url('images/addConcern.gif'); background-repeat: no-repeat; background-position: 730px 0;">
+				<div id="discussionHeader">
+					<div class="sectionTitle">
+						<h3>All Participants' Concerns</h3>
+						<div id="filteredBy"></div>
+						<input type="checkbox" id="myconcerns" onClick="checkMyConcerns();"/>Show only my concerns
 					</div>
-						<!-- start tagselector -->
-							<div id="tagSelector">
-								<div id="showAllLink"></div>
-								<div id="tagform">
-								<h6 id="filterheader"></h6><span id="ulfilters"></span>
-								<!-- insert filter list here -->
-								<p><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);">Add a Tag Filter</a></p>
-								
-								<div id="addFilter" style="display: none;">
-									<span class="textright"><a href="javascript: Effect.toggle('addFilter', 'blind', {duration: 0.2}); void(0);"><img src="images/close1.gif" alt="Close" name="closeresults" class="button" id="closeresults" onMouseOver="MM_swapImage('closeresults','','images/close.gif',1)" onMouseOut="MM_swapImgRestore()"></a></a></span>
-									<b>Add a Tag Filter:</b> 
-									<form id="frmSidebarTagSearch" onSubmit="sideBar.sidebarSearchTagsAction($('txtmanualFilter').value); return false;">
-										<input name="txtmanualFilter" id="txtmanualFilter" type="text" onKeyDown="sideBar.sidebarTagSearch(this.value, event)" onKeyUp="sideBar.sidebarTagSearch(this.value, event)" /><span id="btnClearSearch" style="display: none;"><a href="javascript:sideBar.clearSearch(); sideBar.closeSearchResults();"><img src="/images/clearText.gif" border="0" alt="clear textbox" /></a></span>
-									</form>
-									<p>or <a href="javascript: expandTagSelector();">Browse All Tags</a></p>
-										
-									<div id="sidebarSearchResults" style="display: none;"><!-- tag search results are loaded here --></div>
-								</div>
-								
-							</div>
-							<div id="pullDown" class="textright"></div>
-							<div id="allTags" style="display: none;"></div>
-							<div class="clear"></div>
-							
-						</div>
-						<!-- end tag selector -->
-					
-					 <div id="sidebar_content">
-					
-					</div><!-- End sidebarcontents-->
-					<div id="tempvars" style="display: none;"></div>
-					</div><!-- sidebar container-->
- </td><!-- End Right Col -->
-</tr>
+					<div id="sortingMenu">
+						sort discussion by:
+						<select>
+							<option>Option</option>
+							<option>Option Option Option Option Option</option>
+							<option>Option</option>
+							<option>Option</option>
+							<option>Option</option>
+						</select>
+						<br />
+						filter discussion by:
+						<form action="javascript: customFilterAction($('txtCustomFilter').value);">
+							<input type="text" id="txtCustomFilter" onKeyDown="customFilter(this.value, event);" /> or <a href="#">Browse All Tags</a>
+						</form>
+						<div id="searchResults" style="display: none;"></div>
+					</div>
+				</div>
 
-</table>
-<div id="sidebarbottom" style="text-align:right;"><img src="images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
+				<div id="discussion-cont" class="floatLeft"><!-- left col -->
 
-
-
-		
-		
-		
-
-</div>
-<!-- End cont-main -->
-
-</div> <!-- End container -->
-
-
+				</div><!-- end left col -->
+				
+				<div id="colRight" class="floatLeft box6"><!-- right col -->
+					<h3>Add your own Concern</h3>
+					<fieldset>
+						<textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type your concern here.</textarea>
+					</fieldset>
+					<div id="tagNewConcern" class="box6 padding5" style="display:none;">
+						<h3>Tag your concern</h3>
+						<p>Suggested tags:</p>
+						<ul id="addConcernTagsList" class="tagsList">
+							<!-- render suggested tags here -->
+						</ul>
+						<form action="javascript: addManualTag();">
+							<input id="manualTag" type="text" value="Add your own tag!" onClick="if(this.value==this.defaultValue){this.value = ''}"/><input type="button" value="Add" onClick="addManualTag();" />
+						</form>
+						<p><small>You must have at least 2 or more tags to continue.</small></p>
+					</div>
+					<div id="btnContinueCont"><input id="btnContinue" type="button" value="continue" onClick="prepareConcern();" /></div>
+				</div><!-- end right col -->
+				<div class="clearBoth"></div>
+			</div><!-- end discussion -->
+		</div> <!-- end container -->
+    <!-- Begin header menu - The wide ribbon underneath the logo -->
+    <div id="headerMenu">
+        <div id="headerContainer">
+            <div id="headerTitle" class="floatLeft">
+                <h3 class="headerColor">Step 1: Brainstorm Concerns</h3>
+            </div>
+            <div class="headerButton box4 floatLeft currentBox"><a href=http://mail.yahoo.com/config/login?/"#">1a: Brainstorm Concerns</a></div>
+            <div class="headerButtonCurrent floatLeft"><a href=http://mail.yahoo.com/config/login?/"#">1b: Discuss Summaries</A></div>
+            <div id="headerNext" class="box5 floatRight"><a href=http://mail.yahoo.com/config/login?/"#">Next Step</A></div>
+        </div>
+    </div>
+    <!-- End header menu --> 
+		<div id="footer">
+			Load footer file here
+		</div><!-- end footer -->
 <!-- start feedback form -->
 <pg:feedback id="feedbackDiv" action="cctView.do" />
-
-<!-- end feedback form -->
-
-<!-- Start Footer -->
-<jsp:include page="/footer.jsp" />
-<!-- End Footer -->
 <script type="text/javascript">
-		showMyConcerns();
-
-	sideBar.assignTitle();
-	if(sideBar.objectId != ""){
-		sideBar.addIOIDFilter();
-	}else{
-		sideBar.getSidebarItems();
-	}
-
+		getContextConcerns();
+		
 </script>
 
 
