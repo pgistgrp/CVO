@@ -43,7 +43,7 @@ Zhong:
 [ok] E-mail notification on mod Feedback Form
 [ok] Get sideBar items accepts TagRefId or TagId
 [ok] createPost without IOID
-[] YesNoVoting Object on SDAgent.getPosts();
+[ok] YesNoVoting Object on SDAgent.getPosts();
 
 
 Jordan:

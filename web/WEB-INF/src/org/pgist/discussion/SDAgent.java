@@ -137,7 +137,8 @@ public class SDAgent {
      *               <li>structure - An InfoStructure object</li>
      *               <li>object - An InfoObject object</li>
      *               <li>setting - A PageSetting object</li>
-     *               <li>posts - A list of DiscussionPost objects</li>
+     *               <li>posts - A list of DiscussionPost objects, each object has a field named "object"
+     *                which is a YesNoVoting object or null if the current user has not voted on this reply yet.</li>
      *             </ul>
      *     </li>
      *   </ul>

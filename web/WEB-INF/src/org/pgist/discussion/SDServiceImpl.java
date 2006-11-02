@@ -84,16 +84,25 @@ public class SDServiceImpl implements SDService {
         
         if (discussion==null) return new ArrayList();
         
-        return discussionDAO.getPosts(discussion, setting, order);
+        Collection list = discussionDAO.getPosts(discussion, setting, order);
+        
+        for (DiscussionPost post : (Collection<DiscussionPost>) list) {
+            YesNoVoting voting = systemDAO.getVoting(YesNoVoting.TYPE_DISCUSSION_POST, post.getId());
+            post.setObject(voting);
+        }//for
+        
+        return list;
     }//getPosts()
 
 
     public Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception {
         Collection list = discussionDAO.getReplies(post, setting);
+        
         for (DiscussionReply reply : (Collection<DiscussionReply>) list) {
             YesNoVoting voting = systemDAO.getVoting(YesNoVoting.TYPE_DISCUSSION_REPLY, reply.getId());
             reply.setObject(voting);
         }//for
+        
         return list;
     }//getReplies()
 
