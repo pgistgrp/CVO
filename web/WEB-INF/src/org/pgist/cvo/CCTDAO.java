@@ -138,10 +138,10 @@ public interface CCTDAO extends CVODAO {
     void decreaseRefTimes(TagReference ref) throws Exception;
     
     
-    Collection getContextConcerns(CCT cct, PageSetting setting, boolean contextAware, boolean desc) throws Exception;
+    Collection getContextConcerns(CCT cct, PageSetting setting, boolean contextAware, boolean desc, boolean ownerOnly) throws Exception;
     
     
-    Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware, boolean desc) throws Exception;
+    Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware, boolean desc, boolean ownerOnly) throws Exception;
 
     
     void increaseVoting(Concern concern, boolean agree) throws Exception;

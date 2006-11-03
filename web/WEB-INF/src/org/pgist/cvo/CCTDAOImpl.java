@@ -244,22 +244,30 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
     
     private static final String hql_getContextConcerns_A_12 = "select count(c.id) from Concern c where c.deleted=? and c.cct.id=? and c.author.id<>?";
     
+    private static final String hql_getContextConcerns_A_13 = "select count(c.id) from Concern c where c.deleted=? and c.cct.id=? and c.author.id=?";
+    
     private static final String hql_getContextConcerns_A_21 = "from Concern c where c.deleted=? and c.cct.id=? order by c.id";
     
     private static final String hql_getContextConcerns_A_22 = "from Concern c where c.deleted=? and c.cct.id=? and c.author.id<>? order by c.id";
     
-   
-    public Collection getContextConcerns(CCT cct, PageSetting setting, boolean contextAware, boolean desc) throws Exception {
+    private static final String hql_getContextConcerns_A_23 = "from Concern c where c.deleted=? and c.cct.id=? and c.author.id=? order by c.id";
+    
+    
+    public Collection getContextConcerns(CCT cct, PageSetting setting, boolean contextAware, boolean desc, boolean ownerOnly) throws Exception {
         List list = new ArrayList();
         
         Query query = null;
-        		
-        if (contextAware) {
+        
+        if(ownerOnly && contextAware) {
+        	query = getSession().createQuery(hql_getContextConcerns_A_13);
+            query.setLong(2, WebUtils.currentUserId());
+        } else if (contextAware) {
             query = getSession().createQuery(hql_getContextConcerns_A_12);
             query.setLong(2, WebUtils.currentUserId());
         } else {
             query = getSession().createQuery(hql_getContextConcerns_A_11);
         }
+        
         query.setBoolean(0, false);
         query.setLong(1, cct.getId());
         
@@ -271,7 +279,10 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
         
         if (count==0) return list;
         
-        if (contextAware) {
+        if (ownerOnly && contextAware) {
+        	query = getSession().createQuery(hql_getContextConcerns_A_23 + (desc?" desc":""));
+            query.setLong(2, WebUtils.currentUserId());
+        } else if (contextAware) {
             query = getSession().createQuery(hql_getContextConcerns_A_22 + (desc?" desc":""));
             query.setLong(2, WebUtils.currentUserId());
         } else {
@@ -289,7 +300,7 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
     private static final String sql_getContextConcerns_B = "SELECT cid from "+DBMetaData.VIEW_CONCERN_TAG_IN_CCT+" where cctid=:cctid and trid=";
     
     
-    public Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware, boolean desc) throws Exception {
+    public Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware, boolean desc, boolean ownerOnly) throws Exception {
         List list = new ArrayList();
         
         Connection connection = getSession().connection();

@@ -315,13 +315,13 @@ public class CCTServiceImpl implements CCTService {
     }//getTagCloud()
 
 
-    public Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware, boolean desc) throws Exception {
+    public Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware, boolean desc, boolean ownerOnly) throws Exception {
         Collection concerns = null;
         
         if (tags==null || "".equals(tags.trim())) {
-            concerns = cctDAO.getContextConcerns(cct, setting, contextAware, desc);
+            concerns = cctDAO.getContextConcerns(cct, setting, contextAware, desc, ownerOnly);
         } else {
-            concerns = cctDAO.getContextConcerns(cct, setting, tags.trim(), contextAware, desc);
+            concerns = cctDAO.getContextConcerns(cct, setting, tags.trim(), contextAware, desc, ownerOnly);
         }
         
         /**
