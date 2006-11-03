@@ -23,7 +23,7 @@
 
 		<c:choose>
 			<c:when test="${voting == null}">
-				<a href="javascript:infoObject.setVote('structure','${infoStructure.id}', 'true');"><img src="images/btn_thumbsup_large.png" alt="YES" class="floatRight" style="margin-right:5px;"><a href="javascript:infoObject.setVote('structure', '${infoStructure.id}', 'true');"><img src="images/btn_thumbsdown_large.png" alt="NO" class="floatLeft" margin-left:5px;"></a></span>
+				<a href="javascript:io.setVote('structure','${infoStructure.id}', 'true');"><img src="images/btn_thumbsup_large.png" alt="YES" class="floatRight" style="margin-right:5px;"><a href="javascript:io.setVote('structure', '${infoStructure.id}', 'true');"><img src="images/btn_thumbsdown_large.png" alt="NO" class="floatLeft" margin-left:5px;"></a></span>
 			</c:when>
 			<c:otherwise>
 				Your vote has been recorded. Thank you for your participation.

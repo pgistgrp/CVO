@@ -321,13 +321,4 @@
 
 <!-- end the bottom header menu -->
 </body>
-<html:html>
-  
-<style type="text/css">
-			<!--[if IE]>
-			#tablediscwidth {width:90%}
-			<![endif]-->
 
-			#tablediscwidth {width:100%}
-		</style>
-</html:html>

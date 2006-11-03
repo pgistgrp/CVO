@@ -11,6 +11,69 @@
 	<h4 style="text-transform:capitalize;">Replies to ${post.title}</h4>
 </c:if>
 <logic:iterate id="reply" name="replies">
+			<div id="discussion${post.id}" class="discussionRow" style="margin-top: 5px;">
+						<c:choose>
+								<c:when test="${baseuser.id == reply.owner.id}">
+									<div class="discussionRowHeader box6">			
+								</c:when>
+								<c:otherwise>
+									<div class="discussionRowHeader box1">
+								</c:otherwise>
+						</c:choose>
+						<div id="voting-post${reply.id}" class="discussionVoting">
+							${reply.numAgree} of ${reply.numVote} participants agree with this post
+							<c:choose>
+								<c:when test="${reply.object == null}">
+									<a href="javascript:io.setVote('post',${reply.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
+									<a href="javascript:io.setVote('post',${reply.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
+								</c:when>
+								<c:otherwise>
+									<img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/>
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<span class="discussionTitle">
+							${reply.title}
+					</div>
+					
+						<c:choose>
+								<c:when test="${baseuser.id == reply.owner.id}">
+									<div class="discussionBody box7">		
+								</c:when>
+								<c:otherwise>
+									<div class="discussionBody">
+								</c:otherwise>
+						</c:choose>
+						<div class="discussionText">
+							<div id="replyContent${reply.id}"><p>${reply.content}</p></div>
+							<h3>- ${reply.owner.loginname}</h3>
+						</div>
+						<div class="discussionComments">
+							 <a href="javascript:io.setQuote(${reply.id});">Quote</a>
+						</div>
+						<c:if test="${fn:length(reply.tags) > 0}">
+							<ul class="tagsInline">
+								<li class="tagsInline"><strong>Tags:</strong> </li>
+								<c:forEach var="tag" items="${reply.tags}">
+									<c:choose>
+										<c:when test="${baseuser.id == reply.owner.id}">
+											<li class="box6 tagsInline">		
+										</c:when>
+										<c:otherwise>
+											<li class="box8 tagsInline">
+										</c:otherwise>
+									</c:choose>
+									<a href="javascript:io.getReplies(${tag.id},0,true);">${tag.name}</a></li>
+								</c:forEach>
+							</ul>
+							<div style="clear: left;"></div>
+						</c:if>
+					</div>
+			</div>
+</div>
+<div class="clearBoth"></div>
+	
+	<!--
 	<div id="reply${reply.id}" class="replies">
 		 <div id="replies_title" class="bluetitle">
 
@@ -19,8 +82,8 @@
 
 			 	<c:choose>
 			 		<c:when test="${reply.object == null}">
-						<a href="javascript:setVote('reply',${reply.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
-			 			<a href="javascript:setVote('reply',${reply.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
+						<a href="javascript:io.setVote('reply',${reply.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
+			 			<a href="javascript:io.setVote('reply',${reply.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
 					</c:when>
 					<c:otherwise>
 						<img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/>
@@ -45,7 +108,7 @@
 	</c:if>
 		</div>
 	</div>
-	<br />
+	<br />-->
 </logic:iterate>
 
 
@@ -78,12 +141,12 @@
 
 </div>
 <a name="replyAnchor"></a>
-<div id="newReply" class="greenBB" style="padding: 5px 10px; margin-top: 20px; border-top: 2px solid #C0D7F6">
-	<h4>Post a Reply</h4>
+<div id="newReply" class="box8 padding5" style="margin-top: 10px;">
+	<h3 class="headerColor">Post a Reply</h3>
 	<form>
-		<p><label>Post Title</label><br><input style="text-transform:capitalize;" maxlength=100 size=100 type="text" value="Re: ${post.title}" id="txtnewReplyTitle"/></p>
+		<p><label>Post Title</label><br><input style="text-transform:capitalize;" maxlength=100 size=100 type="text" value="Re: ${post.title}" id="txtNewReplyTitle"/></p>
 		<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtnewReply"></textarea></p>
-		<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="newReplyTags" type="text" /></p>
-		<input type="button" onClick="createReply(${setting.pageSize});" value="Submit Reply">
+		<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="txtNewReplyTags" type="text" /></p>
+		<input type="button" onClick="io.createReply();" value="Submit Reply">
 	</form>
 </div>
