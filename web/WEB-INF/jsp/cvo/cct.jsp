@@ -753,7 +753,7 @@ top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.do
           <br />
           <div class="floatLeft">filter discussion by:</div>
           <form action="javascript: customFilterAction($('txtCustomFilter').value);" class="floatLeft">
-            <input type="text" id="txtCustomFilter" onKeyDown="customFilter(this.value, event);" />
+            <input type="text" id="txtCustomFilter" onKeyUp="customFilter(this.value, event);"  onKeyUp="customFilter(this.value, event);"/>
             or <a href="#">Browse All Tags</a>
           </form>
           <div id="searchResults" style="display: none;"></div>

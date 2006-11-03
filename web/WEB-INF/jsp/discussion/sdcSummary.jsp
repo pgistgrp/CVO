@@ -36,9 +36,9 @@
 	
 	<!-- begin summary -->
 		<div id="summary" class="box3 floatLeft">
-				<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
-	  <p>${infoObject.object.theme.summary}</p>
-	</pg:termHighlight>
+			<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
+			  <p>${infoObject.object.theme.summary}</p>
+			</pg:termHighlight>
 	
 			<ul class="tagsInline">
 				<li class="tagsInline"><strong>Tags highlighted by the moderator:</strong> </li>
@@ -53,13 +53,8 @@
   
   	
 	
-	
-</div>
 
 
-</pg:fragment>
-
-	<pg:fragment type="script">
 
 </pg:fragment>
 
