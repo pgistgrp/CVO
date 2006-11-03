@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Collection;
 
+import org.directwebremoting.WebContextFactory;
+
 
 /**
  * 
@@ -515,6 +517,7 @@ public class CriteriaAgent {
      *     <li>criteria - A list of Criteria objects</li>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>html- criteria formated as a HTML document</li>
      *   </ul>
      */
     public Map getAllCriterion(Map params) {
@@ -525,7 +528,8 @@ public class CriteriaAgent {
         try {
         	Collection criteria = criteriaService.getAllCriterion();
         	map.put("criteria", criteria);
-            map.put("successful", true);
+        	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteria.jsp"));
+        	map.put("successful", true);
             
         } catch (Exception e) {
             e.printStackTrace();
