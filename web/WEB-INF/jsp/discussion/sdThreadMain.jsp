@@ -142,7 +142,9 @@
 		
 		io.setQuote = function(replyId){
 			var currentReply = tinyMCE.getContent();
-			tinyMCE.setContent(currentReply + '<blockquote>' + $('replyContent'+replyId).innerHTML + '</blockquote><p>');
+			var currentReplyContent = $('replyContent'+replyId).innerHTML;
+			var currentReplyOwner = $('replyOwner'+replyId).innerHTML;
+			tinyMCE.setContent(currentReply + '<blockquote>' + currentReplyContent + currentReplyOwner +'</blockquote><p>');
 			location.href="#replyAnchor";
 		}
 		
@@ -326,7 +328,7 @@
 							<h3>- ${post.owner.loginname}</h3>
 						</div>
 						<div class="discussionComments">
-						<a href="#replyAnchor">Reply to this post</a>
+						<a href="#replyAnchor"><img src="images/btn_postreply_a.gif" alt="Reply" name="Reply" class="button" id="Reply" onMouseOver="MM_swapImage('Reply','','images/btn_postreply_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</div>
 						<c:if test="${fn:length(post.tags) > 0}">
 							<ul class="tagsInline">

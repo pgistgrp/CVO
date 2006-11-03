@@ -28,11 +28,8 @@
 <!--End CCT Specific  Libraries-->
 <script type="text/javascript">
 //START Global Variables
-var cctId = ${cctForm.cct.id};
-var concernTags = "";
-var selectConcernTags="";
+
 var cct = new Object;
-var showOnlyMyConcerns = false;
 var newConcernTagsArray = new Array();
 var newConcernSelectedTagsArray = new Array();
 var allNewConcernTags = new Array;
@@ -43,6 +40,9 @@ var allNewConcernTags = new Array;
 	cct.divFilteredBy = 'filteredBy';
 	cct.divSearchResults = 'searchResults';
 	cct.filterAnchor = "#filterJump";
+	cct.divDiscussionTitle = "discussionTitle";
+		cct.discussionTitle = "All Participants' Concerns";
+		cct.discussionTitleOnChk = "Your Concerns";
 //Input Element IDs
 	cct.txtAddConcern = 'txtAddConcern';
 	cct.btnContinueCont = 'btnContinueCont';
@@ -53,18 +53,31 @@ var allNewConcernTags = new Array;
 	cct.currentFilter = '';  //Default tag filter
 	cct.numTagsInNewConcern = 2;
 	cct.concernsPerPage = 8;
-
+	cct.showOnlyMyConcerns = false; 
+	cct.contextAware = false; //should match showOnlyMyConcerns
+	cct.concernsDesc = true; //concern order
+	cct.cctId = "${cctForm.cct.id}";
 
 
 //END Global Variables
 
 //START CCT Clean up
-	function getContextConcerns(tags, page, jump){
+	function getContextConcerns(tags, page, jump, showMyConcerns){
 		if(jump){
 			location.href = cct.filterAnchor;
 		}
+		
+		if(showMyConcerns){
+			cct.showOnlyMyConcerns = true; 
+			cct.contextAware = true;
+		}else{
+			cct.showOnlyMyConcerns = false; 
+			cct.contextAware = false;
+		}
+		
 		cct.currentPage = page;
-		CCTAgent.getContextConcerns({cctId: this.cctId,tags: tags, count: cct.concernsPerPage, page: page, contextAware: false, desc: true}, {
+		//alert("cct: " + cct.cctId + " tags: " + tags + " count: " + cct.concernsPerPage + " page: " + page + " contextAware: " + cct.contextAware + " desc: " + cct.concernsDesc + " ownerOnly: " + cct.showOnlyMyConcerns);
+		CCTAgent.getContextConcerns({cctId: cct.cctId,tags: tags, count: cct.concernsPerPage, page: page, contextAware: cct.contextAware, desc: cct.concernsDesc, ownerOnly: cct.showOnlyMyConcerns}, {
 			callback:function(data){
 					if (data.successful){
 						$(cct.divDiscussionCont).innerHTML = data.html;
@@ -81,36 +94,21 @@ var allNewConcernTags = new Array;
 	}
 		
 	function goToPage(page){
-		getContextConcerns(cct.currentFilter,page,true); 
+		getContextConcerns(cct.currentFilter,page,true, cct.showOnlyMyConcerns); 
 		//new Effect.Highlight('discussion-cont',{startcolor: "#D6E7EF"});
 	}
 	function checkMyConcerns(){
 		if($(cct.chbxMyConcerns).checked != true){
 			$(cct.divFilteredBy).style.display = 'inline';
-			getContextConcerns(cct.currentFilter, 0, false);
-			
-		}else{
+			getContextConcerns(cct.currentFilter, cct.currentPage, false, false);
+			location.href= cct.filterAnchor;
+			$(cct.divDiscussionTitle).innerHTML = cct.discussionTitle;
+		}else{ //when it is checked
 			$(cct.divFilteredBy).style.display = 'none';
-			showMyConcerns();
-			
+			getContextConcerns('', cct.currentPage, false, true);
+			location.href= cct.filterAnchor;
+			$(cct.divDiscussionTitle).innerHTML = cct.discussionTitleOnChk;
 		}
-	}
-	
-	function showMyConcerns(){
-		CCTAgent.getConcerns({cctId:cctId,type:0,count:-1}, {
-				callback:function(data){
-						if (data.successful){
-							$(cct.divDiscussionCont).innerHTML = data.html;
-							if (data.total == 0){
-								$(cct.divDiscussionCont).innerHTML = '<p>None created yet.  Please add a concern.</p>';
-							}
-						}
-				},
-				errorHandler:function(errorString, exception){ 
-				alert("showMyConcerns: "+errorString+" "+exception);
-						//showTheError();
-				}
-		});
 	}
 
 	
@@ -150,7 +148,7 @@ var allNewConcernTags = new Array;
 		var concern = $(cct.txtAddConcern).value;
 		
 		if (validateForm()){	
-			CCTAgent.prepareConcern({cctId:cctId,concern:concern}, function(data) {
+			CCTAgent.prepareConcern({cctId:cct.cctId,concern:concern}, function(data) {
 				if (data.successful){
 					newConcernTagsArray = [];
 					for(i=0; i< data.tags.length; i++){
@@ -243,10 +241,10 @@ var allNewConcernTags = new Array;
 		//alert('cctId:' + cctId + ', concern: ' + concern + ', tags: ' + newConcernSelectedTagsString);
 		//alert(newConcernSelectedTagsString);
 
-		CCTAgent.saveConcern({cctId:cctId,concern:concern,tags:newConcernSelectedTagsString}, {
+		CCTAgent.saveConcern({cctId:cct.cctId,concern:concern,tags:newConcernSelectedTagsString}, {
 			callback:function(data){
 				if (data.successful){
-					getContextConcerns(cct.currentFilter, 0, true); 	
+					getContextConcerns(cct.currentFilter, 0, true, cct.showOnlyMyConcerns); 	
 					setVote(data.concern.id, "true")
 					swapContinue(false);
 					$(cct.txtAddConcern).value = '';
@@ -268,9 +266,9 @@ var allNewConcernTags = new Array;
 			callback:function(data){
 					if (data.successful){ 
 						if($('concernVote'+id) != undefined){
-            				 new Effect.Fade('concernVote'+id, {afterFinish: function(){getContextConcerns(cct.currentFilter,cct.currentPage, false); new Effect.Appear('concernVote'+id);}});
+            				 new Effect.Fade('concernVote'+id, {afterFinish: function(){getContextConcerns(cct.currentFilter,cct.currentPage, false, cct.showOnlyMyConcerns); new Effect.Appear('concernVote'+id);}});
             			}else{ //newly created concern
-            				getContextConcerns(cct.currentFilter, cct.currentPage, false); 	
+            				getContextConcerns(cct.currentFilter, cct.currentPage, false, cct.showOnlyMyConcerns); 	
             			}
 					}else{
 						alert(data.reason);
@@ -289,7 +287,7 @@ var allNewConcernTags = new Array;
 				CCTAgent.deleteConcern({concernId:concernId}, {
 				callback:function(data){	
 						if (data.successful){
-							new Effect.Puff('concern'+concernId, {afterFinish:function(){getContextConcerns(cct.currentFilter,cct.currentPage,false);}});
+							new Effect.Puff('concern'+concernId, {afterFinish:function(){getContextConcerns(cct.currentFilter,cct.currentPage,false, cct.showOnlyMyConcerns);}});
 						}else{
 							alert(data.reason);	
 						}
@@ -303,7 +301,7 @@ var allNewConcernTags = new Array;
 	}
 	
 	function changeCurrentFilter(tagRefId){
-		getContextConcerns(tagRefId, 0, true);
+		getContextConcerns(tagRefId, 0, true, cct.showOnlyMyConcerns);
 		cct.currentFilter = tagRefId;
 		if (tagRefId != ''){
 				CCTAgent.getTagByTagRefId(cct.currentFilter, {
@@ -335,7 +333,7 @@ var allNewConcernTags = new Array;
 	}
 	
 	function customFilterAction(query){
-			CCTAgent.searchTags({cctId:this.cctId,tag:query},{
+			CCTAgent.searchTags({cctId:cct.cctId,tag:query},{
 				callback:function(data){
 						if (data.successful){
 							if($(cct.divSearchResults).style.display == 'none'){
@@ -737,7 +735,7 @@ top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.do
     <div id="discussion" style="background-image: url('images/addConcern.gif'); background-repeat: no-repeat; background-position: 730px 0;">
       <div id="discussionHeader">
         <div class="sectionTitle">
-          <h3>All Participants' Concerns</h3>
+          <h3 id="discussionTitle">All Participants' Concerns</h3>
           <div id="filteredBy"></div>
           <input type="checkbox" id="myconcerns" onClick="checkMyConcerns();"/>
           Show only my concerns </div>
@@ -821,7 +819,7 @@ top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.do
   
    
   <script type="text/javascript">
-		getContextConcerns();
+		getContextConcerns('', 1, false, cct.showOnlyMyConcerns);
 		
 </script>
   </body>

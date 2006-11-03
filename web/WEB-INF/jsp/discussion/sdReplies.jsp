@@ -38,15 +38,15 @@
 					
 						<c:choose>
 								<c:when test="${baseuser.id == reply.owner.id}">
-									<div class="discussionBody box7">		
+									<div class="discussionBody box7 padding5">		
 								</c:when>
 								<c:otherwise>
-									<div class="discussionBody">
+									<div class="discussionBody padding5">
 								</c:otherwise>
 						</c:choose>
 						<div class="discussionText">
 							<div id="replyContent${reply.id}"><p>${reply.content}</p></div>
-							<h3>- ${reply.owner.loginname}</h3>
+							<div id="replyOwner${reply.id}"><h3>- ${reply.owner.loginname}</h3></div>
 						</div>
 						<div class="discussionComments">
 							 <a href="javascript:io.setQuote(${reply.id});">Quote</a>
