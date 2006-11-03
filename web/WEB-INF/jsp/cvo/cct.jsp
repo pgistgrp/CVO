@@ -719,8 +719,8 @@ top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.do
       <div id="headerTitle" class="floatLeft">
         <h3 class="headerColor">Step 1: Brainstorm Concerns</h3>
       </div>
-      <div class="headerButton box4 floatLeft currentBox"><a href=http://mail.yahoo.com/config/login?/"#">1a: Brainstorm Concerns</a></div>
-      <div class="headerButtonCurrent floatLeft"><a href=http://mail.yahoo.com/config/login?/"#">1b: Discuss Summaries</A></div>
+    <div class="headerButton box4 floatLeft"><a href="cctlist.do">1a: Brainstorm Concerns</a></div>
+    <div class="headerButtonCurrent floatLeft currentBox"><a href="sdlist.do">2b: Discuss Summaries</A></div>
       <div id="headerNext" class="box5 floatRight"><a href=http://mail.yahoo.com/config/login?/"#">Next Step</A></div>
     </div>
   </div>

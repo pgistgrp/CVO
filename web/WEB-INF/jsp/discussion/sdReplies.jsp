@@ -73,71 +73,27 @@
 </div>
 <div class="clearBoth"></div>
 	
-	<!--
-	<div id="reply${reply.id}" class="replies">
-		 <div id="replies_title" class="bluetitle">
-
-		 	<div id="voting-reply${reply.id}" class="votingDisc">
-			 	${reply.numAgree} of ${reply.numVote} participants agree with ${reply.owner.loginname} 
-
-			 	<c:choose>
-			 		<c:when test="${reply.object == null}">
-						<a href="javascript:io.setVote('reply',${reply.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
-			 			<a href="javascript:io.setVote('reply',${reply.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
-					</c:when>
-					<c:otherwise>
-						<img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/>
-					</c:otherwise>
-				</c:choose>
-
-			</div>
-		 	<span class="padding-sides"><strong style="text-transform:capitalize;">${reply.title}</strong> - <small>Posted on <fmt:formatDate value="${reply.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${reply.owner.loginname}</small></span>
-
-		 </div>
-		<div class="padding">
-		${reply.content}
-		<br />
-		
-	 <c:if test="${fn:length(reply.tags) != 0}">
-	 	<br />
-		<ul class="tagsList"><strong>tags: </strong>
-			<logic:iterate id="tag" name="reply" property="tags">
-				<li class="tagsList"><small><a href="javascript:sideBar.changeCurrentFilter(${tag.id});">${tag.name}</a></small></li>
-			</logic:iterate>
-		<small>- click on a tag to view discussions with the same tag.</small>
-	</c:if>
-		</div>
-	</div>
-	<br />-->
 </logic:iterate>
 
+		  <div class="pagination">
+		  				You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
+						<logic:equal name="setting" property="page" value="1">
+							<img src="images/btn_prev_fade.gif" alt="No Previous Pages" />
+						</logic:equal>
+						<logic:notEqual name="setting" property="page" value="1">	
+							<a href="javascript:goToPage(${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+						</logic:notEqual>
+						
+						
+						<logic:equal name="setting" property="page" value="${setting.pageSize}">
+							<img src="images/btn_next_fade.gif" alt="No Additional Pages" />
+						</logic:equal>
+						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
+							<a href="javascript:goToPage(${setting.page}+1)"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+						</logic:notEqual>
+						
 
-	
-	
-	<c:if test="${setting.pageSize > 1}">
-		<div class="pages">
-				More Pages: 
-				<c:if test="${setting.page > 1}">
-					<span class="pages_nextprev"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=${setting.page - 1}">&#171; prev page</a></span>
-				</c:if>
-				<ul>
-					<c:forEach var="i" begin="1" end="${setting.pageSize}" step="1">
-						    <c:choose>
-						      <c:when test="${setting.page == i }">
-						     		<li class="pages_current">${i}</li>
-						      </c:when>
-						      <c:otherwise>
-						      		<li><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=${i}">${i}</a></li>
-						      </c:otherwise>
-						    </c:choose>
-					</c:forEach>
-				</ul>
-								
-				<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-					<span class="pages_nextprev"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&page=${setting.page + 1}">next page &#187; </a></span>
-				</logic:notEqual>
-		</div>
-	</c:if>
+		  </div>
 
 </div>
 <a name="replyAnchor"></a>

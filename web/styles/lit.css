@@ -1,6 +1,16 @@
 /* HTML Elements */
 /* ------------- */
 		
+		blockquote
+		{
+		color:#3B4429;
+		background: #EEF7DD;
+		border: 2px solid #B4D579;
+		margin-left: 10px;
+		padding:0px 5px;
+		line-height: 10px;
+		}
+		
 		body
 		{
 		text-align:center;

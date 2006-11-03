@@ -43,7 +43,8 @@
 	theme_advanced_buttons1 : "bold, italic, bullist, numlist,undo, redo,link",
 	theme_advanced_buttons2 : "",
 	theme_advanced_buttons3 : "",
-	content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css"
+	content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css",
+	extended_valid_elements : "blockquote"
 });
 
 	
@@ -83,8 +84,12 @@
 				});
 			};
 			
-		io.getReplies = function(){
-		      SDAgent.getReplies({isid:${structure.id}, ioid:io.objectId, postid:${post.id}, page: io.currentPage, count: io.replyCount}, {
+		io.getReplies = function(tags, page, jump){
+				if(jump){
+					location.href = io.filterAnchor;
+				}
+			   io.currentPage = page;
+		      SDAgent.getReplies({isid:${structure.id}, ioid:io.objectId, postid:${post.id}, page: page, count: io.replyCount}, {
 		      callback:function(data){
 		          if (data.successful){
 		          			$(io.discussionDiv).innerHTML = data.html;         
@@ -100,6 +105,11 @@
 			tinyMCE.idCounter=0;
 			tinyMCE.execCommand('mceAddControl',false,'txtnewReply');
 		  }
+		  
+		  	function goToPage(page){
+				io.getReplies(io.currentFilter,page,true); 
+				//new Effect.Highlight('discussion-cont',{startcolor: "#D6E7EF"});
+			}
 			
 			
 		/*
@@ -119,6 +129,7 @@
 		          if (data.successful){     
 						resetNewReplyForm();
 						io.setVote('reply', data.id, 'true');	
+						location.href="#replyAnchor";
 		          }else{
 		            alert(data.reason);
 		          }
@@ -130,7 +141,9 @@
 		  }
 		
 		io.setQuote = function(replyId){
-			alert($('replyContent'+replyId).innerHTML);	
+			var currentReply = tinyMCE.getContent();
+			tinyMCE.setContent(currentReply + '<blockquote>' + $('replyContent'+replyId).innerHTML + '</blockquote><p>');
+			location.href="#replyAnchor";
 		}
 		
 		function resetNewReplyForm(){
@@ -156,9 +169,9 @@
 							if (data.successful){ 
 								var votingDiv = 'voting-'+target+id;
 								if($(votingDiv) != undefined){
-	              				 	new Effect.Fade(votingDiv, {afterFinish: function(){io.getReplies(); new Effect.Appear(votingDiv);}});
+	              				 	new Effect.Fade(votingDiv, {afterFinish: function(){io.getReplies(io.currentFilter, io.currentPage, true); new Effect.Appear(votingDiv);}});
 	              				}else{
-	              					io.getReplies();	
+	              					io.getReplies(io.currentFilter, io.currentPage, true);	
 	              				}
 							}else{
 								alert(data.reason);
@@ -174,7 +187,13 @@
 </script>
 </head>
 <body> 
-	
+  <!-- Begin the header - loaded from a separate file -->
+  <div id="header">
+	<!-- Begin header -->
+	<jsp:include page="/header.jsp" />
+	<!-- End header -->
+  </div>
+  <!-- End header -->
 	
 <!--
 <div class="backToDiscussion">
@@ -193,73 +212,15 @@
 			</div>	
 			
 -->
-	<!--
-	
-	<div id="post${post.id}">
-		 <h5>
-		 	<a href="sd.do?isid=${structure.id}">All concern themes</a> &raquo;  
-		 	<c:choose>
-		 		<c:when test="${object != null}">
-		 			<a href="sdRoom.do?isid=${structure.id}&ioid=${object.id}" style="text-transform:capitalize;">${object.object.theme.title}</a> &raquo;   
-		 		</c:when>
-		 		<c:otherwise>
-		 			<a href="sdRoom.do?isid=${structure.id}">All Concern Themes List</a> &raquo;   
-		 		</c:otherwise>
-		 	</c:choose>
-		 	<span style="text-transform:capitalize;">${post.title}</span>
-		 </h5>
-		 
-		 <div class="bluetitle">
 
-		 	<div id="voting-post${post.id}" class="votingDisc">
-			 	${post.numAgree} of ${post.numVote} participants agree with ${post.owner.loginname} 
-
-			 	<c:choose>
-			 		<c:when test="${post.object == null}">
-						<a href="javascript:setVote('post',${post.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
-			 			<a href="javascript:setVote('post',${post.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
-					</c:when>
-					<c:otherwise>
-						<img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/>
-					</c:otherwise>
-				</c:choose>
-
-			</div>
-		 	
-		 	<span class="padding-sides"><strong style="text-transform:capitalize;">${post.title}</strong> - <small>Posted on <fmt:formatDate value="${post.createTime}" pattern="MM/dd/yy, hh:mm aaa"/> by: ${post.owner.loginname}</small></span>
-
-		 </div>
-		<div class="padding">
-		${post.content}
-		
-		<c:if test="${fn:length(post.tags) != 0}">
-		<p>
-		<ul class="tagsList"><strong>Tags: </strong>
-			<c:forEach items="${post.tags}" var="tag">
-					<li class="tagsList"><a href="javascript:sideBar.changeCurrentFilter(${tag.id});">${tag.name}</a></li>
-			</c:forEach>
-		</ul>
-		<small>- click on a tag to view other discussions with the same tag.</small>
-		</p>
-		</c:if>
-		</div>
-		<div id="replyTo${post.id}" style="text-align: right;"><a href="javascript:location.href='#replyAnchor';  new Effect.Pulsate('newReply', {duration: .8, from: 0.5}); void(0);"><img src="images/btn_postreply_a.gif" alt="Post Reply" name="postreplya" width="69" height="19" class="button" id="postreplya" onMouseOver="MM_swapImage('postreplya','','images/btn_postreply_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a></div>
-	</div><!--end post-->
-
-
-<!-- Begin the header - loaded from a separate file -->
-<div id="header">
-  <p>Load separate file here</p>
-</div>
-<!-- End header -->
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 <div id="headerMenu">
   <div id="headerContainer">
     <div id="headerTitle" class="floatLeft">
       <h3 class="headerColor">Step 1: Brainstorm Concerns</h3>
     </div>
-    <div class="headerButton box4 floatLeft"><a href="#">1a: Brainstorm Concerns</a></div>
-    <div class="headerButtonCurrent floatLeft currentBox"><a href="#">2b: Discuss Summaries</A></div>
+    <div class="headerButton box4 floatLeft"><a href="cctlist.do">1a: Brainstorm Concerns</a></div>
+    <div class="headerButtonCurrent floatLeft currentBox"><a href="sdlist.do">2b: Discuss Summaries</A></div>
     <div id="headerNext" class=" floatRight box5"><a href="#">Next Step</A></div>
   </div>
 </div>
@@ -415,9 +376,13 @@
 <!-- End header menu -->
 
 <!-- end the bottom header menu -->
-
+	<!-- Begin footer -->
+	<div id="footer">
+		<jsp:include page="/footer.jsp" />
+	</div>
+	<!-- End footer -->
 <script type="text/javascript">
-	io.getReplies();
+	io.getReplies(io.currentFilter, 1, true);
 	io.getTargets();
 	</script>
 

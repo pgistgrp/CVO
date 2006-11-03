@@ -62,7 +62,7 @@
 				  <c:otherwise>
 					<img src="/images/ballooninactive2.gif" alt="No replies within the last 24 hours" /></c:otherwise>
 				  </c:choose>&nbsp;
-							<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.replies} Replies</a>
+							<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}"><h3 style="display:inline;">${post.replies} Replies</h3></a> (${post.views} views)
 						</div>
 						<c:if test="${fn:length(post.tags) > 0}">
 							<ul class="tagsInline">
