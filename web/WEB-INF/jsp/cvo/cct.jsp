@@ -796,6 +796,11 @@ top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.do
     <!-- end discussion -->
   </div>
   <!-- end container -->
+  
+<!-- start feedback form -->
+  <pg:feedback id="feedbackDiv" action="cctView.do"/>
+<!-- end feedback form -->
+
   <!-- Begin header menu - The wide ribbon underneath the logo -->
   <div id="headerMenu">
     <div id="headerContainer">
@@ -807,11 +812,14 @@ top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.do
       <div id="headerNext" class="box5 floatRight"><a href=http://mail.yahoo.com/config/login?/"#">Next Step</A></div>
     </div>
   </div>
-  <!-- End header menu -->
-  <div id="footer"> Load footer file here </div>
-  <!-- end footer -->
-  <!-- start feedback form -->
-  <pg:feedback id="feedbackDiv" action="cctView.do" />
+
+	<!-- Begin footer -->
+	<div id="footer">
+		<jsp:include page="/footer.jsp" />
+	</div>
+	<!-- End footer -->
+  
+   
   <script type="text/javascript">
 		getContextConcerns();
 		
