@@ -5,31 +5,27 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Step 1a: Brainstorm Concerns</title>
 <!-- Site Wide CSS -->
-<style type="text/css" media="screen">@import "styles/lit.css";</style>
+<style type="text/css" media="screen">
+@import "styles/lit.css";
+</style>
 <!-- End Site Wide CSS -->
-
 <!-- Site Wide JavaScript -->
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 <script src="scripts/search.js" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
-
 <!-- DWR JavaScript Libraries -->
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
 <!-- End DWR JavaScript Libraries -->
-
 <!--CCT Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
 <!--End CCT Specific  Libraries-->
-<script src="scripts/lightbox.js" type="text/javascript"></script>
-
 <script type="text/javascript">
 //START Global Variables
 var cctId = ${cctForm.cct.id};
@@ -314,7 +310,7 @@ var allNewConcernTags = new Array;
 				callback:function(data){
 				if (data.successful){
 		          			var tagName = data.tag.name;
-							$(cct.divFilteredBy).innerHTML = '<h3 style="color: red">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
+							$(cct.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
 						}else{
 							alert(data.reason);
 						}
@@ -576,7 +572,6 @@ function lightboxDisplay(show){
 
 </script>
 <style type="text/css" />
-
 .leightpadding{
 
 padding:0em 1em 1em 1em;
@@ -659,12 +654,9 @@ float:right;
 .lightbox[id]{ /* IE6 and below Can't See This */    position:fixed;    
 }#overlay[id]{ /* IE6 and below Can't See This */    position:fixed;    
 }
-
-
 </style>
-
-
 <html:html>
+  
 <style type="text/css">
 #saving-indicator{
 	display: none;
@@ -696,7 +688,7 @@ div > div#loading-indicator{
 position:fixed;
 }
 </style>
-<!--[if gte IE 5.5]><![if lt IE 7]>
+  <!--[if gte IE 5.5]><![if lt IE 7]>
 		<style type="text/css">
 #loading-indicator {
 left: expression( ( 0 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
@@ -713,109 +705,114 @@ top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.do
 }
 		</style>
 		<![endif]><![endif]-->
-</head>
-
-<body onResize = "sizeMe();">
-
-<!-- Begin the header - loaded from a separate file -->
-	<div id="header">
-		<p>Load separate file here</p>
-	</div>
-<!-- End header -->
-
-    <!-- Begin header menu - The wide ribbon underneath the logo -->
-    <div id="headerMenu">
-        <div id="headerContainer">
-            <div id="headerTitle" class="floatLeft">
-                <h3 class="headerColor">Step 1: Brainstorm Concerns</h3>
-            </div>
-            <div class="headerButton box4 floatLeft currentBox"><a href=http://mail.yahoo.com/config/login?/"#">1a: Brainstorm Concerns</a></div>
-            <div class="headerButtonCurrent floatLeft"><a href=http://mail.yahoo.com/config/login?/"#">1b: Discuss Summaries</A></div>
-            <div id="headerNext" class="box5 floatRight"><a href=http://mail.yahoo.com/config/login?/"#">Next Step</A></div>
-        </div>
+  </head><body>
+  <!-- Begin the header - loaded from a separate file -->
+  <div id="header">
+    <p>Load separate file here</p>
+  </div>
+  <!-- End header -->
+  <!-- Begin header menu - The wide ribbon underneath the logo -->
+  <div id="headerMenu">
+    <div id="headerContainer">
+      <div id="headerTitle" class="floatLeft">
+        <h3 class="headerColor">Step 1: Brainstorm Concerns</h3>
+      </div>
+      <div class="headerButton box4 floatLeft currentBox"><a href=http://mail.yahoo.com/config/login?/"#">1a: Brainstorm Concerns</a></div>
+      <div class="headerButtonCurrent floatLeft"><a href=http://mail.yahoo.com/config/login?/"#">1b: Discuss Summaries</A></div>
+      <div id="headerNext" class="box5 floatRight"><a href=http://mail.yahoo.com/config/login?/"#">Next Step</A></div>
     </div>
-    <!-- End header menu --> 
-<!-- #container is the container that wraps around all the main page content -->
-	<div id="container">
-<!-- begin "overview and instructions" area -->
-		<div id="overview" class="box2">
-			<h3>Overview and Instructions</h3>
-		<p>Before we can determine how to best improve the transportation system, we need to know what the problems are. Our first task is to brainstorm concerns about the transportation system. To help you create your concerns, the right column displays concerns from other participants. Use the buttons at the bottom of this column to view more pages of concerns, or search for particular concerns by tags.</p>
-		</div>
-<!-- end overview -->
-		<a name="filterJump"></a>
-		<div id="discussion" style="background-image: url('images/addConcern.gif'); background-repeat: no-repeat; background-position: 730px 0;">
-				<div id="discussionHeader">
-					<div class="sectionTitle">
-						<h3>All Participants' Concerns</h3>
-						<div id="filteredBy"></div>
-						<input type="checkbox" id="myconcerns" onClick="checkMyConcerns();"/>Show only my concerns
-					</div>
-					<div id="sortingMenu">
-						sort discussion by:
-						<select>
-							<option>Option</option>
-							<option>Option Option Option Option Option</option>
-							<option>Option</option>
-							<option>Option</option>
-							<option>Option</option>
-						</select>
-						<br />
-						filter discussion by:
-						<form action="javascript: customFilterAction($('txtCustomFilter').value);">
-							<input type="text" id="txtCustomFilter" onKeyDown="customFilter(this.value, event);" /> or <a href="#">Browse All Tags</a>
-						</form>
-						<div id="searchResults" style="display: none;"></div>
-					</div>
-				</div>
-
-				<div id="discussion-cont" class="floatLeft"><!-- left col -->
-
-				</div><!-- end left col -->
-				
-				<div id="colRight" class="floatLeft box6 colRight"><!-- right col -->
-					<h3>Add your own Concern</h3>
-					<fieldset>
-						<textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type your concern here.</textarea>
-					</fieldset>
-					<div id="tagNewConcern" class="box6 padding5" style="display:none;">
-						<h3>Tag your concern</h3>
-						<p>Suggested tags:</p>
-						<ul id="addConcernTagsList" class="tagsList">
-							<!-- render suggested tags here -->
-						</ul>
-						<form action="javascript: addManualTag();">
-							<input id="manualTag" type="text" value="Add your own tag!" onClick="if(this.value==this.defaultValue){this.value = ''}"/><input type="button" value="Add" onClick="addManualTag();" />
-						</form>
-						<p><small>You must have at least 2 or more tags to continue.</small></p>
-					</div>
-					<div id="btnContinueCont"><input id="btnContinue" type="button" value="continue" onClick="prepareConcern();" /></div>
-				</div><!-- end right col -->
-				<div class="clearBoth"></div>
-			</div><!-- end discussion -->
-		</div> <!-- end container -->
-    <!-- Begin header menu - The wide ribbon underneath the logo -->
-    <div id="headerMenu">
-        <div id="headerContainer">
-            <div id="headerTitle" class="floatLeft">
-                <h3 class="headerColor">Step 1: Brainstorm Concerns</h3>
-            </div>
-            <div class="headerButton box4 floatLeft currentBox"><a href=http://mail.yahoo.com/config/login?/"#">1a: Brainstorm Concerns</a></div>
-            <div class="headerButtonCurrent floatLeft"><a href=http://mail.yahoo.com/config/login?/"#">1b: Discuss Summaries</A></div>
-            <div id="headerNext" class="box5 floatRight"><a href=http://mail.yahoo.com/config/login?/"#">Next Step</A></div>
-        </div>
+  </div>
+  <!-- End header menu -->
+  <!-- #container is the container that wraps around all the main page content -->
+  <div id="container">
+    <!-- begin "overview and instructions" area -->
+    <div id="overview" class="box2">
+      <h3>Overview and Instructions</h3>
+      <p>Before we can determine how to best improve the transportation system, we need to know what the problems are. Our first task is to brainstorm concerns about the transportation system. To help you create your concerns, the right column displays concerns from other participants. Use the buttons at the bottom of this column to view more pages of concerns, or search for particular concerns by tags.</p>
     </div>
-    <!-- End header menu --> 
-		<div id="footer">
-			Load footer file here
-		</div><!-- end footer -->
-<!-- start feedback form -->
-<pg:feedback id="feedbackDiv" action="cctView.do" />
-<script type="text/javascript">
+    <!-- end overview -->
+    <a name="filterJump"></a>
+    <div id="discussion" style="background-image: url('images/addConcern.gif'); background-repeat: no-repeat; background-position: 730px 0;">
+      <div id="discussionHeader">
+        <div class="sectionTitle">
+          <h3>All Participants' Concerns</h3>
+          <div id="filteredBy"></div>
+          <input type="checkbox" id="myconcerns" onClick="checkMyConcerns();"/>
+          Show only my concerns </div>
+        
+		
+		<!-- Begin sorting menu -->
+        <div id="sortingMenu" class="box4"> sort discussion by:
+          <select>
+            <option>Option</option>
+            <option>Option Option Option Option Option</option>
+            <option>Option</option>
+            <option>Option</option>
+            <option>Option</option>
+          </select>
+          <br />
+          <div class="floatLeft">filter discussion by:</div>
+          <form action="javascript: customFilterAction($('txtCustomFilter').value);" class="floatLeft">
+            <input type="text" id="txtCustomFilter" onKeyDown="customFilter(this.value, event);" />
+            or <a href="#">Browse All Tags</a>
+          </form>
+          <div id="searchResults" style="display: none;"></div>
+        </div>
+		<!-- End sorting menu -->
+		
+		
+      </div>
+      <div id="discussion-cont" class="floatLeft">
+        <!-- left col -->
+      </div>
+      <!-- end left col -->
+      <div id="colRight" class="floatLeft box6 colRight">
+        <!-- right col -->
+        <h3>Add your own Concern</h3>
+        <fieldset>
+        <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type your concern here.</textarea>
+        </fieldset>
+        <div id="tagNewConcern" class="box6 padding5" style="display:none;">
+          <h3>Tag your concern</h3>
+          <p>Suggested tags:</p>
+          <ul id="addConcernTagsList" class="tagsList">
+            <!-- render suggested tags here -->
+          </ul>
+          <form action="javascript: addManualTag();">
+            <input id="manualTag" type="text" value="Add your own tag!" onClick="if(this.value==this.defaultValue){this.value = ''}"/>
+            <input type="button" value="Add" onClick="addManualTag();" />
+          </form>
+          <p><small>You must have at least 2 or more tags to continue.</small></p>
+        </div>
+        <div id="btnContinueCont">
+          <input id="btnContinue" type="button" value="continue" onClick="prepareConcern();" />
+        </div>
+      </div>
+      <!-- end right col -->
+      <div class="clearBoth"></div>
+    </div>
+    <!-- end discussion -->
+  </div>
+  <!-- end container -->
+  <!-- Begin header menu - The wide ribbon underneath the logo -->
+  <div id="headerMenu">
+    <div id="headerContainer">
+      <div id="headerTitle" class="floatLeft">
+        <h3 class="headerColor">Step 1: Brainstorm Concerns</h3>
+      </div>
+      <div class="headerButton box4 floatLeft currentBox"><a href=http://mail.yahoo.com/config/login?/"#">1a: Brainstorm Concerns</a></div>
+      <div class="headerButtonCurrent floatLeft"><a href=http://mail.yahoo.com/config/login?/"#">1b: Discuss Summaries</A></div>
+      <div id="headerNext" class="box5 floatRight"><a href=http://mail.yahoo.com/config/login?/"#">Next Step</A></div>
+    </div>
+  </div>
+  <!-- End header menu -->
+  <div id="footer"> Load footer file here </div>
+  <!-- end footer -->
+  <!-- start feedback form -->
+  <pg:feedback id="feedbackDiv" action="cctView.do" />
+  <script type="text/javascript">
 		getContextConcerns();
 		
 </script>
-
-
-</body>
+  </body>
 </html:html>

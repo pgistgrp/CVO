@@ -6,10 +6,13 @@
 
 <c:choose>
 	<c:when test='${fn:length(tags) != 0}'>
-		<h3>Search Results: ${fn:length(tags)} tag(s)</h3>match your query.  Click on the tag below to set a new filter.<br>
+	    <div class="closeBox floatRight clearBoth">
+			<a href="javascript:Effect.Fade('searchResults', {duration: 0.5}); void(0);"><img src="images/close1.gif" /></a>
+		</div>
+		<h3>Search Results: ${fn:length(tags)} tag(s) match your query.</h3>Click on the tag below to set a new filter.<br /><p>
 		<c:forEach items="${tags}" var="tagRef">
-			  <span class="tagSize${tagRef.fontSize}"><a href="javascript:changeCurrentFilter(${tagRef.id});">${tagRef.tag.name}</a></span>
-		</c:forEach>
+			  <span class="tagSize${tagRef.fontSize} box3" style="padding:2px;margin:2px 2px 0px 0px;"><a href="javascript:changeCurrentFilter(${tagRef.id}); setTimeout('Effect.BlindUp(\'searchResults\')',1000); void(0);">${tagRef.tag.name}</a></span>
+		</c:forEach></p>
 	</c:when>
 	<c:otherwise>
 		<span class="closeBox"><a href="javascript:Effect.Fade('sidebarSearchResults', {duration: 0.5}); void(0);">Close</a></span><p>No tag matches found! Please try a different search.</p>

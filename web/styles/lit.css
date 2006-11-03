@@ -12,12 +12,12 @@
 		background: url('images/background-main.jpg') repeat-x #FFFBFF;
 		}
 		
-		 fieldset
-		 {
-		 border: 0px;
-		 margin: 0;
-		 padding: 0;
-		 }
+	    fieldset
+		{
+		border: 0px;
+		margin: 0;
+		padding: 0;
+		}
 		
 		h2
 		{
@@ -97,6 +97,8 @@
 
 		.headerColor {color:#31496B;}
 		
+		.contrast1 {color:#FFB64A;}
+		
 /* STRUCTURAL ELEMENTS (Mostly IDs) */
 /* -------------------------------- */
 		
@@ -174,14 +176,22 @@
 		border-width:1px;
 		}
 
+		#searchResults
+		{
+		padding:10px 0px;
+		clear:both;
+		}
+		
 		#sortingMenu
 		{
 		font-weight:400;
 		font-size:.8em;
-		width:350px;
+		width:360px;
 		position:absolute;
-		right:0px;
-		bottom:0px;
+		right:-7px;
+		z-index:2000;
+		padding:5px 5px 7px 5px;
+		}
 		}
 
 		#summary
