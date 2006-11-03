@@ -708,7 +708,9 @@ top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.do
   </head><body>
   <!-- Begin the header - loaded from a separate file -->
   <div id="header">
-    <p>Load separate file here</p>
+	<!-- Begin header -->
+	<jsp:include page="/header.jsp" />
+	<!-- End header -->
   </div>
   <!-- End header -->
   <!-- Begin header menu - The wide ribbon underneath the logo -->
