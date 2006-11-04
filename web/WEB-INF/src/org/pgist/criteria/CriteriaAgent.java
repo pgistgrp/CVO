@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Collection;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.directwebremoting.WebContextFactory;
 
 
@@ -520,7 +522,7 @@ public class CriteriaAgent {
      *     <li>html- criteria formated as a HTML document</li>
      *   </ul>
      */
-    public Map getAllCriterion(Map params) {
+    public Map getAllCriterion(HttpServletRequest request, Map params) {
     	
     	Map map = new HashMap();
         map.put("successful", false);
@@ -530,7 +532,7 @@ public class CriteriaAgent {
         	map.put("criteria", criteria);
         	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteria.jsp"));
         	map.put("successful", true);
-            
+        	request.setAttribute("criteria", criteria);   
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
