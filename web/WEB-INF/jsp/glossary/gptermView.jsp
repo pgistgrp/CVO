@@ -14,11 +14,9 @@
 <script type='text/javascript' src='/dwr/interface/GlossaryManageAgent.js'></script>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">
-@import "styles/position.css";
+@import "styles/lit.css";
 </style>
-<style type="text/css" media="screen">
-@import "styles/styles.css";
-</style>
+
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 <style type="text/css">
@@ -211,20 +209,26 @@
 </script>
 </head>
 <body>
-<div id="container">
-  <!-- Header -->
-  <jsp:include page="/header.jsp" />
-  <!-- End Header -->
-  <!-- Sub Title -->
-  <div id="subheader">
-    <logic:equal name="term" property="status" value="0">
+ <!-- Begin the header - loaded from a separate file -->
+  <div id="header">
+	<!-- Begin header -->
+	<jsp:include page="/header.jsp" />
+	<!-- End header -->
+  </div>
+  <!-- End header -->
+  <!-- Begin header menu - The wide ribbon underneath the logo -->
+  <div id="headerMenu">
+
+  </div>
+  <!-- End header menu -->
+  <!-- #container is the container that wraps around all the main page content -->
+  <div id="container">
+	  <logic:equal name="term" property="status" value="0">
       <pg:show roles="admin, moderator">
-        <div style='background-color:gray; font-size:x-large;' id="modApproval"><strong>The term ${term.name} is awaiting moderator approval</strong><br />
-          <br />
-          Moderator Options:
-          <button type='button' onclick='acceptTerm(${term.id});'>Accept</button>
-           
-          <button type='button' onclick='giveReason(${term.id});'>Decline</button>
+        <div style='background-color:gray; font-size:x-large;' id="modApproval"><strong>The term ${term.name} is awaiting moderator approval</strong><br /><br />
+	          Moderator Options:
+	          <button type='button' onclick='acceptTerm(${term.id});'>Accept</button>
+	          <button type='button' onclick='giveReason(${term.id});'>Decline</button>
         </div>
         <br />
         <div style='display:none; border:thick solid #666666; font-size:large;' id='modReasondiv'>
@@ -238,21 +242,13 @@
         <br />
       </pg:show>
     </logic:equal>
-    <h1>Learn More: </h1>
-    <h2>Listing of All Glossary Terms</h2>
-  </div>
-  <div id="footprints">
-    <p>Learn More >> <a href="glossaryPublic.do">Glossary</a> >> ${term.name}</p>
-  </div>
-  <!-- End Sub Title -->
-  <!-- add if moderator options -->
-  <div id="slate"  class="blueBB" width="80%;" >
-    <div id="term-text">
-      <h1>${term.name}</h1>
-      <p></p>
-      <p>${term.shortDefinition}</p>
-      <p>${term.extDefinition}<br />
-        <pg:show roles="participant"> <a href="glossaryPublic.do">Back to All Glossary Terms</a> </pg:show>
+      <a href="glossaryPublic.do">Back to All Glossary Terms</a>
+    <h3 class="headerColor">Learn More: Listing of All Glossary Terms</h3>
+    <div id="term-text" style="margin-top: 10px;">
+      <h3>${term.name}</h3>
+      <p class="largeText">${term.shortDefinition}</p>
+      <p class="largeText">${term.extDefinition}<br />
+    
       </p>
       <p><a href="javascript:setFlag(1);"><img src="/images/icon_flag3.gif" border="0"></a>&nbsp;<a href="javascript:setFlag(1);">Flag moderator to review this term's definition and/or comments</a></p>
       <div id="commentStats" style="padding-top: 10px;">
@@ -337,10 +333,23 @@
 </div>
 <!-- Start Footer -->
 <div style="clear:both"></div>
-<jsp:include page="/footer.jsp" />
-<!-- End Footer -->
-<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
-<script type="text/javascript">
+  <!-- end container -->
+  
+<!-- start feedback form -->
+  <pg:feedback id="feedbackDiv" action="cctView.do"/>
+<!-- end feedback form -->
+
+  <!-- Begin header menu - The wide ribbon underneath the logo -->
+  <div id="headerMenu">
+
+  </div>
+
+	<!-- Begin footer -->
+	<div id="footer">
+		<jsp:include page="/footer.jsp" />
+	</div>
+	<!-- End footer -->
+	<script type="text/javascript">
 	doOnLoad();
 	
 </script>

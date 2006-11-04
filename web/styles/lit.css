@@ -44,6 +44,12 @@
 		}
 
 		img {border:0px;}
+		
+		th
+		{		
+		color:#3B4429;
+		background: #EEF7DD;
+		}
 
 /* COLORS and COLOR SCHEMES */
 /* ------------------------ */
@@ -399,6 +405,11 @@
 		.smallText
 		{
 		font-size:.8em;
+		}
+		
+		.largeText
+		{
+		font-size:1.2em;
 		}
 
 		.tagsList

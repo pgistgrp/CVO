@@ -9,8 +9,8 @@
 
 
 <!-- Site Wide CSS -->
-<style type="text/css" media="screen">@import "styles/position.css";</style>
-<style type="text/css" media="screen">@import "styles/styles.css";</style>
+
+<style type="text/css" media="screen">@import "styles/lit.css";</style>
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 
@@ -309,38 +309,33 @@ tr:hover {background-color: #F1F7FF;}
 </style>
 </head>
 <body>
-
-<div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
-<div id="container">
+ <!-- Begin the header - loaded from a separate file -->
+  <div id="header">
+	<!-- Begin header -->
 	<jsp:include page="/header.jsp" />
-	<!-- START LIGHTBOX -->
+	<!-- End header -->
+  </div>
+  <!-- End header -->
+  	<!-- START LIGHTBOX -->
 
 	<div id="overlay" style="display: none;></div>
 	<div id="lightbox" class="blueBB" style="top: 50%; height: 450px; overflow: auto;"></div>
 	<!-- END LIGHTBOX -->
+  <!-- Begin header menu - The wide ribbon underneath the logo -->
+  <div id="headerMenu">
 
-	<!-- Sub Title -->
-	<div id="subheader">
-	<h1>Learn More: </h1> <h2>Listing of All Glossary Terms</h2>
-	</div>
-	<div id="footprints">
-	<p> <a href="/main.do">Participate</A> &raquo; Glossary</p>
-	</div>
-	<!-- End Sub Title -->
-	
-	<!-- Overview SpiffyBox -->
-	<div class="cssbox">
-	<div class="cssbox_head">
-	<h3>Overview and Instructions</h3>
-	
-	</div>
-	<div class="cssbox_body">
+  </div>
+  <!-- End header menu -->
+  <!-- #container is the container that wraps around all the main page content -->
+  <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
+  <div id="container">
+  	<!-- begin "overview and instructions" area -->
+		<div id="overview" class="box2">
+			<h3>Overview and Instructions</h3>
 		<p>This glossary contains some suggested definitions for terms you may encounter when discussing transportation issues.  To search for a term, begin typing in the "Filter Glossary" box and the glossary will be searched as you type.  You can also browse alphabetically.  Click on the name of a given term to get more information about it.  If you disagree with the definition of a term, you can flag it for the moderator, or leave a comment about it on the page for that term.</p>
-	</div>
-	</div>
-	<!-- End Overview -->
-
-	<div id="slate">
+		</div>
+<!-- end overview -->
+			<div id="slate">
 		<div id="filterTerms">
 		<form id="form1" name="form1" method="post" action="">
 		  <label>Filter Glossary 
@@ -364,14 +359,6 @@ tr:hover {background-color: #F1F7FF;}
 
 </div>
 
-<!--feedback form-->
-<pg:feedback id="feedbackDiv" action="glossaryPublic.do" />
-<!--end feedback form-->
-
-<!-- Start Footer -->
-<jsp:include page="/footer.jsp" />
-
-<!-- End Footer -->
 <div id="proposeForm" style="display:none;">
 			<h2>Propose a New Term</h2>
 			<form id="proposeForm" name="proposeForm" method="post" action="" style="padding-top: 20px;">
@@ -409,13 +396,27 @@ tr:hover {background-color: #F1F7FF;}
 		  </form>
 </div>
 
-
+  </div>
+  <!-- end container -->
   
+<!-- start feedback form -->
+  <pg:feedback id="feedbackDiv" action="cctView.do"/>
+<!-- end feedback form -->
 
-<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
-<script type="text/javascript">
+  <!-- Begin header menu - The wide ribbon underneath the logo -->
+  <div id="headerMenu">
+
+  </div>
+
+	<!-- Begin footer -->
+	<div id="footer">
+		<jsp:include page="/footer.jsp" />
+	</div>
+	<!-- End footer -->
+	<script type="text/javascript">
 	doOnLoad();
 	
 </script>
 </body>
+
 </html>
