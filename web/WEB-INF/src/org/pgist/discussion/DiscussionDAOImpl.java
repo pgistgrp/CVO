@@ -112,6 +112,46 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getPosts()
     
     
+    private static final String hql_getPosts_C_1 = "select count(distinct pid) from " + DBMetaData.VIEW_DPOST_TAG_IN_TARGET + " where did=? and lower(tname)=?";
+    
+    private static final String hql_getPosts_C_2 = "select distinct pid from " + DBMetaData.VIEW_DPOST_TAG_IN_TARGET + " where did=? and lower(tname)=? order by did ## OFFSET ? LIMIT ?";
+    
+    
+    public Collection getPosts(Discussion discussion, PageSetting setting, String filter, boolean order) throws Exception {
+        String direction = order ? " asc " : " desc ";
+        
+        List list = new ArrayList();
+        
+        Connection conn = getSession().connection();
+        PreparedStatement pstmt = conn.prepareStatement(hql_getPosts_C_1.replace("##", direction));
+        
+        //get total rows number
+        pstmt.setLong(1, discussion.getId());
+        pstmt.setString(2, filter);
+        ResultSet rs = pstmt.executeQuery();
+        
+        if (!rs.next()) return list;
+        
+        int count = rs.getInt(1);
+        if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
+        setting.setRowSize(count);
+        
+        //get records
+        pstmt = conn.prepareStatement(hql_getPosts_C_2.replace("##", direction));
+        pstmt.setLong(1, discussion.getId());
+        pstmt.setString(2, filter);
+        pstmt.setInt(3, setting.getFirstRow());
+        pstmt.setInt(4, setting.getRowOfPage());
+        
+        rs = pstmt.executeQuery();
+        while (rs.next()) {
+            list.add(getPostById(rs.getLong(1)));
+        }
+        
+        return list;
+    }//getPosts()
+
+
     private static final String hql_getLastReply = "from DiscussionReply p where p.parent.id=? and p.deleted=? order by p.id desc";
     
     

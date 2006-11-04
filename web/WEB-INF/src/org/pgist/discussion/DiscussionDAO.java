@@ -32,6 +32,9 @@ public interface DiscussionDAO extends BaseDAO {
     Collection getPosts(Discussion discussion, PageSetting setting, boolean order) throws Exception;
     
     
+    Collection getPosts(Discussion discussion, PageSetting setting, String filter, boolean order) throws Exception;
+    
+    
     Collection getReplies(DiscussionPost post) throws Exception;
     
     

@@ -44,7 +44,7 @@ Zhong:
 [ok] Get sideBar items accepts TagRefId or TagId
 [ok] createPost without IOID
 [ok] YesNoVoting Object on SDAgent.getPosts();
-[ ] getPosts() - add tagging functionality
+[ok] getPosts() - add tagging functionality
 
 
 Jordan:

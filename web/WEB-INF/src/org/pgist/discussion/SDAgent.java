@@ -17,6 +17,7 @@ import org.pgist.tags.FragmentTag;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.PageSource;
+import org.pgist.util.StringUtil;
 import org.pgist.util.WebUtils;
 
 
@@ -122,6 +123,7 @@ public class SDAgent {
      *   <ul>
      *     <li>isid - int, id of a InfoStructure object</li>
      *     <li>ioid - int, id of a InfoObject object. Optional, default value is null, means the discussion is on InfoStructure object</li>
+     *     <li>filter - string, tag name as filter</li>
      *     <li>page - int, current page to get. Optional, default value is 1.</li>
      *     <li>count - int, number of posts to be displayed in a page. Optional, default value is -1, means to get all posts.</li>
      *   </ul>
@@ -185,7 +187,19 @@ public class SDAgent {
             setting.setPage((String) params.get("page"));
             setting.setRowOfPage((String) params.get("count"));
             
-            Collection posts = sdService.getPosts(structure, object, setting, false);
+            String filter = (String) params.get("filter");
+            if (filter==null) filter = "";
+            else filter = filter.trim();
+            
+            Collection posts = null;
+            
+            if ("".equals(filter)) {
+                //without filter
+                posts = sdService.getPosts(structure, object, setting, false);
+            } else {
+                //with filter
+                posts = sdService.getPosts(structure, object, setting, filter, false);
+            }
             
             request.setAttribute("structure", structure);
             request.setAttribute("object", object);

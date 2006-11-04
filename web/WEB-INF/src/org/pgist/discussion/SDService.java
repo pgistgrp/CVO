@@ -31,6 +31,9 @@ public interface SDService {
     Collection getPosts(InfoStructure structure, InfoObject infoObj, PageSetting setting, boolean order) throws Exception;
     
     
+    Collection getPosts(InfoStructure structure, InfoObject infoObj, PageSetting setting, String filter, boolean order) throws Exception;
+    
+    
     Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception;
 
 

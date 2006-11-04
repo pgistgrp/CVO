@@ -1,6 +1,5 @@
 package org.pgist.discussion;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
@@ -9,6 +8,7 @@ import org.pgist.cvo.Concern;
 import org.pgist.system.SystemDAO;
 import org.pgist.system.YesNoVoting;
 import org.pgist.tagging.Tag;
+import org.pgist.tagging.TagAnalyzer;
 import org.pgist.util.PageSetting;
 
 
@@ -22,6 +22,8 @@ public class SDServiceImpl implements SDService {
     
     private DiscussionDAO discussionDAO;
     
+    private TagAnalyzer tagAnalyzer;
+    
     private SystemDAO systemDAO;
     
     
@@ -30,6 +32,11 @@ public class SDServiceImpl implements SDService {
     }
     
     
+    public void setTagAnalyzer(TagAnalyzer tagAnalyzer) {
+        this.tagAnalyzer = tagAnalyzer;
+    }
+
+
     public void setSystemDAO(SystemDAO systemDAO) {
         this.systemDAO = systemDAO;
     }
@@ -82,10 +89,40 @@ public class SDServiceImpl implements SDService {
             discussion = infoObj.getDiscussion();
         }
         
-        if (discussion==null) return new ArrayList();
+        if (discussion==null) throw new Exception("can't find this discussion");
         
         Collection list = discussionDAO.getPosts(discussion, setting, order);
         
+        //inject related voting information
+        for (DiscussionPost post : (Collection<DiscussionPost>) list) {
+            YesNoVoting voting = systemDAO.getVoting(YesNoVoting.TYPE_DISCUSSION_POST, post.getId());
+            post.setObject(voting);
+        }//for
+        
+        return list;
+    }//getPosts()
+    
+    
+    public Collection getPosts(InfoStructure structure, InfoObject infoObj, PageSetting setting, String filter, boolean order) throws Exception {
+        Discussion discussion = null;
+        
+        if (infoObj==null) {
+            /*
+             * The discussion is on InfoStructure
+             */
+            discussion = structure.getDiscussion();
+        } else {
+            /*
+             * The discussion is on InfoObject
+             */
+            discussion = infoObj.getDiscussion();
+        }
+        
+        if (discussion==null) throw new Exception("can't find this discussion");
+        
+        Collection list = discussionDAO.getPosts(discussion, setting, filter, order);
+        
+        //inject related voting information
         for (DiscussionPost post : (Collection<DiscussionPost>) list) {
             YesNoVoting voting = systemDAO.getVoting(YesNoVoting.TYPE_DISCUSSION_POST, post.getId());
             post.setObject(voting);

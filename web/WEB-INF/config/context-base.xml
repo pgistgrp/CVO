@@ -75,6 +75,7 @@
         <property name="target">
             <bean class="org.pgist.discussion.SDServiceImpl">
                 <property name="discussionDAO" ref="discussionDAO"/>
+                <property name="tagAnalyzer" ref="tagAnalyzer"/>
                 <property name="systemDAO" ref="systemDAO"/>
             </bean>
         </property>
