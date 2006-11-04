@@ -9,7 +9,7 @@
 	
 	<div id="header-navigation">
 		<span><a href="main.do">Overview</a></span>
-		<span><a href="#">Learn More</a></span>
+		<span><a href="glossaryPublic.do">Learn More</a></span>
 		<span><a href="usercp.do">User Settings</a></span>
 		<span><a href="/logout.do">Log out</a></span>
 	</div>
