@@ -529,7 +529,7 @@ public class CriteriaAgent {
         
         try {
         	Collection criteria = criteriaService.getAllCriterion();
-        	request.setAttribute("criteria", criteria);  
+        	request.setAttribute("criterias", criteria);  
         	map.put("criteria", criteria);
         	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteria.jsp"));
         	map.put("successful", true);
