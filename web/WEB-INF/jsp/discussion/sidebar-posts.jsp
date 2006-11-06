@@ -22,10 +22,10 @@
 							<div id="voting-post${post.id}" class="discussionVoting">
 								${post.numAgree} of ${post.numVote} participants agree with this post
 							</div>
-							<span class="discussionTitle"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.title}</a> - Posted by: ${post.owner.loginname}</span>
+							<span class="discussionTitle"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${post.object.id}">${post.title}</a> - Posted by: ${post.owner.loginname} in ${post.object.object}</span>
 					</div>
-				<p>${fn:substring(post.content, 0, 150)} ... [ <a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">read more</a> ]</p>
-				<p align="right"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.replies} Replies</a>  | (${post.views} views)</p>
+				<p>${fn:substring(post.content, 0, 150)} ... [ <a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${post.object.id}">read more</a> ]</p>
+				<p align="right"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${post.object.id}">${post.replies} Replies</a>  | (${post.views} views)</p>
 			</div>
 
 		</c:forEach>

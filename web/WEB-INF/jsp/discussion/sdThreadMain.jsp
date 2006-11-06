@@ -57,7 +57,7 @@
 		io.currentFilter = '';
 		io.currentPage = 1;
 		io.replyCount = 15; //per page
-		io.contextPostCount = 5;
+		io.contextPostCount = 3;
 		
 		/*----Input ID's - these id's of input elements have changing content or gets read by the javascript ---- */
 	 	 io.newReplyTagsInput = "txtNewReplyTags"; //new post tags input box
@@ -381,7 +381,7 @@
   <!-- load discussion Replies -->
 </div>
 <div id="relatedDiscussion" style="margin-top: 20px;">
-	<h3 class="headerColor">Related Discussion Posts</h3>
+	<h3 class="headerColor">Related Posts in All Discussion Rooms</h3>
 	<div id="contextPosts" class="box8 padding5">
 		<!-- load context posts here -->
 	</div>

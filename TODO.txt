@@ -57,7 +57,7 @@ Zhong:
 	- Sort by comments number
 	- Sort by views
 [ ] - sdConcerns.do - in this action I will call sdAgent.getConcerns()
-	
+[ ] - can't access sidebar-posts from IOID
 
 John:
 
