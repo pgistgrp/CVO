@@ -1,5 +1,5 @@
 
-//////////  For Pre-Alpha Test  //////////  
+//////////  Backend for Alpha Test  //////////  
 
 Zhong:
 [ok] post.views
@@ -45,26 +45,9 @@ Zhong:
 [ok] createPost without IOID
 [ok] YesNoVoting Object on SDAgent.getPosts();
 [ok] getPosts() - add tagging functionality
-
-
-Jordan:
-[ok] bug - new discussion on entire IS
-[ok] bug - reply to discussion on entire IS
-[ok] Glossary word finder tags on Summary 
-[ok] voting on IO
-[] object.description in CCT and shown in SDC
-[ok] jump to select box
-[ok] help integrate new layout
-[ok] site-wide header and footer
-[ok] jsp:include header and footer
-[ok] "19 tags" bug
-[ok] Report Bugs form
-[ok] Fix breadcrumb links
-[ok] SDC Sidebar
-[ok] Consistent Finished Div
-[ok] Remove sorting TH Links
-[ok] cst publish redirect
-[ok] submit tagsearch on enter
+[ ] - Delete post - available to moderator
+[ ] - SDAgent.deleteReply(replyId)
+[ ] - 
 
 John:
 
@@ -75,32 +58,5 @@ John:
 [ok] main.do redirect
 [] Stopwords Issues
 
-Issac:
-[ok] Fix Lightbox on CCT
-[ok] Error Messages
-[ok] Keep line breaks in posts
-[ok] Mod Glossary
-[ok] Finish Public Glossary
-[ok] No script on inputs
-[] sorting posts on sdMain
-
-Adam:
-[ok] Temp header
-[ok] Interface for mod feedback
-[ok] "Wait for others" page
-[ok] Wordsmith CCT, SDC, CST
-[ok] Overview and Instructions for each page
-[ok] Read more page
-
-
-Misc. Front End for Future:
-[] Sidebar concern #/length
-[] GPTermview Layout
-[] When to unflag term
-[] Concerns pagination in sidebar CCT (after filter)
-[] Moderator tools layout
-[] Integrate rich textbox editor
-[] Integrate tag selector
-[] Tags can't be removed with appostrophe (suggested tags)
 
 

@@ -45,6 +45,7 @@
 								</c:otherwise>
 						</c:choose>
 						<div class="discussionText">
+							<pg:show roles="moderator"><p align="right">Moderator Options: <input type="button" onClick="deleteReply(reply.id);" value="Delete" /></p></pg:show>
 							<div id="replyContent${reply.id}"><p>${reply.content}</p></div>
 							<div id="replyOwner${reply.id}"><h3>- ${reply.owner.loginname}</h3></div>
 						</div>

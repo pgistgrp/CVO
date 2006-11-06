@@ -8,28 +8,16 @@
 
 
 
-		<!--
-		<jsp:useBean id="today" class="java.util.Date"/>
-
-		<c:set var="fmtLastPostDate"><fmt:formatDate value="${post.createTime}" pattern="yyyy/MM/dd"/></c:set>
-    	<c:set var="fmtLastReplyDate"><fmt:formatDate value="${post.lastReply.createTime}" pattern="yyyy/MM/dd"/></c:set>
-    	<c:set var="fmtToday"><fmt:formatDate value="${today}" pattern="yyyy/MM/dd"/></c:set>
-
--->
-<div id="allDiscussionRows">
-
 <c:choose>
 	<c:when test="${fn:length(posts) <= 0}">
 		<div class="box2 padding5 centerAlign"><h3 class="headerColor">There aren't any topics yet!</h3><p>Why not <a href="javascript:Effect.toggle('newDiscussion','blind',{duration: 0.2});">start the first discussion</a>?</div>
 	</c:when>
 	<c:otherwise>
-	
-		
 		
 		
 		<c:forEach var="post" items="${posts}" varStatus="loop">
 		
-			<div class="discussionRow">
+			<div id="discussion${post.id}" class="discussionRow">
 				<div class="discussion-left floatLeft">
 						<c:choose>
 								<c:when test="${baseuser.id == post.owner.id}">
@@ -64,6 +52,7 @@
 								</c:otherwise>
 						</c:choose>
 						<div class="discussionText">
+							<pg:show roles="moderator"><p align="right">Moderator Options: <input type="button" onClick="io.deletePost(${post.id});"  value="Delete"  /></p></pg:show>
 							<p>${post.content}</p>
 							<h3>- ${post.owner.loginname}</h3>
 						</div>
@@ -74,7 +63,7 @@
 				  <c:otherwise>
 					<img src="/images/ballooninactive2.gif" alt="No replies within the last 24 hours" /></c:otherwise>
 				  </c:choose>&nbsp;
-							<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.replies} Replies</h3></a>
+							<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}"><h3 style="display:inline;">${post.replies} Replies</h3></a> (${post.views} views)
 						</div>
 						<c:if test="${fn:length(post.tags) > 0}">
 							<ul class="tagsInline">
@@ -88,7 +77,7 @@
 											<li class="box8 tagsInline">
 										</c:otherwise>
 									</c:choose>
-									<a href="javascript:changeCurrentFilter(${tag.id});">${tag.name}</a></li>
+									<a href="javascript:io.getPosts(${tag.id},0,true);">${tag.name}</a></li>
 								</c:forEach>
 							</ul>
 							<div style="clear: left;"></div>
@@ -103,6 +92,25 @@
 		
 		<!-- End New Style -->
 		</c:forEach>
+		
+				  <div class="pagination discussion-left">
+				  		You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
+						<logic:equal name="setting" property="page" value="1">
+							<img src="images/btn_prev_fade.gif" alt="No Previous Pages" />
+						</logic:equal>
+						<logic:notEqual name="setting" property="page" value="1">	
+							<a href="javascript:io.goToPage(${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+						</logic:notEqual>
+						
+						
+						<logic:equal name="setting" property="page" value="${setting.pageSize}">
+							<img src="images/btn_next_fade.gif" alt="No Additional Pages" />
+						</logic:equal>
+						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
+							<a href="javascript:io.goToPage(${setting.page}+1)"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+						</logic:notEqual>
+		  			</div>
+
 
 	</c:otherwise>
 

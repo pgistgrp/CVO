@@ -103,16 +103,17 @@
 					});
 
 		};
-		/*************** Get Posts: sidebar-posts.jsp************** */
+		/*************** Get Posts: posts.jsp************** */
 		io.getPosts = function(tag, page, jump){
 				if(jump){
 					location.href = io.filterAnchor;
 				}
 				//alert("structure: " + io.structureId + " tags: " + tags + " page: " + page);
-				SDAgent.getContextPosts({isid:io.structureId, tag: tag,  type:"tagRef", page: page, count: io.postCount}, {
+				//SDAgent.getContextPosts({isid:io.structureId, tag: tag,  type:"tagRef", page: page, count: io.postCount}, {
+			    SDAgent.getPosts({isid:io.structureId,ioid:io.objectId, tag: tag, page: page, count: io.postCount}, {
 			      callback:function(data){
 			          if (data.successful){
-			          $(io.discussionDiv).innerHTML = data.source.html;
+			          $(io.discussionDiv).innerHTML = data.html;
 			          }else{
 			            alert(data.reason);
 			          }
@@ -155,6 +156,25 @@
 				}
 				});
 			};
+			
+		io.deletePost =  function(pid){
+			var destroy = confirm ("Are you sure you want to delete this concern? Note: there is no undo.")
+			if (destroy){
+					SDAgent.deletePost({pid:pid}, {
+						callback:function(data){
+								if (data.successful){
+								   		 new Effect.Puff('discussion' + pId);
+										io.getPosts();
+								}else{
+									alert(data.reason);
+								}
+							},
+						errorHandler:function(errorString, exception){ 
+								alert("create post error:" + errorString + exception);
+						}
+						});
+				}
+		};	
 			
 		/*************** Clear all discussion input boxes - triggered after a new post is created ************** */
 		io.clearNewDiscussionInputs =  function(){
