@@ -309,6 +309,7 @@
 		.leftAlign {text-align:left}
 		.rightAlign {text-align:right}
 
+  		* html .peekaboobugfix { height: 0.01%; }
 				
 /* SPECIFIC CLASSES */
 /* ------- */
@@ -432,7 +433,7 @@
 		.themeBox /* The container that discussion themes go in on sdMain */
 		{
 		width:300px;
-		height:200px;
+		height:220px;
 		overflow:hidden;
 		margin:16px;
 		margin-left:0px;

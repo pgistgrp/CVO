@@ -342,7 +342,7 @@ var allNewConcernTags = new Array;
 							
 							$(cct.divSearchResults).innerHTML = $(cct.divSearchResults).innerHTML = data.html;
 							if (data.count == 0){
-								$(cct.divSearchResults).innerHTML = '<span class="closeBox"><a href="javascript:Effect.Fade('+cct.divSearchResults+', {duration: 0.5}); void(0);">Close</a></span><p>No tag matches found! Please try a different search.</p> ';
+								$(cct.divSearchResults).innerHTML = '<a href="javascript:Effect.Fade(\''+cct.divSearchResults+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
 							}
 						}
 				},
