@@ -380,9 +380,9 @@
 <div id="discussion" style="margin-left: 135px;">
   <!-- load discussion Replies -->
 </div>
-<div id="relatedDiscussion" class="box8 padding5" style="margin-top: 20px;">
-	<h3 class="headerColor">Related Discussion</h3>
-	<div id="contextPosts">
+<div id="relatedDiscussion" style="margin-top: 20px;">
+	<h3 class="headerColor">Related Discussion Posts</h3>
+	<div id="contextPosts" class="box8 padding5">
 		<!-- load context posts here -->
 	</div>
 </div>

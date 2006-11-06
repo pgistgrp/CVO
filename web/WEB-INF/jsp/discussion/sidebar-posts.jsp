@@ -18,41 +18,19 @@
 		<c:forEach var="post" items="${posts}" varStatus="loop">
 		
 			<div id="discussion${post.id}" class="discussionRow">
-					<div class="discussionRowHeader box6">			
-						<div id="voting-post${post.id}" class="discussionVoting">
-							${post.numAgree} of ${post.numVote} participants agree with this post
-							<c:choose>
-								<c:when test="${post.object == null}">
-									<a href="javascript:infoObject.setVote('post',${post.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
-									<a href="javascript:infoObject.setVote('post',${post.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
-								</c:when>
-								<c:otherwise>
-									<img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/>
-								</c:otherwise>
-							</c:choose>
-						</div>
-						<span class="discussionTitle">
-							${post.title}
+					<div class="discussionRowHeader box4">			
+							<div id="voting-post${post.id}" class="discussionVoting">
+								${post.numAgree} of ${post.numVote} participants agree with this post
+							</div>
+							<span class="discussionTitle"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.title}</a> - Posted by: ${post.owner.loginname}</span>
 					</div>
-					
-
-					<div class="discussionBody">
-						<div class="discussionText">
-							<p>${post.content}</p>
-							<h3>- ${post.owner.loginname}</h3>
-						</div>
-						<div class="discussionComments">
-
-							<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}"><h3 style="display:inline;">${post.replies} Replies</h3></a> (${post.views} views)
-						</div>
-					</div>
+				<p>${fn:substring(post.content, 0, 150)} ... [ <a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">read more</a> ]</p>
+				<p align="right"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.replies} Replies</a>  | (${post.views} views)</p>
 			</div>
-		
-		
-		<!-- End New Style -->
+
 		</c:forEach>
 		
-				  <div class="pagination discussion-left">
+				  <div class="pagination2 padding5">
 				  		You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
 						<logic:equal name="setting" property="page" value="1">
 							<img src="images/btn_prev_fade.gif" alt="No Previous Pages" />

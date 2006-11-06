@@ -395,6 +395,12 @@
 		clear: left;
 		margin-bottom: 25px;
 		}
+		
+		.pagination2
+		{
+		border-top: 1px dashed #D6E5EE; 
+		text-align: right;
+		}
 
 		.sectionTitle
 		{

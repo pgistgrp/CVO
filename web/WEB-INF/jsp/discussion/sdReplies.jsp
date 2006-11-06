@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <div id="postReplies">
-<c:if test="${fn:length(reply.tags) != 0}">
+<c:if test="${fn:length(replies) != 0}">
 	<h4 style="text-transform:capitalize;">Replies to ${post.title}</h4>
 </c:if>
 <logic:iterate id="reply" name="replies">
@@ -80,7 +80,7 @@
 <div class="clearBoth"></div>
 	
 </logic:iterate>
-
+<c:if test="${fn:length(replies) != 0}">
 		  <div class="pagination">
 		  				You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
 						<logic:equal name="setting" property="page" value="1">
@@ -97,10 +97,8 @@
 						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
 							<a href="javascript:goToPage(${setting.page}+1)"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
-						
-
 		  </div>
-
+</c:if>
 </div>
 <a name="replyAnchor"></a>
 <div id="newReply" class="box8 padding5" style="margin-top: 10px;">
