@@ -11,7 +11,9 @@
 
 	<c:choose>
 		<c:when test="${fn:length(concerns) == 0}">
-				<p>No concerns with the current filters could be found.  Try removing a filter.</p>
+				<div class="discussion-left box8">
+					<p>No concerns with the current filters could be found.  Try removing a filter.</p>
+				</div>
 		</c:when>
 		<c:otherwise>
 			<c:forEach var="concern" items="${concerns}" varStatus="loop">

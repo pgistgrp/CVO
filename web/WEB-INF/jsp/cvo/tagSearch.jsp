@@ -15,7 +15,10 @@
 		</c:forEach></p>
 	</c:when>
 	<c:otherwise>
-		<span class="closeBox"><a href="javascript:Effect.Fade('sidebarSearchResults', {duration: 0.5}); void(0);">Close</a></span><p>No tag matches found! Please try a different search.</p>
+		 <div class="closeBox floatRight clearBoth">
+			<a href="javascript:Effect.Fade('searchResults', {duration: 0.5}); void(0);"><img src="images/close1.gif" /></a>
+		</div>
+		<p>No tag matches found! Please try a different search.</p>
 	</c:otherwise>
 </c:choose>
 
