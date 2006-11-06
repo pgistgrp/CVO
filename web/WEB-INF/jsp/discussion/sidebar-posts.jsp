@@ -10,7 +10,7 @@
 
 <c:choose>
 	<c:when test="${fn:length(posts) <= 0}">
-		<div class="box2 padding5 centerAlign"><h3 class="headerColor">There aren't any topics yet!</h3><p>Why not <a href="javascript:Effect.toggle('newDiscussion','blind',{duration: 0.2});">start the first discussion</a>?</div>
+		<div class="box4 padding5 centerAlign"><h3 class="headerColor">There aren't related discussions yet!</h3><p>Discussions are related through tags...blah blah</p></div>
 	</c:when>
 	<c:otherwise>
 		
@@ -18,15 +18,7 @@
 		<c:forEach var="post" items="${posts}" varStatus="loop">
 		
 			<div id="discussion${post.id}" class="discussionRow">
-				<div class="discussion-left floatLeft">
-						<c:choose>
-								<c:when test="${baseuser.id == post.owner.id}">
-									<div class="discussionRowHeader box6">			
-								</c:when>
-								<c:otherwise>
-									<div class="discussionRowHeader box1">
-								</c:otherwise>
-						</c:choose>
+					<div class="discussionRowHeader box6">			
 						<div id="voting-post${post.id}" class="discussionVoting">
 							${post.numAgree} of ${post.numVote} participants agree with this post
 							<c:choose>
@@ -43,49 +35,17 @@
 							${post.title}
 					</div>
 					
-						<c:choose>
-								<c:when test="${baseuser.id == post.owner.id}">
-									<div class="discussionBody box7">		
-								</c:when>
-								<c:otherwise>
-									<div class="discussionBody">
-								</c:otherwise>
-						</c:choose>
+
+					<div class="discussionBody">
 						<div class="discussionText">
 							<p>${post.content}</p>
 							<h3>- ${post.owner.loginname}</h3>
 						</div>
 						<div class="discussionComments">
-							 <c:choose>
-				  <c:when test="${fmtToday == fmtLastPostDate || fmtToday == fmtLastReplyDate }">
-					<img src="/images/balloonactive2.gif" alt="Replies within the last 24 hours" /></c:when>
-				  <c:otherwise>
-					<img src="/images/ballooninactive2.gif" alt="No replies within the last 24 hours" /></c:otherwise>
-				  </c:choose>&nbsp;
+
 							<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}"><h3 style="display:inline;">${post.replies} Replies</h3></a> (${post.views} views)
 						</div>
-						<c:if test="${fn:length(post.tags) > 0}">
-							<ul class="tagsInline">
-								<li class="tagsInline"><strong>Tags:</strong> </li>
-								<c:forEach var="tag" items="${post.tags}">
-									<c:choose>
-										<c:when test="${baseuser.id == post.owner.id}">
-											<li class="box6 tagsInline">		
-										</c:when>
-										<c:otherwise>
-											<li class="box8 tagsInline">
-										</c:otherwise>
-									</c:choose>
-									<a href="javascript:io.getPosts(${tag.id},0,true);">${tag.name}</a></li>
-								</c:forEach>
-							</ul>
-							<div style="clear: left;"></div>
-						</c:if>
 					</div>
-				</div>
-				<div class="discussion-right">
-					<img src="images/icon_people_1.gif">
-				</div>
 			</div>
 		
 		
@@ -108,7 +68,7 @@
 						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
 							<a href="javascript:io.goToPage(${setting.page}+1)"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
-		  			</div>
+		  		</div>
 
 
 	</c:otherwise>

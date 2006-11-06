@@ -49,6 +49,15 @@ Zhong:
 [ ] - SDAgent.deleteReply(replyId)
 [ ] - replies voting never becomes null (<c:when test="${reply.object == null}">)
 [ ] - post.replies (reply count) is always 0
+[ ] - sdAgent.getReplies - filter by tag (only within a single post).
+[ ] - SDAgent.getPosts sorting
+	- Sort by Time 
+	- Sort by Rank (numAgreed)
+	- Sort by number of votes
+	- Sort by comments number
+	- Sort by views
+[ ] - sdConcerns.do - in this action I will call sdAgent.getConcerns()
+	
 
 John:
 

@@ -158,7 +158,7 @@
 			};
 			
 		io.deletePost =  function(pid){
-			var destroy = confirm ("Are you sure you want to delete this concern? Note: there is no undo.")
+			var destroy = confirm ("Are you sure you want to delete this post? Note: there is no undo.")
 			if (destroy){
 					SDAgent.deletePost({pid:pid}, {
 						callback:function(data){
@@ -174,6 +174,21 @@
 						}
 						});
 				}
+		};	
+		
+		io.getSummaryConcerns =  function(){
+					SDAgent.getConcerns({isid:io.structureId, ioid: io.objectId}, {
+						callback:function(data){
+								if (data.successful){
+								   		 alert(data.source.html);										
+								}else{
+									alert(data.reason);
+								}
+							},
+						errorHandler:function(errorString, exception){ 
+								alert("delete post error:" + errorString + exception);
+						}
+						});
 		};	
 			
 		/*************** Clear all discussion input boxes - triggered after a new post is created ************** */
@@ -275,11 +290,13 @@
     </div>
     <div id="sortingMenu"> sort discussion by:
       <select>
-        <option>Option</option>
-        <option>Option Option Option Option Option</option>
-        <option>Option</option>
-        <option>Option</option>
-        <option>Option</option>
+        <option>Newest to Oldest</option>
+        <option>Oldest to Newest</option>
+        <option>Most Agreement</option>
+        <option>Least Agreement</option>
+        <option>Most Comments</option>
+        <option>Most Views</option>
+        <option>Most Votes</option>
       </select>
       <br />
       filter discussion by:

@@ -71,7 +71,7 @@
 						</c:if>
 						<pg:show roles="moderator">
 						<div class="smallText" style="text-align:right;">	
-							Moderator Options: <input type="button" onClick="deleteReply(reply.id);" value="Delete" />
+							Moderator Options: <input type="button" onClick="io.deleteReply(reply.id);" value="Delete" />
 						</div>
 						</pg:show>
 					</div>

@@ -57,6 +57,7 @@
 		io.currentFilter = '';
 		io.currentPage = 1;
 		io.replyCount = 15; //per page
+		io.contextPostCount = 5;
 		
 		/*----Input ID's - these id's of input elements have changing content or gets read by the javascript ---- */
 	 	 io.newReplyTagsInput = "txtNewReplyTags"; //new post tags input box
@@ -140,6 +141,25 @@
 		      }
 		    });
 		  }
+		  
+		  	io.deleteReply =  function(rid){
+			var destroy = confirm ("Are you sure you want to delete this reply? Note: there is no undo.")
+			if (destroy){
+					SDAgent.deleteReply({rid:rid}, {
+						callback:function(data){
+								if (data.successful){
+								   		 new Effect.Puff('reply' + rid, {afterFinish: function(){io.getReplies();}});
+										
+								}else{
+									alert(data.reason);
+								}
+							},
+						errorHandler:function(errorString, exception){ 
+								alert("delete post error:" + errorString + exception);
+						}
+						});
+				}
+		};	
 		
 		io.setQuote = function(replyId){
 			var currentReply = tinyMCE.getContent();
@@ -147,7 +167,27 @@
 			var currentReplyOwner = $('replyOwner'+replyId).innerHTML;
 			tinyMCE.setContent(currentReply + '<blockquote>' + currentReplyContent + currentReplyOwner +'</blockquote><p>');
 			location.href="#replyAnchor";
-		}
+		};
+		
+		io.getContextPosts =  function(pid){
+					if(pid != undefined){
+						var postId = pid;	
+					}else{
+						var postId = "";
+					}
+					SDAgent.getContextPosts({isid:io.structureId, pid: postId, count: io.contextPostCount}, {
+						callback:function(data){
+								if (data.successful){
+								   		 $('contextPosts').innerHTML = data.source.html;										
+								}else{
+									alert(data.reason);
+								}
+							},
+						errorHandler:function(errorString, exception){ 
+								alert("delete post error:" + errorString + exception);
+						}
+						});
+		};	
 		
 		function resetNewReplyForm(){
 			$(io.newReplyTitleInput).value = '';
@@ -340,7 +380,12 @@
 <div id="discussion" style="margin-left: 135px;">
   <!-- load discussion Replies -->
 </div>
-
+<div id="relatedDiscussion" class="box8 padding5" style="margin-top: 20px;">
+	<h3 class="headerColor">Related Discussion</h3>
+	<div id="contextPosts">
+		<!-- load context posts here -->
+	</div>
+</div>
 <!-- start feedback form -->
 <pg:feedback id="feedbackDiv" action="sdRoom.do" />
 <!-- end feedback form --><!-- end container -->
@@ -362,6 +407,7 @@
 <script type="text/javascript">
 	io.getReplies(io.currentFilter, 1, true);
 	io.getTargets();
+	io.getContextPosts(${post.id});
 	</script>
 
 
