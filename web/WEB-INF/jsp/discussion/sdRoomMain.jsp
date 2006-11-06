@@ -87,10 +87,10 @@
 								//alert("successful");
 								var votingDiv = 'voting-'+target+id;
 								if($(votingDiv) != undefined){
-	              				 	new Effect.Fade(votingDiv, {afterFinish:function(){io.getPosts(); io.getTargets(); new Effect.Appear(votingDiv); new Effect.Highlight('discussion'+id);}});
+	              				 	new Effect.Fade(votingDiv, {afterFinish:function(){io.getPosts(io.currentFilter, io.currentPage, false); io.getTargets(); new Effect.Appear(votingDiv);}});
 	              				 	
 	              				}else{
-	              					io.getPosts();	
+	              					io.getPosts(io.currentFilter, io.currentPage, false);	
 	              					io.getTargets();
 	              				}
 							}else{
@@ -163,14 +163,14 @@
 					SDAgent.deletePost({pid:pid}, {
 						callback:function(data){
 								if (data.successful){
-								   		 new Effect.Puff('discussion' + pId);
-										io.getPosts();
+								   		 new Effect.Puff('discussion' + pid, {afterFinish: function(){io.getPosts();}});
+										
 								}else{
 									alert(data.reason);
 								}
 							},
 						errorHandler:function(errorString, exception){ 
-								alert("create post error:" + errorString + exception);
+								alert("delete post error:" + errorString + exception);
 						}
 						});
 				}
@@ -246,6 +246,18 @@
 				</c:choose>
 			</script>
   <div id="object">
+  	
+  <!-- jump to other room selection menu -->
+  Jump To:
+  <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">		  
+    <option value = "${object.id}">Select a Theme</option>
+    <option value = "">All Concern Themes</option>
+   <c:forEach var="infoObject" items="${structure.infoObjects}">
+       <option value="${infoObject.id}">${infoObject.object}</option>
+    </c:forEach>	
+    </select>
+    <!-- end jump to other room selection menu -->
+    
     <h5 id = "targetTitle"></h5>
     <div id="object-content">
       <!-- load object here -->

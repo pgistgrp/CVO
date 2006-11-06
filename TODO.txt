@@ -47,7 +47,8 @@ Zhong:
 [ok] getPosts() - add tagging functionality
 [ ] - Delete post - available to moderator
 [ ] - SDAgent.deleteReply(replyId)
-[ ] - 
+[ ] - replies voting never becomes null (<c:when test="${reply.object == null}">)
+[ ] - post.replies (reply count) is always 0
 
 John:
 

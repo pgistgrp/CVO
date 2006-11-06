@@ -31,8 +31,8 @@
 							${post.numAgree} of ${post.numVote} participants agree with this post
 							<c:choose>
 								<c:when test="${post.object == null}">
-									<a href="javascript:infoObject.setVote('post',${post.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
-									<a href="javascript:infoObject.setVote('post',${post.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
+									<a href="javascript:io.setVote('post',${post.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
+									<a href="javascript:io.setVote('post',${post.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
 								</c:when>
 								<c:otherwise>
 									<img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/>
@@ -52,7 +52,6 @@
 								</c:otherwise>
 						</c:choose>
 						<div class="discussionText">
-							<pg:show roles="moderator"><p align="right">Moderator Options: <input type="button" onClick="io.deletePost(${post.id});"  value="Delete"  /></p></pg:show>
 							<p>${post.content}</p>
 							<h3>- ${post.owner.loginname}</h3>
 						</div>
@@ -82,6 +81,11 @@
 							</ul>
 							<div style="clear: left;"></div>
 						</c:if>
+						<pg:show roles="moderator">
+						<div class="smallText" style="text-align:right;">	
+							Moderator Options: <input type="button" onClick="io.deletePost(${post.id});" value="Delete" />
+						</div>
+						</pg:show>
 					</div>
 				</div>
 				<div class="discussion-right">

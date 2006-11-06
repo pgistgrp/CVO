@@ -56,7 +56,7 @@
 		io.objectId = "${object.id}";
 		io.currentFilter = '';
 		io.currentPage = 1;
-		io.replyCount = 15;
+		io.replyCount = 15; //per page
 		
 		/*----Input ID's - these id's of input elements have changing content or gets read by the javascript ---- */
 	 	 io.newReplyTagsInput = "txtNewReplyTags"; //new post tags input box
@@ -130,6 +130,7 @@
 						resetNewReplyForm();
 						io.setVote('reply', data.id, 'true');	
 						location.href="#replyAnchor";
+						
 		          }else{
 		            alert(data.reason);
 		          }
@@ -197,23 +198,6 @@
   </div>
   <!-- End header -->
 	
-<!--
-<div class="backToDiscussion">
-			<div id="tselector">>
-			  <label>
-			  Jump To:
-			  <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">		  
-			    <option value = "${object.id}">Select a Theme</option>
-			    <option value = "">All Concern Themes</option>
-			   <c:forEach var="infoObject" items="${structure.infoObjects}">
-			       <option value="${infoObject.id}">${infoObject.object}</option>
-			    </c:forEach>	
-		      </select>
-			  </label>
-			<!--  </form> 
-			</div>	
-			
--->
 
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 	<jsp:include page="sdcHeader.jsp" />
@@ -230,6 +214,16 @@
 				</c:choose>
 			</script>
   <div id="object">
+  	  <!-- jump to other room selection menu -->
+	  Jump To:
+	  <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">		  
+	    <option value = "${object.id}">Select a Theme</option>
+	    <option value = "">All Concern Themes</option>
+	   <c:forEach var="infoObject" items="${structure.infoObjects}">
+	       <option value="${infoObject.id}">${infoObject.object}</option>
+	    </c:forEach>	
+	    </select>
+    <!-- end jump to other room selection menu -->
     <h5 id = "targetTitle"></h5>
     <div id="object-content">
       <!-- load object here -->
@@ -242,7 +236,7 @@
 			discussion area, and the sorting menu -->
   <div id="discussionHeader">
     <div class="sectionTitle">
-      <h3 class="headerColor">${object.discussion.numPosts} Discussion about ${post.title}</h3>
+      <h3 class="headerColor">Discussion about ${post.title}</h3>
     </div>
     <div id="sortingMenu"> sort discussion by:
       <select>
