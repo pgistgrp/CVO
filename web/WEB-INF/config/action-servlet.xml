@@ -114,6 +114,11 @@
     </bean>
     
     
+    <bean name="/sdConcerns" class="org.pgist.discussion.SDConcernsAction">
+        <property name="sdService" ref="sdService"/>
+    </bean>
+    
+    
     <bean name="/sdcview" class="org.pgist.cvo.SDCViewAction">
         <property name="cctService" ref="cctService"/>
     </bean>

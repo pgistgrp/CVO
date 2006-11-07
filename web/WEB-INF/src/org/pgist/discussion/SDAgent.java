@@ -17,7 +17,6 @@ import org.pgist.tags.FragmentTag;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.PageSource;
-import org.pgist.util.StringUtil;
 import org.pgist.util.WebUtils;
 
 
@@ -845,6 +844,8 @@ public class SDAgent {
                 }
             } else {
                 InfoStructure structure = sdService.getInfoStructureById(isid);
+                
+                request.setAttribute("structure", structure);
                 
                 YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_INFO_STRUCTURE, isid);
                 if (voting!=null) {

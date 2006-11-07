@@ -107,6 +107,10 @@
             <forward name="main" path="/WEB-INF/jsp/discussion/sdThreadMain.jsp"/>
         </action>
         
+        <action path="/sdConcerns" scope="request" type="org.pgist.discussion.SDConcernsAction">
+            <forward name="main" path="/WEB-INF/jsp/discussion/sdConcerns.jsp"/>
+        </action>
+        
         <action name="cctForm" path="/sdclist" scope="request" type="org.pgist.cvo.SDCListAction">
             <forward name="list" path="/WEB-INF/jsp/cvo/sdclist.jsp" />
         </action>
