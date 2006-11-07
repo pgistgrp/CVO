@@ -126,6 +126,8 @@
 		width: 280px;
 		}
 
+		#breadCrumbs {margin-bottom:2em;}
+
 		#container
 		{
 		width:950px;

@@ -51,11 +51,11 @@
 									<div class="discussionBody">
 								</c:otherwise>
 						</c:choose>
-						<div class="discussionText">
+						<div class="discussionText peekaboobugfix">
 							<p>${post.content}</p>
 							<h3>- ${post.owner.loginname}</h3>
 						</div>
-						<div class="discussionComments">
+						<div class="discussionComments peekaboobugfix">
 							 <c:choose>
 				  <c:when test="${fmtToday == fmtLastPostDate || fmtToday == fmtLastReplyDate }">
 					<img src="/images/balloonactive2.gif" alt="Replies within the last 24 hours" /></c:when>

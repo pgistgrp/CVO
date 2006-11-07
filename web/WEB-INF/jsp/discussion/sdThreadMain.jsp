@@ -243,18 +243,15 @@
 	<jsp:include page="sdcHeader.jsp" />
 <!-- End header menu -->
 <div id="container">
-  <script type="text/javascript">
-				<c:choose>
-				<c:when test="${object.id==null}">
-				document.write("<h3 class=\"headerColor\">Summarization of Participant Concerns</h3>");
-				</c:when>
-				<c:otherwise>
-				document.write("<h3 class=\"headerColor\">Summarization of Participant Concerns about ${object.object}</h3>");
-				</c:otherwise>
-				</c:choose>
-			</script>
-  <div id="object">
-  	  <!-- jump to other room selection menu -->
+
+<!-- Begin Breadcrumbs -->
+	<div id="breadCrumbs" class="floatLeft">
+		<a href="#">Choose a Theme</a> &rarr; <a href="#">Current Theme</a> &rarr; "The current topic title"
+	</div>
+<!-- End Breadcrumbs -->
+
+<!-- jump to other room selection menu -->
+	<div class="floatRight">
 	  Jump To:
 	  <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">		  
 	    <option value = "${object.id}">Select a Theme</option>
@@ -263,7 +260,21 @@
 	       <option value="${infoObject.id}">${infoObject.object}</option>
 	    </c:forEach>	
 	    </select>
-    <!-- end jump to other room selection menu -->
+	</div>
+<!-- end jump to other room selection menu -->
+
+  <script type="text/javascript">
+				<c:choose>
+				<c:when test="${object.id==null}">
+				document.write("<h3 class=\"headerColor clearBoth\">Summarization of Participant Concerns</h3>");
+				</c:when>
+				<c:otherwise>
+				document.write("<h3 class=\"headerColor clearBoth\">Summarization of Participant Concerns about ${object.object}</h3>");
+				</c:otherwise>
+				</c:choose>
+			</script>
+  <div id="object">
+
     <h5 id = "targetTitle"></h5>
     <div id="object-content">
       <!-- load object here -->
@@ -278,7 +289,9 @@
     <div class="sectionTitle">
       <h3 class="headerColor">Discussion about ${post.title}</h3>
     </div>
-    <div id="sortingMenu"> sort discussion by:
+	
+	
+    <div id="sortingMenu" class="box4" style="right:-270px;"> sort discussion by:
       <select>
         <option>Option</option>
         <option>Option Option Option Option Option</option>

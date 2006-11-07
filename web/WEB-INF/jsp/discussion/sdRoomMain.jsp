@@ -5,7 +5,8 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en"><head>
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<head>
 <title>Step 1b: Discuss Summaries - Rooms</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">
@@ -238,41 +239,42 @@
 		</script>
 </head>
 <body>
-  <!-- Begin the header - loaded from a separate file -->
-  <div id="header">
-	<!-- Begin header -->
-	<jsp:include page="/header.jsp" />
-	<!-- End header -->
-  </div>
+<!-- Begin the header - loaded from a separate file -->
+<div id="header">
+  <!-- Begin header -->
+  <jsp:include page="/header.jsp" />
   <!-- End header -->
-
+</div>
+<!-- End header -->
 <!-- Begin header menu - The wide ribbon underneath the logo -->
-	<jsp:include page="sdcHeader.jsp" />
+<jsp:include page="sdcHeader.jsp" />
 <!-- End header menu -->
 <div id="container">
+  <!-- Begin Breadcrumbs -->
+  <div id="breadCrumbs" class="floatLeft"> <a href="#">Choose a Theme</a> &rarr; Current Theme </div>
+  <!-- End Breadcrumbs -->
+  <!-- jump to other room selection menu -->
+  <div class="floatRight"> Jump To:
+    <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">
+      <option value = "${object.id}">Select a Theme</option>
+      <option value = "">All Concern Themes</option>
+      <c:forEach var="infoObject" items="${structure.infoObjects}">
+        <option value="${infoObject.id}">${infoObject.object}</option>
+      </c:forEach>
+    </select>
+  </div>
+  <!-- end jump to other room selection menu -->
   <script type="text/javascript">
 				<c:choose>
 				<c:when test="${object.id==null}">
-				document.write("<h3 class=\"headerColor\">Summarization of Participant Concerns</h3>");
+				document.write("<h3 class=\"headerColor clearBoth\">Summarization of Participant Concerns</h3>");
 				</c:when>
 				<c:otherwise>
-				document.write("<h3 class=\"headerColor\">Summarization of Participant Concerns about ${object.object}</h3>");
+				document.write("<h3 class=\"headerColor clearBoth\">Summarization of Participant Concerns about ${object.object}</h3>");
 				</c:otherwise>
 				</c:choose>
 			</script>
   <div id="object">
-  	
-  <!-- jump to other room selection menu -->
-  Jump To:
-  <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">		  
-    <option value = "${object.id}">Select a Theme</option>
-    <option value = "">All Concern Themes</option>
-   <c:forEach var="infoObject" items="${structure.infoObjects}">
-       <option value="${infoObject.id}">${infoObject.object}</option>
-    </c:forEach>	
-    </select>
-    <!-- end jump to other room selection menu -->
-    
     <h5 id = "targetTitle"></h5>
     <div id="object-content">
       <!-- load object here -->
@@ -280,15 +282,24 @@
     <!--end object content -->
   </div>
   <!-- end object -->
-  <div class="clearBoth"></div><a name="filterJump"></a>
+  <div class="clearBoth"></div>
+  <a name="filterJump"></a>
   <!-- The discussionHeader sits on top of the discussion and contains the title of the
 			discussion area, and the sorting menu -->
+  
   <div id="discussionHeader">
     <div class="sectionTitle">
       <h3 class="headerColor">${object.discussion.numPosts} Discussion(s) about ${object.object}</h3>
       <div class="button smallText box5 floatLeft"> <a href="javascript:Effect.toggle('newDiscussion','slide',{duration:1.5});">Start a New Topic</a></div>
     </div>
-    <div id="sortingMenu"> sort discussion by:
+
+<!--[if IE]>
+	<style type="text/css">
+	#sortingMenu {right:0px;}
+	</style>
+<![endif]-->
+
+    <div id="sortingMenu" class="box4"> sort discussion by:
       <select>
         <option>Newest to Oldest</option>
         <option>Oldest to Newest</option>
@@ -302,43 +313,54 @@
       filter discussion by:
       <input type="text">
       or <a href="#">Browse All Tags</A> </div>
-</div>
-<!-- Begin Discussion Area -->
-				<!-- Begin hidden "New topic" DIV -->
-				<div style="width:680px;">
-				<div id="newDiscussion" style="display: none">
-					<div id="newdisc_title" >
-						<div class="textright">
-						</div>
-						<h3 style="display: inline">New Topic</h3>
-					</div> <!-- End newdisc_title -->
-					<div id="newdisc_content" class="greenBB">
-						<div id="newdisc_inner">
-							<form>
-								<p><label>Post Title</label><br><input maxlength=100 size=100 type="text" id="txtNewPostTitle"/></p>
-								<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea></p>
-								<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="txtNewPostTags" type="text" /></p>
-								<input type="button" onClick="io.createPost();" value="Create Discussion">
-							</form>
-						</div>
-					</div>
-				</div>
-				</div>
-					<!-- End hidden "new topic" DIV -->	
-					
-<div id="discussion">
-  <!-- load discussion posts -->
-</div>
-
-<!-- start feedback form -->
-<pg:feedback id="feedbackDiv" action="sdRoom.do" />
-<!-- end feedback form --><!-- end container -->
-
-
-<!-- Start Footer -->
-<!-- End Footer -->
-<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
-<script type="text/javascript">
+  </div>
+  
+  
+  <!-- Begin Discussion Area -->
+  <!-- Begin hidden "New topic" DIV -->
+  <div style="width:680px;">
+    <div id="newDiscussion" style="display: none">
+      <div id="newdisc_title" >
+        <div class="textright"> </div>
+        <h3 style="display: inline">New Topic</h3>
+      </div>
+      <!-- End newdisc_title -->
+      <div id="newdisc_content" class="greenBB">
+        <div id="newdisc_inner">
+          <form>
+            <p>
+              <label>Post Title</label>
+              <br>
+              <input maxlength=100 size=100 type="text" id="txtNewPostTitle"/>
+            </p>
+            <p>
+              <label>Your Thoughts</label>
+              <br>
+              <textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea>
+            </p>
+            <p>
+              <label>Tag your post (comma separated)</label>
+              <br>
+              <input style="width:100%" id="txtNewPostTags" type="text" />
+            </p>
+            <input type="button" onClick="io.createPost();" value="Create Discussion">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End hidden "new topic" DIV -->
+  <div id="discussion">
+    <!-- load discussion posts -->
+  </div>
+  <!-- start feedback form -->
+  <pg:feedback id="feedbackDiv" action="sdRoom.do" />
+  <!-- end feedback form -->
+  <!-- end container -->
+  <!-- Start Footer -->
+  <!-- End Footer -->
+  <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
+  <script type="text/javascript">
 			io.getPosts();
 			//infoObject.assignTargetHeaders();
 			io.getTargets();
@@ -347,16 +369,13 @@
 		</script>
 </div>
 <!-- start the bottom header menu -->
-
 <!-- Begin header menu - The wide ribbon underneath the logo -->
-	<jsp:include page="sdcHeader.jsp" />
+<jsp:include page="sdcHeader.jsp" />
 <!-- End header menu -->
-
 <!-- end the bottom header menu -->
-	<!-- Begin footer -->
-	<div id="footer">
-		<jsp:include page="/footer.jsp" />
-	</div>
-	<!-- End footer -->
+<!-- Begin footer -->
+<div id="footer">
+  <jsp:include page="/footer.jsp" />
+</div>
+<!-- End footer -->
 </body>
-
