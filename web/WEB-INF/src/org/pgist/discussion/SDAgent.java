@@ -827,6 +827,7 @@ public class SDAgent {
                 
                 if (type==null || "".equals(type) || "asHTML".equals(type)) {
                     request.setAttribute("infoObject", infoObject);
+                    request.setAttribute("structure", infoObject.getStructure());
                     
                     PageSource source = new PageSource();
                     map.put("source", source);

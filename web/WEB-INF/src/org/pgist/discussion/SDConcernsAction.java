@@ -37,22 +37,38 @@ public class SDConcernsAction extends Action {
         request.setAttribute("ioid", ioidStr);
         request.setAttribute("isid", isidStr);
         
-        Long isid = new Long(isidStr);
+        Long isid = null;
+        Long ioid = null;
         
-        InfoStructure structure = sdService.getInfoStructureById(isid);
-        if (structure==null) {
-            return mapping.findForward("error");
+        try {
+            isid = new Long(isidStr);
+        } catch (Exception e) {
         }
         
-        request.setAttribute("structure", structure);
-        
-        Long ioid = null;
         try {
             ioid = new Long(ioidStr);
-            
-            InfoObject object = sdService.getInfoObjectById(ioid);
-            request.setAttribute("object", structure);
         } catch (Exception e) {
+        }
+        
+        if (ioid!=null) {
+            InfoObject object = sdService.getInfoObjectById(ioid);
+            
+            if (object==null) {
+                return mapping.findForward("error");
+            } else {
+                request.setAttribute("infoObject", object);
+                request.setAttribute("structure", object.getStructure());
+            }
+        } else if (isid!=null) {
+            InfoStructure structure = sdService.getInfoStructureById(isid);
+            
+            if (structure==null) {
+                return mapping.findForward("error");
+            } else {
+                request.setAttribute("structure", structure);
+            }
+        } else {
+            return mapping.findForward("error");
         }
         
         return mapping.findForward("main");
