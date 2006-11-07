@@ -47,7 +47,7 @@
 				</c:forEach>
 			</ul>
 			<div style="clear: left;"></div>
-			<p align="right"><a href="sdConcerns.do?ioid=${infoObject.id}&isid=${infoStructure.id}">View all Concerns for this Summary</a></p>
+			<p align="right"><a href="sdConcerns.do?ioid=${infoObject.id}&isid=${structure.id}">View all Concerns for this Summary</a></p>
 		</div>
   <!-- end summary -->
   

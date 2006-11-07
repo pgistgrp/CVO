@@ -57,12 +57,9 @@ Zhong:
         <5>Most Comments
         <6>Most Views
         <7>Most Votes
-[ ] - sdConcerns.do - in this action I will call sdAgent.getConcerns()
-[ ] - can't access sidebar-posts from IOID
-[ ] - Count of unique users per post
+[ ] - Count of unique users per post - calculate on createPost()
 
 John:
-
 [ok] css for new design
 [ok] integrate new layout
 [ok] Registration redirect (if successful, redirect to succcess page or main page, if not, display message)
