@@ -24,8 +24,8 @@
 							${reply.numAgree} of ${reply.numVote} participants agree with this post
 							<c:choose>
 								<c:when test="${reply.object == null}">
-									<a href="javascript:io.setVote('post',${reply.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
-									<a href="javascript:io.setVote('post',${reply.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
+									<a href="javascript:io.setVote('reply',${reply.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
+									<a href="javascript:io.setVote('reply',${reply.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
 								</c:when>
 								<c:otherwise>
 									<img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/>

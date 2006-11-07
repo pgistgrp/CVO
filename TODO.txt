@@ -47,17 +47,19 @@ Zhong:
 [ok] getPosts() - add tagging functionality
 [ ] - Delete post - available to moderator
 [ ] - SDAgent.deleteReply(replyId)
-[ ] - replies voting never becomes null (<c:when test="${reply.object == null}">)
 [ ] - post.replies (reply count) is always 0
 [ ] - sdAgent.getReplies - filter by tag (only within a single post).
 [ ] - SDAgent.getPosts sorting
-	- Sort by Time 
-	- Sort by Rank (numAgreed)
-	- Sort by number of votes
-	- Sort by comments number
-	- Sort by views
+        <1>Newest to Oldest
+        <2>Oldest to Newest
+        <3>Most Agreement
+        <4>Least Agreement
+        <5>Most Comments
+        <6>Most Views
+        <7>Most Votes
 [ ] - sdConcerns.do - in this action I will call sdAgent.getConcerns()
 [ ] - can't access sidebar-posts from IOID
+[ ] - Count of unique users per post
 
 John:
 
