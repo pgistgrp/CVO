@@ -228,9 +228,6 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//createPost()
     
     
-    private static final String hql_createReply_1 = "update DiscussionPost set replies=replies+1 where id=?";
-    
-    
     public DiscussionReply createReply(DiscussionPost post, String title, String content, String[] tags, boolean emailNotify) throws Exception {
         DiscussionReply reply = new DiscussionReply();
         
@@ -245,15 +242,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         setPostTags(reply, tags);
         
-        /*
-         * count the replies
-         */
-        getSession().createQuery(hql_createReply_1).setLong(0, post.getId()).executeUpdate();
-        
         save(reply);
-        
-        post.setLastReply(reply);
-        post.setReplyTime(reply.getCreateTime());
         
         return reply;
     }//createReply()
@@ -273,21 +262,19 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     public void deleteDiscussion(Discussion discussion) throws Exception {
         discussion.setDeleted(true);
         save(discussion);
-        
-        /*
-         * TODO: Do we still allow participants to delete their posts?
-         */
     }//deleteDiscussion()
 
 
     public void deletePost(DiscussionPost post) throws Exception {
         post.setDeleted(true);
         save(post);
-        
-        /*
-         * TODO: Do we still allow participants to delete their posts?
-         */
     }//deletePost()
+
+
+    public void deleteReply(DiscussionReply reply) throws Exception {
+        reply.setDeleted(true);
+        save(reply);
+    }//deleteReply()
 
 
     private static final String hql_getInfoStructures = "from InfoStructure";
@@ -306,6 +293,39 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         query.setLong(0, discussion.getId());
         query.executeUpdate();
     }//increaseDiscussions()
+
+
+    private static final String hql_decreaseDiscussions = "update Discussion set numPosts=numPosts-1 where id=?";
+    
+    
+    public void decreaseDiscussions(Discussion discussion) throws Exception {
+        Query query = getSession().createQuery(hql_decreaseDiscussions);
+        query.setLong(0, discussion.getId());
+        query.executeUpdate();
+    }//decreaseDiscussions()
+
+
+    private static final String sql_increaseReplies = "update pgist_discussion_post set replies=replies+1 where id=?";
+    
+    
+    public void increaseReplies(DiscussionPost post) throws Exception {
+        Connection conn = getSession().connection();
+        PreparedStatement pstmt = conn.prepareStatement(sql_increaseReplies);
+        pstmt.setLong(1, post.getId());
+        pstmt.executeUpdate();
+        getSession().flush();
+    }//increaseReplies()
+
+
+    private static final String sql_decreaseReplies = "update pgist_discussion_post set replies=replies-1 where id=?";
+    
+    
+    public void decreaseReplies(DiscussionPost post) throws Exception {
+        Connection conn = getSession().connection();
+        PreparedStatement pstmt = conn.prepareStatement(sql_decreaseReplies);
+        pstmt.setLong(1, post.getId());
+        pstmt.executeUpdate();
+    }//decreaseReplies()
 
 
     private static final String hql_increaseViews = "update DiscussionPost set views=views+1 where id=?";

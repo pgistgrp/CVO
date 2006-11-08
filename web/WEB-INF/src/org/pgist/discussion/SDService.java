@@ -28,6 +28,9 @@ public interface SDService {
     DiscussionPost getPostById(Long postid) throws Exception;
 
 
+    DiscussionReply getReplyById(Long rid) throws Exception;
+
+
     Collection getPosts(InfoStructure structure, InfoObject infoObj, PageSetting setting, boolean order) throws Exception;
     
     
@@ -43,10 +46,13 @@ public interface SDService {
     DiscussionPost createPost(InfoObject object, String title, String content, String[] tags, boolean emailNotify) throws Exception;
     
     
-    DiscussionReply createReply(DiscussionPost parent, String title, String content, String[] tags, boolean emailNotify) throws Exception;
+    DiscussionReply createReply(Long parentId, String title, String content, String[] tags, boolean emailNotify) throws Exception;
 
 
     void deletePost(DiscussionPost post) throws Exception;
+
+
+    void deleteReply(DiscussionReply reply) throws Exception;
 
 
     void editPost(DiscussionPost post, String title, String content, String[] tags) throws Exception;
@@ -94,7 +100,7 @@ public interface SDService {
     boolean setVoting(int targetType, Long targetId, boolean agree) throws Exception;
     
     
-    Set getEmailUsers(DiscussionPost parent, DiscussionReply reply) throws Exception;
+    Set getEmailUsers(DiscussionReply reply) throws Exception;
 
 
     //temp

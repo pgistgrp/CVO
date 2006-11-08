@@ -518,7 +518,6 @@ public class SDAgent {
      *   <ul>
      *     <li>isid - int, id of a InfoStructure object</li>
      *     <li>pid - int, id of the parent DiscussionPost object</li>
-     *     <li>qid - int, id of the quoted DiscussionPost object. Optional, default is null, means no quote.</li>
      *     <li>title - string, title of the post. Optional.</li>
      *     <li>content - string, content of the post</li>
      *     <li>tags - string, comma separated tag names. Optional.</li>
@@ -553,10 +552,6 @@ public class SDAgent {
         InfoStructure structure = null;
         
         Long pid = null;
-        DiscussionPost parent = null;
-        
-        Long qid = null;
-        DiscussionPost quote = null;
         
         try {
             isid = new Long((String) params.get("isid"));
@@ -577,23 +572,9 @@ public class SDAgent {
                 return map;
             }
             
-            parent = sdService.getPostById(pid);
-            if (parent==null) {
-                map.put("reason", "no such DiscussionPost object");
-                return map;
-            }
-            
-            try {
-                qid = new Long((String) params.get("qid"));
-                if (qid!=null) {
-                    quote = sdService.getPostById(qid);
-                }
-            } catch (Exception ex) {
-            }
-            
             String emailNotify = (String) params.get("ioid");
             
-            DiscussionReply reply = sdService.createReply(parent, title, content, tags, "true".equals(emailNotify));
+            DiscussionReply reply = sdService.createReply(pid, title, content, tags, "true".equals(emailNotify));
             
             map.put("id", reply.getId());
             map.put("successful", true);
@@ -603,7 +584,7 @@ public class SDAgent {
                 Map values = new HashMap();
                 values.put("reply", reply);
                 
-                Set set = sdService.getEmailUsers(parent, reply);
+                Set set = sdService.getEmailUsers(reply);
                 
                 for (User user : (Set<User>) set) {
                     values.put("user", user);
@@ -625,7 +606,7 @@ public class SDAgent {
     
     
     /**
-     * Delete the given DiscussionPost object.
+     * Delete the given DiscussionPost object. Only used by moderator.
      * 
      * @param params A map contains:
      *   <ul>
@@ -673,6 +654,58 @@ public class SDAgent {
         
         return map;
     }//deletePost()
+    
+    
+    /**
+     * Delete the given DiscussionReply object. Only used by moderator.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>rid - int, id of the DiscussionReply object</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map deleteReply(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long rid = null;
+        DiscussionReply reply = null;
+        
+        try {
+            rid = new Long((String) params.get("rid"));
+            if (rid==null) {
+                map.put("reason", "no such DiscussionReply object");
+                return map;
+            }
+            
+            reply = sdService.getReplyById(rid);
+            if (reply==null) {
+                map.put("reason", "no such DiscussionPost object");
+                return map;
+            }
+            
+            //check if it's moderator, TODO
+            if (reply.getOwner().getId().equals(WebUtils.currentUserId())) {
+                sdService.deleteReply(reply);
+            } else {
+                map.put("reason", "You are not the owner of this Discussion Post");
+                return map;
+            }
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//deleteReply()
     
     
     /**

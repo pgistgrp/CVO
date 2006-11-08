@@ -1,6 +1,7 @@
 package org.pgist.discussion;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Set;
 
 import org.pgist.cvo.CategoryReference;
@@ -60,8 +61,19 @@ public class SDServiceImpl implements SDService {
     public DiscussionPost getPostById(Long postid) throws Exception {
         DiscussionPost post = discussionDAO.getPostById(postid);
         
+        if (post.isDeleted()) return null;
+        
         return post;
     }//getPostById()
+
+
+    public DiscussionReply getReplyById(Long rid) throws Exception {
+        DiscussionReply reply = discussionDAO.getReplyById(rid);
+        
+        if (reply.isDeleted()) return null;
+        
+        return reply;
+    }//getReplyById()
 
 
     public Discussion getDiscussionById(Long did) throws Exception {
@@ -201,21 +213,62 @@ public class SDServiceImpl implements SDService {
     }//createPost()
 
 
-    public DiscussionReply createReply(DiscussionPost parent, String title, String content, String[] tags, boolean emailNotify) throws Exception {
-        Discussion discussion = parent.getDiscussion();
+    public DiscussionReply createReply(Long parentId, String title, String content, String[] tags, boolean emailNotify) throws Exception {
+        DiscussionPost parent = discussionDAO.getPostById(parentId);
+        
+        if (parent==null) throw new Exception("no such DiscussionPost object");
         
         /*
-         * record the last post
+         * increase the reply count of the post
          */
+        discussionDAO.increaseReplies(parent);
+        
+        /*
+         * create reply
+         */
+        DiscussionReply reply = discussionDAO.createReply(parent, title, content, tags, emailNotify);
+        
+        /*
+         * set the last reply on post
+         */
+        parent.setLastReply(reply);
+        
+        /*
+         * set the last reply time to post
+         */
+        parent.setReplyTime(reply.getCreateTime());
+        
+        discussionDAO.save(parent);
+        
+        /*
+         * set the last post to disussion
+         */
+        Discussion discussion = parent.getDiscussion();
         discussion.setLastPost(parent);
         
-        return discussionDAO.createReply(parent, title, content, tags, emailNotify);
+        discussionDAO.save(discussion);
+        
+        return reply;
     }//createReply()
 
 
     public void deletePost(DiscussionPost post) throws Exception {
+        Discussion discussion = post.getDiscussion();
+        
+        discussionDAO.decreaseDiscussions(discussion);
+        
         discussionDAO.deletePost(post);
     }//deletePost()
+
+
+    public void deleteReply(DiscussionReply reply) throws Exception {
+        DiscussionPost post = reply.getParent();
+        Discussion discussion = post.getDiscussion();
+        
+        discussionDAO.decreaseReplies(post);
+        
+        discussionDAO.deleteReply(reply);
+    }//deleteReply()
 
 
     public void editPost(DiscussionPost post, String title, String content, String[] tags) throws Exception {
@@ -341,8 +394,8 @@ public class SDServiceImpl implements SDService {
     }//getDiscussionReplyById()
 
 
-    public Set getEmailUsers(DiscussionPost parent, DiscussionReply reply) throws Exception {
-        return discussionDAO.getEmailUsers(parent, reply);
+    public Set getEmailUsers(DiscussionReply reply) throws Exception {
+        return discussionDAO.getEmailUsers(reply.getParent(), reply);
     }//getEmailUsers()
 
 

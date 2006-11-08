@@ -45,9 +45,10 @@ Zhong:
 [ok] createPost without IOID
 [ok] YesNoVoting Object on SDAgent.getPosts();
 [ok] getPosts() - add tagging functionality
-[ ] - Delete post - available to moderator
-[ ] - SDAgent.deleteReply(replyId)
-[ ] - post.replies (reply count) is always 0
+
+[ok] - Delete post - available to moderator
+[ok] - SDAgent.deleteReply(replyId)
+[ok] - post.replies (reply count) is always 0
 [ ] - sdAgent.getReplies - filter by tag (only within a single post).
 [ ] - SDAgent.getPosts sorting
         <1>Newest to Oldest

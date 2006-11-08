@@ -56,7 +56,19 @@ public interface DiscussionDAO extends BaseDAO {
     void deletePost(DiscussionPost post) throws Exception;
     
     
+    void deleteReply(DiscussionReply reply) throws Exception;
+
+
     void increaseDiscussions(Discussion discussion) throws Exception;
+
+
+    void increaseReplies(DiscussionPost post) throws Exception;
+
+
+    void decreaseDiscussions(Discussion discussion) throws Exception;
+
+
+    void decreaseReplies(DiscussionPost post) throws Exception;
 
 
     void increaseViews(DiscussionPost post) throws Exception;
