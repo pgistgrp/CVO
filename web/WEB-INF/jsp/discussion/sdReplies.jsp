@@ -44,12 +44,12 @@
 									<div class="discussionBody padding5">
 								</c:otherwise>
 						</c:choose>
-						<div class="discussionText">
+						<div class="discussionText peekaboobugfix">
 							
 							<div id="replyContent${reply.id}"><p>${reply.content}</p></div>
 							<div id="replyOwner${reply.id}"><h3>- ${reply.owner.loginname}</h3></div>
 						</div>
-						<div class="discussionComments">
+						<div class="discussionComments peekaboobugfix">
 							 <a href="javascript:io.setQuote(${reply.id});">Quote</a>
 						</div>
 						<c:if test="${fn:length(reply.tags) > 0}">

@@ -246,7 +246,7 @@
 
 <!-- Begin Breadcrumbs -->
 	<div id="breadCrumbs" class="floatLeft">
-		<a href="sdlist.do">Select a Theme</a> &rarr; <a style="text-transform:capitalize;" href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</a> &rarr; ${post.title}
+<a href="sd.do?isid=${structure.id}">Select a Theme</a> &rarr; <a style="text-transform:capitalize;" href="/sdRoom.do?isid=${structure.id}&ioid=${object.id}">${object.object}</a> &rarr; ${post.title}
 	</div>
 <!-- End Breadcrumbs -->
 

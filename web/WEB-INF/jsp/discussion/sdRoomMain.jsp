@@ -251,7 +251,7 @@
 <!-- End header menu -->
 <div id="container">
   <!-- Begin Breadcrumbs -->
-  <div id="breadCrumbs" class="floatLeft"> <a href="sdlist.do">Select a Theme</a> &rarr; ${object.object}</div>
+  <div id="breadCrumbs" class="floatLeft"> <a href="sd.do?isid=${structure.id}">Select a Theme</a> &rarr; ${object.object}</div>
   <!-- End Breadcrumbs -->
   <!-- jump to other room selection menu -->
   <div class="floatRight"> Jump To:
