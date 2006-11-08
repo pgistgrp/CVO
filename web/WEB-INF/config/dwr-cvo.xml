@@ -152,6 +152,7 @@
       <include method="createReply"/>
       <include method="editPost"/>
       <include method="deletePost"/>
+      <include method="deleteReply"/>
       <include method="getSummary"/>
       <include method="setVoting"/>
       <include method="getConcerns"/>
@@ -159,7 +160,7 @@
       <include method="searchTags"/>
       <include method="getTagCloud"/>
       <include method="getTagById"/>
-	  <include method="getConcernById"/>
+      <include method="getConcernById"/>
     </create>
 
 
