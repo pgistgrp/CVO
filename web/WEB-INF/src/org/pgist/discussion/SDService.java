@@ -40,6 +40,9 @@ public interface SDService {
     Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception;
 
 
+    Collection getReplies(DiscussionPost post, PageSetting setting, String filter) throws Exception;
+
+
     DiscussionPost createPost(InfoStructure structure, String title, String content, String[] tags, boolean emailNotify) throws Exception;
     
     

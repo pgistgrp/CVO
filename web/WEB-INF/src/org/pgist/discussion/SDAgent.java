@@ -226,6 +226,7 @@ public class SDAgent {
      *     <li>isid - int, id of a InfoStructure object</li>
      *     <li>ioid - int, id of a InfoObject object. Optional, default value is null, means the discussion is on InfoStructure object</li>
      *     <li>postid - int, id of a DiscussionPost object. Required.</li>
+     *     <li>filter - string, tag name as filter</li>
      *     <li>page - int, current page to get. Optional, default value is 1.</li>
      *     <li>count - int, number of posts to be displayed in a page. Optional, default value is -1, means to get all posts.</li>
      *   </ul>
@@ -310,7 +311,19 @@ public class SDAgent {
             setting.setPage((String) params.get("page"));
             setting.setRowOfPage((String) params.get("count"));
             
-            Collection replies = sdService.getReplies(post, setting);
+            String filter = (String) params.get("filter");
+            if (filter==null) filter = "";
+            else filter = filter.trim();
+            
+            Collection replies = null;
+            
+            if ("".equals(filter)) {
+                //without filter
+                replies = sdService.getReplies(post, setting);
+            } else {
+                //with filter
+                replies = sdService.getReplies(post, setting, filter);
+            }
             
             request.setAttribute("structure", structure);
             request.setAttribute("object", object);
@@ -1356,18 +1369,6 @@ public class SDAgent {
         } catch (Exception e) {
         }
         
-        int count = -1;
-        try {
-            count = Integer.parseInt((String) params.get("count"));
-        } catch (Exception e) {
-        }
-        
-        int page = 1;
-        try {
-            page = Integer.parseInt((String) params.get("page"));
-        } catch (Exception e) {
-        }
-        
         try {
             InfoStructure structure = sdService.getInfoStructureById(isid);
             if (structure==null) {
@@ -1378,8 +1379,8 @@ public class SDAgent {
             String ids = (String) params.get("tags");
             
             PageSetting setting = new PageSetting();
-            setting.setRowOfPage(count);
-            setting.setPage(page);
+            setting.setRowOfPage((String) params.get("count"));
+            setting.setPage((String) params.get("page"));
             
             Collection posts = null;
             int num = 0;

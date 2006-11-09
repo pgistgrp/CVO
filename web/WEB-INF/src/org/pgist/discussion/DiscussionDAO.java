@@ -41,6 +41,9 @@ public interface DiscussionDAO extends BaseDAO {
     Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception;
     
     
+    Collection getReplies(DiscussionPost post, PageSetting setting, String filter) throws Exception;
+
+
     DiscussionPost createPost(Discussion discussion, String title, String content, String[] tags, boolean emailNotify) throws Exception;
     
     

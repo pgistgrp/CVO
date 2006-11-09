@@ -49,7 +49,7 @@ Zhong:
 [ok] - Delete post - available to moderator
 [ok] - SDAgent.deleteReply(replyId)
 [ok] - post.replies (reply count) is always 0
-[ ] - sdAgent.getReplies - filter by tag (only within a single post).
+[ok] - sdAgent.getReplies - filter by tag (only within a single post).
 [ ] - SDAgent.getPosts sorting
         <1>Newest to Oldest
         <2>Oldest to Newest

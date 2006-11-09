@@ -152,22 +152,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getPosts()
 
 
-    private static final String hql_getLastReply = "from DiscussionReply p where p.parent.id=? and p.deleted=? order by p.id desc";
-    
-    
-    private DiscussionPost getLastReply(DiscussionPost post) {
-        List list = getHibernateTemplate().find(hql_getLastReply, new Object[] {
-                post.getId(),
-                false,
-        });
-        
-        if (list.size()==0) return null;
-        
-        return (DiscussionPost) list.get(0);
-    }//getLastReply()
-
-
-    private static final String hql_getReplies_A = "from DiscussionReply p where p.parent.id=? and p.deleted=? order by p.id";
+    private static final String hql_getReplies_A = "from DiscussionReply r where r.parent.id=? and r.deleted=? order by r.id";
     
     
     public Collection getReplies(DiscussionPost post) throws Exception {
@@ -178,9 +163,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getReplies()
     
     
-    private static final String hql_getReplies_B_1 = "select count(p.id) from DiscussionReply p where p.parent.id=? and p.deleted=?";
+    private static final String hql_getReplies_B_1 = "select count(r.id) from DiscussionReply r where r.parent.id=? and r.deleted=?";
     
-    private static final String hql_getReplies_B_2 = "from DiscussionReply p where p.parent.id=? and p.deleted=? order by p.id";
+    private static final String hql_getReplies_B_2 = "from DiscussionReply r where r.parent.id=? and r.deleted=? order by r.id";
     
     
     public Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception {
@@ -206,6 +191,38 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getReplies()
     
     
+    private static final String hql_getReplies_C_1 = "select count(r.id) from DiscussionReply r where r.parent.id=? and r.deleted=? and lower(r.tags.name)=?";
+    
+    private static final String hql_getReplies_C_2 = "from DiscussionReply r where r.parent.id=? and r.deleted=? and lower(r.tags.name)=? order by r.id";
+    
+    
+    public Collection getReplies(DiscussionPost post, PageSetting setting, String filter) throws Exception {
+        Query query;
+        
+        //get count
+        query = getSession().createQuery(hql_getReplies_C_1);
+        query.setLong(0, post.getId());
+        query.setBoolean(1, false);
+        query.setString(2, filter.toLowerCase());
+        
+        int count = ((Number) query.uniqueResult()).intValue();
+        
+        if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
+        
+        setting.setRowSize(count);
+        
+        if (count==0) return new ArrayList();
+        
+        //get records
+        query = getSession().createQuery(hql_getReplies_C_2);
+        query.setLong(0, post.getId());
+        query.setBoolean(1, false);
+        query.setString(2, filter.toLowerCase());
+        
+        return query.list();
+    }//getReplies()
+
+
     public DiscussionPost createPost(Discussion discussion, String title, String content, String[] tags, boolean emailNotify) throws Exception {
         DiscussionPost post = new DiscussionPost();
         

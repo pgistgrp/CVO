@@ -1,7 +1,6 @@
 package org.pgist.discussion;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.Set;
 
 import org.pgist.cvo.CategoryReference;
@@ -146,6 +145,18 @@ public class SDServiceImpl implements SDService {
 
     public Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception {
         Collection list = discussionDAO.getReplies(post, setting);
+        
+        for (DiscussionReply reply : (Collection<DiscussionReply>) list) {
+            YesNoVoting voting = systemDAO.getVoting(YesNoVoting.TYPE_DISCUSSION_REPLY, reply.getId());
+            reply.setObject(voting);
+        }//for
+        
+        return list;
+    }//getReplies()
+
+
+    public Collection getReplies(DiscussionPost post, PageSetting setting, String filter) throws Exception {
+        Collection list = discussionDAO.getReplies(post, setting, filter);
         
         for (DiscussionReply reply : (Collection<DiscussionReply>) list) {
             YesNoVoting voting = systemDAO.getVoting(YesNoVoting.TYPE_DISCUSSION_REPLY, reply.getId());
