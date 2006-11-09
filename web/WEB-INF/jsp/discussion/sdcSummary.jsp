@@ -47,7 +47,7 @@
 				</c:forEach>
 			</ul>
 			<div style="clear: left;"></div>
-			<p align="right"><a href="sdConcerns.do?ioid=${infoObject.id}&isid=${structure.id}">View all Concerns for this Summary</a></p>
+			<p align="right"><a href="javascript:window.open('sdConcerns.do?ioid=${infoObject.id}&isid=${structure.id}','themeConcerns','width=730,height=500,resizable=yes,scrollbars=yes'); void(0);">View all Concerns for this Summary <img src="images/external.png" alt="(new window)" /></a></p>
 		</div>
   <!-- end summary -->
   

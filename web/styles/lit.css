@@ -7,7 +7,7 @@
 		background: #EEF7DD;
 		border: 2px solid #B4D579;
 		margin-left: 10px;
-		padding:0px 5px;
+		padding:0px 5px 5px 5px;
 		line-height: 10px;
 		}
 		
@@ -133,6 +133,13 @@
 		{
 		width:950px;
 		margin:10px auto 0px auto;
+		text-align:left;
+		}
+		
+		#containerPopUp
+		{
+		width:700px;
+		margin:10px;
 		text-align:left;
 		}
 

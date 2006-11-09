@@ -25,24 +25,32 @@
 <!-- End DWR JavaScript Libraries -->
 <!--CCT Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
 <!--End CCT Specific  Libraries-->
 <script type="text/javascript">
 
 //GLOBAL Vars
 	var sd = new Object;
-	sd.isid = "<%= request.getParameter('isid') %>";
-	sd.ioid = "<%= request.getParameter('isid') %>";
+	sd.isid = "${isid}";
+	sd.ioid = "${ioid}";
+	sd.concernCount = 8;
 	sd.filterAnchor = "#filterJump";
+	sd.currentFilter = '';
+	sd.divFilteredBy = 'filteredBy';
+	sd.divSearchResults = 'searchResults';
+	sd.divDiscussionTitle = "discussionTitle";
+		sd.discussionTitle = "All Participants' Concerns";
+		sd.discussionTitleOnChk = "Your Concerns";
 
 	function getConcerns(tags, page, jump){
 		if(jump){
 			location.href = sd.filterAnchor;
 		}
-		alert("isid: " + sd.isid + " ioid: " + sd.ioid + " tags: " + tags + " page: " + page); 
-		SDAgent.getConcerns({isid:sd.isid, ioid: sd.ioid, tags: tags, page: page}, {
+		//alert("isid: " + sd.isid + " ioid: " + sd.ioid + " tags: " + tags + " page: " + page + " count: " + sd.concernCount); 
+		SDAgent.getConcerns({isid:sd.isid, ioid: sd.ioid, tags: tags, page: page, count: sd.concernCount}, {
 			callback:function(data){
 					if (data.successful){
-					   	alert(data.source.html);
+					   	$('discussion-cont').innerHTML = (data.source.html);
 					}else{
 						alert(data.reason);
 					}
@@ -52,26 +60,101 @@
 			}
 			});
 	}
+	
+	function goToPage(page){
+		getConcerns(sd.currentFilter, page, true)
+	}
+	
+	function setVote(id, agree){
+			CCTAgent.setVoting({id: id, agree:agree}, {
+			callback:function(data){
+					if (data.successful){ 
+						if($('concernVote'+id) != undefined){
+            				 new Effect.Fade('concernVote'+id, {afterFinish: function(){getConcerns(sd.currentFilter, sd.currentPage, false);new Effect.Appear('concernVote'+id);}});
+            			}else{ //newly created concern
+            				getConcerns(sd.currentFilter, sd.currentPage, false);	
+            			}
+					}else{
+						alert(data.reason);
+					}
+				},
+			errorHandler:function(errorString, exception){ 
+					alert("setVote error:" + errorString + exception);
+			}
+			});
+	};
+	
+	function changeCurrentFilter(tagId){
+		getConcerns(tagId, 0, true)
+		sd.currentFilter = tagId;
+		if (tagId != ''){
+				CCTAgent.getTagByTagRefId(sd.currentFilter, {
+				callback:function(data){
+				if (data.successful){
+		          			var tagName = data.tag.name;
+							$(sd.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
+						}else{
+							alert(data.reason);
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+						alert("get getTagById error:" + errorString + exception);
+				}
+				});
+		}else{
+			sd.currentFilter = '';	
+			$(sd.divFilteredBy).innerHTML = '';
+		}
+	}
 		
+/*
+	function customFilter(query, key){
+		if (key.keyCode == 8 && query.length < 1){
+			return false;	
+		}
+		if(query.length > 3){
+			customFilterAction(query);	
+		}
+	}
+	
+	function customFilterAction(query){
+			CCTAgent.searchTags({cctId:cct.cctId,tag:query},{
+				callback:function(data){
+						if (data.successful){
+							if($(sd.divSearchResults).style.display == 'none'){
+								new Effect.Appear(sd.divSearchResults, {duration: 0.5});		
+							}		
+							
+							$(cct.divSearchResults).innerHTML = $(sd.divSearchResults).innerHTML = data.html;
+							if (data.count == 0){
+								$(sd.divSearchResults).innerHTML = '<a href="javascript:Effect.Fade(\''+sd.divSearchResults+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
+							}
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+							alert("sidebarSearchTagsAction: "+errorString+" "+exception);
+							//showTheError();
+				}		
+			});	
+	};
+*/
 </script>
 
   </head><body>
 
   <!-- #container is the container that wraps around all the main page content -->
-  <div id="container">
+  <div id="containerPopUp">
 
     <a name="filterJump"></a>
-    <div id="discussion" style="background-image: url('images/addConcern.gif'); background-repeat: no-repeat; background-position: 730px 0;">
+    <div id="discussion" style="width: 700px;">
       <div id="discussionHeader">
         <div class="sectionTitle">
-          <h3 id="discussionTitle">All Participants' Concerns</h3>
+          <h2 id="discussionTitle">Concerns within Theme: ${infoObject.object}</h2>
           <div id="filteredBy"></div>
-          <input type="checkbox" id="myconcerns" onClick="checkMyConcerns();"/>
-          Show only my concerns </div>
-        
-		
-		<!-- Begin sorting menu -->
-        <div id="sortingMenu" class="box4"> sort discussion by:
+		</div>
+
+		<!-- Begin sorting menu 
+        <div id="sortingMenu" class="box4"> sort concerns by:
           <select>
             <option>Option</option>
             <option>Option Option Option Option Option</option>
@@ -87,7 +170,7 @@
           </form>
           <div id="searchResults" style="display: none;"></div>
         </div>
-		<!-- End sorting menu -->
+		 End sorting menu -->
 		
 		
       </div>
@@ -95,29 +178,7 @@
         <!-- left col -->
       </div>
       <!-- end left col -->
-      <div id="colRight" class="floatLeft box6 colRight">
-        <!-- right col -->
-        <h3>Add your own Concern</h3>
-        <fieldset>
-        <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type your concern here.</textarea>
-        </fieldset>
-        <div id="tagNewConcern" class="box6 padding5" style="display:none;">
-          <h3>Tag your concern</h3>
-          <p>Suggested tags:</p>
-          <ul id="addConcernTagsList" class="tagsList">
-            <!-- render suggested tags here -->
-          </ul>
-          <form action="javascript: addManualTag();">
-            <input id="manualTag" type="text" value="Add your own tag!" onClick="if(this.value==this.defaultValue){this.value = ''}"/>
-            <input type="button" value="Add" onClick="addManualTag();" />
-          </form>
-          <p><small>You must have at least 2 or more tags to continue.</small></p>
-        </div>
-        <div id="btnContinueCont">
-          <input id="btnContinue" type="button" value="continue" onClick="prepareConcern();" />
-        </div>
-      </div>
-      <!-- end right col -->
+ 
       <div class="clearBoth"></div>
     </div>
     <!-- end discussion -->
@@ -132,4 +193,4 @@
 		getConcerns('', 1, false);
 </script>
   </body>
-</html:html>
+

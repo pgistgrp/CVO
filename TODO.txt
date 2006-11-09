@@ -59,6 +59,8 @@ Zhong:
         <6>Most Views
         <7>Most Votes
 [ ] - Count of unique users per post - calculate on createPost()
+[ ] - Pagination on SDAgent.contextPosts seems to not work.  Count and Page have no effect.
+[ ] - Commenting on CCT
 
 John:
 [ok] css for new design

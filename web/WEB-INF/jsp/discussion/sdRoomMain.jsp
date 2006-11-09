@@ -202,8 +202,7 @@
 		io.toggleNewDiscussion = function(){
 			new Effect.toggle(io.newDiscussionDiv, 'slide', {duration: 0.5});	
 		}
-		
-	
+			
 		io.changeCurrentFilter = function(tagRefId){
 		io.getPosts(tagRefId, 1, true);
 		cct.currentFilter = tagRefId;
@@ -226,15 +225,61 @@
 			$(cct.divFilteredBy).innerHTML = '';
 		}
 	}
-		 
-	function validateInput(string){
-			string=string.replace(/>/g,"//>//");
-			string=string.replace(/</g,"//<//");
-			string=string.replace(/\n/g,"<br>");
 
-			return string;
+
+	//START Filters and tags
+	io.changeCurrentFilter = function(tagRefId){
+		getPosts(tagRefId, 0, true);
+		io.currentFilter = tagRefId;
+		if (tagRefId != ''){
+				CCTAgent.getTagByTagRefId(io.currentFilter, {
+				callback:function(data){
+				if (data.successful){
+		          			var tagName = data.tag.name;
+							$(cct.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
+						}else{
+							alert(data.reason);
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+						alert("get tagbytagref error:" + errorString + exception);
+				}
+				});
+		}else{
+			cct.currentFilter = '';	
+			$(cct.divFilteredBy).innerHTML = '';
+		}
 	}
-
+	
+	io.customFilter = function(query, key){
+		if (key.keyCode == 8 && query.length < 1){
+			return false;	
+		}
+		if(query.length > 3){
+			customFilterAction(query);	
+		}
+	}
+	
+	io.customFilterAction - function(query){
+			CCTAgent.searchTags({cctId:cct.cctId,tag:query},{
+				callback:function(data){
+						if (data.successful){
+							if($(cct.divSearchResults).style.display == 'none'){
+								new Effect.Appear(cct.divSearchResults, {duration: 0.5});		
+							}		
+							
+							$(cct.divSearchResults).innerHTML = $(cct.divSearchResults).innerHTML = data.html;
+							if (data.count == 0){
+								$(cct.divSearchResults).innerHTML = '<a href="javascript:Effect.Fade(\''+cct.divSearchResults+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
+							}
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+							alert("sidebarSearchTagsAction: "+errorString+" "+exception);
+							//showTheError();
+				}		
+			});	
+	};
 			//-->
 		</script>
 </head>
@@ -354,6 +399,7 @@
     <!-- load discussion posts -->
   </div>
   <!-- start feedback form -->
+
   <pg:feedback id="feedbackDiv" action="sdRoom.do" />
   <!-- end feedback form -->
   <!-- end container -->
@@ -364,7 +410,6 @@
 			io.getPosts();
 			//infoObject.assignTargetHeaders();
 			io.getTargets();
-
 
 		</script>
 </div>

@@ -45,10 +45,10 @@
 					
 						<c:choose>
 								<c:when test="${baseuser.id == post.owner.id}">
-									<div class="discussionBody box7">		
+									<div class="discussionBody box7 padding5">		
 								</c:when>
 								<c:otherwise>
-									<div class="discussionBody">
+									<div class="discussionBody padding5">
 								</c:otherwise>
 						</c:choose>
 						<div class="discussionText peekaboobugfix">

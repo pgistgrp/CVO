@@ -54,6 +54,7 @@
 		//Global Var Settings
 		io.structureId = "${structure.id}";
 		io.objectId = "${object.id}";
+		io.postId = "${post.id}";
 		io.currentFilter = '';
 		io.currentPage = 1;
 		io.replyCount = 15; //per page
@@ -107,8 +108,12 @@
 			tinyMCE.execCommand('mceAddControl',false,'txtnewReply');
 		  }
 		  
-		  	function goToPage(page){
-				io.getReplies(io.currentFilter,page,true); 
+		  	function goToPage(type,page){
+		  		if(type=='replies'){
+					io.getReplies(io.currentFilter,page,true); 
+				}else{
+					io.getContextPosts(page);	
+				}
 				//new Effect.Highlight('discussion-cont',{startcolor: "#D6E7EF"});
 			}
 			
@@ -167,15 +172,12 @@
 			var currentReplyOwner = $('replyOwner'+replyId).innerHTML;
 			tinyMCE.setContent(currentReply + '<blockquote>' + currentReplyContent + currentReplyOwner +'</blockquote><p>');
 			location.href="#replyAnchor";
+			new Effect.Highlight('newReply');
 		};
 		
-		io.getContextPosts =  function(pid){
-					if(pid != undefined){
-						var postId = pid;	
-					}else{
-						var postId = "";
-					}
-					SDAgent.getContextPosts({isid:io.structureId, pid: postId, count: io.contextPostCount}, {
+		io.getContextPosts =  function(page){
+					alert("structureID: " + io.structureId + " pid: " + io.postId + " page: "+ page + " count: "+ io.contextPostCount);
+					SDAgent.getContextPosts({isid:io.structureId, pid: io.postId, page: page, count: io.contextPostCount}, {
 						callback:function(data){
 								if (data.successful){
 								   		 $('contextPosts').innerHTML = data.source.html;										
@@ -290,7 +292,7 @@
       <h3 class="headerColor">Discussion about ${post.title}</h3>
     </div>
 	
-	
+	<!--
     <div id="sortingMenu" class="box4" style="right:-270px;"> sort discussion by:
       <select>
         <option>Option</option>
@@ -302,7 +304,7 @@
       <br />
       filter discussion by:
       <input type="text">
-      or <a href="#">Browse All Tags</A> </div>
+      or <a href="#">Browse All Tags</A> </div>-->
 </div>
 <!-- Begin Discussion Area -->
 				<!-- Begin hidden "New topic" DIV -->
@@ -420,7 +422,7 @@
 <script type="text/javascript">
 	io.getReplies(io.currentFilter, 1, true);
 	io.getTargets();
-	io.getContextPosts(${post.id});
+	io.getContextPosts(1);
 	</script>
 
 

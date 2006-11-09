@@ -8,10 +8,19 @@
 
 <div id="postReplies">
 <c:if test="${fn:length(replies) != 0}">
-	<h4 style="text-transform:capitalize;">Replies to ${post.title}</h4>
+	<h4 style="text-transform:capitalize;">${fn:length(replies)}
+	<c:choose>
+		<c:when test="${fn:length(replies) == 1}">
+			reply
+		</c:when>
+		<c:otherwise>
+			replies
+		</c:otherwise>
+	</c:choose>			
+	 to ${post.title}</h4>
 </c:if>
 <logic:iterate id="reply" name="replies">
-			<div id="discussion${post.id}" class="discussionRow" style="margin-top: 5px;">
+			<div id="reply${reply.id}" class="discussionRow" style="margin-top: 5px;">
 						<c:choose>
 								<c:when test="${baseuser.id == reply.owner.id}">
 									<div class="discussionRowHeader box6">			
@@ -71,7 +80,7 @@
 						</c:if>
 						<pg:show roles="moderator">
 						<div class="smallText" style="text-align:right;">	
-							Moderator Options: <input type="button" onClick="io.deleteReply(reply.id);" value="Delete" />
+							Moderator Options: <input type="button" onClick="io.deleteReply(${reply.id});" value="Delete" />
 						</div>
 						</pg:show>
 					</div>
@@ -87,7 +96,7 @@
 							<img src="images/btn_prev_fade.gif" alt="No Previous Pages" />
 						</logic:equal>
 						<logic:notEqual name="setting" property="page" value="1">	
-							<a href="javascript:goToPage(${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<a href="javascript:goToPage('replies',${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
 						
 						
@@ -95,7 +104,7 @@
 							<img src="images/btn_next_fade.gif" alt="No Additional Pages" />
 						</logic:equal>
 						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-							<a href="javascript:goToPage(${setting.page}+1)"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<a href="javascript:goToPage('replies',${setting.page}+1)"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
 		  </div>
 </c:if>
