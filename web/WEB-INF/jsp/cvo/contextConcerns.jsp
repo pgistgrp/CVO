@@ -44,12 +44,12 @@
 									</div><!-- end discussionVoting -->
 								</div><!-- end discussionRowHeader -->
 								<div class="discussionBody">
-									<div class="discussionText"><p>"${concern.content}"</p></div>
-									<h3>- <bean:write name="concern" property="author.loginname" /></h3>
-										<div class="discussionComments">0 Comments</div>
+									<div class="discussionText" id="discussionText"><p>"${concern.content}"</p></div>
+									<h3 id="discussionAuthor">- <bean:write name="concern" property="author.loginname" /></h3>
+										<div class="discussionComments" id="discussionComments">0 Comments</div>
 										<div class="discussionTagsList">
 											<!-- iterate through concern tags here -->	
-											<ul class="tagsInline">
+											<div id="tagsUL"><ul class="tagsInline">
 												<li class="tagsInline"><strong>Tags:</strong> </li>
 												<c:forEach items="${concern.tags}" var="tagref">
 													<c:choose>
@@ -64,6 +64,9 @@
 													<a href="javascript:changeCurrentFilter(${tagref.id});">${tagref.tag.name}</a></li>
 												</c:forEach>
 											</ul>
+											</div>
+										<div id="editingArea${concern.id}" style="display:none"></div>
+										<div id="tagEditingArea${concern.id}" style="display:none"></div>
 										<div style="clear: left;"></div>
 										
 										<!-- end tag iteration -->
@@ -71,7 +74,7 @@
 										</div><!--end discussionTagsList -->
 										<c:if test="${baseuser.id == concern.author.id}">
 												<div class="box6">
-													<strong>Author Actions:</strong> <a href="javascript:editConcern(${concern.id});">Edit Concern</a> &nbsp; <a href="javascript:editTags(${concern.id});">Edit Tags</a> &nbsp; <a href="javascript:deleteConcern(${concern.id});">Delete Concern</a> 
+													<strong>Author Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});">Edit Concern</a> &nbsp; <a href="javascript:editTagsPopup(${concern.id});">Edit Tags</a> &nbsp; <a href="javascript:deleteConcern(${concern.id});">Delete Concern</a> 
 												</div>
 										</c:if>
 								</div><!-- end discussion body -->	
