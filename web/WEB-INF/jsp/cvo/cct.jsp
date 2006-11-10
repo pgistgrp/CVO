@@ -752,11 +752,13 @@ top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.do
 		<!-- Begin sorting menu -->
         <div id="sortingMenu" class="box4"> sort discussion by:
           <select>
-            <option>Option</option>
-            <option>Option Option Option Option Option</option>
-            <option>Option</option>
-            <option>Option</option>
-            <option>Option</option>
+	        <option>Newest to Oldest</option>
+	        <option>Oldest to Newest</option>
+	        <option>Most Agreement</option>
+	        <option>Least Agreement</option>
+	        <option>Most Comments</option>
+	        <option>Most Views</option>
+	        <option>Most Votes</option>
           </select>
           <br />
           <div class="floatLeft">filter discussion by:</div>

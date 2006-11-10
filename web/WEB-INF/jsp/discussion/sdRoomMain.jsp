@@ -50,6 +50,8 @@
 		io.currentFilter = '';
 		io.currentPage = 1;
 		io.postCount = 5;
+		io.tagCloudCount = 20;
+		io.currentTagCloudPage = 1;
 		
 		/*----Input ID's - these id's of input elements have changing content or gets read by the javascript ---- */
 	 	 io.newPostTitleInput = "txtNewPostTitle";   //new post title input box
@@ -61,7 +63,10 @@
 	 	 io.discussionDiv = 'discussion'; //div that contains the discussion
 	 	 io.votingQuestionDiv = 'structure_question' //div that contains the voting question
 	 	 io.newDiscussionDiv = 'newDiscussion'; //the new discussion pull down
+	 	 io.divSearchResults = 'searchResults';
 	 	 io.filterAnchor = '#filterJump';
+	 	 io.divFilteredBy = 'filteredBy';
+	 	 io.divTagCloud = 'tagCloud';
 		
 		/*************** Get Targets - If IOID is ommitted, return sdcSummary.jsp::else, returns sdcStructureSummary.jsp************** */
 		io.getTargets = function(){
@@ -105,13 +110,14 @@
 
 		};
 		/*************** Get Posts: posts.jsp************** */
+		
 		io.getPosts = function(tag, page, jump){
 				if(jump){
 					location.href = io.filterAnchor;
 				}
-				//alert("structure: " + io.structureId + " tags: " + tags + " page: " + page);
+				//alert("structure: " + io.structureId + " tag filter: " + tag + " page: " + page);
 				//SDAgent.getContextPosts({isid:io.structureId, tag: tag,  type:"tagRef", page: page, count: io.postCount}, {
-			    SDAgent.getPosts({isid:io.structureId,ioid:io.objectId, tag: tag, page: page, count: io.postCount}, {
+			    SDAgent.getPosts({isid:io.structureId,ioid:io.objectId, filter: tag, page: page, count: io.postCount}, {
 			      callback:function(data){
 			          if (data.successful){
 			          $(io.discussionDiv).innerHTML = data.html;
@@ -203,40 +209,17 @@
 			new Effect.toggle(io.newDiscussionDiv, 'slide', {duration: 0.5});	
 		}
 			
-		io.changeCurrentFilter = function(tagRefId){
-		io.getPosts(tagRefId, 1, true);
-		cct.currentFilter = tagRefId;
-		if (tagRefId != ''){
-				CCTAgent.getTagByTagRefId(cct.currentFilter, {
-				callback:function(data){
-				if (data.successful){
-		          			var tagName = data.tag.name;
-							$(cct.divFilteredBy).innerHTML = '<h3 style="color: red">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
-						}else{
-							alert(data.reason);
-						}
-				},
-				errorHandler:function(errorString, exception){ 
-						alert("get tagbytagref error:" + errorString + exception);
-				}
-				});
-		}else{
-			cct.currentFilter = '';	
-			$(cct.divFilteredBy).innerHTML = '';
-		}
-	}
-
 
 	//START Filters and tags
-	io.changeCurrentFilter = function(tagRefId){
-		getPosts(tagRefId, 0, true);
-		io.currentFilter = tagRefId;
-		if (tagRefId != ''){
-				CCTAgent.getTagByTagRefId(io.currentFilter, {
+	io.changeCurrentFilter = function(tagId){
+		io.currentFilter = tagId;
+		if (tagId != ''){
+				SDAgent.getTagById(tagId, {
 				callback:function(data){
 				if (data.successful){
 		          			var tagName = data.tag.name;
-							$(cct.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
+		          			io.getPosts(tagName, 0, true);
+							$(io.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: io.changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
 						}else{
 							alert(data.reason);
 						}
@@ -246,8 +229,8 @@
 				}
 				});
 		}else{
-			cct.currentFilter = '';	
-			$(cct.divFilteredBy).innerHTML = '';
+			io.currentFilter = '';	
+			$(io.divFilteredBy).innerHTML = '';
 		}
 	}
 	
@@ -256,22 +239,44 @@
 			return false;	
 		}
 		if(query.length > 3){
-			customFilterAction(query);	
+			io.customFilterAction(query);	
 		}
 	}
 	
-	io.customFilterAction - function(query){
-			CCTAgent.searchTags({cctId:cct.cctId,tag:query},{
+	io.customFilterAction = function(query){
+			SDAgent.searchTags({isid:io.structureId,tag:query},{
 				callback:function(data){
 						if (data.successful){
-							if($(cct.divSearchResults).style.display == 'none'){
-								new Effect.Appear(cct.divSearchResults, {duration: 0.5});		
+							if($(io.divSearchResults).style.display == 'none'){
+								new Effect.Appear(io.divSearchResults, {duration: 0.5});		
 							}		
 							
-							$(cct.divSearchResults).innerHTML = $(cct.divSearchResults).innerHTML = data.html;
+							$(io.divSearchResults).innerHTML = $(io.divSearchResults).innerHTML = data.html;
 							if (data.count == 0){
-								$(cct.divSearchResults).innerHTML = '<a href="javascript:Effect.Fade(\''+cct.divSearchResults+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
+								$(io.divSearchResults).innerHTML = '<a href="javascript:Effect.Fade(\''+io.divSearchResults+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
 							}
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+							alert("sidebarSearchTagsAction: "+errorString+" "+exception);
+							//showTheError();
+				}		
+			});	
+	};
+
+		io.getTagCloud = function(){
+			SDAgent.getTagCloud({isid:io.structureId,count:io.tagCloudCount, page: io.currentTagCloudPage},{
+				callback:function(data){
+						if (data.successful){			
+							$(io.divTagCloud).innerHTML = data.html;
+							if (data.count == 0){
+								$(io.divTagCloud).innerHTML = '<a href="javascript:Effect.Fade(\''+io.divTagCloud+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
+							}
+							if($(io.divTagCloud).style.display == 'none'){
+								new Effect.BlindDown(io.divTagCloud, {duration: 0.5});		
+							}else{
+								new Effect.BlindUp(io.divTagCloud, {duration: 0.5});	
+							}		
 						}
 				},
 				errorHandler:function(errorString, exception){ 
@@ -335,6 +340,7 @@
   <div id="discussionHeader">
     <div class="sectionTitle">
       <h3 class="headerColor">${object.discussion.numPosts} Discussion(s) about ${object.object}</h3>
+      <div id="filteredBy"></div>
       <div class="button smallText box5 floatLeft"> <a href="javascript:Effect.toggle('newDiscussion','slide',{duration:1.5});">Start a New Topic</a></div>
     </div>
 
@@ -345,21 +351,26 @@
 <![endif]-->
 
     <div id="sortingMenu" class="box4"> sort discussion by:
-      <select>
-        <option>Newest to Oldest</option>
-        <option>Oldest to Newest</option>
-        <option>Most Agreement</option>
-        <option>Least Agreement</option>
-        <option>Most Comments</option>
-        <option>Most Views</option>
-        <option>Most Votes</option>
-      </select>
-      <br />
-      filter discussion by:
-      <input type="text">
-      or <a href="#">Browse All Tags</A> </div>
-  </div>
+
+          <select>
+	        <option>Newest to Oldest</option>
+	        <option>Oldest to Newest</option>
+	        <option>Most Agreement</option>
+	        <option>Least Agreement</option>
+	        <option>Most Comments</option>
+	        <option>Most Views</option>
+	        <option>Most Votes</option>
+          </select>
+          <br />
+          <div class="floatLeft">filter discussion by:</div>
+          <form action="javascript: io.customFilterAction($('txtCustomFilter').value);" class="floatLeft">
+            <input type="text" id="txtCustomFilter" value="Add a filter" onKeyUp="io.customFilter(this.value, event);"  onKeyUp="io.customFilter(this.value, event);" onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
+            or <a href="javascript:io.getTagCloud();">Browse All Tags</a>
+          </form>
+          <div id="searchResults" style="display: none;"></div>
   
+  </div>
+</div><!-- end discussion header-->
   
   <!-- Begin Discussion Area -->
   <!-- Begin hidden "New topic" DIV -->
@@ -395,6 +406,11 @@
     </div>
   </div>
   <!-- End hidden "new topic" DIV -->
+  <!-- start tag cloud -->
+  	<div id="tagCloud" class="discussion-left box2" style="display: none;">
+  		<!-- load "browse all tags" tag cloud -->
+  	</div>	
+  <!-- end tag cloud -->
   <div id="discussion">
     <!-- load discussion posts -->
   </div>
@@ -407,7 +423,7 @@
   <!-- End Footer -->
   <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
   <script type="text/javascript">
-			io.getPosts();
+			io.getPosts('', 1, false);
 			//infoObject.assignTargetHeaders();
 			io.getTargets();
 

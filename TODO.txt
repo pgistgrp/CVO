@@ -45,12 +45,11 @@ Zhong:
 [ok] createPost without IOID
 [ok] YesNoVoting Object on SDAgent.getPosts();
 [ok] getPosts() - add tagging functionality
-
 [ok] - Delete post - available to moderator
 [ok] - SDAgent.deleteReply(replyId)
 [ok] - post.replies (reply count) is always 0
 [ok] - sdAgent.getReplies - filter by tag (only within a single post).
-[ ] - SDAgent.getPosts sorting
+[ ] - [ ] - SDAgent.getPosts, CCTAgent.getContextConcerns sorting
         <1>Newest to Oldest
         <2>Oldest to Newest
         <3>Most Agreement
@@ -61,6 +60,8 @@ Zhong:
 [ ] - Count of unique users per post - calculate on createPost()
 [ ] - Pagination on SDAgent.contextPosts seems to not work.  Count and Page have no effect.
 [ ] - Commenting on CCT
+[ ] - Get posts error - see e-mail
+[ ] - Add IOID to tagSearch
 
 John:
 [ok] css for new design

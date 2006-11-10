@@ -43,7 +43,7 @@
 			<ul class="tagsInline">
 				<li class="tagsInline"><strong>Tags highlighted by the moderator:</strong> </li>
 				<c:forEach var="tag" items="${infoObject.object.theme.tags}">
-					<li class="box8 tagsInline"><a href="javascript:changeCurrentFilter(${tag.id});">${tag.name}</a></li>
+					<li class="box8 tagsInline padding5"><a href="javascript:io.changeCurrentFilter(${tag.id});">${tag.name}</a></li>
 				</c:forEach>
 			</ul>
 			<div style="clear: left;"></div>

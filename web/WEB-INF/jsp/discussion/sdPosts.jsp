@@ -76,7 +76,7 @@
 											<li class="box8 tagsInline">
 										</c:otherwise>
 									</c:choose>
-									<a href="javascript:io.getPosts(${tag.id},0,true);">${tag.name}</a></li>
+									<a href="javascript:io.changeCurrentFilter(${tag.id},0,true);">${tag.name}</a></li>
 								</c:forEach>
 							</ul>
 							<div style="clear: left;"></div>
