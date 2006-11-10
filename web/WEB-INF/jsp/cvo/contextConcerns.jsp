@@ -44,12 +44,13 @@
 									</div><!-- end discussionVoting -->
 								</div><!-- end discussionRowHeader -->
 								<div class="discussionBody">
-									<div class="discussionText" id="discussionText"><p>"${concern.content}"</p></div>
+									<div id="editingArea${concern.id}" style="display:none"></div>
+									<div class="discussionText" id="discussionText${concern.id}"><p>"${concern.content}"</p></div>
 									<h3 id="discussionAuthor">- <bean:write name="concern" property="author.loginname" /></h3>
 										<div class="discussionComments" id="discussionComments">0 Comments</div>
 										<div class="discussionTagsList">
 											<!-- iterate through concern tags here -->	
-											<div id="tagsUL"><ul class="tagsInline">
+											<div id="tagsUL${concern.id}"><ul class="tagsInline">
 												<li class="tagsInline"><strong>Tags:</strong> </li>
 												<c:forEach items="${concern.tags}" var="tagref">
 													<c:choose>
@@ -65,7 +66,7 @@
 												</c:forEach>
 											</ul>
 											</div>
-										<div id="editingArea${concern.id}" style="display:none"></div>
+										
 										<div id="tagEditingArea${concern.id}" style="display:none"></div>
 										<div style="clear: left;"></div>
 										

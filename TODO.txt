@@ -62,6 +62,7 @@ Zhong:
 [ ] - Commenting on CCT
 [ ] - Get posts error - see e-mail
 [ ] - Add IOID to tagSearch
+[ ] - infoObject.discussion.numPosts seem to be wrong?  (maybe it is counting deleted posts)?
 
 John:
 [ok] css for new design

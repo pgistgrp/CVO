@@ -366,6 +366,29 @@ os += '<p>Tags helps make your concerns easier to find, since all this info is s
 $('lightbox').innerHTML = os;
 }
 
+
+
+function toggleEditing(component, concernId){
+	var concernBody = 'discussionText' + concernId;
+	var concernTags = 'tagsUL' + concernId;
+	var editConcern = 'editingArea' +concernId;
+	var editTags = 'tagEditingArea' +concernId;	
+	
+	if(component == "concern"){
+		($(editTags).style.display != "none") ? Element.toggle(editTags) : '';
+		Element.toggle(concernTags);
+		Element.toggle(concernBody);
+		Element.toggle(editConcern);
+	}
+	if(component == "tags"){
+		($(editConcern).style.display != "none") ? Element.toggle(editConcern) : '';
+		($(concernBody).style.display == "none") ? Element.toggle(concernBody) : '';
+		Element.toggle(editTags);
+		Element.toggle(concernTags);
+	}	
+}
+
+
 function editConcernPopup(concernId){
 var currentConcern = '';
 CCTAgent.getConcernById(concernId, {
@@ -373,37 +396,13 @@ CCTAgent.getConcernById(concernId, {
 	callback:function(data){
 		if (data.successful){
 				currentConcern = data.concern.content;
-				var concernDiv = 'editingArea' +concernId;
-				var tagDiv = 'tagEditingArea' +concernId;
-				
-				function toggleConcern()
-				{
-					if ($(tagDiv).style.display == ""){
-						$(tagDiv).style.display="none";
-						$(tagsUL).style.display="none";
-						Effect.toggle(concernDiv,'slide');
-					}else{
-						Effect.toggle(concernDiv,'slide');}
-				}
-				os = "";
-				
-
-				os += '<div style=""><textarea style="" name="editConcern" id="editConcern" cols="50" rows="5">' +currentConcern+ '</textarea>';
-				
-				if(navigator.appName=="Microsoft Internet Explorer"){
-				os += '<div style=""><input type="button" id="modifyConcern" value="Submit Edits!" onclick="javascript:editConcern('+concernId+');"/>';
-
-				os += '<input type="button" value="Cancel" onClick="javascript:Effect.toggle(concernDiv,\'slide\');"></div></div>';
-				}else{
-				os += '<div style=""><input type="button" id="modifyConcern" value="Submit Edits!" onclick="javascript:editConcern('+concernId+');"/>';
-
-				os += '<input type="button" value="Cancel" onClick="javascript:Effect.toggle(concernDiv,\'slide\');"></div></div>';
-				}
-				$(concernDiv).innerHTML = os;
-				toggleConcern();
-				
-				
-				
+				toggleEditing('concern', concernId);
+				var editConcern = 'editingArea' +concernId;
+					os = "";
+					os += '<textarea style="" name="editConcern" id="editConcern" cols="50" rows="5">' +currentConcern+ '</textarea>';
+					os += '<input type="button" id="modifyConcern" value="Submit Edits!" onclick="javascript:editConcern('+concernId+');"/>';
+					os += '<input type="button" value="Cancel" onClick="javascript:toggleEditing(\'concern\', '+concernId+');">';
+				$(editConcern).innerHTML = os;		
 		}
 	},
 	errorHandler:function(errorString, exception){ 
@@ -416,13 +415,14 @@ CCTAgent.getConcernById(concernId, {
 }
 
 
-	function editConcern(concernId){
-	newConcern = $('editConcern').value;
+function editConcern(concernId){
+	var newConcern = $('editConcern').value;
+	var concernBody = 'discussionText' + concernId;
 	CCTAgent.editConcern({concernId:concernId, concern:newConcern}, {
 		callback:function(data){
 				if (data.successful){
-					lightboxDisplay();
-					showMyConcerns(concernId);
+					getContextConcerns(cct.currentFilter, cct.currentPage, false, cct.showOnlyMyConcerns);
+				
 				}  
 		},
 		errorHandler:function(errorString, exception){ 
@@ -430,7 +430,7 @@ CCTAgent.getConcernById(concernId, {
 			//showTheError();
 		}
 	});
-	}
+}
 	
 var editTagList=new Array();
 function editTagsPopup(concernId){
@@ -441,36 +441,21 @@ function editTagsPopup(concernId){
 	callback:function(data) {
 			if (data.successful){
 			var tagDiv = 'tagEditingArea' +concernId;
-			var concernDiv = 'editingArea' +concernId;
-			
-			function toggleTags()
-			{
-				if ($(concernDiv).style.display != "none"){
-					$(concernDiv).style.display = "none";
-				}else{
-				$(tagsUL).style.display = "";
-				Effect.toggle(tagDiv,'slide');}
-			}
+			toggleEditing('tags', concernId);
 						os = "";
-						os += '<ul id="editTagsList" class="tagsList"> '+data.id+ '</ul>';
-						
-						if(navigator.appName=="Netscape"){
-						os += '<p><form method="post" onSubmit="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\');return false;"><input type="text" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" onClick="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\');"></form></p>';
-						//os += '<a href="javascript:editTags('+concernId+');">TestIt</a>';
-						}else{
+						os += '<ul id="editTagsList" class="tagsList"></ul>';
 						os += '<p><form method="post" onSubmit="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\'); return false;"><input type="text" style="" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" style="" onClick="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\');"></form></p>';
-						}
 						os += '<div style="display: none;" id="editTagValidation"></div>';
 						os += '<div><hr><input type="button" id="subeditTags" value="Submit Edits" onClick="editTags('+concernId+')">';
-						os += '<input type="button" value="Cancel" onClick="javascript:Effect.toggle(\''+tagDiv+'\',\'slide\');"></div>';//</form>
-							$(tagDiv).innerHTML = os;
+						os += '<input type="button" value="Cancel" onClick="javascript:toggleEditing(\'tags\', '+concernId+');"></div>';//</form>
+						$(tagDiv).innerHTML = os;
 							var str= "";
 							for(i=0; i < data.concern.tags.length; i++){
 							
 								str += '<li id="tag'+data.concern.tags[i].tag.id+'" class="tagsList">'+ data.concern.tags[i].tag.name +'&nbsp;<a href=\'javascript:removeFromGeneratedTags("' + data.concern.tags[i].tag.name + '");\'><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></li>';//<img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></li>';
 								concernTags += data.concern.tags[i].tag.name + ',';
 							}
-							toggleTags();
+					
 							document.getElementById(tagDiv).innerHTML += str;
 			}
 	},
