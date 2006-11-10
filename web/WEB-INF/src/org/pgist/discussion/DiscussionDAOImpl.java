@@ -114,7 +114,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     
     private static final String hql_getPosts_C_1 = "select count(distinct pid) from " + DBMetaData.VIEW_DPOST_TAG_IN_TARGET + " where did=? and lower(tname)=?";
     
-    private static final String hql_getPosts_C_2 = "select distinct pid from " + DBMetaData.VIEW_DPOST_TAG_IN_TARGET + " where did=? and lower(tname)=? order by did ## OFFSET ? LIMIT ?";
+    private static final String hql_getPosts_C_2 = "select distinct pid from " + DBMetaData.VIEW_DPOST_TAG_IN_TARGET + " where did=? and lower(tname)=? order by pid ## OFFSET ? LIMIT ?";
     
     
     public Collection getPosts(Discussion discussion, PageSetting setting, String filter, boolean order) throws Exception {
