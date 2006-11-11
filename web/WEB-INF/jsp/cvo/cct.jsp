@@ -40,9 +40,11 @@ var allNewConcernTags = new Array;
 	cct.divFilteredBy = 'filteredBy';
 	cct.divSearchResults = 'searchResults';
 	cct.filterAnchor = "#filterJump";
+	cct.divTagCloud = 'tagCloud';
 	cct.divDiscussionTitle = "discussionTitle";
 		cct.discussionTitle = "All Participants' Concerns";
 		cct.discussionTitleOnChk = "Your Concerns";
+		
 //Input Element IDs
 	cct.txtAddConcern = 'txtAddConcern';
 	cct.btnContinueCont = 'btnContinueCont';
@@ -57,6 +59,8 @@ var allNewConcernTags = new Array;
 	cct.contextAware = false; //should match showOnlyMyConcerns
 	cct.concernsDesc = true; //concern order
 	cct.cctId = "${cctForm.cct.id}";
+	cct.tagCloudCount = 20;
+	cct.currentTagCloudPage = 1;
 
 
 //END Global Variables
@@ -201,6 +205,31 @@ var allNewConcernTags = new Array;
 		newConcernTagsArray.push(newConcernTagInstance);	
 
 	}
+	
+	function getTagCloud(){
+		//alert('cctId: ' + cct.cctId + ' count: ' + cct.tagCloudCount + ' page: ' + cct.currentTagCloudPage);
+			CCTAgent.getTagCloud({cctId:cct.cctId,type:2,count:cct.tagCloudCount, page: cct.currentTagCloudPage},{
+				callback:function(data){
+						if (data.successful){			
+							$(cct.divTagCloud).innerHTML = data.html;
+							if (data.count == 0){
+								$(cct.divTagCloud).innerHTML = '<a href="javascript:Effect.Fade(\''+cct.divTagCloud+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
+							}
+							if($(cct.divTagCloud).style.display == 'none'){
+								new Effect.BlindDown(cct.divTagCloud, {duration: 0.5});		
+							}else{
+								new Effect.BlindUp(cct.divTagCloud, {duration: 0.5});	
+							}		
+						}else{
+							alert(data.reason);
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+							alert("getTagCloud: "+errorString+" "+exception);
+							//showTheError();
+				}		
+			});	
+	};
 	
 	function addManualTag(){
 		var manualTag = $('manualTag').value;
@@ -444,7 +473,9 @@ function editTagsPopup(concernId){
 			toggleEditing('tags', concernId);
 						os = "";
 						os += '<ul id="editTagsList" class="tagsList"></ul>';
-						os += '<p><form method="post" onSubmit="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\'); return false;"><input type="text" style="" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="Add Tag!" style="" onClick="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\');"></form></p>';
+						os += '<p><form method="post" onSubmit="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\'); return false;"><input type="text" style="" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="OLD Add Tag!" style="" onClick="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\');"></form></p>';
+						os +='<form action="javascript: addManualTag();"><input id="manualTag" type="text" value="Add your own tag!" onClick="if(this.value==this.defaultValue){this.value = \'\'}"/><input type="button" value="Add" onClick="addManualTag();" /> </form>';
+		  
 						os += '<div style="display: none;" id="editTagValidation"></div>';
 						os += '<div><hr><input type="button" id="subeditTags" value="Submit Edits" onClick="editTags('+concernId+')">';
 						os += '<input type="button" value="Cancel" onClick="javascript:toggleEditing(\'tags\', '+concernId+');"></div>';//</form>
@@ -724,6 +755,7 @@ top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.do
       <p>Before we can determine how to best improve the transportation system, we need to know what the problems are. Our first task is to brainstorm concerns about the transportation system. To help you create your concerns, the right column displays concerns from other participants. Use the buttons at the bottom of this column to view more pages of concerns, or search for particular concerns by tags.</p>
     </div>
     <!-- end overview -->
+
     <a name="filterJump"></a>
     <div id="discussion" style="background-image: url('images/addConcern.gif'); background-repeat: no-repeat; background-position: 730px 0;">
       <div id="discussionHeader">
@@ -749,7 +781,7 @@ top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.do
           <div class="floatLeft">filter discussion by:</div>
           <form action="javascript: customFilterAction($('txtCustomFilter').value);" class="floatLeft">
             <input type="text" id="txtCustomFilter" value="Add a filter" onKeyUp="customFilter(this.value, event);"  onKeyUp="customFilter(this.value, event);" onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
-            or <a href="#">Browse All Tags</a>
+            or <a href="javascript:getTagCloud();">Browse All Tags</a>
           </form>
           <div id="searchResults" style="display: none;"></div>
         </div>
@@ -757,6 +789,13 @@ top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.do
 		
 		
       </div>
+	  
+	  <!-- start tag cloud -->
+  	<div id="tagCloud" class="discussion-left box2" style="display: none;">
+  		<!-- load "browse all tags" tag cloud -->
+  	</div>	
+<!-- end tag cloud -->
+
       <div id="discussion-cont" class="floatLeft">
         <!-- left col -->
       </div>
