@@ -468,9 +468,9 @@
 		a:active { color:#31496B; }
 
 		/* Link classes for the buttons in the header */
-		 a:link.headerButton{color:#31496B;}
-		 a:visited.headerButton{color:#31496B;}
-		 a:hover.headerButton{color:#31496B;text-decoration:none;}
+		a:link.headerButton{color:#31496B;}
+		a:visited.headerButton{color:#31496B;}
+		a:hover.headerButton{color:#31496B;text-decoration:none;}
 		a:active.headerButton{color:#31496B;}
 		
 		a:link.headerButtonCurrent{color:#31496B;}
