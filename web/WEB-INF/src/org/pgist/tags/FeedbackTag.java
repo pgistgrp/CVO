@@ -55,7 +55,7 @@ public class FeedbackTag extends SimpleTagSupport {
     public void doTag() throws JspException, IOException {
         JspWriter writer = getJspContext().getOut();
         
-        writer.write("<div id=\"feedbackForm\" class=\"box2\" style=\"display:none###;width:690px;padding:10px;text-align:left;\">");
+        writer.write("<div id=\"feedbackForm\" class=\"box2\" style=\"display:none;width:690px;padding:10px;text-align:left;\">");
         writer.write("<div id=\"feedbackCloseBox\">");
         writer.write("<a href=\"javascript:Effect.toggle('feedbackForm','blind');\"><img src=\"/images/closeinactivesm.gif\" alt=\"close this form\" onmouseover=\"javascript:this.src='/images/closeactivesm.gif'; this.style.cursor='pointer'; \" onmouseout=\"javascript:this.src='/images/closeinactivesm.gif'; this.style.cursor='auto';\" border=\"0\" class=\"floatRight\"></a></div>");
         writer.write("<h3 class=\"headerColor clearBoth\">Feedback/Bug Report Form</h3>");
