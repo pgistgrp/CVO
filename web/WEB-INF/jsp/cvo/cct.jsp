@@ -119,7 +119,7 @@ var allNewConcernTags = new Array;
 	
 	//ADD Concern Functions
 	function validateForm(){
-		if($(cct.txtAddConcern).value == "" ||$(cct.txtAddConcern).value  == $(cct.txtAddConcern).defaultValue ){ //why is this still swaping the continue button?
+		if($(cct.txtAddConcern).value == "" ||$(cct.txtAddConcern).value  == $(cct.txtAddConcern).defaultValue ){ 
 				alert('Please fill in your concern above.');
 				return false;
 		}else{
@@ -234,10 +234,17 @@ var allNewConcernTags = new Array;
 	
 	function addManualTag(){
 		var manualTag = $('manualTag').value;
-		addToConcernTagsArray(manualTag, "checked");	
-		$(cct.divAddConcernTagsList).innerHTML = renderTags();
-		$('manualTag').value = ""; //clear textbox
-		
+		if(manualTag != $('manualTag').defaultValue){  //couldn't get the or operator working for some reason?
+			if(manualTag != ""){
+				addToConcernTagsArray(manualTag, "checked");	
+				$(cct.divAddConcernTagsList).innerHTML = renderTags();
+				$('manualTag').value = ""; //clear textbox
+			}else{
+				alert("Tag can not be blank!");	
+			}
+		}else{
+			alert("Tag can not be blank!");	
+		}
 		//for(i=0; i< newConcernTagsArray.length; i++){
 		//	alert(newConcernTagsArray[i].tagName + " status:" + newConcernTagsArray[i].status);	
 		//}
@@ -413,8 +420,8 @@ function toggleEditing(component, concernId){
 	if(component == "tags"){
 		($(editConcern).style.display != "none") ? Element.toggle(editConcern) : '';
 		($(concernBody).style.display == "none") ? Element.toggle(concernBody) : '';
+		($(concernTags).style.display != "none") ? Element.toggle(concernTags) : '';
 		Element.toggle(editTags);
-		Element.toggle(concernTags);
 	}	
 }
 
@@ -502,10 +509,13 @@ function editTagsPopup(concernId){
 	function addManualEditTag(concernId){
 		var tagDiv = 'tagEditingArea' + concernId;
 		var manualTag = $('manualEditTag').value;
-		addToConcernTagsArray(manualTag, "checked");	
-		$('manualEditTag').value = ""; //clear textbox
-		$(tagDiv).innerHTML = renderEditingTags(concernId);  
-		
+		if(manualTag != ""){
+			addToConcernTagsArray(manualTag, "checked");	
+			$('manualEditTag').value = ""; //clear textbox
+			$(tagDiv).innerHTML = renderEditingTags(concernId);  
+		}else{
+			alert("Tag can not be blank.");
+		}
 		
 		//alert(tagDiv);
 		//alert(manualTag);
