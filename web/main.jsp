@@ -83,7 +83,7 @@
 		</ul>
 		<h3>Moderator Tools</h3>
 		<ul>
-			<li><html:link page="#">Reviewing Feedbacks</html:link></li>
+			<li><html:link page="/feedback.do">Reviewing Feedbacks</html:link></li>
 			<li><html:link page="#">Contact Participants</html:link></li>
 			<li><html:link page="#">Create a Voting Poll</html:link></li>
 			<li><html:link page="#">Manage Workflow</html:link></li>
