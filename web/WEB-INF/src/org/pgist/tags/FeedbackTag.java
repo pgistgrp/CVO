@@ -67,10 +67,9 @@ public class FeedbackTag extends SimpleTagSupport {
         writer.write("<textarea id=\"feedback_input\" style=\"width:100%;height:100px;border:1px solid #B5D77B;\" onclick=\"if(this.value==this.defaultValue){this.value = ''}\">If you came across a bug, please help us by reporting it to our development team. Please describe bugs and issues in as much detail as possible.</textarea><br>");
         
         writer.write("<input value=\"Submit\" onclick=\"createFeedback();new Effect.Fade('feedbackForm');\" type=\"button\" class=\"floatRight\"></div></fieldset></div>");
+
+        writer.write("<p>Found a bug? Problem accessing a part of the page? <a href=\"#feedbackForm\" onclick=\"javascript:Effect.toggle('feedbackForm','blind'); setTimeout('location.hash=\\\'#feedbackDiv\\\';',900);\">Send us feedback.</a></p>"); 
         
-        
-      
-        writer.write("<p>Found a bug? Problem accessing a part of the page? <a href=\"#feedbackForm\" onclick=\"javascript:Effect.toggle('feedbackForm','blind'); setTimeout('location.hash=\'#feedbackDiv\';',900);\">Send us feedback.</a></p>");
         writer.write("<script src=\"http://www.google-analytics.com/urchin.js\" type=\"text/javascript\"></script>");
         writer.write("<script type=\"text/javascript\">_uacct = \"UA-797433-1\";urchinTracker();</script>");
     }//doTag()
