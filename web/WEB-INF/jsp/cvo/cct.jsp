@@ -98,8 +98,16 @@ var allNewConcernTags = new Array;
 		return true
 	}
 		
-	function goToPage(page){
-		getContextConcerns(cct.currentFilter,page,true, cct.showOnlyMyConcerns); 
+	function goToPage(page, component){
+		switch (component){
+			case "tagCloud":
+				getTagCloud(page, false);
+				break;	
+			case "concerns":
+				getContextConcerns(cct.currentFilter,page,true, cct.showOnlyMyConcerns); 
+				break;
+		}
+		
 		//new Effect.Highlight('discussion-cont',{startcolor: "#D6E7EF"});
 	}
 	function checkMyConcerns(){
@@ -207,7 +215,8 @@ var allNewConcernTags = new Array;
 
 	}
 	
-	function getTagCloud(){
+	function getTagCloud(page){
+		cct.currentTagCloudPage = page;
 		//alert('cctId: ' + cct.cctId + ' count: ' + cct.tagCloudCount + ' page: ' + cct.currentTagCloudPage);
 			CCTAgent.getTagCloud({cctId:cct.cctId,type:2,count:cct.tagCloudCount, page: cct.currentTagCloudPage},{
 				callback:function(data){
@@ -218,8 +227,7 @@ var allNewConcernTags = new Array;
 							}
 							if($(cct.divTagCloud).style.display == 'none'){
 								new Effect.BlindDown(cct.divTagCloud, {duration: 0.5});		
-							}else{
-								new Effect.BlindUp(cct.divTagCloud, {duration: 0.5});	
+
 							}		
 						}else{
 							alert(data.reason);
@@ -666,6 +674,7 @@ function lightboxDisplay(show){
 		<!-- Begin sorting menu -->
         <div id="sortingMenu" class="box4"> sort discussion by:
           <select>
+           <option>--Sorting is not currently functional.--</option>
 	        <option>Newest to Oldest</option>
 	        <option>Oldest to Newest</option>
 	        <option>Most Agreement</option>
@@ -678,7 +687,7 @@ function lightboxDisplay(show){
           <div class="floatLeft">filter discussion by:</div>
           <form action="javascript: customFilterAction($('txtCustomFilter').value);" class="floatLeft">
             <input type="text" id="txtCustomFilter" value="Add a filter" onKeyUp="customFilter(this.value, event);"  onKeyUp="customFilter(this.value, event);" onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
-            or <a href="javascript:getTagCloud();">Browse All Tags</a>
+            or <a href="javascript:getTagCloud(1);">Browse All Tags</a>
           </form>
           <div id="searchResults" style="display: none;"></div>
         </div>

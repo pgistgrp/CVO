@@ -64,6 +64,7 @@ Zhong:
 [ ] - Add IOID param to tagSearch
 [ok] - infoObject.discussion.numPosts seem to be wrong?  (maybe it is counting deleted posts)?
 [ ] - getPosts filter by tag queries deleted posts.
+[ ] - tags case insensitive
 
 John:
 [ok] css for new design
