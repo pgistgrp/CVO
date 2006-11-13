@@ -42,6 +42,7 @@
 		sd.discussionTitle = "All Participants' Concerns";
 		sd.discussionTitleOnChk = "Your Concerns";
 
+
 	function getConcerns(tags, page, jump){
 		if(jump){
 			location.href = sd.filterAnchor;
@@ -84,23 +85,39 @@
 			});
 	};
 	
-	function changeCurrentFilter(tagId){
+	function changeCurrentFilter(tagId, type){
 		getConcerns(tagId, 0, true)
 		sd.currentFilter = tagId;
 		if (tagId != ''){
-				CCTAgent.getTagByTagRefId(sd.currentFilter, {
-				callback:function(data){
-				if (data.successful){
-		          			var tagName = data.tag.name;
-							$(sd.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
-						}else{
-							alert(data.reason);
+				if(type == 'tagRef'){
+						CCTAgent.getTagByTagRefId(sd.currentFilter, {
+						callback:function(data){
+						if (data.successful){
+				          			var tagName = data.tag.name;
+									$(sd.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
+								}else{
+									alert(data.reason);
+								}
+						},
+						errorHandler:function(errorString, exception){ 
+								alert("get getTagByTagRefId error:" + errorString + exception);
 						}
-				},
-				errorHandler:function(errorString, exception){ 
-						alert("get getTagById error:" + errorString + exception);
+						});
+				}else{ //tagId
+						SDAgent.getTagById(sd.currentFilter, {
+						callback:function(data){
+						if (data.successful){
+				          			var tagName = data.tag.name;
+									$(sd.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
+								}else{
+									alert(data.reason);
+								}
+						},
+						errorHandler:function(errorString, exception){ 
+								alert("get getTagByTagRefId error:" + errorString + exception);
+						}
+						});
 				}
-				});
 		}else{
 			sd.currentFilter = '';	
 			$(sd.divFilteredBy).innerHTML = '';
@@ -189,8 +206,9 @@
   
    
   <script type="text/javascript">
-		//getContextConcerns('', 1, false, cct.showOnlyMyConcerns);
-		getConcerns('', 1, false);
+
+		var defaultTagId = '<%= request.getParameter("tag") %>';
+		changeCurrentFilter(defaultTagId, 'tagId');
 </script>
   </body>
 

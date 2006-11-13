@@ -339,7 +339,7 @@
   
   <div id="discussionHeader">
     <div class="sectionTitle">
-      <h3 class="headerColor">${object.discussion.numPosts} Discussion(s) about ${object.object}</h3>
+      <h3 class="headerColor"><!--${object.discussion.numPosts} -->Discussions about ${object.object}</h3>
       <div id="filteredBy"></div>
       <div class="button smallText box5 floatLeft"> <a href="javascript:Effect.toggle('newDiscussion','slide',{duration:1.5});">Start a New Topic</a></div>
     </div>

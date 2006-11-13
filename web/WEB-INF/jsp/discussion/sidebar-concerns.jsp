@@ -61,7 +61,7 @@
 														</c:otherwise>
 													</c:choose>
 
-													<a href="javascript:changeCurrentFilter(${tagref.id});">${tagref.tag.name}</a></li>
+													<a href="javascript:changeCurrentFilter(${tagref.id}, 'tagRef');">${tagref.tag.name}</a></li>
 												</c:forEach>
 											</ul>
 										<div style="clear: left;"></div>
