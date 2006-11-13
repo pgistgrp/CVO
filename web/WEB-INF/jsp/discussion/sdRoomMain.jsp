@@ -50,7 +50,7 @@
 		io.currentFilter = '';
 		io.currentPage = 1;
 		io.postCount = 5;
-		io.tagCloudCount = 20;
+		io.tagCloudCount = 50;
 		io.currentTagCloudPage = 1;
 		
 		/*----Input ID's - these id's of input elements have changing content or gets read by the javascript ---- */
@@ -131,10 +131,16 @@
 			    });
 			  };
 		
-		io.goToPage = function(page){
-			io.getPosts(io.currentFilter,page,true); 
-		}
-
+	io.goToPage = function(page, component){
+		switch (component){
+			case "tagCloud":
+				io.getTagCloud(page);
+				break;	
+			case "posts":
+				io.getPosts(io.currentFilter,page,true); 
+				break;
+			}
+	}
 	 	 
 			
 		/*************** New Discussion Post: if successful, reload discussion posts************** */
@@ -231,6 +237,7 @@
 		}else{
 			io.currentFilter = '';	
 			$(io.divFilteredBy).innerHTML = '';
+			io.getPosts('', 1, true);
 		}
 	}
 	
@@ -264,7 +271,8 @@
 			});	
 	};
 
-		io.getTagCloud = function(){
+		io.getTagCloud = function(page){
+			io.currentTagCloudPage = page;
 			SDAgent.getTagCloud({isid:io.structureId,count:io.tagCloudCount, page: io.currentTagCloudPage},{
 				callback:function(data){
 						if (data.successful){			
@@ -274,8 +282,6 @@
 							}
 							if($(io.divTagCloud).style.display == 'none'){
 								new Effect.BlindDown(io.divTagCloud, {duration: 0.5});		
-							}else{
-								new Effect.BlindUp(io.divTagCloud, {duration: 0.5});	
 							}		
 						}
 				},
@@ -353,6 +359,7 @@
     <div id="sortingMenu" class="box4"> sort discussion by:
 
           <select>
+          	 <option>--Sorting is not currently functional.--</option>
 	        <option>Newest to Oldest</option>
 	        <option>Oldest to Newest</option>
 	        <option>Most Agreement</option>

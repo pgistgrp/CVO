@@ -60,7 +60,7 @@ var allNewConcernTags = new Array;
 	cct.contextAware = false; //should match showOnlyMyConcerns
 	cct.concernsDesc = true; //concern order
 	cct.cctId = "${cctForm.cct.id}";
-	cct.tagCloudCount = 20;
+	cct.tagCloudCount = 50;
 	cct.currentTagCloudPage = 1;
 
 
@@ -101,7 +101,7 @@ var allNewConcernTags = new Array;
 	function goToPage(page, component){
 		switch (component){
 			case "tagCloud":
-				getTagCloud(page, false);
+				getTagCloud(page);
 				break;	
 			case "concerns":
 				getContextConcerns(cct.currentFilter,page,true, cct.showOnlyMyConcerns); 

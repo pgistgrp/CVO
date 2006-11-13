@@ -176,7 +176,7 @@
 		};
 		
 		io.getContextPosts =  function(page){
-					alert("structureID: " + io.structureId + " pid: " + io.postId + " page: "+ page + " count: "+ io.contextPostCount);
+					//alert("structureID: " + io.structureId + " pid: " + io.postId + " page: "+ page + " count: "+ io.contextPostCount);
 					SDAgent.getContextPosts({isid:io.structureId, pid: io.postId, page: page, count: io.contextPostCount}, {
 						callback:function(data){
 								if (data.successful){

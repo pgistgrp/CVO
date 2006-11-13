@@ -40,7 +40,7 @@
 							</c:choose>
 						</div>
 						<span class="discussionTitle">
-							${post.title}
+							<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.title}</a>
 					</div>
 					
 						<c:choose>
@@ -103,7 +103,7 @@
 							<img src="images/btn_prev_fade.gif" alt="No Previous Pages" />
 						</logic:equal>
 						<logic:notEqual name="setting" property="page" value="1">	
-							<a href="javascript:io.goToPage(${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<a href="javascript:io.goToPage(${setting.page}-1, 'posts');"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
 						
 						
@@ -111,7 +111,7 @@
 							<img src="images/btn_next_fade.gif" alt="No Additional Pages" />
 						</logic:equal>
 						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-							<a href="javascript:io.goToPage(${setting.page}+1)"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<a href="javascript:io.goToPage(${setting.page}+1, 'posts')"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
 		  			</div>
 
