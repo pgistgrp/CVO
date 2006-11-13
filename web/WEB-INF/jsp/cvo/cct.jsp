@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<html:html>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Step 1a: Brainstorm Concerns</title>
@@ -118,12 +119,12 @@ var allNewConcernTags = new Array;
 	
 	//ADD Concern Functions
 	function validateForm(){
-		if($(cct.txtAddConcern).value == "" ||$(cct.txtAddConcern).value  == $(cct.txtAddConcern).defaultValue ){
+		if($(cct.txtAddConcern).value == "" ||$(cct.txtAddConcern).value  == $(cct.txtAddConcern).defaultValue ){ //why is this still swaping the continue button?
 				alert('Please fill in your concern above.');
 				return false;
 		}else{
 				new Effect.BlindDown(cct.divTagNewConcern, {duration: 0.2});
-				swapContinue(true);
+				
 				return true;
 		}
 	}
@@ -154,6 +155,7 @@ var allNewConcernTags = new Array;
 		if (validateForm()){	
 			CCTAgent.prepareConcern({cctId:cct.cctId,concern:concern}, function(data) {
 				if (data.successful){
+					swapContinue(true);
 					newConcernTagsArray = [];
 					for(i=0; i< data.tags.length; i++){
 						concernTags.push(data.tags[i]);
@@ -177,7 +179,6 @@ var allNewConcernTags = new Array;
 
 	function renderTags(){
 		var str= "";
-		//newConcernTagsArray = []; //clears array - this function send each tag to addtoConcernTagsArray function to push each tag into newConcernTagsArray
 		for(i=0; i < newConcernTagsArray.length; i++){
 			if(newConcernTagsArray[i] != ""){
 				str += '<li><input type="checkbox" '+newConcernTagsArray[i].status+' onclick="checkNewConcernTag('+ i +');" />'+ newConcernTagsArray[i].tagName +'</li>';
@@ -259,7 +260,7 @@ var allNewConcernTags = new Array;
 		getSelectedTags();
 		
 		if(newConcernSelectedTagsArray.length<cct.numTagsInNewConcern){
-		alert("You must at least 2 tags");
+		alert("You must at least "+ cct.numTagsInNewConcern +" tags");
 		}else{
 		var concern = $(cct.txtAddConcern).value;
 		var newConcernSelectedTagsString = '';
@@ -461,42 +462,58 @@ function editConcern(concernId){
 	});
 }
 	
-var editTagList=new Array();
+
 function editTagsPopup(concernId){
 	tagHolderId = 1;
 	concernTags = "";
-	
+
 	CCTAgent.getConcernById(concernId, {
 	callback:function(data) {
 			if (data.successful){
 			var tagDiv = 'tagEditingArea' +concernId;
 			toggleEditing('tags', concernId);
-						os = "";
-						os += '<ul id="editTagsList" class="tagsList"></ul>';
-						os += '<p><form method="post" onSubmit="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\'); return false;"><input type="text" style="" id="theNewTag" class="tagTextbox" name="theNewTag" size="15"><input type="button" name="addTag" id="addTag" value="OLD Add Tag!" style="" onClick="addTagToList(\'editTagsList\',\'theNewTag\',\'editTagValidation\');"></form></p>';
-						os +='<form action="javascript: addManualTag();"><input id="manualTag" type="text" value="Add your own tag!" onClick="if(this.value==this.defaultValue){this.value = \'\'}"/><input type="button" value="Add" onClick="addManualTag();" /> </form>';
-		  
-						os += '<div style="display: none;" id="editTagValidation"></div>';
-						os += '<div><hr><input type="button" id="subeditTags" value="Submit Edits" onClick="editTags('+concernId+')">';
-						os += '<input type="button" value="Cancel" onClick="javascript:toggleEditing(\'tags\', '+concernId+');"></div>';//</form>
-						$(tagDiv).innerHTML = os;
-							var str= "";
-							for(i=0; i < data.concern.tags.length; i++){
-							
-								str += '<li id="tag'+data.concern.tags[i].tag.id+'" class="tagsList">'+ data.concern.tags[i].tag.name +'&nbsp;<a href=\'javascript:removeFromGeneratedTags("' + data.concern.tags[i].tag.name + '");\'><img class="trashcan" src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></li>';//<img src="/images/trash.gif" alt="Delete this Tag!" border="0"></a></li>';
-								concernTags += data.concern.tags[i].tag.name + ',';
-							}
 					
-							document.getElementById(tagDiv).innerHTML += str;
-			}
-	},
-	errorHandler:function(errorString, exception){ 
-			alert("editTagsPopup: "+errorString+" "+exception);
-			//showTheError();
-	}
-});
-
+			//Find Current Tags
+					newConcernTagsArray = [];
+					editingTags = data.concern.tags;
+					for(i=0; i < editingTags.length; i++){
+						addToConcernTagsArray(editingTags[i].tag.name, "checked");
+					}
+					$(tagDiv).innerHTML = renderEditingTags(concernId);  
+				}
+		},
+		errorHandler:function(errorString, exception){ 
+				alert("editTagsPopup: "+errorString+" "+exception);
+				//showTheError();
+		}
+	});
 }
+
+	function renderEditingTags(concernId){
+		os = '<ul  class="tagsList">' + renderTags(); + '</ul>';
+		os += '<form action="javascript: addManualEditTag('+concernId+');"><input id="manualEditTag" type="text" />';
+       os += '<input type="button" value="Add" onClick="addManualEditTag('+concernId+');" /></form>';
+       os += '<p><small>You must have at least 2 or more tags to continue.</small></p>';
+       	os += '<div><hr><input type="button" id="subeditTags" value="Submit Edits" onClick="editTags('+concernId+')">';
+		os += '<input type="button" value="Cancel" onClick="javascript:toggleEditing(\'tags\', '+concernId+');"></div>';
+       return os;
+	}
+
+	function addManualEditTag(concernId){
+		var tagDiv = 'tagEditingArea' + concernId;
+		var manualTag = $('manualEditTag').value;
+		addToConcernTagsArray(manualTag, "checked");	
+		$('manualEditTag').value = ""; //clear textbox
+		$(tagDiv).innerHTML = renderEditingTags(concernId);  
+		
+		
+		//alert(tagDiv);
+		//alert(manualTag);
+		//for(i=0; i< newConcernTagsArray.length; i++){
+		//	alert(newConcernTagsArray[i].tagName + " status:" + newConcernTagsArray[i].status);	
+		//}
+		
+	}
 
 function removeLastComma(str){
 str = str.replace(/[\,]$/,'');
@@ -504,32 +521,32 @@ concernTags = str;
 }
 
 function editTags(concernId){
-if(concernTags.split(',').length-1<cct.numTagsInNewConcern){
-alert("You must select 3 or more tags");
-}else{
-removeLastComma(concernTags);
-CCTAgent.editTags({concernId:concernId, tags:concernTags}, {
-	callback:function(data){
-		if (data.successful){ 
-			lightboxDisplay();
-			showMyConcerns(concernId);
-			concernTags = "";
+	getSelectedTags();
+	if(newConcernSelectedTagsArray.length<cct.numTagsInNewConcern){
+		alert("You must at least "+ cct.numTagsInNewConcern +" tags");
+	}else{
+	var newConcernSelectedTagsString = newConcernSelectedTagsArray.toString();
+	//for (i=0; i<newConcernSelectedTagsArray.length; i++){
+		//newConcernSelectedTagsString += newConcernSelectedTagsArray[i] + ',';	
+	//}
+	CCTAgent.editTags({concernId:concernId, tags:newConcernSelectedTagsString}, {
+		callback:function(data){
+			if (data.successful){ 
+				getContextConcerns(cct.currentFilter, cct.currentPage, false, false);
+			}else{
+				alert(data.reason);	
+			}
+			
+		},
+		errorHandler:function(errorString, exception){ 
+				alert("editTags: "+errorString+" "+exception);
+				//showTheError();
 		}
-		
-		if (data.successful != true){
-			alert(data.reason);
-			concernTags = "";
-		}
-	},
-	errorHandler:function(errorString, exception){ 
-			alert("editTags: "+errorString+" "+exception);
-			//showTheError();
+	});
 	}
-});
-}
 }
 
-
+/*
 
 function ifEnter(field,event) {
 
@@ -591,142 +608,12 @@ function lightboxDisplay(show){
 	}
 }
 
+*/
 
 </script>
-<style type="text/css" />
-.leightpadding{
-
-padding:0em 1em 1em 1em;
 
 
-}
-#loading-indicator{
-	
-	background-color: red;
-	color: white;
-	position:absolute;
-	top: 0;
-	left:0;
-	padding: 3px;
-	z-index: 500;
-}
-.leightcontainer{
- 	display: none;
- 	position: absolute;
- 	top: 50%;
- 	left: 50%;
- 	margin-left: -200px;
- 	margin-top: -150px;
- 	width:400px;
- 	height: 300px;
- 	background-color: white;
- 	text-align: left;
- 	z-index:1002;
- 	overflow:hidden;
-	border: 5px solid #E1E1E1;
-}
-
-.leightbox {
- 	color: #333;
- 	position:absolute;
- 	top:30px;
- 	height:100%;
- 	width:100%;
- 	background-color: white;
- 	text-align: left;
- 	z-index:1002;
- 	overflow:auto;	
-
-
-}
-
-.leightbar{
-	position:absolute;
-	top:0%;
-	height:30px;
-	width:100%;
-	background-color:#0066FF;
-	z-index:1002;
-	overflow:hidden;
-}
-
-#overlay{
- 	display:none;
- 	position:absolute;
- 	top:0;
- 	left:0;
- 	width:100%;
- 	height:100%;
- 	z-index:1000;
- 	background-color:#333;
- 	-moz-opacity: 0.8;
- 	opacity:.80;
- 	filter: alpha(opacity=80);
-}
-
-
-
-.lbclose{
-float:right;
-
-}
-
-
-
-.lightbox[id]{ /* IE6 and below Can't See This */    position:fixed;    
-}#overlay[id]{ /* IE6 and below Can't See This */    position:fixed;    
-}
-</style>
-<html:html>
   
-<style type="text/css">
-#saving-indicator{
-	display: none;
-	background-color: red;
-	color: white;
-	position:absolute;
-	top: 0;
-	left:0;
-	padding: 3px;
-	z-index: 500;
-}
-
-#loading-indicator{
-	
-	background-color: red;
-	color: white;
-	position:absolute;
-	top: 0;
-	left:0;
-	padding: 3px;
-	z-index: 500;
-}
-
-div > div#saving-indicator{
-position:fixed;
-}
-
-div > div#loading-indicator{
-position:fixed;
-}
-</style>
-  <!--[if gte IE 5.5]><![if lt IE 7]>
-		<style type="text/css">
-#loading-indicator {
-left: expression( ( 0 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
-top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
-}
-
-#saving-indicator {
-left: expression( ( 0 + ( fixme = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
-top: expression( ( 0 + ( fixme = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
-
-#viewSidebarConcern {
-left: expression( (146 + (fixside=document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
-top: expression( (20 + (fixside=document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
-}
-		</style>
-		<![endif]><![endif]-->
   </head><body>
   <!-- Begin the header - loaded from a separate file -->
   <div id="header">
