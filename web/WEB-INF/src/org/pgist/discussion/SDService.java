@@ -31,10 +31,10 @@ public interface SDService {
     DiscussionReply getReplyById(Long rid) throws Exception;
 
 
-    Collection getPosts(InfoStructure structure, InfoObject infoObj, PageSetting setting, boolean order) throws Exception;
+    Collection getPosts(InfoStructure structure, InfoObject infoObj, PageSetting setting, int sorting) throws Exception;
     
     
-    Collection getPosts(InfoStructure structure, InfoObject infoObj, PageSetting setting, String filter, boolean order) throws Exception;
+    Collection getPosts(InfoStructure structure, InfoObject infoObj, PageSetting setting, String filter, int sorting) throws Exception;
     
     
     Collection getReplies(DiscussionPost post, PageSetting setting) throws Exception;
@@ -79,7 +79,7 @@ public interface SDService {
     int getConcernTagCount(InfoObject object) throws Exception;
 
 
-    Collection getContextPosts(Long isid, Long pid, String ids, PageSetting setting, boolean tagId) throws Exception;
+    Collection getContextPosts(Long isid, Long pid, String ids, PageSetting setting, boolean tagId, int sorting) throws Exception;
 
 
     int getPostTagCount(Long isid, Long postId) throws Exception;

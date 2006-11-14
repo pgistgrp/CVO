@@ -26,13 +26,13 @@ public interface DiscussionDAO extends BaseDAO {
     DiscussionReply getReplyById(Long id) throws Exception;
 
 
-    Collection getPosts(Discussion discussion, boolean order) throws Exception;
+    Collection getPosts(Discussion discussion, int sorting) throws Exception;
     
     
-    Collection getPosts(Discussion discussion, PageSetting setting, boolean order) throws Exception;
+    Collection getPosts(Discussion discussion, PageSetting setting, int sorting) throws Exception;
     
     
-    Collection getPosts(Discussion discussion, PageSetting setting, String filter, boolean order) throws Exception;
+    Collection getPosts(Discussion discussion, PageSetting setting, String filter, int sorting) throws Exception;
     
     
     Collection getReplies(DiscussionPost post) throws Exception;
@@ -116,16 +116,16 @@ public interface DiscussionDAO extends BaseDAO {
     Object getRelatedInfo(Discussion discussion) throws Exception;
 
 
-    Collection getContextPosts(Long isid, Long pid, PageSetting setting) throws Exception;
+    Collection getContextPosts(Long isid, Long pid, PageSetting setting, int sorting) throws Exception;
 
 
-    Collection getContextPosts(Long isid, Long pid, Long[] ids, PageSetting setting) throws Exception;
+    Collection getContextPosts(Long isid, Long pid, Long[] ids, PageSetting setting, int sorting) throws Exception;
 
 
-    Collection getContextPosts(Long isid, PageSetting setting) throws Exception;
+    Collection getContextPosts(Long isid, PageSetting setting, int sorting) throws Exception;
 
 
-    Collection getContextPosts(Long isid, Long[] ids, PageSetting setting) throws Exception;
+    Collection getContextPosts(Long isid, Long[] ids, PageSetting setting, int sorting) throws Exception;
 
 
     int getPostTagCount(Long isid, Long postId) throws Exception;

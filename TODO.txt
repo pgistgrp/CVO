@@ -65,7 +65,9 @@ Zhong:
 [ok] - infoObject.discussion.numPosts seem to be wrong?  (maybe it is counting deleted posts)?
 [2 ] - getPosts filter by tag queries deleted posts.
 [3] - tags case insensitive
-[  ] -"${term.name}: ${term.shortDef} (click to read more)" <= "read more" links to term (new window?)
+[ok] -"Short definition - ${term.shortDef} (read more)" <= "read more" links to term
+[ ] -"${term.name}: ${term.shortDef} (click to read more)" <= "read more" links to term (new window?)
+[5] user actions logging
 
 John:
 [ok] css for new design

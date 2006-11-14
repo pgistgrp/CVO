@@ -85,7 +85,7 @@ public class SDServiceImpl implements SDService {
     }//getInfoStructures()
 
 
-    public Collection getPosts(InfoStructure structure, InfoObject infoObj, PageSetting setting, boolean order) throws Exception {
+    public Collection getPosts(InfoStructure structure, InfoObject infoObj, PageSetting setting, int sorting) throws Exception {
         Discussion discussion = null;
         
         if (infoObj==null) {
@@ -102,7 +102,7 @@ public class SDServiceImpl implements SDService {
         
         if (discussion==null) throw new Exception("can't find this discussion");
         
-        Collection list = discussionDAO.getPosts(discussion, setting, order);
+        Collection list = discussionDAO.getPosts(discussion, setting, sorting);
         
         //inject related voting information
         for (DiscussionPost post : (Collection<DiscussionPost>) list) {
@@ -114,7 +114,7 @@ public class SDServiceImpl implements SDService {
     }//getPosts()
     
     
-    public Collection getPosts(InfoStructure structure, InfoObject infoObj, PageSetting setting, String filter, boolean order) throws Exception {
+    public Collection getPosts(InfoStructure structure, InfoObject infoObj, PageSetting setting, String filter, int sorting) throws Exception {
         Discussion discussion = null;
         
         if (infoObj==null) {
@@ -131,7 +131,7 @@ public class SDServiceImpl implements SDService {
         
         if (discussion==null) throw new Exception("can't find this discussion");
         
-        Collection list = discussionDAO.getPosts(discussion, setting, filter, order);
+        Collection list = discussionDAO.getPosts(discussion, setting, filter, sorting);
         
         //inject related voting information
         for (DiscussionPost post : (Collection<DiscussionPost>) list) {
@@ -352,20 +352,20 @@ public class SDServiceImpl implements SDService {
     }//getConcernTagCount()
 
 
-    public Collection getContextPosts(Long isid, Long pid, String ids, PageSetting setting, boolean tagId) throws Exception {
+    public Collection getContextPosts(Long isid, Long pid, String ids, PageSetting setting, boolean tagId, int sorting) throws Exception {
         Collection list = null;
         
         if (ids==null || ids.trim().length()==0) {
             if (pid==null) {
-                list = discussionDAO.getContextPosts(isid, setting);
+                list = discussionDAO.getContextPosts(isid, setting, sorting);
             } else {
-                list = discussionDAO.getContextPosts(isid, pid, setting);
+                list = discussionDAO.getContextPosts(isid, pid, setting, sorting);
             }
         } else {
             if (pid==null) {
-                list = discussionDAO.getContextPosts(isid, discussionDAO.processIds(isid, ids, tagId), setting);
+                list = discussionDAO.getContextPosts(isid, discussionDAO.processIds(isid, ids, tagId), setting, sorting);
             } else {
-                return discussionDAO.getContextPosts(isid, pid, discussionDAO.processIds(isid, ids, tagId), setting);
+                return discussionDAO.getContextPosts(isid, pid, discussionDAO.processIds(isid, ids, tagId), setting, sorting);
             }
         }
         

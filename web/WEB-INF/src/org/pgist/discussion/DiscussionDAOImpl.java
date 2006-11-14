@@ -31,6 +31,43 @@ import org.pgist.util.WebUtils;
 public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     
     
+    /**
+     * Sorting index for discussion posts
+     * <ul>
+     *   <li>0 - Default (newest created/replied)</li>
+     *   <li>1 - Newest to Oldest</li>
+     *   <li>2 - Oldest to Newest</li>
+     *   <li>3 - Most Agreement</li>
+     *   <li>4 - Least Agreement</li>
+     *   <li>5 - Most Comments</li>
+     *   <li>6 - Most Views</li>
+     *   <li>7 - Most Votes</li>
+     * </ul>
+     */
+    private static final String[][] postSorting = {
+        {
+            "replyTime desc",
+            "createTime desc",
+            "createTime asc",
+            "numAgree desc",
+            "numAgree asc",
+            "replies desc",
+            "views desc",
+            "numVote desc",
+        },
+        {
+            "rtime desc",
+            "ctime desc",
+            "ctime asc",
+            "nagree desc",
+            "nagree asc",
+            "nreply desc",
+            "nview desc",
+            "nvote desc",
+        }
+    };
+    
+    
     private static final String hql_setPostTags = "from Tag where lower(name)=?";
     
     
@@ -72,11 +109,11 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getPostById()
 
 
-    private static final String hql_getPosts_A = "from DiscussionPost p where p.discussion.id=? and p.deleted=? order by p.replyTime";
+    private static final String hql_getPosts_A = "from DiscussionPost p where p.discussion.id=? and p.deleted=? order by p.#sorting";
     
     
-    public Collection getPosts(Discussion discussion, boolean order) throws Exception {
-        return getHibernateTemplate().find(hql_getPosts_A + (order?"":" desc"), new Object[] {
+    public Collection getPosts(Discussion discussion, int sorting) throws Exception {
+        return getHibernateTemplate().find(hql_getPosts_A.replace("#sorting", postSorting[0][sorting]), new Object[] {
                 discussion.getId(),
                 false,
         });
@@ -85,10 +122,10 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     
     private static final String hql_getPosts_B_1 = "select count(p.id) from DiscussionPost p where p.discussion.id=? and p.deleted=?";
     
-    private static final String hql_getPosts_B_2 = "from DiscussionPost p where p.discussion.id=? and p.deleted=? order by p.replyTime";
+    private static final String hql_getPosts_B_2 = "from DiscussionPost p where p.discussion.id=? and p.deleted=? order by p.#sorting";
     
     
-    public Collection getPosts(Discussion discussion, PageSetting setting, boolean order) throws Exception {
+    public Collection getPosts(Discussion discussion, PageSetting setting, int sorting) throws Exception {
         //get total rows number
         List list = getHibernateTemplate().find(hql_getPosts_B_1, new Object[] {
                 discussion.getId(),
@@ -102,7 +139,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
         
         //get rows
-        Query query = getSession().createQuery(hql_getPosts_B_2 + (order?"":" desc"));
+        Query query = getSession().createQuery(hql_getPosts_B_2.replace("#sorting", postSorting[0][sorting]));
         query.setLong(0, discussion.getId());
         query.setBoolean(1, false);
         query.setFirstResult(setting.getFirstRow());
@@ -114,16 +151,14 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     
     private static final String hql_getPosts_C_1 = "select count(distinct pid) from " + DBMetaData.VIEW_DPOST_TAG_IN_TARGET + " where did=? and lower(tname)=?";
     
-    private static final String hql_getPosts_C_2 = "select distinct pid from " + DBMetaData.VIEW_DPOST_TAG_IN_TARGET + " where did=? and lower(tname)=? order by pid ## OFFSET ? LIMIT ?";
+    private static final String hql_getPosts_C_2 = "select distinct pid from " + DBMetaData.VIEW_DPOST_TAG_IN_TARGET + " where did=? and lower(tname)=? order by #sorting OFFSET ? LIMIT ?";
     
     
-    public Collection getPosts(Discussion discussion, PageSetting setting, String filter, boolean order) throws Exception {
-        String direction = order ? " asc " : " desc ";
-        
+    public Collection getPosts(Discussion discussion, PageSetting setting, String filter, int sorting) throws Exception {
         List list = new ArrayList();
         
         Connection conn = getSession().connection();
-        PreparedStatement pstmt = conn.prepareStatement(hql_getPosts_C_1.replace("##", direction));
+        PreparedStatement pstmt = conn.prepareStatement(hql_getPosts_C_1);
         
         //get total rows number
         pstmt.setLong(1, discussion.getId());
@@ -137,7 +172,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         setting.setRowSize(count);
         
         //get records
-        pstmt = conn.prepareStatement(hql_getPosts_C_2.replace("##", direction));
+        pstmt = conn.prepareStatement(hql_getPosts_C_2.replace("#sorting", postSorting[1][sorting]));
         pstmt.setLong(1, discussion.getId());
         pstmt.setString(2, filter);
         pstmt.setInt(3, setting.getFirstRow());
@@ -668,18 +703,24 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getRelatedInfo()
 
 
-    private static final String sql_getDiscussions_A_1 = "SELECT count(distinct pid) from "+DBMetaData.VIEW_POST_REPLY_TAG_IN_DISCUSSION+" v where v.isid=:isid and v.pid<>:pid and v.tid in (select tid from view_post_reply_tags where pid=:pid);";
+    private static final String sql_getContextPosts_A_1 =
+        "SELECT count(distinct pid) from " +
+        DBMetaData.VIEW_POST_REPLY_TAG_IN_DISCUSSION +
+        " v where v.isid=:isid and v.pid<>:pid and v.tid in (select tid from view_post_reply_tags where pid=:pid);";
     
-    private static final String sql_getDiscussions_A_2 = "SELECT pid, ioid from "+DBMetaData.VIEW_POST_REPLY_TAG_IN_DISCUSSION+" v where v.isid=:isid and v.pid<>:pid and v.tid in (select tid from view_post_reply_tags where pid=:pid) group by pid, ioid order by count(pid) desc;";
+    private static final String sql_getContextPosts_A_2 =
+        "SELECT distinct v.pid, v.ioid, p.views AS nview, p.replies AS nreply, p.replytime AS rtime, p.createtime AS ctime, p.numagree AS nagree, p.numvote AS nvote from "+
+        DBMetaData.VIEW_POST_REPLY_TAG_IN_DISCUSSION+
+        " v, pgist_discussion_post p where p.id=v.pid and v.isid=:isid and v.pid<>:pid and v.tid in (select tid from view_post_reply_tags where pid=?) group by pid, ioid order by #sorting desc OFFSET ? LIMIT ?;";
     
     
-    public Collection getContextPosts(Long isid, Long pid, PageSetting setting) throws Exception {
+    public Collection getContextPosts(Long isid, Long pid, PageSetting setting, int sorting) throws Exception {
         List posts = new ArrayList();
         
         Connection connection = getSession().connection();
         Statement stmt = connection.createStatement();
         
-        String sql = sql_getDiscussions_A_1.replace(":isid", isid.toString()).replace(":pid", pid.toString());
+        String sql = sql_getContextPosts_A_1.replace(":isid", isid.toString()).replace(":pid", pid.toString());
         
         //get count
         
@@ -695,9 +736,12 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         //get records
         
-        sql = sql_getDiscussions_A_2.replace(":isid", isid.toString()).replace(":pid", pid.toString());
-        
-        rs = stmt.executeQuery(sql);
+        sql = sql_getContextPosts_A_2.replace("#sorting", postSorting[1][sorting]);
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setLong(1, pid);
+        pstmt.setInt(2, setting.getFirstRow());
+        pstmt.setInt(3, setting.getRowOfPage());
+        rs = pstmt.executeQuery();
         
         while (rs.next()) {
             Long postId = rs.getLong(1);
@@ -717,10 +761,13 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getContextPosts()
 
 
-    private static final String sql_getContextPosts_B = "select distinct v.pid as xid, v.ioid as yid from "+DBMetaData.VIEW_POST_REPLY_TAG_IN_DISCUSSION+" v where v.isid=:isid and v.pid<>:pid and v.tid=";
+    private static final String sql_getContextPosts_B =
+        "select distinct v.pid as xid, v.ioid as yid from " +
+        DBMetaData.VIEW_POST_REPLY_TAG_IN_DISCUSSION +
+        " v where v.isid=:isid and v.pid<>:pid and v.tid=";
     
     
-    public Collection getContextPosts(Long isid, Long pid, Long[] ids, PageSetting setting) throws Exception {
+    public Collection getContextPosts(Long isid, Long pid, Long[] ids, PageSetting setting, int sorting) throws Exception {
         List posts = new ArrayList();
         
         StringBuilder sb = new StringBuilder();
@@ -754,9 +801,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         stmt = connection.createStatement();
         
-        sql = piece+" order by xid desc offset "+setting.getFirstRow()+" limit "+setting.getRowOfPage();
+        sql = "select distinct p.id, v.ioid, p.views AS nview, p.replies AS nreply, p.replytime AS rtime, p.createtime AS ctime, p.numagree AS nagree, p.numvote AS nvote from (piece) AS v, pgist_discussion_post AS p WHERE v.pid=p.id order by #sorting offset "+setting.getFirstRow()+" limit "+setting.getRowOfPage();
         
-        rs = stmt.executeQuery(sql);
+        rs = stmt.executeQuery(sql.replace("#sorting", postSorting[1][sorting]));
         
         while (rs.next()) {
             Long postId = rs.getLong(1);
@@ -778,10 +825,10 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
 
     private static final String hql_getContextPosts_A_1 = "select count(p.id) from DiscussionPost p where p.discussion.id in (select o.discussion.id from InfoObject o where o.structure.id=?)";
     
-    private static final String hql_getContextPosts_A_2 = "from DiscussionPost p where p.discussion.id in (select o.discussion.id from InfoObject o where o.structure.id=?) order by p.id desc";
+    private static final String hql_getContextPosts_A_2 = "from DiscussionPost p where p.discussion.id in (select o.discussion.id from InfoObject o where o.structure.id=?) order by #sorting";
     
     
-    public Collection getContextPosts(Long isid, PageSetting setting) throws Exception {
+    public Collection getContextPosts(Long isid, PageSetting setting, int sorting) throws Exception {
         List list = new ArrayList();
         
         Query query = null;
@@ -798,7 +845,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         if (count==0) return list;
         
-        query = getSession().createQuery(hql_getContextPosts_A_2);
+        query = getSession().createQuery(hql_getContextPosts_A_2.replace("#sorting", postSorting[0][sorting]));
         query.setLong(0, isid);
         
         query.setFirstResult(setting.getFirstRow());
@@ -810,10 +857,10 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
 
     private static final String hql_getContextPosts_B_1 = "select count(p.id) from DiscussionPost p where p.discussion.id in (select o.discussion.id from InfoObject o where o.structure.id=?) and p.tags.id in (##)";
     
-    private static final String hql_getContextPosts_B_2 = "from DiscussionPost p where p.discussion.id in (select o.discussion.id from InfoObject o where o.structure.id=?) and p.tags.id in (##) order by p.id desc";
+    private static final String hql_getContextPosts_B_2 = "from DiscussionPost p where p.discussion.id in (select o.discussion.id from InfoObject o where o.structure.id=?) and p.tags.id in (##) order by #sorting";
     
     
-    public Collection getContextPosts(Long isid, Long[] ids, PageSetting setting) throws Exception {
+    public Collection getContextPosts(Long isid, Long[] ids, PageSetting setting, int sorting) throws Exception {
         List list = new ArrayList();
         
         StringBuilder sb = new StringBuilder();
@@ -835,7 +882,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         if (count==0) return list;
         
-        query = getSession().createQuery(hql_getContextPosts_B_2.replace("##", idstring));
+        query = getSession().createQuery(hql_getContextPosts_B_2.replace("##", idstring).replace("#sorting", postSorting[0][sorting]));
         query.setLong(0, isid);
         
         query.setFirstResult(setting.getFirstRow());

@@ -123,6 +123,7 @@ public class SDAgent {
      *     <li>isid - int, id of a InfoStructure object</li>
      *     <li>ioid - int, id of a InfoObject object. Optional, default value is null, means the discussion is on InfoStructure object</li>
      *     <li>filter - string, tag name as filter</li>
+     *     <li>sorting - int, the sorting index, 1-7, referencing DiscussionDAOImpl.java for the meaning</li>
      *     <li>page - int, current page to get. Optional, default value is 1.</li>
      *     <li>count - int, number of posts to be displayed in a page. Optional, default value is -1, means to get all posts.</li>
      *   </ul>
@@ -182,6 +183,12 @@ public class SDAgent {
         }
         
         try {
+            int sorting = 0;
+            try {
+                sorting = Integer.parseInt((String) params.get("sorting"));
+            } catch (Exception e) {
+            }
+            
             PageSetting setting = new PageSetting();
             setting.setPage((String) params.get("page"));
             setting.setRowOfPage((String) params.get("count"));
@@ -194,10 +201,10 @@ public class SDAgent {
             
             if ("".equals(filter)) {
                 //without filter
-                posts = sdService.getPosts(structure, object, setting, false);
+                posts = sdService.getPosts(structure, object, setting, sorting);
             } else {
                 //with filter
-                posts = sdService.getPosts(structure, object, setting, filter, false);
+                posts = sdService.getPosts(structure, object, setting, filter, sorting);
             }
             
             request.setAttribute("structure", structure);
@@ -1370,6 +1377,12 @@ public class SDAgent {
         }
         
         try {
+            int sorting = 0;
+            try {
+                sorting = Integer.parseInt((String) params.get("sorting"));
+            } catch (Exception e) {
+            }
+            
             InfoStructure structure = sdService.getInfoStructureById(isid);
             if (structure==null) {
                 map.put("reason", "can't find this InfoStructure object.");
@@ -1387,7 +1400,7 @@ public class SDAgent {
             
             String type = (String) params.get("type");
             
-            posts = sdService.getContextPosts(isid, pid, ids, setting, "tag".equals(type));
+            posts = sdService.getContextPosts(isid, pid, ids, setting, "tag".equals(type), sorting);
             
             if (pid!=null) {
                 num = sdService.getPostTagCount(isid, pid);

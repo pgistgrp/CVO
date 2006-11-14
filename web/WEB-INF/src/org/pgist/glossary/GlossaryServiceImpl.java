@@ -200,7 +200,7 @@ public class GlossaryServiceImpl implements GlossaryService {
 
 
     public Collection getComments(Term term) throws Exception {
-        return discussionDAO.getPosts(term.getDiscussion(), true);
+        return discussionDAO.getPosts(term.getDiscussion(), 0);
     }//getComments()
 
 
