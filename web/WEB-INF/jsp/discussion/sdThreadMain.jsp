@@ -289,7 +289,7 @@
 			discussion area, and the sorting menu -->
   <div id="discussionHeader">
     <div class="sectionTitle">
-      <h3 class="headerColor">Discussion about ${post.title}</h3>
+      <h3 class="headerColor">TEST TEST TEST Discussion about ${post.title}</h3>
     </div>
 	
 	<!--
