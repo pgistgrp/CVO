@@ -121,7 +121,7 @@
 					location.href = io.filterAnchor;
 				}
 				io.currentSort = sorting;
-				alert("structure: " + io.structureId + " tag filter: " + tag + " page: " + page + " count:" + io.postCount + " sorting:" + io.currentSort);
+				//alert("structure: " + io.structureId + " tag filter: " + tag + " page: " + page + " count:" + io.postCount + " sorting:" + io.currentSort);
 				//SDAgent.getContextPosts({isid:io.structureId, tag: tag,  type:"tagRef", page: page, count: io.postCount}, {
 			    SDAgent.getPosts({isid:io.structureId,ioid:io.objectId, sorting: sorting, filter: tag, page: page, count: io.postCount}, {
 			      callback:function(data){
@@ -369,7 +369,7 @@
 	        <option value="2">Oldest to Newest</option>
 	        <option value="3">Most Agreement</option>
 	        <option value="4">Least Agreement</option>
-	        <option value="5">Most Comments</option>
+	        <option value="5">Most Replies</option>
 	        <option value="6">Most Views</option>
 	        <option value="7">Most Votes</option>
           </select>
