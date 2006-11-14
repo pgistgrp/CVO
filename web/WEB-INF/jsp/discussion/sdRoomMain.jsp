@@ -359,7 +359,7 @@
 	</style>
 <![endif]-->
 
-    <div id="sortingMenu" class="box4"> <a href="TESTTEST.html" title="<b>ShortDef:</b> Blah blha lkjsdflkjsdflkjasdflk;jsadflkjasdflkjs">sort discussion by:</a>
+    <div id="sortingMenu" class="box4">sort discussion by:
 
           <select>
           	 <option>--Sorting is not currently functional.--</option>
