@@ -262,6 +262,12 @@
 		color: #733C00;
 		}
 
+        #noTopicsBox
+		{
+		width:680px;
+		padding:5px 0px
+		}
+
 		#object
 		{
 		margin:1em auto;
