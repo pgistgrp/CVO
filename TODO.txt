@@ -58,14 +58,14 @@ Zhong:
         <6>Most Views
         <7>Most Votes
 [ ] - Count of unique users per post - calculate on createPost()
-[ ] - Pagination on SDAgent.contextPosts seems to not work.  Count and Page have no effect. - Through tag Matching
+[*] - Pagination on SDAgent.contextPosts seems to not work.  Count and Page have no effect. - Through tag Matching
 [ ] - Commenting on CCT
 [ok] - Get posts error - see e-mail
 [ ] - Add IOID param to tagSearch
 [ok] - infoObject.discussion.numPosts seem to be wrong?  (maybe it is counting deleted posts)?
 [ ] - getPosts filter by tag queries deleted posts.
 [ ] - tags case insensitive
-[ ] - 				<a href="glossaryView.do?id=1507" title="Name - Short Definition">Name</a>
+[ok] - 				<a href="glossaryView.do?id=1507" title="Name - Short Definition">Name</a>
 
 John:
 [ok] css for new design
