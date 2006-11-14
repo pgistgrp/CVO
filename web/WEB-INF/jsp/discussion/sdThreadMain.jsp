@@ -58,7 +58,7 @@
 		io.currentFilter = '';
 		io.currentPage = 1;
 		io.replyCount = 15; //per page
-		io.contextPostCount = 3;
+		io.contextPostCount = 5;
 		
 		/*----Input ID's - these id's of input elements have changing content or gets read by the javascript ---- */
 	 	 io.newReplyTagsInput = "txtNewReplyTags"; //new post tags input box

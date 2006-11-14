@@ -49,7 +49,7 @@ Zhong:
 [ok] - SDAgent.deleteReply(replyId)
 [ok] - post.replies (reply count) is always 0
 [ok] - sdAgent.getReplies - filter by tag (only within a single post).
-[*] - SDAgent.getPosts, CCTAgent.getContextConcerns sorting
+[* - getPosts works, getContextPosts does not] - SDAgent.getPosts, CCTAgent.getContextConcerns sorting
         <1>Newest to Oldest
         <2>Oldest to Newest
         <3>Most Agreement
@@ -58,7 +58,7 @@ Zhong:
         <6>Most Views
         <7>Most Votes
 [2] - Count of unique users per post - calculate on createPost()
-[*] - SDAgent.contextPosts - ERROR: syntax error at or near ":"
+[ok] - SDAgent.contextPosts - ERROR: syntax error at or near ":"
 [4] - Commenting on CCT
 [ok] - Get posts error - see e-mail
 [3] - Add IOID param to tagSearch
@@ -66,8 +66,8 @@ Zhong:
 [2] - getPosts filter by tag queries deleted posts.
 [3] - tags case insensitive
 [ok] -"Short definition - ${term.shortDef} (read more)" <= "read more" links to term
-[*] -"${term.name}: ${term.shortDef} (click to read more)" <= "read more" links to term (new window?)
-[5] user actions logging
+[ok] -"${term.name}: ${term.shortDef} (click to read more)" <= "read more" links to term (new window?)
+[5] - user actions event logging
 
 John:
 [ok] css for new design

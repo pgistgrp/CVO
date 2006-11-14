@@ -295,7 +295,7 @@ var allNewConcernTags = new Array;
 					swapContinue(false);
 					$(cct.txtAddConcern).value = '';
 					Effect.BlindUp(cct.divTagNewConcern);
-
+					
 				}
 			},
 			errorHandler:function(errorString, exception){ 

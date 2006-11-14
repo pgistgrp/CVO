@@ -120,10 +120,12 @@
 				if(jump){
 					location.href = io.filterAnchor;
 				}
+				io.currentPage = page;
 				io.currentSort = sorting;
-				//alert("structure: " + io.structureId + " tag filter: " + tag + " page: " + page + " count:" + io.postCount + " sorting:" + io.currentSort);
+				io.currentFilter = tag;
+				//alert("structure: " + io.structureId + " tag filter: " + tag + " page: " + io.currentPage + " count:" + io.postCount + " sorting:" + io.currentSort);
 				//SDAgent.getContextPosts({isid:io.structureId, tag: tag,  type:"tagRef", page: page, count: io.postCount}, {
-			    SDAgent.getPosts({isid:io.structureId,ioid:io.objectId, sorting: sorting, filter: tag, page: page, count: io.postCount}, {
+			    SDAgent.getPosts({isid:io.structureId,ioid:io.objectId, sorting: io.currentSort, filter: tag, page: io.currentPage, count: io.postCount}, {
 			      callback:function(data){
 			          if (data.successful){
 			          $(io.discussionDiv).innerHTML = data.html;
@@ -165,7 +167,8 @@
 							 if(io.currentDiscPage != 1){
 							 	io.currentDiscPage = 1
 							 }
-							 io.getPosts('',1,true, 0); 
+							 io.getPosts('',1,true, 1); 
+							 $('selectsort').value = 1;
 						}else{
 							alert(data.reason);
 						}
@@ -182,7 +185,7 @@
 					SDAgent.deletePost({pid:pid}, {
 						callback:function(data){
 								if (data.successful){
-								   		 new Effect.Puff('discussion' + pid, {afterFinish: function(){io.getPosts(io.currentFilter,page,true, io.currentSort);}});
+								   		 new Effect.Puff('discussion' + pid, {afterFinish: function(){io.getPosts(io.currentFilter,io.currentPage,true, io.currentSort);}});
 										
 								}else{
 									alert(data.reason);
@@ -297,6 +300,11 @@
 				}		
 			});	
 	};
+	
+	//io.changeSort = function (sorting){
+		//io.getPosts(io.currentFilter, io.currentPage, false, sorting);	
+		//alert("currentFilter: " + io.currentFilter + " currentPage:" + io.currentPage + " sorting: " + sorting);
+	//}
 			//-->
 		</script>
 </head>
@@ -364,7 +372,7 @@
 
 
     <div id="sortingMenu" class="box4">sort discussion by:
-          <select name="selectsort" id="selectsort" onChange="javascript: io.getPosts(io.currentFilter, io.currentPage, false, this.value);">
+          <select name="selectsort" id="selectsort" onChange="javascript:io.getPosts(io.currentFilter, io.currentPage, true, this.value);	">
 	        <option value="1">Newest to Oldest</option>
 	        <option value="2">Oldest to Newest</option>
 	        <option value="3">Most Agreement</option>
