@@ -49,7 +49,7 @@ Zhong:
 [ok] - SDAgent.deleteReply(replyId)
 [ok] - post.replies (reply count) is always 0
 [ok] - sdAgent.getReplies - filter by tag (only within a single post).
-[1] - SDAgent.getPosts, CCTAgent.getContextConcerns sorting
+[*] - SDAgent.getPosts, CCTAgent.getContextConcerns sorting
         <1>Newest to Oldest
         <2>Oldest to Newest
         <3>Most Agreement
@@ -57,16 +57,16 @@ Zhong:
         <5>Most Comments
         <6>Most Views
         <7>Most Votes
-[ 2] - Count of unique users per post - calculate on createPost()
+[2] - Count of unique users per post - calculate on createPost()
 [*] - Pagination on SDAgent.contextPosts seems to not work.  Count and Page have no effect. - Through tag Matching
-[4 ] - Commenting on CCT
+[4] - Commenting on CCT
 [ok] - Get posts error - see e-mail
-[3 ] - Add IOID param to tagSearch
+[3] - Add IOID param to tagSearch
 [ok] - infoObject.discussion.numPosts seem to be wrong?  (maybe it is counting deleted posts)?
-[2 ] - getPosts filter by tag queries deleted posts.
+[2] - getPosts filter by tag queries deleted posts.
 [3] - tags case insensitive
 [ok] -"Short definition - ${term.shortDef} (read more)" <= "read more" links to term
-[ ] -"${term.name}: ${term.shortDef} (click to read more)" <= "read more" links to term (new window?)
+[*] -"${term.name}: ${term.shortDef} (click to read more)" <= "read more" links to term (new window?)
 [5] user actions logging
 
 John:
