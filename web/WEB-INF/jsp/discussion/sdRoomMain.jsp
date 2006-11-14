@@ -16,6 +16,7 @@
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 <script language="javascript" type="text/javascript" src="/scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<script src="scripts/qTip.js" type="text/javascript"></script>
 <!-- Site Wide JavaScript -->
 <script src="scripts/search.js" type="text/javascript"></script>
 <script src="scripts/tags.js" type="text/javascript"></script>
@@ -29,7 +30,7 @@
 <!--SDX Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
-<script src="scripts/qTip.js" type="text/javascript"></script>
+
 <!--End SDX Specific  Libraries-->
 
 <script type="text/javascript">
@@ -45,7 +46,7 @@
 		});
 
 		///////////////////////////////////////// START INFO OBJECT //////////////////////////////////////
-
+		
 		var io = new Object;
 		//Global Var Settings
 		io.structureId = "${structure.id}";
@@ -436,8 +437,9 @@
 			io.getPosts('', 1, false);
 			//infoObject.assignTargetHeaders();
 			io.getTargets();
+			
 
-		</script>
+	</script>
 </div>
 <!-- start the bottom header menu -->
 <!-- Begin header menu - The wide ribbon underneath the logo -->
