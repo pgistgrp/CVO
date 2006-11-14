@@ -125,7 +125,9 @@ public class TermHighlightTag extends BodyTagSupport {
                 /*
                  * output term URL
                  */
-                sb.append("<a href=\"").append(url).append(term.getId()).append("\" ");
+                sb.append("<a href=\"").append(url).append(term.getId()).append("\"");
+                sb.append(" title=\"").append(term.getShortDefinition().replace("\"", "&quot;")).append("\" ");
+                
                 if (attribute!=null) {
                     sb.append(attribute).append("=\"").append(value);
                 }
