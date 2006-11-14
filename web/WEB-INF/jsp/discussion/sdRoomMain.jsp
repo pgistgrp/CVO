@@ -53,6 +53,7 @@
 		io.objectId = "${object.id}";
 		io.currentFilter = '';
 		io.currentPage = 1;
+		io.currentSort = 0;
 		io.postCount = 5;
 		io.tagCloudCount = 50;
 		io.currentTagCloudPage = 1;
@@ -97,10 +98,10 @@
 								//alert("successful");
 								var votingDiv = 'voting-'+target+id;
 								if($(votingDiv) != undefined){
-	              				 	new Effect.Fade(votingDiv, {afterFinish:function(){io.getPosts(io.currentFilter, io.currentPage, false); io.getTargets(); new Effect.Appear(votingDiv);}});
+	              				 	new Effect.Fade(votingDiv, {afterFinish:function(){io.getPosts(io.currentFilter, io.currentPage, false, io.currentSort); io.getTargets(); new Effect.Appear(votingDiv);}});
 	              				 	
 	              				}else{
-	              					io.getPosts(io.currentFilter, io.currentPage, false);	
+	              					io.getPosts(io.currentFilter, io.currentPage, false, io.currentSort);	
 	              					io.getTargets();
 	              				}
 							}else{
@@ -115,13 +116,14 @@
 		};
 		/*************** Get Posts: posts.jsp************** */
 		
-		io.getPosts = function(tag, page, jump){
+		io.getPosts = function(tag, page, jump, sorting){
 				if(jump){
 					location.href = io.filterAnchor;
 				}
-				//alert("structure: " + io.structureId + " tag filter: " + tag + " page: " + page);
+				io.currentSort = sorting;
+				alert("structure: " + io.structureId + " tag filter: " + tag + " page: " + page + " count:" + io.postCount + " sorting:" + io.currentSort);
 				//SDAgent.getContextPosts({isid:io.structureId, tag: tag,  type:"tagRef", page: page, count: io.postCount}, {
-			    SDAgent.getPosts({isid:io.structureId,ioid:io.objectId, filter: tag, page: page, count: io.postCount}, {
+			    SDAgent.getPosts({isid:io.structureId,ioid:io.objectId, sorting: sorting, filter: tag, page: page, count: io.postCount}, {
 			      callback:function(data){
 			          if (data.successful){
 			          $(io.discussionDiv).innerHTML = data.html;
@@ -141,7 +143,7 @@
 				io.getTagCloud(page);
 				break;	
 			case "posts":
-				io.getPosts(io.currentFilter,page,true); 
+				io.getPosts(io.currentFilter,page,true, io.currentSort); 
 				break;
 			}
 	}
@@ -163,7 +165,7 @@
 							 if(io.currentDiscPage != 1){
 							 	io.currentDiscPage = 1
 							 }
-							 io.getPosts();
+							 io.getPosts('',1,true, 0); 
 						}else{
 							alert(data.reason);
 						}
@@ -180,7 +182,7 @@
 					SDAgent.deletePost({pid:pid}, {
 						callback:function(data){
 								if (data.successful){
-								   		 new Effect.Puff('discussion' + pid, {afterFinish: function(){io.getPosts();}});
+								   		 new Effect.Puff('discussion' + pid, {afterFinish: function(){io.getPosts(io.currentFilter,page,true, io.currentSort);}});
 										
 								}else{
 									alert(data.reason);
@@ -228,7 +230,7 @@
 				callback:function(data){
 				if (data.successful){
 		          			var tagName = data.tag.name;
-		          			io.getPosts(tagName, 0, true);
+		          			io.getPosts(tagName, 0, true, io.currentSort);
 							$(io.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: io.changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
 						}else{
 							alert(data.reason);
@@ -241,7 +243,7 @@
 		}else{
 			io.currentFilter = '';	
 			$(io.divFilteredBy).innerHTML = '';
-			io.getPosts('', 1, true);
+			io.getPosts('', 1, true, io.currentSort);
 		}
 	}
 	
@@ -360,17 +362,16 @@
 	</style>
 <![endif]-->
 
-    <div id="sortingMenu" class="box4">sort discussion by:
 
-          <select>
-          	 <option>--Sorting is not currently functional.--</option>
-	        <option>Newest to Oldest</option>
-	        <option>Oldest to Newest</option>
-	        <option>Most Agreement</option>
-	        <option>Least Agreement</option>
-	        <option>Most Comments</option>
-	        <option>Most Views</option>
-	        <option>Most Votes</option>
+    <div id="sortingMenu" class="box4">sort discussion by:
+          <select name="selectsort" id="selectsort" onChange="javascript: io.getPosts(io.currentFilter, io.currentPage, false, this.value);">
+	        <option value="1">Newest to Oldest</option>
+	        <option value="2">Oldest to Newest</option>
+	        <option value="3">Most Agreement</option>
+	        <option value="4">Least Agreement</option>
+	        <option value="5">Most Comments</option>
+	        <option value="6">Most Views</option>
+	        <option value="7">Most Votes</option>
           </select>
           <br />
           <div class="floatLeft">filter discussion by:</div>
@@ -434,7 +435,7 @@
   <!-- End Footer -->
   <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
   <script type="text/javascript">
-			io.getPosts('', 1, false);
+			io.getPosts('', 1, false, io.currentSort);
 			//infoObject.assignTargetHeaders();
 			io.getTargets();
 			
