@@ -10,8 +10,9 @@
 <title>Step 1b: Discuss Summaries - Rooms</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">
-@import "styles/lit.css";
+	@import "styles/lit.css";
 </style>
+<link rel="stylesheet" href="styles/nicetitle.css">
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 <script language="javascript" type="text/javascript" src="/scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
@@ -28,7 +29,9 @@
 <!--SDX Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
+<script src="scripts/qTip.js" type="text/javascript"></script>
 <!--End SDX Specific  Libraries-->
+
 <script type="text/javascript">
 	<!--
 		tinyMCE.init({
@@ -356,7 +359,7 @@
 	</style>
 <![endif]-->
 
-    <div id="sortingMenu" class="box4"> sort discussion by:
+    <div id="sortingMenu" class="box4"> <a href="TESTTEST.html" title="<b>ShortDef:</b> Blah blha lkjsdflkjsdflkjasdflk;jsadflkjasdflkjs">sort discussion by:</a>
 
           <select>
           	 <option>--Sorting is not currently functional.--</option>

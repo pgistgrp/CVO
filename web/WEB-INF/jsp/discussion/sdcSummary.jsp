@@ -37,6 +37,7 @@
 	<!-- begin summary -->
 		<div id="summary" class="box3 floatLeft">
 			<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
+			  <a title="test test test test" href="#">TEST ME TEST ME TEST ME</a>
 			  <p>${infoObject.object.theme.summary}</p>
 			</pg:termHighlight>
 	

@@ -65,6 +65,7 @@ Zhong:
 [ok] - infoObject.discussion.numPosts seem to be wrong?  (maybe it is counting deleted posts)?
 [ ] - getPosts filter by tag queries deleted posts.
 [ ] - tags case insensitive
+[ ] - 				<a href="glossaryView.do?id=1507" title="Name - Short Definition">Name</a>
 
 John:
 [ok] css for new design
