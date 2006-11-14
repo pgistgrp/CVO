@@ -151,7 +151,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     
     private static final String hql_getPosts_C_1 = "select count(distinct pid) from " + DBMetaData.VIEW_DPOST_TAG_IN_TARGET + " where did=? and lower(tname)=?";
     
-    private static final String hql_getPosts_C_2 = "select distinct pid from " + DBMetaData.VIEW_DPOST_TAG_IN_TARGET + " where did=? and lower(tname)=? order by #sorting OFFSET ? LIMIT ?";
+    private static final String hql_getPosts_C_2 = "select p.id AS pid, p.views AS nview, p.replies AS nreply, p.replytime AS rtime, p.createtime AS ctime, p.numagree AS nagree, p.numvote AS nvote from pgist_discussion_post p where p.id IN (select distinct pid from " + DBMetaData.VIEW_DPOST_TAG_IN_TARGET + " where did=? and lower(tname)=?) order by #sorting OFFSET ? LIMIT ?";
     
     
     public Collection getPosts(Discussion discussion, PageSetting setting, String filter, int sorting) throws Exception {
@@ -711,7 +711,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     private static final String sql_getContextPosts_A_2 =
         "SELECT distinct v.pid, v.ioid, p.views AS nview, p.replies AS nreply, p.replytime AS rtime, p.createtime AS ctime, p.numagree AS nagree, p.numvote AS nvote from "+
         DBMetaData.VIEW_POST_REPLY_TAG_IN_DISCUSSION+
-        " v, pgist_discussion_post p where p.id=v.pid and v.isid=:isid and v.pid<>:pid and v.tid in (select tid from view_post_reply_tags where pid=?) group by pid, ioid order by #sorting desc OFFSET ? LIMIT ?;";
+        " v, pgist_discussion_post p where p.id=v.pid and v.isid=? and v.pid<>? and v.tid in (select tid from view_post_reply_tags where pid=?) order by #sorting OFFSET ? LIMIT ?;";
     
     
     public Collection getContextPosts(Long isid, Long pid, PageSetting setting, int sorting) throws Exception {
@@ -738,9 +738,11 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         sql = sql_getContextPosts_A_2.replace("#sorting", postSorting[1][sorting]);
         PreparedStatement pstmt = connection.prepareStatement(sql);
-        pstmt.setLong(1, pid);
-        pstmt.setInt(2, setting.getFirstRow());
-        pstmt.setInt(3, setting.getRowOfPage());
+        pstmt.setLong(1, isid);
+        pstmt.setLong(2, pid);
+        pstmt.setLong(3, pid);
+        pstmt.setInt(4, setting.getFirstRow());
+        pstmt.setInt(5, setting.getRowOfPage());
         rs = pstmt.executeQuery();
         
         while (rs.next()) {
