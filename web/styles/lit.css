@@ -301,6 +301,7 @@
 		font-size:.8em;
 		width:360px;
 		position:absolute;
+		top:-7px;
 		right:-7px;
 		z-index:2000;
 		padding:5px 5px 7px 5px;
