@@ -251,6 +251,17 @@
 		text-align:center;
 		}
 
+		#loading-indicator
+		{
+		position:absolute;
+		top:0px;
+		left:0px;
+		background:#FFF3DE;
+		border:2px solid #FFCB7B;
+		padding:3px;
+		color: #733C00;
+		}
+
 		#object
 		{
 		margin:1em auto;

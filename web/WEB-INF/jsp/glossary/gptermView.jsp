@@ -26,8 +26,8 @@
 		width:30%;
 		float:left;
 		padding:10px;
-		background:#DEE3E7;
-		border:2px solid #9CB6C6; }
+	}
+	
 </style>
 <!-- Site Wide JavaScript -->
 <script src="scripts/prototype.js" type="text/javascript"></script>
@@ -285,7 +285,7 @@
       <br>
       <a href="glossaryPublic.do">Back to All Glossary Terms</a> </div>
 	  
-	    <div id="right-col">
+	    <div id="right-col" class="box3">
     <pg:show roles="admin, moderator">
       <p><a href="glossaryManage.do">Back to Glossary Management</a></p>
     </pg:show>
