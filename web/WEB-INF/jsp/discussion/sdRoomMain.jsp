@@ -176,6 +176,7 @@
 							 }
 							 io.getPosts('',1,true, 1); 
 							 $('selectsort').value = 1;
+							 window.setTimeout('new Effect.Highlight("discussionText'+ data.id +'", {duration: 4.0});',500);
 						}else{
 							alert(data.reason);
 							displayIndicator(false);

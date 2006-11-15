@@ -298,12 +298,12 @@ var allNewConcernTags = new Array;
 		CCTAgent.saveConcern({cctId:cct.cctId,concern:concern,tags:newConcernSelectedTagsString}, {
 			callback:function(data){
 				if (data.successful){
-					getContextConcerns(cct.currentFilter, 0, true, 1); 	
+					getContextConcerns(cct.currentFilter, 1, true, false, 1); 	
 					setVote(data.concern.id, "true")
 					swapContinue(false);
 					$(cct.txtAddConcern).value = '';
 					Effect.BlindUp(cct.divTagNewConcern);
-					
+					window.setTimeout('new Effect.Highlight("discussionText'+ data.concern.id +'", {duration: 4.0});',500);
 				}
 			},
 			errorHandler:function(errorString, exception){ 

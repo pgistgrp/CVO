@@ -156,7 +156,7 @@
 						resetNewReplyForm();
 						io.setVote('reply', data.id, 'true');	
 						location.href="#replyAnchor";
-						
+						window.setTimeout('new Effect.Highlight("discussionText'+ data.id +'", {duration: 4.0});',500);
 		          }else{
 		          	 displayIndicator(false);
 		            alert(data.reason);

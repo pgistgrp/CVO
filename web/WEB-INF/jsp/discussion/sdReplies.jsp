@@ -54,7 +54,7 @@
 									<div class="discussionBody padding5">
 								</c:otherwise>
 						</c:choose>
-						<div class="discussionText peekaboobugfix">
+						<div id="discussionText${reply.id}" class="discussionText peekaboobugfix">
 							
 							<div id="replyContent${reply.id}"><p>${reply.content}</p></div>
 							<div id="replyOwner${reply.id}"><h3>- ${reply.owner.loginname}</h3></div>
