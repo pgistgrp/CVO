@@ -20,7 +20,7 @@
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-<script src="scripts/search.js" type="text/javascript"></script>
+<script src="scripts/globalSnippits.js" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
 
 <!-- DWR JavaScript Libraries -->

@@ -18,7 +18,7 @@
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-<script src="scripts/search.js" type="text/javascript"></script>
+<script src="scripts/globalSnippits.js" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
 <!-- DWR JavaScript Libraries -->
 <script type='text/javascript' src='/dwr/engine.js'></script>
@@ -69,6 +69,7 @@ var allNewConcernTags = new Array;
 
 //START CCT Clean up
 	function getContextConcerns(tags, page, jump, showMyConcerns, sorting){
+		displayIndicator(true);
 		if(jump){
 			location.href = cct.filterAnchor;
 		}
@@ -82,14 +83,15 @@ var allNewConcernTags = new Array;
 		}
 		cct.currentSort = sorting;
 		cct.currentPage = page;
-		alert("cct: " + cct.cctId + " tags: " + tags + " count: " + cct.concernsPerPage + " page: " + page + " contextAware: " + cct.contextAware + " desc: " + cct.concernsDesc + " ownerOnly: " + cct.showOnlyMyConcerns + " sorting: " + cct.currentSort);
+		//alert("cct: " + cct.cctId + " tags: " + tags + " count: " + cct.concernsPerPage + " page: " + page + " contextAware: " + cct.contextAware + " desc: " + cct.concernsDesc + " ownerOnly: " + cct.showOnlyMyConcerns + " sorting: " + cct.currentSort);
 		CCTAgent.getContextConcerns({cctId: cct.cctId,tags: tags, count: cct.concernsPerPage, page: page, contextAware: cct.contextAware, desc: cct.concernsDesc, ownerOnly: cct.showOnlyMyConcerns, sorting: cct.currentSort}, {
 			callback:function(data){
 					if (data.successful){
 						$(cct.divDiscussionCont).innerHTML = data.html;
-						
+						displayIndicator(false);
 					}else{
 						alert(data.reason);
+						displayIndicator(false);
 					}
 				},
 			errorHandler:function(errorString, exception){ 
@@ -157,6 +159,7 @@ var allNewConcernTags = new Array;
 	}
 
 	function prepareConcern(){  //Find tags and potential tags to render
+		displayIndicator(true);
 		var concernTags = new Array;
 		var potentialTags = new Array;
 		var concern = $(cct.txtAddConcern).value;
@@ -164,6 +167,7 @@ var allNewConcernTags = new Array;
 		if (validateForm()){	
 			CCTAgent.prepareConcern({cctId:cct.cctId,concern:concern}, function(data) {
 				if (data.successful){
+					displayIndicator(false);
 					swapContinue(true);
 					newConcernTagsArray = [];
 					for(i=0; i< data.tags.length; i++){
@@ -179,6 +183,7 @@ var allNewConcernTags = new Array;
 				
 					$(cct.divAddConcernTagsList).innerHTML = renderTags();  
 				}else{
+					displayIndicator(false);
 					alert(data.reason);	
 				}
 			} );
@@ -217,11 +222,13 @@ var allNewConcernTags = new Array;
 	}
 	
 	function getTagCloud(page){
+		displayIndicator(true);
 		cct.currentTagCloudPage = page;
 		//alert('cctId: ' + cct.cctId + ' count: ' + cct.tagCloudCount + ' page: ' + cct.currentTagCloudPage);
 			CCTAgent.getTagCloud({cctId:cct.cctId,type:2,count:cct.tagCloudCount, page: cct.currentTagCloudPage},{
 				callback:function(data){
 						if (data.successful){			
+							displayIndicator(false);
 							$(cct.divTagCloud).innerHTML = data.html;
 							if (data.count == 0){
 								$(cct.divTagCloud).innerHTML = '<a href="javascript:Effect.Fade(\''+cct.divTagCloud+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
@@ -231,6 +238,7 @@ var allNewConcernTags = new Array;
 
 							}		
 						}else{
+							displayIndicator(false);
 							alert(data.reason);
 						}
 				},
@@ -308,15 +316,18 @@ var allNewConcernTags = new Array;
 	}
 	
 	 	function setVote(id, agree){
+	 		displayIndicator(true);
 			CCTAgent.setVoting({id: id, agree:agree}, {
 			callback:function(data){
 					if (data.successful){ 
+						displayIndicator(false);
 						if($('concernVote'+id) != undefined){
             				 new Effect.Fade('concernVote'+id, {afterFinish: function(){getContextConcerns(cct.currentFilter,cct.currentPage, false, cct.showOnlyMyConcerns, cct.currentSort); new Effect.Appear('concernVote'+id);}});
             			}else{ //newly created concern
             				getContextConcerns(cct.currentFilter, cct.currentPage, false, cct.showOnlyMyConcerns, cct.currentSort); 	
             			}
 					}else{
+						displayIndicator(false);
 						alert(data.reason);
 					}
 				},
@@ -328,14 +339,17 @@ var allNewConcernTags = new Array;
 	//END ADD Concern Functions
 	
 		function deleteConcern(concernId){
+		displayIndicator(true);
 		var destroy = confirm ("Are you sure you want to delete this concern? Note: there is no undo.")
 		if (destroy){
 				CCTAgent.deleteConcern({concernId:concernId}, {
 				callback:function(data){	
 						if (data.successful){
+							displayIndicator(false);
 							new Effect.Puff('concern'+concernId, {afterFinish:function(){getContextConcerns(cct.currentFilter,cct.currentPage,false, cct.showOnlyMyConcerns, cct.currentSort);}});
 						}else{
 							alert(data.reason);	
+							displayIndicator(false);
 						}
 				},
 				errorHandler:function(errorString, exception){ 
@@ -398,19 +412,6 @@ var allNewConcernTags = new Array;
 				}		
 			});	
 	};
-
-
-	//END CCT Cleanup
-
-
-function glossaryPopup(term){
-lightboxDisplay(true);
-os = "";
-os += '<div id="closeBox" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>'
-os += '<h4>Glossary Term: '+ term +'</h4><br>';
-os += '<p>Tags helps make your concerns easier to find, since all this info is searchable later. Imagine this applied to thousands of concerns!</p>';
-$('lightbox').innerHTML = os;
-}
 
 
 
@@ -565,69 +566,7 @@ function editTags(concernId){
 	}
 }
 
-/*
 
-function ifEnter(field,event) {
-
-var theCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
-if (theCode == 13){
-prepareConcern();
-$('theTag').focus();
-return false;
-} 
-else
-return true;
-}   
-
-
-var winH;
-function getWinH(){
-if (parseInt(navigator.appVersion)>3) {
- if (navigator.appName=="Netscape") {
-  winH = window.innerHeight;
- }
- if (navigator.appName.indexOf("Microsoft")!=-1) {
-  winH = document.body.offsetHeight;
- }
-}
-
-alert(winH);
-$('slate').style.Height = winH;
-}
-
-function lightboxDisplay(show){
-	if (show){
-		$('overlay').style.display = 'block';
-		$('lightcontainer').style.display = 'inline';
-		centerDisable();
-	}else{
-		$('overlay').style.display = 'none';
-		$('lightcontainer').style.display = 'none';
-		centerReenable();
-	}
-}
-	function displayIndicator(show){
-		if (show){
-			$('loading-indicator').style.display = "inline";	
-		}else{
-			$('loading-indicator').style.display = "none";	
-		}
-	}
-
-
-function lightboxDisplay(show){
-	if (show){
-		$('overlay').style.display = 'block';
-		$('lightcontainer').style.display = 'inline';
-		centerDisable();
-	}else{
-		$('overlay').style.display = 'none';
-		$('lightcontainer').style.display = 'none';
-		centerReenable();
-	}
-}
-
-*/
 
 </script>
 
@@ -654,6 +593,7 @@ function lightboxDisplay(show){
   </div>
   <!-- End header menu -->
   <!-- #container is the container that wraps around all the main page content -->
+  <div style="display: none;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
   <div id="container">
     <!-- begin "overview and instructions" area -->
     <div id="overview" class="box2">
