@@ -12,11 +12,10 @@
 <style type="text/css" media="screen">
 	@import "styles/lit.css";
 </style>
-<link rel="stylesheet" href="styles/nicetitle.css">
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 <script language="javascript" type="text/javascript" src="/scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
-<script src="scripts/qTip.js" type="text/javascript"></script>
+<script language="JavaScript" src="scripts/qtip.js" type="text/JavaScript"></script>
 <!-- Site Wide JavaScript -->
 <script src="scripts/search.js" type="text/javascript"></script>
 <script src="scripts/tags.js" type="text/javascript"></script>

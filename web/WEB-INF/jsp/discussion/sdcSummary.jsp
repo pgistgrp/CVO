@@ -6,10 +6,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-
-
 <pg:fragment type="html">
-	
+
 		<!-- Begin voting tally menu -->
 <div id="votingMenu" class="floatLeft"><div id="voting-object${infoObject.id}">
 	<div id="votingMenuTally" class="box1">
@@ -57,8 +55,3 @@
 
 
 </pg:fragment>
-
-
-
-
-
