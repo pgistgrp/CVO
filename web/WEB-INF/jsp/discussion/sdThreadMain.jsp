@@ -72,11 +72,14 @@
 		
 		/*************** Get Targets - If IOID is ommitted, return sdcSummary.jsp::else, returns sdcStructureSummary.jsp************** */
 		io.getTargets = function(){
+			displayIndicator(true);
 			SDAgent.getSummary({isid: io.structureId, ioid: io.objectId  }, {
 				callback:function(data){
 					if (data.successful){
-						$(io.objectDiv).innerHTML = data.source.html;
+							displayIndicator(false);
+							$(io.objectDiv).innerHTML = data.source.html;
 						}else{
+							displayIndicator(false);
 							alert(data.reason);
 						}
 					},
@@ -87,6 +90,7 @@
 			};
 			
 		io.getReplies = function(tags, page, jump){
+			displayIndicator(true);
 				if(jump){
 					location.href = io.filterAnchor;
 				}
@@ -95,8 +99,10 @@
 		      callback:function(data){
 		          if (data.successful){
 		          			$(io.discussionDiv).innerHTML = data.html;         
+		          			displayIndicator(false);
 		          }else{
 		            alert("get replies error " + data.reason);
+		            displayIndicator(false);
 		          }
 		      },
 			  async:false,
@@ -127,17 +133,20 @@
 		}*/
 
 		io.createReply = function(){
+			displayIndicator(true);
 			var title = $(io.newReplyTitleInput).value;
 			var newReply = tinyMCE.getContent();
 			var tags = $(io.newReplyTagsInput).value;
 		    SDAgent.createReply({isid:${structure.id}, pid:${post.id}, title:title, content:newReply, tags: tags}, {
 		      callback:function(data){
 		          if (data.successful){     
+		          		displayIndicator(false);
 						resetNewReplyForm();
 						io.setVote('reply', data.id, 'true');	
 						location.href="#replyAnchor";
 						
 		          }else{
+		          	 displayIndicator(false);
 		            alert(data.reason);
 		          }
 		      },
@@ -148,15 +157,17 @@
 		  }
 		  
 		  	io.deleteReply =  function(rid){
+		  	displayIndicator(true);
 			var destroy = confirm ("Are you sure you want to delete this reply? Note: there is no undo.")
 			if (destroy){
 					SDAgent.deleteReply({rid:rid}, {
 						callback:function(data){
 								if (data.successful){
 								   		 new Effect.Puff('reply' + rid, {afterFinish: function(){io.getReplies();}});
-										
+										displayIndicator(false);
 								}else{
 									alert(data.reason);
+									displayIndicator(false);
 								}
 							},
 						errorHandler:function(errorString, exception){ 
@@ -176,13 +187,16 @@
 		};
 		
 		io.getContextPosts =  function(page){
+					displayIndicator(true);
 					//alert("structureID: " + io.structureId + " pid: " + io.postId + " page: "+ page + " count: "+ io.contextPostCount);
 					SDAgent.getContextPosts({isid:io.structureId, pid: io.postId, page: page, count: io.contextPostCount}, {
 						callback:function(data){
 								if (data.successful){
-								   		 $('contextPosts').innerHTML = data.source.html;										
+								   		 $('contextPosts').innerHTML = data.source.html;			
+								   		 displayIndicator(false);							
 								}else{
 									alert(data.reason);
+									displayIndicator(false);
 								}
 							},
 						errorHandler:function(errorString, exception){ 
@@ -197,25 +211,20 @@
 			$(io.newReplyTagsInput).value = '';	
 		}
 		
-		/*
-		function validateInput(string){
-			string=string.replace(/>/g,"//>//");
-			string=string.replace(/</g,"//<//");
-			string=string.replace(/\n/g,"<br>");
-
-			return string;
-		}*/
 	
 		/*************** Set Vote************** */
 	 	 io.setVote = function(target, id, agree){
+	 	 			displayIndicator(true);
 					//alert("structure" + infoObject.structureId + "object " + infoObject.objectId + "vote " + agree);
 					SDAgent.setVoting({target: target, id: id, agree:agree}, {
 					callback:function(data){
-							if (data.successful){ 
+							if (data.successful){
+								displayIndicator(false); 
 								var votingDiv = 'voting-'+target+id;
 								if($(votingDiv) != undefined){
 	              				 	new Effect.Fade(votingDiv, {afterFinish: function(){io.getReplies(io.currentFilter, io.currentPage, true); new Effect.Appear(votingDiv);}});
 	              				}else{
+	              					displayIndicator(false);
 	              					io.getReplies(io.currentFilter, io.currentPage, true);	
 	              				}
 							}else{
@@ -244,6 +253,7 @@
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 	<jsp:include page="sdcHeader.jsp" />
 <!-- End header menu -->
+<div style="display: none;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 <div id="container">
 
 <!-- Begin Breadcrumbs -->
