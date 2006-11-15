@@ -67,6 +67,7 @@
 	 	 /*----Divs - these divs have changing content or gets read by the javascript ---- */
 	 	 io.objectDiv =  'object-content'; //div that contains the object
 	 	 io.discussionDiv = 'discussion'; //div that contains the discussion
+	 	 io.divFilteredBy = 'filteredBy';
 	 	 io.votingQuestionDiv = 'structure_question' //div that contains the voting question
 	 	 io.filterAnchor = '#filterJump';
 		
@@ -89,13 +90,24 @@
 				});
 			};
 			
-		io.getReplies = function(tags, page, jump){
+		io.changeCurrentFilter = function(tagName){
+			io.getReplies(tagName, io.currentPage, true);
+			if(tagName != ""){
+				$(io.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: io.changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
+			}else{
+				$(io.divFilteredBy).innerHTML = "";
+			}
+		}	
+			
+		io.getReplies = function(tag, page, jump){
 			displayIndicator(true);
 				if(jump){
 					location.href = io.filterAnchor;
 				}
+				io.currentFilter = tag;
 			   io.currentPage = page;
-		      SDAgent.getReplies({isid:${structure.id}, ioid:io.objectId, postid:${post.id}, page: page, count: io.replyCount}, {
+			  //alert("isid: " + io.structureId + " ioid: " + io.objectId + " postID: " + io.postId + " page " + io.currentPage + " count: " + io.replyCount + " filter: " + io.currentFilter);
+		      SDAgent.getReplies({isid: io.structureId, ioid:io.objectId, postid: io.postId, page: io.currentPage, count: io.replyCount, filter: io.currentFilter}, {
 		      callback:function(data){
 		          if (data.successful){
 		          			$(io.discussionDiv).innerHTML = data.html;         
@@ -392,7 +404,7 @@
 											<li class="box8 tagsInline">
 										</c:otherwise>
 									</c:choose>
-									<a href="javascript:io.getPosts(${tag.id},0,true);">${tag.name}</a></li>
+									<a href="javascript:io.changeCurrentFilter('${tag.name}');">${tag.name}</a></li>
 								</c:forEach>
 							</ul>
 							<div style="clear: left;"></div>

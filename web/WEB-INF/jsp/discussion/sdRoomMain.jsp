@@ -17,7 +17,7 @@
 <script language="javascript" type="text/javascript" src="/scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
 <script language="JavaScript" src="scripts/qtip.js" type="text/JavaScript"></script>
 <!-- Site Wide JavaScript -->
-<script src="scripts/search.js" type="text/javascript"></script>
+<script src="scripts/globalSnippits.js" type="text/javascript"></script>
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
@@ -74,12 +74,15 @@
 		
 		/*************** Get Targets - If IOID is ommitted, return sdcSummary.jsp::else, returns sdcStructureSummary.jsp************** */
 		io.getTargets = function(){
+			displayIndicator(true);
 			SDAgent.getSummary({isid: io.structureId, ioid: io.objectId  }, {
 				callback:function(data){
 					if (data.successful){
 						$(io.objectDiv).innerHTML = data.source.html;
+						displayIndicator(false);
 						}else{
 							alert(data.reason);
+							displayIndicator(false);
 						}
 					},
 					errorHandler:function(errorString, exception){
@@ -119,6 +122,7 @@
 				if(jump){
 					location.href = io.filterAnchor;
 				}
+				displayIndicator(true);
 				io.currentPage = page;
 				io.currentSort = sorting;
 				io.currentFilter = tag;
@@ -127,8 +131,10 @@
 			    SDAgent.getPosts({isid:io.structureId,ioid:io.objectId, sorting: io.currentSort, filter: tag, page: io.currentPage, count: io.postCount}, {
 			      callback:function(data){
 			          if (data.successful){
+			          	displayIndicator(false);
 			          $(io.discussionDiv).innerHTML = data.html;
 			          }else{
+			          	displayIndicator(false);
 			            alert(data.reason);
 			          }
 			      },
@@ -152,6 +158,7 @@
 			
 		/*************** New Discussion Post: if successful, reload discussion posts************** */
 	 	 io.createPost = function(){
+	 	 		displayIndicator(true);
 	 	 		var newPostTitle = $(io.newPostTitleInput).value;
 				var newPost= tinyMCE.getContent();
 	 	 		var newPostTags = $(io.newPostTagsInput).value;
@@ -160,6 +167,7 @@
 				SDAgent.createPost({isid:io.structureId, ioid: io.objectId, title: newPostTitle, content: newPost, tags:newPostTags}, {
 				callback:function(data){
 						if (data.successful){
+							 displayIndicator(false);
 						     io.setVote("post", data.id, "true"); //set initial vote
 							 io.clearNewDiscussionInputs();
 							 io.toggleNewDiscussion();
@@ -170,6 +178,7 @@
 							 $('selectsort').value = 1;
 						}else{
 							alert(data.reason);
+							displayIndicator(false);
 						}
 					},
 				errorHandler:function(errorString, exception){ 
@@ -280,10 +289,12 @@
 	};
 
 		io.getTagCloud = function(page){
+			displayIndicator(true);
 			io.currentTagCloudPage = page;
 			SDAgent.getTagCloud({isid:io.structureId,count:io.tagCloudCount, page: io.currentTagCloudPage},{
 				callback:function(data){
 						if (data.successful){			
+							displayIndicator(false);
 							$(io.divTagCloud).innerHTML = data.html;
 							if (data.count == 0){
 								$(io.divTagCloud).innerHTML = '<a href="javascript:Effect.Fade(\''+io.divTagCloud+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
@@ -318,6 +329,7 @@
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 <jsp:include page="sdcHeader.jsp" />
 <!-- End header menu -->
+<div style="display: none;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 <div id="container">
   <!-- Begin Breadcrumbs -->
   <div id="breadCrumbs" class="floatLeft"> <a href="sd.do?isid=${structure.id}">Select a Theme</a> &rarr; ${object.object}</div>

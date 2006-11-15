@@ -42,15 +42,17 @@
 <!--End SDX Specific  Libraries-->
 <script type="text/javascript">
 	 function InfoStructure(){
+	 	displayIndicator(true);
 		this.isDivElement = 'object';
 	 	 this.getTargets = function(){
 				SDAgent.getTargets({isid:${structure.id}}, {
 				callback:function(data){
 						if (data.successful){
-							
+							displayIndicator(false);
 							$(infoStructure.isDivElement).innerHTML = data.source.html;
               				eval(data.source.script);
 						}else{
+							displayIndicator(false);
 							alert(data.reason);
 						}
 					},
@@ -81,6 +83,7 @@
 
 
 	<!-- #container is the container that wraps around all the main page content -->
+	<div style="display: none;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 	<div id="container">
 
 		<!-- begin "overview and instructions" area -->
