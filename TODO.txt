@@ -53,7 +53,7 @@ Zhong:
 [ok] ${term.name}: ${term.shortDef} (click to read more)" <= "read more" links to term (new window?)
 TODO:
 [1] Show Jordan how e-mail notification works.
-[1* getPosts works, getContextPosts does not] - SDAgent.getPosts, CCTAgent.getContextConcerns sorting
+[1* getPosts works, getContextConcerns does not] - SDAgent.getPosts, CCTAgent.getContextConcerns sorting
 [2] Count of unique users per post - calculate on createPost()
 [2] getPosts filter by tag queries deleted posts.
 [3] Add IOID param to tagSearch
