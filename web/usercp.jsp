@@ -35,7 +35,7 @@
   <!-- End header menu -->
   <!-- #container is the container that wraps around all the main page content -->
   <div id="container">
-		<h3>User Control Panel: ${user.loginname}</h3>
+		<h3>User Settings: ${user.loginname}</h3>
 		<br>
 		<html:form action="/usercp.do" method="POST">
 		 <span class="red">${userForm.reason}</span>
@@ -72,6 +72,9 @@
 				<td><div align="right">
 				  <html:password property="password1" redisplay="false"/>
 				  </div></td>
+			</tr>
+			<tr>
+		 		<td width="200" colspan="2" class="smallText"><html:checkbox property="user.enabled" value="${user.enabled}"/>I would like to receive e-mail notifications when other participants reply to my discussion posts.</td>
 			</tr>
 		</table>
 		</div>

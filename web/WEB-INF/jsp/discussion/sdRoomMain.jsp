@@ -384,7 +384,7 @@
 
 
     <div id="sortingMenu" class="box4">sort discussion by:
-          <select name="selectsort" id="selectsort" onChange="javascript:io.getPosts(io.currentFilter, io.currentPage, true, this.value);	">
+          <select name="selectsort" id="selectsort" onChange="javascript:io.getPosts(io.currentFilter, 1, true, this.value);	">
 	        <option value="1">Newest to Oldest</option>
 	        <option value="2">Oldest to Newest</option>
 	        <option value="3">Most Agreement</option>
