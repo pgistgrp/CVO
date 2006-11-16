@@ -78,7 +78,7 @@ function paintRows()
 				<td>Step</td>
 				<td>Method</td>
 				<td>Date</td>
-			</tr>
+			</tr> 
 		</thead>
 		<tbody>
 			<tr>
