@@ -34,7 +34,6 @@
 <!--End SDX Specific  Libraries-->
 
 
-
 <script type="text/javascript">
 	
 	tinyMCE.init({
@@ -44,7 +43,7 @@
 	theme_advanced_buttons2 : "",
 	theme_advanced_buttons3 : "",
 	content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css",
-	extended_valid_elements : "blockquote"
+	extended_valid_elements : "blockquote[style='']"
 });
 
 	
@@ -57,8 +56,10 @@
 		io.postId = "${post.id}";
 		io.currentFilter = '';
 		io.currentPage = 1;
-		io.replyCount = 15; //per page
-		io.contextPostCount = 5;
+
+		io.replyCount = 3; //per page
+		io.contextPostCount = 3;
+
 		
 		/*----Input ID's - these id's of input elements have changing content or gets read by the javascript ---- */
 	 	 io.newReplyTagsInput = "txtNewReplyTags"; //new post tags input box
@@ -193,7 +194,7 @@
 			var currentReply = tinyMCE.getContent();
 			var currentReplyContent = $('replyContent'+replyId).innerHTML;
 			var currentReplyOwner = $('replyOwner'+replyId).innerHTML;
-			tinyMCE.setContent(currentReply + '<blockquote>' + currentReplyContent + currentReplyOwner +'</blockquote><p>');
+			tinyMCE.setContent(currentReply + '<blockquote style="color:#3B4429;background: #EEF7DD;border: 2px solid #B4D579;margin-left: 10px;padding:0px 5px 5px 5px;line-height: 10px;">' + currentReplyContent + currentReplyOwner +'</blockquote><p>');
 			location.href="#replyAnchor";
 			new Effect.Highlight('newReply');
 		};

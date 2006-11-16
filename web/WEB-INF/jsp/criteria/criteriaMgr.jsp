@@ -47,6 +47,40 @@
 // END Global Variables
 // START CriteriaAgent DWR Functions - For more info See: http://localhost:8080/pgist-docs/org/pgist/criteria/CriteriaAgent.html
 
+	/** getAllCriterion
+	public java.util.Map getAllCriterion(java.util.Map params)
+
+   	 Get all the Criterion Available
+
+   	 Parameters:
+    	    params - An empty map. 
+   	 Returns:
+     	   a Map contains:
+
+         	   * criteria - A list of Criteria objects
+         	   * successful - a boolean value denoting if the operation succeeds
+          	   * reason - reason why operation failed (valid when successful==false)
+
+
+
+*/
+	function getAllCriterion(){
+		CriteriaAgent.getAllCriterion({}, {
+				callback:function(data){
+				
+						if (data.successful){
+							
+							alert(data.html);
+						}
+						
+						
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("getAllCriterion Error: "+errorString+" "+exception);
+				}
+			});
+		}
+
 		/** addCriterion
 		public java.util.Map addCriterion(java.util.Map params)
 		    Add one new criterion to the system.
@@ -66,11 +100,15 @@
 		    		 * Use the returned ID to highlight newly created criterion (Effect.Highlight(ID);)
 		 */
 		function addCriterion(name, low, medium, high){
-		CriteriaAgent.addCriterion({name: name, low: low, medium: medium, high: high}, {
+		CriteriaAgent.addCriterion({name: name, low: low, medium: medium, high: high, na:""}, {
 				callback:function(data){
+				
 						if (data.successful){
 							
+							resetForm();
 						}
+						
+						
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("addCriterion Error: "+errorString+" "+exception);
@@ -78,6 +116,19 @@
 			});
 		}
 
+/**
+resetForm
+
+Resets the form called criterionForm (the one used to add a new criterion)
+*/
+function resetForm(){
+
+	document.criterionForm.txtNewCriterion.value="";
+	document.criterionForm.txtLowDesc.value="";
+	document.criterionForm.txtMedDesc.value="";
+	document.criterionForm.txtHighDesc.value="";
+
+}
 
 		/** deleteCriterion
 			public java.util.Map deleteCriterion(java.util.Map params)
@@ -144,23 +195,38 @@
 </style>
 </head>
 
-<body>
+<body onload="javascript:getAllCriterion();">
   <h3>Moderator Tools &raquo; Manage Criteria</h3> 
   
   <h4>All Criteria in All Decision Situations</h4>
   <ul id="criteriaList">
+  <div id="allCriteria">
   <c:forEach var="criterion" items="${criteria}">
   		<li>${criterion.name} [ <a href="javascript:Effect.toggle('criteriaEdit${criterion.id}','blind');">edit</a> ] [ <a href="javascript:deleteCriterion(${criterion.id});">delete</a> ]
 			<ul id="criteriaEdit${criterion.id}" style="display: none;">
-				<li><input name="txtCriteriaEdit${criterion.id}" type="text" value="${criterion.name}" size="25"> <input type="submit" value="submit"></li>
+				<li><form name="criteriaEditForm${criterion.id}" onsubmit="editCriterion(criteriaEditForm$(criterion.id}.txtCriteriaEdit${criterion.id}.value,criteriaEditForm$(criterion.id}.txtLowDescEdit${criterion.id}.value,criteriaEditForm$(criterion.id}.txtMedDescEdit${criterion.id}.value,criteriaEditForm$(criterion.id}.txtHighDescEdit${criterion.id}.value); Effect.toggle('criteriaEdit${criterion.id}','blind'); return false;">
+				<label>Name:</label>
+				<input name="txtCriteriaEdit${criterion.id}" type="text" value="${criterion.name}" size="25">
+				<label>Low Description:</label>
+				<textarea name="txtLowDescEdit${criterion.id}" cols="100" rows="5"></textarea>
+				<label>Medium Description:</label>
+				<textarea name="txtMedDescEdit" cols="100" rows="5"></textarea>
+				<label>High Description:</label>
+				<textarea name="txtHighDescEdit" cols="100" rows="5"></textarea> 
+				<p>
+					<input type="submit" value="submit">
+				</p>
+				</form>
+				</li>
 			</ul>
 		</li>
   </c:forEach>
+  </div>
 
   <li>[ <a href="javascript:Effect.toggle('newCriteriaForm', 'blind');">New Criteria</a> ]
   <div id="newCriteriaForm" style="display: none;">
   		<h4>Create New Criteria</h4>
-			<form>
+			<form name="criterionForm" onsubmit="javascript:addCriterion(document.criterionForm.txtNewCriterion.value,document.criterionForm.txtLowDesc.value,document.criterionForm.txtMedDesc.value,document.criterionForm.txtHighDesc.value); Effect.toggle('newCriteriaForm','blind'); return false;">
 				<label>Name:</label>
 				<input name="txtNewCriterion" type="text" value="" size="25">
 			
