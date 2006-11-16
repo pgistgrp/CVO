@@ -68,6 +68,11 @@
 		<td>Confirm Password</td>
 		<td><html:password property="password1" redisplay="false"/></td>
 	</tr>
+	<!--
+	<tr>
+ 		<td width="200" colspan="2" class="smallText"><html:checkbox property="user.enabled" value="${user.enabled}"/>I would like to receive e-mail notifications when other participants reply to my discussion posts.</td>
+	</tr>
+	-->
 	<tr>
 		<td></td>
 		<td align="right"><html:submit property="submit" value="Submit"/><input type="reset" name="Reset" value="Cancel"></td>
