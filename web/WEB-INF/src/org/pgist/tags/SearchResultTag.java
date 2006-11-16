@@ -8,7 +8,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import org.pgist.cvo.CVO;
+import org.pgist.cvo.CCT;
 import org.pgist.model.Post;
 
 
@@ -42,8 +42,8 @@ public class SearchResultTag extends TagSupport {
         try {
             String type = (String) object.get("type");
             if ("concern".equals(type) || "comment".equals(type)) {
-                CVO cvo = (CVO) object.get("cvo");
-                writer.write("<a href=\""+ctxPath+"/cvoview.do?id="+cvo.getId()+"\">[CVO]</a><br>");
+                CCT cct = (CCT) object.get("cct");
+                writer.write("<a href=\""+ctxPath+"/cctview.do?id="+cct.getId()+"\">[CCT]</a><br>");
                 Post post = (Post) object.get("post");
                 String content = post.getContent();
                 if (content!=null && content.length()>150) content = content.substring(0, 150) + " ...";

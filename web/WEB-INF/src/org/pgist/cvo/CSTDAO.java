@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
+import org.pgist.system.BaseDAO;
 import org.pgist.tagging.Category;
 import org.pgist.util.PageSetting;
 
@@ -13,9 +14,13 @@ import org.pgist.util.PageSetting;
  * @author kenny
  *
  */
-public interface CSTDAO extends CVODAO {
+public interface CSTDAO extends BaseDAO {
     
     
+    TagReference getTagReferenceById(Long tagRefId) throws Exception;
+
+    CategoryReference getCategoryReferenceById(Long categoryId) throws Exception;
+
     Category getCategoryByName(String name) throws Exception;
     
     CategoryReference getCategoryReferenceByName(Long cctId, String name) throws Exception;

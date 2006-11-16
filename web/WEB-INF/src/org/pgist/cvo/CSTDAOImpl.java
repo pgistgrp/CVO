@@ -14,6 +14,7 @@ import java.util.Set;
 import org.hibernate.Query;
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
+import org.pgist.system.BaseDAOImpl;
 import org.pgist.tagging.Category;
 import org.pgist.util.DBMetaData;
 import org.pgist.util.PageSetting;
@@ -24,9 +25,19 @@ import org.pgist.util.PageSetting;
  * @author kenny
  *
  */
-public class CSTDAOImpl extends CVODAOImpl implements CSTDAO {
+public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
     
     
+    public TagReference getTagReferenceById(Long tagRefId) throws Exception {
+        return (TagReference) load(TagReference.class, tagRefId);
+    }//getTagReferenceById()
+
+
+    public CategoryReference getCategoryReferenceById(Long categoryId) throws Exception {
+        return (CategoryReference) load(CategoryReference.class, categoryId);
+    }//getCategoryReferenceById()
+
+
     private static final String hql_getCategoryByName = "from Category c where c.deleted=? and lower(c.name)=?";
     
     

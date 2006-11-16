@@ -62,11 +62,6 @@
     </bean>
     
     
-    <bean name="/sdclist" class="org.pgist.cvo.SDCListAction">
-        <property name="cctService" ref="cctService"/>
-    </bean>
-    
-    
     <bean name="/projectMgr" class="org.pgist.projects.ProjectMgrAction">
         <property name="projectService" ref="projectService"/>
     </bean>
@@ -119,11 +114,6 @@
     </bean>
     
     
-    <bean name="/sdcview" class="org.pgist.cvo.SDCViewAction">
-        <property name="cctService" ref="cctService"/>
-    </bean>
-    
-    
     <bean name="/glossaryManage" class="org.pgist.glossary.GlossaryManageAction">
         <property name="glossaryService" ref="glossaryService"/>
     </bean>
@@ -142,23 +132,6 @@
     <bean name="/cm" class="org.pgist.cm.ChoiceModelerAction">
         <property name="choiceModelerService" ref="choiceModelerService"/>
     </bean>
-    
-    
-    
-    <!--bean name="/cvolist" class="org.pgist.cvo.CVOListAction">
-        <property name="userDAO" ref="userDAO"/>
-        <property name="cvoDAO" ref="cvoDAO"/>
-    </bean>
-    
-    
-    <bean name="/cvoview" class="org.pgist.cvo.CVOViewAction">
-        <property name="cvoService" ref="cvoService"/>
-    </bean>
-    
-    
-    <bean name="/concernManagement" class="org.pgist.cvo.ConcernManagementAction">
-        <property name="cvoDAO" ref="cvoDAO"/>
-    </bean-->
     
     
     <!-- Workflow Management Actions -->

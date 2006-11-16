@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.pgist.system.BaseDAOImpl;
 import org.pgist.util.DBMetaData;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
@@ -19,10 +20,20 @@ import org.pgist.util.WebUtils;
  * @author kenny
  *
  */
-public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
+public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
     
     
     private TagReferenceComparator comparator = new TagReferenceComparator(false);
+
+
+    public CCT getCCTById(Long cctId) throws Exception {
+        return (CCT) load(CCT.class, cctId);
+    }//getCCTById()
+
+
+    public Concern getConcernById(Long concernId) throws Exception {
+        return (Concern) load(Concern.class, concernId);
+    }//getConcernById()
 
 
     private static final String hql_getCCTs = "from CCT c where c.deleted=? order by c.id";
@@ -142,6 +153,11 @@ public class CCTDAOImpl extends CVODAOImpl implements CCTDAO {
                 '%' + tag + '%'
         });
     }//searchTags()
+
+
+    public TagReference getTagReferenceById(Long tagRefId) throws Exception {
+        return (TagReference) load(TagReference.class, tagRefId);
+    }//getTagReferenceById()
 
 
     private static final String hql_getTagReferenceByTagId = "from TagReference tr where tr.cctId=? and tr.tag.id=?";

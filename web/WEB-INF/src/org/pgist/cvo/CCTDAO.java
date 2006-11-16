@@ -2,6 +2,7 @@ package org.pgist.cvo;
 
 import java.util.Collection;
 
+import org.pgist.system.BaseDAO;
 import org.pgist.util.PageSetting;
 
 
@@ -11,9 +12,18 @@ import org.pgist.util.PageSetting;
  * @author kenny
  *
  */
-public interface CCTDAO extends CVODAO {
+public interface CCTDAO extends BaseDAO {
     
     
+    CCT getCCTById(Long cctId) throws Exception;
+    
+    
+    Concern getConcernById(Long concernId) throws Exception;
+    
+    
+    TagReference getTagReferenceById(Long tagRefId) throws Exception;
+
+
     /**
      * Get a collection of all the CCT objects.
      * 
@@ -83,7 +93,8 @@ public interface CCTDAO extends CVODAO {
     void delete(TagReference ref) throws Exception;
 
     Collection searchTags(Long id, String tag) throws Exception;
-
+    
+    
     TagReference getTagReferenceByTagId(Long cctId, Long tagId) throws Exception;
 
 
