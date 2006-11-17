@@ -57,7 +57,7 @@
 		io.currentFilter = '';
 		io.currentPage = 1;
 
-		io.replyCount = 3; //per page
+		io.replyCount = 15; //per page
 		io.contextPostCount = 3;
 
 		
