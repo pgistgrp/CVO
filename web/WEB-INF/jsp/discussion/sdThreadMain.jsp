@@ -157,6 +157,14 @@
 						resetNewReplyForm();
 						io.setVote('reply', data.id, 'true');	
 						location.href="#replyAnchor";
+						if(($('discussionText'+data.id)==undefined)){
+						
+						//goToPage('replies',9);
+						//9 = page.setting.lastPage
+						
+						}
+						//alert($("discussionText"+data.id).name);
+						
 						window.setTimeout('new Effect.Highlight("discussionText'+ data.id +'", {duration: 4.0});',500);
 		          }else{
 		          	 displayIndicator(false);
