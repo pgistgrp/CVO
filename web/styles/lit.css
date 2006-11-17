@@ -358,6 +358,9 @@
 		.leftAlign {text-align:left}
 		.rightAlign {text-align:right}
 
+		/*marginRight is used on the "close" buttons (close1.gif) */
+		.marginRight {margin-right:10px;}
+		
   		* html .peekaboobugfix { height: 0.01%; }
 				
 /* SPECIFIC CLASSES */

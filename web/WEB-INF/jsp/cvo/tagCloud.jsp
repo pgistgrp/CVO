@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<p align="right"><a href="javascript:Effect.BlindUp('tagCloud'); void(0);"><img src="/images/close1.gif" border="0"></a></p>
+<p align="right"><a href="javascript:Effect.BlindUp('tagCloud'); void(0);"><img src="/images/close1.gif" border="0" class="marginRight"></a></p>
 <h3>Browse All Discussion Tags</h3>
 <p>"Tags" are an easy way to explore the wide variety of discussion posts contributed by other participants. Simply click on a tag to read concerns related to that idea. Click on a tag below to browse concerns.</p>
 
@@ -20,7 +20,7 @@
 <div style="clear: left;"></div>
 
 <!-- end tag iteration -->
-<div class="pagination">
+<div class="pagination" class="marginRight">
 				You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
 			<logic:equal name="setting" property="page" value="1">
 				<img src="images/btn_prev_fade.gif" alt="No Previous Pages" />
