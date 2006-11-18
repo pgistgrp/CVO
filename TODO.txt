@@ -58,8 +58,10 @@ TODO:
 [2] getPosts filter by tag queries deleted posts.
 [3] Add IOID param to tagSearch
 [3] tags case insensitive
-[4] Commenting on CCT
+[*] Commenting on CCT
 [4] user actions event logging
+[*] create theme bugs reported by Adam
+
 
 John:
 [ ] - Relate Criteria to themes

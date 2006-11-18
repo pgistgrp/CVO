@@ -222,5 +222,23 @@ public interface CCTService {
     
     boolean setVotingOnConcern(Long id, boolean agree) throws Exception;
 
+    
+    Comment createComment(Long concernId, String title, String content, String[] tags) throws Exception;
+    
+    
+    void editComment(Long commentId, String title, String content, String[] tags) throws Exception;
+    
+    
+    void deleteComment(Long commentId) throws Exception;
+
+    
+    Collection getComments(Long concernId, PageSetting setting) throws Exception;
+    
+    
+    boolean setVotingOnComment(Long id, boolean agree) throws Exception;
+    
+    
+    void increaseViews(Long concernId) throws Exception;
+
 
 }//interface CCTService

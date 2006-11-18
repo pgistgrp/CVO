@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.Query;
 import org.pgist.system.SystemDAO;
 import org.pgist.system.UserDAO;
 import org.pgist.system.YesNoVoting;
@@ -211,21 +212,21 @@ public class CCTServiceImpl implements CCTService {
     public void deleteConcern(Concern concern) throws Exception {
         CCT cct = concern.getCct();
 
-        synchronized (this) {
-            Set oldTags = new HashSet(concern.getTags());
-            concern.getTags().clear();
+        Set oldTags = new HashSet(concern.getTags());
+        concern.getTags().clear();
 
-            for (Object object : oldTags) {
-                TagReference ref = (TagReference) object;
-                if (ref.getTimes() > 0) {
-                    cctDAO.decreaseRefTimes(ref);
-                    cctDAO.save(ref);
-                }
-            } //for
-        } //synchronized
+        for (Object object : oldTags) {
+            TagReference ref = (TagReference) object;
+            if (ref.getTimes() > 0) {
+                cctDAO.decreaseRefTimes(ref);
+                cctDAO.save(ref);
+            }
+        } //for
 
         concern.setDeleted(true);
         concern.setCreateTime(new Date());
+        
+        cctDAO.deleteComments(concern);
 
         cctDAO.save(concern);
         cctDAO.save(cct);
@@ -345,6 +346,102 @@ public class CCTServiceImpl implements CCTService {
         
         return true;
     }//setVotingOnConcern()
+
+
+    public Comment createComment(Long concernId, String title, String content, String[] tags) throws Exception {
+        Concern concern = cctDAO.getConcernById(concernId);
+        
+        if (concern==null) throw new Exception("can't find the specified concern");
+            
+        Comment comment = new Comment();
+        comment.setConcern(concern);
+        comment.setTitle(title);
+        comment.setDeleted(false);
+        comment.setCreateTime(WebUtils.getDate());
+        
+        User owner = userDAO.getUserById(WebUtils.currentUserId(), true, false);
+        comment.setOwner(owner);
+        
+        for (String tagStr : tags) {
+            Tag tag = analyzer.getTag(tagStr.trim());
+            
+            if (tag==null) {
+                tag = tagDAO.addTag(tagStr.trim(), Tag.STATUS_CANDIDATE, true);
+            } else {
+                tag = tagDAO.getTagByName(tag.getName());
+            }
+            
+            comment.getTags().add(tag);
+        }
+        
+        cctDAO.save(comment);
+        
+        cctDAO.increaseReplies(concern);
+        
+        return comment;
+    }//createComment()
+
+
+    public void editComment(Long commentId, String title, String content, String[] tags) throws Exception {
+        Comment comment = cctDAO.getCommentById(commentId);
+        
+        if (comment==null) throw new Exception("can't find the specified comment");
+            
+        comment.setTitle(title);
+        
+        User owner = userDAO.getUserById(WebUtils.currentUserId(), true, false);
+        comment.setOwner(owner);
+        
+        comment.getTags().clear();
+        
+        for (String tagStr : tags) {
+            Tag tag = analyzer.getTag(tagStr.trim());
+            
+            if (tag==null) {
+                tag = tagDAO.addTag(tagStr.trim(), Tag.STATUS_CANDIDATE, true);
+            } else {
+                tag = tagDAO.getTagByName(tag.getName());
+            }
+            
+            comment.getTags().add(tag);
+        }
+        
+        cctDAO.save(comment);
+    }//editComment()
+
+
+    public void deleteComment(Long commentId) throws Exception {
+        Comment comment = cctDAO.getCommentById(commentId);
+        
+        if (comment==null) throw new Exception("can't find the specified comment");
+        
+        comment.setDeleted(true);
+        
+        cctDAO.decreaseReplies(comment.getConcern());
+        
+        cctDAO.save(comment);
+    }//deleteComment()
+
+
+    public Collection getComments(Long concernId, PageSetting setting) throws Exception {
+        return cctDAO.getComments(concernId, setting);
+    }//getComments()
+
+
+    public boolean setVotingOnComment(Long id, boolean agree) throws Exception {
+        if (!systemDAO.setVoting(YesNoVoting.TYPE_COMMENT, id, agree)) return false;
+        
+        Comment comment = cctDAO.getCommentById(id);
+        
+        cctDAO.increaseCommentVoting(comment, agree);
+        
+        return true;
+    }//setVotingOnComment()
+
+
+    public void increaseViews(Long concernId) throws Exception {
+        cctDAO.increaseViews(concernId);
+    }//increaseViews()
 
 
 }//class CCTServiceImpl

@@ -37,6 +37,10 @@ public class Concern implements Serializable {
     
     protected int numVote = 0;
     
+    protected int views = 0;
+    
+    protected int replies = 0;
+    
     protected Object object = null;
     
     

@@ -24,6 +24,9 @@ public interface CCTDAO extends BaseDAO {
     TagReference getTagReferenceById(Long tagRefId) throws Exception;
 
 
+    Comment getCommentById(Long commentId) throws Exception;
+
+
     /**
      * Get a collection of all the CCT objects.
      * 
@@ -156,6 +159,24 @@ public interface CCTDAO extends BaseDAO {
 
     
     void increaseVoting(Concern concern, boolean agree) throws Exception;
+
+
+    void increaseReplies(Concern concern) throws Exception;
+    
+    
+    void decreaseReplies(Concern concern) throws Exception;
+
+
+    void deleteComments(Concern concern) throws Exception;
+
+
+    Collection getComments(Long concernId, PageSetting setting) throws Exception;
+
+
+    void increaseCommentVoting(Comment comment, boolean agree) throws Exception;
+
+
+    void increaseViews(Long concernId) throws Exception;
 
 
 }//interface CCTDAO

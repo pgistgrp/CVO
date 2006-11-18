@@ -36,6 +36,11 @@ public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
     }//getConcernById()
 
 
+    public Comment getCommentById(Long commentId) throws Exception {
+        return (Comment) load(Comment.class, commentId);
+    }//getCommentById()
+
+
     private static final String hql_getCCTs = "from CCT c where c.deleted=? order by c.id";
     
     
@@ -374,6 +379,89 @@ public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
             getSession().createQuery(hql_increaseVoting_12).setLong(0, concern.getId()).executeUpdate();
         }
     }//increaseVoting()
+
+
+    private static final String hql_increaseReplies = "update Concern set replies=replies+1 where id=?";
+    
+    
+    public void increaseReplies(Concern concern) throws Exception {
+        Query query = getSession().createQuery(hql_increaseReplies);
+        query.setLong(0, concern.getId());
+        query.executeUpdate();
+    }//increaseReplies()
+
+
+    private static final String hql_decreaseReplies = "update Concern set replies=replies-1 where id=?";
+    
+    
+    public void decreaseReplies(Concern concern) throws Exception {
+        Query query = getSession().createQuery(hql_increaseReplies);
+        query.setLong(0, concern.getId());
+        query.executeUpdate();
+    }//decreaseReplies()
+
+
+    private static final String hql_deleteComments = "update Comment set delete=? where concern_id=?";
+    
+    
+    public void deleteComments(Concern concern) throws Exception {
+        Query query = getSession().createQuery(hql_deleteComments);
+        query.setBoolean(0, true);
+        query.setLong(1, concern.getId());
+        query.executeUpdate();
+    }//deleteComments()
+
+
+    private static final String hql_getComments_A_1 = "select count(c.id) from Comment c where c.deleted=? and c.concern.id=?";
+    
+    private static final String hql_getComments_A_2 = "from Comment c where c.deleted=? and c.concern.id=?";
+    
+    
+    public Collection getComments(Long concernId, PageSetting setting) throws Exception {
+        //get count
+        Query query = getSession().createQuery(hql_getComments_A_1);
+        query.setBoolean(0, false);
+        query.setLong(1, concernId);
+        
+        int count = ((Number) query.uniqueResult()).intValue();
+        
+        if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
+        setting.setRowSize(count);
+        
+        if (count==0) return new ArrayList();
+        
+        //get records
+        query = getSession().createQuery(hql_getComments_A_2);
+        query.setBoolean(0, false);
+        query.setLong(1, concernId);
+        query.setFirstResult(setting.getFirstRow());
+        query.setMaxResults(setting.getRowOfPage());
+        
+        return query.list();
+    }//getComments()
+
+
+    private static final String hql_increaseCommentVoting_11 = "update Comment c set c.numVote=c.numVote+1 where c.id=?";
+    
+    private static final String hql_increaseCommentVoting_12 = "update Comment c set c.numAgree=c.numAgree+1 where c.id=?";
+    
+    
+    public void increaseCommentVoting(Comment comment, boolean agree) throws Exception {
+        getSession().createQuery(hql_increaseCommentVoting_11).setLong(0, comment.getId()).executeUpdate();
+        if (agree) {
+            getSession().createQuery(hql_increaseCommentVoting_12).setLong(0, comment.getId()).executeUpdate();
+        }
+    }//increaseCommentVoting()
+
+
+    private static final String hql_increaseViews = "update Concern set views=views+1 where concernId=?";
+    
+    
+    public void increaseViews(Long concernId) throws Exception {
+        Query query = getSession().createQuery(hql_increaseViews);
+        query.setLong(0, concernId);
+        query.executeUpdate();
+    }//increaseViews()
 
 
 }//class CCTDAOImpl

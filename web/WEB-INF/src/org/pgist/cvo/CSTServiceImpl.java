@@ -83,7 +83,7 @@ public class CSTServiceImpl implements CSTService {
         if (cct==null) throw new Exception("no such cct.");
         
         CategoryReference parent = null;
-        if (parentId==null) {
+        if (parentId==null || parentId<1) {
             /*
              * Use root category as the parent category
              */

@@ -77,10 +77,10 @@ public class EmailSender {
      */
     
     
-    private String merge(EmailTemplate template, Map values) throws Exception {
+    private String merge(String text, Map values) throws Exception {
         StringBuffer buf = new StringBuffer();
         
-        Matcher matcher = pattern.matcher(template.getContent());
+        Matcher matcher = pattern.matcher(text);
         
         while(matcher.find()) {
             String matchStr = matcher.group();
@@ -140,7 +140,7 @@ public class EmailSender {
             templates.put(templateName, template);
         }
         
-        send(user.getEmail(), template.getSubject(), merge(template, values));
+        send(user.getEmail(), merge(template.getSubject(), values), merge(template.getContent(), values));
     }//send()
     
     

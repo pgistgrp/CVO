@@ -42,6 +42,12 @@
     </bean>
     
     
+    <bean name="/concern" class="org.pgist.cvo.ConcernViewAction">
+        <property name="cctService" ref="cctService"/>
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
     <bean name="/tagging" class="org.pgist.tagging.TaggingAction">
         <property name="taggingService" ref="taggingService"/>
     </bean>

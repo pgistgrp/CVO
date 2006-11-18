@@ -24,6 +24,8 @@ public class YesNoVoting implements Serializable {
     
     public static final int TYPE_CONCERN = 4;
     
+    public static final int TYPE_COMMENT = 5;
+    
     
     private Long id;
     
