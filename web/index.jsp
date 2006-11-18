@@ -75,7 +75,7 @@ body{text-align: center; font-size: 1.0em;}
 				 
 				 <p><b style="color: #355800">Good question!</b> This website is designed to help you learn about the diverse concerns of other citizens and to understand how these concerns may be related to your own. Finding these relationships is the first step to identifying what kinds of transportation solutions we can all get excited about.</p>
 				
-				<p align="right" style="font-size: 1.3em"><a href="readmore.jsp">Learn More</a> or <a href="register.do">Register Now</a>!</p>
+				<p align="right" style="font-size: 1.3em"><a href="readmore.jsp">Read More</a> or <a href="register.do">Register Now</a>!</p>
 					<!--tags:discussion discussible="null" url="/test.do" count="10"/-->
 				 
 				</div>
