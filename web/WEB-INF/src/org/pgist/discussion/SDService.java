@@ -88,6 +88,9 @@ public interface SDService {
     Collection searchTags(InfoStructure structure, String tag, PageSetting setting) throws Exception;
 
 
+    Collection searchTags(InfoStructure structure, InfoObject infoObject, String tag, PageSetting setting) throws Exception;
+
+
     Collection getTagCloud(InfoStructure structure, PageSetting setting) throws Exception;
 
 

@@ -914,9 +914,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getPostTagCount()
 
 
-    private static final String sql_searchTags_1 = "select count(distinct tid) from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where did in (##) and tname like ?";
+    private static final String sql_searchTags_A_1 = "select count(distinct tid) from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where did in (##) and tname like ?";
     
-    private static final String sql_searchTags_2 = "select distinct tid, tname from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where did in (##) and tname like ? order by tname";
+    private static final String sql_searchTags_A_2 = "select distinct tid, tname from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where did in (##) and tname like ? order by tname";
     
     
     public Collection searchTags(InfoStructure structure, String tag, PageSetting setting) throws Exception {
@@ -928,9 +928,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         }
         
         Connection connection = getSession().connection();
-        PreparedStatement pstmt = connection.prepareStatement(sql_searchTags_1.replace("##", sb.toString()));
+        PreparedStatement pstmt = connection.prepareStatement(sql_searchTags_A_1.replace("##", sb.toString()));
         
-        pstmt.setString(1, '%'+tag+'%');
+        pstmt.setString(1, '%'+tag.toLowerCase()+'%');
         
         ResultSet rs = pstmt.executeQuery();
         
@@ -941,9 +941,9 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         if (count==0) return list;
         
-        pstmt = connection.prepareStatement(sql_searchTags_2.replace("##", sb.toString())+" OFFSET "+setting.getFirstRow()+" LIMIT "+setting.getRowOfPage());
+        pstmt = connection.prepareStatement(sql_searchTags_A_2.replace("##", sb.toString())+" OFFSET "+setting.getFirstRow()+" LIMIT "+setting.getRowOfPage());
         
-        pstmt.setString(1, '%'+tag+'%');
+        pstmt.setString(1, '%'+tag.toLowerCase()+'%');
         
         rs = pstmt.executeQuery();
         
@@ -955,6 +955,46 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         return list;
     }//searchTags()
     
+    
+    private static final String sql_searchTags_B_1 = "select count(distinct tid) from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where did=? and tname like ?";
+    
+    private static final String sql_searchTags_B_2 = "select distinct tid, tname from "+DBMetaData.VIEW_DPOST_TAG_IN_TARGET+" where did=? and lower(tname) like ? order by tname";
+    
+    
+    public Collection searchTags(InfoStructure structure, InfoObject infoObject, String tag, PageSetting setting) throws Exception {
+        List list = new ArrayList();
+        
+        Connection connection = getSession().connection();
+        PreparedStatement pstmt = connection.prepareStatement(sql_searchTags_B_1);
+        
+        pstmt.setLong(1, infoObject.getId());
+        pstmt.setString(2, '%'+tag.toLowerCase()+'%');
+        
+        ResultSet rs = pstmt.executeQuery();
+        
+        rs.next();
+        int count = rs.getInt(1);
+        if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
+        setting.setRowSize(count);
+        
+        if (count==0) return list;
+        
+        pstmt = connection.prepareStatement(sql_searchTags_B_2+" OFFSET "+setting.getFirstRow()+" LIMIT "+setting.getRowOfPage());
+        
+        pstmt.setLong(1, infoObject.getId());
+        pstmt.setString(2, '%'+tag.toLowerCase()+'%');
+        
+        rs = pstmt.executeQuery();
+        
+        while (rs.next()) {
+            Tag one = (Tag) getHibernateTemplate().load(Tag.class, rs.getLong(1));
+            list.add(one);
+        }//while
+        
+        return list;
+    }//searchTags()
+
+
     public Tag findTagById(Long tagId) throws Exception {
         return (Tag) getHibernateTemplate().load(Tag.class, tagId);
     }//findTagById()

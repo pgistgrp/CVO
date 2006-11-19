@@ -1437,7 +1437,8 @@ public class SDAgent {
      *
      * @param params A map contains:<br>
      *         <ul>
-     *           <li>isid - long int, the current InfoStructure instance id</li>
+     *           <li>isid - int, the current InfoStructure instance id</li>
+     *           <li>ioid - int, the current InfoObject instance id. Optional.</li>
      *           <li>tag - A string, all or part of a Tag name</li>
      *           <li>count - int, discussion shown per page. (Optional, default is -1, means show all)</li>
      *           <li>page - int, current page number (Optional, default is 1).</li>
@@ -1452,6 +1453,7 @@ public class SDAgent {
      *                  The following variables are available for use in the jsp:
      *                  <ul>
      *                    <li>structure - A InfoStructure object</li>
+     *                    <li>infoObject - A InfoObject object</li>
      *                    <li>setting - An PageSetting object</li>
      *                    <li>tags - A list of Tag objects</li>
      *                  </ul>
@@ -1463,12 +1465,17 @@ public class SDAgent {
         map.put("successful", false);
 
         Long isid = null;
-        
         try {
             isid = new Long((String) params.get("isid"));
         } catch (Exception e) {
             map.put("reason", "can't find this InfoStructure object.");
             return map;
+        }
+        
+        Long ioid = null;
+        try {
+            ioid = new Long((String) params.get("ioid"));
+        } catch (Exception e) {
         }
         
         String tag = (String) params.get("tag");
@@ -1500,7 +1507,21 @@ public class SDAgent {
             setting.setRowOfPage(count);
             setting.setPage(page);
             
-            Collection tags = sdService.searchTags(structure, tag, setting);
+            Collection tags = null;
+            
+            if (ioid==null) {
+                tags = sdService.searchTags(structure, tag, setting);
+            } else {
+                InfoObject infoObject = sdService.getInfoObjectById(ioid);
+                if (infoObject==null) {
+                    map.put("reason", "can't find this InfoObject object.");
+                    return map;
+                }
+                
+                request.setAttribute("infoObject", infoObject);
+                
+                tags = sdService.searchTags(structure, infoObject, tag, setting);
+            }
             
             map.put("count", tags.size());
             

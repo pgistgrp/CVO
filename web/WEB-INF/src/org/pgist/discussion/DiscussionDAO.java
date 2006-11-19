@@ -132,9 +132,14 @@ public interface DiscussionDAO extends BaseDAO {
 
 
     Collection searchTags(InfoStructure structure, String tag, PageSetting setting) throws Exception;
+    
+    
+    Collection searchTags(InfoStructure structure, InfoObject infoObject, String tag, PageSetting setting) throws Exception;
+
 
     Tag findTagById(Long tagId) throws Exception; //John Added 9/29
-
+    
+    
     void deleteVotings(Long infoObjectId) throws Exception;
 
 

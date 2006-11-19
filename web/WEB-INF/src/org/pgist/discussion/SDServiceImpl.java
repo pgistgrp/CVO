@@ -385,11 +385,18 @@ public class SDServiceImpl implements SDService {
     public Collection searchTags(InfoStructure structure, String tag, PageSetting setting) throws Exception {
         return discussionDAO.searchTags(structure, tag, setting);
     }//searchTags()
+    
+    
+    public Collection searchTags(InfoStructure structure, InfoObject infoObject, String tag, PageSetting setting) throws Exception {
+        return discussionDAO.searchTags(structure, infoObject, tag, setting);
+    }//searchTags()
+
 
     public Tag findTagById(Long tagId) throws Exception {
     	return discussionDAO.findTagById(tagId);
     } //findTagById()
-
+    
+    
     public Collection getTagCloud(InfoStructure structure, PageSetting setting) throws Exception {
         return discussionDAO.getTagCloud(structure, setting);
     }//getTagCloud()
