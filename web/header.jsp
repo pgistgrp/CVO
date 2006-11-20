@@ -13,9 +13,9 @@
 		<span><a href="usercp.do">User Settings</a></span>
 		<span><a href="/logout.do">Log out</a></span>
 	</div>
-	
+
 	<!-- Begin Search -->
-	<div id="header-search">
+	<div id="header-search" style="display:none">
 		<form id="mysearch" name="mysearch" method="post" action="">
 		  <div id="searchbox">
 			<input name="search" type="text" class="search" value="Search" disabled />
@@ -25,6 +25,7 @@
 		  <!-- End submit -->
 		  <!-- <div id="searchresults"></div>-->
 		</form>
+
 	</div>
 	<!-- End Search -->
 
