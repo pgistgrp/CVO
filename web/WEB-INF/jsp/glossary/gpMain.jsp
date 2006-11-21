@@ -344,6 +344,7 @@ tr:hover {background-color: #F1F7FF;}
 		  <div id="clearSearch" style="display: none;"></div>
 		</form>
 		<p><a href="javascript:proposeTermCont();">Propose a Glossary Term</a></p>
+		<center><p>Found a bug? Problem accessing a part of the page? <a href="#feedbackForm" onclick="javascript:Effect.toggle('feedbackForm','blind'); setTimeout('location.hash=\'#feedbackDiv\';',900);">Send us feedback.</a></p></center>
 		<div id='proposeTermResult' style='display:none;'></div>
 		<div id='proposeTermBox' style='display:none;border:thick solid #C0C0C0;'><div><table style='width:100%; height:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='proptermname-1' type='text' value=''/><br />
 				<label><strong>Short Definition</strong></label><br /><textarea style='width:90%; height:100%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='proptermshortdef-1'></textarea></div></td>
