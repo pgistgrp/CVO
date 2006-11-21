@@ -344,7 +344,7 @@
 					<div id="newdisc_title" >
 						<div class="textright">
 						</div>
-						<h3 style="display: inline">New Topic HEY JORDAN WHAT IS UP</h3>
+						<h3 style="display: inline">New Topic</h3>
 					</div> <!-- End newdisc_title -->
 					<div id="newdisc_content" class="greenBB">
 						<div id="newdisc_inner">
@@ -353,6 +353,7 @@
 								<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea></p>
 								<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="txtNewPostTags" type="text" /></p>
 								<input type="button" onClick="io.createPost();" value="Create Discussion">
+						
 							</form>
 						</div>
 					</div>

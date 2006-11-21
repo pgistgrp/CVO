@@ -118,5 +118,6 @@
 		<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtnewReply"></textarea></p>
 		<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="txtNewReplyTags" type="text" /></p>
 		<input type="button" onClick="io.createReply();" value="Submit Reply">
+		<input type="button" onClick="javascript:resetNewReplyForm();Effect.toggle('newReply','slide',{duration:1.5});" value="Cancel" />
 	</form>
 </div>
