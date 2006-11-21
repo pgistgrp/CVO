@@ -28,7 +28,7 @@
 
 		</c:forEach>
 		
-				  <div class="pagination2 padding5">
+				<div class="pagination2 padding5">
 				  		You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
 						<logic:equal name="setting" property="page" value="1">
 							<img src="images/btn_prev_fade.gif" alt="No Previous Pages" />
@@ -42,7 +42,7 @@
 							<img src="images/btn_next_fade.gif" alt="No Additional Pages" />
 						</logic:equal>
 						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-							<a href="javascript:goToPage('contextPosts',${setting.page}+1)"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<a href="javsascript:goToPage('contextPosts',${setting.page}+1)"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
 		  		</div>
 
