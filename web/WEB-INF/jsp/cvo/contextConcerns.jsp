@@ -29,7 +29,7 @@
 							</c:choose>
 								<div class="discussionRowHeader">
 									<div id="concernVote${concern.id}" class="discussionVoting">
-										${concern.numAgree} of ${concern.numVote} participants agree with this concern
+										Do you agree with this concern?  ${concern.numAgree} of ${concern.numVote} people agree so far.
 										
 									 	<c:choose>
 									 		<c:when test="${concern.object == null}">
