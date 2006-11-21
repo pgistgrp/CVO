@@ -432,6 +432,7 @@
               <input style="width:100%" id="txtNewPostTags" type="text" />
             </p>
             <input type="button" onClick="io.createPost();" value="Create Discussion">
+			<input type="button" onClick="javascript:io.clearNewDiscussionInputs();Effect.toggle('newDiscussion','slide',{duration:1.5});" value="Cancel">
           </form>
         </div>
       </div>
