@@ -339,7 +339,7 @@
   <div class="floatRight"> Jump To:
     <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">
       <option value = "${object.id}">Select a Theme</option>
-      <option value = "">All Concern Themes</option>
+      <option value = "">Discussion of All Themes</option>
       <c:forEach var="infoObject" items="${structure.infoObjects}">
         <option value="${infoObject.id}">${infoObject.object}</option>
       </c:forEach>
