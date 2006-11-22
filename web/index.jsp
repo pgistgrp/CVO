@@ -20,6 +20,9 @@ body{text-align: center; font-size: 1.0em;}
 	width: 350px;
 }
 
+li{color:#8CAE4A;}
+.bulletText{color:#333;}
+
 #wrapper{
 	text-align: left;
 }
@@ -70,10 +73,12 @@ body{text-align: center; font-size: 1.0em;}
 				<div style="margin-top: 20px; ">
 				  
 				<h1 style="font-size: 1.6em">Are <span style="color: #355800">you</span> concerned about the state of our transportation system?</h1>
-				<p>What do you think about plans to build light rail to Northgate, replace the Alaskan Way Viaduct, or expand I-405? How should we pay for these improvements?
-				 What do you think about plans to build light rail to Northgate, replace the Alaskan Way Viaduct, or expand I-405? How should we pay for these improvements?</p>
-				 
-				 <p><b style="color: #355800">Good question!</b> This website is designed to help you learn about the diverse concerns of other citizens and to understand how these concerns may be related to your own. Finding these relationships is the first step to identifying what kinds of transportation solutions we can all get excited about.</p>
+<p>On this website you can:
+    <ul><li><span class="bulletText">voice your concerns,</span></li>
+    <li><span class="bulletText">learn about proposed improvements,</span></span>
+    <li><span class="bulletText">and work with other citizens to identify solutions.</span></span></ul></p>
+
+<p>How can we find common ground when there are so many competing ideas about the best ways to meet the transportation needs of our growing region? Good question! This website will help you learn about the diverse concerns of other citizens and understand how these concerns may be related to your own. Finding these relationships is the first step to identifying what kinds of transportation solutions we can all get excited about.</p>
 				
 				<p align="right" style="font-size: 1.3em"><a href="readmore.jsp">Read More</a> or <a href="register.do">Register Now</a>!</p>
 					<!--tags:discussion discussible="null" url="/test.do" count="10"/-->
