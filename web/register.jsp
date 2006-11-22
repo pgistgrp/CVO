@@ -75,7 +75,7 @@
 	-->
 	<tr>
 		<td></td>
-		<td align="right"><html:submit property="submit" value="Submit"/><input type="reset" name="Reset" value="Cancel"></td>
+		<td align="right"><html:submit property="submit" value="Submit"/><input type="reset" name="Reset" value="Cancel" onclick="javascript:location.href='./login.do';"></td>
 	</tr>
  <table>
  <span class="red">${userForm.reason}</span>
