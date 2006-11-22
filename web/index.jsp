@@ -2,6 +2,7 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
 <html:html>
+
 <head>
 <title>PGIST main page</title>
 <!-- Site Wide CSS -->
