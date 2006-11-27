@@ -31,7 +31,7 @@
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
 
 <!--End SDX Specific  Libraries-->
-<!--test cvs -->
+
 <script type="text/javascript">
 	<!--
 		tinyMCE.init({
