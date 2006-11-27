@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <head>
-<title>Step 1b: Discuss Summaries - Main</title>
+<title>Step 1b: Review Summaries - Main</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/lit.css";</style>
 <!-- End Site Wide CSS -->

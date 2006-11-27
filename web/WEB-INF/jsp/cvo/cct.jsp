@@ -15,6 +15,7 @@
 </style>
 <!-- End Site Wide CSS -->
 <!-- Site Wide JavaScript -->
+<script language="JavaScript" src="scripts/qtip.js" type="text/JavaScript"></script>
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
@@ -587,37 +588,6 @@ alert(winH);
 $('slate').style.Height = winH;
 }
 
-function lightboxDisplay(show){
-	if (show){
-		$('overlay').style.display = 'block';
-		$('lightcontainer').style.display = 'inline';
-		centerDisable();
-	}else{
-		$('overlay').style.display = 'none';
-		$('lightcontainer').style.display = 'none';
-		centerReenable();
-	}
-}
-	function displayIndicator(show){
-		if (show){
-			$('loading-indicator').style.display = "inline";	
-		}else{
-			$('loading-indicator').style.display = "none";	
-		}
-	}
-
-
-function lightboxDisplay(show){
-	if (show){
-		$('overlay').style.display = 'block';
-		$('lightcontainer').style.display = 'inline';
-		centerDisable();
-	}else{
-		$('overlay').style.display = 'none';
-		$('lightcontainer').style.display = 'none';
-		centerReenable();
-	}
-}
 
 */
 
@@ -650,7 +620,8 @@ function lightboxDisplay(show){
     <!-- begin "overview and instructions" area -->
     <div id="overview" class="box2">
       <h3>Overview and Instructions</h3>
-      <p>Before we can determine how to best improve the transportation system, we need to know what the problems are. Our first task is to brainstorm concerns about the transportation system. To help you create your concerns, the right column displays concerns from other participants. Use the buttons at the bottom of this column to view more pages of concerns, or search for particular concerns by tags.</p>
+      <p>Before we can determine how to best improve the transportation system, we need to know what the problems are. Therefore, our first task is to brainstorm concerns about transportation in our region.</p> 
+      <p><a href="readmore.jsp">How does this step fit into the bigger picture?</A></p>
     </div>
     <!-- end overview -->
 
@@ -701,11 +672,19 @@ function lightboxDisplay(show){
       <div id="colRight" class="floatLeft box6 colRight">
         <!-- right col -->
         <h3>Add your own Concern</h3>
+		Describe one problem with our transportation system. You can add more concerns later.
+		<p>When writing your concerns, consider these questions:
+		  <ul>
+			  <li>What problems do you encounter in your daily trips to work, shopping, errands, or entertainment? </li>
+			  <li>In what ways do you feel our current transportation system 
+			  fails to meet the needs of our growing and changing region?</li>
+		  </ul></p>
         <fieldset>
         <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type your concern here.</textarea>
         </fieldset>
         <div id="tagNewConcern" class="box6 padding5" style="display:none;">
           <h3>Tag your concern</h3>
+		<p><a href="#" class="glossHighlight" title="Think of tags as labels.  These labels help make your concerns easier to find among the many other concerns provided by other participants.  Tags are important for this first step in our process, as it assists the moderator in finding and clustering concerns so that summaries can be written.  It is important, therefore, to tag your concerns with words or word phrases that you feel appropriately convey the meaning of your concern.">What is a tag?</a></p>
           <p>Suggested tags:</p>
           <ul id="addConcernTagsList" class="tagsList">
             <!-- render suggested tags here -->

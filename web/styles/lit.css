@@ -130,6 +130,13 @@
 
 		#breadCrumbs {margin-bottom:2em;}
 
+		#colRight ul
+		{
+		padding:0px;
+		padding-left:15px;
+		font-size:.85em;
+		}
+		
 		#container
 		{
 		width:950px;
@@ -257,15 +264,13 @@
 		border:2px solid #FFCB7B;
 		padding:3px;
 		color: #733C00;
-
-		  position:fixed;
-		  _position:absolute;
-		  top:0;
-		  _top:expression(eval(document.body.scrollTop));
-		  left:0;
-		  margin:0;
-		  padding:0;
-
+		position:fixed;
+		_position:absolute;
+		top:0;
+		_top:expression(eval(document.body.scrollTop));
+		left:0;
+		margin:0;
+		padding:0;
 		}
 
         #noTopicsBox
@@ -288,17 +293,17 @@
 		}
 
 		div#qTip {
-		  padding: 5px;
-		  border:1px solid #F2AF27;
-		  border-right-width: 2px;
-		  border-bottom-width: 2px;
-		  display: none;
-		  color: #773C00;	
-		  background:#FFDF94;
-		  font: bold 0.9em Verdana, Arial, Helvetica, sans-serif;
-		  text-align: left;
-		  position: absolute;
-		  z-index: 5000;
+		padding: 5px;
+		border:1px solid #F2AF27;
+		border-right-width: 2px;
+		border-bottom-width: 2px;
+		display: none;
+		color: #773C00;	
+		background:#FFDF94;
+		font: bold 0.9em Verdana, Arial, Helvetica, sans-serif;
+		text-align: left;
+		position: absolute;
+		z-index: 5000;
 		}
 		
 		#searchResults
@@ -316,7 +321,7 @@
 		top:-7px;
 		right:-7px;
 		z-index:2000;
-		padding:5px 5px 7px 5px;
+		padding:5px 5px 0px 5px;
 		}
 
 		#summary
@@ -325,7 +330,6 @@
 		margin-left:10px;
 		padding:5px;
 		}
-		
 		
 		#votingMenu
 		{

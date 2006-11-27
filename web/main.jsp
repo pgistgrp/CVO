@@ -39,11 +39,11 @@
 		<ul>
 			<pg:show roles="participant">
 		<li>
-		  <html:link page="/cctlist.do">Step 1a: Brainstorm Concerns </html:link>
+		  <html:link page="/cctlist.do">Step 1a: Brainstorm</html:link>
 		</li>
 		
 		<li>
-		  <html:link page="/sdlist.do">Step 1b: Discuss Summaries</html:link>
+		  <html:link page="/sdlist.do">Step 1b: Review Summaries</html:link>
 		</li>
 		</pg:show> 
 		<li>
