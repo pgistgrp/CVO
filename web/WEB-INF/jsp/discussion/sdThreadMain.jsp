@@ -235,18 +235,16 @@
 	
 		/*************** Set Vote************** */
 	 	 io.setVote = function(target, id, agree){
-	 	 			displayIndicator(true);
 					//alert("structure" + infoObject.structureId + "object " + infoObject.objectId + "vote " + agree);
 					SDAgent.setVoting({target: target, id: id, agree:agree}, {
 					callback:function(data){
 							if (data.successful){
-								displayIndicator(false); 
 								var votingDiv = 'voting-'+target+id;
 								if($(votingDiv) != undefined){
-	              				 	new Effect.Fade(votingDiv, {afterFinish: function(){io.getReplies(io.currentFilter, io.currentPage, true); new Effect.Appear(votingDiv);}});
+	              				 	new Effect.Fade(votingDiv, {afterFinish: function(){io.getReplies(io.currentFilter, io.currentPage, true); io.getTargets(); new Effect.Appear(votingDiv);}});
 	              				}else{
-	              					displayIndicator(false);
-	              					io.getReplies(io.currentFilter, io.currentPage, true);	
+	              					io.getReplies(io.currentFilter, io.currentPage, false);	
+									io.getTargets();
 	              				}
 							}else{
 								alert(data.reason);
