@@ -1,4 +1,4 @@
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+†<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
@@ -31,7 +31,7 @@
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
 
 <!--End SDX Specific  Libraries-->
-
+<!--test cvs -->
 <script type="text/javascript">
 	<!--
 		tinyMCE.init({

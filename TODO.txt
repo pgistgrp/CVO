@@ -54,7 +54,7 @@ Zhong:
 [ok] - SDAgent.getPosts sorting
 TODO:
 [1] Show Jordan how e-mail notification works.
-[1] - CCTAgent.getContextConcerns sorting
+[1] CCTAgent.getContextConcerns sorting
 [2] Count of unique users per post - calculate on createPost()
 [2] getPosts filter by tag queries deleted posts.
 [*] Add IOID param to tagSearch
@@ -62,7 +62,7 @@ TODO:
 [*] Commenting on CCT
 [*] create theme bugs reported by Adam
 [4] user actions event logging
-
+[] Hibernate Error on CCTAgent.saveConcern()
 
 John:
 [ ] - Relate Criteria to themes
@@ -70,5 +70,15 @@ John:
 [ ] - Manage Criteria
 [ ] - Weigh Criteria
 
+BACKEND DOCUMENTED FOR LATER:
+[ ] IOID in SDAgent.getTagCloud()
+[ ] Problem with Glossary view sort - (bug found by Issac)
+[ ] Case insensitive login
+[ ] Create reply goes to last page - needs page setting object
+[ ] Stop words and tags are mutually exclusive
 
+FRONT END DOCUMENTED FOR LATER
+[ ] Don't capitalize propositions
+[ ] Mailing List Form
+[ ] Commenting in Glossary
 
