@@ -17,7 +17,6 @@
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
 
-
 </head>
 
 <body>
@@ -56,10 +55,10 @@
 		<h3>Public Components</h3>
 		<ul>
 			<li><html:link page="#">Public Home</html:link></li>
-			<li>Step 1</li>
+			<li>Step 1: Discuss Concerns</li>
 				<ul>
-					<li><html:link page="cctlist.do">Brainstorm Concerns</html:link></li>
-					<li><html:link page="sdlist.do">Discuss Summaries</html:link></li>
+					<li><html:link page="cctlist.do">Brainstorm</html:link></li>
+					<li><html:link page="sdlist.do">Review Summaries</html:link></li>
 				</ul>
 			<li>Step 2</li>
 				<ul>

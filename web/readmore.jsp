@@ -39,7 +39,7 @@
 
     <p>Before we can determine how to best improve the transportation system, we need to know what the problems are. There  are two parts of this step:</p>
     <ul>
-      <li><strong>1a: Brainstorm </strong>
+      <li><strong>1a: Brainstorm</strong>
         <ul>
           <li>Participants&nbsp; brainstorm and &ldquo;tag&rdquo; concerns about the  transportation system.</li>
 
