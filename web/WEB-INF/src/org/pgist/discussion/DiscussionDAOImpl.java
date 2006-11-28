@@ -1070,7 +1070,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getDiscussionById()
 
     
-    private static final String hql_processId = "select tr.id from TagReference tr, CCT cct, InfoStructure istr where istr.id=? and istr.cctId=cct.id and tr.cctId=cct.id and tr.tagId=?";
+    private static final String hql_processId = "select tr.id from TagReference tr, CCT cct, InfoStructure istr where istr.id=? and istr.cctId=cct.id and tr.cctId=cct.id and tr.tag.id=?";
     
     
     public Long processId(Long isid, Long tagId) {
