@@ -74,7 +74,7 @@
 				  </div></td>
 			</tr>
 			<tr>
-		 		<td width="200" colspan="2" class="smallText"><html:checkbox property="user.notify" value="${user.notify}"/>I would like to receive e-mail notifications when other participants reply to my discussion posts.</td>
+		 		<td width="200" colspan="2" class="smallText"><html:checkbox property="user.enabled" value="${user.enabled}"/>I would like to receive e-mail notifications when other participants reply to my discussion posts.</td>
 			</tr>
 		</table>
 		</div>

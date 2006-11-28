@@ -30,7 +30,8 @@
 
 <script type="text/javascript">
 //START Global Variables
-	var concernId = "<%= request.getParameter('id') %>";
+	var concernId = ${concern.id}
+	alert(concernId)
 //END Global variables
 
 	function getComments(params){
