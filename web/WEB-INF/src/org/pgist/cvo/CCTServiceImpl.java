@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.hibernate.Query;
 import org.pgist.system.SystemDAO;
 import org.pgist.system.UserDAO;
 import org.pgist.system.YesNoVoting;
@@ -154,12 +153,10 @@ public class CCTServiceImpl implements CCTService {
                 cctDAO.save(ref);
             }
             
-            cctDAO.save(ref);
             c.getTags().add(ref);
         } //for
 
         cctDAO.save(c);
-        cctDAO.save(cct);
 
         return c;
     } //createConcern()
