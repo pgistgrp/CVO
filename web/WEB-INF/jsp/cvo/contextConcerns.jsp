@@ -1,9 +1,6 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -40,14 +37,13 @@
 												<img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/>
 											</c:otherwise>
 										</c:choose>
-	
 									</div><!-- end discussionVoting -->
 								</div><!-- end discussionRowHeader -->
 								<div class="discussionBody">
 									<div id="editingArea${concern.id}" style="display:none"></div>
 									<div class="discussionText" id="discussionText${concern.id}"><p>"${concern.content}"</p></div>
 									<h3 id="discussionAuthor">- <bean:write name="concern" property="author.loginname" /></h3>
-										<!--<div class="discussionComments" id="discussionComments">0 Comments</div>-->
+										<div class="discussionComments" id="discussionComments"><h3><a href="concern.do?id=${concern.id}">${concern.replies} Comments</a></h3></div>
 										<div class="discussionTagsList">
 											<!-- iterate through concern tags here -->	
 											<div id="tagsUL${concern.id}"><ul class="tagsInline">

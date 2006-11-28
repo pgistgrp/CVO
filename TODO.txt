@@ -94,4 +94,5 @@ FRONT END DOCUMENTED FOR LATER
 [ ] Commenting in Glossary
 [ ] Voting on first discussion on SDThreadMain.jsp (needs getPostByID())
 [ ] Event Logging Moderator Page
+[ ] Moderator Options (author actions) on CCT concerns and comments
 

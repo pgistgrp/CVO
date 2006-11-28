@@ -75,7 +75,7 @@
 		/*************** Get Targets - If IOID is ommitted, return sdcSummary.jsp::else, returns sdcStructureSummary.jsp************** */
 		io.getTargets = function(){
 			displayIndicator(true);
-			SDAgent.getSummary({isid: io.structureId, ioid: io.objectId  }, {
+			SDAgent.getSummary({isid: io.structureId, ioid: io.objectId}, {
 				callback:function(data){
 					if (data.successful){
 						$(io.objectDiv).innerHTML = data.source.html;
