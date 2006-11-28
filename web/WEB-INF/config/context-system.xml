@@ -37,16 +37,16 @@
         </property>
         <property name="props">
             <props>
-                <prop key="mail.smtp.host">localhost</prop>
+                <prop key="mail.smtp.host">smtp.gmail.com</prop>
                 <prop key="mail.transport.protocol">smtp</prop>
                 <prop key="mail.smtp.auth">true</prop>
-                <prop key="mail.smtp.port">25</prop>
+                <prop key="mail.smtp.port">465</prop>
             </props>
         </property>
         <property name="contentType"><value>text/plain; charset=UTF-8</value></property>
-        <property name="from"><value>service@localhost</value></property>
-        <property name="username"><value>service</value></property>
-        <property name="password"><value>123456</value></property>
+        <property name="from"><value>pgistfeedback@gmail.com</value></property>
+        <property name="username"><value>pgistfeedback@gmail.com</value></property>
+        <property name="password"><value>ppgis.02</value></property>
     </bean>
     
     
