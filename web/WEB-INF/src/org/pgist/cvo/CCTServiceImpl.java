@@ -289,7 +289,6 @@ public class CCTServiceImpl implements CCTService {
         
         concern.setCreateTime(new Date());
         cctDAO.save(concern);
-        cctDAO.save(cct);
     } //editConcernTags()
 
 
