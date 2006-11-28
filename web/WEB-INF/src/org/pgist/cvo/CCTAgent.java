@@ -1033,7 +1033,7 @@ public class CCTAgent {
             request.setAttribute("concern", concern);
             request.setAttribute("comments", comments);
             
-            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/commentsMain.jsp"));
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/comments.jsp"));
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -1167,7 +1167,7 @@ public class CCTAgent {
         }
         
         return map;
-    }//createComment()
+    }//editComment()
     
     
     /**

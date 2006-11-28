@@ -52,7 +52,7 @@
         </action>
         
         <action path="/concern" scope="request" type="org.pgist.cvo.ConcernViewAction">
-            <forward name="main" path="/WEB-INF/jsp/cvo/commentsMain.jsp" />
+            <forward name="main" path="/WEB-INF/jsp/cvo/concern.jsp" />
         </action>
         
         <action path="/tagging" scope="request" type="org.pgist.tagging.TaggingAction">
