@@ -21,10 +21,12 @@
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 <script src="scripts/search.js" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
+
 <!-- DWR JavaScript Libraries -->
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
 <!-- End DWR JavaScript Libraries -->
+
 <!--CCT Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
 <!--End CCT Specific  Libraries-->
@@ -194,7 +196,6 @@ var allNewConcernTags = new Array;
 		}else{
 			newConcernTagsArray[index].status = "unchecked";
 		}
-		
 	}
 	
 	function NewConcernTag(tagName, status){
@@ -204,8 +205,7 @@ var allNewConcernTags = new Array;
 	
 	function addToConcernTagsArray(tagName, status){
 		var newConcernTagInstance = new NewConcernTag(tagName, status);
-		newConcernTagsArray.push(newConcernTagInstance);	
-
+		newConcernTagsArray.push(newConcernTagInstance);
 	}
 	
 	function getTagCloud(){
@@ -228,7 +228,6 @@ var allNewConcernTags = new Array;
 				},
 				errorHandler:function(errorString, exception){ 
 							alert("getTagCloud: "+errorString+" "+exception);
-							//showTheError();
 				}		
 			});	
 	};
@@ -249,7 +248,6 @@ var allNewConcernTags = new Array;
 		//for(i=0; i< newConcernTagsArray.length; i++){
 		//	alert(newConcernTagsArray[i].tagName + " status:" + newConcernTagsArray[i].status);	
 		//}
-		
 	}
 	
 
@@ -266,7 +264,6 @@ var allNewConcernTags = new Array;
 				
 	function saveConcern(){
 		getSelectedTags();
-		
 		if(newConcernSelectedTagsArray.length<cct.numTagsInNewConcern){
 		alert("You must at least "+ cct.numTagsInNewConcern +" tags");
 		}else{
@@ -293,34 +290,33 @@ var allNewConcernTags = new Array;
 			},
 			errorHandler:function(errorString, exception){ 
 				alert("saveTheConcern: "+errorString+" "+exception);
-
 			}
 	});
 
 	}
 	}
 	
-	 	function setVote(id, agree){
-			CCTAgent.setVoting({id: id, agree:agree}, {
-			callback:function(data){
-					if (data.successful){ 
-						if($('concernVote'+id) != undefined){
-            				 new Effect.Fade('concernVote'+id, {afterFinish: function(){getContextConcerns(cct.currentFilter,cct.currentPage, false, cct.showOnlyMyConcerns); new Effect.Appear('concernVote'+id);}});
-            			}else{ //newly created concern
-            				getContextConcerns(cct.currentFilter, cct.currentPage, false, cct.showOnlyMyConcerns); 	
-            			}
-					}else{
-						alert(data.reason);
-					}
-				},
-			errorHandler:function(errorString, exception){ 
-					alert("setVote error:" + errorString + exception);
-			}
-			});
-		};
+	function setVote(id, agree){
+		CCTAgent.setVoting({id: id, agree:agree}, {
+		callback:function(data){
+				if (data.successful){ 
+					if($('concernVote'+id) != undefined){
+           				 new Effect.Fade('concernVote'+id, {afterFinish: function(){getContextConcerns(cct.currentFilter,cct.currentPage, false, cct.showOnlyMyConcerns); new Effect.Appear('concernVote'+id);}});
+           			}else{ //newly created concern
+           				getContextConcerns(cct.currentFilter, cct.currentPage, false, cct.showOnlyMyConcerns); 	
+           			}
+				}else{
+					alert(data.reason);
+				}
+			},
+		errorHandler:function(errorString, exception){ 
+				alert("setVote error:" + errorString + exception);
+		}
+		});
+	};
 	//END ADD Concern Functions
 	
-		function deleteConcern(concernId){
+	function deleteConcern(concernId){
 		var destroy = confirm ("Are you sure you want to delete this concern? Note: there is no undo.")
 		if (destroy){
 				CCTAgent.deleteConcern({concernId:concernId}, {

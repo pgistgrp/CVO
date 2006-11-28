@@ -89,7 +89,16 @@
 					</div>
 				</div>
 				<div class="discussion-right">
-					<img src="images/icon_people_1.gif">
+					<!-- waiting for ${post.uniqueUsers}
+					<c:choose>
+						<c:when test="${post.uniqueUsers <= 7}">
+							<img src="images/icon_people_${post.uniqueUsers}.gif">
+						</c:when>
+						<c:otherwise>
+							<img src="images/icon_people_many.gif">
+						</c:otherwise>
+					</c:choose>
+					-->
 				</div>
 			</div>
 		
