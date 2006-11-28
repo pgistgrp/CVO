@@ -496,8 +496,8 @@
 		.themeBox /* The container that discussion themes go in on sdMain */
 		{
 		width:300px;
-		height:220px;
-		overflow:hidden;
+		height:250px;
+		overflow:auto;
 		margin:16px;
 		margin-left:0px;
 		margin-bottom:5px;

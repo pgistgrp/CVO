@@ -30,8 +30,7 @@
 				<p><strong>Latest post</strong><br />
 					<c:choose>
 		      <c:when test="${infoObject.discussion.lastPost.id != null}">
-		     		 "<a href="/sdThread.do?isid=${structure.id}&pid=${infoObject.discussion.lastPost.id}&ioid=${infoObject.id}">${infoObject.discussion.lastPost.title}</a>"<br />
-		     		by ${infoObject.discussion.lastPost.owner.loginname}
+		     		 "<a href="/sdThread.do?isid=${structure.id}&pid=${infoObject.discussion.lastPost.id}&ioid=${infoObject.id}">${infoObject.discussion.lastPost.title}</a>"
 		      </c:when>
 		      <c:otherwise>
 		      	No current discussions
