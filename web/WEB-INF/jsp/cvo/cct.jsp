@@ -56,11 +56,11 @@ var allNewConcernTags = new Array;
 	
 //Settings
 	cct.currentPage = 0;
+	cct.currentSort = 1; //Initial sorting
 	cct.currentFilter = '';  //Default tag filter
 	cct.numTagsInNewConcern = 2;
 	cct.concernsPerPage = 8;
 	cct.showOnlyMyConcerns = false; 
-	cct.contextAware = false; //should match showOnlyMyConcerns
 	cct.concernsDesc = true; //concern order
 	cct.cctId = "${cctForm.cct.id}";
 	cct.tagCloudCount = 20;
@@ -69,27 +69,18 @@ var allNewConcernTags = new Array;
 
 //END Global Variables
 
-//START CCT Clean up
-	function getContextConcerns(tags, page, jump, showMyConcerns){
+	function getContextConcerns(filter, page, jump, showMyConcerns, sorting){
 		if(jump){
-			location.href = cct.filterAnchor;
-		}
+			location.href = cct.filterAnchor; //set anchor if need be
+		}		
+		cct.showOnlyMyConcerns = (showMyConcerns) ? "owner" : "all"; //determine type
+		cct.currentPage = page; //set current page
 		
-		if(showMyConcerns){
-			cct.showOnlyMyConcerns = true; 
-			cct.contextAware = true;
-		}else{
-			cct.showOnlyMyConcerns = false; 
-			cct.contextAware = false;
-		}
-		
-		cct.currentPage = page;
-		//alert("cct: " + cct.cctId + " tags: " + tags + " count: " + cct.concernsPerPage + " page: " + page + " contextAware: " + cct.contextAware + " desc: " + cct.concernsDesc + " ownerOnly: " + cct.showOnlyMyConcerns);
-		CCTAgent.getContextConcerns({cctId: cct.cctId,tags: tags, count: cct.concernsPerPage, page: page, contextAware: cct.contextAware, desc: cct.concernsDesc, ownerOnly: cct.showOnlyMyConcerns}, {
+		//alert("cct: " + cct.cctId + " filter: " + filter + " count: " + cct.concernsPerPage + " page: " + page + " sorting: " + cct.currentSort + " type: " + cct.showOnlyMyConcerns);
+		CCTAgent.getContextConcerns({cctId: cct.cctId,filter: filter, count: cct.concernsPerPage, page: page, sorting: cct.currentSort, type: cct.showOnlyMyConcerns}, {
 			callback:function(data){
 					if (data.successful){
 						$(cct.divDiscussionCont).innerHTML = data.html;
-						
 					}else{
 						alert(data.reason);
 					}
@@ -102,18 +93,18 @@ var allNewConcernTags = new Array;
 	}
 		
 	function goToPage(page){
-		getContextConcerns(cct.currentFilter,page,true, cct.showOnlyMyConcerns); 
+		getContextConcerns(cct.currentFilter,page,true, cct.showOnlyMyConcerns, cct.currentSort); 
 		//new Effect.Highlight('discussion-cont',{startcolor: "#D6E7EF"});
 	}
 	function checkMyConcerns(){
 		if($(cct.chbxMyConcerns).checked != true){
 			$(cct.divFilteredBy).style.display = 'inline';
-			getContextConcerns(cct.currentFilter, cct.currentPage, false, false);
+			getContextConcerns(cct.currentFilter, cct.currentPage, false, false, cct.currentSort);
 			location.href= cct.filterAnchor;
 			$(cct.divDiscussionTitle).innerHTML = cct.discussionTitle;
 		}else{ //when it is checked
 			$(cct.divFilteredBy).style.display = 'none';
-			getContextConcerns('', cct.currentPage, false, true);
+			getContextConcerns('', cct.currentPage, false, true, cct.currentSort);
 			location.href= cct.filterAnchor;
 			$(cct.divDiscussionTitle).innerHTML = cct.discussionTitleOnChk;
 		}
@@ -279,7 +270,7 @@ var allNewConcernTags = new Array;
 		CCTAgent.saveConcern({cctId:cct.cctId,concern:concern,tags:newConcernSelectedTagsString}, {
 			callback:function(data){
 				if (data.successful){
-					getContextConcerns(cct.currentFilter, 0, true, cct.showOnlyMyConcerns); 	
+					getContextConcerns(cct.currentFilter, 0, true, cct.showOnlyMyConcerns, cct.currentSort); 	
 					setVote(data.concern.id, "true")
 					swapContinue(false);
 					$(cct.txtAddConcern).value = '';
@@ -301,9 +292,9 @@ var allNewConcernTags = new Array;
 		callback:function(data){
 				if (data.successful){ 
 					if($('concernVote'+id) != undefined){
-           				 new Effect.Fade('concernVote'+id, {afterFinish: function(){getContextConcerns(cct.currentFilter,cct.currentPage, false, cct.showOnlyMyConcerns); new Effect.Appear('concernVote'+id);}});
+           				 new Effect.Fade('concernVote'+id, {afterFinish: function(){getContextConcerns(cct.currentFilter,cct.currentPage, false, cct.showOnlyMyConcerns, cct.currentSort); new Effect.Appear('concernVote'+id);}});
            			}else{ //newly created concern
-           				getContextConcerns(cct.currentFilter, cct.currentPage, false, cct.showOnlyMyConcerns); 	
+           				getContextConcerns(cct.currentFilter, cct.currentPage, false, cct.showOnlyMyConcerns, cct.currentSort); 	
            			}
 				}else{
 					alert(data.reason);
@@ -322,7 +313,7 @@ var allNewConcernTags = new Array;
 				CCTAgent.deleteConcern({concernId:concernId}, {
 				callback:function(data){	
 						if (data.successful){
-							new Effect.Puff('concern'+concernId, {afterFinish:function(){getContextConcerns(cct.currentFilter,cct.currentPage,false, cct.showOnlyMyConcerns);}});
+							new Effect.Puff('concern'+concernId, {afterFinish:function(){getContextConcerns(cct.currentFilter,cct.currentPage,false, cct.showOnlyMyConcerns, cct.currentSort);}});
 						}else{
 							alert(data.reason);	
 						}
@@ -336,7 +327,7 @@ var allNewConcernTags = new Array;
 	}
 	
 	function changeCurrentFilter(tagRefId){
-		getContextConcerns(tagRefId, 0, true, cct.showOnlyMyConcerns);
+		getContextConcerns(tagRefId, 0, true, cct.showOnlyMyConcerns, cct.currentSort);
 		cct.currentFilter = tagRefId;
 		if (tagRefId != ''){
 				CCTAgent.getTagByTagRefId(cct.currentFilter, {
@@ -392,17 +383,6 @@ var allNewConcernTags = new Array;
 	//END CCT Cleanup
 
 
-function glossaryPopup(term){
-lightboxDisplay(true);
-os = "";
-os += '<div id="closeBox" style="text-align: right;"><a href="javascript: lightboxDisplay();"><img src="/images/closelabel.gif" border="0"></a></div>'
-os += '<h4>Glossary Term: '+ term +'</h4><br>';
-os += '<p>Tags helps make your concerns easier to find, since all this info is searchable later. Imagine this applied to thousands of concerns!</p>';
-$('lightbox').innerHTML = os;
-}
-
-
-
 function toggleEditing(component, concernId){
 	var concernBody = 'discussionText' + concernId;
 	var concernTags = 'tagsUL' + concernId;
@@ -456,7 +436,7 @@ function editConcern(concernId){
 	CCTAgent.editConcern({concernId:concernId, concern:newConcern}, {
 		callback:function(data){
 				if (data.successful){
-					getContextConcerns(cct.currentFilter, cct.currentPage, false, cct.showOnlyMyConcerns);
+					getContextConcerns(cct.currentFilter, cct.currentPage, false, cct.showOnlyMyConcerns, cct.currentSort);
 				
 				}  
 		},
@@ -540,7 +520,7 @@ function editTags(concernId){
 	CCTAgent.editTags({concernId:concernId, tags:newConcernSelectedTagsString}, {
 		callback:function(data){
 			if (data.successful){ 
-				getContextConcerns(cct.currentFilter, cct.currentPage, false, false);
+				getContextConcerns(cct.currentFilter, cct.currentPage, false, false, cct.currentSort);
 			}else{
 				alert(data.reason);	
 			}
@@ -633,14 +613,14 @@ $('slate').style.Height = winH;
 		
 		<!-- Begin sorting menu -->
         <div id="sortingMenu" class="box4"> sort concerns by:
-          <select>
-	        <option>Newest to Oldest</option>
-	        <option>Oldest to Newest</option>
-	        <option>Most Agreement</option>
-	        <option>Least Agreement</option>
-	        <option>Most Comments</option>
-	        <option>Most Views</option>
-	        <option>Most Votes</option>
+          <select name="selectsort" id="selectsort" onChange="javascript:io.getContextConcerns(cct.currentFilter, 1, true, cct.showOnlyMyConcerns, this.value);	">
+	        <option value="1">Newest to Oldest</option>
+	        <option value="2">Oldest to Newest</option>
+	        <option value="3">Most Agreement</option>
+	        <option value="4">Least Agreement</option>
+	        <option value="5">Most Replies</option>
+	        <option value="6">Most Views</option>
+	        <option value="7">Most Votes</option>
           </select>
           <br />
           <div class="floatLeft">filter concerns by:</div>
@@ -727,7 +707,7 @@ $('slate').style.Height = winH;
   
    
   <script type="text/javascript">
-		getContextConcerns('', 1, false, cct.showOnlyMyConcerns);
+		getContextConcerns('', 1, false, cct.showOnlyMyConcerns, cct.currentSort);
 		
 </script>
   </body>
