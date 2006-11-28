@@ -152,10 +152,10 @@ public interface CCTDAO extends BaseDAO {
     void decreaseRefTimes(TagReference ref) throws Exception;
     
     
-    Collection getContextConcerns(CCT cct, PageSetting setting, boolean contextAware, boolean desc, boolean ownerOnly) throws Exception;
+    Collection getContextConcerns(CCT cct, PageSetting setting, String type, int sorting) throws Exception;
     
     
-    Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware, boolean desc, boolean ownerOnly) throws Exception;
+    Collection getContextConcerns(CCT cct, PageSetting setting, String filter, String type, int sorting) throws Exception;
 
     
     void increaseVoting(Concern concern, boolean agree) throws Exception;

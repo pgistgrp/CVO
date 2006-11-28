@@ -36,6 +36,8 @@ public class Comment {
     
     private boolean deleted;
     
+    private boolean emailNotify = false;
+    
     private Object object;
 
     
@@ -182,6 +184,20 @@ public class Comment {
     }
     
     
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public boolean isEmailNotify() {
+        return emailNotify;
+    }
+
+
+    public void setEmailNotify(boolean emailNotify) {
+        this.emailNotify = emailNotify;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */

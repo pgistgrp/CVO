@@ -95,7 +95,23 @@
             <script>
               <![CDATA[
                 CREATE VIEW view_cct_concern_tags AS
-                  SELECT c.cct_id as cctid, c.id as cid, c.author_id as uid, l.tagref_id as trid from pgist_cvo_concerns c, pgist_cvo_concern_tag_link l where c.deleted is false and c.id=l.concern_id;
+                  SELECT
+                    c.cct_id as cctid,
+                    c.id as cid,
+                    c.author_id as uid,
+                    l.tagref_id as trid,
+                    t.id as tid,
+                    t.name as tname
+                  FROM
+                    pgist_cvo_concerns c,
+                    pgist_cvo_concern_tag_link l,
+                    pgist_cvo_tag_refs r,
+                    pgist_tags t
+                  WHERE
+                    c.deleted is false AND
+                    c.id=l.concern_id AND
+                    r.id=l.tagref_id AND
+                    t.id=r.tag_id;
               ]]>
             </script>
         </statement>

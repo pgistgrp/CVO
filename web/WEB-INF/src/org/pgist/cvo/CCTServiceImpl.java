@@ -117,6 +117,7 @@ public class CCTServiceImpl implements CCTService {
         c.setCct(cct);
         c.setCreateTime(new Date());
         c.setContent(concern);
+        c.setReplyTime(c.getCreateTime());
 
         Long id = WebUtils.currentUserId();
         User user = userDAO.getUserById(id, true, false);
@@ -312,13 +313,13 @@ public class CCTServiceImpl implements CCTService {
     }//getTagCloud()
 
 
-    public Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware, boolean desc, boolean ownerOnly) throws Exception {
+    public Collection getContextConcerns(CCT cct, PageSetting setting, String filter, String type, int sorting) throws Exception {
         Collection concerns = null;
         
-        if (tags==null || "".equals(tags.trim())) {
-            concerns = cctDAO.getContextConcerns(cct, setting, contextAware, desc, ownerOnly);
+        if (filter==null || "".equals(filter.trim())) {
+            concerns = cctDAO.getContextConcerns(cct, setting, type, sorting);
         } else {
-            concerns = cctDAO.getContextConcerns(cct, setting, tags.trim(), contextAware, desc, ownerOnly);
+            concerns = cctDAO.getContextConcerns(cct, setting, filter, type, sorting);
         }
         
         /**

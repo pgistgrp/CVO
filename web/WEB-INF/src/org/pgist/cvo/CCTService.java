@@ -217,7 +217,7 @@ public interface CCTService {
     Collection searchTags(CCT cct, String tag) throws Exception;
     
     
-    Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware, boolean desc, boolean ownerOnly) throws Exception;
+    Collection getContextConcerns(CCT cct, PageSetting setting, String filter, String type, int sorting) throws Exception;
 
     
     boolean setVotingOnConcern(Long id, boolean agree) throws Exception;

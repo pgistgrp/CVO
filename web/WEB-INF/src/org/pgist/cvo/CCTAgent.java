@@ -864,12 +864,18 @@ public class CCTAgent {
      * @param params A map contains:
      *   <ul>
      *     <li>cctId - long int, the current CCT instance id</li>
-     *     <li>tags - a comma separated string of tag reference ids to filter the concerns. (Optional)</li>
+     *     <li>filter - string, tag name as filter (Optional)</li>
      *     <li>count - number of records shown per page. Optional, default is -1, means all records.</li>
      *     <li>page - page number. Optional, default is 1.</li>
-     *     <li>contextAware - boolean, if context aware. If true, returned concerns don't include those of current user. Optional, default is true.</li>
-     *     <li>desc - boolean, to sort descending or not. Optional true by default</li>
-     *     <li>ownerOnly - boolean, only return concerns by the current user. Optional false by default contextAware must be true to work. Cannot filter tags aswell.
+     *     <li>sorting - int, the sorting index, 1-7, referencing DiscussionDAOImpl.java for the meaning</li>
+     *     <li>
+     *       type - string, types of searching
+     *       <ul>
+     *         <li>empty or "all" - show all concerns</li>
+     *         <li>"owner" - show only the current user's concerns</li>
+     *         <li>"other" - show only the other user's concerns</li>
+     *       </ul>
+     *     </li>
      *   </ul>
      * 
      * @return A map contains:
@@ -904,22 +910,29 @@ public class CCTAgent {
             return map;
         }
         
-        boolean contextAware = !("false".equals((String) params.get("contextAware")));
-        boolean desc = "true".equals((String) params.get("desc"));
-        boolean ownerOnly = "true".equals((String) params.get("ownerOnly"));
-        
-        String tags = (String) params.get("tags");
+        String filter = (String) params.get("filter");
         
         try {
+            int sorting = 0;
+            try {
+                sorting = Integer.parseInt((String) params.get("sorting"));
+            } catch (Exception e) {
+            }
+            
+            String type = (String) params.get("type");
+            if (type==null || "".equals(type)) type = "all";
+            
             PageSetting setting = new PageSetting();
             setting.setRowOfPage((String) params.get("count"));
             setting.setPage((String) params.get("page"));
             
-            Collection concerns = cctService.getContextConcerns(cct, setting, tags, contextAware, desc, ownerOnly);
+            Collection concerns = cctService.getContextConcerns(cct, setting, filter, type, sorting);
             
             request.setAttribute("concerns", concerns);
             request.setAttribute("setting", setting);
-            request.setAttribute("contextAware", contextAware);
+            request.setAttribute("filter", filter);
+            request.setAttribute("type", type);
+            request.setAttribute("sorting", sorting);
             
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/contextConcerns.jsp"));
             

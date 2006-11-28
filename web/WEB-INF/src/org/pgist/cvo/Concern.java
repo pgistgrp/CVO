@@ -41,6 +41,10 @@ public class Concern implements Serializable {
     
     private int replies = 0;
     
+    private Date replyTime;
+    
+    private boolean emailNotify = false;
+    
     private Object object = null;
     
     
@@ -212,6 +216,34 @@ public class Concern implements Serializable {
 
     public void setViews(int views) {
         this.views = views;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public Date getReplyTime() {
+        return replyTime;
+    }
+
+
+    public void setReplyTime(Date replyTime) {
+        this.replyTime = replyTime;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public boolean isEmailNotify() {
+        return emailNotify;
+    }
+
+
+    public void setEmailNotify(boolean emailNotify) {
+        this.emailNotify = emailNotify;
     }
 
 

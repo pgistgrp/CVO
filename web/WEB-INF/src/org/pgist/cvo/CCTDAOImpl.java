@@ -1,8 +1,8 @@
 package org.pgist.cvo;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -21,6 +21,43 @@ import org.pgist.util.WebUtils;
  *
  */
 public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
+    
+    
+    /**
+     * Sorting index for concerns
+     * <ul>
+     *   <li>0 - Default (newest created/replied)</li>
+     *   <li>1 - Newest to Oldest</li>
+     *   <li>2 - Oldest to Newest</li>
+     *   <li>3 - Most Agreement</li>
+     *   <li>4 - Least Agreement</li>
+     *   <li>5 - Most Comments</li>
+     *   <li>6 - Most Views</li>
+     *   <li>7 - Most Votes</li>
+     * </ul>
+     */
+    private static final String[][] concernSorting = {
+        {
+            "replyTime desc",
+            "createTime desc",
+            "createTime asc",
+            "numAgree desc",
+            "numAgree asc",
+            "replies desc",
+            "views desc",
+            "numVote desc",
+        },
+        {
+            "rtime desc",
+            "ctime desc",
+            "ctime asc",
+            "nagree desc",
+            "nagree asc",
+            "nreply desc",
+            "nview desc",
+            "nvote desc",
+        }
+    };
     
     
     private TagReferenceComparator comparator = new TagReferenceComparator(false);
@@ -261,36 +298,37 @@ public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
     }//decreaseRefTimes()
 
 
-    private static final String hql_getContextConcerns_A_11 = "select count(c.id) from Concern c where c.deleted=? and c.cct.id=?";
+    private static final String hql_getContextConcerns_A_11 = "select count(c.id) from Concern c where c.deleted=? and c.cct.id=? #type";
     
-    private static final String hql_getContextConcerns_A_12 = "select count(c.id) from Concern c where c.deleted=? and c.cct.id=? and c.author.id<>?";
-    
-    private static final String hql_getContextConcerns_A_13 = "select count(c.id) from Concern c where c.deleted=? and c.cct.id=? and c.author.id=?";
-    
-    private static final String hql_getContextConcerns_A_21 = "from Concern c where c.deleted=? and c.cct.id=? order by c.id";
-    
-    private static final String hql_getContextConcerns_A_22 = "from Concern c where c.deleted=? and c.cct.id=? and c.author.id<>? order by c.id";
-    
-    private static final String hql_getContextConcerns_A_23 = "from Concern c where c.deleted=? and c.cct.id=? and c.author.id=? order by c.id";
+    private static final String hql_getContextConcerns_A_12 = "from Concern c where c.deleted=? and c.cct.id=? #type order by c.#sorting";
     
     
-    public Collection getContextConcerns(CCT cct, PageSetting setting, boolean contextAware, boolean desc, boolean ownerOnly) throws Exception {
+    public Collection getContextConcerns(CCT cct, PageSetting setting, String type, int sorting) throws Exception {
         List list = new ArrayList();
         
         Query query = null;
         
-        if(ownerOnly && contextAware) {
-        	query = getSession().createQuery(hql_getContextConcerns_A_13);
-            query.setLong(2, WebUtils.currentUserId());
-        } else if (contextAware) {
-            query = getSession().createQuery(hql_getContextConcerns_A_12);
-            query.setLong(2, WebUtils.currentUserId());
-        } else {
-            query = getSession().createQuery(hql_getContextConcerns_A_11);
-        }
+        long uid = WebUtils.currentUserId();
         
-        query.setBoolean(0, false);
-        query.setLong(1, cct.getId());
+        //get count
+        String hql1 = hql_getContextConcerns_A_11;
+        if("all".equalsIgnoreCase(type)) {
+            query = getSession().createQuery(hql1.replace("#type", ""));
+        	query.setBoolean(0, false);
+        	query.setLong(1, cct.getId());
+        } else if ("owner".equalsIgnoreCase(type)) {
+            query = getSession().createQuery(hql1.replace("#type", " and c.author.id=? "));
+            query.setBoolean(0, false);
+            query.setLong(1, cct.getId());
+            query.setLong(2, uid);
+        } else if ("other".equalsIgnoreCase(type)) {
+            query = getSession().createQuery(hql1.replace("#type", " and c.author.id<>? "));
+            query.setBoolean(0, false);
+            query.setLong(1, cct.getId());
+            query.setLong(2, uid);
+        } else {
+            throw new Exception("unknown type: "+type);
+        }
         
         int count = ((Number) query.uniqueResult()).intValue();
         
@@ -300,17 +338,26 @@ public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
         
         if (count==0) return list;
         
-        if (ownerOnly && contextAware) {
-        	query = getSession().createQuery(hql_getContextConcerns_A_23 + (desc?" desc":""));
-            query.setLong(2, WebUtils.currentUserId());
-        } else if (contextAware) {
-            query = getSession().createQuery(hql_getContextConcerns_A_22 + (desc?" desc":""));
-            query.setLong(2, WebUtils.currentUserId());
+        //get records
+        String hql2 = hql_getContextConcerns_A_12.replace("#sorting", concernSorting[0][sorting]);
+        if("all".equalsIgnoreCase(type)) {
+            query = getSession().createQuery(hql2.replace("#type", ""));
+            query.setBoolean(0, false);
+            query.setLong(1, cct.getId());
+        } else if ("owner".equalsIgnoreCase(type)) {
+            query = getSession().createQuery(hql2.replace("#type", " and c.author.id=? "));
+            query.setBoolean(0, false);
+            query.setLong(1, cct.getId());
+            query.setLong(2, uid);
+        } else if ("other".equalsIgnoreCase(type)) {
+            query = getSession().createQuery(hql2.replace("#type", " and c.author.id<>? "));
+            query.setBoolean(0, false);
+            query.setLong(1, cct.getId());
+            query.setLong(2, uid);
         } else {
-            query = getSession().createQuery(hql_getContextConcerns_A_21 + (desc?" desc":""));
+            throw new Exception("unknown type: "+type);
         }
-        query.setBoolean(0, false);
-        query.setLong(1, cct.getId());
+        
         query.setFirstResult(setting.getFirstRow());
         query.setMaxResults(setting.getRowOfPage());
         
@@ -318,33 +365,40 @@ public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
     }//getContextConcerns()
 
 
-    private static final String sql_getContextConcerns_B = "SELECT cid from "+DBMetaData.VIEW_CONCERN_TAG_IN_CCT+" where cctid=:cctid and trid=";
+    private static final String sql_getContextConcerns_B_1 = "select count(distinct cid) from " + DBMetaData.VIEW_CONCERN_TAG_IN_CCT + " where cctid=? #type and lower(tname)=?";
+    
+    private static final String sql_getContextConcerns_B_2 = "select c.id AS cid, c.views AS nview, c.replies AS nreply, c.replytime AS rtime, c.createtime AS ctime, c.numagree AS nagree, c.numvote AS nvote from pgist_cvo_concerns c where c.id IN (select distinct cid from " + DBMetaData.VIEW_CONCERN_TAG_IN_CCT + " where cctid=? #type and lower(tname)=?) order by #sorting OFFSET ? LIMIT ?";
     
     
-    public Collection getContextConcerns(CCT cct, PageSetting setting, String tags, boolean contextAware, boolean desc, boolean ownerOnly) throws Exception {
+    public Collection getContextConcerns(CCT cct, PageSetting setting, String filter, String type, int sorting) throws Exception {
         List list = new ArrayList();
         
         Connection connection = getSession().connection();
-        Statement stmt = connection.createStatement();
+        PreparedStatement pstmt = null;
         
         long uid = WebUtils.currentUserId();
         
-        StringBuilder sb = new StringBuilder();
-        
-        String[] ids = tags.split(",");
-        int index = 0;
-        for (String id : ids) {
-            if (id==null || "".equals(id.trim())) continue;
-            index++;
-            if (index>1) sb.append(" INTERSECT ");
-            sb.append(sql_getContextConcerns_B).append(id);
-            if (contextAware) sb.append(" and uid<>").append(uid);
-        }//for
-        
-        String piece = sb.toString().replace(":cctid", cct.getId().toString());
-        
         //get count
-        ResultSet rs = stmt.executeQuery("select count(distinct x.cid) from ("+piece+") as x");
+        String sql1 = sql_getContextConcerns_B_1;
+        if("all".equalsIgnoreCase(type)) {
+            pstmt = connection.prepareStatement(sql1.replace("#type", ""));
+            pstmt.setLong(1, cct.getId());
+            pstmt.setString(2, filter);
+        } else if ("owner".equalsIgnoreCase(type)) {
+            pstmt = connection.prepareStatement(sql1.replace("#type", " and c.author.id=? "));
+            pstmt.setLong(1, cct.getId());
+            pstmt.setString(2, filter);
+            pstmt.setLong(3, uid);
+        } else if ("other".equalsIgnoreCase(type)) {
+            pstmt = connection.prepareStatement(sql1.replace("#type", " and c.author.id<>? "));
+            pstmt.setLong(1, cct.getId());
+            pstmt.setString(2, filter);
+            pstmt.setLong(3, uid);
+        } else {
+            throw new Exception("unknown type: "+type);
+        }
+        
+        ResultSet rs = pstmt.executeQuery();
         
         rs.next();
         
@@ -357,7 +411,32 @@ public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
         if (count==0) return list;
         
         //get records
-        rs = stmt.executeQuery("SELECT distinct x.cid, count(x.cid) from ("+piece+") as x group by x.cid order by count(x.cid)" + (desc?" desc":""));
+        String sql2 = sql_getContextConcerns_B_2.replace("#sorting", concernSorting[0][sorting]);
+        if("all".equalsIgnoreCase(type)) {
+            pstmt = connection.prepareStatement(sql2.replace("#type", ""));
+            pstmt.setLong(1, cct.getId());
+            pstmt.setString(2, filter);
+            pstmt.setInt(3, setting.getFirstRow());
+            pstmt.setInt(4, setting.getRowOfPage());
+        } else if ("owner".equalsIgnoreCase(type)) {
+            pstmt = connection.prepareStatement(sql2.replace("#type", " and c.author.id=? "));
+            pstmt.setLong(1, cct.getId());
+            pstmt.setString(2, filter);
+            pstmt.setLong(3, uid);
+            pstmt.setInt(4, setting.getFirstRow());
+            pstmt.setInt(5, setting.getRowOfPage());
+        } else if ("other".equalsIgnoreCase(type)) {
+            pstmt = connection.prepareStatement(sql2.replace("#type", " and c.author.id<>? "));
+            pstmt.setLong(1, cct.getId());
+            pstmt.setString(2, filter);
+            pstmt.setLong(3, uid);
+            pstmt.setInt(4, setting.getFirstRow());
+            pstmt.setInt(5, setting.getRowOfPage());
+        } else {
+            throw new Exception("unknown type: "+type);
+        }
+        
+        rs = pstmt.executeQuery();
         
         while (rs.next()) {
             Long one = rs.getLong(1);
