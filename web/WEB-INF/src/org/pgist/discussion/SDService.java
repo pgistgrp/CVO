@@ -109,6 +109,9 @@ public interface SDService {
     Set getEmailUsers(DiscussionReply reply) throws Exception;
 
 
+    InfoObject getInfoObjectByDiscussionId(Long did) throws Exception;
+
+
     //temp
     Collection getInfoStructures() throws Exception;
 

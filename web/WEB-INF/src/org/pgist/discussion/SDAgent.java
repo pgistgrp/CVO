@@ -592,12 +592,14 @@ public class SDAgent {
                 return map;
             }
             
-            String emailNotify = (String) params.get("ioid");
+            String emailNotify = (String) params.get("emailNotify");
             
             DiscussionReply reply = sdService.createReply(pid, title, content, tags, "true".equals(emailNotify));
             
             map.put("id", reply.getId());
             map.put("successful", true);
+            
+            InfoObject infoObject = sdService.getInfoObjectByDiscussionId(reply.getParent().getDiscussion().getId());
             
             //sending email notification
             try {
@@ -609,7 +611,7 @@ public class SDAgent {
                 for (User user : (Set<User>) set) {
                     values.put("user", user);
                     //TODO, url
-                    values.put("url", "");
+                    values.put("url", "http://128.95.212.210:8080/sdThread.do?isid="+isid+"&ioid="+infoObject.getId()+"&pid="+pid);
                     emailSender.send(user, "post_reply", values);
                 }
             } catch (Exception e) {

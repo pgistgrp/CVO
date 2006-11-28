@@ -417,4 +417,9 @@ public class SDServiceImpl implements SDService {
     }//getEmailUsers()
 
 
+    public InfoObject getInfoObjectByDiscussionId(Long did) throws Exception {
+        return discussionDAO.getInfoObjectByDiscussionId(did);
+    }//getInfoObjectByDiscussionId()
+
+
 }//class SDServiceImpl

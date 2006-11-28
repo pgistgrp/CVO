@@ -149,6 +149,9 @@ public interface DiscussionDAO extends BaseDAO {
     Set getEmailUsers(DiscussionPost parent, DiscussionReply reply) throws Exception;
 
 
+    InfoObject getInfoObjectByDiscussionId(Long did) throws Exception;
+
+
     //temp
     
     Collection getInfoStructures() throws Exception;

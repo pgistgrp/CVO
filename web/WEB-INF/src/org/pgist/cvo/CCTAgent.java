@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.management.modelmbean.RequiredModelMBean;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;

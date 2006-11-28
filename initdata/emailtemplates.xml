@@ -6,15 +6,16 @@
         <description>Send an email to participant to inform him that the term he proposed is rejectd.</description>
         <subject>Let's Improve Transportation: your glossary submission has been rejected.</subject>
         <notes>Variable: ${term}, ${user}, ${reason}</notes>
-        <content>%{user.loginname},
+        <content><![CDATA[{user.loginname},
     
-    You recently submitted the term "${term.name}" to the Let's Improve Transportation 	glossary.  After reviewing your submission, the moderator has decided not to include it in the public glossary, for the following reason:
+    You recently submitted the term "${term.name}" to the Let's Improve Transportation 	glossary. After reviewing your submission, the moderator has decided not to include it in the public glossary, for the following reason:
     
     "${reason}"
     
     Thank you for your participation,
     
-    Let's Improve Transportation!</content>
+    Let's Improve Transportation!]]>
+        </content>
     </template>
     
     
@@ -22,7 +23,7 @@
         <description>Send an email notification to participants whose post are replied.</description>
         <subject>Let's Improve Transportation: Re: ${reply.title}</subject>
         <notes>Variable: ${reply}, ${user}</notes>
-        <content>${user.loginname},
+        <content><![CDATA[${user.loginname},
     
     Another participant has responded to your post!  Click the following link to view the discussion:
     
@@ -30,7 +31,8 @@
     
  		Thanks for your participation,
     
-    Let's Improve Transportation!</content>
+    Let's Improve Transportation!]]>
+        </content>
     </template>
     
     
@@ -38,10 +40,10 @@
         <description>Send an email notification to moderator that participant commits a feedback.</description>
         <subject>LIT: New feedback item submitted</subject>
         <notes>Variable: ${feedback}</notes>
-        <content>
+        <content><![CDATA[
         A user has just submitted the following feedback:
         
-        ${feedback}
+        ${feedback}]]>
         </content>
     </template>
     
