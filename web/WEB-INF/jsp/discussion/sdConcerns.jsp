@@ -36,22 +36,22 @@
 	sd.concernCount = 8;
 	sd.filterAnchor = "#filterJump";
 	sd.currentFilter = '';
+	sd.currentPage = 1;
 	sd.divFilteredBy = 'filteredBy';
+	sd.divDiscussion = 'discussion-cont';
 	sd.divSearchResults = 'searchResults';
-	sd.divDiscussionTitle = "discussionTitle";
-		sd.discussionTitle = "All Participants' Concerns";
-		sd.discussionTitleOnChk = "Your Concerns";
 
 
-	function getConcerns(tags, page, jump){
+	function getConcerns(tagId, page, jump){
+		sd.currentPage = page;
 		if(jump){
 			location.href = sd.filterAnchor;
 		}
-		//alert("isid: " + sd.isid + " ioid: " + sd.ioid + " tags: " + tags + " page: " + page + " count: " + sd.concernCount); 
-		SDAgent.getConcerns({isid:sd.isid, ioid: sd.ioid, tags: tags, page: page, count: sd.concernCount}, {
+		//alert("isid: " + sd.isid + " ioid: " + sd.ioid + " tagId: " + tagId +" page: " + page + " count: " + sd.concernCount); 
+		SDAgent.getConcerns({isid:sd.isid, ioid: sd.ioid, tags: tagId, type:"tag", page: page, count: sd.concernCount}, {
 			callback:function(data){
 					if (data.successful){
-					   	$('discussion-cont').innerHTML = (data.source.html);
+					   	$(sd.divDiscussion).innerHTML = (data.source.html);
 					}else{
 						alert(data.reason);
 					}
@@ -85,16 +85,19 @@
 			});
 	};
 	
+	//convert tagRefId to tagId prior to getting concerns
 	function changeCurrentFilter(tagId, type){
-		getConcerns(tagId, 0, true)
 		sd.currentFilter = tagId;
 		if (tagId != ''){
 				if(type == 'tagRef'){
 						CCTAgent.getTagByTagRefId(sd.currentFilter, {
 						callback:function(data){
 						if (data.successful){
+							alert(data.tag.id);
 				          			var tagName = data.tag.name;
 									$(sd.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
+									
+									getConcerns(data.tag.id, 0, true)
 								}else{
 									alert(data.reason);
 								}
@@ -104,6 +107,8 @@
 						}
 						});
 				}else{ //tagId
+						//already in tagId format
+						getConcerns(tagId, 0, true);
 						SDAgent.getTagById(sd.currentFilter, {
 						callback:function(data){
 						if (data.successful){
@@ -114,13 +119,14 @@
 								}
 						},
 						errorHandler:function(errorString, exception){ 
-								alert("get getTagByTagRefId error:" + errorString + exception);
+								alert("get getTagById error:" + errorString + exception);
 						}
 						});
 				}
 		}else{
 			sd.currentFilter = '';	
 			$(sd.divFilteredBy).innerHTML = '';
+			getConcerns(sd.currentFilter, 0, true);
 		}
 	}
 		
@@ -168,28 +174,7 @@
         <div class="sectionTitle">
           <h2 id="discussionTitle">Concerns within Theme: ${infoObject.object}</h2>
           <div id="filteredBy"></div>
-		</div>
-
-		<!-- Begin sorting menu 
-        <div id="sortingMenu" class="box4"> sort concerns by:
-          <select>
-            <option>Option</option>
-            <option>Option Option Option Option Option</option>
-            <option>Option</option>
-            <option>Option</option>
-            <option>Option</option>
-          </select>
-          <br />
-          <div class="floatLeft">filter discussion by:</div>
-          <form action="javascript: customFilterAction($('txtCustomFilter').value);" class="floatLeft">
-            <input type="text" id="txtCustomFilter" value="Add a filter" onKeyUp="customFilter(this.value, event);"  onKeyUp="customFilter(this.value, event);" onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
-            or <a href="#">Browse All Tags</a>
-          </form>
-          <div id="searchResults" style="display: none;"></div>
-        </div>
-		 End sorting menu -->
-		
-		
+		</div>		
       </div>
       <div id="discussion-cont" class="floatLeft">
         <!-- left col -->
@@ -208,7 +193,7 @@
   <script type="text/javascript">
 
 		var defaultTagId = '<%= request.getParameter("tag") %>';
-		changeCurrentFilter(defaultTagId, 'tagId');
+		changeCurrentFilter(defaultTagId, 'tag');
 </script>
   </body>
 
