@@ -454,7 +454,7 @@ public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
     }//increaseCommentVoting()
 
 
-    private static final String hql_increaseViews = "update Concern set views=views+1 where concernId=?";
+    private static final String hql_increaseViews = "update Concern set views=views+1 where id=?";
     
     
     public void increaseViews(Long concernId) throws Exception {
