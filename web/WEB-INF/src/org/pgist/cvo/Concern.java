@@ -17,31 +17,31 @@ import org.pgist.users.User;
 public class Concern implements Serializable {
     
     
-    protected Long id;
+    private Long id;
     
-    protected String content = "";
+    private String content = "";
     
-    protected User author;
+    private User author;
     
-    protected Date createTime;
+    private Date createTime;
     
-    protected boolean deleted = false;
+    private boolean deleted = false;
     
-    protected CCT cct;
+    private CCT cct;
     
-    protected SortedSet tags = new TreeSet(new TagReferenceComparator());
+    private SortedSet tags = new TreeSet(new TagReferenceComparator());
     
-    protected int sortOrder = 0;
+    private int sortOrder = 0;
     
-    protected int numAgree = 0;
+    private int numAgree = 0;
     
-    protected int numVote = 0;
+    private int numVote = 0;
     
-    protected int views = 0;
+    private int views = 0;
     
-    protected int replies = 0;
+    private int replies = 0;
     
-    protected Object object = null;
+    private Object object = null;
     
     
     /**
@@ -184,6 +184,34 @@ public class Concern implements Serializable {
 
     public void setNumVote(int numVote) {
         this.numVote = numVote;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getReplies() {
+        return replies;
+    }
+
+
+    public void setReplies(int replies) {
+        this.replies = replies;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getViews() {
+        return views;
+    }
+
+
+    public void setViews(int views) {
+        this.views = views;
     }
 
 
