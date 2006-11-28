@@ -12,6 +12,7 @@
 <style type="text/css" media="screen">@import "styles/lit.css";</style>
 <!-- End Site Wide CSS -->
 <!-- Site Wide JavaScript -->
+<script language="JavaScript" src="scripts/qtip.js" type="text/JavaScript"></script>
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
@@ -89,8 +90,13 @@
 		<!-- begin "overview and instructions" area -->
 		<div id="overview" class="box2">
 			<h3 class="headerColor">Instructions</h3>
-			<p>Several participants have submitted their concerns about the transportation system and the moderator has taken these concerns and clustered them into themes, listed below. Each theme has concerns and their tags associated with it, and the moderator has composed a summary description of the theme. Please review these themes and discuss how you think they approprirately or inappropriately articulate the concerns submitted by participants. Use the right coumn to explore concerns.</p>
+			<p>Thanks to everyone who submitted their concerns about our regional transportation system. The moderator has reviewed the concerns and identified themes, listed below. Each theme is associated with a group of concern tags.</p>
+			There are two main ways to participate in Step 1b.<ul>
+			<li>Read the summary of each theme and discuss how well you feel it describes the diversity of concerns submitted by participants.</li>
+			<li>Indicate whether you feel the current summary adequately reflects participants' concerns by clicking the thumb's up or thumb's down button.</li>
+			</ul>
 			<p><a href="/readmore.jsp">Read more about how this step fits into the bigger picture.</a></p>
+			<p>[<a href="#"  class="glossHighlight" title="As participants add concerns, the moderator will review a subset of these concerns by sampling the tags participants used to label their concerns.  While reading the concerns, the moderator will place these concerns into topical themes, by creating themes and adding tags to these themes.  Due to the many concerns added by participants, it is possible that the moderator will not be able to review every concern, or every group of concerns tagged with the same tag.  Therefore, your responsibility as a participant is to review these summaries and discuss how these summaries might be re-written differently.">How are these summaries created?</a>] [<a href="#"  class="glossHighlight" title="The summaries are important for three main reasons.  First, summaries represent a synthesis of the various ideas and concerns offered by participants. Therefore they are useful to help us all to understand.  Also, summaries will be used by participants in Step 2 to assess the relevance and importance of different criteria planners use to evalute proposed transportation projects. Finally, summaries will be shared with decision makers makers to concisely show what is of concern to participants.">Why are the summaries important?</a>] [<a href="#"  class="glossHighlight" title="When a significant number of participants indicate that they disagree with a summary, the moderator will review discussions and suggested revisions by participants. If it appears that a revision is necessary, the moderator will make changes and notify participants. At the conclusion of this step, the summaries will no longer be revised. Some participants may disagree with the 'final' version of a summary. These participants can express this disagreement in the poll as well as their discussion comments about the summary. These comments will always be available for review to all participants and will also be available to decision makers as an appendix to the final report.">How are summaries revised?</a>] [<a href="#"  class="glossHighlight" title="You and your fellow participants will initially read and review these summaries.  The moderator may revise these summaries based on participant feedback and discussion.  At the conclusion of this step, the summaries will cease to be updated and will be included in a final report given to decision makers.  All the comments and discussion about these summaries will also be included, to showcase the variety of opinions.">Who reads these summaries?</a>]
 		</div>
 		<!-- end overview -->
 

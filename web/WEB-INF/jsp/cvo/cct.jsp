@@ -636,7 +636,7 @@ $('slate').style.Height = winH;
         
 		
 		<!-- Begin sorting menu -->
-        <div id="sortingMenu" class="box4"> sort discussion by:
+        <div id="sortingMenu" class="box4"> sort concerns by:
           <select>
 	        <option>Newest to Oldest</option>
 	        <option>Oldest to Newest</option>
@@ -647,7 +647,7 @@ $('slate').style.Height = winH;
 	        <option>Most Votes</option>
           </select>
           <br />
-          <div class="floatLeft">filter discussion by:</div>
+          <div class="floatLeft">filter concerns by:</div>
           <form action="javascript: customFilterAction($('txtCustomFilter').value);" class="floatLeft">
             <input type="text" id="txtCustomFilter" value="Add a filter" onKeyUp="customFilter(this.value, event);"  onKeyUp="customFilter(this.value, event);" onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
             or <a href="javascript:getTagCloud();">Browse All Tags</a>

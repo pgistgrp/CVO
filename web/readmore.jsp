@@ -5,7 +5,7 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
 <head>
-<title>Let's Improve Transportation - User Settings</title>
+<title>Let's Improve Transportation - About the Process</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/lit.css";</style>
 <!-- End Site Wide CSS -->
@@ -34,7 +34,7 @@
   <!-- End header menu -->
   <!-- #container is the container that wraps around all the main page content -->
  <div id="container" style="width:600px;">
-
+<p>Here is a detailed description of the five steps in the Let's Improve Transportation process. (Note, only Step 1 is ready for use at this time)</p>
     <h3><a name="step1" class="contrast2">Step 1: Discuss Concerns</a></h3>
 
     <p>Before we can determine how to best improve the transportation system, we need to know what the problems are. There  are two parts of this step:</p>
