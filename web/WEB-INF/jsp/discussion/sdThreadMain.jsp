@@ -15,6 +15,7 @@
 <!-- End Site Wide CSS -->
 
 <script language="javascript" type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<script language="JavaScript" src="scripts/qtip.js" type="text/JavaScript"></script>
 
 <!-- Site Wide JavaScript -->
 <script src="scripts/tags.js" type="text/javascript"></script>
