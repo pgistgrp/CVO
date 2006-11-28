@@ -52,23 +52,28 @@ Zhong:
 [ok] Short definition - ${term.shortDef} (read more)" <= "read more" links to term
 [ok] ${term.name}: ${term.shortDef} (click to read more)" <= "read more" links to term (new window?)
 [ok] - SDAgent.getPosts sorting
+[ok] Add IOID param to tagSearch
+[ok] tags case insensitive
+[ok] create theme bugs reported by Adam
+
 TODO:
-[1] Show Jordan how e-mail notification works.
-[1] CCTAgent.getContextConcerns sorting
-[2] Count of unique users per post - calculate on createPost()
-[2] getPosts filter by tag queries deleted posts.
-[*] Add IOID param to tagSearch
-[*] tags case insensitive
 [*] Commenting on CCT
-[*] create theme bugs reported by Adam
+[1] Show Jordan how e-mail notification works & email variables usage. <html:checkbox property="user.notify" value="${user.notify}"/>?
+[1] CCTAgent.getContextConcerns sorting
+[1] Bug: Hibernate Error on CCTAgent.saveConcern()
+[2] Bug: SDAgent.getConcerns when using filter type: tag (TagID)
+[2] Bug: getPosts filter by tag queries deleted posts.
+[3] Count of unique users per post - calculate on createPost()
 [4] user actions event logging
-[] Hibernate Error on CCTAgent.saveConcern()
 
 John:
-[ ] - Relate Criteria to themes
-[ ] - Review Criteria
-[ ] - Manage Criteria
-[ ] - Weigh Criteria
+[ ] Login case insensitive
+[ ] Relate Criteria to themes
+[ ] Review Criteria
+[ ] Manage Criteria
+[ ] Weigh Criteria
+
+----------------
 
 BACKEND DOCUMENTED FOR LATER:
 [ ] IOID in SDAgent.getTagCloud()
@@ -76,9 +81,14 @@ BACKEND DOCUMENTED FOR LATER:
 [ ] Case insensitive login
 [ ] Create reply goes to last page - needs page setting object
 [ ] Stop words and tags are mutually exclusive
+[ ] SDAgent.getPostByID();
+[ ] Archieve Feedback Method
 
 FRONT END DOCUMENTED FOR LATER
+[ ] Add IOID Param to tagSearch and tagCloud
 [ ] Don't capitalize propositions
 [ ] Mailing List Form
 [ ] Commenting in Glossary
+[ ] Voting on first discussion on SDThreadMain.jsp (needs getPostByID())
+[ ] Event Logging Moderator Page
 
