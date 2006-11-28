@@ -51,6 +51,8 @@
 		</li>
 		</ul>
 		
+		<p><a href="readmore.jsp">Read about how these steps fit into the bigger picture</A></p>
+		
 		<pg:show roles="moderator">
 		<h3>Public Components</h3>
 		<ul>
