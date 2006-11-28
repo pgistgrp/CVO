@@ -867,7 +867,7 @@ public class CCTAgent {
      *     <li>filter - string, tag name as filter (Optional)</li>
      *     <li>count - number of records shown per page. Optional, default is -1, means all records.</li>
      *     <li>page - page number. Optional, default is 1.</li>
-     *     <li>sorting - int, the sorting index, 1-7, referencing DiscussionDAOImpl.java for the meaning</li>
+     *     <li>sorting - int, the sorting index, 1-7, referencing CCTDAOImpl.java for the meaning</li>
      *     <li>
      *       type - string, types of searching
      *       <ul>

@@ -60,7 +60,7 @@ Zhong:
 [ok] Bug: SDAgent.getConcerns when using filter type: tag (TagID)
 
 TODO:
-[1] CCTAgent.getContextConcerns sorting
+[*] CCTAgent.getContextConcerns sorting
 [?] Bug: getPosts filter by tag queries deleted posts.
 [4] user actions event logging
 ------------------------
