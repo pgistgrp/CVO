@@ -28,6 +28,7 @@ public class ConcernHandler extends XMLHandler {
             
             Concern concern = new Concern();
             concern.setCreateTime(new Date());
+            concern.setReplyTime(concern.getCreateTime());
             concern.setDeleted(false);
             
             String randomStr = element.elementTextTrim("sortOrder");
