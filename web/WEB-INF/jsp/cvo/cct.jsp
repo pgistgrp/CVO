@@ -477,8 +477,8 @@ function editTagsPopup(concernId){
 	function renderEditingTags(concernId){
 		os = '<ul  class="tagsList">' + renderTags(); + '</ul>';
 		os += '<form action="javascript: addManualEditTag('+concernId+');"><input id="manualEditTag" type="text" />';
-       os += '<input type="button" value="Add" onClick="addManualEditTag('+concernId+');" /></form>';
-       os += '<p><small>You must have at least 2 or more tags to continue.</small></p>';
+        os += '<input type="button" value="Add" onClick="addManualEditTag('+concernId+');" /></form>';
+        os += '<p><small>You must have at least 2 or more tags to continue.</small></p>';
        	os += '<div><hr><input type="button" id="subeditTags" value="Submit Edits" onClick="editTags('+concernId+')">';
 		os += '<input type="button" value="Cancel" onClick="javascript:toggleEditing(\'tags\', '+concernId+');"></div>';
        return os;
