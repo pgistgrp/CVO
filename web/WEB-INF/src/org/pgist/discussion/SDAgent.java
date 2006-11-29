@@ -551,7 +551,7 @@ public class SDAgent {
      *     <li>id - int, the id of the new reply</li>
      *   </ul>
      */
-    public Map createReply(Map params) {
+    public Map createReply(HttpServletRequest request, Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -611,7 +611,7 @@ public class SDAgent {
                 for (User user : (Set<User>) set) {
                     values.put("user", user);
                     //TODO, url
-                    values.put("url", "http://128.95.212.210:8080/sdThread.do?isid="+isid+"&ioid="+infoObject.getId()+"&pid="+pid);
+                    values.put("url", "http://"+request.getLocalAddr()+":"+request.getLocalPort()+"/sdThread.do?isid="+isid+"&ioid="+infoObject.getId()+"&pid="+pid);
                     emailSender.send(user, "post_reply", values);
                 }
             } catch (Exception e) {

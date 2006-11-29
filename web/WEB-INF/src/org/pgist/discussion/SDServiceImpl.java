@@ -60,7 +60,7 @@ public class SDServiceImpl implements SDService {
     public DiscussionPost getPostById(Long postid) throws Exception {
         DiscussionPost post = discussionDAO.getPostById(postid);
         
-        if (post.isDeleted()) return null;
+        if (post!=null && post.isDeleted()) return null;
         
         return post;
     }//getPostById()
