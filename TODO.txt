@@ -1,6 +1,3 @@
-
-//////////  Backend for Alpha Test  //////////  
-
 Zhong:
 [ok] post.views
 [ok] post object for most recent post (accessible from sdMain.jsp)
@@ -58,25 +55,24 @@ Zhong:
 [ok] Bug: Hibernate Error on CCTAgent.saveConcern()
 [ok] Commenting on CCT
 [ok] Bug: SDAgent.getConcerns when using filter type: tag (TagID)
+[ok] Bug: getPosts filter by tag queries deleted posts.
 
 TODO:
-[*] CCTAgent.getContextConcerns sorting
-[?] Bug: getPosts filter by tag queries deleted posts.
-[4] user actions event logging
-------------------------
-[1] Show Jordan how e-mail notification works & email variables usage. <html:checkbox property="user.notify" value="${user.notify}"/>?
-[3] Count of unique users per post - calculate on createPost()
+[1] Ensure Email Notification Works (Talk to Adam)
+[*] CCTAgent.getContextConcerns sorting (currently testing)
+[2] user actions event logging
 
+------------------------
 John:
 [ ] Login case insensitive
 [ ] Relate Criteria to themes
 [ ] Review Criteria
 [ ] Manage Criteria
 [ ] Weigh Criteria
-
-----------------
+-----------------------
 
 BACKEND DOCUMENTED FOR LATER:
+[ ] Count of unique users per post - calculate on createPost()
 [ ] IOID in SDAgent.getTagCloud()
 [ ] Problem with Glossary view sort - (bug found by Issac)
 [ ] Case insensitive login
@@ -95,4 +91,6 @@ FRONT END DOCUMENTED FOR LATER
 [ ] Voting on first discussion on SDThreadMain.jsp (needs getPostByID())
 [ ] Event Logging Moderator Page
 [ ] Moderator Options (author actions) on CCT concerns and comments
+[ ] Edit/Delete Comments
+
 
