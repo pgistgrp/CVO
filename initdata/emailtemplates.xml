@@ -6,13 +6,13 @@
         <description>Send an email to participant to inform him that the term he proposed is rejectd.</description>
         <subject>Let's Improve Transportation: your glossary submission has been rejected.</subject>
         <notes>Variable: ${term}, ${user}, ${reason}</notes>
-        <content><![CDATA[{user.loginname},
+        <content><![CDATA[{user.loginname},<br />
     
-    You recently submitted the term "${term.name}" to the Let's Improve Transportation 	glossary. After reviewing your submission, the moderator has decided not to include it in the public glossary, for the following reason:
+    You recently submitted the term "${term.name}" to the Let's Improve Transportation 	glossary. After reviewing your submission, the moderator has decided not to include it in the public glossary, for the following reason:<br />
     
-    "${reason}"
+    "${reason}"<br />
     
-    Thank you for your participation,
+    Thank you for your participation,<br />
     
     Let's Improve Transportation!]]>
         </content>
@@ -23,13 +23,13 @@
         <description>Send an email notification to participants whose post are replied.</description>
         <subject>Let's Improve Transportation: Re: ${reply.title}</subject>
         <notes>Variable: ${reply}, ${user}</notes>
-        <content><![CDATA[${user.loginname},
+        <content><![CDATA[${user.loginname},<br />
     
-    Another participant has responded to your post!  Click the following link to view the discussion:
+    Another participant has responded to your post!  Click the following link to view the discussion:<br />
     
-    ${url}
+    ${url}<br />
     
- 		Thanks for your participation,
+ 		Thanks for your participation,<br />
     
     Let's Improve Transportation!]]>
         </content>
@@ -41,9 +41,9 @@
         <subject>LIT: New feedback item submitted</subject>
         <notes>Variable: ${feedback}</notes>
         <content><![CDATA[
-        A user has just submitted the following feedback:
+        A user has just submitted the following feedback:<br />
         
-        ${feedback}]]>
+        ${feedback}]]><br />
         </content>
     </template>
     
