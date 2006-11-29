@@ -56,10 +56,11 @@ Zhong:
 [ok] Commenting on CCT
 [ok] Bug: SDAgent.getConcerns when using filter type: tag (TagID)
 [ok] Bug: getPosts filter by tag queries deleted posts.
+[ok] CCTAgent.getContextConcerns sorting (currently testing)
 
 TODO:
 [1] Ensure Email Notification Works (Talk to Adam)
-[*] CCTAgent.getContextConcerns sorting (currently testing)
+[1] gpCommentsMain.jsp is not being loaded by getComments();
 [2] user actions event logging
 
 ------------------------
