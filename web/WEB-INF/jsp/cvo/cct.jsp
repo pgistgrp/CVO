@@ -597,7 +597,7 @@ $('slate').style.Height = winH;
     <div id="overview" class="box2">
       <h3>Overview and Instructions</h3>
       <p>Before we can determine how to best improve the transportation system, we need to know what the problems are. Therefore, our first task is to brainstorm concerns about transportation in our region.</p> 
-      <p><a href="readmore.jsp">How does this step fit into the bigger picture?</A></p>
+      <p><a href="readmore.jsp">Read more about how this step fits into the bigger picture</A>.</p>
     </div>
     <!-- end overview -->
 
@@ -648,19 +648,18 @@ $('slate').style.Height = winH;
       <div id="colRight" class="floatLeft box6 colRight">
         <!-- right col -->
         <h3>Add your own Concern</h3>
-		Describe one problem with our transportation system. You can add more concerns later.
-		<p>When writing your concerns, consider these questions:
+		<p>Consider these questions:</p>
 		  <ul>
 			  <li>What problems do you encounter in your daily trips to work, shopping, errands, or entertainment? </li>
 			  <li>In what ways do you feel our current transportation system 
 			  fails to meet the needs of our growing and changing region?</li>
 		  </ul></p>
         <fieldset>
-        <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type your concern here.</textarea>
+        <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">First, type one problem with the transportation system.  You can add more later.</textarea>
         </fieldset>
         <div id="tagNewConcern" class="box6 padding5" style="display:none;">
           <h3>Tag your concern</h3>
-		<p><a href="#" class="glossHighlight" title="Think of tags as labels.  These labels help make your concerns easier to find among the many other concerns provided by other participants.  Tags are important for this first step in our process, as it assists the moderator in finding and clustering concerns so that summaries can be written.  It is important, therefore, to tag your concerns with words or word phrases that you feel appropriately convey the meaning of your concern.">What is a tag?</a></p>
+		<p><a href="litfaq.jsp#whattag" target="_blank" class="glossHighlight" title="Think of tags as labels.  At this stage of the process, they assist the moderator in writing summaries, so it is important to tag your concerns with words that help convey your meaning.">What is a tag?</a> <img src="images/external.png" alt="(new window)"></p>
           <p>Suggested tags:</p>
           <ul id="addConcernTagsList" class="tagsList">
             <!-- render suggested tags here -->
