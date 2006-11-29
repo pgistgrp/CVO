@@ -70,14 +70,17 @@ var allNewConcernTags = new Array;
 //END Global Variables
 
 	function getContextConcerns(filter, page, jump, showMyConcerns, sorting){
+		//alert("filter" + filter + " page: " + page + " jump: " + jump + " showMyConcerns: " + showMyConcerns + " sorting: " + sorting)
 		if(jump){
 			location.href = cct.filterAnchor; //set anchor if need be
 		}		
-		cct.showOnlyMyConcerns = (showMyConcerns) ? "owner" : "all"; //determine type
+		cct.showOnlyMyConcerns = showMyConcerns;
+		type = (cct.showOnlyMyConcerns) ? "owner" : "all"; //determine type
 		cct.currentPage = page; //set current page
+		cct.currentSort = sorting; 
 		
-		//alert("cct: " + cct.cctId + " filter: " + filter + " count: " + cct.concernsPerPage + " page: " + page + " sorting: " + cct.currentSort + " type: " + cct.showOnlyMyConcerns);
-		CCTAgent.getContextConcerns({cctId: cct.cctId,filter: filter, count: cct.concernsPerPage, page: page, sorting: cct.currentSort, type: cct.showOnlyMyConcerns}, {
+	//	alert("cct: " + cct.cctId + " filter: " + filter + " count: " + cct.concernsPerPage + " page: " + page + " sorting: " + cct.currentSort + " type: " + type);
+		CCTAgent.getContextConcerns({cctId: cct.cctId,filter: filter, count: cct.concernsPerPage, page: page, sorting: cct.currentSort, type: type}, {
 			callback:function(data){
 					if (data.successful){
 						$(cct.divDiscussionCont).innerHTML = data.html;
@@ -327,13 +330,14 @@ var allNewConcernTags = new Array;
 	}
 	
 	function changeCurrentFilter(tagRefId){
-		getContextConcerns(tagRefId, 0, true, cct.showOnlyMyConcerns, cct.currentSort);
-		cct.currentFilter = tagRefId;
 		if (tagRefId != ''){
-				CCTAgent.getTagByTagRefId(cct.currentFilter, {
+				CCTAgent.getTagByTagRefId(tagRefId, {
 				callback:function(data){
 				if (data.successful){
-		          			var tagName = data.tag.name;
+							var tagName = data.tag.name;
+							getContextConcerns(tagName, 0, true, cct.showOnlyMyConcerns, cct.currentSort);
+							cct.currentFilter = tagName;
+		          			
 							$(cct.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
 						}else{
 							alert(data.reason);
@@ -343,8 +347,8 @@ var allNewConcernTags = new Array;
 						alert("get tagbytagref error:" + errorString + exception);
 				}
 				});
-		}else{
-			cct.currentFilter = '';	
+		}else{	
+			getContextConcerns('', 0, true, cct.showOnlyMyConcerns, cct.currentSort);
 			$(cct.divFilteredBy).innerHTML = '';
 		}
 	}
@@ -613,7 +617,7 @@ $('slate').style.Height = winH;
 		
 		<!-- Begin sorting menu -->
         <div id="sortingMenu" class="box4"> sort concerns by:
-          <select name="selectsort" id="selectsort" onChange="javascript:io.getContextConcerns(cct.currentFilter, 1, true, cct.showOnlyMyConcerns, this.value);	">
+          <select name="selectsort" id="selectsort" onChange="javascript:getContextConcerns(cct.currentFilter, 1, true, cct.showOnlyMyConcerns, this.value);	">
 	        <option value="1">Newest to Oldest</option>
 	        <option value="2">Oldest to Newest</option>
 	        <option value="3">Most Agreement</option>
