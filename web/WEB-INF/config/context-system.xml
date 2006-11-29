@@ -40,7 +40,8 @@
                 <prop key="mail.smtp.host">smtp.gmail.com</prop>
                 <prop key="mail.transport.protocol">smtp</prop>
                 <prop key="mail.smtp.auth">true</prop>
-                <prop key="mail.smtp.port">465</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.port">587</prop>
             </props>
         </property>
         <property name="contentType"><value>text/plain; charset=UTF-8</value></property>
