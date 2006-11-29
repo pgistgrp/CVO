@@ -57,11 +57,12 @@ Zhong:
 [ok] Bug: SDAgent.getConcerns when using filter type: tag (TagID)
 [ok] Bug: getPosts filter by tag queries deleted posts.
 [ok] CCTAgent.getContextConcerns sorting (currently testing)
+[ok] Ensure Email Notification Works (Talk to Adam)
 
 TODO:
-[1] Ensure Email Notification Works (Talk to Adam)
 [1] gpCommentsMain.jsp is not being loaded by getComments();
-[2] user actions event logging
+[2] E-mail Notification for a single user (a user has the option to turn on/off email notifications on a single discussion that he/she is involved in.
+[3] user actions event logging
 
 ------------------------
 John:
