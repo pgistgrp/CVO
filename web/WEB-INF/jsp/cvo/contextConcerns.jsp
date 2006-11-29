@@ -15,13 +15,13 @@
 		<c:otherwise>
 			<c:forEach var="concern" items="${concerns}" varStatus="loop">
 						<!-- START Discussion Row -->	
-						<div id="concern${concern.id}" class="discussionRow">
+						<div class="discussionRow">
 							<c:choose>
 								<c:when test="${baseuser.id == concern.author.id}">
-									<div class="discussion-left box7">			
+									<div id="concern${concern.id}" class="discussion-left box7">			
 								</c:when>
 								<c:otherwise>
-									<div class="discussion-left ${((loop.index % 2) == 0) ? 'box8' : ''}">	
+									<div id="concern${concern.id}" class="discussion-left ${((loop.index % 2) == 0) ? 'box8' : ''}">	
 								</c:otherwise>
 							</c:choose>
 								<div class="discussionRowHeader">

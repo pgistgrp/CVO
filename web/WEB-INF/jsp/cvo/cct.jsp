@@ -278,6 +278,7 @@ var allNewConcernTags = new Array;
 					swapContinue(false);
 					$(cct.txtAddConcern).value = '';
 					Effect.BlindUp(cct.divTagNewConcern);
+					window.setTimeout('new Effect.Highlight("concern'+ data.concern.id +'", {duration: 4.0});',500);
 				}else{
 					alert(data.reason)
 				}
