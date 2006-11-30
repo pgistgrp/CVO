@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<!-- Description: This page is the template for a single comment for concern comments -->
+
 <html:html>
 
 <!-- START Discussion Row -->	
@@ -38,7 +38,7 @@
 			<div id="editingArea${concern.id}" style="display:none"></div>
 			<div class="discussionText" id="discussionText${concern.id}"><p>"${concern.content}"</p></div>
 			<h3 id="discussionAuthor">- <bean:write name="concern" property="author.loginname" /></h3>
-				<div class="discussionComments" id="discussionComments"><h3><a href="concern.do?id=${concern.id}">${concern.replies} Comments</a></h3> (${concern.views} views)</div>
+				<!--<div class="discussionComments" id="discussionComments"><h3><a href="concern.do?id=${concern.id}">${concern.replies} Comments</a></h3> (${concern.views} views)</div>-->
 				<div class="discussionTagsList">
 					<!-- iterate through concern tags here -->	
 					<div id="tagsUL${concern.id}"><ul class="tagsInline">
@@ -75,11 +75,11 @@
 <!-- END Discussion Row -->
 
 
-<div id="postReplies">
-<c:if test="${fn:length(replies) != 0}">
-	<h4 style="text-transform:capitalize;">${fn:length(replies)}
+<div id="postcomments">
+<c:if test="${fn:length(comments) != 0}">
+	<h4 style="text-transform:capitalize;">${fn:length(comments)}
 	<c:choose>
-		<c:when test="${fn:length(replies) == 1}">
+		<c:when test="${fn:length(comments) == 1}">
 			comment
 		</c:when>
 		<c:otherwise>
@@ -103,8 +103,8 @@
 							${comment.numAgree} of ${comment.numVote} participants agree with this post
 							<c:choose>
 								<c:when test="${comment.object == null}">
-									<a href="javascript:io.setVote('comment',${comment.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
-									<a href="javascript:io.setVote('comment',${comment.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
+									<a href="javascript:setCommentVoting(${comment.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
+									<a href="javascript:setCommentVoting(${comment.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
 								</c:when>
 								<c:otherwise>
 									<img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/>
@@ -129,7 +129,7 @@
 							<div id="commentOwner${comment.id}"><h3>- ${comment.owner.loginname}</h3></div>
 						</div>
 						<div class="discussionComments peekaboobugfix">
-							 <a href="javascript:io.setQuote(${comment.id});">Quote</a>
+							 <a href="javascript:setQuote(${comment.id});">Quote</a>
 						</div>
 						<c:if test="${fn:length(comment.tags) > 0}">
 							<ul class="tagsInline">
@@ -143,14 +143,14 @@
 											<li class="box8 tagsInline">
 										</c:otherwise>
 									</c:choose>
-									<a href="javascript:io.changeCurrentFilter('${tag.name}');">${tag.name}</a></li>
+									<a href="javascript:changeCurrentFilter('${tag.name}');">${tag.name}</a></li>
 								</c:forEach>
 							</ul>
 							<div style="clear: left;"></div>
 						</c:if>
 						<pg:show roles="moderator">
 						<div class="smallText" style="text-align:right;">	
-							Moderator Options: <input type="button" onClick="io.deletecomment(${comment.id});" value="Delete" />
+							Moderator Options: <input type="button" onClick="deleteComment(${comment.id});" value="Delete" />
 						</div>
 						</pg:show>
 					</div>
@@ -159,14 +159,14 @@
 <div class="clearBoth"></div>
 	
 </logic:iterate>
-<c:if test="${fn:length(replies) != 0}">
+<c:if test="${fn:length(comments) < 0}">
 		  <div class="pagination">
 		  				You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
 						<logic:equal name="setting" property="page" value="1">
 							<img src="images/btn_prev_fade.gif" alt="No Previous Pages" />
 						</logic:equal>
 						<logic:notEqual name="setting" property="page" value="1">	
-							<a href="javascript:goToPage('replies',${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<a href="javascript:goToPage('comments',${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
 						
 						
@@ -174,7 +174,7 @@
 							<img src="images/btn_next_fade.gif" alt="No Additional Pages" />
 						</logic:equal>
 						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-							<a href="javascript:goToPage('replies',${setting.page}+1)"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<a href="javascript:goToPage('comments',${setting.page}+1)"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
 		  </div>
 </c:if>
@@ -186,8 +186,8 @@
 		<p><label>Post Title</label><br><input style="text-transform:capitalize;" maxlength=100 size=100 type="text" value="Re: ${post.title}" id="txtNewCommentTitle"/></p>
 		<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtNewComment"></textarea></p>
 		<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="txtNewCommentTags" type="text" /></p>
-		<input type="button" onClick="createComment();" value="Submit comment">
-		<input type="button" onClick="javascript:resetNewcommentForm();Effect.toggle('newcomment','slide',{duration:1.5});" value="Cancel" />
+		<input type="button" onClick="createNewComment();" value="Submit Comment">
+		<input type="button" onClick="resetNewCommentForm();" value="Cancel" />
 	</form>
 </div>
 </html:html>
