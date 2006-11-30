@@ -90,6 +90,7 @@
 			callback:function(data){
 				if (data.successful){
 					getComments(1, true);
+					//setCommentVoting(data.concern.id,'true')
 				}else{
 					alert(data.reason);
 				}
@@ -129,7 +130,11 @@
 		CCTAgent.setCommentVoting({id:id,agree:agree}, {
 			callback:function(data){
 				if (data.successful){
-					getComments(currentPage, false);
+					if($('voting-post'+id) != undefined){
+           				 new Effect.Fade('voting-post'+id, {afterFinish: function(){getComments(currentPage, false); new Effect.Appear('voting-post'+id);}});
+           			}else{ //newly created concern
+           				getComments(currentPage, false);
+           			}
 				}else{
 					alert(data.reason);
 				}
@@ -147,6 +152,15 @@
 		tinyMCE.setContent('');
 		$(txtNewCommentTags).value = '';	
 	}
+	
+	function setQuote(commentId){
+		var currentReply = tinyMCE.getContent();
+		var currentReplyContent = $('commentContent'+commentId).innerHTML;
+		var currentReplyOwner = $('commentOwner'+commentId).innerHTML;
+		tinyMCE.setContent(currentReply + '<blockquote style="color:#3B4429;background: #EEF7DD;border: 2px solid #B4D579;margin-left: 10px;padding:0px 5px 5px 5px;line-height: 10px;">' + currentReplyContent + currentReplyOwner +'</blockquote><p>');
+		location.href="#commentAnchor";
+		new Effect.Highlight('newcomment');
+	};
 	/*
 	function editComment(params){
 		//alert("isid: " + sd.isid + " ioid: " + sd.ioid + " tags: " + tags + " page: " + page + " count: " + sd.concernCount); 
