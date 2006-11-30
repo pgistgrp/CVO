@@ -66,7 +66,7 @@ TODO:
 [1] BUG: Comment content is not saved - even though content is passed into createComment() and returns successful.
 [2] Return new concern.id on createComment();
 [3] BUG: Page setting in getComments setting.page returns an error.
-[] When add concern, comment, post, reply, set the voting in backend; jordan remove this setVoting from Frontend.
+[] When add concern, comment, post, reply, set the voting in backend; **DONE -- jordan remove this setVoting from Frontend.
 
 ------------------------
 John:

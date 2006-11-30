@@ -168,7 +168,7 @@
 				callback:function(data){
 						if (data.successful){
 							 displayIndicator(false);
-						     io.setVote("post", data.id, "true"); //set initial vote
+						     //io.setVote("post", data.id, "true"); //set initial vote
 							 io.clearNewDiscussionInputs();
 							 io.toggleNewDiscussion();
 							 if(io.currentDiscPage != 1){

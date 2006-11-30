@@ -274,7 +274,7 @@ var allNewConcernTags = new Array;
 			callback:function(data){
 				if (data.successful){
 					getContextConcerns(cct.currentFilter, 0, true, cct.showOnlyMyConcerns, cct.currentSort); 	
-					setVote(data.concern.id, "true")
+					//setVote(data.concern.id, "true")
 					swapContinue(false);
 					$(cct.txtAddConcern).value = '';
 					Effect.BlindUp(cct.divTagNewConcern);
