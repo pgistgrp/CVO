@@ -39,6 +39,8 @@ public class CriteriaMgrAction extends Action {
         
         request.setAttribute("criteria", criteria);
         
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        
         return mapping.findForward("list");
     }//execute()
 

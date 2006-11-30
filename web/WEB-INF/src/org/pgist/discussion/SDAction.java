@@ -75,6 +75,7 @@ public class SDAction extends Action {
         
         if (structure!=null) {
             request.setAttribute("structure", structure);
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             return mapping.findForward("main");
         }
         

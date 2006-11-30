@@ -7,6 +7,7 @@ import org.pgist.users.BaseUser;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
+import org.pgist.web.DelegatingHttpServletRequestWrapper;
 
 
 /**
@@ -75,6 +76,16 @@ public class SystemServiceImpl implements SystemService {
     public YesNoVoting getVoting(int targetType, Long targetId) throws Exception {
         return systemDAO.getVoting(targetType, targetId);
     }//getVoting()
+
+
+    public void logRequest(DelegatingHttpServletRequestWrapper request) throws Exception {
+        String method = request.getMethod();
+        if ("GET".equals(method)) {
+            systemDAO.logGetting(request);
+        } else {
+            systemDAO.logPosting(request);
+        }
+    }//logRequest()
 
 
 }//class SystemServiceImpl

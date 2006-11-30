@@ -57,6 +57,8 @@ public class GlossaryPublicAction extends Action {
         request.setAttribute("terms", terms);
         request.setAttribute("initials", initials);
         
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        
         return mapping.findForward("list");
     }//execute()
 

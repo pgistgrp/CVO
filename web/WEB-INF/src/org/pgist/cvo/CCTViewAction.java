@@ -43,6 +43,8 @@ public class CCTViewAction extends Action {
         
         cctform.setCct(cct);
         
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        
         return mapping.findForward("view");
     }//execute()
 

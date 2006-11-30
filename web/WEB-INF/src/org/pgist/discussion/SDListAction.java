@@ -42,6 +42,8 @@ public class SDListAction extends Action {
             
             request.setAttribute("structures", structures);
             
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            
             return mapping.findForward("list");
         } catch (Exception e) {
             e.printStackTrace();

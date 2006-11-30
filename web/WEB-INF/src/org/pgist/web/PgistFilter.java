@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.pgist.system.SystemService;
 import org.pgist.users.UserInfo;
 import org.pgist.util.WebUtils;
+import org.springframework.web.context.WebApplicationContext;
 
 
 /**
@@ -27,6 +29,7 @@ import org.pgist.util.WebUtils;
  */
 public class PgistFilter implements Filter {
 
+    private SystemService systemService;
     
     protected FilterConfig filterConfig = null;
     
@@ -49,6 +52,9 @@ public class PgistFilter implements Filter {
     
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
+        
+        WebApplicationContext context = (WebApplicationContext) filterConfig.getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+        systemService = (SystemService) context.getBean("systemService");
         
         forceCloseConnection = "true".equals(filterConfig.getInitParameter("force-close-connection"));
         
@@ -93,11 +99,21 @@ public class PgistFilter implements Filter {
             request.setAttribute("baseuser", userInfo);
         }
         
+        DelegatingHttpServletRequestWrapper wrapper = new DelegatingHttpServletRequestWrapper((HttpServletRequest) request);
+        
         try {
             //hold userInfo for later use
             WebUtils.setCurrentUser(userInfo);
-            chain.doFilter(request, response);
+            chain.doFilter(wrapper, response);
         } finally {
+            //log request
+            if (!path.endsWith(".js")) {
+                try {
+                    systemService.logRequest(wrapper);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             //release userInfo
             if (userInfo!=null) WebUtils.setCurrentUser(null);
         }

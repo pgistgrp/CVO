@@ -40,6 +40,8 @@ public class CCTListAction extends Action {
         CCTForm cctform = (CCTForm) form;
         cctform.setCcts(cctService.getCCTs());
         
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        
         return mapping.findForward("list");
     }//execute()
 

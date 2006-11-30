@@ -24,7 +24,9 @@ public class WebUtils {
     
     
     public static Long currentUserId() {
-        return threadLocalCurrentUser.get().getId();
+        UserInfo userInfo = threadLocalCurrentUser.get();
+        if (userInfo==null) return null;
+        else return userInfo.getId();
     }//currentUserId()
     
     

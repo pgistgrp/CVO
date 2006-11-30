@@ -41,6 +41,7 @@
                <value>org/pgist/system/EmailTemplate.hbm.xml</value>
                <value>org/pgist/system/Feedback.hbm.xml</value>
                <value>org/pgist/system/YesNoVoting.hbm.xml</value>
+               <value>org/pgist/system/SystemLog.hbm.xml</value>
                <value>org/pgist/users/User.hbm.xml</value>
                <value>org/pgist/users/Role.hbm.xml</value>
                <value>org/pgist/model/Discussible.hbm.xml</value>
@@ -138,6 +139,7 @@
           <prop key="publish*">PROPAGATION_REQUIRED</prop>
           <prop key="accept*">PROPAGATION_REQUIRED</prop>
           <prop key="reject*">PROPAGATION_REQUIRED</prop>
+          <prop key="log*">PROPAGATION_REQUIRED</prop>
         </props>
       </property>
     </bean>

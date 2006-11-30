@@ -58,6 +58,8 @@ public class TaggingAction extends Action {
         }
         request.setAttribute("setting", setting);
         
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        
         return mapping.findForward("list");
     }//execute()
 

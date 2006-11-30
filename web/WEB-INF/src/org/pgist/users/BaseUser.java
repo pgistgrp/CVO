@@ -45,6 +45,8 @@ public class BaseUser implements Serializable {
     
     protected boolean gender = true;
     
+    protected boolean emailNotify = true;
+    
     private boolean enabled;
     
     private boolean deleted;
@@ -300,6 +302,20 @@ public class BaseUser implements Serializable {
 
     public void setGender(boolean gender) {
         this.gender = gender;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public boolean isEmailNotify() {
+        return emailNotify;
+    }
+
+
+    public void setEmailNotify(boolean emailNotify) {
+        this.emailNotify = emailNotify;
     }
 
 

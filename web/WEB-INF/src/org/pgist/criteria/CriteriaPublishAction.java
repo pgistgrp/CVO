@@ -60,6 +60,8 @@ public class CriteriaPublishAction extends Action {
             
             request.setAttribute("cct", cct);
             
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            
             return mapping.findForward("assoc");
         }
     }//execute()

@@ -80,6 +80,8 @@ public class SearchAction extends Action {
         
         sform.setResults(list);
         
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        
         return mapping.findForward("results");
     }//execute()
     

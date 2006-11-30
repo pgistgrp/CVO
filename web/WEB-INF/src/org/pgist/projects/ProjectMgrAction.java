@@ -43,6 +43,8 @@ public class ProjectMgrAction extends Action {
             Collection projects = projectService.getProjects();
             request.setAttribute("projects", projects);
             
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            
             return mapping.findForward("list");
         }
         
@@ -59,6 +61,8 @@ public class ProjectMgrAction extends Action {
             e.printStackTrace();
             return mapping.findForward("error");
         }
+        
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
         return mapping.findForward("edit");
     }//execute()

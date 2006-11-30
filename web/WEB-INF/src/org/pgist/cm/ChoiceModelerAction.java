@@ -60,6 +60,8 @@ public class ChoiceModelerAction extends Action {
         
         choiceModelerService.test();
         
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        
         return mapping.findForward("main");
     }//execute()
     

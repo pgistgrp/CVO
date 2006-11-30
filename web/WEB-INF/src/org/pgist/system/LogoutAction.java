@@ -30,6 +30,8 @@ public class LogoutAction extends Action {
             session.invalidate();
         }
         
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        
         return mapping.findForward("login");
         
     }//execute()

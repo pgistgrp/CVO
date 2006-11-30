@@ -40,6 +40,8 @@ public class GlossaryViewAction extends Action {
         
         request.setAttribute("term", term);
         
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        
         return mapping.findForward("view");
     }//execute()
 

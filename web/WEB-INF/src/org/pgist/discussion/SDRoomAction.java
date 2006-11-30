@@ -96,6 +96,8 @@ public class SDRoomAction extends Action {
         } catch(Exception e) {
         }
         
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        
         return mapping.findForward("main");
     }//execute()
     

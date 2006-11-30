@@ -7,6 +7,9 @@
   <allow>
 
 
+    <filter class="org.pgist.web.DWRLoggingFilter" />
+    
+    
     <convert converter="bean" match="org.pgist.model.Post">
       <param name="exclude" value="parent, children, root"/>
     </convert>

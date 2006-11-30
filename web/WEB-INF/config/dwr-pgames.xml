@@ -7,6 +7,9 @@
   <allow>
 
 
+    <filter class="org.pgist.web.DWRLoggingFilter" />
+    
+    
     <convert converter="bean" match="org.pgist.workflow.pgame.brainstorming.BrainStorming"/>
 
     <create creator="spring" javascript="BrainStormingAgent">

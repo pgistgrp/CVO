@@ -50,6 +50,8 @@ public class CriteriaWeighAction extends Action {
         
         request.setAttribute("structure", structure);
         
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        
         return mapping.findForward("main");
     }//execute()
 

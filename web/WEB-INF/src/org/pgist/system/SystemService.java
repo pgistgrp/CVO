@@ -2,8 +2,11 @@ package org.pgist.system;
 
 import java.util.Collection;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
+import org.pgist.web.DelegatingHttpServletRequestWrapper;
 
 
 /**
@@ -27,6 +30,9 @@ public interface SystemService {
     
     
     YesNoVoting getVoting(int targetType, Long targetId) throws Exception;
+
+
+    void logRequest(DelegatingHttpServletRequestWrapper request) throws Exception;
     
     
 }//interface SystemService

@@ -73,6 +73,8 @@ public class LoginAction extends Action {
             session.setAttribute("user", userInfo);
             WebUtils.setCurrentUser(userInfo);
             
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            
             return mapping.findForward("main");
         } else if(!user.checkPassword(password)){
         	uform.setReason("Your Password is Invalid. Please Try Again.");

@@ -167,6 +167,8 @@ public class RegisterAction extends Action {
         
         userDAO.saveUser(user);
         
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        
         return mapping.findForward("login");
     }//execute()
     

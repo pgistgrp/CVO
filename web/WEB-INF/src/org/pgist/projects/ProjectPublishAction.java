@@ -50,6 +50,8 @@ public class ProjectPublishAction extends Action {
             
             //save the association
             
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            
             return mapping.findForward("success");
         } else {
             //goto the page
@@ -60,6 +62,8 @@ public class ProjectPublishAction extends Action {
             
             request.setAttribute("ccts", ccts);
             request.setAttribute("projects", projects);
+            
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             
             return mapping.findForward("list");
         }

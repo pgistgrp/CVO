@@ -1,12 +1,20 @@
 package org.pgist.system;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.Enumeration;
+
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.Query;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
+import org.pgist.web.DelegatingHttpServletRequestWrapper;
 
 
 /**
@@ -78,6 +86,36 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
         
         return true;
     }//setVoting()
+
+
+    public void logGetting(DelegatingHttpServletRequestWrapper request) throws Exception {
+        SystemLog log = new SystemLog();
+        
+        log.setTime(new Date());
+        log.setUserId(WebUtils.currentUserId());
+        log.setMethod("GET");
+        log.setUrl(request.getRequestURL().toString());
+        log.setQuery(request.getQueryString());
+        log.setPostData("");
+        log.setSuccessful((new Boolean(true).equals(request.getAttribute("PGIST_SERVICE_SUCCESSFUL"))));
+        
+        save(log);
+    }//logGetting()
+    
+    
+    public void logPosting(DelegatingHttpServletRequestWrapper request) throws Exception {
+        SystemLog log = new SystemLog();
+        
+        log.setTime(new Date());
+        log.setUserId(WebUtils.currentUserId());
+        log.setMethod("POST");
+        log.setUrl(request.getRequestURL().toString());
+        log.setQuery(request.getQueryString());
+        log.setPostData(request.getLogging());
+        log.setSuccessful((new Boolean(true).equals(request.getAttribute("PGIST_SERVICE_SUCCESSFUL"))));
+        
+        save(log);
+    }//logPosting()
     
     
 }//class SystemDAOImpl

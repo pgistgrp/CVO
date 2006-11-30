@@ -11,6 +11,7 @@ import org.directwebremoting.WebContextFactory;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 
+
 /**
  * DWR AJAX Agent class.<br>
  * Provide AJAX services to client programs.<br>

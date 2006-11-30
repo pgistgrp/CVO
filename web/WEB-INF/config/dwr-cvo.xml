@@ -7,6 +7,9 @@
   <allow>
 
 
+    <filter class="org.pgist.web.DWRLoggingFilter" />
+    
+    
     <!-- Beans Convertor -->
 
     <convert converter="bean" match="org.pgist.cvo.CCT">

@@ -71,6 +71,8 @@ public class SDConcernsAction extends Action {
             return mapping.findForward("error");
         }
         
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        
         return mapping.findForward("main");
     }//execute()
     

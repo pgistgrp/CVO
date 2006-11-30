@@ -45,6 +45,8 @@ public class FundingMgrAction extends Action {
         
         request.setAttribute("fundings", fundings);
         
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        
         return mapping.findForward("list");
     }//execute()
     

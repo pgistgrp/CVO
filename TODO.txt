@@ -62,9 +62,10 @@ Zhong:
 TODO:
 
 [*] E-mail Notification for a single user (a user has the option to turn on/off email notifications on a single discussion that he/she is involved in.
+[*] user actions event logging
 [1] BUG: Comment content is not saved - even though content is passed into createComment() and returns successful.
 [3] BUG: Page setting in getComments setting.page returns an error.
-[2] user actions event logging
+[] When add concern, comment, post, reply, set the voting in backend; jordan remove this setVoting from Frontend.
 
 ------------------------
 John:

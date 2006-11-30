@@ -43,6 +43,8 @@ public class CatsTreeAction extends Action {
         
         request.setAttribute("root", cct.getRootCategory());
         
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        
         return mapping.findForward("view");
     }//execute()
 

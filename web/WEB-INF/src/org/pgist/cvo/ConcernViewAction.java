@@ -73,6 +73,8 @@ public class ConcernViewAction extends Action {
         request.setAttribute("concern", concern);
         request.setAttribute("comments", comments);
         
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        
         return mapping.findForward("main");
     }//execute()
 

@@ -94,11 +94,16 @@ public class UsercpAction extends Action {
 				currentUser.setPassword(password);
 			}
 			userDAO.editUser(currentUser); //use this to update user
+            
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            
 			return mapping.findForward("main");
 		} else {
 			uform.setReason("Current Password is Incorrect." + cpassword);
 		}
     	
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        
         return mapping.findForward("usercp");
     }//execute()
     

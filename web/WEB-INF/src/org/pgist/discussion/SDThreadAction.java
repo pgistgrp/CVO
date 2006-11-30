@@ -126,6 +126,8 @@ public class SDThreadAction extends Action {
             request.setAttribute("replies", replies);
             request.setAttribute("setting", setting);
             
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            
             return mapping.findForward("main");
         }
         

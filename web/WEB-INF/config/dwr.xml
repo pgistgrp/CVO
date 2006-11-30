@@ -7,6 +7,9 @@
   <allow>
 
 
+    <filter class="org.pgist.web.DWRLoggingFilter" />
+    
+    
     <convert converter="bean" match="org.pgist.users.User">
       <param name="include" value="id, loginname, firstname, lastname, password, email, enabled, deleted, internal"/>
     </convert>
