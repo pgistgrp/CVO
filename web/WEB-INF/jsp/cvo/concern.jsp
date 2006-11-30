@@ -192,9 +192,21 @@
   <!-- End header -->
 </div>
 <!-- End header -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-<jsp:include page="sdcHeader.jsp" />
-<!-- End header menu -->
+
+  <!-- Begin header menu - The wide ribbon underneath the logo -->
+  <div id="headerMenu">
+    <div id="headerContainer">
+      <div id="headerTitle" class="floatLeft">
+        <h3 class="headerColor">Step 1: Discuss Concerns</h3>
+      </div>
+    <div class="headerButton box4 floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
+    <div class="headerButtonCurrent floatLeft"><a href="sdlist.do">1b: Review Summaries</A></div>
+      <div id="headerNext" class="box5 floatRight"><a href="sdlist.do">Next Step</A></div>
+    </div>
+  </div>
+  <!-- End header menu -->
+
+
 <div style="display: none;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 <div id="container">
 	<div id="container-include">
@@ -210,9 +222,18 @@
 	</script>
 </div><!-- end container -->
 <!-- start the bottom header menu -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-<jsp:include page="sdcHeader.jsp" />
-<!-- End header menu -->
+  <!-- Begin header menu - The wide ribbon underneath the logo -->
+  <div id="headerMenu">
+    <div id="headerContainer">
+      <div id="headerTitle" class="floatLeft">
+        <h3 class="headerColor">Step 1: Discuss Concerns</h3>
+      </div>
+    <div class="headerButton box4 floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
+    <div class="headerButtonCurrent floatLeft"><a href="sdlist.do">1b: Review Summaries</A></div>
+      <div id="headerNext" class="box5 floatRight"><a href="sdlist.do">Next Step</A></div>
+    </div>
+  </div>
+  <!-- End header menu -->
 <!-- end the bottom header menu -->
 <!-- Begin footer -->
 <div id="footer">
