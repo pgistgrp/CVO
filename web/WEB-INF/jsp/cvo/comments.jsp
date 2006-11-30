@@ -21,7 +21,7 @@
 		<span id="structure_question">
 	
 			<c:choose>
-				<c:when test="${voting == null}">
+				<c:when test="${concern.object == null}">
 					<a href="javascript:setVote(${concern.id}, 'true');"><img src="images/btn_thumbsup_large.png" alt="YES" class="floatRight" style="margin-right:5px;"><a href="javascript:setVote(${concern.id}, 'false');"><img src="images/btn_thumbsdown_large.png" alt="NO" class="floatLeft" margin-left:5px;"></a></span>
 				</c:when>
 				<c:otherwise>
