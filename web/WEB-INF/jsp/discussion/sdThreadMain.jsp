@@ -242,7 +242,7 @@
 							if (data.successful){
 								var votingDiv = 'voting-'+target+id;
 								if($(votingDiv) != undefined){
-	              				 	new Effect.Fade(votingDiv, {afterFinish: function(){io.getReplies(io.currentFilter, io.currentPage, true); io.getTargets(); new Effect.Appear(votingDiv);}});
+	              				 	new Effect.Fade(votingDiv, {afterFinish: function(){io.getReplies(io.currentFilter, io.currentPage, false); io.getTargets(); new Effect.Appear(votingDiv);}});
 	              				}else{
 	              					io.getReplies(io.currentFilter, io.currentPage, false);	
 									io.getTargets();
