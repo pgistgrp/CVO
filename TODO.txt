@@ -60,8 +60,8 @@ Zhong:
 [ok] Ensure Email Notification Works (Talk to Adam)
 
 TODO:
-[1] gpCommentsMain.jsp is not being loaded by getComments();
-[2] E-mail Notification for a single user (a user has the option to turn on/off email notifications on a single discussion that he/she is involved in.
+[*] gpCommentsMain.jsp is not being loaded by getComments();
+[*] E-mail Notification for a single user (a user has the option to turn on/off email notifications on a single discussion that he/she is involved in.
 [3] user actions event logging
 
 ------------------------

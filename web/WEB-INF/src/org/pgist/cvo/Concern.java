@@ -78,7 +78,7 @@ public class Concern implements Serializable {
 
     /**
      * @return
-     * @hibernate.many-to-one column="author_id" lazy="true" class="org.pgist.users.User" cascade="all"
+     * @hibernate.many-to-one column="author_id" lazy="true" cascade="all"
      */
     public User getAuthor() {
         return author;
