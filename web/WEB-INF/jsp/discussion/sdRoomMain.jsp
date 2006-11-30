@@ -433,6 +433,7 @@
             </p>
             <input type="button" onClick="io.createPost();" value="Create Discussion">
 			<input type="button" onClick="javascript:io.clearNewDiscussionInputs();Effect.toggle('newDiscussion','slide',{duration:1.5});" value="Cancel">
+			<input type="checkbox">E-mail me when someone responds to my post
           </form>
         </div>
       </div>
