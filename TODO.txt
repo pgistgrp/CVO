@@ -58,11 +58,13 @@ Zhong:
 [ok] Bug: getPosts filter by tag queries deleted posts.
 [ok] CCTAgent.getContextConcerns sorting (currently testing)
 [ok] Ensure Email Notification Works (Talk to Adam)
-
+[ok] gpCommentsMain.jsp is not being loaded by getComments();
 TODO:
-[*] gpCommentsMain.jsp is not being loaded by getComments();
+
 [*] E-mail Notification for a single user (a user has the option to turn on/off email notifications on a single discussion that he/she is involved in.
-[3] user actions event logging
+[1] BUG: Comment content is not saved - even though content is passed into createComment() and returns successful.
+[3] BUG: Page setting in getComments setting.page returns an error.
+[2] user actions event logging
 
 ------------------------
 John:
@@ -84,6 +86,7 @@ BACKEND DOCUMENTED FOR LATER:
 [ ] Archieve Feedback Method
 [ ] Email Templates Management
 [ ] Concerns and Comments need email notification 
+[ ] Find related (by tags) concerns.
 
 FRONT END DOCUMENTED FOR LATER
 [ ] Add IOID Param to tagSearch and tagCloud
@@ -94,5 +97,6 @@ FRONT END DOCUMENTED FOR LATER
 [ ] Event Logging Moderator Page
 [ ] Moderator Options (author actions) on CCT concerns and comments
 [ ] Edit/Delete Comments
+[ ] Rich Textbox IE width
 
 
