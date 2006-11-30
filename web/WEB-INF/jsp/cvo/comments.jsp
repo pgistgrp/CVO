@@ -9,6 +9,30 @@
 
 <html:html>
 
+
+<!-- Begin voting tally menu -->
+	<div id="votingMenu" class="floatLeft"><div id="voting-object${infoObject.id}">
+		<div id="votingMenuTally" class="box1">
+			<span id="structure_question_status">
+				<h2>${concern.numAgree} of ${concern.numVote}</h2>
+			people agree so far</div>
+		</span>
+		<p>Do you agree with this concern?</p>
+		<span id="structure_question">
+	
+			<c:choose>
+				<c:when test="${voting == null}">
+					<a href="javascript:setVote(${concern.id}, 'true');"><img src="images/btn_thumbsup_large.png" alt="YES" class="floatRight" style="margin-right:5px;"><a href="javascript:setVote(${concern.id}, 'false');"><img src="images/btn_thumbsdown_large.png" alt="NO" class="floatLeft" margin-left:5px;"></a></span>
+				</c:when>
+				<c:otherwise>
+					<div class="box3" style="text-align:left;padding:2px;">Your vote has been recorded. Thank you for your participation.</div>
+				</c:otherwise>
+			</c:choose>
+		</span></div>
+	</div>
+<!-- end voting tally menu -->
+
+
 <!-- START Discussion Row -->	
 <div id="concern${concern.id}" class="discussionRow">
 	<c:choose>
@@ -53,7 +77,7 @@
 								</c:otherwise>
 							</c:choose>
 
-							<a href="javascript:changeCurrentFilter(${tagref.id});">${tagref.tag.name}</a></li>
+							<!--<a href="javascript:changeCurrentFilter(${tagref.id});">-->${tagref.tag.name}</li>
 						</c:forEach>
 					</ul>
 					</div>
@@ -130,7 +154,7 @@
 						</div>
 						<div class="discussionComments peekaboobugfix">
 							 <a href="javascript:setQuote(${comment.id});">Quote</a>
-						</div>
+						</div><!--
 						<c:if test="${fn:length(comment.tags) > 0}">
 							<ul class="tagsInline">
 								<li class="tagsInline"><strong>Tags:</strong> </li>
@@ -147,7 +171,7 @@
 								</c:forEach>
 							</ul>
 							<div style="clear: left;"></div>
-						</c:if>
+						</c:if>-->
 						<pg:show roles="moderator">
 						<div class="smallText" style="text-align:right;">	
 							Moderator Options: <input type="button" onClick="deleteComment(${comment.id});" value="Delete" />
