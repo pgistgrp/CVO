@@ -1120,6 +1120,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         for (User user : (List<User>) list) {
             if (user.getId()==owner) continue;
+            if (!user.isEmailNotify()) continue;
             
             set.add(user);
         }//for
@@ -1145,6 +1146,32 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
             throw new Exception("can't find the ioid corresponds to the did.");
         }
     }//getInfoObjectByDiscussionId()
+
+
+    public void setupPostEmailNotify(Long id, boolean turnon) throws Exception {
+        DiscussionPost post = (DiscussionPost) getHibernateTemplate().load(DiscussionPost.class, id);
+        
+        if (!post.getOwner().getId().equals(WebUtils.currentUserId())) {
+            throw new Exception("you are not the author of this post");
+        }
+        
+        post.setEmailNotify(turnon);
+        
+        save(post);
+    }//setupPostEmailNotify()
+
+
+    public void setupReplyEmailNotify(Long id, boolean turnon) throws Exception {
+        DiscussionReply reply = (DiscussionReply) getHibernateTemplate().load(DiscussionReply.class, id);
+        
+        if (!reply.getOwner().getId().equals(WebUtils.currentUserId())) {
+            throw new Exception("you are not the author of this reply");
+        }
+        
+        reply.setEmailNotify(turnon);
+        
+        save(reply);
+    }//setupReplyEmailNotify()
 
 
 }//class DiscussionDAOImpl

@@ -152,6 +152,12 @@ public interface DiscussionDAO extends BaseDAO {
     InfoObject getInfoObjectByDiscussionId(Long did) throws Exception;
 
 
+    void setupPostEmailNotify(Long id, boolean turnon) throws Exception;
+
+
+    void setupReplyEmailNotify(Long id, boolean turnon) throws Exception;
+
+
     //temp
     
     Collection getInfoStructures() throws Exception;

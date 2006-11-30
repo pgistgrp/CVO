@@ -112,6 +112,9 @@ public interface SDService {
     InfoObject getInfoObjectByDiscussionId(Long did) throws Exception;
 
 
+    void setupEmailNotify(Long id, String type, boolean turnon) throws Exception;
+
+
     //temp
     Collection getInfoStructures() throws Exception;
 

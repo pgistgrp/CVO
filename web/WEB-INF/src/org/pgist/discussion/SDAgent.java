@@ -1667,4 +1667,57 @@ public class SDAgent {
     }//getTagCloud()
     
     
+    /**
+     * Setup the email notification for the given Post/Reply.
+     *
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>id - int, id of the DiscussionPost/DiscussionReply</li>
+     *           <li>
+     *              type - String, specify the type of the id
+     *              <ul>
+     *                <li>"post" - id is for DiscussionPost, default.</li>
+     *                <li>"reply" - id is for DiscussionReply</li>
+     *              </ul>
+     *           </li>
+     *           <li>turnon - boolean, true for turn on the email notification, false for turn off (default).</li>
+     *         </ul>
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
+    public Map setupEmailNotify(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+
+        Long id = null;
+        
+        try {
+            id = new Long((String) params.get("id"));
+        } catch (Exception e) {
+            map.put("reason", "invalid id.");
+            return map;
+        }
+        
+        String type = (String) params.get("type");
+        if (!"reply".equalsIgnoreCase(type)) type = "post";
+        
+        boolean turnon = "true".equalsIgnoreCase((String) params.get("id"));
+        
+        try {
+            sdService.setupEmailNotify(id, type, turnon);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//setupEmailNotify()
+    
+    
 }//class SDAgent

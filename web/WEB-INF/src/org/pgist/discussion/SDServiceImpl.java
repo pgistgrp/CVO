@@ -422,4 +422,13 @@ public class SDServiceImpl implements SDService {
     }//getInfoObjectByDiscussionId()
 
 
+    public void setupEmailNotify(Long id, String type, boolean turnon) throws Exception {
+        if ("post".equalsIgnoreCase(type)) {
+            discussionDAO.setupPostEmailNotify(id, turnon);
+        } else {
+            discussionDAO.setupReplyEmailNotify(id, turnon);
+        }
+    }//setupEmailNotify()
+
+
 }//class SDServiceImpl
