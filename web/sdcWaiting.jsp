@@ -1,85 +1,82 @@
-
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
-<html><head><title>Thanks for your help with the test!</title><!-- Site Wide CSS -->
-
-<script type="text/javascript">
-
-function displayFeedback()
-{
-	document.getElementById("feedbackForm").style.display = "block";
-}
-
-</script>
+<head>
+<title>Let's Improve Transportation - Done with Step 1</title>
 <!-- Site Wide CSS -->
-<style type="text/css" media="screen">@import "styles/position.css";</style>
-<style type="text/css" media="screen">@import "styles/styles.css";</style>
-<!-- End Site Wide CSS -->
+<style type="text/css" media="screen">@import "styles/lit.css";</style>
 
+<!-- End Site Wide CSS -->
 <!-- Site Wide JS -->
-<script src="scripts/search.js" type="text/javascript"></script>
-<script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-<!-- End Site Wide JS -->
-
-<!-- DWR JavaScript Libraries -->
+<script src="scripts/search.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
-<script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
-<!-- End DWR JavaScript Libraries -->
-</head><body onLoad="displayFeedback();">
-<!-- Header -->
 
-<!-- Header -->
-	
-<jsp:include page="/header.jsp" />
-<!-- Sub Title -->
-<div id="subheader">
-<h1>Let's Improve Transportation:</h1> <h2>Finished with Step 1</h2>
-</div>
-<div id="footprints">
-<span class="smalltext"><a href="main.do">Participate</a> » <a href="/sd.do?isid=2951">Step 1b Review Summaries</a> » Finished with Step 1
-</div>
-<!-- End Sub Title -->
+</head>
 
+<body>
+ <!-- Begin the header - loaded from a separate file -->
+  <div id="header">
+	<!-- Begin header -->
+	<jsp:include page="/header.jsp" />
+	<!-- End header -->
+  </div>
+  <!-- End header -->
+  <!-- Begin header menu - The wide ribbon underneath the logo -->
+  <!-- Begin header menu - The wide ribbon underneath the logo -->
+  <div id="headerMenu">
+    <div id="headerContainer">
+      <div id="headerTitle" class="floatLeft">
+        <h3 class="headerColor">Step 1: Discuss Concerns</h3>
+      </div>
+    <div class="headerButton floatLeft"><a href="cctlist.do">1a: Brainstorm</a></div>
+    <div class="headerButtonCurrent floatLeft currentBox"><a href="sdlist.do">1b: Review Summaries</A></div>
+      <div id="headerNext" class="box5 floatRight"><a href="main.do">Next Step</A></div>
+    </div>
+  </div>
+  <!-- End header menu -->
+  <!-- End header menu -->
+  <!-- #container is the container that wraps around all the main page content -->
+  <div id="container">
+  <div style="width:500px;">
+<h3 class="headerColor">That's it!</h3>
 
-<!-- Overview SpiffyBox -->
-<div class="cssbox">
-<div class="cssbox_head">
-<h3>That's it!</h3>
-</div>
-<div class="cssbox_body">
-
-<p>You've finished the Step 1 functionality we wanted to test. You may continue <a href="/sd.do?isid=2951">discussing the concern theme summaries</A> until midnight on Thursday, October 12th, when discussion in this step ends. If any additional revisions to the summaries are made before October 12th, the moderator will notify you by email.</p>
+<p>You've finished the Step 1 functionality we wanted to test. You may continue <a href="/sdlist.do">discussing the concern theme summaries</A> until midnight on Friday, December 15th, when discussion in this step ends. If any additional revisions to the summaries are made before December 15th, the moderator will notify you by email.</p>
 <p>Remember, these summaries do not represent the end of the conversation about participant concerns. They are merely a snapshot in time that we can use in Step 2 to help evaluate the criteria. (However, Step 2 is not ready for testing, so this is the end of the road for now!)</p>
 
 <p>After the text concludes we will analyze the feedback you left us and make improvements in preparation for the next test.</p>
 
 <p>Is there anything else you'd like to tell us?  You can use the feedback form below, or feel free to e-mail Adam at <a href="mailto:adamh@u.washington.edu">adamh@u.washington.edu</a></p> 
 </div>
-</div>
-<!-- End Overview -->
+  </div>
+  <!-- end container -->
+  
+<!-- start feedback form -->
+  <pg:feedback id="feedbackDiv" action="cctView.do"/>
+<!-- end feedback form -->
 
-</div> <!-- End cont-top -->
+  <!-- Begin header menu - The wide ribbon underneath the logo -->
+  <div id="headerMenu">
+    <div id="headerContainer">
+      <div id="headerTitle" class="floatLeft">
+        <h3 class="headerColor">Step 1: Discuss Concerns</h3>
+      </div>
+    <div class="headerButton floatLeft"><a href="cctlist.do">1a: Brainstorm</a></div>
+    <div class="headerButtonCurrent floatLeft currentBox"><a href="sdlist.do">1b: Review Summaries</A></div>
+      <div id="headerNext" class="box5 floatRight"><a href="main.do">Next Step</A></div>
+    </div>
+  </div>
+  <!-- End header menu -->
 
-	<div id="cont-main">
-	
-	<!-- start feedback form -->
-			<pg:feedback id="feedbackDiv" action="sdcWaiting.do" />
-	<!-- end feedback form -->
+	<!-- Begin footer -->
+	<div id="footer">
+		<jsp:include page="/footer.jsp" />
 	</div>
-	<!-- End cont-main -->
-
-
-
-<div id="footerspacing" style="padding-top: 200px;">
-<!-- Start Footer -->
-<jsp:include page="/footer.jsp" />
-
-<!-- End Footer -->
-</div>
-</body></html>
+	<!-- End footer -->
+</body>
+</html:html>
