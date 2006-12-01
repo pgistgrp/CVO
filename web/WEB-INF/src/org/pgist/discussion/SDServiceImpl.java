@@ -349,20 +349,40 @@ public class SDServiceImpl implements SDService {
     
     
     public Collection getConcerns(InfoStructure structure, String ids, PageSetting setting, boolean tagId) throws Exception {
+        Collection<Concern> collections = null;
+        
         if (ids==null || ids.trim().length()==0) {
-            return discussionDAO.getConcerns(structure, setting);
+            collections = discussionDAO.getConcerns(structure, setting);
         } else {
-            return discussionDAO.getConcerns(structure, discussionDAO.processIds(structure.getId(), ids, tagId), setting);
+            collections = discussionDAO.getConcerns(structure, discussionDAO.processIds(structure.getId(), ids, tagId), setting);
         }
+        
+        YesNoVoting voting;
+        for (Concern concern : collections) {
+            voting = systemDAO.getVoting(YesNoVoting.TYPE_CONCERN, concern.getId());
+            concern.setObject(voting);
+        }
+        
+        return collections;
     }//getConcerns()
 
 
     public Collection getConcerns(InfoObject object, String ids, PageSetting setting, boolean tagId) throws Exception {
+        Collection<Concern> collections = null;
+        
         if (ids==null || ids.trim().length()==0) {
-            return discussionDAO.getConcerns(object, setting);
+            collections =  discussionDAO.getConcerns(object, setting);
         } else {
-            return discussionDAO.getConcerns(object, discussionDAO.processIds(object.getStructure().getId(), ids, tagId), setting);
+            collections =  discussionDAO.getConcerns(object, discussionDAO.processIds(object.getStructure().getId(), ids, tagId), setting);
         }
+        
+        YesNoVoting voting;
+        for (Concern concern : collections) {
+            voting = systemDAO.getVoting(YesNoVoting.TYPE_CONCERN, concern.getId());
+            concern.setObject(voting);
+        }
+        
+        return collections;
     }//getConcerns()
 
 
