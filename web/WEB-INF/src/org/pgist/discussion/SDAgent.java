@@ -1704,7 +1704,7 @@ public class SDAgent {
         String type = (String) params.get("type");
         if (!"reply".equalsIgnoreCase(type)) type = "post";
         
-        boolean turnon = "true".equalsIgnoreCase((String) params.get("id"));
+        boolean turnon = "true".equalsIgnoreCase((String) params.get("turnon"));
         
         try {
             sdService.setupEmailNotify(id, type, turnon);
