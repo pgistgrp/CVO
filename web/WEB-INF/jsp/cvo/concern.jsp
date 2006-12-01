@@ -191,7 +191,7 @@ margin-top: 5px;
 		CCTAgent.deleteComment({commentId: id}, {
 			callback:function(data){
 				if (data.successful){
-					new Effect.Puff("comment" + id);
+					new Effect.Puff("comment" + id, {afterFinish: function(){getComments(currentPage, false);}});
 				}else{
 					alert(data.reason);
 				}

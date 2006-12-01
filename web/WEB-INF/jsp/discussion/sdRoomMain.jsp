@@ -157,9 +157,9 @@
 	}
 	 	 
 	/*************** Set Email Notificaiton************** */
- 	 io.setupEmailNotify = function(id, status){
-				//alert("structure" + infoObject.structureId + "object " + infoObject.objectId + "vote " + agree);
-				SDAgent.setupEmailNotify({id: id, type: "reply", turnon: status}, {
+ 	 io.setupEmailNotify = function(id, type, status){
+				//alert("id" + id + "type " + type + "turnon " + status);
+				SDAgent.setupEmailNotify({id: id, type: type, turnon: status}, {
 				callback:function(data){
 						if (data.successful){
 							if (status){
@@ -175,7 +175,7 @@
 						alert("setVote error:" + errorString + exception);
 				}
 				});
-	};
+	};ß
 			
 		/*************** New Discussion Post: if successful, reload discussion posts************** */
 	 	 io.createPost = function(){

@@ -264,9 +264,9 @@
 		};
 
 		/*************** Set Email Notificaiton************** */
-	 	 io.setupEmailNotify = function(id, status){
-					//alert("structure" + infoObject.structureId + "object " + infoObject.objectId + "vote " + agree);
-					SDAgent.setupEmailNotify({id: id, type: "reply", turnon: status}, {
+	 	 io.setupEmailNotify = function(id, type, status){
+					//alert("id" + id + "type " + type + "turnon " + status);
+					SDAgent.setupEmailNotify({id: id, type: type, turnon: status}, {
 					callback:function(data){
 							if (data.successful){
 								if (status){
@@ -345,7 +345,17 @@
 			discussion area, and the sorting menu -->
   <div id="discussionHeader">
     <div class="sectionTitle">
-      <h3 class="headerColor floatLeft">Discussion about ${post.title}</h3> <div class="floatRight" id="toggleNotification"><a href="javascript:toggleNotification()">Turn on E-mail notification for this discussion</a></div>
+      <h3 class="headerColor floatLeft">Discussion about ${post.title}</h3> 
+	  <div class="floatRight" id="toggleNotification"><a href="javascript:toggleNotification()">
+			<c:choose>
+					<c:when test="${baseuser.id == post.owner.id}">
+						<a href="javascript:io.setupEmailNotify(${post.id}, 'post', true)">Turn on E-mail notification for this discussion</a>
+					</c:when>
+					<c:otherwise>
+						<a href="javascript:io.setupEmailNotify(${post.id}, 'post', false)">Turn off E-mail notification for this discussion</a>
+					</c:otherwise>
+			</c:choose>
+	  </div>
     </div>
 	
 	<!--
