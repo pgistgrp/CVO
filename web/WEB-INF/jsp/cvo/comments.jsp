@@ -7,6 +7,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html:html>
 
+  <!-- Begin Breadcrumbs -->
+  <div id="breadCrumbs" class="clearBoth"> <a href="/cctlist.do">Step 1a: Brainstorm</a> &rarr; Comments about a concern</div>
+  <!-- End Breadcrumbs -->
+
+
 <!-- Begin voting tally menu -->
 
 <div id="votingMenu" class="floatLeft">
