@@ -1043,6 +1043,7 @@ public class CCTAgent {
                 if (voting!=null) comment.setObject(voting);
             }
             
+            request.setAttribute("cct", concern.getCct());
             request.setAttribute("concern", concern);
             request.setAttribute("comments", comments);
             request.setAttribute("setting", setting);
