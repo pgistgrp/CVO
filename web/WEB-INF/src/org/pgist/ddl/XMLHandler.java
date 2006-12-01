@@ -110,14 +110,14 @@ public abstract class XMLHandler implements Handler {
     }//getRoleByName()
     
     
-    private static final String hql_getUserByLoginName = "from User u where u.loginname=?";
+    private static final String hql_getUserByLoginName = "from User u where lower(u.loginname)=?";
     
     
     protected User getUserByLoginName(String userName) throws Exception {
         if (userMap.containsKey(userName)) return userMap.get(userName);
         
         Query query = session.createQuery(hql_getUserByLoginName);
-        query.setString(0, userName);
+        query.setString(0, userName.toLowerCase());
         List list = query.list();
         if (list.size()==0) return null;
         
@@ -128,14 +128,14 @@ public abstract class XMLHandler implements Handler {
     }//getUserByLoginName()
     
     
-    private static final String hql_getTagByName = "from Tag t where t.name=?";
+    private static final String hql_getTagByName = "from Tag t where lower(t.name)=?";
     
     
     protected Tag getTagByName(String tagName) throws Exception {
         if (tagMap.containsKey(tagName)) return tagMap.get(tagName);
         
         Query query = session.createQuery(hql_getTagByName);
-        query.setString(0, tagName);
+        query.setString(0, tagName.toLowerCase());
         List list = query.list();
         if (list.size()==0) return null;
         

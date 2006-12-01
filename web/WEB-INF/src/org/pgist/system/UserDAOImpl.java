@@ -72,7 +72,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
     }//getUserById()
 
 
-    private final static String hql_getUserByName_A = "from User where loginname=:loginname and enabled=:enabled and deleted=:deleted";
+    private final static String hql_getUserByName_A = "from User where lower(loginname)=:loginname and enabled=:enabled and deleted=:deleted";
     
     
     /**
@@ -98,7 +98,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
     }//getUserByName()
     
     
-    private final static String hql_getUserByName_B = "from User where loginname=:loginname and deleted=:deleted";
+    private final static String hql_getUserByName_B = "from User where lower(loginname)=:loginname and deleted=:deleted";
     
     
     /**
