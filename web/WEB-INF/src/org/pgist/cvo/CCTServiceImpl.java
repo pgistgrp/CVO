@@ -159,6 +159,12 @@ public class CCTServiceImpl implements CCTService {
 
         cctDAO.save(c);
 
+        /*
+         * the author of the concern always agrees.
+         */
+        systemDAO.setVoting(YesNoVoting.TYPE_CONCERN, c.getId(), true);
+        cctDAO.increaseVoting(c, true);
+        
         return c;
     } //createConcern()
 
@@ -353,6 +359,7 @@ public class CCTServiceImpl implements CCTService {
         Comment comment = new Comment();
         comment.setConcern(concern);
         comment.setTitle(title);
+        comment.setContent(content);
         comment.setDeleted(false);
         comment.setCreateTime(WebUtils.getDate());
         
@@ -374,6 +381,12 @@ public class CCTServiceImpl implements CCTService {
         cctDAO.save(comment);
         
         cctDAO.increaseReplies(concern);
+        
+        /*
+         * the author of the comment always agrees.
+         */
+        systemDAO.setVoting(YesNoVoting.TYPE_COMMENT, comment.getId(), true);
+        cctDAO.increaseVoting(comment, true);
         
         return comment;
     }//createComment()
@@ -430,7 +443,7 @@ public class CCTServiceImpl implements CCTService {
         
         Comment comment = cctDAO.getCommentById(id);
         
-        cctDAO.increaseCommentVoting(comment, agree);
+        cctDAO.increaseVoting(comment, agree);
         
         return true;
     }//setVotingOnComment()

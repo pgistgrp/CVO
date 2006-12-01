@@ -59,15 +59,16 @@ Zhong:
 [ok] CCTAgent.getContextConcerns sorting (currently testing)
 [ok] Ensure Email Notification Works (Talk to Adam)
 [ok] gpCommentsMain.jsp is not being loaded by getComments();
+[ok] When add concern, comment, post, reply, set the voting in backend; 
+[ok] jordan remove this setVoting from Frontend.
 TODO:
 
 [*] E-mail Notification for a single user (a user has the option to turn on/off email notifications on a single discussion that he/she is involved in.
 [*] user actions event logging
-[1] BUG: Comment content is not saved - even though content is passed into createComment() and returns successful.
-[3] BUG: Page setting in getComments setting.page returns an error.
-[2] Login case insensitive
-[2] When add concern, comment, post, reply, set the voting in backend; 
-[ok] jordan remove this setVoting from Frontend.
+[*] BUG: Comment content is not saved - even though content is passed into createComment() and returns successful.
+[*] BUG: Page setting in getComments setting.page returns an error.
+[*] Login case insensitive
+    The loginname can be case insensitive, but password shouldn't be.
 
 ------------------------
 John:

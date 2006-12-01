@@ -3,7 +3,9 @@ package org.pgist.system;
 import java.util.Collection;
 import java.util.Date;
 
+import org.pgist.exceptions.UserExistException;
 import org.pgist.users.BaseUser;
+import org.pgist.users.Role;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
@@ -38,9 +40,26 @@ public class SystemServiceImpl implements SystemService {
      */
     
     
+    public User getUserByName(String loginname, boolean enabled, boolean deleted) throws Exception {
+        return userDAO.getUserByName(loginname, enabled, deleted);
+    }//getUserByName()
+    
+    
     public Collection getUsersByRole(String role) throws Exception {
         return userDAO.getUsersByRole(role);
     }//getUsersByRole()
+
+
+    public void createUser(User user) throws Exception {
+        // check if user already exists
+        User other = userDAO.getUserByName(user.getLoginname(), false);
+        if (other!=null) throw new UserExistException("The ID already exist. Please pick a differnt ID.");
+        
+        Role role = userDAO.getRoleByName("participant");
+        user.addRole(role);
+        
+        userDAO.save(user);
+    }//createUser()
 
 
     public Feedback createFeedback(String action, String s) throws Exception {
@@ -86,6 +105,26 @@ public class SystemServiceImpl implements SystemService {
             systemDAO.logPosting(request);
         }
     }//logRequest()
+
+
+    public void editCurrentUser(String cpassword, String password, String email) throws Exception {
+        User user = userDAO.getUserById(WebUtils.currentUserId(), true, false);
+        
+        if (!user.checkPassword(cpassword)) throw new Exception("Current Password is Incorrect." + cpassword);
+        
+        //if password field left blank then don't update password
+        if (password!=null || !("".equals(password))) {
+            user.setPassword(password);
+            user.encodePassword();
+        }
+        
+        //if email field left blank then don't update email
+        if (email!=null && !"".equals(email)) {
+            user.setEmail(email);
+        }
+        
+        userDAO.save(user);
+    }//editCurrentUser()
 
 
 }//class SystemServiceImpl

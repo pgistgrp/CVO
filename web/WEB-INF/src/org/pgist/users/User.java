@@ -82,7 +82,7 @@ public class User extends BaseUser {
     
     
     public boolean checkPassword(String providedPWD) {
-        return this.password.equals(MD5.getDigest(providedPWD));
+        return password.equals(MD5.getDigest(providedPWD));
     }
     
     

@@ -173,7 +173,7 @@ public interface CCTDAO extends BaseDAO {
     Collection getComments(Long concernId, PageSetting setting) throws Exception;
 
 
-    void increaseCommentVoting(Comment comment, boolean agree) throws Exception;
+    void increaseVoting(Comment comment, boolean agree) throws Exception;
 
 
     void increaseViews(Long concernId) throws Exception;

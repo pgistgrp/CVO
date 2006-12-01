@@ -19,11 +19,11 @@ import org.pgist.util.WebUtils;
 public class LoginAction extends Action {
 
     
-    private UserDAO userDAO;
+    private SystemService systemService;
     
     
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    public void setSystemService(SystemService systemService) {
+        this.systemService = systemService;
     }
 
     
@@ -59,13 +59,13 @@ public class LoginAction extends Action {
             return mapping.findForward("login");
         }
         
-        User user = userDAO.getUserByName(loginname, true, false);
+        User user = systemService.getUserByName(loginname, true, false);
         if(user == null) {
         	uform.setReason("Invalid User Name.");
         	return mapping.findForward("login");
         }
         
-        if (user!=null && user.checkPassword(password)) {
+        if (user.checkPassword(password)) {
             session = request.getSession(true);
             
             UserInfo userInfo = new UserInfo(user);

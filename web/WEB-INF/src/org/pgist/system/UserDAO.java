@@ -15,7 +15,7 @@ import org.pgist.util.PageSetting;
  * @author kenny
  *
  */
-public interface UserDAO {
+public interface UserDAO extends BaseDAO {
 
     
     Role getRoleByName(String roleName) throws Exception;
@@ -24,6 +24,9 @@ public interface UserDAO {
     User getUserById(Long id, boolean enabled, boolean deleted) throws Exception;
     
     
+    User getUserByName(String loginname, boolean deleted) throws Exception;
+
+
     User getUserByName(String loginname, boolean enabled, boolean deleted) throws Exception;
     
     

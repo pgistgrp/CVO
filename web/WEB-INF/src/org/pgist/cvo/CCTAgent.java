@@ -1044,6 +1044,7 @@ public class CCTAgent {
             
             request.setAttribute("concern", concern);
             request.setAttribute("comments", comments);
+            request.setAttribute("setting", setting);
             
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/comments.jsp"));
             

@@ -1,13 +1,10 @@
 package org.pgist.system;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.users.User;
-import org.pgist.util.WebUtils;
 
 
 /**
@@ -22,7 +19,6 @@ public class UsercpAction extends Action {
 	
 	
 	private SystemService systemService;
-	private UserDAO userDAO;
 	
 	
 	public void setSystemService(SystemService systemService) {
@@ -30,11 +26,6 @@ public class UsercpAction extends Action {
 	}
 	
 	
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
-
-    
 	public ActionForward execute(
             ActionMapping mapping,
             ActionForm form,
@@ -83,26 +74,18 @@ public class UsercpAction extends Action {
             uform.setReason("Both Password Fields Must Match.");
             return mapping.findForward("usercp");
         }
-
-        //check if current password is correct before save
-        User currentUser = userDAO.getUserById(WebUtils.currentUserId(), true, false);
         
-		if(currentUser!=null && currentUser.checkPassword(cpassword)) {
-			currentUser.setEmail(email);
-			//if password field left blank then don't update password
-			if(password!=null || !("".equals(password))) {
-				currentUser.setPassword(password);
-			}
-			userDAO.editUser(currentUser); //use this to update user
+        try {
+            systemService.editCurrentUser(cpassword, password, email);
             
             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             
-			return mapping.findForward("main");
-		} else {
-			uform.setReason("Current Password is Incorrect." + cpassword);
-		}
-    	
-        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            return mapping.findForward("main");
+        } catch (Exception e) {
+            uform.setReason("Current Password is Incorrect." + cpassword);
+        }
+        
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
         
         return mapping.findForward("usercp");
     }//execute()

@@ -493,7 +493,7 @@ public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
 
     private static final String hql_getComments_A_1 = "select count(c.id) from Comment c where c.deleted=? and c.concern.id=?";
     
-    private static final String hql_getComments_A_2 = "from Comment c where c.deleted=? and c.concern.id=?";
+    private static final String hql_getComments_A_2 = "from Comment c where c.deleted=? and c.concern.id=? order by c.createTime desc";
     
     
     public Collection getComments(Long concernId, PageSetting setting) throws Exception {
@@ -525,12 +525,12 @@ public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
     private static final String hql_increaseCommentVoting_12 = "update Comment c set c.numAgree=c.numAgree+1 where c.id=?";
     
     
-    public void increaseCommentVoting(Comment comment, boolean agree) throws Exception {
+    public void increaseVoting(Comment comment, boolean agree) throws Exception {
         getSession().createQuery(hql_increaseCommentVoting_11).setLong(0, comment.getId()).executeUpdate();
         if (agree) {
             getSession().createQuery(hql_increaseCommentVoting_12).setLong(0, comment.getId()).executeUpdate();
         }
-    }//increaseCommentVoting()
+    }//increaseVoting()
 
 
     private static final String hql_increaseViews = "update Concern set views=views+1 where id=?";

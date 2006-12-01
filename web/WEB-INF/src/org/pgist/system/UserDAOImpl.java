@@ -10,7 +10,6 @@ import org.pgist.exceptions.UserExistException;
 import org.pgist.users.Role;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 
 /**
@@ -18,7 +17,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author kenny
  *
  */
-public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
+public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
     
     public void saveUser(User user) throws Exception {
@@ -73,7 +72,7 @@ public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
     }//getUserById()
 
 
-    private final static String hql_getUserByName = "from User where loginname=:loginname and enabled=:enabled and deleted=:deleted";
+    private final static String hql_getUserByName_A = "from User where loginname=:loginname and enabled=:enabled and deleted=:deleted";
     
     
     /**
@@ -86,10 +85,35 @@ public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
     public User getUserByName(String loginname, boolean enabled, boolean deleted) throws Exception {
         User user = null;
         
-        Query query = getSession().createQuery(hql_getUserByName);
-        query.setString("loginname", loginname);
-        query.setBoolean("enabled", true);
-        query.setBoolean("deleted", false);
+        Query query = getSession().createQuery(hql_getUserByName_A);
+        query.setString("loginname", loginname.toLowerCase());
+        query.setBoolean("enabled", enabled);
+        query.setBoolean("deleted", deleted);
+        List list = query.list();
+        if (list.size()>0) {
+            user = (User) list.get(0);
+        }
+        
+        return user;
+    }//getUserByName()
+    
+    
+    private final static String hql_getUserByName_B = "from User where loginname=:loginname and deleted=:deleted";
+    
+    
+    /**
+     * Get User object by the given name and query conditions
+     * @param loginname
+     * @param enabled
+     * @param deleted
+     * @return
+     */
+    public User getUserByName(String loginname, boolean deleted) throws Exception {
+        User user = null;
+        
+        Query query = getSession().createQuery(hql_getUserByName_B);
+        query.setString("loginname", loginname.toLowerCase());
+        query.setBoolean("deleted", deleted);
         List list = query.list();
         if (list.size()>0) {
             user = (User) list.get(0);
@@ -130,7 +154,7 @@ public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
             query.setMaxResults(setting.getRowOfPage());
             list = query.list();
         }
-
+        
         return list;
     }//getUserList()
     

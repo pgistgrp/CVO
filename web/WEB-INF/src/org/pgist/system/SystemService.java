@@ -2,8 +2,6 @@ package org.pgist.system;
 
 import java.util.Collection;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.web.DelegatingHttpServletRequestWrapper;
@@ -17,7 +15,13 @@ import org.pgist.web.DelegatingHttpServletRequestWrapper;
 public interface SystemService {
     
     
+    User getUserByName(String loginname, boolean enabled, boolean deleted) throws Exception;
+    
+    
     Collection getUsersByRole(String role) throws Exception;
+    
+    
+    void createUser(User user) throws Exception;
     
     
     Feedback createFeedback(String action, String s) throws Exception;
@@ -33,6 +37,9 @@ public interface SystemService {
 
 
     void logRequest(DelegatingHttpServletRequestWrapper request) throws Exception;
-    
-    
+
+
+    void editCurrentUser(String cpassword, String password, String email) throws Exception;
+
+
 }//interface SystemService

@@ -4,7 +4,7 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.users.Role;
+import org.pgist.exceptions.UserExistException;
 import org.pgist.users.User;
 
 
@@ -17,15 +17,15 @@ import org.pgist.users.User;
 public class RegisterAction extends Action {
 
     
-    private UserDAO userDAO;
+    private SystemService systemService;
     
     
     public RegisterAction() {
     }
     
     
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    public void setSystemService(SystemService systemService) {
+        this.systemService = systemService;
     }
     
     
@@ -62,7 +62,10 @@ public class RegisterAction extends Action {
     ) throws java.lang.Exception {
         UserForm uform = (UserForm) form;
         
-        if (!uform.isSave()) return mapping.findForward("register");
+        if (!uform.isSave()) {
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            return mapping.findForward("register");
+        }
         
         User user = uform.getUser();
         
@@ -88,12 +91,6 @@ public class RegisterAction extends Action {
         }        
        
         String loginname = user.getLoginname();
-        
-        if(userDAO.getUserByName(loginname, true, false)!=null) {
-        	uform.setReason("The ID already exist. Please pick a differnt ID.");
-            return mapping.findForward("register");
-        }
-        
         
         if (loginname==null || "".equals(loginname)) {
             uform.setReason("Preferred LIT ID is Required.");
@@ -157,17 +154,18 @@ public class RegisterAction extends Action {
         user.setDeleted(false);
         user.setEnabled(true);
         user.setInternal(false);
-        
-        //TODO: Check if user already exists
-        
-        Role role = userDAO.getRoleByName("participant");
-        user.addRole(role);
-        
         user.encodePassword();
         
-        userDAO.saveUser(user);
-        
-        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        try {
+            systemService.createUser(user);
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        } catch (UserExistException uee) {
+            uform.setReason(uee.getMessage());
+            return mapping.findForward("register");
+        } catch (Exception e) {
+            uform.setReason(e.getMessage());
+            return mapping.findForward("register");
+        }
         
         return mapping.findForward("login");
     }//execute()

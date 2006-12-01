@@ -186,6 +186,12 @@ public class SDServiceImpl implements SDService {
         
         discussionDAO.save(structure);
         
+        /*
+         * the author of the post always agrees.
+         */
+        systemDAO.setVoting(YesNoVoting.TYPE_DISCUSSION_POST, post.getId(), true);
+        discussionDAO.increaseVoting(post, true);
+        
         return post;
     }//createPost()
 
@@ -219,6 +225,12 @@ public class SDServiceImpl implements SDService {
         discussionDAO.increaseDiscussions(discussion);
         
         discussionDAO.save(object);
+        
+        /*
+         * the author of the post always agrees.
+         */
+        systemDAO.setVoting(YesNoVoting.TYPE_DISCUSSION_POST, post.getId(), true);
+        discussionDAO.increaseVoting(post, true);
         
         return post;
     }//createPost()
@@ -258,6 +270,12 @@ public class SDServiceImpl implements SDService {
         discussion.setLastPost(parent);
         
         discussionDAO.save(discussion);
+        
+        /*
+         * the author of the reply always agrees.
+         */
+        systemDAO.setVoting(YesNoVoting.TYPE_DISCUSSION_REPLY, reply.getId(), true);
+        discussionDAO.increaseVoting(reply, true);
         
         return reply;
     }//createReply()
