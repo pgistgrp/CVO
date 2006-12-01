@@ -10,7 +10,7 @@
 
 <c:choose>
 	<c:when test="${fn:length(posts) <= 0}">
-		<div class="box4 padding5 centerAlign"><h3 class="headerColor">There aren't related discussions yet!</h3><p>Discussions are related through tags...blah blah</p></div>
+		<div class="box4 padding5 centerAlign"><h3 class="headerColor">There aren't related discussions yet</h3><p>Discussions are related through tags, so tagging your posts helps you find out what's being talked about elsewhere on the site</p></div>
 	</c:when>
 	<c:otherwise>
 		
