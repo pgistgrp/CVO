@@ -69,10 +69,10 @@ Zhong:
 
 TODO:
 [*] E-mail Notification for a single user (a user has the option to turn on/off email notifications on a single discussion that he/she is involved in.
-[1] BUG: SDAgent.createPost() emailNotify parameter does not change the default "FALSE" - it works on SDAgent.createReply()
-[1] Release SDAgent.setupEmailNotify();
-[2] BUG: post.object is always NULL
-[2] cctId on concern.jsp
+[*] BUG: SDAgent.createPost() emailNotify parameter does not change the default "FALSE" - it works on SDAgent.createReply()
+[*] Release SDAgent.setupEmailNotify();
+[*] BUG: post.object is always NULL
+[*] cctId on concern.jsp
 
 ------------------------
 John:

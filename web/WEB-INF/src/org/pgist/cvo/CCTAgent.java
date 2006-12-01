@@ -320,6 +320,7 @@ public class CCTAgent {
 
             request.setAttribute("showTitle", new Boolean(false));
 
+            request.setAttribute("cct", cct);
             request.setAttribute("concerns", concerns);
             request.setAttribute("type", type);
 

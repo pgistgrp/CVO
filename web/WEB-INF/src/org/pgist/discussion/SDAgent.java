@@ -511,7 +511,7 @@ public class SDAgent {
             
             DiscussionPost post = null;
             
-            String emailNotify = (String) params.get("ioid");
+            String emailNotify = (String) params.get("emailNotify");
             
             if (object==null) {
                 post = sdService.createPost(structure, title, content, tags, "true".equals(emailNotify));

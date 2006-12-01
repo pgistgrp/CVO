@@ -169,6 +169,7 @@
       <include method="getTagCloud"/>
       <include method="getTagById"/>
       <include method="getConcernById"/>
+      <include method="setupEmailNotify"/>
     </create>
 
 
