@@ -3,12 +3,12 @@
 
 
     <template name="term_rejected">
-        <description>Send an email to participant to inform him that the term he proposed is rejectd.</description>
-        <subject>Let's Improve Transportation: your glossary submission has been rejected.</subject>
+        <description>Send an email to participant to inform him that the term he proposed is rejected.</description>
+        <subject>Let's Improve Transportation!: your glossary submission has been rejected.</subject>
         <notes>Variable: ${term}, ${user}, ${reason}</notes>
         <content><![CDATA[{user.loginname},<br />
     
-    You recently submitted the term "${term.name}" to the Let's Improve Transportation 	glossary. After reviewing your submission, the moderator has decided not to include it in the public glossary, for the following reason:<br />
+    You recently submitted the term "${term.name}" to the Let's Improve Transportation glossary. After reviewing your submission, the moderator has decided not to include it in the public glossary, for the following reason:<br />
     
     "${reason}"<br />
     
@@ -21,11 +21,15 @@
     
     <template name="post_reply">
         <description>Send an email notification to participants whose post are replied.</description>
-        <subject>Let's Improve Transportation: Re: ${reply.title}</subject>
-        <notes>Variable: ${reply}, ${user}</notes>
+        <subject>New discussion activity</subject>
+        <notes>Variable: ${reply}, ${user},${reply.title}</notes>
         <content><![CDATA[${user.loginname},<br />
     
-    Another participant has responded to your post!  Click the following link to view the discussion:<br />
+    Somebody has contributed a new comment to the following discussion:<br />
+    
+    ${reply.title}<br />
+    
+    Follow this link to view the discussion:<br />
     
     ${url}<br />
     
