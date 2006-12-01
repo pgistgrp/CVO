@@ -6,7 +6,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html:html>
-
+<!-- Begin Breadcrumbs -->
+<div id="breadCrumbs" class="clearBoth"> <a href="cctview.do?cctId=${cct.id}">Step 1a: Brainstorm</a> &rarr; Comments about a concern</div>
+<!-- End Breadcrumbs -->
 
 
 

@@ -274,8 +274,10 @@
 							if (data.successful){
 								if (status){
 									alert("Email notification has been turned on!")
+									io.getReplies(io.currentFilter, io.currentPage, false);	
 								}else{
 									alert("Email notification has been turned off!")
+									io.getReplies(io.currentFilter, io.currentPage, false);	
 								}
 							}else{
 								alert(data.reason);

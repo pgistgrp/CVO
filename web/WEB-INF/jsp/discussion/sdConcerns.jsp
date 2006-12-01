@@ -70,11 +70,12 @@
 			CCTAgent.setVoting({id: id, agree:agree}, {
 			callback:function(data){
 					if (data.successful){ 
-						if($('concernVote'+id) != undefined){
-            				 new Effect.Fade('concernVote'+id, {afterFinish: function(){getConcerns(sd.currentFilter, sd.currentPage, false);new Effect.Appear('concernVote'+id);}});
-            			}else{ //newly created concern
+						//effect not working right now...might be a timing issue.
+						//if($('concernVote'+id) != undefined){
+            			//	 new Effect.Fade('concernVote'+id, {afterFinish: function(){getConcerns(sd.currentFilter, sd.currentPage, false);new Effect.Appear('concernVote'+id);}});
+            			//}else{ //newly created concern
             				getConcerns(sd.currentFilter, sd.currentPage, false);	
-            			}
+            			//}
 					}else{
 						alert(data.reason);
 					}
