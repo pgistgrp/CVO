@@ -62,13 +62,13 @@ Zhong:
 [ok] When add concern, comment, post, reply, set the voting in backend; 
 [ok] jordan remove this setVoting from Frontend.
 [ok] user actions event logging
+[ok] Login case insensitive
+[ok] still not working - BUG: Comment content is not saved - even though content is passed into createComment() and returns successful.
+[ok] BUG: Page setting in getComments setting.page returns an error.
 
 TODO:
 
 [*] E-mail Notification for a single user (a user has the option to turn on/off email notifications on a single discussion that he/she is involved in.
-[*] BUG: Comment content is not saved - even though content is passed into createComment() and returns successful.
-[*] BUG: Page setting in getComments setting.page returns an error.
-[*] Login case insensitive
 [ ] SDAgent.createPost() and SDAgent.createReply - new parameter to set post.emailNotify and reply.emailNotify
 [ ] How to detect is current user has email notification turned on or off for a given post?  For example we want to show: "Email notification off - click here to turn it on"
 
