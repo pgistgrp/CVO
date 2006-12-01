@@ -6,6 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html:html>
+
 <!-- Begin voting tally menu -->
 
 <div id="votingMenu" class="floatLeft">
@@ -72,18 +73,23 @@
 <!-- end discussion-left -->
 </div>
 <!-- END CONCERN -->
-<div id="postcomments">
-<c:if test="${fn:length(comments) != 0}">
-  <h4 style="text-transform:capitalize;">${fn:length(comments)}
-    <c:choose>
-      <c:when test="${fn:length(comments) == 1}"> comment </c:when>
-      <c:otherwise> comments </c:otherwise>
-    </c:choose>
-  </h4>
-</c:if>
+<div id="commentCount" class="clearBoth">
+  <p />
+  <c:if test="${fn:length(comments) != 0}">
+    <p>
+    <h3 class="headerColor">${fn:length(comments)}
+      <c:choose>
+        <c:when test="${fn:length(comments) == 1}"> Comment about this Concern </c:when>
+        <c:otherwise> Comments about this Concern</c:otherwise>
+      </c:choose>
+    </h3>
+    </p>
+  </c:if>
+</div>
+<div id="postcomments" class="clearBoth">
 <div id="filteredBy"></div>
 <logic:iterate id="comment" name="comments">
-<div id="comment${comment.id}" class="discussionRow" style="margin-top: 5px;">
+<div id="comment${comment.id}" class="discussionRow">
   <c:choose>
   <c:when test="${baseuser.id == comment.owner.id}">
   <div class="discussionRowHeader box6">
@@ -177,4 +183,5 @@
     <input type="button" onClick="resetNewCommentForm();" value="Cancel" />
   </form>
 </div>
+<div class="clearBoth"></div>
 </html:html>

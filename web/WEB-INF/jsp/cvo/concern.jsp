@@ -10,6 +10,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Step 1a: Brainstorm</title>
 <!-- Site Wide CSS -->
+<style type="text/css">
+.discussionRow
+{
+width:795px;
+float:right;
+margin-top: 5px;
+}
+</style>
 <style type="text/css" media="screen">
 @import "styles/lit.css";
 </style>
@@ -82,7 +90,7 @@
 	function createNewComment(){
 		var title = $(txtNewCommentTitle).value;
 		var content = tinyMCE.getContent();
-		var tags = ''; //$(txtNewCommentTags).value;
+		var tags = '';
 						
 		//alert("concernId: " + concernId + " title: " + title + " content: " + content + " tags: " + tags); 
 

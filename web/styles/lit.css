@@ -137,6 +137,11 @@
 		font-size:.85em;
 		}
 		
+		#commentCount
+		{
+		padding-top:10px;
+		}
+		
 		#container
 		{
 		width:950px;
@@ -273,6 +278,12 @@
 		padding:0;
 		}
 
+		#newcomment
+		{
+		width:680px;
+		float:right;
+		}	
+
         #noTopicsBox
 		{
 		width:680px;
@@ -292,7 +303,8 @@
 		border-width:1px;
 		}
 
-		div#qTip {
+		div#qTip 
+		{
 		padding: 5px;
 		border:1px solid #F2AF27;
 		border-right-width: 2px;
