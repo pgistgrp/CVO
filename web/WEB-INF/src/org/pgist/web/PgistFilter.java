@@ -116,6 +116,7 @@ public class PgistFilter implements Filter {
             }
             //release userInfo
             if (userInfo!=null) WebUtils.setCurrentUser(null);
+            WebUtils.clearDate();
         }
     }//doFilter()
     
