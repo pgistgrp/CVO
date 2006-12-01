@@ -166,7 +166,7 @@
 						resetNewReplyForm();
 						//io.setVote('reply', data.id, 'true');	
 						io.getReplies(io.currentFilter, io.currentPage, true);	
-						location.href="#replyAnchor";
+						location.href="#replyAnchor" + data.id;
 						if(($('discussionText'+data.id)==undefined)){
 						
 						//goToPage('replies',9);

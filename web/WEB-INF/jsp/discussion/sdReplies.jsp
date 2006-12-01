@@ -147,6 +147,7 @@
 </c:if>
 <div id="filteredBy"></div>
 <logic:iterate id="reply" name="replies">
+			<a name="replyAnchor${reply.id}"></a>
 			<div id="reply${reply.id}" class="discussionRow" style="margin-top: 5px;">
 						<c:choose>
 								<c:when test="${baseuser.id == reply.owner.id}">
@@ -208,17 +209,7 @@
 						
 						
 						<div class="smallText" style="text-align:right;">	
-								<c:if test="${baseuser.id == reply.owner.id && post.owner.id != reply.owner.id}">		
-									<c:choose>
-										<c:when test="${reply.emailNotify}">
-											<a href="javascript:io.setupEmailNotify(${reply.id}, 'reply', false)">Turn off E-mail notification for future replies</a>
-										</c:when>
-										<c:otherwise>
-											<a href="javascript:io.setupEmailNotify(${reply.id}, 'reply', true)">Turn on E-mail notification for future replies</a>
-										</c:otherwise>
-									</c:choose>
-								</c:if>
-									<pg:show roles="moderator"><p>Moderator Options: <input type="button" onClick="io.deleteReply(${reply.id});" value="Delete" /></p></pg:show>
+							<pg:show roles="moderator"><p>Moderator Options: <input type="button" onClick="io.deleteReply(${reply.id});" value="Delete" /></p></pg:show>
 						</div>
 					</div>
 		
