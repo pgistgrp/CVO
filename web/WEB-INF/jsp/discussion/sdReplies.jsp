@@ -242,8 +242,8 @@
 	<h3 class="headerColor">Post a Reply</h3>
 	<form>
 		<p><label>Post Title</label><br><input style="text-transform:capitalize;" maxlength=100 size=100 type="text" value="Re: ${post.title}" id="txtNewReplyTitle"/></p>
-		<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtnewReply"></textarea></p>
-		<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="txtNewReplyTags" type="text" /></p>
+		<p><label>Your Thoughts</label><br><textarea style="width:85%; height: 150px;" id="txtnewReply"></textarea></p>
+		<p><label>Tag your post (comma separated)</label><br><input style="width:85%" id="txtNewReplyTags" type="text" /></p>
 		<input type="button" onClick="io.createReply();" value="Submit Reply">
 		<input type="button" onClick="javascript:resetNewReplyForm();Effect.toggle('newReply','slide',{duration:1.5});" value="Cancel" />
 		<input type="checkbox" id="newReplyNotifier">E-mail me when someone responds to my post

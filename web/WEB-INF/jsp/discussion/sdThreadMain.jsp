@@ -13,8 +13,8 @@
 <style type="text/css" media="screen">@import "styles/lit.css";</style>
 
 <style type="text/css">
-#discussionHeader{width:100%}
-.sectionTitle{width:100%}
+#discussionHeader{width:auto;}
+.sectionTitle{width:auto}
 </style>
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
