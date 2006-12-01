@@ -67,7 +67,6 @@ Zhong:
 [ok] BUG: Page setting in getComments setting.page returns an error.
 
 TODO:
-
 [*] E-mail Notification for a single user (a user has the option to turn on/off email notifications on a single discussion that he/she is involved in.
 [ ] SDAgent.createPost() and SDAgent.createReply - new parameter to set post.emailNotify and reply.emailNotify
 [ ] How to detect is current user has email notification turned on or off for a given post?  For example we want to show: "Email notification off - click here to turn it on"
