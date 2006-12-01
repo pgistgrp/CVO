@@ -157,6 +157,7 @@
 		          		displayIndicator(false);
 						resetNewReplyForm();
 						//io.setVote('reply', data.id, 'true');	
+						io.getReplies(io.currentFilter, io.currentPage, true);	
 						location.href="#replyAnchor";
 						if(($('discussionText'+data.id)==undefined)){
 						

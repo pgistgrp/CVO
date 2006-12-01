@@ -82,7 +82,7 @@
 	function createNewComment(){
 		var title = $(txtNewCommentTitle).value;
 		var content = tinyMCE.getContent();
-		var tags = $(txtNewCommentTags).value;
+		var tags = ''; //$(txtNewCommentTags).value;
 						
 		//alert("concernId: " + concernId + " title: " + title + " content: " + content + " tags: " + tags); 
 

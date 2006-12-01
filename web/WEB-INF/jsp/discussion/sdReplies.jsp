@@ -30,7 +30,7 @@
 									<div class="discussionRowHeader box1">
 								</c:otherwise>
 						</c:choose>
-						<div id="voting-post${reply.id}" class="discussionVoting">
+						<div id="voting-reply${reply.id}" class="discussionVoting">
 							${reply.numAgree} of ${reply.numVote} participants agree with this post
 							<c:choose>
 								<c:when test="${reply.object == null}">
