@@ -46,8 +46,8 @@
   <div style="width:500px;">
 <h3 class="headerColor">Thank you for submitting your concerns</h3>
 
-<p>We will continue to collect concerns from participants until<font color="#ff0000"><b> 11:59pm on Thursday, December 7th</b></font>. Feel free to return to the <a href="main.do">Home Page</A> or the <a href="/cctlist.do">Brainstorm Concerns</a> page to review other participant's concerns, edit your own concerns, or add some more.</p>
-<p>On <strong><font color="#cc0000">Friday, December 8th</font></strong>, the moderator will review concerns and summarize them in the form of concern themes. When the concern themes are ready for participant review and discussion, the moderator will send you an email. At that point you will be able evaluate how well the summaries represents your concerns and others', and discuss whether revisions are necessary.</p>
+<p>We will continue to collect concerns from participants until <strong>11:59pm on Thursday, December 7th</strong>. Feel free to return to the <a href="main.do">Home Page</A> or the <a href="/cctlist.do">Brainstorm Concerns</a> page to review other participant's concerns, edit your own concerns, or add some more.</p>
+<p>On <strong>Friday, December 8th</strong>, the moderator will review concerns and summarize them in the form of concern themes. When the concern themes are ready for participant review and discussion, the moderator will send you an email. At that point you will be able evaluate how well the summaries represents your concerns and others', and discuss whether revisions are necessary.</p>
 
 </div>
   </div>
