@@ -1,4 +1,43 @@
 Zhong:
+
+
+------------------------
+John:
+[ ] Relate Criteria to themes
+[ ] Review Criteria
+[ ] Manage Criteria
+[ ] Weigh Criteria
+
+-----------------------
+BACKEND DOCUMENTED FOR LATER:
+[ ] Count of unique users per post - calculate on createPost()
+[ ] IOID in SDAgent.getTagCloud()
+[ ] Problem with Glossary view sort - (bug found by Issac)
+[ ] Case insensitive login
+[ ] Create reply goes to last page - needs page setting object
+[ ] Stop words and tags are mutually exclusive
+[ ] SDAgent.getPostByID();
+[ ] Archieve Feedback Method
+[ ] Email Templates Management
+[ ] Concerns and Comments need email notification 
+[ ] Find related (by tags) concerns.
+[ ] One link - subscribed to the discussion or not
+
+FRONT END DOCUMENTED FOR LATER
+[ ] Add IOID Param to tagSearch and tagCloud
+[ ] Don't capitalize propositions
+[ ] Mailing List Form
+[ ] Commenting in Glossary
+[ ] Voting on first discussion on SDThreadMain.jsp (needs getPostByID())
+[ ] Event Logging Moderator Page
+[ ] Moderator Options (author actions) on CCT concerns and comments
+[ ] Edit/Delete Comments
+[ ] Rich Textbox IE width
+[ ] Highlight new concern comment
+
+---------------------
+ARCHIVED TASKS:
+*******STEP 1 - APLHA AND PRE-ALPHA*******
 [ok] post.views
 [ok] post object for most recent post (accessible from sdMain.jsp)
      post.lastAuthor <= author of most recent post
@@ -66,44 +105,10 @@ Zhong:
 [ok] still not working - BUG: Comment content is not saved - even though content is passed into createComment() and returns successful.
 [ok] BUG: Page setting in getComments setting.page returns an error.
 [ok] How to detect is current user has email notification turned on or off for a given post? 
-
-TODO:
-[*] E-mail Notification for a single user (a user has the option to turn on/off email notifications on a single discussion that he/she is involved in.
-[*] BUG: SDAgent.createPost() emailNotify parameter does not change the default "FALSE" - it works on SDAgent.createReply()
-[*] Release SDAgent.setupEmailNotify();
-[*] BUG: post.object is always NULL
-[*] cctId on concern.jsp
-
-------------------------
-John:
-[ ] Relate Criteria to themes
-[ ] Review Criteria
-[ ] Manage Criteria
-[ ] Weigh Criteria
------------------------
-
-BACKEND DOCUMENTED FOR LATER:
-[ ] Count of unique users per post - calculate on createPost()
-[ ] IOID in SDAgent.getTagCloud()
-[ ] Problem with Glossary view sort - (bug found by Issac)
-[ ] Case insensitive login
-[ ] Create reply goes to last page - needs page setting object
-[ ] Stop words and tags are mutually exclusive
-[ ] SDAgent.getPostByID();
-[ ] Archieve Feedback Method
-[ ] Email Templates Management
-[ ] Concerns and Comments need email notification 
-[ ] Find related (by tags) concerns.
-
-FRONT END DOCUMENTED FOR LATER
-[ ] Add IOID Param to tagSearch and tagCloud
-[ ] Don't capitalize propositions
-[ ] Mailing List Form
-[ ] Commenting in Glossary
-[ ] Voting on first discussion on SDThreadMain.jsp (needs getPostByID())
-[ ] Event Logging Moderator Page
-[ ] Moderator Options (author actions) on CCT concerns and comments
-[ ] Edit/Delete Comments
-[ ] Rich Textbox IE width
-
-
+[ok] BUG: post.object is always NULL
+[ok] BUG: concern.objerct is always NULL
+[ok] BUG: SDAgent.createPost() emailNotify parameter does not change the default "FALSE" - it works on SDAgent.createReply()
+[ok] E-mail Notification for a single user (a user has the option to turn on/off email notifications on a single discussion that he/she is involved in.
+[ok] Release SDAgent.setupEmailNotify();
+[ok] cctId on concern.jsp
+******* END STEP 1 ALPHA AND PRE-ALPHA *******
