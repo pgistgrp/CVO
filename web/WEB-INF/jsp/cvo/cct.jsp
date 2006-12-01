@@ -139,7 +139,7 @@ var allNewConcernTags = new Array;
 			$(cct.btnContinueCont).innerHTML = '<input id="btnContinue" type="button" value="continue" onClick="prepareConcern(); swapContinue(true);" />';
 			$(cct.txtAddConcern).disabled = false;
 		}else{
-			$(cct.btnContinueCont).innerHTML = '<input id="btnCancelNewConcern" type="button" value="cancel" onClick="cancelSubmit(); swapContinue();" /><input id="btnSubmitNewConcern" type="button" value="submit" onClick="saveConcern();" />';
+			$(cct.btnContinueCont).innerHTML = '<input id="btnCancelNewConcern" type="button" value="Cancel" onClick="cancelSubmit(); swapContinue();" /><input id="btnSubmitNewConcern" type="button" value="Submit" onClick="saveConcern();" />';
 			$(cct.txtAddConcern).disabled = true;
 		}
 	}
@@ -660,7 +660,7 @@ $('slate').style.Height = winH;
 			  fails to meet the needs of our growing and changing region?</li>
 		  </ul></p>
         <fieldset>
-        <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">First, type one problem with the transportation system.  You can add more later.</textarea>
+        <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type one problem with the transportation system.  You can add more later.</textarea>
         </fieldset>
         <div id="tagNewConcern" class="box6 padding5" style="display:none;">
           <h3>Tag your concern</h3>
@@ -670,13 +670,13 @@ $('slate').style.Height = winH;
             <!-- render suggested tags here -->
           </ul>
           <form action="javascript: addManualTag();">
-            <input id="manualTag" type="text" value="Add your own tag!" onClick="if(this.value==this.defaultValue){this.value = ''}"/>
+            <input id="manualTag" type="text" value="Add your own tag" onClick="if(this.value==this.defaultValue){this.value = ''}"/>
             <input type="button" value="Add" onClick="addManualTag();" />
           </form>
           <p><small>You must have at least 2 or more tags to continue.</small></p>
         </div>
         <div id="btnContinueCont">
-          <input id="btnContinue" type="button" value="continue" onClick="prepareConcern();" />
+          <input id="btnContinue" type="button" value="Continue" onClick="prepareConcern();" />
         </div>
       </div>
       <!-- end right col -->
