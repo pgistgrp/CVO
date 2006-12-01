@@ -11,6 +11,11 @@
 <title style="text-transform:capitalize;">Step 1b: ${post.title}</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/lit.css";</style>
+
+<style type="text/css">
+#discussionHeader{width:100%}
+.sectionTitle{width:100%}
+</style>
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 
@@ -340,7 +345,7 @@
 			discussion area, and the sorting menu -->
   <div id="discussionHeader">
     <div class="sectionTitle">
-      <h3 class="headerColor">Discussion about ${post.title}</h3>
+      <h3 class="headerColor floatLeft">Discussion about ${post.title}</h3> <div class="floatRight" id="toggleNotification"><a href="javascript:toggleNotification()">Turn on E-mail notification for this discussion</a></div>
     </div>
 	
 	<!--
