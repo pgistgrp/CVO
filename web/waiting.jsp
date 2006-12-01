@@ -1,73 +1,84 @@
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
-<html><head><title>Let's Improve Transportation!: Waiting</title><!-- Site Wide CSS -->
-
-
+<head>
+<title>Let's Improve Transportation - Done with Step 1a</title>
 <!-- Site Wide CSS -->
-<style type="text/css" media="screen">@import "styles/position.css";</style>
-<style type="text/css" media="screen">@import "styles/styles.css";</style>
-<!-- End Site Wide CSS -->
+<style type="text/css" media="screen">@import "styles/lit.css";</style>
 
+<!-- End Site Wide CSS -->
 <!-- Site Wide JS -->
-<script src="scripts/search.js" type="text/javascript"></script>
-<script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-<!-- End Site Wide JS -->
-
-<!-- DWR JavaScript Libraries -->
+<script src="scripts/search.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
-<script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
-<!-- End DWR JavaScript Libraries -->
-</head><body>
-<!-- Header -->
 
-<!-- Header -->
+</head>
 
-<jsp:include page="/header.jsp" />
-<!-- Sub Title -->
-<div id="subheader">
-<h1>Let's Improve Transportation:</h1> <h2>Waiting to Discuss Summaries</h2>
+<body>
+ <!-- Begin the header - loaded from a separate file -->
+  <div id="header">
+	<!-- Begin header -->
+	<jsp:include page="/header.jsp" />
+	<!-- End header -->
+  </div>
+  <!-- End header -->
+  <!-- Begin header menu - The wide ribbon underneath the logo -->
+  <!-- Begin header menu - The wide ribbon underneath the logo -->
+  <div id="headerMenu">
+    <div id="headerContainer">
+      <div id="headerTitle" class="floatLeft">
+        <h3 class="headerColor">Step 1: Discuss Concerns</h3>
+      </div>
+    <div class="headerButton floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
+    <div class="headerButtonCurrent floatLeft"><a href="sdlist.do">1b: Review Summaries</A></div>
+      <div id="headerNext" class="box5 floatRight"><a href="main.do">Next Step</A></div>
+    </div>
+  </div>
+  <!-- End header menu -->
+  <!-- End header menu -->
+  <!-- #container is the container that wraps around all the main page content -->
+  <div id="container">
+  <div style="width:500px;">
+<h3 class="headerColor">Thank you for submitting your concerns</h3>
+
+<p>We will continue to collect concerns from participants until<font color="#ff0000"><b> 11:59pm on Thursday, December 7th</b></font>. Feel free to return to the <a href="main.do">Home Page</A> or the <a href="/cctlist.do">Brainstorm Concerns</a> page to review other participant's concerns, edit your own concerns, or add some more.</p>
+<p>On <strong><font color="#cc0000">Friday, December 8th</font></strong>, the moderator will review concerns and summarize them in the form of concern themes. When the concern themes are ready for participant review and discussion, the moderator will send you an email. At that point you will be able evaluate how well the summaries represents your concerns and others', and discuss whether revisions are necessary.</p>
+
 </div>
-<div id="footprints">
-<span class="smalltext"><a href="http://128.95.212.210:8080/main.do">Participate</a> » <a href="http://128.95.212.210:8080/cctview.do?cctId=1171">Step 1a Brainstorm Concerns</a> » Waiting to Discuss Summaries
-</div>
-<!-- End Sub Title -->
+  </div>
+  <!-- end container -->
+  
+<!-- start feedback form -->
+  <pg:feedback id="feedbackDiv" action="cctView.do"/>
+<!-- end feedback form -->
 
+  <!-- Begin header menu - The wide ribbon underneath the logo -->
+  <div id="headerMenu">
+    <div id="headerContainer">
+      <div id="headerTitle" class="floatLeft">
+        <h3 class="headerColor">Step 1: Discuss Concerns</h3>
+      </div>
+    <div class="headerButton floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
+    <div class="headerButtonCurrent floatLeft"><a href="sdlist.do">1b: Review Summaries</A></div>
+      <div id="headerNext" class="box5 floatRight"><a href="main.do">Next Step</A></div>
+    </div>
+  </div>
+  <!-- End header menu -->
 
-<!-- Overview SpiffyBox -->
-<div class="cssbox">
-<div class="cssbox_head">
-<h3>Thank you for submitting your concerns</h3>
-</div>
-<div class="cssbox_body">
-
-<p>We will continue to collect&nbsp;concerns from participants until<font color="#ff0000"><b> 11:59pm on Thursday, October 5</b></font>. Feel free to return to the <a href="main.do">Home Page</A> or the <a href="http://128.95.212.210:8080/cctview.do?cctId=1171">Brainstorm Concerns</a> page to review other participant's concerns, edit your own concerns, or add some more.</p>
-<p>On <strong><font color="#cc0000">Friday, October 6th</font></strong>, the moderator will review concerns and summarize them in the form of concern themes. When the concern themes are ready for participant review and discussion, the moderator will send you an email. At that point you will be able evaluate how well the summaries represents your concerns and others', and discuss whether revisions are necessary.</p>
-</div>
-</div>
-<!-- End Overview -->
-
-</div> <!-- End cont-top -->
-
-	<div id="cont-main">
-	
-	<!-- start feedback form -->
-			<pg:feedback id="feedbackDiv" action="waiting.do" />
-	<!-- end feedback form -->
+	<!-- Begin footer -->
+	<div id="footer">
+		<jsp:include page="/footer.jsp" />
 	</div>
-	<!-- End cont-main -->
+	<!-- End footer -->
+</body>
+</html:html>
 
 
 
-<div id="footerspacing" style="padding-top: 200px;">
-<!-- Start Footer -->
-<jsp:include page="/footer.jsp" />
 
-<!-- End Footer -->
-</div>
-</body></html>
+
