@@ -175,7 +175,7 @@
 						alert("setVote error:" + errorString + exception);
 				}
 				});
-	};ß
+	};
 			
 		/*************** New Discussion Post: if successful, reload discussion posts************** */
 	 	 io.createPost = function(){
@@ -183,16 +183,12 @@
 	 	 		var newPostTitle = $(io.newPostTitleInput).value;
 				var newPost= tinyMCE.getContent();
 	 	 		var newPostTags = $(io.newPostTagsInput).value;
-	 	 		
-	 	 		//alert("ISID: " + this.structureId + "IOID: " + this.objectId + "Title: " + newPostTitle + "Content: " + newPost + "Tags: " + newPostTags);
-				SDAgent.createPost({isid:io.structureId, ioid: io.objectId, title: newPostTitle, content: newPost, tags:newPostTags}, {
+	 	 		var notify = $(io.newPostNotifier).checked;
+				var emailNotify = notify.toString();
+	 	 		//alert("ISID: " + this.structureId + "IOID: " + this.objectId + "Title: " + newPostTitle + "Content: " + newPost + "Tags: " + newPostTags + " Email Notification: " + emailNotify);
+				SDAgent.createPost({isid:io.structureId, ioid: io.objectId, title: newPostTitle, content: newPost, tags:newPostTags, emailNotify: "true"}, {
 				callback:function(data){
 						if (data.successful){
-							 /*if ($(io.newPostNotifier).value == "checked"){
-								io.setupEmailNotify(data.id, true)
-							 }else{
-								io.setupEmailyNotify(data.id, false)
-							}*/
 							 displayIndicator(false);
 						     //io.setVote("post", data.id, "true"); //set initial vote
 							 io.clearNewDiscussionInputs();

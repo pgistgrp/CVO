@@ -70,6 +70,7 @@
 		/*----Input ID's - these id's of input elements have changing content or gets read by the javascript ---- */
 	 	 io.newReplyTagsInput = "txtNewReplyTags"; //new post tags input box
 	 	 io.newReplyTitleInput = "txtNewReplyTitle";
+		 io.newReplyNotifier = "newReplyNotifier";
 	 	 
 	 	 /*----Divs - these divs have changing content or gets read by the javascript ---- */
 	 	 io.objectDiv =  'object-content'; //div that contains the object
@@ -156,7 +157,9 @@
 			var title = $(io.newReplyTitleInput).value;
 			var newReply = tinyMCE.getContent();
 			var tags = $(io.newReplyTagsInput).value;
-		    SDAgent.createReply({isid:${structure.id}, pid:${post.id}, title:title, content:newReply, tags: tags}, {
+		    var notify = $(io.newReplyNotifier).checked;
+			var emailNotify = notify.toString();
+			SDAgent.createReply({isid:${structure.id}, pid:${post.id}, title:title, content:newReply, tags: tags, emailNotify: emailNotify}, {
 		      callback:function(data){
 		          if (data.successful){     
 		          		displayIndicator(false);
@@ -347,14 +350,22 @@
     <div class="sectionTitle">
       <h3 class="headerColor floatLeft">Discussion about ${post.title}</h3> 
 	  <div class="floatRight" id="toggleNotification"><a href="javascript:toggleNotification()">
-			<c:choose>
-					<c:when test="${baseuser.id == post.owner.id}">
-						<a href="javascript:io.setupEmailNotify(${post.id}, 'post', true)">Turn on E-mail notification for this discussion</a>
+	  <!-- setup email notification -->
+		<c:choose>
+			<c:when test="${baseuser.id == post.owner.id}">		
+				<c:choose>
+					<c:when test="${post.emailNotify}">
+						<a href="javascript:io.setupEmailNotify(${post.id}, 'post', false)">Turn off E-mail notification for this discussion</a>
 					</c:when>
 					<c:otherwise>
-						<a href="javascript:io.setupEmailNotify(${post.id}, 'post', false)">Turn off E-mail notification for this discussion</a>
+						<a href="javascript:io.setupEmailNotify(${post.id}, 'post', true)">Turn on E-mail notification for this discussion</a>
 					</c:otherwise>
-			</c:choose>
+				</c:choose>
+			</c:when>
+			<c:otherwise>
+				<a href="javascript:io.setupEmailNotify(${post.id}, 'post', true)">Turn on E-mail notification for this discussion</a>				</c:otherwise>
+		</c:choose>
+	  <!-- end email notification -->
 	  </div>
     </div>
 	
