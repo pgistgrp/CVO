@@ -10,7 +10,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Step 1a: Brainstorm</title>
 <!-- Site Wide CSS -->
-
+<style type="text/css">
+.discussionRow{margin-top:10px;}
+</style>
 <style type="text/css" media="screen">
 @import "styles/lit.css";
 </style>
@@ -224,6 +226,11 @@
 
 <div style="display: none;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 <div id="container">
+
+  <!-- Begin Breadcrumbs -->
+  <div id="breadCrumbs" class="clearBoth"> <a href="cctView.do?cctId=${cctForm.cct.id}">Step 1a: Brainstorm</a> &rarr; Comments about a concern</div>
+  <!-- End Breadcrumbs -->
+
 	<div id="container-include">
 		<!-- load commentsMain.jsp via AJAX-->
 	</div>
