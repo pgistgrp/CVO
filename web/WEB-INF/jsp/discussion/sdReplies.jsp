@@ -6,6 +6,132 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+  <!-- The discussionHeader sits on top of the discussion and contains the title of the
+			discussion area, and the sorting menu -->
+  <div id="discussionHeader">
+    <div class="sectionTitle">
+      <h3 class="headerColor floatLeft">Discussion about ${post.title}</h3> 
+	  <div class="floatRight" id="toggleNotification">
+
+	  </div>
+    </div>
+	
+	<!--
+    <div id="sortingMenu" class="box4" style="right:-270px;"> sort discussion by:
+      <select>
+        <option>Option</option>
+        <option>Option Option Option Option Option</option>
+        <option>Option</option>
+        <option>Option</option>
+        <option>Option</option>
+      </select>
+      <br />
+      filter discussion by:
+      <input type="text">
+      or <a href="#">Browse All Tags</A> </div>-->
+</div>
+<!-- Begin Discussion Area -->
+				<!-- Begin hidden "New topic" DIV -->
+				<div style="width:680px;">
+				<div id="newDiscussion" style="display: none">
+					<div id="newdisc_title" >
+						<div class="textright">
+						</div>
+						<h3 style="display: inline">New Topic</h3>
+					</div> <!-- End newdisc_title -->
+					<div id="newdisc_content" class="greenBB">
+						<div id="newdisc_inner">
+							<form>
+								<p><label>Post Title</label><br><input maxlength=100 size=100 type="text" id="txtNewPostTitle"/></p>
+								<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea></p>
+								<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="txtNewPostTags" type="text" /></p>
+								<input type="button" onClick="io.createPost();" value="Create Discussion">
+						
+							</form>
+						</div>
+					</div>
+				</div>
+				</div>
+					<!-- End hidden "new topic" DIV -->	
+<!-- START Discussion Topic (Discussion Post) -->
+<div id="discussion-topic">
+				<div id="discussion${post.id}" class="discussionRow">
+						<c:choose>
+								<c:when test="${baseuser.id == post.owner.id}">
+									<div class="discussionRowHeader box6">			
+								</c:when>
+								<c:otherwise>
+									<div class="discussionRowHeader box1">
+								</c:otherwise>
+						</c:choose>
+						<div id="voting-post${post.id}" class="discussionVoting">
+							${post.numAgree} of ${post.numVote} participants agree with this post
+							<c:choose>
+								<c:when test="${post.object == null}">
+									<a href="javascript:io.setVote('post',${post.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
+									<a href="javascript:io.setVote('post',${post.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
+								</c:when>
+								<c:otherwise>
+									<img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/>
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<span class="discussionTitle">
+							${post.title}
+					</div>
+					
+						<c:choose>
+								<c:when test="${baseuser.id == post.owner.id}">
+									<div class="discussionBody box7">		
+								</c:when>
+								<c:otherwise>
+									<div class="discussionBody">
+								</c:otherwise>
+						</c:choose>
+						<div class="discussionText">
+							<p>${post.content}</p>
+							<h3>- ${post.owner.loginname}</h3>
+						</div>
+						<div class="discussionComments">
+						<a href="#replyAnchor"><img src="images/btn_postreply_a.gif" alt="Reply" name="Reply" class="button" id="Reply" onMouseOver="MM_swapImage('Reply','','images/btn_postreply_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+						</div>
+						<c:if test="${fn:length(post.tags) > 0}">
+							<ul class="tagsInline">
+								<li class="tagsInline"><strong>Tags:</strong> </li>
+								<c:forEach var="tag" items="${post.tags}">
+									<c:choose>
+										<c:when test="${baseuser.id == post.owner.id}">
+											<li class="box6 tagsInline">		
+										</c:when>
+										<c:otherwise>
+											<li class="box8 tagsInline">
+										</c:otherwise>
+									</c:choose>
+									<a href="javascript:io.changeCurrentFilter('${tag.name}');">${tag.name}</a></li>
+								</c:forEach>
+							</ul>
+							<div style="clear: left;"></div>
+						</c:if>
+						<c:if test="${baseuser.id == post.owner.id}">		
+							<div class="smallText" style="text-align:right;">
+							<c:choose>
+								<c:when test="${post.emailNotify}">
+									<a href="javascript:io.setupEmailNotify(${post.id}, 'post', false)">Turn off E-mail notification for this discussion</a>
+								</c:when>
+								<c:otherwise>
+									<a href="javascript:io.setupEmailNotify(${post.id}, 'post', true)">Turn on E-mail notification for this discussion</a>
+								</c:otherwise>
+							</c:choose>
+							</div>
+						</c:if>
+					</div>
+			</div>
+</div>
+<div class="clearBoth"></div>
+<!-- END Discussion Topic (Discussion Post) -->
+<div id="discussion" style="margin-left: 135px;">
+  <!-- load discussion Replies -->
+
 <div id="postReplies">
 <c:if test="${fn:length(replies) != 0}">
 	<h4 style="text-transform:capitalize;">${fn:length(replies)}
@@ -79,13 +205,23 @@
 							</ul>
 							<div style="clear: left;"></div>
 						</c:if>
-						<pg:show roles="moderator">
+						
+						
 						<div class="smallText" style="text-align:right;">	
-							Moderator Options: <input type="button" onClick="io.deleteReply(${reply.id});" value="Delete" />
+								<c:if test="${baseuser.id == reply.owner.id && post.owner.id != reply.owner.id}">		
+									<c:choose>
+										<c:when test="${reply.emailNotify}">
+											<a href="javascript:io.setupEmailNotify(${reply.id}, 'reply', false)">Turn off E-mail notification for future replies</a>
+										</c:when>
+										<c:otherwise>
+											<a href="javascript:io.setupEmailNotify(${reply.id}, 'reply', true)">Turn on E-mail notification for future replies</a>
+										</c:otherwise>
+									</c:choose>
+								</c:if>
+									<pg:show roles="moderator"><p>Moderator Options: <input type="button" onClick="io.deleteReply(${reply.id});" value="Delete" /></p></pg:show>
 						</div>
-						</pg:show>
 					</div>
-			</div>
+		
 </div>
 <div class="clearBoth"></div>
 	
@@ -122,3 +258,4 @@
 		<input type="checkbox" id="newReplyNotifier">E-mail me when someone responds to my post
 	</form>
 </div>
+

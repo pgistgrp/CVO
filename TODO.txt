@@ -65,11 +65,14 @@ Zhong:
 [ok] Login case insensitive
 [ok] still not working - BUG: Comment content is not saved - even though content is passed into createComment() and returns successful.
 [ok] BUG: Page setting in getComments setting.page returns an error.
+[ok] How to detect is current user has email notification turned on or off for a given post? 
 
 TODO:
 [*] E-mail Notification for a single user (a user has the option to turn on/off email notifications on a single discussion that he/she is involved in.
-[ ] SDAgent.createPost() and SDAgent.createReply - new parameter to set post.emailNotify and reply.emailNotify
-[ ] How to detect is current user has email notification turned on or off for a given post?  For example we want to show: "Email notification off - click here to turn it on"
+[1] BUG: SDAgent.createPost() emailNotify parameter does not change the default "FALSE" - it works on SDAgent.createReply()
+[1] Release SDAgent.setupEmailNotify();
+[2] BUG: post.object is always NULL
+[2] cctId on concern.jsp
 
 ------------------------
 John:
