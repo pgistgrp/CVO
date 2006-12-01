@@ -136,7 +136,7 @@ var allNewConcernTags = new Array;
 	
 	function swapContinue(showContinue){
 		if(!showContinue){
-			$(cct.btnContinueCont).innerHTML = '<input id="btnContinue" type="button" value="continue" onClick="prepareConcern(); swapContinue(true);" />';
+			$(cct.btnContinueCont).innerHTML = '<input id="btnContinue" type="button" value="Continue" onClick="prepareConcern(); swapContinue(true);" />';
 			$(cct.txtAddConcern).disabled = false;
 		}else{
 			$(cct.btnContinueCont).innerHTML = '<input id="btnCancelNewConcern" type="button" value="Cancel" onClick="cancelSubmit(); swapContinue();" /><input id="btnSubmitNewConcern" type="button" value="Submit" onClick="saveConcern();" />';
