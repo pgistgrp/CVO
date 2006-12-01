@@ -119,5 +119,6 @@
 		<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="txtNewReplyTags" type="text" /></p>
 		<input type="button" onClick="io.createReply();" value="Submit Reply">
 		<input type="button" onClick="javascript:resetNewReplyForm();Effect.toggle('newReply','slide',{duration:1.5});" value="Cancel" />
+		<input type="checkbox" id="newReplyNotifier">E-mail me when someone responds to my post
 	</form>
 </div>

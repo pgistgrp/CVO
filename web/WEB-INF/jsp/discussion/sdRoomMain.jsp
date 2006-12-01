@@ -60,6 +60,7 @@
 		/*----Input ID's - these id's of input elements have changing content or gets read by the javascript ---- */
 	 	 io.newPostTitleInput = "txtNewPostTitle";   //new post title input box
 	 	 io.newPostTagsInput = "txtNewPostTags"; //new post tags input box
+		 io.newPostNotifier = "ckboxPostNotifier"; //checkbox to determine if user gets email notifications
 	 	 
 	 	 /*----Divs - these divs have changing content or gets read by the javascript ---- */
 	 	 io.sidebarDiv = 'sidebar_object'; //div that contains the sidebar
@@ -155,6 +156,26 @@
 			}
 	}
 	 	 
+	/*************** Set Email Notificaiton************** */
+ 	 io.setupEmailNotify = function(id, status){
+				//alert("structure" + infoObject.structureId + "object " + infoObject.objectId + "vote " + agree);
+				SDAgent.setupEmailNotify({id: id, type: "reply", turnon: status}, {
+				callback:function(data){
+						if (data.successful){
+							if (status){
+								alert("Email notification has been turned on!")
+							}else{
+								alert("Email notification has been turned off!")
+							}
+						}else{
+							alert(data.reason);
+						}
+					},
+				errorHandler:function(errorString, exception){ 
+						alert("setVote error:" + errorString + exception);
+				}
+				});
+	};
 			
 		/*************** New Discussion Post: if successful, reload discussion posts************** */
 	 	 io.createPost = function(){
@@ -167,6 +188,11 @@
 				SDAgent.createPost({isid:io.structureId, ioid: io.objectId, title: newPostTitle, content: newPost, tags:newPostTags}, {
 				callback:function(data){
 						if (data.successful){
+							 /*if ($(io.newPostNotifier).value == "checked"){
+								io.setupEmailNotify(data.id, true)
+							 }else{
+								io.setupEmailyNotify(data.id, false)
+							}*/
 							 displayIndicator(false);
 						     //io.setVote("post", data.id, "true"); //set initial vote
 							 io.clearNewDiscussionInputs();
@@ -433,7 +459,7 @@
             </p>
             <input type="button" onClick="io.createPost();" value="Create Discussion">
 			<input type="button" onClick="javascript:io.clearNewDiscussionInputs();Effect.toggle('newDiscussion','slide',{duration:1.5});" value="Cancel">
-			<input type="checkbox">E-mail me when someone responds to my post
+			<input type="checkbox" id="ckboxPostNotifier">E-mail me when someone responds to my post
           </form>
         </div>
       </div>

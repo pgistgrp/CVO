@@ -257,7 +257,27 @@
 					}
 					});
 		};
-	
+
+		/*************** Set Email Notificaiton************** */
+	 	 io.setupEmailNotify = function(id, status){
+					//alert("structure" + infoObject.structureId + "object " + infoObject.objectId + "vote " + agree);
+					SDAgent.setupEmailNotify({id: id, type: "reply", turnon: status}, {
+					callback:function(data){
+							if (data.successful){
+								if (status){
+									alert("Email notification has been turned on!")
+								}else{
+									alert("Email notification has been turned off!")
+								}
+							}else{
+								alert(data.reason);
+							}
+						},
+					errorHandler:function(errorString, exception){ 
+							alert("setVote error:" + errorString + exception);
+					}
+					});
+		};	
 -->
 </script>
 </head>
