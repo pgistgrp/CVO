@@ -94,7 +94,7 @@
 						CCTAgent.getTagByTagRefId(sd.currentFilter, {
 						callback:function(data){
 						if (data.successful){
-							alert(data.tag.id);
+							//alert(data.tag.id);
 				          			var tagName = data.tag.name;
 									$(sd.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
 									
