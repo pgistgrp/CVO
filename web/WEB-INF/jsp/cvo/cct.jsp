@@ -259,7 +259,7 @@ var allNewConcernTags = new Array;
 	function saveConcern(){
 		getSelectedTags();
 		if(newConcernSelectedTagsArray.length<cct.numTagsInNewConcern){
-		alert("You must at least "+ cct.numTagsInNewConcern +" tags");
+		alert("You must use at least "+ cct.numTagsInNewConcern +" tags");
 		}else{
 		var concern = $(cct.txtAddConcern).value;
 		var newConcernSelectedTagsString = '';
@@ -484,8 +484,8 @@ function editTagsPopup(concernId){
 	function renderEditingTags(concernId){
 		os = '<ul  class="tagsList">' + renderTags(); + '</ul>';
 		os += '<form action="javascript: addManualEditTag('+concernId+');"><input id="manualEditTag" type="text" />';
-        os += '<input type="button" value="Add" onClick="addManualEditTag('+concernId+');" /></form>';
-        os += '<p><small>You must have at least 2 or more tags to continue.</small></p>';
+        os += '<input type="button" value="Add Tag" onClick="addManualEditTag('+concernId+');" /></form>';
+        os += '<p><small>You must use at least 2 or more tags to continue.</small></p>';
        	os += '<div><hr><input type="button" id="subeditTags" value="Submit Edits" onClick="editTags('+concernId+')">';
 		os += '<input type="button" value="Cancel" onClick="javascript:toggleEditing(\'tags\', '+concernId+');"></div>';
        return os;
@@ -518,7 +518,7 @@ concernTags = str;
 function editTags(concernId){
 	getSelectedTags();
 	if(newConcernSelectedTagsArray.length<cct.numTagsInNewConcern){
-		alert("You must at least "+ cct.numTagsInNewConcern +" tags");
+		alert("You must use at least "+ cct.numTagsInNewConcern +" tags");
 	}else{
 	var newConcernSelectedTagsString = newConcernSelectedTagsArray.toString();
 	//for (i=0; i<newConcernSelectedTagsArray.length; i++){
@@ -625,7 +625,7 @@ $('slate').style.Height = winH;
 	        <option value="2">Oldest to Newest</option>
 	        <option value="3">Most Agreement</option>
 	        <option value="4">Least Agreement</option>
-	        <option value="5">Most Replies</option>
+	        <option value="5">Most Comments</option>
 	        <option value="6">Most Views</option>
 	        <option value="7">Most Votes</option>
           </select>
@@ -673,9 +673,9 @@ $('slate').style.Height = winH;
           </ul>
           <form action="javascript: addManualTag();">
             <input id="manualTag" type="text" value="Add your own tag" onClick="if(this.value==this.defaultValue){this.value = ''}"/>
-            <input type="button" value="Add" onClick="addManualTag();" />
+            <input type="button" value="Add Tag" onClick="addManualTag();" />
           </form>
-          <p><small>You must have at least 2 or more tags to continue.</small></p>
+          <p><small>You must use at least 2 or more tags to continue.</small></p>
         </div>
         <div id="btnContinueCont">
           <input id="btnContinue" type="button" value="Continue" onClick="prepareConcern();" />
