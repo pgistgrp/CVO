@@ -43,7 +43,7 @@
 		</li>
 		
 		<li>
-		  <html:link page="/sdlist.do">Step 1b: Review Summaries</html:link>
+		  Step 1b: Review Summaries (Closed until summaries have been written)
 		</li>
 		</pg:show> 
 		<li>

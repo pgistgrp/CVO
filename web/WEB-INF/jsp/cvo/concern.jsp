@@ -217,8 +217,8 @@
         <h3 class="headerColor">Step 1: Discuss Concerns</h3>
       </div>
     <div class="headerButton box4 floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
-    <div class="headerButtonCurrent floatLeft"><a href="sdlist.do">1b: Review Summaries</A></div>
-      <div id="headerNext" class="box5 floatRight"><a href="sdlist.do">Next Step</A></div>
+    <div class="headerButtonCurrent floatLeft"><a href="/waiting.jsp">1b: Review Summaries</A></div>
+      <div id="headerNext" class="box5 floatRight"><a href="/waiting.jsp">Next Step</A></div>
     </div>
   </div>
   <!-- End header menu -->
@@ -249,8 +249,8 @@
         <h3 class="headerColor">Step 1: Discuss Concerns</h3>
       </div>
     <div class="headerButton box4 floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
-    <div class="headerButtonCurrent floatLeft"><a href="sdlist.do">1b: Review Summaries</A></div>
-      <div id="headerNext" class="box5 floatRight"><a href="sdlist.do">Next Step</A></div>
+    <div class="headerButtonCurrent floatLeft"><a href="/waiting.jsp">1b: Review Summaries</A></div>
+      <div id="headerNext" class="box5 floatRight"><a href="/waiting.jsp">Next Step</A></div>
     </div>
   </div>
   <!-- End header menu -->

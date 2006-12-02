@@ -14,7 +14,7 @@
 
 <div class="themeBox floatLeft">
 			<h3 class="headerColor"><a style="text-transform:capitalize;" href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</a></h3>
-			<p><c:out value="${fn:substring(infoObject.object.theme.summary, 0, 200)}" />
+			<p>"${fn:substring(infoObject.object.theme.summary, 0, 200)}"
 				
 			<span class="smallText"> ... <a style="text-transform:capitalize;" href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">More</a></span></p>
 			<span class="smallText"><span id="topicCount">
