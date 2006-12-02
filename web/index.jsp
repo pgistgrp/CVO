@@ -73,11 +73,11 @@ li{color:#8CAE4A;}
 				
 				<div style="margin-top: 20px; ">
 				  
-				<h1 style="font-size: 1.6em">Are <span style="color: #355800">you</span> concerned about the state of our transportation system?</h1>
+				<h1 style="font-size: 1.6em">Are <span style="color: #355800">you</span> concerned about transportation in the central Puget Sound region?</h1>
 <p>On this website you can:
     <ul><li><span class="bulletText">voice your concerns,</span></li>
     <li><span class="bulletText">learn about proposed improvements,</span></span>
-    <li><span class="bulletText">and work with other citizens to identify solutions.</span></span></ul></p>
+    <li><span class="bulletText">and work with other citizens to determine which improvements are most important.</span></span></ul></p>
 
 <p>How can we find common ground when there are so many competing ideas about the best ways to meet the transportation needs of our growing region? Good question! This website will help you learn about the diverse concerns of other citizens and understand how these concerns may be related to your own. Finding these relationships is the first step to identifying what kinds of transportation solutions we can all get excited about.</p>
 				
