@@ -164,7 +164,7 @@
 */
 </script>
 
-  </head><body>
+  </head><body style="margin-top:50px;">
 
   <!-- #container is the container that wraps around all the main page content -->
   <div id="containerPopUp">
@@ -173,7 +173,7 @@
     <div id="discussion" style="width: 700px;">
       <div id="discussionHeader">
         <div class="sectionTitle">
-          <h2 id="discussionTitle">Concerns within Theme: ${infoObject.object}</h2>
+          <h3 class="headerColor" id="discussionTitle">Concerns within Theme: ${infoObject.object}</h3>
           <div id="filteredBy"></div>
 		</div>		
       </div>

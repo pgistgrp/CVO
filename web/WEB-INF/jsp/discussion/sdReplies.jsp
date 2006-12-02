@@ -241,7 +241,7 @@
 <div id="newReply" class="box8 padding5" style="margin-top: 10px;">
 	<h3 class="headerColor">Post a Reply</h3>
 	<form>
-		<p><label>Post Title</label><br><input style="text-transform:capitalize;" maxlength=100 size=100 type="text" value="Re: ${post.title}" id="txtNewReplyTitle"/></p>
+		<p><label>Post Title</label><br><input style="text-transform:capitalize;" maxlength=100 size=50 type="text" value="Re: ${post.title}" id="txtNewReplyTitle"/></p>
 		<p><label>Your Thoughts</label><br><textarea style="width:85%; height: 150px;" id="txtnewReply"></textarea></p>
 		<p><label>Tag your post (comma separated)</label><br><input style="width:85%" id="txtNewReplyTags" type="text" /></p>
 		<input type="button" onClick="io.createReply();" value="Submit Reply">
