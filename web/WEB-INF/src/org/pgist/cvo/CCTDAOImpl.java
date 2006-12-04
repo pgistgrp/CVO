@@ -493,7 +493,7 @@ public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
 
     private static final String hql_getComments_A_1 = "select count(c.id) from Comment c where c.deleted=? and c.concern.id=?";
     
-    private static final String hql_getComments_A_2 = "from Comment c where c.deleted=? and c.concern.id=? order by c.id desc";
+    private static final String hql_getComments_A_2 = "from Comment c where c.deleted=? and c.concern.id=? order by c.id asc";
     
     
     public Collection getComments(Long concernId, PageSetting setting) throws Exception {
