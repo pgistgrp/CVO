@@ -48,7 +48,7 @@
     <ul>
       <li><strong>1b: Review Summaries </strong>
         <ul>
-          <li>The  moderator identifies themes among these concerns and writes a preliminary  summary  of each theme. (Read more)</li>
+          <li>The  moderator identifies themes among these concerns and writes a preliminary  summary  of each theme. (<a href="litfaq.jsp">Read more</a>)</li>
           <li> Participants  review and discuss the theme summaries, and suggest revisions.</li>
 
           <li>The moderator revises theme summaries to reflect participant suggestions, as appropriate.</li>
