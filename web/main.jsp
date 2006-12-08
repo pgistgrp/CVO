@@ -43,7 +43,7 @@
 		</li>
 		
 		<li>
-		  Step 1b: Review Summaries (Closed until summaries have been written)
+		  <html:link page="http://128.95.212.210:8080/sd.do?isid=7362">Step 1b: Review Summaries</html:link>
 		</li>
 		</pg:show> 
 		<li>

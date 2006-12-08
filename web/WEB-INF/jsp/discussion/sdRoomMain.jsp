@@ -388,54 +388,44 @@
   <!-- end object -->
   <div class="clearBoth"></div>
   <a name="filterJump"></a>
-
-  <!-- BEGIN discussion header -->
   <!-- The discussionHeader sits on top of the discussion and contains the title of the
-                              discussion area, and the sorting menu -->
+			discussion area, and the sorting menu -->
+  
   <div id="discussionHeader">
-    <div class="sectionTitle" style="margin-bottom:5px;">
-      <div style="height:30px;">
-	  <div class="floatLeft">
-        <h3 class="headerColor inline">
-          <!--${object.discussion.numPosts} -->
-          Discussions about ${object.object} </h3>
-      </div>
-      <div class="button box5 floatRight"> <a href=
-            "javascript:Effect.toggle('newDiscussion','slide',{duration:1.5});">Start a
-        New Topic</a> </div>
-      <div id="filteredBy"> </div>
+    <div class="sectionTitle">
+      <h3 class="headerColor"><!--${object.discussion.numPosts} -->Discussions about ${object.object}</h3>
+      <div id="filteredBy"></div>
+      <div class="button smallText box5 floatLeft"> <a href="javascript:Effect.toggle('newDiscussion','slide',{duration:1.5});">Start a New Topic</a></div>
     </div>
-    <!--[if IE]>
-                <style type="text/css">
-                #sortingMenu {right:0px;}
-                </style>
-        <![endif]-->
-    <div id="sortingMenu" class="box4 padding5">Find a discussion by
-      <select name="selectsort" id="selectsort" onchange=
-          "javascript:io.getPosts(io.currentFilter, 1, true, this.value);">
-        <option selected> sorting </option>
-        <option> Newest first </option>
-        <option> Oldest first </option>
-        <option> Most Agreement </option>
-        <option> Least Agreement </option>
-        <option> Most Replies </option>
-        <option> Most Views </option>
-        <option> Most Votes </option>
-      </select>
-      or
-      <form class="inline" action=
-          "javascript:%20io.customFilterAction($('txtCustomFilter').value);">
-        <input type="text" id="txtCustomFilter" value="searching by tag" onkeyup=
-            "io.customFilter(this.value, event);" onclick=
-            "javascript:if(this.value==this.defaultValue){this.value = ''}">
-        or <a href=
-            "javascript:io.getTagCloud();">browse a list of all tags</a>
-      </form>
-      <div id="searchResults" style="display: none;"> </div>
-    </div></div></div>
-    <!-- end discussion header-->
+
+<!--[if IE]>
+	<style type="text/css">
+	#sortingMenu {right:0px;}
+	</style>
+<![endif]-->
 
 
+    <div id="sortingMenu" class="box4">sort discussion by:
+          <select name="selectsort" id="selectsort" onChange="javascript:io.getPosts(io.currentFilter, 1, true, this.value);	">
+	        <option value="1">Newest to Oldest</option>
+	        <option value="2">Oldest to Newest</option>
+	        <option value="3">Most Agreement</option>
+	        <option value="4">Least Agreement</option>
+	        <option value="5">Most Replies</option>
+	        <option value="6">Most Views</option>
+	        <option value="7">Most Votes</option>
+          </select>
+          <br />
+          <div class="floatLeft">filter discussion by:</div>
+          <form action="javascript: io.customFilterAction($('txtCustomFilter').value);" class="floatLeft">
+            <input type="text" id="txtCustomFilter" value="Add a filter" onKeyUp="io.customFilter(this.value, event);"  onKeyUp="io.customFilter(this.value, event);" onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
+            or <a href="javascript:io.getTagCloud();">Browse All Tags</a>
+          </form>
+          <div id="searchResults" style="display: none;"></div>
+  
+  </div>
+</div><!-- end discussion header-->
+  
   <!-- Begin Discussion Area -->
   <!-- Begin hidden "New topic" DIV -->
   <div style="width:680px;">

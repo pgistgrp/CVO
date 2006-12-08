@@ -593,8 +593,8 @@ $('slate').style.Height = winH;
         <h3 class="headerColor">Step 1: Discuss Concerns</h3>
       </div>
     <div class="headerButton box4 floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
-    <div class="headerButtonCurrent floatLeft"><a href="/waiting.jsp">1b: Review Summaries</A></div>
-      <div id="headerNext" class="box5 floatRight"><a href="/waiting.jsp">Next Step</A></div>
+    <div class="headerButtonCurrent floatLeft"><a href="http://128.95.212.210:8080/sd.do?isid=7362">1b: Review Summaries</A></div>
+      <div id="headerNext" class="box5 floatRight"><a href="http://128.95.212.210:8080/sd.do?isid=7362">Next Step</A></div>
     </div>
   </div>
   <!-- End header menu -->
@@ -629,9 +629,7 @@ $('slate').style.Height = winH;
 	        <option value="6">Most Views</option>
 	        <option value="7">Most Votes</option>
           </select>
-          <br />
-          <div class="floatLeft">filter concerns by:</div>
-          <form action="javascript: customFilterAction($('txtCustomFilter').value);" class="floatLeft">
+          filter concerns by:<form action="javascript: customFilterAction($('txtCustomFilter').value);">
             <input type="text" id="txtCustomFilter" value="Add a filter" onKeyUp="customFilter(this.value, event);"  onKeyUp="customFilter(this.value, event);" onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
             or <a href="javascript:getTagCloud();">Browse All Tags</a>
           </form>
@@ -699,8 +697,8 @@ $('slate').style.Height = winH;
         <h3 class="headerColor">Step 1: Discuss Concerns</h3>
       </div>
     <div class="headerButton box4 floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
-    <div class="headerButtonCurrent floatLeft"><a href="/waiting.jsp">1b: Review Summaries</A></div>
-      <div id="headerNext" class="box5 floatRight"><a href="/waiting.jsp">Next Step</A></div>
+    <div class="headerButtonCurrent floatLeft"><a href="http://128.95.212.210:8080/sd.do?isid=7362">1b: Review Summaries</A></div>
+      <div id="headerNext" class="box5 floatRight"><a href="http://128.95.212.210:8080/sd.do?isid=7362">Next Step</A></div>
     </div>
   </div>
   <!-- End header menu -->

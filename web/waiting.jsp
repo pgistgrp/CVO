@@ -35,8 +35,8 @@
         <h3 class="headerColor">Step 1: Discuss Concerns</h3>
       </div>
     <div class="headerButton floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
-    <div class="headerButtonCurrent floatLeft"><a href="/waiting.jsp">1b: Review Summaries</A></div>
-      <div id="headerNext" class="box5 floatRight"><a href="main.do">Next Step</A></div>
+    <div class="headerButtonCurrent floatLeft"><a href="http://128.95.212.210:8080/sd.do?isid=7362">1b: Review Summaries</A></div>
+      <div id="headerNext" class="box5 floatRight"><a href="http://128.95.212.210:8080/sd.do?isid=7362">Next Step</A></div>
     </div>
   </div>
   <!-- End header menu -->
@@ -64,8 +64,8 @@
         <h3 class="headerColor">Step 1: Discuss Concerns</h3>
       </div>
     <div class="headerButton floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
-    <div class="headerButtonCurrent floatLeft"><a href="/waiting.jsp">1b: Review Summaries</A></div>
-      <div id="headerNext" class="box5 floatRight"><a href="main.do">Next Step</A></div>
+    <div class="headerButtonCurrent floatLeft"><a href="http://128.95.212.210:8080/sd.do?isid=7362">1b: Review Summaries</A></div>
+      <div id="headerNext" class="box5 floatRight"><a href="http://128.95.212.210:8080/sd.do?isid=7362">Next Step</A></div>
     </div>
   </div>
   <!-- End header menu -->

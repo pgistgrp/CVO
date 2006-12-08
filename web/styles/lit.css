@@ -156,12 +156,6 @@
 		text-align:left;
 		}
 
-		#criteria
-		{
-		padding:5px;
-		width:950px;
-		}
-		
 		#discussion
 		{
 		margin:0px;
@@ -171,6 +165,8 @@
 		{
 		margin:1em 2em 1em 0em;
 		width:680px;
+		height:50px;
+		position:relative;
 		}		
 
 		#footer 
@@ -331,7 +327,13 @@
 		#sortingMenu
 		{
 		font-weight:400;
+		font-size:.8em;
+		width:360px;
+		position:absolute;
+		top:-7px;
+		right:-7px;
 		z-index:2000;
+		padding:5px 5px 0px 5px;
 		}
 
 		#summary
@@ -369,8 +371,6 @@
 		
 		.floatLeft {float:left}
 		.floatRight {float:right}
-		
-		.inline {display:inline}
 		
 		.centerAlign {text-align:center}
 		.leftAlign {text-align:left}
@@ -410,6 +410,7 @@
 		.discussion-left
 		{
 		width:680px;
+		padding-left:5px;
 		margin-bottom: 10px;
 		}
 		
@@ -473,6 +474,9 @@
 
 		.sectionTitle
 		{
+		width:330px;
+		position:absolute;
+		bottom:0px;
 		}
 
 		.smallText
@@ -537,12 +541,7 @@
 		
 /* LINKS */
 /* ----- */
-		.button a
-		{
-		color:#6B531D;
-		text-decoration:none;
-		font-weight:bold;
-		}
+
 
 		/* Main link class throughout the site */
 		a:link { color:#31496B; }
@@ -584,4 +583,3 @@
 		#headerNext a:visited{color:#6B531D;text-decoration:none;font-weight:bold;}
 		#headerNext a:hover{color:#6B531D;text-decoration:none;font-weight:bold;}
 		#headerNext a:active{color:#6B531D;text-decoration:none;font-weight:bold;}
-		
