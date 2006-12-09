@@ -35,7 +35,7 @@
         <h3 class="headerColor">Step 1: Discuss Concerns</h3>
       </div>
     <div class="headerButton floatLeft"><a href="cctlist.do">1a: Brainstorm</a></div>
-    <div class="headerButtonCurrent floatLeft currentBox"><a href="sdlist.do">1b: Review Summaries</A></div>
+    <div class="headerButtonCurrent floatLeft currentBox"><a href="http://128.95.212.210:8080/sd.do?isid=7362">1b: Review Summaries</A></div>
       <div id="headerNext" class="box5 floatRight"><a href="main.do">Next Step</A></div>
     </div>
   </div>
@@ -46,7 +46,7 @@
   <div style="width:500px;">
 <h3 class="headerColor">That's it!</h3>
 
-<p>You've finished the Step 1 functionality we wanted to test. You may continue <a href="/sdlist.do">discussing the concern theme summaries</A> until midnight on Friday, December 15th, when discussion in this step ends. If any additional revisions to the summaries are made before December 15th, the moderator will notify you by email.</p>
+<p>You've finished the Step 1 functionality we wanted to test. You may continue <a href="http://128.95.212.210:8080/sd.do?isid=7362">discussing the concern theme summaries</A> until midnight on Friday, December 15th, when discussion in this step ends. If any additional revisions to the summaries are made before December 15th, the moderator will notify you by email.</p>
 <p>Remember, these summaries do not represent the end of the conversation about participant concerns. They are merely a snapshot in time that we can use in Step 2 to help evaluate the criteria. (However, Step 2 is not ready for testing, so this is the end of the road for now!)</p>
 
 <p>After the text concludes we will analyze the feedback you left us and make improvements in preparation for the next test.</p>
@@ -67,7 +67,7 @@
         <h3 class="headerColor">Step 1: Discuss Concerns</h3>
       </div>
     <div class="headerButton floatLeft"><a href="cctlist.do">1a: Brainstorm</a></div>
-    <div class="headerButtonCurrent floatLeft currentBox"><a href="sdlist.do">1b: Review Summaries</A></div>
+    <div class="headerButtonCurrent floatLeft currentBox"><a href="http://128.95.212.210:8080/sd.do?isid=7362">1b: Review Summaries</A></div>
       <div id="headerNext" class="box5 floatRight"><a href="main.do">Next Step</A></div>
     </div>
   </div>
