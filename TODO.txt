@@ -22,6 +22,7 @@ BACKEND DOCUMENTED FOR LATER:
 [ ] Concerns and Comments need email notification 
 [ ] Find related (by tags) concerns.
 [ ] One link - subscribed to the discussion or not
+[ ] Related posts take into account replies
 
 FRONT END DOCUMENTED FOR LATER
 [ ] Add IOID Param to tagSearch and tagCloud
