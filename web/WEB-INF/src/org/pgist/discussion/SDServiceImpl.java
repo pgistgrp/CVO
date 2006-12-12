@@ -409,7 +409,7 @@ public class SDServiceImpl implements SDService {
             if (pid==null) {
                 list = discussionDAO.getContextPosts(isid, discussionDAO.processIds(isid, ids, tagId), setting, sorting);
             } else {
-                return discussionDAO.getContextPosts(isid, pid, discussionDAO.processIds(isid, ids, tagId), setting, sorting);
+                list = discussionDAO.getContextPosts(isid, pid, discussionDAO.processIds(isid, ids, tagId), setting, sorting);
             }
         }
         
