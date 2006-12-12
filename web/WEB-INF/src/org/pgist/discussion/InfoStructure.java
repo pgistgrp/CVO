@@ -88,6 +88,11 @@ public class InfoStructure extends GenericInfo {
      */
     
     
+    public String getLevel() {
+        return "structure";
+    }//getLevel()
+    
+    
     public void addObject(Object object) {
         InfoObject one = new InfoObject();
         one.setObject(object);

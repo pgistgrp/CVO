@@ -46,4 +46,14 @@ public class InfoObject extends GenericInfo {
     }
 
 
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
+    public String getLevel() {
+        return "structure";
+    }//getLevel()
+    
+    
 }//class InfoObject

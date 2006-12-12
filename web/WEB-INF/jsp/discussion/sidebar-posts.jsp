@@ -22,7 +22,14 @@
 							<div id="voting-post${post.id}" class="discussionVoting">
 								${post.numAgree} of ${post.numVote} participants agree with this post | <a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${post.object.id}">${post.replies} replies</a>
 							</div>
-							<span class="discussionTitle"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${post.object.id}">${post.title}</a> - Posted by: ${post.owner.loginname} in ${post.object.object}</span>
+							<c:choose>
+								<c:when test="${post.object.level == 'object'}">
+                  <span class="discussionTitle"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${post.object.id}">${post.title}</a> - Posted by: ${post.owner.loginname} in ${post.object.object}</span>
+                </c:when>
+								<c:otherwise>
+                  <span class="discussionTitle"><a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${post.object.id}">${post.title}</a> - Posted by: ${post.owner.loginname} in "Discussion about all concern themes"</span>
+								</c:otherwise>
+							</c:choose>
 					</div>
 			</div>
 
