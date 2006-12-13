@@ -1,5 +1,7 @@
 Zhong:
-
+[ ] Setup pgistdev server as a demonstration server - loaded with the database from latest test (Ie. grab all source code and data that is currently in the alpha test).
+[ ] Talk to Guirong about when to buy deployment server.
+[ ] Send SQL Database Dump to robert after friday
 
 ------------------------
 John:
@@ -23,8 +25,14 @@ BACKEND DOCUMENTED FOR LATER:
 [ ] Find related (by tags) concerns.
 [ ] One link - subscribed to the discussion or not
 [ ] Related posts take into account replies
+[ ] Error or SDThreadMain with Replies?  
+[ ] Emailing when Notification off
 
 FRONT END DOCUMENTED FOR LATER
+[ ] Tag Cloud Pagination
+[ ] Not able to remove filter
+[ ] Going back to the right "page" after clicking into comments.
+[ ] Timing Issue with Submitting Concern (button swap)
 [ ] Add IOID Param to tagSearch and tagCloud
 [ ] Don't capitalize propositions
 [ ] Mailing List Form
@@ -35,6 +43,17 @@ FRONT END DOCUMENTED FOR LATER
 [ ] Edit/Delete Comments
 [ ] Rich Textbox IE width
 [ ] Highlight new concern comment
+[ ] PGIST Portal link - pop into new window
+[ ] Quotes around theme title
+[ ] Pagination more appearent
+[ ] View count - don't count author
+[ ] Doesn't right click in text area?
+[ ] Spell checker plugin for TinyMCE?
+[ ] Least agreement bug
+[ ] Quote bug - when trying to remove a quote and continuing with post
+[ ] Check relevant sizes of tags in tag cloud.
+[ ] Editing concern/comment/post available only with 0 votes and 0 comments.
+
 
 ---------------------
 ARCHIVED TASKS:
