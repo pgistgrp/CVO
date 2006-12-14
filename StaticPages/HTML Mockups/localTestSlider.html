@@ -2,6 +2,7 @@
 <html><head>
 <title>JavaScript Bs_Slider HOWTO example</title>
 
+<!--Change source to refer to FactorSlider folder-->
 <script type="text/javascript" src="/scripts/FactorSlider/lib/LibCrossBrowser.js"></script>
 <script type="text/javascript" src="/scripts/FactorSlider/lib/EventHandler.js"></script>
 <script type="text/javascript" src="/scripts/FactorSlider/core/form/Bs_FormUtil.lib.js"></script>
@@ -68,14 +69,18 @@ a.maxVal=100;
 a.valueInterval=5;
 a.arrowAmount=5;
 a.valueDefault=0;
+
+//Change this to point to the proper folder containing the images
 a.imgDir='/scripts/FactorSlider/img/';
 
 
-//a.setBackgroundImage('bob/background.gif', 'repeat');
-a.setBackgroundImage('random/backgrounds/bg3.h.gif', 'no-repeat');
+//Change the following to the proper images
+a.setBackgroundImage('random/backgrounds/bg3.h.gif', 'no-repeat'); 
 	a.setSliderIcon('bob/horizontal_knob.gif', 15, 19);
 	a.setArrowIconLeft('img/arrowLeft.gif', 16, 16);
 	a.setArrowIconRight('img/arrowRight.gif', 16, 16);
+	
+	
 	a.useInputField = 2;
 	a.styleValueFieldClass = 'sliderInput';
 	a.colorbar = new Object();
