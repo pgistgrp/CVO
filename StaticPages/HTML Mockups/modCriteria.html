@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+	"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>index</title>
+		<style type="text/css" media="screen">
+			.niceFormElement{
+				display: block;
+				width: 150px;
+				float: left;
+				margin-bottom: 10px;
+			}
+
+			label.niceFormElement {
+				text-align: right;
+				width: 75px;
+				padding-right: 20px;
+			}
+
+			br {
+				clear: left;
+			}
+			
+			.indentNiceForm{
+				margin-left: 95px;
+				margin-top: 0px;
+				padding:0;
+			}
+			
+			textarea.niceFormElement, select.niceFormElement{
+				width: 350px;
+				height: 70px;
+				
+			}
+			
+			select.niceFormElement{
+				margin:0;
+				padding: 0;
+			}
+			
+			fieldset{
+				width: 450px;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>Manage Planning Factors</h2>
+		<!-- Begin list of planning factors -->
+		<p><i>No planning factors have been created yet</i></p>
+		<small><a href="javascript:addPlanningFactor();">Add a New Planning Factor</a></small>
+		<!-- End List of planning Factors -->
+		<!-- Begin form to add a new planning factor -->
+		<fieldset>
+			<h4>Add a New Planning Factor</h4>
+			<label for="name" class="niceFormElement">Factor Name</label>
+			<input id="name" name="name" type="text" class="niceFormElement" /><br />
+			
+			<label for="name" class="niceFormElement">Description</label>
+			<textarea id="description" name="description" class="niceFormElement"></textarea><br />
+			
+			<label for="name" class="niceFormElement">Related Themes (optional)</label>
+			<select id="themes" name="themes" class="niceFormElement" MULTIPLE>
+				<option value="themeId1">Pedestrian Safety</option>
+				<option value="themeId2">Environmental Impacts of Transporation</option>
+				<option value="themeId3">Traffic Congestion</option>
+				<option value="themeId4">Funding Transportation Improvements</option>
+				<option value="themeId5">Making the Region More Bicycle Friendly</option>
+			</select><br />
+			
+			<br />
+			<label for="name" class="niceFormElement">Factor Objectives</label>
+			<select id="themes" name="themes" class="niceFormElement" MULTIPLE>
+				<option value="objectiveId1">Promotes general economic development</option>
+				<option value="objectiveId2">Specifically improves or enhances tourism</option>
+				<option value="objectiveId3">Improves or enhances the movement of workers</option>
+				<option value="objectiveId4">Provides new access to jobs and opportunities</option>
+				<option value="objectiveId5">Enhances the welfare to work trips</option>
+				<option value="objectiveId5">Enhances the ability of hte frieght system</option>
+			</select>
+			<small class="indentNiceForm"><a href="javascript:addObjective();">Add a New Objective to the List</a></small>
+			<br />
+			<br />
+			<input type="submit" value="Save and Add Planning Factor" class="indentNiceForm" />
+			<br />
+		</fieldset>
+		<!-- End form to add a new planning factor -->
+		
+		<!-- Begin publishing options -->
+		<h4>Finished Creating Planning Factors?</h4>
+		<p>Once you have completed a list of planning factors click the link below to publish this list and allow participants to begin discussing these factors and weighing them.</p>
+		<input type="submit" value="Publish Planning Factors!" />
+		<!--end publishing options -->
+	</body>
+</html>
