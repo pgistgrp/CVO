@@ -3,6 +3,26 @@ Zhong:
 [ ] Talk to Guirong about when to buy deployment server.
 [ ] Send SQL Database Dump to robert after friday
 
+Zhong: Planning Factors Step 2
+[ ] Remove obsolete methods - relateCriteria(); derelateCriteria(); getAvailableCriteria; addCriterionSlider; deleteCriterionSlider; getThemes;
+
+[ ] Add and Update methods:
+-addCriterion() & editCriterion();
+	- Name
+	- Description
+	- List of concern theme ids
+	- List of objective ids
+
+-getObjectives()
+	- CCTID?
+
+-addObjectivev()
+	- name
+	- Description
+
+-deleteObjective()
+	- id
+
 ------------------------
 John:
 [ ] Relate Criteria to themes
