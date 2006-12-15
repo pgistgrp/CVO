@@ -34,10 +34,38 @@
   <!-- End header menu -->
   <!-- #container is the container that wraps around all the main page content -->
  <div id="container" style="width:600px;">
-<p>There are five steps in the Let's Improve Transportation activity. Here  you can read about each of the steps. (Note, only Step 1 is ready for  use at this time)</p>
-    <h3><a name="step1" class="contrast2">Step 1: Discuss Concerns</a></h3>
+ <h3 class="headerColor" style="text-transform:none"><a name="purpose" class="contrast2">What is the purpose of Let's Improve Transportation?</a></h3>
+<p><i>[The following is a hypothetical description of how this website would be related to a real transportation decision making process.]</i></p>
+<p>Regional transportation policy makers are planning to put
+	a measure on the ballot in King, Pierce, and Snohomish counties.
+	The measure will ask voters if they wish to raise taxes to pay
+	for a package of regional transportation improvement projects.
+	However the policy makers have yet to determine which of the
+	proposed projects to include on the ballot, nor have they determined
+	what kind of tax increases should be used to pay for these projects.
+	To answer these questions, they have requested that a large
+	advisory group of citizens work together to create and endorse
+	a recommended transportation package for this ballot measure. <strong>You</strong> are
+	invited to serve as a member of this advisory group.</p>
+<p>While the policy makers do not promise to keep every detail
+	of the package recommended by this citizen advisory group in
+	the ballot measure, they do promise to strongly consider the
+	citizens'  suggestions. Given that the ballot measure
+	will need to have broad appeal to voters in order to pass, the
+	policy makers are more likely to consider recommendation that
+	are endorsed by a significant majority of the advisory group
+	members.</p>
+<p>Let's Improve Transportation is a website that has been
+	developed to assist you and other advisory group members in
+	your process of creating recommendations. There are five steps
+	in this process.</p>
+<h3><a name="step1" class="contrast2">Step 1: Discuss Concerns</a></h3>
 
-    <p>Before we can determine how to best improve our transportation system, we need to know what the problems are.</p>
+    <p>Before we can determine how to best improve our transportation
+    	system, we need to have some shared understanding of what
+    	the problems are. Only with this understanding can we determine
+    	which proposed transportation projects are most likely to
+    	provide the kinds of improvements we seek.</p>
     <ul>
       <li><strong>1a: Brainstorm</strong>
         <ul>
@@ -56,7 +84,14 @@
       </li>
     </ul>
     <h3><a name="step2" class="contrast2">Step 2: Review Criteria</a></h3>
-    <p>Criteria are used to evaluate which proposed transportation improvement  projects are best suited to address problems with our current  transportation system. Researchers identified a list of criteria before  this activity began so that information relevant to these criteria  could be gathered.</p>
+    <p>Transportation planners use "criteria" to evaluate which
+    	proposed transportation projects are most likely to provide
+    	the kinds of improvements we seek. In this step we review
+    	and discuss nine criteria. In addition to reviewing how
+    	planners use the nine criteria to score proposed transportation
+    	projects, we discuss how well the nine criteria reflect
+    	the range of participant concerns represented in the summaries
+    	from Step 1.</p>
     <ul>
 
       <li><strong>2a: Review Criteria </strong>
@@ -75,7 +110,13 @@
     </ul>
     <h3><a name="step3" class="contrast2">Step 3: Create Packages</a></h3>
 
-    <p>A &quot;transportation package&quot; is simply a set of transportation projects  and sources of funding to pay for those projects. Decision makers often  create packages as options to simplify regional transportation  improvement financing decisions.</p>
+    <p>A  "transportation package" is simply a set of transportation
+    	projects and sources of funding to pay for those projects.
+    	In this step we review a list of proposed transportation
+    	project which are scored based on the criteria discussed
+    	in Step 2 and funding options available to pay for these
+    	projects. Finally, we each individually create our own preferred
+    	transportation package.</p>
     <ul>
       <li><strong>Step 3a: Review Projects</strong><br />
         <ul>
@@ -103,7 +144,13 @@
       </li>
     </ul>
     <h3><a name="step4" class="contrast2">Step 4: Evaluate Packages</a></h3>
-    <p>In order to simplify the decision process, we need to narrow down the  number of different packages considered. Therefore the system  automatically creates five new packages that collectively represent the  diversity of packages created by participants in Step 3. In this step  participants evaluate the five new packages and determine which one (or  ones) they wish to collectively endorse.</p>
+    <p>In order to simplify our decision process, we need to
+    	narrow down the number of different packages considered.
+    	To help, the website automatically creates five new packages
+    	that collectively represent the diversity of packages created
+    	by participants in Step 3. In Step 4 we evaluate the five
+    	new packages and determine which one (or ones) we wish to
+    	collectively endorse as our recommendation.</p>
     <ul>
 
       <li><strong>4a: Compare Packages </strong>
