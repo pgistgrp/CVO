@@ -4,6 +4,94 @@
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>index</title>
+		<script type="text/javascript" charset="utf-8">
+			function addCriterion(){
+				//alert("name: " + name + " description: " + description + " themes: " + themes + " objectivesArr: " + objectivesArr); 
+				var themesArr = getOptionValueFromObjects(document.getElementById('themes').options); //grabs from multi select list
+				var objectivesArr = getOptionValueFromObjects(document.getElementById('objectives').options); ; //grabs from multi select list
+				var name = $('name').value;
+				var description = $('description').value;
+				
+				//alert("names: " + name + " description" + description + " themes: " + themesArr + " objectives: " + objectivesArr);
+				CriteriaAgent.addCriterion({name:name,description:description,themesArr:themesArr,objectivesArr:objectivesArr}, {
+					callback:function(data){
+						if (data.successful){
+							//highlight newly created criterion
+							getCriteria();
+						}else{
+							alert(data.reason);
+						}
+					},
+					errorHandler:function(errorString, exception){ 
+					alert("CriteriaAgent.addCriterion( error:" + errorString + exception);
+					}
+				});*/
+			}
+			
+			function editCriterion(id){
+				//alert("name: " + name + " description: " + description + " themes: " + themes + " objectivesArr: " + objectivesArr); 
+				var themesArr = getOptionValueFromObjects(document.getElementById('themes').options); //grabs from multi select list
+				var objectivesArr = getOptionValueFromObjects(document.getElementById('objectives').options); ; //grabs from multi select list
+				var name = $('name').value;
+				var description = $('description').value;
+				
+				//alert("id: " + id +" name: " + name + " description" + description + " themes: " + themesArr + " objectives: " + objectivesArr);
+				CriteriaAgent.editCriterion({id:id,name:name,description:description,themesArr:themesArr,objectivesArr:objectivesArr}, {
+					callback:function(data){
+						if (data.successful){
+							//highlight newly updated criterion
+							getCriteria();
+						}else{
+							alert(data.reason);
+						}
+					},
+					errorHandler:function(errorString, exception){ 
+					alert("CriteriaAgent.addCriterion( error:" + errorString + exception);
+					}
+				});*/
+			}
+			
+			function getOptionValueFromObjects(optionObjs) {
+				cleanList = [];
+			    for (var i = 0; i < optionObjs.length; i++) {
+			        if (optionObjs[i].selected) {
+						cleanList.push(optionObjs[i].value)
+			        }
+				}
+			    return cleanList
+			}
+			
+			function deleteCriterion(id){
+				CriteriaAgent.deleteCriterion({id:id}, {
+					callback:function(data){
+						if (data.successful){
+							new Effect.Puff("criteria" + id, {afterFinish:function(){getCriteria();}})
+						}else{
+							alert(data.reason);
+						}
+					},
+					errorHandler:function(errorString, exception){ 
+					alert("CriteriaAgent.deleteCriterion( error:" + errorString + exception);
+					}
+				});
+			}
+			
+			function publish(){
+				CriteriaAgent.publish({cctId:cctId}, {
+					callback:function(data){
+						if (data.successful){
+							alert("Publish Successful")
+							//Redirect to discussion
+						}else{
+							alert(data.reason);
+						}
+					},
+					errorHandler:function(errorString, exception){ 
+					alert("ClassName.methodName( error:" + errorString + exception);
+					}
+				});
+			}
+		</script>
 		<style type="text/css" media="screen">
 			.niceFormElement{
 				display: block;
@@ -70,7 +158,7 @@
 			
 			<br />
 			<label for="name" class="niceFormElement">Factor Objectives</label>
-			<select id="themes" name="themes" class="niceFormElement" MULTIPLE>
+			<select id="objectives" name="objectives" class="niceFormElement" MULTIPLE>
 				<option value="objectiveId1">Promotes general economic development</option>
 				<option value="objectiveId2">Specifically improves or enhances tourism</option>
 				<option value="objectiveId3">Improves or enhances the movement of workers</option>
@@ -81,7 +169,7 @@
 			<small class="indentNiceForm"><a href="javascript:addObjective();">Add a New Objective to the List</a></small>
 			<br />
 			<br />
-			<input type="submit" value="Save and Add Planning Factor" class="indentNiceForm" />
+			<input type="button" value="Save and Add Planning Factor" onClick="addCriterion();" class="indentNiceForm" />
 			<br />
 		</fieldset>
 		<!-- End form to add a new planning factor -->
@@ -89,7 +177,7 @@
 		<!-- Begin publishing options -->
 		<h4>Finished Creating Planning Factors?</h4>
 		<p>Once you have completed a list of planning factors click the link below to publish this list and allow participants to begin discussing these factors and weighing them.</p>
-		<input type="submit" value="Publish Planning Factors!" />
+		<input type="button" value="Publish Planning Factors!" onClick="publish();" />
 		<!--end publishing options -->
 	</body>
 </html>
