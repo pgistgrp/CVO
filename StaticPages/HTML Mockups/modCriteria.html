@@ -4,6 +4,10 @@
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>index</title>
+		
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+
 		<script type="text/javascript" charset="utf-8">
 			function addCriterion(){
 				//alert("name: " + name + " description: " + description + " themes: " + themes + " objectivesArr: " + objectivesArr); 
@@ -25,7 +29,7 @@
 					errorHandler:function(errorString, exception){ 
 					alert("CriteriaAgent.addCriterion( error:" + errorString + exception);
 					}
-				});*/
+				});
 			}
 			
 			function editCriterion(id){
@@ -48,7 +52,7 @@
 					errorHandler:function(errorString, exception){ 
 					alert("CriteriaAgent.addCriterion( error:" + errorString + exception);
 					}
-				});*/
+				});
 			}
 			
 			function getOptionValueFromObjects(optionObjs) {
@@ -92,6 +96,90 @@
 				});
 			}
 		</script>
+		
+<script type="text/javascript">
+		function expandList(objective,icon){
+			Effect.toggle(objective, 'appear', {duration: .5, afterFinish:
+				//window.setTimeout(toggleIcon,100);
+				function(){
+					if ($(objective).style.display != ""){
+						$(icon).src = "images/plus.gif";
+						}else{
+							$(icon).src = "images/minus.gif";
+						}
+					}
+			});
+		}
+</script>
+
+
+		<style type="text/css">
+		
+		.clearBoth {clear:both;}
+		.floatLeft {float:left}
+		
+		#criteria {width:800px;}
+		
+		.smallText
+		{
+		font-size:.8em;
+		}
+		
+		.criteriaListRow
+		{
+		background:#E7F2F7;
+		padding:.3em 0em;
+		}
+		
+		.criteriaListHeader
+		{
+		background:#fff;
+		}
+		
+		#allCriteriaList
+		{
+		text-align:left;
+		}
+		
+		.even {background: #ffffff}
+		
+		.criteriaCol1
+		{
+		width:210px;
+		margin-right:.5em;
+		}
+		
+		.criteriaCol1 img
+		{
+		margin:0px 3px 0px 0px;
+		vertical-align:middle;
+		border:0px;
+		}
+		
+		.criteriaCol2
+		{
+		width:330px;
+		}
+		
+		.criteriaCol3
+		{
+		margin-left:.5em;
+		width:220px;
+		}	
+		
+		h4
+		{
+		font-size:1em;
+		margin:0px;
+		padding:0px;
+		}
+		
+		.objectives
+		{
+		padding:.5em;
+		}
+		</style>
+		
 		<style type="text/css" media="screen">
 			.niceFormElement{
 				display: block;
@@ -130,11 +218,136 @@
 			fieldset{
 				width: 450px;
 			}
+			
+			.box3 /* Used in the DIV containing the Summary */
+			{
+			border:1px solid #D6E7EF;
+			background:#F7FBFF;
+			}
 		</style>
 	</head>
 	<body>
 		<h2>Manage Planning Factors</h2>
 		<!-- Begin list of planning factors -->
+		
+		<!-- START All Criteria List -->
+			<div id="criteria" class="box3">
+				<div id="allCriteriaList">
+					<div class="criteriaListHeader">
+						<div class="criteriaCol1 floatLeft">
+							<h4 class="headerColor">Planning factor</h4>
+						</div>
+						<div class="criteriaCol2 floatLeft">
+							<h4 class="headerColor">Description</h4>
+						</div>
+						<div class="criteriaCol3 floatLeft">
+							<h4 class="headerColor">Related concern theme</h4>
+						</div>
+						<div class="clearBoth"></div>
+					</div>
+					<div class="criteriaListRow row">
+						<div class="criteriaCol1 floatLeft"><a href="#">
+							<div class="floatLeft"><a href="javascript:expandList('objectives1','icon1');">
+								<img src="images/plus.gif" id="icon1"></a></a></div>
+							<div class="floatLeft"><a href="#">Economic Vitality</a></div>
+						</div>
+						<div class="criteriaCol2 floatLeft smallText">Support the
+							economic vitality of the metropolitan area especially
+							by enabling global competitiveness, productivity, and
+							efficiency</div>
+						<div class="criteriaCol3 floatLeft smallText">None</div>
+						<div class="clearBoth"></div>
+						<div class="objectives" id="objectives1" style="display:none;"> Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+					</div>
+					<div class="criteriaListRow row even">
+						<div class="criteriaCol1 floatLeft"><a href="#">
+							<div class="floatLeft"><a href="javascript:expandList('objectives2','icon2');">
+								<img src="images/plus.gif" id="icon2"></a></div>
+							<div class="floatLeft"><a href="#">Security</a></div>
+						</div>
+						<div class="criteriaCol2 floatLeft smallText">Increase
+							security of the transportation system for motorized and
+							nonmotorized uses.</div>
+						<div class="criteriaCol3 floatLeft smallText">None</div>
+						<div class="clearBoth"></div>
+						<div class="objectives" id="objectives2" style="display:none;"> Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+					</div>
+					<div class="criteriaListRow row">
+						<div class="criteriaCol1 floatLeft">
+							<div class="floatLeft"><a href="javascript:expandList('objectives3','icon3');">
+								<img src="images/plus.gif" id="icon3"></a></div>
+							<div class="floatLeft"><a href="#">Accessibility and Mobility</a></div>
+						</div>
+						<div class="criteriaCol2 floatLeft smallText">Increase
+							the accessibility and mobility options to people and freight</div>
+						<div class="criteriaCol3 floatLeft smallText"> <a href="#">Traffic
+								congestion is a problem</a><br />
+							<a href="#">Making the region more bicycle friendly</a><br />
+							<a href="#">Need to improve public transit</a><br />
+						</div>
+						<div class="clearBoth"></div>
+						<div class="objectives" id="objectives3" style="display:none;"> Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+					</div>
+					<div class="criteriaListRow row even">
+						<div class="criteriaCol1 floatLeft">
+							<div class="floatLeft"><a href="javascript:expandList('objectives4','icon4');">
+								<img src="images/plus.gif" id="icon4"></a></div>
+							<div class="floatLeft"><a href="#">Lorem Ipsum Dolor Sit
+									Amet Adapiscing Elit</a></div>
+						</div>
+						<div class="criteriaCol2 floatLeft smallText"> Protect
+							and enhance the environment, promote energy conservation,
+							and improve quality of life. </div>
+						<div class="criteriaCol3 floatLeft smallText"> <a href="#">Environmental
+								impacts of transportation</a><br />
+						</div>
+						<div class="clearBoth"></div>
+						<div class="objectives" id="objectives4" style="display:none;"> Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+					</div>
+				</div>
+			</div>
+				<!-- END All Criteria List -->
+		
 		<p><i>No planning factors have been created yet</i></p>
 		<small><a href="javascript:addPlanningFactor();">Add a New Planning Factor</a></small>
 		<!-- End List of planning Factors -->
