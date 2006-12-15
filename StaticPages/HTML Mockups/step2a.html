@@ -1,377 +1,417 @@
 <!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
 <html>
-  <head>
-    <title>Step 2a: Review Criteria</title>
-    <style type="text/css" media="screen">
+<head>
+<meta name="generator" content=
+    "HTML Tidy for Linux/x86 (vers 1st November 2002), see www.w3.org">
+<title>Step 2a: Review Criteria</title>
+<style type="text/css" media="screen">
         @import "styles/lit.css";
         </style>
-    <style type="text/css">
-		.criteriaBox
-		{
-		width:240px;
-		margin:3px;
-		margin-top:0px;
-		padding:5px;
-		}
-		
-		#criteriaBoxes
-		{
-		width:775px;
-		margin:auto;	
-		}
-		
-		#criteriaRuler
-		{
-		width:775px;
-		font-size:1.2em;
-		height:1.5em;
-		border-bottom:1px solid #000000;
-		margin-bottom:.5em;
-		}
-		
-		h4
-		{
-		font-size:1.1em;
-		margin-bottom:.3em;
-		margin-top:0em;
-		}
-		
-		#criteria-left
-		{
-		width:470px;
-		margin-right:5px;
-		}
-		
-		#criteria-left ul
-		{
-		margin:1em 0em 1em 2em;
-		padding:0px;
-		}
-		
-		#criteria-left input
-		{
+<style type="text/css">
 
+.criteriaListRow
+{
+background:#E7F2F7;
+padding:.3em 0em;
+}
+
+.criteriaListHeader
+{
+background:#fff;
+}
+
+#allCriteriaList
+{
+text-align:left;
+}
+
+.even {background: #ffffff}
+
+.criteriaCol1
+{
+width:210px;
+margin-right:.5em;
+}
+
+.criteriaCol1 img
+{
+margin:0px 3px 0px 0px;
+vertical-align:middle;
+border:0px;
+}
+
+.criteriaCol2
+{
+width:330px;
+}
+
+.criteriaCol3
+{
+margin-left:.5em;
+width:220px;
+}	
+
+h4
+{
+font-size:1em;
+margin:0px;
+padding:0px;
+}
+
+.objectives
+{
+padding:.5em;
+}
+
+</style>
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script type="text/javascript">
+		function expandList(objective,icon){
+			Effect.toggle(objective, 'appear', {duration: .5, afterFinish:
+				//window.setTimeout(toggleIcon,100);
+				function(){
+					if ($(objective).style.display != ""){
+						$(icon).src = "images/plus.gif";
+						}else{
+							$(icon).src = "images/minus.gif";
+						}
+					}
+			});
 		}
-		
-		#criteria-left-header
-		{
-		height:6em;
-		}
-		
-		#criteria-left-content
-		{
-		}
-		
-		#criteria-right
-		{
-		width:470px;
-		}
-		
-		#criteria-right-header
-		{
-		height:6em;
-		}
-		
-		#criteria-right-content
-		{}
-		
-    </style>
-    <script src="scripts/prototype.js" type="text/javascript"></script>
-    <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-  </head>
-  <body>
-  
-  <!-- Begin conditional styles for the benefit of IE -->
-            <!--[if IE]>
+	</script>
+</head>
+<body>
+<!-- Begin conditional styles for the benefit of IE -->
+<!--[if IE]>
                           <style type="text/css">
                           #sortingMenu {right:0px;}
 						  #criteriaRuler {width:745px;}
                           </style>
           <![endif]-->
-  <!-- End conditional styles -->
-  
-    <!-- Begin header -->
-    <div id="header">
-      [Load from separate file]
-    </div>
-    <!-- End header -->
-    <!-- Begin header menu - The wide ribbon underneath the logo -->
-    <div id="headerMenu">
-      <div id="headerContainer">
-        <div id="headerTitle" class="floatLeft">
-          <h3 class="headerColor">Step 2: Review Criteria</h3>
-        </div>
-        <div class="headerButton floatLeft">
-          <a href="cctlist.do">1a: Brainstorm</a>
-        </div>
-        <div class="headerButtonCurrent floatLeft currentBox">
-          <a href="sdlist.do">1b: Review Summaries</a>
-        </div>
-        <div id="headerNext" class="floatRight box5">
-          <a href="/sdcWaiting.jsp">Next Step</a>
-        </div>
-      </div>
-    </div>
-    <!-- End header menu -->
-    <!-- Begin loading indicator -->
-    <div style="display: none;" id="loading-indicator">
-      Loading... <img src="/images/indicator_arrows.gif">
-    </div>
-    <!-- End loading indicator -->
-    <!-- Begin container - Main page content begins here -->
-    <div id="container">
-      <!-- Begin Breadcrumbs -->
-      <div style="height:30px;">
-        <div id="breadCrumbs" class="floatLeft">
-          Select a Criteria &rarr; This Criteria
-        </div>
-      </div>
-      <!-- End Breadcrumbs -->
-      <!-- begin "overview and instructions" area -->
-      <div id="overview" class="box2">
-        <h3>Overview and Instructions</h3>
-        <p>Criteria are used to help evalute which proposed transportation projects are
-        best suited to address problems with our transportation system. Below, these
-        criteria have been associated with the concern themes discussed in the previous
-        step. Please review these criteria and the associated themes. Do these criteria
-        adequately reflect your concerns and the summaries? What criteria might be useful
-        in evaluating proposed transportation projects?</p>
-        <p><a href="readmore.jsp">Read more about how this step fits into the bigger
-        picture</a>.</p>
-      </div>
-      <!-- end overview -->
-      <!-- begin object -->
-      <div id="object">
-        <!-- begin object content -->
-        <div id="object-content">
-          <!-- Load separate file content starting here -->
-         <div id="criteria">
-            <div id="criteriaHeader" style="height:30px">
-              <div class="floatLeft">
-                <h3 class="headerColor">Concerns Summaries and Criteria</h3>
-              </div>
-              <div class="floatRight">
-                Jump to: <select name="selectcriteria" id="selectcriteria" onchange=
-                "javascript: location.href='sdRoom.do?isid=${structure.id}&amp;ioid=' + this.value;">
-                  <option value="${object.id}">
-                    Select a Theme
-                  </option>
-                  <option value="">
-                    Discussion of All Themes
-                  </option>
-                  <option value="${infoObject.id}">
-                    ${infoObject.object}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <!-- Begin voting tally menu -->
-            <div id="votingMenu" class="floatLeft">
-              <div id="voting-object${infoObject.id}">
-                <div id="votingMenuTally" class="box1">
-                  <span id="structure_question_status"></span>
-                  <h2><span id="structure_question_status">X of Y</span></h2>
-                  agree with summary
-                </div>
-                <p>Does this summary reflect the group's concerns?</p>
-                 <span id="structure_question"><img src="images/btn_thumbsup_large.png"
+<!-- End conditional styles -->
+<!-- Begin header -->
+<div id="header"> [Load from separate file] </div>
+<!-- End header -->
+<!-- Begin header menu - The wide ribbon underneath the logo -->
+<div id="headerMenu">
+	<div id="headerContainer">
+		<div id="headerTitle" class="floatLeft">
+			<h3 class="headerColor">Step 2: Evaluate Planning Factors</h3>
+		</div>
+		<div class="headerButton floatLeft currentBox"> <a href="step2a.html">2a:
+				Review and discuss factors</a> </div>
+		<div class="headerButtonCurrent floatLeft "> <a href="step2b.html">2b:
+				Weigh factors</a> </div>
+		<div id="headerNext" class="floatRight box5"> <a href="step2b.html">Next
+				Step</a> </div>
+	</div>
+</div>
+<!-- End header menu -->
+<!-- Begin loading indicator -->
+<div style="display: none;" id="loading-indicator"> Loading... <img src="/images/indicator_arrows.gif"> </div>
+<!-- End loading indicator -->
+<!-- Begin container - Main page content begins here -->
+<div id="container">
+	<!-- begin "overview and instructions" area -->
+	<div id="overview" class="box2">
+		<h3>Overview and Instructions</h3>
+		<p>Criteria are used to help Evaluate which proposed transportation
+			projects are best suited to address problems with our transportation
+			system. Below, these criteria have been associated with the
+			concern themes discussed in the previous step. Please review
+			these criteria and the associated themes. Do these criteria
+			adequately reflect your concerns and the summaries? What criteria
+			might be useful in evaluating proposed transportation projects?</p>
+		<p><a href="readmore.jsp">Read more about how this step fits
+				into the bigger picture</a>.</p>
+	</div>
+	<!-- end overview -->
+	<!-- begin object -->
+	<div id="object">
+		<!-- begin object content -->
+		<div id="object-content">
+			<!-- Load separate file content starting here -->
+			<div id="criteria">
+				<div id="criteriaHeader" style="height:30px">
+					<div class="floatLeft">
+						<h3 class="headerColor">All planning factors and related
+							concern themes</h3>
+					</div>
+				</div>
+			</div>
+			<!-- Begin voting tally menu -->
+			<div id="votingMenu" class="floatLeft">
+				<div id="voting-object${infoObject.id}">
+					<div id="votingMenuTally" class="box1"> <span id="structure_question_status"></span>
+						<h2><span id="structure_question_status">X of Y</span></h2>
+						agree with summary </div>
+					<p>Does this summary reflect the group's concerns?</p>
+					<span id="structure_question"><img src="images/btn_thumbsup_large.png"
                 alt="YES" class="floatRight" style="margin-right:5px;"> <img src=
                 "images/btn_thumbsdown_large.png" alt="NO" class="floatLeft" style=
-                "margin-left:5px;"></span> 
-              </div>
-            </div>
-            <!-- end voting tally menu -->
-            <!-- begin summary -->
-            <div id="summary" class="box3 floatLeft">
-              <p>On the other hand, we denounce with righteous indignation and dislike
-              men who are so beguiled and demoralized by the charms of pleasure of the
-              moment, so blinded by desire, that they cannot foresee the pain and trouble
-              that are bound to ensue; and equal blame belongs to those who fail in their
-              duty through weakness of will, which is the same as saying through
-              shrinking from toil and pain. These cases are perfectly simple and easy to
-              distinguish. In a free hour, when our power of choice is untrammelled and
-              when nothing prevents our being able to do what we like best, every
-              pleasure is to be welcomed and every pain avoided. But in certain
-              circumstances and owing to the claims of duty or the obligations of
-              business it will frequently occur that pleasures have to be repudiated and
-              annoyances accepted. The wise man therefore always holds in these matters
-              to this principle of selection: he rejects pleasures to secure other
-              greater pleasures, or else he endures pains to avoid worse pains.</p>
-              <p align="right"><a href=              "javascript:window.open('sdConcerns.do?ioid=${infoObject.id}&amp;isid=${structure.id}&amp;tag=','themeConcerns','width=730,height=500,resizable=yes,scrollbars=yes');%20void(0);">
-              View all Concerns for this Summary <img src="images/external.png" alt=
-              "(new window)"></a></p>
-			  
-			  <!--begin criteria boxes-->
-			  <div id="criteriaBoxes">
-				  <div id="criteriaRuler">
-					<div class="criteriaBox floatLeft leftAlign">0</div>
-					<div class="criteriaBox floatLeft centerAlign">5</div>
-					<div class="criteriaBox floatLeft rightAlign">10</div>
-				  </div>
-				  
-				<div class="clearBoth"></div>
-				
-				  <div class="criteriaBox floatLeft box4 headerColor">
-					  <h4>Low</h4>Supports the potential for a limited amount of increase population 		
-					  and/or employment activity in the centers.
-				  </div>
-				  <div class="criteriaBox floatLeft box4 headerColor">
-					  <h4>Med</h4>Supports the potential for a moderate amount of increase population 		
-					  and/or employment activity in the centers.
-				  </div>
-				  <div class="criteriaBox floatLeft box4 headerColor">
-					  <h4>High</h4>Supports the potential for a limited amount of increase population 		
-					  and/or employment activity in the centers.
-				  </div>
-			  </div>
-			  <!--end criteria boxes -->
-            </div>
-            <!-- end summary -->
-          </div>
-          <!-- Separate file content stops here -->
-        </div>
-        <!--end object content -->
-      </div>
-      <!-- end object -->
-      
-	  <a name="filterJump"></a> 
-	  
-	  <div class="clearBoth">&nbsp;</div>
-	  
-	  <!-- BEGIN discussion header -->
-	  <!-- The discussionHeader sits on top of the discussion and contains the title of the
+                "margin-left:5px;"></span> </div>
+			</div>
+			<!-- end voting tally menu -->
+			<!-- begin summary -->
+			<div id="summary" class="box3 floatLeft">
+				<!-- START All Criteria List -->
+				<div id="allCriteriaList">
+					<div class="criteriaListHeader">
+						<div class="criteriaCol1 floatLeft">
+							<h4 class="headerColor">Planning factor</h4>
+						</div>
+						<div class="criteriaCol2 floatLeft">
+							<h4 class="headerColor">Description</h4>
+						</div>
+						<div class="criteriaCol3 floatLeft">
+							<h4 class="headerColor">Related concern theme</h4>
+						</div>
+						<div class="clearBoth"></div>
+					</div>
+					<div class="criteriaListRow row">
+						<div class="criteriaCol1 floatLeft"><a href="#">
+							<div class="floatLeft"><a href="javascript:expandList('objectives1','icon1');">
+								<img src="images/plus.gif" id="icon1"></a></a></div>
+							<div class="floatLeft"><a href="#">Economic Vitality</a></div>
+						</div>
+						<div class="criteriaCol2 floatLeft smallText">Support the
+							economic vitality of the metropolitan area especially
+							by enabling global competitiveness, productivity, and
+							efficiency</div>
+						<div class="criteriaCol3 floatLeft smallText">None</div>
+						<div class="clearBoth"></div>
+						<div class="objectives" id="objectives1" style="display:none;"> Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+					</div>
+					<div class="criteriaListRow row even">
+						<div class="criteriaCol1 floatLeft"><a href="#">
+							<div class="floatLeft"><a href="javascript:expandList('objectives2','icon2');">
+								<img src="images/plus.gif" id="icon2"></a></div>
+							<div class="floatLeft"><a href="#">Security</a></div>
+						</div>
+						<div class="criteriaCol2 floatLeft smallText">Increase
+							security of the transportation system for motorized and
+							nonmotorized uses.</div>
+						<div class="criteriaCol3 floatLeft smallText">None</div>
+						<div class="clearBoth"></div>
+						<div class="objectives" id="objectives2" style="display:none;"> Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+					</div>
+					<div class="criteriaListRow row">
+						<div class="criteriaCol1 floatLeft">
+							<div class="floatLeft"><a href="javascript:expandList('objectives3','icon3');">
+								<img src="images/plus.gif" id="icon3"></a></div>
+							<div class="floatLeft"><a href="#">Accessibility and Mobility</a></div>
+						</div>
+						<div class="criteriaCol2 floatLeft smallText">Increase
+							the accessibility and mobility options to people and freight</div>
+						<div class="criteriaCol3 floatLeft smallText"> <a href="#">Traffic
+								congestion is a problem</a><br />
+							<a href="#">Making the region more bicycle friendly</a><br />
+							<a href="#">Need to improve public transit</a><br />
+						</div>
+						<div class="clearBoth"></div>
+						<div class="objectives" id="objectives3" style="display:none;"> Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+					</div>
+					<div class="criteriaListRow row even">
+						<div class="criteriaCol1 floatLeft">
+							<div class="floatLeft"><a href="javascript:expandList('objectives4','icon4');">
+								<img src="images/plus.gif" id="icon4"></a></div>
+							<div class="floatLeft"><a href="#">Lorem Ipsum Dolor Sit
+									Amet Adapiscing Elit</a></div>
+						</div>
+						<div class="criteriaCol2 floatLeft smallText"> Protect
+							and enhance the environment, promote energy conservation,
+							and improve quality of life. </div>
+						<div class="criteriaCol3 floatLeft smallText"> <a href="#">Environmental
+								impacts of transportation</a><br />
+						</div>
+						<div class="clearBoth"></div>
+						<div class="objectives" id="objectives4" style="display:none;"> Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+					</div>
+				</div>
+				<div id="orphanThemes" style="border-top:1px solid #D6E7EF;padding-top:.5em;" class="smallText"> Concern
+					themes that the moderator has determined are unrelated to
+					any of these planning factors include:<br/>
+					<a href="#">Funding transportation improvements</a> </div>
+				<!-- END All Criteria List -->
+			</div>
+			<!-- end summary -->
+		</div>
+		<!-- Separate file content stops here -->
+	</div>
+	<!--end object content -->
+	<!-- end object -->
+	<a name="filterJump"></a>
+	<div class="clearBoth">&nbsp;</div>
+	<!-- BEGIN discussion header -->
+	<!-- The discussionHeader sits on top of the discussion and contains the title of the
            discussion area, and the sorting menu -->
-      <div id="discussionHeader">
-        <div class="sectionTitle" style="margin-bottom:5px;">
-          <div style="height:30px;">
-            <div class="floatLeft">
-              <h3 class="headerColor inline"><!--${object.discussion.numPosts} -->
-               Discussions about [This Criteria]</h3>
-            </div>
-            <div class="button box5 floatRight">
-              <a href=
-              "javascript:Effect.toggle('newDiscussion','slide',{duration:1.5});">Start a
-              New Topic</a>
-            </div>
-            <div id="filteredBy">
-            </div>
-          </div>
-          <div id="sortingMenu" class="box4 padding5">
-            Find a discussion by <select name="selectsort" id="selectsort" onchange=
+	<div id="discussionHeader">
+		<div class="sectionTitle" style="margin-bottom:5px;">
+			<div style="height:30px;">
+				<div class="floatLeft">
+					<h3 class="headerColor inline">
+						<!--${object.discussion.numPosts} -->
+						Discussions about Planning Factors</h3>
+				</div>
+				<div class="button box5 floatRight"> <a href=
+              "javascript:Effect.toggle('newDiscussion','slide',{duration:1.5});">Start
+						a New Topic</a> </div>
+				<div id="filteredBy"> </div>
+			</div>
+			<div id="sortingMenu" class="box4 padding5"> Find discussions
+				by
+				<select name="selectsort" id="selectsort" onchange=
             "javascript:io.getPosts(io.currentFilter, 1, true, this.value);">
-              <option selected>
-                sorting
-              </option>
-              <option>
-                Newest first
-              </option>
-              <option>
-                Oldest first
-              </option>
-              <option>
-                Most Agreement
-              </option>
-              <option>
-                Least Agreement
-              </option>
-              <option>
-                Most Replies
-              </option>
-              <option>
-                Most Views
-              </option>
-              <option>
-                Most Votes
-              </option>
-            </select> or 
-            <form class="inline" action=
+					<option selected> sorting </option>
+					<option> Newest first </option>
+					<option> Oldest first </option>
+					<option> Most Agreement </option>
+					<option> Least Agreement </option>
+					<option> Most Replies </option>
+					<option> Most Views </option>
+					<option> Most Votes </option>
+				</select>
+				and
+				<form class="inline" action=
             "javascript:%20io.customFilterAction($('txtCustomFilter').value);">
-              <input type="text" id="txtCustomFilter" value="searching by tag" onkeyup=
+					<input type="text" id="txtCustomFilter" value="searching by tag" onkeyup=
               "io.customFilter(this.value, event);" onclick=
-              "javascript:if(this.value==this.defaultValue){this.value = ''}"> or <a
-              href="javascript:io.getTagCloud();">browse a list of all tags</a>
-            </form>
-            <div id="searchResults" style="display: none;">
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- end discussion header-->
-      <!-- Begin Discussion Area -->
-      <!-- Begin hidden "New topic" DIV -->
-      <div style="width:680px;">
-        <div id="newDiscussion" style="display: none">
-          <div id="newdisc_title">
-            <h3 style="display: inline">New Topic</h3>
-          </div>
-          <!-- End newdisc_title -->
-          <div id="newdisc_content" class="greenBB">
-            <div id="newdisc_inner">
-              <form>
-                <p><label>Post Title</label><br>
-                 <input maxlength="100" size="100" type="text" id="txtNewPostTitle"></p>
-                <p><label>Your Thoughts</label><br>
-                 <textarea style="width:100%; height: 200px;" id="txtNewPost">
+              "javascript:if(this.value==this.defaultValue){this.value = ''}">
+					or <a
+              href="javascript:io.getTagCloud();">browse a list
+					of all tags</a>
+				</form>
+				<div id="searchResults" style="display: none;"> </div>
+			</div>
+		</div>
+	</div>
+	<!-- end discussion header-->
+	<!-- Begin Discussion Area -->
+	<!-- Begin hidden "New topic" DIV -->
+	<div style="width:680px;">
+		<div id="newDiscussion" style="display: none">
+			<div id="newdisc_title">
+				<h3 style="display: inline">New Topic</h3>
+			</div>
+			<!-- End newdisc_title -->
+			<div id="newdisc_content" class="greenBB">
+				<div id="newdisc_inner">
+					<form>
+						<p>
+							<label>Post Title</label>
+							<br>
+							<input maxlength="100" size="100" type="text" id="txtNewPostTitle">
+						</p>
+						<p>
+							<label>Your Thoughts</label>
+							<br>
+							<textarea style="width:100%; height: 200px;" id="txtNewPost">
                                     
-                </textarea></p>
-                <p><label>Tag your post (comma separated)</label><br>
-                 <input style="width:100%" id="txtNewPostTags" type="text"></p>
-                <input type="button" onClick="io.createPost();" value=
-                "Create Discussion"> <input type="button" onclick=
+                </textarea>
+						</p>
+						<p>
+							<label>Tag your post (comma separated)</label>
+							<br>
+							<input style="width:100%" id="txtNewPostTags" type="text">
+						</p>
+						<input type="button" onClick="io.createPost();" value=
+                "Create Discussion">
+						<input type="button" onclick=
                 "javascript:io.clearNewDiscussionInputs();Effect.toggle('newDiscussion','slide',{duration:1.5});"
-                 value="Cancel"> <input type="checkbox" id="ckboxPostNotifier"> E-mail me
-                when someone responds to my post
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End hidden "new topic" DIV -->
-      <!-- start tag cloud -->
-      <div id="tagCloud" class="discussion-left box2" style="display: none;">
-        <!-- load "browse all tags" tag cloud -->
-      </div>
-      <!-- end tag cloud -->
-      <div id="discussion">
-        <!-- load discussion posts -->
-        <div id="discussion2541" class="discussionRow">
-          <div class="discussion-left floatLeft">
-            <div class="discussionRowHeader box6">
-              <div id="voting-post2541" class="discussionVoting">
-                1 of 1 participants agree with this post <img src=
+                 value="Cancel">
+						<input type="checkbox" id="ckboxPostNotifier">
+						E-mail me when someone responds to my post
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End hidden "new topic" DIV -->
+	<!-- start tag cloud -->
+	<div id="tagCloud" class="discussion-left box2" style="display: none;">
+		<!-- load "browse all tags" tag cloud -->
+	</div>
+	<!-- end tag cloud -->
+	<div id="discussion">
+		<!-- load discussion posts -->
+		<div id="discussion2541" class="discussionRow">
+			<div class="discussion-left floatLeft">
+				<div class="discussionRowHeader box6">
+					<div id="voting-post2541" class="discussionVoting"> 1 of
+						1 participants agree with this post <img src=
                 "images/btn_thumbsdown_off.png" alt="Disabled Button"> <img src=
-                "images/btn_thumbsup_off.png" alt="Disabled Button">
-              </div>
-              <span class="discussionTitle"><a href=
-              "sdThread.do?isid=2509&amp;pid=2541&amp;ioid=2511">This criterion is
-              important</a></span>
-            </div>
-            <div class="discussionBody box7 padding5">
-              <div style="background-image: none; background-color: transparent;" id=
+                "images/btn_thumbsup_off.png" alt="Disabled Button"> </div>
+					<span class="discussionTitle"><a href=
+              "sdThread.do?isid=2509&amp;pid=2541&amp;ioid=2511">This
+					criterion is important</a></span> </div>
+				<div class="discussionBody box7 padding5">
+					<div style="background-image: none; background-color: transparent;" id=
               "discussionText2541" class="discussionText peekaboobugfix">
-                <p>The CST is an interface to the participant concerns, which also allows
-                the moderator to organize the metadata (tags) of the concerns into
-                categories and, eventually, themes to be summarized.&nbsp; However,
-                during this process, the moderator is encouraged to view this process as
-                three major steps.</p>
-                <h3>- admin</h3>
-              </div>
-              <div class="discussionComments peekaboobugfix">
-                <img src="/images/balloonactive2.gif" alt=
+						<p>The CST is an interface to the participant concerns,
+							which also allows the moderator to organize the metadata
+							(tags) of the concerns into categories and, eventually,
+							themes to be summarized.&nbsp; However, during this process,
+							the moderator is encouraged to view this process as three
+							major steps.</p>
+						<h3>- admin</h3>
+					</div>
+					<div class="discussionComments peekaboobugfix"> <img src="/images/balloonactive2.gif" alt=
                 "Replies within the last 24 hours"> &nbsp; <a href=
-                "sdThread.do?isid=2509&amp;pid=2541&amp;ioid=2511"></a> 
-                <h3 style="display: inline;"><a href=
-                "sdThread.do?isid=2509&amp;pid=2541&amp;ioid=2511">0 Replies</a></h3>
-                (0 views)
-              </div>
-              <div class="smallText" style="text-align: right;">
-                Moderator Options: <input onClick="io.deletePost(2541);" value="Delete"
+                "sdThread.do?isid=2509&amp;pid=2541&amp;ioid=2511"></a>
+						<h3 style="display: inline;"><a href=
+                "sdThread.do?isid=2509&amp;pid=2541&amp;ioid=2511">0
+								Replies</a></h3>
+						(0 views) </div>
+					<div class="smallText" style="text-align: right;"> Moderator
+						Options:
+						<input onClick="io.deletePost(2541);" value="Delete"
                 type="button">
-              </div>
-            </div>
-          </div>
-          <div class="discussion-right">
-            <!-- waiting for $<!==(post.uniqueUsers)
+					</div>
+				</div>
+			</div>
+			<div class="discussion-right">
+				<!-- waiting for $<!==(post.uniqueUsers)
                                                                   
                                                                           
                                                                           
@@ -379,56 +419,57 @@
                                                                           
                                                                   
                                                                   -->
-          </div>
-        </div>
-        <!-- End New Style -->
-        <div id="discussion2537" class="discussionRow">
-          <div class="discussion-left floatLeft">
-            <div class="discussionRowHeader box6">
-              <div id="voting-post2537" class="discussionVoting">
-                1 of 1 participants agree with this post <img src=
+			</div>
+		</div>
+		<!-- End New Style -->
+		<div id="discussion2537" class="discussionRow">
+			<div class="discussion-left floatLeft">
+				<div class="discussionRowHeader box6">
+					<div id="voting-post2537" class="discussionVoting"> 1 of
+						1 participants agree with this post <img src=
                 "images/btn_thumbsdown_off.png" alt="Disabled Button"> <img src=
-                "images/btn_thumbsup_off.png" alt="Disabled Button">
-              </div>
-              <span class="discussionTitle"><a href=
-              "sdThread.do?isid=2509&amp;pid=2537&amp;ioid=2511">Test topic #3</a></span>
-            </div>
-            <div class="discussionBody box7 padding5">
-              <div id="discussionText2537" class="discussionText peekaboobugfix">
-                <p>The CST is an interface to the participant concerns, which also allows
-                the moderator to organize the metadata (tags) of the concerns into
-                categories and, eventually, themes to be summarized.&nbsp; However,
-                during this process, the moderator is encouraged to view this process as
-                three major steps.The CST is an interface to the participant concerns,
-                which also allows the moderator to organize the metadata (tags) of the
-                concerns into categories and, eventually, themes to be summarized.&nbsp;
-                However, during this process, the moderator is encouraged to view this
-                process as three major steps.</p>
-                <h3>- admin</h3>
-              </div>
-              <div class="discussionComments peekaboobugfix">
-                <img src="/images/balloonactive2.gif" alt=
+                "images/btn_thumbsup_off.png" alt="Disabled Button"> </div>
+					<span class="discussionTitle"><a href=
+              "sdThread.do?isid=2509&amp;pid=2537&amp;ioid=2511">Test
+					topic #3</a></span> </div>
+				<div class="discussionBody box7 padding5">
+					<div id="discussionText2537" class="discussionText peekaboobugfix">
+						<p>The CST is an interface to the participant concerns,
+							which also allows the moderator to organize the metadata
+							(tags) of the concerns into categories and, eventually,
+							themes to be summarized.&nbsp; However, during this process,
+							the moderator is encouraged to view this process as three
+							major steps.The CST is an interface to the participant
+							concerns, which also allows the moderator to organize
+							the metadata (tags) of the concerns into categories and,
+							eventually, themes to be summarized.&nbsp;
+							However, during this process, the moderator
+							is encouraged to view this process as three major steps.</p>
+						<h3>- admin</h3>
+					</div>
+					<div class="discussionComments peekaboobugfix"> <img src="/images/balloonactive2.gif" alt=
                 "Replies within the last 24 hours"> &nbsp; <a href=
-                "sdThread.do?isid=2509&amp;pid=2537&amp;ioid=2511"></a> 
-                <h3 style="display: inline;"><a href=
-                "sdThread.do?isid=2509&amp;pid=2537&amp;ioid=2511">0 Replies</a></h3>
-                (0 views)
-              </div>
-              <ul class="tagsInline">
-                <li class="tagsInline"><strong>Tags:</strong></li>
-                <li class="box6 tagsInline"><a href=
+                "sdThread.do?isid=2509&amp;pid=2537&amp;ioid=2511"></a>
+						<h3 style="display: inline;"><a href=
+                "sdThread.do?isid=2509&amp;pid=2537&amp;ioid=2511">0
+								Replies</a></h3>
+						(0 views) </div>
+					<ul class="tagsInline">
+						<li class="tagsInline"><strong>Tags:</strong></li>
+						<li class="box6 tagsInline"><a href=
                 "javascript:io.changeCurrentFilter(108,0,true);">transit</a></li>
-                <li class="box6 tagsInline"><a href=
+						<li class="box6 tagsInline"><a href=
                 "javascript:io.changeCurrentFilter(215,0,true);">planning</a></li>
-              </ul>
-              <div class="smallText" style="text-align: right;">
-                Moderator Options: <input onClick="io.deletePost(2537);" value="Delete"
+					</ul>
+					<div class="smallText" style="text-align: right;"> Moderator
+						Options:
+						<input onClick="io.deletePost(2537);" value="Delete"
                 type="button">
-              </div>
-            </div>
-          </div>
-          <div class="discussion-right">
-            <!-- waiting for $<!==(post.uniqueUsers)
+					</div>
+				</div>
+			</div>
+			<div class="discussion-right">
+				<!-- waiting for $<!==(post.uniqueUsers)
                                                                   
                                                                           
                                                                           
@@ -436,56 +477,57 @@
                                                                           
                                                                   
                                                                   -->
-          </div>
-        </div>
-        <!-- End New Style -->
-        <div id="discussion2531" class="discussionRow">
-          <div class="discussion-left floatLeft">
-            <div class="discussionRowHeader box6">
-              <div id="voting-post2531" class="discussionVoting">
-                1 of 1 participants agree with this post <img src=
+			</div>
+		</div>
+		<!-- End New Style -->
+		<div id="discussion2531" class="discussionRow">
+			<div class="discussion-left floatLeft">
+				<div class="discussionRowHeader box6">
+					<div id="voting-post2531" class="discussionVoting"> 1 of
+						1 participants agree with this post <img src=
                 "images/btn_thumbsdown_off.png" alt="Disabled Button"> <img src=
-                "images/btn_thumbsup_off.png" alt="Disabled Button">
-              </div>
-              <span class="discussionTitle"><a href=
-              "sdThread.do?isid=2509&amp;pid=2531&amp;ioid=2511">Topic #2</a></span>
-            </div>
-            <div class="discussionBody box7 padding5">
-              <div id="discussionText2531" class="discussionText peekaboobugfix">
-                <p>The CST is an interface to the participant concerns, which also allows
-                the moderator to organize the metadata (tags) of the concerns into
-                categories and, eventually, themes to be summarized.&nbsp; However,
-                during this process, the moderator is encouraged to view this process as
-                three major steps.The CST is an interface to the participant concerns,
-                which also allows the moderator to organize the metadata (tags) of the
-                concerns into categories and, eventually, themes to be summarized.&nbsp;
-                However, during this process, the moderator is encouraged to view this
-                process as three major steps.</p>
-                <h3>- admin</h3>
-              </div>
-              <div class="discussionComments peekaboobugfix">
-                <img src="/images/balloonactive2.gif" alt=
+                "images/btn_thumbsup_off.png" alt="Disabled Button"> </div>
+					<span class="discussionTitle"><a href=
+              "sdThread.do?isid=2509&amp;pid=2531&amp;ioid=2511">Topic
+					#2</a></span> </div>
+				<div class="discussionBody box7 padding5">
+					<div id="discussionText2531" class="discussionText peekaboobugfix">
+						<p>The CST is an interface to the participant concerns,
+							which also allows the moderator to organize the metadata
+							(tags) of the concerns into categories and, eventually,
+							themes to be summarized.&nbsp; However, during this process,
+							the moderator is encouraged to view this process as three
+							major steps.The CST is an interface to the participant
+							concerns, which also allows the moderator to organize
+							the metadata (tags) of the concerns into categories and,
+							eventually, themes to be summarized.&nbsp;
+							However, during this process, the moderator
+							is encouraged to view this process as three major steps.</p>
+						<h3>- admin</h3>
+					</div>
+					<div class="discussionComments peekaboobugfix"> <img src="/images/balloonactive2.gif" alt=
                 "Replies within the last 24 hours"> &nbsp; <a href=
-                "sdThread.do?isid=2509&amp;pid=2531&amp;ioid=2511"></a> 
-                <h3 style="display: inline;"><a href=
-                "sdThread.do?isid=2509&amp;pid=2531&amp;ioid=2511">0 Replies</a></h3>
-                (0 views)
-              </div>
-              <ul class="tagsInline">
-                <li class="tagsInline"><strong>Tags:</strong></li>
-                <li class="box6 tagsInline"><a href=
+                "sdThread.do?isid=2509&amp;pid=2531&amp;ioid=2511"></a>
+						<h3 style="display: inline;"><a href=
+                "sdThread.do?isid=2509&amp;pid=2531&amp;ioid=2511">0
+								Replies</a></h3>
+						(0 views) </div>
+					<ul class="tagsInline">
+						<li class="tagsInline"><strong>Tags:</strong></li>
+						<li class="box6 tagsInline"><a href=
                 "javascript:io.changeCurrentFilter(84,0,true);">cars</a></li>
-                <li class="box6 tagsInline"><a href=
+						<li class="box6 tagsInline"><a href=
                 "javascript:io.changeCurrentFilter(128,0,true);">bus</a></li>
-              </ul>
-              <div class="smallText" style="text-align: right;">
-                Moderator Options: <input onClick="io.deletePost(2531);" value="Delete"
+					</ul>
+					<div class="smallText" style="text-align: right;"> Moderator
+						Options:
+						<input onClick="io.deletePost(2531);" value="Delete"
                 type="button">
-              </div>
-            </div>
-          </div>
-          <div class="discussion-right">
-            <!-- waiting for $<!==(post.uniqueUsers)
+					</div>
+				</div>
+			</div>
+			<div class="discussion-right">
+				<!-- waiting for $<!==(post.uniqueUsers)
                                                                   
                                                                           
                                                                           
@@ -493,50 +535,47 @@
                                                                           
                                                                   
                                                                   -->
-          </div>
-        </div>
-        <!-- End New Style -->
-        <div class="pagination discussion-left">
-          You are currently viewing page: 1 of 1 &nbsp; <img src=
+			</div>
+		</div>
+		<!-- End New Style -->
+		<div class="pagination discussion-left"> You are currently
+			viewing page: 1 of 1 &nbsp; <img src=
           "images/btn_prev_fade.gif" alt="No Previous Pages"> <img src=
-          "images/btn_next_fade.gif" alt="No Additional Pages">
-        </div>
-      </div>
-    </div>
-    <!-- start feedback form -->
-    <!-- end feedback form -->
-    <!-- end container -->
-    <!-- Start Footer -->
-    <!-- End Footer -->
-    <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
-    <script type="text/javascript">
+          "images/btn_next_fade.gif" alt="No Additional Pages"> </div>
+	</div>
+</div>
+<!-- start feedback form -->
+<!-- end feedback form -->
+<!-- end container -->
+<!-- Start Footer -->
+<!-- End Footer -->
+<!-- Run javascript function after most of the page is loaded, 
+work around for onLoad functions quirks with tabs.js -->
+<script type="text/javascript">
                         io.getPosts('', 1, false, io.currentSort);
                         //infoObject.assignTargetHeaders();
                         io.getTargets();
                         
-                  </script><!-- start the bottom header menu -->
-    <!-- Begin header menu - The wide ribbon underneath the logo -->
-    <div id="headerMenu">
-      <div id="headerContainer">
-        <div id="headerTitle" class="floatLeft">
-          <h3 class="headerColor">Step 1: Discuss Concerns</h3>
-        </div>
-        <div class="headerButton floatLeft">
-          <a href="cctlist.do">1a: Brainstorm</a>
-        </div>
-        <div class="headerButtonCurrent floatLeft currentBox">
-          <a href="sdlist.do">1b: Review Summaries</a>
-        </div>
-        <div id="headerNext" class=" floatRight box5">
-          <a href="/sdcWaiting.jsp">Next Step</a>
-        </div>
-      </div>
-    </div>
-    <!-- End header menu -->
-    <!-- end the bottom header menu -->
-    <!-- Begin footer -->
-    <div id="footer">
-    </div>
-    <!-- End footer -->
-  </body>
+                  </script>
+<!-- start the bottom header menu -->
+<!-- Begin header menu - The wide ribbon underneath the logo -->
+<div id="headerMenu">
+	<div id="headerContainer">
+		<div id="headerTitle" class="floatLeft">
+			<h3 class="headerColor">Step 2: Evaluate Planning Factors</h3>
+		</div>
+		<div class="headerButton floatLeft currentBox"> <a href="step2a.html">2a:
+				Review and discuss factors</a> </div>
+		<div class="headerButtonCurrent floatLeft "> <a href="step2b.html">2b:
+				Weigh factors</a> </div>
+		<div id="headerNext" class="floatRight box5"> <a href="step2b.html">Next
+				Step</a> </div>
+	</div>
+</div>
+<!-- End header menu -->
+<!-- end the bottom header menu -->
+<!-- Begin footer -->
+<div id="footer"> </div>
+<!-- End footer -->
+</body>
 </html>

@@ -1,244 +1,302 @@
 <!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
 <html>
-  <head>
-    <title>Step 2a: Review Criteria</title>
-    <style type="text/css" media="screen">
+<head>
+<meta name="generator" content=
+    "HTML Tidy for Linux/x86 (vers 1st November 2002), see www.w3.org">
+<title>Step 2b: Evaluate planning factors</title>
+<style type="text/css" media="screen">
         @import "styles/lit.css";
         </style>
-    <style type="text/css">
-		.criteriaBox
-		{
-		width:240px;
-		margin:3px;
-		margin-top:0px;
-		padding:5px;
-		}
-		
-		#criteriaBoxes
-		{
-		width:775px;
-		margin:auto;	
-		}
-		
-		#criteriaRuler
-		{
-		width:775px;
-		font-size:1.2em;
-		height:1.5em;
-		border-bottom:1px solid #000000;
-		margin-bottom:.5em;
-		}
-		
-		h4
-		{
-		font-size:1.1em;
-		margin-bottom:.3em;
-		margin-top:0em;
-		}
-		
-		#criteria-left
-		{
-		width:470px;
-		margin-right:5px;
-		}
-		
-		#criteria-left ul
-		{
-		margin:1em 0em 1em 2em;
-		padding:0px;
-		}
-		
-		#criteria-left input
-		{
+<style type="text/css">
 
+.criteriaListRow
+{
+background:#E7F2F7;
+padding:.3em 0em;
+}
+
+.criteriaListHeader
+{
+background:#fff;
+}
+
+#allCriteriaList
+{
+text-align:left;
+}
+
+.even {background: #ffffff}
+
+.weighCriteriaCol1
+{
+width:210px;
+margin-right:.5em;
+}
+
+.weighCriteriaCol1 img
+{
+margin:0px 3px 0px 0px;
+vertical-align:middle;
+border:0px;
+}
+
+.weighCriteriaCol2
+{
+width:330px;
+}
+
+.weighCriteriaCol3
+{
+margin-left:.5em;
+width:370px;
+}	
+
+h4
+{
+font-size:1em;
+margin:0px;
+padding:0px;
+}
+
+.objectives
+{
+padding:.5em;
+}
+
+</style>
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script type="text/javascript">
+		function expandList(objective,icon){
+			Effect.toggle(objective, 'appear', {duration: .5, afterFinish:
+				//window.setTimeout(toggleIcon,100);
+				function(){
+					if ($(objective).style.display != ""){
+						$(icon).src = "images/plus.gif";
+						}else{
+							$(icon).src = "images/minus.gif";
+						}
+					}
+			});
 		}
-		
-		#criteria-left-header
-		{
-		height:6em;
-		}
-		
-		#criteria-left-content
-		{
-		}
-		
-		#criteria-right
-		{
-		width:470px;
-		}
-		
-		#criteria-right-header
-		{
-		height:6em;
-		}
-		
-		#criteria-right-content
-		{}
-		
-    </style>
-    <script src="scripts/prototype.js" type="text/javascript"></script>
-    <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-  </head>
-  <body>
-  
-  <!-- Begin conditional styles for the benefit of IE -->
-            <!--[if IE]>
+	</script>
+</head>
+<body>
+<!-- Begin conditional styles for the benefit of IE -->
+<!--[if IE]>
                           <style type="text/css">
                           #sortingMenu {right:0px;}
 						  #criteriaRuler {width:745px;}
                           </style>
           <![endif]-->
-  <!-- End conditional styles -->
-  
-    <!-- Begin header -->
-    <div id="header">
-      [Load from separate file]
-    </div>
-    <!-- End header -->
-    <!-- Begin header menu - The wide ribbon underneath the logo -->
-    <div id="headerMenu">
-      <div id="headerContainer">
-        <div id="headerTitle" class="floatLeft">
-          <h3 class="headerColor">Step 2: Review Criteria</h3>
-        </div>
-        <div class="headerButton floatLeft">
-          <a href="cctlist.do">1a: Brainstorm</a>
-        </div>
-        <div class="headerButtonCurrent floatLeft currentBox">
-          <a href="sdlist.do">1b: Review Summaries</a>
-        </div>
-        <div id="headerNext" class="floatRight box5">
-          <a href="/sdcWaiting.jsp">Next Step</a>
-        </div>
-      </div>
-    </div>
-    <!-- End header menu -->
-    <!-- Begin loading indicator -->
-    <div style="display: none;" id="loading-indicator">
-      Loading... <img src="/images/indicator_arrows.gif">
-    </div>
-    <!-- End loading indicator -->
-    <!-- Begin container - Main page content begins here -->
-    <div id="container">
-      <!-- Begin Breadcrumbs -->
-      <div style="height:30px;">
-        <div id="breadCrumbs" class="floatLeft">
-          Select a Criteria &rarr; This Criteria
-        </div>
-      </div>
-      <!-- End Breadcrumbs -->
-      <!-- begin "overview and instructions" area -->
-      <div id="overview" class="box2">
-        <h3>Overview and Instructions</h3>
-        <p>Criteria are used to help evalute which proposed transportation projects are
-        best suited to address problems with our transportation system. Below, these
-        criteria have been associated with the concern themes discussed in the previous
-        step. Please review these criteria and the associated themes. Do these criteria
-        adequately reflect your concerns and the summaries? What criteria might be useful
-        in evaluating proposed transportation projects?</p>
-        <p><a href="readmore.jsp">Read more about how this step fits into the bigger
-        picture</a>.</p>
-      </div>
-      <!-- end overview -->
-      <!-- begin object -->
-      <div id="object">
-        <!-- begin object content -->
-        <div id="object-content">
-          <!-- Load separate file content starting here -->
- 			<div id="criteria">
-
-				<div id="criteria-left" class="floatLeft">
-					<div id="criteria-left-header">
-					<h3 class="headerColor">Select criteria to weigh</h3>
-					<p>Select a criteria by clicking the checkbox.  Click on the criteria theme 
-					to return to the description and discussion of that theme</p>
-					</div>
-					<div id="criteria-left-content" class="padding5">
-					<h4><a href="#">Safety</a></h4>
-					<ul style="list-style:none">
-						<li><input type="checkbox">Fatalities on road</li>
-					</ul>
-					<h4><a href="#">Environment</a></h4>
-					<ul style="list-style:none">
-						<li><input type="checkbox">Air pollution</p></li>
-						<li><input type="checkbox">Reduce run-off to streams</li>
-					</ul>
-					<h4><a href="#">Public transportation</a></h4>
-					<ul style="list-style:none">
-						<li><input type="checkbox">More bus stops</li>
-					</ul>
-					<h4><a href="#">Congestion</a></h4>
-					<h4><a href="#">Funding</a></h4>					
-					</div>
-				</div>
-				
-				<div id="criteria-right" class="floatLeft">
-					<div id="criteria-right-header">
-					<h3 class="headerColor">Select criteria to weigh</h3>
-					<p>Weigh criteria you've selected by dragging the slider bars next to each criterion.</p>
-					</div>
-					<div id="criteria-right-content" class="box3 padding5">
-					<p>Criteria are used to help evalute which proposed transportation projects are
-        best suited to address problems with our transportation system. Below, these
-        criteria have been associated with the concern themes discussed in the previous
-        step. Please review these criteria and the associated themes. Do these criteria
-        adequately reflect your concerns and the summaries? What criteria might be useful
-        in evaluating proposed transportation projects?</p>
-					</div>
-				</div>
-				
-			</div>
-          <!-- Separate file content stops here -->
-        </div>
-        <!--end object content -->
-      </div>
-      <!-- end object -->
-      
-	  <a name="filterJump"></a> 
-	  
-	  <div class="clearBoth">&nbsp;</div>
-	  
-		<div>
-		<h3 class="headerColor">Finished Reviewing and Weighing Criteria?</h3>
-		<p>If you're not finished reviewing and weighing the criteria, return to the themes list.<br />Click the "Next Step" button if you're ready to move forward to the next step in the process.</p>
+<!-- End conditional styles -->
+<!-- Begin header -->
+<div id="header"> [Load from separate file] </div>
+<!-- End header -->
+<!-- Begin header menu - The wide ribbon underneath the logo -->
+<div id="headerMenu">
+	<div id="headerContainer">
+		<div id="headerTitle" class="floatLeft">
+			<h3 class="headerColor">Step 2: Evaluate Planning Factors</h3>
 		</div>
-		
-    </div>
-    <!-- end container -->
-	
-    <!-- Start Footer -->
-    
-	<!-- End Footer -->
-    
-	<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
-    <script type="text/javascript">
+		<div class="headerButton floatLeft"> <a href="step2a.html">2a:
+				Review and discuss factors</a> </div>
+		<div class="headerButtonCurrent floatLeft currentBox"> <a href="step2b.html">2b:
+				Weigh factors</a> </div>
+		<div id="headerNext" class="floatRight box5"> <a href="/sdcWaiting.jsp">Next
+				Step</a> </div>
+	</div>
+</div>
+<!-- End header menu -->
+<!-- Begin loading indicator -->
+<div style="display: none;" id="loading-indicator"> Loading... 
+	<img src="/images/indicator_arrows.gif"> 
+</div>
+<!-- End loading indicator -->
+<!-- Begin container - Main page content begins here -->
+<div id="container">
+	<!-- begin "overview and instructions" area -->
+	<div id="overview" class="box2">
+		<h3>Overview and Instructions</h3>
+		<p>Criteria are used to help Evaluate which proposed transportation
+			projects are best suited to address problems with our transportation
+			system. Below, these criteria have been associated with the
+			concern themes discussed in the previous step. Please review
+			these criteria and the associated themes. Do these criteria
+			adequately reflect your concerns and the summaries? What criteria
+			might be useful in evaluating proposed transportation projects?</p>
+		<p><a href="readmore.jsp">Read more about how this step fits
+				into the bigger picture</a>.</p>
+	</div>
+	<!-- end overview -->
+	<!-- begin object -->
+	<div id="object">
+		<!-- begin object content -->
+		<div id="object-content">
+			<!-- Load separate file content starting here -->
+			<div id="criteria">
+				<div id="criteriaHeader" style="height:30px">
+					<div class="floatLeft">
+						<h3 class="headerColor">All planning factors and related
+							concern themes</h3>
+					</div>
+				</div>
+			</div>
+			<!-- begin criteria (summary) -->
+			<div id="criteria" class="box3 floatLeft">
+				<!-- START All Criteria List -->
+				<div id="allCriteriaList">
+					<div class="criteriaListHeader">
+						<div class="weighCriteriaCol1 floatLeft">
+							<h4 class="headerColor">Planning factor</h4>
+						</div>
+						<div class="weighCriteriaCol2 floatLeft">
+							<h4 class="headerColor">Description</h4>
+						</div>
+						<div class="weighCriteriaCol3 floatLeft">
+							<h4 class="headerColor">Your weight</h4>
+						</div>
+						<div class="clearBoth"></div>
+					</div>
+					<div class="criteriaListRow row">
+						<div class="weighCriteriaCol1 floatLeft"><a href="#">
+							<div class="floatLeft"><a href="javascript:expandList('objectives1','icon1');">
+								<img src="images/plus.gif" id="icon1"></a></a></div>
+							<div class="floatLeft"><a href="#">Economic Vitality</a></div>
+						</div>
+						<div class="weighCriteriaCol2 floatLeft smallText">Support
+							the economic vitality of the metropolitan area especially
+							by enabling global competitiveness, productivity, and
+							efficiency</div>
+						<div class="weighCriteriaCol3 floatLeft smallText"></div>
+						<div class="clearBoth"></div>
+						<div class="objectives" id="objectives1" style="display:none;"> Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+					</div>
+					<div class="criteriaListRow row even">
+						<div class="weighCriteriaCol1 floatLeft"><a href="#">
+							<div class="floatLeft"><a href="javascript:expandList('objectives2','icon2');">
+								<img src="images/plus.gif" id="icon2"></a></div>
+							<div class="floatLeft"><a href="#">Security</a></div>
+						</div>
+						<div class="weighCriteriaCol2 floatLeft smallText">Increase
+							security of the transportation system for motorized and
+							nonmotorized uses.</div>
+						<div class="weighCriteriaCol3 floatLeft smallText"></div>
+						<div class="clearBoth"></div>
+						<div class="objectives" id="objectives2" style="display:none;"> Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+					</div>
+					<div class="criteriaListRow row">
+						<div class="weighCriteriaCol1 floatLeft">
+							<div class="floatLeft"><a href="javascript:expandList('objectives3','icon3');">
+								<img src="images/plus.gif" id="icon3"></a></div>
+							<div class="floatLeft"><a href="#">Accessibility and Mobility</a></div>
+						</div>
+						<div class="weighCriteriaCol2 floatLeft smallText">Increase
+							the accessibility and mobility options to people and freight</div>
+						<div class="weighCriteriaCol3 floatLeft smallText"> </div>
+						<div class="clearBoth"></div>
+						<div class="objectives" id="objectives3" style="display:none;"> Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+					</div>
+					<div class="criteriaListRow row even">
+						<div class="weighCriteriaCol1 floatLeft">
+							<div class="floatLeft"><a href="javascript:expandList('objectives4','icon4');">
+								<img src="images/plus.gif" id="icon4"></a></div>
+							<div class="floatLeft"><a href="#">Lorem Ipsum Dolor Sit
+									Amet Adapiscing Elit</a></div>
+						</div>
+						<div class="weighCriteriaCol2 floatLeft smallText"> Protect
+							and enhance the environment, promote energy conservation,
+							and improve quality of life. </div>
+						<div class="weighCriteriaCol3 floatLeft smallText"> </div>
+						<div class="clearBoth"></div>
+						<div class="objectives" id="objectives4" style="display:none;"> Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+							Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+							Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+					</div>
+				</div>
+				<!-- END All Criteria List -->
+			</div>
+			<!-- end criteria (summary) -->
+			<div class="floatRight padding5">
+				<input type="button" value="Save" />
+				<input type="button" value="Save and Continue" />
+			</div>
+		</div>
+		<!-- Separate file content stops here -->
+	</div>
+	<!--end object content -->
+	<!-- end object -->
+	<div class="clearBoth">&nbsp;</div>
+	<!-- start feedback form -->
+	<!-- end feedback form -->
+</div>
+<!-- end container -->
+<!-- Start Footer -->
+<!-- End Footer -->
+<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
+<script type="text/javascript">
                         io.getPosts('', 1, false, io.currentSort);
                         //infoObject.assignTargetHeaders();
                         io.getTargets();
                         
-                  </script><!-- start the bottom header menu -->
-    <!-- Begin header menu - The wide ribbon underneath the logo -->
-    <div id="headerMenu">
-      <div id="headerContainer">
-        <div id="headerTitle" class="floatLeft">
-          <h3 class="headerColor">Step 1: Discuss Concerns</h3>
-        </div>
-        <div class="headerButton floatLeft">
-          <a href="cctlist.do">1a: Brainstorm</a>
-        </div>
-        <div class="headerButtonCurrent floatLeft currentBox">
-          <a href="sdlist.do">1b: Review Summaries</a>
-        </div>
-        <div id="headerNext" class=" floatRight box5">
-          <a href="/sdcWaiting.jsp">Next Step</a>
-        </div>
-      </div>
-    </div>
-    <!-- End header menu -->
-    <!-- end the bottom header menu -->
-    <!-- Begin footer -->
-    <div id="footer">
-    </div>
-    <!-- End footer -->
-  </body>
+                  </script>
+<!-- start the bottom header menu -->
+<!-- Begin header menu - The wide ribbon underneath the logo -->
+<div id="headerMenu">
+	<div id="headerContainer">
+		<div id="headerTitle" class="floatLeft">
+			<h3 class="headerColor">Step 2: Evaluate Planning Factors</h3>
+		</div>
+		<div class="headerButton floatLeft"> <a href="step2a.html">2a:
+				Review and discuss factors</a> </div>
+		<div class="headerButtonCurrent floatLeft currentBox"> <a href="step2b.html">1b:
+				Weigh factors</a> </div>
+		<div id="headerNext" class="floatRight box5"> <a href="/sdcWaiting.jsp">Next
+				Step</a> </div>
+	</div>
+</div>
+<!-- End header menu -->
+<!-- end the bottom header menu -->
+<!-- Begin footer -->
+<div id="footer"> </div>
+<!-- End footer -->
+</body>
 </html>
