@@ -116,7 +116,7 @@
 		function getSelectedItems() {
 			len = $('objectives').options.length;
 			var listBox = $('list');
-			var listText = '<h3>Objectives Selected</h3><ul>';
+			var listText = '<h3 style="background:#E7F3F7">Objectives Selected</h3><ul>';
 			for (var i = 0; i < len; i++) {
 				if ($('objectives').options[i].selected) 
 				{
@@ -450,8 +450,8 @@
 
 		<!-- End form to add a new planning factor -->
 		<!-- Begin list of Objectives -->
-			<div id="list" style="float:left;width:300px;">
-			<h3>Objectives Selected</h3>
+			<div id="list" class="box3" style="padding:5px;margin-left:5px;float:left;width:300px;">
+			<h3 style="background:#E7F3F7">Objectives Selected</h3>
 			</div>
 		<!-- End list of objectives -->
 		<!-- Begin publishing options -->
