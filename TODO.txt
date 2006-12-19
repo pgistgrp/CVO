@@ -4,7 +4,8 @@ Zhong:
 [ ] Send SQL Database Dump to robert after friday
 
 Zhong: Planning Factors Step 2
-[ ] Remove obsolete methods - relateCriteria(); derelateCriteria(); getAvailableCriteria; addCriterionSlider; deleteCriterionSlider; getThemes;
+[ ] Template for each criteria instance.
+[ ] Remove obsolete methods - relateCriteria(); derelateCriteria(); getAvailableCriteria(); addCriterionSlider(); deleteCriterionSlider(); getThemes();
 
 [ ] Add and Update methods:
 -addCriterion() & editCriterion();
