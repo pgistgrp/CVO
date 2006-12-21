@@ -95,10 +95,17 @@ var allNewConcernTags = new Array;
 		return true
 	}
 		
-	function goToPage(page){
+	function goToPage(page, section){
+		if(section=="tagCloud"){
+			cct.currentTagCloudPage=page;
+			getNextTagCloud();
+		}else{
 		getContextConcerns(cct.currentFilter,page,true, cct.showOnlyMyConcerns, cct.currentSort); 
 		//new Effect.Highlight('discussion-cont',{startcolor: "#D6E7EF"});
+		}
 	}
+	
+	
 	function checkMyConcerns(){
 		if($(cct.chbxMyConcerns).checked != true){
 			$(cct.divFilteredBy).style.display = 'inline';
@@ -226,6 +233,28 @@ var allNewConcernTags = new Array;
 			});	
 	};
 	
+	function getNextTagCloud(){
+		
+			CCTAgent.getTagCloud({cctId:cct.cctId,type:2,count:cct.tagCloudCount, page: cct.currentTagCloudPage},{
+				callback:function(data){
+						if (data.successful){			
+							$(cct.divTagCloud).innerHTML = data.html;
+							if (data.count == 0){
+								$(cct.divTagCloud).innerHTML = '<a href="javascript:Effect.Fade(\''+cct.divTagCloud+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
+							}
+							
+						}else{
+							alert(data.reason);
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+							alert("getNextTagCloud: "+errorString+" "+exception);
+				}		
+			});	
+	};
+	
+	
+	
 	function addManualTag(){
 		var manualTag = $('manualTag').value;
 		if(manualTag != $('manualTag').defaultValue){  //couldn't get the or operator working for some reason?
@@ -269,7 +298,7 @@ var allNewConcernTags = new Array;
 		//alert(newConcernSelectedTagsString);
 		//alert('cctId:' + cctId + ', concern: ' + concern + ', tags: ' + newConcernSelectedTagsString);
 		//alert(newConcernSelectedTagsString);
-
+		
 		CCTAgent.saveConcern({cctId:cct.cctId,concern:concern,tags:newConcernSelectedTagsString}, {
 			callback:function(data){
 				if (data.successful){
