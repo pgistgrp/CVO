@@ -50,7 +50,7 @@ BACKEND DOCUMENTED FOR LATER:
 [ ] Emailing when Notification off
 
 FRONT END DOCUMENTED FOR LATER
-[ ] Tag Cloud Pagination
+[ok] Tag Cloud Pagination
 [ ] Not able to remove filter
 [ ] Going back to the right "page" after clicking into comments.
 [ ] Timing Issue with Submitting Concern (button swap)
@@ -68,8 +68,8 @@ FRONT END DOCUMENTED FOR LATER
 [ ] Quotes around theme title
 [ ] Pagination more appearent
 [ ] View count - don't count author
-[ ] Doesn't right click in text area?
-[ ] Spell checker plugin for TinyMCE?
+[?] Doesn't right click in text area?
+[ ] Spell checker plugin for TinyMCE?  (Currently on for PHP versions)
 [ ] Least agreement bug
 [ ] Quote bug - when trying to remove a quote and continuing with post
 [ ] Check relevant sizes of tags in tag cloud.

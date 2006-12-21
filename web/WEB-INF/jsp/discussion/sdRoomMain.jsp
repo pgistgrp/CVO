@@ -374,7 +374,7 @@
 				document.write("<h3 class=\"headerColor clearBoth\">Summarization of Participant Concerns</h3>");
 				</c:when>
 				<c:otherwise>
-				document.write("<h3 class=\"headerColor clearBoth\">Summarization of Participant Concerns about ${object.object}</h3>");
+				document.write("<h3 class=\"headerColor clearBoth\">Summarization of Participant Concerns about \"${object.object}\"</h3>");
 				</c:otherwise>
 				</c:choose>
 			</script>
