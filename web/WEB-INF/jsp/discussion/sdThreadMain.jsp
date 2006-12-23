@@ -231,7 +231,7 @@
 								}
 							},
 						errorHandler:function(errorString, exception){ 
-								alert("delete post error:" + errorString + exception);
+								alert("getContextPosts error:" + errorString + exception);
 						}
 						});
 		};	
@@ -251,10 +251,13 @@
 							if (data.successful){
 								var votingDiv = 'voting-'+target+id;
 								if($(votingDiv) != undefined){
+
 	              				 	new Effect.Fade(votingDiv, {afterFinish: function(){io.getReplies(io.currentFilter, io.currentPage, false); io.getTargets(); new Effect.Appear(votingDiv);}});
+
 	              				}else{
 	              					io.getReplies(io.currentFilter, io.currentPage, false);	
 									io.getTargets();
+
 	              				}
 							}else{
 								alert(data.reason);

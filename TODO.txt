@@ -51,29 +51,29 @@ BACKEND DOCUMENTED FOR LATER:
 
 FRONT END DOCUMENTED FOR LATER
 [ok] Tag Cloud Pagination
-[ ] Not able to remove filter
+[?] Not able to remove filter
 [ ] Going back to the right "page" after clicking into comments.
-[ ] Timing Issue with Submitting Concern (button swap)
+[ok] Timing Issue with Submitting Concern (button swap)
 [ ] Add IOID Param to tagSearch and tagCloud
 [ ] Don't capitalize propositions
 [ ] Mailing List Form
 [ ] Commenting in Glossary
-[ ] Voting on first discussion on SDThreadMain.jsp (needs getPostByID())
+[?] Voting on first discussion on SDThreadMain.jsp (needs getPostByID())
 [ ] Event Logging Moderator Page
 [ ] Moderator Options (author actions) on CCT concerns and comments
 [ ] Edit/Delete Comments
 [ ] Rich Textbox IE width
 [ ] Highlight new concern comment
 [ ] PGIST Portal link - pop into new window
-[ ] Quotes around theme title
+[ok?] Quotes around theme title
 [ ] Pagination more appearent
-[ ] View count - don't count author
+[backend?] View count - don't count author
 [?] Doesn't right click in text area?
-[ ] Spell checker plugin for TinyMCE?  (Currently on for PHP versions)
+[?] Spell checker plugin for TinyMCE?  (Currently on for PHP versions)
 [ ] Least agreement bug
-[ ] Quote bug - when trying to remove a quote and continuing with post
+[ok?] Quote bug - when trying to remove a quote and continuing with post
 [ ] Check relevant sizes of tags in tag cloud.
-[ ] Editing concern/comment/post available only with 0 votes and 0 comments.
+[ok?] Editing concern/comment/post available only with 0 votes and 0 comments.
 
 
 ---------------------

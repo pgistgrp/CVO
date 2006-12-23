@@ -306,8 +306,9 @@ var allNewConcernTags = new Array;
 					//setVote(data.concern.id, "true")
 					swapContinue(false);
 					$(cct.txtAddConcern).value = '';
-					Effect.BlindUp(cct.divTagNewConcern);
-					window.setTimeout('new Effect.Highlight("concern'+ data.concern.id +'", {duration: 4.0});',500);
+					new Effect.BlindUp(cct.divTagNewConcern);
+					window.setTimeout('new Effect.Highlight("concern'+ data.concern.id +'", {duration: 4.0});',1000);
+					//new Effect.Highlight("concern"+data.concern.id, {duration:4.0});
 				}else{
 					alert(data.reason)
 				}
@@ -362,7 +363,7 @@ var allNewConcernTags = new Array;
 	function changeCurrentFilter(tagRefId){
 		$(cct.chbxMyConcerns).checked = false; //a user's concerns can not be filtered.
 		checkMyConcerns();
-		if (tagRefId != ''){
+		if (tagRefId != '' && tagRefId!=undefined){
 				CCTAgent.getTagByTagRefId(tagRefId, {
 				callback:function(data){
 				if (data.successful){
@@ -380,8 +381,10 @@ var allNewConcernTags = new Array;
 				}
 				});
 		}else{	
+			cct.currentFilter='';
 			getContextConcerns('', 0, true, cct.showOnlyMyConcerns, cct.currentSort);
 			$(cct.divFilteredBy).innerHTML = '';
+			
 		}
 	}
 	

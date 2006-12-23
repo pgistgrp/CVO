@@ -70,9 +70,13 @@
 	
 										</div><!--end discussionTagsList -->
 										<c:if test="${baseuser.id == concern.author.id}">
-												<div class="box6">
-													<strong>Author Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});">Edit Concern</a> &nbsp; <a href="javascript:editTagsPopup(${concern.id});">Edit Tags</a> &nbsp; <a href="javascript:deleteConcern(${concern.id});">Delete Concern</a> 
-												</div>
+											<c:if test="${concern.numVote == 1}">
+												<c:if test="${concern.replies == 0}">
+													<div class="box6">
+														<strong>Author Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});">Edit Concern</a> &nbsp; <a href="javascript:editTagsPopup(${concern.id});">Edit Tags</a> &nbsp; <a href="javascript:deleteConcern(${concern.id});">Delete Concern</a> 
+													</div>
+												</c:if>
+											</c:if>
 										</c:if>
 								</div><!-- end discussion body -->	
 							</div><!-- end discussion-left -->
