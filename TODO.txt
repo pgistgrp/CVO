@@ -72,8 +72,9 @@ FRONT END DOCUMENTED FOR LATER
 [?] Spell checker plugin for TinyMCE?  (Currently on for PHP versions)
 [ ] Least agreement bug
 [ok?] Quote bug - when trying to remove a quote and continuing with post
-[ ] Check relevant sizes of tags in tag cloud.
+[?] Check relevant sizes of tags in tag cloud.
 [ok?] Editing concern/comment/post available only with 0 votes and 0 comments.
+[ok] blank comment 'Enter' bug
 
 
 ---------------------

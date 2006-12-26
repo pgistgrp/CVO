@@ -168,7 +168,7 @@
 <a name="commentAnchor"></a>
 <div id="newcomment" class="box8 padding5" style="margin-top: 10px;">
   <h3 class="headerColor">Post a comment</h3>
-  <form>
+  <form onsubmit="return false;">
     <p>
       <label>Post Title</label>
       <br>
