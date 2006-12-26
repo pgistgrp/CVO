@@ -17,6 +17,9 @@
 @import "styles/lit.css";
 </style>
 
+<script language="javascript" type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+
+
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 <style type="text/css">
@@ -36,12 +39,25 @@
 <script src="scripts/search.js" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
 <script type="text/javascript">
+
+tinyMCE.init({
+		mode : "exact",
+		theme : "advanced",
+		theme_advanced_buttons1 : "bold, italic, bullist, numlist,undo, redo,link",
+		theme_advanced_buttons2 : "",
+		theme_advanced_buttons3 : "",
+		content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css",
+		extended_valid_elements : "blockquote[style='']"
+	});
+	
+
 		
 		
 		function doOnLoad(){
 			getComments(${term.id});
 			isCommentsLoaded();
 			//modApprove("${term.name}",${term.id});
+			tinyMCE.execCommand('mceAddControl',false,'newComment');
 			
 		}
 		
@@ -161,12 +177,12 @@
 		var numComment = ${term.commentCount}
 		
 	  function createComment1(termId, comment){
-	  	comment = validateInput(comment);
+	  	//comment = validateInput(comment);
 	  	if (numComment == 4){
 	  		setFlag(0);
 	  	}
 	  	
-	  	if ($('newComment').value != ''){
+	  	if (tinyMCE.getContent() != ''){
 				GlossaryPublicAgent.createComment({id:termId, comment:comment}, {
 				callback:function(data){
 					if (data.successful){ 
@@ -174,7 +190,8 @@
 							numComment = numComment + 1;
 							$('feedback').innerHTML = 'Your comment has been saved. Thank you for your participation.';
 							Effect.Appear('feedback', {duration: 0.8, afterFinish:function(){Effect.Fade('feedback', {duration: 5.0});}});
-							$('newComment').value = '';
+							//$('newComment').value = '';
+							tinyMCE.setContent('');
 							//alert(numComment);
 							
 					}
@@ -275,11 +292,11 @@
         <h3>Add a Comment</h3>
         (html OK)<br>
         <div id="reply-to"></div>
-        <form name="commentForm" action="" onsubmit="createComment1(${term.id}, $('newComment').value); return false;">
-          <textarea style="height: 50px; width: 80%;" name="newComment" id="newComment" cols="50" rows="5"></textarea>
+        <form name="commentForm" action="" onsubmit="createComment1(${term.id}, tinyMCE.getContent()); return false;">
+          <textarea style="height: 150px; width: 150%;" name="newComment" id="newComment" cols="50" rows="5"></textarea>
           </p>
           <br>
-          <input type="button" id="createComment" value="Submit Comment" onclick="createComment1(${term.id}, $('newComment').value);">
+          <input type="button" id="createComment" value="Submit Comment" onclick="createComment1(${term.id}, tinyMCE.getContent());">
         </form>
       </div>
       <br>

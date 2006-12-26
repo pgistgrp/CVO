@@ -57,7 +57,7 @@ FRONT END DOCUMENTED FOR LATER
 [ ] Add IOID Param to tagSearch and tagCloud
 [ ] Don't capitalize propositions
 [ ] Mailing List Form
-[ ] Commenting in Glossary
+[ok?] Commenting in Glossary
 [?] Voting on first discussion on SDThreadMain.jsp (needs getPostByID())
 [ ] Event Logging Moderator Page
 [ ] Moderator Options (author actions) on CCT concerns and comments
