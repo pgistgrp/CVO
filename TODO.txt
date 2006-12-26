@@ -51,7 +51,7 @@ BACKEND DOCUMENTED FOR LATER:
 
 FRONT END DOCUMENTED FOR LATER
 [ok] Tag Cloud Pagination
-[?] Not able to remove filter
+[ok?] Not able to remove filter
 [ ] Going back to the right "page" after clicking into comments.
 [ok] Timing Issue with Submitting Concern (button swap)
 [ ] Add IOID Param to tagSearch and tagCloud
@@ -61,12 +61,12 @@ FRONT END DOCUMENTED FOR LATER
 [?] Voting on first discussion on SDThreadMain.jsp (needs getPostByID())
 [ ] Event Logging Moderator Page
 [ ] Moderator Options (author actions) on CCT concerns and comments
-[ ] Edit/Delete Comments
-[ ] Rich Textbox IE width
+[ok?] Edit/Delete Comments
+[?] Rich Textbox IE width
 [ ] Highlight new concern comment
-[ ] PGIST Portal link - pop into new window
+[ok] PGIST Portal link - pop into new window
 [ok?] Quotes around theme title
-[ ] Pagination more appearent
+[ ] Pagination more apparent
 [backend?] View count - don't count author
 [?] Doesn't right click in text area?
 [?] Spell checker plugin for TinyMCE?  (Currently on for PHP versions)

@@ -88,6 +88,7 @@ var allNewConcernTags = new Array;
 						alert(data.reason);
 					}
 				},
+				async:false,
 			errorHandler:function(errorString, exception){ 
 					alert("getContextConcerns error:" + errorString + exception);
 			}
@@ -363,7 +364,7 @@ var allNewConcernTags = new Array;
 	function changeCurrentFilter(tagRefId){
 		$(cct.chbxMyConcerns).checked = false; //a user's concerns can not be filtered.
 		checkMyConcerns();
-		if (tagRefId != '' && tagRefId!=undefined){
+		if (tagRefId != ''){
 				CCTAgent.getTagByTagRefId(tagRefId, {
 				callback:function(data){
 				if (data.successful){
