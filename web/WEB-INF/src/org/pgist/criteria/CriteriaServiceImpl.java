@@ -1,7 +1,17 @@
 package org.pgist.criteria;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.List;
+
+import org.pgist.cvo.CCT;
+import org.pgist.cvo.CCTDAO;
+import org.pgist.cvo.CCTService;
+import org.pgist.cvo.CategoryReference;
+import org.pgist.cvo.Theme;
 
 
 /**
@@ -15,23 +25,28 @@ public class CriteriaServiceImpl implements CriteriaService {
     private CriteriaDAO criteriaDAO;
     
     
-    public void setCriteriaDAO(CriteriaDAO criteriaDAO) {
+    private CCTDAO cctDAO;
+    
+
+	public void setCriteriaDAO(CriteriaDAO criteriaDAO) {
         this.criteriaDAO = criteriaDAO;
     }
 
 
-    /*
-     * ------------------------------------------------------------------------
-     */
+	public void setCctDAO(CCTDAO cctDAO) {
+		this.cctDAO = cctDAO;
+	}
     
-    
-    public Collection getCriterias() throws Exception {
+
+	public Collection getCriterias() throws Exception {
         return null;
     }//getCriterias()
     
     
-    public Criteria addCriterion(String name, String low, String medium, String high, String na) throws Exception {
-    	return criteriaDAO.addCriterion(name, low, medium, high, na);
+    public Criteria addCriterion(String name, Long cctId, Set themes,  Set objectives, String na) throws Exception {
+    	CCT cct = criteriaDAO.getCct(cctId);  
+    	
+    	return criteriaDAO.addCriterion(name, cct, themes, objectives, na);
     }//addCriterion()
     
     
@@ -40,8 +55,10 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//deleteCriterion
     
     
-    public void editCriterion(Criteria c, String name, String low, String medium, String high, String na) throws Exception {
-    	criteriaDAO.editCriterion(c, name, low, medium, high, na);
+    public void editCriterion(Criteria c, String name, Long cctId, Set themes, Set objectives, String na) throws Exception {
+    	CCT cct = criteriaDAO.getCct(cctId);  
+    	
+    	criteriaDAO.editCriterion(c, name, cct, themes, objectives, na);
     }//editCriterion()
     
     
@@ -50,9 +67,50 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getCriterionByID()
     
     
-    public Collection getAllCriterion() throws Exception {
-    	return criteriaDAO.getAllCriterion();
+    public Collection getAllCriterion(Long cctId) throws Exception {
+    	CCT cct = criteriaDAO.getCct(cctId);  
+    	return criteriaDAO.getAllCriterion(cct);
     }//getAllCriterion()
+    
+    
+    public Objective addObjective(String description) throws Exception {
+    	return criteriaDAO.addObjective(description);
+    }//addCriterion()
+    
+    
+    public List getThemes(Long cctId) throws Exception {
+    	CCT cct = criteriaDAO.getCct(cctId);            
+        Set refs = cct.getRootCategory().getChildren();          
+        List themes = new ArrayList(refs.size());           
+        Map themesMap = new HashMap();
+        
+        for (CategoryReference ref : (Set<CategoryReference>) refs) {
+            Theme theme = ref.getTheme();
+            themesMap.put(ref.getId(), theme);
+            themes.add(theme);
+        }//for
+        return themes;
+    }//getThemes()
+    
+    
+    public Set getThemeObjects(String[] themeIdList) throws Exception {
+        return criteriaDAO.getThemeObjects(themeIdList);
+    }//getThemesObjects()
+    
+    
+    public Set getObjectiveObjects(String[] objectiveIdList) throws Exception {
+        return criteriaDAO.getObjectiveObjects(objectiveIdList);
+    }//getObjectiveObjects()
+    
+    
+    public void deleteObjective(Long id) throws Exception {
+    	criteriaDAO.deleteObjective(id);
+    }//deleteObjective
+    
+   
+    public Collection getObjectives() throws Exception {
+    	return criteriaDAO.getObjectives();
+    }//getObjectives()
     
     
 }//class CriteriaServiceImpl

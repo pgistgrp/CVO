@@ -1,5 +1,6 @@
 package org.pgist.criteria;
 
+import org.pgist.cvo.CCT;
 import org.pgist.users.User;
 
 
@@ -13,6 +14,8 @@ public class CriteriaWeight {
     
     
     private Long id;
+    
+    private CCT cct;
     
     private Criteria criteria;
     
@@ -75,6 +78,16 @@ public class CriteriaWeight {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+
+	public CCT getCct() {
+		return cct;
+	}
+
+
+	public void setCct(CCT cct) {
+		this.cct = cct;
+	}
 
 
 }//class CriteriaWeight

@@ -1,7 +1,8 @@
 package org.pgist.criteria;
 
 import java.util.Collection;
-import java.util.Map;
+import java.util.Set;
+import org.pgist.cvo.CCT;
 
 import org.pgist.system.BaseDAO;
 
@@ -14,19 +15,37 @@ import org.pgist.system.BaseDAO;
 public interface CriteriaDAO extends BaseDAO {
     
 	
-	Criteria addCriterion(String name, String low, String medium, String high, String na) throws Exception;
+	Criteria addCriterion(String name, CCT cct, Set themes,  Set objectives, String na) throws Exception;
     
 	
 	void deleteCriterion(Long id) throws Exception;
     
 	
-	void editCriterion(Criteria c, String name, String low, String medium, String high, String na) throws Exception;
+	void editCriterion(Criteria c, String name, CCT cct, Set themes, Set objectives, String na) throws Exception;
 	
 	
 	Criteria getCriterionById(Long id) throws Exception;
 	
 	
-	Collection getAllCriterion() throws Exception;
+	Collection getAllCriterion(CCT cct) throws Exception;
+	
+	
+	Objective addObjective(String description) throws Exception;
+	
+	
+	Set getThemeObjects(String[] themeIdList)throws Exception;
+	
+	
+	Set getObjectiveObjects(String[] objectivesIdList)throws Exception;
+	
+	
+	CCT getCct(Long cctId)throws Exception;
+	
+	
+	void deleteObjective(Long id) throws Exception;
+	
+	
+	Collection getObjectives() throws Exception;
 	
 	
 }//interface CriteriaDAO

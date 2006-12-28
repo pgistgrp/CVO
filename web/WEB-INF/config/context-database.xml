@@ -79,6 +79,7 @@
                <value>org/pgist/wfengine/AccessManager.hbm.xml</value>
                <value>org/pgist/criteria/MOE.hbm.xml</value>
                <value>org/pgist/criteria/Criteria.hbm.xml</value>
+               <value>org/pgist/criteria/Objective.hbm.xml</value>
                <value>org/pgist/funding/FundingSource.hbm.xml</value>
                <value>org/pgist/funding/FundingSourceAlternative.hbm.xml</value>
                <value>org/pgist/projects/Corridor.hbm.xml</value>

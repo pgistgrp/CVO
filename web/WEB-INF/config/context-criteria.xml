@@ -15,6 +15,7 @@
         <property name="target">
             <bean class="org.pgist.criteria.CriteriaServiceImpl">
                 <property name="criteriaDAO" ref="criteriaDAO"/>
+                <property name="cctDAO" ref="cctDAO"/>
             </bean>
         </property>
     </bean>
@@ -22,6 +23,7 @@
 
     <bean id="criteriaAgent" class="org.pgist.criteria.CriteriaAgent">
         <property name="criteriaService" ref="criteriaService"/>
+        <property name="cctService" ref="cctService"/>
     </bean>
     
     

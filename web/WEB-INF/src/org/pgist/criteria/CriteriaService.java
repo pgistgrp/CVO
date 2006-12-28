@@ -2,6 +2,8 @@ package org.pgist.criteria;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
+import java.util.List;
 
 
 /**
@@ -15,18 +17,37 @@ public interface CriteriaService {
     Collection getCriterias() throws Exception;
     
     
-    Criteria addCriterion(String name, String low, String medium, String high, String na) throws Exception;
+    Criteria addCriterion(String name, Long cctId, Set themes, Set objectives, String na) throws Exception;
     
     
     void deleteCriterion(Long id) throws Exception;
     
     
-    void editCriterion(Criteria c, String name, String low, String medium, String high, String na) throws Exception;
+    void editCriterion(Criteria c, String name, Long cctId, Set themes, Set objectives, String na) throws Exception;
     
     
     Criteria getCriterionById(Long id) throws Exception;
     
     
-    Collection getAllCriterion() throws Exception;
+    Collection getAllCriterion(Long cctId) throws Exception;
+    
+    
+    Objective addObjective(String description) throws Exception;
+    
+    
+    List getThemes(Long cctId) throws Exception;
+    
+    
+    Set getThemeObjects(String[] themeIdList)throws Exception;
+    
+    
+    Set getObjectiveObjects(String[] objectivesIdList)throws Exception;
+    
+    
+    void deleteObjective(Long id) throws Exception;
+    
+    
+    Collection getObjectives() throws Exception;
+    
     
 }//interface CriteriaService

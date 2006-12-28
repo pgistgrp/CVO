@@ -1,12 +1,14 @@
 package org.pgist.criteria;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Collection;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.directwebremoting.WebContextFactory;
+import org.pgist.cvo.CCTService;
 
 
 /**
@@ -19,8 +21,19 @@ public class CriteriaAgent {
     
     private CriteriaService criteriaService;
     
-    
-    public void setCriteriaService(CriteriaService criteriaService) {
+    private CCTService cctService = null;
+
+	public CCTService getCctService() {
+		return cctService;
+	}
+
+
+	public void setCctService(CCTService cctService) {
+		this.cctService = cctService;
+	}
+
+
+	public void setCriteriaService(CriteriaService criteriaService) {
         this.criteriaService = criteriaService;
     }
     
@@ -36,9 +49,9 @@ public class CriteriaAgent {
      * @param params a Map contains:
      *   <ul>
      *     <li>name - string, name of the criteia</li>
-     *     <li>low - string, descript</li>
-     *     <li>medium - string, descript</li>
-     *     <li>high - string, descript</li>
+     *     <li>themeIds - string, name of the themeid's separated by commas</li>
+     *     <li>objectiveIds - string, list of Object Id's</li>	
+     *     <li>cctId - string, cctId.</li>
      *     <li>na - string, descript. Optional.</li>
      *   </ul>
      * @return a Map contains:
@@ -53,31 +66,40 @@ public class CriteriaAgent {
         map.put("successful", false);
         
         String name = (String) params.get("name");
-    	String low = (String) params.get("low");
-    	String medium = (String) params.get("medium");
-    	String high = (String) params.get("high");
+    	String themeIds = (String) params.get("themeIds");
+    	String objectiveIds = (String) params.get("objectiveIds");
+    	String strCctId = (String) params.get("cctId");
     	String na = (String) params.get("na");
     	
     	if(name==null || "".equals(name.trim())){
     		map.put("reason", "Criterion name cannot be empty.");
     		return map;
     	}
-    	if(low==null || "".equals(low.trim())){
-    		map.put("reason", "Criterion low cannot be empty.");
+    	if(themeIds==null || "".equals(themeIds.trim())){
+    		map.put("reason", "themeIds cannot be empty.");
     		return map;
     	}
-    	if(medium==null || "".equals(medium.trim())){
-    		map.put("reason", "Criterion medium cannot be empty.");
+    	if(strCctId==null || "".equals(strCctId.trim())){
+    		map.put("reason", "cctId cannot be empty.");
     		return map;
     	}
-    	if(high==null || "".equals(high.trim())){
-    		map.put("reason", "Criterion high cannot be empty.");
+    	if(objectiveIds==null || "".equals(objectiveIds.trim())){
+    		map.put("reason", "objectiveIds cannot be empty.");
     		return map;
     	}
+    	if(objectiveIds==null || "".equals(objectiveIds.trim())){
+    		na = "NONE";
+    	}
+    	Long cctId = new Long((String) params.get("cctId"));
     	
         try {
-        	Criteria criteria = criteriaService.addCriterion(name, low, medium, high, na);
-        	map.put("id", criteria.getId());
+        	String[] themeIdList = themeIds.split(",");
+        	Set themes = criteriaService.getThemeObjects(themeIdList);
+        	String[] objectiveIdList = objectiveIds.split(",");
+        	Set objectives = criteriaService.getObjectiveObjects(objectiveIdList);
+        	
+        	Criteria c = criteriaService.addCriterion(name, cctId, themes, objectives, na);
+        	map.put("id", c.getId());
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,11 +153,11 @@ public class CriteriaAgent {
      * 
      * @param params a Map contains:
      *   <ul>
-     *     <li>id - int, the id of the Criteria to be edited</li>
+     *     <li>id - string, id of the criterion</li>
      *     <li>name - string, name of the criteia</li>
-     *     <li>low - string, descript</li>
-     *     <li>medium - string, descript</li>
-     *     <li>high - string, descript</li>
+     *     <li>themeIds - string, name of the themeid's separated by commas</li>
+     *     <li>objectiveIds - string, list of Object Id's</li>	
+     *     <li>cctId - string, cctId.</li>
      *     <li>na - string, descript. Optional.</li>
      *   </ul>
      * @return a Map contains:
@@ -150,37 +172,46 @@ public class CriteriaAgent {
         
         String strId = (String) params.get("id");
         String name = (String) params.get("name");
-    	String low = (String) params.get("low");
-    	String medium = (String) params.get("medium");
-    	String high = (String) params.get("high");
+    	String themeIds = (String) params.get("themeIds");
+    	String objectiveIds = (String) params.get("objectiveIds");
+    	String strCctId = (String) params.get("cctId");
     	String na = (String) params.get("na");
     	
     	if(strId==null || "".equals(strId.trim())){
-        	map.put("reason", "Criterion id cannot be null.");
-    		return map;	
-        }
+    		map.put("reason", "Criterion id cannot be empty.");
+    		return map;
+    	}
     	if(name==null || "".equals(name.trim())){
     		map.put("reason", "Criterion name cannot be empty.");
     		return map;
     	}
-    	if(low==null || "".equals(low.trim())){
-    		map.put("reason", "Criterion low cannot be empty.");
+    	if(themeIds==null || "".equals(themeIds.trim())){
+    		map.put("reason", "themeIds cannot be empty.");
     		return map;
     	}
-    	if(medium==null || "".equals(medium.trim())){
-    		map.put("reason", "Criterion medium cannot be empty.");
+    	if(strCctId==null || "".equals(strCctId.trim())){
+    		map.put("reason", "cctId cannot be empty.");
     		return map;
     	}
-    	if(high==null || "".equals(high.trim())){
-    		map.put("reason", "Criterion high cannot be empty.");
+    	if(objectiveIds==null || "".equals(objectiveIds.trim())){
+    		map.put("reason", "objectiveIds cannot be empty.");
     		return map;
     	}
-        
-        Long id = Long.parseLong(strId); 
+    	if(objectiveIds==null || "".equals(objectiveIds.trim())){
+    		na = "NONE";
+    	}
+    	Long cctId = new Long(strCctId);
+    	Long id = new Long(strId);
        
         try {
         	Criteria c = criteriaService.getCriterionById(id);
-        	criteriaService.editCriterion(c, name, low, medium, high, na);
+        	
+        	String[] themeIdList = themeIds.split(",");
+        	Set themes = criteriaService.getThemeObjects(themeIdList);
+        	String[] objectiveIdList = objectiveIds.split(",");
+        	Set objectives = criteriaService.getObjectiveObjects(objectiveIdList);
+        	
+        	criteriaService.editCriterion(c, name, cctId, themes, objectives, na);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -189,66 +220,6 @@ public class CriteriaAgent {
         
         return map;
     }//editCriterion()
-    
-    
-    /**
-     * Relate several criteria to one theme.
-     * 
-     * @param params a Map contains:
-     *   <ul>
-     *     <li>cctId - int, the id of an CCT object</li>
-     *     <li>themeId - int, id of the theme</li>
-     *     <li>ids - string, comma separated id list for criteria to be associated</li>
-     *   </ul>
-     * @return a Map contains:
-     *   <ul>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *   </ul>
-     */
-    public Map relateCriteria(Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        try {
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-        }
-        
-        return map;
-    }//relateCriteria()
-    
-    
-    /**
-     * Derelate some criteria from a theme.
-     * 
-     * @param params a Map contains:
-     *   <ul>
-     *     <li>cctId - int, the id of an CCT object</li>
-     *     <li>themeId - int, id of the theme</li>
-     *     <li>ids - string, comma separated id list for criteria to be derelated</li>
-     *   </ul>
-     * @return a Map contains:
-     *   <ul>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *   </ul>
-     */
-    public Map derelateCriteria(Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        try {
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-        }
-        
-        return map;
-    }//derelateCriteria()
     
     
     /**
@@ -268,62 +239,32 @@ public class CriteriaAgent {
      *       The following variables are available for use in the jsp:
      *         <ul>
      *           <li>cct - A CCT objects</li>
-     *           <li>criteria - A list of Criteria objects</li>
+     *           <li>themesList - A list of theme objects</li>
      *         </ul>
      *     </li>
      *   </ul>
      */
     public Map getThemes(Map params) {
         Map map = new HashMap();
-        map.put("successful", false);
+        map.put("successful", false);    
         
-        try {
-            map.put("successful", true);
+        
+        Long cctId = new Long((String) params.get("cctId"));
+  
+        try {        	
+            List themes = criteriaService.getThemes(cctId);
+            
+            map.put("themeList", themes);
+            map.put("successful", true);   
+            
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
+            return map;
         }
         
         return map;
     }//getThemes()
-    
-    
-    /**
-     * Get all unrelated criteria to the given theme.
-     * 
-     * @param params a Map contains:
-     *   <ul>
-     *     <li>cctId - int, the id of an CCT object</li>
-     *     <li>themeId - int, id of the theme. Optional, if omitted, all criteria will be returned</li>
-     *   </ul>
-     * @return a Map contains:
-     *   <ul>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *     <li>
-     *       html - a HTML source segment. (for themeId!=null Generated by /WEB-INF/jsp/criteria/criteriaAssoc_criteria.jsp,
-     *              for themeId==null Generated by /WEB-INF/jsp/criteria/criteriaMgr_criteria.jsp)<br>
-     *       The following variables are available for use in the jsp:
-     *         <ul>
-     *           <li>cct - A CCT objects</li>
-     *           <li>criteria - A list of Criteria objects</li>
-     *         </ul>
-     *     </li>
-     *   </ul>
-     */
-    public Map getAvailableCriteria(Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        try {
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-        }
-        
-        return map;
-    }//getAvailableCriteria()
     
     
     /**
@@ -395,64 +336,6 @@ public class CriteriaAgent {
     
     
     /**
-     * Choose one Criteria to work on for the current participant.
-     * 
-     * @param params a Map contains:
-     *   <ul>
-     *     <li>isid - int, the id of an InfoStructure object</li>
-     *     <li>critId - int, the id of an Criteria object</li>
-     *   </ul>
-     * @return a Map contains:
-     *   <ul>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *   </ul>
-     */
-    public Map addCriterionSlider(Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        try {
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-        }
-        
-        return map;
-    }//addCriterionSlider()
-    
-    
-    /**
-     * Delete one Criteria from the current participant
-     * 
-     * @param params a Map contains:
-     *   <ul>
-     *     <li>isid - int, the id of an InfoStructure object</li>
-     *     <li>critId - int, the id of an Criteria object</li>
-     *   </ul>
-     * @return a Map contains:
-     *   <ul>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *   </ul>
-     */
-    public Map deleteCriterionSlider(Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        try {
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-        }
-        
-        return map;
-    }//deleteCriterionSlider()
-    
-    
-    /**
      * Get all the weights of the current participant to the given InfoStructure
      * 
      * @param params a Map contains:
@@ -514,6 +397,9 @@ public class CriteriaAgent {
     /**
      * Get all the Criterion Available
      * @param params An empty map.
+     * <ul>
+     *     <li>cctId - string, cctId</li>
+     * </ul>
      * @return a Map contains:
      *   <ul>
      *     <li>criteria - A list of Criteria objects</li>
@@ -527,9 +413,11 @@ public class CriteriaAgent {
     	Map map = new HashMap();
         map.put("successful", false);
         
+        Long cctId = new Long((String) params.get("cctId"));
+        
         try {
-        	Collection criteria = criteriaService.getAllCriterion();
-        	request.setAttribute("criterias", criteria);  
+        	Collection criteria = criteriaService.getAllCriterion(cctId);
+        	request.setAttribute("criteria", criteria); 
         	map.put("criteria", criteria);
         	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteria.jsp"));
         	map.put("successful", true);
@@ -543,4 +431,105 @@ public class CriteriaAgent {
     } //getAllCriterion()
     
     
+    /**
+	  * add Objective 
+	 * @param params a Map contains:
+	 *   <ul>
+	 *     <li>description - string, name</li>
+	 *   </ul>
+	 * @return a Map contains:
+	 *   <ul>
+	 *     <li>successful - a boolean value denoting if the operation succeeds</li>
+	 *     <li>reason - reason why operation failed (valid when successful==false)</li>
+	 *   </ul>
+	  */
+	  public Map addObjective(Map params) {
+		  Map map = new HashMap();
+		  map.put("successful", false);
+		  String description = (String) params.get("description");
+	    
+		  if(description==null || "".equals(description.trim())){
+			  map.put("reason", "Objective name cannot be empty.");
+			  return map;
+		  }
+		  
+		  try {  	
+			  criteriaService.addObjective(description);
+			  map.put("successful", true);	
+		  } catch (Exception e) {
+			  e.printStackTrace();
+			  map.put("reason", e.getMessage());
+		  }
+	    
+		  return map;    	 
+	  } //addObjective();
+
+	  
+	/**
+     * Get all objectives
+     * @param params An empty map.
+     * @return a Map contains:
+     *   <ul>
+     *     <li>objectives - A set of Objective objects</li>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>html- </li>
+     *   </ul>
+     */
+     public Map getObjectives(HttpServletRequest request, Map params) {
+     	Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+        	Collection objectives = criteriaService.getObjectives();
+
+        	request.setAttribute("objectives", objectives); 
+        	map.put("objectsives", objectives);
+        	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteria.jsp"));
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        return map;    	 
+     } //getObjectives();
+     
+     
+     /**
+     * deleteObjective
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>id - id object</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+     public Map deleteObjective(Map params) {
+	   Map map = new HashMap();
+       map.put("successful", false);
+       
+       String strId = (String)params.get("id");
+       
+       if(strId==null || "".equals(strId.trim())){
+       		map.put("reason", "Objective id cannot be null.");
+       		return map;	
+       }
+       
+       Long id = Long.parseLong(strId); 
+       
+       try {
+       		criteriaService.deleteObjective(id);
+       		map.put("successful", true);
+       } catch (Exception e) {
+           	e.printStackTrace();
+           	map.put("reason", e.getMessage());
+       } 
+       
+       return map;
+     } //deleteObjective();
+   
+       
 }//class CriteriaAgent
