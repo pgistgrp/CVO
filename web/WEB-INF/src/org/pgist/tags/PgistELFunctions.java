@@ -18,6 +18,7 @@ public class PgistELFunctions {
     
     
     public static boolean contains(Collection collection, Object object) {
+        if (collection==null) return false;
         return collection.contains(object);
     }//contains()
     
