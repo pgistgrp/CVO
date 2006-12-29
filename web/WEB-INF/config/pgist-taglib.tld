@@ -10,6 +10,12 @@
   <uri>http://www.pgist.org/pgtaglib</uri>
   <description>PGIST tag library</description>
 
+  <function>
+    <name>contains</name>
+    <function-class>org.pgist.tags.PgistELFunctions</function-class>
+    <function-signature>boolean contains(java.util.Collection, java.lang.Object)</function-signature>
+  </function>
+
   <tag>
     <name>show</name>
     <tag-class>org.pgist.tags.ShowTag</tag-class>
