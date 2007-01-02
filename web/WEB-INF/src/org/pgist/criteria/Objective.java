@@ -2,7 +2,7 @@ package org.pgist.criteria;
 
 
 /**
- * @author Mike and Guirong
+ * @author John
  * 
  * @hibernate.class table="pgist_criteria_objective" lazy="true"
  */
