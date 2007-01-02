@@ -39,9 +39,6 @@ public interface CriteriaDAO extends BaseDAO {
 	Set getObjectiveObjects(String[] objectivesIdList)throws Exception;
 	
 	
-	CCT getCct(Long cctId)throws Exception;
-	
-	
 	void deleteObjective(Long id) throws Exception;
 	
 	

@@ -2,6 +2,7 @@ package org.pgist.criteria;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -12,6 +13,8 @@ import org.pgist.cvo.CCTDAO;
 import org.pgist.cvo.CCTService;
 import org.pgist.cvo.CategoryReference;
 import org.pgist.cvo.Theme;
+import org.pgist.discussion.InfoObject;
+import org.pgist.discussion.InfoStructure;
 
 
 /**
@@ -44,7 +47,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     
     
     public Criteria addCriterion(String name, Long cctId, Set themes,  Set objectives, String na) throws Exception {
-    	CCT cct = criteriaDAO.getCct(cctId);  
+    	CCT cct = cctDAO.getCCTById(cctId);  
     	
     	return criteriaDAO.addCriterion(name, cct, themes, objectives, na);
     }//addCriterion()
@@ -56,7 +59,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     
     
     public void editCriterion(Criteria c, String name, Long cctId, Set themes, Set objectives, String na) throws Exception {
-    	CCT cct = criteriaDAO.getCct(cctId);  
+    	CCT cct = cctDAO.getCCTById(cctId);  
     	
     	criteriaDAO.editCriterion(c, name, cct, themes, objectives, na);
     }//editCriterion()
@@ -68,7 +71,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     
     
     public Collection getAllCriterion(Long cctId) throws Exception {
-    	CCT cct = criteriaDAO.getCct(cctId);  
+    	CCT cct = cctDAO.getCCTById(cctId);  
     	return criteriaDAO.getAllCriterion(cct);
     }//getAllCriterion()
     
@@ -79,7 +82,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     
     
     public List getThemes(Long cctId) throws Exception {
-    	CCT cct = criteriaDAO.getCct(cctId);            
+    	CCT cct = cctDAO.getCCTById(cctId);           
         Set refs = cct.getRootCategory().getChildren();          
         List themes = new ArrayList(refs.size());           
         Map themesMap = new HashMap();
@@ -114,7 +117,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     
     
     public void setWeight(Long cctId, Long critId, int weight) throws Exception {
-    	CCT cct = criteriaDAO.getCct(cctId);
+    	CCT cct = cctDAO.getCCTById(cctId);
     	Criteria criteria = criteriaDAO.getCriterionById(critId);
     	
     	criteriaDAO.setWeight(cct, criteria, weight);
@@ -122,10 +125,46 @@ public class CriteriaServiceImpl implements CriteriaService {
     
     
     public Set getWeights(Long cctId) throws Exception {
-    	CCT cct = criteriaDAO.getCct(cctId);
+    	CCT cct = cctDAO.getCCTById(cctId);
     	
     	return criteriaDAO.getWeights(cct);
     }//getWeights()
+    
+    
+    public void publish(Long cctId) throws Exception {
+    	CCT cct = cctDAO.getCCTById(cctId);
+
+        Date date = new Date();
+        
+        InfoStructure structure = new InfoStructure();
+        structure.setType("sdcrit");
+        structure.setRespTime(date);
+        structure.setCctId(cctId);
+        criteriaDAO.save(structure);
+        
+        for (Criteria crit : (Collection<Criteria>) criteriaDAO.getAllCriterion(cct)) {
+        	crit.getCct();
+        	crit.getId();
+        	crit.getClass();
+        	crit.getMoes();
+        	crit.getNa();
+        	crit.getName();
+        	crit.getObjectives();
+        	crit.getThemes();
+        	
+            
+            InfoObject obj = new InfoObject();
+            obj.setObject(crit);
+            obj.setRespTime(date);
+            criteriaDAO.save(obj);
+            
+            structure.getInfoObjects().add(obj);
+            
+            //cstDAO.publish(structure, obj, ref);
+        }//for ref
+        
+        criteriaDAO.save(structure);
+    }//publish()
     
     
 }//class CriteriaServiceImpl

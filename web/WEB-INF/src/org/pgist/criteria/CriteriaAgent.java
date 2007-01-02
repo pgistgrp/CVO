@@ -325,10 +325,15 @@ public class CriteriaAgent {
         map.put("successful", false);
         
         try {
+            Long cctId = new Long((String) params.get("cctId"));
+            
+            criteriaService.publish(cctId);
+           
             map.put("successful", true);
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
+            return map;
         }
         
         return map;

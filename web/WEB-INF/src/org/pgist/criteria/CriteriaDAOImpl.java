@@ -117,12 +117,6 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     } //getThemeObjects()
     
     
-    public CCT getCct(Long cctId){
-    	CCT cct = (CCT) getHibernateTemplate().load(CCT.class, cctId);
-    	return cct;
-    }//getCct()
-    
-    
     public void deleteObjective(Long id) throws Exception {
         Objective objective = (Objective) getHibernateTemplate().load(Objective.class, id);
         if (objective != null) getHibernateTemplate().delete(objective);
