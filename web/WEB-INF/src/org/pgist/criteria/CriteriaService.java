@@ -50,4 +50,10 @@ public interface CriteriaService {
     Collection getObjectives() throws Exception;
     
     
+    void setWeight(Long cctId, Long critId, int weight) throws Exception;
+    
+    
+    Set getWeights(Long cctId) throws Exception;
+    
+    
 }//interface CriteriaService

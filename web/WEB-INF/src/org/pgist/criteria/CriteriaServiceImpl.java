@@ -113,4 +113,19 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getObjectives()
     
     
+    public void setWeight(Long cctId, Long critId, int weight) throws Exception {
+    	CCT cct = criteriaDAO.getCct(cctId);
+    	Criteria criteria = criteriaDAO.getCriterionById(critId);
+    	
+    	criteriaDAO.setWeight(cct, criteria, weight);
+    }//setWeight()
+    
+    
+    public Set getWeights(Long cctId) throws Exception {
+    	CCT cct = criteriaDAO.getCct(cctId);
+    	
+    	return criteriaDAO.getWeights(cct);
+    }//getWeights()
+    
+    
 }//class CriteriaServiceImpl

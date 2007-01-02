@@ -34,6 +34,8 @@
 	<include method="addObjective"/>
 	<include method="getObjectives"/>
 	<include method="deleteObjective"/>
+	<include method="setWeight"/>
+	<include method="getWeights"/>
     </create>
 
 

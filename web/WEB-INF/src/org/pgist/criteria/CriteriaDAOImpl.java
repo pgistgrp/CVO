@@ -22,7 +22,6 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
 	private static final String hql_addCriterion = "from Criteria c where lower(c.name)=?";
 	
     public Criteria addCriterion(String name, CCT cct, Set themes, Set objectives, String na) throws Exception {
-    	//check to see if criteria already exist
     	
 		Criteria c = new Criteria();
 		c.setName(name);
@@ -137,6 +136,40 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	return getHibernateTemplate().find(hql_getObjectives);
     } //getObjectives
     
+    
+    private static final String hql_setWeight = "from CriteriaWeight cw where cw.author=? and cw.criteria=?";
+    
+    public void setWeight(CCT cct, Criteria criteria, int weight) throws Exception {
+    	
+		CriteriaWeight cw = new CriteriaWeight();
+		cw.setCct(cct);
+		cw.setCriteria(criteria);
+		cw.setWeight(weight);
+		cw.setAuthor(getUserById(WebUtils.currentUserId()));
+		
+		
+    	List list = getHibernateTemplate().find(hql_setWeight, new Object[] {
+    			getUserById(WebUtils.currentUserId()), criteria,
+        });
+    	
+    	if(list.size()>0) {
+    		throw new Exception("CriteriaWeight already exist.");
+    	}
+    
+		
+		save(cw);	
+    }//addCriterion()
+    
+    
+    private static final String hql_getWeight = "from CriteriaWeight cw where cw.author=?";
+    
+    public Set getWeights(CCT cct) throws Exception {
+    	List list = getHibernateTemplate().find(hql_getWeight, new Object[] {
+    			getUserById(WebUtils.currentUserId()),
+        });
+    	
+    	return new HashSet <List>(list);
+    }//getWeights();
     
     
 }//class CriteriaDAOImpl

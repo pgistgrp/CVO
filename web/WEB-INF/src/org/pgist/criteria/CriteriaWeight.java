@@ -19,7 +19,7 @@ public class CriteriaWeight {
     
     private Criteria criteria;
     
-    private User owner;
+    private User author;
     
     private int weight = 0;
     
@@ -57,13 +57,13 @@ public class CriteriaWeight {
      * 
      * @hibernate.many-to-one lazy="true"
      */
-    public User getOwner() {
-        return owner;
+    public User getAuthor() {
+        return author;
     }
 
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
 

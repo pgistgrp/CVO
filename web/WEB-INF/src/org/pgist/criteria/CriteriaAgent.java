@@ -336,11 +336,11 @@ public class CriteriaAgent {
     
     
     /**
-     * Get all the weights of the current participant to the given InfoStructure
+     * Get all the weights of the current participant to the given cctId
      * 
      * @param params a Map contains:
      *   <ul>
-     *     <li>isid - int, the id of an InfoStructure object</li>
+     *     <li>cctId - string, the cctId</li>
      *   </ul>
      * @return a Map contains:
      *   <ul>
@@ -353,7 +353,12 @@ public class CriteriaAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
+        Long cctId = new Long((String) params.get("cctId"));
+        
         try {
+        	Set weights = criteriaService.getWeights(cctId);
+        	
+        	map.put("weights", weights);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -369,7 +374,7 @@ public class CriteriaAgent {
      * 
      * @param params a Map contains:
      *   <ul>
-     *     <li>isid - int, the id of an InfoStructure object</li>
+     *     <li>cctId - int, the id of an InfoStructure object</li>
      *     <li>critId - int, the id of an Criteria object</li>
      *     <li>weight - int, weight value</li>
      *   </ul>
@@ -383,7 +388,29 @@ public class CriteriaAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
-        try {
+        String strCctId = (String) params.get("cctId");
+        String strCritId= (String) params.get("critId");
+    	String strWeight = (String) params.get("weight");
+    	
+    	if(strCctId==null || "".equals(strCctId.trim())){
+    		map.put("reason", "CCT id cannot be empty.");
+    		return map;
+    	}
+    	if(strCritId==null || "".equals(strCritId.trim())){
+    		map.put("reason", "Criterion id cannot be empty.");
+    		return map;
+    	}
+    	if(strWeight==null || "".equals(strWeight.trim())){
+    		map.put("reason", "Weight id cannot be empty.");
+    		return map;
+    	}
+    	
+    	Long cctId = Long.parseLong(strCctId);
+    	Long critId = Long.parseLong(strCritId);
+    	int weight = Integer.parseInt(strWeight);
+    	
+        try {      	
+        	criteriaService.setWeight(cctId, critId, weight);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

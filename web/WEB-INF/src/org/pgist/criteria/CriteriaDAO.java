@@ -48,4 +48,10 @@ public interface CriteriaDAO extends BaseDAO {
 	Collection getObjectives() throws Exception;
 	
 	
+	void setWeight(CCT cct, Criteria criteria, int weight) throws Exception;
+	
+	
+	Set getWeights(CCT cct) throws Exception;
+	
+	
 }//interface CriteriaDAO
