@@ -76,11 +76,19 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     }//getCriterionById()
     
     
-    private static final String hql_getAllCriterion = "from Criteria c where c.cct=? order by c.id";
+    private static final String hql_getAllCriterion1 = "from Criteria c where c.cct=? order by c.id";
     
     public Collection getAllCriterion(CCT cct) throws Exception {    	
     	
-    	return getHibernateTemplate().find(hql_getAllCriterion, cct);
+    	return getHibernateTemplate().find(hql_getAllCriterion1, cct);
+    } //getAllCriterion(CCT cct);
+    
+    
+    private static final String hql_getAllCriterion2 = "from Criteria c order by c.id";
+    
+    public Collection getAllCriterion() throws Exception {    	
+    	
+    	return getHibernateTemplate().find(hql_getAllCriterion2);
     } //getAllCriterion();
     
     

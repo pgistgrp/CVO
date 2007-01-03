@@ -458,11 +458,21 @@ public class CriteriaAgent {
     	
     	Map map = new HashMap();
         map.put("successful", false);
-        
-        Long cctId = new Long((String) params.get("cctId"));
+        boolean useCct= true;
+       
+        String strCctId = (String) params.get("cctId");
+        if(strCctId==null || "".equals(strCctId.trim())){
+    		useCct = false;
+    	}
         
         try {
-        	Collection criteria = criteriaService.getAllCriterion(cctId);
+        	Collection criteria;
+        	if(useCct){
+        		Long cctId = new Long(strCctId);
+        		criteria = criteriaService.getAllCriterion(cctId);
+        	} else {
+        		criteria = criteriaService.getAllCriterion();
+        	}
         	request.setAttribute("criteria", criteria); 
         	map.put("criteria", criteria);
         	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteria.jsp"));

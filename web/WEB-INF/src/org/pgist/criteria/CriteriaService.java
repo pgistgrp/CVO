@@ -33,6 +33,9 @@ public interface CriteriaService {
     Collection getAllCriterion(Long cctId) throws Exception;
     
     
+    Collection getAllCriterion() throws Exception;
+    
+    
     Objective addObjective(String description) throws Exception;
     
     

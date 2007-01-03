@@ -33,6 +33,9 @@ public interface CriteriaDAO extends BaseDAO {
 	Collection getAllCriterion(CCT cct) throws Exception;
 	
 	
+	Collection getAllCriterion() throws Exception;
+	
+	
 	Objective addObjective(String description) throws Exception;
 	
 	

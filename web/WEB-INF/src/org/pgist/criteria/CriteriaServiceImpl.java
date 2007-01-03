@@ -74,6 +74,11 @@ public class CriteriaServiceImpl implements CriteriaService {
     	CCT cct = cctDAO.getCCTById(cctId);  
     	return criteriaDAO.getAllCriterion(cct);
     }//getAllCriterion()
+
+    
+    public Collection getAllCriterion() throws Exception { 
+    	return criteriaDAO.getAllCriterion();
+    }//getAllCriterion()
     
     
     public Objective addObjective(String description) throws Exception {
