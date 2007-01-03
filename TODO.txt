@@ -35,8 +35,7 @@ John:
 BACKEND DOCUMENTED FOR LATER:
 [ ] Count of unique users per post - calculate on createPost()
 [ ] IOID in SDAgent.getTagCloud()
-[ ] Problem with Glossary view sort - (bug found by Issac)
-[ ] Case insensitive login
+[ ] Problem with Glossary view sort - (bug found by Issac) 
 [ ] Create reply goes to last page - needs page setting object
 [ ] Stop words and tags are mutually exclusive
 [ ] SDAgent.getPostByID();
