@@ -27,6 +27,9 @@ public interface CriteriaDAO extends BaseDAO {
 	Criteria getCriterionById(Long id) throws Exception;
 	
 	
+	Set getCriterions(String[] criteriaIdList) throws Exception;
+	
+	
 	Collection getAllCriterion(CCT cct) throws Exception;
 	
 	

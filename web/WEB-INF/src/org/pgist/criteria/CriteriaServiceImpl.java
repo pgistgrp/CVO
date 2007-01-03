@@ -131,8 +131,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getWeights()
     
     
-    public void publish(Long cctId) throws Exception {
-    	CCT cct = cctDAO.getCCTById(cctId);
+    public void publish(Long cctId, String[] criteriaIdList) throws Exception {
 
         Date date = new Date();
         
@@ -142,7 +141,8 @@ public class CriteriaServiceImpl implements CriteriaService {
         structure.setCctId(cctId);
         criteriaDAO.save(structure);
         
-        for (Criteria crit : (Collection<Criteria>) criteriaDAO.getAllCriterion(cct)) {
+        
+        for (Criteria crit : (Set<Criteria>) criteriaDAO.getCriterions(criteriaIdList)) {
         	crit.getCct();
         	crit.getId();
         	crit.getClass();

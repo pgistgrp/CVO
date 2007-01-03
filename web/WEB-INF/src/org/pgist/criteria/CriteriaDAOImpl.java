@@ -64,12 +64,24 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     }//getCriterionById()
     
     
+    public Set getCriterions(String[] criteriaIdList) throws Exception {
+    	Set criteriaObjects = new HashSet();
+    	   
+    	for(int i=0; i<criteriaIdList.length; i++){
+    		Long criteriaId = Long.parseLong(criteriaIdList[i]);
+    		criteriaObjects.add(load(Criteria.class, criteriaId));
+    	} //for
+    	
+    	return criteriaObjects;
+    }//getCriterionById()
+    
+    
     private static final String hql_getAllCriterion = "from Criteria c where c.cct=? order by c.id";
     
     public Collection getAllCriterion(CCT cct) throws Exception {    	
     	
     	return getHibernateTemplate().find(hql_getAllCriterion, cct);
-    }
+    } //getAllCriterion();
     
     
     private static final String hql_addObjective = "from Objective o where lower(o.description)=?";

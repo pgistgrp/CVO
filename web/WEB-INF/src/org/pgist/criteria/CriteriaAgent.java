@@ -313,6 +313,7 @@ public class CriteriaAgent {
      * @param params a Map contains:
      *   <ul>
      *     <li>cctId - int, the id of an CCT object</li>
+     *     <li>citeriaIds - list, of criterion ids separated by a comma</li>
      *   </ul>
      * @return a Map contains:
      *   <ul>
@@ -324,10 +325,18 @@ public class CriteriaAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
+        String criteriaIds = (String) params.get("criteriaIds");
+        
+    	if(criteriaIds==null || "".equals(criteriaIds.trim())){
+    		map.put("reason", "objectiveIds cannot be empty.");
+    		return map;
+    	}
+    	
         try {
             Long cctId = new Long((String) params.get("cctId"));
+            String[] criteriaIdList = criteriaIds.split(",");
             
-            criteriaService.publish(cctId);
+            criteriaService.publish(cctId, criteriaIdList);
            
             map.put("successful", true);
         } catch(Exception e) {

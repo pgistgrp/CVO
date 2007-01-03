@@ -56,7 +56,7 @@ public interface CriteriaService {
     Set getWeights(Long cctId) throws Exception;
     
     
-    void publish(Long cctId) throws Exception;
+    void publish(Long cctId, String[] criteriaIdList) throws Exception;
     
     
 }//interface CriteriaService
