@@ -167,4 +167,9 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//publish()
     
     
+    public CCT getCCTById(Long cctId) throws Exception {
+    	CCT cct = cctDAO.getCCTById(cctId);
+    	return cct;
+    } //getCctById();
+    
 }//class CriteriaServiceImpl

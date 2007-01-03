@@ -7,6 +7,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import org.pgist.cvo.CCT;
 
 /**
  * 
@@ -22,6 +23,8 @@ public class CriteriaMgrAction extends Action {
     public void setCriteriaService(CriteriaService criteriaService) {
         this.criteriaService = criteriaService;
     }
+    
+    
 
 
     /*
@@ -36,9 +39,11 @@ public class CriteriaMgrAction extends Action {
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
         Collection criteria = criteriaService.getCriterias();
+        Long cctId = new Long((String) request.getParameter("cctId"));
+        CCT cct = criteriaService.getCCTById(cctId);  
         
         request.setAttribute("criteria", criteria);
-        
+        request.setAttribute("cct", cct);
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
         return mapping.findForward("list");

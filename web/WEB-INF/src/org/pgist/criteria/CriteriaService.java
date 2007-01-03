@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.List;
 
+import org.pgist.cvo.CCT;
 
 /**
  * 
@@ -57,6 +58,9 @@ public interface CriteriaService {
     
     
     void publish(Long cctId, String[] criteriaIdList) throws Exception;
+    
+    
+    public CCT getCCTById(Long cctId) throws Exception;
     
     
 }//interface CriteriaService
