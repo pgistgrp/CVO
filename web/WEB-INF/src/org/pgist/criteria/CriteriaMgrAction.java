@@ -43,9 +43,11 @@ public class CriteriaMgrAction extends Action {
         Long cctId = new Long((String) request.getParameter("cctId"));
         CCT cct = criteriaService.getCCTById(cctId);  
         
-        request.setAttribute("criteria", criteria);
-        */
+        
         request.setAttribute("cct", cct);
+        */
+        request.setAttribute("criteria", criteria);
+        
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
         return mapping.findForward("list");
