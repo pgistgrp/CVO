@@ -14,6 +14,7 @@
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[ ] Barebones JavaScript (Jordan)
+		[ ] Integrate all form elements (Jordan)
 #### -->
 <html:html>
 <head>
@@ -64,7 +65,6 @@
 		
 		/* *************** Add a New Criteria to the List *************** */
 		function addCriterion(){
-			//alert("name: " + name + " description: " + description + " themes: " + themes + " objectivesArr: " + objectivesArr); 
 			var themesArr = getOptionValueFromObjects(document.getElementById('themes').options); //grabs from multi select list
 			//var objectivesArr = getOptionValueFromObjects(document.getElementById('objectives').options); ; //grabs from multi select list
 			var name = $('name').value;
@@ -192,7 +192,7 @@
 			paintObjectivesList();
 		}
 	
-		function	paintObjectivesList(){		
+		function paintObjectivesList(){		
 				var listText = '<h3>Objectives Attached to This Factor</h3><small><strong>Important</strong>: Check for duplicates before submitting</small><ul>';
 				var listBox = $('list');
 				listBox.innerHTML = listText;
@@ -200,7 +200,7 @@
 					listBox.innerHTML += '<li>' + objectivesList[i] + '<a href="javascript:removeObj('+ i +');"> <img src="images/removeItem_lite.gif" style="border:0px" alt="Remove this objective"></a></li>';
 				}
 		}
-</script>
+	</script>
 
 
 		<style type="text/css">
