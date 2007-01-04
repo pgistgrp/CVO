@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <h2>Criteria List</h2>
+  <h2>Criteria Management Instances</h2>
 
   <table id="sdListTable" class="listtable" cellspacing="1" frame="box" rules="all" width="100%">
     <c:forEach var="cct" items="${ccts}">

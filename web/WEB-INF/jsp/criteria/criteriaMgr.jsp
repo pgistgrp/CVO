@@ -317,7 +317,7 @@
 		</style>
 	</head>
 	<body>
-		<h2>Manage Planning Factors for CCTID ${cct.id}</h2>
+		<h2>Manage Planning Factors</h2>
 		<!-- Begin list of planning factors -->
 		
 		<!-- START All Criteria List -->
