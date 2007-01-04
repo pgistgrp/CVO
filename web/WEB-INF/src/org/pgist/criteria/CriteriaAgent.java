@@ -439,7 +439,7 @@ public class CriteriaAgent {
      * Get all the Criterion Available
      * @param params An empty map.
      * <ul>
-     *     <li>cctId - string, cctId</li>
+     *     <li>cctId - string, cctId - Optional</li>
      * </ul>
      * @return a Map contains:
      *   <ul>
