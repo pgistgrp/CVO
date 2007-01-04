@@ -177,4 +177,11 @@ public class CriteriaServiceImpl implements CriteriaService {
     	return cct;
     } //getCctById();
     
+    
+    public Collection getCCTs() throws Exception {
+    	Collection ccts = cctDAO.getCCTs();
+    	return ccts;
+    }
+    
+    
 }//class CriteriaServiceImpl

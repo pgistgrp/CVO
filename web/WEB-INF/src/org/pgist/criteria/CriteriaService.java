@@ -66,4 +66,7 @@ public interface CriteriaService {
     public CCT getCCTById(Long cctId) throws Exception;
     
     
+    public Collection getCCTs() throws Exception;
+    
+    
 }//interface CriteriaService
