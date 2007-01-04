@@ -81,6 +81,9 @@
         <property name="fundingService" ref="fundingService"/>
     </bean>
     
+    <bean name="/criterialist" class="org.pgist.cvo.CriteriaListAction">
+            <property name="criteriaService" ref="criteriaService"/>
+    </bean>
     
     <bean name="/criteriaMgr" class="org.pgist.criteria.CriteriaMgrAction">
         <property name="criteriaService" ref="criteriaService"/>
