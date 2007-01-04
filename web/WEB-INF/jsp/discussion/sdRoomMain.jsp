@@ -10,7 +10,7 @@
 <title>Step 1b: Review Summaries - Rooms</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">
-	@import "styles/lit.css";
+	@import "styles/lit.css";	
 </style>
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
@@ -29,9 +29,7 @@
 <!--SDX Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
-
 <!--End SDX Specific  Libraries-->
-
 <script type="text/javascript">
 	<!--
 		tinyMCE.init({
@@ -344,9 +342,9 @@
 <body>
 <!-- Begin the header - loaded from a separate file -->
 <div id="header">
-  <!-- Begin header -->
-  <jsp:include page="/header.jsp" />
-  <!-- End header -->
+	<!-- Begin header -->
+	<jsp:include page="/header.jsp" />
+	<!-- End header -->
 </div>
 <!-- End header -->
 <!-- Begin header menu - The wide ribbon underneath the logo -->
@@ -354,21 +352,23 @@
 <!-- End header menu -->
 <div style="display: none;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 <div id="container">
-  <!-- Begin Breadcrumbs -->
-  <div id="breadCrumbs" class="floatLeft"> <a href="sd.do?isid=${structure.id}">Select a Theme</a> &rarr; ${object.object}</div>
-  <!-- End Breadcrumbs -->
-  <!-- jump to other room selection menu -->
-  <div class="floatRight"> Jump To:
-    <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">
-      <option value = "${object.id}">Select a Theme</option>
-      <option value = "">Discussion of All Themes</option>
-      <c:forEach var="infoObject" items="${structure.infoObjects}">
-        <option value="${infoObject.id}">${infoObject.object}</option>
-      </c:forEach>
-    </select>
-  </div>
-  <!-- end jump to other room selection menu -->
-  <script type="text/javascript">
+	<!-- Begin Breadcrumbs -->
+	<div id="breadCrumbs" class="floatLeft"> <a href="sd.do?isid=${structure.id}">Select
+			a Theme</a> &rarr; ${object.object}</div>
+	<!-- End Breadcrumbs -->
+	<!-- jump to other room selection menu -->
+	<div class="floatRight"> Jump To:
+		<select name="selecttheme" id="selecttheme" 
+		onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">
+			<option value = "${object.id}">Select a Theme</option>
+			<option value = "">Discussion of All Themes</option>
+			<c:forEach var="infoObject" items="${structure.infoObjects}">
+				<option value="${infoObject.id}">${infoObject.object}</option>
+			</c:forEach>
+		</select>
+	</div>
+	<!-- end jump to other room selection menu -->
+	<script type="text/javascript">
 				<c:choose>
 				<c:when test="${object.id==null}">
 				document.write("<h3 class=\"headerColor clearBoth\">Summarization of Participant Concerns</h3>");
@@ -378,107 +378,114 @@
 				</c:otherwise>
 				</c:choose>
 			</script>
-  <div id="object">
-    <h5 id = "targetTitle"></h5>
-    <div id="object-content">
-      <!-- load object here -->
-    </div>
-    <!--end object content -->
-  </div>
-  <!-- end object -->
-  <div class="clearBoth"></div>
-  <a name="filterJump"></a>
-  <!-- The discussionHeader sits on top of the discussion and contains the title of the
+	<div id="object">
+		<h5 id = "targetTitle"></h5>
+		<div id="object-content">
+			<!-- load object here -->
+		</div>
+		<!--end object content -->
+	</div>
+	<!-- end object -->
+	
+	
+	<div class="clearBoth"></div>
+	<a name="filterJump"></a>
+	
+	
+	<!-- The discussionHeader sits on top of the discussion and contains the title of the
 			discussion area, and the sorting menu -->
-  
-  <div id="discussionHeader">
-    <div class="sectionTitle">
-      <h3 class="headerColor"><!--${object.discussion.numPosts} -->Discussions about ${object.object}</h3>
-      <div id="filteredBy"></div>
-      <div class="button smallText box5 floatLeft"> <a href="javascript:Effect.toggle('newDiscussion','slide',{duration:1.5});">Start a New Topic</a></div>
-    </div>
 
-<!--[if IE]>
-	<style type="text/css">
-	#sortingMenu {right:0px;}
-	</style>
-<![endif]-->
-
-
-    <div id="sortingMenu" class="box4">sort discussion by:
-          <select name="selectsort" id="selectsort" onChange="javascript:io.getPosts(io.currentFilter, 1, true, this.value);	">
-	        <option value="1">Newest to Oldest</option>
-	        <option value="2">Oldest to Newest</option>
-	        <option value="3">Most Agreement</option>
-	        <option value="4">Least Agreement</option>
-	        <option value="5">Most Replies</option>
-	        <option value="6">Most Views</option>
-	        <option value="7">Most Votes</option>
-          </select>
-          <br />
-          <div class="floatLeft">filter discussion by:</div>
-          <form action="javascript: io.customFilterAction($('txtCustomFilter').value);" class="floatLeft">
-            <input type="text" id="txtCustomFilter" value="Add a filter" onKeyUp="io.customFilter(this.value, event);"  onKeyUp="io.customFilter(this.value, event);" onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
-            or <a href="javascript:io.getTagCloud();">Browse All Tags</a>
-          </form>
-          <div id="searchResults" style="display: none;"></div>
-  
-  </div>
-</div><!-- end discussion header-->
-  
-  <!-- Begin Discussion Area -->
-  <!-- Begin hidden "New topic" DIV -->
-  <div style="width:680px;">
-    <div id="newDiscussion" style="display: none">
-      <div id="newdisc_title" >
-        <div class="textright"> </div>
-        <h3 style="display: inline">New Topic</h3>
-      </div>
-      <!-- End newdisc_title -->
-      <div id="newdisc_content" class="greenBB">
-        <div id="newdisc_inner">
-          <form>
-            <p>
-              <label>Post Title</label>
-              <br>
-              <input maxlength=100 size=100 type="text" id="txtNewPostTitle"/>
-            </p>
-            <p>
-              <label>Your Thoughts</label>
-              <br>
-              <textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea>
-            </p>
-            <p>
-              <label>Tag your post (comma separated)</label>
-              <br>
-              <input style="width:100%" id="txtNewPostTags" type="text" />
-            </p>
-            <input type="button" onClick="io.createPost();" value="Create Discussion">
-			<input type="button" onClick="javascript:io.clearNewDiscussionInputs();Effect.toggle('newDiscussion','slide',{duration:1.5});" value="Cancel">
-			<input type="checkbox" id="ckboxPostNotifier">E-mail me when someone responds to my post
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End hidden "new topic" DIV -->
-  <!-- start tag cloud -->
-  	<div id="tagCloud" class="discussion-left box2" style="display: none;">
-  		<!-- load "browse all tags" tag cloud -->
-  	</div>	
-  <!-- end tag cloud -->
-  <div id="discussion">
-    <!-- load discussion posts -->
-  </div>
-  <!-- start feedback form -->
-
-  <pg:feedback id="feedbackDiv" action="sdRoom.do" />
-  <!-- end feedback form -->
-  <!-- end container -->
-  <!-- Start Footer -->
-  <!-- End Footer -->
-  <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
-  <script type="text/javascript">
+	<div id="discussionHeader">
+		<div class="sectionTitle">
+			<div class="floatLeft"><h3 class="headerColor">
+				<!--${object.discussion.numPosts} -->
+				Discussions about ${object.object}</h3></div>
+			<div id="filteredBy" class="floatLeft"></div>
+			<div class="padding5 box5 floatRight" style="margin-bottom:2px;"> 
+			<a class="orangeButton" href="javascript:Effect.toggle('newDiscussion','slide',{duration:1.5});">Start
+					a New Topic</a>
+			</div>
+		</div>
+		<div id="sortingMenu" class="box4 clearBoth"> sort discussion by:
+			<select name="selectsort" id="selectsort" 
+				onChange="javascript:io.getPosts(io.currentFilter, 1, true, this.value);	">
+				<option value="1">Newest to Oldest</option>
+				<option value="2">Oldest to Newest</option>
+				<option value="3">Most Agreement</option>
+				<option value="4">Least Agreement</option>
+				<option value="5">Most Replies</option>
+				<option value="6">Most Views</option>
+				<option value="7">Most Votes</option>
+			</select>
+			filter discussion by:
+			<form style="display:inline;" action="javascript: io.customFilterAction($('txtCustomFilter').value);">
+				<input type="text" id="txtCustomFilter" value="Add a filter" 
+				onKeyUp="io.customFilter(this.value, event);"  
+				onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
+				or <a href="javascript:io.getTagCloud();">Browse All Tags</a>
+			</form>
+			<div id="searchResults" style="display: none;"></div>
+		</div>
+	</div>
+	<div class="clearBoth"></div>
+	<!-- end discussion header-->
+	
+	<!-- Begin Discussion Area -->
+	<!-- Begin hidden "New topic" DIV -->
+	<div style="width:680px;">
+		<div id="newDiscussion" style="display: none">
+			<div id="newdisc_title" >
+				<div class="textright"> </div>
+				<h3 style="display: inline">New Topic</h3>
+			</div>
+			<!-- End newdisc_title -->
+			<div id="newdisc_content" class="greenBB">
+				<div id="newdisc_inner">
+					<form>
+						<p>
+							<label>Post Title</label>
+							<br>
+							<input maxlength=100 size=100 type="text" id="txtNewPostTitle"/>
+						</p>
+						<p>
+							<label>Your Thoughts</label>
+							<br>
+							<textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea>
+						</p>
+						<p>
+							<label>Tag your post (comma separated)</label>
+							<br>
+							<input style="width:100%" id="txtNewPostTags" type="text" />
+						</p>
+						<input type="button" onClick="io.createPost();" value="Create Discussion">
+						<input type="button" 
+						onClick="javascript:io.clearNewDiscussionInputs();
+						Effect.toggle('newDiscussion','slide',{duration:1.5});" 
+						value="Cancel">
+						<input type="checkbox" id="ckboxPostNotifier">
+						E-mail me when someone responds to my post
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End hidden "new topic" DIV -->
+	<!-- start tag cloud -->
+	<div id="tagCloud" class="discussion-left box2" style="display: none;">
+		<!-- load "browse all tags" tag cloud -->
+	</div>
+	<!-- end tag cloud -->
+	<div id="discussion">
+		<!-- load discussion posts -->
+	</div>
+	<!-- start feedback form -->
+	<pg:feedback id="feedbackDiv" action="sdRoom.do" />
+	<!-- end feedback form -->
+	<!-- end container -->
+	<!-- Start Footer -->
+	<!-- End Footer -->
+	<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
+	<script type="text/javascript">
 			io.getPosts('', 1, false, io.currentSort);
 			//infoObject.assignTargetHeaders();
 			io.getTargets();
@@ -493,8 +500,7 @@
 <!-- end the bottom header menu -->
 <!-- Begin footer -->
 <div id="footer">
-  <jsp:include page="/footer.jsp" />
+	<jsp:include page="/footer.jsp" />
 </div>
 <!-- End footer -->
 </body>
- 

@@ -662,7 +662,7 @@ $('slate').style.Height = winH;
 	        <option value="6">Most Views</option>
 	        <option value="7">Most Votes</option>
           </select>
-          filter concerns by:<form action="javascript: customFilterAction($('txtCustomFilter').value);">
+          filter concerns by:<form style="display:inline" action="javascript: customFilterAction($('txtCustomFilter').value);">
             <input type="text" id="txtCustomFilter" value="Add a filter" onKeyUp="customFilter(this.value, event);"  onKeyUp="customFilter(this.value, event);" onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
             or <a href="javascript:getTagCloud();">Browse All Tags</a>
           </form>

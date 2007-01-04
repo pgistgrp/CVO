@@ -165,7 +165,7 @@
 		{
 		margin:1em 2em 1em 0em;
 		width:680px;
-		height:50px;
+		height:auto;
 		position:relative;
 		}		
 
@@ -327,13 +327,10 @@
 		#sortingMenu
 		{
 		font-weight:400;
-		font-size:.8em;
-		width:360px;
-		position:absolute;
-		top:-7px;
-		right:-7px;
+		font-size:.9em;
 		z-index:2000;
-		padding:5px 5px 0px 5px;
+		padding:5px;
+		margin:5px 0px;
 		}
 
 		#summary
@@ -368,6 +365,7 @@
 		.clearLeft {clear:left}
 		.clearRight {clear:right} 
 
+		.inline{display:inline}
 		
 		.floatLeft {float:left}
 		.floatRight {float:right}
@@ -474,9 +472,7 @@
 
 		.sectionTitle
 		{
-		width:330px;
-		position:absolute;
-		bottom:0px;
+
 		}
 
 		.smallText
@@ -583,3 +579,8 @@
 		#headerNext a:visited{color:#6B531D;text-decoration:none;font-weight:bold;}
 		#headerNext a:hover{color:#6B531D;text-decoration:none;font-weight:bold;}
 		#headerNext a:active{color:#6B531D;text-decoration:none;font-weight:bold;}
+		
+		a.orangeButton:link{color:#6B531D;text-decoration:none;font-weight:bold;}
+		a.orangeButton:visited{color:#6B531D;text-decoration:none;font-weight:bold;}
+		a.orangeButton:hover{color:#6B531D;text-decoration:none;font-weight:bold;}
+		a.orangeButton:active{color:#6B531D;text-decoration:none;font-weight:bold;}
