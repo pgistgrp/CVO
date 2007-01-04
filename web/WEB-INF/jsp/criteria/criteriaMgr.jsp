@@ -10,7 +10,9 @@
 	Project: Let's Improve Transportation!
 	Page: Criteria Manager
 	Description: Manage all criteria and publish selected criteria to create a new instance.
-	Author(s): Jordan Isip, Adam Hindman, Issac Yang
+	Author(s): 
+	     Front End: Jordan Isip, Adam Hindman, Issac Yang
+	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[ ] Barebones JavaScript (Jordan)
@@ -39,15 +41,18 @@
 		//GLOBAL VARS
 		selectedObjectives = [];
 		objectivesList = [];
+		cctId = "${cct.id}"
 		
 		//END GLOBAL VARS
 		window.onLoad = doOnLoad();
 		
 		function doOnLoad(){
 			getCriteria();
+			getThemes();
+			getObjectives();
 		}
 		
-		/* *************** Grab All Criteria in the System *************** */
+		/* *************** Grab All Criteria in the System - uses criteria.jsp *************** */
 		function getCriteria(){
 			CriteriaAgent.getAllCriterion({}, {
 				callback:function(data){
@@ -86,7 +91,14 @@
 			});*/
 		}
 		
-		/* *************** Produce a form to edit a given criteria *************** */
+		/* *************** Reveal a form to allow editing on a given criterion *************** */
+		function editCriterionPopup(id) {
+			//code to display edit fields
+			$('criteriaEdit' + id).innerHTML = "";
+			//code to display edit fields
+		}
+		
+		/* *************** Produce a form to edit a given criterion *************** */
 		function editCriterion(id){
 			//alert("name: " + name + " description: " + description + " themes: " + themes + " objectivesArr: " + objectivesArr); 
 			var themesArr = getOptionValueFromObjects($('themes').options); //grabs from multi select list
@@ -98,7 +110,6 @@
 			CriteriaAgent.editCriterion({id:id,name:name,description:description,themesArr:themesArr,objectivesArr:objectivesArr}, {
 				callback:function(data){
 					if (data.successful){
-						//highlight newly updated criterion
 						getCriteria();
 					}else{
 						alert(data.reason);
@@ -122,6 +133,39 @@
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("CriteriaAgent.deleteCriterion( error:" + errorString + exception);
+				}
+			});
+		}
+		
+		/* *************** Grab all themes for the current instance *************** */
+		function getThemes(){
+			//alert("cctId: " + cctId); 
+			CriteriaAgent.getThemes({cctId:cctId}, {
+				callback:function(data){
+					if (data.successful){
+						$('themes').innerHTML = data.html;
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("CriteriaAgent.getThemes( error:" + errorString + exception);
+				}
+			});
+		}
+		
+		/* *************** Grab all objectives for the current instance *************** */
+		function getObjectives(){
+			CriteriaAgent.getObjectives({}, {
+				callback:function(data){
+					if (data.successful){
+						$('objectives').innerHTML = data.html;
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("CriteriaAgent.getObjectives( error:" + errorString + exception);
 				}
 			});
 		}
@@ -159,7 +203,7 @@
 				//window.setTimeout(toggleIcon,100);
 				function(){
 					if ($(objective).style.display != ""){
-						$(icon).src = "/images/plus.gif";
+							$(icon).src = "/images/plus.gif";
 						}else{
 							$(icon).src = "/images/minus.gif";
 						}
@@ -344,71 +388,15 @@
 			
 			<label for="name" class="niceFormElement">Related Themes (optional)</label>
 			<select id="themes" name="themes" class="niceFormElement" MULTIPLE>
-				<option value="themeId1">Pedestrian Safety</option>
-
-				<option value="themeId2">Environmental Impacts of Transporation</option>
-				<option value="themeId3">Traffic Congestion</option>
-				<option value="themeId4">Funding Transportation Improvements</option>
-				<option value="themeId5">Making the Region More Bicycle Friendly</option>
+				<!-- load themes here - getThemes() -->
 			</select><br />
 			
 			<br />
 			
-					<label for="name" class="niceFormElement">Factor Objectives</label>
+			<label for="name" class="niceFormElement">Factor Objectives</label>
 
 			<select id="objectives" name="objectives" class="niceFormElement" MULTIPLE>
-				<option value="objectiveId1">Promotes general economic development</option>
-				<option value="objectiveId2">Specifically improves or enhances tourism</option>
-				<option value="objectiveId3">Specifically improves or enhances the movement of freight and services</option>
-				<option value="objectiveId4">Improves or enhances the movement of workers</option>
-				<option value="objectiveId5">Provides new access to jobs and opportunities</option>
-
-				<option value="objectiveId6">Improves the value of residential or nonresidential properties</option>
-				<option value="objectiveId7">Enhances the welfare to work trips</option>
-				<option value="objectiveId8">Improves access to terminal (sea, air, multimodal)</option>
-				<option value="objectiveId9">Enhances the ability of the freight system to support product exports/imports.</option>
-				<option value="objectiveId10">Denies unauthorized access to the system</option>
-				<option value="objectiveId11">Assists the monitoring or patrolling of the system</option>
-
-				<option value="objectiveId12">Improves the handling of hazardous materials movement.</option>
-				<option value="objectiveId13">Provides enhanced or new capacity or mobility to the transportation system to move people</option>
-				<option value="objectiveId14">Provides enhanced or new accessibility to the transportation system to move people</option>
-				<option value="objectiveId15">Provides enhanced or new capacity or mobility to the transportation system to move freight</option>
-				<option value="objectiveId16">Provides enhanced or new accessibility to the transportation system to move freight</option>
-				<option value="objectiveId17">Enhances the range of freight service options available to local businesses</option>
-
-				<option value="objectiveId18">Ameliorates size and weight restrictions for freight vehicles</option>
-				<option value="objectiveId19">Reduces vehicle emissions</option>
-				<option value="objectiveId20">Reduces vehicle noise</option>
-				<option value="objectiveId21">Decreases fuel consumption</option>
-				<option value="objectiveId22">Adds to the convenience or efficiency of the system</option>
-				<option value="objectiveId23">Specifically protects wetlands or other natural habitats</option>
-
-				<option value="objectiveId24">Decreases air or water pollution</option>
-				<option value="objectiveId25">Promotes nonmotorized travel</option>
-				<option value="objectiveId26">Promotes traffic calming</option>
-				<option value="objectiveId27">Supports cultural and/or historic property retention or development</option>
-				<option value="objectiveId28">Supports community cohesion and design</option>
-				<option value="objectiveId29">Promotes environmental equity</option>
-
-				<option value="objectiveId30">Enhances development of brownfields</option>
-				<option value="objectiveId31">Improves intermodal connectivity for non-freight vehicular traffic</option>
-				<option value="objectiveId32">Improves the integration/connectivity for non-freight vehicular traffic</option>
-				<option value="objectiveId33">Improves intermodal connectivity for the freight transportation system</option>
-				<option value="objectiveId34">Improves the integration/connectivity within a freight serving mode</option>
-				<option value="objectiveId35">Enhances the information/telecommunications networks that integrate freight modes.</option>
-
-				<option value="objectiveId36">Uses ITS technology</option>
-				<option value="objectiveId37">Reduces transportation system cost</option>
-				<option value="objectiveId38">Offers value (congestion) pricing</option>
-				<option value="objectiveId39">Contributes to better vehicle tracking</option>
-				<option value="objectiveId40">Enhances administrative productivity/efficiency</option>
-				<option value="objectiveId41">Enhances electronic processing of vehicle information</option>
-
-				<option value="objectiveId42">Contributes to better system maintenance</option>
-				<option value="objectiveId43">Emphasizes system rehabilitation rather than expansion</option>
-				<option value="objectiveId44">Incorporates new technologies</option>
-				<option value="objectiveId45">Maximizes existing capacity</option>
+				<!-- load objectives here - getObjectives() -->
 			</select><br />
 
 			<input type="button" align="right" class="indentNiceForm" style="margin-top:.5em;margin-bottom:.5em;"

@@ -10,7 +10,9 @@
 	Project: Let's Improve Transportation!
 	Page: Criteria
 	Description: This is a partial page that defines the view of a single criteria in criteriaMgr.jsp.
-	Author(s): Jordan Isip, Adam Hindman, Issac Yang
+	Author(s): 
+	     Front End: Jordan Isip, Adam Hindman, Issac Yang
+	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[ ] Ensure connection with criteriaMgr.jsp (Jordan)

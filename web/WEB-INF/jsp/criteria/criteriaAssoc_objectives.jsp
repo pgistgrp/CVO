@@ -8,17 +8,19 @@
 
 <!--####
 	Project: Let's Improve Transportation!
-	Page: Themes List
-	Description: This is a partial page that is included via getThemes in criteriaMgr.
-				 This page will loop through all of the themes in a given workflow instance.
-	Author(s): Jordan Isip, Adam Hindman, Issac Yang
+	Page: Objectives List
+	Description: This is a partial page that is included via getObjectives in criteriaMgr.
+				 This page will loop through all of the objectives in a given workflow instance.
+	Author(s): 
+	     Front End: Jordan Isip, Adam Hindman, Issac Yang
+	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Test if page is pulled by getThemes (Jordan)
+		[ ] Test if page is pulled by getObjectives (Jordan)
 
 #### -->
 
-<c:forEach var="theme" items="${themesList}" varStatus="loop">
-	<option value="theme-${theme.id}">${theme.name}</option>
+<c:forEach var="objectives" items="${objectives}" varStatus="loop">
+	<option value="objective-${objective.id}">${objective.name}</option>
 </c:forEach>
 

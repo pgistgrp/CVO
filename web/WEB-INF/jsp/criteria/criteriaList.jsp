@@ -11,19 +11,19 @@
 	Page: Criteria List
 	Description: This is a temporary page to list out all the cct instances of criteria manager. 
 				 This page will be replaced by the workflow manager.
-	Author(s): Jordan Isip, Adam Hindman, Issac Yang
+	Author(s): 
+	     Front End: Jordan Isip, Adam Hindman, Issac Yang
+	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
+		[ ] Loop through all ccts to provide a link to a criteriaMgr instance
 #### -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 	"http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<title>index</title>
-		<style type="text/css" media="screen">
-			@import "styles/lit.css";
-		</style>
+		<title>Criteria List</title>
 	</head>
 	<body>
 		<h2>CCT List</h2>
@@ -35,7 +35,7 @@
 		<table id="cctListTable" class="listtable" cellspacing="1" frame="box" rules="all" width="100%">
 		  <logic:iterate id="cct" property="ccts" name="cctForm">
 		  <tr>
-		    <td><html:link action="/criteriaMgr.do.do" paramId="cctId" paramName="cct" paramProperty="id"><bean:write name="cct" property="name"/></html:link></td>
+		    <td><html:link action="/criteriaMgr.do" paramId="cctId" paramName="cct" paramProperty="id"><bean:write name="cct" property="name"/></html:link></td>
 		  </tr>
 		  </logic:iterate>
 		</table>
