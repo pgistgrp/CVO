@@ -303,7 +303,7 @@ padding:.5em;
 				by
 				<select name="selectsort" id="selectsort" onchange=
             "javascript:io.getPosts(io.currentFilter, 1, true, this.value);">
-					<option selected> sorting </option>
+					<option selected> sorting</option>
 					<option> Newest first </option>
 					<option> Oldest first </option>
 					<option> Most Agreement </option>
@@ -315,9 +315,9 @@ padding:.5em;
 				and
 				<form class="inline" action=
             "javascript:%20io.customFilterAction($('txtCustomFilter').value);">
-					<input type="text" id="txtCustomFilter" value="searching by tag" onkeyup=
+					<input type="text" id="txtCustomFilter" value=" searching by keyword" onkeyup=
               "io.customFilter(this.value, event);" onclick=
-              "javascript:if(this.value==this.defaultValue){this.value = ''}">
+              "javascript:if(this.value==this.defaultValue){this.value = ' searching by keyword'}">
 					or <a
               href="javascript:io.getTagCloud();">browse a list
 					of all tags</a>
