@@ -10,6 +10,7 @@
 	Project: Let's Improve Transportation!
 	Page: Criteria
 	Description: This is a partial page that defines the view of a single criteria in criteriaMgr.jsp.
+				 This is also used on sdcritStructureTarget.jsp
 	Author(s): 
 	     Front End: Jordan Isip, Adam Hindman, Issac Yang
 	     Back End: Zhong Wang, John Le
@@ -17,6 +18,7 @@
 		[x] Initial Skeleton Code (Jordan)
 		[ ] Ensure connection with criteriaMgr.jsp (Jordan)
 		[ ] Loop through ${criteria} (Jordan)
+		[ ] Add conditional statements to allow sdcritStructureTarget.jsp to use the same partial.
 #### -->
 	<!-- begin criteria headers -->
 	<div class="criteriaListHeader">
@@ -34,6 +36,7 @@
 
 	</div>
 	<!-- end criteria headers -->
+	
 	<c:forEach var="criterion" items="${criteria}" varStatus="loop">
 		<div id="criteria-${criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
 			<div class="criteriaCol1 floatLeft"><a href="#">
@@ -50,6 +53,7 @@
 			</div>
 			
 			<div class="clearBoth"></div>
+			<div class="objectives" id="criteriaEdit${criterion.id}"><!--javascript will load edit form here --></div>
 			<div class="objectives" id="objectives1" style="display:none;">
 				<c:forEach var="objective" items="${objectives}" varStatus="loop">
 					<p>${objective.name}</p>

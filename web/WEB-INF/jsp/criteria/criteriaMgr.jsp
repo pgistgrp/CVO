@@ -9,7 +9,7 @@
 <!--####
 	Project: Let's Improve Transportation!
 	Page: Criteria Manager
-	Description: Manage all criteria and publish selected criteria to create a new instance.
+	Description: Manage all criteria for a given workflow instance.
 	Author(s): 
 	     Front End: Jordan Isip, Adam Hindman, Issac Yang
 	     Back End: Zhong Wang, John Le
@@ -72,11 +72,13 @@
 		function addCriterion(){
 			var themesArr = getOptionValueFromObjects(document.getElementById('themes').options); //grabs from multi select list
 			//var objectivesArr = getOptionValueFromObjects(document.getElementById('objectives').options); ; //grabs from multi select list
+			//DWR Test: {name:"testCriterion", themeIds: "2523,2528", objectiveIds: "1185", cctId: 1180, na:"this is a test"}
+			
 			var name = $('name').value;
 			var description = $('description').value;
 			
 			alert("names: " + name + " description" + description + " themes: " + themesArr + " objectives: " + selectedObjectives);
-			/*CriteriaAgent.addCriterion({name:name,description:description,themesArr:themesArr,objectivesArr:objectivesArr}, {
+			/*CriteriaAgent.addCriterion({name:name,na:description,themesArr:themesArr,objectivesArr:objectivesArr}, {
 				callback:function(data){
 					if (data.successful){
 						//highlight newly created criterion

@@ -21,6 +21,6 @@
 #### -->
 
 <c:forEach var="objectives" items="${objectives}" varStatus="loop">
-	<option value="objective-${objective.id}">${objective.name}</option>
+	<option value="objective-${objective.id}">${objective.description}</option>
 </c:forEach>
 

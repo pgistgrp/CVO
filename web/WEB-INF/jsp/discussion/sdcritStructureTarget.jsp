@@ -8,11 +8,35 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
-
+<!--####
+	Project: Let's Improve Transportation!
+	Page: SDCrit Structure Target
+	Description: This is the object in the SDcriteria discussion room
+	Author(s): 
+	     Front End: Jordan Isip, Adam Hindman, Issac Yang
+	     Back End: Zhong Wang, John Le
+	Todo Items:
+		[x] Initial Skeleton Code (Jordan)
+		[ ] Add JavaScript to get criteria (Jordan)
+		[ ] Integrate Layout (Adam)
+#### -->
 <pg:fragment type="html">
-	SD Criteria Structure Target
+	<div id="allCriteriaList"><!--load criteria here --></div>
 </pg:fragment>
 
-	<pg:fragment type="script">
-
+<pg:fragment type="script">
+	function getCriteria(){
+		CriteriaAgent.getAllCriterion({}, {
+			callback:function(data){
+				if (data.successful){
+					$('allCriteriaList').innerHTML = data.html;
+				}else{
+					$('allCriteriaList').innerHTML = "<b>Error in CriteriaAgent.getAllCriterion Method: </b>" + data.reason; 
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("CriteriaAgent.getAllCriterion( error:" + errorString + exception);
+			}
+		});
+	}
 </pg:fragment>
