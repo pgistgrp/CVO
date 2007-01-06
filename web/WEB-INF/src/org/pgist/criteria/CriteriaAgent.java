@@ -50,10 +50,10 @@ public class CriteriaAgent {
      * @param params a Map contains:
      *   <ul>
      *     <li>name - string, name of the criteia</li>
-     *     <li>themeIds - string, name of the themeid's separated by commas</li>
-     *     <li>objectiveIds - string, list of Object Id's</li>	
+     *     <li>themeIds - string, name of the themeid's separated by commas - Optional</li>
+     *     <li>objectiveIds - string, list of Object Id's - Optional</li>	
      *     <li>cctId - string, cctId.</li>
-     *     <li>na - string, descript. Optional.</li>
+     *     <li>na - string, description. - Optional</li>
      *   </ul>
      * @return a Map contains:
      *   <ul>
@@ -167,10 +167,10 @@ public class CriteriaAgent {
      *   <ul>
      *     <li>id - string, id of the criterion</li>
      *     <li>name - string, name of the criteia</li>
-     *     <li>themeIds - string, name of the themeid's separated by commas</li>
-     *     <li>objectiveIds - string, list of Object Id's</li>	
+     *     <li>themeIds - string, name of the themeid's separated by commas - Optional</li>
+     *     <li>objectiveIds - string, list of Object Id's - Optional</li>	
      *     <li>cctId - string, cctId.</li>
-     *     <li>na - string, descript. Optional.</li>
+     *     <li>na - string, descript. - Optional</li>
      *   </ul>
      * @return a Map contains:
      *   <ul>
