@@ -22,7 +22,7 @@ public class ProjectAlternativeCriteria implements Serializable {
     
     private Criteria criterion;
     
-    private Double value;
+    private int grade;
     
     
     /**
@@ -80,13 +80,13 @@ public class ProjectAlternativeCriteria implements Serializable {
     /**
      * @hibernate.property
      */
-    public Double getValue() {
-        return value;
+    public int getGrade() {
+        return grade;
     }
     
     
-    public void setValue(Double value) {
-        this.value = value;
+    public void setGrade(int grade) {
+        this.grade = grade;
     }
     
     

@@ -34,10 +34,20 @@ import org.pgist.actions.WorkflowAction;
  *   <li>projectId - an array of ids of projects to be related to current CCT</li>
  * </ul>
  * 
+ * When activity=="", or when activity=="save" but this action is not called from a workflow instance,
+ * the action will forward to page of "view", the following variables are available in jsp:
+ * <ul>
+ *   <li>cct - an CCT object</li>
+ *   <li>projects - a collection of Project objects</li>
+ * </ul>
+ * 
  * Examples:
  * <ul>
- *   <li>projectDefine.do?cctId=1234</li>
- *   <li>&lt;form action="projectDefine.do"&gt;<br>
+ *   <li>GET:<br>
+ *       projectDefine.do?cctId=1234
+ *   </li>
+ *   <li>POST:<br>
+ *       &lt;form action="projectDefine.do"&gt;<br>
  *       &lt;input type="hidden" name="cctId" value="1234"&gt<br>
  *       &lt;input type="hidden" name="activity" value="save"&gt<br>
  *       &lt;input type="checkbox" name="projectId" value="2001"&gt<br>

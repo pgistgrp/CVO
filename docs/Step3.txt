@@ -1,11 +1,11 @@
 
 
 [TODO] Project Management for moderator
-   [TODO] Entry point Action: org.pgist.projects.ProjectMgrAction.java (URL - projectManage.do)
-       [TODO] /WEB-INF/jsp/projects/projectsMgr.jsp
-   [TODO] Entry point Action: org.pgist.projects.ProjectDefAction.java (URL - projectDefine.do)
-       [TODO] /WEB-INF/jsp/projects/projectsAssoc.jsp
-   [TODO] Agent functions: org.pgist.projects.ProjectAgent:
+    [TODO] Entry point Action: org.pgist.projects.ProjectMgrAction.java (URL - projectManage.do)
+        [TODO] /WEB-INF/jsp/projects/projectsMgr.jsp
+    [TODO] Entry point Action: org.pgist.projects.ProjectDefAction.java (URL - projectDefine.do)
+        [TODO] /WEB-INF/jsp/projects/projectsAssoc.jsp
+    [TODO] Agent functions: org.pgist.projects.ProjectAgent:
         use -1 as id for creating project / alternative
         [TODO] editProject() return html "editProject.jsp"
         [TODO] saveProject()
@@ -30,7 +30,23 @@
         [TODO] deleteProjectAlt()
 
 
+[TODO] ProjectAlt-Criteria Grading for moderator
+   [TODO] Entry point Action: org.pgist.projects.ProjectGradingAction.java (URL - projectGrading.do)
+       [TODO] /WEB-INF/jsp/projects/projectGrading.jsp
+   [TODO] Agent functions: org.pgist.funding.ProjectAgent:
+        [TODO] setGrading()
+
+
 [TODO] Structured Discussion for Projects
     [DONE] Entry point Action: org.pgist.discussion.SDAction (URL - sd.do)
     [TODO] project map interaction (waiting for Guirong, codes needs redesign)
+
+
+[TODO] Structured Discussion for Funding Sources
+    [DONE] Entry point Action: org.pgist.discussion.SDAction (URL - sd.do)
+
+
+[TODO] Project Alternative Details View for participants
+    [TODO] Entry point Action: org.pgist.projects.ProjectAltAction.java (URL - projectAlt.do)
+        [TODO] /WEB-INF/jsp/projects/projectAltDetails.jsp
 

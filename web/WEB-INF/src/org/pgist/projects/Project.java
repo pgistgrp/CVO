@@ -34,6 +34,11 @@ public class Project implements Serializable {
     
     private ProjectAlternative selected = null;
     
+    /**
+     * This is not a persistent value
+     */
+    private Object value;
+    
     
     /**
      * @hibernate.id generator-class="native"
@@ -150,6 +155,16 @@ public class Project implements Serializable {
     
     public void removeAlternative(ProjectAlternative a){
         alternatives.remove(a);
+    }
+
+
+    public Object getValue() {
+        return value;
+    }
+
+
+    public void setValue(Object value) {
+        this.value = value;
     }
 
 
