@@ -44,7 +44,7 @@ public class ProjectAgent {
     
     public Map getProjects(String criteria){
         Map result = new HashedMap();
-        if(criteria == null)criteria = "";
+        if (criteria == null) criteria = "";
 
         try{
             List projects = projectService.getProjects(criteria);
@@ -69,7 +69,7 @@ public class ProjectAgent {
      * 
      * @return a Project object
      */
-    public Project getProjectById(long id){
+    public Project getProjectById(long id) {
         try {
             return (Project) projectService.getProjectById(id);
         } catch (Exception e) {
@@ -248,8 +248,7 @@ public class ProjectAgent {
     
     
     
-    
-    
+    //The following methods are to be re-designed.
     
     
     /**
@@ -325,7 +324,7 @@ public class ProjectAgent {
 			}else{
 				ProjectAlternative a = new ProjectAlternative();
 				a.setName((String)altparams.get("name"));
-				a.setDescription((String)altparams.get("description"));
+				//a.setDescription((String)altparams.get("description"));
 				a.setCost(Double.valueOf((String)altparams.get("cost")));
 				projectService.saveProject(p, a);
 

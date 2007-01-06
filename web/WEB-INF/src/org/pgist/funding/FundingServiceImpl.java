@@ -76,4 +76,22 @@ public class FundingServiceImpl implements FundingService {
     }//deleteFundingSourceAlt()
 
 
+    /**
+     * Setup the association between funding sources and CCT.
+     * 
+     * @param cctId id of the CCT object to be associated
+     * @param ids ids of FundingSource objects to be assosicated
+     * @throws Exception
+     */
+    public void setupFundingSourcesForCCT(Long cctId, String[] ids) throws Exception {
+        /*
+         * TODO:
+         *   Load CCT object by cctId, throw exception if failed
+         *   Load each ProjectAlternative object by id, throw exception if any failed
+         *   put each ProjectAlternative object to CCT.projects
+         *   persist objects
+         */
+    }//setupFundingSourcesForCCT()
+    
+    
 }//class FundingServiceImpl

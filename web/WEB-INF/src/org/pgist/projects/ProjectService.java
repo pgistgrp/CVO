@@ -16,6 +16,8 @@ public interface ProjectService {
     
 	Project getProject(Long pId) throws Exception;
     
+    ProjectAlternative getProjectAlternativeById(Long altId) throws Exception;
+    
     Collection getProjects() throws Exception;
     
 	List getProjects(String criteria) throws Exception;
@@ -40,6 +42,11 @@ public interface ProjectService {
     void editProject(Long id, Map params, double[][][] footprint) throws Exception;
 
     void deleteProjectAlt(Long id) throws Exception;
+
+    Collection getProjectAlternativeGrades(Long cctId, Long altId) throws Exception;
+
+    
+    void setupProjectsForCCT(Long cctId, String[] ids) throws Exception;
     
     
 }//interface ProjectService

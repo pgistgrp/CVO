@@ -20,7 +20,18 @@ public class ProjectAlternative implements Serializable {
     
     private String name;
     
-    private String description;
+    private String shortDesc;
+    
+    private String detailedDesc;
+    
+    private String statementFor;
+    
+    private String statementAgainst;
+    
+    /**
+     * "links" is a rich text paragraph which stores a list of links
+     */
+    private String links;
     
     private double cost;
     
@@ -29,6 +40,8 @@ public class ProjectAlternative implements Serializable {
     private int geoType;
     
     private String annoString;
+    
+    private String photo;
     
     private int transMode;
     
@@ -39,6 +52,16 @@ public class ProjectAlternative implements Serializable {
      * this porject, e.g., "1,2", or "1"
      */
     private String fpids;
+    
+    /**
+     * state for project alternative
+     * <ul>
+     *   <li>0 - project is active</li>
+     *   <li>1 - project is chosen</li>
+     *   <li>2 - project is done</li>
+     *   <li>3 - project is inactive</li>
+     */
+    private int state = 0;
     
     
     /**
@@ -72,16 +95,58 @@ public class ProjectAlternative implements Serializable {
      * @return
      * @hibernate.property
      */
-    public String getDescription(){
-        return this.description;
+    public String getDetailedDesc() {
+        return detailedDesc;
     }
-    
-    
-    public void setDescription(String d){
-        this.description = d;
+
+
+    public void setDetailedDesc(String detailedDesc) {
+        this.detailedDesc = detailedDesc;
     }
-    
-    
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public String getShortDesc() {
+        return shortDesc;
+    }
+
+
+    public void setShortDesc(String shortDesc) {
+        this.shortDesc = shortDesc;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public String getStatementAgainst() {
+        return statementAgainst;
+    }
+
+
+    public void setStatementAgainst(String statementAgainst) {
+        this.statementAgainst = statementAgainst;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public String getStatementFor() {
+        return statementFor;
+    }
+
+
+    public void setStatementFor(String statementFor) {
+        this.statementFor = statementFor;
+    }
+
+
     /**
      * @return
      * @hibernate.property
@@ -96,6 +161,20 @@ public class ProjectAlternative implements Serializable {
     }
     
     
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public String getLinks() {
+        return links;
+    }
+
+
+    public void setLinks(String links) {
+        this.links = links;
+    }
+
+
     /**
      * @return
      * @hibernate.property
@@ -158,6 +237,20 @@ public class ProjectAlternative implements Serializable {
      * @return
      * @hibernate.property
      */
+    public String getPhoto() {
+        return photo;
+    }
+
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
     public int getTransMode() {
 
         return transMode;
@@ -180,6 +273,16 @@ public class ProjectAlternative implements Serializable {
     
     public void setProject(Project p){
         this.project = p;
+    }
+
+
+    public int getState() {
+        return state;
+    }
+
+
+    public void setState(int state) {
+        this.state = state;
     }
     
     

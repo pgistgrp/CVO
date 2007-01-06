@@ -19,6 +19,15 @@ public class Project implements Serializable {
     
     private String description;
     
+    /**
+     * project type<br>
+     * <ul>
+     *   <li>road</li>
+     *   <li>transit</li>
+     * </ul>
+     */
+    private String type;
+    
     private Corridor corridor;
     
     private List<ProjectAlternative> alternatives = new ArrayList<ProjectAlternative>();
@@ -67,6 +76,20 @@ public class Project implements Serializable {
     }
     
     
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public String getType() {
+        return type;
+    }
+
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+
     /**
      * @return
      * 

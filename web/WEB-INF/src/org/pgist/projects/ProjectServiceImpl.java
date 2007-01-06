@@ -149,4 +149,38 @@ public class ProjectServiceImpl implements ProjectService{
     }//deleteProjectAlt()
 
 
+    /**
+     * TODO
+     */
+    public ProjectAlternative getProjectAlternativeById(Long altId) throws Exception {
+        return null;
+    }//getProjectAlternativeById()
+
+
+    /**
+     * TODO
+     */
+    public Collection getProjectAlternativeGrades(Long cctId, Long altId) throws Exception {
+        return null;
+    }//getProjectAlternativeGrades()
+    
+    
+    /**
+     * Setup the association between projects and CCT.
+     * 
+     * @param cctId id of the CCT object to be associated
+     * @param ids ids of projects to be assosicated
+     * @throws Exception
+     */
+    public void setupProjectsForCCT(Long cctId, String[] ids) throws Exception {
+        /*
+         * TODO:
+         *   Load CCT object by cctId, throw exception if failed
+         *   Load each ProjectAlternative object by id, throw exception if any failed
+         *   put each ProjectAlternative object to CCT.projects
+         *   persist objects
+         */
+    }//setupProjectsForCCT()
+    
+    
 }//class ProjectServiceImpl

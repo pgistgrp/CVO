@@ -35,6 +35,9 @@ public interface FundingService {
     
     
     void deleteFundingSourceAlt(Long id) throws Exception;
+    
+    
+    void setupFundingSourcesForCCT(Long cctId, String[] ids) throws Exception;
 
 
 }//interface FundingService
