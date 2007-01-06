@@ -21,6 +21,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
 	
 	private static final String hql_addCriterion = "from Criteria c where lower(c.name)=?";
 	
+	/*
     public Criteria addCriterion(String name, CCT cct, Set themes, Set objectives, String na) throws Exception {
     	
 		Criteria c = new Criteria();
@@ -40,6 +41,32 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
 		save(c);		
 		return c;
     }//addCriterion()
+    */
+    
+    public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, CCT cct, Set themes, Set objectives, String na) throws Exception {
+    	
+    	Criteria c = new Criteria();
+    	c.setName(name);
+		c.setCct(cct);
+		c.setNa(na);
+		
+    	if(bool_themes) {
+    		c.setThemes(themes);
+    	}
+    	if(bool_objectives) {
+    		c.setObjectives(objectives);		
+    	}
+    	
+    	List list = getHibernateTemplate().find(hql_addCriterion, new Object[] {
+                name.toLowerCase(),
+        });
+    	
+    	if(list.size()>0) {
+    		throw new Exception("Criteria already exist.");
+    	}  		
+		save(c);		
+		return c;
+    } //addCriterion
     
     
     public void deleteCriterion(Long id) throws Exception {
@@ -48,12 +75,17 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     }//deleteCriteria()
     
     
-    public void editCriterion(Criteria c, String name, CCT cct, Set themes, Set objectives, String na) throws Exception {
+    public void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, CCT cct, Set themes, Set objectives, String na) throws Exception {
     	c.setName(name);
-		c.setThemes(themes);
-		c.setObjectives(objectives);
 		c.setCct(cct);
 		c.setNa(na);
+		
+    	if(bool_themes) {
+    		c.setThemes(themes);
+    	}
+    	if(bool_objectives) {
+    		c.setObjectives(objectives);		
+    	}
 			
 		save(c);		
     }//editCriterion()

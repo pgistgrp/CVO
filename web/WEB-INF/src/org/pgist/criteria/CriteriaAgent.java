@@ -1,6 +1,7 @@
 package org.pgist.criteria;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Collection;
@@ -64,6 +65,8 @@ public class CriteriaAgent {
     public Map addCriterion(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
+        boolean bool_themes = true;
+        boolean bool_objectives = true;
         
         String name = (String) params.get("name");
     	String themeIds = (String) params.get("themeIds");
@@ -75,30 +78,39 @@ public class CriteriaAgent {
     		map.put("reason", "Criterion name cannot be empty.");
     		return map;
     	}
+    	
     	if(themeIds==null || "".equals(themeIds.trim())){
-    		map.put("reason", "themeIds cannot be empty.");
-    		return map;
+    		bool_themes = false;
     	}
+    	
     	if(strCctId==null || "".equals(strCctId.trim())){
     		map.put("reason", "cctId cannot be empty.");
     		return map;
     	}
     	if(objectiveIds==null || "".equals(objectiveIds.trim())){
-    		map.put("reason", "objectiveIds cannot be empty.");
-    		return map;
+    		bool_objectives = false;
     	}
-    	if(objectiveIds==null || "".equals(objectiveIds.trim())){
+    	if(na==null || "".equals(na.trim())){
     		na = "NONE";
     	}
     	Long cctId = new Long((String) params.get("cctId"));
     	
         try {
-        	String[] themeIdList = themeIds.split(",");
-        	Set themes = criteriaService.getThemeObjects(themeIdList);
-        	String[] objectiveIdList = objectiveIds.split(",");
-        	Set objectives = criteriaService.getObjectiveObjects(objectiveIdList);
+        	String[] themeIdList;
+        	String[] objectiveIdList;
+        	Set themes = new HashSet();
+        	Set objectives = new HashSet();
         	
-        	Criteria c = criteriaService.addCriterion(name, cctId, themes, objectives, na);
+        	if(bool_themes) {
+		    	themeIdList = themeIds.split(",");
+		    	themes = criteriaService.getThemeObjects(themeIdList);
+        	}
+        	if(bool_objectives) {
+	        	objectiveIdList = objectiveIds.split(",");
+	        	objectives = criteriaService.getObjectiveObjects(objectiveIdList);
+        	}
+        	Criteria c = c = criteriaService.addCriterion(bool_themes, bool_objectives, name, cctId, themes, objectives, na);
+        	
         	map.put("id", c.getId());
             map.put("successful", true);
         } catch (Exception e) {
@@ -169,6 +181,8 @@ public class CriteriaAgent {
     public Map editCriterion(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
+        boolean bool_themes = true;
+        boolean bool_objectives = true;
         
         String strId = (String) params.get("id");
         String name = (String) params.get("name");
@@ -186,18 +200,16 @@ public class CriteriaAgent {
     		return map;
     	}
     	if(themeIds==null || "".equals(themeIds.trim())){
-    		map.put("reason", "themeIds cannot be empty.");
-    		return map;
+    		bool_themes = false;
     	}
     	if(strCctId==null || "".equals(strCctId.trim())){
     		map.put("reason", "cctId cannot be empty.");
     		return map;
     	}
     	if(objectiveIds==null || "".equals(objectiveIds.trim())){
-    		map.put("reason", "objectiveIds cannot be empty.");
-    		return map;
+    		bool_objectives = false;
     	}
-    	if(objectiveIds==null || "".equals(objectiveIds.trim())){
+    	if(na==null || "".equals(na.trim())){
     		na = "NONE";
     	}
     	Long cctId = new Long(strCctId);
@@ -206,12 +218,21 @@ public class CriteriaAgent {
         try {
         	Criteria c = criteriaService.getCriterionById(id);
         	
-        	String[] themeIdList = themeIds.split(",");
-        	Set themes = criteriaService.getThemeObjects(themeIdList);
-        	String[] objectiveIdList = objectiveIds.split(",");
-        	Set objectives = criteriaService.getObjectiveObjects(objectiveIdList);
+        	String[] themeIdList;
+        	String[] objectiveIdList;
+        	Set themes = new HashSet();
+        	Set objectives = new HashSet();
         	
-        	criteriaService.editCriterion(c, name, cctId, themes, objectives, na);
+        	if(bool_themes) {
+		    	themeIdList = themeIds.split(",");
+		    	themes = criteriaService.getThemeObjects(themeIdList);
+        	}
+        	if(bool_objectives) {
+	        	objectiveIdList = objectiveIds.split(",");
+	        	objectives = criteriaService.getObjectiveObjects(objectiveIdList);
+        	}
+        	
+        	criteriaService.editCriterion(bool_themes, bool_objectives, c, name, cctId, themes, objectives, na);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -529,7 +550,12 @@ public class CriteriaAgent {
      *     <li>objectives - A set of Objective objects</li>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *     <li>html- </li>
+     *     <li>html - a HTML source segment. (Generated by /WEB-INF/jsp/criteria/criteria.jsp)<br>
+     *         The following variables are available for use in the jsp:
+     *         <ul>
+     *         		<li>objectives- objective objects/li>
+     *         </ul>
+     *      </li>
      *   </ul>
      */
      public Map getObjectives(HttpServletRequest request, Map params) {
@@ -540,8 +566,8 @@ public class CriteriaAgent {
         	Collection objectives = criteriaService.getObjectives();
 
         	request.setAttribute("objectives", objectives); 
-        	map.put("objectsives", objectives);
-        	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteria.jsp"));
+        	map.put("objectives", objectives);
+        	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteriaAssoc_objectives.jsp"));
         	map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

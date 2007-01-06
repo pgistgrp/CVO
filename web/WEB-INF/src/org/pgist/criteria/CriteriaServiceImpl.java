@@ -46,10 +46,10 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getCriterias()
     
     
-    public Criteria addCriterion(String name, Long cctId, Set themes,  Set objectives, String na) throws Exception {
+    public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Long cctId, Set themes,  Set objectives, String na) throws Exception {
     	CCT cct = cctDAO.getCCTById(cctId);  
     	
-    	return criteriaDAO.addCriterion(name, cct, themes, objectives, na);
+    	return criteriaDAO.addCriterion(bool_themes, bool_objectives, name, cct, themes, objectives, na);
     }//addCriterion()
     
     
@@ -58,10 +58,10 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//deleteCriterion
     
     
-    public void editCriterion(Criteria c, String name, Long cctId, Set themes, Set objectives, String na) throws Exception {
+    public void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, Long cctId, Set themes, Set objectives, String na) throws Exception {
     	CCT cct = cctDAO.getCCTById(cctId);  
     	
-    	criteriaDAO.editCriterion(c, name, cct, themes, objectives, na);
+    	criteriaDAO.editCriterion(bool_themes, bool_objectives, c, name, cct, themes, objectives, na);
     }//editCriterion()
     
     

@@ -15,13 +15,13 @@ import org.pgist.system.BaseDAO;
 public interface CriteriaDAO extends BaseDAO {
     
 	
-	Criteria addCriterion(String name, CCT cct, Set themes,  Set objectives, String na) throws Exception;
+	Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, CCT cct, Set themes,  Set objectives, String na) throws Exception;
     
 	
 	void deleteCriterion(Long id) throws Exception;
     
 	
-	void editCriterion(Criteria c, String name, CCT cct, Set themes, Set objectives, String na) throws Exception;
+	void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, CCT cct, Set themes, Set objectives, String na) throws Exception;
 	
 	
 	Criteria getCriterionById(Long id) throws Exception;

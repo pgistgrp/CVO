@@ -18,13 +18,13 @@ public interface CriteriaService {
     Collection getCriterias() throws Exception;
     
     
-    Criteria addCriterion(String name, Long cctId, Set themes, Set objectives, String na) throws Exception;
+    Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Long cctId, Set themes, Set objectives, String na) throws Exception;
     
     
     void deleteCriterion(Long id) throws Exception;
     
     
-    void editCriterion(Criteria c, String name, Long cctId, Set themes, Set objectives, String na) throws Exception;
+    void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, Long cctId, Set themes, Set objectives, String na) throws Exception;
     
     
     Criteria getCriterionById(Long id) throws Exception;
