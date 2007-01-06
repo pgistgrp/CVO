@@ -83,16 +83,16 @@
                <value>org/pgist/criteria/CriteriaWeight.hbm.xml</value>
                <value>org/pgist/funding/FundingSource.hbm.xml</value>
                <value>org/pgist/funding/FundingSourceAlternative.hbm.xml</value>
+               <value>org/pgist/packages/Package.hbm.xml</value>
+               <value>org/pgist/packages/PackageCluster.hbm.xml</value>
+               <value>org/pgist/packages/PackageCriteria.hbm.xml</value>
+               <value>org/pgist/packages/PackageUserScore.hbm.xml</value>
+               <value>org/pgist/projects/UserCriteriaWeight.hbm.xml</value>
                <value>org/pgist/projects/Corridor.hbm.xml</value>
-               <value>org/pgist/projects/Package.hbm.xml</value>
                <value>org/pgist/projects/Project.hbm.xml</value>
                <value>org/pgist/projects/ProjectAlternative.hbm.xml</value>
-               <value>org/pgist/projects/ProjectCriteria.hbm.xml</value>
+               <value>org/pgist/projects/ProjectAlternativeCriteria.hbm.xml</value>
                <value>org/pgist/projects/ProjectMOE.hbm.xml</value>
-               <value>org/pgist/projects/PackageCluster.hbm.xml</value>
-               <value>org/pgist/projects/PackageCriteria.hbm.xml</value>
-               <value>org/pgist/projects/PackageUserScore.hbm.xml</value>
-               <value>org/pgist/projects/UserCriteriaWeight.hbm.xml</value>
                <value>org/pgist/projects/Vehicle.hbm.xml</value>
            </list>
         </property>

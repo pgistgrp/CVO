@@ -585,6 +585,7 @@ public class CSTServiceImpl implements CSTService {
         
         InfoStructure structure = new InfoStructure();
         structure.setType("sdc");
+        structure.setTitle("Step 1b: Review Summaries");
         structure.setRespTime(date);
         structure.setCctId(cctId);
         discussionDAO.save(structure);

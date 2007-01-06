@@ -16,18 +16,19 @@
         <forward name="main" path="/main.jsp" />
         <forward name="register" path="/register.jsp" />
         <forward name="error" path="/error.jsp" />
-        <forward name="workflow" path="/workflow.do" />
         <forward name="usercp" path="/usercp.jsp" />
+        <forward name="workflow" path="/workflow.do" />
+        <forward name="nextstep" path="/WEB-INF/jsp/nextstep.jsp" />
     </global-forwards>
     
     
     <action-mappings>
-		<!--<action path="/usercp" scope="request" type="org.pgist.system.UsercpAction" />-->
-		
-		<action name="userForm" path="/usercp" scope="request" type="org.pgist.system.UsercpAction" />
-	
-    	<action path="/main" scope="request" type="org.pgist.system.MainAction" />
-		
+        <!--<action path="/usercp" scope="request" type="org.pgist.system.UsercpAction" />-->
+        
+        <action name="userForm" path="/usercp" scope="request" type="org.pgist.system.UsercpAction" />
+    
+        <action path="/main" scope="request" type="org.pgist.system.MainAction" />
+        
         <action name="userForm" path="/login" scope="request" type="org.pgist.system.LoginAction" />
         
         <action path="/logout" type="org.pgist.system.LogoutAction" />
@@ -71,18 +72,24 @@
             <forward name="view" path="/WEB-INF/jsp/cvo/cstCategories.jsp" />
         </action>
         
-        <action path="/projectMgr" scope="request" type="org.pgist.projects.ProjectMgrAction">
-            <forward name="list" path="/WEB-INF/jsp/projects/projectsList.jsp"/>
-            <forward name="edit" path="/WEB-INF/jsp/projects/editProject.jsp"/>
+        <action path="/projectManage" scope="request" type="org.pgist.projects.ProjectMgrAction">
+            <forward name="view" path="/WEB-INF/jsp/projects/projectsMgr.jsp"/>
         </action>
         
-        <action path="/fundingMgr" scope="request" type="org.pgist.funding.FundingMgrAction">
-            <forward name="list" path="/WEB-INF/jsp/projects/fundingList.jsp"/>
-            <forward name="edit" path="/WEB-INF/jsp/projects/editFunding.jsp"/>
+        <action path="/projectDefine" scope="request" type="org.pgist.projects.ProjectDefAction">
+            <forward name="view" path="/WEB-INF/jsp/projects/projectsAssoc.jsp"/>
         </action>
         
-        <action path="/fundingPublish" scope="request" type="org.pgist.funding.FundingPublishAction">
-            <forward name="main" path="/WEB-INF/jsp/projects/fundingPublish.jsp"/>
+        <action path="/project" scope="request" type="org.pgist.projects.ProjectAction">
+            <forward name="success" path="/WEB-INF/jsp/projects/project.jsp"/>
+        </action>
+        
+        <action path="/fundingManage" scope="request" type="org.pgist.funding.FundingMgrAction">
+            <forward name="view" path="/WEB-INF/jsp/projects/fundingMgr.jsp"/>
+        </action>
+        
+        <action path="/fundingDefine" scope="request" type="org.pgist.funding.FundingDefAction">
+            <forward name="main" path="/WEB-INF/jsp/projects/fundingAssoc.jsp"/>
         </action>
         
         <action path="/criteriaMgr" scope="request" type="org.pgist.criteria.CriteriaMgrAction">
@@ -94,7 +101,7 @@
             <forward name="assoc" path="/WEB-INF/jsp/criteria/criteriaAssoc.jsp"/>
         </action>
         
-		<action path="/criterialist" scope="request" type="org.pgist.criteria.CriteriaListAction">
+        <action path="/criterialist" scope="request" type="org.pgist.criteria.CriteriaListAction">
             <forward name="list" path="/WEB-INF/jsp/criteria/criteriaList.jsp"/>
         </action>
         
@@ -134,50 +141,15 @@
             <forward name="main" path="/WEB-INF/jsp/cm/cmMain.jsp" />
         </action>
         
-        <action name="workflowForm" path="/situationList" scope="request" type="org.pgist.workflow.SituationListAction">
-            <forward name="list" path="/WEB-INF/jsp/workflow/situationList.jsp" />
-        </action>
+        <!-- Workflow Actions -->
         
-        <action name="workflowForm" path="/agendaDisplay" scope="request" type="org.pgist.workflow.AgendaDisplayAction">
-            <forward name="moderator" path="/WEB-INF/jsp/workflow/agendaDisplay-moderator.jsp" />
-            <forward name="member" path="/WEB-INF/jsp/workflow/agendaDisplay-member.jsp" />
-        </action>
-        
-        <action name="workflowForm" path="/participate" scope="request" type="org.pgist.workflow.ParticipateAction" />
-        
-        <action name="workflowForm" path="/complete" scope="request" type="org.pgist.workflow.CompleteAction" />
-        
-        <action name="workflowForm" path="/workflow" scope="request" type="org.pgist.workflow.WorkflowAction">
+        <action path="/workflow" scope="request" type="org.pgist.actions.WorkflowAction">
             <forward name="meetings" path="/WEB-INF/jsp/workflow/showMeetings.jsp" />
             <forward name="pmethods" path="/WEB-INF/jsp/workflow/showPmethods.jsp" />
             <forward name="pgames" path="/WEB-INF/jsp/workflow/showPgames.jsp" />
             <forward name="pacts" path="/WEB-INF/jsp/workflow/showPacts.jsp" />
         </action>
         
-        <action name="workflowForm" path="/brainStorming" scope="request" type="org.pgist.workflow.pgame.brainstorming.BrainStormingAction">
-            <forward name="show" path="/WEB-INF/jsp/pgame/BrainStorming/brainStorming.jsp" />
-        </action>
-        
-        <action name="workflowForm" path="/review" scope="request" type="org.pgist.workflow.pgame.review.ReviewAction">
-            <forward name="show" path="/WEB-INF/jsp/pgame/Review/reviewDiscuss.html" />
-        </action>
-        
-        <action name="workflowForm" path="/prioritize" scope="request" type="org.pgist.workflow.pgame.prioritize.PrioritizeAction">
-            <forward name="show" path="/WEB-INF/jsp/pgame/Prioritize/prioritizeMain.html" />
-        </action>
-        
-        <action name="workflowForm" path="/hierarchy" scope="request" type="org.pgist.workflow.pgame.hierarchy.HierarchyAction">
-            <forward name="show" path="/WEB-INF/jsp/pgame/Hierarchy/hierarchyMain.html" />
-        </action>
-        
-        <action name="workflowForm" path="/qna" scope="request" type="org.pgist.workflow.pgame.question.QnAAction">
-            <forward name="show" path="/WEB-INF/jsp/pgame/Question/qnAMain.html" />
-        </action>
-        
-        <action name="workflowForm" path="/sensitivity" scope="request" type="org.pgist.workflow.pgame.sensitivity.SensitivityAnalysisAction">
-            <forward name="show" path="/WEB-INF/jsp/pgame/Sensitivity/sensitivityMain.html" />
-        </action>
-      
     </action-mappings>
     
     
@@ -195,3 +167,4 @@
   
   
 </struts-config>
+

@@ -1,19 +1,42 @@
 Zhong:
+
+[] Create an action for publishing the project structure
+[] Create an action for sdp list
+[] projects in structure will be a tree
+[] Detect the "sdp" type, forward from sd.do to sdRoom.do, only isid is required, one discussion room
+[] interfaces for getProjectsMap(ids)
+[] Create an action for view project details (project.do?projectId=111&cctId=222)
+   getProjectById(projectId), getCriteriaGrades(projectId, cctId)
+[] Project management tool
+[] Resize Photo ?
+[] Detect the "sdf" type, forward from sd.do to sdRoom.do, only isid is required, one discussion room
+[] fundingsources in structure will be a tree
+[] Create an action for "create personal package"
+   Page needs all projects and all funding sources
+   projectAgent.savePackage()
+   action=save
+
+
+--------
 [ ] Setup pgistdev server as a demonstration server - loaded with the database from latest test (Ie. grab all source code and data that is currently in the alpha test).
 [ ] Talk to Guirong about when to buy deployment server.
-[ ] Send SQL Database Dump to robert after friday
 
-Zhong: Planning Factors Step 2
-[ ] Template for each criteria instance.
-[ ] Remove obsolete methods - relateCriteria(); derelateCriteria(); getAvailableCriteria(); addCriterionSlider(); deleteCriterionSlider(); getThemes();
 
+------------------------
+John:
+Planning Factors Step 2
 [ ] Add and Update methods:
 -addCriterion() & editCriterion();
 	- Name
 	- Description
 	- List of concern theme ids
 	- List of objective ids
-
+[ ] Template for each criteria instance.
+[ ] Remove obsolete methods - relateCriteria(); derelateCriteria(); getAvailableCriteria(); addCriterionSlider(); deleteCriterionSlider(); getThemes();
+[ ] Relate Criteria to themes
+[ ] Review Criteria
+[ ] Manage Criteria
+[ ] Weigh Criteria
 -getObjectives()
 	- CCTID?
 
@@ -23,13 +46,6 @@ Zhong: Planning Factors Step 2
 
 -deleteObjective()
 	- id
-
-------------------------
-John:
-[ ] Relate Criteria to themes
-[ ] Review Criteria
-[ ] Manage Criteria
-[ ] Weigh Criteria
 
 -----------------------
 BACKEND DOCUMENTED FOR LATER:

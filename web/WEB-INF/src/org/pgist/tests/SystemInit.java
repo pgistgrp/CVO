@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.loader.AntClassLoader2;
+import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.taskdefs.MatchingTask;
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -67,14 +67,14 @@ public class SystemInit extends MatchingTask {
 
     private boolean setUp() throws Exception {
         //code to handle cnf issues with taskdef classloader
-        AntClassLoader2 antClassLoader = null;
+        AntClassLoader antClassLoader = null;
         Object obj = this.getClass().getClassLoader();
-        if (obj instanceof AntClassLoader2) {
-            antClassLoader = (AntClassLoader2) obj;
+        if (obj instanceof AntClassLoader) {
+            antClassLoader = (AntClassLoader) obj;
             antClassLoader.setThreadContextLoader();
         }
         //end code to handle classnotfound issue
-
+        
         appContext = new FileSystemXmlApplicationContext(
             new String[] {
                 configPath + "/context-database.xml",

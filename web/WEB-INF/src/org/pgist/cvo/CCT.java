@@ -24,6 +24,8 @@ public class CCT extends PGame {
     
     private Set criteria = new HashSet();
     
+    private Set projects = new HashSet();
+    
     private CategoryReference rootCategory = new CategoryReference();
     
     
@@ -93,7 +95,24 @@ public class CCT extends PGame {
 	}
 
 
-	/**
+    /**
+     * @return
+     * 
+     * @hibernate.set inverse="true" lazy="true" table="pgist_cvo_cct_proj_link"
+     * @hibernate.collection-key column="cct_id"
+     * @hibernate.collection-many-to-many column="project_id" class="org.pgist.projects.Project"
+     */
+	public Set getProjects() {
+        return projects;
+    }
+
+
+    public void setProjects(Set projects) {
+        this.projects = projects;
+    }
+
+
+    /**
      * @return
      * 
      * @hibernate.many-to-one column="root_cat_ref_id" cascade="all" lazy="true"

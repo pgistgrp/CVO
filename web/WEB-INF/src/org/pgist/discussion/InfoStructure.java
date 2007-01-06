@@ -14,24 +14,50 @@ import java.util.Set;
 public class InfoStructure extends GenericInfo {
     
     
+    /*
+     * sd for concern summary
+     */
     private static final String TYPE_SDC = "sdc";
     
+    /*
+     * sd for criteria
+     */
     private static final String TYPE_SDCRIT = "sdcrit";
     
+    /*
+     * sd for projects
+     */
     private static final String TYPE_SDP = "sdp";
     
+    /*
+     * sd for funding sources
+     */
     private static final String TYPE_SDF = "sdf";
     
+    /*
+     * sd for packages
+     */
     private static final String TYPE_SDPKG = "sdpkg";
     
+    /*
+     * sd for create package, maybe deleted later
+     */
     private static final String TYPE_SDCP = "sdcp";
     
+    /*
+     * sd for review report
+     */
     private static final String TYPE_SDRR = "sdrr";
     
     
     private Long cctId;
     
     private String type;
+    
+    /*
+     * the title for the html page
+     */
+    private String title;
     
     private Set infoObjects = new HashSet();
     
@@ -63,6 +89,21 @@ public class InfoStructure extends GenericInfo {
     
     public void setType(String type) {
         this.type = type;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.property not-null="true"
+     */
+    public String getTitle() {
+        return title;
+    }
+
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 

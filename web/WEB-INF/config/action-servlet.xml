@@ -67,17 +67,27 @@
     </bean>
     
     
-    <bean name="/projectMgr" class="org.pgist.projects.ProjectMgrAction">
+    <bean name="/projectManage" class="org.pgist.projects.ProjectMgrAction">
         <property name="projectService" ref="projectService"/>
     </bean>
     
     
-    <bean name="/fundingMgr" class="org.pgist.funding.FundingMgrAction">
+    <bean name="/projectDefine" class="org.pgist.projects.ProjectDefAction">
+        <property name="projectService" ref="projectService"/>
+    </bean>
+    
+    
+    <bean name="/project" class="org.pgist.projects.ProjectAction">
+        <property name="projectService" ref="projectService"/>
+    </bean>
+    
+    
+    <bean name="/fundingManage" class="org.pgist.funding.FundingMgrAction">
         <property name="fundingService" ref="fundingService"/>
     </bean>
     
     
-    <bean name="/fundingPublish" class="org.pgist.funding.FundingMgrAction">
+    <bean name="/fundingDefine" class="org.pgist.funding.FundingDefAction">
         <property name="fundingService" ref="fundingService"/>
     </bean>
     
