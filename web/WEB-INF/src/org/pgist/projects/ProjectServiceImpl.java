@@ -181,6 +181,22 @@ public class ProjectServiceImpl implements ProjectService{
          *   persist objects
          */
     }//setupProjectsForCCT()
+
+
+    /**
+     * Set grading
+     * 
+     * @param altId
+     * @param critId
+     * @param value
+     * @throws Exception
+     */
+    public void setGrading(Long altId, Long critId, int value) throws Exception {
+        /**
+         * TODO:
+         *   
+         */
+    }//setGrading()
     
     
 }//class ProjectServiceImpl

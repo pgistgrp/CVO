@@ -47,6 +47,8 @@ public interface ProjectService {
 
     
     void setupProjectsForCCT(Long cctId, String[] ids) throws Exception;
+
+    void setGrading(Long altId, Long critId, int value) throws Exception;
     
     
 }//interface ProjectService

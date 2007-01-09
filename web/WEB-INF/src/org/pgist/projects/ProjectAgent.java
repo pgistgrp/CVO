@@ -194,7 +194,7 @@ public class ProjectAgent {
         try {
             Long id = new Long((String) params.get("id"));
             
-            projectService.editProject(id, params, footprint);
+            //projectService.editProjectAlt(id, params, footprint);
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -241,7 +241,42 @@ public class ProjectAgent {
     }//deleteProjectAlt()
     
     
-    
+    /**
+     * Set the project grading information
+     * 
+     * @param params A map contains:
+     *     <ul>
+     *       <li>altId - int, id of a ProjectAlt object</li>
+     *       <li>critId - int, id of a Criteria object</li>
+     *       <li>value - int, grading value</li>
+     *     </ul>
+     * 
+     * @return A map contains:
+     *     <ul>
+     *       <li>successful - a boolean value denoting if the operation succeeds</li>
+     *       <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     </ul>
+     */
+    public Map setGrading(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long altId = new Long((String) params.get("altId"));
+            Long critId = new Long((String) params.get("critId"));
+            int value = new Integer((String) params.get("value"));
+            
+            projectService.setGrading(altId, critId, value);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//setGrading()
     
     
     
