@@ -77,7 +77,7 @@
     </bean>
     
     
-    <bean name="/project" class="org.pgist.projects.ProjectAction">
+    <bean name="/projectAlt" class="org.pgist.projects.ProjectAltAction">
         <property name="projectService" ref="projectService"/>
     </bean>
     
