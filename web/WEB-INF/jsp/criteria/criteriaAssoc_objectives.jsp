@@ -16,11 +16,11 @@
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Test if page is pulled by getObjectives (Jordan)
+		[x] Test if page is pulled by getObjectives (Jordan)
 
 #### -->
 
 <c:forEach var="objectives" items="${objectives}" varStatus="loop">
-	<option value="objective-${objective.id}">${objective.description}</option>
+	<input type="checkbox" name="objective-${objective.id}" />${objective.description} [ <a href="javascript:deleteObjective(${objective.id})">delete</a> ]
 </c:forEach>
 

@@ -26,18 +26,13 @@
 		<title>Criteria List</title>
 	</head>
 	<body>
-		<h2>CCT List</h2>
-		<pg:show roles="moderator">
-		  <pg:hide roles="admin">
-		  <p><pg:button onclick="openCreateCCT();" title="Create CCT"/>
-		  </pg:hide>
-		</pg:show>
+		<h2>CCT List for Criteria</h2>
 		<table id="cctListTable" class="listtable" cellspacing="1" frame="box" rules="all" width="100%">
-		  <logic:iterate id="cct" property="ccts" name="cctForm">
-		  <tr>
-		    <td><html:link action="/criteriaMgr.do" paramId="cctId" paramName="cct" paramProperty="id"><bean:write name="cct" property="name"/></html:link></td>
-		  </tr>
-		  </logic:iterate>
+		  <c:forEach var="cct" items="${ccts}" varStatus="loop">
+		  	  <tr>
+			    <td><html:link action="/criteriaMgr.do" paramId="cctId" paramName="cct" paramProperty="id"><bean:write name="cct" property="name"/></html:link></td>
+			  </tr>
+		  </c:forEach>
 		</table>
 	</body>
 </html>

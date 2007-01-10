@@ -18,7 +18,7 @@
 
 #### -->
 
-<c:forEach var="theme" items="${themesList}" varStatus="loop">
-	<option value="theme-${theme.id}">${theme.name}</option>
+<c:forEach var="theme" items="${themes}" varStatus="loop">
+	<input type="checkbox" name="theme-${theme.id}">${theme.name} [ <a href="javascript:deleteObjective(${objective.id})">delete</a> ]
 </c:forEach>
 

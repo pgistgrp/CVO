@@ -36,17 +36,22 @@
 
 	</div>
 	<!-- end criteria headers -->
-	
+	<c:if test="${fn:length(criteria) == 0}">
+		<p>You have not created any planning factors yet! Use the form below to add a new planning factor.</p>
+	</c:if>
 	<c:forEach var="criterion" items="${criteria}" varStatus="loop">
 		<div id="criteria-${criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
 			<div class="criteriaCol1 floatLeft"><a href="#">
-				<div class="floatLeft"><a href="javascript:expandList('objectives1','icon1');">
-					<img src="/images/plus.gif" id="icon1"></a></div>
-				<div class="floatLeft">${criterion.name} [ <a href="javascript:editCriterionPopup(${criterion.id);">Edit</a> ] [ <a href="javascript:deleteCriterion(${criterion.id});">delete</a> ]</div>
+				<div class="floatLeft"><a href="javascript:expandList('objectives${criterion.id}','icon${criterion.id}');">
+					<img src="/images/plus.gif" id="icon${criterion.id}"></a></div>
+				<div class="floatLeft">${criterion.name} <small>[ <a href="javascript:editCriterionPopup(${criterion.id});">edit</a> ] [ <a href="javascript:deleteCriterion(${criterion.id});">delete</a> ]</small></div>
 			</div>
 			<div class="criteriaCol2 floatLeft smallText">${criterion.na}</div>
 
 			<div class="criteriaCol3 floatLeft smallText"><!--themes-->
+				<c:if test="${fn:length(themes) == 0}">
+					None Selected
+				</c:if>
 				<c:forEach var="theme" items="${themes}" varStatus="loop">
 					<p>${theme.name}</p>
 				</c:forEach>
@@ -54,10 +59,17 @@
 			
 			<div class="clearBoth"></div>
 			<div class="objectives" id="criteriaEdit${criterion.id}"><!--javascript will load edit form here --></div>
-			<div class="objectives" id="objectives1" style="display:none;">
-				<c:forEach var="objective" items="${objectives}" varStatus="loop">
-					<p>${objective.name}</p>
-				</c:forEach>
+			<div class="objectives" id="objectives${criterion.id}" style="display:none;">
+				Objectives:
+				<ul class="smallText">
+					<c:if test="${fn:length(objectives) == 0}">
+						<li>None Selected</li>
+					</c:if>
+					
+					<c:forEach var="objective" items="${objectives}" varStatus="loop">
+						<li>${objective.name}</li>
+					</c:forEach>
+				</ul>
 			</div>
 
 		</div>	

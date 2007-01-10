@@ -48,7 +48,7 @@
 		
 		function doOnLoad(){
 			getCriteria();
-			getThemes();
+			//getThemes();
 			getObjectives();
 		}
 		
@@ -70,19 +70,21 @@
 		
 		/* *************** Add a New Criteria to the List *************** */
 		function addCriterion(){
-			var themesArr = getOptionValueFromObjects(document.getElementById('themes').options); //grabs from multi select list
-			//var objectivesArr = getOptionValueFromObjects(document.getElementById('objectives').options); ; //grabs from multi select list
+			var themesArr = '' //grabs all checked themes
+			var objectivesArr = '' //grabs from multi select list
 			//DWR Test: {name:"testCriterion", themeIds: "2523,2528", objectiveIds: "1185", cctId: 1180, na:"this is a test"}
 			
 			var name = $('name').value;
 			var description = $('description').value;
 			
-			alert("names: " + name + " description" + description + " themes: " + themesArr + " objectives: " + selectedObjectives);
-			/*CriteriaAgent.addCriterion({name:name,na:description,themesArr:themesArr,objectivesArr:objectivesArr}, {
+			//alert("names: " + name + " description" + description + " themes: " + themesArr + " objectives: " + selectedObjectives);
+			CriteriaAgent.addCriterion({cctId:cctId,name:name,na:description,themesArr:themesArr,objectivesArr:objectivesArr}, {
 				callback:function(data){
 					if (data.successful){
 						//highlight newly created criterion
 						getCriteria();
+						//reset form
+						$('addPlanningFactor').reset();
 					}else{
 						alert(data.reason);
 					}
@@ -90,7 +92,26 @@
 				errorHandler:function(errorString, exception){ 
 				alert("CriteriaAgent.addCriterion( error:" + errorString + exception);
 				}
-			});*/
+			});
+		}
+		
+		/* *************** Add a new Objective to the List *************** */
+		function addObjective(){
+			var description = $('newObjective').value;
+			//alert("description: " + description ); 
+			CriteriaAgent.addObjective({description:description}, {
+				callback:function(data){
+					if (data.successful){
+						getObjectives();
+						description = '';  //clear textfield
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("CriteriaAgent.addObjective( error:" + errorString + exception);
+				}
+			});
 		}
 		
 		/* *************** Reveal a form to allow editing on a given criterion *************** */
@@ -125,18 +146,21 @@
 		
 		/* *************** Delete a given criterion *************** */
 		function deleteCriterion(id){
-			CriteriaAgent.deleteCriterion({id:id}, {
-				callback:function(data){
-					if (data.successful){
-						new Effect.Puff("criteria" + id, {afterFinish:function(){getCriteria();}})
-					}else{
-						alert(data.reason);
+			var destroy = confirm ("Are you sure you want to delete this planning factor? Note: there is no undo.")
+			if(destroy){
+				CriteriaAgent.deleteCriterion({id:id}, {
+					callback:function(data){
+						if (data.successful){
+							new Effect.Puff("criteria-" + id, {afterFinish:function(){getCriteria();}})
+						}else{
+							alert(data.reason);
+						}
+					},
+					errorHandler:function(errorString, exception){ 
+					alert("CriteriaAgent.deleteCriterion( error:" + errorString + exception);
 					}
-				},
-				errorHandler:function(errorString, exception){ 
-				alert("CriteriaAgent.deleteCriterion( error:" + errorString + exception);
-				}
-			});
+				});
+			}
 		}
 		
 		/* *************** Grab all themes for the current instance *************** */
@@ -281,7 +305,7 @@
 		
 		.criteriaCol1
 		{
-		width:210px;
+		width:250px;
 		margin-right:.5em;
 		}
 		
@@ -294,13 +318,13 @@
 		
 		.criteriaCol2
 		{
-		width:330px;
+		width:320px;
 		}
 		
 		.criteriaCol3
 		{
 		margin-left:.5em;
-		width:220px;
+		width:190px;
 		}	
 		
 		h4
@@ -363,7 +387,8 @@
 		</style>
 	</head>
 	<body>
-		<h2>Manage Planning Factors</h2>
+		<a href="main.do">Back Home</a>
+		<h2>Manage Planning Factors for Expiriment: ${cct.name}</h2>
 		<!-- Begin list of planning factors -->
 		
 		<!-- START All Criteria List -->
@@ -374,14 +399,15 @@
 			</div>
 
 				<!-- END All Criteria List -->
-		
-		<p><i>No planning factors have been created yet</i></p>
-		<small><a href="javascript:addPlanningFactor();">Add a New Planning Factor</a></small>
+
 		<!-- End List of planning Factors -->
 		<!-- Begin form to add a new planning factor -->
+		<p><a href="javascript:location.href='#publish';new Effect.Highlight('publish'); void(0);">Finished?</a></p>
+		<br />
 		<fieldset style="float:left;">
-			<h4>Add a New Planning Factor</h4>
-
+			<form id="addPlanningFactor" name="addPlanningFactor">
+			<h3>Add a New Planning Factor</h3>
+			<br />
 			<label for="name" class="niceFormElement">Factor Name</label>
 			<input id="name" name="name" type="text" class="niceFormElement" /><br />
 			
@@ -389,42 +415,36 @@
 			<textarea id="description" name="description" class="niceFormElement"></textarea><br />
 			
 			<label for="name" class="niceFormElement">Related Themes (optional)</label>
-			<select id="themes" name="themes" class="niceFormElement" MULTIPLE>
+			<div id="themes">
 				<!-- load themes here - getThemes() -->
-			</select><br />
+			</div><br />
 			
 			<br />
 			
 			<label for="name" class="niceFormElement">Factor Objectives</label>
 
-			<select id="objectives" name="objectives" class="niceFormElement" MULTIPLE>
+			<div id="objectives">
 				<!-- load objectives here - getObjectives() -->
-			</select><br />
+			</div>
 
-			<input type="button" align="right" class="indentNiceForm" style="margin-top:.5em;margin-bottom:.5em;"
-				onClick="javascript:getSelectedObjectives();" value="Add Selected Objectives to List" />
-
-			
 			<br /><p />
 			
 				<label for="name" class="niceFormElement">Add a New Objective</label>
 				<input type="text" id="newObjective" style="width:300px;">
-				<input type="button"  style="margin-left:10px;" 
-					value="Add to List" onClick="javascript:buildObjectivesArray();">
+				<input type="button"  style="margin-left:10px;" value="Add to List" onClick="javascript:addObjective();">
 
 			<br />
 			
-		<!-- Begin list of Objectives -->
+
 			<div id="list" style="margin-top:1em;margin-bottom:1em;" class="indentNiceForm">
 			
 			</div>
 
-		<!-- End list of objectives -->
+
 			
 			<input type="button" value="Save and Add Planning Factor" onClick="addCriterion();"/>
 			<br />
-
-
+			</form>
 		</fieldset>
 		
 
@@ -432,11 +452,15 @@
 		<!-- End form to add a new planning factor -->
 		<!-- Begin publishing options -->
 		<div style="clear:both"></div>
-		<h4>Finished Creating Planning Factors?</h4>
+		<div id="publish">
+			<a name="publish"></a>
+			<br />
+			<h4>Finished Creating Planning Factors?</h4>
 
-		<p>Once you have completed a list of planning factors click the link below to publish this list and allow participants to begin discussing these factors and weighing them.</p>
-		<input type="button" value="Publish Planning Factors!" onClick="publish();" />
-		<!--end publishing options -->
+			<p>Once you have completed a list of planning factors click the link below to publish this list and allow participants to begin discussing these factors and weighing them.</p>
+			<input type="button" value="Publish Planning Factors!" onClick="publish();" />
+			<!--end publishing options -->
+		</div>
 	</body>
 </html:html>
 
