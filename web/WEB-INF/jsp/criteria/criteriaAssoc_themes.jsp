@@ -17,8 +17,15 @@
 		[ ] Test if page is pulled by getThemes (Jordan)
 
 #### -->
-
-<c:forEach var="theme" items="${themes}" varStatus="loop">
-	<input type="checkbox" name="theme-${theme.id}">${theme.name} [ <a href="javascript:deleteObjective(${objective.id})">delete</a> ]
-</c:forEach>
-
+<c:choose>
+	<c:when test="${fn:length(themes) == 0}">
+		No themes could be found!
+	</c:when>
+	<c:otherwise>
+		<ul class="assocList">
+			<c:forEach var="theme" items="${themes}" varStatus="loop">
+				<li class="assocList"><input type="checkbox" name="themesGroup" id="theme-${theme.id}"> ${theme.title}</li>
+			</c:forEach>
+		</ul>
+	</c:otherwise>
+</c:choose>

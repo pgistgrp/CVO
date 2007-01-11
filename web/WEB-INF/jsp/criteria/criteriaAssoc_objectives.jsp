@@ -19,8 +19,16 @@
 		[x] Test if page is pulled by getObjectives (Jordan)
 
 #### -->
-
-<c:forEach var="objectives" items="${objectives}" varStatus="loop">
-	<input type="checkbox" name="objective-${objective.id}" />${objective.description} [ <a href="javascript:deleteObjective(${objective.id})">delete</a> ]
-</c:forEach>
+<c:choose>
+	<c:when test="${fn:length(objectives) == 0}">
+		No objectives could be found!
+	</c:when>
+	<c:otherwise>
+		<ul id="objectivesList" class="assocList">
+			<c:forEach var="objective" items="${objectives}" varStatus="loop">
+				<li id="objectiveCont-${objective.id}" class="assocList"><input type="checkbox" name="objectivesGroup" id="objective-${objective.id}" /> ${objective.description} [ <a href="javascript:deleteObjective(${objective.id})">delete</a> ]</li>
+			</c:forEach>
+		</ul>
+	</c:otherwise>
+</c:choose>
 

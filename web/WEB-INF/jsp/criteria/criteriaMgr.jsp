@@ -48,7 +48,7 @@
 		
 		function doOnLoad(){
 			getCriteria();
-			//getThemes();
+			getThemes();
 			getObjectives();
 		}
 		
@@ -76,9 +76,29 @@
 			
 			var name = $('name').value;
 			var description = $('description').value;
+			var objectivesGroup = document.getElementsByName('objectivesGroup');
+			var themesGroup = document.getElementsByName('themesGroup');
+			var checkedObjectives = []; //holds all the checked objectiveId's that are found in the following loop
+			var checkedThemes = []; //holds all the checked themeId's that are found in the following loop
 			
-			//alert("names: " + name + " description" + description + " themes: " + themesArr + " objectives: " + selectedObjectives);
-			CriteriaAgent.addCriterion({cctId:cctId,name:name,na:description,themesArr:themesArr,objectivesArr:objectivesArr}, {
+			//loop through objectives
+			for (i = 0; i < objectivesGroup.length; i++)
+			{
+				if(objectivesGroup[i].checked){
+					checkedObjectives.push(objectivesGroup[i].id.replace("objective-", ""));				
+				}
+			}
+			
+			//loop through themes
+			for (i = 0; i < themesGroup.length; i++)
+			{
+				if(themesGroup[i].checked){
+					checkedThemes.push(themesGroup[i].id.replace("theme-", ""));				
+				}
+			}
+
+			alert("names: " + name + " description" + description + " themes: " + checkedThemes + " objectives: " + checkedObjectives);
+			CriteriaAgent.addCriterion({cctId:cctId,name:name,na:description,themesArr:checkedThemes,objectivesArr:checkedObjectives}, {
 				callback:function(data){
 					if (data.successful){
 						//highlight newly created criterion
@@ -103,7 +123,8 @@
 				callback:function(data){
 					if (data.successful){
 						getObjectives();
-						description = '';  //clear textfield
+						//reset form
+						$('newObjective').value = '';
 					}else{
 						alert(data.reason);
 					}
@@ -162,6 +183,25 @@
 				});
 			}
 		}
+		
+		/* *************** Delete a given objective *************** */
+		function deleteObjective(id){
+			var destroy = confirm ("Are you sure you want to delete this objective? Note: there is no undo.")
+			if(destroy){
+				CriteriaAgent.deleteObjective({id:id}, {
+					callback:function(data){
+						if (data.successful){
+							new Effect.Puff("objectiveCont-" + id, {afterFinish:function(){getCriteria();}})
+						}else{
+							alert(data.reason);
+						}
+					},
+					errorHandler:function(errorString, exception){ 
+					alert("CriteriaAgent.deleteCriterion( error:" + errorString + exception);
+					}
+				});
+			}
+		}		
 		
 		/* *************** Grab all themes for the current instance *************** */
 		function getThemes(){
@@ -274,6 +314,10 @@
 
 
 		<style type="text/css">
+
+		.assocList li{
+			list-style: none;
+		}
 		
 		.clearBoth {clear:both;}
 		.floatLeft {float:left}
@@ -443,6 +487,7 @@
 
 			
 			<input type="button" value="Save and Add Planning Factor" onClick="addCriterion();"/>
+			<input type="reset" value="Clear Form" />
 			<br />
 			</form>
 		</fieldset>

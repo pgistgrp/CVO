@@ -44,7 +44,12 @@
 			<div class="criteriaCol1 floatLeft"><a href="#">
 				<div class="floatLeft"><a href="javascript:expandList('objectives${criterion.id}','icon${criterion.id}');">
 					<img src="/images/plus.gif" id="icon${criterion.id}"></a></div>
-				<div class="floatLeft">${criterion.name} <small>[ <a href="javascript:editCriterionPopup(${criterion.id});">edit</a> ] [ <a href="javascript:deleteCriterion(${criterion.id});">delete</a> ]</small></div>
+				<div class="floatLeft">
+					${criterion.name} 
+					<pg:show roles="moderator"><!-- show editing only to moderator -->
+					<small>[ <a href="javascript:editCriterionPopup(${criterion.id});">edit</a> ] [ <a href="javascript:deleteCriterion(${criterion.id});">delete</a> ]</small>
+					</pg:show>
+				</div>
 			</div>
 			<div class="criteriaCol2 floatLeft smallText">${criterion.na}</div>
 
