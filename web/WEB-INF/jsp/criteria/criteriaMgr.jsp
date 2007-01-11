@@ -254,11 +254,12 @@
 					if (data.successful){
 						location.href="sdlist.do";
 					}else{
-						alert(data.reason);
+						$('publishError').innerHTML = "<b>data.reason error: </b>" + data.reason;
+						Element.toggle('publishError');
 					}
 				},
 				errorHandler:function(errorString, exception){ 
-				alert("CriteriaAgent.Publish( error:" + errorString + exception);
+					$('publishError').innerHTML = "CriteriaAgent.Publish( error:" + errorString + exception;
 				}
 			});
 		}
@@ -428,6 +429,13 @@
 			border:1px solid #D6E7EF;
 			background:#F7FBFF;
 			}
+			
+			.errorMessage{
+			background: #FFC4BF;
+			border: 3px solid #BC0F00;
+			color: #840A00;
+			padding: 5px;
+			}
 		</style>
 	</head>
 	<body>
@@ -503,6 +511,7 @@
 			<h4>Finished Creating Planning Factors?</h4>
 
 			<p>Once you have completed a list of planning factors click the link below to publish this list and allow participants to begin discussing these factors and weighing them.</p>
+			<div class="errorMessage" id="publishError" style="display:none;"></div>
 			<input type="button" value="Publish Planning Factors!" onClick="publish();" />
 			<!--end publishing options -->
 		</div>
