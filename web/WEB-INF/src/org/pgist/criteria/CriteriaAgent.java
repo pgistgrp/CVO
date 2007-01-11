@@ -109,6 +109,7 @@ public class CriteriaAgent {
 	        	objectiveIdList = objectiveIds.split(",");
 	        	objectives = criteriaService.getObjectiveObjects(objectiveIdList);
         	}
+        	
         	Criteria c = c = criteriaService.addCriterion(bool_themes, bool_objectives, name, cctId, themes, objectives, na);
         	
         	map.put("id", c.getId());
@@ -365,7 +366,7 @@ public class CriteriaAgent {
             Long cctId = new Long((String) params.get("cctId"));
             String[] criteriaIdList = criteriaIds.split(",");
             
-            criteriaService.publish(cctId, criteriaIdList);
+            criteriaService.publish(cctId);
            
             map.put("successful", true);
         } catch(Exception e) {

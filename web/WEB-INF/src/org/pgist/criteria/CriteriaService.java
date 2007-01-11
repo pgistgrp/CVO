@@ -60,7 +60,7 @@ public interface CriteriaService {
     Set getWeights(Long cctId) throws Exception;
     
     
-    void publish(Long cctId, String[] criteriaIdList) throws Exception;
+    void publish(Long cctId) throws Exception;
     
     
     public CCT getCCTById(Long cctId) throws Exception;

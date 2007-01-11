@@ -96,6 +96,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     }//getCriterionById()
     
     
+    //Maybe delete if Jordan doesn't need it later.
     public Set getCriterions(String[] criteriaIdList) throws Exception {
     	Set criteriaObjects = new HashSet();
     	   
