@@ -73,7 +73,20 @@
 		
 		/*************** Get Targets - If IOID is ommitted, return sdcSummary.jsp::else, returns sdcStructureSummary.jsp************** */
 		io.getTargets = function(){
-			displayIndicator(true);
+			SDAgent.getTarget({isid:io.structureId, ioid:io.objectId}, {
+				callback:function(data){
+					if (data.successful){
+						$(io.objectDiv).innerHTML = data.source.html;
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("SDAgent.getTarge( error:" + errorString + exception);
+				}
+			});		
+			
+			/*move to sdcTarget.jsp and sdcStructureTarget.jsp?
 			SDAgent.getSummary({isid: io.structureId, ioid: io.objectId}, {  // change to getTarget()
 				callback:function(data){
 					if (data.successful){
@@ -87,8 +100,8 @@
 					errorHandler:function(errorString, exception){
 						alert("get targets error:" + errorString + exception);
 					}
-				});
-			};
+				});*/
+		};
 
 		/*************** Set Vote************** */
 	 	 io.setVote = function(target, id, agree){

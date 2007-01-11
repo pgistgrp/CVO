@@ -21,7 +21,7 @@
 		[ ] Integrate Layout (Adam)
 #### -->
 <pg:fragment type="html">
-	<div id="allCriteriaList"><!--load criteria here --></div>
+	<div id="allCriteriaList">HELLO=======>>>><!--load criteria here --></div>
 </pg:fragment>
 
 <pg:fragment type="script">
