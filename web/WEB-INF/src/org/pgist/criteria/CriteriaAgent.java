@@ -353,8 +353,6 @@ public class CriteriaAgent {
     public Map publish(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
-        
-        String criteriaIds = (String) params.get("criteriaIds");
     	
         try {
             Long cctId = new Long((String) params.get("cctId"));
