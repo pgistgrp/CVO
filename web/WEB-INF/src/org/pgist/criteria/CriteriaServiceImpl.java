@@ -141,7 +141,9 @@ public class CriteriaServiceImpl implements CriteriaService {
         Date date = new Date();
         
         InfoStructure structure = new InfoStructure();
+        
         structure.setType("sdcrit");
+        structure.setTitle("Step 2: SD Criteria");
         structure.setRespTime(date);
         structure.setCctId(cctId);
         criteriaDAO.save(structure);
