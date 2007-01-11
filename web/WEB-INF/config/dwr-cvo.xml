@@ -155,6 +155,7 @@
       <include method="getPostById"/>
       <include method="getPosts"/>
       <include method="getReplies"/>
+      <include method="getTarget"/>
       <include method="getTargets"/>
       <include method="createPost"/>
       <include method="createReply"/>
