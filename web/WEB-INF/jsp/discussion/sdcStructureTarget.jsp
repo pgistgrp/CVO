@@ -9,22 +9,52 @@
 
 <pg:fragment type="html">
 
-	<div class="voting">
-		<h4>Quick Vote</h4>
-		<div id="structure_question_status">
-			<p><span class="smalltext" style="line-height: 15px; font-style: italic; "><strong>${infoStructure.numAgree} of ${infoStructure.numVote}</strong> participants have said that this summary adequately reflects concerns expressed by participants.</span></p>
-		</div>
-		<div id="structure_question"></div>
+
+
+		<!-- Begin voting tally menu -->
+<div id="votingMenu" class="floatLeft"><div id="voting-structure${infoStructure.id}">
+	<div id="votingMenuTally" class="box1">
+		<span id="structure_question_status">
+			<h2>${infoStructure.numAgree} of ${infoStructure.numVote}</h2>
+		agree with summary</div>
+	</span>
+	<p>Does this list reflect the group's concerns?</p>
+	<span id="structure_question">
+
+		<c:choose>
+			<c:when test="${voting == null}">
+				<a href="javascript:io.setVote('structure','${infoStructure.id}', 'true');"><img src="images/btn_thumbsup_large.png" alt="YES" class="floatRight" style="margin-right:5px;"><a href="javascript:io.setVote('structure', '${infoStructure.id}', 'false');"><img src="images/btn_thumbsdown_large.png" alt="NO" class="floatLeft" margin-left:5px;"></a></span>
+			</c:when>
+			<c:otherwise>
+				Your vote has been recorded. Thank you for your participation.
+			</c:otherwise>
+		</c:choose>
+	</span></div>
 </div>
+	<!-- end voting tally menu -->
 
-
+<div id="summary" class="box3 floatLeft">
 	Below is a list of all the themes the moderator has identified in the concerns you and other participants submitted during Step 1a: Brainstorm Concerns. Each theme has its own room.  This room is for discussing whether any themes on that list should be added, removed, or changed.
    <c:forEach var="infoObject" items="${infoStructure.infoObjects}">
 	     <p>${infoObject.object}</p>
 	</c:forEach>	
+</div>
 
 </pg:fragment>
 
-	<pg:fragment type="script">
-
+<pg:fragment type="script">
+	SDAgent.getSummary({isid: io.structureId, ioid: io.objectId}, {  // change to getTarget()
+		callback:function(data){
+			if (data.successful){
+				$(io.objectDiv).innerHTML = data.source.html;
+				displayIndicator(false);
+				}else{
+					alert(data.reason);
+					displayIndicator(false);
+				}
+			},
+			errorHandler:function(errorString, exception){
+				alert("get targets error:" + errorString + exception);
+			}
+		});
 </pg:fragment>

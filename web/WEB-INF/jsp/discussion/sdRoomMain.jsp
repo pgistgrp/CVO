@@ -86,21 +86,6 @@
 				}
 			});		
 			
-			/*move to sdcTarget.jsp and sdcStructureTarget.jsp?
-			SDAgent.getSummary({isid: io.structureId, ioid: io.objectId}, {  // change to getTarget()
-				callback:function(data){
-					if (data.successful){
-						$(io.objectDiv).innerHTML = data.source.html;
-						displayIndicator(false);
-						}else{
-							alert(data.reason);
-							displayIndicator(false);
-						}
-					},
-					errorHandler:function(errorString, exception){
-						alert("get targets error:" + errorString + exception);
-					}
-				});*/
 		};
 
 		/*************** Set Vote************** */

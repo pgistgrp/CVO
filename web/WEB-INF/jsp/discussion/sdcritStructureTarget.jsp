@@ -1,4 +1,3 @@
-
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
@@ -21,11 +20,17 @@
 		[ ] Integrate Layout (Adam)
 #### -->
 <pg:fragment type="html">
-	<div id="allCriteriaList">HELLO=======>>>><!--load criteria here --></div>
+	<div id="allCriteriaList">asdfsadfasdfsdaf========<!--load criteria here --></div>
+	
 </pg:fragment>
 
 <pg:fragment type="script">
+	function sayHello(){
+		
+	alert("hello");
+	}
 	function getCriteria(){
+		alert("hello");
 		CriteriaAgent.getAllCriterion({}, {
 			callback:function(data){
 				if (data.successful){
@@ -39,4 +44,6 @@
 			}
 		});
 	}
+	
+
 </pg:fragment>
