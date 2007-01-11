@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.CCTDAO;
-import org.pgist.cvo.CCTService;
 import org.pgist.cvo.CategoryReference;
 import org.pgist.cvo.Theme;
 import org.pgist.discussion.InfoObject;
@@ -141,15 +140,13 @@ public class CriteriaServiceImpl implements CriteriaService {
         Date date = new Date();
         
         InfoStructure structure = new InfoStructure();
-        
         structure.setType("sdcrit");
         structure.setTitle("Step 2: SD Criteria");
         structure.setRespTime(date);
         structure.setCctId(cctId);
         criteriaDAO.save(structure);
         
-        
-        for (Criteria crit : (Set<Criteria>) criteriaDAO.getAllCriterion()) {
+        for (Criteria crit : (Collection<Criteria>) criteriaDAO.getAllCriterion()) {
         	crit.getCct();
         	crit.getId();
         	crit.getClass();
