@@ -96,9 +96,10 @@
 					checkedThemes.push(themesGroup[i].id.replace("theme-", ""));				
 				}
 			}
-
-			alert("names: " + name + " description" + description + " themes: " + checkedThemes + " objectives: " + checkedObjectives);
-			CriteriaAgent.addCriterion({cctId:cctId,name:name,na:description,themesArr:checkedThemes,objectivesArr:checkedObjectives}, {
+			var checkedObjectivesStr = checkedObjectives.toString();
+			var checkedThemesStr = checkedThemes.toString();
+			alert("names: " + name + " description" + description + " themeIds: " + checkedThemesStr + " objectiveIds: " + checkedObjectivesStr);
+			CriteriaAgent.addCriterion({cctId:cctId,name:name,na:description,themeIds:checkedThemesStr,objectiveIds:checkedObjectivesStr}, {
 				callback:function(data){
 					if (data.successful){
 						//highlight newly created criterion
@@ -251,14 +252,13 @@
 			CriteriaAgent.publish({cctId:cctId}, {
 				callback:function(data){
 					if (data.successful){
-						alert("Publish Successful")
-						//Redirect to discussion
+						location.href="sdlist.do";
 					}else{
 						alert(data.reason);
 					}
 				},
 				errorHandler:function(errorString, exception){ 
-				alert("ClassName.methodName( error:" + errorString + exception);
+				alert("CriteriaAgent.Publish( error:" + errorString + exception);
 				}
 			});
 		}

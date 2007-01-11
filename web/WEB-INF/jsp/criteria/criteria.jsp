@@ -54,11 +54,11 @@
 			<div class="criteriaCol2 floatLeft smallText">${criterion.na}</div>
 
 			<div class="criteriaCol3 floatLeft smallText"><!--themes-->
-				<c:if test="${fn:length(themes) == 0}">
+				<c:if test="${fn:length(criterion.themes) == 0}">
 					None Selected
 				</c:if>
-				<c:forEach var="theme" items="${themes}" varStatus="loop">
-					<p>${theme.name}</p>
+				<c:forEach var="theme" items="${criterion.themes}" varStatus="loop">
+					<p>${theme.title}</p>
 				</c:forEach>
 			</div>
 			
@@ -67,12 +67,12 @@
 			<div class="objectives" id="objectives${criterion.id}" style="display:none;">
 				Objectives:
 				<ul class="smallText">
-					<c:if test="${fn:length(objectives) == 0}">
+					<c:if test="${fn:length(criterion.objectives) == 0}">
 						<li>None Selected</li>
 					</c:if>
 					
-					<c:forEach var="objective" items="${objectives}" varStatus="loop">
-						<li>${objective.name}</li>
+					<c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
+						<li>${objective.description}</li>
 					</c:forEach>
 				</ul>
 			</div>
