@@ -356,7 +356,6 @@ public class CriteriaAgent {
     	
         try {
             Long cctId = new Long((String) params.get("cctId"));
-            String[] criteriaIdList = criteriaIds.split(",");
             
             criteriaService.publish(cctId);
            
