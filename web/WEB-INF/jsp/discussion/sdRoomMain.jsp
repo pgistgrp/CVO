@@ -353,32 +353,7 @@
 <!-- End header menu -->
 <div style="display: none;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 <div id="container">
-	<!-- Begin Breadcrumbs -->
-	<div id="breadCrumbs" class="floatLeft"> <a href="sd.do?isid=${structure.id}">Select
-			a Theme</a> &rarr; ${object.object}</div>
-	<!-- End Breadcrumbs -->
-	<!-- jump to other room selection menu -->
-	<div class="floatRight"> Jump To:
-		<select name="selecttheme" id="selecttheme" 
-		onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">
-			<option value = "${object.id}">Select a Theme</option>
-			<option value = "">Discussion of All Themes</option>
-			<c:forEach var="infoObject" items="${structure.infoObjects}">
-				<option value="${infoObject.id}">${infoObject.object}</option>
-			</c:forEach>
-		</select>
-	</div>
-	<!-- end jump to other room selection menu -->
-	<script type="text/javascript">
-				<c:choose>
-				<c:when test="${object.id==null}">
-				document.write("<h3 class=\"headerColor clearBoth\">Summarization of Participant Concerns</h3>");
-				</c:when>
-				<c:otherwise>
-				document.write("<h3 class=\"headerColor clearBoth\">Summarization of Participant Concerns about \"${object.object}\"</h3>");
-				</c:otherwise>
-				</c:choose>
-			</script>
+
 	<div id="object">
 		<h5 id = "targetTitle"></h5>
 		<div id="object-content">

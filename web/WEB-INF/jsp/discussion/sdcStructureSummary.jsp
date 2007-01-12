@@ -9,7 +9,24 @@
 
 <pg:fragment type="html">
 
+	<!-- Begin Breadcrumbs -->
+	<div id="breadCrumbs" class="floatLeft"> <a href="sd.do?isid=${structure.id}">Select
+			a Theme</a> &rarr; All Concern Themes</div>
+	<!-- End Breadcrumbs -->
+	<!-- jump to other room selection menu -->
+	<div class="floatRight"> Jump To:
+		<select name="selecttheme" id="selecttheme" 
+		onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">
+			<option value = "${object.id}">Select a Theme</option>
+			<option value = "">Discussion of All Themes</option>
+			<c:forEach var="infoObject" items="${structure.infoObjects}">
+				<option value="${infoObject.id}">${infoObject.object}</option>
+			</c:forEach>
+		</select>
+	</div>
+	<!-- end jump to other room selection menu -->
 
+	<h3 class="headerColor clearBoth">Summarization of Participant Concerns</h3>
 
 		<!-- Begin voting tally menu -->
 <div id="votingMenu" class="floatLeft"><div id="voting-structure${infoStructure.id}">
@@ -23,7 +40,7 @@
 
 		<c:choose>
 			<c:when test="${voting == null}">
-				<a href="javascript:io.setVote('structure','${infoStructure.id}', 'true');"><img src="images/btn_thumbsup_large.png" alt="YES" class="floatRight" style="margin-right:5px;"><a href="javascript:io.setVote('structure', '${infoStructure.id}', 'false');"><img src="images/btn_thumbsdown_large.png" alt="NO" class="floatLeft" margin-left:5px;"></a></span>
+				<a href="javascript:io.setVote('structure','${infoStructure.id}', 'true');"><img src="images/btn_thumbsup_large.png" alt="YES" class="floatRight" style="margin-right:5px;"><a href="javascript:io.setVote('structure', '${infoStructure.id}', 'false');"><img src="images/btn_thumbsdown_large.png" alt="NO" class="floatLeft" style="margin-left:5px;"></a></span>
 			</c:when>
 			<c:otherwise>
 				Your vote has been recorded. Thank you for your participation.

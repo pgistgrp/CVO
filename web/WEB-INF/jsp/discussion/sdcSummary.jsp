@@ -7,7 +7,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <pg:fragment type="html">
+	<!-- Begin Breadcrumbs -->
+	<div id="breadCrumbs" class="floatLeft"> <a href="sd.do?isid=${structure.id}">Select
+			a Theme</a> &rarr; ${infoObject.object}</div>
+	<!-- End Breadcrumbs -->
+	<!-- jump to other room selection menu -->
+	<div class="floatRight"> Jump To:
+		<select name="selecttheme" id="selecttheme" 
+		onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">
+			<option value = "${object.id}">Select a Theme</option>
+			<option value = "">Discussion of All Themes</option>
+			<c:forEach var="infoObject" items="${structure.infoObjects}">
+				<option value="${infoObject.id}">${infoObject.object}</option>
+			</c:forEach>
+		</select>
+	</div>
+	<!-- end jump to other room selection menu -->
 
+	<h3 class="headerColor clearBoth">Summarization of Participant Concerns about "${infoObject.object}"</h3>
+	
 		<!-- Begin voting tally menu -->
 <div id="votingMenu" class="floatLeft"><div id="voting-object${infoObject.id}">
 	<div id="votingMenuTally" class="box1">
