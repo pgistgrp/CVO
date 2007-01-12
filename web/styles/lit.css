@@ -59,7 +59,7 @@
 		.box1 /* used in the voting tally, and topic titles under #discussion */
 
 		{
-		border:1px solid #C6D78C;
+		border:1px solid #DBDBB3;
 		background:#EFEFDE;
 		}
 
@@ -105,6 +105,21 @@
 		border:1px solid #D6E5EE;
 		background:#F4F9FB;
 		}
+		
+		.box9 
+		{
+		color:#3B4429;
+		background: #EEF7DD;
+		border: 1px solid #B4D579;
+		}
+		
+		.box10
+		{
+		border: 1px solid #ADCFDE;
+		background: #D6E7EF;
+		}
+		
+		.headingColor {background:#ADCFDE;}
 		
 		.currentBox
 		{
