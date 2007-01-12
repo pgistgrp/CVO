@@ -21,7 +21,51 @@
 			[ ] Add JavaScript to get criteria (Jordan)
 			[ ] Integrate Layout (Adam)
 	#### -->
+	<!-- begin "overview and instructions" area -->
+	<div id="overview" class="box2">
+		<h3 class="headerColor">Instructions</h3>
+		<p>
+			"Planning factors" are common used to help evaluate which proposed transportation improvement projects are best 
+			suited to address problems with our transportation system.  Here we review and discuss nine planning factors. 
+			In step 3 you will review proposed transportation projects which are evaluated based on the nine factors.
+		</p>
+		<p>
+			To assist in your review of these factors, the moderator determined which concern themes are most closely related 
+			to each factor.  Consider how well these factors address the range of concerns expressed by participants in Step 1.
+			Concsider also which factors may be more important to you in the evaluation of proposed transportation projects.
+		</p>
+			
+		
+	</div>
+	<!-- end overview -->
 
+	<h3 class="headerColor clearBoth">All planning factors and related concern themes</h3>
+
+			<!-- Begin voting tally menu -->
+	<div id="votingMenu" class="floatLeft"><div id="voting-structure${infoStructure.id}">
+		<div id="votingMenuTally" class="box1">
+			<span id="structure_question_status">
+				<h2>${infoStructure.numAgree} of ${infoStructure.numVote}</h2>
+			agree with that these planning factors adequately address the concerns expressed by participants in Step 1.</div>
+		</span>
+		<p>Do these planning factors adequately address the concerns expressed by participants in step 1?</p>
+		<span id="structure_question">
+
+			<c:choose>
+				<c:when test="${voting == null}">
+					<a href="javascript:io.setVote('structure','${infoStructure.id}', 'true');"><img src="images/btn_thumbsup_large.png" alt="YES" class="floatRight" style="margin-right:5px;"><a href="javascript:io.setVote('structure', '${infoStructure.id}', 'false');"><img src="images/btn_thumbsdown_large.png" alt="NO" class="floatLeft" style="margin-left:5px;"></a></span>
+				</c:when>
+				<c:otherwise>
+					Your vote has been recorded. Thank you for your participation.
+				</c:otherwise>
+			</c:choose>
+		</span></div>
+	</div>
+		<!-- end voting tally menu -->
+
+	<div id="criteria" class="box3 floatLeft">
+		<!--load summary javascript here -->
+	</div>
 	
 </pg:fragment>
 
@@ -31,9 +75,9 @@
 		CriteriaAgent.getAllCriterion({}, {
 			callback:function(data){
 				if (data.successful){
-					$(io.objectDiv).innerHTML = data.html;
+					$(criteria).innerHTML = data.html;
 				}else{
-					$(io.objectDiv).innerHTML = "<b>Error in CriteriaAgent.getAllCriterion Method: </b>" + data.reason; 
+					$(criteria).innerHTML = "<b>Error in CriteriaAgent.getAllCriterion Method: </b>" + data.reason; 
 				}
 			},
 			errorHandler:function(errorString, exception){ 
