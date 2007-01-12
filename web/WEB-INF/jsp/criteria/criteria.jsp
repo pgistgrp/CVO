@@ -16,8 +16,8 @@
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Ensure connection with criteriaMgr.jsp (Jordan)
-		[ ] Loop through ${criteria} (Jordan)
+		[x] Ensure connection with criteriaMgr.jsp (Jordan)
+		[x] Loop through ${criteria} (Jordan)
 		[ ] Add conditional statements to allow sdcritStructureTarget.jsp to use the same partial.
 #### -->
 	<!-- begin criteria headers -->
@@ -42,13 +42,15 @@
 	<c:forEach var="criterion" items="${criteria}" varStatus="loop">
 		<div id="criteria-${criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
 			<div class="criteriaCol1 floatLeft"><a href="#">
-				<div class="floatLeft"><a href="javascript:expandList('objectives${criterion.id}','icon${criterion.id}');">
+				<div class="floatLeft"><a href="javascript:io.expandList('objectives${criterion.id}','icon${criterion.id}');">
 					<img src="/images/plus.gif" id="icon${criterion.id}"></a></div>
 				<div class="floatLeft">
 					${criterion.name} 
-					<pg:show roles="moderator"><!-- show editing only to moderator -->
-					<small>[ <a href="javascript:editCriterionPopup(${criterion.id});">edit</a> ] [ <a href="javascript:deleteCriterion(${criterion.id});">delete</a> ]</small>
-					</pg:show>
+					<c:if test="${structure.id == null}"> <!-- needs another variable to differentiate -->
+						<pg:show roles="moderator"><!-- show editing only to moderator -->
+						<small>[ <a href="javascript:editCriterionPopup(${criterion.id});">edit</a> ] [ <a href="javascript:deleteCriterion(${criterion.id});">delete</a> ]</small>
+						</pg:show>
+					</c:if>
 				</div>
 			</div>
 			<div class="criteriaCol2 floatLeft smallText">${criterion.na}</div>
@@ -79,3 +81,4 @@
 
 		</div>	
 	</c:forEach>
+	

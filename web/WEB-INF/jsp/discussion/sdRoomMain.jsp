@@ -29,6 +29,7 @@
 <!--SDX Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/CriteriaAgent.js'></script>
 <!--End SDX Specific  Libraries-->
 <script type="text/javascript">
 	<!--
@@ -77,12 +78,14 @@
 				callback:function(data){
 					if (data.successful){
 						$(io.objectDiv).innerHTML = data.source.html;
+						//alert(data.source.script)
+						eval(data.source.script);
 					}else{
 						alert(data.reason);
 					}
 				},
 				errorHandler:function(errorString, exception){ 
-				alert("SDAgent.getTarge( error:" + errorString + exception);
+				alert("SDAgent.getTarget( error:" + errorString + "exception " +exception);
 				}
 			});		
 			

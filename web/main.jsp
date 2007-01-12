@@ -64,22 +64,22 @@
 				</ul>
 			<li>Step 2</li>
 				<ul>
-					<li><html:link page="#">Review Criteria</html:link></li>
+					<li><html:link page="sdlist.do">Review Criteria</html:link></li>
 					<li><html:link page="#">Weigh Criteria</html:link></li>
 				</ul>
 			<li>Step 3</li>
 				<ul>
-					<li><html:link page="#">Review Projects</html:link></li>
+					<li><html:link page="sdlist.do">Review Projects</html:link></li>
 					<li><html:link page="#">Express Funding Packages</html:link></li>
 					<li><html:link page="#">Create Personal Package</html:link></li>
 				</ul>
 			<li>Step 4</li>
 				<ul>
-					<li><html:link page="#">Review Packages</html:link></li>
+					<li><html:link page="sdlist.do">Review Packages</html:link></li>
 				</ul>
 			<li>Step 5</li>
 				<ul>
-					<li><html:link page="#">Review Report</html:link></li>
+					<li><html:link page="sdlist.do">Review Report</html:link></li>
 				</ul>
 		</ul>
 		<h3>Moderator Tools</h3>

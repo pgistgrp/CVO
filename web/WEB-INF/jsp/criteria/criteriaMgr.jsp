@@ -264,19 +264,6 @@
 			});
 		}
 	
-		/* *************** Toggle Tree Node to view Asscociated Objectives for a Given Criterion *************** */
-		function expandList(objective,icon){
-			Effect.toggle(objective, 'appear', {duration: .5, afterFinish:
-				//window.setTimeout(toggleIcon,100);
-				function(){
-					if ($(objective).style.display != ""){
-							$(icon).src = "/images/plus.gif";
-						}else{
-							$(icon).src = "/images/minus.gif";
-						}
-					}
-			});
-		}
 
 	
 		/* *************** Get List of Selected Objectives *************** */
@@ -311,6 +298,23 @@
 					listBox.innerHTML += '<li>' + objectivesList[i] + '<a href="javascript:removeObj('+ i +');"> <img src="images/removeItem_lite.gif" style="border:0px" alt="Remove this objective"></a></li>';
 				}
 		}
+		
+		/* *************** Toggle Tree Node to view Asscociated Objectives for a Given Criterion *************** */
+		//Function used in SD - so it needs io object
+		var io = new Object;
+		io.expandList = function(objective,icon){
+			Effect.toggle(objective, 'appear', {duration: .5, afterFinish:
+				//window.setTimeout(toggleIcon,100);
+				function(){
+					if ($(objective).style.display != ""){
+							$(icon).src = "/images/plus.gif";
+						}else{
+							$(icon).src = "/images/minus.gif";
+						}
+					}
+			});
+		};
+		
 	</script>
 
 
