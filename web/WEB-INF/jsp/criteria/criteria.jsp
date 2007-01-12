@@ -6,6 +6,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<style type="text/css" media="screen">
+		  @import "styles/step2a.css";
+</style>
+
 <!--####
 	Project: Let's Improve Transportation!
 	Page: Criteria
@@ -24,7 +28,6 @@
 	<div class="criteriaListHeader">
 		<div class="criteriaCol1 floatLeft">
 			<h4 class="headerColor">Planning factor</h4>
-
 		</div>
 		<div class="criteriaCol2 floatLeft">
 			<h4 class="headerColor">Description</h4>

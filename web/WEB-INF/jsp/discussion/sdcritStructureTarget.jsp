@@ -7,6 +7,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
+<style type="text/css" media="screen">
+		  @import "styles/step2a.css";
+</style>
 
 <pg:fragment type="html">
 	<!--####
@@ -32,7 +35,7 @@
 		<p>
 			To assist in your review of these factors, the moderator determined which concern themes are most closely related 
 			to each factor.  Consider how well these factors address the range of concerns expressed by participants in Step 1.
-			Concsider also which factors may be more important to you in the evaluation of proposed transportation projects.
+			Consider also which factors may be more important to you in the evaluation of proposed transportation projects.
 		</p>
 			
 		
