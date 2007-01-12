@@ -1,4 +1,4 @@
-/* HTML Elements */
+ /* HTML Elements */
 /* ------------- */
 		
 		blockquote
@@ -52,14 +52,14 @@
 		background: #EEF7DD;
 		}
 
-/* COLORS and COLOR SCHEMES */
+ /* COLORS and COLOR SCHEMES */
 /* ------------------------ */
 
 
 		.box1 /* used in the voting tally, and topic titles under #discussion */
 
 		{
-		border:1px solid #C6D78C;
+		border:1px solid #DBDBB3;
 		background:#EFEFDE;
 		}
 
@@ -106,6 +106,21 @@
 		background:#F4F9FB;
 		}
 		
+		.box9 
+		{
+		color:#3B4429;
+		background: #EEF7DD;
+		border: 1px solid #B4D579;
+		}
+		
+		.box10
+		{
+		border: 1px solid #ADCFDE;
+		background: #D6E7EF;
+		}
+		
+		.headingColor {background:#ADCFDE;}
+		
 		.currentBox
 		{
 		background: #EEF7DD;
@@ -117,7 +132,7 @@
 		.contrast1 {color:#FFB64A;}
 		.contrast2 {color:#8CAE18} /* A medium green color, the same as the lighter color used in the LIT logo.
 		
-/* STRUCTURAL ELEMENTS (Mostly IDs) */
+ /* STRUCTURAL ELEMENTS (Mostly IDs) */
 /* -------------------------------- */
 		
 		
@@ -356,7 +371,7 @@
 		}
 
 
-/* GLOBAL CLASSES */
+ /* GLOBAL CLASSES */
 /* -------------- */
 
 		.clearBoth {clear:both;} /* Including a div with this class between two other divs without 
@@ -379,8 +394,8 @@
 		
   		* html .peekaboobugfix { height: 0.01%; }
 				
-/* SPECIFIC CLASSES */
-/* ------- */
+ /* SPECIFIC CLASSES */
+/* ---------------- */
 
 		.button 
 		{
@@ -535,7 +550,7 @@
 		margin-bottom:5px;
 		}
 		
-/* LINKS */
+ /* LINKS */
 /* ----- */
 
 
