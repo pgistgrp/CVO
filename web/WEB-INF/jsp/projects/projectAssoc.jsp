@@ -9,7 +9,7 @@
 
 <!--####
 	Project: Let's Improve Transportation!
-	Page: Projects List
+	Page: Define Projects
 	Description: Form to associate selected projects to a workflow instance.
 	Author(s): 
 	     Front End: Jordan Isip, Adam Hindman, Issac Yang
@@ -22,7 +22,7 @@
 #### -->
 <html:html> 
 <head>
-<title>Manage Criteria</title>
+<title>Define Projects</title>
 <!-- Site Wide JavaScript -->
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
@@ -51,38 +51,23 @@
 
 
 <body>
-	<h3>Moderator Tools &raquo; Manage Projects</h3> 
-	<form name="publishProjects" action="projectDefine.do">
+	<h3>Moderator Tools &raquo; Define Projects</h3> 
+	<form method="POST" name="publishProjects" action="projectDefine.do">
+		<input type="hidden" name="cctId" value="${cct.id}" /
 		<input type="hidden" name="activity" value="save" />
 		<h4>All Projects</h4>
 		<ul id="projectsList">
 			<c:forEach var="project" items="${projects}">
-				<li><input type="checkbox" name="projectId" value="${project.id}"/>${project.name} [ <a href="javascript:Effect.toggle('editProject${project.id}','blind');">edit</a> ] [ <html:link action="/projectMgr.do?action=delete" paramId="id" paramName="project" paramProperty="id">delete</html:link> ]
+				<li><input type="checkbox" name="projectId" value="${project.id}"/>${project.name}
 					<ul>
-						<li id="editProject${project.id}" style="display: none;"><input name="txtProjectEdit${project.id}" type="text" value="${project.name}" size="25"> <input type="submit" value="submit"></li>
-						<li>[ <a href="javascript:addAlternative(${project.id});">Add an Alternative</a> ]</li>
 						<c:forEach var="alternative" items="${project.alternatives}">
-							<li>${alternative.name} [ <a href="javascript: editAlternative(${alternative.id});">edit</a> ] [ <a href="javascript:deleteAlternative(${alternative.id});">delete</a> ]</li>
+							<li>${alternative.name}</li>
 						</c:forEach>
 					</ul>
 				</li>
 			</c:forEach>
-
-			<li>[ <a href="javascript:Effect.toggle('newProjectForm', 'blind');">New Project</a> ]
-				<div id="newProjectForm" style="display: none;">
-					<h4>Create New Project</h4>
-					<form>
-						<label>Name:</label>
-						<input name="txtNewCriterion" type="text" value="" size="25">
-
-						<label>Description:</label>
-						<textarea name="txtLowDesc" cols="100" rows="5"></textarea>
-
-						<p><input type="submit" value="submit"></p>
-					</form>
-				</div>
-			</li>
 		</ul>
+		<input type="submit" value="submit">
 	</form>
 </body>
 </html:html>
