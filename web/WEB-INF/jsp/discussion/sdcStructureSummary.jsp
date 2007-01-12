@@ -9,56 +9,9 @@
 
 <pg:fragment type="html">
 
-	<!-- Begin Breadcrumbs -->
-	<div id="breadCrumbs" class="floatLeft"> <a href="sd.do?isid=${structure.id}">Select
-			a Theme</a> &rarr; All Concern Themes</div>
-	<!-- End Breadcrumbs -->
-	<!-- jump to other room selection menu -->
-	<div class="floatRight"> Jump To:
-		<select name="selecttheme" id="selecttheme" 
-		onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">
-			<option value = "${object.id}">Select a Theme</option>
-			<option value = "">Discussion of All Themes</option>
-			<c:forEach var="infoObject" items="${structure.infoObjects}">
-				<option value="${infoObject.id}">${infoObject.object}</option>
-			</c:forEach>
-		</select>
-	</div>
-	<!-- end jump to other room selection menu -->
-
-	<h3 class="headerColor clearBoth">Summarization of Participant Concerns</h3>
-
-		<!-- Begin voting tally menu -->
-<div id="votingMenu" class="floatLeft"><div id="voting-structure${infoStructure.id}">
-	<div id="votingMenuTally" class="box1">
-		<span id="structure_question_status">
-			<h2>${infoStructure.numAgree} of ${infoStructure.numVote}</h2>
-		agree with summary</div>
-	</span>
-	<p>Does this list reflect the group's concerns?</p>
-	<span id="structure_question">
-
-		<c:choose>
-			<c:when test="${voting == null}">
-				<a href="javascript:io.setVote('structure','${infoStructure.id}', 'true');"><img src="images/btn_thumbsup_large.png" alt="YES" class="floatRight" style="margin-right:5px;"><a href="javascript:io.setVote('structure', '${infoStructure.id}', 'false');"><img src="images/btn_thumbsdown_large.png" alt="NO" class="floatLeft" style="margin-left:5px;"></a></span>
-			</c:when>
-			<c:otherwise>
-				Your vote has been recorded. Thank you for your participation.
-			</c:otherwise>
-		</c:choose>
-	</span></div>
-</div>
-	<!-- end voting tally menu -->
-
-<div id="summary" class="box3 floatLeft">
 	Below is a list of all the themes the moderator has identified in the concerns you and other participants submitted during Step 1a: Brainstorm Concerns. Each theme has its own room.  This room is for discussing whether any themes on that list should be added, removed, or changed.
    <c:forEach var="infoObject" items="${infoStructure.infoObjects}">
 	     <p>${infoObject.object}</p>
 	</c:forEach>	
-</div>
-
-</pg:fragment>
-
-	<pg:fragment type="script">
 
 </pg:fragment>
