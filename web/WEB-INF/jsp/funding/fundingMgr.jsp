@@ -43,6 +43,39 @@
 
 
 // END Global Variables
+
+	function getFundingSources(){
+		FundingAgent.getFundingSources({}, {
+			callback:function(data){
+				if (data.successful){
+					alert(data.html) // gets fundingMgr_sources.jsp
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("FundingAgent.getFundingSources( error:" + errorString + exception);
+			}
+		});
+	}
+
+	function createFundingSource(){
+		var name = "";
+		FundingAgent.createFundingSource({name:name}, {
+			callback:function(data){
+				if (data.successful){
+					alert("successful");
+					getFundingSources();
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("ClassName.methodName( error:" + errorString + exception);
+			}
+		});
+	}
+
 </script>
 <style type="text/css">
 
