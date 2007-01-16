@@ -1,6 +1,8 @@
 /* HTML Elements */
 /* ------------- */
 
+h3 {margin:.5em 0em;}
+
 h4
 {
 font-size:1em;
@@ -11,7 +13,7 @@ padding:0px;
 /* COLORS and COLOR SCHEMES */
 /* ------------------------ */
 
-.even {background: #ffffff}
+.even {background: #D6E7EF;}
 
 /* STRUCTURAL ELEMENTS (Mostly IDs) */
 /* -------------------------------- */
@@ -20,6 +22,9 @@ padding:0px;
 {
 text-align:left;
 }
+
+#criteria {margin-left:10px;}
+
 
 /* GLOBAL CLASSES */
 /* -------------- */
@@ -31,13 +36,13 @@ text-align:left;
 
 .criteriaCol1
 {
-width:210px;
-margin-right:.5em;
+width:260px;
+padding:0em .2em;
 }
 
 .criteriaCol1 img
 {
-margin:0px 3px 0px 0px;
+margin:0px 3px 0px .2em;
 vertical-align:middle;
 border:0px;
 }
@@ -45,28 +50,29 @@ border:0px;
 .criteriaCol2
 {
 width:330px;
+padding-left:.3em;
 }
 
 .criteriaCol3
 {
-margin-left:.5em;
-width:220px;
+width:200px;
+padding-left:.3em;
 }	
 
 .criteriaListHeader
 {
 background:#fff;
+padding:.3em 0em;
 }
 
 .criteriaListRow
 {
-background:#E7F2F7;
 padding:.3em 0em;
 }
 
 .objectives
 {
-padding:.5em;
+padding:0em .5em;
 }
 
 .weighCriteriaCol1
