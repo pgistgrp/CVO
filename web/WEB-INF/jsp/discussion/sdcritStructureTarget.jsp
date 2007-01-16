@@ -6,17 +6,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<!--
-######### REMOVE ME ###########
-###############################
-###############################-->
 
 
+<pg:fragment type="html">
 <style type="text/css" media="screen">
 		  @import "styles/step2.css";
 </style>
 
-<pg:fragment type="html">
 	<!--####
 		Project: Let's Improve Transportation!
 		Page: SDCrit Structure Target
