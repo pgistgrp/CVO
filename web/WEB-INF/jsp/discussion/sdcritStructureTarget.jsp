@@ -6,16 +6,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<<<<<<< sdcritStructureTarget.jsp
+<!--
+######### REMOVE ME ###########
+###############################
+###############################-->
 
-<style type="text/css" media="screen">
-		  @import "styles/step2a.css";
-</style>
-=======
+
 <style type="text/css" media="screen">
 		  @import "styles/step2.css";
 </style>
->>>>>>> 1.8
 
 <pg:fragment type="html">
 	<!--####
