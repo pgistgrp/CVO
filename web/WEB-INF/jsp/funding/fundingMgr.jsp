@@ -75,6 +75,22 @@
 			}
 		});
 	}
+	
+	function createFundingSourceAlternative(params){
+		//alert("param1: " + param1 + " param2: " + param2 + " param3: " + param3 + " param4: " + param4); 
+		ClassName.methodName({param1:param1,param2:param2,param3:param3,param4:param4}, {
+			callback:function(data){
+				if (data.successful){
+					alert(data.html)
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("ClassName.methodName( error:" + errorString + exception);
+			}
+		});
+	}
 
 </script>
 <style type="text/css">
