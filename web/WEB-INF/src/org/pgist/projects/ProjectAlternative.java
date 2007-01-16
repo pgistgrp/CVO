@@ -43,8 +43,6 @@ public class ProjectAlternative implements Serializable {
     
     private String photo;
     
-    private int transMode;
-    
     private Project project;
     
     /**
@@ -62,6 +60,8 @@ public class ProjectAlternative implements Serializable {
      *   <li>3 - project is inactive</li>
      */
     private int state = 0;
+    
+    private Object object;
     
     
     /**
@@ -247,21 +247,6 @@ public class ProjectAlternative implements Serializable {
     }
 
 
-    /**
-     * @return
-     * @hibernate.property
-     */
-    public int getTransMode() {
-
-        return transMode;
-    }
-    
-    
-    public void setTransMode(int transMode) {
-        this.transMode = transMode;
-    }
-    
-    
 	/**
      * @return
      * @hibernate.many-to-one column="project_id" cascade="none"
@@ -283,6 +268,21 @@ public class ProjectAlternative implements Serializable {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
+    public Object getObject() {
+        return object;
+    }
+
+
+    public void setObject(Object object) {
+        this.object = object;
     }
     
     

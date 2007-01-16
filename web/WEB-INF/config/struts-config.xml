@@ -73,11 +73,15 @@
         </action>
         
         <action path="/projectManage" scope="request" type="org.pgist.projects.ProjectMgrAction">
-            <forward name="view" path="/WEB-INF/jsp/projects/projectsMgr.jsp"/>
+            <forward name="view" path="/WEB-INF/jsp/projects/projectMgr.jsp"/>
         </action>
         
         <action path="/projectDefine" scope="request" type="org.pgist.projects.ProjectDefAction">
-            <forward name="view" path="/WEB-INF/jsp/projects/projectsAssoc.jsp"/>
+            <forward name="view" path="/WEB-INF/jsp/projects/projectAssoc.jsp"/>
+        </action>
+        
+        <action path="/projectGrading" scope="request" type="org.pgist.projects.ProjectGradingAction">
+            <forward name="view" path="/WEB-INF/jsp/projects/projectGrades.jsp"/>
         </action>
         
         <action path="/projectAlt" scope="request" type="org.pgist.projects.ProjectAltAction">

@@ -2,8 +2,6 @@ package org.pgist.funding;
 
 import java.util.Collection;
 
-import org.pgist.util.PageSetting;
-
 
 /**
  * 
@@ -13,12 +11,15 @@ import org.pgist.util.PageSetting;
 public interface FundingService {
     
     
+    FundingSource getFundingSourceById(Long id) throws Exception;
+    
+    
+    FundingSourceAlternative getFundingSourceAltById(Long id) throws Exception;
+    
+    
     Collection getFundingSources() throws Exception;
 
 
-    Collection getFundingSources(PageSetting setting) throws Exception;
-    
-    
     FundingSource createFundingSource(String name) throws Exception;
 
 

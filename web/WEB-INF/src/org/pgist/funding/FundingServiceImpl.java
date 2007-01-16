@@ -26,19 +26,31 @@ public class FundingServiceImpl implements FundingService {
      */
     
     
+    public FundingSourceAlternative getFundingSourceAltById(Long id) throws Exception {
+        return fundingDAO.getFundingSourceAltById(id);
+    }//getFundingSourceAltById()
+
+
+    public FundingSource getFundingSourceById(Long id) throws Exception {
+        return fundingDAO.getFundingSourceById(id);
+    }//getFundingSourceById()
+    
+    
     public Collection getFundingSources() throws Exception {
         return fundingDAO.getFundingSources();
     }//getFundingSources()
 
 
-    public Collection getFundingSources(PageSetting setting) throws Exception {
-        return fundingDAO.getFundingSources(setting);
-    }//getFundingSources()
-
-
     public FundingSource createFundingSource(String name) throws Exception {
+        /*
+         * Check if the same name exists.
+         */
         FundingSource funding = fundingDAO.getFundingSourceByName(name);
         if (funding!=null) throw new Exception("another funding source with the same name already exists");
+        
+        /*
+         * Name available, create the funding source
+         */
         
         funding = new FundingSource();
         funding.setName(name);
@@ -50,6 +62,9 @@ public class FundingServiceImpl implements FundingService {
 
 
     public void editFundingSource(Long id, String name) throws Exception {
+        /*
+         * Retrieve the funding source
+         */
         FundingSource funding = fundingDAO.getFundingSourceById(id);
         if (funding==null) throw new Exception("can't find this funding source");
         
@@ -59,20 +74,32 @@ public class FundingServiceImpl implements FundingService {
     }//editFundingSource()
 
 
+    public void deleteFundingSource(Long id) throws Exception {
+        /*
+         * TODO
+         */
+    }//deleteFundingSource()
+
+
     public FundingSourceAlternative createFundingSourceAlt(String name, float revenue, float taxRate) throws Exception {
+        /*
+         * TODO
+         */
         return null;
     }//createFundingSourceAlt()
 
 
     public void editFundingSourceAlt(Long id, String name, float revenue, float taxRate) throws Exception {
+        /*
+         * TODO
+         */
     }//editFundingSourceAlt()
 
 
-    public void deleteFundingSource(Long id) throws Exception {
-    }//deleteFundingSource()
-
-
     public void deleteFundingSourceAlt(Long id) throws Exception {
+        /*
+         * TODO
+         */
     }//deleteFundingSourceAlt()
 
 
@@ -92,6 +119,6 @@ public class FundingServiceImpl implements FundingService {
          *   persist objects
          */
     }//setupFundingSourcesForCCT()
-    
-    
+
+
 }//class FundingServiceImpl

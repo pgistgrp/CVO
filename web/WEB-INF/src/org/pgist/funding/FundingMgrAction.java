@@ -60,9 +60,9 @@ public class FundingMgrAction extends Action {
     ) throws Exception {
         /*
          * Logic:
-         *   (1) simply load all projects from the persistence layer
+         *   (1) simply load all funding sources from the persistence layer
          *   (3) forward to page "view" with the following values in request attributes:
-         *           "projects" - projects list
+         *           "sources" - funding sources list
          *   (-) Any error, forward to page "error"
          */
         

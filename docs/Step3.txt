@@ -38,7 +38,7 @@
 
 
 [TODO] Structured Discussion for Projects
-    [DONE] Entry point Action: org.pgist.discussion.SDAction (URL - sd.do)
+    [DONE] Entry point Action: org.pgist.discussion.SDRoomAction (URL - sdRoom.do?isid=1234)
     [TODO] project map interaction (waiting for Guirong, codes needs redesign)
 
 

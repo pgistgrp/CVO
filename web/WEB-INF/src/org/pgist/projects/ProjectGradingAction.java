@@ -13,7 +13,7 @@ import org.pgist.criteria.CriteriaService;
  * 
  * This action can be managed by a workflow engine, or works standalone.<br>
  * 
- * This action is used by moderator to grade on project alternative and criteria in a specific CCT.<br>
+ * This action is used by moderator to grade project alternatives by criteria in a specific CCT.<br>
  * It provides the following functionalities:
  * <ul>
  *   <li>show up the grading page</li>
@@ -35,7 +35,10 @@ import org.pgist.criteria.CriteriaService;
  * the action will forward to page of "view", the following variables are available in jsp:
  * <ul>
  *   <li>cct - an CCT object</li>
- *   <li>projects - a collection of Project objects, for each object, a corresponding ProjectAlternativeCriteria object is set on its "object" field.</li>
+ *   <li>projects - a collection of Project objects, each project object has a set of alternatives,
+ *                  and for each alternative, a set of corresponding ProjectAlternativeCriteria
+ *                  objects are set on its "object" field.
+ *   </li>
  * </ul>
  * 
  * Examples:
@@ -112,7 +115,7 @@ public class ProjectGradingAction extends Action {
         
         //TODO: get all project list,
         
-        //TODO: for each project, load its corresponding ProjectAlternativeCriteria object, and set to project's "object" field
+        //TODO: for each project alternative, load its corresponding ProjectAlternativeCriteria objects, and set to its "object" field
         
         //TODO: transfer projects to jsp
         

@@ -31,6 +31,80 @@ public class FundingAgent {
     
     
     /**
+     * Get a FundingSource object by id
+     * 
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>id - int, id of a FundingSource object</li>
+     *   </ul>
+     * 
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>source - a FundingSource object</li>
+     *   </ul>
+     */
+    public Map getFundingSourceById(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long id = new Long((String) params.get("id"));
+            
+            FundingSource source = fundingService.getFundingSourceById(id);
+            
+            map.put("source", source);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//getFundingSourceById()
+    
+    
+    /**
+     * Get a FundingSourceAlternative object by id
+     * 
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>id - int, id of a FundingSourceAlternative object</li>
+     *   </ul>
+     *   
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>alternative - a FundingSourceAlternative object</li>
+     *   </ul>
+     */
+    public Map getFundingSourceAltById(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long id = new Long((String) params.get("id"));
+            
+            FundingSourceAlternative alternative = fundingService.getFundingSourceAltById(id);
+            
+            map.put("alternative", alternative);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//getFundingSourceAltById()
+    
+    
+    /**
      * Get funding sources
      * 
      * @param params a Map contains:<br>
@@ -62,7 +136,12 @@ public class FundingAgent {
             setting.setPage((String) request.getParameter("page"));
             setting.setRowOfPage((String) request.getParameter("count"));
             
-            Collection fundings = fundingService.getFundingSources(setting);
+            Collection fundings = fundingService.getFundingSources();
+            
+            /*
+             * TODO: 
+             * 
+             */
             
             map.put("successful", true);
         } catch (Exception e) {

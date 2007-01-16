@@ -13,6 +13,9 @@ import java.util.List;
 public class Project implements Serializable {
     
     
+    public static final int TRANSMODE_ROAD    = 1;
+    public static final int TRANSMODE_TRANSIT = 2;
+    
     private Long id;
     
     private String name;
@@ -20,13 +23,13 @@ public class Project implements Serializable {
     private String description;
     
     /**
-     * project type<br>
+     * project transportation mode<br>
      * <ul>
-     *   <li>road</li>
-     *   <li>transit</li>
+     *   <li>TRANSMODE_ROAD - road</li>
+     *   <li>TRANSMODE_TRANSIT - transit</li>
      * </ul>
      */
-    private String type;
+    private int transMode;
     
     private Corridor corridor;
     
@@ -83,18 +86,19 @@ public class Project implements Serializable {
     
     /**
      * @return
-     * @hibernate.property not-null="true"
+     * @hibernate.property
      */
-    public String getType() {
-        return type;
+    public int getTransMode() {
+
+        return transMode;
     }
-
-
-    public void setType(String type) {
-        this.type = type;
+    
+    
+    public void setTransMode(int transMode) {
+        this.transMode = transMode;
     }
-
-
+    
+    
     /**
      * @return
      * 

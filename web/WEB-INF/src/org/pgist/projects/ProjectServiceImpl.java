@@ -121,11 +121,12 @@ public class ProjectServiceImpl implements ProjectService{
     }//getProjects()
 
 
-    public Project createProject(String name, String description) throws Exception {
+    public Project createProject(String name, String description, int transMode) throws Exception {
         Project project = new Project();
         
         project.setName(name);
         project.setDescription(description);
+        project.setTransMode(transMode);
         
         projectDAO.save(project);
         
@@ -139,7 +140,7 @@ public class ProjectServiceImpl implements ProjectService{
     }//createProjectAlt()
 
 
-    public void editProject(Long id, Map params, double[][][] footprint) throws Exception {
+    public void editProject(Long id, String name, String description, String type) throws Exception {
         // TODO Auto-generated method stub
     }//editProject()
 
@@ -184,7 +185,7 @@ public class ProjectServiceImpl implements ProjectService{
 
 
     /**
-     * Set grading
+     * Set grading to a specific ProjectAlternative and Criteria of a specific User
      * 
      * @param altId
      * @param critId
