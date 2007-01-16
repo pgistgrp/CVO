@@ -10,7 +10,7 @@
 
 <pg:fragment type="html">
 <style type="text/css" media="screen">
-		  @import "styles/step2.css";
+		 @import "styles/step2.css";
 </style>
 
 	<!--####
