@@ -198,6 +198,42 @@ public class ProjectServiceImpl implements ProjectService{
          *   
          */
     }//setGrading()
+
+
+    public ProjectAlternative createProjectAlt(Long projectId, Map params) throws Exception {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    public void deleteFootPrint(Long fpid) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+    public void deleteProject(Long id) throws Exception {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+    public void editProject(Long id, String name, String description, int transMode) throws Exception {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+    public void editProjectAlt(Long id, Map params) throws Exception {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+    public Long saveFootprint(Long altId, double[][][] coords, String shape) throws Exception {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
     
 }//class ProjectServiceImpl
