@@ -97,7 +97,6 @@
 					SDAgent.setVoting({target: target, id: id, agree:agree}, {
 					callback:function(data){
 							if (data.successful){ 
-								//alert("successful");
 								var votingDiv = 'voting-'+target+id;
 								if($(votingDiv) != undefined){
 	              				 	new Effect.Fade(votingDiv, {afterFinish:function(){io.getPosts(io.currentFilter, io.currentPage, false, io.currentSort); io.getTargets(); new Effect.Appear(votingDiv);}});

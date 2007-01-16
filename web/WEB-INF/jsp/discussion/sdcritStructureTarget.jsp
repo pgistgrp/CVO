@@ -79,9 +79,9 @@
 		CriteriaAgent.getAllCriterion({}, {
 			callback:function(data){
 				if (data.successful){
-					$(criteria).innerHTML = data.html;
+					$('criteria').innerHTML = data.html;
 				}else{
-					$(criteria).innerHTML = "<b>Error in CriteriaAgent.getAllCriterion Method: </b>" + data.reason; 
+					$('criteria').innerHTML = "<b>Error in CriteriaAgent.getAllCriterion Method: </b>" + data.reason; 
 				}
 			},
 			errorHandler:function(errorString, exception){ 
@@ -103,8 +103,7 @@
 				}
 		});
 	};
-	
-	//DO ON LOAD
+
 	io.getCriteria();
 
 </pg:fragment>
