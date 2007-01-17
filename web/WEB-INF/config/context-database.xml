@@ -92,6 +92,7 @@
                <value>org/pgist/projects/Project.hbm.xml</value>
                <value>org/pgist/projects/ProjectAlternative.hbm.xml</value>
                <value>org/pgist/projects/ProjectAlternativeCriteria.hbm.xml</value>
+               <value>org/pgist/projects/ProjectAltCriteriaObjective.hbm.xml</value>
                <value>org/pgist/projects/ProjectMOE.hbm.xml</value>
                <value>org/pgist/projects/Vehicle.hbm.xml</value>
            </list>

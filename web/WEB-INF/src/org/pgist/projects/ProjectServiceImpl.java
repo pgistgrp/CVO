@@ -1,14 +1,8 @@
 package org.pgist.projects;
 
-import java.sql.Connection;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import org.pgist.discussion.DiscussionDAO;
-import org.pgist.discussion.InfoObject;
-import org.pgist.discussion.InfoStructure;
 
 
 /**
@@ -18,10 +12,6 @@ public class ProjectServiceImpl implements ProjectService{
     
     
 	private ProjectDAO projectDAO = null;
-    
-    private DiscussionDAO discussionDAO;
-    
-	private Connection connection = null;
     
     
 	/**
@@ -33,87 +23,22 @@ public class ProjectServiceImpl implements ProjectService{
 	}
 	
     
-    /**
-     * @param discussionDAO  the discussionDAO to set
-     * @uml.property  name="discussionDAO"
-     */
-    public void setDiscussionDAO(DiscussionDAO discussionDAO) {
-        this.discussionDAO = discussionDAO;
-    }
-    
-    
-    /**
-     * @param connection  the connection to set
-     * @uml.property  name="connection"
-     */
-    public void setConnection(Connection c){
-        this.connection = c;
-    }
-    
-    
     /*
      * ------------------------------------------------------------------------
      */
 	
     
-	public Project getProject(Long pId) throws Exception{
-		return projectDAO.getProject(pId);
-	}
-    
-    
-	public List getProjects(String criteria) throws Exception{
-		return projectDAO.getProjects(criteria);
-	}
-    
-    
-	public void saveProject(Project project) throws Exception{
-		projectDAO.save(project);
-	}
-    
-    
-	public void saveProject(Project project, ProjectAlternative alternative) throws Exception{
-		projectDAO.save(project, alternative);
-	}
-    
-    
-	public void saveFootprint(ProjectAlternative pa, double[][][] coords, String geoType) throws Exception{
-		projectDAO.saveFootprint(pa, coords, geoType);
-	}
-    
-    
-	public Map getFootprints(String fpids) throws Exception{
-		return projectDAO.getFootprints(fpids);
-	}
-    
-    
-	public double[][][] getFootprint(Long fpid) throws Exception{
-		return projectDAO.getFootprint(fpid);
-	}
-	
-    
-    public void publishProjects(String criteria) throws Exception {
-        Date date = new Date();
-
-        InfoStructure info = new InfoStructure();
-        info.setType("sdmap");
-        info.setRespTime(date);
-
-        for (Project project : (List<Project>) projectDAO.getProjects(criteria)) {
-            System.out.println("-->>enable project " + project.getName());
-            InfoObject obj = new InfoObject();
-            obj.setObject(project);
-            obj.setRespTime(date);
-
-            info.getInfoObjects().add(obj);
-        }//for
-
-        discussionDAO.save(info);
-    }//publish()
-
-
     public Project getProjectById(Long pid) throws Exception {
         return projectDAO.getProject(pid);
     }//getProjectById()
+
+
+    public ProjectAlternative getProjectAlternativeById(Long altId) throws Exception {
+        /**
+         * TODO
+         */
+        return null;
+    }//getProjectAlternativeById()
 
 
     public Collection getProjects() throws Exception {
@@ -134,15 +59,33 @@ public class ProjectServiceImpl implements ProjectService{
     }//createProject()
 
 
-    public ProjectAlternative createProjectAlt(Map params, double[][][] footprint) throws Exception {
-        // TODO Auto-generated method stub
+    public void editProject(Long id, String name, String description, int transMode) throws Exception {
+        /*
+         * TODO
+         */
+    }//editProject()
+
+    
+    public void deleteProject(Long id) throws Exception {
+        /*
+         * TODO
+         */
+    }//deleteProject()
+
+
+    public ProjectAlternative createProjectAlt(Long projectId, Map params) throws Exception {
+        /*
+         * TODO
+         */
         return null;
     }//createProjectAlt()
 
 
-    public void editProject(Long id, String name, String description, String type) throws Exception {
-        // TODO Auto-generated method stub
-    }//editProject()
+    public void editProjectAlt(Long id, Map params) throws Exception {
+        /*
+         * TODO
+         */
+    }//editProjectAlt()
 
 
     public void deleteProjectAlt(Long id) throws Exception {
@@ -151,21 +94,22 @@ public class ProjectServiceImpl implements ProjectService{
 
 
     /**
-     * TODO
+     * Set grading to a specific ProjectAlternative and Criteria Objective of a specific User
+     * 
+     * @param altId
+     * @param critId
+     * @param objId
+     * @param value
+     * @throws Exception
      */
-    public ProjectAlternative getProjectAlternativeById(Long altId) throws Exception {
-        return null;
-    }//getProjectAlternativeById()
+    public void setGrading(Long altId, Long critId, Long objId, int value) throws Exception {
+        /**
+         * TODO:
+         *   
+         */
+    }//setGrading()
 
 
-    /**
-     * TODO
-     */
-    public Collection getProjectAlternativeGrades(Long cctId, Long altId) throws Exception {
-        return null;
-    }//getProjectAlternativeGrades()
-    
-    
     /**
      * Setup the association between projects and CCT.
      * 
@@ -184,56 +128,44 @@ public class ProjectServiceImpl implements ProjectService{
     }//setupProjectsForCCT()
 
 
-    /**
-     * Set grading to a specific ProjectAlternative and Criteria of a specific User
-     * 
-     * @param altId
-     * @param critId
-     * @param value
-     * @throws Exception
-     */
-    public void setGrading(Long altId, Long critId, int value) throws Exception {
-        /**
-         * TODO:
-         *   
-         */
-    }//setGrading()
-
-
-    public ProjectAlternative createProjectAlt(Long projectId, Map params) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-
-    public void deleteFootPrint(Long fpid) {
-        // TODO Auto-generated method stub
-        
-    }
-
-
-    public void deleteProject(Long id) throws Exception {
-        // TODO Auto-generated method stub
-        
-    }
-
-
-    public void editProject(Long id, String name, String description, int transMode) throws Exception {
-        // TODO Auto-generated method stub
-        
-    }
-
-
-    public void editProjectAlt(Long id, Map params) throws Exception {
-        // TODO Auto-generated method stub
-        
-    }
-
-
+    public double[][][] getFootprint(Long fpid) throws Exception{
+        return projectDAO.getFootprint(fpid);
+    }//getFootprint()
+    
+    
+    public Map getFootprints(String fpids) throws Exception{
+        return projectDAO.getFootprints(fpids);
+    }//getFootprints()
+    
+    
     public Long saveFootprint(Long altId, double[][][] coords, String shape) throws Exception {
-        // TODO Auto-generated method stub
+        /*
+         * TODO
+         */
         return null;
-    }
+    }//saveFootprint()
+    
+    
+    public void deleteFootPrint(Long fpid) {
+        /*
+         * TODO
+         */
+    }//deleteFootPrint()
+
+
+
+    
+    
+    
+    
+    
+
+    /**
+     * TODO
+     */
+    public Collection getProjectAlternativeGrades(Long cctId, Long altId) throws Exception {
+        return null;
+    }//getProjectAlternativeGrades()
     
     
 }//class ProjectServiceImpl

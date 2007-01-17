@@ -1,6 +1,5 @@
 package org.pgist.projects;
 
-import java.sql.Connection;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -372,19 +371,21 @@ public class ProjectAgent {
     
     
     /**
-     * Set the project grading information
+     * Set the project grading information on criteria objective
      * 
      * @param params A map contains:
      *     <ul>
      *       <li>altId - int, id of a ProjectAlt object</li>
      *       <li>critId - int, id of a Criteria object</li>
-     *       <li>value - int, grading value</li>
+     *       <li>objId - int, id of a Objective object</li>
+     *       <li>value - int, grading value, [-3, 3]</li>
      *     </ul>
      * 
      * @return A map contains:
      *     <ul>
      *       <li>successful - a boolean value denoting if the operation succeeds</li>
      *       <li>reason - reason why operation failed (valid when successful==false)</li>
+     *       <li>critGrade - the new calculated grading for the criteria</li>
      *     </ul>
      */
     public Map setGrading(Map params) {
@@ -394,9 +395,10 @@ public class ProjectAgent {
         try {
             Long altId = new Long((String) params.get("altId"));
             Long critId = new Long((String) params.get("critId"));
+            Long objId = new Long((String) params.get("objId"));
             int value = new Integer((String) params.get("value"));
             
-            projectService.setGrading(altId, critId, value);
+            projectService.setGrading(altId, critId, objId, value);
             
             map.put("successful", true);
         } catch (Exception e) {
