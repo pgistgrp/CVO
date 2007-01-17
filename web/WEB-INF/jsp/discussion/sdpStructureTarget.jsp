@@ -65,11 +65,13 @@
 							</a>
 						 </div>
 						 ${project.name} (${fn:length(project.alternatives)})
-						<ul>
-							<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
-								<li><a href="javascript:mapProjectAlt(${alternative.id})">${alternative.name}</a></li>
-							</c:forEach>
-						</ul>
+						<div style="display:none" id="project1">
+							<ul>
+								<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
+									<li><a href="javascript:mapProjectAlt(${alternative.id})">${alternative.name}</a></li>
+								</c:forEach>
+							</ul>
+						</div>
 					</li>
 				</c:if>
 			</c:forEach>
@@ -84,11 +86,13 @@
 								<img src="images/plus.gif" id="icon2">
 							</a>
 						 </div>${project.name} (${fn:length(project.alternatives)})
-						<ul>
-							<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
-								<li><a href="javascript:mapProjectAlt(${alternative.id})">${alternative.name}</a></li>
-							</c:forEach>
-						</ul>
+						<div id="project2" style="display:none">
+							<ul>
+								<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
+									<li><a href="javascript:mapProjectAlt(${alternative.id})">${alternative.name}</a></li>
+								</c:forEach>
+							</ul>
+						</div>
 					</li>
 				</c:if>
 			</c:forEach>
