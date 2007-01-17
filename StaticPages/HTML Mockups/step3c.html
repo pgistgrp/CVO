@@ -1,7 +1,7 @@
 <html>
 
 	<head>
-	<style type="text/css" media="screen">@import "lit.css";</style>
+	<style type="text/css" media="screen">@import "styles/lit.css";</style>
 	
 	<script type="text/javascript" src='prototype.js'></script>
 	
@@ -193,7 +193,7 @@ width:57%;
 margin:.5em 0em .5em .5em;
 }
 
-.odd {background: #F7FBFF}
+.odd {background: #D6E7EF}
 .even {background: #ffffff}
 
 
@@ -358,7 +358,7 @@ font-weight:bold;
 	</div>
 		
 		<!--Project list-->
-		<form onreset="resetPackage();" onsubmit="return false;">
+		<form onReset="resetPackage();" onSubmit="return false;">
 	<div id="object">
 		
 		<div class="floatLeft" id="obj-left">
@@ -381,23 +381,23 @@ font-weight:bold;
 				Alaska Way Viaduct (select only one)
 				</h4>
 				<div class="listRow row odd"><!--Option 1-->
-					<div class="col1 floatLeft"><input type='radio' value="0" name="AlaskaWayViaduct" onchange="projectArray[0]=0;costArray[0]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');" checked="checked"/>None</div>
+					<div class="col1 floatLeft"><input type='radio' value="0" name="AlaskaWayViaduct" onChange="projectArray[0]=0;costArray[0]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');" checked="checked"/>None</div>
 					<div class="clearBoth"></div>
 				</div>
 				<div class="listRow row even">
-					<div class="col1 floatLeft"><input type='radio' value="212" name="AlaskaWayViaduct" onchange="projectArray[0]=1;costArray[0]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 1: Build aerial viaduct</div>
+					<div class="col1 floatLeft"><input type='radio' value="212" name="AlaskaWayViaduct" onChange="projectArray[0]=1;costArray[0]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 1: Build aerial viaduct</div>
 					<div class="col2 floatLeft">$212 million</div>
 					<div class="col3 floatLeft">King</div>
 					<div class="clearBoth"></div>
 				</div>
 				<div class="listRow row odd"><!--Option 2-->
-					<div class="col1 floatLeft"><input type='radio' value="345" name="AlaskaWayViaduct" onchange="projectArray[0]=1;costArray[0]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 2: Tunnel</div>
+					<div class="col1 floatLeft"><input type='radio' value="345" name="AlaskaWayViaduct" onChange="projectArray[0]=1;costArray[0]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 2: Tunnel</div>
 					<div class="col2 floatLeft">$345 million</div>
 					<div class="col3 floatLeft">King</div>
 					<div class="clearBoth"></div>
 				</div>
 				<div class="listRow row even"><!--Option 3-->
-					<div class="col1 floatLeft"><input type='radio' value="100" name="AlaskaWayViaduct" onchange="projectArray[0]=1;costArray[0]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 3: Surface Boulevard</div>
+					<div class="col1 floatLeft"><input type='radio' value="100" name="AlaskaWayViaduct" onChange="projectArray[0]=1;costArray[0]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 3: Surface Boulevard</div>
 					<div class="col2 floatLeft">$100 million</div>
 					<div class="col3 floatLeft">King</div>
 					<div class="clearBoth"></div>
@@ -409,23 +409,23 @@ font-weight:bold;
 				SR 520 Floating Bridge (select only one)
 				</h4>
 				<div class="listRow row odd">
-					<div class="col1 floatLeft"><input type='radio' value="0" name="520FloatingBridge" onchange="projectArray[1]=0;costArray[1]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');" checked="checked"/>None</div>
+					<div class="col1 floatLeft"><input type='radio' value="0" name="520FloatingBridge" onChange="projectArray[1]=0;costArray[1]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');" checked="checked"/>None</div>
 					<div class="clearBoth"></div>
 				</div>
 				<div class="listRow row even"><!--Option 1-->
-					<div class="col1 floatLeft"><input type='radio' value="212" name="520FloatingBridge" onchange="projectArray[1]=1;costArray[1]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 1: 4-lane Bridge Replacement</div>
+					<div class="col1 floatLeft"><input type='radio' value="212" name="520FloatingBridge" onChange="projectArray[1]=1;costArray[1]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 1: 4-lane Bridge Replacement</div>
 					<div class="col2 floatLeft">$212 million</div>
 					<div class="col3 floatLeft">King</div>
 					<div class="clearBoth"></div>
 				</div>
 				<div class="listRow row odd"><!--Option 2-->
-					<div class="col1 floatLeft"><input type='radio' value="345" name="520FloatingBridge" onchange="projectArray[1]=1;costArray[1]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 2: 6-lane Bridge Replacement</div>
+					<div class="col1 floatLeft"><input type='radio' value="345" name="520FloatingBridge" onChange="projectArray[1]=1;costArray[1]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 2: 6-lane Bridge Replacement</div>
 					<div class="col2 floatLeft">$345 million</div>
 					<div class="col3 floatLeft">King</div>
 					<div class="clearBoth"></div>
 				</div>
 				<div class="listRow row even"><!--Option 3-->
-					<div class="col1 floatLeft"><input type='radio' value="100" name="520FloatingBridge" onchange="projectArray[1]=1;costArray[1]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 3: 6-lane Bridge Replacement with Ramp to UW</div>
+					<div class="col1 floatLeft"><input type='radio' value="100" name="520FloatingBridge" onChange="projectArray[1]=1;costArray[1]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 3: 6-lane Bridge Replacement with Ramp to UW</div>
 					<div class="col2 floatLeft">$100 million</div>
 					<div class="col3 floatLeft">King</div>
 					<div class="clearBoth"></div>
@@ -437,23 +437,23 @@ font-weight:bold;
 				Light Rail: Seattle to Eastside (select only one)
 				</h4>
 				<div class="listRow row odd">
-					<div class="col1 floatLeft"><input type='radio' value="0" name="LightRailSeaEast" onchange="projectArray[2]=0;costArray[2]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');" checked="checked"/>None</div>
+					<div class="col1 floatLeft"><input type='radio' value="0" name="LightRailSeaEast" onChange="projectArray[2]=0;costArray[2]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');" checked="checked"/>None</div>
 					<div class="clearBoth"></div>
 				</div>
 				<div class="listRow row even"><!--Option 1-->
-					<div class="col1 floatLeft"><input type='radio' value="212" name="LightRailSeaEast" onchange="projectArray[2]=1;costArray[2]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 1: Seattle to Downtown Bellevue</div>
+					<div class="col1 floatLeft"><input type='radio' value="212" name="LightRailSeaEast" onChange="projectArray[2]=1;costArray[2]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 1: Seattle to Downtown Bellevue</div>
 					<div class="col2 floatLeft">$212 million</div>
 					<div class="col3 floatLeft">King</div>
 					<div class="clearBoth"></div>
 				</div>
 				<div class="listRow row odd"><!--Option 2-->
-					<div class="col1 floatLeft"><input type='radio' value="345" name="LightRailSeaEast" onchange="projectArray[2]=1;costArray[2]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 2: Seattle to Overlake</div>
+					<div class="col1 floatLeft"><input type='radio' value="345" name="LightRailSeaEast" onChange="projectArray[2]=1;costArray[2]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 2: Seattle to Overlake</div>
 					<div class="col2 floatLeft">$345 million</div>
 					<div class="col3 floatLeft">King</div>
 					<div class="clearBoth"></div>
 				</div>
 				<div class="listRow row even"><!--Option 3-->
-					<div class="col1 floatLeft"><input type='radio' value="345" name="LightRailSeaEast" onchange="projectArray[2]=1;costArray[2]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 3: Seattle to Redmond</div>
+					<div class="col1 floatLeft"><input type='radio' value="345" name="LightRailSeaEast" onChange="projectArray[2]=1;costArray[2]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 3: Seattle to Redmond</div>
 					<div class="col2 floatLeft">$100 million</div>
 					<div class="col3 floatLeft">King</div>
 					<div class="clearBoth"></div>
@@ -465,13 +465,13 @@ font-weight:bold;
 				I-405 Improvements (selecting more than one is OK)
 				</h4>
 				<div class="listRow row odd"><!--Option 1-->
-					<div class="col1 floatLeft"><input type='checkbox' value="212" name="405Improvements" onchange="if(projectArray[3]==undefined){projectArray[3]=0;} if(costArray[3]==undefined){costArray[3]=0;} if(this.checked){projectArray[3]++;costArray[3]+=Number(this.value);}else{projectArray[3]--;costArray[3]-=Number(this.value);}calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Add lane between Bellevue and Issaquah</div>
+					<div class="col1 floatLeft"><input type='checkbox' value="212" name="405Improvements" onChange="if(projectArray[3]==undefined){projectArray[3]=0;} if(costArray[3]==undefined){costArray[3]=0;} if(this.checked){projectArray[3]++;costArray[3]+=Number(this.value);}else{projectArray[3]--;costArray[3]-=Number(this.value);}calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Add lane between Bellevue and Issaquah</div>
 					<div class="col2 floatLeft">$212 million</div>
 					<div class="col3 floatLeft">King</div>
 					<div class="clearBoth"></div>
 				</div>
 				<div class="listRow row even"><!--Option 2-->
-					<div class="col1 floatLeft"><input type='checkbox' value="345" name="405Improvements" onchange="if(projectArray[3]==undefined){projectArray[3]=0;} if(costArray[3]==undefined){costArray[3]=0;} if(this.checked){projectArray[3]++;costArray[3]+=Number(this.value)}else{projectArray[3]--;costArray[3]-=Number(this.value);}calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Add lane between Bothell and Bellevue</div>
+					<div class="col1 floatLeft"><input type='checkbox' value="345" name="405Improvements" onChange="if(projectArray[3]==undefined){projectArray[3]=0;} if(costArray[3]==undefined){costArray[3]=0;} if(this.checked){projectArray[3]++;costArray[3]+=Number(this.value)}else{projectArray[3]--;costArray[3]-=Number(this.value);}calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Add lane between Bothell and Bellevue</div>
 					<div class="col2 floatLeft">$345 million</div>
 					<div class="col3 floatLeft">Snohomish and King</div>
 					<div class="clearBoth"></div>
@@ -504,18 +504,18 @@ font-weight:bold;
 				<h4 class="headerColor">
 				Gas Tax</h4>
 				<div class="listRow row odd">
-					<div class="col1 floatLeft"><input type='radio' value="0" name="GasTax" onchange="costToYouArray[0]=this.value;costToAvgArray[0]=this.value;fundArray[0]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');" checked="checked"/>None</div>
+					<div class="col1 floatLeft"><input type='radio' value="0" name="GasTax" onChange="costToYouArray[0]=this.value;costToAvgArray[0]=this.value;fundArray[0]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');" checked="checked"/>None</div>
 					<div class="clearBoth"></div>
 				</div>
 				<div class="listRow row even"><!--Option 1-->
-					<div class="col1 floatLeft"><input type="radio" name="GasTax" value="400" onchange="costToYouArray[0]=25;costToAvgArray[0]=25;fundArray[0]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');"/>2.3 cents increase per gallon</div>
+					<div class="col1 floatLeft"><input type="radio" name="GasTax" value="400" onChange="costToYouArray[0]=25;costToAvgArray[0]=25;fundArray[0]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');"/>2.3 cents increase per gallon</div>
 					<div class="col2 floatLeft">400 million</div>
 					<div class="col3 floatLeft">25</div>
 					<div class="col4 floatLeft">25</div>
 					<div class="clearBoth"></div>
 				</div>
 				<div class="listRow row odd"><!--Option 2-->
-					<div class="col1 floatLeft"><input type="radio" name="GasTax" value="1000" onchange="costToYouArray[0]=50;costToAvgArray[0]=50;fundArray[0]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');"/>4 cents increase per gallon</div>
+					<div class="col1 floatLeft"><input type="radio" name="GasTax" value="1000" onChange="costToYouArray[0]=50;costToAvgArray[0]=50;fundArray[0]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');"/>4 cents increase per gallon</div>
 					<div class="col2 floatLeft">1000 million</div>
 					<div class="col3 floatLeft">50</div>
 					<div class="col4 floatLeft">50</div>
@@ -526,18 +526,18 @@ font-weight:bold;
 			<div><!--Sales Tax-->
 				<h4 class="headerColor">Sales Tax</h4>
 				<div class="listRow row odd">
-					<div class="col1 floatLeft"><input type='radio' value="0" name="SalesTax" onchange="costToYouArray[1]=this.value;costToAvgArray[1]=this.value;fundArray[1]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');" checked="checked"/>None</div>
+					<div class="col1 floatLeft"><input type='radio' value="0" name="SalesTax" onChange="costToYouArray[1]=this.value;costToAvgArray[1]=this.value;fundArray[1]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');" checked="checked"/>None</div>
 					<div class="clearBoth"></div>
 				</div>
 				<div class="listRow row even"><!--Option 1-->
-					<div class="col1 floatLeft"><input type="radio" name="SalesTax" value="400" onchange="costToYouArray[1]=25;costToAvgArray[1]=25;fundArray[1]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');"/>2.3 cent increase</div>
+					<div class="col1 floatLeft"><input type="radio" name="SalesTax" value="400" onChange="costToYouArray[1]=25;costToAvgArray[1]=25;fundArray[1]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');"/>2.3 cent increase</div>
 					<div class="col2 floatLeft">400 million</div>
 					<div class="col3 floatLeft">25</div>
 					<div class="col4 floatLeft">25</div>
 					<div class="clearBoth"></div>
 				</div>
 				<div class="listRow row odd"><!--Option 2-->
-					<div class="col1 floatLeft"><input type="radio" name="SalesTax" value="1000" onchange="costToYouArray[1]=50;costToAvgArray[1]=50;fundArray[1]=this.value; calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');"/>4 cent increase</div>
+					<div class="col1 floatLeft"><input type="radio" name="SalesTax" value="1000" onChange="costToYouArray[1]=50;costToAvgArray[1]=50;fundArray[1]=this.value; calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');"/>4 cent increase</div>
 					<div class="col2 floatLeft">1000 million</div>
 					<div class="col3 floatLeft">50</div>
 					<div class="col4 floatLeft">50</div>
@@ -602,7 +602,7 @@ font-weight:bold;
 		
 		<div style="float:right; background-color:LightGreen;"><!--Finished submit buttons-->
 			<div class="floatLeft packageCol1"><h3>Finished?</h3></div>
-			<div class="floatLeft packageCol2"><input type="submit" value="Yes - Submit my package" id="submitPack" onchange="if(balance>=0){alert('submitted');}else{alert('not submitted');}"/></div>
+			<div class="floatLeft packageCol2"><input type="submit" value="Yes - Submit my package" id="submitPack" onChange="if(balance>=0){alert('submitted');}else{alert('not submitted');}"/></div>
 			<div class="floatLeft packageCol3"><input type="reset" value="No - Start Over"/></div>
 		</div>
 		</form>
