@@ -21,6 +21,22 @@
 #### -->
 
 <pg:fragment type="html">
+
+<script type="text/javascript">
+		function expandList(project,icon){
+			Effect.toggle(project, 'appear', {duration: .5, afterFinish:
+				//window.setTimeout(toggleIcon,100);
+				function(){
+					if ($(project).style.display != ""){
+						$(icon).src = "images/plus.gif";
+						}else{
+							$(icon).src = "images/minus.gif";
+						}
+					}
+			});
+		}
+</script>
+
 	<!-- begin "overview and instructions" area -->
 	<div id="overview" class="box2">
 		<h3 class="headerColor">Instructions</h3>
@@ -43,7 +59,12 @@
 		<ul>
 			<c:forEach var="project" items="${infoStructure.infoObjects}" varStatus="loop">
 				<c:if test="${project.type == 1}">
-					<li>${project.name} (${fn:length(project.alternatives)})
+					<li><div class="floatLeft">
+							<a href="javascript:expandList('project1','icon1');">
+								<img src="images/plus.gif" id="icon1">
+							</a>
+						 </div>
+						 ${project.name} (${fn:length(project.alternatives)})
 						<ul>
 							<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
 								<li><a href="javascript:mapProjectAlt(${alternative.id})">${alternative.name}</a></li>
@@ -58,7 +79,11 @@
 		<ul>
 			<c:forEach var="project" items="${infoStructure.infoObjects}" varStatus="loop">
 				<c:if test="${project.type == 2}">
-					<li>${project.name} (${fn:length(project.alternatives)})
+					<li><div class="floatLeft">
+							<a href="javascript:expandList('project2','icon2');">
+								<img src="images/plus.gif" id="icon2">
+							</a>
+						 </div>${project.name} (${fn:length(project.alternatives)})
 						<ul>
 							<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
 								<li><a href="javascript:mapProjectAlt(${alternative.id})">${alternative.name}</a></li>
