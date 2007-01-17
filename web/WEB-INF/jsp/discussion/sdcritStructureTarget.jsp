@@ -9,9 +9,7 @@
 
 
 <pg:fragment type="html">
-<style type="text/css" media="screen">
-		 @import "styles/step2.css";
-</style>
+
 
 	<!--####
 		Project: Let's Improve Transportation!
@@ -104,6 +102,42 @@
 		});
 	};
 
+	/* *************** load a dynamic javascript or css file ***************
+	io.dynamicallyLoadFile = function(file)
+	{
+		start = file.indexOf('.') + 1
+		finish = file.length
+		
+		type = file.substring(start,finish)
+		if(type == "css"){
+			var e = document.createElement("style");
+			e.type="txt/css"
+		}else{ //javascript
+			var e = document.createElement("script");
+			e.type="text/javascript";
+		}
+	   e.src = file;
+	   	var head = document.getElementsByTagName('head').item(0);
+		head.appendChild(e);
+	}
+	alert("loading external");
+	io.dynamicallyLoadFile("/dwr/interface/CriteriaAgent.js");
+	*/
+
+	io.loadCSS = function(){
+		var headElem = document.getElementsByTagName(”head”)[0];
+		var cssLinkElem = document.createElement(”link”);
+		
+		cssLinkElem.setAttribute(”href”, “styles/step2.css“);
+		cssLinkElem.setAttribute(”type”, “text/css”);
+		cssLinkElem.setAttribute(”rel”, “stylesheet”);
+		headElem.appendChild(cssLinkElem);
+		alert("css loaded");
+	}
+	
+	io.loadCSS();
 	io.getCriteria();
+
+	
 
 </pg:fragment>
