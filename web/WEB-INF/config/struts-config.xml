@@ -100,6 +100,10 @@
             <forward name="list" path="/WEB-INF/jsp/criteria/criteriaMgr.jsp"/>
         </action>
         
+	<action path="/criteriaWeigh" scope="request" type="org.pgist.criteria.CriteriaWeighAction">
+	    <forward name="list" path="/WEB-INF/jsp/criteria/criteriaWeight.jsp"/>
+        </action>
+        
         <action path="/criteriaPublish" scope="request" type="org.pgist.criteria.CriteriaPublishAction">
             <forward name="list" path="/WEB-INF/jsp/criteria/cctList.jsp"/>
             <forward name="assoc" path="/WEB-INF/jsp/criteria/criteriaAssoc.jsp"/>

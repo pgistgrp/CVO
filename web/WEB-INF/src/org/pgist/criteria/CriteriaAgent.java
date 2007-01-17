@@ -384,7 +384,7 @@ public class CriteriaAgent {
      *     <li>weights - a list of CriteriaWeight object</li>
      *   </ul>
      */
-    public Map getWeights(Map params) {
+    public Map getWeights(HttpServletRequest request, Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -394,6 +394,8 @@ public class CriteriaAgent {
         	Set weights = criteriaService.getWeights(cctId);
         	
         	map.put("weights", weights);
+        	request.setAttribute("weights", weights); 
+        	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteriaAssoc_weights.jsp"));
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
