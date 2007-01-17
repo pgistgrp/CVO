@@ -21,27 +21,6 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
 	
 	private static final String hql_addCriterion = "from Criteria c where lower(c.name)=?";
 	
-	/*
-    public Criteria addCriterion(String name, CCT cct, Set themes, Set objectives, String na) throws Exception {
-    	
-		Criteria c = new Criteria();
-		c.setName(name);
-		c.setThemes(themes);
-		c.setObjectives(objectives);
-		c.setCct(cct);
-		c.setNa(na);
-		
-    	List list = getHibernateTemplate().find(hql_addCriterion, new Object[] {
-                name.toLowerCase(),
-        });
-    	
-    	if(list.size()>0) {
-    		throw new Exception("Criteria already exist.");
-    	}  		
-		save(c);		
-		return c;
-    }//addCriterion()
-    */
     
     public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, CCT cct, Set themes, Set objectives, String na) throws Exception {
     	
@@ -49,7 +28,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	c.setName(name);
 		c.setCct(cct);
 		c.setNa(na);
-		
+
     	if(bool_themes) {
     		c.setThemes(themes);
     	}
@@ -133,13 +112,13 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
 		
 		o.setDescription(description);
 		
-    	/*List list = getHibernateTemplate().find(hql_addObjective, new Object[] {
+    	List list = getHibernateTemplate().find(hql_addObjective, new Object[] {
     			description.toLowerCase(),
         });
     	
     	if(list.size()>0) {
     		throw new Exception("Objective already exist.");
-    	}  	*/
+    	}  	
 		save(o);
 			
 		return o;
@@ -172,7 +151,12 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     
     public void deleteObjective(Long id) throws Exception {
         Objective objective = (Objective) getHibernateTemplate().load(Objective.class, id);
-        if (objective != null) getHibernateTemplate().delete(objective);
+        //try catch doesn't work to handle error yet
+        try {
+        	if (objective != null) getHibernateTemplate().delete(objective);
+        } catch(Exception e) {
+        	throw new Exception("You cannot delete a Objective that has been associated with a Criteria.");
+        }
     }//deleteObjective()
     
     
@@ -193,8 +177,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
 		cw.setCriteria(criteria);
 		cw.setWeight(weight);
 		cw.setAuthor(getUserById(WebUtils.currentUserId()));
-		
-		
+			
     	List list = getHibernateTemplate().find(hql_setWeight, new Object[] {
     			getUserById(WebUtils.currentUserId()), criteria,
         });
@@ -203,7 +186,6 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     		throw new Exception("CriteriaWeight already exist.");
     	}
     
-		
 		save(cw);	
     }//addCriterion()
     

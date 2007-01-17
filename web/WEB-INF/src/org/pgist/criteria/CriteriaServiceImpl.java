@@ -66,7 +66,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     
     public Criteria getCriterionById(Long id) throws Exception {
     	return criteriaDAO.getCriterionById(id);
-    }//getCriterionByID()
+    }//getCriterionById()
     
     
     public Collection getAllCriterion(Long cctId) throws Exception {
