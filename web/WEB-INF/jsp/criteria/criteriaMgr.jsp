@@ -15,8 +15,8 @@
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Barebones JavaScript (Jordan)
-		[ ] Integrate all form elements (Jordan)
+		[x] Barebones JavaScript (Jordan)
+		[x] Integrate all form elements (Jordan)
 #### -->
 <html:html>
 <head>
