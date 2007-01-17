@@ -17,7 +17,6 @@
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[ ] BareBones JavaScript (Isaac)
-		[ ] Test form actions (Isaac)
 		
 #### -->
 <html:html> 
@@ -43,7 +42,7 @@
 
 
 // END Global Variables
-
+	/* *************** get all funding sources in the system *************** */
 	function getFundingSources(){
 		FundingAgent.getFundingSources({}, {
 			callback:function(data){
@@ -59,6 +58,7 @@
 		});
 	}
 
+	/* *************** create a new funding source *************** */
 	function createFundingSource(){
 		var name = "";
 		FundingAgent.createFundingSource({name:name}, {
@@ -76,6 +76,7 @@
 		});
 	}
 	
+	/* *************** create a new funding source alternative *************** */
 	function createFundingSourceAlternative(params){
 		//alert("param1: " + param1 + " param2: " + param2 + " param3: " + param3 + " param4: " + param4); 
 		ClassName.methodName({param1:param1,param2:param2,param3:param3,param4:param4}, {
@@ -91,7 +92,28 @@
 			}
 		});
 	}
+	
+	/* *************** delete a given funding source *************** */
+	//deleteFundingSource()
+	
+	
+	/* *************** delete a given funding source alternative *************** */
+	//deleteFundingSourceAlt()
 
+	/* *************** create a form (via javascript) to edit a given funding source *************** */
+	//prepareEditFundingSource
+		//getFundingSourceById
+		
+	/* *************** edit a given funding source *************** */	
+	//editFundingSource
+	
+	/* *************** create a form (via javascript) to edit a given funding source alternative*************** */
+	//prepareEditFundingSourceAlt
+		//getFundingSourceAltById
+	
+	/* *************** edit a given funding source alternative *************** */	
+	//editFundingSourceAlt
+	
 </script>
 <style type="text/css">
 
