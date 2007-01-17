@@ -102,41 +102,33 @@
 		});
 	};
 
-	/* *************** load a dynamic javascript or css file ***************
-	io.dynamicallyLoadFile = function(file)
-	{
-		start = file.indexOf('.') + 1
-		finish = file.length
-		
-		type = file.substring(start,finish)
-		if(type == "css"){
-			var e = document.createElement("style");
-			e.type="txt/css"
-		}else{ //javascript
-			var e = document.createElement("script");
-			e.type="text/javascript";
-		}
-	   e.src = file;
-	   	var head = document.getElementsByTagName('head').item(0);
-		head.appendChild(e);
-	}
-	alert("loading external");
-	io.dynamicallyLoadFile("/dwr/interface/CriteriaAgent.js");
-	*/
+	/* *************** load a dynamic javascript or css file ****************/
 
-	io.loadCSS = function(){
-		var headElem = document.getElementsByTagName(”head”)[0];
-		var cssLinkElem = document.createElement(”link”);
+	io.loadDynamicFile = function(file){
+		var start = file.indexOf('.') + 1
+		var finish = file.length
+		var type = file.substring(start,finish)
 		
-		cssLinkElem.setAttribute(”href”, “styles/step2.css“);
-		cssLinkElem.setAttribute(”type”, “text/css”);
-		cssLinkElem.setAttribute(”rel”, “stylesheet”);
-		headElem.appendChild(cssLinkElem);
-		alert("css loaded");
+		var headElem = document.getElementsByTagName('head')[0];
+		if(type == "css"){
+			var cssLinkElem = document.createElement('link');
+			cssLinkElem.setAttribute('href', file);
+			cssLinkElem.setAttribute('type', 'text/css');
+			cssLinkElem.setAttribute('rel', 'stylesheet');
+			headElem.appendChild(cssLinkElem);
+		}else{ //javascript
+			var jsLinkElem = document.createElement('script');
+			jsLinkElem.setAttribute('src', file);
+			jsLinkElem.setAttribute('type', 'text/javascript');
+			headElem.appendChild(jsLinkElem);
+		}
+		
 	}
 	
-	io.loadCSS();
-	io.getCriteria();
+	/* *************** loading on getTargets() in SDRoomMain *************** */
+	io.loadDynamicFile('styles/step2.css');
+	io.loadDynamicFile('/dwr/interface/CriteriaAgent.js');
+	window.setTimeout("io.getCriteria()", 100); //crappy way to do this - there should be a callback function
 
 	
 
