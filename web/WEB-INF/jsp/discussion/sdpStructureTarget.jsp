@@ -22,21 +22,6 @@
 
 <pg:fragment type="html">
 
-<script type="text/javascript">
-		function expandList(project,icon){
-			Effect.toggle(project, 'appear', {duration: .5, afterFinish:
-				//window.setTimeout(toggleIcon,100);
-				function(){
-					if ($(project).style.display != ""){
-						$(icon).src = "images/plus.gif";
-						}else{
-							$(icon).src = "images/minus.gif";
-						}
-					}
-			});
-		}
-</script>
-
 	<!-- begin "overview and instructions" area -->
 	<div id="overview" class="box2">
 		<h3 class="headerColor">Instructions</h3>
@@ -108,4 +93,30 @@
 	//All Javascript that is internal to this page must go here - not sdRoomMain.
 	//Add Javascript to build tree list
 
+	/* *************** load a dynamic javascript or css file ****************/
+
+	io.loadDynamicFile = function(file){
+		var start = file.indexOf('.') + 1
+		var finish = file.length
+		var type = file.substring(start,finish)
+		
+		var headElem = document.getElementsByTagName('head')[0];
+		if(type == "css"){
+			var cssLinkElem = document.createElement('link');
+			cssLinkElem.setAttribute('href', file);
+			cssLinkElem.setAttribute('type', 'text/css');
+			cssLinkElem.setAttribute('rel', 'stylesheet');
+			headElem.appendChild(cssLinkElem);
+		}else{ //javascript
+			var jsLinkElem = document.createElement('script');
+			jsLinkElem.setAttribute('src', file);
+			jsLinkElem.setAttribute('type', 'text/javascript');
+			headElem.appendChild(jsLinkElem);
+		}
+		
+	}
+	
+	/* *************** loading on getTargets() in SDRoomMain *************** */
+	io.loadDynamicFile('styles/step3.css');
+	io.loadDynamicFile('/dwr/interface/ProjectAgent.js');
 </pg:fragment>
