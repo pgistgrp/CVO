@@ -35,14 +35,11 @@
 <script type='text/javascript' src='/dwr/util.js'></script>
 <!-- End DWR JavaScript Libraries -->
 
-<!--Criteria Specific  Libraries-->
+<!--Project Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
-
-<script>
-// Global Variables
-
-
-// END Global Variables
+<script src="scripts/treeul.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8">
+	
 </script>
 <style type="text/css">
 
@@ -52,6 +49,7 @@
 
 <body>
 	<h3>Moderator Tools &raquo; Define Projects</h3> 
+	<p>Select the projects that you would like to use for this expiriment.</p>
 	<form method="POST" name="publishProjects" action="projectDefine.do">
 		<input type="hidden" name="cctId" value="${cct.id}" /
 		<input type="hidden" name="activity" value="save" />
@@ -69,6 +67,9 @@
 		</ul>
 		<input type="submit" value="submit">
 	</form>
+	<script type="text/javascript" charset="utf-8">
+		initiate("projectsList"); //initiate the treeul script
+	</script>
 </body>
 </html:html>
 

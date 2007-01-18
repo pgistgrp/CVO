@@ -120,4 +120,6 @@
 	/* *************** loading on getTargets() in SDRoomMain *************** */
 	io.loadDynamicFile('styles/step3.css');
 	io.loadDynamicFile('/dwr/interface/ProjectAgent.js');
+	io.loadDynamicFile('scripts/treeul.js');
+	initiate("projectsList"); //initiate the treeul script
 </pg:fragment>
