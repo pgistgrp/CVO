@@ -12,7 +12,7 @@
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Todo1
+		[x] Javascript (Jordan)
 
 #### -->
 
@@ -26,12 +26,14 @@
 			@import "styles/lit.css";
 		</style>
 		<script type="text/javascript" charset="utf-8">
-			function setGrading(altId, value){
-				//alert("altId: " + altId + " critId: " + critId + " value: " +value ); 
-				ProjectAgent.setGrading({altId:altId,critId:critId,value:value {
+			function setGrading(altId, critId, objId, value){
+				alert("altId: " + altId + " critId: " + critId + " objId: " + objId +" value: " +value ); 
+				ProjectAgent.setGrading({altId:altId,critId:critId,objId:objId,value:value {
 					callback:function(data){
 						if (data.successful){
 							alert("grade set!")  //testing
+							$('critGrade-' + critId).innerHTML = data.grade; //returned grade
+							new Effect.Highlight('critGrade-' + critId); //highlight reflecting change
 						}else{
 							alert(data.reason);
 						}
@@ -42,41 +44,41 @@
 				});
 			}
 			
-			/*
-			*  GET:
-		      projectGrading.do?cctId=1234
-		    * POST:
-		      <form action="projectGrading.do">
-		      <input type="hidden" name="cctId" value="1234">
-		      <input type="hidden" name="activity" value="save">
-		      </form>
-		    
-			*/
 		</script>
 	</head>
 	<body>
-		<h1>Planning Factor Grades for ${project.name}</h1>
-		<c:forEach var="project" items="${projects}" varStatus="loop">
-			${project.name}
-				<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
-				${alternative.name}
-					<c:forEach var="criterion" items="${alternative.object}" varStatus="loop">
-						<hr>
+		<h1>Grade Projects on Criteria Objectives</h1>
+		<form action="projectGrading.do">
+			<input type="hidden" name="cctId" value="${cct.id}">
+			<input type="hidden" name="activity" value="save">	      
+			<c:forEach var="project" items="${projects}" varStatus="loop">
+				${project.name}
+					<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
+					${alternative.name}
+						<c:forEach var="criterion" items="${alternative.object}" varStatus="loop">
 							<p>Name: ${criterion.name}</p>
 							<p>Description: ${criterion.description}</p>
-							<p>Grade: ${criterion.grade}</p>
+							<p>Grade: <b id="critGrade-${criterion.id}">${criterion.grade}</b></p>
 							<p>Objectives (${fn:length(criterion.objectives)}):</p>		
 							<ul>
 								<c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
-									<li>${objective.name}</li>	
+									<li>${objective.name} - Grade: 
+										<select id="objGrade-${objective.id}" onchange="setVoting(${alternative.id},${criterion.id}, ${objective.id}, this.value);">
+											<option>3</option>
+											<option>2</option>
+											<option>1</option>
+											<option>0</option>
+											<option>-1</option>
+											<option>-2</option>
+											<option>-3</option>
+										</select>
+									</li>	
 								</c:forEach>
 							</ul>
-						<hr>
-						<br />
+						</c:forEach>
 					</c:forEach>
-				</c:forEach>
-		</c:forEach>
-
+			</c:forEach>
+		</form>
 	</body>
 </html>
 

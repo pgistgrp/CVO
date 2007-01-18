@@ -41,7 +41,7 @@
 					<c:if test="${pg:contains(alternative, package.projAlts)}">
 						CHECKED
 					</c:if>
-					> <!-- end input -->
+					<!-- end input -->
 					Name: ${alternative.name}
 				</c:forEach>
 			</c:forEach>
@@ -54,7 +54,7 @@
 						<c:if test="${pg:contains(alternative, package.fundAlts)}">
 							CHECKED
 						</c:if>
-						> <!-- end input -->
+						<!-- end input -->
 						${alternative.name}
 					</c:forEach>
 			</c:forEach>
