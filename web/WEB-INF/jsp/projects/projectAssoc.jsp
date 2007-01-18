@@ -16,9 +16,9 @@
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] BareBones JavaScript (Isaac)
-		[ ] Test form actions (Isaac)
-		
+		[x] BareBones JavaScript (Jordan)
+		[ ] Test form actions (Jordan)
+		[ ] Test Tree
 #### -->
 <html:html> 
 <head>

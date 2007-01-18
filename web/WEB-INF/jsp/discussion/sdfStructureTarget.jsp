@@ -13,7 +13,7 @@
 	Author(s): Jordan Isip, Adam Hindman, Issac Yang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Integrate Structured Discussion (Jordan)
+		[x] Integrate Structured Discussion (Jordan)
 		[ ] Integrate Layout (Adam)
 		[ ] Integrate static text and link to static page - see mockup (Adam)
 #### -->

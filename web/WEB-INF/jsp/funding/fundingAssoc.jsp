@@ -16,8 +16,9 @@
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] BareBones JavaScript (Isaac)
-		[ ] Test form actions (Isaac)
+		[x] BareBones JavaScript (Jordan)
+		[ ] Test form actions (Jordan)
+		[ ] Test Tree (Jordan)
 		
 #### -->
 <html:html> 
@@ -36,13 +37,10 @@
 <!-- End DWR JavaScript Libraries -->
 
 <!--Criteria Specific  Libraries-->
-<script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
-
-<script>
-// Global Variables
-
-
-// END Global Variables
+<script type='text/javascript' src='/dwr/interface/FundingAgent.js'></script>
+<script src="scripts/treeul.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8">
+	
 </script>
 <style type="text/css">
 
@@ -52,13 +50,14 @@
 
 <body>
 	<h3>Moderator Tools &raquo; Define Funding Sources</h3> 
+	<p>Select the funding sources that you would like to use for this expiriment.</p>
 	<form method="POST" name="publishFunding" action="fundingDefine.do">
 		<input type="hidden" name="cctId" value="${cct.id}" /
 		<input type="hidden" name="activity" value="save" />
-		<h4>All Projects</h4>
+		<h4>All Funding Sources</h4>
 		<ul id="projectsList">
 			<c:forEach var="source" items="${sources}">
-				<li><input type="checkbox" name="sourceId" value="${source.id}"/>${project.name}
+				<li><input type="checkbox" name="sourceId" value="${source.id}"/>${source.name} - ${source.description}
 					<ul>
 						<c:forEach var="alternative" items="${source.alternatives}">
 							<li>${alternative.name}</li>
@@ -69,6 +68,9 @@
 		</ul>
 		<input type="submit" value="submit">
 	</form>
+	<script type="text/javascript" charset="utf-8">
+		initiate("projectsList"); //initiate the treeul script
+	</script>
 </body>
 </html:html>
 
