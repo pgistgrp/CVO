@@ -599,3 +599,25 @@
 		a.orangeButton:visited{color:#6B531D;text-decoration:none;font-weight:bold;}
 		a.orangeButton:hover{color:#6B531D;text-decoration:none;font-weight:bold;}
 		a.orangeButton:active{color:#6B531D;text-decoration:none;font-weight:bold;}
+
+
+/*Hierarchy Script Styles*/
+.treeul, .treeul ul{
+  text-align:left;
+  margin:0; /* Removes browser default margins applied to the lists. */
+  padding:0; /* Removes browser default padding applied to the lists. */
+}
+
+.treeul li{
+  margin:0 0 0 30px; /* A left margin to indent the list items and give the menu a sense of structure. */
+  padding:0; /* Removes browser default padding applied to the list items. */
+  list-style-type:none; /* Removes the bullet point that usually goes next to each item in a list. */
+}
+
+.treeul .symbols{ /* Various styles to position the symbols next to the items in the menu. */
+  float:left;
+  width:12px;
+  height:1em;
+  background-position:0 50%;
+  background-repeat:no-repeat;
+}
