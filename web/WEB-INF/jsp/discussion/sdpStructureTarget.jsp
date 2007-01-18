@@ -18,6 +18,7 @@
 		[x] Integrate Structured Discussion (Jordan)
 		[ ] Integrate Project Tree (Issac)
 		[ ] Integrate Layout (Adam) 
+		[ ] Test with backend contractor code
 #### -->
 
 <pg:fragment type="html">

@@ -17,7 +17,8 @@
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] BareBones JavaScript (Jordan)
-		
+		[ ] editProject and editProjectAlt
+		[ ] test with backend contractor code
 #### -->
 <html:html> 
 <head>
