@@ -16,14 +16,22 @@
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] loop through all projects
+		[x] loop through all projects
 
 		
 #### -->
 
-<c:forEach var="project" items="${projects}" varStatus="loop">
-	${project.name}
-		<c:forEach var="alternative" items="${project.alternative}" varStatus="loop">
-			${alternative.name}
-		</c:forEach>
+<c:forEach var="project" items="${projects}">
+	<li>${project.name} [ <a href="javascript:Effect.toggle('editProject${project.id}','blind');">edit</a> ] [ <a href="javascript:deleteProject(${project.id}">delete</a> ]
+		<div id="editProject${project.id}"></div>
+		<ul>
+			<c:forEach var="alternative" items="${project.alternatives}">
+				<li>${alternative.name} [ <a href="javascript: editAlternative(${alternative.id});">edit</a> ] [ <a href="javascript:deleteProjectAlt(${alternative.id});">delete</a> ]</li>
+			</c:forEach>
+			<li>[ <a href="javascript:prepareCreateProjectAlt(${project.id});">Add an Alternative</a> ]</li>
+		</ul>
+		<div id="newAlternativeForm${project.id}"></div>
+	</li>
 </c:forEach>
+
+<li>[ <a href="javascript:Element.toggle('newProjectForm');">Add a Project</a> ]</li>

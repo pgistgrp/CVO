@@ -16,13 +16,12 @@
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] BareBones JavaScript (Isaac)
-		[ ] Test form actions (Isaac)
+		[x] BareBones JavaScript (Jordan)
 		
 #### -->
 <html:html> 
 <head>
-<title>Manage Criteria</title>
+<title>Manage Projects</title>
 <!-- Site Wide JavaScript -->
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
@@ -45,7 +44,7 @@
 		ProjectAgent.getProjectsforMgr({}, {
 			callback:function(data){
 				if (data.successful){
-					alert(data.html) //returns projectMgr_projects.jsp
+					$('projectsList').innerHTML = data.source.html; //returns projectMgr_projects.jsp
 				}else{
 					alert(data.reason);
 				}
@@ -57,13 +56,15 @@
 	}
 	
 	function createProject(){
-		var name = '';
-		var description = '';
-		var transmode = 1; //1 or 2
-		ProjectAgent.createProject({id:id,name:name,description:description,type:type}, {
+		var name = $('txtProjName').value;
+		var description = $('txtProjDesc').value;
+		var transmode = $('selProjType').value; //1 or 2
+		ProjectAgent.createProject({name:name,description:description,transmode:transmode}, {
 			callback:function(data){
 				if (data.successful){
 					alert("successful!");
+					getProjects();
+					$('frmNewProject').reset();
 				}else{
 					alert(data.reason);
 				}
@@ -75,19 +76,20 @@
 	}
 	
 	function createProjectAlt(){
-		var name = '';
-		var description = '';
-		var cost = 1100.00; 
-		var sponsor = '';
-		var links = '';
-		var statementFor = '';
-		var statementAgainst = '';
+		var name = $('txtAltName').value;
+		var description = $('txtAltDesc').value;
+		var cost = $('txtAltCost').value; 
+		var sponsor = $('txtAltAgency').value;
+		var links = $('txtAltLinks').value;
+		var statementFor = $('txtAltFor').value;
+		var statementAgainst = $('txtAltAgainst').value;
 
 		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst); 
-		ProjectAgent.createProjectAlternative({id:id,name:name,description:description,cost:cost, sponsor:sponsor, links:links, statementFor:statementFor, statementAgainst:statementAgainst}, {
+		ProjectAgent.createProjectAlternative({name:name,description:description,cost:cost, sponsor:sponsor, links:links, statementFor:statementFor, statementAgainst:statementAgainst}, {
 			callback:function(data){
 				if (data.successful){
-					
+					getProjects();
+					$('frmNewAlternative').reset();
 				}else{
 					alert(data.reason);
 				}
@@ -98,6 +100,13 @@
 		});
 	}
 		
+	/* *************** Generate a form to add a new project alternative (inline) *************** */
+	function prepareCreateProjectAlt(projId){
+		var formDivId = 'newAlternativeForm' + projId;
+		$(formDivId).innerHTML = $('newAlternativeForm').innerHTML; //insert form
+		Element.toggle('newAlternativeForm');
+	}	
+	
 	function prepareEditProject(id){
 		//alert("id: " + id); 
 		ProjectAgent.getProjectById({id:id}, {
@@ -131,7 +140,6 @@
 	}
 	
 	function editProject(id){
-		//alert("param1: " + param1 + " param2: " + param2 + " param3: " + param3 + " param4: " + param4); 
 		var name = '';
 		var description = '';
 		var transmode = 1; //1 or 2
@@ -178,7 +186,8 @@
 		ProjectAgent.deleteProject({id:id}, {
 			callback:function(data){
 				if (data.successful){
-					alert("Project " + id + " deleted")
+					alert("Project " + id + " deleted");
+					getProjects();
 				}else{
 					alert(data.reason);
 				}
@@ -194,7 +203,8 @@
 		ProjectAgent.deleteProjectAlternative({id:id}, {
 			callback:function(data){
 				if (data.successful){
-					alert("Project Alternative " + id + " deleted")
+					alert("Project Alternative " + id + " deleted");
+					getProjects();
 				}else{
 					alert(data.reason);
 				}
@@ -266,38 +276,59 @@
 
 <body>
 	<h3>Moderator Tools &raquo; Manage Projects</h3> 
-	<form name="publishProjects" action="projectDefine.do">
-		<input type="hidden" name="activity" value="save" />
-		<h4>All Projects</h4>
-		<ul id="projectsList">
-			<c:forEach var="project" items="${projects}">
-				<li><input type="checkbox" name="projectId" value="${project.id}"/>${project.name} [ <a href="javascript:Effect.toggle('editProject${project.id}','blind');">edit</a> ] [ <html:link action="/projectMgr.do?action=delete" paramId="id" paramName="project" paramProperty="id">delete</html:link> ]
-					<ul>
-						<li id="editProject${project.id}" style="display: none;"><input name="txtProjectEdit${project.id}" type="text" value="${project.name}" size="25"> <input type="submit" value="submit"></li>
-						<li>[ <a href="javascript:addAlternative(${project.id});">Add an Alternative</a> ]</li>
-						<c:forEach var="alternative" items="${project.alternatives}">
-							<li>${alternative.name} [ <a href="javascript: editAlternative(${alternative.id});">edit</a> ] [ <a href="javascript:deleteAlternative(${alternative.id});">delete</a> ]</li>
-						</c:forEach>
-					</ul>
-				</li>
-			</c:forEach>
+	<ul id="projectsList">
+		<!--load projects here -->
+	</ul>
+	
+	<div id="newProjectForm" style="display: none;">
+		<h4>Add a New Project</h4>
+		<form id="frmNewProject">
+			<label>Project Name:</label>
+			<input id="txtProjName" type="text" value="" size="25">
+			
+			<label>Project Description:</label>
+			<input id="txtProjDesc" type="text" value="" size="25">
 
-			<li>[ <a href="javascript:Effect.toggle('newProjectForm', 'blind');">New Project</a> ]
-				<div id="newProjectForm" style="display: none;">
-					<h4>Create New Project</h4>
-					<form>
-						<label>Name:</label>
-						<input name="txtNewCriterion" type="text" value="" size="25">
+			<label>Type:</label>
+			<select id="selProjType">
+				<option value="1">Road</option>
+				<option value="2">Transit</option>
+			</select>
 
-						<label>Description:</label>
-						<textarea name="txtLowDesc" cols="100" rows="5"></textarea>
+			<p><input type="submit" value="submit"></p>
+		</form>
+	</div>
+	
+	<div id="newAlternativeForm" style="display: none;">
+		<h4>Add a New Project Alterqnative</h4>
+		<form id="frmNewAlternative">
+			<label>Project Alternative Name:</label>
+			<input id="txtAltName" type="text" value="" size="25">
 
-						<p><input type="submit" value="submit"></p>
-					</form>
-				</div>
-			</li>
-		</ul>
-	</form>
+			<label>Agency:</label>
+			<input id="txtAltAgency" type="text" value="" size="25">
+			
+			<label>Cost:</label>
+			<input id="txtAltCost" type="text" value="" size="25">
+			
+			<label>Short Description:</label>
+			<input id="txtAltDesc" type="text" value="" size="25">
+			
+			<label>Links:</label> <!--this will be converted to a rich text box editor -->
+			<input id="txtAltLinks" type="text" value="" size="25">
+			
+			<label>Statement For:</label>
+			<input id="txtAltFor" type="text" value="" size="25">
+			
+			<label>Statement Against:</label>
+			<input id="txtAltAgainst" type="text" value="" size="25">
+
+
+			<p><input type="submit" value="submit"></p>
+		</form>
+	</div>
+	
+
 </body>
 </html:html>
 
