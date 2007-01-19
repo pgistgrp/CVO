@@ -56,10 +56,16 @@
 		<pg:show roles="moderator">
 		<h3>Public Components</h3>
 		<ul>
-			<li><html:link page="#">Public Home</html:link></li>
+			<li><html:link page="#">User Home/Dashboard</html:link></li>
+			<li><html:link page="#">User Public Profile</html:link></li>
+			<li><html:link page="#">Learn More: Home</html:link></li>
+			<li><html:link page="#">Learn More: Map</html:link></li>
+			<li><html:link page="#">Frequently Asked Questions</html:link></li>
+			<li><html:link page="/glossaryPublic.do">Learn More: Public Glossary</html:link></li>
+			<li><html:link page="/search.do">Global Search</html:link></li>
 			<li>Step 1: Discuss Concerns</li>
 				<ul>
-					<li><html:link page="cctlist.do">Brainstorm</html:link></li>
+					<li><html:link page="cctlist.do">Brainstorm Concerns</html:link></li>
 					<li><html:link page="sdlist.do">Review Summaries</html:link></li>
 				</ul>
 			<li>Step 2</li>
@@ -70,12 +76,15 @@
 			<li>Step 3</li>
 				<ul>
 					<li><html:link page="sdlist.do">Review Projects</html:link></li>
-					<li><html:link page="#">Express Funding Packages</html:link></li>
+					<li><html:link page="#">Review Funding</html:link></li>
+					<li><html:link page="#">Funding Game</html:link></li>
 					<li><html:link page="#">Create Personal Package</html:link></li>
 				</ul>
 			<li>Step 4</li>
 				<ul>
 					<li><html:link page="sdlist.do">Review Packages</html:link></li>
+					<li><html:link page="#">Re-weigh Criteria</html:link></li>
+					<li><html:link page="#">Compare Packages</html:link></li>
 				</ul>
 			<li>Step 5</li>
 				<ul>
@@ -84,15 +93,16 @@
 		</ul>
 		<h3>Moderator Tools</h3>
 		<ul>
-			<li><html:link page="/feedback.do">Reviewing Feedbacks</html:link></li>
-			<li><html:link page="#">Contact Participants</html:link></li>
-			<li><html:link page="#">Create a Voting Poll</html:link></li>
-			<li><html:link page="#">Manage Workflow</html:link></li>
-			<li>Step 0</li>
+			<li>Setup Expiriment</li>
 				<ul>
-					<pg:show users="admin"><li><a href="/userlist.do">User Management</a></li></pg:show>
+					<li><html:link page="#">Workflow Management Tool</html:link></li>
+					<li><html:link page="/projectMgr.do">Projects Management Tool</html:link></li>
+					<li><html:link page="/fundingMgr.do">Funding Source Management Tool</html:link></li
+					<li><html:link page="/feedback.do">Reviewing Feedbacks</html:link></li>
 					<li><html:link page="/tagging.do">Tags/StopWords Management Tool</html:link></li>
+					<li><html:link page="#">User Management</html:link></li>					
 					<li><html:link page="/glossaryManage.do">Glossary Management Tool</html:link></li>
+					<li><html:link page="#">Mass Email/Alert to Participants</html:link></li>
 				</ul>
 			<li>Step 1</li>
 				<ul>
@@ -105,24 +115,25 @@
 				</ul>
 			<li>Step 3</li>
 				<ul>
-					<li><html:link page="/editProject.jsp">Test Edit Projects</html:link></li>
-					<li><html:link page="/projectMgr.do">Projects Management Tool</html:link></li>
-					<li><html:link page="/projectPublish.do">Projects Publish Tool</html:link></li>
-					<li><html:link page="/fundingMgr.do">Funding Source Management Tool</html:link></li>
-					<li><html:link page="/fundingPublish.do">Funding Source Publish Tool</html:link></li>
+					<li><html:link page="/.do">Define Projects</html:link></li>
+					<li><html:link page="/.do">Grade Projects</html:link></li
+					<li><html:link page="/.do">Define Funding</html:link></li>
 				</ul>
 			<li>Step 4</li>
 				<ul>
-					<li>Packages Management Tool</li>
-					<li>Packages Publish Tool</li>
+					<li><html:link page="/.do">Synthesize Packages</html:link></li>
+					<li><html:link page="/.do">Manage Packages</html:link></li>
+				</ul>
+			<li>Step 5</li>
+				<ul>
+					<li><html:link page="/.do">Manage Report</html:link></li>
+					<li><html:link page="/.do">Manage Packages</html:link></li>
 				</ul>
 		</ul>
 		
 		<h3>Development Tools</h3>
 		<ul>
 			<li><html:link page="/thematic_map.htm">Test Thematic Map</html:link></li>
-			<li><html:link page="/concernManagement.do">Concern Management</html:link></li>
-			<li><html:link page="/search.do">Search</html:link></li>
 			<li><html:link page="/situationList.do">Situation List</html:link></li>
 			<li><html:link page="/pgist-docs/index.html">Javadoc</html:link></li>
 			<li><html:link page="/dwr/index.html">DWR Test</html:link></li>
