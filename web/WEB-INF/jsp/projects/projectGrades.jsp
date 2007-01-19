@@ -21,7 +21,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<title>index</title>
+		<title>Grade Projects</title>
 		<style type="text/css" media="screen">
 			@import "styles/lit.css";
 		</style>
