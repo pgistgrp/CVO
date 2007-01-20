@@ -11,6 +11,7 @@
 
 <body>
 Put weigh criteria here
+available variables: "cct" and "criteria"
 
 </body>
 </html>
