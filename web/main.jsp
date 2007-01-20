@@ -71,7 +71,7 @@
 			<li>Step 2</li>
 				<ul>
 					<li><html:link page="sdlist.do">Review Criteria</html:link></li>
-					<li><html:link page="#">Weigh Criteria</html:link></li>
+					<li><html:link page="criteriaWeigh.do">Weigh Criteria</html:link></li>
 				</ul>
 			<li>Step 3</li>
 				<ul>
