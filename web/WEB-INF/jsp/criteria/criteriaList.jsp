@@ -30,7 +30,8 @@
 		<table id="cctListTable" class="listtable" cellspacing="1" frame="box" rules="all" width="100%">
 		  <c:forEach var="cct" items="${ccts}" varStatus="loop">
 		  	  <tr>
-			    <td><html:link action="/criteriaMgr.do" paramId="cctId" paramName="cct" paramProperty="id"><bean:write name="cct" property="name"/></html:link></td>
+			    <td><html:link action="/criteriaMgr.do" paramId="cctId" paramName="cct" paramProperty="id"><bean:write name="cct" property="name"/>: Review Criteria</html:link></td>
+				<td><html:link action="/criteriaWeigh.do" paramId="cctId" paramName="cct" paramProperty="id"><bean:write name="cct" property="name"/>: Weigh Criteria</html:link></td>
 			  </tr>
 		  </c:forEach>
 		</table>

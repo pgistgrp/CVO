@@ -110,7 +110,7 @@
 				</ul>
 			<li>Step 2</li>
 				<ul>
-					<li><html:link page="/criterialist.do">Criteria Management Tool</html:link></li>
+					<li><html:link page="/criteriaList.do">Criteria Management Tool</html:link></li>
 					<li><html:link page="/criteriaPublish.do">Criteria Publish Tool</html:link></li>
 				</ul>
 			<li>Step 3</li>
