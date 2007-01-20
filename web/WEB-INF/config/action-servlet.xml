@@ -91,11 +91,15 @@
         <property name="fundingService" ref="fundingService"/>
     </bean>
     
-    <bean name="/criterialist" class="org.pgist.criteria.CriteriaListAction">
+    <bean name="/criteriaList" class="org.pgist.criteria.CriteriaListAction">
             <property name="criteriaService" ref="criteriaService"/>
     </bean>
     
     <bean name="/criteriaMgr" class="org.pgist.criteria.CriteriaMgrAction">
+        <property name="criteriaService" ref="criteriaService"/>
+    </bean>
+    
+    <bean name="/criteriaWeigh" class="org.pgist.criteria.CriteriaWeighAction">
         <property name="criteriaService" ref="criteriaService"/>
     </bean>
     

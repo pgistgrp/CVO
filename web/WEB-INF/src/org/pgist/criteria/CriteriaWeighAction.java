@@ -6,6 +6,7 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.cvo.CCT;
 import org.pgist.discussion.InfoStructure;
 import org.pgist.discussion.SDService;
 
@@ -20,16 +21,9 @@ public class CriteriaWeighAction extends Action {
     
     private CriteriaService criteriaService = null;
     
-    private SDService sdService;
-    
     
     public void setCriteriaService(CriteriaService criteriaService) {
         this.criteriaService = criteriaService;
-    }
-
-
-    public void setSdService(SDService sdService) {
-        this.sdService = sdService;
     }
 
 
@@ -44,15 +38,30 @@ public class CriteriaWeighAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-        String isid = request.getParameter("isid");
+        String cctId = request.getParameter("cctId");
         
-        InfoStructure structure = sdService.getInfoStructureById(new Long(isid));
-        
-        request.setAttribute("structure", structure);
-        
-        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
-        
-        return mapping.findForward("main");
+        if (cctId==null) {
+            //retrieve the cct list
+            Collection ccts = criteriaService.getCCTs();
+            request.setAttribute("ccts", ccts);
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            
+            return mapping.findForward("list");
+        } else {
+            //retrieve the criteria list
+            
+            Long id = new Long(cctId);
+            
+            Collection criteria = criteriaService.getCriterias();
+            
+            CCT cct = criteriaService.getCCTById(id);
+            
+            request.setAttribute("cct", cct);
+            request.setAttribute("criteria", criteria);
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            
+            return mapping.findForward("view");
+        }
     }//execute()
 
 
