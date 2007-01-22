@@ -12,7 +12,7 @@
 	Page: Funding Manager
 	Description: CRUD Events on All Funding and their Alternatives
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Issac Yang
+	     Front End: Jordan Isip, Adam Hindman, Isaac Yang
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
@@ -35,11 +35,11 @@
 <!-- End DWR JavaScript Libraries -->
 
 <!--Criteria Specific  Libraries-->
-<script type='text/javascript' src='/dwr/interface/FudningAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/FundingAgent.js'></script>
 
 <script>
 // Global Variables
-
+getFundingSources();
 
 // END Global Variables
 	/* *************** get all funding sources in the system *************** */
@@ -53,7 +53,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-			alert("FundingAgent.getFundingSources( error:" + errorString + exception);
+			alert("FundingAgent.getFundingSources( error:" + errorString + exception+")"+);
 			}
 		});
 	}
@@ -71,15 +71,15 @@
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-			alert("ClassName.methodName( error:" + errorString + exception);
+			alert("FundingAgent.createFundingSource( error:" + errorString + exception+")"+);
 			}
 		});
 	}
 	
 	/* *************** create a new funding source alternative *************** */
-	function createFundingSourceAlternative(params){
+	function addAlternative(fid,fname,frev,ftax){
 		//alert("param1: " + param1 + " param2: " + param2 + " param3: " + param3 + " param4: " + param4); 
-		ClassName.methodName({param1:param1,param2:param2,param3:param3,param4:param4}, {
+		FundingAgent.createFundingSourceAlt({id:fid,name:fname,revenue:frev,taxRate:ftax}, {
 			callback:function(data){
 				if (data.successful){
 					alert(data.html)
@@ -88,31 +88,212 @@
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-			alert("ClassName.methodName( error:" + errorString + exception);
+				alert("FundingAgent.createFundingSourceAlt( error:" + errorString + exception+")"+);
 			}
 		});
 	}
 	
 	/* *************** delete a given funding source *************** */
-	//deleteFundingSource()
+	function deleteFundingSource(fid){
+		FundingAgent.deleteFundingSource({id:fid}, {
+			callback:function(data){
+				if(data.successful){
+					alert("Funding source deleted");
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){
+				alert("FundingAgent.deleteFundingSource( error:" + errorString + exception+")"+);
+			}
+		});
+		
+	}
 	
 	
 	/* *************** delete a given funding source alternative *************** */
-	//deleteFundingSourceAlt()
+	function deleteAlternative(fid){
+		FundingAgent.deleteAlternative({id:fid}, {
+			callback:function(data){
+				if(data.successful){
+					alert("Alt funding source deleted");
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){
+				alert("FundingAgent.deleteAlternative( error:" + errorString + exception+")"+);
+			}
+		});
+		
+	}
 
 	/* *************** create a form (via javascript) to edit a given funding source *************** */
 	//prepareEditFundingSource
 		//getFundingSourceById
+	
+	function prepareEditFundingSource(id){
+		var name='editName'+id;
+		var val="";
+		FundingAgent.getFundingSourceById({id:fid}, {
+			callback:function(data){
+				if(data.successful){
+					alert(data.source);
+					val=data.source.name;
+				}else{
+					alert(data.reason);
+					val="";
+				}
+			},
+			errorHandler:function(errorString, exception){
+				alert("FundingAgent.getFundingSourceById( error:" + errorString + exception+")"+);
+			}
+		});
 		
+		filler="<input name='txtsourceEdit"+id+"' type='text' value='"+val+"' size='25'> <input type='submit' value='submit' onclick='editFundingSource("+id+",$(\'txtsourceEdit"+id+"\').value); Effect.toggle(\'editsource"+id+"\',\'blind\');'>";
+	
+	$('editsource'+id).innerHTML=filler;
+	}
+	
+	function getFundingSourceById(fid){
+		FundingAgent.getFundingSourceById({id:fid}, {
+			callback:function(data){
+				if(data.successful){
+					alert(data.source);
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){
+				alert("FundingAgent.getFundingSourceById( error:" + errorString + exception+")"+);
+			}
+		});
+		
+	}
 	/* *************** edit a given funding source *************** */	
 	//editFundingSource
+	
+	function editFundingSource(fid, fname){
+		FundingAgent.editFundingSource({id:fid, name:fname}, {
+			callback:function(data){
+				if(data.successful){
+					alert("Funding source edited");
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){
+				alert("FundingAgent.editFundingSource( error:" + errorString + exception+")"+);
+			}
+		});
+		
+	}
 	
 	/* *************** create a form (via javascript) to edit a given funding source alternative*************** */
 	//prepareEditFundingSourceAlt
 		//getFundingSourceAltById
+		
+	function prepareEditFundingSourceAlt(id){
+	var name='editNameAlt'+id;
+	var rev='editRevenueAlt'+id;
+	var tax='editTaxAlt'+id;
+			filler="";
+			filler+="<fieldset style='float:left;'>";
+			filler+="<form id='editFundingSourceAlt"+id+"' name='editFundingSourceAlt"+id+"'>";
+			filler+="<h3>Edit Funding Source Alternative</h3>";
+			filler+="<br />";
+			filler+="<label for='editNameAlt"+id+"' class='niceFormElement'>Funding Source Alternative Name</label>";
+			filler+="<input id='editNameAlt"+id+"' name='editNameAlt"+id+"' type='text' class='niceFormElement' /><br />";
+			
+			filler+="<label for='editRevenueAlt"+id+"' class='niceFormElement'>Funding Source Alternative Revenue</label>";
+			filler+="<input id='editRevenueAlt"+id+"' name='editRevenueAlt"+id+"' type='text' class='niceFormElement' /><br />";
+			
+			filler+="<label for='editTaxAlt"+id+"' class='niceFormElement'>Funding Source Alternative Tax Rate</label>";
+			filler+="<input id='editTaxAlt"+id+"' name='editTaxAlt"+id+"' type='text' class='niceFormElement' /><br />";
+			
+			filler+="<br />";
+			
+			filler+="<input type='button' value='Save Funding Source Alternative Edits' onClick='editFundingSourceAlt("+id+","+$(name).value+","+$(rev).value+","+$(tax).value+";'/>";
+			filler+="<input type='reset' value='Clear Form' />";
+			filler+="<br />";
+			filler+="</form>";
+		filler+="</fieldset>";
+		$('editsourceAlt'+id).innerHTML=filler;
+		
+		FundingAgent.getFundingSourceAltById({id:fid}, {
+			callback:function(data){
+				if(data.successful){
+					alert(data.alternative);
+					$(name).value=data.alternative.name;
+					$(rev).value=data.alternative.revenue;
+					$(tax).value=data.alternative.taxRate;
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){
+				alert("FundingAgent.getFundingSourceAltById( error:" + errorString + exception+")"+);
+			}
+		});
+	}
+	
+	function getFundingSourceAltById(fid){
+		FundingAgent.getFundingSourceAltById({id:fid}, {
+			callback:function(data){
+				if(data.successful){
+					alert(data.alternative);
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){
+				alert("FundingAgent.getFundingSourceAltById( error:" + errorString + exception+")"+);
+			}
+		});
+		
+	}
 	
 	/* *************** edit a given funding source alternative *************** */	
 	//editFundingSourceAlt
+	
+	function editFundingSourceAlt(fid,fname,frev,ftax){
+		FundingAgent.editFundingSourceAlt({id:fid, name:fname, revenue:frev, taxRate:ftax}, {
+			callback:function(data){
+				if(data.successful){
+					alert("Alt funding Source edited");
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){
+				alert("FundingAgent.editFundingSourceAlt( error:" + errorString + exception+")"+);
+			}
+		});
+		
+	}
+	
+	function prepareAddAlternative(id){
+		var name="txtNewFundingAltName"+id;
+		var rev="txtNewFundingAltRevenue"+id;
+		var tax="txtNewFundingAltTax"+id;
+		filler="";
+		filler+="<h4>Create New Funding Source Alternative</h4>";
+		filler+="<form onsubmit='return false;'>";
+		filler+="<label>Name:</label>";
+		filler+="<input id='txtNewFundingAltName"+id+"' name='txtNewFundingAltName"+id+"' type='text' value='' size='25'/>";
+		filler+="<br/>";
+		filler+="<label>Revenue:</label>";
+		filler+="<input id='txtNewFundingAltRevenue"+id+"' name='txtNewFundingAltRevenue"+id+"' type='text' value=''size='25'/>";
+		filler+="<br/>";
+		filler+="<label>Tax Rate:</label>";
+		filler+="<input id='txtNewFundingAltTax"+id+"' name='txtNewFundingAltTax"+id+"' type='text' value='' size='25'/>";
+		filler+="<br/>";
+		filler+="<input type='submit' value='Add New Funding Source Alternative' onclick='addAlternative("+id+","+$(name).value+","+$(rev).value+","+$(tax).value+")'";
+		filler+="</form>";
+		$('addsourceAlt'+id).innerHTML=filler;
+	
+	
+	}
 	
 </script>
 <style type="text/css">
@@ -130,10 +311,12 @@
 			<c:forEach var="source" items="${sources}">
 				<li><input type="checkbox" name="sourceId" value="${source.id}"/>${source.name} [ <a href="javascript:Effect.toggle('editsource${source.id}','blind');">edit</a> ] [ <html:link action="/sourceMgr.do?action=delete" paramId="id" paramName="source" paramProperty="id">delete</html:link> ]
 					<ul>
-						<li id="editsource${source.id}" style="display: none;"><input name="txtsourceEdit${source.id}" type="text" value="${source.name}" size="25"> <input type="submit" value="submit"></li>
-						<li>[ <a href="javascript:addAlternative(${source.id});">Add an Alternative</a> ]</li>
+						<li id="editsource${source.id}" style="display: none;"></li>
+						<li>[ <a href="javascript:prepareAddAlternative(${source.id});Effect.toggle('addsourceAlt${source.id}','blind');">Add an Alternative</a> ]</li>
+						<li id="addsourceAlt${source.id}" style="display:none;"></li>
 						<c:forEach var="alternative" items="${source.alternatives}">
-							<li>${alternative.name} [ <a href="javascript: editAlternative(${alternative.id});">edit</a> ] [ <a href="javascript:deleteAlternative(${alternative.id});">delete</a> ]</li>
+							<li>${alternative.name} [ <a href="javascript: prepareEditFundingSourceAlt(${alternative.id}); Effect.toggle('editsourceAlt${alternative.id}');">edit</a> ] [ <a href="javascript:deleteAlternative(${alternative.id});">delete</a> ]</li>
+							<li style="display:none;" id="editsourceAlt${alternative.id}"></li>
 						</c:forEach>
 					</ul>
 				</li>
@@ -142,14 +325,11 @@
 			<li>[ <a href="javascript:Effect.toggle('newsourceForm', 'blind');">New Funding Source</a> ]
 				<div id="newsourceForm" style="display: none;">
 					<h4>Create New Funding Source</h4>
-					<form>
+					<form onsubmit="return false;">
 						<label>Name:</label>
-						<input name="txtNewCriterion" type="text" value="" size="25">
+						<input id="txtNewFundingSource" name="txtNewFundingSource" type="text" value="" size="25"/>
 
-						<label>Description:</label>
-						<textarea name="txtLowDesc" cols="100" rows="5"></textarea>
-
-						<p><input type="submit" value="submit"></p>
+						<p><input type="submit" value="submit" onclick="createFundingSource($('txtNewFundingSource').value);"></p>
 					</form>
 				</div>
 			</li>
