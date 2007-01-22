@@ -76,9 +76,9 @@
 			<li>Step 3</li>
 				<ul>
 					<li><html:link page="sdlist.do">Review Projects</html:link></li>
-					<li><html:link page="#">Review Funding</html:link></li>
-					<li><html:link page="#">Funding Game</html:link></li>
-					<li><html:link page="#">Create Personal Package</html:link></li>
+					<li><html:link page="sdlist.do">Review Funding</html:link></li>
+					<li><html:link page="sdlist.do">Funding "Tax Calculator" Game</html:link></li>
+					<li><html:link page="sdlist.do">Create Personal Package</html:link></li>
 				</ul>
 			<li>Step 4</li>
 				<ul>
