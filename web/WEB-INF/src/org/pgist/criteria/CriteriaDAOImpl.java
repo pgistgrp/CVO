@@ -172,21 +172,26 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     
     public void setWeight(CCT cct, Criteria criteria, int weight) throws Exception {
     	
-		CriteriaWeight cw = new CriteriaWeight();
-		cw.setCct(cct);
-		cw.setCriteria(criteria);
-		cw.setWeight(weight);
-		cw.setAuthor(getUserById(WebUtils.currentUserId()));
-			
     	List list = getHibernateTemplate().find(hql_setWeight, new Object[] {
     			getUserById(WebUtils.currentUserId()), criteria,
         });
     	
     	if(list.size()>0) {
-    		throw new Exception("CriteriaWeight already exist.");
+    		CriteriaWeight c = (CriteriaWeight) list.get(0);
+    		c.setCct(cct);
+    		c.setCriteria(criteria);
+    		c.setWeight(weight);
+    		c.setAuthor(getUserById(WebUtils.currentUserId()));
+    		save(c);
+    	} else {
+    		CriteriaWeight cw = new CriteriaWeight();
+    		cw.setCct(cct);
+    		cw.setCriteria(criteria);
+    		cw.setWeight(weight);
+    		cw.setAuthor(getUserById(WebUtils.currentUserId()));
+    		save(cw);
     	}
-    
-		save(cw);	
+    	
     }//addCriterion()
     
     
