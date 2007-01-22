@@ -16,7 +16,7 @@
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] loop through all funding sources
+		[x] loop through all funding sources (jordan)
 
 		
 #### -->

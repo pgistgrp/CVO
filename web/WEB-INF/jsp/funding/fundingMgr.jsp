@@ -16,7 +16,7 @@
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] BareBones JavaScript (Isaac)
+		[x] BareBones JavaScript (Isaac)
 		
 #### -->
 <html:html> 
@@ -38,16 +38,15 @@
 <script type='text/javascript' src='/dwr/interface/FundingAgent.js'></script>
 
 <script>
-// Global Variables
-getFundingSources();
+	//on-load
+	getFundingSources();
 
-// END Global Variables
 	/* *************** get all funding sources in the system *************** */
 	function getFundingSources(){
 		FundingAgent.getFundingSources({}, {
 			callback:function(data){
 				if (data.successful){
-					alert(data.html) // gets fundingMgr_sources.jsp
+					$('sourcesList').innerHTML = data.html // gets fundingMgr_sources.jsp
 				}else{
 					alert(data.reason);
 				}
@@ -82,7 +81,8 @@ getFundingSources();
 		FundingAgent.createFundingSourceAlt({id:fid,name:fname,revenue:frev,taxRate:ftax}, {
 			callback:function(data){
 				if (data.successful){
-					alert(data.html)
+					alert("successful");
+					getFundingSources();
 				}else{
 					alert(data.reason);
 				}
@@ -99,6 +99,7 @@ getFundingSources();
 			callback:function(data){
 				if(data.successful){
 					alert("Funding source deleted");
+					getFundingSources();
 				}else{
 					alert(data.reason);
 				}
@@ -117,6 +118,7 @@ getFundingSources();
 			callback:function(data){
 				if(data.successful){
 					alert("Alt funding source deleted");
+					getFundingSources();
 				}else{
 					alert(data.reason);
 				}
@@ -306,33 +308,9 @@ getFundingSources();
 	<h3>Moderator Tools &raquo; Manage Funding</h3> 
 	<form name="publishsources" action="sourceDefine.do">
 		<input type="hidden" name="activity" value="save" />
-		<h4>All Funding Sources</h4>
+		<h4>Funding Sources in ${cct.name}</h4>
 		<ul id="sourcesList">
-			<c:forEach var="source" items="${sources}">
-				<li><input type="checkbox" name="sourceId" value="${source.id}"/>${source.name} [ <a href="javascript:Effect.toggle('editsource${source.id}','blind');">edit</a> ] [ <html:link action="/sourceMgr.do?action=delete" paramId="id" paramName="source" paramProperty="id">delete</html:link> ]
-					<ul>
-						<li id="editsource${source.id}" style="display: none;"></li>
-						<li>[ <a href="javascript:prepareAddAlternative(${source.id});Effect.toggle('addsourceAlt${source.id}','blind');">Add an Alternative</a> ]</li>
-						<li id="addsourceAlt${source.id}" style="display:none;"></li>
-						<c:forEach var="alternative" items="${source.alternatives}">
-							<li>${alternative.name} [ <a href="javascript: prepareEditFundingSourceAlt(${alternative.id}); Effect.toggle('editsourceAlt${alternative.id}');">edit</a> ] [ <a href="javascript:deleteAlternative(${alternative.id});">delete</a> ]</li>
-							<li style="display:none;" id="editsourceAlt${alternative.id}"></li>
-						</c:forEach>
-					</ul>
-				</li>
-			</c:forEach>
-
-			<li>[ <a href="javascript:Effect.toggle('newsourceForm', 'blind');">New Funding Source</a> ]
-				<div id="newsourceForm" style="display: none;">
-					<h4>Create New Funding Source</h4>
-					<form onsubmit="return false;">
-						<label>Name:</label>
-						<input id="txtNewFundingSource" name="txtNewFundingSource" type="text" value="" size="25"/>
-
-						<p><input type="submit" value="submit" onclick="createFundingSource($('txtNewFundingSource').value);"></p>
-					</form>
-				</div>
-			</li>
+			<!-- load sources here-->
 		</ul>
 	</form>
 </body>
