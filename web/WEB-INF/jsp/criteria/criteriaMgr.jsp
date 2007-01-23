@@ -117,14 +117,24 @@
 		}
 		
 		/* *************** Add a new Objective to the List *************** */
-		function addObjective(){
+		function addObjective(id){
 			var description = $('newObjective').value;
+			if(id){
+			description=$('newObjective'+id).value;
+			}
 			//alert("description: " + description ); 
 			CriteriaAgent.addObjective({description:description}, {
 				callback:function(data){
 					if (data.successful){
-						getObjectives();
+						if(id){
+							getObjectives(id);
+						}else{
+							getObjectives();
+						}
 						//reset form
+						if(id){
+							$('newObjective'+id).value='';
+						}
 						$('newObjective').value = '';
 					}else{
 						alert(data.reason);
@@ -140,16 +150,88 @@
 		function editCriterionPopup(id) {
 			//code to display edit fields
 			$('criteriaEdit' + id).innerHTML = "";
+			filler="";
+			filler+="<fieldset style='float:left;'>";
+			filler+="<form id='editPlanningFactor"+id+"' name='editPlanningFactor"+id+"'>";
+			filler+="<h3>Edit Planning Factor</h3>";
+			filler+="<br />";
+			filler+="<label for='editName"+id+"' class='niceFormElement'>Factor Name</label>";
+			filler+="<input id='editName"+id+"' name='editName"+id+"' type='text' class='niceFormElement' /><br />";
+			
+			filler+="<label for='editDescription"+id+"' class='niceFormElement'>Description</label>";
+			filler+="<textarea id='editDescription"+id+"' name='editDescription"+id+"' class='niceFormElement'></textarea><br />";
+			
+			filler+="<label for='editThemesDiv"+id+"' class='niceFormElement'>Related Themes (optional)</label>";
+			filler+="<div id='editThemesDiv"+id+"'>";
+				<!-- load themes here - getThemes() -->
+			filler+="</div><br />";
+			
+			filler+="<br />";
+			
+			filler+="<label for='editObjectivesDiv"+id+"' class='niceFormElement'>Factor Objectives</label>";
+
+			filler+="<div id='editObjectivesDiv"+id+"'>";
+				<!-- load objectives here - getObjectives() -->
+			filler+="</div>";
+
+			filler+="<br /><p />";
+			
+				filler+="<label for='newObjective"+id+"' class='niceFormElement'>Add a New Objective</label>";
+				filler+="<input type='text' id='newObjective"+id+"' style='width:300px;'>";
+				filler+="<input type='button' style='margin-left:10px;' value='Add to List' onClick='javascript:addObjective("+id+");'>";
+
+			filler+="<br />";
+			
+
+			filler+="<div id='list"+id+"' style='margin-top:1em;margin-bottom:1em;' class='indentNiceForm'>";
+			
+			filler+="</div>";
+
+
+			
+			filler+="<input type='button' value='Save Planning Factor Edits' onClick='editCriterion("+id+");'/>";
+			filler+="<input type='reset' value='Clear Form' />";
+			filler+="<br />";
+			filler+="</form>";
+		filler+="</fieldset>";
+			$('criteriaEdit'+id).innerHTML=filler;
+			fillEditForm(id);
+			
+			new Effect.BlindDown('criteriaEdit'+id);
+			//$('name').value
 			//code to display edit fields
+		}
+		
+		function fillEditForm(critId){
+			CriteriaAgent.getCriterionById({id:critId},{
+				callback:function(data){
+					if(data.successful){
+					$('editName'+critId).value=data.criterion.name;
+					$('editDescription'+critId).value=data.criterion.na;
+					$('editThemesDiv'+critId).innerHTML=getThemes(critId);
+					
+					
+					$('editObjectivesDiv'+critId).innerHTML=getObjectives(critId);
+					
+						
+					}else{
+					alert("getCriterionById failed in fillEditForm");
+					}
+				},
+				async:false,
+				errorHandler:function(errorString,exception){
+					alert("CriteriaAgent.getCriterionById in fillEditForm(error:"+ errorString+exception);
+				}
+			});
 		}
 		
 		/* *************** Produce a form to edit a given criterion *************** */
 		function editCriterion(id){
 			//alert("name: " + name + " description: " + description + " themes: " + themes + " objectivesArr: " + objectivesArr); 
-			var themesArr = getOptionValueFromObjects($('themes').options); //grabs from multi select list
-			var objectivesArr = getOptionValueFromObjects($('objectives').options); ; //grabs from multi select list
-			var name = $('name').value;
-			var description = $('description').value;
+			var themesArr = getOptionValueFromObjects($('editThemes'+id).options); //grabs from multi select list
+			var objectivesArr = getOptionValueFromObjects($('editObjectives'+id).options); ; //grabs from multi select list
+			var name = $('editName'+id).value;
+			var description = $('editDescription'+id).value;
 			
 			//alert("id: " + id +" name: " + name + " description" + description + " themes: " + themesArr + " objectives: " + objectivesArr);
 			CriteriaAgent.editCriterion({id:id,name:name,description:description,themesArr:themesArr,objectivesArr:objectivesArr}, {
@@ -205,12 +287,16 @@
 		}		
 		
 		/* *************** Grab all themes for the current instance *************** */
-		function getThemes(){
+		function getThemes(id){
 			//alert("cctId: " + cctId); 
 			CriteriaAgent.getThemes({cctId:cctId}, {
 				callback:function(data){
 					if (data.successful){
-						$('themes').innerHTML = data.html;
+						if(id){
+							$('editThemesDiv'+id).innerHTML=data.html;
+						}else{
+							$('themes').innerHTML = data.html;
+						}
 					}else{
 						alert(data.reason);
 					}
@@ -222,10 +308,13 @@
 		}
 		
 		/* *************** Grab all objectives for the current instance *************** */
-		function getObjectives(){
+		function getObjectives(id){
 			CriteriaAgent.getObjectives({}, {
 				callback:function(data){
 					if (data.successful){
+						if(id){
+							$('editObjectivesDiv'+id).innerHTML=data.html;
+						}
 						$('objectives').innerHTML = data.html;
 					}else{
 						alert(data.reason);
@@ -242,10 +331,10 @@
 			cleanList = [];
 		    for (var i = 0; i < optionObjs.length; i++) {
 		        if (optionObjs[i].selected) {
-					cleanList.push(optionObjs[i].value)
+					cleanList.push(optionObjs[i].value);
 		        }
 			}
-		    return cleanList
+		    return cleanList;
 		}
 		
 		function publish(){
@@ -444,7 +533,7 @@
 	</head>
 	<body>
 		<a href="main.do">Back Home</a>
-		<h2>Manage Planning Factors for Expiriment: ${cct.name}</h2>
+		<h2>Manage Planning Factors for Experiment: ${cct.name}</h2>
 		<!-- Begin list of planning factors -->
 		
 		<!-- START All Criteria List -->

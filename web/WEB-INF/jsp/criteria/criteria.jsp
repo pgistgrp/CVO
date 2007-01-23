@@ -17,7 +17,7 @@
 	Description: This is a partial page that defines the view of a single criteria in criteriaMgr.jsp.
 				 This is also used on sdcritStructureTarget.jsp
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Issac Yang
+	     Front End: Jordan Isip, Adam Hindman, Isaac Yang
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)

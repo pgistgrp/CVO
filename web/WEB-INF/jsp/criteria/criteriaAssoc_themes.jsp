@@ -11,7 +11,7 @@
 	Page: Themes List
 	Description: This is a partial page that is included via getThemes in criteriaMgr.
 				 This page will loop through all of the themes in a given workflow instance.
-	Author(s): Jordan Isip, Adam Hindman, Issac Yang
+	Author(s): Jordan Isip, Adam Hindman, Isaac Yang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[ ] Test if page is pulled by getThemes (Jordan)
@@ -23,9 +23,9 @@
 	</c:when>
 	<c:otherwise>
 		<ul class="assocList">
-			<c:forEach var="theme" items="${themes}" varStatus="loop">
+		<c:forEach var="theme" items="${themes}" varStatus="loop">
 				<li class="assocList"><input type="checkbox" name="themesGroup" id="theme-${theme.id}"> ${theme.title}</li>
-			</c:forEach>
+		</c:forEach>
 		</ul>
 	</c:otherwise>
 </c:choose>

@@ -12,7 +12,7 @@
 	Description: This is a partial page that is included via getObjectives in criteriaMgr.
 				 This page will loop through all of the objectives in a given workflow instance.
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Issac Yang
+	     Front End: Jordan Isip, Adam Hindman, Isaac Yang
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
