@@ -402,11 +402,6 @@ public class CriteriaAgent {
             Collection criteria = criteriaService.getAllCriterion();
             Collection weights = criteriaService.getWeights(cctId);
             
-            System.out.println("Debug For Jordan:");
-            for (Criteria one : (Collection<Criteria>) criteria) {
-                System.out.println("---> "+one.getName());
-            }
-            
             for (CriteriaWeight weight : (Collection<CriteriaWeight>) weights) {
                 Criteria crit = weight.getCriteria();
                 crit.setObject(weight);
