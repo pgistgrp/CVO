@@ -13,11 +13,25 @@ import java.util.Set;
 public class FundingSource implements Serializable {
     
     
+    private static final int TYPE_GAS_TAX = 1;
+    
+    private static final int TYPE_SALES_TAX = 2;
+    
+    private static final int TYPE_BRIDGE_TOLL = 3;
+    
+    private static final int TYPE_ROAD_TOLL = 4;
+    
+    
     private Long id;
     
     private String name;
     
     private Set alternatives = new HashSet();
+    
+    /**
+     * type of the funding source
+     */
+    private int type;
     
     private FundingSourceAlternative selected = null;
     
@@ -66,6 +80,19 @@ public class FundingSource implements Serializable {
 
 
     /**
+     * @hibernate.property not-null="true"
+     */
+    public int getType() {
+        return type;
+    }
+
+
+    public void setType(int type) {
+        this.type = type;
+    }
+    
+    
+    /**
      * @return
      * 
      * @hibernate.many-to-one column="alternative_id" cascade="none"
@@ -78,6 +105,6 @@ public class FundingSource implements Serializable {
     public void setSelected(FundingSourceAlternative selected) {
         this.selected = selected;
     }
-    
-    
+
+
 }//class FundingSource

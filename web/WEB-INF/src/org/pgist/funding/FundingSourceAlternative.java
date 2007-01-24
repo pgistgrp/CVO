@@ -21,6 +21,8 @@ public class FundingSourceAlternative implements Serializable {
     
     private FundingSource source;
     
+    private boolean toll;
+    
     
     /**
      * @hibernate.id generator-class="native"
@@ -86,6 +88,21 @@ public class FundingSourceAlternative implements Serializable {
 
     public void setSource(FundingSource source) {
         this.source = source;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.property
+     */
+    public boolean isToll() {
+        return toll;
+    }
+
+
+    public void setToll(boolean toll) {
+        this.toll = toll;
     }
     
     

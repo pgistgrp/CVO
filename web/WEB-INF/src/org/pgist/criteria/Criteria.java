@@ -29,7 +29,8 @@ public class Criteria implements Serializable {
     private Set themes = new HashSet();
     
     private Set objectives = new HashSet();
-   
+    
+    private Object object;
     
     
     /**
@@ -126,6 +127,21 @@ public class Criteria implements Serializable {
 	public void setCct(CCT cct) {
 		this.cct = cct;
 	}
+
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+
+    public Object getObject() {
+        return object;
+    }
+
+
+    public void setObject(Object object) {
+        this.object = object;
+    }
     
     
 }//class Criteria
