@@ -399,7 +399,7 @@ public class CriteriaAgent {
         Long cctId = new Long((String) params.get("cctId"));
         
         try {
-            Collection criteria = criteriaService.getCriterias();
+            Collection criteria = criteriaService.getAllCriterion();
             Collection weights = criteriaService.getWeights(cctId);
             
             System.out.println("Debug For Jordan:");
