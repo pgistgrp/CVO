@@ -27,6 +27,7 @@
 		
 		<script type="text/javascript" charset="utf-8">
 			var cctId = "${cct.id}"
+			/* *************** Pull all criteria and their associated weights and objectives (criteriaAssoc_weights.jsp) *************** */
 			function getWeights(){
 				CriteriaAgent.getWeights({cctId:cctId},{
 				  callback:function(data){
@@ -42,6 +43,7 @@
 				  });
 			}
 			
+			/* *************** Set the weight of givin criterion *************** */
 			function setWeight(critId, weight){
 				//alert("cctId: " + cctId + " critId: " + critId + " weight: " + weight + " param4: " + param4); 
 				CriteriaAgent.setWeight({cctId:cctId,critId:critId,weight:weight}, {
@@ -58,6 +60,7 @@
 				});
 			}
 			
+			/* *************** Toggle simple tree menu - maybe pull this into an external file since a few files are now using this? *************** */			
 			function expandList(objective,icon){
 				Effect.toggle(objective, 'appear', {duration: .5, afterFinish:
 					//window.setTimeout(toggleIcon,100);
@@ -77,7 +80,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="criteria"></div>
+		<div id="criteria"><!--load the criteria partial here --></div>
 		<script type="text/javascript" charset="utf-8">
 			getWeights();
 		</script>
