@@ -403,8 +403,8 @@ public class CriteriaAgent {
             Collection weights = criteriaService.getWeights(cctId);
             
             System.out.println("Debug For Jordan:");
-            for (Criteria one : criteria) {
-                System.out.println("---> "+criteria.getName());
+            for (Criteria one : (Collection<Criteria>) criteria) {
+                System.out.println("---> "+one.getName());
             }
             
             for (CriteriaWeight weight : (Collection<CriteriaWeight>) weights) {
