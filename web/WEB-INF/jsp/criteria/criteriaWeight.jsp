@@ -78,11 +78,154 @@
 		<style type="text/css" media="screen">
 			@import "styles/lit.css";
 		</style>
+		
+		<style type="text/css" media="screen">
+			.criteriaListRow
+			{
+			background:#E7F2F7;
+			padding:.3em 0em;
+			}
+
+			.criteriaListHeader
+			{
+			background:#fff;
+			}
+
+			#allCriteriaList
+			{
+			text-align:left;
+			}
+
+			.even {background: #ffffff}
+
+			.weighCriteriaCol1
+			{
+			width:210px;
+			margin-right:.5em;
+			}
+
+			.weighCriteriaCol1 img
+			{
+			margin:0px 3px 0px 0px;
+			vertical-align:middle;
+			border:0px;
+			}
+
+			.weighCriteriaCol2
+			{
+			width:330px;
+			}
+
+			.weighCriteriaCol3
+			{
+			margin-left:.5em;
+			width:370px;
+			}	
+
+			h4
+			{
+			font-size:1em;
+			margin:0px;
+			padding:0px;
+			}
+
+			.objectives
+			{
+			padding:.5em;
+			}
+		</style>
+		
 	</head>
 	<body>
-		<div id="criteria"><!--load the criteria partial here --></div>
+		<!-- Begin conditional styles for the benefit of IE -->
+		<!--[if IE]>
+		                          <style type="text/css">
+		                          #sortingMenu {right:0px;}
+								  #criteriaRuler {width:745px;}
+		                          </style>
+		          <![endif]-->
+		<!-- End conditional styles -->
+		
+		<!-- Begin header -->
+		<div id="header"> [Load from separate file] </div>
+		<!-- End header -->
+		<!-- Begin header menu - The wide ribbon underneath the logo -->
+		<div id="headerMenu">
+			<div id="headerContainer">
+				<div id="headerTitle" class="floatLeft">
+					<h3 class="headerColor">Step 2: Evaluate Planning Factors</h3>
+				</div>
+				<div class="headerButton floatLeft"> <a href="step2a.html">2a:
+						Review and discuss factors</a> </div>
+				<div class="headerButtonCurrent floatLeft currentBox"> <a href="step2b.html">2b:
+						Weigh factors</a> </div>
+				<div id="headerNext" class="floatRight box5"> <a href="/sdcWaiting.jsp">Next
+						Step</a> </div>
+			</div>
+		</div>
+		<!-- End header menu -->
+		<!-- Begin loading indicator -->
+		<div style="display: none;" id="loading-indicator"> Loading... 
+			<img src="/images/indicator_arrows.gif"> 
+		</div>
+		<!-- End loading indicator -->
+		<!-- Begin container - Main page content begins here -->
+		<div id="container">
+			<!-- begin "overview and instructions" area -->
+			<div id="overview" class="box2">
+				<h3>Overview and Instructions</h3>
+				<p>Criteria are used to help Evaluate which proposed transportation
+					projects are best suited to address problems with our transportation
+					system. Below, these criteria have been associated with the
+					concern themes discussed in the previous step. Please review
+					these criteria and the associated themes. Do these criteria
+					adequately reflect your concerns and the summaries? What criteria
+					might be useful in evaluating proposed transportation projects?</p>
+				<p><a href="readmore.jsp">Read more about how this step fits
+						into the bigger picture</a>.</p>
+			</div>
+			<!-- end overview -->
+			<!-- begin object -->
+			<div id="object">
+				<!-- begin object content -->
+				<div id="object-content">
+					<div id="criteria">
+						<!--load the criteria partial here -->
+					</div>
+				</div><!--end object content -->
+					
+					
+				<div class="floatRight padding5">
+					<input type="button" value="Save and Continue" />
+				</div>
+				<div class="clearBoth">&nbsp;</div>
+			</div><!-- end object -->
+		</div><!--end container -->
+				
+		<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 		<script type="text/javascript" charset="utf-8">
 			getWeights();
 		</script>
+		
+		<!-- start the bottom header menu -->
+		<!-- Begin header menu - The wide ribbon underneath the logo -->
+		<div id="headerMenu">
+			<div id="headerContainer">
+				<div id="headerTitle" class="floatLeft">
+					<h3 class="headerColor">Step 2: Evaluate Planning Factors</h3>
+				</div>
+				<div class="headerButton floatLeft"> <a href="step2a.html">2a:
+						Review and discuss factors</a> </div>
+				<div class="headerButtonCurrent floatLeft currentBox"> <a href="step2b.html">1b:
+						Weigh factors</a> </div>
+				<div id="headerNext" class="floatRight box5"> <a href="/sdcWaiting.jsp">Next
+						Step</a> </div>
+			</div>
+		</div>
+		<!-- End header menu -->
+		<!-- end the bottom header menu -->
+		<!-- Begin footer -->
+		<div id="footer"> </div>
+		<!-- End footer -->
 	</body>
 </html>
