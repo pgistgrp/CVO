@@ -30,20 +30,15 @@
 	    <div class="weighCriteriaCol2 floatLeft">${criterion.na}</div>
 	    <div class="weighCriteriaCol3 floatLeft">
 	    	<!-- start slider bar -->
-			
+				<div id="${criterion.name}Slider"> </div>
 			
 			<!-- end slider bar -->
 			<!--weights-->
-			<input size="2" type="text" maxlength="2" value=
-				<c:choose>
-					<c:when test="${criterion.object.weight != null}">
-						"${criterion.object.weight}"
-					</c:when>
-					<c:otherwise>
-						"0"
-					</c:otherwise>
-				</c:choose>	
-			onchange="setWeight('${criterion.id}', this.value);" />
+			
+			
+
+			
+			
 			<!-- end weights -->
 	    </div>
 	    <div class="clearBoth"></div>
