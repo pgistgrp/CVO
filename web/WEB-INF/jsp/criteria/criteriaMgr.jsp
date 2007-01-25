@@ -34,7 +34,6 @@
 <!-- End DWR JavaScript Libraries -->
 
 <!--Criteria Specific  Libraries-->
-<script src="scripts/SideBar.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/interface/CriteriaAgent.js'></script>
 
 	<script type="text/javascript" charset="utf-8">
