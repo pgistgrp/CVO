@@ -25,7 +25,7 @@
 		<style type="text/css" media="screen">
 			@import "styles/lit.css";
 		</style>
-		<script type="text/javascript" charset="utf-8">
+		<script type="text/javascript" charseut="utf-8">
 			function setGrading(altId, critId, objId, value){
 				alert("altId: " + altId + " critId: " + critId + " objId: " + objId +" value: " +value ); 
 				ProjectAgent.setGrading({altId:altId,critId:critId,objId:objId,value:value {

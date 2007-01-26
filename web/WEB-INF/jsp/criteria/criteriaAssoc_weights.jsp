@@ -35,10 +35,7 @@
 			<!-- end slider bar -->
 			<!--weights-->
 			
-			
-
-			
-			
+						
 			<!-- end weights -->
 	    </div>
 	    <div class="clearBoth"></div>

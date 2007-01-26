@@ -162,7 +162,7 @@
 			
 			filler+="<label for='editThemesDiv"+id+"' class='niceFormElement'>Related Themes (optional)</label>";
 			filler+="<div id='editThemesDiv"+id+"'>";
-				<!-- load themes here - getThemes() -->
+			<!-- load themes here - getThemes() -->
 			filler+="</div><br />";
 			
 			filler+="<br />";
@@ -170,7 +170,7 @@
 			filler+="<label for='editObjectivesDiv"+id+"' class='niceFormElement'>Factor Objectives</label>";
 
 			filler+="<div id='editObjectivesDiv"+id+"'>";
-				<!-- load objectives here - getObjectives() -->
+			<!-- load objectives here - getObjectives() -->
 			filler+="</div>";
 
 			filler+="<br /><p />";
@@ -196,7 +196,7 @@
 			$('criteriaEdit'+id).innerHTML=filler;
 			fillEditForm(id);
 			
-			new Effect.BlindDown('criteriaEdit'+id);
+			new Element.toggle('criteriaEdit'+id);
 			//$('name').value
 			//code to display edit fields
 		}
