@@ -31,7 +31,7 @@
 	    <div class="weighCriteriaCol3 floatLeft">
 	    	<!-- start slider bar -->
 				<div id="track${criterion.id}" class="track" style="width:200px; height:9px;">
-					<div id="track${criterion.id}-left" class="track-left"></div><div id="handle${criterion.id}" style="width:19px; height:20px;"><img src="images/slider-handle.png" alt="" style="float: left;" /></div>
+					<div id="track${criterion.id}-left" class="track-left"></div><div id="handle${criterion.id}" style="cursor: col-resize; width:19px; height:20px;"><img src="images/slider-handle.png" alt="" style="float: left;" /></div>
 				</div>
 			
 				<input type="text" tabIndex="${loop.index + 1}" size="3" maxlength="3" id="input${criterion.id}" onchange="manualSliderChange(${loop.index}, this.value)" value = 
