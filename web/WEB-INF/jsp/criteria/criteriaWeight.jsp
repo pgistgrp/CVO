@@ -16,7 +16,7 @@
 		<script src="/scripts/globalSnippits.js" type="text/javascript"></script>
 		<script src="/scripts/tags.js" type="text/javascript"></script>
 		<script src="/scripts/prototype.js" type="text/javascript"></script>
-		<script src="/scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+		<script src="/scripts/scriptaculous.js?control,effect" type="text/javascript"></script>
 		<!-- End Site Wide JavaScript -->
 		<!-- DWR JavaScript Libraries -->
 		<script type='text/javascript' src='/dwr/engine.js'></script>
@@ -25,119 +25,14 @@
 		<!--Criteria Specific  Libraries-->
 		<script type='text/javascript' src='/dwr/interface/CriteriaAgent.js'></script>
 		
-		<!-- BS Slider JavaScript-->
-		<script type="text/javascript" src="/scripts/FactorSlider/lib/LibCrossBrowser.js"></script>
-		<script type="text/javascript" src="/scripts/FactorSlider/lib/EventHandler.js"></script>
-		<script type="text/javascript" src="/scripts/FactorSlider/core/form/Bs_FormUtil.lib.js"></script>
-		<script type="text/javascript" src="/scripts/FactorSlider/Bs_Slider.class.js"></script>
 
 		<script type="text/javascript" charset="utf-8">
+			//START Global vars
 			var cctId = "${cct.id}";			
 			var sliderArray = new Array();
-			var avgSliderArray = new Array();
-			//var sliderCount=0;
-			var availableVals=100;
-
-			function addAllSliders(){
-				<c:forEach var="criterion" items="${cct.criteria}" varStatus="loop">
-					addSlider('${criterion.id}','${criterion.name}Slider');
-				</c:forEach>
-			}
-
-			function addSlider(name,location){
-				
-					mySlider = new Bs_Slider();
-					mySlider.objectName = name;
-					//mySlider.attachOnChange(bsSliderChange);
-					mySlider.width         = 121;
-					mySlider.height        = 26;
-					mySlider.minVal        = 0;
-					mySlider.maxVal        = 10;
-					mySlider.valueInterval = 1;
-					mySlider.arrowAmount   = 2;
-					mySlider.valueDefault  = 4;
-				  	mySlider.imgDir   = '/scripts/FactorSlider/img/';
-					mySlider.setBackgroundImage('bob/background.gif', 'no-repeat');
-					mySlider.setSliderIcon('bob/slider.gif', 13, 18);
-					mySlider.setArrowIconLeft('img/arrowLeft.gif', 16, 16);
-					mySlider.setArrowIconRight('img/arrowRight.gif', 16, 16);
-					mySlider.useInputField = 2;
-					mySlider.styleValueFieldClass = 'sliderInput';
-				
-					mySlider.colorbar = new Object();
-					mySlider.colorbar['color']           = 'blue';
-					mySlider.colorbar['height']          = 5;
-					mySlider.colorbar['widthDifference'] = -12;
-					mySlider.colorbar['offsetLeft']      = 5;
-					mySlider.colorbar['offsetTop']       = 9;
-					mySlider.draw(location);
-				
-					sliderArray.push(mySlider);
-
-			}
-/*
-			function setSliderValue(slarray,slidername,val){
-				for(a=0; a<slarray.length;a++){
-					if(slarray[a].objectName==slidername){
-						slarray[a].value=val;
-						slarray[a]._valueInternal=val;
-						pos=slarray[a]._getPositionByValue(val);
-						slarray[a].updateHandle(pos);
-						slarray[a].updateValueText(val);
-						slarray[a]._updateColorbar(pos);
-						slarray[a].updateValueField(val);
-						break;
-					}
-				}
-			}
-
-			function calcMaxSliderVal(arr){
-				count=0;
-				for(a=1;a<(arr.length);a++){
-					count+=Math.floor(100/arr.length);
-					arr[a].maxVal=Math.floor((100/arr.length));
-				}
-				arr[0].maxVal=(100-count);
-
-			}
-
-			/*
-			calculate availableVals for all, if <=100, ok
-			else calc all except current and assign availableVal
-
-			*/
-			/*
-			function calcMaxSliderValOnChange(sliderObj, val, newPos){
-				count=0;
-				for(a=0;a<sliderArray.length;a++){
-					count+=sliderArray[a]._valueInternal;
-				}
-				availableVals=100-count;
-				if(count>100){
-					ct=0;
-					for(b=0;b<sliderArray.length;b++){
-						if(sliderArray[b]!=sliderObj){
-							ct+=sliderArray[b]._valueInternal;
-						}
-					}
-					sliderObj._valueInternal=100-ct;
-					sliderObj.setValue(100-ct);
-					pos=sliderObj._getPositionByValue(100-ct);
-					sliderObj.updateHandle(pos);
-					sliderObj.updateValueText(100-ct);
-					sliderObj._updateColorbar(pos);
-					sliderObj.updateValueField(100-ct);
-					availableVals=100-(ct + (100-ct));
-				}
-				bsSliderChange(sliderObj,val,newPos);
-			}
-
-			function bsSliderChange(sliderObj, val, newPos) { 
-				//alert(val);
-				setWeight(sliderObj.objectName,val);
-				//document.f.t.value = val;
-			}
-
+			var remainingWeight = 100;
+			
+			//END Global Vars
 			
 			/* *************** Pull all criteria and their associated weights and objectives (criteriaAssoc_weights.jsp) *************** */
 			function getWeights(){
@@ -146,6 +41,7 @@
 				    if(data.successful){
 				    	$('criteria').innerHTML = data.html;
 				    	addAllSliders();
+						updateRemainingWeight();
 				    }else{
 						alert(data.reason);
 					}
@@ -154,15 +50,59 @@
 				        alert("getWeights error:"+errorString+" "+exception);
 				  }
 				  });
+			} 
+			
+			/* *************** Add All Criterion Sliders *************** */
+			function addAllSliders(){
+				<c:forEach var="criterion" items="${cct.criteria}" varStatus="loop">
+					addSlider('${criterion.id}');
+				</c:forEach>
 			}
+
+			/* *************** Assign a slider to a criteria and add it to the global slider array *************** */
+			function addSlider(critId){
+			  	newSlider = new Control.Slider('handle' + critId,'track' + critId,{
+						onSlide:function(v){
+							critWeight = (v * 100).toFixed(); //scriptaculous returns values ranging 0..1
+							$('input' + critId).value= critWeight;
+							updateRemainingWeight();
+							},
+						onChange:function(v){
+							critWeight = (v * 100).toFixed();
+							$('input' + critId).value=  critWeight;
+							setWeight(critId, critWeight);
+							updateRemainingWeight();
+							},
+						minimum: 1,
+						maximum: 100,
+						sliderValue: $('input' + critId).value / 100 //grab value if user has already weighed this criteria
+					});
+				sliderArray.push(newSlider);
+			}
+			
+			/* *************** Set the value of the slider if user manually sets it in the textbox *************** */
+			function manualSliderChange(index, v){
+				sliderArray[index].setValue(v / 100);
+			}
+			
+			function updateRemainingWeight(){
+				remainingWeight = 0; //reset remainingWeight
+				for(i=0; i<sliderArray.length;i++){
+					remainingWeight += sliderArray[i].value;
+				}
+				$('remainingWeight').innerHTML = 100 - (remainingWeight * 100).toFixed();
+			}
+			
+
 			
 			/* *************** Set the weight of givin criterion *************** */
 			function setWeight(critId, weight){
-				//alert("cctId: " + cctId + " critId: " + critId + " weight: " + weight + " param4: " + param4); 
+				//alert("cctId: " + cctId + " critId: " + critId + " weight: " + weight); 
 				CriteriaAgent.setWeight({cctId:cctId,critId:critId,weight:weight}, {
 					callback:function(data){
 						if (data.successful){
-							alert('value saved')
+							//enable saving indicator here
+							//alert('value saved')
 						}else{
 							alert(data.reason);
 						}
@@ -193,6 +133,25 @@
 		</style>
 		
 		<style type="text/css" media="screen">
+			/*
+			scriptaculous slider css
+			*/
+			
+			/* put the left rounded edge on the track */
+			.track-left {
+				position: absolute;
+				width: 5px;
+				height: 9px;
+				background: transparent url(images/slider-track-left.png) no-repeat top left;
+			}
+			
+			/* put the track and the right rounded edge on the track */
+			.track {
+				background: transparent url(images/slider-track-right.png) no-repeat top right;
+			}
+			
+			/*end scriptaculous slider css*/
+			
 			.criteriaListRow
 			{
 			background:#E7F2F7;
