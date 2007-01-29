@@ -18,31 +18,38 @@
 		[ ] Integrate Criteria Tree (Issac)
 #### -->
 
+<div id="prjAlternativeDescription">
+	<h1>${alerternative.name}</h1>
+	<p><b>Money needed to complete this project: </b> ${alerternative.cost}</p>
+	<p><b>Sponsoring Agency:</b> ${alerternative.sponsor}</p>
 
-<h1>${alerternative.name}</h1>
-<p><b>Money needed to complete this project: </b> ${alerternative.cost}</p>
-<p><b>Sponsoring Agency:</b> ${alerternative.sponsor}</p>
+	<p><b>Short Description:</b><br />${alerternative.shortDesc}</p>
+	<p><b>Detailed Description:</b><br />${alerternative.detailedDesc}</p>
 
-<p><b>Short Description:</b><br />${alerternative.shortDesc}</p>
-<p><b>Detailed Description:</b><br />${alerternative.detailedDesc}</p>
+	<p><b>Links to Additional Information about this Project:</b>${alerternative.links}</p>
 
-<p><b>Links to Additional Information about this Project:</b>${alerternative.links}</p>
+	<p><b>Statement For:</b><br />${alerternative.statementFor}</p>
+	<p><b>Statement Against:</b><br />${alerternative.statementAgainst}</p>
 
-<p><b>Statement For:</b><br />${alerternative.statementFor}</p>
-<p><b>Statement Against:</b><br />${alerternative.statementAgainst}</p>
-
-<h1>Planning Factor Grades for ${alerternative.name}</h1>
-<c:forEach var="criterion" items="${criteria}" varStatus="loop">
-	<hr>
-		<p>Name: ${criterion.name}</p>
-		<p>Description: ${criterion.description}</p>
-		<p>Grade: ${criterion.grade}</p>
-		<p>Objectives (${fn:length(criterion.objectives)}):</p>		
-		<ul>
-			<c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
-				<li>${objective.name}</li>	
-			</c:forEach>
-		</ul>
-	<hr>
-	<br />
-</c:forEach>
+	<h1>Planning Factor Grades for ${alerternative.name}</h1>
+	<c:forEach var="criterion" items="${criteria}" varStatus="loop">
+		<hr>
+			<p>Name: ${criterion.name}</p>
+			<p>Description: ${criterion.description}</p>
+			<p>Grade: ${criterion.grade}</p>
+			<p>Objectives (${fn:length(criterion.objectives)}):</p>		
+			<ul>
+				<c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
+					<li>${objective.name} - ${objective.grade}</li>	
+				</c:forEach>
+			</ul>
+			<p>Average grade based on equal weighting of all planning factors: ${alternative.criteria.equalWeights}</p>
+			<p>Average grade based on all participants' weighting of planning factors: ${alternative.criteria.allAverage}</p>
+			<p>Average grade based on your preferred weighting of planning factors: ${alternative.criteria.userWeight}</p>
+		<hr>
+		<br />
+	</c:forEach>
+</div>
+<div id="map">
+	<!-- map goes here gMan -->
+</div>
