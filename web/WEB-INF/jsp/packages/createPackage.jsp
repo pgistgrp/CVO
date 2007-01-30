@@ -30,41 +30,55 @@
 	<body>
 		<h1>Overview and Instructions</h1>
 		<p>This is the overview blah blah blah...</p>
-
-		<FORM action="packageAction.do" method="post">
-			<h1>Create a Transportation Package</h1>
-			<c:forEach var="project" items="${projects}" varStatus="loop">
-				<label><input name="proj-${project.id}" type="radio" CHECKED /> Do Nothing</label>
-				<p>Name: ${project.name}</p>
-				<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
-					<input type="radio" name="proj-${project.id}" 
-					<c:if test="${pg:contains(alternative, package.projAlts)}">
-						CHECKED
-					</c:if>
-					<!-- end input -->
-					Name: ${alternative.name}
-				</c:forEach>
-			</c:forEach>
-
-			<h1>Available Funding Options</h1>
-			<c:forEach var="source" items="${sources}" varStatus="loop">
-				${source.name}
-					<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
-						<input type="radio" name="fund-${project.id}" 
-						<c:if test="${pg:contains(alternative, package.fundAlts)}">
-							CHECKED
-						</c:if>
-						<!-- end input -->
-						${alternative.name}
+		
+		<FORM action="packageAction.do" method="post">	
+			<div id="createPackage">
+				<div id="summary">
+					<!-- load from javascript -->
+				</div>
+				<div id="projects">
+					<h1>Create your Transportation Package</h1>
+					<c:forEach var="project" items="${projects}" varStatus="loop">
+						<label><input name="proj-${project.id}" type="radio" CHECKED /> Do Nothing</label>
+						<p>Name: ${project.name}</p>
+						<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
+							<input type="radio" name="proj-${project.id}" 
+							<c:if test="${pg:contains(alternative, package.projAlts)}">
+								CHECKED
+							</c:if>
+							<!-- end input -->
+							Name: ${alternative.name}
+						</c:forEach>
 					</c:forEach>
-			</c:forEach>
+				</div>
+				
+				<div id="map">
+					<!-- load the map here gMan! -->
+				</div>
+				
+				<div id="funding">
+					<h1>Decide how to pay for it</h1>
+					<c:forEach var="source" items="${sources}" varStatus="loop">
+						${source.name}
+							<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
+								<input type="radio" name="fund-${project.id}" 
+								<c:if test="${pg:contains(alternative, package.fundAlts)}">
+									CHECKED
+								</c:if>
+								<!-- end input -->
+								${alternative.name}
+							</c:forEach>
+					</c:forEach>
+					<h1>Finished?</h1>
+				</div>
+				<div id="summaryRepeat">
+					<!-- load from javascript -->
+				</div>
+				<input type="button" value="Yes - Submit My Package!"> <!-- this should only be enabled if funding exceeds cost -->
+				<input type="cancel" value="No - Start Over!">
+			</div>
+		
 
-			<h1>Your Package Summary</h1>
-			<!-- Done in Javascript -->
-
-			<h1>Finished?</h1>
-			<input type="button" value="Yes - Submit My Package!"> <!-- this should only be enabled if funding exceeds cost -->
-			<input type="cancel" value="No - Start Over!">
 		</FORM>
 	</body>
 </html>

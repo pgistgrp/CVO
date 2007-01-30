@@ -27,7 +27,7 @@
 		</style>
 		<script type="text/javascript" charseut="utf-8">
 			function setGrading(altId, critId, objId, value){
-				alert("altId: " + altId + " critId: " + critId + " objId: " + objId +" value: " +value ); 
+				//alert("altId: " + altId + " critId: " + critId + " objId: " + objId +" value: " +value ); 
 				ProjectAgent.setGrading({altId:altId,critId:critId,objId:objId,value:value {
 					callback:function(data){
 						if (data.successful){

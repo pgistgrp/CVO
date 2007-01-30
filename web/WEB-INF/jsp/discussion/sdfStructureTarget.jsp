@@ -31,7 +31,7 @@
 		<h3 class="headerColor clearBoth">Available Funding Options</h3>
 		<ul>
 		<c:forEach var="source" items="${sources}" varStatus="loop">
-			<li id="source-${source.id}"><a href="#" title="${source.description}">${source.name}
+			<li id="source-${source.id}"><a href="#" title="$*{source.description}">${source.name}
 				<ul>
 					<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
 						<li>Funding Source: ${alternative.name}</li>
