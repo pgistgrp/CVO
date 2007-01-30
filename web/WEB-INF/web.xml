@@ -16,6 +16,7 @@
             /WEB-INF/config/context-criteria.xml
             /WEB-INF/config/context-funding.xml
             /WEB-INF/config/context-projects.xml
+            /WEB-INF/config/context-packages.xml
         </param-value>
     </context-param>
     

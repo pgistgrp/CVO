@@ -20,6 +20,9 @@ Zhong:
 [] sdfStructureTarget needs to have alternative.userCost and alternative.averageCost variables.
 [] Add 'description' field to FundingSource.
 
+[] auto-redirect after login
+[] email digest from Michael Patrick
+
 
 --------
 [ ] Setup pgistdev server as a demonstration server - loaded with the database from latest test (Ie. grab all source code and data that is currently in the alpha test).

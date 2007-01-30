@@ -83,6 +83,8 @@
                <value>org/pgist/criteria/CriteriaWeight.hbm.xml</value>
                <value>org/pgist/funding/FundingSource.hbm.xml</value>
                <value>org/pgist/funding/FundingSourceAlternative.hbm.xml</value>
+               <value>org/pgist/funding/UserCommute.hbm.xml</value>
+               <value>org/pgist/funding/UserCost.hbm.xml</value>
                <value>org/pgist/packages/Package.hbm.xml</value>
                <value>org/pgist/packages/PackageCluster.hbm.xml</value>
                <value>org/pgist/packages/PackageCriteria.hbm.xml</value>

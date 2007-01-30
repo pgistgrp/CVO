@@ -96,6 +96,19 @@
             <forward name="main" path="/WEB-INF/jsp/projects/fundingAssoc.jsp"/>
         </action>
         
+        <action path="/fundingCalc" scope="request" type="org.pgist.funding.TaxCalculatorAction">
+            <forward name="main" path="/WEB-INF/jsp/projects/fundingCalc.jsp"/>
+        </action>
+        
+        <action path="/helpme" scope="request" type="org.pgist.packages.HelpMeAction">
+            <forward name="view" path="/WEB-INF/jsp/packages/helpme.jsp"/>
+            <forward name="close" path="/WEB-INF/jsp/packages/helpme_close.jsp"/>
+        </action>
+        
+        <action path="/createPackage" scope="request" type="org.pgist.packages.CreatePackageAction">
+            <forward name="view" path="/WEB-INF/jsp/packages/createPackage.jsp"/>
+        </action>
+        
         <action path="/criteriaMgr" scope="request" type="org.pgist.criteria.CriteriaMgrAction">
             <forward name="list" path="/WEB-INF/jsp/criteria/criteriaMgr.jsp"/>
         </action>

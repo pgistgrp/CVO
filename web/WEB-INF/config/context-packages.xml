@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+
+    <bean id="packageDAO" class="org.pgist.packages.PackageDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
+    <bean id="packageService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.packages.PackageServiceImpl">
+                <property name="packageDAO" ref="packageDAO"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="packageAgent" class="org.pgist.packages.PackageAgent">
+        <property name="packageService" ref="packageService"/>
+    </bean>
+
+
+</beans>
+

@@ -21,6 +21,8 @@ public class FundingSourceAlternative implements Serializable {
     
     private FundingSource source;
     
+    private float avgCost;
+    
     private boolean toll;
     
     
@@ -88,6 +90,21 @@ public class FundingSourceAlternative implements Serializable {
 
     public void setSource(FundingSource source) {
         this.source = source;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.property
+     */
+    public float getAvgCost() {
+        return avgCost;
+    }
+
+
+    public void setAvgCost(float avgCost) {
+        this.avgCost = avgCost;
     }
 
 

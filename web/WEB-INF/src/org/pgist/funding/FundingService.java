@@ -41,4 +41,7 @@ public interface FundingService {
     void setupFundingSourcesForCCT(Long cctId, String[] ids) throws Exception;
 
 
+    Collection getAllTolls() throws Exception;
+
+
 }//interface FundingService

@@ -18,10 +18,13 @@ import org.postgis.PGgeometry;
 
 
 public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
+    
+    
 	private static final String pfTableName = "pgist_data_project_footprint";
 	private static final String pfTableName2 = "pgist_data_county";
 	private static final String pfSequenceName = "gis_proj_footprint_id";
 	
+    
 	/*
 	 * this is to be handled by BaseDAOImpl 
 	 * @see org.pgist.projects.ProjectDAO#save(org.pgist.projects.Project)

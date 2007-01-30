@@ -121,4 +121,12 @@ public class FundingServiceImpl implements FundingService {
     }//setupFundingSourcesForCCT()
 
 
+    public Collection getAllTolls() throws Exception {
+        /*
+         * TODO:
+         */
+        return null;
+    }//getAllTolls()
+
+
 }//class FundingServiceImpl

@@ -1,4 +1,4 @@
-package org.pgist.funding;
+package org.pgist.packages;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -7,15 +7,17 @@ import org.apache.struts.action.ActionMapping;
 
 
 /**
- * Tax Calculator Action for Funding Sources (in one CCT).<br>
+ * Create participant's own package.<br>
  * 
  * This action works standalone.<br>
  * 
- * This action is used by participants to manage his own tax calculation.<br>
+ * This action is used by participants to create his package.<br>
  * 
- * It provides the following functionalities:
+ * In the page you can:
  * <ul>
- *   <li>calculate taxes based on user input</li>
+ *   <li>Create a package for the current participant</li>
+ *   <li>Select project alternatives into a package</li>
+ *   <li>Select funding source alternatives into a package</li>
  * </ul>
  * 
  * The action always accepts the following parameters:
@@ -26,29 +28,29 @@ import org.apache.struts.action.ActionMapping;
  * the action will forward to page of "view", the following variables are available in jsp:
  * <ul>
  *   <li>cct - an CCT object</li>
- *   <li>user - the current User oject</li>
- *   <li>tolls - a list of FundingSourceAlternative objects (all alternatives which are tolls)</li>
- *   <li>userCommute - a UserCommute object</li>
+ *   <li>projects - a collection of Projects objects</li>
+ *   <li>sources - a collection of FundingSource objects</li>
+ *   <li>userPkg - a UserPackage object</li>
  * </ul>
  * 
  * Examples:
  * <ul>
  *   <li>GET:
- *       fundingCalc.do?cctId=1234
+ *       createPackage.do?cctId=1234
  *   </li>
  * </ul>
  * 
  * @author kenny
  *
  */
-public class TaxCalculatorAction extends Action {
+public class CreatePackageAction extends Action {
     
     
-    private FundingService fundingService;
+    private PackageService packageService;
     
     
-    public void setFundingService(FundingService fundingService) {
-        this.fundingService = fundingService;
+    public void setPackageService(PackageService packageService) {
+        this.packageService = packageService;
     }
 
 
@@ -66,22 +68,24 @@ public class TaxCalculatorAction extends Action {
         /*
          * Logic:
          *   (1) get cctId from request
-         *   (2) get CCT object
+         *   (2) get all projects list
          *   (3) get all funding sources list
-         *   (4) forward to page "view" with the following values in request attributes:
-         *           "user" - current User object
+         *   (4) get CCT object
+         *   (5) get the UserPackage object for current participant
+         *   (6) forward to page "view" with the following values in request attributes:
          *           "cct" - current CCT object
-         *           "tolls" - a list of FundingSourceAlternative objects (all alternatives which are tolls)
-         *           "userCommute" - a UserCommute object
+         *           "projects" - projects list
+         *           "sources" - funding sources list
+         *           "userPkg" - a UserPackage object
          *   (-) Any error, forward to page "error"
          */
         
         String cctId = request.getParameter("cctId");
         
         //TODO: load the current CCT object by cctId, transfer to jsp
-        //TODO: load the current User object, transfer to jsp
-        //TODO: get all tolls list, transfer to jsp
-        //TODO: get the current user commute object, transfer to jsp
+        //TODO: get all projects list, transfer to jsp
+        //TODO: get all funding sources list, transfer to jsp
+        //TODO: get the UserPackage of the current participant
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         return mapping.findForward("view");
@@ -89,4 +93,4 @@ public class TaxCalculatorAction extends Action {
     }//execute()
     
     
-}//class TaxCalculatorAction
+}//class HelpMeAction

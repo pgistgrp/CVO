@@ -91,6 +91,14 @@
         <property name="fundingService" ref="fundingService"/>
     </bean>
     
+    <bean name="/fundingCalc" class="org.pgist.funding.TaxCalculatorAction">
+        <property name="fundingService" ref="fundingService"/>
+    </bean>
+    
+    <bean name="/helpme" class="org.pgist.packages.HelpMeAction">
+        <property name="packageService" ref="packageService"/>
+    </bean>
+    
     <bean name="/criteriaList" class="org.pgist.criteria.CriteriaListAction">
             <property name="criteriaService" ref="criteriaService"/>
     </bean>
