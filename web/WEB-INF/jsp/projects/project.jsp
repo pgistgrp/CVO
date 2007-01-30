@@ -5,7 +5,6 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
 <!--####
 	Project: Let's Improve Transportation!
 	Page: Project Alternative Description
@@ -13,43 +12,207 @@
 	Author: Jordan Isip, Adam Hindman, Issac Yang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Integrate Layout (Adam)
+		[x] Integrate Layout (Adam)
 		[ ] Integrate Project Map or static image (Guirong/Issac)
 		[ ] Integrate Criteria Tree (Issac)
 #### -->
+<style type="text/css" media="screen">
+	@import "styles/lit.css";
+</style>
+<style type="text/css">
 
-<div id="prjAlternativeDescription">
-	<h1>${alerternative.name}</h1>
-	<p><b>Money needed to complete this project: </b> ${alerternative.cost}</p>
-	<p><b>Sponsoring Agency:</b> ${alerternative.sponsor}</p>
+#container {padding:1em;font-size:10pt;}
 
-	<p><b>Short Description:</b><br />${alerternative.shortDesc}</p>
-	<p><b>Detailed Description:</b><br />${alerternative.detailedDesc}</p>
+#criteria {margin-bottom:2em;}
 
-	<p><b>Links to Additional Information about this Project:</b>${alerternative.links}</p>
+.criteriaListRow
+{
+background:#E7F2F7;
+padding:.3em 0em;
+}
 
-	<p><b>Statement For:</b><br />${alerternative.statementFor}</p>
-	<p><b>Statement Against:</b><br />${alerternative.statementAgainst}</p>
+.criteriaListHeader {padding:.5em .3em}
 
-	<h1>Planning Factor Grades for ${alerternative.name}</h1>
-	<c:forEach var="criterion" items="${criteria}" varStatus="loop">
-		<hr>
-			<p>Name: ${criterion.name}</p>
-			<p>Description: ${criterion.description}</p>
-			<p>Grade: ${criterion.grade}</p>
-			<p>Objectives (${fn:length(criterion.objectives)}):</p>		
-			<ul>
-				<c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
-					<li>${objective.name} - ${objective.grade}</li>	
-				</c:forEach>
-			</ul>
-			<p>Average grade based on equal weighting of all planning factors: ${alternative.criteria.equalWeights}</p>
-			<p>Average grade based on all participants' weighting of planning factors: ${alternative.criteria.allAverage}</p>
-			<p>Average grade based on your preferred weighting of planning factors: ${alternative.criteria.userWeight}</p>
-		<hr>
-		<br />
-	</c:forEach>
+#allCriteriaList
+{
+text-align:left;
+}
+
+.even {background: #ffffff}
+
+.weighCriteriaCol1
+{
+width:325px;
+margin-right:.5em;
+}
+
+.weighCriteriaCol1 img
+{
+margin:0px 3px 0px 0px;
+vertical-align:middle;
+border:0px;
+}
+
+.weighCriteriaCol2
+{
+width:525px;
+}
+
+.weighCriteriaCol3
+{
+margin-left:.5em;
+width:50px;
+text-align:center;
+}	
+
+h4
+{
+font-size:1em;
+margin:0px;
+padding:0px;
+text-align:left;
+}
+
+.objectives
+{
+padding:.5em;
+}
+
+#map
+{
+margin:.5em 0em .5em 1em;
+}
+
+</style>
+<!-- Site Wide JS -->
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script src="scripts/search.js" type="text/javascript"></script>
+<script src="scripts/qTip.js" type="text/javascript"></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/util.js'></script>
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script type="text/javascript">
+		function expandList(project,icon){
+			Effect.toggle(project, 'appear', {duration: .5, afterFinish:
+				//window.setTimeout(toggleIcon,100);
+				function(){
+					if ($(project).style.display != ""){
+						$(icon).src = "images/plus.gif";
+						}else{
+							$(icon).src = "images/minus.gif";
+						}
+					}
+			});
+		}
+</script>
+<!-- #container is the container that wraps around all the main page content -->
+<div id="container">
+<!-- begin Object -->
+<div id="object">
+  <div id="prjAlternativeDescription">
+    <h3 class="headerColor" id="project-title">${alternative.name}</h3>
+    <!-- begin cell containing Google Map object -->
+    <div id="map" class="floatRight"></div>
+    <!-- end cell containing Google Map object -->
+    <!--begin project description -->
+    <p>
+    <h4 style="display:inline">Money needed to complete this
+      project: </h4>
+    <span id="project-moneyNeeded">${alternative.cost}</span>
+    </p>
+    <p>
+    <h4 style="display:inline">Sponsoring Agency: </h4>
+    <span id="project-sponsoringAgency">${alternative.sponsor}</span>
+    </p>
+    <p>
+    <h4>Short Description</h4>
+    <span id="project-shortDescription">${alternative.shortDesc}</span>
+    </p>
+    <p>
+    <h4>Detailed Description</h4>
+    <span id="project-detailedDescription">${alternative.detailedDesc} </span>
+    </p>
+    <p>
+    <h4>Links to additional information about this project</h4>
+    <span id="project-links">${alternative.links}</span>
+    </p>
+    <p>
+    <h4>Statement for</h4>
+    <span id="project-statementFor">${alternative.statementFor}</span>
+    </p>
+    <p>
+    <h4>Statement against</h4>
+    <span id="project-statementAgainst">${alternative.statementAgainst}</span>
+    </p>
+    <!-- end project description -->
+  </div>
 </div>
-<div id="map">
-	<!-- map goes here gMan -->
+<!-- end obj-left -->
+<!-- begin firefox height hack -->
+<div class="clearBoth"></div>
+<!-- end firefox height hack -->
+<!-- Load separate file content starting here -->
+<div id="criteriaHeader" style="height:30px">
+  <div class="floatLeft">
+    <h3 class="headerColor">Planning Factor Grades for ${alternative.name}</h3>
+  </div>
 </div>
+<!-- begin criteria  -->
+<div id="criteria" class="box3 floatLeft">
+  <!-- START All Criteria List -->
+  <div id="allCriteriaList">
+    <div class="criteriaListHeader headingColor">
+      <div class="weighCriteriaCol1 floatLeft">
+        <h4>Planning factor</h4>
+      </div>
+      <div class="weighCriteriaCol2 floatLeft">
+        <h4>Description</h4>
+      </div>
+      <div class="weighCriteriaCol3 floatLeft">
+        <h4>Grade</h4>
+      </div>
+      <div class="clearBoth"></div>
+    </div>
+    <c:forEach var="criterion" items="${criteria}" varStatus="loop">
+      <div class="criteriaListRow row">
+        <div class="weighCriteriaCol1 floatLeft"><a href="#">
+          <div class="floatLeft"><a href="javascript:expandList('objectives1','icon1');">
+			  <img src="images/plus.gif" id="icon1"></a></a> </div>
+          <div class="floatLeft"><a href="#">${criterion.name}</a></div>
+        </div>
+        <div class="weighCriteriaCol2 floatLeft smallText">${criterion.description}</div>
+        <div class="weighCriteriaCol3 floatLeft">${criterion.grade}</div>
+        <div class="clearBoth"></div>
+        <div class="objectives" id="objectives1" style="display:none;"> Objectives
+          for this planning factor (${fn:length(criterion.objectives)}):<br/>
+          <table border="0" width="90%">
+            <tr>
+              <td><strong>Objective</strong></td>
+              <td><strong>Grade</strong></td>
+            </tr>
+            <c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
+              <tr>
+                <td>${objective.name}</td>
+                <td>${objective.grade}</td>
+              </tr>
+            </c:foreach>
+          </table>
+        </div>
+      </div>
+    </c:forEach>
+    <div class="criteriaListRow" style="padding:5px;">
+      <p>Average grade based on equal weighting of all planning
+        factors: ${alternative.criteria.equalWeights}<br />
+        Average grade based on all participants' weighting of
+        planning factors: ${alternative.criteria.allAverage}<br />
+        Average grade based on your preferred weighting of planning
+        factors: ${alternative.criteria.userWeight}</p>
+    </div>
+  </div>
+  <!-- END All Criteria List -->
+  <!-- end criteria -->
+  <!-- Separate file content stops here -->
+</div>
+<!-- end container -->
