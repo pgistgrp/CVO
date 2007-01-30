@@ -16,78 +16,83 @@
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] Integrate Structured Discussion (Jordan)
-		[ ] Integrate Project Tree (Issac)
-		[ ] Integrate Layout (Adam) 
+		[ ] Integrate Project Tree (Isaac)
+		[x] Integrate Layout (Adam) 
 		[ ] Test with backend contractor code (Jordan)
 #### -->
 
 <pg:fragment type="html">
+<!-- begin "overview and instructions" area -->
 
-	<!-- begin "overview and instructions" area -->
-	<div id="overview" class="box2">
-		<h3 class="headerColor">Instructions</h3>
-		<p>
-			Here you can review proposed projects for improving or expanding our regional transportation system.  Click on a
-			project to review information and discuss its merits or drawbacks with other participants.
-		</p>
-		<p>
-			Each of the projects has been examined by a panel of specialists who assigned scores based on the criteria we reviewed
-			in step 2. <a href="#">Read more about the project scoring process</a>
-		</p>
-			
-		
+<div id="overview" class="box2">
+	<h3 class="headerColor">Instructions</h3>
+	<p> Here you can review proposed projects for improving or expanding
+		our regional transportation system. Click on a project to review
+		information and discuss its merits or drawbacks with other
+		participants. </p>
+	<p> Each of the projects has been examined by a panel of specialists
+		who assigned scores based on the criteria we reviewed in step
+		2. <a href="#">Read more about the project scoring process</a> </p>
+</div>
+<!-- end overview -->
+<!-- begin Object -->
+<div id="object">
+	<h3 class="headerColor">All proposed projects</h3>
+	<div id="3a-obj-left" class="floatLeft">
+		<div id="list">
+			<!--left col-->
+			<h3 class="headerColor clearBoth">All Proposed Projects</h3>
+			<h4 class="headerColor">Road Projects</h4>
+			<ul>
+				<c:forEach var="project" items="${infoStructure.infoObjects}" varStatus="loop">
+					<c:if test="${project.type == 1}">
+						<li>
+							<div class="floatLeft"> <a href="javascript:expandList('project1','icon1');"> <img src="images/plus.gif" id="icon1"> </a> </div>
+							${project.name} (${fn:length(project.alternatives)})
+							<div style="display:none" id="project1">
+								<ul>
+									<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
+										<li><a href="javascript:mapProjectAlt(${alternative.id})">${alternative.name}</a></li>
+									</c:forEach>
+								</ul>
+							</div>
+						</li>
+					</c:if>
+				</c:forEach>
+			</ul>
+			<h4 class="headerColor">Transit Projects</h4>
+			<ul>
+				<c:forEach var="project" items="${infoStructure.infoObjects}" varStatus="loop">
+					<c:if test="${project.type == 2}">
+						<li>
+							<div class="floatLeft"> <a href="javascript:expandList('project2','icon2');"> <img src="images/plus.gif" id="icon2"> </a> </div>
+							${project.name} (${fn:length(project.alternatives)})
+							<div id="project2" style="display:none">
+								<ul>
+									<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
+										<li><a href="javascript:mapProjectAlt(${alternative.id})">${alternative.name}</a></li>
+									</c:forEach>
+								</ul>
+							</div>
+						</li>
+					</c:if>
+				</c:forEach>
+			</ul>
+		</div>
 	</div>
-	<!-- end overview -->
-	
-	<div id="list"> <!--left col-->
-		<h3 class="headerColor clearBoth">All Proposed Projects</h3>
-		<h4 class="headerColor">Road Projects</h4>
-		<ul>
-			<c:forEach var="project" items="${infoStructure.infoObjects}" varStatus="loop">
-				<c:if test="${project.type == 1}">
-					<li><div class="floatLeft">
-							<a href="javascript:expandList('project1','icon1');">
-								<img src="images/plus.gif" id="icon1">
-							</a>
-						 </div>
-						 ${project.name} (${fn:length(project.alternatives)})
-						<div style="display:none" id="project1">
-							<ul>
-								<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
-									<li><a href="javascript:mapProjectAlt(${alternative.id})">${alternative.name}</a></li>
-								</c:forEach>
-							</ul>
-						</div>
-					</li>
-				</c:if>
-			</c:forEach>
-		</ul>
-	
-		<h4 class="headerColor">Transit Projects</h4>
-		<ul>
-			<c:forEach var="project" items="${infoStructure.infoObjects}" varStatus="loop">
-				<c:if test="${project.type == 2}">
-					<li><div class="floatLeft">
-							<a href="javascript:expandList('project2','icon2');">
-								<img src="images/plus.gif" id="icon2">
-							</a>
-						 </div>${project.name} (${fn:length(project.alternatives)})
-						<div id="project2" style="display:none">
-							<ul>
-								<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
-									<li><a href="javascript:mapProjectAlt(${alternative.id})">${alternative.name}</a></li>
-								</c:forEach>
-							</ul>
-						</div>
-					</li>
-				</c:if>
-			</c:forEach>
-		</ul>
-	</div>
+	<!-- end 3a-obj-left -->
+</div>
+<div id="map" class="floatRight">
+	<!-- right col -->
+	<!-- load map here -->
+</div>
+<!-- end cell containing Google Map object -->
+<!-- begin firefox height hack -->
+<div class="clearBoth"></div>
+<!-- end firefox height hack -->
+</div>
+<!-- end Object-->
 
-	<div id="map"> <!--right col-->
-		<!-- load map here -->
-	</div>
 </pg:fragment>
 
 <pg:fragment type="script">
