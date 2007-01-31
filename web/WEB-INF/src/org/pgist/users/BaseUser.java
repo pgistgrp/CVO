@@ -37,6 +37,8 @@ public class BaseUser implements Serializable {
     
     protected int familyCount = 1;
     
+    protected float income;
+    
     protected boolean official = false;
     
     protected boolean transportAgency = false;
@@ -46,6 +48,16 @@ public class BaseUser implements Serializable {
     protected boolean gender = true;
     
     protected boolean emailNotify = true;
+    
+    protected int driveDays;
+    
+    protected int carpoolDays;
+    
+    protected int busDays;
+    
+    protected int walkDays;
+    
+    protected int bikeDays;
     
     private boolean enabled;
     
@@ -250,6 +262,20 @@ public class BaseUser implements Serializable {
 
     public void setFamilyCount(int familyCount) {
         this.familyCount = familyCount;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public float getIncome() {
+        return income;
+    }
+
+
+    public void setIncome(float income) {
+        this.income = income;
     }
 
 

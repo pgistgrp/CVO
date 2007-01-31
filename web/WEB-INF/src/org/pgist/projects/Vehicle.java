@@ -17,6 +17,8 @@ public class Vehicle implements Serializable {
     
     private float milesPerYear;
     
+    private float approxValue;
+    
     
     /**
      * @return
@@ -57,6 +59,20 @@ public class Vehicle implements Serializable {
     
     public void setMilesPerYear(float milesPerYear) {
         this.milesPerYear = milesPerYear;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public float getApproxValue() {
+        return approxValue;
+    }
+
+
+    public void setApproxValue(float approxValue) {
+        this.approxValue = approxValue;
     }
     
     

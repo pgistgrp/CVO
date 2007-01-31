@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.pgist.funding.FundingSource;
 import org.pgist.projects.Project;
+import org.pgist.projects.ProjectAlternative;
 
 
 /**
@@ -23,8 +24,6 @@ public class Package implements Serializable {
     
     public static int PGIST_PACKAGE_TYPE_CPP = 2;//clustered personal package
     
-    
-    private Set<Project> projects = new HashSet<Project>();
     
     private String name;
     
@@ -46,6 +45,8 @@ public class Package implements Serializable {
     
     private int type;
     
+    private Set<ProjectAlternative> projects = new HashSet<ProjectAlternative>();
+    
     private Set<FundingSource> fundingSources = new HashSet<FundingSource>();
     
     
@@ -63,16 +64,16 @@ public class Package implements Serializable {
     
     
     /**
-     * @hibernate.set lazy="true" table="pgist_pack_proj_link" cascade="none"
+     * @hibernate.set lazy="true" table="pgist_pack_proj_alt_link" cascade="none"
      * @hibernate.collection-key column="package_id"
-     * @hibernate.collection-many-to-many  column="proj_id" class="org.pgist.projects.Project"
+     * @hibernate.collection-many-to-many  column="proj_alt_id" class="org.pgist.projects.ProjectAlternative"
      */
-    public Set<Project> getProjects(){
+    public Set<ProjectAlternative> getProjects(){
         return projects;
 	}
     
     
-    public void setProjects(Set<Project> projects){
+    public void setProjects(Set<ProjectAlternative> projects){
         this.projects = projects;
     }
     

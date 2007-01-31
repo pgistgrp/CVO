@@ -17,7 +17,7 @@ public interface ProjectService {
     
     Collection getProjects() throws Exception;
     
-    Project createProject(String name, String description, int transMode) throws Exception;
+    Project createProject(String name, String description, int transMode, boolean inclusive) throws Exception;
     
     void editProject(Long id, String name, String description, int transMode) throws Exception;
     
@@ -44,11 +44,6 @@ public interface ProjectService {
     
     
     // to be checked
-    
-    /*
-    void publishProjects(String criteria) throws Exception;
-    */
-    
     
     Collection getProjectAlternativeGrades(Long cctId, Long altId) throws Exception;
 

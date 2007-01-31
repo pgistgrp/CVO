@@ -146,6 +146,7 @@ public class ProjectAgent {
      *       <li>name - string, name of the Project object</li>
      *       <li>description - string, description of the project</li>
      *       <li>transMode - int, 1 for "road", 2 for "transit"</li>
+     *       <li>inclusive - string, "true" for inclusive, "false" for exclusive</li>
      *     </ul>
      * 
      * @return A map contains:
@@ -163,8 +164,9 @@ public class ProjectAgent {
             String name = (String) params.get("name");
             String description = (String) params.get("description");
             int transMode = Integer.parseInt((String) params.get("transMode"));
+            boolean inclusive = "true".equals((String) params.get("inclusive"));
             
-            Project project = projectService.createProject(name, description, transMode);
+            Project project = projectService.createProject(name, description, transMode, inclusive);
             
             map.put("id", project.getId());
             

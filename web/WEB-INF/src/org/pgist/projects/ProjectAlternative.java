@@ -61,6 +61,20 @@ public class ProjectAlternative implements Serializable {
      */
     private int state = 0;
     
+    /**
+     * Average grade based on equal weighting for all criteria,
+     * need to be updated every time when participant changed his weights.
+     * (TODO not fully defined)
+     */
+    private int eqlWeights = 0;
+    
+    /**
+     * Average grade based on all participants weighting for all criteria
+     * need to be updated every time when participant changed his weights.
+     * (TODO not fully defined)
+     */
+    private int allWeights = 0;
+    
     private Object object;
     
     
@@ -261,6 +275,10 @@ public class ProjectAlternative implements Serializable {
     }
 
 
+    /**
+     * @return
+     * @hibernate.property
+     */
     public int getState() {
         return state;
     }
@@ -268,6 +286,34 @@ public class ProjectAlternative implements Serializable {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public int getAllWeights() {
+        return allWeights;
+    }
+
+
+    public void setAllWeights(int allWeights) {
+        this.allWeights = allWeights;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public int getEqlWeights() {
+        return eqlWeights;
+    }
+
+
+    public void setEqlWeights(int eqlWeights) {
+        this.eqlWeights = eqlWeights;
     }
 
 

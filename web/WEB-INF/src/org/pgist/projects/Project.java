@@ -35,6 +35,15 @@ public class Project implements Serializable {
     
     private List<ProjectAlternative> alternatives = new ArrayList<ProjectAlternative>();
     
+    /**
+     * inclusive==true, multiple alternatives can be selected
+     * inclusive==false, only one alternative can be selected
+     */
+    private boolean inclusive = false;
+    
+    /**
+     * No use, maybe deleted later
+     */
     private ProjectAlternative selected = null;
     
     /**
@@ -132,6 +141,20 @@ public class Project implements Serializable {
 	}
     
 	
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public boolean isInclusive() {
+        return inclusive;
+    }
+
+
+    public void setInclusive(boolean inclusive) {
+        this.inclusive = inclusive;
+    }
+
+
     /**
      * @return
      * 

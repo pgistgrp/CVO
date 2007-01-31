@@ -1,7 +1,6 @@
 package org.pgist.projects;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 
@@ -46,12 +45,13 @@ public class ProjectServiceImpl implements ProjectService{
     }//getProjects()
 
 
-    public Project createProject(String name, String description, int transMode) throws Exception {
+    public Project createProject(String name, String description, int transMode, boolean inclusive) throws Exception {
         Project project = new Project();
         
         project.setName(name);
         project.setDescription(description);
         project.setTransMode(transMode);
+        project.setInclusive(inclusive);
         
         projectDAO.save(project);
         
