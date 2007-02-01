@@ -22,7 +22,7 @@
 <ul>
 <c:forEach var="source" items="${sources}" varStatus="loop">
 	
-	<!-- sigh this is soo ugly -->
+	<!-- sigh this is soo UGLY -->
 	
 	<!-- sales tax -->
 	<c:if test="${alternative.type == 1}"> 
@@ -157,7 +157,7 @@
 	</c:if>
 	
 	<!-- Tolls -->
-	<c:if test="${alternative.type == 7}">
+	<c:if test="${alternative.type == 8}">
 		<li id="source-${source.id}"><a href="#" title="$*{source.description}">${source.name}
 			<ul>
 				<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">

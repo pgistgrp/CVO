@@ -17,7 +17,7 @@
 		[ ] Integrate Project Map or static image (Guirong/Issac)
 		[ ] Integrate Criteria Tree (Issac)
 #### -->
-
+<h3>My Estimates</h3>
 <ul id="tolls">
 	<c:forEach var="toll" items="${userCommute.tolls}" varStatus="loop">
 		<li>${toll.name} <input type="text" id="eToll-${toll.id}" name="eTolls" value="${toll.value}" /></li>

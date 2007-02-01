@@ -15,6 +15,8 @@
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
+		[ ] Add userAgent for vehicles
+		[ ] Ensure get and set estimates are working correctly and pulling the right data (Jordan)
 		[ ] Barebones JavaScript (Issac)
 		[ ] Integrate Layout (Adam)
 	Notes:
@@ -134,10 +136,12 @@
 		<a href="main.do">Back Home</a>
 	
 		<div id="income">
-			<input type="text" id="income" name="profile" value="${user.income}"/>
+			<h3>My Income</h3>
+			Annual Income $<input type="text" id="income" name="profile" value="${user.income}"/>.00
 		</div>
 		
 		<div id="vehicles">
+			<h3>My Vehicles</h3>
 			<c:forEach var="vehicle" items="${user.vehicles}" varStatus="loop">
 				Vehicle ${loop.index} [ edit ] [ delete ]
 				<ul>
@@ -150,6 +154,7 @@
 		</div>
 		
 		<div id="myCommute">
+			<h3>My Commute</h3>
 			<p>Home Zip Code: <input type="text" id="zip" name="profile" value="${user.zipcode}" /> days to work, every week</p>
 			<p>I drive alone <input type="text" id="daysAlone" name="profile" value="${user.daysAlone}" /> days to work, every week</p>
 			<p>I carpool <input type="text" id="daysCarpool" name="profile" value="${user.daysCarpool}" /> days to work, every week</p>
