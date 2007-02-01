@@ -1,18 +1,29 @@
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html:html>
-	<head>
-	<title>Project Page</title>
-	<!-- Site Wide CSS -->
-	<style type="text/css" media="screen">
-@import "styles/lit.css";
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<!--####
+	Project: Let's Improve Transportation!
+	Page: Project Alternative Description
+	Description: This page serves as an information page for a project alternative. 
+	Author: Jordan Isip, Adam Hindman, Issac Yang
+	Todo Items:
+		[x] Initial Skeleton Code (Jordan)
+		[x] Integrate Layout (Adam)
+		[ ] Integrate Project Map or static image (Guirong/Issac)
+		[ ] Integrate Criteria Tree (Issac)
+#### -->
+<style type="text/css" media="screen">
+	@import "styles/lit.css";
 </style>
-	<!-- End Site Wide CSS -->
 <style type="text/css">
 
-#container {width:auto;padding:1em;}
+#container {padding:1em;font-size:10pt;}
 
 #criteria {margin-bottom:2em;}
-
 
 .criteriaListRow
 {
@@ -20,10 +31,7 @@ background:#E7F2F7;
 padding:.3em 0em;
 }
 
-.criteriaListHeader
-{
-background:#fff;
-}
+.criteriaListHeader {padding:.5em .3em}
 
 #allCriteriaList
 {
@@ -70,30 +78,22 @@ text-align:left;
 padding:.5em;
 }
 
-#obj-right
+#map
 {
 margin:.5em 0em .5em 1em;
 }
 
-h4
-{
-font-size:1em;
-font-weight:bold;
-margin:0px;
-padding:0px;
-}
-
 </style>
-	<!-- Site Wide JS -->
-	<script src="scripts/prototype.js" type="text/javascript"></script>
-	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-	<script src="scripts/search.js" type="text/javascript"></script>
-	<script src="scripts/qTip.js" type="text/javascript"></script>
-	<script type='text/javascript' src='/dwr/engine.js'></script>
-	<script type='text/javascript' src='/dwr/util.js'></script>
-	<script src="scripts/prototype.js" type="text/javascript"></script>
-	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-	<script type="text/javascript">
+<!-- Site Wide JS -->
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script src="scripts/search.js" type="text/javascript"></script>
+<script src="scripts/qTip.js" type="text/javascript"></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/util.js'></script>
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script type="text/javascript">
 		function expandList(project,icon){
 			Effect.toggle(project, 'appear', {duration: .5, afterFinish:
 				//window.setTimeout(toggleIcon,100);
@@ -107,208 +107,113 @@ padding:0px;
 			});
 		}
 </script>
-	</head>
-	<body>
-
-	<!-- #container is the container that wraps around all the main page content -->
-	<div id="container">
-		<!-- begin Object -->
-		<div id="object">
-			<h3 class="headerColor" id="project-title">All proposed projects</h3>
-			<!-- begin cell containing Google Map object -->
-			<div id="obj-right" class="floatRight"> <img src="images/gmaps.gif"> </div>
-			<!-- end cell containing Google Map object -->
-			<!--begin project description -->
-			<p>
-			<h4 style="display:inline">Money needed to complete this project: </h4>
-			<span id="project-moneyNeeded">$2.3 Billion </span>
-			</p>
-			<p>
-			<h4 style="display:inline">Sponsoring Agency: </h4>
-			<span id="project-sponsoringAgency">Sound Transit </span>
-			</p>
-			<p>
-			<h4>Short Description</h4>
-			<span id="project-shortDescription"> Build a new light rail
-			line between the bus tunnel in Downtown Seattle and Downtown
-			Bellevue, with stops in Mercer Island and somewhere else.
-			This line will include a tunnel through downtown Bellevue
-			along Main street. </span>
-			</p>
-			<p>
-			<h4>Detailed Description</h4>
-			<span id="project-detailedDescription"> This project is 1
-			of 5 different options for building a light rail line between
-			Seattle and the Eastside. The other options are building light
-			rail from <a href="#">Seattle to Bellevue without Tunnel</a>, <a href="#">to
-			Overlake with tunnel</a>, <a href="#">to Overlake without
-			tunnel</a>, and <a href="#">to Redmond</a>.
-			<p>Construct an <a href="#" class="glossHighlight" title="East Link blah blah"> East
-					Link</a> project from downtown Seattle to downtown Bellevue
-					and Overlake Hospital via I-90. East Link would connect
-					to <a href="#" title="Central link blah blah" class="glossHighlight"> Central
-					Link</a> at the International District Station in Seattle
-					and provide stations on I-90 at Rainier Avenue and Mercer
-					Island. In Bellevue, this segment of East Link would have
-					three to four stations which would serve a regional park-and-ride,
-					downtown Bellevue, and Overlake Hospital. The alignment
-					and station locations will be determined through project
-					level design and environmental review. Cost estimates for
-					both aerial and underground alignments in downtown Bellevue
-					are presented here. This project is an 11.4 mile component
-					of the proposed light rail from <a href="#">Seattle to Redmond</a> via
-					I-90 and downtown Bellevue.<br />
-				(Source: Sound Transit) </p>
-			</span>
-			<p>
-			<h4>Links to additional information about this project</h4>
-			<span id="project-links"> <a href="#">Sound Transit 2 Project
-			website for Light Rail to Bellevue</a><br/>
-			<a href="#">Artist renderings of overpass in rich eastside
-			neighborhood</a><br />
-			<a href="#">We Love Transit, pro-light rail advocacy group</a><br />
-			<a href="#">Eastside Transportation Association, anti-light
-			rail advocacy group</a><br />
-			</span>
-			</p>
-			<p>
-			<h4>Statement for</h4>
-			<span id="project-statementFor"> Sdf fa al;sj s;a ;lasf; lj
-			;lsaj; js; lj s;j;j as;ljs asj;lwoeiuwntn iwutah lwstuo htahoaiu
-			ashh;we nasjot as nsaho woehn ahshto a na;snsl;sa oiu tow
-			hn aosk o woqja alkjsdoiq I tyaoiusan sajsaj . Saosoit ou
-			sansa;has o. aso iuwt aossfnaslkj oiasalksj ;slk na jsaoisuu
-			oisalslkss aslsalsuoibaha. Asosiausfos. See our website for
-			more information: www.welovetransit.org. </span>
-			</p>
-			<p>
-			<h4>Statement against</h4>
-			<span id="project-statementAgainst"> Nobody has submitted
-			a statement against this project. If you would like to submit
-			a formal statement against this project, click here. Other
-			comments can be made in the discussion forum below. </span>
-			</p>
-			<!-- end project description -->
-		</div>
-		<!-- end obj-left -->
-		<!-- begin firefox height hack -->
-		<div class="clearBoth"></div>
-		<!-- end firefox height hack -->
-		<!-- Load separate file content starting here -->
-		<div id="criteriaHeader" style="height:30px">
-			<div class="floatLeft">
-				<h3 class="headerColor">All planning factors and related
-					concern themes</h3>
-			</div>
-		</div>
-		<!-- begin criteria  -->
-		<div id="criteria" class="box3 floatLeft">
-			<!-- START All Criteria List -->
-			<div id="allCriteriaList">
-				<div class="criteriaListHeader">
-					<div class="weighCriteriaCol1 floatLeft">
-						<h4 class="headerColor">Planning factor</h4>
-					</div>
-					<div class="weighCriteriaCol2 floatLeft">
-						<h4 class="headerColor">Description</h4>
-					</div>
-					<div class="weighCriteriaCol3 floatLeft">
-						<h4 class="headerColor">Grade</h4>
-					</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="criteriaListRow row">
-					<div class="weighCriteriaCol1 floatLeft"><a href="#">
-						<div class="floatLeft"><a href="javascript:expandList('objectives1','icon1');"> <img src="images/plus.gif" id="icon1"></a></a></div>
-						<div class="floatLeft"><a href="#">Economic Vitality</a></div>
-					</div>
-					<div class="weighCriteriaCol2 floatLeft smallText">Support
-						the economic vitality of the metropolitan area especially
-						by enabling global competitiveness, productivity, and efficiency</div>
-					<div class="weighCriteriaCol3 floatLeft">C</div>
-					<div class="clearBoth"></div>
-					<div class="objectives" id="objectives1" style="display:none;"> Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
-				</div>
-				<div class="criteriaListRow row even">
-					<div class="weighCriteriaCol1 floatLeft"><a href="#">
-						<div class="floatLeft"><a href="javascript:expandList('objectives2','icon2');"> <img src="images/plus.gif" id="icon2"></a></div>
-						<div class="floatLeft"><a href="#">Security</a></div>
-					</div>
-					<div class="weighCriteriaCol2 floatLeft smallText">Increase
-						security of the transportation system for motorized and
-						nonmotorized uses.</div>
-					<div class="weighCriteriaCol3 floatLeft">B</div>
-					<div class="clearBoth"></div>
-					<div class="objectives" id="objectives2" style="display:none;"> Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
-				</div>
-				<div class="criteriaListRow row">
-					<div class="weighCriteriaCol1 floatLeft">
-						<div class="floatLeft"><a href="javascript:expandList('objectives3','icon3');"> <img src="images/plus.gif" id="icon3"></a></div>
-						<div class="floatLeft"><a href="#">Accessibility and Mobility</a></div>
-					</div>
-					<div class="weighCriteriaCol2 floatLeft smallText">Increase
-						the accessibility and mobility options to people and freight</div>
-					<div class="weighCriteriaCol3 floatLeft">A</div>
-					<div class="clearBoth"></div>
-					<div class="objectives" id="objectives3" style="display:none;"> Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
-				</div>
-				<div class="criteriaListRow row even">
-					<div class="weighCriteriaCol1 floatLeft">
-						<div class="floatLeft"><a href="javascript:expandList('objectives4','icon4');"> <img src="images/plus.gif" id="icon4"></a></div>
-						<div class="floatLeft"><a href="#">Lorem Ipsum Dolor Sit
-								Amet Adapiscing Elit</a></div>
-					</div>
-					<div class="weighCriteriaCol2 floatLeft smallText"> Protect
-						and enhance the environment, promote energy conservation,
-						and improve quality of life. </div>
-					<div class="weighCriteriaCol3 floatLeft">B</div>
-					<div class="clearBoth"></div>
-					<div class="objectives" id="objectives4" style="display:none;"> Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-						Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
-				</div>
-			</div>
-			<!-- END All Criteria List -->
-		<!-- end criteria -->
-		<!-- Separate file content stops here -->
-		</div>
+<!-- #container is the container that wraps around all the main page content -->
+<div id="container">
+<!-- begin Object -->
+<div id="object">
+  <div id="prjAlternativeDescription">
+    <h3 class="headerColor" id="project-title">${alternative.name}</h3>
+    <!-- begin cell containing Google Map object -->
+    <div id="map" class="floatRight"></div>
+    <!-- end cell containing Google Map object -->
+    <!--begin project description -->
+    <p>
+    <h4 style="display:inline">Money needed to complete this
+      project: </h4>
+    <span id="project-moneyNeeded">${alternative.cost}</span>
+    </p>
+    <p>
+    <h4 style="display:inline">Sponsoring Agency: </h4>
+    <span id="project-sponsoringAgency">${alternative.sponsor}</span>
+    </p>
+    <p>
+    <h4>Short Description</h4>
+    <span id="project-shortDescription">${alternative.shortDesc}</span>
+    </p>
+    <p>
+    <h4>Detailed Description</h4>
+    <span id="project-detailedDescription">${alternative.detailedDesc} </span>
+    </p>
+    <p>
+    <h4>Links to additional information about this project</h4>
+    <span id="project-links">${alternative.links}</span>
+    </p>
+    <p>
+    <h4>Statement for</h4>
+    <span id="project-statementFor">${alternative.statementFor}</span>
+    </p>
+    <p>
+    <h4>Statement against</h4>
+    <span id="project-statementAgainst">${alternative.statementAgainst}</span>
+    </p>
+    <!-- end project description -->
+  </div>
+</div>
+<!-- end obj-left -->
+<!-- begin firefox height hack -->
+<div class="clearBoth"></div>
+<!-- end firefox height hack -->
+<!-- Load separate file content starting here -->
+<div id="criteriaHeader" style="height:30px">
+  <div class="floatLeft">
+    <h3 class="headerColor">Planning Factor Grades for ${alternative.name}</h3>
+  </div>
+</div>
+<!-- begin criteria  -->
+<div id="criteria" class="box3 floatLeft">
+  <!-- START All Criteria List -->
+  <div id="allCriteriaList">
+    <div class="criteriaListHeader headingColor">
+      <div class="weighCriteriaCol1 floatLeft">
+        <h4>Planning factor</h4>
+      </div>
+      <div class="weighCriteriaCol2 floatLeft">
+        <h4>Description</h4>
+      </div>
+      <div class="weighCriteriaCol3 floatLeft">
+        <h4>Grade</h4>
+      </div>
+      <div class="clearBoth"></div>
+    </div>
+    <c:forEach var="criterion" items="${criteria}" varStatus="loop">
+      <div class="criteriaListRow row">
+        <div class="weighCriteriaCol1 floatLeft"><a href="#">
+          <div class="floatLeft"><a href="javascript:expandList('objectives1','icon1');">
+			  <img src="images/plus.gif" id="icon1"></a></a> </div>
+          <div class="floatLeft"><a href="#">${criterion.name}</a></div>
+        </div>
+        <div class="weighCriteriaCol2 floatLeft smallText">${criterion.description}</div>
+        <div class="weighCriteriaCol3 floatLeft">${criterion.grade}</div>
+        <div class="clearBoth"></div>
+        <div class="objectives" id="objectives1" style="display:none;"> Objectives
+          for this planning factor (${fn:length(criterion.objectives)}):<br/>
+          <table border="0" width="90%">
+            <tr>
+              <td><strong>Objective</strong></td>
+              <td><strong>Grade</strong></td>
+            </tr>
+            <c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
+              <tr>
+                <td>${objective.name}</td>
+                <td>${objective.grade}</td>
+              </tr>
+            </c:foreach>
+          </table>
+        </div>
+      </div>
+    </c:forEach>
+    <div class="criteriaListRow" style="padding:5px;">
+      <p>Average grade based on equal weighting of all planning
+        factors: ${alternative.criteria.equalWeights}<br />
+        Average grade based on all participants' weighting of
+        planning factors: ${alternative.criteria.allAverage}<br />
+        Average grade based on your preferred weighting of planning
+        factors: ${alternative.criteria.userWeight}</p>
+    </div>
+  </div>
+  <!-- END All Criteria List -->
+  <!-- end criteria -->
+  <!-- Separate file content stops here -->
+</div>
 <!-- end container -->
-	<!-- start feedback form -->
-	<pg:feedback id="feedbackDiv" action="cctView.do"/>
-	<!-- end feedback form -->
-	</body>
-</html:html>
+
