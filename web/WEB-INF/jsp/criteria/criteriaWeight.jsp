@@ -31,6 +31,8 @@
 			var cctId = "${cct.id}";			
 			var sliderArray = new Array();
 			var remainingWeight = 100;
+			var currentSliderValue=0;
+			
 			
 			//END Global Vars
 			
@@ -40,7 +42,8 @@
 				  callback:function(data){
 				    if(data.successful){
 				    	$('criteria').innerHTML = data.html;
-				    	addAllSliders();
+				    	window.setTimeout('addAllSliders();',3000);
+				    	//addAllSliders();
 						updateRemainingWeight();
 				    }else{
 						alert(data.reason);
@@ -55,42 +58,111 @@
 			/* *************** Add All Criterion Sliders *************** */
 			function addAllSliders(){
 				<c:forEach var="criterion" items="${cct.criteria}" varStatus="loop">
-					addSlider('${criterion.id}');
+					addSlider('${criterion.id}',${loop.index});
+					sliderArray[${loop.index}].setValue((($('input${criterion.id}').value)));
+					
+					
 				</c:forEach>
+			}
+			
+			function getMaxValue(except){
+				count=0;
+				for(a=0;a<sliderArray.length;a++){
+					count+=sliderArray[a].value;
+				
+				}
+				return ((100-count)+except);
 			}
 
 			/* *************** Assign a slider to a criteria and add it to the global slider array *************** */
-			function addSlider(critId){
+			function addSlider(critId, index){
 			  	newSlider = new Control.Slider('handle' + critId,'track' + critId,{
 						onSlide:function(v){
-							critWeight = (v * 100).toFixed(); //scriptaculous returns values ranging 0..1
-							$('input' + critId).value= critWeight;
+							critWeight=0;
+							//alert(sliderArray[index].value);
+							
+							//if((((100-remainingWeight)+(currentSliderValue))-(sliderArray[index].value))>=0){
+							
+							if(sliderArray[index].value<=getMaxValue(sliderArray[index].value)){
+								critWeight=sliderArray[index].value;
+								//alert("set value: "+critWeight);
+								sliderArray[index].setValue(critWeight);
+							}else{
+								critWeight=getMaxValue(sliderArray[index].value);
+								
+								sliderArray[index].setValue(critWeight);
+							}
+							//$('input' + critId).value= critWeight;
+							manualSliderChange(index,critWeight);
+							
 							updateRemainingWeight();
+							
+							
 							},
 						onChange:function(v){
-							critWeight = (v * 100).toFixed();
-							$('input' + critId).value=  critWeight;
-							setWeight(critId, critWeight);
+						//alert('onchange');
+							critWeight=0;
+							
+							//if(((((100-remainingWeight) + (currentSliderValue)) - (sliderArray[index].value))>=0)&&((100-remainingWeight)>=0)){
+							if(sliderArray[index].value<=getMaxValue(sliderArray[index].value)){
+								critWeight=sliderArray[index].value;
+								$('input' + critId).value=critWeight;
+								//setWeight(critId, critWeight);
+							}else{
+							//critWeight=(100-remainingWeight);//currentSliderValue
+							critWeight=getMaxValue(sliderArray[index].value);
+								sliderArray[index].setValue(critWeight);
+							$('input' + critId).value=critWeight;
+							
+							}
+							$('input'+critId).value=sliderArray[index].value;
+							setWeight(critId, sliderArray[index].value);
+							//manualSliderChange(index,critWeight);
+							
 							updateRemainingWeight();
 							},
-						minimum: 1,
+						range:$R(0,100),
+						minimum: 0,
 						maximum: 100,
-						sliderValue: $('input' + critId).value / 100 //grab value if user has already weighed this criteria
+						values:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100],
+						slidervalue: $('input' + critId).value //grab value if user has already weighed this criteria
 					});
 				sliderArray.push(newSlider);
 			}
 			
 			/* *************** Set the value of the slider if user manually sets it in the textbox *************** */
 			function manualSliderChange(index, v){
-				sliderArray[index].setValue(v / 100);
+				
+				if((((100-remainingWeight) + (sliderArray[index].value) - (v))>=0)&&((100-remainingWeight)>=0)){
+					//sliderArray[index].setValue(v / 100);
+					sliderArray[index].setValue(v);
+				}
+				/*a=document.getElementsByTagName('input');
+				for(b=0;b<a.length;b++){
+					if(a[b].tabIndex==(index+1)){
+						a[b].value=sliderArray[index].value;
+						break;
+					}
+				}*/
+				updateRemainingWeight();
 			}
 			
 			function updateRemainingWeight(){
 				remainingWeight = 0; //reset remainingWeight
+				a=document.getElementsByTagName('input');
 				for(i=0; i<sliderArray.length;i++){
 					remainingWeight += sliderArray[i].value;
+					for(b=0;b<=i;b++){
+						if(a[b].tabIndex==(i+1)){
+							a[b].value=sliderArray[i].value;
+							break;
+						
+						}
+					}
 				}
-				$('remainingWeight').innerHTML = 100 - (remainingWeight * 100).toFixed();
+
+				//$('remainingWeight').innerHTML = ((1-remainingWeight) * 100).toFixed();
+				$('remainingWeight').innerHTML = ((100-remainingWeight));
 			}
 			
 
@@ -300,5 +372,8 @@
 		<!-- Begin footer -->
 		<div id="footer"> </div>
 		<!-- End footer -->
+		<script type="text/javascript">
+		
+		</script>
 	</body>
 </html>

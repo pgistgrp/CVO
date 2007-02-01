@@ -149,6 +149,10 @@ Control.Slider.prototype = {
         sliderValue = this.values[handleIdx+1];
     }
     sliderValue = this.getNearestValue(sliderValue);
+    
+    
+    
+     
     this.values[handleIdx] = sliderValue;
     this.value = this.values[0]; // assure backwards compat
     

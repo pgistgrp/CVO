@@ -11,7 +11,7 @@
 	Page: Criteria Manager
 	Description: Manage all criteria for a given workflow instance.
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Issac Yang
+	     Front End: Jordan Isip, Adam Hindman, Isaac Yang
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
@@ -34,6 +34,7 @@
 <!-- End DWR JavaScript Libraries -->
 
 <!--Criteria Specific  Libraries-->
+<script src="scripts/SideBar.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/interface/CriteriaAgent.js'></script>
 
 	<script type="text/javascript" charset="utf-8">
@@ -162,7 +163,7 @@
 			
 			filler+="<label for='editThemesDiv"+id+"' class='niceFormElement'>Related Themes (optional)</label>";
 			filler+="<div id='editThemesDiv"+id+"'>";
-			<!-- load themes here - getThemes() -->
+				<!-- load themes here - getThemes() -->
 			filler+="</div><br />";
 			
 			filler+="<br />";
@@ -170,7 +171,7 @@
 			filler+="<label for='editObjectivesDiv"+id+"' class='niceFormElement'>Factor Objectives</label>";
 
 			filler+="<div id='editObjectivesDiv"+id+"'>";
-			<!-- load objectives here - getObjectives() -->
+				<!-- load objectives here - getObjectives() -->
 			filler+="</div>";
 
 			filler+="<br /><p />";
@@ -196,7 +197,7 @@
 			$('criteriaEdit'+id).innerHTML=filler;
 			fillEditForm(id);
 			
-			new Element.toggle('criteriaEdit'+id);
+			new Effect.BlindDown('criteriaEdit'+id);
 			//$('name').value
 			//code to display edit fields
 		}
@@ -210,7 +211,7 @@
 					$('editThemesDiv'+critId).innerHTML=getThemes(critId);
 					
 					
-					$('editObjectivesDiv'+critId).innerHTML=getObjectives(critId);
+					$('editObjectivesDiv'+critId).innerHTML=data.objectives[0];//getObjectives(critId);
 					
 						
 					}else{
@@ -227,7 +228,7 @@
 		/* *************** Produce a form to edit a given criterion *************** */
 		function editCriterion(id){
 			//alert("name: " + name + " description: " + description + " themes: " + themes + " objectivesArr: " + objectivesArr); 
-			var themesArr = getOptionValueFromObjects($('editThemes'+id).options); //grabs from multi select list
+			var themesArr = getOptionValueFromObjects($('theme-'+id).options); //grabs from multi select list
 			var objectivesArr = getOptionValueFromObjects($('editObjectives'+id).options); ; //grabs from multi select list
 			var name = $('editName'+id).value;
 			var description = $('editDescription'+id).value;
@@ -236,6 +237,7 @@
 			CriteriaAgent.editCriterion({id:id,name:name,description:description,themesArr:themesArr,objectivesArr:objectivesArr}, {
 				callback:function(data){
 					if (data.successful){
+					
 						getCriteria();
 					}else{
 						alert(data.reason);
