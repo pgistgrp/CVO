@@ -84,9 +84,10 @@
 		var links = $('txtAltLinks').value;
 		var statementFor = $('txtAltFor').value;
 		var statementAgainst = $('txtAltAgainst').value;
+		var inclusive = $('inclusive').checked; // "true" or "false"
 
-		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst); 
-		ProjectAgent.createProjectAlternative({name:name,description:description,cost:cost, sponsor:sponsor, links:links, statementFor:statementFor, statementAgainst:statementAgainst}, {
+		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst + " inclusive: " + inclusive); 
+		ProjectAgent.createProjectAlternative({name:name,description:description,cost:cost, sponsor:sponsor, links:links, statementFor:statementFor, statementAgainst:statementAgainst, inclusive: inclusive}, {
 			callback:function(data){
 				if (data.successful){
 					getProjects();
@@ -296,6 +297,7 @@
 				<option value="2">Transit</option>
 			</select>
 
+			<label><input type="checkbox" id="inclusive" /> The user can only select one option in this group.</label>
 			<p><input type="submit" value="submit"></p>
 		</form>
 	</div>

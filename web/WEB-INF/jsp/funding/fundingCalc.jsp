@@ -17,6 +17,8 @@
 		[x] Initial Skeleton Code (Jordan)
 		[ ] Barebones JavaScript (Issac)
 		[ ] Integrate Layout (Adam)
+	Notes:
+		- The action on this page will give: CCT, User, Tolls, UserCommute Objects
 #### -->
 <html:html>
 <head>
@@ -34,10 +36,64 @@
 <!-- End DWR JavaScript Libraries -->
 
 <!--Criteria Specific  Libraries-->
-<script type='text/javascript' src='/dwr/interface/CriteriaAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/FundingAgent.js'></script>
 
 	<script type="text/javascript" charset="utf-8">
-
+		//Global Vars
+			var cctId = "${cct.id}";
+		//End Global Vars
+		
+		/* *************** based off of the user inputs, get the calculated estimates for the given user *************** */
+		function getEstimates(){
+			//Grab input variables from the form
+			var tollIds = "1, 3";
+			var zip = "98105";
+			var driveDays = "0";
+			var carpoolDays = "0";
+			var busDays = "5";
+			var walkDays = "0";
+			var bikeDays = "2";
+			
+			//alert("cctId: " + cctId + " tollIds: " + tollIds + " zip: " + zip + " driveDays: " + driveDays + " carpoolDays: " + carpoolDays + "busDays: "+ busDays + " walkDays: " + walkDays + " bikeDays: "+ bikeDays); 
+			FundingAgent.getEstimates({cctId:cctId,tollIds:tollIds,zip:zip,driveDays:driveDays,carpoolDays:carpoolDays,busDays:busDays,walkDays:walkDays,bikeDays,bikeDays}, {
+				callback:function(data){
+					if (data.successful){
+						$('estimates').innerHTML = data.html; //data.source.html: fundingCalc_estimates.jsp
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("FundingAgent.getEstimates( error:" + errorString + exception);
+				}
+			});
+		}
+		
+		function setEstimates(){
+			//Grab input variables from the form
+			var tolls = "1:5, 3:10"; //string, comma separated id:value paris of tolls - get from estimates
+			var zip = "98105";
+			var driveDays = "0";
+			var carpoolDays = "0";
+			var busDays = "5";
+			var walkDays = "0";
+			var bikeDays = "2";
+			var annualConsume = 10.00; //get from estimate
+			
+			//alert("cctId: " + cctId + " tollIds: " + tollIds + " zip: " + zip + " driveDays: " + driveDays + " carpoolDays: " + carpoolDays + "busDays: "+ busDays + " walkDays: " + walkDays + " bikeDays: "+ bikeDays + " annualConsume: "+ annualConsume); 
+			FundingAgent.setEstimates({cctId:cctId,tolls:tolls,zip:zip,driveDays:driveDays,carpoolDays:carpoolDays,busDays:busDays,walkDays:walkDays,bikeDays,bikeDays,annualConsume:annualConsume}, {
+				callback:function(data){
+					if (data.successful){
+						$('estimates').innerHTML = data.html; //data.source.html: fundingCalc_estimates.jsp
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("FundingAgent.getEstimates( error:" + errorString + exception);
+				}
+			});
+		}
 	</script>
 
 
@@ -48,8 +104,45 @@
 	<body>
 		<a href="main.do">Back Home</a>
 		
-		<p>The action on this page will give: CCT, User, Tolls, UserCommute Objects</p>
+	
+		<div id="income">
+			<input type="text" id="income" name="profile" value="${user.income}"/>
+		</div>
 		
+		<div id="vehicles">
+			<c:forEach var="vehicle" items="${user.vehicles}" varStatus="loop">
+				Vehicle ${loop.index} [ edit ] [ delete ]
+				<ul>
+					<li>Miles Per Gallon: ${vehicle.milesPerGallon} </li>
+					<li>Approximate Value: ${vehicle.approxValue}</li>
+					<li>Miles Driven Per Year ${vehicle.milesPerYear}</li>
+				</ul>
+			</c:forEach>
+			[ add vehicle ]
+		</div>
+		
+		<div id="myCommute">
+			<p>Home Zip Code: <input type="text" id="zip" name="profile" value="${user.zipcode}" /> days to work, every week</p>
+			<p>I drive alone <input type="text" id="daysAlone" name="profile" value="${user.daysAlone}" /> days to work, every week</p>
+			<p>I carpool <input type="text" id="daysCarpool" name="profile" value="${user.daysCarpool}" /> days to work, every week</p>
+			<p>I ride the bus <input type="text" id="daysBus" name="profile" value="${user.daysBus}" /> days to work, every week</p>
+			<p>I walk <input type="text" id="daysWalk" name="profile" value="${user.daysWalk}" /> days to work, every week</p>
+			<p>I bike <input type="text" id="daysBike" name="profile" value="${user.daysBike}" /> days to work, every week</p>
+			<p>My daily commute includes:</p>
+			<ul>
+				<c:forEach var="toll" items="${tolls}" varStatus="loop">
+					<li><label><input type="checkbox" name="profile" id="toll-${toll.id}"/>${toll.name}</label></li>
+				</c:forEach>
+			</ul>
+		</div>
+		
+		<div id="estimates">
+			<!-- load estimates here via AJAX getEstimates(); fundingCalc_estimates.jsp-->
+		</div>
+		
+		<div id="report">
+			<!-- load report here via AJAX setEstimates(); fundingCalc_report.jsp-->
+		</div>
 	</body>
 </html:html>
 
