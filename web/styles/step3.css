@@ -1,5 +1,67 @@
 /* ################################ step 3a ############################ */
 
+#sdf-obj-left
+{
+width:52%;
+margin:.5em .5em .5em 0em;
+}
+
+#sdf-obj-right
+{
+width:45%;
+margin:.5em 0em .5em .5em;
+}
+
+.odd {background: #D6E7EF}
+.even {background: #ffffff}
+
+
+.sdf-listRow
+{
+padding:.3em 0em;
+}
+
+#sdf-allListHeader
+{
+text-align:left;
+}
+
+.sdf-col1
+{
+width:150px;
+margin-right:.5em;
+padding-left:.5em;
+}
+
+.sdf-col2
+{
+width:100px;
+}
+
+.sdf-col3
+{
+margin-left:.5em;
+width:100px;
+}	
+
+.sdf-col4
+{
+margin-left:.5em;
+width:100px;
+}	
+
+
+h4
+{
+font-size:1em;
+}
+
+.sdf-listHeaderTitles
+{
+font-size:.8em;
+font-weight:bold;
+}
+
 
 #list li {list-style-type:none}
 
