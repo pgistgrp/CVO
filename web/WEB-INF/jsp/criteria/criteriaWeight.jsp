@@ -42,7 +42,7 @@
 				  callback:function(data){
 				    if(data.successful){
 				    	$('criteria').innerHTML = data.html;
-				    	window.setTimeout('addAllSliders();',3000);
+				    	addAllSliders();
 				    	//addAllSliders();
 						updateRemainingWeight();
 				    }else{
