@@ -46,15 +46,31 @@
 		/* *************** based off of the user inputs, get the calculated estimates for the given user *************** */
 		function getEstimates(){
 			//Grab input variables from the form
-			var tollIds = "1, 3";
-			var zip = "98105";
-			var driveDays = "0";
-			var carpoolDays = "0";
-			var busDays = "5";
-			var walkDays = "0";
-			var bikeDays = "2";
+			tolls = document.getElementsByName("tolls");
+			tollsChecked = [];
 			
-			//alert("cctId: " + cctId + " tollIds: " + tollIds + " zip: " + zip + " driveDays: " + driveDays + " carpoolDays: " + carpoolDays + "busDays: "+ busDays + " walkDays: " + walkDays + " bikeDays: "+ bikeDays); 
+			//Find all checked checkboxes and put all checkbox ids into tollsChecked Array
+			for(i=0; i<tolls.length;i++){
+				if(tolls[i].checked){
+					tollsChecked.push(tolls[i].id);
+				}
+			}
+			
+			//Strip out fluff
+			for(i=0; i<tollsChecked.length;i++){
+				start = tollsChecked[i].indexOf('-') + 1;
+				tollsChecked[i] = tollsChecked[i].substring(start,tollsChecked[i].length);
+			}
+			
+			var tollIds = tollsChecked.toString();
+			var zip = $F('zip');
+			var driveDays = $F('daysAlone');
+			var carpoolDays = $F('daysCarpool');
+			var busDays = $F('daysBus');
+			var walkDays = $F('daysWalk');
+			var bikeDays = $F('daysBike');
+
+			//alert("cctId: " + cctId + " tollIds: " + tollIds + " zip: " + zip + " driveDays: " + driveDays + " carpoolDays: " + carpoolDays + "busDays: "+ busDays + " walkDays: " + walkDays + " bikeDays: "+ bikeDays);
 			FundingAgent.getEstimates({cctId:cctId,tollIds:tollIds,zip:zip,driveDays:driveDays,carpoolDays:carpoolDays,busDays:busDays,walkDays:walkDays,bikeDays,bikeDays}, {
 				callback:function(data){
 					if (data.successful){
@@ -70,21 +86,34 @@
 		}
 		
 		function setEstimates(){
+			//Grab estimated tolls
+			eTolls = document.getElementsByName("eTolls");
+			eTollsFormated = [];
+			
+			//Strip out fluff
+			for(i=0; i<eTolls.length;i++){
+				start = eTolls[i].id.indexOf('-') + 1;
+				eTollId = eTolls[i].id.substring(start,eTolls[i].id.length);
+				eTollValue = eTolls[i].value;
+				eTollsFormated.push(eTollId +":"+eTollValue);
+			}
+			
+			//alert(eTollsFormated.toString());
 			//Grab input variables from the form
-			var tolls = "1:5, 3:10"; //string, comma separated id:value paris of tolls - get from estimates
-			var zip = "98105";
-			var driveDays = "0";
-			var carpoolDays = "0";
-			var busDays = "5";
-			var walkDays = "0";
-			var bikeDays = "2";
-			var annualConsume = 10.00; //get from estimate
+			var tolls = eTollsFormated.toString(); //string, comma separated id:value paris of tolls - get from estimates
+			var zip = $F('zip');
+			var driveDays = $F('daysAlone');
+			var carpoolDays = $F('daysCarpool');
+			var busDays = $F('daysBus');
+			var walkDays = $F('daysWalk');
+			var bikeDays = $F('daysBike');
+			var annualConsume = $F('annualConsume');
 			
 			//alert("cctId: " + cctId + " tollIds: " + tollIds + " zip: " + zip + " driveDays: " + driveDays + " carpoolDays: " + carpoolDays + "busDays: "+ busDays + " walkDays: " + walkDays + " bikeDays: "+ bikeDays + " annualConsume: "+ annualConsume); 
 			FundingAgent.setEstimates({cctId:cctId,tolls:tolls,zip:zip,driveDays:driveDays,carpoolDays:carpoolDays,busDays:busDays,walkDays:walkDays,bikeDays,bikeDays,annualConsume:annualConsume}, {
 				callback:function(data){
 					if (data.successful){
-						$('estimates').innerHTML = data.html; //data.source.html: fundingCalc_estimates.jsp
+						$('report').innerHTML = data.source.html; //data.source.html: fundingCalc_estimates.jsp
 					}else{
 						alert(data.reason);
 					}
@@ -103,7 +132,6 @@
 	</head>
 	<body>
 		<a href="main.do">Back Home</a>
-		
 	
 		<div id="income">
 			<input type="text" id="income" name="profile" value="${user.income}"/>
@@ -131,9 +159,10 @@
 			<p>My daily commute includes:</p>
 			<ul>
 				<c:forEach var="toll" items="${tolls}" varStatus="loop">
-					<li><label><input type="checkbox" name="profile" id="toll-${toll.id}"/>${toll.name}</label></li>
+					<li><label><input type="checkbox" name="tolls" id="toll-${toll.id}"/>${toll.name}</label></li>
 				</c:forEach>
 			</ul>
+			<p><input type="button" value="getEstimates();"/></p>
 		</div>
 		
 		<div id="estimates">

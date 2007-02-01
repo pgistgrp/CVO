@@ -18,12 +18,12 @@
 		[ ] Integrate Criteria Tree (Issac)
 #### -->
 
-<c:forEach var="toll" items="${userCommute.tolls}" varStatus="loop">
-	${toll.value}
-</c:forEach>
-
-<c:forEach var="toll" items="${tolls}" varStatus="loop">
-	${toll.value}
-</c:forEach>
-
-	${annualConsume}
+<ul id="tolls">
+	<c:forEach var="toll" items="${userCommute.tolls}" varStatus="loop">
+		<li>${toll.name} <input type="text" id="eToll-${toll.id}" name="eTolls" value="${toll.value}" /></li>
+	</c:forEach>
+	<c:forEach var="toll" items="${tolls}" varStatus="loop">
+		<li>${toll.name} <input type="text" id="eToll-${toll.id}" name="eTolls" value="${toll.value}" /></li>
+	</c:forEach>
+</ul>
+<p>Annual Consumption Rate (sales tax) <input type="text" id="annualConsume" value="${annualConsume}" /></p>
