@@ -47,7 +47,7 @@ public interface DiscussionDAO extends BaseDAO {
     DiscussionPost createPost(Discussion discussion, String title, String content, String[] tags, boolean emailNotify) throws Exception;
     
     
-    DiscussionReply createReply(DiscussionPost post, String title, String content, String[] tags, boolean emailNotify) throws Exception;
+    DiscussionReply createReply(DiscussionPost post, DiscussionReply parentReply, String title, String content, String[] tags, boolean emailNotify) throws Exception;
     
     
     void editPost(DiscussionPost post, String title, String content, String[] tags) throws Exception;

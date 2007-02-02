@@ -262,12 +262,7 @@ public class SDServiceImpl implements SDService {
         /*
          * create reply
          */
-        DiscussionReply reply = discussionDAO.createReply(parent, title, content, tags, emailNotify);
-        
-        /*
-         * set the parent reply of this reply
-         */
-        reply.setParentReply(parentReply);
+        DiscussionReply reply = discussionDAO.createReply(parent, parentReply, title, content, tags, emailNotify);
         
         /*
          * set the last reply on post

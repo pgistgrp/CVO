@@ -280,7 +280,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//createPost()
     
     
-    public DiscussionReply createReply(DiscussionPost post, String title, String content, String[] tags, boolean emailNotify) throws Exception {
+    public DiscussionReply createReply(DiscussionPost post, DiscussionReply parentReply, String title, String content, String[] tags, boolean emailNotify) throws Exception {
         DiscussionReply reply = new DiscussionReply();
         
         reply.setTitle(title);
@@ -289,6 +289,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         reply.setCreateTime(new Date());
         reply.setParent(post);
+        reply.setParentReply(parentReply);
         reply.setOwner(getUserById(WebUtils.currentUserId()));
         reply.setEmailNotify(emailNotify);
         
