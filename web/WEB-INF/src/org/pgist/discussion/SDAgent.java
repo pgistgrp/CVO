@@ -538,6 +538,7 @@ public class SDAgent {
      *   <ul>
      *     <li>isid - int, id of a InfoStructure object</li>
      *     <li>pid - int, id of the parent DiscussionPost object</li>
+     *     <li>rid - int, id of the parent DiscussionReply object, optional</li>
      *     <li>title - string, title of the post. Optional.</li>
      *     <li>content - string, content of the post</li>
      *     <li>tags - string, comma separated tag names. Optional.</li>
@@ -572,6 +573,7 @@ public class SDAgent {
         InfoStructure structure = null;
         
         Long pid = null;
+        Long rid = null;
         
         try {
             isid = new Long((String) params.get("isid"));
@@ -592,9 +594,11 @@ public class SDAgent {
                 return map;
             }
             
+            rid = new Long((String) params.get("rid"));
+            
             String emailNotify = (String) params.get("emailNotify");
             
-            DiscussionReply reply = sdService.createReply(pid, title, content, tags, "true".equals(emailNotify));
+            DiscussionReply reply = sdService.createReply(pid, rid, title, content, tags, "true".equals(emailNotify));
             
             map.put("id", reply.getId());
             map.put("successful", true);

@@ -242,10 +242,17 @@ public class SDServiceImpl implements SDService {
     }//createPost()
 
 
-    public DiscussionReply createReply(Long parentId, String title, String content, String[] tags, boolean emailNotify) throws Exception {
+    public DiscussionReply createReply(Long parentId, Long parentReplyId, String title, String content, String[] tags, boolean emailNotify) throws Exception {
         DiscussionPost parent = discussionDAO.getPostById(parentId);
         
         if (parent==null) throw new Exception("no such DiscussionPost object");
+        
+        DiscussionReply parentReply = null;
+        
+        if (parentReplyId!=null) {
+            parentReply = discussionDAO.getReplyById(parentReplyId);
+            if (parentReply==null) throw new Exception("no such DiscussionReply object");
+        }
         
         /*
          * increase the reply count of the post
@@ -256,6 +263,11 @@ public class SDServiceImpl implements SDService {
          * create reply
          */
         DiscussionReply reply = discussionDAO.createReply(parent, title, content, tags, emailNotify);
+        
+        /*
+         * set the parent reply of this reply
+         */
+        reply.setParentReply(parentReply);
         
         /*
          * set the last reply on post

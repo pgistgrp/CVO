@@ -49,7 +49,7 @@ public interface SDService {
     DiscussionPost createPost(InfoObject object, String title, String content, String[] tags, boolean emailNotify) throws Exception;
     
     
-    DiscussionReply createReply(Long parentId, String title, String content, String[] tags, boolean emailNotify) throws Exception;
+    DiscussionReply createReply(Long parentId, Long parentReplyId, String title, String content, String[] tags, boolean emailNotify) throws Exception;
 
 
     void deletePost(DiscussionPost post) throws Exception;

@@ -14,6 +14,8 @@ public class DiscussionReply extends GenericPost {
     
     protected DiscussionPost parent;
     
+    protected DiscussionReply parentReply;
+    
     
     /**
      * @return
@@ -26,6 +28,20 @@ public class DiscussionReply extends GenericPost {
 
     public void setParent(DiscussionPost parent) {
         this.parent = parent;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.many-to-one column="parent_reply_id" lazy="true"
+     */
+    public DiscussionReply getParentReply() {
+        return parentReply;
+    }
+
+
+    public void setParentReply(DiscussionReply parentReply) {
+        this.parentReply = parentReply;
     }
 
 
