@@ -221,6 +221,12 @@
 			new Effect.Highlight('newReply');
 		};
 		
+		io.cancelReply = function(){
+			tinyMCE.setContent(""); //reset rich textbox
+			$(io.newReplyTitleInput).value = $(io.newReplyTitleInput).defaultValue;
+			io.replyId = null; //reset replyId
+		}
+		
 		io.getContextPosts =  function(page){
 					displayIndicator(true);
 					//alert("structureID: " + io.structureId + " pid: " + io.postId + " page: "+ page + " count: "+ io.contextPostCount);
