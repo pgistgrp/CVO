@@ -60,6 +60,7 @@
 		io.structureId = "${structure.id}";
 		io.objectId = "${object.id}";
 		io.postId = "${post.id}";
+		io.replyId = null;
 		io.currentFilter = '';
 		io.currentPage = 1;
 
@@ -155,26 +156,28 @@
 		io.createReply = function(){
 			displayIndicator(true);
 			var title = $(io.newReplyTitleInput).value;
-			var newReply = tinyMCE.getContent();
+			var content = tinyMCE.getContent();
 			var tags = $(io.newReplyTagsInput).value;
 		    var notify = $(io.newReplyNotifier).checked;
 			var emailNotify = notify.toString();
-			SDAgent.createReply({isid:${structure.id}, pid:${post.id}, title:title, content:newReply, tags: tags, emailNotify: emailNotify}, {
+			var rid = io.replyId;
+			var pid = "${post.id}";
+			alert("structureId: " + io.structureId + " PostID: " + pid + " ReplyID: " + rid + " Title:" + title + " Content: "+ content + " Tags: " + tags + " EmailNotify " + emailNotify);
+			SDAgent.createReply({isid:io.structureId, pid:pid, rid:rid, title:title, content:content, tags: tags, emailNotify: emailNotify}, {
 		      callback:function(data){
 		          if (data.successful){     
 		          		displayIndicator(false);
 						resetNewReplyForm();
-						//io.setVote('reply', data.id, 'true');	
+						io.replyId = null; //reset reply id
 						io.getReplies(io.currentFilter, io.currentPage, true);	
 						location.href="#replyAnchor" + data.id;
-						if(($('discussionText'+data.id)==undefined)){
+						//if(($('discussionText'+data.id)==undefined)){
 						
 						//goToPage('replies',9);
 						//9 = page.setting.lastPage
 						
-						}
-						//alert($("discussionText"+data.id).name);
-						
+						//}
+						//io.setVote('reply', data.id, 'true');	 //moved to backend - business logic
 						window.setTimeout('new Effect.Highlight("discussionText'+ data.id +'", {duration: 4.0});',500);
 		          }else{
 		          	 displayIndicator(false);
@@ -209,6 +212,7 @@
 		};	
 		
 		io.setQuote = function(replyId){
+			io.replyId = replyId;
 			var currentReply = tinyMCE.getContent();
 			var currentReplyContent = $('replyContent'+replyId).innerHTML;
 			var currentReplyOwner = $('replyOwner'+replyId).innerHTML;
