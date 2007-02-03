@@ -32,22 +32,28 @@
 			var sliderArray = new Array();
 			var remainingWeight = 100;
 			var currentSliderValue=0;
+			var range=new Array();
+			for(a=0;a<101;a++){
+			range.push(a);
+			}
 			
 			
 			//END Global Vars
 			
 			/* *************** Pull all criteria and their associated weights and objectives (criteriaAssoc_weights.jsp) *************** */
 			function getWeights(){
+			//$('loading-indicator').style.display="inline";
 				CriteriaAgent.getWeights({cctId:cctId},{
 				  callback:function(data){
 				    if(data.successful){
 				    	$('criteria').innerHTML = data.html;
 				    	addAllSliders();
-				    	//addAllSliders();
+				    	
 						updateRemainingWeight();
 				    }else{
 						alert(data.reason);
 					}
+					
 				  },
 				  errorHandler:function(errorString, exception){
 				        alert("getWeights error:"+errorString+" "+exception);
@@ -78,38 +84,46 @@
 			function addSlider(critId, index){
 			  	newSlider = new Control.Slider('handle' + critId,'track' + critId,{
 						onSlide:function(v){
+						
 							critWeight=0;
-							//alert(sliderArray[index].value);
 							
-							//if((((100-remainingWeight)+(currentSliderValue))-(sliderArray[index].value))>=0){
+							
+							
 							
 							if(sliderArray[index].value<=getMaxValue(sliderArray[index].value)){
 								critWeight=sliderArray[index].value;
-								//alert("set value: "+critWeight);
+							
 								sliderArray[index].setValue(critWeight);
 							}else{
 								critWeight=getMaxValue(sliderArray[index].value);
 								
 								sliderArray[index].setValue(critWeight);
 							}
-							//$('input' + critId).value= critWeight;
+							
 							manualSliderChange(index,critWeight);
 							
 							updateRemainingWeight();
+							if((100-remainingWeight)==0){
+								
+								$('remainingWeightP').style.backgroundColor="#FFFF00";
+								
+							}else{
+								
+								$('remainingWeightP').style.backgroundColor="#FFFFFF";
+							}
 							
-							
-							},
+						},
 						onChange:function(v){
-						//alert('onchange');
+						
 							critWeight=0;
 							
-							//if(((((100-remainingWeight) + (currentSliderValue)) - (sliderArray[index].value))>=0)&&((100-remainingWeight)>=0)){
+							
+							
 							if(sliderArray[index].value<=getMaxValue(sliderArray[index].value)){
 								critWeight=sliderArray[index].value;
 								$('input' + critId).value=critWeight;
 								//setWeight(critId, critWeight);
 							}else{
-							//critWeight=(100-remainingWeight);//currentSliderValue
 							critWeight=getMaxValue(sliderArray[index].value);
 								sliderArray[index].setValue(critWeight);
 							$('input' + critId).value=critWeight;
@@ -120,11 +134,20 @@
 							//manualSliderChange(index,critWeight);
 							
 							updateRemainingWeight();
-							},
+							if((100-remainingWeight)==0){
+								
+								$('remainingWeightP').style.backgroundColor="#FFFF00";
+								
+					
+							}else{
+								
+								$('remainingWeightP').style.backgroundColor="#FFFFFF";
+							}
+						},
 						range:$R(0,100),
 						minimum: 0,
 						maximum: 100,
-						values:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100],
+						values: range,
 						slidervalue: $('input' + critId).value //grab value if user has already weighed this criteria
 					});
 				sliderArray.push(newSlider);
@@ -134,16 +157,10 @@
 			function manualSliderChange(index, v){
 				
 				if((((100-remainingWeight) + (sliderArray[index].value) - (v))>=0)&&((100-remainingWeight)>=0)){
-					//sliderArray[index].setValue(v / 100);
+					
 					sliderArray[index].setValue(v);
 				}
-				/*a=document.getElementsByTagName('input');
-				for(b=0;b<a.length;b++){
-					if(a[b].tabIndex==(index+1)){
-						a[b].value=sliderArray[index].value;
-						break;
-					}
-				}*/
+				
 				updateRemainingWeight();
 			}
 			
@@ -161,28 +178,33 @@
 					}
 				}
 
-				//$('remainingWeight').innerHTML = ((1-remainingWeight) * 100).toFixed();
+		
+				
 				$('remainingWeight').innerHTML = ((100-remainingWeight));
+				
 			}
 			
 
 			
 			/* *************** Set the weight of givin criterion *************** */
 			function setWeight(critId, weight){
-				//alert("cctId: " + cctId + " critId: " + critId + " weight: " + weight); 
+			$('saving-indicator').style.display="inline";
+				
 				CriteriaAgent.setWeight({cctId:cctId,critId:critId,weight:weight}, {
 					callback:function(data){
 						if (data.successful){
-							//enable saving indicator here
-							//alert('value saved')
+							
+							
 						}else{
 							alert(data.reason);
 						}
+						$('saving-indicator').style.display="none";
 					},
 					errorHandler:function(errorString, exception){ 
 					alert("CriteriaAgent.setWeight( error:" + errorString + exception);
 					}
 				});
+				
 			}
 			
 			/* *************** Toggle simple tree menu - maybe pull this into an external file since a few files are now using this? *************** */			
@@ -277,6 +299,28 @@
 			{
 			padding:.5em;
 			}
+			
+			#saving-indicator{
+	display: none;
+	background-color: red;
+	color: white;
+	position:absolute;
+	top: 0;
+	left:0;
+	padding: 3px;
+	z-index: 500;
+}
+
+#loading-indicator{
+	
+	background-color: red;
+	color: white;
+	position:absolute;
+	top: 0;
+	left:0;
+	padding: 3px;
+	z-index: 500;
+}
 		</style>
 		
 	</head>
@@ -286,7 +330,20 @@
 		                          <style type="text/css">
 		                          #sortingMenu {right:0px;}
 								  #criteriaRuler {width:745px;}
-		                          </style>
+								  
+								  
+
+
+div > div#saving-indicator{
+position:fixed;
+}
+
+div > div#loading-indicator{
+position:fixed;
+}
+</style>
+
+		                          
 		          <![endif]-->
 		<!-- End conditional styles -->
 		
@@ -311,6 +368,9 @@
 		<!-- Begin loading indicator -->
 		<div style="display: none;" id="loading-indicator"> Loading... 
 			<img src="/images/indicator_arrows.gif"> 
+		</div>
+		<div style="display:none;" id="saving-indicator"> Saving...
+			<img src="/images/indicator_arrows.gif">
 		</div>
 		<!-- End loading indicator -->
 		<!-- Begin container - Main page content begins here -->
