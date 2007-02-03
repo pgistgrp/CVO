@@ -20,7 +20,7 @@ Zhong:
 [] sdfStructureTarget needs to have alternative.userCost and alternative.averageCost variables.
 [] Add 'description' field to FundingSource.
 
-[] auto-redirect after login
+[ok] auto-redirect after login
 [] email digest from Michael Patrick
 
 

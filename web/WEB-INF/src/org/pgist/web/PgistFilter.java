@@ -1,6 +1,7 @@
 package org.pgist.web;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashSet;
 
 import javax.servlet.Filter;
@@ -90,10 +91,29 @@ public class PgistFilter implements Filter {
             userInfo = (UserInfo) session.getAttribute("user");
             if (userInfo==null) {
                 //user has not logged on
+                
+                /*
+                 * save the current URL for later user
+                 */
+                StringBuilder initURL = new StringBuilder();
+                initURL.append(req.getContextPath());
+                initURL.append(loginURL);
+                initURL.append("?PG_INIT_URL=");
+                
+                StringBuffer sb = req.getRequestURL();
+                sb.append('?').append(req.getQueryString());
+                initURL.append(URLEncoder.encode(sb.toString(), "UTF-8"));
+                
+                /*
+                 * redirect to login page with initURL
+                 */
                 HttpServletResponse res = (HttpServletResponse) response;
-                res.sendRedirect( req.getContextPath() + loginURL );
+                res.sendRedirect( initURL.toString() );
+                
                 return;
             }
+            
+            req.setAttribute("PG_INIT_URL", "");
             
             //You can use the variable "baseuser" on any jsp page.
             request.setAttribute("baseuser", userInfo);

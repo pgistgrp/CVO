@@ -75,6 +75,23 @@ public class LoginAction extends Action {
             
             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             
+            /*
+             * Now the user is authenticated and authorized
+             */
+            
+            /*
+             * Check if it's a intermediate login
+             */
+            String initURL = request.getParameter("PG_INIT_URL");
+            System.out.println("redirect to -----> "+initURL);
+            if (initURL!=null && initURL.length()>0) {
+                /*
+                 * redirect to the initial URL
+                 */
+                ActionForward af = new ActionForward(initURL, true);
+                return af;
+            }
+            
             return mapping.findForward("main");
         } else if(!user.checkPassword(password)){
         	uform.setReason("Your Password is Invalid. Please Try Again.");
