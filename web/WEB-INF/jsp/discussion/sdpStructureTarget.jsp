@@ -41,7 +41,6 @@
 	<div id="3a-obj-left" class="floatLeft">
 		<div id="list">
 			<!--left col-->
-			<h3 class="headerColor clearBoth">All Proposed Projects</h3>
 			<h4 class="headerColor">Road Projects</h4>
 			<ul>
 				<c:forEach var="project" items="${infoStructure.infoObjects}" varStatus="loop">

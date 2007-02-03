@@ -37,7 +37,7 @@
 <script type='text/javascript' src='/dwr/util.js'></script>
 <!-- End DWR JavaScript Libraries -->
 
-<!--Criteria Specific  Libraries-->
+<!-- Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/FundingAgent.js'></script>
 
 	<script type="text/javascript" charset="utf-8">

@@ -26,6 +26,44 @@
 		<style type="text/css" media="screen">
 			@import "styles/lit.css";
 		</style>
+		<script type='text/javascript' src='/dwr/interface/PackageAgent.js'></script>		
+		<script type="text/javascript" charset="utf-8">
+			//Global Vars
+			
+			//End Global Vars
+			
+			function setFundingToPkg(id, deleting){
+				//alert("id: " + id + " deleting: " + deleting); 
+				PackageAgent.setProjectToPkg({id:id,deleting:deleting}, {
+					callback:function(data){
+						if (data.successful){
+							alert("Project" + id + " was successfully set to " + deleting); //replace with saving indicator later
+						}else{
+							alert(data.reason);
+						}
+					},
+					errorHandler:function(errorString, exception){ 
+					alert("PackageAgent.setProjectToPkg( error:" + errorString + exception);
+					}
+				});
+			}
+			
+			function setProjectToPkg(id, deleting){
+				//alert("id: " + id + " deleting: " + deleting); 
+				PackageAgent.setFundingToPkg({id:id,deleting:deleting}, {
+					callback:function(data){
+						if (data.successful){
+							alert("Funding" + id + " was successfully set to " + deleting); //replace with saving indicator later
+						}else{
+							alert(data.reason);
+						}
+					},
+					errorHandler:function(errorString, exception){ 
+					alert("PackageAgent.setFundingToPkg( error:" + errorString + exception);
+					}
+				});
+			}
+		</script>
 	</head>
 	<body>
 		<h1>Overview and Instructions</h1>
@@ -34,22 +72,32 @@
 		<FORM action="packageAction.do" method="post">	
 			<div id="createPackage">
 				<div id="summary">
-					<!-- load from javascript -->
+					<h3>Your package summary</h3>
+					<p>Total Cost: </p>
+					<p>Total Funding: </p>
+					<p>Cost to you: </p>
+					<p>Cost to the average resident: </p>
+					<p>Number of projects in your package: </p>
+					<p>Balance: </p>
 				</div>
 				<div id="projects">
-					<h1>Create your Transportation Package</h1>
-					<c:forEach var="project" items="${projects}" varStatus="loop">
-						<label><input name="proj-${project.id}" type="radio" CHECKED /> Do Nothing</label>
-						<p>Name: ${project.name}</p>
-						<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
-							<input type="radio" name="proj-${project.id}" 
-							<c:if test="${pg:contains(alternative, package.projAlts)}">
-								CHECKED
-							</c:if>
-							<!-- end input -->
-							Name: ${alternative.name}
+					<h3>Create your Transportation Package</h3>
+					<ul>
+						<c:forEach var="project" items="${projects}" varStatus="loop">
+							<li>	
+								<label><input name="proj-${project.id}" type="radio" CHECKED /> Do Nothing</label>
+								<p>Name: ${project.name}</p>
+								<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
+									<input type="radio" name="proj-${project.id}" 
+									<c:if test="${pg:contains(alternative, package.projAlts)}">
+										CHECKED
+									</c:if>
+									<!-- end input -->
+									Name: ${alternative.name}
+								</c:forEach>
+							</li>
 						</c:forEach>
-					</c:forEach>
+					</ul>
 				</div>
 				
 				<div id="map">
@@ -57,22 +105,51 @@
 				</div>
 				
 				<div id="funding">
-					<h1>Decide how to pay for it</h1>
-					<c:forEach var="source" items="${sources}" varStatus="loop">
-						${source.name}
-							<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
-								<input type="radio" name="fund-${project.id}" 
-								<c:if test="${pg:contains(alternative, package.fundAlts)}">
-									CHECKED
-								</c:if>
-								<!-- end input -->
-								${alternative.name}
-							</c:forEach>
-					</c:forEach>
-					<h1>Finished?</h1>
+					<h3>Decide how to pay for it</h3>
+					<!-- begin list of funding options -->
+					<div id="sdf-allListHeader headingColor">
+						<div class="listHeaderHeader headingColor">
+							<div class="sdf-col1 floatLeft"> <span class="sdf-listHeaderTitles">Funding
+									Source</span> </div>
+							<div class="sdf-col2 floatLeft"> <span class="sdf-listHeaderTitles">Money
+									raised</span> </div>
+							<div class="sdf-col3 floatLeft"> <span class="sdf-listHeaderTitles">Annual
+									cost to you</span> </div>
+							<div class="sdf-col4 floatLeft"> <span class="sdf-listHeaderTitles">Annual
+									cost to average resident</span> </div>
+							<div class="clearBoth"></div>
+						</div>
+
+						<c:forEach var="source" items="${sources}" varStatus="loop">
+							<div id="source-${source.id}">
+								<h4 class="headerColor">${source.name}</h4>
+								<div class="sdf-listRow row">
+									<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
+										<div class="sdf-col1 floatLeft">
+											<div class="floatLeft">
+												<label><input name="proj-${project.id}" type="radio" CHECKED /> Do Nothing</label>
+												<input type="radio" name="fund-${alternative.id}" onchange="setFundingToPkg('${alternative.id}', this.checked)"
+													<c:if test="${pg:contains(alternative, package.fundAlts)}">
+														checked="checked"
+													</c:if>
+												/> <!-- end input -->
+												${alternative.name}
+											</div>
+										</div>
+										<div class="sdf-col2 floatLeft smallText">${alternative.revenue}</div>
+										<div class="sdf-col3 floatLeft smallText">${alternative.userCost}</div>
+										<div class="sdf-col4 floatLeft smallText">${alternative.averageCost}</div>
+										<div class="clearBoth"></div>
+									</c:forEach>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+					<!-- end list of funding options -->
+					<h3>Finished?</h3>
 				</div>
 				<div id="summaryRepeat">
-					<!-- load from javascript -->
+					<!-- repeat from above -->
 				</div>
 				<input type="button" value="Yes - Submit My Package!"> <!-- this should only be enabled if funding exceeds cost -->
 				<input type="cancel" value="No - Start Over!">
