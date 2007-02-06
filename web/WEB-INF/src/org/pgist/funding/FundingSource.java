@@ -16,24 +16,24 @@ public class FundingSource implements Serializable {
     /**
      * annual cost = (tax rate) / (miles per galon) * (miles driven per year)
      */
-    private static final int TYPE_GAS_TAX = 1;
+    public static final int TYPE_GAS_TAX = 1;
     
     /**
      * annual cost = (tax rate) * (estimated annual consumption)
      */
-    private static final int TYPE_SALES_TAX = 2;
+    public static final int TYPE_SALES_TAX = 2;
     
     /**
      * For bridge tolls:<br>
      * annual cost = (toll rate) * (trips per year)
      */
-    private static final int TYPE_BRIDGE_TOLL = 3;
+    public static final int TYPE_BRIDGE_TOLL = 3;
     
     /**
      * For road tolls:<br>
      * annual cost = (toll rate) * (trips per year)
      */
-    private static final int TYPE_ROAD_TOLL = 4;
+    public static final int TYPE_ROAD_TOLL = 4;
     
     
     private Long id;

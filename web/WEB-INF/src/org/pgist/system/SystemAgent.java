@@ -165,4 +165,26 @@ public class SystemAgent {
     }//getFeedbacks()
     
     
+    /**
+     * Logging the page upload event.
+     * 
+     * @return
+     */
+    public Map setUnloading(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            System.out.println("--> "+request.getParameter("page"));
+            //systemService.logUnloading();
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//setUnloading()
+    
+    
 }//class SystemAgent
