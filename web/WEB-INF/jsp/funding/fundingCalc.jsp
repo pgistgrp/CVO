@@ -18,13 +18,15 @@
 		[ ] Add userAgent for vehicles
 		[ ] Ensure get and set estimates are working correctly and pulling the right data (Jordan)
 		[ ] Barebones JavaScript (Issac)
-		[ ] Integrate Layout (Adam)
+		[x] Integrate Layout (Adam)
 	Notes:
 		- The action on this page will give: CCT, User, Tolls, UserCommute Objects
 #### -->
+
 <html:html>
-<head>
-<title>Tax Calculator</title>
+  <head>
+  <title>Tax Calculator</title>
+
 <!-- Site Wide JavaScript -->
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
@@ -100,6 +102,7 @@
 				eTollsFormated.push(eTollId +":"+eTollValue);
 			}
 			
+
 			//alert(eTollsFormated.toString());
 			//Grab input variables from the form
 			var tolls = eTollsFormated.toString(); //string, comma separated id:value paris of tolls - get from estimates
@@ -127,48 +130,163 @@
 		}
 	</script>
 
+<!-- Site Wide CSS -->
+<style type="text/css" media="screen">
+@import "styles/lit.css";
 
-	<style type="text/css">
+#income,#vehicles,#myCommute,#estimates
+{
+padding:.5em;
+padding-left:2em;
+border:1px solid #89A3AF;
+}
 
-	</style>
-	</head>
-	<body>
-		<a href="main.do">Back Home</a>
-	
-		<div id="income">
-			<h3>My Income</h3>
-			Annual Income $<input type="text" id="income" name="profile" value="${user.income}"/>.00
-		</div>
-		
-		<div id="vehicles">
-			<h3>My Vehicles</h3>
+#income
+{
+background:#E6EDEF;
+}
+
+#vehicles
+{
+border-top:0px;
+background:#D6E7EF;
+}
+
+#vehicles input {width:5em;}
+.vehiclesRow {margin:.5em 0em;}
+
+#myCommute
+{
+border-top:0px;
+background:#E6EDEF;
+}
+
+#myCommute-left,#myCommute-center,#myCommute-right{margin-right:1em;}
+
+#myCommute-left 
+{
+width:12em;
+}
+
+#myCommute-left input {width:3em}
+
+#myCommute-center 
+{
+width:25em;
+}
+
+#myCommute-center input {width:1em;}
+
+#myCommute-right 
+{
+}
+
+#estimates
+{
+border-top:0px;
+background:#D6E7EF;
+}
+
+#estimates-left
+{
+
+}
+
+table#tollRoads {font-size:.9em;width:90%;}
+#tollRoads td {padding:.1em .3em;}
+#tollRoads input {width:2em;text-align:center;}
+
+#estimates-center
+{
+
+}
+
+#estimates-right
+{
+
+}
+
+#costReport table 
+{
+width:100%;
+margin-bottom:1.5em;
+border:1px solid #D6E7EF;
+padding:.2em;
+}
+
+#costReport th{font-weight:bold;padding:.2em;background:inherit;width:200px;text-align:left;}
+#costReport th.fundingSourceItem{font-size:.8em;text-align:left;padding-left:.5em;}
+#costReport tr.fundingType{font-size:1.2em;text-align:left;}
+
+#costReport td
+{
+font-size:.8em;
+padding:5px;
+font-weight:normal;
+}
+
+#costReport tr{} 
+
+.odd {background:#D6E7EF;}
+.tableHeading {background:#ADCFDE;}
+</style>
+  <!-- End Site Wide CSS -->
+  </head>
+  <body>
+  <!-- #container is the container that wraps around all the main page content -->
+  <div id="container">
+  	<h3 class="headerColor">Calculating the annual cost to you</h3>
+	  <p>Feel free to change the information you previously provided in the text boxes below</p>
+	  
+<!-- Begin calculator options -->
+	  <div id="income">
+	  	<h3 class="headerColor">My income</h3>
+			<span id="annualIncome">
+				Annual Income $<input type="text" id="income" name="profile" value="${user.income}"/>.00
+			</span>
+	  </div>
+	  <div id="vehicles">
+		<h3 class="headerColor">My Vehicles</h3>
 			<c:forEach var="vehicle" items="${user.vehicles}" varStatus="loop">
-				Vehicle ${loop.index} [ edit ] [ delete ]
-				<ul>
-					<li>Miles Per Gallon: ${vehicle.milesPerGallon} </li>
-					<li>Approximate Value: ${vehicle.approxValue}</li>
-					<li>Miles Driven Per Year ${vehicle.milesPerYear}</li>
-				</ul>
+				<div class="vehiclesRow">
+					<strong>Vehicle ${loop.index}</strong>[ edit ] [ delete ]
+					Miles per gallon: <strong>${vehicle.milesPerGallon}</strong>
+					Approximate value: <strong>${vehicle.approxValue}</strong>
+					Miles driven per year: <strong>${vehicle.milesPerYear}</strong>
+					<a href="#">Remove vehicle</a>
+				</div>
 			</c:forEach>
-			[ add vehicle ]
+			
+			<p><a href="#">Add vehicle</a>
+
+	  </div>
+	  <div id="myCommute">
+	  	<h3 class="headerColor">My Commute</h3>
+		<div id="myCommute-left" class="floatLeft">
+			Home zip code <input name="profile" type="text" size="5" maxlength="5" value="${user.zipcode}"> 
 		</div>
-		
-		<div id="myCommute">
-			<h3>My Commute</h3>
-			<p>Home Zip Code: <input type="text" id="zip" name="profile" value="${user.zipcode}" /> days to work, every week</p>
-			<p>I drive alone <input type="text" id="daysAlone" name="profile" value="${user.daysAlone}" /> days to work, every week</p>
-			<p>I carpool <input type="text" id="daysCarpool" name="profile" value="${user.daysCarpool}" /> days to work, every week</p>
-			<p>I ride the bus <input type="text" id="daysBus" name="profile" value="${user.daysBus}" /> days to work, every week</p>
-			<p>I walk <input type="text" id="daysWalk" name="profile" value="${user.daysWalk}" /> days to work, every week</p>
-			<p>I bike <input type="text" id="daysBike" name="profile" value="${user.daysBike}" /> days to work, every week</p>
-			<p>My daily commute includes:</p>
-			<ul>
+		<div id="myCommute-center" class="floatLeft">
+			I drive alone <input id="daysAlone" size="1" maxlength="1" name="profile" type="text" value="${user.daysAlone}"> 
+			days to work each week<br/>
+			I carpool <input type="text" id="daysCarpool" name="profile" value="${user.daysCarpool}" size="1" maxlength="1"/> 
+			days to work each week with <input size="1" maxlength="1" name="profile" type="text" value="${user.daysCarpoolPeople}"> people<br/>
+			I ride the bus <input size="1" maxlength="1"type="text" id="daysBus" name="profile" value="${user.daysBus}" />
+			 days to work each week<br/>
+         I bike <input size="1" maxlength="1" type="text" id="daysBike" name="profile" value="${user.daysBike}" />
+				  days to work each week<br/>
+		</div>
+		<div id="myCommute-right" class="floatLeft">
+			My daily commute includes:<br />
 				<c:forEach var="toll" items="${tolls}" varStatus="loop">
-					<li><label><input type="checkbox" name="tolls" id="toll-${toll.id}"/>${toll.name}</label></li>
+					<label><input type="checkbox" name="tolls" id="toll-${toll.id}"/>${toll.name}</label><br />
 				</c:forEach>
-			</ul>
-			<p><input type="button" value="getEstimates();"/></p>
 		</div>
+			<div class="clearboth">
+				<input type="button" value="getEstimates();" 
+					style="clear:both;margin:1em;" class="floatRight">
+			</div>
+		<div class="clearBoth"></div>
+	  </div> 	
 		
 		<div id="estimates">
 			<!-- load estimates here via AJAX getEstimates(); fundingCalc_estimates.jsp-->
