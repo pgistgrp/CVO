@@ -135,6 +135,9 @@ public class UserPackage {
 
 
     /**
+     * meaning: the annual cost of the current user based on the choosen funding source alternatives<br>
+     * calculation: sum( (annual user cost) )
+     * 
      * @hibernate.property
      */
     public float getYourCost() {

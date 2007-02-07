@@ -1,7 +1,5 @@
 package org.pgist.packages;
 
-import java.util.Collection;
-
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -29,6 +27,8 @@ import org.apache.struts.action.ActionMapping;
  *   <li>projects - a collection of Project objects</li>
  *   <li>sources - a collection of FundingSource objects</li>
  *   <li>package - a UserPackage object of the current user</li>
+ *   <li>stat - a PackageStat object</li>
+ *   <li>costs - a set of UserCost objects</li>
  * </ul>
  * 
  * When user submits his choices ("save".equals(action)), the choices will be submitted in form parameters,
@@ -70,7 +70,7 @@ public class PackageAction extends Action {
         }
         
         //show up the "Create/Modify Package" page
-        //TODO: extract projects/sources/package and put to the request attributes
+        //TODO: extract projects/sources/package/stat/costs and put to the request attributes
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
