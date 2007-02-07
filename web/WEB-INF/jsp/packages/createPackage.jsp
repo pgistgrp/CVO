@@ -38,6 +38,7 @@
 					callback:function(data){
 						if (data.successful){
 							alert("Project" + id + " was successfully set to " + deleting); //replace with saving indicator later
+							updateSummary(data.balance);
 						}else{
 							alert(data.reason);
 						}
@@ -53,6 +54,7 @@
 				PackageAgent.setFundingToPkg({id:id,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
+							updateSummary(data.balance);
 							alert("Funding" + id + " was successfully set to " + deleting); //replace with saving indicator later
 						}else{
 							alert(data.reason);
@@ -63,6 +65,14 @@
 					}
 				});
 			}
+			
+			function updateSummary(balance){
+				$('summary').innerHTML = data.html;
+				$('summaryRepeat').innerHTML = data.html;
+				if(balance <= 0){
+					$('submitPackage').disable(); //disable submit button
+				}
+			}
 		</script>
 	</head>
 	<body>
@@ -72,13 +82,7 @@
 		<FORM action="packageAction.do" method="post">	
 			<div id="createPackage">
 				<div id="summary">
-					<h3>Your package summary</h3>
-					<p>Total Cost: </p>
-					<p>Total Funding: </p>
-					<p>Cost to you: </p>
-					<p>Cost to the average resident: </p>
-					<p>Number of projects in your package: </p>
-					<p>Balance: </p>
+					<!-- load summary via DWR-->
 				</div>
 				<div id="projects">
 					<h3>Create your Transportation Package</h3>
@@ -88,12 +92,21 @@
 								<label><input name="proj-${project.id}" type="radio" CHECKED /> Do Nothing</label>
 								<p>Name: ${project.name}</p>
 								<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
-									<input type="radio" name="proj-${project.id}" 
-									<c:if test="${pg:contains(alternative, package.projAlts)}">
-										CHECKED
-									</c:if>
-									<!-- end input -->
-									Name: ${alternative.name}
+									<input type=
+										<c:choose>
+											<c:when test="${project.inclusive}">
+												"radio"
+											</c:when>
+											<c:otherwise>
+												"checkbox"
+											</c:otherwise>
+										</c:choose>
+										 name="proj-${project.id}" 
+										<c:if test="${pg:contains(alternative, package.projAlts)}">
+										checked = "checked"
+										</c:if>
+									/><!-- end input -->
+									Name: ${alternative.name} :: Money Needed: ${alternative.value} :: County: ${alternative.county}								</c:forEach>
 								</c:forEach>
 							</li>
 						</c:forEach>
@@ -149,13 +162,11 @@
 					<h3>Finished?</h3>
 				</div>
 				<div id="summaryRepeat">
-					<!-- repeat from above -->
+					<!-- load summary via DWR -->
 				</div>
-				<input type="button" value="Yes - Submit My Package!"> <!-- this should only be enabled if funding exceeds cost -->
+				<input type="button" id="submitPackage" value="Yes - Submit My Package!"> <!-- this should only be enabled if funding exceeds cost -->
 				<input type="cancel" value="No - Start Over!">
 			</div>
-		
-
-		</FORM>
+		</form>
 	</body>
 </html>
