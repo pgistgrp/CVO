@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.pgist.funding.FundingSource;
-import org.pgist.projects.Project;
 import org.pgist.projects.ProjectAlternative;
 
 

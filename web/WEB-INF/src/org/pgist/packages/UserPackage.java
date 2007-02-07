@@ -28,6 +28,12 @@ public class UserPackage {
     
     private Set<FundingSourceAlternative> fundAlts = new HashSet<FundingSourceAlternative>();
     
+    private float totalCost;
+    
+    private float totalFunding;
+    
+    private float yourCost;
+    
     
     /**
      * @hibernate.id generator-class="native"
@@ -99,6 +105,55 @@ public class UserPackage {
     
     public void setProjAlts(Set<ProjectAlternative> projAlts) {
         this.projAlts = projAlts;
+    }
+
+
+    /**
+     * @hibernate.property
+     */
+    public float getTotalCost() {
+        return totalCost;
+    }
+
+
+    public void setTotalCost(float totalCost) {
+        this.totalCost = totalCost;
+    }
+
+
+    /**
+     * @hibernate.property
+     */
+    public float getTotalFunding() {
+        return totalFunding;
+    }
+
+
+    public void setTotalFunding(float totalFunding) {
+        this.totalFunding = totalFunding;
+    }
+
+
+    /**
+     * @hibernate.property
+     */
+    public float getYourCost() {
+        return yourCost;
+    }
+
+
+    public void setYourCost(float yourCost) {
+        this.yourCost = yourCost;
+    }
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
+    public float getBalance() {
+        return totalFunding - totalCost;
     }
     
     

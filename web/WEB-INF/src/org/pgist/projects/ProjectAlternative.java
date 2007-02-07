@@ -75,6 +75,8 @@ public class ProjectAlternative implements Serializable {
      */
     private int allWeights = 0;
     
+    private String county;
+    
     private Object object;
     
     
@@ -314,6 +316,20 @@ public class ProjectAlternative implements Serializable {
 
     public void setEqlWeights(int eqlWeights) {
         this.eqlWeights = eqlWeights;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public String getCounty() {
+        return county;
+    }
+
+
+    public void setCounty(String county) {
+        this.county = county;
     }
 
 

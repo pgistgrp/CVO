@@ -53,6 +53,8 @@ public class BaseUser implements Serializable {
     
     protected int carpoolDays;
     
+    protected int carpoolPeople;
+    
     protected int busDays;
     
     protected int walkDays;
@@ -342,6 +344,90 @@ public class BaseUser implements Serializable {
 
     public void setEmailNotify(boolean emailNotify) {
         this.emailNotify = emailNotify;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getBikeDays() {
+        return bikeDays;
+    }
+
+
+    public void setBikeDays(int bikeDays) {
+        this.bikeDays = bikeDays;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getBusDays() {
+        return busDays;
+    }
+
+
+    public void setBusDays(int busDays) {
+        this.busDays = busDays;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getCarpoolDays() {
+        return carpoolDays;
+    }
+
+
+    public void setCarpoolDays(int carpoolDays) {
+        this.carpoolDays = carpoolDays;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getCarpoolPeople() {
+        return carpoolPeople;
+    }
+
+
+    public void setCarpoolPeople(int carpoolPeople) {
+        this.carpoolPeople = carpoolPeople;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getDriveDays() {
+        return driveDays;
+    }
+
+
+    public void setDriveDays(int driveDays) {
+        this.driveDays = driveDays;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getWalkDays() {
+        return walkDays;
+    }
+
+
+    public void setWalkDays(int walkDays) {
+        this.walkDays = walkDays;
     }
 
 
