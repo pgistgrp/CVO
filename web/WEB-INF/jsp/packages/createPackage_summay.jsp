@@ -26,5 +26,5 @@
 <p>Cost to the average resident: ${userPackage.avgCost}</p>
 <p>Number of projects in your package: ${fn:length(userPackage.projects)}</p>
 
-<p class="{(userPackage.balance > 0) ? 'negative':'positive'}">Balance: ${userPackage.balance}</p>
+<p id="balance" class="${(userPackage.balance > 0) ? 'negative':'positive'}">Balance: ${userPackage.balance}</p>
 <!--Adam - Add negative and positive CSS classes-->

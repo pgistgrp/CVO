@@ -38,7 +38,7 @@
 					callback:function(data){
 						if (data.successful){
 							alert("Project" + id + " was successfully set to " + deleting); //replace with saving indicator later
-							updateSummary(data.balance);
+							updateSummary();
 						}else{
 							alert(data.reason);
 						}
@@ -54,7 +54,7 @@
 				PackageAgent.setFundingToPkg({id:id,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
-							updateSummary(data.balance);
+							updateSummary();
 							alert("Funding" + id + " was successfully set to " + deleting); //replace with saving indicator later
 						}else{
 							alert(data.reason);
@@ -66,10 +66,12 @@
 				});
 			}
 			
-			function updateSummary(balance){
+			function updateSummary(){
+				var balance = $('balance').innerHTML;
+				balance = parseInt(balance);
 				$('summary').innerHTML = data.html;
 				$('summaryRepeat').innerHTML = data.html;
-				if(balance <= 0){
+				if(balance < 0){
 					$('submitPackage').disable(); //disable submit button
 				}
 			}
