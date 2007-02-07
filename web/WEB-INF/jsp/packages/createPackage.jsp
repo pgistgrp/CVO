@@ -13,9 +13,8 @@
 	Author: Jordan Isip, Adam Hindman, Issac Yang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Integrate Layout (Issac)
-		[ ] JavaScript for Calculations (Issac)
-
+		[ ] Integrate Layout (Adam)
+		[ ] Test and Refine (Jordan)
 #### -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 	"http://www.w3.org/TR/html4/strict.dtd">

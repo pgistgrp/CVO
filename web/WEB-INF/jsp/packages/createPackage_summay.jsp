@@ -15,8 +15,7 @@
 		[x] Initial Skeleton Code (Jordan)
 		[ ] Integrate Layout (Adam)
 		[ ] Add "negative" and "positive" CSS classes - to indicate balance color (Adam)
-		[ ] Integrate Project Map or static image (Guirong/Issac)
-		[ ] Integrate Criteria Tree (Issac)
+		[ ] Test and Refine (Jordan)
 #### -->
 
 <h3>Your package summary</h3>
