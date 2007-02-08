@@ -24,9 +24,9 @@
 		No objectives could be found!
 	</c:when>
 	<c:otherwise>
-		<ul id="objectivesList" class="assocList">
+		<ul id="objectivesList" style="float:left;" class="assocList">
 			<c:forEach var="objective" items="${objectives}" varStatus="loop">
-				<li id="objectiveCont-${objective.id}" class="assocList"><input type="checkbox" name="objectivesGroup" id="objective-${objective.id}" /> ${objective.description} [ <a href="javascript:deleteObjective(${objective.id})">delete</a> ]</li>
+				<li id="objectiveCont-${objective.id}"class="assocList"><input type="checkbox" name="objectivesGroup" id="objective-${objective.id}" /> ${objective.description} [ <a href="javascript:deleteObjective(${objective.id})">delete</a> ]</li>
 			</c:forEach>
 		</ul>
 	</c:otherwise>

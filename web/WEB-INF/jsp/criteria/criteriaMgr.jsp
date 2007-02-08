@@ -58,6 +58,7 @@
 				callback:function(data){
 					if (data.successful){
 						$('allCriteriaList').innerHTML = data.html;
+						
 					}else{
 						$('allCriteriaList').innerHTML = "<b>Error in CriteriaAgent.getAllCriterion Method: </b>" + data.reason; 
 					}
@@ -98,7 +99,8 @@
 			}
 			var checkedObjectivesStr = checkedObjectives.toString();
 			var checkedThemesStr = checkedThemes.toString();
-			alert("names: " + name + " description" + description + " themeIds: " + checkedThemesStr + " objectiveIds: " + checkedObjectivesStr);
+			
+			//alert("names: " + name + " description" + description + " themeIds: " + checkedThemesStr + " objectiveIds: " + checkedObjectivesStr);
 			CriteriaAgent.addCriterion({cctId:cctId,name:name,na:description,themeIds:checkedThemesStr,objectiveIds:checkedObjectivesStr}, {
 				callback:function(data){
 					if (data.successful){
@@ -146,8 +148,12 @@
 			});
 		}
 		
-		/* *************** Reveal a form to allow editing on a given criterion *************** */
+		/* *************** Reveal a form to allow editing on a given criterion writes the general html form for editing *************** */
 		function editCriterionPopup(id) {
+			if($('criteriaEdit'+id).style.display=="inline"){
+				$('criteriaEdit'+id).style.display="none";
+			}else{
+			//fill in fields
 			//code to display edit fields
 			$('criteriaEdit' + id).innerHTML = "";
 			filler="";
@@ -161,14 +167,14 @@
 			filler+="<label for='editDescription"+id+"' class='niceFormElement'>Description</label>";
 			filler+="<textarea id='editDescription"+id+"' name='editDescription"+id+"' class='niceFormElement'></textarea><br />";
 			
-			filler+="<label for='editThemesDiv"+id+"' class='niceFormElement'>Related Themes (optional)</label>";
+			filler+="<label for='editThemesDiv"+id+"' style='float:left;' class='niceFormElement'>Related Themes (optional)</label>";
 			filler+="<div id='editThemesDiv"+id+"'>";
 				<!-- load themes here - getThemes() -->
 			filler+="</div><br />";
 			
 			filler+="<br />";
 			
-			filler+="<label for='editObjectivesDiv"+id+"' class='niceFormElement'>Factor Objectives</label>";
+			filler+="<label for='editObjectivesDiv"+id+"' style='float:left;' class='niceFormElement'>Factor Objectives</label>";
 
 			filler+="<div id='editObjectivesDiv"+id+"'>";
 				<!-- load objectives here - getObjectives() -->
@@ -197,44 +203,68 @@
 			$('criteriaEdit'+id).innerHTML=filler;
 			fillEditForm(id);
 			
-			new Effect.BlindDown('criteriaEdit'+id);
-			//$('name').value
-			//code to display edit fields
+			//new Effect.BlindDown('criteriaEdit'+id);
+			$('criteriaEdit'+id).style.display="inline";
+			
+			}
 		}
 		
+		/***************Fills a given edit form with the specific data for a given criterion ID*********/
 		function fillEditForm(critId){
 			CriteriaAgent.getCriterionById({id:critId},{
 				callback:function(data){
 					if(data.successful){
-					$('editName'+critId).value=data.criterion.name;
-					$('editDescription'+critId).value=data.criterion.na;
-					$('editThemesDiv'+critId).innerHTML=getThemes(critId);
+						$('editName'+critId).value=data.criterion.name;
+						$('editDescription'+critId).value=data.criterion.na;
+						$('editThemesDiv'+critId).innerHTML=getThemes(critId);
 					
-					
-					$('editObjectivesDiv'+critId).innerHTML=data.objectives[0];//getObjectives(critId);
-					
-						
+						$('editObjectivesDiv'+critId).innerHTML=getObjectives(critId);
+
 					}else{
-					alert("getCriterionById failed in fillEditForm");
+						alert("getCriterionById failed in fillEditForm");
 					}
 				},
-				async:false,
 				errorHandler:function(errorString,exception){
 					alert("CriteriaAgent.getCriterionById in fillEditForm(error:"+ errorString+exception);
 				}
 			});
 		}
 		
-		/* *************** Produce a form to edit a given criterion *************** */
+		/* *************** Saves the changes for an edited Criterion *************** */
 		function editCriterion(id){
 			//alert("name: " + name + " description: " + description + " themes: " + themes + " objectivesArr: " + objectivesArr); 
-			var themesArr = getOptionValueFromObjects($('theme-'+id).options); //grabs from multi select list
-			var objectivesArr = getOptionValueFromObjects($('editObjectives'+id).options); ; //grabs from multi select list
+			var themesArr = document.getElementsByName('editThemesGroup-'+id);
+			//grabs from multi select list
+			var objectivesArr = document.getElementsByName('editObjectivesGroup-'+id); //grabs from multi select list
 			var name = $('editName'+id).value;
 			var description = $('editDescription'+id).value;
+			var checkedThemes=[];
+			var checkedObjectives=[];
+			for (i = 0; i < themesArr.length; i++)
+			{
+				if(themesArr[i].checked){
+					checkedThemes.push(themesArr[i].id.replace("editTheme-", ""));				
+				}
+			}
+			
+			for (i = 0; i < objectivesArr.length; i++)
+			{
+				if(objectivesArr[i].checked){
+					checkedObjectives.push(objectivesArr[i].id.replace("editObjective-", ""));				
+				}
+			}
+			checkedThemesStr=checkedThemes.toString();
+			if(checkedThemesStr==''){
+				checkedThemesStr=',';
+			}
+			checkedObjectivesStr=checkedObjectives.toString();
+			if(checkedObjectivesStr==''){
+				checkedObjectivesStr=',';
+			}
+			
 			
 			//alert("id: " + id +" name: " + name + " description" + description + " themes: " + themesArr + " objectives: " + objectivesArr);
-			CriteriaAgent.editCriterion({id:id,name:name,description:description,themesArr:themesArr,objectivesArr:objectivesArr}, {
+			CriteriaAgent.editCriterion({id:id,name:name,themeIds:checkedThemesStr,objectiveIds:checkedObjectivesStr,cctId:cctId,na:description}, {
 				callback:function(data){
 					if (data.successful){
 					
@@ -269,13 +299,13 @@
 		}
 		
 		/* *************** Delete a given objective *************** */
-		function deleteObjective(id){
+		function deleteObjective(oid){
 			var destroy = confirm ("Are you sure you want to delete this objective? Note: there is no undo.")
 			if(destroy){
-				CriteriaAgent.deleteObjective({id:id}, {
+				CriteriaAgent.deleteObjective({id:oid}, {
 					callback:function(data){
 						if (data.successful){
-							new Effect.Puff("objectiveCont-" + id, {afterFinish:function(){getCriteria();}})
+							new Effect.Puff("objectiveCont-" + oid, {afterFinish:function(){getCriteria();getObjectives();}})
 						}else{
 							alert(data.reason);
 						}
@@ -294,10 +324,14 @@
 				callback:function(data){
 					if (data.successful){
 						if(id){
-							$('editThemesDiv'+id).innerHTML=data.html;
-						}else{
-							$('themes').innerHTML = data.html;
+						
+						temp=(data.html).replace(/theme-/g,"editTheme-");
+						temp2=temp.replace(/themesGroup/g,("editThemesGroup-"+id));
+							$('editThemesDiv'+id).innerHTML=temp2;
+							getThemesToEditByCriterionId(id);
 						}
+							$('themes').innerHTML = data.html;
+						
 					}else{
 						alert(data.reason);
 					}
@@ -314,9 +348,16 @@
 				callback:function(data){
 					if (data.successful){
 						if(id){
-							$('editObjectivesDiv'+id).innerHTML=data.html;
+						
+						temp=(data.html).replace(/objective-/g,"editObjective-");
+						temp2=temp.replace(/objectivesGroup/g,("editObjectivesGroup-"+id));
+						
+							$('editObjectivesDiv'+id).innerHTML=temp2;
+							getObjectivesToEditByCriterionId(id);
 						}
 						$('objectives').innerHTML = data.html;
+						
+						
 					}else{
 						alert(data.reason);
 					}
@@ -327,16 +368,6 @@
 			});
 		}
 		
-		/* *************** Grab the value from a multi-select list *************** */
-		function getOptionValueFromObjects(optionObjs) {
-			cleanList = [];
-		    for (var i = 0; i < optionObjs.length; i++) {
-		        if (optionObjs[i].selected) {
-					cleanList.push(optionObjs[i].value);
-		        }
-			}
-		    return cleanList;
-		}
 		
 		function publish(){
 			CriteriaAgent.publish({cctId:cctId}, {
@@ -404,6 +435,55 @@
 					}
 			});
 		};
+		
+		
+		/******Puts checkmarks next to the Objectives that are already part of a criterion, given its ID.****/
+		/***Must have the edit form made and getObjectives(cid) run before***/
+		/***This is called by getObjectives***/
+		function getObjectivesToEditByCriterionId(cid){
+			CriteriaAgent.getCriterionById({id:cid},{
+				callback:function(data){
+				if(data.successful){
+				
+					for(a=0;a<data.criterion.objectives.length;a++){
+						
+						$('editObjective-'+data.criterion.objectives[a].id).checked=true;
+					}
+					
+				}else{
+					alert("error in getObjectovesToEditByCriterionId");
+				}
+			
+			},
+			errorHandler:function(errorString, exception){ 
+					alert("getObjectivesToEditByCriterionId error:" + errorString + exception);
+				}
+			});
+		}
+		
+	/******Puts checkmarks next to the Themes that are already part of a criterion, given its ID.****/
+		/***Must have the edit form made and getThemes(cid) run before***/
+		/***This is called by getThemes**/
+		function getThemesToEditByCriterionId(cid){
+			CriteriaAgent.getCriterionById({id:cid},{
+				callback:function(data){
+				if(data.successful){
+				
+					for(a=0;a<data.criterion.themes.length;a++){
+						
+						$('editTheme-'+data.criterion.themes[a].id).checked=true;
+					}
+					
+				}else{
+					alert("error in getThemesToEditByCriterionId");
+				}
+			
+			},
+			errorHandler:function(errorString, exception){ 
+					alert("getThemesToEditByCriterionId error:" + errorString + exception);
+				}
+			});
+		}
 		
 	</script>
 

@@ -22,7 +22,7 @@
 		No themes could be found!
 	</c:when>
 	<c:otherwise>
-		<ul class="assocList">
+		<ul style="float:left;" class="assocList">
 		<c:forEach var="theme" items="${themes}" varStatus="loop">
 				<li class="assocList"><input type="checkbox" name="themesGroup" id="theme-${theme.id}"> ${theme.title}</li>
 		</c:forEach>
