@@ -40,7 +40,7 @@
 
 <script>
 // Global Variables
-	
+
 	function getProjects(){
 		ProjectAgent.getProjectsforMgr({}, {
 			callback:function(data){

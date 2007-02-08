@@ -31,9 +31,9 @@
 			
 			//End Global Vars
 			
-			function setFundingToPkg(id, deleting){
+			function setFundingToPkg(pkgId,altId,deleting){
 				//alert("id: " + id + " deleting: " + deleting); 
-				PackageAgent.setProjectToPkg({id:id,deleting:deleting}, {
+				PackageAgent.setFundingtoPkg({pkgId:pkgId,altId,altId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
 							alert("Project" + id + " was successfully set to " + deleting); //replace with saving indicator later
@@ -48,9 +48,9 @@
 				});
 			}
 			
-			function setProjectToPkg(id, deleting){
-				//alert("id: " + id + " deleting: " + deleting); 
-				PackageAgent.setFundingToPkg({id:id,deleting:deleting}, {
+			function setProjectToPkg(pkgId,altId,deleting){
+				//alert("pkgId: " + pkgId + " altId: "+ altId +" deleting: " + deleting); 
+				PackageAgent.setFundingToPkg({pkgId:pkgId,altId,altId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
 							updateSummary();
