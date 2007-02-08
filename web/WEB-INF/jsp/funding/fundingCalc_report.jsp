@@ -13,118 +13,245 @@
 	Author: Jordan Isip, Adam Hindman, Issac Yang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Integrate Layout (Adam)
+		[x] Integrate Layout (Adam)
 		[ ] Integrate Project Map or static image (Guirong/Issac)
 		[ ] Integrate Criteria Tree (Issac)
 #### -->
 
-<h3 class="headerColor clearBoth">My Annual Costs Report</h3>
-<ul>
-<c:forEach var="source" items="${sources}" varStatus="loop">
-	
-	<!-- sigh this is soo UGLY -->
-	
-	<!-- sales tax -->
+	<div id="costReport">
+		<h4 class="headerColor">My annual costs report</h4>
+	<c:forEach var="source" items="${sources}" varStatus="loop">
+			
+	<!-- begin sales tax increase -->
 	<c:if test="${alternative.type == 1}"> 
-		<li id="source-${source.id}"><a href="#" title="$*{source.description}">${source.name}
-			<ul>
-				<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
-						<li>Funding Source: ${alternative.name}
-							<ul>
-								<li>Annual Cost: </li>
-								<li>Tax Rate: ${alternative.taxRate}</li>
-								<li>Estimated Annual Consumption: ${userCommute.annualConsume}
-							</ul>
-						</li>
-					<!-- loops for other funding source alt types -->
-				</c:forEach>
-			</ul>
-		</li>
+		<table id="source-${source.id}" border="0" cellpadding="0" cellspacing="0">
+		  <tr class="tableHeading">
+			 <th scope="col">Funding Source </th>
+			 <th scope="col">Annual cost to you </th>
+			 <th colspan="7" scope="col">&nbsp;</th>
+		  </tr>
+		  <tr class="fundingType">
+			 <th scope="row" class="fundingSourceItem"><a href="#" title="${source.description}">${source.name}</a></th>
+			 <td>Annual cost </td>
+			 <td>=</td>
+			 <td>Tax Rate </td>
+			 <td>&times;</td>
+			 <td>Estimated Annual Consumption</td>
+		  </tr>
+
+		  <c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
+				<tr class="odd">
+				 <th scope="row" class="fundingSourceItem">${alternative.name}</th>
+				 <td>[Annual Cost]</td>
+				 <td>=</td>
+				 <td>${alternative.taxRate}</td>
+				 <td>&times;</td>
+				 <td>${userCommute.annualConsume}</td>
+				</tr>
+				<!-- loops for other funding source alt types -->
+			</c:forEach>
+		</table>
 	</c:if>
+	<!-- end sales tax increase -->
 	
-	<!-- Annual Vehicle License Fee -->
-	<c:if test="${alternative.type == 2}">
-		<li id="source-${source.id}"><a href="#" title="$*{source.description}">${source.name}
-			<ul>
+	<!-- Begin annual vehicle license fee -->
+		<c:if test="${alternative.type == 2}">
+			<table id="source-${source.id}" border="0" cellpadding="0" cellspacing="0">
+				<tr class="tableHeading">
+					<th scope="col">Funding Source </th>
+					<th scope="col">Annual cost to you </th>
+					<th colspan="7" scope="col">&nbsp;</th>
+				</tr>
+				<tr class="fundingType">
+					<th width="200" scope="row" class="fundingSourceItem"><a href="#" title="${source.description}">${source.name}</a></th>
+					<td>Annual cost </td>
+					<td>=</td>
+					<td>Tax rate </td>
+					<td>&times;</td>
+					<td>Number of Vehicles </td>
+				</tr>
 				<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
-						<li>Funding Source: ${alternative.name}
-							<ul>
-								<li>Annual Cost: </li>
-								<li>Tax Rate: ${alternative.taxRate}</li>
-								<li>Number of Vehicles:${fn:length(user.vehicles)}</li>
-							</ul>
-						</li>
-					<!-- loops for other funding source alt types -->
+					<tr>
+						<th scope="row" class="fundingSourceItem">${alternative.name}</th>
+						<td>[Annual Cost]</td>
+						<td>=</td>
+						<td>${alternative.taxRate}</td>
+						<td>&times;</td>
+						<td>${fn:length(user.vehicles)}</td>
+					</tr>
 				</c:forEach>
-			</ul>
-		</li>
-	</c:if>
-	
-	<!-- Annual Motor Vehicle Excise Tax -->
+			</table>
+		</c:if>
+	<!-- End annual vehicle license fee -->
+
+	<!-- Begin annual motor vehicle Excise Tax -->
 	<c:if test="${alternative.type == 3}">
-		<li id="source-${source.id}"><a href="#" title="$*{source.description}">${source.name}
-			<ul>
-				<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
-						<li>Funding Source: ${alternative.name}
-							<ul>
-								<c:forEach var="vehicle" items="${user.vehicles}" varStatus="loop">
-									<li>Annual Cost: </li>
-									<li>Tax Rate: ${alternative.taxRate}</li>
-									<li>Vehicle Value:${vehicle.value}</li>
-								</c:forEach>
-							</ul>
-						</li>
-					<!-- loops for other funding source alt types -->
-				</c:forEach>
-			</ul>
-		</li>
+		<table id="source-${source.id}" border="0" cellpadding="0" cellspacing="0">
+			<tr class="tableHeading">
+				<th scope="col">Funding Source </th>
+				<th scope="col">Annual cost to you </th>
+				<th colspan="7" scope="col">&nbsp;</th>
+			</tr>
+			<tr class="fundingType">
+				<th width="200" scope="row" class="fundingSourceItem"><a href="#" title="${source.description}">${source.name}</a> </th>
+				<td>Annual cost </td>
+				<td>=</td>
+				<td>&nbsp;</td>
+				<td>Tax rate </td>
+				<td>&times;</td>
+				<td>Vehicle Value </td>
+			</tr>
+			<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
+				<tbody>
+				<c:forEach var="vehicle" items="${user.vehicles}" varStatus="loop">
+					<c:choose>
+						<c:when test="${loop.index == 0}">
+						<tr class="odd">
+							<th scope="row" class="fundingSourceItem">${alternative.name} </th>
+							<td>[Annual Cost]</td>
+							<td>=</td>
+							<td>&nbsp;</td>
+							<td>${alternative.taxRate}</td>
+							<td>&times;</td>
+							<td>${vehicle.value}</td>
+						</tr>
+						</c:when>
+						<c:otherwise>
+						<tr>
+							<th scope="row" class="fundingSourceItem">&nbsp;</th>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>+</td>
+							<td>${alternative.taxRate}</td>
+							<td>&times;</td>
+							<td>${vehicle.value}</td>
+						</tr>
+						</c:otherwise>
+					</c:choose>
+				</c:foreach>
+				</tbody>
+			</c:foreach>
+		</table>
 	</c:if>
+	<!-- End annual motor vehicle excise tax -->
 	
-	<!-- Gas Tax -->
+	<!-- Begin gas tax -->
 	<c:if test="${alternative.type == 4}">
-		<li id="source-${source.id}"><a href="#" title="$*{source.description}">${source.name}
-			<ul>
-				<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
-						<li>Funding Source: ${alternative.name}
-							<ul>
-								<c:forEach var="vehicle" items="${user.vehicles}" varStatus="loop">
-									<li>Annual Cost: </li>
-									<li>Tax Rate: ${alternative.taxRate}</li>
-									<li>Miles Per Gallon:${vehicle.milesPerGallon}</li>
-									<li>Miles Driven Per Year:${vehicle.milesPerYear}</li>
-								</c:forEach>
-							</ul>
-						</li>
-					<!-- loops for other funding source alt types -->
-				</c:forEach>
-			</ul>
-		</li>
+		<table id="source-${source.id}" border="0" cellpadding="0" cellspacing="0">
+		  <tr class="tableHeading">
+			 <th scope="col">Funding Source </th>
+			 <th scope="col">Annual cost to you </th>
+			 <th colspan="7" scope="col">&nbsp;</th>
+		  </tr>
+		  <tr class="fundingType">
+			 <th scope="row" class="fundingSourceItem"><a href="#" title="${source.description}">${source.name}</a> </th>
+			 <td>Annual cost </td>
+			 <td>=</td>
+			 <td>&nbsp;</td>
+			 <td>Tax Rate </td>
+			 <td>&divide;</td>
+			 <td>Miles per gallon </td>
+			 <td>&times;</td>
+			 <td>Miles driven per year </td>
+		  </tr>
+		<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
+			<tbody>
+			<c:forEach var="vehicle" items="${user.vehicles}" varStatus="loop">
+				<c:choose>
+					<c:when test="${loop.index == 0}">
+						<tr>
+						 <th scope="row" class="fundingSourceItem">{alternative.name} </th>
+						 <td>[Annual Cost]</td>
+						 <td>=</td>
+						 <td>&nbsp;</td>
+						 <td><p>${alternative.taxRate} </p>      </td>
+						 <td>&divide;</td>
+						 <td>${vehicle.milesPerGallon} mpg </td>
+						 <td>&times;</td>
+						 <td>${vehicle.milesPerYear} miles/yr </td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<tr>
+						 <th scope="row" class="fundingSourceItem">&nbsp;</th>
+						 <td>&nbsp;</td>
+						 <td>&nbsp;</td>
+						 <td>+</td>
+						 <td>${alternative.taxRate} </td>
+						 <td>&divide;</td>
+						 <td>${vehicle.milesPerGallon} mpg </td>
+						 <td>&times;</td>
+						 <td>${vehicle.milesPerYear} miles/yr </td>
+						</tr>
+					</c:otherwise>
+				</c:choose>
+			</c:foreach>
+			</tbody>
+		</c:foreach>
+		</table>
 	</c:if>
+	<!-- End gas tax -->
 	
-	<!-- Sales Tax on Gas -->
+	<!-- Begin SALES tax on GAS -->
 	<c:if test="${alternative.type == 5}">
-		<li id="source-${source.id}"><a href="#" title="$*{source.description}">${source.name}
-			<ul>
-				<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
-						<li>Funding Source: ${alternative.name}
-							<ul>
-								<c:forEach var="vehicle" items="${user.vehicles}" varStatus="loop">
-									<li>Annual Cost: </li>
-									<li>Tax Rate: ${alternative.taxRate}</li>
-									<li>Miles Per Gallon:${vehicle.milesPerGallon}</li>
-									<li>Miles Driven Per Year:${vehicle.milesPerYear}</li>
-								</c:forEach>
-							</ul>
-						</li>
-					<!-- loops for other funding source alt types -->
-				</c:forEach>
-			</ul>
-		</li>
+		<table id="source-${source.id}" border="0" cellpadding="0" cellspacing="0">
+		  <tr class="tableHeading">
+			 <th scope="col">Funding Source </th>
+			 <th scope="col">Annual cost to you </th>
+			 <th colspan="7" scope="col">&nbsp;</th>
+		  </tr>
+		  <tr class="fundingType">
+			 <th scope="row" class="fundingSourceItem"><a href="#" title="${source.description}">${source.name}</a> </th>
+			 <td>Annual cost </td>
+			 <td>=</td>
+			 <td>&nbsp;</td>
+			 <td>Tax Rate </td>
+			 <td>&divide;</td>
+			 <td>Miles per gallon </td>
+			 <td>&times;</td>
+			 <td>Miles driven per year </td>
+		  </tr>
+		<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
+			<tbody>
+			<c:forEach var="vehicle" items="${user.vehicles}" varStatus="loop">
+				<c:choose>
+					<c:when test="${loop.index == 0}">
+						<tr>
+						 <th scope="row" class="fundingSourceItem">{alternative.name} </th>
+						 <td>[Annual Cost]</td>
+						 <td>=</td>
+						 <td>&nbsp;</td>
+						 <td><p>${alternative.taxRate} </p>      </td>
+						 <td>&divide;</td>
+						 <td>${vehicle.milesPerGallon} mpg </td>
+						 <td>&times;</td>
+						 <td>${vehicle.milesPerYear} miles/yr </td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<tr>
+						 <th scope="row" class="fundingSourceItem">&nbsp;</th>
+						 <td>&nbsp;</td>
+						 <td>&nbsp;</td>
+						 <td>+</td>
+						 <td>${alternative.taxRate} </td>
+						 <td>&divide;</td>
+						 <td>${vehicle.milesPerGallon} mpg </td>
+						 <td>&times;</td>
+						 <td>${vehicle.milesPerYear} miles/yr </td>
+						</tr>
+					</c:otherwise>
+				</c:choose>
+			</c:foreach>
+			</tbody>
+		</c:foreach>
+		</table>
 	</c:if>
-	
-	<!-- Employer Excise Tax -->
+	<!-- End SALES tax on GAS -->
+		
+	<!-- begin EMPLOYER EXCISE TAX -->
 	<c:if test="${alternative.type == 6}">
-		<li id="source-${source.id}"><a href="#" title="$*{source.description}">${source.name}
+		<li id="source-${source.id}"><a href="#" title="${source.description}">${source.name}</a>
 			<ul>
 				<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
 						<li>Funding Source: ${alternative.name}
@@ -136,45 +263,74 @@
 				</c:forEach>
 			</ul>
 		</li>
-	</c:if>
+	</c:if>	
+	<!-- end EMPLOYER EXCISE TAX -->
 	
-	<!-- Commercial Parking Tax -->
+	<!-- begin COMMERCIAL PARKING TAX -->
 	<c:if test="${alternative.type == 7}">
-		<li id="source-${source.id}"><a href="#" title="$*{source.description}">${source.name}
-			<ul>
-				<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
-						<li>Funding Source: ${alternative.name}
-							<ul>
-								<li>Annual Cost: </li>
-								<li>Tax Rate: ${alternative.taxRate}</li>
-								<li>Parkings Per Year: ???</li>
-							</ul>
-						</li>
-					<!-- loops for other funding source alt types -->
-				</c:forEach>
-			</ul>
-		</li>
-	</c:if>
+		<table id="source-${source.id}" border="0" cellpadding="0" cellspacing="0">
 	
-	<!-- Tolls -->
-	<c:if test="${alternative.type == 8}">
-		<li id="source-${source.id}"><a href="#" title="$*{source.description}">${source.name}
-			<ul>
+				<tr class="tableHeading">
+				 <th scope="col">Funding Source </th>
+				 <th scope="col">Annual cost to you </th>
+				 <th colspan="7" scope="col">&nbsp;</th>
+				</tr>
+	 	
+				<tr class="fundingType">
+				 <th width="200" scope="row" class="fundingSourceItem"><a href="#" title="${source.description}">${source.name}</a> </th>
+				 <td>Annual cost </td>
+				 <td>=</td>
+				 <td>Tax Rate </td>
+				 <td>&times;</td>
+				 <td>Parkings per year </td>
+				</tr>
+	
 				<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
-						<li>Funding Source: ${alternative.name}
-							<ul>
-								<c:forEach var="toll" items="${tolls}" varStatus="loop">
-									<li>Annual Cost: </li>
-									<li>Toll Rate: ${alternative.taxRate}</li>
-									<li>Trips Per Year: ???</li>
-								</c:forEach>
-							</ul>
-						</li>
-					<!-- loops for other funding source alt types -->
+					<tr class="odd">
+					 <th scope="row" class="fundingSourceItem">${alternative.name} </th>
+					 <td>[Annual Cost]</td>
+					 <td>=</td>
+					 <td>${alternative.taxRate} </td>
+					 <td>&times;</td>
+					 <td>[Parking/year]</td>
+					</tr>
 				</c:forEach>
-			</ul>
-		</li>
+			</table>
+		</c:if>
+	<!-- end COMMERCIAL PARKING TAX -->
+	
+	<!-- begin TOLLS -->
+	<c:if test="${alternative.type == 8}">
+	<table id="source-${source.id}" border="0" cellpadding="0" cellspacing="0">
+
+			<tr class="tableHeading">
+			 <th scope="col">Funding Source </th>
+			 <th scope="col">Annual cost to you </th>
+			 <th colspan="7" scope="col">&nbsp;</th>
+			</tr>
+	
+			<tr class="fundingType">
+			 <th width="200" scope="row" class="fundingSourceItem"><a href="#" title="${source.description}">${source.name}</a> </th>
+			 <td>Annual cost </td>
+			 <td>=</td>
+			 <td>Toll Rate </td>
+			 <td>&times;</td>
+			 <td>Trips Per Year </td>
+			</tr>
+
+			<c:forEach var="toll" items="${tolls}" varStatus="loop">
+				<tr class="odd">
+				 <th scope="row" class="fundingSourceItem">${toll.name} </th>
+				 <td>[Annual Cost]</td>
+				 <td>=</td>
+				 <td>${toll.taxRate} </td>
+				 <td>&times;</td>
+				 <td>[Trips/year]</td>
+				</tr>
+			</c:forEach>
+		</table>
 	</c:if>
-</c:forEach>
-</ul>
-<p><input type="button" value="Upate Annual Cost Report"/></p>
+	<!-- end TOLLS -->
+	</c:forEach>	
+	<p><input type="button" value="Upate Annual Cost Report"/></p>
+	</div>

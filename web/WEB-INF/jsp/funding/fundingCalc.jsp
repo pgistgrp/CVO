@@ -295,6 +295,8 @@ font-weight:normal;
 		<div id="report">
 			<!-- load report here via AJAX setEstimates(); fundingCalc_report.jsp-->
 		</div>
+	</div>
+	<!-- end container -->
 	</body>
 </html:html>
 
