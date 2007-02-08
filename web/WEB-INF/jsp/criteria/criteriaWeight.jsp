@@ -400,7 +400,7 @@ position:fixed;
 					
 					
 				<div class="floatRight padding5">
-					<input type="button" value="Save and Continue" />
+					<input type="button" value="Continue" />
 				</div>
 				<div class="clearBoth">&nbsp;</div>
 			</div><!-- end object -->

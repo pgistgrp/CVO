@@ -250,7 +250,7 @@
 		};
 			
 		io.toggleNewDiscussion = function(){
-			new Effect.toggle(io.newDiscussionDiv, 'slide', {duration: 0.5});	
+			new Effect.toggle(io.newDiscussionDiv, 'blind', {duration: 0.5});	
 		}
 			
 
@@ -377,7 +377,7 @@
 				Discussions about ${object.object}</h3></div>
 			<div id="filteredBy" class="floatLeft"></div>
 			<div class="padding5 box5 floatRight" style="margin-bottom:2px;"> 
-			<a class="orangeButton" href="javascript:Effect.toggle('newDiscussion','slide',{duration:1.5});">Start
+			<a class="orangeButton" href="javascript:Effect.toggle('newDiscussion','blind',{duration:0.5});">Start
 					a New Topic</a>
 			</div>
 		</div>
@@ -435,7 +435,7 @@
 						<input type="button" onClick="io.createPost();" value="Create Discussion">
 						<input type="button" 
 						onClick="javascript:io.clearNewDiscussionInputs();
-						Effect.toggle('newDiscussion','slide',{duration:1.5});" 
+						Effect.toggle('newDiscussion','blind',{duration:0.5});" 
 						value="Cancel">
 						<input type="checkbox" id="ckboxPostNotifier">
 						E-mail me when someone responds to my post
