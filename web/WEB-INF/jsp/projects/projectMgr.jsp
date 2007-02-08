@@ -57,9 +57,9 @@
 	}
 	
 	function createProject(){
-		var name = $('txtProjName').value;
-		var description = $('txtProjDesc').value;
-		var transmode = $('selProjType').value; //1 or 2
+		var name = $F('txtProjName');
+		var description = $F('txtProjDesc');
+		var transmode = $F('selProjType'); //1 or 2
 		ProjectAgent.createProject({name:name,description:description,transmode:transmode}, {
 			callback:function(data){
 				if (data.successful){
@@ -77,13 +77,14 @@
 	}
 	
 	function createProjectAlt(){
-		var name = $('txtAltName').value;
-		var description = $('txtAltDesc').value;
-		var cost = $('txtAltCost').value; 
-		var sponsor = $('txtAltAgency').value;
-		var links = $('txtAltLinks').value;
-		var statementFor = $('txtAltFor').value;
-		var statementAgainst = $('txtAltAgainst').value;
+		var name = $F('txtAltName');
+		var description = $F('txtAltDesc');
+		var cost = $F('txtAltCost'); 
+		var county = $F('txtCounty');
+		var sponsor = $F('txtAltAgency');
+		var links = $F('txtAltLinks');
+		var statementFor = $F('txtAltFor');
+		var statementAgainst = $F('txtAltAgainst');
 		var inclusive = $('inclusive').checked; // "true" or "false"
 
 		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst + " inclusive: " + inclusive); 
@@ -287,16 +288,16 @@
 		<form id="frmNewProject">
 			<label>Project Name:</label>
 			<input id="txtProjName" type="text" value="" size="25">
-			
+			<br />
 			<label>Project Description:</label>
 			<input id="txtProjDesc" type="text" value="" size="25">
-
+			<br />
 			<label>Type:</label>
 			<select id="selProjType">
 				<option value="1">Road</option>
 				<option value="2">Transit</option>
 			</select>
-
+			<br />
 			<label><input type="checkbox" id="inclusive" /> The user can only select one option in this group.</label>
 			<p><input type="submit" value="submit"></p>
 		</form>
@@ -307,25 +308,28 @@
 		<form id="frmNewAlternative">
 			<label>Project Alternative Name:</label>
 			<input id="txtAltName" type="text" value="" size="25">
-
+			<br />
 			<label>Agency:</label>
 			<input id="txtAltAgency" type="text" value="" size="25">
-			
+			<br />
 			<label>Cost:</label>
 			<input id="txtAltCost" type="text" value="" size="25">
-			
+			<br />
+			<label>County:</label>
+			<input id="txtCounty" type="text" value="" size="25">
+			<br />
 			<label>Short Description:</label>
 			<input id="txtAltDesc" type="text" value="" size="25">
-			
+			<br />
 			<label>Links:</label> <!--this will be converted to a rich text box editor -->
 			<input id="txtAltLinks" type="text" value="" size="25">
-			
+			<br />
 			<label>Statement For:</label>
 			<input id="txtAltFor" type="text" value="" size="25">
-			
+			<br />
 			<label>Statement Against:</label>
 			<input id="txtAltAgainst" type="text" value="" size="25">
-
+			<br />
 
 			<p><input type="submit" value="submit"></p>
 		</form>

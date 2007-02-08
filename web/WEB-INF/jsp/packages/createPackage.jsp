@@ -28,10 +28,10 @@
 		<script type='text/javascript' src='/dwr/interface/PackageAgent.js'></script>		
 		<script type="text/javascript" charset="utf-8">
 			//Global Vars
-			
+			var pkgId = "${package.id}";
 			//End Global Vars
 			
-			function setFundingToPkg(pkgId,altId,deleting){
+			function setFundingToPkg(altId,deleting){
 				//alert("id: " + id + " deleting: " + deleting); 
 				PackageAgent.setFundingtoPkg({pkgId:pkgId,altId,altId,deleting:deleting}, {
 					callback:function(data){
@@ -48,7 +48,7 @@
 				});
 			}
 			
-			function setProjectToPkg(pkgId,altId,deleting){
+			function setProjectToPkg(altId,deleting){
 				//alert("pkgId: " + pkgId + " altId: "+ altId +" deleting: " + deleting); 
 				PackageAgent.setFundingToPkg({pkgId:pkgId,altId,altId,deleting:deleting}, {
 					callback:function(data){
@@ -89,26 +89,32 @@
 					<h3>Create your Transportation Package</h3>
 					<ul>
 						<c:forEach var="project" items="${projects}" varStatus="loop">
-							<li>	
-								<label><input name="proj-${project.id}" type="radio" CHECKED /> Do Nothing</label>
-								<p>Name: ${project.name}</p>
-								<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
-									<input type=
-										<c:choose>
-											<c:when test="${project.inclusive}">
-												"radio"
-											</c:when>
-											<c:otherwise>
-												"checkbox"
-											</c:otherwise>
-										</c:choose>
-										 name="proj-${project.id}" 
-										<c:if test="${pg:contains(alternative, package.projAlts)}">
-										checked = "checked"
-										</c:if>
-									/><!-- end input -->
-									Name: ${alternative.name} :: Money Needed: ${alternative.value} :: County: ${alternative.county}								</c:forEach>
-								</c:forEach>
+							<li>Name: ${project.name}
+								<ul>
+									<c:choose><!--radio buttons- sorry Adam, I doubled up the code because of the awkward radio/checkbox mix on projects -->
+										<c:when test="${project.inclusive}">
+											<li><label><input name="proj-${project.id}" type="radio" CHECKED /> Do Nothing</label></li>
+											<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
+												<li><label><input type="radio" name="proj-${project.id}" onchange="setProjectToPkg('${alternative.id}', this.checked)"
+													<c:if test="${pg:contains(alternative, package.projAlts)}">
+														checked = "checked"
+													</c:if>
+												/><!-- end input -->
+												Name: ${alternative.name} :: Money Needed: ${alternative.value} :: County: ${alternative.county}</label></li>
+											</c:forEach>
+										</c:when>
+										<c:otherwise><!--checkboxes-->
+											<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
+												<li><label><input type="checkbox" name="proj-${project.id}" onchange="setProjectToPkg('${alternative.id}', this.checked)"
+													<c:if test="${pg:contains(alternative, package.projAlts)}">
+														checked = "checked"
+													</c:if>
+												/><!-- end input -->
+												Name: ${alternative.name} :: Money Needed: ${alternative.value} :: County: ${alternative.county}</label></li>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+								</ul>
 							</li>
 						</c:forEach>
 					</ul>
@@ -123,14 +129,10 @@
 					<!-- begin list of funding options -->
 					<div id="sdf-allListHeader headingColor">
 						<div class="listHeaderHeader headingColor">
-							<div class="sdf-col1 floatLeft"> <span class="sdf-listHeaderTitles">Funding
-									Source</span> </div>
-							<div class="sdf-col2 floatLeft"> <span class="sdf-listHeaderTitles">Money
-									raised</span> </div>
-							<div class="sdf-col3 floatLeft"> <span class="sdf-listHeaderTitles">Annual
-									cost to you</span> </div>
-							<div class="sdf-col4 floatLeft"> <span class="sdf-listHeaderTitles">Annual
-									cost to average resident</span> </div>
+							<div class="sdf-col1 floatLeft"> <span class="sdf-listHeaderTitles">Funding Source</span> </div>
+							<div class="sdf-col2 floatLeft"> <span class="sdf-listHeaderTitles">Money raised</span> </div>
+							<div class="sdf-col3 floatLeft"> <span class="sdf-listHeaderTitles">Annual cost to you</span> </div>
+							<div class="sdf-col4 floatLeft"> <span class="sdf-listHeaderTitles">Annual cost to average resident</span> </div>
 							<div class="clearBoth"></div>
 						</div>
 

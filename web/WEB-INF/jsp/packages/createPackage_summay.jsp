@@ -19,11 +19,11 @@
 #### -->
 
 <h3>Your package summary</h3>
-<p>Total Cost: ${userPackage.totalCost}</p>
-<p>Total Funding: ${userPackage.totalFunding}</p>
-<p>Cost to you: ${userPackage.yourCost}</p>
-<p>Cost to the average resident: ${userPackage.avgCost}</p>
-<p>Number of projects in your package: ${fn:length(userPackage.projects)}</p>
+<p>Total Cost: ${package.totalCost}</p>
+<p>Total Funding: ${package.totalFunding}</p>
+<p>Cost to you: ${package.yourCost}</p>
+<p>Cost to the average resident: ${stat.avgCost}</p>
+<p>Number of projects in your package: ${fn:length(package.projects)}</p>
 
-<h3 id="balance" class="${(userPackage.balance > 0) ? 'negative':'positive'}">Balance: ${userPackage.balance}</h3>
+<h3 id="balance" class="${(userPackage.balance > 0) ? 'negative':'positive'}">Balance: ${package.balance}</h3>
 <!--Adam - Add negative and positive CSS classes-->
