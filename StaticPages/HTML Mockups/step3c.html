@@ -1,13 +1,10 @@
 <html>
-
-	<head>
-	<style type="text/css" media="screen">@import "styles/lit.css";</style>
-	
-	<script type="text/javascript" src='prototype.js'></script>
-	
-	<script type="text/javascript" src='scriptaculous.js'></script>
-
-
+<head>
+<style type="text/css" media="screen">
+@import "styles/lit.css";
+</style>
+<script type="text/javascript" src='prototype.js'></script>
+<script type="text/javascript" src='scriptaculous.js'></script>
 <script type="text/javascript">
 
 var totalCost=0;
@@ -181,15 +178,19 @@ function showBalance(divid){
 </script>
 <style type="text/css">
 
+.box3{padding:5px}
+
+#balanceRow, #balanceRow2, #balance2, #balance {padding:.5em;margin:.5em 0em;}
+
 #obj-left
 {
-width:40%;
+width:45%;
 margin:.5em .5em .5em 0em;
 }
 
 #obj-right
 {
-width:57%;
+width:52%;
 margin:.5em 0em .5em .5em;
 }
 
@@ -205,30 +206,50 @@ padding:.3em 0em;
 #allListHeader
 {
 text-align:left;
+height:2em;
 }
 
-.col1
+#obj-left .col1
 {
-width:150px;
+width:250px;
 margin-right:.5em;
 padding-left:.5em;
 }
 
-.col2
+#obj-left .col2
 {
-width:100px;
+width:80px;
 }
 
-.col3
+#obj-left .col3
+{
+margin-left:.5em;
+width:70px;
+text-align:center;
+}		
+
+#obj-right .col1
+{
+width:200px;
+margin-right:.5em;
+padding-left:.5em;
+}
+
+#obj-right .col2
+{
+width:80px;
+}
+
+#obj-right .col3
 {
 margin-left:.5em;
 width:100px;
-}		
+}	
 
-.col4
+#obj-right .col4
 {
 margin-left:.5em;
-width:150px;
+width:80px;
 }	
 
 .packageCol1
@@ -241,23 +262,23 @@ font-weight:bold;
 
 .packageCol2
 {
-width:150px;
+width:270px;
 }
 
 .packageCol3{
-margin-left:10em;
-width:230px;
+margin-left:1em;
+width:380px;
 font-weight:bold;
 }
 
 .packageCol4{
-margin-left:10em;
 width:110px;
 }
 
 h4
 {
 font-size:1em;
+clear:both;
 }
 
 .listHeaderTitles
@@ -266,63 +287,61 @@ font-size:.8em;
 font-weight:bold;
 }
 
+
 </style>
-	</head>
-	<body>
-	  <div id="header">
+</head>
+<body>
+<div id="header">
 	<!-- Begin header -->
 	<jsp:include page="/header.jsp" />
 	<p>[Load header from separate file]</p>
 	<!-- End header -->
-  </div>
-  <!-- End header -->
+</div>
+<!-- End header -->
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 <div id="headerMenu">
 	<div id="headerContainer">
 		<div id="headerTitle" class="floatLeft">
 			<h3 class="headerColor">Step 3: Create Packages</h3>
 		</div>
-		<div class="headerButton floatLeft"> <a href="step3a.html">3a:
-				Review projects</a> </div>
-		<div class="headerButton floatLeft"> <a href="step3b.html">3b:
-				Review funding options</a> </div>
-		<div class="headerButton floatLeft currentBox"> <a href="step3c.html">3c:
-				Create your own package</a> </div>
-		<div id="headerNext" class="floatRight box5"> <a href="step3c.html">Next
-				Step</a> </div>
+		<div class="headerButton floatLeft"> <a href="step3a.html">3a: Review projects</a> </div>
+		<div class="headerButton floatLeft"> <a href="step3b.html">3b: Review funding options</a> </div>
+		<div class="headerButton floatLeft currentBox"> <a href="step3c.html">3c: Create
+				your own package</a> </div>
+		<div id="headerNext" class="floatRight box5"> <a href="step3c.html">Next Step</a> </div>
 	</div>
 </div>
 <!-- End header menu -->
-  <!-- #container is the container that wraps around all the main page content -->
+<!-- #container is the container that wraps around all the main page content -->
 <div id="container">
-
-	<!-- begin "overview and instructions" area -->
-	<div id="overview" class="box2">
-		<h3>Overview and Instructions</h3>
-		<p>How are we going to pay for improvements to the regional transportation system?
-		 Some of the money for improvements comes from state and federal government. 
-		 However, all of the projects you reviewed in Step 3A are not yet fully funded by 
-		 these sources, and many are not funded at all. The purpose of the regional transportation 
-		 ballot measure is to fund some of these projects with new regional tax increases.</p>
-
-		<p>Below you can review and discuss five different kinds of regional tax increases 
+<!-- begin "overview and instructions" area -->
+<div id="overview" class="box2">
+	<h3>Overview and Instructions</h3>
+	<p>How are we going to pay for improvements to the regional transportation system?
+		Some of the money for improvements comes from state and federal government. However,
+		all of the projects you reviewed in Step 3A are not yet fully funded by these sources,
+		and many are not funded at all. The purpose of the regional transportation ballot
+		measure is to fund some of these projects with new regional tax increases.</p>
+	<p>Below you can review and discuss five different kinds of regional tax increases
 		that can be used to pay for transportation improvements.</p>
-	</div>
-	<!-- end overview -->
-	
-	<div id="object">
-	<div class="box3"><!--Package Summary-->
-		<h3 class="headerColor">Your package summary</h3><!--Title-->
+</div>
+<!-- end overview -->
+<div id="object">
+	<div>
+		<!--Package Summary-->
+		<h3 class="headerColor">Your package summary</h3>
+		<!--Title-->
 		<div class="floatLeft packageCol1">
-			<div><!--Total Cost-->
+			<div>
+				<!--Total Cost-->
 				<div>Total cost</div>
-				
 			</div>
-			<div><!--Total funding-->
+			<div>
+				<!--Total funding-->
 				<div>Total funding</div>
-			
 			</div>
-			<div><!--Balance-->
+			<div>
+				<!--Balance-->
 				<div id="balanceRow" style="height:20px;background-color:LightGreen;">Balance</div>
 			</div>
 		</div>
@@ -330,282 +349,328 @@ font-weight:bold;
 			<div>
 				<div id="totalCost">$0 million</div>
 				<div id="totalFunding">$0 million</div>
-				<div style="height:20px;background-color:LightGreen;" id="balance">Revenues equal costs</div>
+				<div style="height:20px;background-color:LightGreen;" id="balance">Revenues equal
+					costs</div>
 			</div>
 		</div>
-			
-			
 		<div class="floatLeft packageCol3">
-			<div><!--Cost to you-->
+			<div>
+				<!--Cost to you-->
 				<div>Cost to you</div>
 			</div>
-			<div><!--Cost to the average resident-->
+			<div>
+				<!--Cost to the average resident-->
 				<div>Cost to the average resident</div>
 			</div>
-			<div><!--Number of projects in your package-->
+			<div>
+				<!--Number of projects in your package-->
 				<div>Number of projects in your package</div>
 			</div>
 		</div>
-				
 		<div class="floatLeft packageCol4">
 			<div id="costToYou">$0 per year</div>
 			<div id="costToAvg">$0 per year</div>
 			<div id="projNum">0</div>
 		</div>
 		<div class="clearBoth"></div>
-		
-	</div><!--End of package summary-->
 	</div>
-		
-		<!--Project list-->
-		<form onReset="resetPackage();" onSubmit="return false;">
-	<div id="object">
-		
-		<div class="floatLeft" id="obj-left">
-			<h3 class="headerColor">Create your personal transportation package</h3>
-			<div id="allListHeader"><!--header of Project list-->
-				<div class="listHeaderHeader box4">
-					<div class="col1 floatLeft">
-						<span class="listHeaderTitles">Project</span>
-					</div>
-					<div class="col2 floatLeft">
-						<span class="listHeaderTitles">Money Needed</span>
-					</div>
-					<div class="col3 floatLeft">
-						<span class="listHeaderTitles">County</span>
-					</div>
-				</div>
-			</div><!--end of header of Project list-->
-			<div><!--Alaska Way Viaduct Project-->
-				<h4 class="headerColor"<!--Project title-->
-				Alaska Way Viaduct (select only one)
-				</h4>
-				<div class="listRow row odd"><!--Option 1-->
-					<div class="col1 floatLeft"><input type='radio' value="0" name="AlaskaWayViaduct" onChange="projectArray[0]=0;costArray[0]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');" checked="checked"/>None</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row even">
-					<div class="col1 floatLeft"><input type='radio' value="212" name="AlaskaWayViaduct" onChange="projectArray[0]=1;costArray[0]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 1: Build aerial viaduct</div>
-					<div class="col2 floatLeft">$212 million</div>
-					<div class="col3 floatLeft">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row odd"><!--Option 2-->
-					<div class="col1 floatLeft"><input type='radio' value="345" name="AlaskaWayViaduct" onChange="projectArray[0]=1;costArray[0]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 2: Tunnel</div>
-					<div class="col2 floatLeft">$345 million</div>
-					<div class="col3 floatLeft">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row even"><!--Option 3-->
-					<div class="col1 floatLeft"><input type='radio' value="100" name="AlaskaWayViaduct" onChange="projectArray[0]=1;costArray[0]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 3: Surface Boulevard</div>
-					<div class="col2 floatLeft">$100 million</div>
-					<div class="col3 floatLeft">King</div>
-					<div class="clearBoth"></div>
-				</div>
-			</div>
-			
-			<div><!--SR 520 Floating Bridge Project-->
-				<h4 class="headerColor"><!--Project title-->
-				SR 520 Floating Bridge (select only one)
-				</h4>
-				<div class="listRow row odd">
-					<div class="col1 floatLeft"><input type='radio' value="0" name="520FloatingBridge" onChange="projectArray[1]=0;costArray[1]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');" checked="checked"/>None</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row even"><!--Option 1-->
-					<div class="col1 floatLeft"><input type='radio' value="212" name="520FloatingBridge" onChange="projectArray[1]=1;costArray[1]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 1: 4-lane Bridge Replacement</div>
-					<div class="col2 floatLeft">$212 million</div>
-					<div class="col3 floatLeft">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row odd"><!--Option 2-->
-					<div class="col1 floatLeft"><input type='radio' value="345" name="520FloatingBridge" onChange="projectArray[1]=1;costArray[1]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 2: 6-lane Bridge Replacement</div>
-					<div class="col2 floatLeft">$345 million</div>
-					<div class="col3 floatLeft">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row even"><!--Option 3-->
-					<div class="col1 floatLeft"><input type='radio' value="100" name="520FloatingBridge" onChange="projectArray[1]=1;costArray[1]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 3: 6-lane Bridge Replacement with Ramp to UW</div>
-					<div class="col2 floatLeft">$100 million</div>
-					<div class="col3 floatLeft">King</div>
-					<div class="clearBoth"></div>
-				</div>
-			</div>
-			
-			<div><!--Light Rail: Seattle to Eastside Project-->
-				<h4 class="headerColor"><!--Project title-->
-				Light Rail: Seattle to Eastside (select only one)
-				</h4>
-				<div class="listRow row odd">
-					<div class="col1 floatLeft"><input type='radio' value="0" name="LightRailSeaEast" onChange="projectArray[2]=0;costArray[2]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');" checked="checked"/>None</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row even"><!--Option 1-->
-					<div class="col1 floatLeft"><input type='radio' value="212" name="LightRailSeaEast" onChange="projectArray[2]=1;costArray[2]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 1: Seattle to Downtown Bellevue</div>
-					<div class="col2 floatLeft">$212 million</div>
-					<div class="col3 floatLeft">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row odd"><!--Option 2-->
-					<div class="col1 floatLeft"><input type='radio' value="345" name="LightRailSeaEast" onChange="projectArray[2]=1;costArray[2]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 2: Seattle to Overlake</div>
-					<div class="col2 floatLeft">$345 million</div>
-					<div class="col3 floatLeft">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row even"><!--Option 3-->
-					<div class="col1 floatLeft"><input type='radio' value="345" name="LightRailSeaEast" onChange="projectArray[2]=1;costArray[2]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Option 3: Seattle to Redmond</div>
-					<div class="col2 floatLeft">$100 million</div>
-					<div class="col3 floatLeft">King</div>
-					<div class="clearBoth"></div>
-				</div>
-			</div>
-			
-			<div><!--I-405 Improvements Project-->
-				<h4 class="headerColor"><!--Project title-->
-				I-405 Improvements (selecting more than one is OK)
-				</h4>
-				<div class="listRow row odd"><!--Option 1-->
-					<div class="col1 floatLeft"><input type='checkbox' value="212" name="405Improvements" onChange="if(projectArray[3]==undefined){projectArray[3]=0;} if(costArray[3]==undefined){costArray[3]=0;} if(this.checked){projectArray[3]++;costArray[3]+=Number(this.value);}else{projectArray[3]--;costArray[3]-=Number(this.value);}calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Add lane between Bellevue and Issaquah</div>
-					<div class="col2 floatLeft">$212 million</div>
-					<div class="col3 floatLeft">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row even"><!--Option 2-->
-					<div class="col1 floatLeft"><input type='checkbox' value="345" name="405Improvements" onChange="if(projectArray[3]==undefined){projectArray[3]=0;} if(costArray[3]==undefined){costArray[3]=0;} if(this.checked){projectArray[3]++;costArray[3]+=Number(this.value)}else{projectArray[3]--;costArray[3]-=Number(this.value);}calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>Add lane between Bothell and Bellevue</div>
-					<div class="col2 floatLeft">$345 million</div>
-					<div class="col3 floatLeft">Snohomish and King</div>
-					<div class="clearBoth"></div>
-				</div>
-			</div>
-		</div>
-	</div><!-- End of Project list-->
-
-	<div id="object">
-		
-		<div class="floatLeft" id="obj-right">
-			<h3 class="headerColor">Decide how to pay for it</h3>
-			<div id="allListHeader"><!--Funding list-->
-				<div class="listHeaderHeader box4">
-					<div class="col1 floatLeft">
-						<span class="listHeaderTitles">Funding Source</span>
-					</div>
-					<div class="col2 floatLeft">
-						<span class="listHeaderTitles">Money raised</span>
-					</div>
-					<div class="col3 floatLeft">
-						<span class="listHeaderTitles">Annual cost to you</span>
-					</div>
-					<div class="col4 floatLeft">
-						<span class="listHeaderTitles">Annual cost to average resident</span>
-					</div>
-				</div>
-			</div>
-			<div><!--Gas Tax-->
-				<h4 class="headerColor">
-				Gas Tax</h4>
-				<div class="listRow row odd">
-					<div class="col1 floatLeft"><input type='radio' value="0" name="GasTax" onChange="costToYouArray[0]=this.value;costToAvgArray[0]=this.value;fundArray[0]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');" checked="checked"/>None</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row even"><!--Option 1-->
-					<div class="col1 floatLeft"><input type="radio" name="GasTax" value="400" onChange="costToYouArray[0]=25;costToAvgArray[0]=25;fundArray[0]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');"/>2.3 cents increase per gallon</div>
-					<div class="col2 floatLeft">400 million</div>
-					<div class="col3 floatLeft">25</div>
-					<div class="col4 floatLeft">25</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row odd"><!--Option 2-->
-					<div class="col1 floatLeft"><input type="radio" name="GasTax" value="1000" onChange="costToYouArray[0]=50;costToAvgArray[0]=50;fundArray[0]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');"/>4 cents increase per gallon</div>
-					<div class="col2 floatLeft">1000 million</div>
-					<div class="col3 floatLeft">50</div>
-					<div class="col4 floatLeft">50</div>
-					<div class="clearBoth"></div>
-				</div>
-			</div>
-			
-			<div><!--Sales Tax-->
-				<h4 class="headerColor">Sales Tax</h4>
-				<div class="listRow row odd">
-					<div class="col1 floatLeft"><input type='radio' value="0" name="SalesTax" onChange="costToYouArray[1]=this.value;costToAvgArray[1]=this.value;fundArray[1]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');" checked="checked"/>None</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row even"><!--Option 1-->
-					<div class="col1 floatLeft"><input type="radio" name="SalesTax" value="400" onChange="costToYouArray[1]=25;costToAvgArray[1]=25;fundArray[1]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');"/>2.3 cent increase</div>
-					<div class="col2 floatLeft">400 million</div>
-					<div class="col3 floatLeft">25</div>
-					<div class="col4 floatLeft">25</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row odd"><!--Option 2-->
-					<div class="col1 floatLeft"><input type="radio" name="SalesTax" value="1000" onChange="costToYouArray[1]=50;costToAvgArray[1]=50;fundArray[1]=this.value; calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');"/>4 cent increase</div>
-					<div class="col2 floatLeft">1000 million</div>
-					<div class="col3 floatLeft">50</div>
-					<div class="col4 floatLeft">50</div>
-					<div class="clearBoth"></div>
-				</div>
-			</div>
-		</div>
-	</div><!--End of Funding list-->
-
-		
-		<div><!-- Finished Link-->
-			<a href="#packSummary"><h3>Finished?</h3></a>
-		</div>
-			<div class="clearBoth"></div>
-		
-			<div id="object">
-	<div class="box3"><!--Package Summary-->
-		<h3 class="headerColor"><a name="packSummary">Your package summary</a></h3><!--Title-->
-		<div class="floatLeft packageCol1">
-			<div><!--Total Cost-->
-				<div>Total cost</div>
-				
-			</div>
-			<div><!--Total funding-->
-				<div>Total funding</div>
-			
-			</div>
-			<div><!--Balance-->
-				<div id="balanceRow2" style="height:20px; background-color:LightGreen;">Balance</div>
-			</div>
-		</div>
-		<div class="floatLeft packageCol2">
-			<div>
-				<div id="totalCost2">$0 million</div>
-				<div id="totalFunding2">$0 million</div>
-				<div style="height:20px; background-color:LightGreen;" id="balance2">Revenues equal costs</div>
-			</div>
-		</div>
-			
-			
-		<div class="floatLeft packageCol3">
-			<div><!--Cost to you-->
-				<div>Cost to you</div>
-			</div>
-			<div><!--Cost to the average resident-->
-				<div>Cost to the average resident</div>
-			</div>
-			<div><!--Number of projects in your package-->
-				<div>Number of projects in your package</div>
-			</div>
-		</div>
-				
-		<div class="floatLeft packageCol4">
-			<div id="costToYou2">$0 per year</div>
-			<div id="costToAvg2">$0 per year</div>
-			<div id="projNum2">0</div>
-		</div>
-		<div class="clearBoth"></div>
-		
-	</div><!--End of package summary-->
-	</div>
-		
-		<div style="float:right; background-color:LightGreen;"><!--Finished submit buttons-->
-			<div class="floatLeft packageCol1"><h3>Finished?</h3></div>
-			<div class="floatLeft packageCol2"><input type="submit" value="Yes - Submit my package" id="submitPack" onChange="if(balance>=0){alert('submitted');}else{alert('not submitted');}"/></div>
-			<div class="floatLeft packageCol3"><input type="reset" value="No - Start Over"/></div>
-		</div>
-		</form>
+	<!--End of package summary-->
 </div>
-	</body>
+<!--Project list-->
+<form onReset="resetPackage();" onSubmit="return false;">
+<div id="object">
+	<div class="floatLeft" id="obj-left">
+		<h3 class="headerColor">Create your personal transportation package</h3>
+		<div id="allListHeader">
+			<!--header of Project list-->
+			<div class="listHeaderHeader box4">
+				<div class="col1 floatLeft"> <span class="listHeaderTitles">Project</span> </div>
+				<div class="col2 floatLeft"> <span class="listHeaderTitles">Money Needed</span> </div>
+				<div class="col3 floatLeft"> <span class="listHeaderTitles">County</span> </div>
+			</div>
+		</div>
+		<!--end of header of Project list-->
+		<div>
+			<!--Alaska Way Viaduct Project-->
+			<h4 class="headerColor">
+				<!--Project title-->
+				Alaska Way Viaduct (select only one) </h4>
+			<div class="listRow row odd">
+				<!--Option 1-->
+				<div class="col1 floatLeft">
+					<input type='radio' value="0" name="AlaskaWayViaduct" onChange="projectArray[0]=0;costArray[0]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');" checked="checked"/>
+					None</div>
+				<div class="clearBoth"></div>
+			</div>
+			<div class="listRow row even">
+				<div class="col1 floatLeft">
+					<input type='radio' value="212" name="AlaskaWayViaduct" onChange="projectArray[0]=1;costArray[0]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>
+					Option 1: Build aerial viaduct</div>
+				<div class="col2 floatLeft">$212 million</div>
+				<div class="col3 floatLeft">King</div>
+				<div class="clearBoth"></div>
+			</div>
+			<div class="listRow row odd">
+				<!--Option 2-->
+				<div class="col1 floatLeft">
+					<input type='radio' value="345" name="AlaskaWayViaduct" onChange="projectArray[0]=1;costArray[0]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>
+					Option 2: Tunnel</div>
+				<div class="col2 floatLeft">$345 million</div>
+				<div class="col3 floatLeft">King</div>
+				<div class="clearBoth"></div>
+			</div>
+			<div class="listRow row even">
+				<!--Option 3-->
+				<div class="col1 floatLeft">
+					<input type='radio' value="100" name="AlaskaWayViaduct" onChange="projectArray[0]=1;costArray[0]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>
+					Option 3: Surface Boulevard</div>
+				<div class="col2 floatLeft">$100 million</div>
+				<div class="col3 floatLeft">King</div>
+				<div class="clearBoth"></div>
+			</div>
+		</div>
+		<div>
+			<!--SR 520 Floating Bridge Project-->
+			<h4 class="headerColor">
+				<!--Project title-->
+				SR 520 Floating Bridge (select only one) </h4>
+			<div class="listRow row odd">
+				<div class="col1 floatLeft">
+					<input type='radio' value="0" name="520FloatingBridge" onChange="projectArray[1]=0;costArray[1]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');" checked="checked"/>
+					None</div>
+				<div class="clearBoth"></div>
+			</div>
+			<div class="listRow row even">
+				<!--Option 1-->
+				<div class="col1 floatLeft">
+					<input type='radio' value="212" name="520FloatingBridge" onChange="projectArray[1]=1;costArray[1]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>
+					Option 1: 4-lane Bridge Replacement</div>
+				<div class="col2 floatLeft">$212 million</div>
+				<div class="col3 floatLeft">King</div>
+				<div class="clearBoth"></div>
+			</div>
+			<div class="listRow row odd">
+				<!--Option 2-->
+				<div class="col1 floatLeft">
+					<input type='radio' value="345" name="520FloatingBridge" onChange="projectArray[1]=1;costArray[1]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>
+					Option 2: 6-lane Bridge Replacement</div>
+				<div class="col2 floatLeft">$345 million</div>
+				<div class="col3 floatLeft">King</div>
+				<div class="clearBoth"></div>
+			</div>
+			<div class="listRow row even">
+				<!--Option 3-->
+				<div class="col1 floatLeft">
+					<input type='radio' value="100" name="520FloatingBridge" onChange="projectArray[1]=1;costArray[1]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>
+					Option 3: 6-lane Bridge Replacement with Ramp to UW</div>
+				<div class="col2 floatLeft">$100 million</div>
+				<div class="col3 floatLeft">King</div>
+				<div class="clearBoth"></div>
+			</div>
+		</div>
+		<div>
+			<!--Light Rail: Seattle to Eastside Project-->
+			<h4 class="headerColor">
+				<!--Project title-->
+				Light Rail: Seattle to Eastside (select only one) </h4>
+			<div class="listRow row odd">
+				<div class="col1 floatLeft">
+					<input type='radio' value="0" name="LightRailSeaEast" onChange="projectArray[2]=0;costArray[2]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');" checked="checked"/>
+					None</div>
+				<div class="clearBoth"></div>
+			</div>
+			<div class="listRow row even">
+				<!--Option 1-->
+				<div class="col1 floatLeft">
+					<input type='radio' value="212" name="LightRailSeaEast" onChange="projectArray[2]=1;costArray[2]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>
+					Option 1: Seattle to Downtown Bellevue</div>
+				<div class="col2 floatLeft">$212 million</div>
+				<div class="col3 floatLeft">King</div>
+				<div class="clearBoth"></div>
+			</div>
+			<div class="listRow row odd">
+				<!--Option 2-->
+				<div class="col1 floatLeft">
+					<input type='radio' value="345" name="LightRailSeaEast" onChange="projectArray[2]=1;costArray[2]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>
+					Option 2: Seattle to Overlake</div>
+				<div class="col2 floatLeft">$345 million</div>
+				<div class="col3 floatLeft">King</div>
+				<div class="clearBoth"></div>
+			</div>
+			<div class="listRow row even">
+				<!--Option 3-->
+				<div class="col1 floatLeft">
+					<input type='radio' value="345" name="LightRailSeaEast" onChange="projectArray[2]=1;costArray[2]=this.value;calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>
+					Option 3: Seattle to Redmond</div>
+				<div class="col2 floatLeft">$100 million</div>
+				<div class="col3 floatLeft">King</div>
+				<div class="clearBoth"></div>
+			</div>
+		</div>
+		<div>
+			<!--I-405 Improvements Project-->
+			<h4 class="headerColor">
+				<!--Project title-->
+				I-405 Improvements (selecting more than one is OK) </h4>
+			<div class="listRow row odd">
+				<!--Option 1-->
+				<div class="col1 floatLeft">
+					<input type='checkbox' value="212" name="405Improvements" onChange="if(projectArray[3]==undefined){projectArray[3]=0;} if(costArray[3]==undefined){costArray[3]=0;} if(this.checked){projectArray[3]++;costArray[3]+=Number(this.value);}else{projectArray[3]--;costArray[3]-=Number(this.value);}calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>
+					Add lane between Bellevue and Issaquah</div>
+				<div class="col2 floatLeft">$212 million</div>
+				<div class="col3 floatLeft">King</div>
+				<div class="clearBoth"></div>
+			</div>
+			<div class="listRow row even">
+				<!--Option 2-->
+				<div class="col1 floatLeft">
+					<input type='checkbox' value="345" name="405Improvements" onChange="if(projectArray[3]==undefined){projectArray[3]=0;} if(costArray[3]==undefined){costArray[3]=0;} if(this.checked){projectArray[3]++;costArray[3]+=Number(this.value)}else{projectArray[3]--;costArray[3]-=Number(this.value);}calcProjectNum();showProjectNum('projNum');showProjectNum('projNum2');calcTotalCost();showTotalCost('totalCost');showTotalCost('totalCost2');"/>
+					Add lane between Bothell and Bellevue</div>
+				<div class="col2 floatLeft">$345 million</div>
+				<div class="col3 floatLeft">Snohomish and King</div>
+				<div class="clearBoth"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End of Project list-->
+<div id="object">
+	<div class="floatLeft" id="obj-right">
+		<h3 class="headerColor">Decide how to pay for it</h3>
+		<div id="allListHeader">
+			<!--Funding list-->
+			<div class="listHeaderHeader box4">
+				<div class="col1 floatLeft"> <span class="listHeaderTitles">Funding Source</span> </div>
+				<div class="col2 floatLeft"> <span class="listHeaderTitles">Money raised</span> </div>
+				<div class="col3 floatLeft"> <span class="listHeaderTitles">Annual cost to you</span> </div>
+				<div class="col4 floatLeft"> <span class="listHeaderTitles">Annual cost to avg.
+						resident</span> </div>
+			</div>
+		</div>
+		<div>
+			<!--Gas Tax-->
+			<h4 class="headerColor">Gas Tax</h4>
+			<div class="listRow row odd">
+				<div class="col1 floatLeft">
+					<input type='radio' value="0" name="GasTax" onChange="costToYouArray[0]=this.value;costToAvgArray[0]=this.value;fundArray[0]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');" checked="checked"/>
+					None</div>
+				<div class="clearBoth"></div>
+			</div>
+			<div class="listRow row even">
+				<!--Option 1-->
+				<div class="col1 floatLeft">
+					<input type="radio" name="GasTax" value="400" onChange="costToYouArray[0]=25;costToAvgArray[0]=25;fundArray[0]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');"/>
+					2.3 cents increase per gallon</div>
+				<div class="col2 floatLeft">400 million</div>
+				<div class="col3 floatLeft">25</div>
+				<div class="col4 floatLeft">25</div>
+				<div class="clearBoth"></div>
+			</div>
+			<div class="listRow row odd">
+				<!--Option 2-->
+				<div class="col1 floatLeft">
+					<input type="radio" name="GasTax" value="1000" onChange="costToYouArray[0]=50;costToAvgArray[0]=50;fundArray[0]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');"/>
+					4 cents increase per gallon</div>
+				<div class="col2 floatLeft">1000 million</div>
+				<div class="col3 floatLeft">50</div>
+				<div class="col4 floatLeft">50</div>
+				<div class="clearBoth"></div>
+			</div>
+		</div>
+		<div>
+			<!--Sales Tax-->
+			<h4 class="headerColor">Sales Tax</h4>
+			<div class="listRow row odd">
+				<div class="col1 floatLeft">
+					<input type='radio' value="0" name="SalesTax" onChange="costToYouArray[1]=this.value;costToAvgArray[1]=this.value;fundArray[1]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');" checked="checked"/>
+					None</div>
+				<div class="clearBoth"></div>
+			</div>
+			<div class="listRow row even">
+				<!--Option 1-->
+				<div class="col1 floatLeft">
+					<input type="radio" name="SalesTax" value="400" onChange="costToYouArray[1]=25;costToAvgArray[1]=25;fundArray[1]=this.value;calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');"/>
+					2.3 cent increase</div>
+				<div class="col2 floatLeft">400 million</div>
+				<div class="col3 floatLeft">25</div>
+				<div class="col4 floatLeft">25</div>
+				<div class="clearBoth"></div>
+			</div>
+			<div class="listRow row odd">
+				<!--Option 2-->
+				<div class="col1 floatLeft">
+					<input type="radio" name="SalesTax" value="1000" onChange="costToYouArray[1]=50;costToAvgArray[1]=50;fundArray[1]=this.value; calcTotalFunding();calcTotalCostToYou();calcTotalCostToAvg();showTotalCostToYou('costToYou2');showTotalCostToAvg('costToAvg2');showTotalCostToYou('costToYou');showTotalCostToAvg('costToAvg');showTotalFunding('totalFunding'); showTotalFunding('totalFunding2');"/>
+					4 cent increase</div>
+				<div class="col2 floatLeft">1000 million</div>
+				<div class="col3 floatLeft">50</div>
+				<div class="col4 floatLeft">50</div>
+				<div class="clearBoth"></div>
+			</div>
+		</div>
+	</div>
+	<a href="#packSummary">
+	<h3 class="centerAlign">Finished?</h3>
+	</a> </div>
+<!--End of Funding list-->
+<!-- Finished Link-->
+<div class="clearBoth"></div>
+<div id="object">
+	<div class="box3" class="padding5">
+	<!--Package Summary-->
+	<h3 class="headerColor"><a name="packSummary">Your package summary</a></h3>
+	<!--Title-->
+	<div class="floatLeft packageCol1">
+		<div>
+			<!--Total Cost-->
+			<div>Total cost</div>
+		</div>
+		<div>
+			<!--Total funding-->
+			<div>Total funding</div>
+		</div>
+		<div>
+			<!--Balance-->
+			<div id="balanceRow2" style="height:20px; background-color:LightGreen;">Balance</div>
+		</div>
+	</div>
+	<div class="floatLeft packageCol2">
+		<div>
+			<div id="totalCost2">$0 million</div>
+			<div id="totalFunding2">$0 million</div>
+			<div style="height:20px; background-color:LightGreen;" id="balance2">Revenues
+				equal costs</div>
+		</div>
+	</div>
+	<div class="floatLeft packageCol3">
+		<div>
+			<!--Cost to you-->
+			<div>Cost to you</div>
+		</div>
+		<div>
+			<!--Cost to the average resident-->
+			<div>Cost to the average resident</div>
+		</div>
+		<div>
+			<!--Number of projects in your package-->
+			<div>Number of projects in your package</div>
+		</div>
+	</div>
+	<div class="floatLeft packageCol4">
+		<div id="costToYou2">$0 per year</div>
+		<div id="costToAvg2">$0 per year</div>
+		<div id="projNum2">0</div>
+	</div>
+	<div class="clearBoth"></div>
+</div>
+<!--End of package summary-->
+<div class="padding5">
+	<!--Finished submit buttons-->
+	<h3 class="centerAlign">Finished?</h3>
+	<p class="centerAlign">
+		<input type="submit" value="Yes - Submit my package" id="submitPack" onChange="if(balance>=0){alert('submitted');}else{alert('not submitted');}"/>
+		<input type="reset" value="No - Start Over"/>
+	</p>
+	<div class="clearBoth"></div>
+</div>
+</body>
 </html>
