@@ -13,17 +13,54 @@
 	Author: Jordan Isip, Adam Hindman, Issac Yang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Integrate Layout (Adam)
-		[ ] Add "negative" and "positive" CSS classes - to indicate balance color (Adam)
+		[x] Integrate Layout (Adam)
+		[x] Add "negative" and "positive" CSS classes - to indicate balance color (Adam)
 		[ ] Test and Refine (Jordan)
 #### -->
 
-<h3>Your package summary</h3>
-<p>Total Cost: ${package.totalCost}</p>
-<p>Total Funding: ${package.totalFunding}</p>
-<p>Cost to you: ${package.yourCost}</p>
-<p>Cost to the average resident: ${stat.avgCost}</p>
-<p>Number of projects in your package: ${fn:length(package.projects)}</p>
 
-<h3 id="balance" class="${(userPackage.balance > 0) ? 'negative':'positive'}">Balance: ${package.balance}</h3>
-<!--Adam - Add negative and positive CSS classes-->
+<!--Package Summary-->
+<h3 class="headerColor">Your package summary</h3>
+<!--Title-->
+<div class="floatLeft packageCol1">
+	<div>
+		<!--Total Cost-->
+		<div>Total cost</div>
+	</div>
+	<div>
+		<!--Total funding-->
+		<div>Total funding</div>
+	</div>
+	<div>
+		<!--Balance-->
+		<div id="balanceRow" class="${(userPackage.balance > 0) ? 'negative':'positive'}">Balance</div>
+	</div>
+</div>
+<div class="floatLeft packageCol2">
+	<div>
+		<div id="totalCost">${package.totalCost}</div>
+		<div id="totalFunding">${package.totalFunding}</div>
+		<div class="${(userPackage.balance > 0) ? 'negative':'positive'}" id="balance">${package.balance}</div>
+	</div>
+</div>
+<div class="floatLeft packageCol3">
+	<div>
+		<!--Cost to you-->
+		<div>Cost to you</div>
+	</div>
+	<div>
+		<!--Cost to the average resident-->
+		<div>Cost to the average resident</div>
+	</div>
+	<div>
+		<!--Number of projects in your package-->
+		<div>Number of projects in your package</div>
+	</div>
+</div>
+<div class="floatLeft packageCol4">
+	<div id="costToYou">${package.yourCost}</div>
+	<div id="costToAvg">${stat.avgCost}</div>
+	<div id="projNum">${fn:length(package.projects)}</div>
+</div>
+<div class="clearBoth"></div>
+<!--End of package summary-->

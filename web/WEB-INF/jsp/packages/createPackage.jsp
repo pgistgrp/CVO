@@ -5,7 +5,6 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
 <!--####
 	Project: Let's Improve Transportation!
 	Page: Create My Transportation Package
@@ -13,20 +12,136 @@
 	Author: Jordan Isip, Adam Hindman, Issac Yang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Integrate Layout (Adam)
+		[x] Integrate Layout (Adam)
 		[ ] Test and Refine (Jordan)
 #### -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 	"http://www.w3.org/TR/html4/strict.dtd">
 <html>
-	<head>
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<title>Create your own Package!</title>
-		<style type="text/css" media="screen">
-			@import "styles/lit.css";
-		</style>
-		<script type='text/javascript' src='/dwr/interface/PackageAgent.js'></script>		
-		<script type="text/javascript" charset="utf-8">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>Create your own package!</title>
+<style type="text/css" media="screen">
+@import "styles/lit.css";
+</style>
+
+<style type="text/css">
+
+.box3{padding:5px}
+
+#balanceRow, #balanceRow2, #balance2, #balance {padding:.5em;margin:.5em 0em;}
+
+.positive{background-color:#B6EEB6;}
+.negative{background-color:#FCAEAE;}
+
+#projects
+{
+width:45%;
+margin:.5em .5em .5em 0em;
+}
+
+#funding
+{
+width:52%;
+margin:.5em 0em .5em .5em;
+}
+
+.odd {background: #D6E7EF}
+.even {background: #ffffff}
+
+
+.listRow
+{
+padding:.3em 0em;
+}
+
+#allListHeader
+{
+text-align:left;
+height:2em;
+}
+
+#projects .col1
+{
+width:250px;
+margin-right:.5em;
+padding-left:.5em;
+}
+
+#projects .col2
+{
+width:80px;
+}
+
+#projects .col3
+{
+margin-left:.5em;
+width:70px;
+text-align:center;
+}		
+
+#funding .col1
+{
+width:200px;
+margin-right:.5em;
+padding-left:.5em;
+}
+
+#funding .col2
+{
+width:80px;
+}
+
+#funding .col3
+{
+margin-left:.5em;
+width:100px;
+}	
+
+#funding .col4
+{
+margin-left:.5em;
+width:80px;
+}	
+
+.packageCol1
+{
+width:160px;
+font-weight:bold;
+}
+
+.packageCol2
+{
+width:250px;
+}
+
+.packageCol3{
+margin-left:1em;
+width:400px;
+font-weight:bold;
+}
+
+.packageCol4{
+width:100px;
+}
+
+h4
+{
+font-size:1em;
+clear:both;
+}
+
+.listHeaderTitles
+{
+font-size:.8em;
+font-weight:bold;
+}
+
+#summary{width:auto;}
+
+</style>
+<script type='text/javascript' src='/dwr/interface/PackageAgent.js'></script>
+<script type="text/javascript" charset="utf-8">
 			//Global Vars
 			var pkgId = "${package.id}";
 			//End Global Vars
@@ -75,101 +190,185 @@
 				}
 			}
 		</script>
-	</head>
-	<body>
-		<h1>Overview and Instructions</h1>
-		<p>This is the overview blah blah blah...</p>
-		
-		<FORM action="packageAction.do" method="post">	
-			<div id="createPackage">
-				<div id="summary">
-					<!-- load summary via DWR-->
-				</div>
-				<div id="projects">
-					<h3>Create your Transportation Package</h3>
-					<ul>
-						<c:forEach var="project" items="${projects}" varStatus="loop">
-							<li>Name: ${project.name}
-								<ul>
-									<c:choose><!--radio buttons- sorry Adam, I doubled up the code because of the awkward radio/checkbox mix on projects -->
-										<c:when test="${project.inclusive}">
-											<li><label><input name="proj-${project.id}" type="radio" CHECKED /> Do Nothing</label></li>
-											<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
-												<li><label><input type="radio" name="proj-${project.id}" onchange="setProjectToPkg('${alternative.id}', this.checked)"
-													<c:if test="${pg:contains(alternative, package.projAlts)}">
-														checked = "checked"
-													</c:if>
-												/><!-- end input -->
-												Name: ${alternative.name} :: Money Needed: ${alternative.value} :: County: ${alternative.county}</label></li>
-											</c:forEach>
-										</c:when>
-										<c:otherwise><!--checkboxes-->
-											<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
-												<li><label><input type="checkbox" name="proj-${project.id}" onchange="setProjectToPkg('${alternative.id}', this.checked)"
-													<c:if test="${pg:contains(alternative, package.projAlts)}">
-														checked = "checked"
-													</c:if>
-												/><!-- end input -->
-												Name: ${alternative.name} :: Money Needed: ${alternative.value} :: County: ${alternative.county}</label></li>
-											</c:forEach>
-										</c:otherwise>
-									</c:choose>
-								</ul>
-							</li>
-						</c:forEach>
-					</ul>
-				</div>
-				
-				<div id="map" style="border:1px solid">
-					<!-- load the map here gMan! -->Map
-				</div>
-				
-				<div id="funding">
-					<h3>Decide how to pay for it</h3>
-					<!-- begin list of funding options -->
-					<div id="sdf-allListHeader headingColor">
-						<div class="listHeaderHeader headingColor">
-							<div class="sdf-col1 floatLeft"> <span class="sdf-listHeaderTitles">Funding Source</span> </div>
-							<div class="sdf-col2 floatLeft"> <span class="sdf-listHeaderTitles">Money raised</span> </div>
-							<div class="sdf-col3 floatLeft"> <span class="sdf-listHeaderTitles">Annual cost to you</span> </div>
-							<div class="sdf-col4 floatLeft"> <span class="sdf-listHeaderTitles">Annual cost to average resident</span> </div>
-							<div class="clearBoth"></div>
-						</div>
 
-						<c:forEach var="source" items="${sources}" varStatus="loop">
-							<div id="source-${source.id}">
-								<h4 class="headerColor">${source.name}</h4>
-								<div class="sdf-listRow row">
-									<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
-										<div class="sdf-col1 floatLeft">
-											<div class="floatLeft">
-												<label><input name="proj-${project.id}" type="radio" CHECKED /> Do Nothing</label>
-												<input type="radio" name="fund-${alternative.id}" onchange="setFundingToPkg('${alternative.id}', this.checked)"
-													<c:if test="${pg:contains(alternative, package.fundAlts)}">
-														checked="checked"
-													</c:if>
-												/> <!-- end input -->
-												${alternative.name}
-											</div>
-										</div>
-										<div class="sdf-col2 floatLeft smallText">${alternative.revenue}</div>
-										<div class="sdf-col3 floatLeft smallText">${alternative.userCost}</div>
-										<div class="sdf-col4 floatLeft smallText">${alternative.averageCost}</div>
-										<div class="clearBoth"></div>
-									</c:forEach>
+</head>
+<body>
+<!-- Begin header -->
+<div id="header">
+	<jsp:include page="/header.jsp" />
+</div>
+<!-- End header -->
+<!-- Begin header menu - The wide ribbon underneath the logo -->
+<div id="headerMenu">
+	<div id="headerContainer">
+		<div id="headerTitle" class="floatLeft">
+			<h3 class="headerColor">Step 3: Create Packages</h3>
+		</div>
+		<div class="headerButton floatLeft"> <a href="step3a.html">3a: Review projects</a> </div>
+		<div class="headerButton floatLeft"> <a href="step3b.html">3b: Review funding options</a> </div>
+		<div class="headerButton floatLeft currentBox"> <a href="step3c.html">3c: Create
+				your own package</a> </div>
+		<div id="headerNext" class="floatRight box5"> <a href="step3c.html">Next Step</a> </div>
+	</div>
+</div>
+<!-- End header menu -->
+<!-- #container is the container that wraps around all the main page content -->
+<div id="container">
+	<!-- begin "overview and instructions" area -->
+	<div id="overview" class="box2">
+		<h3>Overview and Instructions</h3>
+		<p>How are we going to pay for improvements to the regional transportation system?
+			Some of the money for improvements comes from state and federal government. However,
+			all of the projects you reviewed in Step 3A are not yet fully funded by these
+			sources, and many are not funded at all. The purpose of the regional transportation
+			ballot measure is to fund some of these projects with new regional tax increases.</p>
+		<p>Below you can review and discuss five different kinds of regional tax increases
+			that can be used to pay for transportation improvements.</p>
+	</div>
+	<!-- end overview -->
+	<FORM action="packageAction.do" method="post">
+		<div id="createPackage">
+			<!-- begin summary -->
+			<div id="summary" class="box3">
+			<!-- load summary via DWR -->
+			</div>
+			<!-- end summary -->
+			
+			<!--Project list CONTAINER -->
+			<div class="floatLeft" id="projects">
+				<h3 class="headerColor">Create your personal transportation package</h3>
+				<div id="allListHeader">
+					<!--begin HEADER of Project list-->
+					<div class="listHeaderHeader box4">
+						<div class="col1 floatLeft"> <span class="listHeaderTitles">Project</span> </div>
+						<div class="col2 floatLeft"> <span class="listHeaderTitles">Money Needed</span> </div>
+						<div class="col3 floatLeft"> <span class="listHeaderTitles">County</span> </div>
+					</div>
+				</div>
+				<!--end HEADER of Project list-->
+				<!-- begin all PROJECTS -->
+				<div>
+					<!--begin PROJECT LOOP-->
+					<c:forEach var="project" items="${projects}" varStatus="loop">
+						<h4 class="headerColor">${project.name}</h4>
+						<c:choose>
+							<c:when test="${project.inclusive}"><!-- radio buttons -->
+								<div class="listRow">
+									<div class="col1 floatLeft">
+										<label><input name="proj-${project.id}" type="radio" CHECKED /> Do Nothing</label>
+									</div>
+									<div class="clearBoth"></div>
 								</div>
+								<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
+									<div class="listRow">
+										<div class="col1 floatLeft">
+										<label><input type="radio" name="proj-${project.id}" onchange="setProjectToPkg('${alternative.id}', this.checked)"
+													<c:if test="${pg:contains(alternative, package.projAlts)}">
+														checked = "checked"
+													</c:if>/>$ {alternative.name}
+										</label>
+										</div>
+										<div class="col2 floatLeft">${alternative.value}</div>
+										<div class="col3 floatLeft">${alternative.county}</div>
+										<div class="clearBoth"></div>
+									</div>
+								</c:foreach>
+							</c:when>
+							<c:otherwise><!-- checkboxes -->
+								<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
+									<div class="listRow row">
+										<div class="col1 floatLeft">
+										<label><input type="checkbox" name="proj-${project.id}" onchange="setProjectToPkg('${alternative.id}', this.checked)"
+													<c:if test="${pg:contains(alternative, package.projAlts)}">
+														checked = "checked"
+													</c:if>
+												/><!-- end input --> ${alternative.name}
+										</label>
+										</div>
+										<div class="col2 floatLeft">${alternative.value}</div>
+										<div class="col3 floatLeft">${alternative.county}</div>
+										<div class="clearBoth"></div>
+									</div>
+								</c:foreach>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<!-- end PROJECT LOOP -->
+				</div>
+				<!-- end all PROJECTS -->
+			</div>
+			<!-- End of Project list CONTAINER-->
+			
+			
+			<div class="floatLeft" id="funding">
+				<div id="map">
+					<!-- load the map here gMan! -->
+				</div>
+				<h3 class="headerColor">Decide how to pay for it</h3>
+				<div id="allListHeader">
+					<!--Funding list-->
+					<div class="listHeaderHeader box4">
+						<div class="col1 floatLeft"> <span class="listHeaderTitles">Funding Source</span> </div>
+						<div class="col2 floatLeft"> <span class="listHeaderTitles">Money raised</span> </div>
+						<div class="col3 floatLeft"> <span class="listHeaderTitles">Annual cost to
+								you</span> </div>
+						<div class="col4 floatLeft"> <span class="listHeaderTitles">Annual cost to
+								avg. resident</span> </div>
+					</div>
+				</div>
+				
+				<div>
+				<!-- begin FUNDING LOOP -->
+					<c:forEach var="source" items="${sources}" varStatus="loop">
+						<h4 id="source-${source.id}" class="headerColor">${source.name}</h4>
+						<div class="listRow">
+							<div class="col1 floatLeft">
+								<label><input name="proj-${project.id}" type="radio" CHECKED /> Do Nothing</label>
+							</div>
+							<div class="clearBoth"></div>
+						</div>						
+						<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
+							<div class="listRow row">
+								<div class="col1 floatLeft">
+									<label><input type="radio" name="fund-${alternative.id}" onchange="setFundingToPkg('${alternative.id}', this.checked)"
+										<c:if test="${pg:contains(alternative, package.fundAlts)}">
+											checked="checked"
+										</c:if>
+									/><!-- end input --> ${alternative.name}	
+									</label>							
+								</div>
+								<div class="col2 floatLeft">${alternative.revenue}</div>
+								<div class="col3 floatLeft">${alternative.userCost}</div>
+								<div class="col4 floatLeft">${alternative.averageCost}</div>
+								<div class="clearBoth"></div>
 							</div>
 						</c:forEach>
-					</div>
-					<!-- end list of funding options -->
-					<h3>Finished?</h3>
+					</c:forEach>
+				<!-- end FUNDING LOOP -->
 				</div>
-				<div id="summaryRepeat">
-					<!-- load summary via DWR -->
-				</div>
-				<input type="button" id="submitPackage" value="Yes - Submit My Package!"> <!-- this should only be enabled if funding exceeds cost -->
-				<input type="cancel" value="No - Start Over!">
+				<!-- end ALL FUNDING -->
 			</div>
-		</form>
-	</body>
+			<a href="#packSummary">
+			<h3 class="centerAlign">Finished?</h3>
+			</a> </div>
+		<!--End of Funding list-->
+		<!-- Finished Link-->
+		<div class="clearBoth"></div>
+		<div id="object">
+			<div class="box3" class="padding5" id="summaryRepeat">
+				<!-- load summary via DWR -->
+			</div>
+		<div class="padding5">
+			<!--Finished submit buttons-->
+			<h3 class="centerAlign">Finished?</h3>
+			<p class="centerAlign">
+				<input type="button" id="submitPackage" value="Yes - Submit My Package!"> 
+				<!-- this should only be enabled if funding exceeds cost -->
+				<input type="cancel" value="No - Start Over!">
+			</p>
+			<div class="clearBoth"></div>
+		</div>
+	</form>
+</div>
+</body>
 </html>
