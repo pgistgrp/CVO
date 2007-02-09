@@ -120,8 +120,8 @@
 					</ul>
 				</div>
 				
-				<div id="map">
-					<!-- load the map here gMan! -->
+				<div id="map" style="border:1px solid">
+					<!-- load the map here gMan! -->Map
 				</div>
 				
 				<div id="funding">
