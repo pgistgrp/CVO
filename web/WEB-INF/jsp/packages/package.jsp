@@ -259,20 +259,19 @@ width:100px;
             <div class="floatLeft">
               <h4>Cost to you</h4>
             </div>
-            <div class="floatRight" id="costToYou">${packageStat.yourCost}</div>
+            <div class="floatRight" id="costToYou">${package.userCost}</div>
           </div>
           <div class="clearBoth">
 
             <div class="floatLeft">
               <h4>Cost to the average resident</h4>
             </div>
-            <div class="floatRight" id="costToAvg">${packageStat.avgCost}</div>
+            <div class="floatRight" id="costToAvg">${package.avgCost}</div>
           </div>
           <div class="clearBoth"></div>
         </div>
         <!-- End Cost Summary Div -->
 
-	
 		</div>
 		
 	<!-- end obj-right -->
