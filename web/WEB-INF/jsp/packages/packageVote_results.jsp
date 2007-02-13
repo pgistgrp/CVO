@@ -145,14 +145,16 @@
 				</div>
 				<!-- end voting headers -->
 	
-				<c:forEach var="package" items="${poll.clusteredPackages}" varStatus="loop">
+				<c:forEach var="stat" items="${poll.packageVoteStats}" varStatus="loop">
 				       <div class="VoteListRow row ${((loop.index % 2) == 0) ? 'even' : 'odd'}">
 				         <div class="voteCol1 floatLeft">
-				           <div class="floatLeft"><a href="package.do?id=${package.id}">Package ${package.id}</a></div>
+				           <div class="floatLeft"><a href="package.do?id=${stat.clusteredPackage.id}">Package ${stat.clusteredPackage.id}</a></div>
 				         </div>
-				         <div class="voteCol2 floatLeft">${package.avgEnthusiastic}></div>
-				         <div class="voteCol3 floatLeft">${package.avgWilling}</div>
-				         <div class="voteCol4 floatLeft">${package.avgNot}</div>
+							<!-- use JSP expression to calculate stats -->
+							
+				         <div class="voteCol2 floatLeft">${stat.high}></div>
+				         <div class="voteCol3 floatLeft">${stat.medium}</div>
+				         <div class="voteCol4 floatLeft">${stat.low}</div>
 				         <div class="clearBoth"></div>
 				       </div>
 				</c:forEach>

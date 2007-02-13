@@ -17,6 +17,7 @@
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] Create Layout (Adam)
+		[ ] Add phase param from referring package- packageVote.jsp?phase=1 (Jordan)
 		[ ] JavaScript/JSTL (Jordan)
 		[ ] Test and Refine (Jordan)
 #### -->
@@ -135,15 +136,16 @@ background:#FFF1DC;
           <div class="clearBoth"></div>
         </div>
 		<!-- end voting headers -->
-		<form action="packageVote.do?activity=vote" method="POST">
-			<c:forEach var="package" items="${clusteredPackages}" varStatus="loop">
+		<form action="packageVote.do" method="POST">
+			<input type="hidden" name="activity" value="vote" />
+			<c:forEach var="vote" items="${packageVotes}" varStatus="loop">
 			       <div class="VoteListRow row ${((loop.index % 2) == 0) ? 'even' : 'odd'}">
 			         <div class="voteCol1 floatLeft">
-			           <div class="floatLeft"><a href="package.do?id=${package.id}">Package ${package.id}</a></div>
+			           <div class="floatLeft"><a href="package.do?id=${vote.clusteredPackage.id}">Package ${vote.clusteredPackage.id}</a></div>
 			         </div>
-			         <div class="voteCol2 floatLeft"><input name="enthusiastic" value="${package.id}" type="radio" /></div>
-			         <div class="voteCol3 floatLeft"><input name="willing" value="${package.id}" type="radio"></div>
-			         <div class="voteCol4 floatLeft"><input name="not" value="${package.id}" type="radio"></div>
+			         <div class="voteCol2 floatLeft"><input name="pkg-${vote.id}" value="1" type="radio" /></div>
+			         <div class="voteCol3 floatLeft"><input name="pkg-${vote.id}" value="2" type="radio" /></div>
+			         <div class="voteCol4 floatLeft"><input name="pkg-${vote.id}" value="3" type="radio" /></div>
 			         <div class="clearBoth"></div>
 			       </div>
 			</c:forEach>

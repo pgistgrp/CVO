@@ -162,7 +162,7 @@ width:100px;
 		<div id="object">
 			<div class="box4 padding5">
 				<div class="floatLeft" id="packageHeader">
-					<h3 class="headerColor">Package 3</h3>
+					<h3 class="headerColor">Package ${package.id}</h3>
 				</div>
 				<div class="clearBoth"></div>
 			</div>
@@ -184,40 +184,16 @@ width:100px;
 					</div>
 					<!--end projects header-->
 					
-
-					
 					<c:forEach var="project" items="${package.projects}" varStatus="loop">
-						<div class="listRow row even">
-							<h4 class="subHeading">I-405 Improvements</h4>
-							<div class="clearBoth"></div>
-						</div>
+						<h3>${project.name}</h3>
+						<c:forEach var="alt" items="${project.projAlts}" varStatus="loop">
+							<div class="listRow row ${((loop.index % 2) == 0) ? 'even' : 'odd'}">
+								<h4 class="subHeading">${alt.name}</h4>
 
-						<div class="listRow row odd">
-							<div class="projCol1 floatLeft">
-								<div class="floatLeft">Two additional HOV lanes from SR
-									169 to I-90</div>
+								<div class="projCol2 floatRight">${alt.cost}</div>
+								<div class="clearBoth"></div>
 							</div>
-							<div class="projCol2 floatRight">$212 million</div>
-							<div class="clearBoth"></div>
-						</div>
-						<div class="listRow row even">
-
-							<div class="projCol1 floatLeft">
-								<div class="floatLeft">Two additional HOV lanes from SR
-									520 to I-5</div>
-							</div>
-							<div class="projCol2 floatRight">$345million</div>
-							<div class="clearBoth"></div>
-						</div>
-						
-						
-						<div class="listRow row ${((loop.index % 2) == 0) ? 'even' : 'odd'}">
-							<h4 class="subHeading">${project.name}</h4>
-
-							<div class="projCol2 floatRight">$4 billion</div>
-							<div class="clearBoth"></div>
-						</div>
-				
+						</c:forEach>
 					</c:forEach>
 				</div>
 				<!--End project list -->
@@ -241,28 +217,23 @@ width:100px;
 				</div>
 				<div class="clearBoth"></div>
 			</div>
-			<div class="listRow row even">
-				<h4 class="subHeading">Gas Tax</h4>
-				<div class="clearBoth"></div>
-			</div>
+			<!--end funding headers -->
 
-			<div class="listRow row odd">
-				<div class="fundingCol1 floatLeft">
-					<div class="floatLeft">2.3 cent increase per gallon</div>
-				</div>
-				<div class="fundingCol2 floatRight">400 million</div>
-				<div class="clearBoth"></div>
-			</div>
+			<c:forEach var="source" items="${package.sources}" varStatus="loop">
+				<h3>${project.name}</h3>
+				<c:forEach var="alt" items="${source.fundAlts}" varStatus="loop">
+					<div class="listRow row odd">
+						<div class="fundingCol1 floatLeft">
+							<div class="floatLeft">${alt.cost} increase</div>
+						</div>
+						<div class="fundingCol2 floatRight">${alt.revenue}</div>
+						<div class="clearBoth"></div>
+					</div>
+				</c:forEach>
+			</c:forEach>
+
 			<div class="listRow row even">
 
-				<h4 class="subHeading">Sales Tax</h4>
-				<div class="clearBoth"></div>
-			</div>
-			<div class="listRow row even">
-				<div class="fundingCol1 floatLeft">
-					<div class="floatLeft">0.07% increase</div>
-				</div>
-				<div class="fundingCol2 floatRight">1000 million</div>
 
 				<div class="clearBoth"></div>
 			</div>
@@ -275,27 +246,27 @@ width:100px;
               <h3>Total Cost</h3>
 
             </div>
-            <div class="floatRight" id="totalCost">$13 billion</div>
+            <div class="floatRight" id="totalCost">${package.totalCost}</div>
           </div>
           <div class="clearBoth">
             <div class="floatLeft">
               <h3>Total Funding</h3>
             </div>
-            <div class="floatRight" id="totalFunding">$13 billion</div>
+            <div class="floatRight" id="totalFunding">${package.totalFunding}</div>
 
           </div>
           <div class="clearBoth">
             <div class="floatLeft">
               <h4>Cost to you</h4>
             </div>
-            <div class="floatRight" id="costToYou">$212 per year</div>
+            <div class="floatRight" id="costToYou">${packageStat.yourCost}</div>
           </div>
           <div class="clearBoth">
 
             <div class="floatLeft">
               <h4>Cost to the average resident</h4>
             </div>
-            <div class="floatRight" id="costToAvg">$254 per year</div>
+            <div class="floatRight" id="costToAvg">${packageStat.avgCost}</div>
           </div>
           <div class="clearBoth"></div>
         </div>
