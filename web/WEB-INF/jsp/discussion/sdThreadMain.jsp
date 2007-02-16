@@ -362,13 +362,15 @@
 	<div id="container-include">
 		<!-- load sdReplies.jsp via AJAX-->
 	</div>
-	
+
+<!-->
 <div id="relatedDiscussion" style="margin-top: 20px;">
 	<h3 class="headerColor">Related Posts in All Discussion Rooms</h3>
 	<div id="contextPosts" class="box8 padding5">
-		<!-- load context posts here -->
+
 	</div>
 </div>
+-->
 <!-- start feedback form -->
 <pg:feedback id="feedbackDiv" action="sdRoom.do" />
 <!-- end feedback form --><!-- end container -->
@@ -390,7 +392,7 @@
 <script type="text/javascript">
 	io.getReplies(io.currentFilter, 1, true);
 	io.getTargets();
-	io.getContextPosts(1);
+	//io.getContextPosts(1);
 	</script>
 
 </html:html>
