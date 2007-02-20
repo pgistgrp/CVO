@@ -22,6 +22,7 @@ Zhong:
 
 [ok] auto-redirect after login
 [] email digest from Michael Patrick
+[] Split the user table, and move most information to another source
 
 
 --------

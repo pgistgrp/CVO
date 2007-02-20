@@ -31,6 +31,7 @@
       <param name="beanName" value="systemAgent"/>
       <include method="createFeedback"/>
       <include method="getFeedbacks"/>
+      <include method="setUnloading"/>
     </create>
 
 

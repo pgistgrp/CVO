@@ -7,33 +7,19 @@ import org.apache.struts.action.ActionMapping;
 
 
 /**
- * Participants use this action to create/modify their packages.<br>
+ * Shows the details of a specified package to participant.<br>
  * 
  * The action accepts two parameters:
  * <ul>
- *   <li>cctId - int, an id of a CCT object</li>
- *   <li>action - string, valid values are
- *     <ul>
- *       <li>'' - show up the page</li>
- *       <li>'save' - user submit his choices</li>
- *     </ul>
- *   </li>
+ *   <li>id - int, an id of a ClusteredPackage object</li>
  * </ul>
  * 
  * The action will always forward to the jsp page specified in struts-config.xml
  * with the forward name as "success".
  * In that jsp page, the following request attributes are available:
  * <ul>
- *   <li>projects - a collection of Project objects</li>
- *   <li>sources - a collection of FundingSource objects</li>
- *   <li>package - a UserPackage object of the current user</li>
- *   <li>stat - a PackageStat object</li>
- *   <li>costs - a set of UserCost objects</li>
+ *   <li>package - a ClusteredPackage object</li>
  * </ul>
- * 
- * When user submits his choices ("save".equals(action)), the choices will be submitted in form parameters,
- * "proj-0000" and "fund-0000", where "0000" should be the id of one project instance. The action should parse
- * out that id, and populate to the user package.
  * 
  * @author kenny
  */

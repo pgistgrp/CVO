@@ -166,22 +166,24 @@ public class SystemAgent {
     
     
     /**
-     * Logging the page upload event.
+     * Logging the page upload event.<br>
      * 
-     * @return
+     * This method has no parameter.
+     * 
+     * @return a map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
      */
-    public Map setUnloading(HttpServletRequest request, Map params) {
+    public Map setUnloading() {
         Map map = new HashMap();
-        map.put("successful", false);
+        map.put("successful", true);
         
-        try {
-            System.out.println("--> "+request.getParameter("page"));
-            //systemService.logUnloading();
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-        }
+        /*
+         * Do nothing, just return successful=true,
+         * the PgistFilter will log it.
+         */
         
         return map;
     }//setUnloading()

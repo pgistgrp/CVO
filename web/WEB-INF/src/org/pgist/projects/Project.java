@@ -1,8 +1,8 @@
 package org.pgist.projects;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -33,7 +33,7 @@ public class Project implements Serializable {
     
     private Corridor corridor;
     
-    private List<ProjectAlternative> alternatives = new ArrayList<ProjectAlternative>();
+    private Set<ProjectAlternative> alternatives = new HashSet<ProjectAlternative>();
     
     /**
      * inclusive==true, multiple alternatives can be selected
@@ -126,17 +126,16 @@ public class Project implements Serializable {
     /**
      * @return
      * 
-     * @hibernate.list lazy="false" cascade="all-delete-orphan"
-     * @hibernate.collection-one-to-many class="org.pgist.projects.ProjectAlternative"
-     * @hibernate.collection-index  column="index"
+     * @hibernate.set lazy="false" cascade="all-delete-orphan"
      * @hibernate.collection-key column="project_id"
+     * @hibernate.collection-one-to-many class="org.pgist.projects.ProjectAlternative"
      */
-    public List<ProjectAlternative> getAlternatives(){
+    public Set<ProjectAlternative> getAlternatives(){
         return this.alternatives;
     }
     
     
-	public void setAlternatives(List<ProjectAlternative> alts){
+	public void setAlternatives(Set<ProjectAlternative> alts){
 		this.alternatives = alts;
 	}
     
