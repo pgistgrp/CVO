@@ -1,623 +1,644 @@
 /* HTML Elements */
 /* ------------- */
-		
-		blockquote
-		{
-		color:#3B4429;
-		background: #EEF7DD;
-		border: 2px solid #B4D579;
-		margin-left: 10px;
-		padding:0px 5px 5px 5px;
-		line-height: 10px;
-		}
-		
-		body
-		{
-		text-align:center;
-		padding:0px;
-		margin:0px;
-		width:100%;
-		font-family:arial,sans-serif;
-		font-size:.8em;
-		background: url('images/background-main.jpg') repeat-x #FFFBFF;
-		}
-		
-	    fieldset
-		{
-		border: 0px;
-		margin: 0;
-		padding: 0;
-		}
-		
-		h2
-		{
-		font-size:2em;
-		margin:0px auto;
-		padding:0px;
-		}
 
-		h3
-		{
-		font-size:1.3em;
-		margin:0px;
-		padding:0px;
-		text-transform:capitalize;
-		}
+blockquote
+{
+color:#3B4429;
+background: #EEF7DD;
+border: 2px solid #B4D579;
+margin-left: 10px;
+padding:0px 5px 5px 5px;
+line-height: 10px;
+}
 
-		img {border:0px;}
-		
-		th
-		{		
-		color:#3B4429;
-		background: #EEF7DD;
-		}
+body
+{
+text-align:center;
+padding:0px;
+margin:0px;
+width:100%;
+font-family:arial,sans-serif;
+font-size:.8em;
+background: url('images/background-main.jpg') repeat-x #FFFBFF;
+}
+
+	fieldset
+{
+border: 0px;
+margin: 0;
+padding: 0;
+}
+
+h2
+{
+font-size:2em;
+margin:0px auto;
+padding:0px;
+}
+
+h3
+{
+font-size:1.3em;
+margin:0px;
+padding:0px;
+text-transform:capitalize;
+}
+
+img {border:0px;}
+
+th
+{		
+color:#3B4429;
+background: #EEF7DD;
+}
 
 /* COLORS and COLOR SCHEMES */
 /* ------------------------ */
 
 
-		.box1 /* used in the voting tally, and topic titles under #discussion */
+.box1 /* used in the voting tally, and topic titles under #discussion */
 
-		{
-		border:1px solid #DBDBB3;
-		background:#EFEFDE;
-		}
+{
+border:1px solid #DBDBB3;
+background:#EFEFDE;
+}
 
-		.box2  /* Used in the Overview box */
-		{
-		color:#3B4429;
-		background: #EEF7DD;
-		border: 2px solid #B4D579;
-		}
-		
-		.box3 /* Used in the DIV containing the Summary */
-		{
-		border:1px solid #D6E7EF;
-		background:#F7FBFF;
-		}
+.box2  /* Used in the Overview box */
+{
+color:#3B4429;
+background: #EEF7DD;
+border: 2px solid #B4D579;
+}
 
-		.box4 /* Used for header buttons except currentBox */
-		{
-		background:#E7F2F7;
-		border: 1px solid #BDD7E7;
-		}
-		
-		.box5 /*used for buttons outside the header, such as the New Topic button */
-		{
-		border:1px solid #F2AF27;
-		background:#FFDF94;
-		}
-				
-		.box6 /* used in addconcern div */ 
-		{
-		border:1px solid #FFE3B9;
-		background:#FFF1DC;
-		}
-		
-		.box7 /* lighter version of contrast2, used for my concern */ 
-		{
-		border:1px solid #FFE8B8;
-		background:#FFFAF0;
-		}
-		
-		.box8 /* used for other people's concerns */ 
-		{
-		border:1px solid #D6E5EE;
-		background:#F4F9FB;
-		}
-		
-		.box9 
-		{
-		color:#3B4429;
-		background: #EEF7DD;
-		border: 1px solid #B4D579;
-		}
-		
-		.box10
-		{
-		border: 1px solid #ADCFDE;
-		background: #D6E7EF;
-		}
-		
-		.headingColor {background:#ADCFDE;}
-		
-		.currentBox
-		{
-		background: #EEF7DD;
-		border: 1px solid #B4D579;
-		}
+.box3 /* Used in the DIV containing the Summary */
+{
+border:1px solid #D6E7EF;
+background:#F7FBFF;
+}
 
-		.headerColor {color:#31496B;} /* A dark blue.  Used for most <h3>s.*/
+.box4 /* Used for header buttons except currentBox */
+{
+background:#E7F2F7;
+border: 1px solid #BDD7E7;
+}
+
+.box5 /*used for buttons outside the header, such as the New Topic button */
+{
+border:1px solid #F2AF27;
+background:#FFDF94;
+}
 		
-		.contrast1 {color:#FFB64A;}
-		.contrast2 {color:#8CAE18} /* A medium green color, the same as the lighter color used in the LIT logo.
-		
+.box6 /* used in addconcern div */ 
+{
+border:1px solid #FFE3B9;
+background:#FFF1DC;
+}
+
+.box7 /* lighter version of contrast2, used for my concern */ 
+{
+border:1px solid #FFE8B8;
+background:#FFFAF0;
+}
+
+.box8 /* used for other people's concerns */ 
+{
+border:1px solid #D6E5EE;
+background:#F4F9FB;
+}
+
+.box9 
+{
+color:#3B4429;
+background: #EEF7DD;
+border: 1px solid #B4D579;
+}
+
+.box10
+{
+border: 1px solid #ADCFDE;
+background: #D6E7EF;
+}
+
+.headingColor {background:#ADCFDE;}
+
+.currentBox
+{
+background: #EEF7DD;
+border: 1px solid #B4D579;
+}
+
+.headerColor {color:#31496B;} /* A dark blue.  Used for most <h3>s.*/
+
+.contrast1 {color:#FFB64A;}
+.contrast2 {color:#8CAE18} /* A medium green color, the same as the lighter color used in the LIT logo.
+
 /* STRUCTURAL ELEMENTS (Mostly IDs) */
 /* -------------------------------- */
-		
-		
-		#allDiscussionsBox /* The box that contains the "all discussions" link on sdMain */
-		{
-		padding:10px;
-		margin:1em auto;
-		width: 280px;
-		}
 
-		#breadCrumbs {margin-bottom:2em;}
 
-		#colRight ul
-		{
-		margin-left: 0px; 
-		padding-left: 15px;
-		font-size:.85em;
-		}
-		
-		#commentCount
-		{
-		padding-top:10px;
-		}
-		
-		#container
-		{
-		width:950px;
-		margin:10px auto 0px auto;
-		text-align:left;
-		}
-		
-		#containerPopUp
-		{
-		width:700px;
-		margin:10px;
-		text-align:left;
-		}
+#allDiscussionsBox /* The box that contains the "all discussions" link on sdMain */
+{
+padding:10px;
+margin:1em auto;
+width: 280px;
+}
 
-		#discussion
-		{
-		margin:0px;
-		}
-				
-		#discussionHeader
-		{
-		margin:1em 2em 1em 0em;
-		width:680px;
-		height:auto;
-		position:relative;
-		}		
+#breadCrumbs {margin-bottom:2em;}
 
-		#footer 
-		{
-		width:950px;
-		margin:auto;
-		text-align:left;
-		position:relative;
-		top:-20px;
-		}
-		
-		#footer-logo 
-		{
-		float:left;
-		}
-		
-		#footer-text 
-		{
-		float:left;
-		width:790px;
-		margin-top:5px;
-		font-size:.9em;
-		}
+#colRight ul
+{
+margin-left: 0px; 
+padding-left: 15px;
+font-size:.85em;
+}
 
-		#header {}
-		
-		#headerContainer
-		{
-		width:950px;
-		margin:auto;
-		text-align:left;
-		}
+#commentCount
+{
+padding-top:10px;
+}
 
-		#header-logo
-		{
-		float:left;
-		position:absolute;
-		bottom:0px;
-		left:0px;
-		}
+#container
+{
+width:950px;
+margin:10px auto 0px auto;
+text-align:left;
+}
 
-		#headerMenu {
-		background: #D6E7EF;
-		border-top: 2px solid #ADCFDE;
-		border-bottom: 2px solid #ADCFDE;
-		margin-bottom:2em;
-		height:2.5em;
-		}		
+#containerPopUp
+{
+width:700px;
+margin:10px;
+text-align:left;
+}
 
-		#header-navigation 
-		{
-		float:left;
-		position:absolute;
-		bottom:0px;
-		left:360px;
-		text-align:left;
-		}
+#discussion
+{
+margin:0px;
+}
 
-		#headerNext
-		{
-		padding:2px 5px;
-		margin:4px;
-		}
+#discussionHeader
+{
+margin:1em 2em 1em 0em;
+width:680px;
+height:auto;
+position:relative;
+}		
 
-		#header-search
-		{
-		float:right;
-		position:absolute;
-		bottom:0px;
-		right:10px;
-		}
+#footer 
+{
+width:950px;
+margin:auto;
+text-align:left;
+position:relative;
+top:-20px;
+}
 
-		#header-search img
-		{
-		vertical-align:middle;
-		}
+#footer-logo 
+{
+float:left;
+}
 
-		#headerTitle
-		{
-		padding:2px 5px;
-		margin:4px;
-		display:inline;
-		margin-right10px;
-		margin-left:0px;
-		padding-left:0px;
-		}		
+#footer-text 
+{
+float:left;
+width:790px;
+margin-top:5px;
+font-size:.9em;
+}
 
-		#header-wrap
-		{
-		height:50px;
-		position:relative;
-		width:950px;
-		margin:0px auto 10px auto;
-		text-align:center;
-		}
+#header {}
 
-		#loading-indicator
-		{
-		background:#FFF3DE;
-		border:2px solid #FFCB7B;
-		padding:3px;
-		color: #733C00;
-		position:fixed;
-		_position:absolute;
-		top:0;
-		_top:expression(eval(document.body.scrollTop));
-		left:0;
-		margin:0;
-		padding:0;
-		}
+#headerContainer
+{
+width:950px;
+margin:auto;
+text-align:left;
+}
 
-		#newcomment
-		{
-		width:795px;
-		float:right;
-		}	
+#header-logo
+{
+float:left;
+position:absolute;
+bottom:0px;
+left:0px;
+}
 
-        #noTopicsBox
-		{
-		width:680px;
-		padding:5px 0px
-		}
+#headerMenu {
+background: #D6E7EF;
+border-top: 2px solid #ADCFDE;
+border-bottom: 2px solid #ADCFDE;
+margin-bottom:2em;
+height:2.5em;
+}		
 
-		#object
-		{
-		margin:1em auto;
-		}
-		
-		#overview
-		{
-		width:950;
-		margin:1em auto;
-		padding:5px;
-		border-width:1px;
-		}
+#header-navigation 
+{
+float:left;
+position:absolute;
+bottom:0px;
+left:360px;
+text-align:left;
+}
 
-		div#qTip 
-		{
-		padding: 5px;
-		border:1px solid #F2AF27;
-		border-right-width: 2px;
-		border-bottom-width: 2px;
-		display: none;
-		color: #773C00;	
-		background:#FFDF94;
-		font: bold 0.9em Verdana, Arial, Helvetica, sans-serif;
-		text-align: left;
-		position: absolute;
-		z-index: 5000;
-		}
-		
-		#searchResults
-		{
-		padding:10px 0px;
-		clear:both;
-		}
-		
-		#sortingMenu
-		{
-		font-weight:400;
-		font-size:.9em;
-		z-index:2000;
-		padding:5px;
-		margin:5px 0px;
-		}
+#headerNext
+{
+padding:2px 5px;
+margin:4px;
+}
 
-		#summary
-		{
-		width:795px;
-		margin-left:10px;
-		padding:5px;
-		}
-		
-		#txtNewCommentTitle{width:400px;}
+#header-search
+{
+float:right;
+position:absolute;
+bottom:0px;
+right:10px;
+}
 
-		#votingMenu
-		{
-		width:130px;
-		font-size:.8em;
-		text-align:center;
-		}
+#header-search img
+{
+vertical-align:middle;
+}
 
-		#votingMenuTally
-		{
-		color:#31496B;
-		padding:5px;
-		}
+#headerTitle
+{
+padding:2px 5px;
+margin:4px;
+display:inline;
+margin-right10px;
+margin-left:0px;
+padding-left:0px;
+}		
+
+#header-wrap
+{
+height:50px;
+position:relative;
+width:950px;
+margin:0px auto 10px auto;
+text-align:center;
+}
+
+#loading-indicator
+{
+background:#FFF3DE;
+border:2px solid #FFCB7B;
+padding:3px;
+color: #733C00;
+position:fixed;
+_position:absolute;
+top:0;
+_top:expression(eval(document.body.scrollTop));
+left:0;
+margin:0;
+padding:0;
+}
+
+#newcomment
+{
+width:795px;
+float:right;
+}	
+
+#noTopicsBox
+{
+width:680px;
+padding:5px 0px
+}
+
+#object
+{
+margin:1em auto;
+}
+
+#overview
+{
+width:950;
+margin:1em auto;
+padding:5px;
+border-width:1px;
+}
+
+div#qTip 
+{
+padding: 5px;
+border:1px solid #F2AF27;
+border-right-width: 2px;
+border-bottom-width: 2px;
+display: none;
+color: #773C00;	
+background:#FFDF94;
+font: bold 0.9em Verdana, Arial, Helvetica, sans-serif;
+text-align: left;
+position: absolute;
+z-index: 5000;
+}
+
+#searchResults
+{
+padding:10px 0px;
+clear:both;
+}
+
+#sortingMenu
+{
+font-weight:400;
+font-size:.9em;
+z-index:2000;
+padding:5px;
+margin:5px 0px;
+}
+
+#summary
+{
+width:795px;
+margin-left:10px;
+padding:5px;
+}
+
+#txtNewCommentTitle{width:400px;}
+
+#votingMenu
+{
+width:130px;
+font-size:.8em;
+text-align:center;
+}
+
+#votingMenuTally
+{
+color:#31496B;
+padding:5px;
+}
 
 
 /* GLOBAL CLASSES */
 /* -------------- */
 
-		.clearBoth {clear:both;} /* Including a div with this class between two other divs without 
-		height declarations makes sure that they don't overlap.*/
-		
-		.clearLeft {clear:left}
-		.clearRight {clear:right} 
+.clearBoth {clear:both;} /* Including a div with this class between two other divs without 
+height declarations makes sure that they don't overlap.*/
 
-		.inline{display:inline}
-		
-		.floatLeft {float:left}
-		.floatRight {float:right}
-		
-		.centerAlign {text-align:center}
-		.leftAlign {text-align:left}
-		.rightAlign {text-align:right}
+.clearLeft {clear:left}
+.clearRight {clear:right} 
 
-		/*marginRight is used on the "close" buttons (close1.gif) */
-		.marginRight {margin-right:10px;}
+.inline{display:inline}
+
+.floatLeft {float:left}
+.floatRight {float:right}
+
+.centerAlign {text-align:center}
+.leftAlign {text-align:left}
+.rightAlign {text-align:right}
+
+/*marginRight is used on the "close" buttons (close1.gif) */
+.marginRight {margin-right:10px;}
 		
-  		* html .peekaboobugfix { height: 0.01%; }
-				
 /* SPECIFIC CLASSES */
 /* ------- */
 
-		.button 
-		{
-		padding:1px 2px;
-		margin:1px 2px 0px 0px;
-		}
-		
-		.colRight
-		{
-		width: 230px;
-		padding: 5px;
-		margin-left: 15px;
-		}
-		
-		.discussionBody
-		{
-		
-		}
-		
-		.discussionComments
-		{
-		text-align:right;
-		}
-		
-		.discussion-left
-		{
-		width:680px;
-		padding-left:5px;
-		margin-bottom: 10px;
-		}
-		
-		.discussionRow
-		{
-		clear:both;
-		}
-		
-		.discussionRowHeader
-		{
-		padding:2px 5px 5px 2px;
-		}
+.button 
+{
+padding:1px 2px;
+margin:1px 2px 0px 0px;
+}
 
-		.discussionText {padding-top:5px;}
-		
-		.discussionVoting
-		{
-		float:right;
-		font-size:.8em;
-		font-weight:bold;
-		}
+.colRight
+{
+width: 230px;
+padding: 5px;
+margin-left: 15px;
+}
 
-		.discussionVoting img {vertical-align:middle;}
+.discussionBody
+{
 
-		.discussion-right
-		{
-		text-align:center;
-		}
-		
-		.headerButton
-		{
-		-moz-border-radius:10px;
-		padding:3px 7px;
-		margin:4px;
-		}
-		
-		.headerButtonCurrent
-		{
-		-moz-border-radius:10px;
-		padding:3px 7px;
-		margin:4px;
-		}
+}
 
-		.padding5
-		{
-		padding: 5px;
-		}
+.discussionComments
+{
+text-align:right;
+}
 
-		.pagination
-		{
-		text-align:right;
-		clear: left;
-		margin-bottom: 25px;
-		}
-		
-		.pagination2
-		{
-		border-top: 1px dashed #D6E5EE; 
-		text-align: right;
-		}
+.discussion-left
+{
+width:680px;
+padding-left:5px;
+margin-bottom: 10px;
+}
 
-		.sectionTitle
-		{
+.discussionRow
+{
+clear:both;
+}
 
-		}
+.discussionRowHeader
+{
+padding:2px 5px 5px 2px;
+}
 
-		.smallText
-		{
-		font-size:.8em;
-		}
-		
-		.largeText
-		{
-		font-size:1.2em;
-		}
+.discussionText {padding-top:5px;}
 
-		.tagsList
-		{
-		list-style: none;
-		margin: 0;
-		padding:0;
-		}
-		
-		.tagSize1
-		{
-		font-size: 0.9em;	
-		}
-		
-		.tagSize2
-		{
-		font-size: 1.3em;
-		}
-		
-		.tagSize3
-		{
-		font-size: 1.6em;
-		}
-		.tagSize4
-		{
-		font-size: 1.9em;
-		}
-		.tagSize5
-		{
-		font-size: 2.2em;
-		}
-		.tagsInline
-		{
-		display: inline;
-		float: left;
-		margin: 0px;
-		padding: 2px;
-		list-style: none;
-		margin-right: 5px;
-		margin-bottom: 3px;
-		}
-  	
-		.themeBox /* The container that discussion themes go in on sdMain */
-		{
-		width:300px;
-		height:250px;
-		overflow:auto;
-		margin:16px;
-		margin-left:0px;
-		margin-bottom:5px;
-		}
-		
+.discussionVoting
+{
+float:right;
+font-size:.8em;
+font-weight:bold;
+}
+
+.discussionVoting img {vertical-align:middle;}
+
+.discussion-right
+{
+text-align:center;
+}
+
+.headerButton
+{
+-moz-border-radius:10px;
+padding:3px 7px;
+margin:4px;
+}
+
+.headerButtonCurrent
+{
+-moz-border-radius:10px;
+padding:3px 7px;
+margin:4px;
+}
+
+.padding5
+{
+padding: 5px;
+}
+
+.pagination
+{
+text-align:right;
+clear: left;
+margin-bottom: 25px;
+}
+
+.pagination2
+{
+border-top: 1px dashed #D6E5EE; 
+text-align: right;
+}
+
+.sectionTitle
+{
+
+}
+
+.smallText
+{
+font-size:.8em;
+}
+
+.largeText
+{
+font-size:1.2em;
+}
+
+.tagsList
+{
+list-style: none;
+margin: 0;
+padding:0;
+}
+
+.tagSize1
+{
+font-size: 0.9em;	
+}
+
+.tagSize2
+{
+font-size: 1.3em;
+}
+
+.tagSize3
+{
+font-size: 1.6em;
+}
+.tagSize4
+{
+font-size: 1.9em;
+}
+.tagSize5
+{
+font-size: 2.2em;
+}
+.tagsInline
+{
+display: inline;
+float: left;
+margin: 0px;
+padding: 2px;
+list-style: none;
+margin-right: 5px;
+margin-bottom: 3px;
+}
+
+.themeBox /* The container that discussion themes go in on sdMain */
+{
+width:300px;
+height:250px;
+overflow:auto;
+margin:16px;
+margin-left:0px;
+margin-bottom:5px;
+}
+
 /* LINKS */
 /* ----- */
 
 
-		/* Main link class throughout the site */
-		a:link { color:#31496B; }
-		a:visited { color:#31496B; }
-		a:hover { color:#31496B;text-decoration:none}
-		a:active { color:#31496B; }
+/* Main link class throughout the site */
+a:link { color:#31496B; }
+a:visited { color:#31496B; }
+a:hover { color:#31496B;text-decoration:none}
+a:active { color:#31496B; }
 
-		/* Link classes for the buttons in the header */
-		a:link.headerButton{color:#31496B;}
-		a:visited.headerButton{color:#31496B;}
-		a:hover.headerButton{color:#31496B;text-decoration:none;}
-		a:active.headerButton{color:#31496B;}
-		
-		a:link.headerButtonCurrent{color:#31496B;}
-		a:visited.headerButtonCurrent{color:#31496B;}
-		a:hover.headerButtonCurrent{color:#31496B;text-decoration:none;}
-		a:active.headerButtonCurrent{color:#31496B;}
-		
-		/*link styles for the navigation buttons in the header itself -- the very top of the page */
-		#header-navigation a
-		{
-		padding:5px;
-		display:block;
-		float:left;
-		margin:2px;
-		color:#394529;
-		}
-		
-		/* Style used to highlight glossary terms */
-		a:link.glossHighlight{text-decoration:none;border-bottom:2px dotted #8CAE18;}
-		a:visited.glossHighlight{text-decoration:none;border-bottom:2px dotted #8CAE18;}
-		a:hover.glossHighlight{text-decoration:none;border-bottom:1px dotted #8CAE18; cursor: help;}
-		a:active.glossHighlight{text-decoration:none;border-bottom:2px dotted #8CAE18;}
-		
-		#header-navigation a:hover{background:#EFF7DE;}
-		
-		/* link classes for the Next button in the header */
-		#headerNext a:link{color:#6B531D;text-decoration:none;font-weight:bold;}
-		#headerNext a:visited{color:#6B531D;text-decoration:none;font-weight:bold;}
-		#headerNext a:hover{color:#6B531D;text-decoration:none;font-weight:bold;}
-		#headerNext a:active{color:#6B531D;text-decoration:none;font-weight:bold;}
-		
-		a.orangeButton:link{color:#6B531D;text-decoration:none;font-weight:bold;}
-		a.orangeButton:visited{color:#6B531D;text-decoration:none;font-weight:bold;}
-		a.orangeButton:hover{color:#6B531D;text-decoration:none;font-weight:bold;}
-		a.orangeButton:active{color:#6B531D;text-decoration:none;font-weight:bold;}
+/* Link classes for the buttons in the header */
+a:link.headerButton{color:#31496B;}
+a:visited.headerButton{color:#31496B;}
+a:hover.headerButton{color:#31496B;text-decoration:none;}
+a:active.headerButton{color:#31496B;}
+
+a:link.headerButtonCurrent{color:#31496B;}
+a:visited.headerButtonCurrent{color:#31496B;}
+a:hover.headerButtonCurrent{color:#31496B;text-decoration:none;}
+a:active.headerButtonCurrent{color:#31496B;}
+
+/*link styles for the navigation buttons in the header itself -- the very top of the page */
+#header-navigation a
+{
+padding:5px;
+display:block;
+float:left;
+margin:2px;
+color:#394529;
+}
+
+/* Style used to highlight glossary terms */
+a:link.glossHighlight{text-decoration:none;border-bottom:2px dotted #8CAE18;}
+a:visited.glossHighlight{text-decoration:none;border-bottom:2px dotted #8CAE18;}
+a:hover.glossHighlight{text-decoration:none;border-bottom:1px dotted #8CAE18; cursor: help;}
+a:active.glossHighlight{text-decoration:none;border-bottom:2px dotted #8CAE18;}
+
+#header-navigation a:hover{background:#EFF7DE;}
+
+/* link classes for the Next button in the header */
+#headerNext a:link{color:#6B531D;text-decoration:none;font-weight:bold;}
+#headerNext a:visited{color:#6B531D;text-decoration:none;font-weight:bold;}
+#headerNext a:hover{color:#6B531D;text-decoration:none;font-weight:bold;}
+#headerNext a:active{color:#6B531D;text-decoration:none;font-weight:bold;}
+
+a.orangeButton:link{color:#6B531D;text-decoration:none;font-weight:bold;}
+a.orangeButton:visited{color:#6B531D;text-decoration:none;font-weight:bold;}
+a.orangeButton:hover{color:#6B531D;text-decoration:none;font-weight:bold;}
+a.orangeButton:active{color:#6B531D;text-decoration:none;font-weight:bold;}
 
 
 /*Hierarchy Script Styles*/
+/*----------------------*/
+
 .treeul, .treeul ul{
-  text-align:left;
-  margin:0; /* Removes browser default margins applied to the lists. */
-  padding:0; /* Removes browser default padding applied to the lists. */
+text-align:left;
+margin:0; /* Removes browser default margins applied to the lists. */
+padding:0; /* Removes browser default padding applied to the lists. */
 }
 
 .treeul li{
-  margin:0 0 0 30px; /* A left margin to indent the list items and give the menu a sense of structure. */
-  padding:0; /* Removes browser default padding applied to the list items. */
-  list-style-type:none; /* Removes the bullet point that usually goes next to each item in a list. */
+margin:0 0 0 30px; /* A left margin to indent the list items and give the menu a sense of structure. */
+padding:0; /* Removes browser default padding applied to the list items. */
+list-style-type:none; /* Removes the bullet point that usually goes next to each item in a list. */
 }
 
 .treeul .symbols{ /* Various styles to position the symbols next to the items in the menu. */
-  float:left;
-  width:12px;
-  height:1em;
-  background-position:0 50%;
-  background-repeat:no-repeat;
+float:left;
+width:12px;
+height:1em;
+background-position:0 50%;
+background-repeat:no-repeat;
 }
+
+
+/* Hacks */
+/*------*/
+
+
+/* Fixes falling-out-of-container-div bug (so does class=clearBoth) */
+.clearfix:after {
+content: "."; 
+display: block; 
+height: 0; 
+clear: both; 
+visibility: hidden;
+}
+
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+/* End hide from IE-mac */
+
+/* Fixes disappearing text in IE */
+* html .peekaboobugfix { height: 0.01%; }
