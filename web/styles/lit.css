@@ -127,6 +127,9 @@ background: #EEF7DD;
 border: 1px solid #B4D579;
 }
 
+.odd {background: #E7F2F7}
+.even {background: #ffffff}
+
 .headerColor {color:#31496B;} /* A dark blue.  Used for most <h3>s.*/
 
 .contrast1 {color:#FFB64A;}
