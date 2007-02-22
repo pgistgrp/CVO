@@ -13,7 +13,7 @@
 	Description: CRUD Events on All Projects
 	Author(s): 
 	     Front End: Jordan Isip, Adam Hindman, Issac Yang
-	     Back End: Zhong Wang, John Le
+	     Back End: Zhong Wang, Guirong Zhou
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] BareBones JavaScript (Jordan)

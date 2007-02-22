@@ -2,6 +2,19 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!--####
+	Project: Let's Improve Transportation!
+	Page: Main index page - http://www.letsimprovetransportation.org
+	Description: This page serves as the main index.  Here the user can read info 
+	about the project, click to learn more, and/or log into the system.
+	Author(s): 
+	     Front End: Jordan Isip, Adam Hindman
+	     Back End: Zhong Wang, John Le
+	Todo Items:
+		[x] Initial Skeleton Code (Jordan)
+		[ ] Txt and layout changes (Jordan and Adam)
+#### -->
 <html:html>
 
 <head>
