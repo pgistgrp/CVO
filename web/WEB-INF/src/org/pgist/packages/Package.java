@@ -106,7 +106,7 @@ public abstract class Package implements Serializable {
      * @return
      * 
      * @hibernate.set lazy="true" cascade="all" table="pgist_upkg_projalt_link" order-by="id"
-     * @hibernate.collection-many-to-many column="fund_alt_id" class="org.pgist.funding.ProjectAlternative"
+     * @hibernate.collection-many-to-many column="proj_alt_id" class="org.pgist.projects.ProjectAlternative"
      * @hibernate.collection-key column="upkg_id"
      */
     public Set<ProjectAlternative> getProjAlts() {

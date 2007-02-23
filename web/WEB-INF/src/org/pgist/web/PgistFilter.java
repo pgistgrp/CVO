@@ -1,7 +1,6 @@
 package org.pgist.web;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.HashSet;
 
 import javax.servlet.Filter;
@@ -100,14 +99,15 @@ public class PgistFilter implements Filter {
                 initURL.append(loginURL);
                 initURL.append("?PG_INIT_URL=");
                 
+                HttpServletResponse res = (HttpServletResponse) response;
+                
                 StringBuffer sb = req.getRequestURL();
                 sb.append('?').append(req.getQueryString());
-                initURL.append(URLEncoder.encode(sb.toString(), "UTF-8"));
+                initURL.append(res.encodeURL(sb.toString()));
                 
                 /*
                  * redirect to login page with initURL
                  */
-                HttpServletResponse res = (HttpServletResponse) response;
                 res.sendRedirect( initURL.toString() );
                 
                 return;

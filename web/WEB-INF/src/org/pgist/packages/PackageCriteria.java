@@ -36,7 +36,7 @@ public class PackageCriteria implements Serializable {
     
     
     /**
-     * @hibernate.many-to-one column="pkg_id" cascade="all" lazy="true"
+     * hibernate.many-to-one column="pkg_id" cascade="all" lazy="true"
      */
     public Package getPkg() {
         return pkg;
