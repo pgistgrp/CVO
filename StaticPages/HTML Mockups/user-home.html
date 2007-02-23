@@ -8,10 +8,13 @@
 	<head>
 	<title>Let's Improve Transportation - Home</title>
 	<!-- Site Wide CSS -->
-	<style type="text/css" media="screen">
+<style type="text/css" media="screen">
 @import "styles/lit.css";
+@import "styles/user-home.css";
 
 /* Note:  Move this to user-home.css */
+
+body{font-size:12pt}
 
 div#container h2.headerColor 
 {
@@ -254,6 +257,10 @@ div.home-col1 > div > span {font-size:.9em;margin-left:.5em}
 			
 			<!-- begin RECENT DISCUSSIONS -->
 			<h3 class="headerColor">My recent discussions</h3>
+			<div class="clearBoth" style="margin-bottom:2em">
+				<div class="floatLeft clearfix"><a href="#">Prev</a></div>
+				<div class="floatRight clearfix"><a href="#">Next</a></div>
+			</div>
 			<div id="recent-discussions" class="box3">
 				<!-- begin RECENT DISCUSSIONS HEADER -->
 				<div class="listRow headingColor heading clearfix">
