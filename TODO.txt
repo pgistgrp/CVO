@@ -24,36 +24,17 @@ Zhong:
 [] email digest from Michael Patrick
 [] Split the user table, and move most information to another source
 
+[] Action for re-weigh criteria (using criteriaReweigh.jsp)
+[] Add 'county' field to create/edit project in projectAgent
+[] Set funding/project to pkg - show Jordan where to get pkgId
+[] Need tag for matching in tax calc
+[] Annual cost in tax calc - show Jordan how to call this
+[] Add trips per year and parking per year in tax calc - along with other new changes from Mike
+
 
 --------
 [ ] Setup pgistdev server as a demonstration server - loaded with the database from latest test (Ie. grab all source code and data that is currently in the alpha test).
 [ ] Talk to Guirong about when to buy deployment server.
-
-
-------------------------
-John:
-Planning Factors Step 2
-[ ] Add and Update methods:
--addCriterion() & editCriterion();
-	- Name
-	- Description
-	- List of concern theme ids
-	- List of objective ids
-[ ] Template for each criteria instance.
-[ ] Remove obsolete methods - relateCriteria(); derelateCriteria(); getAvailableCriteria(); addCriterionSlider(); deleteCriterionSlider(); getThemes();
-[ ] Relate Criteria to themes
-[ ] Review Criteria
-[ ] Manage Criteria
-[ ] Weigh Criteria
--getObjectives()
-	- CCTID?
-
--addObjectivev()
-	- name
-	- Description
-
--deleteObjective()
-	- id
 
 -----------------------
 BACKEND DOCUMENTED FOR LATER:
