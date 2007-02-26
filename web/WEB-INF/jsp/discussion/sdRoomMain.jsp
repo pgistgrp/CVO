@@ -377,8 +377,7 @@
 				Discussions about ${object.object}</h3></div>
 			<div id="filteredBy" class="floatLeft"></div>
 			<div class="padding5 box5 floatRight" style="margin-bottom:2px;"> 
-			<a class="orangeButton" href="javascript:Effect.toggle('newDiscussion','blind',{duration:0.5});">Start
-					a New Topic</a>
+			<a class="orangeButton" href="javascript:Effect.toggle('newDiscussion','blind',{duration:0.5});">Start a New Topic</a>
 			</div>
 		</div>
 		<div id="sortingMenu" class="box4 clearBoth"> sort discussion by:
