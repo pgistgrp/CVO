@@ -4,6 +4,7 @@ import org.pgist.users.User;
 
 
 /**
+ * User defined package.
  * 
  * @author kenny
  *

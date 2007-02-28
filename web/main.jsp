@@ -16,10 +16,16 @@
 <script src="scripts/search.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
+<script type='text/javascript' src='/dwr/interface/SystemAgent.js'></script>
+<script>
+  function unloadMonitor() {
+    SystemAgent.setUnloading(function(data) {});
+  }
+</script>
 
 </head>
 
-<body>
+<body onunload="unloadMonitor();">
  <!-- Begin the header - loaded from a separate file -->
   <div id="header">
 	<!-- Begin header -->

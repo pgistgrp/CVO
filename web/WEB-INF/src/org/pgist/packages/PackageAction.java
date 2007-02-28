@@ -60,7 +60,7 @@ public class PackageAction extends Action {
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
-        return mapping.findForward("success");
+        return mapping.findForward("view");
     }//execute()
     
     

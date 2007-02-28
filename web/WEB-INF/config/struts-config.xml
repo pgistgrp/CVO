@@ -89,15 +89,15 @@
         </action>
         
         <action path="/fundingManage" scope="request" type="org.pgist.funding.FundingMgrAction">
-            <forward name="view" path="/WEB-INF/jsp/projects/fundingMgr.jsp"/>
+            <forward name="view" path="/WEB-INF/jsp/funding/fundingMgr.jsp"/>
         </action>
         
         <action path="/fundingDefine" scope="request" type="org.pgist.funding.FundingDefAction">
-            <forward name="main" path="/WEB-INF/jsp/projects/fundingAssoc.jsp"/>
+            <forward name="main" path="/WEB-INF/jsp/funding/fundingAssoc.jsp"/>
         </action>
         
         <action path="/fundingCalc" scope="request" type="org.pgist.funding.TaxCalculatorAction">
-            <forward name="main" path="/WEB-INF/jsp/projects/fundingCalc.jsp"/>
+            <forward name="main" path="/WEB-INF/jsp/funding/fundingCalc.jsp"/>
         </action>
         
         <action path="/helpme" scope="request" type="org.pgist.packages.HelpMeAction">
@@ -112,6 +112,10 @@
         <action path="/packageMgr" scope="request" type="org.pgist.packages.PackageMgrAction">
             <forward name="view" path="/WEB-INF/jsp/packages/packageMgr.jsp"/>
             <forward name="edit" path="/WEB-INF/jsp/packages/packageMgr_edit.jsp"/>
+        </action>
+        
+        <action path="/package" scope="request" type="org.pgist.packages.PackageAction">
+            <forward name="view" path="/WEB-INF/jsp/packages/package.jsp"/>
         </action>
         
         <action path="/packageVote" scope="request" type="org.pgist.packages.PackageVoteAction">

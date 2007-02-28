@@ -2,6 +2,13 @@ package org.pgist.packages;
 
 
 /**
+ * Clustered packages.<br>
+ * 
+ * May be created through two ways:
+ * <ul>
+ *   <li>Automatically created by the system</li>
+ *   <li>Manually created by moderator</li>
+ * </ul>
  * 
  * @author kenny
  *

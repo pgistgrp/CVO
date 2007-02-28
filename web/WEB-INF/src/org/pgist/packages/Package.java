@@ -11,6 +11,7 @@ import org.pgist.projects.ProjectAlternative;
 
 
 /**
+ * The base class for packages: UserPackage and ClusteredPackage.
  * 
  * @author Guirong
  * 

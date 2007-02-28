@@ -34,7 +34,7 @@ Zhong:
 
 --------
 [ ] Setup pgistdev server as a demonstration server - loaded with the database from latest test (Ie. grab all source code and data that is currently in the alpha test).
-[ ] Talk to Guirong about when to buy deployment server.
+[ok] Talk to Guirong about when to buy deployment server.
 
 -----------------------
 BACKEND DOCUMENTED FOR LATER:

@@ -15,7 +15,7 @@ public class PackageCriteria implements Serializable {
     
     private Long id;
     
-    private Package pkg;
+    private UserPackage pkg;
     
     private Criteria criterion;
     
@@ -38,12 +38,12 @@ public class PackageCriteria implements Serializable {
     /**
      * hibernate.many-to-one column="pkg_id" cascade="all" lazy="true"
      */
-    public Package getPkg() {
+    public UserPackage getPackage() {
         return pkg;
     }
     
     
-    public void setPkg(Package thePackage) {
+    public void setPackage(UserPackage thePackage) {
         this.pkg = thePackage;
     }
     

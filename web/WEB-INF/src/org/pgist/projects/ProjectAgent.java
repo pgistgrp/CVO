@@ -80,7 +80,7 @@ public class ProjectAgent {
      *       <li>alternative - a ProjectAlternative object</li>
      *     </ul>
      */
-    public Map getProjectAlternativeById(Map params) {
+    public Map getProjectAltById(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -94,7 +94,7 @@ public class ProjectAgent {
         }
         
         return map;
-    }//getProjectAlternativeById()
+    }//getProjectAltById()
     
     
     /**
