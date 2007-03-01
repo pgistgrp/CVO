@@ -72,6 +72,13 @@ public class UserCommute implements Serializable {
     }
 
 
+    /**
+     * @return
+     * 
+     * @hibernate.set lazy="true" table="pgist_user_commute_toll_link" cascade="all"
+     * @hibernate.collection-key column="commute_id"
+     * @hibernate.collection-many-to-many column="toll_id" class="org.pgist.funding.UserToll"
+     */
     public Set getTolls() {
         return tolls;
     }
@@ -82,6 +89,13 @@ public class UserCommute implements Serializable {
     }
 
 
+    /**
+     * @return
+     * 
+     * @hibernate.set lazy="true" table="pgist_user_commute_toll_link" cascade="all"
+     * @hibernate.collection-key column="commute_id"
+     * @hibernate.collection-many-to-many column="cost_id" class="org.pgist.funding.UserCost"
+     */
     public Set getCosts() {
         return costs;
     }
@@ -92,6 +106,11 @@ public class UserCommute implements Serializable {
     }
 
 
+    /**
+     * @return
+     * 
+     * @hibernate.property not-null="true"
+     */
     public float getAnnualConsume() {
         return annualConsume;
     }

@@ -23,7 +23,7 @@ public class UserInfo {
     private boolean gender;
 
     private Set<String> roles = new HashSet<String>();
-    private Set<org.pgist.projects.Vehicle> vehicles = new HashSet<org.pgist.projects.Vehicle>();
+    private Set<org.pgist.users.Vehicle> vehicles = new HashSet<org.pgist.users.Vehicle>();
 
 
     public UserInfo(User user) {

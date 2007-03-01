@@ -44,6 +44,7 @@
                <value>org/pgist/system/SystemLog.hbm.xml</value>
                <value>org/pgist/users/User.hbm.xml</value>
                <value>org/pgist/users/Role.hbm.xml</value>
+               <value>org/pgist/users/Vehicle.hbm.xml</value>
                <value>org/pgist/model/Discussible.hbm.xml</value>
                <value>org/pgist/model/DiscourseObject.hbm.xml</value>
                <value>org/pgist/model/Post.hbm.xml</value>
@@ -85,6 +86,7 @@
                <value>org/pgist/funding/FundingSourceAlternative.hbm.xml</value>
                <value>org/pgist/funding/UserCommute.hbm.xml</value>
                <value>org/pgist/funding/UserCost.hbm.xml</value>
+               <value>org/pgist/funding/UserToll.hbm.xml</value>
                <value>org/pgist/projects/UserCriteriaWeight.hbm.xml</value>
                <value>org/pgist/projects/Corridor.hbm.xml</value>
                <value>org/pgist/projects/Project.hbm.xml</value>
@@ -92,7 +94,6 @@
                <value>org/pgist/projects/ProjectAlternativeCriteria.hbm.xml</value>
                <value>org/pgist/projects/ProjectAltCriteriaObjective.hbm.xml</value>
                <value>org/pgist/projects/ProjectMOE.hbm.xml</value>
-               <value>org/pgist/projects/Vehicle.hbm.xml</value>
                <value>org/pgist/packages/UserPackage.hbm.xml</value>
                <value>org/pgist/packages/ClusteredPackage.hbm.xml</value>
                <value>org/pgist/packages/PackageStat.hbm.xml</value>

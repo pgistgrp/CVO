@@ -67,4 +67,34 @@ public class UserToll implements Serializable {
     }
 
 
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="commute_id" cascade="none"
+     */
+    public UserCommute getCommute() {
+        return commute;
+    }
+
+
+    public void setCommute(UserCommute commute) {
+        this.commute = commute;
+    }
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+
+
+    public float getValue() {
+        return value;
+    }
+
+
+    public void setValue(float value) {
+        this.value = value;
+    }
+
+
 }//class UserToll
