@@ -81,11 +81,10 @@ table#tollRoads {font-size:.9em;width:90%;}
 #costReport table 
 {
 width:100%;
-margin-bottom:1.5em;
-border:1px solid #D6E7EF;
 padding:.2em;
 }
 
+#costreport {border:1px solid #ccc;margin-top:1em;}
 #costReport th{font-weight:bold;padding:.2em;background:inherit;width:200px;text-align:left;}
 #costReport th.fundingSourceItem{font-size:.8em;text-align:left;padding-left:.5em;}
 #costReport tr.fundingType{font-size:1.2em;text-align:left;}
@@ -99,8 +98,20 @@ font-weight:normal;
 
 #costReport tr{} 
 
-.odd {background:#D6E7EF;}
+
 .tableHeading {background:#ADCFDE;}
+
+tr.fundingType {background:#D6E7EF}
+
+/* This is for making the second "column" a fixed width */
+/* Also add some dummy "columns" to get everything lined up */
+/* A <td>&nbsp;</td> after the "=" sign for example */
+th.fundingSourceItem + td {width:100px;text-align:center;}
+th.fundingSourceItem + td + td {width:25px;text-align:center;}
+th.fundingSourceItem + td + td + td {width:25px;text-align:center;}
+th.fundingSourceItem + td + td + td + td{width:100px;text-align:center;}
+th.fundingSourceItem + td + td + td + td +td {width:25px;text-align:center;}
+
 </style>
 	<!-- End Site Wide CSS -->
 	<!-- Site Wide JS -->
@@ -239,11 +250,13 @@ font-weight:normal;
 		<div id="costReport">
 			<h4 class="headerColor">My annual costs report</h4>
 			<table border="0" cellpadding="0" cellspacing="0">
-				<tr class="tableHeading">
+							<tr class="tableHeading">
 					<th scope="col">Funding Source </th>
 					<th scope="col">Annual cost to you </th>
 					<th colspan="7" scope="col">&nbsp;</th>
 				</tr>
+			</table>
+			<table border="0" cellpadding="0" cellspacing="0">
 				<tr class="fundingType">
 					<th scope="row" class="fundingSourceItem">Gas tax increase </th>
 					<td>Annual cost </td>
@@ -331,15 +344,12 @@ font-weight:normal;
 				</tbody>
 			</table>
 			<table border="0" cellpadding="0" cellspacing="0">
-				<tr class="tableHeading">
-					<th scope="col">Funding Source </th>
-					<th scope="col">Annual cost to you </th>
-					<th colspan="7" scope="col">&nbsp;</th>
-				</tr>
+				
 				<tr class="fundingType">
 					<th scope="row" class="fundingSourceItem">Sales Tax Increase</th>
 					<td>Annual cost </td>
 					<td>=</td>
+					<td>&nbsp;</td>
 					<td>Tax Rate </td>
 					<td>&times;</td>
 					<td>Estimated Annual Consumption</td>
@@ -348,6 +358,7 @@ font-weight:normal;
 					<th scope="row" class="fundingSourceItem">0.04% increase</th>
 					<td>$25</td>
 					<td>=</td>
+					<td>&nbsp;</td>
 					<td>0.04%</td>
 					<td>&times;</td>
 					<td>$15,000/yr</td>
@@ -356,6 +367,7 @@ font-weight:normal;
 					<th scope="row" class="fundingSourceItem">0.05% increase </th>
 					<td>$50</td>
 					<td>=</td>
+					<td>&nbsp;</td>
 					<td>0.05%</td>
 					<td>&times;</td>
 					<td>$15,000/yr</td>
@@ -364,6 +376,7 @@ font-weight:normal;
 					<th scope="row" class="fundingSourceItem">0.06% increase </th>
 					<td>$75</td>
 					<td>=</td>
+					<td>&nbsp;</td>
 					<td>0.06%</td>
 					<td>&times;</td>
 					<td>$15,000/yr</td>
@@ -372,21 +385,19 @@ font-weight:normal;
 					<th scope="row" class="fundingSourceItem">0.08% increase </th>
 					<td>$100</td>
 					<td>=</td>
+					<td>&nbsp;</td>
 					<td>0.08%</td>
 					<td>&times;</td>
 					<td>$15,000/yr</td>
 				</tr>
 			</table>
 			<table border="0" cellpadding="0" cellspacing="0">
-				<tr class="tableHeading">
-					<th scope="col">Funding Source </th>
-					<th scope="col">Annual cost to you </th>
-					<th colspan="7" scope="col">&nbsp;</th>
-				</tr>
+				
 				<tr class="fundingType">
 					<th width="200" scope="row" class="fundingSourceItem">Bridge Tolls </th>
 					<td>Annual cost </td>
 					<td>=</td>
+					<td>&nbsp;</td>
 					<td>Toll rate </td>
 					<td>&times;</td>
 					<td>Trips per year </td>
@@ -395,6 +406,7 @@ font-weight:normal;
 					<th scope="row" class="fundingSourceItem">$2 toll on SR 520 bridge </th>
 					<td>$1048</td>
 					<td>=</td>
+					<td>&nbsp;</td>
 					<td>$2</td>
 					<td>&times;</td>
 					<td>524/yr</td>
@@ -403,6 +415,7 @@ font-weight:normal;
 					<th scope="row" class="fundingSourceItem">$1 toll on I-90 bridge </th>
 					<td>$0</td>
 					<td>=</td>
+					<td>&nbsp;</td>
 					<td>$1</td>
 					<td>&times;</td>
 					<td>0/yr</td>
@@ -411,15 +424,12 @@ font-weight:normal;
 			
 		<!-- Begin annual vehicle license fee -->
 			<table border="0" cellpadding="0" cellspacing="0">
-				<tr class="tableHeading">
-					<th scope="col">Funding Source </th>
-					<th scope="col">Annual cost to you </th>
-					<th colspan="7" scope="col">&nbsp;</th>
-				</tr>
+				
 				<tr class="fundingType">
 					<th width="200" scope="row" class="fundingSourceItem">Bridge Tolls </th>
 					<td>Annual cost </td>
 					<td>=</td>
+					<td>&nbsp;</td>
 					<td>Tax rate </td>
 					<td>&times;</td>
 					<td>Number of Vehicles </td>
@@ -428,6 +438,7 @@ font-weight:normal;
 					<th scope="row" class="fundingSourceItem">$2 toll on SR 520 bridge </th>
 					<td>$1048</td>
 					<td>=</td>
+					<td>&nbsp;</td>
 					<td>$2</td>
 					<td>&times;</td>
 					<td>524/yr</td>
@@ -436,6 +447,7 @@ font-weight:normal;
 					<th scope="row" class="fundingSourceItem">$1 toll on I-90 bridge </th>
 					<td>$0</td>
 					<td>=</td>
+					<td>&nbsp;</td>
 					<td>$1</td>
 					<td>&times;</td>
 					<td>0/yr</td>
