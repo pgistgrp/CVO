@@ -21,6 +21,11 @@
     </bean>
     
     
+    <bean name="/usermgr" class="org.pgist.system.UsermgrAction">
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
     <bean name="/register" class="org.pgist.system.RegisterAction">
         <property name="systemService" ref="systemService"/>
     </bean>

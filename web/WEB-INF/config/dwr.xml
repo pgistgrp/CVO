@@ -31,10 +31,18 @@
       <param name="beanName" value="systemAgent"/>
       <include method="createFeedback"/>
       <include method="getFeedbacks"/>
+      <include method="disableUsers"/>
+      <include method="editUser"/>
+      <include method="enableUsers"/>
+      <include method="getAllUsers"/>
+      <include method="getEnabledUsers"/>
+      <include method="getDisabledUsers"/>
+      <include method="getUserById"/>
+      <include method="getEmailList"/>
       <include method="setUnloading"/>
     </create>
 
-
+    
   </allow>
 
 

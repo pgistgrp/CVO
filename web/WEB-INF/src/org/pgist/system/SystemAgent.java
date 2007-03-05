@@ -166,7 +166,269 @@ public class SystemAgent {
     
     
     /**
-     * Logging the page upload event.<br>
+     * Get a list of all the users
+     * 
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>users - array, a list of user objects</li>
+     *     <li>html - system_users.jsp</li>
+     *   </ul>
+     */
+	public Map getAllUsers(HttpServletRequest request, Map params) {		
+		Map map = new HashMap();
+        map.put("successful", false);
+		
+        try {
+        	Collection users = systemService.getAllUsers();
+     
+        	request.setAttribute("users", users);
+        	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/system_users.jsp"));
+        	map.put("users", users);
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+	} //getAllUsers()
+	
+	
+	 /**
+     * Get a user object by giving user Id
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>id - string, id of the user</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>user - object, the object of the user</li>
+     *   </ul>
+     */
+	public Map getUserById(Map params) {
+		Map map = new HashMap();
+        map.put("successful", false);
+		
+        String strId = (String)params.get("id");
+        
+        if(strId==null || "".equals(strId.trim())){
+        	map.put("reason", "User id cannot be null.");
+    		return map;	
+        }
+        
+        Long id = Long.parseLong(strId);
+        
+        try {
+        	User user = systemService.getUserById(id);
+        	
+        	map.put("user", user);
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+	} //getUserById()
+	
+	
+	 /**
+     * Edit a User
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>id - string, id of the user</li>
+     *     <li>password - string, password for the user</li> 
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>user - object, the object of the user</li>
+     *   </ul>
+     */
+	public Map editUser(Map params) {
+		Map map = new HashMap();
+        map.put("successful", false);
+		
+        try {
+
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        return map;	
+	} //editUser()
+
+	
+	 /**
+     * Disables a user account
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>ids - string list of id separated by a comma. user1, user2, etc</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+	public Map disableUsers(Map params) {
+		Map map = new HashMap();
+        map.put("successful", false);
+		
+        String strIds = (String)params.get("ids");
+        
+        if(strIds==null || "".equals(strIds.trim())){
+        	map.put("reason", "User id cannot be null.");
+    		return map;	
+        }
+        
+        
+        try {
+        	String[] idList = strIds.split(",");
+        	
+        	systemService.disableUsers(idList, false);
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        return map;	
+	} //disableUser()
+	
+	
+	 /**
+     * enables a user account
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>id - string, id of the user</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+	public Map enableUsers(Map params) {
+		Map map = new HashMap();
+        map.put("successful", false);
+		
+        String strIds = (String)params.get("ids");
+        strIds = strIds.replaceAll(" ", "");
+        if(strIds==null || "".equals(strIds.trim())){
+        	map.put("reason", "User id cannot be null.");
+    		return map;	
+        }
+        
+        try {
+        	String[] idList = strIds.split(",");
+        	
+        	systemService.disableUsers(idList, true);
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        return map;
+	} //enableUser()
+	
+	
+	 /**
+     * Gets a list of user accounts that are disabled
+     * 
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>users - collection of User objects, the object of the user</li>
+     *     <li>html - html file system_user.jsp</li>
+     *   </ul>
+     */
+	public Map getEnabledUsers(HttpServletRequest request, Map params) {
+		Map map = new HashMap();
+        map.put("successful", false);
+		
+        try {
+        	Collection users = systemService.getEnabledUsers();
+        	
+        	request.setAttribute("users", users);
+        	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/system_users.jsp"));
+        	map.put("users", users);
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        return map;	
+	} //getEnabledUser()
+	
+	
+	 /**
+     * Gets a list of user accounts that are disabled
+     * 
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>dusers - collection of User objects, the object of the user</li>
+     *     <li>html - html file system_lockeduser.jsp</li>
+     *   </ul>
+     */
+	public Map getDisabledUsers(HttpServletRequest request, Map params) {
+		Map map = new HashMap();
+        map.put("successful", false);
+		
+        try {
+        	Collection users = systemService.getDisabledUsers();
+        	
+        	request.setAttribute("dusers", users);
+        	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/system_lockedusers.jsp"));
+        	map.put("dusers", users);
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        return map;	
+	} //getDisabledUser()
+	
+	
+	/**
+     * Gets an email list
+     * 
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>emaillist - string, An email list</li>
+     *   </ul>
+     */
+	public Map getEmailList(Map params) {
+		Map map = new HashMap();
+        map.put("successful", false);
+		
+        try {
+        	String emaillist = systemService.getEmailList();
+        	map.put("emaillist", emaillist);
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        return map;	
+	} //getDisabledUser()
+	
+
+    /**
      * 
      * This method has no parameter.
      * 
@@ -188,5 +450,5 @@ public class SystemAgent {
         return map;
     }//setUnloading()
     
-    
+
 }//class SystemAgent

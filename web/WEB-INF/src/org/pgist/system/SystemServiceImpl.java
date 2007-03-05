@@ -2,6 +2,7 @@ package org.pgist.system;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.pgist.exceptions.UserExistException;
 import org.pgist.users.BaseUser;
@@ -126,5 +127,46 @@ public class SystemServiceImpl implements SystemService {
         userDAO.save(user);
     }//editCurrentUser()
 
+    
+    public Collection getAllUsers() throws Exception {    	
+    	
+    	return systemDAO.getAllUsers();
+    } //getAllUsers();
 
+    
+    public User getUserById(Long id) throws Exception { 
+    	
+    	return systemDAO.getUserById(id);
+    }
+    
+    
+    public void disableUsers(String[] ids, boolean enable) throws Exception {
+    	systemDAO.disableUsers(ids, enable);
+    }
+    
+    
+    public Collection getEnabledUsers() throws Exception {
+    	return systemDAO.getEnabledUsers();
+    }
+    
+    
+    public Collection getDisabledUsers() throws Exception {
+    	return systemDAO.getDisabledUsers();
+    }
+    
+    
+    public String getEmailList() throws Exception {
+    	Collection userslist = getAllUsers();
+    	String emaillist = "";
+    	
+    	Iterator ul = userslist.iterator();
+    	while(ul.hasNext()) {
+    		User user = (User)ul.next();
+    		emaillist += user.getEmail() + ", ";
+    	}
+    	
+    	return emaillist;
+    }
+    
+    
 }//class SystemServiceImpl

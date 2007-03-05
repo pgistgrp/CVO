@@ -42,4 +42,22 @@ public interface SystemService {
     void editCurrentUser(String cpassword, String password, String email) throws Exception;
 
 
+    Collection getAllUsers() throws Exception;
+    
+    
+    User getUserById(Long id) throws Exception;
+    
+    
+    void disableUsers(String[] ids, boolean enable) throws Exception;
+    
+    
+    Collection getEnabledUsers() throws Exception;
+    
+    
+    Collection getDisabledUsers() throws Exception;
+    
+    
+    String getEmailList() throws Exception;
+    
+    
 }//interface SystemService

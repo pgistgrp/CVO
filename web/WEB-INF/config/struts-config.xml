@@ -17,6 +17,7 @@
         <forward name="register" path="/register.jsp" />
         <forward name="error" path="/error.jsp" />
         <forward name="usercp" path="/usercp.jsp" />
+        <forward name="usermgr" path="/usermgr.jsp" />
         <forward name="workflow" path="/workflow.do" />
         <forward name="nextstep" path="/WEB-INF/jsp/nextstep.jsp" />
     </global-forwards>
@@ -26,6 +27,8 @@
         <!--<action path="/usercp" scope="request" type="org.pgist.system.UsercpAction" />-->
         
         <action name="userForm" path="/usercp" scope="request" type="org.pgist.system.UsercpAction" />
+    
+    	<action name="userForm" path="/usermgr" scope="request" type="org.pgist.system.UsermgrAction" />
     
         <action path="/main" scope="request" type="org.pgist.system.MainAction" />
         

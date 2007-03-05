@@ -11,6 +11,7 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.Query;
+import org.pgist.criteria.Criteria;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
@@ -116,6 +117,44 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
         
         save(log);
     }//logPosting()
+    
+    
+    private static final String hql_getAllUsers = "from User u order by u.id";
+    
+    public Collection getAllUsers() throws Exception {    	
+    	
+    	return getHibernateTemplate().find(hql_getAllUsers);
+    } //getAllUsers();
+    
+    
+    public User getUserById(Long id) throws Exception {
+    	return (User) getHibernateTemplate().load(User.class, id);
+    }//getUserById()
+    
+    
+    public void disableUsers(String[] ids, boolean enable) throws Exception {
+    	
+    	for(int i=0; i<ids.length; i++){
+    		Long userId = Long.parseLong(ids[i]);
+    		User user = (User) getHibernateTemplate().load(User.class, userId);
+    		user.setEnabled(enable);
+    	} //for
+    	
+    }//disableUsers()
+    
+    
+    private static final String hql_getDisabledUsers = "from User u where u.enabled=? order by u.id";
+    
+    public Collection getDisabledUsers() throws Exception {
+    	Collection users = getHibernateTemplate().find(hql_getDisabledUsers, false);
+    	return users;
+    }//getDisableUsers()
+    
+    
+    public Collection getEnabledUsers() throws Exception {
+    	Collection users = getHibernateTemplate().find(hql_getDisabledUsers, true);
+    	return users;
+    }//getEnableUsers()
     
     
 }//class SystemDAOImpl

@@ -2,6 +2,7 @@ package org.pgist.system;
 
 import java.util.Collection;
 
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.web.DelegatingHttpServletRequestWrapper;
 
@@ -27,6 +28,21 @@ public interface SystemDAO extends BaseDAO {
     
     
     void logPosting(DelegatingHttpServletRequestWrapper request) throws Exception;
+    
+    
+    Collection getAllUsers() throws Exception;
+
+
+    User getUserById(Long id) throws Exception;
+    
+    
+    void disableUsers(String[] ids, boolean enable) throws Exception;
+    
+    
+    Collection getEnabledUsers() throws Exception;
+    
+    
+    Collection getDisabledUsers() throws Exception;
     
     
 }//interface SystemDAO

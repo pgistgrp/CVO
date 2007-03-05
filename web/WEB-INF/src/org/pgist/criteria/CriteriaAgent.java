@@ -14,7 +14,7 @@ import org.pgist.cvo.CCTService;
 
 /**
  * 
- * @author kenny
+ * @author John
  *
  */
 public class CriteriaAgent {
