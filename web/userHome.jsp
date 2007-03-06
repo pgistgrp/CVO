@@ -232,92 +232,18 @@ div.home-col1 > div > span {font-size:.9em;margin-left:.5em}
 		<div id="left-col">
 			<h3 class="headerColor">Overview of all Steps</h3>
 			<p><strong>${system.activeParticipants}</strong> participants have been active in the LIT Challenge in the past 12 hours</p>
-				
-				
-				<!-- this section will need to be done after the workflow manager has been completed 
-				<h3 class="headerColor clearBoth step-header">Step 1: Discuss Concerns</h3>
-				
-				<div id="step1a" class="padding5 home-row clearfix">
-					<div class="step"><a href="#">1a: Brainstorm</a><br />
-						<small>A list of my concerns about transportation</small>
-					</div>
-					<div class="date">11/15 - 11/25</div>
-				</div>
-				
-				<div id="step1b" class="padding5 home-row clearfix">				
-					<div class="step">
-						<a href="#">1b: Review Summaries</a><br />
-						<small>Discuss summaries of everyone's concerns</small>
-					</div>
-					<div class="date">11/15 - 11/25</div>
-				</div>
-
-				<h3 class="headerColor clearBoth step-header">Step 2: Evaluate Planning Factors</h3>
-				
-				<div id="step2a" class="padding5 home-row clearfix">
-					<div class="step"><a href="#">2a: Review Planning Factors</a><br />
-						<small>Talk about what factors are important in choosing projects</small>
-					</div>
-					<div class="date">11/15 - 11/25</div>
-				</div>
-
-				<div id="step2b" class="padding5 home-row clearfix">
-					<div class="step"><a href="#">2b: Weigh Planning Factors</a><br />
-						<small>Decide which factors are most important to me</small>
-					</div>
-					<div class="date">11/15 - 11/25</div>
-				</div>
-							
-				<h3 class="headerColor clearBoth step-header">Step 3: Create Packages</h3>
 			
-				<div id="step3a" class="padding5 home-row clearfix">
-					<div class="step"><a href="#">3a: Review Projects</a><br />
-						<small>Discuss the projects that ahve been proposed</small>
+			<c:forEach var="step" items="${workflow.steps}" varStatus="loop">
+				<h3 class="headerColor clearBoth step-header">${step.name}</h3>
+				<c:forEach var="substep" items="${step.substeps}" varStatus="loop">
+					<div id="step-${substep.id}" class="padding5 home-row clearfix">
+						<div class="step"><a href="#">${substep.name}</a><br />
+							<small>${substep.description}</small>
+						</div>
+						<div class="date">${substep.startDate} - ${substep.endDate}</div>
 					</div>
-					<div class="date">11/15 - 11/25</div>
-				</div>
-				<div id="step3b" class="padding5 home-row clearfix">
-					<div class="step"><a href="#">3b: Review Funding Options</a><br />
-						<small>Discuss the different ways to pay for the proposed projects</small>
-					</div>
-					<div class="date">11/15 - 11/25</div>
-				</div>
-				<div id="step3c" class="padding5 home-row clearfix">
-					<div class="step"><a href="#">3c: Create Your Own Package</a><br />
-						<small>Select projects and decide how to pay for them</small>
-					</div>
-					<div class="date">11/15 - 11/25</div>
-				</div>
-				
-				<h3 class="headerColor clearBoth step-header">Step 4: Evaluate Candidate Packages</h3>
-				
-				<div id="step4a" class="highlighted padding5 home-row clearfix">
-					<div class="step"><a href="#">4a: Review and Discuss Packages</a><br />
-						<small>Talk about the different packages before voting</small>
-					</div>
-					<div class="date">11/15 - 11/25</div>
-				</div>
-				<div id="step4b" class="highlighted padding5 home-row clearfix">
-					<div class="step"><a href="#">4b: Vote</a><br />
-						<small>Vote on each of the packages</small>
-					</div>
-					<div class="date">11/15 - 11/25</div>
-				</div>
-				<h3 class="headerColor clearBoth disabled step-header">Step 5: Prepare Group Report</h3>
-				
-				<div id="step5a" class="padding5 home-row disabled clearfix">
-					<div class="step"><a href="#">5a: Review Draft Report</a><br />
-						<small>Discuss a summary of what will be shown to decision makers</small>
-					</div>
-					<div class="date">11/15 - 11/25</div>
-				</div>
-				<div id="step5b" class="padding5 home-row disabled clearfixf">
-					<div class="step"><a href="#">5b: Vote to Endorse Report</a><br />
-						<small>Vote on the summary</small>
-					</div>
-					<div class="date">11/15 - 11/25</div>
-				</div>
-			-->
+				</c:forEach>
+			</c:forEach>	
 		</div>
 		<div id="right-col">
 			<h3 class="headerColor">Moderator announcements</h3>
