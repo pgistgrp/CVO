@@ -180,6 +180,14 @@ public class CriteriaServiceImpl implements CriteriaService {
     	Collection ccts = cctDAO.getCCTs();
     	return ccts;
     }
+
+
+    /**
+     * TODO: get a CriteriaSuite object by the given id
+     */
+    public CriteriaSuite getCriteriaSuiteById(Long id) throws Exception {
+        return null;
+    }//getCriteriaSuiteById()
     
     
 }//class CriteriaServiceImpl

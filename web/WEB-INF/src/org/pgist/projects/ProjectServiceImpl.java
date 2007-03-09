@@ -151,21 +151,28 @@ public class ProjectServiceImpl implements ProjectService{
          * TODO
          */
     }//deleteFootPrint()
+    
 
+   /**
+     * TODO: relate the given ProjectAlternative object to ProjectSuite object
+     */
+    public void relateProjectAlt(Long suiteId, Long altId) throws Exception {
+    }//relateProjectAlt()
 
-
-    
-    
-    
-    
-    
 
     /**
-     * TODO
+     * TODO: derelate the given ProjectAlternative object to ProjectSuite object
      */
-    public Collection getProjectAlternativeGrades(Long cctId, Long altId) throws Exception {
+    public void derelateProjectAlt(Long suiteId, Long altId) throws Exception {
+    }//derelateProjectAlt()
+
+
+    /**
+     * TODO: get the ProjectAltRef object by id
+     */
+    public ProjectAltRef getProjectAltRefById(Long altrefId) throws Exception {
         return null;
-    }//getProjectAlternativeGrades()
+    }//getProjectAltRefById()
     
     
 }//class ProjectServiceImpl

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author John
  * 
- * @hibernate.class table="pgist_criteria_objective" lazy="true"
+ * @hibernate.class table="pgist_crit_objective" lazy="true"
  */
 public class Objective implements Serializable {
 

@@ -88,7 +88,7 @@
         </action>
         
         <action path="/projectAlt" scope="request" type="org.pgist.projects.ProjectAltAction">
-            <forward name="success" path="/WEB-INF/jsp/projects/projectAlt.jsp"/>
+            <forward name="view" path="/WEB-INF/jsp/projects/projectAlt.jsp"/>
         </action>
         
         <action path="/fundingManage" scope="request" type="org.pgist.funding.FundingMgrAction">

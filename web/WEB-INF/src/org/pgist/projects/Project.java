@@ -6,6 +6,14 @@ import java.util.Set;
 
 
 /**
+ * Project class for transportation classes.<br>
+ * 
+ * One project consists of multiple project alternatives. Both project class and
+ * project alternative class are self cotained, i.e., they don't depend on one
+ * specific decision situation. Instead, decision situation class (@see org.pgist.cvo.CCT)
+ * maintains a set of projects and funding sources. One project instance and one
+ * funding source instance can be shared by different dicision situations. 
+ * 
  * @author Guirong, kenny
  * 
  * @hibernate.class table="pgist_projects" lazy="true"

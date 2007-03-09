@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
+ * DWR AJAX Agent class for packages.
  * 
  * @author kenny
  *
@@ -52,11 +53,14 @@ public class PackageAgent {
      *     </li>
      *   </ul>
      */
-    public Map setProjectToPkg(HttpServletRequest request, Map params) {
+    public Map setProjectToUserPkg(HttpServletRequest request, Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
         try {
+            /*
+             * TODO: persist the association
+             */
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -66,7 +70,7 @@ public class PackageAgent {
         }
         
         return map;
-    }//setProjectToPkg()
+    }//setProjectToUserPkg()
     
     
     /**
@@ -94,11 +98,14 @@ public class PackageAgent {
      *     </li>
      *   </ul>
      */
-    public Map setFundingToPkg(Map params) {
+    public Map setFundingToUserPkg(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
         try {
+            /*
+             * TODO: persist the association
+             */
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -108,7 +115,7 @@ public class PackageAgent {
         }
         
         return map;
-    }//setFundingToPkg()
+    }//setFundingToUserPkg()
     
     
     /**
@@ -141,6 +148,9 @@ public class PackageAgent {
         map.put("successful", false);
         
         try {
+            /*
+             * TODO: persist the association
+             */
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -183,6 +193,9 @@ public class PackageAgent {
         map.put("successful", false);
         
         try {
+            /*
+             * TODO: persist the association
+             */
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -193,6 +206,118 @@ public class PackageAgent {
         
         return map;
     }//setFundingToClusteredPkg()
+    
+    
+    /**
+     * Set the voting selection for the current user.
+     * 
+     * @param params A map contains:
+     *     <ul>
+     *       <li>suiteId - int, id for a PackageVoteSuite object</li>
+     *       <li>vote - int, vote value, [0 | 1 | 2 | 3]
+     *         <ul>
+     *           <li>0 - unknown</li> 
+     *           <li>1 - High</li> 
+     *           <li>2 - Medium</li> 
+     *           <li>3 - Low</li> 
+     *         </ul> 
+     *       </li>
+     *     </ul>
+     * 
+     * @return A map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map setVoting(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            /*
+             * TODO: persist the voting selection
+             */
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//setVoting()
+    
+    
+    /**
+     * Create a new clustered package in a specified PackageSuite.
+     * 
+     * @param params A map contains:
+     *     <ul>
+     *       <li>suiteId - int, id for a PackageSuite object</li>
+     *       <li>description - string</li>
+     *     </ul>
+     *     
+     * @returnA A map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>pkgId - int, the newly created package id (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map createClusteredPackage(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            /*
+             * TODO: create a new ClusteredPackage
+             */
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//createClusteredPackage()
+    
+    
+    /**
+     * Delete a specified clustered package from a PackageSuite.
+     * 
+     * @param params A map contains:
+     *     <ul>
+     *       <li>suiteId - int, id for a PackageSuite object</li>
+     *       <li>pkgId - int, id for a ClusteredPackage object</li>
+     *     </ul>
+     *     
+     * @returnA A map contains:
+     *     <ul>
+     *       <li></li>
+     *     </ul>
+     */
+    public Map deleteClusteredPackage(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            /*
+             * TODO: delete the specified package
+             */
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//deleteClusteredPackage()
     
     
 }//class PackageAgent

@@ -7,28 +7,28 @@ import org.apache.struts.action.ActionMapping;
 
 
 /**
- * Moderator uses this action to manage the clustered packages.<br>
+ * Moderator uses this action to manage the clustered packages. The management operation
+ * is done through AJAX.<br>
  * 
- * The action accepts two parameters:
+ * The action accepts either of the following two parameters:
  * <ul>
- *   <li>cctId - int, an id of a CCT object</li>
- *   <li>activity - string, valid values are
- *     <ul>
- *       <li>'' - show up the list page</li>
- *       <li>'edit' - show up the package editing page</li>
- *       <li>'delete' - delete a specified package</li>
- *       <li>'publish' - delete a specified package</li>
- *     </ul>
- *   </li>
+ *   <li>suiteId - int, the id of a PackageSuite object</li>
+ *   <li>pkgId - int, the id of a ClusteredPackage object</li>
  * </ul>
  * 
- * The action will always forward to the jsp page specified in struts-config.xml
- * with the forward name as "success".
- * In that jsp page, the following request attributes are available:
+ * Only one of the two parameters can be given, and if both are given, "suiteId" is used.
+ *
+ * If "suiteId" is given, the action will forward to the jsp page specified in struts-config.xml
+ * with the forward name as "view". In jsp page, the following request attributes are available:
  * <ul>
- *   <li>cct - a CCT object</li>
- *   <li>clusteredPackages - a collection of ClusteredPackage objects</li>
- *   <li>manualPackages - a collection of ClusteredPackage objects (Manually added by moderator)</li>
+ *   <li>suite - a PackageSuite object</li>
+ * </ul>
+ * 
+ * If "pkgId" is given, the action will forward to the jsp
+ * page specified in struts-config.xml with the forward name as "edit".
+ * In jsp page, the following request attributes are available:
+ * <ul>
+ *   <li>pkg - a ClusteredPackage object</li>
  * </ul>
  * 
  * @author kenny
@@ -55,18 +55,9 @@ public class PackageMgrAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-        
-        Long cctId = new Long(request.getParameter("cctId"));
-        String activity = request.getParameter("activity");
-        
-        if ("save".equalsIgnoreCase(activity)) {
-            //TODO: save the current users package
-            //Note: the program should clear the alternatives in the user package,
-            //      and then set the value again.
-        }
-        
-        //show up the "Create/Modify Package" page
-        //TODO: extract projects/sources/package/stat/costs and put to the request attributes
+        /*
+         * TODO: extract all required objects and put in request attributes
+         */
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

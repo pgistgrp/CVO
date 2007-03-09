@@ -69,4 +69,7 @@ public interface CriteriaService {
     public Collection getCCTs() throws Exception;
     
     
+    public CriteriaSuite getCriteriaSuiteById(Long id) throws Exception;
+    
+    
 }//interface CriteriaService

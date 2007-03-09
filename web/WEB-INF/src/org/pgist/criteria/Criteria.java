@@ -11,7 +11,7 @@ import org.pgist.cvo.CCT;
 /**
  * @author John
  * 
- * @hibernate.class table="pgist_criteria" lazy="true"
+ * @hibernate.class table="pgist_crit" lazy="true"
  */
 public class Criteria implements Serializable {
     

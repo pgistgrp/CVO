@@ -71,6 +71,6 @@ public class ClusteredPackage extends Package {
     public float getBalance() {
         return totalFunding - totalCost;
     }
-    
-    
+
+
 }//class ClusteredPackage

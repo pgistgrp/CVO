@@ -1,35 +1,44 @@
 package org.pgist.funding;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
-import org.pgist.cvo.CCT;
 import org.pgist.users.User;
 
 
 /**
+ * A UserCommute object hold the commute information for one user.
+ * 
  * @author Kenny
  * 
- * @hibernate.class table="pgist_user_commute" lazy="true"
+ * @hibernate.class table="pgist_funding_user_commute" lazy="true"
  */
 public class UserCommute implements Serializable {
     
     
     private Long id;
     
+    private FundingSourceSuite fundingSuite;
+    
     private User user;
     
-    private CCT cct;
+    private Set<FundingSourceAltRef> tolls = new HashSet<FundingSourceAltRef>();
     
-    private Set tolls = new HashSet();
+    private Map<FundingSourceAltRef, Integer> peekHourTrips = new HashMap<FundingSourceAltRef, Integer>();
     
-    private Set costs = new HashSet();
+    private Map<FundingSourceAltRef, Integer> offPeekTrips = new HashMap<FundingSourceAltRef, Integer>();
+    
+    private Map<FundingSourceAltRef, Float> costs = new HashMap<FundingSourceAltRef, Float>();
     
     private float annualConsume;
     
     
     /**
+     * @return
+     * 
      * @hibernate.id generator-class="native"
      */
     public Long getId() {
@@ -42,6 +51,21 @@ public class UserCommute implements Serializable {
     }
     
     
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="suite_id" cascade="none"
+     */
+    public FundingSourceSuite getFundingSuite() {
+        return fundingSuite;
+    }
+
+
+    public void setFundingSuite(FundingSourceSuite fundingSuite) {
+        this.fundingSuite = fundingSuite;
+    }
+
+
     /**
      * @return
      * 
@@ -60,31 +84,16 @@ public class UserCommute implements Serializable {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="cct_id" cascade="none"
-     */
-    public CCT getCct() {
-        return cct;
-    }
-
-
-    public void setCct(CCT cct) {
-        this.cct = cct;
-    }
-
-
-    /**
-     * @return
-     * 
      * @hibernate.set lazy="true" table="pgist_user_commute_toll_link" cascade="all"
      * @hibernate.collection-key column="commute_id"
-     * @hibernate.collection-many-to-many column="toll_id" class="org.pgist.funding.UserToll"
+     * @hibernate.collection-many-to-many column="altref_id" class="org.pgist.funding.FundingSourceAltRef"
      */
-    public Set getTolls() {
+    public Set<FundingSourceAltRef> getTolls() {
         return tolls;
     }
 
 
-    public void setTolls(Set tolls) {
+    public void setTolls(Set<FundingSourceAltRef> tolls) {
         this.tolls = tolls;
     }
 
@@ -92,16 +101,53 @@ public class UserCommute implements Serializable {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="pgist_user_commute_toll_link" cascade="all"
+     * @hibernate.map table="pgist_funding_user_commute_value"
      * @hibernate.collection-key column="commute_id"
-     * @hibernate.collection-many-to-many column="cost_id" class="org.pgist.funding.UserCost"
+     * @hibernate.index-many-to-many column="altref_id" class="org.pgist.funding.FundingSourceAltRef"
+     * @hibernate.collection-element type="integer" column="peekhourtrips"
      */
-    public Set getCosts() {
+    public Map<FundingSourceAltRef, Integer> getPeekHourTrips() {
+        return peekHourTrips;
+    }
+
+
+    public void setPeekHourTrips(Map<FundingSourceAltRef, Integer> peekHourTrips) {
+        this.peekHourTrips = peekHourTrips;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.map table="pgist_funding_user_commute_value"
+     * @hibernate.collection-key column="commute_id"
+     * @hibernate.index-many-to-many column="altref_id" class="org.pgist.funding.FundingSourceAltRef"
+     * @hibernate.collection-element type="integer" column="offpeektrips"
+     */
+    public Map<FundingSourceAltRef, Integer> getOffPeekTrips() {
+        return offPeekTrips;
+    }
+
+
+    public void setOffPeekTrips(Map<FundingSourceAltRef, Integer> offPeekTrips) {
+        this.offPeekTrips = offPeekTrips;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.map table="pgist_funding_user_commute_costs"
+     * @hibernate.collection-key column="commute_id"
+     * @hibernate.index-many-to-many column="altref_id" class="org.pgist.funding.FundingSourceAltRef"
+     * @hibernate.collection-element type="float" column="cost"
+     */
+    public Map<FundingSourceAltRef, Float> getCosts() {
         return costs;
     }
 
 
-    public void setCosts(Set costs) {
+    public void setCosts(Map<FundingSourceAltRef, Float> costs) {
         this.costs = costs;
     }
 

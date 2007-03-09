@@ -5,13 +5,13 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.pgist.cvo.CCT;
-import org.pgist.funding.FundingSourceAlternative;
-import org.pgist.projects.ProjectAlternative;
+import org.pgist.funding.FundingSourceAltRef;
+import org.pgist.projects.ProjectAltRef;
 
 
 /**
- * The base class for packages: UserPackage and ClusteredPackage.
+ * The base class for packages: UserPackage and ClusteredPackage.<br>
+ * A package contains a set of project alternative references and a set of funding source alternative references.
  * 
  * @author Guirong
  * 
@@ -21,15 +21,15 @@ public abstract class Package implements Serializable {
     
     protected Long id;
     
-    private CCT cct;
+    protected PackageSuite suite;
     
     protected String description;
     
     protected Date createDate;
     
-    protected Set<ProjectAlternative> projAlts = new HashSet<ProjectAlternative>();
+    protected Set<ProjectAltRef> projAltRefs = new HashSet<ProjectAltRef>();
     
-    protected Set<FundingSourceAlternative> fundAlts = new HashSet<FundingSourceAlternative>();
+    protected Set<FundingSourceAltRef> fundAltRefs = new HashSet<FundingSourceAltRef>();
     
     
     /**
@@ -46,18 +46,20 @@ public abstract class Package implements Serializable {
     
     
     /**
-     * @hibernate.many-to-one column="cct_id" cascade="none" lazy="true"
+     * @return
+     * 
+     * @hibernate.many-to-one column="suite_id" cascade="none" lazy="true"
      */
-    public CCT getCct() {
-        return cct;
+    public PackageSuite getSuite() {
+        return suite;
     }
-    
-    
-    public void setCct(CCT cct) {
-        this.cct = cct;
+
+
+    public void setSuite(PackageSuite suite) {
+        this.suite = suite;
     }
-    
-    
+
+
     /**
      * @return
      * @hibernate.property
@@ -89,34 +91,34 @@ public abstract class Package implements Serializable {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" cascade="all" table="pgist_upkg_fundalt_link" order-by="id"
-     * @hibernate.collection-many-to-many column="fund_alt_id" class="org.pgist.funding.FundingSourceAlternative"
-     * @hibernate.collection-key column="upkg_id"
+     * @hibernate.set lazy="true" cascade="all" order-by="id"
+     * @hibernate.collection-key column="pkg_id"
+     * @hibernate.collection-one-to-many class="org.pgist.funding.FundingSourceAltRef"
      */
-    public Set<FundingSourceAlternative> getFundAlts() {
-        return fundAlts;
+    public Set<FundingSourceAltRef> getFundAltRefs() {
+        return fundAltRefs;
     }
     
     
-    public void setFundAlts(Set<FundingSourceAlternative> fundAlts) {
-        this.fundAlts = fundAlts;
+    public void setFundAltRefs(Set<FundingSourceAltRef> fundAltRefs) {
+        this.fundAltRefs = fundAltRefs;
     }
     
     
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" cascade="all" table="pgist_upkg_projalt_link" order-by="id"
-     * @hibernate.collection-many-to-many column="proj_alt_id" class="org.pgist.projects.ProjectAlternative"
-     * @hibernate.collection-key column="upkg_id"
+     * @hibernate.set lazy="true" cascade="all" table="pgist_pkg_projaltref_link" order-by="id"
+     * @hibernate.collection-key column="pkg_id"
+     * @hibernate.collection-one-to-many class="org.pgist.projects.ProjectAltRef"
      */
-    public Set<ProjectAlternative> getProjAlts() {
-        return projAlts;
+    public Set<ProjectAltRef> getProjAltRefs() {
+        return projAltRefs;
     }
     
     
-    public void setProjAlts(Set<ProjectAlternative> projAlts) {
-        this.projAlts = projAlts;
+    public void setProjAltRefs(Set<ProjectAltRef> projAltRefs) {
+        this.projAltRefs = projAltRefs;
     }
 
 

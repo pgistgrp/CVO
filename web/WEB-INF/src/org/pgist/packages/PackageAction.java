@@ -15,7 +15,7 @@ import org.apache.struts.action.ActionMapping;
  * </ul>
  * 
  * The action will always forward to the jsp page specified in struts-config.xml
- * with the forward name as "success".
+ * with the forward name as "view".
  * In that jsp page, the following request attributes are available:
  * <ul>
  *   <li>package - a ClusteredPackage object</li>
@@ -45,18 +45,9 @@ public class PackageAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-        
-        Long cctId = new Long(request.getParameter("cctId"));
-        String action = request.getParameter("action");
-        
-        if ("save".equalsIgnoreCase(action)) {
-            //TODO: save the current users package
-            //Note: the program should clear the alternatives in the user package,
-            //      and then set the value again.
-        }
-        
-        //show up the "Create/Modify Package" page
-        //TODO: extract projects/sources/package/stat/costs and put to the request attributes
+        /*
+         * TODO: extract all required objects and put in request attributes
+         */
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

@@ -82,23 +82,28 @@
                <value>org/pgist/criteria/Criteria.hbm.xml</value>
                <value>org/pgist/criteria/Objective.hbm.xml</value>
                <value>org/pgist/criteria/CriteriaWeight.hbm.xml</value>
+               <value>org/pgist/criteria/CriteriaUserWeight.hbm.xml</value>
+               <value>org/pgist/criteria/CriteriaRef.hbm.xml</value>
+               <value>org/pgist/criteria/CriteriaSuite.hbm.xml</value>
                <value>org/pgist/funding/FundingSource.hbm.xml</value>
                <value>org/pgist/funding/FundingSourceAlternative.hbm.xml</value>
+               <value>org/pgist/funding/FundingSourceRef.hbm.xml</value>
+               <value>org/pgist/funding/FundingSourceAltRef.hbm.xml</value>
+               <value>org/pgist/funding/FundingSourceSuite.hbm.xml</value>
                <value>org/pgist/funding/UserCommute.hbm.xml</value>
                <value>org/pgist/funding/UserCost.hbm.xml</value>
                <value>org/pgist/funding/UserToll.hbm.xml</value>
-               <value>org/pgist/projects/UserCriteriaWeight.hbm.xml</value>
                <value>org/pgist/projects/Corridor.hbm.xml</value>
                <value>org/pgist/projects/Project.hbm.xml</value>
                <value>org/pgist/projects/ProjectAlternative.hbm.xml</value>
-               <value>org/pgist/projects/ProjectAlternativeCriteria.hbm.xml</value>
-               <value>org/pgist/projects/ProjectAltCriteriaObjective.hbm.xml</value>
-               <value>org/pgist/projects/ProjectMOE.hbm.xml</value>
+               <value>org/pgist/projects/ProjectAltRef.hbm.xml</value>
+               <value>org/pgist/projects/ProjectRef.hbm.xml</value>
+               <value>org/pgist/projects/ProjectSuite.hbm.xml</value>
                <value>org/pgist/packages/UserPackage.hbm.xml</value>
                <value>org/pgist/packages/ClusteredPackage.hbm.xml</value>
-               <value>org/pgist/packages/PackageStat.hbm.xml</value>
-               <value>org/pgist/packages/PackageVote.hbm.xml</value>
-               <value>org/pgist/packages/PackageVoteStat.hbm.xml</value>
+               <value>org/pgist/packages/PackageVoteSuite.hbm.xml</value>
+               <value>org/pgist/packages/PackageUserVote.hbm.xml</value>
+               <value>org/pgist/packages/PackageSuite.hbm.xml</value>
            </list>
         </property>
         <property name="hibernateProperties">

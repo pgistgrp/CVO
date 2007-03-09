@@ -558,7 +558,7 @@ public class CriteriaAgent {
 		  }
 	    
 		  return map;    	 
-	  } //addObjective();
+	  } //addObjective()
 
 	  
 	/**
@@ -577,7 +577,7 @@ public class CriteriaAgent {
      *      </li>
      *   </ul>
      */
-     public Map getObjectives(HttpServletRequest request, Map params) {
+    public Map getObjectives(HttpServletRequest request, Map params) {
      	Map map = new HashMap();
         map.put("successful", false);
         
@@ -593,7 +593,7 @@ public class CriteriaAgent {
             map.put("reason", e.getMessage());
         }
         return map;    	 
-     } //getObjectives();
+    } //getObjectives()
      
      
      /**
@@ -602,13 +602,14 @@ public class CriteriaAgent {
      *   <ul>
      *     <li>id - id object</li>
      *   </ul>
+     *   
      * @return a Map contains:
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-     public Map deleteObjective(Map params) {
+    public Map deleteObjective(Map params) {
 	   Map map = new HashMap();
        map.put("successful", false);
        
@@ -630,7 +631,42 @@ public class CriteriaAgent {
        } 
        
        return map;
-     } //deleteObjective();
+    } //deleteObjective()
+     
+     
+    /**
+     * Set the criteria weight of the current user.
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>suiteId - int, id of a CriteriaSuite object</li>
+     *     <li>critId - int, id of a CriteriaRef object</li>
+     *     <li>weight - int, weight value</li>
+     *   </ul>
+     *   
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map setCriteriaWeight(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            /*
+             * TODO: persist the criteria weight.
+             */
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+           e.printStackTrace();
+           map.put("reason", e.getMessage());
+        } 
+        
+        return map;
+    }//setCriteriaWeight()
    
        
 }//class CriteriaAgent

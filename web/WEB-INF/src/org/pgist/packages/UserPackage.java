@@ -1,5 +1,9 @@
 package org.pgist.packages;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.pgist.funding.FundingSourceRef;
 import org.pgist.users.User;
 
 
@@ -20,6 +24,14 @@ public class UserPackage extends Package {
     private float totalFunding;
     
     private float yourCost;
+    
+    private float willingAnnualCost;
+    
+    private float willingResidentCost;
+    
+    private boolean brandnew;
+    
+    private Set<FundingSourceRef> willingSources = new HashSet<FundingSourceRef>();
     
     
     /**

@@ -1,7 +1,5 @@
 package org.pgist.projects;
 
-import java.util.Collection;
-
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -15,15 +13,13 @@ import org.apache.struts.action.ActionMapping;
  * 
  * The action accepts two parameters:
  * <ul>
- *   <li>cctId - int, an id of a CCT object</li>
- *   <li>altId - int, an id of a ProjectAlternative object</li>
+ *   <li>altrefId - int, an id of a ProjectAltRef object</li>
  * </ul>
  * 
- * The action will forward to the jsp page specified in struts-config.xml with the forward name is "success".
+ * The action will forward to the jsp page specified in struts-config.xml with the forward name is "view".
  * In that jsp page, the following request attributes are available:
  * <ul>
- *   <li>grades - a collection of ProjectCriteria objects</li>
- *   <li>alternative - a ProjectAlternative instance</li>
+ *   <li>reference - a ProjectAltRef object</li>
  * </ul>
  * 
  * @author kenny
@@ -51,18 +47,15 @@ public class ProjectAltAction extends Action {
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
         
-        Long cctId = new Long(request.getParameter("cctId"));
-        Long altId = new Long(request.getParameter("altId"));
+        Long altrefId = new Long(request.getParameter("altrefId"));
         
-        Collection grades = projectService.getProjectAlternativeGrades(cctId, altId);
-        ProjectAlternative alternative = projectService.getProjectAlternativeById(altId);
+        ProjectAltRef reference = projectService.getProjectAltRefById(altrefId);
         
-        request.setAttribute("grades", grades);
-        request.setAttribute("alternative", alternative);
+        request.setAttribute("reference", reference);
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
-        return mapping.findForward("success");
+        return mapping.findForward("view");
     }//execute()
     
     

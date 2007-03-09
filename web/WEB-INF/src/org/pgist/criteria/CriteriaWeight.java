@@ -8,7 +8,7 @@ import org.pgist.users.User;
  * 
  * @author kenny
  *
- * @hibernate.class table="pgist_criteria_weight" lazy="true"
+ * @hibernate.class table="pgist_crit_weight" lazy="true"
  */
 public class CriteriaWeight {
     

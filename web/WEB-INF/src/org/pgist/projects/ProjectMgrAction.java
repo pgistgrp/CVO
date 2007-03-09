@@ -9,8 +9,6 @@ import org.apache.struts.action.ActionMapping;
 /**
  * Project Management Action.<br>
  * 
- * This action works standalone.<br>
- * 
  * This action is used by moderator to manage all projects in the whole system.<br>
  * 
  * It provides the following functionalities:

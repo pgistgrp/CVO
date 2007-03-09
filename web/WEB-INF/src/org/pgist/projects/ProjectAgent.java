@@ -373,6 +373,50 @@ public class ProjectAgent {
     
     
     /**
+     * Set the definition of projects in a decision situation. According the operation code,
+     * the given ProjectAlternative will be associated or unassociated with the give suite.
+     * 
+     * @param params a Map contains:
+     *         <ul>
+     *           <li>suiteId - int, id for a ProjectSuite object</li>
+     *           <li>altId - int, id for a ProjectAlternative object</li>
+     *           <li>op - string, "add" | "remove"</li>
+     *         </ul>
+     * @return a Map contains:
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
+    public Map setProjectDefine(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long suiteId = new Long((String) params.get("suiteId"));
+            Long altId = new Long((String) params.get("altId"));
+            String operation = (String) params.get("operation");
+            
+            if ("add".equals(operation)) {
+                projectService.relateProjectAlt(suiteId, altId);
+            } else if ("remove".equals(operation)) {
+                projectService.derelateProjectAlt(suiteId, altId);
+            } else {
+                map.put("reason", "unknown operation: "+operation);
+                return map;
+            }
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//setProjectDefine()
+    
+    
+    /**
      * Set the project grading information on criteria objective
      * 
      * @param params A map contains:

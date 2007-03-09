@@ -41,11 +41,11 @@ public interface ProjectService {
     
     void deleteFootPrint(Long fpid);
     
+    void relateProjectAlt(Long suiteId, Long altId) throws Exception;
     
-    
-    // to be checked
-    
-    Collection getProjectAlternativeGrades(Long cctId, Long altId) throws Exception;
+    void derelateProjectAlt(Long suiteId, Long altId) throws Exception;
+
+    ProjectAltRef getProjectAltRefById(Long altrefId) throws Exception;
 
     
 }//interface ProjectService
