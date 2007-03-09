@@ -1,0 +1,2108 @@
+#LyX 1.4.4 created this file. For more info see http://www.lyx.org/
+\lyxformat 245
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage{hyperref}
+
+\pdfbookmark[2]{Bookmarktitle}{internal_label}
+\end_preamble
+\language english
+\inputencoding auto
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing single
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\leftmargin 0.5in
+\topmargin 0.8in
+\rightmargin 0.5in
+\bottommargin 0.8in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+PGIST System Task List
+\end_layout
+
+\begin_layout Author
+PGIST Development Team
+\end_layout
+
+\begin_layout Date
+March, 2007
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset LatexCommand \tableofcontents{}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Project Management Tool
+\end_layout
+
+\begin_layout Description
+Programmer Matt Paulin, Guirong, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description A global tool for moderator, who uses this tool to manage
+ all candidate projects before running of a specific decision situation.
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Itemize
+go to the tool page with url 
+\begin_inset Quotes eld
+\end_inset
+
+http://localhost:8080/projectManage.do
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The action class extracts all existing projects as a collection, put it
+ in the request attribute 
+\begin_inset Quotes eld
+\end_inset
+
+projects
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+forwarding to page 
+\begin_inset Quotes eld
+\end_inset
+
+/WEB-INF/jsp/projects/projectMgr.jsp
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Click on entry 
+\begin_inset Quotes eld
+\end_inset
+
+create project
+\begin_inset Quotes erd
+\end_inset
+
+, javascript codes ask for project info; enter project info, click 
+\begin_inset Quotes eld
+\end_inset
+
+submit
+\begin_inset Quotes erd
+\end_inset
+
+; javascript codes send an AJAX request to ProjectAgent.createProject()
+\end_layout
+
+\begin_layout Itemize
+Click on entry 
+\begin_inset Quotes eld
+\end_inset
+
+edit project
+\begin_inset Quotes erd
+\end_inset
+
+, javascript codes send an AJAX request to ProjectAgent.getProjectById();
+ javascript render a page segment asking for new project information; enter
+ new values, click 
+\begin_inset Quotes eld
+\end_inset
+
+submit
+\begin_inset Quotes erd
+\end_inset
+
+; javascript codes send an AJAX request to ProjectAgent.editProject()
+\end_layout
+
+\begin_layout Itemize
+Click on entry 
+\begin_inset Quotes eld
+\end_inset
+
+delete project
+\begin_inset Quotes erd
+\end_inset
+
+, javascript codes send an AJAX request to ProjectAgent.deleteProject()
+\end_layout
+
+\begin_layout Itemize
+For a specific project, click on entry 
+\begin_inset Quotes eld
+\end_inset
+
+create project alternative
+\begin_inset Quotes erd
+\end_inset
+
+, javascript codes ask for project alternative info; enter project alternative
+ info, click 
+\begin_inset Quotes eld
+\end_inset
+
+submit
+\begin_inset Quotes erd
+\end_inset
+
+; javascript codes send an AJAX request to ProjectAgent.createProjectAlt()
+\end_layout
+
+\begin_layout Itemize
+For a specific project, click on entry 
+\begin_inset Quotes eld
+\end_inset
+
+edit project alternative
+\begin_inset Quotes erd
+\end_inset
+
+, javascript codes send an AJAX request to ProjectAgent.getProjectAltById();
+ javascript render a page segment asking for project alternative info; enter
+ project alternative info, click 
+\begin_inset Quotes eld
+\end_inset
+
+submit
+\begin_inset Quotes erd
+\end_inset
+
+; javascript codes send an AJAX request to ProjectAgent.editProjectAlt()
+\end_layout
+
+\begin_layout Itemize
+For a specific project, click on entry 
+\begin_inset Quotes eld
+\end_inset
+
+delete project alternative
+\begin_inset Quotes erd
+\end_inset
+
+, javascript codes send an AJAX request to ProjectAgent.deleteProjectAlt()
+\end_layout
+
+\begin_layout Itemize
+When appropriate, javascript codes may send an AJAX request to ProjectAgent.getPr
+ojectsForMgr(), which returns a page segment for the project list
+\end_layout
+
+\begin_layout Itemize
+map footprint viewing/editing
+\end_layout
+
+\begin_layout Description
+Diagram
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename ProjectDiagram.eps
+	lyxscale 30
+	scale 40
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Project Definition Tool
+\end_layout
+
+\begin_layout Description
+Programmer Matt Paulin, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description An instance tool for moderator to define the projects set
+ which will be used for one specific decision situation.
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description 
+\end_layout
+
+\begin_layout Itemize
+go to the tool page with url 
+\begin_inset Quotes eld
+\end_inset
+
+http://localhost:8080/projectDefine.do?suiteId=1234
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The action class extracts projects as a collection, put it in the request
+ attribute 
+\begin_inset Quotes eld
+\end_inset
+
+projects
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The action class extracts ProjectSuite object of the given id, put it in
+ the request attribute 
+\begin_inset Quotes eld
+\end_inset
+
+suite
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+forwarding to page 
+\begin_inset Quotes eld
+\end_inset
+
+/WEB-INF/jsp/projects/projectAssoc.jsp
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+projects are rendered with checkboxes, user checks the checkboxes, and for
+ each click, javascript codes send a request to ProjectAgent.setProjectDefine()
+\end_layout
+
+\begin_layout Itemize
+ProjectAgent.setProjectDefine() checks parameters 
+\begin_inset Quotes eld
+\end_inset
+
+suiteId
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+altId
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+check in current suite if there is a ProjectAltRef pointing to a ProjectAlternat
+ive object with the given altId
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+yes, ignore
+\end_layout
+
+\begin_layout Itemize
+otherwise, check if there is a ProjectRef pointing to a Project object which
+ has the child ProjectAlternative object with the given altId
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+if no, create a new ProjectRef object, continue
+\end_layout
+
+\begin_layout Itemize
+create a new ProjectAltRef object pointing to the given ProjectAlternative
+ object, continue
+\end_layout
+
+\begin_layout Itemize
+save the objects
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Description
+Diagram
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename ProjectSuiteDiagram.eps
+	lyxscale 30
+	scale 40
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Project Grading Tool
+\end_layout
+
+\begin_layout Description
+Programmer Matt Paulin, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description Moderator uses this tool to grade projects.
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Itemize
+go to the tool page with url 
+\begin_inset Quotes eld
+\end_inset
+
+http://localhost:8080/projectGrading.do?projsuiteId=1234&critsuiteId=4321
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The action class extracts a ProjectSuite object with the given projsuiteId,
+ put it in the request attribute 
+\begin_inset Quotes eld
+\end_inset
+
+projSuite
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The action class extracts a CriteriaRef object with the given critsuiteId,
+ put it in the request attribute 
+\begin_inset Quotes eld
+\end_inset
+
+critSuite
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+forwarding to page 
+\begin_inset Quotes eld
+\end_inset
+
+/WEB-INF/jsp/projects/projectGrades.jsp
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+In the page, each project is listed; for each project, its project alternatives
+ are listed; and for each project alternative, all criteria in are listed;
+ for each criterion the page code has to check its related ProjectAlternativeCri
+teria objects, if the object exists, its value will be rendered to the drop-down
+ menu, otherwise an invalid value in the drop-down menu will be selected
+\end_layout
+
+\begin_layout Itemize
+when user select grades for each criterion, javascript codes send a request
+ to ProjectAgent.setGrading(); setGrading() should set the corresponding
+ grade.
+\end_layout
+
+\begin_layout Itemize
+when user is done, he click the entry 
+\begin_inset Quotes eld
+\end_inset
+
+save
+\begin_inset Quotes erd
+\end_inset
+
+ on the bottom of the page, javascript codes should check on the page if
+ all drop-down menus are given proper values, if so a form is submitted
+ to the same action with a special field 
+\begin_inset Quotes eld
+\end_inset
+
+activity=save
+\begin_inset Quotes erd
+\end_inset
+
+, otherwise an alert will be popped up.
+\end_layout
+
+\begin_layout Itemize
+The action checks the field 
+\begin_inset Quotes eld
+\end_inset
+
+activity
+\begin_inset Quotes erd
+\end_inset
+
+, if it's 
+\begin_inset Quotes eld
+\end_inset
+
+save
+\begin_inset Quotes erd
+\end_inset
+
+, it will check whether or not all criteria for all project alternatives
+ are set.
+ If not all are set, it will go back to the grading page with an error message.
+\end_layout
+
+\begin_layout Description
+Diagram
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename ProjectGradeDiagram.eps
+	lyxscale 30
+	scale 38
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Project Alternative Viewing
+\end_layout
+
+\begin_layout Description
+Programmer Matt Paulin, Guirong, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description Participants use this action to view the details of a project
+ alternative
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Itemize
+go to the page with url 
+\begin_inset Quotes eld
+\end_inset
+
+http://localhost:8080/projectAlt.do?altrefId=456
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The action class extract a ProjectAltRef object with the given altrefId,
+ put it in the request attribute 
+\begin_inset Quotes eld
+\end_inset
+
+reference
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+forwarding to page 
+\begin_inset Quotes eld
+\end_inset
+
+/WEB-INF/jsp/projects/project.jsp
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+map viewing
+\end_layout
+
+\begin_layout Description
+Diagram
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename ProjectAltViewDiagram.eps
+	lyxscale 30
+	scale 40
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Funding Source Management
+\end_layout
+
+\begin_layout Description
+Programmer Matt Paulin, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description Moderator uses this global tool to manage funding sources
+ before the running of a specific decision situation.
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Itemize
+go to the tool page with url 
+\begin_inset Quotes eld
+\end_inset
+
+http://localhost:8080/fundingManage.do
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+the action class extracts all FundingSource objects as a collection, put
+ it in the request attribute 
+\begin_inset Quotes eld
+\end_inset
+
+sources
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+forwarding to page 
+\begin_inset Quotes eld
+\end_inset
+
+/WEB-INF/jsp/funding/fundingMgr.jsp
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Click on entry 
+\begin_inset Quotes eld
+\end_inset
+
+create funding source
+\begin_inset Quotes erd
+\end_inset
+
+, javascript codes ask for funding source info; enter funding source info,
+ click 
+\begin_inset Quotes eld
+\end_inset
+
+submit
+\begin_inset Quotes erd
+\end_inset
+
+; javascript codes send an AJAX request to FundingAgent.createFundingSource()
+\end_layout
+
+\begin_layout Itemize
+Click on entry 
+\begin_inset Quotes eld
+\end_inset
+
+edit funding source
+\begin_inset Quotes erd
+\end_inset
+
+, javascript codes send an AJAX request to FundingAgent.getFundingSourceById();
+ javascript render a page segment asking for new funding source information;
+ enter new values, click 
+\begin_inset Quotes eld
+\end_inset
+
+submit
+\begin_inset Quotes erd
+\end_inset
+
+; javascript codes send an AJAX request to FundingAgent.editFundingSource()
+\end_layout
+
+\begin_layout Itemize
+Click on entry 
+\begin_inset Quotes eld
+\end_inset
+
+delete funding source
+\begin_inset Quotes erd
+\end_inset
+
+, javascript codes send an AJAX request to FundingAgent.deleteFundingSource()
+\end_layout
+
+\begin_layout Itemize
+For a specific funding source, click on entry 
+\begin_inset Quotes eld
+\end_inset
+
+create funding source alternative
+\begin_inset Quotes erd
+\end_inset
+
+, javascript codes ask for project alternative info; enter project alternative
+ info, click 
+\begin_inset Quotes eld
+\end_inset
+
+submit
+\begin_inset Quotes erd
+\end_inset
+
+; javascript codes send an AJAX request to FundingAgent.createFundingSourceAlt()
+\end_layout
+
+\begin_layout Itemize
+For a specific funding source, click on entry 
+\begin_inset Quotes eld
+\end_inset
+
+edit funding source alternative
+\begin_inset Quotes erd
+\end_inset
+
+, javascript codes send an AJAX request to FundingAgent.getFundingSourceAltById()
+; javascript render a page segment asking for project alternative info;
+ enter funding source alternative info, click 
+\begin_inset Quotes eld
+\end_inset
+
+submit
+\begin_inset Quotes erd
+\end_inset
+
+; javascript codes send an AJAX request to FundingAgent.editFundingSourceAlt()
+\end_layout
+
+\begin_layout Itemize
+For a specific funding source, click on entry 
+\begin_inset Quotes eld
+\end_inset
+
+delete funding source alternative
+\begin_inset Quotes erd
+\end_inset
+
+, javascript codes send an AJAX request to FundingAgent.deleteFundingSourceAlt()
+\end_layout
+
+\begin_layout Description
+Diagram
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename FundingSourceDiagram.eps
+	lyxscale 30
+	scale 40
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Funding Source Definition Tool
+\end_layout
+
+\begin_layout Description
+Programmer Matt Paulin, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description An instance tool for moderator to define the funding sources
+ set which will be used for one specific decision situation.
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description 
+\end_layout
+
+\begin_layout Itemize
+go to the tool page with url 
+\begin_inset Quotes eld
+\end_inset
+
+http://localhost:8080/fundingDefine.do?suiteId=1234
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The action class extracts a FundingSourceSuite object with the given suiteId,
+ put it in the request attribute 
+\begin_inset Quotes eld
+\end_inset
+
+suite
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The action class extracts all existing FundingSource objects as a collection,
+ put it in the request attribute 
+\begin_inset Quotes eld
+\end_inset
+
+sources
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+forwarding to page 
+\begin_inset Quotes eld
+\end_inset
+
+/WEB-INF/jsp/funding/fundingAssoc.jsp
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+funding sources are rendered with checkboxes, user checks the checkboxes,
+ javascript codes send a AJAX request to FundingAgent.setFundingDef()
+\end_layout
+
+\begin_layout Itemize
+FundingAgent.setProjectDefine() checks parameters 
+\begin_inset Quotes eld
+\end_inset
+
+suiteId
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+altId
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+check in current suite if there is a FundingSourceAltRef pointing to a FundingSo
+urceAlternative object with the given altId
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+yes, ignore
+\end_layout
+
+\begin_layout Itemize
+otherwise, check if there is a FundingSourceRef pointing to a FundingSource
+ object which has the child FundingSourceAlternative object with the given
+ altId
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+if no, create a new FundingSourceRef object, continue
+\end_layout
+
+\begin_layout Itemize
+create a new FundingSourceAltRef object pointing to the given FundingSourceAlter
+native object, continue
+\end_layout
+
+\begin_layout Itemize
+save the objects
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Description
+Diagram
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename FudingSourceSuite.eps
+	lyxscale 30
+	scale 40
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: User Package Creation
+\end_layout
+
+\begin_layout Description
+Programmer Matt Paulin, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description Participants use this action to create their own package
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Itemize
+go to the tool page with url 
+\begin_inset Quotes eld
+\end_inset
+
+http://localhost:8080/createPackage.do?suiteId=1234
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The action class should extract a PackageSuite object with the speicified
+ 
+\begin_inset Quotes eld
+\end_inset
+
+suiteId
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The action class should extract the current user's UserPackage object in
+ the PackageSuite object.
+ If it doesn't exist, a new empty UserPackage object should be created and
+ persisted.
+ The UserPackage object will be put in the request attribute 
+\begin_inset Quotes eld
+\end_inset
+
+userPkg
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+forwarding to page 
+\begin_inset Quotes eld
+\end_inset
+
+/WEB-INF/jsp/packages/createPackage.jsp
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+the page renders the project list on the left panel, funding source list
+ on the right panel, with some values checked (according to the user package)
+\end_layout
+
+\begin_layout Itemize
+user clicks on one project alternative, javascript codes send an AJAX request
+ to PackageAgent.setProjectToUserPkg(), the method should persisted the projects
+ setting, and update the corresponding PackageStat object
+\end_layout
+
+\begin_layout Itemize
+user clicks on one funding source alternative, javascript codes send an
+ AJAX request to PackageAgent.setFundingToUserPkg()
+\end_layout
+
+\begin_layout Description
+Diagram
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename CreatePackageDiagram.eps
+	lyxscale 30
+	scale 40
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: User Package Creation Helper
+\end_layout
+
+\begin_layout Description
+Programmer Matt Paulin, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description Participants use this action to popup a 
+\begin_inset Quotes eld
+\end_inset
+
+Help me
+\begin_inset Quotes erd
+\end_inset
+
+ window to help them create their user packages
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Itemize
+go to the tool page with url 
+\begin_inset Quotes eld
+\end_inset
+
+http://localhost:8080/helpme.do?pkgsuiteId=1234&critsuiteId=4321
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+extract the PackageSuite object with the given 
+\begin_inset Quotes eld
+\end_inset
+
+pkgsuiteId
+\begin_inset Quotes erd
+\end_inset
+
+, if it doesn't exist, create a new one and persist it
+\end_layout
+
+\begin_layout Itemize
+find the UserPackage in the current PackageSuite, put it in request attribute
+ 
+\begin_inset Quotes eld
+\end_inset
+
+userPkg
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+extract the CriteriaSuite object with the given 
+\begin_inset Quotes eld
+\end_inset
+
+critsuiteId
+\begin_inset Quotes erd
+\end_inset
+
+, put it in request attribute 
+\begin_inset Quotes eld
+\end_inset
+
+critSuite
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+forwarding to page 
+\begin_inset Quotes eld
+\end_inset
+
+/WEB-INF/jsp/packages/helpme.jsp
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+user adjusts criteria wights in the page, javascript codes send a AJAX request
+ to CriteriaAgent.setCriteriaWeight()
+\end_layout
+
+\begin_layout Itemize
+user clicks 
+\begin_inset Quotes eld
+\end_inset
+
+I'm done
+\begin_inset Quotes erd
+\end_inset
+
+, javascript codes send a AJAX request to PackageAgent.setHelpMe()
+\end_layout
+
+\begin_layout Itemize
+in PackageAgent.setHelpMe(), if the user choose to create a brand-new package,
+ then clear the old package, create a new one using the user's new weighing
+ settings; otherwise the program should keep all selections the user made
+ and add those projects calculated according to the new weighing settings.
+\end_layout
+
+\begin_layout Itemize
+with the response from AJAX, a javascript code needs to reload the parent
+ window
+\end_layout
+
+\begin_layout Description
+Diagram
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename HelpMeDiagram.eps
+	lyxscale 35
+	scale 35
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Tax Calculator
+\end_layout
+
+\begin_layout Description
+Programmer Matt Paulin, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description Participants use this tool to help them calculate their
+ tax
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Itemize
+go to the tool page with url 
+\begin_inset Quotes eld
+\end_inset
+
+http://localhost:8080/fundingCalc.do?suiteId=123
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+extract the FundingSourceSuite object with the given 
+\begin_inset Quotes eld
+\end_inset
+
+suiteId
+\begin_inset Quotes erd
+\end_inset
+
+, put it in reqeuest attribute 
+\begin_inset Quotes eld
+\end_inset
+
+suite
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+load the current User object and put it in request attributes as 
+\begin_inset Quotes eld
+\end_inset
+
+user
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+load the current user's UserCommute object in this funding source suite,
+ if not exist, create a new one, and then put it in request attributes as
+ 
+\begin_inset Quotes eld
+\end_inset
+
+commute
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+forwarding to page 
+\begin_inset Quotes eld
+\end_inset
+
+/WEB-INF/jsp/funding/fundingCalc.jsp
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+page renders the upper panel
+\end_layout
+
+\begin_layout Itemize
+user edits his info, and clicks 
+\begin_inset Quotes eld
+\end_inset
+
+Calculate my Estimates
+\begin_inset Quotes erd
+\end_inset
+
+, javascript codes send an AJAX request to FundingAgent.setEstimates() and
+ return the middle panel
+\end_layout
+
+\begin_layout Itemize
+user edits in the middle panel, and clicks 
+\begin_inset Quotes eld
+\end_inset
+
+Update Annaul Costs Report
+\begin_inset Quotes erd
+\end_inset
+
+, javascript codes send an AJAX request to FundingAgent.setCostReport() and
+ return the bottom panel
+\end_layout
+
+\begin_layout Description
+Diagram
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Planning Factor Re-Weighing
+\end_layout
+
+\begin_layout Description
+Programmer John, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description Participants use this action to reweigh planning factors
+ (criteria)
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Package Grouping Tool
+\end_layout
+
+\begin_layout Description
+Programmer Matt Paulin, Mike Lowry, Jordan, SDSU?
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description Moderator/System use this tool to group all user packages
+ to 5 clustered packages
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Itemize
+this tool maybe has no GUI, just work in the back-end
+\end_layout
+
+\begin_layout Itemize
+the tool accepts a suiteId
+\end_layout
+
+\begin_layout Itemize
+extracts the ProjectSuite object with the given 
+\begin_inset Quotes eld
+\end_inset
+
+suiteId
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+extracts all UserPackage objects in the ProjectSuite from the database
+\end_layout
+
+\begin_layout Itemize
+using GA/KMean/BNB algorithms to group the packages, generate 5 ClusteredPackage
+ objects, persist them to database
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Clusetered Package Management Tool
+\end_layout
+
+\begin_layout Description
+Programmer Matt Paulin, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description Moderator use this tool to manage all clustered packages
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Itemize
+go to the tool page with url 
+\begin_inset Quotes eld
+\end_inset
+
+http://localhost:8080/packageMgr.do?suiteId=1234
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+extract the PackageSuite object with the given 
+\begin_inset Quotes eld
+\end_inset
+
+suiteId
+\begin_inset Quotes erd
+\end_inset
+
+, put it in the request attribute 
+\begin_inset Quotes eld
+\end_inset
+
+suite
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+forward to page 
+\begin_inset Quotes eld
+\end_inset
+
+/WEB-INF/jsp/packages/packageMgr.jsp
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+render all clustered packages on the page
+\end_layout
+
+\begin_layout Itemize
+user can click 
+\begin_inset Quotes eld
+\end_inset
+
+delete
+\begin_inset Quotes erd
+\end_inset
+
+ to delete a clustered package
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+javascript codes send a AJAX request to PackageAgent.deleteClusteredPackage()
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+user can click 
+\begin_inset Quotes eld
+\end_inset
+
+create
+\begin_inset Quotes erd
+\end_inset
+
+ to create a new manual clustered package
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+javascript codes send a AJAX request to PackageAgent.createClusteredPackage()
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+user can click 
+\begin_inset Quotes eld
+\end_inset
+
+edit
+\begin_inset Quotes erd
+\end_inset
+
+ to edit a clustered package, popup a window to request for url 
+\begin_inset Quotes eld
+\end_inset
+
+http://localhost:8080/packageMgr.do?pkgId=4321
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+extract the ClusteredPackage object with the given 
+\begin_inset Quotes eld
+\end_inset
+
+pkgId
+\begin_inset Quotes erd
+\end_inset
+
+, put it in the request attribute 
+\begin_inset Quotes eld
+\end_inset
+
+pkg
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+forward to page 
+\begin_inset Quotes eld
+\end_inset
+
+/WEB-INF/jsp/packages/packageMgr_edit.jsp
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+in the page, all projects are rendered in left panel, all funding sources
+ are rendered in right panel
+\end_layout
+
+\begin_layout Itemize
+user click on radio buttons to select projects and funding sources, javascript
+ codes send a AJAX request to PackageAgent.setProjectToClusteredPkg() or
+ PackageAgent.setFundingToClusteredPkg()
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Clustered Package Viewing
+\end_layout
+
+\begin_layout Description
+Programmer Matt Paulin, Guirong, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description Participants use this action to view a detailed information
+ of a package
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Itemize
+go to the tool page with url 
+\begin_inset Quotes eld
+\end_inset
+
+http://localhost:8080/package.do?id=123
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+load the specified ClusterPackage object with the given 
+\begin_inset Quotes eld
+\end_inset
+
+id
+\begin_inset Quotes erd
+\end_inset
+
+, put it in the request attribute 
+\begin_inset Quotes eld
+\end_inset
+
+package
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+forwarding to page 
+\begin_inset Quotes eld
+\end_inset
+
+/WEB-INF/jsp/packages/package.jsp
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Diagram
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename PackageInfoDiagram.eps
+	lyxscale 30
+	scale 40
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Clustered Package Voting
+\end_layout
+
+\begin_layout Description
+Programmer Matt Paulin, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description Participants use this action to vote on candidate clustered
+ packages
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Itemize
+go to the tool page with url 
+\begin_inset Quotes eld
+\end_inset
+
+http://localhost:8080/packageVote.do?suiteId=1234
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+extract a PackageVoteSuite object with the specified suiteId, put it in
+ the request attribute "voteSuite"
+\end_layout
+
+\begin_layout Itemize
+check if current user already voted for the this PackageVoteSuite
+\end_layout
+
+\begin_layout Itemize
+if yes, forward to page 
+\begin_inset Quotes eld
+\end_inset
+
+/WEB-INF/jsp/packages/packageVote_results.jsp
+\begin_inset Quotes erd
+\end_inset
+
+, page shows the voting statistics results
+\end_layout
+
+\begin_layout Itemize
+if no, forward to page 
+\begin_inset Quotes eld
+\end_inset
+
+/WEB-INF/jsp/packages/packageVote.jsp
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+page shows the voting interface
+\end_layout
+
+\begin_layout Itemize
+user votes click on voting radio button, javascript codes send a AJAX request
+ to PackageAgent.setVoting()
+\end_layout
+
+\begin_layout Itemize
+PackageAgent.setVoting() persist the voting selection
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Diagram
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename PackageVoteDiagram.eps
+	lyxscale 30
+	scale 40
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Project Publishing Tool
+\end_layout
+
+\begin_layout Description
+Programmer Zhong
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description Moderator uses this tool to publish projects for the current
+ decision situation, so the projects can be discussioned by participants.
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Structured Discussion for Project
+\end_layout
+
+\begin_layout Description
+Programmer Zhong, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description Partcipants discuss projects here.
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Funding Publishing Tool
+\end_layout
+
+\begin_layout Description
+Programmer Zhong
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description Moderator use this tool to publish funding sources for
+ the current decision situation, so the funding sources can be discussioned
+ by participants.
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Structured Discussion for Funding Source
+\end_layout
+
+\begin_layout Description
+Programmer Zhong, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description Partcipants discuss funding sources here.
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Clustered Package Publishing Tool
+\end_layout
+
+\begin_layout Description
+Programmer Zhong
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description Moderator use this tool to publish clustered packages for
+ the current decision situation, so the packages can be discussioned by
+ participants.
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Structured Discussion for Packages
+\end_layout
+
+\begin_layout Description
+Programmer Zhong, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description Partcipants discuss clustered packages here.
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Package Voting Preparation Tool
+\end_layout
+
+\begin_layout Description
+Programmer Zhong, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description System/Moderator use this tool to prepare a new package
+ voting.
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Agenda Management
+\end_layout
+
+\begin_layout Description
+Programmer Zhong, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Workflow Engine
+\end_layout
+
+\begin_layout Description
+Programmer Zhong, Guirong
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Global Search
+\end_layout
+
+\begin_layout Description
+Programmer Guirong, Zhong
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Discussion Digest Mailing
+\end_layout
+
+\begin_layout Description
+Programmer Zhong
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section
+Task: Page Unloading Logging
+\end_layout
+
+\begin_layout Description
+Programmer Zhong, Jordan
+\end_layout
+
+\begin_layout Description
+Short\InsetSpace ~
+Description
+\end_layout
+
+\begin_layout Description
+Detailed\InsetSpace ~
+Description
+\end_layout
+
+\end_body
+\end_document
