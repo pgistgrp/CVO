@@ -38,11 +38,18 @@ public interface ProjectDAO extends BaseDAO {
     
 	void saveFootprint(ProjectAlternative pa, double[][][] coords, String type) throws Exception;
 	
-    
+	
 	Package getPackage(Long pid) throws Exception;
 
-
-    Collection getProjects() throws Exception;
 	
+    Collection getProjects() throws Exception;
     
+    
+    void delete(Project p) throws Exception;    
+
+	ProjectAlternative getProjectAlternative(Long pid) throws Exception;
+    
+    void delete(ProjectAlternative a) throws Exception;    
+
+	void save(ProjectAlternative a) throws Exception;    
 }//interface ProjectDAO

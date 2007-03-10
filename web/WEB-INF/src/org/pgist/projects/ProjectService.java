@@ -13,22 +13,14 @@ public interface ProjectService {
     
     Project getProjectById(Long pid) throws Exception;
     
-    ProjectAlternative getProjectAlternativeById(Long altId) throws Exception;
-    
     Collection getProjects() throws Exception;
     
-    Project createProject(String name, String description, int transMode, boolean inclusive) throws Exception;
+    Project createProject(String name, String description, int transMode, boolean inclusive) throws Exception;    
     
-    void editProject(Long id, String name, String description, int transMode) throws Exception;
+    void editProject(Long id, String name, String description, int transMode) throws Exception;    
     
     void deleteProject(Long id) throws Exception;
-    
-    ProjectAlternative createProjectAlt(Long projectId, Map params) throws Exception;
-    
-    void editProjectAlt(Long id, Map params) throws Exception;
-    
-    void deleteProjectAlt(Long id) throws Exception;
-    
+                
     void setGrading(Long altId, Long critId, Long objId, int value) throws Exception;
 
     void setupProjectsForCCT(Long cctId, String[] ids) throws Exception;
@@ -41,11 +33,18 @@ public interface ProjectService {
     
     void deleteFootPrint(Long fpid);
     
-    void relateProjectAlt(Long suiteId, Long altId) throws Exception;
-    
-    void derelateProjectAlt(Long suiteId, Long altId) throws Exception;
+    void relateProjectAlt(Long suiteId, Long altId) throws Exception;    
 
     ProjectAltRef getProjectAltRefById(Long altrefId) throws Exception;
 
+	ProjectAlternative createProjectAlt(Long id, String name, String description, Float cost, String links, String sponsor, String statementFor, String statementAgainst) throws Exception;
+    
+	ProjectAlternative getProjectAlternativeById(Long altId) throws Exception;
+    
+	void derelateProjectAlt(Long suiteId, Long altId) throws Exception;
+    
+	void deleteProjectAlt(Long id) throws Exception;
+
+	void editProjectAlt(Long id, String name, String description, Float cost, String links, String sponsor, String statementFor, String statementAgainst) throws Exception;
     
 }//interface ProjectService

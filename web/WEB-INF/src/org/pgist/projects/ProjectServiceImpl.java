@@ -33,10 +33,7 @@ public class ProjectServiceImpl implements ProjectService{
 
 
     public ProjectAlternative getProjectAlternativeById(Long altId) throws Exception {
-        /**
-         * TODO
-         */
-        return null;
+        return projectDAO.getProjectAlternative(altId);
     }//getProjectAlternativeById()
 
 
@@ -46,7 +43,8 @@ public class ProjectServiceImpl implements ProjectService{
 
 
     public Project createProject(String name, String description, int transMode, boolean inclusive) throws Exception {
-        Project project = new Project();
+        //TODO verify that this is done?
+    	Project project = new Project();
         
         project.setName(name);
         project.setDescription(description);
@@ -59,37 +57,90 @@ public class ProjectServiceImpl implements ProjectService{
     }//createProject()
 
 
+    /**
+     * Allows the user to update the project with the new information
+     * 
+     * @throws	Exception	If the project cannot be found
+     */
     public void editProject(Long id, String name, String description, int transMode) throws Exception {
-        /*
-         * TODO
-         */
+
+    	//Retrieve the project, NOTE that if this id doesn't corrispond to a project then an exception is
+    	//thrown and it is delt with from the Project Agent
+    	Project project = projectDAO.getProject(id);
+    	
+    	//load the values
+        project.setName(name);
+        project.setDescription(description);
+        project.setTransMode(transMode);
+    	//save
+        
+        projectDAO.save(project);
+        
     }//editProject()
 
     
     public void deleteProject(Long id) throws Exception {
-        /*
-         * TODO
-         */
+    	//Get the project
+    	Project project = projectDAO.getProject(id);
+    	
+    	//Delete it
+    	projectDAO.delete(project);
     }//deleteProject()
 
 
-    public ProjectAlternative createProjectAlt(Long projectId, Map params) throws Exception {
-        /*
-         * TODO
-         */
-        return null;
+    
+    public ProjectAlternative createProjectAlt(Long id, String name,
+			String description, Float cost, String links, String sponsor,
+			String statementFor, String statementAgainst) throws Exception {
+
+    	//Get the project
+    	Project project = projectDAO.getProject(id);
+    	
+    	//Create the alternative
+    	ProjectAlternative alternative = new ProjectAlternative();
+    	alternative.setName(name);
+    	alternative.setDetailedDesc(description);
+    	alternative.setCost(cost);
+    	alternative.setLinks(links);
+    	alternative.setSponsor(sponsor);
+    	alternative.setStatementFor(statementFor);
+    	alternative.setStatementAgainst(statementAgainst);
+    	
+    	//Save the alternative, then links the project and saves the project
+    	projectDAO.save(project, alternative);
+    	    	
+		return alternative;
     }//createProjectAlt()
 
+    
+    public void editProjectAlt(Long id, String name, String description,
+			Float cost, String links, String sponsor, String statementFor,
+			String statementAgainst) throws Exception {
 
-    public void editProjectAlt(Long id, Map params) throws Exception {
-        /*
-         * TODO
-         */
-    }//editProjectAlt()
+    	//Get the project alternative
+    	ProjectAlternative alt = projectDAO.getProjectAlternative(id);
+    	
+    	//load it
+    	alt.setName(name);
+    	alt.setDetailedDesc(description);
+    	alt.setCost(cost);
+    	alt.setLinks(links);
+    	alt.setSponsor(sponsor);
+    	alt.setStatementFor(statementFor);
+    	alt.setStatementAgainst(statementAgainst);
+    	    	
+    	//save it
+    	projectDAO.save(alt);
+    	
+	}//editProjectAlt()
 
 
     public void deleteProjectAlt(Long id) throws Exception {
-        // TODO Auto-generated method stub
+    	//Get the alternative
+    	ProjectAlternative alt = projectDAO.getProjectAlternative(id);
+    	
+    	//Delete it
+    	projectDAO.delete(alt);
     }//deleteProjectAlt()
 
 

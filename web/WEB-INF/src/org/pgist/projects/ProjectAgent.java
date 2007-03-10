@@ -210,10 +210,19 @@ public class ProjectAgent {
         try {
             Long id = new Long((String) params.get("id"));
             
-            ProjectAlternative projectAlt = projectService.createProjectAlt(id, params);
-            
-            map.put("id", projectAlt.getId());
-            
+            String name = (String) params.get("name");
+            String description = (String) params.get("description");
+            Float cost = Float.parseFloat((String)params.get("cost"));
+            String links = (String) params.get("links");
+            String sponsor = (String) params.get("sponsor");
+            String statementFor = (String) params.get("statementFor");
+            String statementAgainst = (String) params.get("statementAgainst");
+                        
+            ProjectAlternative projectAlt = projectService.createProjectAlt(id,
+					name, description, cost, links, sponsor, statementFor,
+					statementAgainst);
+                                   
+            map.put("id", projectAlt.getId());            
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -291,8 +300,19 @@ public class ProjectAgent {
         
         try {
             Long id = new Long((String) params.get("id"));
+
+            String name = (String) params.get("name");
+            String description = (String) params.get("description");
+            Float cost = Float.parseFloat((String)params.get("cost"));
+            String links = (String) params.get("links");
+            String sponsor = (String) params.get("sponsor");
+            String statementFor = (String) params.get("statementFor");
+            String statementAgainst = (String) params.get("statementAgainst");
             
-            projectService.editProjectAlt(id, params);
+            
+            projectService.editProjectAlt(id,
+					name, description, cost, links, sponsor, statementFor,
+					statementAgainst);
             
             map.put("successful", true);
         } catch (Exception e) {

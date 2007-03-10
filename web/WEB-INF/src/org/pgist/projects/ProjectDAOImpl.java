@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Query;
+import org.pgist.cvo.TagReference;
 import org.pgist.packages.Package;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.util.WKT;
@@ -25,7 +26,17 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	private static final String pfSequenceName = "gis_proj_footprint_id";
 	
     
-	/*
+	/**
+	 * Deletes the provided project
+	 * 	
+	 * @param p		The project to delete
+	 * @throws Exception
+	 */
+    public void delete(Project p) throws Exception {
+        getHibernateTemplate().delete(p);
+    }//delete()	
+	
+    /*
 	 * this is to be handled by BaseDAOImpl 
 	 * @see org.pgist.projects.ProjectDAO#save(org.pgist.projects.Project)
 	 */
@@ -39,6 +50,24 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 		this.save(p);
 	}
 
+    /*
+	 * this is to be handled by BaseDAOImpl 
+	 * @see org.pgist.projects.ProjectDAO#save(org.pgist.projects.Project)
+	 */
+	public void save(ProjectAlternative a) throws Exception{
+		getHibernateTemplate().save(a);
+	}	
+	
+	/**
+	 * Deletes the project alternative
+	 * 	
+	 * @param p		The project alternative to delete
+	 * @throws Exception
+	 */
+    public void delete(ProjectAlternative a) throws Exception {
+        getHibernateTemplate().delete(a);
+    }//delete()	
+	
 	/**
 	 * Save a project, create a new footprint for it
 	 * @param p: a project object
@@ -86,8 +115,17 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	public void save(Package p) throws Exception{
 		getHibernateTemplate().saveOrUpdate(p);		
 	}
+
+	public ProjectAlternative getProjectAlternative(long pid){
+		return (ProjectAlternative)getHibernateTemplate().load(ProjectAlternative.class, pid);
+	}	
 	
-	public Project getProject(long pid){
+	public ProjectAlternative getProjectAlternative(Long pid) throws Exception {
+		return (ProjectAlternative)getHibernateTemplate().load(ProjectAlternative.class, pid);		
+	}
+	
+	
+	public Project getProject(long pid) throws Exception {
 		return (Project)getHibernateTemplate().load(Project.class, pid);
 	}
 	
