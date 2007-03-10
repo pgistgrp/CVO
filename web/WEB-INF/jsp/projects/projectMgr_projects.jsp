@@ -31,6 +31,7 @@
 			<li>[ <a href="javascript:prepareCreateProjectAlt(${project.id});">Add an Alternative</a> ]</li>
 		</ul>
 		<div id="newAlternativeForm${project.id}"></div>
+		<div id="editAlternativeForm${project.id}"></div>
 	</li>
 </c:forEach>
 

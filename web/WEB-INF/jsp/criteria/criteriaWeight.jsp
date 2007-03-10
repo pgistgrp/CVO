@@ -31,7 +31,6 @@
 			var cctId = "${cct.id}";			
 			var sliderArray = new Array();
 			var remainingWeight = 100;
-			var currentSliderValue=0;
 			var range=new Array();
 			for(a=0;a<101;a++){
 			range.push(a);
