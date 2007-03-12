@@ -12,14 +12,11 @@
 	Page: Projects Manager
 	Description: CRUD Events on All Projects
 	Author(s): 
-
-	     Front End: Jordan Isip, Adam Hindman, Isaac Yang
+	     Front End: Jordan Isip, Adam Hindman, Issac Yang
 	     Back End: Zhong Wang, Guirong Zhou
-
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] BareBones JavaScript (Jordan)
-		[ ] editProject and editProjectAlt (isaac)
 		[ ] test with backend contractor code (jordan)
 #### -->
 <html:html> 
@@ -112,6 +109,167 @@
 		Element.toggle('newAlternativeForm');
 	}	
 	
+	function prepareEditProject(id){
+		//alert("id: " + id); 
+		ProjectAgent.getProjectById({id:id}, {
+			callback:function(data){
+				if (data.successful){
+					//javascript object "project" returned
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("ProjectAgent.getProjectById( error:" + errorString + exception);
+			}
+		});
+	}
+	
+	function prepareEditProjectAlt(id){
+		//alert("id: " + id); 
+		ProjectAgent.getProjectAlternativeById({id:id}, {
+			callback:function(data){
+				if (data.successful){
+					//javascript object "alternative" returned
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("ProjectAgent.getProjectById( error:" + errorString + exception);
+			}
+		});
+	}
+	
+	function editProject(id){
+		var name = '';
+		var description = '';
+		var transmode = 1; //1 or 2
+		ProjectAgent.({id:id,name:name,description:description,type:type}, {
+			callback:function(data){
+				if (data.successful){
+					alert("successful!");
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("ProjectAgent.editProject( error:" + errorString + exception);
+			}
+		});
+	}
+	
+	function editProjectAlt(id){
+		var name = '';
+		var description = '';
+		var cost = 1100.00; 
+		var sponsor = '';
+		var links = '';
+		var statementFor = '';
+		var statementAgainst = '';
+
+		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst); 
+		ProjectAgent.editProjectAlternative({id:id,name:name,description:description,cost:cost, sponsor:sponsor, links:links, statementFor:statementFor, statementAgainst:statementAgainst}, {
+			callback:function(data){
+				if (data.successful){
+					
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("ProjectAgent.editProjectAlternative( error:" + errorString + exception);
+			}
+		});
+	}
+	
+	function deleteProject(id){
+		//alert("id: " + id); 
+		ProjectAgent.deleteProject({id:id}, {
+			callback:function(data){
+				if (data.successful){
+					alert("Project " + id + " deleted");
+					getProjects();
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("ProjectAgent.deleteProject( error:" + errorString + exception);
+			}
+		});
+	}
+	
+	function deleteProjectAlt(id){
+		//alert("id: " + id); 
+		ProjectAgent.deleteProjectAlternative({id:id}, {
+			callback:function(data){
+				if (data.successful){
+					alert("Project Alternative " + id + " deleted");
+					getProjects();
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("ProjectAgent.deleteProjectAlternative( error:" + errorString + exception);
+			}
+		});
+	}
+	
+	////////// START Mapping Functions ////////////
+	/* *************** Saves the coordinates of the project alternative *************** */
+	function saveFootprint(altId, shape){
+		ProjectAgent.saveFootprint({altId:altId, shape:shape}, {
+			callback:function(data){
+				if (data.successful){
+					alert("footprint saved")
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("ProjectAgent.saveFootprint( error:" + errorString + exception);
+			}
+		});
+	}
+	
+	/* *************** Get coordinates of a list of footprints *************** */
+	function getFootprints(fpids){
+		//alert("fpids: " + fpids); 
+		ProjectAgent.getFootprints({fpids:fpids}, {
+			callback:function(data){
+				if (data.successful){
+					alert("successful"); //coordinates - 3d array returned
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("ProjectAgent.getFootprint( error:" + errorString + exception);
+			}
+		});
+	}
+	
+	/* *************** Deletes a given footprint *************** */
+	function deleteFootprint(fpid){
+		//alert("fpid: " + fpid; 
+		ProjectAgent.deleteFootprint({fpid:fpid}, {
+			callback:function(data){
+				if (data.successful){
+					alert("Footprint with ID DELETED!!!") //test
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("ProjectAgent.deleteFootprint( error:" + errorString + exception);
+			}
+		});
+	}
+	
+	/* *************** ISSAC's CODE *************** */
+	/*
 	function prepareEditProject(id){
 		//alert("id: " + id); 
 		ProjectAgent.getProjectById({id:id}, {
@@ -244,91 +402,7 @@
 		});
 	}
 	
-	function deleteProject(id){
-		//alert("id: " + id); 
-		ProjectAgent.deleteProject({id:id}, {
-			callback:function(data){
-				if (data.successful){
-					alert("Project " + id + " deleted");
-					getProjects();
-				}else{
-					alert(data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){ 
-			alert("ProjectAgent.deleteProject( error:" + errorString + exception);
-			}
-		});
-	}
-	
-	function deleteProjectAlt(id){
-		//alert("id: " + id); 
-		ProjectAgent.deleteProjectAlternative({id:id}, {
-			callback:function(data){
-				if (data.successful){
-					alert("Project Alternative " + id + " deleted");
-					getProjects();
-				}else{
-					alert(data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){ 
-			alert("ProjectAgent.deleteProjectAlternative( error:" + errorString + exception);
-			}
-		});
-	}
-	
-	////////// START Mapping Functions ////////////
-	/* *************** Saves the coordinates of the project alternative *************** */
-	function saveFootprint(altId, shape){
-		ProjectAgent.saveFootprint({altId:altId, shape:shape}, {
-			callback:function(data){
-				if (data.successful){
-					alert("footprint saved")
-				}else{
-					alert(data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){ 
-			alert("ProjectAgent.saveFootprint( error:" + errorString + exception);
-			}
-		});
-	}
-	
-	/* *************** Get coordinates of a list of footprints *************** */
-	function getFootprints(fpids){
-		//alert("fpids: " + fpids); 
-		ProjectAgent.getFootprints({fpids:fpids}, {
-			callback:function(data){
-				if (data.successful){
-					alert("successful"); //coordinates - 3d array returned
-				}else{
-					alert(data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){ 
-			alert("ProjectAgent.getFootprint( error:" + errorString + exception);
-			}
-		});
-	}
-	
-	/* *************** Deletes a given footprint *************** */
-	function deleteFootprint(fpid){
-		//alert("fpid: " + fpid; 
-		ProjectAgent.deleteFootprint({fpid:fpid}, {
-			callback:function(data){
-				if (data.successful){
-					alert("Footprint with ID DELETED!!!") //test
-				}else{
-					alert(data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){ 
-			alert("ProjectAgent.deleteFootprint( error:" + errorString + exception);
-			}
-		});
-	}
-	
+	*/
 	////////// END Mapping Functions ////////////	
 </script>
 <style type="text/css">
@@ -359,12 +433,12 @@
 			</select>
 			<br />
 			<label><input type="checkbox" id="inclusive" /> The user can only select one option in this group.</label>
-			<p><input type="submit" value="submit"></p>
+			<p><input type="button" onClick="createProject();" value="submit"></p>
 		</form>
 	</div>
 	
 	<div id="newAlternativeForm" style="display: none;">
-		<h4>Add a New Project Alterqnative</h4>
+		<h4>Add a New Project Alternative</h4>
 		<form id="frmNewAlternative">
 			<label>Project Alternative Name:</label>
 			<input id="txtAltName" type="text" value="" size="25">
@@ -393,6 +467,7 @@
 
 			<p><input type="submit" value="submit"></p>
 		</form>
+	</div>
 	
 
 </body>
