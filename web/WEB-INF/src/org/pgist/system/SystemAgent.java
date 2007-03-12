@@ -450,5 +450,17 @@ public class SystemAgent {
         return map;
     }//setUnloading()
     
+	/*
+	 * =========================================
+	 * Ajax function
+	 * */
+	public Map logMapEvent(String eventinfo){
+		Map result = new HashMap();
+		result.put("successful", true);
+		
+		return result;
+	}
+
+    
 
 }//class SystemAgent
