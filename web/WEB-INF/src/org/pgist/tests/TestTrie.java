@@ -15,7 +15,7 @@ import org.pgist.util.TrieScanner;
  * @author kenny
  *
  */
-public class TestTrie extends TestCase {
+public class TestTrie extends PGISTTest {
     
     
     private Trie createTrie(String[] dict) {
