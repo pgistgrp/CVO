@@ -28,6 +28,12 @@
         <include method="getProject"/>
         <include method="getProjects"/>
         <include method="createProject"/>
+        <include method="editProject"/>
+        <include method="deleteProject"/>
+        <include method="createProjectAlt"/>
+        <include method="editProjectAlt"/>
+        <include method="deleteProjectAlt"/>
+        <include method="getProjectsForMgr"/>
         <include method="saveProject"/>
         <include method="saveAlternative"/>
         <include method="saveFootprint"/>
