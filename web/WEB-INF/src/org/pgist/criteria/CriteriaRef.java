@@ -1,5 +1,8 @@
 package org.pgist.criteria;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * A CriteriaRef refers to a Criteria object.
@@ -16,6 +19,10 @@ public class CriteriaRef {
     private CriteriaSuite suite;
     
     private Criteria criterion;
+    
+    private int grade;
+    
+    private Map<String, Integer> objGrades = new HashMap<String, Integer>();
     
     
     /**
@@ -60,6 +67,24 @@ public class CriteriaRef {
 
     public void setCriterion(Criteria criterion) {
         this.criterion = criterion;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.map table="pgist_crit_ref_obj_grade_map"
+     * @hibernate.collection-key column="critref_id"
+     * @hibernate.collection-index column="objective" type="string"
+     * @hibernate.collection-element type="integer" column="grade"
+     */
+    public Map<String, Integer> getObjGrades() {
+        return objGrades;
+    }
+
+
+    public void setObjGrades(Map<String, Integer> objGrades) {
+        this.objGrades = objGrades;
     }
     
     
