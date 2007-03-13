@@ -39,17 +39,28 @@
 			<c:forEach var="alternative" items="${project.alternatives}">
 				<li id="alt-${alternative.id}">${alternative.name}  
 					<small><a href="javascript: mapAlternative(${alternative.id});">map</a> | <a href="javascript: prepareProjectAlt(${alternative.id});">edit</a> | <a href="javascript:deleteProjectAlt(${alternative.id});">delete</a></small>
-					<div id="projectAltForm-${alternative.id}"><!-- form loaded by js --></div>
+					<div id="alternativeForm${alternative.id}" style="display:none;">
+						<form action="javascript:editProjectAlt(${project.id});" id="frmProjectAlt${alternative.id}">
+							<!--form inserted from js renderProjectAltForm();-->
+						</form>
+					</div>
+					<div id="alternativeMap${alternative.id}" style="display:none;">
+						<h3>GMAN, THE MAP GOES HERE!!!</h3>
+					</div>
 				</li>
 			</c:forEach>
-			<li>[ <a href="javascript:prepareProjectAlt();">Add an Alternative</a> ]</li>
+			
+			<!-- for creating project alt-->
+			<li>[ <a href="javascript:prepareProjectAlt(${project.id});">Add an Alternative</a> ]
+				<div id="alternativeForm${project.id}" style="display:none;">
+					<form action="javascript:createProjectAlt(${project.id});" id="frmProjectAlt${project.id}">
+						<!--form inserted from js renderProjectAltForm();-->
+					</form>
+				</div>
+			</li>
+			<!-- endfor editing project -->
+			
 		</ul>
-		<div id="alternativeForm${project.id}" style="display: none">
-				<h4>New ${project.name} Alternative</h4>
-				<form id="frmAlternative${project.id}">
-					<!-- form loaded via js -->
-				</form>
-		</div>
 		<div id="editAlternativeForm${project.id}" style="display: none"></div>
 	</li>
 </c:forEach>

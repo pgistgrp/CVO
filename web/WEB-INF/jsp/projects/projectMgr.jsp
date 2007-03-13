@@ -21,6 +21,7 @@
 	Issues:
 		[ ] Fix add/edit alts (Jordan)
 		[ ] EditProject inclusive not saving? (Matt)
+		[ ] getProjectAltByID()
 #### -->
 <html:html> 
 <head>
@@ -79,16 +80,16 @@
 	}
 	
 	function createProjectAlt(id){
-		var name = $F('txtAltName');
-		var description = $F('txtAltDesc');
-		var cost = $F('txtAltCost'); 
-		var county = $F('txtCounty');
-		var sponsor = $F('txtAltAgency');
-		var links = $F('txtAltLinks');
-		var statementFor = $F('txtAltFor');
-		var statementAgainst = $F('txtAltAgainst');
+		var name = $F('txtAltName'+ id);
+		var description = $F('txtAltDesc' + id);
+		var cost = $F('txtAltCost' + id); 
+		var county = $F('txtCounty'+ id);
+		var sponsor = $F('txtAltAgency'+ id);
+		var links = $F('txtAltLinks' + id);
+		var statementFor = $F('txtAltFor'+ id);
+		var statementAgainst = $F('txtAltAgainst'+ id);
 
-		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst); 
+		alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst); 
 		ProjectAgent.createProjectAlt({id:id, name:name,description:description,cost:cost, sponsor:sponsor, links:links, statementFor:statementFor, statementAgainst:statementAgainst}, {
 			callback:function(data, id){
 				if (data.successful){
@@ -154,55 +155,66 @@
 		Element.toggle('projectForm'+ formId);
 	}
 	
+	function getProjectAltById(id){
+		ProjectAgent.getProjectAltById({id:id}, {
+			callback:function(data){
+				//if (data.successful){
+					//alert(data.project);
+					renderProjectAltForm(data.alternative)
+				//}else{
+				//	alert(data.reason);
+				//}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("ProjectAgent.getProjectById( error:" + errorString + exception);
+			}
+		});
+	}
+	
+	
 	function prepareProjectAlt(id){
-		(id) ? getProjectAltById(id) : renderProjectAltForm();
-		formId = (id) ? id : ""
-		Element.toggle('projectAltForm'+ formId);
+		//(id == "altId") ? getProjectAltById(id) : renderProjectAltForm(id);
+		renderProjectAltForm(id);
+		Element.toggle('alternativeForm'+ id);
 	}
 	
 	
 	function renderProjectAltForm(alt){
-		//using ternery operators so it won't complain about the values when creating a new project :)
-		alert(alt);
+		//using ternery operators so it won't complain about the values when creating a new alt :)
+		altId = (alt.id) ? alt.id : alt;
+		name = (alt.name) ? alt.name : "";
+		agency = (alt.agency) ? alt.agency : "";
+		cost = (alt.cost) ? alt.cost : "";
+		county = (alt.county) ? alt.county : "";
+		shortDesc = (alt.shortDesc) ? alt.shortDesc : "";
+		links = (alt.links) ? alt.links : "";
+		statementFor = (alt.statementFor) ? alt.statementFor : "";
+		statementAgainst = (alt.statementAgainst) ? alt.statementAgainst : "";
 		
 		f = '<label>Project Alternative Name:</label>\
-			<input id="txtAltName" type="text" value="" size="25"><br />\
+			<input id="txtAltName'+ altId +'" type="text" value="'+ name +'" size="25"><br />\
 			<label>Agency:</label>\
-			<input id="txtAltAgency" type="text" value="" size="25"><br />\
+			<input id="txtAltAgency'+ altId +'" type="text" value="'+ agency +'" size="25"><br />\
 			<label>Cost:</label>\
-			<input id="txtAltCost" type="text" value="" size="25"><br />\
+			<input id="txtAltCost'+ altId +'" type="text" value="'+ cost +'" size="25"><br />\
 			<label>County:</label>\
-			<input id="txtCounty" type="text" value="" size="25"><br />\
+			<input id="txtCounty'+ altId +'" type="text" value="'+ county +'" size="25"><br />\
 			<label>Short Description:</label>\
-			<input id="txtAltDesc" type="text" value="" size="25"><br />\
+			<input id="txtAltDesc'+ altId +'" type="text" value="'+ shortDesc +'" size="25"><br />\
 			<label>Links:</label>\
-			<input id="txtAltLinks" type="text" value="" size="25"><br />\
+			<input id="txtAltLinks'+ altId +'" type="text" value="'+ links +'" size="25"><br />\
 			<label>Statement For:</label>\
-			<input id="txtAltFor" type="text" value="" size="25"><br />\
+			<input id="txtAltFor'+ altId +'" type="text" value="'+ statementFor +'" size="25"><br />\
 			<label>Statement Against:</label>\
-			<input id="txtAltAgainst" type="text" value="" size="25"><br />\
-			<p><input type="button" value="Submit"></p>';
+			<input id="txtAltAgainst'+ altId +'" type="text" value="'+ statementAgainst +'" size="25"><br />\
+			<p><input type="submit" value="Submit"></p>';
 		
-			$("frmProject"+id).innerHTML = f;
+
+		$("frmProjectAlt"+altId).innerHTML = f;
+
 	}
 
 	
-	
-	function prepareEditProjectAlt(id){
-		//alert("id: " + id); 
-		ProjectAgent.getProjectAlternativeById({id:id}, {
-			callback:function(data){
-				if (data.successful){
-					//javascript object "alternative" returned
-				}else{
-					alert(data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){ 
-			alert("ProjectAgent.EditProjectAlt( error:" + errorString + exception);
-			}
-		});
-	}
 	
 	function editProject(id){
 		var name = $F('txtProjName'+ id);
@@ -251,38 +263,47 @@
 	}
 	
 	function deleteProject(id){
-		ProjectAgent.deleteProject({id:id}, {
-			callback:function(data){
-				if (data.successful){
-					new Effect.Puff("project-" + id, {afterFinish:function(){getProjects();}});
-				}else{
-					alert(data.reason);
+		var destroy = confirm ("Are you sure you want to delete this project? Note: there is no undo.")
+		if(destroy){
+			ProjectAgent.deleteProject({id:id}, {
+				callback:function(data){
+					if (data.successful){
+						new Effect.Puff("project-" + id, {afterFinish:function(){getProjects();}});
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("ProjectAgent.deleteProject( error:" + errorString + exception);
 				}
-			},
-			errorHandler:function(errorString, exception){ 
-			alert("ProjectAgent.deleteProject( error:" + errorString + exception);
-			}
-		});
+			});
+		}
 	}
 	
 	function deleteProjectAlt(id){
-		//alert("id: " + id); 
-		ProjectAgent.deleteProjectAlt({id:id}, {
-			callback:function(data){
-				if (data.successful){
-					alert("Project Alternative " + id + " deleted");
-					getProjects();
-				}else{
-					alert(data.reason);
+		var destroy = confirm ("Are you sure you want to delete this project alternative? Note: there is no undo.")
+		if(destroy){
+			ProjectAgent.deleteProjectAlt({id:id}, {
+				callback:function(data){
+					if (data.successful){
+						new Effect.Puff("alt-" + id, {afterFinish:function(){getProjects();}});
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("ProjectAgent.deleteProjectAlternative( error:" + errorString + exception);
 				}
-			},
-			errorHandler:function(errorString, exception){ 
-			alert("ProjectAgent.deleteProjectAlternative( error:" + errorString + exception);
-			}
-		});
+			});
+		}
 	}
 	
 	////////// START Mapping Functions ////////////
+	
+	function mapAlternative(id){
+		Element.toggle("alternativeMap"+id);
+	}
+	
 	/* *************** Saves the coordinates of the project alternative *************** */
 	function saveFootprint(altId, shape){
 		ProjectAgent.saveFootprint({altId:altId, shape:shape}, {
