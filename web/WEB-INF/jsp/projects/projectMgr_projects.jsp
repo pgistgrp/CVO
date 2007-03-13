@@ -20,19 +20,69 @@
 
 		
 #### -->
-
+<c:if test="${fn:length(projects) == 0}">
+	<p>No projects have been created yet.</p>
+</c:if>
 <c:forEach var="project" items="${projects}">
-	<li>${project.name} [ <a href="javascript:Effect.toggle('editProject${project.id}','blind');">edit</a> ] [ <a href="javascript:deleteProject(${project.id}">delete</a> ]
-		<div id="editProject${project.id}"></div>
+	<li id="project-${project.id}">${project.name} - ${project.description} (${project.transMode}) (${project.inclusive})
+		<small> <a href="javascript:prepareProject(${project.id});">edit</a> | <a href="javascript:deleteProject(${project.id});">delete</a></small>
+		<!-- for editing project -->
+		<div id="projectForm${project.id}" style="display:none">
+			<h4>Editing ${project.name}</h4>
+			<form id="frmProject${project.id}">
+				<!--form inserted from js -->
+			</form>	
+		</div>
+		<!-- end for editing project -->
 		<ul>
 			<c:forEach var="alternative" items="${project.alternatives}">
-				<li>${alternative.name} [ <a href="javascript: editAlternative(${alternative.id});">edit</a> ] [ <a href="javascript:deleteProjectAlt(${alternative.id});">delete</a> ]</li>
+				<li>${alternative.name}  
+					<small><a href="javascript: mapAlternative(${alternative.id});">map</a> | <a href="javascript: editAlternative(${alternative.id});">edit</a> | <a href="javascript:deleteProjectAlt(${alternative.id});">delete</a></small>
+				</li>
 			</c:forEach>
-			<li>[ <a href="javascript:prepareCreateProjectAlt(${project.id});">Add an Alternative</a> ]</li>
+			<li>[ <a href="javascript:Element.toggle('newAlternativeForm${project.id}');">Add an Alternative</a> ]</li>
 		</ul>
-		<div id="newAlternativeForm${project.id}"></div>
-		<div id="editAlternativeForm${project.id}"></div>
+		<div id="newAlternativeForm${project.id}" style="display: none">
+				<h4>New ${project.name} Alternative</h4>
+				<form id="frmNewAlternative${project.id}">
+					<label>Project Alternative Name:</label>
+					<input id="txtAltName" type="text" value="" size="25"><br />
+					
+					<label>Agency:</label>
+					<input id="txtAltAgency" type="text" value="" size="25"><br />
+					
+					<label>Cost:</label>
+					<input id="txtAltCost" type="text" value="" size="25"><br />
+					
+					<label>County:</label>
+					<input id="txtCounty" type="text" value="" size="25"><br />
+					
+					<label>Short Description:</label>
+					<input id="txtAltDesc" type="text" value="" size="25"><br />
+					
+					<label>Links:</label> <!--this will be converted to a rich text box editor -->
+					<input id="txtAltLinks" type="text" value="" size="25">
+					<br />
+					<label>Statement For:</label>
+					<input id="txtAltFor" type="text" value="" size="25">
+					<br />
+					<label>Statement Against:</label>
+					<input id="txtAltAgainst" type="text" value="" size="25">
+					<br />
+					<p><input type="button" onclick="createProjectAlt(${project.id});" value="Create New Alternative"></p>
+				</form>
+		</div>
+		<div id="editAlternativeForm${project.id}" style="display: none"></div>
 	</li>
 </c:forEach>
 
-<li>[ <a href="javascript:Element.toggle('newProjectForm');">Add a Project</a> ]</li>
+<li>[ <a href="javascript:prepareProject();">Add a Project</a> ]
+	<div id="projectForm" style="display: none;">
+		<h4>Add a New Project</h4>
+		<form id="frmProject">
+			<!-- form loaded via js-->
+		</form>
+	</div>
+</li>
+
+

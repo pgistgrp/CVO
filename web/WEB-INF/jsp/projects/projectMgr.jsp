@@ -41,10 +41,10 @@
 // Global Variables
 
 	function getProjects(){
-		ProjectAgent.getProjectsforMgr({}, {
+		ProjectAgent.getProjectsForMgr({}, {
 			callback:function(data){
 				if (data.successful){
-					$('projectsList').innerHTML = data.source.html; //returns projectMgr_projects.jsp
+					$('projectsList').innerHTML = data.html; //returns projectMgr_projects.jsp
 				}else{
 					alert(data.reason);
 				}
@@ -58,13 +58,13 @@
 	function createProject(){
 		var name = $F('txtProjName');
 		var description = $F('txtProjDesc');
-		var transmode = $F('selProjType'); //1 or 2
-		ProjectAgent.createProject({name:name,description:description,transmode:transmode}, {
+		var transMode = $F('selProjType'); //1 or 2
+		var inclusive = $('inclusive').checked; // "true" or "false"
+		//alert("name: " + name + " description: " + description + " transMode: " + transMode + " inclusive: " + inclusive)
+		ProjectAgent.createProject({name:name,description:description,transMode:transMode, inclusive:inclusive}, {
 			callback:function(data){
 				if (data.successful){
-					alert("successful!");
 					getProjects();
-					$('frmNewProject').reset();
 				}else{
 					alert(data.reason);
 				}
@@ -75,7 +75,7 @@
 		});
 	}
 	
-	function createProjectAlt(){
+	function createProjectAlt(id){
 		var name = $F('txtAltName');
 		var description = $F('txtAltDesc');
 		var cost = $F('txtAltCost'); 
@@ -84,34 +84,53 @@
 		var links = $F('txtAltLinks');
 		var statementFor = $F('txtAltFor');
 		var statementAgainst = $F('txtAltAgainst');
-		var inclusive = $('inclusive').checked; // "true" or "false"
 
-		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst + " inclusive: " + inclusive); 
-		ProjectAgent.createProjectAlternative({name:name,description:description,cost:cost, sponsor:sponsor, links:links, statementFor:statementFor, statementAgainst:statementAgainst, inclusive: inclusive}, {
-			callback:function(data){
+		alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst); 
+		ProjectAgent.createProjectAlt({id:id, name:name,description:description,cost:cost, sponsor:sponsor, links:links, statementFor:statementFor, statementAgainst:statementAgainst}, {
+			callback:function(data, id){
 				if (data.successful){
 					getProjects();
-					$('frmNewAlternative').reset();
 				}else{
 					alert(data.reason);
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-			alert("ProjectAgent.createProjectAlternative( error:" + errorString + exception);
+			alert("ProjectAgent.createProjectAlt( error:" + errorString + exception);
 			}
 		});
 	}
 		
-	/* *************** Generate a form to add a new project alternative (inline) *************** */
-	function prepareCreateProjectAlt(projId){
-		var formDivId = 'newAlternativeForm' + projId;
-		$(formDivId).innerHTML = $('newAlternativeForm').innerHTML; //insert form
-		Element.toggle('newAlternativeForm');
-	}	
+	/* *************** Generate a form to edit an existing project alternative (inline) *************** */
 	
-	function prepareEditProject(id){
-		//alert("id: " + id); 
-		ProjectAgent.getProjectById({id:id}, {
+	function renderProjectForm(id){
+		//project = getProjectById(id);
+		formId = (id) ? id : ""
+		f = "";
+		f += '<label>Project Name:</label>';
+		f += '<input id="txtProjName' + formId +'" type="text" value="" size="25"><br />';
+		f += '<label>Project Description:</label><br />';
+		f += '<input id="txtProjDesc' + formId +'" type="text" value="" size="25"><br />';
+		f += '<label>Type:</label>';
+		f += '<select id="selProjType' + formId +'">';
+		f += '	<option value="1">Road</option>';
+		f += '	<option value="2">Transit</option>';
+		f += '</select><br />';
+		f += '<label><input type="checkbox" id="inclusive' + formId +'" /> The user can only select one option in this group.</label>';
+		
+		if(id){
+			f += '<p><input type="button" onClick="editProject('+formId+');" value="Edit Project"></p>';
+			$("frmProject"+id).innerHTML = f;
+		}else{
+			f += '<p><input type="button" onClick="createProject();" value="Create Project"></p>';
+			$("frmProject").innerHTML = f;
+		}	
+	}
+	
+	function prepareProject(id){
+		renderProjectForm(id)
+		formId = (id) ? id : ""
+		Element.toggle('projectForm'+ formId);
+		/*ProjectAgent.getProjectById({id:id}, {
 			callback:function(data){
 				if (data.successful){
 					//javascript object "project" returned
@@ -122,7 +141,8 @@
 			errorHandler:function(errorString, exception){ 
 			alert("ProjectAgent.getProjectById( error:" + errorString + exception);
 			}
-		});
+		});*/
+		
 	}
 	
 	function prepareEditProjectAlt(id){
@@ -142,13 +162,17 @@
 	}
 	
 	function editProject(id){
-		var name = '';
-		var description = '';
-		var transmode = 1; //1 or 2
-		ProjectAgent.({id:id,name:name,description:description,type:type}, {
+		var name = $F('txtProjName'+ id);
+		var description = $F('txtProjDesc'+ id);
+		var transMode = $F('selProjType'+ id); //1 or 2
+		var inclusive = $('inclusive'+ id).checked;
+		//alert("ID: "+id+" name: " + name + " description: " + description + " transMode: " + transMode + " inclusive: " + inclusive)
+		ProjectAgent.editProject({id:id,name:name,description:description,transMode:transMode,inclusive:inclusive}, {
 			callback:function(data){
 				if (data.successful){
-					alert("successful!");
+					getProjects();
+					setTimeout(function() {new Effect.Highlight('project-'+ id, {duration:5});}, 100);
+					
 				}else{
 					alert(data.reason);
 				}
@@ -202,7 +226,7 @@
 	
 	function deleteProjectAlt(id){
 		//alert("id: " + id); 
-		ProjectAgent.deleteProjectAlternative({id:id}, {
+		ProjectAgent.deleteProjectAlt({id:id}, {
 			callback:function(data){
 				if (data.successful){
 					alert("Project Alternative " + id + " deleted");
@@ -416,59 +440,10 @@
 	<ul id="projectsList">
 		<!--load projects here -->
 	</ul>
-	
-	<div id="newProjectForm" style="display: none;">
-		<h4>Add a New Project</h4>
-		<form id="frmNewProject">
-			<label>Project Name:</label>
-			<input id="txtProjName" type="text" value="" size="25">
-			<br />
-			<label>Project Description:</label>
-			<input id="txtProjDesc" type="text" value="" size="25">
-			<br />
-			<label>Type:</label>
-			<select id="selProjType">
-				<option value="1">Road</option>
-				<option value="2">Transit</option>
-			</select>
-			<br />
-			<label><input type="checkbox" id="inclusive" /> The user can only select one option in this group.</label>
-			<p><input type="button" onClick="createProject();" value="submit"></p>
-		</form>
-	</div>
-	
-	<div id="newAlternativeForm" style="display: none;">
-		<h4>Add a New Project Alternative</h4>
-		<form id="frmNewAlternative">
-			<label>Project Alternative Name:</label>
-			<input id="txtAltName" type="text" value="" size="25">
-			<br />
-			<label>Agency:</label>
-			<input id="txtAltAgency" type="text" value="" size="25">
-			<br />
-			<label>Cost:</label>
-			<input id="txtAltCost" type="text" value="" size="25">
-			<br />
-			<label>County:</label>
-			<input id="txtCounty" type="text" value="" size="25">
-			<br />
-			<label>Short Description:</label>
-			<input id="txtAltDesc" type="text" value="" size="25">
-			<br />
-			<label>Links:</label> <!--this will be converted to a rich text box editor -->
-			<input id="txtAltLinks" type="text" value="" size="25">
-			<br />
-			<label>Statement For:</label>
-			<input id="txtAltFor" type="text" value="" size="25">
-			<br />
-			<label>Statement Against:</label>
-			<input id="txtAltAgainst" type="text" value="" size="25">
-			<br />
-
-			<p><input type="submit" value="submit"></p>
-		</form>
-	</div>
-	
+		
+	<script type="text/javascript" charset="utf-8">
+		getProjects();
+	</script>
 
 </body>
 </html:html>
