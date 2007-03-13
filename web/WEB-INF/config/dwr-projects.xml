@@ -26,7 +26,7 @@
     <create creator="spring" javascript="ProjectAgent">
         <param name="beanName" value="projectAgent"/>
         <include method="setProjectDefine"/>
-        <include method="getProjectAlternativeById"/>
+        <include method="getProjectAltById"/>
         <include method="getProjectById"/>
         <include method="getProject"/>
         <include method="getProjects"/>
