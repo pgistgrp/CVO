@@ -3,7 +3,8 @@ package org.pgist.tests;
 import java.util.HashSet;
 import java.util.Set;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 import org.pgist.util.ScanResult;
 import org.pgist.util.Trie;
@@ -15,7 +16,7 @@ import org.pgist.util.TrieScanner;
  * @author kenny
  *
  */
-public class TestTrie extends PGISTTest {
+public class TestTrie {
     
     
     private Trie createTrie(String[] dict) {
@@ -32,6 +33,7 @@ public class TestTrie extends PGISTTest {
     }//createTrie()
     
     
+    @Test
     public void testFind() {
         String[] dict = {
             "right",
@@ -60,6 +62,7 @@ public class TestTrie extends PGISTTest {
     /**
      * Phrase in the middle, exact match.
      */
+    @Test
     public void testHighlight1() {
         String[] dict = {
                 "right of way",
@@ -89,6 +92,7 @@ public class TestTrie extends PGISTTest {
     /**
      * Phrase in the middle, multi space
      */
+    @Test
     public void testHighlight2() {
         String[] dict = {
                 "right of way",
@@ -118,6 +122,7 @@ public class TestTrie extends PGISTTest {
     /**
      * Phrase in the end, multi space
      */
+    @Test
     public void testHighlight3() {
         String[] dict = {
                 "right of way",
@@ -147,6 +152,7 @@ public class TestTrie extends PGISTTest {
     /**
      * Phrase in the beginning, multi space
      */
+    @Test
     public void testHighlight4() {
         String[] dict = {
                 "right of way",
@@ -176,6 +182,7 @@ public class TestTrie extends PGISTTest {
     /**
      * Phrase in the middle, multi space and tab
      */
+    @Test
     public void testHighlight5() {
         String[] dict = {
                 "right of way",
@@ -205,6 +212,7 @@ public class TestTrie extends PGISTTest {
     /**
      * Phrase contains "'" and multi space
      */
+    @Test
     public void testHighlight6() {
         String[] dict = {
                 "Newton's First Law",
@@ -234,6 +242,7 @@ public class TestTrie extends PGISTTest {
     /**
      * Phrase contains "'" and multi space and tab
      */
+    @Test
     public void testHighlight7() {
         String[] dict = {
                 "Newton's First Law",
@@ -263,6 +272,7 @@ public class TestTrie extends PGISTTest {
     /**
      * Phrase contains digits
      */
+    @Test
     public void testHighlight8() {
         String[] dict = {
                 "I520",
@@ -292,6 +302,7 @@ public class TestTrie extends PGISTTest {
     /**
      * Phrase starts with digits
      */
+    @Test
     public void testHighlight9() {
         String[] dict = {
                 "520 Road",
@@ -321,6 +332,7 @@ public class TestTrie extends PGISTTest {
     /**
      * Phrase ends with digits
      */
+    @Test
     public void testHighlight10() {
         String[] dict = {
                 "Road 520",
@@ -350,6 +362,7 @@ public class TestTrie extends PGISTTest {
     /**
      * Phrase starts with digits, paragraph starts with phrase
      */
+    @Test
     public void testHighlight11() {
         String[] dict = {
                 "520 Road",
@@ -379,6 +392,7 @@ public class TestTrie extends PGISTTest {
     /**
      * Phrase ends with digits, paragraph ends with phrase
      */
+    @Test
     public void testHighlight12() {
         String[] dict = {
                 "Road 520",
@@ -408,6 +422,7 @@ public class TestTrie extends PGISTTest {
     /**
      * 
      */
+    @Test
     public void testSuggest1() {
         String[] dict = {
                 "right of way",
@@ -451,6 +466,7 @@ public class TestTrie extends PGISTTest {
     }//testSuggest1()
     
     
+    @Test
     public void testRemove1() {
         String[] dict = {
                 "abcda",
