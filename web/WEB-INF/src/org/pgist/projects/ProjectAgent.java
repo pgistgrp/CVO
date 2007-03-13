@@ -56,6 +56,7 @@ public class ProjectAgent {
             Long id = new Long((String) params.get("id"));
             Project project = projectService.getProjectById(id);
             map.put("project", project);
+            map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
@@ -88,6 +89,7 @@ public class ProjectAgent {
             Long id = new Long((String) params.get("id"));
             ProjectAlternative alternative = projectService.getProjectAlternativeById(id);
             map.put("alternative", alternative);
+            map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
@@ -400,7 +402,7 @@ public class ProjectAgent {
      *         <ul>
      *           <li>suiteId - int, id for a ProjectSuite object</li>
      *           <li>altId - int, id for a ProjectAlternative object</li>
-     *           <li>op - string, "add" | "remove"</li>
+     *           <li>operation - string, "add" | "remove"</li>
      *         </ul>
      * @return a Map contains:
      *         <ul>

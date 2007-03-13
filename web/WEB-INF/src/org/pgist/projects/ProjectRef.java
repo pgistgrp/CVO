@@ -82,6 +82,35 @@ public class ProjectRef {
     public void setAltRefs(Set<ProjectAltRef> altRefs) {
         this.altRefs = altRefs;
     }
+
+    /**
+     * Removes the project alternative reference from this project reference
+     * 
+     * @param altRef	The reference to remove
+     */
+	public void removeAltRef(ProjectAltRef altRef) {
+		//NOTE We do this manually because hibernate requires a specialized equals so to make sure
+		//this is accessed by ID alone we first search for the altRef with this id, then remove that
+		//alt ref
+		ProjectAltRef foundRef = null;
+		for(ProjectAltRef tempAltRef : getAltRefs()) {
+			if(tempAltRef.getId().equals(altRef.getId())) {
+				foundRef = tempAltRef;
+			}
+		}
+		if(foundRef != null) {
+			this.getAltRefs().remove(foundRef);
+		}
+	}
+	
+	/**
+	 * Returns the number of alternative reference in this project referece
+	 * 
+	 * @return	The number of alternative references in this project reference
+	 */
+	public int getNumAltRefs() {
+		return this.altRefs.size();
+	}
     
     
 }//class ProjectRef

@@ -124,6 +124,29 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 		return (ProjectAlternative)getHibernateTemplate().load(ProjectAlternative.class, pid);		
 	}
 	
+	public ProjectAltRef getProjectAlternativeReferece(Long altId) {
+		return (ProjectAltRef)getHibernateTemplate().load(ProjectAltRef.class, altId);		
+	}
+
+	public void save(ProjectAltRef altRef) throws Exception{
+		getHibernateTemplate().saveOrUpdate(altRef);		
+	}
+	
+    public void delete(ProjectAltRef a) throws Exception {
+        getHibernateTemplate().delete(a);
+    }//delete()		
+	
+	public void save(ProjectRef projectRef) throws Exception{
+		getHibernateTemplate().saveOrUpdate(projectRef);		
+	}	
+
+    public void delete(ProjectRef a) throws Exception {
+        getHibernateTemplate().delete(a);
+    }//delete()	
+    
+	public void save(ProjectSuite suite) throws Exception{
+		getHibernateTemplate().saveOrUpdate(suite);		
+	}
 	
 	public Project getProject(long pid) throws Exception {
 		return (Project)getHibernateTemplate().load(Project.class, pid);
@@ -215,6 +238,15 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
     public Collection getProjects() throws Exception {
         return getHibernateTemplate().find(hql_getProjects_2);
     }//getProjects()
-	
+
+    
+    
+    // ************* Project Suite ******************************** 
+    
+	public ProjectSuite getProjectSuite(Long suiteID) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
     
 }//class ProjectDAOImpl

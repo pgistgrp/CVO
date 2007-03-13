@@ -3,6 +3,11 @@
 
 <beans>
 
+    <bean id="criteriaDAO" class="org.pgist.criteria.CriteriaDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
 
     <bean id="projectDAO" class="org.pgist.projects.ProjectDAOImpl">
         <property name="sessionFactory">
@@ -15,6 +20,7 @@
         <property name="target">
             <bean class="org.pgist.projects.ProjectServiceImpl">
                 <property name="projectDAO" ref="projectDAO"/>
+                <property name="criteriaDAO" ref="criteriaDAO"/>                
             </bean>
         </property>
     </bean>

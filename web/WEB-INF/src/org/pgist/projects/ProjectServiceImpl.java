@@ -3,6 +3,9 @@ package org.pgist.projects;
 import java.util.Collection;
 import java.util.Map;
 
+import org.pgist.criteria.Criteria;
+import org.pgist.criteria.CriteriaDAO;
+
 
 /**
  * @author  Guirong
@@ -11,8 +14,18 @@ public class ProjectServiceImpl implements ProjectService{
     
     
 	private ProjectDAO projectDAO = null;
+	private CriteriaDAO criteriaDAO = null;
     
     
+	
+
+
+
+	public void setCriteriaDAO(CriteriaDAO criteriaDAO) {
+		this.criteriaDAO = criteriaDAO;
+	}
+
+
 	/**
      * @param projectDAO  the projectDAO to set
      * @uml.property  name="projectDAO"
@@ -147,17 +160,18 @@ public class ProjectServiceImpl implements ProjectService{
     /**
      * Set grading to a specific ProjectAlternative and Criteria Objective of a specific User
      * 
-     * @param altId
-     * @param critId
-     * @param objId
-     * @param value
+     * @param altId - int, id of a ProjectAlt object</li>
+     * @param critId - int, id of a Criteria object</li>
+     * @param objId - int, id of a Objective object</li>
+     * @param value - int, grading value, [-3, 3]</li>
      * @throws Exception
      */
     public void setGrading(Long altId, Long critId, Long objId, int value) throws Exception {
-        /**
-         * TODO:
-         *   
-         */
+    	//TODO task 3
+    	ProjectAltRef altRef = projectDAO.getProjectAlternativeReferece(altId);
+    	
+    	Criteria criteria = criteriaDAO.getCriterionById(critId);
+    	
     }//setGrading()
 
 
@@ -205,25 +219,90 @@ public class ProjectServiceImpl implements ProjectService{
     
 
    /**
-     * TODO: relate the given ProjectAlternative object to ProjectSuite object
+     * Relate the given ProjectAlternative object to ProjectSuite object
      */
     public void relateProjectAlt(Long suiteId, Long altId) throws Exception {
+    	ProjectSuite suite = projectDAO.getProjectSuite(suiteId);
+    	    	
+    	//Check in the suite to see if if there is a Project the alternative is already related
+    	if(!suite.containsAlts(altId)) {
+    		
+        	//If not then, load the alternative
+        	ProjectAlternative alternative = projectDAO.getProjectAlternative(altId);
+    		
+        	//Relate it back to the Alt Ref 
+        	ProjectAltRef altRef = new ProjectAltRef();
+        	altRef.setAlternative(alternative);
+        	projectDAO.save(altRef);
+    		
+           	//Pull the project ID from the alternative
+        	Project project = alternative.getProject();
+        	
+        	//Get the project reference
+        	ProjectRef projectReference = suite.getProjectReferece(project);
+        	
+        	//If the reference doesn't exist then create it and add the project
+        	if(projectReference == null) {
+        		projectReference = new ProjectRef();
+        		projectReference.setProject(project);
+        		
+            	//Save the project reference
+            	projectDAO.save(projectReference);
+            	
+            	//Add it to the suite
+            	suite.getReferences().add(projectReference);
+            	
+            	//Save the suite (thus connecting the suite and project ref together
+            	projectDAO.save(suite);       		
+        	}
+        	
+        	//Now put the altRef into the project ref
+        	projectReference.getAltRefs().add(altRef);
+        	
+        	//Save the project reference
+        	projectDAO.save(projectReference);
+        	    		
+    	}    	
     }//relateProjectAlt()
 
 
     /**
-     * TODO: derelate the given ProjectAlternative object to ProjectSuite object
+     * Derelates the given ProjectAlternative object to ProjectSuite object
+     * 
+     * @param	suiteId	The id of the suite to remove the reference from
+     * @param	altId	The alternative ID that tells of the project alternative to remove
      */
     public void derelateProjectAlt(Long suiteId, Long altId) throws Exception {
+    	//Get a reference to the suite
+    	ProjectSuite suite = projectDAO.getProjectSuite(suiteId);
+    	ProjectAltRef altRef = projectDAO.getProjectAlternativeReferece(altId);
+    	
+    	//Get the project reference that has this alternative reference in it
+    	ProjectRef projectRef = suite.getProjectReferece(altRef);    	
+    	
+    	if(projectRef != null) {
+    		//Remove the reference to the alt ref
+    		projectRef.removeAltRef(altRef);
+    		
+        	//Delete the project alterative reference provided
+    		projectDAO.delete(altRef);
+        	
+        	//If that was the last alternative in that project reference then delete the project reference
+    		if(projectRef.getNumAltRefs() <= 0) {
+    			projectDAO.delete(projectRef);
+    		}
+    	}    	
     }//derelateProjectAlt()
 
 
     /**
-     * TODO: get the ProjectAltRef object by id
+     * Returns the ProjectAltRef object by id
+     * 
+     * @param	altrefId	The alternative reference ID interested in
+     * @return	The project alternative reference
      */
     public ProjectAltRef getProjectAltRefById(Long altrefId) throws Exception {
-        return null;
-    }//getProjectAltRefById()
-    
+    	return projectDAO.getProjectAlternativeReferece(altrefId);
+    }//getProjectAltRefById()    
     
 }//class ProjectServiceImpl
