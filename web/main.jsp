@@ -97,8 +97,8 @@
 			<li>Setup Expiriment</li>
 				<ul>
 					<li><html:link page="#">Workflow Management Tool</html:link></li>
-					<li><html:link page="/projectMgr.do">Projects Management Tool</html:link></li>
-					<li><html:link page="/fundingMgr.do">Funding Source Management Tool</html:link></li
+					<li><html:link page="/projectManage.do">Projects Management Tool</html:link></li>
+					<li><html:link page="/fundingManage.do">Funding Source Management Tool</html:link></li
 					<li><html:link page="/feedback.do">Reviewing Feedbacks</html:link></li>
 					<li><html:link page="/tagging.do">Tags/StopWords Management Tool</html:link></li>
 					<li><html:link page="#">User Management</html:link></li>					

@@ -12,12 +12,15 @@
 	Page: Projects Manager
 	Description: CRUD Events on All Projects
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Issac Yang
-	     Back End: Zhong Wang, Guirong Zhou
+	     Front End: Jordan Isip, Adam Hindman
+	     Back End: Zhong Wang, Matt Paulin, Guirong Zhou,
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] BareBones JavaScript (Jordan)
-		[ ] test with backend contractor code (jordan)
+		[x] test with backend contractor code (jordan)
+	Issues:
+		[ ] Fix add/edit alts (Jordan)
+		[ ] EditProject inclusive not saving? (Matt)
 #### -->
 <html:html> 
 <head>
@@ -39,11 +42,10 @@
 
 <script>
 // Global Variables
-
 	function getProjects(){
 		ProjectAgent.getProjectsForMgr({}, {
 			callback:function(data){
-				if (data.successful){
+				if(data.successful){
 					$('projectsList').innerHTML = data.html; //returns projectMgr_projects.jsp
 				}else{
 					alert(data.reason);
@@ -65,6 +67,7 @@
 			callback:function(data){
 				if (data.successful){
 					getProjects();
+					setTimeout(function() {new Effect.Highlight('project-'+ data.id, {duration:5});}, 100);
 				}else{
 					alert(data.reason);
 				}
@@ -85,7 +88,7 @@
 		var statementFor = $F('txtAltFor');
 		var statementAgainst = $F('txtAltAgainst');
 
-		alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst); 
+		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst); 
 		ProjectAgent.createProjectAlt({id:id, name:name,description:description,cost:cost, sponsor:sponsor, links:links, statementFor:statementFor, statementAgainst:statementAgainst}, {
 			callback:function(data, id){
 				if (data.successful){
@@ -100,50 +103,90 @@
 		});
 	}
 		
-	/* *************** Generate a form to edit an existing project alternative (inline) *************** */
-	
-	function renderProjectForm(id){
-		//project = getProjectById(id);
-		formId = (id) ? id : ""
-		f = "";
-		f += '<label>Project Name:</label>';
-		f += '<input id="txtProjName' + formId +'" type="text" value="" size="25"><br />';
-		f += '<label>Project Description:</label><br />';
-		f += '<input id="txtProjDesc' + formId +'" type="text" value="" size="25"><br />';
-		f += '<label>Type:</label>';
-		f += '<select id="selProjType' + formId +'">';
-		f += '	<option value="1">Road</option>';
-		f += '	<option value="2">Transit</option>';
-		f += '</select><br />';
-		f += '<label><input type="checkbox" id="inclusive' + formId +'" /> The user can only select one option in this group.</label>';
+	/* *************** Generate a form to create and edit an existing project alternative (inline) *************** */	
+	function renderProjectForm(project){
+		//using ternery operators so it won't complain about the values when creating a new project :)
+		id = (project) ? project.id : "";
+		name = (project) ? project.name : "";
+		description = (project) ? project.description : "";
+		inclusive = (project) ? project.inclusive : "";
+		inclusiveChecked = (inclusive == true) ? "CHECKED" : "";
+		transMode = (project) ? project.transMode : "";
+		transModes = ["null","road", "transit"];
 		
-		if(id){
-			f += '<p><input type="button" onClick="editProject('+formId+');" value="Edit Project"></p>';
-			$("frmProject"+id).innerHTML = f;
-		}else{
-			f += '<p><input type="button" onClick="createProject();" value="Create Project"></p>';
-			$("frmProject").innerHTML = f;
-		}	
+		f = '<label>Project Name:</label>\
+			<input id="txtProjName' + id +'" type="text" value="'+name+'" size="25"><br />\
+			<label>Project Description:</label><br />\
+			<input id="txtProjDesc' + id +'" type="text" value="'+description+'" size="25"><br />\
+			<label>Type:</label>\
+			<select id="selProjType' + id +'">';
+			for(i=1; i<transModes.length; i++){
+				modeSelected = (i==transMode) ? "SELECTED" : "";
+				f += '<option value="'+ i +'" '+ modeSelected +'>'+transModes[i]+'</option>';
+			}
+			
+		f +='</select><br />\
+			<label><input type="checkbox" id="inclusive' + id +'" '+inclusiveChecked+' /> The user can only select one option in this group.</label>\
+			<p><input type="submit" value="Submit"></p>';
+		$("frmProject"+id).innerHTML = f;
+
 	}
 	
-	function prepareProject(id){
-		renderProjectForm(id)
-		formId = (id) ? id : ""
-		Element.toggle('projectForm'+ formId);
-		/*ProjectAgent.getProjectById({id:id}, {
+	function getProjectById(id){
+		ProjectAgent.getProjectById({id:id}, {
 			callback:function(data){
-				if (data.successful){
-					//javascript object "project" returned
-				}else{
-					alert(data.reason);
-				}
+				//if (data.successful){
+					//alert(data.project);
+					renderProjectForm(data.project)
+				//}else{
+				//	alert(data.reason);
+				//}
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("ProjectAgent.getProjectById( error:" + errorString + exception);
 			}
-		});*/
-		
+		});
 	}
+	
+	function prepareProject(id){
+		(id) ? getProjectById(id) : renderProjectForm();
+		formId = (id) ? id : ""
+		Element.toggle('projectForm'+ formId);
+	}
+	
+	function prepareProjectAlt(id){
+		(id) ? getProjectAltById(id) : renderProjectAltForm();
+		formId = (id) ? id : ""
+		Element.toggle('projectAltForm'+ formId);
+	}
+	
+	
+	function renderProjectAltForm(alt){
+		//using ternery operators so it won't complain about the values when creating a new project :)
+		alert(alt);
+		
+		f = '<label>Project Alternative Name:</label>\
+			<input id="txtAltName" type="text" value="" size="25"><br />\
+			<label>Agency:</label>\
+			<input id="txtAltAgency" type="text" value="" size="25"><br />\
+			<label>Cost:</label>\
+			<input id="txtAltCost" type="text" value="" size="25"><br />\
+			<label>County:</label>\
+			<input id="txtCounty" type="text" value="" size="25"><br />\
+			<label>Short Description:</label>\
+			<input id="txtAltDesc" type="text" value="" size="25"><br />\
+			<label>Links:</label>\
+			<input id="txtAltLinks" type="text" value="" size="25"><br />\
+			<label>Statement For:</label>\
+			<input id="txtAltFor" type="text" value="" size="25"><br />\
+			<label>Statement Against:</label>\
+			<input id="txtAltAgainst" type="text" value="" size="25"><br />\
+			<p><input type="button" value="Submit"></p>';
+		
+			$("frmProject"+id).innerHTML = f;
+	}
+
+	
 	
 	function prepareEditProjectAlt(id){
 		//alert("id: " + id); 
@@ -156,7 +199,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-			alert("ProjectAgent.getProjectById( error:" + errorString + exception);
+			alert("ProjectAgent.EditProjectAlt( error:" + errorString + exception);
 			}
 		});
 	}
@@ -165,7 +208,7 @@
 		var name = $F('txtProjName'+ id);
 		var description = $F('txtProjDesc'+ id);
 		var transMode = $F('selProjType'+ id); //1 or 2
-		var inclusive = $('inclusive'+ id).checked;
+		var inclusive = $('inclusive'+ id).checked
 		//alert("ID: "+id+" name: " + name + " description: " + description + " transMode: " + transMode + " inclusive: " + inclusive)
 		ProjectAgent.editProject({id:id,name:name,description:description,transMode:transMode,inclusive:inclusive}, {
 			callback:function(data){
@@ -208,12 +251,10 @@
 	}
 	
 	function deleteProject(id){
-		//alert("id: " + id); 
 		ProjectAgent.deleteProject({id:id}, {
 			callback:function(data){
 				if (data.successful){
-					alert("Project " + id + " deleted");
-					getProjects();
+					new Effect.Puff("project-" + id, {afterFinish:function(){getProjects();}});
 				}else{
 					alert(data.reason);
 				}
@@ -436,7 +477,7 @@
 
 
 <body>
-	<h3>Moderator Tools &raquo; Manage Projects</h3> 
+	<h3><a href="main.do">Moderator Tools</a> &raquo; Manage Projects</h3> 
 	<ul id="projectsList">
 		<!--load projects here -->
 	</ul>
