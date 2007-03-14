@@ -196,6 +196,7 @@ public class ProjectAgent {
      *       <li>sponsor - string, name of sponsor</li>
      *       <li>statementFor - string</li>
      *       <li>statementAgainst - string</li>
+     *       <li>county - string</li>
      *     </ul>
      * 
      * @return A map contains:
@@ -288,6 +289,7 @@ public class ProjectAgent {
      *       <li>sponsor - string, name of sponsor</li>
      *       <li>statementFor - string</li>
      *       <li>statementAgainst - string</li>
+     *       <li>county - string</li>
      *     </ul>
      * 
      * @return A map contains:
