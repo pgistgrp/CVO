@@ -25,7 +25,7 @@
 	<p>No projects have been created yet.</p>
 </c:if>
 <c:forEach var="project" items="${projects}">
-	<li id="project-${project.id}">${project.name} - ${project.description} (${project.transMode}) (${project.inclusive})
+	<li class="projectList" id="project-${project.id}"><span class="project">${project.name}</span>
 		<small> <a href="javascript:prepareProject(${project.id});">edit</a> | <a href="javascript:deleteProject(${project.id});">delete</a></small>
 		<!-- for editing project -->
 		<div id="projectForm${project.id}" style="display:none">
@@ -38,9 +38,9 @@
 		<ul>
 			<c:forEach var="alternative" items="${project.alternatives}">
 				<li id="alt-${alternative.id}">${alternative.name}  
-					<small><a href="javascript: mapAlternative(${alternative.id});">map</a> | <a href="javascript: prepareProjectAlt(${alternative.id});">edit</a> | <a href="javascript:deleteProjectAlt(${alternative.id});">delete</a></small>
+					<small><a href="javascript: mapAlternative(${alternative.id});">map</a> | <a href="javascript: prepareProjectAlt(${alternative.id}, 'altId');">edit</a> | <a href="javascript:deleteProjectAlt(${alternative.id});">delete</a></small>
 					<div id="alternativeForm${alternative.id}" style="display:none;">
-						<form action="javascript:editProjectAlt(${project.id});" id="frmProjectAlt${alternative.id}">
+						<form action="javascript:editProjectAlt(${alternative.id});" id="frmProjectAlt${alternative.id}">
 							<!--form inserted from js renderProjectAltForm();-->
 						</form>
 					</div>
@@ -51,14 +51,14 @@
 			</c:forEach>
 			
 			<!-- for creating project alt-->
-			<li>[ <a href="javascript:prepareProjectAlt(${project.id});">Add an Alternative</a> ]
+			<li><small>[ <a href="javascript:prepareProjectAlt(${project.id},'projId');">Add an Alternative</a> ]</small>
 				<div id="alternativeForm${project.id}" style="display:none;">
 					<form action="javascript:createProjectAlt(${project.id});" id="frmProjectAlt${project.id}">
 						<!--form inserted from js renderProjectAltForm();-->
 					</form>
 				</div>
 			</li>
-			<!-- endfor editing project -->
+			<!-- end for creating project alt -->
 			
 		</ul>
 		<div id="editAlternativeForm${project.id}" style="display: none"></div>

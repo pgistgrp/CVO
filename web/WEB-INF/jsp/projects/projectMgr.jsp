@@ -17,11 +17,13 @@
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] BareBones JavaScript (Jordan)
-		[x] test with backend contractor code (jordan)
+		[x] test with backend contractor code (Jordan)
 	Issues:
-		[ ] Fix add/edit alts (Jordan)
+		[x] Fix add/edit alts (Jordan)
+		[x] Add county to project alt (Zhong)
 		[ ] EditProject inclusive not saving? (Matt)
-		[ ] getProjectAltByID()
+		[ ] Sort projects and project alts by name (Matt)
+		[x] getProjectAltByID()
 #### -->
 <html:html> 
 <head>
@@ -38,9 +40,13 @@
 <script type='text/javascript' src='/dwr/util.js'></script>
 <!-- End DWR JavaScript Libraries -->
 
-<!--Criteria Specific  Libraries-->
+<!--Project Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
+<style type="text/css" media="screen">
+	li{margin: 10px 0; list-style: none;}
+	.project{font-size: 1.3em;}
 
+</style>
 <script>
 // Global Variables
 	function getProjects(){
@@ -83,17 +89,19 @@
 		var name = $F('txtAltName'+ id);
 		var description = $F('txtAltDesc' + id);
 		var cost = $F('txtAltCost' + id); 
-		var county = $F('txtCounty'+ id);
+		var county = $F('txtAltCounty'+ id);
 		var sponsor = $F('txtAltAgency'+ id);
+		var shortDesc = $F('txtAltDesc' + id);
 		var links = $F('txtAltLinks' + id);
 		var statementFor = $F('txtAltFor'+ id);
 		var statementAgainst = $F('txtAltAgainst'+ id);
 
-		alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst); 
+		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst); 
 		ProjectAgent.createProjectAlt({id:id, name:name,description:description,cost:cost, sponsor:sponsor, links:links, statementFor:statementFor, statementAgainst:statementAgainst}, {
 			callback:function(data, id){
 				if (data.successful){
 					getProjects();
+					setTimeout(function() {new Effect.Highlight('alt-'+ data.id, {duration:5});}, 100);
 				}else{
 					alert(data.reason);
 				}
@@ -158,12 +166,11 @@
 	function getProjectAltById(id){
 		ProjectAgent.getProjectAltById({id:id}, {
 			callback:function(data){
-				//if (data.successful){
-					//alert(data.project);
+				if (data.successful){
 					renderProjectAltForm(data.alternative)
-				//}else{
-				//	alert(data.reason);
-				//}
+				}else{
+					alert(data.reason);
+				}
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("ProjectAgent.getProjectById( error:" + errorString + exception);
@@ -172,10 +179,9 @@
 	}
 	
 	
-	function prepareProjectAlt(id){
-		//(id == "altId") ? getProjectAltById(id) : renderProjectAltForm(id);
-		renderProjectAltForm(id);
-		Element.toggle('alternativeForm'+ id);
+	function prepareProjectAlt(alt, idType){
+		(idType=="altId") ? getProjectAltById(alt) : renderProjectAltForm(alt);
+		Element.toggle('alternativeForm'+ alt);
 	}
 	
 	
@@ -183,24 +189,25 @@
 		//using ternery operators so it won't complain about the values when creating a new alt :)
 		altId = (alt.id) ? alt.id : alt;
 		name = (alt.name) ? alt.name : "";
-		agency = (alt.agency) ? alt.agency : "";
+		sponsor = (alt.sponsor) ? alt.sponsor : "";
 		cost = (alt.cost) ? alt.cost : "";
 		county = (alt.county) ? alt.county : "";
-		shortDesc = (alt.shortDesc) ? alt.shortDesc : "";
+		description = (alt.detailedDesc) ? alt.detailedDesc : "";
 		links = (alt.links) ? alt.links : "";
 		statementFor = (alt.statementFor) ? alt.statementFor : "";
 		statementAgainst = (alt.statementAgainst) ? alt.statementAgainst : "";
 		
-		f = '<label>Project Alternative Name:</label>\
+		f = '<h4>Editing Project Alternative</h4>\
+			<label>Project Alternative Name:</label>\
 			<input id="txtAltName'+ altId +'" type="text" value="'+ name +'" size="25"><br />\
 			<label>Agency:</label>\
-			<input id="txtAltAgency'+ altId +'" type="text" value="'+ agency +'" size="25"><br />\
+			<input id="txtAltAgency'+ altId +'" type="text" value="'+ sponsor +'" size="25"><br />\
 			<label>Cost:</label>\
 			<input id="txtAltCost'+ altId +'" type="text" value="'+ cost +'" size="25"><br />\
 			<label>County:</label>\
-			<input id="txtCounty'+ altId +'" type="text" value="'+ county +'" size="25"><br />\
+			<input id="txtAltCounty'+ altId +'" type="text" value="'+ county +'" size="25"><br />\
 			<label>Short Description:</label>\
-			<input id="txtAltDesc'+ altId +'" type="text" value="'+ shortDesc +'" size="25"><br />\
+			<input id="txtAltDesc'+ altId +'" type="text" value="'+ description +'" size="25"><br />\
 			<label>Links:</label>\
 			<input id="txtAltLinks'+ altId +'" type="text" value="'+ links +'" size="25"><br />\
 			<label>Statement For:</label>\
@@ -213,14 +220,13 @@
 		$("frmProjectAlt"+altId).innerHTML = f;
 
 	}
-
-	
 	
 	function editProject(id){
 		var name = $F('txtProjName'+ id);
 		var description = $F('txtProjDesc'+ id);
 		var transMode = $F('selProjType'+ id); //1 or 2
 		var inclusive = $('inclusive'+ id).checked
+		//dwr test: {id: 3067, name:"This is from DWR", description: "This is a description", cost: 60.00, links: "http://www.google.com", sponsor: "PSRC", statementFor: "COOL", statementAgainst: "BAD"}
 		//alert("ID: "+id+" name: " + name + " description: " + description + " transMode: " + transMode + " inclusive: " + inclusive)
 		ProjectAgent.editProject({id:id,name:name,description:description,transMode:transMode,inclusive:inclusive}, {
 			callback:function(data){
@@ -239,25 +245,28 @@
 	}
 	
 	function editProjectAlt(id){
-		var name = '';
-		var description = '';
-		var cost = 1100.00; 
-		var sponsor = '';
-		var links = '';
-		var statementFor = '';
-		var statementAgainst = '';
+		var name = $F('txtAltName'+ id);
+		var cost = $F('txtAltCost' + id); 
+		var county = $F('txtAltCounty'+ id);
+		var sponsor = $F('txtAltAgency'+ id);
+		var description = $F('txtAltDesc' + id);
+		var links = $F('txtAltLinks' + id);
+		var statementFor = $F('txtAltFor'+ id);
+		var statementAgainst = $F('txtAltAgainst'+ id);
 
+		//{id: 3545, name:"This is from DWR EDIT", description: "This is a description", cost: 60.00, links: "http://www.google.com", sponsor: "PSRC", statementFor: "COOL", statementAgainst: "BAD"}
 		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst); 
-		ProjectAgent.editProjectAlternative({id:id,name:name,description:description,cost:cost, sponsor:sponsor, links:links, statementFor:statementFor, statementAgainst:statementAgainst}, {
+		ProjectAgent.editProjectAlt({id:id,name:name,description:description,cost:cost,sponsor:sponsor,links:links,statementFor:statementFor,statementAgainst:statementAgainst},[], {
 			callback:function(data){
 				if (data.successful){
-					
+					getProjects();
+					setTimeout(function() {new Effect.Highlight('alt-'+ id, {duration:5});}, 100);
 				}else{
 					alert(data.reason);
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-			alert("ProjectAgent.editProjectAlternative( error:" + errorString + exception);
+			alert("ProjectAgent.editProjectAlt( error:" + errorString + exception);
 			}
 		});
 	}
@@ -268,7 +277,7 @@
 			ProjectAgent.deleteProject({id:id}, {
 				callback:function(data){
 					if (data.successful){
-						new Effect.Puff("project-" + id, {afterFinish:function(){getProjects();}});
+						new Effect.Puff("project-" + id);
 					}else{
 						alert(data.reason);
 					}
