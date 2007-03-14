@@ -362,142 +362,7 @@
 			}
 		});
 	}
-	
-	/* *************** ISSAC's CODE *************** */
-	/*
-	function prepareEditProject(id){
-		//alert("id: " + id); 
-		ProjectAgent.getProjectById({id:id}, {
-			callback:function(data){
-				if (data.successful){
-				var eph='';
-				eph+="<div><label>Project Name: </label><input type='text' id='editProjectName"+id+"' value="+data.project.name+"/></div>";
-				eph+="<div><label>Project Description:</label><textarea id='editProjectDesc"+id+"'>"+data.project.description+"</textarea></div>";
-				eph+="<div><label>Transportation Mode</label><br/>";
-				eph+='<select id="editProjectTransmode'+id+'">';
-				eph+='<option value="1" ';
-				//eph+="<input type='radio' id='editProjectTransmode'"+id+"' value=1 name='editProjectTransmode"+id+"'";
-				if(data.project.transMode==1){
-				eph+='checked="checked">Road</option>';
-				//eph+=" checked='checked'/>Road &nbsp;&nbsp;&nbsp;&nbsp;";
-				//eph+="<input type='radio' value=2 name='editProjectTransmode"+id+"'/>Transit</div>";
-				}else{
-				eph+='>Road</option>';
-				eph+='<option value="2">Transit</option>';
-				}
-				eph+='</select>';
-				
-				
-				eph+="<p><input type='submit' onclick='editProject("+id+");' value='Submit'></p>";
-				$('editProject'+id).innerHTML=eph;
-					//javascript object "project" returned
-				}else{
-					alert(data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){ 
-			alert("ProjectAgent.getProjectById( error:" + errorString + exception);
-			}
-		});
-	}
-	
-	function prepareEditProjectAlt(id){
-		//alert("id: " + id); 
-		ProjectAgent.getProjectAlternativeById({id:id}, {
-			callback:function(data){
-				if (data.successful){
-				var epa='';
-				//epa+='<div id="editAlternativeForm'+id+'" style="display: none;">';
-		epa+='<h4>Edit Project Alternative</h4>';
-		//epa+='<form onsubmit="editProjectAlt('+id+'); return false;" id="frmeditAlternative'+id+'">';		
-		epa+='<label>Project Alternative Name:</label>';
-			epa+='<input id="edtxtAltName'+id+'" type="text" value='+data.alternative.name+' size="25">';
 
-			//epa+='<label>Agency:</label>';
-			//epa+='<input id="edtxtAltAgency'+id+'" type="text" value='+data.alternative.agency+' size="25">';
-			
-			epa+='<label>Cost:</label>';
-			epa+='<input id="edtxtAltCost'+id+'" type="text" value='+data.alternative.cost+' size="25">';
-			
-			epa+='<label>Short Description:</label>';
-			epa+='<input id="edtxtAltDesc'+id+'" type="text" value='+data.alternative.shortDesc+' size="25">';//or detailedDesc?
-			
-			epa+='<label>Sponsor</label>';
-			epa+='<input id="edtxtAltSponsor'+id+'" type="text" value='+data.altnerative.sponsor+' size="25">';
-			
-			epa+='<label>Links:</label>'; //<!--this will be converted to a rich text box editor -->
-			epa+='<input id="edtxtAltLinks'+id+'" type="text" value='+data.alternative.links+' size="25">';
-			
-			epa+='<label>Statement For:</label>';
-			epa+='<input id="edtxtAltFor'+id+'" type="text" value='+data.alternative.statementFor+' size="25">';
-			
-			epa+='<label>Statement Against:</label>';
-			epa+='<input id="edtxtAltAgainst'+id+'" type="text" value='+data.alternative.statementAgainst+' size="25">';
-
-
-			epa+='<p><input type="submit" onclick="editProjectAlt('+id+');" value="Submit"></p>';
-		//epa+='</form>';
-	//epa+='</div>';
-	$('editAlternativeForm'+id).innerHTML=epa;
-					//javascript object "alternative" returned
-				}else{
-					alert(data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){ 
-			alert("ProjectAgent.getProjectById( error:" + errorString + exception);
-			}
-		});
-	}
-	
-	function editProject(id){
-		var name = $F('editProjectName'+id);
-		var description = $F('editProjectDesc'+id)
-		var transmode = $F('editProjectTransmode'+id); //1 or 2
-		
-		ProjectAgent.editProject({id:id,name:name,description:description,transMode:transmode}, {
-			callback:function(data){
-				if (data.successful){
-					alert("successful!");
-					Effect.toggle('editProject'+id,'blind');
-					getProjects();
-				}else{
-					alert(data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){ 
-			alert("ProjectAgent.editProject( error:" + errorString + exception);
-			}
-		});
-	}
-	
-	function editProjectAlt(id){
-		var name = $F('edtxtAltName'+id);
-		var description = $F('edtxtAltDesc'+id);
-		var cost = $F('edtxtAltCost'+id);//1100.00; 
-		var sponsor = $F('edtxtAltSponsor'+id);
-		var links = $F('edtxtAltLinks'+id);
-		var statementFor = $F('edtxtAltFor'+id);
-		var statementAgainst = $F('edtxtAltAgainst'+id);
-
-		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst); 
-		ProjectAgent.editProjectAlt({id:id,name:name,description:description,cost:cost, links:links, sponsor:sponsor,  statementFor:statementFor, statementAgainst:statementAgainst}, {
-			callback:function(data){
-				if (data.successful){
-					alert("successful!");
-					Effect.toggle('editAlternativeForm'+id,'blind');
-					getProjects();
-				}else{
-					alert(data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){ 
-			alert("ProjectAgent.editProjectAlt( error:" + errorString + exception);
-			}
-		});
-	}
-	
-	*/
 	////////// END Mapping Functions ////////////	
 </script>
 <style type="text/css">
@@ -507,7 +372,10 @@
 
 
 <body>
-	<h3><a href="main.do">Moderator Tools</a> &raquo; Manage Projects</h3> 
+	<p><a href="main.do">Back to Moderator Control Panel</a></p>
+	<h1>Manage Projects</h1>
+	<h3>Manage all projects and their associated alternatives.</h3>
+	
 	<ul id="projectsList">
 		<!--load projects here -->
 	</ul>
