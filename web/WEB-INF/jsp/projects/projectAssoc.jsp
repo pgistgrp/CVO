@@ -18,7 +18,7 @@
 		[x] Initial Skeleton Code (Jordan)
 		[x] BareBones JavaScript (Jordan)
 		[ ] Test form actions (Jordan)
-		[ ] Test Tree
+		[ ] Load Projects into Action (Matt)
 #### -->
 <html:html> 
 <head>

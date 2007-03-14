@@ -22,6 +22,7 @@
 		[x] Fix add/edit alts (Jordan)
 		[x] Add county to project alt (Zhong)
 		[ ] EditProject inclusive not saving? (Matt)
+		[ ] Fix county and inclusive on forms (Jordan)
 		[ ] Sort projects and project alts by name (Matt)
 		[x] getProjectAltByID()
 #### -->
