@@ -75,7 +75,7 @@ public class ProjectServiceImpl implements ProjectService{
      * 
      * @throws	Exception	If the project cannot be found
      */
-    public void editProject(Long id, String name, String description, int transMode) throws Exception {
+    public void editProject(Long id, String name, String description, int transMode, boolean inclusive) throws Exception {
 
     	//Retrieve the project, NOTE that if this id doesn't corrispond to a project then an exception is
     	//thrown and it is delt with from the Project Agent
@@ -85,6 +85,7 @@ public class ProjectServiceImpl implements ProjectService{
         project.setName(name);
         project.setDescription(description);
         project.setTransMode(transMode);
+        project.setInclusive(inclusive);
     	//save
         
         projectDAO.save(project);
@@ -104,7 +105,7 @@ public class ProjectServiceImpl implements ProjectService{
     
     public ProjectAlternative createProjectAlt(Long id, String name,
 			String description, Float cost, String links, String sponsor,
-			String statementFor, String statementAgainst) throws Exception {
+			String statementFor, String statementAgainst, String county) throws Exception {
 
     	//Get the project
     	Project project = projectDAO.getProject(id);
@@ -118,6 +119,7 @@ public class ProjectServiceImpl implements ProjectService{
     	alternative.setSponsor(sponsor);
     	alternative.setStatementFor(statementFor);
     	alternative.setStatementAgainst(statementAgainst);
+    	alternative.setCounty(county);
     	
     	//Save the alternative, then links the project and saves the project
     	projectDAO.save(project, alternative);
@@ -128,7 +130,7 @@ public class ProjectServiceImpl implements ProjectService{
     
     public void editProjectAlt(Long id, String name, String description,
 			Float cost, String links, String sponsor, String statementFor,
-			String statementAgainst) throws Exception {
+			String statementAgainst, String county) throws Exception {
 
     	//Get the project alternative
     	ProjectAlternative alt = projectDAO.getProjectAlternative(id);
@@ -141,7 +143,8 @@ public class ProjectServiceImpl implements ProjectService{
     	alt.setSponsor(sponsor);
     	alt.setStatementFor(statementFor);
     	alt.setStatementAgainst(statementAgainst);
-    	    	
+    	alt.setCounty(county);
+    	
     	//save it
     	projectDAO.save(alt);
     	

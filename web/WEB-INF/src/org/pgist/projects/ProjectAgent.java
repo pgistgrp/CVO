@@ -220,10 +220,11 @@ public class ProjectAgent {
             String sponsor = (String) params.get("sponsor");
             String statementFor = (String) params.get("statementFor");
             String statementAgainst = (String) params.get("statementAgainst");
+            String county = (String) params.get("county");
                         
             ProjectAlternative projectAlt = projectService.createProjectAlt(id,
 					name, description, cost, links, sponsor, statementFor,
-					statementAgainst);
+					statementAgainst, county);
                                    
             map.put("id", projectAlt.getId());            
             map.put("successful", true);
@@ -245,6 +246,7 @@ public class ProjectAgent {
      *       <li>name - string, name of the Project object</li>
      *       <li>description - string, description of the project</li>
      *       <li>transMode - int, 1 for "road", 2 for "transit"</li>
+     *       <li>inclusive - string, "true" for inclusive, "false" for exclusive</li>
      *     </ul>
      * 
      * @return A map contains:
@@ -262,8 +264,9 @@ public class ProjectAgent {
             String name = (String) params.get("name");
             String description = (String) params.get("description");
             int transMode = Integer.parseInt((String) params.get("transMode"));
+            boolean inclusive = "true".equals((String) params.get("inclusive"));
             
-            projectService.editProject(id, name, description, transMode);
+            projectService.editProject(id, name, description, transMode, inclusive);
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -312,11 +315,12 @@ public class ProjectAgent {
             String sponsor = (String) params.get("sponsor");
             String statementFor = (String) params.get("statementFor");
             String statementAgainst = (String) params.get("statementAgainst");
+            String county = (String) params.get("county");
             
             
             projectService.editProjectAlt(id,
 					name, description, cost, links, sponsor, statementFor,
-					statementAgainst);
+					statementAgainst, county);
             
             map.put("successful", true);
         } catch (Exception e) {

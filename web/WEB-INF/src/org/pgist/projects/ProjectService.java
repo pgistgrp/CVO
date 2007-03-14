@@ -17,7 +17,7 @@ public interface ProjectService {
     
     Project createProject(String name, String description, int transMode, boolean inclusive) throws Exception;    
     
-    void editProject(Long id, String name, String description, int transMode) throws Exception;    
+    void editProject(Long id, String name, String description, int transMode, boolean inclusive) throws Exception;    
     
     void deleteProject(Long id) throws Exception;
                 
@@ -37,7 +37,7 @@ public interface ProjectService {
 
     ProjectAltRef getProjectAltRefById(Long altrefId) throws Exception;
 
-	ProjectAlternative createProjectAlt(Long id, String name, String description, Float cost, String links, String sponsor, String statementFor, String statementAgainst) throws Exception;
+	ProjectAlternative createProjectAlt(Long id, String name, String description, Float cost, String links, String sponsor, String statementFor, String statementAgainst, String county) throws Exception;
     
 	ProjectAlternative getProjectAlternativeById(Long altId) throws Exception;
     
@@ -45,6 +45,6 @@ public interface ProjectService {
     
 	void deleteProjectAlt(Long id) throws Exception;
 
-	void editProjectAlt(Long id, String name, String description, Float cost, String links, String sponsor, String statementFor, String statementAgainst) throws Exception;
+	void editProjectAlt(Long id, String name, String description, Float cost, String links, String sponsor, String statementFor, String statementAgainst, String county) throws Exception;
     
 }//interface ProjectService
