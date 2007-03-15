@@ -1,13 +1,19 @@
-package org.pgist.projects;
+package org.pgist.tests.projects;
 
+import org.pgist.projects.Project;
+import org.pgist.projects.ProjectAltRef;
+import org.pgist.projects.ProjectAlternative;
+import org.pgist.projects.ProjectRef;
+import org.pgist.projects.ProjectSuite;
 import org.pgist.tests.PGISTTest;
+
 
 /**
  * Used to test the functionality of the ProjectSuite
  * 
  * @author Matt Paulin
  */
-public class ProjectSuite_Test extends PGISTTest {
+public class TestProjectSuite extends PGISTTest {
 	
 	/**
 	 * Test that an alt Ref is added properly to the project suite

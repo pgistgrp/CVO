@@ -1,5 +1,7 @@
-package org.pgist.projects;
+package org.pgist.tests.projects;
 
+import org.pgist.projects.ProjectAltRef;
+import org.pgist.projects.ProjectRef;
 import org.pgist.tests.PGISTTest;
 
 /**
@@ -7,7 +9,7 @@ import org.pgist.tests.PGISTTest;
  * 
  * @author Matt Paulin
  */
-public class ProjectRef_Test extends PGISTTest {
+public class TestProjectRef extends PGISTTest {
 	
 	/**
 	 * Test that an alt Ref can be removed from the project alt ref
