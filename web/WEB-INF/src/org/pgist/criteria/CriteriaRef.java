@@ -22,7 +22,7 @@ public class CriteriaRef {
     
     private int grade;
     
-    private Map<String, Integer> objGrades = new HashMap<String, Integer>();
+    private Map<Objective, Integer> objectiveGrades = new HashMap<Objective, Integer>();
     
     
     /**
@@ -73,18 +73,33 @@ public class CriteriaRef {
     /**
      * @return
      * 
-     * @hibernate.map table="pgist_crit_ref_obj_grade_map"
-     * @hibernate.collection-key column="critref_id"
-     * @hibernate.collection-index column="objective" type="string"
-     * @hibernate.collection-element type="integer" column="grade"
+     * @hibernate.property
      */
-    public Map<String, Integer> getObjGrades() {
-        return objGrades;
+    public int getGrade() {
+        return grade;
     }
 
 
-    public void setObjGrades(Map<String, Integer> objGrades) {
-        this.objGrades = objGrades;
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.map table="pgist_crit_ref_obj_grade_map"
+     * @hibernate.collection-key column="critref_id"
+     * @hibernate.index-many-to-many column="obj_id" class="org.pgist.criteria.Objective"
+     * @hibernate.collection-element type="integer" column="grade"
+     */
+    public Map<Objective, Integer> getObjectiveGrades() {
+        return objectiveGrades;
+    }
+
+
+    public void setObjectiveGrades(Map<Objective, Integer> objectiveGrades) {
+        this.objectiveGrades = objectiveGrades;
     }
     
     
