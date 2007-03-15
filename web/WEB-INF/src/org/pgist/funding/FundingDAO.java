@@ -12,17 +12,15 @@ import org.pgist.system.BaseDAO;
  */
 public interface FundingDAO extends BaseDAO {
     
-    
-    FundingSource getFundingSourceById(Long id) throws Exception;
-    
-    
-    FundingSourceAlternative getFundingSourceAltById(Long id) throws Exception;
-    
-    
+    Collection getFundingSources() throws Exception;
     FundingSource getFundingSourceByName(String name) throws Exception;
 
-
-    Collection getFundingSources() throws Exception;
-    
+    void save(FundingSource source);
+	void delete(FundingSource source);
+    FundingSource getFundingSourceById(Long id) throws Exception;
+	
+    void save(FundingSourceAlternative alt);
+    void delete(FundingSourceAlternative alt);
+    FundingSourceAlternative getFundingSourceAltById(Long id) throws Exception;
     
 }//interface FundingDAO

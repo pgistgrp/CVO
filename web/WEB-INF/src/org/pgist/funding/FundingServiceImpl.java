@@ -75,31 +75,40 @@ public class FundingServiceImpl implements FundingService {
 
 
     public void deleteFundingSource(Long id) throws Exception {
-        /*
-         * TODO
-         */
+    	FundingSource source = fundingDAO.getFundingSourceById(id);
+    	fundingDAO.delete(source);
     }//deleteFundingSource()
 
 
     public FundingSourceAlternative createFundingSourceAlt(String name, float revenue, float taxRate) throws Exception {
-        /*
-         * TODO
-         */
-        return null;
+    	FundingSourceAlternative alternative = new FundingSourceAlternative();
+    	alternative.setName(name);
+    	alternative.setRevenue(revenue);
+    	alternative.setTaxRate(taxRate);
+    	
+    	fundingDAO.save(alternative);
+    	
+        return alternative;
     }//createFundingSourceAlt()
 
 
     public void editFundingSourceAlt(Long id, String name, float revenue, float taxRate) throws Exception {
-        /*
-         * TODO
-         */
+    	
+    	FundingSourceAlternative alternative = fundingDAO.getFundingSourceAltById(id);
+    	alternative.setName(name);
+
+    	alternative.setRevenue(revenue);
+    	alternative.setTaxRate(taxRate);
+    	
+    	fundingDAO.save(alternative);
     }//editFundingSourceAlt()
 
 
     public void deleteFundingSourceAlt(Long id) throws Exception {
-        /*
-         * TODO
-         */
+    	
+    	FundingSourceAlternative alternative = fundingDAO.getFundingSourceAltById(id);
+    	fundingDAO.delete(alternative);
+    	    	
     }//deleteFundingSourceAlt()
 
 

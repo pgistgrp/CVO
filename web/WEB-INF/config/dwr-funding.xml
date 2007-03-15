@@ -22,10 +22,14 @@
 
 
       <create creator="spring" javascript="FundingAgent">
-          <param name="beanName" value="projectAgent"/>
-          <include method="getProject"/>
+          <param name="beanName" value="fundingAgent"/>
+          <include method="createFundingSource"/>
+          <include method="editFundingSource"/>
+          <include method="deleteFundingSource"/>
+          <include method="createFundingSourceAlt"/>
+          <include method="editFundingSourceAlt"/>
+          <include method="deleteFundingSourceAlt"/>
       </create>
-
 
   </allow>
 

@@ -13,16 +13,10 @@ import org.pgist.system.BaseDAOImpl;
  */
 public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
     
-    
-    public FundingSource getFundingSourceById(Long id) throws Exception {
+	public FundingSource getFundingSourceById(Long id) throws Exception {
         return (FundingSource) getHibernateTemplate().load(FundingSource.class, id);
     }//getFundingSourceById()
 
-
-    public FundingSourceAlternative getFundingSourceAltById(Long id) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
-    }//getFundingSourceAltById()
 
 
     private static final String hql_getFundingSourceByName = "from FundingSource fs where lower(fs.name)=?";
@@ -38,11 +32,27 @@ public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
 
 
     public Collection getFundingSources() throws Exception {
-        /*
-         * TODO
-         */
-        return null;
+    	return getHibernateTemplate().find("from FundingSource fs");
     }//getFundingSources()
 
+	public void save(FundingSource source) {
+		getHibernateTemplate().saveOrUpdate(source);		
+	}
 
+	public void delete(FundingSource source) {
+        getHibernateTemplate().delete(source);		
+	}
+    
+    public FundingSourceAlternative getFundingSourceAltById(Long id) throws Exception {
+        return (FundingSourceAlternative) getHibernateTemplate().load(FundingSourceAlternative.class, id);
+    }//getFundingSourceAltById()
+    
+	public void save(FundingSourceAlternative alt) {
+		getHibernateTemplate().saveOrUpdate(alt);				
+	}
+
+	public void delete(FundingSourceAlternative alt) {
+        getHibernateTemplate().delete(alt);		
+	}
+    
 }//class FundingDAOImpl
