@@ -155,7 +155,7 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	private static String hql_getProjects_1 = "from Project as project";
 	
 	/**
-	 * Given the criteria, return a map containing a set of porejects, 
+	 * Given the criteria, return a map containing a set of projects, 
 	 * and a set(as a hashmap) of footprints indexed by footprint IDs.
 	 * @param String criteria: takes the form of "project.id = 15", "" will return all projects
 	 */
