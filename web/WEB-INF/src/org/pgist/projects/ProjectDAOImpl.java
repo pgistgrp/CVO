@@ -232,7 +232,7 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	}
 
     
-    private static String hql_getProjects_2 = "from Project p";
+    private static String hql_getProjects_2 = "from Project p order by p.name asc";
     
     
     public Collection getProjects() throws Exception {
