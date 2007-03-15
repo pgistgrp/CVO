@@ -29,6 +29,9 @@
           <include method="createFundingSourceAlt"/>
           <include method="editFundingSourceAlt"/>
           <include method="deleteFundingSourceAlt"/>
+          <include method="getFundingSources"/>
+          <include method="getFundingSourceById"/>
+          <include method="getFundingSourceAltById"/>
       </create>
 
   </allow>

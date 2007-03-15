@@ -294,12 +294,13 @@ public class FundingAgent {
             String name = (String) params.get("name");
             if (name==null || name.trim().length()==0) {
                 map.put("reason", "name is required.");
+                return map;
             }
-            
+            Long id = new Long((String) params.get("id"));            
             float revenue = new Float((String) params.get("revenue"));
             float taxRate = new Float((String) params.get("taxRate"));
             
-            FundingSourceAlternative alt = fundingService.createFundingSourceAlt(name, revenue, taxRate);
+            FundingSourceAlternative alt = fundingService.createFundingSourceAlt(id, name, revenue, taxRate);
             
             map.put("id", alt.getId());
             

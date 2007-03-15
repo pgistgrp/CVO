@@ -26,7 +26,7 @@ public interface FundingService {
     void editFundingSource(Long id, String name) throws Exception;
 
 
-    FundingSourceAlternative createFundingSourceAlt(String name, float revenue, float taxRate) throws Exception;
+    FundingSourceAlternative createFundingSourceAlt(Long id, String name, float revenue, float taxRate) throws Exception;
 
 
     void editFundingSourceAlt(Long id, String name, float revenue, float taxRate) throws Exception;

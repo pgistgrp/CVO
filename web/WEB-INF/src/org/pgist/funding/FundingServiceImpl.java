@@ -80,13 +80,19 @@ public class FundingServiceImpl implements FundingService {
     }//deleteFundingSource()
 
 
-    public FundingSourceAlternative createFundingSourceAlt(String name, float revenue, float taxRate) throws Exception {
+    public FundingSourceAlternative createFundingSourceAlt(Long id, String name, float revenue, float taxRate) throws Exception {
+    	FundingSource funSource = fundingDAO.getFundingSourceById(id);
+    	
     	FundingSourceAlternative alternative = new FundingSourceAlternative();
     	alternative.setName(name);
     	alternative.setRevenue(revenue);
     	alternative.setTaxRate(taxRate);
     	
     	fundingDAO.save(alternative);
+    	
+    	funSource.getAlternatives().add(alternative);
+    	
+    	fundingDAO.save(funSource);
     	
         return alternative;
     }//createFundingSourceAlt()
