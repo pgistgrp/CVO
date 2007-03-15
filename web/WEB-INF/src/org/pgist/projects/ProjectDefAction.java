@@ -54,10 +54,7 @@ public class ProjectDefAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-        /*
-         * TODO
-         */
-        
+        request.setAttribute("projects", this.projectService.getProjects());
         return mapping.findForward("view");
     }//execute()
     
