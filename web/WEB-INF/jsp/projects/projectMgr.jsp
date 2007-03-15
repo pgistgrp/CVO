@@ -18,11 +18,12 @@
 		[x] Initial Skeleton Code (Jordan)
 		[x] BareBones JavaScript (Jordan)
 		[x] test with backend contractor code (Jordan)
+		[ ] Add mapping tool (Guirong)
 	Issues:
 		[x] Fix add/edit alts (Jordan)
 		[x] Add county to project alt (Zhong)
-		[ ] EditProject inclusive not saving? (Matt)
-		[ ] Fix county and inclusive on forms (Jordan)
+		[x] EditProject inclusive not saving? (Matt)
+		[x] Fix county and inclusive on forms (Jordan)
 		[ ] Sort projects and project alts by name (Matt)
 		[x] getProjectAltByID()
 #### -->
@@ -97,8 +98,8 @@
 		var statementFor = $F('txtAltFor'+ id);
 		var statementAgainst = $F('txtAltAgainst'+ id);
 
-		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst); 
-		ProjectAgent.createProjectAlt({id:id, name:name,description:description,cost:cost, sponsor:sponsor, links:links, statementFor:statementFor, statementAgainst:statementAgainst}, {
+		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst + " county: " + county); 
+		ProjectAgent.createProjectAlt({id:id, name:name,description:description,cost:cost, sponsor:sponsor, links:links, statementFor:statementFor, statementAgainst:statementAgainst, county:county}, {
 			callback:function(data, id){
 				if (data.successful){
 					getProjects();
@@ -256,8 +257,8 @@
 		var statementAgainst = $F('txtAltAgainst'+ id);
 
 		//{id: 3545, name:"This is from DWR EDIT", description: "This is a description", cost: 60.00, links: "http://www.google.com", sponsor: "PSRC", statementFor: "COOL", statementAgainst: "BAD"}
-		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst); 
-		ProjectAgent.editProjectAlt({id:id,name:name,description:description,cost:cost,sponsor:sponsor,links:links,statementFor:statementFor,statementAgainst:statementAgainst},[], {
+		alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst + " county: " + county); 
+		ProjectAgent.editProjectAlt({id:id,name:name,description:description,cost:cost,sponsor:sponsor,links:links,statementFor:statementFor,statementAgainst:statementAgainst, county:county},[], {
 			callback:function(data){
 				if (data.successful){
 					getProjects();
