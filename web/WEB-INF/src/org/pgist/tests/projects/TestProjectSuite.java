@@ -5,19 +5,23 @@ import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectAlternative;
 import org.pgist.projects.ProjectRef;
 import org.pgist.projects.ProjectSuite;
-import org.pgist.tests.PGISTTest;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Used to test the functionality of the ProjectSuite
  * 
  * @author Matt Paulin
  */
-public class TestProjectSuite extends PGISTTest {
+public class TestProjectSuite {
 	
 	/**
 	 * Test that an alt Ref is added properly to the project suite
 	 */
+	@Test
 	public void testGettingRefereces() {
 		
 		//Create the project suite

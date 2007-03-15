@@ -2,18 +2,21 @@ package org.pgist.tests.projects;
 
 import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectRef;
-import org.pgist.tests.PGISTTest;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Used to test the functionality of the ProjectSuite
  * 
  * @author Matt Paulin
  */
-public class TestProjectRef extends PGISTTest {
+public class TestProjectRef {
 	
 	/**
 	 * Test that an alt Ref can be removed from the project alt ref
 	 */
+	@Test
 	public void testRemovingProjectAltRef() {
 		
 
