@@ -32,6 +32,7 @@
           <include method="getFundingSources"/>
           <include method="getFundingSourceById"/>
           <include method="getFundingSourceAltById"/>
+          <include method="setFundingDef"/>          
       </create>
 
   </allow>
