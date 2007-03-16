@@ -62,7 +62,7 @@
 		io.postId = "${post.id}";
 		io.replyId = null;
 		io.currentFilter = '';
-		io.currentPage = 1;
+		io.currentPage = 2;
 
 		io.replyCount = 15; //per page
 		io.contextPostCount = 3;
@@ -162,7 +162,7 @@
 			var emailNotify = notify.toString();
 			var rid = io.replyId;
 			var pid = "${post.id}";
-			alert("structureId: " + io.structureId + " PostID: " + pid + " ReplyID: " + rid + " Title:" + title + " Content: "+ content + " Tags: " + tags + " EmailNotify " + emailNotify);
+			//alert("structureId: " + io.structureId + " PostID: " + pid + " ReplyID: " + rid + " Title:" + title + " Content: "+ content + " Tags: " + tags + " EmailNotify " + emailNotify);
 			SDAgent.createReply({isid:io.structureId, pid:pid, rid:rid, title:title, content:content, tags: tags, emailNotify: emailNotify}, {
 		      callback:function(data){
 		          if (data.successful){     
@@ -181,7 +181,7 @@
 						window.setTimeout('new Effect.Highlight("discussionText'+ data.id +'", {duration: 4.0});',500);
 		          }else{
 		          	 displayIndicator(false);
-		            alert(data.reason);
+		            alert("why it failed: "+data.reason);
 		          }
 		      },
 		      errorHandler:function(errorString, exception){
@@ -322,14 +322,14 @@
 
 <!-- Begin Breadcrumbs -->
 	<div id="breadCrumbs" class="floatLeft">
-<a href="sd.do?isid=${structure.id}">Select a Theme</a> &rarr; <a style="text-transform:capitalize;" href="/sdRoom.do?isid=${structure.id}&ioid=${object.id}">${object.object}</a> &rarr; ${post.title}
+<a href="sd.do?isid=${structure.id}">Select a Theme</a> &rarr; <a style="text-transform:capitalize;" href="/sdRoom.do?isid=${structure.id}&ioid=${object.id}&lp=${param.lp}">${object.object}</a> &rarr; ${post.title}
 	</div>
 <!-- End Breadcrumbs -->
 
 <!-- jump to other room selection menu -->
 	<div class="floatRight">
 	  Jump To:
-	  <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">		  
+	  <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=${object.id}">		  
 	    <option value = "${object.id}">Select a Theme</option>
 	    <option value = "">Discussion of All Themes</option>
 	   <c:forEach var="infoObject" items="${structure.infoObjects}">

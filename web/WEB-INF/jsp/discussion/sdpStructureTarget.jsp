@@ -12,7 +12,7 @@
 	Description: This page will list and map out all of the projects in the given decision situation.
 				 The javascript on this page will allow for map manipulation.  Clicking on a project
 				 will 
-	Author(s): Jordan Isip, Adam Hindman, Issac Yang
+	Author(s): Jordan Isip, Adam Hindman, Isaac Yang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] Integrate Structured Discussion (Jordan)

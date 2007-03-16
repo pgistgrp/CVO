@@ -385,9 +385,7 @@ position:fixed;
 		<!-- End loading indicator -->
 		<!-- Begin container - Main page content begins here -->
 		<div id="container">
-			<!-- begin "overview and instructions" area -->
 
-			<!-- end overview -->
 			<!-- begin object -->
 			<div id="object">
 				<!-- begin object content -->

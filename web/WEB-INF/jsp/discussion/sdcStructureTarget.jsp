@@ -8,7 +8,6 @@
 
 
 <pg:fragment type="html">
-
 		<!-- Begin Breadcrumbs -->
 		<div id="breadCrumbs" class="floatLeft"> <a href="sd.do?isid=${structure.id}">Select
 				a Theme</a> &rarr; All Concern Themes</div>

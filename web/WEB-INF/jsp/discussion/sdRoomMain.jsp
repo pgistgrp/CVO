@@ -460,9 +460,20 @@
 	<!-- End Footer -->
 	<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 	<script type="text/javascript">
-			io.getPosts('', 1, false, io.currentSort);
+			//io.getPosts('', 1, false, io.currentSort);
 			//infoObject.assignTargetHeaders();
+		checkForPage(${param.lp});
+			io.goToPage(io.currentPage,'posts');
 			io.getTargets();
+			
+			
+			/*checks if the url parameter lp exists, else displays page 1*/
+			function checkForPage(page){
+			if(page){
+			io.currentPage=page;
+			}
+			
+			}
 			
 
 	</script>
