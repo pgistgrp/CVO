@@ -40,7 +40,9 @@
       <include method="getUserById"/>
       <include method="getEmailList"/>
       <include method="setUnloading"/>
-      <include method="logMapEvent"/>      
+      <include method="logMapEvent"/>   
+      <include method="resetPassword"/>   
+      <include method="setQuota"/>
     </create>
 
     

@@ -49,6 +49,12 @@ public class BaseUser implements Serializable {
     
     protected boolean emailNotify = true;
     
+    protected boolean quota = false;
+    
+    protected String recording = "Not Eligible";
+    
+    protected String interview = "Not Eligible";
+    
     protected int driveDays;
     
     protected int carpoolDays;
@@ -428,6 +434,48 @@ public class BaseUser implements Serializable {
 
     public void setWalkDays(int walkDays) {
         this.walkDays = walkDays;
+    }
+    
+    
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public boolean getQuota() {
+        return quota;
+    }
+
+
+    public void setQuota(boolean quota) {
+        this.quota = quota;
+    }
+    
+    
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public String getRecording() {
+        return recording;
+    }
+
+
+    public void setRecording(String recording) {
+        this.recording = recording;
+    }
+    
+    
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public String getInterview() {
+        return interview;
+    }
+
+
+    public void setInterview(String interview) {
+        this.interview = interview;
     }
 
 

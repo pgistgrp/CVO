@@ -57,7 +57,13 @@ public interface SystemService {
     Collection getDisabledUsers() throws Exception;
     
     
-    String getEmailList() throws Exception;
+    String getEmailList(boolean enabled, boolean disabled) throws Exception;
+    
+    
+    void resetPassword(String[] ids) throws Exception;
+    
+    
+    void setQuota(Long id, boolean quota) throws Exception;
     
     
 }//interface SystemService

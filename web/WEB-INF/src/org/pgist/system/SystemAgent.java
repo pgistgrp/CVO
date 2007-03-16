@@ -403,8 +403,11 @@ public class SystemAgent {
 	
 	
 	/**
-     * Gets an email list
-     * 
+     * Gets an email list of user emails. Either All users, don't set variables.
+     *   <ul>
+     *     <li>enabled - (optional) boolean, string</li>
+     *     <li>disabled - (optional)boolean, string</li>
+     *   </ul>
      * @return a Map contains:
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -415,9 +418,21 @@ public class SystemAgent {
 	public Map getEmailList(Map params) {
 		Map map = new HashMap();
         map.put("successful", false);
-		
+        boolean bool_enabled = false;
+        boolean bool_disabled = false;
+        
+        String enabled = (String)params.get("enabled");
+        String disabled = (String)params.get("disabled");
+        
+        if(enabled.toLowerCase() == "true") {
+        	bool_enabled = true;
+        }
+        if(disabled.toLowerCase() == "true") {
+        	bool_disabled = true;
+        }
+        
         try {
-        	String emaillist = systemService.getEmailList();
+        	String emaillist = systemService.getEmailList(bool_enabled, bool_disabled);
         	map.put("emaillist", emaillist);
         	map.put("successful", true);
         } catch (Exception e) {
@@ -425,9 +440,86 @@ public class SystemAgent {
             map.put("reason", e.getMessage());
         }
         return map;	
-	} //getDisabledUser()
+	} //getEMailList()
 	
 
+	/**
+     * Resets a users password
+     *   <ul>
+     *     <li>ids- int value, string type</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+	public Map resetPassword(Map params) {
+		Map map = new HashMap();
+        map.put("successful", false);
+        
+        String strIds = (String)params.get("ids");
+        strIds = strIds.replaceAll(" ", "");
+        
+        if(strIds==null || "".equals(strIds.trim())){
+        	map.put("reason", "User id cannot be null.");
+    		return map;	
+        }
+        
+        try {
+        	String[] idList = strIds.split(",");      	
+        	systemService.resetPassword(idList);       	
+        	//EMAIL THEM SOMEHOW?
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        return map;	
+	}
+	
+	
+	/**
+     * Sets the user quota, quota boolean sets it true or false.
+     *   <ul>
+     *     <li>id - int value, string type</li>
+     *     <li>quota - boolean, string type</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+	public Map setQuota(Map params) {
+		Map map = new HashMap();
+        map.put("successful", false);
+        boolean quota = false;
+        
+        String strId = (String)params.get("id");
+        String strQuota = (String)params.get("quota");
+        
+        if(strId==null || "".equals(strId.trim())){
+        	map.put("reason", "User id cannot be null.");
+    		return map;	
+        }
+        
+        if(strQuota.toLowerCase().equals("true")) {       	
+        	quota = true;
+        }
+        
+        try {   
+        	Long id = Long.parseLong(strId);
+        	systemService.setQuota(id, quota);       	
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        return map;	
+	}
+	
+	
     /**
      * 
      * This method has no parameter.
@@ -450,6 +542,7 @@ public class SystemAgent {
         return map;
     }//setUnloading()
     
+    
 	/*
 	 * =========================================
 	 * Ajax function
@@ -461,6 +554,7 @@ public class SystemAgent {
 		return result;
 	}
 
+	
     
 
 }//class SystemAgent

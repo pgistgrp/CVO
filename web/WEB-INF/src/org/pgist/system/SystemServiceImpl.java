@@ -155,17 +155,43 @@ public class SystemServiceImpl implements SystemService {
     }
     
     
-    public String getEmailList() throws Exception {
+    public String getEmailList(boolean enabled, boolean disabled) throws Exception {
     	Collection userslist = getAllUsers();
     	String emaillist = "";
     	
     	Iterator ul = userslist.iterator();
-    	while(ul.hasNext()) {
-    		User user = (User)ul.next();
-    		emaillist += user.getEmail() + ", ";
-    	}
     	
+		if(enabled == disabled) {
+			while(ul.hasNext()) {
+	    		User user = (User)ul.next();
+	    		emaillist += user.getEmail() + ", ";
+			}
+		} else if (enabled) {
+			while(ul.hasNext()) {
+	    		User user = (User)ul.next();
+	    		if(user.isEnabled()) {
+	    			emaillist += user.getEmail() + ", ";
+	    		}
+			}
+		} else if (disabled) {
+			while(ul.hasNext()) {
+	    		User user = (User)ul.next();
+	    		if(!user.isEnabled()) {
+	    			emaillist += user.getEmail() + ", ";
+	    		}
+			}
+		}
+
     	return emaillist;
+    }
+    
+    
+    public void resetPassword(String[] ids) throws Exception {
+    	systemDAO.resetPassword(ids);
+    }
+    
+    public void setQuota(Long id, boolean quota) throws Exception {
+    	systemDAO.setQuota(id, quota);
     }
     
     

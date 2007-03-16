@@ -52,7 +52,7 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
         query.setMaxResults(count);
         
         return query.list();
-    }//getFeedbacks()
+    }//getFeedbacks();
 
     
     private static final String hql_getVoting = "from YesNoVoting v where v.targetType=? and v.targetId=? and v.owner=?";
@@ -67,7 +67,7 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
         query.setMaxResults(1);
         
         return (YesNoVoting) query.uniqueResult();
-    }//getVoting()
+    }//getVoting();
 
 
     public boolean setVoting(int targetType, Long targetId, boolean agree) throws Exception {
@@ -86,7 +86,7 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
         save(voting);
         
         return true;
-    }//setVoting()
+    }//setVoting();
 
 
     public void logGetting(DelegatingHttpServletRequestWrapper request) throws Exception {
@@ -101,7 +101,7 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
         log.setSuccessful((new Boolean(true).equals(request.getAttribute("PGIST_SERVICE_SUCCESSFUL"))));
         
         save(log);
-    }//logGetting()
+    }//logGetting();
     
     
     public void logPosting(DelegatingHttpServletRequestWrapper request) throws Exception {
@@ -116,7 +116,7 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
         log.setSuccessful((new Boolean(true).equals(request.getAttribute("PGIST_SERVICE_SUCCESSFUL"))));
         
         save(log);
-    }//logPosting()
+    }//logPosting();
     
     
     private static final String hql_getAllUsers = "from User u order by u.id";
@@ -129,18 +129,18 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     
     public User getUserById(Long id) throws Exception {
     	return (User) getHibernateTemplate().load(User.class, id);
-    }//getUserById()
+    }//getUserById();
     
     
     public void disableUsers(String[] ids, boolean enable) throws Exception {
     	
-    	for(int i=0; i<ids.length; i++){
-    		Long userId = Long.parseLong(ids[i]);
+    	for(String u: ids) {
+    		Long userId = Long.parseLong(u);
     		User user = (User) getHibernateTemplate().load(User.class, userId);
     		user.setEnabled(enable);
-    	} //for
+    	} //for each
     	
-    }//disableUsers()
+    }//disableUsers();
     
     
     private static final String hql_getDisabledUsers = "from User u where u.enabled=? order by u.id";
@@ -148,13 +148,33 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     public Collection getDisabledUsers() throws Exception {
     	Collection users = getHibernateTemplate().find(hql_getDisabledUsers, false);
     	return users;
-    }//getDisableUsers()
+    }//getDisableUsers();
     
     
     public Collection getEnabledUsers() throws Exception {
     	Collection users = getHibernateTemplate().find(hql_getDisabledUsers, true);
     	return users;
-    }//getEnableUsers()
+    }//getEnableUsers();
+    
+    
+    public void resetPassword(String[] ids) throws Exception {
+    	
+    	for(String u: ids) {
+    		Long userId = Long.parseLong(u);
+    		User user = (User) getHibernateTemplate().load(User.class, userId);
+    		user.setPassword("ppgisLIT");
+    		user.encodePassword();
+    	} //for each
+    	
+    } //resetPassword();
+    
+    
+    public void setQuota(Long id, boolean quota) throws Exception {
+
+    	User user = (User) getHibernateTemplate().load(User.class, id);
+    	user.setQuota(quota);
+    	
+    } //setQuota();
     
     
 }//class SystemDAOImpl

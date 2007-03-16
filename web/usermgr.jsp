@@ -91,7 +91,7 @@ function unlockUsers() {
 
 function getEmailList() {
 	var id =""
-	SystemAgent.getEmailList({}, {
+	SystemAgent.getEmailList({enabled:"", disabled:""}, {
 		callback:function(data){
 			if (data.successful){
 				$('EmailList').value = data.emaillist;
