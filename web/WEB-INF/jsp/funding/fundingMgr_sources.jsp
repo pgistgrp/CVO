@@ -9,7 +9,7 @@
 
 <!--####
 	Project: Let's Improve Transportation!
-	Page: Projects Partial
+	Page: Funding Source Manager Partial
 	Description: Partial page to get all funding sources
 	Author(s): 
 	     Front End: Jordan Isip, Adam Hindman, Isaac Yang

@@ -21,7 +21,7 @@
 #### -->
 <html:html> 
 <head>
-<title>Manage Criteria</title>
+<title>Manage Funding Sources</title>
 <!-- Site Wide JavaScript -->
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
@@ -38,12 +38,9 @@
 <script type='text/javascript' src='/dwr/interface/FundingAgent.js'></script>
 
 <script>
-	//on-load
-	getFundingSources();
-
 	/* *************** get all funding sources in the system *************** */
 	function getFundingSources(){
-		FundingAgent.getFundingSources({}, {
+		FundingAgent.getFundingSources({page: 1, count:-1}, {
 			callback:function(data){
 				if (data.successful){
 					$('sourcesList').innerHTML = data.html // gets fundingMgr_sources.jsp
@@ -52,7 +49,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-			alert("FundingAgent.getFundingSources( error:" + errorString + exception+")"+);
+			alert("FundingAgent.getFundingSources( error:" + errorString + exception);
 			}
 		});
 	}
@@ -70,7 +67,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-			alert("FundingAgent.createFundingSource( error:" + errorString + exception+")"+);
+				alert("FundingAgent.createFundingSource( error:" + errorString + exception);
 			}
 		});
 	}
@@ -88,7 +85,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-				alert("FundingAgent.createFundingSourceAlt( error:" + errorString + exception+")"+);
+				alert("FundingAgent.addAlternative( error:" + errorString + exception);
 			}
 		});
 	}
@@ -105,7 +102,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){
-				alert("FundingAgent.deleteFundingSource( error:" + errorString + exception+")"+);
+				alert("FundingAgent.deleteFundingSource( error:" + errorString + exception);
 			}
 		});
 		
@@ -124,7 +121,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){
-				alert("FundingAgent.deleteAlternative( error:" + errorString + exception+")"+);
+				alert("FundingAgent.deleteAltnerative( error:" + errorString + exception);
 			}
 		});
 		
@@ -148,7 +145,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){
-				alert("FundingAgent.getFundingSourceById( error:" + errorString + exception+")"+);
+				alert("FundingAgent.prepareEditFundingSource( error:" + errorString + exception);
 			}
 		});
 		
@@ -167,7 +164,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){
-				alert("FundingAgent.getFundingSourceById( error:" + errorString + exception+")"+);
+				alert("FundingAgent.getFundingSourceById( error:" + errorString + exception);
 			}
 		});
 		
@@ -185,7 +182,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){
-				alert("FundingAgent.editFundingSource( error:" + errorString + exception+")"+);
+				alert("FundingAgent.editFundingSource( error:" + errorString + exception);
 			}
 		});
 		
@@ -234,7 +231,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){
-				alert("FundingAgent.getFundingSourceAltById( error:" + errorString + exception+")"+);
+				alert("FundingAgent.prepareEditFundingSourceAlt( error:" + errorString + exception);
 			}
 		});
 	}
@@ -249,7 +246,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){
-				alert("FundingAgent.getFundingSourceAltById( error:" + errorString + exception+")"+);
+				alert("FundingAgent.getFundingSourceById( error:" + errorString + exception);
 			}
 		});
 		
@@ -268,7 +265,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){
-				alert("FundingAgent.editFundingSourceAlt( error:" + errorString + exception+")"+);
+				alert("FundingAgent.editFundingSourceAlt( error:" + errorString + exception);
 			}
 		});
 		
@@ -305,14 +302,19 @@
 
 
 <body>
-	<h3>Moderator Tools &raquo; Manage Funding</h3> 
+	<p><a href="main.do">Back to Moderator Control Panel</a></p>
+	<h1>Manage Funding Sources</h1>
+	<h3>Manage all funding sources and their associated alternatives.</h3>
 	<form name="publishsources" action="sourceDefine.do">
 		<input type="hidden" name="activity" value="save" />
-		<h4>Funding Sources in ${cct.name}</h4>
+		<h4>All Funding Sources </h4>
 		<ul id="sourcesList">
 			<!-- load sources here-->
 		</ul>
 	</form>
+	<script type="text/javascript" charset="utf-8">
+		getFundingSources();
+	</script>
 </body>
 </html:html>
 

@@ -19,13 +19,13 @@
 		[x] BareBones JavaScript (Jordan)
 		[x] test with backend contractor code (Jordan)
 		[ ] Add mapping tool (Guirong)
-	Issues:
 		[x] Fix add/edit alts (Jordan)
 		[x] Add county to project alt (Zhong)
 		[x] EditProject inclusive not saving? (Matt)
 		[x] Fix county and inclusive on forms (Jordan)
-		[ ] Sort projects and project alts by name (Matt)
+		[x] Sort projects and project alts by name (Matt)
 		[x] getProjectAltByID()
+		[ ] Alts A-Z (Matt)
 #### -->
 <html:html> 
 <head>

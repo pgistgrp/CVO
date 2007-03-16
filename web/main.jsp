@@ -116,9 +116,9 @@
 				</ul>
 			<li>Step 3</li>
 				<ul>
-					<li><html:link page="/.do">Define Projects</html:link></li>
-					<li><html:link page="/.do">Grade Projects</html:link></li
-					<li><html:link page="/.do">Define Funding</html:link></li>
+					<li><html:link page="projectDefine.do?suiteId=200">Define Projects</html:link></li>
+					<li><html:link page="projectGrade.do?suiteId=200">Grade Projects</html:link></li
+					<li><html:link page="projectDefine.do?suiteId=200">Define Funding</html:link></li>
 				</ul>
 			<li>Step 4</li>
 				<ul>

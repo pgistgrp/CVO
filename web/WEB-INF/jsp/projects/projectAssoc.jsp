@@ -13,12 +13,14 @@
 	Description: Form to associate selected projects to a workflow instance.
 	Author(s): 
 	     Front End: Jordan Isip, Adam Hindman, Issac Yang
-	     Back End: Zhong Wang, John Le
+	     Back End: Matt Paulin, Zhong Wang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] BareBones JavaScript (Jordan)
-		[ ] Test form actions (Jordan)
-		[ ] Load Projects into Action (Matt)
+		[x] Add JS to set alts (Jordan)
+		[x] Load Projects into Action (Matt)
+		[ ] Order Alts A-Z (Matt)
+		[ ] test setProjectDefine (Matt)
 #### -->
 <html:html> 
 <head>
@@ -37,39 +39,77 @@
 
 <!--Project Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
-<script src="scripts/treeul.js" type="text/javascript"></script>
 <script type="text/javascript" charset="utf-8">
-	
+	var suiteId = 200; //hardcoded until workflow manager is available
+
+	function checkAltsInProject(projId,checked){
+		var alts = document.getElementsByName("projectAlts" + projId);
+		for(i=0;i<alts.length;i++){
+			alts[i].checked = checked;
+			
+			//Get the AltID
+			start = alts[i].id.indexOf('-') + 1;
+			end = alts[i].id.length
+			altId = alts[i].id.substring(start,end)
+			
+			//Inoke AJAX to set the project Alt operation
+			setProjectDefine(altId, checked)
+		}
+	}
+
+	function setProjectDefine(altId,checked){
+		operation = (checked) ? "add" : "remove";
+		
+		//alert("suiteId: " + suiteId + " altId: " + altId + " operation: " + operation); 
+		ProjectAgent.setProjectDefine({suiteId:suiteId,altId:altId,operation:operation}, {
+			callback:function(data){
+				if (data.successful){
+					alert("it worked");
+					//add loading indicator if time permits
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("ProjectAgent.setProjectDefine( error:" + errorString + exception);
+			}
+		});
+	}
 </script>
 <style type="text/css">
-
+	li{margin: 10px 0; list-style: none;}
+	.project{font-size: 1.3em;}
 </style>
 </head>
 
 
 <body>
-	<h3>Moderator Tools &raquo; Define Projects</h3> 
-	<p>Select the projects that you would like to use for this expiriment.</p>
+	<p><a href="main.do">Back to Moderator Control Panel</a></p>
+	<h1>Define Projects Alternatives</h1>
+	<p>Select all project alternatives that you would like to include for this expiriment.  Your selection is saved when you click on the checkbox.</p>
 	<form method="POST" name="publishProjects" action="projectDefine.do">
 		<input type="hidden" name="cctId" value="${cct.id}" /
 		<input type="hidden" name="activity" value="save" />
-		<h4>All Projects</h4>
+		<h3>All Projects</h3>
 		<ul id="projectsList">
 			<c:forEach var="project" items="${projects}">
-				<li><input type="checkbox" name="projectId" value="${project.id}"/>${project.name}
+				<li><span class="project">${project.name}</span> 
+					<small>
+						<a href="javascript:checkAltsInProject(${project.id}, true)">check all</a> | 
+						<a href="javascript:checkAltsInProject(${project.id}, false)">uncheck all</a>
+					</small>
 					<ul>
-						<c:forEach var="alternative" items="${project.alternatives}">
-							<li>${alternative.name}</li>
+						<c:forEach var="alt" items="${project.alternatives}">
+							<li><label><input type="checkbox" name="projectAlts${project.id}" id="projectAlt-${alt.id}" value="${alt.id}" onClick="setProjectDefine(this.value, this.checked);"/>${alt.name}</label></li>
 						</c:forEach>
 					</ul>
 				</li>
 			</c:forEach>
 		</ul>
-		<input type="submit" value="submit">
+
 	</form>
-	<script type="text/javascript" charset="utf-8">
-		initiate("projectsList"); //initiate the treeul script
-	</script>
+	<h3>Finished selecting project alternatives?</h3>
+	<p>Go back to the <a href="main.do">Back to Moderator Control Panel</a> to publish!</p>
 </body>
 </html:html>
 
