@@ -323,7 +323,6 @@
 	var mapeditor= null;
 	function mapAlternative(id){
 		if(!mapeditor){  //if it's the first time the map is initiated:
-			alert("new map");
 			mapeditor = new PGISTMapEditor('alternativeMap'+id, 600, 400);
 		}else{
 			mapeditor.changeToContainer('alternativeMap'+id);
