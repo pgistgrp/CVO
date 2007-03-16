@@ -5,16 +5,27 @@ import java.util.List;
 
 
 /**
- * Trie structure.<br>
+ * Trie structure. Trie is used in PGIST as a fast phrase matching tool against a predefined
+ * dictionary. The dictionary contains two types of phrases, inclusive and exclusive.<br>
+ * 
+ * For generality, a Trie node can be associated with any object. In PGIST, it will be
+ * org.pgist.tagging.Tag class, which has a boolean value to indicate if it's inclusive
+ * or exclusive.<br>
  * 
  * Features:
  * <ul>
  *   <li>Paragraph can contain: 0-9 A-B a-b [blank] [punctuations]</li>
  *   <li>Phrase can contain: 0-9 A-B a-b ' [space]</li>
  *   <li>If "A B" and "B C D" are both phrases, and paragraph is "A B C D E", then "A B" is matched, and "B C D" is not.</li>
+ *   <li>If "A B" and "A B C" are both phrases, and paragraph is "A B C D E", then "A B C" is matched, and "A B" is not.
+ *       That is, always match the longest phrase starting from the same position.</li>
  *   <li>If "A" is a phrase and paragraph is "A'xyz", then "A" is matched</li>
  *   <li>"A  B" or "A    B" will be both matched as "A B".</li>
  *   <li>"A , B" or "A . B" will not be matched as "A B".</li>
+ * </ul>
+ * 
+ * Functions:
+ * <ul>
  *   <li>Test if a specific phrase is in trie.</li>
  *   <li>Suggest phrases from a given paragrah.</li>
  *   <li>Highlight phrases from a given paragrah.</li>
@@ -31,15 +42,23 @@ public class Trie {
     private class TrieNode {
         
         
+        /* char of this node */
         public char ch = 0;
         
+        /* how many children this node has */
         public int childSize = 0;
         
+        /*
+         * Child nodes. Two-dimension array, the first dimension acts as a hash bucket.
+         * The second dimension stores the child nodes.
+         */
         public TrieNode[][] nexts = null;
         
+        /* associated object to this node */
         public Object object = null;
         
         
+        /* constructor */
         public TrieNode(char ch) {
             this.ch = ch;
             childSize = 0;
@@ -48,13 +67,21 @@ public class Trie {
         }
         
         
+        /**
+         * Match one char from child nodes of this node.
+         * 
+         * @param x the char to be matched
+         * @return a child TrieNode of this node, which is matched 
+         */
         public TrieNode match(char x) {
             if (childSize==0) return null;
             
+            /* calculate bucket position */
             int mod = x % 10;
             
             int n = nexts[mod].length;
             
+            /* search the char to be matched */
             for (int i=0; i<n; i++) {
                 if (nexts[mod][i]!=null && nexts[mod][i].ch==x) return nexts[mod][i];
             }//for i
@@ -65,6 +92,8 @@ public class Trie {
         
         /**
          * Add a given char to chars array managed by current TrieNode.
+         * Note that the given char maybe already in the array. We need to check it
+         * before a new TrieNode is created.
          * 
          * @param x the character to be added.
          * @return A TrieNode object of x
@@ -83,33 +112,58 @@ public class Trie {
              */
             int mod = x % 10;
             
+            /* lazily create the char array */
             if (nexts[mod].length==0) nexts[mod] = new TrieNode[5];
             
             int bucket = -1;
             
+            /*
+             * find the place where the given char should be inserted,
+             *  or return if it's already in trie
+             */
             for (int i=0; i<nexts[mod].length; i++) {
                 if (nexts[mod][i]==null) {
+                    /*
+                     * find an empty place, but we still don't know if the char already
+                     * exists in the array, so we just mark the place
+                     */
                     if (bucket==-1) bucket = i;
                 } else {
+                    /*
+                     * Now we are sure the char already exists in the array, we return its node
+                     */
                     if (nexts[mod][i].ch==x) return nexts[mod][i];
                 }
             }//for i
+            
+            /*
+             * Now we are sure a new TrieNode need to be created and inserted
+             */
             
             childSize++;
             
             TrieNode node = new TrieNode(x);
             
             if (bucket!=-1) {
+                /* we already marked where we can insert the new node */
                 nexts[mod][bucket] = node;
                 return node;
             }
             
+            /*
+             * Now we have to expand the array for the new node.
+             * We'd like to expand it with two more buckets, chances are we
+             * will have another new node to insert.
+             */
+            
             TrieNode[] array = new TrieNode[nexts[mod].length+2];
             
+            /* copy content to the new array */
             for (int i=0; i<nexts[mod].length; i++) {
                 array[i] = nexts[mod][i];
             }
             
+            /* now we insert the new node */
             array[nexts[mod].length] = node;
             
             nexts[mod] = array;
@@ -118,25 +172,47 @@ public class Trie {
         }//add()
         
         
+        /**
+         * Remove a node from the Trie.
+         * 
+         * @param node the node to be removed
+         */
         synchronized public void remove(TrieNode node) {
-            for (int i=0; i<10; i++) {
-                for (int j=0; j<nexts[i].length; j++) {
-                    if (nexts[i][j]==node) {
-                        nexts[i][j] = null;
-                        childSize--;
-                        return;
-                    }
-                }//for j
+            /*
+             * First we have to find it
+             */
+            
+            /* calculate the bucket position */
+            int mod = node.ch % 10;
+            
+            /* not found */
+            if (nexts[mod].length==0) return;
+            
+            /* search the node */
+            for (int i=0; i<nexts[mod].length; i++) {
+                if (nexts[mod][i]==node) {
+                    nexts[mod][i] = null;
+                    childSize--;
+                    return;
+                }
             }//for i
         }//remove()
         
         
+        /**
+         * Help to debug.
+         */
         public String toString() {
             if (ch==0) return "";
             else return ""+ch;
         }//toString()
         
         
+        /**
+         * Help to debug.
+         * 
+         * @param x
+         */
         public void print(char x) {
             if (ch!=0) System.out.print(x+" --> "+ch);
             else System.out.print(x+" --> ");
@@ -150,6 +226,11 @@ public class Trie {
         }//print()
         
         
+        /**
+         * Help to debug.
+         * 
+         * @param prefix
+         */
         public void printAll(String prefix) {
             if (ch!=0) prefix = prefix + ch;
             
@@ -172,7 +253,8 @@ public class Trie {
     
     
     /**
-     * Inner Class AbstractTrieScanner
+     * Inner Class AbstractTrieScanner.
+     * One TrieScanner works something like an Iterator pattern.
      */
     private abstract class AbstractTrieScanner implements TrieScanner {
         
@@ -233,6 +315,11 @@ public class Trie {
         }//skip()
         
         
+        /**
+         * Test if it's end of paragraph.
+         * 
+         * @return
+         */
         public boolean eop() {
             return index>=length-1;
         }//eop()
@@ -385,9 +472,15 @@ public class Trie {
     }//class SuggestScanner
     
     
+    /**
+     * The root of the whole Trie structure.
+     */
     private TrieNode root;
     
     
+    /**
+     * Constructor.
+     */
     public Trie() {
         root = new TrieNode((char) 0);
         root.childSize = 0;
@@ -395,6 +488,12 @@ public class Trie {
     }
     
     
+    /**
+     * Add a phrase and its associated object into the Trie structure.
+     * 
+     * @param phrase
+     * @param object
+     */
     public void add(String phrase, Object object) {
         if (phrase==null || phrase.length()==0) return;
         
@@ -464,6 +563,9 @@ public class Trie {
     }//remove()
     
     
+    /**
+     * Clear the whole Trie structure.
+     */
     synchronized public void clear() {
         root = new TrieNode((char) 0);
         root.childSize = 0;
@@ -471,6 +573,11 @@ public class Trie {
     }//clear()
     
     
+    /**
+     * Search a given word/phrase in Trie, return its associated object
+     * @param word
+     * @return
+     */
     public Object find(String word) {
         if (word==null || word.length()==0) return null;
         
@@ -493,11 +600,28 @@ public class Trie {
     }//find()
     
     
+    /**
+     * Highlight the given paragraph against Trie structure.
+     * 
+     * @param paragraph
+     * @return a TrieScanner
+     */
     public TrieScanner highlight(String paragraph) {
         return new HighlighScanner(paragraph);
     }//highlight()
     
     
+    /**
+     * For a given paragraph, split it to small chunks, each chunk is either matched to the Trie,
+     * or not matched.<br>
+     * 
+     * In practice, an associated Tag (inclusive or exclusive) object can be got with the
+     * matched phrase, and the exclusive Tag can be filtered out, the inclusive Tag can be
+     * strongly suggested. And unmatched phrase is always used as suggested phrase.<br>
+     * 
+     * @param paragraph
+     * @return a TrieScanner
+     */
     public TrieScanner suggest(String paragraph) {
         return new SuggestScanner(paragraph);
     }//suggest()
