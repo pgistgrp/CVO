@@ -27,7 +27,9 @@
 		[x] getProjectAltByID()
 		[ ] Alts A-Z (Matt)
 #### -->
-<html:html> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"> 
 <head>
 <title>Manage Projects</title>
 <!-- Site Wide JavaScript -->
@@ -53,11 +55,11 @@
 <style type="text/css" media="screen">
 	li{margin: 10px 0; list-style: none;}
 	.project{font-size: 1.3em;}
-
+</style>
+<style type="text/css">
     v\:* {
       behavior:url(#default#VML);
     }
-
 </style>
 <script>
 // Global Variables
@@ -403,5 +405,5 @@
 	</script>
 
 </body>
-</html:html>
+</html>
 
