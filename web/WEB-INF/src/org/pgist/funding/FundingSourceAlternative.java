@@ -25,8 +25,36 @@ public class FundingSourceAlternative implements Serializable {
     
     private boolean toll;
     
+    private float peakHourTrips;
     
-    /**
+    private float offPeakTrips;
+    
+    
+	/**
+     * @hibernate.property
+     */
+    public float getOffPeakTrips() {
+		return offPeakTrips;
+	}
+
+
+	public void setOffPeakTrips(float offPeakTrips) {
+		this.offPeakTrips = offPeakTrips;
+	}
+
+	/**
+     * @hibernate.property
+     */
+	public float getPeakHourTrips() {
+		return peakHourTrips;
+	}
+
+
+	public void setPeakHourTrips(float peakHourTrips) {
+		this.peakHourTrips = peakHourTrips;
+	}
+
+	/**
      * @hibernate.id generator-class="native"
      */
     public Long getId() {
