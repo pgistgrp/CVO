@@ -304,6 +304,9 @@ function deleteSourceLink(arrid,tid){
 #slate ul{display:inline; margin:0; padding:0}
 #slate li{list-style: none; display:inline; padding: 3px;}
 tr:hover {background-color: #F1F7FF;}
+h3{
+text-transform:none;
+}
 
 
 </style>
