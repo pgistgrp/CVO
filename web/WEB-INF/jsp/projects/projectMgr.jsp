@@ -27,9 +27,7 @@
 		[x] getProjectAltByID()
 		[ ] Alts A-Z (Matt)
 #### -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"> 
+<html:html> 
 <head>
 <title>Manage Projects</title>
 <!-- Site Wide JavaScript -->
@@ -55,11 +53,11 @@
 <style type="text/css" media="screen">
 	li{margin: 10px 0; list-style: none;}
 	.project{font-size: 1.3em;}
-</style>
-<style type="text/css">
+
     v\:* {
       behavior:url(#default#VML);
     }
+
 </style>
 <script>
 // Global Variables
@@ -269,7 +267,7 @@
 		var statementAgainst = $F('txtAltAgainst'+ id);
 
 		//{id: 3545, name:"This is from DWR EDIT", description: "This is a description", cost: 60.00, links: "http://www.google.com", sponsor: "PSRC", statementFor: "COOL", statementAgainst: "BAD"}
-		alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst + " county: " + county); 
+		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst + " county: " + county); 
 		ProjectAgent.editProjectAlt({id:id,name:name,description:description,cost:cost,sponsor:sponsor,links:links,statementFor:statementFor,statementAgainst:statementAgainst, county:county},[], {
 			callback:function(data){
 				if (data.successful){
@@ -325,6 +323,7 @@
 	var mapeditor= null;
 	function mapAlternative(id){
 		if(!mapeditor){  //if it's the first time the map is initiated:
+			//alert("new map");
 			mapeditor = new PGISTMapEditor('alternativeMap'+id, 600, 400);
 		}else{
 			mapeditor.changeToContainer('alternativeMap'+id);
@@ -405,5 +404,5 @@
 	</script>
 
 </body>
-</html>
+</html:html>
 
