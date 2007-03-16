@@ -29,7 +29,25 @@ public class FundingSourceAlternative implements Serializable {
     
     private float offPeakTripsRate;
     
+    /**
+     * Links to an extenal to reference the alternative
+     */
+    private String sourceURL;
     
+    
+    /**
+     * @hibernate.property not-null="true"
+     */    
+	public String getSourceURL() {
+		return sourceURL;
+	}
+
+
+	public void setSourceURL(String sourceURL) {
+		this.sourceURL = sourceURL;
+	}
+
+
 	/**
      * @hibernate.property
      */

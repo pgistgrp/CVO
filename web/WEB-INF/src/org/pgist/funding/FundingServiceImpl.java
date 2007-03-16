@@ -163,10 +163,7 @@ public class FundingServiceImpl implements FundingService {
     	alternative.setName(name);
     	alternative.setRevenue(revenue);
     	alternative.setTaxRate(taxRate);
-    	
-    	FundingSource fSource = fundingDAO.getFundingSourceByName(source);
-    	
-    	alternative.setSource(fSource);
+    	alternative.setSourceURL(source);
     	alternative.setAvgCost(avgCost);
     	alternative.setToll(toll);
     	alternative.setPeakHourTripsRate(peakHourTrips);
@@ -189,10 +186,7 @@ public class FundingServiceImpl implements FundingService {
 
     	alternative.setRevenue(revenue);
     	alternative.setTaxRate(taxRate);
-
-    	FundingSource fSource = fundingDAO.getFundingSourceByName(source);
-    	
-    	alternative.setSource(fSource);
+    	alternative.setSourceURL(source);
     	alternative.setAvgCost(avgCost);
     	alternative.setToll(toll);
     	alternative.setPeakHourTripsRate(peakHourTrips);
