@@ -2,8 +2,6 @@ package org.pgist.funding;
 
 import java.util.Collection;
 
-import org.pgist.util.PageSetting;
-
 
 /**
  * 
@@ -20,6 +18,82 @@ public class FundingServiceImpl implements FundingService {
         this.fundingDAO = fundingDAO;
     }
 
+    /**
+     * Relate the given FundingAlternative object to FundingSuite object
+     */
+    public void relateFundingAlt(Long suiteId, Long altId) throws Exception {
+//    	FundingSourceSuite suite = fundingDAO.getFundingSourceSuite(suiteId);
+//    	    	
+//    	//Check in the suite to see if if there is a Funding the alternative is already related
+//    	if(!suite.containsAlts(altId)) {
+//    		
+//        	//If not then, load the alternative
+//        	FundingSourceAlternative alternative = fundingDAO.getFundingSourceAlternative(altId);
+//    		
+//        	//Relate it back to the Alt Ref 
+//        	FundingAltRef altRef = new FundingAltRef();
+//        	altRef.setAlternative(alternative);
+//        	fundingDAO.save(altRef);
+//    		
+//           	//Pull the funding ID from the alternative
+//        	Funding funding = alternative.getFunding();
+//        	
+//        	//Get the funding reference
+//        	FundingRef fundingReference = suite.getFundingReferece(funding);
+//        	
+//        	//If the reference doesn't exist then create it and add the funding
+//        	if(fundingReference == null) {
+//        		fundingReference = new FundingRef();
+//        		fundingReference.setFunding(funding);
+//        		
+//            	//Save the funding reference
+//            	fundingDAO.save(fundingReference);
+//            	
+//            	//Add it to the suite
+//            	suite.getReferences().add(fundingReference);
+//            	
+//            	//Save the suite (thus connecting the suite and funding ref together
+//            	fundingDAO.save(suite);       		
+//        	}
+//        	
+//        	//Now put the altRef into the funding ref
+//        	fundingReference.getAltRefs().add(altRef);
+//        	
+//        	//Save the funding reference
+//        	fundingDAO.save(fundingReference);
+//        	    		
+//    	}    	
+    }//relateFundingAlt()
+
+
+    /**
+     * Derelates the given FundingSourceAlternative object to FundingSourceSuite object
+     * 
+     * @param	suiteId	The id of the suite to remove the reference from
+     * @param	altId	The alternative ID that tells of the funding alternative to remove
+     */
+    public void derelateFundingAlt(Long suiteId, Long altId) throws Exception {
+    	//Get a reference to the suite
+//    	FundingSourceSuite suite = fundingDAO.getFundingSourceSuite(suiteId);
+//    	FundingAltRef altRef = fundingDAO.getFundingSourceAlternativeReferece(altId);
+//    	
+//    	//Get the funding reference that has this alternative reference in it
+//    	FundingSourceRef fundingRef = suite.getFundingReferece(altRef);    	
+//    	
+//    	if(fundingRef != null) {
+//    		//Remove the reference to the alt ref
+//    		fundingRef.removeAltRef(altRef);
+//    		
+//        	//Delete the funding alterative reference provided
+//    		fundingDAO.delete(altRef);
+//        	
+//        	//If that was the last alternative in that funding reference then delete the funding reference
+//    		if(fundingRef.getNumAltRefs() <= 0) {
+//    			fundingDAO.delete(fundingRef);
+//    		}
+//    	}    	
+    }//derelateFundingAlt()
+    
 
     /*
      * ------------------------------------------------------------------------
@@ -41,7 +115,7 @@ public class FundingServiceImpl implements FundingService {
     }//getFundingSources()
 
 
-    public FundingSource createFundingSource(String name) throws Exception {
+    public FundingSource createFundingSource(String name, int type) throws Exception {
         /*
          * Check if the same name exists.
          */
@@ -54,6 +128,7 @@ public class FundingServiceImpl implements FundingService {
         
         funding = new FundingSource();
         funding.setName(name);
+        funding.setType(type);
         
         fundingDAO.save(funding);
         
@@ -61,7 +136,7 @@ public class FundingServiceImpl implements FundingService {
     }//createFundingSource()
 
 
-    public void editFundingSource(Long id, String name) throws Exception {
+    public void editFundingSource(Long id, String name, int type) throws Exception {
         /*
          * Retrieve the funding source
          */
@@ -69,6 +144,7 @@ public class FundingServiceImpl implements FundingService {
         if (funding==null) throw new Exception("can't find this funding source");
         
         funding.setName(name);
+        funding.setType(type);
         
         fundingDAO.save(funding);
     }//editFundingSource()
@@ -80,13 +156,21 @@ public class FundingServiceImpl implements FundingService {
     }//deleteFundingSource()
 
 
-    public FundingSourceAlternative createFundingSourceAlt(Long id, String name, float revenue, float taxRate) throws Exception {
+    public FundingSourceAlternative createFundingSourceAlt(Long id, String name, float revenue, float taxRate, String source, float avgCost, boolean toll, float peakHourTrips, float offPeakTrips) throws Exception {
     	FundingSource funSource = fundingDAO.getFundingSourceById(id);
     	
     	FundingSourceAlternative alternative = new FundingSourceAlternative();
     	alternative.setName(name);
     	alternative.setRevenue(revenue);
     	alternative.setTaxRate(taxRate);
+    	
+    	FundingSource fSource = fundingDAO.getFundingSourceByName(source);
+    	
+    	alternative.setSource(fSource);
+    	alternative.setAvgCost(avgCost);
+    	alternative.setToll(toll);
+    	alternative.setPeakHourTripsRate(peakHourTrips);
+    	alternative.setOffPeakTripsRate(offPeakTrips);
     	
     	fundingDAO.save(alternative);
     	
@@ -98,13 +182,21 @@ public class FundingServiceImpl implements FundingService {
     }//createFundingSourceAlt()
 
 
-    public void editFundingSourceAlt(Long id, String name, float revenue, float taxRate) throws Exception {
-    	
+    public void editFundingSourceAlt(Long id, String name, float revenue, float taxRate, String source, float avgCost, boolean toll, float peakHourTrips, float offPeakTrips) throws Exception {
+   	
     	FundingSourceAlternative alternative = fundingDAO.getFundingSourceAltById(id);
     	alternative.setName(name);
 
     	alternative.setRevenue(revenue);
     	alternative.setTaxRate(taxRate);
+
+    	FundingSource fSource = fundingDAO.getFundingSourceByName(source);
+    	
+    	alternative.setSource(fSource);
+    	alternative.setAvgCost(avgCost);
+    	alternative.setToll(toll);
+    	alternative.setPeakHourTripsRate(peakHourTrips);
+    	alternative.setOffPeakTripsRate(offPeakTrips);
     	
     	fundingDAO.save(alternative);
     }//editFundingSourceAlt()
@@ -114,7 +206,9 @@ public class FundingServiceImpl implements FundingService {
     	
     	FundingSourceAlternative alternative = fundingDAO.getFundingSourceAltById(id);
     	fundingDAO.delete(alternative);
-    	    	
+
+    	
+    	
     }//deleteFundingSourceAlt()
 
 

@@ -137,12 +137,7 @@ public class FundingAgent {
             setting.setRowOfPage((String) request.getParameter("count"));
             
             Collection fundings = fundingService.getFundingSources();
-            
-            /*
-             * TODO: 
-             * 
-             */
-            
+                        
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,6 +155,7 @@ public class FundingAgent {
      * @param params a Map contains:<br>
      *   <ul>
      *     <li>name - string, name of the funding source</li>
+     *     <li>type - int, Type of calculation from the FundingSource</li>
      *   </ul>
      *   
      * @return a Map contains:<br>
@@ -178,8 +174,9 @@ public class FundingAgent {
             if (name==null || name.trim().length()==0) {
                 map.put("reason", "name is required.");
             }
+            int type = Integer.parseInt((String) params.get("type"));
             
-            FundingSource funding = fundingService.createFundingSource(name);
+            FundingSource funding = fundingService.createFundingSource(name, type);
             
             map.put("id", funding.getId());
             
@@ -201,6 +198,7 @@ public class FundingAgent {
      *   <ul>
      *     <li>id - int, id of the FundingSource object</li>
      *     <li>name - string, name of the funding source</li>
+     *     <li>type - int, Type of calculation from the FundingSource</li>
      *   </ul>
      *   
      * @return a Map contains:<br>
@@ -220,8 +218,9 @@ public class FundingAgent {
             if (name==null || name.trim().length()==0) {
                 map.put("reason", "name is required.");
             }
+            int type = Integer.parseInt((String) params.get("type"));
             
-            fundingService.editFundingSource(id, name);
+            fundingService.editFundingSource(id, name, type);
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -277,6 +276,11 @@ public class FundingAgent {
      *     <li>name - string, name of the funding source alt</li>
      *     <li>revenue - float, revenue of the funding source alt</li>
      *     <li>taxRate - float, tax rate of the funding source alt</li>
+     *     <li>source  - String, name or link to a source</li>
+     *     <li>avgCost - float, The average cost to each resident</li>
+     *     <li>toll    - boolean, "true" if the alternative is a toll</li>
+     *     <li>peakHourTrips - float, The cost for peak hour trips</li>
+     *     <li>offPeakTrips  - float, The cost for off peak hour trips</li>
      *   </ul>
      *   
      * @return a Map contains:<br>
@@ -299,8 +303,13 @@ public class FundingAgent {
             Long id = new Long((String) params.get("id"));            
             float revenue = new Float((String) params.get("revenue"));
             float taxRate = new Float((String) params.get("taxRate"));
+            String source = (String) params.get("source");
+            float avgCost = new Float((String) params.get("avgCost"));
+            boolean toll = Boolean.parseBoolean((String) params.get("toll"));
+            float peakHourTrips = new Float((String) params.get("peakHourTrips"));
+            float offPeakTrips = new Float((String) params.get("offPeakTrips"));
             
-            FundingSourceAlternative alt = fundingService.createFundingSourceAlt(id, name, revenue, taxRate);
+            FundingSourceAlternative alt = fundingService.createFundingSourceAlt(id, name, revenue, taxRate, source, avgCost, toll, peakHourTrips, offPeakTrips);
             
             map.put("id", alt.getId());
             
@@ -324,6 +333,11 @@ public class FundingAgent {
      *     <li>name - string, name of the funding source alt</li>
      *     <li>revenue - float, revenue of the funding source alt</li>
      *     <li>taxRate - float, tax rate of the funding source alt</li>
+     *     <li>source  - String, name or link to a source</li>
+     *     <li>avgCost - float, The average cost to each resident</li>
+     *     <li>toll    - boolean, "true" if the alternative is a toll</li>
+     *     <li>peakHourTrips - float, The cost for peak hour trips</li>
+     *     <li>offPeakTrips  - float, The cost for off peak hour trips</li>
      *   </ul>
      *   
      * @return a Map contains:<br>
@@ -346,8 +360,13 @@ public class FundingAgent {
             
             float revenue = new Float((String) params.get("revenue"));
             float taxRate = new Float((String) params.get("taxRate"));
+            String source = (String) params.get("source");
+            float avgCost = new Float((String) params.get("avgCost"));
+            boolean toll = Boolean.parseBoolean((String) params.get("toll"));
+            float peakHourTrips = new Float((String) params.get("peakHourTrips"));
+            float offPeakTrips = new Float((String) params.get("offPeakTrips"));
             
-            fundingService.editFundingSourceAlt(id, name, revenue, taxRate);
+            fundingService.editFundingSourceAlt(id, name, revenue, taxRate, source, avgCost, toll, peakHourTrips, offPeakTrips);
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -392,6 +411,49 @@ public class FundingAgent {
         
         return map;
     }//deleteFundingSourceAlt()
+    
+    /**
+     * Set the definition of funding in a decision situation. According the operation code,
+     * the given FundingAlternative will be associated or unassociated with the give suite.
+     * 
+     * @param params a Map contains:
+     *         <ul>
+     *           <li>suiteId - int, id for a FundingSuite object</li>
+     *           <li>altId - int, id for a FundingAlternative object</li>
+     *           <li>operation - string, "add" | "remove"</li>
+     *         </ul>
+     * @return a Map contains:
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
+    public Map setFundingDef(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long suiteId = new Long((String) params.get("suiteId"));
+            Long altId = new Long((String) params.get("altId"));
+            String operation = (String) params.get("operation");
+            
+            if ("add".equals(operation)) {
+                fundingService.relateFundingAlt(suiteId, altId);
+            } else if ("remove".equals(operation)) {
+                fundingService.derelateFundingAlt(suiteId, altId);
+            } else {
+                map.put("reason", "unknown operation: "+operation);
+                return map;
+            }
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//setFundingDef()
     
     
     /**
