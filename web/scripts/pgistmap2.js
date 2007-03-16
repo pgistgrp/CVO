@@ -14,7 +14,6 @@ var PGISTGeometryType = {4:"POINT", 5:"LINE", 6:"POLYGON"};
 */
 var PGISTMapEditor_Global_Accessor = null;
 var PGISTMapEditor = function(mapcontainer, width, height) {
-	alert("initializing map editor...");
 	if (!GBrowserIsCompatible()) {
 		alert("Sorry, this browser is not compatible with Google Maps.");
 		return null;
@@ -36,7 +35,7 @@ var PGISTMapEditor = function(mapcontainer, width, height) {
 	this.map.mouseWheel = true;
 	this.map.setMapType(G_NORMAL_MAP);
 	
-	//this.map.addControl( new PGISTMapEditToolsControl() );
+	this.map.addControl( new PGISTMapEditToolsControl() );
 	
 	//GEvent.addDomListener(mapdiv, "DOMMouseScroll",wheelZoom); // Firefox
 	//GEvent.addDomListener(mapdiv, "mousewheel",	wheelZoom); // IE
@@ -68,6 +67,9 @@ var PGISTMapEditor = function(mapcontainer, width, height) {
 };
 
 PGISTMapEditor.prototype.changeToContainer = function(newcontainer){
+	if(typeof(newcontainer)!='object')
+		newcontainer = document.getElementById(newcontainer);
+
 	this._container.removeChild(this._mapdiv);
 	newcontainer.appendChild(this._mapdiv);
 	this._container = newcontainer;

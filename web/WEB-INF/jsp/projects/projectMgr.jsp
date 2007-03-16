@@ -37,6 +37,12 @@
 <script src="scripts/search.js" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
 
+<!-- mapping JavaScript -->
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxTwM0brOpm-All5BF6PoaKBxRWWERTgXzfGnh96tes2zXXrBXrWwWigIQ"
+      type="text/javascript"></script>
+<script src="scripts/pgistmap2.js"></script>
+<!-- End of mapping JavaScript -->
+
 <!-- DWR JavaScript Libraries -->
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
@@ -47,6 +53,10 @@
 <style type="text/css" media="screen">
 	li{margin: 10px 0; list-style: none;}
 	.project{font-size: 1.3em;}
+
+    v\:* {
+      behavior:url(#default#VML);
+    }
 
 </style>
 <script>
@@ -310,9 +320,16 @@
 	}
 	
 	////////// START Mapping Functions ////////////
-	
+	var mapeditor= null;
 	function mapAlternative(id){
-		Element.toggle("alternativeMap"+id);
+		if(!mapeditor){  //if it's the first time the map is initiated:
+			alert("new map");
+			mapeditor = new PGISTMapEditor('alternativeMap'+id, 600, 400);
+		}else{
+			mapeditor.changeToContainer('alternativeMap'+id);
+			mapeditor.clearInput();
+		}
+			
 	}
 	
 	/* *************** Saves the coordinates of the project alternative *************** */

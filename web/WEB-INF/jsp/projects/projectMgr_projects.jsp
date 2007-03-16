@@ -44,8 +44,8 @@
 							<!--form inserted from js renderProjectAltForm();-->
 						</form>
 					</div>
-					<div id="alternativeMap${alternative.id}" style="display:none;">
-						<h3>GMAN, THE MAP GOES HERE!!!</h3>
+					<div id="alternativeMap${alternative.id}">
+						<!-- map for this alt goes here -->
 					</div>
 				</li>
 			</c:forEach>
