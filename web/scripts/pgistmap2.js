@@ -54,7 +54,7 @@ var PGISTMapEditor = function(mapcontainer, width, height) {
 	this.coords[0] = [];	//initialize with one point series
 
 	this.editicon = new GIcon(G_DEFAULT_ICON); 
-	this.editicon.image = "images/pointicon.png";
+	this.editicon.image = "images/_pointicon.png";
 	this.editicon.iconSize = new GSize(16,16);
 	this.editicon.iconAnchor = new GPoint(8,8);
 	this.editicon.shadow = "";
