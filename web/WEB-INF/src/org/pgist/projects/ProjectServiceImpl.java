@@ -310,5 +310,15 @@ public class ProjectServiceImpl implements ProjectService{
     public ProjectAltRef getProjectAltRefById(Long altrefId) throws Exception {
     	return projectDAO.getProjectAlternativeReferece(altrefId);
     }//getProjectAltRefById()    
+
+
+    /**
+     * Returns the requested project suite
+     */
+	public ProjectSuite getProjectSuite(Long suiteId) throws Exception {
+		return projectDAO.getProjectSuite(suiteId);
+	}
+    
+    
     
 }//class ProjectServiceImpl

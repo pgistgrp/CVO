@@ -10,6 +10,7 @@ import java.util.Map;
  */
 public interface ProjectService {
     
+	ProjectSuite getProjectSuite(Long suiteId) throws Exception;
     
     Project getProjectById(Long pid) throws Exception;
     
