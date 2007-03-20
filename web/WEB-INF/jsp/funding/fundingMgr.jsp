@@ -57,7 +57,8 @@
 	/* *************** create a new funding source *************** */
 	function createFundingSource(){
 		var name = "";
-		FundingAgent.createFundingSource({name:name}, {
+		var type = "";
+		FundingAgent.createFundingSource({name:name, type:type}, {
 			callback:function(data){
 				if (data.successful){
 					alert("successful");
@@ -73,9 +74,17 @@
 	}
 	
 	/* *************** create a new funding source alternative *************** */
-	function addAlternative(fid,fname,frev,ftax){
-		//alert("param1: " + param1 + " param2: " + param2 + " param3: " + param3 + " param4: " + param4); 
-		FundingAgent.createFundingSourceAlt({id:fid,name:fname,revenue:frev,taxRate:ftax}, {
+	function addAlternative(){
+		var id = "";
+		var name = "";
+		var revenue = "";
+		var sourceURL = "";
+		var taxRate = "";
+		var toll = "";
+		var offPeakTripsRate = "";
+		var peakHourTripsRate = "";
+		//alert("id: " + id + " name: " + name + " revenue: " + revenue + " taxRate: " + taxRate + " toll: " + toll + " offPeakTripsRate: " + offPeakTripsRate + " peakHourTripsRate: " + peakHourTripsRate); 
+		FundingAgent.createFundingSourceAlt({id:id,name:name,revenue:revenue,sourceURL:sourceURL, taxRate:taxRate, toll:toll,offPeakTripsRate:offPeakTripsRate,peakHourTripsRate:peakHourTripsRate}, {
 			callback:function(data){
 				if (data.successful){
 					alert("successful");
@@ -91,8 +100,8 @@
 	}
 	
 	/* *************** delete a given funding source *************** */
-	function deleteFundingSource(fid){
-		FundingAgent.deleteFundingSource({id:fid}, {
+	function deleteFundingSource(id){
+		FundingAgent.deleteFundingSource({id:id}, {
 			callback:function(data){
 				if(data.successful){
 					alert("Funding source deleted");
@@ -110,8 +119,8 @@
 	
 	
 	/* *************** delete a given funding source alternative *************** */
-	function deleteAlternative(fid){
-		FundingAgent.deleteAlternative({id:fid}, {
+	function deleteAlternative(id){
+		FundingAgent.deleteAlternative({id:id}, {
 			callback:function(data){
 				if(data.successful){
 					alert("Alt funding source deleted");
@@ -128,8 +137,6 @@
 	}
 
 	/* *************** create a form (via javascript) to edit a given funding source *************** */
-	//prepareEditFundingSource
-		//getFundingSourceById
 	
 	function prepareEditFundingSource(id){
 		var name='editName'+id;
