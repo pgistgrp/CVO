@@ -14,6 +14,17 @@
 <style type="text/css" media="screen">@import "styles/lit.css";</style>
 
 <!-- End Site Wide CSS -->
+<style type="text/css">
+.center {
+	text-align:center;
+}
+.rowcolor {
+	background-color: #BBDDFF;
+} 
+.rowfont {
+	font-size: .8em;
+}
+</style>
 <!-- Site Wide JS -->
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
@@ -26,72 +37,46 @@
 window.onLoad = doOnLoad();
 		
 function doOnLoad(){
-	getEnabledUsers();
-	getLockedUsers();
-	getEmailList();
+	getAllUsers();
 }
 
-function getEnabledUsers() {
-	SystemAgent.getEnabledUsers({}, {
+function getAllUsers() {
+	SystemAgent.getAllUsers({}, {
 		callback:function(data){
 			if (data.successful){
-				$('enabledUsersList').innerHTML = data.html;
+				$('userList').innerHTML = data.html;
 				
 			}else{
-				$('enabledUsersList').innerHTML = "<b>Error in SystemAgent.getEnabledUsers Method: </b>" + data.reason; 
+				$('userList').innerHTML = "<b>Error in SystemAgent.getAllUsers Method: </b>" + data.reason; 
 			}
 		},
 		errorHandler:function(errorString, exception){ 
-		alert("SystemAgent.getEnabledUsers( error:" + errorString + exception);
+		alert("SystemAgent.getAllUsers( error:" + errorString + exception);
 		}
 	});
 }
 
-function getLockedUsers() {
-	SystemAgent.getDisabledUsers({}, {
-		callback:function(data){
-			if (data.successful){
-				$('lockedUsersList').innerHTML = data.html;
-				
-			}else{
-				$('lockedUsersList').innerHTML = "<b>Error in SystemAgent.getDisabledUsers Method: </b>" + data.reason; 
-			}
-		},
-		errorHandler:function(errorString, exception){ 
-		alert("SystemAgent.getDisabledUsers( error:" + errorString + exception);
-		}
-	});
+
+function disableUsers(myId) {
+	SystemAgent.disableUsers({ids:myId});
 }
 
-function lockUsers() {
-	var size = document.enabledUsersList.activelist.options.length;
-	var list = "";
-	for(var i=0; i<size; i++) {
-		if(document.enabledUsersList.activelist.options[i].selected == true) {
-			var name=document.enabledUsersList.activelist.options[i].value;
-			list += name + ",";
-		}
+function enableUsers(myId) {
+	SystemAgent.enableUsers({ids:myId});
+}
+
+function getEmailList(mychoice) {
+	var enable = "";
+	var disable = "";
+	if(mychoice=="enabled") {
+		enable="true";
+		disable ="false";
+	} else if (mychoice == "disabled") {
+		disable ="true";
+		enable="false";
 	}
-	SystemAgent.disableUsers({ids:list});
 	
-}
-
-function unlockUsers() {
-	var size = document.disabledUsersList.lockedlist.options.length;
-	var list = "";
-	for(var i=0; i<size; i++) {
-		if(document.disabledUsersList.lockedlist.options[i].selected == true) {
-			var name=document.disabledUsersList.lockedlist.options[i].value;
-			list += name + ",";
-		}
-	}
-	SystemAgent.enableUsers({ids:list});
-	
-}
-
-function getEmailList() {
-	var id =""
-	SystemAgent.getEmailList({enabled:"", disabled:""}, {
+	SystemAgent.getEmailList({enabled:enable, disabled:disable}, {
 		callback:function(data){
 			if (data.successful){
 				$('EmailList').value = data.emaillist;
@@ -104,7 +89,17 @@ function getEmailList() {
 		}
 	});
 }
+function quota(myid, mybool) {
+	SystemAgent.setQuota({id:myid, quota:mybool});
+}
 
+function hide(divid){
+	if(document.getElementById(divid).style.display!="none") {
+		document.getElementById(divid).style.display="none";
+	} else {
+		document.getElementById(divid).style.display="block";
+	}
+}
 </script>
 
 
@@ -120,29 +115,36 @@ function getEmailList() {
   <!-- End header -->
   <!-- Begin header menu - The wide ribbon underneath the logo -->
   <div id="headerMenu">
-
+	
   </div>
   <!-- End header menu -->
   <!-- #container is the container that wraps around all the main page content -->
   <div id="container">
-
-	<table border="0" cellpadding="5">
-      <tr>
-        <td>Active Accounts</td>
-        <td>Locked Accounts</td>
-      </tr>
-      <tr>
-        <td><form name="enabledUsersList" method="POST" action="" onSubmit="return lockUsers(this)"><div id="enabledUsersList"></div><input name="Lock Selected User(s)" type="submit" value="Lock Selected User(s)">
-        </form></td>
-        <td><form name="disabledUsersList" method="POST" action="" onSubmit="return unlockUsers(this)"><div id="lockedUsersList"></div><input name="Unlock Selected User(s)" type="submit" value="Unlock Selected User(s)">
-        </form></td>
-      </tr>
-    </table>
+  <h2>Moderator: User Management</h2>
+  	<p><a href="javascript:getEmailList();hide('emailList');">Export All E-mail Addresses (plain text)</a></p>
+  	<div id="emailList">
 	<form name="emaillist">
-	  <p>Email List: (Ctrl + A to select All, Ctrl + C to copy to clipboard) <br>
-	    <textarea id="EmailList" cols="75" rows="8"></textarea>
+	  <p>Email List: (Ctrl + A to select All, Ctrl + C to copy to clipboard) <br/>
+	    <textarea id="EmailList" cols="75" rows="8"></textarea><br/>
+		
+		Filter Email List:
+		<label>
+		<input name="userfilter" type="radio" value="all" checked="checked" onChange="getEmailList('');">
+			All Users</label>
+		<label>
+		<input type="radio" name="userfilter" value="enabled" onChange="getEmailList('enabled');">
+			Enabled Only</label>
+		<label>
+		<input type="radio" name="userfilter" value="enabled" onChange="getEmailList('disabled');">
+			Disabled Only</label>
+		<br>
       </p>
     </form>
+	<p>&nbsp;</p>
+	</div>
+	<div id="userList">
+	</div>
+	<p>&nbsp;</p>
   </div>
   <!-- end container -->
   
@@ -160,6 +162,9 @@ function getEmailList() {
 		<jsp:include page="/footer.jsp" />
 	</div>
 	<!-- End footer -->
+	<script type="text/javascript">
+		hide('emailList');
+	</script>
 </body>
 </html:html>
 

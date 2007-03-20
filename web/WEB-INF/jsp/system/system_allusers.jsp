@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
-<table border="0" cellpadding="3" cellspacing="0">
+<table border="0" cellpadding="3" cellspacing="0" class="center">
   <tr>
     <th>User Name </th>
     <th>Email Address</th>
@@ -30,17 +30,27 @@
 	</tr>
 	</c:when>
 	<c:otherwise>
+	<c:set var="rowcount" value="0"/>
 	<c:forEach var="user" items="${users}" varStatus="loop">
-	  <tr>
+	  <c:choose>
+	  	<c:when test='${rowcount==0}'>
+	  	<tr class="rowfont">
+		<c:set var="rowcount" value="1"/>
+	  	</c:when>
+		<c:otherwise>
+		<tr class="rowcolor rowfont">
+		<c:set var="rowcount" value="0"/>
+		</c:otherwise>
+		</c:choose>
 		<td>${user.loginname}</td>
 		<td>${user.email}</td>
 		<td>
 		<c:choose> 
 			<c:when test='${user.quota == "true"}'>
-				<input name="" type="checkbox" onchange="javascript:quota(${user.id}, false)" checked="checked" />
+				<input name="" type="checkbox" onchange="quota('${user.id}', 'false')" checked="checked" />
 			</c:when>
 			<c:otherwise>
-				<input name="" type="checkbox"  onchange="javascript:quota(${user.id}, true)"/>
+				<input name="" type="checkbox"  onchange="quota('${user.id}', 'true')"/>
 			</c:otherwise>
 		</c:choose>
 		</td>
@@ -50,15 +60,17 @@
 		<td>
 		<c:choose> 
 			<c:when test='${user.enabled == "true"}'>
-				<input name="Disable" type="button" value="Enable" onclick="javascript:enableUser(${user.id})" />
+				<input name="Disable" id="disable" type="button" value="Disable" onclick="javascript:disableUsers('${user.id}');getAllUsers();setTimeout('',300);" />
 			</c:when>
 			<c:otherwise>
-				<input name="Disable" type="button" value="Disable" onclick="javascript:disableUser(${user.id})" />
+				<input name="Enable" id="enable" type="button" value="Enable" onclick="javascript:enableUsers('${user.id}');getAllUsers();setTimeout('',300)" />	
 			</c:otherwise>
 		</c:choose>
-		<input name="Reset Password" type="button" value="Reset Password" onclick="javascript:resetPassword(${user.id})" />
+		<input name="Reset Password" type="button" value="Reset Password" onclick="javascript:resetPassword('${user.id}')" />
+
 		</td>
 	  </tr>
   	</c:forEach>
 	</c:otherwise>
+	</c:choose>
 </table>

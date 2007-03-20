@@ -54,7 +54,9 @@ public class BaseUser implements Serializable {
     protected String recording = "Not Eligible";
     
     protected String interview = "Not Eligible";
-    
+   
+    protected String consented = "Non-Quota";
+   
     protected int driveDays;
     
     protected int carpoolDays;
@@ -478,5 +480,18 @@ public class BaseUser implements Serializable {
         this.interview = interview;
     }
 
+    
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */    
+    public String getConsented() {
+        return consented;
+    }
+
+
+    public void setConsented(String consented) {
+        this.consented = consented;
+    }
 
 }//class BaseUser

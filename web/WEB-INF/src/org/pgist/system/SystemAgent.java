@@ -106,7 +106,7 @@ public class SystemAgent {
         }
         
         return map;
-    }//createFeedback()
+    }//createFeedback();
     
     
     /**
@@ -184,7 +184,7 @@ public class SystemAgent {
         	Collection users = systemService.getAllUsers();
      
         	request.setAttribute("users", users);
-        	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/system_users.jsp"));
+        	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/system_allusers.jsp"));
         	map.put("users", users);
         	map.put("successful", true);
         } catch (Exception e) {
@@ -424,10 +424,10 @@ public class SystemAgent {
         String enabled = (String)params.get("enabled");
         String disabled = (String)params.get("disabled");
         
-        if(enabled.toLowerCase() == "true") {
+        if(enabled.toLowerCase().equals("true")) {
         	bool_enabled = true;
         }
-        if(disabled.toLowerCase() == "true") {
+        if(disabled.toLowerCase().equals("true")) {
         	bool_disabled = true;
         }
         
@@ -476,7 +476,7 @@ public class SystemAgent {
             map.put("reason", e.getMessage());
         }
         return map;	
-	}
+	} //resetPassword();
 	
 	
 	/**
@@ -517,7 +517,7 @@ public class SystemAgent {
             map.put("reason", e.getMessage());
         }
         return map;	
-	}
+	} //setQuota();
 	
 	
     /**
@@ -540,7 +540,7 @@ public class SystemAgent {
          */
         
         return map;
-    }//setUnloading()
+    }//setUnloading();
     
     
 	/*
@@ -552,7 +552,7 @@ public class SystemAgent {
 		result.put("successful", true);
 		
 		return result;
-	}
+	} //logMapEvent();
 
 	
     
