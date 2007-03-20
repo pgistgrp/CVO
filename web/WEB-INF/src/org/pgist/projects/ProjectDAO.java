@@ -18,9 +18,6 @@ public interface ProjectDAO extends BaseDAO {
 	void save(Project p) throws Exception;
 	
     
-	void save(Project p, ProjectAlternative a) throws Exception;
-	
-    
 	void save(Package p) throws Exception;
 	
     

@@ -56,7 +56,6 @@ public class ProjectServiceImpl implements ProjectService{
 
 
     public Project createProject(String name, String description, int transMode, boolean inclusive) throws Exception {
-        //TODO verify that this is done?
     	Project project = new Project();
         
         project.setName(name);
@@ -122,7 +121,9 @@ public class ProjectServiceImpl implements ProjectService{
     	alternative.setCounty(county);
     	
     	//Save the alternative, then links the project and saves the project
-    	projectDAO.save(project, alternative);
+    	projectDAO.save(alternative);
+    	project.addAlternative(alternative);
+    	projectDAO.save(project);
     	    	
 		return alternative;
     }//createProjectAlt()
@@ -170,7 +171,7 @@ public class ProjectServiceImpl implements ProjectService{
      * @throws Exception
      */
     public void setGrading(Long altId, Long critId, Long objId, int value) throws Exception {
-    	//TODO task 3
+
     	ProjectAltRef altRef = projectDAO.getProjectAlternativeReferece(altId);
     	
     	Criteria criteria = criteriaDAO.getCriterionById(critId);
@@ -293,6 +294,8 @@ public class ProjectServiceImpl implements ProjectService{
         	//If that was the last alternative in that project reference then delete the project reference
     		if(projectRef.getNumAltRefs() <= 0) {
     			projectDAO.delete(projectRef);
+    		} else {
+    			projectDAO.save(projectRef);
     		}
     	}    	
     }//derelateProjectAlt()

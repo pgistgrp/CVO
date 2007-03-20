@@ -44,12 +44,6 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 		getHibernateTemplate().saveOrUpdate(p);
 	}
 	
-	public void save(Project p, ProjectAlternative a) throws Exception{
-		getHibernateTemplate().saveOrUpdate(a);
-		p.addAlternative(a);
-		this.save(p);
-	}
-
     /*
 	 * this is to be handled by BaseDAOImpl 
 	 * @see org.pgist.projects.ProjectDAO#save(org.pgist.projects.Project)

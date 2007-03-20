@@ -128,7 +128,7 @@ public class ProjectSuite {
     } //getProjectReference
     
     /**
-     * Returns the project reference that has a reference to the alternative reference provided
+     * Returns the project reference that has a reference to the alternative provided
      * 
      * @param	project		The project to look for
      * @return	The project reference that contains the reference.  Or null if 
@@ -145,4 +145,23 @@ public class ProjectSuite {
     	}    	
     	return null;
     } //getProjectReference    
+    
+    /**
+     * Returns the project reference that has a reference to the alternative provided
+     * 
+     * @param	project		The project to look for
+     * @return	The project reference that contains the reference.  Or null if 
+     * 			none was found
+     */
+//    public ProjectRef getProjectReferece(Long projectAlternative) {
+//    	if(altRef == null) return null;
+//    	for (ProjectRef ref : getReferences()) {
+//        	for (ProjectAltRef tempAltRef : ref.getAltRefs()) {
+//    			if(tempAltRef.getAlternative().getId().equals(altRef.getId())) {
+//    				return ref;
+//    			}
+//        	}
+//    	}    	
+//    	return null;
+//    } //getProjectReference       
 }//class ProjectSuite
