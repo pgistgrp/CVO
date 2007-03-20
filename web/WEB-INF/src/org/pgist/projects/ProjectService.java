@@ -34,7 +34,7 @@ public interface ProjectService {
     
     void deleteFootPrint(Long fpid);
     
-    void relateProjectAlt(Long suiteId, Long altId) throws Exception;    
+    void relateProjectAlt(Long suiteId, Long altId) throws Exception, UnknownProjectSuite;    
 
     ProjectAltRef getProjectAltRefById(Long altrefId) throws Exception;
 
@@ -42,7 +42,7 @@ public interface ProjectService {
     
 	ProjectAlternative getProjectAlternativeById(Long altId) throws Exception;
     
-	void derelateProjectAlt(Long suiteId, Long altId) throws Exception;
+	void derelateProjectAlt(Long suiteId, Long altId) throws Exception, UnknownProjectSuite;
     
 	void deleteProjectAlt(Long id) throws Exception;
 

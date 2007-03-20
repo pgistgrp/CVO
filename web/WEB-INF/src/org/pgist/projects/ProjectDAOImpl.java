@@ -238,8 +238,7 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
     // ************* Project Suite ******************************** 
     
 	public ProjectSuite getProjectSuite(Long suiteID) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return (ProjectSuite)getHibernateTemplate().load(ProjectSuite.class, suiteID);
 	}
 
     

@@ -225,13 +225,12 @@ public class ProjectServiceImpl implements ProjectService{
    /**
      * Relate the given ProjectAlternative object to ProjectSuite object
      */
-    public void relateProjectAlt(Long suiteId, Long altId) throws Exception {
-System.out.println("MATT: relateProjectAlt  got SuiteID [" + suiteId + "] altId [" + altId + "]");    	
+    public void relateProjectAlt(Long suiteId, Long altId) throws Exception, UnknownProjectSuite {
     	ProjectSuite suite = projectDAO.getProjectSuite(suiteId);
     	    	
+    	if(suite == null) throw new UnknownProjectSuite("Unknown Project Suite [" + suiteId +"]");
     	//Check in the suite to see if if there is a Project the alternative is already related
     	if(!suite.containsAlts(altId)) {
-System.out.println("MATT: does not contain alt");    		
         	//If not then, load the alternative
         	ProjectAlternative alternative = projectDAO.getProjectAlternative(altId);
     		
@@ -248,7 +247,6 @@ System.out.println("MATT: does not contain alt");
         	
         	//If the reference doesn't exist then create it and add the project
         	if(projectReference == null) {
-System.out.println("MATT: reference doesn't exist");        		
         		projectReference = new ProjectRef();
         		projectReference.setProject(project);
         		
@@ -267,7 +265,6 @@ System.out.println("MATT: reference doesn't exist");
         	
         	//Save the project reference
         	projectDAO.save(projectReference);
-System.out.println("MATT: project saved with reference");        	    		
     	}    	
     }//relateProjectAlt()
 
@@ -278,9 +275,13 @@ System.out.println("MATT: project saved with reference");
      * @param	suiteId	The id of the suite to remove the reference from
      * @param	altId	The alternative ID that tells of the project alternative to remove
      */
-    public void derelateProjectAlt(Long suiteId, Long altId) throws Exception {
+    public void derelateProjectAlt(Long suiteId, Long altId) throws Exception, UnknownProjectSuite {
     	//Get a reference to the suite
     	ProjectSuite suite = projectDAO.getProjectSuite(suiteId);
+    	
+    	if(suite == null) throw new UnknownProjectSuite("Unknown Project Suite [" + suiteId +"]");
+    	
+    	
     	ProjectAltRef altRef = projectDAO.getProjectAlternativeReferece(altId);
     	
     	//Get the project reference that has this alternative reference in it

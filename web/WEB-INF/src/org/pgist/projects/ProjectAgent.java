@@ -417,7 +417,6 @@ public class ProjectAgent {
      *         </ul>
      */
     public Map setProjectDefine(Map params) {
-System.out.println("MATT: in setProjectDefine");    	
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -425,28 +424,24 @@ System.out.println("MATT: in setProjectDefine");
             Long suiteId = new Long((String) params.get("suiteId"));
             Long altId = new Long((String) params.get("altId"));
             String operation = (String) params.get("operation");
-System.out.println("MATT: got SuiteID [" + suiteId + "] altId [" + altId + "] operation [" + operation + "]");    	
             
             if ("add".equals(operation)) {
-System.out.println("MATT: add");
                 projectService.relateProjectAlt(suiteId, altId);
             } else if ("remove".equals(operation)) {
-System.out.println("MATT: remove");
                 projectService.derelateProjectAlt(suiteId, altId);
             } else {
-System.out.println("MATT: none");
                 map.put("reason", "unknown operation: "+operation);
                 return map;
             }
             
             map.put("successful", true);
+        } catch (UnknownProjectSuite e) {
+            map.put("reason", "Could not find the project suite specified");        	
         } catch (Exception e) {
-System.out.println("MATT: Exception " + e.getMessage());
 
             e.printStackTrace();
             map.put("reason", e.getMessage());
         }
-        
         return map;
     }//setProjectDefine()
     
