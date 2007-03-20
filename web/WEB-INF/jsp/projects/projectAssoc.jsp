@@ -67,7 +67,7 @@
 					alert("it worked");
 					//add loading indicator if time permits
 				}else{
-					alert(data.reason);
+					alert(data);
 				}
 			},
 			errorHandler:function(errorString, exception){ 
