@@ -60,7 +60,7 @@
 	function setProjectDefine(altId,checked){
 		operation = (checked) ? "add" : "remove";
 		
-		//alert("suiteId: " + suiteId + " altId: " + altId + " operation: " + operation); 
+		alert("suiteId: " + suiteId + " altId: " + altId + " operation: " + operation); 
 		ProjectAgent.setProjectDefine({suiteId:suiteId,altId:altId,operation:operation}, {
 			callback:function(data){
 				if (data.successful){
