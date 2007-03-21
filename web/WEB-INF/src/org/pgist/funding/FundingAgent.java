@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.directwebremoting.WebContextFactory;
 import org.pgist.util.PageSetting;
 
 
@@ -136,7 +137,10 @@ public class FundingAgent {
             setting.setPage((String) request.getParameter("page"));
             setting.setRowOfPage((String) request.getParameter("count"));
             
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/funding/fundingMgr_sources.jsp"));
+
             Collection fundings = fundingService.getFundingSources();
+            map.put("fundings", fundings);
                         
             map.put("successful", true);
         } catch (Exception e) {
