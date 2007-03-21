@@ -20,7 +20,7 @@
 
 		
 #### -->
-	<h1>FUNDING = ${fundings}</h1>
+
 	<c:if test="${fn:length(fundings) == 0}">
 		<p>No funding sources have been created yet.</p>
 	</c:if>
@@ -39,7 +39,7 @@
 			<ul>
 				<c:forEach var="alternative" items="${source.alternatives}">
 					<li id="alt-${alternative.id}">${alternative.name}  
-						<small><a href="javascript: mapAlternative(${alternative.id});">map</a> | <a href="javascript:prepareSourceAlt(${alternative.id}, 'altId');">edit</a> | <a href="javascript:deleteSourceAlt(${alternative.id});">delete</a></small>
+						<small><a href="javascript:prepareSourceAlt(${alternative.id}, 'altId');">edit</a> | <a href="javascript:deleteSourceAlt(${alternative.id});">delete</a></small>
 						<div id="alternativeForm${alternative.id}" style="display:none;">
 							<form action="javascript:editSourceAlt(${alternative.id});" id="frmSourceAlt${alternative.id}">
 								<!--form inserted from js renderSourceAltForm();-->
@@ -52,7 +52,7 @@
 				</c:forEach>
 		
 				<!-- for creating source alt-->
-				<li><small>[ <a href="javascript:prepareSourceAlt(${source.id},'projId');">Add an Alternative</a> ]</small>
+				<li><small>[ <a href="javascript:prepareSourceAlt(${source.id},'sourceId');">Add an Alternative</a> ]</small>
 					<div id="alternativeForm${source.id}" style="display:none;">
 						<form action="javascript:createSourceAlt(${source.id});" id="frmSourceAlt${source.id}">
 							<!--form inserted from js renderSourceAltForm();-->

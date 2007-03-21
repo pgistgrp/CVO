@@ -17,6 +17,7 @@
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[ ] Add STATIC calcs to form (Jordan)
+		[ ] Create ALts - Peak rate and off peak rate shouldn't be required if Toll is unchecked
 #### -->
 <html:html> 
 <head>
@@ -56,6 +57,22 @@
 		});
 	}
 	
+	function getSourceById(id){
+		FundingAgent.getFundingSourceById({id:id}, {
+			callback:function(data){
+				if(data.successful){
+					renderSourceForm(data.source)
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){
+				alert("FundingAgent.getFundingSourceById( error:" + errorString + exception);
+			}
+		});
+		
+	}
+	
 	function prepareSource(id){
 		formId = (id) ? id : ""
 		Element.toggle('sourceForm'+ formId);
@@ -82,10 +99,19 @@
 		id = (source) ? source.id : "";
 		name = (source) ? source.name : "";
 		type = (source) ? source.type : "";	
-		types = ["null","road", "transit"];
+		types = ["null",
+				"annual cost = (tax rate) * (estimated annual consumption)",
+				"annual cost = (tax rate) * (number of vehicles)",
+				"annual cost = sum( (tax rate) * (vehicle value) )",
+				"annual cost = sum( (tax rate) / (miles per galon) * (miles driven per year) )",
+				"annual cost = sum( (tax rate) / (miles per galon) * (miles driven per year) )",
+				"No direct cost calculated",
+				"annual cost = (tax rate) * (parkings per year)",
+				"annual cost = (tax rate) * (trips per year)"];
 		
 		f = '<label>Funding Source Name:</label>\
 			<input id="txtSourceName' + id +'" type="text" value="'+name+'" size="25"><br />\
+			<label>Calculation Type:</label>\
 			<select id="selSourceType' + id +'">';
 			for(i=1; i<types.length; i++){
 				typeSelected = (i==type) ? "SELECTED" : "";
@@ -100,7 +126,7 @@
 	function createSource(){
 		var name = $F('txtSourceName');
 		var type = $F('selSourceType');
-		alert('name: ' + name + ' type: ' + type);
+		//alert('name: ' + name + ' type: ' + type);
 		FundingAgent.createFundingSource({name:name, type:type}, {
 			callback:function(data){
 				if (data.successful){
@@ -115,120 +141,14 @@
 		});
 	}
 	
-
-
-	
-	/* *************** create a new funding source alternative *************** */
-	function addAlternative(){
-		var id = "";
-		var name = "";
-		var revenue = "";
-		var sourceURL = "";
-		var taxRate = "";
-		var toll = "";
-		var offPeakTripsRate = "";
-		var peakHourTripsRate = "";
-		//alert("id: " + id + " name: " + name + " revenue: " + revenue + " taxRate: " + taxRate + " toll: " + toll + " offPeakTripsRate: " + offPeakTripsRate + " peakHourTripsRate: " + peakHourTripsRate); 
-		FundingAgent.createFundingSourceAlt({id:id,name:name,revenue:revenue,sourceURL:sourceURL, taxRate:taxRate, toll:toll,offPeakTripsRate:offPeakTripsRate,peakHourTripsRate:peakHourTripsRate}, {
-			callback:function(data){
-				if (data.successful){
-					alert("successful");
-					getFundingSources();
-				}else{
-					alert(data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){ 
-				alert("FundingAgent.addAlternative( error:" + errorString + exception);
-			}
-		});
-	}
-	
-	/* *************** delete a given funding source *************** */
-	function deleteFundingSource(id){
-		FundingAgent.deleteFundingSource({id:id}, {
-			callback:function(data){
-				if(data.successful){
-					alert("Funding source deleted");
-					getFundingSources();
-				}else{
-					alert(data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){
-				alert("FundingAgent.deleteFundingSource( error:" + errorString + exception);
-			}
-		});
-		
-	}
-	
-	
-	/* *************** delete a given funding source alternative *************** */
-	function deleteAlternative(id){
-		FundingAgent.deleteAlternative({id:id}, {
-			callback:function(data){
-				if(data.successful){
-					alert("Alt funding source deleted");
-					getFundingSources();
-				}else{
-					alert(data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){
-				alert("FundingAgent.deleteAltnerative( error:" + errorString + exception);
-			}
-		});
-		
-	}
-
-	/* *************** create a form (via javascript) to edit a given funding source *************** */
-	
-	function prepareEditFundingSource(id){
-		var name='editName'+id;
-		var val="";
-		FundingAgent.getFundingSourceById({id:fid}, {
-			callback:function(data){
-				if(data.successful){
-					alert(data.source);
-					val=data.source.name;
-				}else{
-					alert(data.reason);
-					val="";
-				}
-			},
-			errorHandler:function(errorString, exception){
-				alert("FundingAgent.prepareEditFundingSource( error:" + errorString + exception);
-			}
-		});
-		
-		filler="<input name='txtsourceEdit"+id+"' type='text' value='"+val+"' size='25'> <input type='submit' value='submit' onclick='editFundingSource("+id+",$(\'txtsourceEdit"+id+"\').value); Effect.toggle(\'editsource"+id+"\',\'blind\');'>";
-	
-	$('editsource'+id).innerHTML=filler;
-	}
-	
-	function getFundingSourceById(fid){
-		FundingAgent.getFundingSourceById({id:fid}, {
-			callback:function(data){
-				if(data.successful){
-					alert(data.source);
-				}else{
-					alert(data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){
-				alert("FundingAgent.getFundingSourceById( error:" + errorString + exception);
-			}
-		});
-		
-	}
 	/* *************** edit a given funding source *************** */	
-	//editFundingSource
-	
-	function editFundingSource(fid, fname){
-		FundingAgent.editFundingSource({id:fid, name:fname}, {
+	function editSource(id){
+		var name = $F('txtSourceName' + id);
+		var type = $F('selSourceType' + id);
+		FundingAgent.editFundingSource({id:id, name:name, type:type}, {
 			callback:function(data){
 				if(data.successful){
-					alert("Funding source edited");
+					getFundingSources();
 				}else{
 					alert(data.reason);
 				}
@@ -239,60 +159,40 @@
 		});
 		
 	}
-	
-	/* *************** create a form (via javascript) to edit a given funding source alternative*************** */
-	//prepareEditFundingSourceAlt
-		//getFundingSourceAltById
-		
-	function prepareEditFundingSourceAlt(id){
-	var name='editNameAlt'+id;
-	var rev='editRevenueAlt'+id;
-	var tax='editTaxAlt'+id;
-			filler="";
-			filler+="<fieldset style='float:left;'>";
-			filler+="<form id='editFundingSourceAlt"+id+"' name='editFundingSourceAlt"+id+"'>";
-			filler+="<h3>Edit Funding Source Alternative</h3>";
-			filler+="<br />";
-			filler+="<label for='editNameAlt"+id+"' class='niceFormElement'>Funding Source Alternative Name</label>";
-			filler+="<input id='editNameAlt"+id+"' name='editNameAlt"+id+"' type='text' class='niceFormElement' /><br />";
-			
-			filler+="<label for='editRevenueAlt"+id+"' class='niceFormElement'>Funding Source Alternative Revenue</label>";
-			filler+="<input id='editRevenueAlt"+id+"' name='editRevenueAlt"+id+"' type='text' class='niceFormElement' /><br />";
-			
-			filler+="<label for='editTaxAlt"+id+"' class='niceFormElement'>Funding Source Alternative Tax Rate</label>";
-			filler+="<input id='editTaxAlt"+id+"' name='editTaxAlt"+id+"' type='text' class='niceFormElement' /><br />";
-			
-			filler+="<br />";
-			
-			filler+="<input type='button' value='Save Funding Source Alternative Edits' onClick='editFundingSourceAlt("+id+","+$(name).value+","+$(rev).value+","+$(tax).value+";'/>";
-			filler+="<input type='reset' value='Clear Form' />";
-			filler+="<br />";
-			filler+="</form>";
-		filler+="</fieldset>";
-		$('editsourceAlt'+id).innerHTML=filler;
-		
-		FundingAgent.getFundingSourceAltById({id:fid}, {
-			callback:function(data){
-				if(data.successful){
-					alert(data.alternative);
-					$(name).value=data.alternative.name;
-					$(rev).value=data.alternative.revenue;
-					$(tax).value=data.alternative.taxRate;
-				}else{
-					alert(data.reason);
+
+
+	/* *************** delete a given funding source *************** */
+	function deleteSource(id){
+		var destroy = confirm ("Are you sure you want to delete this funding source? Note: there is no undo.")
+		if(destroy){
+			FundingAgent.deleteFundingSource({id:id}, {
+				callback:function(data){
+					if(data.successful){
+						new Effect.Puff('source-' + id);
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){
+					alert("FundingAgent.deleteFundingSource( error:" + errorString + exception);
 				}
-			},
-			errorHandler:function(errorString, exception){
-				alert("FundingAgent.prepareEditFundingSourceAlt( error:" + errorString + exception);
-			}
-		});
+			});
+		}
 	}
 	
-	function getFundingSourceAltById(fid){
-		FundingAgent.getFundingSourceAltById({id:fid}, {
+	/* *************** STARTING ALTERNATIVE FUNCTIONS *************** */
+	/* *************** STARTING ALTERNATIVE FUNCTIONS *************** */
+	
+	function prepareSourceAlt(alt, idType){
+		(idType=="altId") ? getSourceAltById(alt) : renderSourceAltForm(alt);
+		Element.toggle('alternativeForm'+ alt);
+	}
+	
+	function getSourceAltById(id){
+		FundingAgent.getFundingSourceAltById({id:id}, {
 			callback:function(data){
 				if(data.successful){
-					alert(data.alternative);
+					renderSourceAltForm(data.alternative);
 				}else{
 					alert(data.reason);
 				}
@@ -304,11 +204,106 @@
 		
 	}
 	
-	/* *************** edit a given funding source alternative *************** */	
-	//editFundingSourceAlt
+	function renderSourceAltForm(alt){
+		//using ternery operators so it won't complain about the values when creating a new alt :)
+		altId = (alt.id) ? alt.id : alt;
+		name = (alt.name) ? alt.name : "";
+		revenue = (alt.revenue) ? alt.revenue : "";
+		taxRate = (alt.taxRate) ? alt.taxRate : "";
+		sourceURL = (alt.sourceURL) ? alt.sourceURL : "";
+		avgCost = (alt.avgCost) ? alt.avgCost : "";
+		toll = (alt) ? alt.toll : "";
+		tollChecked = (toll == true) ? "CHECKED" : "";
+		peakHourTripsRate = (alt.peakHourTripsRate) ? alt.peakHourTripsRate : "";
+		offPeakTripsRate = (alt.offPeakTripsRate) ? alt.offPeakTripsRate : "";
+
+		
+		f = '<h4>Editing Funding Source Alternative</h4>\
+			<label>Funding Source Alternative Name:</label>\
+			<input id="txtAltName'+ altId +'" type="text" value="'+ name +'" size="25"><br />\
+			<label>Revenue:</label>\
+			<input id="txtAltRevenue'+ altId +'" type="text" value="'+ revenue +'" size="25"><br />\
+			<label>Tax Rate:</label>\
+			<input id="txtAltTaxRate'+ altId +'" type="text" value="'+ taxRate +'" size="25"><br />\
+			<label>Source URL:</label>\
+			<input id="txtAltSourceURL'+ altId +'" type="text" value="'+ sourceURL +'" size="25"><br />\
+			<label>Average Cost to Average Resident:</label>\
+			<input id="txtAltAvgCost'+ altId +'" type="text" value="'+ avgCost +'" size="25"><br />\
+			<label>Toll:</label>\
+			<input id="ckbxToll'+ altId +'" type="checkbox" onClick="Element.toggle(\'ifTolls\')" value="'+ toll +'" '+tollChecked+'><br />\
+			<div id="ifTolls" style="display:none;">\
+				<label>Peak Rate:</label>\
+				<input id="txtAltPeakHourTripsRate'+ altId +'" type="text" value="'+ peakHourTripsRate +'" size="25"><br />\
+				<label>Off Peak Rate:</label>\
+				<input id="txtAltOffPeakTripsRate'+ altId +'" type="text" value="'+ offPeakTripsRate +'" size="25"><br />\
+			</div>\
+			<p><input type="submit" value="Submit"></p>';
+		
+
+		$("frmSourceAlt"+altId).innerHTML = f;
+		(tollChecked) ? Element.toggle('ifTolls') : ""
+	}
 	
+	function createSourceAlt(id){
+		name = $F('txtAltName' + id);
+		revenue = $F('txtAltRevenue' + id);
+		taxRate = $F('txtAltTaxRate' + id);
+		sourceURL = $F('txtAltSourceURL' + id);
+		avgCost = $F('txtAltAvgCost' + id);
+		toll = $('ckbxToll' + id).checked;
+		tollChecked = (toll == true) ? "CHECKED" : "";
+		peakHourTripsRate = $F('txtAltPeakHourTripsRate' + id);
+		offPeakTripsRate = $F('txtAltOffPeakTripsRate' + id);
+		tollFormatted = toll.toString();
+		//DWR TEST: {id:"2495", name:"DWRTEST",revenue:"111",taxRate:"222",source:"Source",avgCost:"333",toll:"true",peakHourTrips:"444",offPeakTrips:"555"}
+		//alert('id:' + id + ' name: ' + name + ' revenue: ' + revenue + ' taxRate: ' + taxRate + ' sourceURL: ' + sourceURL + ' avgCost: ' + avgCost + ' toll:' + tollFormatted + ' tollChecked: ' + tollChecked + ' peakHourTripsRate:' + peakHourTripsRate + ' offPeakTripsRate:' + offPeakTripsRate);
+		FundingAgent.createFundingSourceAlt({id:id,name:name,revenue:revenue,taxRate:taxRate,source:sourceURL,avgCost:avgCost,toll:tollFormatted,peakHourTrips:peakHourTripsRate,offPeakTrips:offPeakTripsRate}, {
+			callback:function(data){
+				if (data.successful){
+					getFundingSources();
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+				alert("FundingAgent.createFundingSource( error:" + errorString + exception);
+			}
+		});
+	}
+	
+	/* *************** delete a given funding source alternative *************** */
+	function deleteSourceAlt(id){
+		var destroy = confirm ("Are you sure you want to delete this Funding Source Alternative? Note: there is no undo.")
+		if(destroy){
+			FundingAgent.deleteFundingSourceAlt({id:id}, {
+				callback:function(data){
+					if(data.successful){
+						new Effect.Puff("alt-" + id);
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){
+					alert("FundingAgent.deleteAltnerative( error:" + errorString + exception);
+				}
+			});
+		}
+		
+	}
+
+	/* *************** edit a given funding source alternative *************** */	
 	function editFundingSourceAlt(fid,fname,frev,ftax){
-		FundingAgent.editFundingSourceAlt({id:fid, name:fname, revenue:frev, taxRate:ftax}, {
+		name = $F('txtAltName' + id);
+		revenue = $F('txtAltRevenue' + id);
+		taxRate = $F('txtAltTaxRate' + id);
+		sourceURL = $F('txtAltSourceURL' + id);
+		avgCost = $F('txtAltAvgCost' + id);
+		toll = $('ckbxToll' + id).checked;
+		tollChecked = (toll == true) ? "CHECKED" : "";
+		peakHourTripsRate = $F('txtAltPeakHourTripsRate' + id);
+		offPeakTripsRate = $F('txtAltOffPeakTripsRate' + id);
+		tollFormatted = toll.toString();
+		FundingAgent.editFundingSourceAlt({id:id,name:name,revenue:revenue,taxRate:taxRate,source:sourceURL,avgCost:avgCost,toll:tollFormatted,peakHourTrips:peakHourTripsRate,offPeakTrips:offPeakTripsRate}, {
 			callback:function(data){
 				if(data.successful){
 					alert("Alt funding Source edited");
@@ -321,29 +316,6 @@
 			}
 		});
 		
-	}
-	
-	function prepareAddAlternative(id){
-		var name="txtNewFundingAltName"+id;
-		var rev="txtNewFundingAltRevenue"+id;
-		var tax="txtNewFundingAltTax"+id;
-		filler="";
-		filler+="<h4>Create New Funding Source Alternative</h4>";
-		filler+="<form onsubmit='return false;'>";
-		filler+="<label>Name:</label>";
-		filler+="<input id='txtNewFundingAltName"+id+"' name='txtNewFundingAltName"+id+"' type='text' value='' size='25'/>";
-		filler+="<br/>";
-		filler+="<label>Revenue:</label>";
-		filler+="<input id='txtNewFundingAltRevenue"+id+"' name='txtNewFundingAltRevenue"+id+"' type='text' value=''size='25'/>";
-		filler+="<br/>";
-		filler+="<label>Tax Rate:</label>";
-		filler+="<input id='txtNewFundingAltTax"+id+"' name='txtNewFundingAltTax"+id+"' type='text' value='' size='25'/>";
-		filler+="<br/>";
-		filler+="<input type='submit' value='Add New Funding Source Alternative' onclick='addAlternative("+id+","+$(name).value+","+$(rev).value+","+$(tax).value+")'";
-		filler+="</form>";
-		$('addsourceAlt'+id).innerHTML=filler;
-	
-	
 	}
 	
 </script>
