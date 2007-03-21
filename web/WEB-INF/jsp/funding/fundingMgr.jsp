@@ -16,8 +16,7 @@
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[x] BareBones JavaScript (Isaac)
-		
+		[ ] Add STATIC calcs to form (Jordan)
 #### -->
 <html:html> 
 <head>
@@ -36,14 +35,18 @@
 
 <!--Criteria Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/FundingAgent.js'></script>
-
+<style type="text/css" media="screen">
+	li{margin: 10px 0; list-style: none;}
+	.source{font-size: 1.3em;}
+</style>
 <script>
 	/* *************** get all funding sources in the system *************** */
 	function getFundingSources(){
-		FundingAgent.getFundingSources({page: 1, count:-1}, {
+		FundingAgent.getFundingSources({page:1, count:-1}, {
 			callback:function(data){
 				if (data.successful){
 					$('sourcesList').innerHTML = data.html // gets fundingMgr_sources.jsp
+					alert(data.fundings)
 				}else{
 					alert(data.reason);
 				}
@@ -53,15 +56,55 @@
 			}
 		});
 	}
+	
+	function prepareSource(id){
+		formId = (id) ? id : ""
+		Element.toggle('sourceForm'+ formId);
+		(id) ? getSourceById(id) : renderSourceForm();		
+	}
 
-	/* *************** create a new funding source *************** */
-	function createFundingSource(){
-		var name = "";
-		var type = "";
+	function getFundingSourceById(id){
+		FundingAgent.getFundingSourceById({id:id}, {
+			callback:function(data){
+				if (data.successful){
+					renderSourcForm(data.source)
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("FundingAgent.getFundingSourceById( error:" + errorString + exception);
+			}
+		});
+	}
+
+	function renderSourceForm(source){
+		//using ternery operators so it won't complain about the values when creating a new project :)
+		id = (source) ? source.id : "";
+		name = (source) ? source.name : "";
+		type = (source) ? source.type : "";	
+		types = ["null","road", "transit"];
+		
+		f = '<label>Funding Source Name:</label>\
+			<input id="txtSourceName' + id +'" type="text" value="'+name+'" size="25"><br />\
+			<select id="selSourceType' + id +'">';
+			for(i=1; i<types.length; i++){
+				typeSelected = (i==type) ? "SELECTED" : "";
+				f += '<option value="'+ i +'" '+ typeSelected +'>'+types[i]+'</option>';
+			}
+		f +='</select><br />\
+			<p><input type="submit" value="Submit"></p>';
+		$("frmSource"+id).innerHTML = f;
+
+	}
+
+	function createSource(){
+		var name = $F('txtSourceName');
+		var type = $F('selSourceType');
+		alert('name: ' + name + ' type: ' + type);
 		FundingAgent.createFundingSource({name:name, type:type}, {
 			callback:function(data){
 				if (data.successful){
-					alert("successful");
 					getFundingSources();
 				}else{
 					alert(data.reason);
@@ -72,6 +115,9 @@
 			}
 		});
 	}
+	
+
+
 	
 	/* *************** create a new funding source alternative *************** */
 	function addAlternative(){
@@ -312,13 +358,12 @@
 	<p><a href="main.do">Back to Moderator Control Panel</a></p>
 	<h1>Manage Funding Sources</h1>
 	<h3>Manage all funding sources and their associated alternatives.</h3>
-	<form name="publishsources" action="sourceDefine.do">
-		<input type="hidden" name="activity" value="save" />
-		<h4>All Funding Sources </h4>
-		<ul id="sourcesList">
-			<!-- load sources here-->
-		</ul>
-	</form>
+
+	<h4>All Funding Sources </h4>
+	<ul id="sourcesList">
+		<!-- load sources here-->
+	</ul>
+
 	<script type="text/javascript" charset="utf-8">
 		getFundingSources();
 	</script>

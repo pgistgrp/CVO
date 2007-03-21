@@ -8,7 +8,7 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 
 <!--####
-	Project: Let's Improve Transportation!
+	Source: Let's Improve Transportation!
 	Page: Funding Source Manager Partial
 	Description: Partial page to get all funding sources
 	Author(s): 
@@ -16,22 +16,63 @@
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[x] loop through all funding sources (jordan)
+		[ ] loop through all funding sources (jordan)
 
 		
 #### -->
+	
+	<c:if test="${fn:length(fundings) == 0}">
+		<p>No funding sources have been created yet.</p>
+	</c:if>
 
-<c:forEach var="source" items="${fundings}" varStatus="loop">
-	<li><input type="checkbox" name="sourceId" value="${source.id}"/>${source.name} [ <a href="javascript:Effect.toggle('editsource${source.id}','blind');">edit</a> ] [ <html:link action="/sourceMgr.do?action=delete" paramId="id" paramName="source" paramProperty="id">delete</html:link> ]
-		<ul>
-			<li id="editsource${source.id}" style="display: none;"></li>
-			<li>[ <a href="javascript:prepareAddAlternative(${source.id});Effect.toggle('addsourceAlt${source.id}','blind');">Add an Alternative</a> ]</li>
-			<li id="addsourceAlt${source.id}" style="display:none;"></li>
-				
-			<c:forEach var="alternative" items="${source.alternative}" varStatus="loop">
-				<li>${alternative.name} [ <a href="javascript: prepareEditFundingSourceAlt(${alternative.id}); Effect.toggle('editsourceAlt${alternative.id}');">edit</a> ] [ <a href="javascript:deleteAlternative(${alternative.id});">delete</a> ]</li>
-				<li style="display:none;" id="editsourceAlt${alternative.id}"></li>
-			</c:forEach>
-		</ul>
-	</li>
-</c:forEach>
+	<c:forEach var="source" items="${fundings}" varStatus="loop">
+		<li class="sourceList" id="source-${source.id}"><span class="source">${source.name}</span>
+			<small> <a href="javascript:prepareSource(${source.id});">edit</a> | <a href="javascript:deleteSource(${source.id});">delete</a></small>
+			<!-- for editing source -->
+			<div id="sourceForm${source.id}" style="display:none">
+				<h4>Editing ${source.name}</h4>
+				<form action="javascript:editSource(${source.id});" id="frmSource${source.id}">
+					<!--form inserted from js renderSourceForm();-->
+				</form>	
+			</div>
+			<!-- end for editing source -->
+			<ul>
+				<c:forEach var="alternative" items="${source.alternatives}">
+					<li id="alt-${alternative.id}">${alternative.name}  
+						<small><a href="javascript: mapAlternative(${alternative.id});">map</a> | <a href="javascript:prepareSourceAlt(${alternative.id}, 'altId');">edit</a> | <a href="javascript:deleteSourceAlt(${alternative.id});">delete</a></small>
+						<div id="alternativeForm${alternative.id}" style="display:none;">
+							<form action="javascript:editSourceAlt(${alternative.id});" id="frmSourceAlt${alternative.id}">
+								<!--form inserted from js renderSourceAltForm();-->
+							</form>
+						</div>
+						<div id="alternativeMap${alternative.id}">
+							<!-- map for this alt goes here -->
+						</div>
+					</li>
+				</c:forEach>
+		
+				<!-- for creating source alt-->
+				<li><small>[ <a href="javascript:prepareSourceAlt(${source.id},'projId');">Add an Alternative</a> ]</small>
+					<div id="alternativeForm${source.id}" style="display:none;">
+						<form action="javascript:createSourceAlt(${source.id});" id="frmSourceAlt${source.id}">
+							<!--form inserted from js renderSourceAltForm();-->
+						</form>
+					</div>
+				</li>
+				<!-- end for creating source alt -->
+		
+			</ul>
+			<div id="editAlternativeForm${source.id}" style="display: none"></div>
+		</li>
+	</c:forEach>
+
+<li>[ <a href="javascript:prepareSource();">Add a Source</a> ]
+	<div id="sourceForm" style="display: none;">
+		<h4>Add a New Source</h4>
+		<form id="frmSource" name="frmSource" action="javascript:createSource();">
+			<!--load form here-->
+		</form>
+	</div>
+</li>
+
+
