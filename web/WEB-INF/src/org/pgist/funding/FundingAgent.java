@@ -136,13 +136,14 @@ public class FundingAgent {
             
             setting.setPage((String) request.getParameter("page"));
             setting.setRowOfPage((String) request.getParameter("count"));
-            
-            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/funding/fundingMgr_sources.jsp"));
 
             //This puts the variable into the bit of jsp from above.  If you put it in the params map, then it shows up in the javascript
             Collection fundings = fundingService.getFundingSources();
+            
             request.setAttribute("fundings", fundings);
-                        
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/funding/fundingMgr_sources.jsp"));
+            
+            map.put("fundings", fundings);        
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
