@@ -46,7 +46,6 @@
 			callback:function(data){
 				if (data.successful){
 					$('sourcesList').innerHTML = data.html // gets fundingMgr_sources.jsp
-					alert(data.fundings)
 				}else{
 					alert(data.reason);
 				}

@@ -20,7 +20,7 @@
 
 		
 #### -->
-	
+	<h1>FUNDING = ${fundings}</h1>
 	<c:if test="${fn:length(fundings) == 0}">
 		<p>No funding sources have been created yet.</p>
 	</c:if>
