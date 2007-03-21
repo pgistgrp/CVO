@@ -60,10 +60,10 @@
 		<td>
 		<c:choose> 
 			<c:when test='${user.enabled == "true"}'>
-				<input name="Disable" id="disable" type="button" value="Disable" onclick="javascript:disableUsers('${user.id}');getAllUsers();setTimeout('',300);" />
+				<input name="Disable" id="disable" type="button" value="Disable" onclick="javascript:disableUsers('${user.id}');setTimeout('getAllUsers();',100);" />
 			</c:when>
 			<c:otherwise>
-				<input name="Enable" id="enable" type="button" value="Enable" onclick="javascript:enableUsers('${user.id}');getAllUsers();setTimeout('',300)" />	
+				<input name="Enable" id="enable" type="button" value="Enable" onclick="javascript:enableUsers('${user.id}');setTimeout('getAllUsers();',100)" />	
 			</c:otherwise>
 		</c:choose>
 		<input name="Reset Password" type="button" value="Reset Password" onclick="javascript:resetPassword('${user.id}')" />
