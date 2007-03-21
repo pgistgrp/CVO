@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>Let's Improve Transportation: Help me create a package</title>
+<style type="text/css" media="screen">
+        @import "styles/lit.css";
+				@import "styles/step3c-helpme.css";
+</style>
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script type="text/javascript">
+		function expandList(objective,icon){
+			Effect.toggle(objective, 'appear', {duration: .5, afterFinish:
+				//window.setTimeout(toggleIcon,100);
+				function(){
+					if ($(objective).style.display != ""){
+						$(icon).src = "images/plus.gif";
+						}else{
+							$(icon).src = "images/minus.gif";
+						}
+					}
+			});
+		}
+	</script>
+</head>
+<body>
+<!-- Begin conditional styles for the benefit of IE -->
+<!--[if IE]>
+                          <style type="text/css">
+                          #sortingMenu {right:0px;}
+						  #criteriaRuler {width:745px;}
+                          </style>
+          <![endif]-->
+<!-- End conditional styles -->
+<!-- Begin loading indicator -->
+<div style="display: none;" id="loading-indicator"> Loading... <img src="/images/indicator_arrows.gif"> </div>
+<!-- End loading indicator -->
+<!-- Begin container - Main page content begins here -->
+<div id="container">
+<!-- begin object -->
+<div id="object">
+  <!-- begin object content -->
+  <div id="object-content">
+    <!-- Load separate file content starting here -->
+    <div id="criteria">
+      <div id="criteriaHeader" style="height:30px">
+        <div class="floatLeft">
+          <h3 class="headerColor">Help Me</h3>
+          <p>Answer the following questions to that we can suggest
+            a package that matches your general preferences.
+            You will be able to adjust your suggested package
+            before moving on.</p>
+          <h4 class="headerColor">1. What are your preferred
+            planning factor weights? We will select projects
+            with scores that best match your preferences.</h4>
+          <br />
+        </div>
+      </div>
+    </div>
+    <!-- begin criteria (summary) -->
+    <div id="criteria" class="floatLeft">
+      <!-- START All Criteria List -->
+      <div id="allCriteriaList">
+        <div class="criteriaListHeader headingColor">
+          <div class="weighCriteriaCol1 floatLeft">
+            <h4>Planning factor</h4>
+          </div>
+          <div class="weighCriteriaCol2 floatLeft">
+            <h4>Your weight</h4>
+          </div>
+          <div class="clearBoth"></div>
+        </div>
+        <div class="criteriaListRow row">
+          <div class="weighCriteriaCol1 floatLeft"><a href="#">
+            <div class="floatLeft"><a href="javascript:expandList('objectives1','icon1');"> <img src="images/plus.gif" id="icon1"></a></a></div>
+            <div class="floatLeft"><a href="#">Economic Vitality</a></div>
+          </div>
+          <div class="weighCriteriaCol2 floatLeft">Lorem ipsum dolor sit amet consectetuer adapiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetuer adapiscing elit.  Sed do euismod tempor incididunt ut labore et dolore magna aliqua.</div>
+          <div class="clearBoth"></div>
+          <div class="objectives" id="objectives1" style="display:none;"> Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+        </div>
+        <div class="criteriaListRow row">
+          <div class="weighCriteriaCol1 floatLeft"><a href="#">
+            <div class="floatLeft"><a href="javascript:expandList('objectives2','icon2');"> <img src="images/plus.gif" id="icon2"></a></div>
+            <div class="floatLeft"><a href="#">Security</a></div>
+          </div>
+          <div class="weighCriteriaCol2 floatLeft">Lorem ipsum dolor sit amet consectetuer adapiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetuer adapiscing elit.  Sed do euismod tempor incididunt ut labore et dolore magna aliqua.</div>
+          <div class="clearBoth"></div>
+          <div class="objectives" id="objectives2" style="display:none;"> Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+        </div>
+        <div class="criteriaListRow row">
+          <div class="weighCriteriaCol1 floatLeft">
+            <div class="floatLeft"><a href="javascript:expandList('objectives3','icon3');"> <img src="images/plus.gif" id="icon3"></a></div>
+            <div class="floatLeft"><a href="#">Accessibility
+                and Mobility</a></div>
+          </div>
+          <div class="weighCriteriaCol2 floatLeft"> </div>
+          <div class="clearBoth"></div>
+          <div class="objectives" id="objectives3" style="display:none;"> Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+        </div>
+        <div class="criteriaListRow row">
+          <div class="weighCriteriaCol1 floatLeft">
+            <div class="floatLeft"><a href="javascript:expandList('objectives4','icon4');"> <img src="images/plus.gif" id="icon4"></a></div>
+            <div class="floatLeft"><a href="#">Environmental
+                / Energy / QOL </a></div>
+          </div>
+          <div class="weighCriteriaCol2 floatLeft"> </div>
+          <div class="clearBoth"></div>
+          <div class="objectives" id="objectives4" style="display:none;"> Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+            Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+        </div>
+      </div>
+      <div class="criteriaListRow row">
+        <div class="weighCriteriaCol1 floatLeft">
+          <div class="floatLeft"><a href="javascript:expandList('objectives5','icon5');"> <img src="images/plus.gif" id="icon5"></a></div>
+          <a href="#">Integration and Connectivity </a></div>
+        <div class="weighCriteriaCol2 floatLeft"> </div>
+        <div class="clearBoth"></div>
+        <div class="objectives" id="objectives5" style="display:none;"> Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+      </div>
+      <div class="criteriaListRow row">
+        <div class="weighCriteriaCol1 floatLeft">
+          <div class="floatLeft"><a href="javascript:expandList('objectives6','icon6');"> <img src="images/plus.gif" id="icon6"></a></div>
+          <div class="floatLeft"><a href="#">Efficient System
+              Management </a></div>
+        </div>
+        <div class="weighCriteriaCol2 floatLeft"> </div>
+        <div class="clearBoth"></div>
+        <div class="objectives" id="objectives6" style="display:none;"> Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+      </div>
+      <div class="criteriaListRow row">
+        <div class="weighCriteriaCol1 floatLeft">
+          <div class="floatLeft"><a href="javascript:expandList('objectives7','icon7');"> <img src="images/plus.gif" id="icon7"></a></div>
+          <div class="floatLeft"><a href="#">System Preservation</a></div>
+        </div>
+        <div class="weighCriteriaCol2 floatLeft"> </div>
+        <div class="clearBoth"></div>
+        <div class="objectives" id="objectives7" style="display:none;"> Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+      </div>
+      <div class="criteriaListRow row">
+        <div class="weighCriteriaCol1 floatLeft">
+          <div class="floatLeft"><a href="javascript:expandList('objectives8','icon8');"> <img src="images/plus.gif" id="icon8"></a></div>
+          <div class="floatLeft"><a href="#">Safety</a></div>
+        </div>
+        <div class="weighCriteriaCol2 floatLeft"> </div>
+        <div class="clearBoth"></div>
+        <div class="objectives" id="objectives8" style="display:none;"> Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+      </div>
+      <div class="criteriaListRow row">
+        <div class="weighCriteriaCol1 floatLeft">
+          <div class="floatLeft"><a href="javascript:expandList('objectives9','icon9');"> <img src="images/plus.gif" id="icon9"></a></div>
+          <span class="floatLeft"><a href="#">Local / Regional
+          Factors </a></span></div>
+        <div class="weighCriteriaCol2 floatLeft"> </div>
+        <div class="clearBoth"></div>
+        <div class="objectives" id="objectives9" style="display:none;"> Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+          Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+          Lorem Ipsum Lorem Ipsum Lorem Ipsum </div>
+      </div>
+      <!-- END All Criteria List -->
+    </div>
+    <!-- end criteria (summary) -->
+  </div>
+  <!-- Separate file content stops here -->
+</div>
+<!--end object content -->
+<!-- end object -->
+<div class="clearBoth">&nbsp;</div>
+<h4 class="headerColor">2. How much are you willing to pay per
+  year?</h4>
+<p class="floatLeft" style="width:70%;">What is the total annual
+  cost <i>you</i> are willing to pay to fund your preferred
+  transportation package?<br />
+  <i>(For example, the average resident is being asked to pay $214 extra in taxes in the RTID/Sound Transit 2 ballot measure)</i></p>
+<p class="floatRight">$
+  <input type="text">
+</p>
+<p class="floatLeft" style="width:70%;">What is the total annual
+  cost the <i>average resident</i> should have to pay to fund
+  your preferred transportation package?</p>
+<p class="floatRight">$
+  <input type="text">
+</p>
+
+<div class="clearBoth"></div>
+
+<h4 class="headerColor">Which funding sources are you willing to consider?</h4>
+
+<ul id="fundingSourceList">
+	<li><label><input type="checkbox"> Sales tax increase</li>
+	<li><label><input type="checkbox"> Annual vehicle license fee</li>
+	<li><label><input type="checkbox"> Annual motor vehicle excise tax</li>
+	<li><label><input type="checkbox"> Local option gas tax per gallon</li>
+	<li><label><input type="checkbox"> Sales tax on gas</li>
+	<li><label><input type="checkbox"> Employer excise tax</li>
+	<li><label><input type="checkbox"> Commercial parking tax</li>
+	<li><label><input type="checkbox"> Toll on Alaskan Way Viaduct</li>
+	<li><label><input type="checkbox"> Toll on I-405 North</li>
+	<li><label><input type="checkbox"> Toll on I-405 South</li>
+	<li><label><input type="checkbox"> Toll on SR-520 Bridge</li>
+	<li><label><input type="checkbox"> Toll on I-90</li>
+	<li><label><input type="checkbox"> Toll on SR-167</li>
+</ul>
+<div class="clearBoth"></div>
+
+<h4 class="headerColor">4.Do you want us to include projects and funding sources already selected in your package, or suggest a brand new package?</h4>
+<p class="centerAlign">
+	<label><input type="radio" name="group1" align="left" checked>Include my current selection</label><br/>
+	<label><input type="radio" name="group1" align="left">Create a brand-new package</label><br/>
+	</p>
+<p class="centerAlign">
+	<input type="button" value="I'm done: Show me my suggested package" class="padding5"></p>
+  
+<div> </div>
+<!-- end container -->
+<!-- Start Footer -->
+<!-- End Footer -->
+<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
+<script type="text/javascript">
+	io.getPosts('', 1, false, io.currentSort);
+	//infoObject.assignTargetHeaders();
+	io.getTargets();            
+</script>
+</body>
+</html>

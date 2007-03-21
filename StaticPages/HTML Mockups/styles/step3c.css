@@ -1,0 +1,51 @@
+.summary
+{
+float:left;
+width:100%;
+border:1px solid #ddd;
+margin-bottom:1em;
+}
+
+
+/* .balance and .exceed are classes for the revenue summary.
+   Balance is green and exceed is red. */
+	
+.balance, .exceed {padding:5px;text-align:center;margin:5px;}
+
+.balance 
+{
+background:#C9E1BD;
+}
+
+.exceed
+{
+background:#E5A9A6;
+}
+
+.summary table {width:100%;}
+.summary table td {font-size:.9em;}
+.summary table td + td {text-align:right;font-size:.9em;}
+
+#newTable #left table {width:100%}
+#newTable #left td {font-size:.7em;}
+#newTable #left td.fundingSourceItem {width:65%;font-size:.8em;}
+#newTable #left td.fundingSourceItem + td {width:35%;}
+
+#left {width:420px;margin-bottom:2em;}
+#right {width:520px;margin-bottom:2em;}
+
+
+#newTable #right table {width:100%;}
+#newTable #right td {font-size:.7em;text-align:center;}
+#newTable #right td.fundingSourceItem {width:45%;text-align:left;}
+#newTable #right td.fundingSourceItem + td {width:20%;}
+#newTable #right td.fundingSourceItem + td + td {width:20%;}
+#newTable #right td.fundingSourceItem + td + td +td{width:15%;}
+
+#map {margin:0px auto 10px auto;}
+
+.objectives table {width:100%;text-align:left;}
+.objectives table td {width:80%}
+.objectives table td + td{width:20%;text-align:left;}
+
+

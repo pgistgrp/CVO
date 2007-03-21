@@ -1,0 +1,95 @@
+
+body{font-size:12pt;}
+
+#myIncome,#myVehicles,#myCommute,#estimates
+{
+padding:.5em;
+padding-left:2em;
+border:1px solid #89A3AF;
+}
+
+#myIncome
+{
+background:#E6EDEF;
+}
+
+#myIncome span {margin-right:2em;}
+#myIncome input {margin-left:1em}
+
+#myVehicles
+{
+border-top:0px;
+background:#D6E7EF;
+}
+
+#myVehicles input {width:5em;}
+.myVehiclesRow {margin:.5em 0em;}
+
+#myCommute
+{
+border-top:0px;
+background:#E6EDEF;
+}
+
+#myCommute-left,#myCommute-center,#myCommute-right{margin-right:1em;}
+
+#myCommute-left 
+{
+width:12em;
+}
+
+#myCommute-left input {width:3em;}
+
+#myCommute-center 
+{
+width:25em;
+line-height:1.8em;
+}
+
+#myCommute-center input {width:1em;}
+
+#myCommute-right 
+{
+}
+
+#estimates
+{
+border-top:0px;
+background:#D6E7EF;
+}
+
+#estimates-left
+{
+float:left;
+width:50%;
+}
+
+
+#estimates th {background:none;}
+
+table#tollRoads {font-size:1em;width:100%;}
+#tollRoads td {padding:.1em .3em;text-align:center;}
+#tollRoads th {text-align:center;}
+#tollRoads input {width:2.1em;text-align:center;}
+
+#tollRoads .fundingSourceItem {text-align:left;}
+#estimates-right
+{
+float:right;
+width:45%;
+margin-top:40px;
+}
+
+#newTable {border:1px solid #ADCFDE;padding:3px;margin-bottom:2em;}
+
+#newTable td.fundingSourceItem {width:30%;}
+#newTable td.fundingSourceItem + td {width:10%;}
+#newTable td.fundingSourceItem + td + td {width:5%;text-align:center;}
+#newTable td.fundingSourceItem + td + td + td {width:5%;}
+#newTable td.fundingSourceItem + td + td + td + td{width:9%;}
+#newTable td.fundingSourceItem + td + td + td + td + td {width:5%;text-align:center;}
+#newTable td.fundingSourceItem + td + td + td + td + td + td {width:10%;}
+#newTable td.fundingSourceItem + td + td + td + td + td + td + td {width:5%;text-align:center;}
+#newTable td.fundingSourceItem + td + td + td + td + td + td + td + td {width:5%;}
+#newTable td.fundingSourceItem + td + td + td + td + td + td + td + td + td {width:5%;text-align:center;}
+#newTable td.fundingSourceItem + td + td + td + td + td + td + td + td + td + td {width:5%;}

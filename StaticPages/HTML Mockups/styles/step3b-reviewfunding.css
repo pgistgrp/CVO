@@ -1,0 +1,23 @@
+#obj-left
+{
+width:63%;
+}
+
+#obj-right
+{
+width:35%;
+}
+
+#newTable table {width:100%}
+
+#newTable td.fundingSourceItem {width:40%;}
+#newTable td.fundingSourceItem + td {width:20%;}
+#newTable td.fundingSourceItem + td + td {width:20%;}
+#newTable td.fundingSourceItem + td + td + td {width:20%}
+
+.objectives {padding:0px;}
+
+.objectives td {width:40%;}
+.objectives td + td {width:20%;text-align:center;}
+.objectives td + td + td {width:20%;text-align:center;}
+.objectives td + td + td + td {width:20%;text-align:center;}
