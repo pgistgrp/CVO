@@ -1,8 +1,8 @@
 package org.pgist.projects;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 
 /**
@@ -41,7 +41,7 @@ public class Project implements Serializable {
     
     private Corridor corridor;
     
-    private Set<ProjectAlternative> alternatives = new HashSet<ProjectAlternative>();
+    private SortedSet<ProjectAlternative> alternatives = new TreeSet<ProjectAlternative>();
     
     /**
      * inclusive==true, multiple alternatives can be selected
@@ -134,16 +134,16 @@ public class Project implements Serializable {
     /**
      * @return
      * 
-     * @hibernate.set lazy="false" cascade="all-delete-orphan"
+     * @hibernate.set lazy="false" cascade="all-delete-orphan" sort="org.pgist.projects.ProjectAlternativeComparator"
      * @hibernate.collection-key column="project_id"
      * @hibernate.collection-one-to-many class="org.pgist.projects.ProjectAlternative"
      */
-    public Set<ProjectAlternative> getAlternatives(){
+    public SortedSet<ProjectAlternative> getAlternatives(){
         return this.alternatives;
     }
     
     
-	public void setAlternatives(Set<ProjectAlternative> alts){
+	public void setAlternatives(SortedSet<ProjectAlternative> alts){
 		this.alternatives = alts;
 	}
     
