@@ -20,7 +20,8 @@
 		[x] Add JS to set alts (Jordan)
 		[x] Load Projects into Action (Matt)
 		[ ] Order Alts A-Z (Matt)
-		[ ] test setProjectDefine (Matt)
+		[x] test setProjectDefine (Matt)
+		[ ] How do I check if the alternative is defined or not onLoad?
 #### -->
 <html:html> 
 <head>
@@ -64,10 +65,10 @@
 		ProjectAgent.setProjectDefine({suiteId:suiteId,altId:altId,operation:operation}, {
 			callback:function(data){
 				if (data.successful){
-					alert("it worked");
+					alert("alternative operation saved!");
 					//add loading indicator if time permits
 				}else{
-					alert(data);
+					alert(data.reason);
 				}
 			},
 			errorHandler:function(errorString, exception){ 
@@ -101,6 +102,7 @@
 					<ul>
 						<c:forEach var="alt" items="${project.alternatives}">
 							<li><label><input type="checkbox" name="projectAlts${project.id}" id="projectAlt-${alt.id}" value="${alt.id}" onClick="setProjectDefine(this.value, this.checked);"/>${alt.name}</label></li>
+							<!-- how do i check this value of the checkbox onLoad? -->
 						</c:forEach>
 					</ul>
 				</li>
