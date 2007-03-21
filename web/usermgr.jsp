@@ -57,8 +57,8 @@ function getAllUsers() {
 }
 
 
-function disableUsers(myId) {
-	SystemAgent.disableUsers({ids:myId});
+function disableUsers(myid) {
+	SystemAgent.disableUsers({ids:myid});
 }
 
 function enableUsers(myId) {
@@ -100,6 +100,11 @@ function hide(divid){
 		document.getElementById(divid).style.display="block";
 	}
 }
+
+function resetPassword(myid) {
+	SystemAgent.resetPassword({ids:myid});
+}
+
 </script>
 
 

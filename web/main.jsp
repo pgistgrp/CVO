@@ -99,9 +99,9 @@
 					<li><html:link page="#">Workflow Management Tool</html:link></li>
 					<li><html:link page="/projectManage.do">Projects Management Tool</html:link></li>
 					<li><html:link page="/fundingManage.do">Funding Source Management Tool</html:link></li
-					<li><html:link page="/feedback.do">Reviewing Feedbacks</html:link></li>
+					><li><html:link page="/feedback.do">Reviewing Feedbacks</html:link></li>
 					<li><html:link page="/tagging.do">Tags/StopWords Management Tool</html:link></li>
-					<li><html:link page="#">User Management</html:link></li>					
+					<li><html:link page="/usermgr.do">User Management</html:link></li>					
 					<li><html:link page="/glossaryManage.do">Glossary Management Tool</html:link></li>
 					<li><html:link page="#">Mass Email/Alert to Participants</html:link></li>
 				</ul>
@@ -118,7 +118,7 @@
 				<ul>
 					<li><html:link page="projectDefine.do?suiteId=200">Define Projects</html:link></li>
 					<li><html:link page="projectGrade.do?suiteId=200">Grade Projects</html:link></li
-					<li><html:link page="fundingDefine.do?suiteId=200">Define Funding</html:link></li>
+					><li><html:link page="fundingDefine.do?suiteId=200">Define Funding</html:link></li>
 				</ul>
 			<li>Step 4</li>
 				<ul>

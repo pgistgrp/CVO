@@ -182,7 +182,8 @@ public class SystemAgent {
 		
         try {
         	Collection users = systemService.getAllUsers();
-     
+        	/*sort */
+ 
         	request.setAttribute("users", users);
         	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/system_allusers.jsp"));
         	map.put("users", users);
