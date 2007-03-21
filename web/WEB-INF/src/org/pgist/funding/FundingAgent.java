@@ -312,8 +312,12 @@ public class FundingAgent {
             String source = (String) params.get("source");
             float avgCost = new Float((String) params.get("avgCost"));
             boolean toll = Boolean.parseBoolean((String) params.get("toll"));
-            float peakHourTrips = new Float((String) params.get("peakHourTrips"));
-            float offPeakTrips = new Float((String) params.get("offPeakTrips"));
+            float peakHourTrips = 0;
+            float offPeakTrips = 0;
+            if(toll) {
+                peakHourTrips = new Float((String) params.get("peakHourTrips"));
+                offPeakTrips = new Float((String) params.get("offPeakTrips"));            	
+            }
             
             FundingSourceAlternative alt = fundingService.createFundingSourceAlt(id, name, revenue, taxRate, source, avgCost, toll, peakHourTrips, offPeakTrips);
             
