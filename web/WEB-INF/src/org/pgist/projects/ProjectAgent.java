@@ -451,7 +451,7 @@ public class ProjectAgent {
      * 
      * @param params A map contains:
      *     <ul>
-     *       <li>altId - int, id of a ProjectAlt object</li>
+     *       <li>altRefId - int, id of a ProjectAltRef object</li>
      *       <li>critId - int, id of a Criteria object</li>
      *       <li>objId - int, id of a Objective object</li>
      *       <li>value - int, grading value, [-3, 3]</li>
@@ -469,14 +469,26 @@ public class ProjectAgent {
         map.put("successful", false);
         
         try {
-            Long altId = new Long((String) params.get("altId"));
+            Long altRefId = new Long((String) params.get("altRefId"));
             Long critId = new Long((String) params.get("critId"));
             Long objId = new Long((String) params.get("objId"));
             int value = new Integer((String) params.get("value"));
             
-            projectService.setGrading(altId, critId, objId, value);
-            
+            String critGrade = projectService.setGrading(altRefId, critId, objId, value);
+            map.put("critGrade", critGrade);
             map.put("successful", true);
+        } catch (UnknownCriteriaException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            map.put("reason", "Error: this objective could not be assigned the specified grade");
+            return map;
+        	
+        } catch (UnknownObjectiveException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            map.put("reason", "Error: this objective could not be assigned the specified grade");
+            return map;
+        	
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());

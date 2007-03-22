@@ -1,10 +1,11 @@
 package org.pgist.projects;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 
-import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaDAO;
+import org.pgist.criteria.CriteriaRef;
 
 
 /**
@@ -164,18 +165,27 @@ public class ProjectServiceImpl implements ProjectService{
     /**
      * Set grading to a specific ProjectAlternative and Criteria Objective of a specific User
      * 
-     * @param altId - int, id of a ProjectAlt object</li>
+     * @param altRefId - int, id of a ProjectAlt object</li>
      * @param critId - int, id of a Criteria object</li>
      * @param objId - int, id of a Objective object</li>
      * @param value - int, grading value, [-3, 3]</li>
+     * @return	The grade of the criteria relative to this alternative
      * @throws Exception
      */
-    public void setGrading(Long altId, Long critId, Long objId, int value) throws Exception {
+    public String setGrading(Long altRefId, Long critId, Long objId, int value) throws Exception, UnknownCriteriaException, UnknownObjectiveException {
 
-    	ProjectAltRef altRef = projectDAO.getProjectAlternativeReferece(altId);
-    	
-    	Criteria criteria = criteriaDAO.getCriterionById(critId);
-    	
+    	ProjectAltRef altRef = projectDAO.getProjectAlternativeReferece(altRefId);
+    	Map grades = altRef.getGrades();
+    	  	
+    	Iterator i = grades.keySet().iterator();
+    	CriteriaRef ref;
+    	while(i.hasNext()) {
+    		ref = (CriteriaRef)i.next();
+    		if(ref.getCriterion().getId().equals(critId)) {
+    			return convertGrade(ref.setObjectiveGrade(objId, value));
+    		}
+    	}
+    	throw new UnknownCriteriaException("Could not find criteria [" + critId + "]");
     }//setGrading()
 
 
@@ -322,6 +332,13 @@ public class ProjectServiceImpl implements ProjectService{
 		return projectDAO.getProjectSuite(suiteId);
 	}
     
-    
+    /**
+     * Converts the grade from an integer to text that the user will see on the screen
+     */
+	public static String convertGrade(int grade) {
+		//TODO figure out conversion
+		String result = "A+++";
+		return result;
+	}
     
 }//class ProjectServiceImpl
