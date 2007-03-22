@@ -3,7 +3,7 @@ package org.pgist.projects;
 import java.util.Comparator;
 
 public class ProjectAlternativeComparator implements Comparator {
-    private boolean caseSensitive = true;
+    private boolean caseSensitive = false;
 	public int compare(Object obj1, Object obj2) {
         ProjectAlternative ref1 = (ProjectAlternative) obj1;
         ProjectAlternative ref2 = (ProjectAlternative) obj2;
