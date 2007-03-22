@@ -70,8 +70,17 @@ public class ProjectGradingAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-        //TODO: load the specified ProjectSuite and CriteriaSuite objects, transfer to jsp
-        
+    	String tempProjSuiteId = request.getParameter("projsuiteId");
+    	if(tempProjSuiteId != null) {
+    		Long projSuite = new Long(tempProjSuiteId);
+    		request.setAttribute("projSuite", this.projectService.getProjectSuite(projSuite));
+    	}
+    	String tempCritSuiteId = request.getParameter("critsuiteId");
+    	if(tempCritSuiteId != null) {
+    		Long critSuite = new Long(tempCritSuiteId);
+    		request.setAttribute("critSuite", this.criteriaService.getCriteriaSuiteById(critSuite));
+    	}
+    	       
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
         return mapping.findForward("view");
