@@ -27,7 +27,7 @@ public class PgistELFunctions extends SimpleTagSupport {
         return collection.contains(object);
     }//contains()
     
-	public static boolean contains(ProjectSuite suite, Project project, ProjectAlternative alt) {
+	public static boolean containsRef(ProjectSuite suite, Project project, ProjectAlternative alt) {
         if (suite==null) return false;
         if (project==null) return false;
         if (alt==null) return false;
