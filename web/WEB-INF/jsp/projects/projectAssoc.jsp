@@ -41,7 +41,7 @@
 <!--Project Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
 <script type="text/javascript" charset="utf-8">
-	var suiteId = 200; //hardcoded until workflow manager is available
+	var suiteId = ${suite.id}; //hardcoded until workflow manager is available
 
 	function checkAltsInProject(projId,checked){
 		var alts = document.getElementsByName("projectAlts" + projId);
@@ -101,8 +101,7 @@
 					</small>
 					<ul>
 						<c:forEach var="alt" items="${project.alternatives}">
-							<li><label><input type="checkbox" name="projectAlts${project.id}" id="projectAlt-${alt.id}" value="${alt.id}" onClick="setProjectDefine(this.value, this.checked);"/>${alt.name}</label></li>
-							<!-- how do i check this value of the checkbox onLoad? -->
+							<li><label><input type="checkbox" name="projectAlts${project.id}" id="projectAlt-${alt.id}" checked="${pg:containsRef(suite,project,alt)}" value="${alt.id}" onClick="setProjectDefine(this.value, this.checked);"/>${alt.name}</label></li>
 						</c:forEach>
 					</ul>
 				</li>

@@ -57,7 +57,7 @@
 		<h4>All Funding Sources</h4>
 		<ul id="projectsList">
 			<c:forEach var="source" items="${sources}">
-				<li><input type="checkbox" name="sourceId" value="${source.id}"/>${source.name} - ${source.description}
+				<li><input type="checkbox" name="sourceId" value="${source.id}" checked="<pg:contains()/>"/>${source.name} - ${source.description}
 					<ul>
 						<c:forEach var="alternative" items="${source.alternatives}">
 							<li>${alternative.name}</li>
