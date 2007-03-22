@@ -55,4 +55,10 @@ public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
         getHibernateTemplate().delete(alt);		
 	}
     
+    // ************* Funding Suite ******************************** 
+    
+	public FundingSourceSuite getFundingSuite(Long suiteID) throws Exception {
+		return (FundingSourceSuite)getHibernateTemplate().load(FundingSourceSuite.class, suiteID);
+	}	
+	
 }//class FundingDAOImpl

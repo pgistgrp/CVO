@@ -10,7 +10,9 @@ import java.util.Collection;
  */
 public interface FundingService {
     
-    
+	FundingSourceSuite getFundingSuite(Long suiteId) throws Exception;
+	
+	
     FundingSource getFundingSourceById(Long id) throws Exception;
     
     

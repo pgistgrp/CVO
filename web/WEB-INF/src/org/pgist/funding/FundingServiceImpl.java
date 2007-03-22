@@ -231,5 +231,8 @@ public class FundingServiceImpl implements FundingService {
         return null;
     }//getAllTolls()
 
+	public FundingSourceSuite getFundingSuite(Long suiteId) throws Exception {
+		return fundingDAO.getFundingSuite(suiteId);
+	}
 
 }//class FundingServiceImpl

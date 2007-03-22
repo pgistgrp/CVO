@@ -59,11 +59,16 @@ public class FundingDefAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-        /*
-         * TODO: extract FundingSourceSuite and FundingSource collection
-         */
-        
+
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+
+    	String tempSuiteId = request.getParameter("suiteId");
+    	if(tempSuiteId != null) {
+    		Long suiteId = new Long(tempSuiteId);
+    		request.setAttribute("suite", this.fundingService.getFundingSuite(suiteId));
+    	}
+    	    	
+        request.setAttribute("sources", this.fundingService.getFundingSources());        
         
         return mapping.findForward("view");
     }//execute()
