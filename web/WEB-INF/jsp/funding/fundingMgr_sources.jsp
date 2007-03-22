@@ -12,11 +12,11 @@
 	Page: Funding Source Manager Partial
 	Description: Partial page to get all funding sources
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Isaac Yang
+	     Front End: Jordan Isip, Adam Hindman
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] loop through all funding sources (jordan)
+		[x] loop through all funding sources (jordan)
 		
 		
 #### -->

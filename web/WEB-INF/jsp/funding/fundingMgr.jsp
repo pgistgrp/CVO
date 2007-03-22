@@ -18,7 +18,7 @@
 		[x] Initial Skeleton Code (Jordan)
 		[x] Add STATIC calcs to form (Jordan)
 		[ ] Order Sources and Alts by Name (Matt)
-		[ ] Create ALts - Peak rate and off peak rate shouldn't be required if Toll is unchecked (Matt)
+		[x] Create ALts - Peak rate and off peak rate shouldn't be required if Toll is unchecked (Matt)
 #### -->
 <html:html> 
 <head>
