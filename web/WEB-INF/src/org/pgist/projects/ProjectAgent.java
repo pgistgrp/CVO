@@ -438,7 +438,6 @@ public class ProjectAgent {
         } catch (UnknownProjectSuite e) {
             map.put("reason", "Could not find the project suite specified");        	
         } catch (Exception e) {
-
             e.printStackTrace();
             map.put("reason", e.getMessage());
         }
