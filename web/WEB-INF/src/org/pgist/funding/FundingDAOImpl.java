@@ -32,7 +32,7 @@ public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
 
 
     public Collection getFundingSources() throws Exception {
-    	return getHibernateTemplate().find("from FundingSource fs");
+    	return getHibernateTemplate().find("from FundingSource fs order by fs.name asc");
     }//getFundingSources()
 
 	public void save(FundingSource source) {
