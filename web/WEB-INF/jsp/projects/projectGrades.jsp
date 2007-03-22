@@ -13,6 +13,17 @@
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] Javascript (Jordan)
+		[ ] So the next thing was that in Task3 you are going to need to be working off of the ProjectAltRef, not the project Alternative
+		[ ] You can get the ProjectAlternative out of the ProjectAltRef, but the ProjectAltRef will also have all the grading and whatnot
+		So anyway, I need to go back to task 3 and look at how this would work exactally, but when you tell me a grade in the ProjectAgent.setGrading, before you were sending me the AltID, now you will need to send me the AltRefId
+		3:17
+		I think that means that you will have a list of ProjectRef's, in the ProjectGradingPage
+		3:18
+		Then you will cycle through those pulling the Projects out for the top level nodes, and then use the project alt refs and their corrisponding project alternatives to form the next level
+		3:18
+		To be honest, this is not solidified at all in my head
+		3:19
+		So I'm hoping this makes sense to you on some level
 
 #### -->
 

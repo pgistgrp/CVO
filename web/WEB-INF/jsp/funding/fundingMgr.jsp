@@ -12,12 +12,13 @@
 	Page: Funding Manager
 	Description: CRUD Events on All Funding and their Alternatives
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Isaac Yang
+	     Front End: Jordan Isip, Adam Hindman
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Add STATIC calcs to form (Jordan)
-		[ ] Create ALts - Peak rate and off peak rate shouldn't be required if Toll is unchecked
+		[x] Add STATIC calcs to form (Jordan)
+		[ ] Order Sources and Alts by Name (Matt)
+		[ ] Create ALts - Peak rate and off peak rate shouldn't be required if Toll is unchecked (Matt)
 #### -->
 <html:html> 
 <head>
@@ -292,7 +293,7 @@
 	}
 
 	/* *************** edit a given funding source alternative *************** */	
-	function editFundingSourceAlt(fid,fname,frev,ftax){
+	function editSourceAlt(id){
 		name = $F('txtAltName' + id);
 		revenue = $F('txtAltRevenue' + id);
 		taxRate = $F('txtAltTaxRate' + id);
@@ -306,7 +307,7 @@
 		FundingAgent.editFundingSourceAlt({id:id,name:name,revenue:revenue,taxRate:taxRate,source:sourceURL,avgCost:avgCost,toll:tollFormatted,peakHourTrips:peakHourTripsRate,offPeakTrips:offPeakTripsRate}, {
 			callback:function(data){
 				if(data.successful){
-					alert("Alt funding Source edited");
+					getFundingSources();
 				}else{
 					alert(data.reason);
 				}
