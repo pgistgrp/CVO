@@ -1,7 +1,6 @@
 package org.pgist.projects;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 
@@ -86,27 +85,6 @@ public class ProjectSuite {
     	}
     	return false;
     	
-//    	Iterator<ProjectRef> refs = this.getReferences().iterator();
-//    	ProjectRef tempRef;
-//    	
-//    	Iterator<ProjectAltRef> altRefs;
-//    	ProjectAltRef tempAltRef;
-//    	
-//    	while(refs.hasNext()) {
-//    		tempRef = refs.next();
-//    		
-//    		altRefs = tempRef.getAltRefs().iterator();
-//    		
-//    		while(altRefs.hasNext()) {
-//    			tempAltRef = altRefs.next();
-//    			
-//    			if(tempAltRef.getAlternative().getId().equals(projectAltId)) {
-//    				return true;
-//    			}
-//    		}    		
-//    	}    
-//    	
-//        return false;
     }//contains()        
     
     
@@ -144,24 +122,5 @@ public class ProjectSuite {
         	}
     	}    	
     	return null;
-    } //getProjectReference    
-    
-    /**
-     * Returns the project reference that has a reference to the alternative provided
-     * 
-     * @param	project		The project to look for
-     * @return	The project reference that contains the reference.  Or null if 
-     * 			none was found
-     */
-//    public ProjectRef getProjectReferece(Long projectAlternative) {
-//    	if(altRef == null) return null;
-//    	for (ProjectRef ref : getReferences()) {
-//        	for (ProjectAltRef tempAltRef : ref.getAltRefs()) {
-//    			if(tempAltRef.getAlternative().getId().equals(altRef.getId())) {
-//    				return ref;
-//    			}
-//        	}
-//    	}    	
-//    	return null;
-//    } //getProjectReference       
+    } //getProjectReference        
 }//class ProjectSuite

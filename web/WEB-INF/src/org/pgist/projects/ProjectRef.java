@@ -112,5 +112,18 @@ public class ProjectRef {
 		return this.altRefs.size();
 	}
     
+	/**
+	 * Returns true if the specified alternative is inside this project ref
+	 * 
+	 * @param	alt		The alternative to search for
+	 */
+	public boolean containsAlternative(ProjectAlternative alt) {
+    	for (ProjectAltRef altRef : getAltRefs()) {
+			if(altRef.getAlternative().getId().equals(alt.getId())) {
+				return true;
+			}
+    	}
+    	return false;
+	}
     
 }//class ProjectRef
