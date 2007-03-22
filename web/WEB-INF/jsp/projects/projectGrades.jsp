@@ -64,11 +64,11 @@
 		<form action="projectGrading.do">
 			<input type="hidden" name="cctId" value="${cct.id}">
 			<input type="hidden" name="activity" value="save">	      
-			<c:forEach var="project" items="${projects}" varStatus="loop">
-				${project.name}
-					<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
-					${alternative.name}
-						<c:forEach var="criterion" items="${alternative.object}" varStatus="loop">
+			<c:forEach var="projectRef" items="${projectRefs}" varStatus="loop">
+				${projectRef.project.name}
+					<c:forEach var="alternativeRef" items="${ProjectRef.alternativeRefs}" varStatus="loop">
+					${alternativeRef.alternative.name}
+						<c:forEach var="criterion" items="${alternativeRef.grades}" varStatus="loop">
 							<p>Name: ${criterion.name}</p>
 							<p>Description: ${criterion.description}</p>
 							<p>Grade: <b id="critGrade-${criterion.id}">${criterion.grade}</b></p>
