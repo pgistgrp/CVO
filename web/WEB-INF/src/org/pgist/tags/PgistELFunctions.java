@@ -4,6 +4,10 @@ import java.util.Collection;
 
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
+import org.pgist.funding.FundingSource;
+import org.pgist.funding.FundingSourceAlternative;
+import org.pgist.funding.FundingSourceRef;
+import org.pgist.funding.FundingSourceSuite;
 import org.pgist.projects.Project;
 import org.pgist.projects.ProjectAlternative;
 import org.pgist.projects.ProjectRef;
@@ -34,11 +38,24 @@ public class PgistELFunctions extends SimpleTagSupport {
         if (alt==null) return false;
         
         //First check that the project is in the suite
-        ProjectRef ref = suite.getProjectReferece(project);
+        ProjectRef ref = suite.getProjectReference(project);
         if(ref == null) return false;
         
         //Now check that the alternative is in one of the alt references
         return ref.containsAlternative(alt);
     }//containsRef()
+
+	public static boolean containsRef(FundingSourceSuite suite, FundingSource funding, FundingSourceAlternative alt) {
+        if (suite==null) return false;
+        if (funding==null) return false;
+        if (alt==null) return false;
+        
+        //First check that the project is in the suite
+        FundingSourceRef ref = suite.getFundingSourceReference(funding);
+        if(ref == null) return false;
+        
+        //Now check that the alternative is in one of the alt references
+        return ref.containsAlternative(alt);
+    }//containsRef()	
 	
 }//class PgistELFunctions
