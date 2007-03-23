@@ -138,8 +138,16 @@ public class TestProjectServiceImpl {
 		
 		projectDAO.clearSaved();
 		projectDAO.clearDeleted();
-				
-		assertEquals(2, ((ProjectRef)(suite.getReferences().toArray())[0]).getAltRefs().size());
+
+		Set<ProjectRef> altRefs = suite.getReferences();				
+		assertEquals(2, ((ProjectRef)(altRefs.toArray())[0]).getAltRefs().size());
+		
+		Set<ProjectAltRef> projectAltRefs = ((ProjectRef)(altRefs.toArray())[0]).getAltRefs();
+		ProjectAltRef altRef1 = (ProjectAltRef)projectAltRefs.toArray()[0];
+		ProjectAltRef altRef2 = (ProjectAltRef)projectAltRefs.toArray()[1];
+		
+		projectDAO.setProjectAlternativeReference(altRef1);
+		
 		projectService.derelateProjectAlt(suiteId, altId);		
 		assertEquals(1, projectDAO.getSaved().size());
 		assertEquals(1, projectDAO.getDeleted().size());
@@ -148,8 +156,9 @@ public class TestProjectServiceImpl {
 		projectDAO.clearSaved();
 		projectDAO.clearDeleted();
 		
+		projectDAO.setProjectAlternativeReference(altRef2);
 		projectService.derelateProjectAlt(suiteId, new Long(42));		
-		assertEquals(1, ((ProjectRef)(suite.getReferences().toArray())[0]).getAltRefs().size());
+		assertEquals(0, ((ProjectRef)(suite.getReferences().toArray())[0]).getAltRefs().size());
 		assertEquals(2, projectDAO.getDeleted().size());
 		assertEquals(0, projectDAO.getSaved().size());
 		

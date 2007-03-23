@@ -96,10 +96,13 @@ public class MockProjectDAO implements ProjectDAO {
 	public ProjectAlternative getProjectAlternative(Long pid) throws Exception {		
 		return this.projectAlternative;
 	}
-
-	public ProjectAltRef getProjectAlternativeReferece(Long altId) {
-		// TODO Auto-generated method stub
-		return null;
+	private ProjectAltRef projectAltRef;
+	public void setProjectAlternativeReference(ProjectAltRef projectAltRef) {
+		this.projectAltRef = projectAltRef;
+	}
+	
+	public ProjectAltRef getProjectAlternativeReference(Long altId) {
+		return this.projectAltRef;
 	}
 
 	private ProjectSuite suite;
