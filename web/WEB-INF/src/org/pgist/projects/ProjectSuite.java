@@ -95,7 +95,7 @@ public class ProjectSuite {
      * @return	The project reference in this suite that references the provided project.  Or null if 
      * 			none was found
      */
-    public ProjectRef getProjectReferece(Project project) {
+    public ProjectRef getProjectReference(Project project) {
     	if(project == null) return null;
     	for (ProjectRef ref : getReferences()) {    		
     		if(ref.getProject().getId().equals(project.getId())) {

@@ -253,7 +253,7 @@ public class ProjectServiceImpl implements ProjectService{
         	Project project = alternative.getProject();
         	
         	//Get the project reference
-        	ProjectRef projectReference = suite.getProjectReferece(project);
+        	ProjectRef projectReference = suite.getProjectReference(project);
         	
         	//If the reference doesn't exist then create it and add the project
         	if(projectReference == null) {

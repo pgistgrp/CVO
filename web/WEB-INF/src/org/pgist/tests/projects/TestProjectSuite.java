@@ -62,8 +62,8 @@ public class TestProjectSuite {
 		pRef2.setProject(project2);
 		pRef2.getAltRefs().add(altRef3);
 		
-		assertNull(suite.getProjectReferece(project1));
-		assertNull(suite.getProjectReferece(project2));
+		assertNull(suite.getProjectReference(project1));
+		assertNull(suite.getProjectReference(project2));
 		
 		assertNull(suite.getProjectReferece(altRef1));
 		assertNull(suite.getProjectReferece(altRef2));
@@ -75,8 +75,8 @@ public class TestProjectSuite {
 
 		//Add a project
 		suite.getReferences().add(pRef1);
-		assertEquals(new Long(1), suite.getProjectReferece(project1).getProject().getId());
-		assertNull(suite.getProjectReferece(project2));
+		assertEquals(new Long(1), suite.getProjectReference(project1).getProject().getId());
+		assertNull(suite.getProjectReference(project2));
 
 		assertEquals(new Long(1), suite.getProjectReferece(altRef1).getProject().getId());
 		assertEquals(new Long(1), suite.getProjectReferece(altRef2).getProject().getId());
@@ -88,8 +88,8 @@ public class TestProjectSuite {
 		
 		//Add the next project
 		suite.getReferences().add(pRef2);
-		assertEquals(new Long(1), suite.getProjectReferece(project1).getProject().getId());
-		assertEquals(new Long(2), suite.getProjectReferece(project2).getProject().getId());
+		assertEquals(new Long(1), suite.getProjectReference(project1).getProject().getId());
+		assertEquals(new Long(2), suite.getProjectReference(project2).getProject().getId());
 		
 		assertEquals(new Long(1), suite.getProjectReferece(altRef1).getProject().getId());
 		assertEquals(new Long(1), suite.getProjectReferece(altRef2).getProject().getId());
