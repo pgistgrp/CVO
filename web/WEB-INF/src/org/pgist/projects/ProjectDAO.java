@@ -52,7 +52,7 @@ public interface ProjectDAO extends BaseDAO {
 	
 	ProjectSuite getProjectSuite(Long suiteID) throws Exception;
 
-	ProjectAltRef getProjectAlternativeReferece(Long altId);
+	ProjectAltRef getProjectAlternativeReference(Long altId);
 	
 	void save(ProjectAltRef altRef) throws Exception;	
     void delete(ProjectAltRef altRef) throws Exception;    

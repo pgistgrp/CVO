@@ -174,7 +174,7 @@ public class ProjectServiceImpl implements ProjectService{
      */
     public String setGrading(Long altRefId, Long critId, Long objId, int value) throws Exception, UnknownCriteriaException, UnknownObjectiveException {
 
-    	ProjectAltRef altRef = projectDAO.getProjectAlternativeReferece(altRefId);
+    	ProjectAltRef altRef = projectDAO.getProjectAlternativeReference(altRefId);
     	Map grades = altRef.getGrades();
     	  	
     	Iterator i = grades.keySet().iterator();
@@ -292,7 +292,7 @@ public class ProjectServiceImpl implements ProjectService{
     	if(suite == null) throw new UnknownProjectSuite("Unknown Project Suite [" + suiteId +"]");
     	
     	
-    	ProjectAltRef altRef = projectDAO.getProjectAlternativeReferece(altId);
+    	ProjectAltRef altRef = projectDAO.getProjectAlternativeReference(altId);
     	
     	//Get the project reference that has this alternative reference in it
     	ProjectRef projectRef = suite.getProjectReferece(altRef);    	
@@ -321,7 +321,7 @@ public class ProjectServiceImpl implements ProjectService{
      * @return	The project alternative reference
      */
     public ProjectAltRef getProjectAltRefById(Long altrefId) throws Exception {
-    	return projectDAO.getProjectAlternativeReferece(altrefId);
+    	return projectDAO.getProjectAlternativeReference(altrefId);
     }//getProjectAltRefById()    
 
 

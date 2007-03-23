@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Query;
-import org.pgist.cvo.TagReference;
 import org.pgist.packages.Package;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.util.WKT;
@@ -118,7 +117,7 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 		return (ProjectAlternative)getHibernateTemplate().load(ProjectAlternative.class, pid);		
 	}
 	
-	public ProjectAltRef getProjectAlternativeReferece(Long altId) {
+	public ProjectAltRef getProjectAlternativeReference(Long altId) {
 		return (ProjectAltRef)getHibernateTemplate().load(ProjectAltRef.class, altId);		
 	}
 

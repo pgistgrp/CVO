@@ -116,7 +116,7 @@ public class ProjectSuite {
     	if(altRef == null) return null;
     	for (ProjectRef ref : getReferences()) {
         	for (ProjectAltRef tempAltRef : ref.getAltRefs()) {
-    			if(tempAltRef.getAlternative().getId().equals(altRef.getId())) {
+    			if(tempAltRef.getAlternative().getId().equals(altRef.getAlternative().getId())) {
     				return ref;
     			}
         	}

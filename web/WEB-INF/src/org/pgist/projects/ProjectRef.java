@@ -94,8 +94,17 @@ public class ProjectRef {
 		//alt ref
 		ProjectAltRef foundRef = null;
 		for(ProjectAltRef tempAltRef : getAltRefs()) {
-			if(tempAltRef.getId().equals(altRef.getId())) {
-				foundRef = tempAltRef;
+			//If it has a null ID then use the ID of the alternative
+			if(tempAltRef.getId() == null || altRef.getId() == null) {
+				if(tempAltRef.getAlternative().getId().equals(altRef.getAlternative().getId())) {
+					foundRef = tempAltRef;
+					break;					
+				}
+			} else {
+				if(tempAltRef.getId().equals(altRef.getId())) {
+					foundRef = tempAltRef;
+					break;
+				}
 			}
 		}
 		if(foundRef != null) {

@@ -22,6 +22,7 @@ public class ProjectAltRef {
     
     private ProjectAlternative alternative;
     
+    //TODO add a pojo to hold all the grades in the objectives in the criteria
     private Map<CriteriaRef, Integer> grades = new HashMap<CriteriaRef, Integer>();
     
     
