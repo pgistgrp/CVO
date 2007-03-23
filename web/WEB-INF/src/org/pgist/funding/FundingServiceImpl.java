@@ -22,47 +22,47 @@ public class FundingServiceImpl implements FundingService {
      * Relate the given FundingAlternative object to FundingSuite object
      */
     public void relateFundingAlt(Long suiteId, Long altId) throws Exception {
-//    	FundingSourceSuite suite = fundingDAO.getFundingSourceSuite(suiteId);
-//    	    	
-//    	//Check in the suite to see if if there is a Funding the alternative is already related
-//    	if(!suite.containsAlts(altId)) {
-//    		
-//        	//If not then, load the alternative
-//        	FundingSourceAlternative alternative = fundingDAO.getFundingSourceAlternative(altId);
-//    		
-//        	//Relate it back to the Alt Ref 
-//        	FundingAltRef altRef = new FundingAltRef();
-//        	altRef.setAlternative(alternative);
-//        	fundingDAO.save(altRef);
-//    		
-//           	//Pull the funding ID from the alternative
-//        	Funding funding = alternative.getFunding();
-//        	
-//        	//Get the funding reference
-//        	FundingRef fundingReference = suite.getFundingReferece(funding);
-//        	
-//        	//If the reference doesn't exist then create it and add the funding
-//        	if(fundingReference == null) {
-//        		fundingReference = new FundingRef();
-//        		fundingReference.setFunding(funding);
-//        		
-//            	//Save the funding reference
-//            	fundingDAO.save(fundingReference);
-//            	
-//            	//Add it to the suite
-//            	suite.getReferences().add(fundingReference);
-//            	
-//            	//Save the suite (thus connecting the suite and funding ref together
-//            	fundingDAO.save(suite);       		
-//        	}
-//        	
-//        	//Now put the altRef into the funding ref
-//        	fundingReference.getAltRefs().add(altRef);
-//        	
-//        	//Save the funding reference
-//        	fundingDAO.save(fundingReference);
-//        	    		
-//    	}    	
+    	FundingSourceSuite suite = fundingDAO.getFundingSuite(suiteId);
+    	    	
+    	//Check in the suite to see if if there is a Funding the alternative is already related
+    	if(!suite.containsAlts(altId)) {
+    		
+        	//If not then, load the alternative
+        	FundingSourceAlternative alternative = fundingDAO.getFundingSourceAlternative(altId);
+    		
+        	//Relate it back to the Alt Ref 
+        	FundingSourceAltRef altRef = new FundingSourceAltRef();
+        	altRef.setAlternative(alternative);
+        	fundingDAO.save(altRef);
+    		
+           	//Pull the funding ID from the alternative
+        	FundingSource funding = alternative.getSource();
+        	
+        	//Get the funding reference
+        	FundingSourceRef fundingReference = suite.getFundingSourceReference(funding);
+        	
+        	//If the reference doesn't exist then create it and add the funding
+        	if(fundingReference == null) {
+        		fundingReference = new FundingSourceRef();
+        		fundingReference.setSource(funding);
+        		
+            	//Save the funding reference
+            	fundingDAO.save(fundingReference);
+            	
+            	//Add it to the suite
+            	suite.getReferences().add(fundingReference);
+            	
+            	//Save the suite (thus connecting the suite and funding ref together
+            	fundingDAO.save(suite);       		
+        	}
+        	
+        	//Now put the altRef into the funding ref
+        	fundingReference.getAltRefs().add(altRef);
+        	
+        	//Save the funding reference
+        	fundingDAO.save(fundingReference);
+        	    		
+    	}    	
     }//relateFundingAlt()
 
 
@@ -74,24 +74,26 @@ public class FundingServiceImpl implements FundingService {
      */
     public void derelateFundingAlt(Long suiteId, Long altId) throws Exception {
     	//Get a reference to the suite
-//    	FundingSourceSuite suite = fundingDAO.getFundingSourceSuite(suiteId);
-//    	FundingAltRef altRef = fundingDAO.getFundingSourceAlternativeReferece(altId);
-//    	
-//    	//Get the funding reference that has this alternative reference in it
-//    	FundingSourceRef fundingRef = suite.getFundingReferece(altRef);    	
-//    	
-//    	if(fundingRef != null) {
-//    		//Remove the reference to the alt ref
-//    		fundingRef.removeAltRef(altRef);
-//    		
-//        	//Delete the funding alterative reference provided
-//    		fundingDAO.delete(altRef);
-//        	
-//        	//If that was the last alternative in that funding reference then delete the funding reference
-//    		if(fundingRef.getNumAltRefs() <= 0) {
-//    			fundingDAO.delete(fundingRef);
-//    		}
-//    	}    	
+    	FundingSourceSuite suite = fundingDAO.getFundingSuite(suiteId);
+    	FundingSourceAltRef altRef = fundingDAO.getFundingSourceAlternativeReference(altId);
+    	
+    	//Get the funding reference that has this alternative reference in it
+    	FundingSourceRef fundingRef = suite.getFundingSourceReferece(altRef);    	
+    	
+    	if(fundingRef != null) {
+    		//Remove the reference to the alt ref
+    		fundingRef.removeAltRef(altRef);
+    		
+        	//Delete the funding alterative reference provided
+    		fundingDAO.delete(altRef);
+        	
+        	//If that was the last alternative in that funding reference then delete the funding reference
+    		if(fundingRef.getNumAltRefs() <= 0) {
+    			fundingDAO.delete(fundingRef);
+    		} else {
+    			fundingDAO.save(fundingRef);
+    		}
+    	}    	
     }//derelateFundingAlt()
     
 

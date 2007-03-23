@@ -40,10 +40,10 @@ public interface FundingService {
     void deleteFundingSourceAlt(Long id) throws Exception;
 
     
-    void relateFundingAlt(Long suiteId, Long altId) throws Exception;    
+    void relateFundingAlt(Long suiteId, Long altId) throws Exception, UnknownFundingSuite;    
     
     
-	void derelateFundingAlt(Long suiteId, Long altId) throws Exception;
+	void derelateFundingAlt(Long suiteId, Long altId) throws Exception, UnknownFundingSuite;
 	
 	
     void setupFundingSourcesForCCT(Long cctId, String[] ids) throws Exception;

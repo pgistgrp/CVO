@@ -83,5 +83,55 @@ public class FundingSourceRef {
         this.altRefs = altRefs;
     }
 
-
+    /**
+     * Removes the project alternative reference from this project reference
+     * 
+     * @param altRef	The reference to remove
+     */
+	public void removeAltRef(FundingSourceAltRef altRef) {
+		//NOTE We do this manually because hibernate requires a specialized equals so to make sure
+		//this is accessed by ID alone we first search for the altRef with this id, then remove that
+		//alt ref
+		FundingSourceAltRef foundRef = null;
+		for(FundingSourceAltRef tempAltRef : getAltRefs()) {
+			//If it has a null ID then use the ID of the alternative
+			if(tempAltRef.getId() == null || altRef.getId() == null) {
+				if(tempAltRef.getAlternative().getId().equals(altRef.getAlternative().getId())) {
+					foundRef = tempAltRef;
+					break;					
+				}
+			} else {
+				if(tempAltRef.getId().equals(altRef.getId())) {
+					foundRef = tempAltRef;
+					break;
+				}
+			}
+		}
+		if(foundRef != null) {
+			this.getAltRefs().remove(foundRef);
+		}
+	}
+	
+	/**
+	 * Returns the number of alternative reference in this project referece
+	 * 
+	 * @return	The number of alternative references in this project reference
+	 */
+	public int getNumAltRefs() {
+		return this.altRefs.size();
+	}
+    
+	/**
+	 * Returns true if the specified alternative is inside this project ref
+	 * 
+	 * @param	alt		The alternative to search for
+	 */
+	public boolean containsAlternative(FundingSourceAlternative alt) {
+    	for (FundingSourceAltRef altRef : getAltRefs()) {
+			if(altRef.getAlternative().getId().equals(alt.getId())) {
+				return true;
+			}
+    	}
+    	return false;
+	}
 }//class FundingSourceRef

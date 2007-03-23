@@ -3,6 +3,8 @@ package org.pgist.funding;
 import java.util.Collection;
 import java.util.List;
 
+import org.pgist.projects.ProjectAltRef;
+import org.pgist.projects.ProjectAlternative;
 import org.pgist.system.BaseDAOImpl;
 
 
@@ -55,10 +57,32 @@ public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
         getHibernateTemplate().delete(alt);		
 	}
     
+	
+	
     // ************* Funding Suite ******************************** 
     
+	public void delete(FundingSourceAltRef altRef) {
+		getHibernateTemplate().delete(altRef);
+	}
+
+
+	public void delete(FundingSourceRef fundingRef) {
+        getHibernateTemplate().delete(fundingRef);		
+	}
+
+
+	public FundingSourceAlternative getFundingSourceAlternative(Long altId) {
+		return (FundingSourceAlternative)getHibernateTemplate().load(FundingSourceAlternative.class, altId);
+	}
+
+
+	public FundingSourceAltRef getFundingSourceAlternativeReference(Long altId) {
+		return (FundingSourceAltRef)getHibernateTemplate().load(FundingSourceAltRef.class, altId);		
+	}
+
 	public FundingSourceSuite getFundingSuite(Long suiteID) throws Exception {
 		return (FundingSourceSuite)getHibernateTemplate().load(FundingSourceSuite.class, suiteID);
 	}	
+	
 	
 }//class FundingDAOImpl

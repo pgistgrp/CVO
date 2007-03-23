@@ -25,5 +25,9 @@ public interface FundingDAO extends BaseDAO {
     void save(FundingSourceAlternative alt);
     void delete(FundingSourceAlternative alt);
     FundingSourceAlternative getFundingSourceAltById(Long id) throws Exception;
+	FundingSourceAlternative getFundingSourceAlternative(Long altId);
+	void delete(FundingSourceAltRef altRef);
+	FundingSourceAltRef getFundingSourceAlternativeReference(Long altId);
+	void delete(FundingSourceRef fundingRef);
     
 }//interface FundingDAO

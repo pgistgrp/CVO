@@ -79,16 +79,71 @@ public class FundingSourceSuite {
      * ------------------------------------------------------------------------
      */
     
-    
     /**
-     * TODO: Check if the suite contains a reference to the given funding source alternative.
+     * Check if the suite contains a reference to the given fundingSource alternative.
      * 
-     * @param alt a given funding source alternative
+     * @param alt a given fundingSource alternative
      * @return
      */
     public boolean containsAlts(FundingSourceAlternative alt) {
-        return false;
+    	return containsAlts(alt.getId());
     }//contains()
-
-
+    
+    
+    /**
+     * Check if the suite contains a reference to the given fundingSource alternative based
+     * on the ID of the alternative
+     * 
+     * @param alt a given fundingSource alternative
+     * @return	True if the FundingSourceAlternative is reference by a fundingSourceAltRef in a FundingSourceRef in the FundingSourceSuite
+     */
+    public boolean containsAlts(long fundingSourceAltId) {
+    	
+    	for (FundingSourceRef ref : getReferences()) {
+        	for (FundingSourceAltRef altRef : ref.getAltRefs()) {
+    			if(altRef.getAlternative().getId().equals(fundingSourceAltId)) {
+    				return true;
+    			}
+        	}    		
+    	}
+    	return false;
+    	
+    }//contains()        
+    
+    
+    /**
+     * Returns the fundingSource reference that is used with the specified fundingSource
+     * 
+     * @param	fundingSource		The fundingSource to look for
+     * @return	The fundingSource reference in this suite that references the provided fundingSource.  Or null if 
+     * 			none was found
+     */
+    public FundingSourceRef getFundingSourceReference(FundingSource fundingSource) {
+    	if(fundingSource == null) return null;
+    	for (FundingSourceRef ref : getReferences()) {    		
+    		if(ref.getSource().getId().equals(fundingSource.getId())) {
+    			return ref;
+    		}
+    	}    	
+    	return null;
+    } //getFundingSourceReference
+    
+    /**
+     * Returns the fundingSource reference that has a reference to the alternative provided
+     * 
+     * @param	fundingSource		The fundingSource to look for
+     * @return	The fundingSource reference that contains the reference.  Or null if 
+     * 			none was found
+     */
+    public FundingSourceRef getFundingSourceReferece(FundingSourceAltRef altRef) {
+    	if(altRef == null) return null;
+    	for (FundingSourceRef ref : getReferences()) {
+        	for (FundingSourceAltRef tempAltRef : ref.getAltRefs()) {
+    			if(tempAltRef.getAlternative().getId().equals(altRef.getAlternative().getId())) {
+    				return ref;
+    			}
+        	}
+    	}    	
+    	return null;
+    } //getFundingSourceReference     
 }//class FundingSourceSuite

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
+import org.pgist.projects.UnknownProjectSuite;
 import org.pgist.util.PageSetting;
 
 
@@ -457,6 +458,8 @@ public class FundingAgent {
             }
             
             map.put("successful", true);
+        } catch (UnknownFundingSuite e) {
+            map.put("reason", "Could not find the funding suite specified");             
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
