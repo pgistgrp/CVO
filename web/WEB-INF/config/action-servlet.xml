@@ -80,6 +80,10 @@
     <bean name="/projectDefine" class="org.pgist.projects.ProjectDefAction">
         <property name="projectService" ref="projectService"/>
     </bean>
+
+    <bean name="/projectGrading" class="org.pgist.projects.ProjectGradingAction">
+        <property name="projectService" ref="projectService"/>
+    </bean>
     
     
     <bean name="/projectAlt" class="org.pgist.projects.ProjectAltAction">

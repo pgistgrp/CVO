@@ -23,7 +23,7 @@
   </function>
 
   <function>
-    <name>containsRef</name>
+    <name>containsFundingRef</name>
     <function-class>org.pgist.tags.PgistELFunctions</function-class>
     <function-signature>boolean containsRef(org.pgist.funding.FundingSourceSuite, org.pgist.funding.FundingSource, org.pgist.funding.FundingSourceAlternative)</function-signature>
   </function>

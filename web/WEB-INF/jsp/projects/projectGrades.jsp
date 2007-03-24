@@ -61,6 +61,7 @@
 	<body>
 		<h1>Grade Projects on Criteria Objectives</h1>
 		<form action="projectGrading.do">
+			<!-->
 			<input type="hidden" name="cctId" value="${cct.id}">
 			<input type="hidden" name="activity" value="save">	      
 			<c:forEach var="projectRef" items="${projectRefs}" varStatus="loop">
@@ -71,7 +72,7 @@
 							<p>Name: ${criterion.name}</p>
 							<p>Description: ${criterion.description}</p>
 							<p>Grade: <b id="critGrade-${criterion.id}">${criterion.grade}</b></p>
-							<p>Objectives (${fn:length(criterion.objectives)}):</p>		
+							<p>Objectives (${fn:length()}):</p>		
 							<ul>
 								<c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
 									<li>${objective.name} - Grade: 
@@ -90,6 +91,7 @@
 						</c:forEach>
 					</c:forEach>
 			</c:forEach>
+		-->
 		</form>
 	</body>
 </html>
