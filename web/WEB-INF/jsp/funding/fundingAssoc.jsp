@@ -46,8 +46,6 @@
 
 </style>
 </head>
-
-
 <body>
 	<h3>Moderator Tools &raquo; Define Funding Sources</h3> 
 	<p>Select the funding sources that you would like to use for this expiriment.</p>

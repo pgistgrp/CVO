@@ -111,8 +111,9 @@ margin:.5em 0em .5em 1em;
 <div id="container">
 <!-- begin Object -->
 <div id="object">
+	<h1>REFERENCE:${reference}</h1>
   <div id="prjAlternativeDescription">
-    <h3 class="headerColor" id="project-title">${alternative.name}</h3>
+    <h3 class="headerColor" id="project-title">${reference.alternative.name}</h3>
     <!-- begin cell containing Google Map object -->
     <div id="map" class="floatRight"></div>
     <!-- end cell containing Google Map object -->
@@ -120,31 +121,31 @@ margin:.5em 0em .5em 1em;
     <p>
     <h4 style="display:inline">Money needed to complete this
       project: </h4>
-    <span id="project-moneyNeeded">${alternative.cost}</span>
+    <span id="project-moneyNeeded">${reference.alternative.cost}</span>
     </p>
     <p>
     <h4 style="display:inline">Sponsoring Agency: </h4>
-    <span id="project-sponsoringAgency">${alternative.sponsor}</span>
+    <span id="project-sponsoringAgency">${reference.alternative.sponsor}</span>
     </p>
     <p>
     <h4>Short Description</h4>
-    <span id="project-shortDescription">${alternative.shortDesc}</span>
+    <span id="project-shortDescription">${reference.alternative.shortDesc}</span>
     </p>
     <p>
     <h4>Detailed Description</h4>
-    <span id="project-detailedDescription">${alternative.detailedDesc} </span>
+    <span id="project-detailedDescription">${reference.alternative.detailedDesc} </span>
     </p>
     <p>
     <h4>Links to additional information about this project</h4>
-    <span id="project-links">${alternative.links}</span>
+    <span id="project-links">${reference.alternative.links}</span>
     </p>
     <p>
     <h4>Statement for</h4>
-    <span id="project-statementFor">${alternative.statementFor}</span>
+    <span id="project-statementFor">${reference.alternative.statementFor}</span>
     </p>
     <p>
     <h4>Statement against</h4>
-    <span id="project-statementAgainst">${alternative.statementAgainst}</span>
+    <span id="project-statementAgainst">${reference.alternative.statementAgainst}</span>
     </p>
     <!-- end project description -->
   </div>

@@ -13,25 +13,23 @@
 	Author: Jordan Isip, Adam Hindman, Issac Yang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Integrate Layout (Adam)
-		[ ] Integrate Project Map or static image (Guirong/Issac)
-		[ ] Integrate Criteria Tree (Issac)
+		[ ] Look into map for planning factor grades (Jordan)
 #### -->
 
+<h1>${reference.alternative.name}</h1>
+<p><b>Money needed to complete this project: </b> ${reference.alternative.cost}</p>
+<p><b>County: </b> ${reference.alternative.county}</p>
+<p><b>Sponsoring Agency:</b> ${reference.alternative.sponsor}</p>
 
-<h1>${alerternative.name}</h1>
-<p><b>Money needed to complete this project: </b> ${alerternative.cost}</p>
-<p><b>Sponsoring Agency:</b> ${alerternative.sponsor}</p>
+<p><b>Short Description:</b><br />${reference.alternative.shortDesc}</p>
+<p><b>Detailed Description:</b><br />${reference.alternative.detailedDesc}</p>
 
-<p><b>Short Description:</b><br />${alerternative.shortDesc}</p>
-<p><b>Detailed Description:</b><br />${alerternative.detailedDesc}</p>
+<p><b>Links to Additional Information about this Project:</b>${reference.alternative.links}</p>
 
-<p><b>Links to Additional Information about this Project:</b>${alerternative.links}</p>
+<p><b>Statement For:</b>${reference.alternative.statementFor}</p>
+<p><b>Statement Against:</b>${reference.alternative.statementAgainst}</p>
 
-<p><b>Statement For:</b><br />${alerternative.statementFor}</p>
-<p><b>Statement Against:</b><br />${alerternative.statementAgainst}</p>
-
-<h1>Planning Factor Grades for ${alerternative.name}</h1>
+<h3>Planning Factor Grades for ${alternative.name}</h3>
 <c:forEach var="criterion" items="${criteria}" varStatus="loop">
 	<hr>
 		<p>Name: ${criterion.name}</p>
