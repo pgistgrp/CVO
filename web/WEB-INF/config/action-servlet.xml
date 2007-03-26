@@ -83,6 +83,7 @@
 
     <bean name="/projectGrading" class="org.pgist.projects.ProjectGradingAction">
         <property name="projectService" ref="projectService"/>
+        <property name="criteriaService" ref="criteriaService"/>
     </bean>
     
     
