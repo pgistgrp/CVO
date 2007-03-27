@@ -17,7 +17,7 @@ public class GradedObjective {
 	/**
 	 * The grade assigned to the objective, should be between -3 and 3
 	 */
-	private int grade;
+	private Integer grade;
 
     /**
      * @hibernate.id generator-class="native"
@@ -32,13 +32,16 @@ public class GradedObjective {
     }	
 	
 	/**
-     * @hibernate.id generator-class="native"
+     * @hibernate.property
      */    
-	public int getGrade() {
+	public Integer getGrade() {
 		return grade;
 	}
 
-	public void setGrade(int grade) {
+	/**
+	 * The grade for the objective, null means that no grade has been set
+	 */
+	public void setGrade(Integer grade) {
 		this.grade = grade;
 	}
 

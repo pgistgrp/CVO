@@ -110,7 +110,7 @@ public class TestGradedCriteria {
 		obj.setId(new Long(objCounter++));
 		obj.setDescription("Obj" + objCounter);
 		gradedObj.setObjective(obj);
-		gradedObj.setGrade(grade);
+		gradedObj.setGrade(new Integer(grade));
 		return gradedObj;		
 	}
 	

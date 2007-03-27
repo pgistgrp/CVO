@@ -102,8 +102,10 @@ public class GradedCriteria {
 		GradedObjective tempObj;
 		while(i.hasNext()) {
 			tempObj = i.next();
-			//Add 3 to equalize the score
-			totalScore = totalScore + (float)tempObj.getGrade() + 3;
+			if(tempObj.getGrade() != null) {
+				//Add 3 to equalize the score
+				totalScore = totalScore + (float)tempObj.getGrade() + 3;				
+			}
 		}
 		
 		avgScore = totalScore/objectives.size();
