@@ -61,11 +61,11 @@
 	function setProjectDefine(altId,checked){
 		operation = (checked) ? "add" : "remove";
 		
-		alert("suiteId: " + suiteId + " altId: " + altId + " operation: " + operation); 
+		//alert("suiteId: " + suiteId + " altId: " + altId + " operation: " + operation); 
 		ProjectAgent.setProjectDefine({suiteId:suiteId,altId:altId,operation:operation}, {
 			callback:function(data){
 				if (data.successful){
-					alert("alternative operation saved!");
+					//alert("alternative operation saved!");
 					//add loading indicator if time permits
 				}else{
 					alert(data.reason);
