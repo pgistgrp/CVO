@@ -100,7 +100,7 @@
 					<c:forEach var="alt" items="${source.alternatives}">
 						<li>
 							<label><input type="checkbox" name="sourceAlts${source.id}" id="sourceAlt-${alt.id}" 
-							<c:if test="${pg:containsRef(suite,source,alt)}">CHECKED</c:if> value="${alt.id}" onClick="setSourceDefine(this.value, this.checked);"/>
+							 value="${alt.id}" onClick="setSourceDefine(this.value, this.checked);"/>
 							${alt.name}</label>
 						</li>
 					</c:forEach>

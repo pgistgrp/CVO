@@ -96,7 +96,7 @@
         </action>
         
         <action path="/fundingDefine" scope="request" type="org.pgist.funding.FundingDefAction">
-            <forward name="main" path="/WEB-INF/jsp/funding/fundingAssoc.jsp"/>
+            <forward name="view" path="/WEB-INF/jsp/funding/fundingAssoc.jsp"/>
         </action>
         
         <action path="/fundingCalc" scope="request" type="org.pgist.funding.TaxCalculatorAction">
