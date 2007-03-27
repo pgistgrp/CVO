@@ -101,7 +101,11 @@
 					</small>
 					<ul>
 						<c:forEach var="alt" items="${project.alternatives}">
-							<li><label><input type="checkbox" name="projectAlts${project.id}" id="projectAlt-${alt.id}" checked="${pg:containsRef(suite,project,alt)}" value="${alt.id}" onClick="setProjectDefine(this.value, this.checked);"/>${alt.name}</label></li>
+							<li>
+								<label><input type="checkbox" name="projectAlts${project.id}" id="projectAlt-${alt.id}" 
+								<c:if test="${pg:containsRef(suite,project,alt)}">CHECKED</c:if> value="${alt.id}" onClick="setProjectDefine(this.value, this.checked);"/>
+								${alt.name}</label>
+							</li>
 						</c:forEach>
 					</ul>
 				</li>
