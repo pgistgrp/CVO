@@ -40,7 +40,7 @@
 		<ul>
 			<pg:show roles="participant">
 		<li>
-		  <html:link page="/cctlist.do">Step 1a: Brainstorm</html:link>
+		  <html:link page="cctlist.do">Step 1a: Brainstorm</html:link>
 		</li>
 		
 		<li>
@@ -48,7 +48,7 @@
 		</li>
 		</pg:show> 
 		<li>
-		  <html:link page="/glossaryPublic.do">Learn More: Public Glossary</html:link> 
+		  <html:link page="glossaryPublic.do">Learn More: Public Glossary</html:link> 
 		</li>
 		</ul>
 		
@@ -71,21 +71,23 @@
 				</ul>
 			<li>Step 2</li>
 				<ul>
-					<li><html:link page="sdlist.do">Review Criteria</html:link></li>
-					<li><html:link page="criteriaList.do">Weigh Criteria</html:link></li>
+					<li><html:link page="sdlist.do">Review Planning Factors</html:link></li>
+					<li><html:link page="criteriaList.do">Weigh Planning Factors</html:link></li>
 				</ul>
 			<li>Step 3</li>
 				<ul>
 					<li><html:link page="sdlist.do">Review Projects</html:link></li>
 					<li><html:link page="sdlist.do">Review Funding</html:link></li>
-					<li><html:link page="sdlist.do">Funding "Tax Calculator" Game</html:link></li>
-					<li><html:link page="sdlist.do">Create Personal Package</html:link></li>
+					<li><html:link page="fundingCalc.do?suiteId=200">Funding "Tax Calculator" Game</html:link></li>
+					<li><html:link page="createPackage.do?suiteId=200">Create Personal Package</html:link></li>
+					<li><html:link page="helpme.do?pkgsuiteId=1234&critsuiteId=4321">Help Me Tool</html:link></li>
+					<li><html:link page="sdlist.do">Re-weigh Planning Factors</html:link></li>
 				</ul>
 			<li>Step 4</li>
 				<ul>
 					<li><html:link page="sdlist.do">Review Packages</html:link></li>
-					<li><html:link page="#">Re-weigh Criteria</html:link></li>
 					<li><html:link page="#">Compare Packages</html:link></li>
+					<li><html:link page="#">Package Voting</html:link></li>
 				</ul>
 			<li>Step 5</li>
 				<ul>
@@ -96,23 +98,23 @@
 		<ul>
 			<li>Setup Expiriment</li>
 				<ul>
-					<li><html:link page="#">Workflow Management Tool</html:link></li>
-					<li><html:link page="/projectManage.do">Projects Management Tool</html:link></li>
-					<li><html:link page="/fundingManage.do">Funding Source Management Tool</html:link></li
-					><li><html:link page="/feedback.do">Reviewing Feedbacks</html:link></li>
-					<li><html:link page="/tagging.do">Tags/StopWords Management Tool</html:link></li>
-					<li><html:link page="/usermgr.do">User Management</html:link></li>					
-					<li><html:link page="/glossaryManage.do">Glossary Management Tool</html:link></li>
+					<li><html:link page="workflow.do">Workflow Management Tool</html:link></li>
+					<li><html:link page="projectManage.do">Projects Management Tool</html:link></li>
+					<li><html:link page="fundingManage.do">Funding Source Management Tool</html:link></li
+					><li><html:link page="feedback.do">Reviewing Feedbacks</html:link></li>
+					<li><html:link page="tagging.do">Tags/StopWords Management Tool</html:link></li>
+					<li><html:link page="usermgr.do">User Management</html:link></li>					
+					<li><html:link page="glossaryManage.do">Glossary Management Tool</html:link></li>
 					<li><html:link page="#">Mass Email/Alert to Participants</html:link></li>
 				</ul>
 			<li>Step 1</li>
 				<ul>
-					<li><html:link page="/cstlist.do">Concerns Synthesis Tool</html:link></li>
+					<li><html:link page="cstlist.do">Concerns Synthesis Tool</html:link></li>
 				</ul>
 			<li>Step 2</li>
 				<ul>
-					<li><html:link page="/criteriaList.do">Criteria Management Tool</html:link></li>
-					<li><html:link page="/criteriaPublish.do">Criteria Publish Tool</html:link></li>
+					<li><html:link page="criteriaList.do">Criteria Management Tool</html:link></li>
+					<li><html:link page="criteriaPublish.do">Criteria Publish Tool</html:link></li>
 				</ul>
 			<li>Step 3</li>
 				<ul>
@@ -122,13 +124,11 @@
 				</ul>
 			<li>Step 4</li>
 				<ul>
-					<li><html:link page="/.do">Synthesize Packages</html:link></li>
-					<li><html:link page="/.do">Manage Packages</html:link></li>
+					<li><html:link page="packageMgr.do?suiteId=200">Manage Packages</html:link></li>
 				</ul>
 			<li>Step 5</li>
 				<ul>
 					<li><html:link page="/.do">Manage Report</html:link></li>
-					<li><html:link page="/.do">Manage Packages</html:link></li>
 				</ul>
 		</ul>
 		

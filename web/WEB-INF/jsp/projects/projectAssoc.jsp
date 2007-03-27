@@ -87,7 +87,7 @@
 <body>
 	<p><a href="main.do">Back to Moderator Control Panel</a></p>
 	<h1>Define Projects Alternatives</h1>
-	<p>Select all project alternatives that you would like to include for this expiriment.  Your selection is saved when you click on the checkbox.</p>
+	<p>Select all project alternatives that you would like to include for this expiriment.</p>
 	<form method="POST" name="publishProjects" action="projectDefine.do">
 		<input type="hidden" name="cctId" value="${cct.id}" /
 		<input type="hidden" name="activity" value="save" />
@@ -114,7 +114,8 @@
 
 	</form>
 	<h3>Finished selecting project alternatives?</h3>
-	<p>Go back to the <a href="main.do">Back to Moderator Control Panel</a> to publish!</p>
+	<!-- this button just redirects - saves are occuring on check. -->
+	<p><input type="button" onclick="location.href='main.do'" value="Finished!"/></p>
 </body>
 </html:html>
 

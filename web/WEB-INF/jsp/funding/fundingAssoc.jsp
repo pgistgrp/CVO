@@ -16,7 +16,9 @@
 	     Back End: Matt Paulin, Zhong Wang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
+		[x] Backend code (Matt)
 		[x] BareBones JavaScript (Jordan)
+		[ ] fundingDefine.do?suiteId=xxx does not grab fundingAssoc.jsp
 		[ ] Integrate backend code (Jordan)
 
 #### -->
@@ -84,7 +86,7 @@
 <body>
 	<p><a href="main.do">Back to Moderator Control Panel</a></p>
 	<h1>Define Funding Source Alternatives</h1>
-	<p>Select all funding source alternatives that you would like to include for this expiriment.  Your selection is saved when you click on the checkbox.</p>
+	<p>Select all funding source alternatives that you would like to include for this expiriment.</p>
 
 	<h3>All Funding Sources</h3>
 	<ul id="sourcesList">
@@ -108,7 +110,7 @@
 	</ul>
 
 	<h3>Finished selecting funding source alternatives?</h3>
-	<p>Go back to the <a href="main.do">Back to Moderator Control Panel</a> to publish!</p>
+	<p><input type="button" onclick="location.href='main.do'" value="Finished!"/></p>
 </body>
 </html:html>
 

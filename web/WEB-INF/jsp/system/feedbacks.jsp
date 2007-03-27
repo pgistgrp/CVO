@@ -8,7 +8,10 @@
 <style type="text/css">
 
 </style>
-
+<h2>Feedback</h2>
+<c:if test="${fn:length(feedbacks) == 0}">
+	<p>No feedback yet!</p>
+</c:if>
 <c:forEach items="${feedbacks}" var="feedback">
 
 	<div id="feedbackInstance${feedback.id}" style="border:1px solid #BDD7E7;background:#F7FBFF;padding:5px;">
