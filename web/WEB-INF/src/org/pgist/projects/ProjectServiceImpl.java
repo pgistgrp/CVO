@@ -258,6 +258,7 @@ public class ProjectServiceImpl implements ProjectService{
         	//If the reference doesn't exist then create it and add the project
         	if(projectReference == null) {
         		projectReference = new ProjectRef();
+        		projectReference.setSuite(suite);
         		projectReference.setProject(project);
         		
             	//Save the project reference
