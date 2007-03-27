@@ -12,7 +12,7 @@
 	Page: Define Projects
 	Description: Form to associate selected projects to a workflow instance.
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Issac Yang
+	     Front End: Jordan Isip, Adam Hindman
 	     Back End: Matt Paulin, Zhong Wang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)

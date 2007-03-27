@@ -65,14 +65,14 @@
 		<c:forEach var="projectRef" items="${projSuite.references}" varStatus="loop">
 			<li>${projectRef.project.name}<ul>
 				<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
-					<li>${altRef.alternative.name}<ul>
-					<c:forEach var="critRef" items="${critSuite.references}" varStatus="loop">
-						<li>Name: ${critRef.criterion.name}</li>
-						<li>Description: ${critRef.criterion.description}</li>
-						<li>Grade: <b id="critGrade-${critRef.criterion.id}">${critRef.criterion.grade}</b></li>
-						<li>Objectives (${fn:length(critRef.criterion.objectives)}):</li>
+					<li><a href="projectAlt.do?altrefId=${altRef.id}">${altRef.alternative.name}</a><ul>
+					<c:forEach var="critGrade" items="${altRef.gradedCriteria}" varStatus="loop">
+						<li>Name: ${critGrade.criterion.name}</li>
+						<li>Description: ${critGrade.criterion.description}</li>
+						<li>Grade: <b id="critGrade-${critGrade.criterion.id}">${critGrade.criterion.grade}</b></li>
+						<li>Objectives (${fn:length(critGrade.criterion.objectives)}):</li>
 						<ul>
-							<c:forEach var="objective" items="${critRef.criterion.objectives}" varStatus="loop">
+							<c:forEach var="objective" items="${critGrade.gradedObjectives}" varStatus="loop">
 								<li>${objective.name} - Grade: 
 									<select id="objGrade-${objective.id}" onchange="setVoting(${alternative.id},${criterion.id}, ${objective.id}, this.value);">
 										<option>3</option>
