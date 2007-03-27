@@ -112,11 +112,11 @@ public class ProjectSuite {
      * @return	The project reference that contains the reference.  Or null if 
      * 			none was found
      */
-    public ProjectRef getProjectReferece(ProjectAltRef altRef) {
-    	if(altRef == null) return null;
+    public ProjectRef getProjectReference(ProjectAlternative projectAlt) {
+    	if(projectAlt == null) return null;
     	for (ProjectRef ref : getReferences()) {
-        	for (ProjectAltRef tempAltRef : ref.getAltRefs()) {
-    			if(tempAltRef.getAlternative().getId().equals(altRef.getAlternative().getId())) {
+        	for (ProjectAltRef tempAltRef : ref.getAltRefs()) {        		
+    			if(tempAltRef.getAlternative().getId().equals(projectAlt.getId())) {
     				return ref;
     			}
         	}

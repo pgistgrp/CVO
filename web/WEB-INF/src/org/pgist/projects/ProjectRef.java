@@ -95,7 +95,7 @@ public class ProjectRef {
 		ProjectAltRef foundRef = null;
 		for(ProjectAltRef tempAltRef : getAltRefs()) {
 			//If it has a null ID then use the ID of the alternative
-			if(tempAltRef.getId() == null || altRef.getId() == null) {
+			if(tempAltRef.getId() != null && altRef.getId() != null) {
 				if(tempAltRef.getAlternative().getId().equals(altRef.getAlternative().getId())) {
 					foundRef = tempAltRef;
 					break;					
@@ -133,6 +133,22 @@ public class ProjectRef {
 			}
     	}
     	return false;
+	}
+
+
+	/**
+	 * Returns the project alt ref that has this projectAlt in it
+	 * 
+	 * @param projectAlt	The project alternative to look for
+	 * @return	The project alt ref with the project alternative in it, null if nothing found
+	 */
+	public ProjectAltRef getProjectAltRef(ProjectAlternative projectAlt) {
+    	for (ProjectAltRef altRef : getAltRefs()) {
+			if(altRef.getAlternative().getId().equals(projectAlt.getId())) {
+				return altRef;
+			}
+    	}
+    	return null;
 	}
     
 }//class ProjectRef
