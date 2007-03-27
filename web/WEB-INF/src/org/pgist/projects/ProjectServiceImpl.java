@@ -175,16 +175,19 @@ public class ProjectServiceImpl implements ProjectService{
     public String setGrading(Long altRefId, Long critId, Long objId, int value) throws Exception, UnknownCriteriaException, UnknownObjectiveException {
 
     	ProjectAltRef altRef = projectDAO.getProjectAlternativeReference(altRefId);
-    	Map grades = altRef.getGrades();
-    	  	
-    	Iterator i = grades.keySet().iterator();
-    	CriteriaRef ref;
-    	while(i.hasNext()) {
-    		ref = (CriteriaRef)i.next();
-    		if(ref.getCriterion().getId().equals(critId)) {
-    			return convertGrade(ref.setObjectiveGrade(objId, value));
-    		}
-    	}
+
+    	//TODO Somehow I need to add criteria and objectives as we find them.  I'm not sure what the expected behavior of this is
+    	
+//    	Map grades = altRef.getGrades();
+//    	  	
+//    	Iterator i = grades.keySet().iterator();
+//    	CriteriaRef ref;
+//    	while(i.hasNext()) {
+//    		ref = (CriteriaRef)i.next();
+//    		if(ref.getCriterion().getId().equals(critId)) {
+//    			return convertGrade(ref.setObjectiveGrade(objId, value));
+//    		}
+//    	}
     	throw new UnknownCriteriaException("Could not find criteria [" + critId + "]");
     }//setGrading()
 
@@ -331,15 +334,6 @@ public class ProjectServiceImpl implements ProjectService{
      */
 	public ProjectSuite getProjectSuite(Long suiteId) throws Exception {
 		return projectDAO.getProjectSuite(suiteId);
-	}
-    
-    /**
-     * Converts the grade from an integer to text that the user will see on the screen
-     */
-	public static String convertGrade(int grade) {
-		//TODO figure out conversion
-		String result = "A+++";
-		return result;
 	}
     
 }//class ProjectServiceImpl

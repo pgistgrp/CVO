@@ -97,6 +97,8 @@
                <value>org/pgist/projects/ProjectAltRef.hbm.xml</value>
                <value>org/pgist/projects/ProjectRef.hbm.xml</value>
                <value>org/pgist/projects/ProjectSuite.hbm.xml</value>
+               <value>org/pgist/projects/GradedObjective.hbm.xml</value>
+               <value>org/pgist/projects/GradedCriteria.hbm.xml</value>
                <value>org/pgist/packages/UserPackage.hbm.xml</value>
                <value>org/pgist/packages/ClusteredPackage.hbm.xml</value>
                <value>org/pgist/packages/PackageVoteSuite.hbm.xml</value>

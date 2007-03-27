@@ -65,9 +65,9 @@ public class TestProjectSuite {
 		assertNull(suite.getProjectReference(project1));
 		assertNull(suite.getProjectReference(project2));
 		
-		assertNull(suite.getProjectReferece(altRef1));
-		assertNull(suite.getProjectReferece(altRef2));
-		assertNull(suite.getProjectReferece(altRef3));
+		assertNull(suite.getProjectReference(pAlt1));
+		assertNull(suite.getProjectReference(pAlt2));
+		assertNull(suite.getProjectReference(pAlt3));
 		
 		assertFalse(suite.containsAlts(new Long(1)));
 		assertFalse(suite.containsAlts(new Long(2)));
@@ -78,9 +78,9 @@ public class TestProjectSuite {
 		assertEquals(new Long(1), suite.getProjectReference(project1).getProject().getId());
 		assertNull(suite.getProjectReference(project2));
 
-		assertEquals(new Long(1), suite.getProjectReferece(altRef1).getProject().getId());
-		assertEquals(new Long(1), suite.getProjectReferece(altRef2).getProject().getId());
-		assertNull(suite.getProjectReferece(altRef3));
+		assertEquals(new Long(1), suite.getProjectReference(pAlt1).getProject().getId());
+		assertEquals(new Long(1), suite.getProjectReference(pAlt2).getProject().getId());
+		assertNull(suite.getProjectReference(pAlt3));
 		
 		assertTrue(suite.containsAlts(new Long(1)));
 		assertTrue(suite.containsAlts(new Long(2)));
@@ -91,9 +91,9 @@ public class TestProjectSuite {
 		assertEquals(new Long(1), suite.getProjectReference(project1).getProject().getId());
 		assertEquals(new Long(2), suite.getProjectReference(project2).getProject().getId());
 		
-		assertEquals(new Long(1), suite.getProjectReferece(altRef1).getProject().getId());
-		assertEquals(new Long(1), suite.getProjectReferece(altRef2).getProject().getId());
-		assertEquals(new Long(2), suite.getProjectReferece(altRef3).getProject().getId());
+		assertEquals(new Long(1), suite.getProjectReference(pAlt1).getProject().getId());
+		assertEquals(new Long(1), suite.getProjectReference(pAlt2).getProject().getId());
+		assertEquals(new Long(2), suite.getProjectReference(pAlt3).getProject().getId());
 
 		assertTrue(suite.containsAlts(new Long(1)));
 		assertTrue(suite.containsAlts(new Long(2)));

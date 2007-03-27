@@ -2,6 +2,8 @@ package org.pgist.projects;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.pgist.criteria.CriteriaRef;
 
@@ -22,8 +24,7 @@ public class ProjectAltRef {
     
     private ProjectAlternative alternative;
     
-    //TODO add a pojo to hold all the grades in the objectives in the criteria
-    private Map<CriteriaRef, Integer> grades = new HashMap<CriteriaRef, Integer>();
+	private SortedSet<GradedCriteria> gradedCriteria = new TreeSet<GradedCriteria>();
     
     
     /**
@@ -70,25 +71,20 @@ public class ProjectAltRef {
         this.alternative = alternative;
     }
     
-    
     /**
-     * The Criteria-Grade map for one project alternative
      * 
-     * @return
+     * @return	A set of all the criteria associated with this alt ref
      * 
-     * @hibernate.map table="pgist_projalt_grade_map"
-     * @hibernate.collection-key column="pac_id"
-     * @hibernate.index-many-to-many column="critref_id" class="org.pgist.criteria.CriteriaRef"
-     * @hibernate.collection-element type="integer" column="grade"
+     * @hibernate.set lazy="false" cascade="all-delete-orphan" sort="org.pgist.projects.GradedCriteriaComparator"
+     * @hibernate.collection-key column="project_id"
+     * @hibernate.collection-one-to-many class="org.pgist.projects.GradedObjective"
      */
-    public Map<CriteriaRef, Integer> getGrades() {
-        return grades;
-    }
+    public SortedSet<GradedCriteria> getGradedCriteria() {
+		return gradedCriteria;
+	}
 
-
-    public void setGrades(Map<CriteriaRef, Integer> grades) {
-        this.grades = grades;
-    }
-    
+	public void setGradedCriteria(SortedSet<GradedCriteria> criteria) {
+		this.gradedCriteria = criteria;
+	}
     
 }//class ProjectAltRef
