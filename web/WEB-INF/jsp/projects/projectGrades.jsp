@@ -65,7 +65,7 @@
 		<c:forEach var="projectRef" items="${projSuite.references}" varStatus="loop">
 			<li>${projectRef.project.name}<ul>
 				<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
-					<li><a href="projectAlt.do?altrefId=${altRef.id}">${altRef.alternative.name}</a><ul>
+					<li><a href="javascript:window.open('projectAlt.do?altrefId=${altRef.id}','width=730,height=500,resizable=yes,scrollbars=yes'); void(0);">${altRef.alternative.name} <img src="images/external.png" alt="(new window)" border="0" /></a><ul>
 					<c:forEach var="critGrade" items="${altRef.gradedCriteria}" varStatus="loop">
 						<li>Name: ${critGrade.criterion.name}</li>
 						<li>Description: ${critGrade.criterion.description}</li>

@@ -117,8 +117,18 @@ the column labels. */
 	<div id="object">
 		<h3 class="headerColor" id="project-title">${reference.alternative.name}</h3>
 		<!-- begin cell containing Google Map object -->
-		<div id="obj-right" class="floatRight"> <img src="/images/gmaps.gif"> </div>
+		
+	
+		<!--GOOGLE MAPS GO HERE GMAN! -->
+		<div id="obj-right" class="floatRight"> 
+			<img src="/images/gmaps.gif"> 
+		</div>
+		<!-- end GMAN -->
+		
+		
 		<!-- end cell containing Google Map object -->
+		
+	
 		<!--begin project description -->
 		<p>
 		<h4 style="display:inline">Money needed to complete this project: </h4>
@@ -165,8 +175,14 @@ the column labels. */
 	<!-- end firefox height hack -->
 	<!-- Load separate file content starting here -->
 	<!-- begin criteria  -->
+	<c:choose>
+		<c:when test="${fn:length(criteria) == 0}">
+			No planning factors have been associated yet!
+		</c:when>
+		<c:otherwise>
 			<a href="javascript:expandAll();">Expand all</a>
-		<a href="javascript:collapseAll();">Collapse all</a>
+			<a href="javascript:collapseAll();">Collapse all</a>
+
 			<div id="newtable">
 				<table border=0 cellpadding=0 cellspacing=0>
 					<tr class="tableHeading">
@@ -231,6 +247,8 @@ the column labels. */
 
 				</table>
 			</div>
+		</c:otherwise>
+	</c:choose>
 	</div>
 	<!-- end container -->
 	<!-- start feedback form -->
