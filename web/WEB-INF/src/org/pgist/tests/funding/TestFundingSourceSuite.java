@@ -66,9 +66,9 @@ public class TestFundingSourceSuite {
 		assertNull(suite.getFundingSourceReference(project1));
 		assertNull(suite.getFundingSourceReference(project2));
 		
-		assertNull(suite.getFundingSourceReferece(altRef1));
-		assertNull(suite.getFundingSourceReferece(altRef2));
-		assertNull(suite.getFundingSourceReferece(altRef3));
+		assertNull(suite.getFundingSourceReference(altRef1));
+		assertNull(suite.getFundingSourceReference(altRef2));
+		assertNull(suite.getFundingSourceReference(altRef3));
 		
 		assertFalse(suite.containsAlts(new Long(1)));
 		assertFalse(suite.containsAlts(new Long(2)));
@@ -79,9 +79,9 @@ public class TestFundingSourceSuite {
 		assertEquals(new Long(1), suite.getFundingSourceReference(project1).getSource().getId());
 		assertNull(suite.getFundingSourceReference(project2));
 
-		assertEquals(new Long(1), suite.getFundingSourceReferece(altRef1).getSource().getId());
-		assertEquals(new Long(1), suite.getFundingSourceReferece(altRef2).getSource().getId());
-		assertNull(suite.getFundingSourceReferece(altRef3));
+		assertEquals(new Long(1), suite.getFundingSourceReference(altRef1).getSource().getId());
+		assertEquals(new Long(1), suite.getFundingSourceReference(altRef2).getSource().getId());
+		assertNull(suite.getFundingSourceReference(altRef3));
 		
 		assertTrue(suite.containsAlts(new Long(1)));
 		assertTrue(suite.containsAlts(new Long(2)));
@@ -92,9 +92,9 @@ public class TestFundingSourceSuite {
 		assertEquals(new Long(1), suite.getFundingSourceReference(project1).getSource().getId());
 		assertEquals(new Long(2), suite.getFundingSourceReference(project2).getSource().getId());
 		
-		assertEquals(new Long(1), suite.getFundingSourceReferece(altRef1).getSource().getId());
-		assertEquals(new Long(1), suite.getFundingSourceReferece(altRef2).getSource().getId());
-		assertEquals(new Long(2), suite.getFundingSourceReferece(altRef3).getSource().getId());
+		assertEquals(new Long(1), suite.getFundingSourceReference(altRef1).getSource().getId());
+		assertEquals(new Long(1), suite.getFundingSourceReference(altRef2).getSource().getId());
+		assertEquals(new Long(2), suite.getFundingSourceReference(altRef3).getSource().getId());
 
 		assertTrue(suite.containsAlts(new Long(1)));
 		assertTrue(suite.containsAlts(new Long(2)));

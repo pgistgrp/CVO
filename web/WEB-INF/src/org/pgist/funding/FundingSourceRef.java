@@ -84,7 +84,7 @@ public class FundingSourceRef {
     }
 
     /**
-     * Removes the project alternative reference from this project reference
+     * Removes the funding alternative reference from this funding reference
      * 
      * @param altRef	The reference to remove
      */
@@ -113,16 +113,16 @@ public class FundingSourceRef {
 	}
 	
 	/**
-	 * Returns the number of alternative reference in this project referece
+	 * Returns the number of alternative reference in this funding referece
 	 * 
-	 * @return	The number of alternative references in this project reference
+	 * @return	The number of alternative references in this funding reference
 	 */
 	public int getNumAltRefs() {
 		return this.altRefs.size();
 	}
     
 	/**
-	 * Returns true if the specified alternative is inside this project ref
+	 * Returns true if the specified alternative is inside this funding ref
 	 * 
 	 * @param	alt		The alternative to search for
 	 */
@@ -134,4 +134,19 @@ public class FundingSourceRef {
     	}
     	return false;
 	}
+	
+	/**
+	 * Returns the funding alt ref that has this fundingAlt in it
+	 * 
+	 * @param fundingAlt	The funding alternative to look for
+	 * @return	The funding alt ref with the funding alternative in it, null if nothing found
+	 */
+	public FundingSourceAltRef getFundingSourceAltRef(FundingSourceAlternative fundingAlt) {
+    	for (FundingSourceAltRef altRef : getAltRefs()) {
+			if(altRef.getAlternative().getId().equals(fundingAlt.getId())) {
+				return altRef;
+			}
+    	}
+    	return null;
+	}	
 }//class FundingSourceRef

@@ -135,7 +135,7 @@ public class FundingSourceSuite {
      * @return	The fundingSource reference that contains the reference.  Or null if 
      * 			none was found
      */
-    public FundingSourceRef getFundingSourceReferece(FundingSourceAltRef altRef) {
+    public FundingSourceRef getFundingSourceReference(FundingSourceAltRef altRef) {
     	if(altRef == null) return null;
     	for (FundingSourceRef ref : getReferences()) {
         	for (FundingSourceAltRef tempAltRef : ref.getAltRefs()) {
@@ -145,5 +145,24 @@ public class FundingSourceSuite {
         	}
     	}    	
     	return null;
-    } //getFundingSourceReference     
+    } //getFundingSourceReference
+    
+    /**
+     * Returns the project reference that has a reference to the alternative provided
+     * 
+     * @param	project		The project to look for
+     * @return	The project reference that contains the reference.  Or null if 
+     * 			none was found
+     */
+    public FundingSourceRef getFundingSourceReference(FundingSourceAlternative fundingAlt) {
+    	if(fundingAlt == null) return null;
+    	for (FundingSourceRef ref : getReferences()) {
+        	for (FundingSourceAltRef tempAltRef : ref.getAltRefs()) {        		
+    			if(tempAltRef.getAlternative().getId().equals(fundingAlt.getId())) {
+    				return ref;
+    			}
+        	}
+    	}    	
+    	return null;
+    } //getFundingSourceReference      
 }//class FundingSourceSuite

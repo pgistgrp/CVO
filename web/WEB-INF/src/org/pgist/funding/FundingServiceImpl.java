@@ -2,6 +2,12 @@ package org.pgist.funding;
 
 import java.util.Collection;
 
+import org.pgist.projects.ProjectAltRef;
+import org.pgist.projects.ProjectAlternative;
+import org.pgist.projects.ProjectRef;
+import org.pgist.projects.ProjectSuite;
+import org.pgist.projects.UnknownProjectSuite;
+
 
 /**
  * 
@@ -44,6 +50,7 @@ public class FundingServiceImpl implements FundingService {
         	//If the reference doesn't exist then create it and add the funding
         	if(fundingReference == null) {
         		fundingReference = new FundingSourceRef();
+        		fundingReference.setSuite(suite);
         		fundingReference.setSource(funding);
         		
             	//Save the funding reference
@@ -75,11 +82,15 @@ public class FundingServiceImpl implements FundingService {
     public void derelateFundingAlt(Long suiteId, Long altId) throws Exception {
     	//Get a reference to the suite
     	FundingSourceSuite suite = fundingDAO.getFundingSuite(suiteId);
-    	FundingSourceAltRef altRef = fundingDAO.getFundingSourceAlternativeReference(altId);
     	
+    	if(suite == null) throw new UnknownFundingSuite("Unknown FundingSource Suite [" + suiteId +"]");
+    	    	
+    	FundingSourceAlternative fundingAlt = fundingDAO.getFundingSourceAlternative(altId);
+
     	//Get the funding reference that has this alternative reference in it
-    	FundingSourceRef fundingRef = suite.getFundingSourceReferece(altRef);    	
-    	
+    	FundingSourceRef fundingRef = suite.getFundingSourceReference(fundingAlt);    	
+    	FundingSourceAltRef altRef = fundingRef.getFundingSourceAltRef(fundingAlt);
+    	    	
     	if(fundingRef != null) {
     		//Remove the reference to the alt ref
     		fundingRef.removeAltRef(altRef);
