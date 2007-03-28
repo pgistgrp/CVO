@@ -18,9 +18,10 @@
 		[x] Initial Skeleton Code (Jordan)
 		[x] Backend code (Matt)
 		[x] BareBones JavaScript (Jordan)
-		[ ] fundingDefine.do?suiteId=xxx does not grab fundingAssoc.jsp
-		[ ] Integrate backend code (Jordan)
-
+		[x] fundingDefine.do?suiteId=xxx does not grab fundingAssoc.jsp
+		[x] Integrate backend code (Jordan)
+		[ ] setFundingDef does not add suiteId to db - therefore containsFundingRef does not work. (Matt)
+		[ ] loading indicator (Jordan)
 #### -->
 <html:html> 
 <head>
@@ -53,18 +54,18 @@
 			altId = alts[i].id.substring(start,end)
 			
 			//Inoke AJAX to set the soure Alt operation
-			setFundingDef(altId, checked)
+			setSourceDef(altId, checked)
 		}
 	}
 
-	function setFundingDef(altId,checked){
+	function setSourceDef(altId,checked){
 		operation = (checked) ? "add" : "remove";
 		
 		//alert("suiteId: " + suiteId + " altId: " + altId + " operation: " + operation); 
-		FundingAgent.setFundingDefine({suiteId:suiteId,altId:altId,operation:operation}, {
+		FundingAgent.setFundingDef({suiteId:suiteId,altId:altId,operation:operation}, {
 			callback:function(data){
 				if (data.successful){
-					alert("alternative operation saved!");
+					//alert("alternative operation saved!");
 					//add loading indicator if time permits
 				}else{
 					alert(data.reason);
@@ -100,8 +101,8 @@
 					<c:forEach var="alt" items="${source.alternatives}">
 						<li>
 							<label><input type="checkbox" name="sourceAlts${source.id}" id="sourceAlt-${alt.id}" 
-							 value="${alt.id}" onClick="setSourceDefine(this.value, this.checked);"/>
-							${alt.name}</label>
+							<c:if test="${pg:containsFundingRef(suite,source,alt)}">CHECKED</c:if> value="${alt.id}" onClick="setSourceDef(this.value, this.checked);"/>
+							${alt.name} ++++ ${pg:containsFundingRef(suite,source,alt)}</label>
 						</li>
 					</c:forEach>
 				</ul>

@@ -35,22 +35,14 @@
   <!-- End header menu -->
   <!-- #container is the container that wraps around all the main page content -->
   <div id="container">
-	
-		<h3>Welcome, ${baseuser.loginname}</h3>
-		<ul>
-			<pg:show roles="participant">
-		<li>
-		  <html:link page="cctlist.do">Step 1a: Brainstorm</html:link>
-		</li>
-		
-		<li>
-		  <html:link page="http://128.95.212.210:8080/sd.do?isid=7362">Step 1b: Review Summaries</html:link>
-		</li>
+	<h3>Welcome, ${baseuser.loginname}</h3>
+	<ul>
+		<pg:show roles="participant">
+			<li><html:link page="cctlist.do">Step 1a: Brainstorm</html:link></li>
+			<li><html:link page="http://128.95.212.210:8080/sd.do?isid=7362">Step 1b: Review Summaries</html:link></li>
 		</pg:show> 
-		<li>
-		  <html:link page="glossaryPublic.do">Learn More: Public Glossary</html:link> 
-		</li>
-		</ul>
+		<li><html:link page="glossaryPublic.do">Learn More: Public Glossary</html:link></li>
+	</ul>
 		
 		<p><a href="readmore.jsp">Read about how these steps fit into the bigger picture</A></p>
 		
@@ -96,16 +88,15 @@
 		</ul>
 		<h3>Moderator Tools</h3>
 		<ul>
-			<li>Setup Expiriment</li>
+			<li>Setup Expiriment/Global Tools</li>
 				<ul>
-					<li><html:link page="workflow.do">Workflow Management Tool</html:link></li>
-					<li><html:link page="projectManage.do">Projects Management Tool</html:link></li>
-					<li><html:link page="fundingManage.do">Funding Source Management Tool</html:link></li
-					><li><html:link page="feedback.do">Reviewing Feedbacks</html:link></li>
-					<li><html:link page="tagging.do">Tags/StopWords Management Tool</html:link></li>
-					<li><html:link page="usermgr.do">User Management</html:link></li>					
+					<li><html:link page="usermgr.do">User Management</html:link></li>
 					<li><html:link page="glossaryManage.do">Glossary Management Tool</html:link></li>
-					<li><html:link page="#">Mass Email/Alert to Participants</html:link></li>
+					<li><html:link page="workflow.do">Workflow Management Tool</html:link></li>
+					<li><html:link page="tagging.do">Tags/StopWords Management Tool</html:link></li>
+					<li><html:link page="projectManage.do">Projects Management Tool</html:link></li>
+					<li><html:link page="fundingManage.do">Funding Source Management Tool</html:link></li>
+					<li><html:link page="feedback.do">Reviewing Feedbacks</html:link></li>
 				</ul>
 			<li>Step 1</li>
 				<ul>
@@ -119,8 +110,8 @@
 			<li>Step 3</li>
 				<ul>
 					<li><html:link page="projectDefine.do?suiteId=200">Define Projects</html:link></li>
-					<li><html:link page="projectGrading.do?projsuiteId=200&critsuiteId=200">Grade Projects</html:link></li
-					><li><html:link page="fundingDefine.do?suiteId=200">Define Funding</html:link></li>
+					<li><html:link page="projectGrading.do?projsuiteId=200&critsuiteId=200">Grade Projects</html:link></li>
+					<li><html:link page="fundingDefine.do?suiteId=200">Define Funding</html:link></li>
 				</ul>
 			<li>Step 4</li>
 				<ul>
@@ -161,8 +152,8 @@
 	<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
 </script>
 <script type="text/javascript">
-_uacct = "UA-797433-1";
-urchinTracker();
+	_uacct = "UA-797433-1";
+	urchinTracker();
 </script>
 </body>
 </html:html>

@@ -19,9 +19,10 @@
 		[x] BareBones JavaScript (Jordan)
 		[x] Add JS to set alts (Jordan)
 		[x] Load Projects into Action (Matt)
-		[ ] Order Alts A-Z (Matt)
+		[x] Order Alts A-Z (Matt)
 		[x] test setProjectDefine (Matt)
-		[ ] How do I check if the alternative is defined or not onLoad? pg:contains
+		[x] How do I check if the alternative is defined or not onLoad? pg:contains (Jordan)
+		[ ] Loading indicator (Jordan)
 #### -->
 <html:html> 
 <head>
