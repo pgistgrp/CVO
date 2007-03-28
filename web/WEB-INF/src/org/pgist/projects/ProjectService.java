@@ -47,5 +47,6 @@ public interface ProjectService {
 	void deleteProjectAlt(Long id) throws Exception;
 
 	void editProjectAlt(Long id, String name, String description, Float cost, String links, String sponsor, String statementFor, String statementAgainst, String county) throws Exception;
-    
+    	
+	public void updateProjectSuiteCriteria(ProjectSuite projSuite) throws Exception;
 }//interface ProjectService

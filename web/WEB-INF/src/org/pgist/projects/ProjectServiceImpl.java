@@ -4,8 +4,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaDAO;
-import org.pgist.criteria.CriteriaRef;
+import org.pgist.criteria.Objective;
 
 
 /**
@@ -333,7 +334,107 @@ public class ProjectServiceImpl implements ProjectService{
      * Returns the requested project suite
      */
 	public ProjectSuite getProjectSuite(Long suiteId) throws Exception {
-		return projectDAO.getProjectSuite(suiteId);
+		ProjectSuite suite = projectDAO.getProjectSuite(suiteId);
+		return suite;
 	}
     
+	/**
+	 * Attaches the criteria to the suite
+	 * 
+	 * @param	suite	The suite to attaches criteria 
+	 */
+	public void updateProjectSuiteCriteria(ProjectSuite projSuite) throws Exception {
+		Collection criterias = this.criteriaDAO.getAllCriterion();
+		Criteria tempCrit;
+		ProjectAltRef tempAltRef;
+		Iterator<ProjectRef> projRefs = projSuite.getReferences().iterator();
+		while(projRefs.hasNext()) {
+			Iterator<ProjectAltRef> altRefs = projRefs.next().getAltRefs().iterator();
+			while(altRefs.hasNext()) {
+				tempAltRef = altRefs.next();
+				Iterator cIter = criterias.iterator();
+				while(cIter.hasNext()) {
+					tempCrit = (Criteria)cIter.next();
+					addCriteria(tempAltRef,tempCrit);					
+				}
+			}
+		}
+	}
+	
+	
+	/**
+	 * Adds the new criteria to this project alt ref
+	 * 
+	 * @param	altRef	The new alt ref to add the criteria to
+	 * @param newCrit	The new criteria to add
+	 */
+	private void addCriteria(ProjectAltRef altRef, Criteria newCrit) throws Exception {
+System.out.println("Matt 1");		
+		GradedCriteria tempCrit;
+		GradedCriteria gradedCrit = null;
+		
+		
+		//Check to see if the criteria already exist
+		Iterator<GradedCriteria> crits = altRef.getGradedCriteria().iterator();
+		while(crits.hasNext()) {
+			tempCrit = crits.next();
+			if(tempCrit.getCriteria().getId().equals(newCrit.getId())) {
+				gradedCrit = tempCrit;
+				break;
+			}
+		}
+		System.out.println("Matt 2");		
+		
+		//If not add it
+		if(gradedCrit == null) {
+			gradedCrit = new GradedCriteria();
+			gradedCrit.setCriteria(newCrit);
+			projectDAO.save(gradedCrit);
+System.out.println("MATT: Saving Criteria " + newCrit.getId() + "");			
+			altRef.getGradedCriteria().add(gradedCrit);
+System.out.println("MATT: AltRef now has " + altRef.getGradedCriteria().size() + " references");			
+			projectDAO.save(altRef);
+		}
+		
+		//Load all the objectives	
+		Iterator objectives = newCrit.getObjectives().iterator();
+		Objective tempObj;
+		
+		while(objectives.hasNext()) {
+			tempObj = (Objective)objectives.next();
+			addObjective(gradedCrit, tempObj);
+		}		
+		System.out.println("Matt 3");		
+		
+	}
+	
+	/**
+	 * Adds the objective to the provided criteria
+	 * 
+	 * @param	crit	The criteria to add if it isn't already added
+	 * @param	obj	The objective to add
+	 */
+	private void addObjective(GradedCriteria gradedCrit, Objective newObj) throws Exception {
+		GradedObjective tempObj;
+		GradedObjective gradedObj = null;
+		
+		//See if this objective is already in the graded criteria
+		Iterator<GradedObjective> gradedObjs = gradedCrit.getObjectives().iterator();
+		while(gradedObjs.hasNext()) {
+			tempObj = gradedObjs.next();
+			if(tempObj.getObjective().getId().equals(newObj.getId())) {
+				gradedObj = tempObj;
+			}
+		}
+		//If it isn't already in the graded criteria then add it
+		if(gradedObj == null) {
+			gradedObj = new GradedObjective();
+			gradedObj.setObjective(newObj);
+			gradedObj.setGrade(null);
+			projectDAO.save(gradedObj);
+			
+			gradedCrit.getObjectives().add(gradedObj);
+			projectDAO.save(gradedCrit);
+		}
+	}
 }//class ProjectServiceImpl

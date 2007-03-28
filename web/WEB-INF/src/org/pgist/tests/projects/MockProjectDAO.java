@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.pgist.packages.Package;
+import org.pgist.projects.GradedCriteria;
+import org.pgist.projects.GradedObjective;
 import org.pgist.projects.Project;
 import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectAlternative;
@@ -16,6 +18,10 @@ import org.pgist.users.User;
 
 /**
  * Use this class to create a mock interface to be used with
+ * @author Matt Paulin
+ *
+ */
+/**
  * @author Matt Paulin
  *
  */
@@ -129,6 +135,12 @@ public class MockProjectDAO implements ProjectDAO {
 
 	}
 
+	public void save(GradedCriteria p) throws Exception {
+		this.saved.add(p);		
+	}
+	public void save(GradedObjective p) throws Exception {
+		this.saved.add(p);		
+	}
 	public void save(Package p) throws Exception {
 		this.saved.add(p);
 	}

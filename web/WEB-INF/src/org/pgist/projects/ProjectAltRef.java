@@ -1,10 +1,12 @@
 package org.pgist.projects;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaRef;
 
 
@@ -85,6 +87,5 @@ public class ProjectAltRef {
 
 	public void setGradedCriteria(SortedSet<GradedCriteria> criteria) {
 		this.gradedCriteria = criteria;
-	}
-    
+	}    
 }//class ProjectAltRef

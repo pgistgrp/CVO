@@ -14,6 +14,8 @@ import org.pgist.system.BaseDAO;
  */
 public interface ProjectDAO extends BaseDAO {
     
+	void save(GradedCriteria p) throws Exception;
+	void save(GradedObjective p) throws Exception;
     
 	void save(Project p) throws Exception;
 	

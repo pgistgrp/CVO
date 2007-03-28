@@ -73,7 +73,9 @@ public class ProjectGradingAction extends Action {
     	String tempProjSuiteId = request.getParameter("projsuiteId");
     	if(tempProjSuiteId != null) {
     		Long projSuite = new Long(tempProjSuiteId);
-    		request.setAttribute("projSuite", this.projectService.getProjectSuite(projSuite));
+    		ProjectSuite suite = this.projectService.getProjectSuite(projSuite);
+    		this.projectService.updateProjectSuiteCriteria(suite);
+    		request.setAttribute("projSuite", suite);
     	}
     	String tempCritSuiteId = request.getParameter("critsuiteId");
     	if(tempCritSuiteId != null) {

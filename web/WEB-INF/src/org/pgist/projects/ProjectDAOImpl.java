@@ -125,6 +125,13 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 		getHibernateTemplate().saveOrUpdate(altRef);		
 	}
 	
+	public void save(GradedCriteria p) throws Exception {
+		getHibernateTemplate().saveOrUpdate(p);		
+	}
+	public void save(GradedObjective p) throws Exception {
+		getHibernateTemplate().saveOrUpdate(p);				
+	}
+	
     public void delete(ProjectAltRef a) throws Exception {
         getHibernateTemplate().delete(a);
     }//delete()		
