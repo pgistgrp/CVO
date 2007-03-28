@@ -45,7 +45,7 @@
 					var row = 'objective' + i;
 					var icon = 'icon' + i;
 					$(row).show();
-					$(icon).src = "images/minus.gif";
+					$(icon).src = "/images/minus.gif";
 				}
 				showLabels();
 			}
@@ -57,7 +57,7 @@
 					var row = 'objective' + i;
 					var icon = 'icon' + i;
 					$(row).hide();
-					$(icon).src = "images/plus.gif";
+					$(icon).src = "/images/plus.gif";
 				}
 				hideLabels();
 			}
@@ -99,10 +99,10 @@ the column labels. */
 				Effect.toggle(project, 'appear', {duration:.4, afterFinish:
 					function(){
 						if ($(project).style.display != ""){
-							$(icon).src = "images/plus.gif";
+							$(icon).src = "/images/plus.gif";
 							testOpenRows();
 							}else{
-								$(icon).src = "images/minus.gif";
+								$(icon).src = "/images/minus.gif";
 								showLabels();
 							}
 						}
@@ -117,7 +117,7 @@ the column labels. */
 	<div id="object">
 		<h3 class="headerColor" id="project-title">${reference.alternative.name}</h3>
 		<!-- begin cell containing Google Map object -->
-		<div id="obj-right" class="floatRight"> <img src="images/gmaps.gif"> </div>
+		<div id="obj-right" class="floatRight"> <img src="/images/gmaps.gif"> </div>
 		<!-- end cell containing Google Map object -->
 		<!--begin project description -->
 		<p>
@@ -181,7 +181,7 @@ the column labels. */
 						<tr class="fundingType">
 							<td class="fundingSourceItem">
 									<a href="javascript:toggleRow('objective1','icon1');">
-									<img src="images/plus.gif" id="icon1" class="icon"></a>
+									<img src="/images/plus.gif" id="icon1" class="icon"></a>
 									<a href="javascript:toggleRow('objective1','icon1');" title="${criterion.description}">${criterion.name}</a></td>
 							<td>&nbsp;</td>
 							<td class="gradeA">${criterion.grade}</td>
