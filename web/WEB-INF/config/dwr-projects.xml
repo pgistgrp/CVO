@@ -43,6 +43,7 @@
         <include method="getFootprint"/>
         <include method="getFootprints"/>
         <include method="enableProjectDiscussion"/>
+        <include method="setGrading"/>
     </create>
 
 
