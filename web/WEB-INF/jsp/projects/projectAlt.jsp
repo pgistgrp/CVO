@@ -13,7 +13,10 @@
 	Author: Jordan Isip, Adam Hindman, Issac Yang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Look into map for planning factor grades (Jordan)
+		[ ] Get criteria average grades (Jordan and Matt)
+		[ ] Get objective human readable grades (Jordan and Matt)
+		[ ] Get total averages (Jordan and Matt)
+		[ ] Integrate map or photo (Guirong)
 #### -->
 
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
@@ -176,7 +179,7 @@ the column labels. */
 	<!-- Load separate file content starting here -->
 	<!-- begin criteria  -->
 	<c:choose>
-		<c:when test="${fn:length(criteria) == 0}">
+		<c:when test="${fn:length(reference.gradedCriteria) == 0}">
 			No planning factors have been associated yet!
 		</c:when>
 		<c:otherwise>
@@ -192,15 +195,15 @@ the column labels. */
 						<th>Planning Factor Grade</th>
 					</tr>
 					<!--======================-->
-					<c:forEach var="criterion" items="${criteria}" varStatus="loop">
+					<c:forEach var="critGrade" items="${reference.gradedCriteria}" varStatus="loop">
 						<!-- begin PROJECT -->
 						<tr class="fundingType">
 							<td class="fundingSourceItem">
 									<a href="javascript:toggleRow('objective1','icon1');">
 									<img src="/images/plus.gif" id="icon1" class="icon"></a>
-									<a href="javascript:toggleRow('objective1','icon1');" title="${criterion.description}">${criterion.name}</a></td>
+									<a href="javascript:toggleRow('objective1','icon1');" title="${critGrade.criteria.na}">${critGrade.criteria.name}</a></td>
 							<td>&nbsp;</td>
-							<td class="gradeA">${criterion.grade}</td>
+							<td class="gradeA">${critGrade.grade}</td>
 						</tr>
 						<!-- end PROJECT -->
 					
@@ -208,11 +211,11 @@ the column labels. */
 						<tr style="display:none;" class="objectives" id="objective1">
 							<td colspan="3">
 								<ul>
-									<p><b>Objectives (${fn:length(criterion.objectives)}):</b></p>	
+									<p><b>Objectives (${fn:length(critGrade.criteria.objectives)}):</b></p>	
 								
-									<c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
-										<li>Promotes General economic development
-											<span>major positive impact</span>
+									<c:forEach var="objective" items="${critGrade.criteria.objectives}" varStatus="loop">
+										<li>${objective.description}
+											<span>----major positive impact</span>
 										</li>
 									</c:forEach>
 								</ul>

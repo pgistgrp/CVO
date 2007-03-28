@@ -15,18 +15,9 @@
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[x] Javascript (Jordan)
-		[ ] So the next thing was that in Task3 you are going to need to be working off of the ProjectAltRef, not the project Alternative
-		[ ] You can get the ProjectAlternative out of the ProjectAltRef, but the ProjectAltRef will also have all the grading and whatnot
-		So anyway, I need to go back to task 3 and look at how this would work exactally, but when you tell me a grade in the ProjectAgent.setGrading, before you were sending me the AltID, now you will need to send me the AltRefId
-		3:17
-		I think that means that you will have a list of ProjectRef's, in the ProjectGradingPage
-		3:18
-		Then you will cycle through those pulling the Projects out for the top level nodes, and then use the project alt refs and their corrisponding project alternatives to form the next level
-		3:18
-		To be honest, this is not solidified at all in my head
-		3:19
-		So I'm hoping this makes sense to you on some level
+		[ ] Project Alt sorting (Matt)
+		[ ] reason:"Error: this objective could not be assigned the specified grade",successful:false} (Matt)
+		[x] Tree with Unobtrusive JS
 
 #### -->
 
@@ -54,22 +45,22 @@
 		<script type='text/javascript' src='/dwr/util.js'></script>
 		<!-- End DWR JavaScript Libraries -->
 
-		<!--Project Specific  Libraries-->
+		<!--Project Grades Specific  Libraries-->
 		<script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
+		<script src="scripts/simpletreemenu.js" type="text/javascript"></script>
 		<style type="text/css" media="screen">
-			li{margin: 10px 0; list-style: none;}
-			.project{font-size: 1.3em;}
+			@import "styles/simpletree.css";
 		</style>
-		<style type="text/css">
-		    v\:* {
-		      behavior:url(#default#VML);
-		    }
+		
+		<style type="text/css" media="screen">
+			li{margin: 10px 0;}
+			.project{font-size: 1.3em;}
 		</style>
 
 		<script type="text/javascript" charseut="utf-8">
-			function setGrading(altId, critId, objId, value){
-				alert("altId: " + altId + " critId: " + critId + " objId: " + objId +" value: " +value ); 
-				ProjectAgent.setGrading({altId:altId,critId:critId,objId:objId,value:value},{
+			function setGrading(altRefId, critId, objId, value){
+				alert("altRefId: " + altRefId + " critId: " + critId + " objId: " + objId +" value: " +value ); 
+				ProjectAgent.setGrading({altRefId:altRefId,critId:critId,objId:objId,value:value},{
 					callback:function(data){
 						if (data.successful){
 							alert("grade set! Setting Criteria Grade to: " + data.grade)  //testing
@@ -90,37 +81,48 @@
 	</head>
 	<body>
 		<h1>Grade Projects on Criteria Objectives ${critSuite}</h1>
-		<ul>
-		<c:forEach var="projectRef" items="${projSuite.references}" varStatus="loop">
-			<li><span class="project">${projectRef.project.name}</span><ul>
-				<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
-					<li><a href="javascript:window.open('projectAlt.do?altrefId=${altRef.id}','width=730,height=500,resizable=yes,scrollbars=yes'); void(0);">${altRef.alternative.name} <img src="images/external.png" alt="(new window)" border="0" /></a><ul>
-					<c:forEach var="critGrade" items="${altRef.gradedCriteria}" varStatus="loop">
-						<li>Name: ${critGrade.criteria.name}</li>
-						<li>Description: ${critGrade.criteria.na}</li>
-						<li>Grade: <b id="critGrade-${critGrade.criteria.id}">${critGrade.grade}</b></li>
-						<li>Objectives (${fn:length(critGrade.criteria.objectives)}):</li>
+		
+		<a href="javascript:ddtreemenu.flatten('treemenu1', 'expand')">Expand All</a> | 
+		<a href="javascript:ddtreemenu.flatten('treemenu1', 'contact')">Collapse All</a>
+		
+		<ul id="treemenu1" class="treeview">
+			<c:forEach var="projectRef" items="${projSuite.references}" varStatus="loop">
+				<li><span class="project"><a href="#">Project: ${projectRef.project.name}</a></span><ul>
+					<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
+						<li><small><a href="projectAlt.do?altrefId=${altRef.id}" target="_blank">Alt ${altRef.alternative.name} info page <img src="/images/external.png" border="0" /></a></small></li>
+						<li><a href="#">Alt: ${altRef.alternative.name}</a>
 						<ul>
-							<c:forEach var="objective" items="${critGrade.criteria.objectives}" varStatus="loop">
-								<li>${objective.description} - Grade: 
-									<select id="objGrade-${objective.id}" onchange="setGrading(${altRef.id},${critGrade.criteria.id},${objective.id}, this.value);">
-										<option>3</option>
-										<option>2</option>
-										<option>1</option>
-										<option selected="true"></option>
-										<option>-1</option>
-										<option>-2</option>
-										<option>-3</option>
-									</select>
-								</li>	
-							</c:forEach>
-						</ul>
+						<c:forEach var="critGrade" items="${altRef.gradedCriteria}" varStatus="loop">
+							<li><a href="#">Factor: ${critGrade.criteria.name} (Grade: <b id="critGrade-${critGrade.criteria.id}">${critGrade.grade}</b>):</a>
+								<ul>
+									<c:forEach var="objective" items="${critGrade.criteria.objectives}" varStatus="loop">
+										<li>${objective.description} - Grade: 
+											<select id="objGrade-${objective.id}" onchange="setGrading(${altRef.id},${critGrade.criteria.id},${objective.id}, this.value);">
+												<option value="3">3</option>
+												<option value="2">2</option>
+												<option value="1">1</option>
+												<option value="NULL" selected="true"></option>
+												<option value="-1">-1</option>
+												<option value="-2">-2</option>
+												<option value="-3">-3</option>
+											</select>
+										</li>	
+									</c:forEach>
+								</ul>
+							</li>
+						</c:forEach>
+					</ul></li>
 					</c:forEach>
-				</ul></li>
-				</c:forEach>
-				</ul></li>
-		</c:forEach>
+					</ul></li>
+			</c:forEach>
 		</ul>
+		
+		<script type="text/javascript">
+			//ddtreemenu.createTree(treeid, enablepersist, opt_persist_in_days (default is 1))
+			ddtreemenu.createTree("treemenu1", false);
+			ddtreemenu.flatten('treemenu1', 'contact');
+			//ddtreemenu.flatten('treemenu1', 'expand');
+		</script>
 	</body>
 </html>
 
