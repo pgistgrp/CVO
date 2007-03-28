@@ -16,7 +16,7 @@ import org.pgist.criteria.Criteria;
  */
 public class GradedCriteria {
 
-	private SortedSet<GradedObjective> objectives = new TreeSet<GradedObjective>();
+	private SortedSet<GradedObjective> objectives = new TreeSet<GradedObjective>(new GradedObjectiveComparator());
     private Long id;
 	private Criteria criteria;	
 	private String grade ="NA";
@@ -66,7 +66,7 @@ public class GradedCriteria {
      * @return
      * 
      * @hibernate.set lazy="false" cascade="all-delete-orphan" sort="org.pgist.projects.GradedObjectiveComparator"
-     * @hibernate.collection-key column="project_id"
+     * @hibernate.collection-key column="graded_criteria_id"
      * @hibernate.collection-one-to-many class="org.pgist.projects.GradedObjective"
      */
     public SortedSet<GradedObjective> getObjectives() {

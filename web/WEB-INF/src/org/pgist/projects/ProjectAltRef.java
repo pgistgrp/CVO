@@ -78,8 +78,8 @@ public class ProjectAltRef {
      * @return	A set of all the criteria associated with this alt ref
      * 
      * @hibernate.set lazy="false" cascade="all-delete-orphan" sort="org.pgist.projects.GradedCriteriaComparator"
-     * @hibernate.collection-key column="project_id"
-     * @hibernate.collection-one-to-many class="org.pgist.projects.GradedObjective"
+     * @hibernate.collection-key column="project_alt_ref_id"
+     * @hibernate.collection-one-to-many class="org.pgist.projects.GradedCriteria"
      */
     public SortedSet<GradedCriteria> getGradedCriteria() {
 		return gradedCriteria;

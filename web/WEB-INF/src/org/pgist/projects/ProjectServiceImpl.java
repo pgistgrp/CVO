@@ -13,20 +13,13 @@ import org.pgist.criteria.Objective;
  * @author  Guirong
  */
 public class ProjectServiceImpl implements ProjectService{
-    
-    
+        
 	private ProjectDAO projectDAO = null;
 	private CriteriaDAO criteriaDAO = null;
     
-    
-	
-
-
-
 	public void setCriteriaDAO(CriteriaDAO criteriaDAO) {
 		this.criteriaDAO = criteriaDAO;
 	}
-
 
 	/**
      * @param projectDAO  the projectDAO to set
@@ -177,22 +170,45 @@ public class ProjectServiceImpl implements ProjectService{
 
     	ProjectAltRef altRef = projectDAO.getProjectAlternativeReference(altRefId);
 
-    	//TODO Somehow I need to add criteria and objectives as we find them.  I'm not sure what the expected behavior of this is
+    	Iterator<GradedCriteria> crits = altRef.getGradedCriteria().iterator();
+    	GradedCriteria gradedCrit;
+    	while(crits.hasNext()) {
+    		gradedCrit = crits.next();
+    		if(gradedCrit.getCriteria().getId().equals(objId)) {
+    			return setGrading(gradedCrit, objId, value);
+    		}
+    	}
     	
-//    	Map grades = altRef.getGrades();
-//    	  	
-//    	Iterator i = grades.keySet().iterator();
-//    	CriteriaRef ref;
-//    	while(i.hasNext()) {
-//    		ref = (CriteriaRef)i.next();
-//    		if(ref.getCriterion().getId().equals(critId)) {
-//    			return convertGrade(ref.setObjectiveGrade(objId, value));
-//    		}
-//    	}
     	throw new UnknownCriteriaException("Could not find criteria [" + critId + "]");
     }//setGrading()
 
-
+    /**
+     * Sets the grading on a specific objective within the criteria
+     * 
+     * @param gradedCriteria	The criteria with the objective in it
+     * @param objId - int, id of a Objective object</li>
+     * @param value - int, grading value, [-3, 3]</li>
+     * @return	The grade of the criteria relative to this alternative
+     * @throws Exception
+     */
+    public String setGrading(GradedCriteria gradedCriteria, Long objId, int value) throws Exception, UnknownObjectiveException {
+    	Iterator<GradedObjective> objs = gradedCriteria.getObjectives().iterator();
+    	GradedObjective tempObj;
+    	while(objs.hasNext()) {
+    		tempObj = objs.next();
+    		if(tempObj.getObjective().getId().equals(objId)) {
+    			tempObj.setGrade(value);
+    			projectDAO.save(tempObj);
+    			
+    			//Update the final grade on the criteria
+    			gradedCriteria.recalcGrade();
+    			projectDAO.save(gradedCriteria);
+    			return gradedCriteria.getGrade();
+    		}
+    	}
+    	throw new UnknownObjectiveException("Could not find objective [" + objId + "]");
+    }    
+    
     /**
      * Setup the association between projects and CCT.
      * 
@@ -345,6 +361,30 @@ public class ProjectServiceImpl implements ProjectService{
 	 */
 	public void updateProjectSuiteCriteria(ProjectSuite projSuite) throws Exception {
 		Collection criterias = this.criteriaDAO.getAllCriterion();
+		
+//		Collection crits = criteriaDAO.getAllCriterion();		
+//		Collection objectives = criteriaDAO.getObjectives();
+//		Objective obj;
+//		
+//		Iterator iCrit = crits.iterator();
+//		Criteria crit;
+//		while(iCrit.hasNext()) {
+//			crit = (Criteria)iCrit.next();
+//			GradedCriteria gCrit = new GradedCriteria();
+//			gCrit.setCriteria(crit);
+//			Iterator i = objectives.iterator();
+//			while(i.hasNext()) {
+//				obj = (Objective)i.next();
+//				GradedObjective gObj = new GradedObjective();
+//				gObj.setObjective(obj);
+//				projectDAO.save(gObj);
+//				gCrit.getObjectives().add(gObj);
+//			}
+//			projectDAO.save(gCrit);
+//		}
+		
+		
+System.out.println("MATT: Found " + criterias.size() + " criteria");		
 		Criteria tempCrit;
 		ProjectAltRef tempAltRef;
 		Iterator<ProjectRef> projRefs = projSuite.getReferences().iterator();
@@ -383,16 +423,13 @@ System.out.println("Matt 1");
 				break;
 			}
 		}
-		System.out.println("Matt 2");		
 		
 		//If not add it
 		if(gradedCrit == null) {
 			gradedCrit = new GradedCriteria();
 			gradedCrit.setCriteria(newCrit);
 			projectDAO.save(gradedCrit);
-System.out.println("MATT: Saving Criteria " + newCrit.getId() + "");			
 			altRef.getGradedCriteria().add(gradedCrit);
-System.out.println("MATT: AltRef now has " + altRef.getGradedCriteria().size() + " references");			
 			projectDAO.save(altRef);
 		}
 		
