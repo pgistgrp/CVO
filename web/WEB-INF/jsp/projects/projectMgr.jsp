@@ -406,7 +406,9 @@
 	<script type="text/javascript" charset="utf-8">
 		getProjects();
 	</script>
-
+	<h3>Finished managing projects?</h3>
+	<!-- this button just redirects - saves are occuring on check. -->
+	<p><input type="button" onclick="location.href='main.do'" value="Finished!"/></p>
 </body>
 </html>
 

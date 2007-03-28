@@ -35,15 +35,44 @@
 <html>
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<title>Grade Projects</title>
+		<title>Manage Projects</title>
+		<!-- Site Wide JavaScript -->
+		<script src="scripts/tags.js" type="text/javascript"></script>
+		<script src="scripts/prototype.js" type="text/javascript"></script>
+		<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+		<script src="scripts/search.js" type="text/javascript"></script>
+		<!-- End Site Wide JavaScript -->
+
+		<!-- mapping JavaScript -->
+		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxTwM0brOpm-All5BF6PoaKBxRWWERTgXzfGnh96tes2zXXrBXrWwWigIQ"
+		      type="text/javascript"></script>
+		<script src="scripts/pgistmap2.js"></script>
+		<!-- End of mapping JavaScript -->
+
+		<!-- DWR JavaScript Libraries -->
+		<script type='text/javascript' src='/dwr/engine.js'></script>
+		<script type='text/javascript' src='/dwr/util.js'></script>
+		<!-- End DWR JavaScript Libraries -->
+
+		<!--Project Specific  Libraries-->
+		<script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
+		<style type="text/css" media="screen">
+			li{margin: 10px 0; list-style: none;}
+			.project{font-size: 1.3em;}
+		</style>
+		<style type="text/css">
+		    v\:* {
+		      behavior:url(#default#VML);
+		    }
+		</style>
 
 		<script type="text/javascript" charseut="utf-8">
 			function setGrading(altId, critId, objId, value){
-				//alert("altId: " + altId + " critId: " + critId + " objId: " + objId +" value: " +value ); 
+				alert("altId: " + altId + " critId: " + critId + " objId: " + objId +" value: " +value ); 
 				ProjectAgent.setGrading({altId:altId,critId:critId,objId:objId,value:value},{
 					callback:function(data){
 						if (data.successful){
-							alert("grade set!")  //testing
+							alert("grade set! Setting Criteria Grade to: " + data.grade)  //testing
 							$('critGrade-' + critId).innerHTML = data.grade; //returned grade
 							new Effect.Highlight('critGrade-' + critId); //highlight reflecting change
 						}else{
@@ -63,18 +92,18 @@
 		<h1>Grade Projects on Criteria Objectives ${critSuite}</h1>
 		<ul>
 		<c:forEach var="projectRef" items="${projSuite.references}" varStatus="loop">
-			<li>${projectRef.project.name}<ul>
+			<li><span class="project">${projectRef.project.name}</span><ul>
 				<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
 					<li><a href="javascript:window.open('projectAlt.do?altrefId=${altRef.id}','width=730,height=500,resizable=yes,scrollbars=yes'); void(0);">${altRef.alternative.name} <img src="images/external.png" alt="(new window)" border="0" /></a><ul>
 					<c:forEach var="critGrade" items="${altRef.gradedCriteria}" varStatus="loop">
-						<li>Name: ${critGrade.criterion.name}</li>
-						<li>Description: ${critGrade.criterion.description}</li>
-						<li>Grade: <b id="critGrade-${critGrade.criterion.id}">${critGrade.criterion.grade}</b></li>
-						<li>Objectives (${fn:length(critGrade.criterion.objectives)}):</li>
+						<li>Name: ${critGrade.criteria.name}</li>
+						<li>Description: ${critGrade.criteria.na}</li>
+						<li>Grade: <b id="critGrade-${critGrade.criteria.id}">${critGrade.grade}</b></li>
+						<li>Objectives (${fn:length(critGrade.criteria.objectives)}):</li>
 						<ul>
-							<c:forEach var="objective" items="${critGrade.gradedObjectives}" varStatus="loop">
-								<li>${objective.name} - Grade: 
-									<select id="objGrade-${objective.id}" onchange="setVoting(${alternative.id},${criterion.id}, ${objective.id}, this.value);">
+							<c:forEach var="objective" items="${critGrade.criteria.objectives}" varStatus="loop">
+								<li>${objective.description} - Grade: 
+									<select id="objGrade-${objective.id}" onchange="setGrading(${altRef.id},${critGrade.criteria.id},${objective.id}, this.value);">
 										<option>3</option>
 										<option>2</option>
 										<option>1</option>
