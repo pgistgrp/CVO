@@ -4,6 +4,9 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.projects.ProjectSuite;
+import org.pgist.users.User;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -60,10 +63,16 @@ public class CreatePackageAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-        /*
-         * TODO: extract the required objects and put into request attributes
-         */
-        
+    	String tempPackageSuiteId = request.getParameter("suiteId");
+    	if(tempPackageSuiteId != null) {
+    		Long packSuite = new Long(tempPackageSuiteId);
+    		
+    		//Get the current users package
+    		UserPackage uPack = this.packageService.createUserPackage(packSuite, WebUtils.currentUser());
+    		
+    		//Return the user package
+    		request.setAttribute("userPkg", uPack);
+    	}
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
         return mapping.findForward("view");

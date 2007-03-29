@@ -3,18 +3,30 @@
 
 <beans>
 
-
+    <bean id="fundingDAO" class="org.pgist.funding.FundingDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+    
     <bean id="packageDAO" class="org.pgist.packages.PackageDAOImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
     </bean>
 
+    <bean id="projectDAO" class="org.pgist.projects.ProjectDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
 
     <bean id="packageService" parent="baseTransactionProxy">
         <property name="target">
             <bean class="org.pgist.packages.PackageServiceImpl">
                 <property name="packageDAO" ref="packageDAO"/>
+                <property name="projectDAO" ref="projectDAO"/>   
+                <property name="fundingDAO" ref="fundingDAO"/>                             
             </bean>
         </property>
     </bean>

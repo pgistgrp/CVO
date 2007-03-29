@@ -107,6 +107,7 @@
     
     <bean name="/helpme" class="org.pgist.packages.HelpMeAction">
         <property name="packageService" ref="packageService"/>
+        <property name="criteriaService" ref="criteriaService"/>
     </bean>
     
     <bean name="/criteriaList" class="org.pgist.criteria.CriteriaListAction">

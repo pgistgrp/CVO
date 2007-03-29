@@ -4,6 +4,8 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.criteria.CriteriaService;
+import org.pgist.criteria.CriteriaSuite;
 
 
 /**
@@ -35,12 +37,15 @@ public class HelpMeAction extends Action {
     
     
     private PackageService packageService;
+    private CriteriaService criteriaService;
     
     
     public void setPackageService(PackageService packageService) {
         this.packageService = packageService;
     }
-
+    public void setCriteriaService(CriteriaService criteriaService) {
+        this.criteriaService = criteriaService;
+    }
 
     /*
      * ------------------------------------------------------------------------
@@ -53,9 +58,23 @@ public class HelpMeAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-        /*
-         * TODO: extract all required objects and put in reqeust attributes
-         */
+    	String tempPkgSuiteId = request.getParameter("pkgsuiteId");
+    	PackageSuite pkgSuite = null;
+    	if(tempPkgSuiteId != null) {
+    		Long packSuite = new Long(tempPkgSuiteId);
+    		pkgSuite = this.packageService.getPackageSuite(packSuite);
+    	}    	
+        
+    	String tempCritsuiteId = request.getParameter("critsuiteId");
+    	CriteriaSuite critSuite = null;
+    	if(tempPkgSuiteId != null) {
+    		critSuite = this.criteriaService.getCriteriaSuiteById(new Long(tempCritsuiteId));
+    	} 
+
+    	//TODO get the user package from the pkgSuite
+    	UserPackage userPkg;
+    	//request.setAttribute("usrPkg", userPkg);
+    	request.setAttribute("critSuite", critSuite);
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

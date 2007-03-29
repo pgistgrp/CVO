@@ -130,6 +130,10 @@
             <param-value>WEB-INF/config/dwr-criteria.xml</param-value>
         </init-param>
         <init-param>
+            <param-name>config-package</param-name>
+            <param-value>WEB-INF/config/dwr-package.xml</param-value>
+        </init-param>
+        <init-param>
             <param-name>config-funding</param-name>
             <param-value>WEB-INF/config/dwr-funding.xml</param-value>
         </init-param>
