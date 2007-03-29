@@ -109,7 +109,7 @@ public class ProjectAlternative implements Serializable {
     
     /**
      * @return
-     * @hibernate.property
+     * @hibernate.property length="2000"
      */
     public String getDetailedDesc() {
         return detailedDesc;
