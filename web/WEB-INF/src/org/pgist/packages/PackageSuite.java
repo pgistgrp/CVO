@@ -77,9 +77,9 @@ public class PackageSuite {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" cascade="all" order-by="id"
-     * @hibernate.collection-key column="pkgsuite_id"
-     * @hibernate.collection-one-to-many class="org.pgist.packages.PackageVoteSuite"
+     * @ hibernate.set lazy="true" cascade="all" order-by="id"
+     * @ hibernate.collection-key column="pkgsuite_id"
+     * @ hibernate.collection-one-to-many class="org.pgist.packages.PackageVoteSuite"
      */
     public SortedSet<PackageVoteSuite> getVoteSuites() {
         return voteSuites;

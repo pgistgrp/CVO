@@ -141,26 +141,28 @@ public class PackageServiceImpl implements PackageService {
 	 */
 	public UserPackage createUserPackage(Long packageSuite, UserInfo info) throws Exception {
 		PackageSuite suite = this.getPackageSuite(packageSuite);		
-		
+System.out.println("I'm user " + info.getId() + " with suite " + packageSuite);		
 		//Loop through looking for the package
 		Iterator<UserPackage> pkgs = suite.getUserPkgs().iterator();
 		UserPackage tempPackage;
 		while(pkgs.hasNext()) {
 			tempPackage = pkgs.next();
 			if(tempPackage.getAuthor().getId().equals(info.getId())) {
+System.out.println("MATT: Found it");				
 				return tempPackage;
 			}
 		}
-		
+System.out.println("MATT: NOT IN THERE");		
 		//None found, then create and save		
 		UserPackage uPack = new UserPackage();		
 		User user = this.packageDAO.getUserById(info.getId());
+System.out.println("MATT: got the user package");
 		uPack.setAuthor(user);
 		packageDAO.save(uPack);
-		
+System.out.println("MATT: SAVED THE PACKAGE");		
 		suite.getUserPkgs().add(uPack);
 		packageDAO.save(suite);
-		
+System.out.println("MATT: Creating it");		
 		return uPack;
 	}
 	

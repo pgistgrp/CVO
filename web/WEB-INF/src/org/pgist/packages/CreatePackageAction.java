@@ -67,6 +67,8 @@ public class CreatePackageAction extends Action {
     	if(tempPackageSuiteId != null) {
     		Long packSuite = new Long(tempPackageSuiteId);
     		
+    		System.out.println("Package service = " + this.packageService);
+    		
     		//Get the current users package
     		UserPackage uPack = this.packageService.createUserPackage(packSuite, WebUtils.currentUser());
     		
