@@ -15,9 +15,10 @@
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
+		[x] Tree with Unobtrusive JS
 		[ ] Project Alt sorting (Matt)
 		[ ] reason:"Error: this objective could not be assigned the specified grade",successful:false} (Matt)
-		[x] Tree with Unobtrusive JS
+		[ ] contains to get the objective value
 
 #### -->
 
