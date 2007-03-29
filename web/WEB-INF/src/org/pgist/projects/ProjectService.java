@@ -38,7 +38,7 @@ public interface ProjectService {
 
     ProjectAltRef getProjectAltRefById(Long altrefId) throws Exception;
 
-	ProjectAlternative createProjectAlt(Long id, String name, String description, Float cost, String links, String sponsor, String statementFor, String statementAgainst, String county) throws Exception;
+	ProjectAlternative createProjectAlt(Long id, String name, String shortDescription, String detailedDescription, Float cost, String links, String sponsor, String statementFor, String statementAgainst, String county) throws Exception;
     
 	ProjectAlternative getProjectAlternativeById(Long altId) throws Exception;
     
@@ -46,7 +46,7 @@ public interface ProjectService {
     
 	void deleteProjectAlt(Long id) throws Exception;
 
-	void editProjectAlt(Long id, String name, String description, Float cost, String links, String sponsor, String statementFor, String statementAgainst, String county) throws Exception;
+	void editProjectAlt(Long id, String name, String shortDescription, String detailedDescription, Float cost, String links, String sponsor, String statementFor, String statementAgainst, String county) throws Exception;
     	
 	public void updateProjectSuiteCriteria(ProjectSuite projSuite) throws Exception;
 }//interface ProjectService

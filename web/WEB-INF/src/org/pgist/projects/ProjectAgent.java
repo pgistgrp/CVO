@@ -190,7 +190,8 @@ public class ProjectAgent {
      *     <ul>
      *       <li>id - int, id of a Project object</li>
      *       <li>name - string, name for ProjectAlternative</li>
-     *       <li>description - string, description for ProjectAlternative</li>
+     *       <li>shortDescription - string, A small description of the ProjectAlternative</li>
+     *       <li>detailedDescription - string, A longer description fo the ProjectAlternative</li>
      *       <li>cost - float, cost</li>
      *       <li>links - string, links</li>
      *       <li>sponsor - string, name of sponsor</li>
@@ -214,7 +215,8 @@ public class ProjectAgent {
             Long id = new Long((String) params.get("id"));
             
             String name = (String) params.get("name");
-            String description = (String) params.get("description");
+            String shortDescription = (String) params.get("shortDescription");
+            String detailedDescription = (String) params.get("detailedDescription");
             Float cost = Float.parseFloat((String)params.get("cost"));
             String links = (String) params.get("links");
             String sponsor = (String) params.get("sponsor");
@@ -223,7 +225,7 @@ public class ProjectAgent {
             String county = (String) params.get("county");
                         
             ProjectAlternative projectAlt = projectService.createProjectAlt(id,
-					name, description, cost, links, sponsor, statementFor,
+					name, shortDescription, detailedDescription, cost, links, sponsor, statementFor,
 					statementAgainst, county);
                                    
             map.put("id", projectAlt.getId());            
@@ -286,7 +288,8 @@ public class ProjectAgent {
      *     <ul>
      *       <li>id - int, id of a ProjectAlternative object</li>
      *       <li>name - string, name for ProjectAlternative</li>
-     *       <li>description - string, description for ProjectAlternative</li>
+     *       <li>shortDescription - string, A small description of the ProjectAlternative</li>
+     *       <li>detailedDescription - string, A longer description fo the ProjectAlternative</li>
      *       <li>cost - float, cost</li>
      *       <li>links - string, links</li>
      *       <li>sponsor - string, name of sponsor</li>
@@ -309,7 +312,8 @@ public class ProjectAgent {
             Long id = new Long((String) params.get("id"));
 
             String name = (String) params.get("name");
-            String description = (String) params.get("description");
+            String shortDescription = (String) params.get("shortDescription");
+            String detailedDescription = (String) params.get("detailedDescription");
             Float cost = Float.parseFloat((String)params.get("cost"));
             String links = (String) params.get("links");
             String sponsor = (String) params.get("sponsor");
@@ -319,7 +323,7 @@ public class ProjectAgent {
             
             
             projectService.editProjectAlt(id,
-					name, description, cost, links, sponsor, statementFor,
+					name, shortDescription, detailedDescription, cost, links, sponsor, statementFor,
 					statementAgainst, county);
             
             map.put("successful", true);

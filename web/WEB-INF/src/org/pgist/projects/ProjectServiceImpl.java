@@ -98,7 +98,7 @@ public class ProjectServiceImpl implements ProjectService{
 
     
     public ProjectAlternative createProjectAlt(Long id, String name,
-			String description, Float cost, String links, String sponsor,
+			String shortDescription, String detailedDescription, Float cost, String links, String sponsor,
 			String statementFor, String statementAgainst, String county) throws Exception {
 
     	//Get the project
@@ -107,7 +107,8 @@ public class ProjectServiceImpl implements ProjectService{
     	//Create the alternative
     	ProjectAlternative alternative = new ProjectAlternative();
     	alternative.setName(name);
-    	alternative.setDetailedDesc(description);
+    	alternative.setShortDesc(shortDescription);
+    	alternative.setDetailedDesc(detailedDescription);
     	alternative.setCost(cost);
     	alternative.setLinks(links);
     	alternative.setSponsor(sponsor);
@@ -124,7 +125,7 @@ public class ProjectServiceImpl implements ProjectService{
     }//createProjectAlt()
 
     
-    public void editProjectAlt(Long id, String name, String description,
+    public void editProjectAlt(Long id, String name, String shortDescription, String detailedDescription,
 			Float cost, String links, String sponsor, String statementFor,
 			String statementAgainst, String county) throws Exception {
 
@@ -133,7 +134,8 @@ public class ProjectServiceImpl implements ProjectService{
     	
     	//load it
     	alt.setName(name);
-    	alt.setDetailedDesc(description);
+    	alt.setShortDesc(shortDescription);
+    	alt.setDetailedDesc(detailedDescription);
     	alt.setCost(cost);
     	alt.setLinks(links);
     	alt.setSponsor(sponsor);
