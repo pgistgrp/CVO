@@ -249,7 +249,7 @@ font-weight:bold;
 				<!-- begin all PROJECTS -->
 				<div>
 					<!--begin PROJECT LOOP-->
-					<c:forEach var="project" items="${projects}" varStatus="loop">
+					<c:forEach var="project" items="${userPkg.projectAltRefs}" varStatus="loop">
 						<h4 class="headerColor">${project.name}</h4>
 						<c:choose>
 							<c:when test="${project.inclusive}"><!-- radio buttons -->
