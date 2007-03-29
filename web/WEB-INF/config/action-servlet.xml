@@ -105,6 +105,10 @@
         <property name="fundingService" ref="fundingService"/>
     </bean>
     
+    <bean name="/createPackage" class="org.pgist.packages.CreatePackageAction">
+        <property name="packageService" ref="packageService"/>
+    </bean>    
+    
     <bean name="/helpme" class="org.pgist.packages.HelpMeAction">
         <property name="packageService" ref="packageService"/>
         <property name="criteriaService" ref="criteriaService"/>
