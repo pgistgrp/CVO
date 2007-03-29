@@ -20,6 +20,9 @@ import org.apache.struts.action.ActionMapping;
  * In that jsp page, the following request attributes are available:
  * <ul>
  *   <li>reference - a ProjectAltRef object</li>
+ *   <li>average - The average grade for this project alternative</li>
+ *   <li>personalAverage - The personal average for this project alternative</li>
+ *   <li>everyoneAverage - The average grade for everyone involved</li>
  * </ul>
  * 
  * @author kenny
@@ -52,6 +55,9 @@ public class ProjectAltAction extends Action {
         ProjectAltRef reference = projectService.getProjectAltRefById(altrefId);
         
         request.setAttribute("reference", reference);
+        request.setAttribute("average", "B");
+        request.setAttribute("personalAverage", "B-");
+        request.setAttribute("everyoneAverage", "A");
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
