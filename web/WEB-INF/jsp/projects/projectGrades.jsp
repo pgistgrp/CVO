@@ -17,8 +17,8 @@
 		[x] Initial Skeleton Code (Jordan)
 		[x] Tree with Unobtrusive JS
 		[ ] Project Alt sorting (Matt)
-		[ ] reason:"Error: this objective could not be assigned the specified grade",successful:false} (Matt)
-		[ ] contains to get the objective value
+		[x] reason:"Error: this objective could not be assigned the specified grade",successful:false} (Matt)
+		[x] contains to get the objective value
 
 #### -->
 
@@ -60,21 +60,23 @@
 
 		<script type="text/javascript" charseut="utf-8">
 			function setGrading(altRefId, critId, objId, value){
-				alert("altRefId: " + altRefId + " critId: " + critId + " objId: " + objId +" value: " +value ); 
-				ProjectAgent.setGrading({altRefId:altRefId,critId:critId,objId:objId,value:value},{
-					callback:function(data){
-						if (data.successful){
-							alert("grade set! Setting Criteria Grade to: " + data.grade)  //testing
-							$('critGrade-' + critId).innerHTML = data.grade; //returned grade
-							new Effect.Highlight('critGrade-' + critId); //highlight reflecting change
-						}else{
-							alert(data.reason);
+				if(value != null){
+					//alert("altRefId: " + altRefId + " critId: " + critId + " objId: " + objId +" value: " +value ); 
+					ProjectAgent.setGrading({altRefId:altRefId,critId:critId,objId:objId,value:value},{
+						callback:function(data){
+							if (data.successful){
+								alert("grade set! Setting Criteria Grade to: " + data.critGrade)  //testing
+								$('critGrade-' + critId).innerHTML = data.critGrade; //returned grade
+								new Effect.Highlight('critGrade-' + critId); //highlight reflecting change
+							}else{
+								alert(data.reason);
+							}
+						},
+						errorHandler:function(errorString, exception){ 
+						alert("ProjectAgent.setGrading( error:" + errorString + exception);
 						}
-					},
-					errorHandler:function(errorString, exception){ 
-					alert("ProjectAgent.setGrading( error:" + errorString + exception);
-					}
-				});
+					});
+				}
 			}
 			
 
@@ -96,16 +98,20 @@
 						<c:forEach var="critGrade" items="${altRef.gradedCriteria}" varStatus="loop">
 							<li><a href="#">Factor: ${critGrade.criteria.name} (Grade: <b id="critGrade-${critGrade.criteria.id}">${critGrade.grade}</b>):</a>
 								<ul>
-									<c:forEach var="objective" items="${critGrade.criteria.objectives}" varStatus="loop">
-										<li>${objective.description} - Grade: 
-											<select id="objGrade-${objective.id}" onchange="setGrading(${altRef.id},${critGrade.criteria.id},${objective.id}, this.value);">
-												<option value="3">3</option>
-												<option value="2">2</option>
-												<option value="1">1</option>
-												<option value="NULL" selected="true"></option>
-												<option value="-1">-1</option>
-												<option value="-2">-2</option>
-												<option value="-3">-3</option>
+									<c:forEach var="gradedObjective" items="${critGrade.objectives}" varStatus="loop">
+										<li>${gradedObjective.objective.description} - Grade:
+											<select id="objGrade-${gradedObjective.objective.id}" onchange="setGrading(${altRef.id},${critGrade.criteria.id},${gradedObjective.objective.id}, this.value);">
+												<c:forEach var="grade" begin="0" end="6">
+													<c:choose>
+														<c:when test="${grade == 3}">
+															<!-- using this -3 hack because jstl does not support negatives in begin -- >
+															<option <c:if test="${gradedObjective.grade == null}">selected = "true"</c:if> value="NULL"> </option>
+														</c:when>
+														<c:otherwise>
+															<option <c:if test="${gradedObjective.grade == (grade - 3)}"> selected = "true"</c:if> value="${grade - 3}">${grade - 3}</option>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
 											</select>
 										</li>	
 									</c:forEach>

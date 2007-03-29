@@ -9,14 +9,15 @@
 <!--####
 	Project: Let's Improve Transportation!
 	Page: Project Alternative Description
-	Description: This page serves as an information page for a project alternative. 
-	Author: Jordan Isip, Adam Hindman, Issac Yang
+	Description: This page serves as an information page for a given project alternative. 
+	Author: Jordan Isip, Adam Hindman
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[ ] Get criteria average grades (Jordan and Matt)
 		[ ] Get objective human readable grades (Jordan and Matt)
 		[ ] Get total averages (Jordan and Matt)
 		[ ] Integrate map or photo (Guirong)
+		[ ] Rework tree menu (Adam or Jordan)
 #### -->
 
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
@@ -99,7 +100,7 @@ the div is displayed or not.  If the div is displayed, reveal
 the column labels. */
 
 			function toggleRow(project,icon){
-				Effect.toggle(project, 'appear', {duration:.4, afterFinish:
+				Effect.toggle(project, 'appear', {duration:.2, afterFinish:
 					function(){
 						if ($(project).style.display != ""){
 							$(icon).src = "/images/plus.gif";
@@ -199,16 +200,16 @@ the column labels. */
 						<!-- begin PROJECT -->
 						<tr class="fundingType">
 							<td class="fundingSourceItem">
-									<a href="javascript:toggleRow('objective1','icon1');">
-									<img src="/images/plus.gif" id="icon1" class="icon"></a>
-									<a href="javascript:toggleRow('objective1','icon1');" title="${critGrade.criteria.na}">${critGrade.criteria.name}</a></td>
+									<a href="javascript:toggleRow('objective${critGrade.id}','icon${critGrade.id}');">
+									<img src="/images/plus.gif" id="icon${critGrade.id}" class="icon"></a>
+									<a href="javascript:toggleRow('objective${critGrade.id}','icon${critGrade.id}');" title="${critGrade.criteria.na}">${critGrade.criteria.name}</a></td>
 							<td>&nbsp;</td>
 							<td class="gradeA">${critGrade.grade}</td>
 						</tr>
 						<!-- end PROJECT -->
 					
 						<!-- begin HIDDEN ROW of OPTIONS -->
-						<tr style="display:none;" class="objectives" id="objective1">
+						<tr style="display:none;" class="objectives" id="objective${critGrade.id}">
 							<td colspan="3">
 								<ul>
 									<p><b>Objectives (${fn:length(critGrade.criteria.objectives)}):</b></p>	
@@ -229,21 +230,21 @@ the column labels. */
 						<td class="fundingSourceItem">
 								Average</td>
 						<td>&nbsp;</td>
-						<td class="gradeDMinus">D-</td>
+						<td class="gradeDMinus">${average}</td>
 					</tr>
 
 					<tr class="headingColor">
 						<td class="fundingSourceItem">
 								Average weighted grade (based on your preferred factor weights)</td>
 						<td>&nbsp;</td>
-						<td class="gradeCPlus">C+</td>
+						<td class="gradeCPlus">${personalAverage}</td>
 					</tr>
 
 					<tr class="headingColor">
 						<td class="fundingSourceItem">
 								Average weighted grade (based on all participants' planning factor weights)</td>
 						<td>&nbsp;</td>
-						<td class="gradeA">A</td>
+						<td class="gradeA">${everyoneAverage}</td>
 					</tr>
 					<!-- end AVERAGES -->
 
