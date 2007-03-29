@@ -174,7 +174,7 @@ public class ProjectServiceImpl implements ProjectService{
     	GradedCriteria gradedCrit;
     	while(crits.hasNext()) {
     		gradedCrit = crits.next();
-    		if(gradedCrit.getCriteria().getId().equals(objId)) {
+    		if(gradedCrit.getCriteria().getId().equals(critId)) {
     			return setGrading(gradedCrit, objId, value);
     		}
     	}
