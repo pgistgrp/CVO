@@ -19,10 +19,7 @@ public interface ProjectDAO extends BaseDAO {
     
 	void save(Project p) throws Exception;
 	
-    
-	void save(Package p) throws Exception;
-	
-    
+        
 	Project getProject(long pid) throws Exception;
 	
     
@@ -37,9 +34,6 @@ public interface ProjectDAO extends BaseDAO {
     
 	void saveFootprint(ProjectAlternative pa, double[][][] coords, String type) throws Exception;
 	
-	
-	Package getPackage(Long pid) throws Exception;
-
 	
     Collection getProjects() throws Exception;
     

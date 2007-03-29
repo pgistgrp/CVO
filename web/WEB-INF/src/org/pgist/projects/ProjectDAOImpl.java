@@ -105,10 +105,6 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	}//saveFootprint()
     
 
-	public void save(Package p) throws Exception{
-		getHibernateTemplate().saveOrUpdate(p);		
-	}
-
 	public ProjectAlternative getProjectAlternative(long pid){
 		return (ProjectAlternative)getHibernateTemplate().load(ProjectAlternative.class, pid);
 	}	
@@ -227,10 +223,6 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 		return footprints;
 	}
 	
-	public Package getPackage(Long pid){
-		return null;
-	}
-
     
     private static String hql_getProjects_2 = "from Project p order by p.name asc";
     
