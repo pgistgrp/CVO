@@ -18,7 +18,7 @@
 		[x] Initial Skeleton Code (Jordan)
 		[x] BareBones JavaScript (Jordan)
 		[x] test with backend contractor code (Jordan)
-		[ ] Add mapping tool (Guirong)
+		[x] Add mapping tool (Guirong)
 		[x] Fix add/edit alts (Jordan)
 		[x] Add county to project alt (Zhong)
 		[x] EditProject inclusive not saving? (Matt)
@@ -26,8 +26,12 @@
 		[x] Sort projects and project alts by name (Matt)
 		[x] getProjectAltByID() (Matt)
 		[x] Alts A-Z (Matt)
-		[ ] Short description and detailed description for project alts (Matt)
-		[ ] Add descriptions to create/edit alt form(Jordan)
+		[x] Short description and detailed description for project alts (Matt)
+		[x] Add descriptions to create/edit alt form(Jordan)
+		[x] JavaScript Tree menu (Jordan)
+		[ ] Persist map edits (Guirong)
+		[ ] Links and detailed description as a rich text box editor (Jordan)
+		[ ] Play with tree script to only link the first link (Jordan)
 #### -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -54,6 +58,10 @@
 
 <!--Project Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
+<script src="scripts/simpletreemenu.js" type="text/javascript"></script>
+<style type="text/css" media="screen">
+	@import "styles/simpletree.css";
+</style>
 <style type="text/css" media="screen">
 	li{margin: 10px 0; list-style: none;}
 	.project{font-size: 1.3em;}
@@ -103,17 +111,17 @@
 	
 	function createProjectAlt(id){
 		var name = $F('txtAltName'+ id);
-		var description = $F('txtAltDesc' + id);
 		var cost = $F('txtAltCost' + id); 
 		var county = $F('txtAltCounty'+ id);
 		var sponsor = $F('txtAltAgency'+ id);
-		var shortDesc = $F('txtAltDesc' + id);
+		var shortDescription = $F('txtAltDesc' + id);
+		var detailedDescription = $F('txtAltDetailedDesc'+ id)
 		var links = $F('txtAltLinks' + id);
 		var statementFor = $F('txtAltFor'+ id);
 		var statementAgainst = $F('txtAltAgainst'+ id);
 
-		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst + " county: " + county); 
-		ProjectAgent.createProjectAlt({id:id, name:name,description:description,cost:cost, sponsor:sponsor, links:links, statementFor:statementFor, statementAgainst:statementAgainst, county:county}, {
+		//alert("id: " + id + " name: " + name + " shortDescription: " + shortDescription + " detailedDescription: "+ detailedDescription+" cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst + " county: " + county); 
+		ProjectAgent.createProjectAlt({id:id, name:name,shortDescription:shortDescription,detailedDescription:detailedDescription,cost:cost, sponsor:sponsor, links:links, statementFor:statementFor, statementAgainst:statementAgainst, county:county}, {
 			callback:function(data, id){
 				if (data.successful){
 					getProjects();
@@ -208,7 +216,8 @@
 		sponsor = (alt.sponsor) ? alt.sponsor : "";
 		cost = (alt.cost) ? alt.cost : "";
 		county = (alt.county) ? alt.county : "";
-		description = (alt.detailedDesc) ? alt.detailedDesc : "";
+		shortDescription = (alt.shortDesc) ? alt.shortDesc : "";
+		detailedDescription = (alt.detailedDesc) ? alt.detailedDesc : "";
 		links = (alt.links) ? alt.links : "";
 		statementFor = (alt.statementFor) ? alt.statementFor : "";
 		statementAgainst = (alt.statementAgainst) ? alt.statementAgainst : "";
@@ -223,7 +232,9 @@
 			<label>County:</label>\
 			<input id="txtAltCounty'+ altId +'" type="text" value="'+ county +'" size="25"><br />\
 			<label>Short Description:</label>\
-			<input id="txtAltDesc'+ altId +'" type="text" value="'+ description +'" size="25"><br />\
+			<input id="txtAltDesc'+ altId +'" type="text" value="'+ shortDescription +'" size="25"><br />\
+			<label>Detailed Description:</label>\
+			<textarea cols="40" rows="10" id="txtAltDetailedDesc'+ altId +'">'+detailedDescription +'</textarea><br />\
 			<label>Links:</label>\
 			<input id="txtAltLinks'+ altId +'" type="text" value="'+ links +'" size="25"><br />\
 			<label>Statement For:</label>\
@@ -265,14 +276,15 @@
 		var cost = $F('txtAltCost' + id); 
 		var county = $F('txtAltCounty'+ id);
 		var sponsor = $F('txtAltAgency'+ id);
-		var description = $F('txtAltDesc' + id);
+		var shortDescription = $F('txtAltDesc' + id);
+		var detailedDescription = $F('txtAltDetailedDesc'+ id)
 		var links = $F('txtAltLinks' + id);
 		var statementFor = $F('txtAltFor'+ id);
 		var statementAgainst = $F('txtAltAgainst'+ id);
 
 		//{id: 3545, name:"This is from DWR EDIT", description: "This is a description", cost: 60.00, links: "http://www.google.com", sponsor: "PSRC", statementFor: "COOL", statementAgainst: "BAD"}
 		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst + " county: " + county); 
-		ProjectAgent.editProjectAlt({id:id,name:name,description:description,cost:cost,sponsor:sponsor,links:links,statementFor:statementFor,statementAgainst:statementAgainst, county:county},[], {
+		ProjectAgent.editProjectAlt({id:id,name:name,shortDescription:shortDescription,detailedDescription:detailedDescription,cost:cost,sponsor:sponsor,links:links,statementFor:statementFor,statementAgainst:statementAgainst, county:county},[], {
 			callback:function(data){
 				if (data.successful){
 					getProjects();
@@ -388,9 +400,7 @@
 
 	////////// END Mapping Functions ////////////	
 </script>
-<style type="text/css">
 
-</style>
 </head>
 
 
@@ -399,9 +409,16 @@
 	<h1>Manage Projects</h1>
 	<h3>Manage all projects and their associated alternatives.</h3>
 	
-	<ul id="projectsList">
+	
+	<a href="javascript:ddtreemenu.flatten('projectsList', 'expand')">Expand All</a> | 
+	<a href="javascript:ddtreemenu.flatten('projectsList', 'contact')">Collapse All</a>
+
+	<div id="projectsList">
+		
+	</div>
+	
 		<!--load projects here -->
-	</ul>
+
 		
 	<script type="text/javascript" charset="utf-8">
 		getProjects();
@@ -409,6 +426,12 @@
 	<h3>Finished managing projects?</h3>
 	<!-- this button just redirects - saves are occuring on check. -->
 	<p><input type="button" onclick="location.href='main.do'" value="Finished!"/></p>
+	
+	<script type="text/javascript">
+		//ddtreemenu.createTree(treeid, enablepersist, opt_persist_in_days (default is 1))
+		setTimeout(function() {ddtreemenu.createTree("projectsList", false);	ddtreemenu.flatten('projectsList', 'contact');}, 200);
+
+	</script>
 </body>
 </html>
 

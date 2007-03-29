@@ -27,7 +27,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<title>Manage Projects</title>
+		<title>Grade Projects</title>
 		<!-- Site Wide JavaScript -->
 		<script src="scripts/tags.js" type="text/javascript"></script>
 		<script src="scripts/prototype.js" type="text/javascript"></script>
@@ -60,14 +60,14 @@
 
 		<script type="text/javascript" charseut="utf-8">
 			function setGrading(altRefId, critId, objId, value){
-				if(value != null){
+				if(value != ""){
 					//alert("altRefId: " + altRefId + " critId: " + critId + " objId: " + objId +" value: " +value ); 
 					ProjectAgent.setGrading({altRefId:altRefId,critId:critId,objId:objId,value:value},{
 						callback:function(data){
 							if (data.successful){
-								alert("grade set! Setting Criteria Grade to: " + data.critGrade)  //testing
-								$('critGrade-' + critId).innerHTML = data.critGrade; //returned grade
-								new Effect.Highlight('critGrade-' + critId); //highlight reflecting change
+								//alert("grade set! Setting Criteria Grade to: " + data.critGrade)  //testing
+								$('critGrade-' + altRefId + '-' + critId).innerHTML = data.critGrade; //returned grade
+								//new Effect.Highlight('critGrade-' + critId); //highlight reflecting change
 							}else{
 								alert(data.reason);
 							}
@@ -83,6 +83,7 @@
 		</script>
 	</head>
 	<body>
+		<p><a href="main.do">Back to Moderator Control Panel</a></p>
 		<h1>Grade Projects on Criteria Objectives ${critSuite}</h1>
 		
 		<a href="javascript:ddtreemenu.flatten('treemenu1', 'expand')">Expand All</a> | 
@@ -96,7 +97,7 @@
 						<li><a href="#">Alt: ${altRef.alternative.name}</a>
 						<ul>
 						<c:forEach var="critGrade" items="${altRef.gradedCriteria}" varStatus="loop">
-							<li><a href="#">Factor: ${critGrade.criteria.name} (Grade: <b id="critGrade-${critGrade.criteria.id}">${critGrade.grade}</b>):</a>
+							<li><a href="#">Factor: ${critGrade.criteria.name} (Grade: <b id="critGrade-${altRef.id}-${critGrade.criteria.id}">${critGrade.grade}</b>):</a>
 								<ul>
 									<c:forEach var="gradedObjective" items="${critGrade.objectives}" varStatus="loop">
 										<li>${gradedObjective.objective.description} - Grade:
@@ -105,7 +106,7 @@
 													<c:choose>
 														<c:when test="${grade == 3}">
 															<!-- using this -3 hack because jstl does not support negatives in begin -- >
-															<option <c:if test="${gradedObjective.grade == null}">selected = "true"</c:if> value="NULL"> </option>
+															<option <c:if test="${gradedObjective.grade == null}">selected = "true"</c:if> value=""> </option>
 														</c:when>
 														<c:otherwise>
 															<option <c:if test="${gradedObjective.grade == (grade - 3)}"> selected = "true"</c:if> value="${grade - 3}">${grade - 3}</option>

@@ -24,8 +24,10 @@
 <c:if test="${fn:length(projects) == 0}">
 	<p>No projects have been created yet.</p>
 </c:if>
+
+<ul id="projectsList" class="treeview">
 <c:forEach var="project" items="${projects}">
-	<li class="projectList" id="project-${project.id}"><span class="project">${project.name}</span>
+	<li class="projectList" id="project-${project.id}"><a href="#" class="project">${project.name}</a>
 		<small> <a href="javascript:prepareProject(${project.id});">edit</a> | <a href="javascript:deleteProject(${project.id});">delete</a></small>
 		<!-- for editing project -->
 		<div id="projectForm${project.id}" style="display:none">
@@ -73,5 +75,8 @@
 		</form>
 	</div>
 </li>
+</ul>
+
+
 
 
