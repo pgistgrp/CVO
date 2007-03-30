@@ -13,7 +13,7 @@
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] Integrate Layout (Adam)
-		[ ] Test and Refine (Jordan)
+		[ ] Package Id = SuiteID? If so return SuiteId from server (Jordan)
 #### -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 	"http://www.w3.org/TR/html4/strict.dtd">
@@ -148,7 +148,7 @@ font-weight:bold;
 			
 			function setFundingToPkg(altId,deleting){
 				//alert("id: " + id + " deleting: " + deleting); 
-				PackageAgent.setFundingtoPkg({pkgId:pkgId,altId,altId,deleting:deleting}, {
+				PackageAgent.setFundingtoPkg({pkgId:pkgId,altId:altId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
 							alert("Project" + id + " was successfully set to " + deleting); //replace with saving indicator later
@@ -165,7 +165,7 @@ font-weight:bold;
 			
 			function setProjectToPkg(altId,deleting){
 				//alert("pkgId: " + pkgId + " altId: "+ altId +" deleting: " + deleting); 
-				PackageAgent.setFundingToPkg({pkgId:pkgId,altId,altId,deleting:deleting}, {
+				PackageAgent.setFundingToPkg({pkgId:pkgId,altId:altId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
 							updateSummary();
@@ -249,122 +249,57 @@ font-weight:bold;
 				<!-- begin all PROJECTS -->
 				<div>
 					<!--begin PROJECT LOOP-->
-					<c:forEach var="project" items="${userPkg.projectAltRefs}" varStatus="loop">
-						<h4 class="headerColor">${project.name}</h4>
+					<c:forEach var="projectRef" items="${projectRefs}" varStatus="loop">
+						<h4 class="headerColor">${projectRef.project.name}</h4>
 						<c:choose>
-							<c:when test="${project.inclusive}"><!-- radio buttons -->
+							<c:when test="${projectRef.project.inclusive}"><!-- radio buttons -->
 								<div class="listRow">
 									<div class="col1 floatLeft">
-										<label><input name="proj-${project.id}" type="radio" CHECKED /> Do Nothing</label>
+										<label><input name="proj-${projectRef.project.id}" type="radio" CHECKED /> Do Nothing</label>
 									</div>
 									<div class="clearBoth"></div>
 								</div>
-								<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
+								<c:forEach var="alternative" items="${projectRef.project.alternatives}" varStatus="loop">
 									<div class="listRow">
 										<div class="col1 floatLeft">
-										<label><input type="radio" name="proj-${project.id}" onchange="setProjectToPkg('${alternative.id}', this.checked)"
-													<c:if test="${pg:contains(alternative, package.projAlts)}">
-														checked = "checked"
-													</c:if>/>$ {alternative.name}
-										</label>
+										<label><input type="radio" name="proj-${project.id}" onchange="setProjectToPkg('${alternative.id}', this.checked)" />${alternative.name}</label>
 										</div>
-										<div class="col2 floatLeft">${alternative.value}</div>
+										<div class="col2 floatLeft">${alternative.cost} million</div>
 										<div class="col3 floatLeft">${alternative.county}</div>
 										<div class="clearBoth"></div>
 									</div>
-								</c:foreach>
+								</c:forEach>
 							</c:when>
 							<c:otherwise><!-- checkboxes -->
-								<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
+								<c:forEach var="alternative" items="${projectRef.project.alternatives}" varStatus="loop">
 									<div class="listRow row">
 										<div class="col1 floatLeft">
-										<label><input type="checkbox" name="proj-${project.id}" onchange="setProjectToPkg('${alternative.id}', this.checked)"
-													<c:if test="${pg:contains(alternative, package.projAlts)}">
-														checked = "checked"
-													</c:if>
-												/><!-- end input --> ${alternative.name}
-										</label>
+											<label><input type="checkbox" name="proj-${project.id}" onchange="setProjectToPkg('${alternative.id}', this.checked)"/><!-- end input --> ${alternative.name}</label>
 										</div>
-										<div class="col2 floatLeft">${alternative.value}</div>
+										<div class="col2 floatLeft">${alternative.cost} million</div>
 										<div class="col3 floatLeft">${alternative.county}</div>
 										<div class="clearBoth"></div>
 									</div>
-								</c:foreach>
+								</c:forEach>
 							</c:otherwise>
 						</c:choose>
+						
 					</c:forEach>
+
 					<!-- end PROJECT LOOP -->
 				</div>
 				<!-- end all PROJECTS -->
 			</div>
 			<!-- End of Project list CONTAINER-->
 			
-			
-			<div class="floatLeft" id="funding">
-				<div id="map">
-					<!-- load the map here gMan! -->
-				</div>
-				<h3 class="headerColor">Decide how to pay for it</h3>
-				<div id="allListHeader">
-					<!--Funding list-->
-					<div class="listHeaderHeader box4">
-						<div class="col1 floatLeft"> <span class="listHeaderTitles">Funding Source</span> </div>
-						<div class="col2 floatLeft"> <span class="listHeaderTitles">Money raised</span> </div>
-						<div class="col3 floatLeft"> <span class="listHeaderTitles">Annual cost to
-								you</span> </div>
-						<div class="col4 floatLeft"> <span class="listHeaderTitles">Annual cost to
-								avg. resident</span> </div>
-					</div>
-				</div>
-				
-				<div>
-				<!-- begin FUNDING LOOP -->
-					<c:forEach var="source" items="${sources}" varStatus="loop">
-						<h4 id="source-${source.id}" class="headerColor">${source.name}</h4>
-						<div class="listRow">
-							<div class="col1 floatLeft">
-								<label><input name="proj-${project.id}" type="radio" CHECKED /> Do Nothing</label>
-							</div>
-							<div class="clearBoth"></div>
-						</div>						
-						<c:forEach var="alternative" items="${source.alternatives}" varStatus="loop">
-							<div class="listRow row">
-								<div class="col1 floatLeft">
-									<label><input type="radio" name="fund-${alternative.id}" onchange="setFundingToPkg('${alternative.id}', this.checked)"
-										<c:if test="${pg:contains(alternative, package.fundAlts)}">
-											checked="checked"
-										</c:if>
-									/><!-- end input --> ${alternative.name}	
-									</label>							
-								</div>
-								<div class="col2 floatLeft">${alternative.revenue}</div>
-								<div class="col3 floatLeft">${alternative.userCost}</div>
-								<div class="col4 floatLeft">${alternative.averageCost}</div>
-								<div class="clearBoth"></div>
-							</div>
-						</c:forEach>
-					</c:forEach>
-				<!-- end FUNDING LOOP -->
-				</div>
-				<!-- end ALL FUNDING -->
-			</div>
-			<a href="#packSummary">
-			<h3 class="centerAlign">Finished?</h3>
-			</a> </div>
-		<!--End of Funding list-->
-		<!-- Finished Link-->
-		<div class="clearBoth"></div>
-		<div id="object">
-			<div class="box3" class="padding5" id="summaryRepeat">
-				<!-- load summary via DWR -->
-			</div>
+
 		<div class="padding5">
 			<!--Finished submit buttons-->
 			<h3 class="centerAlign">Finished?</h3>
 			<p class="centerAlign">
 				<input type="button" id="submitPackage" value="Yes - Submit My Package!"> 
 				<!-- this should only be enabled if funding exceeds cost -->
-				<input type="cancel" value="No - Start Over!">
+				<input type="reset" value="No - Start Over!">
 			</p>
 			<div class="clearBoth"></div>
 		</div>
