@@ -4,8 +4,8 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.projects.ProjectSuite;
-import org.pgist.users.User;
+import org.pgist.funding.FundingService;
+import org.pgist.projects.ProjectService;
 import org.pgist.util.WebUtils;
 
 
@@ -29,6 +29,8 @@ import org.pgist.util.WebUtils;
  * the action will forward to page of "view", the following variables are available in jsp:
  * <ul>
  *   <li>userPkg - a UserPackage object</li>
+ *   <li>projectRefs - a collection of all the projectAltRefs associated with this suite</li>
+ *   <li>fundingRefs - a collection of all the fundingAltRefs associated with this suite</li>   
  * </ul>
  * 
  * Examples:
@@ -45,13 +47,23 @@ public class CreatePackageAction extends Action {
     
     
     private PackageService packageService;
-    
-    
+        
     public void setPackageService(PackageService packageService) {
         this.packageService = packageService;
     }
 
+    private ProjectService projectService;
+    
+    public void setProjectService(ProjectService projectService) {
+        this.projectService = projectService;
+    }
 
+    private FundingService fundingService;
+    
+    public void setFundingService(FundingService fundingService) {
+        this.fundingService = fundingService;
+    }
+    
     /*
      * ------------------------------------------------------------------------
      */
@@ -66,11 +78,13 @@ public class CreatePackageAction extends Action {
     	String tempPackageSuiteId = request.getParameter("suiteId");
     	if(tempPackageSuiteId != null) {
     		Long packSuite = new Long(tempPackageSuiteId);
-    		
-    		System.out.println("Package service = " + this.packageService);
-    		
+    		    		
     		//Get the current users package
     		UserPackage uPack = this.packageService.createUserPackage(packSuite, WebUtils.currentUser());
+    		
+    		//TODO Remove this hack and figure out how to acutally get a list of the funding and project alt refs
+    		request.setAttribute("projectRefs", projectService.getProjectSuite(packSuite).getReferences());
+    		request.setAttribute("fundingRefs", fundingService.getFundingSuite(packSuite).getReferences());
     		
     		//Return the user package
     		request.setAttribute("userPkg", uPack);

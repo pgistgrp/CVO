@@ -107,6 +107,8 @@
     
     <bean name="/createPackage" class="org.pgist.packages.CreatePackageAction">
         <property name="packageService" ref="packageService"/>
+        <property name="fundingService" ref="fundingService"/>
+        <property name="projectService" ref="projectService"/>
     </bean>    
     
     <bean name="/helpme" class="org.pgist.packages.HelpMeAction">
