@@ -1,7 +1,8 @@
 package org.pgist.projects;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 
 /**
@@ -16,7 +17,7 @@ public class ProjectSuite {
     
     private Long id;
     
-    private Set<ProjectRef> references = new HashSet<ProjectRef>();
+    private SortedSet<ProjectRef> references = new TreeSet<ProjectRef>();
     
     
     /**
@@ -37,7 +38,7 @@ public class ProjectSuite {
     /**
      * @return
      * 
-     * @hibernate.set inverse="true" lazy="true"
+     * @hibernate.set inverse="true" lazy="true" sort="org.pgist.projects.ProjectRefComparator"
      * @hibernate.collection-key column="suite_id"
      * @hibernate.collection-one-to-many class="org.pgist.projects.ProjectRef"
      */
@@ -46,7 +47,7 @@ public class ProjectSuite {
     }
 
 
-    public void setReferences(Set<ProjectRef> references) {
+    public void setReferences(SortedSet<ProjectRef> references) {
         this.references = references;
     }
     
