@@ -2,10 +2,20 @@
 {
 float:left;
 width:100%;
-border:1px solid #ddd;
-margin-bottom:1em;
+border:1px solid #ddd
 }
 
+
+.finishedButton {padding:5px;float:right;margin:5px 0px 10px 5px;}
+.helpMeButton {
+padding:5px;
+margin:10px 0px;
+background:#FFDF94;
+border-top-color:#F2AF27;
+border-left-color:#F2AF27;
+border-right-color:#FFE3B9;
+border-bottom-color:#FFE3B9;
+}
 
 /* .balance and .exceed are classes for the revenue summary.
    Balance is green and exceed is red. */
