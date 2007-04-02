@@ -476,4 +476,15 @@ System.out.println("Matt 1");
 			projectDAO.save(gradedCrit);
 		}
 	}
+    
+    
+    public ProjectSuite createProjectSuite() throws Exception {
+        ProjectSuite suite = new ProjectSuite();
+        
+        projectDAO.save(suite);
+        
+        return suite;
+    }//createProjectSuite()
+    
+    
 }//class ProjectServiceImpl

@@ -15,19 +15,6 @@
     </convert>
 
 
-    <create creator="spring" javascript="WorkflowAgent">
-      <param name="beanName" value="workflowAgent"/>
-      <include method="getTemplates"/>
-      <include method="createSituation"/>
-      <include method="refreshSituationList"/>
-    </create>
-
-
-    <create creator="spring" javascript="WFModelingAgent">
-      <param name="beanName" value="wfModelingAgent"/>
-    </create>
-
-
   </allow>
 
 

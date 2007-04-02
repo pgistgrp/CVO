@@ -4,7 +4,6 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.actions.WorkflowAction;
 import org.pgist.criteria.CriteriaService;
 
 

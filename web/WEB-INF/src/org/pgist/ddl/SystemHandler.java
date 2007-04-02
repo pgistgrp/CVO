@@ -8,6 +8,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.hibernate.Session;
+import org.springframework.context.ApplicationContext;
 
 
 /**
@@ -21,7 +22,7 @@ public class SystemHandler {
     private List<Handler> handlers = new ArrayList<Handler>(20);
     
     
-    public SystemHandler(Session session, File dataPath, String file) throws Exception {
+    public SystemHandler(ApplicationContext appContext, Session session, File dataPath, String file) throws Exception {
         SAXReader reader = new SAXReader();
         Document document = reader.read(new File(dataPath, file));
         Element root = document.getRootElement();
@@ -44,7 +45,10 @@ public class SystemHandler {
                 if (className==null || "".equals(className)) throw new Exception("Element handler can not be empty.!");
                 
                 Class klass = Class.forName(className);
-                handler = (XMLHandler) klass.newInstance();
+                XMLHandler xmlHandler = (XMLHandler) klass.newInstance();
+                xmlHandler.setAppContext(appContext);
+                
+                handler = xmlHandler;
                 
                 handler.setName(name);
             }

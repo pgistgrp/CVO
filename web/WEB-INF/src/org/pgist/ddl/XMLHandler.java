@@ -27,6 +27,7 @@ import org.pgist.tagging.Category;
 import org.pgist.tagging.Tag;
 import org.pgist.users.Role;
 import org.pgist.users.User;
+import org.springframework.context.ApplicationContext;
 
 
 /**
@@ -61,6 +62,8 @@ public abstract class XMLHandler implements Handler {
     
     protected Session session;
     
+    protected ApplicationContext appContext;
+    
     
     public void setName(String name) {
         this.name = name;
@@ -77,6 +80,11 @@ public abstract class XMLHandler implements Handler {
     }
     
     
+    public void setAppContext(ApplicationContext appContext) {
+        this.appContext = appContext;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */

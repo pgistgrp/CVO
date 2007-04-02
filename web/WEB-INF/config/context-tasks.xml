@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+
+    <bean id="task-create.project.suite" class="org.pgist.projects.CreateProjectSuiteTask">
+        <property name="projectService" ref="projectService"/>
+    </bean>
+    
+    
+    <bean id="workflow.registry" class="org.pgist.wfengine.WorkflowTaskRegistry">
+        <property name="tasks">
+            <map>
+              <entry>
+                <key><value>task-create.project.suite</value></key><ref bean="task-create.project.suite" />
+              </entry>
+            </map>
+        </property>
+        <property name="actions">
+            <map>
+              <entry>
+                <key><value>task-define.projects</value></key><value>/projectDefine.do</value>
+              </entry>
+            </map>
+        </property>
+    </bean>
+    
+    
+</beans>
+

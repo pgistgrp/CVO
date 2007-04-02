@@ -17,6 +17,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.pgist.ddl.SystemHandler;
+import org.pgist.wfengine.Workflow;
+import org.pgist.wfengine.WorkflowEngine;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
@@ -79,11 +81,12 @@ public class SystemInit extends MatchingTask {
             new String[] {
                 configPath + "/context-database.xml",
                 configPath + "/context-system.xml",
+                configPath + "/context-tasks.xml",
                 "classpath:/config/context-workflow.xml",
                 configPath + "/context-base.xml",
                 configPath + "/context-cvo.xml",
-                configPath + "/context-pgames.xml",
-                configPath + "/context-cm.xml",
+                //configPath + "/context-pgames.xml",
+                //configPath + "/context-cm.xml",
                 configPath + "/context-projects.xml",
             }
         );
@@ -162,7 +165,7 @@ public class SystemInit extends MatchingTask {
                 try {
                     tx = session.beginTransaction();
                     
-                    SystemHandler handler = new SystemHandler(session, dataPath, "handlers.xml");
+                    SystemHandler handler = new SystemHandler(appContext, session, dataPath, "handlers.xml");
                     
                     if ("backup".equalsIgnoreCase(action)) {
                         handler.exports(null);
@@ -187,19 +190,21 @@ public class SystemInit extends MatchingTask {
                 e.printStackTrace();
             }
         }
+        
+        try {
+            initWorkflow();
+        } catch (Exception e) {
+            throw new BuildException(e);
+        }
     }//execute()
     
     
-    /*
-    
     private void initWorkflow() throws Exception {
-        File file = new File(dataPath, "pgames.xml");
-        engine.addPGames(new FileInputStream(file));
-        file = new File(dataPath, "templates.xml");
-        engine.addTemplates(new FileInputStream(file));
+        Document doc = new SAXReader().read(new File(dataPath, "workflow.xml"));
+        
+        WorkflowEngine engine = (WorkflowEngine) appContext.getBean("engine");
+        engine.importTemplates(doc);
     }//initWorkflow()
     
-    */
     
-
 }//class SystemInit

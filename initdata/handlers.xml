@@ -2,24 +2,23 @@
 <handlers>
 
 
+    <handler type="sql">PostGIS/data.sql</handler>
+    
     <handler name="roles">org.pgist.ddl.RoleHandler</handler>
     
     <handler name="users">org.pgist.ddl.UserHandler</handler>
     
     <handler name="emailtemplates">org.pgist.ddl.EmailTemplateHandler</handler>
     
-    <handler name="tags">org.pgist.ddl.TagHandler</handler>
+    <!--handler name="tags">org.pgist.ddl.TagHandler</handler-->
     
-    <handler name="categories">org.pgist.ddl.CategoryHandler</handler>
+    <!--handler name="categories">org.pgist.ddl.CategoryHandler</handler-->
     
-    <handler name="ccts">org.pgist.ddl.CCTHandler</handler>
+    <!--handler name="ccts">org.pgist.ddl.CCTHandler</handler-->
     
-    <handler name="concerns">org.pgist.ddl.ConcernHandler</handler>
+    <!--handler name="concerns">org.pgist.ddl.ConcernHandler</handler-->
     
-    <handler name="glossary">org.pgist.ddl.GlossaryHandler</handler>
-    
-    <handler type="sql">PostGIS/data.sql</handler>
-    
+    <!--handler name="glossary">org.pgist.ddl.GlossaryHandler</handler-->
     
 </handlers>
 

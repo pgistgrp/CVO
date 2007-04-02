@@ -17,10 +17,15 @@
 <script src="scripts/search.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
+<script type='text/javascript' src='/dwr/interface/WorkflowAgent.js'></script>
+<script type='text/javascript' src='/scripts/workflow.js'></script>
+<script>
+  var workflow = new Workflow('workflow-panel');
+</script>
 <event:pageunload />
 </head>
 
-<body>
+<body onload="workflow.getWorkflows();">
  <!-- Begin the header - loaded from a separate file -->
   <div id="header">
 	<!-- Begin header -->
@@ -134,7 +139,23 @@
 		</div>
   </div>
   <!-- end container -->
-  
+
+<%-- Test: this panel is for workflow --%>
+<br>
+<br>
+<br>
+<br>
+<pg:show roles="moderator">
+  <div>
+    <a href="javascript: workflow.getTemplates();">Templates</a>
+    <a href="javascript: workflow.getWorkflows();">Workflows</a>
+  </div>
+</pg:show>
+<div id="workflow-panel"></div>
+<br>
+<br>
+<br>
+
 <!-- start feedback form -->
   <pg:feedback id="feedbackDiv" action="cctView.do"/>
 <!-- end feedback form -->
@@ -155,6 +176,7 @@
 	_uacct = "UA-797433-1";
 	urchinTracker();
 </script>
+
 </body>
 </html:html>
 

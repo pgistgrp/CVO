@@ -14,5 +14,11 @@
     </script>
     
     
+    <script>
+        <description>initialize quartz database</description>
+        <file>database-quartz.xml</file>
+    </script>
+    
+    
 </scripts>
 
