@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.AntClassLoader;
+import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.MatchingTask;
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -17,7 +17,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.pgist.ddl.SystemHandler;
-import org.pgist.wfengine.Workflow;
 import org.pgist.wfengine.WorkflowEngine;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -77,19 +76,29 @@ public class SystemInit extends MatchingTask {
         }
         //end code to handle classnotfound issue
         
-        appContext = new FileSystemXmlApplicationContext(
-            new String[] {
-                configPath + "/context-database.xml",
-                configPath + "/context-system.xml",
-                configPath + "/context-tasks.xml",
-                "classpath:/config/context-workflow.xml",
-                configPath + "/context-base.xml",
-                configPath + "/context-cvo.xml",
-                //configPath + "/context-pgames.xml",
-                //configPath + "/context-cm.xml",
-                configPath + "/context-projects.xml",
-            }
-        );
+        if ("workflow".equalsIgnoreCase(action)) {
+            appContext = new FileSystemXmlApplicationContext(
+                new String[] {
+                    configPath + "/context-database.xml",
+                    configPath + "/context-system.xml",
+                    configPath + "/context-tasks.xml",
+                    "classpath:/config/context-workflow.xml",
+                    configPath + "/context-base.xml",
+                    configPath + "/context-cvo.xml",
+                    configPath + "/context-projects.xml",
+                }
+            );
+        } else {
+            appContext = new FileSystemXmlApplicationContext(
+                new String[] {
+                    configPath + "/context-database.xml",
+                    configPath + "/context-system.xml",
+                    configPath + "/context-base.xml",
+                    configPath + "/context-cvo.xml",
+                    configPath + "/context-projects.xml",
+                }
+            );
+        }
         
         sessionFactory = (SessionFactory) appContext.getBean("sessionFactory");
         session = SessionFactoryUtils.getSession(sessionFactory, true);
@@ -158,51 +167,65 @@ public class SystemInit extends MatchingTask {
      * Execute the task
      */
     public void execute() throws BuildException {
+        boolean bInitSystem = false;
         try {
-            //setup hibernate and spring
-            if (setUp()) {
-                Transaction tx = null;
-                try {
-                    tx = session.beginTransaction();
-                    
-                    SystemHandler handler = new SystemHandler(appContext, session, dataPath, "handlers.xml");
-                    
-                    if ("backup".equalsIgnoreCase(action)) {
-                        handler.exports(null);
-                        System.out.println("PGIST database is succesfully exported to directory: "+dataPath);
-                    } else {
-                        handler.imports(null);
-                    }
-                    
-                    tx.commit();
-                } catch(Exception e) {
-                    tx.rollback();
-                    throw e;
-                }
-            }
+            bInitSystem = setUp();
         } catch (Exception e) {
             e.printStackTrace();
             throw new BuildException(e);
-        } finally {
-            try {
-                tearDown();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
         }
         
-        try {
-            initWorkflow();
-        } catch (Exception e) {
-            throw new BuildException(e);
+        if ("workflow".equalsIgnoreCase(action)) {
+            try {
+                initWorkflow();
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new BuildException(e);
+            }
+        } else {
+            try {
+                if (bInitSystem) initSystem();
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new BuildException(e);
+            } finally {
+                try {
+                    tearDown();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                    throw new BuildException(e);
+                }
+            }
         }
     }//execute()
+    
+    
+    private void initSystem() throws Exception {
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            
+            SystemHandler handler = new SystemHandler(appContext, session, dataPath, "handlers.xml");
+            
+            if ("backup".equalsIgnoreCase(action)) {
+                handler.exports(null);
+                System.out.println("PGIST database is succesfully exported to directory: "+dataPath);
+            } else {
+                handler.imports(null);
+            }
+            
+            tx.commit();
+        } catch(Exception e) {
+            tx.rollback();
+            throw e;
+        }
+    }//initSystem()
     
     
     private void initWorkflow() throws Exception {
         Document doc = new SAXReader().read(new File(dataPath, "workflow.xml"));
         
-        WorkflowEngine engine = (WorkflowEngine) appContext.getBean("engine");
+        WorkflowEngine engine = (WorkflowEngine) appContext.getBean("txEngine");
         engine.importTemplates(doc);
     }//initWorkflow()
     

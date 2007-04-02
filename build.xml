@@ -73,6 +73,13 @@
     </target>
     
     
+    <target name="workflow" depends="mapping">
+        <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
+        </taskdef>
+        <SystemInit action="workflow" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
+    </target>
+    
+    
     <target name="updatedb" depends="mapping">
         <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
         </taskdef>
