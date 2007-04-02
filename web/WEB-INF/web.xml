@@ -12,8 +12,6 @@
             classpath:/config/context-workflow.xml
             /WEB-INF/config/context-base.xml
             /WEB-INF/config/context-cvo.xml
-            /WEB-INF/config/context-cm.xml
-            /WEB-INF/config/context-pgames.xml
             /WEB-INF/config/context-criteria.xml
             /WEB-INF/config/context-funding.xml
             /WEB-INF/config/context-projects.xml
