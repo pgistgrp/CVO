@@ -1,0 +1,18 @@
+#keywords ul{margin:0px;padding:0px;}
+#keywords li 
+{
+list-style-type:none;
+padding:.2em;
+margin:.2em;
+display:inline;
+line-height:2em;
+border:1px solid #FFE3B9;
+background:#FFF1DC;
+}
+
+#keywords, #mod-announcements, #recent-discussions, #popular-discussions
+{
+margin:0em auto 2em auto;
+}
+
+a {color:#000;text-decoration:none;}
