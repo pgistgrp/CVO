@@ -71,4 +71,14 @@ public class CriteriaUserWeight {
     }
     
     
-}//class CriteriaUserWeight
+    /**
+     * Put to weight map
+     * @param User user, Integer weight
+     */
+    public void addWeight(User user, Integer weight) {	
+    	weights.put(user, weight); 	
+    } //addWeight();
+    
+    
+    
+} //class CriteriaUserWeight

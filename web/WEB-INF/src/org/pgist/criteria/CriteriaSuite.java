@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.pgist.users.User;
+
 
 /**
  * A CriteriaSuite is a suite of CriteriaRef objects.
@@ -71,6 +73,24 @@ public class CriteriaSuite {
     public void setWeights(Map<CriteriaRef, CriteriaUserWeight> weights) {
         this.weights = weights;
     }
+    
+    
+    /**
+     * Put to weight map
+     * @param User user, Integer weight
+     */
+    public void addWeight(CriteriaRef cr, CriteriaUserWeight cuw) {	
+    	weights.put(cr, cuw); 	
+    } //addWeight();
+    
+    
+    /**
+     * Put to weight map
+     * @param User user, Integer weight
+     */
+    public void addReference(CriteriaRef cr) {	
+    	references.add(cr); 	
+    } //addReference();
     
     
 }//class CriteriaSuite

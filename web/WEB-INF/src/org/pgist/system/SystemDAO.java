@@ -50,5 +50,11 @@ public interface SystemDAO extends BaseDAO {
     
     void setQuota(Long id, boolean quota) throws Exception;
     
+    void setQuotaLimit(Long countyId, int limit) throws Exception;
+    
+    Long addCounty(String name) throws Exception;
+    
+    Collection createQuotaStats() throws Exception;
+    
     
 }//interface SystemDAO

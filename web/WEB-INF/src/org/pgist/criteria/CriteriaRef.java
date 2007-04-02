@@ -3,6 +3,7 @@ package org.pgist.criteria;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Collection;
 
 import org.pgist.projects.UnknownObjectiveException;
 
@@ -23,9 +24,9 @@ public class CriteriaRef {
     
     private Criteria criterion;
     
-    private int grade;
+    private int grade; //compute average grade for this criterion based on objective scores
     
-    private Map<Objective, Integer> objectiveGrades = new HashMap<Objective, Integer>();
+    private Map<Objective, Integer> objectiveGrades = new HashMap<Objective, Integer>(); //objective object, grade
     
     
     /**
@@ -105,6 +106,7 @@ public class CriteriaRef {
         this.objectiveGrades = objectiveGrades;
     }
 
+    
     /**
      * Helper method that sets a specific grade in the Criteria Reference
      * 
@@ -127,10 +129,19 @@ public class CriteriaRef {
 		throw new UnknownObjectiveException("Could not find the Objective [" + objId + "]");
 	}
     
+	
 	/**
 	 * Recalculates the grade
 	 */
 	public void recalcGrade() {
-		//TODO, do we just average this?
+		 Collection<Integer> values = objectiveGrades.values();
+		 int size = values.size();
+		 int total = 0;
+		 for(Integer i : values) {
+			 total += i.intValue();
+		 }
+		 grade = total/size;
 	}    
+	
+	
 }//class CriteriaRef

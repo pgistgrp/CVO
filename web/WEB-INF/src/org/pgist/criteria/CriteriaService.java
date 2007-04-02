@@ -18,19 +18,19 @@ public interface CriteriaService {
     Collection getCriterias() throws Exception;
     
     
-    Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Long cctId, Set themes, Set objectives, String na) throws Exception;
+    Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Long critSuite, Set themes, Set objectives, String na) throws Exception;
     
     
     void deleteCriterion(Long id) throws Exception;
     
     
-    void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, Long cctId, Set themes, Set objectives, String na) throws Exception;
+    void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, Set themes, Set objectives, String na) throws Exception;
     
     
     Criteria getCriterionById(Long id) throws Exception;
     
     
-    Collection getAllCriterion(Long cctId) throws Exception;
+    Set getAllCriterion(Long critSuiteId) throws Exception;
     
     
     Collection getAllCriterion() throws Exception;
@@ -54,13 +54,13 @@ public interface CriteriaService {
     Collection getObjectives() throws Exception;
     
     
-    void setWeight(Long cctId, Long critId, int weight) throws Exception;
-    
-    
-    Set getWeights(Long cctId) throws Exception;
+    Map getWeights(Long critSuiteId) throws Exception;
     
     
     void publish(Long cctId) throws Exception;
+    
+    
+    void setWeight(Long suiteId, Long critId, int weight) throws Exception;
     
     
     public CCT getCCTById(Long cctId) throws Exception;

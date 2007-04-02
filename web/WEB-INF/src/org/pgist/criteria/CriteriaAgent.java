@@ -52,7 +52,7 @@ public class CriteriaAgent {
      *     <li>name - string, name of the criteia</li>
      *     <li>themeIds - string, name of the themeid's separated by commas - Optional</li>
      *     <li>objectiveIds - string, list of Object Id's - Optional</li>	
-     *     <li>cctId - string, cctId.</li>
+     *     <li>critSuiteId - long (string), critSuite Id 
      *     <li>na - string, description. - Optional</li>
      *   </ul>
      * @return a Map contains:
@@ -71,7 +71,7 @@ public class CriteriaAgent {
         String name = (String) params.get("name");
     	String themeIds = (String) params.get("themeIds");
     	String objectiveIds = (String) params.get("objectiveIds");
-    	String strCctId = (String) params.get("cctId");
+    	String strCritSuiteId = (String) params.get("critSuiteId");
     	String na = (String) params.get("na");
     	
     	if(name==null || "".equals(name.trim())){
@@ -83,8 +83,8 @@ public class CriteriaAgent {
     		bool_themes = false;
     	}
     	
-    	if(strCctId==null || "".equals(strCctId.trim())){
-    		map.put("reason", "cctId cannot be empty.");
+    	if(strCritSuiteId==null || "".equals(strCritSuiteId.trim())){
+    		map.put("reason", "critSuite cannot be empty.");
     		return map;
     	}
     	if(objectiveIds==null || "".equals(objectiveIds.trim())){
@@ -93,7 +93,7 @@ public class CriteriaAgent {
     	if(na==null || "".equals(na.trim())){
     		na = "NONE";
     	}
-    	Long cctId = new Long((String) params.get("cctId"));
+    	Long critSuiteId = new Long(strCritSuiteId);
     	
         try {
         	String[] themeIdList;
@@ -110,7 +110,7 @@ public class CriteriaAgent {
 	        	objectives = criteriaService.getObjectiveObjects(objectiveIdList);
         	}
         	
-        	Criteria c = c = criteriaService.addCriterion(bool_themes, bool_objectives, name, cctId, themes, objectives, na);
+        	Criteria c = c = criteriaService.addCriterion(bool_themes, bool_objectives, name, critSuiteId, themes, objectives, na);
         	
         	map.put("id", c.getId());
             map.put("successful", true);
@@ -170,7 +170,6 @@ public class CriteriaAgent {
      *     <li>name - string, name of the criteia</li>
      *     <li>themeIds - string, name of the themeid's separated by commas - Optional</li>
      *     <li>objectiveIds - string, list of Object Id's - Optional</li>	
-     *     <li>cctId - string, cctId.</li>
      *     <li>na - string, descript. - Optional</li>
      *   </ul>
      * @return a Map contains:
@@ -189,7 +188,6 @@ public class CriteriaAgent {
         String name = (String) params.get("name");
     	String themeIds = (String) params.get("themeIds");
     	String objectiveIds = (String) params.get("objectiveIds");
-    	String strCctId = (String) params.get("cctId");
     	String na = (String) params.get("na");
     	
     	if(strId==null || "".equals(strId.trim())){
@@ -203,17 +201,12 @@ public class CriteriaAgent {
     	if(themeIds==null || "".equals(themeIds.trim())){
     		bool_themes = false;
     	}
-    	if(strCctId==null || "".equals(strCctId.trim())){
-    		map.put("reason", "cctId cannot be empty.");
-    		return map;
-    	}
     	if(objectiveIds==null || "".equals(objectiveIds.trim())){
     		bool_objectives = false;
     	}
     	if(na==null || "".equals(na.trim())){
     		na = "NONE";
     	}
-    	Long cctId = new Long(strCctId);
     	Long id = new Long(strId);
        
         try {
@@ -233,7 +226,7 @@ public class CriteriaAgent {
 	        	objectives = criteriaService.getObjectiveObjects(objectiveIdList);
         	}
         	
-        	criteriaService.editCriterion(bool_themes, bool_objectives, c, name, cctId, themes, objectives, na);
+        	criteriaService.editCriterion(bool_themes, bool_objectives, c, name, themes, objectives, na);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -249,7 +242,7 @@ public class CriteriaAgent {
      * 
      * @param params a Map contains:
      *   <ul>
-     *     <li>cctId - int, the id of an CCT object</li>
+     *     <li>cctId - int, the id of an CriteriaRefId object</li>
      *   </ul>
      * 
      * @return a Map contains:
@@ -371,11 +364,11 @@ public class CriteriaAgent {
     
     
     /**
-     * Get all the weights of the current participant to the given cctId
+     * Get all the weights of the current participant to the given CriteriaSuite
      * 
      * @param params a Map contains:
      *   <ul>
-     *     <li>cctId - string, the cctId</li>
+     *     <li>critSuiteId - string, the critSuiteId</li>
      *   </ul>
      * @return a Map contains:
      *   <ul>
@@ -396,18 +389,19 @@ public class CriteriaAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
-        Long cctId = new Long((String) params.get("cctId"));
+        String strCritSuiteId = (String) params.get("critSuiteId");
+        
+        if(strCritSuiteId==null || "".equals(strCritSuiteId.trim())){
+        	map.put("reason", "strCritSuiteId cannot be null.");
+    		return map;	
+        }
+        
+        Long critSuiteId = new Long(strCritSuiteId);
         
         try {
-            Collection criteria = criteriaService.getAllCriterion();
-            Collection weights = criteriaService.getWeights(cctId);
+            Map weights = criteriaService.getWeights(critSuiteId);
             
-            for (CriteriaWeight weight : (Collection<CriteriaWeight>) weights) {
-                Criteria crit = weight.getCriteria();
-                crit.setObject(weight);
-            }
-        	
-        	request.setAttribute("criteria", criteria);
+        	request.setAttribute("weights", weights);
             
         	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteriaAssoc_weights.jsp"));
             
@@ -422,62 +416,10 @@ public class CriteriaAgent {
     
     
     /**
-     * Get all the weights of the current participant to the given InfoStructure
-     * 
-     * @param params a Map contains:
-     *   <ul>
-     *     <li>cctId - int, the id of an InfoStructure object</li>
-     *     <li>critId - int, the id of an Criteria object</li>
-     *     <li>weight - int, weight value</li>
-     *   </ul>
-     * @return a Map contains:
-     *   <ul>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *   </ul>
-     */
-    public Map setWeight(Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        String strCctId = (String) params.get("cctId");
-        String strCritId= (String) params.get("critId");
-    	String strWeight = (String) params.get("weight");
-    	
-    	if(strCctId==null || "".equals(strCctId.trim())){
-    		map.put("reason", "CCT id cannot be empty.");
-    		return map;
-    	}
-    	if(strCritId==null || "".equals(strCritId.trim())){
-    		map.put("reason", "Criterion id cannot be empty.");
-    		return map;
-    	}
-    	if(strWeight==null || "".equals(strWeight.trim())){
-    		map.put("reason", "Weight id cannot be empty.");
-    		return map;
-    	}
-    	
-    	Long cctId = Long.parseLong(strCctId);
-    	Long critId = Long.parseLong(strCritId);
-    	int weight = Integer.parseInt(strWeight);
-    	
-        try {      	
-        	criteriaService.setWeight(cctId, critId, weight);
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-        }
-        
-        return map;
-    }//setWeight()
-    
-    
-    /**
      * Get all the Criterion Available
      * @param params An empty map.
      * <ul>
-     *     <li>cctId - string, cctId - Optional</li>
+     *     <li>critSuiteId - string, critSuiteId - Optional</li>
      * </ul>
      * @return a Map contains:
      *   <ul>
@@ -496,18 +438,18 @@ public class CriteriaAgent {
     	
     	Map map = new HashMap();
         map.put("successful", false);
-        boolean useCct= true;
+        boolean useCritSuiteId= true;
        
-        String strCctId = (String) params.get("cctId");
-        if(strCctId==null || "".equals(strCctId.trim())){
-    		useCct = false;
+        String strCritSuiteId = (String) params.get("critSuiteId");
+        if(strCritSuiteId==null || "".equals(strCritSuiteId.trim())){
+    		useCritSuiteId = false;
     	}
         
         try {
         	Collection criteria;
-        	if(useCct){
-        		Long cctId = new Long(strCctId);
-        		criteria = criteriaService.getAllCriterion(cctId);
+        	if(useCritSuiteId){
+        		Long critSuiteId = new Long(strCritSuiteId);
+        		criteria = criteriaService.getAllCriterion(critSuiteId);
         	} else {
         		criteria = criteriaService.getAllCriterion();
         	}
@@ -639,7 +581,7 @@ public class CriteriaAgent {
      * 
      * @param params a Map contains:
      *   <ul>
-     *     <li>suiteId - int, id of a CriteriaSuite object</li>
+     *     <li>critSuiteId - int, id of a CriteriaSuite object</li>
      *     <li>critId - int, id of a CriteriaRef object</li>
      *     <li>weight - int, weight value</li>
      *   </ul>
@@ -654,10 +596,31 @@ public class CriteriaAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
+        String strSuiteId = (String) params.get("critSuiteId");
+        String strCritId= (String) params.get("critId");
+    	String strWeight = (String) params.get("weight");
+    	
+    	if(strSuiteId==null || "".equals(strSuiteId.trim())){
+    		map.put("reason", "Crit Suite id cannot be empty.");
+    		return map;
+    	}
+    	if(strCritId==null || "".equals(strCritId.trim())){
+    		map.put("reason", "Criterion id cannot be empty.");
+    		return map;
+    	}
+    	if(strWeight==null || "".equals(strWeight.trim())){
+    		map.put("reason", "Weight id cannot be empty.");
+    		return map;
+    	}
+    	
+    	Long suiteId = Long.parseLong(strSuiteId);
+    	Long critId = Long.parseLong(strCritId);
+    	int weight = Integer.parseInt(strWeight);
+    	
         try {
-            /*
-             * TODO: persist the criteria weight.
-             */
+        	
+            criteriaService.setWeight(suiteId, critId, weight);
+        	
             
             map.put("successful", true);
         } catch (Exception e) {

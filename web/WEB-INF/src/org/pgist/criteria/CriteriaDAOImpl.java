@@ -1,8 +1,11 @@
 package org.pgist.criteria;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Iterator;
 
 import org.pgist.criteria.Objective;
 import org.pgist.cvo.CCT;
@@ -22,13 +25,39 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
 	private static final String hql_addCriterion = "from Criteria c where lower(c.name)=?";
 	
     
-    public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, CCT cct, Set themes, Set objectives, String na) throws Exception {
+    public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Long critSuite, Set themes, Set objectives, String na) throws Exception {
     	
+    	List list = getHibernateTemplate().find(hql_addCriterion, new Object[] {
+                name.toLowerCase(),
+        });
+    	
+    	//Check for existing criteria
+    	if(list.size()>0) {
+    		throw new Exception("Criteria already exist.");
+    	}  		
+    	
+    	//create all classes
     	Criteria c = new Criteria();
+    	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuite);
+    	CriteriaRef cr = new CriteriaRef();
+    	CriteriaUserWeight cuw = new CriteriaUserWeight();
+    	
+    	//set CriteriaRef 
+    	cr.setCriterion(c);
+    	cr.setSuite(cs);
+    	
+    	//set CriteriaUserWeight
+    	cuw.setSuite(cs);
+    	
+    	//set CriteriaSuite
+    	cs.addWeight(cr, cuw);
+    	cs.addReference(cr);
+    	
+    	//set Criterion
     	c.setName(name);
-		c.setCct(cct);
-		c.setNa(na);
-
+    	c.setNa(na);
+    	c.setCritRef(cr);
+    	
     	if(bool_themes) {
     		c.setThemes(themes);
     	}
@@ -36,13 +65,9 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     		c.setObjectives(objectives);		
     	}
     	
-    	List list = getHibernateTemplate().find(hql_addCriterion, new Object[] {
-                name.toLowerCase(),
-        });
-    	
-    	if(list.size()>0) {
-    		throw new Exception("Criteria already exist.");
-    	}  		
+    	save(cs);
+    	save(cuw);
+    	save(cr);
 		save(c);		
 		return c;
     } //addCriterion
@@ -50,13 +75,13 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     
     public void deleteCriterion(Long id) throws Exception {
         Criteria criteria = (Criteria) getHibernateTemplate().load(Criteria.class, id);
-        if (criteria != null) getHibernateTemplate().delete(criteria);
+        criteria.setDeleted(true);
     }//deleteCriteria()
     
     
-    public void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, CCT cct, Set themes, Set objectives, String na) throws Exception {
+    public void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, Set themes, Set objectives, String na) throws Exception {
     	c.setName(name);
-		c.setCct(cct);
+	
 		c.setNa(na);
 		
     	if(bool_themes) {
@@ -65,7 +90,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	if(bool_objectives) {
     		c.setObjectives(objectives);		
     	}
-			
+    
 		save(c);		
     }//editCriterion()
     
@@ -88,19 +113,29 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     }//getCriterionById()
     
     
-    private static final String hql_getAllCriterion1 = "from Criteria c where c.cct=? order by c.id";
-    
-    public Collection getAllCriterion(CCT cct) throws Exception {    	
+    public Set getAllCriterion(Long critSuiteId) throws Exception {    	
     	
-    	return getHibernateTemplate().find(hql_getAllCriterion1, cct);
-    } //getAllCriterion(CCT cct);
+    	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
+    	Set references = cs.getReferences();
+    	
+    	Set cSet = new HashSet();
+    	Iterator r = references.iterator();
+    	while(r.hasNext()) {
+    		CriteriaRef tempCR= (CriteriaRef) r.next();
+    		Criteria c = tempCR.getCriterion();
+    		if(!c.getDeleted()) {
+    			cSet.add(c);
+    		}
+    	}
+    	return cSet;
+    } //getAllCriterion(Long critSuiteId);
     
     
-    private static final String hql_getAllCriterion2 = "from Criteria c order by c.id";
+    private static final String hql_getAllCriterion2 = "from Criteria c where c.deleted=? order by c.id";
     
     public Collection getAllCriterion() throws Exception {    	
-    	
-    	return getHibernateTemplate().find(hql_getAllCriterion2);
+    	return getHibernateTemplate().find(hql_getAllCriterion2, new Object[] {
+                false,});
     } //getAllCriterion();
     
     
@@ -168,42 +203,31 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     } //getObjectives
     
     
-    private static final String hql_setWeight = "from CriteriaWeight cw where cw.author=? and cw.criteria=?";
-    
-    public void setWeight(CCT cct, Criteria criteria, int weight) throws Exception {
+    public void setWeight(Long suiteId, Criteria criteria, int weight) throws Exception {
     	
-    	List list = getHibernateTemplate().find(hql_setWeight, new Object[] {
-    			getUserById(WebUtils.currentUserId()), criteria,
-        });
+    	CriteriaSuite cs = (CriteriaSuite)load(CriteriaSuite.class, suiteId);
+    	CriteriaRef cr = criteria.getCritRef();
+    	Map csWeights = cs.getWeights();    	
+    	CriteriaUserWeight cuw = (CriteriaUserWeight) csWeights.get(cr); 	
+    	Integer iWeight = new Integer(weight);    
+    	cuw.addWeight(getUserById(WebUtils.currentUserId()), iWeight);	
+	    
+    	save(cuw);
     	
-    	if(list.size()>0) {
-    		CriteriaWeight c = (CriteriaWeight) list.get(0);
-    		c.setCct(cct);
-    		c.setCriteria(criteria);
-    		c.setWeight(weight);
-    		c.setAuthor(getUserById(WebUtils.currentUserId()));
-    		save(c);
-    	} else {
-    		CriteriaWeight cw = new CriteriaWeight();
-    		cw.setCct(cct);
-    		cw.setCriteria(criteria);
-    		cw.setWeight(weight);
-    		cw.setAuthor(getUserById(WebUtils.currentUserId()));
-    		save(cw);
-    	}
-    	
-    }//addCriterion()
+    }//setUserWeight()
     
     
-    private static final String hql_getWeight = "from CriteriaWeight cw where cw.author=?";
-    
-    public Set getWeights(CCT cct) throws Exception {
-    	List list = getHibernateTemplate().find(hql_getWeight, new Object[] {
-    			getUserById(WebUtils.currentUserId()),
-        });
+    public Map getWeights(Long critSuiteId) throws Exception {
+    	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
     	
-    	return new HashSet <List>(list);
+    	return cs.getWeights();
     }//getWeights();
+    
+    
+    public CriteriaSuite getCriteriaSuiteById(Long id) throws Exception {
+    	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, id);
+    	return cs;
+    } //getCriteriaSuiteById();
     
     
 }//class CriteriaDAOImpl

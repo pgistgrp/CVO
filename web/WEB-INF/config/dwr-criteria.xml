@@ -35,7 +35,7 @@
 	<include method="addObjective"/>
 	<include method="getObjectives"/>
 	<include method="deleteObjective"/>
-	<include method="setWeight"/>
+	<include method="setCriteriaWeight"/>
 	<include method="getWeights"/>
     </create>
 

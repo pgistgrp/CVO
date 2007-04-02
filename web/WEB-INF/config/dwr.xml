@@ -21,6 +21,8 @@
     <convert converter="bean" match="org.pgist.util.PageSource"/>
     
     <convert converter="bean" match="org.pgist.system.Feedback"/>
+    
+    <convert converter="bean" match="org.pgist.system.County"/>
 
     <convert converter="bean" match="org.pgist.system.YesNoVoting">
         <param name="include" value="id, targetType, targetId, voting, owner"/>
@@ -43,6 +45,9 @@
       <include method="logMapEvent"/>   
       <include method="resetPassword"/>   
       <include method="setQuota"/>
+      <include method="setQuotaLimit"/>
+      <include method="addCounty"/>
+      <include method="createQuotaStats"/>
     </create>
 
     

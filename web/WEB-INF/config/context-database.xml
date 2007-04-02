@@ -42,6 +42,7 @@
                <value>org/pgist/system/Feedback.hbm.xml</value>
                <value>org/pgist/system/YesNoVoting.hbm.xml</value>
                <value>org/pgist/system/SystemLog.hbm.xml</value>
+               <value>org/pgist/system/County.hbm.xml</value>
                <value>org/pgist/users/User.hbm.xml</value>
                <value>org/pgist/users/Role.hbm.xml</value>
                <value>org/pgist/users/Vehicle.hbm.xml</value>

@@ -3,6 +3,7 @@ package org.pgist.criteria;
 import java.util.Collection;
 import java.util.Set;
 import org.pgist.cvo.CCT;
+import java.util.Map;
 
 import org.pgist.system.BaseDAO;
 
@@ -15,13 +16,13 @@ import org.pgist.system.BaseDAO;
 public interface CriteriaDAO extends BaseDAO {
     
 	
-	Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, CCT cct, Set themes,  Set objectives, String na) throws Exception;
+	Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Long critSuite, Set themes,  Set objectives, String na) throws Exception;
     
 	
 	void deleteCriterion(Long id) throws Exception;
     
 	
-	void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, CCT cct, Set themes, Set objectives, String na) throws Exception;
+	void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, Set themes, Set objectives, String na) throws Exception;
 	
 	
 	Criteria getCriterionById(Long id) throws Exception;
@@ -30,7 +31,7 @@ public interface CriteriaDAO extends BaseDAO {
 	Set getCriterions(String[] criteriaIdList) throws Exception;
 	
 	
-	Collection getAllCriterion(CCT cct) throws Exception;
+	Set getAllCriterion(Long critSuiteId) throws Exception;
 	
 	
 	Collection getAllCriterion() throws Exception;
@@ -51,10 +52,13 @@ public interface CriteriaDAO extends BaseDAO {
 	Collection getObjectives() throws Exception;
 	
 	
-	void setWeight(CCT cct, Criteria criteria, int weight) throws Exception;
+	Map getWeights(Long critSuiteId) throws Exception;
 	
 	
-	Set getWeights(CCT cct) throws Exception;
+	void setWeight(Long suiteId, Criteria criteria, int weight) throws Exception;
+	
+	
+	CriteriaSuite getCriteriaSuiteById(Long id) throws Exception;
 	
 	
 }//interface CriteriaDAO

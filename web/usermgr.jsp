@@ -56,6 +56,21 @@ function getAllUsers() {
 	});
 }
 
+function getQuotaStats() {
+	SystemAgent.createQuotaStats({}, {
+		callback:function(data){
+			if (data.successful){
+				$('quota').innerHTML = data.html;
+				
+			}else{
+				$('quota').innerHTML = "<b>Error in SystemAgent.createQuotaStats Method: </b>" + data.reason; 
+			}
+		},
+		errorHandler:function(errorString, exception){ 
+		alert("SystemAgent.createQuotaStats( error:" + errorString + exception);
+		}
+	});
+}
 
 function disableUsers(myid) {
 	SystemAgent.disableUsers({ids:myid});
@@ -147,9 +162,19 @@ function resetPassword(myid) {
     </form>
 	<p>&nbsp;</p>
 	</div>
+	
 	<div id="userList">
+	
 	</div>
+	
 	<p>&nbsp;</p>
+	
+	
+	<p><a href="javascript:getQuotaStats();hide('quota');">Adjust Quota Limits</a></p>
+  	<div id="quota">
+	
+	</div>
+	
   </div>
   <!-- end container -->
   
@@ -169,6 +194,7 @@ function resetPassword(myid) {
 	<!-- End footer -->
 	<script type="text/javascript">
 		hide('emailList');
+		hide('quota');
 	</script>
 </body>
 </html:html>

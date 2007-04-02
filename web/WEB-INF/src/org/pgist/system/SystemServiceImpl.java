@@ -190,9 +190,26 @@ public class SystemServiceImpl implements SystemService {
     	systemDAO.resetPassword(ids);
     }
     
+    
     public void setQuota(Long id, boolean quota) throws Exception {
     	systemDAO.setQuota(id, quota);
     }
+    
+    
+    public void setQuotaLimit(Long countyId, int limit) throws Exception {
+    	systemDAO.setQuotaLimit(countyId, limit);
+    }
+    
+    
+    public Long addCounty(String name) throws Exception {
+    	return systemDAO.addCounty(name);
+    }
+    
+    
+    public Collection createQuotaStats() throws Exception {
+    	return systemDAO.createQuotaStats();
+    }
+    
     
     
 }//class SystemServiceImpl

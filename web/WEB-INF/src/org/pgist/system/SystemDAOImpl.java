@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.List;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -164,6 +169,7 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     		User user = (User) getHibernateTemplate().load(User.class, userId);
     		user.setPassword("ppgisLIT");
     		user.encodePassword();
+    	
     	} //for each
     	
     } //resetPassword();
@@ -171,10 +177,51 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     
     public void setQuota(Long id, boolean quota) throws Exception {
 
-    	User user = (User) getHibernateTemplate().load(User.class, id);
+    	User user = getUserById(WebUtils.currentUserId());
     	user.setQuota(quota);
     	
     } //setQuota();
     
+    
+    public void setQuotaLimit(Long countyId, int limit) throws Exception {
+    	County c = (County) load(County.class, countyId);
+    	c.setQuotaLimit(limit);
+    	save(c);
+    } //setQuotaLimit();
+    
+    
+    public Long addCounty(String name) throws Exception {    	
+    	County c = new County();
+    	c.setName(name);
+    	save(c);
+    	return c.getId();
+    } //addCounty();
+    
+    
+    public void deleteCounty(Long countyId) throws Exception {
+    	County c = (County) getHibernateTemplate().load(Criteria.class, countyId);
+    	if (c != null) getHibernateTemplate().delete(c);
+    } //deleteCounty();
+    
+    
+    private static final String hql_getQuotaStats1 = "from County c";
+    
+    private static final String hql_getQuotaStats2 = "from User u where u.countyId=? and u.quota=?";
+    
+    public Collection createQuotaStats() throws Exception {
+    	Map map = new HashMap();
+    	Collection<County> collection = getHibernateTemplate().find(hql_getQuotaStats1);
+    	for(County c : collection) {
+    		Long id = c.getId();
+    		List list = getHibernateTemplate().find(hql_getQuotaStats2, new Object[] {
+        			id, new Boolean(true)
+            });
+    		int size = list.size();
+    		c.setTempQuotaNumber(size);
+    		save(c);
+    	}
+    	
+    	return collection;
+    }
     
 }//class SystemDAOImpl

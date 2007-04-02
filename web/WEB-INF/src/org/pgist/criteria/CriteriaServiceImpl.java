@@ -45,10 +45,9 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getCriterias()
     
     
-    public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Long cctId, Set themes,  Set objectives, String na) throws Exception {
-    	CCT cct = cctDAO.getCCTById(cctId);  
-    	
-    	return criteriaDAO.addCriterion(bool_themes, bool_objectives, name, cct, themes, objectives, na);
+    public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Long critSuite, Set themes,  Set objectives, String na) throws Exception {
+    		
+    	return criteriaDAO.addCriterion(bool_themes, bool_objectives, name, critSuite, themes, objectives, na);
     }//addCriterion()
     
     
@@ -57,10 +56,8 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//deleteCriterion
     
     
-    public void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, Long cctId, Set themes, Set objectives, String na) throws Exception {
-    	CCT cct = cctDAO.getCCTById(cctId);  
-    	
-    	criteriaDAO.editCriterion(bool_themes, bool_objectives, c, name, cct, themes, objectives, na);
+    public void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, Set themes, Set objectives, String na) throws Exception {	
+    	criteriaDAO.editCriterion(bool_themes, bool_objectives, c, name, themes, objectives, na);
     }//editCriterion()
     
     
@@ -69,9 +66,8 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getCriterionById()
     
     
-    public Collection getAllCriterion(Long cctId) throws Exception {
-    	CCT cct = cctDAO.getCCTById(cctId);  
-    	return criteriaDAO.getAllCriterion(cct);
+    public Set getAllCriterion(Long critSuiteId) throws Exception {  
+    	return criteriaDAO.getAllCriterion(critSuiteId);
     }//getAllCriterion()
 
     
@@ -120,37 +116,26 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getObjectives()
     
     
-    public void setWeight(Long cctId, Long critId, int weight) throws Exception {
-    	CCT cct = cctDAO.getCCTById(cctId);
-    	Criteria criteria = criteriaDAO.getCriterionById(critId);
-    	
-    	criteriaDAO.setWeight(cct, criteria, weight);
-    }//setWeight()
-    
-    
-    public Set getWeights(Long cctId) throws Exception {
-    	CCT cct = cctDAO.getCCTById(cctId);
-    	
-    	return criteriaDAO.getWeights(cct);
+    public Map getWeights(Long critSuiteId) throws Exception {
+    	return criteriaDAO.getWeights(critSuiteId);
     }//getWeights()
     
     
     public void publish(Long cctId) throws Exception {
-
+    	
         Date date = new Date();
         
         InfoStructure structure = new InfoStructure();
         structure.setType("sdcrit");
         structure.setTitle("Step 2: SD Criteria");
         structure.setRespTime(date);
-        structure.setCctId(cctId);
+        //structure.setCctId(cctId);
         criteriaDAO.save(structure);
         
         for (Criteria crit : (Collection<Criteria>) criteriaDAO.getAllCriterion()) {
-        	crit.getCct();
+        	//crit.getCct();
         	crit.getId();
         	crit.getClass();
-        	crit.getMoes();
         	crit.getNa();
         	crit.getName();
         	crit.getObjectives();
@@ -167,6 +152,7 @@ public class CriteriaServiceImpl implements CriteriaService {
         }//for ref
         
         criteriaDAO.save(structure);
+        
     }//publish()
     
     
@@ -182,11 +168,17 @@ public class CriteriaServiceImpl implements CriteriaService {
     }
 
 
+    public void setWeight(Long suiteId, Long critId, int weight) throws Exception {
+    	Criteria criteria = criteriaDAO.getCriterionById(critId);
+    	criteriaDAO.setWeight(suiteId, criteria, weight);
+    }
+    
+    
     /**
      * TODO: get a CriteriaSuite object by the given id
      */
     public CriteriaSuite getCriteriaSuiteById(Long id) throws Exception {
-        return null;
+    	return criteriaDAO.getCriteriaSuiteById(id);
     }//getCriteriaSuiteById()
     
     

@@ -18,19 +18,20 @@ public class Criteria implements Serializable {
     
     private Long id;
     
-    private CCT cct;
-    
     private String name;
     
     private String na;
     
-    private Set<MOE> moes = new HashSet<MOE>();
+    private CriteriaRef critRef;
     
     private Set themes = new HashSet();
     
     private Set objectives = new HashSet();
     
     private Object object;
+
+    
+    private boolean deleted = false;
     
     
     /**
@@ -57,6 +58,21 @@ public class Criteria implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+ 
+    
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="criteriaref_id" cascade="none"
+     */
+    public CriteriaRef getCritRef() {
+        return critRef;
+    }
+    
+    
+    public void setCritRef(CriteriaRef critRef) {
+        this.critRef = critRef;
+    }
     
     
     /**
@@ -69,21 +85,6 @@ public class Criteria implements Serializable {
     
     public void setNa(String na) {
         this.na = na;
-    }
-    
-    
-    /**
-     * @hibernate.set lazy="false" table="pgist_ag_moe_link" cascade="none"
-     * @hibernate.collection-key column="criterion_id"
-     * @hibernate.collection-many-to-many column="moe_id" class="org.pgist.criteria.MOE"
-     */
-    public Set<MOE> getMoes() {
-        return moes;
-    }
-    
-    
-    public void setMoes(Set<MOE> moes) {
-        this.moes = moes;
     }
     
     
@@ -113,20 +114,18 @@ public class Criteria implements Serializable {
     public Set getObjectives() {
         return objectives;
     }
-
-	/**
-     * @return
-     * 
-     * @hibernate.many-to-one column="cct_id" cascade="none" lazy="true"
+    
+    
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+    
+    /**
+     * @hibernate.property not-null="true"
      */
-	public CCT getCct() {
-		return cct;
-	}
-
-
-	public void setCct(CCT cct) {
-		this.cct = cct;
-	}
+    public boolean getDeleted() {
+        return deleted;
+    }
 
     
     /*

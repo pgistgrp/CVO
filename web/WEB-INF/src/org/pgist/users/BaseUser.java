@@ -56,6 +56,8 @@ public class BaseUser implements Serializable {
     protected String interview = "Not Eligible";
    
     protected String consented = "Non-Quota";
+    
+    protected Long countyId;
    
     protected int driveDays;
     
@@ -493,5 +495,20 @@ public class BaseUser implements Serializable {
     public void setConsented(String consented) {
         this.consented = consented;
     }
+
+    
+    /**
+     * @return
+     * @hibernate.property not-null="false"
+     */    
+    public Long getCountyId() {
+        return countyId;
+    }
+
+
+    public void setCountyId(Long countyId) {
+        this.countyId = countyId;
+    }
+
 
 }//class BaseUser
