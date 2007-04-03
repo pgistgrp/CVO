@@ -345,15 +345,30 @@
 			mapeditor.changeToContainer('alternativeMap'+id);
 			mapeditor.clearInput();
 		}
-			
+		mapeditor.targetId = id;
 	}
 	
 	/* *************** Saves the coordinates of the project alternative *************** */
-	function saveFootprint(altId, shape){
-		ProjectAgent.saveFootprint({altId:altId, shape:shape}, {
+	function saveFootprint(altId, shape, coords){
+		if(shape != "LINE" && shape != "POINT"){
+			ProjectAgent.useFootprint(altId, shape, {
+				callback:function(data){
+					if (data.successful){
+						alert("footprint saved. Alternative id is: " + data.altId);
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("ProjectAgent.saveFootprint( error:" + errorString + exception);
+				}
+			});
+			return;
+		}
+		ProjectAgent.saveFootprint(altId, shape, coords, {
 			callback:function(data){
 				if (data.successful){
-					alert("footprint saved")
+					alert("footprint saved. Alternative id is: " + data.altId);
 				}else{
 					alert(data.reason);
 				}

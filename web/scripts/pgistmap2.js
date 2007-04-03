@@ -60,6 +60,11 @@ var PGISTMapEditor = function(mapcontainer, width, height) {
 	this.editicon.shadow = "";
 	this.editicon.infoWindowAnchor = new GPoint(8,8);
 	
+	if(saveFootprint)
+		this.saveHandler = saveFootprint;
+	else
+		this.saveHandler = null;
+	
 	mapcontainer.appendChild(this._mapdiv);
 	this._container = mapcontainer;
 
@@ -208,6 +213,14 @@ PGISTMapEditor.prototype.clearInput=function(){
 	this.coords[0] = [];
 };
 
+/**
+ * Set the handler for the "save" button, and pass in a target Id
+ * @return
+ * <b>when to use: </b> 
+ */
+PGISTMapEditor.prototype.setSaveHandler=function(saveOp){
+	this.saveHandler = saveOp;
+};
 
 /**
  * Show the current input line, or the editing part of a multi-part line
@@ -251,6 +264,38 @@ PGISTMapEditor.prototype.deleteLastPoint=function(){
 	}
 };
 
+/**
+ * prepare coordinates in an acceptable format ([part][path or ring][x y,x y,...])
+ * @return
+ * <b>when to use: </b> when "delete last point" button is clicked
+ */
+PGISTMapEditor.prototype.prepareCoords=function(){
+	if(this.coords[0].length<=0)return null;
+	
+	var fptype = this.editGeomType;
+	var coords = this.coords;
+	
+	if(fptype == "LINE" || fptype == "POINT"){
+		var inputpoints = coords[coords.length-1];
+		if(inputpoints.length < 2 && fptype == "LINE"){
+			alert("Please make at least 2 points are needed to make a line.");
+			return null;
+		}
+		
+		var serialcoords = new Array();
+		serialcoords[0] = new Array();
+		for(i=0; i<coords.length; i++){
+			serialcoords[0][i] = new Array(coords[i].length*2);
+			for(j=0; j<coords[i].length*2;j=j+2){
+				serialcoords[0][i][j] = coords[i][j/2].x;
+				serialcoords[0][i][j+1] = coords[i][j/2].y;
+			}
+		}
+	}
+	return serialcoords;
+};
+
+
 //map edit toolbar control
 
 function PGISTMapEditToolsControl() {
@@ -270,6 +315,7 @@ PGISTMapEditToolsControl.prototype.selectTool = function(ele){
 	if(ele.alt == "Region"){
 		PGISTMapEditor_Global_Accessor.stopInput();
 		PGISTMapEditor_Global_Accessor.clearInput();
+		PGISTMapEditor_Global_Accessor.editGeomType = 'POLYGON';
 		if(regntool.display == "none")
 			regntool.display = "";
 		else
@@ -288,6 +334,33 @@ PGISTMapEditToolsControl.prototype.selectTool = function(ele){
 			PGISTMapEditor_Global_Accessor.startInputLine();
 		}else if(ele.alt == "Delete last point"){
 			PGISTMapEditor_Global_Accessor.deleteLastPoint();
+		}else if(ele.alt == "Save"){
+			//alert("do save...");
+			if(PGISTMapEditor_Global_Accessor.saveHandler){
+				if(PGISTMapEditor_Global_Accessor.editGeomType == 'POLYGON'){
+					var counties = document.forms["countylist"].county;
+					
+					var fpids = "";
+					for (k=0; k<counties.length; k++){
+						if(counties[k].checked)fpids += counties[k].value + ",";
+					}
+					fpids = fpids.substr(0, fpids.length-1);
+					
+					PGISTMapEditor_Global_Accessor.saveHandler(
+								PGISTMapEditor_Global_Accessor.targetId, 
+								fpids );
+					return;
+				}
+				var goodCoords = PGISTMapEditor_Global_Accessor.prepareCoords();
+				if( goodCoords == null){
+					alert("Geometry is not valid, please try again");
+					return;
+				}
+				PGISTMapEditor_Global_Accessor.saveHandler(
+								PGISTMapEditor_Global_Accessor.targetId, 
+								PGISTMapEditor_Global_Accessor.editGeomType,
+								goodCoords );
+			}
 		}else{
 			PGISTMapEditor_Global_Accessor.stopInput();
 		}
@@ -300,17 +373,18 @@ PGISTMapEditToolsControl.prototype.initialize = function(map) {
 
   var toolbarDiv = document.createElement("div");
   container.appendChild(toolbarDiv);
-  var html = '<div style="background-color: #FFFFCE;height:24px;width:150px">';
+  var html = '<div style="background-color: #FFFFCE;height:24px;width:170px">';
   html += '<img src="images/_dot1.gif" alt="Single point" width="23" height="23" onclick="PGISTMapEditToolsControl_Global.selectTool(this);" />';
   html += '<img src="images/_dotm.gif" alt="Multiple points" width="23" height="23" onclick="PGISTMapEditToolsControl_Global.selectTool(this);" />';
   html += '<img src="images/_linem.gif" alt="New line" width="23" height="23" onclick="PGISTMapEditToolsControl_Global.selectTool(this);" />';
   html += '<img src="images/_poly.gif" alt="Region" width="23" height="23" onclick="PGISTMapEditToolsControl_Global.selectTool(this);" />';
   html += '<img src="images/_delete.png" alt="Delete last point" width="23" height="23" onclick="PGISTMapEditToolsControl_Global.selectTool(this);" />';
   html += '<img src="images/_stop.png" alt="Stop edit" width="23" height="23" onclick="PGISTMapEditToolsControl_Global.selectTool(this);" />';
-  html += '<div style="background-color: #FFFFCE;display:none"><form name="counties">';
-  html += '  <label><input type="checkbox" name="county" value="12" />Snohomish</label>';
-  html += '  <label><input type="checkbox" name="county" value="13" />King</label>';
-  html += '  <label><input type="checkbox" name="county" value="14" />Pierce</label>';
+  html += '<img src="images/_save.gif" alt="Save" width="23" height="23" onclick="PGISTMapEditToolsControl_Global.selectTool(this);" />';
+  html += '<div style="background-color: #FFFFCE;display:none"><form name="countylist">';
+  html += '  <label><input type="checkbox" name="county" value="93" />Snohomish</label>';
+  html += '  <label><input type="checkbox" name="county" value="126" />King</label>';
+  html += '  <label><input type="checkbox" name="county" value="153" />Pierce</label>';
   html += '	</form></div></div>';
 
   toolbarDiv.innerHTML = html;
