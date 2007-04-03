@@ -17,6 +17,7 @@
 		[ ] SuiteIds (Jordan and Matt)
 		[ ] Cost to you (Matt)
 		[ ] Pull Summary Partials (Jordan and Matt)
+		[ ] Contains
 		[ ] What happends when user clicks on "finished"? (Jordan)
 #### -->
 <html>
@@ -206,10 +207,10 @@
 															<label>
 																<c:choose>
 																	<c:when test="${projectRef.project.inclusive}">
-																		<input type="radio" name="proj-${project.id}" onchange="setProjectToUserPkg('${alternative.id}', 'true')" />
+																		<input type="radio" name="proj-${project.id}" onchange="setProjectToUserPkg('${alternative.id}', this.checked)" />
 																	</c:when>
 																	<c:otherwise>
-																		<input type="checkbox" name="proj-${project.id}" onchange="setProjectToUserPkg('${alternative.id}', 'true')" />
+																		<input type="checkbox" name="proj-${project.id}" onchange="setProjectToUserPkg('${alternative.id}', this.checked)" />
 																	</c:otherwise>
 																</c:choose>
 																${alternative.name}
@@ -266,7 +267,7 @@
 								<tr>
 									<td class="fundingSourceItem">
 										<label>
-										<input type="radio" checked="checked" name="source-${fundingRef.source.id}" onchange="setFundingToUserPkg('${alternative.id}', 'true')" />
+										<input type="radio" checked="checked" name="source-${fundingRef.source.id}" onchange="setFundingToUserPkg('${alternative.id}', this.checked)" />
 										${alternative.name}</label>
 									</td>
 									<td>${alternative.revenue}</td>
