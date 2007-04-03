@@ -13,11 +13,11 @@
     <!-- Beans Convertor -->
 
 
-    <convert converter="bean" match="org.pgist.criteria.MOE"/>
+    
     
     <convert converter="bean" match="org.pgist.criteria.Criteria"/>
     <convert converter="bean" match="org.pgist.criteria.Objective"/>
-    <convert converter="bean" match="org.pgist.criteria.CriteriaWeight"/>
+    
 	
     <!-- DWR Agents -->
 
