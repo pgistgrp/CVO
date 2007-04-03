@@ -28,7 +28,7 @@
 <ul id="projectsList" class="treeview">
 <c:forEach var="project" items="${projects}">
 	<li class="projectList" id="project-${project.id}"><a href="#" class="project">${project.name}</a>
-		<small> <a href="javascript:prepareProject(${project.id});">edit</a> | <a href="javascript:deleteProject(${project.id});">delete</a></small>
+		<small> <a href="javascript:prepareProject(${project.id});">edit properties</a> | <a href="javascript:deleteProject(${project.id});">delete</a></small>
 		<!-- for editing project -->
 		<div id="projectForm${project.id}" style="display:none">
 			<h4>Editing ${project.name}</h4>
@@ -40,7 +40,7 @@
 		<ul>
 			<c:forEach var="alternative" items="${project.alternatives}">
 				<li id="alt-${alternative.id}">${alternative.name}  
-					<small><a href="javascript: mapAlternative(${alternative.id});">map</a> | <a href="javascript: prepareProjectAlt(${alternative.id}, 'altId');">edit</a> | <a href="javascript:deleteProjectAlt(${alternative.id});">delete</a></small>
+					<small><a href="javascript: mapAlternative(${alternative.id});">edit map</a> | <a href="javascript: prepareProjectAlt(${alternative.id}, 'altId');">edit properties</a> | <a href="javascript:deleteProjectAlt(${alternative.id});">delete</a></small>
 					<div id="alternativeForm${alternative.id}" style="display:none;">
 						<form action="javascript:editProjectAlt(${alternative.id});" id="frmProjectAlt${alternative.id}">
 							<!--form inserted from js renderProjectAltForm();-->

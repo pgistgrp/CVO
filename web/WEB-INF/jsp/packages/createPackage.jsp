@@ -19,6 +19,7 @@
 		[x] Pull Summary Partials (Jordan and Matt)
 		[ ] pg:contains (Jordan)
 		[ ] What happends when user clicks on "finished"? (Jordan)
+		[ ] Funding Ordering (Matt)
 #### -->
 <html>
 <head>
@@ -189,12 +190,10 @@
 							<c:forEach var="projectRef" items="${projectRefs}" varStatus="loop">
 								<c:if test="${projectRef.project.transMode == category}">						
 									<!-- begin PROJECT -->
-									<tr class="fundingType">
+									<tr class="${(projectRef.project.inclusive) ? 'fundingType' : 'fundingType2'}">
 										<td class="fundingSourceItem">${projectRef.project.name} Options</td>
 										<td colspan="2">
-											<c:if test="${projectRef.project.inclusive}">
-												One option will be chosen
-											</c:if>
+											${(projectRef.project.inclusive) ? 'Select at most one' : 'Select any number'}
 										</td>
 									</tr>
 									<!-- end PROJECT -->
