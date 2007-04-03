@@ -17,7 +17,7 @@
 
 	  <convert converter="bean" match="org.pgist.projects.ProjectAlternative"/>
 
-      <convert converter="bean" match="org.pgist.projects.Package"/>
+      <convert converter="bean" match="org.pgist.packages.Package"/>
 
 
     <!-- DWR Agents -->
