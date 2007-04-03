@@ -76,7 +76,6 @@
                <value>org/pgist/wfengine/Workflow.hbm.xml</value>
                <value>org/pgist/criteria/Criteria.hbm.xml</value>
                <value>org/pgist/criteria/Objective.hbm.xml</value>
-               <value>org/pgist/criteria/CriteriaWeight.hbm.xml</value>
                <value>org/pgist/criteria/CriteriaUserWeight.hbm.xml</value>
                <value>org/pgist/criteria/CriteriaRef.hbm.xml</value>
                <value>org/pgist/criteria/CriteriaSuite.hbm.xml</value>
