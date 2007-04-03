@@ -40,7 +40,8 @@
         <include method="saveProject"/>
         <include method="saveAlternative"/>
         <include method="saveFootprint"/>
-        <include method="getFootprint"/>
+	<include method="useFootprint"/>
+        <include method="getFootprintsByAltId"/>
         <include method="getFootprints"/>
         <include method="enableProjectDiscussion"/>
         <include method="setGrading"/>

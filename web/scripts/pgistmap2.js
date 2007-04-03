@@ -223,6 +223,53 @@ PGISTMapEditor.prototype.setSaveHandler=function(saveOp){
 };
 
 /**
+ * Put the coordinates from DWR back into the coords array.
+ * @return
+ * <b>when to use: </b> 
+ */
+PGISTMapEditor.prototype.recoverCoords=function(serialCoords){
+	this.coords = [];
+	for(var i=0; i<serialCoords[0].length; i++){
+		this.coords[i] = [];
+		for(var j=0; j<serialCoords[0][i].length; j=j+2){
+			this.coords[i].push(new GPoint(serialCoords[0][i][j],serialCoords[0][i][j+1]));
+		}
+	}
+};
+
+/**
+ * Zoom to coordinats.
+ * @return
+ * <b>when to use: </b> 
+ */
+PGISTMapEditor.prototype.scaleToCoords=function(){
+	if(this.coords.length < 1) return;
+	
+	var minx = 180;
+	var maxx = -180;
+	var miny = 90;
+	var maxy=-90;
+	for(var i=0; i<this.coords.length; i++){
+		for(var j=0; j<this.coords[i].length; j++){
+			if(this.coords[i][j].x < minx) minx = this.coords[i][j].x;
+			if(this.coords[i][j].x > maxx) maxx = this.coords[i][j].x;
+			if(this.coords[i][j].y < miny) miny = this.coords[i][j].y;
+			if(this.coords[i][j].y > maxy) maxy = this.coords[i][j].y;
+		}
+	}
+	
+	var bounds = new GLatLngBounds( new GLatLng(miny, minx), new GLatLng(maxy,maxx) );
+	var zoomlevel = this.map.getBoundsZoomLevel(bounds);
+	
+	var center = new GLatLng( (maxy+miny)/2, (maxx+minx)/2 );
+	
+	if(zoomlevel != this.map.getZoom())this.map.setZoom(zoomlevel);
+	this.map.panTo(center);
+
+	bounds = null;
+};
+
+/**
  * Show the current input line, or the editing part of a multi-part line
  * @return
  * <b>when to use: </b> when the current line being edited needs to be displayed/updated

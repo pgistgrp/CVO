@@ -191,7 +191,7 @@
 		ProjectAgent.getProjectAltById({id:id}, {
 			callback:function(data){
 				if (data.successful){
-					renderProjectAltForm(data.alternative)
+					renderProjectAltForm(data.alternative);
 				}else{
 					alert(data.reason);
 				}
@@ -339,17 +339,19 @@
 	var mapeditor= null;
 	function mapAlternative(id){
 		if(!mapeditor){  //if it's the first time the map is initiated:
-			//alert("new map");
 			mapeditor = new PGISTMapEditor('alternativeMap'+id, 600, 400);
 		}else{
 			mapeditor.changeToContainer('alternativeMap'+id);
 			mapeditor.clearInput();
 		}
 		mapeditor.targetId = id;
+		
+		getFootprintsByAltId(id);
 	}
 	
 	/* *************** Saves the coordinates of the project alternative *************** */
 	function saveFootprint(altId, shape, coords){
+		alert("before save: altId=" + altId + "; shape=" + shape + "; coords=" + coords);
 		if(shape != "LINE" && shape != "POINT"){
 			ProjectAgent.useFootprint(altId, shape, {
 				callback:function(data){
@@ -385,9 +387,40 @@
 		ProjectAgent.getFootprints({fpids:fpids}, {
 			callback:function(data){
 				if (data.successful){
-					alert("successful"); //coordinates - 3d array returned
+					//alert("successful"); //coordinates - 3d array returned
 				}else{
 					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("ProjectAgent.getFootprint( error:" + errorString + exception);
+			}
+		});
+	}
+	
+	/* *************** Get footprints for a given project alternative id *************** */
+	function getFootprintsByAltId(id){
+		ProjectAgent.getFootprintsByAltId({altid:id}, {
+			callback:function(data){
+				if (data.successful){
+					for(fpid in data.footprints){
+						if(data.footprints[fpid].geotype == 5){ // line
+							mapeditor.recoverCoords(data.footprints[fpid].coords);
+							mapeditor.editGeomType = "LINE";
+							mapeditor.scaleToCoords();
+							mapeditor.drawLines();
+						}else if(data.footprints[fpid].geotype == 4){ // point
+							mapeditor.recoverCoords(data.footprints[fpid].coords);
+							mapeditor.editGeomType = "POINTS";
+							mapeditor.scaleToCoords();
+							mapeditor.drawPoints();	
+						}else{ //polygon
+							
+						}
+					}
+					//alert("successful"); //coordinates - 3d array returned
+				}else{
+					alert("Something wrong happened, reason: " + data.reason);
 				}
 			},
 			errorHandler:function(errorString, exception){ 

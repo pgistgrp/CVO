@@ -503,7 +503,7 @@ public class ProjectAgent {
     
     
     /**
-     * get footprints for a project alternative.<br>
+     * get footprints for a given list of footprint IDs.<br>
      * 
      * @param params A map contains:
      *     <ul>
@@ -519,12 +519,13 @@ public class ProjectAgent {
      *       <li>footprints - a map contains pair of (id, coordinates)</li>
      *     </ul>
      */
-    public Map getFootPrints(Map params) {
+    public Map getFootprints(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
         try {
             String fpids = (String) params.get("fpids");
+            System.out.println(">>get footprints: " + fpids);
             
             Map footprints = projectService.getFootprints(fpids);
             
@@ -534,12 +535,55 @@ public class ProjectAgent {
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
-            return map;
         }
         
         return map;
     }//getFootPrints()
-    
+
+    /**
+     * get footprints for a project alternative.<br>
+     * 
+     * @param params A map contains:
+     *     <ul>
+     *       <li>altid - long, the ID of an project alternative
+     *     </ul>
+     * 
+     * @param 
+     * 
+     * @return A map contains:
+     *     <ul>
+     *       <li>successful - a boolean value denoting if the operation succeeds</li>
+     *       <li>reason - reason why operation failed (valid when successful==false)</li>
+     *       <li>footprints - a map contains pair of (id, coordinates)</li>
+     *     </ul>
+     */
+    public Map getFootprintsByAltId(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long id = new Long((String) params.get("altid"));
+            System.out.print(">>altid=" + id.toString());
+            ProjectAlternative alternative = projectService.getProjectAlternativeById(id);
+            
+            String fpids = alternative.getFpids();
+            System.out.println("  fpids=" + fpids);
+            
+            if(fpids != null){
+            	Map footprints = projectService.getFootprints(fpids);
+            
+            	map.put("footprints", footprints);
+            }else{
+            	map.put("footprints", null);
+            }
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//getFootprintsByAltId()
     
     /**
      * Save the given footprint for a project alternative.<br>
@@ -561,17 +605,14 @@ public class ProjectAgent {
      *       <li>fpid - int, id of the new created footprint</li>
      *     </ul>
      */
-    public Map saveFootPrint(Map params, double[][][] coordinates) {
+    public Map saveFootprint(Long altId, String shape, double[][][] coordinates) {
         Map map = new HashMap();
         map.put("successful", false);
-        
-        try {
-            Long altId = new Long((String) params.get("altId"));
-            String shape = (String) params.get("shape");
+        System.out.println(">>try to create new geometry");
+        try {            
+            Long id = projectService.saveFootprint(altId, coordinates, shape);
             
-            Long fpid = projectService.saveFootprint(altId, coordinates, shape);
-            
-            map.put("fpid", fpid);
+            map.put("altId", id);
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -583,6 +624,42 @@ public class ProjectAgent {
         return map;
     }//saveFootPrint()
     
+    /**
+     * Save the given footprint for a project alternative.<br>
+     * 
+     * @param params A map contains:
+     *     <ul>
+     *       <li>altId - int, id of the project alternative object</li>
+     *       <li>fpids: comma-delimited footprint id(s). These are ids of the three counties
+     *       </li>
+     *     </ul>
+     * 
+     * @return A map contains:
+     *     <ul>
+     *       <li>successful - a boolean value denoting if the operation succeeds</li>
+     *       <li>reason - reason why operation failed (valid when successful==false)</li>
+     *       <li>fpid - int, id of the new created footprint</li>
+     *     </ul>
+     */
+    public Map useFootprint(Long altId, String fpids) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        System.out.println(">>try to use existing geometry");
+        try {            
+            Long id = projectService.saveFootprint(altId, fpids);
+            
+            map.put("altId", id);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//saveFootPrint()v    
     
     /**
      * Delete the given footprint.<br>
@@ -598,7 +675,7 @@ public class ProjectAgent {
      *       <li>reason - reason why operation failed (valid when successful==false)</li>
      *     </ul>
      */
-    public Map deleteFootPrint(Map params, double[][][] coordinates) {
+    public Map deleteFootprint(Map params, double[][][] coordinates) {
         Map map = new HashMap();
         map.put("successful", false);
         

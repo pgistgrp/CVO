@@ -31,6 +31,7 @@ public interface ProjectService {
     Map getFootprints(String fpids) throws Exception;
     
     Long saveFootprint(Long altId, double[][][] coords, String shape) throws Exception;
+    Long saveFootprint(Long altId, String fpids) throws Exception;
     
     void deleteFootPrint(Long fpid);
     

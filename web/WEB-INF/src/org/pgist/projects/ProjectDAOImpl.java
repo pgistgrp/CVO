@@ -63,11 +63,9 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	
 	/**
 	 * Save a project, create a new footprint for it
-	 * @param p: a project object
-	 * @param coordinates: 2-d array, as line strings
+	 * @param pa: a project alternative object
+	 * @param coordinates: 3-d array, as line strings
 	 * @param geoType: "POINT", "LINE", "POLYGON"
-	 * @param parts: used only when a multi-part polygon is created as the foorprint,
-	 * then find out how many lines are needed for each part.
 	 * @throws Exception
 	 */
 	public void saveFootprint(ProjectAlternative pa, double[][][] coordinates, String geoType) throws Exception{
@@ -86,8 +84,10 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 		System.out.println("-->new geom: " + wkt);
 		synchronized(conn){
 			Statement s = conn.createStatement();
-			s.executeUpdate("insert into " + pfTableName + " (the_geom) "
-					+ "values (GeomFromText('" + wkt + "'))");
+			String sql = "insert into " + pfTableName + " (the_geom, ref_prj_name) "
+					+ "values (GeomFromText('" + wkt + "'),'" + pa.getName() + "')";
+			System.out.println(">>SQL: " + sql);
+			s.executeUpdate(sql);
 			
 			//use this to retrieve the last inserted footprint id
 			ResultSet r = s.executeQuery("select currval('" + pfSequenceName + "')");
@@ -104,7 +104,17 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 					
 	}//saveFootprint()
     
-
+	/**
+	 * Save a project alternative with the new fpids
+	 * @param p: a project alternative object
+	 * @param fpids: comma-delimited footprint IDs
+	 * @throws Exception
+	 */
+	public void saveFootprint(ProjectAlternative pa, String fpids) throws Exception{
+		pa.setFpids(fpids);
+		getHibernateTemplate().save(pa);
+	}//saveFootprint()
+	
 	public ProjectAlternative getProjectAlternative(long pid){
 		return (ProjectAlternative)getHibernateTemplate().load(ProjectAlternative.class, pid);
 	}	
@@ -166,7 +176,7 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	}
 	
 	public double[][][] getFootprint(long fpid){
-
+		//Map footprint = new HashMap();
 		Connection conn = getSession().connection();
 		
 		Statement s;
@@ -179,6 +189,8 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 			if(!r.next())return null;
 			
 			PGgeometry geom = (PGgeometry)r.getObject(1);
+			//footprint.put("geotype", new Integer(geom.getGeoType()));
+			//footprint.put("coords", WKT.geomToArray(geom));
 			return WKT.geomToArray(geom);
 			
 		} catch (SQLException e) {
@@ -186,6 +198,7 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 			e.printStackTrace();
 			return null;
 		}
+		//return footprint;
 	}
 	
 	/**
@@ -213,7 +226,10 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 				double[][][] coords = new double[1][][]; 
 				coords = WKT.geomToArray(geom);
 				System.out.println("==>>id=" + id + ";coords length: " + coords.length);
-				footprints.put(id, coords);
+				Map feature = new HashMap();
+				feature.put("geotype",new Integer( geom.getGeoType() ));
+				feature.put("coords", coords);
+				footprints.put(id, feature);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

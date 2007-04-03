@@ -33,7 +33,7 @@ public interface ProjectDAO extends BaseDAO {
 	
     
 	void saveFootprint(ProjectAlternative pa, double[][][] coords, String type) throws Exception;
-	
+	void saveFootprint(ProjectAlternative pa, String fpids) throws Exception;
 	
     Collection getProjects() throws Exception;
     

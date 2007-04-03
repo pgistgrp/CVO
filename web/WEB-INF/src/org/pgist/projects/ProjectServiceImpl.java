@@ -243,9 +243,26 @@ public class ProjectServiceImpl implements ProjectService{
         /*
          * TODO
          */
-        return null;
+    	try{
+    		ProjectAlternative alt = projectDAO.getProjectAlternative(altId);
+    		projectDAO.saveFootprint(alt, coords, shape);
+    		return alt.getId();
+    	}catch(Exception e){
+    		e.printStackTrace();
+    		return null;
+    	}
     }//saveFootprint()
-    
+
+    public Long saveFootprint(Long altId, String fpids) throws Exception {
+    	try{
+    		ProjectAlternative alt = projectDAO.getProjectAlternative(altId);
+    		projectDAO.saveFootprint(alt, fpids);
+    		return alt.getId();
+    	}catch(Exception e){
+    		e.printStackTrace();
+    		return null;
+    	}
+    }//saveFootprint()
     
     public void deleteFootPrint(Long fpid) {
         /*
