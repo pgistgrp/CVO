@@ -21,10 +21,6 @@ import org.pgist.users.User;
  * @author Matt Paulin
  *
  */
-/**
- * @author Matt Paulin
- *
- */
 public class MockProjectDAO implements ProjectDAO {
 
 	//A collection of the objects deleted
@@ -41,6 +37,14 @@ public class MockProjectDAO implements ProjectDAO {
 	}
 	
 	
+	
+	public void saveFootprint(ProjectAlternative pa, String fpids) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 	//A collection of all that was saved;
 	private ArrayList saved = new ArrayList();
 	
