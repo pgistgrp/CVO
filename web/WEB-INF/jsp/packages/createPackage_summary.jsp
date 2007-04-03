@@ -40,6 +40,7 @@
 		<td>${fn:length(userPackage.projects)}</td>
 	</tr>
 </table>
-	<div id="balance" class="${(userPackage.balance > 0) ? 'balance':'negative'}">
+	<div id="balance" class="balance">
 		<h3>Revenues Equal Costs</h3>
 	</div>
+<!-- ${(userPackage.balance > 0) ? 'balance':'negative'}" -->

@@ -76,7 +76,7 @@
 					<li><html:link page="sdlist.do">Review Projects</html:link></li>
 					<li><html:link page="sdlist.do">Review Funding</html:link></li>
 					<li><html:link page="fundingCalc.do?suiteId=200">Funding "Tax Calculator" Game</html:link></li>
-					<li><html:link page="createPackage.do?suiteId=200">Create Personal Package</html:link></li>
+					<li><html:link page="createPackage.do?pkgSuiteId=200&projSuiteId=200&fundSuiteId=200">Create Personal Package</html:link></li>
 					<li><html:link page="helpme.do?pkgsuiteId=1234&critsuiteId=4321">Help Me Tool</html:link></li>
 					<li><html:link page="sdlist.do">Re-weigh Planning Factors</html:link></li>
 				</ul>

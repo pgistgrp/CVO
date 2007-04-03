@@ -14,10 +14,10 @@
 		[x] Initial Skeleton Code (Jordan)
 		[x] Integrate Adam's Layout (Jordan)
 		[ ] setFundingtoPkg and setProjecttoPkg (Jordan and Matt)
-		[ ] SuiteIds (Jordan and Matt)
+		[x] SuiteIds (Jordan and Matt)
 		[ ] Cost to you (Matt)
-		[ ] Pull Summary Partials (Jordan and Matt)
-		[ ] Contains
+		[x] Pull Summary Partials (Jordan and Matt)
+		[ ] pg:contains (Jordan)
 		[ ] What happends when user clicks on "finished"? (Jordan)
 #### -->
 <html>
@@ -79,9 +79,8 @@
 				PackageAgent.setProjectToUserPkg({pkgId:pkgId,altId:altId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
-							alert(data.html)
-							alert("Project alt " + altId + " was successfully set to " + deleting); //replace with saving indicator later
-							//updateSummary(data);
+							//alert("Project alt " + altId + " was successfully set to " + deleting); //replace with saving indicator later
+							updateSummary(data);
 						}else{
 							alert(data.reason);
 						}
@@ -94,8 +93,8 @@
 			
 			function updateSummary(data){
 				//Render Summaries
-				$('summary').innerHTML = data.source.html;
-				$('summaryRepeat').innerHTML = data.source.html;
+				$('yourSummary').innerHTML = data.html;
+				$('yourSummaryRepeat').innerHTML = data.html;
 				
 				//Check balance - if negative balance then disable submit - maybe do this via JSP?
 				/*var balance = $('balance').innerHTML;
@@ -155,7 +154,8 @@
 			<div id="newTable">
 				<div id="left" class="floatLeft">
 					<!-- begin TOP SUMMARY -->
-					<div id="summary" class="summary">
+					<div id="yourSummary" class="summary">
+						<jsp:include page="/WEB-INF/jsp/packages/createPackage_summary.jsp" />
 						<!-- summary goes here -->
 					</div>
 					<input class="finishedButton" type="submit" value="Finished? Submit your package" />
@@ -297,7 +297,8 @@
 		<div class="clearBoth"></div>
 
 				<!-- begin TOP SUMMARY -->
-				<div id="summaryRepeat" class="summary">
+				<div id="yourSummaryRepeat" class="summary">
+					<jsp:include page="/WEB-INF/jsp/packages/createPackage_summary.jsp" />
 					<!-- load summary here -->
 				</div>
 								<input class="finishedButton" type="submit" value="Finished? Submit your package" />
