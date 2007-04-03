@@ -13,15 +13,14 @@
     <!-- Beans Convertor -->
 
 
-	  <convert converter="bean" match="org.pgist.projects.Project"/>
-
-	  <convert converter="bean" match="org.pgist.projects.ProjectAlternative"/>
-
-      <convert converter="bean" match="org.pgist.packages.Package"/>
-
+    <convert converter="bean" match="org.pgist.projects.Project"/>
+    <convert converter="bean" match="org.pgist.projects.ProjectAlternative"/>
+    <convert converter="bean" match="org.pgist.packages.Package"/>
+    <convert converter="bean" match="org.pgist.packages.UsrPackage"/>
+    <convert converter="bean" match="org.pgist.funding.FundingSource"/>      
+    <convert converter="bean" match="org.pgist.funding.FundingSourceAlternative"/>
 
     <!-- DWR Agents -->
-
 
     <create creator="spring" javascript="PackageAgent">
         <param name="beanName" value="packageAgent"/>
