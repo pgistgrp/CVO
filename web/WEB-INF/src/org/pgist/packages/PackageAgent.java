@@ -115,7 +115,8 @@ public class PackageAgent {
         try {
             Long pkgId = new Long((String) params.get("pkgId"));
             Long altId = new Long((String) params.get("altId"));
-            boolean deleting = "true".equals((String) params.get("deleting"));            
+            boolean deleting = "true".equals((String) params.get("deleting"));      
+System.out.println("MATT: UsrPkg = " + pkgId + " altId = " + altId + " deleting = " + deleting);            
 //            UserPackage userPkg;
 //            if(deleting) {
 //            	userPkg = this.packageService.removeFundingAlternative(pkgId, altId);
@@ -125,7 +126,7 @@ public class PackageAgent {
 //                        
 //            request.setAttribute("package", userPkg);
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/createPackage_summary.jsp"));            
-            
+            System.out.println("MATT: put in the string " + map.get("html"));
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
