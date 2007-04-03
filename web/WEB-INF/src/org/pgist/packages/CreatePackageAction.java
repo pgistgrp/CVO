@@ -75,16 +75,19 @@ public class CreatePackageAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-    	String tempPackageSuiteId = request.getParameter("suiteId");
+    	String tempPackageSuiteId = request.getParameter("pkgSuiteId");
+    	String tempProjSuiteId = request.getParameter("projSuiteId");
+    	String tempFundSuiteId = request.getParameter("fundSuiteId");
     	if(tempPackageSuiteId != null) {
     		Long packSuite = new Long(tempPackageSuiteId);
+    		Long projSuite = new Long(tempProjSuiteId);
+    		Long fundSuite = new Long(tempFundSuiteId);
     		    		
     		//Get the current users package
     		UserPackage uPack = this.packageService.createUserPackage(packSuite, WebUtils.currentUser());
     		
-    		//TODO Remove this hack and figure out how to acutally get a list of the funding and project alt refs
-    		request.setAttribute("projectRefs", projectService.getProjectSuite(packSuite).getReferences());
-    		request.setAttribute("fundingRefs", fundingService.getFundingSuite(packSuite).getReferences());
+    		request.setAttribute("projectRefs", projectService.getProjectSuite(projSuite).getReferences());
+    		request.setAttribute("fundingRefs", fundingService.getFundingSuite(fundSuite).getReferences());
     		
     		//Return the user package
     		request.setAttribute("userPkg", uPack);
