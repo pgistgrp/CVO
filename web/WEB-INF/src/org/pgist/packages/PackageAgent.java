@@ -63,14 +63,14 @@ public class PackageAgent {
             Long pkgId = new Long((String) params.get("pkgId"));
             Long altId = new Long((String) params.get("altId"));
             boolean deleting = "true".equals((String) params.get("deleting"));            
-            UserPackage userPkg;
-            if(deleting) {
-            	userPkg = this.packageService.removeProjectAlternative(pkgId, altId);
-            } else {
-            	userPkg = this.packageService.addProjectAlternative(pkgId, altId);
-            }
-                        
-            request.setAttribute("package", userPkg);
+//            UserPackage userPkg;
+//            if(deleting) {
+//            	userPkg = this.packageService.removeProjectAlternative(pkgId, altId);
+//            } else {
+//            	userPkg = this.packageService.addProjectAlternative(pkgId, altId);
+//            }
+//                        
+//            request.setAttribute("package", userPkg);
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/createPackage_summary.jsp"));            
             
             map.put("successful", true);
@@ -116,14 +116,14 @@ public class PackageAgent {
             Long pkgId = new Long((String) params.get("pkgId"));
             Long altId = new Long((String) params.get("altId"));
             boolean deleting = "true".equals((String) params.get("deleting"));            
-            UserPackage userPkg;
-            if(deleting) {
-            	userPkg = this.packageService.removeFundingAlternative(pkgId, altId);
-            } else {
-            	userPkg = this.packageService.addFundingAlternative(pkgId, altId);
-            }
-                        
-            request.setAttribute("package", userPkg);
+//            UserPackage userPkg;
+//            if(deleting) {
+//            	userPkg = this.packageService.removeFundingAlternative(pkgId, altId);
+//            } else {
+//            	userPkg = this.packageService.addFundingAlternative(pkgId, altId);
+//            }
+//                        
+//            request.setAttribute("package", userPkg);
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/createPackage_summary.jsp"));            
             
             map.put("successful", true);
