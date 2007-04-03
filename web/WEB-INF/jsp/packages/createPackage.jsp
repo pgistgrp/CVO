@@ -12,298 +12,324 @@
 	Author: Jordan Isip, Adam Hindman, Issac Yang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[x] Integrate Layout (Adam)
+		[x] Integrate Adam's Layout (Jordan)
 		[ ] Package Id = SuiteID? If so return SuiteId from server (Jordan)
+		[ ] setFundingtoPkg and setProjecttoPkg
+		[ ] SuiteId (Jordan)
+		[ ] Cost to you (Matt)
+		[ ] Pull Summary Partials (Jordan and Matt)
 #### -->
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-	"http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
 <title>Create your own package!</title>
-<style type="text/css" media="screen">
-@import "styles/lit.css";
-</style>
+
+<script src="scripts/tags.js" type="text/javascript"></script>
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script src="scripts/search.js" type="text/javascript"></script>
+<!-- End Site Wide JavaScript -->
+
+<!-- DWR JavaScript Libraries -->
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/util.js'></script>
+<!-- End DWR JavaScript Libraries -->
+
+<script type='text/javascript' src='/dwr/interface/PackageAgent.js'></script>
+<!-- mapping JavaScript -->
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxTwM0brOpm-All5BF6PoaKBxRWWERTgXzfGnh96tes2zXXrBXrWwWigIQ"
+      type="text/javascript"></script>
+<script src="scripts/pgistmap2.js"></script>
+<!-- End of mapping JavaScript -->
 
 <style type="text/css">
-
-.box3{padding:5px}
-
-#balanceRow, #balanceRow2, #balance2, #balance {padding:.5em;margin:.5em 0em;}
-
-.positive{background-color:#B6EEB6;}
-.negative{background-color:#FCAEAE;}
-
-#projects
-{
-width:45%;
-margin:.5em .5em .5em 0em;
-}
-
-#funding
-{
-width:52%;
-margin:.5em 0em .5em .5em;
-}
-
-.odd {background: #D6E7EF}
-.even {background: #ffffff}
-
-
-.listRow
-{
-padding:.3em 0em;
-}
-
-#allListHeader
-{
-text-align:left;
-height:2em;
-}
-
-#projects .col1
-{
-width:250px;
-margin-right:.5em;
-padding-left:.5em;
-}
-
-#projects .col2
-{
-width:80px;
-}
-
-#projects .col3
-{
-margin-left:.5em;
-width:70px;
-text-align:center;
-}		
-
-#funding .col1
-{
-width:200px;
-margin-right:.5em;
-padding-left:.5em;
-}
-
-#funding .col2
-{
-width:80px;
-}
-
-#funding .col3
-{
-margin-left:.5em;
-width:100px;
-}	
-
-#funding .col4
-{
-margin-left:.5em;
-width:80px;
-}	
-
-.packageCol1
-{
-width:160px;
-font-weight:bold;
-}
-
-.packageCol2
-{
-width:250px;
-}
-
-.packageCol3{
-margin-left:1em;
-width:400px;
-font-weight:bold;
-}
-
-.packageCol4{
-width:100px;
-}
-
-h4
-{
-font-size:1em;
-clear:both;
-}
-
-.listHeaderTitles
-{
-font-size:.8em;
-font-weight:bold;
-}
-
-#summary{width:auto;}
-
+@import "styles/lit.css";
+@import "styles/table.css";
+@import "styles/step3c.css";
 </style>
-<script type='text/javascript' src='/dwr/interface/PackageAgent.js'></script>
+
+
 <script type="text/javascript" charset="utf-8">
 			//Global Vars
-			var pkgId = "${package.id}";
+			var pkgId = "${userPkg.id}";
+
 			//End Global Vars
-			
-			function setFundingToPkg(altId,deleting){
-				//alert("id: " + id + " deleting: " + deleting); 
-				PackageAgent.setFundingtoPkg({pkgId:pkgId,altId:altId,deleting:deleting}, {
+
+			function setFundingToUserPkg(altId,deleting){
+				alert("id: " + altId + " deleting: " + deleting); 
+				PackageAgent.setFundingToUserPkg({pkgId:pkgId,altId:altId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
-							alert("Project" + id + " was successfully set to " + deleting); //replace with saving indicator later
-							updateSummary();
+							alert("Funding alt " + altId + " was successfully set to " + deleting); //replace with saving indicator later
+							updateSummary(data);
 						}else{
 							alert(data.reason);
 						}
 					},
 					errorHandler:function(errorString, exception){ 
-					alert("PackageAgent.setProjectToPkg( error:" + errorString + exception);
+					alert("PackageAgent.setFundingToUserPkg( error:" + errorString + exception);
 					}
 				});
 			}
 			
-			function setProjectToPkg(altId,deleting){
+			function setProjectToUserPkg(altId,deleting){
 				//alert("pkgId: " + pkgId + " altId: "+ altId +" deleting: " + deleting); 
-				PackageAgent.setFundingToPkg({pkgId:pkgId,altId:altId,deleting:deleting}, {
+				PackageAgent.setProjectToUserPkg({pkgId:pkgId,altId:altId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
-							updateSummary();
-							alert("Funding" + id + " was successfully set to " + deleting); //replace with saving indicator later
+							alert("Project alt " + altId + " was successfully set to " + deleting); //replace with saving indicator later
+							updateSummary(data);
 						}else{
 							alert(data.reason);
 						}
 					},
 					errorHandler:function(errorString, exception){ 
-					alert("PackageAgent.setFundingToPkg( error:" + errorString + exception);
+					alert("PackageAgent.setProjectToUserPkg( error:" + errorString + exception);
 					}
 				});
 			}
 			
-			function updateSummary(){
-				var balance = $('balance').innerHTML;
+			function updateSummary(data){
+				//Render Summaries
+				alert(data.html);
+				alert(data.source);
+				alert(data.source.html);
+				//$('summary').innerHTML = data.source.html;
+				//$('summaryRepeat').innerHTML = data.source.html;
+				
+				//Check balance - if negative balance then disable submit - maybe do this via JSP?
+				/*var balance = $('balance').innerHTML;
 				balance = parseInt(balance);
-				$('summary').innerHTML = data.html;
-				$('summaryRepeat').innerHTML = data.html;
 				if(balance < 0){
 					$('submitPackage').disable(); //disable submit button
-				}
+				}*/
 			}
+			
+			/* *************** START MAPPING FUNCTIONS *************** */
+			
+			
+			/* *************** END MAPPING FUNCTIONS *************** */
 		</script>
 
 </head>
 <body>
-<!-- Begin header -->
-<div id="header">
-	<jsp:include page="/header.jsp" />
-</div>
-<!-- End header -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-<div id="headerMenu">
-	<div id="headerContainer">
-		<div id="headerTitle" class="floatLeft">
-			<h3 class="headerColor">Step 3: Create Packages</h3>
-		</div>
-		<div class="headerButton floatLeft"> <a href="step3a.html">3a: Review projects</a> </div>
-		<div class="headerButton floatLeft"> <a href="step3b.html">3b: Review funding options</a> </div>
-		<div class="headerButton floatLeft currentBox"> <a href="step3c.html">3c: Create
-				your own package</a> </div>
-		<div id="headerNext" class="floatRight box5"> <a href="step3c.html">Next Step</a> </div>
+	<div id="header">
+		<!-- Begin header -->
+		<jsp:include page="/header.jsp" />
+		<!-- End header -->
 	</div>
-</div>
-<!-- End header menu -->
-<!-- #container is the container that wraps around all the main page content -->
-<div id="container">
-	<!-- begin "overview and instructions" area -->
-	<div id="overview" class="box2">
-		<h3>Overview and Instructions</h3>
-		<p>How are we going to pay for improvements to the regional transportation system?
-			Some of the money for improvements comes from state and federal government. However,
-			all of the projects you reviewed in Step 3A are not yet fully funded by these
-			sources, and many are not funded at all. The purpose of the regional transportation
-			ballot measure is to fund some of these projects with new regional tax increases.</p>
-		<p>Below you can review and discuss five different kinds of regional tax increases
-			that can be used to pay for transportation improvements.</p>
-	</div>
-	<!-- end overview -->
-	<FORM action="packageAction.do" method="post">
-		<div id="createPackage">
-			<!-- begin summary -->
-			<div id="summary" class="box3">
-			<!-- load summary via DWR -->
+	<!-- End header -->
+	<!-- Begin header menu - The wide ribbon underneath the logo -->
+	<div id="headerMenu">
+		<div id="headerContainer">
+			<div id="headerTitle" class="floatLeft">
+				<h3 class="headerColor">Step 3: Create Packages</h3>
 			</div>
-			<!-- end summary -->
-			
-			<!--Project list CONTAINER -->
-			<div class="floatLeft" id="projects">
-				<h3 class="headerColor">Create your personal transportation package</h3>
-				<div id="allListHeader">
-					<!--begin HEADER of Project list-->
-					<div class="listHeaderHeader box4">
-						<div class="col1 floatLeft"> <span class="listHeaderTitles">Project</span> </div>
-						<div class="col2 floatLeft"> <span class="listHeaderTitles">Money Needed</span> </div>
-						<div class="col3 floatLeft"> <span class="listHeaderTitles">County</span> </div>
+			<div class="headerButton floatLeft "> <a href="step3a.html">3a: Review
+					projects</a> </div>
+			<div class="headerButton floatLeft "> <a href="step3b.html">3b: Review funding
+					options</a> </div>
+			<div class="headerButton floatLeft currentBox "> <a href="step3c.html">3c: Create your own
+					package</a> </div>
+			<div id="headerNext" class="floatRight box5"> <a href="step3b.html">Next Step</a> </div>
+		</div>
+	</div>
+	<!-- End header menu -->
+	<!-- #container is the container that wraps around all the main page content -->
+	<div id="container">
+		<!-- begin "overview and instructions" area -->
+		<div id="overview" class="box2">
+			<h3>Overview and Instructions</h3>
+			<p>Criteria are used to help Evaluate which proposed transportation projects are
+				best suited to address problems with our transportation system. Below, these criteria
+				have been associated with the concern themes discussed in the previous step. Please
+				review these criteria and the associated themes. Do these criteria adequately
+				reflect your concerns and the summaries? What criteria might be useful in evaluating
+				proposed transportation projects?</p>
+			<p><a href="readmore.jsp">Read more about how this step fits into the bigger picture</a>.</p>
+		</div>
+		<!-- end overview -->
+		<!-- begin Object -->
+		<div id="object">
+			<!-- begin NewTable-->
+			<div id="newTable">
+				<div id="left" class="floatLeft">
+					<!-- begin TOP SUMMARY -->
+					<div id="summary" class="summary">
+						<!-- summary goes here -->
 					</div>
-				</div>
-				<!--end HEADER of Project list-->
-				<!-- begin all PROJECTS -->
-				<div>
-					<!--begin PROJECT LOOP-->
-					<c:forEach var="projectRef" items="${projectRefs}" varStatus="loop">
-						<h4 class="headerColor">${projectRef.project.name}</h4>
-						<c:choose>
-							<c:when test="${projectRef.project.inclusive}"><!-- radio buttons -->
-								<div class="listRow">
-									<div class="col1 floatLeft">
-										<label><input name="proj-${projectRef.project.id}" type="radio" CHECKED /> Do Nothing</label>
-									</div>
-									<div class="clearBoth"></div>
-								</div>
-								<c:forEach var="alternative" items="${projectRef.project.alternatives}" varStatus="loop">
-									<div class="listRow">
-										<div class="col1 floatLeft">
-										<label><input type="radio" name="proj-${project.id}" onchange="setProjectToPkg('${alternative.id}', this.checked)" />${alternative.name}</label>
-										</div>
-										<div class="col2 floatLeft">${alternative.cost} million</div>
-										<div class="col3 floatLeft">${alternative.county}</div>
-										<div class="clearBoth"></div>
-									</div>
-								</c:forEach>
-							</c:when>
-							<c:otherwise><!-- checkboxes -->
-								<c:forEach var="alternative" items="${projectRef.project.alternatives}" varStatus="loop">
-									<div class="listRow row">
-										<div class="col1 floatLeft">
-											<label><input type="checkbox" name="proj-${project.id}" onchange="setProjectToPkg('${alternative.id}', this.checked)"/><!-- end input --> ${alternative.name}</label>
-										</div>
-										<div class="col2 floatLeft">${alternative.cost} million</div>
-										<div class="col3 floatLeft">${alternative.county}</div>
-										<div class="clearBoth"></div>
-									</div>
-								</c:forEach>
-							</c:otherwise>
-						</c:choose>
+					<input class="finishedButton" type="submit" value="Finished? Submit your package" />
+					<!-- end TOP SUMMARY -->
+					<div class="clearBoth"></div>
+					<h3>Select Projects to Include in your Package</h3>
+					<input type="button" class="helpMeButton" onclick="location.href='helpme.do?suiteId=${suite.id}'" value="Help me" />
+					<!-- begin collapsible list of projects -->
+					<table cellpadding=0 cellspacing=0>
+						<!-- begin CATEGORY LABEL -->
+						<tr class="tableHeading">
+							<th colspan="2" class="first">All Proposed Projects</th>
+							<th>Money Needed</th>
+						</tr>
 						
-					</c:forEach>
-
-					<!-- end PROJECT LOOP -->
+						<c:forEach var="category" begin="1" end="2">
+							<!-- start road projects -->
+							<tr>
+								<c:choose>
+									<c:when test="${category == 1}">
+										<td class="category" colspan="3"><strong>Road Projects</strong></td>
+									</c:when>
+									<c:otherwise>
+										<td class="category" colspan="3"><strong>Transit Projects</strong></td>
+									</c:otherwise>
+								</c:choose>
+								
+							</tr>
+							<!-- end CATEGORY LABEL -->
+							<!-- ******* LOOP ENTIRE PROJECT ******** -->
+							<c:forEach var="projectRef" items="${projSuite.references}" varStatus="loop">
+								<c:if test="${projectRef.project.transMode == category}">						
+									<!-- begin PROJECT -->
+									<tr class="fundingType">
+										<td class="fundingSourceItem">${projectRef.project.name} Options</td>
+										<td colspan="2">
+											<c:if test="${projectRef.project.inclusive}">
+												One option will be chosen
+											</c:if>
+										</td>
+									</tr>
+									<!-- end PROJECT -->
+									<tr class="objectives" id="objective1">
+										<td colspan="3">
+											<table>
+												<c:forEach var="alternative" items="${projectRef.project.alternatives}" varStatus="loop">
+													<tr>
+														<td>
+															<label>
+																<c:choose>
+																	<c:when test="${projectRef.project.inclusive}">
+																		<input type="radio" name="proj-${project.id}" onchange="setProjectToUserPkg('${alternative.id}', 'true')" />
+																	</c:when>
+																	<c:otherwise>
+																		<input type="checkbox" name="proj-${project.id}" onchange="setProjectToUserPkg('${alternative.id}', 'true')" />
+																	</c:otherwise>
+																</c:choose>
+																${alternative.name}
+															</label>
+														</td>
+														<td class="cost">$${alternative.cost} million</td>
+													</tr>
+												</c:forEach>
+												<c:if test="${projectRef.project.inclusive}">
+													<tr>
+														<td>
+															<label>
+															<input type="radio" checked="checked" name="proj-${project.id}" onchange="setProjectToUserPkg('${alternative.id}', 'false')" />
+															Do nothing</label>
+														</td>
+														<td class="cost">&nbsp;</td>
+													</tr>
+												</c:if>
+											</table>
+										</td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						
+							<!-- ******* END LOOP ENTIRE PROJECT ******** -->
+						</c:forEach>
+					</table>
+					<!-- end collapsible project list -->
 				</div>
-				<!-- end all PROJECTS -->
-			</div>
-			<!-- End of Project list CONTAINER-->
-			
+				<!-- end left -->
+				<!-- begin cell containing #right -->
+				<div id="right" class="floatRight">
+				<!-- begin GOOGLE MAP -->
+				<div id="map">
+				<img src="/images/gmaps.gif" width="520">
+				</div>
+				<!-- end GOOGLE MAP -->
+					<table cellpadding=0 cellspacing=0>
+						<tr class="tableHeading">
+							<th class="first">Funding Source</th>
+							<th>Money Raised</th>
+							<th>Cost to the avg. taxpayer</th>
+							<th>Cost to you</th>
+						</tr>
+						<!-- begin FUNDING source -->
+						<c:forEach var="fundingRef" items="${fundSuite.references}" varStatus="loop">
+							<tr class="fundingType">
+								<td class="fundingSourceItem">${fundingRef.source.name}</td>
+								<td colspan="3">One option will be chosen</td>
+							</tr>
+							<!-- end FUNDING source -->
+							<!-- begin OPTIONS -->
+							<c:forEach var="alternative" items="${fundingRef.source.alternatives}" varStatus="loop">
+								<tr>
+									<td class="fundingSourceItem">
+										<label>
+										<input type="radio" checked="checked" name="source-${fundingRef.source.id}" onchange="setFundingToUserPkg('${alternative.id}', 'true')" />
+										${alternative.name}</label>
+									</td>
+									<td>${alternative.revenue}</td>
+									<td>$${alternative.avgCost}</td>
+									<td>???</td>
+								</tr>
+							</c:forEach>
+							<tr>
+								<td class="fundingSourceItem">
+									<label>
+									<input type="radio" checked="checked" name="source-${fundingRef.source.id}" onchange="setFundingToUserPkg('${alternative.id}', 'false')" />
+									Do nothing</label>
+								</td>
+								<td class="cost">&nbsp;</td>
+								<td class="cost">&nbsp;</td>
+								<td class="cost">&nbsp;</td>
+							</tr>
+						</c:forEach>
+						<!-- end OPTIONS -->
 
-		<div class="padding5">
-			<!--Finished submit buttons-->
-			<h3 class="centerAlign">Finished?</h3>
-			<p class="centerAlign">
-				<input type="button" id="submitPackage" value="Yes - Submit My Package!"> 
-				<!-- this should only be enabled if funding exceeds cost -->
-				<input type="reset" value="No - Start Over!">
-			</p>
-			<div class="clearBoth"></div>
+					</table>
+				</div>
+			</div>
+			<!-- end NewTable-->
 		</div>
-	</form>
-</div>
+		<!-- end Object-->
+		<div class="clearBoth"></div>
+
+				<!-- begin TOP SUMMARY -->
+				<div id="summaryRepeat" class="summary">
+					<!-- load summary here -->
+				</div>
+								<input class="finishedButton" type="submit" value="Finished? Submit your package" />
+				<!-- end TOP SUMMARY -->
+				<div class="clearBoth"></div>
+
+	</div>
+	<!-- end container -->
+	<!-- start feedback form -->
+	<pg:feedback id="feedbackDiv" action="cctView.do"/>
+	<!-- end feedback form -->
+	<!-- Begin header menu - The wide ribbon underneath the logo -->
+	<div id="headerMenu">
+		<div id="headerContainer">
+			<div id="headerTitle" class="floatLeft">
+				<h3 class="headerColor">Step 3: Create Packages</h3>
+			</div>
+			<div class="headerButton floatLeft "> <a href="step3a.html">3a: Review
+					projects</a> </div>
+			<div class="headerButton floatLeft "> <a href="step3b.html">3b: Review funding
+					options</a> </div>
+			<div class="headerButton floatLeft currentBox"> <a href="step3c.html">3c: Create your own
+					package</a> </div>
+			<div id="headerNext" class="floatRight box5"> <a href="step3b.html">Next Step</a> </div>
+		</div>
+	</div>
+	<!-- End header menu -->
+	<!-- Begin footer -->
+	<div id="footer">
+		<jsp:include page="/footer.jsp" />
+	</div>
+	<!-- End footer -->
 </body>
 </html>

@@ -13,54 +13,33 @@
 	Author: Jordan Isip, Adam Hindman, Issac Yang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[x] Integrate Layout (Adam)
-		[x] Add "negative" and "positive" CSS classes - to indicate balance color (Adam)
+		[ ] Integrate Layout (Adam)
+		[ ] Add "negative" and "positive" CSS classes - to indicate balance color (Adam)
 		[ ] Test and Refine (Jordan)
 #### -->
 
-
-<!--Package Summary-->
-<h3 class="headerColor">Your package summary</h3>
-<!--Title-->
-<div class="floatLeft packageCol1">
-	<div>
-		<!--Total Cost-->
-		<div>Total cost</div>
+<table>
+	<tr>
+		<td><h3>Total Cost</h3></td>
+		<td>${userPackage.totalCost} million</td>
+	</tr>
+	<tr>
+		<td><h3>Total funding</h3></td>
+		<td>${userPackage.totalFunding} million</td>
+	</tr>
+	<tr>
+		<td><strong>Cost to you:</strong></td>
+		<td>${userPackage.yourCost} per year</td>
+	</tr>
+	<tr>
+		<td><strong>Cost to the average resident:</strong></td>
+		<td>${userPackage.avgCost} per year</td>
+	</tr>
+	<tr>
+		<td><strong>Number of projects in your package:</strong></td>
+		<td>${fn:length(userPackage.projects)}</td>
+	</tr>
+</table>
+	<div id="balance" class="${(userPackage.balance > 0) ? 'balance':'negative'}">
+		<h3>Revenues Equal Costs</h3>
 	</div>
-	<div>
-		<!--Total funding-->
-		<div>Total funding</div>
-	</div>
-	<div>
-		<!--Balance-->
-		<div id="balanceRow" class="${(userPackage.balance > 0) ? 'negative':'positive'}">Balance</div>
-	</div>
-</div>
-<div class="floatLeft packageCol2">
-	<div>
-		<div id="totalCost">${package.totalCost}</div>
-		<div id="totalFunding">${package.totalFunding}</div>
-		<div class="${(userPackage.balance > 0) ? 'negative':'positive'}" id="balance">${package.balance}</div>
-	</div>
-</div>
-<div class="floatLeft packageCol3">
-	<div>
-		<!--Cost to you-->
-		<div>Cost to you</div>
-	</div>
-	<div>
-		<!--Cost to the average resident-->
-		<div>Cost to the average resident</div>
-	</div>
-	<div>
-		<!--Number of projects in your package-->
-		<div>Number of projects in your package</div>
-	</div>
-</div>
-<div class="floatLeft packageCol4">
-	<div id="costToYou">${package.yourCost}</div>
-	<div id="costToAvg">${stat.avgCost}</div>
-	<div id="projNum">${fn:length(package.projects)}</div>
-</div>
-<div class="clearBoth"></div>
-<!--End of package summary-->

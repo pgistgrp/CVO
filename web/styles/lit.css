@@ -18,7 +18,7 @@ padding:0px;
 margin:0px;
 width:100%;
 font-family:arial,sans-serif;
-font-size:.8em;
+font-size:10pt;
 background: url('images/background-main.jpg') repeat-x #FFFBFF;
 }
 
@@ -118,6 +118,10 @@ border: 1px solid #B4D579;
 border: 1px solid #ADCFDE;
 background: #D6E7EF;
 }
+
+.box11 {border:1px solid #eee;padding:5px;}
+
+.box12 {border:1px solid #ddd;padding:10px;}
 
 .headingColor {background:#ADCFDE;}
 

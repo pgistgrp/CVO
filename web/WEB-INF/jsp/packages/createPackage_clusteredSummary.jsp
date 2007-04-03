@@ -18,12 +18,28 @@
 		[ ] Test and Refine (Jordan)
 #### -->
 
-<h3>Your package summary</h3>
-<p>Total Cost: ${userPackage.totalCost}</p>
-<p>Total Funding: ${userPackage.totalFunding}</p>
-<p>Cost to you: ${userPackage.yourCost}</p>
-<p>Cost to the average resident: ${userPackage.avgCost}</p>
-<p>Number of projects in your package: ${fn:length(userPackage.projects)}</p>
-
-<h3 id="balance" class="${(userPackage.balance > 0) ? 'negative':'positive'}">Balance: ${userPackage.balance}</h3>
-<!--Adam - Add negative and positive CSS classes-->
+<table>
+	<tr>
+		<td><h3>Total Cost</h3></td>
+		<td>${userPackage.totalCost} million</td>
+	</tr>
+	<tr>
+		<td><h3>Total funding</h3></td>
+		<td>${userPackage.totalFunding} million</td>
+	</tr>
+	<tr>
+		<td><strong>Cost to you:</strong></td>
+		<td>${userPackage.yourCost} per year</td>
+	</tr>
+	<tr>
+		<td><strong>Cost to the average resident:</strong></td>
+		<td>${userPackage.avgCost} per year</td>
+	</tr>
+	<tr>
+		<td><strong>Number of projects in your package:</strong></td>
+		<td>${fn:length(userPackage.projects)}</td>
+	</tr>
+</table>
+	<div class="${(userPackage.balance > 0) ? 'balance':'negative'}">
+		<h3>Revenues Equal Costs</h3>
+	</div>

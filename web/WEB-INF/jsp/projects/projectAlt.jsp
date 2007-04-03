@@ -37,8 +37,6 @@
 	<script src="scripts/qTip.js" type="text/javascript"></script>
 	<script type='text/javascript' src='/dwr/engine.js'></script>
 	<script type='text/javascript' src='/dwr/util.js'></script>
-	<script src="scripts/prototype.js" type="text/javascript"></script>
-	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 	<script type="text/javascript">
 
 // Loop through the 'objectives' divs, show them, and change the icon.

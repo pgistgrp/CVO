@@ -1,0 +1,68 @@
+.criteriaListRow
+{
+padding:.3em 0em;
+background:#E4ECEF;
+}
+
+.criteriaListHeader h4
+{
+margin:0px;
+}
+
+
+#allCriteriaList
+{
+text-align:left;
+width:950px;
+}
+
+.even {background: #ffffff}
+
+.weighCriteriaCol1
+{
+width:220px;
+padding:5px;
+}
+
+.weighCriteriaCol1 img
+{
+margin:0px 3px 0px 0px;
+vertical-align:middle;
+border:0px;
+}
+
+.weighCriteriaCol2
+{
+width:710px;
+}
+
+
+h4
+{
+font-size:1em;
+margin:0px;
+padding:0px;
+}
+
+.objectives
+{
+padding:.5em;
+background:#FFFBFF;
+}
+
+.label 
+{
+float:left;
+font-size:.8em;
+width:210px;
+text-align:right;
+margin-right:5px;
+}
+
+.value {float:right;width:495px;}
+
+ul#fundingSourceList{list-style:none}
+
+.weighCriteriaCol2 p {margin:0px;padding:0px;}
+
+input {margin:5px 0px 5px 5px;font-size:12pt;}

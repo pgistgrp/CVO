@@ -1,0 +1,191 @@
+
+/* ------------- */
+/* Step 5 global */
+/* ------------- */
+tr.odd {background:none;}
+#packages .odd, #participants .odd {background:#E4F1F5}
+
+.section
+{
+margin-bottom:3em;
+}
+
+#participants td, #packages td {padding:5px;}
+
+#participants h4 {font-size:1.3em;}
+
+blockquote
+{
+background:none;
+border:none;
+line-height:normal;
+color:inherit;
+}
+
+.even {background:none;}
+
+/* ---------- */
+/* Voting Box */
+/* ---------- */
+
+#votingBox {padding:10px;margin-bottom:1em;}
+#votingBox .left, #votingBox .right {padding:10px;}
+#votingBox .left {float:left;width:70%;}
+
+#votingBox .right {
+float:right;
+width:25%;
+text-align:center;
+font-size:1.2em;
+padding-top:0px;
+}
+
+#votingBox .right p {
+text-align:left;
+width:90%;
+margin:10px auto;
+}
+
+#votingBox input {padding:10px 0px;width:5em;margin:auto .5em;}
+
+/* ---------------------- */
+/* Planning Factors Table */
+/* ---------------------- */
+
+#planningFactors .criteriaListRow
+{
+padding:.3em 0em;
+}
+
+#planningFactors .criteriaListHeader
+{
+background:#D6E7EF;
+padding-top:5px;
+padding-bottom:5px;
+font-size:1.2em;
+}
+
+#planningFactors #allCriteriaList
+{
+text-align:left;
+}
+
+
+#planningFactors .weighCriteriaCol1
+{
+width:200px;
+margin:auto .5em;
+}
+
+#planningFactors .weighCriteriaCol2
+{
+width:315px;
+}
+
+#planningFactors .weighCriteriaCol3
+{
+margin-left:.5em;
+width:395px;
+}	
+
+#planningFactors h4
+{
+font-size:1em;
+margin:0px;
+padding:0px;
+}
+
+#planningFactors .objectives
+{
+padding:.5em;
+} 
+
+/* ----------------- */
+/* Project Selection */
+/* ----------------- */
+
+#projects table {width:100%;margin-bottom:40px;}
+
+#projects th {
+background:#D6E7EF;
+padding:10px 5px;
+color:#000;
+}
+
+#projects .col1 {
+padding-left:.5em;
+width:35%;
+}
+
+#projects .col2{text-align:center;width:10%;}
+#projects .col3{text-align:center;width:15%;}
+#projects .col4{text-align:center;width:20%;}
+#projects .col5{text-align:center;width:20%;}
+
+#projects .project{font-weight:bold;height:30px;font-size:1.1em;}
+
+/* -------- */
+/* Packages */
+/* -------- */
+
+.projSummary {margin-top:10px;}
+.obj-left, .obj-right {margin:0em;}
+
+.obj-left{
+width:54%;
+border-right:1px solid #ADCFDE;
+}
+
+.obj-right{
+width:45.85%;
+}
+
+.obj-left .listRow, .obj-right .listRow{
+padding:.3em 0em;
+}
+
+#allListHeader{
+text-align:left;
+}
+
+#voteResults {margin:2em auto;}
+
+h4.subHeading {padding-left:5px}
+
+.obj-left .projCol1{
+width:325px;
+font-size:1.1em; 
+margin-left:10px;
+}
+
+.obj-left .projCol2{
+width:100px;
+text-align:center;
+}
+
+.obj-left .projCol3{
+width:60px;
+text-align:center;
+}
+
+
+.obj-right .fundingCol1{
+width:300px;
+margin-left:15px;
+font-size:1.1em;
+}
+
+.obj-right .fundingCol2{
+width:100px;
+text-align:center;
+}
+
+.obj-left .heading, .obj-right .heading {
+background:#D6E7EF;
+margin:0px;
+padding:5px 0px;
+}
+
+.packageNum {float:left;width:50%;}
+.totalCost {float:left;font-size:.8em;width:15%;}
+.yearlyCostToAvg {float:left;font-size:.8em;width:35%;text-align:right;}

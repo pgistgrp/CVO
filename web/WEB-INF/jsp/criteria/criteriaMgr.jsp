@@ -11,12 +11,13 @@
 	Page: Criteria Manager
 	Description: Manage all criteria for a given workflow instance.
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Isaac Yang
+	     Front End: Jordan Isip, Adam Hindman
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] Barebones JavaScript (Jordan)
 		[x] Integrate all form elements (Jordan)
+		[ ] Refactor with SuiteId (Jordan and John)
 #### -->
 <html:html>
 <head>

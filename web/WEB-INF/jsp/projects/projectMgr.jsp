@@ -159,7 +159,7 @@
 			}
 			
 		f +='</select><br />\
-			<label><input type="checkbox" id="inclusive' + id +'" '+inclusiveChecked+' /> The user can only select one option in this group.</label>\
+			<label><input type="checkbox" id="inclusive' + id +'" '+inclusiveChecked+' /> Options for this project are mutually exclusive.</label>\
 			<p><input type="submit" value="Submit"></p>';
 		$("frmProject"+id).innerHTML = f;
 
@@ -228,7 +228,7 @@
 			<label>Agency:</label>\
 			<input id="txtAltAgency'+ altId +'" type="text" value="'+ sponsor +'" size="25"><br />\
 			<label>Cost:</label>\
-			<input id="txtAltCost'+ altId +'" type="text" value="'+ cost +'" size="25"><br />\
+			<input id="txtAltCost'+ altId +'" type="text" value="'+ cost +'" size="25"> (in millions)<br />\
 			<label>County:</label>\
 			<input id="txtAltCounty'+ altId +'" type="text" value="'+ county +'" size="25"><br />\
 			<label>Short Description:</label>\

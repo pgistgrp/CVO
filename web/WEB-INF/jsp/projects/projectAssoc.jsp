@@ -42,7 +42,7 @@
 <!--Project Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
 <script type="text/javascript" charset="utf-8">
-	var suiteId = ${suite.id}; //hardcoded until workflow manager is available
+	var suiteId = ${suite.id};
 
 	function checkAltsInProject(projId,checked){
 		var alts = document.getElementsByName("projectAlts" + projId);
@@ -62,7 +62,7 @@
 	function setProjectDefine(altId,checked){
 		operation = (checked) ? "add" : "remove";
 		
-		//alert("suiteId: " + suiteId + " altId: " + altId + " operation: " + operation); 
+		alert("suiteId: " + suiteId + " altId: " + altId + " operation: " + operation); 
 		ProjectAgent.setProjectDefine({suiteId:suiteId,altId:altId,operation:operation}, {
 			callback:function(data){
 				if (data.successful){
