@@ -13,11 +13,11 @@
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] Integrate Adam's Layout (Jordan)
-		[ ] Package Id = SuiteID? If so return SuiteId from server (Jordan)
-		[ ] setFundingtoPkg and setProjecttoPkg
-		[ ] SuiteId (Jordan)
+		[ ] setFundingtoPkg and setProjecttoPkg (Jordan and Matt)
+		[ ] SuiteIds (Jordan and Matt)
 		[ ] Cost to you (Matt)
 		[ ] Pull Summary Partials (Jordan and Matt)
+		[ ] What happends when user clicks on "finished"? (Jordan)
 #### -->
 <html>
 <head>
@@ -44,16 +44,16 @@
 <!-- End of mapping JavaScript -->
 
 <style type="text/css">
-@import "styles/lit.css";
-@import "styles/table.css";
-@import "styles/step3c.css";
+	@import "styles/lit.css";
+	@import "styles/table.css";
+	@import "styles/step3c.css";
 </style>
 
 
 <script type="text/javascript" charset="utf-8">
 			//Global Vars
 			var pkgId = "${userPkg.id}";
-
+		
 			//End Global Vars
 
 			function setFundingToUserPkg(altId,deleting){
@@ -74,12 +74,13 @@
 			}
 			
 			function setProjectToUserPkg(altId,deleting){
-				//alert("pkgId: " + pkgId + " altId: "+ altId +" deleting: " + deleting); 
+				alert("pkgId: " + pkgId + " altId: "+ altId +" deleting: " + deleting); 
 				PackageAgent.setProjectToUserPkg({pkgId:pkgId,altId:altId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
+							alert(data.html)
 							alert("Project alt " + altId + " was successfully set to " + deleting); //replace with saving indicator later
-							updateSummary(data);
+							//updateSummary(data);
 						}else{
 							alert(data.reason);
 						}
@@ -92,11 +93,8 @@
 			
 			function updateSummary(data){
 				//Render Summaries
-				alert(data.html);
-				alert(data.source);
-				alert(data.source.html);
-				//$('summary').innerHTML = data.source.html;
-				//$('summaryRepeat').innerHTML = data.source.html;
+				$('summary').innerHTML = data.source.html;
+				$('summaryRepeat').innerHTML = data.source.html;
 				
 				//Check balance - if negative balance then disable submit - maybe do this via JSP?
 				/*var balance = $('balance').innerHTML;
@@ -163,7 +161,7 @@
 					<!-- end TOP SUMMARY -->
 					<div class="clearBoth"></div>
 					<h3>Select Projects to Include in your Package</h3>
-					<input type="button" class="helpMeButton" onclick="location.href='helpme.do?suiteId=${suite.id}'" value="Help me" />
+					<input type="button" class="helpMeButton" onclick="window.open('helpme.do?pkgId=${userPkg.id}','helpMe','width=730,height=500,resizable=yes,scrollbars=yes');" value="Help me" />
 					<!-- begin collapsible list of projects -->
 					<table cellpadding=0 cellspacing=0>
 						<!-- begin CATEGORY LABEL -->
@@ -187,7 +185,7 @@
 							</tr>
 							<!-- end CATEGORY LABEL -->
 							<!-- ******* LOOP ENTIRE PROJECT ******** -->
-							<c:forEach var="projectRef" items="${projSuite.references}" varStatus="loop">
+							<c:forEach var="projectRef" items="${projectRefs}" varStatus="loop">
 								<c:if test="${projectRef.project.transMode == category}">						
 									<!-- begin PROJECT -->
 									<tr class="fundingType">
@@ -257,7 +255,7 @@
 							<th>Cost to you</th>
 						</tr>
 						<!-- begin FUNDING source -->
-						<c:forEach var="fundingRef" items="${fundSuite.references}" varStatus="loop">
+						<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
 							<tr class="fundingType">
 								<td class="fundingSourceItem">${fundingRef.source.name}</td>
 								<td colspan="3">One option will be chosen</td>
