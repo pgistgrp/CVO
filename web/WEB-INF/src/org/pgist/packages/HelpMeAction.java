@@ -6,6 +6,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.criteria.CriteriaService;
 import org.pgist.criteria.CriteriaSuite;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -59,22 +60,19 @@ public class HelpMeAction extends Action {
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
     	String tempPkgSuiteId = request.getParameter("pkgsuiteId");
-    	PackageSuite pkgSuite = null;
     	if(tempPkgSuiteId != null) {
     		Long packSuite = new Long(tempPkgSuiteId);
-    		pkgSuite = this.packageService.getPackageSuite(packSuite);
-    	}    	
+    		//Get the current users package
+    		UserPackage uPack = this.packageService.createUserPackage(packSuite, WebUtils.currentUser());
+        	request.setAttribute("usrPkg", uPack);
+       	}    	
         
     	String tempCritsuiteId = request.getParameter("critsuiteId");
     	CriteriaSuite critSuite = null;
     	if(tempPkgSuiteId != null) {
     		critSuite = this.criteriaService.getCriteriaSuiteById(new Long(tempCritsuiteId));
+        	request.setAttribute("critSuite", critSuite);
     	} 
-
-    	//TODO get the user package from the pkgSuite
-    	UserPackage userPkg;
-    	//request.setAttribute("usrPkg", userPkg);
-    	request.setAttribute("critSuite", critSuite);
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
