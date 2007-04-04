@@ -65,7 +65,6 @@ public class PackageServiceImpl implements PackageService {
 		uPack.getProjAltRefs().add(altRef);
 		
 		this.packageDAO.save(uPack);
-		this.projectDAO.save(altRef);
 
 		return uPack;
 	}
@@ -85,7 +84,6 @@ public class PackageServiceImpl implements PackageService {
 			if(tempRef.getId().equals(altId)) {
 				uPack.getProjAltRefs().remove(tempRef);
 				this.packageDAO.save(uPack);
-				this.projectDAO.save(tempRef);
 				return uPack;
 			}
 		}
@@ -108,7 +106,6 @@ public class PackageServiceImpl implements PackageService {
 		//Add the reference
 		uPack.getFundAltRefs().add(altRef);
 		
-		this.packageDAO.save(uPack);
 		this.fundingDAO.save(altRef);
 
 		return uPack;
@@ -128,7 +125,6 @@ public class PackageServiceImpl implements PackageService {
 			tempRef = alts.next();
 			if(tempRef.getId().equals(funAltRefId)) {
 				uPack.getFundAltRefs().remove(tempRef);
-				this.packageDAO.save(uPack);
 				this.fundingDAO.save(tempRef);
 				return uPack;
 			}
