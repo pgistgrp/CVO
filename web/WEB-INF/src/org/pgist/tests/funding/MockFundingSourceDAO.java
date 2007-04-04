@@ -5,12 +5,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.pgist.funding.Consumption;
 import org.pgist.funding.FundingDAO;
 import org.pgist.funding.FundingSource;
 import org.pgist.funding.FundingSourceAltRef;
 import org.pgist.funding.FundingSourceAlternative;
 import org.pgist.funding.FundingSourceRef;
 import org.pgist.funding.FundingSourceSuite;
+import org.pgist.funding.ZipCodeFactor;
+import org.pgist.funding.ZipCodeGas;
 import org.pgist.packages.Package;
 import org.pgist.projects.Project;
 import org.pgist.projects.ProjectAltRef;
@@ -122,4 +125,29 @@ public class MockFundingSourceDAO implements FundingDAO {
 	public void save(Object object) throws Exception {
 		this.saved.add(object);
 	}
+	public Consumption getConsumptionByZipCode(Float incomeLevel) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public ZipCodeFactor getZipCodeFactorByZipCode(String zipcode) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public ZipCodeGas getZipCodeGasByZipCode(String zipcode) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void save(Consumption zcg) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	public void save(ZipCodeFactor zcg) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	public void save(ZipCodeGas zcg) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
