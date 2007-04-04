@@ -72,6 +72,12 @@
         <SystemInit action="createdb" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
     
+    <target name="loadTaxData" depends="compile">
+        <taskdef name="TaxCalcDataLoader" classname="org.pgist.tests.TaxCalcDataLoader" classpathref="classpath">
+        </taskdef>
+        <TaxCalcDataLoader configPath="${web}/WEB-INF/config" dataPath="${base}/initdata/taxcalc"/>
+    </target>
+    
     
     <target name="workflow" depends="mapping">
         <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
