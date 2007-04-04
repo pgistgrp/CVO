@@ -35,6 +35,8 @@ public class UserCommute implements Serializable {
     
     private float annualConsume;
     
+    private float costPerGallon;
+    
     
     /**
      * @return
@@ -165,6 +167,21 @@ public class UserCommute implements Serializable {
     public void setAnnualConsume(float annualConsume) {
         this.annualConsume = annualConsume;
     }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.property not-null="true"
+     */
+	public float getCostPerGallon() {
+		return costPerGallon;
+	}
+
+
+	public void setCostPerGallon(float costPerGallon) {
+		this.costPerGallon = costPerGallon;
+	}
 
 
 }//class UserCommute
