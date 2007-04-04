@@ -79,6 +79,9 @@
                <value>org/pgist/criteria/CriteriaUserWeight.hbm.xml</value>
                <value>org/pgist/criteria/CriteriaRef.hbm.xml</value>
                <value>org/pgist/criteria/CriteriaSuite.hbm.xml</value>
+               <value>org/pgist/funding/Consumption.hbm.xml</value>
+               <value>org/pgist/funding/ZipCodeGas.hbm.xml</value>
+               <value>org/pgist/funding/ZipCodeFactor.hbm.xml</value>
                <value>org/pgist/funding/FundingSource.hbm.xml</value>
                <value>org/pgist/funding/FundingSourceAlternative.hbm.xml</value>
                <value>org/pgist/funding/FundingSourceRef.hbm.xml</value>
