@@ -1,6 +1,7 @@
 package org.pgist.funding;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.pgist.projects.ProjectSuite;
 import org.pgist.system.BaseDAO;
@@ -29,5 +30,13 @@ public interface FundingDAO extends BaseDAO {
 	void delete(FundingSourceAltRef altRef);
 	FundingSourceAltRef getFundingSourceAlternativeReference(Long altId);
 	void delete(FundingSourceRef fundingRef);
+	
+	
+    public ZipCodeGas getZipCodeGasByZipCode(String zipcode) throws Exception;
+	public void save(ZipCodeGas zcg) throws Exception;
+	public ZipCodeFactor getZipCodeFactorByZipCode(String zipcode) throws Exception;    
+	public void save(ZipCodeFactor zcg) throws Exception;
+    public Consumption getConsumptionByZipCode(Float incomeLevel) throws Exception;
+	public void save(Consumption zcg) throws Exception;	
     
 }//interface FundingDAO

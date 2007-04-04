@@ -3,8 +3,6 @@ package org.pgist.funding;
 import java.util.Collection;
 import java.util.List;
 
-import org.pgist.projects.ProjectAltRef;
-import org.pgist.projects.ProjectAlternative;
 import org.pgist.system.BaseDAOImpl;
 
 
@@ -84,5 +82,45 @@ public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
 		return (FundingSourceSuite)getHibernateTemplate().load(FundingSourceSuite.class, suiteID);
 	}	
 	
+
+    // ************* Tax Calculator ******************************** 
+    private static final String hql_getZipCodeGasByZipCode = "from ZipCodeGas zcg where zcg.zipcode=?";
+    public ZipCodeGas getZipCodeGasByZipCode(String zipcode) throws Exception {
+        List list = getHibernateTemplate().find(hql_getZipCodeGasByZipCode, zipcode);
+        
+        if (list.size()==0) return null;
+        
+        return (ZipCodeGas) list.get(0);
+    }//getFundingSourceAltById()
+    
+	public void save(ZipCodeGas zcg) throws Exception {
+		getHibernateTemplate().saveOrUpdate(zcg);				
+	}
 	
+    private static final String hql_getZipCodeFactorByZipCode = "from ZipCodeFactor zcg where zcg.zipcode=?";
+    public ZipCodeFactor getZipCodeFactorByZipCode(String zipcode) throws Exception {
+        List list = getHibernateTemplate().find(hql_getZipCodeFactorByZipCode, zipcode);
+        
+        if (list.size()==0) return null;
+        
+        return (ZipCodeFactor) list.get(0);
+    }//getFundingSourceAltById()
+    
+	public void save(ZipCodeFactor zcg) throws Exception {
+		getHibernateTemplate().saveOrUpdate(zcg);				
+	}
+
+
+    private static final String hql_getConsumptionByIncomeLevel = "from Consumption zcg where zcg.incomeLower <? and zcg.incomeUpper > ?";
+    public Consumption getConsumptionByZipCode(Float incomeLevel) throws Exception {
+        List list = getHibernateTemplate().find(hql_getConsumptionByIncomeLevel, incomeLevel);
+        
+        if (list.size()==0) return null;
+        
+        return (Consumption) list.get(0);
+    }//getFundingSourceAltById()
+    
+	public void save(Consumption zcg) throws Exception {
+		getHibernateTemplate().saveOrUpdate(zcg);				
+	}
 }//class FundingDAOImpl
