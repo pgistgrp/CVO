@@ -58,7 +58,8 @@
 		
 			//End Global Vars
 
-			function setFundingToUserPkg(altId,deleting){
+			function setFundingToUserPkg(altId,checked){
+				var deleting = (checked == "false") ? "true" : "false"
 				alert("id: " + altId + " deleting: " + deleting); 
 				PackageAgent.setFundingToUserPkg({pkgId:pkgId,altId:altId,deleting:deleting}, {
 					callback:function(data){
@@ -75,7 +76,9 @@
 				});
 			}
 			
-			function setProjectToUserPkg(altId,deleting){
+			function setProjectToUserPkg(altId,checked){
+				//alert(checked)
+				var deleting = (checked == "false") ? "true" : "false"
 				alert("pkgId: " + pkgId + " altId: "+ altId +" deleting: " + deleting); 
 				PackageAgent.setProjectToUserPkg({pkgId:pkgId,altId:altId,deleting:deleting}, {
 					callback:function(data){
@@ -200,22 +203,22 @@
 									<tr class="objectives" id="objective1">
 										<td colspan="3">
 											<table>
-												<c:forEach var="alternative" items="${projectRef.project.alternatives}" varStatus="loop">
+												<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
 													<tr>
 														<td>
 															<label>
 																<c:choose>
 																	<c:when test="${projectRef.project.inclusive}">
-																		<input type="radio" name="proj-${project.id}" onchange="setProjectToUserPkg('${alternative.id}', this.checked)" />
+																		<input type="radio" name="proj-${project.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
 																	</c:when>
 																	<c:otherwise>
-																		<input type="checkbox" name="proj-${project.id}" onchange="setProjectToUserPkg('${alternative.id}', this.checked)" />
+																		<input type="checkbox" name="proj-${project.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
 																	</c:otherwise>
 																</c:choose>
-																${alternative.name}
+																${altRef.alternative.name}
 															</label>
 														</td>
-														<td class="cost">$${alternative.cost} million</td>
+														<td class="cost">$${altRef.alternative.cost} million</td>
 													</tr>
 												</c:forEach>
 												<c:if test="${projectRef.project.inclusive}">
@@ -262,22 +265,22 @@
 							</tr>
 							<!-- end FUNDING source -->
 							<!-- begin OPTIONS -->
-							<c:forEach var="alternative" items="${fundingRef.source.alternatives}" varStatus="loop">
+							<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
 								<tr>
 									<td class="fundingSourceItem">
 										<label>
-										<input type="radio" checked="checked" name="source-${fundingRef.source.id}" onchange="setFundingToUserPkg('${alternative.id}', this.checked)" />
-										${alternative.name}</label>
+										<input type="radio" checked="checked" name="source-${fundingRef.source.id}" onchange="setFundingToUserPkg('${altRef.id}', this.checked)" />
+										${altRef.alternative.name}</label>
 									</td>
-									<td>${alternative.revenue}</td>
-									<td>$${alternative.avgCost}</td>
+									<td>${altRef.alternative.revenue}</td>
+									<td>$${altRef.alternative.avgCost}</td>
 									<td>???</td>
 								</tr>
 							</c:forEach>
 							<tr>
 								<td class="fundingSourceItem">
 									<label>
-									<input type="radio" checked="checked" name="source-${fundingRef.source.id}" onchange="setFundingToUserPkg('${alternative.id}', 'false')" />
+									<input type="radio" checked="checked" name="source-${fundingRef.source.id}" onchange="setFundingToUserPkg('${altRef.id}', 'false')" />
 									Do nothing</label>
 								</td>
 								<td class="cost">&nbsp;</td>
