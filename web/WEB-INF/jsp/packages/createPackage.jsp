@@ -212,7 +212,7 @@
 																		<input type="radio" name="proj-${project.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
 																	</c:when>
 																	<c:otherwise>
-																		<input type="checkbox" name="proj-${project.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
+																		<input type="checkbox" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "CHECKED" : ""} name="proj-${project.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
 																	</c:otherwise>
 																</c:choose>
 																${altRef.alternative.name}
@@ -269,7 +269,7 @@
 								<tr>
 									<td class="fundingSourceItem">
 										<label>
-										<input type="radio" checked="checked" name="source-${fundingRef.source.id}" onchange="setFundingToUserPkg('${altRef.id}', this.checked)" />
+										<input type="radio" name="source-${fundingRef.source.id}" onchange="setFundingToUserPkg('${altRef.id}', this.checked)" />
 										${altRef.alternative.name}</label>
 									</td>
 									<td>${altRef.alternative.revenue}</td>
