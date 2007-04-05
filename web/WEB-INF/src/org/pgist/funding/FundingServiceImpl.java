@@ -7,6 +7,8 @@ import org.pgist.projects.ProjectAlternative;
 import org.pgist.projects.ProjectRef;
 import org.pgist.projects.ProjectSuite;
 import org.pgist.projects.UnknownProjectSuite;
+import org.pgist.users.User;
+import org.pgist.users.UserInfo;
 
 
 /**
@@ -24,6 +26,10 @@ public class FundingServiceImpl implements FundingService {
         this.fundingDAO = fundingDAO;
     }
 
+	public User getUser(UserInfo userInfo) throws Exception {
+		return this.fundingDAO.getUserById(userInfo.getId());
+	}
+    
     /**
      * Relate the given FundingAlternative object to FundingSuite object
      */

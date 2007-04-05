@@ -23,6 +23,12 @@
 
       <create creator="spring" javascript="FundingAgent">
           <param name="beanName" value="fundingAgent"/>
+          <include method="updateUser"/>
+          <include method="addVehicle"/>
+          <include method="updateVehicle"/>
+          <include method="removeVehicle"/>          
+          <include method="setEstimates"/>          
+          <include method="setCostReport"/> 
           <include method="createFundingSource"/>
           <include method="editFundingSource"/>
           <include method="deleteFundingSource"/>

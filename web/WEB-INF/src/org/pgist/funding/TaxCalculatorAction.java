@@ -4,6 +4,8 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.packages.UserPackage;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -63,6 +65,17 @@ public class TaxCalculatorAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
+    	String tempSuiteId = request.getParameter("suiteId");
+    	if(tempSuiteId != null) {
+    		Long suiteId = new Long(tempSuiteId);
+    		FundingSourceSuite funSuite = this.fundingService.getFundingSuite(suiteId);
+    		request.setAttribute("suite", funSuite);
+    	}
+    	           
+		//Get the current user
+		request.setAttribute("user", this.fundingService.getUser(WebUtils.currentUser()));
+    	
+    	
         /*
          * Logic:
          *   (1) get cctId from request
@@ -75,7 +88,6 @@ public class TaxCalculatorAction extends Action {
          *           "userCommute" - a UserCommute object
          *   (-) Any error, forward to page "error"
          */
-        
         String cctId = request.getParameter("cctId");
         
         //TODO: load the current CCT object by cctId, transfer to jsp

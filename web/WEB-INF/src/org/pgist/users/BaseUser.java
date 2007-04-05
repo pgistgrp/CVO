@@ -33,6 +33,8 @@ public class BaseUser implements Serializable {
     
     protected String zipcode = "";
     
+    protected String workZipcode = "";
+    
     protected String ethnicity = "";
     
     protected int familyCount = 1;
@@ -248,6 +250,18 @@ public class BaseUser implements Serializable {
         this.zipcode = zipcode;
     }
 
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public String getWorkZipcode() {
+        return workZipcode;
+    }
+
+
+    public void setWorkZipcode(String workZipcode) {
+        this.workZipcode = workZipcode;
+    }    
 
     /**
      * @return

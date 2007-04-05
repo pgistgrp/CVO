@@ -2,6 +2,9 @@ package org.pgist.funding;
 
 import java.util.Collection;
 
+import org.pgist.users.User;
+import org.pgist.users.UserInfo;
+
 
 /**
  * 
@@ -9,6 +12,8 @@ import java.util.Collection;
  *
  */
 public interface FundingService {
+	
+	User getUser(UserInfo userInfo) throws Exception;
     
 	FundingSourceSuite getFundingSuite(Long suiteId) throws Exception;
 	

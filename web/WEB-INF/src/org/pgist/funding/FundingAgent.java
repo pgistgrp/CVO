@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 
 
@@ -30,7 +31,151 @@ public class FundingAgent {
     /*
      * ------------------------------------------------------------------------
      */
+    /**
+     * Adds a new vehicle to the user account
+     * 
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>userId - int, id of a User to add the vehicle to</li>
+     *     <li>milesPerGallon - float, The miles per gallon for the new vehicle</li>
+     *     <li>value - float, The approximate value of the vehicle</li>
+     *     <li>milesPerYear - float, The miles per year used with this vehicle</li>
+     *   </ul>
+     * 
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>user - The User object with all the users information</li>
+     *   </ul>
+     */
+    public Map addVehicle(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long userId = new Long((String) params.get("userId"));
+            
+            //TODO add the vehicle to the user and save it
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//addVehicle()
+
+    /**
+     * Updates information about the vehicle
+     * 
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>vehicleId - int, id of the vehicle to update</li>
+     *     <li>milesPerGallon - float, The miles per gallon for the new vehicle</li>
+     *     <li>value - float, The approximate value of the vehicle</li>
+     *     <li>milesPerYear - float, The miles per year used with this vehicle</li>
+     *   </ul>
+     * 
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>user - The User object with all the users information</li>
+     *   </ul>
+     */
+    public Map updateVehicle(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long vehicleId = new Long((String) params.get("vehicleId"));
+            
+            //TODO update the vehicle info
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//updateVehicle()    
     
+    /**
+     * Removes a vehicle from the users account
+     * 
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>userId - int, id of a User to add the vehicle to</li>
+     *     <li>vehicleId - int, The ID of the vehicle to remove</li>
+     *   </ul>
+     * 
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>user - The User object with all the users information</li>
+     *   </ul>
+     */
+    public Map removeVehicle(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long userId = new Long((String) params.get("userId"));
+            
+            //TODO remove the vehicle from the user and save it
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//removeVehicle()
+
+    /**
+     * Updates the user with all of the specified values.  You can only use this to update the parameters
+     * in the user object.  You cannot use this to update the number of vehicles.  The vehicles associated
+     * with the user passed in will be ignored.  For that you must use the add/remove Vehicle functions
+     * 
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>user - User object with all of the values set they way you want it</li>
+     *   </ul>
+     * 
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>user - The User object with all the users information</li>
+     *   </ul>
+     */
+    public Map updateUser(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            User user = (User) params.get("user");
+            
+            //TODO update the users information.
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//update User()
+
     
     /**
      * Get a FundingSource object by id
@@ -474,14 +619,7 @@ public class FundingAgent {
      * 
      * @param params a Map contains:<br>
      *   <ul>
-     *     <li>suiteId - int, id of the current FundingSourceSuite object</li>
-     *     <li>tollIds - string, comma separated ids of tolls (FundingSourceAltRef object)</li>
-     *     <li>zip - string, zip code of the current user</li>
-     *     <li>driveDays - int, number of days user drives to work</li>
-     *     <li>carpoolDays - int, number of days user carpools to work</li>
-     *     <li>busDays - int, number of days user takes the bus to work</li>
-     *     <li>walkDays - int, number of days user walks to work</li>
-     *     <li>bikeDays - int, number of days user bikes to work</li>
+     *     <li>user - int, User object to form the estimates for</li>	 
      *   </ul>
      *   
      * @return a Map contains:<br>
@@ -527,9 +665,7 @@ public class FundingAgent {
      * @param params a Map contains:<br>
      *   <ul>
      *     <li>suiteId - int, id of the current FundingSourceSuite object</li>
-     *     <li>peakHourTrips - string, comma separated id:value pairs(id is for FundingSourceAltRef object)</li>
-     *     <li>offPeakTrips - string, comma separated id:value pairs(id is for FundingSourceAltRef object)</li>
-     *     <li>annualConsume - float, annual comsuption for current user</li>
+     *     <li>userCommute - UserCommute, The user commute object to generate the report for</li>
      *   </ul>
      *   
      * @return a Map contains:<br>
@@ -539,9 +675,7 @@ public class FundingAgent {
      *     <li>
      *       html - string, html source segment generated by "/WEB-INF/jsp/funding/fundingCalc_report.jsp". In this page the following variables are avaiable:<br>
      *         <ul>
-     *           <li>user - the current user object</li>
-     *           <li>cost - a collection of personal funding cost objects </li>
-     *           <li>commute - a UserCommute object for current User</li>
+     *           <li>costs - a collection of personal funding cost objects </li>
      *         </ul>
      *     </li>
      *   </ul>
