@@ -58,10 +58,10 @@
 		
 			//End Global Vars
 
-			function setFundingToUserPkg(altId,checked){
+			function setFundingToUserPkg(altRefId,checked){
 				var deleting = (checked == "false") ? "true" : "false"
-				alert("id: " + altId + " deleting: " + deleting); 
-				PackageAgent.setFundingToUserPkg({pkgId:pkgId,altId:altId,deleting:deleting}, {
+				alert("pkgSuiteId: " + pkgId + "altRefId: " + altRefId + " deleting: " + deleting); 
+				PackageAgent.setFundingToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
 							alert("Funding alt " + altId + " was successfully set to " + deleting); //replace with saving indicator later
@@ -76,11 +76,11 @@
 				});
 			}
 			
-			function setProjectToUserPkg(altId,checked){
+			function setProjectToUserPkg(altRefId,checked){
 				//alert(checked)
 				var deleting = (checked == "false") ? "true" : "false"
-				alert("pkgId: " + pkgId + " altId: "+ altId +" deleting: " + deleting); 
-				PackageAgent.setProjectToUserPkg({pkgId:pkgId,altId:altId,deleting:deleting}, {
+				alert("pkgId: " + pkgId + " altRefId: "+ altRefId +" deleting: " + deleting); 
+				PackageAgent.setProjectToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
 							//alert("Project alt " + altId + " was successfully set to " + deleting); //replace with saving indicator later
@@ -225,7 +225,7 @@
 													<tr>
 														<td>
 															<label>
-															<input type="radio" checked="checked" name="proj-${project.id}" onchange="setProjectToUserPkg('${alternative.id}', 'false')" />
+															<input type="radio" checked="checked" name="proj-${project.id}" onchange="setProjectToUserPkg('${altRef.id}', 'false')" />
 															Do nothing</label>
 														</td>
 														<td class="cost">&nbsp;</td>

@@ -102,7 +102,7 @@
 						<li>
 							<label><input type="checkbox" name="sourceAlts${source.id}" id="sourceAlt-${alt.id}" 
 							<c:if test="${pg:containsFundingRef(suite,source,alt)}">CHECKED</c:if> value="${alt.id}" onClick="setSourceDef(this.value, this.checked);"/>
-							${alt.name} ++++ ${pg:containsFundingRef(suite,source,alt)}</label>
+							${alt.name}</label>
 						</li>
 					</c:forEach>
 				</ul>
