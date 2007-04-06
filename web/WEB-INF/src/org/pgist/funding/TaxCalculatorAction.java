@@ -22,21 +22,19 @@ import org.pgist.util.WebUtils;
  * 
  * The action always accepts the following parameters:
  * <ul>
- *   <li>cctId - the id of the current CCT object</li>
+ *   <li>suiteId - the id of the a FundingSourceSuite object</li>
  * </ul>
  * 
  * the action will forward to page of "view", the following variables are available in jsp:
  * <ul>
- *   <li>cct - an CCT object</li>
+ *   <li>suiteId - the funding suiteId that you will need for the ajax calls</li>
  *   <li>user - the current User oject</li>
- *   <li>tolls - a list of FundingSourceAlternative objects (all alternatives which are tolls)</li>
- *   <li>userCommute - a UserCommute object</li>
  * </ul>
  * 
  * Examples:
  * <ul>
  *   <li>GET:
- *       fundingCalc.do?cctId=1234
+ *       taxCalculator.do?suiteId=200
  *   </li>
  * </ul>
  * 
@@ -66,39 +64,19 @@ public class TaxCalculatorAction extends Action {
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
     	String tempSuiteId = request.getParameter("suiteId");
-    	if(tempSuiteId != null) {
-    		Long suiteId = new Long(tempSuiteId);
-    		FundingSourceSuite funSuite = this.fundingService.getFundingSuite(suiteId);
-    		request.setAttribute("suite", funSuite);
-    	}
+//    	if(tempSuiteId != null) {
+//    		Long suiteId = new Long(tempSuiteId);
+//    		FundingSourceSuite funSuite = this.fundingService.getFundingSuite(suiteId);
+//    		request.setAttribute("suite", funSuite);
+//    	}
     	           
 		//Get the current user
 		request.setAttribute("user", this.fundingService.getUser(WebUtils.currentUser()));
+		request.setAttribute("suiteId", tempSuiteId);
     	
     	
-        /*
-         * Logic:
-         *   (1) get cctId from request
-         *   (2) get CCT object
-         *   (3) get all funding sources list
-         *   (4) forward to page "view" with the following values in request attributes:
-         *           "user" - current User object
-         *           "cct" - current CCT object
-         *           "tolls" - a list of FundingSourceAlternative objects (all alternatives which are tolls)
-         *           "userCommute" - a UserCommute object
-         *   (-) Any error, forward to page "error"
-         */
-        String cctId = request.getParameter("cctId");
-        
-        //TODO: load the current CCT object by cctId, transfer to jsp
-        //TODO: load the current User object, transfer to jsp
-        //TODO: get all tolls list, transfer to jsp
-        //TODO: get the current user commute object, transfer to jsp
-        
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         return mapping.findForward("view");
         
-    }//execute()
-    
-    
+    }//execute()    
 }//class TaxCalculatorAction
