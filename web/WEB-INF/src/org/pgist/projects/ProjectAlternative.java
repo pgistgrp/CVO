@@ -8,7 +8,7 @@ import java.io.Serializable;
  * 
  * @hibernate.class table="pgist_project_alternatives" lazy="true"
  */
-public class ProjectAlternative implements Serializable {
+public class ProjectAlternative implements Serializable, Comparable {
     
     
     public static int PGIST_PROJECT_MODE_ROAD = 0;
@@ -346,6 +346,14 @@ public class ProjectAlternative implements Serializable {
     public void setObject(Object object) {
         this.object = object;
     }
+
+
+	public int compareTo(Object o) {
+		if(o instanceof ProjectAlternative) {
+			return this.name.compareTo(((ProjectAlternative)o).getName());
+		}
+		return 0;
+	}
     
     
 }//class ProjectAlternative
