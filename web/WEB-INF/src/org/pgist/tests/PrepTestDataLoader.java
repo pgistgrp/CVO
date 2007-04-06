@@ -258,6 +258,7 @@ public class PrepTestDataLoader extends MatchingTask {
     	if(type > 8) type = 8;
     	Project project = new Project();
     	project.setName(name);
+    	project.setTransMode(1);
     	project.setDescription("desc");
     	session.saveOrUpdate(project);
     	return project;
@@ -273,7 +274,7 @@ public class PrepTestDataLoader extends MatchingTask {
     	projAlt.setSponsor("sponsor");
     	projAlt.setStatementFor("statementFor");
     	projAlt.setStatementAgainst("statementAgainst");
-    	projAlt.setCounty("county");    	
+    	projAlt.setCounty("county");
     	
     	session.saveOrUpdate(projAlt);
     	project.addAlternative(projAlt);
