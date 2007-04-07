@@ -23,280 +23,390 @@
 		- The action on this page will give: CCT, User, Tolls, UserCommute Objects
 #### -->
 
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
-  <head>
-  <title>Tax Calculator</title>
+	<head>
+	<title>Tax Calculator</title>
+	<!-- Site Wide CSS -->
+	<style type="text/css" media="screen">
+		@import "styles/lit.css";
+		@import "styles/table.css";
+		@import "styles/taxCalculator.css";
+	</style>
+	<!-- End Site Wide CSS -->
+	<!-- Site Wide JS -->
+	<script src="scripts/prototype.js" type="text/javascript"></script>
 
-<!-- Site Wide JavaScript -->
-<script src="scripts/tags.js" type="text/javascript"></script>
-<script src="scripts/prototype.js" type="text/javascript"></script>
-<script src="scripts/scriptaculous.js?load=effects" type="text/javascript"></script>
-<script src="scripts/search.js" type="text/javascript"></script>
-<!-- End Site Wide JavaScript -->
-
-<!-- DWR JavaScript Libraries -->
-<script type='text/javascript' src='/dwr/engine.js'></script>
-<script type='text/javascript' src='/dwr/util.js'></script>
-<!-- End DWR JavaScript Libraries -->
-
-<!-- Specific  Libraries-->
-<script type='text/javascript' src='/dwr/interface/FundingAgent.js'></script>
-
+	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+	<script src="scripts/search.js" type="text/javascript"></script>
+	<script type='text/javascript' src='/dwr/engine.js'></script>
+	<script type='text/javascript' src='/dwr/util.js'></script>
+	
 	<script type="text/javascript" charset="utf-8">
-		//Global Vars
-			var cctId = "${cct.id}";
-		//End Global Vars
-		
-		/* *************** based off of the user inputs, get the calculated estimates for the given user *************** */
-		function getEstimates(){
-			//Grab input variables from the form
-			tolls = document.getElementsByName("tolls");
-			tollsChecked = [];
-			
-			//Find all checked checkboxes and put all checkbox ids into tollsChecked Array
-			for(i=0; i<tolls.length;i++){
-				if(tolls[i].checked){
-					tollsChecked.push(tolls[i].id);
-				}
-			}
-			
-			//Strip out fluff
-			for(i=0; i<tollsChecked.length;i++){
-				start = tollsChecked[i].indexOf('-') + 1;
-				tollsChecked[i] = tollsChecked[i].substring(start,tollsChecked[i].length);
-			}
-			
-			var tollIds = tollsChecked.toString();
-			var zip = $F('zip');
-			var driveDays = $F('daysAlone');
-			var carpoolDays = $F('daysCarpool');
-			var busDays = $F('daysBus');
-			var walkDays = $F('daysWalk');
-			var bikeDays = $F('daysBike');
-
-			//alert("cctId: " + cctId + " tollIds: " + tollIds + " zip: " + zip + " driveDays: " + driveDays + " carpoolDays: " + carpoolDays + "busDays: "+ busDays + " walkDays: " + walkDays + " bikeDays: "+ bikeDays);
-			FundingAgent.getEstimates({cctId:cctId,tollIds:tollIds,zip:zip,driveDays:driveDays,carpoolDays:carpoolDays,busDays:busDays,walkDays:walkDays,bikeDays,bikeDays}, {
-				callback:function(data){
-					if (data.successful){
-						$('estimates').innerHTML = data.html; //data.source.html: fundingCalc_estimates.jsp
-					}else{
-						alert(data.reason);
-					}
-				},
-				errorHandler:function(errorString, exception){ 
-				alert("FundingAgent.getEstimates( error:" + errorString + exception);
-				}
-			});
-		}
-		
-		function setEstimates(){
-			//Grab estimated tolls
-			eTolls = document.getElementsByName("eTolls");
-			eTollsFormated = [];
-			
-			//Strip out fluff
-			for(i=0; i<eTolls.length;i++){
-				start = eTolls[i].id.indexOf('-') + 1;
-				eTollId = eTolls[i].id.substring(start,eTolls[i].id.length);
-				eTollValue = eTolls[i].value;
-				eTollsFormated.push(eTollId +":"+eTollValue);
-			}
-			
-
-			//alert(eTollsFormated.toString());
-			//Grab input variables from the form
-			var tolls = eTollsFormated.toString(); //string, comma separated id:value paris of tolls - get from estimates
-			var zip = $F('zip');
-			var driveDays = $F('daysAlone');
-			var carpoolDays = $F('daysCarpool');
-			var busDays = $F('daysBus');
-			var walkDays = $F('daysWalk');
-			var bikeDays = $F('daysBike');
-			var annualConsume = $F('annualConsume');
-			
-			//alert("cctId: " + cctId + " tollIds: " + tollIds + " zip: " + zip + " driveDays: " + driveDays + " carpoolDays: " + carpoolDays + "busDays: "+ busDays + " walkDays: " + walkDays + " bikeDays: "+ bikeDays + " annualConsume: "+ annualConsume); 
-			FundingAgent.setEstimates({cctId:cctId,tolls:tolls,zip:zip,driveDays:driveDays,carpoolDays:carpoolDays,busDays:busDays,walkDays:walkDays,bikeDays,bikeDays,annualConsume:annualConsume}, {
-				callback:function(data){
-					if (data.successful){
-						$('report').innerHTML = data.source.html; //data.source.html: fundingCalc_estimates.jsp
-					}else{
-						alert(data.reason);
-					}
-				},
-				errorHandler:function(errorString, exception){ 
-				alert("FundingAgent.getEstimates( error:" + errorString + exception);
-				}
-			});
-		}
+		var suiteId = "${suiteId}"
 	</script>
+	</head>
+	<body>
+	<!-- #container is the container that wraps around all the main page content -->
 
-<!-- Site Wide CSS -->
-<style type="text/css" media="screen">
-@import "styles/lit.css";
-
-#income,#vehicles,#myCommute,#estimates
-{
-padding:.5em;
-padding-left:2em;
-border:1px solid #89A3AF;
-}
-
-#income
-{
-background:#E6EDEF;
-}
-
-#vehicles
-{
-border-top:0px;
-background:#D6E7EF;
-}
-
-#vehicles input {width:5em;}
-.vehiclesRow {margin:.5em 0em;}
-
-#myCommute
-{
-border-top:0px;
-background:#E6EDEF;
-}
-
-#myCommute-left,#myCommute-center,#myCommute-right{margin-right:1em;}
-
-#myCommute-left 
-{
-width:12em;
-}
-
-#myCommute-left input {width:3em}
-
-#myCommute-center 
-{
-width:25em;
-}
-
-#myCommute-center input {width:1em;}
-
-#myCommute-right 
-{
-}
-
-#estimates
-{
-border-top:0px;
-background:#D6E7EF;
-}
-
-#estimates-left
-{
-
-}
-
-table#tollRoads {font-size:.9em;width:90%;}
-#tollRoads td {padding:.1em .3em;}
-#tollRoads input {width:2em;text-align:center;}
-
-#estimates-center
-{
-
-}
-
-#estimates-right
-{
-
-}
-
-#costReport table 
-{
-width:100%;
-margin-bottom:1.5em;
-border:1px solid #D6E7EF;
-padding:.2em;
-}
-
-#costReport th{font-weight:bold;padding:.2em;background:inherit;width:200px;text-align:left;}
-#costReport th.fundingSourceItem{font-size:.8em;text-align:left;padding-left:.5em;}
-#costReport tr.fundingType{font-size:1.2em;text-align:left;}
-
-#costReport td
-{
-font-size:.8em;
-padding:5px;
-font-weight:normal;
-}
-
-#costReport tr{} 
-
-.odd {background:#D6E7EF;}
-.tableHeading {background:#ADCFDE;}
-</style>
-  <!-- End Site Wide CSS -->
-  </head>
-  <body>
-  <!-- #container is the container that wraps around all the main page content -->
-  <div id="container">
-  	<h3 class="headerColor">Calculating the annual cost to you</h3>
-	  <p>Feel free to change the information you previously provided in the text boxes below</p>
-	  
-<!-- Begin calculator options -->
-	  <div id="income">
-	  	<h3 class="headerColor">My income</h3>
-			<span id="annualIncome">
-				Annual Income $<input type="text" id="income" name="profile" value="${user.income}"/>.00
-			</span>
-	  </div>
-	  <div id="vehicles">
-		<h3 class="headerColor">My Vehicles</h3>
+	<div id="container">
+		<h3 class="headerColor">Calculating the annual cost to you</h3>
+		<p>Feel free to change the information you previously provided in the text boxes
+			below</p>
+		<!-- Begin calculator options -->
+		<div id="myIncome">
+			<h3 class="headerColor">My income</h3>
+			<span id="annualIncome"> Annual Income
+			<input name="annual-income" type="text" value="${user.income}"></span>
+			<span id="householdSize"> Household size
+			<input name="household-size" type="text" value="${user.familyCount}"></span>
+			</div>
+		<div id="myVehicles">
+			<h3 class="headerColor">My Vehicle(s)</h3>
 			<c:forEach var="vehicle" items="${user.vehicles}" varStatus="loop">
-				<div class="vehiclesRow">
-					<strong>Vehicle ${loop.index}</strong>[ edit ] [ delete ]
-					Miles per gallon: <strong>${vehicle.milesPerGallon}</strong>
-					Approximate value: <strong>${vehicle.approxValue}</strong>
-					Miles driven per year: <strong>${vehicle.milesPerYear}</strong>
-					<a href="#">Remove vehicle</a>
-				</div>
-			</c:forEach>
-			
-			<p><a href="#">Add vehicle</a>
+				<div id="vehicle${vehicle.id}" class="myVehiclesRow"> <strong>Vehicle ${loop.index + 1}: </strong> Miles per
+					gallon
+					${vehicle.milesPerGallon}
+					Approximate value
+					${vehicle.approxValue}
 
-	  </div>
-	  <div id="myCommute">
-	  	<h3 class="headerColor">My Commute</h3>
-		<div id="myCommute-left" class="floatLeft">
-			Home zip code <input name="profile" type="text" size="5" maxlength="5" value="${user.zipcode}"> 
+					Miles driven per year
+					${vehicle.milesPerYear}
+					<small><a href="#">Edit</a> | <a href="#">Remove</a></small> </div>
+			</c:forEach>
+			<p><a href="javascript:Element.toggle('newVehicle');">Add vehicle</a> 
+				<div id="newVehicle" class="myVehiclesRow" style="display:none;"> 
+					
+					<strong>New Vehicle: </strong> Miles per gallon
+					<input name="mpg" type="text" >
+					Approximate value
+					<input name="value" type="text">
+					Miles driven per year
+					<input name="mpy" type="text">
+
+					<input type="submit" value="Submit" /><small><a href="javascript:Element.toggle('newVehicle');">Cancel</a></small></div>
+				
+				
 		</div>
-		<div id="myCommute-center" class="floatLeft">
-			I drive alone <input id="daysAlone" size="1" maxlength="1" name="profile" type="text" value="${user.daysAlone}"> 
-			days to work each week<br/>
-			I carpool <input type="text" id="daysCarpool" name="profile" value="${user.daysCarpool}" size="1" maxlength="1"/> 
-			days to work each week with <input size="1" maxlength="1" name="profile" type="text" value="${user.daysCarpoolPeople}"> people<br/>
-			I ride the bus <input size="1" maxlength="1"type="text" id="daysBus" name="profile" value="${user.daysBus}" />
-			 days to work each week<br/>
-         I bike <input size="1" maxlength="1" type="text" id="daysBike" name="profile" value="${user.daysBike}" />
-				  days to work each week<br/>
-		</div>
-		<div id="myCommute-right" class="floatLeft">
-			My daily commute includes:<br />
-				<c:forEach var="toll" items="${tolls}" varStatus="loop">
-					<label><input type="checkbox" name="tolls" id="toll-${toll.id}"/>${toll.name}</label><br />
-				</c:forEach>
-		</div>
+		<div id="myCommute">
+			<h3 class="headerColor">My Commute</h3>
+			<div id="myCommute-left" class="floatLeft">
+			<p>Home zip code <input name="hZipcode" type="text" size="5" maxlength="5"></span></p>
+			<p>Work zip code <input name="wZipcode" type="text" size="5" maxlength="5"></span></p>
+			</div>
+			<div id="myCommute-center" class="floatLeft"> 
+				I <strong>drive alone</strong>
+				<select name="drive-alone">
+					<c:forEach var="i" begin="1" end="7">
+						<option value="${i}">${i}</option>
+					</c:forEach>
+				</select>
+				days to work each week<br/>
+				
+				I <strong>carpool</strong> to work
+				<select name="carpool">
+					<c:forEach var="i" begin="1" end="7">
+						<option value="${i}">${i}</option>
+					</c:forEach>
+				</select>
+				days each week with
+				<select name="carpool-with">
+					<c:forEach var="i" begin="1" end="7">
+						<option value="${i}">${i}</option>
+					</c:forEach>
+				</select>
+				people<br/>
+
+				I <strong>ride the bus</strong> to work
+				<select name="bus">
+					<c:forEach var="i" begin="1" end="7">
+						<option value="${i}">${i}</option>
+					</c:forEach>
+				</select>
+				days each week<br/>
+				
+				I <strong>walk</strong> to work
+				<select name="walk">
+					<c:forEach var="i" begin="1" end="7">
+						<option value="${i}">${i}</option>
+					</c:forEach>
+				</select>
+				days each week<br/>
+				
+				I <strong>bike</strong>
+				<select name="bike">
+					<c:forEach var="i" begin="1" end="7">
+						<option value="${i}">${i}</option>
+					</c:forEach>
+				</select>
+				days to work each week<br/>
+			</div>
+			<div id="myCommute-right" class="floatLeft"> My daily commute includes:<br />
+				<input name="myCommute-check1" type="checkbox">
+				Parking downtown<br />
+				<input name="myCommute-check2" type="checkbox">
+				Alaskan Way viaduct<br />
+				<input name="myCommute-check3" type="checkbox">
+				I-405 North<br />
+				<input name="myCommute-check4" type="checkbox">
+
+				I-405 South<br />
+				<input name="myCommute-check5" type="checkbox">
+				SR 520 Floating Bridge<br />
+				<input name="myCommute-check6" type="checkbox">
+				I-90<br />
+				<input name="myCommute-check7" type="checkbox">
+				SR 167<br />
+			</div>
 			<div class="clearboth">
-				<input type="button" value="getEstimates();" 
+				<input type="button" name="calcEstimates" value="Calculate my estimates" 
+					style="clear:both;margin:1em;" class="floatRight" onClick="setEstimates();">
+			</div>
+			<div class="clearBoth"></div>
+		</div>
+
+		<div id="estimates">
+			<h3 class="headerColor peekaboobugfix">Estimated use of toll roads, taxed parking
+				facilities, and annual taxable consumption</h3>
+			<p class="peekaboobugfix">Your estimates number of tolls has been estimated based
+				on your home zip code, your usual commute mode of travel, and your commute route.
+				You may change these estimates.</p>
+		<div id="estimates-left">
+			<table border="0" cellpadding="1" cellspacing="0" id="tollRoads">
+				<tr>
+					<th>&nbsp;</th>
+					<th>Peak Hour Trips</th>
+					<th>Off-peak trips</th>
+				</tr>
+				<tr>
+					<td class="fundingSourceItem">Parking downtown</td>
+					<td><input size="3" maxlength="3" type="text" ></td>
+					<td><input size="3" maxlength="3" type="text" ></td>
+				</tr>
+				<tr>
+					<td class="fundingSourceItem">Alaskan Way Viaduct</td>
+					<td><input size="3" maxlength="3" type="text" ></td>
+					<td><input size="3" maxlength="3" type="text" ></td>
+				</tr>
+				<tr>
+					<td class="fundingSourceItem">I-405 North</td>
+					<td><input size="3" maxlength="3" type="text" ></td>
+					<td><input size="3" maxlength="3" type="text" ></td>
+				</tr>
+				<tr>
+					<td class="fundingSourceItem">I-405 South</td>
+					<td><input size="3" maxlength="3" type="text" ></td>
+					<td><input size="3" maxlength="3" type="text" ></td>
+				</tr>
+				<tr>
+					<td class="fundingSourceItem">SR 520 Floating Bridge</td>
+					<td><input size="3" maxlength="3" type="text" ></td>
+					<td><input size="3" maxlength="3" type="text" ></td>
+				</tr>
+				<tr>
+					<td class="fundingSourceItem">I-90</td>
+					<td><input size="3" maxlength="3" type="text" ></td>
+					<td><input size="3" maxlength="3" type="text" ></td>
+				</tr>
+				<tr>
+					<td class="fundingSourceItem">SR 167</td>
+					<td><input size="3" maxlength="3" type="text" ></td>
+					<td><input size="3" maxlength="3" type="text" ></td>
+				</tr>
+				<tr>
+			</table>
+		</div>
+		<div id="estimates-right">
+			<table>
+				<tr>
+					<td>Gas cost per gallon</td>
+					<td><input name="" size="5" type="text"></td>
+				</tr>
+				<tr>
+					<td>Annual consumption (sales tax)</td>
+					<td><input name="" size="5" type="text"></td>
+				</tr>
+			</table>
+		</div>
+		
+			<div class="clearboth">
+
+				<input type="button" name="calcEstimates" value="Update Annual Cost Report" 
 					style="clear:both;margin:1em;" class="floatRight">
 			</div>
-		<div class="clearBoth"></div>
-	  </div> 	
-		
-		<div id="estimates">
-			<!-- load estimates here via AJAX getEstimates(); fundingCalc_estimates.jsp-->
+			<div class="clearBoth"></div>
 		</div>
-		
-		<div id="report">
-			<!-- load report here via AJAX setEstimates(); fundingCalc_report.jsp-->
+		<!-- End calculator options -->
+		<!-- Note on zebra-striping by funding source: When creating rows of funding items (such as each alternative gas tax increase) wrap all rows in a TBODY tag, then do zebra-striping on those TBODYs, not on the individual TRs. --><br>
+		<h3 class="headerColor">My annual costs report</h4>
+		<div id="newTable">
+		<table cellpadding=0 cellspacing=0>
+			<tr class="tableHeading">
+				<th class="first">Funding Source</th>
+				<th>Estimated annual cost to you</th>
+
+				<th>&nbsp;</th>
+				<th>&nbsp;</th>
+				<th colspan="7">Calculation</th>
+			</tr>
+			<tr class="fundingType">
+				<td class="fundingSourceItem">Toll on Alaskan Way Viaduct</td>
+				<td>Cost to you</td>
+
+				<td>=</td>
+				<td>&nbsp;</td>
+				<td>Peak tax rate</td>
+				<td>&times;</td>
+				<td># of Peak trips</td>
+				<td>+</td>
+				<td>off-peak tax rate</td>
+
+				<td>&times;</td>
+				<td># off-peak trips</td>
+			</tr>
+			<tr>
+				<td class="fundingSourceItem">Fixed rate $1.00 per trip</td>
+				<td>$25</td>
+				<td>=</td>
+
+				<td>&nbsp;</td>
+				<td>$1.00</td>
+				<td>&times;</td>
+				<td>5</td>
+				<td>+</td>
+				<td>$1.00</td>
+				<td>&times;</td>
+
+				<td>20</td>
+			</tr>
+			<tr>
+				<td class="fundingSourceItem">Fixed rate $1.00 per trip</td>
+				<td>$25</td>
+				<td>=</td>
+				<td>&nbsp;</td>
+
+				<td>$1.00</td>
+				<td>&times;</td>
+				<td>5</td>
+				<td>+</td>
+				<td>$1.00</td>
+				<td>&times;</td>
+				<td>20</td>
+
+			</tr>
+			<tr class="fundingType">
+				<td class="fundingSourceItem">Toll on Alaskan Way Viaduct</td>
+				<td>Cost to you</td>
+				<td>=</td>
+				<td>&nbsp;</td>
+				<td>Peak tax rate</td>
+
+				<td>&times;</td>
+				<td># of Peak trips</td>
+				<td>+</td>
+				<td>off-peak tax rate</td>
+				<td>&times;</td>
+				<td># off-peak trips</td>
+			</tr>
+
+			<tr>
+				<td class="fundingSourceItem">Fixed rate $1.00 per trip</td>
+				<td>$25</td>
+				<td>=</td>
+				<td>&nbsp;</td>
+				<td>$1.00</td>
+				<td>&times;</td>
+
+				<td>5</td>
+				<td>+</td>
+				<td>$1.00</td>
+				<td>&times;</td>
+				<td>20</td>
+			</tr>
+			<tr>
+
+				<td class="fundingSourceItem">Fixed rate $1.00 per trip</td>
+				<td>$25</td>
+				<td>=</td>
+				<td>&nbsp;</td>
+				<td>$1.00</td>
+				<td>&times;</td>
+				<td>5</td>
+
+				<td>+</td>
+				<td>$1.00</td>
+				<td>&times;</td>
+				<td>20</td>
+			</tr>
+
+			<tr class="fundingType">
+				<td class="fundingSourceItem">Sales tax increase (Rate now 8.8%)</td>
+
+				<td>Cost to you</td>
+				<td>=</td>
+				<td>&nbsp;</td>
+				<td>tax rate</td>
+				<td>&times;</td>
+				<td>consumption</td>
+				<td>&nbsp;</td>
+
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="fundingSourceItem">0.1% increase</td>
+				<td>$16</td>
+				<td>=</td>
+
+				<td>&nbsp;</td>
+				<td>0.1</td>
+				<td>&times;</td>
+				<td>$15,879</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+
+			</tr>
+			<tr>
+				<td class="fundingSourceItem">0.3% increase</td>
+				<td>$48</td>
+				<td>=</td>
+				<td>&nbsp;</td>
+				<td>0.3</td>
+
+				<td>&times;</td>
+				<td>$15,879</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+
+				<td class="fundingSourceItem">0.5% increase</td>
+				<td>$79</td>
+				<td>=</td>
+				<td>&nbsp;</td>
+				<td>0.5</td>
+				<td>&times;</td>
+				<td>$15,879</td>
+
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
 		</div>
 	</div>
+
 	<!-- end container -->
+	<!-- start feedback form -->
+	<pg:feedback id="feedbackDiv" action="cctView.do"/>
+	<!-- end feedback form -->
 	</body>
 </html:html>
+
 
