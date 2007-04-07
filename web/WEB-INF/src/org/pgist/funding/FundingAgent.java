@@ -55,8 +55,11 @@ public class FundingAgent {
         
         try {
             Long userId = new Long((String) params.get("userId"));
+            float mpg = new Float((String) params.get("milesPerGallon"));
+            float value = new Float((String) params.get("value"));
+            float mpy = new Float((String) params.get("milesPerYear"));
             
-            //TODO add the vehicle to the user and save it
+            map.put("user", this.fundingService.addVehicle(userId, mpg, value, mpy));
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -83,7 +86,6 @@ public class FundingAgent {
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *     <li>user - The User object with all the users information</li>
      *   </ul>
      */
     public Map updateVehicle(Map params) {
@@ -92,8 +94,12 @@ public class FundingAgent {
         
         try {
             Long vehicleId = new Long((String) params.get("vehicleId"));
+
+            float mpg = new Float((String) params.get("milesPerGallon"));
+            float value = new Float((String) params.get("value"));
+            float mpy = new Float((String) params.get("milesPerYear"));
             
-            //TODO update the vehicle info
+            this.fundingService.updateVehicle(vehicleId, mpg, value, mpy);
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -127,8 +133,9 @@ public class FundingAgent {
         
         try {
             Long userId = new Long((String) params.get("userId"));
+            Long vehicleId = new Long((String) params.get("vehicleId"));
             
-            //TODO remove the vehicle from the user and save it
+            map.put("user", this.fundingService.removeVehicle(userId, vehicleId));
             
             map.put("successful", true);
         } catch (Exception e) {

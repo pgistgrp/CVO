@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.pgist.system.BaseDAOImpl;
+import org.pgist.users.Vehicle;
 
 
 /**
@@ -75,7 +76,7 @@ public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
 
 
 	public FundingSourceAltRef getFundingSourceAlternativeReference(Long altId) {
-		return (FundingSourceAltRef)getHibernateTemplate().load(FundingSourceAltRef.class, altId);		
+		return (FundingSourceAltRef)getHibernateTemplate().get(FundingSourceAltRef.class, altId);		
 	}
 
 	public FundingSourceSuite getFundingSuite(Long suiteID) throws Exception {
@@ -123,4 +124,14 @@ public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
 	public void save(Consumption zcg) throws Exception {
 		getHibernateTemplate().saveOrUpdate(zcg);				
 	}
+	
+    public void save(Vehicle v) throws Exception {
+    	getHibernateTemplate().saveOrUpdate(v);
+    }
+    public void delete(Vehicle v) throws Exception {
+    	getHibernateTemplate().delete(v);
+    }
+    public Vehicle getVehicle(Long vehicleId) throws Exception {
+		return (Vehicle)getHibernateTemplate().get(Vehicle.class, vehicleId);		    	
+    }
 }//class FundingDAOImpl

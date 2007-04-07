@@ -1,6 +1,7 @@
 package org.pgist.funding;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectAlternative;
@@ -9,6 +10,7 @@ import org.pgist.projects.ProjectSuite;
 import org.pgist.projects.UnknownProjectSuite;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
+import org.pgist.users.Vehicle;
 
 
 /**
@@ -30,6 +32,72 @@ public class FundingServiceImpl implements FundingService {
 		return this.fundingDAO.getUserById(userInfo.getId());
 	}
     
+	/**
+	 * Adds a vehicle to the user
+	 * 
+	 * @param	userId	The userID
+	 * @param	mpg	Miles per gallon
+	 * @param	value	Value of the vehicle
+	 * @param	mpy	Miles per year
+	 * @throws Exception 
+	 */
+	public User addVehicle(Long userId, Float mpg, Float value, Float mpy) throws Exception {
+		User user = this.fundingDAO.getUserById(userId);
+
+		Vehicle v = new Vehicle();
+		v.setApproxValue(value);
+		v.setMilesPerGallon(mpg);
+		v.setMilesPerYear(mpy);
+		
+		user.getVehicles().add(v);
+		this.fundingDAO.save(user);
+		this.fundingDAO.save(v);
+		
+		return user;
+	}
+
+	/**
+	 * Updates the vehicle
+	 * 
+	 * @param	vehicleId	The ID of the vehicle
+	 * @param	mpg	Miles per gallon
+	 * @param	value	Value of the vehicle
+	 * @param	mpy	Miles per year
+	 * @throws Exception 
+	 */
+	public void updateVehicle(Long vehicleId, Float mpg, Float value, Float mpy) throws Exception {
+		
+		Vehicle v = this.fundingDAO.getVehicle(vehicleId);
+		v.setApproxValue(value);
+		v.setMilesPerGallon(mpg);
+		v.setMilesPerYear(mpy);
+		this.fundingDAO.save(v);
+	}
+	
+	/**
+	 * Removes the vehicle
+	 * 
+	 * @param	userId
+	 * @param	vehicleId
+	 */
+	public User removeVehicle(Long userId, Long vehicleId) throws Exception {
+		User user = this.fundingDAO.getUserById(userId);
+		
+		Iterator<Vehicle> i = user.getVehicles().iterator();
+		Vehicle tempV;
+		while(i.hasNext()) {
+			tempV = i.next();
+			if(tempV.getId().equals(vehicleId)) {
+				user.getVehicles().remove(tempV);
+				this.fundingDAO.delete(tempV);
+				this.fundingDAO.save(user);
+				return user;
+			}
+		}
+		
+		return user;
+	}
+	
     /**
      * Relate the given FundingAlternative object to FundingSuite object
      */

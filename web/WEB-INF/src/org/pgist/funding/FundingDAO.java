@@ -1,10 +1,9 @@
 package org.pgist.funding;
 
 import java.util.Collection;
-import java.util.List;
 
-import org.pgist.projects.ProjectSuite;
 import org.pgist.system.BaseDAO;
+import org.pgist.users.Vehicle;
 
 
 /**
@@ -39,4 +38,8 @@ public interface FundingDAO extends BaseDAO {
     public Consumption getConsumptionByZipCode(Float incomeLevel) throws Exception;
 	public void save(Consumption zcg) throws Exception;	
     
+    void save(Vehicle v) throws Exception;
+    void delete(Vehicle v) throws Exception;
+    Vehicle getVehicle(Long vehicleId) throws Exception;
+	
 }//interface FundingDAO
