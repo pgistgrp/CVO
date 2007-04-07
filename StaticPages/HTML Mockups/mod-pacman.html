@@ -1,0 +1,136 @@
+<html>
+<head>
+<title>LIT - Moderator Package Manager</title>
+<!-- Site Wide JS -->
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script src="scripts/search.js" type="text/javascript"></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/util.js'></script>
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script type="text/javascript">
+
+myPackages = [];
+
+function addMyPackage(){
+	var myPackage = $F('packageDesc');
+	myNewPackages = myPackages.push(myPackage);
+	listMyPackages(myPackages);
+}
+
+function listMyPackages(myPackages){
+	var manualPackagesList = $('manualPackages')
+	manualPackagesList.innerHTML = '';
+	for (var i = 0; i < myPackages.length; i++){
+		manualPackagesList.innerHTML += '<br>' + 
+		'<p class="floatLeft clearfix"> <span class="floatLeft" style="width:75%"> <a href="#">' + myPackages[i] + '</a></span> <span class="floatRight">[ <a href="#">Edit</a> ] [ <a href="#">Delete</a> ]</span> </p>';
+	}
+}
+	
+
+</script>
+<style type="text/css">
+@import "styles/lit.css";
+@import "styles/table.css";
+
+#newtable th, #newtable td {padding:5px;text-align:center;}<br>
+h3 {text-transform:none;}
+p {margin-left:5px;}
+tr:hover {background:#E4F1F5;}
+td.col1 a {display:block;text-decoration:underline;}
+
+</style>
+</head>
+<body>
+<!-- #container is the container that wraps around all the main page content -->
+<div id="container">
+	<!-- begin "overview and instructions" area -->
+	<div id="overview" class="box2">
+		<h3>Overview and Instructions</h3>
+		<p>These are the packages that will be discussed by participants in step 4a.</p>
+	</div>
+	<!-- end overview -->
+	<h2 class="headerColor">Moderator Package Manager</h2>
+	<br>
+	<span class="floatLeft" style="width:49%;border-right:1px solid #ccc;padding-right:1%;">
+	<h3 class="headerColor">Automatically Created Packages </h3>
+	<p>Participant packages will be clustered on 11/06/07 (Beginning of Step 4a)</p>
+	<p>[On 11/06/07, participant packages were clustered into 6 packages below]</p>
+	<div id="newtable">
+		<table border="0" cellspacing="0" width="100%" class="box12">
+			<tr>
+				<th>Package</th>
+				<th>Total</th>
+				<th>Total Cost to Average Resident</th>
+			</tr>
+			<tr>
+				<td class="col1"><a href="#">1</a></td>
+				<td>$13 Billion</td>
+				<td>$230/year</td>
+			</tr>
+			<tr>
+				<td class="col1"><a href="#">2</a></td>
+				<td>$12 Billion</td>
+				<td>$160/year</td>
+			</tr>
+			<tr>
+				<td class="col1"><a href="#">3</a></td>
+				<td>$10 Billion</td>
+				<td>$350/year</td>
+			</tr>
+			<tr>
+				<td class="col1"><a href="#">4</a></td>
+				<td>$11 Billion</td>
+				<td>$150/year</td>
+			</tr>
+			<tr>
+				<td class="col1"><a href="#">5</a></td>
+				<td>$20 Billion</td>
+				<td>$200/year</td>
+			</tr>
+			<tr>
+				<td class="col1"><a href="#">6</a></td>
+				<td>$11 Billion</td>
+				<td>$150/year</td>
+			</tr>
+		</table>
+	</div>
+	<br>
+	<h3 class="headerColor">Cluster Packages Automatically</h3>
+	<p class="floatLeft"> <span class="floatLeft padding5"> How many packages do you
+			want? </span> <span class="floatRight">
+		<select>
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+			<option>5</option>
+			<option>6</option>
+			<option>7</option>
+		</select>
+		<input type="submit" class="padding5" value="Create Packages">
+		</span> </p>
+	</span> <span class="floatRight" style="width:49%">
+	<h3 class="headerColor">Manually Created Packages</h3>
+	<div id="manualPackages"> </div>
+	<h3 class="clearBoth headerColor"><br />
+		Add Package Manually <small>(enter package description)</small></h3>
+	<div id="newPackage" style="width:100%" class="clearfix">
+		<input type="text" name="packagedescription" 
+			style="width:100%;" id="packageDesc">
+		<p class="floatRight">
+			<input type="button" value="Add Package" class="padding5" onClick="addMyPackage()">
+		</p>
+	</div>
+	</span>
+	<h3 class="headerColor clearBoth"><br />
+		Finished</h3>
+	<p>When you are ready to allow participants to begin discussing these packages,
+		click the button below to create the discussion rooms</p>
+	<input type="button" value="Publish Packages" class="padding5">
+</div>
+<!-- end container -->
+<!-- End footer -->
+</body>
+</html:html>
