@@ -686,11 +686,13 @@ public class FundingAgent {
         
         try {
         	
-        	User user = (User)map.get("user");
+        	User user = (User)params.get("user");
 
         	if(user == null) {
                 map.put("reason", "Follow the white rabbit");
         		return map;
+        	} else {
+                map.put("reason", "You're a winner!");        		
         	}
         	
         	//Save the new user info
