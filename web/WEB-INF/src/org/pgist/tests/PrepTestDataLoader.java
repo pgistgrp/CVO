@@ -12,6 +12,7 @@ import org.pgist.funding.FundingSourceAlternative;
 import org.pgist.funding.FundingSourceRef;
 import org.pgist.funding.FundingSourceSuite;
 import org.pgist.packages.PackageSuite;
+import org.pgist.packages.UserPackage;
 import org.pgist.projects.Project;
 import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectAlternative;
@@ -33,6 +34,9 @@ public class PrepTestDataLoader extends MatchingTask {
     private ApplicationContext appContext = null;    
 	private SessionFactory sessionFactory = null; 
 
+	private FundingSourceAltRef user1FundingPick1;
+	private ProjectAltRef user1ProjectPick1;
+	
     private String configPath;
 	
     Session session = null;	
@@ -60,6 +64,7 @@ public class PrepTestDataLoader extends MatchingTask {
             if(loadSuites()) {
             	createFundingSources();
             	createProjects();
+            	//createUserPackage();
             } else {
         		System.out.println("Error loading database: You need to create a funding source suite, project suite, and package suite with ID = 200");         	
             }
@@ -117,7 +122,15 @@ public class PrepTestDataLoader extends MatchingTask {
         System.out.println("Deleted " +num + " ProjectAlternative");        
         num = session.createQuery("delete Project c").executeUpdate();
         System.out.println("Deleted " +num + " Project");        
-         
+        
+    }
+    
+    private void createUserPackage() {
+    	UserPackage uPack = new UserPackage();
+    	session.saveOrUpdate(uPack);
+    	uPack.getFundAltRefs().add(user1FundingPick1);
+    	uPack.getProjAltRefs().add(user1ProjectPick1);
+    	session.saveOrUpdate(uPack);
     }
     
     private boolean loadSuites() {
@@ -176,6 +189,10 @@ public class PrepTestDataLoader extends MatchingTask {
     		session.saveOrUpdate(altRef);
     		session.saveOrUpdate(ref);
     		session.saveOrUpdate(fsSuite);
+    		
+    		if(i == 0) {
+    			user1FundingPick1 = altRef;
+    		}
     	}    	
     }
     
@@ -249,6 +266,11 @@ public class PrepTestDataLoader extends MatchingTask {
     		session.saveOrUpdate(altRef);
     		session.saveOrUpdate(ref);
     		session.saveOrUpdate(pSuite);
+
+    		if(i == 0) {
+    			user1ProjectPick1 = altRef;
+    		}
+
     	}    	    	
     }
     
