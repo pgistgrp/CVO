@@ -126,7 +126,7 @@ public class MockFundingSourceDAO implements FundingDAO {
 	public void save(Object object) throws Exception {
 		this.saved.add(object);
 	}
-	public Consumption getConsumptionByZipCode(Float incomeLevel) throws Exception {
+	public Consumption getConsumptionByIncome(Float incomeLevel) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
