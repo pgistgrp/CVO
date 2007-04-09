@@ -3,11 +3,6 @@ package org.pgist.funding;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.pgist.projects.ProjectAltRef;
-import org.pgist.projects.ProjectAlternative;
-import org.pgist.projects.ProjectRef;
-import org.pgist.projects.ProjectSuite;
-import org.pgist.projects.UnknownProjectSuite;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
 import org.pgist.users.Vehicle;
@@ -321,5 +316,15 @@ public class FundingServiceImpl implements FundingService {
 	public FundingSourceSuite getFundingSuite(Long suiteId) throws Exception {
 		return fundingDAO.getFundingSuite(suiteId);
 	}
+	
+    
+    public FundingSourceSuite createFundingSourceSuite() throws Exception {
+        FundingSourceSuite suite = new FundingSourceSuite();
+        
+        fundingDAO.save(suite);
+        
+        return suite;
+    }//createFundingSourceSuite()
+    
 
 }//class FundingServiceImpl

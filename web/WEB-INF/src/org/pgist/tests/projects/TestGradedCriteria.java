@@ -9,8 +9,6 @@ import org.pgist.projects.GradedCriteria;
 import org.pgist.projects.GradedObjective;
 import org.pgist.projects.GradedObjectiveComparator;
 
-import com.mchange.util.AssertException;
-
 import static org.junit.Assert.*;
 
 /**

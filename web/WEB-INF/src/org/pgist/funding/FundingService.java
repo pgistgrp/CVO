@@ -59,6 +59,8 @@ public interface FundingService {
 	User addVehicle(Long userId, Float mpg, Float value, Float mpy) throws Exception;
 	void updateVehicle(Long vehicleId, Float mpg, Float value, Float mpy) throws Exception;
 	User removeVehicle(Long userId, Long vehicleId) throws Exception;
+
+    FundingSourceSuite createFundingSourceSuite() throws Exception;
     
 
 }//interface FundingService
