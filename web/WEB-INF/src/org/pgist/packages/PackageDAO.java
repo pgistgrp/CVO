@@ -1,5 +1,6 @@
 package org.pgist.packages;
 
+import org.pgist.funding.FundingSourceAltRef;
 import org.pgist.system.BaseDAO;
 
 

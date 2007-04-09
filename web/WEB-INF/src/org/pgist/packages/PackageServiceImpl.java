@@ -60,7 +60,6 @@ public class PackageServiceImpl implements PackageService {
 		
 		//get the alternative
 		ProjectAltRef altRef = this.projectDAO.getProjectAlternativeReference(altId); 
-		
 		//Add the reference
 		uPack.getProjAltRefs().add(altRef);
 		
@@ -96,17 +95,17 @@ public class PackageServiceImpl implements PackageService {
 	 * Adds the provided funding source to the package
 	 */
 	public UserPackage addFundingAlternative(Long usrPkgId, Long funAltRefId) throws Exception {
-		
 		//Get the user package
 		UserPackage uPack = this.packageDAO.getUserPackage(usrPkgId);
 		
 		//get the alternative
-		FundingSourceAltRef altRef = this.fundingDAO.getFundingSourceAlternativeReference(funAltRefId); 
-		
+		FundingSourceAltRef altRef = this.fundingDAO.getFundingSourceAlternativeReference(funAltRefId);
+
 		//Add the reference
 		uPack.getFundAltRefs().add(altRef);
 		
 		this.fundingDAO.save(altRef);
+		this.packageDAO.save(uPack);
 
 		return uPack;
 	}
@@ -125,7 +124,7 @@ public class PackageServiceImpl implements PackageService {
 			tempRef = alts.next();
 			if(tempRef.getId().equals(funAltRefId)) {
 				uPack.getFundAltRefs().remove(tempRef);
-				this.fundingDAO.save(tempRef);
+				this.packageDAO.save(tempRef);
 				return uPack;
 			}
 		}
@@ -143,28 +142,26 @@ public class PackageServiceImpl implements PackageService {
 	 */
 	public UserPackage createUserPackage(Long packageSuite, UserInfo info) throws Exception {
 		PackageSuite suite = this.getPackageSuite(packageSuite);		
-System.out.println("I'm user " + info.getId() + " with suite " + packageSuite);		
+
 		//Loop through looking for the package
 		Iterator<UserPackage> pkgs = suite.getUserPkgs().iterator();
 		UserPackage tempPackage;
 		while(pkgs.hasNext()) {
 			tempPackage = pkgs.next();
 			if(tempPackage.getAuthor().getId().equals(info.getId())) {
-System.out.println("MATT: Found it");				
-				return tempPackage;
+				if(tempPackage.getSuite().getId().equals(suite.getId())) {
+					return tempPackage;					
+				}
 			}
 		}
-System.out.println("MATT: NOT IN THERE");		
 		//None found, then create and save		
 		UserPackage uPack = new UserPackage();		
 		User user = this.packageDAO.getUserById(info.getId());
-System.out.println("MATT: got the user package");
 		uPack.setAuthor(user);
+		uPack.setSuite(suite);
 		packageDAO.save(uPack);
-System.out.println("MATT: SAVED THE PACKAGE");		
 		suite.getUserPkgs().add(uPack);
 		packageDAO.save(suite);
-System.out.println("MATT: Creating it");		
 		return uPack;
 	}
 	

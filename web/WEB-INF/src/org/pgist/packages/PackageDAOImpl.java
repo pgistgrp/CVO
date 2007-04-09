@@ -1,5 +1,6 @@
 package org.pgist.packages;
 
+import org.pgist.funding.FundingSourceAltRef;
 import org.pgist.system.BaseDAOImpl;
 
 
@@ -10,7 +11,7 @@ import org.pgist.system.BaseDAOImpl;
  */
 public class PackageDAOImpl extends BaseDAOImpl implements PackageDAO {
 	public UserPackage getUserPackage(Long pid) {
-		return (UserPackage)getHibernateTemplate().load(UserPackage.class, pid);
+		return (UserPackage)getHibernateTemplate().get(UserPackage.class, pid);
 	}
 	public void save(UserPackage uPack) throws Exception {
 		getHibernateTemplate().saveOrUpdate(uPack);				
@@ -28,5 +29,5 @@ public class PackageDAOImpl extends BaseDAOImpl implements PackageDAO {
 	}	
 	public PackageSuite getPackageSuite(Long pid){
 		return (PackageSuite)getHibernateTemplate().load(PackageSuite.class, pid);
-	}
+	}	
 }//class PackageDAOImpl

@@ -3,7 +3,9 @@ package org.pgist.packages;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.pgist.funding.FundingSourceAltRef;
 import org.pgist.funding.FundingSourceRef;
+import org.pgist.projects.ProjectAltRef;
 import org.pgist.users.User;
 
 
@@ -32,6 +34,10 @@ public class UserPackage extends Package {
     private boolean brandnew;
     
     private Set<FundingSourceRef> willingSources = new HashSet<FundingSourceRef>();
+    
+    protected Set<ProjectAltRef> projAltRefs = new HashSet<ProjectAltRef>();
+    
+    protected Set<FundingSourceAltRef> fundAltRefs = new HashSet<FundingSourceAltRef>();
     
     
     /**
@@ -98,5 +104,37 @@ public class UserPackage extends Package {
         return totalFunding - totalCost;
     }
     
+    /**
+     * @return
+     * 
+     * @hibernate.set lazy="false" table="pgist_user_package_funding_link" cascade="all"
+     * @hibernate.collection-key column="pkg_id"
+     * @hibernate.collection-many-to-many column="fundalt_id" class="org.pgist.funding.FundingSourceAltRef"
+     * 
+     */
+    public Set<FundingSourceAltRef> getFundAltRefs() {
+        return fundAltRefs;
+    }
     
+    
+    public void setFundAltRefs(Set<FundingSourceAltRef> fundAltRefs) {
+        this.fundAltRefs = fundAltRefs;
+    }
+    
+    
+    /**
+     * @return
+     * 
+     * @hibernate.set lazy="false" table="pgist_user_package_project_link" cascade="none"
+     * @hibernate.collection-key column="pkg_id"
+     * @hibernate.collection-many-to-many column="project_id" class="org.pgist.projects.ProjectAltRef"
+     */
+    public Set<ProjectAltRef> getProjAltRefs() {
+        return projAltRefs;
+    }
+    
+    
+    public void setProjAltRefs(Set<ProjectAltRef> projAltRefs) {
+        this.projAltRefs = projAltRefs;
+    }        
 }//class UserPackage

@@ -26,12 +26,7 @@ public abstract class Package implements Serializable {
     protected String description;
     
     protected Date createDate;
-    
-    protected Set<ProjectAltRef> projAltRefs = new HashSet<ProjectAltRef>();
-    
-    protected Set<FundingSourceAltRef> fundAltRefs = new HashSet<FundingSourceAltRef>();
-    
-    
+            
     /**
      * @hibernate.id generator-class="native"
      */
@@ -86,40 +81,4 @@ public abstract class Package implements Serializable {
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
-
-
-    /**
-     * @return
-     * 
-     * @hibernate.set lazy="true" cascade="all" order-by="id"
-     * @hibernate.collection-key column="pkg_id"
-     * @hibernate.collection-one-to-many class="org.pgist.funding.FundingSourceAltRef"
-     */
-    public Set<FundingSourceAltRef> getFundAltRefs() {
-        return fundAltRefs;
-    }
-    
-    
-    public void setFundAltRefs(Set<FundingSourceAltRef> fundAltRefs) {
-        this.fundAltRefs = fundAltRefs;
-    }
-    
-    
-    /**
-     * @return
-     * 
-     * @hibernate.set lazy="true" cascade="all" table="pgist_pkg_projaltref_link" order-by="id"
-     * @hibernate.collection-key column="pkg_id"
-     * @hibernate.collection-one-to-many class="org.pgist.projects.ProjectAltRef"
-     */
-    public Set<ProjectAltRef> getProjAltRefs() {
-        return projAltRefs;
-    }
-    
-    
-    public void setProjAltRefs(Set<ProjectAltRef> projAltRefs) {
-        this.projAltRefs = projAltRefs;
-    }
-
-
 }//class Package
