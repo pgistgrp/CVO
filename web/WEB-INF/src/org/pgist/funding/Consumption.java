@@ -28,6 +28,27 @@ public class Consumption implements Serializable {
     private Long id;
 	
     /**
+     * Looks up the correct size based on the number of people in the family
+     * 
+     * @param	familySize	The size of the family
+     * @return	The consuption for that family
+     */
+    public Float getConsumption(int familySize) {
+    	if(familySize <= 1) {
+    		return this.getSize1();
+    	} else if (familySize == 2) {
+    		return this.getSize2();    		
+    	} else if (familySize == 3) {
+    		return this.getSize3();    		
+    	} else if (familySize == 4) {
+    		return this.getSize4();    		
+    	} else {
+    		return this.getSize5();    		
+    	}
+    }
+    
+    
+    /**
      * @return
      * 
      * @hibernate.id generator-class="native"

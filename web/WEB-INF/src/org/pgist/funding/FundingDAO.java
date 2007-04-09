@@ -35,7 +35,7 @@ public interface FundingDAO extends BaseDAO {
 	public void save(ZipCodeGas zcg) throws Exception;
 	public ZipCodeFactor getZipCodeFactorByZipCode(String zipcode) throws Exception;    
 	public void save(ZipCodeFactor zcg) throws Exception;
-    public Consumption getConsumptionByZipCode(Float incomeLevel) throws Exception;
+    public Consumption getConsumptionByIncome(Float incomeLevel) throws Exception;
 	public void save(Consumption zcg) throws Exception;	
     
     void save(Vehicle v) throws Exception;

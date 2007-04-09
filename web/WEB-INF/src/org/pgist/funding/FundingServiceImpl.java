@@ -28,6 +28,54 @@ public class FundingServiceImpl implements FundingService {
 	}
     
 	/**
+	 * Forms a commute object from the user
+	 * 
+	 * @param	user	The user to base the commute off of
+	 * @return	A commute object depicting the users commute
+	 */
+	public UserCommute createCommute(User user, UserTolls tolls) throws InvalidZipcodeException, Exception {
+
+		//Save the user
+		this.fundingDAO.save(user);
+		
+		UserCommute commute = new UserCommute();
+		
+		
+		String zipcode = user.getZipcode();
+		
+		//Check for a valid zipcode
+		try {
+			int tempZip = Integer.parseInt(zipcode);
+			if(tempZip < 98001 || tempZip > 98940) {
+				throw new InvalidZipcodeException("Zipcode of [" + zipcode + "] outside the range of the calculator");				
+			}
+		} catch (NumberFormatException e) {
+			throw new InvalidZipcodeException("Zipcode of [" + zipcode + "] is not a valid number");
+		}
+		
+		ZipCodeFactor zcf = this.fundingDAO.getZipCodeFactorByZipCode(zipcode);
+		
+		
+		//Calculate peak hour trips
+		
+		
+
+		//Calculate off peak trips
+		
+		
+		
+		//Include the gas cost
+		ZipCodeGas gasZip = this.fundingDAO.getZipCodeGasByZipCode(zipcode);
+		commute.setCostPerGallon(gasZip.getAvgGas());
+		
+		//Include the annual consumption for the sales tax
+		Consumption con = this.fundingDAO.getConsumptionByIncome(user.getIncome());
+		commute.setAnnualConsume(con.getConsumption(user.getFamilyCount()));
+		
+		return commute;
+	}
+	
+	/**
 	 * Adds a vehicle to the user
 	 * 
 	 * @param	userId	The userID

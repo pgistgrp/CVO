@@ -60,7 +60,7 @@ public interface FundingService {
 	void updateVehicle(Long vehicleId, Float mpg, Float value, Float mpy) throws Exception;
 	User removeVehicle(Long userId, Long vehicleId) throws Exception;
 
-    FundingSourceSuite createFundingSourceSuite() throws Exception;
+	Object createCommute(User user, UserTolls tolls) throws InvalidZipcodeException, Exception;
     
-
+    FundingSourceSuite createFundingSourceSuite() throws Exception;
 }//interface FundingService
