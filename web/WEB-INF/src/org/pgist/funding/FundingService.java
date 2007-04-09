@@ -63,4 +63,9 @@ public interface FundingService {
 	Object createCommute(User user, UserTolls tolls) throws InvalidZipcodeException, Exception;
     
     FundingSourceSuite createFundingSourceSuite() throws Exception;
+
+	void updateUser(User user) throws Exception;
+
+	User getUser(Long userId) throws Exception;
+
 }//interface FundingService

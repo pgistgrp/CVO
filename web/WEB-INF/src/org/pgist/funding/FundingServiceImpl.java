@@ -76,6 +76,60 @@ public class FundingServiceImpl implements FundingService {
 	}
 	
 	/**
+	 * Calculates the peak hours
+	 */
+	private static int calcPeakHours(int zipcodeFactor, float carFactor, int numPassengers) {
+		return 0;
+	}
+	
+	/**
+	 * Calculates the off peak hours
+	 */
+	private static int calcOffPeakHours(int zipcodeFactor, float carFactor, float offPeak, boolean included) {
+		if(!included) return 0;
+		return zipcodeFactor * (int)(carFactor * offPeak); 
+	}
+	
+	/**
+	 * Returns the User asked for
+	 * 
+	 * @param	userId	The ID of the user desired
+	 */
+	public User getUser(Long userId) throws Exception {
+		return this.fundingDAO.getUserById(userId);
+	}
+		
+	/**
+	 * Updates the users information.
+	 * 
+	 * NOTE: This only updates information related to the FundingCalculator game
+	 * 
+	 * @param	user	The user to update
+	 */
+	public void updateUser(User user) throws Exception {
+		
+		//Load the original user
+		User tempUser = this.fundingDAO.getUserById(user.getId());
+		
+		//Copy the funding related data across
+		tempUser.setIncome(user.getIncome());
+		tempUser.setFamilyCount(user.getFamilyCount());
+
+		tempUser.setZipcode(user.getZipcode());
+		tempUser.setWorkZipcode(user.getWorkZipcode());
+		
+		tempUser.setDriveDays(user.getDriveDays());
+		tempUser.setCarpoolDays(user.getCarpoolDays());
+		tempUser.setCarpoolPeople(user.getCarpoolPeople());
+		tempUser.setBusDays(user.getBusDays());
+		tempUser.setWalkDays(user.getWalkDays());
+		tempUser.setBikeDays(user.getBikeDays());
+				
+		//Save it
+		this.fundingDAO.save(tempUser);
+	}
+
+	/**
 	 * Adds a vehicle to the user
 	 * 
 	 * @param	userId	The userID
@@ -373,6 +427,7 @@ public class FundingServiceImpl implements FundingService {
         
         return suite;
     }//createFundingSourceSuite()
+
     
 
 }//class FundingServiceImpl
