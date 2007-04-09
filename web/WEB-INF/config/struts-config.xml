@@ -100,7 +100,7 @@
         </action>
         
         <action path="/fundingCalc" scope="request" type="org.pgist.funding.TaxCalculatorAction">
-            <forward name="main" path="/WEB-INF/jsp/funding/fundingCalc.jsp"/>
+            <forward name="view" path="/WEB-INF/jsp/funding/fundingCalc.jsp"/>
         </action>
         
         <action path="/helpme" scope="request" type="org.pgist.packages.HelpMeAction">
