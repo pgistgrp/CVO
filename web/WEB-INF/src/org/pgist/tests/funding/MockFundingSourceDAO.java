@@ -22,6 +22,7 @@ import org.pgist.projects.ProjectDAO;
 import org.pgist.projects.ProjectRef;
 import org.pgist.projects.ProjectSuite;
 import org.pgist.users.User;
+import org.pgist.users.Vehicle;
 
 /**
  * Use this class to create a mock interface to be used with
@@ -146,6 +147,18 @@ public class MockFundingSourceDAO implements FundingDAO {
 		
 	}
 	public void save(ZipCodeGas zcg) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	public void delete(Vehicle v) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	public Vehicle getVehicle(Long vehicleId) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void save(Vehicle v) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
