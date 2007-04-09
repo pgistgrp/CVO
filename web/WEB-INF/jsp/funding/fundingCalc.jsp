@@ -41,9 +41,42 @@
 	<script src="scripts/search.js" type="text/javascript"></script>
 	<script type='text/javascript' src='/dwr/engine.js'></script>
 	<script type='text/javascript' src='/dwr/util.js'></script>
-	
+	<script type='text/javascript' src='/dwr/interface/FundingAgent.js'></script>
 	<script type="text/javascript" charset="utf-8">
 		var suiteId = "${suiteId}"
+		
+
+		function getUserById(userId){
+			FundingAgent.getUserById({userId:userId}, {
+				callback:function(data){
+					if (data.successful){
+						setEstimates(data.user);
+					}else{
+						return data.reason;
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("FundingAgent.getUserById( error:" + errorString + exception);
+				}
+			});
+		}
+		
+		function setEstimates(user){
+			//alert(user)
+			FundingAgent.setEstimates({user:user}, {
+				callback:function(data){
+					if (data.successful){
+						alert(data);
+						alert(data.html);
+					}else{
+						alert("reason: " + data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("FundingAgent.setEstimates( error:" + errorString + exception);
+				}
+			});
+		}
 	</script>
 	</head>
 	<body>
@@ -97,46 +130,46 @@
 			<div id="myCommute-center" class="floatLeft"> 
 				I <strong>drive alone</strong>
 				<select name="drive-alone">
-					<c:forEach var="i" begin="1" end="7">
-						<option value="${i}">${i}</option>
+					<c:forEach var="i" begin="1" end="8">
+						<option value="${i-1}">${i-1}</option>
 					</c:forEach>
 				</select>
 				days to work each week<br/>
 				
 				I <strong>carpool</strong> to work
 				<select name="carpool">
-					<c:forEach var="i" begin="1" end="7">
-						<option value="${i}">${i}</option>
+					<c:forEach var="i" begin="1" end="8">
+						<option value="${i-1}">${i-1}</option>
 					</c:forEach>
 				</select>
 				days each week with
 				<select name="carpool-with">
-					<c:forEach var="i" begin="1" end="7">
-						<option value="${i}">${i}</option>
+					<c:forEach var="i" begin="1" end="8">
+						<option value="${i-1}">${i-1}</option>
 					</c:forEach>
 				</select>
 				people<br/>
 
 				I <strong>ride the bus</strong> to work
 				<select name="bus">
-					<c:forEach var="i" begin="1" end="7">
-						<option value="${i}">${i}</option>
+					<c:forEach var="i" begin="1" end="8">
+						<option value="${i-1}">${i-1}</option>
 					</c:forEach>
 				</select>
 				days each week<br/>
 				
 				I <strong>walk</strong> to work
 				<select name="walk">
-					<c:forEach var="i" begin="1" end="7">
-						<option value="${i}">${i}</option>
+					<c:forEach var="i" begin="1" end="8">
+						<option value="${i-1}">${i-1}</option>
 					</c:forEach>
 				</select>
 				days each week<br/>
 				
 				I <strong>bike</strong>
 				<select name="bike">
-					<c:forEach var="i" begin="1" end="7">
-						<option value="${i}">${i}</option>
+					<c:forEach var="i" begin="1" end="8">
+						<option value="${i-1}">${i-1}</option>
 					</c:forEach>
 				</select>
 				days to work each week<br/>
@@ -160,7 +193,7 @@
 			</div>
 			<div class="clearboth">
 				<input type="button" name="calcEstimates" value="Calculate my estimates" 
-					style="clear:both;margin:1em;" class="floatRight" onClick="setEstimates();">
+					style="clear:both;margin:1em;" class="floatRight" onClick="getUserById(${user.id});">
 			</div>
 			<div class="clearBoth"></div>
 		</div>
