@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.pgist.criteria.CriteriaRef;
+
 /**
  * @author John
  * 
@@ -18,7 +20,10 @@ public class County implements Serializable {
 	
 	private int quotaLimit;
 	
+	private Set<Integer> zipCodes = new HashSet<Integer>();
+	
 	private int tempQuotaNumber;
+	
 	
     /**
      * @hibernate.id generator-class="native"
@@ -69,6 +74,24 @@ public class County implements Serializable {
     
     public void setTempQuotaNumber(int tempQuotaNumber) {
         this.tempQuotaNumber = tempQuotaNumber;
+    }
+    
+    
+    /**
+     * @return
+     * 
+     * @hibernate.set table="pgist_county_zipcodes_link"
+     * @hibernate.collection-key column="id"
+     * @hibernate.collection-element type="integer" column="zipCodes"
+     */
+    public Set<Integer> getZipCodes() {
+    	
+        return zipCodes;
+    }
+
+
+    public void setZipCodes(Set<Integer> zipCodes ) {
+        this.zipCodes = zipCodes;
     }
     
     

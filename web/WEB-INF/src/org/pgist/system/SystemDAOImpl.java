@@ -199,17 +199,17 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     
     
     public void deleteCounty(Long countyId) throws Exception {
-    	County c = (County) getHibernateTemplate().load(Criteria.class, countyId);
+    	County c = (County) getHibernateTemplate().load(County.class, countyId);
     	if (c != null) getHibernateTemplate().delete(c);
     } //deleteCounty();
     
     
-    private static final String hql_getQuotaStats1 = "from County c";
+    private static final String hql_getQuotaStats1 = "from County c order by c.name";
     
     private static final String hql_getQuotaStats2 = "from User u where u.countyId=? and u.quota=?";
     
     public Collection createQuotaStats() throws Exception {
-    	Map map = new HashMap();
+    	
     	Collection<County> collection = getHibernateTemplate().find(hql_getQuotaStats1);
     	for(County c : collection) {
     		Long id = c.getId();
@@ -222,6 +222,41 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     	}
     	
     	return collection;
+    }
+    
+    
+    public void addZipCodes(Long countyId, String[] zipCodes) throws Exception {
+    	County county = (County) load(County.class, countyId);
+    	Set<Integer> myZipCodes = county.getZipCodes();
+    	for(String zip : zipCodes) {
+    		zip = zip.trim();
+    		Integer tempZ = Integer.parseInt(zip);
+    		myZipCodes.add(tempZ);
+    	}
+    	county.setZipCodes(myZipCodes);
+    	save(county);
+    }
+    
+    
+    public void deleteZipCodes(Long countyId, String[] zipCodes) throws Exception {
+    	County county = (County) load(County.class, countyId);
+    	Set<Integer> myZipCodes = county.getZipCodes();
+    	for(String zip : zipCodes) {
+    		Integer tempZ = Integer.parseInt(zip);
+    		myZipCodes.remove(tempZ);
+    	}
+    	county.setZipCodes(myZipCodes);
+    	save(county);
+    }
+    
+    
+    private static final String hql_getAllCounties = "from County c order by c.name";
+    
+    public Collection getAllCounties() throws Exception {
+    	
+    	Collection<County> county = getHibernateTemplate().find(hql_getAllCounties);
+    	
+    	return county;
     }
     
 }//class SystemDAOImpl

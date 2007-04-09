@@ -48,6 +48,11 @@
       <include method="setQuotaLimit"/>
       <include method="addCounty"/>
       <include method="createQuotaStats"/>
+      <include method="addZipCodes"/>
+      <include method="addRemoveZipCodes"/>
+      <include method="getAllCounties"/>
+      <include method="deleteZipCodes"/>
+      <include method="deleteCounty"/>
     </create>
 
     

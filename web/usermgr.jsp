@@ -23,6 +23,7 @@
 } 
 .rowfont {
 	font-size: .8em;
+	vertical-align:text-top;
 }
 </style>
 <!-- Site Wide JS -->
@@ -38,6 +39,7 @@ window.onLoad = doOnLoad();
 		
 function doOnLoad(){
 	getAllUsers();
+	getQuotaStats();
 }
 
 function getAllUsers() {
@@ -68,6 +70,22 @@ function getQuotaStats() {
 		},
 		errorHandler:function(errorString, exception){ 
 		alert("SystemAgent.createQuotaStats( error:" + errorString + exception);
+		}
+	});
+}
+
+function getAllCounties() {
+		SystemAgent.getAllCounties({}, {
+		callback:function(data){
+			if (data.successful){
+				$('allcounties').innerHTML = data.html;
+				
+			}else{
+				$('allcounties').innerHTML = "<b>Error in SystemAgent.getAllCounties Method: </b>" + data.reason; 
+			}
+		},
+		errorHandler:function(errorString, exception){ 
+		alert("SystemAgent.getAllCounties( error:" + errorString + exception);
 		}
 	});
 }
@@ -116,10 +134,42 @@ function hide(divid){
 	}
 }
 
+function saveQuotaLimit(count) {
+	var limitfieldname = "limitvalue" + count;
+	var idfieldname = "countyid" + count;
+	var limit = document.getElementById(limitfieldname).value;
+	var id = document.getElementById(idfieldname).value;
+	SystemAgent.setQuotaLimit({countyId:id, limit:limit});
+	setTimeout("getQuotaStats()",100);
+}
+
+function addCounty() {
+	var countyname = document.getElementById('countyname').value;
+	SystemAgent.addCounty({name:countyname});
+	setTimeout("getQuotaStats()",100);
+}
+
 function resetPassword(myid) {
 	SystemAgent.resetPassword({ids:myid});
 }
 
+function deleteCounty(countyid) {
+	SystemAgent.deleteCounty({countyid:countyid});
+	setTimeout("getQuotaStats()",100);
+}
+
+function deleteZip(countyid, zipcode) {
+	SystemAgent.deleteZipCodes({countyid:countyid, zips:zipcode});
+	setTimeout("getQuotaStats()",100);
+}
+
+function addZipCodes(countyid, count) {
+	var idfieldname = "zipcodesinput" + count;
+
+	var zipcode = $F(idfieldname).toString()
+	SystemAgent.addZipCodes({countyid:countyid, zips:zipcode});
+	setTimeout("getQuotaStats()",100);
+}
 </script>
 
 
@@ -140,8 +190,18 @@ function resetPassword(myid) {
   <!-- End header menu -->
   <!-- #container is the container that wraps around all the main page content -->
   <div id="container">
-  <h2>Moderator: User Management</h2>
-  	<p><a href="javascript:getEmailList();hide('emailList');">Export All E-mail Addresses (plain text)</a></p>
+  <h2>Moderator Tools</h2>
+	<p>&nbsp;</p>
+	
+	
+	<h3>System Management</h3>
+  	<div id="quota">
+	
+	</div>
+	<p>&nbsp;</p>
+	
+	<h3>User Management</h3>
+	<p><a href="javascript:getEmailList();hide('emailList');">Export All E-mail Addresses (plain text)</a></p>
   	<div id="emailList">
 	<form name="emaillist">
 	  <p>Email List: (Ctrl + A to select All, Ctrl + C to copy to clipboard) <br/>
@@ -162,7 +222,6 @@ function resetPassword(myid) {
     </form>
 	<p>&nbsp;</p>
 	</div>
-	
 	<div id="userList">
 	
 	</div>
@@ -170,10 +229,7 @@ function resetPassword(myid) {
 	<p>&nbsp;</p>
 	
 	
-	<p><a href="javascript:getQuotaStats();hide('quota');">Adjust Quota Limits</a></p>
-  	<div id="quota">
 	
-	</div>
 	
   </div>
   <!-- end container -->
@@ -194,7 +250,6 @@ function resetPassword(myid) {
 	<!-- End footer -->
 	<script type="text/javascript">
 		hide('emailList');
-		hide('quota');
 	</script>
 </body>
 </html:html>

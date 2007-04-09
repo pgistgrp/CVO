@@ -71,5 +71,12 @@ public interface SystemService {
     
     Collection createQuotaStats() throws Exception;
     	
+    void addZipCodes(Long countyId, String[] zipCodes) throws Exception;
+    
+    void deleteZipCodes(Long countyId, String[] zipCodes) throws Exception;
+    
+    Collection getAllCounties() throws Exception;
+    
+    void deleteCounty(Long countyId) throws Exception;
     
 }//interface SystemService

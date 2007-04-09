@@ -210,6 +210,20 @@ public class SystemServiceImpl implements SystemService {
     	return systemDAO.createQuotaStats();
     }
     
+    public void addZipCodes(Long countyId, String[] zipCodes) throws Exception {
+    	systemDAO.addZipCodes(countyId, zipCodes);
+    }
     
+    public void deleteZipCodes(Long countyId, String[] zipCodes) throws Exception {
+    	systemDAO.deleteZipCodes(countyId, zipCodes);
+    }
+    
+    public Collection getAllCounties() throws Exception {
+    	return systemDAO.getAllCounties();
+    }
+    
+    public void deleteCounty(Long countyId) throws Exception {
+    	systemDAO.deleteCounty(countyId);
+    }
     
 }//class SystemServiceImpl
