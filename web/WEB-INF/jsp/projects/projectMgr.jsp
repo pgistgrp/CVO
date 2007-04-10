@@ -139,11 +139,11 @@
 		var county = $F('txtAltCounty'+ id);
 		var sponsor = $F('txtAltAgency'+ id);
 		var shortDescription = $F('txtAltDesc' + id);
-		var detailedDescription = $F('txtAltDetailedDesc'+ id)
-		var links = $F('txtAltLinks' + id);
-		var statementFor = $F('txtAltFor'+ id);
-		var statementAgainst = $F('txtAltAgainst'+ id);
-
+		var detailedDescription = tinyMCE.getContent("txtAltDetailedDesc"+ id);
+		var links = tinyMCE.getContent("txtAltLinks"+ id);
+		var statementFor = tinyMCE.getContent("txtAltFor"+ id);
+		var statementAgainst = tinyMCE.getContent("txtAltAgainst"+ id);
+		
 		//alert("id: " + id + " name: " + name + " shortDescription: " + shortDescription + " detailedDescription: "+ detailedDescription+" cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst + " county: " + county); 
 		ProjectAgent.createProjectAlt({id:id, name:name,shortDescription:shortDescription,detailedDescription:detailedDescription,cost:cost, sponsor:sponsor, links:links, statementFor:statementFor, statementAgainst:statementAgainst, county:county}, {
 			callback:function(data, id){
@@ -301,47 +301,16 @@
 		});
 	}
 	
-	function testMCE(id) {
-		tinyMCE.getInstanceById('txtAltDetailedDesc' + id);
-		var detailedDescription = tinyMCE.getContent();
-		alert(detailedDescription);
-		
-		tinyMCE.getInstanceById('txtAltLinks' + id);
-		var links = tinyMCE.getContent();
-		alert(links);
-		
-		tinyMCE.getInstanceById('txtAltFor' + id);
-		var statementFor = tinyMCE.getContent();
-		alert(statementFor);
-		
-		tinyMCE.getInstanceById('txtAltAgainst' + id);
-		var statementAgainst = tinyMCE.getContent();
-		alert(statementAgainst);
-	}
-	
 	function editProjectAlt(id){
 		var name = $F('txtAltName'+ id);
 		var cost = $F('txtAltCost' + id); 
 		var county = $F('txtAltCounty'+ id);
 		var sponsor = $F('txtAltAgency'+ id);
 		var shortDescription = $F('txtAltDesc' + id);
-		
-		tinyMCE.getInstanceById('txtAltDetailedDesc' + id);
-		var detailedDescription = tinyMCE.getContent();
-		alert(detailedDescription);
-		
-		tinyMCE.getInstanceById('txtAltLinks' + id);
-		var links = tinyMCE.getContent();
-		alert(links);
-		
-		tinyMCE.getInstanceById('txtAltFor' + id);
-		var statementFor = tinyMCE.getContent();
-		alert(statementFor);
-		
-		tinyMCE.getInstanceById('txtAltAgainst' + id);
-		var statementAgainst = tinyMCE.getContent();
-		alert(statementAgainst);
-
+		var detailedDescription = tinyMCE.getContent("txtAltDetailedDesc"+ id);
+		var links = tinyMCE.getContent("txtAltLinks"+ id);
+		var statementFor = tinyMCE.getContent("txtAltFor"+ id);
+		var statementAgainst = tinyMCE.getContent("txtAltAgainst"+ id);
 
 		//{id: 3545, name:"This is from DWR EDIT", description: "This is a description", cost: 60.00, links: "http://www.google.com", sponsor: "PSRC", statementFor: "COOL", statementAgainst: "BAD"}
 		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst + " county: " + county); 
