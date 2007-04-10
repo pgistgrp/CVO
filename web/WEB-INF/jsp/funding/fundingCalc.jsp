@@ -62,8 +62,17 @@
 		}
 		
 		function calcCommute(user){
-			alert("user object: " + user)
-			FundingAgent.calcCommute({user:user}, {
+			//alert("user object: " + user)
+			user.zipcode = $F('hZipcode');
+			user.workZipcode = $F('wZipcode');
+			user.driveDays = $F('drive-alone');
+			user.carpoolDays = $F('carpool');
+			user.carpoolPeople = $F('carpool-with');
+			user.busDays = $F('bus');
+			user.walkDays = $F('walk');
+			user.bikeDays = $F('bike');
+			alert('zipcode: ' + user.zipcode + ' workzip: '+ user.workZipcode + ' driveDays: ' + user.driveDays + ' carpoolDays:' +user.carpoolDays+ ' carpoolPeeps: ' + user.carpoolPeople + ' bus days ' +user.carpoolPeople+' busDays:' + user.busDays+ ' walkDays: ' + user.walkDays + 'bikeDays' + user.bikeDays);
+			FundingAgent.calcCommute(user, {
 				callback:function(data){
 					if (data.successful){
 						alert("data:" + data);
@@ -114,12 +123,12 @@
 		<div id="myCommute">
 			<h3 class="headerColor">My Commute</h3>
 			<div id="myCommute-left" class="floatLeft">
-			<p>Home zip code <input name="hZipcode" type="text" size="5" maxlength="5"></span></p>
-			<p>Work zip code <input name="wZipcode" type="text" size="5" maxlength="5"></span></p>
+			<p>Home zip code <input id="hZipcode" name="hZipcode" type="text" size="5" maxlength="5"></span></p>
+			<p>Work zip code <input id="wZipcode" name="wZipcode" type="text" size="5" maxlength="5"></span></p>
 			</div>
 			<div id="myCommute-center" class="floatLeft"> 
 				I <strong>drive alone</strong>
-				<select name="drive-alone">
+				<select name="drive-alone" id="drive-alone">
 					<c:forEach var="i" begin="1" end="8">
 						<option value="${i-1}">${i-1}</option>
 					</c:forEach>
@@ -127,13 +136,13 @@
 				days to work each week<br/>
 				
 				I <strong>carpool</strong> to work
-				<select name="carpool">
+				<select name="carpool" id="carpool">
 					<c:forEach var="i" begin="1" end="8">
 						<option value="${i-1}">${i-1}</option>
 					</c:forEach>
 				</select>
 				days each week with
-				<select name="carpool-with">
+				<select name="carpool-with" id="carpool-with">
 					<c:forEach var="i" begin="1" end="8">
 						<option value="${i-1}">${i-1}</option>
 					</c:forEach>
@@ -141,7 +150,7 @@
 				people<br/>
 
 				I <strong>ride the bus</strong> to work
-				<select name="bus">
+				<select name="bus" id="bus">
 					<c:forEach var="i" begin="1" end="8">
 						<option value="${i-1}">${i-1}</option>
 					</c:forEach>
@@ -149,7 +158,7 @@
 				days each week<br/>
 				
 				I <strong>walk</strong> to work
-				<select name="walk">
+				<select name="walk" id="walk">
 					<c:forEach var="i" begin="1" end="8">
 						<option value="${i-1}">${i-1}</option>
 					</c:forEach>
@@ -157,7 +166,7 @@
 				days each week<br/>
 				
 				I <strong>bike</strong>
-				<select name="bike">
+				<select name="bike" id="bike">
 					<c:forEach var="i" begin="1" end="8">
 						<option value="${i-1}">${i-1}</option>
 					</c:forEach>
