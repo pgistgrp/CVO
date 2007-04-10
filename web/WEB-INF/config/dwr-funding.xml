@@ -13,10 +13,10 @@
       <!-- Beans Convertor -->
 
 
-      <convert converter="bean" match="org.pgist.funding.FundingSource"/>
-      
+      <convert converter="bean" match="org.pgist.funding.FundingSource"/>     
       <convert converter="bean" match="org.pgist.funding.FundingSourceAlternative"/>
-
+      <convert converter="bean" match="org.pgist.funding.UserTaxInfoDTO"/>
+	
 
       <!-- DWR Agents -->
 
@@ -27,8 +27,8 @@
           <include method="addVehicle"/>
           <include method="updateVehicle"/>
           <include method="removeVehicle"/>          
-          <include method="setEstimates"/>          
-          <include method="setCostReport"/> 
+          <include method="calcCommute"/>          
+          <include method="calcCostReport"/> 
           <include method="createFundingSource"/>
           <include method="editFundingSource"/>
           <include method="deleteFundingSource"/>
