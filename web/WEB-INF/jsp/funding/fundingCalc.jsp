@@ -96,17 +96,7 @@
 			</div>
 		<div id="myVehicles">
 			<h3 class="headerColor">My Vehicle(s)</h3>
-			<c:forEach var="vehicle" items="${user.vehicles}" varStatus="loop">
-				<div id="vehicle${vehicle.id}" class="myVehiclesRow"> <strong>Vehicle ${loop.index + 1}: </strong> Miles per
-					gallon
-					${vehicle.milesPerGallon}
-					Approximate value
-					${vehicle.approxValue}
-
-					Miles driven per year
-					${vehicle.milesPerYear}
-					<small><a href="#">Edit</a> | <a href="#">Remove</a></small> </div>
-			</c:forEach>
+			<!-- put back vehicle loop here -->
 			<p><a href="javascript:Element.toggle('newVehicle');">Add vehicle</a> 
 				<div id="newVehicle" class="myVehiclesRow" style="display:none;"> 
 					
