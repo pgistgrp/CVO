@@ -77,8 +77,9 @@
 			FundingAgent.calcCommute(user, {
 				callback:function(data){
 					if (data.successful){
-						alert("data:" + data);
-						alert("html: " + data.html);
+						alert("data:" + data.user);
+						$F('gasCost') = data.user.costPerGallon
+						$F('annualConsume') = data.user.annualConsume
 					}else{
 						alert("reason: " + data.reason);
 					}
@@ -263,11 +264,11 @@
 			<table>
 				<tr>
 					<td>Gas cost per gallon</td>
-					<td><input name="" size="5" type="text"></td>
+					<td><input name="gasCost" id="gasCost" size="5" type="text" value="${user.costPerGallon}"></td>
 				</tr>
 				<tr>
 					<td>Annual consumption (sales tax)</td>
-					<td><input name="" size="5" type="text"></td>
+					<td><input name="annualConsume" id="annualConsume" size="5" type="text" value="${user.annualConsume}"></td>
 				</tr>
 			</table>
 		</div>
