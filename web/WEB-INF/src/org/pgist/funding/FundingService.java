@@ -56,16 +56,16 @@ public interface FundingService {
 
     Collection getAllTolls() throws Exception;
 
-	User addVehicle(Long userId, Float mpg, Float value, Float mpy) throws Exception;
+	UserTaxInfoDTO addVehicle(Long userId, Float mpg, Float value, Float mpy) throws Exception;
 	void updateVehicle(Long vehicleId, Float mpg, Float value, Float mpy) throws Exception;
-	User removeVehicle(Long userId, Long vehicleId) throws Exception;
+	UserTaxInfoDTO removeVehicle(Long userId, Long vehicleId) throws Exception;
 
-	Object createCommute(User user, UserTolls tolls) throws InvalidZipcodeException, Exception;
+	Object createCommute(UserTaxInfoDTO user) throws InvalidZipcodeException, Exception;
     
     FundingSourceSuite createFundingSourceSuite() throws Exception;
 
-	void updateUser(User user) throws Exception;
+	void updateUserTaxInfo(UserTaxInfoDTO user) throws Exception;
 
-	User getUser(Long userId) throws Exception;
+	UserTaxInfoDTO getUserTaxInfoDTO(Long userId) throws Exception;
 
 }//interface FundingService

@@ -33,7 +33,7 @@ public class FundingServiceImpl implements FundingService {
 	 * @param	user	The user to base the commute off of
 	 * @return	A commute object depicting the users commute
 	 */
-	public UserCommute createCommute(User user, UserTolls tolls) throws InvalidZipcodeException, Exception {
+	public UserCommute createCommute(UserTaxInfoDTO user) throws InvalidZipcodeException, Exception {
 
 		//Save the user
 		this.fundingDAO.save(user);
@@ -95,8 +95,10 @@ public class FundingServiceImpl implements FundingService {
 	 * 
 	 * @param	userId	The ID of the user desired
 	 */
-	public User getUser(Long userId) throws Exception {
-		return this.fundingDAO.getUserById(userId);
+	public UserTaxInfoDTO getUserTaxInfoDTO(Long userId) throws Exception {
+		UserTaxInfoDTO utax = new UserTaxInfoDTO();
+		utax.loadWithUserInfo(this.fundingDAO.getUserById(userId));
+		return utax;
 	}
 		
 	/**
@@ -106,25 +108,13 @@ public class FundingServiceImpl implements FundingService {
 	 * 
 	 * @param	user	The user to update
 	 */
-	public void updateUser(User user) throws Exception {
+	public void updateUserTaxInfo(UserTaxInfoDTO user) throws Exception {
 		
 		//Load the original user
-		User tempUser = this.fundingDAO.getUserById(user.getId());
+		User tempUser = this.fundingDAO.getUserById(user.getUserId());
 		
-		//Copy the funding related data across
-		tempUser.setIncome(user.getIncome());
-		tempUser.setFamilyCount(user.getFamilyCount());
-
-		tempUser.setZipcode(user.getZipcode());
-		tempUser.setWorkZipcode(user.getWorkZipcode());
+		user.loadUserWithData(tempUser);
 		
-		tempUser.setDriveDays(user.getDriveDays());
-		tempUser.setCarpoolDays(user.getCarpoolDays());
-		tempUser.setCarpoolPeople(user.getCarpoolPeople());
-		tempUser.setBusDays(user.getBusDays());
-		tempUser.setWalkDays(user.getWalkDays());
-		tempUser.setBikeDays(user.getBikeDays());
-				
 		//Save it
 		this.fundingDAO.save(tempUser);
 	}
@@ -138,7 +128,7 @@ public class FundingServiceImpl implements FundingService {
 	 * @param	mpy	Miles per year
 	 * @throws Exception 
 	 */
-	public User addVehicle(Long userId, Float mpg, Float value, Float mpy) throws Exception {
+	public UserTaxInfoDTO addVehicle(Long userId, Float mpg, Float value, Float mpy) throws Exception {
 		User user = this.fundingDAO.getUserById(userId);
 
 		Vehicle v = new Vehicle();
@@ -150,7 +140,7 @@ public class FundingServiceImpl implements FundingService {
 		this.fundingDAO.save(user);
 		this.fundingDAO.save(v);
 		
-		return user;
+		return this.getUserTaxInfoDTO(userId);
 	}
 
 	/**
@@ -177,7 +167,7 @@ public class FundingServiceImpl implements FundingService {
 	 * @param	userId
 	 * @param	vehicleId
 	 */
-	public User removeVehicle(Long userId, Long vehicleId) throws Exception {
+	public UserTaxInfoDTO removeVehicle(Long userId, Long vehicleId) throws Exception {
 		User user = this.fundingDAO.getUserById(userId);
 		
 		Iterator<Vehicle> i = user.getVehicles().iterator();
@@ -188,11 +178,11 @@ public class FundingServiceImpl implements FundingService {
 				user.getVehicles().remove(tempV);
 				this.fundingDAO.delete(tempV);
 				this.fundingDAO.save(user);
-				return user;
+				break;
 			}
 		}
 		
-		return user;
+		return this.getUserTaxInfoDTO(userId);
 	}
 	
     /**

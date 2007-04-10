@@ -28,7 +28,7 @@ import org.pgist.util.WebUtils;
  * the action will forward to page of "view", the following variables are available in jsp:
  * <ul>
  *   <li>suiteId - the funding suiteId that you will need for the ajax calls</li>
- *   <li>user - the current User oject</li>
+ *   <li>user - the User Tax InfoDTO that contains all information about the user for calculations</li>
  * </ul>
  * 
  * Examples:
@@ -71,7 +71,9 @@ public class TaxCalculatorAction extends Action {
 //    	}
     	           
 		//Get the current user
-		request.setAttribute("user", this.fundingService.getUser(WebUtils.currentUser()));
+    	UserTaxInfoDTO taxInfo = new UserTaxInfoDTO();
+    	taxInfo.loadWithUserInfo(this.fundingService.getUser(WebUtils.currentUser()));
+		request.setAttribute("user", taxInfo);
 		request.setAttribute("suiteId", tempSuiteId);
     	
     	

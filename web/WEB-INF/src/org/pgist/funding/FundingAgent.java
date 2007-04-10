@@ -46,7 +46,7 @@ public class FundingAgent {
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *     <li>user - The User object with all the users information</li>
+     *     <li>user - The UserTaxInfoDTO with all the users information</li>
      *   </ul>
      */
     public Map addVehicle(Map params) {
@@ -146,44 +146,7 @@ public class FundingAgent {
         
         return map;
     }//removeVehicle()
-
-    /**
-     * Updates the user with all of the specified values.  You can only use this to update the parameters
-     * in the user object.  You cannot use this to update the number of vehicles.  The vehicles associated
-     * with the user passed in will be ignored.  For that you must use the add/remove Vehicle functions
-     * 
-     * @param params a Map contains:<br>
-     *   <ul>
-     *     <li>user - User object with all of the values set they way you want it</li>
-     *   </ul>
-     * 
-     * @return a Map contains:<br>
-     *   <ul>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *     <li>user - The User object with all the users information</li>
-     *   </ul>
-     */
-    public Map updateUser(Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
         
-        try {
-            User user = (User) params.get("user");
-
-            this.fundingService.updateUser(user);
-            
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-            return map;
-        }
-        
-        return map;
-    }//update User()
-    
-    
     /**
      * Get a FundingSource object by id
      * 
@@ -647,7 +610,7 @@ public class FundingAgent {
         
         try {
             Long userId = new Long((String) params.get("userId"));
-        	map.put("user", this.fundingService.getUser(userId));
+        	map.put("user", this.fundingService.getUserTaxInfoDTO(userId));
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -657,15 +620,50 @@ public class FundingAgent {
         
         return map;
     	
-    }//getUser
+    }//getUserById
+    
+    /**
+     * Updates the user with all of the specified values.  You can only use this to update the parameters
+     * in the user object.  You cannot use this to update the number of vehicles.  The vehicles associated
+     * with the user passed in will be ignored.  For that you must use the add/remove Vehicle functions
+     * 
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>user - UserTaxInfoDTO used to move information</li>
+     *   </ul>
+     * 
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>user - The User object with all the users information</li>
+     *   </ul>
+     */
+    public Map updateUser(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            UserTaxInfoDTO user = (UserTaxInfoDTO) params.get("user");
+
+            this.fundingService.updateUserTaxInfo(user);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//update User()    
     
     /**
      * Set the estimate for user commute in tax calculator.
      * 
      * @param params a Map contains:<br>
      *   <ul>
-     *     <li>user - User, User object to form the estimates for</li>	 
-     *     <li>toll - UserTolls, UserTolls Object used in forming the estimates</li>	 
+     *     <li>user - UserTaxInfoDTO, DTO used to hold the tax information from the page</li>	 
      *   </ul>
      *   
      * @return a Map contains:<br>
@@ -680,13 +678,13 @@ public class FundingAgent {
      *     </li>
      *   </ul>
      */
-    public Map setEstimates(Map params) {
+    public Map calcCommute(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
         try {
-        	
-        	User user = (User)params.get("user");
+        	System.out.println("MATT String is [" + params.get("user"));
+        	UserTaxInfoDTO user = (UserTaxInfoDTO)params.get("user");
 
         	if(user == null) {
                 map.put("reason", "Follow the white rabbit");
@@ -696,12 +694,12 @@ public class FundingAgent {
         	}
         	
         	//Save the new user info
-        	this.fundingService.updateUser(user);
+        	this.fundingService.updateUserTaxInfo(user);
         	
         	UserTolls tolls = (UserTolls)map.get("toll");
         	if(tolls == null) tolls = new UserTolls();
         	
-        	map.put("commute", fundingService.createCommute(user, tolls));
+        	map.put("commute", fundingService.createCommute(user));
             
         	
             Collection allTolls = fundingService.getAllTolls();
@@ -738,7 +736,7 @@ public class FundingAgent {
      *     </li>
      *   </ul>
      */
-    public Map setCostReport(Map params) {
+    public Map calcCostReport(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         

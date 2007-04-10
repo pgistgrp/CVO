@@ -9,6 +9,62 @@ import java.io.Serializable;
  */
 public class UserTolls implements Serializable {
 
+    /**
+     * meaning: Sales Tax<br>
+     * value: 1<br>
+     * calculation: annual cost = (tax rate) * (estimated annual consumption)
+     */
+    public static final int TYPE_SALES_TAX = 1;
+    
+    /**
+     * meaning: Annual Vehicle License Fee<br>
+     * value: 2<br>
+     * calculation: annual cost = (tax rate) * (number of vehicles)
+     */
+    public static final int TYPE_LICENSE = 2;
+    
+    /**
+     * meaning: Annual Motor Vehicle Excise Tax<br>
+     * value: 3<br>
+     * calculation: annual cost = sum( (tax rate) * (vehicle value) )
+     */
+    public static final int TYPE_MOTOR_TAX = 3;
+    
+    /**
+     * meaning: Gas Tax<br>
+     * value: 4<br>
+     * calculation: annual cost = sum( (tax rate) / (miles per galon) * (miles driven per year) )
+     */
+    public static final int TYPE_GAS_TAX = 4;
+    
+    /**
+     * meaning: Sales Tax on Gas<br>
+     * value: 5<br>
+     * calculation: annual cost = sum( (tax rate) / (miles per galon) * (miles driven per year) )
+     */
+    public static final int TYPE_SALES_GAS_TAX = 5;
+    
+    /**
+     * meaning: Employer Excise Tax<br>
+     * value: 6<br>
+     * calculation: No direct cost calculated
+     */
+    public static final int TYPE_EMPLOYER_EXCISE_TAX = 6;
+    
+    /**
+     * meaning: Commercial Parking Tax<br>
+     * value: 7<br>
+     * calculation: annual cost = (tax rate) * (parkings per year)
+     */
+    public static final int TYPE_PARKING_TAX = 7;
+    
+    /**
+     * meaning: 1.Tolls<br>
+     * value: 8<br>
+     * calculation: annual cost = (tax rate) * (trips per year)
+     */
+    public static final int TYPE_TOLLS = 8;	
+	
 	private boolean SR99;
 	private boolean I405S;
 	private boolean SR520;
