@@ -50,7 +50,7 @@
 			FundingAgent.getUserById({userId:userId}, {
 				callback:function(data){
 					if (data.successful){
-						setEstimates(data.user);
+						calcCommute(data.user);
 					}else{
 						return data.reason;
 					}
@@ -61,13 +61,13 @@
 			});
 		}
 		
-		function setEstimates(user){
-			//alert(user)
-			FundingAgent.setEstimates({user:user}, {
+		function calcCommute(user){
+			alert("user object: " + user)
+			FundingAgent.calcCommute({user:user}, {
 				callback:function(data){
 					if (data.successful){
-						alert(data);
-						alert(data.html);
+						alert("data:" + data);
+						alert("html: " + data.html);
 					}else{
 						alert("reason: " + data.reason);
 					}
@@ -193,7 +193,7 @@
 			</div>
 			<div class="clearboth">
 				<input type="button" name="calcEstimates" value="Calculate my estimates" 
-					style="clear:both;margin:1em;" class="floatRight" onClick="getUserById(${user.id});">
+					style="clear:both;margin:1em;" class="floatRight" onClick="getUserById(${user.userId});">
 			</div>
 			<div class="clearBoth"></div>
 		</div>

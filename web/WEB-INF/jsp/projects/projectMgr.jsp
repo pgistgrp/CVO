@@ -301,6 +301,24 @@
 		});
 	}
 	
+	function testMCE(id) {
+		tinyMCE.getInstanceById('txtAltDetailedDesc' + id);
+		var detailedDescription = tinyMCE.getContent();
+		alert(detailedDescription);
+		
+		tinyMCE.getInstanceById('txtAltLinks' + id);
+		var links = tinyMCE.getContent();
+		alert(links);
+		
+		tinyMCE.getInstanceById('txtAltFor' + id);
+		var statementFor = tinyMCE.getContent();
+		alert(statementFor);
+		
+		tinyMCE.getInstanceById('txtAltAgainst' + id);
+		var statementAgainst = tinyMCE.getContent();
+		alert(statementAgainst);
+	}
+	
 	function editProjectAlt(id){
 		var name = $F('txtAltName'+ id);
 		var cost = $F('txtAltCost' + id); 
