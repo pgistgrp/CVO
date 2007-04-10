@@ -63,6 +63,8 @@
 		
 		function calcCommute(user){
 			//alert("user object: " + user)
+			user.income = $F('annual-income');
+			user.familyCount = $F('household-size');
 			user.zipcode = $F('hZipcode');
 			user.workZipcode = $F('wZipcode');
 			user.driveDays = $F('drive-alone');
@@ -71,7 +73,7 @@
 			user.busDays = $F('bus');
 			user.walkDays = $F('walk');
 			user.bikeDays = $F('bike');
-			alert('zipcode: ' + user.zipcode + ' workzip: '+ user.workZipcode + ' driveDays: ' + user.driveDays + ' carpoolDays:' +user.carpoolDays+ ' carpoolPeeps: ' + user.carpoolPeople + ' bus days ' +user.carpoolPeople+' busDays:' + user.busDays+ ' walkDays: ' + user.walkDays + 'bikeDays' + user.bikeDays);
+			alert('income: ' +user.income+ ' familyCount: ' +user.familyCount+ ' zipcode: ' + user.zipcode + ' workzip: '+ user.workZipcode + ' driveDays: ' + user.driveDays + ' carpoolDays:' +user.carpoolDays+ ' carpoolPeeps: ' + user.carpoolPeople + ' bus days ' +user.carpoolPeople+' busDays:' + user.busDays+ ' walkDays: ' + user.walkDays + ' bikeDays: ' + user.bikeDays);
 			FundingAgent.calcCommute(user, {
 				callback:function(data){
 					if (data.successful){
@@ -85,6 +87,9 @@
 				alert("FundingAgent.setEstimates( error:" + errorString + exception);
 				}
 			});
+			//move to if successful
+			Element.show('estimates');
+			Element.show('newTable')
 		}
 	</script>
 	</head>
@@ -99,9 +104,14 @@
 		<div id="myIncome">
 			<h3 class="headerColor">My income</h3>
 			<span id="annualIncome"> Annual Income
-			<input name="annual-income" type="text" value="${user.income}"></span>
+			<input name="annual-income" id="annual-income" type="text" value="${user.income}"></span>
 			<span id="householdSize"> Household size
-			<input name="household-size" type="text" value="${user.familyCount}"></span>
+				<select name="household-size" id="household-size" >
+					<c:forEach var="i" begin="1" end="11">
+						<option ${(user.familyCount == (i-1)) ? "SELECTED" : ""} value="${i-1}">${i-1}</option>
+					</c:forEach>
+				</select>
+			</span>
 			</div>
 		<div id="myVehicles">
 			<h3 class="headerColor">My Vehicle(s)</h3>
@@ -123,14 +133,14 @@
 		<div id="myCommute">
 			<h3 class="headerColor">My Commute</h3>
 			<div id="myCommute-left" class="floatLeft">
-			<p>Home zip code <input id="hZipcode" name="hZipcode" type="text" size="5" maxlength="5"></span></p>
-			<p>Work zip code <input id="wZipcode" name="wZipcode" type="text" size="5" maxlength="5"></span></p>
+			<p>Home zip code <input id="hZipcode" name="hZipcode" type="text" size="5" maxlength="5" value="${user.zipcode}"></span></p>
+			<p>Work zip code <input id="wZipcode" name="wZipcode" type="text" size="5" maxlength="5" value="${user.workZipcode}"></span></p>
 			</div>
 			<div id="myCommute-center" class="floatLeft"> 
 				I <strong>drive alone</strong>
 				<select name="drive-alone" id="drive-alone">
 					<c:forEach var="i" begin="1" end="8">
-						<option value="${i-1}">${i-1}</option>
+						<option ${(user.driveDays == (i-1)) ? "SELECTED" : ""} value="${i-1}">${i-1}</option>
 					</c:forEach>
 				</select>
 				days to work each week<br/>
@@ -138,13 +148,13 @@
 				I <strong>carpool</strong> to work
 				<select name="carpool" id="carpool">
 					<c:forEach var="i" begin="1" end="8">
-						<option value="${i-1}">${i-1}</option>
+						<option ${(user.carpoolDays == (i-1)) ? "SELECTED" : ""} value="${i-1}">${i-1}</option>
 					</c:forEach>
 				</select>
 				days each week with
 				<select name="carpool-with" id="carpool-with">
 					<c:forEach var="i" begin="1" end="8">
-						<option value="${i-1}">${i-1}</option>
+						<option ${(user.carpoolPeople == (i-1)) ? "SELECTED" : ""} value="${i-1}">${i-1}</option>
 					</c:forEach>
 				</select>
 				people<br/>
@@ -152,7 +162,7 @@
 				I <strong>ride the bus</strong> to work
 				<select name="bus" id="bus">
 					<c:forEach var="i" begin="1" end="8">
-						<option value="${i-1}">${i-1}</option>
+						<option ${(user.busDays == (i-1)) ? "SELECTED" : ""} value="${i-1}">${i-1}</option>
 					</c:forEach>
 				</select>
 				days each week<br/>
@@ -160,7 +170,7 @@
 				I <strong>walk</strong> to work
 				<select name="walk" id="walk">
 					<c:forEach var="i" begin="1" end="8">
-						<option value="${i-1}">${i-1}</option>
+						<option ${(user.walkDays == (i-1)) ? "SELECTED" : ""} value="${i-1}">${i-1}</option>
 					</c:forEach>
 				</select>
 				days each week<br/>
@@ -168,7 +178,7 @@
 				I <strong>bike</strong>
 				<select name="bike" id="bike">
 					<c:forEach var="i" begin="1" end="8">
-						<option value="${i-1}">${i-1}</option>
+						<option ${(user.bikeDays == (i-1)) ? "SELECTED" : ""} value="${i-1}">${i-1}</option>
 					</c:forEach>
 				</select>
 				days to work each week<br/>
@@ -190,6 +200,7 @@
 				<input name="myCommute-check7" type="checkbox">
 				SR 167<br />
 			</div>
+			
 			<div class="clearboth">
 				<input type="button" name="calcEstimates" value="Calculate my estimates" 
 					style="clear:both;margin:1em;" class="floatRight" onClick="getUserById(${user.userId});">
@@ -197,7 +208,7 @@
 			<div class="clearBoth"></div>
 		</div>
 
-		<div id="estimates">
+		<div id="estimates" style="display:none;">
 			<h3 class="headerColor peekaboobugfix">Estimated use of toll roads, taxed parking
 				facilities, and annual taxable consumption</h3>
 			<p class="peekaboobugfix">Your estimates number of tolls has been estimated based
@@ -263,15 +274,16 @@
 		
 			<div class="clearboth">
 
-				<input type="button" name="calcEstimates" value="Update Annual Cost Report" 
-					style="clear:both;margin:1em;" class="floatRight">
+				<!--<input type="button" name="calcEstimates" value="Update Annual Cost Report" 
+					style="clear:both;margin:1em;" class="floatRight">-->
 			</div>
 			<div class="clearBoth"></div>
 		</div>
 		<!-- End calculator options -->
 		<!-- Note on zebra-striping by funding source: When creating rows of funding items (such as each alternative gas tax increase) wrap all rows in a TBODY tag, then do zebra-striping on those TBODYs, not on the individual TRs. --><br>
-		<h3 class="headerColor">My annual costs report</h4>
-		<div id="newTable">
+		
+		<div id="newTable" style="display:none;">
+		<h3 class="headerColor">My annual costs report</h3>
 		<table cellpadding=0 cellspacing=0>
 			<tr class="tableHeading">
 				<th class="first">Funding Source</th>
