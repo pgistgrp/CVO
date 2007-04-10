@@ -13,46 +13,24 @@
     </bean>
     
     
-<!--    <bean id="task-create.cct" class="org.pgist.cvo.CreateCCTTask">
+    <bean id="task-create.cct" class="org.pgist.cvo.CreateCCTTask">
         <property name="cctService" ref="cctService"/>
-    </bean> -->
+    </bean>
     
     
     <bean id="workflow.registry" class="org.pgist.wfengine.WorkflowTaskRegistry">
         <property name="tasks">
             <map>
-              <entry>
-                <key>
-                	<value>task-create.project.suite</value>
-                </key>
-                <ref bean="task-create.project.suite" />
-<!--                <key>
-                	<value>task-create.funding.suite</value>
-                </key>
-                <ref bean="task-create.funding.suite" />
-                <key>
-                	<value>task-create.cct</value>
-                </key>
-                <ref bean="task-create.cct" />-->
-              </entry>
+              <entry><key><value>task-create.project.suite</value></key><ref bean="task-create.project.suite" /></entry>
+              <entry><key><value>task-create.funding.suite</value></key><ref bean="task-create.funding.suite" /></entry>
+              <entry><key><value>task-create.cct</value></key><ref bean="task-create.cct" /></entry>
             </map>
         </property>
         <property name="actions">
             <map>
-              <entry>
-                <key>
-                	<value>task-define.projects</value>
-                </key>
-                <value>/projectDefine.do</value>
-<!--                <key>
-                	<value>task-define.fundings</value>
-                </key>
-                <value>/fundingDefine.do</value>
-                <key>
-                	<value>task-grade.projects</value>
-                </key>
-                <value>/projectGrading.do</value>-->
-              </entry>
+              <entry><key><value>task-define.projects</value></key><value>/projectDefine.do</value></entry>
+              <entry><key><value>task-define.fundings</value></key><value>/fundingDefine.do</value></entry>
+              <entry><key><value>task-grade.projects</value></key><value>/projectGrading.do</value></entry>
             </map>
         </property>
     </bean>

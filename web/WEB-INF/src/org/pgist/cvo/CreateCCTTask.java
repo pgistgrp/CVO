@@ -18,7 +18,7 @@ public class CreateCCTTask implements WorkflowTask {
     private CCTService cctService;
     
     
-    public void setCCTService(CCTService cctService) {
+    public void setCctService(CCTService cctService) {
         this.cctService = cctService;
     }
     
