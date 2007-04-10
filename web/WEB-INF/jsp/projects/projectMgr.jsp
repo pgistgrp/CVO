@@ -41,9 +41,11 @@
 <!-- Site Wide JavaScript -->
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
-<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 <script src="scripts/search.js" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
+
+<!-- TinyMCE libraries -->
+
 
 <!-- mapping JavaScript -->
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxTwM0brOpm-All5BF6PoaKBxRWWERTgXzfGnh96tes2zXXrBXrWwWigIQ"
@@ -73,15 +75,27 @@
       behavior:url(#default#VML);
     }
 </style>
+
+
+<script type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 <script type="text/javascript">
-	tinyMCE.init({
-		mode : "exact",
+
+		tinyMCE.init({
 		theme : "advanced",
 		theme_advanced_buttons1 : "bold, italic, bullist, numlist,undo, redo,link",
 		theme_advanced_buttons2 : "",
 		theme_advanced_buttons3 : "",
-		content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css"
-	});
+		content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css",
+		extended_valid_elements : "blockquote[style='']",
+		mode : "exact",
+		});
+
+</script>
+
+
+<script type="text/javascript">
+
 // Global Variables
 	function getProjects(){
 		ProjectAgent.getProjectsForMgr({}, {
@@ -244,19 +258,24 @@
 			<label>Short Description:</label>\
 			<input id="txtAltDesc'+ altId +'" type="text" value="'+ shortDescription +'" size="25"><br />\
 			<label>Detailed Description:</label>\
-			<textarea cols="40" rows="10" id="txtAltDetailedDesc'+ altId +'">'+detailedDescription +'</textarea><br />\
+			<textarea cols="40" rows="10" name="txtAltDetailedDesc'+ altId +'" id="txtAltDetailedDesc'+ altId +'">'+detailedDescription +'</textarea><br />\
 			<label>Links:</label>\
-			<input id="txtAltLinks'+ altId +'" type="text" value="'+ links +'" size="25"><br />\
+			<textarea cols="40" rows="10" name="txtAltLinks'+ altId +'" id="txtAltLinks'+ altId +'">'+ links +'</textarea><br />\
 			<label>Statement For:</label>\
-			<input id="txtAltFor'+ altId +'" type="text" value="'+ statementFor +'" size="25"><br />\
+			<textarea cols="40" rows="10" name="txtAltFor'+ altId +'" id="txtAltFor'+ altId +'">'+ statementFor +'</textarea><br />\
 			<label>Statement Against:</label>\
-			<input id="txtAltAgainst'+ altId +'" type="text" value="'+ statementAgainst +'" size="25"><br />\
+			<textarea cols="40" rows="10" name="txtAltAgainst'+ altId +'" id="txtAltAgainst'+ altId +'">'+ statementAgainst +'</textarea><br />\
 			<p><input type="submit" value="Submit"></p>';
 		
 
 		$("frmProjectAlt"+altId).innerHTML = f;
-		
-		tinyMCE.execCommand('mceAddControl',false,'txtAltDetailedDesc'+altId);
+
+		//initMCE();
+		//tinyMCE.idCounter=altId;
+		tinyMCE.execCommand('mceAddControl',false,'txtAltDetailedDesc' + altId);
+		tinyMCE.execCommand('mceAddControl',false,'txtAltLinks' + altId);
+		tinyMCE.execCommand('mceAddControl',false,'txtAltFor' + altId);
+		tinyMCE.execCommand('mceAddControl',false,'txtAltAgainst' + altId);
 	}
 	
 	function editProject(id){
@@ -288,10 +307,23 @@
 		var county = $F('txtAltCounty'+ id);
 		var sponsor = $F('txtAltAgency'+ id);
 		var shortDescription = $F('txtAltDesc' + id);
-		var detailedDescription = $F('txtAltDetailedDesc'+ id)
-		var links = $F('txtAltLinks' + id);
-		var statementFor = $F('txtAltFor'+ id);
-		var statementAgainst = $F('txtAltAgainst'+ id);
+		
+		tinyMCE.getInstanceById('txtAltDetailedDesc' + id);
+		var detailedDescription = tinyMCE.getContent();
+		alert(detailedDescription);
+		
+		tinyMCE.getInstanceById('txtAltLinks' + id);
+		var links = tinyMCE.getContent();
+		alert(links);
+		
+		tinyMCE.getInstanceById('txtAltFor' + id);
+		var statementFor = tinyMCE.getContent();
+		alert(statementFor);
+		
+		tinyMCE.getInstanceById('txtAltAgainst' + id);
+		var statementAgainst = tinyMCE.getContent();
+		alert(statementAgainst);
+
 
 		//{id: 3545, name:"This is from DWR EDIT", description: "This is a description", cost: 60.00, links: "http://www.google.com", sponsor: "PSRC", statementFor: "COOL", statementAgainst: "BAD"}
 		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst + " county: " + county); 
@@ -484,12 +516,12 @@
 	</script>
 	<h3>Finished managing projects?</h3>
 	<!-- this button just redirects - saves are occuring on check. -->
-	<p><input type="button" onclick="location.href='main.do'" value="Finished!"/></p>
+	<p><input type="button" onClick="location.href='main.do'" value="Finished!"/></p>
 	
 	<script type="text/javascript">
 		//ddtreemenu.createTree(treeid, enablepersist, opt_persist_in_days (default is 1))
 		setTimeout(function() {ddtreemenu.createTree("projectsList", false);	ddtreemenu.flatten('projectsList', 'contact');}, 200);
-
+		
 	</script>
 </body>
 </html>
