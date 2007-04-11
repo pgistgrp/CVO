@@ -77,9 +77,16 @@
 			FundingAgent.calcCommute(user, {
 				callback:function(data){
 					if (data.successful){
-						alert("data:" + data.user);
-						$F('gasCost') = data.user.costPerGallon
-						$F('annualConsume') = data.user.annualConsume
+						//alert("data:" + data.user);
+						
+						//LOAD ESTIMATES
+						$('gasCost').value = data.user.costPerGallon
+						$('annualConsume').value = data.user.annualConsume
+						Element.show('estimates');
+						Element.show('newTable')
+						
+						//RENDER REPORT
+						calcCostReport(data.user);
 					}else{
 						alert("reason: " + data.reason);
 					}
@@ -88,9 +95,22 @@
 				alert("FundingAgent.setEstimates( error:" + errorString + exception);
 				}
 			});
-			//move to if successful
-			Element.show('estimates');
-			Element.show('newTable')
+		}
+		
+		function calcCostReport(user){
+			//alert("suiteId: " + suiteId + " userCommute: " + user); 
+			FundingAgent.calcCostReport({suiteId:suiteId,userCommute:user}, {
+				callback:function(data){
+					if (data.successful){
+						$('newTable').innerHTML = data.html;
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("FundingAgent.calcCostReport( error:" + errorString + exception);
+				}
+			});
 		}
 	</script>
 	</head>
@@ -284,166 +304,7 @@
 		<!-- Note on zebra-striping by funding source: When creating rows of funding items (such as each alternative gas tax increase) wrap all rows in a TBODY tag, then do zebra-striping on those TBODYs, not on the individual TRs. --><br>
 		
 		<div id="newTable" style="display:none;">
-		<h3 class="headerColor">My annual costs report</h3>
-		<table cellpadding=0 cellspacing=0>
-			<tr class="tableHeading">
-				<th class="first">Funding Source</th>
-				<th>Estimated annual cost to you</th>
-
-				<th>&nbsp;</th>
-				<th>&nbsp;</th>
-				<th colspan="7">Calculation</th>
-			</tr>
-			<tr class="fundingType">
-				<td class="fundingSourceItem">Toll on Alaskan Way Viaduct</td>
-				<td>Cost to you</td>
-
-				<td>=</td>
-				<td>&nbsp;</td>
-				<td>Peak tax rate</td>
-				<td>&times;</td>
-				<td># of Peak trips</td>
-				<td>+</td>
-				<td>off-peak tax rate</td>
-
-				<td>&times;</td>
-				<td># off-peak trips</td>
-			</tr>
-			<tr>
-				<td class="fundingSourceItem">Fixed rate $1.00 per trip</td>
-				<td>$25</td>
-				<td>=</td>
-
-				<td>&nbsp;</td>
-				<td>$1.00</td>
-				<td>&times;</td>
-				<td>5</td>
-				<td>+</td>
-				<td>$1.00</td>
-				<td>&times;</td>
-
-				<td>20</td>
-			</tr>
-			<tr>
-				<td class="fundingSourceItem">Fixed rate $1.00 per trip</td>
-				<td>$25</td>
-				<td>=</td>
-				<td>&nbsp;</td>
-
-				<td>$1.00</td>
-				<td>&times;</td>
-				<td>5</td>
-				<td>+</td>
-				<td>$1.00</td>
-				<td>&times;</td>
-				<td>20</td>
-
-			</tr>
-			<tr class="fundingType">
-				<td class="fundingSourceItem">Toll on Alaskan Way Viaduct</td>
-				<td>Cost to you</td>
-				<td>=</td>
-				<td>&nbsp;</td>
-				<td>Peak tax rate</td>
-
-				<td>&times;</td>
-				<td># of Peak trips</td>
-				<td>+</td>
-				<td>off-peak tax rate</td>
-				<td>&times;</td>
-				<td># off-peak trips</td>
-			</tr>
-
-			<tr>
-				<td class="fundingSourceItem">Fixed rate $1.00 per trip</td>
-				<td>$25</td>
-				<td>=</td>
-				<td>&nbsp;</td>
-				<td>$1.00</td>
-				<td>&times;</td>
-
-				<td>5</td>
-				<td>+</td>
-				<td>$1.00</td>
-				<td>&times;</td>
-				<td>20</td>
-			</tr>
-			<tr>
-
-				<td class="fundingSourceItem">Fixed rate $1.00 per trip</td>
-				<td>$25</td>
-				<td>=</td>
-				<td>&nbsp;</td>
-				<td>$1.00</td>
-				<td>&times;</td>
-				<td>5</td>
-
-				<td>+</td>
-				<td>$1.00</td>
-				<td>&times;</td>
-				<td>20</td>
-			</tr>
-
-			<tr class="fundingType">
-				<td class="fundingSourceItem">Sales tax increase (Rate now 8.8%)</td>
-
-				<td>Cost to you</td>
-				<td>=</td>
-				<td>&nbsp;</td>
-				<td>tax rate</td>
-				<td>&times;</td>
-				<td>consumption</td>
-				<td>&nbsp;</td>
-
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td class="fundingSourceItem">0.1% increase</td>
-				<td>$16</td>
-				<td>=</td>
-
-				<td>&nbsp;</td>
-				<td>0.1</td>
-				<td>&times;</td>
-				<td>$15,879</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-
-			</tr>
-			<tr>
-				<td class="fundingSourceItem">0.3% increase</td>
-				<td>$48</td>
-				<td>=</td>
-				<td>&nbsp;</td>
-				<td>0.3</td>
-
-				<td>&times;</td>
-				<td>$15,879</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-
-				<td class="fundingSourceItem">0.5% increase</td>
-				<td>$79</td>
-				<td>=</td>
-				<td>&nbsp;</td>
-				<td>0.5</td>
-				<td>&times;</td>
-				<td>$15,879</td>
-
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-		</table>
+			<!-- load via calcReport in JS -->
 		</div>
 	</div>
 
