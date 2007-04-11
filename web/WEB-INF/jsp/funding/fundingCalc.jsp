@@ -42,6 +42,21 @@
 	<script type="text/javascript" charset="utf-8">
 		var suiteId = "${suiteId}"
 		
+		function getVehicles(){
+			FundingAgent.getVehicles({}, {
+				callback:function(data){
+					if (data.successful){
+						$('vehicles').innerHTML = data.html;
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("FundingAgent.getVehicles( error:" + errorString + exception);
+				}
+			});
+		}
+		
 		function addVehicle(){
 			var userId = "${user.userId}"
 			var mpg = $F('vehicleMpg');
@@ -52,7 +67,7 @@
 			FundingAgent.addVehicle({userId:userId,milesPerGallon:mpg,value:value,milesPerYear:mpy}, {
 				callback:function(data){
 					if (data.successful){
-						alert("it worked!")
+						getVehicles();
 					}else{
 						alert(data.reason);
 					}
@@ -84,10 +99,10 @@
 			});
 		}
 
-		function removeVehicle(vehicleId){
+		function deleteVehicle(vehicleId){
 			userId = "${user.userId}"
 			//alert("userId: " + userId + " vehicleId: " + vehicleId); 
-			FundingAgent.removeVehicle({userId:userId,vehicleId:vehicleId}, {
+			FundingAgent.deleteVehicle({userId:userId,vehicleId:vehicleId}, {
 				callback:function(data){
 					if (data.successful){
 						new Effect.Puff('vehicle' + vehicleId)
@@ -213,19 +228,7 @@
 		<div id="myVehicles">
 			<h3 class="headerColor">My Vehicle(s)</h3>
 			<div id="vehicles">
-				<c:forEach var="vehicle" items="${user.vehicles}" varStatus="loop">
-					<div id="vehicle${vehicle.id}" class="myVehiclesRow"> 
-						<strong>Vehicle ${loop.index + 1}: </strong> Miles per
-						gallon
-						${vehicle.milesPerGallon}
-						Approximate value
-						${vehicle.approxValue}
-
-						Miles driven per year
-						${vehicle.milesPerYear}
-						<small><a href="javascript:prepareEdit(${vehicle.id})">Edit</a> | <a href="javascript:removeVehicle(${vehicle.id})">Remove</a></small> 
-					</div>
-				</c:forEach>
+				<!-- vehicles rendered by separate jsp page -->
 			</div>
 			<p><a href="javascript:Element.toggle('newVehicle');">Add vehicle</a> 
 				<div id="newVehicle" class="myVehiclesRow" style="display:none;"> 
@@ -398,6 +401,9 @@
 		</div>
 	</div>
 
+	<script type="text/javascript" charset="utf-8">
+		getVehicles();
+	</script>
 	<!-- end container -->
 	<!-- start feedback form -->
 	<pg:feedback id="feedbackDiv" action="cctView.do"/>

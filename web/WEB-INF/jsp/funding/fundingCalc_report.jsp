@@ -26,8 +26,8 @@
 	<table border="1" cellspacing="0" cellpadding="0">
 		<c:forEach var="cost" items="${user.costs}" varStatus="loop">
 			<tr>
-				<c:forEach var="header" items="${cost.headers}" varStatus="loop">
-					<th>${header}</th>
+				<c:forEach var="title" items="${cost.headers}" varStatus="loop">
+					<th>${title}</th>
 				</c:forEach>	
 			</tr>
 			<c:forEach var="alt" items="${cost.alternatives}" varStatus="loop">
