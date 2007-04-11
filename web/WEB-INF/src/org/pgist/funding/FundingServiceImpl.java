@@ -1,7 +1,9 @@
 package org.pgist.funding;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
@@ -33,13 +35,13 @@ public class FundingServiceImpl implements FundingService {
 	 * @param	user	The user to base the commute off of
 	 * @return	A commute object depicting the users commute
 	 */
-	public UserCommute createCommute(UserTaxInfoDTO user) throws InvalidZipcodeException, Exception {
+	public UserTaxInfoDTO createCommute(UserTaxInfoDTO user) throws InvalidZipcodeException, Exception {
 
-		//Save the user
-		this.fundingDAO.save(user);
+		//Save the user object
+		User tempUser = this.updateUserTaxInfo(user);
 		
 		UserCommute commute = new UserCommute();
-		
+		commute.setUser(tempUser);
 		
 		String zipcode = user.getZipcode();
 		
@@ -69,10 +71,17 @@ public class FundingServiceImpl implements FundingService {
 		commute.setCostPerGallon(gasZip.getAvgGas());
 		
 		//Include the annual consumption for the sales tax
+System.out.println("MATT: INCOME = " + user.getIncome());		
 		Consumption con = this.fundingDAO.getConsumptionByIncome(user.getIncome());
 		commute.setAnnualConsume(con.getConsumption(user.getFamilyCount()));
 		
-		return commute;
+		//Save the commute
+		this.fundingDAO.save(commute);
+		
+		user.setAnnualConsume(commute.getAnnualConsume());
+		user.setCostPerGallon(commute.getCostPerGallon());
+System.out.println("MATT: A Consume= " + user.getAnnualConsume() + " COST PER GALLON = " + user.getCostPerGallon());
+		return user;
 	}
 	
 	/**
@@ -88,6 +97,49 @@ public class FundingServiceImpl implements FundingService {
 	private static int calcOffPeakHours(int zipcodeFactor, float carFactor, float offPeak, boolean included) {
 		if(!included) return 0;
 		return zipcodeFactor * (int)(carFactor * offPeak); 
+	}
+	
+	/**
+	 * Creates a report from the provided UserTaxInfoDTO and funding suite
+	 * 
+	 * @param	user	The UserTaxInfoDTO with all the info in it
+	 * @param	fundingSuiteID	The funding suite 
+	 */
+	public UserTaxInfoDTO calcCostReport(UserTaxInfoDTO user, Long fundingSuiteId) throws Exception {
+
+System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
+		//TODO fill out the report here
+		Set<String> headers = new HashSet<String>();
+		headers.add("Sales tax increates with vehicle");
+		headers.add("your weight in drams");
+		
+		Set<String> data1 = new HashSet<String>();
+		data1.add("200%");
+		data1.add("3435");
+		
+		Set<String> data2 = new HashSet<String>();
+		data1.add("100%" + fundingSuiteId);
+		data1.add("332435");
+		
+		Set<PersonalFundingCost> costs = new HashSet<PersonalFundingCost>();
+		PersonalFundingCost c1 = new PersonalFundingCost();
+		c1.setHeaders(headers);
+		costs.add(c1);
+		
+		
+		PersonalFundingCostAlternative p1 = new PersonalFundingCostAlternative();
+		p1.setData(data1);
+		
+		PersonalFundingCostAlternative p2 = new PersonalFundingCostAlternative();
+		p1.setData(data2);
+		
+		Set<PersonalFundingCostAlternative> alts = new HashSet<PersonalFundingCostAlternative>();
+		alts.add(p1);
+		alts.add(p2);
+		
+		user.setCosts(costs);
+				
+		return user;
 	}
 	
 	/**
@@ -107,8 +159,9 @@ public class FundingServiceImpl implements FundingService {
 	 * NOTE: This only updates information related to the FundingCalculator game
 	 * 
 	 * @param	user	The user to update
+	 * @return	The saved user class
 	 */
-	public void updateUserTaxInfo(UserTaxInfoDTO user) throws Exception {
+	public User updateUserTaxInfo(UserTaxInfoDTO user) throws Exception {
 		
 		//Load the original user
 		User tempUser = this.fundingDAO.getUserById(user.getUserId());
@@ -117,6 +170,7 @@ public class FundingServiceImpl implements FundingService {
 		
 		//Save it
 		this.fundingDAO.save(tempUser);
+		return tempUser;
 	}
 
 	/**
@@ -397,13 +451,6 @@ public class FundingServiceImpl implements FundingService {
          */
     }//setupFundingSourcesForCCT()
 
-
-    public Collection getAllTolls() throws Exception {
-        /*
-         * TODO:
-         */
-        return null;
-    }//getAllTolls()
 
 	public FundingSourceSuite getFundingSuite(Long suiteId) throws Exception {
 		return fundingDAO.getFundingSuite(suiteId);

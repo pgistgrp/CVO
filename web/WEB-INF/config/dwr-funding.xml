@@ -12,11 +12,13 @@
     
       <!-- Beans Convertor -->
 
-
       <convert converter="bean" match="org.pgist.funding.FundingSource"/>     
       <convert converter="bean" match="org.pgist.funding.FundingSourceAlternative"/>
       <convert converter="bean" match="org.pgist.funding.UserTaxInfoDTO"/>
-	
+      <convert converter="bean" match="org.pgist.funding.UserTolls"/>
+      <convert converter="bean" match="org.pgist.funding.PersonalFundingCost"/>
+      <convert converter="bean" match="org.pgist.funding.PersonalFundingCostAlternative"/>
+      <convert converter="bean" match="org.pgist.users.Vehicles"/>
 
       <!-- DWR Agents -->
 

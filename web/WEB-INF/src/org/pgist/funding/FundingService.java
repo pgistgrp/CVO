@@ -53,19 +53,18 @@ public interface FundingService {
 	
     void setupFundingSourcesForCCT(Long cctId, String[] ids) throws Exception;
 
-
-    Collection getAllTolls() throws Exception;
-
 	UserTaxInfoDTO addVehicle(Long userId, Float mpg, Float value, Float mpy) throws Exception;
 	void updateVehicle(Long vehicleId, Float mpg, Float value, Float mpy) throws Exception;
 	UserTaxInfoDTO removeVehicle(Long userId, Long vehicleId) throws Exception;
 
-	Object createCommute(UserTaxInfoDTO user) throws InvalidZipcodeException, Exception;
+	UserTaxInfoDTO createCommute(UserTaxInfoDTO user) throws InvalidZipcodeException, Exception;
     
     FundingSourceSuite createFundingSourceSuite() throws Exception;
 
-	void updateUserTaxInfo(UserTaxInfoDTO user) throws Exception;
+    User updateUserTaxInfo(UserTaxInfoDTO user) throws Exception;
 
 	UserTaxInfoDTO getUserTaxInfoDTO(Long userId) throws Exception;
+
+	UserTaxInfoDTO calcCostReport(UserTaxInfoDTO user, Long fundingSuiteId) throws Exception;
 
 }//interface FundingService

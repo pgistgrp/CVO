@@ -40,8 +40,14 @@ public class UserTaxInfoDTO implements Serializable {
     protected String workZipcode = "";
     
     protected UserTolls userTolls = new UserTolls();
-
-    /**
+        
+    private float annualConsume;
+    
+    private float costPerGallon;
+    
+    private Set<PersonalFundingCost> costs = new HashSet<PersonalFundingCost>();
+    
+	/**
      * Loads the provided User Object with all the information contained in this tax DTO
      */
     public void loadUserWithData(User user) {
@@ -83,7 +89,21 @@ public class UserTaxInfoDTO implements Serializable {
     }
     
     //---------------------Getters and Setters-----------------------------
+    /**
+	 * @return the costs
+	 */
+	public Set<PersonalFundingCost> getCosts() {
+		return costs;
+	}
+
 	/**
+	 * @param costs the costs to set
+	 */
+	public void setCosts(Set<PersonalFundingCost> costs) {
+		this.costs = costs;
+	}	
+    
+    /**
 	 * @return the bikeDays
 	 */
 	public int getBikeDays() {
@@ -263,6 +283,34 @@ public class UserTaxInfoDTO implements Serializable {
 	 */
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
+	}
+
+	/**
+	 * @return the annualConsume
+	 */
+	public float getAnnualConsume() {
+		return annualConsume;
+	}
+
+	/**
+	 * @param annualConsume the annualConsume to set
+	 */
+	public void setAnnualConsume(float annualConsume) {
+		this.annualConsume = annualConsume;
+	}
+
+	/**
+	 * @return the costPerGallon
+	 */
+	public float getCostPerGallon() {
+		return costPerGallon;
+	}
+
+	/**
+	 * @param costPerGallon the costPerGallon to set
+	 */
+	public void setCostPerGallon(float costPerGallon) {
+		this.costPerGallon = costPerGallon;
 	}
     
 }

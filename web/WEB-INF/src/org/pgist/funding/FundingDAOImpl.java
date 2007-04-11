@@ -113,8 +113,8 @@ public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
 
 
     private static final String hql_getConsumptionByIncomeLevel = "from Consumption zcg where zcg.incomeLower <? and zcg.incomeUpper > ?";
-    public Consumption getConsumptionByIncome(Float incomeLevel) throws Exception {
-        List list = getHibernateTemplate().find(hql_getConsumptionByIncomeLevel, incomeLevel);
+    public Consumption getConsumptionByIncome(Float incomeLevel) throws Exception {    	
+        List list = getHibernateTemplate().find(hql_getConsumptionByIncomeLevel, new Object[] {incomeLevel, incomeLevel});
         
         if (list.size()==0) return null;
         

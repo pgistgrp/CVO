@@ -25,8 +25,6 @@ public class UserCommute implements Serializable {
     
     private float costPerGallon;
     
-    
-    
     /**
      * @return
      * 
