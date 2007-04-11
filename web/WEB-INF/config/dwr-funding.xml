@@ -27,6 +27,7 @@
           <param name="beanName" value="fundingAgent"/>
           <include method="updateUser"/>
           <include method="addVehicle"/>
+          <include method="getVehicles"/>
           <include method="updateVehicle"/>
           <include method="removeVehicle"/>          
           <include method="calcCommute"/>          
