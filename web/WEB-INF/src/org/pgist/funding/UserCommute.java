@@ -20,9 +20,7 @@ public class UserCommute implements Serializable {
     private Long id;
     
     private FundingSourceSuite fundingSuite;
-    
-    private User user;
-    
+        
     private float annualConsume;
     
     private float costPerGallon;
@@ -74,21 +72,6 @@ public class UserCommute implements Serializable {
 
     public void setFundingSuite(FundingSourceSuite fundingSuite) {
         this.fundingSuite = fundingSuite;
-    }
-
-
-    /**
-     * @return
-     * 
-     * @hibernate.many-to-one column="user_id" cascade="none"
-     */
-    public User getUser() {
-        return user;
-    }
-
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     /**

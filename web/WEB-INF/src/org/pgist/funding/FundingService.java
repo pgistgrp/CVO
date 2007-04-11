@@ -55,7 +55,7 @@ public interface FundingService {
 
 	UserTaxInfoDTO addVehicle(Long userId, Float mpg, Float value, Float mpy) throws Exception;
 	void updateVehicle(Long vehicleId, Float mpg, Float value, Float mpy) throws Exception;
-	UserTaxInfoDTO removeVehicle(Long userId, Long vehicleId) throws Exception;
+	UserTaxInfoDTO deleteVehicle(Long userId, Long vehicleId) throws Exception;
 
 	UserTaxInfoDTO createCommute(UserTaxInfoDTO user) throws InvalidZipcodeException, Exception;
     

@@ -45,13 +45,15 @@ public class FundingServiceImpl implements FundingService {
 		User tempUser = this.updateUserTaxInfo(user);
 		
 		//Get the users last commute object
-		UserCommute commute = this.fundingDAO.getCommuteForUser(user.getUserId());
+		
+		UserCommute commute = tempUser.getUserCommute();
 				
 		//If its null then create one and assign it to the user		
 		if(commute == null) {
 			commute = new UserCommute();
-			commute.setUser(tempUser);
+			tempUser.setUserCommute(commute);
 			this.fundingDAO.save(commute);
+			this.fundingDAO.save(tempUser);
 		}
 		
 		String zipcode = user.getZipcode();
@@ -78,6 +80,7 @@ public class FundingServiceImpl implements FundingService {
 		
 		//If no user tolls exist, then create them and assign them to the user
 //		if(commute.getTolls().size() == 0) {
+		//TODO Delete all the old tolls, or replace them with the new tolls
 			Iterator<UserFundingSourceToll> i = user.getTolls().iterator();
 			while(i.hasNext()) {
 				setTripRates(i.next(), zcf, carFactor, driveAlone, carpool, numPassengers);
@@ -279,7 +282,7 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
 	 * @param	userId
 	 * @param	vehicleId
 	 */
-	public UserTaxInfoDTO removeVehicle(Long userId, Long vehicleId) throws Exception {
+	public UserTaxInfoDTO deleteVehicle(Long userId, Long vehicleId) throws Exception {
 		User user = this.fundingDAO.getUserById(userId);
 		
 		Iterator<Vehicle> i = user.getVehicles().iterator();

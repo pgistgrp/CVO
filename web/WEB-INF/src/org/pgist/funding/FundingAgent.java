@@ -158,7 +158,7 @@ public class FundingAgent {
      *     <li>user - The User object with all the users information</li>
      *   </ul>
      */
-    public Map removeVehicle(Map params) {
+    public Map deleteVehicle(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -166,7 +166,7 @@ public class FundingAgent {
             Long userId = new Long((String) params.get("userId"));
             Long vehicleId = new Long((String) params.get("vehicleId"));
             
-            map.put("user", this.fundingService.removeVehicle(userId, vehicleId));
+            map.put("user", this.fundingService.deleteVehicle(userId, vehicleId));
             
             map.put("successful", true);
         } catch (Exception e) {

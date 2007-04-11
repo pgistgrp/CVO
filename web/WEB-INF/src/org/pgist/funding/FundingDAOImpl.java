@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.pgist.system.BaseDAOImpl;
+import org.pgist.users.User;
 import org.pgist.users.Vehicle;
 
 
@@ -17,22 +18,6 @@ public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
 	public FundingSource getFundingSourceById(Long id) throws Exception {
         return (FundingSource) getHibernateTemplate().load(FundingSource.class, id);
     }//getFundingSourceById()
-
-
-	private static final String hql_getCommuteForUser = "from UserCommute uc where uc.user=?";
-
-    /* (non-Javadoc)
-	 * @see org.pgist.funding.FundingDAO#getCommuteForUser(java.lang.Long)
-	 */
-	public UserCommute getCommuteForUser(Long userId) throws Exception {
-        List list = getHibernateTemplate().find(hql_getCommuteForUser, userId);
-        
-        if (list.size()==0) return null;
-        
-        return (UserCommute) list.get(0);
-	}
-
-
 
 	private static final String hql_getFundingSourceByName = "from FundingSource fs where lower(fs.name)=?";
     

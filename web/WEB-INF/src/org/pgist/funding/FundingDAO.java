@@ -41,6 +41,6 @@ public interface FundingDAO extends BaseDAO {
     void save(Vehicle v) throws Exception;
     void delete(Vehicle v) throws Exception;
     Vehicle getVehicle(Long vehicleId) throws Exception;
-	UserCommute getCommuteForUser(Long userId) throws Exception;
+	
 	
 }//interface FundingDAO

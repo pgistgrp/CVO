@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.pgist.funding.UserCommute;
 import org.pgist.util.MD5;
 
 
@@ -23,6 +24,21 @@ public class User extends BaseUser {
     
     private Set<Vehicle> vehicles = new HashSet<Vehicle>();
     
+    private UserCommute commute;
+    
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="commute_id" cascade="none"
+     */
+    public UserCommute getUserCommute() {
+        return commute;
+    }
+
+
+    public void setUserCommute(UserCommute commute) {
+        this.commute = commute;
+    }    
     
     /**
      * @return
