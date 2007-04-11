@@ -183,8 +183,8 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
 		data1.add("3435");
 		
 		Set<String> data2 = new HashSet<String>();
-		data1.add("100%" + fundingSuiteId);
-		data1.add("332435");
+		data2.add("100%" + fundingSuiteId);
+		data2.add("332435");
 				
 		PersonalFundingCostAlternative p1 = new PersonalFundingCostAlternative();
 		p1.setData(data1);
