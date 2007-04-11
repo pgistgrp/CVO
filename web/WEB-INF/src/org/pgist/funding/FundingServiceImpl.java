@@ -120,24 +120,25 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
 		Set<String> data2 = new HashSet<String>();
 		data1.add("100%" + fundingSuiteId);
 		data1.add("332435");
-		
-		Set<PersonalFundingCost> costs = new HashSet<PersonalFundingCost>();
-		PersonalFundingCost c1 = new PersonalFundingCost();
-		c1.setHeaders(headers);
-		costs.add(c1);
-		
-		
+				
 		PersonalFundingCostAlternative p1 = new PersonalFundingCostAlternative();
 		p1.setData(data1);
 		
 		PersonalFundingCostAlternative p2 = new PersonalFundingCostAlternative();
-		p1.setData(data2);
+		p2.setData(data2);
 		
 		Set<PersonalFundingCostAlternative> alts = new HashSet<PersonalFundingCostAlternative>();
 		alts.add(p1);
 		alts.add(p2);
 		
+		Set<PersonalFundingCost> costs = new HashSet<PersonalFundingCost>();
+		PersonalFundingCost c1 = new PersonalFundingCost();
+		c1.setHeaders(headers);
+		c1.setAlternatives(alts);
+
+		costs.add(c1);		
 		user.setCosts(costs);
+
 				
 		return user;
 	}

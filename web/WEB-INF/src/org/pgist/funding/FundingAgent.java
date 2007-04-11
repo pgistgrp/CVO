@@ -1,6 +1,5 @@
 package org.pgist.funding;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -708,13 +707,15 @@ System.out.println("MATT: got the user " + user.getUserId() + ":Bike Days:" + us
      *     </li>
      *   </ul>
      */
-    public Map calcCostReport(UserTaxInfoDTO user, long fundingSuiteId) {
+    public Map calcCostReport(HttpServletRequest request, UserTaxInfoDTO user, long fundingSuiteId) {
         Map map = new HashMap();
         map.put("successful", false);
         
         try {
-            map.put("user", this.fundingService.calcCostReport(user, fundingSuiteId));
-            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/funding/fundingMgr_report.jsp"));            
+
+            request.setAttribute("user", this.fundingService.calcCostReport(user, fundingSuiteId));
+            
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/funding/fundingCalc_report.jsp"));            
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
