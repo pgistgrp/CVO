@@ -17,10 +17,35 @@
 		[ ] Integrate Project Map or static image (Guirong/Issac)
 		[ ] Integrate Criteria Tree (Issac)
 #### -->
-
-
 <h3 class="headerColor">My annual costs report</h3>
-<table cellpadding=0 cellspacing=0>
+
+<p>==========================================</p>
+<p>==========================================</p>
+<p>==========================================</p>
+
+	<table border="1" cellspacing="0" cellpadding="0">
+		<c:forEach var="cost" items="${user.costs}" varStatus="loop">
+			<tr>
+				<c:forEach var="header" items="${cost.headers}" varStatus="loop">
+					<th>${header}</th>
+				</c:forEach>	
+			</tr>
+			<tr>
+				<c:forEach var="alt" items="${cost.alternatives}" varStatus="loop">
+					<td>${alt}</td>
+				</c:forEach>
+			</tr>
+		</c:forEach>
+	</table>
+
+
+<p>==========================================</p>
+<p>==========================================</p>
+<p>==========================================</p>
+
+
+
+<table cellpadding="0" cellspacing="0">
 	<tr class="tableHeading">
 		<th class="first">Funding Source</th>
 		<th>Estimated annual cost to you</th>
