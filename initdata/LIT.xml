@@ -14,7 +14,7 @@
         </pgame>
         
         <pgame name="pgame-define.projects" description="Define projects in a project suite." auto="false" access="moderator">
-            <actionName>task-define.projects</actionName>
+            <actionName>action-define.projects</actionName>
             <declaration>
                 <ins>
                     <var name="suiteId"/>
@@ -32,7 +32,7 @@
         </pgame>
         
         <pgame name="pgame-define.fundings" description="Define funding sources in a funding source suite." auto="false" access="moderator">
-            <actionName>task-define.fundings</actionName>
+            <actionName>action-define.fundings</actionName>
             <declaration>
                 <ins>
                     <var name="suiteId"/>
@@ -41,7 +41,7 @@
         </pgame>
         
         <pgame name="pgame-grade.projects" description="Grade Projects." auto="false" access="moderator">
-            <actionName>task-grade.projects</actionName>
+            <actionName>action-grade.projects</actionName>
             <declaration>
                 <ins>
                     <var name="suiteId"/>
@@ -60,6 +60,45 @@
                     <property name="purpose" value="In order to determine what needs to be improved about our transportation system, we first need to know what the problems are. Therefore, the first task is brainstorming concerns." />
                     <property name="instruction" value="For this task, we are asking you to add concerns to your profile. These concerns will be visible to other participants, and will be used in later sessions to determine how to turn our concerns into suggestions for decision makers. Below, you’ll find a box in which to type your concern. You will be asked to ‘tag’ your concerns, so that others may find your concern more easily. The sidebar to the right of your concerns is your way of seeing what others are writing about. You may navigate by either tags or concerns." />
                 </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-cvo.cct" description="Brainstorm." auto="false" access="all">
+            <actionName>action-cvo.cct</actionName>
+            <declaration>
+                <ins>
+                    <var name="cctId"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-cvo.cst" description="Concerns Synthesis Tool" auto="false" access="all">
+            <actionName>action-cvo.cst</actionName>
+            <declaration>
+                <ins>
+                    <var name="cctId"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-publish.theme" description="Publish Themes." auto="true">
+            <taskName>task-publish.theme</taskName>
+            <declaration>
+                <ins>
+                    <var name="cct_id"/>
+                </ins>
+                <outs>
+                    <var name="is_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-cvo.sdc" description="Review Summaries." auto="false" access="all">
+            <actionName>action-cvo.sdc</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                </ins>
             </declaration>
         </pgame>
         

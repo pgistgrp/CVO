@@ -224,7 +224,7 @@ public class SystemInit extends MatchingTask {
     
     
     private void initWorkflow() throws Exception {
-        Document doc = new SAXReader().read(new File(dataPath, "workflow.xml"));
+        Document doc = new SAXReader().read(new File(dataPath, "LIT.xml"));
         
         WorkflowEngine engine = (WorkflowEngine) appContext.getBean("txEngine");
         engine.importTemplates(doc);

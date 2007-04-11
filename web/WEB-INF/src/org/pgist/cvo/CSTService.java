@@ -3,6 +3,7 @@ package org.pgist.cvo;
 import java.util.Collection;
 import java.util.List;
 
+import org.pgist.discussion.InfoStructure;
 import org.pgist.tagging.Category;
 import org.pgist.util.PageSetting;
 
@@ -50,11 +51,16 @@ public interface CSTService {
     void saveSummary(Long cctId, Long themeId, String description, String summary, String tags) throws Exception;
 
     List getThemes(CCT cct) throws Exception;
-
     
-    //temp
     
-    void publish(Long cctId) throws Exception;
+    /**
+     * publish the specified CCT, and return the generated InfoStructure object.
+     * 
+     * @param cctId
+     * @return
+     * @throws Exception
+     */
+    InfoStructure publish(Long cctId) throws Exception;
 
     
 }//interface CSTService

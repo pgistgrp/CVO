@@ -578,7 +578,7 @@ public class CSTServiceImpl implements CSTService {
      */
     
     
-    public void publish(Long cctId) throws Exception {
+    public InfoStructure publish(Long cctId) throws Exception {
         CCT cct = cctDAO.getCCTById(cctId);
         
         Date date = new Date();
@@ -609,6 +609,8 @@ public class CSTServiceImpl implements CSTService {
         }//for ref
         
         discussionDAO.save(structure);
+        
+        return structure;
     }//publish()
 
 
