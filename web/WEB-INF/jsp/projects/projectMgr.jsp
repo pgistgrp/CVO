@@ -88,7 +88,9 @@
 		theme_advanced_buttons3 : "",
 		content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css",
 		extended_valid_elements : "blockquote[style='']",
-		mode : "exact",
+		mode : "textareas",
+		height: "80",
+		width: "400"
 		});
 
 </script>
@@ -171,20 +173,24 @@
 		transMode = (project) ? project.transMode : "";
 		transModes = ["null","road", "transit"];
 		
-		f = '<label>Project Name:</label>\
-			<input id="txtProjName' + id +'" type="text" value="'+name+'" size="25"><br />\
-			<label>Project Description:</label><br />\
-			<input id="txtProjDesc' + id +'" type="text" value="'+description+'" size="25"><br />\
-			<label>Type:</label>\
-			<select id="selProjType' + id +'">';
+		f = '<div style="width:200px;float:left;margin-bottom:5px;"><label>Project Name:</label></div>\
+			<div style="width:400px;float:left;margin-bottom:5px;"><input id="txtProjName' + id +'" type="text" value="'+name+'" size="40"></div>\
+			<div style="clear:both"></div>\
+			<div style="width:200px;float:left;margin-bottom:5px;"><label>Project Description:</label></div>\
+			<div style="width:400px;float:left;margin-bottom:5px;"><input id="txtProjDesc' + id +'" type="text" value="'+description+'" size="25"></div><br />\
+			<div style="clear:both"></div>\
+			<div style="width:200px;float:left;margin-bottom:5px;"><label>Type:</label></div>\
+			<div style="width:400px;float:left;margin-bottom:5px;"><select id="selProjType' + id +'">';
 			for(i=1; i<transModes.length; i++){
 				modeSelected = (i==transMode) ? "SELECTED" : "";
 				f += '<option value="'+ i +'" '+ modeSelected +'>'+transModes[i]+'</option>';
 			}
 			
-		f +='</select><br />\
-			<label><input type="checkbox" id="inclusive' + id +'" '+inclusiveChecked+' /> Options for this project are mutually exclusive.</label>\
-			<p><input type="submit" value="Submit"></p>';
+		f +='</select></div>\
+			<div style="clear:both"></div>\
+			<div style="float:left;width:200px;margin-bottom:5px;"></div>\
+			<div style="float:left;width:400px;margin-bottom:5px;"><label><input type="checkbox" id="inclusive' + id +'" '+inclusiveChecked+' /> Options for this project are mutually exclusive.</label></div>\
+			<p><input type="submit" style="padding:5px;" value="Add Project"></p>';
 		$("frmProject"+id).innerHTML = f;
 		
 	}
@@ -247,30 +253,41 @@
 		statementAgainst = (alt.statementAgainst) ? alt.statementAgainst : "";
 		
 		f = '<h4>Editing Project Alternative</h4>\
-			<label>Project Alternative Name:</label>\
-			<input id="txtAltName'+ altId +'" type="text" value="'+ name +'" size="25"><br />\
-			<label>Agency:</label>\
-			<input id="txtAltAgency'+ altId +'" type="text" value="'+ sponsor +'" size="25"><br />\
-			<label>Cost:</label>\
-			<input id="txtAltCost'+ altId +'" type="text" value="'+ cost +'" size="25"> (in millions)<br />\
-			<label>County:</label>\
-			<input id="txtAltCounty'+ altId +'" type="text" value="'+ county +'" size="25"><br />\
-			<label>Short Description:</label>\
-			<input id="txtAltDesc'+ altId +'" type="text" value="'+ shortDescription +'" size="25"><br />\
-			<label>Detailed Description:</label>\
-			<textarea cols="40" rows="10" name="txtAltDetailedDesc'+ altId +'" id="txtAltDetailedDesc'+ altId +'">'+detailedDescription +'</textarea><br />\
-			<label>Links:</label>\
-			<textarea cols="40" rows="10" name="txtAltLinks'+ altId +'" id="txtAltLinks'+ altId +'">'+ links +'</textarea><br />\
-			<label>Statement For:</label>\
-			<textarea cols="40" rows="10" name="txtAltFor'+ altId +'" id="txtAltFor'+ altId +'">'+ statementFor +'</textarea><br />\
-			<label>Statement Against:</label>\
-			<textarea cols="40" rows="10" name="txtAltAgainst'+ altId +'" id="txtAltAgainst'+ altId +'">'+ statementAgainst +'</textarea><br />\
-			<p><input type="submit" value="Submit"></p>';
+				<div style="clear:both">\
+				</div>\
+			<div style="float:left;margin-right:20px;">\
+				<label>Project Alternative Name:</label><br />\
+				<input id="txtAltName'+ altId +'" type="text" value="'+ name +'" size="40"><br />\
+				<p><label>Agency:</label><br />\
+				<input id="txtAltAgency'+ altId +'" type="text" value="'+ sponsor +'" size="40"></p>\
+				<p><label>Cost (in millions):</label><br />\
+				<input id="txtAltCost'+ altId +'" type="text" value="'+ cost +'" size="40"></p>\
+				<p><label>County:</label><br />\
+				<input id="txtAltCounty'+ altId +'" type="text" value="'+ county +'" size="40"></p>\
+				<p><label>Short Description:</label><br />\
+				<input id="txtAltDesc'+ altId +'" type="text" value="'+ shortDescription +'" size="40"></p>\
+				<div style="clear:both">\
+				</div>\
+			</div>\
+			<div style="float:left;border-left:1px solid #000;padding-left:20px;">\
+				<label>Detailed Description:</label><br />\
+				<textarea cols="40" rows="5" name="txtAltDetailedDesc'+ altId +'" id="txtAltDetailedDesc'+ altId +'">'+detailedDescription +'</textarea><br />\
+				<label>Links:</label><br />\
+				<textarea cols="40" rows="5" name="txtAltLinks'+ altId +'" id="txtAltLinks'+ altId +'">'+ links +'</textarea><br />\
+				<label>Statement For:</label><br />\
+				<textarea cols="40" rows="5" name="txtAltFor'+ altId +'" id="txtAltFor'+ altId +'">'+ statementFor +'</textarea><br />\
+				<label>Statement Against:</label><br />\
+				<textarea cols="40" rows="5" name="txtAltAgainst'+ altId +'" id="txtAltAgainst'+ altId +'">'+ statementAgainst +'</textarea><br />\
+				<div style="clear:both">\
+				</div>\
+			</div>\
+							<div style="clear:both">\
+				</div>\
+			<p><input style="padding:5px;" type="submit" value="Add Alternative"></p>';
 		
 
 		$("frmProjectAlt"+altId).innerHTML = f;
 
-		//initMCE();
 		//tinyMCE.idCounter=altId;
 		tinyMCE.execCommand('mceAddControl',false,'txtAltDetailedDesc' + altId);
 		tinyMCE.execCommand('mceAddControl',false,'txtAltLinks' + altId);
@@ -503,7 +520,7 @@
 	</script>
 	<h3>Finished managing projects?</h3>
 	<!-- this button just redirects - saves are occuring on check. -->
-	<p><input type="button" onClick="location.href='main.do'" value="Finished!"/></p>
+	<p><input type="button" style="padding:5px;" onClick="location.href='main.do'" value="Finished!"/></p>
 	
 	<script type="text/javascript">
 		//ddtreemenu.createTree(treeid, enablepersist, opt_persist_in_days (default is 1))
