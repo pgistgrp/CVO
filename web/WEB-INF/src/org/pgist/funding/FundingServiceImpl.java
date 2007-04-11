@@ -216,7 +216,7 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
 	public UserTaxInfoDTO lookupUserTaxInfoDTO(Long userId) throws Exception {
 		UserTaxInfoDTO utax = new UserTaxInfoDTO();
 		User user = this.fundingDAO.getUserById(userId);
-
+		initializeUser(user);
 		utax.loadWithUserInfo(user);
 			
 		return utax;
