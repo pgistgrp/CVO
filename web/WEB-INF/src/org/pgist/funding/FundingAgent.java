@@ -7,7 +7,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -29,6 +31,37 @@ public class FundingAgent {
     /*
      * ------------------------------------------------------------------------
      */
+    /**
+     * Returns a list of all the vehicles for this user
+     * 
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>vehicles - The list of all the vehicles for this user</li>
+     *   </ul>
+     */
+    public Map getVehicles(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+        	User user = this.fundingService.getUser(WebUtils.currentUser());
+        	UserTaxInfoDTO taxinfo = this.fundingService.getUserTaxInfoDTO(user.getId());
+            
+            request.setAttribute("vehicles", taxinfo.getVehicles());
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/funding/fundingCalc_vehicles.jsp"));            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//addVehicle()
+    
+    
     /**
      * Adds a new vehicle to the user account
      * 
