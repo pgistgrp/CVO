@@ -708,13 +708,13 @@ System.out.println("MATT: got the user " + user.getUserId() + ":Bike Days:" + us
      *     </li>
      *   </ul>
      */
-    public Map calcCostReport(UserTaxInfoDTO user, Long fundingSuiteId) {
+    public Map calcCostReport(UserTaxInfoDTO user, long fundingSuiteId) {
         Map map = new HashMap();
         map.put("successful", false);
         
         try {
             map.put("user", this.fundingService.calcCostReport(user, fundingSuiteId));
-            
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/funding/fundingMgr_report.jsp"));            
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
