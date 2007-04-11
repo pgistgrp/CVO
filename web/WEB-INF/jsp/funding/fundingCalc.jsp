@@ -11,16 +11,13 @@
 	Page: Funding Calc
 	Description: Tax Calculator Game - Users will be able to calculate how much funding sources will cost to them.
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Issac Yang
+	     Front End: Jordan Isip, Adam Hindman
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Add userAgent for vehicles
 		[ ] Ensure get and set estimates are working correctly and pulling the right data (Jordan)
-		[ ] Barebones JavaScript (Issac)
+		[ ] Barebones JavaScript (Jordan)
 		[x] Integrate Layout (Adam)
-	Notes:
-		- The action on this page will give: CCT, User, Tolls, UserCommute Objects
 #### -->
 
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
@@ -45,7 +42,80 @@
 	<script type="text/javascript" charset="utf-8">
 		var suiteId = "${suiteId}"
 		
+		function addVehicle(){
+			var userId = "${user.userId}"
+			var mpg = $F('vehicleMpg');
+			var value = $F('vehicleValue');
+			var mpy = $F('vehicleMpy');
+			
+			//alert("userId: " + userId + "milesPerGallon: " + milesPerGallon + " value: " + value + " milesPerYear: " + milesPerYear); 
+			FundingAgent.addVehicle({userId:userId,milesPerGallon:mpg,value:value,milesPerYear:mpy}, {
+				callback:function(data){
+					if (data.successful){
+						alert("it worked!")
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("FundingAgent.addVehicle( error:" + errorString + exception);
+				}
+			});
+		}
 
+		function updateVehicle(vehicleId){
+			var mpg = $F('vehicleMpg');
+			var value = $F('vehicleValue');
+			var mpy = $F('vehicleMpy');
+			
+			//alert("vehicleId: " + vehicleId + " milesPerGallon: " + milesPerGallon + " value: " + value + " milesPerYear: " + milesPerYear); 
+			FundingAgent.updateVehicle({vehicleId:vehicleId,milesPerGallon:mpg,value:value,milesPerYear:mpy}, {
+				callback:function(data){
+					if (data.successful){
+						alert("update worked!")
+						new Insertion.Bottom("vehicles", "test test");
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("FundingAgent.updateVehicle( error:" + errorString + exception);
+				}
+			});
+		}
+
+		function removeVehicle(vehicleId){
+			userId = "${user.userId}"
+			//alert("userId: " + userId + " vehicleId: " + vehicleId); 
+			FundingAgent.removeVehicle({userId:userId,vehicleId:vehicleId}, {
+				callback:function(data){
+					if (data.successful){
+						new Effect.Puff('vehicle' + vehicleId)
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("ClassName.methodName( error:" + errorString + exception);
+				}
+			});
+		}
+		
+		function renderProjectForm(project){
+			//using ternery operators so it won't complain about the values when creating a new project :)
+			id = (project) ? project.id : "";
+			name = (project) ? project.name : "";
+			description = (project) ? project.description : "";
+			inclusive = (project) ? project.inclusive : "";
+			inclusiveChecked = (inclusive == true) ? "CHECKED" : "";
+			transMode = (project) ? project.transMode : "";
+			transModes = ["null","road", "transit"];
+
+			f = '';
+			$("frmProject"+id).innerHTML = f;
+
+		}
+		
 		function getUserById(userId){
 			FundingAgent.getUserById({userId:userId}, {
 				callback:function(data){
@@ -82,6 +152,12 @@
 						//LOAD ESTIMATES
 						$('gasCost').value = data.user.costPerGallon
 						$('annualConsume').value = data.user.annualConsume
+						
+						//RENDER TOLL ESTIMATES
+						//var tollTr = "<tr><td>111</td><td>222</td><td>333</td><td></td></tr>"
+						//new Insertion.Bottom("tollRoads", tollTr)
+						
+						
 						Element.show('estimates');
 						Element.show('newTable')
 						
@@ -136,18 +212,32 @@
 			</div>
 		<div id="myVehicles">
 			<h3 class="headerColor">My Vehicle(s)</h3>
-			<!-- put back vehicle loop here -->
+			<div id="vehicles">
+				<c:forEach var="vehicle" items="${user.vehicles}" varStatus="loop">
+					<div id="vehicle${vehicle.id}" class="myVehiclesRow"> 
+						<strong>Vehicle ${loop.index + 1}: </strong> Miles per
+						gallon
+						${vehicle.milesPerGallon}
+						Approximate value
+						${vehicle.approxValue}
+
+						Miles driven per year
+						${vehicle.milesPerYear}
+						<small><a href="javascript:prepareEdit(${vehicle.id})">Edit</a> | <a href="javascript:removeVehicle(${vehicle.id})">Remove</a></small> 
+					</div>
+				</c:forEach>
+			</div>
 			<p><a href="javascript:Element.toggle('newVehicle');">Add vehicle</a> 
 				<div id="newVehicle" class="myVehiclesRow" style="display:none;"> 
 					
 					<strong>New Vehicle: </strong> Miles per gallon
-					<input name="mpg" type="text" >
+					<input name="mpg" id="vehicleMpg" type="text" >
 					Approximate value
-					<input name="value" type="text">
+					<input name="value" id="vehicleValue" type="text">
 					Miles driven per year
-					<input name="mpy" type="text">
+					<input name="mpy" id="vehicleMpy" type="text">
 
-					<input type="submit" value="Submit" /><small><a href="javascript:Element.toggle('newVehicle');">Cancel</a></small></div>
+					<input type="button" value="Submit" onClick="addVehicle();" /><small><a href="javascript:Element.toggle('newVehicle');">Cancel</a></small></div>
 				
 				
 		</div>
