@@ -32,8 +32,7 @@
 		</div>
 		<div style="float:left;width:200px;">
 		<small> 
-		 <a href="javascript:prepareProject(${project.id});">edit
-					properties</a> | <a href="javascript:deleteProject(${project.id});">delete</a>
+		 <a href="javascript:prepareProject(${project.id});">edit properties</a> | <a href="javascript:deleteProject(${project.id});">delete</a>
 		</small>
 		</div><br />
 			<!-- for editing project -->
@@ -46,9 +45,12 @@
 			<!-- end for editing project -->
 			<ul>
 				<c:forEach var="alternative" items="${project.alternatives}">
-					<li id="alt-${alternative.id}">${alternative.name} <small><a href="javascript: mapAlternative(${alternative.id});">edit
+					<li id="alt-${alternative.id}">
+					<div><span style="float:left;width:400px;margin-right:20px;">${alternative.name}</span>
+					<span style="float:left;width:180px;"><small>
+						<a href="javascript: mapAlternative(${alternative.id});">edit
 								map</a> | <a href="javascript: prepareProjectAlt(${alternative.id}, 'altId');">edit
-								properties</a> | <a href="javascript:deleteProjectAlt(${alternative.id});">delete</a></small>
+								properties</a> | <a href="javascript:deleteProjectAlt(${alternative.id});">delete</a></small></div><div style="clear:both"></div>
 						<div id="alternativeForm${alternative.id}" style="display:none;">
 							<form action="javascript:editProjectAlt(${alternative.id});" id="frmProjectAlt${alternative.id}">
 								<!--form inserted from js renderProjectAltForm();-->

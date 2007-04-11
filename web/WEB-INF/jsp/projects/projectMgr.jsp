@@ -30,8 +30,9 @@
 		[x] Add descriptions to create/edit alt form(Jordan)
 		[x] JavaScript Tree menu (Jordan)
 		[ ] Persist map edits (Guirong)
-		[ ] Links and detailed description as a rich text box editor (Jordan)
+		[x] Links and detailed description as a rich text box editor (Jordan)
 		[ ] Play with tree script to only link the first link (Jordan)
+		[x] Polish it up a little (Adam)
 #### -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -69,6 +70,8 @@
 <style type="text/css" media="screen">
 	li{margin: 10px 0; list-style: none;}
 	.project{font-size: 1.3em;}
+	li ul li:hover {background:#E4F1F5;}
+	li ul li{width:720px;padding:3px;}
 </style>
 <style type="text/css">
     v\:* {

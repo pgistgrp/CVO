@@ -77,10 +77,13 @@
 			}
 		});
 	}
+
+	
 </script>
 <style type="text/css">
 	li{margin: 10px 0; list-style: none;}
 	.project{font-size: 1.3em;}
+	li ul li:hover {background:#E4F1F5;}
 </style>
 </head>
 
@@ -116,7 +119,7 @@
 	</form>
 	<h3>Finished selecting project alternatives?</h3>
 	<!-- this button just redirects - saves are occuring on check. -->
-	<p><input type="button" onclick="location.href='main.do'" value="Finished!"/></p>
+	<p><input type="button" onClick="location.href='main.do'" value="Finished!"/></p>
 </body>
 </html:html>
 
