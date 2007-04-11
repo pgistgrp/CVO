@@ -705,8 +705,6 @@ public class FundingAgent {
         map.put("successful", false);
         
         try {
-
-System.out.println("MATT: got the user " + user.getUserId() + ":Bike Days:" + user.getBikeDays());
         	map.put("reason", "Bike Days = " + user.getBikeDays() + " ID = " + user.getUserId());
 			
         	//Find the commute object       	

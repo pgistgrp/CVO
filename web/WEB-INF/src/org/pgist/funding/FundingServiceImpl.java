@@ -216,9 +216,7 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
 	public UserTaxInfoDTO getUserTaxInfoDTO(Long userId) throws Exception {
 		UserTaxInfoDTO utax = new UserTaxInfoDTO();
 		utax.loadWithUserInfo(this.fundingDAO.getUserById(userId));
-		if(utax.getTolls().size() == 0) {
-			utax.createUserTolls();
-		}
+
 		return utax;
 	}
 		

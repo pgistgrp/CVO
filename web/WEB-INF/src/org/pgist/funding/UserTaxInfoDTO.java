@@ -86,6 +86,16 @@ public class UserTaxInfoDTO implements Serializable {
     	this.setBikeDays(user.getBikeDays());
     	
     	this.setVehicles(user.getVehicles());
+    	
+    	if(user.getUserCommute() == null) {
+    		this.createUserTolls();
+    	} else {
+    		if(user.getUserCommute().getTolls().size() == 0) {
+        		this.createUserTolls();    			
+    		} else {
+            	this.setTolls(user.getUserCommute().getTolls());    		    			
+    		}
+    	}    	
     }
     
     /**
