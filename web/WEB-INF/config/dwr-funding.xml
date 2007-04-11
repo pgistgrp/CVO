@@ -42,7 +42,7 @@
           <include method="getFundingSourceById"/>
           <include method="getFundingSourceAltById"/>
           <include method="setFundingDef"/>          
-          <include method="getUserById"/>            
+          <include method="lookupUserById"/>            
       </create>
 
   </allow>

@@ -129,9 +129,11 @@ public abstract class XMLHandler implements Handler {
         Query query = session.createQuery(hql_getFundingSourceByName);
         query.setString(0, name.toLowerCase());
         List list = query.list();
-        if (list.size()==0) return null;
-        
-        FundingSource source = (FundingSource) list.get(0);
+        FundingSource source;
+        if (list.size()==0) {
+        	return null;
+        }
+        source = (FundingSource) list.get(0);        	        
         fsourceMap.put(source.getName(), source);
         
         return source;

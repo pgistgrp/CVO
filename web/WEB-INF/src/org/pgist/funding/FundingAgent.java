@@ -635,7 +635,7 @@ public class FundingAgent {
      *     </li>
      *   </ul>
      */
-    public Map getUserById(Map params) {
+    public Map lookupUserById(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
