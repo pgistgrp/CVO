@@ -29,7 +29,7 @@
           <include method="addVehicle"/>
           <include method="getVehicles"/>
           <include method="updateVehicle"/>
-          <include method="removeVehicle"/>          
+          <include method="deleteVehicle"/>          
           <include method="calcCommute"/>          
           <include method="calcCostReport"/> 
           <include method="createFundingSource"/>
