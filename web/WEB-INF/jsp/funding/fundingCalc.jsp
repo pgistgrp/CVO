@@ -98,7 +98,7 @@
 		}
 		
 		function calcCostReport(user){
-			//alert("suiteId: " + suiteId + " userCommute: " + user); 
+			alert("suiteId: " + suiteId + " userCommute: " + user); 
 			FundingAgent.calcCostReport({suiteId:suiteId,userCommute:user}, {
 				callback:function(data){
 					if (data.successful){
