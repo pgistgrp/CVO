@@ -1,6 +1,8 @@
 package org.pgist.funding;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.pgist.users.User;
 
@@ -25,6 +27,8 @@ public class UserCommute implements Serializable {
     
     private float costPerGallon;
     
+    private Set<UserFundingSourceToll> tolls = new HashSet<UserFundingSourceToll>();    
+    
     /**
      * @return
      * 
@@ -38,9 +42,27 @@ public class UserCommute implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    
-    
+        
     /**
+	 * @return the tolls
+     * @hibernate.set lazy="true" cascade="all"
+     * @hibernate.collection-key column="source_id"
+     * @hibernate.collection-one-to-many class="org.pgist.funding.UserFundingSourceToll"
+	 */
+	public Set<UserFundingSourceToll> getTolls() {
+		return tolls;
+	}
+
+
+	/**
+	 * @param tolls the tolls to set
+	 */
+	public void setTolls(Set<UserFundingSourceToll> tolls) {
+		this.tolls = tolls;
+	}
+
+
+	/**
      * @return
      * 
      * @hibernate.many-to-one column="suite_id" cascade="none"

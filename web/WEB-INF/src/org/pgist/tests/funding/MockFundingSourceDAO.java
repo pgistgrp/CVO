@@ -12,6 +12,7 @@ import org.pgist.funding.FundingSourceAltRef;
 import org.pgist.funding.FundingSourceAlternative;
 import org.pgist.funding.FundingSourceRef;
 import org.pgist.funding.FundingSourceSuite;
+import org.pgist.funding.UserCommute;
 import org.pgist.funding.ZipCodeFactor;
 import org.pgist.funding.ZipCodeGas;
 import org.pgist.packages.Package;
@@ -162,5 +163,13 @@ public class MockFundingSourceDAO implements FundingDAO {
 		// TODO Auto-generated method stub
 		
 	}
+	/* (non-Javadoc)
+	 * @see org.pgist.funding.FundingDAO#getCommuteForUser(java.lang.Long)
+	 */
+	public UserCommute getCommuteForUser(Long userId) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 }

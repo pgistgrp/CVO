@@ -38,14 +38,14 @@ public class UserTaxInfoDTO implements Serializable {
     protected String zipcode = "";
     
     protected String workZipcode = "";
-    
-    protected UserTolls userTolls = new UserTolls();
-        
+            
     private float annualConsume;
     
     private float costPerGallon;
     
     private Set<PersonalFundingCost> costs = new HashSet<PersonalFundingCost>();
+    
+    private Set<UserFundingSourceToll> tolls = new HashSet<UserFundingSourceToll>();     
     
 	/**
      * Loads the provided User Object with all the information contained in this tax DTO
@@ -62,9 +62,9 @@ public class UserTaxInfoDTO implements Serializable {
     	user.setCarpoolPeople(this.getCarpoolPeople());
     	user.setBusDays(this.getBusDays());
     	user.setWalkDays(this.getWalkDays());
-    	user.setBikeDays(this.getBikeDays());
+    	user.setBikeDays(this.getBikeDays());    	
     }
-    
+        
     /**
      * Loads this DTO with the information from the provided User
      * 
@@ -88,7 +88,61 @@ public class UserTaxInfoDTO implements Serializable {
     	this.setVehicles(user.getVehicles());
     }
     
+    /**
+     * Creates all of the user tolls
+     */
+    public void createUserTolls() {
+    	this.tolls.clear();
+    	this.tolls.add(createToll(UserFundingSourceToll.PARKING_DOWNTOWN));
+    	this.tolls.add(createToll(UserFundingSourceToll.ALASKA_WAY_VIADUCT));
+    	this.tolls.add(createToll(UserFundingSourceToll.I405N));
+    	this.tolls.add(createToll(UserFundingSourceToll.I405S));
+    	this.tolls.add(createToll(UserFundingSourceToll.SR520));
+    	this.tolls.add(createToll(UserFundingSourceToll.I90));
+    	this.tolls.add(createToll(UserFundingSourceToll.SR167));    	
+    }
+
+    /**
+     * Creates a user toll
+     * 
+     * @param	name	The name of the toll
+     * @return	An initialized toll
+     */
+    private UserFundingSourceToll createToll(String name) {
+    	UserFundingSourceToll toll;
+    	toll = new UserFundingSourceToll();
+    	toll.setName(name);
+    	toll.setPeakTrips(0);
+    	toll.setOffPeakTrips(0);
+    	toll.setUsed(false);
+    	return toll;
+    }
+    
+    /**
+     * Loads the commute with data
+     * 
+     * @param	commute	The commute class to load
+     */
+    public void loadCommuteWithData(UserCommute userCommute) {
+    	userCommute.setAnnualConsume(this.getAnnualConsume());
+    	userCommute.setCostPerGallon(this.getCostPerGallon());
+    	
+    	//Maybe attach the tolls here
+    }
+    
+    /**
+     * Loads this object with the provided commute data
+     * 
+     * @param	commute	The commute class to get the data from
+     */
+    public void loadWithCommuteInfo(UserCommute userCommute) {
+    	this.setAnnualConsume(userCommute.getAnnualConsume());
+    	this.setCostPerGallon(userCommute.getCostPerGallon());
+    	this.setTolls(userCommute.getTolls());
+    }
+    
     //---------------------Getters and Setters-----------------------------
+       
     /**
 	 * @return the costs
 	 */
@@ -216,20 +270,6 @@ public class UserTaxInfoDTO implements Serializable {
 	}
 
 	/**
-	 * @return the userTolls
-	 */
-	public UserTolls getUserTolls() {
-		return userTolls;
-	}
-
-	/**
-	 * @param userTolls the userTolls to set
-	 */
-	public void setUserTolls(UserTolls userTolls) {
-		this.userTolls = userTolls;
-	}
-
-	/**
 	 * @return the vehicles
 	 */
 	public Set<Vehicle> getVehicles() {
@@ -312,5 +352,18 @@ public class UserTaxInfoDTO implements Serializable {
 	public void setCostPerGallon(float costPerGallon) {
 		this.costPerGallon = costPerGallon;
 	}
-    
+
+	/**
+	 * @return the tolls
+	 */
+	public Set<UserFundingSourceToll> getTolls() {
+		return tolls;
+	}
+
+	/**
+	 * @param tolls the tolls to set
+	 */
+	public void setTolls(Set<UserFundingSourceToll> tolls) {
+		this.tolls = tolls;
+	}    
 }

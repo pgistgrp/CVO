@@ -19,8 +19,22 @@ public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
     }//getFundingSourceById()
 
 
+	private static final String hql_getCommuteForUser = "from UserCommute uc where uc.user=?";
 
-    private static final String hql_getFundingSourceByName = "from FundingSource fs where lower(fs.name)=?";
+    /* (non-Javadoc)
+	 * @see org.pgist.funding.FundingDAO#getCommuteForUser(java.lang.Long)
+	 */
+	public UserCommute getCommuteForUser(Long userId) throws Exception {
+        List list = getHibernateTemplate().find(hql_getCommuteForUser, userId);
+        
+        if (list.size()==0) return null;
+        
+        return (UserCommute) list.get(0);
+	}
+
+
+
+	private static final String hql_getFundingSourceByName = "from FundingSource fs where lower(fs.name)=?";
     
     
     public FundingSource getFundingSourceByName(String name) throws Exception {

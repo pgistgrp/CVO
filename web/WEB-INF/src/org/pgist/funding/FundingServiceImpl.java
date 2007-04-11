@@ -17,7 +17,11 @@ import org.pgist.users.Vehicle;
  */
 public class FundingServiceImpl implements FundingService {
     
-    
+    public static final float OFF_PEAK_USAGE = 0.8f;
+    public static final float PEAK_USAGE = 0.2f;
+    public static final float NO_CAR_FACTOR = 0.3f;    
+    public static final int WEEKS_IN_YEAR = 52;
+	
     private FundingDAO fundingDAO;
     
     
@@ -40,8 +44,15 @@ public class FundingServiceImpl implements FundingService {
 		//Save the user object
 		User tempUser = this.updateUserTaxInfo(user);
 		
-		UserCommute commute = new UserCommute();
-		commute.setUser(tempUser);
+		//Get the users last commute object
+		UserCommute commute = this.fundingDAO.getCommuteForUser(user.getUserId());
+				
+		//If its null then create one and assign it to the user		
+		if(commute == null) {
+			commute = new UserCommute();
+			commute.setUser(tempUser);
+			this.fundingDAO.save(commute);
+		}
 		
 		String zipcode = user.getZipcode();
 		
@@ -57,46 +68,86 @@ public class FundingServiceImpl implements FundingService {
 		
 		ZipCodeFactor zcf = this.fundingDAO.getZipCodeFactorByZipCode(zipcode);
 		
+		float carFactor = 1;
+		if(user.getVehicles().size() == 0) {
+			carFactor = NO_CAR_FACTOR;
+		}
+		int driveAlone = user.getDriveDays();
+		int carpool = user.getCarpoolDays();
+		int numPassengers = user.getCarpoolPeople();		
 		
-		//Calculate peak hour trips
-		
-		
-
-		//Calculate off peak trips
-		
-		
-		
+		//If no user tolls exist, then create them and assign them to the user
+//		if(commute.getTolls().size() == 0) {
+			Iterator<UserFundingSourceToll> i = user.getTolls().iterator();
+			while(i.hasNext()) {
+				setTripRates(i.next(), zcf, carFactor, driveAlone, carpool, numPassengers);
+			}						
+//		} else {
+//			//If they do exist, then walk through each and see if its change, if it has, then reset it						
+//		}
+				
 		//Include the gas cost
 		ZipCodeGas gasZip = this.fundingDAO.getZipCodeGasByZipCode(zipcode);
 		commute.setCostPerGallon(gasZip.getAvgGas());
 		
 		//Include the annual consumption for the sales tax
-System.out.println("MATT: INCOME = " + user.getIncome());		
 		Consumption con = this.fundingDAO.getConsumptionByIncome(user.getIncome());
 		commute.setAnnualConsume(con.getConsumption(user.getFamilyCount()));
 		
 		//Save the commute
 		this.fundingDAO.save(commute);
 		
-		user.setAnnualConsume(commute.getAnnualConsume());
-		user.setCostPerGallon(commute.getCostPerGallon());
-System.out.println("MATT: A Consume= " + user.getAnnualConsume() + " COST PER GALLON = " + user.getCostPerGallon());
+		user.loadWithCommuteInfo(commute);
 		return user;
+	}
+	
+	/**
+	 * Sets the trip rates for the toll
+	 * 
+	 * @param	toll	The funding toll source
+	 */
+	private void setTripRates(UserFundingSourceToll toll, ZipCodeFactor zcf, float carFactor, int driveAlone, int carpool, int numPassengers) {
+		if(toll.getName().equals(UserFundingSourceToll.PARKING_DOWNTOWN)) {
+			toll.setPeakTrips(calcPeakHours(zcf.getParking(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+			toll.setOffPeakTrips(calcOffPeakHours(zcf.getParking(), carFactor, toll.isUsed()));
+		} else if(toll.getName().equals(UserFundingSourceToll.ALASKA_WAY_VIADUCT)) {
+			toll.setPeakTrips(calcPeakHours(zcf.getSR99(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+			toll.setOffPeakTrips(calcOffPeakHours(zcf.getSR99(), carFactor, toll.isUsed()));
+		} else if(toll.getName().equals(UserFundingSourceToll.I405N)) {
+			toll.setPeakTrips(calcPeakHours(zcf.getI405N(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+			toll.setOffPeakTrips(calcOffPeakHours(zcf.getI405N(), carFactor, toll.isUsed()));
+		} else if(toll.getName().equals(UserFundingSourceToll.I405S)) {
+			toll.setPeakTrips(calcPeakHours(zcf.getI405S(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+			toll.setOffPeakTrips(calcOffPeakHours(zcf.getI405S(), carFactor, toll.isUsed()));
+		} else if(toll.getName().equals(UserFundingSourceToll.SR520)) {
+			toll.setPeakTrips(calcPeakHours(zcf.getSR520(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+			toll.setOffPeakTrips(calcOffPeakHours(zcf.getSR520(), carFactor, toll.isUsed()));
+		} else if(toll.getName().equals(UserFundingSourceToll.I90)) {
+			toll.setPeakTrips(calcPeakHours(zcf.getI90(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+			toll.setOffPeakTrips(calcOffPeakHours(zcf.getI90(), carFactor, toll.isUsed()));
+		} else if(toll.getName().equals(UserFundingSourceToll.SR167)) {
+			toll.setPeakTrips(calcPeakHours(zcf.getSR167(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+			toll.setOffPeakTrips(calcOffPeakHours(zcf.getSR167(), carFactor, toll.isUsed()));
+		}
 	}
 	
 	/**
 	 * Calculates the peak hours
 	 */
-	private static int calcPeakHours(int zipcodeFactor, float carFactor, int numPassengers) {
-		return 0;
+	private static int calcPeakHours(int zipcodeFactor, float carFactor, int driveAlone, int carpool, int numPassengers, boolean included) {
+		int rate = (int)(carFactor * PEAK_USAGE);
+		if(included) {
+			rate = rate + (driveAlone * WEEKS_IN_YEAR + (carpool * WEEKS_IN_YEAR)/numPassengers) -  zipcodeFactor * (int)(carFactor * PEAK_USAGE); 
+		}
+		return rate;
 	}
 	
 	/**
 	 * Calculates the off peak hours
 	 */
-	private static int calcOffPeakHours(int zipcodeFactor, float carFactor, float offPeak, boolean included) {
+	private static int calcOffPeakHours(int zipcodeFactor, float carFactor, boolean included) {
 		if(!included) return 0;
-		return zipcodeFactor * (int)(carFactor * offPeak); 
+		return zipcodeFactor * (int)(carFactor * OFF_PEAK_USAGE); 
 	}
 	
 	/**
@@ -107,6 +158,12 @@ System.out.println("MATT: A Consume= " + user.getAnnualConsume() + " COST PER GA
 	 */
 	public UserTaxInfoDTO calcCostReport(UserTaxInfoDTO user, Long fundingSuiteId) throws Exception {
 
+		//Save the new info to the commute object
+		
+		//Go through the funding suite and calculate the users costs
+		
+		//Go through the tolls and calculate the costs
+		
 System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
 		//TODO fill out the report here
 		Set<String> headers = new HashSet<String>();
