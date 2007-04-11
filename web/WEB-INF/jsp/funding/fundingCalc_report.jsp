@@ -30,11 +30,13 @@
 					<th>${header}</th>
 				</c:forEach>	
 			</tr>
-			<tr>
-				<c:forEach var="alt" items="${cost.alternatives}" varStatus="loop">
-					<td>${alt}</td>
-				</c:forEach>
-			</tr>
+			<c:forEach var="alt" items="${cost.alternatives}" varStatus="loop">
+				<tr>
+					<c:forEach var="data" items="${alt.data}" varStatus="loop">
+						<td>${data}</td>
+					</c:forEach>
+				</tr>
+			</c:forEach>
 		</c:forEach>
 	</table>
 
