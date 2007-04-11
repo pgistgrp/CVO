@@ -47,6 +47,38 @@ public class UserTaxInfoDTO implements Serializable {
     
     private Set<UserFundingSourceToll> tolls = new HashSet<UserFundingSourceToll>();     
     
+    /**
+     * Creates all of the user tolls
+     */
+    public static Set<UserFundingSourceToll> createUserTolls() {
+        Set<UserFundingSourceToll> tolls = new HashSet<UserFundingSourceToll>();
+    	tolls.clear();
+    	tolls.add(createToll(UserFundingSourceToll.PARKING_DOWNTOWN));
+    	tolls.add(createToll(UserFundingSourceToll.ALASKA_WAY_VIADUCT));
+    	tolls.add(createToll(UserFundingSourceToll.I405N));
+    	tolls.add(createToll(UserFundingSourceToll.I405S));
+    	tolls.add(createToll(UserFundingSourceToll.SR520));
+    	tolls.add(createToll(UserFundingSourceToll.I90));
+    	tolls.add(createToll(UserFundingSourceToll.SR167));
+    	return tolls;
+    }
+
+    /**
+     * Creates a user toll
+     * 
+     * @param	name	The name of the toll
+     * @return	An initialized toll
+     */
+    private static UserFundingSourceToll createToll(String name) {
+    	UserFundingSourceToll toll;
+    	toll = new UserFundingSourceToll();
+    	toll.setName(name);
+    	toll.setPeakTrips(0);
+    	toll.setOffPeakTrips(0);
+    	toll.setUsed(false);
+    	return toll;
+    }    
+    
 	/**
      * Loads the provided User Object with all the information contained in this tax DTO
      */
@@ -85,48 +117,10 @@ public class UserTaxInfoDTO implements Serializable {
     	this.setWalkDays(user.getWalkDays());
     	this.setBikeDays(user.getBikeDays());
     	
-    	this.setVehicles(user.getVehicles());
-    	
-    	if(user.getUserCommute() == null) {
-    		this.createUserTolls();
-    	} else {
-    		if(user.getUserCommute().getTolls().size() == 0) {
-        		this.createUserTolls();    			
-    		} else {
-            	this.setTolls(user.getUserCommute().getTolls());    		    			
-    		}
-    	}    	
+    	this.setVehicles(user.getVehicles());   
+    	this.setTolls(user.getUserCommute().getTolls());
     }
     
-    /**
-     * Creates all of the user tolls
-     */
-    public void createUserTolls() {
-    	this.tolls.clear();
-    	this.tolls.add(createToll(UserFundingSourceToll.PARKING_DOWNTOWN));
-    	this.tolls.add(createToll(UserFundingSourceToll.ALASKA_WAY_VIADUCT));
-    	this.tolls.add(createToll(UserFundingSourceToll.I405N));
-    	this.tolls.add(createToll(UserFundingSourceToll.I405S));
-    	this.tolls.add(createToll(UserFundingSourceToll.SR520));
-    	this.tolls.add(createToll(UserFundingSourceToll.I90));
-    	this.tolls.add(createToll(UserFundingSourceToll.SR167));    	
-    }
-
-    /**
-     * Creates a user toll
-     * 
-     * @param	name	The name of the toll
-     * @return	An initialized toll
-     */
-    private UserFundingSourceToll createToll(String name) {
-    	UserFundingSourceToll toll;
-    	toll = new UserFundingSourceToll();
-    	toll.setName(name);
-    	toll.setPeakTrips(0);
-    	toll.setOffPeakTrips(0);
-    	toll.setUsed(false);
-    	return toll;
-    }
     
     /**
      * Loads the commute with data

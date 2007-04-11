@@ -5,6 +5,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.packages.UserPackage;
+import org.pgist.users.User;
 import org.pgist.util.WebUtils;
 
 
@@ -71,9 +72,9 @@ public class TaxCalculatorAction extends Action {
 //    	}
     	           
 		//Get the current user
-    	UserTaxInfoDTO taxInfo = new UserTaxInfoDTO();
-    	taxInfo.loadWithUserInfo(this.fundingService.getUser(WebUtils.currentUser()));
+    	User user = this.fundingService.getUser(WebUtils.currentUser());
    	
+    	UserTaxInfoDTO taxInfo = this.fundingService.lookupUserTaxInfoDTO(user.getId());
 		request.setAttribute("user", taxInfo);
 		request.setAttribute("suiteId", tempSuiteId);
     	

@@ -213,13 +213,31 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
 	 * 
 	 * @param	userId	The ID of the user desired
 	 */
-	public UserTaxInfoDTO getUserTaxInfoDTO(Long userId) throws Exception {
+	public UserTaxInfoDTO lookupUserTaxInfoDTO(Long userId) throws Exception {
 		UserTaxInfoDTO utax = new UserTaxInfoDTO();
-		utax.loadWithUserInfo(this.fundingDAO.getUserById(userId));
+		User user = this.fundingDAO.getUserById(userId);
 
+		utax.loadWithUserInfo(user);
+			
 		return utax;
 	}
 		
+	/**
+	 * Initializes the user with all of the necessary tolls and the user commute
+	 */
+	public void initializeUser(User user) throws Exception {
+    	if(user.getUserCommute() == null) {
+    		UserCommute commute = new UserCommute();    		
+    		user.setUserCommute(commute);
+    		this.fundingDAO.save(commute);
+    		this.fundingDAO.save(user);
+    		
+    		//Add the tolls
+    		commute.setTolls(UserTaxInfoDTO.createUserTolls());
+    		this.fundingDAO.save(commute);    		
+    	}    				
+	}
+	
 	/**
 	 * Updates the users information.
 	 * 
@@ -261,7 +279,7 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
 		this.fundingDAO.save(user);
 		this.fundingDAO.save(v);
 		
-		return this.getUserTaxInfoDTO(userId);
+		return this.lookupUserTaxInfoDTO(userId);
 	}
 
 	/**
@@ -303,7 +321,7 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
 			}
 		}
 		
-		return this.getUserTaxInfoDTO(userId);
+		return this.lookupUserTaxInfoDTO(userId);
 	}
 	
     /**
