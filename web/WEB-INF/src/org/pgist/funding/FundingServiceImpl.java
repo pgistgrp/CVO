@@ -21,6 +21,7 @@ public class FundingServiceImpl implements FundingService {
     public static final float PEAK_USAGE = 0.2f;
     public static final float NO_CAR_FACTOR = 0.3f;    
     public static final int WEEKS_IN_YEAR = 52;
+    public static final float DEFAULT_GAS_COST = 2.85f;
 	
     private FundingDAO fundingDAO;
     
@@ -91,7 +92,11 @@ public class FundingServiceImpl implements FundingService {
 				
 		//Include the gas cost
 		ZipCodeGas gasZip = this.fundingDAO.getZipCodeGasByZipCode(zipcode);
-		commute.setCostPerGallon(gasZip.getAvgGas());
+		if(gasZip == null) {
+			commute.setCostPerGallon(DEFAULT_GAS_COST);
+		} else {
+			commute.setCostPerGallon(gasZip.getAvgGas());			
+		}
 		
 		//Include the annual consumption for the sales tax
 		Consumption con = this.fundingDAO.getConsumptionByIncome(user.getIncome());
