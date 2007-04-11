@@ -81,17 +81,19 @@
 	
 </script>
 <style type="text/css">
+	body{font-size:11pt;font-family:arial,sans-serif;}
 	li{margin: 10px 0; list-style: none;}
 	.project{font-size: 1.3em;}
 	li ul li:hover {background:#E4F1F5;}
+	li ul li{width:600px;padding:5px;}
 </style>
 </head>
 
 
 <body>
 	<p><a href="main.do">Back to Moderator Control Panel</a></p>
-	<h1>Define Projects Alternatives</h1>
-	<p>Select all project alternatives that you would like to include for this expiriment.</p>
+	<h1>Define Projects for this Experiment</h1>
+	<p>Which projects are available for the "Let's Improve Transportation Challenge" experiment? Go to <a href="projectManage.do">manage projects</a> to add/remove projects.</p>
 	<form method="POST" name="publishProjects" action="projectDefine.do">
 		<input type="hidden" name="cctId" value="${cct.id}" /
 		<input type="hidden" name="activity" value="save" />

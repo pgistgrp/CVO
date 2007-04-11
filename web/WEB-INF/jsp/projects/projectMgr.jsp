@@ -66,6 +66,7 @@
 <script language="javascript" type="text/javascript" src="/scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
 <style type="text/css" media="screen">
 	@import "styles/simpletree.css";
+body{font-size:11pt;font-family:arial,sans-serif;}
 </style>
 <style type="text/css" media="screen">
 	li{margin: 10px 0; list-style: none;}
