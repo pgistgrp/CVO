@@ -3,6 +3,8 @@ package org.pgist.funding;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.pgist.users.User;
 import org.pgist.users.Vehicle;
@@ -45,7 +47,7 @@ public class UserTaxInfoDTO implements Serializable {
     
     private Set<PersonalFundingCost> costs = new HashSet<PersonalFundingCost>();
     
-    private Set<UserFundingSourceToll> tolls = new HashSet<UserFundingSourceToll>();     
+    private SortedSet<UserFundingSourceToll> tolls = new TreeSet<UserFundingSourceToll>();     
     
 
 	/**
@@ -336,7 +338,7 @@ public class UserTaxInfoDTO implements Serializable {
 	/**
 	 * @param tolls the tolls to set
 	 */
-	public void setTolls(Set<UserFundingSourceToll> tolls) {
+	public void setTolls(SortedSet<UserFundingSourceToll> tolls) {
 		this.tolls = tolls;
 	}    
 }
