@@ -72,25 +72,6 @@
         <SystemInit action="createdb" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
     
-    <target name="loadTaxData" depends="compile">
-        <taskdef name="TaxCalcDataLoader" classname="org.pgist.tests.TaxCalcDataLoader" classpathref="classpath">
-        </taskdef>
-        <TaxCalcDataLoader configPath="${web}/WEB-INF/config" dataPath="${base}/initdata/taxcalc"/>
-    </target>
-    
-    <target name="loadTestData" depends="compile">
-        <taskdef name="LoadTestData" classname="org.pgist.tests.PrepTestDataLoader" classpathref="classpath">
-        </taskdef>
-        <LoadTestData configPath="${web}/WEB-INF/config"/>
-    </target>
-
-    
-    <target name="workflow" depends="mapping">
-        <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
-        </taskdef>
-        <SystemInit action="workflow" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
-    </target>
-    
     
     <target name="updatedb" depends="mapping">
         <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
@@ -110,6 +91,34 @@
         <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
         </taskdef>
         <SystemInit action="backup" configPath="${web}/WEB-INF/config" dataPath="${base}/backup"/>
+    </target>
+    
+    
+    <target name="loadTaxData" depends="compile">
+        <taskdef name="TaxCalcDataLoader" classname="org.pgist.tests.TaxCalcDataLoader" classpathref="classpath">
+        </taskdef>
+        <TaxCalcDataLoader configPath="${web}/WEB-INF/config" dataPath="${base}/initdata/taxcalc"/>
+    </target>
+    
+    
+    <target name="loadTestData" depends="compile">
+        <taskdef name="LoadTestData" classname="org.pgist.tests.PrepTestDataLoader" classpathref="classpath">
+        </taskdef>
+        <LoadTestData configPath="${web}/WEB-INF/config"/>
+    </target>
+    
+    
+    <target name="workflow">
+        <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
+        </taskdef>
+        <WorkflowImporter definition="workflow.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
+    </target>
+    
+    
+    <target name="LIT">
+        <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
+        </taskdef>
+        <WorkflowImporter definition="LIT.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
     
     

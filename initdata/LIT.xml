@@ -109,24 +109,52 @@
         <pmethod name="pmethod-init.projects" description="Initialize Projects">
             <declaration>
                 <outs>
-                    <var name="pmethod.suite_id"/>
+                    <var name="pmethod.proj_suite_id"/>
+                    <var name="pmethod.fund_suite_id"/>
                 </outs>
             </declaration>
             <sequence>
-                <pgame name="pgame-create.project.suite">
-                    <declaration>
-                        <outs>
-                            <var name="suiteId" ref="pmethod.suite_id"/>
-                        </outs>
-                    </declaration>
-	              </pgame>
-                <pgame name="pgame-define.projects">
-                    <declaration>
-                        <ins>
-                            <var name="suiteId" ref="pmethod.suite_id"/>
-                        </ins>
-                    </declaration>
-                </pgame>
+                <branch>
+                    <sequence>
+                        <pgame name="pgame-create.project.suite">
+                            <declaration>
+                                <outs>
+                                    <var name="suite_id" ref="pmethod.proj_suite_id"/>
+                                </outs>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-define.projects">
+                            <declaration>
+                                <ins>
+                                    <var name="suiteId" ref="pmethod.proj_suite_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-grade.projects">
+                            <declaration>
+                                <ins>
+                                    <var name="suiteId" ref="pmethod.proj_suite_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                    <sequence>
+                        <pgame name="pgame-create.funding.suite">
+                            <declaration>
+                                <outs>
+                                    <var name="suite_id" ref="pmethod.fund_suite_id"/>
+                                </outs>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-define.fundings">
+                            <declaration>
+                                <ins>
+                                    <var name="suiteId" ref="pmethod.fund_suite_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                </branch>
             </sequence>
         </pmethod>
     </pmethods>
@@ -143,7 +171,8 @@
                 <pmethod name="pmethod-init.projects">
                     <declaration>
                         <outs>
-                            <var name="pmethod.suite_id" ref="meeting.proj_suite_id"/>
+                            <var name="pmethod.proj_suite_id" ref="meeting.proj_suite_id"/>
+                            <var name="pmethod.fund_suite_id" ref="meeting.fund_suite_id"/>
                         </outs>
                     </declaration>
                 </pmethod>
@@ -158,7 +187,8 @@
                 <meeting name="meeting-init.situation">
                     <declaration>
                         <outs>
-                            <var name="meeting.suite_id" ref="situation.suite_id"/>
+                            <var name="meeting.proj_suite_id" ref="situation.proj_suite_id"/>
+                            <var name="meeting.fund_suite_id" ref="situation.fund_suite_id"/>
                         </outs>
                     </declaration>
                 </meeting>
