@@ -40,12 +40,11 @@ public class CriteriaMgrAction extends Action {
     ) throws java.lang.Exception {
         Collection criteria = criteriaService.getCriterias();
         
-        String strCctId = request.getParameter("cctId");
-        Long cctId = new Long(strCctId);
-        CCT cct = criteriaService.getCCTById(cctId);  
+        String strSuiteId = request.getParameter("suiteid");
+        Long suiteId = new Long(strSuiteId);
+        CriteriaSuite cs = criteriaService.getCriteriaSuiteById(suiteId);
         
-        request.setAttribute("cct", cct);
-        request.setAttribute("criteria", criteria);
+        request.setAttribute("criteriasuite", cs);
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
         return mapping.findForward("list");
