@@ -292,7 +292,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 
 		$("frmProjectAlt"+altId).innerHTML = f;
 
-		//tinyMCE.idCounter=altId;
+		tinyMCE.idCounter=0;
 		tinyMCE.execCommand('mceAddControl',false,'txtAltDetailedDesc' + altId);
 		tinyMCE.execCommand('mceAddControl',false,'txtAltLinks' + altId);
 		tinyMCE.execCommand('mceAddControl',false,'txtAltFor' + altId);
