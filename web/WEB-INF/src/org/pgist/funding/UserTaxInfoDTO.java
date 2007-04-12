@@ -47,38 +47,7 @@ public class UserTaxInfoDTO implements Serializable {
     
     private Set<UserFundingSourceToll> tolls = new HashSet<UserFundingSourceToll>();     
     
-    /**
-     * Creates all of the user tolls
-     */
-    public static Set<UserFundingSourceToll> createUserTolls() {
-        Set<UserFundingSourceToll> tolls = new HashSet<UserFundingSourceToll>();
-    	tolls.clear();
-    	tolls.add(createToll(UserFundingSourceToll.PARKING_DOWNTOWN));
-    	tolls.add(createToll(UserFundingSourceToll.ALASKA_WAY_VIADUCT));
-    	tolls.add(createToll(UserFundingSourceToll.I405N));
-    	tolls.add(createToll(UserFundingSourceToll.I405S));
-    	tolls.add(createToll(UserFundingSourceToll.SR520));
-    	tolls.add(createToll(UserFundingSourceToll.I90));
-    	tolls.add(createToll(UserFundingSourceToll.SR167));
-    	return tolls;
-    }
 
-    /**
-     * Creates a user toll
-     * 
-     * @param	name	The name of the toll
-     * @return	An initialized toll
-     */
-    private static UserFundingSourceToll createToll(String name) {
-    	UserFundingSourceToll toll;
-    	toll = new UserFundingSourceToll();
-    	toll.setName(name);
-    	toll.setPeakTrips(0);
-    	toll.setOffPeakTrips(0);
-    	toll.setUsed(false);
-    	return toll;
-    }    
-    
 	/**
      * Loads the provided User Object with all the information contained in this tax DTO
      */

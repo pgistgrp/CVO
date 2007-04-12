@@ -19,15 +19,13 @@ public class DefaultFundingSourceHandler extends XMLHandler {
     
     
     public void doImports(Element root) throws Exception {
-System.out.println("MATT: At least I'm this far");    	
-        List sources = root.elements("fundingsources");
+        List sources = root.elements("source");
         System.out.println("MATT sources = " + sources.size());
         for (int i=0,n=sources.size(); i<n; i++) {
             Element element = (Element) sources.get(i);
 
             String name = element.elementTextTrim("name");
             if (name==null || "".equals(name)) throw new Exception("name is required for Funding Source");
-System.out.println("MATT: adding funding source " + name );            
             FundingSource source = getFundingSourceByName(name);
             if(source == null) {
             	source = new FundingSource();

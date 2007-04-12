@@ -2,6 +2,7 @@ package org.pgist.funding;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -604,7 +605,7 @@ public class FundingAgent {
             }
             
             map.put("successful", true);
-        } catch (UnknownFundingSuite e) {
+        } catch (UnknownFundingSuiteException e) {
             map.put("reason", "Could not find the funding suite specified");             
         } catch (Exception e) {
             e.printStackTrace();
@@ -701,6 +702,13 @@ public class FundingAgent {
      *   </ul>
      */
     public Map calcCommute(UserTaxInfoDTO user) {
+    	Iterator<UserFundingSourceToll> i = user.getTolls().iterator();
+    	UserFundingSourceToll toll;
+    	while(i.hasNext()) {
+    		toll = i.next();
+    		System.out.println("For toll [" + toll.getName() + "] set to [" + toll.isUsed() + "]" );
+    	}
+    	
         Map map = new HashMap();
         map.put("successful", false);
         

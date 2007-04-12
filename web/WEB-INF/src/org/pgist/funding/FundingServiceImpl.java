@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
@@ -48,7 +50,6 @@ public class FundingServiceImpl implements FundingService {
 		//Get the users last commute object
 		
 		UserCommute commute = tempUser.getUserCommute();
-				
 		//If its null then create one and assign it to the user		
 		if(commute == null) {
 			commute = new UserCommute();
@@ -79,16 +80,12 @@ public class FundingServiceImpl implements FundingService {
 		int carpool = user.getCarpoolDays();
 		int numPassengers = user.getCarpoolPeople();		
 		
-		//If no user tolls exist, then create them and assign them to the user
-//		if(commute.getTolls().size() == 0) {
-		//TODO Delete all the old tolls, or replace them with the new tolls
-			Iterator<UserFundingSourceToll> i = user.getTolls().iterator();
-			while(i.hasNext()) {
-				setTripRates(i.next(), zcf, carFactor, driveAlone, carpool, numPassengers);
-			}						
-//		} else {
-//			//If they do exist, then walk through each and see if its change, if it has, then reset it						
-//		}
+		Iterator<UserFundingSourceToll> tolls = user.getTolls().iterator();
+		while(tolls.hasNext()) {
+			setTripRates(tolls.next(), zcf, carFactor, driveAlone, carpool, numPassengers);			
+		}						
+		copyAcrossTolls(user.getTolls(), commute);
+		
 				
 		//Include the gas cost
 		ZipCodeGas gasZip = this.fundingDAO.getZipCodeGasByZipCode(zipcode);
@@ -107,6 +104,76 @@ public class FundingServiceImpl implements FundingService {
 		
 		user.loadWithCommuteInfo(commute);
 		return user;
+	}
+
+	/**
+	 * Copys the toll info from the remote toll to the users commute toll and then saves the
+	 * new information
+	 */
+	private void copyAcrossTolls(Set<UserFundingSourceToll> remoteTolls, UserCommute commute) throws Exception {
+		Iterator<UserFundingSourceToll> away = remoteTolls.iterator();
+		Iterator<UserFundingSourceToll> home = commute.getTolls().iterator();
+		UserFundingSourceToll tollAway;
+		UserFundingSourceToll tollHome;
+		
+		while(away.hasNext()) {
+			tollAway = away.next();
+
+			//Search the local tolls for the match
+			tollHome = findToll(tollAway.getId(), commute.getTolls());
+			
+			if(tollHome == null) {
+				//Add the new toll
+				tollHome = new UserFundingSourceToll();
+				tollHome.setName(tollAway.getName());
+				commute.getTolls().add(tollHome);
+				try {
+					linkFundingSource(tollHome);
+				} catch (UnknownFundingSourceException e) {
+					System.out.println(e.getMessage());
+				}
+				
+				this.fundingDAO.save(tollHome);
+				this.fundingDAO.save(commute);
+			}
+			tollHome.setUsed(tollAway.isUsed());
+			tollHome.setPeakTrips(tollAway.getPeakTrips());
+			tollHome.setOffPeakTrips(tollAway.getOffPeakTrips());
+			
+			this.fundingDAO.save(tollHome);
+		}
+	}
+	
+	/**
+	 * Links the provided toll to the correct funding source with the exact same name
+	 * <p>
+	 * NOTE: It does not save the toll
+	 * 
+	 * @param	toll 	to link
+	 * @throws 	UnknownFundingSourceException if there is no funding source that matches the name
+	 * 			of the toll
+	 */
+	private void linkFundingSource(UserFundingSourceToll toll) throws UnknownFundingSourceException, Exception {
+		FundingSource source = this.fundingDAO.getFundingSourceByName(toll.getName());
+		if(source == null) {
+			throw new UnknownFundingSourceException("Could not find the FundingSource[" +toll.getName()+"] to link to the toll");
+		}
+		toll.setFundingSource(source);
+	}
+	
+	/**
+	 * Returns the toll from the set that matches the specified id
+	 */
+	private UserFundingSourceToll findToll(Long id, Set<UserFundingSourceToll> tolls) {
+		Iterator<UserFundingSourceToll> i = tolls.iterator();
+		UserFundingSourceToll toll;
+		while(i.hasNext()) {
+			toll = i.next();
+			if(toll.getId().equals(id)) {
+				return toll;
+			}
+		}
+		return null;
 	}
 	
 	/**
@@ -145,7 +212,10 @@ public class FundingServiceImpl implements FundingService {
 	private static int calcPeakHours(int zipcodeFactor, float carFactor, int driveAlone, int carpool, int numPassengers, boolean included) {
 		int rate = (int)(carFactor * PEAK_USAGE);
 		if(included) {
-			rate = rate + (driveAlone * WEEKS_IN_YEAR + (carpool * WEEKS_IN_YEAR)/numPassengers) -  zipcodeFactor * (int)(carFactor * PEAK_USAGE); 
+			rate = rate + (driveAlone * WEEKS_IN_YEAR)  -  zipcodeFactor * (int)(carFactor * PEAK_USAGE);
+			if(numPassengers > 0) {
+				rate = rate + (carpool * WEEKS_IN_YEAR)/numPassengers;
+			}
 		}
 		return rate;
 	}
@@ -233,11 +303,50 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
     		this.fundingDAO.save(user);
     		
     		//Add the tolls
-    		commute.setTolls(UserTaxInfoDTO.createUserTolls());
+    		commute.setTolls(createUserTolls());
+    		
     		this.fundingDAO.save(commute);    		
     	}    				
 	}
 	
+    /**
+     * Creates all of the user tolls
+     */
+    public SortedSet<UserFundingSourceToll> createUserTolls() throws Exception {
+        SortedSet<UserFundingSourceToll> tolls = new TreeSet<UserFundingSourceToll>(new UserFundingSourceTollComparator());
+    	tolls.clear();
+    	tolls.add(createToll(UserFundingSourceToll.PARKING_DOWNTOWN));
+    	tolls.add(createToll(UserFundingSourceToll.ALASKA_WAY_VIADUCT));
+    	tolls.add(createToll(UserFundingSourceToll.I405N));
+    	tolls.add(createToll(UserFundingSourceToll.I405S));
+    	tolls.add(createToll(UserFundingSourceToll.SR520));
+    	tolls.add(createToll(UserFundingSourceToll.I90));
+    	tolls.add(createToll(UserFundingSourceToll.SR167));
+    	return tolls;
+    }
+
+    /**
+     * Creates a user toll
+     * 
+     * @param	name	The name of the toll
+     * @return	An initialized toll
+     */
+    private UserFundingSourceToll createToll(String name) throws Exception {
+    	UserFundingSourceToll toll;
+    	toll = new UserFundingSourceToll();
+    	toll.setName(name);
+    	toll.setPeakTrips(0);
+    	toll.setOffPeakTrips(0);
+    	toll.setUsed(false);
+		try {
+			linkFundingSource(toll);
+		} catch (UnknownFundingSourceException e) {
+			System.out.println(e.getMessage());
+		}
+    	
+    	return toll;
+    }    
+    	
 	/**
 	 * Updates the users information.
 	 * 
@@ -383,7 +492,7 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
     	//Get a reference to the suite
     	FundingSourceSuite suite = fundingDAO.getFundingSuite(suiteId);
     	
-    	if(suite == null) throw new UnknownFundingSuite("Unknown FundingSource Suite [" + suiteId +"]");
+    	if(suite == null) throw new UnknownFundingSuiteException("Unknown FundingSource Suite [" + suiteId +"]");
     	    	
     	FundingSourceAlternative fundingAlt = fundingDAO.getFundingSourceAlternative(altId);
 

@@ -3,6 +3,8 @@ package org.pgist.funding;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.pgist.users.User;
 
@@ -25,7 +27,7 @@ public class UserCommute implements Serializable {
     
     private float costPerGallon;
     
-    private Set<UserFundingSourceToll> tolls = new HashSet<UserFundingSourceToll>();    
+    private SortedSet<UserFundingSourceToll> tolls = new TreeSet<UserFundingSourceToll>();
     
     /**
      * @return
@@ -43,11 +45,11 @@ public class UserCommute implements Serializable {
         
     /**
 	 * @return the tolls
-     * @hibernate.set lazy="true" cascade="all"
-     * @hibernate.collection-key column="source_id"
+     * @hibernate.set lazy="true" cascade="all" sort="org.pgist.funding.UserFundingSourceTollComparator"
+     * @hibernate.collection-key column="commute_id"
      * @hibernate.collection-one-to-many class="org.pgist.funding.UserFundingSourceToll"
 	 */
-	public Set<UserFundingSourceToll> getTolls() {
+	public SortedSet<UserFundingSourceToll> getTolls() {
 		return tolls;
 	}
 
@@ -55,7 +57,7 @@ public class UserCommute implements Serializable {
 	/**
 	 * @param tolls the tolls to set
 	 */
-	public void setTolls(Set<UserFundingSourceToll> tolls) {
+	public void setTolls(SortedSet<UserFundingSourceToll> tolls) {
 		this.tolls = tolls;
 	}
 
