@@ -81,11 +81,13 @@
 	
 </script>
 <style type="text/css">
-	body{font-size:11pt;font-family:arial,sans-serif;}
+	body{font-size:11pt;font-family:arial,sans-serif;width:800px;}
 	li{margin: 10px 0; list-style: none;}
 	.project{font-size: 1.3em;}
 	li ul li:hover {background:#E4F1F5;}
 	li ul li{width:600px;padding:5px;}
+	span#projRow:hover{background:#BDE2F1;}
+	span#projRow{padding:3px;}
 </style>
 </head>
 
@@ -100,11 +102,11 @@
 		<h3>All Projects</h3>
 		<ul id="projectsList">
 			<c:forEach var="project" items="${projects}">
-				<li><span class="project">${project.name}</span> 
+				<li><span id="projRow"><label><input type="checkbox" style="margin-right:10px;"><span class="project">${project.name}</span></label> 
 					<small>
 						<a href="javascript:checkAltsInProject(${project.id}, true)">check all</a> | 
 						<a href="javascript:checkAltsInProject(${project.id}, false)">uncheck all</a>
-					</small>
+					</small></span>
 					<ul>
 						<c:forEach var="alt" items="${project.alternatives}">
 							<li>
@@ -119,9 +121,10 @@
 		</ul>
 
 	</form>
-	<h3>Finished selecting project alternatives?</h3>
+	<div style="width:700px">
+	<h3 align="right">Finished selecting project alternatives?</h3>
 	<!-- this button just redirects - saves are occuring on check. -->
-	<p><input type="button" onClick="location.href='main.do'" value="Finished!"/></p>
+	<p align="right"><input type="button" style="padding:5px;" onClick="location.href='main.do'" value="Finished!"/></p></div>
 </body>
 </html:html>
 

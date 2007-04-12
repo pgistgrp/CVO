@@ -522,9 +522,10 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 	<script type="text/javascript" charset="utf-8">
 		getProjects();
 	</script>
-	<h3>Finished managing projects?</h3>
+	<div style="width:820px;">
+	<h3 align="right">Finished managing projects?</h3>
 	<!-- this button just redirects - saves are occuring on check. -->
-	<p><input type="button" style="padding:5px;" onClick="location.href='main.do'" value="Finished!"/></p>
+	<p align="right"><input type="button" style="padding:5px;" onClick="location.href='main.do'" value="Finished!"/></p></div>
 	
 	<script type="text/javascript">
 		//ddtreemenu.createTree(treeid, enablepersist, opt_persist_in_days (default is 1))
