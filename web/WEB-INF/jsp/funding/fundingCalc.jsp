@@ -205,8 +205,9 @@
 
 							new Insertion.Bottom("tollRoads", tollTr);
 						}
-
-						Element.show('estimates');
+						Element.show('estimates')
+						new Effect.ScrollTo('estimates', {duration:0.2, afterFinish:function(){new Effect.Highlight('estimates');}});
+						
 						
 					}else{
 						alert("reason: " + data.reason);
@@ -237,6 +238,7 @@
 					if (data.successful){
 						$('newTable').innerHTML = data.html;
 						Element.show('newTable')
+						new Effect.ScrollTo('newTable', {duration:0.2, afterFinish:function(){new Effect.Highlight('newTable');}});
 					}else{
 						alert(data.reason);
 					}
