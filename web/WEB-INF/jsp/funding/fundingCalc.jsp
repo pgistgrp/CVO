@@ -189,12 +189,19 @@
 						$('annualConsume').value = data.user.annualConsume
 						
 						//RENDER TOLL ESTIMATES
+						$('tollRoads').innerHTML = '<tr>\
+							<th>&nbsp;</th>\
+							<th>Peak Hour Trips</th>\
+							<th>Off-peak trips</th>\
+							</tr>';
+						
+						
 						for(i=0;i<user.tolls.length;i++){
 							var tollTr = '<tr>\
 									<td class="fundingSourceItem">'+user.tolls[i].name+'</td>\
 									<td><input id="tollPeak'+user.tolls[i].id+'" size="3" maxlength="3" type="text" value="'+user.tolls[i].peakTrips+'"></td>\
 									<td><input id="tollOffPeak'+user.tolls[i].id+'" size="3" maxlength="3" type="text" value="'+user.tolls[i].offPeakTrips+'"></td>\
-								</tr>';
+							</tr>';
 
 							new Insertion.Bottom("tollRoads", tollTr);
 						}
@@ -344,11 +351,6 @@
 				You may change these estimates.</p>
 		<div id="estimates-left">
 			<table border="0" cellpadding="1" cellspacing="0" id="tollRoads">
-				<tr>
-					<th>&nbsp;</th>
-					<th>Peak Hour Trips</th>
-					<th>Off-peak trips</th>
-				</tr>
 				<!-- load the tolls here via js loop-->
 			</table>
 		</div>
