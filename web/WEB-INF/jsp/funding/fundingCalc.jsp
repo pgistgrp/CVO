@@ -184,12 +184,12 @@
 				}
 			}
 			//alert("converted")
-			//for(i=0;i<user.tolls.length;i++){
-			//	alert(user.tolls[i].used);
-			//}
+			for(i=0;i<user.tolls.length;i++){
+				alert(user.tolls[i].used);
+			}
 
 
-			alert('income: ' +user.income+ ' familyCount: ' +user.familyCount+ ' zipcode: ' + user.zipcode + ' workzip: '+ user.workZipcode + ' driveDays: ' + user.driveDays + ' carpoolDays:' +user.carpoolDays+ ' carpoolPeeps: ' + user.carpoolPeople + ' bus days ' +user.carpoolPeople+' busDays:' + user.busDays+ ' walkDays: ' + user.walkDays + ' bikeDays: ' + user.bikeDays + ' userTolls: ' + user.tolls);
+			//alert('income: ' +user.income+ ' familyCount: ' +user.familyCount+ ' zipcode: ' + user.zipcode + ' workzip: '+ user.workZipcode + ' driveDays: ' + user.driveDays + ' carpoolDays:' +user.carpoolDays+ ' carpoolPeeps: ' + user.carpoolPeople + ' bus days ' +user.carpoolPeople+' busDays:' + user.busDays+ ' walkDays: ' + user.walkDays + ' bikeDays: ' + user.bikeDays + ' userTolls: ' + user.tolls);
 			FundingAgent.calcCommute(user, {
 				callback:function(data){
 					if (data.successful){
