@@ -66,12 +66,12 @@ public class FundingServiceImpl implements FundingService {
 		ZipCodeFactor zcf = this.fundingDAO.getZipCodeFactorByZipCode(zipcode);
 		
 		float carFactor = 1;
-		if(user.getVehicles().size() == 0) {
+		if(tempUser.getVehicles().size() == 0) {
 			carFactor = NO_CAR_FACTOR;
 		}
-		int driveAlone = user.getDriveDays();
-		int carpool = user.getCarpoolDays();
-		int numPassengers = user.getCarpoolPeople();		
+		int driveAlone = tempUser.getDriveDays();
+		int carpool = tempUser.getCarpoolDays();
+		int numPassengers = tempUser.getCarpoolPeople();		
 		
 		Iterator<UserFundingSourceToll> tolls = commute.getTolls().iterator();
 		while(tolls.hasNext()) {
@@ -180,6 +180,7 @@ System.out.println("Coping over used as " + tollAway.isUsed());
 	 * @param	toll	The funding toll source
 	 */
 	private void setTripRates(UserFundingSourceToll toll, ZipCodeFactor zcf, float carFactor, int driveAlone, int carpool, int numPassengers) {
+System.out.println("MATT: Calc toll for " + toll.getName());		
 		if(toll.getName().equals(UserFundingSourceToll.PARKING_DOWNTOWN)) {
 			toll.setPeakTrips(calcPeakHours(zcf.getParking(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
 			toll.setOffPeakTrips(calcOffPeakHours(zcf.getParking(), carFactor, toll.isUsed()));
@@ -208,6 +209,7 @@ System.out.println("Coping over used as " + tollAway.isUsed());
 	 * Calculates the peak hours
 	 */
 	private static int calcPeakHours(int zipcodeFactor, float carFactor, int driveAlone, int carpool, int numPassengers, boolean included) {
+		System.out.println("MATT: CALC RATE zipCodeFactor[" + zipcodeFactor + "] carFactor[" + carFactor + "] driveAlone[" + driveAlone + "] carpool[" + carpool + "] numPass[" + numPassengers + "] included[" + included + "]");
 		int rate = (int)(carFactor * PEAK_USAGE);
 		if(included) {
 			rate = rate + (driveAlone * WEEKS_IN_YEAR)  -  zipcodeFactor * (int)(carFactor * PEAK_USAGE);
@@ -222,7 +224,8 @@ System.out.println("Coping over used as " + tollAway.isUsed());
 	 * Calculates the off peak hours
 	 */
 	private static int calcOffPeakHours(int zipcodeFactor, float carFactor, boolean included) {
-		if(!included) return 0;
+		System.out.println("MATT: CALC OFF PEAK RATE zipCodeFactor[" + zipcodeFactor + "] carFactor[" + carFactor + "] included[" + included + "]");
+		if(included) return 0;
 		return zipcodeFactor * (int)(carFactor * OFF_PEAK_USAGE); 
 	}
 	

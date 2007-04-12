@@ -125,6 +125,8 @@ public class UserTaxInfoDTO implements Serializable {
     		
     		//Notice we do not copy across the funding source because it won't fit through DWR
     		tempToll2 = new UserFundingSourceToll();
+    		tempToll2.setName(tempToll.getName());
+    		tempToll2.setId(tempToll.getId());
     		tempToll2.setUsed(tempToll.isUsed());
     		tempToll2.setPeakTrips(tempToll.getPeakTrips());
     		tempToll2.setOffPeakTrips(tempToll.getOffPeakTrips());

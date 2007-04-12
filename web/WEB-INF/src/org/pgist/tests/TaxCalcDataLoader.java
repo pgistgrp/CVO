@@ -143,12 +143,12 @@ public class TaxCalcDataLoader extends MatchingTask {
         	zcf = new ZipCodeFactor();
         	zcf.setZipcode(nextLine[0]);
         	zcf.setSR99(toInt(nextLine[1]));
-        	zcf.setI405S(toInt(nextLine[1]));
-        	zcf.setSR520(toInt(nextLine[1]));
-        	zcf.setI90(toInt(nextLine[1]));
-        	zcf.setSR167(toInt(nextLine[1]));
-        	zcf.setParking(toInt(nextLine[1]));
-        	zcf.setI405N(toInt(nextLine[1]));
+        	zcf.setI405S(toInt(nextLine[2]));
+        	zcf.setSR520(toInt(nextLine[3]));
+        	zcf.setI90(toInt(nextLine[4]));
+        	zcf.setSR167(toInt(nextLine[5]));
+        	zcf.setParking(toInt(nextLine[6]));
+        	zcf.setI405N(toInt(nextLine[7]));
         	save(zcf);
         }    	    	    	
     }
