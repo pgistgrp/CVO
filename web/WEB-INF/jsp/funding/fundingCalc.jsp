@@ -195,12 +195,12 @@
 							<th>Off-peak trips</th>\
 							</tr>';
 						
-						
-						for(i=0;i<user.tolls.length;i++){
+						var tolls = data.user.tolls;
+						for(i=0;i<tolls.length;i++){
 							var tollTr = '<tr>\
-									<td class="fundingSourceItem">'+user.tolls[i].name+'</td>\
-									<td><input id="tollPeak'+user.tolls[i].id+'" size="3" maxlength="3" type="text" value="'+user.tolls[i].peakTrips+'"></td>\
-									<td><input id="tollOffPeak'+user.tolls[i].id+'" size="3" maxlength="3" type="text" value="'+user.tolls[i].offPeakTrips+'"></td>\
+									<td class="fundingSourceItem">'+tolls[i].name+'</td>\
+									<td><input id="tollPeak'+tolls[i].id+'" size="3" maxlength="3" type="text" value="'+tolls[i].peakTrips+'"></td>\
+									<td><input id="tollOffPeak'+tolls[i].id+'" size="3" maxlength="3" type="text" value="'+tolls[i].offPeakTrips+'"></td>\
 							</tr>';
 
 							new Insertion.Bottom("tollRoads", tollTr);
@@ -228,9 +228,9 @@
 			}
 			
 			
-			for(i=0;i<user.tolls.length;i++){
-				alert("Toll: " + user.tolls[i].name + " Peak Trips: " +user.tolls[i].peakTrips+ " Off Peak Trips: " +user.tolls[i].offPeakTrips);
-			}
+			//for(i=0;i<user.tolls.length;i++){
+			//	alert("Toll: " + user.tolls[i].name + " Peak Trips: " +user.tolls[i].peakTrips+ " Off Peak Trips: " +user.tolls[i].offPeakTrips);
+			//}
 			//alert("suiteId: " + suiteId + " userCommute: " + user); 
 			FundingAgent.calcCostReport(user,suiteId, {
 				callback:function(data){
