@@ -20,7 +20,7 @@
 	</div>
 	<div id="vehicleEdit${vehicle.id}" class="myVehiclesRow" style="display: none;"> 
 		<form id="addVehicle" action="javascript:editVehicle(${vehicle.id});">
-		<strong>Editing Vehicle ${loop.index + 1}: </strong> 
+		<strong>Vehicle ${loop.index + 1}: </strong> 
 		Miles per gallon <input name="mpg" id="vehicleMpg${vehicle.id}" type="text" value="${vehicle.milesPerGallon}" />
 		Approximate value <input name="value" id="vehicleValue${vehicle.id}" type="text" value="${vehicle.approxValue}" />
 		Miles driven per year <input name="mpy" id="vehicleMpy${vehicle.id}" type="text" value="${vehicle.milesPerYear}" />

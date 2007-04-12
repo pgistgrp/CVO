@@ -152,9 +152,12 @@
 			user.busDays = $F('bus');
 			user.walkDays = $F('walk');
 			user.bikeDays = $F('bike');
-			
+			for(i=0;i<user.tolls.length;i++){
+				user.tolls[i].used = ($F("myCommute-"+user.tolls[i].id) ? true : false);
+			}
 			//Grabbing checkboxes for toll.used
-			selectedTolls = [];			
+			//selectedTolls = [];			
+			/*
 			myTolls = document.getElementsByName('myCommute');
 			for(i=0; i<myTolls.length; i++){
 				if(myTolls[i].checked){
@@ -172,7 +175,8 @@
 					user.tolls[i].used = true;
 				}
 			}
-
+			*/
+			
 			//for(i=0;i<user.tolls.length;i++){
 			//	alert(user.tolls[i].used);
 			//}
@@ -333,7 +337,7 @@
 			</div>
 			<div id="myCommute-right" class="floatLeft"> My daily commute includes:<br />
 				<c:forEach var="toll" items="${user.tolls}" varStatus="loop">
-					<input name="myCommute" id="myCommute-${toll.id}" type="checkbox" />
+					<input name="myCommute" id="myCommute-${toll.id}" type="checkbox" ${(toll.used) ? "CHECKED": ""}/>
 					${toll.name}<br />
 				</c:forEach>
 			</div>
