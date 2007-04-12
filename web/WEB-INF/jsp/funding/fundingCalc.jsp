@@ -78,18 +78,22 @@
 				}
 			});
 		}
+		
+		function toggleEditField(item, id) {
+			Element.toggle(item + "Edit" + id);
+			Element.toggle(item + id);
+		}
 
-		function updateVehicle(vehicleId){
-			var mpg = $F('vehicleMpg');
-			var value = $F('vehicleValue');
-			var mpy = $F('vehicleMpy');
+		function editVehicle(vehicleId){
+			var mpg = $F('vehicleMpg' + vehicleId);
+			var value = $F('vehicleValue' + vehicleId);
+			var mpy = $F('vehicleMpy'+ vehicleId);
 			
 			//alert("vehicleId: " + vehicleId + " milesPerGallon: " + milesPerGallon + " value: " + value + " milesPerYear: " + milesPerYear); 
 			FundingAgent.updateVehicle({vehicleId:vehicleId,milesPerGallon:mpg,value:value,milesPerYear:mpy}, {
 				callback:function(data){
 					if (data.successful){
-						alert("update worked!")
-						new Insertion.Bottom("vehicles", "test test");
+						getVehicles();
 					}else{
 						alert(data.reason);
 					}
@@ -117,26 +121,15 @@
 			});
 		}
 		
-		function renderProjectForm(project){
-			//using ternery operators so it won't complain about the values when creating a new project :)
-			id = (project) ? project.id : "";
-			name = (project) ? project.name : "";
-			description = (project) ? project.description : "";
-			inclusive = (project) ? project.inclusive : "";
-			inclusiveChecked = (inclusive == true) ? "CHECKED" : "";
-			transMode = (project) ? project.transMode : "";
-			transModes = ["null","road", "transit"];
-
-			f = '';
-			$("frmProject"+id).innerHTML = f;
-
-		}
-		
-		function getUserById(userId){
+		function getUserById(userId, section){
 			FundingAgent.lookupUserById({userId:userId}, {
 				callback:function(data){
 					if (data.successful){
-						calcCommute(data.user);
+						if(section == "report"){
+							calcCostReport(data.user);
+						}else{
+							calcCommute(data.user);
+						}
 					}else{
 						return data.reason;
 					}
@@ -191,20 +184,23 @@
 					if (data.successful){
 						//alert("data:" + data.user);
 						
-						//LOAD ESTIMATES
+						//RENDER COST ESTIMATES
 						$('gasCost').value = data.user.costPerGallon
 						$('annualConsume').value = data.user.annualConsume
 						
 						//RENDER TOLL ESTIMATES
-						//var tollTr = "<tr><td>111</td><td>222</td><td>333</td><td></td></tr>"
-						//new Insertion.Bottom("tollRoads", tollTr)
-						
-						
+						for(i=0;i<user.tolls.length;i++){
+							var tollTr = '<tr>\
+									<td class="fundingSourceItem">'+user.tolls[i].name+'</td>\
+									<td><input id="tollPeak'+user.tolls[i].id+'" size="3" maxlength="3" type="text" value="'+user.tolls[i].peakTrips+'"></td>\
+									<td><input id="tollOffPeak'+user.tolls[i].id+'" size="3" maxlength="3" type="text" value="'+user.tolls[i].offPeakTrips+'"></td>\
+								</tr>';
+
+							new Insertion.Bottom("tollRoads", tollTr);
+						}
+
 						Element.show('estimates');
-						Element.show('newTable')
 						
-						//RENDER REPORT
-						calcCostReport(data.user);
 					}else{
 						alert("reason: " + data.reason);
 					}
@@ -216,11 +212,24 @@
 		}
 		
 		function calcCostReport(user){
+			user.costPerGallon = $F('gasCost');
+			user.annualConsume = $F('annualConsume');
+			
+			for(i=0;i<user.tolls.length;i++){
+				user.tolls[i].peakTrips = $F("tollPeak"+user.tolls[i].id);
+				user.tolls[i].offPeakTrips = $F("tollOffPeak"+user.tolls[i].id);
+			}
+			
+			
+			for(i=0;i<user.tolls.length;i++){
+				alert("Toll: " + user.tolls[i].name + " Peak Trips: " +user.tolls[i].peakTrips+ " Off Peak Trips: " +user.tolls[i].offPeakTrips);
+			}
 			//alert("suiteId: " + suiteId + " userCommute: " + user); 
 			FundingAgent.calcCostReport(user,suiteId, {
 				callback:function(data){
 					if (data.successful){
 						$('newTable').innerHTML = data.html;
+						Element.show('newTable')
 					}else{
 						alert(data.reason);
 					}
@@ -230,6 +239,7 @@
 				}
 			});
 		}
+		
 	</script>
 	</head>
 	<body>
@@ -255,6 +265,7 @@
 		<div id="myVehicles">
 			<h3 class="headerColor">My Vehicle(s)</h3>
 			<div id="vehicles">
+				<img src="/images/indicator_arrows.gif" /> Loading your vehicles...
 				<!-- vehicles rendered by separate jsp page -->
 			</div>		
 		</div>
@@ -320,7 +331,7 @@
 			
 			<div class="clearboth">
 				<input type="button" name="calcEstimates" value="Calculate my estimates" 
-					style="clear:both;margin:1em;" class="floatRight" onClick="getUserById(${user.userId});">
+					style="clear:both;margin:1em;" class="floatRight" onClick="getUserById(${user.userId},'estimates');">
 			</div>
 			<div class="clearBoth"></div>
 		</div>
@@ -338,42 +349,7 @@
 					<th>Peak Hour Trips</th>
 					<th>Off-peak trips</th>
 				</tr>
-				<tr>
-					<td class="fundingSourceItem">Parking downtown</td>
-					<td><input size="3" maxlength="3" type="text" ></td>
-					<td><input size="3" maxlength="3" type="text" ></td>
-				</tr>
-				<tr>
-					<td class="fundingSourceItem">Alaskan Way Viaduct</td>
-					<td><input size="3" maxlength="3" type="text" ></td>
-					<td><input size="3" maxlength="3" type="text" ></td>
-				</tr>
-				<tr>
-					<td class="fundingSourceItem">I-405 North</td>
-					<td><input size="3" maxlength="3" type="text" ></td>
-					<td><input size="3" maxlength="3" type="text" ></td>
-				</tr>
-				<tr>
-					<td class="fundingSourceItem">I-405 South</td>
-					<td><input size="3" maxlength="3" type="text" ></td>
-					<td><input size="3" maxlength="3" type="text" ></td>
-				</tr>
-				<tr>
-					<td class="fundingSourceItem">SR 520 Floating Bridge</td>
-					<td><input size="3" maxlength="3" type="text" ></td>
-					<td><input size="3" maxlength="3" type="text" ></td>
-				</tr>
-				<tr>
-					<td class="fundingSourceItem">I-90</td>
-					<td><input size="3" maxlength="3" type="text" ></td>
-					<td><input size="3" maxlength="3" type="text" ></td>
-				</tr>
-				<tr>
-					<td class="fundingSourceItem">SR 167</td>
-					<td><input size="3" maxlength="3" type="text" ></td>
-					<td><input size="3" maxlength="3" type="text" ></td>
-				</tr>
-				<tr>
+				<!-- load the tolls here via js loop-->
 			</table>
 		</div>
 		<div id="estimates-right">
@@ -390,9 +366,8 @@
 		</div>
 		
 			<div class="clearboth">
-
-				<!--<input type="button" name="calcEstimates" value="Update Annual Cost Report" 
-					style="clear:both;margin:1em;" class="floatRight">-->
+				<input type="button" name="calcEstimates" value="Update Annual Cost Report" onclick="getUserById(${user.userId},'report');"
+					style="clear:both;margin:1em;" class="floatRight">
 			</div>
 			<div class="clearBoth"></div>
 		</div>
@@ -400,6 +375,7 @@
 		<!-- Note on zebra-striping by funding source: When creating rows of funding items (such as each alternative gas tax increase) wrap all rows in a TBODY tag, then do zebra-striping on those TBODYs, not on the individual TRs. --><br>
 		
 		<div id="newTable" style="display:none;">
+			<img src="/images/indicator_arrows.gif" /> Loading your report...
 			<!-- load via calcReport in JS -->
 		</div>
 	</div>
