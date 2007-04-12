@@ -213,7 +213,7 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
 	 * 
 	 * @param	userId	The ID of the user desired
 	 */
-	public UserTaxInfoDTO lookupUserTaxInfoDTO(Long userId) throws Exception {
+	public UserTaxInfoDTO createUserTaxInfoDTO(Long userId) throws Exception {
 		UserTaxInfoDTO utax = new UserTaxInfoDTO();
 		User user = this.fundingDAO.getUserById(userId);
 		initializeUser(user);
@@ -279,7 +279,7 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
 		this.fundingDAO.save(user);
 		this.fundingDAO.save(v);
 		
-		return this.lookupUserTaxInfoDTO(userId);
+		return this.createUserTaxInfoDTO(userId);
 	}
 
 	/**
@@ -321,7 +321,7 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
 			}
 		}
 		
-		return this.lookupUserTaxInfoDTO(userId);
+		return this.createUserTaxInfoDTO(userId);
 	}
 	
     /**

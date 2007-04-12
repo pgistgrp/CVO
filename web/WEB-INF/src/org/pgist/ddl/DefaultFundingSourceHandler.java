@@ -20,7 +20,8 @@ public class DefaultFundingSourceHandler extends XMLHandler {
     
     public void doImports(Element root) throws Exception {
 System.out.println("MATT: At least I'm this far");    	
-        List sources = root.elements("fundingSources");
+        List sources = root.elements("fundingsources");
+        System.out.println("MATT sources = " + sources.size());
         for (int i=0,n=sources.size(); i<n; i++) {
             Element element = (Element) sources.get(i);
 

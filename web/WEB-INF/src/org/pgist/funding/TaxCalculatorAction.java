@@ -74,7 +74,7 @@ public class TaxCalculatorAction extends Action {
 		//Get the current user
     	User user = this.fundingService.getUser(WebUtils.currentUser());
    	
-    	UserTaxInfoDTO taxInfo = this.fundingService.lookupUserTaxInfoDTO(user.getId());
+    	UserTaxInfoDTO taxInfo = this.fundingService.createUserTaxInfoDTO(user.getId());
 		request.setAttribute("user", taxInfo);
 		request.setAttribute("suiteId", tempSuiteId);
     	

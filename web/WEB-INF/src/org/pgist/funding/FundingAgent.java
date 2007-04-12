@@ -47,7 +47,7 @@ public class FundingAgent {
         
         try {
         	User user = this.fundingService.getUser(WebUtils.currentUser());
-        	UserTaxInfoDTO taxinfo = this.fundingService.lookupUserTaxInfoDTO(user.getId());
+        	UserTaxInfoDTO taxinfo = this.fundingService.createUserTaxInfoDTO(user.getId());
             
             request.setAttribute("vehicles", taxinfo.getVehicles());
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/funding/fundingCalc_vehicles.jsp"));            
@@ -641,7 +641,7 @@ public class FundingAgent {
         
         try {
             Long userId = new Long((String) params.get("userId"));
-        	map.put("user", this.fundingService.lookupUserTaxInfoDTO(userId));
+        	map.put("user", this.fundingService.createUserTaxInfoDTO(userId));
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- WARNING: These names must match perfectly the hard coded user toll names in the UserFundingSourceToll -->
+<fundingsources>
+
+
+    <source>
+    	<name>Parking Downtown</name>;
+    	<name>Alaska Way Viaduct</name>;
+    	<name>I-405 North</name>;
+    	<name>I-405 South</name>;
+    	<name>SR 520 Floating Bridge</name>;
+    	<name>I-90</name>;
+		<name>SR 167</name>;        
+    </source>
+       
+</fundingsources>
+

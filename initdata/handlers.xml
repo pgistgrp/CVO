@@ -7,6 +7,8 @@
     <handler name="roles">org.pgist.ddl.RoleHandler</handler>
     
     <handler name="users">org.pgist.ddl.UserHandler</handler>
+
+    <handler name="fundingSource">org.pgist.ddl.DefaultFundingSourceHandler</handler>
     
     <handler name="emailtemplates">org.pgist.ddl.EmailTemplateHandler</handler>
     
