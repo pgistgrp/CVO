@@ -160,8 +160,12 @@
 			user.walkDays = $F('walk');
 			user.bikeDays = $F('bike');
 			
-			selectedTolls = [];
 			
+			//for(i=0;i<user.tolls.length;i++){
+			//	alert(user.tolls[i].used);
+			//}
+			
+			selectedTolls = [];			
 			myTolls = document.getElementsByName('myCommute');
 			for(i=0; i<myTolls.length; i++){
 				if(myTolls[i].checked){
@@ -171,28 +175,21 @@
 					
 					var tollId = myTolls[i].id.substring(start+1,finish);
 					selectedTolls.push(tollId);
-					selectedTolls.push(myTolls[i]);
 				}
 			}
+			
 			for(i=0; i<user.tolls.length;i++){
-				alert(user.tolls[i].id)
-			}
-			
-			//alert(selectedTolls);
-			//alert(user.tolls)
-			/*
-			var A1 = [1, 2, 3, 4, 5]
-			var A2 = [4, 5, 6, 7, 8]
-			
-			for(i=0; i<A1.length; i++){
-				if(A2.include(A1[i])){
-					alert(A1[i])
+				if(selectedTolls.include(user.tolls[i].id)){
+					user.tolls[i].used = true;
 				}
-			}*/
+			}
+			//alert("converted")
+			//for(i=0;i<user.tolls.length;i++){
+			//	alert(user.tolls[i].used);
+			//}
 
-			//user.tolls = userTolls
 
-			//alert('income: ' +user.income+ ' familyCount: ' +user.familyCount+ ' zipcode: ' + user.zipcode + ' workzip: '+ user.workZipcode + ' driveDays: ' + user.driveDays + ' carpoolDays:' +user.carpoolDays+ ' carpoolPeeps: ' + user.carpoolPeople + ' bus days ' +user.carpoolPeople+' busDays:' + user.busDays+ ' walkDays: ' + user.walkDays + ' bikeDays: ' + user.bikeDays);
+			alert('income: ' +user.income+ ' familyCount: ' +user.familyCount+ ' zipcode: ' + user.zipcode + ' workzip: '+ user.workZipcode + ' driveDays: ' + user.driveDays + ' carpoolDays:' +user.carpoolDays+ ' carpoolPeeps: ' + user.carpoolPeople + ' bus days ' +user.carpoolPeople+' busDays:' + user.busDays+ ' walkDays: ' + user.walkDays + ' bikeDays: ' + user.bikeDays + ' userTolls: ' + user.tolls);
 			FundingAgent.calcCommute(user, {
 				callback:function(data){
 					if (data.successful){
