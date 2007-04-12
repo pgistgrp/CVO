@@ -77,8 +77,7 @@
 			}
 			
 			function setProjectToUserPkg(altRefId,checked){
-				//alert(checked)
-				var deleting = (checked == "false") ? "true" : "false"
+				var deleting = (checked == false) ? "true" : "false"
 				alert("pkgId: " + pkgId + " altRefId: "+ altRefId +" deleting: " + deleting); 
 				PackageAgent.setProjectToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
 					callback:function(data){
