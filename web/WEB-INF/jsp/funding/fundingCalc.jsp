@@ -160,11 +160,7 @@
 			user.walkDays = $F('walk');
 			user.bikeDays = $F('bike');
 			
-			
-			//for(i=0;i<user.tolls.length;i++){
-			//	alert(user.tolls[i].used);
-			//}
-			
+			//Grabbing checkboxes for toll.used
 			selectedTolls = [];			
 			myTolls = document.getElementsByName('myCommute');
 			for(i=0; i<myTolls.length; i++){
@@ -183,10 +179,10 @@
 					user.tolls[i].used = true;
 				}
 			}
-			//alert("converted")
-			for(i=0;i<user.tolls.length;i++){
-				alert(user.tolls[i].used);
-			}
+
+			//for(i=0;i<user.tolls.length;i++){
+			//	alert(user.tolls[i].used);
+			//}
 
 
 			//alert('income: ' +user.income+ ' familyCount: ' +user.familyCount+ ' zipcode: ' + user.zipcode + ' workzip: '+ user.workZipcode + ' driveDays: ' + user.driveDays + ' carpoolDays:' +user.carpoolDays+ ' carpoolPeeps: ' + user.carpoolPeople + ' bus days ' +user.carpoolPeople+' busDays:' + user.busDays+ ' walkDays: ' + user.walkDays + ' bikeDays: ' + user.bikeDays + ' userTolls: ' + user.tolls);
