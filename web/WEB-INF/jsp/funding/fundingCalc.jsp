@@ -256,20 +256,7 @@
 			<h3 class="headerColor">My Vehicle(s)</h3>
 			<div id="vehicles">
 				<!-- vehicles rendered by separate jsp page -->
-			</div>
-			<p><a href="javascript:Element.toggle('newVehicle');">Add vehicle</a> 
-				<div id="newVehicle" class="myVehiclesRow" style="display:none;"> 
-					<form id="addVehicle" action="javascript:addVehicle();">
-					<strong>New Vehicle: </strong> Miles per gallon
-					<input name="mpg" id="vehicleMpg" type="text" >
-					Approximate value
-					<input name="value" id="vehicleValue" type="text">
-					Miles driven per year
-					<input name="mpy" id="vehicleMpy" type="text">
-
-					<input type="submit" value="Submit" /><small><a href="javascript:Element.toggle('newVehicle');">Cancel</a></small></div>
-					</form>
-				
+			</div>		
 		</div>
 		<div id="myCommute">
 			<h3 class="headerColor">My Commute</h3>
