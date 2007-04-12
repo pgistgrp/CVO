@@ -63,13 +63,16 @@ public interface CriteriaService {
     void setWeight(Long suiteId, Long critId, int weight) throws Exception;
     
     
-    public CCT getCCTById(Long cctId) throws Exception;
+    CCT getCCTById(Long cctId) throws Exception;
     
     
-    public Collection getCCTs() throws Exception;
+    Collection getCCTs() throws Exception;
     
     
-    public CriteriaSuite getCriteriaSuiteById(Long id) throws Exception;
+    CriteriaSuite getCriteriaSuiteById(Long id) throws Exception;
+    
+    
+    Collection getCriteriaSuites() throws Exception;
     
     
 }//interface CriteriaService

@@ -38,30 +38,30 @@ public class CriteriaWeighAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-        String cctId = request.getParameter("cctId");
+    	 String strSuiteId = request.getParameter("suiteid");
+    	 Long suiteId = new Long(strSuiteId);
+
         
-        if (cctId==null) {
-            //retrieve the cct list
-            Collection ccts = criteriaService.getCCTs();
-            request.setAttribute("ccts", ccts);
-            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+         if (suiteId==null) {
+            //retrieve the criteriaSuites
+             Collection cs = criteriaService.getCriteriaSuites();
+             request.setAttribute("cs", cs);
+             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             
-            return mapping.findForward("list");
-        } else {
+             return mapping.findForward("list");
+         } else {
             //retrieve the criteria list
             
-            Long id = new Long(cctId);
+             Collection criteria = criteriaService.getCriterias();
             
-            Collection criteria = criteriaService.getCriterias();
+             CriteriaSuite cs = criteriaService.getCriteriaSuiteById(suiteId);
             
-            CCT cct = criteriaService.getCCTById(id);
+             request.setAttribute("criteriasuite", cs);
+             request.setAttribute("criteria", criteria);
+             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             
-            request.setAttribute("cct", cct);
-            request.setAttribute("criteria", criteria);
-            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
-            
-            return mapping.findForward("view");
-        }
+             return mapping.findForward("view");
+         }
     }//execute()
 
 

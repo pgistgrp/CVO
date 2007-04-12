@@ -230,4 +230,11 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     } //getCriteriaSuiteById();
     
     
+    private static final String hql_getCriteriaSuites = "from CriteriaSuite cs order by o.id";
+    
+    public Collection getCriteriaSuites() throws Exception {
+    	return getHibernateTemplate().find(hql_getCriteriaSuites);
+    } //getCriteriaSuiteById();
+    
+    
 }//class CriteriaDAOImpl

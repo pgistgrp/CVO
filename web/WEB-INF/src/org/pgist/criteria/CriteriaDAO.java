@@ -61,4 +61,7 @@ public interface CriteriaDAO extends BaseDAO {
 	CriteriaSuite getCriteriaSuiteById(Long id) throws Exception;
 	
 	
+	Collection getCriteriaSuites() throws Exception;
+	
+	
 }//interface CriteriaDAO

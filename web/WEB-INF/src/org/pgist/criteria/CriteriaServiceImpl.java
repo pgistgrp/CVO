@@ -174,12 +174,13 @@ public class CriteriaServiceImpl implements CriteriaService {
     }
     
     
-    /**
-     * TODO: get a CriteriaSuite object by the given id
-     */
     public CriteriaSuite getCriteriaSuiteById(Long id) throws Exception {
     	return criteriaDAO.getCriteriaSuiteById(id);
     }//getCriteriaSuiteById()
     
+    
+    public Collection getCriteriaSuites() throws Exception {
+    	return criteriaDAO.getCriteriaSuites();
+    }//getCriteriaSuiteById()
     
 }//class CriteriaServiceImpl

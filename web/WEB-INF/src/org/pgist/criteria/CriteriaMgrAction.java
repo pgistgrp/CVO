@@ -45,6 +45,7 @@ public class CriteriaMgrAction extends Action {
         CriteriaSuite cs = criteriaService.getCriteriaSuiteById(suiteId);
         
         request.setAttribute("criteriasuite", cs);
+        request.setAttribute("criteria", criteria);
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
         return mapping.findForward("list");
