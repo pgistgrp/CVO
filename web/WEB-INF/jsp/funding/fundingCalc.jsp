@@ -68,6 +68,7 @@
 				callback:function(data){
 					if (data.successful){
 						getVehicles();
+						Form.reset('addVehicle');
 					}else{
 						alert(data.reason);
 					}
@@ -105,7 +106,7 @@
 			FundingAgent.deleteVehicle({userId:userId,vehicleId:vehicleId}, {
 				callback:function(data){
 					if (data.successful){
-						new Effect.Puff('vehicle' + vehicleId)
+						new Effect.DropOut('vehicle' + vehicleId)
 					}else{
 						alert(data.reason);
 					}
@@ -132,7 +133,7 @@
 		}
 		
 		function getUserById(userId){
-			FundingAgent.getUserById({userId:userId}, {
+			FundingAgent.lookupUserById({userId:userId}, {
 				callback:function(data){
 					if (data.successful){
 						calcCommute(data.user);
@@ -158,7 +159,40 @@
 			user.busDays = $F('bus');
 			user.walkDays = $F('walk');
 			user.bikeDays = $F('bike');
-			alert('income: ' +user.income+ ' familyCount: ' +user.familyCount+ ' zipcode: ' + user.zipcode + ' workzip: '+ user.workZipcode + ' driveDays: ' + user.driveDays + ' carpoolDays:' +user.carpoolDays+ ' carpoolPeeps: ' + user.carpoolPeople + ' bus days ' +user.carpoolPeople+' busDays:' + user.busDays+ ' walkDays: ' + user.walkDays + ' bikeDays: ' + user.bikeDays);
+			
+			selectedTolls = [];
+			
+			myTolls = document.getElementsByName('myCommute');
+			for(i=0; i<myTolls.length; i++){
+				if(myTolls[i].checked){
+					//grab just the toll id
+					var start = myTolls[i].id.indexOf("-");
+					var finish = myTolls[i].id.length;
+					
+					var tollId = myTolls[i].id.substring(start+1,finish);
+					selectedTolls.push(tollId);
+					selectedTolls.push(myTolls[i]);
+				}
+			}
+			for(i=0; i<user.tolls.length;i++){
+				alert(user.tolls[i].id)
+			}
+			
+			//alert(selectedTolls);
+			//alert(user.tolls)
+			/*
+			var A1 = [1, 2, 3, 4, 5]
+			var A2 = [4, 5, 6, 7, 8]
+			
+			for(i=0; i<A1.length; i++){
+				if(A2.include(A1[i])){
+					alert(A1[i])
+				}
+			}*/
+
+			//user.tolls = userTolls
+
+			//alert('income: ' +user.income+ ' familyCount: ' +user.familyCount+ ' zipcode: ' + user.zipcode + ' workzip: '+ user.workZipcode + ' driveDays: ' + user.driveDays + ' carpoolDays:' +user.carpoolDays+ ' carpoolPeeps: ' + user.carpoolPeople + ' bus days ' +user.carpoolPeople+' busDays:' + user.busDays+ ' walkDays: ' + user.walkDays + ' bikeDays: ' + user.bikeDays);
 			FundingAgent.calcCommute(user, {
 				callback:function(data){
 					if (data.successful){
@@ -189,7 +223,7 @@
 		}
 		
 		function calcCostReport(user){
-			alert("suiteId: " + suiteId + " userCommute: " + user); 
+			//alert("suiteId: " + suiteId + " userCommute: " + user); 
 			FundingAgent.calcCostReport(user,suiteId, {
 				callback:function(data){
 					if (data.successful){
@@ -232,7 +266,7 @@
 			</div>
 			<p><a href="javascript:Element.toggle('newVehicle');">Add vehicle</a> 
 				<div id="newVehicle" class="myVehiclesRow" style="display:none;"> 
-					
+					<form id="addVehicle" action="javascript:addVehicle();">
 					<strong>New Vehicle: </strong> Miles per gallon
 					<input name="mpg" id="vehicleMpg" type="text" >
 					Approximate value
@@ -240,8 +274,8 @@
 					Miles driven per year
 					<input name="mpy" id="vehicleMpy" type="text">
 
-					<input type="button" value="Submit" onClick="addVehicle();" /><small><a href="javascript:Element.toggle('newVehicle');">Cancel</a></small></div>
-				
+					<input type="submit" value="Submit" /><small><a href="javascript:Element.toggle('newVehicle');">Cancel</a></small></div>
+					</form>
 				
 		</div>
 		<div id="myCommute">
@@ -298,21 +332,10 @@
 				days to work each week<br/>
 			</div>
 			<div id="myCommute-right" class="floatLeft"> My daily commute includes:<br />
-				<input name="myCommute-check1" type="checkbox">
-				Parking downtown<br />
-				<input name="myCommute-check2" type="checkbox">
-				Alaskan Way viaduct<br />
-				<input name="myCommute-check3" type="checkbox">
-				I-405 North<br />
-				<input name="myCommute-check4" type="checkbox">
-
-				I-405 South<br />
-				<input name="myCommute-check5" type="checkbox">
-				SR 520 Floating Bridge<br />
-				<input name="myCommute-check6" type="checkbox">
-				I-90<br />
-				<input name="myCommute-check7" type="checkbox">
-				SR 167<br />
+				<c:forEach var="toll" items="${user.tolls}" varStatus="loop">
+					<input name="myCommute" id="myCommute-${toll.id}" type="checkbox" />
+					${toll.name}<br />
+				</c:forEach>
 			</div>
 			
 			<div class="clearboth">
