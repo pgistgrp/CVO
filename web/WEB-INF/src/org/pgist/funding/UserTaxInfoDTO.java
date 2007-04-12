@@ -2,6 +2,7 @@ package org.pgist.funding;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -47,7 +48,7 @@ public class UserTaxInfoDTO implements Serializable {
     
     private Set<PersonalFundingCost> costs = new HashSet<PersonalFundingCost>();
     
-    private SortedSet<UserFundingSourceToll> tolls = new TreeSet<UserFundingSourceToll>();     
+    private Set<UserFundingSourceToll> tolls = new HashSet<UserFundingSourceToll>();     
     
 
 	/**
@@ -102,7 +103,7 @@ public class UserTaxInfoDTO implements Serializable {
     	userCommute.setAnnualConsume(this.getAnnualConsume());
     	userCommute.setCostPerGallon(this.getCostPerGallon());
     	
-    	//Maybe attach the tolls here
+    	//Tolls are copied across to the user commute inside of the FundingServiceImpl
     }
     
     /**
@@ -113,7 +114,23 @@ public class UserTaxInfoDTO implements Serializable {
     public void loadWithCommuteInfo(UserCommute userCommute) {
     	this.setAnnualConsume(userCommute.getAnnualConsume());
     	this.setCostPerGallon(userCommute.getCostPerGallon());
-    	this.setTolls(userCommute.getTolls());
+    	
+    	//Copy over the info from the tolls
+    	this.getTolls().clear();
+    	Iterator<UserFundingSourceToll> i = userCommute.getTolls().iterator();
+    	UserFundingSourceToll tempToll;
+    	UserFundingSourceToll tempToll2;
+    	while(i.hasNext()) {
+    		tempToll = i.next();
+    		
+    		//Notice we do not copy across the funding source because it won't fit through DWR
+    		tempToll2 = new UserFundingSourceToll();
+    		tempToll2.setUsed(tempToll.isUsed());
+    		tempToll2.setPeakTrips(tempToll.getPeakTrips());
+    		tempToll2.setOffPeakTrips(tempToll.getOffPeakTrips());
+    		this.getTolls().add(tempToll2);
+    	}
+    	
     }
     
     //---------------------Getters and Setters-----------------------------
@@ -338,7 +355,7 @@ public class UserTaxInfoDTO implements Serializable {
 	/**
 	 * @param tolls the tolls to set
 	 */
-	public void setTolls(SortedSet<UserFundingSourceToll> tolls) {
+	public void setTolls(Set<UserFundingSourceToll> tolls) {
 		this.tolls = tolls;
 	}    
 }

@@ -110,9 +110,10 @@ public class PrepTestDataLoader extends MatchingTask {
         num = session.createQuery("delete FundingSourceRef c").executeUpdate();
         System.out.println("Deleted " +num + " FundingSourceRef");        
         num = session.createQuery("delete FundingSourceAlternative c").executeUpdate();
-        System.out.println("Deleted " +num + " FundingSourceAlternative");        
-        num = session.createQuery("delete FundingSource c").executeUpdate();
-        System.out.println("Deleted " +num + " FundingSource");
+        System.out.println("Deleted " +num + " FundingSourceAlternative");
+        //You have to take this out or it kills the default tasks
+//        num = session.createQuery("delete FundingSource c").executeUpdate();
+//        System.out.println("Deleted " +num + " FundingSource");
         
         num = session.createQuery("delete ProjectAltRef c").executeUpdate();
         System.out.println("Deleted " +num + " ProjectAltRef");        

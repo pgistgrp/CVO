@@ -24,6 +24,7 @@ public class FundingServiceImpl implements FundingService {
     public static final float NO_CAR_FACTOR = 0.3f;    
     public static final int WEEKS_IN_YEAR = 52;
     public static final float DEFAULT_GAS_COST = 2.85f;
+    public static final float DEFAULT_CONSUMPTION = 19748;
 	
     private FundingDAO fundingDAO;
     
@@ -47,19 +48,11 @@ public class FundingServiceImpl implements FundingService {
 		//Save the user object
 		User tempUser = this.updateUserTaxInfo(user);
 		
-		//Get the users last commute object
-		
+		//Get the users last commute object		
 		UserCommute commute = tempUser.getUserCommute();
-		//If its null then create one and assign it to the user		
-		if(commute == null) {
-			commute = new UserCommute();
-			tempUser.setUserCommute(commute);
-			this.fundingDAO.save(commute);
-			this.fundingDAO.save(tempUser);
-		}
-		
-		String zipcode = user.getZipcode();
-		
+		copyAcrossTolls(user.getTolls(), commute);
+				
+		String zipcode = user.getZipcode();		
 		//Check for a valid zipcode
 		try {
 			int tempZip = Integer.parseInt(zipcode);
@@ -80,11 +73,10 @@ public class FundingServiceImpl implements FundingService {
 		int carpool = user.getCarpoolDays();
 		int numPassengers = user.getCarpoolPeople();		
 		
-		Iterator<UserFundingSourceToll> tolls = user.getTolls().iterator();
+		Iterator<UserFundingSourceToll> tolls = commute.getTolls().iterator();
 		while(tolls.hasNext()) {
 			setTripRates(tolls.next(), zcf, carFactor, driveAlone, carpool, numPassengers);			
 		}						
-		copyAcrossTolls(user.getTolls(), commute);
 		
 				
 		//Include the gas cost
@@ -97,7 +89,12 @@ public class FundingServiceImpl implements FundingService {
 		
 		//Include the annual consumption for the sales tax
 		Consumption con = this.fundingDAO.getConsumptionByIncome(user.getIncome());
-		commute.setAnnualConsume(con.getConsumption(user.getFamilyCount()));
+		if(con == null) {
+			commute.setCostPerGallon(DEFAULT_CONSUMPTION);
+		} else {
+			commute.setAnnualConsume(con.getConsumption(user.getFamilyCount()));
+		}
+
 		
 		//Save the commute
 		this.fundingDAO.save(commute);
@@ -136,6 +133,7 @@ public class FundingServiceImpl implements FundingService {
 				this.fundingDAO.save(tollHome);
 				this.fundingDAO.save(commute);
 			}
+System.out.println("Coping over used as " + tollAway.isUsed());			
 			tollHome.setUsed(tollAway.isUsed());
 			tollHome.setPeakTrips(tollAway.getPeakTrips());
 			tollHome.setOffPeakTrips(tollAway.getOffPeakTrips());
@@ -247,24 +245,36 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
 		Set<String> headers = new HashSet<String>();
 		headers.add("Sales tax increates with vehicle");
 		headers.add("your weight in drams");
+		headers.add("YEAH YEAH factor");
 		
 		Set<String> data1 = new HashSet<String>();
 		data1.add("200%");
 		data1.add("3435");
+		data1.add("5");
 		
 		Set<String> data2 = new HashSet<String>();
 		data2.add("100%" + fundingSuiteId);
 		data2.add("332435");
-				
+		data2.add("1");
+			
+		Set<String> data3 = new HashSet<String>();
+		data3.add("Tax Calculator Game ON!!!");
+		data3.add("TOTALLY");
+		data3.add("1xE834958");
+		
 		PersonalFundingCostAlternative p1 = new PersonalFundingCostAlternative();
 		p1.setData(data1);
 		
 		PersonalFundingCostAlternative p2 = new PersonalFundingCostAlternative();
 		p2.setData(data2);
 		
+		PersonalFundingCostAlternative p3 = new PersonalFundingCostAlternative();
+		p3.setData(data3);
+
 		Set<PersonalFundingCostAlternative> alts = new HashSet<PersonalFundingCostAlternative>();
 		alts.add(p1);
 		alts.add(p2);
+		alts.add(p3);
 		
 		Set<PersonalFundingCost> costs = new HashSet<PersonalFundingCost>();
 		PersonalFundingCost c1 = new PersonalFundingCost();
@@ -300,13 +310,14 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
     		UserCommute commute = new UserCommute();    		
     		user.setUserCommute(commute);
     		this.fundingDAO.save(commute);
-    		this.fundingDAO.save(user);
-    		
+    		this.fundingDAO.save(user);       		
+    	}   
+    	if(user.getUserCommute().getTolls().size() == 0) {
     		//Add the tolls
-    		commute.setTolls(createUserTolls());
+    		user.getUserCommute().setTolls(createUserTolls());
     		
-    		this.fundingDAO.save(commute);    		
-    	}    				
+    		this.fundingDAO.save(user.getUserCommute());    		
+    	}
 	}
 	
     /**
@@ -341,7 +352,7 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
 		try {
 			linkFundingSource(toll);
 		} catch (UnknownFundingSourceException e) {
-			System.out.println(e.getMessage());
+			System.out.println("ERROR: " + e.getMessage());
 		}
     	
     	return toll;

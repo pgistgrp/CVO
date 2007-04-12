@@ -19,7 +19,7 @@ public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
         return (FundingSource) getHibernateTemplate().load(FundingSource.class, id);
     }//getFundingSourceById()
 
-	private static final String hql_getFundingSourceByName = "from FundingSource fs where lower(fs.name)=?";
+	private static final String hql_getFundingSourceByName = "from FundingSource fs where fs.name=?";
     
     
     public FundingSource getFundingSourceByName(String name) throws Exception {
