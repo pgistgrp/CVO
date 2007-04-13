@@ -65,6 +65,6 @@ public interface FundingService {
 
 	UserTaxInfoDTO createUserTaxInfoDTO(Long userId) throws Exception;
 
-	UserTaxInfoDTO calcCostReport(UserTaxInfoDTO user, Long fundingSuiteId) throws Exception;
+	UserTaxInfoDTO createCostReport(UserTaxInfoDTO user, Long fundingSuiteId) throws Exception;
 
 }//interface FundingService

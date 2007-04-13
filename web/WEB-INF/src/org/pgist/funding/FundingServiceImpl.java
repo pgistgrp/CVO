@@ -1,8 +1,12 @@
 package org.pgist.funding;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -28,6 +32,12 @@ public class FundingServiceImpl implements FundingService {
 	
     private FundingDAO fundingDAO;
     
+    /**
+     * Used to format the price
+     */
+    public static final NumberFormat PRICE_FORMAT = new DecimalFormat( "$########.00" );    
+    public static final NumberFormat NUM_FORMAT = new DecimalFormat( "########" );    
+    public static final NumberFormat TAX_FORMAT = new DecimalFormat( "###.0%" );    
     
     public void setFundingDAO(FundingDAO fundingDAO) {
         this.fundingDAO = fundingDAO;
@@ -102,132 +112,6 @@ public class FundingServiceImpl implements FundingService {
 		user.loadWithCommuteInfo(commute);
 		return user;
 	}
-
-	/**
-	 * Copys the toll info from the remote toll to the users commute toll and then saves the
-	 * new information
-	 */
-	private void copyAcrossTolls(Set<UserFundingSourceToll> remoteTolls, UserCommute commute) throws Exception {
-		Iterator<UserFundingSourceToll> away = remoteTolls.iterator();
-		Iterator<UserFundingSourceToll> home = commute.getTolls().iterator();
-		UserFundingSourceToll tollAway;
-		UserFundingSourceToll tollHome;
-		
-		while(away.hasNext()) {
-			tollAway = away.next();
-
-			//Search the local tolls for the match
-			tollHome = findToll(tollAway.getId(), commute.getTolls());
-			
-			if(tollHome == null) {
-				//Add the new toll
-				tollHome = new UserFundingSourceToll();
-				tollHome.setName(tollAway.getName());
-				commute.getTolls().add(tollHome);
-				try {
-					linkFundingSource(tollHome);
-				} catch (UnknownFundingSourceException e) {
-					System.out.println(e.getMessage());
-				}
-				
-				this.fundingDAO.save(tollHome);
-				this.fundingDAO.save(commute);
-			}
-System.out.println("Coping over used as " + tollAway.isUsed());			
-			tollHome.setUsed(tollAway.isUsed());
-			tollHome.setPeakTrips(tollAway.getPeakTrips());
-			tollHome.setOffPeakTrips(tollAway.getOffPeakTrips());
-			
-			this.fundingDAO.save(tollHome);
-		}
-	}
-	
-	/**
-	 * Links the provided toll to the correct funding source with the exact same name
-	 * <p>
-	 * NOTE: It does not save the toll
-	 * 
-	 * @param	toll 	to link
-	 * @throws 	UnknownFundingSourceException if there is no funding source that matches the name
-	 * 			of the toll
-	 */
-	private void linkFundingSource(UserFundingSourceToll toll) throws UnknownFundingSourceException, Exception {
-		FundingSource source = this.fundingDAO.getFundingSourceByName(toll.getName());
-		if(source == null) {
-			throw new UnknownFundingSourceException("Could not find the FundingSource[" +toll.getName()+"] to link to the toll");
-		}
-		toll.setFundingSource(source);
-	}
-	
-	/**
-	 * Returns the toll from the set that matches the specified id
-	 */
-	private UserFundingSourceToll findToll(Long id, Set<UserFundingSourceToll> tolls) {
-		Iterator<UserFundingSourceToll> i = tolls.iterator();
-		UserFundingSourceToll toll;
-		while(i.hasNext()) {
-			toll = i.next();
-			if(toll.getId().equals(id)) {
-				return toll;
-			}
-		}
-		return null;
-	}
-	
-	/**
-	 * Sets the trip rates for the toll
-	 * 
-	 * @param	toll	The funding toll source
-	 */
-	private void setTripRates(UserFundingSourceToll toll, ZipCodeFactor zcf, float carFactor, int driveAlone, int carpool, int numPassengers) {
-System.out.println("MATT: Calc toll for " + toll.getName());		
-		if(toll.getName().equals(UserFundingSourceToll.PARKING_DOWNTOWN)) {
-			toll.setPeakTrips(calcPeakHours(zcf.getParking(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-			toll.setOffPeakTrips(calcOffPeakHours(zcf.getParking(), carFactor, toll.isUsed()));
-		} else if(toll.getName().equals(UserFundingSourceToll.ALASKA_WAY_VIADUCT)) {
-			toll.setPeakTrips(calcPeakHours(zcf.getSR99(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-			toll.setOffPeakTrips(calcOffPeakHours(zcf.getSR99(), carFactor, toll.isUsed()));
-		} else if(toll.getName().equals(UserFundingSourceToll.I405N)) {
-			toll.setPeakTrips(calcPeakHours(zcf.getI405N(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-			toll.setOffPeakTrips(calcOffPeakHours(zcf.getI405N(), carFactor, toll.isUsed()));
-		} else if(toll.getName().equals(UserFundingSourceToll.I405S)) {
-			toll.setPeakTrips(calcPeakHours(zcf.getI405S(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-			toll.setOffPeakTrips(calcOffPeakHours(zcf.getI405S(), carFactor, toll.isUsed()));
-		} else if(toll.getName().equals(UserFundingSourceToll.SR520)) {
-			toll.setPeakTrips(calcPeakHours(zcf.getSR520(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-			toll.setOffPeakTrips(calcOffPeakHours(zcf.getSR520(), carFactor, toll.isUsed()));
-		} else if(toll.getName().equals(UserFundingSourceToll.I90)) {
-			toll.setPeakTrips(calcPeakHours(zcf.getI90(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-			toll.setOffPeakTrips(calcOffPeakHours(zcf.getI90(), carFactor, toll.isUsed()));
-		} else if(toll.getName().equals(UserFundingSourceToll.SR167)) {
-			toll.setPeakTrips(calcPeakHours(zcf.getSR167(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-			toll.setOffPeakTrips(calcOffPeakHours(zcf.getSR167(), carFactor, toll.isUsed()));
-		}
-	}
-	
-	/**
-	 * Calculates the peak hours
-	 */
-	private static int calcPeakHours(int zipcodeFactor, float carFactor, int driveAlone, int carpool, int numPassengers, boolean included) {
-		System.out.println("MATT: CALC RATE zipCodeFactor[" + zipcodeFactor + "] carFactor[" + carFactor + "] driveAlone[" + driveAlone + "] carpool[" + carpool + "] numPass[" + numPassengers + "] included[" + included + "]");
-		int rate = (int)(carFactor * PEAK_USAGE);
-		if(included) {
-			rate = rate + (driveAlone * WEEKS_IN_YEAR)  -  zipcodeFactor * (int)(carFactor * PEAK_USAGE);
-			if(numPassengers > 0) {
-				rate = rate + (carpool * WEEKS_IN_YEAR)/numPassengers;
-			}
-		}
-		return rate;
-	}
-	
-	/**
-	 * Calculates the off peak hours
-	 */
-	private static int calcOffPeakHours(int zipcodeFactor, float carFactor, boolean included) {
-		System.out.println("MATT: CALC OFF PEAK RATE zipCodeFactor[" + zipcodeFactor + "] carFactor[" + carFactor + "] included[" + included + "]");
-		if(included) return 0;
-		return zipcodeFactor * (int)(carFactor * OFF_PEAK_USAGE); 
-	}
 	
 	/**
 	 * Creates a report from the provided UserTaxInfoDTO and funding suite
@@ -235,61 +119,214 @@ System.out.println("MATT: Calc toll for " + toll.getName());
 	 * @param	user	The UserTaxInfoDTO with all the info in it
 	 * @param	fundingSuiteID	The funding suite 
 	 */
-	public UserTaxInfoDTO calcCostReport(UserTaxInfoDTO user, Long fundingSuiteId) throws Exception {
+	public UserTaxInfoDTO createCostReport(UserTaxInfoDTO user, Long fundingSuiteId) throws Exception {
 
-		//Save the new info to the commute object
+		//Save the user object
+		User tempUser = this.updateUserTaxInfo(user);
 		
+		//Get the users last commute object		
+		UserCommute commute = tempUser.getUserCommute();
+		copyAcrossTolls(user.getTolls(), commute);
+				
 		//Go through the funding suite and calculate the users costs
+		FundingSourceSuite suite = this.fundingDAO.getFundingSuite(fundingSuiteId);
+
+		user.getCosts().clear();
+		Iterator<FundingSourceRef> refs = suite.getReferences().iterator();
+		while(refs.hasNext()) {
+			createReport(refs.next().getSource(), user.getCosts());
+		}
 		
 		//Go through the tolls and calculate the costs
-		
-System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
-		//TODO fill out the report here
-		Set<String> headers = new HashSet<String>();
-		headers.add("Sales tax increates with vehicle");
-		headers.add("your weight in drams");
-		headers.add("YEAH YEAH factor");
-		
-		Set<String> data1 = new HashSet<String>();
-		data1.add("200%");
-		data1.add("3435");
-		data1.add("5");
-		
-		Set<String> data2 = new HashSet<String>();
-		data2.add("100%" + fundingSuiteId);
-		data2.add("332435");
-		data2.add("1");
-			
-		Set<String> data3 = new HashSet<String>();
-		data3.add("Tax Calculator Game ON!!!");
-		data3.add("TOTALLY");
-		data3.add("1xE834958");
-		
-		PersonalFundingCostAlternative p1 = new PersonalFundingCostAlternative();
-		p1.setData(data1);
-		
-		PersonalFundingCostAlternative p2 = new PersonalFundingCostAlternative();
-		p2.setData(data2);
-		
-		PersonalFundingCostAlternative p3 = new PersonalFundingCostAlternative();
-		p3.setData(data3);
-
-		Set<PersonalFundingCostAlternative> alts = new HashSet<PersonalFundingCostAlternative>();
-		alts.add(p1);
-		alts.add(p2);
-		alts.add(p3);
-		
-		Set<PersonalFundingCost> costs = new HashSet<PersonalFundingCost>();
-		PersonalFundingCost c1 = new PersonalFundingCost();
-		c1.setHeaders(headers);
-		c1.setAlternatives(alts);
-
-		costs.add(c1);		
-		user.setCosts(costs);
-
-				
+		Iterator<UserFundingSourceToll> tolls = commute.getTolls().iterator();
+		UserFundingSourceToll tempToll;
+		while(tolls.hasNext()) {
+			tempToll = tolls.next();
+			if(tempToll.getName().equals(UserFundingSourceToll.PARKING_DOWNTOWN)) {
+				createParkingTollReport(tempToll, user.getCosts());								
+			} else {
+				createTollReport(tempToll, user.getCosts());				
+			}
+		}
+						
 		return user;
 	}
+
+	/**
+	 * Creates the proper report using the provided funding source
+	 * 
+	 * @param	source	The funding source
+	 * @param	costs	The costs object to put the report into
+	 */
+	private void createReport(FundingSource source, List<PersonalFundingCostDTO> costs) {
+		
+//		//TODO fill out the report here
+//		Set<String> headers = new HashSet<String>();
+//		headers.add("Sales tax increates with vehicle");
+//		headers.add("your weight in drams");
+//		headers.add("YEAH YEAH factor");
+//		
+//		Set<String> data1 = new HashSet<String>();
+//		data1.add("200%");
+//		data1.add("3435");
+//		data1.add("5");
+//		
+//		Set<String> data2 = new HashSet<String>();
+//		data2.add("100%" + fundingSuiteId);
+//		data2.add("332435");
+//		data2.add("1");
+//			
+//		Set<String> data3 = new HashSet<String>();
+//		data3.add("Tax Calculator Game ON!!!");
+//		data3.add("TOTALLY");
+//		data3.add("1xE834958");
+//		
+//		PersonalFundingCostAlternativeDTO p1 = new PersonalFundingCostAlternativeDTO();
+//		p1.setData(data1);
+//		
+//		PersonalFundingCostAlternativeDTO p2 = new PersonalFundingCostAlternativeDTO();
+//		p2.setData(data2);
+//		
+//		PersonalFundingCostAlternativeDTO p3 = new PersonalFundingCostAlternativeDTO();
+//		p3.setData(data3);
+//
+//		Set<PersonalFundingCostAlternativeDTO> alts = new HashSet<PersonalFundingCostAlternativeDTO>();
+//		alts.add(p1);
+//		alts.add(p2);
+//		alts.add(p3);
+//		
+//		Set<PersonalFundingCostDTO> costs = new HashSet<PersonalFundingCostDTO>();
+//		PersonalFundingCostDTO c1 = new PersonalFundingCostDTO();
+//		c1.setHeaders(headers);
+//		c1.setAlternatives(alts);
+//
+//		costs.add(c1);				
+	}
+
+	/**
+	 * Creates the proper report using the provided funding source
+	 * 
+	 * @param	source	The funding source
+	 * @param	costs	The costs object to put the report into
+	 */
+	private void createParkingTollReport(UserFundingSourceToll source, List<PersonalFundingCostDTO> costs) {
+
+		PersonalFundingCostDTO pfcost = new PersonalFundingCostDTO();
+		List<PersonalFundingCostAlternativeDTO> datas = pfcost.getAlternatives();
+		
+		List<String> headers = new ArrayList<String>();
+		headers.add("Commercial parking tax");						
+		headers.add("Cost to you");
+		headers.add("=");
+		headers.add("tax rate");
+		headers.add(" ");
+		headers.add("# peak trips");
+		headers.add(" ");
+		headers.add("# off-peak trips");
+		headers.add(" ");
+		headers.add(" ");
+		pfcost.setHeaders(headers);
+
+		Iterator<FundingSourceAlternative> alt = source.getFundingSource().getAlternatives().iterator();
+		FundingSourceAlternative tempAlt;
+		PersonalFundingCostAlternativeDTO p1;
+		while(alt.hasNext()) {
+			
+			tempAlt = alt.next();
+			datas.add(createParkingTollAlternative(tempAlt, source));
+		}			
+		costs.add(pfcost);						
+	}		
+	
+	/**
+	 * Creates the proper report using the provided funding source
+	 * 
+	 * @param	source	The funding source
+	 * @param	costs	The costs object to put the report into
+	 */
+	private void createTollReport(UserFundingSourceToll source, List<PersonalFundingCostDTO> costs) {
+
+		PersonalFundingCostDTO pfcost = new PersonalFundingCostDTO();
+		List<PersonalFundingCostAlternativeDTO> datas = pfcost.getAlternatives();
+		
+		List<String> headers = new ArrayList<String>();
+		headers.add("Toll on " + source.getName());			
+		headers.add("Cost to you");
+		headers.add("=");
+		headers.add("peak toll");
+		headers.add(" ");
+		headers.add("# peak trips");
+		headers.add(" ");
+		headers.add("off peak toll");
+		headers.add(" ");
+		headers.add("# off-peak trips");
+		pfcost.setHeaders(headers);
+
+		Iterator<FundingSourceAlternative> alt = source.getFundingSource().getAlternatives().iterator();
+		FundingSourceAlternative tempAlt;
+		PersonalFundingCostAlternativeDTO p1;
+		while(alt.hasNext()) {
+			
+			tempAlt = alt.next();
+			datas.add(createTollAlternative(tempAlt, source));
+		}			
+		costs.add(pfcost);						
+	}	
+
+	/**
+	 * Fills in the line with all the data for a parking toll
+	 * 
+	 * @param alt		The alternative
+	 * @param source	The userFundingSourceToll that contains the peak times and off peak times
+	 * @return	A filled out PersonalFundingCostAlternativeDTO
+	 */
+	private PersonalFundingCostAlternativeDTO createParkingTollAlternative(FundingSourceAlternative alt, UserFundingSourceToll source) {
+
+		PersonalFundingCostAlternativeDTO pfcost = new PersonalFundingCostAlternativeDTO();
+		List data = pfcost.getData();
+
+		float total = alt.getTaxRate() * ((float)source.getPeakTrips() + (float)source.getOffPeakTrips());
+		data.add(alt.getName());
+		data.add(PRICE_FORMAT.format(total));
+		data.add("=");
+		data.add(PRICE_FORMAT.format(alt.getTaxRate()));
+		data.add("X (");
+		data.add(NUM_FORMAT.format(source.getPeakTrips()));
+		data.add("+");
+		data.add(NUM_FORMAT.format(source.getOffPeakTrips()));
+		data.add(")");
+		data.add(" ");
+		
+		return pfcost;
+	}
+	
+	/**
+	 * Fills in the line with all the data for a toll
+	 * 
+	 * @param alt		The alternative
+	 * @param source	The userFundingSourceToll that contains the peak times and off peak times
+	 * @return	A filled out PersonalFundingCostAlternativeDTO
+	 */
+	private PersonalFundingCostAlternativeDTO createTollAlternative(FundingSourceAlternative alt, UserFundingSourceToll source) {
+
+		PersonalFundingCostAlternativeDTO pfcost = new PersonalFundingCostAlternativeDTO();
+		List data = pfcost.getData();
+
+		float total = alt.getPeakHourTripsRate() * (float)source.getPeakTrips() + alt.getOffPeakTripsRate() * (float)source.getOffPeakTrips();
+		data.add(alt.getName());
+		data.add(PRICE_FORMAT.format(total));
+		data.add("=");
+		data.add(PRICE_FORMAT.format(alt.getPeakHourTripsRate()));
+		data.add("X");
+		data.add(NUM_FORMAT.format(source.getPeakTrips()));
+		data.add("+");
+		data.add(PRICE_FORMAT.format(alt.getOffPeakTripsRate()));
+		data.add("X");
+		data.add(NUM_FORMAT.format(source.getOffPeakTrips()));
+		
+		return pfcost;
+	}
+	
 	
 	/**
 	 * Returns the User asked for
@@ -374,8 +411,7 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
 		//Load the original user
 		User tempUser = this.fundingDAO.getUserById(user.getUserId());
 		
-		user.loadUserWithData(tempUser);
-		
+		user.loadUserWithData(tempUser);		
 		//Save it
 		this.fundingDAO.save(tempUser);
 		return tempUser;
@@ -674,5 +710,133 @@ System.out.println("MATT: FundingSuiteID = " + fundingSuiteId);
     }//createFundingSourceSuite()
 
     
+	/**
+	 * Copys the toll info from the remote toll to the users commute toll and then saves the
+	 * new information
+	 */
+	private void copyAcrossTolls(List<UserFundingSourceTollDTO> remoteTolls, UserCommute commute) throws Exception {
+		Iterator<UserFundingSourceTollDTO> away = remoteTolls.iterator();
+		Iterator<UserFundingSourceToll> home = commute.getTolls().iterator();
+		UserFundingSourceTollDTO tollAway;
+		UserFundingSourceToll tollHome;
+		
+		while(away.hasNext()) {
+			tollAway = away.next();
+
+			//Search the local tolls for the match
+			tollHome = findToll(tollAway.getId(), commute.getTolls());
+			
+			if(tollHome == null) {
+				//Add the new toll
+				tollHome = new UserFundingSourceToll();
+				tollAway.loadTollFromThis(tollHome);
+				try {
+					linkFundingSource(tollHome);
+				} catch (UnknownFundingSourceException e) {
+					System.out.println(e.getMessage());
+				}				
+				commute.getTolls().add(tollHome);
+				this.fundingDAO.save(tollHome);
+				this.fundingDAO.save(commute);
+			}
+			tollHome.setUsed(tollAway.isUsed());
+			tollHome.setPeakTrips(tollAway.getPeakTrips());
+			tollHome.setOffPeakTrips(tollAway.getOffPeakTrips());
+			
+			this.fundingDAO.save(tollHome);
+		}
+	}
+	
+	/**
+	 * Links the provided toll to the correct funding source with the exact same name
+	 * <p>
+	 * NOTE: It does not save the toll
+	 * 
+	 * @param	toll 	to link
+	 * @throws 	UnknownFundingSourceException if there is no funding source that matches the name
+	 * 			of the toll
+	 */
+	private void linkFundingSource(UserFundingSourceToll toll) throws UnknownFundingSourceException, Exception {
+		FundingSource source = this.fundingDAO.getFundingSourceByName(toll.getName());
+		if(source == null) {
+			throw new UnknownFundingSourceException("Could not find the FundingSource[" +toll.getName()+"] to link to the toll");
+		}
+		toll.setFundingSource(source);
+	}
+	
+	/**
+	 * Returns the toll from the set that matches the specified id
+	 */
+	private UserFundingSourceToll findToll(Long id, Set<UserFundingSourceToll> tolls) {
+		Iterator<UserFundingSourceToll> i = tolls.iterator();
+		UserFundingSourceToll toll;
+		while(i.hasNext()) {
+			toll = i.next();
+			if(toll.getId().equals(id)) {
+				return toll;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Sets the trip rates for the toll
+	 * 
+	 * @param	toll	The funding toll source
+	 */
+	private void setTripRates(UserFundingSourceToll toll, ZipCodeFactor zcf, float carFactor, int driveAlone, int carpool, int numPassengers) {
+//System.out.println("MATT: Calc toll for " + toll.getName());		
+		if(toll.getName().equals(UserFundingSourceToll.PARKING_DOWNTOWN)) {
+			toll.setPeakTrips(calcPeakHours(zcf.getParking(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+			toll.setOffPeakTrips(calcOffPeakHours(zcf.getParking(), carFactor, toll.isUsed()));
+		} else if(toll.getName().equals(UserFundingSourceToll.ALASKA_WAY_VIADUCT)) {
+			toll.setPeakTrips(calcPeakHours(zcf.getSR99(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+			toll.setOffPeakTrips(calcOffPeakHours(zcf.getSR99(), carFactor, toll.isUsed()));
+		} else if(toll.getName().equals(UserFundingSourceToll.I405N)) {
+			toll.setPeakTrips(calcPeakHours(zcf.getI405N(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+			toll.setOffPeakTrips(calcOffPeakHours(zcf.getI405N(), carFactor, toll.isUsed()));
+		} else if(toll.getName().equals(UserFundingSourceToll.I405S)) {
+			toll.setPeakTrips(calcPeakHours(zcf.getI405S(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+			toll.setOffPeakTrips(calcOffPeakHours(zcf.getI405S(), carFactor, toll.isUsed()));
+		} else if(toll.getName().equals(UserFundingSourceToll.SR520)) {
+			toll.setPeakTrips(calcPeakHours(zcf.getSR520(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+			toll.setOffPeakTrips(calcOffPeakHours(zcf.getSR520(), carFactor, toll.isUsed()));
+		} else if(toll.getName().equals(UserFundingSourceToll.I90)) {
+			toll.setPeakTrips(calcPeakHours(zcf.getI90(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+			toll.setOffPeakTrips(calcOffPeakHours(zcf.getI90(), carFactor, toll.isUsed()));
+		} else if(toll.getName().equals(UserFundingSourceToll.SR167)) {
+			toll.setPeakTrips(calcPeakHours(zcf.getSR167(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+			toll.setOffPeakTrips(calcOffPeakHours(zcf.getSR167(), carFactor, toll.isUsed()));
+		}
+	}
+	
+	/**
+	 * Calculates the peak hours
+	 */
+	private static int calcPeakHours(int zipcodeFactor, float carFactor, int driveAlone, int carpool, int numPassengers, boolean included) {
+		//System.out.println("MATT: CALC RATE zipCodeFactor[" + zipcodeFactor + "] carFactor[" + carFactor + "] driveAlone[" + driveAlone + "] carpool[" + carpool + "] numPass[" + numPassengers + "] included[" + included + "]");
+		int rate = (int)(carFactor * PEAK_USAGE);
+		if(included) {
+			rate = rate + (driveAlone * WEEKS_IN_YEAR)  -  (int)(zipcodeFactor * (carFactor * PEAK_USAGE));
+			if(numPassengers > 0 && carpool > 0) {
+				rate = rate + (carpool * WEEKS_IN_YEAR)/numPassengers;
+			}
+		}
+//System.out.println("Rate = " + rate);		
+		return rate;
+	}
+	
+	/**
+	 * Calculates the off peak hours
+	 */
+	private static int calcOffPeakHours(int zipcodeFactor, float carFactor, boolean included) {
+		//System.out.println("MATT: CALC OFF PEAK RATE zipCodeFactor[" + zipcodeFactor + "] carFactor[" + carFactor + "] included[" + included + "]");
+		int rate = 0;
+		if(included) {
+			rate = (int)(zipcodeFactor * carFactor * OFF_PEAK_USAGE); 
+		}
+		//System.out.println("Rate = " + rate);		
+		return rate;
+	}
 
 }//class FundingServiceImpl

@@ -1,7 +1,7 @@
 package org.pgist.funding;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Pojo for storing all the data provided in a funding cost alternative
@@ -10,20 +10,20 @@ import java.util.Set;
  * 
  * @author Matt Paulin
  */
-public class PersonalFundingCostAlternative {
+public class PersonalFundingCostAlternativeDTO {
 
-	Set<String> data = new HashSet<String>();
+	List<String> data = new ArrayList<String>();
 
 	/**
 	 * The data associated with this cost alternative
 	 * 
 	 * @return	The collection of data to use
 	 */
-	public Set<String> getData() {
+	public List<String> getData() {
 		return data;
 	}
 
-	public void setData(Set<String> data) {
+	public void setData(List<String> data) {
 		this.data = data;
 	}	
 }

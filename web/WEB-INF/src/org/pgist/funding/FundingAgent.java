@@ -702,12 +702,6 @@ public class FundingAgent {
      *   </ul>
      */
     public Map calcCommute(UserTaxInfoDTO user) {
-    	Iterator<UserFundingSourceToll> i = user.getTolls().iterator();
-    	UserFundingSourceToll toll;
-    	while(i.hasNext()) {
-    		toll = i.next();
-    		System.out.println("For toll [" + toll.getName() + "] set to [" + toll.isUsed() + "]" );
-    	}
     	
         Map map = new HashMap();
         map.put("successful", false);
@@ -752,7 +746,7 @@ public class FundingAgent {
         
         try {
 
-            request.setAttribute("user", this.fundingService.calcCostReport(user, fundingSuiteId));
+            request.setAttribute("user", this.fundingService.createCostReport(user, fundingSuiteId));
             
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/funding/fundingCalc_report.jsp"));            
             map.put("successful", true);

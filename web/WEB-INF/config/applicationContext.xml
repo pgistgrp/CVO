@@ -9,7 +9,6 @@
         <props>
           <prop key="initialize*">PROPAGATION_REQUIRED</prop>
           <prop key="lookup*">PROPAGATION_REQUIRED</prop>
-          <prop key="calc*">PROPAGATION_REQUIRED</prop>
           <prop key="add*">PROPAGATION_REQUIRED</prop>
           <prop key="save*">PROPAGATION_REQUIRED</prop>
           <prop key="set*">PROPAGATION_REQUIRED</prop>

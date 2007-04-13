@@ -1,27 +1,27 @@
 package org.pgist.funding;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Simple Pojo used to convey the cost of a funding option to the user
  * 
  * @author Matt Paulin
  */
-public class PersonalFundingCost {
+public class PersonalFundingCostDTO {
 
-	Set<String> headers = new HashSet<String>();
-	Set<PersonalFundingCostAlternative> alternatives = new HashSet<PersonalFundingCostAlternative>();
+	List<String> headers = new ArrayList<String>();
+	List<PersonalFundingCostAlternativeDTO> alternatives = new ArrayList<PersonalFundingCostAlternativeDTO>();
 	
 	/**
 	 * Returns a list of alternatives that are full of the data that corrisponds to the headers
 	 * 
 	 * @return	A list of all the alternatives to this funding cost
 	 */
-	public Set<PersonalFundingCostAlternative> getAlternatives() {
+	public List<PersonalFundingCostAlternativeDTO> getAlternatives() {
 		return alternatives;
 	}
-	public void setAlternatives(Set<PersonalFundingCostAlternative> alternatives) {
+	public void setAlternatives(List<PersonalFundingCostAlternativeDTO> alternatives) {
 		this.alternatives = alternatives;
 	}
 	
@@ -30,10 +30,10 @@ public class PersonalFundingCost {
 	 * 
 	 * @return	A collection of strings that are to be used as headers for the columns
 	 */
-	public Set<String> getHeaders() {
+	public List<String> getHeaders() {
 		return headers;
 	}
-	public void setHeaders(Set<String> headers) {
+	public void setHeaders(List<String> headers) {
 		this.headers = headers;
 	}	
 }
