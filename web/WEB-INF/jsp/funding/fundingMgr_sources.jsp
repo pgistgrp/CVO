@@ -17,6 +17,7 @@
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] loop through all funding sources (jordan)
+
 		
 		
 #### -->
@@ -24,10 +25,15 @@
 	<c:if test="${fn:length(fundings) == 0}">
 		<p>No funding sources have been created yet.</p>
 	</c:if>
-
+	<div style="width:850px;">
 	<c:forEach var="source" items="${fundings}" varStatus="loop">
-		<li class="sourceList" id="source-${source.id}"><span class="source">${source.name}</span>
+		<li class="sourceList" id="source-${source.id}">
+		<div style="float:left;width:620px;">
+			<span class="source">${source.name}</span>
+		</div>
+		<div style="float:right;width:200px;">
 			<small> <a href="javascript:prepareSource(${source.id});">edit</a> | <a href="javascript:deleteSource(${source.id});">delete</a></small>
+		</div><br />
 			<!-- for editing source -->
 			<div id="sourceForm${source.id}" style="display:none">
 				<h4>Editing ${source.name}</h4>
@@ -38,15 +44,19 @@
 			<!-- end for editing source -->
 			<ul>
 				<c:forEach var="alternative" items="${source.alternatives}">
-					<li id="alt-${alternative.id}">${alternative.name}  
-						<small><a href="javascript:prepareSourceAlt(${alternative.id}, 'altId');">edit</a> | <a href="javascript:deleteSourceAlt(${alternative.id});">delete</a></small>
-						<div id="alternativeForm${alternative.id}" style="display:none;">
-							<form action="javascript:editSourceAlt(${alternative.id});" id="frmSourceAlt${alternative.id}">
-								<!--form inserted from js renderSourceAltForm();-->
-							</form>
-						</div>
-						<div id="alternativeMap${alternative.id}">
-							<!-- map for this alt goes here -->
+					<li id="alt-${alternative.id}">
+					<div style="width:680px;">
+						<div style="float:left;width:520px;">${alternative.name}</div>
+						<div style="float:right;width:150px;">
+						<small><a href="javascript:prepareSourceAlt(${alternative.id}, 'altId');">edit</a> | <a href="javascript:deleteSourceAlt(${alternative.id});">delete</a></small></div><br />
+							<div id="alternativeForm${alternative.id}" style="display:none;">
+								<form action="javascript:editSourceAlt(${alternative.id});" id="frmSourceAlt${alternative.id}">
+									<!--form inserted from js renderSourceAltForm();-->
+								</form>
+							</div>
+							<div id="alternativeMap${alternative.id}">
+								<!-- map for this alt goes here -->
+							</div>
 						</div>
 					</li>
 				</c:forEach>
@@ -65,6 +75,7 @@
 			<div id="editAlternativeForm${source.id}" style="display: none"></div>
 		</li>
 	</c:forEach>
+	</div>
 
 <li>[ <a href="javascript:prepareSource();">Add a Source</a> ]
 	<div id="sourceForm" style="display: none;">

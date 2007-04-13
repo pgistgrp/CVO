@@ -19,6 +19,7 @@
 		[x] Add STATIC calcs to form (Jordan)
 		[x] Order Sources and Alts by Name (Matt)
 		[x] Create ALts - Peak rate and off peak rate shouldn't be required if Toll is unchecked (Matt)
+		[ ] Polish it up a bit (Adam)
 #### -->
 <html:html> 
 <head>
@@ -40,6 +41,7 @@
 <style type="text/css" media="screen">
 	li{margin: 10px 0; list-style: none;}
 	.source{font-size: 1.3em;}
+	body{font:11pt arial;}
 </style>
 <script>
 	/* *************** get all funding sources in the system *************** */
@@ -110,16 +112,16 @@
 				"annual cost = (tax rate) * (parkings per year)",
 				"annual cost = (tax rate) * (trips per year)"];
 		
-		f = '<label>Funding Source Name:</label>\
-			<input id="txtSourceName' + id +'" type="text" value="'+name+'" size="25"><br />\
-			<label>Calculation Type:</label>\
-			<select id="selSourceType' + id +'">';
+		f = '<p style="width:500px;"><span style="width:150px;float:left;"><label>Funding Source Name:</label></span>\
+			<span style="float:right;width:300px"><input id="txtSourceName' + id +'" type="text" value="'+name+'" size="25"></p><br />\
+			<p style="width:500px;"><span style="width:150px;float:left;"><label>Calculation Type:</label></span>\
+			<span style="float:right;width:300px"><select id="selSourceType' + id +'">';
 			for(i=1; i<types.length; i++){
 				typeSelected = (i==type) ? "SELECTED" : "";
 				f += '<option value="'+ i +'" '+ typeSelected +'>'+types[i]+'</option>';
 			}
-		f +='</select><br />\
-			<p><input type="submit" value="Submit"></p>';
+		f +='</select></span></p><br />\
+			<p><input type="submit" value="Add Project"></p>';
 		$("frmSource"+id).innerHTML = f;
 
 	}
@@ -220,25 +222,34 @@
 
 		
 		f = '<h4>Editing Funding Source Alternative</h4>\
-			<label>Funding Source Alternative Name:</label>\
-			<input id="txtAltName'+ altId +'" type="text" value="'+ name +'" size="25"><br />\
-			<label>Revenue:</label>\
-			<input id="txtAltRevenue'+ altId +'" type="text" value="'+ revenue +'" size="25"><br />\
-			<label>Tax Rate:</label>\
-			<input id="txtAltTaxRate'+ altId +'" type="text" value="'+ taxRate +'" size="25"><br />\
-			<label>Source URL:</label>\
-			<input id="txtAltSourceURL'+ altId +'" type="text" value="'+ sourceURL +'" size="25"><br />\
-			<label>Average Cost to Average Resident:</label>\
-			<input id="txtAltAvgCost'+ altId +'" type="text" value="'+ avgCost +'" size="25"><br />\
-			<label>Toll:</label>\
+			<div style="clear:both">\
+			</div>\
+			<div>\
+			<p style="float:left;margin-right:20px;"><label>Funding Source Alternative Name</label><br />\
+			<input id="txtAltName'+ altId +'" type="text" value="'+ name +'" style="width:312px;"></p>\
+			<p style="float:left;margin-right:20px;"><label>Revenue</label><br />\
+			$ <input id="txtAltRevenue'+ altId +'" type="text" value="'+ revenue +'" style="width:150px;"></p>\
+			<p style="float:left;"><label>Tax Rate</label><br />\
+			$ <input id="txtAltTaxRate'+ altId +'" type="text" value="'+ taxRate +'" style="width:110px;"></p><br />\
+			<div style="clear:both">\
+			</div>\
+			<p style="float:left;margin-right:20px;"><label>Source URL</label><br />\
+			<input id="txtAltSourceURL'+ altId +'" type="text" value="'+ sourceURL +'" style="width:312px;"></p>\
+			<p style="float:left;margin-right:20px;"><label>Annual Cost to Average Resident</label><br />\
+			$ <input id="txtAltAvgCost'+ altId +'" type="text" value="'+ avgCost +'" style="width:50px;"></p>\
+			<div style="clear:both">\
+			</div>\
+			<label>Is this a toll? </label>\
 			<input id="ckbxToll'+ altId +'" type="checkbox" onClick="Element.toggle(\'ifTolls\')" value="'+ toll +'" '+tollChecked+'><br />\
 			<div id="ifTolls" style="display:none;">\
-				<label>Peak Rate:</label>\
-				<input id="txtAltPeakHourTripsRate'+ altId +'" type="text" value="'+ peakHourTripsRate +'" size="25"><br />\
-				<label>Off Peak Rate:</label>\
-				<input id="txtAltOffPeakTripsRate'+ altId +'" type="text" value="'+ offPeakTripsRate +'" size="25"><br />\
+				<div><p style="float:left;margin-right:50px;"><label>Peak Rate</label><br />\
+				$ <input id="txtAltPeakHourTripsRate'+ altId +'" type="text" value="'+ peakHourTripsRate +'" size="5"></p>\
+				<p style="float:left"><label>Off Peak Rate</label><br />\
+				$ <input id="txtAltOffPeakTripsRate'+ altId +'" type="text" value="'+ offPeakTripsRate +'" size="5"></p>\
+			<div style="clear:both"></div></div></div>\
+			<p><input type="submit" value="Submit"></p>\
 			</div>\
-			<p><input type="submit" value="Submit"></p>';
+			</div>';
 		
 
 		$("frmSourceAlt"+altId).innerHTML = f;
@@ -321,7 +332,6 @@
 	
 </script>
 <style type="text/css">
-
 </style>
 </head>
 
@@ -342,7 +352,7 @@
 	
 	<h3>Finished managing funding sources?</h3>
 	<!-- this button just redirects - saves are occuring on check. -->
-	<p><input type="button" onclick="location.href='main.do'" value="Finished!"/></p>
+	<p><input type="button" onClick="location.href='main.do'" value="Finished!"/></p>
 </body>
 </html:html>
 
