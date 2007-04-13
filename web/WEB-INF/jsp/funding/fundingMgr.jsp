@@ -39,7 +39,8 @@
 <!--Criteria Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/FundingAgent.js'></script>
 <style type="text/css" media="screen">
-	li{margin: 10px 0; list-style: none;}
+	li{margin: 10px 0; list-style: none;border-bottom:2px solid #ccc;}
+	li ul li {border:0px;}
 	.source{font-size: 1.3em;}
 	body{font:11pt arial;}
 </style>
@@ -247,7 +248,7 @@
 				<p style="float:left"><label>Off Peak Rate</label><br />\
 				$ <input id="txtAltOffPeakTripsRate'+ altId +'" type="text" value="'+ offPeakTripsRate +'" size="5"></p>\
 			<div style="clear:both"></div></div></div>\
-			<p><input type="submit" value="Submit"></p>\
+			<p><input style="padding:5px" type="submit" value="Submit"></p>\
 			</div>\
 			</div>';
 		
@@ -352,7 +353,7 @@
 	
 	<h3>Finished managing funding sources?</h3>
 	<!-- this button just redirects - saves are occuring on check. -->
-	<p><input type="button" onClick="location.href='main.do'" value="Finished!"/></p>
+	<p><input type="button" style="padding:5px" onClick="location.href='main.do'" value="Finished!"/></p>
 </body>
 </html:html>
 

@@ -77,7 +77,7 @@
 	</c:forEach>
 	</div>
 
-<li>[ <a href="javascript:prepareSource();">Add a Source</a> ]
+<li style="border:0px;">[ <a href="javascript:prepareSource();">Add a Source</a> ]
 	<div id="sourceForm" style="display: none;">
 		<h4>Add a New Source</h4>
 		<form id="frmSource" name="frmSource" action="javascript:createSource();">

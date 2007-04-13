@@ -69,10 +69,10 @@
 body{font-size:11pt;font-family:arial,sans-serif;}
 </style>
 <style type="text/css" media="screen">
-	li{margin: 10px 0; list-style: none;}
+	li{margin: 10px 0; list-style: none;border-bottom:2px solid #ccc;padding-bottom:10px;width:850px;}
 	.project{font-size: 1.3em;}
 	li ul li:hover {background:#E4F1F5;}
-	li ul li{width:720px;padding:3px;}
+	li ul li{width:720px;padding:3px;border:0px;}
 </style>
 <style type="text/css">
     v\:* {
@@ -259,6 +259,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 		f = '<h4>Editing Project Alternative</h4>\
 				<div style="clear:both">\
 				</div>\
+			<div style="width:850px;">\
 			<div style="float:left;margin-right:20px;">\
 				<label>Project Alternative Name:</label><br />\
 				<input id="txtAltName'+ altId +'" type="text" value="'+ name +'" size="40"><br />\
@@ -287,7 +288,9 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 			</div>\
 							<div style="clear:both">\
 				</div>\
-			<p><input style="padding:5px;" type="submit" value="Add Alternative"></p>';
+			<p><input style="padding:5px;" type="submit" value="Add Alternative"></p>\
+			</div>';
+
 		
 
 		$("frmProjectAlt"+altId).innerHTML = f;

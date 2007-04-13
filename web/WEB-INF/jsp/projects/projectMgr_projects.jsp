@@ -75,7 +75,7 @@
 			<div id="editAlternativeForm${project.id}" style="display: none"></div>
 		</li>
 	</c:forEach>
-	<br /><li>[ <a href="javascript:prepareProject();">Add a Project</a> ]
+	<br /><li style="border:0px;">[ <a href="javascript:prepareProject();">Add a Project</a> ]
 		<div id="projectForm" style="display: none;">
 			<h4>Add a New Project</h4>
 			<form action="javascript:createProject();" id="frmProject">
