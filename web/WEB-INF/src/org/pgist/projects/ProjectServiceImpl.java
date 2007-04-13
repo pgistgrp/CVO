@@ -1,12 +1,18 @@
 package org.pgist.projects;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
 import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaDAO;
 import org.pgist.criteria.Objective;
+import org.pgist.cvo.CCT;
+import org.pgist.cvo.CCTDAO;
+import org.pgist.discussion.DiscussionDAO;
+import org.pgist.discussion.InfoObject;
+import org.pgist.discussion.InfoStructure;
 
 
 /**
@@ -15,12 +21,19 @@ import org.pgist.criteria.Objective;
 public class ProjectServiceImpl implements ProjectService{
         
 	private ProjectDAO projectDAO = null;
+    
 	private CriteriaDAO criteriaDAO = null;
+    
+    private DiscussionDAO discussionDAO;
+    
+    private CCTDAO cctDAO;
+    
     
 	public void setCriteriaDAO(CriteriaDAO criteriaDAO) {
 		this.criteriaDAO = criteriaDAO;
 	}
-
+	
+    
 	/**
      * @param projectDAO  the projectDAO to set
      * @uml.property  name="projectDAO"
@@ -502,6 +515,41 @@ System.out.println("Matt 1");
         
         return suite;
     }//createProjectSuite()
+    
+    
+    public InfoStructure publish(Long cctId, Long suiteId) throws Exception {
+        CCT cct = cctDAO.getCCTById(cctId);
+        
+        ProjectSuite suite = projectDAO.getProjectSuite(suiteId);
+        
+        Date date = new Date();
+        
+        InfoStructure structure = new InfoStructure();
+        structure.setType("sdcrit");
+        structure.setTitle("Step 2b: Review Criteria");
+        structure.setRespTime(date);
+        structure.setCctId(cct.getId());
+        discussionDAO.save(structure);
+        
+        for (ProjectRef ref : suite.getReferences()) {
+            ref.getId();
+            ref.getAltRefs();
+            ref.getNumAltRefs();
+            ref.getProject();
+            ref.getSuite();
+            
+            InfoObject obj = new InfoObject();
+            obj.setObject(ref);
+            obj.setRespTime(date);
+            discussionDAO.save(obj);
+            
+            structure.getInfoObjects().add(obj);
+        }//for ref
+        
+        discussionDAO.save(structure);
+        
+        return structure;
+    }//publish()
     
     
 }//class ProjectServiceImpl

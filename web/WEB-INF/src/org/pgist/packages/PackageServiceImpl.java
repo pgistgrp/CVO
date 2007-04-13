@@ -164,6 +164,13 @@ public class PackageServiceImpl implements PackageService {
 		packageDAO.save(suite);
 		return uPack;
 	}
+
+
+    public PackageSuite createPackageSuite() throws Exception {
+        PackageSuite suite = new PackageSuite();
+        
+        return suite;
+    }//createPackageSuite()
 	
 	
 	

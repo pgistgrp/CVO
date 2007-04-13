@@ -28,6 +28,21 @@
     </bean>
     
     
+    <bean id="task-publish.criteria" class="org.pgist.criteria.PublishCriteriaTask">
+        <property name="criteriaService" ref="criteriaService"/>
+    </bean>
+    
+    
+    <bean id="task-publish.projects" class="org.pgist.projects.PublishProjectsTask">
+        <property name="projectService" ref="projectService"/>
+    </bean>
+    
+    
+    <bean id="task-create.package.suite" class="org.pgist.packages.CreatePackageSuiteTask">
+        <property name="packageService" ref="packageService"/>
+    </bean>
+    
+    
     <bean id="workflow.registry" class="org.pgist.wfengine.WorkflowTaskRegistry">
         <property name="tasks">
             <map>
@@ -36,6 +51,9 @@
               <entry><key><value>task-create.cct</value></key><ref bean="task-create.cct" /></entry>
               <entry><key><value>task-publish.theme</value></key><ref bean="task-publish.theme" /></entry>
               <entry><key><value>task-create.criteria.suite</value></key><ref bean="task-create.criteria.suite" /></entry>
+              <entry><key><value>task-publish.criteria</value></key><ref bean="task-publish.criteria" /></entry>
+              <entry><key><value>task-publish.projects</value></key><ref bean="task-publish.projects" /></entry>
+              <entry><key><value>task-create.package.suite</value></key><ref bean="task-create.package.suite" /></entry>
             </map>
         </property>
         <property name="actions">

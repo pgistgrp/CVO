@@ -3,6 +3,8 @@ package org.pgist.projects;
 import java.util.Collection;
 import java.util.Map;
 
+import org.pgist.discussion.InfoStructure;
+
 
 /**
  * @author Guirong
@@ -52,6 +54,8 @@ public interface ProjectService {
 	public void updateProjectSuiteCriteria(ProjectSuite projSuite) throws Exception;
 	
     ProjectSuite createProjectSuite() throws Exception;
+
+    InfoStructure publish(Long cctId, Long suiteId) throws Exception;
     
     
 }//interface ProjectService

@@ -123,6 +123,15 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-create.package.suite" description="Create a package suite." auto="true">
+            <taskName>task-create.package.suite</taskName>
+            <declaration>
+                <outs>
+                    <var name="suite_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
     </pgames>
     
     
