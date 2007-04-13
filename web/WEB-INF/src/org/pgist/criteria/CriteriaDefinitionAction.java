@@ -44,26 +44,21 @@ public class CriteriaDefinitionAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-        String action = (String) request.getParameter("action");
-        
-        if (action==null || action.length()==0) {
-            Collection ccts = cctService.getCCTs();
+    	
+        	Collection criterias = criteriaService.getCriterias();
+        	
+            String strSuiteId = request.getParameter("suiteId");
+            Long suiteId = new Long(strSuiteId);
+            CriteriaSuite cs = criteriaService.getCriteriaSuiteById(suiteId);
             
-            request.setAttribute("ccts", ccts);
             
-            return mapping.findForward("list");
-        } else {
-            String cctId = (String) request.getParameter("cctId");
-            
-            Long id = new Long(cctId);
-            CCT cct = cctService.getCCTById(id);
-            
-            request.setAttribute("cct", cct);
+            request.setAttribute("criteriasuite", cs);
+            request.setAttribute("criterias", criterias);
             
             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             
             return mapping.findForward("assoc");
-        }
+        
     }//execute()
 
 
