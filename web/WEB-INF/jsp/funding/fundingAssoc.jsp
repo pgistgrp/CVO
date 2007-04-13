@@ -78,8 +78,10 @@
 	}
 </script>
 <style type="text/css">
+	body{font-size:11 pt;font-family:arial;width:800px;}
 	li{margin: 10px 0; list-style: none;}
 	.source{font-size: 1.3em;}
+	li ul li:hover {background:#D5EAEF;}
 </style>
 </head>
 
@@ -110,8 +112,8 @@
 		</c:forEach>
 	</ul>
 
-	<h3>Finished selecting funding source alternatives?</h3>
-	<p><input type="button" onclick="location.href='main.do'" value="Finished!"/></p>
+	<h3 align="right">Finished selecting funding source alternatives?</h3>
+	<p align="right"><input type="button" style="padding:5px;" onClick="location.href='main.do'" value="Finished!"/></p>
 </body>
 </html:html>
 
