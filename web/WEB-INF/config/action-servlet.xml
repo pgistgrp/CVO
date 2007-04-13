@@ -128,6 +128,10 @@
         <property name="criteriaService" ref="criteriaService"/>
     </bean>
     
+    <bean name="/criteriaDefine" class="org.pgist.criteria.CriteriaDefinitionAction">
+        <property name="criteriaService" ref="criteriaService"/>
+    </bean>
+    
     
     <bean name="/criteriaPublish" class="org.pgist.criteria.CriteriaPublishAction">
         <property name="criteriaService" ref="criteriaService"/>

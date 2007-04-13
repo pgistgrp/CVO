@@ -12,6 +12,7 @@ import org.pgist.cvo.CCT;
 import org.pgist.cvo.CCTDAO;
 import org.pgist.cvo.CategoryReference;
 import org.pgist.cvo.Theme;
+import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
 
@@ -26,6 +27,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     
     private CriteriaDAO criteriaDAO;
     
+    private DiscussionDAO discussionDAO;
     
     private CCTDAO cctDAO;
     
@@ -40,7 +42,22 @@ public class CriteriaServiceImpl implements CriteriaService {
 	}
     
 
-	public Collection getCriterias() throws Exception {
+	public DiscussionDAO getDiscussionDAO() {
+        return discussionDAO;
+    }
+
+
+    public void setDiscussionDAO(DiscussionDAO discussionDAO) {
+        this.discussionDAO = discussionDAO;
+    }
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+
+
+    public Collection getCriterias() throws Exception {
         return null;
     }//getCriterias()
     
@@ -182,5 +199,48 @@ public class CriteriaServiceImpl implements CriteriaService {
     public Collection getCriteriaSuites() throws Exception {
     	return criteriaDAO.getCriteriaSuites();
     }//getCriteriaSuiteById()
+
+
+    public CriteriaSuite createCriteriaSuite() throws Exception {
+        CriteriaSuite suite = new CriteriaSuite();
+        
+        return suite;
+    }//createCriteriaSuite()
+
+
+    public InfoStructure publish(Long cctId, Long suiteId) throws Exception {
+        CCT cct = cctDAO.getCCTById(cctId);
+        
+        CriteriaSuite suite = criteriaDAO.getCriteriaSuiteById(suiteId);
+        
+        Date date = new Date();
+        
+        InfoStructure structure = new InfoStructure();
+        structure.setType("sdcrit");
+        structure.setTitle("Step 2b: Review Criteria");
+        structure.setRespTime(date);
+        structure.setCctId(cct.getId());
+        discussionDAO.save(structure);
+        
+        for (CriteriaRef ref : suite.getReferences()) {
+            ref.getCriterion();
+            ref.getGrade();
+            ref.getId();
+            ref.getObjectiveGrades();
+            ref.getSuite();
+            
+            InfoObject obj = new InfoObject();
+            obj.setObject(ref);
+            obj.setRespTime(date);
+            discussionDAO.save(obj);
+            
+            structure.getInfoObjects().add(obj);
+        }//for ref
+        
+        discussionDAO.save(structure);
+        
+        return structure;
+    }//publish()
+    
     
 }//class CriteriaServiceImpl

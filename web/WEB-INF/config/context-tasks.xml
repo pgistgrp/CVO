@@ -23,6 +23,11 @@
     </bean>
     
     
+    <bean id="task-create.criteria.suite" class="org.pgist.criteria.CreateCriteriaSuiteTask">
+        <property name="criteriaService" ref="criteriaService"/>
+    </bean>
+    
+    
     <bean id="workflow.registry" class="org.pgist.wfengine.WorkflowTaskRegistry">
         <property name="tasks">
             <map>
@@ -30,6 +35,7 @@
               <entry><key><value>task-create.funding.suite</value></key><ref bean="task-create.funding.suite" /></entry>
               <entry><key><value>task-create.cct</value></key><ref bean="task-create.cct" /></entry>
               <entry><key><value>task-publish.theme</value></key><ref bean="task-publish.theme" /></entry>
+              <entry><key><value>task-create.criteria.suite</value></key><ref bean="task-create.criteria.suite" /></entry>
             </map>
         </property>
         <property name="actions">
@@ -40,6 +46,7 @@
               <entry><key><value>action-cvo.cct</value></key><value>/cctview.do</value></entry>
               <entry><key><value>action-cvo.cst</value></key><value>/cstview.do</value></entry>
               <entry><key><value>action-cvo.sdc</value></key><value>/sd.do</value></entry>
+              <entry><key><value>action-define.criteria</value></key><value>/criteriaDefine.do</value></entry>
             </map>
         </property>
     </bean>

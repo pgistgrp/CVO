@@ -90,6 +90,9 @@
                 <outs>
                     <var name="is_id"/>
                 </outs>
+                <props>
+                    <property name="title" value="Step 1b: Review Summaries" />
+                </props>
             </declaration>
         </pgame>
         
@@ -98,6 +101,24 @@
             <declaration>
                 <ins>
                     <var name="isid"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-create.criteria.suite" description="Create a criteria suite." auto="true">
+            <taskName>task-create.criteria.suite</taskName>
+            <declaration>
+                <outs>
+                    <var name="suite_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-define.criteria" description="Define Criteria." auto="false" access="moderator">
+            <actionName>action-define.criteria</actionName>
+            <declaration>
+                <ins>
+                    <var name="suiteId"/>
                 </ins>
             </declaration>
         </pgame>

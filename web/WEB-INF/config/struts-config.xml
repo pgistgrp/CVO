@@ -144,6 +144,10 @@
             <forward name="list" path="/WEB-INF/jsp/criteria/criteriaList.jsp"/>
         </action>
         
+        <action path="/criteriaDefine" scope="request" type="org.pgist.criteria.CriteriaDefinitionAction">
+            <forward name="assoc" path="/WEB-INF/jsp/criteria/criteriaAssoc.jsp"/>
+        </action>
+        
         <action path="/sdlist" scope="request" type="org.pgist.discussion.SDListAction">
             <forward name="list" path="/WEB-INF/jsp/discussion/sdList.jsp"/>
         </action>

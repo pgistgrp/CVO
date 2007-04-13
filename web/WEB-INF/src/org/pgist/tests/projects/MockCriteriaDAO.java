@@ -133,4 +133,9 @@ public class MockCriteriaDAO implements CriteriaDAO {
 		
 	}
 
+    public Collection getCriteriaSuites() throws Exception {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.List;
 
 import org.pgist.cvo.CCT;
+import org.pgist.discussion.InfoStructure;
 
 /**
  * 
@@ -73,6 +74,12 @@ public interface CriteriaService {
     
     
     Collection getCriteriaSuites() throws Exception;
+    
+    
+    CriteriaSuite createCriteriaSuite() throws Exception;
+
+
+    InfoStructure publish(Long cctId, Long suiteId) throws Exception;
     
     
 }//interface CriteriaService
