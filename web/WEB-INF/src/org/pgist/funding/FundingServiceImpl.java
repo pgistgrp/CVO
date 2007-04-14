@@ -32,12 +32,7 @@ public class FundingServiceImpl implements FundingService {
 	
     private FundingDAO fundingDAO;
     
-    /**
-     * Used to format the price
-     */
-    public static final NumberFormat PRICE_FORMAT = new DecimalFormat( "$########.00" );    
-    public static final NumberFormat NUM_FORMAT = new DecimalFormat( "########" );    
-    public static final NumberFormat TAX_FORMAT = new DecimalFormat( "###.0%" );    
+  
     
     public void setFundingDAO(FundingDAO fundingDAO) {
         this.fundingDAO = fundingDAO;
@@ -100,7 +95,7 @@ public class FundingServiceImpl implements FundingService {
 		//Include the annual consumption for the sales tax
 		Consumption con = this.fundingDAO.getConsumptionByIncome(user.getIncome());
 		if(con == null) {
-			commute.setCostPerGallon(DEFAULT_CONSUMPTION);
+			commute.setAnnualConsume(DEFAULT_CONSUMPTION);
 		} else {
 			commute.setAnnualConsume(con.getConsumption(user.getFamilyCount()));
 		}
@@ -128,13 +123,30 @@ public class FundingServiceImpl implements FundingService {
 		UserCommute commute = tempUser.getUserCommute();
 		copyAcrossTolls(user.getTolls(), commute);
 				
+		float totalVValue = 0;
+		float totalMilesDrive = 0;
+		float avgMPG = 0;
+		
+		Iterator<Vehicle> vIter = tempUser.getVehicles().iterator();
+		Vehicle veh;
+		while(vIter.hasNext()) {
+			veh = vIter.next();
+			totalVValue = totalVValue + veh.getApproxValue();
+			totalMilesDrive = totalMilesDrive + veh.getMilesPerYear();
+			avgMPG = avgMPG + veh.getMilesPerGallon();
+			
+		}
+		avgMPG = avgMPG / tempUser.getVehicles().size();
+		
+		
 		//Go through the funding suite and calculate the users costs
 		FundingSourceSuite suite = this.fundingDAO.getFundingSuite(fundingSuiteId);
 
 		user.getCosts().clear();
 		Iterator<FundingSourceRef> refs = suite.getReferences().iterator();
 		while(refs.hasNext()) {
-			createReport(refs.next().getSource(), user.getCosts());
+			TaxCalcUtils.createReport(refs.next().getSource(), user.getCosts(), 
+					user.getAnnualConsume(), tempUser.getVehicles().size(), totalVValue, totalMilesDrive, avgMPG, user.getCostPerGallon() );
 		}
 		
 		//Go through the tolls and calculate the costs
@@ -143,190 +155,14 @@ public class FundingServiceImpl implements FundingService {
 		while(tolls.hasNext()) {
 			tempToll = tolls.next();
 			if(tempToll.getName().equals(UserFundingSourceToll.PARKING_DOWNTOWN)) {
-				createParkingTollReport(tempToll, user.getCosts());								
+				TaxCalcUtils.createParkingTollReport(tempToll, user.getCosts());								
 			} else {
-				createTollReport(tempToll, user.getCosts());				
+				TaxCalcUtils.createTollReport(tempToll, user.getCosts());				
 			}
 		}
 						
 		return user;
 	}
-
-	/**
-	 * Creates the proper report using the provided funding source
-	 * 
-	 * @param	source	The funding source
-	 * @param	costs	The costs object to put the report into
-	 */
-	private void createReport(FundingSource source, List<PersonalFundingCostDTO> costs) {
-		
-//		//TODO fill out the report here
-//		Set<String> headers = new HashSet<String>();
-//		headers.add("Sales tax increates with vehicle");
-//		headers.add("your weight in drams");
-//		headers.add("YEAH YEAH factor");
-//		
-//		Set<String> data1 = new HashSet<String>();
-//		data1.add("200%");
-//		data1.add("3435");
-//		data1.add("5");
-//		
-//		Set<String> data2 = new HashSet<String>();
-//		data2.add("100%" + fundingSuiteId);
-//		data2.add("332435");
-//		data2.add("1");
-//			
-//		Set<String> data3 = new HashSet<String>();
-//		data3.add("Tax Calculator Game ON!!!");
-//		data3.add("TOTALLY");
-//		data3.add("1xE834958");
-//		
-//		PersonalFundingCostAlternativeDTO p1 = new PersonalFundingCostAlternativeDTO();
-//		p1.setData(data1);
-//		
-//		PersonalFundingCostAlternativeDTO p2 = new PersonalFundingCostAlternativeDTO();
-//		p2.setData(data2);
-//		
-//		PersonalFundingCostAlternativeDTO p3 = new PersonalFundingCostAlternativeDTO();
-//		p3.setData(data3);
-//
-//		Set<PersonalFundingCostAlternativeDTO> alts = new HashSet<PersonalFundingCostAlternativeDTO>();
-//		alts.add(p1);
-//		alts.add(p2);
-//		alts.add(p3);
-//		
-//		Set<PersonalFundingCostDTO> costs = new HashSet<PersonalFundingCostDTO>();
-//		PersonalFundingCostDTO c1 = new PersonalFundingCostDTO();
-//		c1.setHeaders(headers);
-//		c1.setAlternatives(alts);
-//
-//		costs.add(c1);				
-	}
-
-	/**
-	 * Creates the proper report using the provided funding source
-	 * 
-	 * @param	source	The funding source
-	 * @param	costs	The costs object to put the report into
-	 */
-	private void createParkingTollReport(UserFundingSourceToll source, List<PersonalFundingCostDTO> costs) {
-
-		PersonalFundingCostDTO pfcost = new PersonalFundingCostDTO();
-		List<PersonalFundingCostAlternativeDTO> datas = pfcost.getAlternatives();
-		
-		List<String> headers = new ArrayList<String>();
-		headers.add("Commercial parking tax");						
-		headers.add("Cost to you");
-		headers.add("=");
-		headers.add("tax rate");
-		headers.add(" ");
-		headers.add("# peak trips");
-		headers.add(" ");
-		headers.add("# off-peak trips");
-		headers.add(" ");
-		headers.add(" ");
-		pfcost.setHeaders(headers);
-
-		Iterator<FundingSourceAlternative> alt = source.getFundingSource().getAlternatives().iterator();
-		FundingSourceAlternative tempAlt;
-		PersonalFundingCostAlternativeDTO p1;
-		while(alt.hasNext()) {
-			
-			tempAlt = alt.next();
-			datas.add(createParkingTollAlternative(tempAlt, source));
-		}			
-		costs.add(pfcost);						
-	}		
-	
-	/**
-	 * Creates the proper report using the provided funding source
-	 * 
-	 * @param	source	The funding source
-	 * @param	costs	The costs object to put the report into
-	 */
-	private void createTollReport(UserFundingSourceToll source, List<PersonalFundingCostDTO> costs) {
-
-		PersonalFundingCostDTO pfcost = new PersonalFundingCostDTO();
-		List<PersonalFundingCostAlternativeDTO> datas = pfcost.getAlternatives();
-		
-		List<String> headers = new ArrayList<String>();
-		headers.add("Toll on " + source.getName());			
-		headers.add("Cost to you");
-		headers.add("=");
-		headers.add("peak toll");
-		headers.add(" ");
-		headers.add("# peak trips");
-		headers.add(" ");
-		headers.add("off peak toll");
-		headers.add(" ");
-		headers.add("# off-peak trips");
-		pfcost.setHeaders(headers);
-
-		Iterator<FundingSourceAlternative> alt = source.getFundingSource().getAlternatives().iterator();
-		FundingSourceAlternative tempAlt;
-		PersonalFundingCostAlternativeDTO p1;
-		while(alt.hasNext()) {
-			
-			tempAlt = alt.next();
-			datas.add(createTollAlternative(tempAlt, source));
-		}			
-		costs.add(pfcost);						
-	}	
-
-	/**
-	 * Fills in the line with all the data for a parking toll
-	 * 
-	 * @param alt		The alternative
-	 * @param source	The userFundingSourceToll that contains the peak times and off peak times
-	 * @return	A filled out PersonalFundingCostAlternativeDTO
-	 */
-	private PersonalFundingCostAlternativeDTO createParkingTollAlternative(FundingSourceAlternative alt, UserFundingSourceToll source) {
-
-		PersonalFundingCostAlternativeDTO pfcost = new PersonalFundingCostAlternativeDTO();
-		List data = pfcost.getData();
-
-		float total = alt.getTaxRate() * ((float)source.getPeakTrips() + (float)source.getOffPeakTrips());
-		data.add(alt.getName());
-		data.add(PRICE_FORMAT.format(total));
-		data.add("=");
-		data.add(PRICE_FORMAT.format(alt.getTaxRate()));
-		data.add("X (");
-		data.add(NUM_FORMAT.format(source.getPeakTrips()));
-		data.add("+");
-		data.add(NUM_FORMAT.format(source.getOffPeakTrips()));
-		data.add(")");
-		data.add(" ");
-		
-		return pfcost;
-	}
-	
-	/**
-	 * Fills in the line with all the data for a toll
-	 * 
-	 * @param alt		The alternative
-	 * @param source	The userFundingSourceToll that contains the peak times and off peak times
-	 * @return	A filled out PersonalFundingCostAlternativeDTO
-	 */
-	private PersonalFundingCostAlternativeDTO createTollAlternative(FundingSourceAlternative alt, UserFundingSourceToll source) {
-
-		PersonalFundingCostAlternativeDTO pfcost = new PersonalFundingCostAlternativeDTO();
-		List data = pfcost.getData();
-
-		float total = alt.getPeakHourTripsRate() * (float)source.getPeakTrips() + alt.getOffPeakTripsRate() * (float)source.getOffPeakTrips();
-		data.add(alt.getName());
-		data.add(PRICE_FORMAT.format(total));
-		data.add("=");
-		data.add(PRICE_FORMAT.format(alt.getPeakHourTripsRate()));
-		data.add("X");
-		data.add(NUM_FORMAT.format(source.getPeakTrips()));
-		data.add("+");
-		data.add(PRICE_FORMAT.format(alt.getOffPeakTripsRate()));
-		data.add("X");
-		data.add(NUM_FORMAT.format(source.getOffPeakTrips()));
-		
-		return pfcost;
-	}
-	
 	
 	/**
 	 * Returns the User asked for
