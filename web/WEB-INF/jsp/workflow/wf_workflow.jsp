@@ -15,13 +15,15 @@
     </tr>
     <c:forEach var="meeting" items="${workflow.situation.context.pendingActivities}">
       <tr>
-        <td style="padding-left:20px;">Meeting: "${meeting.hibernateLazyInitializer.implementation.description}"</td>
+        <pg:narrow name="meeting"/>
+        <td style="padding-left:20px;">Meeting: "${meeting.description}"</td>
       </tr>
-      <c:forEach var="pmethod" items="${meeting.hibernateLazyInitializer.implementation.context.pendingActivities}">
+      <c:forEach var="pmethod" items="${meeting.context.pendingActivities}">
+        <pg:narrow name="pmethod"/>
         <tr>
-          <td style="padding-left:40px;">PMethod: "${pmethod.hibernateLazyInitializer.implementation.description}"</td>
+          <td style="padding-left:40px;">PMethod: "${pmethod.description}"</td>
         </tr>
-        <c:forEach var="pgame" items="${pmethod.hibernateLazyInitializer.implementation.context.runningActivities}">
+        <c:forEach var="pgame" items="${pmethod.context.runningActivities}">
           <tr>
             <td style="padding-left:60px;">PGame: "<a href="${pgame.link}">${pgame.description}</a>"</td>
           </tr>

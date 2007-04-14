@@ -84,10 +84,6 @@ public class CCTServiceImpl implements CCTService {
         cct.setInstruction(instruction);
         cct.setCreateTime(time);
         
-        Long id = WebUtils.currentUserId();
-        User user = userDAO.getUserById(id, true, false);
-        cct.setCreator(user);
-        
         cctDAO.save(cct);
         
         return cct;

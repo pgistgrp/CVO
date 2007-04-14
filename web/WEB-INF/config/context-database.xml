@@ -52,6 +52,7 @@
                <value>org/pgist/model/PGame.hbm.xml</value>
                <value>org/pgist/tagging/Category.hbm.xml</value>
                <value>org/pgist/tagging/Tag.hbm.xml</value>
+               <value>org/pgist/cvo/CCT.hbm.xml</value>
                <value>org/pgist/cvo/Theme.hbm.xml</value>
                <value>org/pgist/cvo/CategoryReference.hbm.xml</value>
                <value>org/pgist/cvo/TagReference.hbm.xml</value>

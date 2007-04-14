@@ -397,5 +397,18 @@
   </tag>
   
 
+  <tag>
+    <name>narrow</name>
+    <tag-class>org.pgist.tags.HibernateNarrowTag</tag-class>
+    <body-content>scriptless</body-content>
+    <description>Hibernate Narrow Tag</description>
+    <attribute>
+      <name>name</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
 </taglib>
 

@@ -38,7 +38,6 @@ public class CCTHandler extends XMLHandler {
             String loginname = element.elementTextTrim("creator");
             User creator = getUserByLoginName(loginname);
             if (creator==null) throw new Exception("creator is not found: "+loginname);
-            cct.setCreator(creator);
             
             String createTimeStr = element.elementTextTrim("createTime");
             if (createTimeStr==null || "".equals(createTimeStr)) {
@@ -74,10 +73,6 @@ public class CCTHandler extends XMLHandler {
         
         for (CCT cct : ccts) {
             Element one = root.addElement("cct");
-            
-            Element creator = one.addElement("creator");
-            creator.addAttribute("type", "loginname");
-            creator.setText(cct.getCreator().getLoginname());
             
             Element name = one.addElement("name");
             name.setText(cct.getName());

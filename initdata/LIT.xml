@@ -20,6 +20,7 @@
                     <var name="suiteId"/>
                 </ins>
             </declaration>
+            <timer extension="10000"/>
         </pgame>
         
         <pgame name="pgame-create.funding.suite" description="Create a funding source suite." auto="true">
@@ -38,6 +39,7 @@
                     <var name="suiteId"/>
                 </ins>
             </declaration>
+            <timer extension="10000"/>
         </pgame>
         
         <pgame name="pgame-grade.projects" description="Grade Projects." auto="false" access="moderator">
@@ -47,6 +49,7 @@
                     <var name="suiteId"/>
                 </ins>
             </declaration>
+            <timer extension="10000"/>
         </pgame>
         
         <pgame name="pgame-create.cct" description="Create a CCT instance." auto="true">
@@ -70,6 +73,7 @@
                     <var name="cctId"/>
                 </ins>
             </declaration>
+            <timer extension="60000"/>
         </pgame>
         
         <pgame name="pgame-cvo.cst" description="Concerns Synthesis Tool" auto="false" access="all">
@@ -79,6 +83,7 @@
                     <var name="cctId"/>
                 </ins>
             </declaration>
+            <timer extension="60000"/>
         </pgame>
         
         <pgame name="pgame-publish.theme" description="Publish Themes." auto="true">
@@ -103,6 +108,7 @@
                     <var name="isid"/>
                 </ins>
             </declaration>
+            <timer extension="60000"/>
         </pgame>
         
         <pgame name="pgame-create.criteria.suite" description="Create a criteria suite." auto="true">
@@ -121,6 +127,7 @@
                     <var name="suiteId"/>
                 </ins>
             </declaration>
+            <timer extension="10000"/>
         </pgame>
         
         <pgame name="pgame-create.package.suite" description="Create a package suite." auto="true">
@@ -136,7 +143,8 @@
     
     
     <pmethods>
-        <pmethod name="pmethod-init.projects" description="Initialize Projects">
+    
+        <pmethod name="pmethod-init.situation" description="Initialize Projects">
             <declaration>
                 <outs>
                     <var name="pmethod.proj_suite_id"/>
@@ -187,18 +195,75 @@
                 </branch>
             </sequence>
         </pmethod>
+        
+        <pmethod name="pmethod-cvo" description="Concern Value Object">
+            <declaration>
+                <outs>
+                    <var name="pmethod.cct_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pgame name="pgame-create.cct">
+                    <declaration>
+                        <outs>
+                            <var name="cct_id" ref="pmethod.cct_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <branch>
+                    <sequence>
+                        <pgame name="pgame-cvo.cct">
+                            <declaration>
+                                <ins>
+                                    <var name="cctId" ref="pmethod.cct_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                    <sequence>
+                        <pgame name="pgame-cvo.cst">
+                            <declaration>
+                                <ins>
+                                    <var name="cctId" ref="pmethod.cct_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                </branch>
+                <pgame name="pgame-publish.theme">
+                    <declaration>
+                        <ins>
+                            <var name="cct_id" ref="pmethod.cct_id"/>
+                        </ins>
+                        <outs>
+                            <var name="is_id" ref="pmethod.theme_isid"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-cvo.sdc">
+                    <declaration>
+                        <ins>
+                            <var name="isid" ref="pmethod.theme_isid"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+            </sequence>
+        </pmethod>
+        
     </pmethods>
     
     
     <meetings>
+    
         <meeting name="meeting-init.situation" description="Initialize Decision Situation">
             <declaration>
                 <outs>
-                    <var name="meeting.suite_id"/>
+                    <var name="meeting.proj_suite_id"/>
+                    <var name="meeting.fund_suite_id"/>
                 </outs>
             </declaration>
             <sequence>
-                <pmethod name="pmethod-init.projects">
+                <pmethod name="pmethod-init.situation">
                     <declaration>
                         <outs>
                             <var name="pmethod.proj_suite_id" ref="meeting.proj_suite_id"/>
@@ -208,6 +273,25 @@
                 </pmethod>
             </sequence>
         </meeting>
+        
+        <meeting name="meeting-cvo" description="Concern Value Object">
+            <declaration>
+                <outs>
+                    <var name="meeting.cct_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-cvo">
+                    <declaration>
+                        <outs>
+                            <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                            <var name="pmethod.theme_isid" ref="meeting.theme_isid"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
     </meetings>
     
     
@@ -219,6 +303,13 @@
                         <outs>
                             <var name="meeting.proj_suite_id" ref="situation.proj_suite_id"/>
                             <var name="meeting.fund_suite_id" ref="situation.fund_suite_id"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+                <meeting name="meeting-cvo">
+                    <declaration>
+                        <outs>
+                            <var name="meeting.cct_id" ref="situation.cct_id"/>
                         </outs>
                     </declaration>
                 </meeting>
