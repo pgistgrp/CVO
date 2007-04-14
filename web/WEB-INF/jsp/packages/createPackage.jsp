@@ -64,7 +64,7 @@
 				PackageAgent.setFundingToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
-							alert("Funding alt " + altId + " was successfully set to " + deleting); //replace with saving indicator later
+							alert("Funding alt " + altRefId + " was successfully set to " + deleting); //replace with saving indicator later
 							updateSummary(data);
 						}else{
 							alert(data.reason);
