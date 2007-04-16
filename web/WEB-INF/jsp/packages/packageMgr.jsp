@@ -35,7 +35,7 @@
 <script type="text/javascript">
 
 myPackages = [];
-alert("${suiteId}");
+var pkgSuiteId = "${pkgSuiteId}";
 function addMyPackage(){
 	var myPackage = $F('packageDesc');
 	myNewPackages = myPackages.push(myPackage);
@@ -51,10 +51,11 @@ function listMyPackages(myPackages){
 	}
 }
 
-function createPackages(){
+function createClusteredPackages(){
 	$('newtable').innerHTML = '<img src="/images/indicator_arrows.gif" /> Clustering Packages';
-	//alert("suiteId: " + suiteId + " param2: " + param2 + " param3: " + param3 + " param4: " + param4); 
-	PackageAgent.createPackages({suiteId:suiteId}, {
+	var pkgCount = $F('pkgCount');
+	//alert("pkgSuiteId: " + pkgSuiteId + " pkgCount: " + pkgCount);
+	PackageAgent.createClusteredPackages({pkgSuiteId:pkgSuiteId, pkgCount:pkgCount}, {
 		callback:function(data){
 			if (data.successful){
 				getClusteredPackages();
@@ -63,14 +64,14 @@ function createPackages(){
 			}
 		},
 		errorHandler:function(errorString, exception){ 
-		alert("PackageAgent.createPackages( error:" + errorString + exception);
+		alert("PackageAgent.createClusteredPackages( error:" + errorString + exception);
 		}
 	});
 }
 
 function createClusteredPackage(){
 	var description = $F('packageDesc');
-	PackageAgent.createClusteredPackage({suiteId:suiteId,description:description}, {
+	PackageAgent.createClusteredPackage({pkgSuiteId:pkgSuiteId,description:description}, {
 		callback:function(data){
 			if (data.successful){
 				getClusteredPackages();
@@ -85,8 +86,7 @@ function createClusteredPackage(){
 }
 
 function getClusteredPackages(){
-	//alert("suiteId: " + suiteId); 
-	PackageAgent.getClusteredPackages({suiteId:suiteId}, {
+	PackageAgent.getClusteredPackages({pkgSuiteId:pkgSuiteId}, {
 		callback:function(data){
 			if (data.successful){
 				$('newtable').innerHTML= data.html;
@@ -137,14 +137,14 @@ td.col1 a {display:block;text-decoration:underline;}
 	<p class="floatLeft">
 		<span class="floatLeft padding5"> How many packages do you want? </span> 
 		<span class="floatRight">
-			<select>
+			<select id="pkgCount">
 				<option>3</option>
 				<option>4</option>
 				<option>5</option>
 				<option>6</option>
 				<option>7</option>
 			</select>
-			<input type="button" class="padding5" onclick="createPackages();" value="Create Packages">
+			<input type="button" class="padding5" onclick="createClusteredPackages();" value="Create Packages">
 		</span> </p>
 	</span> <span class="floatRight" style="width:49%">
 	<h3 class="headerColor">Manually Created Packages</h3>
@@ -165,6 +165,9 @@ td.col1 a {display:block;text-decoration:underline;}
 		click the button below to create the discussion rooms</p>
 	<input type="button" value="Publish Packages" class="padding5">
 </div>
+<script type="text/javascript" charset="utf-8">
+	getClusteredPackages();
+</script>
 <!-- end container -->
 <!-- End footer -->
 </body>
