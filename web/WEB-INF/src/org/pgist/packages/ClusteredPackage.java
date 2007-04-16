@@ -25,6 +25,8 @@ public class ClusteredPackage extends Package {
     
     private boolean manual;
     
+    private float totalCostForAvgResident;
+    
     private float totalCost;
     
     private float totalFunding;
@@ -33,7 +35,26 @@ public class ClusteredPackage extends Package {
     
     protected Set<FundingSourceAltRef> fundAltRefs = new HashSet<FundingSourceAltRef>();
 
+    
+    
     /**
+     * @hibernate.property
+	 * @return the totalCostForAvgResident
+	 */
+	public float getTotalCostForAvgResident() {
+		return totalCostForAvgResident;
+	}
+
+
+	/**
+	 * @param totalCostForAvgResident the totalCostForAvgResident to set
+	 */
+	public void setTotalCostForAvgResident(float totalCostForAvgResident) {
+		this.totalCostForAvgResident = totalCostForAvgResident;
+	}
+
+
+	/**
      * @hibernate.property
      */
     public boolean isManual() {
