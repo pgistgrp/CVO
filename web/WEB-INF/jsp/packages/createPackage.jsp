@@ -146,6 +146,25 @@
 				}*/
 			}
 			
+			function createMyPackage(){
+				var limit= $F('avgPersonLimit')
+				
+				//alert("usrPkgId: " + usrPkgId + " limit: " + limit); 
+				PackageAgent.createMyPackage({usrPkgId:pkgId,limit:limit}, {
+					callback:function(data){
+						if (data.successful){
+							alert("it worked");
+							updateSummary(data);
+						}else{
+							alert(data.reason);
+						}
+					},
+					errorHandler:function(errorString, exception){ 
+					alert("PackageAgent.createMyPackage( error:" + errorString + exception);
+					}
+				});
+			}
+			
 			
 			
 			/* *************** START MAPPING FUNCTIONS *************** */
@@ -205,7 +224,14 @@
 					<!-- end TOP SUMMARY -->
 					<div class="clearBoth"></div>
 					<h3>Select Projects to Include in your Package</h3>
-					<input type="button" class="helpMeButton" onclick="window.open('helpme.do?pkgId=${userPkg.id}','helpMe','width=730,height=500,resizable=yes,scrollbars=yes');" value="Help me" />
+					<input type="button" class="helpMeButton" onclick="new Effect.toggle('helpMe', 'blind', {duration:0.3})" value="Choose for me" />
+					<div id="helpMe" style="display:none;">
+						<form action="javascript:createMyPackage();">
+							<p><label>Average Person Limit</label> <input type="text" id="avgPersonLimit" /></p>
+							<p><input type="submit" value="Go!"/></p>
+						</form>
+						<p><a href="javascript:window.open('tuner.do?userPkgId=${userPkg.id}','helpMe','width=730,height=500,resizable=yes,scrollbars=yes'); void(0);">Tune This!</a></p>
+					</div>
 					<!-- begin collapsible list of projects -->
 					<table cellpadding=0 cellspacing=0>
 						<!-- begin CATEGORY LABEL -->
@@ -239,19 +265,20 @@
 										</td>
 									</tr>
 									<!-- end PROJECT -->
-									<tr class="objectives" id="objective1">
+									<tr class="objectives" id="objective${projectRef.id}">
 										<td colspan="3">
 											<table>
+												<c:set var="doNothing"value="true"/>
 												<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
 													<tr>
 														<td>
 															<label>
 																<c:choose>
 																	<c:when test="${projectRef.project.inclusive}">
-																		<input type="radio" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "CHECKED" : ""} name="project-${project.id}" id="alt-${altRef.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
+																		<input type="radio" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
 																	</c:when>
 																	<c:otherwise>
-																		<input type="checkbox" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "CHECKED" : ""} name="proj-${project.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
+																		<input type="checkbox" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
 																	</c:otherwise>
 																</c:choose>
 																${altRef.alternative.name}
@@ -259,12 +286,15 @@
 														</td>
 														<td class="cost">$${altRef.alternative.cost} million</td>
 													</tr>
+													<c:if test="${pg:contains(userPkg.projAltRefs,altRef)}">
+														<c:set var="doNothing"value="false"/>
+													</c:if>
 												</c:forEach>
 												<c:if test="${projectRef.project.inclusive}">
 													<tr>
 														<td>
-															<label>
-															<input type="radio" checked="checked" onchange="cancelSelection('${projectRef.project.id}', 'project')" />
+															<label>****${doNothing}
+															<input type="radio" ${(doNothing) ? "checked" : ""}  onchange="cancelSelection('${projectRef.project.id}', 'project')" name="project-${projectRef.project.id}"  />
 															Do nothing</label>
 														</td>
 														<td class="cost">&nbsp;</td>
@@ -304,22 +334,27 @@
 							</tr>
 							<!-- end FUNDING source -->
 							<!-- begin OPTIONS -->
+							<c:set var="doNothing"value="true"/>
 							<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
 								<tr>
 									<td class="fundingSourceItem">
 										<label>
-										<input type="radio" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onchange="setFundingToUserPkg('${altRef.id}', this.checked)" />
+										<input type="radio" ${(pg:contains(userPkg.fundAltRefs,altRef)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onchange="setFundingToUserPkg('${altRef.id}', this.checked)" />
 										${altRef.alternative.name}</label>
 									</td>
 									<td>${altRef.alternative.revenue}</td>
 									<td>$${altRef.alternative.avgCost}</td>
 									<td>???</td>
 								</tr>
+
+								<c:if test="${pg:contains(userPkg.fundAltRefs,altRef)}">
+									<c:set var="doNothing"value="false"/>
+								</c:if>
 							</c:forEach>
 							<tr>
 								<td class="fundingSourceItem">
 									<label>
-									<input type="radio" name="source-${fundingRef.source.id}" onchange="cancelSelection('${fundingRef.source.id}', 'source')" />
+									<input type="radio" ${(doNothing) ? "CHECKED" : ""} name="source-${fundingRef.source.id}" onchange="cancelSelection('${fundingRef.source.id}', 'source')" />
 									Do nothing</label>
 								</td>
 								<td class="cost">&nbsp;</td>

@@ -17,27 +17,27 @@
 		[ ] Add "negative" and "positive" CSS classes - to indicate balance color (Adam)
 		[ ] Test and Refine (Jordan)
 #### -->
-**** ${package}
+
 <table>
 	<tr>
 		<td><h3>Total Cost</h3></td>
-		<td>${userPackage.totalCost} million</td>
+		<td>${package.totalCost} million</td>
 	</tr>
 	<tr>
 		<td><h3>Total funding</h3></td>
-		<td>${userPackage.totalFunding} million</td>
+		<td>${package.totalFunding} million</td>
 	</tr>
 	<tr>
 		<td><strong>Cost to you:</strong></td>
-		<td>${userPackage.yourCost} per year</td>
+		<td>${package.yourCost} per year</td>
 	</tr>
 	<tr>
 		<td><strong>Cost to the average resident:</strong></td>
-		<td>${userPackage.avgCost} per year</td>
+		<td>${package.avgResidentCost} per year</td>
 	</tr>
 	<tr>
 		<td><strong>Number of projects in your package:</strong></td>
-		<td>${fn:length(userPackage.projects)}</td>
+		<td>${fn:length(package.projAltRefs)}</td>
 	</tr>
 </table>
 	<div id="balance" class="balance">
