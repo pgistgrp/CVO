@@ -24,7 +24,7 @@ import org.pgist.util.WebUtils;
  * The action accepts the following parameters:
  * <ul>
  *   <li>pkgSuiteId - the id of a specified PackageSuite object</li>
- *   <li>packSuiteId - the id of a specified PackageSuite object</li>
+ *   <li>projSuiteId - the id of a specified PackageSuite object</li>
  *   <li>fundSuiteId - the id of a specified FundingSuite object</li>
  * </ul>
  * 

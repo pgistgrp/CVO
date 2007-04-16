@@ -6,6 +6,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.criteria.CriteriaService;
 import org.pgist.criteria.CriteriaSuite;
+import org.pgist.funding.FundingService;
+import org.pgist.projects.ProjectService;
 import org.pgist.util.WebUtils;
 
 
@@ -17,11 +19,15 @@ import org.pgist.util.WebUtils;
  * The action always accepts the following parameters:
  * <ul>
  *   <li>usrPkgId - the id of the user package PackageSuite object</li>
+ *   <li>projSuiteId - the id of a specified PackageSuite object</li>
+ *   <li>fundSuiteId - the id of a specified FundingSuite object</li>   
  * </ul>
  * 
  * The action will forward to page of "view", the following variables are available in jsp:
  * <ul>
- *   <li>userPkgId - the userPkgId</li>
+ *   <li>userPkg - a UserPackage object</li>
+ *   <li>projectRefs - a collection of all the projectAltRefs associated with this suite</li>
+ *   <li>fundingRefs - a collection of all the fundingAltRefs associated with this suite</li>   
  * </ul>
  * 
  * 
@@ -38,6 +44,19 @@ public class UserPackageCreatorTunerAction extends Action {
         this.packageService = packageService;
     }
 
+    
+    private ProjectService projectService;
+    
+    public void setProjectService(ProjectService projectService) {
+        this.projectService = projectService;
+    }
+
+    private FundingService fundingService;
+    
+    public void setFundingService(FundingService fundingService) {
+        this.fundingService = fundingService;
+    }
+    
     /*
      * ------------------------------------------------------------------------
      */
@@ -50,11 +69,24 @@ public class UserPackageCreatorTunerAction extends Action {
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
     	String tempUsrPkgId = request.getParameter("usrPkgId");
+    	String tempProjSuiteId = request.getParameter("projSuiteId");
+    	String tempFundSuiteId = request.getParameter("fundSuiteId");
+    	
+    	
     	if(tempUsrPkgId != null) {
     		Long usrPkgId = new Long(tempUsrPkgId);
+    		Long projSuite = new Long(tempProjSuiteId);
+    		Long fundSuite = new Long(tempFundSuiteId);
     		
-        	request.setAttribute("usrPkgId", usrPkgId);
-       	}    	
+    		//Get the current users package
+    		UserPackage uPack = this.packageService.getUserPackage(usrPkgId);
+    		
+    		request.setAttribute("projectRefs", projectService.getProjectSuite(projSuite).getReferences());
+    		request.setAttribute("fundingRefs", fundingService.getFundingSuite(fundSuite).getReferences());
+    		
+    		//Return the user package
+    		request.setAttribute("userPkg", uPack);
+    	}    	
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

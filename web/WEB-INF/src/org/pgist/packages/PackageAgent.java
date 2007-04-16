@@ -246,7 +246,7 @@ System.out.println("MATT: Creating my package with a limit of " + limit);
         
         try {
             Long pkgId = new Long((String) params.get("pkgId"));
-            UserPackage userPkg = this.packageService.getPackage(pkgId);
+            UserPackage userPkg = this.packageService.getUserPackage(pkgId);
             request.setAttribute("package", userPkg);
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/createPackage_summary.jsp"));            
             map.put("successful", true);

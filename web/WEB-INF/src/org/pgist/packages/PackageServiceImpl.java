@@ -113,6 +113,8 @@ public class PackageServiceImpl implements PackageService {
 		return uPack;
 	}
 
+	
+
 	public UserPackage deleteFundingAlternative(Long usrPkgId, Long funAltRefId) throws Exception {
 		//Get the user package
 		UserPackage uPack = this.packageDAO.getUserPackage(usrPkgId);
@@ -142,7 +144,7 @@ public class PackageServiceImpl implements PackageService {
 	 * @param	pkgId	The ID of the package you are interested in
 	 * @return	The user package
 	 */
-	public UserPackage getPackage(Long pkgId) throws Exception {
+	public UserPackage getUserPackage(Long pkgId) throws Exception {
 		return this.packageDAO.getUserPackage(pkgId);		
 	}
 	
