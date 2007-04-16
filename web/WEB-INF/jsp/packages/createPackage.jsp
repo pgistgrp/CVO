@@ -76,9 +76,32 @@
 				});
 			}
 			
+			function cancelSelection(groupId,type) {
+				alts = document.getElementsByName(type + "-"+ groupId)
+				for (var i=0; i < alts.length; i++) {
+					start = alts[i].id.indexOf('-') + 1;
+					stop = alts[i].id.length;
+					id = alts[i].id.substring(start,stop);
+					
+					if(id != ""){
+						if(type=="project"){
+							//alert("setting project to user package...");
+							setProjectToUserPkg(id, "false");
+						}else{ //source
+							//alert("setting funding to user package...");
+							setFundingToUserPkg(id, "false");
+						}
+					}
+					
+				};
+			}
+			
 			function setProjectToUserPkg(altRefId,checked){
 				var deleting = (checked == false) ? "true" : "false"
-				alert("pkgId: " + pkgId + " altRefId: "+ altRefId +" deleting: " + deleting); 
+				
+				//deal with radio buttons
+				
+				//alert("pkgId: " + pkgId + " altRefId: "+ altRefId +" deleting: " + deleting); 
 				PackageAgent.setProjectToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
@@ -106,6 +129,8 @@
 					$('submitPackage').disable(); //disable submit button
 				}*/
 			}
+			
+			
 			
 			/* *************** START MAPPING FUNCTIONS *************** */
 			
@@ -208,7 +233,7 @@
 															<label>
 																<c:choose>
 																	<c:when test="${projectRef.project.inclusive}">
-																		<input type="radio" name="proj-${project.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
+																		<input type="radio" name="project-${project.id}" id="alt-${altRef.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
 																	</c:when>
 																	<c:otherwise>
 																		<input type="checkbox" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "CHECKED" : ""} name="proj-${project.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
@@ -224,7 +249,7 @@
 													<tr>
 														<td>
 															<label>
-															<input type="radio" checked="checked" name="proj-${project.id}" onchange="setProjectToUserPkg('${altRef.id}', 'false')" />
+															<input type="radio" checked="checked" onchange="cancelSelection('${projectRef.project.id}', 'project')" />
 															Do nothing</label>
 														</td>
 														<td class="cost">&nbsp;</td>
@@ -268,7 +293,7 @@
 								<tr>
 									<td class="fundingSourceItem">
 										<label>
-										<input type="radio" name="source-${fundingRef.source.id}" onchange="setFundingToUserPkg('${altRef.id}', this.checked)" />
+										<input type="radio" name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onchange="setFundingToUserPkg('${altRef.id}', this.checked)" />
 										${altRef.alternative.name}</label>
 									</td>
 									<td>${altRef.alternative.revenue}</td>
@@ -279,7 +304,7 @@
 							<tr>
 								<td class="fundingSourceItem">
 									<label>
-									<input type="radio" checked="checked" name="source-${fundingRef.source.id}" onchange="setFundingToUserPkg('${altRef.id}', 'false')" />
+									<input type="radio" checked="checked" name="source-${fundingRef.source.id}" onchange="cancelSelection('${fundingRef.source.id}', 'source')" />
 									Do nothing</label>
 								</td>
 								<td class="cost">&nbsp;</td>
