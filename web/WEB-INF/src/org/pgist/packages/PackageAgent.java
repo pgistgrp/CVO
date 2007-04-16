@@ -119,7 +119,7 @@ System.out.println("MATT: Making the packages pkgCount[" +pkgCount + "] + pkgSui
             request.setAttribute("packages", packages);
 
             //request.setAttribute("packages", pSuite.getClusteredPkgs());
-            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/package/packageMgr_packages.jsp"));            
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/packageMgr_packages.jsp"));            
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
