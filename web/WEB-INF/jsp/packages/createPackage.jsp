@@ -264,7 +264,7 @@
 													<tr>
 														<td>
 															<label>
-															<input type="radio" onchange="cancelSelection('${projectRef.project.id}', 'project')" />
+															<input type="radio" checked="checked" onchange="cancelSelection('${projectRef.project.id}', 'project')" />
 															Do nothing</label>
 														</td>
 														<td class="cost">&nbsp;</td>
