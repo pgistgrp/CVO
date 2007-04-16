@@ -14,9 +14,9 @@
 	</tr>
 	<c:forEach var="package" items="${packages}" varStatus="loop">
 		<tr>
-			<td class="col1"><a href="#">${loop.index}</a></td>
+			<td class="col1"><a href="package.do?id=${package.id}">${loop.index}</a></td>
 			<td>$${package.totalCost} Billion</td>
-			<td>$${package.totalCostForAvgResident}year</td>
+			<td>$${package.totalCostForAvgResident}/year</td>
 		</tr>
 	</c:forEach>
 </table>

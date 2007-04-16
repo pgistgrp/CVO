@@ -68,6 +68,22 @@ function createPackages(){
 	});
 }
 
+function createClusteredPackage(){
+	var description = $F('packageDesc');
+	PackageAgent.createClusteredPackage({suiteId:suiteId,description:description}, {
+		callback:function(data){
+			if (data.successful){
+				getClusteredPackages();
+			}else{
+				alert(data.reason);
+			}
+		},
+		errorHandler:function(errorString, exception){ 
+		alert("PackageAgent.createClusteredPackage( error:" + errorString + exception);
+		}
+	});
+}
+
 function getClusteredPackages(){
 	//alert("suiteId: " + suiteId); 
 	PackageAgent.getClusteredPackages({suiteId:suiteId}, {
@@ -139,7 +155,7 @@ td.col1 a {display:block;text-decoration:underline;}
 		<input type="text" name="packagedescription" 
 			style="width:100%;" id="packageDesc">
 		<p class="floatRight">
-			<input type="button" value="Add Package" class="padding5" onClick="addMyPackage()">
+			<input type="button" value="Add Package" class="padding5" onClick="createClusteredPackage()">
 		</p>
 	</div>
 	</span>
