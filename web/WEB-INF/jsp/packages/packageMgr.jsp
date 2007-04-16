@@ -19,83 +19,157 @@
 		[ ] BareBones JavaScript/JSTL (Jordan)
 		[ ] Test and Refine (Jordan)
 #### -->
-<html:html> 
+<html:html>
 <head>
-<title>Manage Packages</title>
-<!-- Site Wide JavaScript -->
+<title>LIT - Moderator Package Manager</title>
+<!-- Site Wide JS -->
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-<!-- End Site Wide JavaScript -->
-
-<!-- DWR JavaScript Libraries -->
+<script src="scripts/search.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
-<!-- End DWR JavaScript Libraries -->
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 
-<script>
-// Global Variables
-// End global Variables
+<script type='text/javascript' src='/dwr/interface/PackageAgent.js'></script>
+<script type="text/javascript">
+
+myPackages = [];
+
+function addMyPackage(){
+	var myPackage = $F('packageDesc');
+	myNewPackages = myPackages.push(myPackage);
+	listMyPackages(myPackages);
+}
+
+function listMyPackages(myPackages){
+	var manualPackagesList = $('manualPackages')
+	manualPackagesList.innerHTML = '';
+	for (var i = 0; i < myPackages.length; i++){
+		manualPackagesList.innerHTML += '<br>' + 
+		'<p class="floatLeft clearfix"> <span class="floatLeft" style="width:75%"> <a href="#">' + myPackages[i] + '</a></span> <span class="floatRight">[ <a href="#">Edit</a> ] [ <a href="#">Delete</a> ]</span> </p>';
+	}
+}
+
+function createPackages(){
+	//alert("param1: " + param1 + " param2: " + param2 + " param3: " + param3 + " param4: " + param4); 
+	PackageAgent.createPackages({param1:param1,param2:param2,param3:param3,param4:param4}, {
+		callback:function(data){
+			if (data.successful){
+				alert(data.html)
+			}else{
+				alert(data.reason);
+			}
+		},
+		errorHandler:function(errorString, exception){ 
+		alert("PackageAgent.createPackages( error:" + errorString + exception);
+		}
+	});
+}
+	
+
 </script>
 <style type="text/css">
+@import "styles/lit.css";
+@import "styles/table.css";
+
+#newtable th, #newtable td {padding:5px;text-align:center;}<br>
+h3 {text-transform:none;}
+p {margin-left:5px;}
+tr:hover {background:#E4F1F5;}
+td.col1 a {display:block;text-decoration:underline;}
 
 </style>
 </head>
-
-
 <body>
-	<h3>Moderator Tools &raquo; Manage Packages</h3>
+<!-- #container is the container that wraps around all the main page content -->
+<div id="container">
 	<!-- begin "overview and instructions" area -->
 	<div id="overview" class="box2">
-		<h3 class="headerColor">Overview</h3>
-		<p>
-			These are the packages that will be discussed by participants in step 4a. 
-			Nam interdum. Donec accumsan, purus ut viverra pharetra, augue tellus vehicula 
-			orci, eget consectetuer neque tortor id ante. Proin vehicula imperdiet ante. 
-		</p>
+		<h3>Overview and Instructions</h3>
+		<p>These are the packages that will be discussed by participants in step 4a.</p>
 	</div>
 	<!-- end overview -->
-	 
-	<div id="auto-packages">
-		<h3 class="headerColor">Automatically Created Packages</h3>
-		<c:choose>
-			<c:when test="${testExpression}"> <!-- eventually will test if current date is less than workflow date for step 4a-->
-				<p>Participant packaes will be automatically clustered on <!-- workflow date --> (beginning of step4a)</p>
-			</c:when>
-			<c:otherwise>
-				<p>On <!--workflow date--> all participant packages were clustered into the ${fn:length(clusteredPackages.length)} below.</p> 
-				<table>
-					<tr>
-						<th>Package</th>
-						<th>Total</th>
-						<th>Total Cost to Average Resident</th>
-					</tr>
-					<c:forEach var="package" items="${clusteredPackages}" varStatus="loop">
-						<tr>
-							<td>${package.id}</td>
-							<td>${package.totalCost} Billion</td>
-							<td>${package.avgCost}/year</td>
-						</tr>
-					</c:forEach>
-				<table>
-			</c:otherwise>
-		</c:choose>
+	<h2 class="headerColor">Moderator Package Manager</h2>
+	<br>
+	<span class="floatLeft" style="width:49%;border-right:1px solid #ccc;padding-right:1%;">
+	<h3 class="headerColor">Automatically Created Packages </h3>
+	<p>Participant packages will be clustered on 11/06/07 (Beginning of Step 4a)</p>
+	<p>[On 11/06/07, participant packages were clustered into 6 packages below]</p>
+	<div id="newtable">
+		<table border="0" cellspacing="0" width="100%" class="box12">
+			<tr>
+				<th>Package</th>
+				<th>Total</th>
+				<th>Total Cost to Average Resident</th>
+			</tr>
+			<tr>
+				<td class="col1"><a href="#">1</a></td>
+				<td>$13 Billion</td>
+				<td>$230/year</td>
+			</tr>
+			<tr>
+				<td class="col1"><a href="#">2</a></td>
+				<td>$12 Billion</td>
+				<td>$160/year</td>
+			</tr>
+			<tr>
+				<td class="col1"><a href="#">3</a></td>
+				<td>$10 Billion</td>
+				<td>$350/year</td>
+			</tr>
+			<tr>
+				<td class="col1"><a href="#">4</a></td>
+				<td>$11 Billion</td>
+				<td>$150/year</td>
+			</tr>
+			<tr>
+				<td class="col1"><a href="#">5</a></td>
+				<td>$20 Billion</td>
+				<td>$200/year</td>
+			</tr>
+			<tr>
+				<td class="col1"><a href="#">6</a></td>
+				<td>$11 Billion</td>
+				<td>$150/year</td>
+			</tr>
+		</table>
 	</div>
-	
-	<div id="manual-packages">
-		<h3 class="headerColor">Manually Created Packages</h3>
-		<c:forEach var="package" items="${manualPackages}" varStatus="loop">
-			<p>${package.description} [ <a href="packageMgr.do?activity=edit&pkgId=${package.id}">edit</a> ] [ <a href="packageMgr.do?activity=delete&pkgId=${package.id}">delete</a> ]</p>
-		</c:forEach>
+	<br>
+	<h3 class="headerColor">Cluster Packages Automatically</h3>
+	<p class="floatLeft"> <span class="floatLeft padding5"> How many packages do you
+			want? </span> <span class="floatRight">
+		<select>
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+			<option>5</option>
+			<option>6</option>
+			<option>7</option>
+		</select>
+		<input type="button" class="padding5" onclick="createPackages();" value="Create Packages">
+		</span> </p>
+	</span> <span class="floatRight" style="width:49%">
+	<h3 class="headerColor">Manually Created Packages</h3>
+	<div id="manualPackages"> </div>
+	<h3 class="clearBoth headerColor"><br />
+		Add Package Manually <small>(enter package description)</small></h3>
+	<div id="newPackage" style="width:100%" class="clearfix">
+		<input type="text" name="packagedescription" 
+			style="width:100%;" id="packageDesc">
+		<p class="floatRight">
+			<input type="button" value="Add Package" class="padding5" onClick="addMyPackage()">
+		</p>
 	</div>
-	
-	<div id="finished">
-		<h3 class="headerColor">Finished?</h3>
-		<p>When you are ready to allow participants begin discussing these packages, click “publish” below to create the discussion rooms.</p>
-		<form method="POST" action="packageMgr.do?activity=publish">
-			<input type="button" value="Publish Packages!" />
-		</form>
-	</div>
-
+	</span>
+	<h3 class="headerColor clearBoth"><br />
+		Finished</h3>
+	<p>When you are ready to allow participants to begin discussing these packages,
+		click the button below to create the discussion rooms</p>
+	<input type="button" value="Publish Packages" class="padding5">
+</div>
+<!-- end container -->
+<!-- End footer -->
 </body>
 </html:html>
-
