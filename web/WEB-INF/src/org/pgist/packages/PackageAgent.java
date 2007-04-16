@@ -29,7 +29,39 @@ public class PackageAgent {
     /*
      * ------------------------------------------------------------------------
      */
-    
+
+    /**
+     * Fires off the algorithm to create a set of 5 clustered packages from the existing
+     * user packages
+     * 
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>pkgSuiteId - int, id of the package suite these packages are in</li>
+     *   </ul>
+     *   
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map createClusteredPackages(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long pkgSuiteId = new Long((String) params.get("pkgSuiteId"));
+System.out.println("MATT: Making the packages");                        
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//createClusteredPackages()    
     
     /**
      * Set (Add/Delete) a project from a user package for the current participant
@@ -124,10 +156,12 @@ System.out.println("MATT: setFundingToUserPkg: UsrPkg = " + pkgId + " altId = " 
             } else {
             	userPkg = this.packageService.addFundingAlternative(pkgId, altId);
             }
-                        
+System.out.println("MATT: 2");                        
             request.setAttribute("package", userPkg);
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/createPackage_summary.jsp"));            
             map.put("successful", true);
+System.out.println("MATT: 3");                        
+            
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
