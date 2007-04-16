@@ -25,6 +25,8 @@ public interface PackageService {
 	UserPackage createUserPackage(Long pkgSuiteId, UserInfo info) throws Exception;
 
     PackageSuite createPackageSuite() throws Exception;
+
+	UserPackage getPackage(Long pkgId) throws Exception;
     
     
 }//interface PackageService

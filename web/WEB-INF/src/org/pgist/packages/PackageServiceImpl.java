@@ -137,6 +137,17 @@ public class PackageServiceImpl implements PackageService {
 	}
 	
 	/**
+	 * Returns the user package with this specific id
+	 * 
+	 * @param	pkgId	The ID of the package you are interested in
+	 * @return	The user package
+	 */
+	public UserPackage getPackage(Long pkgId) throws Exception {
+		return this.packageDAO.getUserPackage(pkgId);		
+	}
+	
+	
+	/**
 	 * Checks first to see if the user package exist and if it doesn't then one is created and 
 	 * returned.
 	 * 
