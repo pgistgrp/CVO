@@ -117,6 +117,22 @@
 				});
 			}
 			
+			function getSummary(){
+				//alert("pkgId: " + pkgId); 
+				PackageAgent.getSummary({pkgId:pkgId}, {
+					callback:function(data){
+						if (data.successful){
+							updateSummary(data);
+						}else{
+							alert(data.reason);
+						}
+					},
+					errorHandler:function(errorString, exception){ 
+					alert("PackageAgent.getSummary( error:" + errorString + exception);
+					}
+				});
+			}
+			
 			function updateSummary(data){
 				//Render Summaries
 				$('yourSummary').innerHTML = data.html;
@@ -183,7 +199,6 @@
 				<div id="left" class="floatLeft">
 					<!-- begin TOP SUMMARY -->
 					<div id="yourSummary" class="summary">
-						<jsp:include page="/WEB-INF/jsp/packages/createPackage_summary.jsp" />
 						<!-- summary goes here -->
 					</div>
 					<input class="finishedButton" type="submit" value="Finished? Submit your package" />
@@ -233,7 +248,7 @@
 															<label>
 																<c:choose>
 																	<c:when test="${projectRef.project.inclusive}">
-																		<input type="radio" name="project-${project.id}" id="alt-${altRef.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
+																		<input type="radio" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "CHECKED" : ""} name="project-${project.id}" id="alt-${altRef.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
 																	</c:when>
 																	<c:otherwise>
 																		<input type="checkbox" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "CHECKED" : ""} name="proj-${project.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
@@ -249,7 +264,7 @@
 													<tr>
 														<td>
 															<label>
-															<input type="radio" checked="checked" onchange="cancelSelection('${projectRef.project.id}', 'project')" />
+															<input type="radio" onchange="cancelSelection('${projectRef.project.id}', 'project')" />
 															Do nothing</label>
 														</td>
 														<td class="cost">&nbsp;</td>
@@ -293,7 +308,7 @@
 								<tr>
 									<td class="fundingSourceItem">
 										<label>
-										<input type="radio" name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onchange="setFundingToUserPkg('${altRef.id}', this.checked)" />
+										<input type="radio" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onchange="setFundingToUserPkg('${altRef.id}', this.checked)" />
 										${altRef.alternative.name}</label>
 									</td>
 									<td>${altRef.alternative.revenue}</td>
@@ -304,7 +319,7 @@
 							<tr>
 								<td class="fundingSourceItem">
 									<label>
-									<input type="radio" checked="checked" name="source-${fundingRef.source.id}" onchange="cancelSelection('${fundingRef.source.id}', 'source')" />
+									<input type="radio" name="source-${fundingRef.source.id}" onchange="cancelSelection('${fundingRef.source.id}', 'source')" />
 									Do nothing</label>
 								</td>
 								<td class="cost">&nbsp;</td>
@@ -324,7 +339,6 @@
 
 				<!-- begin TOP SUMMARY -->
 				<div id="yourSummaryRepeat" class="summary">
-					<jsp:include page="/WEB-INF/jsp/packages/createPackage_summary.jsp" />
 					<!-- load summary here -->
 				</div>
 								<input class="finishedButton" type="submit" value="Finished? Submit your package" />
@@ -357,5 +371,8 @@
 		<jsp:include page="/footer.jsp" />
 	</div>
 	<!-- End footer -->
+	<script type="text/javascript" charset="utf-8">
+		getSummary();
+	</script>
 </body>
 </html>

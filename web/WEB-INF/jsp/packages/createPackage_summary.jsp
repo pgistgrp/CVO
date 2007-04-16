@@ -17,7 +17,7 @@
 		[ ] Add "negative" and "positive" CSS classes - to indicate balance color (Adam)
 		[ ] Test and Refine (Jordan)
 #### -->
-
+**** ${package}
 <table>
 	<tr>
 		<td><h3>Total Cost</h3></td>
