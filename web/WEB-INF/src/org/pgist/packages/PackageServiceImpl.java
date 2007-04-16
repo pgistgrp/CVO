@@ -83,7 +83,6 @@ public class PackageServiceImpl implements PackageService {
 			tempRef = alts.next();
 			if(tempRef.getId().equals(altId)) {
 				uPack.getProjAltRefs().remove(tempRef);
-				this.packageDAO.save(tempRef);				
 				uPack.updateCalculations();
 				this.packageDAO.save(uPack);
 				return uPack;
@@ -128,7 +127,6 @@ public class PackageServiceImpl implements PackageService {
 			tempRef = alts.next();
 			if(tempRef.getId().equals(funAltRefId)) {
 				uPack.getFundAltRefs().remove(tempRef);
-				this.packageDAO.save(tempRef);
 				uPack.updateCalculations();
 				this.packageDAO.save(uPack);
 				return uPack;
