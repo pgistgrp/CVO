@@ -31,12 +31,13 @@ public class PackageAgent {
      */
 
     /**
-     * Fires off the algorithm to create a set of 5 clustered packages from the existing
+     * Fires off the algorithm to create a limited set of clustered packages from the existing
      * user packages
      * 
      * @param params a Map contains:<br>
      *   <ul>
      *     <li>pkgSuiteId - int, id of the package suite these packages are in</li>
+     *     <li>pkgCount - int, The number of packages to reduce it to, limited to between 3 and 7</li>
      *   </ul>
      *   
      * @return a Map contains:<br>
@@ -51,7 +52,8 @@ public class PackageAgent {
         
         try {
             Long pkgSuiteId = new Long((String) params.get("pkgSuiteId"));
-System.out.println("MATT: Making the packages");                        
+            int pkgCount = new Integer((String) params.get("pkgCount"));
+System.out.println("MATT: Making the packages pkgCount[" +pkgCount + "] + pkgSuite[" + pkgSuiteId + "]");                        
             
             map.put("successful", true);
         } catch (Exception e) {
