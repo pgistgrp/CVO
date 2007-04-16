@@ -171,6 +171,7 @@ System.out.println("MATT: setProjectToUserPkg: UsrPkg = " + pkgId + " altId = " 
             	userPkg = this.packageService.addProjectAlternative(pkgId, altId);
             }
                         
+			
             request.setAttribute("package", userPkg);
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/createPackage_summary.jsp"));            
             
@@ -220,11 +221,11 @@ System.out.println("MATT: setProjectToUserPkg: UsrPkg = " + pkgId + " altId = " 
 System.out.println("MATT: setFundingToUserPkg: UsrPkg = " + pkgId + " altId = " + altId + " deleting = " + deleting + " d2 " + params.get("deleting"));            
             UserPackage userPkg;
             if(deleting) {
-            	userPkg = this.packageService.removeFundingAlternative(pkgId, altId);
+            	userPkg = this.packageService.deleteFundingAlternative(pkgId, altId);
             } else {
             	userPkg = this.packageService.addFundingAlternative(pkgId, altId);
             }
-System.out.println("MATT: 2");                        
+System.out.println("MATT: 2");
             request.setAttribute("package", userPkg);
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/createPackage_summary.jsp"));            
             map.put("successful", true);

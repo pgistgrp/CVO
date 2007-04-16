@@ -1,10 +1,11 @@
 package org.pgist.packages;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.pgist.funding.FundingSourceAltRef;
-import org.pgist.funding.FundingSourceRef;
+import org.pgist.funding.FundingSourceAlternative;
 import org.pgist.projects.ProjectAltRef;
 import org.pgist.users.User;
 
@@ -27,17 +28,35 @@ public class UserPackage extends Package {
     
     private float yourCost;
     
-    private float willingAnnualCost;
-    
-    private float willingResidentCost;
-    
-    private boolean brandnew;
-    
-    private Set<FundingSourceRef> willingSources = new HashSet<FundingSourceRef>();
-    
+    private float avgResidentCost;
+        
     protected Set<ProjectAltRef> projAltRefs = new HashSet<ProjectAltRef>();
     
     protected Set<FundingSourceAltRef> fundAltRefs = new HashSet<FundingSourceAltRef>();
+    
+    /**
+     * Recalculates all of the information about this user package
+     */
+    public void updateCalculations() {
+    	this.totalCost = 0;
+    	this.totalFunding = 0;
+    	this.avgResidentCost = 0;
+    	this.yourCost = 0;
+  
+    	Iterator<ProjectAltRef> projects = this.projAltRefs.iterator();
+    	while(projects.hasNext()) {
+    		totalCost = totalCost + (float)projects.next().getAlternative().getCost();
+    	}
+    	
+    	Iterator<FundingSourceAltRef> funding = this.fundAltRefs.iterator();
+    	FundingSourceAlternative fAlt;
+    	while(funding.hasNext()) {
+    		fAlt = funding.next().getAlternative();
+    		totalFunding = totalFunding + (float)fAlt.getRevenue();
+    		avgResidentCost = avgResidentCost + fAlt.getAvgCost();
+    	}    	
+    	
+    }
     
     
     /**
@@ -80,19 +99,20 @@ public class UserPackage extends Package {
 
 
     /**
-     * meaning: the annual cost of the current user based on the choosen funding source alternatives<br>
+     * meaning: the annual cost of the avg user based on the choosen funding source alternatives<br>
      * calculation: sum( (annual user cost) )
      * 
      * @hibernate.property
      */
-    public float getYourCost() {
-        return yourCost;
+    public float getAvgResidentCost() {
+        return avgResidentCost;
     }
 
 
-    public void setYourCost(float yourCost) {
-        this.yourCost = yourCost;
+    public void setAvgResidentCost(float yourCost) {
+        this.avgResidentCost = yourCost;
     }
+    
     
     
     /*
@@ -100,7 +120,24 @@ public class UserPackage extends Package {
      */
     
     
-    public float getBalance() {
+    /**
+	 * @return the yourCost
+     * @hibernate.property
+   	 */
+	public float getYourCost() {
+		return yourCost;
+	}
+
+
+	/**
+	 * @param yourCost the yourCost to set
+	 */
+	public void setYourCost(float yourCost) {
+		this.yourCost = yourCost;
+	}
+
+
+	public float getBalance() {
         return totalFunding - totalCost;
     }
     

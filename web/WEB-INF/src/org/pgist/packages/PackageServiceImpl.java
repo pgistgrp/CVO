@@ -110,7 +110,7 @@ public class PackageServiceImpl implements PackageService {
 		return uPack;
 	}
 
-	public UserPackage removeFundingAlternative(Long usrPkgId, Long funAltRefId) throws Exception {
+	public UserPackage deleteFundingAlternative(Long usrPkgId, Long funAltRefId) throws Exception {
 		//Get the user package
 		UserPackage uPack = this.packageDAO.getUserPackage(usrPkgId);
 				

@@ -18,7 +18,7 @@ public interface PackageService {
 
 	UserPackage addProjectAlternative(Long pkgId, Long altId) throws Exception;
 
-	UserPackage removeFundingAlternative(Long pkgId, Long funAltRefId) throws Exception;
+	UserPackage deleteFundingAlternative(Long pkgId, Long funAltRefId) throws Exception;
 
 	UserPackage addFundingAlternative(Long pkgId, Long funAltRefId) throws Exception;	
 	
