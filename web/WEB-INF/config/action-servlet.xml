@@ -111,6 +111,10 @@
         <property name="projectService" ref="projectService"/>
     </bean>    
     
+    <bean name="/helpme" class="org.pgist.packages.UserPackageCreatorTunerAction">
+        <property name="packageService" ref="packageService"/>
+    </bean>
+
     <bean name="/helpme" class="org.pgist.packages.HelpMeAction">
         <property name="packageService" ref="packageService"/>
         <property name="criteriaService" ref="criteriaService"/>

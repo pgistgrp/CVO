@@ -103,11 +103,15 @@
             <forward name="view" path="/WEB-INF/jsp/funding/fundingCalc.jsp"/>
         </action>
         
+        <action path="/helpme" scope="request" type="org.pgist.packages.UserPackageCreatorTunerAction">
+            <forward name="view" path="/WEB-INF/jsp/packages/pkgCreatorTuner.jsp"/>
+        </action>
+        
         <action path="/helpme" scope="request" type="org.pgist.packages.HelpMeAction">
             <forward name="view" path="/WEB-INF/jsp/packages/helpme.jsp"/>
             <forward name="close" path="/WEB-INF/jsp/packages/helpme_close.jsp"/>
         </action>
-        
+
         <action path="/createPackage" scope="request" type="org.pgist.packages.CreatePackageAction">
             <forward name="view" path="/WEB-INF/jsp/packages/createPackage.jsp"/>
         </action>
