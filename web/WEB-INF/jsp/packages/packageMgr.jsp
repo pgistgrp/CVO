@@ -35,7 +35,7 @@
 <script type="text/javascript">
 
 myPackages = [];
-
+alert("${suiteId}");
 function addMyPackage(){
 	var myPackage = $F('packageDesc');
 	myNewPackages = myPackages.push(myPackage);
@@ -52,17 +52,34 @@ function listMyPackages(myPackages){
 }
 
 function createPackages(){
-	//alert("param1: " + param1 + " param2: " + param2 + " param3: " + param3 + " param4: " + param4); 
-	PackageAgent.createPackages({param1:param1,param2:param2,param3:param3,param4:param4}, {
+	$('newtable').innerHTML = '<img src="/images/indicator_arrows.gif" /> Clustering Packages';
+	//alert("suiteId: " + suiteId + " param2: " + param2 + " param3: " + param3 + " param4: " + param4); 
+	PackageAgent.createPackages({suiteId:suiteId}, {
 		callback:function(data){
 			if (data.successful){
-				alert(data.html)
+				getClusteredPackages();
 			}else{
 				alert(data.reason);
 			}
 		},
 		errorHandler:function(errorString, exception){ 
 		alert("PackageAgent.createPackages( error:" + errorString + exception);
+		}
+	});
+}
+
+function getClusteredPackages(){
+	//alert("suiteId: " + suiteId); 
+	PackageAgent.getClusteredPackages({suiteId:suiteId}, {
+		callback:function(data){
+			if (data.successful){
+				$('newtable').innerHTML= data.html;
+			}else{
+				alert(data.reason);
+			}
+		},
+		errorHandler:function(errorString, exception){ 
+		alert("PackageAgent.getClusteredPackages( error:" + errorString + exception);
 		}
 	});
 }
@@ -97,58 +114,21 @@ td.col1 a {display:block;text-decoration:underline;}
 	<p>Participant packages will be clustered on 11/06/07 (Beginning of Step 4a)</p>
 	<p>[On 11/06/07, participant packages were clustered into 6 packages below]</p>
 	<div id="newtable">
-		<table border="0" cellspacing="0" width="100%" class="box12">
-			<tr>
-				<th>Package</th>
-				<th>Total</th>
-				<th>Total Cost to Average Resident</th>
-			</tr>
-			<tr>
-				<td class="col1"><a href="#">1</a></td>
-				<td>$13 Billion</td>
-				<td>$230/year</td>
-			</tr>
-			<tr>
-				<td class="col1"><a href="#">2</a></td>
-				<td>$12 Billion</td>
-				<td>$160/year</td>
-			</tr>
-			<tr>
-				<td class="col1"><a href="#">3</a></td>
-				<td>$10 Billion</td>
-				<td>$350/year</td>
-			</tr>
-			<tr>
-				<td class="col1"><a href="#">4</a></td>
-				<td>$11 Billion</td>
-				<td>$150/year</td>
-			</tr>
-			<tr>
-				<td class="col1"><a href="#">5</a></td>
-				<td>$20 Billion</td>
-				<td>$200/year</td>
-			</tr>
-			<tr>
-				<td class="col1"><a href="#">6</a></td>
-				<td>$11 Billion</td>
-				<td>$150/year</td>
-			</tr>
-		</table>
+		<!-- load clustered packages via js-->
 	</div>
 	<br>
 	<h3 class="headerColor">Cluster Packages Automatically</h3>
-	<p class="floatLeft"> <span class="floatLeft padding5"> How many packages do you
-			want? </span> <span class="floatRight">
-		<select>
-			<option>1</option>
-			<option>2</option>
-			<option>3</option>
-			<option>4</option>
-			<option>5</option>
-			<option>6</option>
-			<option>7</option>
-		</select>
-		<input type="button" class="padding5" onclick="createPackages();" value="Create Packages">
+	<p class="floatLeft">
+		<span class="floatLeft padding5"> How many packages do you want? </span> 
+		<span class="floatRight">
+			<select>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+			</select>
+			<input type="button" class="padding5" onclick="createPackages();" value="Create Packages">
 		</span> </p>
 	</span> <span class="floatRight" style="width:49%">
 	<h3 class="headerColor">Manually Created Packages</h3>
