@@ -28,6 +28,7 @@
         <include method="getClusteredPackages"/>
         <include method="setProjectToUserPkg"/>
         <include method="setFundingToUserPkg"/>
+        <include method="getSummary"/>        
     </create>
 
 
