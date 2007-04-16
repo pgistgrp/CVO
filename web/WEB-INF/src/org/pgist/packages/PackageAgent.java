@@ -31,7 +31,43 @@ public class PackageAgent {
     /*
      * ------------------------------------------------------------------------
      */
-
+    /**
+     * Using the users preferences this algorithm generates a user package
+     * 
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>usrPkgId - int, id of the UserPackage object</li>
+     *     <li>limit - float, The personal limit of this user</li>
+     *   </ul>
+     *   
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>package - a UserPackage object</li>
+     *   </ul>
+     */
+    public Map createMyPackage(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long usrPkgId = new Long((String) params.get("usrPkgId"));
+            float limit = new Float((String) params.get("limit"));
+            
+System.out.println("MATT: Creating my package with a limit of " + limit);            
+            //TODO package creation algorithm
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;    	
+    }    
+    
+    
     /**
      * Fires off the algorithm to create a limited set of clustered packages from the existing
      * user packages
@@ -55,8 +91,7 @@ public class PackageAgent {
         try {
             Long pkgSuiteId = new Long((String) params.get("pkgSuiteId"));
             int pkgCount = new Integer((String) params.get("pkgCount"));
-System.out.println("MATT: Making the packages pkgCount[" +pkgCount + "] + pkgSuite[" + pkgSuiteId + "]");                        
-            
+            //TODO clustering algorithm
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -163,7 +198,6 @@ System.out.println("MATT: Making the packages pkgCount[" +pkgCount + "] + pkgSui
             Long pkgId = new Long((String) params.get("pkgId"));
             Long altId = new Long((String) params.get("altId"));
             boolean deleting = "true".equals((String) params.get("deleting"));            
-System.out.println("MATT: setProjectToUserPkg: UsrPkg = " + pkgId + " altId = " + altId + " deleting = " + deleting);            
             UserPackage userPkg;
             if(deleting) {
             	userPkg = this.packageService.deleteProjectAlternative(pkgId, altId);
