@@ -24,6 +24,8 @@
 
     <create creator="spring" javascript="PackageAgent">
         <param name="beanName" value="packageAgent"/>
+        <include method="createClusteredPackages"/>
+        <include method="getClusteredPackages"/>
         <include method="setProjectToUserPkg"/>
         <include method="setFundingToUserPkg"/>
     </create>
