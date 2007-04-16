@@ -166,7 +166,7 @@ System.out.println("MATT: Making the packages pkgCount[" +pkgCount + "] + pkgSui
 System.out.println("MATT: setProjectToUserPkg: UsrPkg = " + pkgId + " altId = " + altId + " deleting = " + deleting);            
             UserPackage userPkg;
             if(deleting) {
-            	userPkg = this.packageService.removeProjectAlternative(pkgId, altId);
+            	userPkg = this.packageService.deleteProjectAlternative(pkgId, altId);
             } else {
             	userPkg = this.packageService.addProjectAlternative(pkgId, altId);
             }

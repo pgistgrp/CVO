@@ -14,7 +14,7 @@ public interface PackageService {
     
 	PackageSuite getPackageSuite(Long pkgId) throws Exception;
 
-	UserPackage removeProjectAlternative(Long pkgId, Long altId) throws Exception;
+	UserPackage deleteProjectAlternative(Long pkgId, Long altId) throws Exception;
 
 	UserPackage addProjectAlternative(Long pkgId, Long altId) throws Exception;
 

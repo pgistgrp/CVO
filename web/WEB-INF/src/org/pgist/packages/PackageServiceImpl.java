@@ -68,7 +68,7 @@ public class PackageServiceImpl implements PackageService {
 		return uPack;
 	}
 
-	public UserPackage removeProjectAlternative(Long usrPkgId, Long altId) throws Exception {
+	public UserPackage deleteProjectAlternative(Long usrPkgId, Long altId) throws Exception {
 		//Get the user package
 		UserPackage uPack = this.packageDAO.getUserPackage(usrPkgId);
 				
