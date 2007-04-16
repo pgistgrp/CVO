@@ -1,8 +1,10 @@
 package org.pgist.packages;
 
-import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -94,7 +96,29 @@ System.out.println("MATT: Making the packages pkgCount[" +pkgCount + "] + pkgSui
             
             PackageSuite pSuite = this.packageService.getPackageSuite(pkgSuiteId);
             
-            request.setAttribute("packages", pSuite.getClusteredPkgs());
+            Set packages = new HashSet();
+            ClusteredPackage cp = new ClusteredPackage();
+            cp.setCreateDate(new Date());
+            cp.setTotalCost(1200f);
+            cp.setTotalCostForAvgResident(40f);
+            
+            ClusteredPackage cp2 = new ClusteredPackage();
+            cp2.setCreateDate(new Date());
+            cp2.setTotalCost(121f);
+            cp2.setTotalCostForAvgResident(42f);
+            
+            ClusteredPackage cp3 = new ClusteredPackage();
+            cp3.setCreateDate(new Date());
+            cp3.setTotalCost(99f);
+            cp3.setTotalCostForAvgResident(19.95f);
+            
+            packages.add(cp);
+            packages.add(cp2);
+            packages.add(cp3);
+            
+            request.setAttribute("packages", packages);
+
+            //request.setAttribute("packages", pSuite.getClusteredPkgs());
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/package/packageMgr_packages.jsp"));            
             map.put("successful", true);
         } catch (Exception e) {
