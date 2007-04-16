@@ -9,7 +9,7 @@
 	Project: Let's Improve Transportation!
 	Page: Create My Transportation Package
 	Description: This page serves as a form for a user to create her/her own transportation package. 
-	Author: Jordan Isip, Adam Hindman, Issac Yang
+	Author: Jordan Isip, Adam Hindman
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] Integrate Adam's Layout (Jordan)
@@ -60,11 +60,11 @@
 
 			function setFundingToUserPkg(altRefId,checked){
 				var deleting = (checked == "false") ? "true" : "false"
-				alert("pkgSuiteId: " + pkgId + "altRefId: " + altRefId + " deleting: " + deleting); 
+				//alert("pkgSuiteId: " + pkgId + "altRefId: " + altRefId + " deleting: " + deleting); 
 				PackageAgent.setFundingToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
-							alert("Funding alt " + altRefId + " was successfully set to " + deleting); //replace with saving indicator later
+							//alert("Funding alt " + altRefId + " was successfully set to " + deleting); //replace with saving indicator later
 							updateSummary(data);
 						}else{
 							alert(data.reason);
