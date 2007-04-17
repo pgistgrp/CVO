@@ -60,8 +60,11 @@
 			
 			//End Global Vars
 
-			function setFundingToUserPkg(altRefId,deleting){
+			function setFundingToUserPkg(altRefId,checked){
+				//alert("checked = " +checked)
 				//alert("pkgSuiteId: " + pkgId + "altRefId: " + altRefId + " deleting: " + deleting); 
+				var deleting = !Boolean(checked); //dealing with checkboxes
+				//alert("deleting = " + deleting)
 				PackageAgent.setFundingToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
@@ -87,17 +90,17 @@
 					if(id != ""){
 						if(type=="project"){
 							//alert("setting project "+id +" to false...");
-							setProjectToUserPkg(id, "false");
+							setProjectToUserPkg(id, false);
 							if(alts[i].checked == true){
 								//alert("adding" +type+id)
-								setProjectToUserPkg(id, "true");
+								setProjectToUserPkg(id, true);
 							}
 						}else{ //source
 							//alert("setting funding to user package...");
-							setFundingToUserPkg(id, "false");
+							setFundingToUserPkg(id, false);
 							if(alts[i].checked == true){
 								//alert(type+id)
-								setFundingToUserPkg(id, "true");
+								setFundingToUserPkg(id, true);
 							}
 						}
 					}
@@ -107,7 +110,7 @@
 			
 			function setProjectToUserPkg(altRefId,checked){
 				//alert("checked = " + checked)
-				var deleting = (checked) ? false : true //dealing with checkboxes
+				var deleting = !Boolean(checked);
 				//alert(deleting)
 				//alert("pkgId: " + pkgId + " altRefId: "+ altRefId +" deleting: " + deleting); 
 				PackageAgent.setProjectToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
