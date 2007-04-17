@@ -37,6 +37,70 @@ public class PackageAgent {
      * @param params a Map contains:<br>
      *   <ul>
      *     <li>usrPkgId - int, id of the UserPackage object</li>
+     *   </ul>
+     *   
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>config - The tuner config object preloaded with values related to the existing project</li>
+     *   </ul>
+     */
+    public Map getTunerConfig(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long usrPkgId = new Long((String) params.get("usrPkgId"));
+            
+System.out.println("MATT: getting the tuner config for " + usrPkgId);            
+            //TODO return the turner package config
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;      
+    }
+    
+    /**
+     * Using the users preferences this algorithm generates a user package
+     * 
+     * @param conf	The configuration for figuring out this users package
+     * @param limit	The personal limit of this user<
+     *   
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map createMyConfiguredPackage(TunerConfig conf, float limit) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            
+System.out.println("MATT: Creating the configured package with a limit of " + limit);            
+            //TODO package creation algorithm
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;    	
+    }
+    
+    /**
+     * Using the users preferences this algorithm generates a user package
+     * 
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>usrPkgId - int, id of the UserPackage object</li>
      *     <li>limit - float, The personal limit of this user</li>
      *   </ul>
      *   
