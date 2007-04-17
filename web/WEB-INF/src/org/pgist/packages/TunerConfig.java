@@ -27,6 +27,16 @@ public class TunerConfig {
 	
 		
 	/**
+	 * The project suite involved
+	 */
+	private Long projSuiteId;
+	
+	/**
+	 * The funding suite involved
+	 */
+	private Long fundSuiteId; 
+	
+	/**
 	 * The hashmap of all the projectAltRef ID's (keys) and choices (values)
 	 */
 	private HashMap projectChoices = new HashMap();
@@ -35,6 +45,35 @@ public class TunerConfig {
 	 * The hashmap of all the fundingSourceAltRef ID's (keys) and choices (values)
 	 */
 	private HashMap fundingChoices = new HashMap();
+
+	
+	/**
+	 * @return the fundSuiteId
+	 */
+	public Long getFundSuiteId() {
+		return fundSuiteId;
+	}
+
+	/**
+	 * @param fundSuiteId the fundSuiteId to set
+	 */
+	public void setFundSuiteId(Long fundSuiteId) {
+		this.fundSuiteId = fundSuiteId;
+	}
+
+	/**
+	 * @return the projSuiteId
+	 */
+	public Long getProjSuiteId() {
+		return projSuiteId;
+	}
+
+	/**
+	 * @param projSuiteId the projSuiteId to set
+	 */
+	public void setProjSuiteId(Long projSuiteId) {
+		this.projSuiteId = projSuiteId;
+	}
 
 	/**
 	 * @return the fundingChoices

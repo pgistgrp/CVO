@@ -37,6 +37,8 @@ public class PackageAgent {
      * @param params a Map contains:<br>
      *   <ul>
      *     <li>usrPkgId - int, id of the UserPackage object</li>
+     *     <li>projSuiteId - int, id of the project suite</li>
+     *     <li>fundSuiteId - int, id of the funding suite</li>
      *   </ul>
      *   
      * @return a Map contains:<br>
@@ -52,7 +54,15 @@ public class PackageAgent {
         
         try {
             Long usrPkgId = new Long((String) params.get("usrPkgId"));
+            Long projSuiteId = new Long((String) params.get("projSuiteId"));
+            Long fundSuiteId = new Long((String) params.get("fundSuiteId"));
+            
+            TunerConfig config = new TunerConfig();
             //TODO return the turner package config
+            config.setFundSuiteId(fundSuiteId);
+            config.setProjSuiteId(projSuiteId);
+            
+            map.put("config", config);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
