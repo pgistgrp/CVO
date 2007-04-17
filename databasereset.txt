@@ -1,0 +1,49 @@
+postgis database reset
+
+-- Table: pgist_data_project_footprint
+
+-- DROP TABLE pgist_data_project_footprint;
+
+CREATE TABLE pgist_data_project_footprint
+(
+  id integer NOT NULL DEFAULT nextval('gis_proj_footprint_id'::regclass),
+  the_geom geometry,
+  ref_prj_name text,
+  CONSTRAINT gis_project_footprint_pkey PRIMARY KEY (id)
+) 
+WITHOUT OIDS;
+ALTER TABLE pgist_data_project_footprint OWNER TO pgist;
+
+
+-- Sequence: gis_proj_footprint_id
+
+-- DROP SEQUENCE gis_proj_footprint_id;
+
+CREATE SEQUENCE gis_proj_footprint_id
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 10000
+  CACHE 1;
+ALTER TABLE gis_proj_footprint_id OWNER TO pgist;
+
+==================empty alternatives===================
+delete from pgist_project_alternatives where true
+
+==================empty projects===================
+delete from pgist_projects where true
+
+=============make a temp field to hold the footprint id============
+ALTER TABLE pgist_projects ADD COLUMN tempid bigint;
+
+=================populate projects========================
+insert into pgist_projects (id, name, description, tempid, transmode, inclusive) 
+select id, ref_prj_name as name, ref_prj_name as description, id as tempid, 1 as transmode, true as inclusive from pgist_data_project_footprint
+
+note: transmode: 1=road; 2=transit
+
+=================populate alternatives======================
+insert into pgist_project_alternatives (id, name, shortdesc, detaileddesc, cost, fpids, project_id, geotype, state, allweights. eqlweights) 
+select nextval('gis_proj_footprint_id'::regclass), ref_prj_name as name, ref_prj_name as shortdesc, 
+ref_prj_name as detaileddesc, 5 as cost, id as fpids, id as project_id, 4 as geotype, 0 as state, 0 as allweights, 0 as eqlweights from pgist_data_project_footprint
+

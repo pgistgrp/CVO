@@ -1,0 +1,2 @@
+insert into pgist_projects (name, description, tempid)
+select ref_prj_name as name,ref_prj_name as description,id as alternative_id from pgist_data_project_footprint

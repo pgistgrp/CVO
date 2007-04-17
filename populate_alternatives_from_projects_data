@@ -1,0 +1,2 @@
+insert into pgist_project_alternatives (name, detaileddesc, cost, fpids, project_id)
+select name,description, 0, tempid, id from pgist_projects
