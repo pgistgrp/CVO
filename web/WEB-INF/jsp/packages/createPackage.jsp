@@ -55,7 +55,8 @@
 <script type="text/javascript" charset="utf-8">
 			//Global Vars
 			var pkgId = "${userPkg.id}";
-		
+
+			
 			//End Global Vars
 
 			function setFundingToUserPkg(altRefId,checked){
@@ -238,7 +239,7 @@
 							<p><label>Average Person Limit</label> <input type="text" id="avgPersonLimit" /></p>
 							<p><input type="submit" value="Go!"/></p>
 						</form>
-						<p><a href="javascript:window.open('tuner.do?userPkgId=${userPkg.id}','helpMe','width=730,height=500,resizable=yes,scrollbars=yes'); void(0);">Tune This!</a></p>
+						<p><a href="javascript:window.open('tuner.do?usrPkgId=${userPkg.id}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}','helpMe','width=930,height=500,resizable=yes,scrollbars=yes'); void(0);">Tune This!</a></p>
 					</div>
 					<!-- begin collapsible list of projects -->
 					<table cellpadding=0 cellspacing=0>
