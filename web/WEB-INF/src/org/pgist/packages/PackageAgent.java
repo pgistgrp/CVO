@@ -63,11 +63,7 @@ public class PackageAgent {
             config.setFundSuiteId(fundSuiteId);
             config.setProjSuiteId(projSuiteId);
             config.setCritSuiteId(critSuiteId);
-            
-
-            //TODO return the turner package config
-            //TODO default this to maybe's and must haves
-            
+                        
             map.put("config", config);
             map.put("successful", true);
         } catch (Exception e) {
@@ -96,10 +92,7 @@ public class PackageAgent {
         map.put("successful", false);
         
         try {
-            
-System.out.println("MATT: Creating the configured package with a limit of " + limit);  
-			//TODO get the criteria info
-            //TODO package creation algorithm, if an alternative isn't in the map then its a maybe
+            this.packageService.createUserPackage(conf, limit);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,6 +109,9 @@ System.out.println("MATT: Creating the configured package with a limit of " + li
      * @param params a Map contains:<br>
      *   <ul>
      *     <li>usrPkgId - int, id of the UserPackage object</li>
+     *     <li>projSuiteId - int, id of the project suite</li>
+     *     <li>fundSuiteId - int, id of the funding suite</li>
+     *     <li>critSuiteId - int, id of the criteria suite</li>
      *     <li>limit - float, The personal limit of this user</li>
      *   </ul>
      *   
@@ -132,10 +128,18 @@ System.out.println("MATT: Creating the configured package with a limit of " + li
         
         try {
             Long usrPkgId = new Long((String) params.get("usrPkgId"));
+            Long critSuiteId = new Long((String) params.get("critSuiteId"));
+            Long projSuiteId = new Long((String) params.get("projSuiteId"));
+            Long fundSuiteId = new Long((String) params.get("fundSuiteId"));
             float limit = new Float((String) params.get("limit"));
             
-System.out.println("MATT: Creating my package with a limit of " + limit);            
-            //TODO package creation algorithm
+            TunerConfig config = new TunerConfig();
+            config.setFundSuiteId(fundSuiteId);
+            config.setProjSuiteId(projSuiteId);
+            config.setCritSuiteId(critSuiteId);
+            
+            this.packageService.createUserPackage(config, limit);
+            
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,7 +174,9 @@ System.out.println("MATT: Creating my package with a limit of " + limit);
         try {
             Long pkgSuiteId = new Long((String) params.get("pkgSuiteId"));
             int pkgCount = new Integer((String) params.get("pkgCount"));
-            //TODO clustering algorithm
+            
+            this.packageService.createClusteredPackages(pkgSuiteId, pkgCount);
+            
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

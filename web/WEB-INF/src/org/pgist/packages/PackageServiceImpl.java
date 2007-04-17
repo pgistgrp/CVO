@@ -184,11 +184,27 @@ public class PackageServiceImpl implements PackageService {
 
 
     public PackageSuite createPackageSuite() throws Exception {
-        PackageSuite suite = new PackageSuite();
-        
+        PackageSuite suite = new PackageSuite();       
         return suite;
     }//createPackageSuite()
-	
-	
+
+
+    //------------------------ Mike Lowery section ----------------------------------
+    
+	/* (non-Javadoc)
+	 * @see org.pgist.packages.PackageService#createClusteredPackages(java.lang.Long, int)
+	 */
+	public void createClusteredPackages(Long pkgSuiteId, int pkgCount) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see org.pgist.packages.PackageService#createUserPackage(org.pgist.packages.TunerConfig, float)
+	 */
+	public void createUserPackage(TunerConfig conf, float limit) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}    
 	
 }//class PackageServiceImpl

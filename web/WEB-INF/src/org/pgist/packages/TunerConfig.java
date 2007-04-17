@@ -37,6 +37,11 @@ public class TunerConfig {
 	private Long fundSuiteId; 
 	
 	/**
+	 * The criteria suite involved
+	 */
+	private Long critSuiteId; 	
+	
+	/**
 	 * The hashmap of all the projectAltRef ID's (keys) and choices (values)
 	 */
 	private HashMap projectChoices = new HashMap();
@@ -45,8 +50,21 @@ public class TunerConfig {
 	 * The hashmap of all the fundingSourceAltRef ID's (keys) and choices (values)
 	 */
 	private HashMap fundingChoices = new HashMap();
-
 	
+	/**
+	 * @return the critSuiteId
+	 */
+	public Long getCritSuiteId() {
+		return critSuiteId;
+	}
+
+	/**
+	 * @param critSuiteId the critSuiteId to set
+	 */
+	public void setCritSuiteId(Long critSuiteId) {
+		this.critSuiteId = critSuiteId;
+	}
+
 	/**
 	 * @return the fundSuiteId
 	 */

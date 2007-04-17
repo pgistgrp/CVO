@@ -28,6 +28,8 @@ public interface PackageService {
 
 	UserPackage getUserPackage(Long pkgId) throws Exception;
 
-    
+	void createUserPackage(TunerConfig conf, float limit) throws Exception;
+
+	void createClusteredPackages(Long pkgSuiteId, int pkgCount) throws Exception;
     
 }//interface PackageService
