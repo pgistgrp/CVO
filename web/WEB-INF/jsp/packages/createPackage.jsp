@@ -13,13 +13,14 @@
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] Integrate Adam's Layout (Jordan)
-		[ ] setFundingtoPkg and setProjecttoPkg (Jordan and Matt)
+		[x] setFundingtoPkg and setProjecttoPkg (Jordan and Matt)
 		[x] SuiteIds (Jordan and Matt)
-		[ ] Cost to you (Matt)
 		[x] Pull Summary Partials (Jordan and Matt)
-		[ ] pg:contains (Jordan)
+		[ ] Balance color (Jordan)
+		[ ] Clear selection prior to setting (Jordan)
+		[ ] pg:contains for initialization(Jordan)
 		[ ] What happends when user clicks on "finished"? (Jordan)
-		[ ] Funding Ordering (Matt)
+		[ ] Ordering (Matt)
 #### -->
 <html>
 <head>
@@ -229,7 +230,7 @@
 					<div id="yourSummary" class="summary">
 						<!-- summary goes here -->
 					</div>
-					<input class="finishedButton" type="submit" value="Finished? Submit your package" />
+					
 					<!-- end TOP SUMMARY -->
 					<div class="clearBoth"></div>
 					<h3>Select Projects to Include in your Package</h3>
@@ -385,7 +386,7 @@
 				<div id="yourSummaryRepeat" class="summary">
 					<!-- load summary here -->
 				</div>
-								<input class="finishedButton" type="submit" value="Finished? Submit your package" />
+
 				<!-- end TOP SUMMARY -->
 				<div class="clearBoth"></div>
 

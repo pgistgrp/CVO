@@ -40,7 +40,24 @@
 		<td>${fn:length(package.projAltRefs)}</td>
 	</tr>
 </table>
-	<div id="balance" class="balance">
-		<h3>Revenues Equal Costs</h3>
-	</div>
-<!-- ${(userPackage.balance > 0) ? 'balance':'negative'}" -->
+
+	<c:choose>
+		<c:when test="${(package.totalFunding - package.totalCost) > 0}">
+			<div id="balance" class="balance">
+				<h3>Revenues Exceed Costs</h3>
+			</div>
+		</c:when>
+		<c:when test="${(package.totalFunding - package.totalCost) == 0}">
+			<div id="balance" class="balance">
+				<h3>Revenues Equal Costs</h3>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div id="balance" class="negative">
+				<h3>Costs Exceed Revenue!</h3>
+			</div>
+		</c:otherwise>
+	</c:choose>
+
+	<input class="finishedButton" type="submit" value="Finished? Submit your package" 
+	${((package.totalFunding - package.totalCost) < 0) ? "disabled='true'" : ""} />
