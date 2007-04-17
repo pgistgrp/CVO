@@ -90,6 +90,8 @@ public class CreatePackageAction extends Action {
     		
     		request.setAttribute("projectRefs", projectService.getProjectSuite(projSuite).getReferences());
     		request.setAttribute("fundingRefs", fundingService.getFundingSuite(fundSuite).getReferences());
+    		request.setAttribute("projSuiteId", projSuite);
+    		request.setAttribute("fundSuiteId", fundSuite);
     		
     		//Return the user package
     		request.setAttribute("userPkg", uPack);
