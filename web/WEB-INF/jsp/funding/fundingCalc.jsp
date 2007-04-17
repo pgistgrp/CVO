@@ -121,7 +121,9 @@
 			});
 		}
 		
-		function getUserById(userId, section){
+		function getUserById(section){
+			userId = "${user.userId}";
+			//alert(userId)
 			FundingAgent.lookupUserById({userId:userId}, {
 				callback:function(data){
 					if (data.successful){
@@ -344,7 +346,7 @@
 			
 			<div class="clearboth">
 				<input type="button" name="calcEstimates" value="Calculate my estimates" 
-					style="clear:both;margin:1em;" class="floatRight" onClick="getUserById(${user.userId},'estimates');">
+					style="clear:both;margin:1em;" class="floatRight" onClick="getUserById('estimates');">
 			</div>
 			<div class="clearBoth"></div>
 		</div>
@@ -374,7 +376,7 @@
 		</div>
 		
 			<div class="clearboth">
-				<input type="button" name="calcEstimates" value="Generate Annual Cost Report" onclick="getUserById(${user.userId},'report');"
+				<input type="button" name="calcEstimates" value="Generate Annual Cost Report" onclick="getUserById('report');"
 					style="clear:both;margin:1em;" class="floatRight">
 			</div>
 			<div class="clearBoth"></div>
