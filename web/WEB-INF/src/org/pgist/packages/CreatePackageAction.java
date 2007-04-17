@@ -33,6 +33,8 @@ import org.pgist.util.WebUtils;
  *   <li>userPkg - a UserPackage object</li>
  *   <li>projectRefs - a collection of all the projectAltRefs associated with this suite</li>
  *   <li>fundingRefs - a collection of all the fundingAltRefs associated with this suite</li>   
+ *   <li>projSuiteId - the id of a specified PackageSuite object</li>
+ *   <li>fundSuiteId - the id of a specified FundingSuite object</li>
  * </ul>
  * 
  * Examples:

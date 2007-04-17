@@ -52,8 +52,6 @@ public class PackageAgent {
         
         try {
             Long usrPkgId = new Long((String) params.get("usrPkgId"));
-            
-System.out.println("MATT: getting the tuner config for " + usrPkgId);            
             //TODO return the turner package config
             map.put("successful", true);
         } catch (Exception e) {
