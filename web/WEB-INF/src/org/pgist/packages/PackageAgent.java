@@ -39,6 +39,7 @@ public class PackageAgent {
      *     <li>usrPkgId - int, id of the UserPackage object</li>
      *     <li>projSuiteId - int, id of the project suite</li>
      *     <li>fundSuiteId - int, id of the funding suite</li>
+     *     <li>critSuiteId - int, id of the criteria suite</li>
      *   </ul>
      *   
      * @return a Map contains:<br>
@@ -56,10 +57,13 @@ public class PackageAgent {
             Long usrPkgId = new Long((String) params.get("usrPkgId"));
             Long projSuiteId = new Long((String) params.get("projSuiteId"));
             Long fundSuiteId = new Long((String) params.get("fundSuiteId"));
+            Long critSuiteId = new Long((String) params.get("critSuiteId"));
             
             TunerConfig config = new TunerConfig();
             config.setFundSuiteId(fundSuiteId);
             config.setProjSuiteId(projSuiteId);
+            config.setCritSuiteId(critSuiteId);
+            
 
             //TODO return the turner package config
             //TODO default this to maybe's and must haves
