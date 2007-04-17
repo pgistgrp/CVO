@@ -87,17 +87,17 @@
 					if(id != ""){
 						if(type=="project"){
 							//alert("setting project "+id +" to false...");
-							setProjectToUserPkg(id, "true");
+							setProjectToUserPkg(id, "false");
 							if(alts[i].checked == true){
 								//alert("adding" +type+id)
-								setProjectToUserPkg(id, "false");
+								setProjectToUserPkg(id, "true");
 							}
 						}else{ //source
 							//alert("setting funding to user package...");
-							setFundingToUserPkg(id, "true");
+							setFundingToUserPkg(id, "false");
 							if(alts[i].checked == true){
 								//alert(type+id)
-								setFundingToUserPkg(id, "false");
+								setFundingToUserPkg(id, "true");
 							}
 						}
 					}
@@ -105,7 +105,9 @@
 				};
 			}
 			
-			function setProjectToUserPkg(altRefId,deleting){
+			function setProjectToUserPkg(altRefId,checked){
+				//alert("checked = " + checked)
+				var deleting = (checked) ? false : true //dealing with checkboxes
 				//alert(deleting)
 				//alert("pkgId: " + pkgId + " altRefId: "+ altRefId +" deleting: " + deleting); 
 				PackageAgent.setProjectToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
@@ -176,7 +178,6 @@
 					}
 				});
 			}
-			
 			
 			
 			/* *************** START MAPPING FUNCTIONS *************** */
@@ -290,7 +291,7 @@
 																		<input type="radio" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onchange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" />
 																	</c:when>
 																	<c:otherwise>
-																		<input type="checkbox" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onchange="setProjectToUserPkg('${altRef.id}', '${pg:contains(userPkg.fundAltRefs,altRef)}');" />
+																		<input type="checkbox" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked);" />
 																	</c:otherwise>
 																</c:choose>
 																${altRef.alternative.name}
