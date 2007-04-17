@@ -58,9 +58,11 @@ public class PackageAgent {
             Long fundSuiteId = new Long((String) params.get("fundSuiteId"));
             
             TunerConfig config = new TunerConfig();
-            //TODO return the turner package config
             config.setFundSuiteId(fundSuiteId);
             config.setProjSuiteId(projSuiteId);
+
+            //TODO return the turner package config
+            //TODO default this to maybe's and must haves
             
             map.put("config", config);
             map.put("successful", true);
@@ -91,8 +93,9 @@ public class PackageAgent {
         
         try {
             
-System.out.println("MATT: Creating the configured package with a limit of " + limit);            
-            //TODO package creation algorithm
+System.out.println("MATT: Creating the configured package with a limit of " + limit);  
+			//TODO get the criteria info
+            //TODO package creation algorithm, if an alternative isn't in the map then its a maybe
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
