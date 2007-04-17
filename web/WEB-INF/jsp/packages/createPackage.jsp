@@ -76,7 +76,7 @@
 				});
 			}
 			
-			function cancelSelection(groupId,type) {
+			function clearSelectionThenDefine(groupId,type) {
 				alts = document.getElementsByName(type + "-"+ groupId)
 				for (var i=0; i < alts.length; i++) {
 					start = alts[i].id.indexOf('-') + 1;
@@ -87,9 +87,17 @@
 						if(type=="project"){
 							//alert("setting project to user package...");
 							setProjectToUserPkg(id, "false");
+							if(alts[i].checked == true){
+								alert(type+id)
+								setProjectToUserPkg(id, "true");
+							}
 						}else{ //source
 							//alert("setting funding to user package...");
 							setFundingToUserPkg(id, "false");
+							if(alts[i].checked == true){
+								alert(type+id)
+								setFundingToUserPkg(id, "true");
+							}
 						}
 					}
 					
@@ -275,7 +283,7 @@
 															<label>
 																<c:choose>
 																	<c:when test="${projectRef.project.inclusive}">
-																		<input type="radio" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
+																		<input type="radio" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onchange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" />
 																	</c:when>
 																	<c:otherwise>
 																		<input type="checkbox" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
@@ -293,8 +301,8 @@
 												<c:if test="${projectRef.project.inclusive}">
 													<tr>
 														<td>
-															<label>****${doNothing}
-															<input type="radio" ${(doNothing) ? "checked" : ""}  onchange="cancelSelection('${projectRef.project.id}', 'project')" name="project-${projectRef.project.id}"  />
+															<label>
+															<input type="radio" ${(doNothing) ? "checked" : ""}  onchange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" name="project-${projectRef.project.id}"  />
 															Do nothing</label>
 														</td>
 														<td class="cost">&nbsp;</td>
@@ -339,7 +347,7 @@
 								<tr>
 									<td class="fundingSourceItem">
 										<label>
-										<input type="radio" ${(pg:contains(userPkg.fundAltRefs,altRef)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onchange="setFundingToUserPkg('${altRef.id}', this.checked)" />
+										<input type="radio" ${(pg:contains(userPkg.fundAltRefs,altRef)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onchange="clearSelectionThenDefine(${fundingRef.source.id}', 'source')" />
 										${altRef.alternative.name}</label>
 									</td>
 									<td>${altRef.alternative.revenue}</td>
@@ -354,7 +362,7 @@
 							<tr>
 								<td class="fundingSourceItem">
 									<label>
-									<input type="radio" ${(doNothing) ? "CHECKED" : ""} name="source-${fundingRef.source.id}" onchange="cancelSelection('${fundingRef.source.id}', 'source')" />
+									<input type="radio" ${(doNothing) ? "CHECKED" : ""} name="source-${fundingRef.source.id}" onchange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
 									Do nothing</label>
 								</td>
 								<td class="cost">&nbsp;</td>

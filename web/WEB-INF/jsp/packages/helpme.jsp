@@ -126,7 +126,7 @@
 <body>
 	<h1>Help Me!</h1>
 	<p>Answer the following questions so that we can suggest a package that matches your general preferences.
-		you will be able to adjust your suggested package before moving on.</p>
+		you will be able to adjust your suggested package before moving on.</p>asdfs
 		
 	<!-- Start criteria headers -->
 	<div class="criteriaListHeader">
