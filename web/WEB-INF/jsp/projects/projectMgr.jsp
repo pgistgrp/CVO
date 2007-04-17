@@ -29,7 +29,7 @@
 		[x] Short description and detailed description for project alts (Matt)
 		[x] Add descriptions to create/edit alt form(Jordan)
 		[x] JavaScript Tree menu (Jordan)
-		[ ] Persist map edits (Guirong)
+		[x] Persist map edits (Guirong)
 		[x] Links and detailed description as a rich text box editor (Jordan)
 		[ ] Play with tree script to only link the first link (Jordan)
 		[x] Polish it up a little (Adam)
@@ -155,7 +155,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 			callback:function(data, id){
 				if (data.successful){
 					getProjects();
-					setTimeout(function() {new Effect.Highlight('alt-'+ data.id, {duration:5});}, 100);
+					//setTimeout(function() {new Effect.Highlight('alt-'+ data.id, {duration:5});}, 100);
 				}else{
 					alert(data.reason);
 				}
@@ -393,7 +393,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 	var mapeditor= null;
 	function mapAlternative(id){
 		if(!mapeditor){  //if it's the first time the map is initiated:
-			mapeditor = new PGISTMapEditor('alternativeMap'+id, 600, 400);
+			mapeditor = new PGISTMapEditor('alternativeMap'+id, 600, 400, true);
 		}else{
 			if(mapeditor.targetId != id){ //decide to show or hide the map
 				mapeditor.changeToContainer('alternativeMap'+id);
@@ -516,7 +516,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 </head>
 
 
-<body>
+<body onunload="GUnload()">
 	<p><a href="main.do">Back to Moderator Control Panel</a></p>
 	<h1>Manage Projects</h1>
 	<h3>Manage all projects and their associated alternatives.</h3>

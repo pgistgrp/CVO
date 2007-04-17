@@ -39,6 +39,18 @@
 	<script type='text/javascript' src='/dwr/util.js'></script>
 	<script type="text/javascript">
 
+<!-- data accessing js -->
+<script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
+
+<!-- mapping JavaScript and stylesheet -->
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxTwM0brOpm-All5BF6PoaKBxRWWERTgXzfGnh96tes2zXXrBXrWwWigIQ"
+      type="text/javascript"></script>	
+<style type="text/css">
+    v\:* {
+      behavior:url(#default#VML);
+    }
+</style>
+
 // Loop through the 'objectives' divs, show them, and change the icon.
 			function expandAll(){
 				var rows = document.getElementsByClassName('objectives');
@@ -110,9 +122,14 @@ the column labels. */
 						}
 				});
 			}
+			
+			function load(){
+				pgistmap = new PGISTMapEditor('obj-right', 435, 485, false);
+			}
+			var pgistmap = null;
 	</script>
 	</head>
-	<body>
+	<body onload="load()" onunload="pgistmap=null;GUnload();">
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
 	<!-- begin Object -->
@@ -123,7 +140,7 @@ the column labels. */
 	
 		<!--GOOGLE MAPS GO HERE GMAN! -->
 		<div id="obj-right" class="floatRight"> 
-			<img src="/images/gmaps.gif"> 
+			<!--img src="/images/gmaps.gif"--> 
 		</div>
 		<!-- end GMAN -->
 		

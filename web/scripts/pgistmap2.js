@@ -9,11 +9,12 @@ var PGISTGeometryType = {4:"POINT", 5:"LINE", 6:"POLYGON"};
 /* 
  * Class PGISTMapEditor: used to handle map interactions when digitizing on a GMap
  * The constructor needs a GMap component
- *
- *
+ * @params
+ * mapcontainer, width, height: the DIV element that is used to contain the map, and width and height of the map
+ * enableEdit: boolean, whether or not to ebable editing
 */
 var PGISTMapEditor_Global_Accessor = null;
-var PGISTMapEditor = function(mapcontainer, width, height) {
+var PGISTMapEditor = function(mapcontainer, width, height, enableEdit) {
 	if (!GBrowserIsCompatible()) {
 		alert("Sorry, this browser is not compatible with Google Maps.");
 		return null;
@@ -35,10 +36,9 @@ var PGISTMapEditor = function(mapcontainer, width, height) {
 	this.map.mouseWheel = true;
 	this.map.setMapType(G_NORMAL_MAP);
 	
-	this.map.addControl( new PGISTMapEditToolsControl() );
-	
-	//GEvent.addDomListener(mapdiv, "DOMMouseScroll",wheelZoom); // Firefox
-	//GEvent.addDomListener(mapdiv, "mousewheel",	wheelZoom); // IE
+	if(enableEdit){
+		this.map.addControl( new PGISTMapEditToolsControl() );
+	}
 	
 	this.allowMultiplePoints = false;
 	this.mapListener = null;
@@ -91,6 +91,18 @@ PGISTMapEditor.prototype.swithchDisplay = function(){
 	vis = (vis=="none")?"":"none";
 	this._container.style.display = vis;
 };
+
+/*
+  Todo:
+ [] showProjectAlt(long altId, boolean include): add alternative to display; adjust map extent to maximum
+ [] prepareOverlays(): have all G overlays in a dictionary to be fetched by fpid
+ [] highlightAlt(long altId): remove regular diaplay of an alternative, add highlight display of that alternative
+ [] unhighlightAlt(long altId): reverse the highlight process
+ [] -->> for "map all": symbols; mouse over/out; mouse click;
+ [] -->> for "map single": symbol; mouse over/out; mouse click;
+ [] -->> for "map package": symbol; mouse over/out; mouse click;
+*/
+
 
 /*-----------------Editing interactions-----------------------*/  
 /**
@@ -260,6 +272,24 @@ PGISTMapEditor.prototype.recoverCoords=function(serialCoords){
 		}
 	}
 };
+
+/**
+ * Make GPoints out of serialized coord array. This GPoint array can then be used to make GMarkers, GPolylines
+ * or GPolygon overlays.
+ * @return
+ * <b>when to use: </b> 
+ */
+PGISTMapEditor.prototype.makeGPoints=function(serialCoords){
+	var gpoints = [];
+	for(var i=0; i<serialCoords[0].length; i++){
+		gpoints[i] = [];
+		for(var j=0; j<serialCoords[0][i].length; j=j+2){
+			gpoints[i].push(new GPoint(serialCoords[0][i][j],serialCoords[0][i][j+1]));
+		}
+	}
+	return gpoints;
+};
+
 
 /**
  * Zoom to coordinats.
