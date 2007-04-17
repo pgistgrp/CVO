@@ -50,17 +50,19 @@
 	<script type="text/javascript" charset="utf-8">
 		
 		//START Global vars
-		var pkgId = "${usrPkg.id}";
-		var fundSuiteId = "${fundSuiteId}"
-		var projSuiteId = "${projSuiteId}"
+		var usrPkgId = "${usrPkgId}";
+		var fundSuiteId = "${fundSuiteId}";
+		var projSuiteId = "${projSuiteId}";
 
 		
 		function getTunerConfig(){
-			//alert("usrPkgId: " + usrPkgId + " projSuiteId: " + projSuiteId + " fundSuiteId: " + fundSuiteId); 
+			alert("usrPkgId: " + usrPkgId + " projSuiteId: " + projSuiteId + " fundSuiteId: " + fundSuiteId); 
 			PackageAgent.getTunerConfig({usrPkgId:usrPkgId,projSuiteId:projSuiteId,fundSuiteId:fundSuiteId}, {
 				callback:function(data){
 					if (data.successful){
-						alert(data.config);
+						alert("grabbing tuner config")
+						alert("config:" + data.config)
+						//createMyConfiguredPackage(data.config);
 					}else{
 						alert(data.reason);
 					}
@@ -72,11 +74,12 @@
 		}
 		
 		function createMyConfiguredPackage(config){
+			alert("createmyconfiguredpackage config:" + config )
 			var limit= $F('avgPersonLimit');
 			PackageAgent.createMyConfiguredPackage(config, limit, {
 				callback:function(data){
 					if (data.successful){
-						alert("it worked");
+						alert("createmyconfiguredpackage worked");
 						location.href="closeWindowAndReload.jsp";
 					}else{
 						alert(data.reason);
@@ -206,7 +209,7 @@
 			</div>
 		</div>
 		<div class="clearBoth">
-		<p><input type="submit" value="Go!"/></p>
+		<p><input type="button" onClick="getTunerConfig();" value="Go!"/></p>
 
 		</div>
 	
