@@ -81,114 +81,114 @@
 	<p>Answer the following questions so that we can suggest a package that matches your general preferences.
 		you will be able to adjust your suggested package before moving on.</p>
 		*****${usrPkgId}
-		<form action="javascript:createMyConfiguredPackage();">
-			<p><label>Average Person Limit</label> <input type="text" id="avgPersonLimit" /></p>
-			<div id="left" class="floatLeft">
-				<table cellpadding=0 cellspacing=0>
-					<!-- begin CATEGORY LABEL -->
-					<tr class="tableHeading">
-						<th colspan="2" class="first">All Proposed Projects</th>
-						<th>Money Needed</th>
-					</tr>
-				
-					<c:forEach var="category" begin="1" end="2">
-						<!-- start road projects -->
-						<tr>
-							<c:choose>
-								<c:when test="${category == 1}">
-									<td class="category" colspan="3"><strong>Road Projects</strong></td>
-								</c:when>
-								<c:otherwise>
-									<td class="category" colspan="3"><strong>Transit Projects</strong></td>
-								</c:otherwise>
-							</c:choose>
-						
+		<div id="object">
+			<!-- begin NewTable-->
+			<div id="newTable">
+				<p><label>Average Person Limit</label> <input type="text" id="avgPersonLimit" /></p>
+				<div id="left" class="floatLeft">
+					<table cellpadding=0 cellspacing=0>
+						<!-- begin CATEGORY LABEL -->
+						<tr class="tableHeading">
+							<th colspan="2" class="first">All Proposed Projects</th>
+							<th>Money Needed</th>
 						</tr>
-						<!-- end CATEGORY LABEL -->
-						<!-- ******* LOOP ENTIRE PROJECT ******** -->
-						<c:forEach var="projectRef" items="${projectRefs}" varStatus="loop">
-							<c:if test="${projectRef.project.transMode == category}">						
-								<!-- begin PROJECT -->
-								<tr class="${(projectRef.project.inclusive) ? 'fundingType' : 'fundingType2'}">
-									<td class="fundingSourceItem">${projectRef.project.name} Options</td>
-									<td colspan="2">
-										${(projectRef.project.inclusive) ? 'Select at most one' : 'Select any number'}
-									</td>
-								</tr>
-								<!-- end PROJECT -->
-								<tr class="objectives" id="objective${projectRef.id}">
-									<td colspan="3">
-										<table>
-											<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
-												<tr>
-													<td>
-														<label>
+				
+						<c:forEach var="category" begin="1" end="2">
+							<!-- start road projects -->
+							<tr>
+								<c:choose>
+									<c:when test="${category == 1}">
+										<td class="category" colspan="3"><strong>Road Projects</strong></td>
+									</c:when>
+									<c:otherwise>
+										<td class="category" colspan="3"><strong>Transit Projects</strong></td>
+									</c:otherwise>
+								</c:choose>
+						
+							</tr>
+							<!-- end CATEGORY LABEL -->
+							<!-- ******* LOOP ENTIRE PROJECT ******** -->
+							<c:forEach var="projectRef" items="${projectRefs}" varStatus="loop">
+								<c:if test="${projectRef.project.transMode == category}">						
+									<!-- begin PROJECT -->
+									<tr class="${(projectRef.project.inclusive) ? 'fundingType' : 'fundingType2'}">
+										<td class="fundingSourceItem">${projectRef.project.name} Options</td>
+										<td colspan="2">
+											${(projectRef.project.inclusive) ? 'Select at most one' : 'Select any number'}
+										</td>
+									</tr>
+									<!-- end PROJECT -->
+									<tr class="objectives" id="objective${projectRef.id}">
+										<td colspan="3">
+											<table>
+												<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
+													<tr>
+														<td>
+															<label>
+																${altRef.alternative.name}
+															</label>
+														</td>
+														<td class="cost">
 															<select id="projAltSelect-${altRef.id}">
 																<option value="2">Must Have</option>
 																<option value="1">Maybe</option>
 																<option value="0">Never</option>
 															</select>
-															${altRef.alternative.name}
-														</label>
-													</td>
-													<td class="cost">$${altRef.alternative.cost} million</td>
-												</tr>
-											</c:forEach>
-										</table>
-									</td>
-								</tr>
-							</c:if>
-						</c:forEach>
+														</td>
+													</tr>
+												</c:forEach>
+											</table>
+										</td>
+									</tr>
+								</c:if>
+							</c:forEach>
 				
-						<!-- ******* END LOOP ENTIRE PROJECT ******** -->
-					</c:forEach>
-				</table>
-				<!-- end collapsible project list -->
-			</div>
-			
-			<div id="right" class="floatRight">
-				<table cellpadding=0 cellspacing=0>
-					<tr class="tableHeading">
-						<th class="first">Funding Source</th>
-						<th>Money Raised</th>
-						<th>Cost to the avg. taxpayer</th>
-						<th>Cost to you</th>
-					</tr>
-					<!-- begin FUNDING source -->
-					<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
-						<tr class="fundingType">
-							<td class="fundingSourceItem">${fundingRef.source.name}</td>
-							<td colspan="3">One option will be chosen</td>
-						</tr>
-						<!-- end FUNDING source -->
-						<!-- begin OPTIONS -->
-						<c:set var="doNothing"value="true"/>
-						<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
-							<tr>
-								<td class="fundingSourceItem">
-									<label>
-									<select id="fundAltSelect-${altRef.id}">
-										<option value="2">Must Have</option>
-										<option value="1">Maybe</option>
-										<option value="0">Never</option>
-									</select>
-									${altRef.alternative.name}</label>
-								</td>
-								<td>${altRef.alternative.revenue}</td>
-								<td>$${altRef.alternative.avgCost}</td>
-								<td>???</td>
-							</tr>
-
-							<c:if test="${pg:contains(userPkg.fundAltRefs,altRef)}">
-								<c:set var="doNothing"value="false"/>
-							</c:if>
+							<!-- ******* END LOOP ENTIRE PROJECT ******** -->
 						</c:forEach>
-					</c:forEach>
-					<!-- end OPTIONS -->
-				</table>
+					</table>
+					<!-- end collapsible project list -->
+				</div>
+			
+				<div id="right" class="floatRight">
+					<table cellpadding=0 cellspacing=0>
+						<tr class="tableHeading">
+							<th class="first">Funding Source</th>
+							<th>Money Raised</th>
+							<th>Cost to the avg. taxpayer</th>
+							<th>Cost to you</th>
+						</tr>
+						<!-- begin FUNDING source -->
+						<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
+							<tr class="fundingType">
+								<td class="fundingSourceItem">${fundingRef.source.name}</td>
+								<td colspan="3">One option will be chosen</td>
+							</tr>
+							<!-- end FUNDING source -->
+							<!-- begin OPTIONS -->
+							<c:set var="doNothing"value="true"/>
+							<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
+								<tr>
+									<td class="fundingSourceItem">
+										<label>
+										<select id="fundAltSelect-${altRef.id}">
+											<option value="2">Must Have</option>
+											<option value="1">Maybe</option>
+											<option value="0">Never</option>
+										</select>
+										${altRef.alternative.name}</label>
+									</td>
+									<td>${altRef.alternative.revenue}</td>
+									<td>$${altRef.alternative.avgCost}</td>
+									<td>???</td>
+								</tr>
+							</c:forEach>
+						</c:forEach>
+						<!-- end OPTIONS -->
+					</table>
+				</div>
+				<p><input type="submit" value="Go!"/></p>
 			</div>
-			<p><input type="submit" value="Go!"/></p>
-		</form>
+		</div>
 
 		<H1><a href="closeWindowAndReload.jsp">TEST CLOSE</a></H1>
 		
