@@ -53,7 +53,7 @@
 			</div>
 		</c:when>
 		<c:otherwise>
-			<div id="balance" class="negative">
+			<div id="balance" class="exceed">
 				<h3>Costs Exceed Revenue!</h3>
 			</div>
 		</c:otherwise>

@@ -60,8 +60,7 @@
 			
 			//End Global Vars
 
-			function setFundingToUserPkg(altRefId,checked){
-				var deleting = (checked == "false") ? "true" : "false"
+			function setFundingToUserPkg(altRefId,deleting){
 				//alert("pkgSuiteId: " + pkgId + "altRefId: " + altRefId + " deleting: " + deleting); 
 				PackageAgent.setFundingToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
 					callback:function(data){
@@ -87,18 +86,18 @@
 					
 					if(id != ""){
 						if(type=="project"){
-							//alert("setting project to user package...");
-							setProjectToUserPkg(id, "false");
+							//alert("setting project "+id +" to false...");
+							setProjectToUserPkg(id, "true");
 							if(alts[i].checked == true){
-								alert(type+id)
-								setProjectToUserPkg(id, "true");
+								//alert("adding" +type+id)
+								setProjectToUserPkg(id, "false");
 							}
 						}else{ //source
 							//alert("setting funding to user package...");
-							setFundingToUserPkg(id, "false");
+							setFundingToUserPkg(id, "true");
 							if(alts[i].checked == true){
-								alert(type+id)
-								setFundingToUserPkg(id, "true");
+								//alert(type+id)
+								setFundingToUserPkg(id, "false");
 							}
 						}
 					}
@@ -106,16 +105,13 @@
 				};
 			}
 			
-			function setProjectToUserPkg(altRefId,checked){
-				var deleting = (checked == false) ? "true" : "false"
-				
-				//deal with radio buttons
-				
+			function setProjectToUserPkg(altRefId,deleting){
+				//alert(deleting)
 				//alert("pkgId: " + pkgId + " altRefId: "+ altRefId +" deleting: " + deleting); 
 				PackageAgent.setProjectToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
-							//alert("Project alt " + altId + " was successfully set to " + deleting); //replace with saving indicator later
+				//			alert("Project alt " + altId + " was successfully set to " + deleting); //replace with saving indicator later
 							updateSummary(data);
 						}else{
 							alert(data.reason);
@@ -147,7 +143,13 @@
 				//Render Summaries
 				$('yourSummary').innerHTML = data.html;
 				$('yourSummaryRepeat').innerHTML = data.html;
+
+				if($('yourSummary').style.backgroundColor == "transparent"){
+					new Effect.Highlight('yourSummary',{duration:0.3});
+					new Effect.Highlight('yourSummaryRepeat',{duration:0.3});
+				}
 				
+
 				//Check balance - if negative balance then disable submit - maybe do this via JSP?
 				/*var balance = $('balance').innerHTML;
 				balance = parseInt(balance);
@@ -288,7 +290,7 @@
 																		<input type="radio" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onchange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" />
 																	</c:when>
 																	<c:otherwise>
-																		<input type="checkbox" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onchange="setProjectToUserPkg('${altRef.id}', this.checked)" />
+																		<input type="checkbox" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onchange="setProjectToUserPkg('${altRef.id}', '${pg:contains(userPkg.fundAltRefs,altRef)}');" />
 																	</c:otherwise>
 																</c:choose>
 																${altRef.alternative.name}
@@ -349,7 +351,7 @@
 								<tr>
 									<td class="fundingSourceItem">
 										<label>
-										<input type="radio" ${(pg:contains(userPkg.fundAltRefs,altRef)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onchange="clearSelectionThenDefine(${fundingRef.source.id}', 'source')" />
+										<input type="radio" ${(pg:contains(userPkg.fundAltRefs,altRef)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onchange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
 										${altRef.alternative.name}</label>
 									</td>
 									<td>${altRef.alternative.revenue}</td>
