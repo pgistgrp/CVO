@@ -12,7 +12,7 @@
     
     <!-- Beans Convertor -->
 
-
+    <convert converter="bean" match="org.pgist.projects.TunerConfig"/>
     <convert converter="bean" match="org.pgist.projects.Project"/>
     <convert converter="bean" match="org.pgist.projects.ProjectAlternative"/>
     <convert converter="bean" match="org.pgist.packages.Package"/>

@@ -84,6 +84,8 @@ public class UserPackageCreatorTunerAction extends Action {
     		
     		//Return the user package
     		request.setAttribute("usrPkgId", usrPkgId);
+    		request.setAttribute("projSuiteId", projSuite);
+    		request.setAttribute("fundSuiteId", fundSuite);
     	}    	
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
