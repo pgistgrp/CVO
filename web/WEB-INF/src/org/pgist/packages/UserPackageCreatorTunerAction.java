@@ -78,14 +78,12 @@ public class UserPackageCreatorTunerAction extends Action {
     		Long projSuite = new Long(tempProjSuiteId);
     		Long fundSuite = new Long(tempFundSuiteId);
     		
-    		//Get the current users package
-    		UserPackage uPack = this.packageService.getUserPackage(usrPkgId);
-    		
+   		
     		request.setAttribute("projectRefs", projectService.getProjectSuite(projSuite).getReferences());
     		request.setAttribute("fundingRefs", fundingService.getFundingSuite(fundSuite).getReferences());
     		
     		//Return the user package
-    		request.setAttribute("userPkg", uPack);
+    		request.setAttribute("usrPkgId", usrPkgId);
     	}    	
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
