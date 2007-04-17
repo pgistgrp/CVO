@@ -1,7 +1,8 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
 
 <!--####
 	Project: Let's Improve Transportation!
@@ -15,93 +16,96 @@
 		[x] Initial Skeleton Code (Jordan)
 		[ ] Txt and layout changes (Jordan and Adam)
 #### -->
-<html:html>
 
+<html:html>
 <head>
-<title>PGIST main page</title>
-<!-- Site Wide CSS -->
-<style type="text/css" media="screen">@import "styles/position.css";</style>
-<style type="text/css" media="screen">@import "styles/styles.css";</style>
-<!-- End Site Wide CSS -->
-<!-- Site Wide JS -->
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Let's Improve Transportation!</title>
 <script src="scripts/search.js" type="text/javascript"></script>
 <style type="text/css">
-
-body{text-align: center; font-size: 1.0em;}
-#smallcontainer{
-  text-align: left;
-  margin-right: auto;
-  margin-left: auto;
-  width: 350px;
-}
-
-li{color:#8CAE4A;}
-.bulletText{color:#333;}
-
-#wrapper{
-  text-align: left;
-}
-#login {
-  border: 10px solid #CCCCCC;
-  padding: 13px;
-}
-#pgistlogo {
-  text-align: center;
-}
-.red {color: #FF0000}
+	body {
+		background:url('images/home-background2.png') repeat-x #E8F7CC;
+		text-align:center;
+		margin:0px;
+		font-size:12pt;
+		font-family:Arial, Verdana, sans-serif;
+	}
+	
+	img.splash {
+		margin:auto;
+		position:relative;
+		top:1px;
+	}
+	
+	div#text {
+		width:611px;
+		margin:20px auto 0px auto;
+		text-align:left;
+		font-size:1em;
+	}
+	
+	h1 {
+		font-family:"Trebuchet MS",arial,verdana,sans-serif;
+		font-size:1.8em;
+		color:#355800;
+		letter-spacing: -2px;
+		word-spacing:-2px;
+		line-height:1.1em;
+		font-weight:400;
+	}
+	
+	ul {color:#355800;font-size:1.3em;line-height:1.3em;}
+	ul span {color:#333;}
+	
+	.right {text-align:right;}
+	a{color:#355800;}
+	
+	#login {
+		background:#D5E7A1;
+		padding:15px;
+		font-size:1.2em;
+	}
+	
+	#login div.cell {float:left;margin-right:20px;}
+	#login input {font-size:1.1em;padding:2px;}
+	
+	input#sub {
+	font-size:1.2em;
+	padding:10px;
+	margin-top:-20px;
+	}
+	
 </style>
 </head>
-
 <body>
-<br />
-<div id="smallcontainer">
-
-        <div id="pgistlogo">
-        <img src="images/mainlogo.png" alt="pgistlogo" >
-        </div>
-        <br />
-        
-        <html:form action="/login.do" method="POST" focus="user.loginname">
-          <input type="hidden" name="PG_INIT_URL" value="${param['PG_INIT_URL']}">
-          <div>
-            <table id="login">
-                      <tr>
-                        <td>User Name:</td>
-                        <td><html:text property="user.loginname"/></td>
-                      </tr>
-                      <tr>
-                        <td>Password:</td>
-                        <td><html:password property="user.password" redisplay="false"/></td>
-                      </tr>
-                      <tr>
-                        <td>&nbsp;</td>
-                        <td align="right">(<a href="register.do">Register</a>)
-                          <html:submit property="submit" value="Login"/>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colspan="2" style="color: red; font-size: .8em;"><div align="center">${userForm.reason}</div></td>
-                      </tr>
-                    </table>
-          </div>
-        </html:form>
-        
-        <div style="margin-top: 20px; ">
-          
-        <h1 style="font-size: 1.6em">Are <span style="color: #355800">you</span> concerned about transportation in the central Puget Sound region?</h1>
-<p>On this website you can:
-    <ul><li><span class="bulletText">voice your concerns,</span></li>
-    <li><span class="bulletText">learn about proposed improvements,</span></span>
-    <li><span class="bulletText">and work with other citizens to determine which improvements are most important.</span></span></ul></p>
-
-<p>How can we find common ground when there are so many competing ideas about the best ways to meet the transportation needs of our growing region? Good question! This website will help you learn about the diverse concerns of other citizens and understand how these concerns may be related to your own. Finding these relationships is the first step to identifying what kinds of transportation solutions we can all get excited about.</p>
-        
-        <p align="right" style="font-size: 1.3em"><a href="readmore.jsp">Read More</a> or <a href="register.do">Register Now</a>!</p>
-          <!--tags:discussion discussible="null" url="/test.do" count="10"/-->
-         
-        </div>
-
-</div>
+	<div><img class="splash" src="images/home-splashimage.png" alt="Let's Improve Transportation!"></div>
+	
+	<div id="text">
+		<h1>If you bus, bike, drive, or walk in the Puget
+					Sound region, this site will help you:</h1>
+		
+		<p>
+			<ul>
+				<li><span>Voice your concerns with the transportation system</span></li>
+				<li><span>Design your own improvement plan and discuss it with others</span></li>
+				<li><span>Vote on which improvements are most important</span></li>
+			</ul>
+		</p>
+		
+		<div id="login">
+			<html:form action="/login.do" method="POST" focus="user.loginname">
+				<input type="hidden" name="PG_INIT_URL" value="${param['PG_INIT_URL']}">
+				<div class="cell"><strong>User Name</strong><br /><html:text property="user.loginname"/></div>
+				<div class="cell"><strong>Password</strong>
+					<br /><html:password property="user.password" redisplay="false"/>
+				</div>
+				<div style="float:right;"><br /><html:submit styleId="sub" property="submit" value="Login"/></div>
+				<div style="clear:both"></div>
+				<span id="errors">${userForm.reason}</span>
+			</html:form>
+		</div>
+		
+		<h1 class="right">Need to <a href="register.do">Create an account</a>?</h1>
+	</div>
 </body>
 </html:html>
-
