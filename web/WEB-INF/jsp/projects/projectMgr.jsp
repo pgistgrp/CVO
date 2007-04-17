@@ -395,8 +395,12 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 		if(!mapeditor){  //if it's the first time the map is initiated:
 			mapeditor = new PGISTMapEditor('alternativeMap'+id, 600, 400);
 		}else{
-			mapeditor.changeToContainer('alternativeMap'+id);
-			mapeditor.clearInput();
+			if(mapeditor.targetId != id){ //decide to show or hide the map
+				mapeditor.changeToContainer('alternativeMap'+id);
+				mapeditor.clearInput();
+			}else{
+				mapeditor.swithchDisplay();
+			}
 		}
 		mapeditor.targetId = id;
 		
@@ -405,7 +409,6 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 	
 	/* *************** Saves the coordinates of the project alternative *************** */
 	function saveFootprint(altId, shape, coords){
-		alert("before save: altId=" + altId + "; shape=" + shape + "; coords=" + coords);
 		if(shape != "LINE" && shape != "POINT"){
 			ProjectAgent.useFootprint(altId, shape, {
 				callback:function(data){
@@ -458,17 +461,24 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 			callback:function(data){
 				if (data.successful){
 					for(fpid in data.footprints){
-						if(data.footprints[fpid].geotype == 5){ // line
+						if(data.footprints[fpid].geotype==0 ||
+							data.footprints[fpid].geotype==2 || 
+							data.footprints[fpid].geotype==5){ // line
 							mapeditor.recoverCoords(data.footprints[fpid].coords);
 							mapeditor.editGeomType = "LINE";
 							mapeditor.scaleToCoords();
 							mapeditor.drawLines();
-						}else if(data.footprints[fpid].geotype == 4){ // point
+						}else if(data.footprints[fpid].geotype==1 || 
+							data.footprints[fpid].geotype==4){ // point
 							mapeditor.recoverCoords(data.footprints[fpid].coords);
 							mapeditor.editGeomType = "POINTS";
 							mapeditor.scaleToCoords();
 							mapeditor.drawPoints();	
 						}else{ //polygon
+							mapeditor.recoverCoords(data.footprints[fpid].coords);
+							mapeditor.editGeomType = "POLYGON";
+							mapeditor.scaleToCoords();
+							mapeditor.drawPolygons();	
 							
 						}
 					}

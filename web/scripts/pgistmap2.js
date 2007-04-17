@@ -71,6 +71,9 @@ var PGISTMapEditor = function(mapcontainer, width, height) {
 	PGISTMapEditor_Global_Accessor = this;
 };
 
+/**
+ * Change the container of the map to the new target
+ */
 PGISTMapEditor.prototype.changeToContainer = function(newcontainer){
 	if(typeof(newcontainer)!='object')
 		newcontainer = document.getElementById(newcontainer);
@@ -78,6 +81,15 @@ PGISTMapEditor.prototype.changeToContainer = function(newcontainer){
 	this._container.removeChild(this._mapdiv);
 	newcontainer.appendChild(this._mapdiv);
 	this._container = newcontainer;
+};
+
+/**
+ * Hide/show the map
+ */
+PGISTMapEditor.prototype.swithchDisplay = function(){
+	var vis = this._container.style.display;
+	vis = (vis=="none")?"":"none";
+	this._container.style.display = vis;
 };
 
 /*-----------------Editing interactions-----------------------*/  
@@ -182,6 +194,18 @@ PGISTMapEditor.prototype.drawLines = function(){
 	for(i=0; i<this.coords.length; i++)
 		this.map.addOverlay(new GPolyline(this.coords[i], "#000000", 6, 0.6) );
 		
+};
+
+/**
+ * Redraw all polygons as defined by points in coords
+ * @return
+ * <b>when to use: </b> 
+ */
+PGISTMapEditor.prototype.drawPolygons = function(){
+	//this.map.clearOverlays();
+	if(!this.coords)return;
+	for(i=0; i<this.coords.length; i++)
+		this.map.addOverlay( new GPolygon(this.coords[i],"#FF0088",2,0.4,"#0000FF",0.2) );
 };
 
 /**
@@ -342,6 +366,22 @@ PGISTMapEditor.prototype.prepareCoords=function(){
 	return serialcoords;
 };
 
+/**
+ * Generate overlays that can be readily be displayed
+ * @param fpDate is returned from ProjectAgent.getFootprints(), it has the format of 
+ * @param boolean enableEdit: if true, vertex points will also be displayed
+ * <b>when to use: </b> when "delete last point" button is clicked
+ */
+PGISTMapEditor.prototype.prepareOverlays=function(fpData, enableEdit){
+	//clear exisitng
+	
+	//
+	for(fpid in fpData.footprints){
+		//
+	}
+	
+	
+};
 
 //map edit toolbar control
 
