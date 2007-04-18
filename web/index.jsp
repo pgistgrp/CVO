@@ -63,16 +63,14 @@
 	#login {
 		background:#D5E7A1;
 		padding:15px;
-		font-size:1.2em;
 	}
 	
 	#login div.cell {float:left;margin-right:20px;}
-	#login input {font-size:1.1em;padding:2px;}
+	#login input {font-size:1.2em;padding:2px;}
 	
 	input#sub {
-	font-size:1.2em;
 	padding:10px;
-	margin-top:-20px;
+	font-size:1.2em;
 	}
 	
 </style>
@@ -99,10 +97,11 @@
 				<div class="cell"><strong>Password</strong>
 					<br /><html:password property="user.password" redisplay="false"/>
 				</div>
-				<div style="float:right;"><br /><html:submit styleId="sub" property="submit" value="Login"/></div>
+				<div style="float:right;"><html:submit styleId="sub" property="submit" value="Login"/></div>
 				<div style="clear:both"></div>
 				<span id="errors">${userForm.reason}</span>
 			</html:form>
+			<div class="clearBoth"></div>
 		</div>
 		
 		<h1 class="right">Need to <a href="register.do">Create an account</a>?</h1>
