@@ -43,7 +43,8 @@
 
 <!-- mapping JavaScript and stylesheet -->
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxTwM0brOpm-All5BF6PoaKBxRWWERTgXzfGnh96tes2zXXrBXrWwWigIQ"
-      type="text/javascript"></script>	
+      type="text/javascript"></script>
+<script src="scripts/pgistmap2.js"></script>
 <style type="text/css">
     v\:* {
       behavior:url(#default#VML);
@@ -124,8 +125,44 @@ the column labels. */
 			
 			function load(){
 				pgistmap = new PGISTMapEditor('obj-right', 435, 485, false);
+				getFootprintsByAltId(${reference.alternative.id});
 			}
 			var pgistmap = null;
+			
+	/* *************** Get footprints for a given project alternative id *************** */
+	function getFootprintsByAltId(id){
+		ProjectAgent.getFootprintsByAltId({altid:id}, {
+			callback:function(data){
+				if (data.successful){
+					for(fpid in data.footprints){
+						if(data.footprints[fpid].geotype==0 ||
+							data.footprints[fpid].geotype==2 || 
+							data.footprints[fpid].geotype==5){ // line
+							pgistmap.recoverCoords(data.footprints[fpid].coords);
+							pgistmap.scaleToCoords();
+							pgistmap.drawLines();
+						}else if(data.footprints[fpid].geotype==1 || 
+							data.footprints[fpid].geotype==4){ // point
+							pgistmap.recoverCoords(data.footprints[fpid].coords);
+							pgistmap.scaleToCoords();
+							pgistmap.drawPoints();	
+						}else{ //polygon
+							pgistmap.recoverCoords(data.footprints[fpid].coords);
+							pgistmap.scaleToCoords();
+							pgistmap.drawPolygons();	
+							
+						}
+					}
+				}else{
+					alert("Something wrong happened, reason: " + data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("ProjectAgent.getFootprint( error:" + errorString + exception);
+			}
+		});
+	}
+	
 	</script>
 	</head>
 	<body onload="load()" onunload="pgistmap=null;GUnload();">
