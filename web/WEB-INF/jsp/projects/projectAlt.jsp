@@ -37,7 +37,6 @@
 	<script src="scripts/qTip.js" type="text/javascript"></script>
 	<script type='text/javascript' src='/dwr/engine.js'></script>
 	<script type='text/javascript' src='/dwr/util.js'></script>
-	<script type="text/javascript">
 
 <!-- data accessing js -->
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
@@ -50,7 +49,7 @@
       behavior:url(#default#VML);
     }
 </style>
-
+	<script type="text/javascript">
 // Loop through the 'objectives' divs, show them, and change the icon.
 			function expandAll(){
 				var rows = document.getElementsByClassName('objectives');
