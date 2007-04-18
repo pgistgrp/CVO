@@ -17,6 +17,9 @@ border-right-color:#FFE3B9;
 border-bottom-color:#FFE3B9;
 }
 
+#helpMe img {vertical-align:middle;margin-right:10px}
+#helpMe h4 {margin:3px 0px;font-size:1.1em;}
+
 /* .balance and .exceed are classes for the revenue summary.
    Balance is green and exceed is red. */
 	

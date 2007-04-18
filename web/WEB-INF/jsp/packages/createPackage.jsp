@@ -44,11 +44,7 @@
 <style type="text/css">
 	@import "styles/lit.css";
 	@import "styles/table.css";
-	@import "styles/step3c.css";
-	
-	#helpMe img {vertical-align:middle;margin-right:10px}
-	#helpMe h4 {margin:3px 0px;font-size:1.1em;}
-	
+	@import "styles/step3c.css";	
 </style>
 <script type="text/javascript" charset="utf-8">
 			//Global Vars
@@ -243,7 +239,7 @@
 					<form action="javascript:createMyPackage();">
 					<h4>Cost per year</h4>
 						<div class="floatLeft" style="width:60%">
-							<label> How much should the average person pay to fund this package? </label>
+							<label> What's the most the average person should be expected to pay to fund this package? </label>
 						</div>
 						<div class="floatRight"> <span style="font-size:1.3em;">$
 							<input type="text" size="3" id="avgPersonLimit" /></span>
