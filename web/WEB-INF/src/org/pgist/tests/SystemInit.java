@@ -17,7 +17,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.pgist.ddl.SystemHandler;
-import org.pgist.wfengine.WorkflowEngine;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
@@ -76,30 +75,17 @@ public class SystemInit extends MatchingTask {
         }
         //end code to handle classnotfound issue
         
-        if ("workflow".equalsIgnoreCase(action)) {
-            appContext = new FileSystemXmlApplicationContext(
-                new String[] {
-                    configPath + "/context-database.xml",
-                    configPath + "/context-system.xml",
-                    configPath + "/context-tasks.xml",
-                    "classpath:/config/context-workflow.xml",
-                    configPath + "/context-base.xml",
-                    configPath + "/context-cvo.xml",
-                    configPath + "/context-projects.xml",
-                    configPath + "/context-funding.xml",
-                }
-            );
-        } else {
-            appContext = new FileSystemXmlApplicationContext(
-                new String[] {
-                    configPath + "/context-database.xml",
-                    configPath + "/context-system.xml",
-                    configPath + "/context-base.xml",
-                    configPath + "/context-cvo.xml",
-                    configPath + "/context-projects.xml",
-                }
-            );
-        }
+        appContext = new FileSystemXmlApplicationContext(
+            new String[] {
+                configPath + "/context-database.xml",
+                configPath + "/context-system.xml",
+                configPath + "/context-base.xml",
+                configPath + "/context-cvo.xml",
+                configPath + "/context-projects.xml",
+                configPath + "/context-funding.xml",
+                configPath + "/context-packages.xml",
+            }
+        );
         
         sessionFactory = (SessionFactory) appContext.getBean("sessionFactory");
         session = SessionFactoryUtils.getSession(sessionFactory, true);
@@ -176,26 +162,17 @@ public class SystemInit extends MatchingTask {
             throw new BuildException(e);
         }
         
-        if ("workflow".equalsIgnoreCase(action)) {
+        try {
+            if (bInitSystem) initSystem();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BuildException(e);
+        } finally {
             try {
-                initWorkflow();
-            } catch (Exception e) {
+                tearDown();
+            } catch(Exception e) {
                 e.printStackTrace();
                 throw new BuildException(e);
-            }
-        } else {
-            try {
-                if (bInitSystem) initSystem();
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new BuildException(e);
-            } finally {
-                try {
-                    tearDown();
-                } catch(Exception e) {
-                    e.printStackTrace();
-                    throw new BuildException(e);
-                }
             }
         }
     }//execute()
@@ -221,14 +198,6 @@ public class SystemInit extends MatchingTask {
             throw e;
         }
     }//initSystem()
-    
-    
-    private void initWorkflow() throws Exception {
-        Document doc = new SAXReader().read(new File(dataPath, "LIT.xml"));
-        
-        WorkflowEngine engine = (WorkflowEngine) appContext.getBean("txEngine");
-        engine.importTemplates(doc);
-    }//initWorkflow()
     
     
 }//class SystemInit

@@ -53,7 +53,7 @@ public class SearchAction extends Action {
             searchHelper.getIndexSearcher();
             Analyzer analyzer = new StandardAnalyzer();
             Query query = QueryParser.parse(queryStr, "contents", analyzer);
-
+            
             Hits hits = indexSearcher.search(query);
             sform.setTotal(hits.length());
             final int HITS_PER_PAGE = 10;

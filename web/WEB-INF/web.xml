@@ -86,7 +86,7 @@
         <listener-class>org.pgist.web.PgistListener</listener-class>
     </listener>
     
-    <servlet>
+    <!--servlet>
         <init-param>
             <param-name>org.pgist.CONFIG_PATH</param-name>
             <param-value>/WEB-INF/config</param-value>
@@ -100,7 +100,7 @@
             <param-value>/tmp/upload_files</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
-    </servlet>
+    </servlet-->
     
     <servlet>
         <servlet-name>action</servlet-name>
