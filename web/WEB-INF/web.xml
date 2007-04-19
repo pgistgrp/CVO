@@ -42,7 +42,15 @@
         </init-param>
         <init-param>
             <param-name>ignore-url</param-name>
-            <param-value>/login.do, /register.do</param-value>
+            <param-value>
+                /login.do,
+                /register.do,
+                /dwr/interface/RegisterAgent.js,
+                /dwr/engine.js,
+                /dwr/util.js,
+                /dwr/call/plaincall/RegisterAgent.addUser.dwr,
+                /dwr/call/plaincall/RegisterAgent.createQuotaQualify.dwr
+            </param-value>
         </init-param>
     </filter>
     

@@ -15,6 +15,9 @@
         <forward name="login" path="/index.jsp" />
         <forward name="main" path="/main.jsp" />
         <forward name="register" path="/register.jsp" />
+        <forward name="register2a" path="/register2a.jsp" />
+        <forward name="register2b" path="/register2b.jsp" />
+        <forward name="registerq" path="/registerq.jsp" />
         <forward name="error" path="/error.jsp" />
         <forward name="usercp" path="/usercp.jsp" />
         <forward name="usermgr" path="/usermgr.jsp" />
@@ -37,6 +40,12 @@
         <action path="/logout" type="org.pgist.system.LogoutAction" />
         
         <action name="userForm" path="/register" scope="request" type="org.pgist.system.RegisterAction" />
+        
+        <action name="userForm" path="/register2a" scope="request" type="org.pgist.system.Register2aAction" />
+        
+        <action name="userForm" path="/register2b" scope="request" type="org.pgist.system.Register2bAction" />
+        
+        <action name="userForm" path="/registerq" scope="request" type="org.pgist.system.RegisterQuestionAction" />
         
         <action path="/feedback" scope="request" type="org.pgist.system.FeedbackAction">
             <forward name="main" path="/WEB-INF/jsp/system/feedbackMain.jsp" />

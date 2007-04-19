@@ -9,7 +9,7 @@ import org.pgist.web.DelegatingHttpServletRequestWrapper;
 
 /**
  * 
- * @author kenny
+ * @author John
  *
  */
 public interface SystemDAO extends BaseDAO {

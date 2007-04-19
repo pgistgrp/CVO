@@ -55,6 +55,19 @@
       <include method="deleteCounty"/>
     </create>
 
+	
+    <create creator="spring" javascript="RegisterAgent">
+      <param name="beanName" value="registerAgent"/>
+      <include method="addUser"/>
+      <include method="deleteUser"/>
+      <include method="addConsent"/>
+      <include method="addQuotaInfo"/>
+      <include method="createQuotaQualify"/>
+      <include method="deleteUser"/>
+      <include method="deleteVehicle"/>
+      <include method="createGetVehicles"/>
+      <include method="addVehicle"/>
+    </create>
     
   </allow>
 

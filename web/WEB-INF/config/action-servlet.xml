@@ -31,6 +31,22 @@
     </bean>
     
     
+    <bean name="/registerq" class="org.pgist.system.RegisterQuestionAction">
+            <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/register2a" class="org.pgist.system.Register2aAction">
+            <property name="systemService" ref="systemService"/>
+            <property name="registerService" ref="registerService"/>
+    </bean>
+    
+    
+    <bean name="/register2b" class="org.pgist.system.Register2bAction">
+            <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
     <bean name="/feedback" class="org.pgist.system.FeedbackAction">
         <property name="systemService" ref="systemService"/>
     </bean>

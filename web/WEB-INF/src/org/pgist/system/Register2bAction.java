@@ -6,21 +6,22 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.exceptions.UserExistException;
 import org.pgist.users.User;
+import org.pgist.util.WebUtils;
 
 
 /**
- * Register Action.
+ * Register Questionnaire Action.
  * 
  * @author kenny
  *
  */
-public class RegisterAction extends Action {
+public class Register2bAction extends Action {
 
     
     private SystemService systemService;
     
     
-    public RegisterAction() {
+    public Register2bAction() {
     }
     
     
@@ -37,8 +38,6 @@ public class RegisterAction extends Action {
     /**
      * When call this action, the following parameters are required:<br>
      * <ul>
-     *   <li>save           - string, the only valid value is "true". It means to save the given information to a new User object. Any other value will turn the page to register.jsp again.</li>
-
      * </ul>
      */
     public ActionForward execute(
@@ -47,10 +46,15 @@ public class RegisterAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-
-        
-        return mapping.findForward("register");
+    	
+    	
+    	try {
+    		Long id = WebUtils.currentUserId();
+        } catch (Exception e) {
+            return mapping.findForward("register");
+        }
+        return mapping.findForward("register2b");
     }//execute()
     
     
-}//class RegisterAction
+}//class Register2bAction

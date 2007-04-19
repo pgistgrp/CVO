@@ -227,11 +227,10 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     
     public void addZipCodes(Long countyId, String[] zipCodes) throws Exception {
     	County county = (County) load(County.class, countyId);
-    	Set<Integer> myZipCodes = county.getZipCodes();
+    	Set<String> myZipCodes = county.getZipCodes();
     	for(String zip : zipCodes) {
     		zip = zip.trim();
-    		Integer tempZ = Integer.parseInt(zip);
-    		myZipCodes.add(tempZ);
+    		myZipCodes.add(zip);
     	}
     	county.setZipCodes(myZipCodes);
     	save(county);
@@ -240,10 +239,9 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     
     public void deleteZipCodes(Long countyId, String[] zipCodes) throws Exception {
     	County county = (County) load(County.class, countyId);
-    	Set<Integer> myZipCodes = county.getZipCodes();
+    	Set<String> myZipCodes = county.getZipCodes();
     	for(String zip : zipCodes) {
-    		Integer tempZ = Integer.parseInt(zip);
-    		myZipCodes.remove(tempZ);
+    		myZipCodes.remove(zip);
     	}
     	county.setZipCodes(myZipCodes);
     	save(county);

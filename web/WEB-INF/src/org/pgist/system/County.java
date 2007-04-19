@@ -20,7 +20,7 @@ public class County implements Serializable {
 	
 	private int quotaLimit;
 	
-	private Set<Integer> zipCodes = new HashSet<Integer>();
+	private Set<String> zipCodes = new HashSet<String>();
 	
 	private int tempQuotaNumber;
 	
@@ -82,17 +82,16 @@ public class County implements Serializable {
      * 
      * @hibernate.set table="pgist_county_zipcodes_link"
      * @hibernate.collection-key column="id"
-     * @hibernate.collection-element type="integer" column="zipCodes"
+     * @hibernate.collection-element type="string" column="zipCodes"
      */
-    public Set<Integer> getZipCodes() {
+    public Set<String> getZipCodes() {
     	
         return zipCodes;
     }
 
 
-    public void setZipCodes(Set<Integer> zipCodes ) {
+    public void setZipCodes(Set<String> zipCodes ) {
         this.zipCodes = zipCodes;
     }
-    
     
 } //class County

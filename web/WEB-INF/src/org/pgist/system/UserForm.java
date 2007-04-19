@@ -13,6 +13,12 @@ public class UserForm extends ActionForm {
     
     private String password1;
     
+    private String email1;
+    
+    private String address1;
+    
+    private String address2;
+    
     private String currentpassword; //Only used for profile update
     
     private String ethnicity1;
@@ -21,6 +27,7 @@ public class UserForm extends ActionForm {
     
     private boolean save;
     
+    private String test;
     
     public User getUser() {
         return user;
@@ -41,6 +48,47 @@ public class UserForm extends ActionForm {
         this.password1 = password1;
     }
 
+    
+    public String getEmail1() {
+        return email1;
+    }
+
+   
+    public void setEmail1(String email1) {
+        this.email1 = email1;
+    }
+    
+    
+    public String getaddress1() {
+        return address1;
+    }
+
+   
+    public void setAddress1(String address1) {
+        this.address1 = address1;
+    }
+    
+    
+    public String getaddress2() {
+        return address2;
+    }
+
+   
+    public void setAddress2(String address2) {
+        this.address2 = address2;
+    }
+    
+    
+    public String test() {
+        return test;
+    }
+
+   
+    public void setTest(String test) {
+        this.test = test;
+    }
+    
+    
     public void setCurrentpassword(String currentpassword) {
         this.currentpassword = currentpassword;
     }
