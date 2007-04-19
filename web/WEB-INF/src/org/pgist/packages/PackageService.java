@@ -1,5 +1,6 @@
 package org.pgist.packages;
 
+import org.pgist.discussion.InfoStructure;
 import org.pgist.users.UserInfo;
 
 
@@ -31,5 +32,8 @@ public interface PackageService {
 	void createUserPackage(TunerConfig conf, float limit) throws Exception;
 
 	void createClusteredPackages(Long pkgSuiteId, int pkgCount) throws Exception;
+    
+    InfoStructure publish(Long cctId, Long suiteId) throws Exception;
+    
     
 }//interface PackageService

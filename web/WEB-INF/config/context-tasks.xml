@@ -43,6 +43,11 @@
     </bean>
     
     
+    <bean id="task-publish.packages" class="org.pgist.packages.PublishPackagesTask">
+        <property name="packageService" ref="packageService"/>
+    </bean>
+    
+    
     <bean id="workflow.registry" class="org.pgist.wfengine.WorkflowTaskRegistry">
         <property name="tasks">
             <map>
@@ -54,6 +59,7 @@
               <entry><key><value>task-publish.criteria</value></key><ref bean="task-publish.criteria" /></entry>
               <entry><key><value>task-publish.projects</value></key><ref bean="task-publish.projects" /></entry>
               <entry><key><value>task-create.package.suite</value></key><ref bean="task-create.package.suite" /></entry>
+              <entry><key><value>task-publish.packages</value></key><ref bean="task-publish.packages" /></entry>
             </map>
         </property>
         <property name="actions">
@@ -65,6 +71,8 @@
               <entry><key><value>action-cvo.cst</value></key><value>/cstview.do</value></entry>
               <entry><key><value>action-cvo.sdc</value></key><value>/sd.do</value></entry>
               <entry><key><value>action-define.criteria</value></key><value>/criteriaDefine.do</value></entry>
+              <entry><key><value>action-sdcirt</value></key><value>/sd.do</value></entry>
+              <entry><key><value>action-sdpkg</value></key><value>/sd.do</value></entry>
             </map>
         </property>
     </bean>

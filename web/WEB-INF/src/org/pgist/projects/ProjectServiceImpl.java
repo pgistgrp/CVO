@@ -24,12 +24,12 @@ public class ProjectServiceImpl implements ProjectService{
     
 	private CriteriaDAO criteriaDAO = null;
     
-    private DiscussionDAO discussionDAO;
-    
     private CCTDAO cctDAO;
     
+    private DiscussionDAO discussionDAO;
     
-	public void setCriteriaDAO(CriteriaDAO criteriaDAO) {
+    
+    public void setCriteriaDAO(CriteriaDAO criteriaDAO) {
 		this.criteriaDAO = criteriaDAO;
 	}
 	
@@ -43,6 +43,16 @@ public class ProjectServiceImpl implements ProjectService{
 	}
 	
     
+    public void setCctDAO(CCTDAO cctDAO) {
+        this.cctDAO = cctDAO;
+    }
+
+
+    public void setDiscussionDAO(DiscussionDAO discussionDAO) {
+        this.discussionDAO = discussionDAO;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */

@@ -1,6 +1,5 @@
 package org.pgist.packages;
 
-import org.pgist.funding.FundingSourceAltRef;
 import org.pgist.system.BaseDAO;
 
 
@@ -21,7 +20,7 @@ public interface PackageDAO extends BaseDAO {
 	
 	void save(PackageSuite p) throws Exception;
 
-	PackageSuite getPackageSuite(Long pid) throws Exception;
+	PackageSuite getPackageSuite(Long suiteId) throws Exception;
     
     
 }//interface PackageDAO

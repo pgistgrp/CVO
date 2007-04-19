@@ -1,11 +1,19 @@
 package org.pgist.packages;
 
+import java.util.Date;
 import java.util.Iterator;
 
+import org.pgist.cvo.CCT;
+import org.pgist.cvo.CCTDAO;
+import org.pgist.discussion.DiscussionDAO;
+import org.pgist.discussion.InfoObject;
+import org.pgist.discussion.InfoStructure;
 import org.pgist.funding.FundingDAO;
 import org.pgist.funding.FundingSourceAltRef;
 import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectDAO;
+import org.pgist.projects.ProjectRef;
+import org.pgist.projects.ProjectSuite;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
 
@@ -41,6 +49,21 @@ public class PackageServiceImpl implements PackageService {
     }
     
     
+    private CCTDAO cctDAO;
+    
+    private DiscussionDAO discussionDAO;
+    
+    
+    public void setCctDAO(CCTDAO cctDAO) {
+        this.cctDAO = cctDAO;
+    }
+
+
+    public void setDiscussionDAO(DiscussionDAO discussionDAO) {
+        this.discussionDAO = discussionDAO;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */
@@ -187,7 +210,46 @@ public class PackageServiceImpl implements PackageService {
         PackageSuite suite = new PackageSuite();       
         return suite;
     }//createPackageSuite()
-
+    
+    
+    public InfoStructure publish(Long cctId, Long suiteId) throws Exception {
+        CCT cct = cctDAO.getCCTById(cctId);
+        
+        PackageSuite suite = packageDAO.getPackageSuite(suiteId);
+        
+        Date date = new Date();
+        
+        InfoStructure structure = new InfoStructure();
+        structure.setType("sdpkg");
+        structure.setTitle("Step 4a: Review Packages");
+        structure.setRespTime(date);
+        structure.setCctId(cct.getId());
+        discussionDAO.save(structure);
+        
+        for (ClusteredPackage pkg : suite.getClusteredPkgs()) {
+            pkg.getId();
+            pkg.getBalance();
+            pkg.getCreateDate();
+            pkg.getDescription();
+            pkg.getFundAltRefs();
+            pkg.getProjAltRefs();
+            pkg.getSuite();
+            pkg.getTotalCost();
+            pkg.getTotalFunding();
+            
+            InfoObject obj = new InfoObject();
+            obj.setObject(pkg);
+            obj.setRespTime(date);
+            discussionDAO.save(obj);
+            
+            structure.getInfoObjects().add(obj);
+        }//for ref
+        
+        discussionDAO.save(structure);
+        
+        return structure;
+    }//publish()
+	
 
     //------------------------ Mike Lowery section ----------------------------------
     
@@ -206,5 +268,6 @@ public class PackageServiceImpl implements PackageService {
 		// TODO Auto-generated method stub
 		
 	}    
+	
 	
 }//class PackageServiceImpl

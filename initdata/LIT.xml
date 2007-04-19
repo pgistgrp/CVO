@@ -130,12 +130,37 @@
             <timer extension="10000"/>
         </pgame>
         
+        <pgame name="pgame-cvo.sdc" description="Review Summaries." auto="false" access="all">
+            <actionName>action-cvo.sdc</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                </ins>
+            </declaration>
+            <timer extension="60000"/>
+        </pgame>
+        
         <pgame name="pgame-create.package.suite" description="Create a package suite." auto="true">
             <taskName>task-create.package.suite</taskName>
             <declaration>
                 <outs>
                     <var name="suite_id"/>
                 </outs>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-publish.criteria" description="Publish Criteria." auto="true">
+            <taskName>task-publish.criteria</taskName>
+            <declaration>
+                <ins>
+                    <var name="suite_id"/>
+                </ins>
+                <outs>
+                    <var name="is_id"/>
+                </outs>
+                <props>
+                    <property name="title" value="Step 2a: Review Criteria" />
+                </props>
             </declaration>
         </pgame>
         
