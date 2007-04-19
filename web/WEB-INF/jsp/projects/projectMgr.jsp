@@ -71,7 +71,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 <style type="text/css" media="screen">
 	li{margin: 10px 0; list-style: none;border-bottom:2px solid #ccc;padding-bottom:10px;width:850px;}
 	.project{font-size: 1.3em;}
-	li ul li:hover {background:#E4F1F5;}
+	li ul li span:hover {background:#E4F1F5;}
 	li ul li{width:720px;padding:3px;border:0px;}
 </style>
 <style type="text/css">
@@ -516,7 +516,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 </head>
 
 
-<body onunload="GUnload()">
+<body onUnload="GUnload()">
 	<p><a href="main.do">Back to Moderator Control Panel</a></p>
 	<h1>Manage Projects</h1>
 	<h3>Manage all projects and their associated alternatives.</h3>
