@@ -10,10 +10,7 @@
 	<!-- Site Wide CSS -->
 <style type="text/css" media="screen">
 @import "styles/lit.css";
-@import "styles/registration-1.css";
 @import "styles/registration-2a.css";
-@import "styles/registration-2b.css";
-@import "styles/registration-questionnaire.css";
 </style>
 <!-- End Site Wide CSS -->
 <!-- Site Wide JS -->
@@ -37,9 +34,7 @@ function submit2A() {
 	var observation2 = document.formreg2a.observation[1].checked;
 
 	RegisterAgent.addQuotaInfo({interview:interview1, observation:observation1});
-	Element.toggle('reg2a');
-	Element.toggle('regq');
-	getVehicles();
+	window.location = "registerq.do";
 }
 </script>
 </head>
@@ -66,7 +61,7 @@ function submit2A() {
 
 	
 <!-- start #reg2a -->
-<div id="reg2a" style="display:none">
+<div id="reg2a">
 	<div>
 		<h3>Welcome SUVdriver. You qualify to participate in Let's Improve Transportation!</h3>
 		<p>Congratulations! You are eligible to receive $50 if you participate in the

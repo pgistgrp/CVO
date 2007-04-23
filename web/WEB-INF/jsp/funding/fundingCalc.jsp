@@ -376,7 +376,7 @@
 		</div>
 		
 			<div class="clearboth">
-				<input type="button" name="calcEstimates" value="Generate Annual Cost Report" onclick="getUserById('report');"
+				<input type="button" name="calcEstimates" value="Generate Annual Cost Report" onClick="getUserById('report');"
 					style="clear:both;margin:1em;" class="floatRight">
 			</div>
 			<div class="clearBoth"></div>

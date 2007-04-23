@@ -67,6 +67,10 @@
       <include method="deleteVehicle"/>
       <include method="createGetVehicles"/>
       <include method="addVehicle"/>
+      <include method="updateVehicle"/>
+      <include method="getTolls"/>
+      <include method="addQuestionnaire"/>
+      <include method="setToll"/>
     </create>
     
   </allow>

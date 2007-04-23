@@ -96,6 +96,7 @@ public class PrepTestDataLoader extends MatchingTask {
                     configPath + "/context-base.xml",
                     configPath + "/context-cvo.xml",
                     configPath + "/context-projects.xml",
+                    configPath + "/context-funding.xml",
                 }
             );    	
     	

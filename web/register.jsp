@@ -11,9 +11,6 @@
 <style type="text/css" media="screen">
 @import "styles/lit.css";
 @import "styles/registration-1.css";
-@import "styles/registration-2a.css";
-@import "styles/registration-2b.css";
-@import "styles/registration-questionnaire.css";
 </style>
 	<!-- End Site Wide CSS -->
 	<!-- Site Wide JS -->
@@ -110,7 +107,7 @@
 				if(data.qualify == true) {
 					window.location = "register2a.do";		
 				} else {
-					window.location = "register2a.do";
+					window.location = "register2b.do";
 				}
 			}else{
 				//error occurred

@@ -6,10 +6,12 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.pgist.funding.UserTaxInfoDTO;
+import org.pgist.funding.FundingSource;
 import org.pgist.users.User;
 import org.pgist.users.Vehicle;
 import org.pgist.util.PageSetting;
 import org.pgist.web.DelegatingHttpServletRequestWrapper;
+
 
 
 /**
@@ -25,11 +27,18 @@ public interface RegisterService {
 	
 	void login(HttpServletRequest request, Long id) throws Exception;
 	
+	void logout(HttpServletRequest request) throws Exception;
+	
 	void addQuotaInfo(String user_interview, String user_observation) throws Exception;
 	
 	void addConsent() throws Exception;
 	
 	void deleteUser() throws Exception;
 	
+	Collection getTolls() throws Exception;
+	
+	void addQuestionnaire(String incomeRange, int householdsize, int drive, int carpool, int carpoolpeople, int bus, int bike) throws Exception;
+	
+	void setToll(Long myTollId, boolean boolchecked) throws Exception;
 	
 }

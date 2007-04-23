@@ -10,10 +10,8 @@
 	<!-- Site Wide CSS -->
 <style type="text/css" media="screen">
 @import "styles/lit.css";
-@import "styles/registration-1.css";
-@import "styles/registration-2a.css";
 @import "styles/registration-2b.css";
-@import "styles/registration-questionnaire.css";
+
 </style>
 <!-- End Site Wide CSS -->
 <!-- Site Wide JS -->
@@ -28,9 +26,7 @@
 <script type="text/javascript">
 function submit2B() {
 	RegisterAgent.addConsent({});
-	Element.toggle('reg2b');
-	Element.toggle('regq');
-	getVehicles();
+	window.location = "registerq.do";
 }
 </script>
 </head>

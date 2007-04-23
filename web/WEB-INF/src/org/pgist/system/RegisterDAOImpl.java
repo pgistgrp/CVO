@@ -12,20 +12,24 @@ import java.util.Map;
 import java.util.Set;
 import java.util.List;
 import java.util.Iterator;
+import java.util.SortedSet;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.Query;
 import org.pgist.criteria.Criteria;
+import org.pgist.funding.FundingSource;
 import org.pgist.funding.UserCommute;
 import org.pgist.funding.UserTaxInfoDTO;
+import org.pgist.funding.UserFundingSourceToll;
 import org.pgist.users.User;
 import org.pgist.users.Vehicle;
 import org.pgist.system.SystemService;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 import org.pgist.web.DelegatingHttpServletRequestWrapper;
+
 
 
 /**
@@ -108,6 +112,38 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     	user.setEnabled(false);
     }
     
+    
+    private static final String hql_getTolls = "from FundingSource fs order by fs.name";
+    
+	public Collection getTolls() throws Exception {
+		
+		return getHibernateTemplate().find(hql_getTolls);
+	}
 	
 
+	public void addQuestionnaire(Long id, String incomeRange, int householdsize, int drive, int carpool, int carpoolpeople, int bus, int bike) throws Exception {
+		User user = (User) load(User.class, id);
+		user.setIncomeRange(incomeRange);
+		user.setFamilyCount(householdsize);
+		user.setDriveDays(drive);
+		user.setCarpoolDays(carpool);
+		user.setCarpoolPeople(carpoolpeople);
+		user.setBusDays(bus);
+		user.setBikeDays(bike);
+	}
+	
+	
+	public void setToll(Long id, Long myTollId, boolean boolchecked) throws Exception {
+		User user = (User) load(User.class, id);
+		UserCommute uc = user.getUserCommute();
+		SortedSet<UserFundingSourceToll> tolls = uc.getTolls();
+		Iterator it = tolls.iterator();
+		while(it.hasNext()) {
+			UserFundingSourceToll toll = (UserFundingSourceToll) it.next();
+			Long tollId = toll.getId();
+			if(tollId == myTollId) {
+				toll.setUsed(boolchecked);
+			}
+		}
+    }
 }

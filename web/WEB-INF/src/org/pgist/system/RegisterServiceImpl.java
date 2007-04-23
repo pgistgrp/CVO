@@ -18,8 +18,7 @@ import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 import org.pgist.web.DelegatingHttpServletRequestWrapper;
 import org.pgist.system.SystemService;
-import org.pgist.funding.FundingDAO;
-import org.pgist.funding.UserTaxInfoDTO;
+import org.pgist.funding.FundingSource;
 
 /**
  * 
@@ -69,6 +68,17 @@ public class RegisterServiceImpl implements RegisterService {
         WebUtils.setCurrentUser(userInfo);
     }
     
+    
+    public void logout(HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession(false);
+        
+        if (session!=null) {
+            session.setAttribute("user", null);
+            session.invalidate();
+        }
+    }
+    
+    
     public void addQuotaInfo(String user_interview, String user_observation) throws Exception {
     	Long id = WebUtils.currentUserId();
     	registerDAO.addQuotaInfo(user_interview, user_observation, id);
@@ -86,5 +96,20 @@ public class RegisterServiceImpl implements RegisterService {
     	registerDAO.deleteUser(id);
     }
     
+    
+    public Collection getTolls() throws Exception {
+    	return registerDAO.getTolls();
+    }
+    
+    
+    public void addQuestionnaire(String incomeRange, int householdsize, int drive, int carpool, int carpoolpeople, int bus, int bike) throws Exception {
+    	Long id = WebUtils.currentUserId();
+    	registerDAO.addQuestionnaire(id, incomeRange, householdsize, drive, carpool, carpoolpeople, bus, bike);  	
+    }
+    
+    public void setToll(Long myTollId, boolean boolchecked) throws Exception {
+    	Long id = WebUtils.currentUserId();
+    	registerDAO.setToll(id, myTollId, boolchecked);
+    }
     
 }

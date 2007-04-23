@@ -40,7 +40,7 @@ public class BaseUser implements Serializable {
     
     protected float income;
     
-    
+    protected String incomeRange = "";
     
     /**
      * @return
@@ -227,7 +227,18 @@ public class BaseUser implements Serializable {
     }
 
 
+    /**
+     * @return
+     * @hibernate.property unique="false" not-null="false"
+     */
+    public String getIncomeRange() {
+        return incomeRange;
+    }
 
+
+    public void setIncomeRange(String incomeRange) {
+        this.incomeRange = incomeRange;
+    }
 
 
 }//class BaseUser
