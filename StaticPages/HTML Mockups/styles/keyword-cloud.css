@@ -6,8 +6,8 @@ padding:.2em;
 margin:.2em;
 display:inline;
 line-height:2em;
-border:1px solid #FFE3B9;
-background:#FFF1DC;
+background:#fff;
+border:1px solid #B4D579;
 }
 
 #keywords, #mod-announcements, #recent-discussions, #popular-discussions
@@ -15,4 +15,9 @@ background:#FFF1DC;
 margin:0em auto 2em auto;
 }
 
+#keywords {padding:5px;}
+
 a {color:#000;text-decoration:none;}
+
+.kwNav {text-align:right}
+.kwNav span {margin-right:10px;}
