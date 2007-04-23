@@ -25,16 +25,17 @@
 <script type='text/javascript'> 
 
 function addVehicle() {
+	
 	var mpg = $F('vehicleMpg');
 	var value = $F('vehicleValue');
 	var mpy = $F('vehicleMpy');
 	
-	alert("userId: " + userId + "milesPerGallon: " + milesPerGallon + " value: " + value + " milesPerYear: " + milesPerYear); 
+	alert("milesPerGallon: " + mpg + " value: " + value + " milesPerYear: " + mpy); 
 	RegisterAgent.addVehicle({milesPerGallon:mpg,value:value,milesPerYear:mpy}, {
 		callback:function(data){
 			if (data.successful){
 				getVehicles();
-				//Form.reset('addVehicle');
+				Form.reset('addVehicle');
 			}else{
 				alert(data.reason);
 			}

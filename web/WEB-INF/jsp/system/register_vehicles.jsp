@@ -40,7 +40,7 @@
 		Miles driven per year
 		<input name="mpy" id="vehicleMpy" type="text" />
 
-		<input type="submit" value="Add" /><small><a href="javascript:Element.toggle('newVehicle');">Cancel</a></small>
+		<input type="submit" onClick="addVehicle();" value="Add" /><small><a href="javascript:Element.toggle('newVehicle');">Cancel</a></small>
 		</form>
 	</div>		
 </p>

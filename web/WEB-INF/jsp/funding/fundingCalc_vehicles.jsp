@@ -19,7 +19,7 @@
 		<small><a href="javascript:toggleEditField('vehicle',${vehicle.id});">Edit</a> | <a href="javascript:deleteVehicle(${vehicle.id})">Remove</a></small> 
 	</div>
 	<div id="vehicleEdit${vehicle.id}" class="myVehiclesRow" style="display: none;"> 
-		<form id="addVehicle" action="javascript:editVehicle(${vehicle.id});">
+		<form id="editVehicle" action="javascript:editVehicle(${vehicle.id});">
 		<strong>Vehicle ${loop.index + 1}: </strong> 
 		Miles per gallon <input name="mpg" id="vehicleMpg${vehicle.id}" type="text" value="${vehicle.milesPerGallon}" />
 		Approximate value <input name="value" id="vehicleValue${vehicle.id}" type="text" value="${vehicle.approxValue}" />
@@ -40,7 +40,7 @@
 		Miles driven per year
 		<input name="mpy" id="vehicleMpy" type="text" />
 
-		<input type="submit" value="Add" /><small><a href="javascript:Element.toggle('newVehicle');">Cancel</a></small>
+		<input type="submit" onClick="javascript:addVehicle();" value="Add" /><small><a href="javascript:Element.toggle('newVehicle');">Cancel</a></small>
 		</form>
 	</div>		
 </p>
