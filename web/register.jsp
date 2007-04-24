@@ -24,7 +24,12 @@
 
 	
 	<script type='text/javascript'> 
-
+	
+	// On a validation error, paint the input div
+	function highlightErrors(inputDiv) {
+			$(inputDiv).style.background = '#FFFFCC';
+	}
+	
 	function submitForm(form) {
 		var errordiv = document.getElementById("errors");
 		var errormsg = "";
@@ -44,39 +49,52 @@
 		
 		if(firstname.length==0) {
 			errormsg = errormsg + "Name cannot be blank<br />";
+			highlightErrors('fname');
  		}
 		if(lastname.length==0) {
 			errormsg = errormsg + "Last name cannot be blank<br />";
+			highlightErrors('lname');
  		}
 		if(email1.length==0 || email2.length==0) {
 			errormsg = errormsg + "Email cannot be blank<br />";
+			highlightErrors('email1');
  		}
 		if(email1!=email2) {
 			errormsg = errormsg + "Email fields must match<br />";
+			highlightErrors('email2');
  		}
 		if(address1.length==0) {
 			errormsg = errormsg + "Address Line 1 cannot be blank<br />";
+			highlightErrors('fname');
  		}
 		if(city.length==0) {
 			errormsg = errormsg + "City cannot be blank<br />";
+			highlightErrors('city');
  		}
 		if(state.length==0) {
 			errormsg = errormsg + "State cannot be blank<br />";
+			highlightErrors('state');
  		}
-		if(zip.length==0) {
-			errormsg = errormsg + "Address Line 1 cannot be blank<br />";
+		if(zip.length < 5) {
+			errormsg = errormsg + "You must enter in a 5-digit ZIP code<br/>";
+			highlightErrors('zip');
  		}
 		if(username.length==0) {
 			errormsg = errormsg + "Address Line 1 cannot be blank<br />";
+			highlightErrors('username');
  		}
 		if(password1.length<6) {
-			errormsg = errormsg + "Password must be atleast six characters<br />";
+			errormsg = errormsg + "Password must be at least six characters<br />";
+			highlightErrors('password1');
  		}
 		if(password2.length<6) {
-			errormsg = errormsg + "Password must be atleast six characters<br />";
+			errormsg = errormsg + "Password must be at least six characters<br />";
+			highlightErrors('password2');
  		}
 		if(password1!=password2) {
 			errormsg = errormsg + "Password fields must match<br />";
+			highlightErrors('password1');
+			highlightErrors('password2');
  		}
 		/*
 		if(email1.indexOf(' ')==-1 && 0<email1.indexOf('@') && email1.indexOf('@')+1 < email1.length) {     
@@ -163,7 +181,7 @@
 	<fieldset>
 		<legend>Provide Your Primary Contact Information</legend>
 		<div class="form-left">
-			<div id="errors" style="color:#FF0000;"></div>
+			<div id="errors" style="color:#D85703;font-weight:bold;"></div>
 			<p>
 				<span class="label">First Name:</span>
 				<span class="value"><input id="fname" type="text" /></span>
