@@ -651,27 +651,34 @@ $('slate').style.Height = winH;
           Show only my concerns </div>
         
 		
-		<!-- Begin sorting menu -->
-        <div id="sortingMenu" class="box4"> sort concerns by:
-          <select name="selectsort" id="selectsort" onChange="javascript:getContextConcerns(cct.currentFilter, 1, true, cct.showOnlyMyConcerns, this.value);	">
-	        <option value="1">Newest to Oldest</option>
-	        <option value="2">Oldest to Newest</option>
-	        <option value="3">Most Agreement</option>
-	        <option value="4">Least Agreement</option>
-	        <option value="5">Most Comments</option>
-	        <option value="6">Most Views</option>
-	        <option value="7">Most Votes</option>
-          </select>
-          filter concerns by:<form style="display:inline" action="javascript: customFilterAction($('txtCustomFilter').value);">
-            <input type="text" id="txtCustomFilter" value="Add a filter" onKeyUp="customFilter(this.value, event);"  onKeyUp="customFilter(this.value, event);" onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
-            or <a href="javascript:getTagCloud();">Browse All Tags</a>
-          </form>
-          <div id="searchResults" style="display: none;"></div>
-        </div>
-		<!-- End sorting menu -->
-		
-		
-      </div>
+				<!-- Begin sorting menu -->
+				<div id="sortingMenu" class="box4"> 
+					<form style="display:inline" 
+				action="javascript: customFilterAction($('txtCustomFilter').value);">
+						<span id="sm-left">Search concerns:
+						<input type="text" id="txtCustomFilter" value="Add a filter" 
+					onKeyUp="customFilter(this.value, event);"  onKeyUp="customFilter(this.value, event);" 
+					onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
+						</span> <span id="sm-middle">or <a href="javascript:getTagCloud();">browse
+						keywords</a> <a href="javascript:getTagCloud();"><img src="images/keyword-cloud.gif" alt="Click here for the Keyword Cloud" /></a></span>
+					</form>
+					<span id="sm-right">or sort concerns by:
+					<select name="selectsort" id="selectsort" 
+				onChange="javascript:getContextConcerns(cct.currentFilter, 1, true, cct.showOnlyMyConcerns, this.value);	">
+						<option value="1">Newest to Oldest</option>
+						<option value="2">Oldest to Newest</option>
+						<option value="3">Most Agreement</option>
+						<option value="4">Least Agreement</option>
+						<option value="5">Most Comments</option>
+						<option value="6">Most Views</option>
+						<option value="7">Most Votes</option>
+					</select>
+					</span>
+					<div id="searchResults" style="display: none;"></div>
+					<div class="clearBoth"></div>
+				</div>
+				<!-- End sorting menu -->
+</div>
 	  
 	  <!-- start tag cloud -->
   	<div id="tagCloud" class="discussion-left box2" style="display: none;">

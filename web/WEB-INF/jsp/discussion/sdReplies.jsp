@@ -44,7 +44,7 @@
 							<form>
 								<p><label>Post Title</label><br><input maxlength=100 size=100 type="text" id="txtNewPostTitle"/></p>
 								<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea></p>
-								<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="txtNewPostTags" type="text" /></p>
+								<p><label>Keyword your post (comma separated)</label><br><input style="width:100%" id="txtNewPostTags" type="text" /></p>
 								<input type="button" onClick="io.createPost();" value="Create Discussion">
 						
 							</form>

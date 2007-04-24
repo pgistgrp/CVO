@@ -427,7 +427,7 @@
 							<textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea>
 						</p>
 						<p>
-							<label>Tag your post (comma separated)</label>
+							<label>Keyword your post (comma separated)</label>
 							<br>
 							<input style="width:100%" id="txtNewPostTags" type="text" />
 						</p>

@@ -354,6 +354,23 @@ padding:5px;
 margin:5px 0px;
 }
 
+#sm-left,#sm-middle,#sm-right {
+width:200px;
+float:left;
+text-align:center;
+}
+
+#sortingMenu input#txtCustomFilter {width:90px;}
+
+#sm-left{text-align:left;}
+
+#sm-right{
+float:right;
+width:260px;
+}
+
+#sortingMenu img {vertical-align:middle;}
+
 #summary
 {
 width:795px;
