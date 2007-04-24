@@ -65,7 +65,7 @@
  		}
 		if(address1.length==0) {
 			errormsg = errormsg + "Address Line 1 cannot be blank<br />";
-			highlightErrors('fname');
+			highlightErrors('address1');
  		}
 		if(city.length==0) {
 			errormsg = errormsg + "City cannot be blank<br />";
@@ -80,19 +80,19 @@
 			highlightErrors('zip');
  		}
 		if(username.length==0) {
-			errormsg = errormsg + "Address Line 1 cannot be blank<br />";
+			errormsg = errormsg + "You must choose a user name<br />";
 			highlightErrors('username');
  		}
 		if(password1.length<6) {
-			errormsg = errormsg + "Password must be at least six characters<br />";
+			errormsg = errormsg + "Your password must be at least six characters<br />";
 			highlightErrors('password1');
  		}
-		if(password2.length<6) {
-			errormsg = errormsg + "Password must be at least six characters<br />";
+		if(password2.length==0) {
+			errormsg = errormsg + "Don't forget to retype your password<br />";
 			highlightErrors('password2');
  		}
 		if(password1!=password2) {
-			errormsg = errormsg + "Password fields must match<br />";
+			errormsg = errormsg + "Both password fields must match<br />";
 			highlightErrors('password1');
 			highlightErrors('password2');
  		}
