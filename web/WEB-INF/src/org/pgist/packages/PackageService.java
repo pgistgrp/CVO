@@ -1,5 +1,6 @@
 package org.pgist.packages;
 
+import org.pgist.discussion.InfoStructure;
 import org.pgist.users.UserInfo;
 
 

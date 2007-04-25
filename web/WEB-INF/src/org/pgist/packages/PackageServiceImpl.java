@@ -1,5 +1,6 @@
 package org.pgist.packages;
 
+import java.util.Date;
 import java.util.Iterator;
 
 import org.pgist.cvo.CCT;
@@ -15,8 +16,6 @@ import org.pgist.funding.TaxCalcUtils;
 import org.pgist.funding.UserCommute;
 import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectDAO;
-import org.pgist.projects.ProjectRef;
-import org.pgist.projects.ProjectSuite;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
 import org.pgist.users.Vehicle;
