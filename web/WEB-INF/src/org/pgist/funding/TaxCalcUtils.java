@@ -20,17 +20,40 @@ public class TaxCalcUtils {
     public static final NumberFormat NUM_FORMAT = new DecimalFormat( "########" );    
     public static final NumberFormat TAX_FORMAT = new DecimalFormat( "###.0%" );  	
 	
-    //------------------ Methods that do the actual calculations ----------------------
-	/**
-	 * Calculates a toll alternative
-	 * <p>
-	 * Always returns 0, this method exist for consistancey
-	 * @return	0
-	 */
-	public static float calcUserTollAlternativeCost() {
-		return 0;
-	}   
+    public static final float DEFAULT_ESTIMATED_PEAK_TRIPS = 20;
+    public static final float DEFAULT_ESTIMATED_OFF_PEAK_TRIPS = 20;
     
+    //------------------ Methods for making estimates ----------------------
+	public static float estimatePeakTrips(UserCommute commute, FundingSource source) {
+		float estimate = DEFAULT_ESTIMATED_PEAK_TRIPS;
+		Iterator<UserFundingSourceToll> i = commute.getTolls().iterator();
+		UserFundingSourceToll tempToll;
+		while(i.hasNext()) {
+			tempToll = i.next();
+			if(tempToll.getFundingSource().getId() == source.getId()) {
+				estimate = tempToll.getPeakTrips();
+				break;
+			}
+		}
+		return estimate;
+	}
+
+	public static float estimateOffPeakTrips(UserCommute commute, FundingSource source) {
+		float estimate = DEFAULT_ESTIMATED_OFF_PEAK_TRIPS;
+		Iterator<UserFundingSourceToll> i = commute.getTolls().iterator();
+		UserFundingSourceToll tempToll;
+		while(i.hasNext()) {
+			tempToll = i.next();
+			if(tempToll.getFundingSource().getId() == source.getId()) {
+				estimate = tempToll.getOffPeakTrips();
+				break;
+			}
+		}
+		return estimate;
+	}   
+
+    //------------------ Methods that do the actual calculations ----------------------
+      
 	/**
 	 * Calculates the user cost for a sales tax
 	 * 
@@ -52,23 +75,13 @@ public class TaxCalcUtils {
 	 * @param	mpg			The total number of miles per gallon
 	 * @return	The cost the user should expect
 	 */
-	public static float calcUserGasCost(float taxRate, float gasCost, float milesDriven, float mpg) {
+	public static float calcUserGasSalesTaxCost(float taxRate, float gasCost, float milesDriven, float mpg) {
 		float cost = 0;
 		if(mpg != 0) {
 			cost = taxRate * gasCost * milesDriven / mpg;			
 		}
 		return cost;
 	}	
-
-	/**
-	 * Calculates the cost of a parking alternative to this user
-	 * <p>
-	 * NOTE: this will always return 0, this method exist to maintain consistancy
-	 * @return 0
-	 */
-	public static float calcUserParkingAlternativeCost() {
-		return 0;
-	}
 	
 	/**
 	 * Calculates a motor alternative cost to the user
@@ -77,7 +90,7 @@ public class TaxCalcUtils {
 	 * @param 	numVehicles	The total number of vehicles
 	 * @return	The total cost of the tax to the user
 	 */
-	public static float calcUserVehicleCost(float taxRate, float numVehicles) {
+	public static float calcUserVehicleLicenseCost(float taxRate, float numVehicles) {
 		return taxRate * numVehicles;
 	}
 
@@ -101,7 +114,7 @@ public class TaxCalcUtils {
 	 * @param milesDriven	The number of miles driven
 	 * @return	The total cost in a year
 	 */
-	public static float calcUserGasTaxAlternative(float mpg, float taxRate, float milesDriven) {
+	public static float calcUserGasTaxCost(float mpg, float taxRate, float milesDriven) {
 		float cost = 0;
 		if(mpg != 0) {
 			cost = taxRate * milesDriven/ mpg;
@@ -196,58 +209,6 @@ public class TaxCalcUtils {
 	}
 	
 	
-	private static PersonalFundingCostDTO createTollsTaxReport(FundingSource source) {
-		PersonalFundingCostDTO pfcost = new PersonalFundingCostDTO();
-		List<PersonalFundingCostAlternativeDTO> datas = pfcost.getAlternatives();		
-		List<String> headers = new ArrayList<String>();
-		headers.add(source.getName());						
-		headers.add("Cost to you");
-		headers.add(" ");
-		headers.add(" ");
-		headers.add(" ");
-		headers.add(" ");
-		headers.add(" ");
-		headers.add(" ");
-		headers.add(" ");
-		headers.add(" ");
-		pfcost.setHeaders(headers);
-
-		Iterator<FundingSourceAlternative> alt = source.getAlternatives().iterator();
-		FundingSourceAlternative tempAlt;
-		PersonalFundingCostAlternativeDTO p1;
-		while(alt.hasNext()) {
-			
-			tempAlt = alt.next();
-			datas.add(createTollsAlternative(tempAlt));
-		}			
-		
-		return pfcost;
-	}
-	
-	private static PersonalFundingCostAlternativeDTO createTollsAlternative(FundingSourceAlternative alt) {
-
-		PersonalFundingCostAlternativeDTO pfcost = new PersonalFundingCostAlternativeDTO();
-		List data = pfcost.getData();
-
-		data.add(alt.getName());
-		if(calcUserTollAlternativeCost() == 0) {
-			data.add("No direct cost to you");			
-		} else {
-			data.add(calcUserTollAlternativeCost());						
-		}
-		data.add(" ");
-		data.add(" ");
-		data.add(" ");
-		data.add(" ");
-		data.add(" ");
-		data.add(" ");
-		data.add(" ");
-		data.add(" ");
-		
-		return pfcost;
-	}		
-
-
 	
 	private static PersonalFundingCostDTO createSalesTaxReport(FundingSource source, float consumption) {
 		PersonalFundingCostDTO pfcost = new PersonalFundingCostDTO();
@@ -331,7 +292,7 @@ public class TaxCalcUtils {
 		PersonalFundingCostAlternativeDTO pfcost = new PersonalFundingCostAlternativeDTO();
 		List data = pfcost.getData();
 
-		float cost =  calcUserGasCost(alt.getTaxRate(), gasCost, milesDriven, mpg);
+		float cost =  calcUserGasSalesTaxCost(alt.getTaxRate(), gasCost, milesDriven, mpg);
 		
 		data.add(alt.getName());
 		data.add(PRICE_FORMAT.format(cost));
@@ -346,60 +307,6 @@ public class TaxCalcUtils {
 		
 		return pfcost;
 	}	
-	
-
-	
-	private static PersonalFundingCostDTO createParkingTaxReport(FundingSource source) {
-		PersonalFundingCostDTO pfcost = new PersonalFundingCostDTO();
-		List<PersonalFundingCostAlternativeDTO> datas = pfcost.getAlternatives();		
-		List<String> headers = new ArrayList<String>();
-		headers.add(source.getName());						
-		headers.add("Cost to you");
-		headers.add(" ");
-		headers.add(" ");
-		headers.add(" ");
-		headers.add(" ");
-		headers.add(" ");
-		headers.add(" ");
-		headers.add(" ");
-		headers.add(" ");
-		pfcost.setHeaders(headers);
-
-		Iterator<FundingSourceAlternative> alt = source.getAlternatives().iterator();
-		FundingSourceAlternative tempAlt;
-		PersonalFundingCostAlternativeDTO p1;
-		while(alt.hasNext()) {
-			
-			tempAlt = alt.next();
-			datas.add(createParkingAlternative(tempAlt));
-		}			
-		
-		return pfcost;
-	}
-	
-	private static PersonalFundingCostAlternativeDTO createParkingAlternative(FundingSourceAlternative alt) {
-
-		PersonalFundingCostAlternativeDTO pfcost = new PersonalFundingCostAlternativeDTO();
-		List data = pfcost.getData();
-
-		data.add(alt.getName());
-		if(calcUserParkingAlternativeCost() == 0) {
-			data.add("No direct cost to you");			
-		} else {
-			data.add(calcUserParkingAlternativeCost());						
-		}
-		data.add(" ");
-		data.add(" ");
-		data.add(" ");
-		data.add(" ");
-		data.add(" ");
-		data.add(" ");
-		data.add(" ");
-		data.add(" ");
-		
-		return pfcost;
-	}	
-	
 	
 	private static PersonalFundingCostDTO createVehicleLicenseTaxReport(FundingSource source, int numVehicles) {
 		PersonalFundingCostDTO pfcost = new PersonalFundingCostDTO();
@@ -434,7 +341,7 @@ public class TaxCalcUtils {
 		PersonalFundingCostAlternativeDTO pfcost = new PersonalFundingCostAlternativeDTO();
 		List data = pfcost.getData();
 
-		float cost = calcUserVehicleCost(alt.getTaxRate(),numVehicles);
+		float cost = calcUserVehicleLicenseCost(alt.getTaxRate(),numVehicles);
 		data.add(alt.getName());
 		data.add(PRICE_FORMAT.format(cost));
 		data.add("=");
@@ -532,7 +439,7 @@ public class TaxCalcUtils {
 		List data = pfcost.getData();
 
 		
-		float cost = calcUserGasTaxAlternative(mpg, alt.getTaxRate().floatValue(), milesDriven);
+		float cost = calcUserGasTaxCost(mpg, alt.getTaxRate().floatValue(), milesDriven);
 
 		data.add(alt.getName());
 		data.add(PRICE_FORMAT.format(cost));
@@ -737,7 +644,6 @@ public class TaxCalcUtils {
 		data.add(NUM_FORMAT.format(source.getOffPeakTrips()));
 		
 		return pfcost;
-	}   
-	
+	}
 
 }

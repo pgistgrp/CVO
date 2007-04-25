@@ -79,7 +79,8 @@ public class PackageAgent {
      * Using the users preferences this algorithm generates a user package
      * 
      * @param conf	The configuration for figuring out this users package
-     * @param limit	The personal limit of this user<
+     * @param mylimit	The personal limit of this user
+     * @param avgLimit	The average limit of all of the other users
      *   
      * @return a Map contains:<br>
      *   <ul>
@@ -87,12 +88,12 @@ public class PackageAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map createMyConfiguredPackage(TunerConfig conf, float limit) {
+    public Map createMyConfiguredPackage(TunerConfig conf, float mylimit, float avglimit) {
         Map map = new HashMap();
         map.put("successful", false);
         
         try {
-            this.packageService.createUserPackage(conf, limit);
+            this.packageService.createUserPackage(conf, mylimit, avglimit);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,7 +113,8 @@ public class PackageAgent {
      *     <li>projSuiteId - int, id of the project suite</li>
      *     <li>fundSuiteId - int, id of the funding suite</li>
      *     <li>critSuiteId - int, id of the criteria suite</li>
-     *     <li>limit - float, The personal limit of this user</li>
+     *     <li>mylimit - float, The personal limit of this user</li>
+     *     <li>avglimit - float, The average limit of the other user</li>
      *   </ul>
      *   
      * @return a Map contains:<br>
@@ -131,14 +133,15 @@ public class PackageAgent {
             Long critSuiteId = new Long((String) params.get("critSuiteId"));
             Long projSuiteId = new Long((String) params.get("projSuiteId"));
             Long fundSuiteId = new Long((String) params.get("fundSuiteId"));
-            float limit = new Float((String) params.get("limit"));
+            float mylimit = new Float((String) params.get("mylimit"));
+            float avglimit = new Float((String) params.get("avglimit"));
             
             TunerConfig config = new TunerConfig();
             config.setFundSuiteId(fundSuiteId);
             config.setProjSuiteId(projSuiteId);
             config.setCritSuiteId(critSuiteId);
             
-            this.packageService.createUserPackage(config, limit);
+            this.packageService.createUserPackage(config, mylimit, avglimit);
             
             map.put("successful", true);
         } catch (Exception e) {

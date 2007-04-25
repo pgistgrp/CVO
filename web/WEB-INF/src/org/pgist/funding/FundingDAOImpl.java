@@ -83,12 +83,17 @@ public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
 	}	
 	
 
-    // ************* Tax Calculator ******************************** 
+    // ************* Tax Calculator ********************************
+	private static final float DEFAULT_GAS_PRICE = 3.00f; 
     private static final String hql_getZipCodeGasByZipCode = "from ZipCodeGas zcg where zcg.zipcode=?";
     public ZipCodeGas getZipCodeGasByZipCode(String zipcode) throws Exception {
         List list = getHibernateTemplate().find(hql_getZipCodeGasByZipCode, zipcode);
         
-        if (list.size()==0) return null;
+        if (list.size()==0) {
+        	ZipCodeGas zcg = new ZipCodeGas();
+        	zcg.setAvgGas(DEFAULT_GAS_PRICE);
+        	return zcg;
+        }
         
         return (ZipCodeGas) list.get(0);
     }//getFundingSourceAltById()
@@ -117,7 +122,6 @@ public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
     	//To get rid of the lower bounds
     	if(incomeLevel <= 0) incomeLevel = 1f;
     	if(incomeLevel >= 1000000) incomeLevel = 1000000f;
-System.out.println("MATT: Checking " + incomeLevel);
     	List list = getHibernateTemplate().find(hql_getConsumptionByIncomeLevel, new Object[] {incomeLevel});
         
         if (list.size()==0) return null;

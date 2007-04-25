@@ -1,6 +1,5 @@
 package org.pgist.packages;
 
-import java.util.Date;
 import java.util.Iterator;
 
 import org.pgist.cvo.CCT;
@@ -9,13 +8,18 @@ import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
 import org.pgist.funding.FundingDAO;
+import org.pgist.funding.FundingSource;
 import org.pgist.funding.FundingSourceAltRef;
+import org.pgist.funding.FundingSourceAlternative;
+import org.pgist.funding.TaxCalcUtils;
+import org.pgist.funding.UserCommute;
 import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectDAO;
 import org.pgist.projects.ProjectRef;
 import org.pgist.projects.ProjectSuite;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
+import org.pgist.users.Vehicle;
 
 
 /**
@@ -251,6 +255,84 @@ public class PackageServiceImpl implements PackageService {
     }//publish()
 	
 
+    /**
+     * Utility method that does all of the user calculations regarding the estimated annual cost
+     * to you.  All the estimates are stored in the hash map for the user
+     * 
+     * @param	usrPkg	The user package
+     * @throws Exception 
+     */
+    public void calcUserValues(UserPackage usrPkg) throws Exception {
+    
+    	User tempUser = usrPkg.getAuthor();
+		//Get the users last commute object		
+		UserCommute commute = tempUser.getUserCommute();
+				
+		float totalVValue = 0;
+		float totalMilesDrive = 0;
+		float avgMPG = 0;
+		
+		Iterator<Vehicle> vIter = tempUser.getVehicles().iterator();
+		Vehicle veh;
+		while(vIter.hasNext()) {
+			veh = vIter.next();
+			totalVValue = totalVValue + veh.getApproxValue();
+			totalMilesDrive = totalMilesDrive + veh.getMilesPerYear();
+			avgMPG = avgMPG + veh.getMilesPerGallon();
+			
+		}
+		avgMPG = avgMPG / tempUser.getVehicles().size();
+		    	
+		float peakTrips = 0;
+		float offPeakTrips = 0;
+//		float gasCost = fundingDAO.getZipCodeGasByZipCode(tempUser.getZipcode()).getAvgGas();
+//		float consumption = fundingDAO.getConsumptionByIncome(tempUser.getIncome()).getConsumption(tempUser.getFamilyCount());
+    	
+    	usrPkg.getPersonalCost().clear();
+    	Iterator<FundingSourceAltRef> fSources = usrPkg.getFundAltRefs().iterator();
+    	FundingSourceAlternative tempAlt;
+    	FundingSource tempSource;
+    	while(fSources.hasNext()) {
+    		tempAlt = fSources.next().getAlternative();
+    		tempSource = tempAlt.getSource();
+    		
+    		peakTrips = TaxCalcUtils.estimatePeakTrips(commute, tempSource);
+    		offPeakTrips = TaxCalcUtils.estimateOffPeakTrips(commute, tempSource);
+    		
+			switch (tempSource.getType()) {
+
+			case FundingSource.TYPE_EMPLOYER_EXCISE_TAX:	
+				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserEmployerExciseAlternativeCost());
+				break;
+			case FundingSource.TYPE_GAS_TAX:			
+				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserGasTaxCost(avgMPG, tempAlt.getTaxRate(), totalMilesDrive));
+				break;
+			case FundingSource.TYPE_LICENSE:			
+				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserVehicleLicenseCost(tempAlt.getTaxRate(), tempUser.getVehicles().size()));
+				break;
+			case FundingSource.TYPE_MOTOR_TAX:			
+				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserVehicleExciseCost(tempAlt.getTaxRate(), totalVValue));
+				break;
+			case FundingSource.TYPE_PARKING_TAX:
+				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserParkingCost(tempAlt.getTaxRate(), peakTrips, offPeakTrips));
+				break;
+			case FundingSource.TYPE_SALES_GAS_TAX:			
+				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserGasSalesTaxCost(tempAlt.getTaxRate(), commute.getCostPerGallon(), totalMilesDrive, avgMPG));
+				break;
+			case FundingSource.TYPE_SALES_TAX:			
+				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserSalesTaxCost(tempAlt.getTaxRate(), commute.getAnnualConsume()));
+				break;
+			case FundingSource.TYPE_TOLLS:			
+				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserTollAlternatives(tempAlt.getPeakHourTripsRate(), peakTrips, tempAlt.getOffPeakTripsRate(), offPeakTrips));
+				break;
+
+			default:
+				break;
+			} 		    		
+    	}
+    	
+    }
+    
     //------------------------ Mike Lowery section ----------------------------------
     
 	/* (non-Javadoc)
@@ -264,10 +346,16 @@ public class PackageServiceImpl implements PackageService {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#createUserPackage(org.pgist.packages.TunerConfig, float)
 	 */
-	public void createUserPackage(TunerConfig conf, float limit) throws Exception {
-		// TODO Auto-generated method stub
+	public void createUserPackage(TunerConfig conf, float mylimit, float avglimit) throws Exception {
+		//First, using the personal budget, figure out what funding sources would be used to 
+		//maximize the return from the funding sources.
+
+
+		//Now knowing that total budget figure out all the projects that fit into 
+		//First figure out all the projects that fit into this limit
+		
+		
 		
 	}    
-	
 	
 }//class PackageServiceImpl

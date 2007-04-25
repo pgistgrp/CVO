@@ -658,7 +658,6 @@ public class FundingServiceImpl implements FundingService {
 				rate = rate + (carpool * WEEKS_IN_YEAR)/numPassengers;
 			}
 		}
-//System.out.println("Rate = " + rate);		
 		return rate;
 	}
 	
@@ -671,7 +670,6 @@ public class FundingServiceImpl implements FundingService {
 		if(included) {
 			rate = (int)(zipcodeFactor * carFactor * OFF_PEAK_USAGE); 
 		}
-		//System.out.println("Rate = " + rate);		
 		return rate;
 	}
 
