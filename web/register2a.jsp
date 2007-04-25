@@ -63,7 +63,7 @@ function submit2A() {
 <!-- start #reg2a -->
 <div id="reg2a">
 	<div>
-		<h3>Welcome SUVdriver. You qualify to participate in Let's Improve Transportation!</h3>
+		<h3>Welcome ${baseuser.loginname}. You qualify to participate in Let's Improve Transportation!</h3>
 		<p>Congratulations! You are eligible to receive $50 if you participate in the
 			entire Let’s Improve Transportation decision process (AKA the “LIT Challenge”).
 			To receive payment you must complete two questionnaires and participate in each

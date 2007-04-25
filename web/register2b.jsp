@@ -55,7 +55,7 @@ function submit2B() {
 <!-- start #reg2b -->
 <div id="reg2b">
 	<div>
-		<h3>Welcome SUVdriver. You qualify to participate in Let's Improve Transportation!</h3>
+		<h3>Welcome ${baseuser.loginname}. You qualify to participate in Let's Improve Transportation!</h3>
 		<p>Due to the large number of participants who have responded to our call to join Let’s Improve Transportation, we currently can not offer any small payment in appreciation of your efforts.  We hope you’ll still consider participating as a volunteer, and you will be placed on a waiting list to be among the participants who will receive a small payment.</p>
 	</div>
 	

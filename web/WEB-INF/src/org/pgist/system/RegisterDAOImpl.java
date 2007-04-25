@@ -42,18 +42,10 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 
 	private static final String hql_addUser = "from County c where ?= some elements(c.zipCodes)";
 	
+	private static final String hql_addUser2 = "from Role r where r.name=?";
+	
     public Long addUser(String firstname, String lastname, String email1,  String address1, String address2, String city, String state, String zipcode, String username, String password1) throws Exception {
     	User u = new User();
-    	Set<Role> roles = u.getRoles();
-    	
-    	Iterator itRoles = roles.iterator();
-    	while(itRoles.hasNext()) {
-    		Role role = (Role) itRoles.next();
-    		String roleName = role.getName();
-    		if(roleName.equals("participant")) {
-    			u.addRole(role);
-    		}
-    	}
     	
     	u.setFirstname(firstname);
     	u.setLastname(lastname);
@@ -81,6 +73,21 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 	    	u.setCountyId(c.getId());
     	}
     	save(u);
+    	
+    	Collection roles = getHibernateTemplate().find(hql_addUser2, new Object[] {
+    			"participant",
+    	});
+    	Iterator itRoles = roles.iterator();
+    	while(itRoles.hasNext()) {
+    		Role role = (Role) itRoles.next();
+    		String roleName = role.getName();
+    		if(roleName.equals("participant")) {
+    			u.addRole(role);
+    		}
+    	}
+    	
+    	save(u);
+    	
     	return u.getId();
     }
     

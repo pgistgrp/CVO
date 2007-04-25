@@ -51,7 +51,7 @@ public class Register2bAction extends Action {
     	try {
     		Long id = WebUtils.currentUserId();
     		User user = systemService.getUserById(id);
-    		
+
     		if(user.getRegComplete()){
     			return mapping.findForward("main");
     		}
