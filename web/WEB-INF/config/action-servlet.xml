@@ -155,11 +155,6 @@
         <property name="fundingService" ref="fundingService"/>
         <property name="projectService" ref="projectService"/>
     </bean>
-
-    <bean name="/helpme" class="org.pgist.packages.HelpMeAction">
-        <property name="packageService" ref="packageService"/>
-        <property name="criteriaService" ref="criteriaService"/>
-    </bean>
     
     <bean name="/criteriaList" class="org.pgist.criteria.CriteriaListAction">
             <property name="criteriaService" ref="criteriaService"/>
