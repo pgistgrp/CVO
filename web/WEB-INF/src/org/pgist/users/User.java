@@ -74,91 +74,91 @@ public class User extends BaseUser {
     
     /**
      * <span style="color:blue;">(Column.)</span>
-     * To be complete by John.
+     * Whether or not the user has agreed to be recorded.
      */
     protected String recording = "Not Eligible";
     
     /**
      * <span style="color:blue;">(Column.)</span>
-     * To be complete by John.
+     * Whether or not the user has agreed to be interviewed.
      */
     protected String interview = "Not Eligible";
    
     /**
      * <span style="color:blue;">(Column.)</span>
-     * To be complete by John.
+     * Whether or not the user has consented to quota.
      */
     protected String consented = "Non-Quota";
     
     /**
      * <span style="color:blue;">(Column.)</span>
-     * To be complete by John.
+     * The ID of the user's county. 
      */
     protected Long countyId;
    
     /**
      * <span style="color:blue;">(Column.)</span>
-     * To be complete by John.
+     * How many days the user drives per week.
      */
     protected int driveDays;
     
     /**
      * <span style="color:blue;">(Column.)</span>
-     * To be complete by John.
+     * How many days the user carpools per week.
      */
     protected int carpoolDays;
     
     /**
      * <span style="color:blue;">(Column.)</span>
-     * To be complete by John.
+     * How many people the user carpools with.
      */
     protected int carpoolPeople;
     
     /**
      * <span style="color:blue;">(Column.)</span>
-     * To be complete by John.
+     * How many days per week a user rides the bus.
      */
     protected int busDays;
     
     /**
      * <span style="color:blue;">(Column.)</span>
-     * To be complete by John.
+     * How many days per week a user walks.
      */
     protected int walkDays;
     
     /**
      * <span style="color:blue;">(Column.)</span>
-     * To be complete by John.
+     * How many days per week a user bikes.
      */
     protected int bikeDays;
     
     /**
      * <span style="color:blue;">(Column.)</span>
-     * To be complete by John.
+     * If the user account is enabled. Used for locking accounts.
      */
     private boolean enabled;
     
     /**
      * <span style="color:blue;">(Column.)</span>
-     * To be complete by John.
+     * Flag the account as deleted.
      */
     private boolean deleted;
     
     /**
      * <span style="color:blue;">(Column.)</span>
-     * To be complete by John.
+     * To be completed by John.
      */
     private boolean internal = false;
     
     /**
      * <span style="color:blue;">(One To Many Association.)</span>
-     * To be complete by John.
+     * The Role of the user. A users role is there permissions level. IE: guest, participant, moderator, admin.
      */
     protected Set<Role> roles = new HashSet<Role>();
     
     /**
      * <span style="color:blue;">(One To Many Association.)</span>
-     * To be complete by John.
+     * The vehicles the user owns
      */
     private Set<Vehicle> vehicles = new HashSet<Vehicle>();
     
