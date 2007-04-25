@@ -45,6 +45,13 @@
             <param-value>
                 /login.do,
                 /register.do,
+                /lmAbout.do,
+                /lmGallery.do,
+                /lmFaq.do,
+                /lmResources.do,
+                /lmMenu.do,
+                /lmTutorial1.do,
+                /lmTutorial2.do,
                 /dwr/interface/RegisterAgent.js,
                 /dwr/engine.js,
                 /dwr/util.js,

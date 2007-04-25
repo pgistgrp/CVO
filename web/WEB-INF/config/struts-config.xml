@@ -10,7 +10,6 @@
         <form-bean name="workflowForm" type="org.pgist.workflow.WorkflowForm" />
     </form-beans>
     
-    
     <global-forwards>
         <forward name="login" path="/index.jsp" />
         <forward name="main" path="/main.jsp" />
@@ -18,6 +17,7 @@
         <forward name="register2a" path="/register2a.jsp" />
         <forward name="register2b" path="/register2b.jsp" />
         <forward name="registerq" path="/registerq.jsp" />
+        <forward name="registercomplete" path="/registerComplete.jsp" />
         <forward name="error" path="/error.jsp" />
         <forward name="usercp" path="/usercp.jsp" />
         <forward name="usermgr" path="/usermgr.jsp" />
@@ -46,6 +46,36 @@
         <action name="userForm" path="/register2b" scope="request" type="org.pgist.system.Register2bAction" />
         
         <action name="userForm" path="/registerq" scope="request" type="org.pgist.system.RegisterQuestionAction" />
+        
+        <action name="userForm" path="/registercomplete" scope="request" type="org.pgist.system.RegisterCompletionAction" />
+        
+        <action path="/lmAbout" scope="request" type="org.pgist.lm.LmAboutAction">
+	    <forward name="main" path="/WEB-INF/jsp/lm/lmAbout.jsp" />
+        </action>
+        
+        <action path="/lmFaq" scope="request" type="org.pgist.lm.LmFaqAction">
+		    <forward name="main" path="/WEB-INF/jsp/lm/lmFaq.jsp" />
+        </action>
+        
+        <action path="/lmGallery" scope="request" type="org.pgist.lm.LmGalleryAction">
+		    <forward name="main" path="/WEB-INF/jsp/lm/lmGallery.jsp" />
+        </action>
+        
+        <action path="/lmMenu" scope="request" type="org.pgist.lm.LmMenuAction">
+		    <forward name="main" path="/WEB-INF/jsp/lm/lmMenu.jsp" />
+        </action>
+        
+        <action path="/lmResources" scope="request" type="org.pgist.lm.LmResourcesAction">
+		    <forward name="main" path="/WEB-INF/jsp/lm/lmResources.jsp" />
+        </action>
+        
+        <action path="/lmTutorial1" scope="request" type="org.pgist.lm.LmTutorial1Action">
+		    <forward name="main" path="/WEB-INF/jsp/lm/lmTutorial1.jsp" />
+        </action>
+        
+        <action path="/lmTutorial2" scope="request" type="org.pgist.lm.LmTutorial2Action">
+		    <forward name="main" path="/WEB-INF/jsp/lm/lmTutorial2.jsp" />
+        </action>
         
         <action path="/feedback" scope="request" type="org.pgist.system.FeedbackAction">
             <forward name="main" path="/WEB-INF/jsp/system/feedbackMain.jsp" />

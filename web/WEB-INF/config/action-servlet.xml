@@ -46,11 +46,34 @@
             <property name="systemService" ref="systemService"/>
     </bean>
     
+    <bean name="/registercomplete" class="org.pgist.system.RegisterCompletionAction">
+                <property name="systemService" ref="systemService"/>
+    </bean>
     
     <bean name="/feedback" class="org.pgist.system.FeedbackAction">
         <property name="systemService" ref="systemService"/>
     </bean>
     
+    <bean name="/lmAbout" class="org.pgist.lm.LmAboutAction">
+    </bean>
+    
+    <bean name="/lmFaq" class="org.pgist.lm.LmFaqAction">
+    </bean>
+    
+    <bean name="/lmGallery" class="org.pgist.lm.LmGalleryAction">
+    </bean>
+    
+    <bean name="/lmMenu" class="org.pgist.lm.LmMenuAction">
+    </bean>
+    
+    <bean name="/lmResources" class="org.pgist.lm.LmResourcesAction">
+    </bean>
+    
+    <bean name="/lmTutorial1" class="org.pgist.lm.LmTutorial1Action">
+    </bean>
+    
+    <bean name="/lmTutorial2" class="org.pgist.lm.LmTutorial2Action">
+    </bean>
     
     <bean name="/cctlist" class="org.pgist.cvo.CCTListAction">
         <property name="cctService" ref="cctService"/>
