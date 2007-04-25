@@ -25,12 +25,26 @@
 	
 	<script type='text/javascript'> 
 	
-	// On a validation error, paint the input div
 	function highlightErrors(inputDiv) {
-			$(inputDiv).style.background = '#FFFFCC';
+			$(inputDiv).style.background = '#FFF1DC';
+			$(inputDiv).parentNode.parentNode.childNodes[1].style.color = '#D85703';
+			$(inputDiv).parentNode.parentNode.childNodes[1].style.fontWeight = 'bold';
 	}
 	
 	function submitForm(form) {
+
+		var labels = document.getElementsByClassName('label');
+		var values = document.getElementsByTagName('input');
+		
+		for (var i = 0; i < labels.length; i++){
+				labels[i].style.color = "";
+				labels[i].style.fontWeight = "";
+		};
+
+		for (var i = 0; i < values.length; i++){
+				values[i].style.background = "";
+		};
+		
 		var errordiv = document.getElementById("errors");
 		var errormsg = "";
  
@@ -114,7 +128,7 @@
 				}
 			});
 		} else {
-			errordiv.innerHTML = errormsg;
+			errordiv.innerHTML = '<h3 class=\"headerColor\">Please change the following:</h3>' + errormsg;
 		}
 	}
 	
@@ -181,7 +195,6 @@
 	<fieldset>
 		<legend>Provide Your Primary Contact Information</legend>
 		<div class="form-left">
-			<div id="errors" style="color:#D85703;font-weight:bold;"></div>
 			<p>
 				<span class="label">First Name:</span>
 				<span class="value"><input id="fname" type="text" /></span>
@@ -284,8 +297,8 @@
 			</p><br />
 		</div>
 		<div class="form-right">
-			<p>[Text area for brief description of how this information is 
-			used and how it is confidential…]</p>
+			<div id="errors" style="color:#D85703;font-weight:bold;"></div>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla eleifend nibh tincidunt nibh dapibus vestibulum. Mauris nec nulla at nunc convallis cursus. Vivamus tincidunt nibh adipiscing risus. Sed vel odio. In dapibus. Nunc pulvinar, metus sed venenatis porttitor, mauris urna eleifend velit, vel adipiscing sapien risus et ante.</p>
 		</div>
 	</fieldset>
 	<fieldset>
