@@ -6,7 +6,11 @@ import org.pgist.util.MD5;
 
 
 /**
- * Basic User Class.
+ * <span style="color:red;">POJO:</span> Basic User Class<br>
+ * <span style="color:red;">TABLE:</span> pgist_user_base
+ * 
+ * <p>BaseUser contains sensitive user information, hence should only be used internally.
+ * 
  * @author kenny
  * 
  * @hibernate.class table="pgist_user_base"
@@ -14,33 +18,93 @@ import org.pgist.util.MD5;
 public class BaseUser implements Serializable {
     
     
-    private Long id;
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * User ID. It is a system generated unique id for each user in the system.
+     */
+    protected Long id;
     
-    private String firstname = "";
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * First Name. The first name of a user.
+     */
+    protected String firstname = "";
     
-    private String lastname = "";
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * Last Name. The last name of a user.
+     */
+    protected String lastname = "";
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * Password. The encrypted password of a user. The password is encrypted by MD5 algorithm.
+     */
     protected String password = "";
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * Email. The email address of a user. PGIST system may send all sorts of notification emails to this address.
+     */
     protected String email = "";
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * Home Address. The home address of a user.
+     */
     protected String homeAddr = "";
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * City. The city name of a user's home.
+     */
     protected String city = "";
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * State. The state name of a user's home.
+     */
     protected String state = "";
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * Zip code. The zip code of a user's home.
+     */
     protected String zipcode = "";
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * Zip code of working place of a user.
+     */
     protected String workZipcode = "";
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * Ethnicity of a user.
+     */
     protected String ethnicity = "";
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * How many people are living in this user's house.
+     */
     protected int familyCount = 1;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * The income of a user. Amount is in dollar.
+     */
     protected float income;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * The income range of a user. Allowable ranges (Faked at present):
+     * <ul>
+     *   <li>50,000-75,000</li>
+     * </ul>
+     */
     protected String incomeRange = "";
+    
     
     /**
      * @return

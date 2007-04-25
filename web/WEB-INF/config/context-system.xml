@@ -73,27 +73,30 @@
         <property name="emailSender" ref="emailSender"/>
     </bean>
 
-	<bean id="registerDAO" class="org.pgist.system.RegisterDAOImpl">
-	    <property name="sessionFactory">
-		<ref bean="sessionFactory" />
-	    </property>
-	</bean>
+
+    <bean id="registerDAO" class="org.pgist.system.RegisterDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
 
 
-	<bean id="registerService" parent="baseTransactionProxy">
-	    <property name="target">
-		<bean class="org.pgist.system.RegisterServiceImpl">
-		    <property name="registerDAO" ref="registerDAO"/>
-		    <property name="userDAO" ref="userDAO"/>
-		    <property name="systemService" ref="systemService"/>
-		</bean>
-	    </property>
-	</bean>
+    <bean id="registerService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.system.RegisterServiceImpl">
+                <property name="registerDAO" ref="registerDAO"/>
+                <property name="userDAO" ref="userDAO"/>
+                <property name="systemService" ref="systemService"/>
+            </bean>
+        </property>
+    </bean>
 
-	<bean id="registerAgent" class="org.pgist.system.RegisterAgent">
-	    <property name="registerService" ref="registerService"/>
-	    <property name="fundingService" ref="fundingService"/>
-	</bean>
-	
+
+    <bean id="registerAgent" class="org.pgist.system.RegisterAgent">
+        <property name="registerService" ref="registerService"/>
+        <property name="fundingService" ref="fundingService"/>
+    </bean>
+
+
 </beans>
 

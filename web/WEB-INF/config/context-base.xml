@@ -89,5 +89,12 @@
     </bean>
 
 
+    <bean id="searchHelper" class="org.pgist.search.SearchHelper">
+      <property name="indexPath">
+        <value>/WEB-INF/lucene</value>
+      </property>
+    </bean>
+    
+    
 </beans>
 

@@ -9,7 +9,11 @@ import org.pgist.util.MD5;
 
 
 /**
- * PGIST User class.
+ * <span style="color:red;">POJO</span>: PGIST User Class<br>
+ * <span style="color:red;">TABLE</span>: pgist_user
+ * 
+ * <p>User class contains insensitive user information, and inherited sensitive user information
+ * from its parent class User.
  * 
  * @author kenny
  * 
@@ -19,53 +23,151 @@ import org.pgist.util.MD5;
  */
 public class User extends BaseUser {
     
-	private String loginname = "";
+    
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * Login name of a user. Login name is unique for the whole system.
+     */
+    protected String loginname = "";
 	
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * Not used yet. Maybe deleted later.
+     */
 	protected boolean official = false;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * Whether or not the user belongs to a transport agency.
+     */
     protected boolean transportAgency = false;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * The agency type. Valid only when field transportagency equals to false.
+     */
     protected int agencyType = 1;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * Gender of a user. True for male, false for female.
+     */
     protected boolean gender = true;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * A global flag to denote if the user would like to receive all email notification.
+     */
     protected boolean emailNotify = true;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * Whether the user is qualified to be paid by PGIST. 
+     */
     protected boolean quota = false;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * A flag indicate if the registration completed or not.
+     */
     protected boolean regComplete = false;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * To be complete by John.
+     */
     protected String recording = "Not Eligible";
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * To be complete by John.
+     */
     protected String interview = "Not Eligible";
    
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * To be complete by John.
+     */
     protected String consented = "Non-Quota";
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * To be complete by John.
+     */
     protected Long countyId;
    
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * To be complete by John.
+     */
     protected int driveDays;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * To be complete by John.
+     */
     protected int carpoolDays;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * To be complete by John.
+     */
     protected int carpoolPeople;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * To be complete by John.
+     */
     protected int busDays;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * To be complete by John.
+     */
     protected int walkDays;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * To be complete by John.
+     */
     protected int bikeDays;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * To be complete by John.
+     */
     private boolean enabled;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * To be complete by John.
+     */
     private boolean deleted;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * To be complete by John.
+     */
     private boolean internal = false;
     
+    /**
+     * <span style="color:blue;">(One To Many Association.)</span>
+     * To be complete by John.
+     */
     protected Set<Role> roles = new HashSet<Role>();
     
+    /**
+     * <span style="color:blue;">(One To Many Association.)</span>
+     * To be complete by John.
+     */
     private Set<Vehicle> vehicles = new HashSet<Vehicle>();
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * To be complete by John.
+     */
     private UserCommute commute;
+    
     
     /**
      * @return
