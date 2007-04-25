@@ -25,6 +25,7 @@ import org.pgist.funding.UserTaxInfoDTO;
 import org.pgist.funding.UserFundingSourceToll;
 import org.pgist.users.User;
 import org.pgist.users.Vehicle;
+import org.pgist.users.Role;
 import org.pgist.system.SystemService;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
@@ -43,6 +44,17 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 	
     public Long addUser(String firstname, String lastname, String email1,  String address1, String address2, String city, String state, String zipcode, String username, String password1) throws Exception {
     	User u = new User();
+    	Set<Role> roles = u.getRoles();
+    	
+    	Iterator itRoles = roles.iterator();
+    	while(itRoles.hasNext()) {
+    		Role role = (Role) itRoles.next();
+    		String roleName = role.getName();
+    		if(roleName.equals("participant")) {
+    			u.addRole(role);
+    		}
+    	}
+    	
     	u.setFirstname(firstname);
     	u.setLastname(lastname);
     	u.setEmail(email1);

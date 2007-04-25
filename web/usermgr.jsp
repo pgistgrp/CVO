@@ -8,6 +8,7 @@
 
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
+<pg:show roles="moderator">
 <head>
 <title>Let's Improve Transportation - User Management</title>
 <!-- Site Wide CSS -->
@@ -252,5 +253,6 @@ function addZipCodes(countyid, count) {
 		hide('emailList');
 	</script>
 </body>
+</pg:show>
 </html:html>
 

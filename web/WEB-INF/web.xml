@@ -45,6 +45,7 @@
             <param-value>
                 /login.do,
                 /register.do,
+                /registercomplete.do,
                 /lmAbout.do,
                 /lmGallery.do,
                 /lmFaq.do,

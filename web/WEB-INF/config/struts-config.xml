@@ -17,7 +17,7 @@
         <forward name="register2a" path="/register2a.jsp" />
         <forward name="register2b" path="/register2b.jsp" />
         <forward name="registerq" path="/registerq.jsp" />
-        <forward name="registercomplete" path="/registerComplete.jsp" />
+        <forward name="registercomplete" path="/registercomplete.jsp" />
         <forward name="error" path="/error.jsp" />
         <forward name="usercp" path="/usercp.jsp" />
         <forward name="usermgr" path="/usermgr.jsp" />
@@ -47,7 +47,7 @@
         
         <action name="userForm" path="/registerq" scope="request" type="org.pgist.system.RegisterQuestionAction" />
         
-        <action name="userForm" path="/registercomplete" scope="request" type="org.pgist.system.RegisterCompletionAction" />
+        <action path="/registercomplete" scope="request" type="org.pgist.system.RegisterCompletionAction" />
         
         <action path="/lmAbout" scope="request" type="org.pgist.lm.LmAboutAction">
 	    <forward name="main" path="/WEB-INF/jsp/lm/lmAbout.jsp" />
