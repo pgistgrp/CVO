@@ -14,6 +14,7 @@
 </style>
 	<!-- End Site Wide CSS -->
 	<!-- Site Wide JS -->
+
 	<script src="scripts/prototype.js" type="text/javascript"></script>
 	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 	<script src="scripts/search.js" type="text/javascript"></script>
@@ -27,8 +28,12 @@
 	
 	function highlightErrors(inputDiv) {
 			$(inputDiv).style.background = '#FFF1DC';
-			$(inputDiv).parentNode.parentNode.childNodes[1].style.color = '#D85703';
-			$(inputDiv).parentNode.parentNode.childNodes[1].style.fontWeight = 'bold';
+			
+			/* These lines are commented out because they break the page in IE.  The problem is
+			   That firefox finds the span.label at childNodes[1] and IE finds it at childNodes[0].
+				 We can fix this later. */ 
+			/*$(inputDiv).parentNode.parentNode.childNodes[1].style.color = '#D85703';
+			$(inputDiv).parentNode.parentNode.childNodes[1].style.fontWeight = 'bold';*/
 	}
 	
 	function submitForm(form) {
