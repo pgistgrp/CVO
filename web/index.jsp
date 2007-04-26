@@ -48,15 +48,15 @@
 	
 	h1 {
 		font-family:"Trebuchet MS",arial,verdana,sans-serif;
-		font-size:1.8em;
+		font-size:1.7em;
 		color:#355800;
-		letter-spacing: -2px;
-		word-spacing:-2px;
-		line-height:1.1em;
+		letter-spacing: -1px;
+		word-spacing:-1px;
+		line-height:1.0em;
 		font-weight:400;
 	}
 	
-	ul {color:#355800;font-size:1.3em;line-height:1.3em;}
+	ul {color:#355800;font-size:1.3em;line-height:1.2em;}
 	ul span {color:#333;}
 	
 	.right {text-align:right;}
