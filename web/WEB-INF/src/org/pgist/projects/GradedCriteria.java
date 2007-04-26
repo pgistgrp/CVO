@@ -20,8 +20,9 @@ public class GradedCriteria {
     private Long id;
 	private Criteria criteria;	
 	private String grade ="NA";
-	
+	private float value;
 
+		
 	/**
      * @hibernate.id generator-class="native"
      */
@@ -34,8 +35,24 @@ public class GradedCriteria {
         this.id = id;
     }	
 	
-	
+    
     /**
+	 * @return the value
+     * @hibernate.property not-null="true"
+	 */
+	public float getValue() {
+		return value;
+	}
+
+
+	/**
+	 * @param value the value to set
+	 */
+	public void setValue(float avgScore) {
+		this.value = avgScore;
+	}
+
+	/**
      * Returns the grade
      * 
      * @return	The grade
@@ -83,7 +100,8 @@ public class GradedCriteria {
 	 * @return	The grade for this objective
 	 */
 	public void recalcGrade() {		
-		this.grade = calcGrade(objectives);
+		this.value = calcGrade(objectives);
+		this.grade = convertGrade(this.value);
 	}
 
 	/**
@@ -92,10 +110,9 @@ public class GradedCriteria {
 	 * @param	objectives	A list of objectives to get the grade from
 	 * @return	A string version of the grade
 	 */
-	public static String calcGrade(SortedSet<GradedObjective> objectives) {
+	public static float calcGrade(SortedSet<GradedObjective> objectives) {
 		float totalScore = 0;
-		float avgScore;
-		String letter = "NA";
+		float avgScore = 0;
 		
 		//Average the different objectives together
 		Iterator<GradedObjective> i = objectives.iterator();
@@ -112,7 +129,18 @@ public class GradedCriteria {
 		
 		//Now bring it back to a percentage
 		avgScore = avgScore/6 * 100;
-System.out.println("Ave Score = " + avgScore);		
+
+		return avgScore;
+	}
+	
+	/**
+	 * Takes a value and turns it into a letter grade
+	 * 
+	 * @param	value	The score to convert to a letter
+	 * @return	The letter grade
+	 */
+	private static String convertGrade(float avgScore) {
+		String letter = "NA";
 		
 		//choose the letter grade based off the final result
 		if(avgScore > 93) {

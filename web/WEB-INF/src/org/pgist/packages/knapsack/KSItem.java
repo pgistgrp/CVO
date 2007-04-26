@@ -7,14 +7,14 @@ package org.pgist.packages.knapsack;
  */
 public abstract class KSItem implements Comparable<KSItem>{
 
-	private float cost;
-	private float profit;
-	private float ratio;
+	private double cost;
+	private double profit;
+	private double ratio;
 	
 	/**
 	 * @param cost the cost to set
 	 */
-	public final void setCost(float cost) {
+	public final void setCost(double cost) {
 		this.cost = cost;
 		calcRatio();
 	}
@@ -22,7 +22,7 @@ public abstract class KSItem implements Comparable<KSItem>{
 	/**
 	 * @param profit the profit to set
 	 */
-	public final void setProfit(float profit) {
+	public final void setProfit(double profit) {
 		this.profit = profit;
 		calcRatio();
 	}
@@ -34,7 +34,7 @@ public abstract class KSItem implements Comparable<KSItem>{
 	 * 
 	 * @return	The cost for the item
 	 */
-	public float getCost() {
+	public double getCost() {
 		return cost;
 	}
 	
@@ -44,7 +44,7 @@ public abstract class KSItem implements Comparable<KSItem>{
 	 * 
 	 * @return	The cost for the item
 	 */
-	public float getProfit() {
+	public double getProfit() {
 		return profit;
 	}
 
@@ -65,7 +65,7 @@ public abstract class KSItem implements Comparable<KSItem>{
 	 * 
 	 * @return	The profit divided by the cost
 	 */
-	public float getRatio() {
+	public double getRatio() {
 		return ratio;
 	}
 	

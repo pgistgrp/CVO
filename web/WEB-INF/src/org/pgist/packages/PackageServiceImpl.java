@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Map;
 
+import org.pgist.criteria.CriteriaDAO;
+import org.pgist.criteria.CriteriaRef;
+import org.pgist.criteria.CriteriaSuite;
+import org.pgist.criteria.CriteriaUserWeight;
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.CCTDAO;
 import org.pgist.discussion.DiscussionDAO;
@@ -21,8 +26,13 @@ import org.pgist.funding.UserCommute;
 import org.pgist.packages.knapsack.KSChoices;
 import org.pgist.packages.knapsack.KSEngine;
 import org.pgist.packages.knapsack.KSItem;
+import org.pgist.projects.GradedCriteria;
+import org.pgist.projects.Project;
 import org.pgist.projects.ProjectAltRef;
+import org.pgist.projects.ProjectAlternative;
 import org.pgist.projects.ProjectDAO;
+import org.pgist.projects.ProjectRef;
+import org.pgist.projects.ProjectSuite;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
 import org.pgist.users.Vehicle;
@@ -35,6 +45,13 @@ import org.pgist.users.Vehicle;
  */
 public class PackageServiceImpl implements PackageService {
 
+
+    CriteriaDAO criteriaDAO;
+    
+    
+    public void setCriteriaDAO(CriteriaDAO criteriaDAO) {
+        this.criteriaDAO = criteriaDAO;
+    }		
 	
     FundingDAO fundingDAO;
     
@@ -356,21 +373,164 @@ public class PackageServiceImpl implements PackageService {
 
 		UserPackage upack = this.getUserPackage(usrPkgId);
 		this.calcUserValues(upack);
+						
+		//Clear out all of the previous choices
+		upack.getFundAltRefs().clear();
+		upack.getProjAltRefs().clear();		
+
+		//Using the limits and the conf, figure out what funding sources should be in the package
+		findBestFundingSourceSolution(upack, conf, mylimit, avglimit);		
 		
+		//Recalculate to find the total funding
+		upack.updateCalculations();		
+		
+		//Get the users weights for this project
+        CriteriaSuite csuite = criteriaDAO.getCriteriaSuiteById(conf.getCritSuiteId());				
+		
+		//Using the total funding available, not figure out what projects should be in the package
+		findBestProjectSolution(upack, conf, upack.getTotalFunding(), csuite, upack.getAuthor());
+		
+		//Save the result
+		this.packageDAO.save(upack);		
+	}    
+
+	/**
+	 * Finds the best combination of project alternatives for the user
+	 * 
+	 * @param	upack	The user package
+	 * @param	conf	The tuner config
+	 * @param	csuite	The criteria suite that holds all of the values
+	 * @param	weights		The weights this user has assigned to the criteria
+	 * @throws Exception 
+	 */
+	private void findBestProjectSolution(UserPackage upack, TunerConfig conf, float totalFunding, CriteriaSuite csuite, User user) throws Exception {
+		
+		//Create a collection of ProjectKSItems
+		Collection<KSChoices> choiceCol = new ArrayList<KSChoices>(); 
+		KSChoices choices;
+		
+		//Get all the projects for the suite
+		ProjectSuite pSuite = projectDAO.getProjectSuite(conf.getProjSuiteId());
+		ProjectRef tempRef;
+		Project tempProject;
+
+		Iterator<ProjectAltRef> pAltsRef;
+		ProjectAltRef tempProjectAltRef;
+		ProjectAlternative tempProjectAlt;
+		Integer choice;
+		
+		//loop through them checking with the config to 
+		Iterator<ProjectRef> refs = pSuite.getReferences().iterator();
+		while(refs.hasNext()) {
+			tempRef = refs.next();
+			choices = new KSChoices();
+			
+			//Loop through the alternatives
+			tempProject = tempRef.getProject();
+			pAltsRef = tempRef.getAltRefs().iterator();
+			while(pAltsRef.hasNext()) {
+				tempProjectAltRef = pAltsRef.next();
+				tempProjectAlt = tempProjectAltRef.getAlternative();
+								
+				//Get the users opinion on this project
+				choice = (Integer)conf.getProjectChoices().get(tempProjectAlt.getId());
+				if(choice == null) choice = TunerConfig.MAYBE;
+				
+				//figure out what to do with the item
+				switch (choice) {
+					case TunerConfig.MAYBE:
+						ProjectKSItem tempProjectKSI = new ProjectKSItem();
+						
+						//Set the profit and cost for this item
+						tempProjectKSI.setCost(tempProjectAlt.getCost());
+						
+						//Add up all the cost and weights here
+						tempProjectKSI.setProfit(calcProjectProfit(tempProjectAltRef, csuite, user));
+						tempProjectKSI.setProjectAltRef(tempProjectAltRef);
+						
+						choices.getChoices().add(tempProjectKSI);
+						break;
+					case TunerConfig.MUST_HAVE:
+						//Find the must haves and add them to the package
+						upack.getProjAltRefs().add(tempProjectAltRef);
+						
+						//Increment the buget already spent
+						totalFunding = totalFunding - (float)tempProjectAlt.getCost();
+						
+						break;
+					case TunerConfig.NEVER:
+						//Do nothing, the user hates this option
+						break;
+				}				
+			}			
+			
+			if(choices.getChoices().size() > 0) {
+				choiceCol.add(choices);
+			}
+		}
+		
+		//Check that the package isn't already over buget
+		if(totalFunding < 0) throw new BudgetExceededException("The projects selected exceed the budget limits you provided");
+
+		
+		//Send the collection to the KSAlgorithm
+		Collection<KSItem> result = KSEngine.mcknap(choiceCol, totalFunding);
+		
+		//Add the resulting items to the users package
+		Iterator<KSItem> resultIter = result.iterator();
+		ProjectKSItem tempProjectKSI;
+		while(resultIter.hasNext()) {
+			tempProjectKSI = (ProjectKSItem)resultIter.next();
+			upack.getProjAltRefs().add(tempProjectKSI.getProjectAltRef());
+		}			
+	}
+	
+	/**
+	 * Calculates the profit for the user (meaining how much they like this project) based off of
+	 * their preferences and the impact judged by the experts
+	 * 
+	 * @param	projAltRef	The alt ref for this project (stores the experts opinion
+	 * @param	csuite		The criteria suite
+	 */
+	private float calcProjectProfit(ProjectAltRef projAltRef, CriteriaSuite csuite, User user ) {
+		Iterator<GradedCriteria> crits = projAltRef.getGradedCriteria().iterator();
+		//TODO At this point I don't understand how the criteria relates to the user and the criteria reference
+		//But, somehow I need to get access to the users criteria
+		GradedCriteria crit;
+		float total = 0;
+		CriteriaUserWeight critUserWeight;
+		CriteriaRef key;
+		Integer weight;
+		while(crits.hasNext()) {
+			crit = crits.next();
+			
+//			critUserWeight = (CriteriaUserWeight)weights.get(key);
+//			weight = critUserWeight.getWeights().get(user);
+//			total = total + crit.getValue() *  weight.floatValue();
+		}
+		
+		return total;
+	}
+	
+	
+	/**
+	 * Finds the best combination of funding source alternatives for the user
+	 * 
+	 * @param	upack	The user package
+	 * @param	conf	The tuner config
+	 * @param	mylimit	The limit for the user
+	 * @param	avglimit	The limit for the average user
+	 * @throws Exception, BudgetExceededException 
+	 */
+	private void findBestFundingSourceSolution(UserPackage upack, TunerConfig conf, float mylimit, float avglimit) throws Exception, BudgetExceededException {
 		float mybudget = 0;
 		float avgbudget = 0;
 		float myFundingCost = 0;
 		
-		//Clear out all of the previous choices
-		upack.getFundAltRefs().clear();
-		upack.getProjAltRefs().clear();
-		
-
 		//Create a collection of funding source KS Items, do not add the ones that are to be left out
 		Collection<KSChoices> choiceCol = new ArrayList<KSChoices>(); 
 		KSChoices choices;
-		
-		
+				
 		//Get all the funding sources for the suite
 		FundingSourceSuite fSuite = fundingDAO.getFundingSuite(conf.getFundSuiteId());
 		FundingSourceRef tempRef;
@@ -410,6 +570,7 @@ public class PackageServiceImpl implements PackageService {
 //TODO, somewhere around here I need to set the user cost vs the avg cost						
 						tempFSKSI.setCost(myFundingCost);
 						tempFSKSI.setProfit(tempFSourceAlt.getRevenue());
+						tempFSKSI.setFundingSourceAltRef(tempFSourceAltRef);
 						
 						choices.getChoices().add(tempFSKSI);
 						break;
@@ -436,19 +597,18 @@ public class PackageServiceImpl implements PackageService {
 		//Check that the package isn't already over buget
 		if(mybudget > mylimit) throw new BudgetExceededException("The funding sources must have cost more than the budget you provided");
 		
+		mylimit = mylimit - mybudget;
+		
 		//Send the collection to the KSAlgorithm
 		Collection<KSItem> result = KSEngine.mcknap(choiceCol, mylimit);
 		
 		//Add the resulting items to the users package
-		
-		
-		//Update the total amount for the projects
-		//Create a collection of ProjectKSItems
-		//Send the collection to the KSAlgorithm 
-		//Add the resulting items to the users package
-
-		//Save the result
-		this.packageDAO.save(upack);		
-	}    
+		Iterator<KSItem> resultIter = result.iterator();
+		FundingSourceKSItem tempFSKSI;
+		while(resultIter.hasNext()) {
+			tempFSKSI = (FundingSourceKSItem)resultIter.next();
+			upack.getFundAltRefs().add(tempFSKSI.getFundingSourceAltRef());
+		}			
+	}
 	
 }//class PackageServiceImpl
