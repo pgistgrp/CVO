@@ -28,7 +28,7 @@ p.nomargin {margin-left:0px;}
 	<!-- Begin the header - loaded from a separate file -->
 	<div id="header">
 		<!-- Begin header -->
-		[Load header from separate file]
+			<jsp:include page="/header.jsp" />
 		<!-- End header -->
 	</div>
 	<!-- End header -->
@@ -38,14 +38,13 @@ p.nomargin {margin-left:0px;}
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="floatLeft headerButton currentBox"> <a href="#">Home</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">About LIT</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">FAQ</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">Tutorial</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">Project Gallery</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">Glossary</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">More Resources</a> </div>
-			<div id="headerNext" class="floatRight box5"> <a href="#">Next Step</a> </div>
+			<div class="floatLeft headerButton currentBox"> <a href="lmMenu.do">Home</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Gallery</a> </div>
+			<div class="floatLeft headerButton"> <a href="glossaryPublic.do">Glossary</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
 		</div>
 	</div>
 	<!-- End header menu -->
@@ -55,22 +54,22 @@ p.nomargin {margin-left:0px;}
 		<p class="nomargin">This is a small part of the larger Let’s Improve Transportation site. Most of
 			Learn More is open to the public, and contains information about transportation
 			decision making and transportation projects in our region. Here, you can… </p>
-		<h3 class="headerColor"><a href="#">Read More</a> about Let's Improve Transportation</h3>
+		<h3 class="headerColor"><a href="lmAbout.do">Read More</a> about Let's Improve Transportation</h3>
 		<p>Information about this site and what we’re trying to accomplish</p>
-		<h3 class="headerColor">Read our <a href="#">Frequently Asked Questions</a></h3>
+		<h3 class="headerColor">Read our <a href="lmFaq.do">Frequently Asked Questions</a></h3>
 		<p>Answers to specific questions about different steps in the process</p>
-		<h3 class="headerColor">View a <a href="#">Tutorial</a> about the more advanced
+		<h3 class="headerColor">View a <a href="lmTutorial1.do">Tutorial</a> about the more advanced
 			features of this site</h3>
 		<p>If you’re not clear about keywords, maps, or other tools, this tutorial may
 			be useful.</p>
-		<h3 class="headerColor">Research proposed projects in the <a href="#">Project Gallery</a></h3>
+		<h3 class="headerColor">Research proposed projects in the <a href="lmGallery.do">Project Gallery</a></h3>
 		<p>View a list of every proposed transportation project, read detailed information
 			on them, and view them on a dynamic map.</p>
-		<h3 class="headerColor">Browse articles and other <a href="#">Resources</a> about
+		<h3 class="headerColor">Browse articles and other <a href="lmResources.do">Resources</a> about
 			transportation planning</h3>
 		<p>Don’t know much about transportation planning? That’s okay, we’ve collected
 			some useful articles and links from around the Web that may be helpful.</p>
-		<h3 class="headerColor">Look up a word in our interactive transportation <a href="#">Glossary</a>
+		<h3 class="headerColor">Look up a word in our interactive transportation <a href="glossaryPublic.do">Glossary</a>
 		</h3>
 		<p>If you run into a word you’re not familiar with, you can look it up here.</p>
 		<br />
@@ -82,14 +81,13 @@ p.nomargin {margin-left:0px;}
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="floatLeft headerButton currentBox"> <a href="#">Home</a> </div>
-			<div class="headerButton floatLeft"> <a href="#">About LIT</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">FAQ</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">Tutorial</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">Project Gallery</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">Glossary</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">More Resources</a> </div>
-			<div id="headerNext" class="floatRight box5"> <a href="#">Next Step</a> </div>
+			<div class="floatLeft headerButton currentBox"> <a href="lmMenu.do">Home</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Gallery</a> </div>
+			<div class="floatLeft headerButton"> <a href="glossaryPublic.do">Glossary</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
 		</div>
 	</div>
 	<!-- End header menu -->

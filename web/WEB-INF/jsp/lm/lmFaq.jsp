@@ -29,7 +29,7 @@
 	<!-- Begin the header - loaded from a separate file -->
 	<div id="header">
 		<!-- Begin header -->
-		[Load header from separate file]
+		<jsp:include page="/header.jsp" />
 		<!-- End header -->
 	</div>
 	<!-- End header -->
@@ -39,14 +39,13 @@
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="headerButton floatLeft"> <a href="#">Home</a> </div>
-			<div class="headerButton floatLeft "> <a href="#">About LIT</a> </div>
-			<div class="floatLeft headerButton currentBox"> <a href="#">FAQ</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">Tutorial</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">Project Gallery</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">Glossary</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">More Resources</a> </div>
-			<div id="headerNext" class="floatRight box5"> <a href="#">Next Step</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmMenu.do">Home</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
+			<div class="floatLeft headerButton currentBox"> <a href="lmFaq.do">FAQ</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Gallery</a> </div>
+			<div class="floatLeft headerButton"> <a href="glossaryPublic.do">Glossary</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
 		</div>
 	</div>
 	<!-- End header menu -->
@@ -83,14 +82,13 @@
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="headerButton floatLeft"> <a href="#">Home</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">About LIT</a> </div>
-			<div class="floatLeft headerButton currentBox"> <a href="#">FAQ</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">Tutorial</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">Project Gallery</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">Glossary</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">More Resources</a> </div>
-			<div id="headerNext" class="floatRight box5"> <a href="#">Next Step</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmMenu.do">Home</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
+			<div class="floatLeft headerButton currentBox"> <a href="lmFaq.do">FAQ</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Gallery</a> </div>
+			<div class="floatLeft headerButton"> <a href="glossaryPublic.do">Glossary</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
 		</div>
 	</div>
 	<!-- End header menu -->

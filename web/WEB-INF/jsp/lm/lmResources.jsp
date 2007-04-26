@@ -12,7 +12,7 @@
 @import "styles/lit.css";
 
 #resources p {margin-left:1em;}
-
+#container {font-size:12pt;}
 </style>
 	<!-- End Site Wide CSS -->
 	<!-- Site Wide JS -->
@@ -26,7 +26,7 @@
 	<!-- Begin the header - loaded from a separate file -->
 	<div id="header">
 		<!-- Begin header -->
-		[Load header from separate file]
+		<jsp:include page="/header.jsp" />
 		<!-- End header -->
 	</div>
 	<!-- End header -->
@@ -36,14 +36,13 @@
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="floatLeft headerButton"> <a href="#">Home</a> </div>
-			<div class="headerButton floatLeft"> <a href="#">About LIT</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">FAQ</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">Tutorial</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">Project Gallery</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">Glossary</a> </div>
-			<div class="floatLeft headerButton currentBox"> <a href="#">More Resources</a> </div>
-			<div id="headerNext" class="floatRight box5"> <a href="#">Next Step</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmMenu.do">Home</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Gallery</a> </div>
+			<div class="floatLeft headerButton"> <a href="glossaryPublic.do">Glossary</a> </div>
+			<div class="floatLeft headerButton currentBox"> <a href="lmResources.do">More Resources</a> </div>
 		</div>
 	</div>
 	<!-- End header menu -->
@@ -55,7 +54,7 @@
 			you might find useful. If you're looking for additional information about a particular
 			proposed transportation project, go to the proposed projects page for the project.
 			If you know about a web resource that you feel should be lsited here, please let
-			us know by <a href="mailto:somebody">sending us an email</a>.</p>
+			us know by <a href="mailto:#">sending us an email</a>.</p>
 		<div id="resources">
 			<h3 class="headerColor">Transportation agencies and decision-making bodies in
 				our region</h3>
@@ -81,14 +80,13 @@
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="floatLeft headerButton"> <a href="#">Home</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">About LIT</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">FAQ</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">Tutorial</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">Project Gallery</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">Glossary</a> </div>
-			<div class="floatLeft headerButton currentBox"> <a href="#">More Resources</a> </div>
-			<div id="headerNext" class="floatRight box5"> <a href="#">Next Step</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmMenu.do">Home</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Gallery</a> </div>
+			<div class="floatLeft headerButton"> <a href="glossaryPublic.do">Glossary</a> </div>
+			<div class="floatLeft headerButton currentBox"> <a href="lmResources.do">More Resources</a> </div>
 		</div>
 	</div>
 	<!-- End header menu -->
