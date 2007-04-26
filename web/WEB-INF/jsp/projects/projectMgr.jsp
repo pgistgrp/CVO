@@ -194,7 +194,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 			<div style="clear:both"></div>\
 			<div style="float:left;width:200px;margin-bottom:5px;"></div>\
 			<div style="float:left;width:400px;margin-bottom:5px;"><label><input type="checkbox" id="inclusive' + id +'" '+inclusiveChecked+' /> Options for this project are mutually exclusive.</label></div>\
-			<p><input type="submit" style="padding:5px;" value="Add Project"></p>';
+			<p><input type="submit" style="padding:5px;" value="Add / Edit Project"></p>';
 		$("frmProject"+id).innerHTML = f;
 		
 	}
