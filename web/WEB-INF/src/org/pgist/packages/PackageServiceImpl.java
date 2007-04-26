@@ -1,5 +1,7 @@
 package org.pgist.packages;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -12,8 +14,13 @@ import org.pgist.funding.FundingDAO;
 import org.pgist.funding.FundingSource;
 import org.pgist.funding.FundingSourceAltRef;
 import org.pgist.funding.FundingSourceAlternative;
+import org.pgist.funding.FundingSourceRef;
+import org.pgist.funding.FundingSourceSuite;
 import org.pgist.funding.TaxCalcUtils;
 import org.pgist.funding.UserCommute;
+import org.pgist.packages.knapsack.KSChoices;
+import org.pgist.packages.knapsack.KSEngine;
+import org.pgist.packages.knapsack.KSItem;
 import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectDAO;
 import org.pgist.users.User;
@@ -345,16 +352,103 @@ public class PackageServiceImpl implements PackageService {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#createUserPackage(org.pgist.packages.TunerConfig, float)
 	 */
-	public void createUserPackage(TunerConfig conf, float mylimit, float avglimit) throws Exception {
-		//First, using the personal budget, figure out what funding sources would be used to 
-		//maximize the return from the funding sources.
+	public void createUserPackage(Long usrPkgId, TunerConfig conf, float mylimit, float avglimit) throws Exception {
 
+		UserPackage upack = this.getUserPackage(usrPkgId);
+		this.calcUserValues(upack);
+		
+		float mybudget = 0;
+		float avgbudget = 0;
+		float myFundingCost = 0;
+		
+		//Clear out all of the previous choices
+		upack.getFundAltRefs().clear();
+		upack.getProjAltRefs().clear();
+		
 
-		//Now knowing that total budget figure out all the projects that fit into 
-		//First figure out all the projects that fit into this limit
+		//Create a collection of funding source KS Items, do not add the ones that are to be left out
+		Collection<KSChoices> choiceCol = new ArrayList<KSChoices>(); 
+		KSChoices choices;
 		
 		
+		//Get all the funding sources for the suite
+		FundingSourceSuite fSuite = fundingDAO.getFundingSuite(conf.getFundSuiteId());
+		FundingSourceRef tempRef;
+		FundingSource tempFSource;
+
+		Iterator<FundingSourceAltRef> fsAltsRef;
+		FundingSourceAltRef tempFSourceAltRef;
+		FundingSourceAlternative tempFSourceAlt;
+		Integer choice;
 		
+		//loop through them checking with the config to 
+		Iterator<FundingSourceRef> refs = fSuite.getReferences().iterator();
+		while(refs.hasNext()) {
+			tempRef = refs.next();
+			choices = new KSChoices();
+			
+			//Loop through the alternatives
+			tempFSource = tempRef.getSource();
+			fsAltsRef = tempRef.getAltRefs().iterator();
+			while(fsAltsRef.hasNext()) {
+				tempFSourceAltRef = fsAltsRef.next();
+				tempFSourceAlt = tempFSourceAltRef.getAlternative();
+				
+				//Figure out the personal cost for this alternative
+				myFundingCost = upack.getPersonalCost(tempFSourceAlt.getId());				
+				
+				//Get the users opinion on this alternative
+				choice = (Integer)conf.getFundingChoices().get(tempFSourceAlt.getId());
+				if(choice == null) choice = TunerConfig.MAYBE;
+				
+				//figure out what to do with the item
+				switch (choice) {
+					case TunerConfig.MAYBE:
+						FundingSourceKSItem tempFSKSI = new FundingSourceKSItem();
+						
+						//Set the profit and cost for this item
+//TODO, somewhere around here I need to set the user cost vs the avg cost						
+						tempFSKSI.setCost(myFundingCost);
+						tempFSKSI.setProfit(tempFSourceAlt.getRevenue());
+						
+						choices.getChoices().add(tempFSKSI);
+						break;
+					case TunerConfig.MUST_HAVE:
+						//Find the must haves and add them to the package
+						upack.getFundAltRefs().add(tempFSourceAltRef);
+						
+						//Increment the buget already spent
+						mybudget = mybudget + myFundingCost;
+						
+						break;
+					case TunerConfig.NEVER:
+						//Do nothing, the user hates this option
+						break;
+				}				
+			}			
+			
+			if(choices.getChoices().size() > 0) {
+				choiceCol.add(choices);
+			}
+		}
+		
+		
+		//Check that the package isn't already over buget
+		if(mybudget > mylimit) throw new BudgetExceededException("The funding sources must have cost more than the budget you provided");
+		
+		//Send the collection to the KSAlgorithm
+		Collection<KSItem> result = KSEngine.mcknap(choiceCol, mylimit);
+		
+		//Add the resulting items to the users package
+		
+		
+		//Update the total amount for the projects
+		//Create a collection of ProjectKSItems
+		//Send the collection to the KSAlgorithm 
+		//Add the resulting items to the users package
+
+		//Save the result
+		this.packageDAO.save(upack);		
 	}    
 	
 }//class PackageServiceImpl

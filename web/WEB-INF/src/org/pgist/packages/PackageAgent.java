@@ -81,6 +81,7 @@ public class PackageAgent {
      * @param conf	The configuration for figuring out this users package
      * @param mylimit	The personal limit of this user
      * @param avgLimit	The average limit of all of the other users
+     * @param userPkgId	The ID of the user package involved
      *   
      * @return a Map contains:<br>
      *   <ul>
@@ -88,12 +89,12 @@ public class PackageAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map createMyConfiguredPackage(TunerConfig conf, float mylimit, float avglimit) {
+    public Map createMyConfiguredPackage(TunerConfig conf, float mylimit, float avglimit, long userPkgId) {
         Map map = new HashMap();
         map.put("successful", false);
         
         try {
-            this.packageService.createUserPackage(conf, mylimit, avglimit);
+            this.packageService.createUserPackage(userPkgId, conf, mylimit, avglimit);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -141,7 +142,7 @@ public class PackageAgent {
             config.setProjSuiteId(projSuiteId);
             config.setCritSuiteId(critSuiteId);
             
-            this.packageService.createUserPackage(config, mylimit, avglimit);
+            this.packageService.createUserPackage(usrPkgId, config, mylimit, avglimit);
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -380,18 +381,15 @@ public class PackageAgent {
             Long pkgId = new Long((String) params.get("pkgId"));
             Long altId = new Long((String) params.get("altId"));
             boolean deleting = "true".equals((String) params.get("deleting"));      
-System.out.println("MATT: setFundingToUserPkg: UsrPkg = " + pkgId + " altId = " + altId + " deleting = " + deleting + " d2 " + params.get("deleting"));            
             UserPackage userPkg;
             if(deleting) {
             	userPkg = this.packageService.deleteFundingAlternative(pkgId, altId);
             } else {
             	userPkg = this.packageService.addFundingAlternative(pkgId, altId);
             }
-System.out.println("MATT: 2");
             request.setAttribute("package", userPkg);
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/createPackage_summary.jsp"));            
             map.put("successful", true);
-System.out.println("MATT: 3");                        
             
         } catch (Exception e) {
             e.printStackTrace();

@@ -29,7 +29,7 @@ public interface PackageService {
 
 	UserPackage getUserPackage(Long pkgId) throws Exception;
 
-	void createUserPackage(TunerConfig conf, float mylimit, float avglimit) throws Exception;
+	void createUserPackage(Long usrPkg, TunerConfig conf, float mylimit, float avglimit) throws Exception;
 
 	void createClusteredPackages(Long pkgSuiteId, int pkgCount) throws Exception;
     
