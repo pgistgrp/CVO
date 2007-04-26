@@ -15,6 +15,7 @@
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[ ] Txt and layout changes (Jordan and Adam)
+		[x] Make it look all web 2.0 (Adam)
 #### -->
 
 <html:html>
@@ -23,6 +24,7 @@
 <title>Let's Improve Transportation!</title>
 <script src="scripts/search.js" type="text/javascript"></script>
 <style type="text/css">
+	
 	body {
 		background:url('images/home-background2.png') repeat-x #E8F7CC;
 		text-align:center;
@@ -59,6 +61,8 @@
 	
 	.right {text-align:right;}
 	a{color:#355800;}
+
+	#login * {margin:0px;padding:0px;}
 	
 	#login {
 		background:#D5E7A1;
@@ -88,6 +92,7 @@
 				<li><span>Design your own improvement plan and discuss it with others</span></li>
 				<li><span>Vote on which improvements are most important</span></li>
 			</ul>
+			<h3 style="text-align:right">Want to <a href="lmMenu.do">Learn More</a>?</h3>
 		</p>
 		
 		<div id="login">
@@ -104,7 +109,7 @@
 			<div class="clearBoth"></div>
 		</div>
 		
-		<h1 class="right">Need to <a href="register.do">Create an account</a>?</h1>
+		<h1 class="right">Need to <a href="register.do">Create an Account</a>?</h1>
 	</div>
 </body>
 </html:html>
