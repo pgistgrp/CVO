@@ -3,9 +3,11 @@ package org.pgist.packages;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaDAO;
 import org.pgist.criteria.CriteriaRef;
 import org.pgist.criteria.CriteriaSuite;
@@ -384,16 +386,48 @@ public class PackageServiceImpl implements PackageService {
 		//Recalculate to find the total funding
 		upack.updateCalculations();		
 		
-		//Get the users weights for this project
-        CriteriaSuite csuite = criteriaDAO.getCriteriaSuiteById(conf.getCritSuiteId());				
+		//Get the users weights for this project and store them in an easier to access format
+		HashMap<Criteria, Integer> cWeights = findUserWeights(conf.getCritSuiteId(), upack.getAuthor());
 		
 		//Using the total funding available, not figure out what projects should be in the package
-		findBestProjectSolution(upack, conf, upack.getTotalFunding(), csuite, upack.getAuthor());
+		findBestProjectSolution(upack, conf, upack.getTotalFunding(), cWeights);
 		
 		//Save the result
 		this.packageDAO.save(upack);		
 	}    
 
+	/**
+	 * Returns all of the users weights they assigned for the different criteria
+	 * 
+	 * @return	A hashmap with the Criteria as the key and an integer value as the weight
+	 * @throws Exception 
+	 */
+	private HashMap<Criteria, Integer> findUserWeights(Long critSuiteId, User user) throws Exception {
+		HashMap<Criteria, Integer> cWeights = new HashMap<Criteria, Integer>();
+        CriteriaSuite csuite = criteriaDAO.getCriteriaSuiteById(critSuiteId);
+        Iterator<CriteriaRef> refs = csuite.getReferences().iterator();
+        CriteriaRef ref;
+        CriteriaUserWeight userWeights;
+        Integer value;
+        while(refs.hasNext()) {
+        	ref = refs.next();
+            userWeights = csuite.getWeights().get(ref);
+            value = userWeights.getWeights().get(user);
+            cWeights.put(ref.getCriterion(), value);
+        }
+
+        //TODO Remove this after it proves to be working
+        System.out.println("For User [" + user.getFirstname() + "] the following criteria were found");
+        Iterator<Criteria> i = cWeights.keySet().iterator();
+        Criteria c;
+        while(i.hasNext()) {
+        	c = i.next();
+        	System.out.println("Criteria [" + c.getName() + "] value [" + cWeights.get(c).intValue() + "]");
+        }
+        
+        return cWeights;
+	}
+	
 	/**
 	 * Finds the best combination of project alternatives for the user
 	 * 
@@ -403,7 +437,7 @@ public class PackageServiceImpl implements PackageService {
 	 * @param	weights		The weights this user has assigned to the criteria
 	 * @throws Exception 
 	 */
-	private void findBestProjectSolution(UserPackage upack, TunerConfig conf, float totalFunding, CriteriaSuite csuite, User user) throws Exception {
+	private void findBestProjectSolution(UserPackage upack, TunerConfig conf, float totalFunding, HashMap<Criteria, Integer> cWeight) throws Exception {
 		
 		//Create a collection of ProjectKSItems
 		Collection<KSChoices> choiceCol = new ArrayList<KSChoices>(); 
@@ -445,7 +479,7 @@ public class PackageServiceImpl implements PackageService {
 						tempProjectKSI.setCost(tempProjectAlt.getCost());
 						
 						//Add up all the cost and weights here
-						tempProjectKSI.setProfit(calcProjectProfit(tempProjectAltRef, csuite, user));
+						tempProjectKSI.setProfit(calcProjectProfit(tempProjectAltRef, cWeight));
 						tempProjectKSI.setProjectAltRef(tempProjectAltRef);
 						
 						choices.getChoices().add(tempProjectKSI);
@@ -490,23 +524,18 @@ public class PackageServiceImpl implements PackageService {
 	 * their preferences and the impact judged by the experts
 	 * 
 	 * @param	projAltRef	The alt ref for this project (stores the experts opinion
-	 * @param	csuite		The criteria suite
+	 * @param	cWeights 	An array list of all the weights this user has selected
 	 */
-	private float calcProjectProfit(ProjectAltRef projAltRef, CriteriaSuite csuite, User user ) {
+	private float calcProjectProfit(ProjectAltRef projAltRef, HashMap<Criteria, Integer> cWeights ) {
 		Iterator<GradedCriteria> crits = projAltRef.getGradedCriteria().iterator();
-		//TODO At this point I don't understand how the criteria relates to the user and the criteria reference
-		//But, somehow I need to get access to the users criteria
+
 		GradedCriteria crit;
 		float total = 0;
-		CriteriaUserWeight critUserWeight;
-		CriteriaRef key;
 		Integer weight;
 		while(crits.hasNext()) {
 			crit = crits.next();
-			
-//			critUserWeight = (CriteriaUserWeight)weights.get(key);
-//			weight = critUserWeight.getWeights().get(user);
-//			total = total + crit.getValue() *  weight.floatValue();
+			weight = cWeights.get(crit);
+			total = total + crit.getValue() *  weight.floatValue();
 		}
 		
 		return total;
