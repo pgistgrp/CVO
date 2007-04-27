@@ -1,9 +1,10 @@
 package org.pgist.packages;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.pgist.funding.FundingSourceAltRef;
 import org.pgist.funding.FundingSourceAlternative;
@@ -31,9 +32,9 @@ public class UserPackage extends Package {
     
     private float avgResidentCost;
         
-    protected Set<ProjectAltRef> projAltRefs = new HashSet<ProjectAltRef>();
+    protected SortedSet<ProjectAltRef> projAltRefs = new TreeSet<ProjectAltRef>();
     
-    protected Set<FundingSourceAltRef> fundAltRefs = new HashSet<FundingSourceAltRef>();
+    protected SortedSet<FundingSourceAltRef> fundAltRefs = new TreeSet<FundingSourceAltRef>();
     
     /**
      * Non persisted values that represent the users cost in regards to a funding source alternative
@@ -184,17 +185,17 @@ public class UserPackage extends Package {
     /**
      * @return
      * 
-     * @hibernate.set lazy="false" table="pgist_user_package_funding_link" cascade="all"
+     * @hibernate.set lazy="false" table="pgist_user_package_funding_link" cascade="all" sort="org.pgist.funding.FundingSourceAltRefComparator"
      * @hibernate.collection-key column="pkg_id"
      * @hibernate.collection-many-to-many column="fundalt_id" class="org.pgist.funding.FundingSourceAltRef"
      * 
      */
-    public Set<FundingSourceAltRef> getFundAltRefs() {
+    public SortedSet<FundingSourceAltRef> getFundAltRefs() {
         return fundAltRefs;
     }
     
     
-    public void setFundAltRefs(Set<FundingSourceAltRef> fundAltRefs) {
+    public void setFundAltRefs(SortedSet<FundingSourceAltRef> fundAltRefs) {
         this.fundAltRefs = fundAltRefs;
     }
     
@@ -202,16 +203,16 @@ public class UserPackage extends Package {
     /**
      * @return
      * 
-     * @hibernate.set lazy="false" table="pgist_user_package_project_link" cascade="none"
+     * @hibernate.set lazy="false" table="pgist_user_package_project_link" cascade="none" sort="org.pgist.projects.ProjectAltRefComparator"
      * @hibernate.collection-key column="pkg_id"
      * @hibernate.collection-many-to-many column="project_id" class="org.pgist.projects.ProjectAltRef"
      */
-    public Set<ProjectAltRef> getProjAltRefs() {
+    public SortedSet<ProjectAltRef> getProjAltRefs() {
         return projAltRefs;
     }
     
     
-    public void setProjAltRefs(Set<ProjectAltRef> projAltRefs) {
+    public void setProjAltRefs(SortedSet<ProjectAltRef> projAltRefs) {
         this.projAltRefs = projAltRefs;
     }        
 }//class UserPackage
