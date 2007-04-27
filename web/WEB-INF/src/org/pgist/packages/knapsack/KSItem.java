@@ -5,18 +5,17 @@ package org.pgist.packages.knapsack;
  * 
  * @author Matt Paulin
  */
-public abstract class KSItem implements Comparable<KSItem>{
+public abstract class KSItem {
 
 	private double cost;
 	private double profit;
-	private double ratio;
+
 	
 	/**
 	 * @param cost the cost to set
 	 */
 	public final void setCost(double cost) {
 		this.cost = cost;
-		calcRatio();
 	}
 
 	/**
@@ -24,7 +23,6 @@ public abstract class KSItem implements Comparable<KSItem>{
 	 */
 	public final void setProfit(double profit) {
 		this.profit = profit;
-		calcRatio();
 	}
 
 	/**
@@ -48,33 +46,13 @@ public abstract class KSItem implements Comparable<KSItem>{
 		return profit;
 	}
 
-	/**
-	 * Calculates the ratio of profit to cost
-	 */
-	public void calcRatio() {
-		//Deal with divide by zero errors
-		if(cost == 0) {
-			ratio = 0;
-		} else {
-			ratio = (profit/cost);					
-		}
+	public boolean isZeroed() {
+		if(this.getCost() == 0 && this.getProfit() == 0) return true;
+		return false;
 	}
-	
-	/**
-	 * Returns the ratio of profit to cost
-	 * 
-	 * @return	The profit divided by the cost
-	 */
-	public double getRatio() {
-		return ratio;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-	public int compareTo(KSItem o) {
-		if(this.getRatio() > o.getRatio()) return 1;
-		if(this.getRatio() < o.getRatio()) return -1;		
-		return 0;
+
+	public boolean dominates(KSItem nextItem) {
+		if(this.getCost() >= nextItem.getCost() && this.getProfit() <= nextItem.getProfit()) return true;
+		return false;
 	}	
 }
