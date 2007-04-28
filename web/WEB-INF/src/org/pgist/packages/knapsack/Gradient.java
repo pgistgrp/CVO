@@ -14,7 +14,12 @@ public class Gradient implements Comparable<Gradient>{
 		this.challenger = challenger;
 		this.currentlySelected = currentlySelected;
 		this.choices = choices;
-		this.slope = (challenger.getProfit() - currentlySelected.getProfit())/(challenger.getCost() - currentlySelected.getCost());
+		if((challenger.getCost() - currentlySelected.getCost()) == 0) {
+			//This prevents infinte slopes
+			this.slope = Double.MAX_VALUE;
+		} else {			
+			this.slope = (challenger.getProfit() - currentlySelected.getProfit())/(challenger.getCost() - currentlySelected.getCost());		
+		}
 	}
 		
 	/**
