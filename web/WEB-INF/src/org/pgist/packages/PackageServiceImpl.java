@@ -327,7 +327,7 @@ public class PackageServiceImpl implements PackageService {
 			switch (tempSource.getType()) {
 
 			case FundingSource.TYPE_EMPLOYER_EXCISE_TAX:	
-				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserEmployerExciseAlternativeCost());
+				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserEmployerExciseAlternativeCost(tempAlt.getTaxRate(), TaxCalcUtils.EMPLOYER_PERCENTAGE));
 				break;
 			case FundingSource.TYPE_GAS_TAX:			
 				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserGasTaxCost(avgMPG, tempAlt.getTaxRate(), totalMilesDrive));

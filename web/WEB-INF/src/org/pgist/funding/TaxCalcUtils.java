@@ -22,6 +22,7 @@ public class TaxCalcUtils {
 	
     public static final float DEFAULT_ESTIMATED_PEAK_TRIPS = 20;
     public static final float DEFAULT_ESTIMATED_OFF_PEAK_TRIPS = 20;
+    public static final float EMPLOYER_PERCENTAGE = .8f;
     
     //------------------ Methods for making estimates ----------------------
 	public static float estimatePeakTrips(UserCommute commute, FundingSource source) {
@@ -124,11 +125,9 @@ public class TaxCalcUtils {
 
 	/**
 	 * Calculates the employer exciste cost to the user
-	 * <p>
-	 * NOTE: this method only returns zero to stay consistant with the rest of the library
 	 */
-	public static float calcUserEmployerExciseAlternativeCost() {
-		return 0;
+	public static float calcUserEmployerExciseAlternativeCost(float taxRate, float expectedPercentage) {
+		return taxRate*expectedPercentage;
 	}
 
 	/**
@@ -461,10 +460,10 @@ public class TaxCalcUtils {
 		List<String> headers = new ArrayList<String>();
 		headers.add(source.getName());						
 		headers.add("Cost to you");
-		headers.add(" ");
-		headers.add(" ");
-		headers.add(" ");
-		headers.add(" ");
+		headers.add("=");
+		headers.add("Tax Rate");
+		headers.add("*");
+		headers.add("Percentage");
 		headers.add(" ");
 		headers.add(" ");
 		headers.add(" ");
@@ -496,10 +495,10 @@ public class TaxCalcUtils {
 		List data = pfcost.getData();
 
 		data.add(alt.getName());
-		if(calcUserEmployerExciseAlternativeCost() == 0 ) {
+		if(calcUserEmployerExciseAlternativeCost(alt.getTaxRate(), EMPLOYER_PERCENTAGE) == 0 ) {
 			data.add("No direct cost to you");			
 		} else {
-			data.add(calcUserEmployerExciseAlternativeCost());						
+			data.add(calcUserEmployerExciseAlternativeCost(alt.getTaxRate(), EMPLOYER_PERCENTAGE));						
 		}
 		data.add(" ");
 		data.add(" ");
