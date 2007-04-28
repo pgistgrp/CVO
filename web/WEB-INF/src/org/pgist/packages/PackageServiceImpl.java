@@ -535,7 +535,7 @@ public class PackageServiceImpl implements PackageService {
 		while(crits.hasNext()) {
 			crit = crits.next();
 			weight = cWeights.get(crit);
-			total = total + crit.getValue() *  weight.floatValue();
+			total = total + crit.getValue() *  weight.floatValue()/100;
 		}
 		
 		return total;
@@ -595,8 +595,7 @@ public class PackageServiceImpl implements PackageService {
 					case TunerConfig.MAYBE:
 						FundingSourceKSItem tempFSKSI = new FundingSourceKSItem();
 						
-						//Set the profit and cost for this item
-//TODO, somewhere around here I need to set the user cost vs the avg cost						
+						//Set the profit and cost for this item, we only sort on the users cost
 						tempFSKSI.setCost(myFundingCost);
 						tempFSKSI.setProfit(tempFSourceAlt.getRevenue());
 						tempFSKSI.setFundingSourceAltRef(tempFSourceAltRef);
