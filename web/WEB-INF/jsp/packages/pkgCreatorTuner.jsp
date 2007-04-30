@@ -52,14 +52,13 @@
 		var usrPkgId = "${usrPkgId}";
 		var fundSuiteId = "${fundSuiteId}";
 		var projSuiteId = "${projSuiteId}";
-
+		var critSuiteId = "${critSuiteId}";
 		
 		function getTunerConfig(){
-			alert("usrPkgId: " + usrPkgId + " projSuiteId: " + projSuiteId + " fundSuiteId: " + fundSuiteId); 
-			PackageAgent.getTunerConfig({usrPkgId:usrPkgId,projSuiteId:projSuiteId,fundSuiteId:fundSuiteId}, {
+			alert("usrPkgId: " + usrPkgId + " projSuiteId: " + projSuiteId + " fundSuiteId: " + fundSuiteId + " critSuiteId: " + critSuiteId); 
+			PackageAgent.getTunerConfig({usrPkgId:usrPkgId,projSuiteId:projSuiteId,fundSuiteId:fundSuiteId,critSuiteId:critSuiteId}, {
 				callback:function(data){
 					if (data.successful){
-						alert("grabbing tuner config")
 						alert("config:" + data.config)
 						//createMyConfiguredPackage(data.config);
 					}else{
@@ -74,8 +73,9 @@
 		
 		function createMyConfiguredPackage(config){
 			alert("createmyconfiguredpackage config:" + config )
-			var limit= $F('avgPersonLimit');
-			PackageAgent.createMyConfiguredPackage(config, limit, {
+			var mylimit = $F('mylimit');
+			var avglimit = 0;
+			PackageAgent.createMyConfiguredPackage(config, mylimit, avglimit, usrPkgId, {
 				callback:function(data){
 					if (data.successful){
 						alert("createmyconfiguredpackage worked");
@@ -103,7 +103,7 @@
 		<div id="object">
 			<!-- begin NewTable-->
 			<div id="newTable">
-				<p><label>Average Person Limit</label> <input type="text" id="avgPersonLimit" /></p>
+				<p><label>Average Person Limit</label> <input type="text" id="mylimit" /></p>
 				<div id="left" class="floatLeft">
 					<table cellpadding=0 cellspacing=0>
 						<!-- begin CATEGORY LABEL -->
@@ -193,7 +193,7 @@
 									<td>
 										<select id="fundAltSelect-${altRef.id}">
 											<option value="2">Must Have</option>
-											<option value="1">Maybe</option>
+											<option value="1" SELECTED>Maybe</option>
 											<option value="0">Never</option>
 										</select>
 										
