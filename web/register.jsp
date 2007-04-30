@@ -28,12 +28,9 @@
 	
 	function highlightErrors(inputDiv) {
 			$(inputDiv).style.background = '#FFF1DC';
-			
-			/* These lines are commented out because they break the page in IE.  The problem is
-			   That firefox finds the span.label at childNodes[1] and IE finds it at childNodes[0].
-				 We can fix this later. */ 
-			/*$(inputDiv).parentNode.parentNode.childNodes[1].style.color = '#D85703';
-			$(inputDiv).parentNode.parentNode.childNodes[1].style.fontWeight = 'bold';*/
+			$(inputDiv).ancestors()[0].siblings()[0].style.color = '#D85703';
+			$(inputDiv).ancestors()[0].siblings()[0].style.fontWeight = 'bold';
+			$('submitBtn').style.background = "#fff";
 	}
 	
 	function submitForm(form) {
@@ -338,7 +335,7 @@
 	<div id="step-bar" class="box5 padding5 clearfix">
 		<p class="floatLeft" id="step-progress">Step 1 of 3</p>
 		<p class="floatLeft" id="submit-description">Click the Submit button, to submit your registration and see if you qualify for our study. You will be asked to fill out a consent form and a questionnaire, before we process your account.</p>
-		<p class="floatRight" id="submit-button"><input type="button" value="Next" onclick="submitForm(this.form)" style="font-size:1.5em;"/>
+		<p class="floatRight" id="submit-button"><input type="button" value="Next" onclick="submitForm(this.form)" id="submitBtn" style="font-size:1.5em;"/>
 		</p>
 	</div>
 	</form>
