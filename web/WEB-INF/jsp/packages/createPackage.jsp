@@ -16,11 +16,11 @@
 		[x] setFundingtoPkg and setProjecttoPkg (Jordan and Matt)
 		[x] SuiteIds (Jordan and Matt)
 		[x] Pull Summary Partials (Jordan and Matt)
-		[ ] Balance color (Jordan)
-		[ ] Clear selection prior to setting (Jordan)
-		[ ] pg:contains for initialization(Jordan)
+		[x] Balance color (Jordan)
+		[x] Clear selection prior to setting (Jordan)
+		[x] pg:contains for initialization(Jordan)
 		[ ] What happends when user clicks on "finished"? (Jordan)
-		[ ] Ordering (Matt)
+		[x] Ordering (Matt)
 #### -->
 <html>
 <head>
@@ -49,6 +49,9 @@
 <script type="text/javascript" charset="utf-8">
 			//Global Vars
 			var pkgId = "${userPkg.id}";
+			var critSuiteId = "${critSuiteId}";
+			var fundSuiteId = "${fundSuiteId}";
+			var projSuiteId = "${projSuiteId}";
 
 			
 			//End Global Vars
@@ -157,10 +160,10 @@
 			}
 			
 			function createMyPackage(){
-				var limit= $F('avgPersonLimit')
-				
-				//alert("usrPkgId: " + usrPkgId + " limit: " + limit); 
-				PackageAgent.createMyPackage({usrPkgId:pkgId,limit:limit}, {
+				var avglimit = 0;
+				var mylimit = $F('mylimit')
+				//alert("usrPkgId: " + usrPkgId + " limit: " + mylimit); 
+				PackageAgent.createMyPackage({usrPkgId:pkgId,avglimit:avglimit,mylimit:mylimit,critSuiteId:critSuiteId,projSuiteId:projSuiteId,fundSuiteId:fundSuiteId}, {
 					callback:function(data){
 						if (data.successful){
 							alert("it worked");
@@ -242,7 +245,7 @@
 							<label> What's the most the average person should be expected to pay to fund this package? </label>
 						</div>
 						<div class="floatRight"> <span style="font-size:1.3em;">$
-							<input type="text" size="3" id="avgPersonLimit" /></span>
+							<input type="text" size="3" id="mylimit" /></span>
 						</div>
 						<div class="clearBoth"></div>
 						<div style="margin-top:15px;" class="floatLeft">
@@ -358,7 +361,7 @@
 							</td>
 							<td>${altRef.alternative.revenue}</td>
 							<td>$${altRef.alternative.avgCost}</td>
-							<td>???</td>
+							<td>$<c:out value="${userPkg.personalCost[altRef.id]}" /></td>
 						</tr>
 						<c:if test="${pg:contains(userPkg.fundAltRefs,altRef)}">
 							<c:set var="doNothing"value="false"/>
