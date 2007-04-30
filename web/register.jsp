@@ -30,7 +30,6 @@
 			$(inputDiv).style.background = '#FFF1DC';
 			$(inputDiv).ancestors()[0].siblings()[0].style.color = '#D85703';
 			$(inputDiv).ancestors()[0].siblings()[0].style.fontWeight = 'bold';
-			$('submitBtn').style.background = "#fff";
 	}
 	
 	function submitForm(form) {
@@ -44,7 +43,9 @@
 		};
 
 		for (var i = 0; i < values.length; i++){
-				values[i].style.background = "";
+				if (values[i].id != 'submitBtn'){ // Ignore the Submit button
+					values[i].style.background = "";
+				} else {}
 		};
 		
 		var errordiv = document.getElementById("errors");
