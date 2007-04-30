@@ -5,10 +5,10 @@ import java.util.Comparator;
 public class ProjectAlternativeComparator implements Comparator {
     private boolean caseSensitive = false;
 	public int compare(Object obj1, Object obj2) {
-        ProjectAltRef ref1 = (ProjectAltRef) obj1;
-        ProjectAltRef ref2 = (ProjectAltRef) obj2;
+        ProjectAlternative ref1 = (ProjectAlternative) obj1;
+        ProjectAlternative ref2 = (ProjectAlternative) obj2;
         
-        if (caseSensitive) return ref1.getAlternative().getName().compareTo(ref2.getAlternative().getName());
-        else return ref1.getAlternative().getName().compareToIgnoreCase(ref2.getAlternative().getName());
+        if (caseSensitive) return ref1.getName().compareTo(ref2.getName());
+        else return ref1.getName().compareToIgnoreCase(ref2.getName());
 	}
 }
