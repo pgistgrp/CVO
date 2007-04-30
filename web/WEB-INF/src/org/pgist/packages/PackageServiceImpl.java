@@ -354,12 +354,14 @@ System.out.println("MATT: Sweet ID!" + funSuiteId);
     	
     	Iterator<FundingSourceRef> refs = fsuite.getReferences().iterator();
     	Iterator<FundingSourceAltRef> fSources;
+    	FundingSourceAltRef tempAltRef;
     	FundingSourceAlternative tempAlt;
     	FundingSource tempSource;
     	while(refs.hasNext()) {
     		fSources = refs.next().getAltRefs().iterator();    		
         	while(fSources.hasNext()) {
-        		tempAlt = fSources.next().getAlternative();
+        		tempAltRef = fSources.next();
+        		tempAlt = tempAltRef.getAlternative();
         		tempSource = tempAlt.getSource();
         		
         		peakTrips = TaxCalcUtils.estimatePeakTrips(commute, tempSource);
@@ -368,28 +370,28 @@ System.out.println("MATT: Sweet ID!" + funSuiteId);
     			switch (tempSource.getType()) {
 
     			case FundingSource.TYPE_EMPLOYER_EXCISE_TAX:	
-    				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserEmployerExciseAlternativeCost(tempAlt.getTaxRate(), TaxCalcUtils.EMPLOYER_PERCENTAGE));
+    				usrPkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserEmployerExciseAlternativeCost(tempAlt.getTaxRate(), TaxCalcUtils.EMPLOYER_PERCENTAGE));
     				break;
     			case FundingSource.TYPE_GAS_TAX:			
-    				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserGasTaxCost(avgMPG, tempAlt.getTaxRate(), totalMilesDrive));
+    				usrPkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserGasTaxCost(avgMPG, tempAlt.getTaxRate(), totalMilesDrive));
     				break;
     			case FundingSource.TYPE_LICENSE:			
-    				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserVehicleLicenseCost(tempAlt.getTaxRate(), tempUser.getVehicles().size()));
+    				usrPkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserVehicleLicenseCost(tempAlt.getTaxRate(), tempUser.getVehicles().size()));
     				break;
     			case FundingSource.TYPE_MOTOR_TAX:			
-    				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserVehicleExciseCost(tempAlt.getTaxRate(), totalVValue));
+    				usrPkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserVehicleExciseCost(tempAlt.getTaxRate(), totalVValue));
     				break;
     			case FundingSource.TYPE_PARKING_TAX:
-    				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserParkingCost(tempAlt.getTaxRate(), peakTrips, offPeakTrips));
+    				usrPkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserParkingCost(tempAlt.getTaxRate(), peakTrips, offPeakTrips));
     				break;
     			case FundingSource.TYPE_SALES_GAS_TAX:			
-    				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserGasSalesTaxCost(tempAlt.getTaxRate(), commute.getCostPerGallon(), totalMilesDrive, avgMPG));
+    				usrPkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserGasSalesTaxCost(tempAlt.getTaxRate(), commute.getCostPerGallon(), totalMilesDrive, avgMPG));
     				break;
     			case FundingSource.TYPE_SALES_TAX:			
-    				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserSalesTaxCost(tempAlt.getTaxRate(), commute.getAnnualConsume()));
+    				usrPkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserSalesTaxCost(tempAlt.getTaxRate(), commute.getAnnualConsume()));
     				break;
     			case FundingSource.TYPE_TOLLS:			
-    				usrPkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserTollAlternatives(tempAlt.getPeakHourTripsRate(), peakTrips, tempAlt.getOffPeakTripsRate(), offPeakTrips));
+    				usrPkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserTollAlternatives(tempAlt.getPeakHourTripsRate(), peakTrips, tempAlt.getOffPeakTripsRate(), offPeakTrips));
     				break;
 
     			default:
