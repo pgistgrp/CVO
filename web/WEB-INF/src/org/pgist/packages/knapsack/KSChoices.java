@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.pgist.tests.packages.knapsack.CostComparator;
 
 /**
  * Used to hold multiple mutually exclusive choices of KSItems
@@ -14,7 +13,6 @@ import org.pgist.tests.packages.knapsack.CostComparator;
  */
 public class KSChoices {
 	
-	private static final CostComparator WEIGHT_SORTER = new CostComparator(); 	
 	
 	private List<KSItem> choices = new ArrayList<KSItem>();
 

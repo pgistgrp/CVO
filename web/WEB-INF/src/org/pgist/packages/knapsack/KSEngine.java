@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 
-import org.pgist.tests.packages.knapsack.CostComparator;
 
 /**
  * The class used to find the solution to the knapsack problem
