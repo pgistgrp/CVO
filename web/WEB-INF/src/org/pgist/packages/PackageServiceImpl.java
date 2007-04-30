@@ -231,6 +231,7 @@ public class PackageServiceImpl implements PackageService {
 		packageDAO.save(uPack);
 		suite.getUserPkgs().add(uPack);
 		packageDAO.save(suite);
+		this.calcUserValues(uPack);		
 		return uPack;
 	}
 
@@ -371,7 +372,7 @@ public class PackageServiceImpl implements PackageService {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#createUserPackage(org.pgist.packages.TunerConfig, float)
 	 */
-	public void createUserPackage(Long usrPkgId, TunerConfig conf, float mylimit, float avglimit) throws Exception {
+	public void createKSUserPackage(Long usrPkgId, TunerConfig conf, float mylimit, float avglimit) throws Exception {
 
 		UserPackage upack = this.getUserPackage(usrPkgId);
 		this.calcUserValues(upack);

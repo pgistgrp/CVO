@@ -94,7 +94,7 @@ public class PackageAgent {
         map.put("successful", false);
         
         try {
-            this.packageService.createUserPackage(userPkgId, conf, mylimit, avglimit);
+            this.packageService.createKSUserPackage(userPkgId, conf, mylimit, avglimit);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,7 +142,7 @@ public class PackageAgent {
             config.setProjSuiteId(projSuiteId);
             config.setCritSuiteId(critSuiteId);
             
-            this.packageService.createUserPackage(usrPkgId, config, mylimit, avglimit);
+            this.packageService.createKSUserPackage(usrPkgId, config, mylimit, avglimit);
             
             map.put("successful", true);
         } catch (Exception e) {
