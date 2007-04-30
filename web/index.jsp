@@ -24,8 +24,7 @@
 <title>Let's Improve Transportation!</title>
 <script src="scripts/search.js" type="text/javascript"></script>
 <style type="text/css">
-	
-	body {
+body {
 		background:url('images/home-background2.png') repeat-x #E8F7CC;
 		text-align:center;
 		margin:0px;
@@ -70,12 +69,16 @@
 	}
 	
 	#login div.cell {float:left;margin-right:20px;}
-	#login input {font-size:1.2em;padding:2px;}
+	#login input {width:200px;font-size:1.2em;padding:2px;}
 	
 	input#sub {
 	padding:10px;
 	font-size:1.2em;
+  width:auto;
+  height:80%;     
 	}
+
+
 	
 </style>
 </head>
