@@ -101,7 +101,7 @@
     </target>
     
     
-    <target name="loadTestData" depends="compile">
+    <target name="loadTestData" depends="mapping">
         <taskdef name="LoadTestData" classname="org.pgist.tests.PrepTestDataLoader" classpathref="classpath">
         </taskdef>
         <LoadTestData configPath="${web}/WEB-INF/config"/>

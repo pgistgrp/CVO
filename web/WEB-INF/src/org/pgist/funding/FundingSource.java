@@ -1,9 +1,8 @@
 package org.pgist.funding;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 
 /**
@@ -75,7 +74,7 @@ public class FundingSource implements Serializable {
     
     private String name;
     
-    private SortedSet alternatives = new TreeSet();
+    private Set alternatives = new HashSet();
     
     /**
      * type of the funding source
@@ -114,16 +113,16 @@ public class FundingSource implements Serializable {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" cascade="all" sort="org.pgist.funding.FundingSourceAlternativeComparator"
+     * @hibernate.set lazy="true" cascade="all" 
      * @hibernate.collection-key column="source_id"
      * @hibernate.collection-one-to-many class="org.pgist.funding.FundingSourceAlternative"
      */
-    public SortedSet getAlternatives() {
+    public Set getAlternatives() {
         return alternatives;
     }
 
 
-    public void setAlternatives(SortedSet alternatives) {
+    public void setAlternatives(Set alternatives) {
         this.alternatives = alternatives;
     }
 
