@@ -88,7 +88,7 @@ public class CreatePackageAction extends Action {
     		Long fundSuite = new Long(tempFundSuiteId);
     		    		
     		//Get the current users package
-    		UserPackage uPack = this.packageService.createUserPackage(packSuite, WebUtils.currentUser());
+    		UserPackage uPack = this.packageService.createUserPackage(packSuite, WebUtils.currentUser(), fundSuite);
     		
     		request.setAttribute("projectRefs", projectService.getProjectSuite(projSuite).getReferences());
     		request.setAttribute("fundingRefs", fundingService.getFundingSuite(fundSuite).getReferences());

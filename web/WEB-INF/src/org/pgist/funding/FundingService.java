@@ -13,6 +13,9 @@ import org.pgist.users.UserInfo;
  */
 public interface FundingService {
 	
+	
+	void initializeUser(User user) throws Exception;
+	
 	User getUser(UserInfo userInfo) throws Exception;
     
 	FundingSourceSuite getFundingSuite(Long suiteId) throws Exception;

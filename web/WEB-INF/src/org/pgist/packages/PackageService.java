@@ -23,7 +23,7 @@ public interface PackageService {
 
 	UserPackage addFundingAlternative(Long pkgId, Long funAltRefId) throws Exception;	
 	
-	UserPackage createUserPackage(Long pkgSuiteId, UserInfo info) throws Exception;
+	UserPackage createUserPackage(Long pkgSuiteId, UserInfo info, Long fundingSuiteId) throws Exception;
 
     PackageSuite createPackageSuite() throws Exception;
 

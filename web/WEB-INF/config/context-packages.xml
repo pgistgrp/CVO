@@ -27,6 +27,14 @@
         </property>
     </bean>    
 
+    <bean id="fundingService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.funding.FundingServiceImpl">
+                <property name="fundingDAO" ref="fundingDAO"/>
+            </bean>
+        </property>
+    </bean>
+
     <bean id="packageService" parent="baseTransactionProxy">
         <property name="target">
             <bean class="org.pgist.packages.PackageServiceImpl">
@@ -34,7 +42,8 @@
                 <property name="projectDAO" ref="projectDAO"/>   
                 <property name="fundingDAO" ref="fundingDAO"/>    
                 <property name="criteriaDAO" ref="criteriaDAO"/>                                         
-            </bean>
+                <property name="fundingService" ref="fundingService"/> 
+             </bean>
         </property>
     </bean>
 
