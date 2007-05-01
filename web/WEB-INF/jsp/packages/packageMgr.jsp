@@ -149,7 +149,25 @@ td.col1 a {display:block;text-decoration:underline;}
 		</span> </p>
 	</span> <span class="floatRight" style="width:49%">
 	<h3 class="headerColor">Manually Created Packages</h3>
-	<div id="manualPackages"> </div>
+	<div id="manualPackages"> 
+		<table border="0" cellspacing="0" width="100%" class="box12">
+			<tr>
+				<th>Package</th>
+				<th>Total</th>
+				<th>Total Cost to Average Resident</th>
+			</tr>
+			<c:forEach var="package" items="${packages}" varStatus="loop">
+				<c:if test="${package.manual}">
+					<tr>
+						<td class="col1"><a href="package.do?id=${package.id}">${loop.index +1}</a></td>
+						<td>$${package.totalCost} Billion</td>
+						<td>$${package.totalCostForAvgResident}/year</td>
+					</tr>
+				</c:if>
+			</c:forEach>
+		</table>	
+		
+	</div>
 	<h3 class="clearBoth headerColor"><br />
 		Add Package Manually <small>(enter package description)</small></h3>
 	<div id="newPackage" style="width:100%" class="clearfix">

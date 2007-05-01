@@ -69,29 +69,37 @@
 					</div>
 					
 					<c:forEach var="package" items="${structure.infoObjects}" varStatus="loop">
-						<div class="listRow row"> <!-- use 'highlight' css class to highlight user's related package -->
-							<div class="col1 floatLeft">
-								<div class="floatLeft"><a href="package.do?id=${package.id}">Package ${loop.index}</a></div>
+						<c:if test="${package.manual == false}">
+							<div class="listRow row"> <!-- use 'highlight' css class to highlight user's related package -->
+								<div class="col1 floatLeft">
+									<div class="floatLeft"><a href="package.do?id=${package.id}">Package ${loop.index}</a></div>
+								</div>
+								<div class="col2 floatLeft">$${package.totalCost} billion</div>
+								<div class="col3 floatLeft">$${package.userCost}/year</div>
+								<div class="col4 floatLeft">$${package.avgCost}/year</div>
+								<div class="clearBoth"></div>
 							</div>
-							<div class="col2 floatLeft">$${package.totalCost} billion</div>
-							<div class="col3 floatLeft">$${package.userCost}/year</div>
-							<div class="col4 floatLeft">$${package.avgCost}/year</div>
-							<div class="clearBoth"></div>
-						</div>
+						</c:if>
 					</c:forEach>
 
 					<p>
-					<h4 class="headerColor">Package appearing on the real-world November 2007 ballot</h4>
+						
+					<c:forEach var="package" items="${structure.infoObjects}" varStatus="loop">
+						<c:if test="${package.manual}">
+							<div class="listRow row">
+								<div class="col1 floatLeft">
+									<div class="floatLeft"><a href="#">${package.package.description}</a></div>
+								</div>
+								<div class="col2 floatLeft">$${package.totalCost} billion</div>
+								<div class="col3 floatLeft">$${package.userCost}/year</div>
+								<div class="col4 floatLeft">$${package.avgCost}/year</div>
+								<div class="clearBoth"></div>
+							</div>
+						</c:if>
+					</c:forEach>
+					
 					</p>
-					<div class="listRow row">
-						<div class="col1 floatLeft">
-							<div class="floatLeft"><a href="#">Official RTID package</a></div>
-						</div>
-						<div class="col2 floatLeft">$13 billion</div>
-						<div class="col3 floatLeft">$260/year</div>
-						<div class="col4 floatLeft">$230/year</div>
-						<div class="clearBoth"></div>
-					</div>
+
 				</div>
 				<!-- end list of funding options -->
 			</div>

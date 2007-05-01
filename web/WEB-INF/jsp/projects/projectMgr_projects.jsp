@@ -28,7 +28,7 @@
 	<c:forEach var="project" items="${projects}">
 		<li class="projectList" id="project-${project.id}">
 		<div style="float:left;width:620px;">
-			<a href="#" class="project">${project.name}</a>
+			<span class="project">${project.name}</span>
 		</div>
 		<div style="float:left;width:200px;">
 		<small> 

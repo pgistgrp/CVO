@@ -521,10 +521,10 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 	<h1>Manage Projects</h1>
 	<h3>Manage all projects and their associated alternatives.</h3>
 	
-	
+	<!--
 	<a href="javascript:ddtreemenu.flatten('projectsList', 'expand')">Expand All</a> | 
 	<a href="javascript:ddtreemenu.flatten('projectsList', 'contact')">Collapse All</a>
-
+-->
 	<div id="projectsList">
 		
 	</div>
@@ -542,7 +542,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 	
 	<script type="text/javascript">
 		//ddtreemenu.createTree(treeid, enablepersist, opt_persist_in_days (default is 1))
-		setTimeout(function() {ddtreemenu.createTree("projectsList", false);	ddtreemenu.flatten('projectsList', 'contact');}, 200);
+		//setTimeout(function() {ddtreemenu.createTree("projectsList", false);	ddtreemenu.flatten('projectsList', 'contact');}, 200);
 		
 	</script>
 </body>

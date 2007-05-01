@@ -84,17 +84,16 @@
 	</head>
 	<body>
 		<p><a href="main.do">Back to Moderator Control Panel</a></p>
-		<h1>Grade Projects on Criteria Objectives ${critSuite}</h1>
-		
+		<h1>Grade Projects on Criteria Objectives</h1>
+		<!-->
 		<a href="javascript:ddtreemenu.flatten('treemenu1', 'expand')">Expand All</a> | 
 		<a href="javascript:ddtreemenu.flatten('treemenu1', 'contact')">Collapse All</a>
-		
+	-->
 		<ul id="treemenu1" class="treeview">
 			<c:forEach var="projectRef" items="${projSuite.references}" varStatus="loop">
-				<li><span class="project"><a href="#">Project: ${projectRef.project.name}</a></span><ul>
+				<li><span class="project">Project: ${projectRef.project.name}</span><ul>
 					<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
-						<li><small><a href="projectAlt.do?altrefId=${altRef.id}" target="_blank">Alt ${altRef.alternative.name} info page <img src="/images/external.png" border="0" /></a></small></li>
-						<li><a href="#">Alt: ${altRef.alternative.name}</a>
+						<li><a href="projectAlt.do?altrefId=${altRef.id}" target="_blank">${altRef.alternative.name}</a>
 						<ul>
 						<c:forEach var="critGrade" items="${altRef.gradedCriteria}" varStatus="loop">
 							<li><a href="#">Factor: ${critGrade.criteria.name} (Grade: <b id="critGrade-${altRef.id}-${critGrade.criteria.id}">${critGrade.grade}</b>):</a>
@@ -127,8 +126,8 @@
 		
 		<script type="text/javascript">
 			//ddtreemenu.createTree(treeid, enablepersist, opt_persist_in_days (default is 1))
-			ddtreemenu.createTree("treemenu1", false);
-			ddtreemenu.flatten('treemenu1', 'contact');
+			//ddtreemenu.createTree("treemenu1", false);
+			//ddtreemenu.flatten('treemenu1', 'contact');
 			//ddtreemenu.flatten('treemenu1', 'expand');
 		</script>
 	</body>
