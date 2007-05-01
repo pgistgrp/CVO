@@ -98,7 +98,7 @@
 					per year, and average miles per gallon. Your personal annual cost figures are
 					estimated based on the information you provided in the L.I.T. introductory questionnaire.</p>
 				<div class="floatLeft" style="margin:1em"> 
-				<a href="#"><img src="images/calculator2.gif" border="0"></a> </div>
+				<a href="fundingCalc.do?pkgSuiteId=200"><img src="images/calculator2.gif" border="0"></a> </div>
 				<div class="floatLeft padding5" style="width:190px;margin-top:50px;"> <a href="#">Calculate
 						the cost of tax increases for you and learn how these costs are estimated</a> </div>
 			</div>
