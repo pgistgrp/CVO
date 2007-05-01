@@ -12,7 +12,7 @@
 	Description: Users will use this component to re-weigh their criteria to have the system assist in the creation of a package.
 	Author(s): 
 	     Front End: Jordan Isip, Adam Hindman, Issac Yang
-	     Back End: Zhong Wang, John Le
+	     Back End: Matt Paulin, Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[ ] myLimit validations (Jordan)

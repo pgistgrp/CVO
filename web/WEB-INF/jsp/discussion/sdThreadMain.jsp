@@ -162,6 +162,7 @@
 			var emailNotify = notify.toString();
 			var rid = io.replyId;
 			var pid = "${post.id}";
+
 			//alert("structureId: " + io.structureId + " PostID: " + pid + " ReplyID: " + rid + " Title:" + title + " Content: "+ content + " Tags: " + tags + " EmailNotify " + emailNotify);
 			SDAgent.createReply({isid:io.structureId, pid:pid, rid:rid, title:title, content:content, tags: tags, emailNotify: emailNotify}, {
 		      callback:function(data){
@@ -181,7 +182,7 @@
 						window.setTimeout('new Effect.Highlight("discussionText'+ data.id +'", {duration: 4.0});',500);
 		          }else{
 		          	 displayIndicator(false);
-		            alert("why it failed: "+data.reason);
+		            alert("SDAgent.createReply ERROR: "+data.reason);
 		          }
 		      },
 		      errorHandler:function(errorString, exception){

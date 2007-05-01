@@ -6,89 +6,114 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<!--####
-	Project: Let's Improve Transportation!
-	Page: Object for Structured Discussion for Projects
-	Description: This page will list and map out all of the projects in the given decision situation.
-				 The javascript on this page will allow for map manipulation.  Clicking on a project
-				 will 
-	Author(s): Jordan Isip, Adam Hindman, Isaac Yang
-	Todo Items:
-		[x] Initial Skeleton Code (Jordan)
-		[x] Integrate Structured Discussion (Jordan)
-		[ ] Integrate Project Tree (Isaac)
-		[x] Integrate Layout (Adam) 
-		[ ] Test with backend contractor code (Jordan)
-#### -->
+
 
 <pg:fragment type="html">
+	<!--####
+		Project: Let's Improve Transportation!
+		Page: Object for Structured Discussion for Projects
+		Description: This page will list and map out all of the projects in the given decision situation.
+					 The javascript on this page will allow for map manipulation.  Clicking on a project
+					 will 
+		Author(s): Jordan Isip, Adam Hindman, Isaac Yang
+		Todo Items:
+			[x] Initial Skeleton Code (Jordan)
+			[x] Integrate Structured Discussion (Jordan)
+			[ ] Integrate Project Tree (Isaac)
+			[x] Integrate Layout (Adam) 
+			[ ] Test with backend contractor code (Jordan)
+	#### -->
 <!-- begin "overview and instructions" area -->
 
-<div id="overview" class="box2">
-	<h3 class="headerColor">Instructions</h3>
-	<p> Here you can review proposed projects for improving or expanding
-		our regional transportation system. Click on a project to review
-		information and discuss its merits or drawbacks with other
-		participants. </p>
-	<p> Each of the projects has been examined by a panel of specialists
-		who assigned scores based on the criteria we reviewed in step
-		2. <a href="#">Read more about the project scoring process</a> </p>
-</div>
-<!-- end overview -->
-<!-- begin Object -->
-<div id="object">
-	<h3 class="headerColor">All proposed projects</h3>
-	<div id="3a-obj-left" class="floatLeft">
-		<div id="list">
-			<!--left col-->
-			<h4 class="headerColor">Road Projects</h4>
-			<ul>
-				<c:forEach var="project" items="${infoStructure.infoObjects}" varStatus="loop">
-					<c:if test="${project.type == 1}">
-						<li>
-							<div class="floatLeft"> <a href="javascript:expandList('project1','icon1');"> <img src="images/plus.gif" id="icon1"> </a> </div>
-							${project.name} (${fn:length(project.alternatives)})
-							<div style="display:none" id="project1">
-								<ul>
-									<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
-										<li><a href="javascript:mapProjectAlt(${alternative.id})">${alternative.name}</a></li>
-									</c:forEach>
-								</ul>
-							</div>
-						</li>
-					</c:if>
-				</c:forEach>
-			</ul>
-			<h4 class="headerColor">Transit Projects</h4>
-			<ul>
-				<c:forEach var="project" items="${infoStructure.infoObjects}" varStatus="loop">
-					<c:if test="${project.type == 2}">
-						<li>
-							<div class="floatLeft"> <a href="javascript:expandList('project2','icon2');"> <img src="images/plus.gif" id="icon2"> </a> </div>
-							${project.name} (${fn:length(project.alternatives)})
-							<div id="project2" style="display:none">
-								<ul>
-									<c:forEach var="alternative" items="${project.alternatives}" varStatus="loop">
-										<li><a href="javascript:mapProjectAlt(${alternative.id})">${alternative.name}</a></li>
-									</c:forEach>
-								</ul>
-							</div>
-						</li>
-					</c:if>
-				</c:forEach>
-			</ul>
-		</div>
+	<div id="overview" class="box2">
+		<h3>Overview and Instructions</h3>
+		<p>Criteria are used to help Evaluate which proposed transportation projects are
+			best suited to address problems with our transportation system. Below, these criteria
+			have been associated with the concern themes discussed in the previous step. Please
+			review these criteria and the associated themes. Do these criteria adequately
+			reflect your concerns and the summaries? What criteria might be useful in evaluating
+			proposed transportation projects?</p>
+		<p><a href="readmore.jsp">Read more about how this step fits into the bigger picture</a>.</p>
 	</div>
-	<!-- end 3a-obj-left -->
-</div>
-<div id="map" class="floatRight">
-	<!-- right col -->
-	<!-- load map here -->
-</div>
-<!-- end cell containing Google Map object -->
-<!-- begin firefox height hack -->
-<div class="clearBoth"></div>
-<!-- end firefox height hack -->
+	<!-- end overview -->
+	<!-- begin Object -->
+	<div id="object">
+		<a href="javascript:io.expandAll();">Expand all</a>
+		<a href="javascript:io.collapseAll();">Collapse all</a>
+		<div id="rp3a-left" class="floatLeft">
+			<!-- begin collapsible list of projects -->
+			<div id="newtable">
+				<table cellpadding=0 cellspacing=0>
+					<tr class="tableHeading">
+						<th colspan="2" class="first">My Proposed Projects</th>
+						<th class="right"><span id="hiddenLabel" style="visibility:hidden">Money Needed</span></th>
+					</tr>
+					
+				
+					<c:forEach var="category" begin="1" end="2">
+						<!-- start road projects -->
+						<tr>
+							<c:choose>
+								<c:when test="${category == 1}">
+									<td class="category" colspan="3"><strong>Road Projects</strong></td>
+								</c:when>
+								<c:otherwise>
+									<td class="category" colspan="3"><strong>Transit Projects</strong></td>
+								</c:otherwise>
+							</c:choose>
+						</tr>
+						<!-- end CATEGORY LABEL -->
+						<!-- ******* LOOP ENTIRE PROJECT ******** -->
+						<c:forEach var="projectRef" items="${structure.infoObjects}" varStatus="loop">
+							<c:if test="${projectRef.project.transMode == category}">
+								
+								
+								<!-- begin PROJECT -->
+								<tr class="${(projectRef.project.inclusive) ? 'fundingType' : 'fundingType2'}">
+									<td class="fundingSourceItem">${projectRef.project.name} Options</td>
+									<td colspan="2"> ${(projectRef.project.inclusive) ? 'Select at most one'
+										: 'Select any number'} </td>
+								</tr>
+								<!-- end PROJECT -->
+								
+								<!-- begin objectives -->
+								<tr class="objectives" id="objective${projectRef.id}">
+									<td colspan="3">
+										<table>
+											<c:set var="doNothing"value="true"/>
+											<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
+												<tr>
+													<td>
+														<label>${altRef.alternative.name}</label>
+													</td>
+													<td class="cost">$${altRef.alternative.cost} million</td>
+												</tr>
+												<c:if test="${pg:contains(userPkg.projAltRefs,altRef)}">
+													<c:set var="doNothing"value="false"/>
+												</c:if>
+											</c:forEach>
+										</table>
+									</td>
+								</tr>
+								<!-- end objectives -->
+							</c:if>
+						</c:forEach>
+						<!-- ******* END LOOP ENTIRE PROJECT ******** -->
+					</c:forEach>
+				</table>
+			</div>
+
+			<!-- end collapsible project list -->
+		</div>
+		<!-- end rp3a-left -->
+	</div>
+	<!-- begin cell containing Google Map object -->
+	<!-- GUIRONG: This can be up to 420px wide -->
+	<div id="map" class="floatRight">420px wide GMap goes here</div>
+	<!-- end cell containing Google Map object -->
+	<!-- begin firefox height hack -->
+	<div class="clearBoth"></div>
+	<!-- end firefox height hack -->
 </div>
 <!-- end Object-->
 
@@ -96,8 +121,6 @@
 
 <pg:fragment type="script">
 	//All Javascript that is internal to this page must go here - not sdRoomMain.
-	//Add Javascript to build tree list
-
 	/* *************** load a dynamic javascript or css file ****************/
 
 	io.loadDynamicFile = function(file){
@@ -121,9 +144,58 @@
 		
 	}
 	
+	io.expandAll = function(){
+		var rows = document.getElementsByClassName('objectives');
+		var icons = document.getElementsByClassName('icon');
+		//alert('icons: ' + icons.length + ' rows: ' + rows.length);
+		for (var i = 1;i <= rows.length; i++){
+			var row = 'objective' + i;
+			var icon = 'icon' + i;
+			$(row).show();
+			$(icon).src = "images/minus.gif";
+		}
+		$('hiddenLabel').style.visibility = "";
+	}
+	
+	io.collapseAll = function(){
+		var rows = document.getElementsByClassName('objectives');
+		for (var i = 1;i <= rows.length; i++){
+			var row = 'objective' + i;
+			var icon = 'icon' + i;
+			$(row).hide();
+			$(icon).src = "images/plus.gif";
+		}
+		$('hiddenLabel').style.visibility = "hidden";
+	}
+
+	io.testOpenRows = function(){
+		var rows = document.getElementsByClassName('objectives');
+		hideLabels();
+		for (var i = 1;i <= rows.length; i++){
+			var row = 'objective' + i;
+			if ($(row).style.display != "none"){
+				io.showLabels();
+			}else{}
+		}
+	}
+
+	io.toggleRow = function(project,icon){
+		Effect.toggle(project, 'appear', {duration: .4, afterFinish:
+			function(){
+				if ($(project).style.display != ""){
+					$(icon).src = "images/plus.gif";
+					io.testOpenRows();
+					$('hiddenLabel').style.visibility = "hidden";
+					}else{
+						$(icon).src = "images/minus.gif";
+						$('hiddenLabel').style.visibility = "";
+					}
+				}
+		});
+	}
 	/* *************** loading on getTargets() in SDRoomMain *************** */
-	io.loadDynamicFile('styles/step3.css');
+	io.loadDynamicFile('/styles/step3a-reviewprojects.css');
+	io.loadDynamicFile('/styles/table.css');
 	io.loadDynamicFile('/dwr/interface/ProjectAgent.js');
-	io.loadDynamicFile('scripts/treeul.js');
-	initiate("projectsList"); //initiate the treeul script
+
 </pg:fragment>
