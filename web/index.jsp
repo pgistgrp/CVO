@@ -69,17 +69,14 @@ body {
 	}
 	
 	#login div.cell {float:left;margin-right:20px;}
-	#login input {width:200px;font-size:1.2em;padding:2px;}
+	#login input {width:180px;font-size:1.2em;padding:2px;}
 	
 	input#sub {
 	padding:10px;
 	font-size:1.2em;
-  width:auto;
-  height:80%;     
+  height:80%;
+	width:100px;     
 	}
-
-
-	
 </style>
 </head>
 <body>
