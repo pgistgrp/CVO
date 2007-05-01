@@ -19,7 +19,7 @@
 		[x] Balance color (Jordan)
 		[x] Clear selection prior to setting (Jordan)
 		[x] pg:contains for initialization(Jordan)
-		[ ] What happends when user clicks on "finished"? (Jordan)
+		[ ] What happens when user clicks on "finished"? (Jordan)
 		[ ] myLimit validations (Jordan)
 		[x] Ordering (Matt)
 #### -->
@@ -242,7 +242,7 @@
 					<form action="javascript:createMyPackage();">
 					<h4>Cost per year</h4>
 						<div class="floatLeft" style="width:60%">
-							<label> What's the most the average person should be expected to pay to fund this package? </label>
+							<label> What's the most you would be willing to pay to fund this package? </label>
 						</div>
 						<div class="floatRight"> <span style="font-size:1.3em;">$
 							<input type="text" size="3" id="mylimit" /></span>
