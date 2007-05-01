@@ -594,7 +594,10 @@ public class SDAgent {
                 return map;
             }
             
-            rid = new Long((String) params.get("rid"));
+            try {
+                rid = new Long((String) params.get("rid"));
+            } catch (Exception e) {
+            }
             
             String emailNotify = (String) params.get("emailNotify");
             
