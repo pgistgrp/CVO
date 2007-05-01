@@ -20,6 +20,7 @@
 		[x] Clear selection prior to setting (Jordan)
 		[x] pg:contains for initialization(Jordan)
 		[ ] What happends when user clicks on "finished"? (Jordan)
+		[ ] myLimit validations (Jordan)
 		[x] Ordering (Matt)
 #### -->
 <html>
@@ -58,9 +59,8 @@
 
 			function setFundingToUserPkg(altRefId,checked){
 				//alert("checked = " +checked)
-				//alert("pkgSuiteId: " + pkgId + "altRefId: " + altRefId + " deleting: " + deleting); 
 				var deleting = !Boolean(checked); //dealing with checkboxes
-				//alert("deleting = " + deleting)
+				//alert("pkgSuiteId: " + pkgId + "altRefId: " + altRefId + " deleting: " + deleting); 
 				PackageAgent.setFundingToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
@@ -166,8 +166,8 @@
 				PackageAgent.createMyPackage({usrPkgId:pkgId,avglimit:avglimit,mylimit:mylimit,critSuiteId:critSuiteId,projSuiteId:projSuiteId,fundSuiteId:fundSuiteId}, {
 					callback:function(data){
 						if (data.successful){
-							alert("it worked");
-							updateSummary(data);
+							//if mylimit > 0 and not null
+							location.reload(true);
 						}else{
 							alert(data.reason);
 						}

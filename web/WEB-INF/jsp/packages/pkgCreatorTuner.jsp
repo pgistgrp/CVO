@@ -15,7 +15,7 @@
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-
+		[ ] myLimit validations (Jordan)
 
 #### -->
 <html:html>
