@@ -41,7 +41,7 @@ background:#E5A9A6;
 
 #newTable #left table {width:100%}
 #newTable #left td {font-size:.7em;}
-#newTable #left td.fundingSourceItem {width:65%;font-size:.8em;}
+#newTable #left td.fundingSourceItem {width:65%;font-size:.85em;}
 #newTable #left td.fundingSourceItem + td {width:35%;}
 
 
@@ -51,6 +51,7 @@ background:#E5A9A6;
 
 #newTable #right table {width:100%;}
 #newTable #right td {font-size:.7em;text-align:center;}
+#newTable #right td.fundingSourceItem label {font-size:.85em;}
 #newTable #right td.fundingSourceItem {width:45%;text-align:left;font-size:.8em;}
 #newTable #right td.fundingSourceItem + td {width:20%;}
 #newTable #right td.fundingSourceItem + td + td {width:20%;}
@@ -61,5 +62,3 @@ background:#E5A9A6;
 .objectives table {width:100%;text-align:left;}
 .objectives table td {width:80%}
 .objectives table td + td{width:20%;text-align:left;}
-
-

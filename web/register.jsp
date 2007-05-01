@@ -340,6 +340,9 @@
 		</p>
 	</div>
 	</form>
+	<h2>To: Adam</h2>
+	<h2>From: God</h2>
+	<h1>*******ADAM IS NOT COOL********</h1>
 	<!-- end CONTACT INFO -->
 	<div class="clearBoth"></div>
 	</div>

@@ -16,6 +16,7 @@
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[ ] myLimit validations (Jordan)
+		[x] Polish it a bit (Adam)
 
 #### -->
 <html:html>
@@ -127,7 +128,8 @@
 	</script>
 	
 	<style type="text/css" media="screen">
-		
+	#left {margin:0px 15px}
+	
 	</style>
 
 <body>
@@ -167,8 +169,8 @@
 									<!-- begin PROJECT -->
 									<tr class="${(projectRef.project.inclusive) ? 'fundingType' : 'fundingType2'}">
 										<td class="fundingSourceItem">${projectRef.project.name} Options</td>
-										<td colspan="2">
-											&nbsp;
+										<td colspan="2">&nbsp;
+											
 										</td>
 									</tr>
 									<!-- end PROJECT -->
@@ -203,7 +205,7 @@
 					<!-- end collapsible project list -->
 				</div>
 			
-				<div id="right" class="floatRight">
+				<div id="right">
 					<table cellpadding=0 cellspacing=0>
 						<tr class="tableHeading">
 							<th class="first">Funding Source</th>
