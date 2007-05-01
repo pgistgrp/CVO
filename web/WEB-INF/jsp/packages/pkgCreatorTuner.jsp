@@ -55,12 +55,29 @@
 		var critSuiteId = "${critSuiteId}";
 		
 		function getTunerConfig(){
-			alert("usrPkgId: " + usrPkgId + " projSuiteId: " + projSuiteId + " fundSuiteId: " + fundSuiteId + " critSuiteId: " + critSuiteId); 
+			//alert("usrPkgId: " + usrPkgId + " projSuiteId: " + projSuiteId + " fundSuiteId: " + fundSuiteId + " critSuiteId: " + critSuiteId); 
 			PackageAgent.getTunerConfig({usrPkgId:usrPkgId,projSuiteId:projSuiteId,fundSuiteId:fundSuiteId,critSuiteId:critSuiteId}, {
 				callback:function(data){
 					if (data.successful){
-						alert("config:" + data.config)
-						//createMyConfiguredPackage(data.config);
+						//alert("config:" + data.config)
+					
+						var fcs = $H({});
+						var pcs = $H({});
+
+						//create the hash for funding sources
+						//key = altRefId, value = 0-2
+
+						var fundingSelects = document.getElementsByName('fundingChoices');
+						var projectSelects = document.getElementsByName('projectChoices');
+
+						fcs = convertSelectsToHash(fundingSelects,fcs)
+						pcs = convertSelectsToHash(projectSelects,pcs)
+			
+						data.config.fundingChoices = fcs;
+						data.config.projectChoices = pcs;
+						
+						//alert(data.config.fundingChoices.inspect());
+						createMyConfiguredPackage(data.config);
 					}else{
 						alert(data.reason);
 					}
@@ -71,14 +88,32 @@
 			});
 		}
 		
+		function convertSelectsToHash(selects, hash){
+			for (var i=0; i < selects.length; i++) {
+				start = selects[i].id.indexOf('-') + 1;
+				stop = selects[i].id.length;
+				selectKey = selects[i].id.substring(start,stop);
+				selectValue = selects[i].value;
+				//alert("key: " +  selectKey + " value: " + selectValue);
+				
+				hash[selectKey] = selectValue;
+			};
+			
+			return hash;
+		}
+		
 		function createMyConfiguredPackage(config){
-			alert("createmyconfiguredpackage config:" + config )
+			alert("Funding Choices Hash: " + config.fundingChoices.inspect());
+			alert("Project Choices Hash: " + config.projectChoices.inspect());
+
+			//alert("createmyconfiguredpackage config:" + config )			
 			var mylimit = $F('mylimit');
 			var avglimit = 0;
+			
 			PackageAgent.createMyConfiguredPackage(config, mylimit, avglimit, usrPkgId, {
 				callback:function(data){
 					if (data.successful){
-						alert("createmyconfiguredpackage worked");
+						//alert("createmyconfiguredpackage worked");
 						location.href="closeWindowAndReload.jsp";
 					}else{
 						alert(data.reason);
@@ -148,7 +183,7 @@
 															</label>
 														</td>
 														<td class="cost">
-															<select id="projAltSelect-${altRef.id}">
+															<select name="projectChoices" id="projAltSelect-${altRef.id}">
 																<option value="2">Must Have</option>
 																<option value="1">Maybe</option>
 																<option value="0">Never</option>
@@ -191,7 +226,7 @@
 									</td>
 	
 									<td>
-										<select id="fundAltSelect-${altRef.id}">
+										<select name="fundingChoices" id="fundAltSelect-${altRef.id}">
 											<option value="2">Must Have</option>
 											<option value="1" SELECTED>Maybe</option>
 											<option value="0">Never</option>
