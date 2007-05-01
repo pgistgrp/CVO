@@ -5,7 +5,8 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
 <!--####
 	Project: Let's Improve Transportation!
 	Page: Help Me 
@@ -128,31 +129,38 @@
 	</script>
 	
 	<style type="text/css" media="screen">
-	#left {margin:0px 15px}
-	body {text-align:left;}
+	#left {margin:0px 15px;_margin:0px 10px;}
+	#right {width:500px;}
+	body {text-align:left;font-size:12pt;}
 	#top {padding:15px;}
+	#goBtn {padding:10px;vertical-align:middle;}
+	#finished {padding:10px;text-align:center;margin:10px 15px;}
+	#finished h3 {display:inline;margin:0px;margin-right:20px;padding:0px;}
+	.dollarSign {display:inline;margin-right:20px;}
+	.stripWS {margin:0px;padding:0px;}
+	.right-col2 {width:15%;}
 	</style>
 
 <body>
 <div id="top">
-		<h2 class="headerColor">Help Me!</h2>
+		<h2 class="headerColor">Fine Tune a Package</h2>
 		<div id="overview" class="box2">
 		<h3 class="headerColor">Overview and Instructions</h3>
 			<p>Answer the following questions so that we can suggest a package that matches
 				your general preferences. you will be able to adjust your suggested package before
 				moving on.</p>
 		</div>
-		<p><label>Average Person Limit</label> <input type="text" id="mylimit" /></p>
+		<p><label>How much would you be willing to pay each year for this package?</label> <span class="dollarSign">$</span><input type="text" id="mylimit" size="5"/></p>
 	</div>
-<div id="object" style="margin:0px;padding:0px;">
+<div id="object" class="stripWS">
 			<!-- begin NewTable-->
-			<div id="newTable" style="margin:0px;padding:0px;">
+			<div id="newTable" class="stripWS">
 				<div id="left" class="floatLeft">
 					<table cellpadding=0 cellspacing=0>
 						<!-- begin CATEGORY LABEL -->
 						<tr class="tableHeading">
 							<th colspan="2" class="first">Projects</th>
-							<th>Priority?</th>
+							<th>Priority</th>
 						</tr>
 				
 						<c:forEach var="category" begin="1" end="2">
@@ -187,14 +195,14 @@
 													<tr>
 														<td>
 															<label>
-																${altRef.alternative.name}
+																<span style="font-size:9pt">${altRef.alternative.name}</span>
 															</label>
 														</td>
 														<td class="cost">
 															<select name="projectChoices" id="projAltSelect-${altRef.id}">
-																<option value="2">Include</option>
+																<option value="2">Include it</option>
 																<option value="1">Don't care</option>
-																<option value="0">Exclude</option>
+																<option value="0">Exclude it</option>
 															</select>
 														</td>
 													</tr>
@@ -215,8 +223,7 @@
 					<table cellpadding=0 cellspacing=0>
 						<tr class="tableHeading">
 							<th class="first">Funding Source</th>
-
-							<th>Priority?</th>
+							<th>Priority</th>
 						</tr>
 						<!-- begin FUNDING source -->
 						<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
@@ -230,14 +237,14 @@
 							<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
 								<tr>
 									<td class="fundingSourceItem">
-										<label>${altRef.alternative.name}</label>
+										<label style="font-size:9pt">${altRef.alternative.name}</label>
 									</td>
 	
-									<td>
+									<td class="right-col2">
 										<select name="fundingChoices" id="fundAltSelect-${altRef.id}">
-											<option value="2">Include</option>
+											<option value="2">Include it</option>
 											<option value="1" SELECTED>Don't care</option>
-											<option value="0">Exclude</option>
+											<option value="0">Exclude it</option>
 										</select>
 									</td>
 								</tr>
@@ -250,10 +257,12 @@
 			</div>
 		</div>
 		<div class="clearBoth">
-		<p><input type="button" onClick="getTunerConfig();" value="Go!"/></p>
-
 		</div>
-	
-
+		<div id="finished" class="box7">
+			<h3>Finished fine tuning your package?</h3>
+			<input type="button" id="goBtn" onClick="getTunerConfig();" 
+			value="Create My Package"/>
+			<div class="clearBoth"></div>
+		</div>
 </body>
 </html:html>
