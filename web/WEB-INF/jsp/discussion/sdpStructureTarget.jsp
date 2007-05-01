@@ -15,12 +15,14 @@
 		Description: This page will list and map out all of the projects in the given decision situation.
 					 The javascript on this page will allow for map manipulation.  Clicking on a project
 					 will 
-		Author(s): Jordan Isip, Adam Hindman, Isaac Yang
+		Author(s): Jordan Isip, Adam Hindman
 		Todo Items:
 			[x] Initial Skeleton Code (Jordan)
 			[x] Integrate Structured Discussion (Jordan)
-			[ ] Integrate Project Tree (Isaac)
+			[x] Integrate Project Tree (Jordan)
 			[x] Integrate Layout (Adam) 
+			[ ] Ensure loop is working with backend (Jordan)
+			[ ] Ensure tree menu is working correctly (Jordan)
 			[ ] Test with backend contractor code (Jordan)
 	#### -->
 <!-- begin "overview and instructions" area -->
@@ -84,7 +86,8 @@
 											<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
 												<tr>
 													<td>
-														<label>${altRef.alternative.name}</label>
+														<label><a href="javascript:io.toggleRow('objective1','icon1');">
+														<img src="images/plus.gif" id="icon1" class="icon"></a> <a href="projectAlt.do?altrefId=${altRef.id}" target="blank">${altRef.alternative.name}</a></label>
 													</td>
 													<td class="cost">$${altRef.alternative.cost} million</td>
 												</tr>

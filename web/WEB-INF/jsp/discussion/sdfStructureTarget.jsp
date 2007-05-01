@@ -52,151 +52,40 @@
 						<th><span class="hiddenLabel" style="display:none">
 						Estimated annual cost to you</span></th>
 					</tr>
-
-					<!-- begin PROJECT -->
-					<tr class="fundingType">
-						<td class="fundingSourceItem">
-								<a href="javascript:io.toggleRow('objective1','icon1');">
-								<img src="images/plus.gif" id="icon1" class="icon"></a>
-								Sales Tax Increase</td>
-						<td colspan="3">&nbsp;</td>
-					</tr>
-					<!-- end PROJECT -->
-
-					<!-- begin HIDDEN ROW of OPTIONS -->
-					<tr style="display:none;" class="objectives" id="objective1">
-						<td colspan="4">
-							<table>
-								<tr>
-									<td>0.1 percentage-point increase</td>
-									<td>$7,015,384,615</td>
-									<td>$20</td>
-									<td>$16</td>
-								</tr>
-								<tr>
-									<td>0.3 percentage-point increase</td>
-									<td>$7,015,384,615</td>
-									<td>$38</td>
-									<td>$48</td>
-								</tr>
-								<tr>
-									<td>0.5 percentage-point increase</td>
-									<td>$7,015,384,615</td>
-									<td>$81</td>
-									<td>$79</td>
-								</tr>
-								<tr>
-									<td>0.7 percentage-point increase</td>
-									<td>$16,430,769,231</td>
-									<td>$104</td>
-									<td>$111</td>
-								</tr>
-								<tr>
-									<td>1.0 percentage-point increase</td>
-									<td>$23,015,384,615</td>
-									<td>$162</td>
-									<td>$159</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<!-- end HIDDEN ROW -->
-					<!-- begin PROJECT -->
-					<tr class="fundingType">
-						<td class="fundingSourceItem">
-								<a href="javascript:toggleRow('objective2','icon2');">
-								<img src="images/plus.gif" id="icon2" class="icon"></a>
-								Sales Tax Increase</td>
-						<td colspan="3">&nbsp;</td>
-					</tr>
-					<!-- end PROJECT -->
-
-					<!-- begin HIDDEN ROW of OPTIONS -->
-					<tr style="display:none;" class="objectives" id="objective2">
-						<td colspan="4">
-							<table>
-								<tr>
-									<td>0.1 percentage-point increase</td>
-									<td>$7,015,384,615</td>
-									<td>$20</td>
-									<td>$16</td>
-								</tr>
-								<tr>
-									<td>0.3 percentage-point increase</td>
-									<td>$7,015,384,615</td>
-									<td>$38</td>
-									<td>$48</td>
-								</tr>
-								<tr>
-									<td>0.5 percentage-point increase</td>
-									<td>$7,015,384,615</td>
-									<td>$81</td>
-									<td>$79</td>
-								</tr>
-								<tr>
-									<td>0.7 percentage-point increase</td>
-									<td>$16,430,769,231</td>
-									<td>$104</td>
-									<td>$111</td>
-								</tr>
-								<tr>
-									<td>1.0 percentage-point increase</td>
-									<td>$23,015,384,615</td>
-									<td>$162</td>
-									<td>$159</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<!-- end HIDDEN ROW -->
-<!-- begin PROJECT -->
-					<tr class="fundingType">
-						<td class="fundingSourceItem">
-								<a href="javascript:toggleRow('objective3','icon3');">
-								<img src="images/plus.gif" id="icon3" class="icon"></a>
-								Sales Tax Increase</td>
-						<td colspan="3">&nbsp;</td>
-					</tr>
-					<!-- end PROJECT -->
-
-					<!-- begin HIDDEN ROW of OPTIONS -->
-					<tr style="display:none;" class="objectives" id="objective3">
-						<td colspan="4">
-							<table>
-								<tr>
-									<td>0.1 percentage-point increase</td>
-									<td>$7,015,384,615</td>
-									<td>$20</td>
-									<td>$16</td>
-								</tr>
-								<tr>
-									<td>0.3 percentage-point increase</td>
-									<td>$7,015,384,615</td>
-									<td>$38</td>
-									<td>$48</td>
-								</tr>
-								<tr>
-									<td>0.5 percentage-point increase</td>
-									<td>$7,015,384,615</td>
-									<td>$81</td>
-									<td>$79</td>
-								</tr>
-								<tr>
-									<td>0.7 percentage-point increase</td>
-									<td>$16,430,769,231</td>
-									<td>$104</td>
-									<td>$111</td>
-								</tr>
-								<tr>
-									<td>1.0 percentage-point increase</td>
-									<td>$23,015,384,615</td>
-									<td>$162</td>
-									<td>$159</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<!-- end HIDDEN ROW -->
+					
+					
+					<c:forEach var="fundingRef" items="${structure.infoObjects}" varStatus="loop">
+						<tr class="fundingType">
+							<td class="fundingSourceItem"><a href="javascript:io.toggleRow('objective${fundingRef.id}','icon${fundingRef.id}');">
+							<img src="images/plus.gif" id="icon${fundingRef.id}" class="icon"></a> ${fundingRef.source.name}</td>
+							<td colspan="3">&nbsp;</td>
+						</tr>
+						<!-- end FUNDING source -->
+						<!-- begin OPTIONS -->
+						<c:set var="doNothing"value="true"/>
+						<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
+							<tr style="display:none;" class="objectives" id="objective1">
+								<td colspan="4">
+									<table>
+										<tr>
+											<td>${altRef.alternative.name}</td>
+											<td>${altRef.alternative.revenue} million</td>
+											<td>$${altRef.alternative.avgCost}</td>
+											<td>$<c:out value="${userPkg.personalCost[altRef.id]}" /></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<c:if test="${pg:contains(userPkg.fundAltRefs,altRef)}">
+								<c:set var="doNothing"value="false"/>
+							</c:if>
+						</c:forEach>
+						<tr>
+							<td class="cost">&nbsp;</td>
+							<td class="cost">&nbsp;</td>
+							<td class="cost">&nbsp;</td>
+						</tr>
+					</c:forEach>
 				</table>
 			</div>
 			</div>

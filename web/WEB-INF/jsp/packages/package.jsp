@@ -252,14 +252,14 @@ width:100px;
             <div class="floatLeft">
               <h3>Total Funding</h3>
             </div>
-            <div class="floatRight" id="totalFunding">${package.totalFunding}</div>
+            <div class="floatRight" id="totalFunding">$${package.totalFunding}/year</div>
 
           </div>
           <div class="clearBoth">
             <div class="floatLeft">
               <h4>Cost to you</h4>
             </div>
-            <div class="floatRight" id="costToYou">${package.userCost}</div>
+            <div class="floatRight" id="costToYou">$${package.userCost}/year</div>
           </div>
           <div class="clearBoth">
 

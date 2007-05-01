@@ -12,7 +12,7 @@
 	Description: Tax Calculator Game - Users will be able to calculate how much funding sources will cost to them.
 	Author(s): 
 	     Front End: Jordan Isip, Adam Hindman
-	     Back End: Matt Paulin, Zhong Wang, John Le
+	     Back End: Matt Paulin, Zhong Wang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[ ] Ensure get and set estimates are working correctly and pulling the right data (Jordan)

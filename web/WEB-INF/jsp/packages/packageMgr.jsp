@@ -13,7 +13,7 @@
 	Description: View all auto generated packages and access to CRUD Events on All Manual Packages.
 	Author(s): 
 	     Front End: Jordan Isip, Adam Hindman
-	     Back End: Zhong Wang
+	     Back End: Matt Paulin, Zhong Wang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[ ] BareBones JavaScript/JSTL (Jordan)
@@ -36,6 +36,7 @@
 
 myPackages = [];
 var pkgSuiteId = "${pkgSuiteId}";
+
 function addMyPackage(){
 	var myPackage = $F('packageDesc');
 	myNewPackages = myPackages.push(myPackage);

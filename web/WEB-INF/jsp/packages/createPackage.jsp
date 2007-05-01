@@ -9,7 +9,9 @@
 	Project: Let's Improve Transportation!
 	Page: Create My Transportation Package
 	Description: This page serves as a form for a user to create her/her own transportation package. 
-	Author: Jordan Isip, Adam Hindman
+	Authors:
+		Front End: Jordan Isip, Adam Hindman
+    	Back End: Matt Paulin, Zhong Wang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] Integrate Adam's Layout (Jordan)

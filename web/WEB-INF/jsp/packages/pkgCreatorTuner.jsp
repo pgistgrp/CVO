@@ -11,8 +11,8 @@
 	Page: Help Me 
 	Description: Users will use this component to re-weigh their criteria to have the system assist in the creation of a package.
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Issac Yang
-	     Back End: Matt Paulin, Zhong Wang, John Le
+	     Front End: Jordan Isip, Adam Hindman
+	     Back End: Matt Paulin, Zhong Wang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[ ] myLimit validations (Jordan)
