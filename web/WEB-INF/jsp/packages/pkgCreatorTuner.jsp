@@ -129,24 +129,30 @@
 	
 	<style type="text/css" media="screen">
 	#left {margin:0px 15px}
-	
+	body {text-align:left;}
+	#top {padding:15px;}
 	</style>
 
 <body>
-	<h1>Help Me!</h1>
-	<p>Answer the following questions so that we can suggest a package that matches your general preferences.
-		you will be able to adjust your suggested package before moving on.</p>
-
-		<div id="object">
+<div id="top">
+		<h2 class="headerColor">Help Me!</h2>
+		<div id="overview" class="box2">
+		<h3 class="headerColor">Overview and Instructions</h3>
+			<p>Answer the following questions so that we can suggest a package that matches
+				your general preferences. you will be able to adjust your suggested package before
+				moving on.</p>
+		</div>
+		<p><label>Average Person Limit</label> <input type="text" id="mylimit" /></p>
+	</div>
+<div id="object" style="margin:0px;padding:0px;">
 			<!-- begin NewTable-->
-			<div id="newTable">
-				<p><label>Average Person Limit</label> <input type="text" id="mylimit" /></p>
+			<div id="newTable" style="margin:0px;padding:0px;">
 				<div id="left" class="floatLeft">
 					<table cellpadding=0 cellspacing=0>
 						<!-- begin CATEGORY LABEL -->
 						<tr class="tableHeading">
 							<th colspan="2" class="first">Projects</th>
-							<th>Money Needed</th>
+							<th>Priority?</th>
 						</tr>
 				
 						<c:forEach var="category" begin="1" end="2">
@@ -186,9 +192,9 @@
 														</td>
 														<td class="cost">
 															<select name="projectChoices" id="projAltSelect-${altRef.id}">
-																<option value="2">Must Have</option>
-																<option value="1">Maybe</option>
-																<option value="0">Never</option>
+																<option value="2">Include</option>
+																<option value="1">Don't care</option>
+																<option value="0">Exclude</option>
 															</select>
 														</td>
 													</tr>
@@ -210,7 +216,7 @@
 						<tr class="tableHeading">
 							<th class="first">Funding Source</th>
 
-							<th>Cost to you</th>
+							<th>Priority?</th>
 						</tr>
 						<!-- begin FUNDING source -->
 						<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
@@ -229,11 +235,10 @@
 	
 									<td>
 										<select name="fundingChoices" id="fundAltSelect-${altRef.id}">
-											<option value="2">Must Have</option>
-											<option value="1" SELECTED>Maybe</option>
-											<option value="0">Never</option>
+											<option value="2">Include</option>
+											<option value="1" SELECTED>Don't care</option>
+											<option value="0">Exclude</option>
 										</select>
-										
 									</td>
 								</tr>
 							</c:forEach>
