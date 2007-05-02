@@ -211,7 +211,7 @@ public class PrepTestDataLoader extends MatchingTask {
     private FundingSourceAlternative createAlternative(String name, float avgCost, FundingSource source) {
     	FundingSourceAlternative a1 = new FundingSourceAlternative();
     	a1.setName(name);
-    	a1.setAvgCost(avgCost);
+    	a1.setAvgCost((avgCost + 1) * 10);
     	a1.setOffPeakTripsRate(100);
     	a1.setPeakHourTripsRate(100);
     	a1.setRevenue(new Float(100));

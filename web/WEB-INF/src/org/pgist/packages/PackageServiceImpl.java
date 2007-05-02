@@ -123,7 +123,8 @@ public class PackageServiceImpl implements PackageService {
 	 * Adds the provided alternative project to the package
 	 */
 	public UserPackage addProjectAlternative(Long usrPkgId, Long altId) throws Exception {
-		
+		//System.out.println("MATT##################: Adding project alternative [" + altId + "] to user package [" + usrPkgId + "]");
+
 		//Get the user package
 		UserPackage uPack = this.packageDAO.getUserPackage(usrPkgId);
 		
@@ -134,11 +135,12 @@ public class PackageServiceImpl implements PackageService {
 		
 		uPack.updateCalculations();
 		this.packageDAO.save(uPack);
-
 		return uPack;
 	}
 
 	public UserPackage deleteProjectAlternative(Long usrPkgId, Long altId) throws Exception {
+		//System.out.println("MATT##################: Removing project [" + altId + "] from user package [" + usrPkgId + "]");
+
 		//Get the user package
 		UserPackage uPack = this.packageDAO.getUserPackage(usrPkgId);
 				
@@ -166,6 +168,7 @@ public class PackageServiceImpl implements PackageService {
 	 * Adds the provided funding source to the package
 	 */
 	public UserPackage addFundingAlternative(Long usrPkgId, Long funAltRefId) throws Exception {
+		//System.out.println("MATT##################: Adding funding source alternative [" + funAltRefId + "] to user package [" + usrPkgId + "]");
 		//Get the user package
 		UserPackage uPack = this.packageDAO.getUserPackage(usrPkgId);
 		
@@ -185,6 +188,8 @@ public class PackageServiceImpl implements PackageService {
 	
 
 	public UserPackage deleteFundingAlternative(Long usrPkgId, Long funAltRefId) throws Exception {
+		//System.out.println("MATT##################: Removing funding alternative [" + funAltRefId + "] from user package [" + usrPkgId + "]");
+
 		//Get the user package
 		UserPackage uPack = this.packageDAO.getUserPackage(usrPkgId);
 				
@@ -235,7 +240,7 @@ public class PackageServiceImpl implements PackageService {
 			tempPackage = pkgs.next();
 			if(tempPackage.getAuthor().getId().equals(info.getId())) {
 				if(tempPackage.getSuite().getId().equals(suite.getId())) {
-					System.out.println("MATT 2");
+					//System.out.println("MATT 2");
 					this.calcUserValues(tempPackage, fundingSuiteId);
 					return tempPackage;					
 				}
@@ -255,14 +260,14 @@ public class PackageServiceImpl implements PackageService {
 	}
 
 	private void displayUserValues(UserPackage uPack) {
-		System.out.println("MATT: Looking up funding sources in user package");
+		//System.out.println("MATT##################: Looking up funding sources in user package");
 		Iterator i = uPack.getPersonalCost().keySet().iterator();
 		Long key;
 		while(i.hasNext()) {
 			key = (Long)i.next();
-			System.out.println("FunSourceAltRef [" + key + "] cost = [" +  uPack.getPersonalCost().get(key) + "]");
+			//System.out.println("FunSourceAltRef [" + key + "] cost = [" +  uPack.getPersonalCost().get(key) + "]");
 		}
-		System.out.println("MATT: Looking up funding sources 2");
+		//System.out.println("MATT##################: Looking up funding sources 2");
 		
 	}
 
@@ -321,7 +326,7 @@ public class PackageServiceImpl implements PackageService {
      * @throws Exception 
      */
     public void calcUserValues(UserPackage usrPkg, Long funSuiteId) throws Exception {
-System.out.println("MATT: Sweet ID!" + funSuiteId);    
+//System.out.println("MATT##################: Sweet ID!" + funSuiteId);    
     	User tempUser = usrPkg.getAuthor();
     	if(tempUser.getUserCommute() == null) {
     		fundingService.initializeUser(tempUser);    		
@@ -461,12 +466,12 @@ System.out.println("MATT: Sweet ID!" + funSuiteId);
         }
 
         //TODO Remove this after it proves to be working
-        System.out.println("For User [" + user.getFirstname() + "] the following criteria were found");
+        //System.out.println("For User [" + user.getFirstname() + "] the following criteria were found");
         Iterator<Criteria> i = cWeights.keySet().iterator();
         Criteria c;
         while(i.hasNext()) {
         	c = i.next();
-        	System.out.println("Criteria [" + c.getName() + "] value [" + cWeights.get(c).intValue() + "]");
+        	//System.out.println("Criteria [" + c.getName() + "] value [" + cWeights.get(c).intValue() + "]");
         }
         
         return cWeights;

@@ -282,11 +282,13 @@ public class PackageAgent {
     public Map setProjectToUserPkg(HttpServletRequest request, Map params) {
         Map map = new HashMap();
         map.put("successful", false);
+System.out.println("MATT:--------- In the package");        
         
         try {
             Long pkgId = new Long((String) params.get("pkgId"));
             Long altId = new Long((String) params.get("altId"));
             boolean deleting = "true".equals((String) params.get("deleting"));            
+System.out.println("MATT:--------- Deleting " + deleting);        
             UserPackage userPkg;
             if(deleting) {
             	userPkg = this.packageService.deleteProjectAlternative(pkgId, altId);

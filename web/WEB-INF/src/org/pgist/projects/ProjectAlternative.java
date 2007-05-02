@@ -355,5 +355,12 @@ public class ProjectAlternative implements Serializable, Comparable {
 		return 0;
 	}
     
+	public boolean equals(Object obj) {
+		if(obj != null && obj instanceof ProjectAlternative) {
+			ProjectAlternative temp = (ProjectAlternative)obj;
+			if(this.getId().equals(temp.getId())) return true;
+		}
+		return false;
+	}
     
 }//class ProjectAlternative

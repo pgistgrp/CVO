@@ -9,7 +9,19 @@
   <short-name>pgist</short-name>
   <uri>http://www.pgist.org/pgtaglib</uri>
   <description>PGIST tag library</description>
-
+  
+  <function>
+    <name>containsProjAltRef</name>
+    <function-class>org.pgist.tags.PgistELFunctions</function-class>
+    <function-signature>boolean containsProjAltRef(java.util.Collection, java.lang.Long)</function-signature>
+  </function>
+  
+  <function>
+    <name>containsFundAltRef</name>
+    <function-class>org.pgist.tags.PgistELFunctions</function-class>
+    <function-signature>boolean containsFundAltRef(java.util.Collection, java.lang.Long)</function-signature>
+  </function>  
+  
   <function>
     <name>contains</name>
     <function-class>org.pgist.tags.PgistELFunctions</function-class>

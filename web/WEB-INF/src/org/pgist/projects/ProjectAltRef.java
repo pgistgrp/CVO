@@ -88,4 +88,13 @@ public class ProjectAltRef {
 	public void setGradedCriteria(SortedSet<GradedCriteria> criteria) {
 		this.gradedCriteria = criteria;
 	}    
+	
+	public boolean equals(Object obj) {
+		if(obj != null && obj instanceof ProjectAlternative) {
+			ProjectAlternative temp = (ProjectAlternative)obj;
+			if(this.getId().equals(temp.getId())) return true;
+		}
+		return false;
+	}
+	
 }//class ProjectAltRef

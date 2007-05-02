@@ -8,7 +8,17 @@ public class ProjectAlternativeComparator implements Comparator {
         ProjectAlternative ref1 = (ProjectAlternative) obj1;
         ProjectAlternative ref2 = (ProjectAlternative) obj2;
         
-        if (caseSensitive) return ref1.getName().compareTo(ref2.getName());
-        else return ref1.getName().compareToIgnoreCase(ref2.getName());
+        int result;
+        
+        if (caseSensitive) {
+        	result = ref1.getName().compareTo(ref2.getName());
+        } else {
+        	result = ref1.getName().compareToIgnoreCase(ref2.getName());
+        }
+        
+        if(result == 0) {
+        	result = ref1.getId().compareTo(ref2.getId());        	
+        }
+        return result;
 	}
 }
