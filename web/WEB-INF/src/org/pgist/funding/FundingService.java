@@ -2,6 +2,7 @@ package org.pgist.funding;
 
 import java.util.Collection;
 
+import org.pgist.discussion.InfoStructure;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
 
@@ -69,5 +70,8 @@ public interface FundingService {
 	UserTaxInfoDTO createUserTaxInfoDTO(Long userId) throws Exception;
 
 	UserTaxInfoDTO createCostReport(UserTaxInfoDTO user, Long fundingSuiteId) throws Exception;
+
+    InfoStructure publish(Long cctId, Long suiteId) throws Exception;
+    
 
 }//interface FundingService

@@ -38,6 +38,11 @@
     </bean>
     
     
+    <bean id="task-publish.fundings" class="org.pgist.funding.PublishFundingsTask">
+        <property name="fundingService" ref="fundingService"/>
+    </bean>
+    
+    
     <bean id="task-create.package.suite" class="org.pgist.packages.CreatePackageSuiteTask">
         <property name="packageService" ref="packageService"/>
     </bean>
@@ -58,6 +63,7 @@
               <entry><key><value>task-create.criteria.suite</value></key><ref bean="task-create.criteria.suite" /></entry>
               <entry><key><value>task-publish.criteria</value></key><ref bean="task-publish.criteria" /></entry>
               <entry><key><value>task-publish.projects</value></key><ref bean="task-publish.projects" /></entry>
+              <entry><key><value>task-publish.fundings</value></key><ref bean="task-publish.fundings" /></entry>
               <entry><key><value>task-create.package.suite</value></key><ref bean="task-create.package.suite" /></entry>
               <entry><key><value>task-publish.packages</value></key><ref bean="task-publish.packages" /></entry>
             </map>
@@ -69,10 +75,12 @@
               <entry><key><value>action-grade.projects</value></key><value>/projectGrading.do</value></entry>
               <entry><key><value>action-cvo.cct</value></key><value>/cctview.do</value></entry>
               <entry><key><value>action-cvo.cst</value></key><value>/cstview.do</value></entry>
-              <entry><key><value>action-cvo.sdc</value></key><value>/sd.do</value></entry>
               <entry><key><value>action-define.criteria</value></key><value>/criteriaDefine.do</value></entry>
-              <entry><key><value>action-sdcirt</value></key><value>/sd.do</value></entry>
-              <entry><key><value>action-sdpkg</value></key><value>/sd.do</value></entry>
+              <entry><key><value>action-sd.concerns</value></key><value>/sd.do</value></entry>
+              <entry><key><value>action-sd.criteria</value></key><value>/sd.do</value></entry>
+              <entry><key><value>action-sd.projects</value></key><value>/sd.do</value></entry>
+              <entry><key><value>action-sd.fundings</value></key><value>/sd.do</value></entry>
+              <entry><key><value>action-sd.packages</value></key><value>/sd.do</value></entry>
             </map>
         </property>
     </bean>

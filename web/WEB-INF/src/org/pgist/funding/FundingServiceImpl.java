@@ -1,16 +1,18 @@
 package org.pgist.funding;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.pgist.cvo.CCT;
+import org.pgist.cvo.CCTDAO;
+import org.pgist.discussion.DiscussionDAO;
+import org.pgist.discussion.InfoObject;
+import org.pgist.discussion.InfoStructure;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
 import org.pgist.users.Vehicle;
@@ -32,15 +34,35 @@ public class FundingServiceImpl implements FundingService {
 	
     private FundingDAO fundingDAO;
     
-  
+    private CCTDAO cctDAO;
+    
+    private DiscussionDAO discussionDAO;
+    
     
     public void setFundingDAO(FundingDAO fundingDAO) {
         this.fundingDAO = fundingDAO;
     }
-
-	public User getUser(UserInfo userInfo) throws Exception {
-		return this.fundingDAO.getUserById(userInfo.getId());
-	}
+    
+    
+    public void setCctDAO(CCTDAO cctDAO) {
+        this.cctDAO = cctDAO;
+    }
+    
+    
+    public void setDiscussionDAO(DiscussionDAO discussionDAO) {
+        this.discussionDAO = discussionDAO;
+    }
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
+    public User getUser(UserInfo userInfo) throws Exception {
+        return this.fundingDAO.getUserById(userInfo.getId());
+    }
+    
     
 	/**
 	 * Forms a commute object from the user
@@ -672,5 +694,41 @@ public class FundingServiceImpl implements FundingService {
 		}
 		return rate;
 	}
+	
+    
+    public InfoStructure publish(Long cctId, Long suiteId) throws Exception {
+        CCT cct = cctDAO.getCCTById(cctId);
+        
+        FundingSourceSuite suite = fundingDAO.getFundingSuite(suiteId);
+        
+        Date date = new Date();
+        
+        InfoStructure structure = new InfoStructure();
+        structure.setType("sdfund");
+        structure.setTitle("Step 3b: Review Fundings.");
+        structure.setRespTime(date);
+        structure.setCctId(cct.getId());
+        discussionDAO.save(structure);
+        
+        for (FundingSourceRef ref : suite.getReferences()) {
+            ref.getId();
+            ref.getAltRefs();
+            ref.getNumAltRefs();
+            ref.getSource();
+            ref.getSuite();
+            
+            InfoObject obj = new InfoObject();
+            obj.setObject(ref);
+            obj.setRespTime(date);
+            discussionDAO.save(obj);
+            
+            structure.getInfoObjects().add(obj);
+        }//for ref
+        
+        discussionDAO.save(structure);
+        
+        return structure;
+    }//publish()
+    
 
 }//class FundingServiceImpl

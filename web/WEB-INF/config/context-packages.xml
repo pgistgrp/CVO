@@ -3,38 +3,14 @@
 
 <beans>
 
-    <bean id="fundingDAO" class="org.pgist.funding.FundingDAOImpl">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory" />
-        </property>
-    </bean>
-    
+
     <bean id="packageDAO" class="org.pgist.packages.PackageDAOImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
     </bean>
-
-    <bean id="projectDAO" class="org.pgist.projects.ProjectDAOImpl">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory" />
-        </property>
-    </bean>
     
-    <bean id="criteriaDAO" class="org.pgist.criteria.CriteriaDAOImpl">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory" />
-        </property>
-    </bean>    
-
-    <bean id="fundingService" parent="baseTransactionProxy">
-        <property name="target">
-            <bean class="org.pgist.funding.FundingServiceImpl">
-                <property name="fundingDAO" ref="fundingDAO"/>
-            </bean>
-        </property>
-    </bean>
-
+    
     <bean id="packageService" parent="baseTransactionProxy">
         <property name="target">
             <bean class="org.pgist.packages.PackageServiceImpl">
@@ -47,7 +23,7 @@
         </property>
     </bean>
 
-
+    
     <bean id="packageAgent" class="org.pgist.packages.PackageAgent">
         <property name="packageService" ref="packageService"/>
     </bean>

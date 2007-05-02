@@ -13,9 +13,9 @@ import org.pgist.wfengine.WorkflowTask;
 public class PublishProjectsTask implements WorkflowTask {
     
     
-    public static final String IN_CCT_ID = "cctId";
+    public static final String IN_CCT_ID = "cct_id";
     
-    public static final String IN_SUITE_ID = "suiteId";
+    public static final String IN_SUITE_ID = "suite_id";
     
     public static final String OUT_ISID = "is_id";
     
