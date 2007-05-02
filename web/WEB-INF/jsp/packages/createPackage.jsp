@@ -23,9 +23,9 @@
 		[x] pg:contains for initialization(Jordan)
 		[x] What happens when user clicks on "finished"? (Jordan)
 		[x] Ordering (Matt)
-		[ ] Cost to you (Matt)
-		[ ] Limit Decimal Points on Floats (Jordan)
-		[ ] myLimit validations via JS (Jordan)
+		[x] Cost to you (Matt)
+		[x] Limit Decimal Points on Floats (Jordan)
+		[x] myLimit validations via JS (Jordan)
 
 #### -->
 <html>
@@ -69,7 +69,7 @@
 				PackageAgent.setFundingToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
-							//alert("Funding alt " + altRefId + " was successfully set to " + deleting); //replace with saving indicator later
+							alert("Funding alt " + altRefId + " was successfully set to " + deleting); //replace with saving indicator later
 							updateSummary(data);
 						}else{
 							alert(data.reason);
@@ -90,14 +90,14 @@
 					
 					if(id != ""){
 						if(type=="project"){
-							//alert("setting project "+id +" to false...");
+							alert("setting project "+id +" to false...");
 							setProjectToUserPkg(id, false);
 							if(alts[i].checked == true){
 								//alert("adding" +type+id)
 								setProjectToUserPkg(id, true);
 							}
 						}else{ //source
-							//alert("setting funding to user package...");
+							alert("setting funding to user package...");
 							setFundingToUserPkg(id, false);
 							if(alts[i].checked == true){
 								//alert(type+id)
@@ -113,11 +113,11 @@
 				//alert("checked = " + checked)
 				var deleting = !Boolean(checked);
 				//alert(deleting)
-				//alert("pkgId: " + pkgId + " altRefId: "+ altRefId +" deleting: " + deleting); 
+				alert("pkgId: " + pkgId + " altRefId: "+ altRefId +" deleting: " + deleting); 
 				PackageAgent.setProjectToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
-				//			alert("Project alt " + altId + " was successfully set to " + deleting); //replace with saving indicator later
+							alert("Project alt " + altRefId + " was successfully set to " + deleting); //replace with saving indicator later
 							updateSummary(data);
 						}else{
 							alert(data.reason);
@@ -167,20 +167,24 @@
 			function createMyPackage(){
 				var avglimit = 0;
 				var mylimit = $F('mylimit')
-				//alert("usrPkgId: " + usrPkgId + " limit: " + mylimit); 
-				PackageAgent.createMyPackage({usrPkgId:pkgId,avglimit:avglimit,mylimit:mylimit,critSuiteId:critSuiteId,projSuiteId:projSuiteId,fundSuiteId:fundSuiteId}, {
-					callback:function(data){
-						if (data.successful){
-							//if mylimit > 0 and not null
-							location.reload(true);
-						}else{
-							alert(data.reason);
+				if(mylimit.length > 0){
+					//alert("usrPkgId: " + usrPkgId + " limit: " + mylimit); 
+					PackageAgent.createMyPackage({usrPkgId:pkgId,avglimit:avglimit,mylimit:mylimit,critSuiteId:critSuiteId,projSuiteId:projSuiteId,fundSuiteId:fundSuiteId}, {
+						callback:function(data){
+							if (data.successful){
+								//if mylimit > 0 and not null
+								location.reload(true);
+							}else{
+								alert(data.reason);
+							}
+						},
+						errorHandler:function(errorString, exception){ 
+						alert("PackageAgent.createMyPackage( error:" + errorString + exception);
 						}
-					},
-					errorHandler:function(errorString, exception){ 
-					alert("PackageAgent.createMyPackage( error:" + errorString + exception);
-					}
-				});
+					});
+				}else{
+					alert("Please enter how much you are willing to pay per year.")
+				}
 			}
 			
 			
@@ -286,7 +290,7 @@
 						<c:if test="${projectRef.project.transMode == category}">
 							<!-- begin PROJECT -->
 							<tr class="${(projectRef.project.inclusive) ? 'fundingType' : 'fundingType2'}">
-								<td class="fundingSourceItem">${projectRef.project.name} Options</td>
+								<td class="fundingSourceItem">${projectRef.id} ** ${projectRef.project.name} Options ** ${projectRef.project.id}</td>
 								<td colspan="2"> ${(projectRef.project.inclusive) ? 'Select at most one'
 									: 'Select any number'} </td>
 							</tr>
@@ -307,7 +311,7 @@
 															<input type="checkbox" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToUserPkg('${altRef.id}', this.checked);" />
 														</c:otherwise>
 													</c:choose>
-													${altRef.alternative.name} </label>
+													${altRef.id} *** ${altRef.alternative.name} ** ${altRef.alternative.id}</label>
 												</td>
 												<td class="cost"><fmt:formatNumber type="currency">${altRef.alternative.cost}</fmt:formatNumber> million</td>
 											</tr>
@@ -351,7 +355,7 @@
 				<!-- begin FUNDING source -->
 				<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
 					<tr class="fundingType">
-						<td class="fundingSourceItem">${fundingRef.source.name}</td>
+						<td class="fundingSourceItem">${fundingRef.id} ** ${fundingRef.source.name} ** ${fundingRef.source.id}</td>
 						<td colspan="3">One option will be chosen</td>
 					</tr>
 					<!-- end FUNDING source -->
@@ -362,7 +366,7 @@
 							<td class="fundingSourceItem">
 								<label>
 								<input type="radio" ${(pg:contains(userPkg.fundAltRefs,altRef)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
-								${altRef.alternative.name}</label>
+								${altRef.id} *** ${altRef.alternative.name} ** ${altRef.alternative.id}</label>
 							</td>
 							<td><fmt:formatNumber type="currency">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
 							<td><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
