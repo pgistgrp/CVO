@@ -81,6 +81,7 @@
               <entry><key><value>action-sd.projects</value></key><value>/sd.do</value></entry>
               <entry><key><value>action-sd.fundings</value></key><value>/sd.do</value></entry>
               <entry><key><value>action-sd.packages</value></key><value>/sd.do</value></entry>
+	      <entry><key><value>action-weigh.criteria</value></key><value>/criteriaWeigh.do</value></entry>
             </map>
         </property>
     </bean>

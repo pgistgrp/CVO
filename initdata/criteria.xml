@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+
+    <pgames>
+    
+        <pgame name="pgame-create.criteria.suite" description="Create a criteria suite." auto="true">
+            <taskName>task-create.criteria.suite</taskName>
+            <declaration>
+                <outs>
+                    <var name="suite_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-define.criteria" description="Define Criteria." auto="false" access="moderator">
+            <actionName>action-define.criteria</actionName>
+            <declaration>
+                <ins>
+                    <var name="suite_id"/>
+                </ins>
+            </declaration>
+            <timer extension="10000"/>
+        </pgame>
+        
+        <pgame name="pgame-publish.criteria" description="Publish Criteria." auto="true">
+            <taskName>task-publish.criteria</taskName>
+            <declaration>
+                <ins>
+                    <var name="suite_id"/>
+                </ins>
+                <outs>
+                    <var name="is_id"/>
+                </outs>
+                <props>
+                    <property name="title" value="Step 2a: Review Criteria" />
+                </props>
+            </declaration>
+        </pgame>
+        
+	<pgame name="pgame-sd.criteria" description="SD critieria." auto="false" access="all">
+	    <actionName>action-sd.criteria</actionName>
+	    <declaration>
+		<ins>
+		    <var name="is_id"/>
+		</ins>
+	    </declaration>
+	    <timer extension="60000"/>
+	</pgame>
+
+	<pgame name="pgame-weigh.criteria" description="Weight critieria." auto="false" access="all">
+	    <actionName>action-sd.criteria</actionName>
+	    <declaration>
+		<ins>
+		    <var name="suite_id"/>
+		</ins>
+	    </declaration>
+	    <timer extension="60000"/>
+	</pgame>
+        
+    </pgames>
+    
+    
+    <pmethods>
+
+        <pmethod name="pmethod-init.criteria" description="Initialize Criteria">
+            <declaration>
+                <outs>
+                    <var name="pmethod.crit_suite_id"/>
+                    <var name="pmethod.crit_isid"/>
+                </outs>
+            </declaration>
+            <sequence>
+                
+                    
+                    	<pgame name="pgame-create.criteria.suite">
+			    <declaration>
+				<outs>
+				    <var name="suite_id" ref="pmethod.crit_suite_id"/>
+				</outs>
+			    </declaration>
+			</pgame>
+			<pgame name="pgame-define.criteria">
+			    <declaration>
+			        <ins>
+			            <var name="suite_id" ref="pmethod.crit_suite_id"/>
+			        </ins>
+			    </declaration>
+                      	</pgame>
+			<pgame name="pgame-sd.criteria">
+			    <declaration>
+				<ins>
+				    <var name="is_id" ref="pmethod.crit_isid"/>
+				</ins>
+			    </declaration>
+                        </pgame>
+			<pgame name="pgame-weigh.criteria">
+			    <declaration>
+				<ins>
+				    <var name="suite_id" ref="pmethod.crit_suite_id"/>
+				</ins>
+			    </declaration>
+                        </pgame>
+
+
+            </sequence>
+        </pmethod>
+        
+    </pmethods>
+    
+    
+    <meetings>
+    
+        <meeting name="meeting-init.criteria" description="Initialize Criteria">
+            <declaration>
+                <outs>
+                    <var name="meeting.crit_suite_id"/>
+                    <var name="meeting.crit_isid"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-init.criteria">
+                    <declaration>
+                        <outs>
+                            <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
+                            <var name="pmethod.crit_isid" ref="meeting.crit_isid"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
+    </meetings>
+    
+    
+    <situations>
+        <situation name="criteria" description="Let's Create Criteria">
+            <sequence>
+                <meeting name="meeting-init.criteria">
+                    <declaration>
+                        <outs>
+                            <var name="meeting.crit_suite_id" ref="situation.crit_suite_id"/>
+                            <var name="meeting.crit_isid" ref="situation.crit_isid"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+            </sequence>
+        </situation>
+    </situations>
+    
+    
+</templates>
+
