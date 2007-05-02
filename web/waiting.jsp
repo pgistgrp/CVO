@@ -4,81 +4,59 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
-<head>
-<title>Let's Improve Transportation - Done with Step 1a</title>
-<!-- Site Wide CSS -->
-<style type="text/css" media="screen">@import "styles/lit.css";</style>
-
-<!-- End Site Wide CSS -->
-<!-- Site Wide JS -->
-<script src="scripts/prototype.js" type="text/javascript"></script>
-<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-<script src="scripts/search.js" type="text/javascript"></script>
-<script type='text/javascript' src='/dwr/engine.js'></script>
-<script type='text/javascript' src='/dwr/util.js'></script>
-
-</head>
-
-<body>
- <!-- Begin the header - loaded from a separate file -->
-  <div id="header">
-	<!-- Begin header -->
-	<jsp:include page="/header.jsp" />
+	<head>
+	<title>Let's Improve Transportation - Done with Step 1a</title>
+	<!-- Site Wide CSS -->
+	<style type="text/css" media="screen">
+@import "styles/lit.css";
+</style>
+	<!-- End Site Wide CSS -->
+	<!-- Site Wide JS -->
+	<script src="scripts/prototype.js" type="text/javascript"></script>
+	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+	<script src="scripts/search.js" type="text/javascript"></script>
+	<script type='text/javascript' src='/dwr/engine.js'></script>
+	<script type='text/javascript' src='/dwr/util.js'></script>
+	</head>
+	<body>
+	<!-- Begin the header - loaded from a separate file -->
+	<div id="header">
+		<!-- Begin header -->
+		<jsp:include page="/header.jsp" />
+		<!-- End header -->
+	</div>
 	<!-- End header -->
-  </div>
-  <!-- End header -->
-  <!-- Begin header menu - The wide ribbon underneath the logo -->
-  <!-- Begin header menu - The wide ribbon underneath the logo -->
-  <div id="headerMenu">
-    <div id="headerContainer">
-      <div id="headerTitle" class="floatLeft">
-        <h3 class="headerColor">Step 1: Discuss Concerns</h3>
-      </div>
-    <div class="headerButton floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
-    <div class="headerButtonCurrent floatLeft"><a href="http://128.95.212.210:8080/sd.do?isid=7362">1b: Review Summaries</A></div>
-      <div id="headerNext" class="box5 floatRight"><a href="http://128.95.212.210:8080/sd.do?isid=7362">Next Step</A></div>
-    </div>
-  </div>
-  <!-- End header menu -->
-  <!-- End header menu -->
-  <!-- #container is the container that wraps around all the main page content -->
-  <div id="container">
-  <div style="width:500px;">
-<h3 class="headerColor">Thank you for submitting your concerns</h3>
-
-<p>We will continue to collect concerns from participants until <strong>11:59pm on Thursday, December 7th</strong>. Feel free to return to the <a href="main.do">Home Page</A> or the <a href="/cctlist.do">Brainstorm Concerns</a> page to review other participant's concerns, edit your own concerns, or add some more.</p>
-<p>On <strong>Friday, December 8th</strong>, the moderator will review concerns and summarize them in the form of concern themes. When the concern themes are ready for participant review and discussion, the moderator will send you an email. At that point you will be able evaluate how well the summaries represents your concerns and others', and discuss whether revisions are necessary.</p>
-
-</div>
-  </div>
-  <!-- end container -->
-  
-<!-- start feedback form -->
-  <pg:feedback id="feedbackDiv" action="cctView.do"/>
-<!-- end feedback form -->
-
-  <!-- Begin header menu - The wide ribbon underneath the logo -->
-  <div id="headerMenu">
-    <div id="headerContainer">
-      <div id="headerTitle" class="floatLeft">
-        <h3 class="headerColor">Step 1: Discuss Concerns</h3>
-      </div>
-    <div class="headerButton floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
-    <div class="headerButtonCurrent floatLeft"><a href="http://128.95.212.210:8080/sd.do?isid=7362">1b: Review Summaries</A></div>
-      <div id="headerNext" class="box5 floatRight"><a href="http://128.95.212.210:8080/sd.do?isid=7362">Next Step</A></div>
-    </div>
-  </div>
-  <!-- End header menu -->
-
+	<!-- Begin header menu - The wide ribbon underneath the logo -->
+	<!-- Begin header menu - The wide ribbon underneath the logo -->
+	<div id="headerMenu">
+		<div id="headerContainer">
+		</div>
+	</div>
+	<!-- End header menu -->
+	<!-- End header menu -->
+	<!-- #container is the container that wraps around all the main page content -->
+	<div id="container">
+		<div style="width:600px;">
+			<h3 class="headerColor">Waiting for the next step to begin</h3>
+			<p>Congratulations, and thanks for your input. You've completed this step in the <I>Let's
+					Improve Transportation</I> challenge. Once everybody has completed this step, we will process the results and prepare the next step.</p>
+				<p><strong>When the next step is ready, you will automatically receive an e-mail from the moderator</strong>, so be sure to check your inbox. You can also check the <a href="main.do">Overview</a> page to see when the next step will open.</p>
+		</div>
+	</div>
+	<!-- end container -->
+	<!-- start feedback form -->
+	<pg:feedback id="feedbackDiv" action="cctView.do"/>
+	<!-- end feedback form -->
+	<!-- Begin header menu - The wide ribbon underneath the logo -->
+	<div id="headerMenu">
+		<div id="headerContainer">
+		</div>
+	</div>
+	<!-- End header menu -->
 	<!-- Begin footer -->
 	<div id="footer">
 		<jsp:include page="/footer.jsp" />
 	</div>
 	<!-- End footer -->
-</body>
+	</body>
 </html:html>
-
-
-
-
-
