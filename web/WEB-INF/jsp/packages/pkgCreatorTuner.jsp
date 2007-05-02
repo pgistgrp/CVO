@@ -201,7 +201,7 @@
 														<td class="cost">
 															<select name="projectChoices" id="projAltSelect-${altRef.id}">
 																<option value="2">Include it</option>
-																<option value="1">Don't care</option>
+																<option value="1" SELECTED>Don't care</option>
 																<option value="0">Exclude it</option>
 															</select>
 														</td>
