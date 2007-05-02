@@ -17,6 +17,7 @@
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[ ] BareBones JavaScript/JSTL (Jordan)
+		[ ] CRUD on manual packages (Jordan)
 		[ ] Test and Refine (Jordan)
 #### -->
 <html:html>
@@ -36,6 +37,9 @@
 
 myPackages = [];
 var pkgSuiteId = "${pkgSuiteId}";
+var projSuiteId = "${projSuiteId}";
+var fundSuiteId = "${fundSuiteId}";
+var critSuiteId = "${critSuiteId}";
 
 function addMyPackage(){
 	var myPackage = $F('packageDesc');
@@ -72,10 +76,11 @@ function createClusteredPackages(){
 
 function createClusteredPackage(){
 	var description = $F('packageDesc');
-	PackageAgent.createClusteredPackage({pkgSuiteId:pkgSuiteId,description:description}, {
+	alert("description: " + description)
+	PackageAgent.createClusteredPackage({suiteId:pkgSuiteId,description:description}, {
 		callback:function(data){
 			if (data.successful){
-				getClusteredPackages();
+				location.href="createPackage.do?pkgSuiteId="+pkgSuiteId+"&projSuiteId="+projSuiteId+"&fundSuiteId="+fundSuiteId+"&critSuiteId="+critSuiteId+"&pkgId="+data.pkgId;
 			}else{
 				alert(data.reason);
 			}
