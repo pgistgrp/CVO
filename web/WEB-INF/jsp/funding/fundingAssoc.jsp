@@ -95,14 +95,14 @@
 	<ul id="sourcesList">
 		<c:forEach var="source" items="${sources}">
 			<li><span class="source">${source.name}</span> 
-				<small>
+				<!--<small>
 					<a href="javascript:checkAltsInSource(${source.id}, true)">check all</a> | 
 					<a href="javascript:checkAltsInSource(${source.id}, false)">uncheck all</a>
-				</small>
+				</small>-->
 				<ul>
 					<c:forEach var="alt" items="${source.alternatives}">
 						<li>
-							<label>******${pg:containsFundingRef(suite,source,alt)}<input type="checkbox" name="sourceAlts${source.id}" id="sourceAlt-${alt.id}" 
+							<label><input type="checkbox" name="sourceAlts${source.id}" id="sourceAlt-${alt.id}" 
 							<c:if test="${pg:containsFundingRef(suite,source,alt)}">CHECKED</c:if> value="${alt.id}" onClick="setSourceDef(this.value, this.checked);"/>
 							${alt.name}</label>
 						</li>
