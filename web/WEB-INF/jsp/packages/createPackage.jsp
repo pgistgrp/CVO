@@ -69,7 +69,7 @@
 				PackageAgent.setFundingToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
-							alert("Funding alt " + altRefId + " was successfully set to " + deleting); //replace with saving indicator later
+							//alert("Funding alt " + altRefId + " was successfully set to " + deleting); //replace with saving indicator later
 							updateSummary(data);
 						}else{
 							alert(data.reason);
@@ -90,14 +90,14 @@
 					
 					if(id != ""){
 						if(type=="project"){
-							alert("setting project "+id +" to false...");
+							//alert("setting project "+id +" to false...");
 							setProjectToUserPkg(id, false);
 							if(alts[i].checked == true){
 								//alert("adding" +type+id)
 								setProjectToUserPkg(id, true);
 							}
 						}else{ //source
-							alert("setting funding to user package...");
+							//alert("setting funding to user package...");
 							setFundingToUserPkg(id, false);
 							if(alts[i].checked == true){
 								//alert(type+id)
@@ -113,11 +113,11 @@
 				//alert("checked = " + checked)
 				var deleting = !Boolean(checked);
 				//alert(deleting)
-				alert("pkgId: " + pkgId + " altRefId: "+ altRefId +" deleting: " + deleting); 
+				//alert("pkgId: " + pkgId + " altRefId: "+ altRefId +" deleting: " + deleting); 
 				PackageAgent.setProjectToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
 					callback:function(data){
 						if (data.successful){
-							alert("Project alt " + altRefId + " was successfully set to " + deleting); //replace with saving indicator later
+							//alert("Project alt " + altRefId + " was successfully set to " + deleting); //replace with saving indicator later
 							updateSummary(data);
 						}else{
 							alert(data.reason);
@@ -290,7 +290,7 @@
 						<c:if test="${projectRef.project.transMode == category}">
 							<!-- begin PROJECT -->
 							<tr class="${(projectRef.project.inclusive) ? 'fundingType' : 'fundingType2'}">
-								<td class="fundingSourceItem">${projectRef.id} ** ${projectRef.project.name} Options ** ${projectRef.project.id}</td>
+								<td class="fundingSourceItem">${projectRef.project.name} Options</td>
 								<td colspan="2"> ${(projectRef.project.inclusive) ? 'Select at most one'
 									: 'Select any number'} </td>
 							</tr>
@@ -311,7 +311,7 @@
 															<input type="checkbox" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToUserPkg('${altRef.id}', this.checked);" />
 														</c:otherwise>
 													</c:choose>
-													${altRef.id} *** ${altRef.alternative.name} ** ${altRef.alternative.id}</label>
+													${altRef.alternative.name}</label>
 												</td>
 												<td class="cost"><fmt:formatNumber type="currency">${altRef.alternative.cost}</fmt:formatNumber> million</td>
 											</tr>
@@ -355,7 +355,7 @@
 				<!-- begin FUNDING source -->
 				<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
 					<tr class="fundingType">
-						<td class="fundingSourceItem">${fundingRef.id} ** ${fundingRef.source.name} ** ${fundingRef.source.id}</td>
+						<td class="fundingSourceItem">${fundingRef.source.name}</td>
 						<td colspan="3">One option will be chosen</td>
 					</tr>
 					<!-- end FUNDING source -->
@@ -366,7 +366,7 @@
 							<td class="fundingSourceItem">
 								<label>
 								<input type="radio" ${(pg:containsFundAltRef(userPkg.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
-								${altRef.id} *** ${altRef.alternative.name} ** ${altRef.alternative.id}</label>
+								${altRef.alternative.name}</label>
 							</td>
 							<td><fmt:formatNumber type="currency">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
 							<td><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
