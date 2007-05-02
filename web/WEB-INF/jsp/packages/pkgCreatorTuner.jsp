@@ -16,7 +16,7 @@
 	     Back End: Matt Paulin, Zhong Wang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] myLimit validations (Jordan)
+		[x] myLimit validations (Jordan)
 		[x] Polish it a bit (Adam)
 
 #### -->
@@ -105,26 +105,29 @@
 		}
 		
 		function createMyConfiguredPackage(config){
-			alert("Funding Choices Hash: " + config.fundingChoices.inspect());
-			alert("Project Choices Hash: " + config.projectChoices.inspect());
+			//alert("Funding Choices Hash: " + config.fundingChoices.inspect());
+			//alert("Project Choices Hash: " + config.projectChoices.inspect());
 
 			//alert("createmyconfiguredpackage config:" + config )			
 			var mylimit = $F('mylimit');
 			var avglimit = 0;
-			
-			PackageAgent.createMyConfiguredPackage(config, mylimit, avglimit, usrPkgId, {
-				callback:function(data){
-					if (data.successful){
-						//alert("createmyconfiguredpackage worked");
-						location.href="closeWindowAndReload.jsp";
-					}else{
-						alert(data.reason);
+			if(mylimit.length > 0){
+				PackageAgent.createMyConfiguredPackage(config, mylimit, avglimit, usrPkgId, {
+					callback:function(data){
+						if (data.successful){
+							//alert("createmyconfiguredpackage worked");
+							location.href="closeWindowAndReload.jsp";
+						}else{
+							alert(data.reason);
+						}
+					},
+					errorHandler:function(errorString, exception){ 
+					alert("PackageAgent.createMyConfiguredPackage( error:" + errorString + exception);
 					}
-				},
-				errorHandler:function(errorString, exception){ 
-				alert("PackageAgent.createMyConfiguredPackage( error:" + errorString + exception);
-				}
-			});
+				});
+			}else{
+				alert("Please enter how much you are willing to pay per year.")
+			}
 		}
 	</script>
 	

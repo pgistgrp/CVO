@@ -15,8 +15,8 @@
 	     Back End: Matt Paulin, Zhong Wang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Ensure get and set estimates are working correctly and pulling the right data (Jordan)
-		[ ] Barebones JavaScript (Jordan)
+		[x] Ensure get and set estimates are working correctly and pulling the right data (Matt)
+		[x] Barebones JavaScript (Jordan)
 		[x] Integrate Layout (Adam)
 #### -->
 
