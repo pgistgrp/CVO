@@ -305,10 +305,10 @@
 													<label>
 													<c:choose>
 														<c:when test="${projectRef.project.inclusive}">
-															<input type="radio" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" />
+															<input type="radio" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" />
 														</c:when>
 														<c:otherwise>
-															<input type="checkbox" ${(pg:contains(userPkg.projAltRefs,altRef)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToUserPkg('${altRef.id}', this.checked);" />
+															<input type="checkbox" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToUserPkg('${altRef.id}', this.checked);" />
 														</c:otherwise>
 													</c:choose>
 													${altRef.id} *** ${altRef.alternative.name} ** ${altRef.alternative.id}</label>
@@ -365,7 +365,7 @@
 						<tr>
 							<td class="fundingSourceItem">
 								<label>
-								<input type="radio" ${(pg:contains(userPkg.fundAltRefs,altRef)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
+								<input type="radio" ${(pg:containsFundAltRef(userPkg.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
 								${altRef.id} *** ${altRef.alternative.name} ** ${altRef.alternative.id}</label>
 							</td>
 							<td><fmt:formatNumber type="currency">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
