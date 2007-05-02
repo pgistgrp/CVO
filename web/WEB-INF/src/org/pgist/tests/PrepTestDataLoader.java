@@ -253,7 +253,7 @@ public class PrepTestDataLoader extends MatchingTask {
     	ProjectRef ref;
     	ProjectAltRef altRef;
     	
-    	for(int i = 0; i < total/2; i++) {
+    	for(int i = 0; i < total; i++) {
     		ref = new ProjectRef();
     		ref.setProject(projects[i]);    		
     		session.saveOrUpdate(ref);
