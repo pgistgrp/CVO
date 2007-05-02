@@ -28,7 +28,7 @@ import org.pgist.util.WebUtils;
  * 
  * the action will forward to page of "view", the following variables are available in jsp:
  * <ul>
- *   <li>suiteId - the funding suiteId that you will need for the ajax calls</li>
+ *   <li>fundSuiteId - the funding suiteId that you will need for the ajax calls</li>
  *   <li>user - the User Tax InfoDTO that contains all information about the user for calculations</li>
  * </ul>
  * 
@@ -64,7 +64,7 @@ public class TaxCalculatorAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-    	String tempSuiteId = request.getParameter("suiteId");
+    	String tempFundSuiteId = request.getParameter("fundSuiteId");
 //    	if(tempSuiteId != null) {
 //    		Long suiteId = new Long(tempSuiteId);
 //    		FundingSourceSuite funSuite = this.fundingService.getFundingSuite(suiteId);
@@ -76,7 +76,7 @@ public class TaxCalculatorAction extends Action {
    	
     	UserTaxInfoDTO taxInfo = this.fundingService.createUserTaxInfoDTO(user.getId());
 		request.setAttribute("user", taxInfo);
-		request.setAttribute("suiteId", tempSuiteId);
+		request.setAttribute("fundSuiteId", tempFundSuiteId);
     	
     	
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);

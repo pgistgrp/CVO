@@ -45,11 +45,13 @@ public class PgistELFunctions extends SimpleTagSupport {
         return ref.containsAlternative(alt);
     }//containsRef()
 
-	public static boolean containsRef(FundingSourceSuite suite, FundingSource funding, FundingSourceAlternative alt) {
+	public static boolean containsRef(FundingSourceSuite suite, FundingSource funding, FundingSourceAlternative alt) {		
         if (suite==null) return false;
         if (funding==null) return false;
         if (alt==null) return false;
         
+System.out.println("MATT: Checking suite [" + suite.getId() + "] funding source [" + funding.getId() + "] funding source alt [" + alt.getId() + "]");        
+
         //First check that the project is in the suite
         FundingSourceRef ref = suite.getFundingSourceReference(funding);
         if(ref == null) return false;

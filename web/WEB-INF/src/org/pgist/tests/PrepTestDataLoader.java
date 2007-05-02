@@ -241,9 +241,9 @@ public class PrepTestDataLoader extends MatchingTask {
     		//Add your alternatives
     		for(int j = 0; j< totalAlts; j++) {
     			if(j == 0) {
-    				alts[i] = createAlternative("Project Alt "+j, (float)j, projects[i]);
+    				alts[i] = createAlternative("Project Alt "+j, (float)(j + 1) * 10, projects[i]);
     			} else {
-        			createAlternative("Project Alt "+j, (float)j, projects[i]);    				
+        			createAlternative("Project Alt "+j, (float)(j + 1) * 10, projects[i]);    				
     			}
     		}    		
     	}

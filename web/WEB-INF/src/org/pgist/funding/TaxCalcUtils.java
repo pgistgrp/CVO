@@ -20,11 +20,42 @@ public class TaxCalcUtils {
     public static final NumberFormat NUM_FORMAT = new DecimalFormat( "########" );    
     public static final NumberFormat TAX_FORMAT = new DecimalFormat( "###.0%" );  	
 	
+    public static final float OFF_PEAK_USAGE = 0.8f;
+    public static final float PEAK_USAGE = 0.2f;
     public static final float DEFAULT_ESTIMATED_PEAK_TRIPS = 20;
     public static final float DEFAULT_ESTIMATED_OFF_PEAK_TRIPS = 20;
     public static final float EMPLOYER_PERCENTAGE = .8f;
-    
+    public static final int WEEKS_IN_YEAR = 52;
+
     //------------------ Methods for making estimates ----------------------
+	/**
+	 * Calculates the peak hours
+	 */
+	public static int calcPeakHours(int zipcodeFactor, float carFactor, int driveAlone, int carpool, int numPassengers, boolean included) {
+		System.out.println("MATT: CALC RATE zipCodeFactor[" + zipcodeFactor + "] carFactor[" + carFactor + "] driveAlone[" + driveAlone + "] carpool[" + carpool + "] numPass[" + numPassengers + "] included[" + included + "]");
+		int rate = (int)(carFactor * PEAK_USAGE);
+		if(included) {
+			rate = rate + (driveAlone * WEEKS_IN_YEAR)  -  (int)(zipcodeFactor * (carFactor * PEAK_USAGE));
+			if(numPassengers > 0 && carpool > 0) {
+				rate = rate + (carpool * WEEKS_IN_YEAR)/numPassengers;
+			}
+		}
+		if(rate < 0 ) rate = 0;
+		return rate;
+	}
+	
+	/**
+	 * Calculates the off peak hours
+	 */
+	public static int calcOffPeakHours(int zipcodeFactor, float carFactor, boolean included) {
+		//System.out.println("MATT: CALC OFF PEAK RATE zipCodeFactor[" + zipcodeFactor + "] carFactor[" + carFactor + "] included[" + included + "]");
+		int rate = 0;
+		if(included) {
+			rate = (int)(zipcodeFactor * carFactor * OFF_PEAK_USAGE); 
+		}
+		return rate;
+	}    
+    
 	public static float estimatePeakTrips(UserCommute commute, FundingSource source) {
 		float estimate = DEFAULT_ESTIMATED_PEAK_TRIPS;
 		Iterator<UserFundingSourceToll> i = commute.getTolls().iterator();
@@ -139,6 +170,7 @@ public class TaxCalcUtils {
 	 */
 	public static float calcUserParkingCost(float parkingToll, float peakTrips, float offPeakTrips) {
 		float total = parkingToll * (peakTrips + offPeakTrips);
+		if(total < 0) total = 0;
 		return total;
 	}
 	
@@ -152,7 +184,13 @@ public class TaxCalcUtils {
 	 * @return	The personal cost
 	 */
 	public static float calcUserTollAlternatives(float peakHourRates, float peakHourTrips, float offPeakHourRates, float offPeakHourTrips) {
+//		if(peakHourRates < 0) System.out.println("NEG Peak Hour Rate " + peakHourRates);
+//		if(peakHourTrips < 0) System.out.println("NEG Peak Hour Trips " + peakHourRates);
+//		if(offPeakHourRates < 0) System.out.println("NEG Off Peak Hour Rate " + peakHourRates);
+//		if(offPeakHourTrips < 0) System.out.println("NEG Peak Off Hour Trips " + peakHourRates);
+
 		float total = peakHourRates * peakHourTrips + offPeakHourRates * offPeakHourTrips;
+		if(total < 0) total = 0;
 		return total;
 	}	
 	

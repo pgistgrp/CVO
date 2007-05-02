@@ -639,10 +639,12 @@ public class FundingAgent {
     public Map lookupUserById(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
-        
+System.out.println("MATT: Looking up user");        
         try {
             Long userId = new Long((String) params.get("userId"));
+            System.out.println("MATT: Looking up user " + userId);
         	map.put("user", this.fundingService.createUserTaxInfoDTO(userId));
+        	System.out.println("MATT: Got the user" + map.get("user"));
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

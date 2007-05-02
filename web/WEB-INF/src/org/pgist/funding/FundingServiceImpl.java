@@ -25,10 +25,8 @@ import org.pgist.users.Vehicle;
  */
 public class FundingServiceImpl implements FundingService {
     
-    public static final float OFF_PEAK_USAGE = 0.8f;
-    public static final float PEAK_USAGE = 0.2f;
+
     public static final float NO_CAR_FACTOR = 0.3f;    
-    public static final int WEEKS_IN_YEAR = 52;
     public static final float DEFAULT_GAS_COST = 2.85f;
     public static final float DEFAULT_CONSUMPTION = 19748;
 	
@@ -136,8 +134,8 @@ public class FundingServiceImpl implements FundingService {
 	 * @param	user	The UserTaxInfoDTO with all the info in it
 	 * @param	fundingSuiteID	The funding suite 
 	 */
-	public UserTaxInfoDTO createCostReport(UserTaxInfoDTO user, Long fundingSuiteId) throws Exception {
-
+	public UserTaxInfoDTO createCostReport(UserTaxInfoDTO user, Long fundingSuiteId) throws Exception {		
+		
 		//Save the user object
 		User tempUser = this.updateUserTaxInfo(user);
 		
@@ -164,6 +162,8 @@ public class FundingServiceImpl implements FundingService {
 		//Go through the funding suite and calculate the users costs
 		FundingSourceSuite suite = this.fundingDAO.getFundingSuite(fundingSuiteId);
 
+		if(suite == null) throw new Exception("Could not create cost report because no funding suite with an ID of [" + fundingSuiteId + "] could be found");
+		
 		user.getCosts().clear();
 		Iterator<FundingSourceRef> refs = suite.getReferences().iterator();
 		while(refs.hasNext()) {
@@ -644,57 +644,34 @@ public class FundingServiceImpl implements FundingService {
 	 */
 	private void setTripRates(UserFundingSourceToll toll, ZipCodeFactor zcf, float carFactor, int driveAlone, int carpool, int numPassengers) {
 //System.out.println("MATT: Calc toll for " + toll.getName());		
-		if(toll.getName().equals(UserFundingSourceToll.PARKING_DOWNTOWN)) {
-			toll.setPeakTrips(calcPeakHours(zcf.getParking(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-			toll.setOffPeakTrips(calcOffPeakHours(zcf.getParking(), carFactor, toll.isUsed()));
-		} else if(toll.getName().equals(UserFundingSourceToll.ALASKA_WAY_VIADUCT)) {
-			toll.setPeakTrips(calcPeakHours(zcf.getSR99(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-			toll.setOffPeakTrips(calcOffPeakHours(zcf.getSR99(), carFactor, toll.isUsed()));
-		} else if(toll.getName().equals(UserFundingSourceToll.I405N)) {
-			toll.setPeakTrips(calcPeakHours(zcf.getI405N(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-			toll.setOffPeakTrips(calcOffPeakHours(zcf.getI405N(), carFactor, toll.isUsed()));
-		} else if(toll.getName().equals(UserFundingSourceToll.I405S)) {
-			toll.setPeakTrips(calcPeakHours(zcf.getI405S(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-			toll.setOffPeakTrips(calcOffPeakHours(zcf.getI405S(), carFactor, toll.isUsed()));
-		} else if(toll.getName().equals(UserFundingSourceToll.SR520)) {
-			toll.setPeakTrips(calcPeakHours(zcf.getSR520(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-			toll.setOffPeakTrips(calcOffPeakHours(zcf.getSR520(), carFactor, toll.isUsed()));
-		} else if(toll.getName().equals(UserFundingSourceToll.I90)) {
-			toll.setPeakTrips(calcPeakHours(zcf.getI90(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-			toll.setOffPeakTrips(calcOffPeakHours(zcf.getI90(), carFactor, toll.isUsed()));
-		} else if(toll.getName().equals(UserFundingSourceToll.SR167)) {
-			toll.setPeakTrips(calcPeakHours(zcf.getSR167(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-			toll.setOffPeakTrips(calcOffPeakHours(zcf.getSR167(), carFactor, toll.isUsed()));
+		try {
+			if(toll.getName().equals(UserFundingSourceToll.PARKING_DOWNTOWN)) {
+				toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getParking(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+				toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getParking(), carFactor, toll.isUsed()));
+			} else if(toll.getName().equals(UserFundingSourceToll.ALASKA_WAY_VIADUCT)) {
+				toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getSR99(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+				toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getSR99(), carFactor, toll.isUsed()));
+			} else if(toll.getName().equals(UserFundingSourceToll.I405N)) {
+				toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getI405N(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+				toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getI405N(), carFactor, toll.isUsed()));
+			} else if(toll.getName().equals(UserFundingSourceToll.I405S)) {
+				toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getI405S(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+				toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getI405S(), carFactor, toll.isUsed()));
+			} else if(toll.getName().equals(UserFundingSourceToll.SR520)) {
+				toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getSR520(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+				toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getSR520(), carFactor, toll.isUsed()));
+			} else if(toll.getName().equals(UserFundingSourceToll.I90)) {
+				toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getI90(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+				toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getI90(), carFactor, toll.isUsed()));
+			} else if(toll.getName().equals(UserFundingSourceToll.SR167)) {
+				toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getSR167(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+				toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getSR167(), carFactor, toll.isUsed()));
+			}			
+		} catch (NullPointerException e) {
+			throw new RuntimeException("Could not calculate user data, because you probibly need to load the tax data");
 		}
 	}
-	
-	/**
-	 * Calculates the peak hours
-	 */
-	private static int calcPeakHours(int zipcodeFactor, float carFactor, int driveAlone, int carpool, int numPassengers, boolean included) {
-		//System.out.println("MATT: CALC RATE zipCodeFactor[" + zipcodeFactor + "] carFactor[" + carFactor + "] driveAlone[" + driveAlone + "] carpool[" + carpool + "] numPass[" + numPassengers + "] included[" + included + "]");
-		int rate = (int)(carFactor * PEAK_USAGE);
-		if(included) {
-			rate = rate + (driveAlone * WEEKS_IN_YEAR)  -  (int)(zipcodeFactor * (carFactor * PEAK_USAGE));
-			if(numPassengers > 0 && carpool > 0) {
-				rate = rate + (carpool * WEEKS_IN_YEAR)/numPassengers;
-			}
-		}
-		return rate;
-	}
-	
-	/**
-	 * Calculates the off peak hours
-	 */
-	private static int calcOffPeakHours(int zipcodeFactor, float carFactor, boolean included) {
-		//System.out.println("MATT: CALC OFF PEAK RATE zipCodeFactor[" + zipcodeFactor + "] carFactor[" + carFactor + "] included[" + included + "]");
-		int rate = 0;
-		if(included) {
-			rate = (int)(zipcodeFactor * carFactor * OFF_PEAK_USAGE); 
-		}
-		return rate;
-	}
-	
+		
     
     public InfoStructure publish(Long cctId, Long suiteId) throws Exception {
         CCT cct = cctDAO.getCCTById(cctId);
