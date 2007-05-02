@@ -73,14 +73,13 @@
 				<ul>
 					<li><html:link page="sdlist.do">Review Projects</html:link></li>
 					<li><html:link page="sdlist.do">Review Funding</html:link></li>
-					<li><html:link page="fundingCalc.do?pkgSuiteId=200">Funding "Tax Calculator" Game</html:link></li>
+					<li><html:link page="fundingCalc.do?fundSuiteId=200">Funding "Tax Calculator" Game</html:link></li>
 					<li><html:link page="createPackage.do?pkgSuiteId=200&projSuiteId=200&fundSuiteId=200&critSuiteId=200">Create Personal Package</html:link></li>
-					<li><html:link page="sdlist.do">Re-weigh Planning Factors</html:link></li>
+					<li><html:link page="criteriaList.do">Re-weigh Planning Factors</html:link></li>
 				</ul>
 			<li>Step 4</li>
 				<ul>
 					<li><html:link page="sdlist.do">Review Packages</html:link></li>
-					<li><html:link page="#">Compare Packages</html:link></li>
 					<li><html:link page="#">Package Voting</html:link></li>
 				</ul>
 			<li>Step 5</li>
@@ -117,7 +116,7 @@
 				</ul>
 			<li>Step 4</li>
 				<ul>
-					<li><html:link page="packageMgr.do?suiteId=200">Manage Packages</html:link></li>
+					<li><html:link page="packageMgr.do?pkgSuiteId=200">Manage Packages</html:link></li>
 				</ul>
 			<li>Step 5</li>
 				<ul>

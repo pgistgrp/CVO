@@ -59,5 +59,5 @@
 		</c:otherwise>
 	</c:choose>
 
-	<input class="finishedButton" type="submit" value="Finished? Submit your package" 
+	<input class="finishedButton" type="button" onclick="location.href='waiting.jsp'" value="Finished? Submit your package" 
 	${((package.totalFunding - package.totalCost) < 0) ? "disabled='true'" : ""} />

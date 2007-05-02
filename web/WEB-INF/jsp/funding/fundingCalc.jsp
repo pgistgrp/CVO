@@ -40,8 +40,8 @@
 	<script type='text/javascript' src='/dwr/util.js'></script>
 	<script type='text/javascript' src='/dwr/interface/FundingAgent.js'></script>
 	<script type="text/javascript" charset="utf-8">
-		var suiteId = "${suiteId}"
-		
+		var suiteId = "${fundSuiteId}"
+				
 		function getVehicles(){
 			FundingAgent.getVehicles({}, {
 				callback:function(data){
@@ -116,7 +116,7 @@
 					}
 				},
 				errorHandler:function(errorString, exception){ 
-				alert("ClassName.methodName( error:" + errorString + exception);
+				alert("FundingAgent.deleteVehicle( error:" + errorString + exception);
 				}
 			});
 		}
