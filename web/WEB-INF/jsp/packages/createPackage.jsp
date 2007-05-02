@@ -17,13 +17,16 @@
 		[x] Integrate Adam's Layout (Jordan)
 		[x] setFundingtoPkg and setProjecttoPkg (Jordan and Matt)
 		[x] SuiteIds (Jordan and Matt)
-		[x] Pull Summary Partials (Jordan and Matt)
+		[x] Pull Summary Partials (Jordan)
 		[x] Balance color (Jordan)
 		[x] Clear selection prior to setting (Jordan)
 		[x] pg:contains for initialization(Jordan)
-		[ ] What happens when user clicks on "finished"? (Jordan)
-		[ ] myLimit validations (Jordan)
+		[x] What happens when user clicks on "finished"? (Jordan)
 		[x] Ordering (Matt)
+		[ ] Cost to you (Matt)
+		[ ] Limit Decimal Points on Floats (Jordan)
+		[ ] myLimit validations via JS (Jordan)
+
 #### -->
 <html>
 <head>
@@ -306,7 +309,7 @@
 													</c:choose>
 													${altRef.alternative.name} </label>
 												</td>
-												<td class="cost">$${altRef.alternative.cost} million</td>
+												<td class="cost"><fmt:formatNumber type="currency">${altRef.alternative.cost}</fmt:formatNumber> million</td>
 											</tr>
 											<c:if test="${pg:contains(userPkg.projAltRefs,altRef)}">
 												<c:set var="doNothing"value="false"/>
@@ -361,9 +364,9 @@
 								<input type="radio" ${(pg:contains(userPkg.fundAltRefs,altRef)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
 								${altRef.alternative.name}</label>
 							</td>
-							<td>${altRef.alternative.revenue}</td>
-							<td>$${altRef.alternative.avgCost}</td>
-							<td>$<c:out value="${userPkg.personalCost[altRef.id]}" /></td>
+							<td><fmt:formatNumber type="currency">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
+							<td><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
+							<td><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
 						</tr>
 						<c:if test="${pg:contains(userPkg.fundAltRefs,altRef)}">
 							<c:set var="doNothing"value="false"/>

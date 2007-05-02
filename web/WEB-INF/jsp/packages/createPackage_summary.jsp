@@ -21,19 +21,19 @@
 <table>
 	<tr>
 		<td><h3>Total Cost</h3></td>
-		<td>${package.totalCost} million</td>
+		<td><fmt:formatNumber type="currency">${package.totalCost}</fmt:formatNumber> million</td>
 	</tr>
 	<tr>
 		<td><h3>Total funding</h3></td>
-		<td>${package.totalFunding} million</td>
+		<td><fmt:formatNumber type="currency">${package.totalFunding}</fmt:formatNumber> million</td>
 	</tr>
 	<tr>
 		<td><strong>Cost to you:</strong></td>
-		<td>${package.yourCost} per year</td>
+		<td><fmt:formatNumber type="currency">${package.yourCost}</fmt:formatNumber> per year</td>
 	</tr>
 	<tr>
 		<td><strong>Cost to the average resident:</strong></td>
-		<td>${package.avgResidentCost} per year</td>
+		<td><fmt:formatNumber type="currency">${package.avgResidentCost}</fmt:formatNumber> per year</td>
 	</tr>
 	<tr>
 		<td><strong>Number of projects in your package:</strong></td>

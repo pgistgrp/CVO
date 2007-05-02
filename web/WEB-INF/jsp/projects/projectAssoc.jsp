@@ -103,11 +103,10 @@
 		<ul id="projectsList">
 			<c:forEach var="project" items="${projects}">
 				<li><span id="projRow"><label><span class="project">${project.name}</span></label> 
-					<!--
 					<small>
 						<a href="javascript:checkAltsInProject(${project.id}, true)">check all</a> | 
 						<a href="javascript:checkAltsInProject(${project.id}, false)">uncheck all</a>
-					</small>--></span>
+					</small></span>
 					<ul>
 						<c:forEach var="alt" items="${project.alternatives}">
 							<li>
