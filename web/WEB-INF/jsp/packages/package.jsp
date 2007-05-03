@@ -92,28 +92,38 @@
 							<th class="col4">Estimated annual cost to you</th>
 						</tr>
 						<!-- begin Funding Source -->
-						<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
-							<tr class="fundingType">
-								<td class="fundingSourceItem">${fundingRef.source.name}</td>
-								<td colspan="3">&nbsp;</td>
-							</tr>
-							<!-- end PROJECT -->
-							<!-- begin HIDDEN ROW of OPTIONS -->
-							<tr  class="objectives" id="objective1">
-								<td colspan="4">
-									<table>
-										<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
-											<tr>
-												<td class="col1">0.1 percentage-point increase</td>
-												<td class="col2">$7,015,384,615</td>
-												<td class="col3">$20</td>
-												<td class="col4">$16</td>
-											</tr>
-										</c:forEach>
-									</table>
-								</td>
-							</tr>
-							<!-- end HIDDEN ROW -->
+						<c:set var="prevSource"value=""/>
+						<c:forEach var="altRef" items="${package.fundAltRefs}" varStatus="loop">
+								<c:if test="${altRef.sourceRef.source.name != prevSource}">
+									<tr class="fundingType">
+										<td class="fundingSourceItem">${altRef.sourceRef.source.name} ****${prevSource}</td>
+										<td colspan="3">&nbsp;</td>
+									</tr>
+								</c:if>
+
+							
+
+								<!-- end PROJECT -->
+								<!-- begin HIDDEN ROW of OPTIONS -->
+								
+								<tr class="objectives" id="objective1">
+									<td colspan="4">
+										<table>
+											<c:forEach var="altRef" items="${package.fundAltRefs}" varStatus="loop">
+												
+												<tr>
+													<td class="col1">${altRef.alternative.name}</td>
+													<td class="col2"><fmt:formatNumber type="currency">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
+													<td class="col3"><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
+													<td class="col4"><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
+												</tr>
+											</c:forEach>
+										</table>
+									</td>
+								</tr>
+								<!-- end HIDDEN ROW -->
+								<c:set var="pvSource" value="${altRef.sourceRef.source.name}"/>
+								****${pvSource}
 						</c:forEach>
 					</table>
 				</div>
