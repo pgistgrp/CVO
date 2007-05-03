@@ -138,7 +138,7 @@ public class PackageServiceImpl implements PackageService {
 	 * @see org.pgist.packages.PackageService#deleteClusteredPackage(java.lang.Long, java.lang.Long)
 	 */
 	public void deleteClusteredPackage(Long suiteId, Long pkgId) throws Exception {
-		Package pkg = this.packageDAO.getPackage(pkgId);
+		Package pkg = this.packageDAO.getClusteredPackage(pkgId);
 		if(pkg != null) {
 			PackageSuite suite = this.getPackageSuite(suiteId);
 			Iterator i = suite.getClusteredPkgs().iterator();
