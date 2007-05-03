@@ -91,6 +91,7 @@ function createClusteredPackage(){
 	});
 }
 
+
 function getClusteredPackages(){
 	PackageAgent.getClusteredPackages({pkgSuiteId:pkgSuiteId}, {
 		callback:function(data){

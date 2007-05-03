@@ -18,7 +18,7 @@
 			<td class="col1"><a href="package.do?id=${package.id}">${loop.index +1}</a></td>
 			<td>$${package.totalCost} Billion</td>
 			<td>$${package.totalCostForAvgResident}/year</td>
-			<td><small><a href="javascript:editClusteredPackage(${package.id});">Edit</a> | <a href="javascript:deleteClusteredPackage(${package.id});">Delete</a></small></td>
+			<td><small><a href="createPackage.do?pkgSuiteId=${pkgSuiteId}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}&pkgId=${package.id}">Edit</a> | <a href="javascript:deleteClusteredPackage(${package.id});">Delete</a></small></td>
 		</tr>
 	</c:forEach>
 </table>	
