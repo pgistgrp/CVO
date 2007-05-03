@@ -147,7 +147,7 @@
         </pgame>
         
         <pgame name="pgame-publish.projects" description="Publish Projects." auto="true">
-            <taskName>task-publish.project</taskName>
+            <taskName>task-publish.projects</taskName>
             <declaration>
                 <ins>
                     <var name="cct_id"/>
@@ -320,7 +320,7 @@
                     <var name="pmethod.suite_id"/>
                 </ins>
                 <outs>
-                    <var name="pmethod.isid"/>
+                    <var name="pmethod.is_id"/>
                 </outs>
             </declaration>
             <sequence>
@@ -331,14 +331,14 @@
                             <var name="suite_id" ref="pmethod.suite_id"/>
                         </ins>
                         <outs>
-                            <var name="is_id" ref="pmethod.isid"/>
+                            <var name="is_id" ref="pmethod.is_id"/>
                         </outs>
                     </declaration>
                 </pgame>
                 <pgame name="pgame-sd.projects">
                     <declaration>
                         <ins>
-                            <var name="isid" ref="pmethod.isid"/>
+                            <var name="isid" ref="pmethod.is_id"/>
                         </ins>
                     </declaration>
                 </pgame>
@@ -352,7 +352,7 @@
                     <var name="pmethod.suite_id"/>
                 </ins>
                 <outs>
-                    <var name="pmethod.isid"/>
+                    <var name="pmethod.is_id"/>
                 </outs>
             </declaration>
             <sequence>
@@ -363,14 +363,14 @@
                             <var name="suite_id" ref="pmethod.suite_id"/>
                         </ins>
                         <outs>
-                            <var name="is_id" ref="pmethod.isid"/>
+                            <var name="is_id" ref="pmethod.is_id"/>
                         </outs>
                     </declaration>
                 </pgame>
                 <pgame name="pgame-sd.fundings">
                     <declaration>
                         <ins>
-                            <var name="isid" ref="pmethod.isid"/>
+                            <var name="isid" ref="pmethod.is_id"/>
                         </ins>
                     </declaration>
                 </pgame>
@@ -495,7 +495,7 @@
                         </ins>
                         <outs>
                             <var name="meeting.proj_isid" ref="situation.proj_isid"/>
-                            <var name="meeting.fund_suite_id" ref="situation.fund_suite_id"/>
+                            <var name="meeting.fund_isid" ref="situation.fund_isid"/>
                         </outs>
                     </declaration>
                 </meeting>

@@ -21,6 +21,8 @@
             <bean class="org.pgist.projects.ProjectServiceImpl">
                 <property name="projectDAO" ref="projectDAO"/>
                 <property name="criteriaDAO" ref="criteriaDAO"/>                
+                <property name="cctDAO" ref="cctDAO"/>                
+                <property name="discussionDAO" ref="discussionDAO"/>                
             </bean>
         </property>
     </bean>
