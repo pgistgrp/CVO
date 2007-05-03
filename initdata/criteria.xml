@@ -17,10 +17,24 @@
             <actionName>action-define.criteria</actionName>
             <declaration>
                 <ins>
-                    <var name="suite_id"/>
+                    <var name="suiteId"/>
                 </ins>
             </declaration>
             <timer extension="10000"/>
+        </pgame>
+         
+        <pgame name="pgame-create.cct" description="Create a CCT instance." auto="true">
+	    <taskName>task-create.cct</taskName>
+	    <declaration>
+		<outs>
+		    <var name="cct_id"/>
+		</outs>
+		<props>
+		    <property name="name" value="CCT" />
+		    <property name="purpose" value="My Purpose" />
+		    <property name="instruction" value="My Instructions" />
+		</props>
+	    </declaration>
         </pgame>
         
         <pgame name="pgame-publish.criteria" description="Publish Criteria." auto="true">
@@ -28,6 +42,7 @@
             <declaration>
                 <ins>
                     <var name="suite_id"/>
+         	    <var name="cct_id"/>
                 </ins>
                 <outs>
                     <var name="is_id"/>
@@ -42,17 +57,17 @@
 	    <actionName>action-sd.criteria</actionName>
 	    <declaration>
 		<ins>
-		    <var name="is_id"/>
+		    <var name="isid"/>
 		</ins>
 	    </declaration>
 	    <timer extension="60000"/>
 	</pgame>
 
-	<pgame name="pgame-weigh.criteria" description="Weight critieria." auto="false" access="all">
-	    <actionName>action-sd.criteria</actionName>
+	<pgame name="pgame-weigh.criteria" description="Weight critieria" auto="false" access="all">
+	    <actionName>action-weigh.criteria</actionName>
 	    <declaration>
 		<ins>
-		    <var name="suite_id"/>
+		    <var name="suiteId"/>
 		</ins>
 	    </declaration>
 	    <timer extension="60000"/>
@@ -62,17 +77,35 @@
     
     
     <pmethods>
-
+    
+	<pmethod name="pmethod-cvo" description="Concern Value Object">
+	            <declaration>
+	                <outs>
+	                    <var name="pmethod.cct_id"/>
+	                </outs>
+	            </declaration>
+	            <sequence>
+	                <pgame name="pgame-create.cct">
+	                    <declaration>
+	                        <outs>
+	                            <var name="cct_id" ref="pmethod.cct_id"/>
+	                        </outs>
+	                    </declaration>
+	                </pgame>
+	            </sequence>
+        </pmethod>
+        
         <pmethod name="pmethod-init.criteria" description="Initialize Criteria">
             <declaration>
+            	<ins>
+            	    <var name="pmethod.cct_id"/>
+            	</ins>
                 <outs>
                     <var name="pmethod.crit_suite_id"/>
                     <var name="pmethod.crit_isid"/>
                 </outs>
             </declaration>
-            <sequence>
-                
-                    
+            	<sequence>                                    
                     	<pgame name="pgame-create.criteria.suite">
 			    <declaration>
 				<outs>
@@ -80,29 +113,50 @@
 				</outs>
 			    </declaration>
 			</pgame>
+			
 			<pgame name="pgame-define.criteria">
 			    <declaration>
 			        <ins>
-			            <var name="suite_id" ref="pmethod.crit_suite_id"/>
+			            <var name="suiteId" ref="pmethod.crit_suite_id"/>
 			        </ins>
 			    </declaration>
                       	</pgame>
+                      	
+                      	<pgame name="pgame-create.cct">
+			    <declaration>
+				<outs>
+				    <var name="cct_id" ref="pmethod.cct_id"/>
+				</outs>
+			    </declaration>
+                      	</pgame>
+                      	
+			<pgame name="pgame-publish.criteria">
+			    <declaration>
+			        <ins>
+			            <var name="suite_id" ref="pmethod.crit_suite_id"/>
+			            <var name="cct_id" ref="pmethod.cct_id"/>
+			        </ins>
+			        <outs>
+				    <var name="is_id" ref="pmethod.crit_isid"/>
+				</outs>
+			    </declaration>
+                      	</pgame>
+                      	
 			<pgame name="pgame-sd.criteria">
 			    <declaration>
 				<ins>
-				    <var name="is_id" ref="pmethod.crit_isid"/>
+				    <var name="isid" ref="pmethod.crit_isid"/>
 				</ins>
 			    </declaration>
                         </pgame>
+                        
 			<pgame name="pgame-weigh.criteria">
 			    <declaration>
 				<ins>
-				    <var name="suite_id" ref="pmethod.crit_suite_id"/>
+				    <var name="suiteId" ref="pmethod.crit_suite_id"/>
 				</ins>
 			    </declaration>
                         </pgame>
-
-
             </sequence>
         </pmethod>
         
@@ -116,11 +170,22 @@
                 <outs>
                     <var name="meeting.crit_suite_id"/>
                     <var name="meeting.crit_isid"/>
+                    <var name="meeting.cct_id"/>
                 </outs>
             </declaration>
             <sequence>
+                <pmethod name="pmethod-cvo">
+                    <declaration>
+                        <outs>
+                            <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
                 <pmethod name="pmethod-init.criteria">
                     <declaration>
+                        <ins>
+			    <var name="pmethod.cct_id"/>
+            		</ins>
                         <outs>
                             <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
                             <var name="pmethod.crit_isid" ref="meeting.crit_isid"/>
@@ -141,6 +206,7 @@
                         <outs>
                             <var name="meeting.crit_suite_id" ref="situation.crit_suite_id"/>
                             <var name="meeting.crit_isid" ref="situation.crit_isid"/>
+                            <var name="meeting.cct_id" ref="situation.cct_id"/>
                         </outs>
                     </declaration>
                 </meeting>
