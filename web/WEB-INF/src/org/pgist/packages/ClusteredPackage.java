@@ -1,9 +1,11 @@
 package org.pgist.packages;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.pgist.funding.FundingSourceAltRef;
+import org.pgist.funding.FundingSourceAlternative;
 import org.pgist.projects.ProjectAltRef;
 
 
@@ -25,7 +27,7 @@ public class ClusteredPackage extends Package {
     
     private boolean manual;
     
-    private float totalCostForAvgResident;
+    private float avgResidentCost;
     
     private float totalCost;
     
@@ -39,18 +41,18 @@ public class ClusteredPackage extends Package {
     
     /**
      * @hibernate.property
-	 * @return the totalCostForAvgResident
+	 * @return the avgResidentCost
 	 */
-	public float getTotalCostForAvgResident() {
-		return totalCostForAvgResident;
+	public float getAvgResidentCost() {
+		return avgResidentCost;
 	}
 
 
 	/**
-	 * @param totalCostForAvgResident the totalCostForAvgResident to set
+	 * @param avgResidentCost the avgResidentCost to set
 	 */
-	public void setTotalCostForAvgResident(float totalCostForAvgResident) {
-		this.totalCostForAvgResident = totalCostForAvgResident;
+	public void setAvgResidentCost(float totalCostForAvgResident) {
+		this.avgResidentCost = totalCostForAvgResident;
 	}
 
 
@@ -136,4 +138,28 @@ public class ClusteredPackage extends Package {
         this.projAltRefs = projAltRefs;
     }
     
+	/**
+     * Recalculates all of the information about this user package
+     */
+    public void updateCalculations() {
+    	System.out.println("MATT: Updating cost for the [" + this.projAltRefs.size() + "] projects and [" + this.fundAltRefs.size() + "] funding sources");
+    	this.totalCost = 0;
+    	this.totalFunding = 0;
+    	this.avgResidentCost = 0;
+  
+    	Iterator<ProjectAltRef> projects = this.projAltRefs.iterator();
+    	
+    	while(projects.hasNext()) {
+    		totalCost = totalCost + (float)projects.next().getAlternative().getCost();
+    	}
+    	
+    	Iterator<FundingSourceAltRef> funding = this.fundAltRefs.iterator();
+    	FundingSourceAlternative fAlt;
+    	
+    	while(funding.hasNext()) {
+    		fAlt = funding.next().getAlternative();
+    		totalFunding = totalFunding + (float)fAlt.getRevenue();
+    		avgResidentCost = avgResidentCost + fAlt.getAvgCost();
+    	}    	    	
+    }    
 }//class ClusteredPackage

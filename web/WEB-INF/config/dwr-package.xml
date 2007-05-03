@@ -30,12 +30,13 @@
         <include method="createMyPackage"/>
         <include method="createClusteredPackages"/>
         <include method="getClusteredPackages"/>
-        <include method="setProjectToUserPkg"/>
-        <include method="setFundingToUserPkg"/>
+        <include method="setProjectToPkg"/>
+        <include method="setFundingToPkg"/>
+        <include method="createClusteredPackage"/>
         <include method="deleteClusteredPackage"/>
         <include method="getManualPackages"/>
-        <include method="createClusteredPackage"/>
         <include method="getSummary"/>        
+        <include method="getClusteredSummary"/>        
     </create>
 
 

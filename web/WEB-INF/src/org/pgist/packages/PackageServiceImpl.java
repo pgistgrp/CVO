@@ -170,94 +170,171 @@ public class PackageServiceImpl implements PackageService {
 	/**
 	 * Adds the provided alternative project to the package
 	 */
-	public UserPackage addProjectAlternative(Long usrPkgId, Long altId) throws Exception {
+	public Package addProjectAlternative(Long usrPkgId, Long altId, boolean userPkg) throws Exception {
 		//System.out.println("MATT##################: Adding project alternative [" + altId + "] to user package [" + usrPkgId + "]");
 
-		//Get the user package
-		UserPackage uPack = this.packageDAO.getUserPackage(usrPkgId);
-		
-		//get the alternative
-		ProjectAltRef altRef = this.projectDAO.getProjectAlternativeReference(altId); 
-		//Add the reference
-		uPack.getProjAltRefs().add(altRef);
-		
-		uPack.updateCalculations();
-		this.packageDAO.save(uPack);
-		return uPack;
+		if(userPkg) {
+			//Get the user package
+			UserPackage uPack = this.packageDAO.getUserPackage(usrPkgId);
+			
+			//get the alternative
+			ProjectAltRef altRef = this.projectDAO.getProjectAlternativeReference(altId); 
+			//Add the reference
+			uPack.getProjAltRefs().add(altRef);
+			
+			uPack.updateCalculations();
+			this.packageDAO.save(uPack);
+			return uPack;			
+		} else {
+			//Get the clustered package
+			ClusteredPackage cPack = this.packageDAO.getClusteredPackage(usrPkgId);
+			
+			//get the alternative
+			ProjectAltRef altRef = this.projectDAO.getProjectAlternativeReference(altId); 
+			//Add the reference
+			cPack.getProjAltRefs().add(altRef);
+			
+			cPack.updateCalculations();
+			this.packageDAO.save(cPack);
+			return cPack;						
+		}
 	}
 
-	public UserPackage deleteProjectAlternative(Long usrPkgId, Long altId) throws Exception {
+	public Package deleteProjectAlternative(Long pkgId, Long altId, boolean userPkg) throws Exception {
 		//System.out.println("MATT##################: Removing project [" + altId + "] from user package [" + usrPkgId + "]");
 
-		//Get the user package
-		UserPackage uPack = this.packageDAO.getUserPackage(usrPkgId);
-				
-		//Loop through to find the alternative with the particular ID, you do this instead
-		//of using the collections routines because you would have to maintain the equals
-		//method on the ProjectAltRef object, this gives you less chances for bugs as things change
-		Iterator<ProjectAltRef> alts = uPack.getProjAltRefs().iterator();
-		ProjectAltRef tempRef;
-		
-		while(alts.hasNext()) {
-			tempRef = alts.next();
-			if(tempRef.getId().equals(altId)) {
-				uPack.getProjAltRefs().remove(tempRef);
-				uPack.updateCalculations();
-				this.packageDAO.save(uPack);
-				return uPack;
+		if(userPkg) {
+			//Get the user package
+			UserPackage uPack = this.packageDAO.getUserPackage(pkgId);
+					
+			//Loop through to find the alternative with the particular ID, you do this instead
+			//of using the collections routines because you would have to maintain the equals
+			//method on the ProjectAltRef object, this gives you less chances for bugs as things change
+			Iterator<ProjectAltRef> alts = uPack.getProjAltRefs().iterator();
+			ProjectAltRef tempRef;
+			
+			while(alts.hasNext()) {
+				tempRef = alts.next();
+				if(tempRef.getId().equals(altId)) {
+					uPack.getProjAltRefs().remove(tempRef);
+					uPack.updateCalculations();
+					this.packageDAO.save(uPack);
+					return uPack;
+				}
 			}
+			
+			return uPack;			
+		} else {
+			
+			//Get the Clustered package
+			ClusteredPackage cPack = this.packageDAO.getClusteredPackage(pkgId);
+					
+			//Loop through to find the alternative with the particular ID, you do this instead
+			//of using the collections routines because you would have to maintain the equals
+			//method on the ProjectAltRef object, this gives you less chances for bugs as things change
+			Iterator<ProjectAltRef> alts = cPack.getProjAltRefs().iterator();
+			ProjectAltRef tempRef;
+			
+			while(alts.hasNext()) {
+				tempRef = alts.next();
+				if(tempRef.getId().equals(altId)) {
+					cPack.getProjAltRefs().remove(tempRef);
+					cPack.updateCalculations();
+					this.packageDAO.save(cPack);
+					return cPack;
+				}
+			}
+			
+			return cPack;			
 		}
-		
-		return uPack;
 	}
 
 	
 	/**
 	 * Adds the provided funding source to the package
 	 */
-	public UserPackage addFundingAlternative(Long usrPkgId, Long funAltRefId) throws Exception {
+	public Package addFundingAlternative(Long pkgId, Long funAltRefId, boolean userPkg) throws Exception {
 		//System.out.println("MATT##################: Adding funding source alternative [" + funAltRefId + "] to user package [" + usrPkgId + "]");
-		//Get the user package
-		UserPackage uPack = this.packageDAO.getUserPackage(usrPkgId);
-		
-		//get the alternative
-		FundingSourceAltRef altRef = this.fundingDAO.getFundingSourceAlternativeReference(funAltRefId);
+		if(userPkg) {
+			//Get the user package
+			UserPackage uPack = this.packageDAO.getUserPackage(pkgId);
+			
+			//get the alternative
+			FundingSourceAltRef altRef = this.fundingDAO.getFundingSourceAlternativeReference(funAltRefId);
 
-		//Add the reference
-		uPack.getFundAltRefs().add(altRef);
-		
-		this.fundingDAO.save(altRef);
-		uPack.updateCalculations();
-		this.packageDAO.save(uPack);
+			//Add the reference
+			uPack.getFundAltRefs().add(altRef);
+			
+			this.fundingDAO.save(altRef);
+			uPack.updateCalculations();
+			this.packageDAO.save(uPack);
 
-		return uPack;
+			return uPack;			
+		} else {
+			//Get the user package
+			ClusteredPackage cPack = this.packageDAO.getClusteredPackage(pkgId);
+			
+			//get the alternative
+			FundingSourceAltRef altRef = this.fundingDAO.getFundingSourceAlternativeReference(funAltRefId);
+
+			//Add the reference
+			cPack.getFundAltRefs().add(altRef);
+			
+			this.fundingDAO.save(altRef);
+			cPack.updateCalculations();
+			this.packageDAO.save(cPack);
+
+			return cPack;			
+		}
 	}
 
 	
 
-	public UserPackage deleteFundingAlternative(Long usrPkgId, Long funAltRefId) throws Exception {
+	public Package deleteFundingAlternative(Long pkgId, Long funAltRefId, boolean userPkg) throws Exception {
 		//System.out.println("MATT##################: Removing funding alternative [" + funAltRefId + "] from user package [" + usrPkgId + "]");
-
-		//Get the user package
-		UserPackage uPack = this.packageDAO.getUserPackage(usrPkgId);
-				
-		//Loop through to find the alternative with the particular ID, you do this instead
-		//of using the collections routines because you would have to maintain the equals
-		//method on the FundingSourceAltRef object, this gives you less chances for bugs as things change
-		Iterator<FundingSourceAltRef> alts = uPack.getFundAltRefs().iterator();
-		FundingSourceAltRef tempRef;
-		
-		while(alts.hasNext()) {
-			tempRef = alts.next();
-			if(tempRef.getId().equals(funAltRefId)) {
-				uPack.getFundAltRefs().remove(tempRef);
-				uPack.updateCalculations();
-				this.packageDAO.save(uPack);
-				return uPack;
+		if(userPkg) {
+			//Get the user package
+			UserPackage uPack = this.packageDAO.getUserPackage(pkgId);
+					
+			//Loop through to find the alternative with the particular ID, you do this instead
+			//of using the collections routines because you would have to maintain the equals
+			//method on the FundingSourceAltRef object, this gives you less chances for bugs as things change
+			Iterator<FundingSourceAltRef> alts = uPack.getFundAltRefs().iterator();
+			FundingSourceAltRef tempRef;
+			
+			while(alts.hasNext()) {
+				tempRef = alts.next();
+				if(tempRef.getId().equals(funAltRefId)) {
+					uPack.getFundAltRefs().remove(tempRef);
+					uPack.updateCalculations();
+					this.packageDAO.save(uPack);
+					return uPack;
+				}
 			}
+			
+			return uPack;			
+		} else {
+			//Get the clustered package
+			ClusteredPackage cPack = this.packageDAO.getClusteredPackage(pkgId);
+					
+			//Loop through to find the alternative with the particular ID, you do this instead
+			//of using the collections routines because you would have to maintain the equals
+			//method on the FundingSourceAltRef object, this gives you less chances for bugs as things change
+			Iterator<FundingSourceAltRef> alts = cPack.getFundAltRefs().iterator();
+			FundingSourceAltRef tempRef;
+			
+			while(alts.hasNext()) {
+				tempRef = alts.next();
+				if(tempRef.getId().equals(funAltRefId)) {
+					cPack.getFundAltRefs().remove(tempRef);
+					cPack.updateCalculations();
+					this.packageDAO.save(cPack);
+					return cPack;
+				}
+			}
+			
+			return cPack;			
 		}
-		
-		return uPack;
 	}
 	
 	/**
@@ -279,6 +356,7 @@ public class PackageServiceImpl implements PackageService {
 	public ClusteredPackage getClusteredPackage(Long pkgId) throws Exception {
 		return this.packageDAO.getClusteredPackage(pkgId);		
 	}	
+	
 	/**
 	 * Checks first to see if the user package exist and if it doesn't then one is created and 
 	 * returned.

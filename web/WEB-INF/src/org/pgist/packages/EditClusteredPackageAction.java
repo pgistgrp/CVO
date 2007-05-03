@@ -91,7 +91,7 @@ public class EditClusteredPackageAction extends Action {
     		Long pkgId = new Long(tempPkgId);
     		    		
     		ClusteredPackage uPack = this.packageService.getClusteredPackage(pkgId);    			
-    		request.setAttribute("clusteredPkg", uPack);    		
+    		request.setAttribute("package", uPack);    		
     		request.setAttribute("projectRefs", projectService.getProjectSuite(projSuite).getReferences());
     		request.setAttribute("fundingRefs", fundingService.getFundingSuite(fundSuite).getReferences());
     		request.setAttribute("projSuiteId", projSuite);
