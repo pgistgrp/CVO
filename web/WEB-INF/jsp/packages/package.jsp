@@ -5,288 +5,304 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-
-<!--####
-	Project: Let's Improve Transportation!
-	Page: View Clustered Package
-	Description: Allow users to view a single package (a selection of funding/projects)
-	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman
-	     Back End: Zhong Wang
-	Todo Items:
-		[x] Create Layout (Adam)
-		[x] Initial Skeleton Code (Jordan)
-		[ ] JavaScript/JSTL (Jordan)
-		[ ] Test and Refine (Jordan)
-#### -->
-<html:html> 
-<head>
-<title>Package ${package.id}</title>
-<!-- Site Wide JavaScript -->
-<script src="scripts/prototype.js" type="text/javascript"></script>
-<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-<!-- End Site Wide JavaScript -->
-
-<!-- DWR JavaScript Libraries -->
-<script type='text/javascript' src='/dwr/engine.js'></script>
-<script type='text/javascript' src='/dwr/util.js'></script>
-<!-- End DWR JavaScript Libraries -->
-
-<!-- Site Wide CSS -->
-<style type="text/css" media="screen">
-@import "styles/lit.css";
-</style>
+<html:html>
+	<head>
+	<title>Let's Improve Transportation - Step 4b: Package Info Page</title>
+	<!-- Site Wide CSS -->
+	<style type="text/css" media="screen">
+		@import "styles/lit.css";
+		@import "styles/table.css";
+		@import "styles/table-grades.css";
+		@import "styles/step4b-packageinfo.css";
+	</style>
 	<!-- End Site Wide CSS -->
-	<style type="text/css">
-
-#obj-left
-{
-width:52%;
-margin:1em .5em .5em 0em;
-}
-
-#obj-right
-{
-width:45%;
-margin:0em 0em .5em .5em;
-}
-
-.odd {background: #E7F2F7}
-.even {background: #ffffff}
-
-
-.listRow
-{
-padding:.3em 0em;
-}
-
-.listRow h4 {margin:.5em 0em;}
-
-#allListHeader
-{
-text-align:left;
-}
-
-.col1
-{
-width:400px;
-font-size:1.1em;
-margin-left:1em;
-
-}
-
-.col2
-{
-width:50px;
-text-align:right;
-font-weight:bold;
-}
-
-h4
-{
-font-size:1em;
-}
-
-.listRow h4 {margin:0em;}
-
-#costSummary h4 
-{
-margin:2px 0px;
-}
-
-h4.subHeading {margin-left:.7em}
-
-.highlight 
-{
-background:#FFF1DC;
-}
-
-.projCol1
-{
-width:325px;
-font-size:1.1em;
-margin-left:1em;
-}
-
-.projCol2
-{
-width:100px;
-}
-
-.fundingCol1
-{
-width:300px;
-margin-left:1em;
-}
-
-.fundingCol2
-{
-width:100px;
-}
-
-.heading {margin:.5em auto;}
-
-
-
-</style>
 	<!-- Site Wide JS -->
 	<script src="scripts/prototype.js" type="text/javascript"></script>
 	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 	<script src="scripts/search.js" type="text/javascript"></script>
 	<script type='text/javascript' src='/dwr/engine.js'></script>
 	<script type='text/javascript' src='/dwr/util.js'></script>
-
 	<script src="scripts/prototype.js" type="text/javascript"></script>
 	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-	<script type="text/javascript">
-		function expandList(project,icon){
-			Effect.toggle(project, 'appear', {duration: .5, afterFinish:
-				//window.setTimeout(toggleIcon,100);
-				function(){
-					if ($(project).style.display != ""){
-						$(icon).src = "images/plus.gif";
-						}else{
-							$(icon).src = "images/minus.gif";
-						}
-					}
-			});
-		}
-</script>
 	</head>
 	<body>
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
-
 		<!-- begin Object -->
-		<div id="object">
-			<div class="box4 padding5">
-				<div class="floatLeft" id="packageHeader">
-					<h3 class="headerColor">Package ${package.id}</h3>
-				</div>
-				<div class="clearBoth"></div>
+		<div id="object clearfix">
+			<p><h3 class="headerColor">Package ${package.description} Details</h3></p>
+			<!-- begin TOP SUMMARY -->
+			<div class="summary box11">
+				<table>
+					<tr>
+						<td><h3>Total Cost</h3></td>
+						<td><fmt:formatNumber type="currency">${package.totalCost}</fmt:formatNumber> million</td>
+					</tr>
+					<tr>
+						<td><h3>Total funding</h3></td>
+						<td><fmt:formatNumber type="currency">${package.totalFunding}</fmt:formatNumber> million</td>
+					</tr>
+					<c:if test="${userPkg != null}">
+						<tr>
+							<td><strong>Cost to you:</strong></td>
+							<td><fmt:formatNumber type="currency">${package.yourCost}</fmt:formatNumber> per year</td>
+						</tr>
+					</c:if>
+					<tr>
+						<td><strong>Cost to the average resident:</strong></td>
+						<td><fmt:formatNumber type="currency">${package.avgResidentCost}</fmt:formatNumber> per year</td>
+					</tr>
+					<tr>
+						<td><strong>Number of projects in your package:</strong></td>
+						<td>${fn:length(package.projAltRefs)}</td>
+					</tr>
+				</table>
+
+					<c:choose>
+						<c:when test="${(package.totalFunding - package.totalCost) > 0}">
+							<div id="balance" class="balance">
+								<h3>Revenues Exceed Costs</h3>
+							</div>
+						</c:when>
+						<c:when test="${(package.totalFunding - package.totalCost) == 0}">
+							<div id="balance" class="balance">
+								<h3>Revenues Equal Costs</h3>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div id="balance" class="exceed">
+								<h3>Costs Exceed Revenue!</h3>
+							</div>
+						</c:otherwise>
+					</c:choose>
 			</div>
+			<!-- end TOP SUMMARY -->
+			<div class="clearBoth"></div>
 
-			<div id="obj-left" class="floatLeft clearBoth">
-				<!--Begin project list -->
-				<div id="projList">
-					<!--start projects header-->
-					<div class="listRow row headingColor heading">
-						<div class="projCol1 floatLeft" style="margin-left:.2em">
-							<div class="floatLeft">
-								<h4>Projects included in this package</h4>
-							</div>
-						</div>
-						<div class="projCol2 floatRight">
-							<h4>Cost</h4>
-						</div>
-						<div class="clearBoth"></div>
-					</div>
-					<!--end projects header-->
-					
-					<c:forEach var="project" items="${package.projects}" varStatus="loop">
-						<h3>${project.name}</h3>
-						<c:forEach var="alt" items="${project.projAlts}" varStatus="loop">
-							<div class="listRow row ${((loop.index % 2) == 0) ? 'even' : 'odd'}">
-								<h4 class="subHeading">${alt.name}</h4>
-
-								<div class="projCol2 floatRight">${alt.cost}</div>
-								<div class="clearBoth"></div>
-							</div>
+			<div id="newtable">
+				<div id="top" class="box11">
+					<table cellpadding=0 cellspacing=0>
+						<tr class="tableHeading">
+							<th class="first col1">Funding</th>
+							<th class="col2">Estimated Money Raised</th>
+							<th class="col3">Estimated annual cost to the average taxpayer</th>
+							<th class="col4">Estimated annual cost to you</th>
+						</tr>
+						<!-- begin Funding Source -->
+						<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
+							<tr class="fundingType">
+								<td class="fundingSourceItem">${fundingRef.source.name}</td>
+								<td colspan="3">&nbsp;</td>
+							</tr>
+							<!-- end PROJECT -->
+							<!-- begin HIDDEN ROW of OPTIONS -->
+							<tr  class="objectives" id="objective1">
+								<td colspan="4">
+									<table>
+										<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
+											<tr>
+												<td class="col1">0.1 percentage-point increase</td>
+												<td class="col2">$7,015,384,615</td>
+												<td class="col3">$20</td>
+												<td class="col4">$16</td>
+											</tr>
+										</c:forEach>
+									</table>
+								</td>
+							</tr>
+							<!-- end HIDDEN ROW -->
 						</c:forEach>
-					</c:forEach>
+					</table>
 				</div>
-				<!--End project list -->
+				<div id="bottom" class="box11">
+					<table cellpadding=0 cellspacing=0>
+						<tr class="tableHeading">
+							<th class="col1">My Proposed Projects</th>
+							<th class="col2">Money Needed</th>
+							<th class="col3">Average Grade</th>
+							<th class="col4">Average Weighted Grade (your weights)</th>
+							<th class="col5">Average Weighted Grade (all participants grades)</th>
+						</tr>
+						<!-- begin CATEGORY LABEL -->
+						<tr >
+							<td class="category" colspan="5"><strong>Road Projects</strong></td>
+						</tr>
+						<!-- end CATEGORY LABEL -->
+						<!-- begin PROJECT -->
+						<tr class="fundingType">
+							<td colspan="5" class="fundingSourceItem">Alaskan Way Viaduct Options</td>
+						</tr>
+						<!-- begin ROW of OPTIONS -->
+						<tr  class="objectives">
+							<td colspan="5">
+								<table>
+									<tr class="option">
+										<td class="col1">Elevated Structure</td>
+										<td class="col2">$217,015,384,615</td>
+										<td class="col3 gradeBPlus">B+</td>
+										<td class="col4 gradeA">A</td>
+										<td class="col5 gradeC">C</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<!-- end ROW of OPTIONS -->
+						<!-- end PROJECT -->
+						<!-- begin PROJECT -->
+						<tr class="fundingType">
+							<td colspan="5" class="fundingSourceItem">520 Bridge Options</td>
+						</tr>
+						<!-- begin ROW of OPTIONS -->
+						<tr  class="objectives">
+							<td colspan="5">
+								<table>
+									<tr class="option">
+										<td class="col1">Arboretum Bypass Plan</td>
+										<td class="col2">$419,239,123,000</td>
+										<td class="col3 gradeDPlus">D+</td>
+										<td class="col4 gradeBMinus">B-</td>
+										<td class="col5 gradeAMinus">A-</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<!-- end ROW of OPTIONS -->
+						<!-- end PROJECT -->
+						<!-- begin PROJECT -->
+						<tr class="fundingType">
+							<td colspan="5" class="fundingSourceItem">I-405 Improvements</td>
+						</tr>
+						<!-- begin ROW of OPTIONS -->
+						<tr  class="objectives">
+							<td colspan="5">
+								<table>
+									<tr class="option">
+										<td class="col1">Renton to Bellevue (SR 169 to I-90)</td>
+										<td class="col2">$123,512,151,568</td>
+										<td class="col3 gradeC">C</td>
+										<td class="col4 gradeCMinus">C-</td>
+										<td class="col5 gradeBMinus">B-</td>
+									</tr>
+									<tr class="option">
+										<td class="col1">112th Ave SE to SE 8th St.</td>
+										<td class="col2">$512,555,321,960</td>
+										<td class="col3 gradeFPlus">F+</td>
+										<td class="col4 gradeDMinus">D-</td>
+										<td class="col5 gradeCPlus">C+</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<!-- end ROW of OPTIONS -->
+						<!-- end PROJECT -->
+						<!-- begin PROJECT -->
+						<tr class="fundingType">
+							<td colspan="5" class="fundingSourceItem">New Highway Segments</td>
+						</tr>
+						<!-- begin ROW of OPTIONS -->
+						<tr  class="objectives">
+							<td colspan="5">
+								<table>
+									<tr class="option">
+										<td class="col1">SR 509 Extension and I-5 Improvements</td>
+										<td class="col2">$621,785,997,000</td>
+										<td class="col3 gradeA">A</td>
+										<td class="col4 gradeCMinus">C-</td>
+										<td class="col5 gradeC">C</td>
+									</tr>
+									<tr class="option">
+										<td class="col1">I-167: New Freedom Extension Tacoma to Englewood</td>
+										<td class="col2">$217,015,384,615</td>
+										<td class="col3 gradeD">D</td>
+										<td class="col4 gradeA">A</td>
+										<td class="col5 gradeBMinus">B-</td>
+									</tr>
+									<tr class="option">
+										<td class="col1">Cross Base Highway (SR 704)</td>
+										<td class="col2">$217,015,384,615</td>
+										<td class="col3 gradeCMinus">C-</td>
+										<td class="col4 gradeBMinus">B-</td>
+										<td class="col5 gradeDMinus">D-</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<!-- end ROW of OPTIONS -->
+						<!-- end PROJECT -->
+						<!-- begin PROJECT -->
+						<tr class="fundingType">
+							<td colspan="5" class="fundingSourceItem">SR 162 Improvements</td>
+						</tr>
+						<!-- begin ROW of OPTIONS -->
+						<tr  class="objectives">
+							<td colspan="5">
+								<table>
+									<tr class="option">
+										<td class="col1">Renton to Bellevue (SR 169 to I-90)</td>
+										<td class="col2">$123,512,151,568</td>
+										<td class="col3 gradeC">C</td>
+										<td class="col4 gradeCMinus">C-</td>
+										<td class="col5 gradeBMinus">B-</td>
+									</tr>
+									<tr class="option">
+										<td class="col1">112th Ave SE to SE 8th St.</td>
+										<td class="col2">$512,555,321,960</td>
+										<td class="col3 gradeFPlus">F+</td>
+										<td class="col4 gradeDMinus">D-</td>
+										<td class="col5 gradeCPlus">C+</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<!-- end ROW of OPTIONS -->
+						<!-- end PROJECT -->
+						<!-- begin PROJECT -->
+						<tr class="fundingType">
+							<td colspan="5" class="fundingSourceItem">Snohomish SR 9 Improvements</td>
+						</tr>
+						<!-- begin ROW of OPTIONS -->
+						<tr  class="objectives">
+							<td colspan="5">
+								<table>
+									<tr class="option">
+										<td class="col1">SR 9 Widening (N. Bothel to Clearview SR 523 to 176th
+											St. SE)</td>
+										<td class="col2">$419,239,123,000</td>
+										<td class="col3 gradeDPlus">D+</td>
+										<td class="col4 gradeBMinus">B-</td>
+										<td class="col5 gradeAMinus">A-</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<!-- end ROW of OPTIONS -->
+						<!-- end PROJECT -->
+					</table>
+				</div>
 			</div>
-			<!-- end obj-left -->
 		</div>
-		<!-- begin obj-right -->
-		<!-- begin funding sources table -->
-		<div id="obj-right" class="floatLeft">
-
-			<!-- Begin funding sources table -->
-			<div class="listRow row headingColor heading">
-				<div class="fundingCol1 floatLeft" style="margin-left:.2em">
-					<div class="floatLeft">
-						<h4>Funding sources included in this package</h4>
-					</div>
-				</div>
-				<div class="fundingCol2 floatRight">
-
-					<h4>Money raised</h4>
-				</div>
-				<div class="clearBoth"></div>
-			</div>
-			<!--end funding headers -->
-
-			<c:forEach var="source" items="${package.sources}" varStatus="loop">
-				<h3>${project.name}</h3>
-				<c:forEach var="alt" items="${source.fundAlts}" varStatus="loop">
-					<div class="listRow row odd">
-						<div class="fundingCol1 floatLeft">
-							<div class="floatLeft">${alt.cost} increase</div>
-						</div>
-						<div class="fundingCol2 floatRight">${alt.revenue}</div>
-						<div class="clearBoth"></div>
-					</div>
-				</c:forEach>
-			</c:forEach>
-
-			<div class="listRow row even">
-
-
-				<div class="clearBoth"></div>
-			</div>
-		<!-- end funding sources table -->			
-<br />
-		<!-- Begin Cost Summary Div -->
-        <div class="box2 padding5 floatLeft" id="costSummary">
-          <div class="clearBoth">
-            <div class="floatLeft">
-              <h3>Total Cost</h3>
-
-            </div>
-            <div class="floatRight" id="totalCost">${package.totalCost}</div>
-          </div>
-          <div class="clearBoth">
-            <div class="floatLeft">
-              <h3>Total Funding</h3>
-            </div>
-            <div class="floatRight" id="totalFunding">$${package.totalFunding}/year</div>
-
-          </div>
-          <div class="clearBoth">
-            <div class="floatLeft">
-              <h4>Cost to you</h4>
-            </div>
-            <div class="floatRight" id="costToYou">$${package.userCost}/year</div>
-          </div>
-          <div class="clearBoth">
-
-            <div class="floatLeft">
-              <h4>Cost to the average resident</h4>
-            </div>
-            <div class="floatRight" id="costToAvg">${package.avgCost}</div>
-          </div>
-          <div class="clearBoth"></div>
-        </div>
-        <!-- End Cost Summary Div -->
-
-		</div>
-		
-	<!-- end obj-right -->
-	</div>
-	<!-- begin firefox height hack -->
-	<div class="clearBoth"></div>
-	<!-- end firefox height hack -->
-	</div>
-	<!-- end Object-->
-	<div class="clearBoth"></div>
-
+		<!-- end Object-->
 	</div>
 	<!-- end container -->
-	<!-- start feedback form -->
-	<pg:feedback id="feedbackDiv" action="cctView.do"/>
-	<!-- end feedback form -->
 	</body>
 </html:html>
+<!-- 												
+
+												<tr class="option">
+													<td class="col1">Elevated Structure</td>
+													<td class="col2">$217,015,384,615</td>
+													<td class="col3 gradeFPlus">F+</td>
+													<td class="col4 gradeDMinus">D-</td>
+													<td class="col5 gradeCPlus">C+</td>
+												</tr>
+												<tr class="option">
+													<td class="col1">Elevated Structure</td>
+													<td class="col2">$217,015,384,615</td>
+													<td class="col3 gradeD">D</td>
+													<td class="col4 gradeA">A</td>
+													<td class="col5 gradeBMinus">B-</td>
+												</tr>
+-->
