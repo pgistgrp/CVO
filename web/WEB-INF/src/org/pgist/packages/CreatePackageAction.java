@@ -26,6 +26,8 @@ import org.pgist.util.WebUtils;
  *   <li>pkgSuiteId - the id of a specified PackageSuite object</li>
  *   <li>projSuiteId - the id of a specified PackageSuite object</li>
  *   <li>fundSuiteId - the id of a specified FundingSuite object</li>
+ *   <li>critSuiteId - the id of a specified CriteriaSuite object</li>
+ *   <li>pkgId - the id of a particular package to edit.</li>
  * </ul>
  * 
  * the action will forward to page of "view", the following variables are available in jsp:
@@ -84,23 +86,33 @@ public class CreatePackageAction extends Action {
     	String tempProjSuiteId = request.getParameter("projSuiteId");
     	String tempFundSuiteId = request.getParameter("fundSuiteId");
     	String tempCritSuiteId = request.getParameter("critSuiteId");
+    	String tempPkgId = request.getParameter("pkgId");
     	if(tempPackageSuiteId != null) {
     		Long packSuite = new Long(tempPackageSuiteId);
     		Long projSuite = new Long(tempProjSuiteId);
     		Long fundSuite = new Long(tempFundSuiteId);
     		Long critSuite = new Long(tempCritSuiteId);
+    		Long pkgId = 0l;
+    		if(tempPkgId != null) {
+        		pkgId = new Long(tempPkgId);    			
+    		}
     		    		
-    		//Get the current users package
-    		UserPackage uPack = this.packageService.createUserPackage(packSuite, WebUtils.currentUser(), fundSuite);
+    		//Get the current users package if the package isn't specified
+    		if(pkgId.equals(0l)) {
+        		UserPackage uPack = this.packageService.createUserPackage(packSuite, WebUtils.currentUser(), fundSuite);    			
+        		request.setAttribute("userPkg", uPack);
+    		} else {
+        		//Return the user package
+        		request.setAttribute("userPkg", this.packageService.getPackage(pkgId));
+    		}
     		
     		request.setAttribute("projectRefs", projectService.getProjectSuite(projSuite).getReferences());
     		request.setAttribute("fundingRefs", fundingService.getFundingSuite(fundSuite).getReferences());
     		request.setAttribute("projSuiteId", projSuite);
     		request.setAttribute("fundSuiteId", fundSuite);
     		request.setAttribute("critSuiteId", critSuite);
+    		request.setAttribute("pkgId", pkgId);
     		
-    		//Return the user package
-    		request.setAttribute("userPkg", uPack);
     	}
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

@@ -34,6 +34,12 @@ public interface PackageService {
 	void createClusteredPackages(Long pkgSuiteId, int pkgCount) throws Exception;
     
     InfoStructure publish(Long cctId, Long suiteId) throws Exception;
+
+	ClusteredPackage createClusteredPackage(Long suiteId, String description) throws Exception;
+
+	Package getPackage(Long pkgId) throws Exception;
+
+	void deleteClusteredPackage(Long suiteId, Long pkgId) throws Exception; 
     
     
 }//interface PackageService

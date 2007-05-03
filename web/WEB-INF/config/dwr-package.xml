@@ -17,6 +17,7 @@
     <convert converter="bean" match="org.pgist.projects.ProjectAlternative"/>
     <convert converter="bean" match="org.pgist.packages.Package"/>
     <convert converter="bean" match="org.pgist.packages.UserPackage"/>
+    <convert converter="bean" match="org.pgist.packages.ClusteredPackage"/>
     <convert converter="bean" match="org.pgist.funding.FundingSource"/>      
     <convert converter="bean" match="org.pgist.funding.FundingSourceAlternative"/>
 
@@ -31,6 +32,9 @@
         <include method="getClusteredPackages"/>
         <include method="setProjectToUserPkg"/>
         <include method="setFundingToUserPkg"/>
+        <include method="deleteClusteredPackage"/>
+        <include method="getManualPackages"/>
+        <include method="createClusteredPackage"/>
         <include method="getSummary"/>        
     </create>
 

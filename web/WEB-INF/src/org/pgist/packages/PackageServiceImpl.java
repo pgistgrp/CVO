@@ -118,6 +118,54 @@ public class PackageServiceImpl implements PackageService {
 		return packageDAO.getPackageSuite(pkgId);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.pgist.packages.PackageService#createClusteredPackage(java.lang.Long, java.lang.String)
+	 */
+	public ClusteredPackage createClusteredPackage(Long suiteId, String description) throws Exception {
+		ClusteredPackage newPack = new ClusteredPackage();
+		newPack.setManual(true);
+		newPack.setDescription(description);
+		this.packageDAO.save(newPack);
+		
+		PackageSuite packSuite = this.packageDAO.getPackageSuite(suiteId);
+		packSuite.getClusteredPkgs().add(newPack);
+		this.packageDAO.save(packSuite);
+		return newPack;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see org.pgist.packages.PackageService#deleteClusteredPackage(java.lang.Long, java.lang.Long)
+	 */
+	public void deleteClusteredPackage(Long suiteId, Long pkgId) throws Exception {
+		Package pkg = this.packageDAO.getPackage(pkgId);
+		if(pkg != null) {
+			PackageSuite suite = this.getPackageSuite(suiteId);
+			Iterator i = suite.getClusteredPkgs().iterator();
+			ClusteredPackage temp;
+			ClusteredPackage found = null;
+			while(i.hasNext()) {
+				temp = (ClusteredPackage)i.next();
+				if(temp.getId().equals(pkg.getId())) {
+					found = temp;
+					break;
+				}
+			}
+			if(found != null) {
+				suite.getClusteredPkgs().remove(found);
+				this.packageDAO.save(suite);
+			}
+		}		
+	}
+
+
+	/* (non-Javadoc)
+	 * @see org.pgist.packages.PackageService#getClusteredPackage(java.lang.Long)
+	 */
+	public Package getPackage(Long pkgId) throws Exception {
+		return this.packageDAO.getPackage(pkgId);
+	}
+
 
 	/**
 	 * Adds the provided alternative project to the package
