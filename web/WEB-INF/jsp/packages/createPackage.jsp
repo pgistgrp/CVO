@@ -54,19 +54,19 @@
 </style>
 <script type="text/javascript" charset="utf-8">
 			//Global Vars
-			var pkgId = "${userPkg.id}";
+			var userPkg = Boolean("${userPkg.id}");
+			var pkgId = (userPkg) ? "${userPkg.id}" : "${pkgId}";
 			var critSuiteId = "${critSuiteId}";
 			var fundSuiteId = "${fundSuiteId}";
 			var projSuiteId = "${projSuiteId}";
 
-			
 			//End Global Vars
 
-			function setFundingToUserPkg(altRefId,checked){
+			function setFundingToPkg(altRefId,checked){
 				//alert("checked = " +checked)
 				var deleting = !Boolean(checked); //dealing with checkboxes
 				//alert("pkgSuiteId: " + pkgId + "altRefId: " + altRefId + " deleting: " + deleting); 
-				PackageAgent.setFundingToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
+				PackageAgent.setFundingToPkg({pkgId:pkgId,altId:altRefId,deleting:deleting,userPkg:userPkg}, {
 					callback:function(data){
 						if (data.successful){
 							//alert("Funding alt " + altRefId + " was successfully set to " + deleting); //replace with saving indicator later
@@ -91,17 +91,17 @@
 					if(id != ""){
 						if(type=="project"){
 							//alert("setting project "+id +" to false...");
-							setProjectToUserPkg(id, false);
+							setProjectToPkg(id, false);
 							if(alts[i].checked == true){
 								//alert("adding" +type+id)
-								setProjectToUserPkg(id, true);
+								setProjectToPkg(id, true);
 							}
 						}else{ //source
 							//alert("setting funding to user package...");
-							setFundingToUserPkg(id, false);
+							setFundingToPkg(id, false);
 							if(alts[i].checked == true){
 								//alert(type+id)
-								setFundingToUserPkg(id, true);
+								setFundingToPkg(id, true);
 							}
 						}
 					}
@@ -109,12 +109,11 @@
 				};
 			}
 			
-			function setProjectToUserPkg(altRefId,checked){
+			function setProjectToPkg(altRefId,checked){
 				//alert("checked = " + checked)
 				var deleting = !Boolean(checked);
-				//alert(deleting)
 				//alert("pkgId: " + pkgId + " altRefId: "+ altRefId +" deleting: " + deleting); 
-				PackageAgent.setProjectToUserPkg({pkgId:pkgId,altId:altRefId,deleting:deleting}, {
+				PackageAgent.setProjectToPkg({pkgId:pkgId,altId:altRefId,deleting:deleting,userPkg:userPkg}, {
 					callback:function(data){
 						if (data.successful){
 							//alert("Project alt " + altRefId + " was successfully set to " + deleting); //replace with saving indicator later
@@ -124,7 +123,7 @@
 						}
 					},
 					errorHandler:function(errorString, exception){ 
-					alert("PackageAgent.setProjectToUserPkg( error:" + errorString + exception);
+					alert("PackageAgent.setProjectToPkg( error:" + errorString + exception);
 					}
 				});
 			}
@@ -132,6 +131,22 @@
 			function getSummary(){
 				//alert("pkgId: " + pkgId); 
 				PackageAgent.getSummary({pkgId:pkgId}, {
+					callback:function(data){
+						if (data.successful){
+							updateSummary(data);
+						}else{
+							alert(data.reason);
+						}
+					},
+					errorHandler:function(errorString, exception){ 
+					alert("PackageAgent.getSummary( error:" + errorString + exception);
+					}
+				});
+			}
+			
+			function getClusteredSummary(){
+				//alert("pkgId: " + pkgId); 
+				PackageAgent.getClusteredSummary({pkgId:pkgId}, {
 					callback:function(data){
 						if (data.successful){
 							updateSummary(data);
@@ -243,26 +258,30 @@
 				<div class="clearBoth"></div>
 				<br />
 				<h3>Select Projects to Include in your Package</h3>
-				<input type="button" class="helpMeButton" onClick="new Effect.toggle('helpMe', 'blind', {duration:0.3})" value="Help me create a package" />
-				<div id="helpMe" style="display:none;">
-					<p>Using the information you provided during registration, we can put together
-						a package for you automatically. Any projects and funding sources you've already
-						selected will be included in this package.</p>
-					<form action="javascript:createMyPackage();">
-					<h4>Cost per year</h4>
-						<div class="floatLeft" style="width:60%">
-							<label> What's the most you would be willing to pay to fund this package? </label>
-						</div>
-						<div class="floatRight"> <span style="font-size:1.3em;">$
-							<input type="text" size="3" id="mylimit" /></span>
-						</div>
-						<div class="clearBoth"></div>
-						<div style="margin-top:15px;" class="floatLeft">
-						<input type="submit" class="floatLeft padding5" value="Create a package"/>
-						<div class="floatRight"><a href="javascript:window.open('tuner.do?usrPkgId=${userPkg.id}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}','helpMe','width=1000,height=500,resizable=yes,scrollbars=yes'); void(0);"> <img src="images/tuneup.gif">Fine
-								tune a package</a></div>
-					</form>
-				</div>
+				<c:if test="${userPkg.id != null}">
+					<input type="button" class="helpMeButton" onClick="new Effect.toggle('helpMe', 'blind', {duration:0.3})" value="Help me create a package" />
+					<div id="helpMe" style="display:none;">
+						<p>Using the information you provided during registration, we can put together
+							a package for you automatically. Any projects and funding sources you've already
+							selected will be included in this package.</p>
+						<form action="javascript:createMyPackage();">
+						<h4>Cost per year</h4>
+							<div class="floatLeft" style="width:60%">
+								<label> What's the most you would be willing to pay to fund this package? </label>
+							</div>
+							<div class="floatRight"> <span style="font-size:1.3em;">$
+								<input type="text" size="3" id="mylimit" /></span>
+							</div>
+							<div class="clearBoth"></div>
+							<div style="margin-top:15px;" class="floatLeft">
+							<input type="submit" class="floatLeft padding5" value="Create a package"/>
+							<div class="floatRight"><a href="javascript:window.open('tuner.do?usrPkgId=${userPkg.id}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}','helpMe','width=1000,height=500,resizable=yes,scrollbars=yes'); void(0);"> <img src="images/tuneup.gif">Fine
+									tune a package</a></div>
+						</form>
+					</div>
+				</c:if>
+
+				
 				<div class="clearBoth"></div>
 			</div>
 			<!-- begin collapsible list of projects -->
@@ -308,7 +327,7 @@
 															<input type="radio" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" />
 														</c:when>
 														<c:otherwise>
-															<input type="checkbox" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToUserPkg('${altRef.id}', this.checked);" />
+															<input type="checkbox" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToPkg('${altRef.id}', this.checked);" />
 														</c:otherwise>
 													</c:choose>
 													${altRef.alternative.name}</label>
@@ -350,7 +369,9 @@
 					<th class="first">Funding Source</th>
 					<th>Money Raised</th>
 					<th>Cost to the avg. taxpayer</th>
-					<th>Cost to you</th>
+					<c:if test="${userPkg != null}">
+						<th>Cost to you</th>
+					</c:if>
 				</tr>
 				<!-- begin FUNDING source -->
 				<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
@@ -365,12 +386,22 @@
 						<tr>
 							<td class="fundingSourceItem">
 								<label>
-								<input type="radio" ${(pg:containsFundAltRef(userPkg.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
+								<c:choose>
+									<c:when test="${userPkg !=null}">
+										<input type="radio" ${(pg:containsFundAltRef(userPkg.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
+									</c:when>
+									<c:otherwise>
+										<input type="radio" ${(pg:containsFundAltRef(userPkg.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
+									</c:otherwise>
+								</c:choose>
+								
 								${altRef.alternative.name}</label>
 							</td>
 							<td><fmt:formatNumber type="currency">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
 							<td><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
-							<td><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
+							<c:if test="${userPkg != null}">
+								<td><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
+							</c:if>						
 						</tr>
 						<c:if test="${pg:contains(userPkg.fundAltRefs,altRef)}">
 							<c:set var="doNothing"value="false"/>
@@ -427,7 +458,12 @@
 </div>
 <!-- End footer -->
 <script type="text/javascript" charset="utf-8">
-		getSummary();
-	</script>
+	if (userPkg) {
+		getSummary();	
+	} else{
+		getClusteredSummary();
+	}
+
+</script>
 </body>
 </html>

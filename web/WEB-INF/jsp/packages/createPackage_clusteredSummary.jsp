@@ -15,31 +15,45 @@
 		[x] Initial Skeleton Code (Jordan)
 		[x] Integrate Layout (Adam)
 		[x] Add "negative" and "positive" CSS classes - to indicate balance color (Adam)
-		
+		[x] Test and Refine (Jordan)
 #### -->
 
 <table>
 	<tr>
 		<td><h3>Total Cost</h3></td>
-		<td>${userPackage.totalCost} million</td>
+		<td><fmt:formatNumber type="currency">${package.totalCost}</fmt:formatNumber> million</td>
 	</tr>
 	<tr>
 		<td><h3>Total funding</h3></td>
-		<td>${userPackage.totalFunding} million</td>
-	</tr>
-	<tr>
-		<td><strong>Cost to you:</strong></td>
-		<td>${userPackage.yourCost} per year</td>
+		<td><fmt:formatNumber type="currency">${package.totalFunding}</fmt:formatNumber> million</td>
 	</tr>
 	<tr>
 		<td><strong>Cost to the average resident:</strong></td>
-		<td>${userPackage.avgCost} per year</td>
+		<td><fmt:formatNumber type="currency">${package.avgResidentCost}</fmt:formatNumber> per year</td>
 	</tr>
 	<tr>
 		<td><strong>Number of projects in your package:</strong></td>
-		<td>${fn:length(userPackage.projects)}</td>
+		<td>${fn:length(package.projAltRefs)}</td>
 	</tr>
 </table>
-	<div class="${(userPackage.balance > 0) ? 'balance':'negative'}">
-		<h3>Revenues Equal Costs</h3>
-	</div>
+
+	<c:choose>
+		<c:when test="${(package.totalFunding - package.totalCost) > 0}">
+			<div id="balance" class="balance">
+				<h3>Revenues Exceed Costs</h3>
+			</div>
+		</c:when>
+		<c:when test="${(package.totalFunding - package.totalCost) == 0}">
+			<div id="balance" class="balance">
+				<h3>Revenues Equal Costs</h3>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div id="balance" class="exceed">
+				<h3>Costs Exceed Revenue!</h3>
+			</div>
+		</c:otherwise>
+	</c:choose>
+
+	<input class="finishedButton" type="button" onclick="location.href='waiting.jsp'" value="Finished? Submit your package" 
+	${((package.totalFunding - package.totalCost) < 0) ? "disabled='true'" : ""} />

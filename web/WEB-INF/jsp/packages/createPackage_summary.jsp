@@ -13,9 +13,9 @@
 	Author: Jordan Isip, Adam Hindman, Issac Yang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Integrate Layout (Adam)
-		[ ] Add "negative" and "positive" CSS classes - to indicate balance color (Adam)
-		[ ] Test and Refine (Jordan)
+		[x] Integrate Layout (Adam)
+		[x] Add "negative" and "positive" CSS classes - to indicate balance color (Adam)
+		[x] Test and Refine (Jordan)
 #### -->
 
 <table>
