@@ -273,10 +273,16 @@
 				<!-- end TOP SUMMARY -->
 				<div class="clearBoth"></div>
 				<br />
-				<h3>Select Projects to Include in your Package</h3>
-				<c:if test="${userPkg.id != null}">
-					<input type="button" class="helpMeButton" onClick="new Effect.toggle('helpMe', 'blind', {duration:0.3})" value="Help me create a package" />
-				</c:if>
+				<c:choose>
+					<c:when test="${userPkg.id != null}">
+						<h3>Select Projects to Include in your Package</h3>
+						<input type="button" class="helpMeButton" onClick="new Effect.toggle('helpMe', 'blind', {duration:0.3})" value="Help me create a package" />
+					</c:when>
+					<c:otherwise>
+						<h3>Select Projects to Include in "${package.description}"</h3>
+					</c:otherwise>
+				</c:choose>
+
 					<div id="helpMe" style="display:none;">
 						<p>Using the information you provided during registration, we can put together
 							a package for you automatically. Any projects and funding sources you've already

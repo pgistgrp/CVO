@@ -80,7 +80,7 @@ function createClusteredPackage(){
 	PackageAgent.createClusteredPackage({suiteId:pkgSuiteId,description:description}, {
 		callback:function(data){
 			if (data.successful){
-				location.href="editClusteredPackage.do?pkgSuiteId="+pkgSuiteId+"&projSuiteId="+projSuiteId+"&fundSuiteId="+fundSuiteId+"&pkgId="+data.pkgId;
+				location.href="editClusteredPackage.do?pkgSuiteId="+pkgSuiteId+"&projSuiteId="+projSuiteId+"&fundSuiteId="+fundSuiteId+"&critSuiteId="+critSuiteId+"&pkgId="+data.pkgId;
 			}else{
 				alert(data.reason);
 			}
@@ -155,7 +155,9 @@ td.col1 a {display:block;text-decoration:underline;}
 </head>
 <body>
 <!-- #container is the container that wraps around all the main page content -->
+
 <div id="container">
+	<p><a href="main.do">Back to Moderator Control Panel</a></p>
 	<!-- begin "overview and instructions" area -->
 	<div id="overview" class="box2">
 		<h3>Overview and Instructions</h3>
