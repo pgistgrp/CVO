@@ -2,6 +2,7 @@ package org.pgist.packages;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,7 +27,45 @@ public abstract class Package implements Serializable {
     protected String description;
     
     protected Date createDate;
-            
+
+    /**
+     * Non persisted values that represent the users cost in regards to a funding source alternative
+     */
+    protected HashMap<Long, Float> personalCost = new HashMap<Long, Float>();
+    
+    /**
+     * Returns a map of the personal cost for a person in relation to a FundingSourceAlternative.
+     * The key is the FundingSourceAlternative ID and the value is a float describing how much 
+     * it would cost this user.
+     * 
+	 * @return the personalCost
+	 */
+	public HashMap<Long, Float> getPersonalCost() {
+		return personalCost;
+	}
+
+	/**
+	 * @param personalCost the personalCost to set
+	 */
+	public void setPersonalCost(HashMap<Long, Float> personalCost) {
+		this.personalCost = personalCost;
+	}
+	
+	/**
+	 * Utility method that retrieves the value and deals with any situation where the 
+	 * alternative ID provided doesn't exist
+	 * 
+	 * @param	fundingSourceAlternativeID	The id of the alternative
+	 * @return	The personal cost	
+	 */
+	public float getPersonalCost(Long fundingSourceAlternativeID) {
+		if(this.personalCost.containsKey(fundingSourceAlternativeID)) {
+			return this.personalCost.get(fundingSourceAlternativeID).floatValue();
+		}
+		return 0;
+	}
+    
+    
     /**
      * @hibernate.id generator-class="native"
      */

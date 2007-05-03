@@ -10,6 +10,8 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
+import org.pgist.users.User;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -105,6 +107,38 @@ public class PackageAgent {
         
         return map;    	
     }
+
+    /**
+     * Grades the clustered package for this user
+     * 
+     * @param cPackage 	The clustered package
+     * @param critSuiteId	The Criteria Suite ID
+     *   
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>cPackage	- The clustered package fully graded</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map gradeMyPackage(ClusteredPackage cPackage, long critSuiteId, long fundSuiteId) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+        	User user = this.packageService.getUser(WebUtils.currentUser());
+        	
+            this.packageService.gradeMyPackage(cPackage, user, critSuiteId, fundSuiteId);
+            map.put("cPackage", cPackage);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;    	
+    }    
     
     /**
      * Using the users preferences this algorithm generates a user package

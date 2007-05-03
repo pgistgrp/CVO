@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 
 import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaDAO;
@@ -357,6 +358,31 @@ public class PackageServiceImpl implements PackageService {
 		return this.packageDAO.getClusteredPackage(pkgId);		
 	}	
 	
+	
+	
+	/* (non-Javadoc)
+	 * @see org.pgist.packages.PackageService#gradeMyPackage(org.pgist.packages.ClusteredPackage, long)
+	 */
+	public void gradeMyPackage(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
+		this.calcUserValues(cPackage, user, fundSuiteId);
+		
+		Random rand = new Random(System.currentTimeMillis());
+		
+		Iterator<ProjectAltRef> refs = cPackage.getProjAltRefs().iterator();
+		ProjectAltRef tempRef;
+		while(refs.hasNext()) {
+			tempRef = refs.next();
+			cPackage.getProjGrades().put(tempRef.getId(), GradedCriteria.convertGrade(rand.nextFloat() * 100));
+			cPackage.getAvgGrades().put(tempRef.getId(), GradedCriteria.convertGrade(rand.nextFloat() * 100));
+			cPackage.getYourGrades().put(tempRef.getId(), GradedCriteria.convertGrade(rand.nextFloat() * 100));
+		}		
+	}
+
+	
+    public User getUser(UserInfo userInfo) throws Exception {
+        return this.fundingDAO.getUserById(userInfo.getId());
+    }
+    
 	/**
 	 * Checks first to see if the user package exist and if it doesn't then one is created and 
 	 * returned.
@@ -375,7 +401,7 @@ public class PackageServiceImpl implements PackageService {
 			if(tempPackage.getAuthor().getId().equals(info.getId())) {
 				if(tempPackage.getSuite().getId().equals(suite.getId())) {
 					//System.out.println("MATT 2");
-					this.calcUserValues(tempPackage, fundingSuiteId);
+					this.calcUserValues(tempPackage, tempPackage.getAuthor(), fundingSuiteId);
 					return tempPackage;					
 				}
 			}
@@ -388,12 +414,12 @@ public class PackageServiceImpl implements PackageService {
 		packageDAO.save(uPack);
 		suite.getUserPkgs().add(uPack);
 		packageDAO.save(suite);
-		this.calcUserValues(uPack, fundingSuiteId);
+		this.calcUserValues(uPack, uPack.getAuthor(), fundingSuiteId);
 
 		return uPack;
 	}
 
-	private void displayUserValues(UserPackage uPack) {
+	private void displayUserValues(Package uPack) {
 		//System.out.println("MATT##################: Looking up funding sources in user package");
 		Iterator i = uPack.getPersonalCost().keySet().iterator();
 		Long key;
@@ -455,25 +481,24 @@ public class PackageServiceImpl implements PackageService {
      * Utility method that does all of the user calculations regarding the estimated annual cost
      * to you.  All the estimates are stored in the hash map for the user
      * 
-     * @param	usrPkg	The user package
+     * @param	pkg	The user package
      * @param	funSuiteId		The ID of the funding suite
      * @throws Exception 
      */
-    public void calcUserValues(UserPackage usrPkg, Long funSuiteId) throws Exception {
+    public void calcUserValues(Package pkg, User user, Long funSuiteId) throws Exception {
 //System.out.println("MATT##################: Sweet ID!" + funSuiteId);    
-    	User tempUser = usrPkg.getAuthor();
-    	if(tempUser.getUserCommute() == null) {
-    		fundingService.initializeUser(tempUser);    		
+    	if(user.getUserCommute() == null) {
+    		fundingService.initializeUser(user);    		
     	}
 		//Get the users last commute object		
-		UserCommute commute = tempUser.getUserCommute();
+		UserCommute commute = user.getUserCommute();
 		FundingSourceSuite fsuite = this.fundingDAO.getFundingSuite(funSuiteId);
 				
 		float totalVValue = 0;
 		float totalMilesDrive = 0;
 		float avgMPG = 0;
 		
-		Iterator<Vehicle> vIter = tempUser.getVehicles().iterator();
+		Iterator<Vehicle> vIter = user.getVehicles().iterator();
 		Vehicle veh;
 		while(vIter.hasNext()) {
 			veh = vIter.next();
@@ -482,14 +507,14 @@ public class PackageServiceImpl implements PackageService {
 			avgMPG = avgMPG + veh.getMilesPerGallon();
 			
 		}
-		avgMPG = avgMPG / tempUser.getVehicles().size();
+		avgMPG = avgMPG / user.getVehicles().size();
 		    	
 		float peakTrips = 0;
 		float offPeakTrips = 0;
 //		float gasCost = fundingDAO.getZipCodeGasByZipCode(tempUser.getZipcode()).getAvgGas();
 //		float consumption = fundingDAO.getConsumptionByIncome(tempUser.getIncome()).getConsumption(tempUser.getFamilyCount());
     	
-    	usrPkg.getPersonalCost().clear();
+    	pkg.getPersonalCost().clear();
     	
     	Iterator<FundingSourceRef> refs = fsuite.getReferences().iterator();
     	Iterator<FundingSourceAltRef> fSources;
@@ -509,28 +534,28 @@ public class PackageServiceImpl implements PackageService {
     			switch (tempSource.getType()) {
 
     			case FundingSource.TYPE_EMPLOYER_EXCISE_TAX:	
-    				usrPkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserEmployerExciseAlternativeCost(tempAlt.getTaxRate(), TaxCalcUtils.EMPLOYER_PERCENTAGE));
+    				pkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserEmployerExciseAlternativeCost(tempAlt.getTaxRate(), TaxCalcUtils.EMPLOYER_PERCENTAGE));
     				break;
     			case FundingSource.TYPE_GAS_TAX:			
-    				usrPkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserGasTaxCost(avgMPG, tempAlt.getTaxRate(), totalMilesDrive));
+    				pkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserGasTaxCost(avgMPG, tempAlt.getTaxRate(), totalMilesDrive));
     				break;
     			case FundingSource.TYPE_LICENSE:			
-    				usrPkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserVehicleLicenseCost(tempAlt.getTaxRate(), tempUser.getVehicles().size()));
+    				pkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserVehicleLicenseCost(tempAlt.getTaxRate(), user.getVehicles().size()));
     				break;
     			case FundingSource.TYPE_MOTOR_TAX:			
-    				usrPkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserVehicleExciseCost(tempAlt.getTaxRate(), totalVValue));
+    				pkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserVehicleExciseCost(tempAlt.getTaxRate(), totalVValue));
     				break;
     			case FundingSource.TYPE_PARKING_TAX:
-    				usrPkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserParkingCost(tempAlt.getTaxRate(), peakTrips, offPeakTrips));
+    				pkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserParkingCost(tempAlt.getTaxRate(), peakTrips, offPeakTrips));
     				break;
     			case FundingSource.TYPE_SALES_GAS_TAX:			
-    				usrPkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserGasSalesTaxCost(tempAlt.getTaxRate(), commute.getCostPerGallon(), totalMilesDrive, avgMPG));
+    				pkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserGasSalesTaxCost(tempAlt.getTaxRate(), commute.getCostPerGallon(), totalMilesDrive, avgMPG));
     				break;
     			case FundingSource.TYPE_SALES_TAX:			
-    				usrPkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserSalesTaxCost(tempAlt.getTaxRate(), commute.getAnnualConsume()));
+    				pkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserSalesTaxCost(tempAlt.getTaxRate(), commute.getAnnualConsume()));
     				break;
     			case FundingSource.TYPE_TOLLS:			
-    				usrPkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserTollAlternatives(tempAlt.getPeakHourTripsRate(), peakTrips, tempAlt.getOffPeakTripsRate(), offPeakTrips));
+    				pkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserTollAlternatives(tempAlt.getPeakHourTripsRate(), peakTrips, tempAlt.getOffPeakTripsRate(), offPeakTrips));
     				break;
 
     			default:
@@ -538,7 +563,7 @@ public class PackageServiceImpl implements PackageService {
     			} 		    		
         	}
     	}
-		displayUserValues(usrPkg);
+		displayUserValues(pkg);
     }
     
     //------------------------ Mike Lowery section ----------------------------------
@@ -557,7 +582,7 @@ public class PackageServiceImpl implements PackageService {
 	public void createKSUserPackage(Long usrPkgId, TunerConfig conf, float mylimit, float avglimit) throws Exception {
 
 		UserPackage upack = this.getUserPackage(usrPkgId);
-		this.calcUserValues(upack, conf.getFundSuiteId());
+		this.calcUserValues(upack, upack.getAuthor(), conf.getFundSuiteId());
 						
 		//Clear out all of the previous choices
 		upack.getFundAltRefs().clear();

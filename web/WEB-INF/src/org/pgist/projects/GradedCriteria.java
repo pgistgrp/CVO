@@ -139,7 +139,7 @@ public class GradedCriteria {
 	 * @param	value	The score to convert to a letter
 	 * @return	The letter grade
 	 */
-	private static String convertGrade(float avgScore) {
+	public static String convertGrade(float avgScore) {
 		String letter = "NA";
 		
 		//choose the letter grade based off the final result

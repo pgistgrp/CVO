@@ -1,6 +1,7 @@
 package org.pgist.packages;
 
 import org.pgist.discussion.InfoStructure;
+import org.pgist.users.User;
 import org.pgist.users.UserInfo;
 
 
@@ -12,7 +13,8 @@ import org.pgist.users.UserInfo;
  */
 public interface PackageService {
     
-    
+	User getUser(UserInfo userInfo) throws Exception;
+	
 	PackageSuite getPackageSuite(Long pkgId) throws Exception;
 
 	Package deleteProjectAlternative(Long pkgId, Long altId, boolean userPkg) throws Exception;
@@ -41,7 +43,9 @@ public interface PackageService {
 
 	void deleteClusteredPackage(Long suiteId, Long pkgId) throws Exception;
 
-	ClusteredPackage getClusteredPackage(Long pkgId) throws Exception; 
+	ClusteredPackage getClusteredPackage(Long pkgId) throws Exception;
+
+	public void gradeMyPackage(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception; 
     
     
 }//interface PackageService
