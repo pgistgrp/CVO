@@ -105,6 +105,37 @@ function getClusteredPackages(){
 		}
 	});
 }
+
+function getManualPackages(){
+	PackageAgent.getManualPackages({pkgSuiteId:pkgSuiteId}, {
+		callback:function(data){
+			if (data.successful){
+				$('manualPackages').innerHTML= data.html;
+			}else{
+				alert(data.reason);
+			}
+		},
+		errorHandler:function(errorString, exception){ 
+		alert("PackageAgent.getManualPackages( error:" + errorString + exception);
+		}
+	});
+}
+
+function deleteClusteredPackage(pkgId){
+	//alert("suiteId: " + suiteId + " pkgId: " + pkgId); 
+	PackageAgent.deleteClusteredPackage({suiteId:suiteId,pkgId:pkgId}, {
+		callback:function(data){
+			if (data.successful){
+				alert("Package successfully deleted!")
+			}else{
+				alert(data.reason);
+			}
+		},
+		errorHandler:function(errorString, exception){ 
+		alert("PackageAgent.deleteClusteredPackage( error:" + errorString + exception);
+		}
+	});
+}
 	
 
 </script>
@@ -155,23 +186,7 @@ td.col1 a {display:block;text-decoration:underline;}
 	</span> <span class="floatRight" style="width:49%">
 	<h3 class="headerColor">Manually Created Packages</h3>
 	<div id="manualPackages"> 
-		<table border="0" cellspacing="0" width="100%" class="box12">
-			<tr>
-				<th>Package</th>
-				<th>Total</th>
-				<th>Total Cost to Average Resident</th>
-			</tr>
-			<c:forEach var="package" items="${packages}" varStatus="loop">
-				<c:if test="${package.manual}">
-					<tr>
-						<td class="col1"><a href="package.do?id=${package.id}">${loop.index +1}</a></td>
-						<td>$${package.totalCost} Billion</td>
-						<td>$${package.totalCostForAvgResident}/year</td>
-					</tr>
-				</c:if>
-			</c:forEach>
-		</table>	
-		
+		<!-- load manual packages via js -->
 	</div>
 	<h3 class="clearBoth headerColor"><br />
 		Add Package Manually <small>(enter package description)</small></h3>
@@ -190,6 +205,7 @@ td.col1 a {display:block;text-decoration:underline;}
 	<input type="button" value="Publish Packages" class="padding5">
 </div>
 <script type="text/javascript" charset="utf-8">
+	getManualPackages()
 	getClusteredPackages();
 </script>
 <!-- end container -->
