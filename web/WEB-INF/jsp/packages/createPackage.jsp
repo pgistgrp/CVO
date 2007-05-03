@@ -55,7 +55,7 @@
 <script type="text/javascript" charset="utf-8">
 			//Global Vars
 			var userPkg = Boolean("${userPkg.id}");
-			var pkgId = (userPkg) ? "${userPkg.id}" : "${pkgId}";
+			var pkgId = (userPkg) ? "${userPkg.id}" : "${package.id}";
 			var critSuiteId = "${critSuiteId}";
 			var fundSuiteId = "${fundSuiteId}";
 			var projSuiteId = "${projSuiteId}";
@@ -70,7 +70,11 @@
 					callback:function(data){
 						if (data.successful){
 							//alert("Funding alt " + altRefId + " was successfully set to " + deleting); //replace with saving indicator later
-							updateSummary(data);
+							if(userPkg){
+								updateSummary(data);
+							}else{
+								getClusteredSummary();
+							}
 						}else{
 							alert(data.reason);
 						}
@@ -117,7 +121,11 @@
 					callback:function(data){
 						if (data.successful){
 							//alert("Project alt " + altRefId + " was successfully set to " + deleting); //replace with saving indicator later
-							updateSummary(data);
+							if(userPkg){
+								updateSummary(data);
+							}else{
+								getClusteredSummary();
+							}
 						}else{
 							alert(data.reason);
 						}
@@ -155,7 +163,7 @@
 						}
 					},
 					errorHandler:function(errorString, exception){ 
-					alert("PackageAgent.getSummary( error:" + errorString + exception);
+					alert("PackageAgent.getClusteredSummary( error:" + errorString + exception);
 					}
 				});
 			}
@@ -260,6 +268,7 @@
 				<h3>Select Projects to Include in your Package</h3>
 				<c:if test="${userPkg.id != null}">
 					<input type="button" class="helpMeButton" onClick="new Effect.toggle('helpMe', 'blind', {duration:0.3})" value="Help me create a package" />
+				</c:if>
 					<div id="helpMe" style="display:none;">
 						<p>Using the information you provided during registration, we can put together
 							a package for you automatically. Any projects and funding sources you've already
@@ -279,9 +288,6 @@
 									tune a package</a></div>
 						</form>
 					</div>
-				</c:if>
-
-				
 				<div class="clearBoth"></div>
 			</div>
 			<!-- begin collapsible list of projects -->
@@ -324,17 +330,32 @@
 													<label>
 													<c:choose>
 														<c:when test="${projectRef.project.inclusive}">
-															<input type="radio" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" />
+															<c:choose>
+																<c:when test="${userPkg != null}">
+																	<input type="radio" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" />
+																</c:when>
+																<c:otherwise>
+																	<input type="radio" ${(pg:containsProjAltRef(package.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" />
+																</c:otherwise>
+															</c:choose>
 														</c:when>
 														<c:otherwise>
-															<input type="checkbox" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToPkg('${altRef.id}', this.checked);" />
+															<c:choose>
+																<c:when test="${userPkg != null}">
+																	<input type="checkbox" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToPkg('${altRef.id}', this.checked);" />
+																</c:when>
+																<c:otherwise>
+																	<input type="checkbox" ${(pg:containsProjAltRef(package.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToPkg('${altRef.id}', this.checked);" />
+																</c:otherwise>
+															</c:choose>
+															
 														</c:otherwise>
 													</c:choose>
 													${altRef.alternative.name}</label>
 												</td>
 												<td class="cost"><fmt:formatNumber type="currency">${altRef.alternative.cost}</fmt:formatNumber> million</td>
 											</tr>
-											<c:if test="${pg:contains(userPkg.projAltRefs,altRef)}">
+											<c:if test="${pg:contains(userPkg.projAltRefs,altRef) && userPkg != null}">
 												<c:set var="doNothing"value="false"/>
 											</c:if>
 										</c:forEach>
@@ -391,7 +412,7 @@
 										<input type="radio" ${(pg:containsFundAltRef(userPkg.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
 									</c:when>
 									<c:otherwise>
-										<input type="radio" ${(pg:containsFundAltRef(userPkg.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
+										<input type="radio" ${(pg:containsFundAltRef(package.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
 									</c:otherwise>
 								</c:choose>
 								
@@ -403,9 +424,19 @@
 								<td><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
 							</c:if>						
 						</tr>
-						<c:if test="${pg:contains(userPkg.fundAltRefs,altRef)}">
-							<c:set var="doNothing"value="false"/>
-						</c:if>
+						<c:choose>
+							<c:when test="${userPkg != null}">
+								<c:if test="${pg:contains(userPkg.fundAltRefs,altRef)}">
+									<c:set var="doNothing"value="false"/>
+								</c:if>
+							</c:when>
+							<c:otherwise>
+								<c:if test="${pg:contains(package.fundAltRefs,altRef)}">
+									<c:set var="doNothing"value="false"/>
+								</c:if>
+							</c:otherwise>
+						</c:choose>
+
 					</c:forEach>
 					<tr>
 						<td class="fundingSourceItem">
@@ -415,7 +446,9 @@
 						</td>
 						<td class="cost">&nbsp;</td>
 						<td class="cost">&nbsp;</td>
+						<c:if test="${userPkg != null}">
 						<td class="cost">&nbsp;</td>
+						</c:if>
 					</tr>
 				</c:forEach>
 				<!-- end OPTIONS -->
@@ -467,3 +500,4 @@
 </script>
 </body>
 </html>
+

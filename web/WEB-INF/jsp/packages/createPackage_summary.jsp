@@ -27,10 +27,12 @@
 		<td><h3>Total funding</h3></td>
 		<td><fmt:formatNumber type="currency">${package.totalFunding}</fmt:formatNumber> million</td>
 	</tr>
-	<tr>
-		<td><strong>Cost to you:</strong></td>
-		<td><fmt:formatNumber type="currency">${package.yourCost}</fmt:formatNumber> per year</td>
-	</tr>
+	<c:if test="${userPkg != null}">
+		<tr>
+			<td><strong>Cost to you:</strong></td>
+			<td><fmt:formatNumber type="currency">${package.yourCost}</fmt:formatNumber> per year</td>
+		</tr>
+	</c:if>
 	<tr>
 		<td><strong>Cost to the average resident:</strong></td>
 		<td><fmt:formatNumber type="currency">${package.avgResidentCost}</fmt:formatNumber> per year</td>
