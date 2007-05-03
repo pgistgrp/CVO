@@ -101,6 +101,7 @@ public class EditClusteredPackageAction extends Action {
     		request.setAttribute("projSuiteId", projSuite);
     		request.setAttribute("fundSuiteId", fundSuite);
     		request.setAttribute("critSuiteId", critSuite);
+    		request.setAttribute("pkgSuiteId", packSuite);
     		
     	}
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
