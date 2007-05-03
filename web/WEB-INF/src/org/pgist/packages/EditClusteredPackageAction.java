@@ -36,6 +36,7 @@ import org.pgist.util.WebUtils;
  *   <li>fundingRefs - a collection of all the fundingAltRefs associated with this suite</li>   
  *   <li>projSuiteId - the id of a specified PackageSuite object</li>
  *   <li>fundSuiteId - the id of a specified FundingSuite object</li>
+ *   <li>critSuiteId - the id of a specified CriteriaSuite object</li>
  * </ul>
  * 
  * Examples:
@@ -84,11 +85,14 @@ public class EditClusteredPackageAction extends Action {
     	String tempProjSuiteId = request.getParameter("projSuiteId");
     	String tempFundSuiteId = request.getParameter("fundSuiteId");
     	String tempPkgId = request.getParameter("pkgId");
+    	String tempCritSuiteId = request.getParameter("critSuiteId");
+    	
     	if(tempPackageSuiteId != null) {
     		Long packSuite = new Long(tempPackageSuiteId);
     		Long projSuite = new Long(tempProjSuiteId);
     		Long fundSuite = new Long(tempFundSuiteId);
     		Long pkgId = new Long(tempPkgId);
+    		Long critSuite = new Long(tempCritSuiteId);
     		    		
     		ClusteredPackage uPack = this.packageService.getClusteredPackage(pkgId);    			
     		request.setAttribute("package", uPack);    		
@@ -96,6 +100,7 @@ public class EditClusteredPackageAction extends Action {
     		request.setAttribute("fundingRefs", fundingService.getFundingSuite(fundSuite).getReferences());
     		request.setAttribute("projSuiteId", projSuite);
     		request.setAttribute("fundSuiteId", fundSuite);
+    		request.setAttribute("critSuiteId", critSuite);
     		
     	}
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
