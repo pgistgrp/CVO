@@ -39,7 +39,9 @@ public interface PackageService {
 
 	Package getPackage(Long pkgId) throws Exception;
 
-	void deleteClusteredPackage(Long suiteId, Long pkgId) throws Exception; 
+	void deleteClusteredPackage(Long suiteId, Long pkgId) throws Exception;
+
+	ClusteredPackage getClusteredPackage(Long pkgId) throws Exception; 
     
     
 }//interface PackageService

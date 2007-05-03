@@ -149,6 +149,12 @@
         <property name="fundingService" ref="fundingService"/>
         <property name="projectService" ref="projectService"/>
     </bean>    
+
+    <bean name="/editClusteredPackage" class="org.pgist.packages.EditClusteredPackageAction">
+        <property name="packageService" ref="packageService"/>
+        <property name="fundingService" ref="fundingService"/>
+        <property name="projectService" ref="projectService"/>
+    </bean>    
     
     <bean name="/tuner" class="org.pgist.packages.UserPackageCreatorTunerAction">
         <property name="packageService" ref="packageService"/>

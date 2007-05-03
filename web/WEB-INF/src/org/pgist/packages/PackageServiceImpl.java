@@ -270,7 +270,15 @@ public class PackageServiceImpl implements PackageService {
 		return this.packageDAO.getUserPackage(pkgId);		
 	}
 	
-	
+	/**
+	 * Returns the clustered package with this specific id
+	 * 
+	 * @param	pkgId	The ID of the package you are interested in
+	 * @return	The user package
+	 */
+	public ClusteredPackage getClusteredPackage(Long pkgId) throws Exception {
+		return this.packageDAO.getClusteredPackage(pkgId);		
+	}	
 	/**
 	 * Checks first to see if the user package exist and if it doesn't then one is created and 
 	 * returned.

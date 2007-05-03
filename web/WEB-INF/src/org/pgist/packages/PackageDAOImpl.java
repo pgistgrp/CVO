@@ -10,7 +10,16 @@ import org.pgist.system.BaseDAOImpl;
  */
 public class PackageDAOImpl extends BaseDAOImpl implements PackageDAO {
     
+
+	public ClusteredPackage getClusteredPackage(Long pid) {
+		return (ClusteredPackage)getHibernateTemplate().get(ClusteredPackage.class, pid);
+	}
     
+    
+	public void save(ClusteredPackage cPack) throws Exception {
+		getHibernateTemplate().saveOrUpdate(cPack);				
+	}
+	
 	public UserPackage getUserPackage(Long pid) {
 		return (UserPackage)getHibernateTemplate().get(UserPackage.class, pid);
 	}

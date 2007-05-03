@@ -21,6 +21,8 @@ public interface PackageDAO extends BaseDAO {
 	void save(PackageSuite p) throws Exception;
 
 	PackageSuite getPackageSuite(Long suiteId) throws Exception;
+
+	ClusteredPackage getClusteredPackage(Long pkgId) throws Exception;
     
     
 }//interface PackageDAO

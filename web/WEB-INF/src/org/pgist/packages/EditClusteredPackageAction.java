@@ -26,7 +26,7 @@ import org.pgist.util.WebUtils;
  *   <li>pkgSuiteId - the id of a specified PackageSuite object</li>
  *   <li>projSuiteId - the id of a specified PackageSuite object</li>
  *   <li>fundSuiteId - the id of a specified FundingSuite object</li>
- *   <li>critSuiteId - the id of a specified CriteriaSuite object</li>
+ *   <li>pkgId - the id of a specified ClusteredPackage object</li>
  * </ul>
  * 
  * the action will forward to page of "view", the following variables are available in jsp:
@@ -36,7 +36,6 @@ import org.pgist.util.WebUtils;
  *   <li>fundingRefs - a collection of all the fundingAltRefs associated with this suite</li>   
  *   <li>projSuiteId - the id of a specified PackageSuite object</li>
  *   <li>fundSuiteId - the id of a specified FundingSuite object</li>
- *   <li>critSuiteId - the id of a specified CriteriaSuite object</li>
  * </ul>
  * 
  * Examples:
@@ -49,7 +48,7 @@ import org.pgist.util.WebUtils;
  * @author kenny
  *
  */
-public class CreatePackageAction extends Action {
+public class EditClusteredPackageAction extends Action {
     
     
     private PackageService packageService;
@@ -84,21 +83,19 @@ public class CreatePackageAction extends Action {
     	String tempPackageSuiteId = request.getParameter("pkgSuiteId");
     	String tempProjSuiteId = request.getParameter("projSuiteId");
     	String tempFundSuiteId = request.getParameter("fundSuiteId");
-    	String tempCritSuiteId = request.getParameter("critSuiteId");
+    	String tempPkgId = request.getParameter("pkgId");
     	if(tempPackageSuiteId != null) {
     		Long packSuite = new Long(tempPackageSuiteId);
     		Long projSuite = new Long(tempProjSuiteId);
     		Long fundSuite = new Long(tempFundSuiteId);
-    		Long critSuite = new Long(tempCritSuiteId);
+    		Long pkgId = new Long(tempPkgId);
     		    		
-    		UserPackage uPack = this.packageService.createUserPackage(packSuite, WebUtils.currentUser(), fundSuite);    			
-    		request.setAttribute("userPkg", uPack);
-    		
+    		ClusteredPackage uPack = this.packageService.getClusteredPackage(pkgId);    			
+    		request.setAttribute("clusteredPkg", uPack);    		
     		request.setAttribute("projectRefs", projectService.getProjectSuite(projSuite).getReferences());
     		request.setAttribute("fundingRefs", fundingService.getFundingSuite(fundSuite).getReferences());
     		request.setAttribute("projSuiteId", projSuite);
     		request.setAttribute("fundSuiteId", fundSuite);
-    		request.setAttribute("critSuiteId", critSuite);
     		
     	}
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
