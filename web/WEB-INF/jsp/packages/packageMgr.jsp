@@ -108,7 +108,7 @@ function getClusteredPackages(){
 }
 
 function getManualPackages(){
-	PackageAgent.getManualPackages({pkgSuiteId:pkgSuiteId}, {
+	PackageAgent.getManualPackages({pkgSuiteId:pkgSuiteId,projSuiteId:projSuiteId,fundSuiteId:fundSuiteId,critSuiteId:critSuiteId}, {
 		callback:function(data){
 			if (data.successful){
 				$('manualPackages').innerHTML= data.html;
