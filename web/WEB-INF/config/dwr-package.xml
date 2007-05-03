@@ -36,6 +36,7 @@
         <include method="deleteClusteredPackage"/>
         <include method="getManualPackages"/>
         <include method="getSummary"/>        
+        <include method="gradeMyPackage"/>        
         <include method="getClusteredSummary"/>        
     </create>
 
