@@ -59,7 +59,8 @@
 			var critSuiteId = "${critSuiteId}";
 			var fundSuiteId = "${fundSuiteId}";
 			var projSuiteId = "${projSuiteId}";
-
+			var pkgSuiteId = "${pkgSuiteId}";
+			
 			//End Global Vars
 
 			function setFundingToPkg(altRefId,checked){
@@ -211,6 +212,14 @@
 			}
 			
 			
+			function finished() {
+				if(userPkg){
+					location.href='waiting.jsp';
+				}else{
+					location.href='packageMgr.do?pkgSuiteId='+pkgSuiteId+'&projSuiteId='+projSuiteId+'&fundSuiteId='+fundSuiteId+'&critSuiteId='+critSuiteId;
+				}
+			}
+
 			/* *************** START MAPPING FUNCTIONS *************** */
 			
 			
