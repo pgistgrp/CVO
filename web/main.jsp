@@ -116,7 +116,7 @@
 				</ul>
 			<li>Step 4</li>
 				<ul>
-					<li><html:link page="packageMgr.do?pkgSuiteId=200">Manage Packages</html:link></li>
+					<li><html:link page="packageMgr.do?pkgSuiteId=200&projSuiteId=200&fundSuiteId=200&critSuiteId=200">Manage Packages</html:link></li>
 				</ul>
 			<li>Step 5</li>
 				<ul>

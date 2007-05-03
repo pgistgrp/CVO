@@ -76,7 +76,7 @@ function createClusteredPackages(){
 
 function createClusteredPackage(){
 	var description = $F('packageDesc');
-	alert("description: " + description)
+	//alert("description: " + description)
 	PackageAgent.createClusteredPackage({suiteId:pkgSuiteId,description:description}, {
 		callback:function(data){
 			if (data.successful){
