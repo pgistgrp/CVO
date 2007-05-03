@@ -293,13 +293,15 @@ public class PackageAgent {
             
             Set packages = new HashSet();
             
-            Iterator i = pSuite.getClusteredPkgs().iterator();
-            ClusteredPackage cp;
-            while(i.hasNext()) {
-            	cp = (ClusteredPackage)i.next();
-            	if(cp.isManual()) {
-            		packages.add(cp);
-            	}
+            if(pSuite.getClusteredPkgs() != null) {
+                Iterator i = pSuite.getClusteredPkgs().iterator();
+                ClusteredPackage cp;
+                while(i.hasNext()) {
+                	cp = (ClusteredPackage)i.next();
+                	if(cp.isManual()) {
+                		packages.add(cp);
+                	}
+                }            	
             }
 
             request.setAttribute("packages", packages);
