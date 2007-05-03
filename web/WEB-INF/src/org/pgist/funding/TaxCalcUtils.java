@@ -19,6 +19,7 @@ public class TaxCalcUtils {
     public static final NumberFormat PRICE_FORMAT = new DecimalFormat( "$########.00" );    
     public static final NumberFormat NUM_FORMAT = new DecimalFormat( "########" );    
     public static final NumberFormat TAX_FORMAT = new DecimalFormat( "###.0%" );  	
+    public static final NumberFormat PERCENT_FORMAT = new DecimalFormat( "###.0%" );    
 	
     public static final float OFF_PEAK_USAGE = 0.8f;
     public static final float PEAK_USAGE = 0.2f;
@@ -94,7 +95,7 @@ public class TaxCalcUtils {
 	 * @return	The expected total cost for that user
 	 */
 	public static float calcUserSalesTaxCost(float taxRate, float consumption) {
-		float cost = (taxRate * consumption)/100;
+		float cost = taxRate * consumption;
 		return cost;
 	}	
 	
@@ -307,7 +308,7 @@ public class TaxCalcUtils {
 		headers.add(" ");
 		headers.add("cost of gas");
 		headers.add(" ");
-		headers.add("miles driven/yr");
+		headers.add("miles driven/year");
 		headers.add(" ");
 		headers.add("mpg");
 		pfcost.setHeaders(headers);
@@ -353,7 +354,7 @@ public class TaxCalcUtils {
 		headers.add("Cost to you");
 		headers.add("=");
 		headers.add("Tax Rate");
-		headers.add("X");
+		headers.add(" ");
 		headers.add("# Vehicles");
 		headers.add(" ");
 		headers.add(" ");
@@ -429,11 +430,11 @@ public class TaxCalcUtils {
 		float cost = calcUserVehicleExciseCost(alt.getTaxRate(),vehicleValue);
 		
 		data.add(alt.getName());
-		data.add("=");
 		data.add(PRICE_FORMAT.format(cost));
+		data.add("=");
+		data.add(TAX_FORMAT.format(alt.getTaxRate()));
 		data.add("X");
 		data.add(NUM_FORMAT.format(vehicleValue));
-		data.add(" ");
 		data.add(" ");
 		data.add(" ");
 		data.add(" ");
@@ -451,7 +452,7 @@ public class TaxCalcUtils {
 		headers.add("=");
 		headers.add("tax rate");
 		headers.add(" ");
-		headers.add("miles drive/yr");
+		headers.add("miles driven/year");
 		headers.add(" ");
 		headers.add("mpg");
 		headers.add(" ");
@@ -481,7 +482,7 @@ public class TaxCalcUtils {
 		data.add(alt.getName());
 		data.add(PRICE_FORMAT.format(cost));
 		data.add("=");
-		data.add(PRICE_FORMAT.format(alt.getTaxRate()));
+		data.add(TAX_FORMAT.format(alt.getTaxRate()));
 		data.add("X");
 		data.add(NUM_FORMAT.format(milesDriven));
 		data.add("/");
@@ -500,7 +501,7 @@ public class TaxCalcUtils {
 		headers.add("Cost to you");
 		headers.add("=");
 		headers.add("Tax Rate");
-		headers.add("*");
+		headers.add(" ");
 		headers.add("Percentage");
 		headers.add(" ");
 		headers.add(" ");
@@ -532,16 +533,18 @@ public class TaxCalcUtils {
 		PersonalFundingCostAlternativeDTO pfcost = new PersonalFundingCostAlternativeDTO();
 		List data = pfcost.getData();
 
+		float percentage = EMPLOYER_PERCENTAGE;
+		float taxRate = alt.getTaxRate();
 		data.add(alt.getName());
-		if(calcUserEmployerExciseAlternativeCost(alt.getTaxRate(), EMPLOYER_PERCENTAGE) == 0 ) {
+		if(calcUserEmployerExciseAlternativeCost(taxRate, percentage) == 0 ) {
 			data.add("No direct cost to you");			
 		} else {
-			data.add(calcUserEmployerExciseAlternativeCost(alt.getTaxRate(), EMPLOYER_PERCENTAGE));						
+			data.add(calcUserEmployerExciseAlternativeCost(taxRate, percentage));						
 		}
-		data.add(" ");
-		data.add(" ");
-		data.add(" ");
-		data.add(" ");
+		data.add("=");
+		data.add(TAX_FORMAT.format(alt.getTaxRate()));
+		data.add("X");
+		data.add(PERCENT_FORMAT.format(percentage));
 		data.add(" ");
 		data.add(" ");
 		data.add(" ");
@@ -644,7 +647,7 @@ public class TaxCalcUtils {
 		data.add(alt.getName());
 		data.add(PRICE_FORMAT.format(total));
 		data.add("=");
-		data.add(PRICE_FORMAT.format(alt.getTaxRate()));
+		data.add(TAX_FORMAT.format(alt.getTaxRate()));
 		data.add("X (");
 		data.add(NUM_FORMAT.format(source.getPeakTrips()));
 		data.add("+");

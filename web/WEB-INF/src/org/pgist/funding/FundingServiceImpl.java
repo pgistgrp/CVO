@@ -156,7 +156,12 @@ public class FundingServiceImpl implements FundingService {
 			avgMPG = avgMPG + veh.getMilesPerGallon();
 			
 		}
-		avgMPG = avgMPG / tempUser.getVehicles().size();
+		//Get rid of infinite division errors
+		if(tempUser.getVehicles().size() == 0) {
+			avgMPG = 0;
+		} else {
+			avgMPG = avgMPG / tempUser.getVehicles().size();			
+		}
 		
 		
 		//Go through the funding suite and calculate the users costs
