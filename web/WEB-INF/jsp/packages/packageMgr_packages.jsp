@@ -16,7 +16,7 @@
 		<tr>
 			<td class="col1"><a href="editClusteredPackage.do?pkgId=${package.id}&fundSuiteId=${fundSuiteId}&projSuiteId=${projSuiteId}">${loop.index +1}</a></td>
 			<td>$${package.totalCost} Billion</td>
-			<td>$${package.totalCostForAvgResident}/year</td>
+			<td>$${package.avgResidentCost}/year</td>
 		</tr>
 	</c:forEach>
 </table>
