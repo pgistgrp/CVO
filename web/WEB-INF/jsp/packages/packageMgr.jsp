@@ -128,6 +128,7 @@ function deleteClusteredPackage(pkgId){
 		callback:function(data){
 			if (data.successful){
 				alert("Package successfully deleted!")
+				getManualPackages();
 			}else{
 				alert(data.reason);
 			}
