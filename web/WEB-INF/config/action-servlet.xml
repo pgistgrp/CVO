@@ -143,6 +143,10 @@
     <bean name="/fundingCalc" class="org.pgist.funding.TaxCalculatorAction">
         <property name="fundingService" ref="fundingService"/>
     </bean>
+
+    <bean name="/package" class="org.pgist.packages.PackageAction">
+        <property name="packageService" ref="packageService"/>
+    </bean> 
     
     <bean name="/createPackage" class="org.pgist.packages.CreatePackageAction">
         <property name="packageService" ref="packageService"/>
