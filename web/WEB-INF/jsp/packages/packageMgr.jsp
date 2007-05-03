@@ -123,8 +123,8 @@ function getManualPackages(){
 }
 
 function deleteClusteredPackage(pkgId){
-	//alert("suiteId: " + suiteId + " pkgId: " + pkgId); 
-	PackageAgent.deleteClusteredPackage({suiteId:suiteId,pkgId:pkgId}, {
+	//alert("suiteId: " + pkgSuiteId + " pkgId: " + pkgId); 
+	PackageAgent.deleteClusteredPackage({suiteId:pkgSuiteId,pkgId:pkgId}, {
 		callback:function(data){
 			if (data.successful){
 				alert("Package successfully deleted!")

@@ -60,7 +60,6 @@
 			var fundSuiteId = "${fundSuiteId}";
 			var projSuiteId = "${projSuiteId}";
 			var pkgSuiteId = "${pkgSuiteId}";
-			
 			//End Global Vars
 
 			function setFundingToPkg(altRefId,checked){
