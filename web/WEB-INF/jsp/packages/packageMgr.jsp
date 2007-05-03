@@ -80,7 +80,7 @@ function createClusteredPackage(){
 	PackageAgent.createClusteredPackage({suiteId:pkgSuiteId,description:description}, {
 		callback:function(data){
 			if (data.successful){
-				location.href="createPackage.do?pkgSuiteId="+pkgSuiteId+"&projSuiteId="+projSuiteId+"&fundSuiteId="+fundSuiteId+"&critSuiteId="+critSuiteId+"&pkgId="+data.pkgId;
+				location.href="editClusteredPackage.do?pkgSuiteId="+pkgSuiteId+"&projSuiteId="+projSuiteId+"&fundSuiteId="+fundSuiteId+"&pkgId="+data.pkgId;
 			}else{
 				alert(data.reason);
 			}
