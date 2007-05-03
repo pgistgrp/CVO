@@ -11,7 +11,7 @@ import org.apache.struts.action.ActionMapping;
  * 
  * The action accepts two parameters:
  * <ul>
- *   <li>id - int, an id of a ClusteredPackage object</li>
+ *   <li>pkgId - int, an id of a ClusteredPackage object</li>
  * </ul>
  * 
  * The action will always forward to the jsp page specified in struts-config.xml
@@ -45,10 +45,11 @@ public class PackageAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-        /*
-         * TODO: extract all required objects and put in request attributes
-         */
-        
+    	String tempPkgId = request.getParameter("pkgId");
+    	Long pkgId = new Long(tempPkgId);
+		ClusteredPackage uPack = this.packageService.getClusteredPackage(pkgId);    			
+		request.setAttribute("package", uPack);    		
+    	
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
         return mapping.findForward("view");
