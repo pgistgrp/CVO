@@ -38,7 +38,7 @@
 	<div id="container">
 		<div style="width:600px;">
 			<h3 class="headerColor">Waiting for the next step to begin</h3>
-			<p>Congratulations, and thanks for your input. You've completed this step in the <I>Let's
+			<p>Thanks for your input. You've completed this step in the <I>Let's
 					Improve Transportation</I> challenge. Once everybody has completed this step, we will process the results and prepare the next step.</p>
 				<p><strong>When the next step is ready, you will automatically receive an e-mail from the moderator</strong>, so be sure to check your inbox. You can also check the <a href="main.do">Overview</a> page to see when the next step will open.</p>
 		</div>
