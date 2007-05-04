@@ -36,7 +36,7 @@
 	<div id="container">
 		<!-- begin Object -->
 		<div id="object clearfix">
-			<p><h3 class="headerColor">Package ${package.description} Details</h3></p>
+			<p><h2 class="headerColor">Package ${package.description} Details</h2></p>
 			<!-- begin TOP SUMMARY -->
 			<div class="summary box11">
 				<table>
@@ -139,7 +139,37 @@
 						<!-- end CATEGORY LABEL -->
 						<!-- begin PROJECT -->
 						
-						<c:forEach var="project" items="${packageProjects}" varStatus="loop">
+						<c:forEach var="project" items="${packageRoadProjects}" varStatus="loop">
+							<tr id="projId-${project.projectId}" class="fundingType">
+								<td colspan="5" class="fundingSourceItem">${project.name}</td>
+							</tr>
+							<!-- begin ROW of OPTIONS -->
+							<tr  class="objectives">
+								<td colspan="5">
+									<table>
+										<c:forEach var="alt" items="${project.projectAlternatives}" varStatus="loop">
+											<tr class="option">
+												<td class="col1">${alt.name}</td>
+												<td class="col2"><fmt:formatNumber type="currency">${alt.moneyNeeded}</fmt:formatNumber> Million</td>
+												<td class="col3 gradeBPlus">${alt.projGrade}</td>
+												<td class="col4 gradeA">${alt.yourGrade}</td>
+												<td class="col5 gradeC">${alt.avgGrade}</td>
+											</tr>
+										</c:forEach>
+									</table>
+								</td>
+							</tr>
+							<!-- end ROW of OPTIONS -->
+							<!-- end PROJECT -->
+						</c:forEach>
+						
+						<tr >
+							<td class="category" colspan="5"><strong>Transit Projects</strong></td>
+						</tr>
+						<!-- end CATEGORY LABEL -->
+						<!-- begin PROJECT -->
+						
+						<c:forEach var="project" items="${packageTransitProjects}" varStatus="loop">
 							<tr id="projId-${project.projectId}" class="fundingType">
 								<td colspan="5" class="fundingSourceItem">${project.name}</td>
 							</tr>
