@@ -204,6 +204,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     public CriteriaSuite createCriteriaSuite() throws Exception {
         CriteriaSuite suite = new CriteriaSuite();
         
+        criteriaDAO.save(suite);
         return suite;
     }//createCriteriaSuite()
 
