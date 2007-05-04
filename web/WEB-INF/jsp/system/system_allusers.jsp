@@ -66,7 +66,7 @@
 				<input name="Enable" id="enable" class="disabled" type="button" value="Enable" onclick="javascript:enableUsers('${user.id}');setTimeout('getAllUsers();',100);" />	
 			</c:otherwise>
 		</c:choose>
-		<input name="Reset Password" type="button" value="Reset Password" onclick="javascript:resetPassword('${user.id}')" />
+		<input name="Reset Password" type="button" value="Reset Password" onclick="javascript:confirmResetPW()" />
 
 		</td>
 	  </tr>
