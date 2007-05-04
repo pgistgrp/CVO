@@ -8,7 +8,7 @@
 
 <form name="quotas" action="" method="get">
 	<br/>
-	<h3 class="headerColor">Counties</h3>
+	<h3 class="headerColor">Counties Management</h3><br/>
 	<table id="newTable" border="0" cellpadding="3" cellspacing="0" class="center">
 		<tr>
 			<th class="col1">County</th>
@@ -52,10 +52,18 @@
 								</div>
 							</c:forEach>
 						</td>
-						<td> <span id="actions${count}">
-							<input name="addzip" type="button" value="Add Zip" onclick="Element.toggle('addzipcodebox${count}'),Element.toggle('actions${count}')" />
-							<input name="delete" type="button" value="Delete County" onclick="deleteCounty('${county.id}')" />
-							</span> <span id="addzipcodebox${count}" style="width:500px;border=1px solid #00000; display:none;">&nbsp;<a href="javascript:Element.toggle('addzipcodebox${count}'),Element.toggle('actions${count}');"><img style="vertical-align:bottom;" alt="Close button" title="Cancel" src="images/close.gif" /></a>
+						<td> 
+						<span id="actions${count}">
+							<input name="addzip" type="button" value="Add Zip" 
+								onclick="Element.toggle('addzipcodebox${count}'),Element.toggle('actions${count}')" />
+							<input name="delete" type="button" value="Delete County" 
+								onclick="deleteCounty('${county.id}')" />
+						</span> 
+						<span id="addzipcodebox${count}" style="display:none;">&nbsp;
+						<img style="vertical-align:bottom;" 
+							onClick="javascript:Element.toggle('addzipcodebox${count}'),
+							Element.toggle('actions${count}');" alt="Close button" title="Cancel" 
+							src="images/close.gif" />
 							<input id="zipcodesinput${count}" type="text" size="6" />
 							<input name="addzip" type="button" value="Add Zip" onclick="addZipCodes('${county.id}','${count}'),Element.toggle('addzipcodebox${count}'),Element.toggle('actions${count}')" />
 							</span> </td>
@@ -64,10 +72,13 @@
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
-				<tr>
-					<td colspan="4" class="addNewBar"><h4 style="margin:3px 0px;display:inline;">Add a new county</h4><input style="margin-left:20px;" id="countyname" type="text" size="20" />
-	<input name="Add" type="button" onclick="addCounty()" value="Add" /></td>
-				</tr>
+		<tr>
+			<td colspan="4" class="addNewBar">
+				<h4 style="margin:3px 0px;display:inline;">Add a new county</h4>
+				<input style="margin-left:20px;" id="countyname" type="text" size="20" />
+				<input name="Add" type="button" onclick="addCounty()" value="Add" />
+			</td>
+		</tr>
 	</table>
 </form>
 <p>&nbsp;</p>

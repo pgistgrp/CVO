@@ -45,6 +45,10 @@ border-top:5px solid #ADCFDE;
 padding:15px 10px 10px 10px;
 }
 
+.leftMargin {margin-left:20px;}
+#newTable {margin-top:0em;}
+#emailList form {margin:5px 0px;}
+.leftMargin span {vertical-align:-30%;}
 </style>
 		<!-- Site Wide JS -->
 		<script src="scripts/prototype.js" type="text/javascript"></script>
@@ -140,6 +144,7 @@ function getEmailList(mychoice) {
 		alert("SystemAgent.getEmailList( error:" + errorString + exception);
 		}
 	});
+
 }
 function quota(myid, mybool) {
 	SystemAgent.setQuota({id:myid, quota:mybool});
@@ -189,6 +194,13 @@ function addZipCodes(countyid, count) {
 	SystemAgent.addZipCodes({countyid:countyid, zips:zipcode});
 	setTimeout("getQuotaStats()",100);
 }
+
+function greyDisabled() {
+	foo = document.getElementsByClassName('enabled');
+	for (var i = 0;i<foo.length;i++){
+	 foo[i].parentNode.parentNode.style.color='#aaa';
+	}
+}
 </script>
 		</head>
 		<body>
@@ -205,34 +217,51 @@ function addZipCodes(countyid, count) {
 		<!-- #container is the container that wraps around all the main page content -->
 		<div id="container">
 			<h2 class="headerColor">Moderator Tools</h2>
-			<h3>System Management</h3>
+			<h3 class="headerColor">System Management</h3><br/>
 			<div id="quota"> </div>
-			<h3>User Management</h3>
-			<p><a href="javascript:getEmailList();hide('emailList');">Export All E-mail Addresses
-					(plain text)</a></p>
-			<div id="emailList">
-				<form name="emaillist">
-					<p>Email List: (Ctrl + A to select All, Ctrl + C to copy to clipboard) <br/>
-						<textarea id="EmailList" cols="75" rows="8"></textarea>
-						<br/>
-						Filter Email List:
-						<label>
-						<input name="userfilter" type="radio" value="all" 
-						checked="checked" onChange="getEmailList('');">
-						All Users</label>
-						<label>
-						<input type="radio" name="userfilter" value="enabled" onChange="getEmailList('enabled');">
-						Enabled Only</label>
-						<label>
-						<input type="radio" name="userfilter" value="enabled" onChange="getEmailList('disabled');">
-						Disabled Only</label>
-						<br>
-					</p>
-				</form>
-				<p>&nbsp;</p>
-			</div>
+			<h3 class="headerColor">User Management</h3><br/>
 			<div id="userList"> </div>
-			<p>&nbsp;</p>
+			<br />
+			<br />
+			<h3 class="headerColor">Export Tool</h3>
+			<div id="exportWrapper" class="box4 padding5">
+				<div class="floatLeft">
+					<input type="button" value="Export E-mail Addresses"	class="padding5"
+					onClick="javascript:getEmailList();new Effect.toggle($('emailList'),'blind');"/>
+				</div>
+				<div class="floatLeft leftMargin">
+					<span>This will display the e-mail address of all registered users in plain text format.</span>
+				</div>
+				<br/>
+				<br class="clearBoth" />
+				<div id="emailList" style="display:none;">
+					<form name="emaillist">
+						<div class="floatLeft">
+							<textarea id="EmailList" cols="70" rows="10"></textarea>
+						</div>
+						<div class="floatLeft leftMargin">
+							<h3 class="headerColor">Filter By:</h3>
+							<label>
+							<input name="userfilter" type="radio" value="all" 
+								checked="checked" onChange="getEmailList('');">
+							All Users</label>
+							<br/>
+							<label>
+							<input type="radio" name="userfilter" value="enabled" 
+							onChange="getEmailList('enabled');">
+							Enabled Only</label>
+							<br/>
+							<label>
+							<input type="radio" name="userfilter" value="enabled" 
+							onChange="getEmailList('disabled');">
+							Disabled Only</label>
+						</div>
+						<div class="clearBoth"></div>
+						</p>
+					</form>
+					<strong>Hint:</strong> Ctrl + A to select All, Ctrl + C to copy to clipboard
+				</div>
+			</div>
 		</div>
 		<!-- end container -->
 		<!-- start feedback form -->
@@ -245,9 +274,6 @@ function addZipCodes(countyid, count) {
 			<jsp:include page="/footer.jsp" />
 		</div>
 		<!-- End footer -->
-		<script type="text/javascript">
-		hide('emailList');
-	</script>
 		</body>
 	</pg:show>
 </html:html>
