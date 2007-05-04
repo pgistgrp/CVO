@@ -15,7 +15,7 @@
 	</tr>
 	<c:forEach var="package" items="${packages}" varStatus="loop">
 		<tr>
-			<td class="col1"><a href="package.do?pkgId=${package.id}&fundSuiteId=${fundSuiteId}&projSuiteId=${projSuiteId}&critSuiteId=${critSuiteId}&pkgSuiteId=${pkgSuiteId}">${loop.index +1}</a></td>
+			<td class="col1"><a target="blank" href="package.do?pkgId=${package.id}&fundSuiteId=${fundSuiteId}&projSuiteId=${projSuiteId}&critSuiteId=${critSuiteId}&pkgSuiteId=${pkgSuiteId}">${loop.index +1}</a></td>
 			<td>$${package.totalCost} Billion</td>
 			<td>$${package.avgResidentCost}/year</td>
 			<td><small><a href="editClusteredPackage.do?pkgSuiteId=${pkgSuiteId}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}&pkgId=${package.id}">Edit</a> | <a href="javascript:deleteClusteredPackage(${package.id});">Delete</a></small></td>

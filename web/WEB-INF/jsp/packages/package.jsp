@@ -95,31 +95,25 @@
 							<th class="col4">Estimated annual cost to you</th>
 						</tr>
 						<!-- begin Funding Source -->
-						<c:set var="prevSource"value=""/>
-
-						
-						<c:forEach var="altRef" items="${package.fundAltRefs}" varStatus="loop">
-								<c:if test="${altRef.sourceRef.source.name != prevSource}">
-									<tr class="fundingType">
-										<td class="fundingSourceItem">${altRef.sourceRef.source.name}</td>
-										<td colspan="3">&nbsp;</td>
-									</tr>
-								</c:if>
-
-								<c:set var="prevSource" value="${altRef.sourceRef.source.name}"/>
-
+						<c:forEach var="source" items="${packageFunding}" varStatus="loop">
+								<tr id="sourceId-${source.fundingSourceId}" class="fundingType">
+									<td class="fundingSourceItem">${source.name}</td>
+									<td colspan="3">&nbsp;</td>
+								</tr>
 								<!-- end PROJECT -->
 								<!-- begin HIDDEN ROW of OPTIONS -->
 								
 								<tr class="objectives" id="objective1">
 									<td colspan="4">
 										<table>
-											<tr>
-												<td class="col1">${altRef.alternative.name}</td>
-												<td class="col2"><fmt:formatNumber type="currency">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
-												<td class="col3"><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
-												<td class="col4"><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
-											</tr>
+											<c:forEach var="alt" items="${source.fundingSourceAlternatives}" varStatus="loop">
+												<tr>
+													<td class="col1">${alt.name}</td>
+													<td class="col2"><fmt:formatNumber type="currency">${alt.estCost}</fmt:formatNumber> million</td>
+													<td class="col3"><fmt:formatNumber type="currency">${alt.avgCost}</fmt:formatNumber></td>
+													<td class="col4"><fmt:formatNumber type="currency">${alt.yourCost}</fmt:formatNumber></td>
+												</tr>
+											</c:forEach>
 										</table>
 									</td>
 								</tr>
@@ -144,154 +138,30 @@
 						</tr>
 						<!-- end CATEGORY LABEL -->
 						<!-- begin PROJECT -->
-						<tr class="fundingType">
-							<td colspan="5" class="fundingSourceItem">Alaskan Way Viaduct Options</td>
-						</tr>
-						<!-- begin ROW of OPTIONS -->
-						<tr  class="objectives">
-							<td colspan="5">
-								<table>
-									<tr class="option">
-										<td class="col1">Elevated Structure</td>
-										<td class="col2">$217,015,384,615</td>
-										<td class="col3 gradeBPlus">B+</td>
-										<td class="col4 gradeA">A</td>
-										<td class="col5 gradeC">C</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<!-- end ROW of OPTIONS -->
-						<!-- end PROJECT -->
-						<!-- begin PROJECT -->
-						<tr class="fundingType">
-							<td colspan="5" class="fundingSourceItem">520 Bridge Options</td>
-						</tr>
-						<!-- begin ROW of OPTIONS -->
-						<tr  class="objectives">
-							<td colspan="5">
-								<table>
-									<tr class="option">
-										<td class="col1">Arboretum Bypass Plan</td>
-										<td class="col2">$419,239,123,000</td>
-										<td class="col3 gradeDPlus">D+</td>
-										<td class="col4 gradeBMinus">B-</td>
-										<td class="col5 gradeAMinus">A-</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<!-- end ROW of OPTIONS -->
-						<!-- end PROJECT -->
-						<!-- begin PROJECT -->
-						<tr class="fundingType">
-							<td colspan="5" class="fundingSourceItem">I-405 Improvements</td>
-						</tr>
-						<!-- begin ROW of OPTIONS -->
-						<tr  class="objectives">
-							<td colspan="5">
-								<table>
-									<tr class="option">
-										<td class="col1">Renton to Bellevue (SR 169 to I-90)</td>
-										<td class="col2">$123,512,151,568</td>
-										<td class="col3 gradeC">C</td>
-										<td class="col4 gradeCMinus">C-</td>
-										<td class="col5 gradeBMinus">B-</td>
-									</tr>
-									<tr class="option">
-										<td class="col1">112th Ave SE to SE 8th St.</td>
-										<td class="col2">$512,555,321,960</td>
-										<td class="col3 gradeFPlus">F+</td>
-										<td class="col4 gradeDMinus">D-</td>
-										<td class="col5 gradeCPlus">C+</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<!-- end ROW of OPTIONS -->
-						<!-- end PROJECT -->
-						<!-- begin PROJECT -->
-						<tr class="fundingType">
-							<td colspan="5" class="fundingSourceItem">New Highway Segments</td>
-						</tr>
-						<!-- begin ROW of OPTIONS -->
-						<tr  class="objectives">
-							<td colspan="5">
-								<table>
-									<tr class="option">
-										<td class="col1">SR 509 Extension and I-5 Improvements</td>
-										<td class="col2">$621,785,997,000</td>
-										<td class="col3 gradeA">A</td>
-										<td class="col4 gradeCMinus">C-</td>
-										<td class="col5 gradeC">C</td>
-									</tr>
-									<tr class="option">
-										<td class="col1">I-167: New Freedom Extension Tacoma to Englewood</td>
-										<td class="col2">$217,015,384,615</td>
-										<td class="col3 gradeD">D</td>
-										<td class="col4 gradeA">A</td>
-										<td class="col5 gradeBMinus">B-</td>
-									</tr>
-									<tr class="option">
-										<td class="col1">Cross Base Highway (SR 704)</td>
-										<td class="col2">$217,015,384,615</td>
-										<td class="col3 gradeCMinus">C-</td>
-										<td class="col4 gradeBMinus">B-</td>
-										<td class="col5 gradeDMinus">D-</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<!-- end ROW of OPTIONS -->
-						<!-- end PROJECT -->
-						<!-- begin PROJECT -->
-						<tr class="fundingType">
-							<td colspan="5" class="fundingSourceItem">SR 162 Improvements</td>
-						</tr>
-						<!-- begin ROW of OPTIONS -->
-						<tr  class="objectives">
-							<td colspan="5">
-								<table>
-									<tr class="option">
-										<td class="col1">Renton to Bellevue (SR 169 to I-90)</td>
-										<td class="col2">$123,512,151,568</td>
-										<td class="col3 gradeC">C</td>
-										<td class="col4 gradeCMinus">C-</td>
-										<td class="col5 gradeBMinus">B-</td>
-									</tr>
-									<tr class="option">
-										<td class="col1">112th Ave SE to SE 8th St.</td>
-										<td class="col2">$512,555,321,960</td>
-										<td class="col3 gradeFPlus">F+</td>
-										<td class="col4 gradeDMinus">D-</td>
-										<td class="col5 gradeCPlus">C+</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<!-- end ROW of OPTIONS -->
-						<!-- end PROJECT -->
-						<!-- begin PROJECT -->
-						<tr class="fundingType">
-							<td colspan="5" class="fundingSourceItem">Snohomish SR 9 Improvements</td>
-						</tr>
-						<!-- begin ROW of OPTIONS -->
-						<tr  class="objectives">
-							<td colspan="5">
-								<table>
-									<tr class="option">
-										<td class="col1">SR 9 Widening (N. Bothel to Clearview SR 523 to 176th
-											St. SE)</td>
-										<td class="col2">$419,239,123,000</td>
-										<td class="col3 gradeDPlus">D+</td>
-										<td class="col4 gradeBMinus">B-</td>
-										<td class="col5 gradeAMinus">A-</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<!-- end ROW of OPTIONS -->
-						<!-- end PROJECT -->
+						
+						<c:forEach var="project" items="${packageProjects}" varStatus="loop">
+							<tr id="projId-${project.projectId}" class="fundingType">
+								<td colspan="5" class="fundingSourceItem">${project.name}</td>
+							</tr>
+							<!-- begin ROW of OPTIONS -->
+							<tr  class="objectives">
+								<td colspan="5">
+									<table>
+										<c:forEach var="alt" items="${project.projectAlternatives}" varStatus="loop">
+											<tr class="option">
+												<td class="col1">${alt.name}</td>
+												<td class="col2"><fmt:formatNumber type="currency">${alt.moneyNeeded}</fmt:formatNumber> Million</td>
+												<td class="col3 gradeBPlus">${alt.projGrade}</td>
+												<td class="col4 gradeA">${alt.yourGrade}</td>
+												<td class="col5 gradeC">${alt.avgGrade}</td>
+											</tr>
+										</c:forEach>
+									</table>
+								</td>
+							</tr>
+							<!-- end ROW of OPTIONS -->
+							<!-- end PROJECT -->
+						</c:forEach>
 					</table>
 				</div>
 			</div>
