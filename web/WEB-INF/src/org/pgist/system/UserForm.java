@@ -237,7 +237,7 @@ public class UserForm extends ActionForm {
     }
 
 
-    public void setEmailNotifydisc(boolean emailNotify) {
+    public void setEmailNotify(boolean emailNotify) {
         this.emailNotify = emailNotify;
     }
     

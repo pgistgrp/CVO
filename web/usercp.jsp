@@ -192,7 +192,7 @@ button {margin-bottom:1em;font-size:1.1em;}
 			<button class="floatRight padding5">Update my Profile</button>
 			<br class="clearBoth" />
 		</div>
-		<div align="right"><html:submit property="submit" value="Update My Settings"/></div>
+
 		</html:form>
 		<html:form action="/usercp.do" method="POST">
 		<html:hidden property="save" value="true"/>
@@ -215,11 +215,11 @@ button {margin-bottom:1em;font-size:1.1em;}
 				in your discussions? </div>
 			<div class="email-col2">
 				<label>
-				<html:radio property="user.emailNotifyDisc" value="true" />
+				<html:radio property="emailNotifyDisc" value="true" />
 				Yes</label>
 				<br />
 				<label>
-				<html:radio property="user.emailNotifyDisc" value="false" />
+				<html:radio property="emailNotifyDisc" value="false" />
 				No</label>
 			</div>
 			<div class="email-col3"> <strong>About e-mail notification for discussions:</strong><br />
@@ -233,11 +233,11 @@ button {margin-bottom:1em;font-size:1.1em;}
 				progress in the LIT challenge?</div>
 			<div class="email-col2">
 				<label>
-				<label><html:radio property="user.emailNotify" value="true" />
+				<html:radio property="emailNotify" value="true" />
 				Yes</label>
 				<br />
 				<label>
-				<label><html:radio property="user.emailNotify" value="false" />
+				<html:radio property="emailNotify" value="false" />
 				No</label>
 			</div>
 			<div class="email-col3"> <strong>Note to paid research study participants:</strong><br />
@@ -275,7 +275,6 @@ button {margin-bottom:1em;font-size:1.1em;}
 			<button class="floatRight padding5">Update My Settings</button>
 		</div>
 		<!-- end EDIT-SETTINGS -->
-		<div align="right"><html:submit property="submit" value="Update My Settings"/></div>
 		</html:form>
 	</div>
 	<!-- end container -->
