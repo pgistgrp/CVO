@@ -8,7 +8,7 @@ import java.util.TreeSet;
  * 
  * @author Matt Paulin
  */
-public class ProjectDTO {
+public class ProjectDTO implements Comparable<ProjectDTO> {
 
 	private String name;
 	private Long projectId;
@@ -57,4 +57,11 @@ public class ProjectDTO {
 	public void setProjectId(Long projectId) {
 		this.projectId = projectId;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	public int compareTo(ProjectDTO o) {
+		return this.getName().compareTo(o.getName());
+	}	
 }

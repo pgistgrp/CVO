@@ -20,6 +20,10 @@
     <convert converter="bean" match="org.pgist.packages.ClusteredPackage"/>
     <convert converter="bean" match="org.pgist.funding.FundingSource"/>      
     <convert converter="bean" match="org.pgist.funding.FundingSourceAlternative"/>
+    <convert converter="bean" match="org.pgist.packages.FundingSourceDTO"/>
+    <convert converter="bean" match="org.pgist.packages.FundingSourceAlternativeDTO"/>
+    <convert converter="bean" match="org.pgist.packages.ProjectDTO"/>
+    <convert converter="bean" match="org.pgist.packages.ProjectAlternativeDTO"/>
 
     <!-- DWR Agents -->
 

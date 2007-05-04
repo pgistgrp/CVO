@@ -2,13 +2,12 @@ package org.pgist.packages;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.List;
 import java.util.Random;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaDAO;
@@ -367,10 +366,59 @@ public class PackageServiceImpl implements PackageService {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#formPackageFundingDTOs(org.pgist.packages.ClusteredPackage)
 	 */
-	public SortedSet<FundingSourceDTO> formPackageFundingDTOs(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
+	public List<FundingSourceDTO> formPackageFundingDTOs(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
 		this.calcUserValues(cPackage, user, fundSuiteId);
-		SortedSet<FundingSourceDTO> result = new TreeSet<FundingSourceDTO>();
-		//TODO fill this out
+		List<FundingSourceDTO> result = new ArrayList<FundingSourceDTO>();
+
+		//Only show the funding sources that are in the package, but you need to find the projects in the suite that contain them
+		
+		//First put all of the funding sources in a hash with the key being the alternativeID, we will use this to lookup the correct
+		//source
+		FundingSourceSuite fSuite = this.fundingDAO.getFundingSuite(fundSuiteId);
+		HashMap<Long, FundingSource> sources = new HashMap<Long, FundingSource>();
+		Iterator<FundingSourceRef> iSourcesRefs = fSuite.getReferences().iterator();
+		FundingSource tempSource;
+		Iterator<FundingSourceAlternative> iSourceAlts;
+		
+		while(iSourcesRefs.hasNext()) {
+			tempSource = iSourcesRefs.next().getSource();
+			iSourceAlts = tempSource.getAlternatives().iterator();
+			while(iSourceAlts.hasNext()) {
+				sources.put(iSourceAlts.next().getId(), tempSource);
+			}
+		}
+		
+		//Now loop through the alternatives in the package and create the dto
+		Iterator<FundingSourceAltRef> iSourceAltRefs = cPackage.fundAltRefs.iterator();
+		FundingSourceAltRef tempAltRef;
+		FundingSourceAlternative tempAlt;
+		while(iSourceAltRefs.hasNext()) {
+			tempAltRef = iSourceAltRefs.next();
+			tempAlt = tempAltRef.getAlternative();
+			
+			//Now pull the source back out of the hash 
+			tempSource = sources.get(tempAlt.getId());
+			
+			if(tempSource == null) {
+				System.out.println("ERROR: A alternative with no parent was found in the clustered package");
+			} else {
+				//Create a new DTO
+				FundingSourceDTO fsDTO = new FundingSourceDTO(tempSource);
+
+				//See if it has already been added to the result
+				if(result.contains(fsDTO)) {
+					fsDTO = result.get(result.indexOf(fsDTO));
+				}
+				
+				//Add the new alternative
+				fsDTO.getFundingSourceAlternatives().add(new FundingSourceAlternativeDTO(tempAlt, cPackage.getPersonalCost(tempAlt.getId())));
+				
+				//Sort it
+				fsDTO.sort();
+			}
+		}
+		
+		Collections.sort(result);
 		return result;
 	}
 
@@ -378,9 +426,9 @@ public class PackageServiceImpl implements PackageService {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#formPackageRoadProjectDTOs(org.pgist.packages.ClusteredPackage)
 	 */
-	public SortedSet<ProjectDTO> formPackageRoadProjectDTOs(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
+	public List<ProjectDTO> formPackageRoadProjectDTOs(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
 		this.calcUserValues(cPackage, user, fundSuiteId);
-		SortedSet<ProjectDTO> result = new TreeSet<ProjectDTO>();
+		List<ProjectDTO> result = new ArrayList<ProjectDTO>();
 		//TODO fill this out
 		return result;
 	}
@@ -388,9 +436,9 @@ public class PackageServiceImpl implements PackageService {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#formPackageTransitProjectDTOs(org.pgist.packages.ClusteredPackage)
 	 */
-	public SortedSet<ProjectDTO> formPackageTransitProjectDTOs(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
+	public List<ProjectDTO> formPackageTransitProjectDTOs(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
 		this.calcUserValues(cPackage, user, fundSuiteId);
-		SortedSet<ProjectDTO> result = new TreeSet<ProjectDTO>();
+		List<ProjectDTO> result = new ArrayList<ProjectDTO>();
 		//TODO fill this out
 		return result;
 	}
@@ -398,21 +446,21 @@ public class PackageServiceImpl implements PackageService {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#gradeMyPackage(org.pgist.packages.ClusteredPackage, long)
 	 */
-	public void gradeMyPackage(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
-		this.calcUserValues(cPackage, user, fundSuiteId);
-		
-		Random rand = new Random(System.currentTimeMillis());
-		
-		Iterator<ProjectAltRef> refs = cPackage.getProjAltRefs().iterator();
-		ProjectAltRef tempRef;
-		//TODO actually form a grade
-		while(refs.hasNext()) {
-			tempRef = refs.next();
-			cPackage.getProjGrades().put(tempRef.getId(), GradedCriteria.convertGrade(rand.nextFloat() * 100));
-			cPackage.getAvgGrades().put(tempRef.getId(), GradedCriteria.convertGrade(rand.nextFloat() * 100));
-			cPackage.getYourGrades().put(tempRef.getId(), GradedCriteria.convertGrade(rand.nextFloat() * 100));
-		}		
-	}
+//	public void gradeMyPackage(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
+//		this.calcUserValues(cPackage, user, fundSuiteId);
+//		
+//		Random rand = new Random(System.currentTimeMillis());
+//		
+//		Iterator<ProjectAltRef> refs = cPackage.getProjAltRefs().iterator();
+//		ProjectAltRef tempRef;
+//		//TODO actually form a grade
+//		while(refs.hasNext()) {
+//			tempRef = refs.next();
+//			cPackage.getProjGrades().put(tempRef.getId(), GradedCriteria.convertGrade(rand.nextFloat() * 100));
+//			cPackage.getAvgGrades().put(tempRef.getId(), GradedCriteria.convertGrade(rand.nextFloat() * 100));
+//			cPackage.getYourGrades().put(tempRef.getId(), GradedCriteria.convertGrade(rand.nextFloat() * 100));
+//		}		
+//	}
 
 	
     public User getUser(UserInfo userInfo) throws Exception {

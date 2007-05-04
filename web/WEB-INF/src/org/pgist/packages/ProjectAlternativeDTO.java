@@ -5,7 +5,7 @@ package org.pgist.packages;
  * 
  * @author Matt Paulin
  */
-public class ProjectAlternativeDTO {
+public class ProjectAlternativeDTO implements Comparable<ProjectAlternativeDTO> {
 
 	private String name;
 	private Long projectAlternativeID;
@@ -86,6 +86,10 @@ public class ProjectAlternativeDTO {
 	public void setYourGrade(String yourGrade) {
 		this.yourGrade = yourGrade;
 	}
-	
-	
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	public int compareTo(ProjectAlternativeDTO o) {
+		return this.getName().compareTo(o.getName());
+	}	
 }

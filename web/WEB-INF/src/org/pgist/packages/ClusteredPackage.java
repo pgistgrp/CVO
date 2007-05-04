@@ -36,16 +36,7 @@ public class ClusteredPackage extends Package {
     
     protected Set<ProjectAltRef> projAltRefs = new HashSet<ProjectAltRef>();
     
-    protected Set<FundingSourceAltRef> fundAltRefs = new HashSet<FundingSourceAltRef>();
-
-    /**
-     * Tables used to store the grade for the project.  The long is the ProjectAlternativeId, the String is the grade
-     */
-    protected HashMap<Long, String> projGrades = new HashMap<Long, String>();
-    protected HashMap<Long, String> yourGrades = new HashMap<Long, String>();
-    protected HashMap<Long, String> avgGrades = new HashMap<Long, String>();
-    
-    
+    protected Set<FundingSourceAltRef> fundAltRefs = new HashSet<FundingSourceAltRef>();    
     
     /**
      * @hibernate.property
@@ -170,52 +161,4 @@ public class ClusteredPackage extends Package {
     		avgResidentCost = avgResidentCost + fAlt.getAvgCost();
     	}    	    	
     }
-
-
-	/**
-	 * @return the avgGrades
-	 */
-	public HashMap<Long, String> getAvgGrades() {
-		return avgGrades;
-	}
-
-
-	/**
-	 * @param avgGrades the avgGrades to set
-	 */
-	public void setAvgGrades(HashMap<Long, String> avgGrade) {
-		this.avgGrades = avgGrade;
-	}
-
-
-	/**
-	 * @return the projGrades
-	 */
-	public HashMap<Long, String> getProjGrades() {
-		return projGrades;
-	}
-
-
-	/**
-	 * @param projGrades the projGrades to set
-	 */
-	public void setProjGrades(HashMap<Long, String> projGrade) {
-		this.projGrades = projGrade;
-	}
-
-
-	/**
-	 * @return the yourGrades
-	 */
-	public HashMap<Long, String> getYourGrades() {
-		return yourGrades;
-	}
-
-
-	/**
-	 * @param yourGrades the yourGrades to set
-	 */
-	public void setYourGrades(HashMap<Long, String> yourGrade) {
-		this.yourGrades = yourGrade;
-	}    
 }//class ClusteredPackage

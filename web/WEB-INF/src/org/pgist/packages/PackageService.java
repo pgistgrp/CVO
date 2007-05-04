@@ -1,6 +1,6 @@
 package org.pgist.packages;
 
-import java.util.SortedSet;
+import java.util.List;
 
 import org.pgist.discussion.InfoStructure;
 import org.pgist.users.User;
@@ -47,11 +47,11 @@ public interface PackageService {
 
 	ClusteredPackage getClusteredPackage(Long pkgId) throws Exception;
 
-	SortedSet<ProjectDTO> formPackageRoadProjectDTOs(ClusteredPackage pack, User user, long critSuiteId, long fundSuiteId) throws Exception; 
+	List<ProjectDTO> formPackageRoadProjectDTOs(ClusteredPackage pack, User user, long critSuiteId, long fundSuiteId) throws Exception; 
 
-	SortedSet<ProjectDTO> formPackageTransitProjectDTOs(ClusteredPackage pack, User user, long critSuiteId, long fundSuiteId) throws Exception; 
+	List<ProjectDTO> formPackageTransitProjectDTOs(ClusteredPackage pack, User user, long critSuiteId, long fundSuiteId) throws Exception; 
 
-	SortedSet<FundingSourceDTO> formPackageFundingDTOs(ClusteredPackage pack, User user, long critSuiteId, long fundSuiteId) throws Exception; 
+	List<FundingSourceDTO> formPackageFundingDTOs(ClusteredPackage pack, User user, long critSuiteId, long fundSuiteId) throws Exception; 
     
     
 }//interface PackageService

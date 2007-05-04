@@ -74,7 +74,7 @@ public class FundingSource implements Serializable {
     
     private String name;
     
-    private Set alternatives = new HashSet();
+    private Set<FundingSourceAlternative> alternatives = new HashSet<FundingSourceAlternative>();
     
     /**
      * type of the funding source
@@ -117,12 +117,12 @@ public class FundingSource implements Serializable {
      * @hibernate.collection-key column="source_id"
      * @hibernate.collection-one-to-many class="org.pgist.funding.FundingSourceAlternative"
      */
-    public Set getAlternatives() {
+    public Set<FundingSourceAlternative> getAlternatives() {
         return alternatives;
     }
 
 
-    public void setAlternatives(Set alternatives) {
+    public void setAlternatives(Set<FundingSourceAlternative> alternatives) {
         this.alternatives = alternatives;
     }
 
