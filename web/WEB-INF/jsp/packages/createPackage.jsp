@@ -290,7 +290,7 @@
 				<!-- end TOP SUMMARY -->
 				<div class="clearBoth"></div>
 				<br />
-				<h3 id="pkgDesc" class="headerColor inline">Package ${(package.description == "") ? package.id : package.description}</h3>
+				<h3 id="pkgDesc" class="headerColor">${(package.description == null) ? "Create Your Package" : package.description}</h3>
 				<c:choose>
 					<c:when test="${userPkg.id != null}">
 						<input type="button" class="helpMeButton" onClick="new Effect.toggle('helpMe', 'blind', {duration:0.3})" value="Help me create a package" />
