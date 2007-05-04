@@ -40,7 +40,7 @@
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
 		<h2 class="headerColor">Welcome, ${baseuser.loginname}</h2>
-		<a href="#">View / Edit your profile</a>
+		<a href="publicprofile.do?user=${baseuser.loginname}">View / Edit your profile</a>
 		<div id="left-col">
 		<h3 class="headerColor">Overview of all Steps</h3>
 		<div class="box12 clearfix">
@@ -68,7 +68,7 @@
 			
 					<h4 class="headerColor clearBoth step-header">Global Components</h4>
 					<div class="padding5 home-row clearfix">
-						<div class="step"><a href="#">User Public Profile</a><br />
+						<div class="step"><a href="publicprofile.do?user=${baseuser.loginname}">User Public Profile</a><br />
 							<small>Information about this step</small>
 						</div>
 						<div class="date">11/15 - 11/25</div>
