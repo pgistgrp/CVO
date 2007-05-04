@@ -7,9 +7,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
-<table border="0" cellpadding="3" cellspacing="0">
+<table id="newTable" border="0"cellpadding="3" cellspacing="0">
   <tr>
-    <th>User Name </th>
+    <th class="col1">User Name </th>
     <th>Email Address</th>
     <th>Quota?</th>
     <th>Interview</th>
@@ -20,7 +20,7 @@
 <c:choose>	
 	<c:when test="${fn:length(users) == 0}">
 	<tr>
-		<td>No Users</td>
+		<td class="col1">No Users</td>
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>

@@ -5,37 +5,55 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
-<pg:show roles="moderator">
-<head>
-<title>Let's Improve Transportation - User Management</title>
-<!-- Site Wide CSS -->
-<style type="text/css" media="screen">@import "styles/lit.css";</style>
-
-<!-- End Site Wide CSS -->
-<style type="text/css">
+	<pg:show roles="moderator">
+		<head>
+		<title>Let's Improve Transportation - User Management</title>
+		<!-- Site Wide CSS -->
+		<style type="text/css" media="screen">
+@import "styles/lit.css";
+@import "styles/table.css";
+</style>
+		<!-- End Site Wide CSS -->
+		<style type="text/css">
+		
+body {font-size:12pt}
 .center {
 	text-align:center;
 }
 .rowcolor {
-	background-color: #BBDDFF;
+	background-color: #ECF2F4;
 } 
 .rowfont {
-	font-size: .8em;
+	font-size: .9em;
 	vertical-align:text-top;
 }
-</style>
-<!-- Site Wide JS -->
-<script src="scripts/prototype.js" type="text/javascript"></script>
-<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-<script src="scripts/search.js" type="text/javascript"></script>
-<script type='text/javascript' src='/dwr/engine.js'></script>
-<script type='text/javascript' src='/dwr/util.js'></script>
-<script type='text/javascript' src='/dwr/interface/SystemAgent.js'></script>
 
-<script type="text/javascript" charset="utf-8">
+th {padding:5px;}
+
+.col1 {width:200px;}
+table {width:100%;padding:5px;border:1px solid #ADCFDE;}
+td div {text-align:center}
+img.trash {width:20px;height:20px;vertical-align:middle;}
+
+.addNewBar {
+background:#D5EAEF;
+text-align:left;
+border-top:5px solid #ADCFDE;
+padding:15px 10px 10px 10px;
+}
+
+</style>
+		<!-- Site Wide JS -->
+		<script src="scripts/prototype.js" type="text/javascript"></script>
+		<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+		<script src="scripts/search.js" type="text/javascript"></script>
+		<script type='text/javascript' src='/dwr/engine.js'></script>
+		<script type='text/javascript' src='/dwr/util.js'></script>
+		<script type='text/javascript' src='/dwr/interface/SystemAgent.js'></script>
+		<script type="text/javascript" charset="utf-8">
 window.onLoad = doOnLoad();
 		
 function doOnLoad(){
@@ -172,87 +190,64 @@ function addZipCodes(countyid, count) {
 	setTimeout("getQuotaStats()",100);
 }
 </script>
-
-
-</head>
-
-<body>
- <!-- Begin the header - loaded from a separate file -->
-  <div id="header">
-	<!-- Begin header -->
-	<jsp:include page="/header.jsp" />
-	<!-- End header -->
-  </div>
-  <!-- End header -->
-  <!-- Begin header menu - The wide ribbon underneath the logo -->
-  <div id="headerMenu">
-	
-  </div>
-  <!-- End header menu -->
-  <!-- #container is the container that wraps around all the main page content -->
-  <div id="container">
-  <h2>Moderator Tools</h2>
-	<p>&nbsp;</p>
-	
-	
-	<h3>System Management</h3>
-  	<div id="quota">
-	
-	</div>
-	<p>&nbsp;</p>
-	
-	<h3>User Management</h3>
-	<p><a href="javascript:getEmailList();hide('emailList');">Export All E-mail Addresses (plain text)</a></p>
-  	<div id="emailList">
-	<form name="emaillist">
-	  <p>Email List: (Ctrl + A to select All, Ctrl + C to copy to clipboard) <br/>
-	    <textarea id="EmailList" cols="75" rows="8"></textarea><br/>
-		
-		Filter Email List:
-		<label>
-		<input name="userfilter" type="radio" value="all" checked="checked" onChange="getEmailList('');">
-			All Users</label>
-		<label>
-		<input type="radio" name="userfilter" value="enabled" onChange="getEmailList('enabled');">
-			Enabled Only</label>
-		<label>
-		<input type="radio" name="userfilter" value="enabled" onChange="getEmailList('disabled');">
-			Disabled Only</label>
-		<br>
-      </p>
-    </form>
-	<p>&nbsp;</p>
-	</div>
-	<div id="userList">
-	
-	</div>
-	
-	<p>&nbsp;</p>
-	
-	
-	
-	
-  </div>
-  <!-- end container -->
-  
-<!-- start feedback form -->
-  <pg:feedback id="feedbackDiv" action="cctView.do"/>
-<!-- end feedback form -->
-
-  <!-- Begin header menu - The wide ribbon underneath the logo -->
-  <div id="headerMenu">
-
-  </div>
-
-	<!-- Begin footer -->
-	<div id="footer">
-		<jsp:include page="/footer.jsp" />
-	</div>
-	<!-- End footer -->
-	<script type="text/javascript">
+		</head>
+		<body>
+		<!-- Begin the header - loaded from a separate file -->
+		<div id="header">
+			<!-- Begin header -->
+			<jsp:include page="/header.jsp" />
+			<!-- End header -->
+		</div>
+		<!-- End header -->
+		<!-- Begin header menu - The wide ribbon underneath the logo -->
+		<div id="headerMenu"> </div>
+		<!-- End header menu -->
+		<!-- #container is the container that wraps around all the main page content -->
+		<div id="container">
+			<h2 class="headerColor">Moderator Tools</h2>
+			<h3>System Management</h3>
+			<div id="quota"> </div>
+			<h3>User Management</h3>
+			<p><a href="javascript:getEmailList();hide('emailList');">Export All E-mail Addresses
+					(plain text)</a></p>
+			<div id="emailList">
+				<form name="emaillist">
+					<p>Email List: (Ctrl + A to select All, Ctrl + C to copy to clipboard) <br/>
+						<textarea id="EmailList" cols="75" rows="8"></textarea>
+						<br/>
+						Filter Email List:
+						<label>
+						<input name="userfilter" type="radio" value="all" 
+						checked="checked" onChange="getEmailList('');">
+						All Users</label>
+						<label>
+						<input type="radio" name="userfilter" value="enabled" onChange="getEmailList('enabled');">
+						Enabled Only</label>
+						<label>
+						<input type="radio" name="userfilter" value="enabled" onChange="getEmailList('disabled');">
+						Disabled Only</label>
+						<br>
+					</p>
+				</form>
+				<p>&nbsp;</p>
+			</div>
+			<div id="userList"> </div>
+			<p>&nbsp;</p>
+		</div>
+		<!-- end container -->
+		<!-- start feedback form -->
+		<pg:feedback id="feedbackDiv" action="cctView.do"/>
+		<!-- end feedback form -->
+		<!-- Begin header menu - The wide ribbon underneath the logo -->
+		<div id="headerMenu"> </div>
+		<!-- Begin footer -->
+		<div id="footer">
+			<jsp:include page="/footer.jsp" />
+		</div>
+		<!-- End footer -->
+		<script type="text/javascript">
 		hide('emailList');
 	</script>
-</body>
-</pg:show>
+		</body>
+	</pg:show>
 </html:html>
-

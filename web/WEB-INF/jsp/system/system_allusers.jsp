@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
-<table border="0" cellpadding="3" cellspacing="0" class="center">
+<table id="newTable" border="0" cellpadding="3" cellspacing="0" class="center">
   <tr>
     <th>User Name </th>
     <th>Email Address</th>
