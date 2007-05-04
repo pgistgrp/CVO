@@ -28,7 +28,7 @@
 
 		<script type="text/javascript" charset="utf-8">
 			//START Global vars
-			var cctId = "${cct.id}";			
+			var suiteId = "<%=request.getParameter("suiteId")%>";	
 			var sliderArray = new Array();
 			var remainingWeight = 100;
 			var range=new Array();
@@ -42,7 +42,7 @@
 			/* *************** Pull all criteria and their associated weights and objectives (criteriaAssoc_weights.jsp) *************** */
 			function getWeights(){
 			//$('loading-indicator').style.display="inline";
-				CriteriaAgent.getWeights({cctId:cctId},{
+				CriteriaAgent.getWeights({critSuiteId:suiteId},{
 				  callback:function(data){
 				    if(data.successful){
 				    	$('criteria').innerHTML = data.html;

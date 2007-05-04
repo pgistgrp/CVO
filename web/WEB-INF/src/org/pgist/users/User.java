@@ -62,6 +62,12 @@ public class User extends BaseUser {
     
     /**
      * <span style="color:blue;">(Column.)</span>
+     * Receive email notifications for disccusion post responses:
+     */
+    protected boolean emailNotifyDisc = false;
+    
+    /**
+     * <span style="color:blue;">(Column.)</span>
      * Whether the user is qualified to be paid by PGIST. 
      */
     protected boolean quota = false;
@@ -167,6 +173,13 @@ public class User extends BaseUser {
      * To be complete by John.
      */
     private UserCommute commute;
+    
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * primaryTransport. The user's primary method of transportation:
+     */
+    protected String primaryTransport = "";
+  
     
     
     /**
@@ -292,7 +305,21 @@ public class User extends BaseUser {
         this.emailNotify = emailNotify;
     }
 
+    
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public boolean isEmailNotifyDisc() {
+        return emailNotifyDisc;
+    }
 
+
+    public void setEmailNotifyDisc(boolean emailNotifyDisc) {
+        this.emailNotifyDisc = emailNotifyDisc;
+    }
+    
+    
     /**
      * @return
      * @hibernate.property not-null="true"
@@ -502,6 +529,20 @@ public class User extends BaseUser {
 
     public void setVehicles(Set<Vehicle> vehicles) {
         this.vehicles = vehicles;
+    }
+    
+    
+    /**
+     * @return
+     * @hibernate.property unique="false" not-null="false"
+     */
+    public String getPrimaryTransport() {
+        return primaryTransport;
+    }
+
+
+    public void setPrimaryTransport(String primaryTransport) {
+        this.primaryTransport = primaryTransport;
     }
     
     

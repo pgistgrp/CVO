@@ -1,36 +1,18 @@
-package org.pgist.criteria;
-
-import java.util.Collection;
+package org.pgist.system;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import org.pgist.cvo.CCT;
 
 /**
  * 
- * @author kenny
+ * @author John
  *
  */
-public class CriteriaMgrAction extends Action {
+public class ConfirmationAction extends Action {
 
-    
-    private CriteriaService criteriaService = null;
-    
-    
-    public void setCriteriaService(CriteriaService criteriaService) {
-        this.criteriaService = criteriaService;
-    }
-    
-    
-
-
-    /*
-     * ------------------------------------------------------------------------
-     */
-    
     
     public ActionForward execute(
             ActionMapping mapping,
@@ -43,8 +25,8 @@ public class CriteriaMgrAction extends Action {
     	
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
-        return mapping.findForward("list");
+        return mapping.findForward("confirmation");
     }//execute()
-
-
-}//class CriteriaMgrAction
+    
+    
+}//class LoginAction

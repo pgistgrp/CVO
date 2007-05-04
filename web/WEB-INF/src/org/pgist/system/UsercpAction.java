@@ -32,59 +32,59 @@ public class UsercpAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
+		
+		
 		UserForm uform = (UserForm) form;
 		User userInfo = systemService.getCurrentUser();
     	request.setAttribute("user", userInfo);
     	
 		if (!uform.isSave()) return mapping.findForward("usercp");
-		User user = uform.getUser();
+
 		
-	    //Check form input
+		String email = uform.getEmail();
+		boolean emailNotify = uform.isEmailNotify();
+		boolean emailNotifyDisc = uform.isEmailNotifyDisc();
+        String password1 = uform.getPassword1();
+        String password2 = uform.getPassword2();
         String cpassword = uform.getCurrentpassword();
-        if (cpassword==null || "".equals(cpassword)) {
-            uform.setReason("Current Password is Required" + cpassword);
-            return mapping.findForward("usercp");
-        }
         
-        String email = user.getEmail();
         if (email==null || "".equals(email)) {
             uform.setReason("Email is Required.");
             return mapping.findForward("usercp");
         } else if (email.indexOf("@")== -1 || email.indexOf(".")==-1){
         	uform.setReason("Please Enter a valid Email Address.");
             return mapping.findForward("usercp");
-        }  
-        
-        String password = user.getPassword();
-        String password1 = uform.getPassword1();
-        /*
-		
-        if (password==null || "".equals(password)) {
-            uform.setReason("Password is Required.");
-            return mapping.findForward("usercp");
-        }
-        
-        if (password1==null || "".equals(password1)) {
-            uform.setReason("Re-type Password is Required.");
-            return mapping.findForward("usercp");
-        }
-        */
-        
-        if (!password.equals(password1)) {
-            uform.setReason("Both Password Fields Must Match.");
-            return mapping.findForward("usercp");
+        } 
+
+        if ((cpassword==null || "".equals(cpassword)) && (password1==null || "".equals(password1)) && (password2==null || "".equals(password2))) {
+        	cpassword="";
+        	password1="";
+        	password2="";
+        } else {
+        	if(password1.length() < 6){
+        		uform.setReason("Password must be six characters long");
+                return mapping.findForward("usercp");
+        	}
+            if (!password1.equals(password2)) {
+                uform.setReason("Both Password Fields Must Match.");
+                return mapping.findForward("usercp");
+            }
         }
         
         try {
-            systemService.editCurrentUser(cpassword, password, email);
-            
+            boolean complete = systemService.editUserSettings(cpassword, password1, email, emailNotify, emailNotifyDisc);
+            if(complete) {
+            	uform.setReason("Your settings have been updated.");
+            } else {
+            	uform.setReason("Your Current password is incorrect.");
+            }
             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
-            
-            return mapping.findForward("main");
+            return mapping.findForward("usercp"); //Maybe redirect to different page           
         } catch (Exception e) {
-            uform.setReason("Current Password is Incorrect." + cpassword);
+            uform.setReason("Current Password is Incorrect.");
         }
-        
+
+		
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
         
         return mapping.findForward("usercp");

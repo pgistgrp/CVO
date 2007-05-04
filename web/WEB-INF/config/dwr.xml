@@ -73,6 +73,12 @@
       <include method="setToll"/>
     </create>
     
+    <create creator="spring" javascript="ProfileAgent">
+	<param name="beanName" value="profileAgent"/>
+	<include method="getUserInfo"/>
+	<include method="setUserInfo"/>
+    </create>
+    
   </allow>
 
 

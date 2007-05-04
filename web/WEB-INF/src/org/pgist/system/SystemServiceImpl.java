@@ -108,25 +108,61 @@ public class SystemServiceImpl implements SystemService {
     }//logRequest()
 
 
-    public void editCurrentUser(String cpassword, String password, String email) throws Exception {
+    public void editCurrentUser(String address1, String address2, String state, String homeCity, String homeZipcode, String workCity, String workZipcode, String vocation, String primaryTransport, String profileDesc) throws Exception {
         User user = userDAO.getUserById(WebUtils.currentUserId(), true, false);
         
-        if (!user.checkPassword(cpassword)) throw new Exception("Current Password is Incorrect." + cpassword);
-        
-        //if password field left blank then don't update password
-        if (password!=null || !("".equals(password))) {
-            user.setPassword(password);
-            user.encodePassword();
+        user.setHomeAddr(address1);
+        user.setState(state);
+        user.setCity(homeCity);
+        user.setZipcode(homeZipcode);
+
+        if(!("".equals(address2.trim()))) {
+        	user.setHomeAddr(address2);
         }
-        
-        //if email field left blank then don't update email
-        if (email!=null && !"".equals(email)) {
-            user.setEmail(email);
+        if(!("".equals(workCity.trim()))) {
+        	user.setWorkCity(workCity);
         }
-        
-        userDAO.save(user);
+        if(!("".equals(workZipcode.trim()))) {
+        	user.setWorkZipcode(workZipcode);
+        }
+        if(!("".equals(vocation.trim()))) {
+        	user.setVocation(vocation);
+        }
+        if(!("".equals(primaryTransport.trim()))) {
+        	user.setPrimaryTransport(primaryTransport);
+        }
+        if(!("".equals(profileDesc.trim()))) {
+        	user.setProfileDesc(profileDesc);
+        }
+
+        userDAO.updateProfile(user);
     }//editCurrentUser()
 
+    
+    public boolean editUserSettings(String cpassword, String password1, String email, boolean emailNotify, boolean emailNotifyDisc) throws Exception {
+    	User user = userDAO.getUserById(WebUtils.currentUserId(), true, false);
+    	
+    	if((cpassword==null || "".equals(cpassword)) && (password1==null || "".equals(password1))) {
+    		user.setEmail(email);
+        	user.setEmailNotify(emailNotify);
+        	user.setEmailNotifyDisc(emailNotifyDisc);
+        	userDAO.save(user);
+        	return true;
+    	} else {
+	    	if (!user.checkPassword(cpassword)) {
+	    		return false;
+	    	}
+	    	
+	    	user.setPassword(password1);
+	    	user.setEmail(email);
+        	user.setEmailNotify(emailNotify);
+        	user.setEmailNotifyDisc(emailNotifyDisc);
+        	
+	    	userDAO.save(user);
+	    	return true;
+    	}
+    }
+    
     
     public Collection getAllUsers() throws Exception {    	
     	

@@ -1,36 +1,13 @@
 package org.pgist.system;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.List;
 import java.util.Iterator;
 import java.util.SortedSet;
 
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServletRequest;
-
-import org.hibernate.Query;
-import org.pgist.criteria.Criteria;
-import org.pgist.funding.FundingSource;
 import org.pgist.funding.UserCommute;
-import org.pgist.funding.UserTaxInfoDTO;
 import org.pgist.funding.UserFundingSourceToll;
 import org.pgist.users.User;
-import org.pgist.users.Vehicle;
 import org.pgist.users.Role;
-import org.pgist.system.SystemService;
-import org.pgist.util.PageSetting;
-import org.pgist.util.WebUtils;
-import org.pgist.web.DelegatingHttpServletRequestWrapper;
-
 
 
 /**
@@ -50,11 +27,10 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     	u.setFirstname(firstname);
     	u.setLastname(lastname);
     	u.setEmail(email1);
+    	u.setHomeAddr(address1);
     	if(address2.length()>0) {
-    	u.setHomeAddr(address1 + ", " + address2);
-    	} else {
-    		u.setHomeAddr(address1);
-    	}
+    		u.setHomeAddr2(address2);
+    	} 
     	u.setCity(city);
     	u.setState(state);
     	u.setZipcode(zipcode);
@@ -149,6 +125,8 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 		user.setCarpoolPeople(carpoolpeople);
 		user.setBusDays(bus);
 		user.setBikeDays(bike);
+		user.setEnabled(true);
+		save(user);
 	}
 	
 	

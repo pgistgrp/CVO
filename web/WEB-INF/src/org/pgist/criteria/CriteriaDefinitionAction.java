@@ -48,7 +48,7 @@ public class CriteriaDefinitionAction extends Action {
         	Collection criterias = criteriaService.getCriterias();
         	
             String strSuiteId = request.getParameter("suiteId");
-            Long suiteId = new Long(strSuiteId);
+            Long suiteId = Long.parseLong(strSuiteId);
             CriteriaSuite cs = criteriaService.getCriteriaSuiteById(suiteId);
             
             

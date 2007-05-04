@@ -38,7 +38,7 @@ public class CriteriaWeighAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-    	 String strSuiteId = request.getParameter("suiteid");
+    	 String strSuiteId = request.getParameter("suiteId");
     	 Long suiteId = new Long(strSuiteId);
 
         

@@ -46,6 +46,7 @@
                 /login.do,
                 /register.do,
                 /registercomplete.do,
+                /publicprofile.do,
                 /lmAbout.do,
                 /lmGallery.do,
                 /lmFaq.do,

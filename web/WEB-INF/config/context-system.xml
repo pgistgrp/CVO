@@ -85,7 +85,6 @@
         <property name="target">
             <bean class="org.pgist.system.RegisterServiceImpl">
                 <property name="registerDAO" ref="registerDAO"/>
-                <property name="userDAO" ref="userDAO"/>
                 <property name="systemService" ref="systemService"/>
             </bean>
         </property>
@@ -97,6 +96,27 @@
         <property name="fundingService" ref="fundingService"/>
     </bean>
 
+
+    <bean id="profileDAO" class="org.pgist.system.ProfileDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
+    <bean id="profileService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.system.ProfileServiceImpl">
+                <property name="profileDAO" ref="profileDAO"/>
+                <property name="systemService" ref="systemService"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="profileAgent" class="org.pgist.system.ProfileAgent">
+        <property name="profileService" ref="profileService"/>
+    </bean>
 
 </beans>
 

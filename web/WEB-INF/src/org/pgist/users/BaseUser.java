@@ -56,9 +56,21 @@ public class BaseUser implements Serializable {
     
     /**
      * <span style="color:blue;">(Column.)</span>
+     * Home Address 2. The second line of the home address.
+     */
+    protected String homeAddr2 = "";
+    
+    /**
+     * <span style="color:blue;">(Column.)</span>
      * City. The city name of a user's home.
      */
     protected String city = "";
+    
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * Work City. The city name of a user's work location.
+     */
+    protected String workCity = "";
     
     /**
      * <span style="color:blue;">(Column.)</span>
@@ -105,6 +117,20 @@ public class BaseUser implements Serializable {
      */
     protected String incomeRange = "";
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * Profile Description. User's personal profile description:
+     */
+    protected String profileDesc = "";
+    
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * Vocation. The users Job title:
+     */
+    protected String vocation = "";
+    
+  
+
     
     /**
      * @return
@@ -199,6 +225,20 @@ public class BaseUser implements Serializable {
      * @return
      * @hibernate.property
      */
+    public String getHomeAddr2() {
+        return homeAddr2;
+    }
+
+
+    public void setHomeAddr2(String homeAddr2) {
+        this.homeAddr2 = homeAddr2;
+    }
+    
+    
+    /**
+     * @return
+     * @hibernate.property
+     */
     public String getCity() {
         return city;
     }
@@ -209,6 +249,20 @@ public class BaseUser implements Serializable {
     }
 
 
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public String getWorkCity() {
+        return workCity;
+    }
+
+
+    public void setWorkCity(String workCity) {
+        this.workCity = workCity;
+    }
+    
+    
     /**
      * @return
      * @hibernate.property
@@ -303,6 +357,37 @@ public class BaseUser implements Serializable {
     public void setIncomeRange(String incomeRange) {
         this.incomeRange = incomeRange;
     }
+    
+    
+    /**
+     * @return
+     * @hibernate.property unique="false" not-null="false"
+     */
+    public String getProfileDesc() {
+        return profileDesc;
+    }
 
 
+    public void setProfileDesc(String profileDesc) {
+        this.profileDesc = profileDesc;
+    }
+
+    
+    /**
+     * @return
+     * @hibernate.property unique="false" not-null="false"
+     */
+    public String getVocation() {
+        return vocation;
+    }
+
+
+    public void setVocation(String vocation) {
+        this.vocation = vocation;
+    }
+    
+
+
+    
+    
 }//class BaseUser

@@ -78,22 +78,7 @@
     
     <pmethods>
     
-	<pmethod name="pmethod-cvo" description="Concern Value Object">
-	            <declaration>
-	                <outs>
-	                    <var name="pmethod.cct_id"/>
-	                </outs>
-	            </declaration>
-	            <sequence>
-	                <pgame name="pgame-create.cct">
-	                    <declaration>
-	                        <outs>
-	                            <var name="cct_id" ref="pmethod.cct_id"/>
-	                        </outs>
-	                    </declaration>
-	                </pgame>
-	            </sequence>
-        </pmethod>
+
         
         <pmethod name="pmethod-init.criteria" description="Initialize Criteria">
             <declaration>
@@ -113,7 +98,8 @@
 				</outs>
 			    </declaration>
 			</pgame>
-			
+			<branch>
+			<sequence>
 			<pgame name="pgame-define.criteria">
 			    <declaration>
 			        <ins>
@@ -121,7 +107,8 @@
 			        </ins>
 			    </declaration>
                       	</pgame>
-                      	
+                      	</sequence>
+                      	<sequence>
                       	<pgame name="pgame-create.cct">
 			    <declaration>
 				<outs>
@@ -129,7 +116,6 @@
 				</outs>
 			    </declaration>
                       	</pgame>
-                      	
 			<pgame name="pgame-publish.criteria">
 			    <declaration>
 			        <ins>
@@ -141,7 +127,6 @@
 				</outs>
 			    </declaration>
                       	</pgame>
-                      	
 			<pgame name="pgame-sd.criteria">
 			    <declaration>
 				<ins>
@@ -149,7 +134,8 @@
 				</ins>
 			    </declaration>
                         </pgame>
-                        
+                        </sequence>
+                      	<sequence>
 			<pgame name="pgame-weigh.criteria">
 			    <declaration>
 				<ins>
@@ -157,6 +143,9 @@
 				</ins>
 			    </declaration>
                         </pgame>
+                        </sequence>
+                      	
+                        </branch>
             </sequence>
         </pmethod>
         
@@ -174,21 +163,12 @@
                 </outs>
             </declaration>
             <sequence>
-                <pmethod name="pmethod-cvo">
-                    <declaration>
-                        <outs>
-                            <var name="pmethod.cct_id" ref="meeting.cct_id"/>
-                        </outs>
-                    </declaration>
-                </pmethod>
                 <pmethod name="pmethod-init.criteria">
                     <declaration>
-                        <ins>
-			    <var name="pmethod.cct_id"/>
-            		</ins>
                         <outs>
                             <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
                             <var name="pmethod.crit_isid" ref="meeting.crit_isid"/>
+                            <var name="pmethod.cct_id" ref="meeting.cct_id"/>
                         </outs>
                     </declaration>
                 </pmethod>

@@ -1,24 +1,13 @@
 package org.pgist.system;
 
 import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import org.pgist.exceptions.UserExistException;
-import org.pgist.users.BaseUser;
-import org.pgist.users.Role;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
-import org.pgist.users.Vehicle;
-import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
-import org.pgist.web.DelegatingHttpServletRequestWrapper;
 import org.pgist.system.SystemService;
-import org.pgist.funding.FundingSource;
+
 
 /**
  * 
@@ -28,8 +17,6 @@ import org.pgist.funding.FundingSource;
 public class RegisterServiceImpl implements RegisterService {
 
 	private RegisterDAO registerDAO;
-    
-    private UserDAO userDAO;
     
     private SystemService systemService;
 
@@ -42,11 +29,6 @@ public class RegisterServiceImpl implements RegisterService {
 	public void setSystemService(SystemService systemService) {
 		this.systemService = systemService;
 	}
-
-
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
     
     
     public Long addUser(String firstname, String lastname, String email1,  String address1, String address2, String city, String state, String zipcode, String username, String password1) throws Exception {

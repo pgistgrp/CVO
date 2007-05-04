@@ -21,6 +21,11 @@
     </bean>
     
     
+    <bean name="/profileedit" class="org.pgist.system.ProfileAction">
+         <property name="systemService" ref="systemService"/>
+    </bean>
+ 
+    
     <bean name="/usermgr" class="org.pgist.system.UsermgrAction">
         <property name="systemService" ref="systemService"/>
     </bean>
@@ -50,6 +55,11 @@
                 <property name="systemService" ref="systemService"/>
     </bean>
     
+    
+    <bean name="/confirmation" class="org.pgist.system.ConfirmationAction">
+    </bean>
+    
+    
     <bean name="/feedback" class="org.pgist.system.FeedbackAction">
         <property name="systemService" ref="systemService"/>
     </bean>
@@ -74,6 +84,12 @@
     
     <bean name="/lmTutorial2" class="org.pgist.lm.LmTutorial2Action">
     </bean>
+    
+    <bean name="/publicprofile" class="org.pgist.system.UserProfileAction">
+    	<property name="systemService" ref="systemService"/>
+    	<property name="profileService" ref="profileService"/>
+    </bean>
+    
     
     <bean name="/cctlist" class="org.pgist.cvo.CCTListAction">
         <property name="cctService" ref="cctService"/>

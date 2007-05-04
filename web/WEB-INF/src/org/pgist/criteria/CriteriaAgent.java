@@ -392,7 +392,7 @@ public class CriteriaAgent {
         String strCritSuiteId = (String) params.get("critSuiteId");
         
         if(strCritSuiteId==null || "".equals(strCritSuiteId.trim())){
-        	map.put("reason", "strCritSuiteId cannot be null.");
+        	map.put("reason", "critSuiteId cannot be null.");
     		return map;	
         }
         

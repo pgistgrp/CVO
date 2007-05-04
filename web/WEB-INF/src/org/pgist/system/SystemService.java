@@ -39,9 +39,12 @@ public interface SystemService {
     void logRequest(DelegatingHttpServletRequestWrapper request) throws Exception;
 
 
-    void editCurrentUser(String cpassword, String password, String email) throws Exception;
+    void editCurrentUser(String address1, String address2, String state, String homeCity, String homeZipcode, String workCity, String workZipcode, String vocation, String primaryTransport, String profileDesc) throws Exception;
 
-
+    
+    boolean editUserSettings(String cpassword, String password1, String email, boolean emailNotify, boolean emailNotifyDisc) throws Exception;
+    
+    
     Collection getAllUsers() throws Exception;
     
     
