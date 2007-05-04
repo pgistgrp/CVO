@@ -367,26 +367,38 @@ public class PackageServiceImpl implements PackageService {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#formPackageFundingDTOs(org.pgist.packages.ClusteredPackage)
 	 */
-	public SortedSet<FundingSourceDTO> formPackageFundingDTOs(ClusteredPackage pack) {
+	public SortedSet<FundingSourceDTO> formPackageFundingDTOs(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
+		this.calcUserValues(cPackage, user, fundSuiteId);
 		SortedSet<FundingSourceDTO> result = new TreeSet<FundingSourceDTO>();
+		//TODO fill this out
 		return result;
 	}
 
 
 	/* (non-Javadoc)
-	 * @see org.pgist.packages.PackageService#formPackageProjectDTOs(org.pgist.packages.ClusteredPackage)
+	 * @see org.pgist.packages.PackageService#formPackageRoadProjectDTOs(org.pgist.packages.ClusteredPackage)
 	 */
-	public SortedSet<ProjectDTO> formPackageProjectDTOs(ClusteredPackage pack) {
+	public SortedSet<ProjectDTO> formPackageRoadProjectDTOs(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
+		this.calcUserValues(cPackage, user, fundSuiteId);
 		SortedSet<ProjectDTO> result = new TreeSet<ProjectDTO>();
+		//TODO fill this out
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.pgist.packages.PackageService#formPackageTransitProjectDTOs(org.pgist.packages.ClusteredPackage)
+	 */
+	public SortedSet<ProjectDTO> formPackageTransitProjectDTOs(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
+		this.calcUserValues(cPackage, user, fundSuiteId);
+		SortedSet<ProjectDTO> result = new TreeSet<ProjectDTO>();
+		//TODO fill this out
+		return result;
+	}
 
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#gradeMyPackage(org.pgist.packages.ClusteredPackage, long)
 	 */
 	public void gradeMyPackage(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
-System.out.println("MATT--------------- Grading my package");
 		this.calcUserValues(cPackage, user, fundSuiteId);
 		
 		Random rand = new Random(System.currentTimeMillis());

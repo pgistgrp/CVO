@@ -47,11 +47,11 @@ public interface PackageService {
 
 	ClusteredPackage getClusteredPackage(Long pkgId) throws Exception;
 
-	public void gradeMyPackage(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception;
+	SortedSet<ProjectDTO> formPackageRoadProjectDTOs(ClusteredPackage pack, User user, long critSuiteId, long fundSuiteId) throws Exception; 
 
-	SortedSet<ProjectDTO> formPackageProjectDTOs(ClusteredPackage pack); 
+	SortedSet<ProjectDTO> formPackageTransitProjectDTOs(ClusteredPackage pack, User user, long critSuiteId, long fundSuiteId) throws Exception; 
 
-	SortedSet<FundingSourceDTO> formPackageFundingDTOs(ClusteredPackage pack); 
+	SortedSet<FundingSourceDTO> formPackageFundingDTOs(ClusteredPackage pack, User user, long critSuiteId, long fundSuiteId) throws Exception; 
     
     
 }//interface PackageService

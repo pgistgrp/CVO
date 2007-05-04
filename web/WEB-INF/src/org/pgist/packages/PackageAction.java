@@ -79,11 +79,11 @@ public class PackageAction extends Action {
 		ClusteredPackage uPack = this.packageService.getClusteredPackage(pkgId);   
 		//Grade it
     	User user = this.packageService.getUser(WebUtils.currentUser());		
-		this.packageService.gradeMyPackage(uPack, user, critSuite, fundSuite);
 		
 		request.setAttribute("package", uPack);    		
-		request.setAttribute("packageProjects", this.packageService.formPackageProjectDTOs(uPack));
-		request.setAttribute("packageFunding", this.packageService.formPackageFundingDTOs(uPack));
+		request.setAttribute("packageRoadProjects", this.packageService.formPackageRoadProjectDTOs(uPack, user, critSuite, fundSuite));
+		request.setAttribute("packageTransitProjects", this.packageService.formPackageTransitProjectDTOs(uPack, user, critSuite, fundSuite));
+		request.setAttribute("packageFunding", this.packageService.formPackageFundingDTOs(uPack, user, critSuite, fundSuite));
     	
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
