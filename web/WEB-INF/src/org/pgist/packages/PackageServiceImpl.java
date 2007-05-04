@@ -473,7 +473,7 @@ public class PackageServiceImpl implements PackageService {
     }//createPackageSuite()
     
     
-    public InfoStructure publish(Long cctId, Long suiteId) throws Exception {
+    public InfoStructure publish(Long cctId, Long suiteId, String title) throws Exception {
         CCT cct = cctDAO.getCCTById(cctId);
         
         PackageSuite suite = packageDAO.getPackageSuite(suiteId);
@@ -482,7 +482,7 @@ public class PackageServiceImpl implements PackageService {
         
         InfoStructure structure = new InfoStructure();
         structure.setType("sdpkg");
-        structure.setTitle("Step 4a: Review Packages");
+        structure.setTitle(title);
         structure.setRespTime(date);
         structure.setCctId(cct.getId());
         discussionDAO.save(structure);

@@ -40,7 +40,9 @@ public class PublishCriteriaTask implements WorkflowTask {
         
         Long cctId = new Long(inouts.getIntValue(IN_CCT_ID));
         
-        InfoStructure structure = criteriaService.publish(cctId, suiteId);
+        String title = inouts.getProperty("title");
+        
+        InfoStructure structure = criteriaService.publish(cctId, suiteId, title);
         
         inouts.setIntValue(OUT_ISID, structure.getId().intValue());
     }//execute()

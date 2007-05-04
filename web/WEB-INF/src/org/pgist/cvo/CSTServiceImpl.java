@@ -578,14 +578,14 @@ public class CSTServiceImpl implements CSTService {
      */
     
     
-    public InfoStructure publish(Long cctId) throws Exception {
+    public InfoStructure publish(Long cctId, String title) throws Exception {
         CCT cct = cctDAO.getCCTById(cctId);
         
         Date date = new Date();
         
         InfoStructure structure = new InfoStructure();
         structure.setType("sdc");
-        structure.setTitle("Step 1b: Review Summaries");
+        structure.setTitle(title);
         structure.setRespTime(date);
         structure.setCctId(cctId);
         discussionDAO.save(structure);

@@ -156,6 +156,9 @@
                 <outs>
                     <var name="is_id"/>
                 </outs>
+                <props>
+                    <property name="title" value="Step 1b: Review Projects" />
+                </props>
             </declaration>
         </pgame>
         
@@ -179,6 +182,9 @@
                 <outs>
                     <var name="is_id"/>
                 </outs>
+                <props>
+                    <property name="title" value="Step 1b: Review Funding Sources" />
+                </props>
             </declaration>
         </pgame>
         
@@ -199,6 +205,32 @@
                     <var name="suite_id"/>
                 </outs>
             </declaration>
+        </pgame>
+        
+        <pgame name="pgame-publish.packages" description="Publish Packages." auto="true">
+            <taskName>task-publish.packages</taskName>
+            <declaration>
+                <ins>
+                    <var name="cct_id"/>
+                    <var name="suite_id"/>
+                </ins>
+                <outs>
+                    <var name="is_id"/>
+                </outs>
+                <props>
+                    <property name="title" value="Step 4b: Review Packages" />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sd.packages" description="Review Fundings." auto="false" access="all">
+            <actionName>action-sd.packages</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                </ins>
+            </declaration>
+            <timer extension="60000"/>
         </pgame>
         
     </pgames>

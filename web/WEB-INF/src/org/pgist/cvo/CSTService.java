@@ -60,7 +60,7 @@ public interface CSTService {
      * @return
      * @throws Exception
      */
-    InfoStructure publish(Long cctId) throws Exception;
+    InfoStructure publish(Long cctId, String title) throws Exception;
 
     
 }//interface CSTService

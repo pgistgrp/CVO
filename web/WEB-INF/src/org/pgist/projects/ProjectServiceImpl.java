@@ -527,7 +527,7 @@ System.out.println("Matt 1");
     }//createProjectSuite()
     
     
-    public InfoStructure publish(Long cctId, Long suiteId) throws Exception {
+    public InfoStructure publish(Long cctId, Long suiteId, String title) throws Exception {
         CCT cct = cctDAO.getCCTById(cctId);
         
         ProjectSuite suite = projectDAO.getProjectSuite(suiteId);
@@ -536,7 +536,7 @@ System.out.println("Matt 1");
         
         InfoStructure structure = new InfoStructure();
         structure.setType("sdcrit");
-        structure.setTitle("Step 2b: Review Criteria");
+        structure.setTitle(title);
         structure.setRespTime(date);
         structure.setCctId(cct.getId());
         discussionDAO.save(structure);
