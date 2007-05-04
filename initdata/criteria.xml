@@ -98,8 +98,7 @@
 				</outs>
 			    </declaration>
 			</pgame>
-			<branch>
-			<sequence>
+			
 			<pgame name="pgame-define.criteria">
 			    <declaration>
 			        <ins>
@@ -107,45 +106,43 @@
 			        </ins>
 			    </declaration>
                       	</pgame>
-                      	</sequence>
-                      	<sequence>
-                      	<pgame name="pgame-create.cct">
+
+			<pgame name="pgame-create.cct">
 			    <declaration>
 				<outs>
 				    <var name="cct_id" ref="pmethod.cct_id"/>
 				</outs>
 			    </declaration>
-                      	</pgame>
+			</pgame>
+			
 			<pgame name="pgame-publish.criteria">
 			    <declaration>
-			        <ins>
-			            <var name="suite_id" ref="pmethod.crit_suite_id"/>
-			            <var name="cct_id" ref="pmethod.cct_id"/>
-			        </ins>
-			        <outs>
+				<ins>
+				    <var name="suite_id" ref="pmethod.crit_suite_id"/>
+				    <var name="cct_id" ref="pmethod.cct_id"/>
+				</ins>
+				<outs>
 				    <var name="is_id" ref="pmethod.crit_isid"/>
 				</outs>
 			    </declaration>
-                      	</pgame>
+			</pgame>
+			
 			<pgame name="pgame-sd.criteria">
 			    <declaration>
 				<ins>
 				    <var name="isid" ref="pmethod.crit_isid"/>
 				</ins>
 			    </declaration>
-                        </pgame>
-                        </sequence>
-                      	<sequence>
+			</pgame>
+
 			<pgame name="pgame-weigh.criteria">
 			    <declaration>
 				<ins>
 				    <var name="suiteId" ref="pmethod.crit_suite_id"/>
 				</ins>
 			    </declaration>
-                        </pgame>
-                        </sequence>
-                      	
-                        </branch>
+			</pgame>
+
             </sequence>
         </pmethod>
         
