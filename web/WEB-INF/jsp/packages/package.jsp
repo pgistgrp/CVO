@@ -28,6 +28,9 @@
 	<script src="scripts/prototype.js" type="text/javascript"></script>
 	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 	</head>
+	<script type="text/javascript" charset="utf-8">
+
+	</script>
 	<body>
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
@@ -93,15 +96,17 @@
 						</tr>
 						<!-- begin Funding Source -->
 						<c:set var="prevSource"value=""/>
+
+						
 						<c:forEach var="altRef" items="${package.fundAltRefs}" varStatus="loop">
 								<c:if test="${altRef.sourceRef.source.name != prevSource}">
 									<tr class="fundingType">
-										<td class="fundingSourceItem">${altRef.sourceRef.source.name} ****${prevSource}</td>
+										<td class="fundingSourceItem">${altRef.sourceRef.source.name}</td>
 										<td colspan="3">&nbsp;</td>
 									</tr>
 								</c:if>
 
-							
+								<c:set var="prevSource" value="${altRef.sourceRef.source.name}"/>
 
 								<!-- end PROJECT -->
 								<!-- begin HIDDEN ROW of OPTIONS -->
@@ -109,22 +114,19 @@
 								<tr class="objectives" id="objective1">
 									<td colspan="4">
 										<table>
-											<c:forEach var="altRef" items="${package.fundAltRefs}" varStatus="loop">
-												
-												<tr>
-													<td class="col1">${altRef.alternative.name}</td>
-													<td class="col2"><fmt:formatNumber type="currency">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
-													<td class="col3"><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
-													<td class="col4"><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
-												</tr>
-											</c:forEach>
+											<tr>
+												<td class="col1">${altRef.alternative.name}</td>
+												<td class="col2"><fmt:formatNumber type="currency">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
+												<td class="col3"><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
+												<td class="col4"><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
+											</tr>
 										</table>
 									</td>
 								</tr>
 								<!-- end HIDDEN ROW -->
-								<c:set var="pvSource" value="${altRef.sourceRef.source.name}"/>
-								****${pvSource}
+	
 						</c:forEach>
+
 					</table>
 				</div>
 				<div id="bottom" class="box11">
