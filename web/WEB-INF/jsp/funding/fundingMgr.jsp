@@ -228,10 +228,10 @@
 			<div>\
 			<p style="float:left;margin-right:20px;"><label>Funding Source Alternative Name</label><br />\
 			<input id="txtAltName'+ altId +'" type="text" value="'+ name +'" style="width:312px;"></p>\
-			<p style="float:left;margin-right:20px;"><label>Revenue</label><br />\
+			<p style="float:left;margin-right:20px;"><label>Revenue (in millions)</label><br />\
 			$ <input id="txtAltRevenue'+ altId +'" type="text" value="'+ revenue +'" style="width:150px;"></p>\
 			<p style="float:left;"><label>Tax Rate</label><br />\
-			$ <input id="txtAltTaxRate'+ altId +'" type="text" value="'+ taxRate +'" style="width:110px;"></p><br />\
+			<input id="txtAltTaxRate'+ altId +'" type="text" value="'+ taxRate +'" style="width:110px;"> %</p><br />\
 			<div style="clear:both">\
 			</div>\
 			<p style="float:left;margin-right:20px;"><label>Source URL</label><br />\

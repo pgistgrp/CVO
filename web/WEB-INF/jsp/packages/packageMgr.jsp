@@ -77,18 +77,22 @@ function createClusteredPackages(){
 function createClusteredPackage(){
 	var description = $F('packageDesc');
 	//alert("description: " + description)
-	PackageAgent.createClusteredPackage({suiteId:pkgSuiteId,description:description}, {
-		callback:function(data){
-			if (data.successful){
-				location.href="editClusteredPackage.do?pkgSuiteId="+pkgSuiteId+"&projSuiteId="+projSuiteId+"&fundSuiteId="+fundSuiteId+"&critSuiteId="+critSuiteId+"&pkgId="+data.pkgId;
-			}else{
-				alert(data.reason);
+	if(description.length > 0){
+		PackageAgent.createClusteredPackage({suiteId:pkgSuiteId,description:description}, {
+			callback:function(data){
+				if (data.successful){
+					location.href="editClusteredPackage.do?pkgSuiteId="+pkgSuiteId+"&projSuiteId="+projSuiteId+"&fundSuiteId="+fundSuiteId+"&critSuiteId="+critSuiteId+"&pkgId="+data.pkgId;
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("PackageAgent.createClusteredPackage( error:" + errorString + exception);
 			}
-		},
-		errorHandler:function(errorString, exception){ 
-		alert("PackageAgent.createClusteredPackage( error:" + errorString + exception);
-		}
-	});
+		});
+	}else{
+		alert("Please enter a description for your manual package.")
+	}
 }
 
 
@@ -195,11 +199,13 @@ td.col1 a {display:block;text-decoration:underline;}
 	<h3 class="clearBoth headerColor"><br />
 		Add Package Manually <small>(enter package description)</small></h3>
 	<div id="newPackage" style="width:100%" class="clearfix">
+		<form action="javascript:createClusteredPackage();">
 		<input type="text" name="packagedescription" 
 			style="width:100%;" id="packageDesc">
 		<p class="floatRight">
-			<input type="button" value="Add Package" class="padding5" onClick="createClusteredPackage()">
+			<input type="submit" value="Add Package" class="padding5">
 		</p>
+		</form>
 	</div>
 	</span>
 	<h3 class="headerColor clearBoth"><br />

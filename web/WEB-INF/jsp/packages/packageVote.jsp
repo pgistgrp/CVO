@@ -13,12 +13,14 @@
 	Description: Allow users to vote on packages.
 	Author(s): 
 	     Front End: Jordan Isip, Adam Hindman
-	     Back End: Zhong Wang
+	     Back End: Matt Paulin, Zhong Wang
 	Todo Items:
+		[x] Spec (Zhong) 
 		[x] Initial Skeleton Code (Jordan)
 		[x] Create Layout (Adam)
+		[x] JavaScript/JSTL/Integrate Layout (Jordan)
 		[ ] Add phase param from referring package- packageVote.jsp?phase=1 (Jordan)
-		[ ] JavaScript/JSTL (Jordan)
+		[ ] Backend form processing (Matt Paulin)
 		[ ] Test and Refine (Jordan)
 #### -->
 <html:html> 
@@ -89,7 +91,7 @@ background:#FFF1DC;
 <div id="header">
   <!-- Begin header -->
   <jsp:include page="/header.jsp" />
-  <p>[Load header from separate file]</p>
+
   <!-- End header -->
 </div>
 <!-- End header -->
@@ -138,19 +140,19 @@ background:#FFF1DC;
 		<!-- end voting headers -->
 		<form action="packageVote.do" method="POST">
 			<input type="hidden" name="activity" value="vote" />
-			<c:forEach var="vote" items="${packageVotes}" varStatus="loop">
+			<c:forEach var="clusteredPkg" items="${voteSuite.pkgSuite.clusteredPkgs}" varStatus="loop">
 			       <div class="VoteListRow row ${((loop.index % 2) == 0) ? 'even' : 'odd'}">
 			         <div class="voteCol1 floatLeft">
-			           <div class="floatLeft"><a href="package.do?id=${vote.clusteredPackage.id}">Package ${vote.clusteredPackage.id}</a></div>
+			           <div class="floatLeft"><a href="package.do?id=${clusteredPkg.id}">Package ${clusteredPkg.id}</a></div>
 			         </div>
-			         <div class="voteCol2 floatLeft"><input name="pkg-${vote.id}" value="1" type="radio" /></div>
-			         <div class="voteCol3 floatLeft"><input name="pkg-${vote.id}" value="2" type="radio" /></div>
-			         <div class="voteCol4 floatLeft"><input name="pkg-${vote.id}" value="3" type="radio" /></div>
+			         <div class="voteCol2 floatLeft"><input name="pkg-${clusteredPkg.id}" value="1" type="radio" /></div>
+			         <div class="voteCol3 floatLeft"><input name="pkg-${clusteredPkg.id}" value="2" type="radio" /></div>
+			         <div class="voteCol4 floatLeft"><input name="pkg-${clusteredPkg.id}" value="3" type="radio" /></div>
 			         <div class="clearBoth"></div>
 			       </div>
 			</c:forEach>
 		</form>
-		<p class="floatRight"><input type="button" value="Reset form and start over" /> <input type="button" value="Submit answers" /></p>
+		<p class="floatRight"><input type="reset" value="Reset form and start over" /> <input type="button" value="Submit answers" /></p>
 	</div><!-- end one voting box -->
 	<div class="clearBoth"></div>	
     <!-- end obj-left -->

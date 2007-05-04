@@ -210,6 +210,23 @@
 				}
 			}
 			
+			function editPackageDescription(){
+				var description = $F('txtPkgDesc');
+				PackageAgent.editPackageDescription({pkgId:pkgId,description:description}, {
+					callback:function(data){
+						if (data.successful){
+							$('pkgDesc').innerHTML = "Package " + description;
+							new Effect.toggle('editDesc','blind',{duration:0.2});
+						}else{
+							alert(data.reason);
+						}
+					},
+					errorHandler:function(errorString, exception){ 
+					alert("PackageAgent.editPackageDescription( error:" + errorString + exception);
+					}
+				});
+			}
+			
 			
 			function finished() {
 				if(userPkg){
@@ -273,13 +290,22 @@
 				<!-- end TOP SUMMARY -->
 				<div class="clearBoth"></div>
 				<br />
+				<h3 id="pkgDesc" class="headerColor inline">Package ${(package.description == "") ? package.id : package.description}</h3>
 				<c:choose>
 					<c:when test="${userPkg.id != null}">
-						<h3>Select Projects to Include in your Package</h3>
 						<input type="button" class="helpMeButton" onClick="new Effect.toggle('helpMe', 'blind', {duration:0.3})" value="Help me create a package" />
 					</c:when>
 					<c:otherwise>
-						<h3>Select Projects to Include in "${package.description}"</h3>
+						[ <small><a href="javascript:new Effect.toggle('editDesc','blind',{duration:0.2});void(0);">Edit Package Description</a> ]</small>
+						</p>
+						<div id="editDesc" style="display:none" class="box12">
+							<h3>Editing Description</h3>
+							<form action="javascript:editPackageDescription();">
+								<input type="text" id="txtPkgDesc" style="width:250px" value="${package.description}" />
+								<input type="submit" value="Edit Description!" />
+							</form>
+						</div>
+						</p>
 					</c:otherwise>
 				</c:choose>
 
