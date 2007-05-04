@@ -34,10 +34,17 @@ var PGISTMapEditor = function(mapcontainer, width, height, enableEdit) {
 	this.map.enableContinuousZoom();
 	this.map.enableDoubleClickZoom();
 	this.map.mouseWheel = true;
-	this.map.setMapType(G_NORMAL_MAP);
 	
 	if(enableEdit){
+		this.map.setMapType(G_NORMAL_MAP);
 		this.map.addControl( new PGISTMapEditToolsControl() );
+			
+		if(saveFootprint)
+			this.saveHandler = saveFootprint;
+		else
+			this.saveHandler = null;
+	}else{
+		this.map.setMapType(G_SATELLITE_MAP);
 	}
 	
 	this.allowMultiplePoints = false;
@@ -59,11 +66,6 @@ var PGISTMapEditor = function(mapcontainer, width, height, enableEdit) {
 	this.editicon.iconAnchor = new GPoint(8,8);
 	this.editicon.shadow = "";
 	this.editicon.infoWindowAnchor = new GPoint(8,8);
-	
-	if(saveFootprint)
-		this.saveHandler = saveFootprint;
-	else
-		this.saveHandler = null;
 	
 	mapcontainer.appendChild(this._mapdiv);
 	this._container = mapcontainer;
