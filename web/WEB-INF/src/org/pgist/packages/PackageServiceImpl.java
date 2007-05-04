@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaDAO;
@@ -43,6 +45,7 @@ import org.pgist.users.Vehicle;
 
 
 /**
+ * Implements all of the package service functionality
  * 
  * @author kenny
  *
@@ -360,16 +363,37 @@ public class PackageServiceImpl implements PackageService {
 	
 	
 	
+	
+	/* (non-Javadoc)
+	 * @see org.pgist.packages.PackageService#formPackageFundingDTOs(org.pgist.packages.ClusteredPackage)
+	 */
+	public SortedSet<FundingSourceDTO> formPackageFundingDTOs(ClusteredPackage pack) {
+		SortedSet<FundingSourceDTO> result = new TreeSet<FundingSourceDTO>();
+		return result;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see org.pgist.packages.PackageService#formPackageProjectDTOs(org.pgist.packages.ClusteredPackage)
+	 */
+	public SortedSet<ProjectDTO> formPackageProjectDTOs(ClusteredPackage pack) {
+		SortedSet<ProjectDTO> result = new TreeSet<ProjectDTO>();
+		return result;
+	}
+
+
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#gradeMyPackage(org.pgist.packages.ClusteredPackage, long)
 	 */
 	public void gradeMyPackage(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
+System.out.println("MATT--------------- Grading my package");
 		this.calcUserValues(cPackage, user, fundSuiteId);
 		
 		Random rand = new Random(System.currentTimeMillis());
 		
 		Iterator<ProjectAltRef> refs = cPackage.getProjAltRefs().iterator();
 		ProjectAltRef tempRef;
+		//TODO actually form a grade
 		while(refs.hasNext()) {
 			tempRef = refs.next();
 			cPackage.getProjGrades().put(tempRef.getId(), GradedCriteria.convertGrade(rand.nextFloat() * 100));

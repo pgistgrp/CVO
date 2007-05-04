@@ -1,5 +1,7 @@
 package org.pgist.packages;
 
+import java.util.SortedSet;
+
 import org.pgist.discussion.InfoStructure;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
@@ -45,7 +47,11 @@ public interface PackageService {
 
 	ClusteredPackage getClusteredPackage(Long pkgId) throws Exception;
 
-	public void gradeMyPackage(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception; 
+	public void gradeMyPackage(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception;
+
+	SortedSet<ProjectDTO> formPackageProjectDTOs(ClusteredPackage pack); 
+
+	SortedSet<FundingSourceDTO> formPackageFundingDTOs(ClusteredPackage pack); 
     
     
 }//interface PackageService

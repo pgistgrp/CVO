@@ -6,6 +6,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.funding.FundingService;
 import org.pgist.projects.ProjectService;
+import org.pgist.users.User;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -74,13 +76,14 @@ public class PackageAction extends Action {
 		Long fundSuite = new Long(tempFundSuiteId);
 		Long critSuite = new Long(tempCritSuiteId);    	
 
-		ClusteredPackage uPack = this.packageService.getClusteredPackage(pkgId);    			
+		ClusteredPackage uPack = this.packageService.getClusteredPackage(pkgId);   
+		//Grade it
+    	User user = this.packageService.getUser(WebUtils.currentUser());		
+		this.packageService.gradeMyPackage(uPack, user, critSuite, fundSuite);
+		
 		request.setAttribute("package", uPack);    		
-		request.setAttribute("projectRefs", projectService.getProjectSuite(projSuite).getReferences());
-		request.setAttribute("fundingRefs", fundingService.getFundingSuite(fundSuite).getReferences());
-		request.setAttribute("projSuiteId", projSuite);
-		request.setAttribute("fundSuiteId", fundSuite);
-		request.setAttribute("critSuiteId", critSuite);
+		request.setAttribute("packageProjects", this.packageService.formPackageProjectDTOs(uPack));
+		request.setAttribute("packageFunding", this.packageService.formPackageFundingDTOs(uPack));
     	
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
