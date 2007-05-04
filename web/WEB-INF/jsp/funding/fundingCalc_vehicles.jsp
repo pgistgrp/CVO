@@ -25,7 +25,7 @@
 		Approximate value <input name="value" id="vehicleValue${vehicle.id}" type="text" value="${vehicle.approxValue}" />
 		Miles driven per year <input name="mpy" id="vehicleMpy${vehicle.id}" type="text" value="${vehicle.milesPerYear}" />
 
-		<input type="submit" value="Update" /><small><a href="javascript:toggleEditField('vehicle',${vehicle.id});">Cancel</a></small>
+		<input type="submit" value="Update" /><small> <a href="javascript:toggleEditField('vehicle',${vehicle.id});">Cancel</a></small>
 		</form>
 	</div>
 </c:forEach>

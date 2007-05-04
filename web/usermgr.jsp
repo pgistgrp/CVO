@@ -70,7 +70,7 @@ function getAllUsers() {
 		callback:function(data){
 			if (data.successful){
 				$('userList').innerHTML = data.html;
-				
+				greyDisabled();
 			}else{
 				$('userList').innerHTML = "<b>Error in SystemAgent.getAllUsers Method: </b>" + data.reason; 
 			}
@@ -144,7 +144,6 @@ function getEmailList(mychoice) {
 		alert("SystemAgent.getEmailList( error:" + errorString + exception);
 		}
 	});
-
 }
 function quota(myid, mybool) {
 	SystemAgent.setQuota({id:myid, quota:mybool});
@@ -196,11 +195,13 @@ function addZipCodes(countyid, count) {
 }
 
 function greyDisabled() {
-	foo = document.getElementsByClassName('enabled');
+	foo = document.getElementsByClassName('disabled');
 	for (var i = 0;i<foo.length;i++){
-	 foo[i].parentNode.parentNode.style.color='#aaa';
+		foo[i].parentNode.parentNode.style.color='#999999';
+		foo[i].style.color="#7B7B7B";
 	}
 }
+
 </script>
 		</head>
 		<body>
@@ -274,6 +275,7 @@ function greyDisabled() {
 			<jsp:include page="/footer.jsp" />
 		</div>
 		<!-- End footer -->
+
 		</body>
 	</pg:show>
 </html:html>
