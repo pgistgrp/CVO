@@ -389,7 +389,7 @@ public class PackageServiceImpl implements PackageService {
 				sources.put(iSourceAlts.next().getId(), tempSource);
 			}
 		}
-		
+				
 		//Now loop through the alternatives in the package and create the dto
 		Iterator<FundingSourceAltRef> iSourceAltRefs = cPackage.fundAltRefs.iterator();
 		FundingSourceAltRef tempAltRef;
@@ -410,6 +410,8 @@ public class PackageServiceImpl implements PackageService {
 				//See if it has already been added to the result
 				if(result.contains(fsDTO)) {
 					fsDTO = result.get(result.indexOf(fsDTO));
+				} else {
+					result.add(fsDTO);
 				}
 				
 				//Add the new alternative
@@ -419,7 +421,6 @@ public class PackageServiceImpl implements PackageService {
 				fsDTO.sort();
 			}
 		}
-		
 		Collections.sort(result);
 		return result;
 	}
