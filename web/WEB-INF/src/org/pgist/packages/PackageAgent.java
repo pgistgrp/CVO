@@ -224,26 +224,7 @@ public class PackageAgent {
             
             PackageSuite pSuite = this.packageService.getPackageSuite(pkgSuiteId);
 
-            Set packages = new HashSet();
-            ClusteredPackage cp = new ClusteredPackage();
-            cp.setCreateDate(new Date());
-            cp.setTotalCost(1200f);
-            cp.setAvgResidentCost(40f);
-            
-            ClusteredPackage cp2 = new ClusteredPackage();
-            cp2.setCreateDate(new Date());
-            cp2.setTotalCost(121f);
-            cp2.setAvgResidentCost(42f);
-            
-            ClusteredPackage cp3 = new ClusteredPackage();
-            cp3.setCreateDate(new Date());
-            cp3.setTotalCost(99f);
-            cp3.setAvgResidentCost(19.95f);
-            
-            packages.add(cp);
-            packages.add(cp2);
-            packages.add(cp3);
-            
+            Set packages = pSuite.getClusteredPkgs();
             request.setAttribute("packages", packages);
 
             //request.setAttribute("packages", pSuite.getClusteredPkgs());

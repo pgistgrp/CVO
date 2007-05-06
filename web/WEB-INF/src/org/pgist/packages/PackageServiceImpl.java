@@ -5,9 +5,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaDAO;
@@ -427,7 +429,6 @@ public class PackageServiceImpl implements PackageService {
 	 * @see org.pgist.packages.PackageService#formPackageRoadProjectDTOs(org.pgist.packages.ClusteredPackage)
 	 */
 	public List<ProjectDTO> formPackageRoadProjectDTOs(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
-		this.calcUserValues(cPackage, user, fundSuiteId);
 		List<ProjectDTO> result = new ArrayList<ProjectDTO>();
 		//TODO fill this out
 		return result;
@@ -437,7 +438,6 @@ public class PackageServiceImpl implements PackageService {
 	 * @see org.pgist.packages.PackageService#formPackageTransitProjectDTOs(org.pgist.packages.ClusteredPackage)
 	 */
 	public List<ProjectDTO> formPackageTransitProjectDTOs(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
-		this.calcUserValues(cPackage, user, fundSuiteId);
 		List<ProjectDTO> result = new ArrayList<ProjectDTO>();
 		//TODO fill this out
 		return result;
@@ -656,8 +656,35 @@ public class PackageServiceImpl implements PackageService {
 	 * @see org.pgist.packages.PackageService#createClusteredPackages(java.lang.Long, int)
 	 */
 	public void createClusteredPackages(Long pkgSuiteId, int pkgCount) throws Exception {
-		// TODO Auto-generated method stub
-		
+        Set packages = new HashSet();
+        
+        PackageSuite pSuite = this.getPackageSuite(pkgSuiteId);
+
+        //Clean out old non manual clustered packages
+        Iterator<ClusteredPackage> iCPackages = pSuite.getClusteredPkgs().iterator();
+        
+        Set<ClusteredPackage> result = new HashSet<ClusteredPackage>();
+        ClusteredPackage cp;
+        while(iCPackages.hasNext()) {
+        	cp = iCPackages.next();
+        	if(cp.isManual()) {
+        		result.add(cp);
+        	}
+        }
+
+        for(int i = 0; i < pkgCount; i++) {
+            cp = new ClusteredPackage();
+            cp.setManual(false);
+            cp.setDescription("Auto Clustered Package " + i);
+            cp.setCreateDate(new Date());
+            cp.setTotalCost(1200f);
+            cp.setAvgResidentCost(40f * i);
+            result.add(cp);        	
+        }
+        
+        
+        pSuite.setClusteredPkgs(result);
+        packageDAO.save(pSuite);               
 	}
 
 	/* (non-Javadoc)
