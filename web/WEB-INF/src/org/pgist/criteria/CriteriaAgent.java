@@ -394,12 +394,20 @@ public class CriteriaAgent {
     		return map;	
         }
         
+        String strCritId = (String) params.get("critId");
+        
+        if(strCritId==null || "".equals(strCritId.trim())){
+        	map.put("reason", "strCritId cannot be null.");
+    		return map;	
+        }
+        
         Long critSuiteId = new Long(strCritSuiteId);
+        Long critId = new Long(strCritId);
         
         try {
-        	Set weights = criteriaService.getWeights(critSuiteId);
+        	int weight = criteriaService.getWeights(critSuiteId, critId);
             
-        	request.setAttribute("weights", weights);
+        	request.setAttribute("weight", weight);
             
         	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteriaAssoc_weights.jsp"));
             
@@ -677,5 +685,7 @@ public class CriteriaAgent {
         return map;
     }//setCriteriaWeight()
    
-       
+    
+    
+    
 }//class CriteriaAgent

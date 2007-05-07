@@ -133,8 +133,8 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getObjectives()
     
     
-    public Set getWeights(Long critSuiteId) throws Exception {
-    	return criteriaDAO.getWeights(critSuiteId);
+    public int getWeights(Long critSuiteId, Long critId) throws Exception {
+    	return criteriaDAO.getWeights(critSuiteId, critId);
     }//getWeights()
     
     
@@ -192,6 +192,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     
     
     public CriteriaSuite getCriteriaSuiteById(Long id) throws Exception {
+    	
     	return criteriaDAO.getCriteriaSuiteById(id);
     }//getCriteriaSuiteById()
     

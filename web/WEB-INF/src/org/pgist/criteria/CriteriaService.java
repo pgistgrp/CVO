@@ -55,7 +55,7 @@ public interface CriteriaService {
     Collection getObjectives() throws Exception;
     
     
-    Set getWeights(Long critSuiteId) throws Exception;
+    int getWeights(Long critSuiteId, Long critId) throws Exception;
     
     
     void publish(Long cctId) throws Exception;

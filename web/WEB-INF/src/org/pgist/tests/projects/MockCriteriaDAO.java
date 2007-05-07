@@ -77,9 +77,9 @@ public class MockCriteriaDAO implements CriteriaDAO {
 		return null;
 	}
 
-	public Set getWeights(CCT cct) throws Exception {
+	public int getWeights(Long critSuiteId, Long critId) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 	public void setWeight(CCT cct, Criteria criteria, int weight)

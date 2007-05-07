@@ -1,17 +1,15 @@
 package org.pgist.criteria;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import org.pgist.criteria.Objective;
-import org.pgist.cvo.CCT;
 import org.pgist.cvo.Theme;
 import org.pgist.system.BaseDAOImpl;
-import java.util.List;
+import org.pgist.users.User;
 import org.pgist.util.WebUtils;
 
 /**
@@ -217,20 +215,34 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     }//setUserWeight()
     
     
-    public Set getWeights(Long critSuiteId) throws Exception {
+    private static final String hql_getCriteriaRefByCriteria = "from CriteriaRef cr where criterion=?";
+    
+    public CriteriaRef getCriteriaRefByCriteria(Criteria criteria) throws Exception {
+    	
+    	List list = getHibernateTemplate().find(hql_getCriteriaRefByCriteria, new Object[] {
+    			criteria,
+        });
+    	
+    	Iterator it = list.iterator();
+    	CriteriaRef c = (CriteriaRef) it.next();
+    	return c;
+    }
+    
+    
+    public int getWeights(Long critSuiteId, Long critId) throws Exception {
+    	User user = (User) load(User.class, WebUtils.currentUserId());
+    	Criteria criteria = (Criteria) load(Criteria.class, critId);
+    	
+    	CriteriaRef cr = getCriteriaRefByCriteria(criteria);
+    	
     	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
-    	Set references = cs.getReferences();
-    	Map weightMap = cs.getWeights();
-    	Set weights = new HashSet();
     	
-    	Iterator ref = references.iterator();
-    	while(ref.hasNext()) {
-    		CriteriaRef cr = (CriteriaRef) ref.next();
-    		CriteriaUserWeight cuw = (CriteriaUserWeight) weightMap.get(cr);
-    		weights.add(cuw);
-    	}
-    	
-    	return weights;
+    	Map weights = cs.getWeights();
+    	CriteriaUserWeight cuw = (CriteriaUserWeight) weights.get(cr);
+    	Map userWeights = cuw.getWeights();
+    	Integer myWeight = (Integer) userWeights.get(user);
+    	int myCritWeight = (int) myWeight;
+    	return myCritWeight;
     }//getWeights();
     
     
