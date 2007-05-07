@@ -81,9 +81,9 @@ public class PackageAction extends Action {
     	User user = this.packageService.getUser(WebUtils.currentUser());		
 		
 		request.setAttribute("package", uPack);    		
-		request.setAttribute("packageRoadProjects", this.packageService.formPackageRoadProjectDTOs(uPack, critSuite, projSuite));
-		request.setAttribute("packageTransitProjects", this.packageService.formPackageTransitProjectDTOs(uPack, critSuite, projSuite));
-		request.setAttribute("packageFunding", this.packageService.formPackageFundingDTOs(uPack, user, fundSuite));
+		request.setAttribute("packageRoadProjects", this.packageService.createPackageRoadProjectDTOs(uPack, critSuite, projSuite));
+		request.setAttribute("packageTransitProjects", this.packageService.createPackageTransitProjectDTOs(uPack, critSuite, projSuite));
+		request.setAttribute("packageFunding", this.packageService.createPackageFundingDTOs(uPack, user, fundSuite));
     	
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

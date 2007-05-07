@@ -368,7 +368,7 @@ public class PackageServiceImpl implements PackageService {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#formPackageFundingDTOs(org.pgist.packages.ClusteredPackage)
 	 */
-	public List<FundingSourceDTO> formPackageFundingDTOs(ClusteredPackage cPackage, User user, long fundSuiteId) throws Exception {
+	public List<FundingSourceDTO> createPackageFundingDTOs(ClusteredPackage cPackage, User user, long fundSuiteId) throws Exception {
 		this.calcUserValues(cPackage, user, fundSuiteId);
 		List<FundingSourceDTO> result = new ArrayList<FundingSourceDTO>();
 
@@ -429,7 +429,7 @@ public class PackageServiceImpl implements PackageService {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#formPackageRoadProjectDTOs(org.pgist.packages.ClusteredPackage)
 	 */
-	public List<ProjectDTO> formPackageRoadProjectDTOs(ClusteredPackage cPackage, long critSuiteId, long projSuiteId) throws Exception {
+	public List<ProjectDTO> createPackageRoadProjectDTOs(ClusteredPackage cPackage, long critSuiteId, long projSuiteId) throws Exception {
 		List<ProjectDTO> result = new ArrayList<ProjectDTO>();
 		Random rand = new Random(System.currentTimeMillis());
 		
@@ -497,7 +497,7 @@ public class PackageServiceImpl implements PackageService {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#formPackageTransitProjectDTOs(org.pgist.packages.ClusteredPackage)
 	 */
-	public List<ProjectDTO> formPackageTransitProjectDTOs(ClusteredPackage cPackage, long critSuiteId, long projSuiteId) throws Exception {
+	public List<ProjectDTO> createPackageTransitProjectDTOs(ClusteredPackage cPackage, long critSuiteId, long projSuiteId) throws Exception {
 		List<ProjectDTO> result = new ArrayList<ProjectDTO>();
 		Random rand = new Random(System.currentTimeMillis());
 		
