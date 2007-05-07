@@ -97,7 +97,8 @@ function createClusteredPackage(){
 
 
 function getClusteredPackages(){
-	PackageAgent.getClusteredPackages({projSuiteId:projSuiteId,fundSuiteId:fundSuiteId,critSuiteId:critSuiteId}, {
+	//alert("ProjSuiteId: " + projSuiteId + " fundSuiteId: " + fundSuiteId + " critSuiteId: " + critSuiteId + " pkgSuiteId: " + pkgSuiteId)
+	PackageAgent.getClusteredPackages({pkgSuiteId:pkgSuiteId, projSuiteId:projSuiteId,fundSuiteId:fundSuiteId,critSuiteId:critSuiteId}, {
 		callback:function(data){
 			if (data.successful){
 				$('newtable').innerHTML= data.html;
