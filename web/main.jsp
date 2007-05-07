@@ -26,7 +26,13 @@
 	</script>
 	<event:pageunload />
 	</head>
-	<body onload="workflow.getWorkflows();">
+	<pg:show roles="participant">
+		<body>
+	</pg:show>
+	<pg:show roles="moderator">
+		<body onload="workflow.getWorkflows();">
+	</pg:show>
+
 	<!-- Begin the header - loaded from a separate file -->
 	<div id="header">
 		<!-- Begin header -->
