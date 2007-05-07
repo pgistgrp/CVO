@@ -97,7 +97,7 @@ function createClusteredPackage(){
 
 
 function getClusteredPackages(){
-	PackageAgent.getClusteredPackages({pkgSuiteId:pkgSuiteId}, {
+	PackageAgent.getClusteredPackages({projSuiteId:projSuiteId,fundSuiteId:fundSuiteId,critSuiteId:critSuiteId}, {
 		callback:function(data){
 			if (data.successful){
 				$('newtable').innerHTML= data.html;
