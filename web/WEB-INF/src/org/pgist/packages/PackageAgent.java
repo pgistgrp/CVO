@@ -220,13 +220,20 @@ public class PackageAgent {
         map.put("successful", false);
         
         try {
+            Long fundSuiteId = new Long((String) params.get("fundSuiteId"));
+            Long projSuiteId = new Long((String) params.get("projSuiteId"));
+            Long critSuiteId = new Long((String) params.get("critSuiteId"));        	
             Long pkgSuiteId = new Long((String) params.get("pkgSuiteId"));
             
             PackageSuite pSuite = this.packageService.getPackageSuite(pkgSuiteId);
 
             Set packages = pSuite.getClusteredPkgs();
             request.setAttribute("packages", packages);
-
+            request.setAttribute("pkgSuiteId", pkgSuiteId);
+            request.setAttribute("projSuiteId", projSuiteId);
+            request.setAttribute("fundSuiteId", fundSuiteId);
+            request.setAttribute("critSuiteId", critSuiteId);
+            
             //request.setAttribute("packages", pSuite.getClusteredPkgs());
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/packageMgr_packages.jsp"));            
             map.put("successful", true);
