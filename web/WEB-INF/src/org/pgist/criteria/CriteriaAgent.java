@@ -408,8 +408,7 @@ public class CriteriaAgent {
         	int weight = criteriaService.getWeights(critSuiteId, critId);
             
         	request.setAttribute("weight", weight);
-            
-        	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteriaAssoc_weights.jsp"));
+            map.put("weight", weight);
             
             map.put("successful", true);
         } catch (Exception e) {
