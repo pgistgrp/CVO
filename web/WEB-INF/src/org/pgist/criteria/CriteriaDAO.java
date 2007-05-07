@@ -52,7 +52,7 @@ public interface CriteriaDAO extends BaseDAO {
 	Collection getObjectives() throws Exception;
 	
 	
-	Map getWeights(Long critSuiteId) throws Exception;
+	Set getWeights(Long critSuiteId) throws Exception;
 	
 	
 	void setWeight(Long suiteId, Criteria criteria, int weight) throws Exception;

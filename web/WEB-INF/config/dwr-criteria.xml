@@ -37,6 +37,7 @@
 	<include method="deleteObjective"/>
 	<include method="setCriteriaWeight"/>
 	<include method="getWeights"/>
+	<include method="getCriteriaSuiteById"/>
     </create>
 
 

@@ -42,19 +42,18 @@
 		//GLOBAL VARS
 		selectedObjectives = [];
 		objectivesList = [];
-		cctId = "${cct.id}"
-		
+		cctId = <%=request.getParameter("cctId")%>;
+		critSuiteId = <%=request.getParameter("critSuiteId")%>;
 		//END GLOBAL VARS
 		window.onLoad = doOnLoad();
 		
 		function doOnLoad(){
-			getCriteria();
-			getThemes();
-			getObjectives();
+			
 		}
 		
 		/* *************** Grab All Criteria in the System - uses criteria.jsp *************** */
 		function getCriteria(){
+
 			CriteriaAgent.getAllCriterion({}, {
 				callback:function(data){
 					if (data.successful){
@@ -102,7 +101,7 @@
 			var checkedThemesStr = checkedThemes.toString();
 			
 			//alert("names: " + name + " description" + description + " themeIds: " + checkedThemesStr + " objectiveIds: " + checkedObjectivesStr);
-			CriteriaAgent.addCriterion({cctId:cctId,name:name,na:description,themeIds:checkedThemesStr,objectiveIds:checkedObjectivesStr}, {
+			CriteriaAgent.addCriterion({critSuiteId:critSuiteId,name:name,na:description,themeIds:checkedThemesStr,objectiveIds:checkedObjectivesStr}, {
 				callback:function(data){
 					if (data.successful){
 						//highlight newly created criterion
@@ -338,7 +337,7 @@
 					}
 				},
 				errorHandler:function(errorString, exception){ 
-				alert("CriteriaAgent.getThemes( error:" + errorString + exception);
+				alert("CriteriaAgent.getThemes( error:" + errorString + exception + " cctId:" + cctId);
 				}
 			});
 		}
@@ -690,6 +689,11 @@
 			<input type="button" value="Publish Planning Factors!" onClick="publish();" />
 			<!--end publishing options -->
 		</div>
+		<script type="text/javascript">
+			getCriteria();
+			getThemes();
+			getObjectives();
+		</script>
 	</body>
 </html:html>
 

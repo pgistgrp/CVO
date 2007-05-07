@@ -46,8 +46,7 @@
 				  callback:function(data){
 				    if(data.successful){
 				    	$('criteria').innerHTML = data.html;
-				    	addAllSliders();
-				    	
+				    	//getAllCriterion();
 						updateRemainingWeight();
 				    }else{
 						alert(data.reason);
@@ -60,15 +59,44 @@
 				  });
 			} 
 			
-			/* *************** Add All Criterion Sliders *************** */
-			function addAllSliders(){
-				<c:forEach var="criterion" items="${cct.criteria}" varStatus="loop">
-					addSlider('${criterion.id}',${loop.index});
-					sliderArray[${loop.index}].setValue((($('input${criterion.id}').value)));
+			function getCriteriaSuiteById(){
+				CriteriaAgent.getCriteriaSuiteById({critSuiteId:suiteId},{
+				  callback:function(data){
+				    if(data.successful){
+				    	$('criteria').innerHTML = data.html;
+				    }else{
+						alert(data.reason);
+					}
 					
+				  },
+				  errorHandler:function(errorString, exception){
+				        alert("getCriteriaSuiteById error:"+errorString+" "+exception);
+				  }
+				  });
+			} 
+			
+			
+			function getAllCriterion(){
+				CriteriaAgent.getAllCriterion({critSuiteId:suiteId},{
+				  callback:function(data){
+				    if(data.successful){
+				    	var criteria = data.criteria;
+						for(i=0;i<data.criteria.length;i++){
+							addSlider(data.criteria[i].id,i);
+						}
+				    }else{
+						alert(data.reason);
+					}
 					
-				</c:forEach>
-			}
+				  },
+				  errorHandler:function(errorString, exception){
+				        alert("getAllCriterion error:"+errorString+" "+exception);
+				  }
+				  });
+			} 
+			
+			
+
 			
 			function getMaxValue(except){
 				count=0;
@@ -407,7 +435,8 @@ position:fixed;
 				
 		<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 		<script type="text/javascript" charset="utf-8">
-			getWeights();
+			//getWeights();
+			getCriteriaSuiteById();
 		</script>
 		
 		<!-- start the bottom header menu -->
@@ -431,8 +460,6 @@ position:fixed;
 		<!-- Begin footer -->
 		<div id="footer"> </div>
 		<!-- End footer -->
-		<script type="text/javascript">
-		
-		</script>
+
 	</body>
 </html>

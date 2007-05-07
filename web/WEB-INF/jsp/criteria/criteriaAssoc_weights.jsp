@@ -20,28 +20,28 @@
 	  <div class="clearBoth"></div>
 	</div>
 	<!-- end criteria headers -->
-	
-<c:forEach var="criterion" items="${criteria}" varStatus="loop">
-	  <div id="criteria-${criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
+
+<c:forEach var="ref" items="${critSuite.references}" varStatus="loop">
+	  <div id="criteria-${ref.criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
 	    <div class="weighCriteriaCol1 floatLeft"><a href="#">
-	      <div class="floatLeft"><a href="javascript:expandList('objectives${criterion.id}','icon${criterion.id}');"> <img src="/images/plus.gif" id="icon${criterion.id}"></a></div>
-	      <div class="floatLeft"> ${criterion.name}</div>
+	      <div class="floatLeft"><a href="javascript:expandList('objectives${ref.criterion.id}','icon${ref.criterion.id}');"> <img src="/images/plus.gif" id="icon${ref.criterion.id}"></a></div>
+	      <div class="floatLeft"> ${ref.criterion.name}</div>
 	    </div>
-	    <div class="weighCriteriaCol2 floatLeft">${criterion.na}</div>
+	    <div class="weighCriteriaCol2 floatLeft">${ref.criterion.na}</div>
 	    <div class="weighCriteriaCol3 floatLeft">
 	    	<!-- start slider bar -->
 
-				<div id="track${criterion.id}" class="track" style="width:200px; height:9px;">
-					<div id="track${criterion.id}-left" class="track-left"></div><div id="handle${criterion.id}" style="cursor: col-resize; width:19px; height:20px;"><img src="images/slider-handle.png" alt="" style="float: left;"/></div>
+				<div id="track${ref.criterion.id}" class="track" style="width:200px; height:9px;">
+					<div id="track${ref.criterion.id}-left" class="track-left"></div><div id="handle${ref.criterion.id}" style="cursor: col-resize; width:19px; height:20px;"><img src="images/slider-handle.png" alt="" style="float: left;"/></div>
 			</div>
-				<input type="text" style="float:right;" tabIndex="${loop.index + 1}" size="3" maxlength="3" id="input${criterion.id}" onchange="manualSliderChange(${loop.index}, this.value)" value = 
+				<input type="text" style="float:right;" tabIndex="${loop.index + 1}" size="3" maxlength="3" id="input${ref.criterion.id}" onchange="manualSliderChange(${loop.index}, this.value)" value = 
 				<c:choose>
-					<c:when test="${criterion.object.weight == null}">
+					<c:when test="${ref.criterion.object.weight == null}">
 						"0"
 						
 					</c:when>
 					<c:otherwise>
-						"${criterion.object.weight}"
+						"10"
 					</c:otherwise>
 				</c:choose>
 				
@@ -54,12 +54,12 @@
 			<!-- end weights -->
 	    
 	    <div class="clearBoth"></div>
-	    <div class="objectives" id="objectives${criterion.id}" style="display:none;"><br /><strong>Objectives:</strong>
+	    <div class="objectives" id="objectives${ref.criterion.id}" style="display:none;"><br /><strong>Objectives:</strong>
 	      <ul class="smallText">
-	        <c:if test="${fn:length(criterion.objectives) == 0}">
+	        <c:if test="${fn:length(ref.criterion.objectives) == 0}">
 	          <li>None Selected</li>
 	        </c:if>
-	        <c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
+	        <c:forEach var="objective" items="${ref.criterion.objectives}" varStatus="loop">
 	          <li>${objective.description}</li>
 	        </c:forEach>
 	      </ul>

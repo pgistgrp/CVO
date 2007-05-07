@@ -32,7 +32,7 @@ public interface CriteriaService {
     
     
     Set getAllCriterion(Long critSuiteId) throws Exception;
-    
+   
     
     Collection getAllCriterion() throws Exception;
     
@@ -55,7 +55,7 @@ public interface CriteriaService {
     Collection getObjectives() throws Exception;
     
     
-    Map getWeights(Long critSuiteId) throws Exception;
+    Set getWeights(Long critSuiteId) throws Exception;
     
     
     void publish(Long cctId) throws Exception;

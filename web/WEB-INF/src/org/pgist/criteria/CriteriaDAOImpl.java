@@ -217,15 +217,26 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     }//setUserWeight()
     
     
-    public Map getWeights(Long critSuiteId) throws Exception {
+    public Set getWeights(Long critSuiteId) throws Exception {
     	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
+    	Set references = cs.getReferences();
+    	Map weightMap = cs.getWeights();
+    	Set weights = new HashSet();
     	
-    	return cs.getWeights();
+    	Iterator ref = references.iterator();
+    	while(ref.hasNext()) {
+    		CriteriaRef cr = (CriteriaRef) ref.next();
+    		CriteriaUserWeight cuw = (CriteriaUserWeight) weightMap.get(cr);
+    		weights.add(cuw);
+    	}
+    	
+    	return weights;
     }//getWeights();
     
     
     public CriteriaSuite getCriteriaSuiteById(Long id) throws Exception {
     	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, id);
+    	
     	return cs;
     } //getCriteriaSuiteById();
     

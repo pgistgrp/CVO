@@ -133,7 +133,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getObjectives()
     
     
-    public Map getWeights(Long critSuiteId) throws Exception {
+    public Set getWeights(Long critSuiteId) throws Exception {
     	return criteriaDAO.getWeights(critSuiteId);
     }//getWeights()
     
@@ -146,7 +146,7 @@ public class CriteriaServiceImpl implements CriteriaService {
         structure.setType("sdcrit");
         structure.setTitle("Step 2: SD Criteria");
         structure.setRespTime(date);
-        //structure.setCctId(cctId);
+        structure.setCctId(cctId);
         criteriaDAO.save(structure);
         
         for (Criteria crit : (Collection<Criteria>) criteriaDAO.getAllCriterion()) {
