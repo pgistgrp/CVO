@@ -8,7 +8,7 @@
 	
 	
 	<div id="header-navigation">
-		<span><a href="main.do">Overview</a></span>
+		<span><a href="main.do">Home</a></span>
 		<span><a href="lmMenu.do">Learn More</a></span>
 		<span><a href="/login.do">Log in</a></span>
 	</div>

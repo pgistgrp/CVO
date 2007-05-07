@@ -92,7 +92,7 @@ left:530px;
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="floatLeft headerButton"> <a href="lmMenu.do">Home</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmMenu.do">Menu</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
 			<div class="floatLeft headerButton currentBox"> <a href="lmTutorial1.do">Tutorial</a> </div>
@@ -173,7 +173,7 @@ left:530px;
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="floatLeft headerButton"> <a href="lmMenu.do">Home</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmMenu.do">Menu</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
 			<div class="floatLeft headerButton currentBox"> <a href="lmTutorial1.do">Tutorial</a> </div>

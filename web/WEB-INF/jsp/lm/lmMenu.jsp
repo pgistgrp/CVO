@@ -6,7 +6,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
 	<head>
-	<title>Let's Improve Transportation - Learn More Home</title>
+	<title>Let's Improve Transportation - Learn More Menu</title>
 	<!-- Site Wide CSS -->
 	<style type="text/css" media="screen">
 @import "styles/lit.css";
@@ -38,7 +38,7 @@ p.nomargin {margin-left:0px;}
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="floatLeft headerButton currentBox"> <a href="lmMenu.do">Home</a> </div>
+			<div class="floatLeft headerButton currentBox"> <a href="lmMenu.do">Menu</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
@@ -81,7 +81,7 @@ p.nomargin {margin-left:0px;}
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="floatLeft headerButton currentBox"> <a href="lmMenu.do">Home</a> </div>
+			<div class="floatLeft headerButton currentBox"> <a href="lmMenu.do">Menu</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
