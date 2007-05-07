@@ -425,7 +425,7 @@
 			<!-- begin GOOGLE MAP -->
 			<div id="map"> <img src="/images/gmaps.gif" width="520"> </div>
 			<!-- end GOOGLE MAP -->
-			<table cellpadding=0 cellspacing=0>
+			<table cellpadding="0" cellspacing="0">
 				<tr class="tableHeading">
 					<th class="first">Funding Source</th>
 					<th>Money Raised</th>
