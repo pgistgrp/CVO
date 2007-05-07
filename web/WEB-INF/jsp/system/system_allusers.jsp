@@ -9,12 +9,12 @@
 
 <table id="newTable" border="0" cellpadding="3" cellspacing="0" class="center">
   <tr>
-    <th>User Name </th>
-    <th>Email Address</th>
-    <th>Quota?</th>
-    <th>Interview</th>
-    <th>Recording</th>
-    <th>Consented</th>
+    <th title="The login name">User Name </th>
+    <th title="The e-mail address given by the user">Email Address</th>
+    <th title="User qualifies for payment">Quota?</th>
+    <th title="Agreed to an interview">Interview</th>
+    <th title="Agreed to undergo recorded (screencast) session(s)">Recording</th>
+    <th title="Agreed to consent form">Consented</th>
     <th>Actions</th>
   </tr>
 <c:choose>	
@@ -66,7 +66,7 @@
 				<input name="Enable" id="enable" class="disabled" type="button" value="Enable" onclick="javascript:enableUsers('${user.id}');setTimeout('getAllUsers();',100);" />	
 			</c:otherwise>
 		</c:choose>
-		<input name="Reset Password" type="button" value="Reset Password" onclick="javascript:confirmResetPW()" />
+		<input name="Reset Password" type="button" value="Reset Password" onclick="javascript:resetPassword('${user.id}')" />
 
 		</td>
 	  </tr>

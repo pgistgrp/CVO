@@ -202,13 +202,6 @@ function greyDisabled() {
 	}
 }
 
-function confirmResetPW() {
-	var answer = confirm("This will reset the user's password. There is no undo. Are you sure?")
-	if (answer){
-		resetPassword('${user.id}');
-	}
-	else{}
-}
 </script>
 		</head>
 		<body>
