@@ -39,31 +39,13 @@
 			
 			//END Global Vars
 			
-			/* *************** Pull all criteria and their associated weights and objectives (criteriaAssoc_weights.jsp) *************** */
-			function getWeights(){
-			//$('loading-indicator').style.display="inline";
-				CriteriaAgent.getWeights({critSuiteId:suiteId},{
-				  callback:function(data){
-				    if(data.successful){
-				    	$('criteria').innerHTML = data.html;
-				    	//getAllCriterion();
-						updateRemainingWeight();
-				    }else{
-						alert(data.reason);
-					}
-					
-				  },
-				  errorHandler:function(errorString, exception){
-				        alert("getWeights error:"+errorString+" "+exception);
-				  }
-				  });
-			} 
-			
+
 			function getCriteriaSuiteById(){
 				CriteriaAgent.getCriteriaSuiteById({critSuiteId:suiteId},{
 				  callback:function(data){
 				    if(data.successful){
 				    	$('criteria').innerHTML = data.html;
+						addAllSliders();
 				    }else{
 						alert(data.reason);
 					}
@@ -76,7 +58,7 @@
 			} 
 			
 			
-			function getAllCriterion(){
+			function addAllSliders(){
 				CriteriaAgent.getAllCriterion({critSuiteId:suiteId},{
 				  callback:function(data){
 				    if(data.successful){
@@ -84,6 +66,7 @@
 						for(i=0;i<data.criteria.length;i++){
 							addSlider(data.criteria[i].id,i);
 						}
+						updateRemainingWeight();
 				    }else{
 						alert(data.reason);
 					}
@@ -94,8 +77,23 @@
 				  }
 				  });
 			} 
+
 			
-			
+			function getWeight(critId){
+				return parseInt(critId) - 3300;
+				/*CriteriaAgent.getWeight({critSuiteId:suiteId,critId:critId}, {
+					callback:function(data){
+						if (data.successful){
+							return data.weight;
+						}else{
+							alert(data.reason);
+						}
+					},
+					errorHandler:function(errorString, exception){ 
+					alert("CriteriaAgent.getWeight( error:" + errorString + exception);
+					}
+				});*/
+			}
 
 			
 			function getMaxValue(except){
@@ -111,41 +109,22 @@
 			function addSlider(critId, index){
 			  	newSlider = new Control.Slider('handle' + critId,'track' + critId,{
 						onSlide:function(v){
-						
 							critWeight=0;
-							
-							
-							
-							
 							if(sliderArray[index].value<=getMaxValue(sliderArray[index].value)){
 								critWeight=sliderArray[index].value;
-							
 								sliderArray[index].setValue(critWeight);
 							}else{
 								critWeight=getMaxValue(sliderArray[index].value);
-								
 								sliderArray[index].setValue(critWeight);
 							}
 							
 							manualSliderChange(index,critWeight);
-							
 							updateRemainingWeight();
-							if((100-remainingWeight)==0){
-								
-								$('remainingWeightP').style.backgroundColor="#FFFF00";
-								
-							}else{
-								
-								$('remainingWeightP').style.backgroundColor="#FFFFFF";
-							}
+							checkRemaining(remainingWeight);
 							
 						},
 						onChange:function(v){
-						
 							critWeight=0;
-							
-							
-							
 							if(sliderArray[index].value<=getMaxValue(sliderArray[index].value)){
 								critWeight=sliderArray[index].value;
 								$('input' + critId).value=critWeight;
@@ -161,33 +140,31 @@
 							//manualSliderChange(index,critWeight);
 							
 							updateRemainingWeight();
-							if((100-remainingWeight)==0){
-								
-								$('remainingWeightP').style.backgroundColor="#FFFF00";
-								
-					
-							}else{
-								
-								$('remainingWeightP').style.backgroundColor="#FFFFFF";
-							}
+							checkRemaining(remainingWeight);
 						},
 						range:$R(0,100),
 						minimum: 0,
 						maximum: 100,
 						values: range,
-						slidervalue: $('input' + critId).value //grab value if user has already weighed this criteria
+						sliderValue: getWeight(critId) //grab value if user has already weighed this criteria
 					});
+					newSlider.critId = critId;
 				sliderArray.push(newSlider);
 			}
 			
+			function checkRemaining(remainingWeight){
+				if((100-remainingWeight)==0){
+					$('remainingWeightP').style.backgroundColor="#FFFF00";
+				}else{
+					$('remainingWeightP').style.backgroundColor="#FFFFFF";
+				}
+			}
+			
 			/* *************** Set the value of the slider if user manually sets it in the textbox *************** */
-			function manualSliderChange(index, v){
-				
+			function manualSliderChange(index, v){				
 				if((((100-remainingWeight) + (sliderArray[index].value) - (v))>=0)&&((100-remainingWeight)>=0)){
-					
 					sliderArray[index].setValue(v);
 				}
-				
 				updateRemainingWeight();
 			}
 			
@@ -217,11 +194,10 @@
 			function setWeight(critId, weight){
 			$('saving-indicator').style.display="inline";
 				
-				CriteriaAgent.setWeight({cctId:cctId,critId:critId,weight:weight}, {
+				CriteriaAgent.setCriteriaWeight({critSuiteId:suiteId,critId:critId,weight:weight}, {
 					callback:function(data){
 						if (data.successful){
-							
-							
+														
 						}else{
 							alert(data.reason);
 						}
