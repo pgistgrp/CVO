@@ -107,6 +107,11 @@
         <LoadTestData configPath="${web}/WEB-INF/config"/>
     </target>
     
+    <target name="loadGisData" depends="mapping">
+        <taskdef name="GISDataLoader" classname="org.pgist.tests.GISDataLoader" classpathref="classpath">
+        </taskdef>
+        <GISDataLoader configPath="${web}/WEB-INF/config" xlsPath="${base}/initdata/PostGIS/PGISTDB.xls" />
+    </target>
     
     <target name="workflow">
         <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
