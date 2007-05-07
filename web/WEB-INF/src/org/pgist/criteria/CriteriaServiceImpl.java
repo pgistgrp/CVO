@@ -133,8 +133,8 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getObjectives()
     
     
-    public int getWeights(Long critSuiteId, Long critId) throws Exception {
-    	return criteriaDAO.getWeights(critSuiteId, critId);
+    public int getWeight(Long critSuiteId, Long critId) throws Exception {
+    	return criteriaDAO.getWeight(critSuiteId, critId);
     }//getWeights()
     
     

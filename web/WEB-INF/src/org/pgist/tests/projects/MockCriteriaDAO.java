@@ -77,7 +77,7 @@ public class MockCriteriaDAO implements CriteriaDAO {
 		return null;
 	}
 
-	public int getWeights(Long critSuiteId, Long critId) throws Exception {
+	public int getWeight(Long critSuiteId, Long critId) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -119,11 +119,6 @@ public class MockCriteriaDAO implements CriteriaDAO {
 	}
 
 	public CriteriaSuite getCriteriaSuiteById(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Map getWeights(Long critSuiteId) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

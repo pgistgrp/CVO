@@ -229,7 +229,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     }
     
     
-    public int getWeights(Long critSuiteId, Long critId) throws Exception {
+    public int getWeight(Long critSuiteId, Long critId) throws Exception {
     	User user = (User) load(User.class, WebUtils.currentUserId());
     	Criteria criteria = (Criteria) load(Criteria.class, critId);
     	

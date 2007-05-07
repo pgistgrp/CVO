@@ -383,7 +383,7 @@ public class CriteriaAgent {
      *     </li>
      *   </ul>
      */
-    public Map getWeights(HttpServletRequest request, Map params) {
+    public Map getWeight(HttpServletRequest request, Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -405,7 +405,7 @@ public class CriteriaAgent {
         Long critId = new Long(strCritId);
         
         try {
-        	int weight = criteriaService.getWeights(critSuiteId, critId);
+        	int weight = criteriaService.getWeight(critSuiteId, critId);
             
         	request.setAttribute("weight", weight);
             map.put("weight", weight);
