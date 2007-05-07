@@ -1,7 +1,10 @@
 package org.pgist.packages;
 
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.pgist.projects.Project;
 
 /**
  * Used to pass information about the project
@@ -13,7 +16,12 @@ public class ProjectDTO implements Comparable<ProjectDTO> {
 	private String name;
 	private Long projectId;
 	
-	private SortedSet<ProjectAlternativeDTO> projectAlternatives = new TreeSet<ProjectAlternativeDTO>();
+	private List<ProjectAlternativeDTO> projectAlternatives = new ArrayList<ProjectAlternativeDTO>();
+
+	public ProjectDTO(Project tempProject) {
+		this.name = tempProject.getName();
+		this.projectId = tempProject.getId();
+	}
 
 	/**
 	 * @return the name
@@ -32,7 +40,7 @@ public class ProjectDTO implements Comparable<ProjectDTO> {
 	/**
 	 * @return the projectAlternatives
 	 */
-	public SortedSet<ProjectAlternativeDTO> getProjectAlternatives() {
+	public List<ProjectAlternativeDTO> getProjectAlternatives() {
 		return projectAlternatives;
 	}
 
@@ -40,7 +48,7 @@ public class ProjectDTO implements Comparable<ProjectDTO> {
 	 * @param projectAlternatives the projectAlternatives to set
 	 */
 	public void setProjectAlternatives(
-			SortedSet<ProjectAlternativeDTO> projectAlternatives) {
+			List<ProjectAlternativeDTO> projectAlternatives) {
 		this.projectAlternatives = projectAlternatives;
 	}
 
@@ -64,4 +72,11 @@ public class ProjectDTO implements Comparable<ProjectDTO> {
 	public int compareTo(ProjectDTO o) {
 		return this.getName().compareTo(o.getName());
 	}	
+	
+	/**
+	 * Sorts the package
+	 */
+	public void sort() {
+		Collections.sort(this.projectAlternatives);
+	}
 }

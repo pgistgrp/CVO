@@ -1,5 +1,7 @@
 package org.pgist.packages;
 
+import org.pgist.projects.ProjectAlternative;
+
 /**
  * Passes information about a project alternative DTO
  * 
@@ -14,6 +16,14 @@ public class ProjectAlternativeDTO implements Comparable<ProjectAlternativeDTO> 
 	private String yourGrade;
 	private String avgGrade;
 	 
+	public ProjectAlternativeDTO(ProjectAlternative tempAlt) {
+		this.name = tempAlt.getName();
+		this.projectAlternativeID = tempAlt.getId();
+		this.setAvgGrade("NA");
+		this.setProjGrade("NA");
+		this.setAvgGrade("NA");
+	}
+
 	/**
 	 * @return the avgGrade
 	 */

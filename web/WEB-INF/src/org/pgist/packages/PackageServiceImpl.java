@@ -429,18 +429,136 @@ public class PackageServiceImpl implements PackageService {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#formPackageRoadProjectDTOs(org.pgist.packages.ClusteredPackage)
 	 */
-	public List<ProjectDTO> formPackageRoadProjectDTOs(ClusteredPackage cPackage, User user, long critSuiteId, long projSuiteId) throws Exception {
+	public List<ProjectDTO> formPackageRoadProjectDTOs(ClusteredPackage cPackage, long critSuiteId, long projSuiteId) throws Exception {
 		List<ProjectDTO> result = new ArrayList<ProjectDTO>();
-		//TODO fill this out
+		Random rand = new Random(System.currentTimeMillis());
+		
+		//Only show the projects that are in the package, but you need to find the projects in the suite that contain them
+		
+		//First put all of the project in a hash with the key being the alternativeID, we will use this to lookup the correct
+		//source
+		ProjectSuite fSuite = this.projectDAO.getProjectSuite(projSuiteId);
+		HashMap<Long, Project> sources = new HashMap<Long, Project>();
+		Iterator<ProjectRef> iRefs = fSuite.getReferences().iterator();
+		Project tempProject;
+		Iterator<ProjectAlternative> iProjectAlts;
+		
+		while(iRefs.hasNext()) {
+			tempProject = iRefs.next().getProject();
+			iProjectAlts = tempProject.getAlternatives().iterator();
+			while(iProjectAlts.hasNext()) {
+				sources.put(iProjectAlts.next().getId(), tempProject);
+			}
+		}
+				
+		//Now loop through the alternatives in the package and create the dto
+		Iterator<ProjectAltRef> iProjectAltRefs = cPackage.projAltRefs.iterator();
+		ProjectAltRef tempAltRef;
+		ProjectAlternative tempAlt;
+		ProjectAlternativeDTO tempAltDTO;
+		
+		while(iProjectAltRefs.hasNext()) {
+			tempAltRef = iProjectAltRefs.next();
+			tempAlt = tempAltRef.getAlternative();
+						
+			if(tempAlt.getGeoType() == ProjectAlternative.PGIST_PROJECT_MODE_ROAD) {
+				//Now pull the source back out of the hash 
+				tempProject = sources.get(tempAlt.getId());
+				
+				if(tempProject == null) {
+					System.out.println("ERROR: A alternative with no parent was found in the clustered package");
+				} else {
+					//Create a new DTO
+					ProjectDTO fsDTO = new ProjectDTO(tempProject);
+
+					//See if it has already been added to the result
+					if(result.contains(fsDTO)) {
+						fsDTO = result.get(result.indexOf(fsDTO));
+					} else {
+						result.add(fsDTO);
+					}
+					
+					//Add the new alternative
+					tempAltDTO = new ProjectAlternativeDTO(tempAlt);
+					tempAltDTO.setAvgGrade(GradedCriteria.convertGrade(rand.nextFloat() * 100));
+					tempAltDTO.setProjGrade(GradedCriteria.convertGrade(rand.nextFloat() * 100));
+					tempAltDTO.setYourGrade(GradedCriteria.convertGrade(rand.nextFloat() * 100));
+					fsDTO.getProjectAlternatives().add(tempAltDTO);
+					
+					//Sort it
+					fsDTO.sort();
+				}				
+			}			
+		}
+		Collections.sort(result);
 		return result;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#formPackageTransitProjectDTOs(org.pgist.packages.ClusteredPackage)
 	 */
-	public List<ProjectDTO> formPackageTransitProjectDTOs(ClusteredPackage cPackage, User user, long critSuiteId, long projSuiteId) throws Exception {
+	public List<ProjectDTO> formPackageTransitProjectDTOs(ClusteredPackage cPackage, long critSuiteId, long projSuiteId) throws Exception {
 		List<ProjectDTO> result = new ArrayList<ProjectDTO>();
-		//TODO fill this out
+		Random rand = new Random(System.currentTimeMillis());
+		
+		//Only show the projects that are in the package, but you need to find the projects in the suite that contain them
+		
+		//First put all of the project in a hash with the key being the alternativeID, we will use this to lookup the correct
+		//source
+		ProjectSuite fSuite = this.projectDAO.getProjectSuite(projSuiteId);
+		HashMap<Long, Project> sources = new HashMap<Long, Project>();
+		Iterator<ProjectRef> iRefs = fSuite.getReferences().iterator();
+		Project tempProject;
+		Iterator<ProjectAlternative> iProjectAlts;
+		
+		while(iRefs.hasNext()) {
+			tempProject = iRefs.next().getProject();
+			iProjectAlts = tempProject.getAlternatives().iterator();
+			while(iProjectAlts.hasNext()) {
+				sources.put(iProjectAlts.next().getId(), tempProject);
+			}
+		}
+				
+		//Now loop through the alternatives in the package and create the dto
+		Iterator<ProjectAltRef> iProjectAltRefs = cPackage.projAltRefs.iterator();
+		ProjectAltRef tempAltRef;
+		ProjectAlternative tempAlt;
+		ProjectAlternativeDTO tempAltDTO;
+		
+		while(iProjectAltRefs.hasNext()) {
+			tempAltRef = iProjectAltRefs.next();
+			tempAlt = tempAltRef.getAlternative();
+						
+			if(tempAlt.getGeoType() == ProjectAlternative.PGIST_PROJECT_MODE_TRANSIT) {
+				//Now pull the source back out of the hash 
+				tempProject = sources.get(tempAlt.getId());
+				
+				if(tempProject == null) {
+					System.out.println("ERROR: A alternative with no parent was found in the clustered package");
+				} else {
+					//Create a new DTO
+					ProjectDTO fsDTO = new ProjectDTO(tempProject);
+
+					//See if it has already been added to the result
+					if(result.contains(fsDTO)) {
+						fsDTO = result.get(result.indexOf(fsDTO));
+					} else {
+						result.add(fsDTO);
+					}
+					
+					//Add the new alternative
+					tempAltDTO = new ProjectAlternativeDTO(tempAlt);
+					tempAltDTO.setAvgGrade(GradedCriteria.convertGrade(rand.nextFloat() * 100));
+					tempAltDTO.setProjGrade(GradedCriteria.convertGrade(rand.nextFloat() * 100));
+					tempAltDTO.setYourGrade(GradedCriteria.convertGrade(rand.nextFloat() * 100));
+					fsDTO.getProjectAlternatives().add(tempAltDTO);
+					
+					//Sort it
+					fsDTO.sort();
+				}				
+			}			
+		}
+		Collections.sort(result);
 		return result;
 	}
 
@@ -450,14 +568,14 @@ public class PackageServiceImpl implements PackageService {
 //	public void gradeMyPackage(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
 //		this.calcUserValues(cPackage, user, fundSuiteId);
 //		
-//		Random rand = new Random(System.currentTimeMillis());
+//		
 //		
 //		Iterator<ProjectAltRef> refs = cPackage.getProjAltRefs().iterator();
 //		ProjectAltRef tempRef;
 //		//TODO actually form a grade
 //		while(refs.hasNext()) {
 //			tempRef = refs.next();
-//			cPackage.getProjGrades().put(tempRef.getId(), GradedCriteria.convertGrade(rand.nextFloat() * 100));
+//			cPackage.getProjGrades().put(tempRef.getId(), );
 //			cPackage.getAvgGrades().put(tempRef.getId(), GradedCriteria.convertGrade(rand.nextFloat() * 100));
 //			cPackage.getYourGrades().put(tempRef.getId(), GradedCriteria.convertGrade(rand.nextFloat() * 100));
 //		}		
