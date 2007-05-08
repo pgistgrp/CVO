@@ -120,12 +120,12 @@ function validateForm(form,formId){
 		}
 		
 		if(hcity.length==0) {
-			errormsg1 = errormsg1 + "<li>Home city cannot be blank</li>";
+			errormsg1 = errormsg1 + "<li>Home city cannot be blank<br/><span>This helps us put your concerns and discussion posts into context.</span></li>";
 			highlightErrors('hcity');
 		}
 	
 		if(wcity.length==0) {
-			errormsg1 = errormsg1 + "<li>Work city cannot be blank</li>";
+			errormsg1 = errormsg1 + "<li>Work city cannot be blank<br/><span>This helps us put your concerns and discussion posts into context.</span></li>";
 			highlightErrors('wcity');
 		}
 	
