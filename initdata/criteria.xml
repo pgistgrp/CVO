@@ -20,7 +20,7 @@
                     <var name="suiteId"/>
                 </ins>
             </declaration>
-            <timer extension="10000"/>
+            <timer extension="600000"/>
         </pgame>
          
         <pgame name="pgame-create.cct" description="Create a CCT instance." auto="true">
@@ -60,7 +60,7 @@
 		    <var name="isid"/>
 		</ins>
 	    </declaration>
-	    <timer extension="60000"/>
+	    <timer extension="600000"/>
 	</pgame>
 
 	<pgame name="pgame-weigh.criteria" description="Weight critieria" auto="false" access="all">
@@ -70,7 +70,7 @@
 		    <var name="suiteId"/>
 		</ins>
 	    </declaration>
-	    <timer extension="60000"/>
+	    <timer extension="600000"/>
 	</pgame>
         
     </pgames>

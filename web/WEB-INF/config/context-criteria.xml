@@ -15,6 +15,7 @@
         <property name="target">
             <bean class="org.pgist.criteria.CriteriaServiceImpl">
                 <property name="criteriaDAO" ref="criteriaDAO"/>
+                <property name="discussionDAO" ref="discussionDAO"/>
                 <property name="cctDAO" ref="cctDAO"/>
             </bean>
         </property>

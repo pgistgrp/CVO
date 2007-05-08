@@ -34,6 +34,7 @@ public class CriteriaListAction extends Action {
 	    	
 	    	request.setAttribute("ccts", ccts);
 	    	
+	    	
 	        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
 	        
 	        return mapping.findForward("list");

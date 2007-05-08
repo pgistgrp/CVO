@@ -251,7 +251,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	
     	return cs;
     } //getCriteriaSuiteById();
-    
+
     
     private static final String hql_getCriteriaSuites = "from CriteriaSuite cs order by o.id";
     

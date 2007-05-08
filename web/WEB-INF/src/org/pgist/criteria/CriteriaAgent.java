@@ -346,7 +346,7 @@ public class CriteriaAgent {
     public Map publish(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
-    	
+        
         try {
             Long cctId = new Long((String) params.get("cctId"));
             
@@ -455,10 +455,10 @@ public class CriteriaAgent {
         	CriteriaSuite cs = criteriaService.getCriteriaSuiteById(critSuiteId);
         	
         	map.put("critSuite", cs);
-        	request.setAttribute("critSuite", cs); 
+        	 
         	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteriaAssoc_weights.jsp"));
         	map.put("successful", true);
-        	
+        	request.setAttribute("critSuite", cs);
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
