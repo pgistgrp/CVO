@@ -454,9 +454,9 @@ public class CriteriaAgent {
         	Long critSuiteId = new Long(strCritSuiteId);
         	CriteriaSuite cs = criteriaService.getCriteriaSuiteById(critSuiteId);
         	
+        	map.put("critSuite", cs);
         	request.setAttribute("critSuite", cs); 
         	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteriaAssoc_weights.jsp"));
-        	map.put("critSuite", cs);
         	map.put("successful", true);
         	
         } catch (Exception e) {
