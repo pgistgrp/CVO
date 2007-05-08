@@ -18,10 +18,10 @@
             <declaration>
                 <ins>
 		    <var name="cctId"/>
-                    <var name="suiteId"/>
+                    <var name="critSuiteId"/>
                 </ins>
             </declaration>
-            <timer extension="3000000"/>
+            <timer extension="300000"/>
         </pgame>
          
         <pgame name="pgame-create.cct" description="Create a CCT instance." auto="true">
@@ -61,7 +61,7 @@
 		    <var name="isid"/>
 		</ins>
 	    </declaration>
-	    <timer extension="3000000"/>
+	    <timer extension="300000"/>
 	</pgame>
 
 	<pgame name="pgame-weigh.criteria" description="Weight critieria" auto="false" access="all">
@@ -71,7 +71,7 @@
 		    <var name="suiteId"/>
 		</ins>
 	    </declaration>
-	    <timer extension="3000000"/>
+	    <timer extension="300000"/>
 	</pgame>
         
     </pgames>
@@ -113,7 +113,7 @@
 				    <declaration>
 					<ins>
 					    <var name="cctId" ref="pmethod.cct_id"/>
-					    <var name="suiteId" ref="pmethod.crit_suite_id"/>
+					    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
 					</ins>
 				    </declaration>
 				</pgame>
