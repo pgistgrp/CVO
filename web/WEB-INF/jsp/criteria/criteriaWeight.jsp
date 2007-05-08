@@ -45,6 +45,8 @@
 				  callback:function(data){
 				    if(data.successful){
 				    	$('criteria').innerHTML = data.html;
+						returnedData = data;
+						alert(data)
 						addAllSliders();
 				    }else{
 						alert(data.reason);
@@ -77,24 +79,20 @@
 				  }
 				  });
 			} 
-
 			
-			function getWeight(critId){
-				return parseInt(critId) - 3300;
-				/*CriteriaAgent.getWeight({critSuiteId:suiteId,critId:critId}, {
-					callback:function(data){
-						if (data.successful){
-							return data.weight;
-						}else{
-							alert(data.reason);
-						}
+			var tempWeight = 0;
+			function getWeight(critId) {
+				CriteriaAgent.getWeight({critSuiteId:suiteId,critId:critId}, {
+					asynchronous:false, callback:function(data){
+						//alert(data.weight);
+						tempWeight = data.weight;
 					},
 					errorHandler:function(errorString, exception){ 
 					alert("CriteriaAgent.getWeight( error:" + errorString + exception);
 					}
-				});*/
+				});
 			}
-
+			
 			
 			function getMaxValue(except){
 				count=0;
@@ -104,6 +102,7 @@
 				}
 				return ((100-count)+except);
 			}
+
 
 			/* *************** Assign a slider to a criteria and add it to the global slider array *************** */
 			function addSlider(critId, index){
@@ -403,7 +402,7 @@ position:fixed;
 					
 					
 				<div class="floatRight padding5">
-					<input type="button" value="Continue" />
+					<input type="button" value="Continue" onclick="location.href='waiting.jsp'" />
 				</div>
 				<div class="clearBoth">&nbsp;</div>
 			</div><!-- end object -->
@@ -413,6 +412,7 @@ position:fixed;
 		<script type="text/javascript" charset="utf-8">
 			//getWeights();
 			getCriteriaSuiteById();
+			//setTimeout(function() {initWeights();}, 500);
 		</script>
 		
 		<!-- start the bottom header menu -->
