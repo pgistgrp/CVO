@@ -112,6 +112,9 @@ function validateForm(form,formId){
 	var password1 = $F('password1');
 	var password2 = $F('password2');
 	
+	//var oldpw = "${user.password}"; // This gets the encrypted password, so it doesn't work.
+	var currentpw = $F('currentpw');
+	
 	if (formId == 1){
 		
 		if(address1.length==0) {
@@ -155,15 +158,28 @@ function validateForm(form,formId){
 			highlightErrors('mail');
 		}
 
-		if(password1.length<6) {
-			errormsg2 = errormsg2 + "<li>Your password must be at least six characters.</li>";
+		if(currentpw.length != 0 && currentpw != oldpw) {
+		alert(oldpw);
+			errormsg2 = errormsg2 + "<li>Check that your Current Password is correct.</li>";
+			highlightErrors('currentpw');
+ 		}
+
+		if(password1.length > 0 && currentpw.length == 0) {
+			errormsg2 = errormsg2 + "<li>You must enter your Current Password before creating a New Password</li>";
 			highlightErrors('password1');
  		}
-		if(password2.length==0) {
+
+		if(password1.length > 0 && password1.length < 6) {
+			errormsg2 = errormsg2 + "<li>Your New Password must be at least six characters.</li>";
+			highlightErrors('password1');
+ 		}
+		
+		if(password1.length > 0 && password2.length == 0) {
 			errormsg2 = errormsg2 + "<li>Don't forget to retype your password!</li>";
 			highlightErrors('password2');
  		}
-		if(password1!=password2) {
+		
+		if(password1.length > 0 && password1!=password2) {
 			errormsg2 = errormsg2 + "<li>Both password fields must match. <br/><span>Remember, passwords are case sensitive!</span></li>";
 			highlightErrors('password1');
 			highlightErrors('password2');
