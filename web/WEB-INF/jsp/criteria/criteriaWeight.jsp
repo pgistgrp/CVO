@@ -29,29 +29,28 @@
 		<script type="text/javascript" charset="utf-8">
 			//START Global vars
 			var suiteId = "<%=request.getParameter("suiteId")%>";	
-			var sliderArray = new Array();
 			var remainingWeight = 100;
 			var range=new Array();
+			var sliders = $H({});
+			
+			//change this with prototype
 			for(a=0;a<101;a++){
-			range.push(a);
+				range.push(a);
 			}
 			
 			
 			//END Global Vars
 			
-
+			/* *************** Render all criteria with placeholders for sliderbars *************** */
 			function getCriteriaSuiteById(){
 				CriteriaAgent.getCriteriaSuiteById({critSuiteId:suiteId},{
 				  callback:function(data){
 				    if(data.successful){
 				    	$('criteria').innerHTML = data.html;
-						returnedData = data;
-						alert(data)
 						addAllSliders();
 				    }else{
 						alert(data.reason);
-					}
-					
+					}	
 				  },
 				  errorHandler:function(errorString, exception){
 				        alert("getCriteriaSuiteById error:"+errorString+" "+exception);
@@ -59,14 +58,14 @@
 				  });
 			} 
 			
-			
+			/* *************** loop through all the criteria to assign sliders to each *************** */
 			function addAllSliders(){
 				CriteriaAgent.getAllCriterion({critSuiteId:suiteId},{
 				  callback:function(data){
 				    if(data.successful){
 				    	var criteria = data.criteria;
 						for(i=0;i<data.criteria.length;i++){
-							addSlider(data.criteria[i].id,i);
+							addSlider(data.criteria[i].id);
 						}
 						updateRemainingWeight();
 				    }else{
@@ -80,12 +79,23 @@
 				  });
 			} 
 			
-			var tempWeight = 0;
-			function getWeight(critId) {
+			/* *************** Create a slider object to a criteria and add it to the global slider hash *************** */
+			function addSlider(critId){
 				CriteriaAgent.getWeight({critSuiteId:suiteId,critId:critId}, {
-					asynchronous:false, callback:function(data){
-						//alert(data.weight);
-						tempWeight = data.weight;
+					callback:function(data){
+						sliderWeight  = (data.weight) ? data.weight : 0
+						newSlider = new Control.Slider('handle' + critId,'track' + critId,{
+								onSlide:function(v){ checkMaxAndUpdateValue(critId, false); },
+								onChange:function(v){ checkMaxAndUpdateValue(critId, true); },
+								range:$R(0,100),
+								minimum: 0,
+								maximum: 100,
+								values: range,
+								sliderValue: sliderWeight
+							});
+
+							sliders[critId] = newSlider;
+							sliders[critId].setValue(sliderWeight);
 					},
 					errorHandler:function(errorString, exception){ 
 					alert("CriteriaAgent.getWeight( error:" + errorString + exception);
@@ -93,62 +103,17 @@
 				});
 			}
 			
-			
-			function getMaxValue(except){
-				count=0;
-				for(a=0;a<sliderArray.length;a++){
-					count+=sliderArray[a].value;
-				
+			function checkMaxAndUpdateValue(critId,sending) {
+				if(sliders[critId].value > getMaxValue(sliders[critId].value)){
+					critWeight=getMaxValue(sliders[critId].value);
+					sliders[critId].setValue(critWeight);
 				}
-				return ((100-count)+except);
-			}
+				
+				if(sending){ setWeight(critId, sliders[critId].value); }
 
-
-			/* *************** Assign a slider to a criteria and add it to the global slider array *************** */
-			function addSlider(critId, index){
-			  	newSlider = new Control.Slider('handle' + critId,'track' + critId,{
-						onSlide:function(v){
-							critWeight=0;
-							if(sliderArray[index].value<=getMaxValue(sliderArray[index].value)){
-								critWeight=sliderArray[index].value;
-								sliderArray[index].setValue(critWeight);
-							}else{
-								critWeight=getMaxValue(sliderArray[index].value);
-								sliderArray[index].setValue(critWeight);
-							}
-							
-							manualSliderChange(index,critWeight);
-							updateRemainingWeight();
-							checkRemaining(remainingWeight);
-							
-						},
-						onChange:function(v){
-							critWeight=0;
-							if(sliderArray[index].value<=getMaxValue(sliderArray[index].value)){
-								critWeight=sliderArray[index].value;
-								$('input' + critId).value=critWeight;
-								//setWeight(critId, critWeight);
-							}else{
-							critWeight=getMaxValue(sliderArray[index].value);
-								sliderArray[index].setValue(critWeight);
-							$('input' + critId).value=critWeight;
-							
-							}
-							$('input'+critId).value=sliderArray[index].value;
-							setWeight(critId, sliderArray[index].value);
-							//manualSliderChange(index,critWeight);
-							
-							updateRemainingWeight();
-							checkRemaining(remainingWeight);
-						},
-						range:$R(0,100),
-						minimum: 0,
-						maximum: 100,
-						values: range,
-						sliderValue: getWeight(critId) //grab value if user has already weighed this criteria
-					});
-					newSlider.critId = critId;
-				sliderArray.push(newSlider);
+				updateRemainingWeight();
+				checkRemaining(remainingWeight);
+				$('input'+critId).value = sliders[critId].value;
 			}
 			
 			function checkRemaining(remainingWeight){
@@ -159,32 +124,49 @@
 				}
 			}
 			
+			function initWeights(){
+				sliders.each(function(slider){
+					getWeight(slider.key)
+				})
+			}
+			
+			function getWeight(critId) {
+
+			}
+			
+			function getMaxValue(except){
+				count=0;
+				sliders.each(function(slider) {
+					count += slider.value.value
+				});
+				
+				maxValue =  ((100-count)+except);
+				return maxValue;
+				//alert(maxValue)
+			}
+			
 			/* *************** Set the value of the slider if user manually sets it in the textbox *************** */
-			function manualSliderChange(index, v){				
-				if((((100-remainingWeight) + (sliderArray[index].value) - (v))>=0)&&((100-remainingWeight)>=0)){
-					sliderArray[index].setValue(v);
+			function manualSliderChange(critId, v){
+				//alert("CritID: " + critId + " value: "+ v)				
+				if((((100-remainingWeight) + (sliders[critId].value) - (v))>=0)&&((100-remainingWeight)>=0)){
+					sliders[critId].setValue(v);
 				}
-				updateRemainingWeight();
+				//updateRemainingWeight();
 			}
 			
 			function updateRemainingWeight(){
 				remainingWeight = 0; //reset remainingWeight
-				a=document.getElementsByTagName('input');
-				for(i=0; i<sliderArray.length;i++){
-					remainingWeight += sliderArray[i].value;
+				a = document.getElementsByTagName('input');
+				sliders.each(function(slider) {			
+					remainingWeight += slider.value.value;
 					for(b=0;b<=i;b++){
 						if(a[b].tabIndex==(i+1)){
-							a[b].value=sliderArray[i].value;
+							a[b].value=slider.value.value;
 							break;
-						
 						}
 					}
-				}
-
-		
-				
+				});
 				$('remainingWeight').innerHTML = ((100-remainingWeight));
-				
 			}
 			
 
@@ -412,7 +394,8 @@ position:fixed;
 		<script type="text/javascript" charset="utf-8">
 			//getWeights();
 			getCriteriaSuiteById();
-			//setTimeout(function() {initWeights();}, 500);
+
+			setTimeout(function() {initWeights();}, 350);
 		</script>
 		
 		<!-- start the bottom header menu -->

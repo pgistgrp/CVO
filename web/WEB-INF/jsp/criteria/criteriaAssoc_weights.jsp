@@ -34,7 +34,7 @@
 				<div id="track${ref.criterion.id}" class="track" style="width:200px; height:9px;">
 					<div id="track${ref.criterion.id}-left" class="track-left"></div><div id="handle${ref.criterion.id}" style="cursor: col-resize; width:19px; height:20px;"><img src="images/slider-handle.png" alt="" style="float: left;"/></div>
 			</div>
-				<input type="text" style="float:right;" tabIndex="${loop.index + 1}" size="3" maxlength="3" id="input${ref.criterion.id}" onchange="manualSliderChange(${loop.index}, this.value)" value = "0" /> <!-- end input -->
+				<input type="text" style="float:right;" tabIndex="${loop.index + 1}" size="3" maxlength="3" id="input${ref.criterion.id}" onchange="manualSliderChange(${ref.criterion.id}, this.value)" value = "0" /> <!-- end input -->
 				
 			<!-- end slider bar -->
 			<!--weights-->
