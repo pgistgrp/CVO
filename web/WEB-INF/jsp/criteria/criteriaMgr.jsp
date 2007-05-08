@@ -48,7 +48,7 @@
 
 		/* *************** Grab All Criteria in the System - uses criteria.jsp *************** */
 		function getCriteria(){
-			CriteriaAgent.getAllCriterion({critSuiteId:critSuiteId}, {
+			CriteriaAgent.getAllCriterionForMgr({critSuiteId:critSuiteId}, {
 				callback:function(data){
 					if (data.successful){
 						$('allCriteriaList').innerHTML = data.html;

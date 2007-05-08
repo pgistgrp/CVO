@@ -69,6 +69,7 @@
 		<!--load summary javascript here -->
 	</div>
 	
+	
 </pg:fragment>
 
 <pg:fragment type="script">
