@@ -66,29 +66,68 @@
 		<!-- end voting tally menu -->
 
 	<div id="criteria" class="box3 floatLeft">
-		<!--load summary javascript here -->
+		<div class="criteriaListHeader">
+		  <div class="criteriaCol1 floatLeft">
+		    <h4 class="headerColor">Planning factor</h4>
+		  </div>
+		  <div class="criteriaCol2 floatLeft">
+		    <h4 class="headerColor">Description</h4>
+		  </div>
+		  <div class="criteriaCol3 floatLeft">
+		    <h4 class="headerColor">Related concern theme</h4>
+		  </div>
+		  <div class="clearBoth"></div>
+		</div>
+		<!-- end criteria headers -->
+		<c:if test="${fn:length(infoStructure.infoObjects) == 0}">
+		  <p>There are no planning factors created yet! How did you get to this page?</p>
+		</c:if>
+		<c:forEach var="criterion" items="${infoStructure.infoObjects}" varStatus="loop">
+		  <div id="criteria-${criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
+		    <div class="criteriaCol1 floatLeft"><a href="#">
+		      <div class="floatLeft"><a href="javascript:io.expandList('objectives${criterion.id}','icon${criterion.id}');"> <img src="/images/plus.gif" id="icon${criterion.id}"></a></div>
+		      <div class="floatLeft"> ${criterion.name}
+
+		          <!-- needs another variable to differentiate -->
+		            <!-- show editing only to moderator -->
+		            <small><br />[ <a href="javascript:editCriterionPopup(${criterion.id});">edit</a> ]
+		            [ <a href="javascript:deleteCriterion(${criterion.id});">delete</a> ]</small>
+
+		      </div>
+		    </div>
+		    <div class="criteriaCol2 floatLeft">${criterion.na}</div>
+		    <div class="criteriaCol3 floatLeft">
+		      <!--themes-->
+		      <c:if test="${fn:length(criterion.themes) == 0}"> None
+		        Selected </c:if>
+		      <c:forEach var="theme" items="${criterion.themes}" varStatus="loop">
+		        ${theme.title}<br />
+		      </c:forEach>
+		    </div>
+		    <div class="clearBoth"></div>
+		    <div class="objectives" id="criteriaEdit${criterion.id}">
+		      <!--javascript will load edit form here -->
+		    </div>
+		    <div class="objectives" id="objectives${criterion.id}" style="display:none;"><br /><strong>Objectives:</strong>
+		      <ul class="smallText">
+		        <c:if test="${fn:length(criterion.objectives) == 0}">
+		          <li>None Selected</li>
+		        </c:if>
+		        <c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
+		          <li>${objective.description}</li>
+		        </c:forEach>
+		      </ul>
+		    </div>
+		  </div>
+		</c:forEach>
+		<div class="clearBoth"></div>
 	</div>
 	
 	
 </pg:fragment>
 
 <pg:fragment type="script">
-	/* *************** Get information structure for object *************** */
-	io.getCriteria = function(){
-		CriteriaAgent.getAllCriterion({}, {
-			callback:function(data){
-				if (data.successful){
-					$('criteria').innerHTML = data.html;
-				}else{
-					$('criteria').innerHTML = "<b>Error in CriteriaAgent.getAllCriterion Method: </b>" + data.reason; 
-				}
-			},
-			errorHandler:function(errorString, exception){ 
-			alert("CriteriaAgent.getAllCriterion( error:" + errorString + exception);
-			}
-		});
-	};
-	
+
 	/* *************** Toggle Tree Node to view Asscociated Objectives for a Given Criterion *************** */
 	io.expandList = function(objective,icon){
 		Effect.toggle(objective, 'appear', {duration: .5, afterFinish:
@@ -129,8 +168,6 @@
 	/* *************** loading on getTargets() in SDRoomMain *************** */
 	io.loadDynamicFile('styles/step2.css');
 	io.loadDynamicFile('/dwr/interface/CriteriaAgent.js');
-	window.setTimeout("io.getCriteria()", 100); //crappy way to do this - there should be a callback function
-
 	
 
 </pg:fragment>
