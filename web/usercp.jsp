@@ -65,16 +65,15 @@ color:#31496B;
 
 #commute #right {width:450px;padding-left:20px;border-left:1px solid #ADCFDE;}
 
-#errors {
+#errors1, #errors2 {
 border:1px solid #FFE3B9;
 padding:10px;
-color:D85703;
+color:#D85703;
 font-weight:bold;
-width:420px;
 }
 
 #password #errors {width:550px;}
-button {margin-bottom:1em;font-size:1.1em;}
+.submit {margin-bottom:1em;font-size:1.1em;}
 
 </style>
 	<!-- End Site Wide CSS -->
@@ -84,6 +83,80 @@ button {margin-bottom:1em;font-size:1.1em;}
 	<script src="scripts/search.js" type="text/javascript"></script>
 	<script type='text/javascript' src='/dwr/engine.js'></script>
 	<script type='text/javascript' src='/dwr/util.js'></script>
+	<script type='text/javascript'>
+
+function highlightErrors(inputDiv) {
+		$(inputDiv).style.background = '#FFF1DC';
+}
+
+
+
+function validateForm(form){
+	
+	if (form == "profile"){
+	
+	} else {}
+	
+	var errordiv1 = document.getElementById("errors1");
+	var errormsg1 = "";
+	var errordiv2 = document.getElementById("errors2");
+	var errormsg2 = "";
+
+	var address1 = $F('address1');
+	var hcity = $F('hcity');	
+	var wcity = $F('wcity');
+	var state = $F('state');
+	var hzip = $F('hzip');	
+	var wzip = $F('wzip');	
+	
+	var mail = $F('mail');
+	
+	if(address1.length==0) {
+		errormsg1 = errormsg1 + "Address line 1 cannot be blank<br />";
+		highlightErrors('address1');
+	}
+	
+	if(hcity.length==0) {
+		errormsg1 = errormsg1 + "Home city cannot be blank<br />";
+		highlightErrors('hcity');
+	}
+
+	if(wcity.length==0) {
+		errormsg1 = errormsg1 + "Work city cannot be blank<br />";
+		highlightErrors('wcity');
+	}
+
+	if(state.length==0) {
+		errormsg1 = errormsg1 + "State cannot be blank<br />";
+		highlightErrors('state');
+	}
+	if(hzip.length < 5) {
+		errormsg1 = errormsg1 + "Home ZIP code must be 5 digits long<br />";
+		highlightErrors('hzip');
+	}
+
+	if(wzip.length < 5) {
+		errormsg1 = errormsg1 + "Work ZIP code must be 5 digits long<br />";
+		highlightErrors('wzip');
+	}
+	
+	if(mail.length == 0) {
+		errormsg2 = errormsg2 + "E-mail cannot be blank<br />";
+		highlightErrors('mail');
+	}
+	
+	if(errormsg1.length != 0){
+		errordiv1.style.display = "";
+		errordiv1.innerHTML = '<h3 class=\"headerColor\">Please change the following:</h3>' + errormsg1;
+	}	
+
+	if(errormsg2.length != 0){
+		errordiv2.style.display = "";
+		errordiv2.innerHTML = '<h3 class=\"headerColor\">Please change the following:</h3>' + errormsg2;
+	}	
+}
+	</script>
+
 	</head>
 	<body>
 	<!-- Hack to make col1 & 2 margin heights the same -->
@@ -143,7 +216,7 @@ button {margin-bottom:1em;font-size:1.1em;}
 				<br />
 				<div class="settings-col1"><small>Address Line 1</small></div>
 				<div class="settings-col2">
-					<html:text property="address1" value="${user.homeAddr}"/>
+					<html:text property="address1" styleId="address1" value="${user.homeAddr}"/>
 					<img title="This will not be shown to other participants" src="images/icon_private.png" /> </div>
 				<div class="clearBoth"></div>
 				<div class="settings-col1"><small>Address Line 2</small></div>
@@ -153,28 +226,28 @@ button {margin-bottom:1em;font-size:1.1em;}
 				<div class="clearBoth"></div>
 				<div class="settings-col1"><small>City</small></div>
 				<div class="settings-col2">
-					<html:text property="city" value="${user.city}"/>
+					<html:text property="city" styleId="hcity" value="${user.city}"/>
 				</div>
 				<div class="clearBoth"></div>
 				<div class="settings-col1"><small>State (Abbreviation)</small></div>
 				<div class="settings-col2">
-					<html:text property="state" value="${user.state}"/>
+					<html:text property="state" styleId="state" value="${user.state}"/>
 				</div>
 				<div class="clearBoth"></div>
 				<div class="settings-col1"><small>ZIP Code</small></div>
 				<div class="settings-col2">
-					<html:text property="zipcode" value="${user.zipcode}"/>
+					<html:text property="zipcode" styleId="hzip" value="${user.zipcode}"/>
 				</div>
 				<div class="clearBoth"></div>
 				<h3>Work Location</h3>
 				<div class="settings-col1"><small>City</small></div>
 				<div class="settings-col2">
-					<html:text property="workCity" value="${user.workCity}"/>
+					<html:text property="workCity" styleId="wcity" value="${user.workCity}"/>
 				</div>
 				<div class="clearBoth"></div>
 				<div class="settings-col1"><small>ZIP Code</small></div>
 				<div class="settings-col2">
-					<html:text property="workZipcode" value="${user.workZipcode}"/>
+					<html:text property="workZipcode" styleId="wzip" value="${user.workZipcode}"/>
 				</div>
 				<div class="clearBoth"></div>
 			</div>
@@ -185,11 +258,11 @@ button {margin-bottom:1em;font-size:1.1em;}
 				<p>
 					<html:text property="primaryTransport" value="${user.primaryTransport}"/>
 				</p>
-				<div id="errors" class="floatLeft" style="display:none"> Errors will go here. </div>
 				<div class="clearBoth"></div>
 			</div>
 			</fieldset>
-			<button class="floatRight padding5">Update my Profile</button>
+			<div id="errors1" style="display:none"> Errors will go here. </div>
+			<input type="button" class="floatRight padding5 submit" onclick="validateForm(this.form)" value="Update my Profile" />
 			<br class="clearBoth" />
 		</div>
 
@@ -207,7 +280,7 @@ button {margin-bottom:1em;font-size:1.1em;}
 			<legend>My E-mail Settings</legend>
 			<div class="settings-col1">E-mail address</div>
 			<div class="settings-col2">
-				<html:text property="email" value="${user.email}" />
+				<html:text property="email" styleId="mail" value="${user.email}" />
 			</div>
 			<div class="clearBoth"></div>
 			<br />
@@ -268,11 +341,10 @@ button {margin-bottom:1em;font-size:1.1em;}
 					<html:password property="password2" redisplay="false"/>
 				</div>
 			</div>
-			<div id="errors" class="floatLeft" style="display:none"> Errors will go here. </div>
 			<div class="clearBoth"></div>
 			</fieldset>
-			
-			<button class="floatRight padding5">Update My Settings</button>
+			<div id="errors2" style="display:none"> Errors will go here. </div>
+			<input type="button" class="floatRight padding5 submit" onclick="validateForm(this.form)" value="Update My Settings"/>
 		</div>
 		<!-- end EDIT-SETTINGS -->
 		</html:form>

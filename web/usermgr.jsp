@@ -188,7 +188,6 @@ function deleteZip(countyid, zipcode) {
 
 function addZipCodes(countyid, count) {
 	var idfieldname = "zipcodesinput" + count;
-
 	var zipcode = $F(idfieldname).toString()
 	SystemAgent.addZipCodes({countyid:countyid, zips:zipcode});
 	setTimeout("getQuotaStats()",100);

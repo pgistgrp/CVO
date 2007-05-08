@@ -41,7 +41,9 @@
 						</td>
 						<td>${county.tempQuotaNumber} of <span id="limit${count}">${county.quotaLimit}
 								participants registered
-							<input name="Edit" type="button" onclick="Element.toggle('editlimit${count}'),Element.toggle('limit${count}')" value="Edit" />
+							<input name="Edit" type="button" 
+							onclick="Element.toggle('editlimit${count}'),Element.toggle('limit${count}')" 
+							value="Edit" />
 							</span>
 							<form class="inline" action="javascript:saveQuotaLimit('${count}');Element.toggle('editlimit${count}');Element.toggle('limit${count}'); void(0);">
 								<span id="editlimit${count}" style="display:none">
@@ -59,7 +61,7 @@
 						<td> <span id="actions${count}">
 							<input name="addzip" type="button" value="Add Zip" onclick="Element.toggle('addzipcodebox${count}'),Element.toggle('actions${count}')" />
 							<input name="delete" type="button" value="Delete County" onclick="deleteCounty('${county.id}')" />
-							</span> <span id="addzipcodebox${count}" style="width:500px;border=1px solid #00000; display:none;">&nbsp;<a href="javascript:Element.toggle('addzipcodebox${count}'),Element.toggle('actions${count}');"><img style="vertical-align:bottom;" alt="Close button" title="Cancel" src="images/close.gif" /></a>
+							</span> <span id="addzipcodebox${count}" style="width:500px;border=1px solid #00000; display:none;">&nbsp;<img style="vertical-align:bottom;" alt="Close button" onclick="javascript:Element.toggle('addzipcodebox${count}'),Element.toggle('actions${count}');" title="Cancel" src="images/close.gif" />
 							<form class="inline" action="javascript:addZipCodes('${county.id}','${count}');Element.toggle('addzipcodebox${count}');Element.toggle('actions${count}'); void(0);">
 								<input id="zipcodesinput${count}" type="text" size="6" />
 								<input name="addzip" type="submit" value="Add Zip" />
