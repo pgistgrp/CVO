@@ -149,6 +149,8 @@
 				//alert("CritID: " + critId + " value: "+ v)				
 				if((((100-remainingWeight) + (sliders[critId].value) - (v))>=0)&&((100-remainingWeight)>=0)){
 					sliders[critId].setValue(v);
+				}else{
+					sliders[critId].setValue(remainingWeight)
 				}
 				//updateRemainingWeight();
 			}

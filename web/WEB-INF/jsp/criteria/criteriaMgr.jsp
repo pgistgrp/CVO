@@ -51,9 +51,7 @@
 			CriteriaAgent.getAllCriterion({critSuiteId:critSuiteId}, {
 				callback:function(data){
 					if (data.successful){
-						alert(data.html)
 						$('allCriteriaList').innerHTML = data.html;
-						
 					}else{
 						$('allCriteriaList').innerHTML = "<b>Error in CriteriaAgent.getAllCriterion Method: </b>" + data.reason; 
 					}
