@@ -77,7 +77,7 @@
               <entry><key><value>action-cvo.cst</value></key><value>/cstview.do</value></entry>
               <entry><key><value>action-manage.criteria</value></key><value>/criteriaMgr.do</value></entry>
               <entry><key><value>action-sd.concerns</value></key><value>/sd.do</value></entry>
-              <entry><key><value>action-sd.criteria</value></key><value>/sd.do</value></entry>
+              <entry><key><value>action-sd.criteria</value></key><value>/sdRoom.do</value></entry>
               <entry><key><value>action-sd.projects</value></key><value>/sd.do</value></entry>
               <entry><key><value>action-sd.fundings</value></key><value>/sd.do</value></entry>
               <entry><key><value>action-sd.packages</value></key><value>/sd.do</value></entry>
