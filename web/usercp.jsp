@@ -66,12 +66,17 @@ color:#31496B;
 #commute #right {width:450px;padding-left:20px;border-left:1px solid #ADCFDE;}
 
 #errors1, #errors2 {
-border:1px solid #FFE3B9;
+border:1px solid #F2AF27;
+background:#FFF1DC;
 padding:10px;
 color:#D85703;
 font-weight:bold;
+width:650px;
 }
 
+#errors1 li span, #errors2 li span {font-size:.9em;color:#000;font-weight:normal;margin-left:5px;}
+
+#errors1 h3, #errors2 h3 {color:#000; }
 #password #errors {width:550px;}
 .submit {margin-bottom:1em;font-size:1.1em;}
 
@@ -89,13 +94,7 @@ function highlightErrors(inputDiv) {
 		$(inputDiv).style.background = '#FFF1DC';
 }
 
-
-
-function validateForm(form){
-	
-	if (form == "profile"){
-	
-	} else {}
+function validateForm(form,formId){
 	
 	var errordiv1 = document.getElementById("errors1");
 	var errormsg1 = "";
@@ -110,51 +109,74 @@ function validateForm(form){
 	var wzip = $F('wzip');	
 	
 	var mail = $F('mail');
+	var password1 = $F('password1');
+	var password2 = $F('password2');
 	
-	if(address1.length==0) {
-		errormsg1 = errormsg1 + "Address line 1 cannot be blank<br />";
-		highlightErrors('address1');
-	}
+	if (formId == 1){
+		
+		if(address1.length==0) {
+			errormsg1 = errormsg1 + "<li>Address line 1 cannot be blank</li>";
+			highlightErrors('address1');
+		}
+		
+		if(hcity.length==0) {
+			errormsg1 = errormsg1 + "<li>Home city cannot be blank</li>";
+			highlightErrors('hcity');
+		}
 	
-	if(hcity.length==0) {
-		errormsg1 = errormsg1 + "Home city cannot be blank<br />";
-		highlightErrors('hcity');
-	}
-
-	if(wcity.length==0) {
-		errormsg1 = errormsg1 + "Work city cannot be blank<br />";
-		highlightErrors('wcity');
-	}
-
-	if(state.length==0) {
-		errormsg1 = errormsg1 + "State cannot be blank<br />";
-		highlightErrors('state');
-	}
-	if(hzip.length < 5) {
-		errormsg1 = errormsg1 + "Home ZIP code must be 5 digits long<br />";
-		highlightErrors('hzip');
-	}
-
-	if(wzip.length < 5) {
-		errormsg1 = errormsg1 + "Work ZIP code must be 5 digits long<br />";
-		highlightErrors('wzip');
-	}
+		if(wcity.length==0) {
+			errormsg1 = errormsg1 + "<li>Work city cannot be blank</li>";
+			highlightErrors('wcity');
+		}
 	
-	if(mail.length == 0) {
-		errormsg2 = errormsg2 + "E-mail cannot be blank<br />";
-		highlightErrors('mail');
-	}
+		if(state.length==0) {
+			errormsg1 = errormsg1 + "<li>State cannot be blank</li>";
+			highlightErrors('state');
+		}
+		if(hzip.length < 5) {
+			errormsg1 = errormsg1 + "<li>Home ZIP code must be 5 digits long. <br/><span>We use this information to calculate the length of your commute.</span></li>";
+			highlightErrors('hzip');
+		}
 	
-	if(errormsg1.length != 0){
-		errordiv1.style.display = "";
-		errordiv1.innerHTML = '<h3 class=\"headerColor\">Please change the following:</h3>' + errormsg1;
-	}	
+		if(wzip.length < 5) {
+			errormsg1 = errormsg1 + "<li>Work ZIP code must be 5 digits long. <br /><span>We use this information to calculate the length of your commute.</span></li>";
+			highlightErrors('wzip');
+		}
+		
+		if(errormsg1.length != 0){
+			errordiv1.style.display = "";
+			errordiv1.innerHTML = '<h3>Please change the following:</h3><ul>' + errormsg1 + '</ul>';
+		}	
 
-	if(errormsg2.length != 0){
-		errordiv2.style.display = "";
-		errordiv2.innerHTML = '<h3 class=\"headerColor\">Please change the following:</h3>' + errormsg2;
-	}	
-}
+		
+	} else if (formId == 2) {
+		if(mail.length == 0) {
+			errormsg2 = errormsg2 + "<li>Your e-mail address cannot be blank.<br/><span>  This information is kept confidential, but we need to know how to contact you during the study.</span></li>";
+			highlightErrors('mail');
+		}
+
+		if(password1.length<6) {
+			errormsg2 = errormsg2 + "<li>Your password must be at least six characters.</li>";
+			highlightErrors('password1');
+ 		}
+		if(password2.length==0) {
+			errormsg2 = errormsg2 + "<li>Don't forget to retype your password!</li>";
+			highlightErrors('password2');
+ 		}
+		if(password1!=password2) {
+			errormsg2 = errormsg2 + "<li>Both password fields must match. <br/><span>Remember, passwords are case sensitive!</span></li>";
+			highlightErrors('password1');
+			highlightErrors('password2');
+ 		}
+
+		if(errormsg2.length != 0){
+			errordiv2.style.display = "";
+			errordiv2.innerHTML = '<h3>Please change the following:</h3><ul>' + errormsg2 + '</ul>';
+		}	
+	
+	} else {}
+	
+} 
 	</script>
 
 	</head>
@@ -198,14 +220,14 @@ function validateForm(form){
 			<div class="settings-col1">Vocation<br />
 				<span>What do you do?</span></div>
 			<div class="settings-col2">
-				<html:text property="vocation" value="${user.vocation}"/>
+				<html:text property="vocation" size="50" value="${user.vocation}"/>
 			</div>
 			<div class="clearBoth"></div>
 			<div class="settings-col1">Why I'm Here<br />
 				<span> Tell us about your interest in transportation and why you've chosen to
 				take on the LIT challenge.</span> </div>
 			<div class="settings-col2">
-				<html:textarea property="profileDesc" value="${user.profileDesc}"/>
+				<html:textarea property="profileDesc" value="${user.profileDesc}" rows="5" cols="50"/>
 			</div>
 			<div class="clearBoth"></div>
 			</fieldset>
@@ -256,13 +278,13 @@ function validateForm(form){
 				<br />
 				<span>How do you usually travel from your home to work and other regular errands?</span>
 				<p>
-					<html:text property="primaryTransport" value="${user.primaryTransport}"/>
+					<html:text property="primaryTransport" value="${user.primaryTransport}" size="50"/>
 				</p>
 				<div class="clearBoth"></div>
 			</div>
 			</fieldset>
-			<div id="errors1" style="display:none"> Errors will go here. </div>
-			<input type="button" class="floatRight padding5 submit" onclick="validateForm(this.form)" value="Update my Profile" />
+			<div id="errors1" class="floatLeft" style="display:none"> Errors will go here. </div>
+			<input type="button" class="floatRight padding5 submit" onclick="validateForm(this.form,1)" value="Update my Profile" />
 			<br class="clearBoth" />
 		</div>
 
@@ -328,23 +350,23 @@ function validateForm(form){
 				<div class="clearBoth"></div>
 				<div class="settings-col1">Current Password</div>
 				<div class="settings-col2">
-					<html:password property="currentpassword" redisplay="false"/>
+					<html:password property="currentpassword" styleId="currentpw" redisplay="false"/>
 				</div>
 				<div class="clearBoth"></div>
 				<div class="settings-col1">New Password</div>
 				<div class="settings-col2">
-					<html:password property="password1" redisplay="false"/>
+					<html:password property="password1" styleId="password1" redisplay="false"/>
 				</div>
 				<div class="clearBoth"></div>
 				<div class="settings-col1">Retype New Password</div>
 				<div class="settings-col2">
-					<html:password property="password2" redisplay="false"/>
+					<html:password property="password2" styleId="password2" redisplay="false"/>
 				</div>
 			</div>
 			<div class="clearBoth"></div>
 			</fieldset>
-			<div id="errors2" style="display:none"> Errors will go here. </div>
-			<input type="button" class="floatRight padding5 submit" onclick="validateForm(this.form)" value="Update My Settings"/>
+			<div id="errors2" class="floatLeft" style="display:none"> Errors will go here. </div>
+			<input type="button" class="floatRight padding5 submit" onclick="validateForm(this.form,2)" value="Update My Settings"/>
 		</div>
 		<!-- end EDIT-SETTINGS -->
 		</html:form>
