@@ -208,6 +208,12 @@
 					<div class="date">11/15 - 11/25</div>
 				</div>
 				<div class="padding5 home-row clearfix">
+					<div class="step"><a href="criteriaList.do">Manage Criteria</a><br />
+						<small>Information about this step</small>
+					</div>
+					<div class="date">11/15 - 11/25</div>
+				</div>
+				<div class="padding5 home-row clearfix">
 					<div class="step"><a href="projectManage.do">Manage Projects</a><br />
 						<small>Information about this step</small>
 					</div>
@@ -243,18 +249,12 @@
 				
 				<h4 class="headerColor clearBoth step-header">Step 2</h4>
 				<div class="padding5 home-row clearfix">
-					<div class="step"><a href="criteriaList.do">Manage Criteria</a><br />
+					<div class="step"><a href="criteriaDefine.do?suiteId=200">Define Criteria</a><br />
 						<small>Information about this step</small>
 					</div>
 					<div class="date">11/15 - 11/25</div>
 				</div>
-				<div class="padding5 home-row clearfix">
-					<div class="step"><a href="criteriaPublish.do">Criteria Publish Tool</a><br />
-						<small>Information about this step</small>
-					</div>
-					<div class="date">11/15 - 11/25</div>
-				</div>
-				
+
 	
 				<h4 class="headerColor clearBoth step-header">Step 3</h4>
 				<div class="padding5 home-row clearfix">
