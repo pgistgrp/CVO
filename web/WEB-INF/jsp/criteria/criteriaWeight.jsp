@@ -28,7 +28,7 @@
 
 		<script type="text/javascript" charset="utf-8">
 			//START Global vars
-			var suiteId = "<%=request.getParameter("suiteId")%>";	
+			var suiteId = '<%=request.getParameter("suiteId")%>';	
 			var remainingWeight = 100;
 			var range=new Array();
 			var sliders = $H({});
@@ -37,7 +37,6 @@
 			for(a=0;a<101;a++){
 				range.push(a);
 			}
-			
 			
 			//END Global Vars
 			
