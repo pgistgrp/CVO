@@ -16,6 +16,7 @@
     
     
     <convert converter="bean" match="org.pgist.criteria.Criteria"/>
+    <convert converter="bean" match="org.pgist.criteria.CriteriaSuite"/>
     <convert converter="bean" match="org.pgist.criteria.Objective"/>
    
 	
