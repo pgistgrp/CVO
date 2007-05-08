@@ -158,19 +158,19 @@ function validateForm(form,formId){
 			highlightErrors('mail');
 		}
 
-		if(currentpw.length != 0 && currentpw != oldpw) {
+		/*if(currentpw.length != 0 && currentpw != oldpw) {
 		alert(oldpw);
 			errormsg2 = errormsg2 + "<li>Check that your Current Password is correct.</li>";
 			highlightErrors('currentpw');
- 		}
+ 		}*/
 
-		if(password1.length > 0 && currentpw.length == 0) {
+		/*if(password1.length > 0 && currentpw.length == 0) {
 			errormsg2 = errormsg2 + "<li>You must enter your Current Password before creating a New Password</li>";
 			highlightErrors('password1');
- 		}
+ 		}*/
 
 		if(password1.length > 0 && password1.length < 6) {
-			errormsg2 = errormsg2 + "<li>Your New Password must be at least six characters.</li>";
+			errormsg2 = errormsg2 + "<li>Your new password must be at least six characters.</li>";
 			highlightErrors('password1');
  		}
 		
