@@ -13,6 +13,16 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-define.criteria" description="Define Criteria." auto="false" access="moderator">
+	    <actionName>action-define.criteria</actionName>
+	    <declaration>
+		<ins>
+		    <var name="suiteId"/>
+		</ins>
+	    </declaration>
+	    <timer extension="300000"/>
+        </pgame>
+        
         <pgame name="pgame-manage.criteria" description="Manage Criteria." auto="false" access="moderator">
             <actionName>action-manage.criteria</actionName>
             <declaration>
@@ -108,7 +118,8 @@
 					</outs>
 				    </declaration>
 				</pgame>
-
+				<branch>
+				<sequence>
 				<pgame name="pgame-manage.criteria">
 				    <declaration>
 					<ins>
@@ -117,6 +128,17 @@
 					</ins>
 				    </declaration>
 				</pgame>
+				</sequence>
+				<sequence>
+				<pgame name="pgame-define.criteria">
+				    <declaration>
+					<ins>
+					    <var name="suiteId" ref="pmethod.crit_suite_id"/>
+					</ins>
+				    </declaration>
+				</pgame>
+				</sequence>
+				</branch>
 				
 				<pgame name="pgame-publish.criteria">
 				    <declaration>
