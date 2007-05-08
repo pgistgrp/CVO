@@ -45,18 +45,13 @@
 		cctId = <%=request.getParameter("cctId")%>;
 		critSuiteId = <%=request.getParameter("critSuiteId")%>;
 		//END GLOBAL VARS
-		window.onLoad = doOnLoad();
-		
-		function doOnLoad(){
-			
-		}
-		
+
 		/* *************** Grab All Criteria in the System - uses criteria.jsp *************** */
 		function getCriteria(){
-
-			CriteriaAgent.getAllCriterion({}, {
+			CriteriaAgent.getAllCriterion({critSuiteId:critSuiteId}, {
 				callback:function(data){
 					if (data.successful){
+						alert(data.html)
 						$('allCriteriaList').innerHTML = data.html;
 						
 					}else{

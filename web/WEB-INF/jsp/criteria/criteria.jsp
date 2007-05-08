@@ -6,10 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<!--
-######### REMOVE ME ###########
-###############################
-###############################-->
+
 
 <!--####
 	Project: Let's Improve Transportation!
@@ -26,6 +23,7 @@
 		[ ] Add conditional statements to allow sdcritStructureTarget.jsp to use the same partial.
 #### -->
 <!-- begin criteria headers -->
+
 <div class="criteriaListHeader">
   <div class="criteriaCol1 floatLeft">
     <h4 class="headerColor">Planning factor</h4>
