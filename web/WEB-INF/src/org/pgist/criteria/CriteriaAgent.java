@@ -509,7 +509,7 @@ public class CriteriaAgent {
         	}
         	request.setAttribute("criteria", criteria); 
         	map.put("criteria", criteria);
-        	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/allcriteria.jsp"));
+        	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteria.jsp"));
         	map.put("successful", true);
         	
         } catch (Exception e) {
