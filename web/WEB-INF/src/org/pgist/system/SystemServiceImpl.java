@@ -154,6 +154,7 @@ public class SystemServiceImpl implements SystemService {
 	    	}
 	    	
 	    	user.setPassword(password1);
+	    	user.encodePassword();
 	    	user.setEmail(email);
         	user.setEmailNotify(emailNotify);
         	user.setEmailNotifyDisc(emailNotifyDisc);

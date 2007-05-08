@@ -13,10 +13,11 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-define.criteria" description="Define Criteria." auto="false" access="moderator">
-            <actionName>action-define.criteria</actionName>
+        <pgame name="pgame-manage.criteria" description="Manage Criteria." auto="false" access="moderator">
+            <actionName>action-manage.criteria</actionName>
             <declaration>
                 <ins>
+		    <var name="cctId"/>
                     <var name="suiteId"/>
                 </ins>
             </declaration>
@@ -99,15 +100,6 @@
 			    </declaration>
 			</pgame>
 			<branch>
-			<sequence>
-			<pgame name="pgame-define.criteria">
-			    <declaration>
-			        <ins>
-			            <var name="suiteId" ref="pmethod.crit_suite_id"/>
-			        </ins>
-			    </declaration>
-                      	</pgame>
-                      	</sequence>
                       	<sequence>
                       	<pgame name="pgame-create.cct">
 			    <declaration>
@@ -116,25 +108,40 @@
 				</outs>
 			    </declaration>
                       	</pgame>
-			<pgame name="pgame-publish.criteria">
+                      	<pgame name="pgame-publish.criteria">
 			    <declaration>
-			        <ins>
-			            <var name="suite_id" ref="pmethod.crit_suite_id"/>
-			            <var name="cct_id" ref="pmethod.cct_id"/>
-			        </ins>
-			        <outs>
+				<ins>
+				    <var name="suite_id" ref="pmethod.crit_suite_id"/>
+				    <var name="cct_id" ref="pmethod.cct_id"/>
+				</ins>
+				<outs>
 				    <var name="is_id" ref="pmethod.crit_isid"/>
 				</outs>
 			    </declaration>
                       	</pgame>
-			<pgame name="pgame-sd.criteria">
+                      	<branch>
+                      	<sequence>
+			<pgame name="pgame-manage.criteria">
 			    <declaration>
 				<ins>
-				    <var name="isid" ref="pmethod.crit_isid"/>
+				    <var name="cctId" ref="pmethod.cct_id"/>
+				    <var name="suiteId" ref="pmethod.crit_suite_id"/>
 				</ins>
 			    </declaration>
-                        </pgame>
+                      	</pgame>
+                      	</sequence>
+			<sequence>
+				<pgame name="pgame-sd.criteria">
+				    <declaration>
+					<ins>
+					    <var name="isid" ref="pmethod.crit_isid"/>
+					</ins>
+				    </declaration>
+				</pgame>
                         </sequence>
+                        </branch>
+			
+                      	</sequence>
                       	<sequence>
 			<pgame name="pgame-weigh.criteria">
 			    <declaration>
