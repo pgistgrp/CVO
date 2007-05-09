@@ -2,6 +2,7 @@ package org.pgist.packages;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.pgist.discussion.InfoStructure;
 import org.pgist.users.User;
@@ -58,7 +59,7 @@ public interface PackageService {
 
 	PackageVoteSuite getPackageVoteSuite(Long voteSuiteId) throws Exception;
 
-	void setVotes(Long voteSuiteId, HashMap choices) throws Exception; 
+	void setVotes(Long voteSuiteId, Map choices) throws Exception; 
     
     
 }//interface PackageService

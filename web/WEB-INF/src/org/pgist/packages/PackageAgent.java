@@ -626,16 +626,13 @@ public class PackageAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map setVoting(Map params, Map stuff) {
+    public Map setVoting(Map params, Map choices) {
         Map map = new HashMap();
         map.put("successful", false);
         
         try {
             Long voteSuiteId = new Long((String) params.get("voteSuiteId"));
-            System.out.println("MATT: *(*(&(*& Stuff=" + stuff.size());
-//            HashMap choices = (HashMap)params.get("choices");
-//            
-//            this.packageService.setVotes(voteSuiteId, choices);
+            this.packageService.setVotes(voteSuiteId, choices);
             
             map.put("successful", true);
         } catch (Exception e) {

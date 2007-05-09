@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -532,7 +533,7 @@ public class PackageServiceImpl implements PackageService {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#setVotes(java.lang.Long, java.util.HashMap)
 	 */
-	public void setVotes(Long voteSuiteId, HashMap choices) throws Exception {
+	public void setVotes(Long voteSuiteId, Map choices) throws Exception {
 		PackageVoteSuite vSuite = this.packageDAO.getVoteSuite(voteSuiteId);
 		
 		Iterator i = choices.keySet().iterator();
