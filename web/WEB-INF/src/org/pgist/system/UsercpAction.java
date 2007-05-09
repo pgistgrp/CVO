@@ -9,7 +9,7 @@ import org.pgist.users.User;
 
 /**
  * 
- * @author kenny
+ * @author John
  *
  */
 public class UsercpAction extends Action {
@@ -32,17 +32,14 @@ public class UsercpAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-		
-		
+			
 		UserForm uform = (UserForm) form;
 		User userInfo = systemService.getCurrentUser();
 		
     	request.setAttribute("user", userInfo);
     	
-    	
 		if (!uform.isSave()) return mapping.findForward("usercp");
-
-		
+	
 		String email = uform.getEmail();
 		boolean emailNotify = uform.isEmailNotify();
 		boolean emailNotifyDisc = uform.isEmailNotifyDisc();
@@ -85,8 +82,7 @@ public class UsercpAction extends Action {
         } catch (Exception e) {
             uform.setReason("Current Password is Incorrect.");
         }
-
-		
+	
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
         
         return mapping.findForward("usercp");

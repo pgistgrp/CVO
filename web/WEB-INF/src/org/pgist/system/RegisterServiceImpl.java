@@ -89,9 +89,15 @@ public class RegisterServiceImpl implements RegisterService {
     	registerDAO.addQuestionnaire(id, incomeRange, householdsize, drive, carpool, carpoolpeople, bus, bike);  	
     }
     
+    
     public void setToll(Long myTollId, boolean boolchecked) throws Exception {
     	Long id = WebUtils.currentUserId();
     	registerDAO.setToll(id, myTollId, boolchecked);
     }
     
+    
+    public boolean checkUsername(String username) throws Exception {
+    	
+    	return registerDAO.checkUsername(username);
+    }
 }

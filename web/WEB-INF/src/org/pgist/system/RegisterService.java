@@ -41,4 +41,6 @@ public interface RegisterService {
 	
 	void setToll(Long myTollId, boolean boolchecked) throws Exception;
 	
+	boolean checkUsername(String username) throws Exception;
+	
 }

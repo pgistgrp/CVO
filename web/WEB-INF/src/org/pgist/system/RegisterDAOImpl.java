@@ -3,6 +3,7 @@ package org.pgist.system;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.SortedSet;
+import java.util.List;
 
 import org.pgist.funding.UserCommute;
 import org.pgist.funding.UserFundingSourceToll;
@@ -143,4 +144,21 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 			}
 		}
     }
+	
+	
+	private static final String hql_checkUsername = "from User u where u.loginname=?";
+	
+	public boolean checkUsername(String username) throws Exception {
+		
+		List list = getHibernateTemplate().find(hql_checkUsername, new Object[] {
+				username,
+    	});
+		
+		if(list.size() > 0) {
+			
+			return false;
+		}
+		
+		return true;
+	}
 }

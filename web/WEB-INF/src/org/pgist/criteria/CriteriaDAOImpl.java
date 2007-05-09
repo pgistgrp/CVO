@@ -120,6 +120,25 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	return criteriaObjects;
     }//getCriterionById()
     
+    /*
+    public Set getAllCriterion(Long critSuiteId) throws Exception {    	
+    	
+    	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
+    	Set references = cs.getReferences();
+    	
+    	Set cSet = new HashSet();
+    	Iterator r = references.iterator();
+    	while(r.hasNext()) {
+    		CriteriaRef tempCR= (CriteriaRef) r.next();
+    		Criteria c = tempCR.getCriterion();
+    		if(!c.getDeleted()) {
+    			cSet.add(c);
+    		}
+    	}
+    	return cSet;
+    } //getAllCriterion(Long critSuiteId);
+    */
+    
     
     public Set getAllCriterion(Long critSuiteId) throws Exception {    	
     	
@@ -137,6 +156,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	}
     	return cSet;
     } //getAllCriterion(Long critSuiteId);
+    
     
     
     private static final String hql_getAllCriterion2 = "from Criteria c where c.deleted=? order by c.id";

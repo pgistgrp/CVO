@@ -32,4 +32,6 @@ public interface RegisterDAO extends BaseDAO {
 	
 	void setToll(Long id, Long myTollId, boolean boolchecked) throws Exception;
 	
+	boolean checkUsername(String username) throws Exception;
+	
 }

@@ -599,4 +599,45 @@ public class RegisterAgent {
     }//setToll()
     
     
+    /**
+     * check if the username is okay to use, (not taken)
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>username - string, desired username</li>
+     *   </ul>
+     *   
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>available - a boolean value, the user name is available, true or false</li>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map checkUsername(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+       
+        String username = (String) params.get("username");
+       
+    	if(username==null || "".equals(username.trim())){
+    		map.put("reason", "username cannot be blank.");
+    		return map;
+    	}
+  
+        try {
+        	
+        	boolean available = registerService.checkUsername(username);
+        	
+        	map.put("available", available);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+
+        return map;
+    }//checkUsername()
+    
+    
 } //RegisterAgent()
