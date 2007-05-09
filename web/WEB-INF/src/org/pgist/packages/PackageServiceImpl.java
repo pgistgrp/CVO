@@ -537,11 +537,11 @@ public class PackageServiceImpl implements PackageService {
 		PackageVoteSuite vSuite = this.packageDAO.getVoteSuite(voteSuiteId);
 		
 		Iterator i = choices.keySet().iterator();
-		Long cPkgId;
-		Integer vote;
+		String cPkgId;
+		String vote;
 		while(i.hasNext()) {
-			cPkgId = (Long)i.next();
-			vote = (Integer)choices.get(cPkgId);
+			cPkgId = (String)i.next();
+			vote = (String)choices.get(cPkgId);
 			System.out.println("Got a vote of " + vote + " for cPkg "+ cPkgId);
 		}
 	}
