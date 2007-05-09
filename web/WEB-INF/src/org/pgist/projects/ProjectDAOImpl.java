@@ -220,6 +220,9 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 			
 			while(r.next()){
 				Long id = r.getLong(1);
+/*Gman*/				Object o = r.getObject(2);
+/**gman*/				System.out.println("==>>obj class: " + o.getClass().getName());
+
 				PGgeometry geom = (PGgeometry)r.getObject(2);
 				int[] parts = {};
 				

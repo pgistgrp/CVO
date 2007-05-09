@@ -73,7 +73,7 @@
                     <var name="cctId"/>
                 </ins>
             </declaration>
-            <timer extension="60000"/>
+            <timer extension="10000"/>
         </pgame>
         
         <pgame name="pgame-cvo.cst" description="Concerns Synthesis Tool" auto="false" access="all">
@@ -83,7 +83,7 @@
                     <var name="cctId"/>
                 </ins>
             </declaration>
-            <timer extension="60000"/>
+            <timer extension="10000"/>
         </pgame>
         
         <pgame name="pgame-publish.theme" description="Publish Themes." auto="true">
@@ -108,7 +108,7 @@
                     <var name="isid"/>
                 </ins>
             </declaration>
-            <timer extension="60000"/>
+            <timer extension="10000"/>
         </pgame>
         
         <pgame name="pgame-create.criteria.suite" description="Create a criteria suite." auto="true">

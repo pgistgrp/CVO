@@ -19,7 +19,7 @@ public class GradedObjective {
 	 */
 	private Integer grade;
 
-    /**
+    /** 
      * @hibernate.id generator-class="native"
      */
     public Long getId(){

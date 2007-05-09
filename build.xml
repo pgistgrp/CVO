@@ -126,13 +126,13 @@
         <WorkflowImporter definition="LIT.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
     
+
     <target name="criteria">
-            <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
-            </taskdef>
-            <WorkflowImporter definition="criteria.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
+        <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
+        </taskdef>
+        <WorkflowImporter definition="criteria.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
-    
-    
+
     <target name="test" depends="compile, mapping">
         <taskdef name="SimpleTest" classname="org.pgist.tests.SimpleTest">
             <classpath refid="classpath"/>

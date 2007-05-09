@@ -29,12 +29,19 @@
 <!-- Site Wide JavaScript -->
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script src="scripts/search.js" type="text/javascript"></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/util.js'></script>
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
 
 <!-- DWR JavaScript Libraries -->
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
 <!-- End DWR JavaScript Libraries -->
+
+<script type='text/javascript' src='/dwr/interface/PackageAgent.js'></script>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">
 		@import "styles/lit.css";
@@ -87,6 +94,12 @@ background:#FFF1DC;
 </style>
 
 <script type="text/javascript" charset="utf-8">
+	var pkgSuiteId = "${pkgSuiteId}";
+	var projSuiteId = "${projSuiteId}";
+	var fundSuiteId = "${fundSuiteId}";
+	var critSuiteId = "${critSuiteId}";
+	var voteSuiteId = "${voteSuite.id}";
+
 	function setVoting(){
 		choices = $H({});
 		inputs = document.vote.elements
