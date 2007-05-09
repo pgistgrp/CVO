@@ -207,106 +207,109 @@
 			};
 			
 		</script>
-		<style type="text/css" media="screen">
-			@import "styles/lit.css";
-		</style>
-		
-		<style type="text/css" media="screen">
-			/*
-			scriptaculous slider css
-			*/
-			
-			/* put the left rounded edge on the track */
-			.track-left {
-				position: absolute;
-				width: 5px;
-				height: 9px;
-				background: transparent url(images/slider-track-left.png) no-repeat top left;
-			}
-			
-			/* put the track and the right rounded edge on the track */
-			.track {
-				background: transparent url(images/slider-track-right.png) no-repeat top right;
-			}
-			
-			/*end scriptaculous slider css*/
-			
-			.criteriaListRow
-			{
-			background:#E7F2F7;
-			padding:.3em 0em;
-			}
+<style type="text/css" media="screen">
+@import "styles/lit.css";
+</style>
 
-			.criteriaListHeader
-			{
-			background:#fff;
-			}
+<style type="text/css" media="screen">
+/*
+scriptaculous slider css
+*/
 
-			#allCriteriaList
-			{
-			text-align:left;
-			}
+/* put the left rounded edge on the track */
+.track-left {
+position: absolute;
+width: 5px;
+height: 9px;
+background: transparent url(images/slider-track-left.png) no-repeat top left;
+}
 
-			.even {background: #ffffff}
+/* put the track and the right rounded edge on the track */
+.track {
+background: transparent url(images/slider-track-right.png) no-repeat top right;
+}
 
-			.weighCriteriaCol1
-			{
-			width:210px;
-			margin-right:.5em;
-			}
+/*end scriptaculous slider css*/
 
-			.weighCriteriaCol1 img
-			{
-			margin:0px 3px 0px 0px;
-			vertical-align:middle;
-			border:0px;
-			}
+.criteriaListRow
+{
+background:#E7F2F7;
+padding:.3em 0em;
+}
 
-			.weighCriteriaCol2
-			{
-			width:330px;
-			}
+.criteriaListHeader
+{
+background:#fff;
+}
 
-			.weighCriteriaCol3
-			{
-			margin-left:.5em;
-			width:370px;
-			}	
+#allCriteriaList
+{
+text-align:left;
+}
 
-			h4
-			{
-			font-size:1em;
-			margin:0px;
-			padding:0px;
-			}
+.even {background: #ffffff}
 
-			.objectives
-			{
-			padding:.5em;
-			}
-			
-			#saving-indicator{
-	display: none;
-	background-color: red;
-	color: white;
-	position:absolute;
-	top: 0;
-	left:0;
-	padding: 3px;
-	z-index: 500;
+.weighCriteriaCol1
+{
+width:210px;
+margin-right:.5em;
+}
+
+.weighCriteriaCol1 img
+{
+margin:0px 3px 0px 0px;
+vertical-align:middle;
+border:0px;
+}
+
+.weighCriteriaCol2
+{
+width:330px;
+}
+
+.weighCriteriaCol3
+{
+margin-left:.5em;
+width:390px;
+}	
+
+h4
+{
+font-size:1em;
+margin:0px;
+padding:0px;
+}
+
+.objectives
+{
+padding:.5em;
+}
+
+#saving-indicator{
+display: none;
+background-color: red;
+color: white;
+position:absolute;
+top: 0;
+left:0;
+padding: 3px;
+z-index: 500;
 }
 
 #loading-indicator{
-	
-	background-color: red;
-	color: white;
-	position:absolute;
-	top: 0;
-	left:0;
-	padding: 3px;
-	z-index: 500;
+
+background-color: red;
+color: white;
+position:absolute;
+top: 0;
+left:0;
+padding: 3px;
+z-index: 500;		
 }
-		</style>
+
+.weighCriteriaCol3 input {width:2em;text-align:center;}
+
+</style>
 		
 	</head>
 	<body>
