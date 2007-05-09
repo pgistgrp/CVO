@@ -59,7 +59,7 @@ public interface PackageService {
 
 	PackageVoteSuite getPackageVoteSuite(Long voteSuiteId) throws Exception;
 
-	void setVotes(Long voteSuiteId, Map choices) throws Exception; 
+	void setVotes(VoteSubmitDTO vote) throws Exception; 
     
     
 }//interface PackageService

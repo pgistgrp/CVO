@@ -533,16 +533,17 @@ public class PackageServiceImpl implements PackageService {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#setVotes(java.lang.Long, java.util.HashMap)
 	 */
-	public void setVotes(Long voteSuiteId, Map choices) throws Exception {
-		PackageVoteSuite vSuite = this.packageDAO.getVoteSuite(voteSuiteId);
+	public void setVotes(VoteSubmitDTO vote) throws Exception {
+		PackageVoteSuite vSuite = this.packageDAO.getVoteSuite(vote.getPackageSuiteId());
 		
-		Iterator i = choices.keySet().iterator();
-		String cPkgId;
-		String vote;
+		Iterator<Long> i = vote.getVotes().keySet().iterator();
+		String temp;
+		Long cPkgId;
+		Integer voteValue;
 		while(i.hasNext()) {
-			cPkgId = (String)i.next();
-			vote = (String)choices.get(cPkgId);
-			System.out.println("Got a vote of " + vote + " for cPkg "+ cPkgId);
+			cPkgId = i.next();
+			voteValue = vote.getVotes().get(cPkgId);
+			System.out.println("Got a vote of " + voteValue + " for cPkg "+ cPkgId);
 		}
 	}
 

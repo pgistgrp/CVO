@@ -647,7 +647,7 @@ public class TaxCalcUtils {
 		data.add(alt.getName());
 		data.add(PRICE_FORMAT.format(total));
 		data.add("=");
-		data.add(TAX_FORMAT.format(alt.getTaxRate()));
+		data.add(PRICE_FORMAT.format(alt.getTaxRate()));
 		data.add("X (");
 		data.add(NUM_FORMAT.format(source.getPeakTrips()));
 		data.add("+");
