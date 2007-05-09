@@ -14,6 +14,10 @@ import org.pgist.util.WebUtils;
  * The action accepts two parameters:
  * <ul>
  *   <li>voteSuiteId - int, an id of a PackageVoteSuite object</li>
+ *   <li>pkgSuiteId - int, the id of a PackageSuite object</li>
+ *   <li>projSuiteId - the id of a specified PackageSuite object</li>
+ *   <li>fundSuiteId - the id of a specified FundingSuite object</li>
+ *   <li>critSuiteId - the id of a specified CriteriaSuite object</li>   
  * </ul>
  * 
  * <p>According to whether the current user voted or not in the current phase, the action forwards to different page.
@@ -61,6 +65,15 @@ public class PackageVoteAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
+    	String tempPackageSuiteId = request.getParameter("pkgSuiteId");
+    	String tempProjSuiteId = request.getParameter("projSuiteId");
+    	String tempFundSuiteId = request.getParameter("fundSuiteId");
+    	String tempCritSuiteId = request.getParameter("critSuiteId");
+		Long packSuite = new Long(tempPackageSuiteId);
+		Long projSuite = new Long(tempProjSuiteId);
+		Long fundSuite = new Long(tempFundSuiteId);
+		Long critSuite = new Long(tempCritSuiteId);     	
+    	
     	String tempVoteSuiteId = request.getParameter("voteSuiteId");
     	Long voteSuiteId = new Long(tempVoteSuiteId);
     	PackageVoteSuite vSuite = this.packageService.getPackageVoteSuite(voteSuiteId);
@@ -68,7 +81,11 @@ public class PackageVoteAction extends Action {
 		//Grade it
     	User user = this.packageService.getUser(WebUtils.currentUser());    	
 		request.setAttribute("voteSuite", vSuite);    		
-    	    	
+		request.setAttribute("pkgSuiteId", packSuite);
+		request.setAttribute("projSuiteId", projSuite);
+		request.setAttribute("fundSuiteId", fundSuite);
+		request.setAttribute("critSuiteId", critSuite); 
+		
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         if(vSuite.userVoted(user)) {
             return mapping.findForward("view");        	
