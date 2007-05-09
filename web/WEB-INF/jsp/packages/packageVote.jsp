@@ -99,8 +99,26 @@ background:#FFF1DC;
 	var fundSuiteId = "${fundSuiteId}";
 	var critSuiteId = "${critSuiteId}";
 	var voteSuiteId = "${voteSuite.id}";
+	
+	/* *************** Grab a Voting Object *************** */
+	function getVoting(){
+		//alert("pkgSuiteId: " + pkgSuiteId); 
+		PackageAgent.getVoting({pkgSuiteId:pkgSuiteId}, {
+			callback:function(data){
+				if (data.successful){
+					alert(data.vote);
+					//setVoting(data.vote)
+				}else{
+					alert("REASON: "+ data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("PackageAgent.getVoting( error:" + errorString + exception);
+			}
+		});
+	}
 
-	function setVoting(){
+	function setVoting(voteObj){		
 		choices = $H({});
 		inputs = document.vote.elements
 		for (var i=0; i < inputs.length; i++) {
@@ -110,8 +128,9 @@ background:#FFF1DC;
 			}
 		}
 		
-		alert("voteSuiteId: " + voteSuiteId + " choices: " + choices); 
-		PackageAgent.setVoting({voteSuiteId:voteSuiteId,choices:choices}, {
+		//alert("voteSuiteId: " + voteSuiteId + " choices: " + choices.toQueryString()); 
+		alert(choices.toArray())
+		PackageAgent.setVoting({voteSuiteId:voteSuiteId},{choices:choices}, {
 			callback:function(data){
 				if (data.successful){
 					alert("it worked!! REFRESH")
@@ -179,7 +198,7 @@ background:#FFF1DC;
           <div class="clearBoth"></div>
         </div>
 		<!-- end voting headers -->
-		<form name="vote" action="javascript:setVoting();">
+		<form name="vote" action="javascript:getVoting();">
 			<c:forEach var="clusteredPkg" items="${voteSuite.pkgSuite.clusteredPkgs}" varStatus="loop">
 			       <div class="VoteListRow row ${((loop.index % 2) == 0) ? 'even' : 'odd'}">
 			         <div class="voteCol1 floatLeft">
