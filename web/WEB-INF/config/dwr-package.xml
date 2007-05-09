@@ -24,7 +24,7 @@
     <convert converter="bean" match="org.pgist.packages.FundingSourceAlternativeDTO"/>
     <convert converter="bean" match="org.pgist.packages.ProjectDTO"/>
     <convert converter="bean" match="org.pgist.packages.ProjectAlternativeDTO"/>
-    <convert converter="bean" match="org.pgist.packages.PackageVoteDTO"/>
+    <convert converter="bean" match="org.pgist.packages.VoteSubmitDTO"/>
 
     <!-- DWR Agents -->
 
