@@ -618,6 +618,7 @@ public class PackageAgent {
         
         try {
             Long pkgSuiteId = new Long((String) params.get("pkgSuiteId"));
+            System.out.println("MATT 1 &(*&*( " + pkgSuiteId);
         	VoteSubmitDTO vote = new VoteSubmitDTO();
         	vote.setPackageSuiteId(pkgSuiteId);
         	
@@ -660,6 +661,7 @@ public class PackageAgent {
         map.put("successful", false);
         
         try {
+            System.out.println("MATT 2 &(*&*( " + vote.getPackageSuiteId());
             this.packageService.setVotes(vote);
             
             map.put("successful", true);
