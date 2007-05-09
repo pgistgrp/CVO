@@ -633,6 +633,7 @@ public class PackageAgent {
         try {
             Long voteSuiteId = new Long((String) params.get("voteSuiteId"));
             System.out.println("MATT: *(*(&(*& I'm a " + params.get("choices").getClass().getName());
+            System.out.println(params.get("choice"));
 //            HashMap choices = (HashMap)params.get("choices");
 //            
 //            this.packageService.setVotes(voteSuiteId, choices);
