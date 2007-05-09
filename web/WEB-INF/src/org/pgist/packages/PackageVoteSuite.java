@@ -50,7 +50,9 @@ public class PackageVoteSuite {
     	while(iCPackage.hasNext()) {
     		tempCPackage = iCPackage.next();
     		puv = userVotes.get(tempCPackage);
-    		if(!puv.getVotes().containsKey(user)) return false;
+    		if(puv != null) {
+        		if(!puv.getVotes().containsKey(user)) return false;    			
+    		}
     	}
     	
     	return true;

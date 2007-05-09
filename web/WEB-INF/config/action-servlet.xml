@@ -166,7 +166,7 @@
         <property name="projectService" ref="projectService"/>
     </bean> 
 
-    <bean name="/package" class="org.pgist.packages.PackageVoteAction">
+    <bean name="/packageVote" class="org.pgist.packages.PackageVoteAction">
         <property name="packageService" ref="packageService"/>
     </bean> 
        
