@@ -41,6 +41,7 @@
         <include method="createClusteredPackage"/>
         <include method="deleteClusteredPackage"/>
         <include method="getManualPackages"/>
+        <include method="setVoting"/> 
         <include method="getSummary"/>        
         <include method="getClusteredSummary"/>        
     </create>

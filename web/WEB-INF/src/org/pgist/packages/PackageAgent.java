@@ -605,10 +605,6 @@ public class PackageAgent {
     
     /**
      * Set the voting selection for the current user.
-     * 
-     * @param params A map contains:
-     *     <ul>
-     *       <li>suiteId - int, id for a PackageVoteSuite object</li>
      *       <li>vote - int, vote value, [0 | 1 | 2 | 3]
      *         <ul>
      *           <li>0 - unknown</li> 
@@ -617,6 +613,11 @@ public class PackageAgent {
      *           <li>3 - Low</li> 
      *         </ul> 
      *       </li>
+     * 
+     * @param params A map contains:
+     *     <ul>
+     *       <li>voteSuiteId - int, id for a PackageVoteSuite object</li>
+     *       <li>choices - A hash of the ClusterPackageId's as the key and the integer value of the vote for the value</li>
      *     </ul>
      * 
      * @return A map contains:
@@ -630,9 +631,10 @@ public class PackageAgent {
         map.put("successful", false);
         
         try {
-            /*
-             * TODO: persist the voting selection
-             */
+            Long voteSuiteId = new Long((String) params.get("voteSuiteId"));
+            HashMap choices = (HashMap)params.get("choices");
+            
+            this.packageService.setVotes(voteSuiteId, choices);
             
             map.put("successful", true);
         } catch (Exception e) {

@@ -515,6 +515,37 @@ public class PackageServiceImpl implements PackageService {
 		return result;
 	}
 
+	private String getProjectGrade() {
+		//Average all of the grades related to this project
+		return "";
+	}
+	private String getYourGrade() {
+		//Muliply the criteria value by the graded value for the Criteria on each Package, then sum it
+		return "";
+	}
+	
+	private String getAvgGrade() {
+		//Average all of the weights of all the users and then do the same thing as in your grade
+		return "";
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.pgist.packages.PackageService#setVotes(java.lang.Long, java.util.HashMap)
+	 */
+	public void setVotes(Long voteSuiteId, HashMap choices) throws Exception {
+		PackageVoteSuite vSuite = this.packageDAO.getVoteSuite(voteSuiteId);
+		
+		Iterator i = choices.keySet().iterator();
+		Long cPkgId;
+		Integer vote;
+		while(i.hasNext()) {
+			cPkgId = (Long)i.next();
+			vote = (Integer)choices.get(cPkgId);
+			System.out.println("Got a vote of " + vote + " for cPkg "+ cPkgId);
+		}
+	}
+
+
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#formPackageTransitProjectDTOs(org.pgist.packages.ClusteredPackage)
 	 */

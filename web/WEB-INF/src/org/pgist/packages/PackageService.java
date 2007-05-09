@@ -1,5 +1,6 @@
 package org.pgist.packages;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.pgist.discussion.InfoStructure;
@@ -55,7 +56,9 @@ public interface PackageService {
 
 	Long createVotingPackage(Long pkgId) throws Exception;
 
-	PackageVoteSuite getPackageVoteSuite(Long voteSuiteId) throws Exception; 
+	PackageVoteSuite getPackageVoteSuite(Long voteSuiteId) throws Exception;
+
+	void setVotes(Long voteSuiteId, HashMap choices) throws Exception; 
     
     
 }//interface PackageService
