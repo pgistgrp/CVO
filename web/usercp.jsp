@@ -226,7 +226,7 @@ function validateForm(form,formId){
 		<!-- begin EDIT-PROFILE -->
 		
 		<div id="edit-profile" >
-		<span class="red">${userForm.reason}</span>
+		<span style="color:#FF0000;">${userForm.reason}</span>
 			<fieldset>
 			<legend>About Me</legend>
 			<div class="settings-col1">Username</div>
