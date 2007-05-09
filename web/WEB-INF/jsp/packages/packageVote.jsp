@@ -117,7 +117,7 @@ background:#FFF1DC;
       which packages have the greatest level of collective support.
       This polling information will help us to decide which package
       to collectively recommend. The final vote will be held
-      on Thursday Oct. 19.</p>
+      on --Thursday Oct. 19--.</p>
   </div>
 
   <!-- end overview -->
@@ -126,7 +126,7 @@ background:#FFF1DC;
       <!-- begin one voting box -->
 		<h3 class="headerColor">Packages Poll</h3>
 		<div id="voteBox" class="floatLeft clearBoth">
-		<p>Please respond to this poll by <strong>midnight <!--workflow date--></strong>.</p>
+		<p>Please respond to this poll by <strong> -- midnight --<!--workflow date--></strong>.</p>
 
 		<!-- begin voting headers -->
 		<p>Please indicate your current willingness to endorse each of the following package to decision makers.</p>
@@ -152,7 +152,7 @@ background:#FFF1DC;
 			       </div>
 			</c:forEach>
 		</form>
-		<p class="floatRight"><input type="reset" value="Reset form and start over" /> <input type="button" value="Submit answers" /></p>
+		<p class="floatRight"><input type="reset" value="Reset form and start over" /> <input type="button" value="Submit Votes" /></p>
 	</div><!-- end one voting box -->
 	<div class="clearBoth"></div>	
     <!-- end obj-left -->

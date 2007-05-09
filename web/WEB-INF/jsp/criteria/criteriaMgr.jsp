@@ -677,9 +677,9 @@
 			<br />
 			<h4>Finished Creating Planning Factors?</h4>
 
-			<p>Once you have completed a list of planning factors click the link below to publish this list and allow participants to begin discussing these factors and weighing them.</p>
+			<p>The workflow will publish these planning factors on: </p>
 			<div class="errorMessage" id="publishError" style="display:none;"></div>
-			<input type="button" value="Publish Planning Factors!" onClick="publish();" />
+
 			<!--end publishing options -->
 		</div>
 		<script type="text/javascript">
