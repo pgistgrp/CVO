@@ -128,8 +128,9 @@ background:#FFF1DC;
 			}
 		}
 		
-		//alert(choices.inspect())
+		alert("choices map: " + choices.inspect());
 		data.vote.votes = choices;
+		alert("data.votes.votes map (should be the same): " + data.vote.votes.inspect());
 		PackageAgent.setVoting(data, {
 			callback:function(data){
 				if (data.successful){
