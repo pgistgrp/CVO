@@ -384,13 +384,11 @@ public class PackageServiceImpl implements PackageService {
 		
 		while(iSourcesRefs.hasNext()) {
 			tempSource = iSourcesRefs.next().getSource();
-System.out.println("MATT: &(*&(U& MY ID = " + tempSource.getId());			
 			iSourceAlts = tempSource.getAlternatives().iterator();
 			while(iSourceAlts.hasNext()) {
 				sources.put(iSourceAlts.next().getId(), tempSource);
 			}
 		}
-System.out.println("MATT:##&$*@#($ Prepped with " + sources.size());		
 				
 		//Now loop through the alternatives in the package and create the dto
 		Iterator<FundingSourceAltRef> iSourceAltRefs = cPackage.fundAltRefs.iterator();
@@ -408,6 +406,7 @@ System.out.println("MATT:##&$*@#($ Prepped with " + sources.size());
 			} else {
 				//Create a new DTO
 				FundingSourceDTO fsDTO = new FundingSourceDTO(tempSource);
+				System.out.println("MATT: &(*&(U& MY ID = " + tempSource.getId());			
 
 				//See if it has already been added to the result
 				if(result.contains(fsDTO)) {

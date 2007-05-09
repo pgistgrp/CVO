@@ -11,7 +11,7 @@ public class ProjectAlternativeDTO implements Comparable<ProjectAlternativeDTO> 
 
 	private String name;
 	private Long projectAlternativeID;
-	private float moneyNeeded;
+	private double moneyNeeded;
 	private String projGrade;
 	private String yourGrade;
 	private String avgGrade;
@@ -22,6 +22,7 @@ public class ProjectAlternativeDTO implements Comparable<ProjectAlternativeDTO> 
 		this.setAvgGrade("NA");
 		this.setProjGrade("NA");
 		this.setAvgGrade("NA");
+		this.setMoneyNeeded(tempAlt.getCost());
 	}
 
 	/**
@@ -39,13 +40,13 @@ public class ProjectAlternativeDTO implements Comparable<ProjectAlternativeDTO> 
 	/**
 	 * @return the moneyNeeded
 	 */
-	public float getMoneyNeeded() {
+	public double getMoneyNeeded() {
 		return moneyNeeded;
 	}
 	/**
 	 * @param moneyNeeded the moneyNeeded to set
 	 */
-	public void setMoneyNeeded(float moneyNeeded) {
+	public void setMoneyNeeded(double moneyNeeded) {
 		this.moneyNeeded = moneyNeeded;
 	}
 	/**

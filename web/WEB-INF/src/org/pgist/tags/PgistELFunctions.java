@@ -30,6 +30,22 @@ import org.pgist.projects.ProjectSuite;
  */
 public class PgistELFunctions extends SimpleTagSupport {
 
+	public static String gradeSwitch(String ingrade) {
+		if(ingrade.length() > 0) {
+			char lastChar = ingrade.charAt(ingrade.length() -1);
+			String result;
+			switch (lastChar) {
+			case '-':
+				result = ingrade.substring(0, ingrade.length() -1) + "Minus";
+				return result;
+			case '+':
+				result = ingrade.substring(0, ingrade.length() -1) + "Plus";	
+				return result;
+			}			
+		}
+		return ingrade;	
+    }//contains()	
+	
 	public static boolean containsProjAltRef(Collection collection, Long id) {
 		Iterator i = collection.iterator();
 		ProjectAltRef tempRef;
@@ -74,8 +90,6 @@ public class PgistELFunctions extends SimpleTagSupport {
         if (funding==null) return false;
         if (alt==null) return false;
         
-System.out.println("MATT: Checking suite [" + suite.getId() + "] funding source [" + funding.getId() + "] funding source alt [" + alt.getId() + "]");        
-
         //First check that the project is in the suite
         FundingSourceRef ref = suite.getFundingSourceReference(funding);
         if(ref == null) return false;

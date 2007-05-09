@@ -11,6 +11,12 @@
   <description>PGIST tag library</description>
   
   <function>
+    <name>gradeSwitch</name>
+    <function-class>org.pgist.tags.PgistELFunctions</function-class>
+    <function-signature>java.lang.String gradeSwitch(java.lang.String)</function-signature>
+  </function>
+    
+  <function>
     <name>containsProjAltRef</name>
     <function-class>org.pgist.tags.PgistELFunctions</function-class>
     <function-signature>boolean containsProjAltRef(java.util.Collection, java.lang.Long)</function-signature>

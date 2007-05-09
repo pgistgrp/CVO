@@ -146,27 +146,27 @@ public class GradedCriteria {
 		if(avgScore > 93) {
 			letter = "A";
 		} else if (avgScore > 90 ){
-			letter = "AMinus";			
+			letter = "A-";			
 		} else if (avgScore > 87 ){
-			letter = "BPlus";			
+			letter = "B+";			
 		} else if (avgScore > 83 ){
 			letter = "B";			
 		} else if (avgScore > 80 ){
-			letter = "BMinus";
+			letter = "B-";
 		} else if (avgScore > 77 ){
-			letter = "CPlus";
+			letter = "C+";
 		} else if (avgScore > 73 ){
 			letter = "C";
 		} else if (avgScore > 70 ){
-			letter = "CMinus";
+			letter = "C-";
 		} else if (avgScore > 67 ){
-			letter = "DPlus";
+			letter = "D+";
 		} else if (avgScore > 63 ){
 			letter = "D";
 		} else if (avgScore > 60 ){
-			letter = "DMinus";			
+			letter = "D-";			
 		} else if (avgScore > 57 ){
-			letter = "FPlus";			
+			letter = "F+";			
 		} else {
 			letter = "F";			
 		}
