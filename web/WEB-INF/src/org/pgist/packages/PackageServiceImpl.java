@@ -406,7 +406,6 @@ public class PackageServiceImpl implements PackageService {
 			} else {
 				//Create a new DTO
 				FundingSourceDTO fsDTO = new FundingSourceDTO(tempSource);
-				System.out.println("MATT: &(*&(U& MY ID = " + tempSource.getId());			
 
 				//See if it has already been added to the result
 				if(result.contains(fsDTO)) {
@@ -417,13 +416,11 @@ public class PackageServiceImpl implements PackageService {
 				
 				//Add the new alternative
 				fsDTO.getFundingSourceAlternatives().add(new FundingSourceAlternativeDTO(tempAlt, cPackage.getPersonalCost(tempAlt.getId())));
-System.out.println("MATT: *$)(#&$@(# Added something...");				
 				//Sort it
 				fsDTO.sort();
 			}
 		}
 		Collections.sort(result);
-System.out.println("MATT:##&$*@#($ Should return " + result.size());		
 		
 		return result;
 	}

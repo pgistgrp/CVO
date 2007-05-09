@@ -9,7 +9,7 @@ import org.pgist.funding.FundingSource;
 
 public class FundingSourceDTO implements Comparable<FundingSourceDTO> {
 	private String name;
-	private Long fundingSourceID;
+	private Long fundingSourceId;
 	
 	private List<FundingSourceAlternativeDTO> fundingSourceAlternatives = new ArrayList<FundingSourceAlternativeDTO>();
 
@@ -19,7 +19,7 @@ public class FundingSourceDTO implements Comparable<FundingSourceDTO> {
 	public FundingSourceDTO(FundingSource source) {
 		super();
 		this.name = source.getName();
-		this.fundingSourceID = source.getId();
+		this.fundingSourceId = source.getId();
 	}
 	
 	/**
@@ -45,17 +45,17 @@ public class FundingSourceDTO implements Comparable<FundingSourceDTO> {
 	}
 	
 	/**
-	 * @return the fundingSourceID
+	 * @return the fundingSourceId
 	 */
-	public Long getFundingSourceID() {
-		return fundingSourceID;
+	public Long getFundingSourceId() {
+		return fundingSourceId;
 	}
 
 	/**
-	 * @param fundingSourceID the fundingSourceID to set
+	 * @param fundingSourceId the fundingSourceId to set
 	 */
-	public void setFundingSourceID(Long fundingSourceID) {
-		this.fundingSourceID = fundingSourceID;
+	public void setFundingSourceId(Long fundingSourceID) {
+		this.fundingSourceId = fundingSourceID;
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class FundingSourceDTO implements Comparable<FundingSourceDTO> {
 	public boolean equals(Object obj) {
 		if(obj != null && obj instanceof FundingSourceDTO) {
 			FundingSourceDTO temp = (FundingSourceDTO)obj;
-			return this.getFundingSourceID().equals(temp.getFundingSourceID());
+			return this.getFundingSourceId().equals(temp.getFundingSourceId());
 		}
 		return false;
 	}	
