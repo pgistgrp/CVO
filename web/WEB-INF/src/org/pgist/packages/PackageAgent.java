@@ -602,6 +602,36 @@ public class PackageAgent {
         return map;
     }//publishPackages()
    
+    /**
+     * Returns a map with the VoteSubmitDTO in it
+     * 
+     * @return A map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>vote - the VoteSuiteId </li>
+     *   </ul>
+     */
+    public Map getVoting(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long pkgSuiteId = new Long((String) params.get("pkgSuiteId"));
+        	VoteSubmitDTO vote = new VoteSubmitDTO();
+        	vote.setPackageSuiteId(pkgSuiteId);
+        	
+            this.packageService.setVotes(vote);
+            map.put("vote", vote);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//getVoting()
     
     /**
      * Set the voting selection for the current user.

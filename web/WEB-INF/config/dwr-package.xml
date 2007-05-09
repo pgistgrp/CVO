@@ -43,6 +43,7 @@
         <include method="deleteClusteredPackage"/>
         <include method="getManualPackages"/>
         <include method="setVoting"/> 
+        <include method="getVoting"/> 
         <include method="getSummary"/>        
         <include method="getClusteredSummary"/>        
     </create>
