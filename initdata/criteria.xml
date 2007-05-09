@@ -151,7 +151,8 @@
 					</outs>
 				    </declaration>
 				</pgame>
-
+				<branch>
+				<sequence>
 				<pgame name="pgame-sd.criteria">
 				    <declaration>
 					<ins>
@@ -159,17 +160,19 @@
 					</ins>
 				    </declaration>
 				</pgame>
-
+				</sequence>
+				<sequence>
+				<pgame name="pgame-weigh.criteria">
+				    <declaration>
+					<ins>
+					    <var name="suiteId" ref="pmethod.crit_suite_id"/>
+					</ins>
+				    </declaration>
+				</pgame>
+                       		 </sequence>
+				</branch>
                       	</sequence>
-                      	<sequence>
-			<pgame name="pgame-weigh.criteria">
-			    <declaration>
-				<ins>
-				    <var name="suiteId" ref="pmethod.crit_suite_id"/>
-				</ins>
-			    </declaration>
-                        </pgame>
-                        </sequence>
+
                       	
                         </branch>
             </sequence>

@@ -26,6 +26,7 @@
     <create creator="spring" javascript="CriteriaAgent">
         <param name="beanName" value="criteriaAgent"/>
         <include method="addCriterion"/>
+        <include method="assocCriterion"/>
         <include method="deleteCriterion"/>
         <include method="editCriterion"/>
         <include method="getCriteria"/>

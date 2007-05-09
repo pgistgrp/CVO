@@ -110,7 +110,7 @@ public class CriteriaAgent {
 	        	objectives = criteriaService.getObjectiveObjects(objectiveIdList);
         	}
         	
-        	Criteria c = c = criteriaService.addCriterion(bool_themes, bool_objectives, name, critSuiteId, themes, objectives, na);
+        	Criteria c = criteriaService.addCriterion(bool_themes, bool_objectives, name, critSuiteId, themes, objectives, na);
         	
         	map.put("id", c.getId());
             map.put("successful", true);
@@ -121,6 +121,53 @@ public class CriteriaAgent {
         
         return map;
     }//addCriterion()
+    
+    
+    /**
+     * Associate a criterion to a suite
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>critSuiteId - long (string), critSuite Id 
+     *     <li>critId - long (string), critId</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map assocCriterion(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+    	String strCritId = (String) params.get("critId");
+    	String strCritSuiteId = (String) params.get("critSuiteId");
+
+    	if(strCritId==null || "".equals(strCritId.trim())){
+    		map.put("reason", "critId cannot be empty.");
+    		return map;
+    	}
+    	if(strCritSuiteId==null || "".equals(strCritSuiteId.trim())){
+    		map.put("reason", "critSuite cannot be empty.");
+    		return map;
+    	}
+    	
+    	Long critId = new Long(strCritId);
+    	Long critSuiteId = new Long(strCritSuiteId);
+    	
+        try {
+        	
+        	criteriaService.assocCriterion(critId, critSuiteId);
+
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//assocCriterion()
     
     
     /**

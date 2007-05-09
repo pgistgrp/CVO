@@ -68,6 +68,11 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//addCriterion()
     
     
+    public void assocCriterion(Long critId, Long critSuiteId) throws Exception {
+    	assocCriterion(critId, critSuiteId);
+    } //assocCriterion()
+    
+    
     public void deleteCriterion(Long id) throws Exception {
     	criteriaDAO.deleteCriterion(id);
     }//deleteCriterion

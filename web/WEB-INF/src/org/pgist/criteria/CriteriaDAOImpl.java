@@ -36,7 +36,29 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	
     	//create all classes
     	Criteria c = new Criteria();
-    	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuite);
+
+    	//set Criterion
+    	c.setName(name);
+    	c.setNa(na);
+
+    	
+    	if(bool_themes) {
+    		c.setThemes(themes);
+    	}
+    	if(bool_objectives) {
+    		c.setObjectives(objectives);		
+    	}
+    	
+		save(c);		
+		return c;
+    } //addCriterion
+    
+    
+    public void assocCriterion(Long critId, Long critSuiteId) throws Exception {
+
+    	//create/load all classes
+    	Criteria c = (Criteria) load(Criteria.class, critId);
+    	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
     	CriteriaRef cr = new CriteriaRef();
     	CriteriaUserWeight cuw = new CriteriaUserWeight();
     	
@@ -51,24 +73,12 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	cs.addWeight(cr, cuw);
     	cs.addReference(cr);
     	
-    	//set Criterion
-    	c.setName(name);
-    	c.setNa(na);
-    	c.setCritRef(cr);
-    	
-    	if(bool_themes) {
-    		c.setThemes(themes);
-    	}
-    	if(bool_objectives) {
-    		c.setObjectives(objectives);		
-    	}
-    	
+    	//Save
     	save(cs);
     	save(cuw);
     	save(cr);
-		save(c);		
-		return c;
-    } //addCriterion
+    	
+    } //assocCriterion()
     
     
     public void deleteCriterion(Long id) throws Exception {
@@ -204,7 +214,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     public void setWeight(Long suiteId, Criteria criteria, int weight) throws Exception {
     	
     	CriteriaSuite cs = (CriteriaSuite)load(CriteriaSuite.class, suiteId);
-    	CriteriaRef cr = criteria.getCritRef();
+    	CriteriaRef cr = criteria.getCritRef(); //FIX THIS!!!!
     	Map csWeights = cs.getWeights();    	
     	CriteriaUserWeight cuw = (CriteriaUserWeight) csWeights.get(cr); 	
     	Integer iWeight = new Integer(weight);    

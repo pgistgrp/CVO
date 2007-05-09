@@ -12,7 +12,11 @@ import org.pgist.cvo.CCT;
 import org.pgist.users.User;
 
 public class MockCriteriaDAO implements CriteriaDAO {
-
+	
+	public void assocCriterion(Long critId, Long critSuiteId) throws Exception {
+		// TODO Auto-generated method stub
+	}
+	
 	public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives,
 			String name, CCT cct, Set themes, Set objectives, String na)
 			throws Exception {
