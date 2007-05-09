@@ -117,9 +117,11 @@
 			
 			function checkRemaining(remainingWeight){
 				if((100-remainingWeight)==0){
-					$('remainingWeightP').style.backgroundColor="#FFFF00";
+					$('remainingWeightP').style.backgroundColor="#FFDF94";
+					$('remainingWeightP2').style.backgroundColor="#FFDF94";
 				}else{
 					$('remainingWeightP').style.backgroundColor="#FFFFFF";
+					$('remainingWeightP2').style.backgroundColor="#FFFFFF";
 				}
 			}
 			
@@ -168,6 +170,7 @@
 					}
 				});
 				$('remainingWeight').innerHTML = ((100-remainingWeight));
+				$('remainingWeight2').innerHTML = ((100-remainingWeight));
 			}
 			
 
@@ -239,8 +242,12 @@ padding:.3em 0em;
 
 .criteriaListHeader
 {
-background:#fff;
+background:#ADCFDE;
+padding:5px 0px;
 }
+
+
+.criteriaListHeader .weighCriteriaCol1 {width:205px;padding-left:5px;}
 
 #allCriteriaList
 {
@@ -270,7 +277,7 @@ width:330px;
 .weighCriteriaCol3
 {
 margin-left:.5em;
-width:390px;
+width:375px;
 }	
 
 h4
@@ -282,7 +289,9 @@ padding:0px;
 
 .objectives
 {
-padding:.5em;
+padding:0px .5em;
+margin-left:10px;
+border-left:1px solid #ccc;
 }
 
 #saving-indicator{
@@ -307,8 +316,20 @@ padding: 3px;
 z-index: 500;		
 }
 
-.weighCriteriaCol3 input {width:2em;text-align:center;}
+p#remainingWeightP, p#remainingWeightP2{
+width:180px;
+text-align:center;
+float:right;
+padding:5px 5px;
+font-size:1.1em;
+margin:10px 0px;
+}
 
+b#remainingWeight, b#remainingWeight2 {font-size:1.4em;}
+.weighCriteriaCol3 input {width:2em;text-align:center;}
+.objectives ul {margin-top:5px;}
+
+#critRowWrapper{border:1px solid #ADCFDE;padding:5px;}
 </style>
 		
 	</head>
@@ -336,7 +357,7 @@ position:fixed;
 		<!-- End conditional styles -->
 		
 		<!-- Begin header -->
-		<div id="header"> [Load from separate file] </div>
+		<div id="header">		<jsp:include page="/header.jsp" /></div>
 		<!-- End header -->
 		<!-- Begin header menu - The wide ribbon underneath the logo -->
 		<div id="headerMenu">
@@ -387,6 +408,7 @@ position:fixed;
 				</div><!--end object content -->
 					
 					
+				<div class="clearBoth"></div>
 				<div class="floatRight padding5">
 					<input type="button" value="Continue" onclick="location.href='waiting.jsp'" />
 				</div>
@@ -421,7 +443,7 @@ position:fixed;
 		<!-- End header menu -->
 		<!-- end the bottom header menu -->
 		<!-- Begin footer -->
-		<div id="footer"> </div>
+		<div id="footer"> 		<jsp:include page="/footer.jsp" /></div>
 		<!-- End footer -->
 
 	</body>
