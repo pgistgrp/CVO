@@ -96,7 +96,7 @@
 						</tr>
 						<!-- begin Funding Source -->
 						<c:forEach var="source" items="${packageFunding}" varStatus="loop">
-								<tr id="sourceId" class="fundingType">
+								<tr id="sourceId-${source.fundingSourceId}<" class="fundingType">
 									<td class="fundingSourceItem">${source.name}</td>
 									<td colspan="3">&nbsp;</td>
 								</tr>

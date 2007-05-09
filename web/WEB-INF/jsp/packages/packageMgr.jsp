@@ -144,6 +144,21 @@ function deleteClusteredPackage(pkgId){
 	});
 }
 
+function publishPackages(){
+	PackageAgent.publishPackages({pkgSuiteId:pkgSuiteId}, {
+		callback:function(data){
+			if (data.successful){
+				alert("Package successfully published! VoteSuiteId = " + data.voteSuiteId);
+				location.href = "packageVote.do?voteSuiteId=" + data.voteSuiteId;
+			}else{
+				alert(data.reason);
+			}
+		},
+		errorHandler:function(errorString, exception){ 
+		alert("PackageAgent.publishPackages( error:" + errorString + exception);
+		}
+	});
+}
 
 </script>
 <style type="text/css">
@@ -211,7 +226,9 @@ td.col1 a {display:block;text-decoration:underline;}
 	</span>
 	<h3 class="headerColor clearBoth"><br />
 		Finished?</h3>
-	<p>The workflow has been set to publish these packages for participants to review on: <strong>--date--</strong></p>
+	<p>When you are ready to allow participants to begin discussing these packages,
+		click the button below to create the discussion rooms</p>
+	<input type="button" value="Publish Packages" onclick="publishPackages();" class="padding5">
 </div>
 <script type="text/javascript" charset="utf-8">
 	getManualPackages()
