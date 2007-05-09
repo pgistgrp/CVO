@@ -82,38 +82,31 @@
 		<c:if test="${fn:length(infoStructure.infoObjects) == 0}">
 		  <p>There are no planning factors created yet! How did you get to this page?</p>
 		</c:if>
-		<c:forEach var="criterion" items="${infoStructure.infoObjects}" varStatus="loop">
-		  <div id="criteria-${criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
+		<c:forEach var="infoObject" items="${infoStructure.infoObjects}" varStatus="loop">
+		  <div id="criteria-${infoObject.object.criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
 		    <div class="criteriaCol1 floatLeft"><a href="#">
-		      <div class="floatLeft"><a href="javascript:io.expandList('objectives${criterion.id}','icon${criterion.id}');"> <img src="/images/plus.gif" id="icon${criterion.id}"></a></div>
-		      <div class="floatLeft"> ${criterion.name}
-
-		          <!-- needs another variable to differentiate -->
-		            <!-- show editing only to moderator -->
-		            <small><br />[ <a href="javascript:editCriterionPopup(${criterion.id});">edit</a> ]
-		            [ <a href="javascript:deleteCriterion(${criterion.id});">delete</a> ]</small>
-
-		      </div>
+		      <div class="floatLeft"><a href="javascript:io.expandList('objectives${infoObject.object.criterion.id}','icon${infoObject.object.criterion.id}');"> <img src="/images/plus.gif" id="icon${infoObject.object.criterion.id}"></a></div>
+		      <div class="floatLeft"> ${infoObject.object.criterion.name}</div>
 		    </div>
-		    <div class="criteriaCol2 floatLeft">${criterion.na}</div>
+		    <div class="criteriaCol2 floatLeft">${infoObject.object.criterion.na}</div>
 		    <div class="criteriaCol3 floatLeft">
 		      <!--themes-->
-		      <c:if test="${fn:length(criterion.themes) == 0}"> None
+		      <c:if test="${fn:length(infoObject.object.criterion.themes) == 0}"> None
 		        Selected </c:if>
-		      <c:forEach var="theme" items="${criterion.themes}" varStatus="loop">
+		      <c:forEach var="theme" items="${infoObject.object.criterion.themes}" varStatus="loop">
 		        ${theme.title}<br />
 		      </c:forEach>
 		    </div>
 		    <div class="clearBoth"></div>
-		    <div class="objectives" id="criteriaEdit${criterion.id}">
+		    <div class="objectives" id="criteriaEdit${infoObject.object.criterion.id}">
 		      <!--javascript will load edit form here -->
 		    </div>
-		    <div class="objectives" id="objectives${criterion.id}" style="display:none;"><br /><strong>Objectives:</strong>
+		    <div class="objectives" id="objectives${infoObject.object.criterion.id}" style="display:none;"><br /><strong>Objectives:</strong>
 		      <ul class="smallText">
-		        <c:if test="${fn:length(criterion.objectives) == 0}">
+		        <c:if test="${fn:length(infoObject.object.criterion.objectives) == 0}">
 		          <li>None Selected</li>
 		        </c:if>
-		        <c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
+		        <c:forEach var="objective" items="${infoObject.object.criterion.objectives}" varStatus="loop">
 		          <li>${objective.description}</li>
 		        </c:forEach>
 		      </ul>
