@@ -389,6 +389,7 @@ public class PackageServiceImpl implements PackageService {
 				sources.put(iSourceAlts.next().getId(), tempSource);
 			}
 		}
+System.out.println("MATT:##&$*@#($ Prepped with " + sources.size());		
 				
 		//Now loop through the alternatives in the package and create the dto
 		Iterator<FundingSourceAltRef> iSourceAltRefs = cPackage.fundAltRefs.iterator();
@@ -416,12 +417,14 @@ public class PackageServiceImpl implements PackageService {
 				
 				//Add the new alternative
 				fsDTO.getFundingSourceAlternatives().add(new FundingSourceAlternativeDTO(tempAlt, cPackage.getPersonalCost(tempAlt.getId())));
-				
+System.out.println("MATT: *$)(#&$@(# Added something...");				
 				//Sort it
 				fsDTO.sort();
 			}
 		}
 		Collections.sort(result);
+System.out.println("MATT:##&$*@#($ Should return " + result.size());		
+		
 		return result;
 	}
 

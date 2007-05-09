@@ -241,7 +241,7 @@ public class PackageAgent {
             	}
             }
             
-            request.setAttribute("packages", packages);
+            request.setAttribute("packages", autoPackages);
             request.setAttribute("pkgSuiteId", pkgSuiteId);
             request.setAttribute("projSuiteId", projSuiteId);
             request.setAttribute("fundSuiteId", fundSuiteId);
