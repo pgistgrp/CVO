@@ -23,6 +23,8 @@ public interface PackageDAO extends BaseDAO {
 	PackageSuite getPackageSuite(Long suiteId) throws Exception;
 
 	ClusteredPackage getClusteredPackage(Long pkgId) throws Exception;
+
+	PackageVoteSuite getVoteSuite(Long voteSuiteId) throws Exception;
     
     
 }//interface PackageDAO

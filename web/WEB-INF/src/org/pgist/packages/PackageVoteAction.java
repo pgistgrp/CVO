@@ -4,6 +4,8 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.users.User;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -11,7 +13,7 @@ import org.apache.struts.action.ActionMapping;
  * 
  * The action accepts two parameters:
  * <ul>
- *   <li>suiteId - int, an id of a PackageVoteSuite object</li>
+ *   <li>voteSuiteId - int, an id of a PackageVoteSuite object</li>
  * </ul>
  * 
  * <p>According to whether the current user voted or not in the current phase, the action forwards to different page.
@@ -59,14 +61,19 @@ public class PackageVoteAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-        /*
-         * TODO: extract required objects and put in request attributes
-         */
-        
+    	String tempVoteSuiteId = request.getParameter("voteSuiteId");
+    	Long voteSuiteId = new Long(tempVoteSuiteId);
+    	PackageVoteSuite vSuite = this.packageService.getPackageVoteSuite(voteSuiteId);
+
+		//Grade it
+    	User user = this.packageService.getUser(WebUtils.currentUser());    	
+    	    	
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
-        
-        return mapping.findForward("view");
-        
+        if(vSuite.userVoted(user)) {
+            return mapping.findForward("view");        	
+        } else {
+            return mapping.findForward("results");        	
+        }
         //return mapping.findForward("results");
     }//execute()
     

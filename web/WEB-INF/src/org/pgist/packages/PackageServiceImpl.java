@@ -428,6 +428,14 @@ public class PackageServiceImpl implements PackageService {
 
 	
 	/* (non-Javadoc)
+	 * @see org.pgist.packages.PackageService#getPackageVoteSuite(java.lang.String)
+	 */
+	public PackageVoteSuite getPackageVoteSuite(Long voteSuiteId) throws Exception {
+		return this.packageDAO.getVoteSuite(voteSuiteId);
+	}
+
+
+	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#createVotingPackage(java.lang.Long)
 	 */
 	public Long createVotingPackage(Long pkgSuiteId) throws Exception {

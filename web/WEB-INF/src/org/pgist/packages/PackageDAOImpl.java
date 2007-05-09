@@ -49,5 +49,7 @@ public class PackageDAOImpl extends BaseDAOImpl implements PackageDAO {
 		return (PackageSuite)getHibernateTemplate().load(PackageSuite.class, suiteId);
     }
     
-    
+	public PackageVoteSuite getVoteSuite(Long suiteId){
+		return (PackageVoteSuite)getHibernateTemplate().load(PackageVoteSuite.class, suiteId);
+    }    
 }//class PackageDAOImpl

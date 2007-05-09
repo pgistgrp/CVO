@@ -53,7 +53,9 @@ public interface PackageService {
 
 	List<FundingSourceDTO> createPackageFundingDTOs(ClusteredPackage pack, User user, long fundSuiteId) throws Exception;
 
-	Long createVotingPackage(Long pkgId) throws Exception; 
+	Long createVotingPackage(Long pkgId) throws Exception;
+
+	PackageVoteSuite getPackageVoteSuite(Long voteSuiteId) throws Exception; 
     
     
 }//interface PackageService

@@ -1,7 +1,10 @@
 package org.pgist.packages;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+
+import org.pgist.users.User;
 
 
 /**
@@ -33,6 +36,25 @@ public class PackageVoteSuite {
     
     private Map<ClusteredPackage, Integer> lows = new HashMap<ClusteredPackage, Integer>();
     
+    
+    /**
+     * Returns true if the user has voted on all of the clustered packages
+     */
+    public boolean userVoted(User user) {
+    	boolean voted = false;
+    	
+    	Iterator<ClusteredPackage> iCPackage = pkgSuite.getClusteredPkgs().iterator();
+    	ClusteredPackage tempCPackage;
+    	PackageUserVote puv;
+    	//Check that the user has voted on each clustered package
+    	while(iCPackage.hasNext()) {
+    		tempCPackage = iCPackage.next();
+    		puv = userVotes.get(tempCPackage);
+    		if(!puv.getVotes().containsKey(user)) return false;
+    	}
+    	
+    	return true;
+    }
     
     /**
      * @return
