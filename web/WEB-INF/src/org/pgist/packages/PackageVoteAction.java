@@ -67,6 +67,7 @@ public class PackageVoteAction extends Action {
 
 		//Grade it
     	User user = this.packageService.getUser(WebUtils.currentUser());    	
+		request.setAttribute("voteSuite", vSuite);    		
     	    	
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         if(vSuite.userVoted(user)) {
