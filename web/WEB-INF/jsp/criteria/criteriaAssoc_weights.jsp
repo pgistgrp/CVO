@@ -6,6 +6,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<p id="remainingWeightP">Remaining Weight: <b id="remainingWeight">
+<!--load remaining weight here -->
+</b></p><br class="clearBoth" />
+
 <div class="criteriaListHeader">
 	<div class="weighCriteriaCol1 floatLeft">
 		<h4 class="headerColor">Planning factor</h4>
@@ -64,6 +68,6 @@
 </c:forEach>
 </div>
 </div>
-<span id="remainingWeightP">Remaining Weight: <b id="remainingWeight">
+<p id="remainingWeightP">Remaining Weight: <b id="remainingWeight">
 <!--load remaining weight here -->
-</b></span>
+</b></p><br class="clearBoth" />

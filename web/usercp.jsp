@@ -149,7 +149,7 @@ function validateForm(form,formId){
 		if(errormsg1.length != 0){
 			errordiv1.style.display = "";
 			errordiv1.innerHTML = '<h3>Please change the following:</h3><ul>' + errormsg1 + '</ul>';
-		}	
+		}	else {$('profileForm').submit();}
 
 		
 	} else if (formId == 2) {
@@ -188,7 +188,7 @@ function validateForm(form,formId){
 		if(errormsg2.length != 0){
 			errordiv2.style.display = "";
 			errordiv2.innerHTML = '<h3>Please change the following:</h3><ul>' + errormsg2 + '</ul>';
-		}	
+		}	else {$('settingsForm').submit();}
 	
 	} else {}
 	
@@ -215,7 +215,7 @@ function validateForm(form,formId){
 	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container" class="clearfix">
-	<html:form action="/profileedit.do" method="POST">
+	<html:form action="/profileedit.do" styleId="profileForm" method="POST">
 		 <html:hidden property="save" value="true"/>
 		<h3 class="headerColor">Edit your participant profile information</h3>
 		<p>Here you can edit your Let’s Improve Transportation user profile. Some information
@@ -305,7 +305,7 @@ function validateForm(form,formId){
 		</div>
 
 		</html:form>
-		<html:form action="/usercp.do" method="POST">
+		<html:form action="/usercp.do" styleId="settingsForm" method="POST">
 		<html:hidden property="save" value="true"/>
 		<!-- end EDIT-PROFILE -->
 		<h3 class="headerColor">View and Edit your private user settings</h3>
