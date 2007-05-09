@@ -34,6 +34,7 @@
         <include method="createMyPackage"/>
         <include method="createClusteredPackages"/>
         <include method="getClusteredPackages"/>
+        <include method="getAutocreatedClusteredPackages"/>
         <include method="setProjectToPkg"/>
         <include method="setFundingToPkg"/>
         <include method="createClusteredPackage"/>
