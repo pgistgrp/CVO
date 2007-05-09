@@ -621,7 +621,6 @@ public class PackageAgent {
         	VoteSubmitDTO vote = new VoteSubmitDTO();
         	vote.setPackageSuiteId(pkgSuiteId);
         	
-            this.packageService.setVotes(vote);
             map.put("vote", vote);
             map.put("successful", true);
         } catch (Exception e) {
