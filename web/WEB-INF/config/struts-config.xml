@@ -177,7 +177,7 @@
             <forward name="view" path="/WEB-INF/jsp/packages/packageVote.jsp"/>
             <forward name="results" path="/WEB-INF/jsp/packages/packageVote_results.jsp"/>
         </action>
-        
+                
         <action path="/criteriaMgr" scope="request" type="org.pgist.criteria.CriteriaMgrAction">
             <forward name="list" path="/WEB-INF/jsp/criteria/criteriaMgr.jsp"/>
         </action>
