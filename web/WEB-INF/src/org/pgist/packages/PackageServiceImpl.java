@@ -535,7 +535,7 @@ public class PackageServiceImpl implements PackageService {
 	 */
 	public void setVotes(VoteSubmitDTO vote) throws Exception {
 		PackageVoteSuite vSuite = this.packageDAO.getVoteSuite(vote.getPackageSuiteId());
-		
+		System.out.println("MATT 3:*(*& " + vote.getVotes().size());
 		Iterator<Long> i = vote.getVotes().keySet().iterator();
 		String temp;
 		Long cPkgId;
