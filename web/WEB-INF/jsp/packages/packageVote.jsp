@@ -106,8 +106,7 @@ background:#FFF1DC;
 		PackageAgent.getVoting({pkgSuiteId:pkgSuiteId}, {
 			callback:function(data){
 				if (data.successful){
-					alert(data.vote);
-					//setVoting(data.vote)
+					setVoting(data)
 				}else{
 					alert("REASON: "+ data.reason);
 				}
@@ -118,9 +117,10 @@ background:#FFF1DC;
 		});
 	}
 
-	function setVoting(voteObj){		
-		choices = $H({});
-		inputs = document.vote.elements
+	function setVoting(data){	
+		data.packageSuiteId = pkgSuiteId;	
+		var choices = $H({});
+		inputs = document.vote.elements;
 		for (var i=0; i < inputs.length; i++) {
 			if (inputs[i].type == "radio" && inputs[i].checked){
 				name = inputs[i].name.substring(3,inputs[i].name.length); //remove 'pkg'
@@ -128,14 +128,15 @@ background:#FFF1DC;
 			}
 		}
 		
-		//alert("voteSuiteId: " + voteSuiteId + " choices: " + choices.toQueryString()); 
-		alert(choices.toArray())
-		PackageAgent.setVoting({voteSuiteId:voteSuiteId},{choices:choices}, {
+		//alert(choices.inspect())
+		data.vote.votes = choices;
+		PackageAgent.setVoting(data, {
 			callback:function(data){
 				if (data.successful){
-					alert("it worked!! REFRESH")
+					alert("it worked!! Refreshing...")
+					location.reload();
 				}else{
-					alert(data.reason);
+					alert("setVoting Failed.  Reason: " +data.reason);
 				}
 			},
 			errorHandler:function(errorString, exception){ 
