@@ -85,6 +85,34 @@ background:#FFF1DC;
 }
 
 </style>
+
+<script type="text/javascript" charset="utf-8">
+	function setVoting(){
+		choices = $H({});
+		inputs = document.vote.elements
+		for (var i=0; i < inputs.length; i++) {
+			if (inputs[i].type == "radio" && inputs[i].checked){
+				name = inputs[i].name.substring(3,inputs[i].name.length); //remove 'pkg'
+				choices[name] = inputs[i].value;
+			}
+		}
+		
+		alert("voteSuiteId: " + voteSuiteId + " choices: " + choices); 
+		PackageAgent.setVoting({voteSuiteId:voteSuiteId,choices:choices}, {
+			callback:function(data){
+				if (data.successful){
+					alert("it worked!! REFRESH")
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("PackageAgent.setVoting( error:" + errorString + exception);
+			}
+		});
+	}
+</script>
+
 </head>
 <body>
 <!-- Begin the header - loaded from a separate file -->
@@ -138,21 +166,21 @@ background:#FFF1DC;
           <div class="clearBoth"></div>
         </div>
 		<!-- end voting headers -->
-		<form action="packageVote.do" method="POST">
-			<input type="hidden" name="activity" value="vote" />
+		<form name="vote" action="javascript:setVoting();">
 			<c:forEach var="clusteredPkg" items="${voteSuite.pkgSuite.clusteredPkgs}" varStatus="loop">
 			       <div class="VoteListRow row ${((loop.index % 2) == 0) ? 'even' : 'odd'}">
 			         <div class="voteCol1 floatLeft">
-			           <div class="floatLeft"><a href="package.do?id=${clusteredPkg.id}">Package ${clusteredPkg.id}</a></div>
+			           <div class="floatLeft"><a href="package.do?pkgId=${clusteredPkg.id}&pkgSuiteId=${pkgSuiteId}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}">Package ${clusteredPkg.description}</a></div>
 			         </div>
-			         <div class="voteCol2 floatLeft"><input name="pkg-${clusteredPkg.id}" value="1" type="radio" /></div>
-			         <div class="voteCol3 floatLeft"><input name="pkg-${clusteredPkg.id}" value="2" type="radio" /></div>
-			         <div class="voteCol4 floatLeft"><input name="pkg-${clusteredPkg.id}" value="3" type="radio" /></div>
+			         <div class="voteCol2 floatLeft"><input name="pkg${clusteredPkg.id}" value="1" type="radio" /></div>
+			         <div class="voteCol3 floatLeft"><input name="pkg${clusteredPkg.id}" value="2" type="radio" /></div>
+			         <div class="voteCol4 floatLeft"><input name="pkg${clusteredPkg.id}" value="3" type="radio" /></div>
 			         <div class="clearBoth"></div>
 			       </div>
 			</c:forEach>
+			<p class="floatRight"><input type="reset" value="Reset form and start over" /> <input type="submit" value="Submit Votes" /></p>
 		</form>
-		<p class="floatRight"><input type="reset" value="Reset form and start over" /> <input type="button" value="Submit Votes" /></p>
+		
 	</div><!-- end one voting box -->
 	<div class="clearBoth"></div>	
     <!-- end obj-left -->

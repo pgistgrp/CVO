@@ -149,7 +149,7 @@ function publishPackages(){
 		callback:function(data){
 			if (data.successful){
 				alert("Package successfully published! VoteSuiteId = " + data.voteSuiteId);
-				location.href = "packageVote.do?voteSuiteId=" + data.voteSuiteId;
+				location.href = "packageVote.do?voteSuiteId=" + data.voteSuiteId + "&pkgSuiteId="+pkgSuiteId+"&projSuiteId="+projSuiteId+"&fundSuiteId="+fundSuiteId+"&critSuiteId="+critSuiteId;
 			}else{
 				alert(data.reason);
 			}
