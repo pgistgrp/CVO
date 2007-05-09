@@ -384,6 +384,7 @@ public class PackageServiceImpl implements PackageService {
 		
 		while(iSourcesRefs.hasNext()) {
 			tempSource = iSourcesRefs.next().getSource();
+System.out.println("MATT: &(*&(U& MY ID = " + tempSource.getId());			
 			iSourceAlts = tempSource.getAlternatives().iterator();
 			while(iSourceAlts.hasNext()) {
 				sources.put(iSourceAlts.next().getId(), tempSource);
