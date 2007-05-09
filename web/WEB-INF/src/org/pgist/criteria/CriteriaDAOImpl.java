@@ -23,7 +23,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
 	private static final String hql_addCriterion = "from Criteria c where lower(c.name)=?";
 	
     
-    public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Long critSuite, Set themes, Set objectives, String na) throws Exception {
+    public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Set themes, Set objectives, String na) throws Exception {
     	
     	List list = getHibernateTemplate().find(hql_addCriterion, new Object[] {
                 name.toLowerCase(),

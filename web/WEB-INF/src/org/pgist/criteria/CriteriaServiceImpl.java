@@ -62,9 +62,9 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getCriterias()
     
     
-    public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Long critSuite, Set themes,  Set objectives, String na) throws Exception {
+    public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Set themes,  Set objectives, String na) throws Exception {
     		
-    	return criteriaDAO.addCriterion(bool_themes, bool_objectives, name, critSuite, themes, objectives, na);
+    	return criteriaDAO.addCriterion(bool_themes, bool_objectives, name, themes, objectives, na);
     }//addCriterion()
     
     

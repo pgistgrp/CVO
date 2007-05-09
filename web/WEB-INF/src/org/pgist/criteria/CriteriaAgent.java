@@ -52,7 +52,6 @@ public class CriteriaAgent {
      *     <li>name - string, name of the criteia</li>
      *     <li>themeIds - string, name of the themeid's separated by commas - Optional</li>
      *     <li>objectiveIds - string, list of Object Id's - Optional</li>	
-     *     <li>critSuiteId - long (string), critSuite Id 
      *     <li>na - string, description. - Optional</li>
      *   </ul>
      * @return a Map contains:
@@ -71,7 +70,6 @@ public class CriteriaAgent {
         String name = (String) params.get("name");
     	String themeIds = (String) params.get("themeIds");
     	String objectiveIds = (String) params.get("objectiveIds");
-    	String strCritSuiteId = (String) params.get("critSuiteId");
     	String na = (String) params.get("na");
     	
     	if(name==null || "".equals(name.trim())){
@@ -83,17 +81,12 @@ public class CriteriaAgent {
     		bool_themes = false;
     	}
     	
-    	if(strCritSuiteId==null || "".equals(strCritSuiteId.trim())){
-    		map.put("reason", "critSuite cannot be empty.");
-    		return map;
-    	}
     	if(objectiveIds==null || "".equals(objectiveIds.trim())){
     		bool_objectives = false;
     	}
     	if(na==null || "".equals(na.trim())){
     		na = "NONE";
     	}
-    	Long critSuiteId = new Long(strCritSuiteId);
     	
         try {
         	String[] themeIdList;
@@ -110,7 +103,7 @@ public class CriteriaAgent {
 	        	objectives = criteriaService.getObjectiveObjects(objectiveIdList);
         	}
         	
-        	Criteria c = criteriaService.addCriterion(bool_themes, bool_objectives, name, critSuiteId, themes, objectives, na);
+        	Criteria c = criteriaService.addCriterion(bool_themes, bool_objectives, name, themes, objectives, na);
         	
         	map.put("id", c.getId());
             map.put("successful", true);
