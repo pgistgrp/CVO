@@ -96,7 +96,7 @@
 						</tr>
 						<!-- begin Funding Source -->
 						<c:forEach var="source" items="${packageFunding}" varStatus="loop">
-								<tr id="sourceId-${source.fundingSourceId}" class="fundingType">
+								<tr id="sourceId" class="fundingType">
 									<td class="fundingSourceItem">${source.name}</td>
 									<td colspan="3">&nbsp;</td>
 								</tr>
@@ -140,7 +140,7 @@
 						<!-- begin PROJECT -->
 						
 						<c:forEach var="project" items="${packageRoadProjects}" varStatus="loop">
-							<tr id="projId-${project.projectId}" class="fundingType">
+							<tr id="projId" class="fundingType">
 								<td colspan="5" class="fundingSourceItem">${project.name}</td>
 							</tr>
 							<!-- begin ROW of OPTIONS -->
@@ -151,9 +151,9 @@
 											<tr class="option">
 												<td class="col1">${alt.name}</td>
 												<td class="col2"><fmt:formatNumber type="currency">${alt.moneyNeeded}</fmt:formatNumber> Million</td>
-												<td class="col3 gradeBPlus">${alt.projGrade}</td>
-												<td class="col4 gradeA">${alt.yourGrade}</td>
-												<td class="col5 gradeC">${alt.avgGrade}</td>
+												<td class="col3 grade${pg:gradeSwitch(alt.projGrade)}">${alt.projGrade}</td>
+												<td class="col4 grade${pg:gradeSwitch(alt.yourGrade)}">${alt.yourGrade}</td>
+												<td class="col5 grade${pg:gradeSwitch(alt.avgGrade)}">${alt.avgGrade}</td>
 											</tr>
 										</c:forEach>
 									</table>
@@ -168,7 +168,7 @@
 						</tr>
 						<!-- end CATEGORY LABEL -->
 						<!-- begin PROJECT -->
-						
+
 						<c:forEach var="project" items="${packageTransitProjects}" varStatus="loop">
 							<tr id="projId-${project.projectId}" class="fundingType">
 								<td colspan="5" class="fundingSourceItem">${project.name}</td>
@@ -181,9 +181,9 @@
 											<tr class="option">
 												<td class="col1">${alt.name}</td>
 												<td class="col2"><fmt:formatNumber type="currency">${alt.moneyNeeded}</fmt:formatNumber> Million</td>
-												<td class="col3 gradeBPlus">${alt.projGrade}</td>
-												<td class="col4 gradeA">${alt.yourGrade}</td>
-												<td class="col5 gradeC">${alt.avgGrade}</td>
+												<td class="col3 grade${pg:gradeSwitch(alt.projGrade)}">${alt.projGrade}</td>
+												<td class="col4 grade${pg:gradeSwitch(alt.yourGrade)}">${alt.yourGrade}</td>
+												<td class="col5 grade${pg:gradeSwitch(alt.avgGrade)}">${alt.avgGrade}</td>
 											</tr>
 										</c:forEach>
 									</table>

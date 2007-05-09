@@ -98,7 +98,7 @@ function createClusteredPackage(){
 
 function getClusteredPackages(){
 	//alert("ProjSuiteId: " + projSuiteId + " fundSuiteId: " + fundSuiteId + " critSuiteId: " + critSuiteId + " pkgSuiteId: " + pkgSuiteId)
-	PackageAgent.getClusteredPackages({pkgSuiteId:pkgSuiteId, projSuiteId:projSuiteId,fundSuiteId:fundSuiteId,critSuiteId:critSuiteId}, {
+	PackageAgent.getAutocreatedClusteredPackages({pkgSuiteId:pkgSuiteId, projSuiteId:projSuiteId,fundSuiteId:fundSuiteId,critSuiteId:critSuiteId}, {
 		callback:function(data){
 			if (data.successful){
 				$('newtable').innerHTML= data.html;
@@ -107,7 +107,7 @@ function getClusteredPackages(){
 			}
 		},
 		errorHandler:function(errorString, exception){ 
-		alert("PackageAgent.getClusteredPackages( error:" + errorString + exception);
+		alert("PackageAgent.getAutocreatedClusteredPackages( error:" + errorString + exception);
 		}
 	});
 }
@@ -210,10 +210,8 @@ td.col1 a {display:block;text-decoration:underline;}
 	</div>
 	</span>
 	<h3 class="headerColor clearBoth"><br />
-		Finished</h3>
-	<p>When you are ready to allow participants to begin discussing these packages,
-		click the button below to create the discussion rooms</p>
-	<input type="button" value="Publish Packages" class="padding5">
+		Finished?</h3>
+	<p>The workflow has been set to publish these packages for participants to review on: <strong>--date--</strong></p>
 </div>
 <script type="text/javascript" charset="utf-8">
 	getManualPackages()
