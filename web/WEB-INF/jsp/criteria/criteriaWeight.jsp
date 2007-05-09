@@ -410,7 +410,7 @@ position:fixed;
 					
 				<div class="clearBoth"></div>
 				<div class="floatRight padding5">
-					<input type="button" value="Continue" onclick="location.href='waiting.jsp'" />
+					<input type="button" value="Continue" class="padding5" onclick="location.href='waiting.jsp'" />
 				</div>
 				<div class="clearBoth">&nbsp;</div>
 			</div><!-- end object -->
