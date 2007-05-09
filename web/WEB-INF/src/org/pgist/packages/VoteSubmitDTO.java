@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class VoteSubmitDTO {
 
 	
-	private HashMap<Long, Integer> votes = new HashMap<Long, Integer>();
+	private HashMap votes = new HashMap();
 	
 	private Long packageSuiteId;
 
@@ -31,14 +31,14 @@ public class VoteSubmitDTO {
 	/**
 	 * @return the votes
 	 */
-	public HashMap<Long, Integer> getVotes() {
+	public HashMap getVotes() {
 		return votes;
 	}
 
 	/**
 	 * @param votes the votes to set
 	 */
-	public void setVotes(HashMap<Long, Integer> votes) {
+	public void setVotes(HashMap votes) {
 		this.votes = votes;
 	}
 	

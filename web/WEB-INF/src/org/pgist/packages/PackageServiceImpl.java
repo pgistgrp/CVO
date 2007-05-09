@@ -536,13 +536,14 @@ public class PackageServiceImpl implements PackageService {
 	public void setVotes(VoteSubmitDTO vote) throws Exception {
 		PackageVoteSuite vSuite = this.packageDAO.getVoteSuite(vote.getPackageSuiteId());
 		System.out.println("MATT 3:*(*& " + vote.getVotes().size());
-		Iterator<Long> i = vote.getVotes().keySet().iterator();
+		Iterator i = vote.getVotes().keySet().iterator();
 		String temp;
 		Long cPkgId;
 		Integer voteValue;
 		while(i.hasNext()) {
-			cPkgId = i.next();
-			voteValue = vote.getVotes().get(cPkgId);
+			temp = (String)i.next();
+			cPkgId = Long.parseLong(temp);
+			voteValue = Integer.parseInt((String)i.next());
 			System.out.println("Got a vote of " + voteValue + " for cPkg "+ cPkgId);
 		}
 	}
