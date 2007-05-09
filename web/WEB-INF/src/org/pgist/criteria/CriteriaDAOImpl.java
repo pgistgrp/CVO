@@ -214,7 +214,8 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     public void setWeight(Long suiteId, Criteria criteria, int weight) throws Exception {
     	
     	CriteriaSuite cs = (CriteriaSuite)load(CriteriaSuite.class, suiteId);
-    	CriteriaRef cr = criteria.getCritRef(); //FIX THIS!!!!
+
+    	CriteriaRef cr = getCriteriaRefByCriteria(criteria);
     	Map csWeights = cs.getWeights();    	
     	CriteriaUserWeight cuw = (CriteriaUserWeight) csWeights.get(cr); 	
     	Integer iWeight = new Integer(weight);    
@@ -234,8 +235,8 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
         });
     	
     	Iterator it = list.iterator();
-    	CriteriaRef c = (CriteriaRef) it.next();
-    	return c;
+    	CriteriaRef cr = (CriteriaRef) it.next();
+    	return cr;
     }
     
     
