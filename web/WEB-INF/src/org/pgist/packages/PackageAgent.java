@@ -570,6 +570,40 @@ public class PackageAgent {
     }//setFundingToPkg()
        
     /**
+     * Publishes the voting suite.
+     * 
+     * @param params A map contains:
+     *     <ul>
+     *       <li>pkgSuiteId - int, id for a PackageVoteSuite object</li>
+     *     </ul>
+     * 
+     * @return A map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>voteSuiteId - the ID for the voting suite </li>
+     *   </ul>
+     */
+    public Map publishPackages(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long pkgSuiteId = new Long((String) params.get("pkgSuiteId"));
+        	
+        	map.put("voteSuiteId", this.packageService.createVotingPackage(pkgSuiteId));
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//publishPackages()
+   
+    
+    /**
      * Set the voting selection for the current user.
      * 
      * @param params A map contains:

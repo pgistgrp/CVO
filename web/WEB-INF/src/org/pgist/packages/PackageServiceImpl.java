@@ -426,6 +426,19 @@ public class PackageServiceImpl implements PackageService {
 	}
 
 
+	
+	/* (non-Javadoc)
+	 * @see org.pgist.packages.PackageService#createVotingPackage(java.lang.Long)
+	 */
+	public Long createVotingPackage(Long pkgSuiteId) throws Exception {
+		PackageVoteSuite vSuite = new PackageVoteSuite();
+		vSuite.setPkgSuite(this.packageDAO.getPackageSuite(pkgSuiteId));
+		this.packageDAO.save(vSuite);
+		
+		return vSuite.getId();
+	}
+
+
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#formPackageRoadProjectDTOs(org.pgist.packages.ClusteredPackage)
 	 */
