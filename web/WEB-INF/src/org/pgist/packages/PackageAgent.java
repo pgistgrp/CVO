@@ -603,35 +603,6 @@ public class PackageAgent {
         return map;
     }//publishPackages()
    
-    /**
-     * Returns a map with the VoteSubmitDTO in it
-     * 
-     * @return A map contains:
-     *   <ul>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *     <li>vote - the VoteSuiteId </li>
-     *   </ul>
-     */
-    public Map getVoting(Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        try {
-            Long pkgSuiteId = new Long((String) params.get("pkgSuiteId"));
-        	VoteSubmitDTO vote = new VoteSubmitDTO();
-        	vote.setPackageSuiteId(pkgSuiteId);
-        	
-            map.put("vote", vote);
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-            return map;
-        }
-        
-        return map;
-    }//getVoting()
     
     /**
      * Set the voting selection for the current user.
@@ -656,18 +627,12 @@ public class PackageAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map setVoting(List<Integer> test) {//HashMap<Long, Integer> votes) {
-    	
+    public Map setVoting(Long clusterPkgId, HashMap<Long, Integer> votes) {
         Map map = new HashMap();
         map.put("successful", false);
-        
-        System.out.println("MATT: *&(*&# Got list = " + test.size());
-        try {
-//        	VoteSubmitDTO vote = new VoteSubmitDTO();
-//        	vote.setPackageSuiteId(new Long(200));
-//        	vote.setVotes(votes);
-//            this.packageService.setVotes(vote);
-//            
+
+        try {        	
+            this.packageService.setVotes(this.packageService.getUser(WebUtils.currentUser()), clusterPkgId, votes);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

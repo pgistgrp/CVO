@@ -101,42 +101,20 @@ background:#FFF1DC;
 	var voteSuiteId = "${voteSuite.id}";
 	
 	/* *************** Grab a Voting Object *************** */
-	function getVoting(){
-		//alert("pkgSuiteId: " + pkgSuiteId); 
-		PackageAgent.getVoting({pkgSuiteId:pkgSuiteId}, {
-			callback:function(data){
-				if (data.successful){
-					setVoting(data)
-				}else{
-					alert("REASON: "+ data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){ 
-			alert("PackageAgent.getVoting( error:" + errorString + exception);
-			}
-		});
-	}
-
 	function setVoting(){	
-		//data.packageSuiteId = pkgSuiteId;	
-		var choices = new Hash;
+		var choices = {};
 		inputs = document.vote.elements;
 		for (var i=0; i < inputs.length; i++) {
 			if (inputs[i].type == "radio" && inputs[i].checked){
-				name = inputs[i].name.substring(3,inputs[i].name.length); //remove 'pkg'
-				choices[name] = inputs[i].value;
+				var name = inputs[i].name.substring(3,inputs[i].name.length); //remove 'pkg'
+				var strName = parseInt(name);
+				var voteValue = parseInt(inputs[i].value)
+				choices[strName] = voteValue;
 			}
 		}
-		
-		alert("choices map: " + choices.inspect());
-		alert("choices to array: " + choices.toArray());
-		var choicesArr = choices.toArray();
-		//data.vote.votes = choices;
-		//alert("data.votes.votes map (should be the same): " + data.vote.votes.inspect());
-		PackageAgent.setVoting(choicesArr, {
+		PackageAgent.setVoting(pkgSuiteId, choices, {
 			callback:function(data){
 				if (data.successful){
-					alert("it worked!! Refreshing...")
 					location.reload();
 				}else{
 					alert("setVoting Failed.  Reason: " +data.reason);
@@ -147,6 +125,7 @@ background:#FFF1DC;
 			}
 		});
 	}
+
 </script>
 
 </head>

@@ -533,19 +533,20 @@ public class PackageServiceImpl implements PackageService {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#setVotes(java.lang.Long, java.util.HashMap)
 	 */
-	public void setVotes(VoteSubmitDTO vote) throws Exception {
-		PackageVoteSuite vSuite = this.packageDAO.getVoteSuite(vote.getPackageSuiteId());
-		System.out.println("MATT 3:*(*& " + vote.getVotes().size());
-		Iterator i = vote.getVotes().keySet().iterator();
-		String temp;
+	public void setVotes(User user, Long voteSuiteId, HashMap<Long, Integer> votes) throws Exception {
+		PackageVoteSuite vSuite = this.packageDAO.getVoteSuite(voteSuiteId);
+		Iterator<Long> i = votes.keySet().iterator();
 		Long cPkgId;
 		Integer voteValue;
+		ClusteredPackage clusteredPkg;
 		while(i.hasNext()) {
-			temp = (String)i.next();
-			cPkgId = Long.parseLong(temp);
-			voteValue = Integer.parseInt((String)i.next());
-			System.out.println("Got a vote of " + voteValue + " for cPkg "+ cPkgId);
+			cPkgId = i.next();
+			voteValue = votes.get(cPkgId);
+			clusteredPkg = this.packageDAO.getClusteredPackage(cPkgId);
+			vSuite.assignVote(user, clusteredPkg, voteValue);
 		}
+		vSuite.recountVotes();
+		this.packageDAO.save(vSuite);
 	}
 
 

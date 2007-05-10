@@ -26,6 +26,7 @@
     <convert converter="bean" match="org.pgist.packages.ProjectAlternativeDTO"/>
     <convert converter="bean" match="org.pgist.packages.VoteSubmitDTO"/>
 
+
     <!-- DWR Agents -->
 
     <create creator="spring" javascript="PackageAgent">
@@ -43,7 +44,6 @@
         <include method="deleteClusteredPackage"/>
         <include method="getManualPackages"/>
         <include method="setVoting"/> 
-        <include method="getVoting"/> 
         <include method="getSummary"/>        
         <include method="getClusteredSummary"/>        
     </create>
@@ -54,9 +54,9 @@
 
   <signatures>
     <![CDATA[
-	    import java.util.List;
+	    import java.util.HashMap;
 	    import org.pgist.packages.PackageAgent;
-  		PackageAgent.setVotes(List<java.lang.Integer>);		
+  		PackageAgent.setVoting(Long, HashMap<java.lang.Long, java.lang.Integer>);		
     ]]>
   </signatures>
 

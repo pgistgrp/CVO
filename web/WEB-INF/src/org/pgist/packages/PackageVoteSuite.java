@@ -177,5 +177,70 @@ public class PackageVoteSuite {
         this.lows = low;
     }
 
+    /**
+     * Assigns the vote of this user for this package.  It replaces it if it already exist.
+     * @param user
+     * @param clusterPkgId
+     * @param voteValue
+     */
+	public void assignVote(User user, ClusteredPackage clusteredPkg, Integer voteValue) {
+		PackageUserVote votes = this.userVotes.get(clusteredPkg);
+		if(votes == null) {
+			System.out.println("MATT: &(*&(* Created PackageUserVote again for clusteredPkg" + clusteredPkg.getId());
+			votes = new PackageUserVote();
+			this.userVotes.put(clusteredPkg, votes); 
+		}
+		votes.getVotes().put(user, voteValue);
+	}
+
+	public void recountVotes() {
+		//Clear original values
+		this.voters.clear();
+		this.highs.clear();
+		this.mediums.clear();
+		this.lows.clear();
+		
+		//For each package, go through and tally up the total votes
+		Iterator<ClusteredPackage> cIter = this.userVotes.keySet().iterator();
+		
+		ClusteredPackage tempCPkg;
+		PackageUserVote votes;
+		Iterator<Integer> iValues;
+		int tempHigh;
+		int tempMed;
+		int tempLow;
+		int total;
+		while(cIter.hasNext()) {
+			tempCPkg = cIter.next();
+			System.out.println("MATT: &(*&(*&(*&(*& Recalcing for cpkg " + tempCPkg.getId());
+			votes = this.userVotes.get(tempCPkg);
+			
+			tempHigh = 0;
+			tempMed = 0;
+			tempLow = 0;
+			total = votes.getVotes().size();
+			
+			iValues = votes.getVotes().values().iterator();
+			while(iValues.hasNext()) {
+				switch (iValues.next().intValue()) {
+				case 1:
+					tempHigh++;
+					break;
+				case 2:
+					tempMed++;
+					break;
+				case 3:
+					tempLow++;
+					break;
+				}
+			}
+			this.voters.put(tempCPkg, total);
+			this.highs.put(tempCPkg, tempHigh/total);
+			this.mediums.put(tempCPkg, tempMed/total);
+			this.lows.put(tempCPkg, tempLow/total);
+			System.out.println("High = " + tempHigh/total + " med " + tempMed/total + " low " + tempLow/total);
+		}
+	}
+
 
 }//class PackageVoteSuite
