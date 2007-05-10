@@ -655,11 +655,14 @@ public class PackageAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map setVoting(VoteSubmitDTO vote) {
+    public Map setVoting(Long pkgId, HashMap<Long, Integer> votes) {
         Map map = new HashMap();
         map.put("successful", false);
         
         try {
+        	VoteSubmitDTO vote = new VoteSubmitDTO();
+        	vote.setPackageSuiteId(pkgId);
+        	vote.setVotes(votes);
             this.packageService.setVotes(vote);
             
             map.put("successful", true);
