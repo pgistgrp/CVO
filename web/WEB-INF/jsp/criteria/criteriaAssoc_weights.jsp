@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<p class="floatRight" id="remainingWeightP2">Remaining Weight: <b id="remainingWeight2">
+<p class="floatRight" id="remainingWeightP2">Points Left: <b id="remainingWeight2">
 <!--load remaining weight here -->
 </b></p><br class="clearBoth" />
 <div id="critRowWrapper">
@@ -29,7 +29,7 @@
 				<div class="floatLeft"> 
 					<a href="javascript:expandList('objectives${ref.criterion.id}','icon${ref.criterion.id}');"> <img src="/images/plus.gif" id="icon${ref.criterion.id}"></a> 
 				</div>
-				<div class="floatLeft"> ${ref.criterion.name}</div>
+				<div class="floatLeft"><label for="icon${ref.criterion.id}" onclick="javascript:expandList('objectives${ref.criterion.id}','icon${ref.criterion.id}');">${ref.criterion.name}</label></div>
 			</div>
 			<div class="weighCriteriaCol2 floatLeft">${ref.criterion.na}</div>
 	
@@ -53,7 +53,8 @@
 			</div>
 			<div class="clearBoth"></div>
 			<div class="objectives" id="objectives${ref.criterion.id}" style="display:none;">
-				<strong>Objectives:</strong><ul><c:if test="${fn:length(ref.criterion.objectives) == 0}">
+				<p>To get a good grade in <strong>${ref.criterion.name}</strong>, a transportation project must meet the following objectives:</p>
+				<ul><c:if test="${fn:length(ref.criterion.objectives) == 0}">
 						<li>None Selected</li>
 					</c:if>
 					<c:forEach var="objective" items="${ref.criterion.objectives}" varStatus="loop">
@@ -67,6 +68,6 @@
 </div>
 </div>
 </div>
-<p id="remainingWeightP">Remaining Weight: <b id="remainingWeight">
+<p id="remainingWeightP">Points Left: <b id="remainingWeight">
 <!--load remaining weight here -->
 </b></p><br class="clearBoth" />

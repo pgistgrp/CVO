@@ -265,7 +265,7 @@ margin-right:.5em;
 .weighCriteriaCol1 img
 {
 margin:0px 3px 0px 0px;
-vertical-align:middle;
+vertical-align:top;
 border:0px;
 }
 
@@ -321,7 +321,7 @@ width:180px;
 text-align:center;
 float:right;
 padding:5px 5px;
-font-size:1.1em;
+font-size:1.2em;
 margin:10px 0px;
 }
 
@@ -387,13 +387,11 @@ position:fixed;
 			<!-- begin "overview and instructions" area -->
 			<div id="overview" class="box2">
 				<h3>Overview and Instructions</h3>
-				<p>Criteria are used to help Evaluate which proposed transportation
-					projects are best suited to address problems with our transportation
-					system. Below, these criteria have been associated with the
-					concern themes discussed in the previous step. Please review
-					these criteria and the associated themes. Do these criteria
-					adequately reflect your concerns and the summaries? What criteria
-					might be useful in evaluating proposed transportation projects?</p>
+<p>Which planning factors do you feel are most important when determining which transportation improvement projects to fund and build? On this page you can assign weights to the nine different planning factors. This will help you to identify projects in Step 3 which most closely reflect your own priorities for transportation system improvement.</p>
+
+<p>To assign a weight to a planning factor, drag the slider bar next to that factor. You have <strong>100 points</strong> to distribute between the nine factors.</p>
+
+<strong>Hint:</strong> Click the "plus" (<img src="images/plus.gif" valign="bottom"> ) icon to see what objectives go into grading each project.<br />
 				<p><a href="readmore.jsp">Read more about how this step fits
 						into the bigger picture</a>.</p>
 			</div>
