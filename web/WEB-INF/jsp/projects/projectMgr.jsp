@@ -174,7 +174,6 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 		description = (project) ? project.description : "";
 		inclusive = (project) ? project.inclusive : "";
 		inclusiveChecked = (inclusive == true) ? "CHECKED" : "";
-		btnValue = (project) ? "Edit Project" : "Add Project";
 		transMode = (project) ? project.transMode : "";
 		transModes = ["null","road", "transit"];
 		
@@ -195,7 +194,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 			<div style="clear:both"></div>\
 			<div style="float:left;width:200px;margin-bottom:5px;"></div>\
 			<div style="float:left;width:400px;margin-bottom:5px;"><label><input type="checkbox" id="inclusive' + id +'" '+inclusiveChecked+' /> Options for this project are mutually exclusive.</label></div>\
-			<p><input type="submit" style="padding:5px;" value="'+ btnValue +'"></p>';
+			<p><input type="submit" style="padding:5px;" value="save"></p>';
 		$("frmProject"+id).innerHTML = f;
 		
 	}
@@ -256,7 +255,6 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 		links = (alt.links) ? alt.links : "";
 		statementFor = (alt.statementFor) ? alt.statementFor : "";
 		statementAgainst = (alt.statementAgainst) ? alt.statementAgainst : "";
-		btnValue = (alt.id) ? "Edit Alternative" : "Add Alternative";
 		
 		f = '<h4>Editing Project Alternative</h4>\
 				<div style="clear:both">\
@@ -290,7 +288,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 			</div>\
 							<div style="clear:both">\
 				</div>\
-			<p><input style="padding:5px;" type="submit" value="'+btnValue+'"></p>\
+			<p><input style="padding:5px;" type="submit" value="save"></p>\
 			</div>';
 
 		

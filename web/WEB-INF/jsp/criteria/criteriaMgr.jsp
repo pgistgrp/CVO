@@ -279,7 +279,7 @@
 				CriteriaAgent.deleteCriterion({id:id}, {
 					callback:function(data){
 						if (data.successful){
-							new Effect.Puff("criteria-" + id, {afterFinish:function(){getCriteria();}})
+							new Effect.DropOut("criteria-" + id, {afterFinish:function(){getCriteria();}})
 						}else{
 							alert(data.reason);
 						}
@@ -613,6 +613,7 @@
 		<!-- START All Criteria List -->
 			<div id="criteria" class="box3">
 				<div id="allCriteriaList">
+					<p><img src="images/indicator_arrows.gif" /> Loading Planning Factors ...</p>
 					<!-- Load getCriteria() here - using criteria.jsp -->
 				</div>
 			</div>

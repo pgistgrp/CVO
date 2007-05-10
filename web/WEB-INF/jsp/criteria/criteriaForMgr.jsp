@@ -50,7 +50,7 @@
           <!-- needs another variable to differentiate -->
             <!-- show editing only to moderator -->
             <small><br />[ <a href="javascript:editCriterionPopup(${criterion.id});">edit</a> ]
-            [ <a href="javascript:deleteCriterion(${criterion.id});">delete</a> ]</small>
+            [ <a href="javascript:deleteCriterion(${criterion.id});">delete</a> ]</small> 
  
       </div>
     </div>

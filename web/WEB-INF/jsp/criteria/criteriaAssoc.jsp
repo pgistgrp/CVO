@@ -28,11 +28,11 @@
 <script>
 	var critSuiteId = "${criteriasuite.id}"
 	function assocCriterion(critId, checked){
-		alert("critSuiteId: " + critSuiteId + " critId: " + critId + " checked: " + checked); 
+		//alert("critSuiteId: " + critSuiteId + " critId: " + critId + " checked: " + checked); 
 		CriteriaAgent.addAssocCriterion({critSuiteId:critSuiteId,critId:critId,checked:checked}, {
 			callback:function(data){
 				if (data.successful){
-					alert("successfully set crit "+critId+" to " +checked+ "!");
+					//alert("successfully set crit "+critId+" to " +checked+ "!");
 				}else{
 					alert(data.reason);
 				}
