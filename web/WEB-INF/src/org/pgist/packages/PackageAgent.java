@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -655,17 +656,18 @@ public class PackageAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map setVoting(HashMap<Long, Integer> votes) {
+    public Map setVoting(List<Integer> test) {//HashMap<Long, Integer> votes) {
+    	
         Map map = new HashMap();
         map.put("successful", false);
         
-        System.out.println("MATT: *&(*&# Got votes = " + votes.size());
+        System.out.println("MATT: *&(*&# Got list = " + test.size());
         try {
-        	VoteSubmitDTO vote = new VoteSubmitDTO();
-        	vote.setPackageSuiteId(new Long(200));
-        	vote.setVotes(votes);
-            this.packageService.setVotes(vote);
-            
+//        	VoteSubmitDTO vote = new VoteSubmitDTO();
+//        	vote.setPackageSuiteId(new Long(200));
+//        	vote.setVotes(votes);
+//            this.packageService.setVotes(vote);
+//            
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
