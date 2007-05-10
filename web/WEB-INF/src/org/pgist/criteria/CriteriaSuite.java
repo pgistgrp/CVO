@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.pgist.projects.Project;
+import org.pgist.projects.ProjectRef;
 import org.pgist.users.User;
 
 
@@ -92,5 +94,15 @@ public class CriteriaSuite {
     	references.add(cr); 	
     } //addReference();
     
+    
+    public CriteriaRef getCriteriaReference(Criteria criteria) {
+    	if(criteria == null) return null;
+    	for (CriteriaRef cr : getReferences()) {    		
+    		if(cr.getCriterion().getId().equals(criteria.getId())) {
+    			return cr;
+    		}
+    	}    	
+    	return null;
+    } //getProjectReference
     
 }//class CriteriaSuite

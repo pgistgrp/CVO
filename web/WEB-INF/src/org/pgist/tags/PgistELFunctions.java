@@ -15,7 +15,9 @@ import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectAlternative;
 import org.pgist.projects.ProjectRef;
 import org.pgist.projects.ProjectSuite;
-
+import org.pgist.criteria.Criteria;
+import org.pgist.criteria.CriteriaSuite;
+import org.pgist.criteria.CriteriaRef;
 
 /**
  * PGIST JSP Expression Language functions.<br>
@@ -96,6 +98,17 @@ public class PgistELFunctions extends SimpleTagSupport {
         
         //Now check that the alternative is in one of the alt references
         return ref.containsAlternative(alt);
-    }//containsRef()	
+    }//containsRef()
+	
+	public static boolean containsCriteria(CriteriaSuite cs, Criteria c) {
+        if (cs==null) return false;
+        if (c==null) return false;
+        
+        //First check that the criteria is in the suite
+        CriteriaRef cr = cs.getCriteriaReference(c);
+        if(cr == null) return false;
+        
+		return true;
+	}
 	
 }//class PgistELFunctions

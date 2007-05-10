@@ -46,6 +46,12 @@
     <function-signature>boolean containsRef(org.pgist.funding.FundingSourceSuite, org.pgist.funding.FundingSource, org.pgist.funding.FundingSourceAlternative)</function-signature>
   </function>
   
+    <function>
+      <name>containsCriteria</name>
+      <function-class>org.pgist.tags.PgistELFunctions</function-class>
+      <function-signature>boolean containsRef(org.pgist.criteria.CriteriaSuite, org.pgist.criteria.Criteria)</function-signature>
+  </function>
+  
   <tag>
     <name>show</name>
     <tag-class>org.pgist.tags.ShowTag</tag-class>
