@@ -8,7 +8,7 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
 <head>
-<title>Associate and Publish Criteria</title>
+<title>Associate Planning Factors</title>
 <!-- Site Wide JavaScript -->
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
@@ -26,123 +26,62 @@
 <script type='text/javascript' src='/dwr/interface/CriteriaAgent.js'></script>
 
 <script>
-/* DWR Template -----
-		function functionName(param){
-		THEAgent.theMethod({param1:param}, {
-				callback:function(data){
-						if (data.successful){
-
-						}
-				},
-				errorHandler:function(errorString, exception){ 
-				alert("functionName: "+errorString+" "+exception);
+	var critSuiteId = "${criteriasuite.id}"
+	function assocCriterion(critId, checked){
+		alert("critSuiteId: " + critSuiteId + " critId: " + critId + " checked: " + checked); 
+		CriteriaAgent.assocCriterion({critSuiteId:critSuiteId,critId:critId,checked:checked}, {
+			callback:function(data){
+				if (data.successful){
+					alert("successfully set crit "+critId+" to " +checked+ "!");
+				}else{
+					alert(data.reason);
 				}
-			});
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("CriteriaAgent.assocCriterion( error:" + errorString + exception);
+			}
+		});
+	}
+	
+	function switchCheckboxes(checked){
+		var criteria = document.getElementsByName("planningFactor");
+		for(i=0;i<criteria.length;i++){
+			criteria[i].checked = checked;
+			critId = criteria[i].id.substring(4,criteria[i].id.length); //grab just the ID
+			assocCriterion(critId, checked);
 		}
-*/
-
-// Global Variables
-		var isid = "${structure.id}";
-		var cctId = "${cctId.id}";
-
-// END Global Variables
-// START DWR Functions
-		function getAvailableCriteria(themeId){
-				CriteriaAgent.getAvailableCriteria({cctId: cctId, themeId: themeId}, {
-				callback:function(data){
-						if (data.successful){
-							alert("getAvailableCriteria Successful");
-						}
-				},
-				errorHandler:function(errorString, exception){ 
-				alert("getAvailableCriteria Error: "+errorString+" "+exception);
-				}
-			});
-		}
-		
-		function derelateCriteria(themeId, critIds){
-				CriteriaAgent.derelateCriteria({cctId: cctId, themeId: themeId, ids: critIds}, {
-				callback:function(data){
-						if (data.successful){
-							alert("derelateCriteria Successful");
-						}
-				},
-				errorHandler:function(errorString, exception){ 
-				alert("derelateCriteria Error: "+errorString+" "+exception);
-				}
-			});
-		}
-		
-		function relateCriteria(themeId, critIds){
-				CriteriaAgent.relateCriteria({cctId: cctId, themeId: themeId, ids: critIds}, {
-				callback:function(data){
-						if (data.successful){
-							alert("relateCriteria Successful");
-						}
-				},
-				errorHandler:function(errorString, exception){ 
-				alert("relateCriteria Error: "+errorString+" "+exception);
-				}
-			});
-		}
-		
-		function getThemes(cctId: cctId){
-				CriteriaAgent.getThemes({cctId: cctId}, {
-				callback:function(data){
-						if (data.successful){
-							alert("getThemes Successful");
-						}
-				},
-				errorHandler:function(errorString, exception){ 
-				alert("getThemes Error: "+errorString+" "+exception);
-				}
-			});
-		}
-
-		function publish(cctId: cctId){
-				CriteriaAgent.publish({cctId: cctId}, {
-				callback:function(data){
-						if (data.successful){
-							alert("publish Successful");
-						}
-				},
-				errorHandler:function(errorString, exception){ 
-				alert("publish Error: "+errorString+" "+exception);
-				}
-			});
-		}
-// END DWR Functions
+	}
 </script>
+<style type="text/css">
+	body{font-size:11 pt;font-family:arial;width:800px;}
+	li{margin: 10px 0; list-style: none;font-size: 1.3em}
+	li ul li:hover {background:#D5EAEF;}
+	#finished{text-align:right;}
+</style>
 </head>
 
+
 <body>
-<div id="container" style="width: 600px">
-	<h1>Associate Criteria to Themes</h1>
-	<p>Select criteria for each theme.  Use the "save" button at the bottom of the form to save the relationship.</p>
-	<form id="AssocCriteria" name="AssocCriteria" method="post" action="">
-	<div id="themes" style="float: left; width: 300px;">
-	  <h3>Themes List</h3>
-	  <p><input name="Theme" type="radio" value="Theme1" />Theme 1</p>
-	  <p><input name="Theme" type="radio" value="Theme2" />Theme 2</p>
-	  <p><input name="Theme" type="radio" value="Theme3" />Theme 3</p>
-	  <p><input name="Theme" type="radio" value="Theme4" />Theme 4</p>
+	<p><a href="main.do">Back to Moderator Control Panel</a></p>
+	<h1>Define Planning Factors</h1>
+	<p>Select all planning factors that you would like to include for this expiriment.</p>
+
+	<h3>All Planning Factors</h3>
+	<ul id="sourcesList">
+		<small>
+			<a href="javascript:switchCheckboxes(true)">check all</a> | 
+			<a href="javascript:switchCheckboxes(false)">uncheck all</a>
+		</small>
+		<c:forEach var="ref" items="${criteriasuite.references}">
+			<li><label><input type="checkbox" name="planningFactor" id="crit${ref.criterion.id}" onclick="assocCriterion('${ref.criterion.id}', this.checked)"/> ${ref.criterion.name}</label></li>
+		</c:forEach>
+	</ul>
+
+	<div id="finished">
+		<h3>Finished selecting planning factors?</h3>
+		<p>The system will automatically publish these planning factors on --date--</p>
+		<p><input type="button" style="padding:5px;" onClick="location.href='main.do'" value="Finished!"/></p>
 	</div>
-	
-	<div id="criteria" style="margin-left: 300px;">
-	  <h3>Criteria List</h3>
-	  <p><small>ctrl + click to select multiple</small></p>
-	  <select name="CriteriaList" size="10" multiple="multiple" id="CriteriaList" style="width: 100%;">
-	    <option value="Criteria1">Criteria1</option>
-	    <option value="Criteria2">Criteria2</option>
-	    <option value="Criteria3">Criteria3</option>
-	    <option value="Criteria4">Criteria4</option>
-      </select>
-	  <div id="submit" style="text-align:right;"><input type="button" value="Save" /></div>
-	  <div id="feedback" style="font-size: 0.8em; font-weight: bold; text-align:center; background: #BFFFBF; border: 3px solid #008F00;">Relationship was successfully saved!</div>
-	  </div>
-	</form>
-	<div id="clear" style="clear: left;">Finished?  <input type="button" value="Publish!" /></div>
-</div>
 </body>
 </html:html>
 
