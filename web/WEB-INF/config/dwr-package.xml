@@ -25,7 +25,6 @@
     <convert converter="bean" match="org.pgist.packages.ProjectDTO"/>
     <convert converter="bean" match="org.pgist.packages.ProjectAlternativeDTO"/>
     <convert converter="bean" match="org.pgist.packages.VoteSubmitDTO"/>
-    <convert converter="bean" match="org.pgist.packages.VoteSubmitDTO"/>
 
     <!-- DWR Agents -->
 
@@ -56,6 +55,8 @@
   <signatures>
     <![CDATA[
 		import java.util.*;
+	    import org.pgist.packages.VoteSubmitDTO;
+  		VoteSubmitDTO.setVotes(HashMap<Long, Integer> votes);		
     ]]>
   </signatures>
 
