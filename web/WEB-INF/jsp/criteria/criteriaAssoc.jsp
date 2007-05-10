@@ -73,7 +73,7 @@
 			<a href="javascript:switchCheckboxes(false)">uncheck all</a>
 		</small>
 		<c:forEach var="ref" items="${criteriasuite.references}">
-			<li><label><input type="checkbox" ${(pg:containsCriteria(criteriasuite,ref)) ? "CHECKED" : ""} name="planningFactor" id="crit${ref.criterion.id}" onclick="assocCriterion('${ref.criterion.id}', this.checked)"/> ${ref.criterion.name}</label></li>
+			<li><label><input type="checkbox" ${(pg:containsCriteria(criteriasuite,ref.criterion)) ? "CHECKED" : ""} name="planningFactor" id="crit${ref.criterion.id}" onclick="assocCriterion('${ref.criterion.id}', this.checked)"/> ${ref.criterion.name}</label></li>
 		</c:forEach>
 	</ul>
 
