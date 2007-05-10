@@ -3,56 +3,58 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<table border="1" width="100%">
-	<tr>
-		<td>Running Workflows</td>
-		<td>Description</td>
-		<td>Begin Time</td>
-    <td>Operation</td>
-	</tr>
-  <c:forEach var="workflow" items="${runningWorkflows}">
-      <tr>
-        <td>${workflow.situation.name}</td>
-        <td>${workflow.situation.description}</td>
-        <td>${workflow.beginTime}</td>
-        <td><a href="javascript: workflow.getWorkflow(${workflow.id});">Participate</a></td>
-      </tr>
-  </c:forEach>
-</table>
-
-<table border="1" width="100%">
-	<tr>
-		<td>Finished Workflows</td>
-		<td>Description</td>
-		<td>Begin Time</td>
-		<td>End Time</td>
-    <td>Operation</td>
-	</tr>
-  <c:forEach var="workflow" items="${finishedWorkflows}">
-      <tr>
-        <td>${workflow.situation.name}</td>
-        <td>${workflow.situation.description}</td>
-        <td>${workflow.beginTime}</td>
-        <td>${workflow.endTime}</td>
-        <td><a href="javascript: workflow.getWorkflow(${workflow.id});">Review</a></td>
-      </tr>
-  </c:forEach>
-</table>
-
-<pg:show roles="moderator">
-  <table border="1" width="100%">
-    <tr>
-      <td>New Workflows</td>
-      <td>Description</td>
-      <td>Operation</td>
-    </tr>
-    <c:forEach var="workflow" items="${newWorkflows}">
-        <tr>
-          <td>${workflow.situation.name}</td>
-          <td>${workflow.situation.description}</td>
-          <td><a href="javascript: workflow.startWorkflow(${workflow.id});">Start</a></td>
-        </tr>
-    </c:forEach>
-  </table>
-</pg:show>
+<div id="workflows">
+	<table id="newTable" cellspacing="0" cellpadding="0">
+		<tr>
+			<th>Running Workflows</th>
+			<th>Description</th>
+			<th>Begin Time</th>
+			<th>Operation</th>
+		</tr>
+		<c:forEach var="workflow" items="${runningWorkflows}">
+				<tr>
+					<td>${workflow.situation.name}</td>
+					<td>${workflow.situation.description}</td>
+					<td>${workflow.beginTime}</td>
+					<td><input type="button" value="Participate" onclick="javascript: workflow.getWorkflow(${workflow.id});"></td>
+				</tr>
+		</c:forEach>
+	</table>
+	
+	<table id="newTable" cellspacing="0" cellpadding="0">
+		<tr>
+			<th>Finished Workflows</th>
+			<th>Description</th>
+			<th>Begin Time</th>
+			<th>End Time</th>
+			<th>Operation</th>
+		</tr>
+		<c:forEach var="workflow" items="${finishedWorkflows}">
+				<tr>
+					<td>${workflow.situation.name}</td>
+					<td>${workflow.situation.description}</td>
+					<td>${workflow.beginTime}</td>
+					<td>${workflow.endTime}</td>
+					<td><input type="button" value="Review" onclick="javascript: workflow.getWorkflow(${workflow.id});"></td>
+				</tr>
+		</c:forEach>
+	</table>
+	
+	<pg:show roles="moderator">
+		<table id="newTable" cellspacing="0" cellpadding="0">
+			<tr>
+				<th>New Workflows</th>
+				<th>Description</th>
+				<th>Operation</th>
+			</tr>
+			<c:forEach var="workflow" items="${newWorkflows}">
+					<tr>
+						<td>${workflow.situation.name}</td>
+						<td>${workflow.situation.description}</td>
+						<td><input type="button" value="Start" onclick="javascript: workflow.startWorkflow(${workflow.id});"></td>
+					</tr>
+			</c:forEach>
+		</table>
+	</pg:show>
+</div>
 

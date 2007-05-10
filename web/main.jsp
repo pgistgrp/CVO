@@ -11,6 +11,7 @@
 <style type="text/css" media="screen">
 @import "styles/lit.css";
 @import "styles/user-home.css";
+@import "styles/workflow.css";
 </style>
 	<!-- End Site Wide CSS -->
 	<!-- Site Wide JS -->
@@ -24,6 +25,7 @@
 	<script>
 	  var workflow = new Workflow('workflow-panel');
 	</script>
+
 	<event:pageunload />
 	</head>
 	<pg:show roles="participant">
@@ -60,8 +62,8 @@
 				<div id="manager">
 				<pg:show roles="moderator">
 				  <div>
-				    <a href="javascript: workflow.getTemplates();">Templates</a>
-				    <a href="javascript: workflow.getWorkflows();">Workflows</a>
+				    <a class="wfblue" href="javascript: workflow.getTemplates();">Templates</a>
+				    <a class="wfgreen" href="javascript: workflow.getWorkflows();">Workflows</a>
 				  </div>
 				  <div id="workflow-panel"></div>
 				</pg:show>
