@@ -49,8 +49,9 @@
     <function>
       <name>containsCriteria</name>
       <function-class>org.pgist.tags.PgistELFunctions</function-class>
-      <function-signature>boolean containsRef(org.pgist.criteria.CriteriaSuite, org.pgist.criteria.Criteria)</function-signature>
+      <function-signature>boolean containsCriteria(org.pgist.criteria.CriteriaSuite, org.pgist.criteria.Criteria)</function-signature>
   </function>
+  
   
   <tag>
     <name>show</name>

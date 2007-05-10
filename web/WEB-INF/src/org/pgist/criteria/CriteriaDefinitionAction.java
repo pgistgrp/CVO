@@ -45,7 +45,7 @@ public class CriteriaDefinitionAction extends Action {
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
     	
-        	Collection criterias = criteriaService.getCriterias();
+        	Collection criteria = criteriaService.getAllCriterion();
         	
             String strSuiteId = request.getParameter("suiteId");
             Long suiteId = Long.parseLong(strSuiteId);
@@ -53,7 +53,7 @@ public class CriteriaDefinitionAction extends Action {
             
             
             request.setAttribute("criteriasuite", cs);
-            request.setAttribute("criterias", criterias);
+            request.setAttribute("criteria", criteria);
             
             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             

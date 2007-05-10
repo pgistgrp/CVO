@@ -28,7 +28,6 @@
             <declaration>
                 <ins>
 		    <var name="cctId"/>
-                    <var name="critSuiteId"/>
                 </ins>
             </declaration>
             <timer extension="300000"/>
@@ -125,7 +124,6 @@
 					    <declaration>
 						<ins>
 						    <var name="cctId" ref="pmethod.cct_id"/>
-						    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
 						</ins>
 					    </declaration>
 					</pgame>
