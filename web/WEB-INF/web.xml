@@ -58,7 +58,8 @@
                 /dwr/engine.js,
                 /dwr/util.js,
                 /dwr/call/plaincall/RegisterAgent.addUser.dwr,
-                /dwr/call/plaincall/RegisterAgent.createQuotaQualify.dwr
+                /dwr/call/plaincall/RegisterAgent.createQuotaQualify.dwr,
+                /dwr/call/plaincall/RegisterAgent.checkUsername.dwr
             </param-value>
         </init-param>
     </filter>

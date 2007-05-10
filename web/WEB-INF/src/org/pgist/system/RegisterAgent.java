@@ -613,7 +613,7 @@ public class RegisterAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map checkUsername(HttpServletRequest request, Map params) {
+    public Map checkUsername(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
        

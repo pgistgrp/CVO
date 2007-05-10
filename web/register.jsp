@@ -49,6 +49,7 @@
 		};
 		
 		var errordiv = document.getElementById("errors");
+		var errorusernamediv = document.getElementById("errorusername");
 		var errormsg = "";
  
 		var firstname = form.fname.value;	
@@ -119,17 +120,34 @@
 		}
 		*/
 		if(errormsg.length == 0) {
-			RegisterAgent.addUser({firstname:firstname, lastname:lastname, email1:email1, email2:email2, address1:address1, address2:address2, city:city, state:state, zipcode:zip, username:username, password1:password1, password2:password2}, {
+			RegisterAgent.checkUsername({username:username}, {
 				callback:function(data){
-					if (data.successful){
-						var id = data.id;		
-						var t = checkQ(id);				
-					}
+					if (data.available){		
+					//if Username is available
+					
+							RegisterAgent.addUser({firstname:firstname, lastname:lastname, email1:email1, email2:email2, address1:address1, address2:address2, city:city, state:state, zipcode:zip, username:username, password1:password1, password2:password2}, {
+								callback:function(data){
+									if (data.successful){
+										var id = data.id;		
+										var t = checkQ(id);				
+									}
+								},
+								errorHandler:function(errorString, exception){ 
+								alert("SystemAgent.createQuotaStats( error:" + errorString + exception);
+								}
+							});
+				
+				// else if user name is taken
+				} else {
+					errormsg = errormsg + "Username Not Available";
+					errorusernamediv.innerHTML = "&nbsp;" + errormsg;
+					highlightErrors('username');
+				}
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("SystemAgent.createQuotaStats( error:" + errorString + exception);
 				}
-			});
+			});	
 		} else {
 			errordiv.innerHTML = '<h3 class=\"headerColor\">Please change the following:</h3>' + errormsg;
 		}
@@ -310,7 +328,7 @@
 		<div class="form-left">
 			<p>
 				<span class="label">User name:</span>
-				<span class="value"><input id="username" type="text" /></span>
+				<span class="value"><input id="username" type="text" /></span><span id="errorusername" style="color:#D85703;font-weight:bold;font-size: .8em;"></span>
 			</p><br />
 			<p>
 				<span class="label">Password:</span>
