@@ -119,13 +119,12 @@ background:#FFF1DC;
 
 	function setVoting(){	
 		//data.packageSuiteId = pkgSuiteId;	
-		var choices = $H({});
+		var choices = new Hash;
 		inputs = document.vote.elements;
 		for (var i=0; i < inputs.length; i++) {
 			if (inputs[i].type == "radio" && inputs[i].checked){
 				name = inputs[i].name.substring(3,inputs[i].name.length); //remove 'pkg'
-				voteValue = parseInt(inputs[i].value);
-				choices[name] = voteValue;
+				choices[name] = inputs[i].value;
 			}
 		}
 		
