@@ -54,7 +54,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     } //addCriterion
     
     
-    public void assocCriterion(Long critId, Long critSuiteId, boolean checked) throws Exception {
+    public void addAssocCriterion(Long critId, Long critSuiteId, boolean checked) throws Exception {
     	
     	//create/load all classes
     	Criteria c = (Criteria) load(Criteria.class, critId);
@@ -80,10 +80,15 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
 	    	save(cs);
 	    	save(cuw);
 	    	save(cr);
+	    	
     	} else {
     		CriteriaRef cr = getCriteriaRefByCriteria(c);
     		Map weightsMap = cs.getWeights();
     		CriteriaUserWeight cuw = (CriteriaUserWeight) weightsMap.get(cr);
+    		weightsMap.remove(cr);
+    		cs.setWeights(weightsMap);
+    		save(cs);
+    		//delete
     		getHibernateTemplate().delete(cuw);
     		getHibernateTemplate().delete(cr);
     	}

@@ -15,9 +15,6 @@ public class MockCriteriaDAO implements CriteriaDAO {
 	
 	
 	
-	/* (non-Javadoc)
-	 * @see org.pgist.criteria.CriteriaDAO#addCriterion(java.lang.Boolean, java.lang.Boolean, java.lang.String, java.util.Set, java.util.Set, java.lang.String)
-	 */
 
 	/* (non-Javadoc)
 	 * @see org.pgist.criteria.CriteriaDAO#assocCriterion(java.lang.Long, java.lang.Long, boolean)
@@ -27,9 +24,6 @@ public class MockCriteriaDAO implements CriteriaDAO {
 		
 	}
 
-	public void assocCriterion(Long critId, Long critSuiteId) throws Exception {
-		// TODO Auto-generated method stub
-	}
 	
 	public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives,
 			String name, CCT cct, Set themes, Set objectives, String na)

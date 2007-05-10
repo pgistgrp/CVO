@@ -131,7 +131,7 @@ public class CriteriaAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map assocCriterion(Map params) {
+    public Map addAssocCriterion(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -153,15 +153,15 @@ public class CriteriaAgent {
     		return map;
     	}
     	
-    	Long critId = new Long(strCritId);
-    	Long critSuiteId = new Long(strCritSuiteId);
-    	if(strChecked.equals("true")) {
-    		checked = true;
-    	}
-    	
+
         try {
+        	Long critId = new Long(strCritId);
+        	Long critSuiteId = new Long(strCritSuiteId);
         	
-        	criteriaService.assocCriterion(critId, critSuiteId, checked);
+        	if(strChecked.equals("true")) {
+        		checked = true;
+        	}
+        	criteriaService.addAssocCriterion(critId, critSuiteId, checked);
 
             map.put("successful", true);
         } catch (Exception e) {
