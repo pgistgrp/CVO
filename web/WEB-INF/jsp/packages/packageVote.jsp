@@ -112,7 +112,7 @@ background:#FFF1DC;
 				choices[strName] = voteValue;
 			}
 		}
-		PackageAgent.setVoting(pkgSuiteId, choices, {
+		PackageAgent.setVoting(voteSuiteId, choices, {
 			callback:function(data){
 				if (data.successful){
 					location.reload();
