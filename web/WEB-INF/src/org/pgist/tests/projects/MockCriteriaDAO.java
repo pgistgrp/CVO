@@ -13,9 +13,19 @@ import org.pgist.users.User;
 
 public class MockCriteriaDAO implements CriteriaDAO {
 	
+	
+	
 	/* (non-Javadoc)
 	 * @see org.pgist.criteria.CriteriaDAO#addCriterion(java.lang.Boolean, java.lang.Boolean, java.lang.String, java.util.Set, java.util.Set, java.lang.String)
 	 */
+
+	/* (non-Javadoc)
+	 * @see org.pgist.criteria.CriteriaDAO#assocCriterion(java.lang.Long, java.lang.Long, boolean)
+	 */
+	public void assocCriterion(Long critId, Long critSuiteId, boolean checked) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 
 	public void assocCriterion(Long critId, Long critSuiteId) throws Exception {
 		// TODO Auto-generated method stub
