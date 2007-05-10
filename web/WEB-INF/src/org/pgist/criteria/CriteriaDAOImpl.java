@@ -325,4 +325,45 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     } //getCriteriaSuiteById();
     
     
+    public void sortHashSet(Set references) throws Exception {
+    	Iterator itRef = references.iterator();
+    	Set sortedSet = new HashSet();
+
+    	while(itRef.hasNext()) {
+    		CriteriaRef cr = (CriteriaRef) itRef.next();
+    		Criteria c = cr.getCriterion();
+    		String critName = c.getName();
+    		
+    	}
+    	
+    }
+    
+    /*
+    public CriteriaRef getSmallRef(Set references) {
+    	Iterator itRef = references.iterator();
+    	CriteriaRef lowest = null;
+    	boolean firstpass = true;
+    	
+    	while(itRef.hasNext()) {
+    		CriteriaRef cr = (CriteriaRef) itRef.next();
+    		if(firstpass) {
+    			firstpass = false;
+    			lowest = cr;
+    		} else {
+    			Criteria lowestCrif = lowest.getCriterion();
+    			String lowestName = lowestCrif.getName();
+    			
+        		Criteria c = cr.getCriterion();
+    			String critName = c.getName();
+    			
+    			if(lowestName.compareTo(critName) > 0) {
+    				lowest = cr;
+    			}
+    			
+    		}
+    	}
+    	return null;
+    }
+    */
+    
 }//class CriteriaDAOImpl
