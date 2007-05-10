@@ -117,21 +117,24 @@ background:#FFF1DC;
 		});
 	}
 
-	function setVoting(data){	
-		data.packageSuiteId = pkgSuiteId;	
+	function setVoting(){	
+		//data.packageSuiteId = pkgSuiteId;	
 		var choices = $H({});
 		inputs = document.vote.elements;
 		for (var i=0; i < inputs.length; i++) {
 			if (inputs[i].type == "radio" && inputs[i].checked){
 				name = inputs[i].name.substring(3,inputs[i].name.length); //remove 'pkg'
-				choices[name] = inputs[i].value;
+				voteValue = parseInt(inputs[i].value);
+				choices[name] = voteValue;
 			}
 		}
 		
 		alert("choices map: " + choices.inspect());
-		data.vote.votes = choices;
-		alert("data.votes.votes map (should be the same): " + data.vote.votes.inspect());
-		PackageAgent.setVoting(data, {
+		alert("choices to array: " + choices.toArray());
+		var choicesArr = choices.toArray();
+		//data.vote.votes = choices;
+		//alert("data.votes.votes map (should be the same): " + data.vote.votes.inspect());
+		PackageAgent.setVoting(choicesArr, {
 			callback:function(data){
 				if (data.successful){
 					alert("it worked!! Refreshing...")
@@ -200,7 +203,7 @@ background:#FFF1DC;
           <div class="clearBoth"></div>
         </div>
 		<!-- end voting headers -->
-		<form name="vote" action="javascript:getVoting();">
+		<form name="vote" action="javascript:setVoting();">
 			<c:forEach var="clusteredPkg" items="${voteSuite.pkgSuite.clusteredPkgs}" varStatus="loop">
 			       <div class="VoteListRow row ${((loop.index % 2) == 0) ? 'even' : 'odd'}">
 			         <div class="voteCol1 floatLeft">
