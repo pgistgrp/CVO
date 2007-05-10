@@ -73,28 +73,28 @@
 				<h3>Public Components</h3>
 			
 					<h4 class="headerColor clearBoth step-header">Global Components</h4>
-					<div class="padding5 home-row clearfix">
+					<div class="home-row clearfix">
 						<div class="step"><a href="publicprofile.do?user=${baseuser.loginname}">User Public Profile</a><br />
 							<small>Information about this step</small>
 						</div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
 					
-					<div class="padding5 home-row clearfix">
+					<div class="home-row clearfix">
 						<div class="step"><a href="lmMenu.do">Learn More: Home</a><br />
 							<small>Information about this step</small>
 						</div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
 					
-					<div class="padding5 home-row clearfix">
+					<div class="home-row clearfix">
 						<div class="step"><a href="glossaryPublic.do">Learn More: Public Glossary</a><br />
 							<small>Information about this step</small>
 						</div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
 					
-					<div class="padding5 home-row clearfix">
+					<div class="home-row clearfix">
 						<div class="step"><a href="search.do">Global Search</a><br />
 							<small>Information about this step</small>
 						</div>
@@ -102,13 +102,13 @@
 					</div>
 					
 					<h4 class="headerColor clearBoth step-header">Step 1: Discuss Concerns</h4>
-					<div class="padding5 home-row clearfix">
+					<div class="home-row clearfix">
 						<div class="step"><a href="cctlist.do">1a: Brainstorm Concerns</a><br />
 							<small>Information about this step</small>
 						</div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
-					<div class="padding5 home-row clearfix">
+					<div class="home-row clearfix">
 						<div class="step"><a href="sdlist.do">1b: Review Summaries</a><br />
 							<small>Information about this step</small>
 						</div>
@@ -117,13 +117,13 @@
 					
 					
 					<h4 class="headerColor clearBoth step-header">Step 2: Review Planning Factors</h4>
-					<div class="padding5 home-row clearfix">
+					<div class="home-row clearfix">
 						<div class="step"><a href="sdlist.do">2a: Review Planning Factors</a><br />
 							<small>Information about this step</small>
 						</div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
-					<div class="padding5 home-row clearfix">
+					<div class="home-row clearfix">
 						<div class="step"><a href="criteriaList.do">2b: Weigh Planning Factors</a><br />
 							<small>Information about this step</small>
 						</div>
@@ -132,31 +132,31 @@
 					
 
 					<h4 class="headerColor clearBoth step-header">Step 3: Review Projects</h4>
-					<div class="padding5 home-row clearfix">
+					<div class="home-row clearfix">
 						<div class="step"><a href="sdlist.do">3a: Review Projects</a><br />
 							<small>Information about this step</small>
 						</div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
-					<div class="padding5 home-row clearfix">
+					<div class="home-row clearfix">
 						<div class="step"><a href="sdlist.do">3b: Review Funding</a><br />
 							<small>Information about this step</small>
 						</div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
-					<div class="padding5 home-row clearfix">
+					<div class="home-row clearfix">
 						<div class="step"><a href="fundingCalc.do?fundSuiteId=200">3c: Funding "Tax Calculator" Game</a><br />
 							<small>Information about this step</small>
 						</div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
-					<div class="padding5 home-row clearfix">
+					<div class="home-row clearfix">
 						<div class="step"><a href="createPackage.do?pkgSuiteId=200&projSuiteId=200&fundSuiteId=200&critSuiteId=200">3d: Create Personal Package</a><br />
 							<small>Information about this step</small>
 						</div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
-					<div class="padding5 home-row clearfix">
+					<div class="home-row clearfix">
 						<div class="step"><a href="criteriaList.do">Re-weigh Planning Factors</a><br />
 							<small>Information about this step</small>
 						</div>
@@ -164,13 +164,13 @@
 					</div>
 
 					<h4 class="headerColor clearBoth step-header">Step 4: Review Packages</h4>
-					<div class="padding5 home-row clearfix">
+					<div class="home-row clearfix">
 						<div class="step"><a href="sdlist.do">4a: Review Packages</a><br />
 							<small>Information about this step</small>
 						</div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
-					<div class="padding5 home-row clearfix">
+					<div class="home-row clearfix">
 						<div class="step"><a href="packageVote.do?voteSuiteId=200">4b: Package Voting</a><br />
 							<small>Information about this step</small>
 						</div>
@@ -179,7 +179,7 @@
 
 
 					<h4 class="headerColor clearBoth step-header">Step 5: Review Report</h4>
-					<div class="padding5 home-row clearfix">
+					<div class="home-row clearfix">
 						<div class="step"><a href="sdlist.do">5a: Review Report</a><br />
 							<small>Information about this step</small>
 						</div>
@@ -189,49 +189,49 @@
 
 				<h3>Moderator Tools</h3>
 				<h4 class="headerColor clearBoth step-header">Global Components</h4>
-				<div class="padding5 home-row clearfix">
+				<div class="home-row clearfix">
 					<div class="step"><a href="usermgr.do">Manage Users</a><br />
 						<small>Information about this step</small>
 					</div>
 					<div class="date">11/15 - 11/25</div>
 				</div>
-				<div class="padding5 home-row clearfix">
+				<div class="home-row clearfix">
 					<div class="step"><a href="glossaryManage.do">Manage Glossary</a><br />
 						<small>Information about this step</small>
 					</div>
 					<div class="date">11/15 - 11/25</div>
 				</div>
-				<div class="padding5 home-row clearfix">
+				<div class="home-row clearfix">
 					<div class="step"><a href="tagging.do">Manage Tags/Stopwords</a><br />
 						<small>Information about this step</small>
 					</div>
 					<div class="date">11/15 - 11/25</div>
 				</div>
-				<div class="padding5 home-row clearfix">
+				<div class="home-row clearfix">
 					<div class="step"><a href="criteriaList.do">Manage Planning Factors</a><br />
 						<small>Information about this step</small>
 					</div>
 					<div class="date">11/15 - 11/25</div>
 				</div>
-				<div class="padding5 home-row clearfix">
+				<div class="home-row clearfix">
 					<div class="step"><a href="projectManage.do">Manage Projects</a><br />
 						<small>Information about this step</small>
 					</div>
 					<div class="date">11/15 - 11/25</div>
 				</div>
-				<div class="padding5 home-row clearfix">
+				<div class="home-row clearfix">
 					<div class="step"><a href="fundingManage.do">Manage Funding</a><br />
 						<small>Information about this step</small>
 					</div>
 					<div class="date">11/15 - 11/25</div>
 				</div>
-				<div class="padding5 home-row clearfix">
+				<div class="home-row clearfix">
 					<div class="step"><a href="feedback.do">Manage Feedbacks</a><br />
 						<small>Information about this step</small>
 					</div>
 					<div class="date">11/15 - 11/25</div>
 				</div>
-				<div class="padding5 home-row clearfix">
+				<div class="home-row clearfix">
 					<div class="step"><a href="annoucements.do">Manage Annoucements</a><br />
 						<small>Information about this step</small>
 					</div>
@@ -240,7 +240,7 @@
 				
 				
 				<h4 class="headerColor clearBoth step-header">Step 1</h4>
-				<div class="padding5 home-row clearfix">
+				<div class="home-row clearfix">
 					<div class="step"><a href="cstlist.do">Concerns Synthesis Tool</a><br />
 						<small>Information about this step</small>
 					</div>
@@ -248,7 +248,7 @@
 				</div>
 				
 				<h4 class="headerColor clearBoth step-header">Step 2</h4>
-				<div class="padding5 home-row clearfix">
+				<div class="home-row clearfix">
 					<div class="step"><a href="criteriaDefine.do?suiteId=200">Define Planning Factors</a><br />
 						<small>Information about this step</small>
 					</div>
@@ -257,19 +257,19 @@
 
 	
 				<h4 class="headerColor clearBoth step-header">Step 3</h4>
-				<div class="padding5 home-row clearfix">
+				<div class="home-row clearfix">
 					<div class="step"><a href="projectDefine.do?suiteId=200">Define Projects</a><br />
 						<small>Information about this step</small>
 					</div>
 					<div class="date">11/15 - 11/25</div>
 				</div>
-				<div class="padding5 home-row clearfix">
+				<div class="home-row clearfix">
 					<div class="step"><a href="fundingDefine.do?suiteId=200">Define Funding</a><br />
 						<small>Information about this step</small>
 					</div>
 					<div class="date">11/15 - 11/25</div>
 				</div>
-				<div class="padding5 home-row clearfix">
+				<div class="home-row clearfix">
 					<div class="step"><a href="projectGrading.do?projsuiteId=200&critsuiteId=200">Grade Projects</a><br />
 						<small>Information about this step</small>
 					</div>
@@ -277,7 +277,7 @@
 				</div>
 				
 				<h4 class="headerColor clearBoth step-header">Step 4</h4>
-				<div class="padding5 home-row clearfix">
+				<div class="home-row clearfix">
 					<div class="step"><a href="packageMgr.do?pkgSuiteId=200&projSuiteId=200&fundSuiteId=200&critSuiteId=200">Manage Packages</a><br />
 						<small>Information about this step</small>
 					</div>
@@ -285,7 +285,7 @@
 				</div>
 
 				<h4 class="headerColor clearBoth step-header disabled">Step 5</h4>
-				<div class="padding5 home-row clearfix disabled">
+				<div class="home-row clearfix disabled">
 					<div class="step"><a href="#">Manage Report</a><br />
 						<small>Information about this step</small>
 					</div>
@@ -294,13 +294,13 @@
 
 
 				<h3>Development Tools</h3>
-				<div class="padding5 home-row clearfix ">
+				<div class="home-row clearfix ">
 					<div class="step"><a href="/pgist-docs/index.html">Javadoc</a><br />
 						<small>Information about this step</small>
 					</div>
 					<div class="date">11/15 - 11/25</div>
 				</div>
-				<div class="padding5 home-row clearfix ">
+				<div class="home-row clearfix ">
 					<div class="step"><a href="/dwr/index.html">DWR Test</a><br />
 						<small>Information about this step</small>
 					</div>
