@@ -56,7 +56,7 @@
     <![CDATA[
 	    import java.util.HashMap;
 	    import org.pgist.packages.PackageAgent;
-  		PackageAgent.setVotes(Map<Long, Integer>);		
+  		PackageAgent.setVotes(Map<java.lang.Long, java.lang.Integer>);		
     ]]>
   </signatures>
 
