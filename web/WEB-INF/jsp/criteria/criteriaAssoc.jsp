@@ -29,7 +29,7 @@
 	var critSuiteId = "${criteriasuite.id}"
 	function assocCriterion(critId, checked){
 		alert("critSuiteId: " + critSuiteId + " critId: " + critId + " checked: " + checked); 
-		CriteriaAgent.assocCriterion({critSuiteId:critSuiteId,critId:critId,checked:checked}, {
+		CriteriaAgent.addAssocCriterion({critSuiteId:critSuiteId,critId:critId,checked:checked}, {
 			callback:function(data){
 				if (data.successful){
 					alert("successfully set crit "+critId+" to " +checked+ "!");
@@ -73,7 +73,7 @@
 			<a href="javascript:switchCheckboxes(false)">uncheck all</a>
 		</small>
 		<c:forEach var="ref" items="${criteriasuite.references}">
-			<li><label><input type="checkbox" name="planningFactor" id="crit${ref.criterion.id}" onclick="assocCriterion('${ref.criterion.id}', this.checked)"/> ${ref.criterion.name}</label></li>
+			<li><label><input type="checkbox" ${(pg:containsCriteria(criteriasuite,ref)) ? "CHECKED" : ""} name="planningFactor" id="crit${ref.criterion.id}" onclick="assocCriterion('${ref.criterion.id}', this.checked)"/> ${ref.criterion.name}</label></li>
 		</c:forEach>
 	</ul>
 
