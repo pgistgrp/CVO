@@ -78,6 +78,10 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//deleteCriterion
     
     
+    public boolean getContainsCriteria(Long critId, Long critSuiteId) throws Exception {
+    	return criteriaDAO.getContainsCriteria(critId, critSuiteId);
+    }
+    
     public void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, Set themes, Set objectives, String na) throws Exception {	
     	criteriaDAO.editCriterion(bool_themes, bool_objectives, c, name, themes, objectives, na);
     }//editCriterion()

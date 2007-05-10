@@ -170,7 +170,7 @@ public class CriteriaAgent {
         }
         
         return map;
-    }//assocCriterion()
+    }//addAssocCriterion()
     
     
     /**
@@ -209,6 +209,56 @@ public class CriteriaAgent {
         
         return map;
     }//deleteCriterion()
+    
+    
+    /**
+     * Check to see if a criterion is contained within a suite
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>critSuiteId - long (string), critSuite Id 
+     *     <li>critId - long (string), critId</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>contains - a boolean value, the suite contains the criterion, true or false</li>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map getContainsCriteria(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        boolean checked = false;
+    	String strCritId = (String) params.get("critId");
+    	String strCritSuiteId = (String) params.get("critSuiteId");
+    	
+    	if(strCritId==null || "".equals(strCritId.trim())){
+    		map.put("reason", "critId cannot be empty.");
+    		return map;
+    	}
+    	if(strCritSuiteId==null || "".equals(strCritSuiteId.trim())){
+    		map.put("reason", "critSuite cannot be empty.");
+    		return map;
+    	}
+    	
+
+        try {
+        	Long critId = new Long(strCritId);
+        	Long critSuiteId = new Long(strCritSuiteId);
+
+        	boolean contains = criteriaService.getContainsCriteria(critId, critSuiteId);
+
+        	map.put("contains", contains);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//getContainsCriteria()
     
     
     /**

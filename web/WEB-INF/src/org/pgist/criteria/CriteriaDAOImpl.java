@@ -61,28 +61,29 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
     	
     	if(checked) {
-	    	
-	    	CriteriaRef cr = new CriteriaRef();
-	    	CriteriaUserWeight cuw = new CriteriaUserWeight();
-	    	
-	    	//set CriteriaRef 
-	    	cr.setCriterion(c);
-	    	cr.setSuite(cs);
-	    	
-	    	//set CriteriaUserWeight
-	    	cuw.setSuite(cs);
-	    	
-	    	//set CriteriaSuite
-	    	cs.addWeight(cr, cuw);
-	    	cs.addReference(cr);
-	    	
-	    	//Save
-	    	save(cs);
-	    	save(cuw);
-	    	save(cr);
-	    	
+	    	CriteriaRef checkCr = getCriteriaRefByCriteria(c, cs);
+	    	if(checkCr==null) {
+		    	CriteriaRef cr = new CriteriaRef();
+		    	CriteriaUserWeight cuw = new CriteriaUserWeight();
+		    	
+		    	//set CriteriaRef 
+		    	cr.setCriterion(c);
+		    	cr.setSuite(cs);
+		    	
+		    	//set CriteriaUserWeight
+		    	cuw.setSuite(cs);
+		    	
+		    	//set CriteriaSuite
+		    	cs.addWeight(cr, cuw);
+		    	cs.addReference(cr);
+		    	
+		    	//Save
+		    	save(cs);
+		    	save(cuw);
+		    	save(cr);
+	    	}
     	} else {
-    		CriteriaRef cr = getCriteriaRefByCriteria(c);
+    		CriteriaRef cr = getCriteriaRefByCriteria(c, cs);
     		Map weightsMap = cs.getWeights();
     		CriteriaUserWeight cuw = (CriteriaUserWeight) weightsMap.get(cr);
     		weightsMap.remove(cr);
@@ -249,7 +250,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	
     	CriteriaSuite cs = (CriteriaSuite)load(CriteriaSuite.class, suiteId);
 
-    	CriteriaRef cr = getCriteriaRefByCriteria(criteria);
+    	CriteriaRef cr = getCriteriaRefByCriteria(criteria, cs);
     	Map csWeights = cs.getWeights();    	
     	CriteriaUserWeight cuw = (CriteriaUserWeight) csWeights.get(cr); 	
     	Integer iWeight = new Integer(weight);    
@@ -262,25 +263,44 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     
     private static final String hql_getCriteriaRefByCriteria = "from CriteriaRef cr where criterion=?";
     
-    public CriteriaRef getCriteriaRefByCriteria(Criteria criteria) throws Exception {
+    public CriteriaRef getCriteriaRefByCriteria(Criteria criteria, CriteriaSuite cs) throws Exception {
     	
     	List list = getHibernateTemplate().find(hql_getCriteriaRefByCriteria, new Object[] {
     			criteria,
         });
-    	
-    	Iterator it = list.iterator();
-    	CriteriaRef cr = (CriteriaRef) it.next();
-    	return cr;
+    	if(list.size()>0) {
+	    	Iterator it = list.iterator();
+	    	while(it.hasNext()) {
+		    	CriteriaRef cr = (CriteriaRef) it.next();
+		    	CriteriaSuite tempCS = cr.getSuite();
+		    	if(tempCS==cs) {
+		    		return cr;
+		    	}
+	    	}
+    	}
+    	return null;
     }
     
+    
+    public boolean getContainsCriteria(Long critId, Long critSuiteId) throws Exception {
+    	Criteria c = (Criteria) load(Criteria.class, critId);
+    	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
+    	
+    	CriteriaRef cr = getCriteriaRefByCriteria(c, cs);
+    	if(cr==null) {
+    		return false;
+    	}
+    	return true;
+    }
+  
     
     public int getWeight(Long critSuiteId, Long critId) throws Exception {
     	User user = (User) load(User.class, WebUtils.currentUserId());
     	Criteria criteria = (Criteria) load(Criteria.class, critId);
     	
-    	CriteriaRef cr = getCriteriaRefByCriteria(criteria);
-    	
     	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
+    	
+    	CriteriaRef cr = getCriteriaRefByCriteria(criteria, cs);
     	
     	Map weights = cs.getWeights();
     	CriteriaUserWeight cuw = (CriteriaUserWeight) weights.get(cr);

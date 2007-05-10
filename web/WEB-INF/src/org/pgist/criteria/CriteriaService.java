@@ -28,6 +28,9 @@ public interface CriteriaService {
     void deleteCriterion(Long id) throws Exception;
     
     
+    boolean getContainsCriteria(Long critId, Long critSuiteId) throws Exception; 
+    
+    
     void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, Set themes, Set objectives, String na) throws Exception;
     
     

@@ -41,6 +41,7 @@
 	<include method="setCriteriaWeight"/>
 	<include method="getWeight"/>
 	<include method="getCriteriaSuiteById"/>
+	<include method="getContainsCriteria"/>
     </create>
 
 

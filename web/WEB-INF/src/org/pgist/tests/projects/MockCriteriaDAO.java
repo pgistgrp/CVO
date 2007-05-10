@@ -25,6 +25,12 @@ public class MockCriteriaDAO implements CriteriaDAO {
 	}
 
 	
+	public boolean getContainsCriteria(Long critId, Long critSuiteId) throws Exception {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	
+	
 	public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives,
 			String name, CCT cct, Set themes, Set objectives, String na)
 			throws Exception {

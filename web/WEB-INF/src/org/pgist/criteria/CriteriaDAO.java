@@ -18,10 +18,15 @@ public interface CriteriaDAO extends BaseDAO {
 	
 	Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Set themes,  Set objectives, String na) throws Exception;
     
+	
 	void addAssocCriterion(Long critId, Long critSuiteId, boolean checked) throws Exception;
+	
 	
 	void deleteCriterion(Long id) throws Exception;
     
+	
+	boolean getContainsCriteria(Long critId, Long critSuiteId) throws Exception; 
+	
 	
 	void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, Set themes, Set objectives, String na) throws Exception;
 	
