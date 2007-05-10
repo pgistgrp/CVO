@@ -1,6 +1,7 @@
 package org.pgist.packages;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Special DTO used when submitting a vote
@@ -10,7 +11,7 @@ import java.util.HashMap;
 public class VoteSubmitDTO {
 
 	
-	private HashMap votes = new HashMap();
+	private Map<Long, Integer> votes = new HashMap<Long, Integer>();
 	
 	private Long packageSuiteId;
 
@@ -31,14 +32,14 @@ public class VoteSubmitDTO {
 	/**
 	 * @return the votes
 	 */
-	public HashMap getVotes() {
+	public Map<Long, Integer> getVotes() {
 		return votes;
 	}
 
 	/**
 	 * @param votes the votes to set
 	 */
-	public void setVotes(HashMap votes) {
+	public void setVotes(Map<Long, Integer> votes) {
 		this.votes = votes;
 	}
 	
