@@ -22,7 +22,7 @@ public interface CriteriaService {
     Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Set themes, Set objectives, String na) throws Exception;
     
     
-    void assocCriterion(Long critId, Long critSuiteId) throws Exception;
+    void assocCriterion(Long critId, Long critSuiteId, boolean checked) throws Exception;
     
     
     void deleteCriterion(Long id) throws Exception;

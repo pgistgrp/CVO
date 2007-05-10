@@ -123,6 +123,7 @@ public class CriteriaAgent {
      *   <ul>
      *     <li>critSuiteId - long (string), critSuite Id 
      *     <li>critId - long (string), critId</li>
+     *     <li>checked - boolean (string), if true create association, if false remove association</li>
      *   </ul>
      * @return a Map contains:
      *   <ul>
@@ -134,9 +135,11 @@ public class CriteriaAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
+        boolean checked = false;
     	String strCritId = (String) params.get("critId");
     	String strCritSuiteId = (String) params.get("critSuiteId");
-
+    	String strChecked = (String) params.get("checked");
+    	
     	if(strCritId==null || "".equals(strCritId.trim())){
     		map.put("reason", "critId cannot be empty.");
     		return map;
@@ -145,13 +148,20 @@ public class CriteriaAgent {
     		map.put("reason", "critSuite cannot be empty.");
     		return map;
     	}
+    	if(strChecked==null || "".equals(strChecked.trim())){
+    		map.put("reason", "checked cannot be empty.");
+    		return map;
+    	}
     	
     	Long critId = new Long(strCritId);
     	Long critSuiteId = new Long(strCritSuiteId);
+    	if(strChecked.equals("true")) {
+    		checked = true;
+    	}
     	
         try {
         	
-        	criteriaService.assocCriterion(critId, critSuiteId);
+        	criteriaService.assocCriterion(critId, critSuiteId, checked);
 
             map.put("successful", true);
         } catch (Exception e) {

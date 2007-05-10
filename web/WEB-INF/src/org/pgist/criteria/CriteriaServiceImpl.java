@@ -68,8 +68,8 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//addCriterion()
     
     
-    public void assocCriterion(Long critId, Long critSuiteId) throws Exception {
-    	assocCriterion(critId, critSuiteId);
+    public void assocCriterion(Long critId, Long critSuiteId, boolean checked) throws Exception {
+    	assocCriterion(critId, critSuiteId, checked);
     } //assocCriterion()
     
     

@@ -118,26 +118,28 @@
 					</outs>
 				    </declaration>
 				</pgame>
+				
 				<branch>
-				<sequence>
-				<pgame name="pgame-manage.criteria">
-				    <declaration>
-					<ins>
-					    <var name="cctId" ref="pmethod.cct_id"/>
-					    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
-					</ins>
-				    </declaration>
-				</pgame>
-				</sequence>
-				<sequence>
-				<pgame name="pgame-define.criteria">
-				    <declaration>
-					<ins>
-					    <var name="suiteId" ref="pmethod.crit_suite_id"/>
-					</ins>
-				    </declaration>
-				</pgame>
-				</sequence>
+					<sequence>
+					<pgame name="pgame-manage.criteria">
+					    <declaration>
+						<ins>
+						    <var name="cctId" ref="pmethod.cct_id"/>
+						    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+						</ins>
+					    </declaration>
+					</pgame>
+					</sequence>
+					
+					<sequence>
+					<pgame name="pgame-define.criteria">
+					    <declaration>
+						<ins>
+						    <var name="suiteId" ref="pmethod.crit_suite_id"/>
+						</ins>
+					    </declaration>
+					</pgame>
+					</sequence>
 				</branch>
 				
 				<pgame name="pgame-publish.criteria">
@@ -152,24 +154,25 @@
 				    </declaration>
 				</pgame>
 				<branch>
-				<sequence>
-				<pgame name="pgame-sd.criteria">
-				    <declaration>
-					<ins>
-					    <var name="isid" ref="pmethod.crit_isid"/>
-					</ins>
-				    </declaration>
-				</pgame>
-				</sequence>
-				<sequence>
-				<pgame name="pgame-weigh.criteria">
-				    <declaration>
-					<ins>
-					    <var name="suiteId" ref="pmethod.crit_suite_id"/>
-					</ins>
-				    </declaration>
-				</pgame>
-                       		 </sequence>
+					<sequence>
+					<pgame name="pgame-sd.criteria">
+					    <declaration>
+						<ins>
+						    <var name="isid" ref="pmethod.crit_isid"/>
+						</ins>
+					    </declaration>
+					</pgame>
+					</sequence>
+					
+					<sequence>
+					<pgame name="pgame-weigh.criteria">
+					    <declaration>
+						<ins>
+						    <var name="suiteId" ref="pmethod.crit_suite_id"/>
+						</ins>
+					    </declaration>
+					</pgame>
+					</sequence>
 				</branch>
                       	</sequence>
 
