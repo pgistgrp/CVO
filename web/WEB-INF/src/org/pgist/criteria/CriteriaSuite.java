@@ -106,7 +106,7 @@ public class CriteriaSuite {
     	return null;
     } //getProjectReference
     
-    
+    /*
     public CriteriaRef getCriteriaReference(Theme theme) {
     	if(theme == null) return null;
     	for (CriteriaRef cr : getReferences()) {
@@ -118,5 +118,5 @@ public class CriteriaSuite {
     	}    	
     	return null;
     } //getProjectReference
-    
+    */
 }//class CriteriaSuite

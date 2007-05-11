@@ -112,14 +112,16 @@ public class PgistELFunctions extends SimpleTagSupport {
 		return true;
 	}
 
-	public static boolean containsTheme(CriteriaSuite cs, Theme t) {
-        if (cs==null) return false;
+	public static boolean containsTheme(Criteria c, Theme t) {
+        if (c==null) return false;
         if (t==null) return false;
         
         //First check that the theme is in the suite
-        CriteriaRef cr = cs.getCriteriaReference(t);
-        if(cr == null) return false;
-        
-		return true;
+        for(Theme theme: c.getThemes()) {
+        	if(theme.getId().equals(t.getId())) {
+        		return true;
+        	}
+        }
+		return false;
 	}
 }//class PgistELFunctions
