@@ -53,7 +53,7 @@ public class MockCriteriaDAO implements CriteriaDAO {
 
 	}
 
-	public void editCriterion(Boolean bool_themes, Boolean bool_objectives,
+	public void editCriterion(boolean bool_name, boolean bool_themes, boolean bool_objectives,
 			Criteria c, String name, CCT cct, Set themes, Set objectives,
 			String na) throws Exception {
 		// TODO Auto-generated method stub
@@ -126,7 +126,7 @@ public class MockCriteriaDAO implements CriteriaDAO {
 		return null;
 	}
 
-	public void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, Set themes, Set objectives, String na) throws Exception {
+	public void editCriterion(boolean bool_name, boolean bool_themes, boolean bool_objectives, Criteria c, String name, Set themes, Set objectives, String na) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}

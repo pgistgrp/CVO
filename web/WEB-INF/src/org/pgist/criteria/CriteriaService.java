@@ -31,7 +31,7 @@ public interface CriteriaService {
     boolean getContainsCriteria(Long critId, Long critSuiteId) throws Exception; 
     
     
-    void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, Set themes, Set objectives, String na) throws Exception;
+    void editCriterion(boolean bool_name, boolean bool_themes, boolean bool_objectives, Criteria c, String name, Set themes, Set objectives, String na) throws Exception;
     
     
     Criteria getCriterionById(Long id) throws Exception;

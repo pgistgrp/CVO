@@ -266,8 +266,8 @@ public class CriteriaAgent {
      * 
      * @param params a Map contains:
      *   <ul>
-     *     <li>id - string, id of the criterion</li>
-     *     <li>name - string, name of the criteia</li>
+     *     <li>critId - string, id of the criterion</li>
+     *     <li>name - string, name of the criteia - Optional</li>
      *     <li>themeIds - string, name of the themeid's separated by commas - Optional</li>
      *     <li>objectiveIds - string, list of Object Id's - Optional</li>	
      *     <li>na - string, descript. - Optional</li>
@@ -281,10 +281,11 @@ public class CriteriaAgent {
     public Map editCriterion(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
+        boolean bool_name = true;
         boolean bool_themes = true;
         boolean bool_objectives = true;
         
-        String strId = (String) params.get("id");
+        String strId = (String) params.get("critId");
         String name = (String) params.get("name");
     	String themeIds = (String) params.get("themeIds");
     	String objectiveIds = (String) params.get("objectiveIds");
@@ -295,8 +296,7 @@ public class CriteriaAgent {
     		return map;
     	}
     	if(name==null || "".equals(name.trim())){
-    		map.put("reason", "Criterion name cannot be empty.");
-    		return map;
+    		bool_name = false;
     	}
     	if(themeIds==null || "".equals(themeIds.trim())){
     		bool_themes = false;
@@ -304,7 +304,7 @@ public class CriteriaAgent {
     	if(objectiveIds==null || "".equals(objectiveIds.trim())){
     		bool_objectives = false;
     	}
-    	if(na==null || "".equals(na.trim())){
+    	if(na==null){
     		na = "NONE";
     	}
     	Long id = new Long(strId);
@@ -326,7 +326,7 @@ public class CriteriaAgent {
 	        	objectives = criteriaService.getObjectiveObjects(objectiveIdList);
         	}
         	
-        	criteriaService.editCriterion(bool_themes, bool_objectives, c, name, themes, objectives, na);
+        	criteriaService.editCriterion(bool_name, bool_themes, bool_objectives, c, name, themes, objectives, na);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

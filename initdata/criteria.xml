@@ -18,6 +18,7 @@
 	    <declaration>
 		<ins>
 		    <var name="suiteId"/>
+		    <var name="cctId"/>
 		</ins>
 	    </declaration>
 	    <timer extension="300000"/>
@@ -25,11 +26,6 @@
         
         <pgame name="pgame-manage.criteria" description="Manage Criteria." auto="false" access="moderator">
             <actionName>action-manage.criteria</actionName>
-            <declaration>
-                <ins>
-		    <var name="cctId"/>
-                </ins>
-            </declaration>
             <timer extension="300000"/>
         </pgame>
          
@@ -121,11 +117,6 @@
 				<branch>
 					<sequence>
 					<pgame name="pgame-manage.criteria">
-					    <declaration>
-						<ins>
-						    <var name="cctId" ref="pmethod.cct_id"/>
-						</ins>
-					    </declaration>
 					</pgame>
 					</sequence>
 					
@@ -134,6 +125,7 @@
 					    <declaration>
 						<ins>
 						    <var name="suiteId" ref="pmethod.crit_suite_id"/>
+						    <var name="cctId" ref="pmethod.cct_id"/>
 						</ins>
 					    </declaration>
 					</pgame>

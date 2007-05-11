@@ -102,11 +102,15 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     }//deleteCriteria()
     
     
-    public void editCriterion(Boolean bool_themes, Boolean bool_objectives, Criteria c, String name, Set themes, Set objectives, String na) throws Exception {
-    	c.setName(name);
-	
-		c.setNa(na);
-		
+    public void editCriterion(boolean bool_name, boolean bool_themes, boolean bool_objectives, Criteria c, String name, Set themes, Set objectives, String na) throws Exception {
+    	if(bool_name) {
+    		c.setName(name);
+    	} else {
+    		c.setName(c.getName());
+    	}
+    	if(!(na.equals("NONE"))) {
+    		c.setNa(na);
+    	}
     	if(bool_themes) {
     		c.setThemes(themes);
     	}

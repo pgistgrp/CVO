@@ -9,28 +9,57 @@ import org.pgist.cvo.CCT;
 
 
 /**
+ * <span style="color:red;">POJO</span>: PGIST Criteria Class<br>
+ * <span style="color:red;">TABLE</span>: pgist_crit
+ * 
+ * <p>Criteria class contains information about criteria objects
+ * 
  * @author John
  * 
  * @hibernate.class table="pgist_crit" lazy="true"
  */
 public class Criteria implements Serializable {
     
-    
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * id of the criteria. Unique id number used to identify each criteria.
+     */
     private Long id;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * Name of a user. Name of the criteria is unique for the whole system.
+     */
     private String name;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * na. na is a string description of the criteria and is optional.
+     */
     private String na;
     
-    private CriteriaRef critRef;
-    
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * themes. A Set of themes associated with this criterion.
+     */
     private Set themes = new HashSet();
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * objectives. A Set of objectives for this criterion.
+     */
     private Set objectives = new HashSet();
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * Object. Object holder, not currently used.
+     */
     private Object object;
 
-    
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * deleted. Determines if the crtieria is deleted so it won't be used.
+     */
     private boolean deleted = false;
     
     
@@ -57,21 +86,6 @@ public class Criteria implements Serializable {
     
     public void setName(String name) {
         this.name = name;
-    }
- 
-    
-    /**
-     * @return
-     * 
-     * @hibernate.many-to-one column="criteriaref_id" cascade="none"
-     */
-    public CriteriaRef getCritRef() {
-        return critRef;
-    }
-    
-    
-    public void setCritRef(CriteriaRef critRef) {
-        this.critRef = critRef;
     }
     
     
