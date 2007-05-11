@@ -85,7 +85,9 @@
 		<c:forEach var="infoObject" items="${infoStructure.infoObjects}" varStatus="loop">
 		  <div id="criteria-${infoObject.object.criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
 		    <div class="criteriaCol1 floatLeft"><a href="#">
-		      <div class="floatLeft"><a href="javascript:io.expandList('objectives${infoObject.object.criterion.id}','icon${infoObject.object.criterion.id}');"> <img src="/images/plus.gif" id="icon${infoObject.object.criterion.id}"></a></div>
+		      <div class="floatLeft">
+				<a href="javascript:io.expandList('objectives${infoObject.object.criterion.id}','icon${infoObject.object.criterion.id}');"> <img src="/images/plus.gif" id="icon${infoObject.object.criterion.id}"></a>
+			  </div>
 		      <div class="floatLeft"> ${infoObject.object.criterion.name}</div>
 		    </div>
 		    <div class="criteriaCol2 floatLeft">${infoObject.object.criterion.na}</div>

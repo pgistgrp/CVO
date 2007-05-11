@@ -71,14 +71,15 @@
 		themes = document.getElementsByName(groupName);
 		themeIds = [];
 		for (var i=0; i < themes.length; i++) {
-			themeIds.push(themes[i].id.substring(5,themes[i].id.length));
+			if(themes[i].checked){
+				themeIds.push(themes[i].id.substring(5,themes[i].id.length));
+			}
 		};
 		themeIdsStr = themeIds.toString();
-				
 		CriteriaAgent.editCriterion({critId:critId,themeIds:themeIdsStr}, {
 			callback:function(data){
 				if (data.successful){
-					alert("Successful")
+					//alert("Successful")
 				}else{
 					alert(data.reason);
 				}
@@ -100,6 +101,7 @@
 
 
 <body>
+	<c:set var="cctId" value="<%= request.getParameter("cctId")%>" />
 	<p><a href="main.do">Back to Moderator Control Panel</a></p>
 	<h1>Define Planning Factors and Associated Themes</h1>
 	<p>Select all planning factors that you would like to include for this expiriment.</p>
@@ -114,8 +116,14 @@
 			<li><label><input type="checkbox" ${(pg:containsCriteria(criteriasuite,criterion)) ? "CHECKED" : ""} name="planningFactor" id="crit${criterion.id}" onClick="assocCriterion('${criterion.id}', this.checked)"/> ${criterion.name}</label>
 				<ul id="${criterion.id}themes" ${(pg:containsCriteria(criteriasuite,criterion)) ? "" : "style='display:none'"}>
 					<li><small>Which concern themes are related to this criterion?</small></li>
+					<c:if test="${fn:length(themes) == 0}">
+						<li><small>Concern themes have not been created yet.  Please use the <a href="cstview.do?cctId=${cctId}">Concern Synthesis Tool</a> to create concern themes after participants have expressed their concerns.</small></li>
+					</c:if>
 					<c:forEach var="theme" items="${themes}" varStatus="loop">
-						<li><label><input type="checkbox" id="theme${theme.id}"  ${(pg:containsTheme(criterion,theme)) ? "checked='CHECKED'" : ""} name="${criterion.id}checkboxes" onClick="setThemes('${criterion.id}checkboxes', ${criterion.id});"/><small> ${theme.title}</small></label></li>
+						<li>
+							<label><input type="checkbox" id="theme${theme.id}"  ${(pg:containsTheme(criterion,theme)) ? "checked='CHECKED'" : ""} name="${criterion.id}checkboxes" onClick="setThemes('${criterion.id}checkboxes', ${criterion.id});"/>
+							<small> ${theme.title}</small></label>
+						</li>
 					</c:forEach>
 				</ul>
 			</li>
