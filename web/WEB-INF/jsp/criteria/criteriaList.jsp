@@ -31,7 +31,6 @@
 		  <c:forEach var="cct" items="${ccts}" varStatus="loop">
 		  	  <tr>
 			    <td><html:link action="/criteriaMgr.do" paramId="cctId" paramName="cct" paramProperty="id"><bean:write name="cct" property="name"/>: Manage Criteria</html:link></td>
-				<td><html:link action="/criteriaWeigh.do" paramId="cctId" paramName="cct" paramProperty="id"><bean:write name="cct" property="name"/>: Weigh Criteria</html:link></td>
 			  </tr>
 		  </c:forEach>
 		</table>

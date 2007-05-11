@@ -33,6 +33,7 @@
 			callback:function(data){
 				if (data.successful){
 					//alert("successfully set crit "+critId+" to " +checked+ "!");
+					new Effect.toggle(critId + 'themes','blind',{duration:0.2});
 				}else{
 					alert(data.reason);
 				}
@@ -51,10 +52,61 @@
 			assocCriterion(critId, checked);
 		}
 	}
+	
+	/* *************** Grab all themes for the current instance *************** */
+	function getThemes(id){
+		//alert("cctId: " + cctId); 
+		CriteriaAgent.getThemes({cctId:cctId}, {
+			callback:function(data){
+				if (data.successful){
+					if(id){
+					
+					temp=(data.html).replace(/theme-/g,"editTheme-");
+					temp2=temp.replace(/themesGroup/g,("editThemesGroup-"+id));
+						$('editThemesDiv'+id).innerHTML=temp2;
+						getThemesToEditByCriterionId(id);
+					}
+						$('themes').innerHTML = data.html;
+					
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("CriteriaAgent.getThemes( error:" + errorString + exception + " cctId:" + cctId);
+			}
+		});
+	}
+	
+	
+	
+		/******Puts checkmarks next to the Themes that are already part of a criterion, given its ID.****/
+			/***Must have the edit form made and getThemes(cid) run before***/
+			/***This is called by getThemes**/
+			function getThemesToEditByCriterionId(cid){
+				CriteriaAgent.getCriterionById({id:cid},{
+					callback:function(data){
+					if(data.successful){
+
+						for(a=0;a<data.criterion.themes.length;a++){
+
+							$('editTheme-'+data.criterion.themes[a].id).checked=true;
+						}
+
+					}else{
+						alert("error in getThemesToEditByCriterionId");
+					}
+
+				},
+				errorHandler:function(errorString, exception){ 
+						alert("getThemesToEditByCriterionId error:" + errorString + exception);
+					}
+				});
+			}
 </script>
 <style type="text/css">
 	body{font-size:11 pt;font-family:arial;width:800px;}
-	li{margin: 10px 0; list-style: none;font-size: 1.3em}
+	li{margin: 10px 0; list-style: none;}
 	li ul li:hover {background:#D5EAEF;}
 	#finished{text-align:right;}
 </style>
@@ -63,7 +115,7 @@
 
 <body>
 	<p><a href="main.do">Back to Moderator Control Panel</a></p>
-	<h1>Define Planning Factors</h1>
+	<h1>Define Planning Factors and Associated Themes</h1>
 	<p>Select all planning factors that you would like to include for this expiriment.</p>
 
 	<h3>All Planning Factors</h3>
@@ -73,7 +125,13 @@
 			<a href="javascript:switchCheckboxes(false)">uncheck all</a>
 		</small>
 		<c:forEach var="criterion" items="${criteria}">
-			<li><label><input type="checkbox" ${(pg:containsCriteria(criteriasuite,criterion)) ? "CHECKED" : ""} name="planningFactor" id="crit${criterion.id}" onClick="assocCriterion('${criterion.id}', this.checked)"/> ${criterion.name}</label></li>
+			<li><label><input type="checkbox" ${(pg:containsCriteria(criteriasuite,criterion)) ? "CHECKED" : ""} name="planningFactor" id="crit${criterion.id}" onClick="assocCriterion('${criterion.id}', this.checked)"/> ${criterion.name}</label>
+				<ul id="${criterion.id}themes" ${(pg:containsCriteria(criteriasuite,criterion)) ? "" : "style='display:none'"}>
+					<li>Which concern themes are related to this criterion?</li>
+					<li><label><input type="checkbox" name="${criterion.id}checkboxes" onClick="setTheme('themeId','${criterion.id}',this.checked);"/><small> loop</small></label></li>
+				</ul>
+			</li>
+		
 		</c:forEach>
 	</ul>
 

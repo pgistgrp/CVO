@@ -73,7 +73,6 @@
 				<pg:show roles="moderator">
 				<p>** This section will be replaced by the agenda manager when the workflow is integrated **</p>
 				<h3>Public Components</h3>
-			
 					<h4 class="headerColor clearBoth step-header">Global Components</h4>
 					<div class="home-row clearfix">
 						<div class="step"><a href="publicprofile.do?user=${baseuser.loginname}">User Public Profile</a><br />
@@ -229,12 +228,6 @@
 				</div>
 				<div class="home-row clearfix">
 					<div class="step"><a href="feedback.do">Manage Feedbacks</a><br />
-						<small>Information about this step</small>
-					</div>
-					<div class="date">11/15 - 11/25</div>
-				</div>
-				<div class="home-row clearfix">
-					<div class="step"><a href="annoucements.do">Manage Annoucements</a><br />
 						<small>Information about this step</small>
 					</div>
 					<div class="date">11/15 - 11/25</div>

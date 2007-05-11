@@ -42,7 +42,6 @@
 		//GLOBAL VARS
 		selectedObjectives = [];
 		objectivesList = [];
-		cctId = <%=request.getParameter("cctId")%>;
 		critSuiteId = <%=request.getParameter("critSuiteId")%>;
 		//END GLOBAL VARS
 
@@ -64,16 +63,13 @@
 		
 		/* *************** Add a New Criteria to the List *************** */
 		function addCriterion(){
-			var themesArr = '' //grabs all checked themes
 			var objectivesArr = '' //grabs from multi select list
 			//DWR Test: {name:"testCriterion", themeIds: "2523,2528", objectiveIds: "1185", cctId: 1180, na:"this is a test"}
 			
 			var name = $('name').value;
 			var description = $('description').value;
 			var objectivesGroup = document.getElementsByName('objectivesGroup');
-			var themesGroup = document.getElementsByName('themesGroup');
 			var checkedObjectives = []; //holds all the checked objectiveId's that are found in the following loop
-			var checkedThemes = []; //holds all the checked themeId's that are found in the following loop
 			
 			//loop through objectives
 			for (i = 0; i < objectivesGroup.length; i++)
@@ -83,18 +79,10 @@
 				}
 			}
 			
-			//loop through themes
-			for (i = 0; i < themesGroup.length; i++)
-			{
-				if(themesGroup[i].checked){
-					checkedThemes.push(themesGroup[i].id.replace("theme-", ""));				
-				}
-			}
 			var checkedObjectivesStr = checkedObjectives.toString();
-			var checkedThemesStr = checkedThemes.toString();
 			
-			//alert("names: " + name + " description" + description + " themeIds: " + checkedThemesStr + " objectiveIds: " + checkedObjectivesStr);
-			CriteriaAgent.addCriterion({critSuiteId:critSuiteId,name:name,na:description,themeIds:checkedThemesStr,objectiveIds:checkedObjectivesStr}, {
+			//alert("names: " + name + " description" + description + " objectiveIds: " + checkedObjectivesStr);
+			CriteriaAgent.addCriterion({critSuiteId:critSuiteId,name:name,na:description,themeIds:"",objectiveIds:checkedObjectivesStr}, {
 				callback:function(data){
 					if (data.successful){
 						//highlight newly created criterion
@@ -160,11 +148,6 @@
 			filler+="<label for='editDescription"+id+"' class='niceFormElement'>Description</label>";
 			filler+="<textarea id='editDescription"+id+"' name='editDescription"+id+"' class='niceFormElement'></textarea><br />";
 			
-			filler+="<label for='editThemesDiv"+id+"' style='float:left;' class='niceFormElement'>Related Themes (optional)</label>";
-			filler+="<div id='editThemesDiv"+id+"'>";
-				<!-- load themes here - getThemes() -->
-			filler+="</div><br />";
-			
 			filler+="<br />";
 			
 			filler+="<label for='editObjectivesDiv"+id+"' style='float:left;' class='niceFormElement'>Factor Objectives</label>";
@@ -208,9 +191,7 @@
 				callback:function(data){
 					if(data.successful){
 						$('editName'+critId).value=data.criterion.name;
-						$('editDescription'+critId).value=data.criterion.na;
-						$('editThemesDiv'+critId).innerHTML=getThemes(critId);
-					
+						$('editDescription'+critId).value=data.criterion.na;					
 						$('editObjectivesDiv'+critId).innerHTML=getObjectives(critId);
 
 					}else{
@@ -226,19 +207,11 @@
 		/* *************** Saves the changes for an edited Criterion *************** */
 		function editCriterion(id){
 			//alert("name: " + name + " description: " + description + " themes: " + themes + " objectivesArr: " + objectivesArr); 
-			var themesArr = document.getElementsByName('editThemesGroup-'+id);
 			//grabs from multi select list
 			var objectivesArr = document.getElementsByName('editObjectivesGroup-'+id); //grabs from multi select list
 			var name = $('editName'+id).value;
 			var description = $('editDescription'+id).value;
-			var checkedThemes=[];
 			var checkedObjectives=[];
-			for (i = 0; i < themesArr.length; i++)
-			{
-				if(themesArr[i].checked){
-					checkedThemes.push(themesArr[i].id.replace("editTheme-", ""));				
-				}
-			}
 			
 			for (i = 0; i < objectivesArr.length; i++)
 			{
@@ -246,21 +219,18 @@
 					checkedObjectives.push(objectivesArr[i].id.replace("editObjective-", ""));				
 				}
 			}
-			checkedThemesStr=checkedThemes.toString();
-			if(checkedThemesStr==''){
-				checkedThemesStr=',';
-			}
+			
 			checkedObjectivesStr=checkedObjectives.toString();
+			
 			if(checkedObjectivesStr==''){
 				checkedObjectivesStr=',';
 			}
 			
 			
-			//alert("id: " + id +" name: " + name + " description" + description + " themes: " + themesArr + " objectives: " + objectivesArr);
-			CriteriaAgent.editCriterion({id:id,name:name,themeIds:checkedThemesStr,objectiveIds:checkedObjectivesStr,cctId:cctId,na:description}, {
+			//alert("id: " + id +" name: " + name + " description" + description + " objectives: " + objectivesArr);
+			CriteriaAgent.editCriterion({id:id,name:name,themeIds:"",objectiveIds:checkedObjectivesStr,na:description}, {
 				callback:function(data){
 					if (data.successful){
-					
 						getCriteria();
 					}else{
 						alert(data.reason);
@@ -310,31 +280,7 @@
 			}
 		}		
 		
-		/* *************** Grab all themes for the current instance *************** */
-		function getThemes(id){
-			//alert("cctId: " + cctId); 
-			CriteriaAgent.getThemes({cctId:cctId}, {
-				callback:function(data){
-					if (data.successful){
-						if(id){
-						
-						temp=(data.html).replace(/theme-/g,"editTheme-");
-						temp2=temp.replace(/themesGroup/g,("editThemesGroup-"+id));
-							$('editThemesDiv'+id).innerHTML=temp2;
-							getThemesToEditByCriterionId(id);
-						}
-							$('themes').innerHTML = data.html;
-						
-					}else{
-						alert(data.reason);
-					}
-				},
-				errorHandler:function(errorString, exception){ 
-				alert("CriteriaAgent.getThemes( error:" + errorString + exception + " cctId:" + cctId);
-				}
-			});
-		}
-		
+
 		/* *************** Grab all objectives for the current instance *************** */
 		function getObjectives(id){
 			CriteriaAgent.getObjectives({}, {
@@ -361,24 +307,6 @@
 			});
 		}
 		
-		
-		function publish(){
-			CriteriaAgent.publish({cctId:cctId}, {
-				callback:function(data){
-					if (data.successful){
-						location.href="sdlist.do";
-					}else{
-						$('publishError').innerHTML = "<b>data.reason error: </b>" + data.reason;
-						Element.toggle('publishError');
-					}
-				},
-				errorHandler:function(errorString, exception){ 
-					$('publishError').innerHTML = "CriteriaAgent.Publish( error:" + errorString + exception;
-				}
-			});
-		}
-	
-
 	
 		/* *************** Get List of Selected Objectives *************** */
 		function getSelectedObjectives() {
@@ -453,30 +381,7 @@
 				}
 			});
 		}
-		
-	/******Puts checkmarks next to the Themes that are already part of a criterion, given its ID.****/
-		/***Must have the edit form made and getThemes(cid) run before***/
-		/***This is called by getThemes**/
-		function getThemesToEditByCriterionId(cid){
-			CriteriaAgent.getCriterionById({id:cid},{
-				callback:function(data){
-				if(data.successful){
-				
-					for(a=0;a<data.criterion.themes.length;a++){
-						
-						$('editTheme-'+data.criterion.themes[a].id).checked=true;
-					}
-					
-				}else{
-					alert("error in getThemesToEditByCriterionId");
-				}
-			
-			},
-			errorHandler:function(errorString, exception){ 
-					alert("getThemesToEditByCriterionId error:" + errorString + exception);
-				}
-			});
-		}
+
 		
 	</script>
 
@@ -633,16 +538,8 @@
 			
 			<label for="name" class="niceFormElement">Description</label>
 			<textarea id="description" name="description" class="niceFormElement"></textarea><br />
-			
-			<label for="name" class="niceFormElement">Related Themes (optional)</label>
-			<div id="themes">
-				<!-- load themes here - getThemes() -->
-			</div><br />
-			
-			<br />
-			
-			<label for="name" class="niceFormElement">Factor Objectives</label>
 
+			<label for="name" class="niceFormElement">Factor Objectives</label>
 			<div id="objectives">
 				<!-- load objectives here - getObjectives() -->
 			</div>
@@ -678,14 +575,13 @@
 			<br />
 			<h4>Finished Creating Planning Factors?</h4>
 
-			<p>The workflow will publish these planning factors on: </p>
+			<p>The workflow will publish these planning factors on: --workflow date--</p>
 			<div class="errorMessage" id="publishError" style="display:none;"></div>
 
 			<!--end publishing options -->
 		</div>
 		<script type="text/javascript">
 			getCriteria();
-			getThemes();
 			getObjectives();
 		</script>
 	</body>
