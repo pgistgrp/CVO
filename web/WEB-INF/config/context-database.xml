@@ -103,6 +103,7 @@
                <value>org/pgist/packages/PackageVoteSuite.hbm.xml</value>
                <value>org/pgist/packages/PackageUserVote.hbm.xml</value>
                <value>org/pgist/packages/PackageSuite.hbm.xml</value>
+               <value>org/pgist/packages/VoteSuiteStat.hbm.xml</value>
            </list>
         </property>
         <property name="hibernateProperties">

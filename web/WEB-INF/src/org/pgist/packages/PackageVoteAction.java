@@ -88,9 +88,9 @@ public class PackageVoteAction extends Action {
 		
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         if(vSuite.userVoted(user)) {
-            return mapping.findForward("view");        	
-        } else {
             return mapping.findForward("results");        	
+        } else {
+            return mapping.findForward("view");        	
         }
         //return mapping.findForward("results");
     }//execute()

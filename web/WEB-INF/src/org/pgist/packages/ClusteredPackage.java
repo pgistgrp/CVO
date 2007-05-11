@@ -161,4 +161,5 @@ public class ClusteredPackage extends Package {
     		avgResidentCost = avgResidentCost + fAlt.getAvgCost();
     	}    	    	
     }
+    
 }//class ClusteredPackage

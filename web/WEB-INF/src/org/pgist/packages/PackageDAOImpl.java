@@ -1,5 +1,6 @@
 package org.pgist.packages;
 
+import org.pgist.projects.ProjectAlternative;
 import org.pgist.system.BaseDAOImpl;
 
 
@@ -10,6 +11,23 @@ import org.pgist.system.BaseDAOImpl;
  */
 public class PackageDAOImpl extends BaseDAOImpl implements PackageDAO {
     
+	
+
+	/* (non-Javadoc)
+	 * @see org.pgist.packages.PackageDAO#save(org.pgist.packages.PackageVoteSuite)
+	 */
+	public void save(PackageVoteSuite p) throws Exception {
+		getHibernateTemplate().saveOrUpdate(p);		
+	}
+
+
+	/* (non-Javadoc)
+	 * @see org.pgist.packages.PackageDAO#save(org.pgist.packages.VoteSuiteStat)
+	 */
+	public void save(VoteSuiteStat p) throws Exception {
+		getHibernateTemplate().saveOrUpdate(p);		
+	}
+
 
 	public ClusteredPackage getClusteredPackage(Long pid) {
 		return (ClusteredPackage)getHibernateTemplate().get(ClusteredPackage.class, pid);
@@ -19,6 +37,15 @@ public class PackageDAOImpl extends BaseDAOImpl implements PackageDAO {
 	public void save(ClusteredPackage cPack) throws Exception {
 		getHibernateTemplate().saveOrUpdate(cPack);				
 	}
+	/**
+	 * Deletes the stat
+	 * 	
+	 * @param p		The stat to delete
+	 * @throws Exception
+	 */
+    public void delete(VoteSuiteStat a) throws Exception {
+        getHibernateTemplate().delete(a);
+    }//delete()		
 	
 	public UserPackage getUserPackage(Long pid) {
 		return (UserPackage)getHibernateTemplate().get(UserPackage.class, pid);

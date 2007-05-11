@@ -9,7 +9,8 @@ import org.pgist.system.BaseDAO;
  *
  */
 public interface PackageDAO extends BaseDAO {
-    
+	void save(PackageVoteSuite p) throws Exception;
+	void save(VoteSuiteStat p) throws Exception;	
 	void save(UserPackage p) throws Exception;
 
 	UserPackage getUserPackage(Long pid) throws Exception;
@@ -25,6 +26,7 @@ public interface PackageDAO extends BaseDAO {
 	ClusteredPackage getClusteredPackage(Long pkgId) throws Exception;
 
 	PackageVoteSuite getVoteSuite(Long voteSuiteId) throws Exception;
+	void delete(VoteSuiteStat stat) throws Exception;
     
     
 }//interface PackageDAO

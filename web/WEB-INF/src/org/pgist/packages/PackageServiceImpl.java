@@ -543,13 +543,90 @@ public class PackageServiceImpl implements PackageService {
 			cPkgId = i.next();
 			voteValue = votes.get(cPkgId);
 			clusteredPkg = this.packageDAO.getClusteredPackage(cPkgId);
-			vSuite.assignVote(user, clusteredPkg, voteValue);
+			assignVote(vSuite, user, clusteredPkg, voteValue);
 		}
-		vSuite.recountVotes();
+		recountVotes(vSuite);
+	}
+
+    /**
+     * Assigns the vote of this user for this package.  It replaces it if it already exist.
+     * @param user
+     * @param clusterPkgId
+     * @param voteValue
+     */
+	public void assignVote(PackageVoteSuite vSuite, User user, ClusteredPackage clusteredPkg, Integer voteValue) throws Exception {
+		PackageUserVote votes = vSuite.getUserVotes().get(clusteredPkg);
+		if(votes == null) {
+			votes = new PackageUserVote();
+			votes.setVoteSuite(vSuite);
+			this.packageDAO.save(votes);
+			vSuite.getUserVotes().put(clusteredPkg, votes); 
+			this.packageDAO.save(vSuite);
+		}
+		votes.getVotes().put(user, voteValue);
+		this.packageDAO.save(votes);
+	}	
+
+
+	public void recountVotes(PackageVoteSuite vSuite) throws Exception {
+		//Clear original values
+		Iterator<VoteSuiteStat> iStats = vSuite.getStats().iterator();
+		while(iStats.hasNext()) {
+			this.packageDAO.delete(iStats.next());
+		}
+		vSuite.getStats().clear();
+		
+		//For each package, go through and tally up the total votes
+		Iterator<ClusteredPackage> cIter = vSuite.getUserVotes().keySet().iterator();
+		
+		ClusteredPackage tempCPkg;
+		PackageUserVote votes;
+		Iterator<Integer> iValues;
+		int tempHigh;
+		int tempMed;
+		int tempLow;
+		int total;
+		while(cIter.hasNext()) {
+			tempCPkg = cIter.next();
+			System.out.println("MATT: &(*&(*&(*&(*& Recalcing for cpkg " + tempCPkg.getId());
+			votes = vSuite.getUserVotes().get(tempCPkg);
+			
+			tempHigh = 0;
+			tempMed = 0;
+			tempLow = 0;
+			total = votes.getVotes().size();
+			if(total > 0) {
+				iValues = votes.getVotes().values().iterator();
+				while(iValues.hasNext()) {
+					switch (iValues.next().intValue()) {
+					case PackageUserVote.VOTE_HIGH:
+						tempHigh++;
+						break;
+					case PackageUserVote.VOTE_MEDIUM:
+						tempMed++;
+						break;
+					case PackageUserVote.VOTE_LOW:
+						tempLow++;
+						break;
+					}
+				}
+				
+				System.out.println("High = " + tempHigh/total + " med " + tempMed/total + " low " + tempLow/total);
+				VoteSuiteStat stat = new VoteSuiteStat();
+				stat.setClusteredPackage(tempCPkg);
+				stat.setTotalVotes(total);
+				stat.setHighVotePercent(tempHigh/total);
+				stat.setMediumVotePercent(tempMed/total);
+				stat.setLowVotePercent(tempLow/total);
+				
+				this.packageDAO.save(stat);
+				vSuite.getStats().add(stat);
+			}			
+		}
 		this.packageDAO.save(vSuite);
 	}
 
-
+	
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#formPackageTransitProjectDTOs(org.pgist.packages.ClusteredPackage)
 	 */
