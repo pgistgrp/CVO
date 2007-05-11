@@ -395,7 +395,7 @@
 		.clearBoth {clear:both;}
 		.floatLeft {float:left}
 		
-		#criteria {width:800px;}
+		#criteria {width:620px;}
 		
 		.smallText
 		{

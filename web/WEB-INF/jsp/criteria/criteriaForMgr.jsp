@@ -31,9 +31,7 @@
   <div class="criteriaCol2 floatLeft">
     <h4 class="headerColor">Description</h4>
   </div>
-  <div class="criteriaCol3 floatLeft">
-    <h4 class="headerColor">Related concern theme</h4>
-  </div>
+
   <div class="clearBoth"></div>
 </div>
 <!-- end criteria headers -->
@@ -55,14 +53,7 @@
       </div>
     </div>
     <div class="criteriaCol2 floatLeft">${criterion.na}</div>
-    <div class="criteriaCol3 floatLeft">
-      <!--themes-->
-      <c:if test="${fn:length(criterion.themes) == 0}"> None
-        Selected </c:if>
-      <c:forEach var="theme" items="${criterion.themes}" varStatus="loop">
-        ${theme.title}<br />
-      </c:forEach>
-    </div>
+
     <div class="clearBoth"></div>
     <div class="objectives" id="criteriaEdit${criterion.id}">
       <!--javascript will load edit form here -->

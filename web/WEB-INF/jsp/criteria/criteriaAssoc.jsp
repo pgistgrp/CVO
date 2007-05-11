@@ -26,6 +26,7 @@
 <script type='text/javascript' src='/dwr/interface/CriteriaAgent.js'></script>
 
 <script>
+	var cctId = <%= request.getParameter("cctId") %>;
 	var critSuiteId = "${criteriasuite.id}"
 	function assocCriterion(critId, checked){
 		//alert("critSuiteId: " + critSuiteId + " critId: " + critId + " checked: " + checked); 
@@ -47,26 +48,21 @@
 	function switchCheckboxes(checked){
 		var criteria = document.getElementsByName("planningFactor");
 		for(i=0;i<criteria.length;i++){
-			criteria[i].checked = checked;
-			critId = criteria[i].id.substring(4,criteria[i].id.length); //grab just the ID
-			assocCriterion(critId, checked);
+			if(criteria[i].checked == !checked){ //only close those that are open and vise versa
+				criteria[i].checked = checked;
+				critId = criteria[i].id.substring(4,criteria[i].id.length); //grab just the ID
+				assocCriterion(critId, checked);
+			}
 		}
 	}
 	
 	/* *************** Grab all themes for the current instance *************** */
-	function getThemes(id){
+	function getThemes(){
 		//alert("cctId: " + cctId); 
 		CriteriaAgent.getThemes({cctId:cctId}, {
 			callback:function(data){
 				if (data.successful){
-					if(id){
-					
-					temp=(data.html).replace(/theme-/g,"editTheme-");
-					temp2=temp.replace(/themesGroup/g,("editThemesGroup-"+id));
-						$('editThemesDiv'+id).innerHTML=temp2;
-						getThemesToEditByCriterionId(id);
-					}
-						$('themes').innerHTML = data.html;
+					alert(data.html);
 					
 				}else{
 					alert(data.reason);
