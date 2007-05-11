@@ -127,7 +127,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getThemesObjects()
     
     
-    public Set getObjectiveObjects(String[] objectiveIdList) throws Exception {
+    public Set<Theme> getObjectiveObjects(String[] objectiveIdList) throws Exception {
         return criteriaDAO.getObjectiveObjects(objectiveIdList);
     }//getObjectiveObjects()
     

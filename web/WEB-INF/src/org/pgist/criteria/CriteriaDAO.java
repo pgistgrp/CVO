@@ -6,7 +6,7 @@ import org.pgist.cvo.CCT;
 import java.util.Map;
 
 import org.pgist.system.BaseDAO;
-
+import org.pgist.cvo.Theme;
 
 /**
  * 
@@ -46,7 +46,7 @@ public interface CriteriaDAO extends BaseDAO {
 	Objective addObjective(String description) throws Exception;
 	
 	
-	Set getThemeObjects(String[] themeIdList)throws Exception;
+	Set<Theme> getThemeObjects(String[] themeIdList)throws Exception;
 	
 	
 	Set getObjectiveObjects(String[] objectivesIdList)throws Exception;

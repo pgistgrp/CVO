@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.pgist.cvo.CCT;
+import org.pgist.cvo.Theme;
 
 
 
@@ -42,7 +43,7 @@ public class Criteria implements Serializable {
      * <span style="color:blue;">(Column.)</span>
      * themes. A Set of themes associated with this criterion.
      */
-    private Set themes = new HashSet();
+    private Set<Theme> themes = new HashSet();
     
     /**
      * <span style="color:blue;">(Column.)</span>
@@ -102,7 +103,7 @@ public class Criteria implements Serializable {
     }
     
     
-    public void setThemes(Set themes) {
+    public void setThemes(Set<Theme> themes) {
         this.themes = themes;
     }
     
@@ -111,7 +112,7 @@ public class Criteria implements Serializable {
      * @hibernate.collection-key column="criterion_id"
      * @hibernate.collection-many-to-many column="theme_id" class="org.pgist.cvo.Theme"
      */   
-    public Set getThemes() {
+    public Set<Theme> getThemes() {
         return themes;
     }
     

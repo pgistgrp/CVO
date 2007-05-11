@@ -207,12 +207,12 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     }//addObjectives()
     
     
-    public Set getThemeObjects(String[] themeIdList) throws Exception {
-    	Set themeObjects = new HashSet();  
+    public Set<Theme> getThemeObjects(String[] themeIdList) throws Exception {
+    	Set<Theme> themeObjects = new HashSet();  
     	
     	for(int i=0; i<themeIdList.length; i++){
     		Long themeId = Long.parseLong(themeIdList[i]);
-    		themeObjects.add(load(Theme.class, themeId));
+    		themeObjects.add((Theme)load(Theme.class, themeId));
     	} //for  	
     	
     	return themeObjects;

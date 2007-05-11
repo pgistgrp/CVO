@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import org.directwebremoting.WebContextFactory;
 import org.pgist.cvo.CCTService;
+import org.pgist.cvo.Theme;
 
 
 /**
@@ -91,7 +92,7 @@ public class CriteriaAgent {
         try {
         	String[] themeIdList;
         	String[] objectiveIdList;
-        	Set themes = new HashSet();
+        	Set<Theme> themes = new HashSet();
         	Set objectives = new HashSet();
         	
         	if(bool_themes) {

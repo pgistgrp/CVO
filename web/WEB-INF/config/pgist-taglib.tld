@@ -46,12 +46,17 @@
     <function-signature>boolean containsRef(org.pgist.funding.FundingSourceSuite, org.pgist.funding.FundingSource, org.pgist.funding.FundingSourceAlternative)</function-signature>
   </function>
   
-    <function>
+  <function>
       <name>containsCriteria</name>
       <function-class>org.pgist.tags.PgistELFunctions</function-class>
       <function-signature>boolean containsCriteria(org.pgist.criteria.CriteriaSuite, org.pgist.criteria.Criteria)</function-signature>
   </function>
   
+  <function>
+      <name>containsTheme</name>
+      <function-class>org.pgist.tags.PgistELFunctions</function-class>
+      <function-signature>boolean containsTheme(org.pgist.criteria.CriteriaSuite, org.pgist.cvo.Theme)</function-signature>
+  </function>
   
   <tag>
     <name>show</name>

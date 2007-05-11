@@ -8,6 +8,7 @@ import java.util.Set;
 import org.pgist.projects.Project;
 import org.pgist.projects.ProjectRef;
 import org.pgist.users.User;
+import org.pgist.cvo.Theme;
 
 
 /**
@@ -100,6 +101,19 @@ public class CriteriaSuite {
     	for (CriteriaRef cr : getReferences()) {    		
     		if(cr.getCriterion().getId().equals(criteria.getId())) {
     			return cr;
+    		}
+    	}    	
+    	return null;
+    } //getProjectReference
+    
+    
+    public CriteriaRef getCriteriaReference(Theme theme) {
+    	if(theme == null) return null;
+    	for (CriteriaRef cr : getReferences()) {
+    		for(Theme t : cr.getCriterion().getThemes()) {
+    			if(t.getId().equals(theme.getId())) {
+    				return cr;
+    			}
     		}
     	}    	
     	return null;

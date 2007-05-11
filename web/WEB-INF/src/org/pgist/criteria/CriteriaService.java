@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.pgist.cvo.CCT;
 import org.pgist.discussion.InfoStructure;
+import org.pgist.cvo.Theme;
 
 /**
  * 
@@ -49,7 +50,7 @@ public interface CriteriaService {
     List getThemes(Long cctId) throws Exception;
     
     
-    Set getThemeObjects(String[] themeIdList)throws Exception;
+    Set<Theme> getThemeObjects(String[] themeIdList)throws Exception;
     
     
     Set getObjectiveObjects(String[] objectivesIdList)throws Exception;

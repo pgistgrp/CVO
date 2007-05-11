@@ -18,6 +18,7 @@ import org.pgist.projects.ProjectSuite;
 import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaSuite;
 import org.pgist.criteria.CriteriaRef;
+import org.pgist.cvo.Theme;
 
 /**
  * PGIST JSP Expression Language functions.<br>
@@ -110,5 +111,15 @@ public class PgistELFunctions extends SimpleTagSupport {
         
 		return true;
 	}
-	
+
+	public static boolean containsTheme(CriteriaSuite cs, Theme t) {
+        if (cs==null) return false;
+        if (t==null) return false;
+        
+        //First check that the theme is in the suite
+        CriteriaRef cr = cs.getCriteriaReference(t);
+        if(cr == null) return false;
+        
+		return true;
+	}
 }//class PgistELFunctions
