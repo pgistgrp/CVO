@@ -228,7 +228,7 @@
 			
 			
 			//alert("id: " + id +" name: " + name + " description" + description + " objectives: " + objectivesArr);
-			CriteriaAgent.editCriterion({id:id,name:name,themeIds:"",objectiveIds:checkedObjectivesStr,na:description}, {
+			CriteriaAgent.editCriterion({critId:id,name:name,themeIds:"",objectiveIds:checkedObjectivesStr,na:description}, {
 				callback:function(data){
 					if (data.successful){
 						getCriteria();
@@ -564,8 +564,6 @@
 			<br />
 			</form>
 		</fieldset>
-		
-
 
 		<!-- End form to add a new planning factor -->
 		<!-- Begin publishing options -->

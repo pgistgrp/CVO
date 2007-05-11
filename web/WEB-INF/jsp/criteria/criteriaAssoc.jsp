@@ -7,6 +7,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
+
+<!--####
+	Project: Let's Improve Transportation!
+	Page: Associate Criteria to an Expiriment
+	Description: Moderator chooses which criteria should be in an expiriment as well as assigning concern themes to criteria.
+	Author(s): 
+	     Front End: Jordan Isip, Adam Hindman
+	     Back End: John Le, Zhong Wang
+	Todo Items:
+		
+#### -->
 <head>
 <title>Associate Planning Factors</title>
 <!-- Site Wide JavaScript -->
@@ -55,50 +66,29 @@
 			}
 		}
 	}
-	
-	/* *************** Grab all themes for the current instance *************** */
-	function getThemes(){
-		//alert("cctId: " + cctId); 
-		CriteriaAgent.getThemes({cctId:cctId}, {
+				
+	function setThemes(groupName,critId) {
+		themes = document.getElementsByName(groupName);
+		themeIds = [];
+		for (var i=0; i < themes.length; i++) {
+			themeIds.push(themes[i].id.substring(5,themes[i].id.length));
+		};
+		themeIdsStr = themeIds.toString();
+				
+		CriteriaAgent.editCriterion({critId:critId,themeIds:themeIdsStr}, {
 			callback:function(data){
 				if (data.successful){
-					alert(data.html);
-					
+					alert("Successful")
 				}else{
 					alert(data.reason);
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-			alert("CriteriaAgent.getThemes( error:" + errorString + exception + " cctId:" + cctId);
+			alert("CriteriaAgent.addCriterion( error:" + errorString + exception);
 			}
 		});
+		
 	}
-	
-	
-	
-		/******Puts checkmarks next to the Themes that are already part of a criterion, given its ID.****/
-			/***Must have the edit form made and getThemes(cid) run before***/
-			/***This is called by getThemes**/
-			function getThemesToEditByCriterionId(cid){
-				CriteriaAgent.getCriterionById({id:cid},{
-					callback:function(data){
-					if(data.successful){
-
-						for(a=0;a<data.criterion.themes.length;a++){
-
-							$('editTheme-'+data.criterion.themes[a].id).checked=true;
-						}
-
-					}else{
-						alert("error in getThemesToEditByCriterionId");
-					}
-
-				},
-				errorHandler:function(errorString, exception){ 
-						alert("getThemesToEditByCriterionId error:" + errorString + exception);
-					}
-				});
-			}
 </script>
 <style type="text/css">
 	body{font-size:11 pt;font-family:arial;width:800px;}
@@ -123,8 +113,10 @@
 		<c:forEach var="criterion" items="${criteria}">
 			<li><label><input type="checkbox" ${(pg:containsCriteria(criteriasuite,criterion)) ? "CHECKED" : ""} name="planningFactor" id="crit${criterion.id}" onClick="assocCriterion('${criterion.id}', this.checked)"/> ${criterion.name}</label>
 				<ul id="${criterion.id}themes" ${(pg:containsCriteria(criteriasuite,criterion)) ? "" : "style='display:none'"}>
-					<li><small>Which concern themes are related to this criterion?</small> **** ${themes}</li>
-					<li><label><input type="checkbox" name="${criterion.id}checkboxes" onClick="setTheme('themeId','${criterion.id}',this.checked);"/><small> loop</small></label></li>
+					<li><small>Which concern themes are related to this criterion?</small></li>
+					<c:forEach var="theme" items="${themes}" varStatus="loop">
+						<li><label><input type="checkbox" id="theme${theme.id}"  ${(pg:containsTheme(criterion,theme)) ? "checked='CHECKED'" : ""} name="${criterion.id}checkboxes" onClick="setThemes('${criterion.id}checkboxes', ${criterion.id});"/><small> ${theme.title}</small></label></li>
+					</c:forEach>
 				</ul>
 			</li>
 		
