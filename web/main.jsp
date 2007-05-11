@@ -209,7 +209,7 @@
 					<div class="date">11/15 - 11/25</div>
 				</div>
 				<div class="home-row clearfix">
-					<div class="step"><a href="criteriaList.do">Manage Planning Factors</a><br />
+					<div class="step"><a href="criteriaMgr.do">Manage Planning Factors</a><br />
 						<small>Information about this step</small>
 					</div>
 					<div class="date">11/15 - 11/25</div>

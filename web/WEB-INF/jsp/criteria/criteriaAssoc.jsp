@@ -123,7 +123,7 @@
 		<c:forEach var="criterion" items="${criteria}">
 			<li><label><input type="checkbox" ${(pg:containsCriteria(criteriasuite,criterion)) ? "CHECKED" : ""} name="planningFactor" id="crit${criterion.id}" onClick="assocCriterion('${criterion.id}', this.checked)"/> ${criterion.name}</label>
 				<ul id="${criterion.id}themes" ${(pg:containsCriteria(criteriasuite,criterion)) ? "" : "style='display:none'"}>
-					<li>Which concern themes are related to this criterion?</li>
+					<li><small>Which concern themes are related to this criterion?</small> **** ${themes}</li>
 					<li><label><input type="checkbox" name="${criterion.id}checkboxes" onClick="setTheme('themeId','${criterion.id}',this.checked);"/><small> loop</small></label></li>
 				</ul>
 			</li>
