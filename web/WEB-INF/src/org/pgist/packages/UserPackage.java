@@ -40,7 +40,7 @@ public class UserPackage extends Package {
      * Recalculates all of the information about this user package
      */
     public void updateCalculations() {
-    	System.out.println("MATT: Updating cost for the [" + this.projAltRefs.size() + "] projects and [" + this.fundAltRefs.size() + "] funding sources");
+    	//System.out.println("MATT: Updating cost for the [" + this.projAltRefs.size() + "] projects and [" + this.fundAltRefs.size() + "] funding sources");
     	this.totalCost = 0;
     	this.totalFunding = 0;
     	this.avgResidentCost = 0;
