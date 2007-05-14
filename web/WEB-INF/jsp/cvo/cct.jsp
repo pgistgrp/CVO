@@ -610,7 +610,7 @@ $('slate').style.Height = winH;
 </script>
 
 
-  
+  <event:pageunload />
   </head><body>
   <!-- Begin the header - loaded from a separate file -->
   <div id="header">

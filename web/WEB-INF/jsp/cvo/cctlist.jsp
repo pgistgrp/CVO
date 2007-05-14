@@ -55,6 +55,7 @@
     });
   }
 </script>
+<event:pageunload />
 </head>
 
 <body>
@@ -80,7 +81,7 @@
       <td><textarea id="createCCTDialog_instruction" style="width:100%;height:100px;" class="inputbox" value=""></textarea></td>
     </tr>
     <tr>
-      <td align="center"><input type="button" value="Submit" onclick="createCCT();"/></td>
+      <td align="center"><input type="button" value="Submit" onClick="createCCT();"/></td>
     </tr>
   </table>
 </pg:dialog>

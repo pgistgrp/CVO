@@ -50,6 +50,7 @@
 #toggle{border-left: 1px solid #ccc;border-right: 1px solid #ccc; margin: auto; background: #eee; width: 570px; background: #eee; text-align: center;}
 .divHeader{border-left: 1px solid #ccc;border-right: 1px solid #ccc; margin: auto; margin-left: auto; margin-right: auto; background: #fff; padding: 10px; padding-top: 5px;width: 550px;}
 </style>
+<event:pageunload />
 </Head>
 <body>
 <div id="header_object" class="divHeader" style="width: 600px; border-top: 1px solid #ccc;"><h1>The Object.</h1></div>

@@ -5,6 +5,7 @@
 <html:html>
 <head>
 <title>PGIST main page</title>
+<event:pageunload />
 </head>
 
 <body bgcolor="white">

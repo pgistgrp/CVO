@@ -648,6 +648,7 @@ tinyMCE.init({
    }
 
 </style>
+<event:pageunload />
 </head>
 
 <body onResize="dosize()" onkeydown="globalKeyHandler(event);">

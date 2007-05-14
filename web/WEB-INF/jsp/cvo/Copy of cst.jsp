@@ -407,6 +407,7 @@ function showTheError(errorString, exception){
    }
 
 </style>
+<event:pageunload />
 </head>
 
 <body onResize="dosize()" onkeydown="globalKeyHandler(event);">

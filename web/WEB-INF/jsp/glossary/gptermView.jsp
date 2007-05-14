@@ -224,6 +224,7 @@ tinyMCE.init({
 	}
 		
 </script>
+<event:pageunload />
 </head>
 <body>
  <!-- Begin the header - loaded from a separate file -->

@@ -4,6 +4,7 @@
 <html:html>
 <head>
 <title>PGIST Search</title>
+<event:pageunload />
 </head>
 <body bgcolor="white">
 

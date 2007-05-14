@@ -47,6 +47,7 @@
     }
   }
 </script>
+<event:pageunload />
 </head>
 
 <body>
@@ -66,7 +67,7 @@
       <td><textarea id="createCVODialog_question" style="width:100%;height:99%;" class="inputbox" value=""></textarea></td>
     </tr>
     <tr>
-      <td align="center"><input type="button" value="Submit" onclick="createCVO();"/></td>
+      <td align="center"><input type="button" value="Submit" onClick="createCVO();"/></td>
     </tr>
   </table>
 </pg:dialog>
@@ -75,7 +76,7 @@
   <h2>CVO List</h2>
   <pg:show roles="moderator">
     <pg:hide roles="admin">
-    <p><a href="#" onclick="openCreateCVO();">Create CVO</a>
+    <p><a href="#" onClick="openCreateCVO();">Create CVO</a>
     </pg:hide>
   </pg:show>
   <table id="cvoListTable" class="listtable" cellspacing="1" frame="box" rules="all" width="100%">

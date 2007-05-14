@@ -560,13 +560,7 @@ top: expression( ( 0 + ( fixme = document.documentElement.scrollTop ? document.d
 }
 		</style>
 		<![endif]><![endif]-->
-<style type='text/css'>
-
-
-
-
-</style>
-
+<event:pageunload />
 </head>
 
 <style>

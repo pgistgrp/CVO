@@ -101,8 +101,9 @@
     }
   }
 </script>
+<event:pageunload />
 </head>
-<body bgcolor="white" onload="pgistTimer.start();">
+<body bgcolor="white" onLoad="pgistTimer.start();">
 
 <pg:dialog id="createCommentDialog" width="400" height="500">
   <input type="hidden" id="createCommentDialog_id" value="">
@@ -120,7 +121,7 @@
       <td><textarea id="createCommentDialog_reply" style="width:100%;height:200px;color:blue;" class="inputbox" value=""></textarea></td>
     </tr>
     <tr>
-      <td align="center"><input type="button" value="Submit" onclick="createReply();"/></td>
+      <td align="center"><input type="button" value="Submit" onClick="createReply();"/></td>
     </tr>
   </table>
 </pg:dialog>
@@ -139,7 +140,7 @@
               <textarea id="reply" style="width:100%;height:80px;" class="inputbox"></textarea>
             </div>
             <center>
-              <input type="button" value="OK" onclick="extractConcern();">
+              <input type="button" value="OK" onClick="extractConcern();">
             </center>
           </td>
         </tr>
@@ -154,7 +155,7 @@
             <tr>
               <td nowrap>
                 <input type="text" id="concern" style="width:400px;" value="">
-                <input type="button" value="Submit" onclick="sendReply();">
+                <input type="button" value="Submit" onClick="sendReply();">
               </td>
             </tr>
             </table>

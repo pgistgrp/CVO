@@ -55,7 +55,7 @@
 		}
 		
 </script>
-
+<event:pageunload />
 </head>
 
 <body>

@@ -34,7 +34,7 @@
 			});
 		}
 		
-</script>
+</script><event:pageunload />
 </head>
 <body onload='doOnLoad();'>
 	
