@@ -166,6 +166,15 @@ function saveQuotaLimit(count) {
 	setTimeout("getQuotaStats()",100);
 }
 
+function saveCountyName(count) {
+	var namefieldname = "namevalue" + count;
+	var idfieldname = "countyid" + count;
+	var name = document.getElementById(namefieldname).value;
+	var id = document.getElementById(idfieldname).value;
+	SystemAgent.editCountyName({countyId:id, name:name});
+	setTimeout("getQuotaStats()",100);
+}
+
 function addCounty() {
 	var countyname = document.getElementById('countyname').value;
 	SystemAgent.addCounty({name:countyname});
@@ -201,7 +210,7 @@ function deleteZip(countyid, zipcode) {
 function addZipCodes(countyid, count) {
 	var idfieldname = "zipcodesinput" + count;
 	var zipcode = $F(idfieldname).toString()
-	SystemAgent.addZipCodes({countyid:countyid, zips:zipcode});
+	SystemAgent.addZipCodes({countyId:countyid, zips:zipcode});
 	setTimeout("getQuotaStats()",100);
 }
 

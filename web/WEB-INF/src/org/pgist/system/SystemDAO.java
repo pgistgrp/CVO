@@ -50,17 +50,27 @@ public interface SystemDAO extends BaseDAO {
     
     void setQuota(Long id, boolean quota) throws Exception;
     
+    
     void setQuotaLimit(Long countyId, int limit) throws Exception;
+    
     
     Long addCounty(String name) throws Exception;
     
+    
+    void editCountyName(Long countyId, String name) throws Exception;
+    
+    
     Collection createQuotaStats() throws Exception;
+    
     
     void addZipCodes(Long countyId, String[] zipCodes) throws Exception;
     
+    
     void deleteZipCodes(Long countyId, String[] zipCodes) throws Exception;
     
+    
     Collection getAllCounties() throws Exception;
+    
     
     void deleteCounty(Long countyId) throws Exception;
     

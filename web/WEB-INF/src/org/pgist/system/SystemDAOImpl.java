@@ -237,6 +237,13 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     }
     
     
+    public void editCountyName(Long countyId, String name) throws Exception {
+    	County c = (County) load(County.class, countyId);
+    	c.setName(name);
+    	save(c);
+    }
+    
+    
     public void deleteZipCodes(Long countyId, String[] zipCodes) throws Exception {
     	County county = (County) load(County.class, countyId);
     	Set<String> myZipCodes = county.getZipCodes();

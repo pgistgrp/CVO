@@ -53,6 +53,7 @@
       <include method="getAllCounties"/>
       <include method="deleteZipCodes"/>
       <include method="deleteCounty"/>
+      <include method="editCountyName"/>
     </create>
 
 	

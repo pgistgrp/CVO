@@ -243,6 +243,10 @@ public class SystemServiceImpl implements SystemService {
     }
     
     
+    public void editCountyName(Long countyId, String name) throws Exception {
+    	systemDAO.editCountyName(countyId, name);
+    }
+    
     public Collection createQuotaStats() throws Exception {
     	return systemDAO.createQuotaStats();
     }

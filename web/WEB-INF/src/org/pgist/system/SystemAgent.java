@@ -634,7 +634,7 @@ public class SystemAgent {
      * Adds zip codes to a county
      * @param params a Map contains:
      *   <ul>
-     *     <li>countyid - countyId, id of the county</li>
+     *     <li>countyId - countyId, id of the county</li>
      *     <li>zips - zip codes separated by a comma.</li>
      *   </ul>
      * @return a Map contains:
@@ -647,7 +647,7 @@ public class SystemAgent {
 		Map map = new HashMap();
 		map.put("successful", false);
 		
-		String strCountyId = (String)params.get("countyid");
+		String strCountyId = (String)params.get("countyId");
 		String strZips = (String)params.get("zips");
 		
         if(strCountyId==null || "".equals(strCountyId.trim())){
@@ -664,6 +664,50 @@ public class SystemAgent {
         	String[] zipCodes = strZips.split(",");
         	
         	systemService.addZipCodes(countyId, zipCodes);
+        	
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+		return map;
+	}
+	
+	
+	/**
+     * Edit county name
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>countyId - countyId, id of the county</li>
+     *     <li>name - new county name</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+	public Map editCountyName(Map params) throws Exception {
+		Map map = new HashMap();
+		map.put("successful", false);
+		
+		String strCountyId = (String)params.get("countyId");
+		String name = (String)params.get("name");
+		
+        if(strCountyId==null || "".equals(strCountyId.trim())){
+        	map.put("reason", "countyId cannot be null.");
+    		return map;	
+        }
+        if(name==null || "".equals(name.trim())){
+        	map.put("reason", "name cannot be null.");
+    		return map;	
+        }
+        
+        try {   
+        	Long countyId = (Long) Long.parseLong(strCountyId);
+        	
+        	
+        	systemService.editCountyName(countyId, name);
         	
         	map.put("successful", true);
         } catch (Exception e) {

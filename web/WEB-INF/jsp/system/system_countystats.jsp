@@ -36,8 +36,17 @@
 							<tr class="rowcolor rowfont"> 
 						</c:otherwise>
 					</c:choose>
-					<td><strong>${county.name}</strong>
-							<input id="countyid${count}" type="hidden" value="${county.id}" />
+					<td><span id="name${count}"><strong>${county.name}</strong>
+							<input id="countyid${count}" type="hidden" value="${county.id}" /><input name="edit" type="button" 
+							onclick="Element.toggle('editName${count}'),Element.toggle('name${count}')" 
+							value="Edit" />
+							</span>
+							<form class="inline" action="javascript:saveCountyName('${count}');Element.toggle('editName${count}');Element.toggle('name${count}'); void(0);">
+								<span id="editName${count}" style="display:none">
+								<input type="text" id="namevalue${count}" value="${county.name}" size="3" />
+								<input name="Save" type="submit" value="Save" />
+								</span>
+							</form>
 						</td>
 						<td>${county.tempQuotaNumber} of <span id="limit${count}">${county.quotaLimit}
 								participants registered
