@@ -5,9 +5,6 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<style type="text/css">
-
-</style>
 <h2>Feedback</h2>
 <c:if test="${fn:length(feedbacks) == 0}">
 	<p>No feedback yet!</p>

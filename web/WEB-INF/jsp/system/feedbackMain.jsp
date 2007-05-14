@@ -54,8 +54,8 @@
 		}
 	}
 		
-</script>
-</head><body onload="getFeedbacks();">
+</script><event:pageunload />
+</head><body onLoad="getFeedbacks();">
 
  <!-- Begin the header - loaded from a separate file -->
   <div id="header">
