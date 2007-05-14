@@ -80,7 +80,7 @@
 		</div>
 		<!-- end criteria headers -->
 		<c:if test="${fn:length(infoStructure.infoObjects) == 0}">
-		  <p>There are no planning factors created yet! How did you get to this page?</p>
+		  <p>There are no planning factors created for this study yet! How did you get to this page?</p>
 		</c:if>
 		<c:forEach var="infoObject" items="${infoStructure.infoObjects}" varStatus="loop">
 		  <div id="criteria-${infoObject.object.criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">

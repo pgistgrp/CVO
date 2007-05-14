@@ -50,11 +50,11 @@
 <!-- End Site Wide CSS -->
 </head>
 <body>
-<!-- Begin the header - loaded from a separate file -->
+
 <div id="header">
 	<!-- Begin header -->
 	<jsp:include page="/header.jsp" />
-	<p>[Load header from separate file]</p>
+
 	<!-- End header -->
 </div>
 <!-- End header -->
