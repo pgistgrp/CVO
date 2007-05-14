@@ -1,5 +1,10 @@
 package org.pgist.packages;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.SortedSet;
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -36,6 +41,7 @@ import org.pgist.util.WebUtils;
  *    <li>request contains the following attributes:
  *       <ul>
  *         <li>voteSuite - a PackageVoteSuite object</li>
+ *         <li>pVoteSuites - a Previous Vote Suites without the active one in it</li>
  *       </ul>
  *    </li>
  *    <li>forward to "results"</li>
@@ -88,6 +94,20 @@ public class PackageVoteAction extends Action {
 		
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         if(vSuite.userVoted(user)) {
+        	PackageSuite pkgSuite = this.packageService.getPackageSuite(packSuite);
+        	SortedSet<PackageVoteSuite> voteSuites = pkgSuite.getVoteSuites();
+        	Set pVoteSuites = new HashSet<PackageVoteSuite>();
+        	
+        	Iterator<PackageVoteSuite> iVS = voteSuites.iterator();
+        	PackageVoteSuite tempVS;
+        	while(iVS.hasNext()) {
+        		tempVS = iVS.next();
+        		if(tempVS.getId() != vSuite.getId()) {
+        			pVoteSuites.add(tempVS);
+        		}
+        		request.setAttribute("pVoteSuites", pVoteSuites);
+        	}
+        	
             return mapping.findForward("results");        	
         } else {
             return mapping.findForward("view");        	
