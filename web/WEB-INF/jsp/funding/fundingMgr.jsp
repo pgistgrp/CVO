@@ -316,6 +316,8 @@
 		peakHourTripsRate = $F('txtAltPeakHourTripsRate' + id);
 		offPeakTripsRate = $F('txtAltOffPeakTripsRate' + id);
 		tollFormatted = toll.toString();
+		
+		alert("id: " + id + " name: " + name + " revenue: " + revenue + " taxRate: " + taxRate + " source: " + sourceURL + " avgCost: " + avgCost + " toll: " + tollFormatted + " peakHourTrips: " + peakHourTripsRate + " offPeakTrips: " + offPeakTripsRate)
 		FundingAgent.editFundingSourceAlt({id:id,name:name,revenue:revenue,taxRate:taxRate,source:sourceURL,avgCost:avgCost,toll:tollFormatted,peakHourTrips:peakHourTripsRate,offPeakTrips:offPeakTripsRate}, {
 			callback:function(data){
 				if(data.successful){

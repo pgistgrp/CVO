@@ -215,7 +215,7 @@
 				PackageAgent.setManualPkgDesc({pkgId:pkgId,desc:desc}, {
 					callback:function(data){
 						if (data.successful){
-							$('pkgDesc').innerHTML = "Package " + description;
+							$('pkgDesc').innerHTML = "Package " + desc;
 							new Effect.toggle('editDesc','blind',{duration:0.2});
 						}else{
 							alert(data.reason);
