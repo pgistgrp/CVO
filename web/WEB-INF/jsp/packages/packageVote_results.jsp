@@ -79,7 +79,7 @@
 		<p>During this step, the moderator asks participants to determine which packages
 			have the greatest level of collective support. This polling information will help
 			us to decide which package to collectively recommend. The final vote will be held
-			on Thursday Oct. 19.</p>
+			on --- workflow date ---.</p>
 	</div>
 	<!-- end overview -->
 	<!-- begin Object -->
@@ -122,73 +122,40 @@
 		<div class="clearBoth"></div>
 		
 		<h2 class="headerColor">Previous polls</h2>
+		<c:if test="${pVoteSuites == null}">
+			<p>There have not been any previous polls.</p>
+		</c:if>
 		<!-- begin one voting box -->
-		<h3 class="headerColor">Package Poll Results October 15, 2007</h3>
-		<p>On August 5 Moderator_Joanna initiated a poll. 214 participants voted in the
-			poll (89% of all participants). Poll results are displayed below.</p>
-		<div class="voteBox box3 padding5" class="clearfix">
-			<div class="VoteListRow row odd">
-				<div class="voteCol1 floatLeft">&nbsp;</div>
-				<div class="voteCol2 floatLeft">I would <strong>enthusiastically endorse</strong> this
-					package</div>
-				<div class="voteCol3 floatLeft">I am <strong>willing to endorse</strong> this
-					package if it receives greatest participant support</div>
-				<div class="voteCol4 floatLeft">I would <strong>not endorse</strong> this package,
-					regardless of its support among other participants</div>
-				<div class="clearBoth"></div>
-			</div>
-			<div class="VoteListRow row">
-				<div class="voteCol1 floatLeft">
-					<div class="floatLeft">Package A </div>
+		<c:forEach var="suite" items="${pVoteSuites}" varStatus="loop">
+			<h3 class="headerColor">Package Poll Results --- workflow date ---</h3>
+			<c:set var="voters" value="${(fn:length(suite.userVotes) / fn:length(suite.stats))}" />
+			<p><fmt:formatNumber type="number">${voters}</fmt:formatNumber> participants voted in this
+				poll (<fmt:formatNumber type="percent">${voters / 20}</fmt:formatNumber> of all participants). Poll results are displayed below.</p>
+			<div class="voteBox box3 padding5" class="clearfix">
+				<div class="VoteListRow row odd">
+					<div class="voteCol1 floatLeft">&nbsp;</div>
+					<div class="voteCol2 floatLeft">I would <strong>enthusiastically endorse</strong> this
+						package</div>
+					<div class="voteCol3 floatLeft">I am <strong>willing to endorse</strong> this
+						package if it receives greatest participant support</div>
+					<div class="voteCol4 floatLeft">I would <strong>not endorse</strong> this package,
+						regardless of its support among other participants</div>
+					<div class="clearBoth"></div>
 				</div>
-				<div class="voteCol2 floatLeft">50%</div>
-				<div class="voteCol3 floatLeft">44%</div>
-				<div class="voteCol4 floatLeft">6%</div>
-				<div class="clearBoth"></div>
+
+				<c:forEach var="stat" items="${suite.stats}" varStatus="loop">
+					<div class="VoteListRow row ">
+						<div class="voteCol1 floatLeft">
+							<div class="floatLeft">${stat.clusteredPackage.description}</div>
+						</div>
+						<div class="voteCol2 floatLeft"><fmt:formatNumber type="percent">${stat.highVotePercent / stat.totalVotes}</fmt:formatNumber></div>
+						<div class="voteCol3 floatLeft"><fmt:formatNumber type="percent">${stat.mediumVotePercent / stat.totalVotes}</fmt:formatNumber></div>
+						<div class="voteCol4 floatLeft"><fmt:formatNumber type="percent">${stat.lowVotePercent / stat.totalVotes}</fmt:formatNumber></div>
+						<div class="clearBoth"></div>
+					</div>
+				</c:forEach>
 			</div>
-			<div class="VoteListRow row">
-				<div class="voteCol1 floatLeft">Package B </div>
-				<div class="voteCol2 floatLeft">43%</div>
-				<div class="voteCol3 floatLeft">39%</div>
-				<div class="voteCol4 floatLeft">18%</div>
-				<div class="clearBoth"></div>
-			</div>
-			<div class="VoteListRow row">
-				<div class="voteCol1 floatLeft"> Package C </div>
-				<div class="voteCol2 floatLeft">40%</div>
-				<div class="voteCol3 floatLeft">23%</div>
-				<div class="voteCol4 floatLeft">37%</div>
-				<div class="clearBoth"></div>
-			</div>
-			<div class="VoteListRow row">
-				<div class="voteCol1 floatLeft">
-					<div class="floatLeft">Package D </div>
-				</div>
-				<div class="voteCol2 floatLeft">33%</div>
-				<div class="voteCol3 floatLeft">23%</div>
-				<div class="voteCol4 floatLeft">44%</div>
-				<div class="clearBoth"></div>
-			</div>
-			<div class="VoteListRow row">
-				<div class="voteCol1 floatLeft">
-					<div class="floatLeft">Package E </div>
-				</div>
-				<div class="voteCol2 floatLeft">12%</div>
-				<div class="voteCol3 floatLeft">44%</div>
-				<div class="voteCol4 floatLeft">44%</div>
-				<div class="clearBoth"></div>
-			</div>
-			<div class="VoteListRow row">
-				<div class="voteCol1 floatLeft">
-					<div class="floatLeft">RTID Package</div>
-				</div>
-				<div class="voteCol2 floatLeft">12%</div>
-				<div class="voteCol3 floatLeft">44%</div>
-				<div class="voteCol4 floatLeft">44%</div>
-				<div class="clearBoth"></div>
-			</div>
-		</div>
-		<!-- end one voting box -->
+		</c:forEach>
 	</div>
 	<!-- end obj-left -->
 	<!-- begin firefox height hack -->
