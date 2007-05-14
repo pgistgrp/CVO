@@ -226,7 +226,16 @@ public class CriteriaServiceImpl implements CriteriaService {
         
         Date date = new Date();
         
-        InfoStructure structure = new InfoStructure();
+        Long checkId = criteriaDAO.checkPublished(cctId);
+        InfoStructure structure = null;
+        
+        if(checkId == null) {         
+	        structure = new InfoStructure();
+        } else {
+        	structure = (InfoStructure) criteriaDAO.load(InfoStructure.class, checkId);
+        	structure.deleteInfoObjects();
+        }
+        
         structure.setType("sdcrit");
         structure.setTitle(title);
         structure.setRespTime(date);
@@ -251,6 +260,7 @@ public class CriteriaServiceImpl implements CriteriaService {
         discussionDAO.save(structure);
         
         return structure;
+        
     }//publish()
     
     

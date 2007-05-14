@@ -21,7 +21,7 @@
 		    <var name="cctId"/>
 		</ins>
 	    </declaration>
-	    <timer extension="300000"/>
+	    <timer extension="200000"/>
         </pgame>
         
          
@@ -62,7 +62,7 @@
 		    <var name="isid"/>
 		</ins>
 	    </declaration>
-	    <timer extension="300000"/>
+	    <timer extension="400000"/>
 	</pgame>
 
 	<pgame name="pgame-weigh.criteria" description="Weight critieria" auto="false" access="all">
@@ -72,7 +72,7 @@
 		    <var name="suiteId"/>
 		</ins>
 	    </declaration>
-	    <timer extension="300000"/>
+	    <timer extension="400000"/>
 	</pgame>
         
     </pgames>
@@ -132,6 +132,8 @@
 					</outs>
 				    </declaration>
 				</pgame>
+				
+				
 				<branch>
 					<sequence>
 					<pgame name="pgame-sd.criteria">

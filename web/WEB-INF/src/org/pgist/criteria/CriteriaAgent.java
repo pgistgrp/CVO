@@ -437,6 +437,8 @@ public class CriteriaAgent {
      * @param params a Map contains:
      *   <ul>
      *     <li>cctId - int, the id of an CCT object</li>
+     *     <li>Long suiteId </li>
+     *     <li>String title </li>
      *   </ul>
      * @return a Map contains:
      *   <ul>
@@ -448,10 +450,29 @@ public class CriteriaAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
+        String strCctId = (String)params.get("cctId");
+        String strSuiteId = (String)params.get("suiteId");
+        String title = (String)params.get("title");
+        
+        if(strCctId==null || "".equals(strCctId.trim())){
+        	map.put("reason", "CctId cannot be null.");
+    		return map;	
+        }
+        if(strSuiteId==null || "".equals(strSuiteId.trim())){
+        	map.put("reason", "SuiteId cannot be null.");
+    		return map;	
+        }
+        if(strCctId==null || "".equals(strCctId.trim())){
+        	map.put("reason", "Title cannot be null or blank.");
+    		return map;	
+        }
+        
+        
         try {
-            Long cctId = new Long((String) params.get("cctId"));
+        	Long cctId = Long.parseLong(strCctId);
+        	Long suiteId = Long.parseLong(strSuiteId);
             
-            criteriaService.publish(cctId);
+            criteriaService.publish(cctId, suiteId, title);
            
             map.put("successful", true);
         } catch(Exception e) {

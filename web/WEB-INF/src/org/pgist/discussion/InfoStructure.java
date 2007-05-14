@@ -149,5 +149,9 @@ public class InfoStructure extends GenericInfo {
         }
     }//addObjects()
 
-
+    
+    public void deleteInfoObjects() {
+    	infoObjects.clear();
+    }
+    
 }//class InfoStructure

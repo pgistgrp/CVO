@@ -23,7 +23,12 @@ public class MockCriteriaDAO implements CriteriaDAO {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	
+	public Long checkPublished(Long cctId) {
+		
+		return null;
+	}
 	
 	public boolean getContainsCriteria(Long critId, Long critSuiteId) throws Exception {
 		// TODO Auto-generated method stub

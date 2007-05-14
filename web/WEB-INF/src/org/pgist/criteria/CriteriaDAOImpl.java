@@ -11,6 +11,8 @@ import org.pgist.cvo.Theme;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;
+import org.pgist.discussion.InfoStructure;
+
 
 /**
  * 
@@ -329,6 +331,27 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     } //getCriteriaSuiteById();
     
     
+	private static final String hql_checkedPublished = "from InfoStructure infoS where cctId=?";
+	
+    public Long checkPublished(Long cctId) throws Exception {
+    	
+    	List list = getHibernateTemplate().find(hql_checkedPublished, new Object[] {
+                cctId,
+        });
+    	
+    	Long id = null;
+    	//Check for existing criteria
+    	if(list.size()>0) {
+    		Iterator it = list.iterator();
+    		InfoStructure is = (InfoStructure) it.next();
+    		id = is.getId();
+    	}  		
+    	
+		return id;
+    } //checkPublished()
+    
+    
+    /* Sort alogrithm that is currently not used
     public void sortHashSet(Set references) throws Exception {
     	Iterator itRef = references.iterator();
     	Set sortedSet = new HashSet();
@@ -342,7 +365,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	
     }
     
-    /*
+    
     public CriteriaRef getSmallRef(Set references) {
     	Iterator itRef = references.iterator();
     	CriteriaRef lowest = null;

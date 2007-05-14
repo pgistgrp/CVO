@@ -90,6 +90,21 @@
 		});
 		
 	}
+	
+	function publish() {
+		CriteriaAgent.publish({cctId:cctId, suiteId:critSuiteId, title:"Step 2a: Review Criteria"}, {
+			callback:function(data){
+				if (data.successful){
+					//alert("Successful")
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("CriteriaAgent.addCriterion( error:" + errorString + exception);
+			}
+		});
+	}
 </script>
 <style type="text/css">
 	body{font-size:11 pt;font-family:arial;width:800px;}
@@ -135,7 +150,7 @@
 	<div id="finished">
 		<h3>Finished selecting planning factors?</h3>
 		<p>The system will automatically publish these planning factors on --date--</p>
-		<p><input type="button" style="padding:5px;" onClick="location.href='main.do'" value="Finished!"/></p>
+		<p><input type="button" style="padding:5px;" onClick="publish();location.href='main.do'" value="Finished!"/></p>
 	</div>
 </body>
 </html:html>
