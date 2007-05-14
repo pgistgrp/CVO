@@ -29,6 +29,7 @@
 @import "styles/lit.css";
 @import "styles/table.css";
 @import "styles/step3a-singleproject.css";
+@import "styles/table-grades.css";
 </style>
 	<!-- Site Wide JS -->
 	<script src="scripts/prototype.js" type="text/javascript"></script>
@@ -55,7 +56,7 @@
 			function expandAll(){
 				var rows = document.getElementsByClassName('objectives');
 				var icons = document.getElementsByClassName('icon');
-				for (var i = 1;i <= rows.length; i++){
+				for (var i = 0;i <= rows.length; i++){
 					var row = 'objective' + i;
 					var icon = 'icon' + i;
 					$(row).show();
@@ -67,7 +68,7 @@
 // Loop through all the 'objectives' divs, hide them, and change the icon.
 			function collapseAll(){
 				var rows = document.getElementsByClassName('objectives');
-				for (var i = 1;i <= rows.length; i++){
+				for (var i = 0;i <= rows.length; i++){
 					var row = 'objective' + i;
 					var icon = 'icon' + i;
 					$(row).hide();
@@ -96,7 +97,7 @@
 			function testOpenRows(){
 				hideLabels();
 				var rows = document.getElementsByClassName('objectives');
-				for (var i = 1;i <= rows.length; i++){
+				for (var i = 0;i <= rows.length; i++){
 					var row = 'objective' + i;
 					if ($(row).style.display != "none"){
 						showLabels();
@@ -252,16 +253,16 @@ the column labels. */
 						<!-- begin PROJECT -->
 						<tr class="fundingType">
 							<td class="fundingSourceItem">
-									<a href="javascript:toggleRow('objective${critGrade.id}','icon${critGrade.id}');">
-									<img src="/images/plus.gif" id="icon${critGrade.id}" class="icon"></a>
-									<a href="javascript:toggleRow('objective${critGrade.id}','icon${critGrade.id}');" title="${critGrade.criteria.na}">${critGrade.criteria.name}</a></td>
+									<a href="javascript:toggleRow('objective${loop.index}','icon${loop.index}');">
+									<img src="/images/plus.gif" id="icon${loop.index}" class="icon"></a>
+									<a href="javascript:toggleRow('objective${loop.index}','icon${loop.index}');" title="${critGrade.criteria.na}">${critGrade.criteria.name}</a></td>
 							<td>&nbsp;</td>
-							<td class="gradeA">${critGrade.grade}</td>
+							<td class="grade${pg:gradeSwitch(critGrade.grade)}">${critGrade.grade}</td>
 						</tr>
 						<!-- end PROJECT -->
 					
 						<!-- begin HIDDEN ROW of OPTIONS -->
-						<tr style="display:none;" class="objectives" id="objective${critGrade.id}">
+						<tr style="display:none;" class="objectives" id="objective${loop.index}">
 							<td colspan="3">
 								<ul>
 									<p><b>Objectives (${fn:length(critGrade.criteria.objectives)}):</b></p>	
@@ -282,21 +283,21 @@ the column labels. */
 						<td class="fundingSourceItem">
 								Average</td>
 						<td>&nbsp;</td>
-						<td class="gradeDMinus">${average}</td>
+						<td class="grade${pg:gradeSwitch(average)}">${average}</td>
 					</tr>
 
 					<tr class="headingColor">
 						<td class="fundingSourceItem">
 								Average weighted grade (based on your preferred factor weights)</td>
 						<td>&nbsp;</td>
-						<td class="gradeCPlus">${personalAverage}</td>
+						<td class="grade${pg:gradeSwitch(personalAverage)}">${personalAverage}</td>
 					</tr>
 
 					<tr class="headingColor">
 						<td class="fundingSourceItem">
 								Average weighted grade (based on all participants' planning factor weights)</td>
 						<td>&nbsp;</td>
-						<td class="gradeA">${everyoneAverage}</td>
+						<td class="grade${pg:gradeSwitch(everyoneAverage)}">${everyoneAverage}</td>
 					</tr>
 					<!-- end AVERAGES -->
 
