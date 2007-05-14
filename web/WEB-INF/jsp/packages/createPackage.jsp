@@ -210,9 +210,9 @@
 				}
 			}
 			
-			function editPackageDescription(){
-				var description = $F('txtPkgDesc');
-				PackageAgent.editPackageDescription({pkgId:pkgId,description:description}, {
+			function setManualPkgDesc(){
+				var desc = $F('txtPkgDesc');
+				PackageAgent.setManualPkgDesc({pkgId:pkgId,desc:desc}, {
 					callback:function(data){
 						if (data.successful){
 							$('pkgDesc').innerHTML = "Package " + description;
@@ -222,7 +222,7 @@
 						}
 					},
 					errorHandler:function(errorString, exception){ 
-					alert("PackageAgent.editPackageDescription( error:" + errorString + exception);
+					alert("PackageAgent.setManualPkgDesc( error:" + errorString + exception);
 					}
 				});
 			}
@@ -301,7 +301,7 @@
 						</p>
 						<div id="editDesc" style="display:none" class="box12">
 							<h3>Editing Description</h3>
-							<form action="javascript:editPackageDescription();">
+							<form action="javascript:setManualPkgDesc();">
 								<input type="text" id="txtPkgDesc" style="width:250px" value="${package.description}" />
 								<input type="submit" value="Edit Description!" />
 							</form>
