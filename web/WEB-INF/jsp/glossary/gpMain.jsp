@@ -326,10 +326,21 @@ text-transform:none;
 	<div id="lightbox" class="blueBB" style="top: 50%; height: 450px; overflow: auto;"></div>
 	<!-- END LIGHTBOX -->
   <!-- Begin header menu - The wide ribbon underneath the logo -->
-  <div id="headerMenu">
-
-  </div>
-  <!-- End header menu -->
+	<div id="headerMenu">
+		<div id="headerContainer">
+			<div id="headerTitle" class="floatLeft">
+				<h3 class="headerColor">Learn More</h3>
+			</div>
+			<div class="floatLeft headerButton"> <a href="lmMenu.do">Menu</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Gallery</a> </div>
+			<div class="floatLeft headerButton currentBox"> <a href="glossaryPublic.do">Glossary</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
+		</div>
+	</div>
+	<!-- End header menu -->
   <!-- #container is the container that wraps around all the main page content -->
   <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
   <div id="container">
@@ -410,9 +421,19 @@ text-transform:none;
 
   <!-- Begin header menu - The wide ribbon underneath the logo -->
   <div id="headerMenu">
-
-  </div>
-
+		<div id="headerContainer">
+			<div id="headerTitle" class="floatLeft">
+				<h3 class="headerColor">Learn More</h3>
+			</div>
+			<div class="floatLeft headerButton"> <a href="lmMenu.do">Menu</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Gallery</a> </div>
+			<div class="floatLeft headerButton currentBox"> <a href="glossaryPublic.do">Glossary</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
+		</div>
+	</div>
 	<!-- Begin footer -->
 	<div id="footer">
 		<jsp:include page="/footer.jsp" />
