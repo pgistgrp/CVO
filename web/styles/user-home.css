@@ -25,6 +25,8 @@ div.heading h4 {margin:0px;}
 	margin:0em auto 2em auto;
 }
 
+#mod-announcements{margin-bottom:1em;}
+
 /* --------------------------------------- */
 /* Left-col, aka the Overview of All Steps */
 /* --------------------------------------- */
@@ -76,7 +78,7 @@ width:49%;
 float:right;
 }
 
-#announcements{
+#announcements, #announce-editor{
 background:#FCFFF5;
 border:1px solid #B4D579;
 height:400px;
@@ -87,6 +89,7 @@ overflow:auto;
 #mod-announcements{
 padding:5px;
 }
+
 
 /* -------- */
 /* Keywords */
