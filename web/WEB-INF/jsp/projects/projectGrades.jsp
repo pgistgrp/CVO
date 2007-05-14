@@ -75,6 +75,7 @@
 			
 
 		</script>
+	<event:pageunload />
 	</head>
 	<body>
 		<p><a href="main.do">Back to Moderator Control Panel</a></p>

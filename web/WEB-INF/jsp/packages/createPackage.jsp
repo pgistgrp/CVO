@@ -241,6 +241,7 @@
 			
 			/* *************** END MAPPING FUNCTIONS *************** */
 		</script>
+	<event:pageunload />
 </head>
 <body>
 <div id="header">

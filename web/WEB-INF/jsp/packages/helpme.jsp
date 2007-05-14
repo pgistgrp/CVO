@@ -118,11 +118,8 @@
 			});
 		};
 	</script>
-	
-	<style type="text/css" media="screen">
-		
-	</style>
-
+<event:pageunload />
+</head>
 <body>
 	<h1>Help Me!</h1>
 	<p>Answer the following questions so that we can suggest a package that matches your general preferences.

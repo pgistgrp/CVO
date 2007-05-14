@@ -21,7 +21,7 @@
 		window.opener.location.reload(); 
 		self.close();
 	</script>
-	
+	<event:pageunload />
 </head>
 
 <body>

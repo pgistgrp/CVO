@@ -27,10 +27,8 @@
 	<script type='text/javascript' src='/dwr/util.js'></script>
 	<script src="scripts/prototype.js" type="text/javascript"></script>
 	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<event:pageunload />
 	</head>
-	<script type="text/javascript" charset="utf-8">
-
-	</script>
 	<body>
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">

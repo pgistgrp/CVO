@@ -172,6 +172,7 @@ tr:hover {background:#E4F1F5;}
 td.col1 a {display:block;text-decoration:underline;}
 
 </style>
+<event:pageunload />
 </head>
 <body>
 <!-- #container is the container that wraps around all the main page content -->
@@ -205,7 +206,7 @@ td.col1 a {display:block;text-decoration:underline;}
 				<option>6</option>
 				<option>7</option>
 			</select>
-			<input type="button" class="padding5" onclick="createClusteredPackages();" value="Create Packages">
+			<input type="button" class="padding5" onClick="createClusteredPackages();" value="Create Packages">
 		</span> </p>
 	</span> <span class="floatRight" style="width:49%">
 	<h3 class="headerColor">Manually Created Packages</h3>
@@ -228,7 +229,7 @@ td.col1 a {display:block;text-decoration:underline;}
 		Finished?</h3>
 	<p>When you are ready to allow participants to begin discussing these packages,
 		click the button below to create the discussion rooms</p>
-	<input type="button" value="Publish Packages" onclick="publishPackages();" class="padding5">
+	<input type="button" value="Publish Packages" onClick="publishPackages();" class="padding5">
 </div>
 <script type="text/javascript" charset="utf-8">
 	getManualPackages()

@@ -48,6 +48,7 @@
 		@import "styles/step4b-voteresults.css";
 	</style>
 <!-- End Site Wide CSS -->
+<event:pageunload />
 </head>
 <body>
 

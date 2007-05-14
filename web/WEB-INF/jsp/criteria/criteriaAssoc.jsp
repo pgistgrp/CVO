@@ -97,6 +97,7 @@
 	li ul li:hover {background:#D5EAEF;}
 	#finished{text-align:right;}
 </style>
+<event:pageunload />
 </head>
 
 

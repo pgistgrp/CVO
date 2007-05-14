@@ -512,7 +512,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 
 	////////// END Mapping Functions ////////////	
 </script>
-
+<event:pageunload />
 </head>
 
 

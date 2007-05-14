@@ -509,6 +509,7 @@
 			padding: 5px;
 			}
 		</style>
+	<event:pageunload />
 	</head>
 	<body>
 		<a href="main.do">Back Home</a>

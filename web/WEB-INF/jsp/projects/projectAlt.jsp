@@ -164,8 +164,9 @@ the column labels. */
 	}
 	
 	</script>
+	<event:pageunload />
 	</head>
-	<body onload="load()" onunload="pgistmap=null;GUnload();">
+	<body onLoad="load()" onUnload="pgistmap=null;GUnload();">
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
 	<!-- begin Object -->

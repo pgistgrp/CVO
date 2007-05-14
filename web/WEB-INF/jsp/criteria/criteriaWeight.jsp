@@ -331,7 +331,7 @@ b#remainingWeight, b#remainingWeight2 {font-size:1.4em;}
 
 #critRowWrapper{border:1px solid #ADCFDE;padding:5px;}
 </style>
-		
+	<event:pageunload />
 	</head>
 	<body>
 		<!-- Begin conditional styles for the benefit of IE -->

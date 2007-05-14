@@ -143,7 +143,8 @@
 	.stripWS {margin:0px;padding:0px;}
 	.right-col2 {width:15%;}
 	</style>
-
+<event:pageunload />
+</head>
 <body>
 <div id="top">
 		<h2 class="headerColor">Fine Tune a Package</h2>

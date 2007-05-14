@@ -127,7 +127,7 @@ background:#FFF1DC;
 	}
 
 </script>
-
+<event:pageunload />
 </head>
 <body>
 <!-- Begin the header - loaded from a separate file -->
