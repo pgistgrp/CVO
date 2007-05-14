@@ -96,7 +96,9 @@ public class PackageVoteAction extends Action {
         if(vSuite.userVoted(user)) {
         	PackageSuite pkgSuite = this.packageService.getPackageSuite(packSuite);
         	SortedSet<PackageVoteSuite> voteSuites = pkgSuite.getVoteSuites();
-        	Set pVoteSuites = new HashSet<PackageVoteSuite>();
+        	System.out.println("MATT1: *(&(*&(* " + voteSuites.size());
+        	
+        	Set<PackageVoteSuite> pVoteSuites = new HashSet<PackageVoteSuite>();
         	
         	Iterator<PackageVoteSuite> iVS = voteSuites.iterator();
         	PackageVoteSuite tempVS;
@@ -105,8 +107,10 @@ public class PackageVoteAction extends Action {
         		if(tempVS.getId() != vSuite.getId()) {
         			pVoteSuites.add(tempVS);
         		}
-        		request.setAttribute("pVoteSuites", pVoteSuites);
         	}
+        	
+        	System.out.println("MATT1: *(&(*&(* " + pVoteSuites.size());
+    		request.setAttribute("pVoteSuites", pVoteSuites);
         	
             return mapping.findForward("results");        	
         } else {
