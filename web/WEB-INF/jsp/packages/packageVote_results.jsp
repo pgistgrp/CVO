@@ -122,10 +122,11 @@
 		<div class="clearBoth"></div>
 		
 		<h2 class="headerColor">Previous polls</h2>
-		<c:if test="${pVoteSuites == null}">
+		<c:if test="${fn:length(pVoteSuites) == 0}">
 			<p>There have not been any previous polls.</p>
 		</c:if>
 		<!-- begin one voting box -->
+		****${pVoteSuites}
 		<c:forEach var="suite" items="${pVoteSuites}" varStatus="loop">
 			<h3 class="headerColor">Package Poll Results --- workflow date ---</h3>
 			<c:set var="voters" value="${(fn:length(suite.userVotes) / fn:length(suite.stats))}" />
