@@ -523,6 +523,40 @@ public class PackageAgent {
      * @param params a Map contains:<br>
      *   <ul>
      *     <li>pkgId - int, id of the UserPackage object</li>
+     *     <li>desc - int, id of the FundingAlternative object</li>
+     *   </ul>
+     *   
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map setManualPkgDesc(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long pkgId = new Long((String) params.get("pkgId"));
+            String desc = (String)params.get("desc");
+           	this.packageService.setManualPkgDesc(pkgId, desc);
+            map.put("successful", true);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }
+    
+    /**
+     * Set (Add/Delete) a funding source from a user package for the current participant
+     * 
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>pkgId - int, id of the UserPackage object</li>
      *     <li>altId - int, id of the FundingAlternative object</li>
      *     <li>deleting - boolean, true | false. If deleting==true, delete the funding source alternative
      *         from package, else add the funding source alternative to package

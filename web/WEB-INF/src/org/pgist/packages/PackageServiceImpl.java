@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -448,6 +447,13 @@ public class PackageServiceImpl implements PackageService {
 		this.packageDAO.save(pkgSuite);
 		System.out.println("MATT: 2" + pkgSuite.getVoteSuites().size());
 		return vSuite.getId();
+	}
+
+
+	public void setManualPkgDesc(Long pkgId, String desc) throws Exception {
+		ClusteredPackage pkg = this.packageDAO.getClusteredPackage(pkgId);
+		pkg.setDescription(desc);
+		this.packageDAO.save(pkg);		
 	}
 
 
