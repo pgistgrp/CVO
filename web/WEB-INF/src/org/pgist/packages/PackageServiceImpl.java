@@ -446,7 +446,7 @@ public class PackageServiceImpl implements PackageService {
 		pkgSuite.getVoteSuites().add(vSuite);
 		this.packageDAO.save(vSuite);
 		this.packageDAO.save(pkgSuite);
-		
+		System.out.println("MATT: 2" + pkgSuite.getVoteSuites().size());
 		return vSuite.getId();
 	}
 

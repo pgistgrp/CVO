@@ -76,7 +76,7 @@ public class PackageVoteSuite {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="pkgsuite_id" cascade="none"
+     * @hibernate.many-to-one column="parentpkgsuite_id" cascade="none"
      */
     public PackageSuite getPkgSuite() {
         return pkgSuite;

@@ -95,7 +95,7 @@ public class PackageVoteAction extends Action {
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         if(vSuite.userVoted(user)) {
         	PackageSuite pkgSuite = this.packageService.getPackageSuite(packSuite);
-        	SortedSet<PackageVoteSuite> voteSuites = pkgSuite.getVoteSuites();
+        	Set<PackageVoteSuite> voteSuites = pkgSuite.getVoteSuites();
         	System.out.println("MATT1: *(&(*&(* " + voteSuites.size());
         	
         	Set<PackageVoteSuite> pVoteSuites = new HashSet<PackageVoteSuite>();
