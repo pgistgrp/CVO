@@ -6,148 +6,7 @@
 
 <style type="text/css" media="screen">
 @import "styles/lit.css";
-
-/* HTML */
-/* ---- */
-
-body{font-size:12pt;}
-
-div.heading h4 {margin:0em;}
-
-.heading {margin:.5em 0em;}
-
-/* CONTAINER */
-/* --------- */
-
-#container h3.headerColor {margin-right:1em}
-
-#container {margin-bottom:2em}
-
-/* PROFILE-FIELDS */
-/* -------------- */
-
-#profile-fields
-{
-float:left;
-}
-
-.label 
-{
-float:left;
-font-size:.9em;
-font-weight:bold;
-width:150px;
-margin-right:2em;
-}
-
-#profile-fields p {padding-bottom:0px;}
-
-span.value span {margin-right:4em;}
-
-.value {float:left;}
-
-
-.profile-col1
-{
-width:490px;
-margin-left:1em;
-}
-
-.profile-col2
-{
-width:100px;
-text-align:center;
-}
-
-/* STATISTICS */
-/* ---------- */
-
-#statistics
-{
-width:400px;
-float:right;
-padding:.5em;
-}
-
-#statistics .label{width:200px;}
-
-#statistics .value{}
-
-#statistics p {margin:0px;padding:0px;}
-
-#statistics h4{text-align:center;margin:.5em 0em 1em 0em;}
-
-/* CONCERNS */
-/* -------- */
-
-#concerns-keywords {font-size:.9em}
-
-.tagSize1{font-size:.9em;}
-.tagSize2{font-size:1.1em;}
-.tagSize3{font-size:1.3em;}
-.tagSize4{font-size:1.5em;}
-.tagSize5{fontis-ze:1.6em;}
-
-#concerns-keywords span 
-{
-float:left;
-font-weight:bold;
-margin:10px 0px;
-}
-
-.concern 
-{
-width:600px;
-padding:.5em;
-font-size:.9em;
-margin-bottom:.5em;
-}
-
-/* WEIGHTS */
-/* ------- */
-
-
-#weights 
-{
-width:400px;
-float:left;
-}
-
-#weights .label {width:150px;}
-
-.weights-col1
-{
-width:290px;
-margin-left:1em;
-}
-
-.weights-col2
-{
-width:100px;
-text-align:center;
-}
-
-
-/* KEYWORDS */
-/* -------- */
-
-#keywords ul, #concerns-keywords ul
-{
-margin:10px 0px;
-padding:0px;
-}
-
-#keywords li, #concerns-keywords li
-{
-list-style-type:none;
-display:inline;
-padding:.2em;
-margin:.2em;
-line-height:2em;
-border:1px solid #FFE3B9;
-background:#FFF1DC;
-}
-
+@import "styles/public-profile.css";
 </style>
 
 <script type="text/javascript">
@@ -162,7 +21,7 @@ background:#FFF1DC;
 		</style>
 	<![endif]-->
 <!-- Begin header -->
-<div id="header"> [Load from separate file] </div>
+<div id="header"><jsp:include page="/header.jsp" /></div>
 <!-- End header -->
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 <div id="headerMenu">
@@ -170,21 +29,6 @@ background:#FFF1DC;
 		<div id="headerTitle" class="floatLeft">
 			<h3 class="headerColor">Learn More</h3>
 		</div>
-		<div class="headerButton floatLeft currentBox"> <a href="#">About LIT</a> </div>
-		<div class="headerButton floatLeft"> <a href="#">FAQ</a></div>
-		<a href="#"> </a>
-		<div class="headerButton floatLeft"><a href="#"> </a><a href="#">Tutorial</a></div>
-		<a href="#"> </a>
-		<div class="headerButton floatLeft"><a href="#"> </a><a href="#">Proposed
-				Projects</a></div>
-		<a href="#"> </a>
-		<div class="headerButton floatLeft"><a href="#"> </a><a href="#">Glossary</a></div>
-		<a href="#"> </a>
-		<div class="headerButton floatLeft"><a href="#"> </a><a href="#">Additional
-				Resources</a></div>
-		<a href="#"> </a>
-		<div id="headerNext" class="floatRight box5"><a href="#"> </a><a href="#">Next
-				Step</a> </div>
 	</div>
 </div>
 <!-- End header menu -->
@@ -485,27 +329,12 @@ background:#FFF1DC;
 		<div id="headerTitle" class="floatLeft">
 			<h3 class="headerColor">Learn More</h3>
 		</div>
-		<div class="headerButton floatLeft currentBox"> <a href="#">About LIT</a> </div>
-		<div class="headerButtonCurrent floatLeft"> <a href="#">FAQ</a></div>
-		<a href="#"> </a>
-		<div class="headerButtonCurrent floatLeft"><a href="#"> </a><a href="#">Tutorial</a></div>
-		<a href="#"> </a>
-		<div class="headerButtonCurrent floatLeft"><a href="#"> </a><a href="#">Proposed
-				Projects</a></div>
-		<a href="#"> </a>
-		<div class="headerButtonCurrent floatLeft"><a href="#"> </a><a href="#">Glossary</a></div>
-		<a href="#"> </a>
-		<div class="headerButtonCurrent floatLeft"><a href="#"> </a><a href="#">Additional
-				Resources</a></div>
-		<a href="#"> </a>
-		<div id="headerNext" class="floatRight box5"><a href="#"> </a><a href="#">Next
-				Step</a> </div>
 	</div>
 </div>
 <!-- End header menu -->
 <!-- end the bottom header menu -->
 <!-- Begin footer -->
-<div id="footer"> </div>
+<div id="footer"><jsp:include page="/footer.jsp" /></div>
 <!-- End footer -->
 </body>
 </html:html>
