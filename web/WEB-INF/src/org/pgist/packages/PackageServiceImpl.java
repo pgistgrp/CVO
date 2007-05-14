@@ -441,8 +441,11 @@ public class PackageServiceImpl implements PackageService {
 	 */
 	public Long createVotingPackage(Long pkgSuiteId) throws Exception {
 		PackageVoteSuite vSuite = new PackageVoteSuite();
-		vSuite.setPkgSuite(this.packageDAO.getPackageSuite(pkgSuiteId));
+		PackageSuite pkgSuite = this.packageDAO.getPackageSuite(pkgSuiteId);
+		vSuite.setPkgSuite(pkgSuite);
+		pkgSuite.getVoteSuites().add(vSuite);
 		this.packageDAO.save(vSuite);
+		this.packageDAO.save(pkgSuite);
 		
 		return vSuite.getId();
 	}
