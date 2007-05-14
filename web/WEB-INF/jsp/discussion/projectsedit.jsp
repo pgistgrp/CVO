@@ -391,6 +391,7 @@ body {
 }
 -->
 </style>
+<event:pageunload />
 </head>
 <body onunload="GUnload()">
 <p>PGIST user experiment - prepare project data</p>

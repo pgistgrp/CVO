@@ -308,7 +308,7 @@
 	z-index: 500;
 }
 		</style>
-		
+		<event:pageunload />
 	</head>
 	<body>
 		<div>

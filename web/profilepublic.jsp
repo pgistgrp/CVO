@@ -153,7 +153,7 @@ background:#FFF1DC;
 <script type="text/javascript">
 
 </script>
-
+<event:pageunload />
 </head>
 <body>
 	<!--[if IE]>

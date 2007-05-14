@@ -163,7 +163,7 @@
 	};
 */
 </script>
-
+<event:pageunload />
   </head><body style="margin-top:50px;">
 
   <!-- #container is the container that wraps around all the main page content -->

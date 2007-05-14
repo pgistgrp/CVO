@@ -194,7 +194,7 @@ function validateForm(form,formId){
 	
 } 
 	</script>
-
+<event:pageunload />
 	</head>
 	<body>
 	<!-- Hack to make col1 & 2 margin heights the same -->

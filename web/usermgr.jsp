@@ -214,6 +214,7 @@ function greyDisabled() {
 }
 
 </script>
+<event:pageunload />
 		</head>
 		<body>
 		<!-- Begin the header - loaded from a separate file -->

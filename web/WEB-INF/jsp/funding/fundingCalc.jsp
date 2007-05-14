@@ -256,6 +256,7 @@
 		}
 		
 	</script>
+	<event:pageunload />
 	</head>
 	<body>
 	<!-- #container is the container that wraps around all the main page content -->

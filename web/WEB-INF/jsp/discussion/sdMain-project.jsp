@@ -97,7 +97,7 @@
 	}
 			
 </script>
-
+<event:pageunload />
 </head>
 <!---->
 <c:choose>

@@ -67,6 +67,7 @@
 </script>
 
 <html:html>
+<event:pageunload />
 </head>
 
 <body>

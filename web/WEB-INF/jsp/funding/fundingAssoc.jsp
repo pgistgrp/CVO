@@ -83,6 +83,7 @@
 	.source{font-size: 1.3em;}
 	li ul li:hover {background:#D5EAEF;}
 </style>
+<event:pageunload />
 </head>
 
 
