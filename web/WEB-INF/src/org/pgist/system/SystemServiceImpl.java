@@ -223,8 +223,8 @@ public class SystemServiceImpl implements SystemService {
     }
     
     
-    public void resetPassword(String[] ids) throws Exception {
-    	systemDAO.resetPassword(ids);
+    public void resetPassword(String[] ids, String password) throws Exception {
+    	systemDAO.resetPassword(ids, password);
     }
     
     

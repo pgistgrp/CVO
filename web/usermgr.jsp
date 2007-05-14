@@ -174,6 +174,18 @@ function addCounty() {
 
 function resetPassword(myid) {
 	SystemAgent.resetPassword({ids:myid});
+	SystemAgent.resetPassword({ids:myid}, {
+		callback:function(data){
+			if (data.successful){
+				alert("New Password: " + data.password);
+			}else{
+				$('allUsersList').innerHTML = "<b>Error in SystemAgent.resetPassword Method: </b>" + data.reason; 
+			}
+		},
+		errorHandler:function(errorString, exception){ 
+		alert("SystemAgent.resetPassword( error:" + errorString + exception);
+		}
+	});
 }
 
 function deleteCounty(countyid) {

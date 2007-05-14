@@ -63,7 +63,7 @@ public interface SystemService {
     String getEmailList(boolean enabled, boolean disabled) throws Exception;
     
     
-    void resetPassword(String[] ids) throws Exception;
+    void resetPassword(String[] ids, String password) throws Exception;
     
     
     void setQuota(Long id, boolean quota) throws Exception;

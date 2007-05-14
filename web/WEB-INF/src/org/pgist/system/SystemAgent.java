@@ -447,10 +447,11 @@ public class SystemAgent {
 	/**
      * Resets a users password
      *   <ul>
-     *     <li>ids- int value, string type</li>
+     *     <li>ids- string, list of user id's comma separated</li>
      *   </ul>
      * @return a Map contains:
      *   <ul>
+     *     <li>password - users new password</li>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
@@ -468,9 +469,11 @@ public class SystemAgent {
         }
         
         try {
-        	String[] idList = strIds.split(",");      	
-        	systemService.resetPassword(idList);       	
+        	String[] idList = strIds.split(",");
+        	String password = "ppgisLIT";
+        	systemService.resetPassword(idList, password);       	
         	//EMAIL THEM SOMEHOW?
+        	map.put("password", password);
         	map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

@@ -45,7 +45,7 @@ public interface SystemDAO extends BaseDAO {
     Collection getDisabledUsers() throws Exception;
     
     
-    void resetPassword(String[] ids) throws Exception;
+    void resetPassword(String[] ids, String password) throws Exception;
     
     
     void setQuota(Long id, boolean quota) throws Exception;

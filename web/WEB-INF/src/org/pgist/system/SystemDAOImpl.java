@@ -162,12 +162,12 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     }//getEnableUsers();
     
     
-    public void resetPassword(String[] ids) throws Exception {
+    public void resetPassword(String[] ids, String password) throws Exception {
     	
     	for(String u: ids) {
     		Long userId = Long.parseLong(u);
     		User user = (User) getHibernateTemplate().load(User.class, userId);
-    		user.setPassword("ppgisLIT");
+    		user.setPassword(password);
     		user.encodePassword();
     	
     	} //for each
