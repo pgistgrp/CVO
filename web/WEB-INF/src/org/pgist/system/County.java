@@ -8,20 +8,45 @@ import java.util.Set;
 import org.pgist.criteria.CriteriaRef;
 
 /**
+ * <span style="color:red;">POJO</span>: PGIST Criteria Class<br>
+ * <span style="color:red;">TABLE</span>: pgist_crit
+ * 
+ * <p>County class contains information about each county the system
+ * 
  * @author John
  * 
  * @hibernate.class table="pgist_county" lazy="true"
  */
 public class County implements Serializable {
 
+	 /**
+     * <span style="color:blue;">(Column.)</span>
+     * id of the county. Unique id number used to identify each county.
+     */
 	private Long id;
 	
+	 /**
+     * <span style="color:blue;">(Column.)</span>
+     * Name of the county. Example: King County
+     */
 	private String name;
 	
+	 /**
+     * <span style="color:blue;">(Column.)</span>
+     * quota limit. The maximum number of users that can qualify to get paid (quota) in this county
+     */
 	private int quotaLimit;
 	
+	 /**
+     * <span style="color:blue;">(Column.)</span>
+     * zipcodes. Set of zipcodes associated with this county
+     */
 	private Set<String> zipCodes = new HashSet<String>();
 	
+	 /**
+     * <span style="color:blue;">(Column.)</span>
+     * temporary quota number. Used to temporarily hold the number of users currently signed up for this county's quota.
+     */
 	private int tempQuotaNumber;
 	
 	
