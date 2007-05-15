@@ -290,6 +290,9 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     
     public boolean getContainsCriteria(Long critId, Long critSuiteId) throws Exception {
     	Criteria c = (Criteria) load(Criteria.class, critId);
+    	if(c.getDeleted()) {
+    		return false;
+    	}
     	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
     	
     	CriteriaRef cr = getCriteriaRefByCriteria(c, cs);

@@ -74,4 +74,17 @@ public interface SystemDAO extends BaseDAO {
     
     void deleteCounty(Long countyId) throws Exception;
     
+    
+    void addAnnouncement(Long workflowId, String message) throws Exception; 
+    
+    
+    void editAnnouncement(Long id, String message) throws Exception;
+    
+    
+    void deleteAnnouncement(Long id) throws Exception;
+    
+    
+    Collection getAnnouncements(Long workflowId) throws Exception;
+    
+    
 }//interface SystemDAO

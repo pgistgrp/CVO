@@ -247,24 +247,50 @@ public class SystemServiceImpl implements SystemService {
     	systemDAO.editCountyName(countyId, name);
     }
     
+    
     public Collection createQuotaStats() throws Exception {
     	return systemDAO.createQuotaStats();
     }
+    
     
     public void addZipCodes(Long countyId, String[] zipCodes) throws Exception {
     	systemDAO.addZipCodes(countyId, zipCodes);
     }
     
+    
     public void deleteZipCodes(Long countyId, String[] zipCodes) throws Exception {
     	systemDAO.deleteZipCodes(countyId, zipCodes);
     }
+    
     
     public Collection getAllCounties() throws Exception {
     	return systemDAO.getAllCounties();
     }
     
+    
     public void deleteCounty(Long countyId) throws Exception {
     	systemDAO.deleteCounty(countyId);
     }
+    
+    
+    public void addAnnouncement(Long workflowId, String message) throws Exception {
+    	systemDAO.addAnnouncement(workflowId, message);
+    }
+    
+    
+    public void editAnnouncement(Long id, String message) throws Exception {
+    	systemDAO.editAnnouncement(id, message);
+    }
+    
+    
+    public void deleteAnnouncement(Long id) throws Exception {
+    	systemDAO.deleteAnnouncement(id);
+    }
+    
+    
+    public Collection getAnnouncements(Long workflowId) throws Exception {
+    	return systemDAO.getAnnouncements(workflowId);
+    }
+    
     
 }//class SystemServiceImpl

@@ -16,6 +16,10 @@
     </bean>
     
     
+    <bean name="/userhome" class="org.pgist.system.UserHome">
+    </bean>
+    
+    
     <bean name="/usercp" class="org.pgist.system.UsercpAction">
         <property name="systemService" ref="systemService"/>
     </bean>

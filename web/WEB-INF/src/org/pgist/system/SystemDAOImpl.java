@@ -264,4 +264,34 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     	return county;
     }
     
+    
+    public void addAnnouncement(Long workflowId, String message) throws Exception {
+    	Announcement announcement = new Announcement();
+    	announcement.setMessage(message);
+    	announcement.setWorkflowId(workflowId);
+    	announcement.setDate(WebUtils.getDate());
+    	save(announcement);
+    }
+    
+    
+    public void editAnnouncement(Long id, String message) throws Exception {
+    	Announcement announcement = (Announcement) load(Announcement.class, id);
+    	announcement.setMessage(message);
+    	save(announcement);
+    }
+    
+    
+    public void deleteAnnouncement(Long id) throws Exception {
+    	Announcement a = (Announcement) getHibernateTemplate().load(Announcement.class, id);
+    	if (a != null) getHibernateTemplate().delete(a);
+    }
+    
+    
+    private static final String hql_getAnnouncements = "from Announcement a where workflowId=? order by a.date";
+    
+    public Collection getAnnouncements(Long workflowId) throws Exception {
+    	return getHibernateTemplate().find(hql_getAnnouncements, workflowId);
+    }
+    
+    
 }//class SystemDAOImpl

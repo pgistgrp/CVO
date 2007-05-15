@@ -23,6 +23,8 @@
     <convert converter="bean" match="org.pgist.system.Feedback"/>
     
     <convert converter="bean" match="org.pgist.system.County"/>
+    
+    <convert converter="bean" match="org.pgist.system.Announcement"/>
 
     <convert converter="bean" match="org.pgist.system.YesNoVoting">
         <param name="include" value="id, targetType, targetId, voting, owner"/>
@@ -54,6 +56,10 @@
       <include method="deleteZipCodes"/>
       <include method="deleteCounty"/>
       <include method="editCountyName"/>
+      <include method="addAnnouncement"/>
+      <include method="getAnnouncements"/>
+      <include method="editAnnouncement"/>
+      <include method="deleteAnnouncement"/>
     </create>
 
 	

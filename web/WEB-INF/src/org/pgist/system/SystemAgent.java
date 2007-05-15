@@ -829,6 +829,171 @@ public class SystemAgent {
 	}
 	
 	
+	/**
+     * Add Announcement
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>workflowId - Id of the workflow instance</li>
+     *     <li>message - message to the users</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+	public Map addAnnouncement(Map params) throws Exception {
+		Map map = new HashMap();
+		map.put("successful", false);
+		
+		String strWorkflowId = (String)params.get("workflowId");
+		String message = (String)params.get("message");
+		
+        if(strWorkflowId==null || "".equals(strWorkflowId.trim())){
+        	map.put("reason", "workflowId cannot be null.");
+    		return map;	
+        }
+        
+        if(message==null || "".equals(message.trim())){
+        	map.put("reason", "message cannot be null.");
+    		return map;	
+        }
+        
+        try {   
+        	Long workflowId = Long.parseLong(strWorkflowId);
+        	systemService.addAnnouncement(workflowId, message);
+        	
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+		return map;
+	}
+	
+	
+	/**
+     * Edit Announcement
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>id - id of the announcement</li>
+     *     <li>message - message to the users</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+	public Map editAnnouncement(Map params) throws Exception {
+		Map map = new HashMap();
+		map.put("successful", false);
+		
+		String strId = (String)params.get("id");
+		String message = (String)params.get("messsage");
+
+        if(strId==null || "".equals(strId.trim())){
+        	map.put("reason", "id cannot be null.");
+    		return map;	
+        }
+        
+        if(message==null || "".equals(message.trim())){
+        	map.put("reason", "message cannot be null.");
+    		return map;	
+        }
+        
+        try {   
+        	Long id = Long.parseLong(strId);
+        	
+        	systemService.editAnnouncement(id, message);
+        	
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+		return map;
+	}
+	
+	
+	/**
+     * delete Announcement
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>id - id of the announcement</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+	public Map deleteAnnouncement(Map params) throws Exception {
+		Map map = new HashMap();
+		map.put("successful", false);
+		
+		String strId = (String)params.get("id");
+
+        if(strId==null || "".equals(strId.trim())){
+        	map.put("reason", "id cannot be null.");
+    		return map;	
+        }
+        
+        try {   
+        	Long id = Long.parseLong(strId);
+        	
+        	systemService.deleteAnnouncement(id);
+        	
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+		return map;
+	}
+	
+	
+	/**
+     * Get Announcements
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>workflowId - workflowId of the current instance</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+	public Map getAnnouncements(Map params) throws Exception {
+		Map map = new HashMap();
+		map.put("successful", false);
+		
+		
+		String strWorkflowId = (String)params.get("workflowId");
+		
+        if(strWorkflowId==null || "".equals(strWorkflowId.trim())){
+        	map.put("reason", "workflowId cannot be null.");
+    		return map;	
+        }
+        
+		
+        try {   
+        	Long workflowId = Long.parseLong(strWorkflowId);
+        	
+        	Collection announcements = systemService.getAnnouncements(workflowId);
+        	
+        	map.put("announcements", announcements);
+        	
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+		return map;
+	}
+	
+	
     /**
      * 
      * This method has no parameter.
