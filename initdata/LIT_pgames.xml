@@ -124,6 +124,7 @@
             <actionName>action-define.criteria</actionName>
             <declaration>
                 <ins>
+                    <var name="cctId"/>
                     <var name="suiteId"/>
                 </ins>
             </declaration>
