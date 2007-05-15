@@ -19,6 +19,7 @@
 		[ ] Project Alt sorting (Matt)
 		[x] reason:"Error: this objective could not be assigned the specified grade",successful:false} (Matt)
 		[x] contains to get the objective value
+		[ ] Polishing (Adam)
 
 #### -->
 
@@ -48,8 +49,11 @@
 		</style>
 		
 		<style type="text/css" media="screen">
+			body {font-family:arial;font-size:12pt;}
+			
 			li{margin: 10px 0;}
 			.project{font-size: 1.3em;}
+			
 		</style>
 
 		<script type="text/javascript" charseut="utf-8">
