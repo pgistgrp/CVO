@@ -108,7 +108,7 @@
                     <var name="isid"/>
                 </ins>
             </declaration>
-            <timer extension="10000"/>
+            <timer extension="60000"/>
         </pgame>
         
         <pgame name="pgame-create.criteria.suite" description="Create a criteria suite." auto="true">

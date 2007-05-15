@@ -23,10 +23,12 @@
                 </meeting>
                 <meeting name="meeting-criteria">
                     <declaration>
+                        <ins>
+                            <var name="meeting.cct_id" ref="situation.cct_id"/>
+                        </ins>
                         <outs>
                             <var name="meeting.crit_suite_id" ref="situation.crit_suite_id"/>
                             <var name="meeting.crit_isid" ref="situation.crit_isid"/>
-                            <var name="meeting.cct_id" ref="situation.cct_id"/>
                         </outs>
                     </declaration>
                 </meeting>
