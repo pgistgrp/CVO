@@ -43,6 +43,19 @@
                         </outs>
                     </declaration>
                 </meeting>
+                <meeting name="meeting-packages">
+                    <declaration>
+                        <ins>
+                            <var name="meeting.cct_id" ref="situation.cct_id"/>
+                            <var name="meeting.proj_suite_id" ref="situation.proj_suite_id"/>
+                            <var name="meeting.fund_suite_id" ref="situation.fund_suite_id"/>
+                            <var name="meeting.crit_suite_id" ref="situation.crit_suite_id"/>
+                        </ins>
+                        <outs>
+                            <var name="meeting.pkg_suite_id" ref="situation.pkg_suite_id"/>
+                        </outs>
+                    </declaration>
+                </meeting>
             </sequence>
         </situation>
     </situations>

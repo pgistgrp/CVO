@@ -82,10 +82,10 @@ public class PackageVoteAction extends Action {
     	
     	String tempVoteSuiteId = request.getParameter("voteSuiteId");
     	Long voteSuiteId = new Long(tempVoteSuiteId);
-    	PackageVoteSuite vSuite = this.packageService.getPackageVoteSuite(voteSuiteId);
+    	PackageVoteSuite vSuite = packageService.getPackageVoteSuite(voteSuiteId);
 
 		//Grade it
-    	User user = this.packageService.getUser(WebUtils.currentUser());    	
+    	User user = packageService.getUser(WebUtils.currentUser());    	
 		request.setAttribute("voteSuite", vSuite);    		
 		request.setAttribute("pkgSuiteId", packSuite);
 		request.setAttribute("projSuiteId", projSuite);
@@ -94,7 +94,7 @@ public class PackageVoteAction extends Action {
 		
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         if(vSuite.userVoted(user)) {
-        	PackageSuite pkgSuite = this.packageService.getPackageSuite(packSuite);
+        	PackageSuite pkgSuite = packageService.getPackageSuite(packSuite);
         	Set<PackageVoteSuite> voteSuites = pkgSuite.getVoteSuites();
         	System.out.println("MATT1: *(&(*&(* " + voteSuites.size());
         	

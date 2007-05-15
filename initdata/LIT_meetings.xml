@@ -107,6 +107,35 @@
             </sequence>
         </meeting>
         
+        <meeting name="meeting-packages" description="Review Packages">
+            <declaration>
+                <ins>
+                    <var name="meeting.cct_id"/>
+                    <var name="meeting.proj_suite_id"/>
+                    <var name="meeting.fund_suite_id"/>
+                    <var name="meeting.crit_suite_id"/>
+                </ins>
+                <outs>
+                    <var name="meeting.pkg_suite_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-packages">
+                    <declaration>
+                        <ins>
+                            <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                            <var name="pmethod.proj_suite_id" ref="meeting.proj_suite_id"/>
+                            <var name="pmethod.fund_suite_id" ref="meeting.fund_suite_id"/>
+                            <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
+                        </ins>
+                        <outs>
+                            <var name="pmethod.pkg_suite_id" ref="meeting.pkg_suite_id"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
     </meetings>
     
     

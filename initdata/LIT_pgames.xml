@@ -227,6 +227,51 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-create.user.package" description="Create my package." auto="false" access="all">
+            <actionName>task-create.user.package</actionName>
+            <declaration>
+                <ins>
+                    <var name="pkgSuiteId"/>
+                    <var name="projSuiteId"/>
+                    <var name="fundSuiteId"/>
+                    <var name="critSuiteId"/>
+                </ins>
+            </declaration>
+            <timer extension="60000"/>
+        </pgame>
+        
+        <pgame name="pgame-group.packages" description="Group candidate packages." auto="true">
+            <taskName>task-group.packages</taskName>
+            <declaration>
+                <ins>
+                    <var name="suite_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sd.packages" description="Review Fundings." auto="false" access="all">
+            <actionName>action-sd.packages</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                </ins>
+            </declaration>
+            <timer extension="60000"/>
+        </pgame>
+        
+        <pgame name="pgame-manage.packages" description="Manage Packages." auto="false" access="moderator">
+            <actionName>action-manage.packages</actionName>
+            <declaration>
+                <ins>
+                    <var name="pkgSuiteId"/>
+                    <var name="projSuiteId"/>
+                    <var name="fundSuiteId"/>
+                    <var name="critSuiteId"/>
+                </ins>
+            </declaration>
+            <timer extension="60000"/>
+        </pgame>
+        
         <pgame name="pgame-publish.packages" description="Publish Packages." auto="true">
             <taskName>task-publish.packages</taskName>
             <declaration>
@@ -243,11 +288,25 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.packages" description="Review Fundings." auto="false" access="all">
+        <pgame name="pgame-sd.packages" description="Review Packages." auto="false" access="all">
             <actionName>action-sd.packages</actionName>
             <declaration>
                 <ins>
                     <var name="isid"/>
+                </ins>
+            </declaration>
+            <timer extension="60000"/>
+        </pgame>
+        
+        <pgame name="pgame-vote.packages" description="Vote Candidate Packages." auto="false" access="all">
+            <actionName>action-vote.packages</actionName>
+            <declaration>
+                <ins>
+                    <var name="pkgSuiteId"/>
+                    <var name="projSuiteId"/>
+                    <var name="fundSuiteId"/>
+                    <var name="critSuiteId"/>
+                    <var name="voteSuiteId"/>
                 </ins>
             </declaration>
             <timer extension="60000"/>

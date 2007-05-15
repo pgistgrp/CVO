@@ -48,6 +48,11 @@
     </bean>
     
     
+    <bean id="task-group.packages" class="org.pgist.packages.GroupPackagesTask">
+        <property name="packageService" ref="packageService"/>
+    </bean>
+    
+    
     <bean id="task-publish.packages" class="org.pgist.packages.PublishPackagesTask">
         <property name="packageService" ref="packageService"/>
     </bean>
@@ -82,7 +87,10 @@
               <entry><key><value>action-sd.projects</value></key><value>/sd.do</value></entry>
               <entry><key><value>action-sd.fundings</value></key><value>/sd.do</value></entry>
               <entry><key><value>action-sd.packages</value></key><value>/sd.do</value></entry>
-	      <entry><key><value>action-weigh.criteria</value></key><value>/criteriaWeigh.do</value></entry>
+              <entry><key><value>action-weigh.criteria</value></key><value>/criteriaWeigh.do</value></entry>
+              <entry><key><value>action-create.user.package</value></key><value>/createPackage.do</value></entry>
+              <entry><key><value>action-manage.packages</value></key><value>/packageMgr.do</value></entry>
+              <entry><key><value>action-vote.packages</value></key><value>/packageVote.do</value></entry>
             </map>
         </property>
     </bean>
