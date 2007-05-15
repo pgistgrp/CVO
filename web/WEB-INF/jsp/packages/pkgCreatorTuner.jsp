@@ -35,11 +35,6 @@
 <!-- End DWR JavaScript Libraries -->
 
 <script type='text/javascript' src='/dwr/interface/PackageAgent.js'></script>
-<!-- mapping JavaScript -->
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxTwM0brOpm-All5BF6PoaKBxRWWERTgXzfGnh96tes2zXXrBXrWwWigIQ"
-      type="text/javascript"></script>
-<script src="scripts/pgistmap2.js"></script>
-<!-- End of mapping JavaScript -->
 
 <style type="text/css">
 	@import "styles/lit.css";

@@ -91,7 +91,7 @@
 						<li><a href="projectAlt.do?altrefId=${altRef.id}" target="_blank">${altRef.alternative.name}</a>
 						<ul>
 						<c:forEach var="critGrade" items="${altRef.gradedCriteria}" varStatus="loop">
-							<li><a href="#">Factor: ${critGrade.criteria.name} (Grade: <b id="critGrade-${altRef.id}-${critGrade.criteria.id}">${critGrade.grade}</b>):</a>
+							<li>Factor: ${critGrade.criteria.name} (Grade: <b id="critGrade-${altRef.id}-${critGrade.criteria.id}">${critGrade.grade}</b>):
 								<ul>
 									<c:forEach var="gradedObjective" items="${critGrade.objectives}" varStatus="loop">
 										<li>${gradedObjective.objective.description} - Grade:

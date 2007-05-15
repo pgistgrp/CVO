@@ -44,7 +44,7 @@
 <script type='text/javascript' src='/dwr/interface/PackageAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
 <!-- mapping JavaScript -->
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxSrR7p1nyD8TH138ULjTOjQOW5fjxTrHGj2RyW-631yBK63wnZBIuC6BA"
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAq4HJEw-8aIG3Ew6IOzpYEBTwM0brOpm-All5BF6PoaKBxRWWERSP-RPo4689bM1xw9IvCyK4oTwAIw"
       type="text/javascript"></script>
 <script src="scripts/pgistmap2.js"></script>
 
@@ -374,12 +374,26 @@
 				return y;
 			}
 			function adjustMapPosition() {
+				var cont = $('newTable');
+				var map = $('themap');
+				var mapHeight = map.getHeight();
+				
+				Position.cumulativeOffset(cont);
+				Position.cumulativeOffset(map);
+				
+				var mapBottom = mapHeight + cont.offsetTop;
+				var mapWithinCont = Position.within(cont,map.offsetLeft,mapBottom);
+				
+				if(mapWithinCont){
+					alert("go!")
+				}
+				//alert(mapBottom)
+				
 				if(document.body.scrollTop < mapPositionTop){
 					document.getElementById('themap').style.top = (mapPositionTop + 30) + "px";
 				}else{
 					document.getElementById('themap').style.top  = (document.body.scrollTop + 30) + "px";
 				}
-				
 			}
 	/* *************** END MAPPING FUNCTIONS *************** */
 </script>
@@ -571,13 +585,7 @@
 				</c:forEach>
 			</table>
 			<!-- end collapsible project list -->
-		</div>
-		<!-- end left -->
-		<!-- begin cell containing #right -->
-		<div id="right" class="floatRight">
-			<!-- begin GOOGLE MAP -->
-			<div id="themap" style="position:absolute"> </div>
-			<!-- end GOOGLE MAP -->
+			<br />
 			<table cellpadding="0" cellspacing="0">
 				<tr class="tableHeading">
 					<th class="first">Funding Source</th>
@@ -608,7 +616,6 @@
 										<input type="radio" ${(pg:containsFundAltRef(package.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
 									</c:otherwise>
 								</c:choose>
-								
 								${altRef.alternative.name}</label>
 							</td>
 							<td><fmt:formatNumber type="currency">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
@@ -646,6 +653,14 @@
 				</c:forEach>
 				<!-- end OPTIONS -->
 			</table>
+		</div>
+		<!-- end left -->
+		<!-- begin cell containing #right -->
+		<div id="right" class="floatRight">
+			<!-- begin GOOGLE MAP -->
+			<div id="themap" style="position:absolute"> </div>
+			<!-- end GOOGLE MAP -->
+
 		</div>
 	</div>
 	<!-- end NewTable-->
