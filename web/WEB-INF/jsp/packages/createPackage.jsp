@@ -220,19 +220,19 @@
 				}
 			}
 			
-			function setManualPkgDesc(){
-				var desc = $F('txtPkgDesc');
-				PackageAgent.setManualPkgDesc({pkgId:pkgId,desc:desc}, {
+			function editPackageDescription(){
+				var description = $F('txtPkgDesc');
+				PackageAgent.editPackageDescription({pkgId:pkgId,description:description}, {
 					callback:function(data){
 						if (data.successful){
-							$('pkgDesc').innerHTML = "Package " + desc;
+							$('pkgDesc').innerHTML = "Package " + description;
 							new Effect.toggle('editDesc','blind',{duration:0.2});
 						}else{
 							alert(data.reason);
 						}
 					},
 					errorHandler:function(errorString, exception){ 
-					alert("PackageAgent.setManualPkgDesc( error:" + errorString + exception);
+					alert("PackageAgent.editPackageDescription( error:" + errorString + exception);
 					}
 				});
 			}
@@ -300,9 +300,14 @@
 						var fp = new GPolyline(overlaypoints[geomkey]["coords"][j], transcolor, 4, 0.9);
 						p["overlays"].push(fp);
 						pgistmap.map.addOverlay( fp );
+						
 					}
 					
 					//if project alternative selected highlight it
+					if(p["selected"]){
+						highlightProject(p);
+						//pgistmap.scaleToCoords(overlaypoints[geomkey]["coords"], true);
+					}
 				}
 			}
 			function highlightProject(project){
@@ -332,7 +337,7 @@
 				for (var i=0;i<project["overlays"].length;i++){	//add back original overlays
 					pgistmap.map.addOverlay(project["overlays"][i]);
 				}				
-				
+				pgistmap.scaleToCoords(overlaypoints[geomkey]["coords"], true);
 			}
 			function unHighlightProject(projectaltid){
 				var project = getProjectById(projectaltid);
@@ -378,7 +383,6 @@
 			}
 	/* *************** END MAPPING FUNCTIONS *************** */
 </script>
-<event:pageunload />
 </head>
 
 <body onresize="adjustMapPosition();" onscroll="adjustMapPosition();" onload="load()" onunload="clearMemory();">
@@ -439,7 +443,7 @@
 						</p>
 						<div id="editDesc" style="display:none" class="box12">
 							<h3>Editing Description</h3>
-							<form action="javascript:setManualPkgDesc();">
+							<form action="javascript:editPackageDescription();">
 								<input type="text" id="txtPkgDesc" style="width:250px" value="${package.description}" />
 								<input type="submit" value="Edit Description!" />
 							</form>
@@ -510,7 +514,9 @@
 													"id":"${altRef.alternative.id}",
 													"cost":"${altRef.alternative.cost}", 
 													"mode":"${altRef.alternative.project.transMode}",
-													"fpids":"${altRef.alternative.fpids}"});
+													"fpids":"${altRef.alternative.fpids}",
+													"selected":${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "true" : "false"}
+													});
 											</script>
 											<tr>
 												<td>

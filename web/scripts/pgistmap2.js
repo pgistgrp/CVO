@@ -598,18 +598,18 @@ PGISTMapEditor.prototype.makeGPoints=function(serialCoords){
 
  */
 
-PGISTMapEditor.prototype.scaleToCoords=function(crds){
+PGISTMapEditor.prototype.scaleToCoords=function(crds, useextent){
 	var thecoords = crds || this.coords;
 
 	if(thecoords.length < 1) return;
 
-	var minx = 180;
+	var minx = (useextent)?this.map.getBounds().getSouthWest().lng():180;
 
-	var maxx = -180;
+	var maxx = (useextent)?this.map.getBounds().getNorthEast().lng():-180;
 
-	var miny = 90;
+	var miny = (useextent)?this.map.getBounds().getSouthWest().lat():90;
 
-	var maxy=-90;
+	var maxy=-(useextent)?this.map.getBounds().getNorthEast().lng():90;
 
 	for(var i=0; i<thecoords.length; i++){
 
