@@ -3,6 +3,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="javascript" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
@@ -42,16 +43,8 @@
 <!-- data accessing js -->
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
 
-<!-- mapping JavaScript and stylesheet -->
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxTwM0brOpm-All5BF6PoaKBxRWWERTgXzfGnh96tes2zXXrBXrWwWigIQ"
-      type="text/javascript"></script>
-<script src="scripts/pgistmap2.js"></script>
-<style type="text/css">
-    v\:* {
-      behavior:url(#default#VML);
-    }
-</style>
-	<script type="text/javascript">
+<javascript:googlemaps/>
+<script src="scripts/pgistmap2.js"></script>	<script type="text/javascript">
 // Loop through the 'objectives' divs, show them, and change the icon.
 			function expandAll(){
 				var rows = document.getElementsByClassName('objectives');
@@ -131,6 +124,8 @@ the column labels. */
 			var pgistmap = null;
 			
 	/* *************** Get footprints for a given project alternative id *************** */
+	var transmode = "${reference.alternative.project.transMode}";
+	var transcolor = (transmode==0)?"#FF0000":"#00FF00";
 	function getFootprintsByAltId(id){
 		ProjectAgent.getFootprintsByAltId({altid:id}, {
 			callback:function(data){
@@ -139,9 +134,18 @@ the column labels. */
 						if(data.footprints[fpid].geotype==0 ||
 							data.footprints[fpid].geotype==2 || 
 							data.footprints[fpid].geotype==5){ // line
-							pgistmap.recoverCoords(data.footprints[fpid].coords);
-							pgistmap.scaleToCoords();
-							pgistmap.drawLines();
+							var points = pgistmap.makeGPoints(data.footprints[fpid].coords);
+							for(var j=0; j<points.length; j++){
+								pgistmap.map.addOverlay(
+									new GPolyline(points[j], "#FFFFFF", 8, 0.6) );
+								pgistmap.map.addOverlay(
+									new GPolyline(points[j], transcolor, 4, 0.9) );
+							}
+							pgistmap.scaleToCoords(points);
+							
+							//pgistmap.recoverCoords(data.footprints[fpid].coords);
+							//pgistmap.scaleToCoords();
+							//pgistmap.drawLines();
 						}else if(data.footprints[fpid].geotype==1 || 
 							data.footprints[fpid].geotype==4){ // point
 							pgistmap.recoverCoords(data.footprints[fpid].coords);

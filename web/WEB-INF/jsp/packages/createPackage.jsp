@@ -42,10 +42,12 @@
 <script type='text/javascript' src='/dwr/util.js'></script>
 <!-- End DWR JavaScript Libraries -->
 <script type='text/javascript' src='/dwr/interface/PackageAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
 <!-- mapping JavaScript -->
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxTwM0brOpm-All5BF6PoaKBxRWWERTgXzfGnh96tes2zXXrBXrWwWigIQ"
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxSrR7p1nyD8TH138ULjTOjQOW5fjxTrHGj2RyW-631yBK63wnZBIuC6BA"
       type="text/javascript"></script>
 <script src="scripts/pgistmap2.js"></script>
+
 <!-- End of mapping JavaScript -->
 <style type="text/css">
 	@import "styles/lit.css";
@@ -113,7 +115,7 @@
 				};
 			}
 			
-			function setProjectToPkg(altRefId,checked){
+			function setProjectToPkg(altRefId,checked,altId){
 				//alert("checked = " + checked)
 				var deleting = !Boolean(checked);
 				//alert("pkgId: " + pkgId + " altRefId: "+ altRefId +" deleting: " + deleting); 
@@ -125,6 +127,14 @@
 								updateSummary(data);
 							}else{
 								getClusteredSummary();
+							}
+							
+							if(!deleting){
+								highlightProject(altId);
+								//alert("adding: " + p["name"]);
+							}else{
+								unHighlightProject(altId);
+								//alert("removing: " + p["name"]);
 							}
 						}else{
 							alert(data.reason);
@@ -237,13 +247,141 @@
 			}
 
 			/* *************** START MAPPING FUNCTIONS *************** */
+			var fpidlist = "";
+			var prjaltlist = [];
+			var pgistmap = null;
+			var overlaypoints = [];
+			var mapPositionTop = 0;
 			
+			function load(){
+				pgistmap = new PGISTMapEditor('themap', 520, 580, false);
+				//alert(prjaltlist.length);
+				if(fpidlist.length > 0){
+					fpidlist = fpidlist.substring(1, fpidlist.length-1);  //get rid of the first comma
+					ProjectAgent.getFootprints({fpids:fpidlist}, {
+						callback:function(data){
+							if (data.successful){
+								for(fpid in data.footprints){
+									if(overlaypoints['_'+fpid]!=null)alert("exists");
+									overlaypoints['_'+fpid] = [];
+									overlaypoints['_'+fpid]["geotype"] = data.footprints[fpid].geotype;
+									overlaypoints['_'+fpid]["coords"] = pgistmap.makeGPoints(data.footprints[fpid].coords);
+								}
+								//render projects
+								renderProjects();
+
+								//alert(data.footprints); //coordinates - 3d array returned
+							}else{
+								alert(data.reason);
+							}
+						},
+						errorHandler:function(errorString, exception){ 
+						alert("ProjectAgent.getFootprint( error:" + errorString + exception);
+						}
+					});
+				}
+				mapPositionTop = getYCoord(document.getElementById('themap'));
+			}
 			
-			/* *************** END MAPPING FUNCTIONS *************** */
-		</script>
-	<event:pageunload />
+			function renderProjects(){
+				for(var i=0;i<prjaltlist.length;i++){
+					//var fpid = parseInt(p["fpids"]);
+					var p = prjaltlist[i];
+					p["overlays"] = []; 
+					if(p["fpids"] == "") continue;
+					
+					var geomkey = '_'+p["fpids"];
+					if(overlaypoints[geomkey] == null)continue;
+					
+					var transcolor = (p["mode"]==0)?"#FF0000":"#0bc00f";
+					
+					for(var j=0; j<overlaypoints[geomkey]["coords"].length; j++){
+						//handle different geometry type: lines, polygons, and points
+						var fp = new GPolyline(overlaypoints[geomkey]["coords"][j], transcolor, 4, 0.9);
+						p["overlays"].push(fp);
+						pgistmap.map.addOverlay( fp );
+					}
+					
+					//if project alternative selected highlight it
+				}
+			}
+			function highlightProject(project){
+			
+				if(typeof(project) != 'object') project = getProjectById(project);
+				if(project==null)return;
+				
+				var transcolor = (project["mode"]==0)?"#FF0000":"#0bc00f";
+				if(project["fpids"] == "") return;
+				var geomkey = '_'+project["fpids"];
+				for (var i=0;i<project["overlays"].length;i++){
+					pgistmap.map.removeOverlay(project["overlays"][i]);
+				}
+				if(project["hioverlays"]==null){//create highlight overlays
+					project["hioverlays"]=[];
+					for(var j=0; j<overlaypoints[geomkey]["coords"].length; j++){
+						//handle different geometry type: lines, polygons, and points
+						var fp = new GPolyline(overlaypoints[geomkey]["coords"][j], "FFFFFF", 8, 0.9);
+						project["hioverlays"].push(fp);
+						pgistmap.map.addOverlay( fp );
+					}
+				}
+				
+				for (var i=0;i<project["hioverlays"].length;i++){//add highlight overlays
+					pgistmap.map.addOverlay(project["hioverlays"][i]);
+				}
+				for (var i=0;i<project["overlays"].length;i++){	//add back original overlays
+					pgistmap.map.addOverlay(project["overlays"][i]);
+				}				
+				
+			}
+			function unHighlightProject(projectaltid){
+				var project = getProjectById(projectaltid);
+				if(project==null)return;
+				if(project["hioverlays"] == null)return;
+				
+				var transcolor = (project["mode"]==0)?"#FF0000":"#0bc00f";
+				if(project["fpids"] == "") return;
+				var geomkey = '_'+project["fpids"];
+				for (var i=0;i<project["hioverlays"].length;i++){
+					pgistmap.map.removeOverlay(project["hioverlays"][i]);
+				}
+			}
+			function getProjectById(id){
+				for(var i=0;i<prjaltlist.length;i++){
+					if(prjaltlist[i]['id'] == id)return prjaltlist[i];
+					if(prjaltlist[i]['id'] == (id+""))return prjaltlist[i];
+				}
+				return null;
+			}
+			function clearMemory(){
+				prjaltlist = null;
+				overlaypoints = null;
+				pgistmap=null;
+				GUnload();
+			}
+			
+			function getYCoord(el) {
+				var y=0;
+				while(el){
+					y+=el.offsetTop;
+					el=el.offsetParent;
+				}
+				return y;
+			}
+			function adjustMapPosition() {
+				if(document.body.scrollTop < mapPositionTop){
+					document.getElementById('themap').style.top = (mapPositionTop + 30) + "px";
+				}else{
+					document.getElementById('themap').style.top  = (document.body.scrollTop + 30) + "px";
+				}
+				
+			}
+	/* *************** END MAPPING FUNCTIONS *************** */
+</script>
+<event:pageunload />
 </head>
-<body>
+
+<body onresize="adjustMapPosition();" onscroll="adjustMapPosition();" onload="load()" onunload="clearMemory();">
 <div id="header">
 	<!-- Begin header -->
 	<jsp:include page="/header.jsp" />
@@ -366,6 +504,14 @@
 									<table>
 										<c:set var="doNothing"value="true"/>
 										<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
+											<script type="text/javascript" charset="utf-8">
+											fpidlist += "," + "${altRef.alternative.fpids}";
+											prjaltlist.push({"name":"${altRef.alternative.name}", 
+													"id":"${altRef.alternative.id}",
+													"cost":"${altRef.alternative.cost}", 
+													"mode":"${altRef.alternative.project.transMode}",
+													"fpids":"${altRef.alternative.fpids}"});
+											</script>
 											<tr>
 												<td>
 													<label>
@@ -383,10 +529,10 @@
 														<c:otherwise>
 															<c:choose>
 																<c:when test="${userPkg != null}">
-																	<input type="checkbox" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToPkg('${altRef.id}', this.checked);" />
+																	<input type="checkbox" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToPkg('${altRef.id}', this.checked, '${altRef.alternative.id}');" />
 																</c:when>
 																<c:otherwise>
-																	<input type="checkbox" ${(pg:containsProjAltRef(package.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToPkg('${altRef.id}', this.checked);" />
+																	<input type="checkbox" ${(pg:containsProjAltRef(package.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToPkg('${altRef.id}', this.checked,'${altRef.alternative.id}');" />
 																</c:otherwise>
 															</c:choose>
 															
@@ -424,7 +570,7 @@
 		<!-- begin cell containing #right -->
 		<div id="right" class="floatRight">
 			<!-- begin GOOGLE MAP -->
-			<div id="map"> <img src="/images/gmaps.gif" width="520"> </div>
+			<div id="themap" style="position:absolute"> </div>
 			<!-- end GOOGLE MAP -->
 			<table cellpadding="0" cellspacing="0">
 				<tr class="tableHeading">
@@ -537,7 +683,6 @@
 	} else{
 		getClusteredSummary();
 	}
-
 </script>
 </body>
 </html>
