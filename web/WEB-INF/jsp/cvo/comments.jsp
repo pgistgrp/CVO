@@ -172,7 +172,7 @@
     <p>
       <label>Post Title</label>
       <br>
-      <input style="text-transform:capitalize;" maxlength=100 size=100 type="text" value="" id="txtNewCommentTitle"/>
+      <input maxlength=100 size=100 type="text" value="" id="txtNewCommentTitle"/>
     </p>
     <p>
       <label>Your Thoughts</label>
