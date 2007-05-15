@@ -127,6 +127,34 @@
     </target>
     
 
+    <target name="LIT_pgames">
+        <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
+        </taskdef>
+        <WorkflowImporter definition="LIT_pgames.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
+    </target>
+    
+
+    <target name="LIT_pmethods">
+        <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
+        </taskdef>
+        <WorkflowImporter definition="LIT_pmethods.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
+    </target>
+    
+
+    <target name="LIT_meetings">
+        <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
+        </taskdef>
+        <WorkflowImporter definition="LIT_meetings.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
+    </target>
+    
+
+    <target name="LIT_situations">
+        <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
+        </taskdef>
+        <WorkflowImporter definition="LIT_situations.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
+    </target>
+    
+
     <target name="criteria">
         <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
         </taskdef>

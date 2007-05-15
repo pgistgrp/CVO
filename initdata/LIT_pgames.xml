@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+
+    <pgames>
+    
+        <pgame name="pgame-create.project.suite" description="Create a project suite." auto="true">
+            <taskName>task-create.project.suite</taskName>
+            <declaration>
+                <outs>
+                    <var name="suite_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-define.projects" description="Define projects in a project suite." auto="false" access="moderator">
+            <actionName>action-define.projects</actionName>
+            <declaration>
+                <ins>
+                    <var name="suiteId"/>
+                </ins>
+            </declaration>
+            <timer extension="30000"/>
+        </pgame>
+        
+        <pgame name="pgame-create.funding.suite" description="Create a funding source suite." auto="true">
+            <taskName>task-create.funding.suite</taskName>
+            <declaration>
+                <outs>
+                    <var name="suite_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-define.fundings" description="Define funding sources in a funding source suite." auto="false" access="moderator">
+            <actionName>action-define.fundings</actionName>
+            <declaration>
+                <ins>
+                    <var name="suiteId"/>
+                </ins>
+            </declaration>
+            <timer extension="30000"/>
+        </pgame>
+        
+        <pgame name="pgame-grade.projects" description="Grade Projects." auto="false" access="moderator">
+            <actionName>action-grade.projects</actionName>
+            <declaration>
+                <ins>
+                    <var name="suiteId"/>
+                </ins>
+            </declaration>
+            <timer extension="30000"/>
+        </pgame>
+        
+        <pgame name="pgame-create.cct" description="Create a CCT instance." auto="true">
+            <taskName>task-create.cct</taskName>
+            <declaration>
+                <outs>
+                    <var name="cct_id"/>
+                </outs>
+                <props>
+                    <property name="name" value="CCT" />
+                    <property name="purpose" value="In order to determine what needs to be improved about our transportation system, we first need to know what the problems are. Therefore, the first task is brainstorming concerns." />
+                    <property name="instruction" value="For this task, we are asking you to add concerns to your profile. These concerns will be visible to other participants, and will be used in later sessions to determine how to turn our concerns into suggestions for decision makers. Below, you’ll find a box in which to type your concern. You will be asked to ‘tag’ your concerns, so that others may find your concern more easily. The sidebar to the right of your concerns is your way of seeing what others are writing about. You may navigate by either tags or concerns." />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-cvo.cct" description="Brainstorm." auto="false" access="all">
+            <actionName>action-cvo.cct</actionName>
+            <declaration>
+                <ins>
+                    <var name="cctId"/>
+                </ins>
+            </declaration>
+            <timer extension="10000"/>
+        </pgame>
+        
+        <pgame name="pgame-cvo.cst" description="Concerns Synthesis Tool" auto="false" access="all">
+            <actionName>action-cvo.cst</actionName>
+            <declaration>
+                <ins>
+                    <var name="cctId"/>
+                </ins>
+            </declaration>
+            <timer extension="10000"/>
+        </pgame>
+        
+        <pgame name="pgame-publish.theme" description="Publish Themes." auto="true">
+            <taskName>task-publish.theme</taskName>
+            <declaration>
+                <ins>
+                    <var name="cct_id"/>
+                </ins>
+                <outs>
+                    <var name="is_id"/>
+                </outs>
+                <props>
+                    <property name="title" value="Step 1b: Review Summaries" />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sd.concerns" description="Review Summaries." auto="false" access="all">
+            <actionName>action-sd.concerns</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                </ins>
+            </declaration>
+            <timer extension="10000"/>
+        </pgame>
+        
+        <pgame name="pgame-create.criteria.suite" description="Create a criteria suite." auto="true">
+            <taskName>task-create.criteria.suite</taskName>
+            <declaration>
+                <outs>
+                    <var name="suite_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-define.criteria" description="Define Criteria." auto="false" access="moderator">
+            <actionName>action-define.criteria</actionName>
+            <declaration>
+                <ins>
+                    <var name="suiteId"/>
+                </ins>
+            </declaration>
+            <timer extension="30000"/>
+        </pgame>
+        
+        <pgame name="pgame-publish.criteria" description="Publish Criteria." auto="true">
+            <taskName>task-publish.criteria</taskName>
+            <declaration>
+                <ins>
+                    <var name="cct_id"/>
+                    <var name="suite_id"/>
+                </ins>
+                <outs>
+                    <var name="is_id"/>
+                </outs>
+                <props>
+                    <property name="title" value="Step 2a: Review Criteria" />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sd.criteria" description="SD critieria." auto="false" access="all">
+            <actionName>action-sd.criteria</actionName>
+            <declaration>
+            <ins>
+                <var name="isid"/>
+            </ins>
+            </declaration>
+            <timer extension="300000"/>
+        </pgame>
+        
+        <pgame name="pgame-weigh.criteria" description="Weight critieria" auto="false" access="all">
+            <actionName>action-weigh.criteria</actionName>
+            <declaration>
+            <ins>
+                <var name="suiteId"/>
+            </ins>
+            </declaration>
+            <timer extension="300000"/>
+        </pgame>
+        
+        <pgame name="pgame-publish.projects" description="Publish Projects." auto="true">
+            <taskName>task-publish.projects</taskName>
+            <declaration>
+                <ins>
+                    <var name="cct_id"/>
+                    <var name="suite_id"/>
+                </ins>
+                <outs>
+                    <var name="is_id"/>
+                </outs>
+                <props>
+                    <property name="title" value="Step 1b: Review Projects" />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sd.projects" description="Review Projects." auto="false" access="all">
+            <actionName>action-sd.projects</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                </ins>
+            </declaration>
+            <timer extension="60000"/>
+        </pgame>
+        
+        <pgame name="pgame-publish.fundings" description="Publish Fundings." auto="true">
+            <taskName>task-publish.fundings</taskName>
+            <declaration>
+                <ins>
+                    <var name="cct_id"/>
+                    <var name="suite_id"/>
+                </ins>
+                <outs>
+                    <var name="is_id"/>
+                </outs>
+                <props>
+                    <property name="title" value="Step 1b: Review Funding Sources" />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sd.fundings" description="Review Fundings." auto="false" access="all">
+            <actionName>action-sd.fundings</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                </ins>
+            </declaration>
+            <timer extension="60000"/>
+        </pgame>
+        
+        <pgame name="pgame-create.package.suite" description="Create a package suite." auto="true">
+            <taskName>task-create.package.suite</taskName>
+            <declaration>
+                <outs>
+                    <var name="suite_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-publish.packages" description="Publish Packages." auto="true">
+            <taskName>task-publish.packages</taskName>
+            <declaration>
+                <ins>
+                    <var name="cct_id"/>
+                    <var name="suite_id"/>
+                </ins>
+                <outs>
+                    <var name="is_id"/>
+                </outs>
+                <props>
+                    <property name="title" value="Step 4b: Review Packages" />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sd.packages" description="Review Fundings." auto="false" access="all">
+            <actionName>action-sd.packages</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                </ins>
+            </declaration>
+            <timer extension="60000"/>
+        </pgame>
+        
+    </pgames>
+    
+    
+</templates>
+
