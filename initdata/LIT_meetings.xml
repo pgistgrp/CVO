@@ -55,10 +55,12 @@
             <sequence>
                 <pmethod name="pmethod-criteria">
                     <declaration>
+                        <ins>
+                            <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                        </ins>
                         <outs>
                             <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
                             <var name="pmethod.crit_isid" ref="meeting.crit_isid"/>
-                            <var name="pmethod.cct_id" ref="meeting.cct_id"/>
                         </outs>
                     </declaration>
                 </pmethod>
