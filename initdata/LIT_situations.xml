@@ -13,20 +13,20 @@
                         </outs>
                     </declaration>
                 </meeting>
+                <meeting name="meeting-cvo">
+                    <declaration>
+                        <outs>
+                            <var name="meeting.cct_id" ref="situation.cct_id"/>
+                            <var name="meeting.is_id" ref="situation.theme_isid"/>
+                        </outs>
+                    </declaration>
+                </meeting>
                 <meeting name="meeting-criteria">
                     <declaration>
                         <outs>
                             <var name="meeting.crit_suite_id" ref="situation.crit_suite_id"/>
                             <var name="meeting.crit_isid" ref="situation.crit_isid"/>
                             <var name="meeting.cct_id" ref="situation.cct_id"/>
-                        </outs>
-                    </declaration>
-                </meeting>
-                <meeting name="meeting-cvo">
-                    <declaration>
-                        <outs>
-                            <var name="meeting.cct_id" ref="situation.cct_id"/>
-                            <var name="meeting.is_id" ref="situation.theme_isid"/>
                         </outs>
                     </declaration>
                 </meeting>
