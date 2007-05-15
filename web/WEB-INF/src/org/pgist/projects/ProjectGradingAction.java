@@ -69,18 +69,16 @@ public class ProjectGradingAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-    	String tempProjSuiteId = request.getParameter("projsuiteId");
-    	if(tempProjSuiteId != null) {
-    		Long projSuite = new Long(tempProjSuiteId);
-    		ProjectSuite suite = this.projectService.getProjectSuite(projSuite);
-    		this.projectService.updateProjectSuiteCriteria(suite);
-    		request.setAttribute("projSuite", suite);
-    	}
     	String tempCritSuiteId = request.getParameter("critsuiteId");
-    	if(tempCritSuiteId != null) {
-    		Long critSuite = new Long(tempCritSuiteId);
-    		request.setAttribute("critSuite", this.criteriaService.getCriteriaSuiteById(critSuite));
-    	}
+		Long critSuite = new Long(tempCritSuiteId);
+		request.setAttribute("critSuite", this.criteriaService.getCriteriaSuiteById(critSuite));
+
+    	
+    	String tempProjSuiteId = request.getParameter("projsuiteId");
+		Long projSuite = new Long(tempProjSuiteId);
+		ProjectSuite suite = this.projectService.getProjectSuite(projSuite);
+		this.projectService.updateProjectSuiteCriteria(suite, critSuite);
+		request.setAttribute("projSuite", suite);
     	       
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

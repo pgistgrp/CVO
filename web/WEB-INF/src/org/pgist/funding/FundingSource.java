@@ -113,7 +113,7 @@ public class FundingSource implements Serializable {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" cascade="all" 
+     * @hibernate.set lazy="true" cascade="all" order-by="id"
      * @hibernate.collection-key column="source_id"
      * @hibernate.collection-one-to-many class="org.pgist.funding.FundingSourceAlternative"
      */

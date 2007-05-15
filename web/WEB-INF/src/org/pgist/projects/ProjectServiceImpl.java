@@ -1,5 +1,6 @@
 package org.pgist.projects;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -7,6 +8,8 @@ import java.util.Map;
 
 import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaDAO;
+import org.pgist.criteria.CriteriaRef;
+import org.pgist.criteria.CriteriaSuite;
 import org.pgist.criteria.Objective;
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.CCTDAO;
@@ -398,35 +401,26 @@ public class ProjectServiceImpl implements ProjectService{
     
 	/**
 	 * Attaches the criteria to the suite
+	 * <p>
+	 * Only add the criteria from the project suite provided
 	 * 
-	 * @param	suite	The suite to attaches criteria 
+	 * @param	projSuite	The suite to attaches criteria
+	 * @param	critSuiteId	The criteria suite to add the criteria from 
 	 */
-	public void updateProjectSuiteCriteria(ProjectSuite projSuite) throws Exception {
-		Collection criterias = this.criteriaDAO.getAllCriterion();
+	public void updateProjectSuiteCriteria(ProjectSuite projSuite, Long critSuiteId) throws Exception {
 		
-//		Collection crits = criteriaDAO.getAllCriterion();		
-//		Collection objectives = criteriaDAO.getObjectives();
-//		Objective obj;
-//		
-//		Iterator iCrit = crits.iterator();
-//		Criteria crit;
-//		while(iCrit.hasNext()) {
-//			crit = (Criteria)iCrit.next();
-//			GradedCriteria gCrit = new GradedCriteria();
-//			gCrit.setCriteria(crit);
-//			Iterator i = objectives.iterator();
-//			while(i.hasNext()) {
-//				obj = (Objective)i.next();
-//				GradedObjective gObj = new GradedObjective();
-//				gObj.setObjective(obj);
-//				projectDAO.save(gObj);
-//				gCrit.getObjectives().add(gObj);
-//			}
-//			projectDAO.save(gCrit);
-//		}
+		CriteriaSuite cSuite = this.criteriaDAO.getCriteriaSuiteById(critSuiteId);
+		Collection criterias = new ArrayList();
+
+		//put the criteria temporarily into the suite
+		Iterator<CriteriaRef> iRef = cSuite.getReferences().iterator();
+		CriteriaRef tempRef;
+		while(iRef.hasNext()) {
+			tempRef = iRef.next();
+			criterias.add(tempRef.getCriterion());
+		}
 		
 		
-System.out.println("MATT: Found " + criterias.size() + " criteria");		
 		Criteria tempCrit;
 		ProjectAltRef tempAltRef;
 		Iterator<ProjectRef> projRefs = projSuite.getReferences().iterator();
@@ -434,6 +428,16 @@ System.out.println("MATT: Found " + criterias.size() + " criteria");
 			Iterator<ProjectAltRef> altRefs = projRefs.next().getAltRefs().iterator();
 			while(altRefs.hasNext()) {
 				tempAltRef = altRefs.next();
+				
+				//Clear the old ones
+				//JOHN: If they decide that they want to be able to remove 
+				//criteria from the projects after words, then you will need to 
+				//uncomment this.  That way it will clear out all the criteria that doesn't
+				//belong in the system anymore.  But, we are going to assume 
+				//that once the criteria in the suite is set, then it won't be redefined for
+				//that run of the experiment.
+				//tempAltRef.getGradedCriteria().clear();
+				
 				Iterator cIter = criterias.iterator();
 				while(cIter.hasNext()) {
 					tempCrit = (Criteria)cIter.next();
@@ -451,7 +455,6 @@ System.out.println("MATT: Found " + criterias.size() + " criteria");
 	 * @param newCrit	The new criteria to add
 	 */
 	private void addCriteria(ProjectAltRef altRef, Criteria newCrit) throws Exception {
-System.out.println("Matt 1");		
 		GradedCriteria tempCrit;
 		GradedCriteria gradedCrit = null;
 		
@@ -483,8 +486,6 @@ System.out.println("Matt 1");
 			tempObj = (Objective)objectives.next();
 			addObjective(gradedCrit, tempObj);
 		}		
-		System.out.println("Matt 3");		
-		
 	}
 	
 	/**
