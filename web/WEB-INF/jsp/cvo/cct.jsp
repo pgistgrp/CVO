@@ -710,7 +710,7 @@ $('slate').style.Height = winH;
             <!-- render suggested tags here -->
           </ul>
           <form action="javascript: addManualTag();">
-            <input id="manualTag" type="text" value="Add your own tag" onClick="if(this.value==this.defaultValue){this.value = ''}"/>
+            <input id="manualTag" type="text" size="10" value="Add your own tag" onClick="if(this.value==this.defaultValue){this.value = ''}"/>
             <input type="button" value="Add Tag" onClick="addManualTag();" />
           </form>
           <p><small>You must use at least 2 or more tags to continue.</small></p>
