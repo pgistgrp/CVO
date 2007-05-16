@@ -13,7 +13,7 @@
   <function>
     <name>verboseGradeSwitch</name>
     <function-class>org.pgist.tags.PgistELFunctions</function-class>
-    <function-signature>java.lang.String verboseGradeSwitch(java.lang.Integer)</function-signature>
+    <function-signature>java.lang.String verboseGradeSwitch(java.lang.String)</function-signature>
   </function>
     
   <function>

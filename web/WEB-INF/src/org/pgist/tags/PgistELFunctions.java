@@ -34,7 +34,8 @@ import org.pgist.cvo.Theme;
  */
 public class PgistELFunctions extends SimpleTagSupport {
 
-	public static String verboseGradeSwitch(int grade) {
+	public static String verboseGradeSwitch(String strGrade) {
+		int grade = Integer.parseInt(strGrade);
 		String result = "unknown";
 		switch (grade) {
 		case -3:
