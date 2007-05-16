@@ -20,7 +20,7 @@
                     <var name="suiteId"/>
                 </ins>
             </declaration>
-            <timer extension="30000"/>
+            <timer extension="100000"/>
         </pgame>
         
         <pgame name="pgame-create.funding.suite" description="Create a funding source suite." auto="true">
@@ -39,7 +39,7 @@
                     <var name="suiteId"/>
                 </ins>
             </declaration>
-            <timer extension="30000"/>
+            <timer extension="100000"/>
         </pgame>
         
         <pgame name="pgame-grade.projects" description="Grade Projects." auto="false" access="moderator">
@@ -49,7 +49,7 @@
                     <var name="suiteId"/>
                 </ins>
             </declaration>
-            <timer extension="30000"/>
+            <timer extension="100000"/>
         </pgame>
         
         <pgame name="pgame-create.cct" description="Create a CCT instance." auto="true">
@@ -73,7 +73,7 @@
                     <var name="cctId"/>
                 </ins>
             </declaration>
-            <timer extension="10000"/>
+            <timer extension="300000"/>
         </pgame>
         
         <pgame name="pgame-cvo.cst" description="Concerns Synthesis Tool" auto="false" access="all">
@@ -83,7 +83,7 @@
                     <var name="cctId"/>
                 </ins>
             </declaration>
-            <timer extension="10000"/>
+            <timer extension="300000"/>
         </pgame>
         
         <pgame name="pgame-publish.theme" description="Publish Themes." auto="true">
@@ -108,7 +108,7 @@
                     <var name="isid"/>
                 </ins>
             </declaration>
-            <timer extension="60000"/>
+            <timer extension="300000"/>
         </pgame>
         
         <pgame name="pgame-create.criteria.suite" description="Create a criteria suite." auto="true">
@@ -128,7 +128,7 @@
                     <var name="suiteId"/>
                 </ins>
             </declaration>
-            <timer extension="30000"/>
+            <timer extension="150000"/>
         </pgame>
         
         <pgame name="pgame-publish.criteria" description="Publish Criteria." auto="true">
@@ -154,7 +154,7 @@
                 <var name="isid"/>
             </ins>
             </declaration>
-            <timer extension="300000"/>
+            <timer extension="180000"/>
         </pgame>
         
         <pgame name="pgame-weigh.criteria" description="Weight critieria" auto="false" access="all">
@@ -164,7 +164,7 @@
                 <var name="suiteId"/>
             </ins>
             </declaration>
-            <timer extension="300000"/>
+            <timer extension="180000"/>
         </pgame>
         
         <pgame name="pgame-publish.projects" description="Publish Projects." auto="true">
@@ -190,7 +190,7 @@
                     <var name="isid"/>
                 </ins>
             </declaration>
-            <timer extension="60000"/>
+            <timer extension="300000"/>
         </pgame>
         
         <pgame name="pgame-publish.fundings" description="Publish Fundings." auto="true">
