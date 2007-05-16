@@ -32,7 +32,7 @@
 
     <action-mappings>
 
-	<action path="/userhome" scope="request" type="org.pgist.system.UserHome" />	
+	<action path="/userhome" scope="request" type="org.pgist.system.UserHomeAction" />	
 
         <action name="userForm" path="/usercp" scope="request" type="org.pgist.system.UsercpAction" />
 
