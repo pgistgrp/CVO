@@ -221,11 +221,11 @@
 			}
 			
 			function editPackageDescription(){
-				var description = $F('txtPkgDesc');
-				PackageAgent.editPackageDescription({pkgId:pkgId,description:description}, {
+				var desc = $F('txtPkgDesc');
+				PackageAgent.setManualPkgDesc({pkgId:pkgId,desc:desc}, {
 					callback:function(data){
 						if (data.successful){
-							$('pkgDesc').innerHTML = "Package " + description;
+							$('pkgDesc').innerHTML = "Package " + desc;
 							new Effect.toggle('editDesc','blind',{duration:0.2});
 						}else{
 							alert(data.reason);
@@ -374,337 +374,316 @@
 				return y;
 			}
 			function adjustMapPosition() {
-				var cont = $('newTable');
-				var map = $('themap');
-				var mapHeight = map.getHeight();
-				
-				Position.cumulativeOffset(cont);
-				Position.cumulativeOffset(map);
-				
-				var mapBottom = mapHeight + cont.offsetTop;
-				var mapWithinCont = Position.within(cont,map.offsetLeft,mapBottom);
-				
-				if(mapWithinCont){
-					alert("go!")
-				}
-				//alert(mapBottom)
-				
 				if(document.body.scrollTop < mapPositionTop){
 					document.getElementById('themap').style.top = (mapPositionTop + 30) + "px";
 				}else{
 					document.getElementById('themap').style.top  = (document.body.scrollTop + 30) + "px";
 				}
+				
 			}
 	/* *************** END MAPPING FUNCTIONS *************** */
 </script>
 </head>
 
 <body onresize="adjustMapPosition();" onscroll="adjustMapPosition();" onload="load()" onunload="clearMemory();">
-<div id="header">
-	<!-- Begin header -->
-	<jsp:include page="/header.jsp" />
-	<!-- End header -->
-</div>
-<!-- End header -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-<div id="headerMenu">
-	<div id="headerContainer">
-		<div id="headerTitle" class="floatLeft">
-			<h3 class="headerColor">Step 3: Create Packages</h3>
-		</div>
-		<div class="headerButton floatLeft "> <a href="step3a.html">3a: Review projects</a> </div>
-		<div class="headerButton floatLeft "> <a href="step3b.html">3b: Review funding
-				options</a> </div>
-		<div class="headerButton floatLeft currentBox "> <a href="step3c.html">3c: Create
-				your own package</a> </div>
-		<div id="headerNext" class="floatRight box5"> <a href="step3b.html">Next Step</a> </div>
-	</div>
-</div>
-<!-- End header menu -->
-<!-- #container is the container that wraps around all the main page content -->
-<div id="container">
-	<!-- begin "overview and instructions" area -->
-	<div id="overview" class="box2">
-		<h3>Overview and Instructions</h3>
-		<p>Criteria are used to help Evaluate which proposed transportation projects are
-			best suited to address problems with our transportation system. Below, these criteria
-			have been associated with the concern themes discussed in the previous step. Please
-			review these criteria and the associated themes. Do these criteria adequately
-			reflect your concerns and the summaries? What criteria might be useful in evaluating
-			proposed transportation projects?</p>
-		<p><a href="readmore.jsp">Read more about how this step fits into the bigger picture</a>.</p>
-	</div>
-	<!-- end overview -->
-	<!-- begin Object -->
-	<div id="object">
-		<!-- begin NewTable-->
-		<div id="newTable">
-			<div id="left" class="floatLeft">
-				<!-- begin TOP SUMMARY -->
-				<div id="yourSummary" class="summary">
-					<!-- summary goes here -->
-				</div>
-				<!-- end TOP SUMMARY -->
-				<div class="clearBoth"></div>
-				<br />
-				<h3 id="pkgDesc" class="headerColor">${(package.description == null) ? "Create Your Package" : package.description}</h3>
-				<c:choose>
-					<c:when test="${userPkg.id != null}">
-						<input type="button" class="helpMeButton" onClick="new Effect.toggle('helpMe', 'blind', {duration:0.3})" value="Help me create a package" />
-					</c:when>
-					<c:otherwise>
-						[ <small><a href="javascript:new Effect.toggle('editDesc','blind',{duration:0.2});void(0);">Edit Package Description</a> ]</small>
-						</p>
-						<div id="editDesc" style="display:none" class="box12">
-							<h3>Editing Description</h3>
-							<form action="javascript:editPackageDescription();">
-								<input type="text" id="txtPkgDesc" style="width:250px" value="${package.description}" />
-								<input type="submit" value="Edit Description!" />
-							</form>
-						</div>
-						</p>
-					</c:otherwise>
-				</c:choose>
+	<div id="header">
+		<!-- Begin header -->
+		<jsp:include page="/header.jsp" />
+	</div> <!-- End header -->
+
+	<!-- Begin header menu - The wide ribbon underneath the logo -->
+	<div id="headerMenu">
+		<div id="headerContainer">
+			<div id="headerTitle" class="floatLeft">
+				<h3 class="headerColor">Step 3: Create Packages</h3>
+			</div><!-- end headerTitle-->
+			<div class="headerButton floatLeft "> <a href="step3a.html">3a: Review projects</a> </div>
+			<div class="headerButton floatLeft "> <a href="step3b.html">3b: Review funding options</a> </div>
+			<div class="headerButton floatLeft currentBox "> <a href="step3c.html">3c: Create your own package</a> </div>
+			<div id="headerNext" class="floatRight box5"> <a href="step3b.html">Next Step</a> </div>
+		</div> <!-- end headercontainer -->
+	</div> <!-- End header menu -->
+	
+	<!-- #container is the container that wraps around all the main page content -->
+	<div id="container">
+		<!-- begin "overview and instructions" area -->
+		<div id="overview" class="box2">
+			<h3>Overview and Instructions</h3>
+			<p>Criteria are used to help Evaluate which proposed transportation projects are
+				best suited to address problems with our transportation system. Below, these criteria
+				have been associated with the concern themes discussed in the previous step. Please
+				review these criteria and the associated themes. Do these criteria adequately
+				reflect your concerns and the summaries? What criteria might be useful in evaluating
+				proposed transportation projects?</p>
+			<p><a href="readmore.jsp">Read more about how this step fits into the bigger picture</a>.</p>
+		</div> <!-- end overview -->
+		
+		<!-- begin Object -->
+		<div id="object">
+			<!-- begin NewTable-->
+			<div id="newTable">
+				<div id="left" class="floatLeft">
+					<div id="yourSummary" class="summary">
+						<!-- summary goes here -->
+					</div> <!-- end yoursummary -->
+					<div class="clearBoth"></div>
+					<br />
+					<h3 id="pkgDesc" class="headerColor">${(package.description == null) ? "Create Your Package" : package.description}</h3>
+					<c:choose>
+						<c:when test="${userPkg.id != null}">
+							<input type="button" class="helpMeButton" onClick="new Effect.toggle('helpMe', 'blind', {duration:0.3})" value="Help me create a package" />
+						</c:when>
+						<c:otherwise>
+							[ <small><a href="javascript:new Effect.toggle('editDesc','blind',{duration:0.2});void(0);">Edit Package Description</a> ]</small>
+							<div id="editDesc" style="display:none" class="box12">
+								<h3>Editing Description</h3>
+								<form action="javascript:editPackageDescription();">
+									<input type="text" id="txtPkgDesc" style="width:250px" value="${package.description}" />
+									<input type="submit" value="Edit Description!" />
+								</form>
+							</div>
+						</c:otherwise>
+					</c:choose>
 
 					<div id="helpMe" style="display:none;">
 						<p>Using the information you provided during registration, we can put together
 							a package for you automatically. Any projects and funding sources you've already
 							selected will be included in this package.</p>
 						<form action="javascript:createMyPackage();">
-						<h4>Cost per year</h4>
-							<div class="floatLeft" style="width:60%">
-								<label> What's the most you would be willing to pay to fund this package? </label>
-							</div>
-							<div class="floatRight"> <span style="font-size:1.3em;">$
-								<input type="text" size="3" id="mylimit" /></span>
-							</div>
+							<h4>Cost per year</h4>
+							<div class="floatLeft" style="width:60%"><label> What's the most you would be willing to pay to fund this package? </label></div>
+							<div class="floatRight"> <span style="font-size:1.3em;">$<input type="text" size="3" id="mylimit" /></span></div>
 							<div class="clearBoth"></div>
-							<div style="margin-top:15px;" class="floatLeft">
-							<input type="submit" class="floatLeft padding5" value="Create a package"/>
-							<div class="floatRight"><a href="javascript:window.open('tuner.do?usrPkgId=${userPkg.id}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}','helpMe','width=1000,height=500,resizable=yes,scrollbars=yes'); void(0);"> <img src="images/tuneup.gif">Fine
-									tune a package</a></div>
+							<div style="margin-top:15px;" class="floatLeft"><input type="submit" class="floatLeft padding5" value="Create a package"/></div>
+							<div class="floatRight"><a href="javascript:window.open('tuner.do?usrPkgId=${userPkg.id}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}','helpMe','width=1000,height=500,resizable=yes,scrollbars=yes'); void(0);"> <img src="images/tuneup.gif">Fine tune a package</a></div>
 						</form>
-					</div>
-				<div class="clearBoth"></div>
-			</div>
-			<!-- begin collapsible list of projects -->
-			<table cellpadding=0 cellspacing=0>
-				<!-- begin CATEGORY LABEL -->
-				<tr class="tableHeading">
-					<th colspan="2" class="first">All Proposed Projects</th>
-					<th>Money Needed</th>
-				</tr>
-				<c:forEach var="category" begin="1" end="2">
-					<!-- start road projects -->
-					<tr>
-						<c:choose>
-							<c:when test="${category == 1}">
-								<td class="category" colspan="3"><strong>Road Projects</strong></td>
-							</c:when>
-							<c:otherwise>
-								<td class="category" colspan="3"><strong>Transit Projects</strong></td>
-							</c:otherwise>
-						</c:choose>
-					</tr>
-					<!-- end CATEGORY LABEL -->
-					<!-- ******* LOOP ENTIRE PROJECT ******** -->
-					<c:forEach var="projectRef" items="${projectRefs}" varStatus="loop">
-						<c:if test="${projectRef.project.transMode == category}">
-							<!-- begin PROJECT -->
-							<tr class="${(projectRef.project.inclusive) ? 'fundingType' : 'fundingType2'}">
-								<td class="fundingSourceItem">${projectRef.project.name} Options</td>
-								<td colspan="2"> ${(projectRef.project.inclusive) ? 'Select at most one'
-									: 'Select any number'} </td>
+					</div><!--end help me-->
+					<div class="clearBoth"></div>
+
+					<!-- begin collapsible list of projects -->
+					<table cellpadding=0 cellspacing=0>
+						<tr class="tableHeading">
+							<th colspan="2" class="first">All Proposed Projects</th>
+							<th>Money Needed</th>
+						</tr>
+						<c:forEach var="category" begin="1" end="2">
+							<!-- start road projects -->
+							<tr>
+								<c:choose>
+									<c:when test="${category == 1}">
+										<td class="category" colspan="3"><strong>Road Projects</strong></td>
+									</c:when>
+									<c:otherwise>
+										<td class="category" colspan="3"><strong>Transit Projects</strong></td>
+									</c:otherwise>
+								</c:choose>
 							</tr>
-							<!-- end PROJECT -->
-							<tr class="objectives" id="objective${projectRef.id}">
-								<td colspan="3">
-									<table>
-										<c:set var="doNothing"value="true"/>
-										<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
-											<script type="text/javascript" charset="utf-8">
-											fpidlist += "," + "${altRef.alternative.fpids}";
-											prjaltlist.push({"name":"${altRef.alternative.name}", 
-													"id":"${altRef.alternative.id}",
-													"cost":"${altRef.alternative.cost}", 
-													"mode":"${altRef.alternative.project.transMode}",
-													"fpids":"${altRef.alternative.fpids}",
-													"selected":${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "true" : "false"}
-													});
-											</script>
-											<tr>
-												<td>
-													<label>
-													<c:choose>
-														<c:when test="${projectRef.project.inclusive}">
+							<!-- end CATEGORY LABEL -->
+							<!-- ******* LOOP ENTIRE PROJECT ******** -->
+							<c:forEach var="projectRef" items="${projectRefs}" varStatus="loop">
+								<c:if test="${projectRef.project.transMode == category}">
+									<!-- begin PROJECT -->
+									<tr class="${(projectRef.project.inclusive) ? 'fundingType' : 'fundingType2'}">
+										<td class="fundingSourceItem">${projectRef.project.name} Options</td>
+										<td colspan="2"> ${(projectRef.project.inclusive) ? 'Select at most one' : 'Select any number'} </td>
+									</tr>
+									<!-- end PROJECT -->
+									<tr class="objectives" id="objective${projectRef.id}">
+										<td colspan="3">
+											<table>
+												<c:set var="doNothing"value="true"/>
+												<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
+													<script type="text/javascript" charset="utf-8">
+													fpidlist += "," + "${altRef.alternative.fpids}";
+													prjaltlist.push({"name":"${altRef.alternative.name}", 
+															"id":"${altRef.alternative.id}",
+															"cost":"${altRef.alternative.cost}", 
+															"mode":"${altRef.alternative.project.transMode}",
+															"fpids":"${altRef.alternative.fpids}",
 															<c:choose>
 																<c:when test="${userPkg != null}">
-																	<input type="radio" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" />
+																	"selected":${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "true" : "false"}
 																</c:when>
 																<c:otherwise>
-																	<input type="radio" ${(pg:containsProjAltRef(package.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" />
-																</c:otherwise>
-															</c:choose>
-														</c:when>
-														<c:otherwise>
-															<c:choose>
-																<c:when test="${userPkg != null}">
-																	<input type="checkbox" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToPkg('${altRef.id}', this.checked, '${altRef.alternative.id}');" />
-																</c:when>
-																<c:otherwise>
-																	<input type="checkbox" ${(pg:containsProjAltRef(package.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToPkg('${altRef.id}', this.checked,'${altRef.alternative.id}');" />
+																	"selected":${(pg:containsProjAltRef(package.projAltRefs,altRef.id)) ? "true" : "false"}
 																</c:otherwise>
 															</c:choose>
 															
-														</c:otherwise>
-													</c:choose>
-													${altRef.alternative.name}</label>
-												</td>
-												<td class="cost"><fmt:formatNumber type="currency">${altRef.alternative.cost}</fmt:formatNumber> million</td>
-											</tr>
-											<c:if test="${pg:contains(userPkg.projAltRefs,altRef) && userPkg != null}">
-												<c:set var="doNothing"value="false"/>
-											</c:if>
-										</c:forEach>
-										<c:if test="${projectRef.project.inclusive}">
-											<tr>
-												<td>
-													<label>
-													<input type="radio" ${(doNothing) ? "checked" : ""}  onchange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" name="project-${projectRef.project.id}"  />
-													Do nothing</label>
-												</td>
-												<td class="cost">&nbsp;</td>
-											</tr>
-										</c:if>
-									</table>
-								</td>
+															});
+													</script>
+													<tr>
+														<td>
+															<label>
+															<c:choose>
+																<c:when test="${projectRef.project.inclusive}">
+																	<c:choose>
+																		<c:when test="${userPkg != null}">
+																			<input type="radio" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" />
+																		</c:when>
+																		<c:otherwise>
+																			<input type="radio" ${(pg:containsProjAltRef(package.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" />
+																		</c:otherwise>
+																	</c:choose>
+																</c:when>
+																<c:otherwise>
+																	<c:choose>
+																		<c:when test="${userPkg != null}">
+																			<input type="checkbox" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToPkg('${altRef.id}', this.checked, '${altRef.alternative.id}');" />
+																		</c:when>
+																		<c:otherwise>
+																			<input type="checkbox" ${(pg:containsProjAltRef(package.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToPkg('${altRef.id}', this.checked,'${altRef.alternative.id}');" />
+																		</c:otherwise>
+																	</c:choose>
+															
+																</c:otherwise>
+															</c:choose>
+															${altRef.alternative.name}</label>
+														</td>
+														<td class="cost"><fmt:formatNumber type="currency">${altRef.alternative.cost}</fmt:formatNumber> million</td>
+													</tr>
+													<c:if test="${pg:contains(userPkg.projAltRefs,altRef) && userPkg != null}">
+														<c:set var="doNothing"value="false"/>
+													</c:if>
+												</c:forEach>
+												<c:if test="${projectRef.project.inclusive}">
+													<tr>
+														<td>
+															<label>
+															<input type="radio" ${(doNothing) ? "checked" : ""}  onchange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" name="project-${projectRef.project.id}"  />
+															Do nothing</label>
+														</td>
+														<td class="cost">&nbsp;</td>
+													</tr>
+												</c:if>
+											</table>
+										</td>
+									</tr>
+								</c:if>
+							</c:forEach>
+							<!-- ******* END LOOP ENTIRE PROJECT ******** -->
+						</c:forEach>
+					</table>
+					
+					<br />
+					
+					<!-- end collapsible project list -->
+					<table cellpadding="0" cellspacing="0">
+						<tr class="tableHeading">
+							<th class="first">Funding Source</th>
+							<th>Money Raised</th>
+							<th>Cost to the avg. taxpayer</th>
+							<c:if test="${userPkg != null}">
+								<th>Cost to you</th>
+							</c:if>
+						</tr>
+						<!-- begin FUNDING source -->
+						<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
+							<tr class="fundingType">
+								<td class="fundingSourceItem">${fundingRef.source.name}</td>
+								<td colspan="3">One option will be chosen</td>
 							</tr>
-						</c:if>
-					</c:forEach>
-					<!-- ******* END LOOP ENTIRE PROJECT ******** -->
-				</c:forEach>
-			</table>
-			<!-- end collapsible project list -->
-			<br />
-			<table cellpadding="0" cellspacing="0">
-				<tr class="tableHeading">
-					<th class="first">Funding Source</th>
-					<th>Money Raised</th>
-					<th>Cost to the avg. taxpayer</th>
-					<c:if test="${userPkg != null}">
-						<th>Cost to you</th>
-					</c:if>
-				</tr>
-				<!-- begin FUNDING source -->
-				<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
-					<tr class="fundingType">
-						<td class="fundingSourceItem">${fundingRef.source.name}</td>
-						<td colspan="3">One option will be chosen</td>
-					</tr>
-					<!-- end FUNDING source -->
-					<!-- begin OPTIONS -->
-					<c:set var="doNothing"value="true"/>
-					<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
-						<tr>
-							<td class="fundingSourceItem">
-								<label>
+							<!-- end FUNDING source -->
+							<!-- begin OPTIONS -->
+							<c:set var="doNothing"value="true"/>
+							<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
+								<tr>
+									<td class="fundingSourceItem">
+										<label>
+										<c:choose>
+											<c:when test="${userPkg !=null}">
+												<input type="radio" ${(pg:containsFundAltRef(userPkg.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
+											</c:when>
+											<c:otherwise>
+												<input type="radio" ${(pg:containsFundAltRef(package.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
+											</c:otherwise>
+										</c:choose>
+
+										${altRef.alternative.name}</label>
+									</td>
+									<td><fmt:formatNumber type="currency">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
+									<td><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
+									<c:if test="${userPkg != null}">
+										<td><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
+									</c:if>						
+								</tr>
 								<c:choose>
-									<c:when test="${userPkg !=null}">
-										<input type="radio" ${(pg:containsFundAltRef(userPkg.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
+									<c:when test="${userPkg != null}">
+										<c:if test="${pg:contains(userPkg.fundAltRefs,altRef)}">
+											<c:set var="doNothing"value="false"/>
+										</c:if>
 									</c:when>
 									<c:otherwise>
-										<input type="radio" ${(pg:containsFundAltRef(package.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
+										<c:if test="${pg:contains(package.fundAltRefs,altRef)}">
+											<c:set var="doNothing"value="false"/>
+										</c:if>
 									</c:otherwise>
 								</c:choose>
-								${altRef.alternative.name}</label>
-							</td>
-							<td><fmt:formatNumber type="currency">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
-							<td><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
-							<c:if test="${userPkg != null}">
-								<td><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
-							</c:if>						
-						</tr>
-						<c:choose>
-							<c:when test="${userPkg != null}">
-								<c:if test="${pg:contains(userPkg.fundAltRefs,altRef)}">
-									<c:set var="doNothing"value="false"/>
+							</c:forEach>
+							<tr>
+								<td class="fundingSourceItem">
+									<label>
+									<input type="radio" ${(doNothing) ? "CHECKED" : ""} name="source-${fundingRef.source.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
+									Do nothing</label>
+								</td>
+								<td class="cost">&nbsp;</td>
+								<td class="cost">&nbsp;</td>
+								<c:if test="${userPkg != null}">
+								<td class="cost">&nbsp;</td>
 								</c:if>
-							</c:when>
-							<c:otherwise>
-								<c:if test="${pg:contains(package.fundAltRefs,altRef)}">
-									<c:set var="doNothing"value="false"/>
-								</c:if>
-							</c:otherwise>
-						</c:choose>
-
-					</c:forEach>
-					<tr>
-						<td class="fundingSourceItem">
-							<label>
-							<input type="radio" ${(doNothing) ? "CHECKED" : ""} name="source-${fundingRef.source.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
-							Do nothing</label>
-						</td>
-						<td class="cost">&nbsp;</td>
-						<td class="cost">&nbsp;</td>
-						<c:if test="${userPkg != null}">
-						<td class="cost">&nbsp;</td>
-						</c:if>
-					</tr>
-				</c:forEach>
-				<!-- end OPTIONS -->
-			</table>
+							</tr>
+						</c:forEach>
+						<!-- end OPTIONS -->
+					</table>
+			</div><!-- end left -->
+			<!-- begin cell containing #right -->
+			<div id="right" class="floatRight">
+				<!-- begin GOOGLE MAP -->
+				<div id="themap" style="position:absolute">
+					<!-- load the map here -->
+				</div>
+				<!-- end GOOGLE MAP -->
+			</div>
 		</div>
-		<!-- end left -->
-		<!-- begin cell containing #right -->
-		<div id="right" class="floatRight">
-			<!-- begin GOOGLE MAP -->
-			<div id="themap" style="position:absolute"> </div>
-			<!-- end GOOGLE MAP -->
-
+		<!-- end NewTable-->
+	</div>
+	<!-- end Object-->
+	<div class="clearBoth"></div>
+	<!-- begin TOP SUMMARY -->
+	<div id="yourSummaryRepeat" class="summary">
+		<!-- load summary here -->
+	</div>
+	<!-- end TOP SUMMARY -->
+	<div class="clearBoth"></div>
+	</div>
+	<!-- end container -->
+	<!-- start feedback form -->
+	<pg:feedback id="feedbackDiv" action="cctView.do"/>
+	<!-- end feedback form -->
+	<!-- Begin header menu - The wide ribbon underneath the logo -->
+	<div id="headerMenu">
+		<div id="headerContainer">
+			<div id="headerTitle" class="floatLeft">
+				<h3 class="headerColor">Step 3: Create Packages</h3>
+			</div>
+			<div class="headerButton floatLeft "> <a href="step3a.html">3a: Review projects</a> </div>
+			<div class="headerButton floatLeft "> <a href="step3b.html">3b: Review funding options</a> </div>
+			<div class="headerButton floatLeft currentBox"> <a href="step3c.html">3c: Create your own package</a> </div>
+			<div id="headerNext" class="floatRight box5"> <a href="step3b.html">Next Step</a> </div>
 		</div>
 	</div>
-	<!-- end NewTable-->
-</div>
-<!-- end Object-->
-<div class="clearBoth"></div>
-<!-- begin TOP SUMMARY -->
-<div id="yourSummaryRepeat" class="summary">
-	<!-- load summary here -->
-</div>
-<!-- end TOP SUMMARY -->
-<div class="clearBoth"></div>
-</div>
-<!-- end container -->
-<!-- start feedback form -->
-<pg:feedback id="feedbackDiv" action="cctView.do"/>
-<!-- end feedback form -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-<div id="headerMenu">
-	<div id="headerContainer">
-		<div id="headerTitle" class="floatLeft">
-			<h3 class="headerColor">Step 3: Create Packages</h3>
-		</div>
-		<div class="headerButton floatLeft "> <a href="step3a.html">3a: Review projects</a> </div>
-		<div class="headerButton floatLeft "> <a href="step3b.html">3b: Review funding
-				options</a> </div>
-		<div class="headerButton floatLeft currentBox"> <a href="step3c.html">3c: Create
-				your own package</a> </div>
-		<div id="headerNext" class="floatRight box5"> <a href="step3b.html">Next Step</a> </div>
+	<!-- End header menu -->
+	<!-- Begin footer -->
+	<div id="footer">
+		<jsp:include page="/footer.jsp" />
 	</div>
-</div>
-<!-- End header menu -->
-<!-- Begin footer -->
-<div id="footer">
-	<jsp:include page="/footer.jsp" />
-</div>
-<!-- End footer -->
-<script type="text/javascript" charset="utf-8">
-	if (userPkg) {
-		getSummary();	
-	} else{
-		getClusteredSummary();
-	}
-</script>
+	<!-- End footer -->
+	<script type="text/javascript" charset="utf-8">
+		if (userPkg) {
+			getSummary();	
+		} else{
+			getClusteredSummary();
+		}
+	</script>
 </body>
 </html>
 
