@@ -762,7 +762,7 @@ public class PackageServiceImpl implements PackageService {
 		
 		HashMap<Criteria, Integer> crits = createPersonalCritsMap(cSuite, user);
 
-		viewCritMap(crits);
+		//viewCritMap(crits);
 		
 		//Return NA if there are no criteria associated to this project
 		if(gradedC.size() == 0 || crits.size() == 0) return "NA";
@@ -821,7 +821,7 @@ public class PackageServiceImpl implements PackageService {
 		
 		HashMap<Criteria, Integer> crits = createEveryoneCritsMap(cSuite, user);
 
-		viewCritMap(crits);
+		//viewCritMap(crits);
 		
 		//Return NA if there are no criteria associated to this project
 		if(gradedC.size() == 0 || crits.size() == 0) return "NA";
@@ -833,7 +833,6 @@ public class PackageServiceImpl implements PackageService {
 			gc = iGC.next();
 			total = total + (gc.getValue()*crits.get(gc.getCriteria()))/100;
 		}
-		System.out.println("MATT: TOTAL = " + total);
 		return GradedCriteria.convertGrade(total);
 	}
 	
@@ -852,7 +851,7 @@ public class PackageServiceImpl implements PackageService {
 
 			tempRef = iRef.next();
 			tempWeight = (CriteriaUserWeight)cSuite.getWeights().get(tempRef);
-			if(tempWeight.getWeights().size() < 0) {
+			if(tempWeight.getWeights().size() > 0) {
 				value = 0;
 				iValues = tempWeight.getWeights().values().iterator();
 				while(iValues.hasNext()) {
