@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 import org.pgist.criteria.Criteria;
@@ -456,88 +455,6 @@ public class PackageServiceImpl implements PackageService {
 		this.packageDAO.save(pkg);		
 	}
 
-
-	/* (non-Javadoc)
-	 * @see org.pgist.packages.PackageService#formPackageRoadProjectDTOs(org.pgist.packages.ClusteredPackage)
-	 */
-	public List<ProjectDTO> createPackageRoadProjectDTOs(ClusteredPackage cPackage, long critSuiteId, long projSuiteId) throws Exception {
-		List<ProjectDTO> result = new ArrayList<ProjectDTO>();
-		Random rand = new Random(System.currentTimeMillis());
-		
-		//Only show the projects that are in the package, but you need to find the projects in the suite that contain them
-		
-		//First put all of the project in a hash with the key being the alternativeID, we will use this to lookup the correct
-		//source
-		ProjectSuite fSuite = this.projectDAO.getProjectSuite(projSuiteId);
-		HashMap<Long, Project> sources = new HashMap<Long, Project>();
-		Iterator<ProjectRef> iRefs = fSuite.getReferences().iterator();
-		Project tempProject;
-		Iterator<ProjectAlternative> iProjectAlts;
-		
-		while(iRefs.hasNext()) {
-			tempProject = iRefs.next().getProject();
-			iProjectAlts = tempProject.getAlternatives().iterator();
-			while(iProjectAlts.hasNext()) {
-				sources.put(iProjectAlts.next().getId(), tempProject);
-			}
-		}
-				
-		//Now loop through the alternatives in the package and create the dto
-		Iterator<ProjectAltRef> iProjectAltRefs = cPackage.projAltRefs.iterator();
-		ProjectAltRef tempAltRef;
-		ProjectAlternative tempAlt;
-		ProjectAlternativeDTO tempAltDTO;
-		
-		while(iProjectAltRefs.hasNext()) {
-			tempAltRef = iProjectAltRefs.next();
-			tempAlt = tempAltRef.getAlternative();
-						
-			if(tempAlt.getGeoType() == ProjectAlternative.PGIST_PROJECT_MODE_ROAD) {
-				//Now pull the source back out of the hash 
-				tempProject = sources.get(tempAlt.getId());
-				
-				if(tempProject == null) {
-					System.out.println("ERROR: A alternative with no parent was found in the clustered package");
-				} else {
-					//Create a new DTO
-					ProjectDTO fsDTO = new ProjectDTO(tempProject);
-
-					//See if it has already been added to the result
-					if(result.contains(fsDTO)) {
-						fsDTO = result.get(result.indexOf(fsDTO));
-					} else {
-						result.add(fsDTO);
-					}
-					
-					//Add the new alternative
-					tempAltDTO = new ProjectAlternativeDTO(tempAlt);
-					tempAltDTO.setAvgGrade(GradedCriteria.convertGrade(rand.nextFloat() * 100));
-					tempAltDTO.setProjGrade(GradedCriteria.convertGrade(rand.nextFloat() * 100));
-					tempAltDTO.setYourGrade(GradedCriteria.convertGrade(rand.nextFloat() * 100));
-					fsDTO.getProjectAlternatives().add(tempAltDTO);
-					
-					//Sort it
-					fsDTO.sort();
-				}				
-			}			
-		}
-		Collections.sort(result);
-		return result;
-	}
-
-	private String getProjectGrade() {
-		//Average all of the grades related to this project
-		return "";
-	}
-	private String getYourGrade() {
-		//Muliply the criteria value by the graded value for the Criteria on each Package, then sum it
-		return "";
-	}
-	
-	private String getAvgGrade() {
-		//Average all of the weights of all the users and then do the same thing as in your grade
-		return "";
-	}
 	
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#setVotes(java.lang.Long, java.util.HashMap)
@@ -635,15 +552,82 @@ public class PackageServiceImpl implements PackageService {
 		this.packageDAO.save(vSuite);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.pgist.packages.PackageService#formPackageRoadProjectDTOs(org.pgist.packages.ClusteredPackage)
+	 */
+	public List<ProjectDTO> createPackageRoadProjectDTOs(ClusteredPackage cPackage, long critSuiteId, long projSuiteId, User user) throws Exception {
+		List<ProjectDTO> result = new ArrayList<ProjectDTO>();
+		
+		//Get the criteria suite
+		CriteriaSuite cSuite = this.criteriaDAO.getCriteriaSuiteById(critSuiteId);
+				
+		//First put all of the project in a hash with the key being the alternativeID, we will use this to lookup the correct
+		//source
+		ProjectSuite fSuite = this.projectDAO.getProjectSuite(projSuiteId);
+		HashMap<Long, Project> sources = new HashMap<Long, Project>();
+		Iterator<ProjectRef> iRefs = fSuite.getReferences().iterator();
+		Project tempProject;
+		Iterator<ProjectAlternative> iProjectAlts;
+		
+		while(iRefs.hasNext()) {
+			tempProject = iRefs.next().getProject();
+			iProjectAlts = tempProject.getAlternatives().iterator();
+			while(iProjectAlts.hasNext()) {
+				sources.put(iProjectAlts.next().getId(), tempProject);
+			}
+		}
+				
+		//Now loop through the alternatives in the package and create the dto
+		Iterator<ProjectAltRef> iProjectAltRefs = cPackage.projAltRefs.iterator();
+		ProjectAltRef tempAltRef;
+		ProjectAlternative tempAlt;
+		ProjectAlternativeDTO tempAltDTO;
+		
+		while(iProjectAltRefs.hasNext()) {
+			tempAltRef = iProjectAltRefs.next();
+			tempAlt = tempAltRef.getAlternative();
+						
+			if(tempAlt.getGeoType() == ProjectAlternative.PGIST_PROJECT_MODE_ROAD) {
+				//Now pull the source back out of the hash 
+				tempProject = sources.get(tempAlt.getId());
+				
+				if(tempProject == null) {
+					System.out.println("ERROR: A alternative with no parent was found in the clustered package");
+				} else {
+					//Create a new DTO
+					ProjectDTO fsDTO = new ProjectDTO(tempProject);
+
+					//See if it has already been added to the result
+					if(result.contains(fsDTO)) {
+						fsDTO = result.get(result.indexOf(fsDTO));
+					} else {
+						result.add(fsDTO);
+					}
+					
+					//Add the new alternative
+					tempAltDTO = new ProjectAlternativeDTO(tempAlt);
+					tempAltDTO.setProjGrade(getProjectGrade(tempAltRef));
+					tempAltDTO.setAvgGrade(getAvgGrade(tempAltRef, cSuite, user));
+					tempAltDTO.setYourGrade(getYourGrade(tempAltRef, cSuite, user));
+					fsDTO.getProjectAlternatives().add(tempAltDTO);
+					
+					//Sort it
+					fsDTO.sort();
+				}				
+			}			
+		}
+		Collections.sort(result);
+		return result;
+	}
 	
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#formPackageTransitProjectDTOs(org.pgist.packages.ClusteredPackage)
 	 */
-	public List<ProjectDTO> createPackageTransitProjectDTOs(ClusteredPackage cPackage, long critSuiteId, long projSuiteId) throws Exception {
+	public List<ProjectDTO> createPackageTransitProjectDTOs(ClusteredPackage cPackage, long critSuiteId, long projSuiteId, User user) throws Exception {
 		List<ProjectDTO> result = new ArrayList<ProjectDTO>();
-		Random rand = new Random(System.currentTimeMillis());
 		
-		//Only show the projects that are in the package, but you need to find the projects in the suite that contain them
+		//Get the criteria suite
+		CriteriaSuite cSuite = this.criteriaDAO.getCriteriaSuiteById(critSuiteId);
 		
 		//First put all of the project in a hash with the key being the alternativeID, we will use this to lookup the correct
 		//source
@@ -690,9 +674,9 @@ public class PackageServiceImpl implements PackageService {
 					
 					//Add the new alternative
 					tempAltDTO = new ProjectAlternativeDTO(tempAlt);
-					tempAltDTO.setAvgGrade(GradedCriteria.convertGrade(rand.nextFloat() * 100));
-					tempAltDTO.setProjGrade(GradedCriteria.convertGrade(rand.nextFloat() * 100));
-					tempAltDTO.setYourGrade(GradedCriteria.convertGrade(rand.nextFloat() * 100));
+					tempAltDTO.setProjGrade(getProjectGrade(tempAltRef));
+					tempAltDTO.setAvgGrade(getAvgGrade(tempAltRef, cSuite, user));
+					tempAltDTO.setYourGrade(getYourGrade(tempAltRef, cSuite, user));
 					fsDTO.getProjectAlternatives().add(tempAltDTO);
 					
 					//Sort it
@@ -703,25 +687,6 @@ public class PackageServiceImpl implements PackageService {
 		Collections.sort(result);
 		return result;
 	}
-
-	/* (non-Javadoc)
-	 * @see org.pgist.packages.PackageService#gradeMyPackage(org.pgist.packages.ClusteredPackage, long)
-	 */
-//	public void gradeMyPackage(ClusteredPackage cPackage, User user, long critSuiteId, long fundSuiteId) throws Exception {
-//		this.calcUserValues(cPackage, user, fundSuiteId);
-//		
-//		
-//		
-//		Iterator<ProjectAltRef> refs = cPackage.getProjAltRefs().iterator();
-//		ProjectAltRef tempRef;
-//		//TODO actually form a grade
-//		while(refs.hasNext()) {
-//			tempRef = refs.next();
-//			cPackage.getProjGrades().put(tempRef.getId(), );
-//			cPackage.getAvgGrades().put(tempRef.getId(), GradedCriteria.convertGrade(rand.nextFloat() * 100));
-//			cPackage.getYourGrades().put(tempRef.getId(), GradedCriteria.convertGrade(rand.nextFloat() * 100));
-//		}		
-//	}
 
 	
     public User getUser(UserInfo userInfo) throws Exception {
@@ -764,6 +729,141 @@ public class PackageServiceImpl implements PackageService {
 		return uPack;
 	}
 
+	/**
+	 * Figures out the composite grade for the entire project by averaging the graded criteria
+	 * 
+	 * @param altRef
+	 * @return
+	 */
+	private String getProjectGrade(ProjectAltRef altRef) {
+		Set<GradedCriteria> gradedC = altRef.getGradedCriteria();
+		//Return NA if there are no criteria associated to this project
+		if(gradedC.size() == 0) return "NA";
+		Iterator<GradedCriteria> iGC = gradedC.iterator();
+		GradedCriteria gc;
+		float total = 0;
+		while(iGC.hasNext()) {
+			gc = iGC.next();
+			total = total + gc.getValue();
+		}
+		total = total/gradedC.size();
+		return GradedCriteria.convertGrade(total);
+	}
+	
+	/**
+	 * Figures out your grade by weighting your criteria against the 
+	 * grades that were assigned to the project.
+	 * 
+	 * @param altRef
+	 * @return
+	 */
+	private String getYourGrade(ProjectAltRef altRef, CriteriaSuite cSuite, User user) {
+		Set<GradedCriteria> gradedC = altRef.getGradedCriteria();
+		
+		HashMap<Criteria, Integer> crits = createPersonalCritsMap(cSuite, user);
+
+		viewCritMap(crits);
+		
+		//Return NA if there are no criteria associated to this project
+		if(gradedC.size() == 0 || crits.size() == 0) return "NA";
+		
+		Iterator<GradedCriteria> iGC = gradedC.iterator();
+		GradedCriteria gc;
+		float total = 0;
+		while(iGC.hasNext()) {
+			gc = iGC.next();
+			total = total + (gc.getValue()*crits.get(gc.getCriteria()))/100;
+		}
+		return GradedCriteria.convertGrade(total);
+	}
+
+	public static void viewCritMap(HashMap<Criteria, Integer> crits) {
+		System.out.println("MATT: Showing Criteria with size " + crits.size());
+		Iterator<Criteria> iCrit = crits.keySet().iterator();
+		Criteria tempCrit;
+		while(iCrit.hasNext()) {
+			tempCrit = iCrit.next();
+			System.out.println("MATT: Criteria " + tempCrit.getName() + " value = " + (Integer)crits.get(tempCrit));
+		}
+	}
+	
+	/**
+	 * Creates a map of all the criteria and the value this user assigned
+	 */
+	private HashMap<Criteria, Integer> createPersonalCritsMap(CriteriaSuite cSuite, User user) {
+		//Create a table of all the values that this user assigned to these criteria
+		HashMap<Criteria, Integer> crits = new HashMap<Criteria, Integer>();
+		Iterator<CriteriaRef> iRef = cSuite.getWeights().keySet().iterator();
+		CriteriaRef tempRef;
+		CriteriaUserWeight tempWeight;
+		Integer value;
+		while(iRef.hasNext()) {
+			tempRef = iRef.next();
+			tempWeight = (CriteriaUserWeight)cSuite.getWeights().get(tempRef);
+			value = tempWeight.getWeights().get(user);
+			if(value != null) {
+				crits.put(tempRef.getCriterion(), value);				
+			}
+		}
+		return crits;
+	}
+	
+	/**
+	 * Returns the average grade for everyone based on the average weight everyone used
+	 * 
+	 * @param altRef
+	 * @param cSuite
+	 * @param user
+	 * @return
+	 */
+	private String getAvgGrade(ProjectAltRef altRef, CriteriaSuite cSuite, User user) {
+		Set<GradedCriteria> gradedC = altRef.getGradedCriteria();
+		
+		HashMap<Criteria, Integer> crits = createEveryoneCritsMap(cSuite, user);
+
+		viewCritMap(crits);
+		
+		//Return NA if there are no criteria associated to this project
+		if(gradedC.size() == 0 || crits.size() == 0) return "NA";
+		
+		Iterator<GradedCriteria> iGC = gradedC.iterator();
+		GradedCriteria gc;
+		float total = 0;
+		while(iGC.hasNext()) {
+			gc = iGC.next();
+			total = total + (gc.getValue()*crits.get(gc.getCriteria()))/100;
+		}
+		return GradedCriteria.convertGrade(total);
+	}
+	
+	/**
+	 * Creates a map of all the criteria and the value this user assigned
+	 */
+	private HashMap<Criteria, Integer> createEveryoneCritsMap(CriteriaSuite cSuite, User user) {
+		//Create a table of all the values that this user assigned to these criteria
+		HashMap<Criteria, Integer> crits = new HashMap<Criteria, Integer>();
+		Iterator<CriteriaRef> iRef = cSuite.getWeights().keySet().iterator();
+		CriteriaRef tempRef;
+		CriteriaUserWeight tempWeight;
+		Integer value = 0;
+		Iterator<Integer> iValues;
+		while(iRef.hasNext()) {
+
+			tempRef = iRef.next();
+			tempWeight = (CriteriaUserWeight)cSuite.getWeights().get(tempRef);
+			if(tempWeight.getWeights().size() < 0) {
+				value = 0;
+				iValues = tempWeight.getWeights().values().iterator();
+				while(iValues.hasNext()) {
+					value = value + iValues.next().intValue();
+				}
+				crits.put(tempRef.getCriterion(), value/ tempWeight.getWeights().size());								
+			}
+		}
+		return crits;
+	}	
+
+	
 	private void displayUserValues(Package uPack) {
 		//System.out.println("MATT##################: Looking up funding sources in user package");
 		Iterator i = uPack.getPersonalCost().keySet().iterator();

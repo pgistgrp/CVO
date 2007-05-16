@@ -49,9 +49,9 @@ public interface PackageService {
 
 	ClusteredPackage getClusteredPackage(Long pkgId) throws Exception;
 
-	List<ProjectDTO> createPackageRoadProjectDTOs(ClusteredPackage pack, long critSuiteId, long projSuiteId) throws Exception; 
+	List<ProjectDTO> createPackageRoadProjectDTOs(ClusteredPackage pack, long critSuiteId, long projSuiteId, User user) throws Exception; 
 
-	List<ProjectDTO> createPackageTransitProjectDTOs(ClusteredPackage pack, long critSuiteId, long projSuiteId) throws Exception; 
+	List<ProjectDTO> createPackageTransitProjectDTOs(ClusteredPackage pack, long critSuiteId, long projSuiteId, User user) throws Exception; 
 
 	List<FundingSourceDTO> createPackageFundingDTOs(ClusteredPackage pack, User user, long fundSuiteId) throws Exception;
 
