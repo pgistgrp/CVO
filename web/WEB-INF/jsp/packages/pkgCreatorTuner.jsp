@@ -25,7 +25,7 @@
 <title>Package Tuner</title>
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
-<script src="scripts/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js" type="text/javascript"></script>
 <script src="scripts/search.js" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
 
@@ -35,11 +35,13 @@
 <!-- End DWR JavaScript Libraries -->
 
 <script type='text/javascript' src='/dwr/interface/PackageAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/CriteriaAgent.js'></script>
 
 <style type="text/css">
 	@import "styles/lit.css";
 	@import "styles/table.css";
 	@import "styles/step3c.css";
+	@import "styles/weighCriteria.css";
 </style>
 
 
@@ -49,6 +51,8 @@
 		var usrPkgId = "${usrPkgId}";
 		var fundSuiteId = "${fundSuiteId}";
 		var projSuiteId = "${projSuiteId}";
+		
+		//Load the critSuiteId first for weighCriteria.js (external so we can reuse the functions)
 		var critSuiteId = "${critSuiteId}";
 		
 		function getTunerConfig(){
@@ -124,23 +128,19 @@
 				alert("Please enter how much you are willing to pay per year.")
 			}
 		}
+
 	</script>
 	
-	<style type="text/css" media="screen">
-	#left {margin:0px 15px;_margin:0px 10px;}
-	#right {width:500px;}
-	body {text-align:left;font-size:12pt;}
-	#top {padding:15px;}
-	#goBtn {padding:10px;vertical-align:middle;}
-	#finished {padding:10px;text-align:center;margin:10px 15px;}
-	#finished h3 {display:inline;margin:0px;margin-right:20px;padding:0px;}
-	.dollarSign {display:inline;margin-right:20px;}
-	.stripWS {margin:0px;padding:0px;}
-	.right-col2 {width:15%;}
-	</style>
+	<script type='text/javascript' src='/scripts/weighCriteria.js'></script>
 <event:pageunload />
 </head>
 <body>
+	<div style="display: none;" id="loading-indicator"> Loading... 
+		<img src="/images/indicator_arrows.gif"> 
+	</div>
+	<div style="display:none;" id="saving-indicator"> Saving...
+		<img src="/images/indicator_arrows.gif">
+	</div>
 <div id="top">
 		<h2 class="headerColor">Fine Tune a Package</h2>
 		<div id="overview" class="box2">
@@ -152,8 +152,14 @@
 		<p><label>How much would you be willing to pay each year for this package?</label> <span class="dollarSign">$</span><input type="text" id="mylimit" size="5"/></p>
 	</div>
 <div id="object" class="stripWS">
+			<h3 class="headerColor">Re-Weigh Your Criteria</h3>
+			<div id="criteria">
+				<!--load the criteria partial here -->
+			</div>
 			<!-- begin NewTable-->
+			<br />
 			<div id="newTable" class="stripWS">
+				<h3 class="headerColor">Fine Tune Projects and Funding Sources</h3>
 				<div id="left" class="floatLeft">
 					<table cellpadding=0 cellspacing=0>
 						<!-- begin CATEGORY LABEL -->
@@ -259,9 +265,15 @@
 		</div>
 		<div id="finished" class="box7">
 			<h3>Finished fine tuning your package?</h3>
-			<input type="button" id="goBtn" onClick="getTunerConfig();" 
-			value="Create My Package"/>
+			<input type="button" id="goBtn" onClick="getTunerConfig();" value="Create My Package"/>
 			<div class="clearBoth"></div>
 		</div>
+		
+		<script type="text/javascript" charset="utf-8">
+			//getWeights();
+			getCriteriaSuiteById();
+
+			//setTimeout(function() {initWeights();}, 350);
+		</script>
 </body>
 </html:html>

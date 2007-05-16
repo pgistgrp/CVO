@@ -976,6 +976,53 @@ Element.Methods.visualEffect = function(element, effect, options) {
   return $(element);
 };
 
+Position.Window = {
+        //extended prototypes position to return the scrolled window deltas
+        getDeltas: function() {
+            var deltaX =  window.pageXOffset
+                || document.documentElement.scrollLeft
+                || document.body.scrollLeft
+                || 0;
+            var deltaY =  window.pageYOffset
+                || document.documentElement.scrollTop
+                || document.body.scrollTop
+                || 0;
+            return [deltaX, deltaY];
+        },
+        //extended prototypes position to return working window's size, copied this code from the tooltip.js library based on prototype.
+        size: function() {
+            var winWidth, winHeight, d=document;
+            if (typeof window.innerWidth!='undefined') {
+                winWidth = window.innerWidth;
+                winHeight = window.innerHeight;
+            } else {
+                if (d.documentElement && typeof d.documentElement.clientWidth!='undefined' && d.documentElement.clientWidth!=0) {
+                    winWidth = d.documentElement.clientWidth
+                    winHeight = d.documentElement.clientHeight
+                } else {
+                    if (d.body && typeof d.body.clientWidth!='undefined') {
+                        winWidth = d.body.clientWidth
+                        winHeight = d.body.clientHeight
+                    }
+                }
+            }
+            return [winWidth, winHeight];
+        }
+    }
+
+Effect.KeepFixed = function(element, offsetx, offsety) {
+    var _scroll = Position.Window.getDeltas();
+    var _window = Position.Window.size();
+    var elementDimensions = Element.getDimensions(element);
+    var eWidth = elementDimensions.width;
+    var eHeight = elementDimensions.height;
+    var moveX = _window[0] - eWidth + _scroll[0] + offsetx;
+    var moveY = _window[1] - eHeight + _scroll[1] + offsety;
+    return new Effect.Move(element, { x: moveX, y: moveY, mode: 'absolute' });
+}
+
+
+
 Element.addMethods();
 
 function lightboxDisplay(show){
