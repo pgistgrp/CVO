@@ -382,133 +382,148 @@
 			});
 		}
 
-		
+		function checkLength(area,maxLength){
+			var fieldLength = $F(area).length;
+			$(area + 'Warning').innerHTML = maxLength - fieldLength + ' characters left'; 
+			if (fieldLength >= maxLength) {
+				$(area + 'Warning').innerHTML = "<span>Too long!</span>";
+				$(area + 'Warning').style.color = "red";			
+			} else {
+				$(area + 'Warning').style.color = "";
+				$(area + 'Warning').innerHTML = '<span>' + (maxLength - fieldLength) + '</span> left'; 	
+			}
+		}
 	</script>
 
 
-		<style type="text/css">
+<style type="text/css">
 
-		.assocList li{
-			list-style: none;
-		}
-		
-		.clearBoth {clear:both;}
-		.floatLeft {float:left}
-		
-		#criteria {width:620px;}
-		
-		.smallText
-		{
-		font-size:.8em;
-		}
-		
-		.criteriaListRow
-		{
-		background:#E7F2F7;
-		padding:.3em 0em;
-		}
-		
-		.criteriaListHeader
-		{
-		background:#fff;
-		}
-		
-		#allCriteriaList
-		{
-		text-align:left;
-		}
-		
-		.even {background: #ffffff}
-		
-		.criteriaCol1
-		{
-		width:250px;
-		margin-right:.5em;
-		}
-		
-		.criteriaCol1 img
-		{
-		margin:0px 3px 0px 0px;
-		vertical-align:middle;
-		border:0px;
-		}
-		
-		.criteriaCol2
-		{
-		width:320px;
-		}
-		
-		.criteriaCol3
-		{
-		margin-left:.5em;
-		width:190px;
-		}	
-		
-		h4
-		{
-		font-size:1em;
-		margin:0px;
-		padding:0px;
-		}
-		
-		.objectives
-		{
-		padding:.5em;
-		}
-		
-		h3
-		{padding:0px;margin:0px;}
+body {font-family:arial;font-size:10pt;}
 
-			.niceFormElement{
-				display: block;
-				width: 150px;
-				float: left;
-				margin-bottom: 10px;
-			}
+.assocList li{
+list-style: none;
+}
 
-			label.niceFormElement {
-				text-align: right;
-				width: 75px;
-				padding-right: 20px;
-			}
+.clearBoth {clear:both;}
+.floatLeft {float:left}
 
-			br {
-				clear: left;
-			}
-			
-			.indentNiceForm{
-				margin-left: 95px;
-				margin-top: 0px;
-				padding:0;
-			}
-			
-			textarea.niceFormElement, select.niceFormElement{
-				width: 500px;
-				height: 70px;
-				
-			}
-			
-			select.niceFormElement{
-				margin:0;
-				padding: 0;
-			}
-			
-			fieldset{
-			}
-			
-			.box3 /* Used in the DIV containing the Summary */
-			{
-			border:1px solid #D6E7EF;
-			background:#F7FBFF;
-			}
-			
-			.errorMessage{
-			background: #FFC4BF;
-			border: 3px solid #BC0F00;
-			color: #840A00;
-			padding: 5px;
-			}
-		</style>
+#criteria {width:620px;}
+
+.smallText
+{
+font-size:.8em;
+}
+
+.criteriaListRow
+{
+background:#E7F2F7;
+padding:.3em 0em;
+}
+
+.criteriaListHeader
+{
+background:#fff;
+}
+
+#allCriteriaList
+{
+text-align:left;
+}
+
+.even {background: #ffffff}
+
+.criteriaCol1
+{
+width:250px;
+margin-right:.5em;
+}
+
+.criteriaCol1 img
+{
+margin:0px 3px 0px 0px;
+vertical-align:middle;
+border:0px;
+}
+
+.criteriaCol2
+{
+width:320px;
+}
+
+.criteriaCol3
+{
+margin-left:.5em;
+width:190px;
+}	
+
+h4
+{
+font-size:1em;
+margin:0px;
+padding:0px;
+}
+
+.objectives
+{
+padding:.5em;
+}
+
+h3
+{padding:0px;margin:0px;}
+
+.niceFormElement{
+display: block;
+width: 150px;
+float: left;
+margin-bottom: 10px;
+}
+
+label.niceFormElement {
+text-align: right;
+width: 75px;
+padding-right: 20px;
+}
+
+br {
+clear: left;
+}
+
+.indentNiceForm{
+margin-left: 95px;
+margin-top: 0px;
+padding:0;
+}
+
+textarea.niceFormElement, select.niceFormElement{
+width: 500px;
+height: 70px;
+
+}
+
+select.niceFormElement{
+margin:0;
+padding: 0;
+}
+
+fieldset{
+}
+
+.box3 /* Used in the DIV containing the Summary */
+{
+border:1px solid #D6E7EF;
+background:#F7FBFF;
+}
+
+.errorMessage{
+background: #FFC4BF;
+border: 3px solid #BC0F00;
+color: #840A00;
+padding: 5px;
+}
+
+#descriptionWarning {text-align:center;}
+#descriptionWarning span {font-size:1.2em;}
+</style>
 	<event:pageunload />
 	</head>
 	<body>
@@ -537,8 +552,8 @@
 			<label for="name" class="niceFormElement">Factor Name</label>
 			<input id="name" name="name" type="text" class="niceFormElement" /><br />
 			
-			<label for="name" class="niceFormElement">Description</label>
-			<textarea id="description" name="description" class="niceFormElement"></textarea><br />
+			<label for="name" class="niceFormElement">Description<br/><span id="descriptionWarning"><span>2000</span> left</span></label>
+			<textarea id="description" name="description" class="niceFormElement" onKeyPress="checkLength('description',2000)"></textarea><br />
 
 			<label for="name" class="niceFormElement">Factor Objectives</label>
 			<div id="objectives">
