@@ -91,7 +91,7 @@ public class Criteria implements Serializable {
     
     
     /**
-     * @hibernate.property not-null="true" type="text" comment="if a score for this project and criterion is not applicapable"
+     * @hibernate.property not-null="true" length="2000" comment="if a score for this project and criterion is not applicapable"
      */
     public String getNa() {
         return na;
