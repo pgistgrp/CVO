@@ -833,6 +833,7 @@ public class PackageServiceImpl implements PackageService {
 			gc = iGC.next();
 			total = total + (gc.getValue()*crits.get(gc.getCriteria()))/100;
 		}
+		System.out.println("MATT: TOTAL = " + total);
 		return GradedCriteria.convertGrade(total);
 	}
 	
