@@ -42,6 +42,9 @@
 
 <!-- data accessing js -->
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAq4HJEw-8aIG3Ew6IOzpYEBTwM0brOpm-All5BF6PoaKBxRWWERSP-RPo4689bM1xw9IvCyK4oTwAIw"
+      type="text/javascript"></script>
+<script src="scripts/pgistmap2.js"></script>
 
 
 <script src="scripts/pgistmap2.js"></script>	<script type="text/javascript">
