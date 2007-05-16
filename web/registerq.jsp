@@ -187,11 +187,11 @@ function selectToll(tollid) {
 			What is your approximate annual household income?
 			<span id="annualIncome">
 			<select id="income" style="margin-left:1em;">
-				<option>$999,999 - $1,000,000</option>
-				<option>Category 2</option>
-				<option>Category 3</option>
-				<option>Category 4</option>
-				<option>Category 5</option>
+				<option>$0 - $24,999</option>
+				<option>$25,000 - $49,999</option>
+				<option>$50,000 - $74,999</option>
+				<option>$75,000 - $99,999</option>
+				<option>$100,000 or more</option>
 			</select>
 			</span>
 			 </div>
