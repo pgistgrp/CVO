@@ -9,7 +9,13 @@
   <short-name>pgist</short-name>
   <uri>http://www.pgist.org/pgtaglib</uri>
   <description>PGIST tag library</description>
-  
+
+  <function>
+    <name>verboseGradeSwitch</name>
+    <function-class>org.pgist.tags.PgistELFunctions</function-class>
+    <function-signature>java.lang.String verboseGradeSwitch(java.lang.Integer)</function-signature>
+  </function>
+    
   <function>
     <name>gradeSwitch</name>
     <function-class>org.pgist.tags.PgistELFunctions</function-class>

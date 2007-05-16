@@ -25,14 +25,46 @@ import org.pgist.cvo.Theme;
  * 
  * Function list:
  * <ul>
- *   <li>contains(collection, object) - return true if object contained in collection</li>
+ * <li>contains(collection, object) - return true if object contained in
+ * collection</li>
  * </ul>
  * 
  * @author kenny
- *
+ * 
  */
 public class PgistELFunctions extends SimpleTagSupport {
 
+	public static String verboseGradeSwitch(int grade) {
+		String result = "unknown";
+		switch (grade) {
+		case -3:
+			result = "major negative impact";
+			break;
+		
+		case -2:
+			result = "moderate negative impact";
+			break;
+		
+		case -1:
+			result = "minor negative impact";
+			break;
+		
+		case 1:
+			result = "minor positive impact";
+			break;
+		
+		case 2:
+			result = "moderate positive impact";
+			break;
+		
+		case 3:
+			result = "major positive impact";
+			break;
+		}
+		
+		return result;
+    }// contains()
+	
 	public static String gradeSwitch(String ingrade) {
 		if(ingrade.length() > 0) {
 			char lastChar = ingrade.charAt(ingrade.length() -1);
@@ -47,7 +79,7 @@ public class PgistELFunctions extends SimpleTagSupport {
 			}			
 		}
 		return ingrade;	
-    }//contains()	
+    }// contains()
 	
 	public static boolean containsProjAltRef(Collection collection, Long id) {
 		Iterator i = collection.iterator();
@@ -57,7 +89,7 @@ public class PgistELFunctions extends SimpleTagSupport {
 			if(tempRef.getId().equals(id)) return true;
 		}
 		return false;
-    }//contains()
+    }// contains()
 
 	public static boolean containsFundAltRef(Collection collection, Long id) {
 		Iterator i = collection.iterator();
@@ -67,45 +99,45 @@ public class PgistELFunctions extends SimpleTagSupport {
 			if(tempRef.getId().equals(id)) return true;
 		}
 		return false;
-    }//contains()
+    }// contains()
 	
 	
 	public static boolean contains(Collection collection, Object object) {
         if (collection==null) return false;
         return collection.contains(object);
-    }//contains()
+    }// contains()
     
 	public static boolean containsRef(ProjectSuite suite, Project project, ProjectAlternative alt) {
         if (suite==null) return false;
         if (project==null) return false;
         if (alt==null) return false;
         
-        //First check that the project is in the suite
+        // First check that the project is in the suite
         ProjectRef ref = suite.getProjectReference(project);
         if(ref == null) return false;
         
-        //Now check that the alternative is in one of the alt references
+        // Now check that the alternative is in one of the alt references
         return ref.containsAlternative(alt);
-    }//containsRef()
+    }// containsRef()
 
 	public static boolean containsRef(FundingSourceSuite suite, FundingSource funding, FundingSourceAlternative alt) {		
         if (suite==null) return false;
         if (funding==null) return false;
         if (alt==null) return false;
         
-        //First check that the project is in the suite
+        // First check that the project is in the suite
         FundingSourceRef ref = suite.getFundingSourceReference(funding);
         if(ref == null) return false;
         
-        //Now check that the alternative is in one of the alt references
+        // Now check that the alternative is in one of the alt references
         return ref.containsAlternative(alt);
-    }//containsRef()
+    }// containsRef()
 	
 	public static boolean containsCriteria(CriteriaSuite cs, Criteria c) {
         if (cs==null) return false;
         if (c==null) return false;
         
-        //First check that the criteria is in the suite
+        // First check that the criteria is in the suite
         CriteriaRef cr = cs.getCriteriaReference(c);
         if(cr == null) return false;
         
@@ -116,7 +148,7 @@ public class PgistELFunctions extends SimpleTagSupport {
         if (c==null) return false;
         if (t==null) return false;
         
-        //First check that the theme is in the suite
+        // First check that the theme is in the suite
         for(Theme theme: c.getThemes()) {
         	if(theme.getId().equals(t.getId())) {
         		return true;
@@ -124,4 +156,4 @@ public class PgistELFunctions extends SimpleTagSupport {
         }
 		return false;
 	}
-}//class PgistELFunctions
+}// class PgistELFunctions
