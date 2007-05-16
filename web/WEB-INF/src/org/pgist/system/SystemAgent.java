@@ -965,7 +965,7 @@ public class SystemAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-	public Map getAnnouncements(Map params) throws Exception {
+	public Map getAnnouncements(HttpServletRequest request, Map params) throws Exception {
 		Map map = new HashMap();
 		map.put("successful", false);
 		
@@ -983,6 +983,10 @@ public class SystemAgent {
         	
         	Collection announcements = systemService.getAnnouncements(workflowId);
         	
+        	
+        	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/system_announcements.jsp"));
+        	
+        	request.setAttribute("announcements", announcements);
         	map.put("announcements", announcements);
         	
         	map.put("successful", true);
