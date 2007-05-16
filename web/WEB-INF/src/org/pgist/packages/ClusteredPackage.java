@@ -37,6 +37,28 @@ public class ClusteredPackage extends Package {
     protected Set<ProjectAltRef> projAltRefs = new HashSet<ProjectAltRef>();
     
     protected Set<FundingSourceAltRef> fundAltRefs = new HashSet<FundingSourceAltRef>();    
+
+    /**
+     * This is a list of all the user pkgs that were combined into this package
+     */
+    protected Set<UserPackage> userPkgs = new HashSet<UserPackage>();    
+
+    /**
+     * @return
+     * 
+     * @hibernate.set lazy="true" table="pgist_clustered_user_package" cascade="all" 
+     * @hibernate.collection-key column="clustered_pkg_id"
+     * @hibernate.collection-many-to-many column="user_pkg_id" class="org.pgist.packages.UserPackage"
+     */
+    public Set<UserPackage> getUserPkgs() {
+        return userPkgs;
+    }
+    
+    
+    public void setUserPkgs(Set<UserPackage> fundAltRefs) {
+        this.userPkgs = userPkgs;
+    }
+    
     
     /**
      * @hibernate.property
