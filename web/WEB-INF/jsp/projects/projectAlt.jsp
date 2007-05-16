@@ -43,7 +43,7 @@
 <!-- data accessing js -->
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
 
-<javascript:googlemaps/>
+
 <script src="scripts/pgistmap2.js"></script>	<script type="text/javascript">
 // Loop through the 'objectives' divs, show them, and change the icon.
 			function expandAll(){
@@ -269,12 +269,9 @@ the column labels. */
 						<tr style="display:none;" class="objectives" id="objective${loop.index}">
 							<td colspan="3">
 								<ul>
-									<p><b>Objectives (${fn:length(critGrade.criteria.objectives)}):</b></p>	
-								
-									<c:forEach var="objective" items="${critGrade.criteria.objectives}" varStatus="loop">
-										<li>${objective.description}
-											<span>----major positive impact</span>
-										</li>
+									<p><b>Objectives:</b></p>	
+									<c:forEach var="gradeObj" items="${critGrade.objectives}" varStatus="loop">
+										<li>${gradeObj.objective.description}: ${pg:verboseGradeSwitch(gradeObj.grade)}</li>
 									</c:forEach>
 								</ul>
 							</td>
