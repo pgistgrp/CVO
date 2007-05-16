@@ -105,12 +105,17 @@
 					</div>
 					<h4 class="headerColor clearBoth step-header">Step 1: Discuss Concerns</h4>
 					<div class="home-row clearfix">
-						<div class="step"><a href="cctlist.do">1a: Brainstorm Concerns</a><br />
+						<div class="step"><a href="travelMap.do">1a: Map your Daily Travel</a><br />
 							<small>Information about this step</small></div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
 					<div class="home-row clearfix">
-						<div class="step"><a href="sdlist.do">1b: Review Summaries</a><br />
+						<div class="step"><a href="cctlist.do">1b: Brainstorm Concerns</a><br />
+							<small>Information about this step</small></div>
+						<div class="date">11/15 - 11/25</div>
+					</div>
+					<div class="home-row clearfix">
+						<div class="step"><a href="sdlist.do">1c: Review Summaries</a><br />
 							<small>Information about this step</small></div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
@@ -121,7 +126,7 @@
 						<div class="date">11/15 - 11/25</div>
 					</div>
 					<div class="home-row clearfix">
-						<div class="step"><a href="criteriaList.do">2b: Weigh Planning Factors</a><br />
+						<div class="step"><a href="criteriaWeigh.do?suiteId=200">2b: Weigh Planning Factors</a><br />
 							<small>Information about this step</small></div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
@@ -215,7 +220,7 @@
 					</div>
 					<h4 class="headerColor clearBoth step-header">Step 2</h4>
 					<div class="home-row clearfix">
-						<div class="step"><a href="criteriaDefine.do?suiteId=200">Define Planning Factors</a><br />
+						<div class="step"><a href="criteriaDefine.do?suiteId=200&cctId=1187">Define Planning Factors</a><br />
 							<small>Information about this step</small></div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
@@ -418,26 +423,28 @@
 		</div>
 		<!-- end POPULAR DISCUSSIONS -->
 		<div class="clearBoth"></div>
-		<h3 class="headerColor">My Keywords</h3>
-		<div id="keywords" class="clearfix">
-			<ul>
-				<li class="tagSize2">Accidents</li>
-				<li class="tagSize4">Aesthetic</li>
-				<li class="tagSize3">Argentine Fabulism</li>
-				<li class="tagSize2">Bike</li>
-				<li class="tagSize3">Crosswalks</li>
-				<li class="tagSize1">Density</li>
-				<li class="tagSize4">Disagreement</li>
-				<li class="tagSize2">Environment</li>
-				<li class="tagSize1">Entropy</li>
-				<li class="tagSize5">Federal</li>
-				<li class="tagSize3">Fractal Geometry</li>
-				<li class="tagSize1">Groceries</li>
-				<li class="tagSize1">Pinball Machine</li>
-				<li class="tagSize2">Umbrellas</li>
-				<li class="tagSize4">Viaduct</li>
-			</ul>
-		</div>
+		<pg:show roles="participant">
+			<h3 class="headerColor">My Keywords</h3>
+			<div id="keywords" class="clearfix">
+				<ul>
+					<li class="tagSize2">Accidents</li>
+					<li class="tagSize4">Aesthetic</li>
+					<li class="tagSize3">Argentine Fabulism</li>
+					<li class="tagSize2">Bike</li>
+					<li class="tagSize3">Crosswalks</li>
+					<li class="tagSize1">Density</li>
+					<li class="tagSize4">Disagreement</li>
+					<li class="tagSize2">Environment</li>
+					<li class="tagSize1">Entropy</li>
+					<li class="tagSize5">Federal</li>
+					<li class="tagSize3">Fractal Geometry</li>
+					<li class="tagSize1">Groceries</li>
+					<li class="tagSize1">Pinball Machine</li>
+					<li class="tagSize2">Umbrellas</li>
+					<li class="tagSize4">Viaduct</li>
+				</ul>
+			</div>
+		</pg:show>
 	</div>
 	<!-- end container -->
 	<!-- start feedback form -->
