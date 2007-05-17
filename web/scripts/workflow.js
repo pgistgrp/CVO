@@ -39,7 +39,7 @@ Workflow.prototype.getWorkflows = function(user) {
     { type : "all" },
     function(data) {
       if (data.successful) {
-		//alert(data.total)
+		alert(data.runningTotal)
 		if(user && data.runningTotal == 1){
 			location.href="userhome.do?wf="+ data.instanceId;
 		}else{
