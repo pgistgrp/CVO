@@ -5,6 +5,9 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+
+
 <div id="workflows">
 	<c:choose>
 		<c:when test="${fn:length(runningWorkflows) > 0}">
@@ -16,12 +19,12 @@
 					<th>Operation</th>
 				</tr>
 				<c:forEach var="workflow" items="${runningWorkflows}">
-						<tr>
-							<td>${workflow.situation.name}</td>
-							<td>${workflow.situation.description}</td>
-							<td>${workflow.beginTime}</td>
-							<td><input type="button" value="Participate" onclick="javascript:location.href='userhome.do?wf=${workflow.id}';"></td>
-						</tr>
+					<tr>
+						<td>${workflow.situation.name}</td>
+						<td>${workflow.situation.description}</td>
+						<td>${workflow.beginTime}</td>
+						<td><input type="button" value="Participate" onclick="javascript:location.href='userhome.do?wf=${workflow.id}';"></td>
+					</tr>
 				</c:forEach>
 			</table>
 		</c:when>
@@ -69,4 +72,5 @@
 		</table>
 	</pg:show>
 </div>
+
 

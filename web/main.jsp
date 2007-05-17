@@ -30,10 +30,15 @@
 	
 
 	</script>
+	
 	<event:pageunload />
 	</head>
-	
-	<body onload="workflow.getWorkflows();">
+	<pg:show roles="moderator">
+		<body onload="workflow.getWorkflows();">
+	</pg:show>
+	<pg:show roles="participant">
+		<body onload="workflow.getWorkflows('participant');">
+	</pg:show>
 	<!-- Begin the header - loaded from a separate file -->
 	<div id="header">
 		<!-- Begin header -->
@@ -55,8 +60,6 @@
 			<div id="workflow-panel"></div>
 			
 		</div>
-
-		
 	</div>
 	<!-- end container -->
 	<!-- start feedback form -->

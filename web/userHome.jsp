@@ -62,7 +62,7 @@
 			<h3 class="headerColor">Overview of all Steps</h3>
 			<div class="box12 clearfix">
 
-				<div id="workflow-panel"><img src="indicator_arrows.gif" alt="loading..."/></div>
+				<div id="workflow-panel"><img src="/images/indicator_arrows.gif" alt="Please wait..."/> Loading...</div>
 				<pg:show roles="moderator">
 					
 					<h5>** The following section is for testing purposes only.  It will be removed when the workflow is fully integrated. **</h5>
