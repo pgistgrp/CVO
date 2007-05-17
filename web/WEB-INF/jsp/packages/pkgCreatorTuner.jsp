@@ -74,11 +74,11 @@
 						fcs = convertSelectsToHash(fundingSelects,fcs)
 						pcs = convertSelectsToHash(projectSelects,pcs)
 			
-						data.config.fundingChoices = fcs;
-						data.config.projectChoices = pcs;
+						//data.config.fundingChoices = fcs;
+						//data.config.projectChoices = pcs;
 						
 						//alert(data.config.fundingChoices.inspect());
-						createMyConfiguredPackage(data.config);
+						createMyConfiguredPackage(data.config,fcs,pcs);
 					}else{
 						alert(data.reason);
 					}
@@ -103,7 +103,7 @@
 			return hash;
 		}
 		
-		function createMyConfiguredPackage(config){
+		function createMyConfiguredPackage(config,fcs,pcs){
 			//alert("Funding Choices Hash: " + config.fundingChoices.inspect());
 			//alert("Project Choices Hash: " + config.projectChoices.inspect());
 
@@ -111,7 +111,7 @@
 			var mylimit = $F('mylimit');
 			var avglimit = 0;
 			if(mylimit.length > 0){
-				PackageAgent.createMyConfiguredPackage(config, mylimit, avglimit, usrPkgId, {
+				PackageAgent.createMyConfiguredPackage(config, fcs, pcs, mylimit, avglimit, usrPkgId, {
 					callback:function(data){
 						if (data.successful){
 							//alert("createmyconfiguredpackage worked");
