@@ -62,8 +62,8 @@
 					if (data.successful){
 						//alert("config:" + data.config)
 					
-						var fcs = $H({});
-						var pcs = $H({});
+						var fcs = {};
+						var pcs = {};
 
 						//create the hash for funding sources
 						//key = altRefId, value = 0-2
@@ -73,11 +73,8 @@
 
 						fcs = convertSelectsToHash(fundingSelects,fcs)
 						pcs = convertSelectsToHash(projectSelects,pcs)
-			
-						//data.config.fundingChoices = fcs;
-						//data.config.projectChoices = pcs;
-						
-						//alert(data.config.fundingChoices.inspect());
+
+						//alert("data: " + data.config + " fcs: " + fcs + " pcs: " + pcs)
 						createMyConfiguredPackage(data.config,fcs,pcs);
 					}else{
 						alert(data.reason);
