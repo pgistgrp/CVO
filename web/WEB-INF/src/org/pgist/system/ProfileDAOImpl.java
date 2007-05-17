@@ -3,6 +3,7 @@ package org.pgist.system;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Iterator;
 
 import org.pgist.discussion.DiscussionPost;
 import org.pgist.discussion.GenericPost;
@@ -75,19 +76,31 @@ public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
     }//getReplies()
     
     
-    private static final String hql_getLastLogin = "from SystemLog sl order by sl.time";
+    private static final String hql_getLastLogin = "from SystemLog sl where sl.userId=? order by sl.time";
     
     public Date getLastLogin(String username) {
-    	List list = getHibernateTemplate().find(hql_getLastLogin, new Object[] {});
+    	User user = (User) getUserByUsername(username);
+    	List list = getHibernateTemplate().find(hql_getLastLogin, new Object[] {user.getId(),});
     	SystemLog sl = (SystemLog) list.get((list.size()-1));
     	Date date = sl.getTime();
     	return date;
     }
 
     
+    //private static final String hql_getTotalVisits = "from SystemLog sl where order by sl.time";
+    
     public int getTotalVisits(String username) {
-    	List list = getHibernateTemplate().find(hql_getLastLogin, new Object[] {});
-    	int visits = list.size();
+    	User user = (User) getUserByUsername(username);
+    	List list = getHibernateTemplate().find(hql_getLastLogin, new Object[] {user.getId(),});
+    	Iterator itList = list.iterator();
+    	int visits = 0;
+    	while(itList.hasNext()) {
+    		SystemLog sl = (SystemLog) itList.next();
+    		String url = sl.getUrl();
+    		if(url.contains("login.do")) {
+    			visits++;
+    		}
+    	}
     	return visits;
     }
     
