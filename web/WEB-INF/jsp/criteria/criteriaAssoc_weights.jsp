@@ -14,9 +14,9 @@
 	<div class="weighCriteriaCol1 floatLeft">
 		<h4>Planning factor</h4>
 	</div>
-	<div class="weighCriteriaCol2 floatLeft">
+	<!--<div class="weighCriteriaCol2 floatLeft">
 		<h4>Description</h4>
-	</div>
+	</div>-->
 	<div class="weighCriteriaCol3 floatLeft">
 		<h4>Weight</h4>
 	</div>
@@ -31,7 +31,7 @@
 				</div>
 				<div class="floatLeft"><label for="icon${ref.criterion.id}" onclick="javascript:expandList('objectives${ref.criterion.id}','icon${ref.criterion.id}');">${ref.criterion.name}</label></div>
 			</div>
-			<div class="weighCriteriaCol2 floatLeft">${ref.criterion.na}</div>
+			<!--<div class="weighCriteriaCol2 floatLeft">${ref.criterion.na}</div>-->
 	
 			<div class="weighCriteriaCol3 floatLeft">
 				<!-- start slider bar -->

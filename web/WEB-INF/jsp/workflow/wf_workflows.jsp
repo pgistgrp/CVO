@@ -42,7 +42,7 @@
 				<th>Operation</th>
 			</tr>
 			<c:forEach var="workflow" items="${finishedWorkflows}">
-					<tr>
+					<tr style="color:#999;">
 						<td>${workflow.situation.name}</td>
 						<td>${workflow.situation.description}</td>
 						<td>${workflow.beginTime}</td>

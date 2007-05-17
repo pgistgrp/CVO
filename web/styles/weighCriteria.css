@@ -52,15 +52,15 @@ vertical-align:top;
 border:0px;
 }
 
-.weighCriteriaCol2
+/*.weighCriteriaCol2
 {
 width:330px;
-}
+}*/
 
 .weighCriteriaCol3
 {
 margin-left:.5em;
-width:375px;
+width:705px; /*375*/
 }	
 
 h4
