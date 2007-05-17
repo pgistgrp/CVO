@@ -3,19 +3,16 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<div id="templates">
-	<table id="newTable" cellspacing="0" cellpadding="0">
-		<tr>
-			<th>Decision Situation Templates</th>
-			<th>Description</th>
-			<th>Operation</th>
-		</tr>
+
+<h4>Create a new expiriment!</h4>
+<form id="newExp" action="javascript:workflow.createInstance('newExp');">
+	<p><label>Name: <input name="name" id="expName" type="text"></label></p>
+	<p><label>Description: <input name="description" id="expDesc" type="text"></label></p>
+	<p>Please select the workflow template you would like to use for this expiriment</p>
+	<ul>
 		<c:forEach var="template" items="${templates}">
-				<tr>
-					<td>${template.name}</td>
-					<td>${template.description}</td>
-					<td><input type="button" value="Create Instance" onclick="javascript: workflow.createInstance(${template.id});"></td>
-				</tr>
+			<li><label><input type="radio" name="expTemplates" value="${template.id}"> ${template.name} - ${template.description}</label></li>
 		</c:forEach>
-	</table>
-</div>
+	</ul>
+	<input type="submit" value="Submit" /> <a href="javascript:Element.toggle('newExpiriment');void(0);">Cancel</a>
+</form>

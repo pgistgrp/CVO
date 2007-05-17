@@ -12,22 +12,24 @@
 	
 	<h3 class="headerColor">New Expiriments</h3>
 	<pg:show roles="moderator">
-		<table id="newTable" cellspacing="0" cellpadding="0">
-			<tr>
-				<th>New Workflows</th>
-				<th>Description</th>
-				<th>Operation</th>
-			</tr>
-			<c:forEach var="workflow" items="${newWorkflows}">
-					<tr>
-						<td>${workflow.situation.name}</td>
-						<td>${workflow.situation.description}</td>
-						<td><input type="button" value="Start" onclick="javascript: workflow.startWorkflow(${workflow.id});"></td>
-					</tr>
-			</c:forEach>
-		</table>
+		<c:if test="${fn:length(newWorkflows) > 0}">
+			<table id="newTable" cellspacing="0" cellpadding="0">
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Operation</th>
+				</tr>
+				<c:forEach var="workflow" items="${newWorkflows}">
+						<tr>
+							<td>${workflow.situation.name}</td>
+							<td>${workflow.situation.description}</td>
+							<td><input type="button" value="Start" onclick="javascript: workflow.startWorkflow(${workflow.id});"></td>
+						</tr>
+				</c:forEach>
+			</table>
+		</c:if>
 		<a href="javascript:Element.toggle('newExpiriment');void(0);">Create a New Expiriment</a>
-		<div id="newExpiriment" style="display:none;">
+		<div id="newExpiriment" style="display:none; border: 1px solid #ccc">
 			<!-- load templates here -->
 		</div>
 		
@@ -39,7 +41,7 @@
 		<c:when test="${fn:length(runningWorkflows) > 0}">
 			<table id="newTable" class="running" cellspacing="0" cellpadding="0">
 				<tr>
-					<th>Running Workflows</th>
+					<th>Name</th>
 					<th>Description</th>
 					<th>Begin Time</th>
 					<th>Operation</th>
@@ -72,7 +74,7 @@
 		<h3 class="headerColor">Completed Expiriments</h3>
 		<table id="newTable" class="finished" cellspacing="0" cellpadding="0">
 			<tr>
-				<th>Finished Workflows</th>
+				<th>Name</th>
 				<th>Description</th>
 				<th>Begin Time</th>
 				<th>End Time</th>

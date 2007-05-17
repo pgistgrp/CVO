@@ -1,11 +1,12 @@
 
-function Workflow(div_panel) {
+function Workflow(div_panel, div_panel2) {
   this.panel = div_panel;
+  this.panel_templates = div_panel2;
   return this;
 }
 
 Workflow.prototype.getTemplates = function() {
-  var thePanel = this.panel;
+  var thePanel = this.panel_templates;
   WorkflowAgent.getTemplates(
     function(data) {
       if (data.successful) {
@@ -18,18 +19,31 @@ Workflow.prototype.getTemplates = function() {
 };
 
 
-Workflow.prototype.createInstance = function(situationId) {
-  WorkflowAgent.createInstance(
-    { situationId : situationId },
-    function(data) {
-      if (data.successful) {
-        //alert('workflowId: '+data.workflowId);
-		workflow.getWorkflows();
-      } else {
-        alert(data.reason);
-      }
-    }
-  );
+Workflow.prototype.createInstance = function() {
+	var name = $F('expName');
+	var description = $F('expDesc');
+	var templates = document.getElementsByName("expTemplates");
+	for(i=0;i<templates.length;i++){
+		if(templates[i].checked){
+			var templateId = templates[i].value;
+			break;
+		}
+	}
+	if(templateId && description != "" && name != ""){
+		WorkflowAgent.createInstance(
+	    { situationId : templateId },
+	    function(data) {
+	      if (data.successful) {
+			workflow.getWorkflows();
+	      } else {
+	        alert(data.reason);
+	      }
+	    }
+	  );
+	}else{
+		alert("Please do not leave any fields blank");
+	}
+
 };
 
 
@@ -39,11 +53,12 @@ Workflow.prototype.getWorkflows = function(user) {
     { type : "all" },
     function(data) {
       if (data.successful) {
-		alert(data.runningTotal)
 		if(user && data.runningTotal == 1){
+			//alert(data.instanceId)
 			location.href="userhome.do?wf="+ data.instanceId;
 		}else{
 			$(thePanel).innerHTML = data.html;
+			workflow.getTemplates();
 		}
       } else {
         alert(data.reason);

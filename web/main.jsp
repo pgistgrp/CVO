@@ -11,7 +11,7 @@
 	<style type="text/css" media="screen">
 @import "styles/lit.css";
 @import "styles/user-home.css";
-@import "styles/frontpage-workflow.css";
+@import "styles/workflow.css";
 </style>
 	<!-- End Site Wide CSS -->
 	<!-- Site Wide JS -->
@@ -24,10 +24,10 @@
 	<script type='text/javascript' src='/dwr/interface/WorkflowAgent.js'></script>
 	<script type='text/javascript' src='/scripts/workflow.js'></script>
 	<script>
-	  var workflow = new Workflow('workflow-panel');
+	  var workflow = new Workflow('workflow-panel', 'newExpiriment');
 	</script>
 	<script type="text/javascript">
-	
+		
 
 	</script>
 	
@@ -51,15 +51,7 @@
 	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
-		<h2 class="headerColor">Welcome, ${baseuser.loginname}</h2>
-		<h3 class="headerColor">Please select an experiment</h3>
-		<div id="manager">
-			<pg:show roles="moderator">
-				<div><a class="wfblue" href="javascript: workflow.getTemplates();">Templates</a><a class="wfgreen" href="javascript: workflow.getWorkflows();">Workflows</a></div>
-			</pg:show>
-			<div id="workflow-panel"></div>
-			
-		</div>
+		<div id="workflow-panel"><!-- load workflow here --></div>
 	</div>
 	<!-- end container -->
 	<!-- start feedback form -->

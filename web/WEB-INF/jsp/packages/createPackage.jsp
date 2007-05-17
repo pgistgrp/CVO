@@ -68,7 +68,7 @@
 				//alert("checked = " +checked)
 				var deleting = !Boolean(checked); //dealing with checkboxes
 				//alert("pkgSuiteId: " + pkgId + "altRefId: " + altRefId + " deleting: " + deleting); 
-				PackageAgent.setFundingToPkg({pkgId:pkgId,altId:altRefId,deleting:deleting,userPkg:userPkg}, {
+				PackageAgent.setFundingToPkg({fundingSuiteId:fundSuiteId, pkgId:pkgId,altId:altRefId,deleting:deleting,userPkg:userPkg}, {
 					callback:function(data){
 						if (data.successful){
 							//alert("Funding alt " + altRefId + " was successfully set to " + deleting); //replace with saving indicator later
@@ -119,7 +119,7 @@
 				//alert("checked = " + checked)
 				var deleting = !Boolean(checked);
 				//alert("pkgId: " + pkgId + " altRefId: "+ altRefId +" deleting: " + deleting); 
-				PackageAgent.setProjectToPkg({pkgId:pkgId,altId:altRefId,deleting:deleting,userPkg:userPkg}, {
+				PackageAgent.setProjectToPkg({fundingSuiteId:fundSuiteId,pkgId:pkgId,altId:altRefId,deleting:deleting,userPkg:userPkg}, {
 					callback:function(data){
 						if (data.successful){
 							//alert("Project alt " + altRefId + " was successfully set to " + deleting); //replace with saving indicator later
