@@ -741,6 +741,7 @@ public class ProjectAgent {
      * 
      * @return A map contains:
      *     <ul>
+     *       <li>isid - id of infostructure object</li>
      *       <li>successful - a boolean value denoting if the operation succeeds</li>
      *       <li>reason - reason why operation failed (valid when successful==false)</li>
      *     </ul>

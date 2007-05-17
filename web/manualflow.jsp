@@ -53,6 +53,7 @@
 			callback:function(data){
 				if (data.successful){
 					alert(data.id);
+					fundingSuiteId = data.id;
 					$('definefunding').innerHTML = "<a href=\"fundingDefine.do?suiteId=" + data.id + "\">Define Funding</a>";
 				}else{
 					$('error').innerHTML = "<b>Error in FundingAgent.createFundingSourceSuite Method: </b>" + data.reason; 
@@ -64,12 +65,12 @@
 		});
 	}
 	
-	function publishFundingSuite() {
-		FundingAgent.publish({}, {
+	function publishFundingSources() {
+		FundingAgent.publish({cctId:cctId,suiteId:fundingSuiteId}, {
 			callback:function(data){
 				if (data.successful){
 					alert(data.isid);
-					$('').innerHTML = "<a href=\"sd.do?isid=" + data.isid + "\">Structured Discussion Funding Sources</a>";
+					$('sdfunding').innerHTML = "<a href=\"sd.do?isid=" + data.isid + "\">Structured Discussion Funding Sources</a>";
 				}else{
 					$('error').innerHTML = "<b>Error in FundingAgent.publish Method: </b>" + data.reason; 
 				}
@@ -81,17 +82,17 @@
 	}
 	
 	function publishProjects() {
-		FundingAgent.publish({}, {
+		ProjectAgent.publish({cctId:cctId,suiteId:projectSuiteId,title:"test project"}, {
 			callback:function(data){
 				if (data.successful){
 					alert(data.isid);
-					$('').innerHTML = "<a href=\"sd.do?isid=" + data.isid + "\">Structured Discussion Funding Sources</a>";
+					$('sdproject').innerHTML = "<a href=\"sd.do?isid=" + data.isid + "\">Structured Discussion Project</a>";
 				}else{
-					$('error').innerHTML = "<b>Error in FundingAgent.publish Method: </b>" + data.reason; 
+					$('error').innerHTML = "<b>Error in ProjectAgent.publish Method: </b>" + data.reason; 
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-			alert("FundingAgent.publish( error:" + errorString + exception);
+			alert("ProjectAgent.publish( error:" + errorString + exception);
 			}
 		});
 	}
