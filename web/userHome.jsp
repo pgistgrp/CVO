@@ -27,6 +27,79 @@
 	  var workflow = new Workflow('workflow-panel');
 	</script>
 	<script type="text/javascript">
+		var wfId = <%=request.getParameter("wf")%>;
+		
+		function getAnnoucements(){
+			SystemAgent.getAnnouncements({workflowId:wfId}, {
+				callback:function(data){
+					if (data.successful){
+						$('announcements').innerHTML = data.html;
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("SystemAgent.getAnnouncements( error:" + errorString + exception);
+				}
+			});
+		}
+		
+		function addAnnouncement(){
+			var message = tinyMCE.getContent();
+			alert(message)
+			SystemAgent.addAnnouncement({workflowId:wfId,message:message}, {
+				callback:function(data){
+					if (data.successful){
+						tinyMCE.setContent("");
+						getAnnoucements();
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("SystemAgent.getAnnouncements( error:" + errorString + exception);
+				}
+			});
+		}
+		
+		function deleteAnnouncement(id){
+			SystemAgent.deleteAnnouncement({id:id}, {
+				callback:function(data){
+					if (data.successful){
+						new Effect.DropOut('annoucement' + id)
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("SystemAgent.deleteAnnouncement( error:" + errorString + exception);
+				}
+			});
+		}
+		
+		function editAnnoucementPrep(id) {
+			Element.toggle($('announce-editor'));
+			old =  $('message' + id).innerHTML
+			tinyMCE.setContent(old);
+		}
+		
+		function editAnnouncement(id){
+			SystemAgent.editAnnouncement({id:id, message:message}, {
+				callback:function(data){
+					if (data.successful){
+						tinyMCE.setContent("");
+						getAnnoucements();
+					}else{
+						alert(data.reason);
+					}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("SystemAgent.deleteAnnouncement( error:" + errorString + exception);
+				}
+			});
+		}
+		
+	
 	
 			tinyMCE.init({
 			theme : "advanced",
@@ -236,38 +309,20 @@
 		<div id="right-col">
 			<h3 class="headerColor">Moderator announcements</h3>
 			<div id="mod-announcements" class="box9">
+				
 				<div id="announcements">
-					<p><strong>1/20:</strong>Candidate packages have been created, and the next
-						step is now open. Go ahead and<a href="#">evaluate candidate packages</a>,
-						and<a href="#">vote</a>on them!</p>
-					<p><strong>1/10:</strong>Thanks to everyone who created packages. We will now
-						combine everybody's packages to determine candidate packages for the next step.</p>
-					<p><strong>1/09:</strong>Not to rush anybody, but the deadline for creating
-						your personal transportation package is approaching, so if you haven't made
-						one yet, hurry! If you need help creating a package, check out the<a href="#">FAQ</a>or<a href="#">this
-						thread</A>in the discussion area.</p>
-					<P><strong>1/05:</strong>Step 3c: Create Your Own Package has is now open.</p>
-					<p><strong>1/20:</strong>Candidate packages have been created, and the next
-						step is now open. Go ahead and<a href="#">evaluate candidate packages</a>,
-						and<a href="#">vote</a>on them!</p>
-					<p><strong>1/10:</strong>Thanks to everyone who created packages. We will now
-						combine everybody's packages to determine candidate packages for the next step.</p>
-					<p><strong>1/09:</strong>Not to rush anybody, but the deadline for creating
-						your personal transportation package is approaching, so if you haven't made
-						one yet, hurry! If you need help creating a package, check out the<a href="#">FAQ</a>or<a href="#">this
-						thread</A>in the discussion area.</p>
-					<P><strong>1/05:</strong>Step 3c: Create Your Own Package has is now open.</p>
+					<!--load via DWR -->
 				</div>
-				<pg:show roles="moderator">
-					<div id="announce-editor" style="display:none">
-						<textarea name="content" id="modAnnounce"></textarea><br/>
-						<input type="submit" class="padding5" value="Publish Announcement" />
-					</div>
-				</pg:show>
+
 			</div>
 			<pg:show roles="moderator">
-				<input type="button"  class="padding5" value="Edit Announcements" 
-				onclick="Element.toggle($('announcements'));Element.toggle($('announce-editor'))" />
+				<input type="button" id="btnEdit" class="padding5" value="Add Announcement" 
+				onclick="Element.toggle($('announce-editor'));" />
+
+				<div id="announce-editor" style="display:none">
+					<textarea name="content" id="modAnnounce"></textarea><br/>
+					<input type="button" onclick="addAnnouncement();Element.toggle($('announce-editor'));" class="padding5" value="Publish Announcement" /> <a href="javascript:Element.toggle($('announce-editor'));void(0);">Cancel</a>
+				</div>
 			</pg:show>
 		</div>
 		<div class="clearBoth"></div>
@@ -422,6 +477,9 @@
 		<jsp:include page="/footer.jsp" />
 	</div>
 	<!-- End footer -->
+	<script type="text/javascript" charset="utf-8">
+		getAnnoucements();
+	</script>
 
 	</body>
 </html:html>
