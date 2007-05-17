@@ -43,12 +43,7 @@
 	</script>
 	<event:pageunload />
 	</head>
-	<pg:show roles="participant">
-		<body>
-	</pg:show>
-	<pg:show roles="moderator">
-		<body onload="workflow.getWorkflows();">
-	</pg:show>
+	<body onload="workflow.getWorkflow(<%=request.getParameter("wf")%>);">
 	<!-- Begin the header - loaded from a separate file -->
 	<div id="header">
 		<!-- Begin header -->
@@ -66,51 +61,26 @@
 		<div id="left-col">
 			<h3 class="headerColor">Overview of all Steps</h3>
 			<div class="box12 clearfix">
-				<p><strong>124</strong>participants have been active in the LIT Challenge in
-					the past 12 hours</p>
-				<pg:show roles="participant">
-					<!-- put active links here -->
-				</pg:show>
-				<div id="manager">
-					<pg:show roles="moderator">
-						<div><a class="wfblue" href="javascript: workflow.getTemplates();">Templates</a><a class="wfgreen" href="javascript: workflow.getWorkflows();">Workflows</a></div>
-						<div id="workflow-panel"></div>
-					</pg:show>
-				</div>
+
+				<div id="workflow-panel"><img src="indicator_arrows.gif" alt="loading..."/></div>
 				<pg:show roles="moderator">
-					<p>** This section will be replaced by the agenda manager when the workflow
-						is integrated **</p>
+					
+					<h5>** The following section is for testing purposes only.  It will be removed when the workflow is fully integrated. **</h5>
 					<h3>Public Components</h3>
-					<h4 class="headerColor clearBoth step-header">Global Components</h4>
-					<div class="home-row clearfix">
-						<div class="step"><a href="publicprofile.do?user=${baseuser.loginname}">User
-								Public Profile</a><br />
-							<small>Information about this step</small></div>
-						<div class="date">11/15 - 11/25</div>
-					</div>
-					<div class="home-row clearfix">
-						<div class="step"><a href="lmMenu.do">Learn More: Home</a><br />
-							<small>Information about this step</small></div>
-						<div class="date">11/15 - 11/25</div>
-					</div>
-					<div class="home-row clearfix">
-						<div class="step"><a href="glossaryPublic.do">Learn More: Public Glossary</a><br />
-							<small>Information about this step</small></div>
-						<div class="date">11/15 - 11/25</div>
-					</div>
-					<div class="home-row clearfix">
-						<div class="step"><a href="search.do">Global Search</a><br />
-							<small>Information about this step</small></div>
-						<div class="date">11/15 - 11/25</div>
-					</div>
+
 					<h4 class="headerColor clearBoth step-header">Step 1: Discuss Concerns</h4>
 					<div class="home-row clearfix">
-						<div class="step"><a href="cctlist.do">1a: Brainstorm Concerns</a><br />
+						<div class="step"><a href="travelMap.do">1a: Map your Daily Travel</a><br />
 							<small>Information about this step</small></div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
 					<div class="home-row clearfix">
-						<div class="step"><a href="sdlist.do">1b: Review Summaries</a><br />
+						<div class="step"><a href="cctlist.do">1b: Brainstorm Concerns</a><br />
+							<small>Information about this step</small></div>
+						<div class="date">11/15 - 11/25</div>
+					</div>
+					<div class="home-row clearfix">
+						<div class="step"><a href="sdlist.do">1c: Review Summaries</a><br />
 							<small>Information about this step</small></div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
@@ -121,7 +91,7 @@
 						<div class="date">11/15 - 11/25</div>
 					</div>
 					<div class="home-row clearfix">
-						<div class="step"><a href="criteriaList.do">2b: Weigh Planning Factors</a><br />
+						<div class="step"><a href="criteriaWeigh.do?suiteId=200">2b: Weigh Planning Factors</a><br />
 							<small>Information about this step</small></div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
@@ -215,7 +185,7 @@
 					</div>
 					<h4 class="headerColor clearBoth step-header">Step 2</h4>
 					<div class="home-row clearfix">
-						<div class="step"><a href="criteriaDefine.do?suiteId=200">Define Planning Factors</a><br />
+						<div class="step"><a href="criteriaDefine.do?suiteId=200&cctId=1187">Define Planning Factors</a><br />
 							<small>Information about this step</small></div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
@@ -418,26 +388,28 @@
 		</div>
 		<!-- end POPULAR DISCUSSIONS -->
 		<div class="clearBoth"></div>
-		<h3 class="headerColor">My Keywords</h3>
-		<div id="keywords" class="clearfix">
-			<ul>
-				<li class="tagSize2">Accidents</li>
-				<li class="tagSize4">Aesthetic</li>
-				<li class="tagSize3">Argentine Fabulism</li>
-				<li class="tagSize2">Bike</li>
-				<li class="tagSize3">Crosswalks</li>
-				<li class="tagSize1">Density</li>
-				<li class="tagSize4">Disagreement</li>
-				<li class="tagSize2">Environment</li>
-				<li class="tagSize1">Entropy</li>
-				<li class="tagSize5">Federal</li>
-				<li class="tagSize3">Fractal Geometry</li>
-				<li class="tagSize1">Groceries</li>
-				<li class="tagSize1">Pinball Machine</li>
-				<li class="tagSize2">Umbrellas</li>
-				<li class="tagSize4">Viaduct</li>
-			</ul>
-		</div>
+		<pg:show roles="participant">
+			<h3 class="headerColor">My Keywords</h3>
+			<div id="keywords" class="clearfix">
+				<ul>
+					<li class="tagSize2">Accidents</li>
+					<li class="tagSize4">Aesthetic</li>
+					<li class="tagSize3">Argentine Fabulism</li>
+					<li class="tagSize2">Bike</li>
+					<li class="tagSize3">Crosswalks</li>
+					<li class="tagSize1">Density</li>
+					<li class="tagSize4">Disagreement</li>
+					<li class="tagSize2">Environment</li>
+					<li class="tagSize1">Entropy</li>
+					<li class="tagSize5">Federal</li>
+					<li class="tagSize3">Fractal Geometry</li>
+					<li class="tagSize1">Groceries</li>
+					<li class="tagSize1">Pinball Machine</li>
+					<li class="tagSize2">Umbrellas</li>
+					<li class="tagSize4">Viaduct</li>
+				</ul>
+			</div>
+		</pg:show>
 	</div>
 	<!-- end container -->
 	<!-- start feedback form -->
@@ -450,5 +422,6 @@
 		<jsp:include page="/footer.jsp" />
 	</div>
 	<!-- End footer -->
+
 	</body>
 </html:html>

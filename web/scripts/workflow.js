@@ -23,7 +23,8 @@ Workflow.prototype.createInstance = function(situationId) {
     { situationId : situationId },
     function(data) {
       if (data.successful) {
-        alert('workflowId: '+data.workflowId);
+        //alert('workflowId: '+data.workflowId);
+		workflow.getWorkflows();
       } else {
         alert(data.reason);
       }
