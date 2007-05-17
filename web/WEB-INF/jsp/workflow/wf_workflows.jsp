@@ -7,11 +7,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <h2 class="headerColor">Welcome, ${baseuser.loginname}</h2>
-<h3 class="headerColor">Please select an expiriment</h3>
-
 
 <div id="workflows">
 	
+	<h3 class="headerColor">New Expiriments</h3>
 	<pg:show roles="moderator">
 		<table id="newTable" cellspacing="0" cellpadding="0">
 			<tr>
@@ -27,13 +26,15 @@
 					</tr>
 			</c:forEach>
 		</table>
-		<p>Create a New Expiriment</p>
-		<div id="newExpiriment">
+		<a href="javascript:Element.toggle('newExpiriment');void(0);">Create a New Expiriment</a>
+		<div id="newExpiriment" style="display:none;">
 			<!-- load templates here -->
 		</div>
+		
 	</pg:show>
 	
 	
+	<h3 class="headerColor">Running Expiriments</h3>
 	<c:choose>
 		<c:when test="${fn:length(runningWorkflows) > 0}">
 			<table id="newTable" class="running" cellspacing="0" cellpadding="0">
@@ -67,6 +68,8 @@
 	
 	
 	<pg:show roles="moderator">
+		<br />
+		<h3 class="headerColor">Completed Expiriments</h3>
 		<table id="newTable" class="finished" cellspacing="0" cellpadding="0">
 			<tr>
 				<th>Finished Workflows</th>

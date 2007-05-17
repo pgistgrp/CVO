@@ -108,10 +108,11 @@
 			//alert("Project Choices Hash: " + config.projectChoices.inspect());
 
 			//alert("createmyconfiguredpackage config:" + config )			
-			var mylimit = parseInt($F('mylimit'));
+			var mylimit = $F('mylimit');
 			var avglimit = 0;
 			if(mylimit.length > 0){
-				PackageAgent.createMyConfiguredPackage(config, fcs, pcs, mylimit, avglimit, usrPkgId, {
+				var mylimitInt = parseInt(mylimit);
+				PackageAgent.createMyConfiguredPackage(config, fcs, pcs, mylimitInt, avglimit, usrPkgId, {
 					callback:function(data){
 						if (data.successful){
 							//alert("createmyconfiguredpackage worked");
