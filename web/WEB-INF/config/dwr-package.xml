@@ -46,7 +46,8 @@
         <include method="setVoting"/> 
         <include method="getSummary"/>        
         <include method="setManualPkgDesc"/>        
-        <include method="getClusteredSummary"/>        
+        <include method="getClusteredSummary"/>   
+        <include method="createPackageSuite"/>
     </create>
 
 

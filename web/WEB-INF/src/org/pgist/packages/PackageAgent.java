@@ -749,4 +749,31 @@ public class PackageAgent {
     }//deleteClusteredPackage()
     
     
+    /**
+     * Manually Create a new PackageSuite for acceptance test
+     * 
+     * @returnA A map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>id - int, the newly created package id (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map createPackageSuite(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            PackageSuite ps = packageService.createPackageSuite();
+            map.put("id", ps.getId());
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//createPackageSuite()
+    
 }//class PackageAgent
