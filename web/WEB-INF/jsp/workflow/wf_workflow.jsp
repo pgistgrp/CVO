@@ -6,12 +6,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 	<c:if test="${fn:length(workflow.situation.context.pendingActivities) == 0}">
-		<h2>This expiriment has ended.</h2>
+		<h2>This experiment has ended.</h2>
 	</c:if>
 	<h3 class="headerColor">${workflow.situation.name}</h3>
 	<p><strong>124</strong> participants have been active in the ${workflow.situation.name} in the past 12 hours</p>
 	<fmt:formatDate value="${workflow.beginTime}" dateStyle="full" var="beginTime" />
-	<p>This expiriment began on: ${beginTime} </p>
+	<p>This experiment began on: ${beginTime} </p>
 
   
 	<h3 class="headerColor">Overview of all Steps</h3>

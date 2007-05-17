@@ -11,7 +11,7 @@
 	<style type="text/css" media="screen">
 @import "styles/lit.css";
 @import "styles/user-home.css";
-@import "styles/workflow.css";
+@import "styles/frontpage-workflow.css";
 </style>
 	<!-- End Site Wide CSS -->
 	<!-- Site Wide JS -->
@@ -52,7 +52,7 @@
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
 		<h2 class="headerColor">Welcome, ${baseuser.loginname}</h2>
-		<h3 class="headerColor">Please select an expiriment</h3>
+		<h3 class="headerColor">Please select an experiment</h3>
 		<div id="manager">
 			<pg:show roles="moderator">
 				<div><a class="wfblue" href="javascript: workflow.getTemplates();">Templates</a><a class="wfgreen" href="javascript: workflow.getWorkflows();">Workflows</a></div>

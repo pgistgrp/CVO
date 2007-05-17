@@ -11,7 +11,7 @@
 <div id="workflows">
 	<c:choose>
 		<c:when test="${fn:length(runningWorkflows) > 0}">
-			<table id="newTable" cellspacing="0" cellpadding="0">
+			<table id="newTable" class="running" cellspacing="0" cellpadding="0">
 				<tr>
 					<th>Running Workflows</th>
 					<th>Description</th>
@@ -29,14 +29,20 @@
 			</table>
 		</c:when>
 		<c:otherwise>
-			<p>Sorry, there are currently no active expiriments. The moderator will email you when the expiriment is ready.</p>
+		<table id="newTable" class="noActive" cellspacing="0" cellpadding="0">
+			<tr>
+				<th>
+					<h3>Sorry, there are currently no active experiments.</h3>The moderator will email you when the experiment is ready.</h3>
+				</th>
+			</tr>
+		</table>
 		</c:otherwise>
 	</c:choose>
 
 	
 	
 	<pg:show roles="moderator">
-		<table id="newTable" cellspacing="0" cellpadding="0">
+		<table id="newTable" class="finished" cellspacing="0" cellpadding="0">
 			<tr>
 				<th>Finished Workflows</th>
 				<th>Description</th>
