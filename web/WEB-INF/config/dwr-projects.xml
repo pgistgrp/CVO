@@ -45,6 +45,8 @@
         <include method="getFootprints"/>
         <include method="enableProjectDiscussion"/>
         <include method="setGrading"/>
+        <include method="createProjectSuite"/>
+    	<include method="publish"/>
     </create>
 
 

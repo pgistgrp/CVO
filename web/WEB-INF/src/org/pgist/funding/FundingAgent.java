@@ -11,7 +11,7 @@ import org.directwebremoting.WebContextFactory;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
-
+import org.pgist.discussion.InfoStructure;
 
 /**
  * 
@@ -346,6 +346,36 @@ public class FundingAgent {
     
     
     /**
+     * Manually Create a FundingSourceSuite, for acceptance test    
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>id - the id of the newly created funding source</li>
+     *   </ul>
+     */
+    public Map createFundingSourceSuite(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            
+            FundingSourceSuite fss = fundingService.createFundingSourceSuite();
+            
+            map.put("id", fss.getId());
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//createFundingSourceSuite()
+    
+    
+    /**
      * Edit a given funding source
      * 
      * @param params a Map contains:<br>
@@ -660,6 +690,7 @@ System.out.println("MATT: Looking up user");
     	
     }//getUserById
     
+    
     /**
      * Updates the user with all of the specified values.  You can only use this to update the parameters
      * in the user object.  You cannot use this to update the number of vehicles.  The vehicles associated
@@ -764,6 +795,43 @@ System.out.println("MATT: Looking up user");
         
         return map;
     }//setEstimates()
+    
+    
+    /**
+     * Manually publish Funding Sources for acceptance test
+     * 
+     * @param params a Map contains:<br>
+     *   <ul>
+     *       <li>cctId - int, cctId</li>
+     *       <li>suiteId - int, project suiteId</li>
+     *   </ul>
+     * 
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>user - The User object with all the users information</li>
+     *   </ul>
+     */
+    public Map publish(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long cctId = new Long((String) params.get("cctId"));
+            Long suiteId = new Long((String) params.get("suiteId"));
+
+            InfoStructure is = fundingService.publish(cctId, suiteId);
+            
+            map.put("isid", is.getId());
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        return map;
+    }//publish()   
     
     
 }//class FundingAgent

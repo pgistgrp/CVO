@@ -860,6 +860,31 @@ public class CriteriaAgent {
     }//setCriteriaWeight()
    
     
+    /**
+     * Manually Create CriteriaSuite for Acceptance test
+     * 
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map createCriteriaSuite(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {        	
+        	CriteriaSuite cs = criteriaService.createCriteriaSuite();
+        	
+        	map.put("critSuiteId", cs.getId());
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//createCriteriaSuite()
     
     
 }//class CriteriaAgent
