@@ -86,7 +86,7 @@
 						<td>${workflow.situation.description}</td>
 						<td>${workflow.beginTime}</td>
 						<td>${workflow.endTime}</td>
-						<td><input type="button" value="Review" onclick="javascript: workflow.getWorkflow(${workflow.id});"></td>
+						<td><input type="button" value="Review" onclick="javascript:location.href='userhome.do?wf=${workflow.id}'"></td>
 					</tr>
 			</c:forEach>
 		</table>

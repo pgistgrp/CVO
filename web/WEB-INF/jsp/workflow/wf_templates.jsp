@@ -10,8 +10,8 @@
 	<p><label>Description: <input name="description" id="expDesc" type="text"></label></p>
 	<p>Please select the workflow template you would like to use for this expiriment</p>
 	<ul>
-		<c:forEach var="template" items="${templates}">
-			<li><label><input type="radio" name="expTemplates" value="${template.id}"> ${template.name} - ${template.description}</label></li>
+		<c:forEach var="template" items="${templates}" varStatus="loop">
+			<li><label><input type="radio" ${(loop.index == 0) ? "CHECKED" : ""} name="expTemplates" value="${template.id}"> ${template.name} - ${template.description}</label></li>
 		</c:forEach>
 	</ul>
 	<input type="submit" value="Submit" /> <a href="javascript:Element.toggle('newExpiriment');void(0);">Cancel</a>
