@@ -67,7 +67,7 @@
 			//DWR Test: {name:"testCriterion", themeIds: "2523,2528", objectiveIds: "1185", cctId: 1180, na:"this is a test"}
 			
 			var name = $('name').value;
-			var description = $('description').value;
+			//##### var description = $('description').value;
 			var objectivesGroup = document.getElementsByName('objectivesGroup');
 			var checkedObjectives = []; //holds all the checked objectiveId's that are found in the following loop
 			
@@ -81,8 +81,8 @@
 			
 			var checkedObjectivesStr = checkedObjectives.toString();
 			
-			//alert("names: " + name + " description" + description + " objectiveIds: " + checkedObjectivesStr);
-			CriteriaAgent.addCriterion({critSuiteId:critSuiteId,name:name,na:description,themeIds:"",objectiveIds:checkedObjectivesStr}, {
+			//alert("names: " + name + " description" + description + " objectiveIds: " + checkedObjectivesStr); // Between name:name and ThemeIds is na:description;
+			CriteriaAgent.addCriterion({critSuiteId:critSuiteId,name:name,themeIds:"",objectiveIds:checkedObjectivesStr}, {
 				callback:function(data){
 					if (data.successful){
 						//highlight newly created criterion
@@ -145,10 +145,10 @@
 			filler+="<label for='editName"+id+"' class='niceFormElement'>Factor Name</label>";
 			filler+="<input id='editName"+id+"' name='editName"+id+"' type='text' class='niceFormElement' /><br />";
 			
-			filler+="<label for='editDescription"+id+"' class='niceFormElement'>Description</label>";
-			filler+="<textarea id='editDescription"+id+"' name='editDescription"+id+"' class='niceFormElement'></textarea><br />";
+			//#### filler+="<label for='editDescription"+id+"' class='niceFormElement'>Description</label>";
+			//filler+="<textarea id='editDescription"+id+"' name='editDescription"+id+"' class='niceFormElement'></textarea><br />";
 			
-			filler+="<br />";
+			//filler+="<br />";
 			
 			filler+="<label for='editObjectivesDiv"+id+"' style='float:left;' class='niceFormElement'>Factor Objectives</label>";
 
@@ -191,7 +191,7 @@
 				callback:function(data){
 					if(data.successful){
 						$('editName'+critId).value=data.criterion.name;
-						$('editDescription'+critId).value=data.criterion.na;					
+						//##### $('editDescription'+critId).value=data.criterion.na;					
 						$('editObjectivesDiv'+critId).innerHTML=getObjectives(critId);
 
 					}else{
@@ -210,7 +210,7 @@
 			//grabs from multi select list
 			var objectivesArr = document.getElementsByName('editObjectivesGroup-'+id); //grabs from multi select list
 			var name = $('editName'+id).value;
-			var description = $('editDescription'+id).value;
+			//##### var description = $('editDescription'+id).value;
 			var checkedObjectives=[];
 			
 			for (i = 0; i < objectivesArr.length; i++)
@@ -228,7 +228,7 @@
 			
 			
 			//alert("id: " + id +" name: " + name + " description" + description + " objectives: " + objectivesArr);
-			CriteriaAgent.editCriterion({critId:id,name:name,themeIds:"",objectiveIds:checkedObjectivesStr,na:description}, {
+			CriteriaAgent.editCriterion({critId:id,name:name,themeIds:"",objectiveIds:checkedObjectivesStr}, {
 				callback:function(data){
 					if (data.successful){
 						getCriteria();
@@ -550,10 +550,11 @@ padding: 5px;
 			<h3>Add a New Planning Factor</h3>
 			<br />
 			<label for="name" class="niceFormElement">Factor Name</label>
-			<input id="name" name="name" type="text" class="niceFormElement" /><br />
+			<input id="name" name="name" type="text" class="niceFormElement" 
+				onkeydown="if (event.keyCode==13){addCriterion();}"/><br />
 			
-			<label for="name" class="niceFormElement">Description<br/><span id="descriptionWarning"><span>2000</span> left</span></label>
-			<textarea id="description" name="description" class="niceFormElement" onKeyPress="checkLength('description',2000)"></textarea><br />
+			<!--#####<div style="display:none"><label for="name" class="niceFormElement">Description<br/><span id="descriptionWarning"><span>2000</span> left</span></label>
+			<textarea id="description" name="description" class="niceFormElement" onKeyPress="checkLength('description',2000)"></textarea><br /></div>-->
 
 			<label for="name" class="niceFormElement">Factor Objectives</label>
 			<div id="objectives">
@@ -563,8 +564,10 @@ padding: 5px;
 			<br /><p />
 			
 				<label for="name" class="niceFormElement">Add a New Objective</label>
-				<input type="text" id="newObjective" style="width:300px;">
-				<input type="button"  style="margin-left:10px;" value="Add to List" onClick="javascript:addObjective();">
+				<input type="text" id="newObjective" 
+					onkeydown="if (event.keyCode==13){addObjective();}" style="width:300px;">
+				<input type="button"  style="margin-left:10px;" value="Add to List" 
+					onClick="javascript:addObjective();">
 
 			<br />
 			

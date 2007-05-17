@@ -29,7 +29,7 @@
     <h4 class="headerColor">Planning factor</h4>
   </div>
   <div class="criteriaCol2 floatLeft">
-    <h4 class="headerColor">Description</h4>
+    <h4 class="headerColor">&nbsp;</h4>
   </div>
 
   <div class="clearBoth"></div>
@@ -52,7 +52,7 @@
  
       </div>
     </div>
-    <div class="criteriaCol2 floatLeft">${criterion.na}</div>
+    <div class="criteriaCol2 floatLeft">&nbsp;</div>
 
     <div class="clearBoth"></div>
     <div class="objectives" id="criteriaEdit${criterion.id}">
