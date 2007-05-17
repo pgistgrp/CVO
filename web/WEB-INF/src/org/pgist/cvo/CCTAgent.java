@@ -107,6 +107,7 @@ public class CCTAgent {
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
+     *           <li>cctId - the id of the cct object</li>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
@@ -135,6 +136,7 @@ public class CCTAgent {
 
         try {
             CCT cct = cctService.createCCT(name, purpose, instruction);
+            map.put("cctId", cct.getId());
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
