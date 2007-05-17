@@ -26,7 +26,7 @@
         <forward name="workflow" path="/workflow.do" />
         <forward name="nextstep" path="/WEB-INF/jsp/nextstep.jsp" />
         <forward name="confirmation" path="confirmation.jsp" />
-        <forward name="userhome" path="uesrHome.jsp" />
+        <forward name="userhome" path="userHome.jsp" />
     </global-forwards>
 
 
