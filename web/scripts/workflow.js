@@ -39,8 +39,9 @@ Workflow.prototype.getWorkflows = function(user) {
     { type : "all" },
     function(data) {
       if (data.successful) {
-		if(user && data.single){
-			location.href="userhome.do?wf="+ data.singleId;
+		//alert(data.total)
+		if(user && data.instanceTotal == 1){
+			location.href="userhome.do?wf="+ data.instanceId;
 		}else{
 			$(thePanel).innerHTML = data.html;
 		}
