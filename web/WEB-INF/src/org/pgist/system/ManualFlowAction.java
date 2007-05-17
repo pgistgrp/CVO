@@ -7,6 +7,7 @@ import org.apache.struts.action.ActionMapping;
 
 
 /**
+ * Temporary Testing Class just for Acceptance Test,
  * 
  * @author John
  *

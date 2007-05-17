@@ -961,6 +961,8 @@ public class SystemAgent {
      *   </ul>
      * @return a Map contains:
      *   <ul>
+     *     <li>announcements - collection of announcement objects</li>
+     *     <li>html - html file system_announcements.jsp</li>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
@@ -982,11 +984,8 @@ public class SystemAgent {
         	Long workflowId = Long.parseLong(strWorkflowId);
         	
         	Collection announcements = systemService.getAnnouncements(workflowId);
-        	
-        	
-        	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/system_announcements.jsp"));
-        	
         	request.setAttribute("announcements", announcements);
+        	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/system_announcements.jsp"));
         	map.put("announcements", announcements);
         	
         	map.put("successful", true);

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.directwebremoting.WebContextFactory;
 import org.pgist.cvo.CCTService;
 import org.pgist.cvo.Theme;
+import org.pgist.discussion.InfoStructure;
 
 
 /**
@@ -442,6 +443,7 @@ public class CriteriaAgent {
      *   </ul>
      * @return a Map contains:
      *   <ul>
+     *     <li>isid - id of infostructure object</li>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
@@ -472,8 +474,9 @@ public class CriteriaAgent {
         	Long cctId = Long.parseLong(strCctId);
         	Long suiteId = Long.parseLong(strSuiteId);
             
-            criteriaService.publish(cctId, suiteId, title);
-           
+            InfoStructure is = criteriaService.publish(cctId, suiteId, title);
+            
+            map.put("isid", is.getId());
             map.put("successful", true);
         } catch(Exception e) {
             e.printStackTrace();

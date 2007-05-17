@@ -808,9 +808,9 @@ System.out.println("MATT: Looking up user");
      * 
      * @return a Map contains:<br>
      *   <ul>
+     *     <li>isid - id of the infostructure object</li>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *     <li>user - The User object with all the users information</li>
      *   </ul>
      */
     public Map publish(Map params) {

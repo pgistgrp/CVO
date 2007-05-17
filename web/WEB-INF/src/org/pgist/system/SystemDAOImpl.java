@@ -288,7 +288,7 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     }
     
     
-    private static final String hql_getAnnouncements = "from Announcement a where workflowId=? order by a.date";
+    private static final String hql_getAnnouncements = "from Announcement a where a.workflowId=? order by a.date";
     
     public Collection getAnnouncements(Long workflowId) throws Exception {
     	return getHibernateTemplate().find(hql_getAnnouncements, workflowId);

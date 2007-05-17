@@ -24,7 +24,8 @@
 	
 	<script type="text/javascript">
 	var cctId= 0;
-	var isis = 0;
+	var projectSuiteId = 0;
+	var fundingSuiteId = 0;
 	var critSuiteId = 0;
 	var theme_isid = 0;
 	var crit_isid = 0;
@@ -34,7 +35,9 @@
 			callback:function(data){
 				if (data.successful){
 					alert(data.id);
+					projectSuiteId = data.id;
 					$('defineproject').innerHTML = "<a href=\"projectDefine.do?suiteId=" + data.id + "\">Define Project</a>";
+					$('gradeproject').innerHTML = "<a href=\"projectGrading.do?suiteId=" + data.id + "\">Grade Project</a>";
 				}else{
 					$('error').innerHTML = "<b>Error in ProjectAgent.createProjectSuite Method: </b>" + data.reason; 
 				}
@@ -57,6 +60,38 @@
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("FundingAgent.createFundingSourceSuite( error:" + errorString + exception);
+			}
+		});
+	}
+	
+	function publishFundingSuite() {
+		FundingAgent.publish({}, {
+			callback:function(data){
+				if (data.successful){
+					alert(data.isid);
+					$('').innerHTML = "<a href=\"sd.do?isid=" + data.isid + "\">Structured Discussion Funding Sources</a>";
+				}else{
+					$('error').innerHTML = "<b>Error in FundingAgent.publish Method: </b>" + data.reason; 
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("FundingAgent.publish( error:" + errorString + exception);
+			}
+		});
+	}
+	
+	function publishProjects() {
+		FundingAgent.publish({}, {
+			callback:function(data){
+				if (data.successful){
+					alert(data.isid);
+					$('').innerHTML = "<a href=\"sd.do?isid=" + data.isid + "\">Structured Discussion Funding Sources</a>";
+				}else{
+					$('error').innerHTML = "<b>Error in FundingAgent.publish Method: </b>" + data.reason; 
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("FundingAgent.publish( error:" + errorString + exception);
 			}
 		});
 	}
@@ -89,6 +124,7 @@
 				if (data.successful){
 					alert(data.isid);
 					theme_isid = data.isid;
+					$('sdc').innerHTML = "<a href=\"sd.do?isid=" + theme_isid + "\">Structured Discussion For CCT</a>";
 				}else{
 					$('error').innerHTML = "<b>Error in CSTAgent.publish Method: </b>" + data.reason; 
 				}
@@ -118,17 +154,19 @@
 	
 	function publishCriteria(form) {
 		var title = form.ctitle.value;
-		CSTAgent.publish({cctId:cctId, suiteId:critSuiteId, title:title}, {
+		CriteriaAgent.publish({cctId:cctId, suiteId:critSuiteId, title:title}, {
 			callback:function(data){
 				if (data.successful){
 					alert(data.isid);
 					crit_isid = data.isid;
+					$('sdcrit').innerHTML = "<a href=\"sd.do?isid=" + crit_isid + "\">Structured Discussion For Criteria</a>";
+					$('critweight').innerHTML = "<a href=\"criteriaWeigh.do?suiteId=" + critSuiteId + "\">Criteria Weight</a>";
 				}else{
-					$('error').innerHTML = "<b>Error in CSTAgent.publish Method: </b>" + data.reason; 
+					$('error').innerHTML = "<b>Error in CriteriaAgent.publish Method: </b>" + data.reason; 
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-			alert("CSTAgent.publish( error:" + errorString + exception);
+			alert("CriteriaAgent.publish( error:" + errorString + exception);
 			}
 		});
 	}
@@ -188,6 +226,8 @@
 	   </div>
 	 </form>
 </p>
+	<div id="sdc" align="center">Structured Discussion For CCT
+	  </div>
 	<p align="center">&nbsp;</p>
 	<p align="center"><strong>Criteria and Objective  Step</strong></p>
 	<p align="center">
@@ -195,7 +235,7 @@
 	</p>
 	<div id="definecriteria" align="center">Define Criteria</div>
 	<p align="center">
-	  	 <form id="publishcriteriaform">
+  	  <form id="publishcriteriaform">
 	   <div align="center">title:
 	     <input type="text" id="ctitle" />
 	     <input name="Publish Criteria" type="button" value="Publish Criteria" onclick="publishCriteria(this.form)" />
@@ -205,8 +245,8 @@
 	<div align="center">
 	  <table width="500" border="0" cellspacing="5">
         <tr>
-          <td><div align="center">Structured Discussion Criteria</div></td>
-          <td><div align="center">Weight Criteria</div></td>
+          <td><div id="sdcrit" align="center">Structured Discussion Criteria</div></td>
+          <td><div id="critweight" align="center">Weight Criteria</div></td>
         </tr>
           </table>
 	  </div>
@@ -215,19 +255,19 @@
 	<div align="center">
 	  <table width="700" border="0" cellspacing="5">
         <tr>
-          <td><div align="center">Grade Project </div></td>
+          <td><div id="gradeproject" align="center">Grade Project </div></td>
           <td><div align="center">
-            <input name="Publish Funding Sources" type="button" value="Publish Funding Sources" />
+            <input name="Publish Funding Sources" type="button" value="Publish Funding Sources" onclick="publishFundingSources()"/>
           </div></td>
         </tr>
         <tr>
           <td><div align="center">
-            <input name="Publish Projects" type="button" value="Publish Projects" />
+            <input name="Publish Projects" type="button" value="Publish Projects" onclick="publishProjects()"/>
           </div></td>
-          <td><div align="center">Structured Discussion Funding Sources </div></td>
+          <td><div id="sdfunding" align="center">Structured Discussion Funding Sources </div></td>
         </tr>
         <tr>
-          <td><div align="center">Structured Discussion Project </div></td>
+          <td><div id="sdproject" align="center">Structured Discussion Project </div></td>
           <td><div align="center"></div></td>
         </tr>
           </table>
