@@ -108,7 +108,7 @@
 			//alert("Project Choices Hash: " + config.projectChoices.inspect());
 
 			//alert("createmyconfiguredpackage config:" + config )			
-			var mylimit = $F('mylimit');
+			var mylimit = parseInt($F('mylimit'));
 			var avglimit = 0;
 			if(mylimit.length > 0){
 				PackageAgent.createMyConfiguredPackage(config, fcs, pcs, mylimit, avglimit, usrPkgId, {

@@ -6,9 +6,34 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<h2 class="headerColor">Welcome, ${baseuser.loginname}</h2>
+<h3 class="headerColor">Please select an expiriment</h3>
 
 
 <div id="workflows">
+	
+	<pg:show roles="moderator">
+		<table id="newTable" cellspacing="0" cellpadding="0">
+			<tr>
+				<th>New Workflows</th>
+				<th>Description</th>
+				<th>Operation</th>
+			</tr>
+			<c:forEach var="workflow" items="${newWorkflows}">
+					<tr>
+						<td>${workflow.situation.name}</td>
+						<td>${workflow.situation.description}</td>
+						<td><input type="button" value="Start" onclick="javascript: workflow.startWorkflow(${workflow.id});"></td>
+					</tr>
+			</c:forEach>
+		</table>
+		<p>Create a New Expiriment</p>
+		<div id="newExpiriment">
+			<!-- load templates here -->
+		</div>
+	</pg:show>
+	
+	
 	<c:choose>
 		<c:when test="${fn:length(runningWorkflows) > 0}">
 			<table id="newTable" class="running" cellspacing="0" cellpadding="0">
@@ -60,22 +85,7 @@
 					</tr>
 			</c:forEach>
 		</table>
-	
-	
-		<table id="newTable" cellspacing="0" cellpadding="0">
-			<tr>
-				<th>New Workflows</th>
-				<th>Description</th>
-				<th>Operation</th>
-			</tr>
-			<c:forEach var="workflow" items="${newWorkflows}">
-					<tr>
-						<td>${workflow.situation.name}</td>
-						<td>${workflow.situation.description}</td>
-						<td><input type="button" value="Start" onclick="javascript: workflow.startWorkflow(${workflow.id});"></td>
-					</tr>
-			</c:forEach>
-		</table>
+
 	</pg:show>
 </div>
 
