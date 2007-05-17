@@ -49,7 +49,7 @@
 	<!-- #container is the container that wraps around all the main page content -->
 
   <div id="container">
-	  <h2 align="center" class="headerColor">Your Registration is Complete</h2>
+	  <h3 align="center" class="headerColor">Your Registration is Complete</h3>
 		
 		<div align="center"><a href="login.do" class="style1">Please click here to login</a></div>
 	<p>&nbsp;</p>

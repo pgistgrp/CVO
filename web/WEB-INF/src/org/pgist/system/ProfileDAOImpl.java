@@ -1,8 +1,11 @@
 package org.pgist.system;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 import org.pgist.discussion.DiscussionPost;
+import org.pgist.discussion.GenericPost;
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;
 
@@ -61,8 +64,8 @@ public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
 		
 	}
 	
+	
     private static final String hql_getReplies_A = "from DiscussionReply r where r.parent.id=? and r.deleted=? order by r.id";
-    
     
     public Collection getReplies(DiscussionPost post) throws Exception {
         return getHibernateTemplate().find(hql_getReplies_A, new Object[] {
@@ -70,4 +73,43 @@ public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
                 false,
         });
     }//getReplies()
+    
+    
+    private static final String hql_getLastLogin = "from SystemLog sl order by sl.time";
+    
+    public Date getLastLogin(String username) {
+    	List list = getHibernateTemplate().find(hql_getLastLogin, new Object[] {});
+    	SystemLog sl = (SystemLog) list.get((list.size()-1));
+    	Date date = sl.getTime();
+    	return date;
+    }
+
+    
+    public int getTotalVisits(String username) {
+    	List list = getHibernateTemplate().find(hql_getLastLogin, new Object[] {});
+    	int visits = list.size();
+    	return visits;
+    }
+    
+    
+    private static final String hql_getPostCount1 = "from DiscussionPost dp where dp.owner.loginname=?";
+    private static final String hql_getPostCount2 = "from DiscussionReply dr where dr.owner.loginname=?";
+    
+    public int getPostCount(String username) {
+    	//User u = getUserByUsername(username);
+    	List list = getHibernateTemplate().find(hql_getPostCount1, new Object[] {username,});
+    	List list2 = getHibernateTemplate().find(hql_getPostCount2, new Object[] {username,});
+    	int post = list.size() + list2.size();
+    	return post;
+    }
+
+    
+    private static final String hql_getUserByUsername = "from User u where u.loginname=?";
+    
+    public User getUserByUsername(String username) {
+    	List list = getHibernateTemplate().find(hql_getUserByUsername, new Object[] {username,});
+    	User u = (User)list.get(0);
+    	return u;
+    }
+    
 }

@@ -9,9 +9,6 @@
 @import "styles/public-profile.css";
 </style>
 
-<script type="text/javascript">
-
-</script>
 <event:pageunload />
 </head>
 <body>
@@ -42,15 +39,15 @@
 			<h4 class="headerColor">My statistics</h4>
 			<p>
 				<span class="label">Last visit to LIT website:</span>
-				<span class="value">10/24/06, 3:45pm</span>
+				<span class="value">${lastlogin}</span>
 			</p><br />
 			<p>
 				<span class="label">Total Visits to LIT website:</span>
-				<span class="value">22</span>
+				<span class="value">${visits}</span>
 			</p><br />
 			<p>
 				<span class="label"># of discussion posts:</span>
-				<span class="value">3</span>
+				<span class="value">${post}</span>
 			</p><br />
 		</div>
 		<p>

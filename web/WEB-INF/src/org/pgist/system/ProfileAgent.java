@@ -6,19 +6,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.Date;
+import java.text.Format;
+import java.text.DateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
-import org.pgist.criteria.Criteria;
-import org.pgist.criteria.CriteriaService;
-import org.pgist.cvo.CCTService;
-import org.pgist.funding.FundingService;
-import org.pgist.funding.UserTaxInfoDTO;
 import org.pgist.users.User;
-import org.pgist.users.Vehicle;
-import org.pgist.util.PageSetting;
-import org.pgist.util.WebUtils;
+
 
 
 /**
@@ -216,4 +212,53 @@ public class ProfileAgent {
         
         return map;
     }
+    
+    
+	/**
+     * Get user statistics
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>username - string, user's login name</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map getUserStats(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        String username = (String) params.get("username");
+        
+        if(username==null || "".equals(username.trim())){
+    		map.put("reason", "username cannot be blank.");
+    		return map;
+    	}
+       
+        try {
+        	Date date = profileService.getLastLogin(username);
+        	int visits = profileService.getTotalVisits(username);
+        	int post = profileService.getPostCount(username);
+        		
+        	String strDate = "" + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date);
+        	map.put("date", strDate);
+        	map.put("visits", visits);
+        	map.put("post", post);
+            
+        	/*request.setAttribute("date", strDate);
+            request.setAttribute("visits", visits);
+            request.setAttribute("post", post);
+            
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/profile_stats.jsp"));
+            */
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        return map;
+    } //getUserStats();
+    
 } //ProfileAgent()

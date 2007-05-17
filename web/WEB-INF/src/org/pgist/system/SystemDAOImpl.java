@@ -266,10 +266,11 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     
     
     public void addAnnouncement(Long workflowId, String message) throws Exception {
+    	Date date = new Date();
     	Announcement announcement = new Announcement();
     	announcement.setMessage(message);
     	announcement.setWorkflowId(workflowId);
-    	announcement.setDate(WebUtils.getDate());
+    	announcement.setDate(date);
     	save(announcement);
     }
     

@@ -85,6 +85,7 @@
 	<param name="beanName" value="profileAgent"/>
 	<include method="getUserInfo"/>
 	<include method="setUserInfo"/>
+	<include method="getUserStats"/>
     </create>
     
   </allow>
