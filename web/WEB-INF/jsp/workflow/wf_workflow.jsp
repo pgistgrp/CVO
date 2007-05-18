@@ -21,15 +21,16 @@
 		<!--<pg:narrow name="meeting"/><strong>Meeting:</strong> "${meeting.description}"-->
 
 		<c:forEach var="pmethod" items="${meeting.context.pendingActivities}">
-			<pg:narrow name="pmethod"/></h4>
+			<pg:narrow name="pmethod"/>
 			<h4 class="headerColor clearBoth step-header">${pmethod.description}</h4>
 				<c:forEach var="pgame" items="${pmethod.context.runningActivities}">
+					<pg:narrow name="pgame"/>
 					<div class="home-row clearfix">
 						<div class="step">
-							<a href="${pgame.link}">${pgame.description}</a> <input type="button" onclick="workflow.nextStep(${workflow.id},${pmethod.context.id},${pgame.id});" value="Publish ${pgame.description}"/>	<br />
+							<a href="${pgame.link}">${pgame.description}</a><br />
 							<small>Information about this step</small>
 						</div>
-						<div class="date">11/15 - 11/25</div
+						<div class="date"><input type="button" onclick="workflow.nextStep(${workflow.id},${pmethod.context.id},${pgame.id});" value="Completed"/>	</div
 						
 					</div>
 				</c:forEach>

@@ -120,10 +120,10 @@
     </target>
     
     
-    <target name="LIT">
-        <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
+    <target name="LIT" depends="LIT_pgames, LIT_pmethods, LIT_meetings, LIT_situations">
+        <!--<taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
         </taskdef>
-        <WorkflowImporter definition="LIT.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
+        <WorkflowImporter definition="LIT.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>-->
     </target>
     
 

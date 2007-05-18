@@ -769,9 +769,7 @@ categories, each with 1 or 2 tags in it.</li></ol><li><b>Identify themes and sum
 
 		<div id="finished">
 			<a name="finished"></a>
-	   		<h3 id="headerFinished">Finished synthesizing concerns?
-	   		<input type="button" id="btnNextStep" class="floatright" onclick="publish();" value="Publish Concern Themes">	
-	   		</h3>
+	   		<h3 id="headerFinished">Finished synthesizing concerns?</h3>
 	   		<p>blah blah.... Publish concern themes to participants....			</p>
 		</div>
 </div>

@@ -44,7 +44,8 @@
             <actionName>action-grade.projects</actionName>
             <declaration>
                 <ins>
-                    <var name="suiteId"/>
+                    <var name="projsuiteId"/>
+					<var name="critsuiteId"/>
                 </ins>
             </declaration>
         </pgame>

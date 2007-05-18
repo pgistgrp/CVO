@@ -168,6 +168,7 @@
             <declaration>
                 <ins>
                     <var name="pmethod.cct_id"/>
+ 					<var name="pmethod.crit_suite_id"/>
                     <var name="pmethod.suite_id"/>
                 </ins>
                 <outs>
@@ -178,7 +179,8 @@
                 <pgame name="pgame-grade.projects">
                     <declaration>
                         <ins>
-                            <var name="suiteId" ref="pmethod.suite_id"/>
+                            <var name="projsuiteId" ref="pmethod.suite_id"/>
+                            <var name="critsuiteId" ref="pmethod.crit_suite_id"/>
                         </ins>
                     </declaration>
                 </pgame>
