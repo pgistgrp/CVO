@@ -98,10 +98,12 @@ Workflow.prototype.getWorkflow = function(workflowId) {
 };
 
 Workflow.prototype.nextStep = function(workflowId, contextId, activityId) {
-  WorkflowAgent.getWorkflow(
+  alert("workflowId: " + workflowId + " contextId : " + contextId + " activityId: " + activityId)
+  WorkflowAgent.nextStep(
     { workflowId : workflowId, contextId: contextId, activityId: activityId },
     function(data) {
       if (data.successful) {
+		alert("published!")
         workflow.getWorkflow(workflowId);
       } else {
         alert(data.reason);
