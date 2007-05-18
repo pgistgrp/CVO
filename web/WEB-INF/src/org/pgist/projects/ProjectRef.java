@@ -2,6 +2,8 @@ package org.pgist.projects;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
+
 
 /**
  * A ProjectRef refers to a project object.
@@ -19,7 +21,7 @@ public class ProjectRef {
     
     private Project project;
     
-    private Set<ProjectAltRef> altRefs = new HashSet<ProjectAltRef>();
+    private Set<ProjectAltRef> altRefs = new TreeSet<ProjectAltRef>();
     
     
     /**
@@ -70,7 +72,7 @@ public class ProjectRef {
     /**
      * @return
      * 
-     * @hibernate.set lazy="false" cascade="all-delete-orphan"
+     * @hibernate.set lazy="false" cascade="all-delete-orphan"  sort="org.pgist.projects.ProjectAltRef"
      * @hibernate.collection-key column="projref_id"
      * @hibernate.collection-one-to-many class="org.pgist.projects.ProjectAltRef"
      */

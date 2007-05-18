@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.Comparator;
 
 import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaRef;
@@ -17,7 +18,7 @@ import org.pgist.criteria.CriteriaRef;
  *
  * @hibernate.class table="pgist_project_alt_ref" lazy="true"
  */
-public class ProjectAltRef {
+public class ProjectAltRef implements Comparator {
     
     
     private Long id;
@@ -95,6 +96,11 @@ public class ProjectAltRef {
 			if(this.getId().equals(temp.getId())) return true;
 		}
 		return false;
+	}
+	
+	public int compare(Object o1, Object o2) {
+		
+		return ((ProjectAltRef)o1).getAlternative().getName().compareToIgnoreCase(((ProjectAltRef)o2).getAlternative().getName());
 	}
 	
 }//class ProjectAltRef
