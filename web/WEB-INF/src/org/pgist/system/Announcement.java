@@ -70,7 +70,8 @@ public class Announcement implements Serializable{
     
     
     /**
-     * @hibernate.property not-null="true"
+     * @return
+     * @hibernate.property type="text" not-null="true"
      */
     public String getMessage() {
         return message;
