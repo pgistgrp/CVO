@@ -686,7 +686,7 @@ public class FundingServiceImpl implements FundingService {
         Date date = new Date();
         
         InfoStructure structure = new InfoStructure();
-        structure.setType("sdfund");
+        structure.setType("sdf");
         structure.setTitle("Step 3b: Review Fundings.");
         structure.setRespTime(date);
         structure.setCctId(cct.getId());

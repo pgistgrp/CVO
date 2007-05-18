@@ -536,7 +536,7 @@ public class ProjectServiceImpl implements ProjectService{
         Date date = new Date();
         
         InfoStructure structure = new InfoStructure();
-        structure.setType("sdcrit");
+        structure.setType("sdp");
         structure.setTitle(title);
         structure.setRespTime(date);
         structure.setCctId(cct.getId());
