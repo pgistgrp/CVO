@@ -18,7 +18,7 @@
 			&nbsp;<span id="message${announcement.id}">${announcement.message}</span>
 			<pg:show roles="moderator">
 				<small>
-					[ <a href="javascript:editAnnoucementPrep(${announcement.id});">edit</a> ] 
+					[ <a href="javascript:editAnnouncementPrep(${announcement.id});">edit</a> ] 
 					[ <a href="javascript:deleteAnnouncement(${announcement.id});">delete</a> ]	
 				</small>
 			</pg:show>

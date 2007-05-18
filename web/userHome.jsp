@@ -29,7 +29,7 @@
 	<script type="text/javascript">
 		var wfId = <%=request.getParameter("wf")%>;
 		
-		function getAnnoucements(){
+		function getAnnouncements(){
 			SystemAgent.getAnnouncements({workflowId:wfId}, {
 				callback:function(data){
 					if (data.successful){
@@ -46,11 +46,10 @@
 		
 		function addAnnouncement(){
 			var message = tinyMCE.getContent();
-			//alert(message)
 			SystemAgent.addAnnouncement({workflowId:wfId,message:message}, {
 				callback:function(data){
 					if (data.successful){
-						getAnnoucements();
+						getAnnouncements();
 
 					}else{
 						alert(data.reason);
@@ -77,18 +76,22 @@
 			});
 		}
 		
-		function editAnnoucementPrep(id){
-			old =  $('message' + id).innerHTML;
-			alert(old);
+		function editAnnouncementPrep(id){
+			var old = $('message' + id).innerHTML;
+			$('announce-editor').style.display="";
+			tinyMCE.setContent(old,'modAnnounce');
+			$('editBtn').name = id;
+			showEditBtn();
 		}
 		
-		function editAnnoucement(id){
-			var message = "hello world";
+		function editAnnouncement(id){
+			var message="default text";
+			var message = tinyMCE.getContent();
 			SystemAgent.editAnnouncement({id:id, message:message}, {
 				callback:function(data){
 					if (data.successful){
 						tinyMCE.setContent("");
-						getAnnoucements();
+						getAnnouncements();
 					}else{
 						alert(data.reason);
 					}
@@ -98,6 +101,16 @@
 				}
 			});
 		}	
+		
+		function showPubBtn(){
+			$('pubBtn').style.display="";
+			$('editBtn').style.display="none";
+		}
+		
+		function showEditBtn(){
+			$('editBtn').style.display="";
+			$('pubBtn').style.display="none";
+		}
 
 		tinyMCE.init({
 		theme : "advanced",
@@ -107,10 +120,12 @@
 		content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css",
 		extended_valid_elements : "blockquote[style='']",
 		mode : "textareas",
-		height: "300",
-		width: "400"
+		height: "100",
+		width: "430",
+		//auto_focus : "modAnnounce"
 		});
 	
+	tinyMCE.execCommand('mceFocus',false,'modAnnounce');
 	</script>
 	<event:pageunload />
 	</head>
@@ -132,13 +147,11 @@
 		<div id="left-col">
 			<h3 class="headerColor">Overview of all Steps</h3>
 			<div class="box12 clearfix">
-
 				<div id="workflow-panel"><img src="/images/indicator_arrows.gif" alt="Please wait..."/> Loading...</div>
 				<pg:show roles="moderator">
-					
-					<h5>** The following section is for testing purposes only.  It will be removed when the workflow is fully integrated. **</h5>
+					<h5>** The following section is for testing purposes only. It will be removed
+						when the workflow is fully integrated. **</h5>
 					<h3>Public Components</h3>
-
 					<h4 class="headerColor clearBoth step-header">Step 1: Discuss Concerns</h4>
 					<div class="home-row clearfix">
 						<div class="step"><a href="travelMap.do">1a: Map your Daily Travel</a><br />
@@ -162,7 +175,8 @@
 						<div class="date">11/15 - 11/25</div>
 					</div>
 					<div class="home-row clearfix">
-						<div class="step"><a href="criteriaWeigh.do?suiteId=200">2b: Weigh Planning Factors</a><br />
+						<div class="step"><a href="criteriaWeigh.do?suiteId=200">2b: Weigh Planning
+								Factors</a><br />
 							<small>Information about this step</small></div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
@@ -256,7 +270,8 @@
 					</div>
 					<h4 class="headerColor clearBoth step-header">Step 2</h4>
 					<div class="home-row clearfix">
-						<div class="step"><a href="criteriaDefine.do?suiteId=200&cctId=1187">Define Planning Factors</a><br />
+						<div class="step"><a href="criteriaDefine.do?suiteId=200&cctId=1187">Define
+								Planning Factors</a><br />
 							<small>Information about this step</small></div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
@@ -307,27 +322,31 @@
 		<div id="right-col">
 			<h3 class="headerColor">Moderator announcements</h3>
 			<div id="mod-announcements" class="box9">
-				
 				<div id="announcements">
 					<!--load via DWR -->
 				</div>
-
 			</div>
 			<pg:show roles="moderator">
 				<input type="button" id="btnEdit" class="padding5" value="Add Announcement" 
-				onclick="Element.toggle($('announce-editor'));tinyMCE.setContent('')" />
-
+				onclick="Element.toggle($('announce-editor'));showPubBtn();tinyMCE.setContent('')" />
 				<div id="announce-editor" style="display:none">
-					<textarea name="content" id="modAnnounce"></textarea><br/>
-					<input type="button" onclick="addAnnouncement();Element.toggle($('announce-editor'));" class="padding5" value="Publish Announcement" /> <a href="javascript:Element.toggle($('announce-editor'));void(0);">Cancel</a>
-				</div>
+					<textarea name="content" id="modAnnounce"></textarea>
+					<br/>
+					<input type="button" id="pubBtn" 
+						onclick="addAnnouncement();Element.toggle($('announce-editor'));" 
+						class="padding5" value="Publish" />
+					<input type="button" id="editBtn" 
+						onclick="editAnnouncement(name);Element.toggle($('announce-editor'));" 
+						class="padding5" style="display:none" value="Edit" />
+					<a href="javascript:Element.toggle($('announce-editor'));void(0);">Cancel</a> </div>
 			</pg:show>
 		</div>
 		<div class="clearBoth"></div>
 		<!-- begin RECENT DISCUSSIONS -->
 		<div id="recent-wrapper">
 			<h3 class="headerColor floatLeft">Recent Discussions</h3>
-			<div class="floatRight"><span><a href="#">Previous</a></span><span><a href="#">Next</a></span></div>
+			<div class="floatRight"><span><a href="#">Previous</a></span>
+			<span><a href="#">Next</a></span></div>
 			<div class="clearBoth"></div>
 			<div id="recent-discussions" class="box3">
 				<!-- begin RECENT DISCUSSIONS HEADER -->
@@ -476,8 +495,7 @@
 	</div>
 	<!-- End footer -->
 	<script type="text/javascript" charset="utf-8">
-		getAnnoucements();
+		getAnnouncements();
 	</script>
-
 	</body>
 </html:html>

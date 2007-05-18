@@ -78,13 +78,17 @@ width:49%;
 float:right;
 }
 
-#announcements, #announce-editor{
+#announcements,#announce-editor{
 background:#FCFFF5;
 border:1px solid #B4D579;
-height:400px;
 padding:10px;
 overflow:auto;
 }
+
+#announcements{height:400px;}
+#announce-editor{margin-top:1em;}
+
+#announcements h4 {margin:0px auto;}
 
 #mod-announcements{
 padding:5px;
