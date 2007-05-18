@@ -20,7 +20,6 @@
                     <var name="suiteId"/>
                 </ins>
             </declaration>
-            <timer extension="100000"/>
         </pgame>
         
         <pgame name="pgame-create.funding.suite" description="Create a funding source suite." auto="true">
@@ -39,7 +38,6 @@
                     <var name="suiteId"/>
                 </ins>
             </declaration>
-            <timer extension="100000"/>
         </pgame>
         
         <pgame name="pgame-grade.projects" description="Grade Projects." auto="false" access="moderator">
@@ -49,7 +47,6 @@
                     <var name="suiteId"/>
                 </ins>
             </declaration>
-            <timer extension="100000"/>
         </pgame>
         
         <pgame name="pgame-create.cct" description="Create a CCT instance." auto="true">
@@ -73,7 +70,6 @@
                     <var name="cctId"/>
                 </ins>
             </declaration>
-            <timer extension="300000"/>
         </pgame>
         
         <pgame name="pgame-cvo.cst" description="Concerns Synthesis Tool" auto="false" access="all">
@@ -83,7 +79,6 @@
                     <var name="cctId"/>
                 </ins>
             </declaration>
-            <timer extension="300000"/>
         </pgame>
         
         <pgame name="pgame-publish.theme" description="Publish Themes." auto="true">
@@ -108,7 +103,6 @@
                     <var name="isid"/>
                 </ins>
             </declaration>
-            <timer extension="300000"/>
         </pgame>
         
         <pgame name="pgame-create.criteria.suite" description="Create a criteria suite." auto="true">
@@ -128,7 +122,6 @@
                     <var name="suiteId"/>
                 </ins>
             </declaration>
-            <timer extension="150000"/>
         </pgame>
         
         <pgame name="pgame-publish.criteria" description="Publish Criteria." auto="true">
@@ -154,7 +147,6 @@
                 <var name="isid"/>
             </ins>
             </declaration>
-            <timer extension="180000"/>
         </pgame>
         
         <pgame name="pgame-weigh.criteria" description="Weight critieria" auto="false" access="all">
@@ -164,7 +156,6 @@
                 <var name="suiteId"/>
             </ins>
             </declaration>
-            <timer extension="180000"/>
         </pgame>
         
         <pgame name="pgame-publish.projects" description="Publish Projects." auto="true">
@@ -190,7 +181,6 @@
                     <var name="isid"/>
                 </ins>
             </declaration>
-            <timer extension="300000"/>
         </pgame>
         
         <pgame name="pgame-publish.fundings" description="Publish Fundings." auto="true">
@@ -216,7 +206,6 @@
                     <var name="isid"/>
                 </ins>
             </declaration>
-            <timer extension="60000"/>
         </pgame>
         
         <pgame name="pgame-create.package.suite" description="Create a package suite." auto="true">
@@ -238,7 +227,6 @@
                     <var name="critSuiteId"/>
                 </ins>
             </declaration>
-            <timer extension="60000"/>
         </pgame>
         
         <pgame name="pgame-group.packages" description="Group candidate packages." auto="true">
@@ -257,7 +245,6 @@
                     <var name="isid"/>
                 </ins>
             </declaration>
-            <timer extension="60000"/>
         </pgame>
         
         <pgame name="pgame-manage.packages" description="Manage Packages." auto="false" access="moderator">
@@ -270,7 +257,6 @@
                     <var name="critSuiteId"/>
                 </ins>
             </declaration>
-            <timer extension="60000"/>
         </pgame>
         
         <pgame name="pgame-publish.packages" description="Publish Packages." auto="true">
@@ -296,7 +282,6 @@
                     <var name="isid"/>
                 </ins>
             </declaration>
-            <timer extension="60000"/>
         </pgame>
         
         <pgame name="pgame-vote.packages" description="Vote Candidate Packages." auto="false" access="all">
@@ -310,7 +295,6 @@
                     <var name="voteSuiteId"/>
                 </ins>
             </declaration>
-            <timer extension="60000"/>
         </pgame>
         
     </pgames>
