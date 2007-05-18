@@ -31,6 +31,8 @@
 						</div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
+					<br />
+					<input type="button" onclick="workflow.nextStep(${workflow.id},${pmethod.context.id},${pgame.id});"/>
 				</c:forEach>		
 		</c:forEach>
 	</c:forEach>

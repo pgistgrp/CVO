@@ -23,7 +23,6 @@
 				</small>
 			</pg:show>
 			</p>
-
 		</c:forEach>
 	</c:otherwise>
 </c:choose>

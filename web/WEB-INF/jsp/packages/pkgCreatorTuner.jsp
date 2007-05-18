@@ -246,7 +246,7 @@
 									<td class="right-col2">
 										<select name="fundingChoices" id="fundAltSelect-${altRef.id}">
 											<option value="2">Include it</option>
-											<option value="1" SELECTED>Don't care</option>
+											<option value="1" SELECTED>Don't care ${altRef.id}</option>
 											<option value="0">Exclude it</option>
 										</select>
 									</td>

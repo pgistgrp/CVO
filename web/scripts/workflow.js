@@ -97,3 +97,15 @@ Workflow.prototype.getWorkflow = function(workflowId) {
   );
 };
 
+Workflow.prototype.nextStep = function(workflowId, contextId, activityId) {
+  WorkflowAgent.getWorkflow(
+    { workflowId : workflowId, contextId: contextId, activityId: activityId },
+    function(data) {
+      if (data.successful) {
+        workflow.getWorkflow(workflowId);
+      } else {
+        alert(data.reason);
+      }
+    }
+  );
+};
