@@ -46,12 +46,12 @@
 		
 		function addAnnouncement(){
 			var message = tinyMCE.getContent();
-			alert(message)
+			//alert(message)
 			SystemAgent.addAnnouncement({workflowId:wfId,message:message}, {
 				callback:function(data){
 					if (data.successful){
-						tinyMCE.setContent("");
 						getAnnoucements();
+
 					}else{
 						alert(data.reason);
 					}
@@ -66,7 +66,7 @@
 			SystemAgent.deleteAnnouncement({id:id}, {
 				callback:function(data){
 					if (data.successful){
-						new Effect.DropOut('annoucement' + id)
+						new Effect.DropOut('announcement' + id)
 					}else{
 						alert(data.reason);
 					}
@@ -77,13 +77,13 @@
 			});
 		}
 		
-		function editAnnoucementPrep(id) {
-			Element.toggle($('announce-editor'));
-			old =  $('message' + id).innerHTML
-			tinyMCE.setContent(old);
+		function editAnnoucementPrep(id){
+			old =  $('message' + id).innerHTML;
+			alert(old);
 		}
 		
-		function editAnnouncement(id){
+		function editAnnoucement(id){
+			var message = "hello world";
 			SystemAgent.editAnnouncement({id:id, message:message}, {
 				callback:function(data){
 					if (data.successful){
@@ -97,21 +97,19 @@
 				alert("SystemAgent.deleteAnnouncement( error:" + errorString + exception);
 				}
 			});
-		}
-		
-	
-	
-			tinyMCE.init({
-			theme : "advanced",
-			theme_advanced_buttons1 : "bold, italic, bullist, numlist,undo, redo,link",
-			theme_advanced_buttons2 : "",
-			theme_advanced_buttons3 : "",
-			content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css",
-			extended_valid_elements : "blockquote[style='']",
-			mode : "textareas",
-			height: "340",
-			width: "425"
-			});
+		}	
+
+		tinyMCE.init({
+		theme : "advanced",
+		theme_advanced_buttons1 : "bold, italic, bullist, numlist,undo, redo,link",
+		theme_advanced_buttons2 : "",
+		theme_advanced_buttons3 : "",
+		content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css",
+		extended_valid_elements : "blockquote[style='']",
+		mode : "textareas",
+		height: "300",
+		width: "400"
+		});
 	
 	</script>
 	<event:pageunload />
@@ -317,7 +315,7 @@
 			</div>
 			<pg:show roles="moderator">
 				<input type="button" id="btnEdit" class="padding5" value="Add Announcement" 
-				onclick="Element.toggle($('announce-editor'));" />
+				onclick="Element.toggle($('announce-editor'));tinyMCE.setContent('')" />
 
 				<div id="announce-editor" style="display:none">
 					<textarea name="content" id="modAnnounce"></textarea><br/>
