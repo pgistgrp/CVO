@@ -106,7 +106,7 @@ Workflow.prototype.nextStep = function(workflowId, contextId, activityId) {
 		alert("published!")
         workflow.getWorkflow(workflowId);
       } else {
-        alert(data.reason);
+        alert("REASON: " + data.reason);
       }
     }
   );
