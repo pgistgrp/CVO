@@ -890,7 +890,7 @@ public class SystemAgent {
 		map.put("successful", false);
 		
 		String strId = (String)params.get("id");
-		String message = (String)params.get("messsage");
+		String message = (String)params.get("message");
 
         if(strId==null || "".equals(strId.trim())){
         	map.put("reason", "id cannot be null.");
