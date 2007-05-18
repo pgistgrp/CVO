@@ -53,7 +53,7 @@
 						Estimated annual cost to you</span></th>
 					</tr>
 					
-					
+					==== ${structure.infoObjects}
 					<c:forEach var="fundingRef" items="${structure.infoObjects}" varStatus="loop">
 						<tr class="fundingType">
 							<td class="fundingSourceItem"><a href="javascript:io.toggleRow('objective${fundingRef.id}','icon${fundingRef.id}');">

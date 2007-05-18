@@ -66,6 +66,7 @@
 						</tr>
 						<!-- end CATEGORY LABEL -->
 						<!-- ******* LOOP ENTIRE PROJECT ******** -->
+											==== ${structure.infoObjects}
 						<c:forEach var="projectRef" items="${structure.infoObjects}" varStatus="loop">
 							<c:if test="${projectRef.project.transMode == category}">
 								
