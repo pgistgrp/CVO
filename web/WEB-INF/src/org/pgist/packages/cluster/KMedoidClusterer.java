@@ -6,6 +6,9 @@
  *
  * $Id$
  * $Log$
+ * Revision 1.1  2007/05/11 22:52:54  paulin
+ * cluster stuff
+ *
  * Revision 1.9  2003/10/16 14:30:50  mkmaier
  * IMP: minor beautifying
  *
@@ -87,7 +90,7 @@ public final class KMedoidClusterer extends AbstractReAssigningClusterer {
 	/**
 	 * @see mkm.clustering.clusterer.AbstractClusterer#step()
 	 */
-	protected void step() {
+	public void step() {
 		if (getToGo() > 0) {
 			boolean done = assignItems();
 			reCenter(clusters);

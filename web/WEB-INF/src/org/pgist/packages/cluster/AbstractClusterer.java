@@ -6,6 +6,9 @@
  *
  * $Id$
  * $Log$
+ * Revision 1.1  2007/05/11 22:52:54  paulin
+ * cluster stuff
+ *
  * Revision 1.10  2003/10/16 14:30:50  mkmaier
  * IMP: minor beautifying
  *
@@ -210,7 +213,7 @@ public abstract class AbstractClusterer extends Thread {
 	 * divison of the clustering algorithm that it makes sense to display
 	 * graphically, e.g. one iteration.
 	 */
-	protected abstract void step();
+	public abstract void step();
 
 	/**
 	 * Returns the number of steps executed to far.

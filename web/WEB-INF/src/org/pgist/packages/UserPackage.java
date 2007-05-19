@@ -7,8 +7,10 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.pgist.funding.FundingSourceAltRef;
+import org.pgist.funding.FundingSourceAltRefComparator;
 import org.pgist.funding.FundingSourceAlternative;
 import org.pgist.projects.ProjectAltRef;
+import org.pgist.projects.ProjectAltRefComparator;
 import org.pgist.users.User;
 
 
@@ -32,9 +34,9 @@ public class UserPackage extends Package {
     
     private float avgResidentCost;
         
-    protected SortedSet<ProjectAltRef> projAltRefs = new TreeSet<ProjectAltRef>();
+    protected SortedSet<ProjectAltRef> projAltRefs = new TreeSet<ProjectAltRef>(new ProjectAltRefComparator());
     
-    protected SortedSet<FundingSourceAltRef> fundAltRefs = new TreeSet<FundingSourceAltRef>();
+    protected SortedSet<FundingSourceAltRef> fundAltRefs = new TreeSet<FundingSourceAltRef>(new FundingSourceAltRefComparator());
     
 	/**
      * Recalculates all of the information about this user package
@@ -60,7 +62,8 @@ public class UserPackage extends Package {
     		totalFunding = totalFunding + (float)fAlt.getRevenue();
     		avgResidentCost = avgResidentCost + fAlt.getAvgCost();
     		yourCost = yourCost + this.getPersonalCost(fAlt.getId());
-    	}    	    	
+    	}    
+    	System.out.println("MATT --<><><> Cost= " + this.getTotalCost() + " funding = " + this.getTotalFunding() + " avgRes=" + this.getAvgResidentCost() + " your cost = " + this.getYourCost());
     }
     
     

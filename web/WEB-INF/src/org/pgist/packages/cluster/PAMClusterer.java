@@ -6,6 +6,9 @@
  *
  * $Id$
  * $Log$
+ * Revision 1.1  2007/05/11 22:52:54  paulin
+ * cluster stuff
+ *
  * Revision 1.12  2003/10/16 14:30:50  mkmaier
  * IMP: minor beautifying
  *
@@ -59,6 +62,8 @@ public final class PAMClusterer extends AbstractReAssigningClusterer {
 	/** Cluster factory. */
 	private final ItemCluster.ItemClusterFactory clusterFactory;
 
+	float overallCompactness = 0;
+	
 	/**
 	 * Constructs a PAMClusterer.
 	 * 
@@ -86,6 +91,13 @@ public final class PAMClusterer extends AbstractReAssigningClusterer {
 		assignItems();
 	}
 
+	
+	
+	public float getOverallCompactness() {
+		return overallCompactness;
+	}
+
+
 	/**
 	 * @see mkm.clustering.clusterer.AbstractReAssigningClusterer#initClusters()
 	 */
@@ -99,14 +111,14 @@ public final class PAMClusterer extends AbstractReAssigningClusterer {
 	/**
 	 * @see mkm.clustering.clusterer.AbstractClusterer#step()
 	 */
-	protected void step() {
+	public void step() {
 		// TODO cleanup
 		// TODO history
 		// FIXME clustering
 		Cluster exchC = null;
 		Item exchP = null;
 		float delta = 0.0f;
-		float overallCompactness = overallCompactness(clusters);
+		overallCompactness = overallCompactness(clusters);
 
 		// iterate over all clusters to exchange
 		Iterator i = clusters.iterator();

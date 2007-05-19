@@ -1,17 +1,14 @@
 package org.pgist.packages;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
-import org.pgist.users.User;
 import org.pgist.util.WebUtils;
 
 
@@ -93,11 +90,23 @@ public class PackageAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map createMyConfiguredPackage(TunerConfig conf, float mylimit, float avglimit, long userPkgId) {
-        Map map = new HashMap();
+    public Map createMyConfiguredPackage(TunerConfig conf, HashMap fundingChoices, HashMap projectChoices, float mylimit, float avglimit, long userPkgId) {
+System.out.println("MATT ____________()()()()(Configuring");
+    	Iterator i = fundingChoices.keySet().iterator();
+    	Object key;
+    	Object value;
+    	while(i.hasNext()) {
+    		key = i.next();
+    		value = fundingChoices.get(key);
+    		System.out.println("Found Key = " + key.getClass().getName() + ":" + key + " Value=" + value.getClass().getName() + ":" + value);
+    	}
+    	
+    	Map map = new HashMap();
         map.put("successful", false);
         
         try {
+        	conf.setFundingChoices(fundingChoices);
+        	conf.setProjectChoices(projectChoices);
             this.packageService.createKSUserPackage(userPkgId, conf, mylimit, avglimit);
             map.put("successful", true);
         } catch (Exception e) {
@@ -167,6 +176,8 @@ public class PackageAgent {
      *   <ul>
      *     <li>pkgSuiteId - int, id of the package suite these packages are in</li>
      *     <li>pkgCount - int, The number of packages to reduce it to, limited to between 3 and 7</li>
+     *     <li>projSuiteId - int, id of the project suite</li>
+     *     <li>fundSuiteId - int, id of the funding suite</li>
      *   </ul>
      *   
      * @return a Map contains:<br>
@@ -182,8 +193,10 @@ public class PackageAgent {
         try {
             Long pkgSuiteId = new Long((String) params.get("pkgSuiteId"));
             int pkgCount = new Integer((String) params.get("pkgCount"));
+            Long projSuiteId = new Long((String) params.get("projSuiteId"));
+            Long fundSuiteId = new Long((String) params.get("fundSuiteId"));
             
-            this.packageService.createClusteredPackages(pkgSuiteId, pkgCount);
+            this.packageService.createClusteredPackages(pkgSuiteId, pkgCount, projSuiteId, fundSuiteId);
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -472,7 +485,8 @@ public class PackageAgent {
      *     <li>deleting - boolean, true | false. If deleting==true, delete the project alternative
      *         from package, else add the project alternative to package, default is "false".
      *     </li>
-     *     <li>userPkg - boolean, true | false. If userPkg==true, then perform this action on a user package
+     *     <li>userPkg - boolean, true | false. If userPkg==true, then perform this action on a user package</li>
+     *     <li>fundingSuiteId - The ID of the funding suite being used</li>
      *   </ul>
      *   
      * @return a Map contains:<br>
@@ -494,13 +508,14 @@ public class PackageAgent {
         try {
             Long pkgId = new Long((String) params.get("pkgId"));
             Long altId = new Long((String) params.get("altId"));
+            Long fundingSuiteId = new Long((String) params.get("fundingSuiteId"));
             boolean deleting = "true".equals((String) params.get("deleting"));            
             boolean userPkg = "true".equals((String) params.get("userPkg"));            
             Package pkg;
             if(deleting) {
-            	pkg = this.packageService.deleteProjectAlternative(pkgId, altId, userPkg);
+            	pkg = this.packageService.deleteProjectAlternative(pkgId, altId, userPkg, fundingSuiteId);
             } else {
-            	pkg = this.packageService.addProjectAlternative(pkgId, altId, userPkg);
+            	pkg = this.packageService.addProjectAlternative(pkgId, altId, userPkg, fundingSuiteId);
             }
                         
 			
@@ -561,7 +576,8 @@ public class PackageAgent {
      *     <li>deleting - boolean, true | false. If deleting==true, delete the funding source alternative
      *         from package, else add the funding source alternative to package
      *     </li>
-     *     <li>userPkg - boolean, true | false. If userPkg==true, then perform this action on a user package
+     *     <li>userPkg - boolean, true | false. If userPkg==true, then perform this action on a user package</li>
+     *     <li>fundingSuiteId - The ID of the funding suite being used</li>
      *   </ul>
      *   
      * @return a Map contains:<br>
@@ -583,13 +599,14 @@ public class PackageAgent {
         try {
             Long pkgId = new Long((String) params.get("pkgId"));
             Long altId = new Long((String) params.get("altId"));
+            Long fundingSuiteId = new Long((String) params.get("fundingSuiteId"));
             boolean deleting = "true".equals((String) params.get("deleting"));      
             boolean userPkg = "true".equals((String) params.get("userPkg"));            
             Package pkg;
             if(deleting) {
-            	pkg = this.packageService.deleteFundingAlternative(pkgId, altId, userPkg);
+            	pkg = this.packageService.deleteFundingAlternative(pkgId, altId, userPkg, fundingSuiteId);
             } else {
-            	pkg = this.packageService.addFundingAlternative(pkgId, altId, userPkg);
+            	pkg = this.packageService.addFundingAlternative(pkgId, altId, userPkg, fundingSuiteId);
             }
             request.setAttribute("package", pkg);
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/createPackage_summary.jsp"));            

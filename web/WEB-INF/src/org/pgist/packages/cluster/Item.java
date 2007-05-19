@@ -26,18 +26,4 @@ package org.pgist.packages.cluster;
  * @version 0.1
  */
 public interface Item extends Clusterable {
-	/**
-	 * Returns the user object for this Item.
-	 * 
-	 * @return The user object for this Item.
-	 */
-	//	Object getUserObject();
-
-	/**
-	 * Sets the user object for this Item.
-	 * 
-	 * @param userObject
-	 *            The new user object.
-	 */
-	//	void setUserObject(Object userObject);
 }

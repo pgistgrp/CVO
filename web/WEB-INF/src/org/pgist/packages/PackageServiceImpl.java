@@ -29,6 +29,11 @@ import org.pgist.funding.FundingSourceRef;
 import org.pgist.funding.FundingSourceSuite;
 import org.pgist.funding.TaxCalcUtils;
 import org.pgist.funding.UserCommute;
+import org.pgist.packages.cluster.ItemCluster;
+import org.pgist.packages.cluster.PAMClusterer;
+import org.pgist.packages.cluster.PackageItem;
+import org.pgist.packages.cluster.ProjectItemFactory;
+import org.pgist.packages.cluster.ProjectItemFactory.PackageItemFormer;
 import org.pgist.packages.knapsack.KSChoices;
 import org.pgist.packages.knapsack.KSEngine;
 import org.pgist.packages.knapsack.KSItem;
@@ -39,6 +44,7 @@ import org.pgist.projects.ProjectAlternative;
 import org.pgist.projects.ProjectDAO;
 import org.pgist.projects.ProjectRef;
 import org.pgist.projects.ProjectSuite;
+import org.pgist.tests.packages.cluster.LineItem;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
 import org.pgist.users.Vehicle;
@@ -174,7 +180,7 @@ public class PackageServiceImpl implements PackageService {
 	/**
 	 * Adds the provided alternative project to the package
 	 */
-	public Package addProjectAlternative(Long usrPkgId, Long altId, boolean userPkg) throws Exception {
+	public Package addProjectAlternative(Long usrPkgId, Long altId, boolean userPkg, Long fundingSuiteId) throws Exception {
 		//System.out.println("MATT##################: Adding project alternative [" + altId + "] to user package [" + usrPkgId + "]");
 
 		if(userPkg) {
@@ -185,7 +191,8 @@ public class PackageServiceImpl implements PackageService {
 			ProjectAltRef altRef = this.projectDAO.getProjectAlternativeReference(altId); 
 			//Add the reference
 			uPack.getProjAltRefs().add(altRef);
-			
+
+			this.calcUserValues(uPack, fundingSuiteId);			
 			uPack.updateCalculations();
 			this.packageDAO.save(uPack);
 			return uPack;			
@@ -204,7 +211,7 @@ public class PackageServiceImpl implements PackageService {
 		}
 	}
 
-	public Package deleteProjectAlternative(Long pkgId, Long altId, boolean userPkg) throws Exception {
+	public Package deleteProjectAlternative(Long pkgId, Long altId, boolean userPkg, Long fundingSuiteId) throws Exception {
 		//System.out.println("MATT##################: Removing project [" + altId + "] from user package [" + usrPkgId + "]");
 
 		if(userPkg) {
@@ -221,6 +228,8 @@ public class PackageServiceImpl implements PackageService {
 				tempRef = alts.next();
 				if(tempRef.getId().equals(altId)) {
 					uPack.getProjAltRefs().remove(tempRef);
+					
+					this.calcUserValues(uPack, fundingSuiteId);					
 					uPack.updateCalculations();
 					this.packageDAO.save(uPack);
 					return uPack;
@@ -257,7 +266,7 @@ public class PackageServiceImpl implements PackageService {
 	/**
 	 * Adds the provided funding source to the package
 	 */
-	public Package addFundingAlternative(Long pkgId, Long funAltRefId, boolean userPkg) throws Exception {
+	public Package addFundingAlternative(Long pkgId, Long funAltRefId, boolean userPkg, Long fundingSuiteId) throws Exception {
 		//System.out.println("MATT##################: Adding funding source alternative [" + funAltRefId + "] to user package [" + usrPkgId + "]");
 		if(userPkg) {
 			//Get the user package
@@ -270,6 +279,7 @@ public class PackageServiceImpl implements PackageService {
 			uPack.getFundAltRefs().add(altRef);
 			
 			this.fundingDAO.save(altRef);
+			this.calcUserValues(uPack, fundingSuiteId);
 			uPack.updateCalculations();
 			this.packageDAO.save(uPack);
 
@@ -294,7 +304,7 @@ public class PackageServiceImpl implements PackageService {
 
 	
 
-	public Package deleteFundingAlternative(Long pkgId, Long funAltRefId, boolean userPkg) throws Exception {
+	public Package deleteFundingAlternative(Long pkgId, Long funAltRefId, boolean userPkg, Long fundingSuiteId) throws Exception {
 		//System.out.println("MATT##################: Removing funding alternative [" + funAltRefId + "] from user package [" + usrPkgId + "]");
 		if(userPkg) {
 			//Get the user package
@@ -310,6 +320,8 @@ public class PackageServiceImpl implements PackageService {
 				tempRef = alts.next();
 				if(tempRef.getId().equals(funAltRefId)) {
 					uPack.getFundAltRefs().remove(tempRef);
+					
+					this.calcUserValues(uPack, fundingSuiteId);					
 					uPack.updateCalculations();
 					this.packageDAO.save(uPack);
 					return uPack;
@@ -921,7 +933,17 @@ public class PackageServiceImpl implements PackageService {
     }//publish()
 	
 
-	
+    /**
+     * More compact version
+     * 
+     * @param pkg
+     * @param funSuiteId
+     * @throws Exception
+     */
+    public void calcUserValues(UserPackage pkg, Long funSuiteId) throws Exception {
+    	this.calcUserValues(pkg, pkg.getAuthor(), funSuiteId);
+    }	
+    
     /**
      * Utility method that does all of the user calculations regarding the estimated annual cost
      * to you.  All the estimates are stored in the hash map for the user
@@ -1016,14 +1038,15 @@ public class PackageServiceImpl implements PackageService {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#createClusteredPackages(java.lang.Long, int)
 	 */
-	public void createClusteredPackages(Long pkgSuiteId, int pkgCount) throws Exception {
-        Set packages = new HashSet();
+	public void createClusteredPackages(Long pkgSuiteId, int pkgCount, Long projSuiteId, Long fundSuiteId) throws Exception {
         
         PackageSuite pSuite = this.getPackageSuite(pkgSuiteId);
-
+        ProjectSuite projSuite = this.projectDAO.getProjectSuite(projSuiteId);
+        FundingSourceSuite fundSuite = this.fundingDAO.getFundingSuite(fundSuiteId);
+        
         //Clean out old non manual clustered packages
         Iterator<ClusteredPackage> iCPackages = pSuite.getClusteredPkgs().iterator();
-        
+                        
         Set<ClusteredPackage> result = new HashSet<ClusteredPackage>();
         ClusteredPackage cp;
         while(iCPackages.hasNext()) {
@@ -1032,22 +1055,82 @@ public class PackageServiceImpl implements PackageService {
         		result.add(cp);
         	}
         }
-
-        for(int i = 0; i < pkgCount; i++) {
-            cp = new ClusteredPackage();
-            cp.setManual(false);
-            cp.setDescription("Auto Clustered Package " + i);
-            cp.setCreateDate(new Date());
-            cp.setTotalCost(1200f);
-            cp.setAvgResidentCost(40f * i);
-            result.add(cp);        	
-        }
+                
+        //Convert to PackageItems for clustering
+        ProjectItemFactory pFactory = new ProjectItemFactory();
+        pFactory.prepareFactory(projSuite, fundSuite);
         
+        
+        ArrayList<PackageItem> items = new ArrayList<PackageItem>();
+        Iterator<UserPackage> iUPack = pSuite.getUserPkgs().iterator();
+        UserPackage tempPkg;
+        while(iUPack.hasNext()) {
+        	tempPkg = iUPack.next();        	
+        	items.add(pFactory.createPackageItem(tempPkg));
+        }
+                
+        
+        //Run Clustering algorithm
+		PAMClusterer clusterer = new PAMClusterer(items);
+		clusterer.setNumClusters(pkgCount);
+		
+		//10 steps seem to be plenty, I can't figure out how it knows when its done
+		//So just run it a couple times. It seems to speed up after it find the medoid
+		for(int i = 0; i < 10; i++) {
+			long start = System.currentTimeMillis();
+			clusterer.step();			
+			System.out.println("Step " + i + " took " + (System.currentTimeMillis() - start) + " ms: overall compactness " + clusterer.getOverallCompactness());
+		}     
+		
+        //Convert back into the clustered packages
+		Collection results = clusterer.getClusters();
+		printResults(results);
+		Iterator i = results.iterator();
+		ItemCluster temp;
+		PackageItem tempItem;
+		UserPackage uPack;
+		while(i.hasNext()) {
+			temp = (ItemCluster)i.next();
+			
+			cp = new ClusteredPackage();
+			cp.setManual(false);
+			
+			//Set the medoid properties as the new cluster properties
+			Object obj = temp.getRepresentative();
+			tempItem = (PackageItem)obj;
+			uPack = packageDAO.getUserPackage(tempItem.getUserPkgId());			
+			cp.setProjAltRefs(uPack.getProjAltRefs());
+			cp.setFundAltRefs(uPack.getFundAltRefs());
+			
+			//Put in all the packages that make up this one
+			Iterator iItems = temp.getItems().iterator();
+			while(iItems.hasNext()) {
+				tempItem = (PackageItem)iItems.next();
+				uPack = packageDAO.getUserPackage(tempItem.getUserPkgId());
+				cp.getUserPkgs().add(uPack);
+			}
+			packageDAO.save(cp);
+			result.add(cp);
+		}		
         
         pSuite.setClusteredPkgs(result);
         packageDAO.save(pSuite);               
 	}
-
+	private void printResults(Collection results) {
+		Iterator i = results.iterator();
+		ItemCluster temp;
+		while(i.hasNext()) {
+			temp = (ItemCluster)i.next();
+			
+			System.out.println(temp.getRepresentative());
+			Iterator iItems = temp.getItems().iterator();
+			while(iItems.hasNext()) {
+				System.out.println("Member Item:" + iItems.next());
+			}
+		}				
+	}
+	
+	
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#createUserPackage(org.pgist.packages.TunerConfig, float)
 	 */
@@ -1083,29 +1166,8 @@ public class PackageServiceImpl implements PackageService {
 	 * @throws Exception 
 	 */
 	private HashMap<Criteria, Integer> findUserWeights(Long critSuiteId, User user) throws Exception {
-		HashMap<Criteria, Integer> cWeights = new HashMap<Criteria, Integer>();
-        CriteriaSuite csuite = criteriaDAO.getCriteriaSuiteById(critSuiteId);
-        Iterator<CriteriaRef> refs = csuite.getReferences().iterator();
-        CriteriaRef ref;
-        CriteriaUserWeight userWeights;
-        Integer value;
-        while(refs.hasNext()) {
-        	ref = refs.next();
-            userWeights = csuite.getWeights().get(ref);
-            value = userWeights.getWeights().get(user);
-            cWeights.put(ref.getCriterion(), value);
-        }
-
-        //TODO Remove this after it proves to be working
-        //System.out.println("For User [" + user.getFirstname() + "] the following criteria were found");
-        Iterator<Criteria> i = cWeights.keySet().iterator();
-        Criteria c;
-        while(i.hasNext()) {
-        	c = i.next();
-        	//System.out.println("Criteria [" + c.getName() + "] value [" + cWeights.get(c).intValue() + "]");
-        }
-        
-        return cWeights;
+        CriteriaSuite cSuite = criteriaDAO.getCriteriaSuiteById(critSuiteId);
+        return this.createPersonalCritsMap(cSuite, user);
 	}
 	
 	/**
@@ -1148,6 +1210,7 @@ public class PackageServiceImpl implements PackageService {
 								
 				//Get the users opinion on this project
 				choice = (Integer)conf.getProjectChoices().get(tempProjectAlt.getId());
+				System.out.println("MATT CHOICE = " + choice);
 				if(choice == null) choice = TunerConfig.MAYBE;
 				
 				//figure out what to do with the item
@@ -1215,7 +1278,10 @@ public class PackageServiceImpl implements PackageService {
 		while(crits.hasNext()) {
 			crit = crits.next();
 			weight = cWeights.get(crit);
-			total = total + crit.getValue() *  weight.floatValue()/100;
+			//If the weight is null then the user didn't grade it
+			if(weight != null) {
+				total = total + crit.getValue() *  weight.floatValue()/100;				
+			}
 		}
 		
 		return total;
@@ -1268,6 +1334,7 @@ public class PackageServiceImpl implements PackageService {
 				
 				//Get the users opinion on this alternative
 				choice = (Integer)conf.getFundingChoices().get(tempFSourceAlt.getId());
+System.out.println("User choose a " + choice + " for tempFSourceAlt" + tempFSourceAlt.getId() + " Cost " + myFundingCost);				
 				if(choice == null) choice = TunerConfig.MAYBE;
 				
 				//figure out what to do with the item
@@ -1317,6 +1384,5 @@ public class PackageServiceImpl implements PackageService {
 			tempFSKSI = (FundingSourceKSItem)resultIter.next();
 			upack.getFundAltRefs().add(tempFSKSI.getFundingSourceAltRef());
 		}			
-	}
-	
+	}	
 }//class PackageServiceImpl

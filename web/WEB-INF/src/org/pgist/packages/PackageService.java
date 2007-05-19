@@ -21,13 +21,13 @@ public interface PackageService {
 	
 	PackageSuite getPackageSuite(Long pkgId) throws Exception;
 
-	Package deleteProjectAlternative(Long pkgId, Long altId, boolean userPkg) throws Exception;
+	Package deleteProjectAlternative(Long pkgId, Long altId, boolean userPkg, Long fundingSuiteId) throws Exception;
 
-	Package addProjectAlternative(Long pkgId, Long altId, boolean userPkg) throws Exception;
+	Package addProjectAlternative(Long pkgId, Long altId, boolean userPkg, Long fundingSuiteId) throws Exception;
 
-	Package deleteFundingAlternative(Long pkgId, Long funAltRefId, boolean userPkg) throws Exception;
+	Package deleteFundingAlternative(Long pkgId, Long funAltRefId, boolean userPkg, Long fundingSuiteId) throws Exception;
 
-	Package addFundingAlternative(Long pkgId, Long funAltRefId, boolean userPkg) throws Exception;	
+	Package addFundingAlternative(Long pkgId, Long funAltRefId, boolean userPkg, Long fundingSuiteId) throws Exception;	
 	
 	UserPackage createUserPackage(Long pkgSuiteId, UserInfo info, Long fundingSuiteId) throws Exception;
 
@@ -37,7 +37,7 @@ public interface PackageService {
 
 	void createKSUserPackage(Long usrPkg, TunerConfig conf, float mylimit, float avglimit) throws Exception;
 
-	void createClusteredPackages(Long pkgSuiteId, int pkgCount) throws Exception;
+	void createClusteredPackages(Long pkgSuiteId, int pkgCount, Long projSuiteId, Long fundSuiteId) throws Exception;
     
     InfoStructure publish(Long cctId, Long suiteId, String title) throws Exception;
 

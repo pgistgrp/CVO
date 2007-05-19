@@ -17,7 +17,7 @@ public class ProjectSuite {
     
     private Long id;
     
-    private SortedSet<ProjectRef> references = new TreeSet<ProjectRef>();
+    private SortedSet<ProjectRef> references = new TreeSet<ProjectRef>(new ProjectRefComparator());
     
     
     /**

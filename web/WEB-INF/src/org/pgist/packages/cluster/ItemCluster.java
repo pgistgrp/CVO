@@ -6,6 +6,9 @@
  *
  * $Id$
  * $Log$
+ * Revision 1.1  2007/05/11 22:52:54  paulin
+ * cluster stuff
+ *
  * Revision 1.5  2003/10/16 14:31:29  mkmaier
  * IMP: minor beautifying
  *
@@ -268,7 +271,6 @@ public class ItemCluster implements Item, ReAssigningCluster {
 		 * @return A new ItemCluster instance.
 		 */
 		public ItemCluster produce(final Item representative) {
-			System.out.println("MATT: Setting up random item " + representative);
 			return new ItemCluster(representative);
 		}
 	}

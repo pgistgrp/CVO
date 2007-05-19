@@ -6,8 +6,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Turns a binary number back into a floating point distance needed for the
+ * clustering algorithm
+ * 
+ * @author paulin
+ */
 public class DaisyMatrixMaker {
 
+	
 	public static final NumberFormat NUM_FORMAT = new DecimalFormat( "#####0.00" );
 	public static List<List<Float>> computeMatrix(List<List<Boolean>> input) {
 		List<List<Float>> rows = new ArrayList<List<Float>>();
@@ -19,7 +26,7 @@ public class DaisyMatrixMaker {
 		
 		List<Float> row;
 		for(int i = 0; i < input.size(); i++) {
-			row = new ArrayList<Float>();
+			row = new ArrayList<Float>();			
 			for(int j = 0; j < input.size(); j++) {
 				item1 = input.get(i);
 				item2 = input.get(j);
@@ -43,7 +50,9 @@ public class DaisyMatrixMaker {
 		}
 		
 		if(den == 0) return new Float(0);
-		return new Float(num/den);
+		Float dist = new Float(num/den); 
+		System.out.println("Distance = " + dist);
+		return dist;
 	}
 	
 	public static float calcDelta(Boolean b1, Boolean b2) {
@@ -63,11 +72,6 @@ public class DaisyMatrixMaker {
 		} else {
 			result = 1;
 		}
-//		if(b1 || b2 ) {
-//			result = 1;
-//		} else {
-//			result = 0;
-//		}
 		
 		return result;
 	}
