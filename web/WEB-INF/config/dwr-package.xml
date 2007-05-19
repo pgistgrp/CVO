@@ -58,7 +58,9 @@
     <![CDATA[
 	    import java.util.HashMap;
 	    import org.pgist.packages.PackageAgent;
+	    import org.pgist.packages.TunerConfig;
   		PackageAgent.setVoting(Long, HashMap<Long, Integer>);		
+  		PackageAgent.createMyConfiguredPackage(TunerConfig, HashMap<Long, Integer>, HashMap<Long, Integer>, Float, Float, Long);		
     ]]>
   </signatures>
 
