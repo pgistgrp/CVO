@@ -1001,28 +1001,28 @@ public class PackageServiceImpl implements PackageService {
     			switch (tempSource.getType()) {
 
     			case FundingSource.TYPE_EMPLOYER_EXCISE_TAX:	
-    				pkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserEmployerExciseAlternativeCost(tempAlt.getTaxRate(), TaxCalcUtils.EMPLOYER_PERCENTAGE));
+    				pkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserEmployerExciseAlternativeCost(tempAlt.getTaxRate(), TaxCalcUtils.EMPLOYER_PERCENTAGE));
     				break;
     			case FundingSource.TYPE_GAS_TAX:			
-    				pkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserGasTaxCost(avgMPG, tempAlt.getTaxRate(), totalMilesDrive));
+    				pkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserGasTaxCost(avgMPG, tempAlt.getTaxRate(), totalMilesDrive));
     				break;
     			case FundingSource.TYPE_LICENSE:			
-    				pkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserVehicleLicenseCost(tempAlt.getTaxRate(), user.getVehicles().size()));
+    				pkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserVehicleLicenseCost(tempAlt.getTaxRate(), user.getVehicles().size()));
     				break;
     			case FundingSource.TYPE_MOTOR_TAX:			
-    				pkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserVehicleExciseCost(tempAlt.getTaxRate(), totalVValue));
+    				pkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserVehicleExciseCost(tempAlt.getTaxRate(), totalVValue));
     				break;
     			case FundingSource.TYPE_PARKING_TAX:
-    				pkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserParkingCost(tempAlt.getTaxRate(), peakTrips, offPeakTrips));
+    				pkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserParkingCost(tempAlt.getTaxRate(), peakTrips, offPeakTrips));
     				break;
     			case FundingSource.TYPE_SALES_GAS_TAX:			
-    				pkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserGasSalesTaxCost(tempAlt.getTaxRate(), commute.getCostPerGallon(), totalMilesDrive, avgMPG));
+    				pkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserGasSalesTaxCost(tempAlt.getTaxRate(), commute.getCostPerGallon(), totalMilesDrive, avgMPG));
     				break;
     			case FundingSource.TYPE_SALES_TAX:			
-    				pkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserSalesTaxCost(tempAlt.getTaxRate(), commute.getAnnualConsume()));
+    				pkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserSalesTaxCost(tempAlt.getTaxRate(), commute.getAnnualConsume()));
     				break;
     			case FundingSource.TYPE_TOLLS:			
-    				pkg.getPersonalCost().put(tempAltRef.getId(), TaxCalcUtils.calcUserTollAlternatives(tempAlt.getPeakHourTripsRate(), peakTrips, tempAlt.getOffPeakTripsRate(), offPeakTrips));
+    				pkg.getPersonalCost().put(tempAlt.getId(), TaxCalcUtils.calcUserTollAlternatives(tempAlt.getPeakHourTripsRate(), peakTrips, tempAlt.getOffPeakTripsRate(), offPeakTrips));
     				break;
 
     			default:
@@ -1098,9 +1098,16 @@ public class PackageServiceImpl implements PackageService {
 			//Set the medoid properties as the new cluster properties
 			Object obj = temp.getRepresentative();
 			tempItem = (PackageItem)obj;
-			uPack = packageDAO.getUserPackage(tempItem.getUserPkgId());			
-			cp.setProjAltRefs(uPack.getProjAltRefs());
-			cp.setFundAltRefs(uPack.getFundAltRefs());
+			uPack = packageDAO.getUserPackage(tempItem.getUserPkgId());	
+			
+			Iterator<ProjectAltRef> iAltRef = uPack.getProjAltRefs().iterator();
+			while(iAltRef.hasNext()) {
+				cp.getProjAltRefs().add(iAltRef.next());
+			}
+			Iterator<FundingSourceAltRef> iFSAltRef = uPack.getFundAltRefs().iterator();
+			while(iFSAltRef.hasNext()) {
+				cp.getFundAltRefs().add(iFSAltRef.next());
+			}
 			
 			//Put in all the packages that make up this one
 			Iterator iItems = temp.getItems().iterator();
@@ -1138,7 +1145,9 @@ public class PackageServiceImpl implements PackageService {
 
 		UserPackage upack = this.getUserPackage(usrPkgId);
 		this.calcUserValues(upack, upack.getAuthor(), conf.getFundSuiteId());
-						
+		
+		//upack.printPersonalCost();
+		
 		//Clear out all of the previous choices
 		upack.getFundAltRefs().clear();
 		upack.getProjAltRefs().clear();		
@@ -1334,7 +1343,7 @@ public class PackageServiceImpl implements PackageService {
 				
 				//Get the users opinion on this alternative
 				choice = (Integer)conf.getFundingChoices().get(tempFSourceAlt.getId());
-System.out.println("User choose a " + choice + " for tempFSourceAlt" + tempFSourceAlt.getId() + " Cost " + myFundingCost);				
+//System.out.println("User choose a " + choice + " for tempFSourceAlt" + tempFSourceAlt.getId() + " Cost " + myFundingCost);				
 				if(choice == null) choice = TunerConfig.MAYBE;
 				
 				//figure out what to do with the item

@@ -181,5 +181,16 @@ public class UserPackage extends Package {
     
     public void setProjAltRefs(SortedSet<ProjectAltRef> projAltRefs) {
         this.projAltRefs = projAltRefs;
-    }        
+    }
+
+
+	public void printPersonalCost() {
+		HashMap map = this.getPersonalCost();
+		Iterator i = map.keySet().iterator();
+		Object key;
+		while(i.hasNext()) {
+			key = i.next();
+			System.out.println("for " + key + " I have a " + map.get(key));
+		}			
+	}        
 }//class UserPackage
