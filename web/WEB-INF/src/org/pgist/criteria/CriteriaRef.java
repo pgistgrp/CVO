@@ -1,5 +1,6 @@
 package org.pgist.criteria;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -15,7 +16,7 @@ import org.pgist.projects.UnknownObjectiveException;
  *
  * @hibernate.class table="pgist_crit_ref" lazy="true"
  */
-public class CriteriaRef {
+public class CriteriaRef implements Comparator {
     
     
     private Long id;
@@ -142,6 +143,12 @@ public class CriteriaRef {
 		 }
 		 grade = total/size;
 	}    
+	
+	
+	public int compare(Object o1, Object o2) {
+		
+		return ((CriteriaRef)o1).getCriterion().getName().compareToIgnoreCase(((CriteriaRef)o2).getCriterion().getName());
+	}
 	
 	
 }//class CriteriaRef

@@ -1,6 +1,7 @@
 package org.pgist.system;
 
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.pgist.users.User;
@@ -58,5 +59,11 @@ public class ProfileServiceImpl implements ProfileService {
     public int getPostCount(String username) throws Exception {
     	return profileDAO.getPostCount(username);
     }
+    
+    
+    public Collection getUserConcerns(String username) throws Exception {
+    	return profileDAO.getUserConcerns(username);
+    }
+    
     
 }

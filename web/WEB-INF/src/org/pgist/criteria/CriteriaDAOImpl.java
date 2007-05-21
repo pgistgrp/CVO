@@ -180,7 +180,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     
     
     
-    private static final String hql_getAllCriterion2 = "from Criteria c where c.deleted=? order by c.id";
+    private static final String hql_getAllCriterion2 = "from Criteria c where c.deleted=? order by c.name";
     
     public Collection getAllCriterion() throws Exception {    	
     	return getHibernateTemplate().find(hql_getAllCriterion2, new Object[] {

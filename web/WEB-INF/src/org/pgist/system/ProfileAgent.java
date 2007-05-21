@@ -261,4 +261,46 @@ public class ProfileAgent {
         return map;
     } //getUserStats();
     
+    
+	/**
+     * Get users concerns
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>username - string, user's login name</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>html - html page profile_concerns.jsp</li>
+     *   </ul>
+     */
+    public Map getUserConcerns(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        String username = (String) params.get("username");
+        
+        if(username==null || "".equals(username.trim())){
+    		map.put("reason", "username cannot be blank.");
+    		return map;
+    	}
+       
+        try {
+        	Collection concerns = profileService.getUserConcerns(username);
+        		
+        	map.put("concerns", concerns);
+            
+        	request.setAttribute("concerns", concerns);
+
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/profile_concerns.jsp"));       
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        return map;
+    } //getUserConcerns();
+    
+    
 } //ProfileAgent()

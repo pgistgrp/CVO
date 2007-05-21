@@ -86,6 +86,7 @@
 	<include method="getUserInfo"/>
 	<include method="setUserInfo"/>
 	<include method="getUserStats"/>
+	<include method="getUserConcerns"/>
     </create>
     
   </allow>

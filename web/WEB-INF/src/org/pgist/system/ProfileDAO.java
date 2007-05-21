@@ -1,5 +1,6 @@
 package org.pgist.system;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.pgist.users.User;
@@ -17,5 +18,7 @@ public interface ProfileDAO {
 	int getTotalVisits(String username) throws Exception;
 	
 	int getPostCount(String username) throws Exception;
+	
+	Collection getUserConcerns(String username) throws Exception;
 	
 }

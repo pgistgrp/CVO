@@ -41,7 +41,6 @@
           <include method="setFundingDef"/>          
           <include method="lookupUserById"/>      
           <include method="createFundingSourceSuite"/> 
-          <include method="publish"/> 
       </create>
 
   </allow>

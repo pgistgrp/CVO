@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.pgist.projects.Project;
+import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectRef;
 import org.pgist.users.User;
 import org.pgist.cvo.Theme;
@@ -23,7 +26,7 @@ public class CriteriaSuite {
     
     private Long id;
     
-    private Set<CriteriaRef> references = new HashSet<CriteriaRef>();
+    private SortedSet<CriteriaRef> references = new TreeSet<CriteriaRef>();
     
     private Map<CriteriaRef, CriteriaUserWeight> weights = new HashMap<CriteriaRef, CriteriaUserWeight>();
     
@@ -46,16 +49,16 @@ public class CriteriaSuite {
     /**
      * @return
      * 
-     * @hibernate.set inverse="true" lazy="true" table="pgist_suite_crit_link"
+     * @hibernate.set inverse="true" lazy="true" table="pgist_suite_crit_link"  sort="org.pgist.criteria.CriteriaRef"
      * @hibernate.collection-key column="suite_id"
      * @hibernate.collection-one-to-many class="org.pgist.criteria.CriteriaRef"
      */
-    public Set<CriteriaRef> getReferences() {
+    public SortedSet<CriteriaRef> getReferences() {
         return references;
     }
 
 
-    public void setReferences(Set<CriteriaRef> references) {
+    public void setReferences(SortedSet<CriteriaRef> references) {
         this.references = references;
     }
 
@@ -92,6 +95,7 @@ public class CriteriaSuite {
      * @param User user, Integer weight
      */
     public void addReference(CriteriaRef cr) {	
+    	
     	references.add(cr); 	
     } //addReference();
     
@@ -105,7 +109,8 @@ public class CriteriaSuite {
     	}    	
     	return null;
     } //getProjectReference
-    
+	
+	
     /*
     public CriteriaRef getCriteriaReference(Theme theme) {
     	if(theme == null) return null;

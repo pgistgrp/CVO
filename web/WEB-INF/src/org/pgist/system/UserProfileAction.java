@@ -2,6 +2,7 @@ package org.pgist.system;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Collection;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -63,11 +64,13 @@ public class UserProfileAction extends Action {
         		
     			User u = profileService.getUserInfo(username);
     			Date date = profileService.getLastLogin(username);
+    			Collection concerns = profileService.getUserConcerns(username);
     			String strDate = "" + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date);
     			int post = profileService.getPostCount(username);
     			int visits = profileService.getTotalVisits(username);
     			
     			request.setAttribute("user", u);
+    			request.setAttribute("concerns", concerns);
     			request.setAttribute("lastlogin", strDate);
     			request.setAttribute("post", post);
         		request.setAttribute("visits", visits);

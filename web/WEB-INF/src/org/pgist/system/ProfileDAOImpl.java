@@ -125,4 +125,10 @@ public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
     	return u;
     }
     
+    
+    private static final String hql_getUserConcerns = "from Concern c where c.deleted=? and c.author.loginname=? order by c.createTime desc";
+
+    public Collection getUserConcerns(String username) {
+    	return getHibernateTemplate().find(hql_getUserConcerns, new Object[] {new Boolean(false), username,});
+    }
 }

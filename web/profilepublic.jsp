@@ -1,3 +1,11 @@
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
@@ -32,7 +40,7 @@
 <!-- Begin container - Main page content begins here -->
 <div id="container" class="clearfix">
 	<p><h3 class="headerColor" style="display:inline">LIT Participant Profile</h3>
-	<pg:show roles="participant"><a href="#">Edit my profile and settings</a></p></pg:show>
+	<a href="usercp.do">Edit my profile and settings</a></p>
 	<!-- start PROFILE-FIELDS section -->
 	<div id="profile-fields">
 		<div id="statistics" class="box9">
@@ -104,57 +112,36 @@
 			<span class="label">My concerns</span> 
 	  <span class="value">
 				<div id="concerns">
-					<div class="concern box7">
-						There are no bike lanes in any of the "regionally significant" projects. 
-						This is absurd.  When are we going to consider bikes a viable means of 
-						daily transportation?
-						<br />
-						<div id="concerns-keywords">
+				<!-- start Concerns -->
+				
+				<c:choose>	
+					<c:when test="${fn:length(concerns) == 0}">
+						<p>This user has no concerns at this time.</p>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="concern" items="${concerns}" varStatus="loop">
+							<div class="concern box7">
+							<p id="concern${concern.id}"></p>
+							<span class="concerns">
+							${concern.content}
+							</span>
+							<br />
+							
+							
+							<div id="concerns-keywords">
 							<span>Keywords:</span>
 							<ul>
-								<li>Amet</li>
-								<li>Dolor</li>
-								<li>Ipsum</li>
-								<li>Lorem</li>
-								<li>Sit</li>
+							<c:forEach items="${concern.tags}" var="tagref">
+										<li>${tagref.tag.name}</li>
+							</c:forEach>
 							</ul>
-						</div>
-					</div>
-
-					<div class="concern box7">
-						There are no bike lanes in any of the "regionally significant" projects. 
-						This is absurd.  When are we going to consider bikes a viable means of 
-						daily transportation?
-						<br />
-						<div id="concerns-keywords">
-							<span>Keywords:</span>
-							<ul>
-								<li>Amet</li>
-								<li>Dolor</li>
-								<li>Ipsum</li>
-								<li>Lorem</li>
-								<li>Sit</li>
-							</ul>
-						</div>
-					</div>
-					
-					<div class="concern box7">
-						There are no bike lanes in any of the "regionally significant" projects. 
-						This is absurd.  When are we going to consider bikes a viable means of 
-						daily transportation?
-						<br />
-						<div id="concerns-keywords">
-							<span>Keywords:</span>
-							<ul>
-								<li>Amet</li>
-								<li>Dolor</li>
-								<li>Ipsum</li>
-								<li>Lorem</li>
-								<li>Sit</li>
-							</ul>
-						</div>
-					</div>
-
+							</div>
+							</div>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+				
+				<!-- end concerns-->
 				</div>
 	  </span> 
 		</p><br />

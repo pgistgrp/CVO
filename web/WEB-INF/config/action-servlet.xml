@@ -25,10 +25,6 @@
     </bean>
     
     
-    <bean name="/manualflow" class="org.pgist.system.ManualFlowAction">
-    </bean>
-    
-    
     <bean name="/profileedit" class="org.pgist.system.ProfileAction">
          <property name="systemService" ref="systemService"/>
     </bean>

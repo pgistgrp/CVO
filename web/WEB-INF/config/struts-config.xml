@@ -26,16 +26,13 @@
         <forward name="workflow" path="/workflow.do" />
         <forward name="nextstep" path="/WEB-INF/jsp/nextstep.jsp" />
         <forward name="confirmation" path="confirmation.jsp" />
-        <forward name="userhome" path="/userHome.jsp" />
-        <forward name="manualflow" path="/manualflow.jsp" />
+        <forward name="userhome" path="/userHome.jsp" />        
     </global-forwards>
 
 
     <action-mappings>
 
 	<action path="/userhome" scope="request" type="org.pgist.system.UserHomeAction" />
-	
-	<action path="/manualflow" scope="request" type="org.pgist.system.ManualFlowAction" />
 
         <action name="userForm" path="/usercp" scope="request" type="org.pgist.system.UsercpAction" />
 
