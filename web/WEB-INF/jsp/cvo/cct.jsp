@@ -637,7 +637,7 @@ $('slate').style.Height = winH;
     <div id="overview" class="box2">
       <h3>Overview and Instructions</h3>
       <p>Before we can determine how to best improve the transportation system, we need to know what the problems are. Therefore, our first task is to brainstorm concerns about transportation in our region.  Brainstorming will conclude at 11:59pm on Thursday, December 7th.</p> 
-      <p><a href="readmore.jsp">Read more about how this step fits into the bigger picture</A>.</p>
+      <p><a href="lmAbout.do">Read more about how this step fits into the bigger picture</A>.</p>
     </div>
     <!-- end overview -->
 

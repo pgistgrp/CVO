@@ -96,8 +96,8 @@
 			<li>Read the summary of each theme and discuss how well you feel it describes the diversity of concerns submitted by participants.</li>
 			<li>Indicate whether you feel the current summary adequately reflects participants' concerns by clicking the thumb's up or thumb's down button.</li>
 			</ul>
-			<p><a href="/litfaq.jsp#step1b" target="_blank">How are these summaries created, and why are they important?</a> <img src="images/external.png" alt="(new window)"></p>
-			<p><a href="/readmore.jsp">Read more about how this step fits into the bigger picture.</a></p>
+			<p><a href="/lmFaq.do#step1-created" target="_blank">How are these summaries created, and why are they important?</a> <img src="images/external.png" alt="(new window)"></p>
+			<p><a href="/lmAbout.do">Read more about how this step fits into the bigger picture.</a></p>
 			
 		</div>
 		<!-- end overview -->
