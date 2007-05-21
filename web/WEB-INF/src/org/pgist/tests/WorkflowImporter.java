@@ -101,6 +101,7 @@ public class WorkflowImporter extends MatchingTask {
             setUp();
             initWorkflow();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new BuildException(e);
         }
     }//execute()
