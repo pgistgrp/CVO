@@ -1390,10 +1390,13 @@ public class PackageServiceImpl implements PackageService {
         PackageVoteSuite suite = new PackageVoteSuite();
         suite.setPkgSuite(pkgSuite);
         
+        packageDAO.save(suite);
+        
         for (ClusteredPackage one : pkgSuite.getClusteredPkgs()) {
             VoteSuiteStat stat = new VoteSuiteStat();
             stat.setClusteredPackage(one);
             suite.getStats().add(stat);
+            packageDAO.save(stat);
         }//for
         
         pkgSuite.getVoteSuites().add(suite);
