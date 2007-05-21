@@ -57,23 +57,6 @@ import org.pgist.users.Vehicle;
  *
  */
 public class PackageServiceImpl implements PackageService {
-
-	FundingService fundingService;
-	
-	/**
-	 * @return the fundingService
-	 */
-	public FundingService getFundingService() {
-		return fundingService;
-	}
-
-
-	/**
-	 * @param fundingService the fundingService to set
-	 */
-	public void setFundingService(FundingService fundingService) {
-		this.fundingService = fundingService;
-	}
 	
     CriteriaDAO criteriaDAO;
     
@@ -958,7 +941,7 @@ public class PackageServiceImpl implements PackageService {
     public void calcUserValues(Package pkg, User user, Long funSuiteId) throws Exception {
 //System.out.println("MATT##################: Sweet ID!" + funSuiteId);    
     	if(user.getUserCommute() == null) {
-    		fundingService.initializeUser(user);    		
+    		fundingDAO.initializeUser(user);    		
     	}
 		//Get the users last commute object		
 		UserCommute commute = user.getUserCommute();
@@ -1396,5 +1379,5 @@ public class PackageServiceImpl implements PackageService {
 			tempFSKSI = (FundingSourceKSItem)resultIter.next();
 			upack.getFundAltRefs().add(tempFSKSI.getFundingSourceAltRef());
 		}			
-	}	
+	}		
 }//class PackageServiceImpl

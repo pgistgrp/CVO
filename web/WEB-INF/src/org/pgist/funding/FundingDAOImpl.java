@@ -2,6 +2,8 @@ package org.pgist.funding;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.users.User;
@@ -15,6 +17,79 @@ import org.pgist.users.Vehicle;
  */
 public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
     
+	/**
+	 * Initializes the user with all of the necessary tolls and the user commute
+	 */
+	public void initializeUser(User user) throws Exception {
+    	if(user.getUserCommute() == null) {
+    		UserCommute commute = new UserCommute();    		
+    		user.setUserCommute(commute);
+    		save(commute);
+    		save(user);       		
+    	}   
+    	if(user.getUserCommute().getTolls().size() == 0) {
+    		//Add the tolls
+    		user.getUserCommute().setTolls(createUserTolls());
+    		
+    		save(user.getUserCommute());    		
+    	}
+	}
+	
+    /**
+     * Creates all of the user tolls
+     */
+    public SortedSet<UserFundingSourceToll> createUserTolls() throws Exception {
+        SortedSet<UserFundingSourceToll> tolls = new TreeSet<UserFundingSourceToll>(new UserFundingSourceTollComparator());
+    	tolls.clear();
+    	tolls.add(createToll(UserFundingSourceToll.PARKING_DOWNTOWN));
+    	tolls.add(createToll(UserFundingSourceToll.ALASKA_WAY_VIADUCT));
+    	tolls.add(createToll(UserFundingSourceToll.I405N));
+    	tolls.add(createToll(UserFundingSourceToll.I405S));
+    	tolls.add(createToll(UserFundingSourceToll.SR520));
+    	tolls.add(createToll(UserFundingSourceToll.I90));
+    	tolls.add(createToll(UserFundingSourceToll.SR167));
+    	return tolls;
+    }
+    
+    /**
+     * Creates a user toll
+     * 
+     * @param	name	The name of the toll
+     * @return	An initialized toll
+     */
+    private UserFundingSourceToll createToll(String name) throws Exception {
+    	UserFundingSourceToll toll;
+    	toll = new UserFundingSourceToll();
+    	toll.setName(name);
+    	toll.setPeakTrips(0);
+    	toll.setOffPeakTrips(0);
+    	toll.setUsed(false);
+		try {
+			linkFundingSource(toll);
+		} catch (UnknownFundingSourceException e) {
+			System.out.println("ERROR: " + e.getMessage());
+		}
+    	
+    	return toll;
+    }  
+    
+	/**
+	 * Links the provided toll to the correct funding source with the exact same name
+	 * <p>
+	 * NOTE: It does not save the toll
+	 * 
+	 * @param	toll 	to link
+	 * @throws 	UnknownFundingSourceException if there is no funding source that matches the name
+	 * 			of the toll
+	 */
+	public void linkFundingSource(UserFundingSourceToll toll) throws UnknownFundingSourceException, Exception {
+		FundingSource source = getFundingSourceByName(toll.getName());
+		if(source == null) {
+			throw new UnknownFundingSourceException("Could not find the FundingSource[" +toll.getName()+"] to link to the toll");
+		}
+		toll.setFundingSource(source);
+	}    
+	
 	public FundingSource getFundingSourceById(Long id) throws Exception {
         return (FundingSource) getHibernateTemplate().load(FundingSource.class, id);
     }//getFundingSourceById()

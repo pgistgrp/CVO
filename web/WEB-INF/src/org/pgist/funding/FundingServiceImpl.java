@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.CCTDAO;
@@ -52,9 +50,12 @@ public class FundingServiceImpl implements FundingService {
     }
     
     
+    
     /*
      * ------------------------------------------------------------------------
      */
+    
+    
     
     
     public User getUser(UserInfo userInfo) throws Exception {
@@ -205,61 +206,11 @@ public class FundingServiceImpl implements FundingService {
 		return utax;
 	}
 		
-	/**
-	 * Initializes the user with all of the necessary tolls and the user commute
-	 */
-	public void initializeUser(User user) throws Exception {
-    	if(user.getUserCommute() == null) {
-    		UserCommute commute = new UserCommute();    		
-    		user.setUserCommute(commute);
-    		this.fundingDAO.save(commute);
-    		this.fundingDAO.save(user);       		
-    	}   
-    	if(user.getUserCommute().getTolls().size() == 0) {
-    		//Add the tolls
-    		user.getUserCommute().setTolls(createUserTolls());
-    		
-    		this.fundingDAO.save(user.getUserCommute());    		
-    	}
-	}
-	
-    /**
-     * Creates all of the user tolls
-     */
-    public SortedSet<UserFundingSourceToll> createUserTolls() throws Exception {
-        SortedSet<UserFundingSourceToll> tolls = new TreeSet<UserFundingSourceToll>(new UserFundingSourceTollComparator());
-    	tolls.clear();
-    	tolls.add(createToll(UserFundingSourceToll.PARKING_DOWNTOWN));
-    	tolls.add(createToll(UserFundingSourceToll.ALASKA_WAY_VIADUCT));
-    	tolls.add(createToll(UserFundingSourceToll.I405N));
-    	tolls.add(createToll(UserFundingSourceToll.I405S));
-    	tolls.add(createToll(UserFundingSourceToll.SR520));
-    	tolls.add(createToll(UserFundingSourceToll.I90));
-    	tolls.add(createToll(UserFundingSourceToll.SR167));
-    	return tolls;
-    }
 
-    /**
-     * Creates a user toll
-     * 
-     * @param	name	The name of the toll
-     * @return	An initialized toll
-     */
-    private UserFundingSourceToll createToll(String name) throws Exception {
-    	UserFundingSourceToll toll;
-    	toll = new UserFundingSourceToll();
-    	toll.setName(name);
-    	toll.setPeakTrips(0);
-    	toll.setOffPeakTrips(0);
-    	toll.setUsed(false);
-		try {
-			linkFundingSource(toll);
-		} catch (UnknownFundingSourceException e) {
-			System.out.println("ERROR: " + e.getMessage());
-		}
-    	
-    	return toll;
-    }    
+	
+
+
+  
     	
 	/**
 	 * Updates the users information.
@@ -594,7 +545,7 @@ public class FundingServiceImpl implements FundingService {
 				tollHome = new UserFundingSourceToll();
 				tollAway.loadTollFromThis(tollHome);
 				try {
-					linkFundingSource(tollHome);
+					fundingDAO.linkFundingSource(tollHome);
 				} catch (UnknownFundingSourceException e) {
 					System.out.println(e.getMessage());
 				}				
@@ -609,24 +560,7 @@ public class FundingServiceImpl implements FundingService {
 			this.fundingDAO.save(tollHome);
 		}
 	}
-	
-	/**
-	 * Links the provided toll to the correct funding source with the exact same name
-	 * <p>
-	 * NOTE: It does not save the toll
-	 * 
-	 * @param	toll 	to link
-	 * @throws 	UnknownFundingSourceException if there is no funding source that matches the name
-	 * 			of the toll
-	 */
-	private void linkFundingSource(UserFundingSourceToll toll) throws UnknownFundingSourceException, Exception {
-		FundingSource source = this.fundingDAO.getFundingSourceByName(toll.getName());
-		if(source == null) {
-			throw new UnknownFundingSourceException("Could not find the FundingSource[" +toll.getName()+"] to link to the toll");
-		}
-		toll.setFundingSource(source);
-	}
-	
+		
 	/**
 	 * Returns the toll from the set that matches the specified id
 	 */
@@ -711,6 +645,11 @@ public class FundingServiceImpl implements FundingService {
         
         return structure;
     }//publish()
+
+
+	public void initializeUser(User user) throws Exception {
+		this.fundingDAO.initializeUser(user);
+	}
     
 
 }//class FundingServiceImpl

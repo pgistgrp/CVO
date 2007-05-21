@@ -3,6 +3,7 @@ package org.pgist.funding;
 import java.util.Collection;
 
 import org.pgist.system.BaseDAO;
+import org.pgist.users.User;
 import org.pgist.users.Vehicle;
 
 
@@ -13,6 +14,9 @@ import org.pgist.users.Vehicle;
  */
 public interface FundingDAO extends BaseDAO {
     
+	void linkFundingSource(UserFundingSourceToll toll) throws UnknownFundingSourceException, Exception;
+	void initializeUser(User user) throws Exception;	
+	
     Collection getFundingSources() throws Exception;
     FundingSource getFundingSourceByName(String name) throws Exception;
 
