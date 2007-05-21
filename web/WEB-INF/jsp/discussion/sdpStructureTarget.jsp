@@ -40,8 +40,6 @@
 	<!-- end overview -->
 	<!-- begin Object -->
 	<div id="object">
-		<a href="javascript:io.expandAll();">Expand all</a>
-		<a href="javascript:io.collapseAll();">Collapse all</a>
 		<div id="rp3a-left" class="floatLeft">
 			<!-- begin collapsible list of projects -->
 			<div id="newtable">
@@ -66,29 +64,27 @@
 						</tr>
 						<!-- end CATEGORY LABEL -->
 						<!-- ******* LOOP ENTIRE PROJECT ******** -->
-											==== ${structure.infoObjects}
-						<c:forEach var="projectRef" items="${structure.infoObjects}" varStatus="loop">
-							<c:if test="${projectRef.project.transMode == category}">
+						<c:forEach var="infoObject" items="${infoStructure.infoObjects}" varStatus="loop">
+							<c:if test="${infoObject.object.project.transMode == category}">
 								
 								
 								<!-- begin PROJECT -->
-								<tr class="${(projectRef.project.inclusive) ? 'fundingType' : 'fundingType2'}">
-									<td class="fundingSourceItem">${projectRef.project.name} Options</td>
-									<td colspan="2"> ${(projectRef.project.inclusive) ? 'Select at most one'
-										: 'Select any number'} </td>
+								<tr class="${(infoObject.object.project.inclusive) ? 'fundingType' : 'fundingType2'}">
+									<td class="fundingSourceItem">${infoObject.object.project.name} Options</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
 								</tr>
 								<!-- end PROJECT -->
 								
 								<!-- begin objectives -->
-								<tr class="objectives" id="objective${projectRef.id}">
+								<tr class="objectives" id="objective${loop.index}">
 									<td colspan="3">
 										<table>
 											<c:set var="doNothing"value="true"/>
-											<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
+											<c:forEach var="altRef" items="${infoObject.object.altRefs}" varStatus="loop">
 												<tr>
 													<td>
-														<label><a href="javascript:io.toggleRow('objective1','icon1');">
-														<img src="images/plus.gif" id="icon1" class="icon"></a> <a href="projectAlt.do?altrefId=${altRef.id}" target="blank">${altRef.alternative.name}</a></label>
+														${altRef.alternative.name}
 													</td>
 													<td class="cost">$${altRef.alternative.cost} million</td>
 												</tr>

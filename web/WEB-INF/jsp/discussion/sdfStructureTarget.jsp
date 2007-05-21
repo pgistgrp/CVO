@@ -38,8 +38,8 @@
 		<!-- begin Object -->
 		<div id="object">
 			<h3 class="headerColor">Available funding options</h3>
-					<a href="javascript:io.expandAll();">Expand all</a>
-		<a href="javascript:io.collapseAll();">Collapse all</a>
+			<a href="javascript:io.expandAll();">Expand all</a>
+			<a href="javascript:io.collapseAll();">Collapse all</a>
 			<div id="obj-left" class="floatLeft"> 
 			<div id="newtable">
 				<table cellpadding=0 cellspacing=0>
@@ -53,18 +53,17 @@
 						Estimated annual cost to you</span></th>
 					</tr>
 					
-					==== ${structure.infoObjects}
-					<c:forEach var="fundingRef" items="${structure.infoObjects}" varStatus="loop">
+					<c:forEach var="infoObject" items="${infoStructure.infoObjects}" varStatus="loop">
 						<tr class="fundingType">
-							<td class="fundingSourceItem"><a href="javascript:io.toggleRow('objective${fundingRef.id}','icon${fundingRef.id}');">
-							<img src="images/plus.gif" id="icon${fundingRef.id}" class="icon"></a> ${fundingRef.source.name}</td>
+							<td class="fundingSourceItem"><a href="javascript:io.toggleRow('objective${loop.index}','icon${loop.index}');">
+							<img src="images/plus.gif" id="icon${loop.index}" class="icon"></a> ${infoObject.object.source.name}</td>
 							<td colspan="3">&nbsp;</td>
 						</tr>
 						<!-- end FUNDING source -->
 						<!-- begin OPTIONS -->
 						<c:set var="doNothing"value="true"/>
-						<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
-							<tr style="display:none;" class="objectives" id="objective1">
+						<c:forEach var="altRef" items="${infoObject.object.altRefs}" varStatus="loop2">
+							<tr style="display:none;" class="objectives" id="objective${loop.index}">
 								<td colspan="4">
 									<table>
 										<tr>
@@ -146,7 +145,32 @@
 			$(row).show();
 			$(icon).src = "images/minus.gif";
 		}
-		io.showLabels();
+		showLabels();
+	}
+	
+	io.showLabels = function(){
+		var labels = document.getElementsByClassName('hiddenLabel')
+		for (var i = 0;i < labels.length;i++){
+			labels[i].style.display = "";
+		}
+	}
+	
+	io.testOpenRows = function(){
+		var rows = document.getElementsByClassName('objectives');
+		io.hideLabels();
+		for (var i = 1;i <= rows.length; i++){
+			var row = 'objective' + i;
+			if ($(row).style.display != "none"){
+				io.showLabels();
+			}else{}
+		}
+	}
+
+	io.hideLabels = function(){
+		var labels = document.getElementsByClassName('hiddenLabel')
+		for (var i = 0;i < labels.length;i++){
+			labels[i].style.display = "none";
+		}
 	}
 	
 	io.collapseAll = function(){
@@ -158,31 +182,6 @@
 			$(icon).src = "images/plus.gif";
 		}
 		io.hideLabels();
-	}
-
-	io.testOpenRows = function(){
-		var rows = document.getElementsByClassName('objectives');
-		hideLabels();
-		for (var i = 1;i <= rows.length; i++){
-			var row = 'objective' + i;
-			if ($(row).style.display != "none"){
-				io.showLabels();
-			}
-		}
-	}
-	
-	io.hideLabels = function(){
-		var labels = document.getElementsByClassName('hiddenLabel')
-		for (var i = 0;i < labels.length;i++){
-			labels[i].style.display = "none";
-		}
-	}
-	
-	io.showLabels = function(){
-		var labels = document.getElementsByClassName('hiddenLabel')
-		for (var i = 0;i < labels.length;i++){
-			labels[i].style.display = "";
-		}
 	}
 
 	io.toggleRow = function(project,icon){
