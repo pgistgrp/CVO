@@ -91,7 +91,7 @@
                <value>org/pgist/funding/FundingSourceAltRef.hbm.xml</value>
                <value>org/pgist/funding/FundingSourceSuite.hbm.xml</value>
                <value>org/pgist/funding/UserCommute.hbm.xml</value>
-			   <value>org/pgist/funding/UserFundingSourceToll.hbm.xml</value>
+               <value>org/pgist/funding/UserFundingSourceToll.hbm.xml</value>
                <value>org/pgist/projects/Corridor.hbm.xml</value>
                <value>org/pgist/projects/Project.hbm.xml</value>
                <value>org/pgist/projects/ProjectAlternative.hbm.xml</value>

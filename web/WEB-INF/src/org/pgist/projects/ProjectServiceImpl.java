@@ -22,7 +22,8 @@ import org.pgist.discussion.InfoStructure;
  * @author  Guirong
  */
 public class ProjectServiceImpl implements ProjectService{
-        
+    
+    
 	private ProjectDAO projectDAO = null;
     
 	private CriteriaDAO criteriaDAO = null;
