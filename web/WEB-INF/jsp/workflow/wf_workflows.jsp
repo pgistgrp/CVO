@@ -10,7 +10,7 @@
 
 <div id="workflows">
 	
-	<h3 class="headerColor">New Expiriments</h3>
+	<h3 class="headerColor">New Experiments</h3>
 	<pg:show roles="moderator">
 		<c:if test="${fn:length(newWorkflows) > 0}">
 			<table id="newTable" cellspacing="0" cellpadding="0">
@@ -36,7 +36,7 @@
 	</pg:show>
 	
 	
-	<h3 class="headerColor">Running Expiriments</h3>
+	<h3 class="headerColor">Running Experiments</h3>
 	<c:choose>
 		<c:when test="${fn:length(runningWorkflows) > 0}">
 			<table id="newTable" class="running" cellspacing="0" cellpadding="0">
@@ -71,7 +71,7 @@
 	
 	<pg:show roles="moderator">
 		<br />
-		<h3 class="headerColor">Completed Expiriments</h3>
+		<h3 class="headerColor">Completed Experiments</h3>
 		<table id="newTable" class="finished" cellspacing="0" cellpadding="0">
 			<tr>
 				<th>Name</th>

@@ -170,6 +170,7 @@ h3 {text-transform:none;}
 p {margin-left:5px;}
 tr:hover {background:#E4F1F5;}
 td.col1 a {display:block;text-decoration:underline;}
+.box12 {padding:5px;}
 
 </style>
 <event:pageunload />
@@ -206,7 +207,7 @@ td.col1 a {display:block;text-decoration:underline;}
 				<option>6</option>
 				<option>7</option>
 			</select>
-			<input type="button" class="padding5" onClick="createClusteredPackages();" value="Create Packages">
+			<input type="button" class="padding5" onClick="createClusteredPackages();" value="Cluster Packages">
 		</span> </p>
 	</span> <span class="floatRight" style="width:49%">
 	<h3 class="headerColor">Manually Created Packages</h3>
@@ -231,6 +232,9 @@ td.col1 a {display:block;text-decoration:underline;}
 	<p>When you are ready to allow participants to begin discussing these packages,
 		click the button below to create the discussion rooms</p>
 	<input type="button" value="Publish Packages" onClick="publishPackages();" class="padding5">-->
+		<h3>Finished managing packages?</h3>
+	<!-- this button just redirects - saves are occuring on check. -->
+	<p><input type="button" style="padding:5px" onClick="location.href='userhome.do'" value="Finished!"/></p>
 </div>
 <script type="text/javascript" charset="utf-8">
 	getManualPackages()
