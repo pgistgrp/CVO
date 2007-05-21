@@ -89,6 +89,7 @@
               <entry><key><value>action-sd.packages</value></key><value>/sdRoom.do</value></entry>
               <entry><key><value>action-weigh.criteria</value></key><value>/criteriaWeigh.do</value></entry>
               <entry><key><value>action-create.user.package</value></key><value>/createPackage.do</value></entry>
+              <entry><key><value>action-planning.factor.reweigh</value></key><value>/?????.do</value></entry>
               <entry><key><value>action-manage.packages</value></key><value>/packageMgr.do</value></entry>
               <entry><key><value>action-vote.packages</value></key><value>/packageVote.do</value></entry>
             </map>

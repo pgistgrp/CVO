@@ -257,6 +257,13 @@
                         </outs>
                     </declaration>
                 </pgame>
+                <!--pgame name="pgame-planning.factor.reweigh">
+                    <declaration>
+                        <outs>
+                            <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+                        </outs>
+                    </declaration>
+                </pgame-->
                 <pgame name="pgame-create.user.package">
                     <declaration>
                         <ins>

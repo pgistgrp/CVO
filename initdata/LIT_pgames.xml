@@ -218,6 +218,15 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-planning.factor.reweigh" description="Planning Factor Reweigh." auto="false" access="all">
+            <actionName>action-planning.factor.reweigh</actionName>
+            <declaration>
+                <ins>
+                    <var name="critSuiteId"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
         <pgame name="pgame-create.user.package" description="Create my package." auto="false" access="all">
             <actionName>action-create.user.package</actionName>
             <declaration>
