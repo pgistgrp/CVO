@@ -770,7 +770,7 @@ categories, each with 1 or 2 tags in it.</li></ol><li><b>Identify themes and sum
 		<div id="finished">
 			<a name="finished"></a>
 	   		<h3 id="headerFinished">Finished synthesizing concerns?</h3>
-	   		<p>blah blah.... Publish concern themes to participants....			</p>
+	   		<p>blah blah........			</p>
 		</div>
 </div>
 </div>

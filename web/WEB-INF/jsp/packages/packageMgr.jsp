@@ -225,11 +225,12 @@ td.col1 a {display:block;text-decoration:underline;}
 		</form>
 	</div>
 	</span>
+	<!--
 	<h3 class="headerColor clearBoth"><br />
 		Finished?</h3>
 	<p>When you are ready to allow participants to begin discussing these packages,
 		click the button below to create the discussion rooms</p>
-	<input type="button" value="Publish Packages" onClick="publishPackages();" class="padding5">
+	<input type="button" value="Publish Packages" onClick="publishPackages();" class="padding5">-->
 </div>
 <script type="text/javascript" charset="utf-8">
 	getManualPackages()

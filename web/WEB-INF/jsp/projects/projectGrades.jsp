@@ -123,6 +123,10 @@
 			</c:forEach>
 		</ul>
 		
+		<h3 align="right">Finished grading projects?</h3>
+		<!-- this button just redirects - saves are occuring on check. -->
+		<p align="right"><input type="button" style="padding:5px;" onClick="location.href='main.do'" value="Finished!"/></p></div>
+		
 		<script type="text/javascript">
 			//ddtreemenu.createTree(treeid, enablepersist, opt_persist_in_days (default is 1))
 			//ddtreemenu.createTree("treemenu1", false);
