@@ -888,7 +888,7 @@ public class PackageServiceImpl implements PackageService {
         Date date = new Date();
         
         InfoStructure structure = new InfoStructure();
-        structure.setType("sdpkg");
+        structure.setType("sdPkg");
         structure.setTitle(title);
         structure.setRespTime(date);
         structure.setCctId(cct.getId());
