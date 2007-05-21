@@ -74,6 +74,7 @@
                <value>org/pgist/wfengine/Environment.hbm.xml</value>
                <value>org/pgist/wfengine/Declaration.hbm.xml</value>
                <value>org/pgist/wfengine/RunningContext.hbm.xml</value>
+               <value>org/pgist/wfengine/RunningHistory.hbm.xml</value>
                <value>org/pgist/wfengine/Activity.hbm.xml</value>
                <value>org/pgist/wfengine/Workflow.hbm.xml</value>
                <value>org/pgist/criteria/Criteria.hbm.xml</value>
