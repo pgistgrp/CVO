@@ -7,6 +7,7 @@ border:1px solid #C6D78C;
 }
 
 #workflows th {background:#E1F1C5}
+#workflows th.last {text-align:right}
 
 #workflows td {
 background:#FDFFF7;

@@ -17,7 +17,7 @@
 				<tr>
 					<th>Name</th>
 					<th>Description</th>
-					<th>Operation</th>
+					<th class="last">Operation</th>
 				</tr>
 				<c:forEach var="workflow" items="${newWorkflows}">
 						<tr>
@@ -46,7 +46,7 @@
 					<th>Name</th>
 					<th>Description</th>
 					<th>Begin Time</th>
-					<th>Operation</th>
+					<th class="last">Operation</th>
 				</tr>
 				<c:forEach var="workflow" items="${runningWorkflows}">
 					<tr>
@@ -80,7 +80,7 @@
 				<th>Description</th>
 				<th>Begin Time</th>
 				<th>End Time</th>
-				<th>Operation</th>
+				<th class="last">Operation</th>
 			</tr>
 			<c:forEach var="workflow" items="${finishedWorkflows}">
 					<tr style="color:#999;">
