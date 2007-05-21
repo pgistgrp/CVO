@@ -57,5 +57,5 @@ margin-top:5px;
 #newExp p label {width:100px;}
 #newExp p {clear:both;}
 
-
 #newExpiriment ul  {margin-top:-10px;padding-top:0px;}
+#newExpiriment ul li {list-style:none}
