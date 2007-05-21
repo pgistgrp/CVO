@@ -12,7 +12,9 @@ import org.pgist.funding.FundingSourceAltRef;
 import org.pgist.funding.FundingSourceAlternative;
 import org.pgist.funding.FundingSourceRef;
 import org.pgist.funding.FundingSourceSuite;
+import org.pgist.funding.UnknownFundingSourceException;
 import org.pgist.funding.UserCommute;
+import org.pgist.funding.UserFundingSourceToll;
 import org.pgist.funding.ZipCodeFactor;
 import org.pgist.funding.ZipCodeGas;
 import org.pgist.packages.Package;
@@ -38,6 +40,20 @@ public class MockFundingSourceDAO implements FundingDAO {
 	public ArrayList getDeleted() {
 		return deleted;
 	}
+	
+	
+	public void initializeUser(User user) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void linkFundingSource(UserFundingSourceToll toll) throws UnknownFundingSourceException, Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	/**
 	 * Resets the deleted
 	 */
