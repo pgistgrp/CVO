@@ -18,6 +18,7 @@
                 <property name="projectDAO" ref="projectDAO"/>   
                 <property name="fundingDAO" ref="fundingDAO"/>    
                 <property name="criteriaDAO" ref="criteriaDAO"/>                                         
+                <property name="discussionDAO" ref="discussionDAO"/>                                         
                 <property name="cctDAO" ref="cctDAO"/>                                         
                 <property name="fundingService" ref="fundingService"/> 
              </bean>
