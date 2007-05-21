@@ -1379,5 +1379,29 @@ public class PackageServiceImpl implements PackageService {
 			tempFSKSI = (FundingSourceKSItem)resultIter.next();
 			upack.getFundAltRefs().add(tempFSKSI.getFundingSourceAltRef());
 		}			
-	}		
+	}
+
+
+    public PackageVoteSuite createPackageVoteSuite(Long pkgSuiteId) throws Exception {
+        PackageSuite pkgSuite = getPackageSuite(pkgSuiteId);
+        
+        if (pkgSuite==null) throw new Exception("package suite with id " + pkgSuiteId + " is not found");
+        
+        PackageVoteSuite suite = new PackageVoteSuite();
+        suite.setPkgSuite(pkgSuite);
+        
+        for (ClusteredPackage one : pkgSuite.getClusteredPkgs()) {
+            VoteSuiteStat stat = new VoteSuiteStat();
+            stat.setClusteredPackage(one);
+            suite.getStats().add(stat);
+        }//for
+        
+        pkgSuite.getVoteSuites().add(suite);
+        
+        packageDAO.save(pkgSuite);
+        
+        return suite;
+    }//createPackageVoteSuite()
+    
+    
 }//class PackageServiceImpl

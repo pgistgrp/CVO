@@ -61,7 +61,9 @@ public interface PackageService {
 
 	void setVotes(User user, Long voteSuiteId, HashMap<Long, Integer> votes) throws Exception;
 
-	void setManualPkgDesc(Long pkgId, String desc) throws Exception; 
+	void setManualPkgDesc(Long pkgId, String desc) throws Exception;
+
+    PackageVoteSuite createPackageVoteSuite(Long pkgSuiteId) throws Exception; 
     
     
 }//interface PackageService

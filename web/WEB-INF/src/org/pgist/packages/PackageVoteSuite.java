@@ -32,7 +32,7 @@ public class PackageVoteSuite {
     private Map<ClusteredPackage, PackageUserVote> userVotes = new HashMap<ClusteredPackage, PackageUserVote>();
 
     private Set<VoteSuiteStat> stats = new HashSet<VoteSuiteStat>();
-        
+    
     
     /**
      * Returns true if the user has voted on all of the clustered packages

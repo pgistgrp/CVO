@@ -58,6 +58,11 @@
     </bean>
     
     
+    <bean id="task-create.vote.suite" class="org.pgist.packages.CreateVoteSuiteTask">
+        <property name="packageService" ref="packageService"/>
+    </bean>
+    
+    
     <bean id="workflow.registry" class="org.pgist.wfengine.WorkflowTaskRegistry">
         <property name="tasks">
             <map>
@@ -71,6 +76,7 @@
               <entry><key><value>task-publish.fundings</value></key><ref bean="task-publish.fundings" /></entry>
               <entry><key><value>task-create.package.suite</value></key><ref bean="task-create.package.suite" /></entry>
               <entry><key><value>task-publish.packages</value></key><ref bean="task-publish.packages" /></entry>
+              <entry><key><value>task-create.vote.suite</value></key><ref bean="task-create.vote.suite" /></entry>
             </map>
         </property>
         <property name="actions">

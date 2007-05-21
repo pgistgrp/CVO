@@ -136,6 +136,8 @@
                         </ins>
                         <outs>
                             <var name="pmethod.pkg_suite_id" ref="meeting.pkg_suite_id"/>
+                            <var name="pmethod.vote_suite_id_1" ref="meeting.vote_suite_id_1"/>
+                            <var name="pmethod.vote_suite_id_2" ref="meeting.vote_suite_id_2"/>
                         </outs>
                     </declaration>
                 </pmethod>

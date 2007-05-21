@@ -311,6 +311,18 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-create.vote.suite" description="Create a vote suite." auto="true">
+            <taskName>task-create.vote.suite</taskName>
+            <declaration>
+                <ins>
+                    <var name="pkg_suite_id"/>
+                </ins>
+                <outs>
+                    <var name="suite_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
     </pgames>
     
     

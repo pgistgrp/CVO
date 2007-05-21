@@ -317,6 +317,16 @@
                         </pgame>
                     </sequence>
                     <sequence>
+                        <pgame name="pgame-create.vote.suite">
+                            <declaration>
+                                <ins>
+                                    <var name="pkg_suite_id" ref="pmethod.pkg_suite_id"/>
+                                </ins>
+                                <outs>
+                                    <var name="suite_id" ref="pmethod.vote_suite_id_1"/>
+                                </outs>
+                            </declaration>
+                        </pgame>
                         <pgame name="pgame-vote.packages">
                             <declaration>
                                 <ins>
@@ -324,7 +334,28 @@
                                     <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
                                     <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
                                     <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
-                                    <var name="voteSuiteId" ref="?????"/>
+                                    <var name="voteSuiteId" ref="pmethod.vote_suite_id_1"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-create.vote.suite">
+                            <declaration>
+                                <ins>
+                                    <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
+                                </ins>
+                                <outs>
+                                    <var name="suite_id" ref="pmethod.vote_suite_id_2"/>
+                                </outs>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-vote.packages">
+                            <declaration>
+                                <ins>
+                                    <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
+                                    <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
+                                    <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+                                    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+                                    <var name="voteSuiteId" ref="pmethod.vote_suite_id_2"/>
                                 </ins>
                             </declaration>
                         </pgame>
