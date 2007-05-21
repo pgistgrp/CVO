@@ -14,7 +14,7 @@ border-bottom:1px solid #DAEABE;
 padding:5px;
 }
 
-#newTable th, #left-col #newTable td {\
+#newTable th, #left-col #newTable td {
 padding:5px;
 }
 
@@ -27,8 +27,19 @@ text-align:center;
 .running td {padding:5px;}
 .running ul li {list-style:none;}
 .running ul {padding-left:12px;}
-.running h4 {margin:10px 0px -10px 0px;}
+.running h4 {}
 
 #workflows h3 {margin-top:10px;}
+#workflows .noActive h3 {margin-top:0px;}
 
-#newExpiriment{}
+#newExpiriment{
+background:#FDFFF7;
+margin:10px auto;
+padding:5px;
+}
+
+#newExpiriment h4{
+background:#E1F1C5;
+padding:5px;
+margin-top:0px;
+}
