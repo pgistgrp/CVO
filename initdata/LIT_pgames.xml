@@ -13,7 +13,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-define.projects" description="Define projects in a project suite." auto="false" access="moderator">
+        <pgame name="pgame-define.projects" description="Define projects in a project suite." auto="false" access="moderator" revisitable="true">
             <actionName>action-define.projects</actionName>
             <declaration>
                 <ins>
@@ -31,7 +31,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-define.fundings" description="Define funding sources in a funding source suite." auto="false" access="moderator">
+        <pgame name="pgame-define.fundings" description="Define funding sources in a funding source suite." auto="false" access="moderator" revisitable="true">
             <actionName>action-define.fundings</actionName>
             <declaration>
                 <ins>
@@ -40,12 +40,12 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-grade.projects" description="Grade Projects." auto="false" access="moderator">
+        <pgame name="pgame-grade.projects" description="Grade Projects." auto="false" access="moderator" revisitable="true">
             <actionName>action-grade.projects</actionName>
             <declaration>
                 <ins>
                     <var name="projsuiteId"/>
-					<var name="critsuiteId"/>
+                    <var name="critsuiteId"/>
                 </ins>
             </declaration>
         </pgame>
@@ -73,7 +73,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-cvo.cst" description="Concerns Synthesis Tool" auto="false" access="all">
+        <pgame name="pgame-cvo.cst" description="Concerns Synthesis Tool" auto="false" access="moderator" revisitable="true">
             <actionName>action-cvo.cst</actionName>
             <declaration>
                 <ins>
@@ -97,7 +97,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.concerns" description="Review Summaries." auto="false" access="all">
+        <pgame name="pgame-sd.concerns" description="Review Summaries." auto="false" access="all" revisitable="true">
             <actionName>action-sd.concerns</actionName>
             <declaration>
                 <ins>
@@ -141,7 +141,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.criteria" description="SD critieria." auto="false" access="all">
+        <pgame name="pgame-sd.criteria" description="SD critieria." auto="false" access="all" revisitable="true">
             <actionName>action-sd.criteria</actionName>
             <declaration>
             <ins>
@@ -175,7 +175,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.projects" description="Review Projects." auto="false" access="all">
+        <pgame name="pgame-sd.projects" description="Review Projects." auto="false" access="all" revisitable="true">
             <actionName>action-sd.projects</actionName>
             <declaration>
                 <ins>
@@ -200,7 +200,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.fundings" description="Review Fundings." auto="false" access="all">
+        <pgame name="pgame-sd.fundings" description="Review Fundings." auto="false" access="all" revisitable="true">
             <actionName>action-sd.fundings</actionName>
             <declaration>
                 <ins>
@@ -248,7 +248,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.packages" description="Review Fundings." auto="false" access="all">
+        <pgame name="pgame-sd.packages" description="Review Fundings." auto="false" access="all" revisitable="true">
             <actionName>action-sd.packages</actionName>
             <declaration>
                 <ins>
@@ -285,7 +285,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.packages" description="Review Packages." auto="false" access="all">
+        <pgame name="pgame-sd.packages" description="Review Packages." auto="false" access="all" revisitable="true">
             <actionName>action-sd.packages</actionName>
             <declaration>
                 <ins>
@@ -294,7 +294,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-vote.packages" description="Vote Candidate Packages." auto="false" access="all">
+        <pgame name="pgame-vote.packages" description="Vote Candidate Packages." auto="false" access="all" revisitable="true">
             <actionName>action-vote.packages</actionName>
             <declaration>
                 <ins>
