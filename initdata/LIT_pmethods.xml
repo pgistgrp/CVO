@@ -308,6 +308,10 @@
                             <declaration>
                                 <ins>
                                     <var name="isid" ref="pmethod.is_id"/>
+                                    <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
+                                    <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
+                                    <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+                                    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
                                 </ins>
                             </declaration>
                         </pgame>

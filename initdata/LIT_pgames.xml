@@ -290,6 +290,10 @@
             <declaration>
                 <ins>
                     <var name="isid"/>
+                    <var name="pkgSuiteId"/>
+                    <var name="projSuiteId"/>
+                    <var name="fundSuiteId"/>
+                    <var name="critSuiteId"/>
                 </ins>
             </declaration>
         </pgame>
