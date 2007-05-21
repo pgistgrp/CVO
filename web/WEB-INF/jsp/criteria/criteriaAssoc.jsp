@@ -150,7 +150,7 @@
 	<div id="finished">
 		<h3>Finished selecting planning factors?</h3>
 		<p>The system will automatically publish these planning factors on --date--</p>
-		<p><input type="button" style="padding:5px;" onClick="publish();location.href='main.do'" value="Finished!"/></p>
+		<p><input type="button" style="padding:5px;" onClick="publish();location.href='userhome.do'" value="Finished!"/></p>
 	</div>
 </body>
 </html:html>

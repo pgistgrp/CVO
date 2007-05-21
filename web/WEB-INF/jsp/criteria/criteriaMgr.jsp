@@ -592,6 +592,9 @@ padding: 5px;
 			<br />
 			<h4>Finished Creating Planning Factors?</h4>
 
+			<p><input type="button" style="padding:5px" onClick="location.href='userhome.do'" 
+				value="Finished!"/></p>
+
 			<p>The workflow will publish these planning factors on: --workflow date--</p>
 			<div class="errorMessage" id="publishError" style="display:none;"></div>
 

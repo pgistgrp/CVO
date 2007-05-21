@@ -114,7 +114,7 @@
 	</ul>
 
 	<h3 align="right">Finished selecting funding source alternatives?</h3>
-	<p align="right"><input type="button" style="padding:5px;" onClick="location.href='main.do'" value="Finished!"/></p>
+	<p align="right"><input type="button" style="padding:5px;" onClick="location.href='userhome.do'" value="Finished!"/></p>
 </body>
 </html:html>
 

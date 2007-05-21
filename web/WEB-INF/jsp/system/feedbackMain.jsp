@@ -76,6 +76,9 @@
 		<div id="feedbacks" style="padding: 10px;">
 			<!-- load collection of feedback from feedbacks.jsp here -->
 		</div>
+		<h3>Finished managing feedback?</h3>
+	<!-- this button just redirects - saves are occuring on check. -->
+	<p><input type="button" style="padding:5px" onClick="location.href='userhome.do'" value="Finished!"/></p>
   </div>
   <!-- end container -->
   

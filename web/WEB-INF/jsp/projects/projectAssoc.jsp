@@ -125,7 +125,7 @@
 	<div style="width:700px">
 	<h3 align="right">Finished selecting project alternatives?</h3>
 	<!-- this button just redirects - saves are occuring on check. -->
-	<p align="right"><input type="button" style="padding:5px;" onClick="location.href='main.do'" value="Finished!"/></p></div>
+	<p align="right"><input type="button" style="padding:5px;" onClick="location.href='userhome.do'" value="Finished!"/></p></div>
 </body>
 </html:html>
 
