@@ -181,6 +181,7 @@ text-align:left;
 #discussion
 {
 margin:0px;
+position:relative;
 }
 
 #discussionHeader
@@ -394,6 +395,15 @@ padding:5px;
 }
 
 input#manualTag[type=text]{width:100px;margin-top:10px;}
+
+#sortingMenu{width:680px;padding-right:0px;}
+
+#tagCloud{
+z-index:2500;
+width:680px;
+float:left;}
+
+#tagCloud .pagination{padding:0px 10px}
 
 /* GLOBAL CLASSES */
 /* -------------- */
