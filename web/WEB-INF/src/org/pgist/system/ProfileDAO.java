@@ -11,8 +11,6 @@ public interface ProfileDAO {
 	
 	boolean setUserInfo(User user, String homecity, String homezipcode, String workcity, String workzipcode, String vocation, String primarytransport, String profiledesc) throws Exception;
 	
-	void getDiscussionPost(User user) throws Exception;
-	
 	Date getLastLogin(String username) throws Exception;
 	
 	int getTotalVisits(String username) throws Exception;
@@ -20,5 +18,7 @@ public interface ProfileDAO {
 	int getPostCount(String username) throws Exception;
 	
 	Collection getUserConcerns(String username) throws Exception;
+	
+	Collection getUserDiscussion(String username) throws Exception;
 	
 }

@@ -110,18 +110,5 @@ public class CriteriaSuite {
     	return null;
     } //getProjectReference
 	
-	
-    /*
-    public CriteriaRef getCriteriaReference(Theme theme) {
-    	if(theme == null) return null;
-    	for (CriteriaRef cr : getReferences()) {
-    		for(Theme t : cr.getCriterion().getThemes()) {
-    			if(t.getId().equals(theme.getId())) {
-    				return cr;
-    			}
-    		}
-    	}    	
-    	return null;
-    } //getProjectReference
-    */
+    
 }//class CriteriaSuite

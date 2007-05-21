@@ -40,12 +40,6 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     
-    public void getDiscussionPost() throws Exception {
-    	User user = systemService.getCurrentUser();
-    	profileDAO.getDiscussionPost(user);
-    }
-
-    
     public Date getLastLogin(String username) throws Exception {
     	return profileDAO.getLastLogin(username);
     }
@@ -65,5 +59,9 @@ public class ProfileServiceImpl implements ProfileService {
     	return profileDAO.getUserConcerns(username);
     }
     
+    
+    public Collection getUserDiscussion(String username) throws Exception {
+    	return profileDAO.getUserDiscussion(username);
+    }
     
 }

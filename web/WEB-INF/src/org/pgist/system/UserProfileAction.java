@@ -46,7 +46,7 @@ public class UserProfileAction extends Action {
     /**
      * When call this action, the following parameters are required:<br>
      * <ul>
-     *   <li>save           - string, the only valid value is "true". It means to save the given information to a new User object. Any other value will turn the page to register.jsp again.</li>
+     *   <li>user - string, username.</li>
 
      * </ul>
      */
@@ -68,9 +68,12 @@ public class UserProfileAction extends Action {
     			String strDate = "" + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date);
     			int post = profileService.getPostCount(username);
     			int visits = profileService.getTotalVisits(username);
+    			Collection discussions = profileService.getUserDiscussion(username);
+    			
     			
     			request.setAttribute("user", u);
     			request.setAttribute("concerns", concerns);
+    			request.setAttribute("discussions", discussions);
     			request.setAttribute("lastlogin", strDate);
     			request.setAttribute("post", post);
         		request.setAttribute("visits", visits);

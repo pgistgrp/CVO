@@ -11,7 +11,7 @@
     
     
     <convert converter="bean" match="org.pgist.users.User">
-      <param name="include" value="id, loginname, firstname, lastname, password, email, enabled, deleted, internal"/>
+      <param name="include" value="id, loginname, firstname, lastname, password, email, enabled, deleted, internal, city, zipcode, workZipcode, profileDesc, primaryTransport, vocation"/>
     </convert>
     
     <convert converter="bean" match="org.pgist.users.Role">
@@ -25,7 +25,7 @@
     <convert converter="bean" match="org.pgist.system.County"/>
     
     <convert converter="bean" match="org.pgist.system.Announcement"/>
-
+    
     <convert converter="bean" match="org.pgist.system.YesNoVoting">
         <param name="include" value="id, targetType, targetId, voting, owner"/>
     </convert>
@@ -87,6 +87,7 @@
 	<include method="setUserInfo"/>
 	<include method="getUserStats"/>
 	<include method="getUserConcerns"/>
+	<include method="getUserDiscussion"/>
     </create>
     
   </allow>

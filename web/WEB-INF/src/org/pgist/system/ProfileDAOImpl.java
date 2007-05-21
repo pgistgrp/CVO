@@ -3,9 +3,11 @@ package org.pgist.system;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.LinkedList;
 import java.util.Iterator;
 
 import org.pgist.discussion.DiscussionPost;
+import org.pgist.discussion.DiscussionReply;
 import org.pgist.discussion.GenericPost;
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;
@@ -59,13 +61,6 @@ public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
 	}
 	
 	
-    private static final String hql_getDiscussionPost = "from DiscussionReply r where r.owner=? order by r.replyTime";
-    
-	public void getDiscussionPost(User user) throws Exception {
-		
-	}
-	
-	
     private static final String hql_getReplies_A = "from DiscussionReply r where r.parent.id=? and r.deleted=? order by r.id";
     
     public Collection getReplies(DiscussionPost post) throws Exception {
@@ -105,14 +100,64 @@ public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
     }
     
     
-    private static final String hql_getPostCount1 = "from DiscussionPost dp where dp.owner.loginname=?";
-    private static final String hql_getPostCount2 = "from DiscussionReply dr where dr.owner.loginname=?";
+    private static final String hql_getUserDiscussion1 = "from DiscussionPost dp where dp.deleted=? and dp.owner.loginname=? order by dp.createTime desc";
+    private static final String hql_getUserDiscussion2 = "from DiscussionReply dr where dr.deleted=? and dr.owner.loginname=? order by dr.createTime desc";
+
+    public Collection getUserDiscussion(String username) {
+    	List list1 = getHibernateTemplate().find(hql_getUserDiscussion1, new Object[] {new Boolean(false), username,});
+    	List list2 = getHibernateTemplate().find(hql_getUserDiscussion2, new Object[] {new Boolean(false), username,});
+    	
+    	List list = new LinkedList();
+    	
+    	int count = 0;
+    	
+    	Iterator itL1 = list1.iterator();
+    	Iterator itL2 = list2.iterator();
+    	
+    	DiscussionPost dp = null;
+    	DiscussionReply dr = null;
+    	
+    	if(itL1.hasNext()){dp = (DiscussionPost) itL1.next();}
+    	if(itL2.hasNext()){dr = (DiscussionReply) itL2.next();}
+    	// is there an easy way to do this with just HQL?
+    	while(count<6) {
+    		if(dp==null && dr!=null) {
+    			list.add(dr);
+    			if(itL2.hasNext()){dr = (DiscussionReply) itL2.next();} else {dr = null;}
+    			count++;
+    		} else if(dr==null && dp!=null) {
+    			list.add(dp);
+    			if(itL1.hasNext()){dp = (DiscussionPost) itL1.next();}  else {dp = null;}
+    			count++;
+    		} else if(dp==null && dr == null){
+    			//count=6;
+    			break;
+    		} else if(dp.getCreateTime().compareTo(dr.getCreateTime()) > 0) {
+    			list.add(dp);
+    			if(itL1.hasNext()){dp = (DiscussionPost) itL1.next();} else {dp = null;}
+    			count++;
+    		} else if (dp.getCreateTime().compareTo(dr.getCreateTime()) < 0) {
+    			list.add(dr);
+    			if(itL2.hasNext()){dr = (DiscussionReply) itL2.next();}  else {dr = null;}
+    			count++;
+    		} else {
+    			list.add(dp);
+    			list.add(dr);
+    			if(itL1.hasNext()){dp = (DiscussionPost) itL1.next();}  else {dp = null;}
+    			if(itL2.hasNext()){dr = (DiscussionReply) itL2.next();}  else {dr = null;}
+    			count+=2;
+    		}
+    	}
+    	
+    	return list;
+    }
+    
     
     public int getPostCount(String username) {
     	//User u = getUserByUsername(username);
-    	List list = getHibernateTemplate().find(hql_getPostCount1, new Object[] {username,});
-    	List list2 = getHibernateTemplate().find(hql_getPostCount2, new Object[] {username,});
-    	int post = list.size() + list2.size();
+    	List list1 = getHibernateTemplate().find(hql_getUserDiscussion1, new Object[] {new Boolean(false), username,});
+    	List list2 = getHibernateTemplate().find(hql_getUserDiscussion2, new Object[] {new Boolean(false), username,});
+    	int post = list1.size() + list2.size();
     	return post;
     }
 
@@ -131,4 +176,8 @@ public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
     public Collection getUserConcerns(String username) {
     	return getHibernateTemplate().find(hql_getUserConcerns, new Object[] {new Boolean(false), username,});
     }
+    
+    
+
+    
 }

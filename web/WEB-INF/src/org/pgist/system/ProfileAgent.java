@@ -188,33 +188,6 @@ public class ProfileAgent {
     
     
 	/**
-     * Get discussion post
-     * 
-     * @return a Map contains:
-     *   <ul>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *   </ul>
-     */
-    public Map getDiscussionPost(HttpServletRequest request, Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-       
-        try {
-        	profileService.getDiscussionPost();
-        	
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-        }
-        
-        return map;
-    }
-    
-    
-	/**
      * Get user statistics
      * @param params a Map contains:
      *   <ul>
@@ -301,6 +274,47 @@ public class ProfileAgent {
         }
         return map;
     } //getUserConcerns();
+    
+    
+	/**
+     * Get users discussions
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>username - string, user's login name</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>html - html page profile_discussions.jsp</li>
+     *   </ul>
+     */
+    public Map getUserDiscussion(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        String username = (String) params.get("username");
+        
+        if(username==null || "".equals(username.trim())){
+    		map.put("reason", "username cannot be blank.");
+    		return map;
+    	}
+       
+        try {
+        	Collection discussions = profileService.getUserDiscussion(username);
+        		
+        	map.put("discussions", discussions);
+            
+        	request.setAttribute("discussions", discussions);
+
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/profile_discussions.jsp"));       
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        return map;
+    } //getUserDiscussion();
     
     
 } //ProfileAgent()

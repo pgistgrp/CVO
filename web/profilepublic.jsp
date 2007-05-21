@@ -153,6 +153,8 @@
 				<div id="profile-recent" style="width:600px;">
 	
 					<!-- begin RECENT DISCUSSIONS HEADER -->
+
+				
 					<div>
 						<div class="floatLeft clearfix"><a href="#">Prev</a></div>
 						<div class="floatRight clearfix"><a href="#">Next</a></div>
@@ -172,59 +174,42 @@
 						</div>
 					</div>
 					<!-- end RECENT DISCUSSIONS HEADER -->
+					<c:choose>	
+					<c:when test="${fn:length(discussions) == 0}">
+						<p>This user has no dicussions at this time.</p>
+					</c:when>
+					<c:otherwise>
+						<c:set var="rowcount" value="0"/>
+						<c:forEach var="discussion" items="${discussions}" varStatus="loop">
+						
+							<!-- begin A RECENT DISCUSSION -->
+								<c:choose>
+								<c:when test='${rowcount==0}'>
+								<div class="listRow clearfix">
+								<c:set var="rowcount" value="1"/>
+								</c:when>
+								<c:otherwise>
+								<div class="listRow odd clearfix">
+								<c:set var="rowcount" value="0"/>
+								</c:otherwise>
+								</c:choose>
+							
+								<div class="profile-col1 floatLeft">
+									<div class="floatLeft">
+										<a href="#">${discussion.title}</a><br />
+			
+										<span>Some how get the step</span>
+									</div>
+								</div>
+								<div class="profile-col2 floatRight"><fmt:formatDate value="${discussion.createTime}" pattern="MM/dd" var="discussionDate" />${discussionDate}</div>
+							</div>
+							<!-- end A RECENT DISCUSSION -->
+					
+						</c:forEach>
+					</c:otherwise>
+					</c:choose>
 					<!-- begin A RECENT DISCUSSION -->
-					<div class="listRow clearfix">
-						<div class="profile-col1 floatLeft">
-							<div class="floatLeft">
-								<a href="#">Rebuild the viaduct!</a><br />
-	
-								<span>Step 3a: Review Projects</span>
-							</div>
-						</div>
-						<div class="profile-col2 floatRight">1/31</div>
-					</div>
-					<!-- end A RECENT DISCUSSION -->
-					<div class="listRow odd clearfix">
-						<div class="profile-col1 floatLeft">
-	
-							<div class="floatLeft">
-								<a href="#">Rebuild the viaduct but don't spend any more money</a><br />
-								<span>Step 3a: Review Projects</span>
-							</div>
-						</div>
-						<div class="profile-col2 floatRight">1/31</div>
-					</div>
-	
-					<div class="listRow  clearfix">
-						<div class="profile-col1 floatLeft">
-							<div class="floatLeft">
-								<a href="#">Rebuild the viaduct!</a><br />
-								<span>Step 3a: Review Projects</span>
-							</div>
-						</div>
-						<div class="profile-col2 floatRight">1/31</div>
-	
-					</div>
-					<div class="listRow odd clearfix">
-						<div class="profile-col1 floatLeft">
-							<div class="floatLeft">
-								<a href="#">Rebuild the viaduct!</a><br />
-								<span>Step 3a: Review Projects</span>
-							</div>
-						</div>
-	
-						<div class="profile-col2 floatRight">1/31</div>
-					</div>
-					<div class="listRow  clearfix">
-						<div class="profile-col1 floatLeft">
-							<div class="floatLeft">
-								<a href="#">Rebuild the viaduct!</a><br />
-								<span>Step 3a: Review Projects</span>
-	
-							</div>
-						</div>
-						<div class="profile-col2 floatRight">1/31</div>
-					</div>
+					
 				</div>
 				<!-- end RECENT DISCUSSIONS -->
 	
