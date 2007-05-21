@@ -28,7 +28,9 @@
 				</c:forEach>
 			</table>
 		</c:if>
-		<a href="javascript:Element.toggle('newExpiriment');void(0);">Create a New Expiriment</a>
+		<button onclick="javascript:Element.toggle('newExpiriment');void(0);" class="padding5">
+			<img src="images/addItem.gif"/> Create a new experiment
+		</button>
 		<div id="newExpiriment" style="display:none; border: 1px solid #ccc">
 			<!-- load templates here -->
 		</div>

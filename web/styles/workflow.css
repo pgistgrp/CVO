@@ -43,3 +43,18 @@ background:#E1F1C5;
 padding:5px;
 margin-top:0px;
 }
+
+#workflows button {margin-top:10px;}
+#workflows button img {vertical-align:bottom;margin-left}
+
+#newExp p label, #newExp p input {
+display:block;
+float:left;
+margin-top:5px;
+}
+
+#newExp p label {width:100px;}
+#newExp p {clear:both;}
+
+
+#newExpiriment ul  {margin-top:-10px;padding-top:0px;}
