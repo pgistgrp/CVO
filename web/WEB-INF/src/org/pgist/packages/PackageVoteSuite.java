@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import org.pgist.funding.FundingSourceAlternative;
 import org.pgist.users.User;
 
 
@@ -33,30 +32,6 @@ public class PackageVoteSuite {
 
     private Set<VoteSuiteStat> stats = new HashSet<VoteSuiteStat>();
     
-    
-    /**
-     * Returns true if the user has voted on all of the clustered packages
-     */
-    public boolean userVoted(User user) {
-    	boolean voted = false;
-    	
-    	Iterator<ClusteredPackage> iCPackage = pkgSuite.getClusteredPkgs().iterator();
-    	ClusteredPackage tempCPackage;
-    	PackageUserVote puv;
-    	//Check that the user has voted on each clustered package
-    	while(iCPackage.hasNext()) {
-    		tempCPackage = iCPackage.next();
-    		puv = userVotes.get(tempCPackage);
-    		if(puv != null) {
-        		if(!puv.getVotes().containsKey(user)) {
-        			return false;    			
-        		}
-    		} else {
-    			return false;
-    		}
-    	}
-    	return true;
-    }
     
     /**
      * @return
@@ -120,4 +95,31 @@ public class PackageVoteSuite {
     public void setStats(Set<VoteSuiteStat> stats) {
         this.stats = stats;
     }
+    
+    
+    /**
+     * Returns true if the user has voted on all of the clustered packages
+     */
+    public boolean userVoted(User user) {
+        boolean voted = false;
+        
+        Iterator<ClusteredPackage> iCPackage = pkgSuite.getClusteredPkgs().iterator();
+        ClusteredPackage tempCPackage;
+        PackageUserVote puv;
+        //Check that the user has voted on each clustered package
+        while(iCPackage.hasNext()) {
+            tempCPackage = iCPackage.next();
+            puv = userVotes.get(tempCPackage);
+            if(puv != null) {
+                if(!puv.getVotes().containsKey(user)) {
+                    return false;               
+                }
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    
 }//class PackageVoteSuite
