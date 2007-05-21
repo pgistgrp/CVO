@@ -354,7 +354,7 @@
 	
 	<h3>Finished managing funding sources?</h3>
 	<!-- this button just redirects - saves are occuring on check. -->
-	<p><input type="button" style="padding:5px" onClick="location.href='main.do'" value="Finished!"/></p>
+	<p><input type="button" style="padding:5px" onClick="location.href='userhome.do'" value="Finished!"/></p>
 </body>
 </html:html>
 
