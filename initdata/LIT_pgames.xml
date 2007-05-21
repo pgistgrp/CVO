@@ -219,7 +219,7 @@
         </pgame>
         
         <pgame name="pgame-create.user.package" description="Create my package." auto="false" access="all">
-            <actionName>task-create.user.package</actionName>
+            <actionName>action-create.user.package</actionName>
             <declaration>
                 <ins>
                     <var name="pkgSuiteId"/>

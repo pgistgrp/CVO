@@ -889,7 +889,10 @@ public class PackageServiceImpl implements PackageService {
 	}
 
     public PackageSuite createPackageSuite() throws Exception {
-        PackageSuite suite = new PackageSuite();       
+        PackageSuite suite = new PackageSuite();
+        
+        packageDAO.save(suite);
+        
         return suite;
     }//createPackageSuite()
     
