@@ -1387,23 +1387,23 @@ public class PackageServiceImpl implements PackageService {
         
         if (pkgSuite==null) throw new Exception("package suite with id " + pkgSuiteId + " is not found");
         
-        PackageVoteSuite suite = new PackageVoteSuite();
-        suite.setPkgSuite(pkgSuite);
+        PackageVoteSuite voteSuite = new PackageVoteSuite();
+        voteSuite.setPkgSuite(pkgSuite);
         
-        packageDAO.save(suite);
+        packageDAO.save(voteSuite);
         
         for (ClusteredPackage one : pkgSuite.getClusteredPkgs()) {
             VoteSuiteStat stat = new VoteSuiteStat();
             stat.setClusteredPackage(one);
-            suite.getStats().add(stat);
+            voteSuite.getStats().add(stat);
             packageDAO.save(stat);
         }//for
         
-        pkgSuite.getVoteSuites().add(suite);
+        pkgSuite.getVoteSuites().add(voteSuite);
         
         packageDAO.save(pkgSuite);
         
-        return suite;
+        return voteSuite;
     }//createPackageVoteSuite()
     
     
