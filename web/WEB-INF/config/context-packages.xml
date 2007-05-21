@@ -20,7 +20,6 @@
                 <property name="criteriaDAO" ref="criteriaDAO"/>                                         
                 <property name="discussionDAO" ref="discussionDAO"/>                                         
                 <property name="cctDAO" ref="cctDAO"/>                                         
-                <property name="fundingService" ref="fundingService"/> 
              </bean>
         </property>
     </bean>
