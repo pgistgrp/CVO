@@ -122,7 +122,7 @@
 				f += '<option value="'+ i +'" '+ typeSelected +'>'+types[i]+'</option>';
 			}
 		f +='</select></span></p><br />\
-			<p><input type="submit" value="Add Project"></p>';
+			<p><input type="submit" value="Add Funding Source"></p>';
 		$("frmSource"+id).innerHTML = f;
 
 	}
