@@ -3,6 +3,11 @@
 <beans>
 
 
+    <bean name="/workflow" class="org.pgist.wfengine.web.WorkflowAction">
+        <property name="engine" ref="txEngine"/>
+    </bean>
+    
+    
     <bean name="/login" class="org.pgist.system.LoginAction">
         <property name="systemService" ref="systemService"/>
     </bean>
