@@ -67,7 +67,7 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	 * @param coordinates: 3-d array, as line strings
 	 * @param geoType: "POINT", "LINE", "POLYGON"
 	 * @throws Exception
-	 */
+	 */1
 	public void saveFootprint(ProjectAlternative pa, double[][][] coordinates, String geoType) throws Exception{
 		Connection conn = getSession().connection();
 		
