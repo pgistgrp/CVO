@@ -96,10 +96,11 @@
 	<ul id="sourcesList">
 		<c:forEach var="source" items="${sources}">
 			<li><span class="source">${source.name}</span> 
+				<!--
 				<small>
 					<a href="javascript:checkAltsInSource(${source.id}, true)">check all</a> | 
 					<a href="javascript:checkAltsInSource(${source.id}, false)">uncheck all</a>
-				</small>
+				</small>-->
 				<ul>
 					<c:forEach var="alt" items="${source.alternatives}">
 						<li>
