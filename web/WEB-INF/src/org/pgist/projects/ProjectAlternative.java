@@ -109,7 +109,7 @@ public class ProjectAlternative implements Serializable, Comparable {
     
     /**
      * @return
-     * @hibernate.property length="2000"
+     * @hibernate.property type="text"
      */
     public String getDetailedDesc() {
         return detailedDesc;
@@ -123,7 +123,7 @@ public class ProjectAlternative implements Serializable, Comparable {
 
     /**
      * @return
-     * @hibernate.property
+     * @hibernate.property type="text"
      */
     public String getShortDesc() {
         return shortDesc;
@@ -137,7 +137,7 @@ public class ProjectAlternative implements Serializable, Comparable {
 
     /**
      * @return
-     * @hibernate.property
+     * @hibernate.property type="text"
      */
     public String getStatementAgainst() {
         return statementAgainst;
@@ -151,7 +151,7 @@ public class ProjectAlternative implements Serializable, Comparable {
 
     /**
      * @return
-     * @hibernate.property
+     * @hibernate.property type="text"
      */
     public String getStatementFor() {
         return statementFor;
@@ -179,7 +179,7 @@ public class ProjectAlternative implements Serializable, Comparable {
     
     /**
      * @return
-     * @hibernate.property
+     * @hibernate.property type="text"
      */
     public String getLinks() {
         return links;
@@ -251,7 +251,7 @@ public class ProjectAlternative implements Serializable, Comparable {
     
     /**
      * @return
-     * @hibernate.property
+     * @hibernate.property type="text"
      */
     public String getPhoto() {
         return photo;
