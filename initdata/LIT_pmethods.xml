@@ -231,6 +231,7 @@
                     <declaration>
                         <ins>
                             <var name="isid" ref="pmethod.is_id"/>
+                            <var name="fundSuiteId" ref="pmethod.suite_id"/>
                         </ins>
                     </declaration>
                 </pgame>

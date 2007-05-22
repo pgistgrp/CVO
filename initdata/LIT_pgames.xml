@@ -205,6 +205,7 @@
             <declaration>
                 <ins>
                     <var name="isid"/>
+                    <var name="fundSuiteId"/>
                 </ins>
             </declaration>
         </pgame>
