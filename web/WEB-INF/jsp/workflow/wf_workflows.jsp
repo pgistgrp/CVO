@@ -11,13 +11,15 @@
 <div id="workflows">
 	<pg:show roles="moderator">
 	<h3 class="headerColor">New Experiments</h3>
-		<c:if test="${fn:length(newWorkflows) > 0}">
+		
 			<table id="newTable" cellspacing="0" cellpadding="0">
-				<tr>
-					<th>Name</th>
-					<th>Description</th>
-					<th class="last">Operation</th>
-				</tr>
+				<c:if test="${fn:length(newWorkflows) > 0}">
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+						<th class="last">Operation</th>
+					</tr>
+				</c:if>
 				<c:forEach var="workflow" items="${newWorkflows}">
 						<tr>
 							<td>${workflow.situation.name}</td>
@@ -26,7 +28,7 @@
 						</tr>
 				</c:forEach>
 			</table>
-		</c:if>
+		
 		<button onclick="javascript:Element.toggle('newExpiriment');void(0);" class="padding5">
 			<img src="images/addItem.gif"/> Create a new experiment
 		</button>
