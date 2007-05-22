@@ -3,6 +3,7 @@ package org.pgist.system;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.SortedSet;
 
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;
@@ -63,5 +64,11 @@ public class ProfileServiceImpl implements ProfileService {
     public Collection getUserDiscussion(String username) throws Exception {
     	return profileDAO.getUserDiscussion(username);
     }
+    
+    
+    public String[] getAllTags(String username) throws Exception {
+    	return profileDAO.getAllTags(username);
+    }
+    
     
 }

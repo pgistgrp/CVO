@@ -3,6 +3,7 @@ package org.pgist.system;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Collection;
+import java.util.SortedSet;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -69,9 +70,11 @@ public class UserProfileAction extends Action {
     			int post = profileService.getPostCount(username);
     			int visits = profileService.getTotalVisits(username);
     			Collection discussions = profileService.getUserDiscussion(username);
+    			String[] tags = profileService.getAllTags(username);
     			
     			
     			request.setAttribute("user", u);
+    			request.setAttribute("tags", tags);
     			request.setAttribute("concerns", concerns);
     			request.setAttribute("discussions", discussions);
     			request.setAttribute("lastlogin", strDate);

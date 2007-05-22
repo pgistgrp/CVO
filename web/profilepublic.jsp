@@ -90,20 +90,21 @@
 		<p>
 			<span class="label">My tags</span>
 	  <span class="value" id="keywords" style="width:600px;">
-				<ul>
-					<li class="tagSize5">Accidents</li>
-					<li class="tagSize3">Assurance</li>
-					<li class="tagSize3">engineering</li>
-					<li class="tagSize3">Fatalities</li>
-					<li class="tagSize2">Highway</li>
-					<li class="tagSize3">Injuries</li>
-					<li class="tagSize5">Insurance</li>
-					<li class="tagSize2">investigation</li>
-					<li class="tagSize3">records</li>
-					<li class="tagSize5">statistics</li>
-					<li class="tagSize3">systems</li>
-					<li class="tagSize3">Traffic</li>
-				</ul>
+	  			<c:choose>	
+					<c:when test="${fn:length(tags) == 0}">
+						<p>This user has no concerns at this time.</p>
+					</c:when>
+					<c:otherwise>
+					<ul>
+						<c:forEach var="tag" items="${tags}" varStatus="loop">
+
+							<li class="tagSize3">${tag}</li>
+
+						</c:forEach>
+					</ul>
+					</c:otherwise>
+				</c:choose>
+
 	  </span>
 		</p><br />
 		
