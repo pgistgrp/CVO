@@ -56,26 +56,54 @@
 	
 	<h5>** Limitations to our current workflow: Only shows "active" components and it doesn't differentiate between showing what a moderator can see vs a participant.  These will be changed in the near future. **</h5>
 
+	<h2>HISTORY</h2>
+	
+	
+	<h2>ACTIVE</h2>
     <c:forEach var="meeting" items="${workflow.situation.context.pendingActivities}">
 		<!--<pg:narrow name="meeting"/><strong>Meeting:</strong> "${meeting.description}"-->
-
 		<c:forEach var="pmethod" items="${meeting.context.pendingActivities}">
 			<pg:narrow name="pmethod"/>
 			<h4 class="headerColor clearBoth step-header">${pmethod.description}</h4>
+				
+				<c:forEach var="history" items="${pmethod.context.histories}">
+					<div class="home-row clearfix">
+						<div class="step">
+							<a href="/workflow.do?workflowId=${workflow.id}&contextId=${pmethod.context.id}&historyId=${history.id}">${history.description}</a><br />
+							<small>Information about this step</small>
+						</div>
+						<div class="date"><input type="button" onclick="workflow.nextStep(${workflow.id},${pmethod.context.id},${pgame.id});" value="Completed"/>	</div
+					</div>
+				</c:forEach>
+			
 				<c:forEach var="pgame" items="${pmethod.context.runningActivities}">
 					<pg:narrow name="pgame"/>
 					<div class="home-row clearfix">
 						<div class="step">
-							<a href="${pgame.link}">${pgame.description}</a><br />
+							<a href="/workflow.do?workflowId=${workflow.id}&contextId=${pmethod.context.id}&activityId=${pgame.id}">${pgame.description}</a><br />
 							<small>Information about this step</small>
 						</div>
 						<div class="date"><input type="button" onclick="workflow.nextStep(${workflow.id},${pmethod.context.id},${pgame.id});" value="Completed"/>	</div
-						
 					</div>
 				</c:forEach>
 				<br />	
+				
+				
+				<h2>FUTURE</h2>
+				<c:forEach var="future" items="${pmethod.context.futureActivities}">
+					<div class="home-row clearfix">
+						<div class="step disabled">${future.description}<br />
+							<small>Information about this step</small>
+						</div>
+						<div class="date">DATE</div
+					</div>
+				</c:forEach>
 		</c:forEach>
 	</c:forEach>
+	
+
+	
+	
 
 
 	
