@@ -43,7 +43,6 @@ Workflow.prototype.createInstance = function() {
 	}else{
 		alert("Please do not leave any fields blank");
 	}
-
 };
 
 
@@ -54,11 +53,10 @@ Workflow.prototype.getWorkflows = function(user) {
     function(data) {
       if (data.successful) {
 		if(user && data.runningTotal == 1){
-			//alert(data.instanceId)
 			location.href="userhome.do?wf="+ data.instanceId;
 		}else{
 			$(thePanel).innerHTML = data.html;
-			workflow.getTemplates();
+			if(user==null){workflow.getTemplates();}
 		}
       } else {
         alert(data.reason);
@@ -98,12 +96,11 @@ Workflow.prototype.getWorkflow = function(workflowId) {
 };
 
 Workflow.prototype.nextStep = function(workflowId, contextId, activityId) {
-  alert("workflowId: " + workflowId + " contextId : " + contextId + " activityId: " + activityId)
+  //alert("workflowId: " + workflowId + " contextId : " + contextId + " activityId: " + activityId)
   WorkflowAgent.nextStep(
     { workflowId : workflowId, contextId: contextId, activityId: activityId },
     function(data) {
       if (data.successful) {
-		alert("published!")
         workflow.getWorkflow(workflowId);
       } else {
         alert("REASON: " + data.reason);
