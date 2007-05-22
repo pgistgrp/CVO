@@ -14,7 +14,7 @@
 	</tr>
 	<c:forEach var="package" items="${packages}" varStatus="loop">
 		<tr>
-			<td class="col1"><a target="_blank" href="package.do?pkgId=${package.id}&fundSuiteId=${fundSuiteId}&projSuiteId=${projSuiteId}&critSuiteId=${critSuiteId}&pkgSuiteId=${pkgSuiteId}">${loop.index +1}</a></td>
+			<td class="col1"><a target="_blank" href="package.do?pkgId=${package.id}&fundSuiteId=${fundSuiteId}&projSuiteId=${projSuiteId}&critSuiteId=${critSuiteId}&pkgSuiteId=${pkgSuiteId}">${package.description}</a></td>
 			<td>$${package.totalCost} Million</td>
 			<td>$${package.avgResidentCost}/year</td>
 		</tr>

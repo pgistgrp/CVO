@@ -9,9 +9,8 @@
 <h2 class="headerColor">Welcome, ${baseuser.loginname}</h2>
 
 <div id="workflows">
-	
-	<h3 class="headerColor">New Experiments</h3>
 	<pg:show roles="moderator">
+	<h3 class="headerColor">New Experiments</h3>
 		<c:if test="${fn:length(newWorkflows) > 0}">
 			<table id="newTable" cellspacing="0" cellpadding="0">
 				<tr>

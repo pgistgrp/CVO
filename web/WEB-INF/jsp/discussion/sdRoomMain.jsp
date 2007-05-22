@@ -49,6 +49,10 @@
 		//Global Var Settings
 		io.structureId = "${structure.id}";
 		io.objectId = "${object.id}";
+		io.projSuiteId = "${param.projSuiteId}";
+		io.critSuiteId = "${param.critSuiteId}";
+		io.pkgSuiteId = "${param.pkgSuiteId}";
+		io.fundSuiteId = "${param.fundSuiteId}"
 		io.currentFilter = '';
 		io.currentPage = 1;
 		io.currentSort = 0;

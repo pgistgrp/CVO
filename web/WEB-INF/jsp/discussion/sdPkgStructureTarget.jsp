@@ -68,15 +68,15 @@
 						<div class="clearBoth"></div>
 					</div>
 					
-					<c:forEach var="package" items="${structure.infoObjects}" varStatus="loop">
-						<c:if test="${package.manual == false}">
-							<div class="listRow row"> <!-- use 'highlight' css class to highlight user's related package -->
+					<c:forEach var="infoObject" items="${infoStructure.infoObjects}" varStatus="loop">
+						<c:if test="${infoObject.object.manual == false}">
+							<div class="listRow row ${(loop.index == 2) ? 'highlight' : ''}"> <!-- use 'highlight' css class to highlight user's related package -->
 								<div class="col1 floatLeft">
-									<div class="floatLeft"><a href="package.do?id=${package.id}">Package ${loop.index}</a></div>
+									<div class="floatLeft"><a href="javascript:io.goToPackage(${infoObject.object.id});">Package ${infoObject.object.description}</a></div>
 								</div>
-								<div class="col2 floatLeft">$${package.totalCost} billion</div>
-								<div class="col3 floatLeft">$${package.userCost}/year</div>
-								<div class="col4 floatLeft">$${package.avgCost}/year</div>
+								<div class="col2 floatLeft">$${infoObject.object.totalCost} billion</div>
+								<div class="col3 floatLeft">$???/year</div>
+								<div class="col4 floatLeft">$${infoObject.object.avgResidentCost}/year</div>
 								<div class="clearBoth"></div>
 							</div>
 						</c:if>
@@ -84,15 +84,15 @@
 
 					<p>
 						
-					<c:forEach var="package" items="${structure.infoObjects}" varStatus="loop">
-						<c:if test="${package.manual}">
+					<c:forEach var="infoObject" items="${infoStructure.infoObjects}" varStatus="loop">
+						<c:if test="${infoObject.object.manual}">
 							<div class="listRow row">
 								<div class="col1 floatLeft">
-									<div class="floatLeft"><a href="#">${package.package.description}</a></div>
+									<div class="floatLeft"><a href="javascript:io.goToPackage(${infoObject.object.id});">${infoObject.object.description}</a></div>
 								</div>
-								<div class="col2 floatLeft">$${package.totalCost} billion</div>
-								<div class="col3 floatLeft">$${package.userCost}/year</div>
-								<div class="col4 floatLeft">$${package.avgCost}/year</div>
+								<div class="col2 floatLeft">$${infoObject.object.totalCost} billion</div>
+								<div class="col3 floatLeft">$???/year</div>
+								<div class="col4 floatLeft">$${infoObject.object.avgResidentCost}/year</div>
 								<div class="clearBoth"></div>
 							</div>
 						</c:if>
@@ -146,4 +146,13 @@
 	/* *************** loading on getTargets() in SDRoomMain *************** */
 	io.loadDynamicFile('/styles/step4-start.css');
 	io.loadDynamicFile('/dwr/interface/ProjectAgent.js');
+	
+	/* *************** Build Package Link *************** */
+	
+	io.goToPackage = function(id){
+		window.open("package.do?pkgId="+id+"&fundSuiteId="+io.fundSuiteId+"&projSuiteId="+io.projSuiteId+"&critSuiteId="+io.critSuiteId+"&pkgSuiteId="+io.pkgSuiteId,'Package Viewer','width=1000,height=600,resizable=yes,scrollbars=yes');
+	}
+	
+
+
 </pg:fragment>
