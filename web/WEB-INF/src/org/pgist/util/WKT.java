@@ -91,7 +91,29 @@ public class WKT {
 		}else if( geom.getGeoType() == Geometry.MULTIPOLYGON){
 			MultiPolygon mply = (MultiPolygon)geom.getGeometry();
 			
-			coords = new double[mply.numPolygons()][][]; //double[numlinestrings][];
+			int totalRings = 0;
+			for(int i=0; i<mply.numPolygons(); i++){
+				totalRings += ((Polygon)mply.getPolygon(i)).numRings();
+			}
+
+			/*this put polygons into a set of rings, no links between rings*/
+			coords = new double[1][totalRings][]; 
+			int ringCount = 0;
+			for(int i=0; i<mply.numPolygons(); i++){
+				Polygon po = mply.getPolygon(i);
+				for(int j=0; j<po.numRings(); j++){
+					LinearRing lr = po.getRing(j);
+					coords[0][ringCount] = new double[lr.numPoints()*2];
+					for(int n=0; n<lr.numPoints()*2; n=n+2){
+						coords[0][ringCount][n] = lr.getPoints()[n/2].x;
+						coords[0][ringCount][n+1] = lr.getPoints()[n/2].y;
+					}
+					ringCount++;
+				}			
+			}			
+			
+			/*this put polygons into a set of parts, each part have one or more rings 
+			coords = new double[mply.numPolygons()][][];
 			for(int i=0; i<mply.numPolygons(); i++){
 				Polygon po = mply.getPolygon(i);
 				coords[i] = new double[po.numRings()][];
@@ -103,7 +125,8 @@ public class WKT {
 						coords[i][j][n+1] = lr.getPoints()[n/2].y;
 					}
 				}				
-			}			
+			}
+			*/			
 		}else{	//for all other types, take as points
 			MultiPoint mpnt = (MultiPoint)geom.getGeometry();
 			coords = new double[1][1][mpnt.numPoints()*2];
