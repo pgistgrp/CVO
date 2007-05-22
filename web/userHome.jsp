@@ -5,14 +5,28 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
+<!--####
+	Project: Let's Improve Transportation!
+	Page: User Home
+	Description: This page serves as a single instance of a user home portal.  This will have
+					links to all available components along with a user's discussion and tags.
+	Author(s): 
+	     Front End: Jordan Isip, Adam Hindman
+	     Back End: Zhong Wang, John Le
+	Todo Items:
+		[ ] Recent Discussion (John)
+		[ ] User's Tags (John)
+		[ ] Integrate workflow (Jordan)
+ 
+#### -->
 	<head> 
 	<title>Let's Improve Transportation - Home</title>
 	<!-- Site Wide CSS -->
 	<style type="text/css" media="screen">
-@import "styles/lit.css";
-@import "styles/user-home.css";
-@import "styles/workflow.css";
-</style>
+		@import "styles/lit.css";
+		@import "styles/user-home.css";
+		@import "styles/workflow.css";
+	</style>
 	<!-- End Site Wide CSS -->
 	<!-- Site Wide JS -->
 	<script type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
@@ -27,8 +41,7 @@
 	  var workflow = new Workflow('workflow-panel');
 	</script>
 	<script type="text/javascript">
-		var wfId = <%=request.getParameter("wf")%>;
-		
+		var wfId = "${param.wf}";
 		function getAnnouncements(){
 			SystemAgent.getAnnouncements({workflowId:wfId}, {
 				callback:function(data){
@@ -129,7 +142,7 @@
 	</script>
 	<event:pageunload />
 	</head>
-	<body onload="workflow.getWorkflow(<%=request.getParameter("wf")%>);">
+	<body onload="workflow.getWorkflow(${param.wf});">
 	<!-- Begin the header - loaded from a separate file -->
 	<div id="header">
 		<!-- Begin header -->
