@@ -42,6 +42,8 @@
 	</script>
 	<script type="text/javascript">
 		var wfId = "${param.wf}";
+		
+		if(!wfId){location.href="main.do"}
 		function getAnnouncements(){
 			SystemAgent.getAnnouncements({workflowId:wfId}, {
 				callback:function(data){
@@ -412,18 +414,6 @@
 					</div>
 					<div class="home-col2 floatRight">1/31</div>
 				</div>
-				<h4 class="headerColor clearBoth step-header">Development Tools</h4>
-				<div class="home-row clearfix ">
-					<div class="step"><a href="/pgist-docs/index.html">Javadoc</a><br />
-						<small>Information about this step</small></div>
-					<div class="date">11/15 - 11/25</div>
-				</div>
-				<div class="home-row clearfix ">
-					<div class="step"><a href="/dwr/index.html">DWR Test</a><br />
-						<small>Information about this step</small></div>
-					<div class="date">11/15 - 11/25</div>
-				</div>
-				
 			</div>
 			
 		</div>
