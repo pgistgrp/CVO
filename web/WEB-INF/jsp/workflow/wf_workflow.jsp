@@ -47,7 +47,10 @@
 			<div class="step"><a href="feedback.do">Manage Feedbacks</a><br />
 				<small>Information about this step</small></div>
 		</div>
-		
+		<div class="home-row clearfix">
+			<div class="step"><a target="_blank" href="http://jordanisip.wufoo.com/forms/lit-bug-tracker/">Bug Tracker</a><br />
+				<small>Information about this step</small></div>
+		</div>
 	</pg:show>
 
 	

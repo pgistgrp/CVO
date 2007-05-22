@@ -40,7 +40,7 @@
 	<script type='text/javascript' src='/dwr/util.js'></script>
 	<script type='text/javascript' src='/dwr/interface/FundingAgent.js'></script>
 	<script type="text/javascript" charset="utf-8">
-		var suiteId = "${fundSuiteId}"
+		var suiteId = "${param.fundSuiteId}"
 				
 		function getVehicles(){
 			FundingAgent.getVehicles({}, {
