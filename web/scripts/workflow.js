@@ -52,11 +52,11 @@ Workflow.prototype.getWorkflows = function(user) {
     { type : "all" },
     function(data) {
       if (data.successful) {
-		if(user && data.runningTotal == 1){
+		if(!user && data.runningTotal == 1){
 			location.href="userhome.do?wf="+ data.instanceId;
 		}else{
 			$(thePanel).innerHTML = data.html;
-			if(user==null){workflow.getTemplates();}
+			if(!user==null){workflow.getTemplates();}
 		}
       } else {
         alert(data.reason);

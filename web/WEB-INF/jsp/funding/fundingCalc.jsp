@@ -157,6 +157,7 @@
 			for(i=0;i<user.tolls.length;i++){
 				user.tolls[i].used = ($F("myCommute-"+user.tolls[i].id) ? true : false);
 			}
+
 			//Grabbing checkboxes for toll.used
 			//selectedTolls = [];			
 			/*
