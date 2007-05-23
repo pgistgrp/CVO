@@ -40,7 +40,7 @@
             <description>create sequence</description>
             <script>
               <![CDATA[
-                CREATE SEQUENCE gis_proj_footprint_id INCREMENT 1 START 10000 CACHE 1;
+                CREATE SEQUENCE gis_proj_footprint_id INCREMENT 1 START 10100 CACHE 1;
               ]]>
             </script>
         </statement>
