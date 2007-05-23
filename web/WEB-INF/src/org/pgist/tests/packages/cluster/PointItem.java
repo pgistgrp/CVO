@@ -4,12 +4,14 @@ import org.pgist.packages.cluster.Cluster;
 import org.pgist.packages.cluster.Clusterable;
 import org.pgist.packages.cluster.Item;
 
-public class LineItem implements Item {
+public class PointItem implements Item {
 	
-	float dist = 0;
-	public LineItem(float dist) {
+	float x;
+	float y;
+	public PointItem(float x, float y) {
 		super();
-		this.dist = dist;
+		this.x = x;
+		this.y = y;
 	}
 	
 	/* (non-Javadoc)
@@ -19,12 +21,14 @@ public class LineItem implements Item {
 		if (c instanceof Cluster) {
 			return c.distance(this);
 		} else {
-			return distance((LineItem) c);
+			return distance((PointItem) c);
 		}
 	}
 
-	public float distance(LineItem item) {
-		return Math.abs(this.dist - item.dist);		
+	public float distance(PointItem item) {
+		float distx = this.x - item.x;
+		float disty = this.y - item.y;
+		return (float)Math.sqrt(distx* distx + disty*disty);		
 	}
 	
 	/* (non-Javadoc)
@@ -35,18 +39,15 @@ public class LineItem implements Item {
 	}	
 	
 	public String toString() {
-		return "LineItem: " + dist;
+		return "PointItem: [" + x + "," + y + "]";
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof LineItem) {
-			LineItem tempL = (LineItem)obj;
-			if(tempL.dist == this.dist) return true;
+		if(obj instanceof PointItem) {
+			PointItem tempL = (PointItem)obj;
+			if(tempL.x == this.x && tempL.y == this.y) return true;
 		}
 		return false;
-
 	}
-	
-	
 }

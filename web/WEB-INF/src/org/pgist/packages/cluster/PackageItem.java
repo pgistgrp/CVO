@@ -54,10 +54,10 @@ public class PackageItem implements Item {
 	 * @return
 	 */
 	public static float calcDist(PackageItem item1, PackageItem item2) {
-		return DaisyMatrixMaker.calcDist(item1.choices, item2.choices);
+		float distance = DaisyMatrixMaker.calcDist(item1.choices, item2.choices);
+		//System.out.println("Distance between item" + item1.getUserPkgId() + " and item" + item2.getUserPkgId() + " is " + distance);
+		return distance;
 	}
-
-
 
 
 	public List<Boolean> getChoices() {

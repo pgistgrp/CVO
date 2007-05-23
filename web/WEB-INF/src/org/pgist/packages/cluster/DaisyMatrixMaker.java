@@ -51,7 +51,6 @@ public class DaisyMatrixMaker {
 		
 		if(den == 0) return new Float(0);
 		Float dist = new Float(num/den); 
-		System.out.println("Distance = " + dist);
 		return dist;
 	}
 	
