@@ -56,7 +56,7 @@ Workflow.prototype.getWorkflows = function(user) {
 			location.href="userhome.do?wf="+ data.instanceId;
 		}else{
 			$(thePanel).innerHTML = data.html;
-			if(!user==null){workflow.getTemplates();}
+			if(!user){workflow.getTemplates();}
 		}
       } else {
         alert(data.reason);
