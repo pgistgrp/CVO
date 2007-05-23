@@ -123,40 +123,58 @@ public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
     	
     	List list = new LinkedList();
     	
-    	Iterator itL1 = list1.iterator();
-    	Iterator itL2 = list2.iterator();
+    	boolean bool_list1 = true;
+    	boolean bool_list2 = true;
     	
-    	DiscussionPost dp = null;
-    	DiscussionReply dr = null;
+    	if(list1.size() <= 0) {
+    		bool_list1 = false;
+    	}
+    	if(list2.size() <= 0) {
+    		bool_list2 = false;
+    	}
     	
-    	boolean first = true;
-    	if(itL1.hasNext()){dp = (DiscussionPost) itL1.next();}
-    	if(itL2.hasNext()){dr = (DiscussionReply) itL2.next();}
-    	// is there an easy way to sort this with just HQL?
-    	while(itL1.hasNext() || itL2.hasNext() || first) {
-    		first = false;
-    		if(dp==null && dr!=null) {
-    			list.add(dr);
-    			if(itL2.hasNext()){dr = (DiscussionReply) itL2.next();} else {dr = null;}
-    		} else if(dr==null && dp!=null) {
-    			list.add(dp);
-    			if(itL1.hasNext()){dp = (DiscussionPost) itL1.next();}  else {dp = null;}
-    		} else if(dp.getCreateTime().compareTo(dr.getCreateTime()) > 0) {
-    			list.add(dp);
-    			if(itL1.hasNext()){dp = (DiscussionPost) itL1.next();} else {dp = null;}
-    		} else if (dp.getCreateTime().compareTo(dr.getCreateTime()) < 0) {
-    			list.add(dr);
-    			if(itL2.hasNext()){dr = (DiscussionReply) itL2.next();}  else {dr = null;}
-    		} else {
-    			list.add(dp);
-    			list.add(dr);
-    			if(itL1.hasNext()){dp = (DiscussionPost) itL1.next();}  else {dp = null;}
-    			if(itL2.hasNext()){dr = (DiscussionReply) itL2.next();}  else {dr = null;}
-    		}
+    	if(bool_list1 && !bool_list2) {
+    		list = list1;
+    	} else if(!bool_list1 && bool_list2) {
+    		list = list2;
+    	} else if(bool_list1 && bool_list2) {
+			Iterator itL1 = list1.iterator();
+	    	Iterator itL2 = list2.iterator();
+	    	
+	    	DiscussionPost dp = null;
+	    	DiscussionReply dr = null;
+	    	
+	    	boolean first = true;
+	    	if(itL1.hasNext()){dp = (DiscussionPost) itL1.next();}
+	    	if(itL2.hasNext()){dr = (DiscussionReply) itL2.next();}
+	    	// is there an easy way to sort this with just HQL?
+	    	while(itL1.hasNext() || itL2.hasNext() || first) {
+	    		first = false;
+	    		if(dp==null && dr!=null) {
+	    			list.add(dr);
+	    			if(itL2.hasNext()){dr = (DiscussionReply) itL2.next();} else {dr = null;}
+	    		} else if(dr==null && dp!=null) {
+	    			list.add(dp);
+	    			if(itL1.hasNext()){dp = (DiscussionPost) itL1.next();}  else {dp = null;}
+	    		} else if(dp.getCreateTime().compareTo(dr.getCreateTime()) > 0) {
+	    			list.add(dp);
+	    			if(itL1.hasNext()){dp = (DiscussionPost) itL1.next();} else {dp = null;}
+	    		} else if (dp.getCreateTime().compareTo(dr.getCreateTime()) < 0) {
+	    			list.add(dr);
+	    			if(itL2.hasNext()){dr = (DiscussionReply) itL2.next();}  else {dr = null;}
+	    		} else {
+	    			list.add(dp);
+	    			list.add(dr);
+	    			if(itL1.hasNext()){dp = (DiscussionPost) itL1.next();}  else {dp = null;}
+	    			if(itL2.hasNext()){dr = (DiscussionReply) itL2.next();}  else {dr = null;}
+	    		}
+	    	}
     	}
     	
     	//paging
-    	if(start >= 0) {
+    	if(list.size() < 5 || list == null) {
+			
+		} else if(start >= 0) {
     		if(end > list.size() || start > list.size()) {
     			start = list.size() - 5;
     			end = list.size();
