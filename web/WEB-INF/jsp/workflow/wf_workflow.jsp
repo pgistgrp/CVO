@@ -113,7 +113,7 @@
 							<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActive.id}">${gActive.description}</a><br />
 							<small>Information about this step</small>
 						</div>
-						<div class="date"><input type="button" onclick="workflow.nextStep(${workflow.id},${mActive.context.id},${gActive.id});" value="Completed"/>	</div
+						<div class="date"><input type="button" onclick="workflow.nextStep(${workflow.id},${mActive.context.id},${gActive.id});" value="Completed"/>	</div>
 					</div>
 				</c:forEach>
 				</div>
@@ -152,10 +152,7 @@
 			</c:forEach>
 	</c:forEach>
 	-->
-   
 
-
-	
 
 	<pg:show roles="moderator">
 		<h4 class="headerColor clearBoth step-header">Development Tools</h4>
