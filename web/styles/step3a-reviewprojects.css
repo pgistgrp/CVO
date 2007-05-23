@@ -4,9 +4,9 @@
 
 #newTable table {width:100%}
 #newTable .fundingSourceItem{width:50%;}
-#newTable .col2{width:50%;font-size:.8em;text-align:right}
+#newTable .col2{width:50%;font-size:10pt;text-align:right}
 
-#rp3a-left {width:520px;}
+#rp3a-left {width:520px;font-size:10pt;}
 #map {width:420px;}
 
 .objectives table {width:100%;text-align:left;}

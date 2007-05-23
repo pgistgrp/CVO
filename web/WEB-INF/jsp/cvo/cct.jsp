@@ -12,6 +12,7 @@
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">
 @import "styles/lit.css";
+#sortingMenu{width:680px;padding-right:0px;}
 </style>
 <!-- End Site Wide CSS -->
 <!-- Site Wide JavaScript -->
