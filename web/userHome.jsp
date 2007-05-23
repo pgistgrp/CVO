@@ -164,6 +164,7 @@
 			<div class="box12 clearfix">
 				<div id="workflow-panel"><img src="/images/indicator_arrows.gif" alt="Please wait..."/> Loading...</div>
 				<pg:show roles="moderator">
+					<!--
 					<h5>** The following section is for testing purposes only. It will be removed
 						when the workflow is fully integrated. **</h5>
 					<h3>Public Components</h3>
@@ -320,17 +321,8 @@
 							<small>Information about this step</small></div>
 						<div class="date">11/15 - 11/25</div>
 					</div>
-					<h3>Development Tools</h3>
-					<div class="home-row clearfix ">
-						<div class="step"><a href="/pgist-docs/index.html">Javadoc</a><br />
-							<small>Information about this step</small></div>
-						<div class="date">11/15 - 11/25</div>
-					</div>
-					<div class="home-row clearfix ">
-						<div class="step"><a href="/dwr/index.html">DWR Test</a><br />
-							<small>Information about this step</small></div>
-						<div class="date">11/15 - 11/25</div>
-					</div>
+					-->
+
 				</pg:show>
 			</div>
 		</div>

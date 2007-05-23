@@ -124,10 +124,10 @@
 
 	<h3>All Planning Factors</h3>
 	<ul id="sourcesList">
-		<small>
+		<!--<small>
 			<a href="javascript:switchCheckboxes(true)">check all</a> | 
 			<a href="javascript:switchCheckboxes(false)">uncheck all</a>
-		</small>
+		</small>-->
 		<c:forEach var="criterion" items="${criteria}">
 			<li><label><input type="checkbox" ${(pg:containsCriteria(criteriasuite,criterion)) ? "CHECKED" : ""} name="planningFactor" id="crit${criterion.id}" onClick="assocCriterion('${criterion.id}', this.checked)"/> ${criterion.name}</label>
 				<ul id="${criterion.id}themes" ${(pg:containsCriteria(criteriasuite,criterion)) ? "" : "style='display:none'"}>
