@@ -196,7 +196,7 @@ the column labels. */
 		<!--begin project description -->
 		<p>
 		<h4 style="display:inline">Money needed to complete this project: </h4>
-		<span id="project-moneyNeeded">${reference.alternative.cost}</span>
+		<span id="project-moneyNeeded">${reference.alternative.cost} million</span>
 		</p>
 		<p>
 		<h4 style="display:inline">Sponsoring Agency: </h4>

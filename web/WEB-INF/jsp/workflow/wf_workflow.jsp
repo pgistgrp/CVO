@@ -128,19 +128,25 @@
 			</c:forEach>
 	</c:forEach>
 	
-	<!--Future-->
+	<!--Future
 	<c:forEach var="sFuture" items="${workflow.situation.context.futureActivities}" varStatus="loop">
 		<pg:narrow name="sFuture"/>
-		<p>${sFuture.description}</p>
 			<c:forEach var="mFuture" items="${sFuture.context.futureActivities}" varStatus="loop">
 				<pg:narrow name="mFuture"/>
-				<p>**${mFuture.description}</p>
+
+				<h4 class="headerColor clearBoth step-header">${mFuture.description}</h4>
 				<c:forEach var="gFuture" items="${mFuture.context.futureActivities}" varStatus="loop">
 					<pg:narrow name="gFuture"/>
-					<p>++${gFuture.description}</p>
+					<div class="home-row clearfix">
+						<div class="step disabled">${gFuture.description}<br />
+							<small>Information about this step</small>
+						</div>
+						<div class="date disabled">00/00</div>
+					</div>
 				</c:forEach>
 			</c:forEach>
 	</c:forEach>
+	-->
    
 
 
