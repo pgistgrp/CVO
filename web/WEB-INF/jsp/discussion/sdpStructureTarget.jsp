@@ -86,7 +86,9 @@
 													<td>
 														<a href="projectAlt.do?altrefId=${altRef.id}">${altRef.alternative.name}</a>
 													</td>
-													<td class="cost">$${altRef.alternative.cost} million</td>
+													<td class="cost">
+														$<fmt:formatNumber type="number">
+														${altRef.alternative.cost}</fmt:formatNumber> million</td>
 												</tr>
 												<c:if test="${pg:contains(userPkg.projAltRefs,altRef)}">
 													<c:set var="doNothing"value="false"/>

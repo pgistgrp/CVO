@@ -53,6 +53,7 @@ padding:.5em 0em;
 }
 
 .home-row {font-size:.9em;}
+.home-row input {margin-top:10px;margin-right:10px;}
 
 #left-col, #right-col {margin-top:1em;}
 
