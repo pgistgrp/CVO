@@ -89,6 +89,8 @@
 			<c:forEach var="mActive" items="${sActive.context.pendingActivities}" varStatus="loop">
 				<pg:narrow name="mActive"/>
 				<h4 class="headerColor clearBoth step-header">${mActive.description}</h4>
+				
+				<!-- history sub-steps in active step -->
 				<c:forEach var="gActiveHistory" items="${mActive.context.histories}">
 					<pg:narrow name="gActiveHistory"/>
 					<c:set var="gActiveHistoryActivity" value="${gActiveHistory.activity}" />
@@ -102,6 +104,7 @@
 					</div>
 				</c:forEach>
 				
+				<!-- active sub-steps in active step-->
 				<div class="box4">
 				<c:forEach var="gActive" items="${mActive.context.runningActivities}" varStatus="loop">
 					<pg:narrow name="gActive"/>
@@ -115,6 +118,7 @@
 				</c:forEach>
 				</div>
 				
+				<!--future sub-steps in active step -->
 				<c:forEach var="gActiveFuture" items="${mActive.context.futureActivities}">
 					<pg:narrow name="gActiveFuture"/>
 					<div class="home-row clearfix">
