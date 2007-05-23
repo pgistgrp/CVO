@@ -9,10 +9,10 @@
 	<title>Let's Improve Transportation - Home</title>
 	<!-- Site Wide CSS -->
 	<style type="text/css" media="screen">
-@import "styles/lit.css";
-@import "styles/user-home.css";
-@import "styles/workflow.css";
-</style>
+		@import "styles/lit.css";
+		@import "styles/user-home.css";
+		@import "styles/workflow.css";
+	</style>
 	<!-- End Site Wide CSS -->
 	<!-- Site Wide JS -->
 	<script type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
@@ -26,19 +26,9 @@
 	<script>
 	  var workflow = new Workflow('workflow-panel', 'newExpiriment');
 	</script>
-	<script type="text/javascript">
-		
-
-	</script>
-	
 	<event:pageunload />
 	</head>
-	<pg:show roles="moderator">
-		<body onload="workflow.getWorkflows();">
-	</pg:show>
-	<pg:show roles="participant">
-		<body onload="workflow.getWorkflows('participant');">
-	</pg:show>
+	<body>
 	<!-- Begin the header - loaded from a separate file -->
 	<div id="header">
 		<!-- Begin header -->
@@ -64,5 +54,13 @@
 		<jsp:include page="/footer.jsp" />
 	</div>
 	<!-- End footer -->
+	<script type="text/javascript" charset="utf-8">
+		<pg:show roles="moderator">
+			workflow.getWorkflows('mod');
+		</pg:show>
+		<pg:show roles="participant">
+			workflow.getWorkflows();
+		</pg:show>
+	</script>
 	</body>
 </html:html>
