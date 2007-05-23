@@ -43,8 +43,9 @@
 <!-- End DWR JavaScript Libraries -->
 <script type='text/javascript' src='/dwr/interface/PackageAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
-<!-- mapping JavaScript -->
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAq4HJEw-8aIG3Ew6IOzpYEBTwM0brOpm-All5BF6PoaKBxRWWERSP-RPo4689bM1xw9IvCyK4oTwAIw"
+<!-- mapping JavaScript pgistdev: ABQIAAAADmWGO07Q7ZeAHCvFNooqIxSrR7p1nyD8TH138ULjTOjQOW5fjxTrHGj2RyW-631yBK63wnZBIuC6BA-->
+<!-- mapping JavaScript localhost: ABQIAAAAq4HJEw-8aIG3Ew6IOzpYEBTwM0brOpm-All5BF6PoaKBxRWWERSP-RPo4689bM1xw9IvCyK4oTwAIw-->
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxSrR7p1nyD8TH138ULjTOjQOW5fjxTrHGj2RyW-631yBK63wnZBIuC6BA"
       type="text/javascript"></script>
 <script src="scripts/pgistmap2.js"></script>
 
@@ -294,14 +295,10 @@
 					if(overlaypoints[geomkey] == null)continue;
 					
 					var transcolor = (p["mode"]==0)?"#FF0000":"#0bc00f";
-					
-					for(var j=0; j<overlaypoints[geomkey]["coords"].length; j++){
-						//handle different geometry type: lines, polygons, and points
-						var fp = new GPolyline(overlaypoints[geomkey]["coords"][j], transcolor, 4, 0.9);
-						p["overlays"].push(fp);
-						pgistmap.map.addOverlay( fp );
-						
-					}
+					p["overlays"] = pgistmap.createOverlays(overlaypoints[geomkey]["coords"], 
+						overlaypoints[geomkey]["geotype"], transcolor, 4, 0.9);
+					for(var j=0; j<p["overlays"].length; j++)
+						pgistmap.map.addOverlay( p["overlays"][j] );
 					
 					//if project alternative selected highlight it
 					if(p["selected"]){
@@ -310,25 +307,21 @@
 					}
 				}
 			}
+			
 			function highlightProject(project){
 			
 				if(typeof(project) != 'object') project = getProjectById(project);
 				if(project==null)return;
 				
-				var transcolor = (project["mode"]==0)?"#FF0000":"#0bc00f";
+				var transcolor = (project["mode"]==2)?"#0bc00f":"#FF0000";	//1=road; 2=transit
 				if(project["fpids"] == "") return;
 				var geomkey = '_'+project["fpids"];
 				for (var i=0;i<project["overlays"].length;i++){
 					pgistmap.map.removeOverlay(project["overlays"][i]);
 				}
 				if(project["hioverlays"]==null){//create highlight overlays
-					project["hioverlays"]=[];
-					for(var j=0; j<overlaypoints[geomkey]["coords"].length; j++){
-						//handle different geometry type: lines, polygons, and points
-						var fp = new GPolyline(overlaypoints[geomkey]["coords"][j], "FFFFFF", 8, 0.9);
-						project["hioverlays"].push(fp);
-						pgistmap.map.addOverlay( fp );
-					}
+					project["hioverlays"] = pgistmap.createOverlays(overlaypoints[geomkey]["coords"], 
+						overlaypoints[geomkey]["geotype"], "FFFFCC", 8, 0.9, "NONE");
 				}
 				
 				for (var i=0;i<project["hioverlays"].length;i++){//add highlight overlays

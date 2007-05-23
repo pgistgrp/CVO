@@ -609,7 +609,7 @@ PGISTMapEditor.prototype.scaleToCoords=function(crds, useextent){
 
 	var miny = (useextent)?this.map.getBounds().getSouthWest().lat():90;
 
-	var maxy=-(useextent)?this.map.getBounds().getNorthEast().lng():90;
+	var maxy=-(useextent)?this.map.getBounds().getNorthEast().lng():-90;
 
 	for(var i=0; i<thecoords.length; i++){
 
@@ -800,24 +800,28 @@ PGISTMapEditor.prototype.prepareCoords=function(){
 
  */
 
-PGISTMapEditor.prototype.prepareOverlays=function(fpData, enableEdit){
-
-	//clear exisitng
-
+PGISTMapEditor.prototype.createOverlays=function(points2d, geotype, color, thickness, opacity, fillcolor){
 	
-
-	//
-
-	for(fpid in fpData.footprints){
-
-		//
-
+	var overlays = [];
+	if(geotype==0 ||geotype==2 || geotype==5){ // line
+		for(var j=0; j<points2d.length; j++){
+			overlays.push( new GPolyline(points2d[j], color, thickness, opacity) );
+		}
+	}else if(geotype==1 || geotype==4){  //points
+		for(var j=0; j<points2d.length; j++){
+			for(var k=0; k<points2d[j].length; k++){
+				overlays.push( new GMarker(points2d[j][k]) );
+			}
+		}		
+	}else{ //polygon
+		for(var j=0; j<points2d.length; j++){
+			if(fillcolor == "NONE") //means highlight
+				overlays.push( new GPolyline(points2d[j], color, 6, opacity) );
+			else
+				overlays.push( new GPolygon(points2d[j], color, 2, opacity, color, 0.2) );
+		}
 	}
-
-	
-
-	
-
+	return overlays;
 };
 
 
