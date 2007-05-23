@@ -16,6 +16,49 @@
 @import "styles/lit.css";
 @import "styles/public-profile.css";
 </style>
+<!-- Site Wide JS -->
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script src="scripts/search.js" type="text/javascript"></script>
+<script type='text/javascript' src='/dwr/interface/ProfileAgent.js'></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/util.js'></script>
+
+
+
+<script type="text/javascript" charset="utf-8">
+var start = 0;
+var end = 5;
+function nextDiscussion() {
+	start = start + 5;
+	end = end + 5;
+	getDiscussion(start, end);
+}
+
+function prevDiscussion() {
+	if(start >= 5) {
+		start = start - 5;
+		end = end - 5;
+	}
+	getDiscussion(start, end);
+}
+
+function getDiscussion(start, end) {
+	var user = "${param.user}"; //Make this works, then do the next buttons
+	ProfileAgent.getUserDiscussion({username:user, start:start, end:end}, {
+		callback:function(data){
+			if (data.successful){
+				$('profile-recent').innerHTML = data.html;
+			}else{
+				$('profile-recent').innerHTML = "<b>Error in ProfileAgent.getUserDiscussion Method: </b>" + data.reason; 
+			}
+		},
+		errorHandler:function(errorString, exception){ 
+		alert("ProfileAgent.getUserDiscussion( error:" + errorString + exception);
+		}
+	});
+}
+</script>
 
 <event:pageunload />
 </head>
@@ -151,69 +194,10 @@
 		<p>
 			<span class="label">My recent discussion activity</span>
 	  <span class="value">
-				<div id="profile-recent" style="width:600px;">
-	
-					<!-- begin RECENT DISCUSSIONS HEADER -->
-
+	<div id="profile-recent" style="width:600px;">
+	<!-- begin RECENT DISCUSSIONS HEADER -->
 				
-					<div>
-						<div class="floatLeft clearfix"><a href="#">Prev</a></div>
-						<div class="floatRight clearfix"><a href="#">Next</a></div>
-					</div>
-					
-					<div class="clearBoth"></div>
-				
-					<div class="listRow headingColor heading clearfix">
-						<div class="profile-col1 floatLeft" style="margin-left:.2em">
-							<div class="floatLeft">
-								<h4>Topic</h4>
-							</div>
-						</div>
-						<div class="profile-col2 floatRight">
-							<h4>Last Post</h4>
-	
-						</div>
-					</div>
-					<!-- end RECENT DISCUSSIONS HEADER -->
-					<c:choose>	
-					<c:when test="${fn:length(discussions) == 0}">
-						<p>This user has no dicussions at this time.</p>
-					</c:when>
-					<c:otherwise>
-						<c:set var="rowcount" value="0"/>
-						<c:forEach var="discussion" items="${discussions}" varStatus="loop">
-						
-							<!-- begin A RECENT DISCUSSION -->
-								<c:choose>
-								<c:when test='${rowcount==0}'>
-								<div class="listRow clearfix">
-								<c:set var="rowcount" value="1"/>
-								</c:when>
-								<c:otherwise>
-								<div class="listRow odd clearfix">
-								<c:set var="rowcount" value="0"/>
-								</c:otherwise>
-								</c:choose>
-							
-								<div class="profile-col1 floatLeft">
-									<div class="floatLeft">
-										<a href="#">${discussion.title}</a><br />
-			
-										<span>Some how get the step</span>
-									</div>
-								</div>
-								<div class="profile-col2 floatRight"><fmt:formatDate value="${discussion.createTime}" pattern="MM/dd" var="discussionDate" />${discussionDate}</div>
-							</div>
-							<!-- end A RECENT DISCUSSION -->
-					
-						</c:forEach>
-					</c:otherwise>
-					</c:choose>
-					<!-- begin A RECENT DISCUSSION -->
-					
-				</div>
-				<!-- end RECENT DISCUSSIONS -->
-	
+	<!-- end RECENT DISCUSSIONS -->
 	</div>
 			</span>
 		</p><br />				
@@ -236,52 +220,41 @@
 						</div>
 					</div>
 					<!-- end RECENT DISCUSSIONS HEADER -->
+					
 					<!-- begin A RECENT DISCUSSION -->
-					<div class="listRow clearfix">
-						<div class="profile-col1 floatLeft">
-							<div class="floatLeft">
-								Economic Vitality
-							</div>
-						</div>
-						<div class="profile-col2 floatRight">10</div>
-					</div>
-					<!-- end A RECENT DISCUSSION -->
-					<div class="listRow odd clearfix">
-						<div class="profile-col1 floatLeft">
-	
-							<div class="floatLeft">
-								Security
-							</div>
-						</div>
-						<div class="profile-col2 floatRight">13</div>
-					</div>
-	
-					<div class="listRow  clearfix">
-						<div class="profile-col1 floatLeft">
-							<div class="floatLeft">
-								Accessibility and Mobility
-							</div>
-						</div>
-						<div class="profile-col2 floatRight">23</div>
-	
-					</div>
-					<div class="listRow odd clearfix">
-						<div class="profile-col1 floatLeft">
-							<div class="floatLeft">
-								Environmental / Energy / QOL
-							</div>
-						</div>
-	
-						<div class="profile-col2 floatRight">3</div>
-					</div>
-					<div class="listRow  clearfix">
-						<div class="profile-col1 floatLeft">
-							<div class="floatLeft">
-								Integration and Connectivity
-							</div>
-						</div>
-						<div class="profile-col2 floatRight">8</div>
-					</div>
+					<c:choose>	
+					<c:when test="${fn:length(criterias) == 0}">
+						<p>This user has no planning factors at this time.</p>
+					</c:when>
+					<c:otherwise>
+						<c:set var="rowcount" value="0"/>
+						<c:forEach var="criteria" items="${criterias}" varStatus="loop">
+						
+							<!-- begin A RECENT DISCUSSION -->
+								<c:choose>
+								<c:when test='${rowcount==0}'>
+								<div class="listRow clearfix">
+								<c:set var="rowcount" value="1"/>
+								</c:when>
+								<c:otherwise>
+								<div class="listRow odd clearfix">
+								<c:set var="rowcount" value="0"/>
+								</c:otherwise>
+								</c:choose>
+							
+									<div class="profile-col1 floatLeft">
+										<div class="floatLeft">
+											${criteria.name}
+										</div>
+									</div>
+									<div class="profile-col2 floatRight">${criteria.tempWeight}</div>
+									
+								</div>
+							<!-- end A RECENT DISCUSSION -->
+						</c:forEach>
+					</c:otherwise>
+					</c:choose>
+					
 				</div>
 				<!-- end RECENT DISCUSSIONS -->
 
@@ -306,5 +279,8 @@
 <!-- Begin footer -->
 <div id="footer"><jsp:include page="/footer.jsp" /></div>
 <!-- End footer -->
+<script type="text/javascript">
+getDiscussion('0','5');
+</script>
 </body>
 </html:html>

@@ -281,12 +281,14 @@ public class ProfileAgent {
      * @param params a Map contains:
      *   <ul>
      *     <li>username - string, user's login name</li>
+     *     <li>start - int, start index, ie start 0, end 5, returns first 6 discussions</li>
+     *     <li>end - int, stop index, ie start 0, end 5, returns first 6 discussions</li>
      *   </ul>
      * @return a Map contains:
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *     <li>html - html page profile_discussions.jsp</li>
+     *     <li>html - html page profile_discussion.jsp</li>
      *   </ul>
      */
     public Map getUserDiscussion(HttpServletRequest request, Map params) {
@@ -294,20 +296,34 @@ public class ProfileAgent {
         map.put("successful", false);
         
         String username = (String) params.get("username");
+        String strStart = (String) params.get("start");
+        String strEnd = (String) params.get("end");
+        
+        if(strStart==null || "".equals(strStart.trim())){
+    		map.put("reason", "start cannot be blank.");
+    		return map;
+    	}
+        
+        if(strEnd==null || "".equals(strEnd.trim())){
+    		map.put("reason", "end cannot be blank.");
+    		return map;
+    	}
         
         if(username==null || "".equals(username.trim())){
     		map.put("reason", "username cannot be blank.");
     		return map;
     	}
-       
+        
         try {
-        	Collection discussions = profileService.getUserDiscussion(username);
+        	int start = Integer.parseInt(strStart);
+        	int end = Integer.parseInt(strEnd);
+        	
+        	Collection discussions = profileService.getUserDiscussion(username, start, end);
         		
         	map.put("discussions", discussions);
             
         	request.setAttribute("discussions", discussions);
-
-            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/profile_discussions.jsp"));       
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/profile_discussion.jsp"));       
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

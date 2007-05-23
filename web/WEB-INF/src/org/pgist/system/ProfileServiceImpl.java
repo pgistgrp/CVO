@@ -61,13 +61,18 @@ public class ProfileServiceImpl implements ProfileService {
     }
     
     
-    public Collection getUserDiscussion(String username) throws Exception {
-    	return profileDAO.getUserDiscussion(username);
+    public Collection getUserDiscussion(String username, int start, int end) throws Exception {
+    	return profileDAO.getUserDiscussion(username, start, end);
     }
     
     
     public String[] getAllTags(String username) throws Exception {
     	return profileDAO.getAllTags(username);
+    }
+    
+    
+    public Collection getUserCriteria(String username) throws Exception {
+    	return profileDAO.getUserCriteria(username);
     }
     
     

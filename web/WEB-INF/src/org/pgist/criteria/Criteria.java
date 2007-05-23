@@ -63,6 +63,12 @@ public class Criteria implements Serializable {
      */
     private boolean deleted = false;
     
+    /**
+     * <span style="color:blue;">(Column.)</span>
+     * tempWeight. Temporary holder for weight value when passed to the front end. 
+     */
+    private int tempWeight;
+    
     
     /**
      * @hibernate.id generator-class="native"
@@ -142,6 +148,18 @@ public class Criteria implements Serializable {
         return deleted;
     }
 
+    
+    public void setTempWeight(int tempWeight) {
+        this.tempWeight = tempWeight;
+    }
+    
+    /**
+     * @hibernate.property not-null="false"
+     */
+    public int getTempWeight() {
+        return tempWeight;
+    }
+    
     
     /*
      * ------------------------------------------------------------------------

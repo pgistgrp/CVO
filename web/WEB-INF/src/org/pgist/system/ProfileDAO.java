@@ -20,8 +20,10 @@ public interface ProfileDAO {
 	
 	Collection getUserConcerns(String username) throws Exception;
 	
-	Collection getUserDiscussion(String username) throws Exception;
+	Collection getUserDiscussion(String username, int start, int end) throws Exception;
 	
 	String[] getAllTags(String username) throws Exception;
+	
+	Collection getUserCriteria(String username) throws Exception;
 	
 }

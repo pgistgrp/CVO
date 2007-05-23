@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.LinkedHashSet;
 
 import org.pgist.discussion.DiscussionPost;
 import org.pgist.discussion.DiscussionReply;
@@ -17,8 +19,12 @@ import org.pgist.discussion.GenericPost;
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;
 import org.pgist.criteria.CriteriaRef;
+import org.pgist.criteria.CriteriaUserWeight;
+import org.pgist.criteria.CriteriaSuite;
+import org.pgist.criteria.Criteria;
 import org.pgist.cvo.Concern;
 import org.pgist.cvo.TagReference;
+import org.pgist.tagging.Tag;
 
 public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
 
@@ -111,13 +117,11 @@ public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
     private static final String hql_getUserDiscussion1 = "from DiscussionPost dp where dp.deleted=? and dp.owner.loginname=? order by dp.createTime desc";
     private static final String hql_getUserDiscussion2 = "from DiscussionReply dr where dr.deleted=? and dr.owner.loginname=? order by dr.createTime desc";
 
-    public Collection getUserDiscussion(String username) throws Exception {
+    public Collection getUserDiscussion(String username, int start, int end) throws Exception {
     	List list1 = getHibernateTemplate().find(hql_getUserDiscussion1, new Object[] {new Boolean(false), username,});
     	List list2 = getHibernateTemplate().find(hql_getUserDiscussion2, new Object[] {new Boolean(false), username,});
     	
     	List list = new LinkedList();
-    	
-    	int count = 0;
     	
     	Iterator itL1 = list1.iterator();
     	Iterator itL2 = list2.iterator();
@@ -125,36 +129,39 @@ public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
     	DiscussionPost dp = null;
     	DiscussionReply dr = null;
     	
+    	boolean first = true;
     	if(itL1.hasNext()){dp = (DiscussionPost) itL1.next();}
     	if(itL2.hasNext()){dr = (DiscussionReply) itL2.next();}
-    	// is there an easy way to do this with just HQL?
-    	while(count<6) {
+    	// is there an easy way to sort this with just HQL?
+    	while(itL1.hasNext() || itL2.hasNext() || first) {
+    		first = false;
     		if(dp==null && dr!=null) {
     			list.add(dr);
     			if(itL2.hasNext()){dr = (DiscussionReply) itL2.next();} else {dr = null;}
-    			count++;
     		} else if(dr==null && dp!=null) {
     			list.add(dp);
     			if(itL1.hasNext()){dp = (DiscussionPost) itL1.next();}  else {dp = null;}
-    			count++;
-    		} else if(dp==null && dr == null){
-    			//count=6;
-    			break;
     		} else if(dp.getCreateTime().compareTo(dr.getCreateTime()) > 0) {
     			list.add(dp);
     			if(itL1.hasNext()){dp = (DiscussionPost) itL1.next();} else {dp = null;}
-    			count++;
     		} else if (dp.getCreateTime().compareTo(dr.getCreateTime()) < 0) {
     			list.add(dr);
     			if(itL2.hasNext()){dr = (DiscussionReply) itL2.next();}  else {dr = null;}
-    			count++;
     		} else {
     			list.add(dp);
     			list.add(dr);
     			if(itL1.hasNext()){dp = (DiscussionPost) itL1.next();}  else {dp = null;}
     			if(itL2.hasNext()){dr = (DiscussionReply) itL2.next();}  else {dr = null;}
-    			count+=2;
     		}
+    	}
+    	
+    	//paging
+    	if(start >= 0) {
+    		if(end > list.size() || start > list.size()) {
+    			start = list.size() - 5;
+    			end = list.size();
+    		}
+    		list = list.subList(start, end);
     	}
     	
     	return list;
@@ -185,11 +192,30 @@ public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
     }
     
     
-    private static final String hql_getUserCriteria = "from CriteriaRef cr where ";
+    private static final String hql_getUserCriteria = "from CriteriaRef cr order by lower(cr.criterion.name)";
     
     public Collection getUserCriteria(String username) throws Exception {
+    	List list = getHibernateTemplate().find(hql_getUserCriteria);
+    	User user = getUserByUsername(username);
+    	Set criterias = new LinkedHashSet();
     	
-    	return null;
+    	Iterator it = list.iterator();
+    	while(it.hasNext()){
+    		CriteriaRef cr = (CriteriaRef) it.next();
+    		CriteriaSuite cs = cr.getSuite();
+    		Criteria c = cr.getCriterion();
+    		
+    		Map csWeights = cs.getWeights();
+    		CriteriaUserWeight cuw = (CriteriaUserWeight) csWeights.get(cr);
+    		Map cuwWeights = cuw.getWeights();
+    		Object o = cuwWeights.get(user);
+    		if(o!=null) {
+	    		int cWeight = (Integer) o;
+	    		c.setTempWeight(cWeight);
+	    		criterias.add(c);
+    		}
+    	}   	
+    	return criterias;
     }
 
     	
@@ -205,11 +231,12 @@ public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
     		Iterator itTags = cTags.iterator();
     		while(itTags.hasNext()) {
     			TagReference tr = (TagReference) itTags.next();
-    			allTags.add(tr.getTag());
+    			Tag t = tr.getTag();
+    			allTags.add(t.getName());
     		}
     	}
     	
-    	Collection discussion = getUserDiscussion(username);
+    	Collection discussion = getUserDiscussion(username, -1, 0);
     	Iterator itDisc = discussion.iterator();
     	while(itDisc.hasNext()) {
     		GenericPost gp = (GenericPost) itDisc.next();
