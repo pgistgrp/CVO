@@ -119,6 +119,7 @@
 				</div>
 				
 				<!--future sub-steps in active step -->
+				<!--
 				<c:forEach var="gActiveFuture" items="${mActive.context.futureActivities}">
 					<pg:narrow name="gActiveFuture"/>
 					<div class="home-row clearfix">
@@ -128,7 +129,7 @@
 						<div class="date disabled">00/00</div>
 					</div>
 				</c:forEach>
-				
+			-->
 			</c:forEach>
 	</c:forEach>
 	
