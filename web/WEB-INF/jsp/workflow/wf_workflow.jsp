@@ -89,8 +89,6 @@
 			<c:forEach var="mActive" items="${sActive.context.pendingActivities}" varStatus="loop">
 				<pg:narrow name="mActive"/>
 				<h4 class="headerColor clearBoth step-header">${mActive.description}</h4>
-				
-				<!-- history sub-steps in active step -->
 				<c:forEach var="gActiveHistory" items="${mActive.context.histories}">
 					<pg:narrow name="gActiveHistory"/>
 					<c:set var="gActiveHistoryActivity" value="${gActiveHistory.activity}" />
@@ -104,7 +102,6 @@
 					</div>
 				</c:forEach>
 				
-				<!-- active sub-steps in active step-->
 				<div class="box4">
 				<c:forEach var="gActive" items="${mActive.context.runningActivities}" varStatus="loop">
 					<pg:narrow name="gActive"/>
@@ -113,13 +110,11 @@
 							<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActive.id}">${gActive.description}</a><br />
 							<small>Information about this step</small>
 						</div>
-						<div class="date"><input type="button" onclick="workflow.nextStep(${workflow.id},${mActive.context.id},${gActive.id});" value="Completed"/>	</div>
+						<div class="date"><input type="button" onclick="if (window.confirm('This will publish any changes you made with this tool.  There is no undo')){workflow.nextStep(${workflow.id},${mActive.context.id},${gActive.id});}" value="Completed"/>	</div
 					</div>
 				</c:forEach>
 				</div>
 				
-				<!--future sub-steps in active step -->
-				<!--
 				<c:forEach var="gActiveFuture" items="${mActive.context.futureActivities}">
 					<pg:narrow name="gActiveFuture"/>
 					<div class="home-row clearfix">
@@ -129,7 +124,7 @@
 						<div class="date disabled">00/00</div>
 					</div>
 				</c:forEach>
-			-->
+				
 			</c:forEach>
 	</c:forEach>
 	
@@ -152,7 +147,10 @@
 			</c:forEach>
 	</c:forEach>
 	-->
+   
 
+
+	
 
 	<pg:show roles="moderator">
 		<h4 class="headerColor clearBoth step-header">Development Tools</h4>

@@ -141,6 +141,7 @@
 		});
 	
 	tinyMCE.execCommand('mceFocus',false,'modAnnounce');
+	
 	</script>
 	<event:pageunload />
 	</head>
