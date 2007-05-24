@@ -89,4 +89,7 @@ public interface CriteriaService {
     InfoStructure publish(Long cctId, Long suiteId, String title) throws Exception;
     
     
+    void editObjective(Long objectiveId, String description) throws Exception;
+    
+    
 }//interface CriteriaService

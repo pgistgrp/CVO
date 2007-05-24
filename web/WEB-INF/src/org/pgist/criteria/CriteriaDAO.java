@@ -72,5 +72,7 @@ public interface CriteriaDAO extends BaseDAO {
 	
 	Long checkPublished(Long cctId) throws Exception;
 	
+	
+	void editObjective(Long objectiveId, String description) throws Exception;
 
 }//interface CriteriaDAO

@@ -264,4 +264,8 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//publish()
     
     
+    public void editObjective(Long objectiveId, String description) throws Exception {
+    	criteriaDAO.editObjective(objectiveId, description);
+    }
+    
 }//class CriteriaServiceImpl

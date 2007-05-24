@@ -130,7 +130,7 @@ public class Criteria implements Serializable {
     /**
      * @hibernate.set lazy="false" table="pgist_criteria_objective_link" cascade="none"
      * @hibernate.collection-key column="criterion_id"
-     * @hibernate.collection-many-to-many column="objective_id" class="org.pgist.criteria.Objective"
+     * @hibernate.collection-one-to-many column="objective_id" class="org.pgist.criteria.Objective"
      */   
     public Set getObjectives() {
         return objectives;

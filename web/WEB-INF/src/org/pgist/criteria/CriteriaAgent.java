@@ -702,7 +702,7 @@ public class CriteriaAgent {
 	  * add Objective 
 	 * @param params a Map contains:
 	 *   <ul>
-	 *     <li>description - string, name</li>
+	 *     <li>description - string, name</li>  
 	 *   </ul>
 	 * @return a Map contains:
 	 *   <ul>
@@ -715,12 +715,12 @@ public class CriteriaAgent {
 		  Map map = new HashMap();
 		  map.put("successful", false);
 		  String description = (String) params.get("description");
-	    
+		  
 		  if(description==null || "".equals(description.trim())){
 			  map.put("reason", "Objective name cannot be empty.");
 			  return map;
 		  }
-		  
+
 		  try {  	
 			  Objective o = criteriaService.addObjective(description);
 			  map.put("id", o.getId());
@@ -734,6 +734,49 @@ public class CriteriaAgent {
 	  } //addObjective()
 
 	  
+	/**
+	 * edit Objective 
+	 * @param params a Map contains:
+	 *   <ul>
+	 *     <li>objectiveId - Long, objective id</li>  
+	 *     <li>description - string, name</li>  
+	 *   </ul>
+	 * @return a Map contains:
+	 *   <ul>
+	 *     <li>id - id of the added objective</li>
+	 *     <li>successful - a boolean value denoting if the operation succeeds</li>
+	 *     <li>reason - reason why operation failed (valid when successful==false)</li>
+	 *   </ul>
+	  */
+	  public Map editObjective(Map params) {
+		  Map map = new HashMap();
+		  map.put("successful", false);
+		  String description = (String) params.get("description");
+		  String strObjectiveId = (String) params.get("objectiveId");
+		  
+		  if(description==null || "".equals(description.trim())){
+			  map.put("reason", "Objective description cannot be empty.");
+			  return map;
+		  }
+
+		  if(strObjectiveId==null || "".equals(strObjectiveId.trim())){
+			  map.put("reason", "objectiveId  cannot be empty.");
+			  return map;
+		  }
+		  
+		  try {  	
+			  Long objectiveId = Long.parseLong(strObjectiveId);
+			  criteriaService.editObjective(objectiveId, description);
+			  map.put("successful", true);	
+		  } catch (Exception e) {
+			  e.printStackTrace();
+			  map.put("reason", e.getMessage());
+		  }
+	    
+		  return map;    	 
+	  } //editObjective()
+		  
+		  
 	/**
      * Get all objectives
      * @param params An empty map.

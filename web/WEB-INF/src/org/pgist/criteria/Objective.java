@@ -12,7 +12,7 @@ public class Objective implements Serializable {
 	private Long id; 
 	
 	private String description;
-
+	
 	
     /**
      * @return
@@ -42,6 +42,7 @@ public class Objective implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
 	
 	
 }//public class

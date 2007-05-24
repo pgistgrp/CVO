@@ -48,7 +48,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     		c.setThemes(themes);
     	}
     	if(bool_objectives) {
-    		c.setObjectives(objectives);		
+    		c.setObjectives(objectives);
     	}
     	
 		save(c);		
@@ -352,6 +352,13 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	
 		return id;
     } //checkPublished()
+    
+    
+    public void editObjective(Long objectiveId, String description) throws Exception {
+    	Objective o = (Objective)load(Objective.class, objectiveId);
+    	o.setDescription(description);
+    	save(o);
+    }
     
     
 }//class CriteriaDAOImpl

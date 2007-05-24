@@ -29,6 +29,7 @@
         <include method="addAssocCriterion"/>
         <include method="deleteCriterion"/>
         <include method="editCriterion"/>
+        <include method="editObjective"/>
         <include method="getCriteria"/>
         <include method="getCriterionById"/>
         <include method="getThemes"/>

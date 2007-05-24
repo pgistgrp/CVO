@@ -25,6 +25,11 @@ public class MockCriteriaDAO implements CriteriaDAO {
 	}
 	
 	
+	public void editObjective(Long objectiveId, String description) throws Exception {
+		
+		
+	}
+	
 	public Long checkPublished(Long cctId) {
 		
 		return null;
