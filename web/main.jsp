@@ -55,12 +55,18 @@
 	</div>
 	<!-- End footer -->
 	<script type="text/javascript" charset="utf-8">
-		<pg:show roles="moderator">
-			workflow.getWorkflows('mod');
-		</pg:show>
-		<pg:show roles="participant">
-			workflow.getWorkflows();
-		</pg:show>
+		var moderator = false;
+	<pg:show roles="moderator">
+		moderator = true;
+	</pg:show>
+	
+	if(moderator){
+		workflow.getWorkflows('mod');
+	}else{
+		workflow.getWorkflows();
+	}
+
+
 	</script>
 	</body>
 </html:html>

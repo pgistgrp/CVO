@@ -46,17 +46,17 @@ Workflow.prototype.createInstance = function() {
 };
 
 
-Workflow.prototype.getWorkflows = function(user) {
+Workflow.prototype.getWorkflows = function(mod) {
   var thePanel = this.panel;
   WorkflowAgent.getWorkflows(
     { type : "all" },
     function(data) {
-      if (data.successful) {
-		if(!user && data.runningTotal == 1){
+      if (data.successful){
+		if(!mod && data.runningTotal == 1){
 			location.href="userhome.do?wf="+ data.instanceId;
 		}else{
 			$(thePanel).innerHTML = data.html;
-			if(!user){workflow.getTemplates();}
+			if(mod){workflow.getTemplates();}
 		}
       } else {
         alert(data.reason);
