@@ -26,7 +26,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
 	
     
     public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Set themes, Set objectives, String na) throws Exception {
-    	
+    	/*
     	List list = getHibernateTemplate().find(hql_addCriterion, new Object[] {
                 name.toLowerCase(),
         });
@@ -35,7 +35,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	if(list.size()>0) {
     		throw new Exception("Criteria already exist.");
     	}  		
-    	
+    	*/
     	//create all classes
     	Criteria c = new Criteria();
 
@@ -190,7 +190,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     
     private static final String hql_addObjective = "from Objective o where lower(o.description)=?";
     
-    public Objective addObjective(String description) throws Exception {
+    public Objective addObjective(Long critId, String description) throws Exception {
     	
 		Objective o = new Objective();
 		
@@ -204,7 +204,13 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     		throw new Exception("Objective already exist.");
     	}  	
 		save(o);
-			
+		
+    	Criteria c = getCriterionById(critId);
+    	Set objectives = c.getObjectives();
+    	objectives.add(o);
+    	c.setObjectives(objectives);
+    	save(c);
+		
 		return o;
     }//addObjectives()
     

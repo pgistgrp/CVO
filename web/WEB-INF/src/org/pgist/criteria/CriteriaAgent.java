@@ -47,11 +47,12 @@ public class CriteriaAgent {
     
     
     /**
-     * Add one new criterion to the system.
+     * Add one new criterion to the system. All associates now
      * 
      * @param params a Map contains:
      *   <ul>
      *     <li>name - string, name of the criteia</li>
+     *     <li>critSuiteId - long, id of crit suite</li>
      *     <li>themeIds - string, name of the themeid's separated by commas - Optional</li>
      *     <li>objectiveIds - string, list of Object Id's - Optional</li>	
      *     <li>na - string, description. - Optional</li>
@@ -70,12 +71,18 @@ public class CriteriaAgent {
         boolean bool_objectives = true;
         
         String name = (String) params.get("name");
+        String strCritSuiteId = (String) params.get("critSuiteId");
     	String themeIds = (String) params.get("themeIds");
     	String objectiveIds = (String) params.get("objectiveIds");
     	String na = (String) params.get("na");
     	
     	if(name==null || "".equals(name.trim())){
     		map.put("reason", "Criterion name cannot be empty.");
+    		return map;
+    	}
+    	
+    	if(strCritSuiteId==null || "".equals(strCritSuiteId.trim())){
+    		map.put("reason", "critSuiteId name cannot be empty.");
     		return map;
     	}
     	
@@ -91,6 +98,8 @@ public class CriteriaAgent {
     	}
     	
         try {
+        	Long critSuiteId = Long.parseLong(strCritSuiteId);
+        	
         	String[] themeIdList;
         	String[] objectiveIdList;
         	Set<Theme> themes = new HashSet();
@@ -106,6 +115,7 @@ public class CriteriaAgent {
         	}
         	
         	Criteria c = criteriaService.addCriterion(bool_themes, bool_objectives, name, themes, objectives, na);
+        	criteriaService.addAssocCriterion(c.getId(), critSuiteId, true);
         	
         	map.put("id", c.getId());
             map.put("successful", true);
@@ -650,7 +660,8 @@ public class CriteriaAgent {
      * Get all the Criterion Available For the Manager
      * @param params An empty map.
      * <ul>
-     *     <li>critSuiteId - string, critSuiteId - Optional</li>
+     *     <li>critSuiteId - string, critSuiteId</li>
+     *     <li>cctId - string, cctId</li>
      * </ul>
      * @return a Map contains:
      *   <ul>
@@ -669,21 +680,33 @@ public class CriteriaAgent {
     	
     	Map map = new HashMap();
         map.put("successful", false);
-        boolean useCritSuiteId= true;
+        boolean useCctId= true;
        
         String strCritSuiteId = (String) params.get("critSuiteId");
-        if(strCritSuiteId==null || "".equals(strCritSuiteId.trim())){
-    		useCritSuiteId = false;
+        String strCctId = (String) params.get("cctId");
+        
+        if(strCctId==null || "".equals(strCctId.trim())){
+        	useCctId = false;
     	}
+
+        if(strCritSuiteId==null || "".equals(strCritSuiteId.trim())){
+        	map.put("reason", "critSuiteId cannot be null.");
+    		return map;	
+    	}
+
         
         try {
-        	Collection criteria;
-        	if(useCritSuiteId){
-        		Long critSuiteId = new Long(strCritSuiteId);
-        		criteria = criteriaService.getAllCriterion(critSuiteId);
-        	} else {
-        		criteria = criteriaService.getAllCriterion();
-        	}
+        	Collection themes;
+        	Long critSuiteId = new Long(strCritSuiteId);
+        	Collection criteria = criteriaService.getAllCriterion(critSuiteId);
+        	
+        	if(useCctId){
+        		Long critCctId = new Long(strCctId);
+        		themes = criteriaService.getAllCriterion(critCctId);
+        		request.setAttribute("themes", themes); 
+        		map.put("themes", themes);
+        	} 
+        	
         	request.setAttribute("criteria", criteria); 
         	map.put("criteria", criteria);
         	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteriaForMgr.jsp"));
@@ -699,9 +722,10 @@ public class CriteriaAgent {
     
     
     /**
-	  * add Objective 
+	  * add Objective to criterion
 	 * @param params a Map contains:
 	 *   <ul>
+	 *     <li>critId - Long, criterion id</li> 
 	 *     <li>description - string, name</li>  
 	 *   </ul>
 	 * @return a Map contains:
@@ -714,15 +738,23 @@ public class CriteriaAgent {
 	  public Map addObjective(Map params) {
 		  Map map = new HashMap();
 		  map.put("successful", false);
+		  String strCritId = (String) params.get("critId");
 		  String description = (String) params.get("description");
+
+		  if(strCritId==null || "".equals(strCritId.trim())){
+			  map.put("reason", "critId cannot be empty.");
+			  return map;
+		  }
 		  
 		  if(description==null || "".equals(description.trim())){
-			  map.put("reason", "Objective name cannot be empty.");
+			  map.put("reason", "Objective description cannot be empty.");
 			  return map;
 		  }
 
 		  try {  	
-			  Objective o = criteriaService.addObjective(description);
+			  Long critId = Long.parseLong(strCritId);
+			  Objective o = criteriaService.addObjective(critId, description);
+			  
 			  map.put("id", o.getId());
 			  map.put("successful", true);	
 		  } catch (Exception e) {

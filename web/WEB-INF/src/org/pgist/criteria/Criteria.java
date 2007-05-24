@@ -29,7 +29,7 @@ public class Criteria implements Serializable {
     
     /**
      * <span style="color:blue;">(Column.)</span>
-     * Name of a user. Name of the criteria is unique for the whole system.
+     * Name of a criteria. 
      */
     private String name;
     

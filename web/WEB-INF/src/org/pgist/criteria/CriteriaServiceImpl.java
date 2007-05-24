@@ -102,8 +102,8 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getAllCriterion()
     
     
-    public Objective addObjective(String description) throws Exception {
-    	return criteriaDAO.addObjective(description);
+    public Objective addObjective(Long critId, String description) throws Exception {
+    	return criteriaDAO.addObjective(critId, description);
     }//addCriterion()
     
     

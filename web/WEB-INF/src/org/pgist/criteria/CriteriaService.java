@@ -44,7 +44,7 @@ public interface CriteriaService {
     Collection getAllCriterion() throws Exception;
     
     
-    Objective addObjective(String description) throws Exception;
+    Objective addObjective(Long critId, String description) throws Exception;
     
     
     List getThemes(Long cctId) throws Exception;

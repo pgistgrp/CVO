@@ -48,7 +48,7 @@ public class MockCriteriaDAO implements CriteriaDAO {
 		return null;
 	}
 
-	public Objective addObjective(String description) throws Exception {
+	public Objective addObjective(Long critId, String description) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

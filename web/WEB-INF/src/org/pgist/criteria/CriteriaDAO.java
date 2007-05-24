@@ -43,7 +43,7 @@ public interface CriteriaDAO extends BaseDAO {
 	Collection getAllCriterion() throws Exception;
 	
 	
-	Objective addObjective(String description) throws Exception;
+	Objective addObjective(Long critId, String description) throws Exception;
 	
 	
 	Set<Theme> getThemeObjects(String[] themeIdList)throws Exception;
