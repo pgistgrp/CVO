@@ -37,7 +37,7 @@
 <script type='text/javascript' src='/dwr/interface/CriteriaAgent.js'></script>
 
 <script>
-	var cctId = <%= request.getParameter("cctId") %>;
+	var cctId = "${cctId}";
 	var critSuiteId = "${criteriasuite.id}"
 	function assocCriterion(critId, checked){
 		//alert("critSuiteId: " + critSuiteId + " critId: " + critId + " checked: " + checked); 
@@ -91,20 +91,6 @@
 		
 	}
 	
-	function publish() {
-		CriteriaAgent.publish({cctId:cctId, suiteId:critSuiteId, title:"Step 2a: Review Criteria"}, {
-			callback:function(data){
-				if (data.successful){
-					//alert("Successful")
-				}else{
-					alert(data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){ 
-			alert("CriteriaAgent.addCriterion( error:" + errorString + exception);
-			}
-		});
-	}
 </script>
 <style type="text/css">
 	body{font-size:11 pt;font-family:arial;width:800px;}
@@ -120,7 +106,7 @@
 
 
 <body>
-	<c:set var="cctId" value="<%= request.getParameter("cctId")%>" />
+	
 	<p><a href="main.do">Back to Moderator Control Panel</a></p>
 	<h1>Define Planning Factors and Associated Themes</h1>
 	<p>Select all planning factors that you would like to include for this expiriment.</p>
@@ -151,7 +137,7 @@
 					</c:if>
 					<c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
 						<li class="mleft15">
-							<small>${theme.title}</small>
+							<small>${objective.name}</small>
 						</li>
 					</c:forEach>
 					<li class="mleft30"><small><a href="javascript:Element.toggle('addObjective');void(0);">Add an Objective</a></small>
