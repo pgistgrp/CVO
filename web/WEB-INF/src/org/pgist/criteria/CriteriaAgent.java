@@ -697,12 +697,12 @@ public class CriteriaAgent {
         
         try {
         	Collection themes;
-        	Long critSuiteId = new Long(strCritSuiteId);
+        	Long critSuiteId = Long.parseLong(strCritSuiteId);
         	Collection criteria = criteriaService.getAllCriterion(critSuiteId);
         	
         	if(useCctId){
-        		Long critCctId = new Long(strCctId);
-        		themes = criteriaService.getAllCriterion(critCctId);
+        		Long cctId = new Long(strCctId);
+        		themes = criteriaService.getThemes(cctId);
         		request.setAttribute("themes", themes); 
         		map.put("themes", themes);
         	} 
