@@ -111,6 +111,9 @@
 	li{margin: 10px 0; list-style: none;}
 	li ul li:hover {background:#D5EAEF;}
 	#finished{text-align:right;}
+	.mleft15{margin-left: 15px;}
+	.mleft30{margin-left: 30px;}
+	.liHeader{font-size: 0.9em; font-weight: bold;}
 </style>
 <event:pageunload />
 </head>
@@ -131,16 +134,33 @@
 		<c:forEach var="criterion" items="${criteria}">
 			<li><label><input type="checkbox" ${(pg:containsCriteria(criteriasuite,criterion)) ? "CHECKED" : ""} name="planningFactor" id="crit${criterion.id}" onClick="assocCriterion('${criterion.id}', this.checked)"/> ${criterion.name}</label>
 				<ul id="${criterion.id}themes" ${(pg:containsCriteria(criteriasuite,criterion)) ? "" : "style='display:none'"}>
-					<li><small>Which concern themes are related to this criterion?</small></li>
+					<li class="liHeader">Which concern themes are related to this planning factor?</li>
 					<c:if test="${fn:length(themes) == 0}">
-						<li><small>Concern themes have not been created yet.  Please use the <a href="cstview.do?cctId=${cctId}">Concern Synthesis Tool</a> to create concern themes after participants have expressed their concerns.</small></li>
+						<li class="mleft15"><small>Concern themes have not been created yet.  Please use the <a href="cstview.do?cctId=${cctId}">Concern Synthesis Tool</a> to create concern themes after participants have expressed their concerns.</small></li>
 					</c:if>
 					<c:forEach var="theme" items="${themes}" varStatus="loop">
-						<li>
+						<li class="mleft15">
 							<label><input type="checkbox" id="theme${theme.id}"  ${(pg:containsTheme(criterion,theme)) ? "checked='CHECKED'" : ""} name="${criterion.id}checkboxes" onClick="setThemes('${criterion.id}checkboxes', ${criterion.id});"/>
 							<small> ${theme.title}</small></label>
 						</li>
 					</c:forEach>
+
+					<li class="liHeader">What are the objectives for this planning factor?</li>
+					<c:if test="${fn:length(criterion.objectives) == 0}">
+						<li class="mleft15"><small>No objectives have been created for this planning factor yet</small></li>
+					</c:if>
+					<c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
+						<li class="mleft15">
+							<small>${theme.title}</small>
+						</li>
+					</c:forEach>
+					<li class="mleft30"><small><a href="javascript:Element.toggle('addObjective');void(0);">Add an Objective</a></small>
+						<div id="addObjective" style="display:none;">
+							<form action="javascript:addObjective();">
+								Objective Name: <input type="text" size="50"/><input type="submit" value="Add">
+							</form>
+						</div>
+					</li>
 				</ul>
 			</li>
 		
@@ -149,7 +169,6 @@
 
 	<div id="finished">
 		<h3>Finished selecting planning factors?</h3>
-		<p>The system will automatically publish these planning factors on --date--</p>
 		<p><input type="button" style="padding:5px;" onClick="publish();location.href='userhome.do'" value="Finished!"/></p>
 	</div>
 </body>

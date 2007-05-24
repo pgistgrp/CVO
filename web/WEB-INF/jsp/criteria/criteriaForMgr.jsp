@@ -14,26 +14,19 @@
 	Description: This is a partial page that defines the view of a single criteria in criteriaMgr.jsp.
 				 This is also used on sdcritStructureTarget.jsp
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Isaac Yang
+	     Front End: Jordan Isip, Adam Hindman
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
 		[x] Ensure connection with criteriaMgr.jsp (Jordan)
 		[x] Loop through ${criteria} (Jordan)
-		[ ] Add conditional statements to allow sdcritStructureTarget.jsp to use the same partial.
+		
 #### -->
 <!-- begin criteria headers -->
 
-<div class="criteriaListHeader">
-  <div class="criteriaCol1 floatLeft">
-    <h4 class="headerColor">Planning factor</h4>
-  </div>
-  <div class="criteriaCol2 floatLeft">
-    <h4 class="headerColor">&nbsp;</h4>
-  </div>
 
-  <div class="clearBoth"></div>
-</div>
+<h3 class="headerColor">Planning factors</h3>
+
 <!-- end criteria headers -->
 <c:if test="${fn:length(criteria) == 0}">
   <p>You have not created any planning factors yet! Use the form
@@ -41,33 +34,19 @@
 </c:if>
 <c:forEach var="criterion" items="${criteria}" varStatus="loop">
   <div id="criteria-${criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
-    <div class="criteriaCol1 floatLeft"><a href="#">
-      <div class="floatLeft"><a href="javascript:io.expandList('objectives${criterion.id}','icon${criterion.id}');"> <img src="/images/plus.gif" id="icon${criterion.id}"></a></div>
-      <div class="floatLeft"> ${criterion.name}
 
-          <!-- needs another variable to differentiate -->
-            <!-- show editing only to moderator -->
-            <small><br />[ <a href="javascript:editCriterionPopup(${criterion.id});">edit</a> ]
-            [ <a href="javascript:deleteCriterion(${criterion.id});">delete</a> ]</small> 
- 
-      </div>
-    </div>
-    <div class="criteriaCol2 floatLeft">&nbsp;</div>
+		<div id="criterion${criterion.id}">
+			${criterion.name}
+	        <small>[ <a href="javascript:toggleEditField('criterion',${criterion.id});">edit</a> ]
+	        [ <a href="javascript:deleteCriterion(${criterion.id});">delete</a> ]</small> 
+		</div>
+		
+		<div id="criterionEdit${criterion.id}" style="display: none;"> 
+			<form id="editCriterion" action="javascript:editCriterion(${criterion.id});">
+				<input name="name" id="criterionName${criterion.id}" type="text" value="${criterion.name}" />
+				<input type="submit" value="Update" /><small> <a href="javascript:toggleEditField('criterion',${criterion.id});">Cancel</a></small>
+			</form>
+		</div>
 
-    <div class="clearBoth"></div>
-    <div class="objectives" id="criteriaEdit${criterion.id}">
-      <!--javascript will load edit form here -->
-    </div>
-    <div class="objectives" id="objectives${criterion.id}" style="display:none;"><br /><strong>Objectives:</strong>
-      <ul class="smallText">
-        <c:if test="${fn:length(criterion.objectives) == 0}">
-          <li>None Selected</li>
-        </c:if>
-        <c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
-          <li>${objective.description}</li>
-        </c:forEach>
-      </ul>
-    </div>
   </div>
 </c:forEach>
-<div class="clearBoth"></div>
