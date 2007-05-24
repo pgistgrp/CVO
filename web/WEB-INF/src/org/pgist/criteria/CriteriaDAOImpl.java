@@ -213,8 +213,8 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	SortedSet objectiveObjects = new TreeSet();
    
     	for(int i=0; i<objectiveIdList.length; i++){
-    		Long objectiveId = Long.parseLong(objectiveIdList[i]);
-    		objectiveObjects.add(load(Objective.class, objectiveId));
+    		Long objectiveId = Long.parseLong(objectiveIdList[i]);    		
+    		objectiveObjects.add((Objective)load(Objective.class, objectiveId));
     	} //for
     	
     	return objectiveObjects;

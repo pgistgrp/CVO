@@ -52,7 +52,7 @@ public class Criteria implements Serializable, Comparator {
      * <span style="color:blue;">(Column.)</span>
      * objectives. A Set of objectives for this criterion.
      */
-    private SortedSet objectives = new TreeSet();
+    private SortedSet<Objective> objectives = new TreeSet();
     
     /**
      * <span style="color:blue;">(Column.)</span>
@@ -126,16 +126,16 @@ public class Criteria implements Serializable, Comparator {
     }
     
     
-    public void setObjectives(SortedSet objectives) {
+    public void setObjectives(SortedSet<Objective> objectives) {
         this.objectives = objectives;
     }
     
     /**
-     * @hibernate.set lazy="false" table="pgist_criteria_objective_link" cascade="none"
+     * @hibernate.set lazy="false" table="pgist_criteria_objective_link" cascade="none" sort="org.pgist.criteria.Objective"
      * @hibernate.collection-key column="criterion_id"
      * @hibernate.collection-one-to-many column="objective_id" class="org.pgist.criteria.Objective"
      */   
-    public SortedSet getObjectives() {
+    public SortedSet<Objective> getObjectives() {
         return objectives;
     }
     
@@ -180,7 +180,6 @@ public class Criteria implements Serializable, Comparator {
     
     
 	public int compare(Object o1, Object o2) {
-		
 		return ((Criteria)o1).getName().compareToIgnoreCase(((Criteria)o2).getName());
 	}
 	
