@@ -39,6 +39,7 @@
 <script>
 	var cctId = "${cctId}";
 	var critSuiteId = "${criteriasuite.id}"
+
 	function assocCriterion(critId, checked){
 		//alert("critSuiteId: " + critSuiteId + " critId: " + critId + " checked: " + checked); 
 		CriteriaAgent.addAssocCriterion({critSuiteId:critSuiteId,critId:critId,checked:checked}, {
@@ -172,9 +173,9 @@
 	
 	/* *************** Add a New Objective to the List *************** */
 	function editObjective(objId){
-		var description = $('editObj'+critId).value;
+		var description = $('objDesc'+objId).value;
 		//alert("names: " + name + " description" + description + " objectiveIds: " + checkedObjectivesStr); // Between name:name and ThemeIds is na:description;
-		CriteriaAgent.editObjective({description:description,objId:objId}, {
+		CriteriaAgent.editObjective({description:description,objectiveId:objId}, {
 			callback:function(data){
 				if (data.successful){
 					getCriteria();
@@ -214,7 +215,7 @@
 			CriteriaAgent.deleteObjective({id:id}, {
 				callback:function(data){
 					if (data.successful){
-						new Effect.DropOut("objective-" + id, {afterFinish:function(){getCriteria();}})
+						new Effect.DropOut("objective" + id, {afterFinish:function(){getCriteria();}})
 					}else{
 						alert(data.reason);
 					}
@@ -383,7 +384,7 @@
 
 	<!-- End List of planning Factors -->
 	<!-- Begin form to add a new planning factor -->
-	<p><a href="javascript:Element.toggle('fieldsetPF'); void(0);">Add a Planning Factor</a></p>
+	<p class="mleft15"><a href="javascript:Element.toggle('fieldsetPF'); void(0);">Add a Planning Factor</a></p>
 	<br />
 	<fieldset style="float:left; display:none;" id="fieldsetPF">
 		<form action="javascript:addCriterion();" id="addPlanningFactor" name="addPlanningFactor">

@@ -22,12 +22,7 @@
 		[x] Loop through ${criteria} (Jordan)
 		
 #### -->
-<!-- begin criteria headers -->
 
-
-<h3 class="headerColor">Planning factors</h3>
-
-<!-- end criteria headers -->
 <c:if test="${fn:length(criteria) == 0}">
   <p>You have not created any planning factors yet! Use the form
     below to add a new planning factor.</p>
@@ -48,39 +43,41 @@
 			</form>
 		</div>
 		
-		<ul id="${criterion.id}themes" ${(pg:containsCriteria(criteriasuite,criterion)) ? "" : "style='display:none'"}>
+		<ul id="${criterion.id}themes"}>
 			<li class="liHeader">Which concern themes are related to this planning factor?</li>
 			<c:if test="${fn:length(themes) == 0}">
-				<li class="mleft15"><small>Concern themes have not been created yet.  Please use the <a href="cstview.do?cctId=${cctId}">Concern Synthesis Tool</a> to create concern themes after participants have expressed their concerns.</small></li>
+				<li class="mleft15">Concern themes have not been created yet.  Please use the <a href="cstview.do?cctId=${cctId}">Concern Synthesis Tool</a> to create concern themes after participants have expressed their concerns.</li>
 			</c:if>
 			<c:forEach var="theme" items="${themes}" varStatus="loop">
 				<li class="mleft15">
 					<label><input type="checkbox" id="theme${theme.id}"  ${(pg:containsTheme(criterion,theme)) ? "checked='CHECKED'" : ""} name="${criterion.id}checkboxes" onClick="setThemes('${criterion.id}checkboxes', ${criterion.id});"/>
-					<small> ${theme.title}</small></label>
+					${theme.title}</label>
 				</li>
 			</c:forEach>
 
 			<li class="liHeader">What are the objectives for this planning factor?</li>
 			<c:if test="${fn:length(criterion.objectives) == 0}">
-				<li class="mleft15"><small>No objectives have been created for this planning factor yet</small></li>
+				<li class="mleft15">No objectives have been created for this planning factor yet</li>
 			</c:if>
 			<c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
 				<li class="mleft15">
-					<div id="objective${criterion.id}">
-						<small>${objective.description}</small>
+					<div id="objective${objective.id}">
+						${objective.description}
+						<small>[ <a href="javascript:toggleEditField('objective',${objective.id});">edit</a> ]
+				        [ <a href="javascript:deleteObjective(${objective.id});">delete</a> ]</small>
 					</div>
 					<div id="objectiveEdit${objective.id}" style="display: none;"> 
 						<form id="editObjective" action="javascript:editObjective(${objective.id});">
-							<input name="description" id="objDesc${objective.id}" type="text" value="${objective.name}" />
+							<input name="description" id="objDesc${objective.id}" type="text" value="${objective.description}" />
 							<input type="submit" value="Update" /><small> <a href="javascript:toggleEditField('objective',${objective.id});">Cancel</a></small>
 						</form>
 					</div>
 				</li>
 			</c:forEach>
-			<li class="mleft30"><small><a href="javascript:Element.toggle('addObjective');void(0);">Add an Objective</a></small>
-				<div id="addObjective" style="display:none;">
-					<form action="javascript:addObjective();">
-						Objective Description: <input type="text" size="50"/><input type="submit" value="Add">
+			<li class="mleft30"><a href="javascript:Element.toggle('addObjective${criterion.id}');void(0);">Add an Objective</a>
+				<div id="addObjective${criterion.id}" style="display:none;">
+					<form action="javascript:addObjective(${criterion.id});">
+						Objective Description: <input type="text" id="objDesc${criterion.id}" size="30"/><input type="submit" value="Add">
 					</form>
 				</div>
 				
