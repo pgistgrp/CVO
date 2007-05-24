@@ -81,6 +81,9 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
 		    	cs.addWeight(cr, cuw);
 		    	cs.addReference(cr);
 		    	
+		    	//set criteria association
+		    	c.setSuite(cs);
+		    	
 		    	//Save
 		    	save(cs);
 		    	save(cuw);
@@ -143,13 +146,13 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	return criteriaObjects;
     }//getCriterionById()
     
-    
-    public SortedSet getAllCriterion(Long critSuiteId) throws Exception {    	
+    /*
+    public SortedSet<Criteria> getAllCriterion(Long critSuiteId) throws Exception {    	
     	
     	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
     	Set references = cs.getReferences();
     	
-    	SortedSet cSet = new TreeSet();
+    	SortedSet<Criteria> cSet = new TreeSet();
     	Iterator r = references.iterator();
     	while(r.hasNext()) {
     		CriteriaRef tempCR= (CriteriaRef) r.next();
@@ -160,13 +163,21 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	}
     	return cSet;
     } //getAllCriterion(Long critSuiteId);
-    
+    */
     
     private static final String hql_getAllCriterion2 = "from Criteria c where c.deleted=? order by c.name";
     
     public Collection getAllCriterion() throws Exception {    	
     	return getHibernateTemplate().find(hql_getAllCriterion2, new Object[] {
                 false,});
+    } //getAllCriterion();
+    
+
+    private static final String hql_getAllCriterion3 = "from Criteria c where c.deleted=? and c.suite.id=? order by c.name";
+    
+    public Collection getAllCriterion(Long critSuiteId) throws Exception {    	
+    	return getHibernateTemplate().find(hql_getAllCriterion3, new Object[] {
+                false, critSuiteId});
     } //getAllCriterion();
     
     

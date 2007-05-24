@@ -38,7 +38,7 @@ public interface CriteriaDAO extends BaseDAO {
 	Set getCriterions(String[] criteriaIdList) throws Exception;
 	
 	
-	SortedSet getAllCriterion(Long critSuiteId) throws Exception;
+	Collection getAllCriterion(Long critSuiteId) throws Exception;
 	
 	
 	Collection getAllCriterion() throws Exception;

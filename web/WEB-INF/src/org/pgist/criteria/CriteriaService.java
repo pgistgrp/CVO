@@ -39,7 +39,7 @@ public interface CriteriaService {
     Criteria getCriterionById(Long id) throws Exception;
     
     
-    SortedSet getAllCriterion(Long critSuiteId) throws Exception;
+    Collection getAllCriterion(Long critSuiteId) throws Exception;
    
     
     Collection getAllCriterion() throws Exception;

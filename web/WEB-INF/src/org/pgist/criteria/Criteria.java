@@ -38,6 +38,12 @@ public class Criteria implements Serializable, Comparator {
     
     /**
      * <span style="color:blue;">(Column.)</span>
+     *  CriteriaSuite, CriteriaSuite object this criteria is associated with. 
+     */
+    private CriteriaSuite suite;
+    
+    /**
+     * <span style="color:blue;">(Column.)</span>
      * na. na is a string description of the criteria and is optional.
      */
     private String na;
@@ -96,6 +102,21 @@ public class Criteria implements Serializable, Comparator {
     
     public void setName(String name) {
         this.name = name;
+    }
+    
+    
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="suite_id" cascade="none"
+     */
+    public CriteriaSuite getSuite() {
+        return suite;
+    }
+
+
+    public void setSuite(CriteriaSuite suite) {
+        this.suite = suite;
     }
     
     

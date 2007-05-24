@@ -93,7 +93,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getCriterionById()
     
     
-    public SortedSet getAllCriterion(Long critSuiteId) throws Exception {  
+    public Collection getAllCriterion(Long critSuiteId) throws Exception {  
     	return criteriaDAO.getAllCriterion(critSuiteId);
     }//getAllCriterion()
 
