@@ -21,7 +21,6 @@ import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
 import org.pgist.funding.FundingDAO;
-import org.pgist.funding.FundingService;
 import org.pgist.funding.FundingSource;
 import org.pgist.funding.FundingSourceAltRef;
 import org.pgist.funding.FundingSourceAlternative;
@@ -29,11 +28,11 @@ import org.pgist.funding.FundingSourceRef;
 import org.pgist.funding.FundingSourceSuite;
 import org.pgist.funding.TaxCalcUtils;
 import org.pgist.funding.UserCommute;
+import org.pgist.packages.cluster.Item;
 import org.pgist.packages.cluster.ItemCluster;
 import org.pgist.packages.cluster.PAMClusterer;
 import org.pgist.packages.cluster.PackageItem;
 import org.pgist.packages.cluster.ProjectItemFactory;
-import org.pgist.packages.cluster.ProjectItemFactory.PackageItemFormer;
 import org.pgist.packages.knapsack.KSChoices;
 import org.pgist.packages.knapsack.KSEngine;
 import org.pgist.packages.knapsack.KSItem;
@@ -44,7 +43,6 @@ import org.pgist.projects.ProjectAlternative;
 import org.pgist.projects.ProjectDAO;
 import org.pgist.projects.ProjectRef;
 import org.pgist.projects.ProjectSuite;
-import org.pgist.tests.packages.cluster.LineItem;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
 import org.pgist.users.Vehicle;
@@ -1047,7 +1045,7 @@ public class PackageServiceImpl implements PackageService {
         pFactory.prepareFactory(projSuite, fundSuite);
         
         
-        ArrayList<PackageItem> items = new ArrayList<PackageItem>();
+        ArrayList<Item> items = new ArrayList<Item>();
         Iterator<UserPackage> iUPack = pSuite.getUserPkgs().iterator();
         UserPackage tempPkg;
         while(iUPack.hasNext()) {
@@ -1057,33 +1055,22 @@ public class PackageServiceImpl implements PackageService {
                 
         
         //Run Clustering algorithm
-		PAMClusterer clusterer = new PAMClusterer(items);
-		clusterer.setNumClusters(pkgCount);
-		
-		//10 steps seem to be plenty, I can't figure out how it knows when its done
-		//So just run it a couple times. It seems to speed up after it find the medoid
-		for(int i = 0; i < 10; i++) {
-			long start = System.currentTimeMillis();
-			clusterer.step();			
-			System.out.println("Step " + i + " took " + (System.currentTimeMillis() - start) + " ms: overall compactness " + clusterer.getOverallCompactness());
-		}     
-		
-        //Convert back into the clustered packages
-		Collection results = clusterer.getClusters();
+   		Collection<ItemCluster> results = PAMClusterer.calcClusters(pkgCount, items);
 		printResults(results);
-		Iterator i = results.iterator();
+
+        //Convert back into the clustered packages
+		Iterator<ItemCluster> i = results.iterator();
 		ItemCluster temp;
 		PackageItem tempItem;
 		UserPackage uPack;
 		while(i.hasNext()) {
-			temp = (ItemCluster)i.next();
+			temp = i.next();
 			
 			cp = new ClusteredPackage();
 			cp.setManual(false);
 			
 			//Set the medoid properties as the new cluster properties
-			Object obj = temp.getRepresentative();
-			tempItem = (PackageItem)obj;
+			tempItem = (PackageItem)temp.getMediod();
 			uPack = packageDAO.getUserPackage(tempItem.getUserPkgId());	
 			
 			Iterator<ProjectAltRef> iAltRef = uPack.getProjAltRefs().iterator();
@@ -1109,13 +1096,18 @@ public class PackageServiceImpl implements PackageService {
         pSuite.setClusteredPkgs(result);
         packageDAO.save(pSuite);               
 	}
-	private void printResults(Collection results) {
-		Iterator i = results.iterator();
+	
+	/**
+	 * Used for debugging, this prints the results from a collection of items
+	 * @param results
+	 */
+	private void printResults(Collection<ItemCluster> results) {
+		Iterator<ItemCluster> i = results.iterator();
 		ItemCluster temp;
 		while(i.hasNext()) {
-			temp = (ItemCluster)i.next();
+			temp = i.next();
 			
-			System.out.println(temp.getRepresentative());
+			System.out.println("Mediod =" + temp.getMediod());
 			Iterator iItems = temp.getItems().iterator();
 			while(iItems.hasNext()) {
 				System.out.println("Member Item:" + iItems.next());

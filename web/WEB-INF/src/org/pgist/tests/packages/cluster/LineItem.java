@@ -1,7 +1,5 @@
 package org.pgist.tests.packages.cluster;
 
-import org.pgist.packages.cluster.Cluster;
-import org.pgist.packages.cluster.Clusterable;
 import org.pgist.packages.cluster.Item;
 
 public class LineItem implements Item {
@@ -15,8 +13,8 @@ public class LineItem implements Item {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.cluster.Clusterable#distance(org.pgist.packages.cluster.Clusterable)
 	 */
-	public float distance(Clusterable c) {
-		if (c instanceof Cluster) {
+	public float distance(Item c) {
+		if (c instanceof Item) {
 			return c.distance(this);
 		} else {
 			return distance((LineItem) c);

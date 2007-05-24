@@ -29,7 +29,7 @@ public class PackageItem implements Item {
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.cluster.Clusterable#distance(org.pgist.packages.cluster.Clusterable)
 	 */
-	public float distance(Clusterable c) {
+	public float distance(Item c) {
 		if(c instanceof PackageItem) {
 			return calcDist(this, (PackageItem)c);
 		}

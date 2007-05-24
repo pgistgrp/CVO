@@ -1,49 +1,3 @@
-/**
- * Copyright 26.01.2003 by Markus Maier, mkm@gmx.de
- * 
- * Released under the GNU General Public License,
- * see http://www.gnu.org/licenses/gpl.html
- *
- * $Id$
- * $Log$
- * Revision 1.1  2007/05/11 22:52:54  paulin
- * cluster stuff
- *
- * Revision 1.12  2003/10/16 14:30:50  mkmaier
- * IMP: minor beautifying
- *
- * Revision 1.11  2003/10/09 15:05:48  mkmaier
- * IMP: big cleanup of cluster subclasses and factories
- * NEW: initClusters()
- * NEW: use of a clusterFactory
- * IMP: minor code cleanups
- *
- * Revision 1.10  2003/10/09 08:22:29  mkmaier
- * IMP: better encapsulation following changes in Cluster
- *
- * Revision 1.9  2003/10/06 16:07:04  mkmaier
- * IMP: mainly comment cleanups
- *
- * Revision 1.8  2003/10/02 18:49:54  mkmaier
- * first superficially working version after the Great Refactoring
- *
- * Revision 1.7  2003/10/02 15:14:06  mkmaier
- * Extensive refactoring to clean up dependencies and code duplications. The design should now be much, much cleaner. First compile error free version, does not work, though.
- *
- * Revision 1.6  2003/09/25 12:45:23  mkmaier
- * IMP: minor code beautifying
- *
- * Revision 1.5  2003/09/24 09:12:00  mkmaier
- * IMP: removed reset()
- * IMP: method names reflect producer/consumer pattern
- *
- * Revision 1.4  2003/08/27 11:51:08  mkmaier
- * FIX: getColor()/getElements() instead of field accesses
- *
- * Revision 1.3  2003/08/19 18:47:18  mkmaier
- * IMP: updated filecomments
- *
- */
 package org.pgist.packages.cluster;
 
 import java.util.ArrayList;
@@ -51,155 +5,296 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * A partitioning clusterer using the PAM algorithm by Kaufman & Rousseeuw,
- * 1990 which exchanges a cluster-center with a non-cluster-center in each
- * step.
+ * Clusteres a collection of items into the specified number of clusters using the PAM algorithm
  * 
- * @version 1.0
- * @author Markus Maier
+ * @author paulin
  */
-public final class PAMClusterer extends AbstractReAssigningClusterer {
-	/** Cluster factory. */
-	private final ItemCluster.ItemClusterFactory clusterFactory;
+public class PAMClusterer {
 
-	float overallCompactness = 0;
 	
 	/**
-	 * Constructs a PAMClusterer.
+	 * This method will return a collection of items that have been clustered together
 	 * 
-	 * @param items
-	 *            Items to cluster.
+	 * @param numClusters	The number of clusters you would like returned
+	 * @param items			The items to turn into clusters
+	 * @return	A collection of item clusters identifying what items go into what cluster
 	 */
-	public PAMClusterer(final Collection items) {
-		this(items, new ItemCluster.ItemClusterFactory());
-	}
+	public static Collection<ItemCluster> calcClusters(int numClusters, Collection<Item> items) {
+				
+		//Create two collections one will store the medoids, the other will store all the other items
+		Collection<Item> medoids = new ArrayList<Item>();
+		Collection<Item> remaining = new ArrayList<Item>(items);
+		
+		//BUILD Phase: Separate out the medoids
+		getFirstMedoid(medoids, remaining);
+		for(int i = 0; i < numClusters-1; i++) {
+			getNextMedoid(medoids, remaining);
+		}		
+		
+		//SWAP Phase: in this phase we try seening if we can beat the overall objective by swapping the medoids and the items
+		swap(medoids, remaining);
+		
+		//Create the number of clusters needed
+		Collection<ItemCluster> clusters = new ArrayList<ItemCluster>();
 
-	/**
-	 * Constructs a PAMClusterer.
-	 * 
-	 * @param items
-	 *            Items to cluster.
-	 * @param factory
-	 *            Cluster factory.
-	 */
-	public PAMClusterer(final Collection items,
-			final ItemCluster.ItemClusterFactory factory) {
-		super(items);
-		setName(">>> PAMTask <<<");
-		clusterFactory = factory;
-		initClusters();
-		assignItems();
-	}
-
-	
-	
-	public float getOverallCompactness() {
-		return overallCompactness;
-	}
-
-
-	/**
-	 * @see mkm.clustering.clusterer.AbstractReAssigningClusterer#initClusters()
-	 */
-	public void initClusters() {
-		clusters = new ArrayList(getNumClusters());
-		for (int i = 0; i < getNumClusters(); i++) {
-			clusters.add(clusterFactory.produce(getRandomItem()));
+		Iterator<Item> iItem = medoids.iterator();
+		Item tempItem;
+		while(iItem.hasNext()) {
+			tempItem = iItem.next();
+			ItemCluster tempCluster = new ItemCluster();
+			tempCluster.setMediod(tempItem);
+			clusters.add(tempCluster);
 		}
+		
+		//Assign all of the items to cluster with the medoid that is closes to it
+		assignItems(remaining, clusters);
+		
+		return clusters;
 	}
 
 	/**
-	 * @see mkm.clustering.clusterer.AbstractClusterer#step()
+	 * Assigns the remaining items to the appropriate cluster
+	 * 
+	 * @param	remaining	The items that are remainging
+	 * @param	clusters	The clusters to put the items in
 	 */
-	public void step() {
-		// TODO cleanup
-		// TODO history
-		// FIXME clustering
-		Cluster exchC = null;
-		Item exchP = null;
-		float delta = 0.0f;
-		overallCompactness = overallCompactness(clusters);
-
-		// iterate over all clusters to exchange
-		Iterator i = clusters.iterator();
-		while (i.hasNext() && !isInterrupted()) {
-			Cluster c = (Cluster) i.next();
-			// iterate over all data items to exchange clusters with
-			Iterator j = getInitialItems().iterator();
-			while (j.hasNext() && !isInterrupted()) {
-				Item p = (Item) j.next();
-				Collection perm = createPermutation(c, p);
-				float d = overallCompactness(perm) - overallCompactness;
-				if (d > delta) {
-					delta = d;
-					exchC = c;
-					exchP = p;
+	private static void assignItems(Collection<Item> remaining, Collection<ItemCluster> clusters) {
+		Iterator<Item> iItem = remaining.iterator();
+		Item tempItem;
+		ItemCluster favCluster = null;
+		ItemCluster tempPAMCl;
+		float dist = Float.MAX_VALUE;
+		float newDist = Float.MAX_VALUE;
+		while(iItem.hasNext()) {
+			tempItem = iItem.next();
+			dist = Float.MAX_VALUE;
+			
+			Iterator<ItemCluster> iPAMCL = clusters.iterator();
+			while(iPAMCL.hasNext()) {
+				tempPAMCl = iPAMCL.next();
+				newDist = tempPAMCl.getMediod().distance(tempItem);
+				//System.out.println("Found distance " + newDist + " old dist" + dist + " from mediod " + tempPAMCl.getMediod() + " to item " + tempItem);
+				if(newDist < dist) {
+					dist = newDist;
+					favCluster = tempPAMCl;
 				}
 			}
+			
+			//Now that you have the favorite, add it
+			favCluster.getItems().add(tempItem);
+		}		
+	}
+	
+	
+	/**
+	 * Figures out what the first medoid is, and then moves it from the remaining group to the medoids group
+	 * 
+	 * @param	medoids	The collection of mediods that the first medoid will end up in (its empty when passed in)
+	 * @param	remaining	These are all the items that are remaining in the system 
+	 */
+	private static void getFirstMedoid(Collection<Item> medoids, Collection<Item> remaining) {
+		//Find the item that is the shortest distance from all other items
+		Item tempItem = null;
+		float compactness = Float.MAX_VALUE;
+		float tempComp = 0;
+		Iterator<Item> iItem = remaining.iterator();
+		Item medoid = null;
+		while(iItem.hasNext()) {
+			tempItem = iItem.next();
+			tempComp = calcItemCompactness(tempItem, remaining);
+			if(tempComp < compactness) {
+				compactness = tempComp;
+				medoid = tempItem;
+			}
 		}
-
-		if (exchC != null && exchP != null) {
-			clusters
-					.set(clusters.indexOf(exchC), clusterFactory.produce(exchP));
-
-			assignItems();
-			calcCompactness(clusters);
-		} else {
-			done();
-		}
-
-		ArrayList clus = new ArrayList();
-		clus.addAll(clusters);
-		provideData(clus);
+		
+		remaining.remove(medoid);
+		medoids.add(medoid);
 	}
 
 	/**
-	 * Creates a new permutation.
+	 * Gets the next medoid from the group of remaining items and puts it into the mediod collection
 	 * 
-	 * @param whichCluster
-	 *            Cluster to exchange.
-	 * @param newCluster
-	 *            New cluster center to use for the indicated cluster.
-	 * @return The permutated clusters.
+	 * @param	medoids		The collection of medoids the new medoid will end up in
+	 * @param	remaining	The remaining items
 	 */
-	protected ArrayList createPermutation(final Cluster whichCluster,
-			final Item newCluster) {
-		ArrayList clus = new ArrayList();
-		clus.addAll(clusters);
-		int pos = clus.indexOf(whichCluster);
-		clus.set(pos, clusterFactory.produce(newCluster));
-
-		assignItems(clus);
-		calcCompactness(clus);
-		return clus;
-	}
-
-	/**
-	 * Calculates the overall compactness of this clustering.
-	 * 
-	 * @param clus
-	 *            Array of all clusters.
-	 * @return float
-	 */
-	protected static float overallCompactness(final Collection clus) {
-		float rc = 0.0f;
-		Iterator i = clus.iterator();
-		while (i.hasNext()) {
-			rc += ((Cluster) i.next()).compactness();
+	private static void getNextMedoid(Collection<Item> medoids, Collection<Item> remaining) {
+		//Pick each item as a potential medoid
+		Item tempItem = null;
+		float compactness = Float.MAX_VALUE;
+		float tempComp = 0;
+		Iterator<Item> iItem = remaining.iterator();
+		Item medoid = null;
+		Collection<Item> tempMedoids;
+		Collection<Item> tempRemaining;
+		while(iItem.hasNext()) {
+			//See how close everything is to it. Pretending that it is the medoid 
+			tempItem = iItem.next();
+			
+			tempMedoids = new ArrayList<Item>(medoids);
+			tempRemaining = new ArrayList<Item>(remaining);
+			tempMedoids.add(tempItem);
+			tempRemaining.remove(tempItem);
+						
+			tempComp = calcOverallCompactness(tempMedoids, tempRemaining);
+			if(tempComp < compactness) {
+				//The smallest one is the new medoid
+				compactness = tempComp;
+				medoid = tempItem;
+			}
 		}
-		return rc;
+		
+		remaining.remove(medoid);
+		medoids.add(medoid);
+		
 	}
-
+		
 	/**
-	 * Calculates the compactness for all clusters in a Collection.
+	 * This is a greedy algorithm that goes through all the remaining items and trys swaping them with the medoids.  After every 
+	 * swap it checks to see if the clusteres are more compact.  If they are then the swap is left alone.  It will keep 
+	 * trying to swap things until no swap is done when it iterates through the whole collection
 	 * 
-	 * @param compClusters
-	 *            Clusters to calculate compactness of.
+	 * @param medoids		The collection of medoids
+	 * @param remaining		The remaining items
 	 */
-	protected void calcCompactness(final Collection compClusters) {
-		Iterator i = compClusters.iterator();
-		while (i.hasNext()) {
-			((ItemCluster) i.next()).calcCompactness();
+	private static void swap(Collection<Item> medoids, Collection<Item> remaining) {
+		Iterator<Item> iRemaining;
+		Iterator<Item> iMedoids;
+		Item tempMedoid;
+		Item tempRemaining;
+		boolean swapped = true;
+		//int i = 0;
+		while(swapped) {
+			swapped = false;
+
+			ArrayList<Item> tempRemainingMeds = new ArrayList<Item>(remaining);
+			ArrayList<Item> tempMedoids = new ArrayList<Item>(medoids);
+			
+			//long started = System.currentTimeMillis();
+			iRemaining = tempRemainingMeds.iterator();
+			while(iRemaining.hasNext()) {
+				//See how close everything is to it. Pretending that it is the medoid 
+				tempRemaining = iRemaining.next();
+				
+				iMedoids = tempMedoids.iterator();
+				while(iMedoids.hasNext()) {
+					tempMedoid = iMedoids.next();
+					
+					swapped = swapped || checkSwap(medoids, tempMedoid, remaining, tempRemaining);
+				}
+			}			
+			//i++;
+			//System.out.println("Iteration " + i + " time = " + (System.currentTimeMillis() - started) + "(ms) compactness = " + calcOverallObjective(medoids, remaining));
 		}
 	}
+	
+	/**
+	 * Tries swapping the items to see if the overall compactness can be improved, if it can then it is swapped permanently
+	 * 
+	 * @return	true if a swap was performed
+	 */
+	private static boolean checkSwap(Collection<Item> medoids, Item tempMedoid, Collection<Item> remaining, Item swapmedoid) {
+		float overallCompactness = Float.MAX_VALUE;
+		float overallCompactness2 = Float.MAX_VALUE;
+		float tempComp = 0;
+
+		//System.out.println("Trying to swap medoid [" + tempMedoid + "] with item [" + swapmedoid + "]");
+		
+		overallCompactness = calcOverallCompactness(medoids,remaining);
+
+		//Find the objective with the mediod in the collection
+		Collection<Item> tempMedoids = new ArrayList<Item>(medoids);
+		Collection<Item> tempRemaining = new ArrayList<Item>(remaining);
+		tempMedoids.add(swapmedoid);
+		tempRemaining.add(tempMedoid);
+		tempMedoids.remove(tempMedoid);
+		tempRemaining.remove(swapmedoid);
+
+		overallCompactness2 = calcOverallCompactness(tempMedoids,tempRemaining);
+
+		//System.out.println("before[" + overallCompactness + "] after [" + overallCompactness2 + "]");
+		
+		if(overallCompactness2 < overallCompactness) {
+			//System.out.println("FOUND A BETTER MEDOID ");
+			medoids.remove(tempMedoid);
+			remaining.remove(swapmedoid);
+			medoids.add(swapmedoid);
+			remaining.add(tempMedoid);
+			return true;
+		}
+		return false;
+	}
+		
+	/**
+	 * Calculates the overall compactness for the collection of medoids and the remaining points
+	 * 
+	 * @param	medoids	The medoids for the system
+	 * @param	remaining	All of the remaining items in the system
+	 */
+	private static float calcOverallCompactness(Collection<Item> mediods, Collection<Item> remaining) {
+		float total = 0;
+
+		Item tempItem;
+		Iterator<Item> iItem = remaining.iterator();
+		while(iItem.hasNext()) {
+			tempItem = iItem.next();
+			
+			total = total + calcMedioidCompactness(tempItem, mediods);
+		}
+		
+		return total;
+	}
+	
+	/**
+	 * Figures out the compactness of this item against the medoids.  It does this by returning the smallest distance to the medoids
+	 * 
+	 * @param	item	The item to check against the medoids
+	 * @param	medoids	The collection of items that represent the medoids
+	 */
+	private static float calcMedioidCompactness(Item item, Collection<Item> mediods) {
+		float total = Float.MAX_VALUE;
+		float tempTotal = 0;
+		
+		Item tempItem;
+		Iterator<Item> iItem = mediods.iterator();
+		while(iItem.hasNext()) {
+			tempItem = iItem.next();
+			tempTotal = item.distance(tempItem);
+			if(tempTotal < total) {
+				total = tempTotal;
+			}
+		}
+		return total;		
+	}
+	
+	/**
+	 * Figures out the compactness by summing the distances from this point to all other points
+	 * 
+	 * @param	item	The item to check
+	 * @param	items	The items to check against
+	 */
+	private static float calcItemCompactness(Item item, Collection<Item> items) {
+		float total = 0;
+		
+		Item tempItem;
+		Iterator<Item> iItem = items.iterator();
+		while(iItem.hasNext()) {
+			tempItem = iItem.next();
+			total = total + item.distance(tempItem);
+		}
+		return total;
+	}
+	
+	/**
+	 * Used in debugging to see what items are in each collection
+	 * @param name	The name of the collection to print out
+	 * @param items	The items to print out
+	 */
+	private static void printCollection(String name, Collection<Item> items) {
+		Iterator<Item> iItem = items.iterator();
+		System.out.println("In collection " + name);
+		while(iItem.hasNext()) {
+			System.out.println("Found items " + iItem.next());
+		}		
+	}	
 }

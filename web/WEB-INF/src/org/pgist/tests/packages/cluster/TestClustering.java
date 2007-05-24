@@ -6,14 +6,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.Ignore;
-import org.pgist.packages.cluster.AbstractPosition;
+import org.junit.Test;
 import org.pgist.packages.cluster.Item;
 import org.pgist.packages.cluster.ItemCluster;
-import org.pgist.packages.cluster.PAMCluster;
 import org.pgist.packages.cluster.PAMClusterer;
-import org.pgist.packages.cluster.PAMClusterer2;
 import org.pgist.packages.cluster.PackageItem;
 
 /**
@@ -39,7 +36,7 @@ public class TestClustering {
 		items.add(new PackageItem(5l, createChoices(1,1,0,1,0)));
 		items.add(new PackageItem(6l, createChoices(1,1,1,0,0)));
 
-		printPAMCluster(PAMClusterer2.calcClusters(2, items));		
+		printPAMCluster(PAMClusterer.calcClusters(2, items));		
 		
 //		PAMClusterer clusterer = new PAMClusterer(items);
 //		clusterer.setNumClusters(2);
@@ -82,9 +79,9 @@ public class TestClustering {
 		return results;
 	}
 	
-	public void printPAMCluster(Collection<PAMCluster> cluster) {
-		Iterator<PAMCluster> iPCl = cluster.iterator();
-		PAMCluster tempPAM;
+	public void printPAMCluster(Collection<ItemCluster> cluster) {
+		Iterator<ItemCluster> iPCl = cluster.iterator();
+		ItemCluster tempPAM;
 		while(iPCl.hasNext()) {
 			tempPAM = iPCl.next();
 			System.out.println("Found Medoid " + tempPAM.getMediod());
@@ -115,7 +112,7 @@ public class TestClustering {
 		
 		int numClusters = 2;
 		
-		printPAMCluster(PAMClusterer2.calcClusters(numClusters, items));		
+		printPAMCluster(PAMClusterer.calcClusters(numClusters, items));		
 
 //		AbstractClusterer clusterer = new KMedoidClusterer(items);
 //		PAMClusterer clusterer = new PAMClusterer(items);
@@ -154,7 +151,7 @@ public class TestClustering {
 		
 		int numClusters = 3;
 		
-		printPAMCluster(PAMClusterer2.calcClusters(numClusters, items));
+		printPAMCluster(PAMClusterer.calcClusters(numClusters, items));
 		
 		
 //		AbstractClusterer clusterer = new KMedoidClusterer(items);
@@ -183,22 +180,6 @@ public class TestClustering {
 //			System.out.println("num steps " + clusterer.getSteps() + " togo " + clusterer.getToGo() );
 //		}
 		
-	}
-	
-	
-	public void printResults(Collection results) {
-		//How do you get the results.
-		Iterator i = results.iterator();
-		System.out.println("Got the results");
-		ItemCluster temp;
-		while(i.hasNext()) {
-			temp = (ItemCluster)i.next();
-			System.out.println(temp.getRepresentative());
-			Iterator iItems = temp.getItems().iterator();
-			while(iItems.hasNext()) {
-				System.out.println("Member Item:" + iItems.next());
-			}		
-		}		
 	}
 }
 
