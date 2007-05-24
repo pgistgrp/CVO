@@ -3,6 +3,9 @@ package org.pgist.criteria;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.Comparator;
 
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.Theme;
@@ -19,7 +22,7 @@ import org.pgist.cvo.Theme;
  * 
  * @hibernate.class table="pgist_crit" lazy="true"
  */
-public class Criteria implements Serializable {
+public class Criteria implements Serializable, Comparator {
     
     /**
      * <span style="color:blue;">(Column.)</span>
@@ -49,7 +52,7 @@ public class Criteria implements Serializable {
      * <span style="color:blue;">(Column.)</span>
      * objectives. A Set of objectives for this criterion.
      */
-    private Set objectives = new HashSet();
+    private SortedSet objectives = new TreeSet();
     
     /**
      * <span style="color:blue;">(Column.)</span>
@@ -123,7 +126,7 @@ public class Criteria implements Serializable {
     }
     
     
-    public void setObjectives(Set objectives) {
+    public void setObjectives(SortedSet objectives) {
         this.objectives = objectives;
     }
     
@@ -132,7 +135,7 @@ public class Criteria implements Serializable {
      * @hibernate.collection-key column="criterion_id"
      * @hibernate.collection-one-to-many column="objective_id" class="org.pgist.criteria.Objective"
      */   
-    public Set getObjectives() {
+    public SortedSet getObjectives() {
         return objectives;
     }
     
@@ -176,4 +179,9 @@ public class Criteria implements Serializable {
     }
     
     
+	public int compare(Object o1, Object o2) {
+		
+		return ((Criteria)o1).getName().compareToIgnoreCase(((Criteria)o2).getName());
+	}
+	
 }//class Criteria

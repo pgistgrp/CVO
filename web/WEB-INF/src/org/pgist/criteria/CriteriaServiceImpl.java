@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.List;
 
 import org.pgist.cvo.CCT;
@@ -62,7 +63,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getCriterias()
     
     
-    public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Set themes,  Set objectives, String na) throws Exception {
+    public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Set themes,  SortedSet objectives, String na) throws Exception {
     		
     	return criteriaDAO.addCriterion(bool_themes, bool_objectives, name, themes, objectives, na);
     }//addCriterion()
@@ -82,7 +83,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     	return criteriaDAO.getContainsCriteria(critId, critSuiteId);
     }
     
-    public void editCriterion(boolean bool_name, boolean bool_themes, boolean bool_objectives, Criteria c, String name, Set themes, Set objectives, String na) throws Exception {	
+    public void editCriterion(boolean bool_name, boolean bool_themes, boolean bool_objectives, Criteria c, String name, Set themes, SortedSet objectives, String na) throws Exception {	
     	criteriaDAO.editCriterion(bool_name, bool_themes, bool_objectives, c, name, themes, objectives, na);
     }//editCriterion()
     
@@ -92,7 +93,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getCriterionById()
     
     
-    public Set getAllCriterion(Long critSuiteId) throws Exception {  
+    public SortedSet getAllCriterion(Long critSuiteId) throws Exception {  
     	return criteriaDAO.getAllCriterion(critSuiteId);
     }//getAllCriterion()
 
@@ -127,7 +128,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getThemesObjects()
     
     
-    public Set<Theme> getObjectiveObjects(String[] objectiveIdList) throws Exception {
+    public SortedSet getObjectiveObjects(String[] objectiveIdList) throws Exception {
         return criteriaDAO.getObjectiveObjects(objectiveIdList);
     }//getObjectiveObjects()
     

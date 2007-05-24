@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Collection;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import org.directwebremoting.WebContextFactory;
@@ -103,7 +105,7 @@ public class CriteriaAgent {
         	String[] themeIdList;
         	String[] objectiveIdList;
         	Set<Theme> themes = new HashSet();
-        	Set objectives = new HashSet();
+        	SortedSet objectives = new TreeSet();
         	
         	if(bool_themes) {
 		    	themeIdList = themeIds.split(",");
@@ -327,7 +329,7 @@ public class CriteriaAgent {
         	String[] themeIdList;
         	String[] objectiveIdList;
         	Set themes = new HashSet();
-        	Set objectives = new HashSet();
+        	SortedSet objectives = new TreeSet();
         	
         	if(bool_themes) {
 		    	themeIdList = themeIds.split(",");

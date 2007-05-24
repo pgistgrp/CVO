@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.pgist.cvo.Theme;
 import org.pgist.system.BaseDAOImpl;
@@ -25,7 +27,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
 	private static final String hql_addCriterion = "from Criteria c where lower(c.name)=?";
 	
     
-    public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Set themes, Set objectives, String na) throws Exception {
+    public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Set themes, SortedSet objectives, String na) throws Exception {
     	/*
     	List list = getHibernateTemplate().find(hql_addCriterion, new Object[] {
                 name.toLowerCase(),
@@ -104,7 +106,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     }//deleteCriteria()
     
     
-    public void editCriterion(boolean bool_name, boolean bool_themes, boolean bool_objectives, Criteria c, String name, Set themes, Set objectives, String na) throws Exception {
+    public void editCriterion(boolean bool_name, boolean bool_themes, boolean bool_objectives, Criteria c, String name, Set themes, SortedSet objectives, String na) throws Exception {
     	if(bool_name) {
     		c.setName(name);
     	} else {
@@ -142,12 +144,12 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     }//getCriterionById()
     
     
-    public Set getAllCriterion(Long critSuiteId) throws Exception {    	
+    public SortedSet getAllCriterion(Long critSuiteId) throws Exception {    	
     	
     	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
     	Set references = cs.getReferences();
     	
-    	Set cSet = new HashSet();
+    	SortedSet cSet = new TreeSet();
     	Iterator r = references.iterator();
     	while(r.hasNext()) {
     		CriteriaRef tempCR= (CriteriaRef) r.next();
@@ -186,7 +188,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
 		save(o);
 		
     	Criteria c = getCriterionById(critId);
-    	Set objectives = c.getObjectives();
+    	SortedSet objectives = c.getObjectives();
     	objectives.add(o);
     	c.setObjectives(objectives);
     	save(c);
@@ -207,8 +209,8 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     } //getThemeObjects()
     
     
-    public Set getObjectiveObjects(String[] objectiveIdList) throws Exception {
-    	Set objectiveObjects = new HashSet();
+    public SortedSet getObjectiveObjects(String[] objectiveIdList) throws Exception {
+    	SortedSet objectiveObjects = new TreeSet();
    
     	for(int i=0; i<objectiveIdList.length; i++){
     		Long objectiveId = Long.parseLong(objectiveIdList[i]);

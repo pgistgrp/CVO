@@ -3,6 +3,7 @@ package org.pgist.tests.projects;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
 
 import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaDAO;
@@ -64,7 +65,7 @@ public class MockCriteriaDAO implements CriteriaDAO {
 	}
 
 	public void editCriterion(boolean bool_name, boolean bool_themes, boolean bool_objectives,
-			Criteria c, String name, CCT cct, Set themes, Set objectives,
+			Criteria c, String name, CCT cct, Set themes, SortedSet objectives,
 			String na) throws Exception {
 		// TODO Auto-generated method stub
 
@@ -90,7 +91,7 @@ public class MockCriteriaDAO implements CriteriaDAO {
 		return null;
 	}
 
-	public Set getObjectiveObjects(String[] objectivesIdList) throws Exception {
+	public SortedSet getObjectiveObjects(String[] objectivesIdList) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -131,17 +132,17 @@ public class MockCriteriaDAO implements CriteriaDAO {
 
 	}
 
-	public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Set themes, Set objectives, String na) throws Exception {
+	public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Set themes, SortedSet objectives, String na) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void editCriterion(boolean bool_name, boolean bool_themes, boolean bool_objectives, Criteria c, String name, Set themes, Set objectives, String na) throws Exception {
+	public void editCriterion(boolean bool_name, boolean bool_themes, boolean bool_objectives, Criteria c, String name, Set themes, SortedSet objectives, String na) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public Set getAllCriterion(Long critSuiteId) throws Exception {
+	public SortedSet getAllCriterion(Long critSuiteId) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
