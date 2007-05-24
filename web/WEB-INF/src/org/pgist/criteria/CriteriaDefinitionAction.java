@@ -57,6 +57,7 @@ public class CriteriaDefinitionAction extends Action {
             Long cctId = Long.parseLong(strCctId);
             List themes = criteriaService.getThemes(cctId);
             
+            request.setAttribute("cctId", cctId);
             request.setAttribute("criteriasuite", cs);
             request.setAttribute("themes", themes);
             request.setAttribute("criteria", criteria);
