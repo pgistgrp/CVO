@@ -163,7 +163,7 @@
 		<div id="left-col">
 			<h3 class="headerColor">Overview of all Steps</h3>
 			<div class="box12 clearfix">
-				<div id="workflow-panel"><img src="/images/indicator_arrows.gif" alt="Please wait..."/> Loading...</div>
+				<div id="workflow-panel"><img src="/images/indicator_arrows.gif" alt="Please wait..."/> Loading Overview...</div>
 				<pg:show roles="moderator">
 					<!--
 					<h5>** The following section is for testing purposes only. It will be removed
@@ -331,6 +331,7 @@
 			<h3 class="headerColor">Moderator announcements</h3>
 			<div id="mod-announcements" class="box9">
 				<div id="announcements">
+					<img src="/images/indicator_arrows.gif" alt="Please wait..."/> Loading Moderator Annoucements...
 					<!--load via DWR -->
 				</div>
 			</div>
