@@ -101,6 +101,7 @@
 					$('allCriteriaList').innerHTML = data.html;
 					if(newCritId){
 						Element.show("addObjective"+newCritId)
+						$("objDesc"+newCritId).focus();
 					}
 				}else{
 					$('allCriteriaList').innerHTML = "<b>Error in CriteriaAgent.getAllCriterion Method: </b>" + data.reason; 
