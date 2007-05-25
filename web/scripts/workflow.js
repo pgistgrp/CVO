@@ -72,7 +72,7 @@ Workflow.prototype.startWorkflow = function(workflowId) {
     { workflowId : workflowId },
     function(data) {
       if (data.successful) {
-        workflow.getWorkflows();
+        workflow.getWorkflows('mod');
       } else {
         alert(data.reason);
       }
