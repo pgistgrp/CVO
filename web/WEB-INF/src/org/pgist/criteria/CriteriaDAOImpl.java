@@ -173,11 +173,12 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     } //getAllCriterion();
     
 
-    private static final String hql_getAllCriterion3 = "from Criteria c where c.deleted=? and c.suite.id=? order by c.name";
+    private static final String hql_getAllCriterion3 = "from Criteria c where c.deleted=? and c.suite=? order by c.name";
     
-    public Collection getAllCriterion(Long critSuiteId) throws Exception {    	
+    public Collection getAllCriterion(Long critSuiteId) throws Exception { 
+    	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
     	return getHibernateTemplate().find(hql_getAllCriterion3, new Object[] {
-                false, critSuiteId});
+                false, cs});
     } //getAllCriterion();
     
     
@@ -266,7 +267,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     }//setUserWeight()
     
     
-    private static final String hql_getCriteriaRefByCriteria = "from CriteriaRef cr where criterion=?";
+    private static final String hql_getCriteriaRefByCriteria = "from CriteriaRef cr where cr.criterion=?";
     
     public CriteriaRef getCriteriaRefByCriteria(Criteria criteria, CriteriaSuite cs) throws Exception {
     	
@@ -326,7 +327,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     } //getCriteriaSuiteById();
 
     
-    private static final String hql_getCriteriaSuites = "from CriteriaSuite cs order by o.id";
+    private static final String hql_getCriteriaSuites = "from CriteriaSuite cs order by cs.id";
     
     public Collection getCriteriaSuites() throws Exception {
     	return getHibernateTemplate().find(hql_getCriteriaSuites);
