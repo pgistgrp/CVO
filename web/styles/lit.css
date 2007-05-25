@@ -299,7 +299,7 @@ top:0;
 _top:expression(eval(document.body.scrollTop));
 left:0;
 margin:0;
-padding:0;
+padding:5;
 }
 
 #newcomment
