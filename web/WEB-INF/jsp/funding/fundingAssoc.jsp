@@ -88,7 +88,7 @@
 
 
 <body>
-	<p><a href="main.do">Back to Moderator Control Panel</a></p>
+	<p><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
 	<h1>Define Funding Source Alternatives</h1>
 	<p>Select all funding source alternatives that you would like to include for this expiriment.</p>
 
@@ -115,8 +115,8 @@
 	</ul>
 
 	<h3 align="right">Finished selecting funding source alternatives?</h3>
-	${workflowId}===
-	<p align="right"><input type="button" style="padding:5px;" onClick="location.href='userhome.do?wf=${attribute.workflowId}'" value="Finished!"/></p>
+	
+	<p align="right"><input type="button" style="padding:5px;" onClick="location.href='userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" value="Finished!"/></p>
 </body>
 </html:html>
 

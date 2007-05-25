@@ -127,14 +127,14 @@
 	</c:forEach>
 	
 	<!--Future -->
-	<p># of future situations: ${fn:length(workflow.situation.context.futureActivities)}</p>
+	<p># of future meetings: ${fn:length(workflow.situation.context.futureActivities)}</p>
 	<c:forEach var="sFuture" items="${workflow.situation.context.futureActivities}" varStatus="loop">
 		<pg:narrow name="sFuture"/>
-		<p># of future meetings: ${fn:length(sFuture.context.futureActivities)}</p>
+		<p style="margin-left:15px;"># of future pmethods: ${fn:length(sFuture.context.futureActivities)}</p>
 			<c:forEach var="mFuture" items="${sFuture.context.futureActivities}" varStatus="loop">
 				<pg:narrow name="mFuture"/>
 				<h4 class="headerColor clearBoth step-header">${mFuture.description}</h4>
-				<p># of future games: ${fn:length(mFuture.context.futureActivities)}</p>
+				<p style="margin-left:30px;"># of future pgames: ${fn:length(mFuture.context.futureActivities)}</p>
 				<c:forEach var="gFuture" items="${mFuture.context.futureActivities}" varStatus="loop">
 					<pg:narrow name="gFuture"/>
 					<div class="home-row clearfix">
@@ -146,11 +146,6 @@
 				</c:forEach>
 			</c:forEach>
 	</c:forEach>
-
-   
-
-
-	
 
 	<pg:show roles="moderator">
 		<h4 class="headerColor clearBoth step-header">Development Tools</h4>
