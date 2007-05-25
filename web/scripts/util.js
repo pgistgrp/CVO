@@ -2,7 +2,7 @@ Util = new Object;
 
 Util.loading = function(show, message){
 	i = $('loading-indicator');
-	el = $('container');
+	el = document.body;
 	mg = (message) ? message : "Loading";
 	html = "<img src='/images/indicator_arrows.gif' alt='please wait...'/>"+mg+"..."
 	if(show){
@@ -10,7 +10,7 @@ Util.loading = function(show, message){
 			i.show();
 			i.innerHTML=html;
 		}else{
-			new Insertion.Before(el,"<div id='loading-indicator'>"+html+"</div>")
+			new Insertion.Top(el,"<div id='loading-indicator'>"+html+"</div>")
 		}
 	}else{
 		if(i){

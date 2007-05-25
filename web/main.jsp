@@ -23,6 +23,7 @@
 	<script type='text/javascript' src='/dwr/util.js'></script>
 	<script type='text/javascript' src='/dwr/interface/WorkflowAgent.js'></script>
 	<script type='text/javascript' src='/scripts/workflow.js'></script>
+	<script type='text/javascript' src='/scripts/util.js'></script>
 	<script>
 	  var workflow = new Workflow('workflow-panel', 'newExpiriment');
 	</script>
