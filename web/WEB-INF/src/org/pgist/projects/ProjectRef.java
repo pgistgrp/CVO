@@ -72,7 +72,7 @@ public class ProjectRef {
     /**
      * @return
      * 
-     * @hibernate.set lazy="false" cascade="all-delete-orphan"  sort="org.pgist.projects.ProjectAltRef"
+     * @hibernate.set lazy="false" cascade="all-delete-orphan"  sort="org.pgist.projects.ProjectAltRefComparator"
      * @hibernate.collection-key column="projref_id"
      * @hibernate.collection-one-to-many class="org.pgist.projects.ProjectAltRef"
      */
