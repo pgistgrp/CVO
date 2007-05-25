@@ -68,7 +68,7 @@
 					<pg:narrow name="gHistoryActivity"/>
 					<div class="home-row clearfix">
 						<div class="step">
-							<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mHistory.id}&historyId=${gHistory.id}">${gHistoryActivity.description}</a><br />
+							<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mHistoryActivity.context.id}&historyId=${gHistory.id}">${gHistoryActivity.description}</a><br />
 							<small>Information about this step</small>
 						</div>
 						<div class="date">00/00</div>
