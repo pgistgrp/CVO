@@ -27,6 +27,7 @@ public class TestClustering {
 	 * Test clustering binary items
 	 */
 	@Test
+	@Ignore
 	public void testClusteringBinary() {
 		ArrayList<Item> items = new ArrayList<Item>();
 		items.add(new PackageItem(1l, createChoices(0,1,1,0,1)));
@@ -130,26 +131,25 @@ public class TestClustering {
 	/**
 	 * Test that the clustering works
 	 */
-	@Test
-	@Ignore
+	@Test	
 	public void testClustering() {
 		ArrayList<Item> items = new ArrayList<Item>();
 		items.add(new LineItem(2));
-		items.add(new LineItem(3));
-		items.add(new LineItem(4));
-		items.add(new LineItem(20));
-		items.add(new LineItem(21));
-		items.add(new LineItem(22));
-		items.add(new LineItem(41));
-		items.add(new LineItem(42));
-		items.add(new LineItem(43));
+//		items.add(new LineItem(3));
+//		items.add(new LineItem(4));
+//		items.add(new LineItem(20));
+//		items.add(new LineItem(21));
+//		items.add(new LineItem(22));
+//		items.add(new LineItem(41));
+//		items.add(new LineItem(42));
+//		items.add(new LineItem(43));
 
 //		Random rand = new Random(System.currentTimeMillis()); 
 //		for(int i = 0; i < 300; i++) {
 //			items.add(new LineItem(100* rand.nextFloat()));
 //		}
 		
-		int numClusters = 3;
+		int numClusters = 0;
 		
 		printPAMCluster(PAMClusterer.calcClusters(numClusters, items));
 		

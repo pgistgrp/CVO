@@ -14,7 +14,9 @@ public class PAMClusterer {
 	
 	/**
 	 * This method will return a collection of items that have been clustered together
-	 * 
+	 * <p>
+	 * NOTE: If the number of desired clusters is more than the number of items, you will get back only as many item clusteres
+	 * as you provide items  
 	 * @param numClusters	The number of clusters you would like returned
 	 * @param items			The items to turn into clusters
 	 * @return	A collection of item clusters identifying what items go into what cluster
@@ -26,14 +28,16 @@ public class PAMClusterer {
 		Collection<Item> remaining = new ArrayList<Item>(items);
 		
 		//BUILD Phase: Separate out the medoids
-		getFirstMedoid(medoids, remaining);
-		for(int i = 0; i < numClusters-1; i++) {
-			getNextMedoid(medoids, remaining);
-		}		
+		if(numClusters > 0) {
+			getFirstMedoid(medoids, remaining);
+			for(int i = 0; i < numClusters-1; i++) {
+				getNextMedoid(medoids, remaining);
+			}					
 		
-		//SWAP Phase: in this phase we try seening if we can beat the overall objective by swapping the medoids and the items
-		swap(medoids, remaining);
-		
+			//SWAP Phase: in this phase we try seening if we can beat the overall objective by swapping the medoids and the items
+			swap(medoids, remaining);		
+		}
+
 		//Create the number of clusters needed
 		Collection<ItemCluster> clusters = new ArrayList<ItemCluster>();
 
@@ -48,6 +52,8 @@ public class PAMClusterer {
 		
 		//Assign all of the items to cluster with the medoid that is closes to it
 		assignItems(remaining, clusters);
+		
+		printCollection(clusters);
 		
 		return clusters;
 	}
@@ -81,7 +87,9 @@ public class PAMClusterer {
 			}
 			
 			//Now that you have the favorite, add it
-			favCluster.getItems().add(tempItem);
+			if(favCluster != null) {				
+				favCluster.getItems().add(tempItem);
+			}
 		}		
 	}
 	
@@ -120,33 +128,34 @@ public class PAMClusterer {
 	 */
 	private static void getNextMedoid(Collection<Item> medoids, Collection<Item> remaining) {
 		//Pick each item as a potential medoid
-		Item tempItem = null;
-		float compactness = Float.MAX_VALUE;
-		float tempComp = 0;
-		Iterator<Item> iItem = remaining.iterator();
-		Item medoid = null;
-		Collection<Item> tempMedoids;
-		Collection<Item> tempRemaining;
-		while(iItem.hasNext()) {
-			//See how close everything is to it. Pretending that it is the medoid 
-			tempItem = iItem.next();
-			
-			tempMedoids = new ArrayList<Item>(medoids);
-			tempRemaining = new ArrayList<Item>(remaining);
-			tempMedoids.add(tempItem);
-			tempRemaining.remove(tempItem);
-						
-			tempComp = calcOverallCompactness(tempMedoids, tempRemaining);
-			if(tempComp < compactness) {
-				//The smallest one is the new medoid
-				compactness = tempComp;
-				medoid = tempItem;
+		if(remaining.size() > 0) {
+			Item tempItem = null;
+			float compactness = Float.MAX_VALUE;
+			float tempComp = 0;
+			Iterator<Item> iItem = remaining.iterator();
+			Item medoid = null;
+			Collection<Item> tempMedoids;
+			Collection<Item> tempRemaining;
+			while(iItem.hasNext()) {
+				//See how close everything is to it. Pretending that it is the medoid 
+				tempItem = iItem.next();
+				
+				tempMedoids = new ArrayList<Item>(medoids);
+				tempRemaining = new ArrayList<Item>(remaining);
+				tempMedoids.add(tempItem);
+				tempRemaining.remove(tempItem);
+							
+				tempComp = calcOverallCompactness(tempMedoids, tempRemaining);
+				if(tempComp < compactness) {
+					//The smallest one is the new medoid
+					compactness = tempComp;
+					medoid = tempItem;
+				}
 			}
-		}
-		
-		remaining.remove(medoid);
-		medoids.add(medoid);
-		
+			
+			remaining.remove(medoid);
+			medoids.add(medoid);			
+		}		
 	}
 		
 	/**
@@ -297,4 +306,25 @@ public class PAMClusterer {
 			System.out.println("Found items " + iItem.next());
 		}		
 	}	
+	
+	/**
+	 * Used in debugging to see what is in the ItemClusters
+	 * 
+	 * @param	clusters	The items clusters to look at
+	 */
+	private static void printCollection(Collection<ItemCluster> clusters) {
+		Iterator<ItemCluster> iClusters = clusters.iterator();
+		ItemCluster tempCluster;
+		Iterator<Item> iItem;
+		Item tempItem;
+		while(iClusters.hasNext()) {
+			tempCluster = iClusters.next();
+			System.out.println("Cluster with Medoid " + tempCluster.getMediod());
+			iItem = tempCluster.getItems().iterator();
+			while(iItem.hasNext()) {
+				tempItem = iItem.next();
+				System.out.println("Contains item " + tempItem);
+			}
+		}
+	}
 }

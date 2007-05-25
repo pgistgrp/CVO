@@ -187,7 +187,7 @@ public class TestClusteringPackages {
 		while(iCPkgs.hasNext()) {
 			tempCPackage = (ClusteredPackage)iCPkgs.next();
 			iUPkgs = tempCPackage.getUserPkgs().iterator();
-			System.out.println("Next Cluster...");
+			System.out.println("Next Cluster ");
 			while(iUPkgs.hasNext()) {
 				tempUPackage = (UserPackage)iUPkgs.next();
 				System.out.println("Found UPackage " + tempUPackage.getId());

@@ -1,14 +1,7 @@
 package org.pgist.projects;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.Comparator;
-
-import org.pgist.criteria.Criteria;
-import org.pgist.criteria.CriteriaRef;
 
 
 /**
@@ -18,7 +11,7 @@ import org.pgist.criteria.CriteriaRef;
  *
  * @hibernate.class table="pgist_project_alt_ref" lazy="true"
  */
-public class ProjectAltRef implements Comparator {
+public class ProjectAltRef implements Comparable<ProjectAltRef> {
     
     
     private Long id;
@@ -98,9 +91,10 @@ public class ProjectAltRef implements Comparator {
 		return false;
 	}
 	
-	public int compare(Object o1, Object o2) {
-		
-		return ((ProjectAltRef)o1).getAlternative().getName().compareToIgnoreCase(((ProjectAltRef)o2).getAlternative().getName());
+	
+	
+	public int compareTo(ProjectAltRef o) {
+		return ((ProjectAltRef)o).getAlternative().getName().compareToIgnoreCase(this.getAlternative().getName());
 	}
 	
 }//class ProjectAltRef
