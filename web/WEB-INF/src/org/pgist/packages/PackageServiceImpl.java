@@ -1087,6 +1087,7 @@ public class PackageServiceImpl implements PackageService {
 			while(iItems.hasNext()) {
 				tempItem = (PackageItem)iItems.next();
 				uPack = packageDAO.getUserPackage(tempItem.getUserPkgId());
+				uPack.updateCalculations();
 				cp.getUserPkgs().add(uPack);
 			}
 			packageDAO.save(cp);
