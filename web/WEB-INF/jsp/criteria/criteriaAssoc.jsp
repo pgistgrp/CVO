@@ -94,11 +94,14 @@
 	
 	
 	/* *************** Grab All Criteria in the System - uses criteria.jsp *************** */
-	function getCriteria(){
+	function getCriteria(newCritId){
 		CriteriaAgent.getAllCriterionForMgr({critSuiteId:critSuiteId,cctId:cctId}, {
 			callback:function(data){
 				if (data.successful){
 					$('allCriteriaList').innerHTML = data.html;
+					if(newCritId){
+						Element.show("addObjective"+newCritId)
+					}
 				}else{
 					$('allCriteriaList').innerHTML = "<b>Error in CriteriaAgent.getAllCriterion Method: </b>" + data.reason; 
 				}
@@ -135,7 +138,8 @@
 		CriteriaAgent.addObjective({description:description,critId:critId}, {
 			callback:function(data){
 				if (data.successful){
-					getCriteria();
+					getCriteria(critId);
+					
 				}else{
 					alert(data.reason);
 				}
