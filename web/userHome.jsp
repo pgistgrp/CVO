@@ -33,6 +33,7 @@
 	<script src="scripts/prototype.js" type="text/javascript"></script>
 	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 	<script src="scripts/search.js" type="text/javascript"></script>
+	<script src="scripts/util.js" type="text/javascript"></script>
 	<script type='text/javascript' src='/dwr/engine.js'></script>
 	<script type='text/javascript' src='/dwr/util.js'></script>
 	<script type='text/javascript' src='/dwr/interface/WorkflowAgent.js'></script>
@@ -45,6 +46,7 @@
 		
 		if(!wfId){location.href="main.do"}
 		function getAnnouncements(){
+			Util.loading(true, "Loading Annoucements");
 			SystemAgent.getAnnouncements({workflowId:wfId}, {
 				callback:function(data){
 					if (data.successful){
@@ -52,6 +54,7 @@
 					}else{
 						alert(data.reason);
 					}
+					Util.loading(false);
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("SystemAgent.getAnnouncements( error:" + errorString + exception);
@@ -60,15 +63,16 @@
 		}
 		
 		function addAnnouncement(){
+			Util.loading(true, "Saving Annoucement");
 			var message = tinyMCE.getContent();
 			SystemAgent.addAnnouncement({workflowId:wfId,message:message}, {
 				callback:function(data){
 					if (data.successful){
 						getAnnouncements();
-
 					}else{
 						alert(data.reason);
 					}
+					Util.loading(false);
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("SystemAgent.getAnnouncements( error:" + errorString + exception);
@@ -77,6 +81,7 @@
 		}
 		
 		function deleteAnnouncement(id){
+			Util.loading(true, "Deleting Annoucement");
 			SystemAgent.deleteAnnouncement({id:id}, {
 				callback:function(data){
 					if (data.successful){
@@ -84,6 +89,7 @@
 					}else{
 						alert(data.reason);
 					}
+					Util.loading(false);
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("SystemAgent.deleteAnnouncement( error:" + errorString + exception);
@@ -100,6 +106,7 @@
 		}
 		
 		function editAnnouncement(id){
+			Util.loading(true, "Saving Annoucement");
 			var message="default text";
 			var message = tinyMCE.getContent();
 			SystemAgent.editAnnouncement({id:id, message:message}, {
@@ -110,6 +117,7 @@
 					}else{
 						alert(data.reason);
 					}
+					Util.loading(false);
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("SystemAgent.deleteAnnouncement( error:" + errorString + exception);

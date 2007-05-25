@@ -47,6 +47,7 @@ Workflow.prototype.createInstance = function() {
 
 
 Workflow.prototype.getWorkflows = function(mod) {
+  Util.loading(true, "Loading Overview");
   var thePanel = this.panel;
   WorkflowAgent.getWorkflows(
     { type : "all" },
@@ -58,6 +59,7 @@ Workflow.prototype.getWorkflows = function(mod) {
 			$(thePanel).innerHTML = data.html;
 			if(mod){workflow.getTemplates();}
 		}
+		Util.loading(false);
       } else {
         alert(data.reason);
       }
