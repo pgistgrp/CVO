@@ -136,7 +136,11 @@
 						</tr>
 						<!-- end CATEGORY LABEL -->
 						<!-- begin PROJECT -->
-						
+						<c:if test="${fn:length(packageRoadProjects)==0}">
+							<tr>
+								<td>No road projects were selected for this package.</td>
+							</tr>
+						</c:if>
 						<c:forEach var="project" items="${packageRoadProjects}" varStatus="loop">
 							<tr id="projId" class="fundingType">
 								<td colspan="5" class="fundingSourceItem">${project.name}</td>
@@ -166,7 +170,11 @@
 						</tr>
 						<!-- end CATEGORY LABEL -->
 						<!-- begin PROJECT -->
-
+						<c:if test="${fn:length(packageTransitProjects) == 0}">
+							<tr>
+								<td>No transit projects were selected for this package.</td>
+							</tr>
+						</c:if>
 						<c:forEach var="project" items="${packageTransitProjects}" varStatus="loop">
 							<tr id="projId-${project.projectId}" class="fundingType">
 								<td colspan="5" class="fundingSourceItem">${project.name}</td>

@@ -359,7 +359,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 			ProjectAgent.deleteProject({id:id}, {
 				callback:function(data){
 					if (data.successful){
-						new Effect.Puff("project-" + id);
+						new Effect.DropOut("project-" + id);
 					}else{
 						alert(data.reason);
 					}
@@ -377,7 +377,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 			ProjectAgent.deleteProjectAlt({id:id}, {
 				callback:function(data){
 					if (data.successful){
-						new Effect.Puff("alt-" + id, {afterFinish:function(){getProjects();}});
+						new Effect.DropOut("alt-" + id, {afterFinish:function(){getProjects();}});
 					}else{
 						alert(data.reason);
 					}

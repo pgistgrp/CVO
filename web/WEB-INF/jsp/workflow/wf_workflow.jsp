@@ -126,7 +126,7 @@
 			</c:forEach>
 	</c:forEach>
 	
-	<!--Future
+	<!--Future -->
 	<c:forEach var="sFuture" items="${workflow.situation.context.futureActivities}" varStatus="loop">
 		<pg:narrow name="sFuture"/>
 			<c:forEach var="mFuture" items="${sFuture.context.futureActivities}" varStatus="loop">
@@ -144,7 +144,7 @@
 				</c:forEach>
 			</c:forEach>
 	</c:forEach>
-	-->
+
    
 
 
