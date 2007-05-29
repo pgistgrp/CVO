@@ -122,10 +122,8 @@
                                     <var name="pmethod.cct_id" ref="meeting.cct_id"/>
                                     <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
                                     <var name="pmethod.suite_id" ref="meeting.proj_suite_id"/>
-                                </ins>
-                                <outs>
                                     <var name="pmethod.is_id" ref="meeting.proj_isid"/>
-                                </outs>
+                                </ins>
                             </declaration>
                         </pmethod>
                     </sequence>
@@ -135,10 +133,8 @@
                                 <ins>
                                     <var name="pmethod.cct_id" ref="meeting.cct_id"/>
                                     <var name="pmethod.suite_id" ref="meeting.fund_suite_id"/>
-                                </ins>
-                                <outs>
                                     <var name="pmethod.is_id" ref="meeting.fund_isid"/>
-                                </outs>
+                                </ins>
                             </declaration>
                         </pmethod>
                     </sequence>
