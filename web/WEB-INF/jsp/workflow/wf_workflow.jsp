@@ -67,11 +67,26 @@
 					<c:set var="gHistoryActivity" value="${gHistory.activity}" />
 					<pg:narrow name="gHistoryActivity"/>
 					<div class="home-row clearfix">
-						<div class="step">
-							<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mHistoryActivity.context.id}&historyId=${gHistory.id}">${gHistoryActivity.description}</a><br />
-							<small>Information about this step</small>
-						</div>
-						<div class="date">00/00</div>
+						<c:choose>
+							<c:when test="${gHistoryActivity.access == 'moderator'}">
+								<pg:show roles="moderator">
+									<div class="step">
+										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mHistoryActivity.context.id}&historyId=${gHistory.id}">${gHistoryActivity.description}</a><br />
+										<small>Information about this step</small>
+									</div>
+									<div class="date">00/00</div>
+								</pg:show>
+							</c:when>
+							<c:otherwise>
+								<pg:show roles="participant">
+									<div class="step">
+										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mHistoryActivity.context.id}&historyId=${gHistory.id}">${gHistoryActivity.description}</a><br />
+										<small>Information about this step</small>
+									</div>
+									<div class="date">00/00</div>
+								</pg:show>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</c:forEach>
 			</c:forEach>
@@ -90,37 +105,88 @@
 					<pg:narrow name="gActiveHistory"/>
 					<c:set var="gActiveHistoryActivity" value="${gActiveHistory.activity}" />
 					<pg:narrow name="gActiveHistoryActivity"/>
-					<div class="home-row clearfix">
-						<div class="step">
-							<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&historyId=${gActiveHistory.id}">${gActiveHistoryActivity.description}</a><br />
-							<small>Information about this step</small>
-						</div>
-						<div class="date">00/00</div>
-					</div>
+					<c:choose>
+						<c:when test="${gActiveHistoryActivity.access == 'moderator'}">
+							<pg:show roles="moderator">
+								<div class="home-row clearfix">
+									<div class="step">
+										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&historyId=${gActiveHistory.id}">${gActiveHistoryActivity.description}</a><br />
+										<small>Information about this step</small>
+									</div>
+									<div class="date">00/00</div>
+								</div>
+							</pg:show>
+						</c:when>
+						<c:otherwise>
+							<pg:show roles="participant">
+								<div class="home-row clearfix">
+									<div class="step">
+										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&historyId=${gActiveHistory.id}">${gActiveHistoryActivity.description}</a><br />
+										<small>Information about this step</small>
+									</div>
+									<div class="date">00/00</div>
+								</div>
+							</pg:show>
+						</c:otherwise>
+					</c:choose>
 				</c:forEach>
 				
 				<div class="box4">
 				<c:forEach var="gActive" items="${mActive.context.runningActivities}" varStatus="loop">
 					<pg:narrow name="gActive"/>
-					<div class="home-row clearfix">
-						<div class="step">
-							<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActive.id}">${gActive.description}</a><br />
-							<small>Information about this step</small>
-						</div>
-						<div class="date"><input type="button" onclick="if (window.confirm('This will publish any changes you have made with this tool.  There is no undo.')){workflow.nextStep(${workflow.id},${mActive.context.id},${gActive.id});}" value="Completed"/>	</div
+					<c:choose>
+						<c:when test="${gActive.access == 'moderator'}">
+							<pg:show roles="moderator">
+								<div class="home-row clearfix">
+									<div class="step">
+										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActive.id}">${gActive.description}</a><br />
+										<small>Information about this step</small>
+									</div>
+									<div class="date"><input type="button" onclick="if (window.confirm('This will publish any changes you have made with this tool.  There is no undo.')){workflow.nextStep(${workflow.id},${mActive.context.id},${gActive.id});}" value="Completed"/>	</div>
+								</div>
+							</pg:show>
+						</c:when>
+						<c:otherwise>
+							<pg:show roles="participant">
+								<div class="home-row clearfix">
+									<div class="step">
+										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActive.id}">${gActive.description}</a><br />
+										<small>Information about this step</small>
+									</div>
+									<div class="date"><input type="button" onclick="if (window.confirm('This will publish any changes you have made with this tool.  There is no undo.')){workflow.nextStep(${workflow.id},${mActive.context.id},${gActive.id});}" value="Completed"/>	</div>
+								</div>
+							</pg:show>
+						</c:otherwise>
+					</c:choose>
 
-					</div>
 				</c:forEach>
 				</div>
 				
 				<c:forEach var="gActiveFuture" items="${mActive.context.futureActivities}">
-					<pg:narrow name="gActiveFuture"/>
-					<div class="home-row clearfix">
-						<div class="step disabled">${gActiveFuture.description}<br />
-							<small>Information about this step</small>
-						</div>
-						<div class="date disabled">00/00</div>
-					</div>
+					<pg:narrow name="gActiveFuture"/>			
+					<c:choose>
+						<c:when test="${gActiveFuture.access == 'moderator'}">
+							<pg:show roles="moderator">
+								<div class="home-row clearfix">
+									<div class="step disabled">${gActiveFuture.description}<br />
+										<small>Information about this step</small>
+									</div>
+									<div class="date disabled">00/00</div>
+								</div>
+							</pg:show>
+						</c:when>
+						<c:otherwise>
+							<pg:show roles="participant">
+								<div class="home-row clearfix">
+									<div class="step disabled">${gActiveFuture.description}<br />
+										<small>Information about this step</small>
+									</div>
+									<div class="date disabled">00/00</div>
+								</div>
+							</pg:show>
+						</c:otherwise>
+					</c:choose>
+
 				</c:forEach>
 				
 			</c:forEach>
@@ -137,12 +203,28 @@
 	
 				<c:forEach var="gFuture" items="${mFuture.context.futureActivities}" varStatus="loop">
 					<pg:narrow name="gFuture"/>
-					<div class="home-row clearfix">
-						<div class="step disabled">${gFuture.description}<br />
-							<small>Information about this step</small>
-						</div>
-						<div class="date disabled">00/00</div>
-					</div>
+					<c:choose>
+						<c:when test="${gFuture.access == 'moderator'}">
+							<pg:show roles="moderator">
+								<div class="home-row clearfix">
+									<div class="step disabled">${gFuture.description}<br />
+										<small>Information about this step</small>
+									</div>
+									<div class="date disabled">00/00</div>
+								</div>
+							</pg:show>
+						</c:when>
+						<c:otherwise>
+							<pg:show roles="participant">
+								<div class="home-row clearfix">
+									<div class="step disabled">${gFuture.description}<br />
+										<small>Information about this step</small>
+									</div>
+									<div class="date disabled">00/00</div>
+								</div>
+							</pg:show>
+						</c:otherwise>
+					</c:choose>
 				</c:forEach>
 			</c:forEach>
 	</c:forEach>
