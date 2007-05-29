@@ -117,8 +117,10 @@
         
         <pmethod name="pmethod-cvo" description="Concern Value Object">
             <declaration>
-                <outs>
+                <ins>
                     <var name="pmethod.cct_id"/>
+                </ins>
+                <outs>
                     <var name="pmethod.theme_isid"/>
                 </outs>
             </declaration>

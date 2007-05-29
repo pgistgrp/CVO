@@ -28,8 +28,10 @@
                 </meeting>
                 <meeting name="meeting-cvo">
                     <declaration>
-                        <outs>
+                        <ins>
                             <var name="meeting.cct_id" ref="situation.cct_id"/>
+                        </ins>
+                        <outs>
                             <var name="meeting.is_id" ref="situation.theme_isid"/>
                         </outs>
                     </declaration>

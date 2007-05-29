@@ -54,16 +54,20 @@
         
         <meeting name="meeting-cvo" description="Concern Value Object">
             <declaration>
-                <outs>
+                <ins>
                     <var name="meeting.cct_id"/>
+                </ins>
+                <outs>
                     <var name="meeting.is_id"/>
                 </outs>
             </declaration>
             <sequence>
                 <pmethod name="pmethod-cvo">
                     <declaration>
-                        <outs>
+                        <ins>
                             <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                        </ins>
+                        <outs>
                             <var name="pmethod.theme_isid" ref="meeting.is_id"/>
                         </outs>
                     </declaration>
