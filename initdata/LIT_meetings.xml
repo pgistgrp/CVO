@@ -107,11 +107,9 @@
                     <var name="meeting.crit_suite_id"/>
                     <var name="meeting.proj_suite_id"/>
                     <var name="meeting.fund_suite_id"/>
-                </ins>
-                <outs>
                     <var name="meeting.proj_isid"/>
                     <var name="meeting.fund_isid"/>
-                </outs>
+                </ins>
             </declaration>
             <sequence>
                 <branch>

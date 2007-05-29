@@ -54,11 +54,9 @@
                             <var name="meeting.proj_suite_id" ref="situation.proj_suite_id"/>
                             <var name="meeting.fund_suite_id" ref="situation.fund_suite_id"/>
                             <var name="meeting.crit_suite_id" ref="situation.crit_suite_id"/>
-                        </ins>
-                        <outs>
                             <var name="meeting.proj_isid" ref="situation.proj_isid"/>
                             <var name="meeting.fund_isid" ref="situation.fund_isid"/>
-                        </outs>
+                        </ins>
                     </declaration>
                 </meeting>
                 <meeting name="meeting-packages">
