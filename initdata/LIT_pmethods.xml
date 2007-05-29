@@ -7,8 +7,11 @@
         <pmethod name="pmethod-init.situation" description="Initialize Projects">
             <declaration>
                 <outs>
+                    <var name="pmethod.cct_id"/>
                     <var name="pmethod.proj_suite_id"/>
                     <var name="pmethod.fund_suite_id"/>
+                    <var name="pmethod.proj_isid"/>
+                    <var name="pmethod.fund_isid"/>
                 </outs>
             </declaration>
             <sequence>
@@ -46,6 +49,69 @@
                         </pgame>
                     </sequence>
                 </branch>
+                <pgame name="pgame-create.cct">
+                    <declaration>
+                        <outs>
+                            <var name="cct_id" ref="pmethod.cct_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-publish.projects">
+                    <declaration>
+                        <ins>
+                            <var name="cct_id" ref="pmethod.cct_id"/>
+                            <var name="suite_id" ref="pmethod.proj_suite_id"/>
+                        </ins>
+                        <outs>
+                            <var name="is_id" ref="pmethod.proj_isid"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-publish.fundings">
+                    <declaration>
+                        <ins>
+                            <var name="cct_id" ref="pmethod.cct_id"/>
+                            <var name="suite_id" ref="pmethod.fund_suite_id"/>
+                        </ins>
+                        <outs>
+                            <var name="is_id" ref="pmethod.fund_isid"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+            </sequence>
+        </pmethod>
+        
+        <pmethod name="pmethod-global" description="Always available">
+            <declaration>
+                <ins>
+                    <var name="pmethod.proj_suite_id"/>
+                    <var name="pmethod.fund_suite_id"/>
+                    <var name="meeting.proj_isid"/>
+                    <var name="meeting.fund_isid"/>
+                </ins>
+            </declaration>
+            <sequence>
+                <branch>
+                    <sequence>
+                        <pgame name="pgame-sd.projects">
+                            <declaration>
+                                <ins>
+                                    <var name="isid" ref="pmethod.proj_isid"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                    <sequence>
+                        <pgame name="pgame-sd.fundings">
+                            <declaration>
+                                <ins>
+                                    <var name="isid" ref="pmethod.fund_isid"/>
+                                    <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                </branch>
             </sequence>
         </pmethod>
         
@@ -57,13 +123,6 @@
                 </outs>
             </declaration>
             <sequence>
-                <pgame name="pgame-create.cct">
-                    <declaration>
-                        <outs>
-                            <var name="cct_id" ref="pmethod.cct_id"/>
-                        </outs>
-                    </declaration>
-                </pgame>
                 <branch>
                     <sequence>
                         <pgame name="pgame-cvo.cct">
@@ -184,17 +243,6 @@
                         </ins>
                     </declaration>
                 </pgame>
-                <pgame name="pgame-publish.projects">
-                    <declaration>
-                        <ins>
-                            <var name="cct_id" ref="pmethod.cct_id"/>
-                            <var name="suite_id" ref="pmethod.suite_id"/>
-                        </ins>
-                        <outs>
-                            <var name="is_id" ref="pmethod.is_id"/>
-                        </outs>
-                    </declaration>
-                </pgame>
                 <pgame name="pgame-sd.projects">
                     <declaration>
                         <ins>
@@ -216,17 +264,6 @@
                 </outs>
             </declaration>
             <sequence>
-                <pgame name="pgame-publish.fundings">
-                    <declaration>
-                        <ins>
-                            <var name="cct_id" ref="pmethod.cct_id"/>
-                            <var name="suite_id" ref="pmethod.suite_id"/>
-                        </ins>
-                        <outs>
-                            <var name="is_id" ref="pmethod.is_id"/>
-                        </outs>
-                    </declaration>
-                </pgame>
                 <pgame name="pgame-sd.fundings">
                     <declaration>
                         <ins>

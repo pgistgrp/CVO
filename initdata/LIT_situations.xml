@@ -8,9 +8,22 @@
                 <meeting name="meeting-init.situation">
                     <declaration>
                         <outs>
+                            <var name="meeting.cct_id" ref="situation.cct_id"/>
                             <var name="meeting.proj_suite_id" ref="situation.proj_suite_id"/>
                             <var name="meeting.fund_suite_id" ref="situation.fund_suite_id"/>
+                            <var name="meeting.proj_isid" ref="situation.proj_isid"/>
+                            <var name="meeting.fund_isid" ref="situation.fund_isid"/>
                         </outs>
+                    </declaration>
+                </meeting>
+                <meeting name="meeting-global">
+                    <declaration>
+                        <ins>
+                            <var name="meeting.proj_suite_id" ref="situation.proj_suite_id"/>
+                            <var name="meeting.fund_suite_id" ref="situation.fund_suite_id"/>
+                            <var name="meeting.proj_isid" ref="situation.proj_isid"/>
+                            <var name="meeting.fund_isid" ref="situation.fund_isid"/>
+                        </ins>
                     </declaration>
                 </meeting>
                 <meeting name="meeting-cvo">

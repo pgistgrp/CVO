@@ -7,17 +7,46 @@
         <meeting name="meeting-init.situation" description="Initialize Decision Situation">
             <declaration>
                 <outs>
+                    <var name="meeting.cct_id"/>
                     <var name="meeting.proj_suite_id"/>
                     <var name="meeting.fund_suite_id"/>
+                    <var name="meeting.proj_isid"/>
+                    <var name="meeting.fund_isid"/>
                 </outs>
             </declaration>
             <sequence>
                 <pmethod name="pmethod-init.situation">
                     <declaration>
                         <outs>
+                            <var name="pmethod.cct_id" ref="meeting.cct_id"/>
                             <var name="pmethod.proj_suite_id" ref="meeting.proj_suite_id"/>
                             <var name="pmethod.fund_suite_id" ref="meeting.fund_suite_id"/>
+                            <var name="pmethod.proj_isid" ref="meeting.proj_isid"/>
+                            <var name="pmethod.fund_isid" ref="meeting.fund_isid"/>
                         </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
+        <meeting name="meeting-global" description="Always available">
+            <declaration>
+                <ins>
+                    <var name="meeting.proj_suite_id"/>
+                    <var name="meeting.proj_suite_id"/>
+                    <var name="meeting.proj_isid"/>
+                    <var name="meeting.fund_isid"/>
+                </ins>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-global">
+                    <declaration>
+                        <ins>
+                            <var name="pmethod.proj_suite_id" ref="meeting.proj_suite_id"/>
+                            <var name="pmethod.fund_suite_id" ref="meeting.fund_suite_id"/>
+                            <var name="pmethod.proj_isid" ref="meeting.proj_isid"/>
+                            <var name="pmethod.fund_isid" ref="meeting.fund_isid"/>
+                        </ins>
                     </declaration>
                 </pmethod>
             </sequence>
