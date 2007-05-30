@@ -26,7 +26,7 @@ public class MockCriteriaDAO implements CriteriaDAO {
 	}
 	
 	
-	public Collection getOrphanThemes(Long suiteId) {
+	public Collection getOrphanThemes(Long suiteId, Collection themes) {
 		return null;
 	}
 	

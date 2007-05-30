@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.HashMap;
 
 import org.pgist.cvo.Theme;
 import org.pgist.system.BaseDAOImpl;
@@ -360,9 +361,29 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     }
     
     
-    public Collection getOrphanThemes(Long suiteId) throws Exception {
+    private static final String hql_getOrphanThemes = "from Criteria c where c.suite=?";
+    
+    public Collection getOrphanThemes(Long suiteId, Collection themes) throws Exception {
+    	HashSet usedThemes = new HashSet();
+    	CriteriaSuite cs = getCriteriaSuiteById(suiteId);
     	
-    	return null;
+    	List list = getHibernateTemplate().find(hql_getOrphanThemes, new Object[] {
+                cs,
+        });
+    	
+    	Iterator it = list.iterator();
+    	while(it.hasNext()) {
+    		Criteria c = (Criteria)it.next();
+    		usedThemes.addAll(c.getThemes());
+    	}
+    	
+    	Iterator utIt = usedThemes.iterator();
+    	while(utIt.hasNext()) {
+    		Theme t = (Theme) utIt.next();
+    		themes.remove(t);
+    	}
+    	
+    	return themes;
     }
     
     

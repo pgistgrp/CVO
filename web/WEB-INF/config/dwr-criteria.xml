@@ -43,6 +43,7 @@
 	<include method="getWeight"/>
 	<include method="getCriteriaSuiteById"/>
 	<include method="getContainsCriteria"/>
+	<include method="getOrphanThemes"/>
     </create>
 
 

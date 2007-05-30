@@ -270,8 +270,10 @@ public class CriteriaServiceImpl implements CriteriaService {
     }
     
     
-    public Collection getOrphanThemes(Long suiteId) throws Exception {
-    	return criteriaDAO.getOrphanThemes(suiteId);
+    public Collection getOrphanThemes(Long suiteId, Long cctId) throws Exception {
+    	Collection themes = getThemes(cctId);
+    	
+    	return criteriaDAO.getOrphanThemes(suiteId, themes);
     }
     
     

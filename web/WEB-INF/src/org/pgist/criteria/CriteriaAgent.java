@@ -700,6 +700,7 @@ public class CriteriaAgent {
         try {
         	Collection themes;
         	Long critSuiteId = Long.parseLong(strCritSuiteId);
+        	
         	Collection criteria = criteriaService.getAllCriterion(critSuiteId);
         	
         	if(useCctId){
@@ -707,6 +708,7 @@ public class CriteriaAgent {
         		themes = criteriaService.getThemes(cctId);
         		request.setAttribute("themes", themes); 
         		map.put("themes", themes);
+        		request.setAttribute("cctId", cctId); 
         	} 
         	
         	request.setAttribute("criteria", criteria); 
@@ -972,8 +974,8 @@ public class CriteriaAgent {
      * 
      * @param params a Map contains:
      *   <ul>
-     *     <li>critSuiteId - int, id of a CriteriaSuite object</li>
-     *     <li>weight - int, weight value</li>
+     *     <li>critSuiteId - long, id of a CriteriaSuite object</li>
+     *     <li>cctId - long, cctId</li>
      *   </ul>
      * @return a Map contains:
      *   <ul>
@@ -986,16 +988,25 @@ public class CriteriaAgent {
         map.put("successful", false);
         
         String strId = (String)params.get("critSuiteId");
+        String strCctId = (String)params.get("cctId");
         
         if(strId==null || "".equals(strId.trim())){
         		map.put("reason", "critSuiteId cannot be null.");
         		return map;	
         }
+
+        
+        if(strCctId==null || "".equals(strCctId.trim())){
+        		map.put("reason", "cctId cannot be null.");
+        		return map;	
+        }
         
         Long suiteId = Long.parseLong(strId); 
+        Long cctId = Long.parseLong(strCctId); 
         
         try {        	
-        	Collection themes = criteriaService.getOrphanThemes(suiteId);
+        	Collection themes = criteriaService.getOrphanThemes(suiteId, cctId);
+        	
         	map.put("themes", themes);
             map.put("successful", true);
         } catch (Exception e) {
