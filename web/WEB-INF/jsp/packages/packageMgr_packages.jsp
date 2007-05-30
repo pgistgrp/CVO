@@ -8,6 +8,7 @@
 
 <h3 class="headerColor">Automatically Created Packages </h3>
 <p>Participant packages will be clustered on -- workflow date -- (Beginning of Step 4a)</p>
+${clusteredDate}
 <c:if test="${clusteredDate}">
 	<p>On ${clusteredDate}, participant packages were clustered into 6 packages below</p>
 </c:if>

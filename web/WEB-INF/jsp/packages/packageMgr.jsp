@@ -189,9 +189,8 @@ td.col1 a {display:block;text-decoration:underline;}
 	<h2 class="headerColor">Moderator Package Manager</h2>
 	<br>
 	<span class="floatLeft" style="width:49%;border-right:1px solid #ccc;padding-right:1%;">
-	<h3 class="headerColor">Automatically Created Packages </h3>
-	<p>Participant packages will be clustered on 11/06/07 (Beginning of Step 4a)</p>
-	<p>[On 11/06/07, participant packages were clustered into 6 packages below]</p>
+
+
 	<div id="newtable">
 		<!-- load clustered packages via js-->
 	</div>
@@ -239,7 +238,7 @@ td.col1 a {display:block;text-decoration:underline;}
 <script type="text/javascript" charset="utf-8">
 	getManualPackages()
 	getClusteredPackages();
-</script> 
+</script>
 <!-- end container -->
 <!-- End footer -->
 </body>
