@@ -314,6 +314,7 @@ System.out.println("MATT ____________()()()()(Configuring");
             request.setAttribute("projSuiteId", projSuiteId);
             request.setAttribute("fundSuiteId", fundSuiteId);
             request.setAttribute("critSuiteId", critSuiteId);
+            request.setAttribute("userClusteredPkgId", pSuite.getUsersClusteredPackage(this.packageService.getUser(WebUtils.currentUser())));
             
             //request.setAttribute("packages", pSuite.getClusteredPkgs());
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/packageMgr_packages.jsp"));            

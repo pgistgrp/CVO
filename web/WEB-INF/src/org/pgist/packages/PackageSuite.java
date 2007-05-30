@@ -1,7 +1,10 @@
 package org.pgist.packages;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
+
+import org.pgist.users.User;
 
 
 /**
@@ -87,6 +90,34 @@ public class PackageSuite {
     public void setVoteSuites(Set<PackageVoteSuite> voteSuites) {
         this.voteSuites = voteSuites;
     }
+
+
+    /**
+     * Returns the ID of the clustered package that this users package ended up in
+     * 
+     * @param user 	The user 
+     * @return The ID of the clustered package, null if that doesn't exist
+     */
+	public Long getUsersClusteredPackage(User user) {
+		//Get the Users Package
+		Iterator<UserPackage> iUserPkgs;
+		UserPackage tempPackage;
+		
+		Iterator<ClusteredPackage> iClusteredPkgs = this.clusteredPkgs.iterator();
+		ClusteredPackage tempCluster = null;
+		while(iClusteredPkgs.hasNext()) {
+			tempCluster = iClusteredPkgs.next();
+			
+			iUserPkgs = tempCluster.getUserPkgs().iterator();
+			while(iUserPkgs.hasNext()) {
+				tempPackage = iUserPkgs.next();
+				if(tempPackage.getAuthor().getId() == user.getId()) {
+					return tempCluster.getId();
+				}
+			}
+		}
+		return null;
+	}
     
     
 }//class PackageSuite

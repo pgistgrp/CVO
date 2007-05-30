@@ -58,6 +58,7 @@ public class PackageServiceImpl implements PackageService {
 	
     CriteriaDAO criteriaDAO;
     
+    public static final String CLUSTERED_PACKAGE_NAME = "Package";
     
     public void setCriteriaDAO(CriteriaDAO criteriaDAO) {
         this.criteriaDAO = criteriaDAO;
@@ -1063,11 +1064,13 @@ public class PackageServiceImpl implements PackageService {
 		ItemCluster temp;
 		PackageItem tempItem;
 		UserPackage uPack;
+		int num = 1;
 		while(i.hasNext()) {
 			temp = i.next();
 			
 			cp = new ClusteredPackage();
 			cp.setManual(false);
+			cp.setDescription(CLUSTERED_PACKAGE_NAME + " " + num);
 			
 			//Set the medoid properties as the new cluster properties
 			tempItem = (PackageItem)temp.getMediod();
@@ -1092,6 +1095,7 @@ public class PackageServiceImpl implements PackageService {
 			}
 			packageDAO.save(cp);
 			result.add(cp);
+			num++;
 		}		
         
         pSuite.setClusteredPkgs(result);
