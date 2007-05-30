@@ -94,4 +94,9 @@ public class MockPackageDAO implements PackageDAO {
 	public PackageSuite getSavePkgSuite() {
 		return p;
 	}
+
+	public void delete(ClusteredPackage cp) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 }
