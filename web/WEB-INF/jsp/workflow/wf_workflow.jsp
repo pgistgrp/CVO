@@ -61,7 +61,11 @@
 				<pg:narrow name="mHistory"/>
 				<c:set var="mHistoryActivity" value="${mHistory.activity}" />
 				<pg:narrow name="mHistoryActivity"/>
+				
 				<h4 class="headerColor clearBoth step-header">${mHistoryActivity.description}</h4>
+				<c:if test="${mHistoryActivity.description == 'Always available'}"><!--ugly!-->
+					<div class="box4">
+				</c:if>
 				<c:forEach var="gHistory" items="${mHistoryActivity.context.histories}" varStatus="loop">		
 					<pg:narrow name="gHistory"/>
 					<c:set var="gHistoryActivity" value="${gHistory.activity}" />
@@ -89,6 +93,9 @@
 						</c:choose>
 					</div>
 				</c:forEach>
+				<c:if test="${mHistoryActivity.description == 'Always available'}">
+					</div>
+				</c:if>
 			</c:forEach>
 				
 	</c:forEach>
@@ -101,6 +108,7 @@
 			<c:forEach var="mActive" items="${sActive.context.pendingActivities}" varStatus="loop">
 				<pg:narrow name="mActive"/>
 				<h4 class="headerColor clearBoth step-header">${mActive.description}</h4>
+
 				<c:forEach var="gActiveHistory" items="${mActive.context.histories}">
 					<pg:narrow name="gActiveHistory"/>
 					<c:set var="gActiveHistoryActivity" value="${gActiveHistory.activity}" />
@@ -130,6 +138,7 @@
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
+
 				
 				<div class="box4">
 				<c:forEach var="gActive" items="${mActive.context.runningActivities}" varStatus="loop">

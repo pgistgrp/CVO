@@ -31,10 +31,10 @@ Workflow.prototype.createInstance = function() {
 	}
 	if(templateId && description != "" && name != ""){
 		WorkflowAgent.createInstance(
-	    { situationId : templateId },
+	    { situationId : templateId, name:name, description:description },
 	    function(data) {
 	      if (data.successful) {
-			workflow.getWorkflows();
+			workflow.getWorkflows('mod');
 	      } else {
 	        alert(data.reason);
 	      }
