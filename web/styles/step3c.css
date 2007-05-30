@@ -18,7 +18,7 @@ border-bottom-color:#FFE3B9;
 }
 
 #helpMe img {vertical-align:middle;margin-right:10px}
-#helpMe h4 {margin:3px 0px;font-size:1.1em;}
+#helpMe h4 {margin:3px 0px;font-size:11pt;}
 
 /* .balance and .exceed are classes for the revenue summary.
    Balance is green and exceed is red. */
@@ -36,26 +36,28 @@ background:#E5A9A6;
 }
 
 .summary table {width:100%;}
-.summary table td {font-size:.9em;}
-.summary table td + td {text-align:right;font-size:.9em;}
+.summary table td {font-size:9pt;}
+.summary table td + td {text-align:right;font-size:9pt;}
 
-#newTable #left table {width:100%}
-#newTable #left td {font-size:.7em;}
-#newTable #left td.fundingSourceItem {width:65%;font-size:.85em;}
-#newTable #left td.fundingSourceItem + td {width:35%;}
+#projectsTable th {font-size:10pt;}
+#projectsTable th.col2 {text-align:right;padding-right:5px}
+#projectsTable table {width:100%}
+#projectsTable td {font-size:9pt;}
+#projectsTable .first{width:65%;font-size:9pt;}
+#projectsTable .col2{width:35%;}
+#projectsTable td.fundingSourceItem + td {width:35%;}
 
 
 #left {width:420px;margin-bottom:2em;}
-#right {width:520px;margin-bottom:2em;}
 
-
-#newTable #right table {width:100%;}
-#newTable #right td {font-size:.7em;text-align:center;}
-#newTable #right td.fundingSourceItem label {font-size:.85em;}
-#newTable #right td.fundingSourceItem {width:45%;text-align:left;font-size:.8em;}
-#newTable #right td.fundingSourceItem + td {width:20%;}
-#newTable #right td.fundingSourceItem + td + td {width:20%;}
-#newTable #right td.fundingSourceItem + td + td +td{width:15%;}
+.fundingTypeCol2{text-align:right;}
+#fundingTable table {width:100%;}
+#fundingTable th {font-size:10pt;text-align:center;}
+#fundingTable td {font-size:9pt;}
+#fundingTable .first{width:170px;text-align:left;}
+#fundingTable .col2{text-align:center;}
+#fundingTable .col3{text-align:center;}
+#fundingTable .col4{text-align:center;}
 
 #map {margin:0px auto 10px auto;}
 

@@ -451,13 +451,13 @@
 							<div class="floatRight"><a href="javascript:window.open('tuner.do?usrPkgId=${userPkg.id}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}','helpMe','width=1000,height=500,resizable=yes,scrollbars=yes'); void(0);"> <img src="images/tuneup.gif">Fine tune a package</a></div>
 						</form>
 					</div><!--end help me-->
-					<div class="clearBoth"></div>
+					<div class="clearBoth"><br/></div>
 
 					<!-- begin collapsible list of projects -->
-					<table cellpadding=0 cellspacing=0>
+					<table id="projectsTable" cellpadding=0 cellspacing=0>
 						<tr class="tableHeading">
 							<th colspan="2" class="first">All Proposed Projects</th>
-							<th>Money Needed</th>
+							<th class="col2">Money Needed</th>
 						</tr>
 						<c:forEach var="category" begin="1" end="2">
 							<!-- start road projects -->
@@ -478,7 +478,7 @@
 									<!-- begin PROJECT -->
 									<tr class="${(projectRef.project.inclusive) ? 'fundingType' : 'fundingType2'}">
 										<td class="fundingSourceItem">${projectRef.project.name} Options</td>
-										<td colspan="2"> ${(projectRef.project.inclusive) ? 'Select at most one' : 'Select any number'} </td>
+										<td colspan="2" align="right"> ${(projectRef.project.inclusive) ? 'Select at most one' : 'Select any number'} </td>
 									</tr>
 									<!-- end PROJECT -->
 									<tr class="objectives" id="objective${projectRef.id}">
@@ -505,7 +505,7 @@
 															});
 													</script>
 													<tr>
-														<td>
+														<td class="first">
 															<label>
 															<c:choose>
 																<c:when test="${projectRef.project.inclusive}">
@@ -560,27 +560,27 @@
 					<br />
 					
 					<!-- end collapsible project list -->
-					<table cellpadding="0" cellspacing="0">
+					<table cellpadding="0" cellspacing="0" id="fundingTable">
 						<tr class="tableHeading">
 							<th class="first">Funding Source</th>
-							<th>Money Raised</th>
-							<th>Cost to the avg. taxpayer</th>
+							<th class="col2">Money Raised</th>
+							<th class="col3">Cost to the avg. taxpayer</th>
 							<c:if test="${userPkg != null}">
-								<th>Cost to you</th>
+								<th class="col4">Cost to you</th>
 							</c:if>
 						</tr>
 						<!-- begin FUNDING source -->
 						<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
 							<tr class="fundingType">
 								<td class="fundingSourceItem">${fundingRef.source.name}</td>
-								<td colspan="3">One option will be chosen</td>
+								<td colspan="3" class="fundingTypeCol2">One option will be chosen</td>
 							</tr>
 							<!-- end FUNDING source -->
 							<!-- begin OPTIONS -->
 							<c:set var="doNothing"value="true"/>
 							<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
 								<tr>
-									<td class="fundingSourceItem">
+									<td class="fundingSourceItem first">
 										<label>
 										<c:choose>
 											<c:when test="${userPkg !=null}">
@@ -593,10 +593,10 @@
 
 										${altRef.alternative.name}</label>
 									</td>
-									<td><fmt:formatNumber type="currency">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
-									<td><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
+									<td class="col2"><fmt:formatNumber type="currency">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
+									<td class="col3"><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
 									<c:if test="${userPkg != null}">
-										<td><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
+										<td class="col4"><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
 									</c:if>						
 								</tr>
 								<c:choose>
