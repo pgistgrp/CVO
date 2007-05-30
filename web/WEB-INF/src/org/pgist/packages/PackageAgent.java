@@ -1,5 +1,6 @@
 package org.pgist.packages;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -307,7 +308,11 @@ System.out.println("MATT ____________()()()()(Configuring");
             Long pkgSuiteId = new Long((String) params.get("pkgSuiteId"));
             
             PackageSuite pSuite = this.packageService.getPackageSuite(pkgSuiteId);
-
+            Date clusteredDate = null;
+            if(pSuite.getClusteredPkgs().size() > 0) {
+                ClusteredPackage tempCluster = pSuite.getClusteredPkgs().iterator().next();
+                clusteredDate = tempCluster.getCreateDate();
+            }
             Set packages = pSuite.getClusteredPkgs();
             request.setAttribute("packages", packages);
             request.setAttribute("pkgSuiteId", pkgSuiteId);
@@ -315,10 +320,12 @@ System.out.println("MATT ____________()()()()(Configuring");
             request.setAttribute("fundSuiteId", fundSuiteId);
             request.setAttribute("critSuiteId", critSuiteId);
             request.setAttribute("userClusteredPkgId", pSuite.getUsersClusteredPackage(this.packageService.getUser(WebUtils.currentUser())));
-            
+            request.setAttribute("clusteredDate", clusteredDate);           
             //request.setAttribute("packages", pSuite.getClusteredPkgs());
+
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/packageMgr_packages.jsp"));            
             map.put("successful", true);
+
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());

@@ -102,15 +102,16 @@ public class PackageSuite {
 		//Get the Users Package
 		Iterator<UserPackage> iUserPkgs;
 		UserPackage tempPackage;
-		
+System.out.println("MATT Getting the users cluster");		
 		Iterator<ClusteredPackage> iClusteredPkgs = this.clusteredPkgs.iterator();
 		ClusteredPackage tempCluster = null;
 		while(iClusteredPkgs.hasNext()) {
 			tempCluster = iClusteredPkgs.next();
-			
+System.out.println("In cluster " + tempCluster.getId());			
 			iUserPkgs = tempCluster.getUserPkgs().iterator();
 			while(iUserPkgs.hasNext()) {
 				tempPackage = iUserPkgs.next();
+System.out.println("Got a user package of ID " + tempPackage.getId() + " with an author of " + tempPackage.getAuthor().getId() + " Users ID is " + user.getId());
 				if(tempPackage.getAuthor().getId() == user.getId()) {
 					return tempCluster.getId();
 				}

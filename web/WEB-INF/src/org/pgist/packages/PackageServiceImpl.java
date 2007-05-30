@@ -1071,6 +1071,7 @@ public class PackageServiceImpl implements PackageService {
 			cp = new ClusteredPackage();
 			cp.setManual(false);
 			cp.setDescription(CLUSTERED_PACKAGE_NAME + " " + num);
+			cp.setCreateDate(new Date());
 			
 			//Set the medoid properties as the new cluster properties
 			tempItem = (PackageItem)temp.getMediod();
