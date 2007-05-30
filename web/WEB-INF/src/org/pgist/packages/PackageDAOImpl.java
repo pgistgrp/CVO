@@ -47,6 +47,10 @@ public class PackageDAOImpl extends BaseDAOImpl implements PackageDAO {
         getHibernateTemplate().delete(a);
     }//delete()		
 	
+    public void delete(ClusteredPackage cp) throws Exception {
+        getHibernateTemplate().delete(cp);
+    }//delete()	    
+    
 	public UserPackage getUserPackage(Long pid) {
 		return (UserPackage)getHibernateTemplate().get(UserPackage.class, pid);
 	}

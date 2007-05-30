@@ -1030,17 +1030,17 @@ public class PackageServiceImpl implements PackageService {
         FundingSourceSuite fundSuite = this.fundingDAO.getFundingSuite(fundSuiteId);
         
         //Clean out old non manual clustered packages
-        Iterator<ClusteredPackage> iCPackages = pSuite.getClusteredPkgs().iterator();
+        Iterator<ClusteredPackage> iCPackages = new ArrayList<ClusteredPackage>(pSuite.getClusteredPkgs()).iterator();
                         
-        Set<ClusteredPackage> result = new HashSet<ClusteredPackage>();
         ClusteredPackage cp;
+        //Remove the old clusters from the package suite
         while(iCPackages.hasNext()) {
         	cp = iCPackages.next();
-        	if(cp.isManual()) {
-        		result.add(cp);
+        	if(!cp.isManual()) {        		
+        		pSuite.getClusteredPkgs().remove(cp);
         	}
         }
-                
+        
         //Convert to PackageItems for clustering
         ProjectItemFactory pFactory = new ProjectItemFactory();
         pFactory.prepareFactory(projSuite, fundSuite);
@@ -1071,7 +1071,9 @@ public class PackageServiceImpl implements PackageService {
 			cp = new ClusteredPackage();
 			cp.setManual(false);
 			cp.setDescription(CLUSTERED_PACKAGE_NAME + " " + num);
+			cp.setSuite(pSuite);
 			cp.setCreateDate(new Date());
+			packageDAO.save(cp);
 			
 			//Set the medoid properties as the new cluster properties
 			tempItem = (PackageItem)temp.getMediod();
@@ -1091,23 +1093,25 @@ public class PackageServiceImpl implements PackageService {
 			while(iItems.hasNext()) {
 				tempItem = (PackageItem)iItems.next();
 				uPack = packageDAO.getUserPackage(tempItem.getUserPkgId());
-				uPack.updateCalculations();
 				cp.getUserPkgs().add(uPack);
 			}
 			
 			//Add the medoid package
 			tempItem = (PackageItem)temp.getMediod();
 			uPack = packageDAO.getUserPackage(tempItem.getUserPkgId());
-			uPack.updateCalculations();
 			cp.getUserPkgs().add(uPack);
 			
+			//For some reason you cannot save the user package into the clustered package.
+			System.out.println("MATT added the medoid so now we have " + cp.getUserPkgs().size() + " in cluster " + cp.getId() + " with uPack " + uPack.getId());
+			
+			
+			cp.updateCalculations();
 			
 			packageDAO.save(cp);
-			result.add(cp);
+			pSuite.getClusteredPkgs().add(cp);
 			num++;
 		}		
-        
-        pSuite.setClusteredPkgs(result);
+       
         packageDAO.save(pSuite);               
 	}
 	
@@ -1155,6 +1159,9 @@ public class PackageServiceImpl implements PackageService {
 		
 		//Using the total funding available, not figure out what projects should be in the package
 		findBestProjectSolution(upack, conf, upack.getTotalFunding(), cWeights);
+
+		//Recalculate to find the total projects cost
+		upack.updateCalculations();	
 		
 		//Save the result
 		this.packageDAO.save(upack);		

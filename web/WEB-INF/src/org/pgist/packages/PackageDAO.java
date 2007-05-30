@@ -27,6 +27,7 @@ public interface PackageDAO extends BaseDAO {
 
 	PackageVoteSuite getVoteSuite(Long voteSuiteId) throws Exception;
 	void delete(VoteSuiteStat stat) throws Exception;
+	void delete(ClusteredPackage cp) throws Exception;
     
     
 }//interface PackageDAO

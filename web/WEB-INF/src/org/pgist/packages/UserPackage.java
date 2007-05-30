@@ -43,13 +43,14 @@ public class UserPackage extends Package {
      */
     public void updateCalculations() {
     	//System.out.println("MATT: Updating cost for the [" + this.projAltRefs.size() + "] projects and [" + this.fundAltRefs.size() + "] funding sources");
+printPersonalCost();
     	this.totalCost = 0;
     	this.totalFunding = 0;
     	this.avgResidentCost = 0;
     	this.yourCost = 0;
   
     	Iterator<ProjectAltRef> projects = this.projAltRefs.iterator();
-    	
+System.out.println("MATT *&*&*&*& I have " + this.projAltRefs.size() + " projects");    	
     	while(projects.hasNext()) {
     		totalCost = totalCost + (float)projects.next().getAlternative().getCost();
     	}
