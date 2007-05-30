@@ -339,7 +339,7 @@
 
 
 <body>
-	<p><a href="main.do">Back to Moderator Control Panel</a></p>
+	<p><a href="userhome.do">Back to Moderator Control Panel</a></p>
 	<h1>Manage Funding Sources</h1>
 	<h3>Manage all funding sources and their associated alternatives.</h3>
 

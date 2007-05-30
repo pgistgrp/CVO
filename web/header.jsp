@@ -12,13 +12,13 @@
 	<div id="header-navigation">
 		<c:choose>
 			<c:when test="${baseuser != null}">
-				<span><a href="main.do">Home</a></span>
+				<span><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Home</a></span>
 				<span><a href="lmMenu.do">Learn More</a></span>
 				<span><a href="usercp.do">User Settings</a></span>
 				<span><a href="/logout.do">Log out</a></span>
 			</c:when>
 			<c:otherwise>
-				<span><a href="main.do">Home</a></span>
+				<span><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Home</a></span>
 				<span><a href="lmMenu.do">Learn More</a></span>
 				<span><a href="/login.do">Log in</a></span>
 			</c:otherwise>

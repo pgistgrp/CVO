@@ -373,7 +373,7 @@
 </head>
 
 <body>
-	<a href="main.do">Back to Moderator Control Panel</a>
+	<a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a>
 	<h2>Define Planning Factors</h2>
 	<!-- Begin list of planning factors -->
 	
@@ -409,7 +409,7 @@
 		<br />
 		<h4>Finished Managing Planning Factors?</h4>
 
-		<p><input type="button" style="padding:5px" onClick="location.href='userhome.do'" 
+		<p><input type="button" style="padding:5px" onClick="location.href='userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" 
 			value="Finished!"/></p>
 
 		<!--end publishing options -->

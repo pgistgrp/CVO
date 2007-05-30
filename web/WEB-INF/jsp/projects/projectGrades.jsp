@@ -82,7 +82,7 @@
 	<event:pageunload />
 	</head>
 	<body>
-		<p><a href="main.do">Back to Moderator Control Panel</a></p>
+		<p><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
 		<h1>Grade Projects on Criteria Objectives</h1>
 		<!-->
 		<a href="javascript:ddtreemenu.flatten('treemenu1', 'expand')">Expand All</a> | 
@@ -127,7 +127,7 @@
 		<!-- this button just redirects - saves are occuring on check. -->
 		<p>
 		<input type="button" style="padding:5px;" 
-		onClick="location.href='userhome.do'" value="Finished!"/></p></div>
+		onClick="location.href='userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" value="Finished!"/></p></div>
 		
 		<script type="text/javascript">
 			//ddtreemenu.createTree(treeid, enablepersist, opt_persist_in_days (default is 1))

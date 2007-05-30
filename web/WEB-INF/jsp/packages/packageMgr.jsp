@@ -179,7 +179,7 @@ td.col1 a {display:block;text-decoration:underline;}
 <!-- #container is the container that wraps around all the main page content -->
 
 <div id="container">
-	<p><a href="main.do">Back to Moderator Control Panel</a></p>
+	<p><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
 	<!-- begin "overview and instructions" area -->
 	<div id="overview" class="box2">
 		<h3>Overview and Instructions</h3>
@@ -234,7 +234,7 @@ td.col1 a {display:block;text-decoration:underline;}
 	<input type="button" value="Publish Packages" onClick="publishPackages();" class="padding5">-->
 		<h3>Finished managing packages?</h3>
 	<!-- this button just redirects - saves are occuring on check. -->
-	<p><input type="button" style="padding:5px" onClick="location.href='userhome.do'" value="Finished!"/></p>
+	<p><input type="button" style="padding:5px" onClick="location.href='userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" value="Finished!"/></p>
 </div>
 <script type="text/javascript" charset="utf-8">
 	getManualPackages()

@@ -94,7 +94,7 @@
 
 
 <body>
-	<p><a href="main.do">Back to Moderator Control Panel</a></p>
+	<p><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
 	<h1>Define Projects for this Experiment</h1>
 	<p>Which projects are available for the "Let's Improve Transportation Challenge" experiment? Go to <a href="projectManage.do">manage projects</a> to add/remove projects.</p>
 	<form method="POST" name="publishProjects" action="projectDefine.do">
@@ -128,7 +128,7 @@
 	<div style="width:700px">
 	<h3 align="right">Finished selecting project alternatives?</h3>
 	<!-- this button just redirects - saves are occuring on check. -->
-	<p align="right"><input type="button" style="padding:5px;" onClick="location.href='userhome.do'" value="Finished!"/></p></div>
+	<p align="right"><input type="button" style="padding:5px;" onClick="location.href='userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" value="Finished!"/></p></div>
 </body>
 </html:html>
 
