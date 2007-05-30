@@ -1094,6 +1094,14 @@ public class PackageServiceImpl implements PackageService {
 				uPack.updateCalculations();
 				cp.getUserPkgs().add(uPack);
 			}
+			
+			//Add the medoid package
+			tempItem = (PackageItem)temp.getMediod();
+			uPack = packageDAO.getUserPackage(tempItem.getUserPkgId());
+			uPack.updateCalculations();
+			cp.getUserPkgs().add(uPack);
+			
+			
 			packageDAO.save(cp);
 			result.add(cp);
 			num++;

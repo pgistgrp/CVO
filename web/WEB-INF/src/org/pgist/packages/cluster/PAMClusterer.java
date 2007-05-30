@@ -22,7 +22,8 @@ public class PAMClusterer {
 	 * @return	A collection of item clusters identifying what items go into what cluster
 	 */
 	public static Collection<ItemCluster> calcClusters(int numClusters, Collection<Item> items) {
-				
+		//System.out.println("MATT: I want" + numClusters +"  clusters from these " + items.size() + " items ");
+		//printCollection("In clusters ", items);
 		//Create two collections one will store the medoids, the other will store all the other items
 		Collection<Item> medoids = new ArrayList<Item>();
 		Collection<Item> remaining = new ArrayList<Item>(items);
@@ -85,9 +86,9 @@ public class PAMClusterer {
 					favCluster = tempPAMCl;
 				}
 			}
-			
+			System.out.println("Checking for the closes cluster");
 			//Now that you have the favorite, add it
-			if(favCluster != null) {				
+			if(favCluster != null) {	
 				favCluster.getItems().add(tempItem);
 			}
 		}		
