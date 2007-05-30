@@ -11,7 +11,7 @@ import org.pgist.web.DelegatingHttpServletRequestWrapper;
 
 /**
  * 
- * @author kenny
+ * @author John
  *
  */
 public interface RegisterDAO extends BaseDAO {
@@ -33,5 +33,7 @@ public interface RegisterDAO extends BaseDAO {
 	void setToll(Long id, Long myTollId, boolean boolchecked) throws Exception;
 	
 	boolean checkUsername(String username) throws Exception;
+	
+	User getCurrentUser(Long id) throws Exception;
 	
 }

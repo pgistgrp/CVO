@@ -16,7 +16,7 @@ import org.pgist.web.DelegatingHttpServletRequestWrapper;
 
 /**
  * 
- * @author kenny
+ * @author John
  *
  */
 public interface RegisterService {
@@ -42,5 +42,7 @@ public interface RegisterService {
 	void setToll(Long myTollId, boolean boolchecked) throws Exception;
 	
 	boolean checkUsername(String username) throws Exception;
+	
+	User getCurrentUser() throws Exception;
 	
 }

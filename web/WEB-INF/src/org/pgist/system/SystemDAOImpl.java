@@ -33,7 +33,7 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     
     private static final String hql_getFeedbacks_1 = "select count(fb.id) from Feedback fb";
     
-    private static final String hql_getFeedbacks_2 = "from Feedback fb order by fb.id";
+    private static final String hql_getFeedbacks_2 = "from Feedback fb order by fb.id desc";
     
     
     public Collection getFeedbacks(PageSetting setting) throws Exception {

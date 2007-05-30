@@ -173,12 +173,11 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     } //getAllCriterion();
     
 
-    private static final String hql_getAllCriterion3 = "from Criteria c where c.deleted=? and c.suite=? order by c.name";
+    private static final String hql_getAllCriterion3 = "from Criteria c where c.deleted=? and c.suite.id=? order by c.name";
     
-    public Collection getAllCriterion(Long critSuiteId) throws Exception { 
-    	CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
+    public Collection getAllCriterion(Long critSuiteId) throws Exception {    	
     	return getHibernateTemplate().find(hql_getAllCriterion3, new Object[] {
-                false, cs});
+                false, critSuiteId});
     } //getAllCriterion();
     
     
@@ -358,6 +357,12 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	Objective o = (Objective)load(Objective.class, objectiveId);
     	o.setDescription(description);
     	save(o);
+    }
+    
+    
+    public Collection getOrphanThemes(Long suiteId) throws Exception {
+    	
+    	return null;
     }
     
     

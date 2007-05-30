@@ -93,4 +93,7 @@ public interface CriteriaService {
     void editObjective(Long objectiveId, String description) throws Exception;
     
     
+    Collection getOrphanThemes(Long suiteId) throws Exception;
+    
+    
 }//interface CriteriaService

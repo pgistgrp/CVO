@@ -11,7 +11,7 @@ import org.pgist.system.SystemService;
 
 /**
  * 
- * @author kenny
+ * @author John
  *
  */
 public class RegisterServiceImpl implements RegisterService {
@@ -100,4 +100,11 @@ public class RegisterServiceImpl implements RegisterService {
     	
     	return registerDAO.checkUsername(username);
     }
+    
+    public User getCurrentUser() throws Exception {
+    	Long id = WebUtils.currentUserId();
+    	return registerDAO.getCurrentUser(id);
+    }
+    
+    
 }

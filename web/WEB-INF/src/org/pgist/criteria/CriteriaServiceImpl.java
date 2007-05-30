@@ -269,4 +269,10 @@ public class CriteriaServiceImpl implements CriteriaService {
     	criteriaDAO.editObjective(objectiveId, description);
     }
     
+    
+    public Collection getOrphanThemes(Long suiteId) throws Exception {
+    	return criteriaDAO.getOrphanThemes(suiteId);
+    }
+    
+    
 }//class CriteriaServiceImpl

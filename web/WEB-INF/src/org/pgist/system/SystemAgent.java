@@ -144,15 +144,6 @@ public class SystemAgent {
             request.setAttribute("feedbacks", feedbacks);
             request.setAttribute("setting", setting);
             
-            /*John's code inverse the collection */
-            ArrayList temp = new ArrayList();
-            temp.addAll(feedbacks);
-            feedbacks.clear();
-            for(int i = (temp.size()-1); i>=0; i--){
-            	feedbacks.add(temp.get(i));
-            }
-            // End Johns bad code
-            
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/feedbacks.jsp"));
             
             map.put("successful", true);
@@ -835,6 +826,7 @@ public class SystemAgent {
      *   <ul>
      *     <li>workflowId - Id of the workflow instance</li>
      *     <li>message - message to the users</li>
+     *     <li>email - boolean, true or false to email all participants - optional</li>
      *   </ul>
      * @return a Map contains:
      *   <ul>
@@ -845,9 +837,12 @@ public class SystemAgent {
 	public Map addAnnouncement(Map params) throws Exception {
 		Map map = new HashMap();
 		map.put("successful", false);
+		boolean bool_email = false;
 		
 		String strWorkflowId = (String)params.get("workflowId");
 		String message = (String)params.get("message");
+		String email = (String)params.get("email");
+		
 		
         if(strWorkflowId==null || "".equals(strWorkflowId.trim())){
         	map.put("reason", "workflowId cannot be null.");
@@ -859,10 +854,23 @@ public class SystemAgent {
     		return map;	
         }
         
+        if(email.equals("true")) {
+        	bool_email = true;
+        }
+        
         try {   
         	Long workflowId = Long.parseLong(strWorkflowId);
         	systemService.addAnnouncement(workflowId, message);
         	
+        	Map values = new HashMap();
+        	if(bool_email) {
+	        	Collection participants = systemService.getUsersByRole("participant");
+	            values.put("announcement", "test");
+	            for (User participant : (Collection<User>) participants) {
+	                values.put("participant", participant);
+	                emailSender.send(participant, "announcement", values);
+	            }
+        	}
         	map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

@@ -63,9 +63,15 @@
 		}
 		
 		function addAnnouncement(){
+			var email = $F("email");
+			if(email == "" || email == null) {
+				email = "false";
+			} else {
+				email = email.toString();
+			}
 			Util.loading(true, "Saving Annoucement");
 			var message = tinyMCE.getContent();
-			SystemAgent.addAnnouncement({workflowId:wfId,message:message}, {
+			SystemAgent.addAnnouncement({workflowId:wfId,message:message,email:email}, {
 				callback:function(data){
 					if (data.successful){
 						getAnnouncements();
@@ -348,7 +354,8 @@
 				onclick="Element.toggle($('announce-editor'));showPubBtn();tinyMCE.setContent('')" />
 				<div id="announce-editor" style="display:none">
 					<textarea name="content" id="modAnnounce"></textarea>
-					<br/>
+					
+					<input id="email" type="checkbox" value="true" /> Email Participants<br/>
 					<input type="button" id="pubBtn" 
 						onclick="addAnnouncement();Element.toggle($('announce-editor'));" 
 						class="padding5" value="Publish" />

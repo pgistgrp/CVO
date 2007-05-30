@@ -9,11 +9,12 @@ import org.pgist.funding.UserCommute;
 import org.pgist.funding.UserFundingSourceToll;
 import org.pgist.users.User;
 import org.pgist.users.Role;
+import org.pgist.util.WebUtils;
 
 
 /**
  * 
- * @author kenny
+ * @author John
  *
  */
 public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
@@ -161,4 +162,12 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 		
 		return true;
 	}
+	
+	
+	public User getCurrentUser(Long id) throws Exception {
+		User u = (User)load(User.class, id);
+		return u;
+	}
+	
+	
 }

@@ -37,6 +37,13 @@ public class RegisterAgent {
 	
 	private FundingService fundingService;
 	
+	private EmailSender emailSender;
+	
+	
+	public void setEmailSender(EmailSender emailSender) {
+		this.emailSender = emailSender;
+	}
+
 	public void setRegisterService(RegisterService registerService) {
         this.registerService = registerService;
     }
@@ -220,6 +227,15 @@ public class RegisterAgent {
         	int myBike = Integer.parseInt(bike);
         	
         	registerService.addQuestionnaire(income, myHouseholdsize, myDrive, myCarpool, myCarpoolpeople, myBus, myBike);
+        	
+        	User user = registerService.getCurrentUser();
+        	
+        	Map values = new HashMap();
+        	String loginname = user.getLoginname();
+            values.put("loginname", loginname);
+            values.put("participant", user);
+        	emailSender.send(user, "registration", values);
+        	
         	registerService.logout(request);
             map.put("successful", true);
         } catch (Exception e) {

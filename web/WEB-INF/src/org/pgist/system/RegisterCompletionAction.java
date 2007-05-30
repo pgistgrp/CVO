@@ -12,7 +12,7 @@ import org.pgist.util.WebUtils;
 /**
  * Register Questionnaire Action.
  * 
- * @author kenny
+ * @author John
  *
  */
 public class RegisterCompletionAction extends Action {

@@ -52,5 +52,30 @@
     </template>
     
     
+    <template name="registration">
+            <description>Send an email notification to user that their account has been created.</description>
+            <subject>LIT: New Account Creation</subject>
+            <notes>Variable: ${loginname}</notes>
+            <content><![CDATA[
+            <h3>Welcome to LIT: Let's Improve Transportation</h3>
+            <p>Your account has been successfully created.</p>
+            <p>Your Login Name is <strong>${loginname}</strong>.</p>            
+            ]]>
+            </content>
+    </template>
+    
+    
+    <template name="announcement">
+	<description>Send an email to notify participants of announcements.</description>
+	<subject>LIT: New Moderator Announcement</subject>
+	<notes>Variable: ${announcement}</notes>
+	<content><![CDATA[
+	<h3>The LIT Moderator has posted a new system announcement:</h3>
+
+	${announcement}]]>
+	</content>
+    </template>
+    
+    
 </templates>
 

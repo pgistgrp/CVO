@@ -11,7 +11,7 @@ import org.pgist.users.User;
 /**
  * Register Action.
  * 
- * @author kenny
+ * @author John
  *
  */
 public class RegisterAction extends Action {

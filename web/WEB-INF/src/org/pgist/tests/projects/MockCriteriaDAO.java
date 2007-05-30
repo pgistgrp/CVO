@@ -26,6 +26,11 @@ public class MockCriteriaDAO implements CriteriaDAO {
 	}
 	
 	
+	public Collection getOrphanThemes(Long suiteId) {
+		return null;
+	}
+	
+	
 	public void editObjective(Long objectiveId, String description) throws Exception {
 		
 		

@@ -967,4 +967,44 @@ public class CriteriaAgent {
     }//createCriteriaSuite()
     
     
+    /**
+     * Get orphaned themes
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>critSuiteId - int, id of a CriteriaSuite object</li>
+     *     <li>weight - int, weight value</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map getOrphanThemes(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        String strId = (String)params.get("critSuiteId");
+        
+        if(strId==null || "".equals(strId.trim())){
+        		map.put("reason", "critSuiteId cannot be null.");
+        		return map;	
+        }
+        
+        Long suiteId = Long.parseLong(strId); 
+        
+        try {        	
+        	Collection themes = criteriaService.getOrphanThemes(suiteId);
+        	map.put("themes", themes);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//createCriteriaSuite()
+    
+    
 }//class CriteriaAgent
