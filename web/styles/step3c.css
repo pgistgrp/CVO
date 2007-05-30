@@ -5,7 +5,12 @@ width:100%;
 border:1px solid #ddd
 }
 
-.finishedButton {padding:5px;float:right;margin:5px 0px 10px 5px;}
+.finishedButton {
+padding:5px;
+float:right;
+margin:5px 0px 10px 5px;
+}
+
 .helpMeButton {
 padding:5px;
 margin:10px 0px;
@@ -70,6 +75,10 @@ border:1px solid #9EBDCA;
 padding:5px;
 background:#FBFEFF;
 }
+
+.fundingSourceItem input{float:left;}
+#altName{float:left;width:87%;}
+
 .fundingTypeCol2{text-align:right;}
 #fundingTable table {width:100%;}
 #fundingTable th {font-size:10pt;text-align:center;}

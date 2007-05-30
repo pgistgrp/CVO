@@ -457,7 +457,7 @@
 					<table id="projectsTable" cellpadding=0 cellspacing=0>
 						<tr class="tableHeading">
 							<th colspan="2" class="first">All Proposed Projects</th>
-							<th class="col2">Money Needed</th>
+							<th class="col2">Money Needed<br/><small><center>(millions)</center></small></th>
 						</tr>
 						<c:forEach var="category" begin="1" end="2">
 							<!-- start road projects -->
@@ -532,7 +532,7 @@
 															</c:choose>
 															${altRef.alternative.name}</label>
 														</td>
-														<td class="cost"><fmt:formatNumber type="currency">${altRef.alternative.cost}</fmt:formatNumber> million</td>
+														<td class="cost">$<fmt:formatNumber type="number">${altRef.alternative.cost}</fmt:formatNumber>m</td>
 													</tr>
 													<c:if test="${pg:contains(userPkg.projAltRefs,altRef) && userPkg != null}">
 														<c:set var="doNothing"value="false"/>
@@ -563,7 +563,7 @@
 					<table cellpadding="0" cellspacing="0" id="fundingTable">
 						<tr class="tableHeading">
 							<th class="first">Funding Source</th>
-							<th class="col2">Money Raised</th>
+							<th class="col2">Money Raised<br/>(millions)</th>
 							<th class="col3">Cost to the avg. taxpayer</th>
 							<c:if test="${userPkg != null}">
 								<th class="col4">Cost to you</th>
@@ -591,9 +591,9 @@
 											</c:otherwise>
 										</c:choose>
 
-										${altRef.alternative.name}</label>
+										<div id="altName">${altRef.alternative.name}</div></label>
 									</td>
-									<td class="col2"><fmt:formatNumber type="currency">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
+									<td class="col2">$<fmt:formatNumber type="number">${altRef.alternative.revenue}</fmt:formatNumber>m</td>
 									<td class="col3"><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
 									<c:if test="${userPkg != null}">
 										<td class="col4"><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
