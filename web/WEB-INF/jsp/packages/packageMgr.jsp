@@ -239,7 +239,7 @@ td.col1 a {display:block;text-decoration:underline;}
 <script type="text/javascript" charset="utf-8">
 	getManualPackages()
 	getClusteredPackages();
-</script>
+</script> 
 <!-- end container -->
 <!-- End footer -->
 </body>

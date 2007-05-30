@@ -6,6 +6,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<h3 class="headerColor">Automatically Created Packages </h3>
+<p>Participant packages will be clustered on -- workflow date -- (Beginning of Step 4a)</p>
+<c:if test="${clusteredDate}">
+	<p>On ${clusteredDate}, participant packages were clustered into 6 packages below</p>
+</c:if>
+
 <table border="0" cellspacing="0" width="100%" class="box12">
 	<tr>
 		<th>Package</th>
@@ -14,7 +20,7 @@
 	</tr>
 	<c:forEach var="package" items="${packages}" varStatus="loop">
 		<tr>
-			<td class="col1"><a target="_blank" href="package.do?pkgId=${package.id}&fundSuiteId=${fundSuiteId}&projSuiteId=${projSuiteId}&critSuiteId=${critSuiteId}&pkgSuiteId=${pkgSuiteId}">Package ${package.id} ** ${(package.id == usersClusteredPkgId) ? "YES": "NO"}</a></td>
+			<td class="col1"><a target="_blank" href="package.do?pkgId=${package.id}&fundSuiteId=${fundSuiteId}&projSuiteId=${projSuiteId}&critSuiteId=${critSuiteId}&pkgSuiteId=${pkgSuiteId}">${package.description} ** ${userClusteredPkgId} --- ${(package.id == userClusteredPkgId) ? "YES": "NO"}</a></td>
 			<td>$${package.totalCost} Million</td>
 			<td>$${package.avgResidentCost}/year</td>
 		</tr>
