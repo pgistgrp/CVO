@@ -180,7 +180,7 @@ function selectToll(tollid) {
 	<!-- #container is the container that wraps around all the main page content -->
 
 	<div id="container">
-		<h4 class="headerColor">Please answer a few questions about yourself</h4><p>The answers to these questions will help us later on in the process to estimate the costs of transportation improvements to you. All of this information will remain confidential. <em>You may choose not to respond to any of the questions on this page.</em></p>
+		<h4 class="headerColor">Please answer a few questions about yourself</h4><p>The answers to these question will help us later on to estimate the cost of transportation improvements to you. All of this information will remain confidential. You may choose to to not answer any of the questions.</p>
 		<!-- Begin calculator options -->
 		<form name="questionnaire">
 		<div id="myIncome">
@@ -278,6 +278,19 @@ function selectToll(tollid) {
 				  <option value="7">7</option>
 			    </select>
 				days to work each week<br/>
+				
+			I <strong>walk</strong> to work
+				<select name="walk" id="walk">
+					<option value="0">0</option>
+				  <option value="1">1</option>
+				  <option value="2">2</option>
+				  <option value="3">3</option>
+				  <option value="4">4</option>
+				  <option value="5">5</option>
+				  <option value="6">6</option>
+				  <option value="7">7</option>
+				</select>
+				days each week<br/>
 			</div>
 			<div id="myCommute-right" class="floatLeft"> My daily commute includes:<br />
 				<div id="mytolls">
@@ -289,9 +302,10 @@ function selectToll(tollid) {
 		<!-- End calculator options -->
 			<fieldset>
 				<legend>Please complete our detailed participant questionnaire</legend>
-				<p>Please take some time to complete this questionnaire.  Throughout the Let’s Improve Transportation challenge, we will be asking you from time to time to let us know how the website is performing.  To access these questionnaires, you will be asked for your participant ID number.  You participant ID number is displayed below.  Please write this number down and keep until you have finished the Let’s Improve Transportation challenge.</p>
+				<p>Please take some time to complete our questionnaire. This is the first, and longest, of 3 questionnaires you will be asked to complete during the <em>Let’s Improve Transportation Challenge</em>. It will take about 30 minutes to complete. To access the questionnaire, you will be asked for your participant ID number, which is displayed below. (FYI: Your participant ID number will also be displayed on your personal LIT homepage when you visit this website in the future.)</p>
+				<p>When you click the "Go to questionnaire" button below, the questionnaire will launch in a new window. When you are done filling out he questionnaire, simply close the window and return to this page.</p>
 				<p>Your participant ID is: <code>3091</code></p>
-				<input type="button" value="Go to participant questionnaire">
+				<input type="button" value="Go to questionnaire">
 			</fieldset>
 			
 		<div id="step-bar" class="box5 padding5 clearfix">

@@ -206,15 +206,14 @@
 	
 	<!-- begin OVERVIEW -->
 	<div id="overview" class="box2">
-		<h3 class="headerColor">Overview</h3>
-		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla eleifend nibh tincidunt nibh dapibus vestibulum. Mauris nec nulla at nunc convallis cursus. Vivamus tincidunt nibh adipiscing risus. Sed vel odio. In dapibus. Nunc pulvinar, metus sed venenatis porttitor, mauris urna eleifend velit, vel adipiscing sapien risus et ante. In nunc. Sed eget dolor facilisis tortor aliquam auctor. Maecenas sit amet sem commodo orci lacinia interdum. Donec quam. Sed leo tortor, hendrerit nec, auctor et, rhoncus a, tortor. Ut dictum eros in metus.</p>
+		<p>Let’s Improve Transportation (LIT) is part of a research study at the University of Washington. To participate in this study you must fill out the information below. Qualified participants may be eligible for payment. Complete the information below to find out if you are eligible.</p>
 	</div>
 	<!-- end OVERVIEW -->
 	
 	<!-- begin CONTACT INFO -->
 	<form action="" method="get" name="register">
 	<fieldset>
-		<legend>Provide Your Primary Contact Information</legend>
+		<legend>Provide your personal contact information</legend>
 		<div class="form-left">
 			<p>
 				<span class="label">First Name:</span>
@@ -319,11 +318,11 @@
 		</div>
 		<div class="form-right">
 			<div id="errors" style="color:#D85703;font-weight:bold;"></div>
-			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla eleifend nibh tincidunt nibh dapibus vestibulum. Mauris nec nulla at nunc convallis cursus. Vivamus tincidunt nibh adipiscing risus. Sed vel odio. In dapibus. Nunc pulvinar, metus sed venenatis porttitor, mauris urna eleifend velit, vel adipiscing sapien risus et ante.</p>
+			<p><strong>Privacy of your information:</strong>You personal information is confidential. It will not be shared with anyone. Your email will be used to send you updates of the study progress. If you qualify for payment, your mailing address will only be used to mail you your payment once the study is complete.</p>
 		</div>
 	</fieldset>
 	<fieldset>
-		<legend>Create Your Let's Improve Transportation Account</legend>
+		<legend>Create your Let's Improve Transportation account</legend>
 		
 		<div class="form-left">
 			<p>

@@ -43,7 +43,7 @@ background:#E5A9A6;
 .summary table td {font-size:9pt;}
 .summary table td + td {text-align:right;font-size:9pt;}
 
-#projectsTable, #fundingTable {width:100%}
+#projectsTable, #fundingTable {width:99%}
 
 #projectsTable th {
 font-size:10pt;
@@ -52,7 +52,7 @@ font-size:12pt;}
 
 #projectsTable {
 border:1px solid #C6D78C;
-padding:5px;
+padding:0px;
 }
 
 #projectsTable td.category{
@@ -72,7 +72,7 @@ background:#DCECBD;
 
 #fundingTable {
 border:1px solid #9EBDCA;
-padding:5px;
+padding:0px;
 background:#FBFEFF;
 }
 

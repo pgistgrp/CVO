@@ -56,31 +56,42 @@ function submit2B() {
 <div id="reg2b">
 	<div>
 		<h3>Welcome ${baseuser.loginname}. You qualify to participate in Let's Improve Transportation!</h3>
-		<p>Due to the large number of participants who have responded to our call to join Let’s Improve Transportation, we currently can not offer any small payment in appreciation of your efforts.  We hope you’ll still consider participating as a volunteer, and you will be placed on a waiting list to be among the participants who will receive a small payment.</p>
+		<p>Due to the large number of participants who have responded to our call to join Let’s Improve Transportation, we currently cannot offer any small payment in appreciation of your efforts.  We hope you will still consider participating as an unpaid volunteer, and you will be placed on a waiting list to be among the participants who can receive a small payment.</p>
 	</div>
 	
 	<fieldset>
 		<legend>Review the Informed Consent Agreement</legend>
 		<p>If you wish to be a paid participant in our research study, you must review and accept this Informed Consent Agreement.</p>
 		<div id="agreement" class="box3">
-		<h3>1. INVESTIGATORS STATEMENT</h3>
-		
-		<p>We are asking you to be in a research study. The purpose of this consent form
-			is to give you the information you will need to help you decide whether or not
-			to be in the study. Please read the form carefully. When you are finished reading
-			this form, you can decide if you want to be in the study or not. This process
-			is called “informed consent”.</p>
-		<h3>2. PURPOSE OF THE STUDY</h3>
-		<p>We want to better understand the opinions and feelings of the public regarding
-			transportation improvement decision-making in the Seattle metropolitan area.
-			We would like to ask that you participate fully in this decision-making situation,
-			and could ask you to.</p>
-		<h3>3. MORE STUFF</h3>
-		<p>We are asking you to be in a research study. The purpose of this consent form
-			is to give you the information you will need to help you decide whether or not
-			to be in the study. Please read the form carefully. When you are finished reading
-			this form, you can decide if you want to be in the study or not. This process
-			is called “informed consent”.</p>
+		<h2 class="centerAlign">UNIVERSITY OF WASHINGTON INFORMATION STATEMENT<br/>TRANSPORTATION STUDY</h2>
+		<h3>Investigators</h3>
+		<p style="margin-left:20px">Timothy L. Nyerges, Principal Investigator, Professor, Department of Geography, 206-543-5296<br/>
+				Terrence Brooks, Associate Prof., Information School, 206-543-2646<br/>
+				Piotr Jankowski, Professor, Department of Geography, San Diego State University, 619-594-0640<br/>
+				G. Scott Rutherford, Professor, Civil & Environmental Engr., 206-685-2481<br/>
+				Rhonda Young, Assistant Professor, Civil & Architectural Engr., University of Wyoming, 307-766-2184<br/>
+				Kevin Ramsey, Research Assistant, Department of Geography, 206-616-9018<br/>
+				Martin Swobodzinski, Research Assistant, Geography, San Diego State University, 619-594-5437<br/>
+				Guirong Zhou, Research Assistant, Department of Geography, 206-616-9018<br/>
+				Matthew W. Wilson, Research Assistant, Department of Geography, 206-616-9018<br/>
+		</p>
+		<h3>Researcher's statement</h3>
+			<p>We are asking you to be in a research study. The purpose of this information statement is to give you the information you will need to help you decide whether to be in the study or not. Please read the form carefully.</p>
+			<h2 class="centerAlign">PURPOSE OF THE STUDY</h2>
+			<p>This research project has developed an Internet website, including mapping technologies, to support public participation in regional transportation improvement decision making. The name of this website is <em>Let’s Improve Transportation</em>.  This research study seeks to evaluate this website by recruiting residents from the Puget Sound area to participate by voicing their concerns about transportation issues in the region (Step 1), reviewing criteria used to evaluate proposed transportation projects (Step 2), creating their own "package" of transportation projects and funding mechanisms (Step 3),  working with other participants to endorse a collectively preferred "package" (Step 4), and by creating a report describing the outcomes (Step 5). In many ways, this study can be likened to an online focus group, as it is an online discussion moderated by researchers.</p>
+			<h2 class="centerAlign">STUDY PROCEDURES</h2>
+			<p>If you choose to be in this study, we would like to participate in the Let’s Improve Transportation website.  The website will be active for 4 weeks, and we would like you to participate in the various activities within the website during that time period.  You may refuse to participate in any portion of this website.  With your permission, we would like to collect information about your participation within the website (including discussions posts and other comments you make within the website).  Beyond participating in the various activities within the website, we also ask that you complete 5 questionnaires, which shall be administered electronically during the course of the 4-week activity.  These 5 questionnaires will ask you to reflect on your experiences and opinions of the website, and will be used to evaluate the website.  You may refuse to answer any question within any of the 5 questionnaires.</p>
+			<h2 class="centerAlign">RISK, STRESS OR DISCOMFORT</h2>
+			<p>Some people feel that providing information for research is an invasion of privacy.  We have addressed concerns for your privacy in the section below. </p>
+			<h2 class="centerAlign">ALTERNATIVES TO TAKING PART IN THIS STUDY</h2>
+			<p>The alternative to taking part in this study is to not take part in this study.</p>
+			<h2 class="centerAlign">BENEFITS OF THE STUDY</h2>
+			<p>Although we think this research is valuable to society as a whole, you may not directly benefit from taking part in this study.</p>
+			<h2 class="centerAlign">OTHER INFORMATION</h2>
+			<p>Taking part in this study is voluntary.  You can stop at any time. Information about you is confidential.  We will code the study information and keep the link between your identifying information and the code in a separate, secured location until October 2009.  Then we will destroy the link.  The following groups may need to review study records about you: institutional oversight review offices at the research site, the University of Washington, and federal regulators.  If the results of this study are published or presented, we will not use your name.  </p>
+			<h3>Subject's statement</h3>
+			<p>This study has been explained to me.  I volunteer to take part in this research.  If I have questions later on about the research I can ask the investigator listed above.  If I have questions about my rights as a research subject, I can call the University of Washington Human Subjects Division at (206) 543-0098.</p>
+			<p>By clicking "Agree" below, I give my permission for the researcher to collect information about my use of the website, and to use information collection from my response to the 5 questionnaires. </p>
 		</div>
 	</fieldset>
 	<!-- end OPPORTUNITIES -->
