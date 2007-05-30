@@ -378,7 +378,7 @@
 </script>
 </head>
 
-<body onresize="adjustMapPosition();" onscroll="adjustMapPosition();" onload="load()" onunload="clearMemory();">
+<body onresize="adjustMapPosition();" onscroll="adjustMapPosition();" onunload="clearMemory();">
 	<div id="header">
 		<!-- Begin header -->
 		<jsp:include page="/header.jsp" />
@@ -596,7 +596,7 @@
 									<td class="col2">$<fmt:formatNumber type="number">${altRef.alternative.revenue}</fmt:formatNumber>m</td>
 									<td class="col3"><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
 									<c:if test="${userPkg != null}">
-										<td class="col4"><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
+										<td class="col4"><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.alternative.id]}</fmt:formatNumber></td>
 									</c:if>						
 								</tr>
 								<c:choose>
@@ -676,6 +676,7 @@
 		} else{
 			getClusteredSummary();
 		}
+		load();
 	</script>
 </body>
 </html>
