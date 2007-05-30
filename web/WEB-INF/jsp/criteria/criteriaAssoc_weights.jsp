@@ -24,46 +24,48 @@
 </div>
 <!-- end criteria headers -->
 	<c:forEach var="ref" items="${critSuite.references}" varStatus="loop">
-		<div id="criteria-${ref.criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
-			<div class="weighCriteriaCol1 floatLeft"><a href="#">
-				<div class="floatLeft"> 
-					<a href="javascript:expandList('objectives${ref.criterion.id}','icon${ref.criterion.id}');"> <img src="/images/plus.gif" id="icon${ref.criterion.id}"></a> 
+		<c:if test="${ref.criterion.deleted == false}">
+			<div id="criteria-${ref.criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
+				<div class="weighCriteriaCol1 floatLeft"><a href="#">
+					<div class="floatLeft"> 
+						<a href="javascript:expandList('objectives${ref.criterion.id}','icon${ref.criterion.id}');"> <img src="/images/plus.gif" id="icon${ref.criterion.id}"></a> 
+					</div>
+					<div class="floatLeft"><label for="icon${ref.criterion.id}" onclick="javascript:expandList('objectives${ref.criterion.id}','icon${ref.criterion.id}');">${ref.criterion.name}</label></div>
 				</div>
-				<div class="floatLeft"><label for="icon${ref.criterion.id}" onclick="javascript:expandList('objectives${ref.criterion.id}','icon${ref.criterion.id}');">${ref.criterion.name}</label></div>
-			</div>
-			<!--<div class="weighCriteriaCol2 floatLeft">${ref.criterion.na}</div>-->
+				<!--<div class="weighCriteriaCol2 floatLeft">${ref.criterion.na}</div>-->
 	
-			<div class="weighCriteriaCol3 floatLeft">
-				<!-- start slider bar -->
-				<div id="track${ref.criterion.id}" class="track floatLeft" style="width:200px; height:9px;">
-					<div id="track${ref.criterion.id}-left" class="track-left"></div>
-					<div id="handle${ref.criterion.id}" style="cursor: col-resize; width:19px; height:20px;"> 
-					<img src="images/slider-handle.png" alt="" style="float: left;"/> </div>
+				<div class="weighCriteriaCol3 floatLeft">
+					<!-- start slider bar -->
+					<div id="track${ref.criterion.id}" class="track floatLeft" style="width:200px; height:9px;">
+						<div id="track${ref.criterion.id}-left" class="track-left"></div>
+						<div id="handle${ref.criterion.id}" style="cursor: col-resize; width:19px; height:20px;"> 
+						<img src="images/slider-handle.png" alt="" style="float: left;"/> </div>
+					</div>
+					<div id="inputField" class="floatRight">
+						<input type="text" tabIndex="${loop.index + 1}" size="3" 
+						maxlength="3" id="input${ref.criterion.id}" 
+						onchange="manualSliderChange(${ref.criterion.id}, this.value)" value = "0" />
+					</div>
+					<!-- end input -->
+					<!-- end slider bar -->
+					<!--weights-->
+					<!-- end weights -->
+					<div class="clearBoth"></div>
 				</div>
-				<div id="inputField" class="floatRight">
-					<input type="text" tabIndex="${loop.index + 1}" size="3" 
-					maxlength="3" id="input${ref.criterion.id}" 
-					onchange="manualSliderChange(${ref.criterion.id}, this.value)" value = "0" />
+				<div class="clearBoth"></div>
+				<div class="objectives" id="objectives${ref.criterion.id}" style="display:none;">
+					<p>To get a good grade in <strong>${ref.criterion.name}</strong>, a transportation project must meet the following objectives:</p>
+					<ul><c:if test="${fn:length(ref.criterion.objectives) == 0}">
+							<li>None Selected</li>
+						</c:if>
+						<c:forEach var="objective" items="${ref.criterion.objectives}" varStatus="loop">
+							<li>${objective.description}</li>
+						</c:forEach>
+					</ul>
 				</div>
-				<!-- end input -->
-				<!-- end slider bar -->
-				<!--weights-->
-				<!-- end weights -->
 				<div class="clearBoth"></div>
 			</div>
-			<div class="clearBoth"></div>
-			<div class="objectives" id="objectives${ref.criterion.id}" style="display:none;">
-				<p>To get a good grade in <strong>${ref.criterion.name}</strong>, a transportation project must meet the following objectives:</p>
-				<ul><c:if test="${fn:length(ref.criterion.objectives) == 0}">
-						<li>None Selected</li>
-					</c:if>
-					<c:forEach var="objective" items="${ref.criterion.objectives}" varStatus="loop">
-						<li>${objective.description}</li>
-					</c:forEach>
-				</ul>
-			</div>
-			<div class="clearBoth"></div>
-		</div>
+		</c:if>
 	</c:forEach>
 </div>
 </div>
