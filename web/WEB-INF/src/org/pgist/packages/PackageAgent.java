@@ -245,6 +245,12 @@ System.out.println("MATT ____________()()()()(Configuring");
             PackageSuite pSuite = this.packageService.getPackageSuite(pkgSuiteId);
 
             Set packages = pSuite.getClusteredPkgs();
+            Date clusteredDate = null;
+            if(pSuite.getClusteredPkgs().size() > 0) {
+                ClusteredPackage tempCluster = pSuite.getClusteredPkgs().iterator().next();
+                clusteredDate = tempCluster.getCreateDate();
+            }
+            
             Set autoPackages = new HashSet();
             
             Iterator i = packages.iterator();
@@ -255,12 +261,14 @@ System.out.println("MATT ____________()()()()(Configuring");
             		autoPackages.add(temp);
             	}
             }
-            
+                        
             request.setAttribute("packages", autoPackages);
             request.setAttribute("pkgSuiteId", pkgSuiteId);
             request.setAttribute("projSuiteId", projSuiteId);
             request.setAttribute("fundSuiteId", fundSuiteId);
             request.setAttribute("critSuiteId", critSuiteId);
+            request.setAttribute("clusteredDate", clusteredDate);           
+            request.setAttribute("userClusteredPkgId", pSuite.getUsersClusteredPackage(this.packageService.getUser(WebUtils.currentUser())));
             
             //request.setAttribute("packages", pSuite.getClusteredPkgs());
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/packageMgr_packages.jsp"));            
@@ -300,7 +308,7 @@ System.out.println("MATT ____________()()()()(Configuring");
     public Map getClusteredPackages(HttpServletRequest request, Map params) {
         Map map = new HashMap();
         map.put("successful", false);
-        
+       
         try {
             Long fundSuiteId = new Long((String) params.get("fundSuiteId"));
             Long projSuiteId = new Long((String) params.get("projSuiteId"));
