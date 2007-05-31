@@ -65,6 +65,9 @@ public class SDRoomAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
+        // Get Parameters
+    	String strCctId = (String) request.getParameter("cct_Id");
+    	String strSuiteId = (String) request.getParameter("suite_Id");
         /*
          * isid of a InfoStructure object
          */
@@ -94,6 +97,17 @@ public class SDRoomAction extends Action {
             
             request.setAttribute("object", object);
         } catch(Exception e) {
+        
+        }
+        
+        if(strCctId!=null && !("".equals(strCctId.trim()))){
+        	Long cctId = Long.parseLong(strCctId);
+        	request.setAttribute("cctId", cctId);
+        }
+        
+        if(strSuiteId!=null && !("".equals(strSuiteId.trim()))){
+        	Long suiteId = Long.parseLong(strSuiteId);
+        	request.setAttribute("suiteId", suiteId);
         }
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
