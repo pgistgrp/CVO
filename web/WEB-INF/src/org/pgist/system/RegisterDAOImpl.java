@@ -118,7 +118,7 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 	}
 	
 
-	public void addQuestionnaire(Long id, String incomeRange, int householdsize, int drive, int carpool, int carpoolpeople, int bus, int bike) throws Exception {
+	public void addQuestionnaire(Long id, String incomeRange, int householdsize, int drive, int carpool, int carpoolpeople, int bus, int bike,  int walk) throws Exception {
 		User user = (User) load(User.class, id);
 		user.setIncomeRange(incomeRange);
 		user.setFamilyCount(householdsize);
@@ -127,6 +127,7 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 		user.setCarpoolPeople(carpoolpeople);
 		user.setBusDays(bus);
 		user.setBikeDays(bike);
+		user.setWalkDays(walk);
 		user.setEnabled(true);
 		save(user);
 	}

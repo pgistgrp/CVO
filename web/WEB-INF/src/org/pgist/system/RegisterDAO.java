@@ -28,7 +28,7 @@ public interface RegisterDAO extends BaseDAO {
 	
 	Collection getTolls() throws Exception;
 	
-	void addQuestionnaire(Long id, String incomeRange, int householdsize, int drive, int carpool, int carpoolpeople, int bus, int bike) throws Exception;
+	void addQuestionnaire(Long id, String incomeRange, int householdsize, int drive, int carpool, int carpoolpeople, int bus, int bike, int walk) throws Exception;
 	
 	void setToll(Long id, Long myTollId, boolean boolchecked) throws Exception;
 	

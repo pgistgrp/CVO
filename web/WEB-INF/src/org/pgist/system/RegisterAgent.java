@@ -169,6 +169,7 @@ public class RegisterAgent {
      *     <li>carpoolpeople - string, user's carpool people</li>
      *     <li>bus - string, user's bus days</li>
      *     <li>bike - string, user's bike days</li>
+     *     <li>walk - string, user's walk days</li>
      *   </ul>
      * @return a Map contains:
      *   <ul>
@@ -187,6 +188,7 @@ public class RegisterAgent {
         String carpoolpeople = (String) params.get("carpoolpeople");
         String bus = (String) params.get("bus");
         String bike = (String) params.get("bike");
+        String walk = (String) params.get("walk");
     	
     	if(income==null || "".equals(income.trim())){
     		map.put("reason", "income cannot be blank.");
@@ -216,6 +218,10 @@ public class RegisterAgent {
     		map.put("reason", "bike cannot be blank.");
     		return map;
     	}
+    	if(walk==null || "".equals(walk.trim())){
+    		map.put("reason", "walk cannot be blank.");
+    		return map;
+    	}
     	
         try {
         	
@@ -225,8 +231,9 @@ public class RegisterAgent {
         	int myCarpoolpeople = Integer.parseInt(carpoolpeople);
         	int myBus = Integer.parseInt(bus);
         	int myBike = Integer.parseInt(bike);
+        	int myWalk = Integer.parseInt(walk);
         	
-        	registerService.addQuestionnaire(income, myHouseholdsize, myDrive, myCarpool, myCarpoolpeople, myBus, myBike);
+        	registerService.addQuestionnaire(income, myHouseholdsize, myDrive, myCarpool, myCarpoolpeople, myBus, myBike, myWalk);
         	
         	User user = registerService.getCurrentUser();
         	

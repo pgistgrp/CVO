@@ -37,7 +37,7 @@ public interface RegisterService {
 	
 	Collection getTolls() throws Exception;
 	
-	void addQuestionnaire(String incomeRange, int householdsize, int drive, int carpool, int carpoolpeople, int bus, int bike) throws Exception;
+	void addQuestionnaire(String incomeRange, int householdsize, int drive, int carpool, int carpoolpeople, int bus, int bike, int walk) throws Exception;
 	
 	void setToll(Long myTollId, boolean boolchecked) throws Exception;
 	

@@ -112,8 +112,9 @@ function submitQ(form) {
 	var carpoolpeople = form.carpoolpeople.value;
 	var bus = form.bus.value;
 	var bike = form.bike.value;
+	var walk = form.walk.value;
 	
-	RegisterAgent.addQuestionnaire({income:income, householdsize:householdsize, drive:drive, carpool:carpool, carpoolpeople:carpoolpeople, bus:bus, bike:bike}, {
+	RegisterAgent.addQuestionnaire({income:income, householdsize:householdsize, drive:drive, carpool:carpool, carpoolpeople:carpoolpeople, bus:bus, bike:bike, walk:walk}, {
 		callback:function(data){
 			if (data.successful){
 				window.location = "registercomplete.do";
@@ -280,8 +281,8 @@ function selectToll(tollid) {
 				days to work each week<br/>
 				
 			I <strong>walk</strong> to work
-				<select name="walk" id="walk">
-					<option value="0">0</option>
+				<select id="walk">
+				  <option value="0">0</option>
 				  <option value="1">1</option>
 				  <option value="2">2</option>
 				  <option value="3">3</option>
