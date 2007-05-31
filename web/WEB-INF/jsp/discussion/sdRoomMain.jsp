@@ -53,7 +53,7 @@
 		io.critSuiteId = "${critSuiteId}";
 		io.pkgSuiteId = "${pkgSuiteId}";
 		io.fundSuiteId = "${fundSuiteId}"
-		io.cctId = "${cctId}"
+		io.cctId = "${structure.cctId}"
 		io.currentFilter = '';
 		io.currentPage = 1;
 		io.currentSort = 0;

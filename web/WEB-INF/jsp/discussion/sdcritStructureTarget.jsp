@@ -159,12 +159,27 @@
 		}
 		
 	}
-	alert(io.critSuiteId);
-	alert(io.cctId)
+
+	function getOrphanThemes(){
+		//alert("critSuiteId: " + io.critSuiteId + " cctId: " + cctId); 
+		CriteriaAgent.getOrphanThemes({critSuiteId:io.critSuiteId,cctId:io.cctId}, {
+			callback:function(data){
+				if (data.successful){
+					alert(data.themes);
+				}else{
+					alert(data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("CriteriaAgent.getOrphanThemes( error:" + errorString + exception);
+			}
+		});
+	}
 	
 	/* *************** loading on getTargets() in SDRoomMain *************** */
 	io.loadDynamicFile('styles/step2.css');
 	io.loadDynamicFile('/dwr/interface/CriteriaAgent.js');
 	
+	alert(io.critSuiteId)
 
 </pg:fragment>
