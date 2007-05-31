@@ -92,7 +92,7 @@ public class PackageAgent {
      *   </ul>
      */
     public Map createMyConfiguredPackage(TunerConfig conf, HashMap fundingChoices, HashMap projectChoices, float mylimit, float avglimit, long userPkgId) {
-System.out.println("MATT ____________()()()()(Configuring");
+//System.out.println("MATT ____________()()()()(Configuring");
     	Iterator i = fundingChoices.keySet().iterator();
     	Object key;
     	Object value;

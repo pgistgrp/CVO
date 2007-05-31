@@ -43,10 +43,11 @@ public class ClusteredPackage extends Package {
      */
     protected Set<UserPackage> userPkgs = new HashSet<UserPackage>();    
 
+
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="pgist_clustered_user_package" cascade="all" 
+     * @hibernate.set lazy="true" table="pgist_clustered_user_package" cascade="none" 
      * @hibernate.collection-key column="clustered_pkg_id"
      * @hibernate.collection-many-to-many column="user_pkg_id" class="org.pgist.packages.UserPackage"
      */
@@ -55,7 +56,7 @@ public class ClusteredPackage extends Package {
     }
     
     
-    public void setUserPkgs(Set<UserPackage> fundAltRefs) {
+    public void setUserPkgs(Set<UserPackage> userPkgs) {
         this.userPkgs = userPkgs;
     }
     

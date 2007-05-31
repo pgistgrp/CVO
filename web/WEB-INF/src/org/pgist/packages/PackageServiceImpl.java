@@ -508,7 +508,7 @@ public class PackageServiceImpl implements PackageService {
 		int total;
 		while(cIter.hasNext()) {
 			tempCPkg = cIter.next();
-			System.out.println("MATT: &(*&(*&(*&(*& Recalcing for cpkg " + tempCPkg.getId());
+			
 			votes = vSuite.getUserVotes().get(tempCPkg);
 			
 			tempHigh = 0;
@@ -531,7 +531,6 @@ public class PackageServiceImpl implements PackageService {
 					}
 				}
 				
-				System.out.println("High = " + tempHigh/total + " med " + tempMed/total + " low " + tempLow/total);
 				VoteSuiteStat stat = new VoteSuiteStat();
 				stat.setClusteredPackage(tempCPkg);
 				stat.setTotalVotes(total);
@@ -1078,15 +1077,9 @@ public class PackageServiceImpl implements PackageService {
 			//Set the medoid properties as the new cluster properties
 			tempItem = (PackageItem)temp.getMediod();
 			uPack = packageDAO.getUserPackage(tempItem.getUserPkgId());	
-			
-			Iterator<ProjectAltRef> iAltRef = uPack.getProjAltRefs().iterator();
-			while(iAltRef.hasNext()) {
-				cp.getProjAltRefs().add(iAltRef.next());
-			}
-			Iterator<FundingSourceAltRef> iFSAltRef = uPack.getFundAltRefs().iterator();
-			while(iFSAltRef.hasNext()) {
-				cp.getFundAltRefs().add(iFSAltRef.next());
-			}
+
+			//Add the medoid package
+			cp.getUserPkgs().add(uPack);
 			
 			//Put in all the packages that make up this one
 			Iterator iItems = temp.getItems().iterator();
@@ -1096,13 +1089,18 @@ public class PackageServiceImpl implements PackageService {
 				cp.getUserPkgs().add(uPack);
 			}
 			
-			//Add the medoid package
-			tempItem = (PackageItem)temp.getMediod();
-			uPack = packageDAO.getUserPackage(tempItem.getUserPkgId());
-			cp.getUserPkgs().add(uPack);
-			
+			//Add all of the project alt refs, and funding source alt refs
+			Iterator<ProjectAltRef> iAltRef = uPack.getProjAltRefs().iterator();
+			while(iAltRef.hasNext()) {
+				cp.getProjAltRefs().add(iAltRef.next());
+			}
+			Iterator<FundingSourceAltRef> iFSAltRef = uPack.getFundAltRefs().iterator();
+			while(iFSAltRef.hasNext()) {
+				cp.getFundAltRefs().add(iFSAltRef.next());
+			}
+						
 			//For some reason you cannot save the user package into the clustered package.
-			System.out.println("MATT added the medoid so now we have " + cp.getUserPkgs().size() + " in cluster " + cp.getId() + " with uPack " + uPack.getId());
+			//System.out.println("MATT added the medoid so now we have " + cp.getUserPkgs().size() + " in cluster " + cp.getId() + " with uPack " + uPack.getId());
 			
 			
 			cp.updateCalculations();
