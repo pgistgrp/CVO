@@ -67,7 +67,7 @@ public class SDRoomAction extends Action {
     ) throws Exception {
         // Get Parameters
     	String strCctId = (String) request.getParameter("cct_Id");
-    	String strSuiteId = (String) request.getParameter("suite_Id");
+    	String strSuiteId = (String) request.getParameter("suiteId");
         /*
          * isid of a InfoStructure object
          */
