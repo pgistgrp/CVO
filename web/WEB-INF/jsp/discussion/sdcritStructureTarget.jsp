@@ -159,6 +159,8 @@
 		}
 		
 	}
+	alert(io.critSuiteId);
+	alert(io.cctId)
 	
 	/* *************** loading on getTargets() in SDRoomMain *************** */
 	io.loadDynamicFile('styles/step2.css');
