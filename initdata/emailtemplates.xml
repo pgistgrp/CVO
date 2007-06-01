@@ -77,5 +77,19 @@
     </template>
     
     
+    <template name="modpasswordreset">
+    	<description>Send an email to user that their password was reset by the moderator</description>
+    	<subject>LIT: Password Reset</subject>
+    	<notes>Variable: ${newpassword}</notes>
+    	<content><![CDATA[
+    	<p>The LIT Moderator has reset your password to:
+    	<strong>${newpassword}</strong></p>
+    	
+    	<p>You can change your password by clicking on the User Settings button in the LIT system</p>
+    	]]>
+    	</content>
+    </template>
+    
+    
 </templates>
 

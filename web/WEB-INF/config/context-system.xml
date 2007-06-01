@@ -55,6 +55,7 @@
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
+        <property name="emailSender" ref="emailSender"/>
     </bean>
 
 

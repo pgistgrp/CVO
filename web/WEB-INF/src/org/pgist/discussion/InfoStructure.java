@@ -52,6 +52,8 @@ public class InfoStructure extends GenericInfo {
     
     private Long cctId;
     
+    private Long suiteId;
+    
     private String type;
     
     /*
@@ -77,6 +79,21 @@ public class InfoStructure extends GenericInfo {
     }
 
 
+    /**
+     * @return
+     * 
+     * @hibernate.property not-null="false"
+     */
+    public Long getSuiteId() {
+        return suiteId;
+    }
+
+
+    public void setSuiteId(Long suiteId) {
+        this.suiteId = suiteId;
+    }
+    
+    
     /**
      * @return
      * 

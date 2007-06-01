@@ -35,6 +35,11 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     
     private static final String hql_getFeedbacks_2 = "from Feedback fb order by fb.id desc";
     
+    private EmailSender emailSender;
+    
+    public void setEmailSender(EmailSender emailSender) {
+        this.emailSender = emailSender;
+    }
     
     public Collection getFeedbacks(PageSetting setting) throws Exception {
         Query query = null;
@@ -168,8 +173,10 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     		Long userId = Long.parseLong(u);
     		User user = (User) getHibernateTemplate().load(User.class, userId);
     		user.setPassword(password);
-    		user.encodePassword();
-    	
+    		user.encodePassword();   	
+    		Map values = new HashMap();
+    		values.put("newpassword", password);
+        	emailSender.send(user, "modpasswordreset", values);
     	} //for each
     	
     } //resetPassword();

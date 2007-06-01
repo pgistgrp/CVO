@@ -463,7 +463,7 @@ public class SystemAgent {
         	String[] idList = strIds.split(",");
         	String password = "ppgisLIT";
         	systemService.resetPassword(idList, password);       	
-        	//EMAIL THEM SOMEHOW?
+        	
         	map.put("password", password);
         	map.put("successful", true);
         } catch (Exception e) {

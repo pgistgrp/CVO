@@ -66,8 +66,12 @@ public class SDRoomAction extends Action {
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
         // Get Parameters
+    	//fundingsuite
+    	//projectsuiteid
+    	//critsuiteId
+    	//
     	String strCctId = (String) request.getParameter("cct_Id");
-    	String strSuiteId = (String) request.getParameter("suiteId");
+    	String strSuiteId = (String) request.getParameter("suite_Id");
         /*
          * isid of a InfoStructure object
          */
