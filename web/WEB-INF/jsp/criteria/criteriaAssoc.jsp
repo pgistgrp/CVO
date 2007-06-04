@@ -30,6 +30,7 @@
 <!-- DWR JavaScript Libraries -->
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
+<script type='text/javascript' src='/scripts/util.js'></script>
 <!-- End DWR JavaScript Libraries -->
 
 <!--Criteria Specific  Libraries-->
@@ -41,7 +42,8 @@
 	var critSuiteId = "${criteriasuite.id}"
 
 	function assocCriterion(critId, checked){
-		//alert("critSuiteId: " + critSuiteId + " critId: " + critId + " checked: " + checked); 
+		//alert("critSuiteId: " + critSuiteId + " critId: " + critId + " checked: " + checked);
+		Util.loading(true,"Loading planning factors"); 
 		CriteriaAgent.addAssocCriterion({critSuiteId:critSuiteId,critId:critId,checked:checked}, {
 			callback:function(data){
 				if (data.successful){
@@ -50,6 +52,7 @@
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("CriteriaAgent.assocCriterion( error:" + errorString + exception);
@@ -77,6 +80,7 @@
 			}
 		};
 		themeIdsStr = themeIds.toString();
+		Util.loading(true,"Working");
 		CriteriaAgent.editCriterion({critId:critId,themeIds:themeIdsStr}, {
 			callback:function(data){
 				if (data.successful){
@@ -84,6 +88,7 @@
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("CriteriaAgent.addCriterion( error:" + errorString + exception);
@@ -95,6 +100,7 @@
 	
 	/* *************** Grab All Criteria in the System - uses criteria.jsp *************** */
 	function getCriteria(newCritId){
+		Util.loading(true,"Loading planning factors");
 		CriteriaAgent.getAllCriterionForMgr({critSuiteId:critSuiteId,cctId:cctId}, {
 			callback:function(data){
 				if (data.successful){
@@ -106,6 +112,7 @@
 				}else{
 					$('allCriteriaList').innerHTML = "<b>Error in CriteriaAgent.getAllCriterion Method: </b>" + data.reason; 
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("CriteriaAgent.getAllCriterion( error:" + errorString + exception);
@@ -116,6 +123,7 @@
 	/* *************** Add a New Criteria to the List *************** */
 	function addCriterion(){
 		var name = $('name').value;
+		Util.loading(true,"Saving planning factor");
 		//alert("names: " + name + " description" + description + " objectiveIds: " + checkedObjectivesStr); // Between name:name and ThemeIds is na:description;
 		CriteriaAgent.addCriterion({name:name,critSuiteId:critSuiteId}, {
 			callback:function(data){
@@ -125,6 +133,7 @@
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("CriteriaAgent.addCriterion( error:" + errorString + exception);
@@ -136,6 +145,7 @@
 	function addObjective(critId){
 		var description = $('objDesc'+critId).value;
 		//alert("names: " + name + " description" + description + " objectiveIds: " + checkedObjectivesStr); // Between name:name and ThemeIds is na:description;
+		Util.loading(true,"Saving objective");
 		CriteriaAgent.addObjective({description:description,critId:critId}, {
 			callback:function(data){
 				if (data.successful){
@@ -144,6 +154,7 @@
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("CriteriaAgent.addObjective( error:" + errorString + exception);
@@ -162,6 +173,7 @@
 	function editCriterion(id){
 		var name = $('criterionName'+ id).value;
 		//alert("id: " + id +" name: " + name + " description" + description + " objectives: " + objectivesArr);
+		Util.loading(true,"Working");
 		CriteriaAgent.editCriterion({critId:id,name:name}, {
 			callback:function(data){
 				if (data.successful){
@@ -169,6 +181,7 @@
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("CriteriaAgent.addCriterion( error:" + errorString + exception);
@@ -180,6 +193,7 @@
 	function editObjective(objId){
 		var description = $('objDesc'+objId).value;
 		//alert("names: " + name + " description" + description + " objectiveIds: " + checkedObjectivesStr); // Between name:name and ThemeIds is na:description;
+		Util.loading(true,"Working");
 		CriteriaAgent.editObjective({description:description,objectiveId:objId}, {
 			callback:function(data){
 				if (data.successful){
@@ -187,6 +201,7 @@
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("CriteriaAgent.editObjective( error:" + errorString + exception);
@@ -198,6 +213,7 @@
 	function deleteCriterion(id){
 		var destroy = confirm ("Are you sure you want to delete this planning factor? Note: there is no undo.")
 		if(destroy){
+			Util.loading(true,"Deleting planning factor");
 			CriteriaAgent.deleteCriterion({id:id}, {
 				callback:function(data){
 					if (data.successful){
@@ -205,6 +221,7 @@
 					}else{
 						alert(data.reason);
 					}
+				Util.loading(false)
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("CriteriaAgent.deleteCriterion( error:" + errorString + exception);
@@ -217,6 +234,7 @@
 	function deleteObjective(id){
 		var destroy = confirm ("Are you sure you want to delete this objective? Note: there is no undo.")
 		if(destroy){
+			Util.loading(true,"Deleting objective");
 			CriteriaAgent.deleteObjective({id:id}, {
 				callback:function(data){
 					if (data.successful){
@@ -224,6 +242,7 @@
 					}else{
 						alert(data.reason);
 					}
+				Util.loading(false)
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("CriteriaAgent.deleteObjective( error:" + errorString + exception);
@@ -235,7 +254,7 @@
 	
 </script>
 <style type="text/css">
-
+	@import "styles/loading-indicator.css";
 	li{margin: 10px 0; list-style: none;}
 	li ul li:hover {background:#D5EAEF;}
 	#finished{text-align:right;}
