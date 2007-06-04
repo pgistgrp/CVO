@@ -33,9 +33,11 @@
 	<script type='text/javascript' src='/dwr/engine.js'></script>
 	<script type='text/javascript' src='/dwr/util.js'></script>
 
-	<!-- data accessing js -->
+<!-- data accessing js -->
+<!-- mapping JavaScript pgistdev: ABQIAAAADmWGO07Q7ZeAHCvFNooqIxSrR7p1nyD8TH138ULjTOjQOW5fjxTrHGj2RyW-631yBK63wnZBIuC6BA-->
+<!-- mapping JavaScript localhost: ABQIAAAAq4HJEw-8aIG3Ew6IOzpYEBTwM0brOpm-All5BF6PoaKBxRWWERSP-RPo4689bM1xw9IvCyK4oTwAIw-->
 	<script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
-	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAq4HJEw-8aIG3Ew6IOzpYEBTwM0brOpm-All5BF6PoaKBxRWWERSP-RPo4689bM1xw9IvCyK4oTwAIw"
+	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxSrR7p1nyD8TH138ULjTOjQOW5fjxTrHGj2RyW-631yBK63wnZBIuC6BA"
 	      type="text/javascript"></script>
 	<script src="scripts/pgistmap2.js"></script>	<script type="text/javascript">
 
@@ -48,7 +50,7 @@
 	
 	/* *************** Get footprints for a given project alternative id *************** */
 	var transmode = "${alt.project.transMode}";
-	var transcolor = (transmode==0)?"#FF0000":"#00FF00";
+	var transcolor = (transmode==2)?"#00FF00":"#FF0000";
 	function getFootprintsByAltId(id){
 		ProjectAgent.getFootprintsByAltId({altid:id}, {
 			callback:function(data){
