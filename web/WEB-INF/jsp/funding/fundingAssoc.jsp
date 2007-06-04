@@ -36,6 +36,7 @@
 <!-- DWR JavaScript Libraries -->
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
+<script type='text/javascript' src='/scripts/util.js'></script>
 <!-- End DWR JavaScript Libraries -->
 
 <!--Funding Specific  Libraries-->
@@ -59,6 +60,7 @@
 	}
 
 	function setSourceDef(altId,checked){
+		Util.loading(true,"Saving funding sources..");
 		operation = (checked) ? "add" : "remove";
 		
 		//alert("suiteId: " + suiteId + " altId: " + altId + " operation: " + operation); 
@@ -70,6 +72,7 @@
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("FundingAgent.setFundingDef( error:" + errorString + exception);
@@ -78,6 +81,7 @@
 	}
 </script>
 <style type="text/css">
+	@import "styles/loading-indicator.css";
 	body{font-size:11 pt;font-family:arial;width:800px;}
 	li{margin: 10px 0; list-style: none;}
 	.source{font-size: 1.3em;}
