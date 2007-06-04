@@ -34,11 +34,13 @@
 <!-- DWR JavaScript Libraries -->
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
+<script type='text/javascript' src='/scripts/util.js'></script>
 <!-- End DWR JavaScript Libraries -->
 
 <!--Criteria Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/FundingAgent.js'></script>
 <style type="text/css" media="screen">
+	@import "styles/loading-indicator.css";
 	li{margin: 10px 0; list-style: none;border-bottom:2px solid #ccc;}
 	li ul li {border:0px;}
 	.source{font-size: 1.3em;}
@@ -47,6 +49,7 @@
 <script>
 	/* *************** get all funding sources in the system *************** */
 	function getFundingSources(){
+		Util.loading(true,"Working");
 		FundingAgent.getFundingSources({page:1, count:-1}, {
 			callback:function(data){
 				if (data.successful){
@@ -54,6 +57,7 @@
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("FundingAgent.getFundingSources( error:" + errorString + exception);
@@ -62,6 +66,7 @@
 	}
 	
 	function getSourceById(id){
+		Util.loading(true,"Loading funding source");
 		FundingAgent.getFundingSourceById({id:id}, {
 			callback:function(data){
 				if(data.successful){
@@ -69,6 +74,7 @@
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){
 				alert("FundingAgent.getFundingSourceById( error:" + errorString + exception);
@@ -84,6 +90,7 @@
 	}
 
 	function getFundingSourceById(id){
+		Util.loading(true,"Loading funding source");
 		FundingAgent.getFundingSourceById({id:id}, {
 			callback:function(data){
 				if (data.successful){
@@ -91,6 +98,7 @@
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("FundingAgent.getFundingSourceById( error:" + errorString + exception);
@@ -131,6 +139,7 @@
 		var name = $F('txtSourceName');
 		var type = $F('selSourceType');
 		//alert('name: ' + name + ' type: ' + type);
+		Util.loading(true,"Working");
 		FundingAgent.createFundingSource({name:name, type:type}, {
 			callback:function(data){
 				if (data.successful){
@@ -138,6 +147,7 @@
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 				alert("FundingAgent.createFundingSource( error:" + errorString + exception);
@@ -149,6 +159,7 @@
 	function editSource(id){
 		var name = $F('txtSourceName' + id);
 		var type = $F('selSourceType' + id);
+		Util.loading(true,"Working");
 		FundingAgent.editFundingSource({id:id, name:name, type:type}, {
 			callback:function(data){
 				if(data.successful){
@@ -156,6 +167,7 @@
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){
 				alert("FundingAgent.editFundingSource( error:" + errorString + exception);
@@ -169,6 +181,7 @@
 	function deleteSource(id){
 		var destroy = confirm ("Are you sure you want to delete this funding source? Note: there is no undo.")
 		if(destroy){
+			Util.loading(true,"Deleting funding source..");
 			FundingAgent.deleteFundingSource({id:id}, {
 				callback:function(data){
 					if(data.successful){
@@ -181,7 +194,7 @@
 					alert("FundingAgent.deleteFundingSource( error:" + errorString + exception);
 				}
 			});
-		}
+		}Util.loading(false);
 	}
 	
 	/* *************** STARTING ALTERNATIVE FUNCTIONS *************** */
@@ -193,6 +206,7 @@
 	}
 	
 	function getSourceAltById(id){
+		Util.loading(true,"Loading funding source");
 		FundingAgent.getFundingSourceAltById({id:id}, {
 			callback:function(data){
 				if(data.successful){
@@ -200,6 +214,7 @@
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){
 				alert("FundingAgent.getFundingSourceById( error:" + errorString + exception);
@@ -270,6 +285,7 @@
 		tollFormatted = toll.toString();
 		//DWR TEST: {id:"2495", name:"DWRTEST",revenue:"111",taxRate:"222",source:"Source",avgCost:"333",toll:"true",peakHourTrips:"444",offPeakTrips:"555"}
 		//alert('id:' + id + ' name: ' + name + ' revenue: ' + revenue + ' taxRate: ' + taxRate + ' sourceURL: ' + sourceURL + ' avgCost: ' + avgCost + ' toll:' + tollFormatted + ' tollChecked: ' + tollChecked + ' peakHourTripsRate:' + peakHourTripsRate + ' offPeakTripsRate:' + offPeakTripsRate);
+		Util.loading(true,"Working");
 		FundingAgent.createFundingSourceAlt({id:id,name:name,revenue:revenue,taxRate:taxRate,source:sourceURL,avgCost:avgCost,toll:tollFormatted,peakHourTrips:peakHourTripsRate,offPeakTrips:offPeakTripsRate}, {
 			callback:function(data){
 				if (data.successful){
@@ -277,6 +293,7 @@
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 				alert("FundingAgent.createFundingSource( error:" + errorString + exception);
@@ -288,6 +305,7 @@
 	function deleteSourceAlt(id){
 		var destroy = confirm ("Are you sure you want to delete this Funding Source Alternative? Note: there is no undo.")
 		if(destroy){
+			Util.loading(true,"Deleting funding source");
 			FundingAgent.deleteFundingSourceAlt({id:id}, {
 				callback:function(data){
 					if(data.successful){
@@ -295,12 +313,14 @@
 					}else{
 						alert(data.reason);
 					}
+				Util.loading(false)
 				},
 				errorHandler:function(errorString, exception){
 					alert("FundingAgent.deleteAltnerative( error:" + errorString + exception);
 				}
 			});
 		}
+		Util.loading(false)
 		
 	}
 
@@ -318,6 +338,7 @@
 		tollFormatted = toll.toString();
 		
 		//alert("id: " + id + " name: " + name + " revenue: " + revenue + " taxRate: " + taxRate + " source: " + sourceURL + " avgCost: " + avgCost + " toll: " + tollFormatted + " peakHourTrips: " + peakHourTripsRate + " offPeakTrips: " + offPeakTripsRate)
+		Util.loading(true,"Working");
 		FundingAgent.editFundingSourceAlt({id:id,name:name,revenue:revenue,taxRate:taxRate,source:sourceURL,avgCost:avgCost,toll:tollFormatted,peakHourTrips:peakHourTripsRate,offPeakTrips:offPeakTripsRate}, {
 			callback:function(data){
 				if(data.successful){
@@ -325,6 +346,7 @@
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){
 				alert("FundingAgent.editFundingSourceAlt( error:" + errorString + exception);
@@ -339,7 +361,7 @@
 
 
 <body>
-	<p><a href="userhome.do?wf=${param.wf}">Back to Moderator Control Panel</a></p>
+	<p><a href="main.do">Back to Moderator Control Panel</a></p>
 	<h1>Manage Funding Sources</h1>
 	<h3>Manage all funding sources and their associated alternatives.</h3>
 
