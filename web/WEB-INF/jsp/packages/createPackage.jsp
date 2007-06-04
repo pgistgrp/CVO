@@ -253,6 +253,8 @@
 			var pgistmap = null;
 			var overlaypoints = [];
 			var mapPositionTop = 0;
+			var mapPositionBottom = 0;
+			var fundingPositionBottom = 0;
 			
 			function load(){
 				pgistmap = new PGISTMapEditor('themap', 520, 580, false);
@@ -281,7 +283,7 @@
 						}
 					});
 				}
-				mapPositionTop = getYCoord(document.getElementById('themap'));
+				mapPositionTop = getYCoord($('themap'));
 			}
 			
 			function renderProjects(){
@@ -367,12 +369,32 @@
 				return y;
 			}
 			function adjustMapPosition() {
-				if(document.body.scrollTop < mapPositionTop){
-					document.getElementById('themap').style.top = (mapPositionTop + 30) + "px";
-				}else{
-					document.getElementById('themap').style.top  = (document.body.scrollTop + 30) + "px";
-				}
+				mapPositionBottom = getYCoord($('themap')) + $('themap').clientHeight;
+				fundingPositionBottom = getYCoord($('fundingTable')) + $('fundingTable').clientHeight;
+				leftPositionTop = getYCoord($('left'));
+				mapPositionTop = getYCoord($('themap'));
 				
+				if(document.body.scrollTop < leftPositionTop){
+					$('themap').style.top = leftPositionTop; 
+				}
+				else{ 
+					newMapPosition = mapPositionBottom + 5;
+					if (newMapPosition >= fundingPositionBottom)
+					{
+						if (document.body.scrollTop < mapPositionTop)
+						{
+							$('themap').style.top = (document.body.scrollTop + 5) + 'px';
+						}else{}
+					}
+					else{$('themap').style.top = (document.body.scrollTop + 5) + 'px';}
+				}
+				clearBottom();
+			}
+			
+			function clearBottom(){ // Move the map so that it's not below the funding table
+				if(mapPositionBottom >= fundingPositionBottom){
+						$('themap').style.top = (fundingPositionBottom - 581) + 'px';
+					}
 			}
 	/* *************** END MAPPING FUNCTIONS *************** */
 </script>

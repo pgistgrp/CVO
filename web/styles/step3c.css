@@ -1,3 +1,4 @@
+
 .summary
 {
 float:left;
@@ -43,7 +44,7 @@ background:#E5A9A6;
 .summary table td {font-size:9pt;}
 .summary table td + td {text-align:right;font-size:9pt;}
 
-#projectsTable, #fundingTable {width:99%}
+#projectsTable, #fundingTable {width:100%}
 
 #projectsTable th {
 font-size:10pt;
@@ -69,6 +70,12 @@ background:#DCECBD;
 
 #left {width:420px;margin-bottom:2em;}
 
+#right {
+width:520px;
+float:left;
+margin-left:10px;
+background:red;
+}
 
 #fundingTable {
 border:1px solid #9EBDCA;
