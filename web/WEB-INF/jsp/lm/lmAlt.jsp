@@ -41,8 +41,8 @@
 
 	
 	function load(){
-		pgistmap = new PGISTMapEditor('obj-right', 435, 485, false);
-		getFootprintsByAltId(${alternative.id});
+		//pgistmap = new PGISTMapEditor('obj-right', 435, 485, false);
+		//getFootprintsByAltId(${alternative.id});
 	}
 	var pgistmap = null;
 	
