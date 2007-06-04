@@ -166,7 +166,7 @@ the column labels. */
 											<a href="javascript:toggleRow('objective${loop.index}','icon${loop.index}');">
 											<img src="images/plus.gif" id="icon${loop.index}" class="icon"></a>
 											${project.name} Options</td>
-									<td class="col2" colspan="2" align="right"> ${(projectRef.project.inclusive) ? 'Select at most one' : 'Select any number'} </td>
+									<td class="col2" colspan="2" align="right"> ${(project.inclusive) ? 'Select at most one' : 'Select any number'} </td>
 								</tr>
 								<!-- end PROJECT -->
 
@@ -177,8 +177,8 @@ the column labels. */
 											<!-- start project alt -->
 											<c:forEach var="alt" items="${project.alternatives}" varStatus="loop">
 												<tr>
-													<td class="col1"><a href="lmAlt.do?altId=${alt.id}">${alt.name}</td>
-													<td class="cost">$<fmt:formatNumber type="number">${altRef.alternative.cost}</fmt:formatNumber>m</td>
+													<td class="col1"><a target="_blank" href="lmAlt.do?altId=${alt.id}">${alt.name}</td>
+													<td class="cost">$<fmt:formatNumber type="number">${alt.cost}</fmt:formatNumber>m</td>
 												</tr>
 											</c:forEach>
 											<!-- end project alt-->

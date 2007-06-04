@@ -17,7 +17,7 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
 	<head>
-	<title>Let's Improve Transportation: ${alternative.name}</title>
+	<title>Let's Improve Transportation: ${alt.name}</title>
 	<!-- Site Wide CSS -->
 	<style type="text/css" media="screen">
 	@import "styles/lit.css";
@@ -41,13 +41,13 @@
 
 	
 	function load(){
-		//pgistmap = new PGISTMapEditor('obj-right', 435, 485, false);
-		//getFootprintsByAltId(${alternative.id});
+		pgistmap = new PGISTMapEditor('obj-right', 435, 485, false);
+		getFootprintsByAltId(${alt.id});
 	}
 	var pgistmap = null;
 	
 	/* *************** Get footprints for a given project alternative id *************** */
-	var transmode = "${alternative.project.transMode}";
+	var transmode = "${alt.project.transMode}";
 	var transcolor = (transmode==0)?"#FF0000":"#00FF00";
 	function getFootprintsByAltId(id){
 		ProjectAgent.getFootprintsByAltId({altid:id}, {
@@ -99,7 +99,7 @@
 	<div id="container">
 	<!-- begin Object -->
 	<div id="object">
-		<h3 class="headerColor" id="project-title">${alternative.name}</h3>
+		<h3 class="headerColor" id="project-title">${alt.name}</h3>
 		<!-- begin cell containing Google Map object -->
 		
 	
@@ -116,40 +116,40 @@
 		<!--begin project description -->
 		<p>
 		<h4 style="display:inline">Money needed to complete this project: </h4>
-		<span id="project-moneyNeeded">${alternative.cost} million</span>
+		<span id="project-moneyNeeded">${alt.cost} million</span>
 		</p>
 		<p>
 		<h4 style="display:inline">Sponsoring Agency: </h4>
-		<span id="project-sponsoringAgency">${alternative.sponsor}</span>
+		<span id="project-sponsoringAgency">${alt.sponsor}</span>
 		</p>
 		<h4 style="display:inline">County: </h4>
-		<span id="project-county">${alternative.county}</span>
+		<span id="project-county">${alt.county}</span>
 		</p>
 		
 		<p>
 		<h4>Short Description</h4>
-		<span id="project-shortDescription">${alternative.shortDesc}</span>
+		<span id="project-shortDescription">${alt.shortDesc}</span>
 		</p>
 		<p>
 		<h4>Detailed Description</h4>
 		<span id="project-detailedDescription">
 			<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
-				${alternative.detailedDesc}
+				${alt.detailedDesc}
 			</pg:termHighlight>
 		</span>
 		<p>
 		<h4>Links to additional information about this project</h4>
 		<span id="project-links">
-			${alternative.links}
+			${alt.links}
 		</span>
 		</p>
 		<p>
 		<h4>Statement for</h4>
-		<span id="project-statementFor">${alternative.statementFor}</span>
+		<span id="project-statementFor">${alt.statementFor}</span>
 		</p>
 		<p>
 		<h4>Statement against</h4>
-		<span id="project-statementAgainst">${alternative.statementAgainst}</span>
+		<span id="project-statementAgainst">${alt.statementAgainst}</span>
 		</p>
 		<!-- end project description -->
 	</div>
