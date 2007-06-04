@@ -107,290 +107,56 @@
 			<div id="newtable">
 				<table cellpadding=0 cellspacing=0>
 					<tr class="tableHeading">
-						<th colspan="2" class="first">My Proposed Projects</th>
+						<th colspan="2" class="first">Proposed Projects</th>
 						<th class="right"><span id="hiddenLabel" style="visibility:hidden">Money Needed</span></th>
 					</tr>
 					
-					<!-- begin CATEGORY LABEL -->
-					<tr >
-						<td class="category" colspan="3"><strong>Road Projects</strong></td>
-					</tr>
-					<!-- end CATEGORY LABEL -->
 					
-					<!-- begin PROJECT -->
-					<tr class="fundingType">
-						<td class="fundingSourceItem">
-								<a href="javascript:toggleRow('objective1','icon1');">
-								<img src="images/plus.gif" id="icon1" class="icon"></a>
-								Alaskan Way Viaduct Options</td>
-						<td class="col2" colspan="2">One option will be chosen</td>
-					</tr>
-					<!-- end PROJECT -->
-					
-					<!-- begin HIDDEN ROW of OPTIONS -->
-					<tr style="display:none;" class="objectives" id="objective1">
-						<td colspan="3">
-							<table>
-								<tr>
-									<td class="col1">Elevated Structure</td>
-									<td class="cost">$1,281,101,121</td>
+					<c:forEach var="category" begin="1" end="2">
+						<!-- start road projects -->
+						<tr>
+							<c:choose>
+								<c:when test="${category == 1}">
+									<td class="category" colspan="3"><strong>Road Projects</strong></td>
+								</c:when>
+								<c:otherwise>
+									<td class="category" colspan="3"><strong>Transit Projects</strong></td>
+								</c:otherwise>
+							</c:choose>
+						</tr>
+						<!-- end CATEGORY LABEL -->
+						<!-- ******* LOOP ENTIRE PROJECT ******** -->
+						<c:forEach var="project" items="${projects}" varStatus="loop">
+							<c:if test="${project.transMode == category}">
+								<!-- begin PROJECT -->
+								<tr class="fundingType">
+									<td class="fundingSourceItem">
+											<a href="javascript:toggleRow('objective${loop.index}','icon${loop.index}');">
+											<img src="images/plus.gif" id="icon${loop.index}" class="icon"></a>
+											${project.name} Options</td>
+									<td class="col2" colspan="2" align="right"> ${(projectRef.project.inclusive) ? 'Select at most one' : 'Select any number'} </td>
 								</tr>
-								<tr>
-									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
-									<td class="cost">$611,102,174</td>
-								</tr>
-								<tr>
-									<td class="col1">Elevated Structure</td>
-									<td class="cost">$1,281,101,121</td>
-								</tr>
-								<tr>
-									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
-									<td class="cost">$611,102,174</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<!-- end HIDDEN ROW -->
-					
-					<tr class="fundingType2">
-						<td class="fundingSourceItem">
-							<a href="javascript:toggleRow('objective2','icon2');">
-							<img src="images/plus.gif" id="icon2" class="icon"></a>
-							Alaskan Way Viaduct Options</td>
-						<td class="col2" colspan="2">&nbsp;</td>
-					</tr>
-					<!-- begin HIDDEN ROW -->
-					<tr style="display:none;" class="objectives" id="objective2">
-						<td colspan="3">
-							<table>
-								<tr>
-									<td class="col1">Elevated Structure</td>
-									<td class="cost">$1,281,101,121</td>
-								</tr>
-								<tr>
-									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
-									<td class="cost">$611,102,174</td>
-								</tr>
-								<tr>
-									<td class="col1">Elevated Structure</td>
-									<td class="cost">$1,281,101,121</td>
-								</tr>
-								<tr>
-									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
-									<td class="cost">$611,102,174</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<!-- end HIDDEN ROW -->
+								<!-- end PROJECT -->
 
-					<!-- begin PROJECT -->
-					<tr class="fundingType2">
-						<td class="fundingSourceItem">
-								<a href="javascript:toggleRow('objective3','icon3');">
-								<img src="images/plus.gif" id="icon3" class="icon"></a>
-								Alaskan Way Viaduct Options</td>
-						<td class="col2" colspan="2"></td>
-					</tr>
-					<!-- end PROJECT -->
-					
-					<!-- begin HIDDEN ROW of OPTIONS -->
-					<tr style="display:none;" class="objectives" id="objective3">
-						<td colspan="3">
-							<table>
-								<tr>
-									<td class="col1">Elevated Structure</td>
-									<td class="cost">$1,281,101,121</td>
+								<!-- begin HIDDEN ROW of OPTIONS -->
+								<tr style="display:none;" class="objectives" id="objective${loop.index}">
+									<td colspan="3">
+										<table>
+											<!-- start project alt -->
+											<c:forEach var="alt" items="${project.alternatives}" varStatus="loop">
+												<tr>
+													<td class="col1"><a href="lmAlt.do?altId=${alt.id}">${alt.name}</td>
+													<td class="cost">$<fmt:formatNumber type="number">${altRef.alternative.cost}</fmt:formatNumber>m</td>
+												</tr>
+											</c:forEach>
+											<!-- end project alt-->
+										</table>
+									</td>
 								</tr>
-								<tr>
-									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
-									<td class="cost">$611,102,174</td>
-								</tr>
-								<tr>
-									<td class="col1">Elevated Structure</td>
-									<td class="cost">$1,281,101,121</td>
-								</tr>
-								<tr>
-									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
-									<td class="cost">$611,102,174</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<!-- end HIDDEN ROW -->
-					
-					<tr class="fundingType2">
-						<td class="fundingSourceItem">
-							<a href="javascript:toggleRow('objective4','icon4');">
-							<img src="images/plus.gif" id="icon4" class="icon"></a>
-							Alaskan Way Viaduct Options</td>
-						<td class="col2" colspan="2">&nbsp;</td>
-					</tr>
-					<!-- begin HIDDEN ROW -->
-					<tr style="display:none;" class="objectives" id="objective4">
-						<td colspan="3">
-							<table>
-								<tr>
-									<td class="col1">Elevated Structure</td>
-									<td class="cost">$1,281,101,121</td>
-								</tr>
-								<tr>
-									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
-									<td class="cost">$611,102,174</td>
-								</tr>
-								<tr>
-									<td class="col1">Elevated Structure</td>
-									<td class="cost">$1,281,101,121</td>
-								</tr>
-								<tr>
-									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
-									<td class="cost">$611,102,174</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<!-- end HIDDEN ROW -->
-
-					<!-- begin CATEGORY LABEL -->
-					<tr >
-						<td class="category" colspan="3"><strong>Transit Projects</strong></td>
-					</tr>
-					<!-- end CATEGORY LABEL -->
-					
-					<!-- begin PROJECT -->
-					<tr class="fundingType">
-						<td class="fundingSourceItem">
-								<a href="javascript:toggleRow('objective5','icon5');">
-								<img src="images/plus.gif" id="icon5" class="icon"></a>
-								Alaskan Way Viaduct Options</td>
-						<td class="col2" colspan="2">One option will be chosen</td>
-					</tr>
-					<!-- end PROJECT -->
-					
-					<!-- begin HIDDEN ROW of OPTIONS -->
-					<tr style="display:none;" class="objectives" id="objective5">
-						<td colspan="3">
-							<table>
-								<tr>
-									<td class="col1">Elevated Structure</td>
-									<td class="cost">$1,281,101,121</td>
-								</tr>
-								<tr>
-									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
-									<td class="cost">$611,102,174</td>
-								</tr>
-								<tr>
-									<td class="col1">Elevated Structure</td>
-									<td class="cost">$1,281,101,121</td>
-								</tr>
-								<tr>
-									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
-									<td class="cost">$611,102,174</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<!-- end HIDDEN ROW -->
-
-					<tr class="fundingType">
-						<td class="fundingSourceItem">
-							<a href="javascript:toggleRow('objective6','icon6');">
-							<img src="images/plus.gif" id="icon6" class="icon"></a>
-							Alaskan Way Viaduct Options</td>
-						<td class="col2" colspan="2">One option will be chosen</td>
-					</tr>
-					
-					<!-- begin HIDDEN ROW -->
-					<tr style="display:none;" class="objectives" id="objective6">
-						<td colspan="3">
-							<table>
-								<tr>
-									<td class="col1">Elevated Structure</td>
-									<td class="cost">$1,281,101,121</td>
-								</tr>
-								<tr>
-									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
-									<td class="cost">$611,102,174</td>
-								</tr>
-								<tr>
-									<td class="col1">Elevated Structure</td>
-									<td class="cost">$1,281,101,121</td>
-								</tr>
-								<tr>
-									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
-									<td class="cost">$611,102,174</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<!-- end HIDDEN ROW -->
-
-					<!-- begin PROJECT -->
-					<tr class="fundingType2">
-						<td class="fundingSourceItem">
-								<a href="javascript:toggleRow('objective7','icon7');">
-								<img src="images/plus.gif" id="icon7" class="icon"></a>
-								Alaskan Way Viaduct Options</td>
-						<td class="col2" colspan="2">&nbsp;</td>
-					</tr>
-					<!-- end PROJECT -->
-					
-					<!-- begin HIDDEN ROW of OPTIONS -->
-					<tr style="display:none;" class="objectives" id="objective7">
-						<td colspan="3">
-							<table>
-								<tr>
-									<td class="col1">Elevated Structure</td>
-									<td class="cost">$1,281,101,121</td>
-								</tr>
-								<tr>
-									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
-									<td class="cost">$611,102,174</td>
-								</tr>
-								<tr>
-									<td class="col1">Elevated Structure</td>
-									<td class="cost">$1,281,101,121</td>
-								</tr>
-								<tr>
-									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
-									<td class="cost">$611,102,174</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<!-- end HIDDEN ROW -->
-					
-					<tr class="fundingType">
-						<td class="fundingSourceItem">
-							<a href="javascript:toggleRow('objective8','icon8');">
-							<img src="images/plus.gif" id="icon8" class="icon"></a>
-							Alaskan Way Viaduct Options</td>
-						<td class="col2" colspan="2">One option will be chosen</td>
-					</tr>
-					<!-- begin HIDDEN ROW -->
-					<tr style="display:none;" class="objectives" id="objective8">
-						<td colspan="3">
-							<table>
-								<tr>
-									<td class="col1">Elevated Structure</td>
-									<td class="cost">$1,281,101,121</td>
-								</tr>
-								<tr>
-									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
-									<td class="cost">$611,102,174</td>
-								</tr>
-								<tr>
-									<td class="col1">Elevated Structure</td>
-									<td class="cost">$1,281,101,121</td>
-								</tr>
-								<tr>
-									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
-									<td class="cost">$611,102,174</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<!-- end HIDDEN ROW -->
+								<!-- end HIDDEN ROW -->
+							</c:if>
+						</c:forEach>
+					</c:forEach>
 
 				</table>
 			</div>
