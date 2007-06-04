@@ -39,10 +39,12 @@
 	<script type='text/javascript' src='/dwr/engine.js'></script>
 	<script type='text/javascript' src='/dwr/util.js'></script>
 	<script type='text/javascript' src='/dwr/interface/FundingAgent.js'></script>
+	<script type='text/javascript' src='/scripts/util.js'></script>
 	<script type="text/javascript" charset="utf-8">
 		var suiteId = "${param.fundSuiteId}"
 				
 		function getVehicles(){
+			Util.loading(true,"Loading vehicles");
 			FundingAgent.getVehicles({}, {
 				callback:function(data){
 					if (data.successful){
@@ -50,6 +52,7 @@
 					}else{
 						alert(data.reason);
 					}
+				Util.loading(false)
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("FundingAgent.getVehicles( error:" + errorString + exception);
@@ -64,6 +67,7 @@
 			var mpy = $F('vehicleMpy');
 			
 			//alert("userId: " + userId + "milesPerGallon: " + milesPerGallon + " value: " + value + " milesPerYear: " + milesPerYear); 
+			Util.loading(true,"Working");
 			FundingAgent.addVehicle({userId:userId,milesPerGallon:mpg,value:value,milesPerYear:mpy}, {
 				callback:function(data){
 					if (data.successful){
@@ -72,6 +76,7 @@
 					}else{
 						alert(data.reason);
 					}
+				Util.loading(false)
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("FundingAgent.addVehicle( error:" + errorString + exception);
@@ -90,6 +95,7 @@
 			var mpy = $F('vehicleMpy'+ vehicleId);
 			
 			//alert("vehicleId: " + vehicleId + " milesPerGallon: " + milesPerGallon + " value: " + value + " milesPerYear: " + milesPerYear); 
+			Util.loading(true,"Working");
 			FundingAgent.updateVehicle({vehicleId:vehicleId,milesPerGallon:mpg,value:value,milesPerYear:mpy}, {
 				callback:function(data){
 					if (data.successful){
@@ -97,6 +103,7 @@
 					}else{
 						alert(data.reason);
 					}
+				Util.loading(false)
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("FundingAgent.updateVehicle( error:" + errorString + exception);
@@ -107,6 +114,7 @@
 		function deleteVehicle(vehicleId){
 			userId = "${user.userId}"
 			//alert("userId: " + userId + " vehicleId: " + vehicleId); 
+			Util.loading(true,"Deleting vehicle");
 			FundingAgent.deleteVehicle({userId:userId,vehicleId:vehicleId}, {
 				callback:function(data){
 					if (data.successful){
@@ -114,6 +122,7 @@
 					}else{
 						alert(data.reason);
 					}
+				Util.loading(false)
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("FundingAgent.deleteVehicle( error:" + errorString + exception);
@@ -124,6 +133,7 @@
 		function getUserById(section){
 			userId = "${user.userId}";
 			//alert(userId)
+			Util.loading(true,"Loading user data");
 			FundingAgent.lookupUserById({userId:userId}, {
 				callback:function(data){
 					if (data.successful){
@@ -135,6 +145,7 @@
 					}else{
 						return data.reason;
 					}
+				Util.loading(false)
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("FundingAgent.getUserById( error:" + errorString + exception);
@@ -186,6 +197,7 @@
 
 
 			//alert('income: ' +user.income+ ' familyCount: ' +user.familyCount+ ' zipcode: ' + user.zipcode + ' workzip: '+ user.workZipcode + ' driveDays: ' + user.driveDays + ' carpoolDays:' +user.carpoolDays+ ' carpoolPeeps: ' + user.carpoolPeople + ' bus days ' +user.carpoolPeople+' busDays:' + user.busDays+ ' walkDays: ' + user.walkDays + ' bikeDays: ' + user.bikeDays + ' userTolls: ' + user.tolls);
+			Util.loading(true,"Calculating");
 			FundingAgent.calcCommute(user, {
 				callback:function(data){
 					if (data.successful){
@@ -219,6 +231,7 @@
 					}else{
 						alert("reason: " + data.reason);
 					}
+				Util.loading(false)
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("FundingAgent.setEstimates( error:" + errorString + exception);
@@ -240,6 +253,7 @@
 			//	alert("Toll: " + user.tolls[i].name + " Peak Trips: " +user.tolls[i].peakTrips+ " Off Peak Trips: " +user.tolls[i].offPeakTrips);
 			//}
 			//alert("suiteId: " + suiteId + " userCommute: " + user); 
+			Util.loading(true,"Working");
 			FundingAgent.calcCostReport(user,suiteId, {
 				callback:function(data){
 					if (data.successful){
@@ -249,6 +263,7 @@
 					}else{
 						alert(data.reason);
 					}
+				Util.loading(false)
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("FundingAgent.calcCostReport( error:" + errorString + exception);
