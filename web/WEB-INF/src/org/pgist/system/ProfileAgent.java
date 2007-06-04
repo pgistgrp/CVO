@@ -220,12 +220,6 @@ public class ProfileAgent {
         	map.put("visits", visits);
         	map.put("post", post);
             
-        	/*request.setAttribute("date", strDate);
-            request.setAttribute("visits", visits);
-            request.setAttribute("post", post);
-            
-            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/profile_stats.jsp"));
-            */
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

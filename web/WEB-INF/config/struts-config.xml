@@ -26,13 +26,16 @@
         <forward name="workflow" path="/workflow.do" />
         <forward name="nextstep" path="/WEB-INF/jsp/nextstep.jsp" />
         <forward name="confirmation" path="confirmation.jsp" />
-        <forward name="userhome" path="/userHome.jsp" />        
+        <forward name="userhome" path="/userHome.jsp" />      
+        <forward name="recoverpassword" path="/recoverPassword.jsp" />      
     </global-forwards>
 
 
     <action-mappings>
 
         <action path="/workflow" scope="request" type="org.pgist.wfengine.web.WorkflowAction" />
+        
+        <action path="/recoverpassword" scope="request" type="org.pgist.system.RecoverPasswordAction" />
         
         <action path="/userhome" scope="request" type="org.pgist.system.UserHomeAction" />
       

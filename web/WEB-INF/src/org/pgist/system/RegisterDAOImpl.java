@@ -1,9 +1,13 @@
 package org.pgist.system;
 
+import java.text.DateFormat;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.SortedSet;
 import java.util.List;
+import java.util.Date;
 
 import org.pgist.funding.UserCommute;
 import org.pgist.funding.UserFundingSourceToll;
@@ -19,6 +23,14 @@ import org.pgist.util.WebUtils;
  */
 public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 
+	
+	private EmailSender emailSender;
+	
+	public void setEmailSender(EmailSender emailSender) {
+		this.emailSender = emailSender;
+	}
+	
+	
 	private static final String hql_addUser = "from County c where ?= some elements(c.zipCodes)";
 	
 	private static final String hql_addUser2 = "from Role r where r.name=?";
@@ -164,10 +176,84 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 		return true;
 	}
 	
+
+	private static final String hql_checkEmail = "from User u where u.email=?";
+	
+	public boolean checkEmail(String email) throws Exception {
+		
+		List list = getHibernateTemplate().find(hql_checkEmail, new Object[] {
+				email,
+    	});
+		
+		if(list.size() > 0) {
+			return false;
+		}
+		
+		return true;
+	}
+	
 	
 	public User getCurrentUser(Long id) throws Exception {
 		User u = (User)load(User.class, id);
 		return u;
+	}
+	
+	
+	private static final String hql_recoverPassword = "from User u where u.email=?";
+	
+	public boolean createPasswordRecovery(String email) throws Exception {
+		
+		List list = getHibernateTemplate().find(hql_recoverPassword, new Object[] {
+				email,
+    	});
+		
+		if(list.size() != 1) {
+			return false;
+		}
+		
+		User user = (User) list.get(0);
+		
+		String code = Math.random() + user.getHomeAddr() + Math.random() + user.getPassword();
+		RecoverPassword rp = new RecoverPassword();
+		rp.setCode(code);
+		rp.encode();
+		Date date = new Date();
+		rp.setDate(date);
+		rp.setUserId(user.getId());
+		save(rp);
+		
+		String recoveryCode = rp.getCode();
+		
+    	Map values = new HashMap();
+    	String loginname = user.getLoginname();
+        values.put("code", recoveryCode);
+    	emailSender.send(user, "recoverpassword", values);
+    	
+		return true;
+	}
+	
+	
+	private static final String hql_validatePasswordRecovery = "from RecoverPassword rc where u.code=?";
+	
+	public boolean validatePasswordRecoveryCode(String code) throws Exception {
+		List list = getHibernateTemplate().find(hql_validatePasswordRecovery, new Object[] {
+				code,
+    	});
+		
+		if(list.size() > 0) {
+			RecoverPassword rp = (RecoverPassword) list.get(0);
+			Date sDate = rp.getDate();
+			Date cDate = new Date();
+			if(sDate.getYear()==cDate.getYear()) {
+				
+			}
+			
+			
+			return true;
+		}
+		
+		
+		return false;
 	}
 	
 	

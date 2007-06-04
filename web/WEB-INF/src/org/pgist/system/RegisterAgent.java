@@ -144,9 +144,13 @@ public class RegisterAgent {
     	}
     	
         try {
-        	Long id = registerService.addUser(firstname, lastname, email1, address1, address2, city, state, zipcode, username, password1);
-        	registerService.login(request, id);
-        	map.put("id", id);
+        	
+        	if(registerService.checkEmail(email1) && registerService.checkUsername(username)) {
+        		Long id = registerService.addUser(firstname, lastname, email1, address1, address2, city, state, zipcode, username, password1);
+        		registerService.login(request, id);
+            	map.put("id", id);
+        	}
+        	
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -661,6 +665,87 @@ public class RegisterAgent {
 
         return map;
     }//checkUsername()
+    
+    
+    /**
+     * check if the email address is okay to use, (not taken)
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>email - string, desired email</li>
+     *   </ul>
+     *   
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>available - a boolean value, the user name is available, true or false</li>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map checkEmail(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+       
+        String email = (String) params.get("email");
+       
+    	if(email==null || "".equals(email.trim())){
+    		map.put("reason", "email cannot be blank.");
+    		return map;
+    	}
+  
+        try {
+        	
+        	boolean available = registerService.checkEmail(email);
+        	
+        	map.put("available", available);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+
+        return map;
+    }//checkEmail()
+    
+    
+    /**
+     * recover the users password
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>email - string, user's email address</li>
+     *   </ul>
+     *   
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>message - a string system message</li>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map createPasswordRecovery(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+       
+        String email = (String) params.get("email");
+       
+    	if(email==null || "".equals(email.trim())){
+    		map.put("reason", "email cannot be blank.");
+    		return map;
+    	}
+  
+        try {
+        	
+        	boolean emailfound = registerService.createPasswordRecovery(email);
+        	
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+
+        return map;
+    }//createPasswordRecovery()
     
     
 } //RegisterAgent()

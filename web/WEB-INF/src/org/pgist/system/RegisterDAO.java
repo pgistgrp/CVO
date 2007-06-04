@@ -36,4 +36,10 @@ public interface RegisterDAO extends BaseDAO {
 	
 	User getCurrentUser(Long id) throws Exception;
 	
+	boolean createPasswordRecovery(String email) throws Exception;
+	
+	boolean checkEmail(String email) throws Exception;
+	
+	boolean validatePasswordRecoveryCode(String code) throws Exception;
+	
 }

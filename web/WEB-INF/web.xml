@@ -16,6 +16,7 @@
             /WEB-INF/config/context-funding.xml
             /WEB-INF/config/context-projects.xml
             /WEB-INF/config/context-packages.xml
+            /WEB-INF/config/context-lm.xml
         </param-value>
     </context-param>
     
@@ -147,6 +148,10 @@
         <init-param>
             <param-name>config-projects</param-name>
             <param-value>WEB-INF/config/dwr-projects.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>config-lm</param-name>
+            <param-value>WEB-INF/config/dwr-lm.xml</param-value>
         </init-param>
         <init-param>
             <param-name>config-workflow</param-name>

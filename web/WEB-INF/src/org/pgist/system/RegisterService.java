@@ -45,4 +45,10 @@ public interface RegisterService {
 	
 	User getCurrentUser() throws Exception;
 	
+	boolean createPasswordRecovery(String email) throws Exception;
+	
+	boolean checkEmail(String email) throws Exception;
+	
+	boolean validatePasswordRecoveryCode(String code) throws Exception;
+	
 }

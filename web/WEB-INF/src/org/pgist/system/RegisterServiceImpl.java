@@ -107,4 +107,18 @@ public class RegisterServiceImpl implements RegisterService {
     }
     
     
+	public boolean createPasswordRecovery(String email) throws Exception {
+		return registerDAO.createPasswordRecovery(email);
+	}
+	
+	
+	public boolean checkEmail(String email) throws Exception {
+		return registerDAO.checkEmail(email);
+	}
+	
+	
+	public boolean validatePasswordRecoveryCode(String code) throws Exception {
+		return registerDAO.validatePasswordRecoveryCode(code);
+	}
+	
 }
