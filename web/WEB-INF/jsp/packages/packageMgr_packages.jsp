@@ -20,8 +20,8 @@
 		<th>Total Cost to Average Resident</th>
 	</tr>
 	<c:forEach var="package" items="${packages}" varStatus="loop">
-		<tr>
-			<td class="col1"><a target="_blank" href="package.do?pkgId=${package.id}&fundSuiteId=${fundSuiteId}&projSuiteId=${projSuiteId}&critSuiteId=${critSuiteId}&pkgSuiteId=${pkgSuiteId}">${package.description} ** ${userClusteredPkgId} --- ${(package.id == userClusteredPkgId) ? "YES": "NO"}</a></td>
+		<tr class="${(package.id == userClusteredPkgId) ? 'box5': ''}">
+			<td class="col1"><a target="_blank" href="package.do?pkgId=${package.id}&fundSuiteId=${fundSuiteId}&projSuiteId=${projSuiteId}&critSuiteId=${critSuiteId}&pkgSuiteId=${pkgSuiteId}">${package.description}</a></td>
 			<td>$${package.totalCost} Million</td>
 			<td>$${package.avgResidentCost}/year</td>
 		</tr>
