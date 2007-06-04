@@ -26,6 +26,7 @@
 		[x] Cost to you (Matt)
 		[x] Limit Decimal Points on Floats (Jordan)
 		[x] myLimit validations via JS (Jordan)
+		[x] fix map scrolling bugs (Adam)
 
 #### -->
 <html>
