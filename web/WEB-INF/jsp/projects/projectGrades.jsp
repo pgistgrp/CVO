@@ -44,8 +44,10 @@
 		<!--Project Grades Specific  Libraries-->
 		<script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
 		<script src="scripts/simpletreemenu.js" type="text/javascript"></script>
+		<script src="scripts/util.js" type="text/javascript"></script>
 		<style type="text/css" media="screen">
 			@import "styles/simpletree.css";
+			@import "styles/loading-indicator.css";
 		</style>
 		
 		<style type="text/css" media="screen">
@@ -60,6 +62,7 @@
 			function setGrading(altRefId, critId, objId, value){
 				if(value != ""){
 					//alert("altRefId: " + altRefId + " critId: " + critId + " objId: " + objId +" value: " +value ); 
+					Util.loading(true,"Saving grades");
 					ProjectAgent.setGrading({altRefId:altRefId,critId:critId,objId:objId,value:value},{
 						callback:function(data){
 							if (data.successful){
@@ -69,6 +72,7 @@
 							}else{
 								alert(data.reason);
 							}
+						Util.loading(false)
 						},
 						errorHandler:function(errorString, exception){ 
 						alert("ProjectAgent.setGrading( error:" + errorString + exception);

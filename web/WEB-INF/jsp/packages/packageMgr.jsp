@@ -29,6 +29,7 @@
 <script src="scripts/search.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
+<script type='text/javascript' src='/scripts/util.js'></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 
@@ -60,6 +61,7 @@ function createClusteredPackages(){
 	$('newtable').innerHTML = '<img src="/images/indicator_arrows.gif" /> Clustering Packages';
 	var pkgCount = $F('pkgCount');
 	alert("pkgSuiteId: " + pkgSuiteId + " pkgCount: " + pkgCount + "projSuiteId: " + projSuiteId + " fundSuiteID: "+ fundSuiteId);
+	Util.loading(true,"Working");
 	PackageAgent.createClusteredPackages({pkgSuiteId:pkgSuiteId, pkgCount:pkgCount, projSuiteId: projSuiteId, fundSuiteId:fundSuiteId}, {
 		callback:function(data){
 			if (data.successful){
@@ -67,6 +69,7 @@ function createClusteredPackages(){
 			}else{
 				alert(data.reason);
 			}
+		Util.loading(false);
 		},
 		errorHandler:function(errorString, exception){ 
 		alert("PackageAgent.createClusteredPackages( error:" + errorString + exception);
@@ -78,6 +81,7 @@ function createClusteredPackage(){
 	var description = $F('packageDesc');
 	//alert("description: " + description)
 	if(description.length > 0){
+		Util.loading(true,"Saving package");
 		PackageAgent.createClusteredPackage({suiteId:pkgSuiteId,description:description}, {
 			callback:function(data){
 				if (data.successful){
@@ -85,6 +89,7 @@ function createClusteredPackage(){
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false);
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("PackageAgent.createClusteredPackage( error:" + errorString + exception);
@@ -98,6 +103,7 @@ function createClusteredPackage(){
 
 function getClusteredPackages(){
 	//alert("ProjSuiteId: " + projSuiteId + " fundSuiteId: " + fundSuiteId + " critSuiteId: " + critSuiteId + " pkgSuiteId: " + pkgSuiteId)
+	Util.loading(true,"Loading packages");
 	PackageAgent.getAutocreatedClusteredPackages({pkgSuiteId:pkgSuiteId, projSuiteId:projSuiteId,fundSuiteId:fundSuiteId,critSuiteId:critSuiteId}, {
 		callback:function(data){
 			if (data.successful){
@@ -105,6 +111,7 @@ function getClusteredPackages(){
 			}else{
 				alert(data.reason);
 			}
+		Util.loading(false);
 		},
 		errorHandler:function(errorString, exception){ 
 		alert("PackageAgent.getAutocreatedClusteredPackages( error:" + errorString + exception);
@@ -113,6 +120,7 @@ function getClusteredPackages(){
 }
 
 function getManualPackages(){
+	Util.loading(true,"Loading packages");
 	PackageAgent.getManualPackages({pkgSuiteId:pkgSuiteId,projSuiteId:projSuiteId,fundSuiteId:fundSuiteId,critSuiteId:critSuiteId}, {
 		callback:function(data){
 			if (data.successful){
@@ -120,6 +128,7 @@ function getManualPackages(){
 			}else{
 				alert(data.reason);
 			}
+		Util.loading(false);
 		},
 		errorHandler:function(errorString, exception){ 
 		alert("PackageAgent.getManualPackages( error:" + errorString + exception);
@@ -129,6 +138,7 @@ function getManualPackages(){
 
 function deleteClusteredPackage(pkgId){
 	//alert("suiteId: " + pkgSuiteId + " pkgId: " + pkgId); 
+	Util.loading(true,"Deleting package");
 	PackageAgent.deleteClusteredPackage({suiteId:pkgSuiteId,pkgId:pkgId}, {
 		callback:function(data){
 			if (data.successful){
@@ -137,6 +147,7 @@ function deleteClusteredPackage(pkgId){
 			}else{
 				alert(data.reason);
 			}
+			Util.loading(false);
 		},
 		errorHandler:function(errorString, exception){ 
 		alert("PackageAgent.deleteClusteredPackage( error:" + errorString + exception);
@@ -145,6 +156,7 @@ function deleteClusteredPackage(pkgId){
 }
 
 function publishPackages(){
+	Util.loading(true,"Publishing packages");
 	PackageAgent.publishPackages({pkgSuiteId:pkgSuiteId}, {
 		callback:function(data){
 			if (data.successful){
@@ -153,6 +165,7 @@ function publishPackages(){
 			}else{
 				alert(data.reason);
 			}
+		Util.loading(false)
 		},
 		errorHandler:function(errorString, exception){ 
 		alert("PackageAgent.publishPackages( error:" + errorString + exception);
