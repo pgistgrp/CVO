@@ -14,7 +14,7 @@ Util.loading = function(show, message){
 		}
 	}else{
 		if(i){
-			i.hide();
+			Effect.Fade(i,{duration:3.0});
 		}
 	}
 }
