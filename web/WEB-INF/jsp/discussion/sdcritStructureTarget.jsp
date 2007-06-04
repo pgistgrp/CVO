@@ -180,6 +180,6 @@
 	io.loadDynamicFile('styles/step2.css');
 	io.loadDynamicFile('/dwr/interface/CriteriaAgent.js');
 	
-	alert(io.critSuiteId)
+
 
 </pg:fragment>
