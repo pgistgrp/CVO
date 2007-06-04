@@ -517,7 +517,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 
 
 <body onUnload="GUnload()">
-	<p><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
+	<p><a href="userhome.do?wf=${param.wf}">Back to Moderator Control Panel</a></p>
 	<h1>Manage Projects</h1>
 	<h3>Manage all projects and their associated alternatives.</h3>
 	

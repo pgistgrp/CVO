@@ -576,7 +576,7 @@ tr:hover {background-color: #F1F7FF;}
 <div style="display: none;" id="saving-indicator">Saving... <img src="/images/indicator_arrows.gif" alt="Saving" /></div>
 
 <div id="container">
-
+<p><a href="userhome.do?wf=${param.wf}">Back to Moderator Control Panel</a></p>
 		
 		<!-- Header -->
 		<div id="cont-top">
