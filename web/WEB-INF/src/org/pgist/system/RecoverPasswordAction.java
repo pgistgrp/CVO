@@ -65,7 +65,7 @@ public class RecoverPasswordAction extends Action {
     		String password2 = request.getParameter("password2");
     		
     		if(password1.equals(password2)) {
-    			//registerService.changePassword(code, password1);
+    			registerService.changePassword(code, password1);
     			request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
     			return mapping.findForward("main");
     		}

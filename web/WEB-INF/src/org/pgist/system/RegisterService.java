@@ -51,4 +51,6 @@ public interface RegisterService {
 	
 	boolean validatePasswordRecoveryCode(String code) throws Exception;
 	
+	boolean changePassword(String code, String password)throws Exception;
+	
 }

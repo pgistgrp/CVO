@@ -68,6 +68,10 @@
         <action path="/publicprofile" scope="request" type="org.pgist.system.UserProfileAction" />
 
 
+	<action path="/lmAlt" scope="request" type="org.pgist.lm.LmAltAction">
+            <forward name="main" path="/WEB-INF/jsp/lm/lmAlt.jsp" />
+        </action>
+        
         <action path="/lmAbout" scope="request" type="org.pgist.lm.LmAboutAction">
             <forward name="main" path="/WEB-INF/jsp/lm/lmAbout.jsp" />
         </action>

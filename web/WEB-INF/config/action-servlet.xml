@@ -79,6 +79,10 @@
     <bean name="/lmFaq" class="org.pgist.lm.LmFaqAction">
     </bean>
     
+    <bean name="/lmAlt" class="org.pgist.lm.LmAltAction">
+    	<property name="lmService" ref="lmService"/>
+    </bean>
+    
     <bean name="/lmGallery" class="org.pgist.lm.LmGalleryAction">
     	<property name="lmService" ref="lmService"/>
     </bean>
@@ -100,6 +104,9 @@
     	<property name="profileService" ref="profileService"/>
     </bean>
     
+    <bean name="/recoverpassword" class="org.pgist.system.RecoverPasswordAction">
+	<property name="registerService" ref="registerService"/>
+    </bean>
     
     <bean name="/cctlist" class="org.pgist.cvo.CCTListAction">
         <property name="cctService" ref="cctService"/>

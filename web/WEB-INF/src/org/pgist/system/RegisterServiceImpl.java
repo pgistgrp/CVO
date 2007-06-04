@@ -121,4 +121,10 @@ public class RegisterServiceImpl implements RegisterService {
 		return registerDAO.validatePasswordRecoveryCode(code);
 	}
 	
+	
+	public boolean changePassword(String code, String password)throws Exception {
+		return registerDAO.changePassword(code, password);
+	}
+	
+	
 }

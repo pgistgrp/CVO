@@ -3,6 +3,7 @@ package org.pgist.lm;
 import org.pgist.projects.ProjectService;
 import org.pgist.system.RegisterService;
 import java.util.Collection;
+import org.pgist.projects.ProjectAlternative;
 
 public class LmServiceImpl implements LmService{
 
@@ -24,5 +25,9 @@ public class LmServiceImpl implements LmService{
 	
 	public Collection getProjects() throws Exception {
 		return projectService.getProjects();
+	}
+	
+	public ProjectAlternative getAlt(Long altId) throws Exception {
+		return projectService.getProjectAlternativeById(altId);
 	}
 }

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.pgist.projects.ProjectService;
-
+import org.pgist.projects.ProjectAlternative;
 
 /**
  * DWR AJAX Agent class.<br>
@@ -36,7 +36,7 @@ public class LmAgent {
 	
 	
 	/**
-     * Get all the projects
+     * Get all the projects, (Agent for testing)
      * 
      * @return a Map contains:
      *   <ul>
@@ -61,5 +61,42 @@ public class LmAgent {
         return map;
     } //getProjects()
     
+    
+	/**
+     * Get all the projects, (Agent for testing)
+     * @param a Map contains:
+     *   <ul>
+     *     <li>altId - Long, id of an alternative</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>projects - array of projects</li>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map getAlt(Map params) {
+    	Map map = new HashMap();
+        map.put("successful", false);
+        
+        String strId = (String) params.get("altId");
+        
+        if (strId==null || "".equals(strId.trim())) {
+            map.put("reason", "altId can't be empty!");
+            return map;
+        }
+        
+        try {
+        	Long altId = Long.parseLong(strId);
+  
+        	ProjectAlternative alt = lmService.getAlt(altId);
+        	map.put("alt", alt);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        return map;
+    } //getProjects()
 	
 }
