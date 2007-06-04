@@ -21,6 +21,7 @@
 		<!-- DWR JavaScript Libraries -->
 		<script type='text/javascript' src='/dwr/engine.js'></script>
 		<script type='text/javascript' src='/dwr/util.js'></script>
+		<script type="text/javascript" src="/scripts/util.js"></script>
 		<!-- End DWR JavaScript Libraries -->
 		<!--Criteria Specific  Libraries-->
 		<script type='text/javascript' src='/dwr/interface/CriteriaAgent.js'></script>
@@ -55,6 +56,7 @@
 			
 			/* *************** Pull all criteria and their associated weights and objectives and average weights of all participants(criteriaAssoc_weightsWithAvg.jsp) *************** */
 			function getWeightsWithAvg(){
+				Util.loading(true,"Working")
 				CriteriaAgent.getWeightsWithAVg({cctId:cctId},{
 				  callback:function(data){
 				    if(data.successful){
@@ -65,7 +67,7 @@
 				    }else{
 						alert(data.reason);
 					}
-					
+					Util.loading(false)
 				  },
 				  errorHandler:function(errorString, exception){
 				        alert("getWeights error:"+errorString+" "+exception);

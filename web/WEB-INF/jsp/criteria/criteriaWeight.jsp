@@ -31,7 +31,7 @@
 			var critSuiteId = '<%=request.getParameter("suiteId")%>';	
 		</script>
 		<script type='text/javascript' src='/scripts/weighCriteria.js'></script>
-		
+		<script type="text/javascript" src="/scripts/util.js"></script>
 		<style type="text/css" media="screen">
 			@import "styles/lit.css";
 			@import "styles/weighCriteria.css";

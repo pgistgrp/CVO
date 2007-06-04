@@ -78,25 +78,33 @@ border-left:1px solid #ccc;
 }
 
 #saving-indicator{
-display: none;
-background-color: red;
-color: white;
-position:absolute;
-top: 0;
+background:#FFF3DE;
+border:2px solid #FFCB7B;
+padding:3px;
+color: #733C00;
+position:fixed;
+z-index: 100;
+_position:absolute;
+top:0;
+_top:expression(eval(document.body.scrollTop));
 left:0;
-padding: 3px;
-z-index: 500;
+margin:0;
+padding:5;
 }
 
 #loading-indicator{
-
-background-color: red;
-color: white;
-position:absolute;
-top: 0;
+background:#FFF3DE;
+border:2px solid #FFCB7B;
+padding:3px;
+color: #733C00;
+position:fixed;
+z-index: 100;
+_position:absolute;
+top:0;
+_top:expression(eval(document.body.scrollTop));
 left:0;
-padding: 3px;
-z-index: 500;		
+margin:0;
+padding:5;	
 }
 
 p#remainingWeightP, p#remainingWeightP2{
