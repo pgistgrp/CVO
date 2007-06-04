@@ -64,11 +64,13 @@
 <script src="scripts/simpletreemenu.js" type="text/javascript"></script>
 
 <script language="javascript" type="text/javascript" src="/scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<script type='text/javascript' src='/scripts/util.js'></script>
 <style type="text/css" media="screen">
 	@import "styles/simpletree.css";
 body{font-size:11pt;font-family:arial,sans-serif;}
 </style>
 <style type="text/css" media="screen">
+	@import "styles/loading-indicator.css";
 	li{margin: 10px 0; list-style: none;border-bottom:2px solid #ccc;padding-bottom:10px;width:850px;}
 	.project{font-size: 1.3em;}
 	li ul li span:hover {background:#E4F1F5;}
@@ -104,6 +106,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 
 // Global Variables
 	function getProjects(){
+		Util.loading(true,"Working");
 		ProjectAgent.getProjectsForMgr({}, {
 			callback:function(data){
 				if(data.successful){
@@ -111,6 +114,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 				}else{
 					alert(data.reason);
 				}
+				Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("ProjectAgent.getProjects( error:" + errorString + exception);
@@ -124,6 +128,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 		var transMode = $F('selProjType'); //1 or 2
 		var inclusive = $('inclusive').checked; // "true" or "false"
 		//alert("name: " + name + " description: " + description + " transMode: " + transMode + " inclusive: " + inclusive)
+		Util.loading(true,"Saving project..");
 		ProjectAgent.createProject({name:name,description:description,transMode:transMode, inclusive:inclusive}, {
 			callback:function(data){
 				if (data.successful){
@@ -132,6 +137,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 				}else{
 					alert(data.reason);
 				}
+				Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("ProjectAgent.createProject( error:" + errorString + exception);
@@ -151,6 +157,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 		var statementAgainst = tinyMCE.getContent("txtAltAgainst"+ id);
 		
 		//alert("id: " + id + " name: " + name + " shortDescription: " + shortDescription + " detailedDescription: "+ detailedDescription+" cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst + " county: " + county); 
+		Util.loading(true,"Saving project alternative..");
 		ProjectAgent.createProjectAlt({id:id, name:name,shortDescription:shortDescription,detailedDescription:detailedDescription,cost:cost, sponsor:sponsor, links:links, statementFor:statementFor, statementAgainst:statementAgainst, county:county}, {
 			callback:function(data, id){
 				if (data.successful){
@@ -159,6 +166,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 				}else{
 					alert(data.reason);
 				}
+				Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("ProjectAgent.createProjectAlt( error:" + errorString + exception);
@@ -200,6 +208,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 	}
 	
 	function getProjectById(id){
+		Util.loading(true,"Loading project..");
 		ProjectAgent.getProjectById({id:id}, {
 			callback:function(data){
 				//if (data.successful){
@@ -222,6 +231,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 	}
 	
 	function getProjectAltById(id){
+		Util.loading(true,"Loading project..");
 		ProjectAgent.getProjectAltById({id:id}, {
 			callback:function(data){
 				if (data.successful){
@@ -229,6 +239,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("ProjectAgent.getProjectById( error:" + errorString + exception);
@@ -309,6 +320,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 		var inclusive = $('inclusive'+ id).checked
 		//dwr test: {id: 3067, name:"This is from DWR", description: "This is a description", cost: 60.00, links: "http://www.google.com", sponsor: "PSRC", statementFor: "COOL", statementAgainst: "BAD"}
 		//alert("ID: "+id+" name: " + name + " description: " + description + " transMode: " + transMode + " inclusive: " + inclusive)
+		Util.loading(true,"Working..");
 		ProjectAgent.editProject({id:id,name:name,description:description,transMode:transMode,inclusive:inclusive}, {
 			callback:function(data){
 				if (data.successful){
@@ -318,6 +330,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("ProjectAgent.editProject( error:" + errorString + exception);
@@ -338,6 +351,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 
 		//{id: 3545, name:"This is from DWR EDIT", description: "This is a description", cost: 60.00, links: "http://www.google.com", sponsor: "PSRC", statementFor: "COOL", statementAgainst: "BAD"}
 		//alert("id: " + id + " name: " + name + " description: " + description + " cost: " + cost + " sponsor: " + sponsor + " links: " + links + " statementFor: " + statementFor + " statementAgainst: " + statementAgainst + " county: " + county); 
+		Util.loading(true,"Loading alternative..");
 		ProjectAgent.editProjectAlt({id:id,name:name,shortDescription:shortDescription,detailedDescription:detailedDescription,cost:cost,sponsor:sponsor,links:links,statementFor:statementFor,statementAgainst:statementAgainst, county:county},[], {
 			callback:function(data){
 				if (data.successful){
@@ -346,6 +360,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("ProjectAgent.editProjectAlt( error:" + errorString + exception);
@@ -356,6 +371,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 	function deleteProject(id){
 		var destroy = confirm ("Are you sure you want to delete this project? Note: there is no undo.")
 		if(destroy){
+			Util.loading(true,"Deleting project..");
 			ProjectAgent.deleteProject({id:id}, {
 				callback:function(data){
 					if (data.successful){
@@ -363,6 +379,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 					}else{
 						alert(data.reason);
 					}
+				Util.loading
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("ProjectAgent.deleteProject( error:" + errorString + exception);
@@ -373,7 +390,8 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 	
 	function deleteProjectAlt(id){
 		var destroy = confirm ("Are you sure you want to delete this project alternative? Note: there is no undo.")
-		if(destroy){
+		if(destroy){ 
+			Util.loading(true,"Deleting alternative..");
 			ProjectAgent.deleteProjectAlt({id:id}, {
 				callback:function(data){
 					if (data.successful){
@@ -381,12 +399,13 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 					}else{
 						alert(data.reason);
 					}
+				Util.loading(false)
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("ProjectAgent.deleteProjectAlternative( error:" + errorString + exception);
 				}
 			});
-		}
+		}Util.loading(false)
 	}
 	
 	////////// START Mapping Functions ////////////
@@ -410,6 +429,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 	/* *************** Saves the coordinates of the project alternative *************** */
 	function saveFootprint(altId, shape, coords){
 		if(shape != "LINE" && shape != "POINT"){
+			Util.loading(true,"Saving footprint..");
 			ProjectAgent.useFootprint(altId, shape, {
 				callback:function(data){
 					if (data.successful){
@@ -417,6 +437,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 					}else{
 						alert(data.reason);
 					}
+				Util.loading(false)
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("ProjectAgent.saveFootprint( error:" + errorString + exception);
@@ -457,6 +478,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 	
 	/* *************** Get footprints for a given project alternative id *************** */
 	function getFootprintsByAltId(id){
+		Util.loading(true,"Loading footprints..");
 		ProjectAgent.getFootprintsByAltId({altid:id}, {
 			callback:function(data){
 				if (data.successful){
@@ -486,6 +508,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 				}else{
 					alert("Something wrong happened, reason: " + data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("ProjectAgent.getFootprint( error:" + errorString + exception);
@@ -496,6 +519,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 	/* *************** Deletes a given footprint *************** */
 	function deleteFootprint(fpid){
 		//alert("fpid: " + fpid; 
+		Util.loading(true,"Deleting footprint..");
 		ProjectAgent.deleteFootprint({fpid:fpid}, {
 			callback:function(data){
 				if (data.successful){
@@ -503,6 +527,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("ProjectAgent.deleteFootprint( error:" + errorString + exception);

@@ -1,0 +1,14 @@
+#loading-indicator
+{
+background:#FFF3DE;
+border:2px solid #FFCB7B;
+padding:3px;
+color: #733C00;
+position:fixed;
+_position:absolute;
+top:0;
+_top:expression(eval(document.body.scrollTop));
+left:0;
+margin:0;
+padding:5;
+}

@@ -107,6 +107,7 @@ margin:.5em 0em .5em 1em;
 			});
 		}
 </script>
+<script type='text/javascript' src='/scripts/util.js'></script>
 <!-- #container is the container that wraps around all the main page content -->
 <div id="container">
 <!-- begin Object -->

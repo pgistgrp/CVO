@@ -31,6 +31,7 @@
 @import "styles/table.css";
 @import "styles/step3a-singleproject.css";
 @import "styles/table-grades.css";
+@import "styles/loading-indicator.css";
 </style>
 	<!-- Site Wide JS -->
 	<script src="scripts/prototype.js" type="text/javascript"></script>
@@ -39,14 +40,11 @@
 	<script src="scripts/qTip.js" type="text/javascript"></script>
 	<script type='text/javascript' src='/dwr/engine.js'></script>
 	<script type='text/javascript' src='/dwr/util.js'></script>
-
+	<script type='text/javascript' src='/scripts/util.js'></script>
 <!-- data accessing js -->
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAq4HJEw-8aIG3Ew6IOzpYEBTwM0brOpm-All5BF6PoaKBxRWWERSP-RPo4689bM1xw9IvCyK4oTwAIw"
       type="text/javascript"></script>
-<script src="scripts/pgistmap2.js"></script>
-
-
 <script src="scripts/pgistmap2.js"></script>	<script type="text/javascript">
 // Loop through the 'objectives' divs, show them, and change the icon.
 			function expandAll(){
@@ -130,6 +128,7 @@ the column labels. */
 	var transmode = "${reference.alternative.project.transMode}";
 	var transcolor = (transmode==0)?"#FF0000":"#00FF00";
 	function getFootprintsByAltId(id){
+		Util.loading(true,"Saving alternative");
 		ProjectAgent.getFootprintsByAltId({altid:id}, {
 			callback:function(data){
 				if (data.successful){
@@ -164,6 +163,7 @@ the column labels. */
 				}else{
 					alert("Something wrong happened, reason: " + data.reason);
 				}
+				Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("ProjectAgent.getFootprint( error:" + errorString + exception);

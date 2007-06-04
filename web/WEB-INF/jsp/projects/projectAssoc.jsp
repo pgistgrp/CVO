@@ -22,7 +22,8 @@
 		[x] Order Alts A-Z (Matt)
 		[x] test setProjectDefine (Matt)
 		[x] How do I check if the alternative is defined or not onLoad? pg:contains (Jordan)
-		[ ] Loading indicator (Jordan)
+		[x] Loading indicator (Jordan & Adam)
+		
 #### -->
 <html:html> 
 <head>
@@ -41,7 +42,9 @@
 
 <!--Project Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript" charset="utf-8"></script>
+<script type='text/javascript' src='/scripts/util.js'></script>
+<script>
 	var suiteId = ${suite.id};
 
 	function checkAltsInProject(projId,checked){
@@ -62,15 +65,18 @@
 	function setProjectDefine(altId,checked){
 		operation = (checked) ? "add" : "remove";
 		
-		//alert("suiteId: " + suiteId + " altId: " + altId + " operation: " + operation); 
+		//alert("suiteId: " + suiteId + " altId: " + altId + " operation: " + operation);
+		Util.loading(true,"Saving project set"); 
 		ProjectAgent.setProjectDefine({suiteId:suiteId,altId:altId,operation:operation}, {
 			callback:function(data){
 				if (data.successful){
 					//alert("alternative operation saved!");
 					//add loading indicator if time permits
+				
 				}else{
 					alert(data.reason);
 				}
+				Util.loading(false);
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("ProjectAgent.setProjectDefine( error:" + errorString + exception);
@@ -81,6 +87,8 @@
 	
 </script>
 <style type="text/css">
+	@import "styles/loading-indicator.css";
+		
 	body{font-size:11pt;font-family:arial,sans-serif;width:800px;}
 	li{margin: 10px 0; list-style: none;}
 	.project{font-size: 1.3em;}

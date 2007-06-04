@@ -82,10 +82,11 @@
 							}else{
 								getClusteredSummary();
 							}
-							Util.loading(false);
+							
 						}else{
 							alert(data.reason);
 						}
+						Util.loading(false);
 					},
 					errorHandler:function(errorString, exception){ 
 					alert("PackageAgent.setFundingToUserPkg( error:" + errorString + exception);
