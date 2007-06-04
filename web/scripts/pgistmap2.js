@@ -133,8 +133,16 @@ var PGISTMapEditor = function(mapcontainer, width, height, enableEdit) {
 	this.editicon.shadow = "";
 
 	this.editicon.infoWindowAnchor = new GPoint(8,8);
-
 	
+	this.transiticon = new GIcon(G_DEFAULT_ICON); 
+	this.transiticon.image = "images/grnpin1.png";
+	this.transiticon.iconSize = new GSize(30,30);
+	this.transiticon.shadow = "images/shadow1.png";
+	
+	this.roadicon = new GIcon(G_DEFAULT_ICON); 
+	this.roadicon.image = "images/redpin1.png";
+	this.roadicon.iconSize = new GSize(30,30);
+	this.roadicon.shadow = "images/shadow1.png";	
 
 	mapcontainer.appendChild(this._mapdiv);
 
@@ -609,7 +617,7 @@ PGISTMapEditor.prototype.scaleToCoords=function(crds, useextent){
 
 	var miny = (useextent)?this.map.getBounds().getSouthWest().lat():90;
 
-	var maxy=-(useextent)?this.map.getBounds().getNorthEast().lng():-90;
+	var maxy=-(useextent)?this.map.getBounds().getNorthEast().lat():-90;
 
 	for(var i=0; i<thecoords.length; i++){
 
@@ -626,7 +634,6 @@ PGISTMapEditor.prototype.scaleToCoords=function(crds, useextent){
 		}
 
 	}
-
 	
 
 	var bounds = new GLatLngBounds( new GLatLng(miny, minx), new GLatLng(maxy,maxx) );
@@ -800,7 +807,7 @@ PGISTMapEditor.prototype.prepareCoords=function(){
 
  */
 
-PGISTMapEditor.prototype.createOverlays=function(points2d, geotype, color, thickness, opacity, fillcolor){
+PGISTMapEditor.prototype.createOverlays=function(points2d, geotype, color, thickness, opacity, fillcolor, pointicon){
 	
 	var overlays = [];
 	if(geotype==0 ||geotype==2 || geotype==5){ // line
@@ -810,7 +817,7 @@ PGISTMapEditor.prototype.createOverlays=function(points2d, geotype, color, thick
 	}else if(geotype==1 || geotype==4){  //points
 		for(var j=0; j<points2d.length; j++){
 			for(var k=0; k<points2d[j].length; k++){
-				overlays.push( new GMarker(points2d[j][k]) );
+				overlays.push( new GMarker(points2d[j][k], pointicon) );
 			}
 		}		
 	}else{ //polygon

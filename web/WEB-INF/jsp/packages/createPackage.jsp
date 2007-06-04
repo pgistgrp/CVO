@@ -26,11 +26,9 @@
 		[x] Cost to you (Matt)
 		[x] Limit Decimal Points on Floats (Jordan)
 		[x] myLimit validations via JS (Jordan)
-		[x] fix map scrolling bugs (Adam)
-		[x] added loading indicators (Adam)
 
 #### -->
-<html>
+<html xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 <title>Create your own package!</title>
@@ -47,16 +45,20 @@
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
 <!-- mapping JavaScript pgistdev: ABQIAAAADmWGO07Q7ZeAHCvFNooqIxSrR7p1nyD8TH138ULjTOjQOW5fjxTrHGj2RyW-631yBK63wnZBIuC6BA-->
 <!-- mapping JavaScript localhost: ABQIAAAAq4HJEw-8aIG3Ew6IOzpYEBTwM0brOpm-All5BF6PoaKBxRWWERSP-RPo4689bM1xw9IvCyK4oTwAIw-->
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAq4HJEw-8aIG3Ew6IOzpYEBTwM0brOpm-All5BF6PoaKBxRWWERSP-RPo4689bM1xw9IvCyK4oTwAIw"
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxSrR7p1nyD8TH138ULjTOjQOW5fjxTrHGj2RyW-631yBK63wnZBIuC6BA"
       type="text/javascript"></script>
 <script src="scripts/pgistmap2.js"></script>
-<script type='text/javascript' src='/scripts/util.js'></script>
 
 <!-- End of mapping JavaScript -->
 <style type="text/css">
 	@import "styles/lit.css";
 	@import "styles/table.css";
 	@import "styles/step3c.css";	
+</style>
+<style type="text/css">
+    v\:* {
+      behavior:url(#default#VML);
+    }
 </style>
 <script type="text/javascript" charset="utf-8">
 			//Global Vars
@@ -72,7 +74,6 @@
 				//alert("checked = " +checked)
 				var deleting = !Boolean(checked); //dealing with checkboxes
 				//alert("pkgSuiteId: " + pkgId + "altRefId: " + altRefId + " deleting: " + deleting); 
-				Util.loading(true,"Saving funding source selection");
 				PackageAgent.setFundingToPkg({fundingSuiteId:fundSuiteId, pkgId:pkgId,altId:altRefId,deleting:deleting,userPkg:userPkg}, {
 					callback:function(data){
 						if (data.successful){
@@ -82,11 +83,9 @@
 							}else{
 								getClusteredSummary();
 							}
-							
 						}else{
 							alert(data.reason);
 						}
-						Util.loading(false);
 					},
 					errorHandler:function(errorString, exception){ 
 					alert("PackageAgent.setFundingToUserPkg( error:" + errorString + exception);
@@ -123,10 +122,8 @@
 			}
 			
 			function setProjectToPkg(altRefId,checked,altId){
-				//alert("checked = " + checked)
 				var deleting = !Boolean(checked);
 				//alert("pkgId: " + pkgId + " altRefId: "+ altRefId +" deleting: " + deleting); 
-				Util.loading(true,"Saving project selection");
 				PackageAgent.setProjectToPkg({fundingSuiteId:fundSuiteId,pkgId:pkgId,altId:altRefId,deleting:deleting,userPkg:userPkg}, {
 					callback:function(data){
 						if (data.successful){
@@ -136,6 +133,7 @@
 							}else{
 								getClusteredSummary();
 							}
+							
 							if(!deleting){
 								highlightProject(altId);
 								//alert("adding: " + p["name"]);
@@ -143,7 +141,6 @@
 								unHighlightProject(altId);
 								//alert("removing: " + p["name"]);
 							}
-							Util.loading(false);
 						}else{
 							alert(data.reason);
 						}
@@ -210,7 +207,6 @@
 				var mylimit = $F('mylimit')
 				if(mylimit.length > 0){
 					//alert("usrPkgId: " + usrPkgId + " limit: " + mylimit); 
-					Util.loading(true,"Calculating a package");
 					PackageAgent.createMyPackage({usrPkgId:pkgId,avglimit:avglimit,mylimit:mylimit,critSuiteId:critSuiteId,projSuiteId:projSuiteId,fundSuiteId:fundSuiteId}, {
 						callback:function(data){
 							if (data.successful){
@@ -219,7 +215,6 @@
 							}else{
 								alert(data.reason);
 							}
-						Util.loading(false)
 						},
 						errorHandler:function(errorString, exception){ 
 						alert("PackageAgent.createMyPackage( error:" + errorString + exception);
@@ -262,8 +257,6 @@
 			var pgistmap = null;
 			var overlaypoints = [];
 			var mapPositionTop = 0;
-			var mapPositionBottom = 0;
-			var fundingPositionBottom = 0;
 			
 			function load(){
 				pgistmap = new PGISTMapEditor('themap', 520, 580, false);
@@ -274,7 +267,7 @@
 						callback:function(data){
 							if (data.successful){
 								for(fpid in data.footprints){
-									if(overlaypoints['_'+fpid]!=null)alert("exists");
+									//if(overlaypoints['_'+fpid]!=null)alert("exists");
 									overlaypoints['_'+fpid] = [];
 									overlaypoints['_'+fpid]["geotype"] = data.footprints[fpid].geotype;
 									overlaypoints['_'+fpid]["coords"] = pgistmap.makeGPoints(data.footprints[fpid].coords);
@@ -292,7 +285,7 @@
 						}
 					});
 				}
-				mapPositionTop = getYCoord($('themap'));
+				mapPositionTop = getYCoord(document.getElementById('themap'));
 			}
 			
 			function renderProjects(){
@@ -302,15 +295,20 @@
 					p["overlays"] = []; 
 					if(p["fpids"] == "") continue;
 					
-					var geomkey = '_'+p["fpids"];
-					if(overlaypoints[geomkey] == null)continue;
-					
-					var transcolor = (p["mode"]==0)?"#FF0000":"#0bc00f";
-					p["overlays"] = pgistmap.createOverlays(overlaypoints[geomkey]["coords"], 
-						overlaypoints[geomkey]["geotype"], transcolor, 4, 0.9);
-					for(var j=0; j<p["overlays"].length; j++)
-						pgistmap.map.addOverlay( p["overlays"][j] );
-					
+					var geomkeys = p["fpids"].split(',');
+					for(var k=0; k<geomkeys.length; k++){
+						var geomkey = '_'+geomkeys[k];
+						if(overlaypoints[geomkey] == null)continue;
+						
+						var transcolor = (p["mode"]==2)?"#0bc00f":"#FF0000";
+						var transicon = (p["mode"]==2)?pgistmap.transiticon:pgistmap.roadicon;
+						p["overlays"] = p["overlays"].concat(pgistmap.createOverlays(overlaypoints[geomkey]["coords"], 
+							overlaypoints[geomkey]["geotype"], transcolor, 4, 0.9, "", transicon));
+						
+						for(var j=0; j<p["overlays"].length; j++){
+							pgistmap.map.addOverlay( p["overlays"][j] );
+						}
+					}
 					//if project alternative selected highlight it
 					if(p["selected"]){
 						highlightProject(p);
@@ -326,13 +324,29 @@
 				
 				var transcolor = (project["mode"]==2)?"#0bc00f":"#FF0000";	//1=road; 2=transit
 				if(project["fpids"] == "") return;
-				var geomkey = '_'+project["fpids"];
-				for (var i=0;i<project["overlays"].length;i++){
-					pgistmap.map.removeOverlay(project["overlays"][i]);
-				}
-				if(project["hioverlays"]==null){//create highlight overlays
-					project["hioverlays"] = pgistmap.createOverlays(overlaypoints[geomkey]["coords"], 
-						overlaypoints[geomkey]["geotype"], "FFFFCC", 8, 0.9, "NONE");
+
+				var geomkeys = project["fpids"].split(',');
+				project["hioverlays"]=[];
+				for(var k=0; k<geomkeys.length; k++){
+					var geomkey = '_'+geomkeys[k];
+					
+					//handle points differently
+					if(overlaypoints[geomkey]["geotype"]==1 || overlaypoints[geomkey]["geotype"]==4){
+						var img = (project["mode"]==2)?"images/grnpin2.png":"images/redpin2.png";
+						for (var i=0;i<project["overlays"].length;i++){	//add back original overlays
+							project["overlays"][i].setImage(img);
+						}
+						continue;
+					}else{
+						for (var i=0;i<project["overlays"].length;i++){
+							pgistmap.map.removeOverlay(project["overlays"][i]);
+						}
+					}
+					
+					project["hioverlays"] = project["hioverlays"].concat(pgistmap.createOverlays(overlaypoints[geomkey]["coords"], 
+						overlaypoints[geomkey]["geotype"], "#FFFFCC", 8, 0.9, "NONE"));
+					
+					pgistmap.scaleToCoords(overlaypoints[geomkey]["coords"], true);
 				}
 				
 				for (var i=0;i<project["hioverlays"].length;i++){//add highlight overlays
@@ -341,13 +355,20 @@
 				for (var i=0;i<project["overlays"].length;i++){	//add back original overlays
 					pgistmap.map.addOverlay(project["overlays"][i]);
 				}				
-				pgistmap.scaleToCoords(overlaypoints[geomkey]["coords"], true);
+				
 			}
 			function unHighlightProject(projectaltid){
 				var project = getProjectById(projectaltid);
 				if(project==null)return;
-				if(project["hioverlays"] == null)return;
 				
+				if(project["overlays"] == null)return;
+				var img = (project["mode"]==2)?"images/grnpin1.png":"images/redpin1.png";
+				for (var i=0;i<project["overlays"].length;i++){	//add back original overlays
+					if( project["overlays"][i].getIcon){
+						project["overlays"][i].setImage(img);
+					}
+				}
+
 				var transcolor = (project["mode"]==0)?"#FF0000":"#0bc00f";
 				if(project["fpids"] == "") return;
 				var geomkey = '_'+project["fpids"];
@@ -378,38 +399,18 @@
 				return y;
 			}
 			function adjustMapPosition() {
-				mapPositionBottom = getYCoord($('themap')) + $('themap').clientHeight;
-				fundingPositionBottom = getYCoord($('fundingTable')) + $('fundingTable').clientHeight;
-				leftPositionTop = getYCoord($('left'));
-				mapPositionTop = getYCoord($('themap'));
+				if(document.body.scrollTop < mapPositionTop){
+					document.getElementById('themap').style.top = (mapPositionTop + 30) + "px";
+				}else{
+					document.getElementById('themap').style.top  = (document.body.scrollTop + 30) + "px";
+				}
 				
-				if(document.body.scrollTop < leftPositionTop){
-					$('themap').style.top = leftPositionTop; 
-				}
-				else{ 
-					newMapPosition = mapPositionBottom + 5;
-					if (newMapPosition >= fundingPositionBottom)
-					{
-						if (document.body.scrollTop < mapPositionTop)
-						{
-							$('themap').style.top = (document.body.scrollTop + 5) + 'px';
-						}else{}
-					}
-					else{$('themap').style.top = (document.body.scrollTop + 5) + 'px';}
-				}
-				clearBottom();
-			}
-			
-			function clearBottom(){ // Move the map so that it's not below the funding table
-				if(mapPositionBottom >= fundingPositionBottom){
-						$('themap').style.top = (fundingPositionBottom - 581) + 'px';
-					}
 			}
 	/* *************** END MAPPING FUNCTIONS *************** */
 </script>
 </head>
 
-<body onresize="adjustMapPosition();" onscroll="adjustMapPosition();" onunload="clearMemory();">
+<body onresize="adjustMapPosition();" onscroll="adjustMapPosition();" onload="load()" onunload="clearMemory();">
 	<div id="header">
 		<!-- Begin header -->
 		<jsp:include page="/header.jsp" />
@@ -482,13 +483,13 @@
 							<div class="floatRight"><a href="javascript:window.open('tuner.do?usrPkgId=${userPkg.id}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}','helpMe','width=1000,height=500,resizable=yes,scrollbars=yes'); void(0);"> <img src="images/tuneup.gif">Fine tune a package</a></div>
 						</form>
 					</div><!--end help me-->
-					<div class="clearBoth"><br/></div>
+					<div class="clearBoth"></div>
 
 					<!-- begin collapsible list of projects -->
-					<table id="projectsTable" cellpadding=0 cellspacing=0>
+					<table cellpadding=0 cellspacing=0>
 						<tr class="tableHeading">
 							<th colspan="2" class="first">All Proposed Projects</th>
-							<th class="col2">Money Needed<br/><small><center>(millions)</center></small></th>
+							<th>Money Needed</th>
 						</tr>
 						<c:forEach var="category" begin="1" end="2">
 							<!-- start road projects -->
@@ -509,7 +510,7 @@
 									<!-- begin PROJECT -->
 									<tr class="${(projectRef.project.inclusive) ? 'fundingType' : 'fundingType2'}">
 										<td class="fundingSourceItem">${projectRef.project.name} Options</td>
-										<td colspan="2" align="right"> ${(projectRef.project.inclusive) ? 'Select at most one' : 'Select any number'} </td>
+										<td colspan="2"> ${(projectRef.project.inclusive) ? 'Select at most one' : 'Select any number'} </td>
 									</tr>
 									<!-- end PROJECT -->
 									<tr class="objectives" id="objective${projectRef.id}">
@@ -536,7 +537,7 @@
 															});
 													</script>
 													<tr>
-														<td class="first">
+														<td>
 															<label>
 															<c:choose>
 																<c:when test="${projectRef.project.inclusive}">
@@ -563,7 +564,7 @@
 															</c:choose>
 															${altRef.alternative.name}</label>
 														</td>
-														<td class="cost">$<fmt:formatNumber type="number">${altRef.alternative.cost}</fmt:formatNumber>m</td>
+														<td class="cost"><fmt:formatNumber type="currency">${altRef.alternative.cost}</fmt:formatNumber> million</td>
 													</tr>
 													<c:if test="${pg:contains(userPkg.projAltRefs,altRef) && userPkg != null}">
 														<c:set var="doNothing"value="false"/>
@@ -591,27 +592,28 @@
 					<br />
 					
 					<!-- end collapsible project list -->
-					<table cellpadding="0" cellspacing="0" id="fundingTable">
+					<table cellpadding="0" cellspacing="0">
 						<tr class="tableHeading">
 							<th class="first">Funding Source</th>
-							<th class="col2">Money Raised<br/>(millions)</th>
-							<th class="col3">Cost to the avg. taxpayer</th>
+							<th>Money Raised</th>
+							<th>Cost to the avg. taxpayer</th>
 							<c:if test="${userPkg != null}">
-								<th class="col4">Cost to you</th>
+								<th>Cost to you</th>
 							</c:if>
 						</tr>
 						<!-- begin FUNDING source -->
 						<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
 							<tr class="fundingType">
 								<td class="fundingSourceItem">${fundingRef.source.name}</td>
-								<td colspan="3" class="fundingTypeCol2">One option will be chosen</td>
+								<td colspan="3">One option will be chosen</td>
 							</tr>
 							<!-- end FUNDING source -->
 							<!-- begin OPTIONS -->
 							<c:set var="doNothing"value="true"/>
 							<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
 								<tr>
-									<td class="fundingSourceItem first">
+									<td class="fundingSourceItem">
+										<label>
 										<c:choose>
 											<c:when test="${userPkg !=null}">
 												<input type="radio" ${(pg:containsFundAltRef(userPkg.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
@@ -621,12 +623,12 @@
 											</c:otherwise>
 										</c:choose>
 
-										<div id="altName"><label for="alt-${altRef.id}">${altRef.alternative.name}</label></div>
+										${altRef.alternative.name}</label>
 									</td>
-									<td class="col2">$<fmt:formatNumber type="number">${altRef.alternative.revenue}</fmt:formatNumber>m</td>
-									<td class="col3"><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
+									<td><fmt:formatNumber type="currency">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
+									<td><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
 									<c:if test="${userPkg != null}">
-										<td class="col4"><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.alternative.id]}</fmt:formatNumber></td>
+										<td><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
 									</c:if>						
 								</tr>
 								<c:choose>
@@ -706,7 +708,6 @@
 		} else{
 			getClusteredSummary();
 		}
-		load();
 	</script>
 </body>
 </html>

@@ -22,7 +22,7 @@
 #### -->
 
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html:html>
+<html:html xmlns:v="urn:schemas-microsoft-com:vml">
 	<head>
 	<title>Let's Improve Transportation: ${reference.alternative.name}</title>
 	<!-- Site Wide CSS -->
@@ -31,6 +31,11 @@
 @import "styles/table.css";
 @import "styles/step3a-singleproject.css";
 @import "styles/table-grades.css";
+</style>
+<style type="text/css">
+    v\:* {
+      behavior:url(#default#VML);
+    }
 </style>
 	<!-- Site Wide JS -->
 	<script src="scripts/prototype.js" type="text/javascript"></script>
@@ -41,8 +46,10 @@
 	<script type='text/javascript' src='/dwr/util.js'></script>
 
 <!-- data accessing js -->
+<!-- mapping JavaScript pgistdev: ABQIAAAADmWGO07Q7ZeAHCvFNooqIxSrR7p1nyD8TH138ULjTOjQOW5fjxTrHGj2RyW-631yBK63wnZBIuC6BA-->
+<!-- mapping JavaScript localhost: ABQIAAAAq4HJEw-8aIG3Ew6IOzpYEBTwM0brOpm-All5BF6PoaKBxRWWERSP-RPo4689bM1xw9IvCyK4oTwAIw-->
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAq4HJEw-8aIG3Ew6IOzpYEBTwM0brOpm-All5BF6PoaKBxRWWERSP-RPo4689bM1xw9IvCyK4oTwAIw"
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxSrR7p1nyD8TH138ULjTOjQOW5fjxTrHGj2RyW-631yBK63wnZBIuC6BA"
       type="text/javascript"></script>
 <script src="scripts/pgistmap2.js"></script>
 
