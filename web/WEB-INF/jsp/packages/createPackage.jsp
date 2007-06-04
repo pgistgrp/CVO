@@ -27,6 +27,7 @@
 		[x] Limit Decimal Points on Floats (Jordan)
 		[x] myLimit validations via JS (Jordan)
 		[x] fix map scrolling bugs (Adam)
+		[x] added loading indicators (Adam)
 
 #### -->
 <html>
@@ -49,6 +50,7 @@
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAq4HJEw-8aIG3Ew6IOzpYEBTwM0brOpm-All5BF6PoaKBxRWWERSP-RPo4689bM1xw9IvCyK4oTwAIw"
       type="text/javascript"></script>
 <script src="scripts/pgistmap2.js"></script>
+<script type='text/javascript' src='/scripts/util.js'></script>
 
 <!-- End of mapping JavaScript -->
 <style type="text/css">
@@ -70,6 +72,7 @@
 				//alert("checked = " +checked)
 				var deleting = !Boolean(checked); //dealing with checkboxes
 				//alert("pkgSuiteId: " + pkgId + "altRefId: " + altRefId + " deleting: " + deleting); 
+				Util.loading(true,"Saving funding source selection");
 				PackageAgent.setFundingToPkg({fundingSuiteId:fundSuiteId, pkgId:pkgId,altId:altRefId,deleting:deleting,userPkg:userPkg}, {
 					callback:function(data){
 						if (data.successful){
@@ -79,6 +82,7 @@
 							}else{
 								getClusteredSummary();
 							}
+							Util.loading(false);
 						}else{
 							alert(data.reason);
 						}
@@ -121,6 +125,7 @@
 				//alert("checked = " + checked)
 				var deleting = !Boolean(checked);
 				//alert("pkgId: " + pkgId + " altRefId: "+ altRefId +" deleting: " + deleting); 
+				Util.loading(true,"Saving project selection");
 				PackageAgent.setProjectToPkg({fundingSuiteId:fundSuiteId,pkgId:pkgId,altId:altRefId,deleting:deleting,userPkg:userPkg}, {
 					callback:function(data){
 						if (data.successful){
@@ -130,7 +135,6 @@
 							}else{
 								getClusteredSummary();
 							}
-							
 							if(!deleting){
 								highlightProject(altId);
 								//alert("adding: " + p["name"]);
@@ -138,6 +142,7 @@
 								unHighlightProject(altId);
 								//alert("removing: " + p["name"]);
 							}
+							Util.loading(false);
 						}else{
 							alert(data.reason);
 						}
@@ -604,7 +609,6 @@
 							<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
 								<tr>
 									<td class="fundingSourceItem first">
-										<label>
 										<c:choose>
 											<c:when test="${userPkg !=null}">
 												<input type="radio" ${(pg:containsFundAltRef(userPkg.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
@@ -614,7 +618,7 @@
 											</c:otherwise>
 										</c:choose>
 
-										<div id="altName">${altRef.alternative.name}</div></label>
+										<div id="altName"><label for="alt-${altRef.id}">${altRef.alternative.name}</label></div>
 									</td>
 									<td class="col2">$<fmt:formatNumber type="number">${altRef.alternative.revenue}</fmt:formatNumber>m</td>
 									<td class="col3"><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
