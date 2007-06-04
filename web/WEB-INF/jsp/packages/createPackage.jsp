@@ -210,6 +210,7 @@
 				var mylimit = $F('mylimit')
 				if(mylimit.length > 0){
 					//alert("usrPkgId: " + usrPkgId + " limit: " + mylimit); 
+					Util.loading(true,"Calculating a package");
 					PackageAgent.createMyPackage({usrPkgId:pkgId,avglimit:avglimit,mylimit:mylimit,critSuiteId:critSuiteId,projSuiteId:projSuiteId,fundSuiteId:fundSuiteId}, {
 						callback:function(data){
 							if (data.successful){
@@ -218,6 +219,7 @@
 							}else{
 								alert(data.reason);
 							}
+						Util.loading(false)
 						},
 						errorHandler:function(errorString, exception){ 
 						alert("PackageAgent.createMyPackage( error:" + errorString + exception);
