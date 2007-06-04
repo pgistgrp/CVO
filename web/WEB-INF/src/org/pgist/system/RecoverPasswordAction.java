@@ -45,13 +45,37 @@ public class RecoverPasswordAction extends Action {
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
     	String code = request.getParameter("rc");
+    	String update = request.getParameter("update");
+    	
     	boolean valid = registerService.validatePasswordRecoveryCode(code);
-        
-    	if(valid) {
-    		
-    		return mapping.findForward("recoverpassword");
+    	boolean bool_update = false;
+    	
+    	if(update.equals("true")){
+    		bool_update = true;  		
     	}
     	
+    	if(valid) {
+    		
+    		request.setAttribute("valid", true);
+    		request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+    		return mapping.findForward("recoverpassword");
+    	}
+    	if(valid && bool_update) {
+    		String password1 = request.getParameter("password1");
+    		String password2 = request.getParameter("password2");
+    		
+    		if(password1.equals(password2)) {
+    			//registerService.changePassword(code, password1);
+    			request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+    			return mapping.findForward("main");
+    		}
+    		request.setAttribute("error", "passwords do not match");
+    		request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
+    		return mapping.findForward("recoverpassword"); 
+    	}
+    	
+    	request.setAttribute("valid", false);
+    	request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
         return mapping.findForward("recoverpassword");
     }//execute()
     

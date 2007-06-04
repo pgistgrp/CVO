@@ -80,6 +80,7 @@
     </bean>
     
     <bean name="/lmGallery" class="org.pgist.lm.LmGalleryAction">
+    	<property name="lmService" ref="lmService"/>
     </bean>
     
     <bean name="/lmMenu" class="org.pgist.lm.LmMenuAction">

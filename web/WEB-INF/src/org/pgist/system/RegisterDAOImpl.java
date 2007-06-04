@@ -257,4 +257,14 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 	}
 	
 	
+	public void changePassword(String code, String password)throws Exception {
+		List list = getHibernateTemplate().find(hql_validatePasswordRecovery, new Object[] {
+				code,
+    	});
+		
+		if(list.size() > 0) {
+			
+		
+		}
+	}
 }
