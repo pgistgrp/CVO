@@ -41,6 +41,7 @@
 	<!-- Template 5 Specific -->
 	<style type="text/css" media="screen">@import "/styles/template5.css";</style>
 	<script src="/scripts/resize_t5.js" type="text/javascript"></script>
+	<script src="/scripts/util.js" type="text/javascript"></script>
 	<!-- End Template 5 Specific -->
 	
 	
@@ -108,6 +109,7 @@ tinyMCE.init({
 		
 		var editingThemeId = '';
 		function getThemes(themeId){
+			Util.loading(true,"Working1")
 			CSTAgent.getThemes({cctId:cctId,asHTML:true}, {
 			callback:function(data){
 				if (data.successful){
@@ -133,6 +135,7 @@ tinyMCE.init({
 				}else{
 					alert(data.reason);
 				}
+			Util.loading(false);
 			},
 			errorHandler:function(errorString, exception){ 
 					alert("getThemes: "+errorString+" "+exception);
@@ -157,6 +160,7 @@ tinyMCE.init({
 				summaryString=tinyMCE.getContent();
 				
 			//alert("cctId: " + cctId + " themeId: " + themeId + " summary:  " + summaryString + " tags: " + summaryTags);
+			Util.loading(true,"Working2")
 			CSTAgent.saveSummary({cctId:cctId, themeId:themeId, summary:summaryString, description: "discuss concerns about", tags: summaryTags}, {
 			callback:function(data){
 				if (data.successful){
@@ -166,6 +170,7 @@ tinyMCE.init({
 				}else{
 					alert("CSTAgent.saveSummary() Error" + data.reason);
 				}
+			Util.loading(false);
 			},
 			errorHandler:function(errorString, exception){ 
 					alert("saveSummary: "+errorString+" "+exception);
@@ -178,7 +183,6 @@ tinyMCE.init({
 		}
 		
 		function getOrphanTags(){
-				
 				CSTAgent.getOrphanTags({cctId:cctId, page:0, count: -1}, {
 				callback:function(data){
 						if (data.successful){
@@ -193,6 +197,7 @@ tinyMCE.init({
 		}
 		var relatedTagsArr = [];
 		function getTags(categoryId, page, type, orphanpage){
+			Util.loading(true,"Working3")
 			CSTAgent.getTags({cctId:cctId, categoryId:categoryId, page:page, type: type, orphanPage:orphanpage}, {
 			callback:function(data){
 				if (data.successful){
@@ -223,6 +228,7 @@ tinyMCE.init({
 				}else{
 					alert("Getting tags not successful: " + data.reason);
 				}
+			Util.loading(false);
 			},
 			errorHandler:function(errorString, exception){ 
 					alert("getTags: "+errorString+" "+exception);
@@ -233,6 +239,7 @@ tinyMCE.init({
 		function relateTag(tagId){
 			$('savingIndicator').style.display = "inline";
 			if(currentCategory == null)return;
+			Util.loading(true,"Working4")
 			CSTAgent.relateTag({cctId:cctId, categoryId:currentCategory.dataId, tagId:tagId}, {
 			callback:function(data){
 					if (data.successful){
@@ -245,6 +252,7 @@ tinyMCE.init({
 						alert(data.reason);
 						Effect.Fade('savingIndicator');
 					}
+				Util.loading(false);
 				},
 			errorHandler:function(errorString, exception){ 
 			alert("relateTag: "+errorString+ " "+exception);
@@ -256,6 +264,7 @@ tinyMCE.init({
 		
 		function derelateTag(categoryId, tagId){
 			$('savingIndicator').style.display = "inline";
+				Util.loading(true,"Working5");
 				CSTAgent.derelateTag({cctId:cctId, categoryId:categoryId, tagId:tagId}, {
 				callback:function(data){
 						if (data.successful){
@@ -269,6 +278,7 @@ tinyMCE.init({
 							alert(data.reason);
 							Effect.Fade('savingIndicator');
 						}
+					Util.loading(false)
 					},
 				errorHandler:function(errorString, exception){ 
 						alert("derelateTag: "+errorString+" "+exception);
@@ -278,6 +288,7 @@ tinyMCE.init({
 			
 		function getConcernsByTags(visibility){
 			//eventually make  paginated
+				Util.loading(true,"Working6");
 				CSTAgent.getConcernsByTags({cctId:cctId, page: 1, count: -1}, relatedTagsArr, {
 				callback:function(data){
 						if (data.successful){
@@ -291,6 +302,7 @@ tinyMCE.init({
 						if (data.successful != true){
 							alert(data.reason);
 						}
+					Util.loading(false)
 					},
 				errorHandler:function(errorString, exception){ 
 						alert("getConcernsByTags: "+errorString+" "+exception);
@@ -299,6 +311,7 @@ tinyMCE.init({
 		}
 		
 		function getConcerns(tagId, page){
+				Util.loading(true,"Working7");
 				CSTAgent.getConcerns({cctId:cctId, tagId: tagId, page: page}, {
 				callback:function(data){
 						if (data.successful){
@@ -308,6 +321,7 @@ tinyMCE.init({
 						if (data.successful != true){
 							alert(data.reason);
 						}
+					Util.loading(false);
 					},
 				errorHandler:function(errorString, exception){ 
 						alert("getConcerns: "+errorString+" "+exception);
@@ -316,6 +330,7 @@ tinyMCE.init({
 		}
 		
 				function getConcerns(tagId, page){
+				Util.loading(true,"Working8");
 				CSTAgent.getConcerns({cctId:cctId, tagId: tagId, page: page}, {
 				callback:function(data){
 						if (data.successful){
@@ -325,6 +340,7 @@ tinyMCE.init({
 						if (data.successful != true){
 							alert(data.reason);
 						}
+					Util.loading(false);
 					},
 				errorHandler:function(errorString, exception){ 
 						alert("getConcerns: "+errorString+" "+exception);
@@ -333,6 +349,7 @@ tinyMCE.init({
 		}
 		
 		function publish(){
+				Util.loading(true,"Working");
 				CSTAgent.publish({cctId:cctId}, {
 				callback:function(data){
 						if (data.successful){
@@ -341,6 +358,7 @@ tinyMCE.init({
 						if (data.successful != true){
 							alert("There was a problem publishing concern themes:" + data.reason);
 						}
+					Util.loading(false);
 					},
 				errorHandler:function(errorString, exception){ 
 						alert("publish: "+errorString+" "+exception);
@@ -359,6 +377,7 @@ tinyMCE.init({
 			var catname = document.getElementById("newcatetext").value;
 			var parentId = (tree1.lastSelected) ? tree1.lastSelected.parentObject.dataId : 0;
 			//alert("new cate: " + catname + "; parent=" + parentId);
+			Util.loading(true,"Working9");
 			CSTAgent.addCategory({cctId:cctId, parentId:parentId, name:catname},{
 				callback:function(data){
 					if (data.successful){ 
@@ -374,6 +393,7 @@ tinyMCE.init({
 						Effect.Fade('savingIndicator');
 						alert(data.reason);
 					}
+				Util.loading(false)
 				},
 				errorHandler:function(errorString, exception){alert("addcategory: "+errorString+" "+exception);}
 			});			
@@ -623,6 +643,8 @@ tinyMCE.init({
 	</script>
 	
 <style type="text/css"> 
+	@import "styles/loading-indicator.css";
+	
    .accordionTabTitleBar { 
       font-size: 12px; 
       padding : 2px 6px 2px 6px;
