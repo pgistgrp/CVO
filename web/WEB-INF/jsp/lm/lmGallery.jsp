@@ -1,4 +1,13 @@
-<html>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="javascript" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<html:html>
 <head>
 <title>Let's Improve Transportation - Learnmore: Review Projects</title>
 <!-- Site Wide JS -->
@@ -11,55 +20,78 @@
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 <script type="text/javascript">
 		
-		function expandAll(){
-			var rows = document.getElementsByClassName('objectives');
-			var icons = document.getElementsByClassName('icon');
-			//alert('icons: ' + icons.length + ' rows: ' + rows.length);
-			for (var i = 1;i <= rows.length; i++){
-				var row = 'objective' + i;
-				var icon = 'icon' + i;
-				$(row).show();
-				$(icon).src = "images/minus.gif";
+// Loop through the 'objectives' divs, show them, and change the icon.
+			function expandAll(){
+				var rows = document.getElementsByClassName('objectives');
+				var icons = document.getElementsByClassName('icon');
+				for (var i = 0;i <= rows.length - 1; i++){
+					var row = 'objective' + i;
+					var icon = 'icon' + i;
+					$(row).show();
+					$(icon).src = "/images/minus.gif";
+				}
+				showLabels();
 			}
-			$('hiddenLabel').style.visibility = "";
-		}
-		
-		function collapseAll(){
-			var rows = document.getElementsByClassName('objectives');
-			for (var i = 1;i <= rows.length; i++){
-				var row = 'objective' + i;
-				var icon = 'icon' + i;
-				$(row).hide();
-				$(icon).src = "images/plus.gif";
-			}
-			$('hiddenLabel').style.visibility = "hidden";
-		}
 
-		function testOpenRows(){
-			var rows = document.getElementsByClassName('objectives');
-			hideLabels();
-			for (var i = 1;i <= rows.length; i++){
-				var row = 'objective' + i;
-				if ($(row).style.display != "none"){
-					showLabels();
-				}else{}
+// Loop through all the 'objectives' divs, hide them, and change the icon.
+			function collapseAll(){
+				var rows = document.getElementsByClassName('objectives');
+				for (var i = 0;i <= rows.length - 1; i++){
+					var row = 'objective' + i;
+					var icon = 'icon' + i;
+					$(row).hide();
+					$(icon).src = "/images/plus.gif";
+				}
+				hideLabels();
 			}
-		}
 
-		function toggleRow(project,icon){
-			Effect.toggle(project, 'appear', {duration: .4, afterFinish:
-				function(){
-					if ($(project).style.display != ""){
-						$(icon).src = "images/plus.gif";
-						testOpenRows();
-						$('hiddenLabel').style.visibility = "hidden";
-						}else{
-							$(icon).src = "images/minus.gif";
-							$('hiddenLabel').style.visibility = "";
-						}
+// Loop through all the column labels and make then visible.
+			function showLabels(){
+				var labels = document.getElementsByClassName('hiddenLabel')
+				for (var i = 0;i < labels.length -1;i++){
+					labels[i].style.visibility = "";
+				}
+			}
+
+// Loop through all the column labels and set them invisible.
+			function hideLabels(){
+				var labels = document.getElementsByClassName('hiddenLabel')
+				for (var i = 0;i < labels.length;i++){
+					labels[i].style.visibility = "hidden";
+				}
+			}
+
+// First, hide the labels. Then, for every objective that is open, show the labels.
+			function testOpenRows(){
+				hideLabels();
+				var rows = document.getElementsByClassName('objectives');
+				for (var i = 0;i <= rows.length -1; i++){
+					alert(i)
+					var row = 'objective' + i;
+					if ($(row).style.display != "none"){
+						showLabels();
 					}
-			});
-		}
+				}
+			}
+	
+/* First, use Scriptaculous to toggle the objectives div.
+Then, decide whether to show the plus or minus icon based on whether 
+the div is displayed or not.  If the div is displayed, reveal
+the column labels. */
+
+			function toggleRow(project,icon){
+				Effect.toggle(project, 'appear', {duration:.2, afterFinish:
+					function(){
+						if ($(project).style.display != ""){
+							$(icon).src = "/images/plus.gif";
+							testOpenRows();
+							}else{
+								$(icon).src = "/images/minus.gif";
+								showLabels();
+							}
+						}
+				});
+			}
 </script>
 
 <style type="text/css">
@@ -127,6 +159,7 @@
 						<!-- end CATEGORY LABEL -->
 						<!-- ******* LOOP ENTIRE PROJECT ******** -->
 						<c:forEach var="project" items="${projects}" varStatus="loop">
+							
 							<c:if test="${project.transMode == category}">
 								<!-- begin PROJECT -->
 								<tr class="fundingType">
