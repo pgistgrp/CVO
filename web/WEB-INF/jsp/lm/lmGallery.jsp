@@ -66,7 +66,6 @@
 				hideLabels();
 				var rows = document.getElementsByClassName('objectives');
 				for (var i = 0;i <= rows.length -1; i++){
-					alert(i)
 					var row = 'objective' + i;
 					if ($(row).style.display != "none"){
 						showLabels();
