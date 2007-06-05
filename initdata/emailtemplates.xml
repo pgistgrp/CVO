@@ -97,10 +97,10 @@
 	<notes>Variable: ${code}</notes>
 	<content><![CDATA[
 	<p>Please follow the link below to reset your password:
-	<a href="http://www.letsimprovetransportation.org/recoverpassword.do?rc=${code}">Password Recovery</a></p>
+	<a href="http://www.letsimprovetransportation.org/resetpassword.do?rc=${code}">Password Recovery</a></p>
 
 	<p>If the link above does not work copy and paste the following code into your browsers location bar:<br>
-	<strong>http://www.letsimprovetransportation.org/recoverpassword.do?code=${code}</strong>
+	<strong>http://www.letsimprovetransportation.org/resetpassword.do?rc=${code}</strong>
 	</p>
 	]]>
 	</content>

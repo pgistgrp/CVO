@@ -108,6 +108,10 @@
 	<property name="registerService" ref="registerService"/>
     </bean>
     
+    <bean name="/resetpassword" class="org.pgist.system.RecoverPasswordResetAction">
+    	<property name="registerService" ref="registerService"/>
+    </bean>
+    
     <bean name="/cctlist" class="org.pgist.cvo.CCTListAction">
         <property name="cctService" ref="cctService"/>
     </bean>

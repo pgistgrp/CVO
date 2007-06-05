@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.List;
 import java.util.Date;
+import java.text.SimpleDateFormat;
+
 
 import org.pgist.funding.UserCommute;
 import org.pgist.funding.UserFundingSourceToll;
@@ -233,22 +235,35 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 	}
 	
 	
-	private static final String hql_validatePasswordRecovery = "from RecoverPassword rc where u.code=?";
+	private static final String hql_validatePasswordRecovery = "from RecoverPassword rc where rc.code=?";
 	
 	public boolean validatePasswordRecoveryCode(String code) throws Exception {
+		int timelimit = 30; //minutes
+		
 		List list = getHibernateTemplate().find(hql_validatePasswordRecovery, new Object[] {
 				code,
     	});
 		
 		if(list.size() > 0) {
+			/*
 			RecoverPassword rp = (RecoverPassword) list.get(0);
 			Date sDate = rp.getDate();
 			Date cDate = new Date();
-			if(sDate.getYear()==cDate.getYear()) {
-				
+			
+			int sMinutes = sDate.getMinutes();
+			
+			if((sMinutes + timelimit) > 60) {
+				int minutes = (sMinutes + timelimit) - 60;
+				int sHours = sDate.getHours();
+				sDate.setHours(sHours+1);
+				sDate.setMinutes(minutes);
+			}
+			if(sDate.before(cDate)) {
+				return true;
 			}
 			
-			
+			return false;
+			*/
 			return true;
 		}
 		
@@ -271,6 +286,19 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 			return true;
 		}
 		return false;
+	}
+	
+	
+	public void deleteRecoverPassword(String code) throws Exception {
+		List list = getHibernateTemplate().find(hql_validatePasswordRecovery, new Object[] {
+				code,
+    	});
+		
+		if(list.size() > 0) {
+			RecoverPassword rp = (RecoverPassword) list.get(0);
+			getHibernateTemplate().delete(rp);
+		}
+		
 	}
 	
 }

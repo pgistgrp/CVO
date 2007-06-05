@@ -32,11 +32,6 @@ public class RecoverPasswordAction extends Action {
 
     
     /**
-     * When call this action, the following parameters are required:<br>
-     * <ul>
-     *   <li>rc - string, recovery code</li>
-
-     * </ul>
      */
     public ActionForward execute(
             ActionMapping mapping,
@@ -44,37 +39,27 @@ public class RecoverPasswordAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-    	String code = request.getParameter("rc");
-    	String update = request.getParameter("update");
     	
-    	boolean valid = registerService.validatePasswordRecoveryCode(code);
-    	boolean bool_update = false;
+    	UserForm uform = (UserForm) form;
     	
-    	if(update.equals("true")){
-    		bool_update = true;  		
+    	if (uform.isSave()){
+	    		String email = uform.getEmail();
+	    		if(email==null || "".equals(email.trim())) {	
+		    		request.setAttribute("sysmsg", "Email address cannot be empty.");
+		    		request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
+		    		return mapping.findForward("recoverpassword"); 
+	    		}
+	    		boolean emailsent = registerService.createPasswordRecovery(email);
+	    		if(emailsent) {
+		    		request.setAttribute("sysmsg", "An email has been sent.");	
+		    		request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+	    		} else {
+	    			request.setAttribute("sysmsg", "Your email address was not found in the system.");	
+		    		request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
+	    		}
+	    		return mapping.findForward("recoverpassword"); 
     	}
     	
-    	if(valid) {
-    		
-    		request.setAttribute("valid", true);
-    		request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
-    		return mapping.findForward("recoverpassword");
-    	}
-    	if(valid && bool_update) {
-    		String password1 = request.getParameter("password1");
-    		String password2 = request.getParameter("password2");
-    		
-    		if(password1.equals(password2)) {
-    			registerService.changePassword(code, password1);
-    			request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
-    			return mapping.findForward("main");
-    		}
-    		request.setAttribute("error", "passwords do not match");
-    		request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
-    		return mapping.findForward("recoverpassword"); 
-    	}
-    	
-    	request.setAttribute("valid", false);
     	request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
         return mapping.findForward("recoverpassword");
     }//execute()

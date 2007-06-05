@@ -25,6 +25,8 @@ public class UserForm extends ActionForm {
     
     private String currentpassword; //Only used for profile update
     
+    private String code; //Only used for password recovery
+    
     private String ethnicity1;
     
     private String reason;
@@ -137,8 +139,19 @@ public class UserForm extends ActionForm {
         this.currentpassword = currentpassword;
     }
     
+    
     public String getCurrentpassword() {
     	return currentpassword;
+    }
+    
+    
+    public String getCode() {
+        return code;
+    }
+
+    
+    public void setCode(String code) {
+        this.code = code;
     }
     
     

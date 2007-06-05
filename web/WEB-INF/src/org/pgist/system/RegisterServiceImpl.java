@@ -127,4 +127,8 @@ public class RegisterServiceImpl implements RegisterService {
 	}
 	
 	
+	public void deleteRecoverPassword(String code) throws Exception {
+		registerDAO.deleteRecoverPassword(code);
+	}
+	
 }
