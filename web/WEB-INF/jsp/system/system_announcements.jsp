@@ -13,7 +13,7 @@
 	<c:otherwise>
 		<c:forEach var="announcement" items="${announcements}" varStatus="loop">
 			<p id="announcement${announcement.id}">
-			<fmt:formatDate value="${announcement.date}" pattern="MM/dd" var="annouceDate" />
+			<fmt:formatDate value="${announcement.date}" dateStyle="full" var="annouceDate" />
 			<strong>${annouceDate}</strong> 
 			&nbsp;<span id="message${announcement.id}">${announcement.message}</span>
 			<pg:show roles="moderator">

@@ -45,7 +45,6 @@
 		var wfId = "${param.wf}";
 		
 		if(!wfId){location.href="main.do"}
-		alert('hey');
 		function getAnnouncements(){
 			Util.loading(true, "Loading Annoucements");
 			SystemAgent.getAnnouncements({workflowId:wfId}, {
