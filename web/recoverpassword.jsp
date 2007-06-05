@@ -11,6 +11,7 @@
 <style type="text/css" media="screen">
 @import "styles/lit.css";
 @import "styles/registration-1.css";
+@import "styles/recover-password.css";
 </style>
 	<!-- End Site Wide CSS -->
 	<!-- Site Wide JS -->
@@ -43,12 +44,19 @@
 	<div id="container">
 	
 	<div id="email">
-	<h2>Reset Your Password</h2>
+	<h2>Recover Your Password</h2>
 	<html:form action="/recoverpassword.do" method="POST">
 		 <html:hidden property="save" value="true"/>
-		 <p>To reset your password please enter your email address: <html:text property="email" value=""/></p>
-		 <p>${sysmsg}</p>
-		 <html:submit styleId="sub" property="submit" value="Submit"/>
+		 <p>To reset your password, please enter the email address you used during registration. A new password will be sent to this address. <br/> </p>
+		 <p id="errors">${sysmsg}</p>
+		 
+		 <p class="prow">
+		 <div class="plabel">E-mail address</div>
+		 <div class="pvalue">
+		 	<html:text property="email" value=""/><html:submit styleId="sub" property="submit" value="Submit"/>
+		 </div>
+		 <div class="clearBoth"></div>
+		 </p><br />
 	</html:form>
 	</div>
 	

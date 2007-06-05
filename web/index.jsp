@@ -109,7 +109,7 @@ body {
 			<div class="clearBoth"></div>
 		</div>
 		
-		<h1 class="right">Need to <a href="register.do">Create an Account</a>?</h1>
+		<h1 class="right">Need to <a href="register.do">Create an Account</a>? <a href="recoverpassword.do">Forgot your Password?</a></h1>
 	</div>
 </body>
 </html:html>
