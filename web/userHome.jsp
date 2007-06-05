@@ -515,7 +515,7 @@
 	<!-- Begin header menu - The wide ribbon underneath the logo -->
 	<div id="headerMenu"></div>
 	<!-- Begin footer -->
-	<div id="footer">
+	<div id="footer"> 
 		<jsp:include page="/footer.jsp" />
 	</div>
 	<!-- End footer -->

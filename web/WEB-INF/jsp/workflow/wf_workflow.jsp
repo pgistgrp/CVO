@@ -13,43 +13,7 @@
 	<fmt:formatDate value="${workflow.beginTime}" dateStyle="full" var="beginTime" />
 	<p><small>This experiment began on: ${beginTime}</small></p>
 
-  
-	<h3 class="headerColor">Moderator Control Panel</h3>
-	
-	<pg:show roles="moderator">
-		<h4 class="headerColor clearBoth step-header">Global Components</h4>
-		<div class="home-row clearfix">
-			<div class="step"><a href="usermgr.do?wf=${workflow.id}">Manage Users</a><br />
-				<small>Information about this step</small></div>
-		</div>
-		<div class="home-row clearfix">
-			<div class="step"><a href="glossaryManage.do?wf=${workflow.id}">Manage Glossary</a><br />
-				<small>Information about this step</small></div>
-		</div>
-		<div class="home-row clearfix">
-			<div class="step"><a href="tagging.do?wf=${workflow.id}">Manage Tags/Stopwords</a><br />
-				<small>Information about this step</small></div>
-		</div>
-
-		<div class="home-row clearfix">
-			<div class="step"><a href="projectManage.do?wf=${workflow.id}">Manage Projects</a><br />
-				<small>Information about this step</small></div>
-		</div>
-		<div class="home-row clearfix">
-			<div class="step"><a href="fundingManage.do?wf=${workflow.id}">Manage Funding</a><br />
-				<small>Information about this step</small></div>
-		</div>
-		<div class="home-row clearfix">
-			<div class="step"><a href="feedback.do?wf=${workflow.id}">Manage Feedbacks</a><br />
-				<small>Information about this step</small></div>
-		</div>
-		<div class="home-row clearfix">
-			<div class="step"><a target="_blank" href="http://jordanisip.wufoo.com/forms/lit-bug-tracker/">Bug Tracker</a><br />
-				<small>Information about this step</small></div>
-		</div>
-	</pg:show>
-
-	<h3 class="headerColor">Overview of all Steps</h3>
+ 	<h3 class="headerColor">Overview of all Steps</h3>
 	
 	<!--History-->
 	<c:forEach var="sHistory" items="${workflow.situation.context.histories}" varStatus="loop">

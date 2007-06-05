@@ -73,7 +73,7 @@
   
   <!-- #container is the container that wraps around all the main page content -->
   <div id="container">
-		<p><a href="userhome.do?wf=${param.wf}">Back to Moderator Control Panel</a></p>
+		<p><a href="main.do">Back to Moderator Control Panel</a></p>
 		<div id="feedbacks" style="padding: 10px;">
 			<!-- load collection of feedback from feedbacks.jsp here -->
 		</div>

@@ -364,7 +364,7 @@ TaggingAgent.searchTags({name:tag},{
 	<div id="lightbox"></div>
 	<!-- END LIGHTBOX -->
 	<div id="pageTitle">
-	<p><a href="userhome.do?wf=${param.wf}">Back to Moderator Control Panel</a></p>
+	<p><a href="main.do">Back to Moderator Control Panel</a></p>
 	<h2>Moderator Dashboard: </h2><h3>Stop Word and Tag Database Management Tool</h3>
 		<div id="bread">
 		<ul>

@@ -239,7 +239,7 @@ function greyDisabled() {
 		<!-- #container is the container that wraps around all the main page content -->
 		<div id="container">
 			<h2 class="headerColor">Moderator Tools</h2>
-			<h3 class="headerColor">System Management</h3><br/>
+				<p><a href="main.do">Back to Moderator Control Panel</a></p>
 			<div id="quota"> </div>
 			<h3 class="headerColor">User Management</h3><br/>
 			<div id="userList"> </div>
@@ -300,6 +300,6 @@ function greyDisabled() {
 		</div>
 		<!-- End footer -->
 
-		</body>
+		</body> 
 	</pg:show>
 </html:html>
