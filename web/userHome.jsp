@@ -45,6 +45,7 @@
 		var wfId = "${param.wf}";
 		
 		if(!wfId){location.href="main.do"}
+		alert('hey');
 		function getAnnouncements(){
 			Util.loading(true, "Loading Annoucements");
 			SystemAgent.getAnnouncements({workflowId:wfId}, {
@@ -150,11 +151,10 @@
 		extended_valid_elements : "blockquote[style='']",
 		mode : "textareas",
 		height: "100",
-		width: "430",
-		//auto_focus : "modAnnounce"
+		width: "430"
 		});
 	
-	tinyMCE.execCommand('mceFocus',false,'modAnnounce');
+	//tinyMCE.execCommand('mceFocus',false,'modAnnounce');
 	
 	</script>
 	<event:pageunload />
@@ -345,7 +345,7 @@
 			<h3 class="headerColor">Moderator announcements</h3>
 			<div id="mod-announcements" class="box9">
 				<div id="announcements">
-					<img src="/images/indicator_arrows.gif" alt="Please wait..."/> Loading Moderator Annoucements...
+					<img src="/images/indicator_arrows.gif" alt="Please wait..."/> Loading Moderator Announcements...
 					<!--load via DWR -->
 				</div>
 			</div>
