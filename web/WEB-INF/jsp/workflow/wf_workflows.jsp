@@ -1,7 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -86,7 +86,7 @@
 					<tr>
 						<td>${workflow.situation.name}</td>
 						<td>${workflow.situation.description}</td>
-						<td>${workflow.beginTime}</td>
+						<td><fmt:formatDate dateStyle="full" value="${workflow.beginTime}" /> at <fmt:formatDate type="time" value="${workflow.beginTime}" /></td>
 						<td><input type="button" value="Participate" onclick="javascript:location.href='userhome.do?wf=${workflow.id}';"></td>
 					</tr>
 				</c:forEach>
@@ -106,27 +106,28 @@
 	
 	
 	<pg:show roles="moderator">
-		<br />
-		<h3 class="headerColor">Completed Experiments</h3>
-		<table id="newTable" class="finished" cellspacing="0" cellpadding="0">
-			<tr>
-				<th>Name</th>
-				<th>Description</th>
-				<th>Begin Time</th>
-				<th>End Time</th>
-				<th class="last">Operation</th>
-			</tr>
-			<c:forEach var="workflow" items="${finishedWorkflows}">
-					<tr style="color:#999;">
-						<td>${workflow.situation.name}</td>
-						<td>${workflow.situation.description}</td>
-						<td>${workflow.beginTime}</td>
-						<td>${workflow.endTime}</td>
-						<td><input type="button" value="Review" onclick="javascript:location.href='userhome.do?wf=${workflow.id}'"></td>
-					</tr>
-			</c:forEach>
-		</table>
-
+		<c:if test="${fn:length(object.collection) > 0}">
+			<br />
+			<h3 class="headerColor">Completed Experiments</h3>
+			<table id="newTable" class="finished" cellspacing="0" cellpadding="0">
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Begin Time</th>
+					<th>End Time</th>
+					<th class="last">Operation</th>
+				</tr>
+				<c:forEach var="workflow" items="${finishedWorkflows}">
+						<tr style="color:#999;">
+							<td>${workflow.situation.name}</td>
+							<td>${workflow.situation.description}</td>
+							<td>${workflow.beginTime}</td>
+							<td>${workflow.endTime}</td>
+							<td><input type="button" value="Review" onclick="javascript:location.href='userhome.do?wf=${workflow.id}'"></td>
+						</tr>
+				</c:forEach>
+			</table>
+		</c:if>
 	</pg:show>
 </div>
 
