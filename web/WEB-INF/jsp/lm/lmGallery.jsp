@@ -30,7 +30,7 @@
 					$(row).show();
 					$(icon).src = "/images/minus.gif";
 				}
-				showLabels();
+				$('hiddenLabel').show();
 			}
 
 // Loop through all the 'objectives' divs, hide them, and change the icon.
@@ -42,33 +42,19 @@
 					$(row).hide();
 					$(icon).src = "/images/plus.gif";
 				}
-				hideLabels();
+				$('hiddenLabel').hide();
 			}
 
-// Loop through all the column labels and make then visible.
-			function showLabels(){
-				var labels = document.getElementsByClassName('hiddenLabel')
-				for (var i = 0;i < labels.length -1;i++){
-					labels[i].style.visibility = "";
-				}
-			}
-
-// Loop through all the column labels and set them invisible.
-			function hideLabels(){
-				var labels = document.getElementsByClassName('hiddenLabel')
-				for (var i = 0;i < labels.length;i++){
-					labels[i].style.visibility = "hidden";
-				}
-			}
 
 // First, hide the labels. Then, for every objective that is open, show the labels.
 			function testOpenRows(){
-				hideLabels();
 				var rows = document.getElementsByClassName('objectives');
 				for (var i = 0;i <= rows.length -1; i++){
 					var row = 'objective' + i;
 					if ($(row).style.display != "none"){
-						showLabels();
+						$('hiddenLabel').show();
+					}else{
+						$('hiddenLabel').hide();
 					}
 				}
 			}
@@ -83,10 +69,10 @@ the column labels. */
 					function(){
 						if ($(project).style.display != ""){
 							$(icon).src = "/images/plus.gif";
-							testOpenRows();
+								testOpenRows();
 							}else{
 								$(icon).src = "/images/minus.gif";
-								showLabels();
+								$('hiddenLabel').show();
 							}
 						}
 				});
@@ -99,7 +85,8 @@ the column labels. */
 @import "styles/step3a-reviewprojects.css";
 </style>
 
-</head><body>
+</head>
+<body>
 <!-- Begin the header - loaded from a separate file -->
 <div id="header">
 	<!-- Begin header -->
@@ -139,7 +126,7 @@ the column labels. */
 				<table cellpadding=0 cellspacing=0>
 					<tr class="tableHeading">
 						<th colspan="2" class="first">Proposed Projects</th>
-						<th class="right"><span id="hiddenLabel" style="visibility:hidden">Money Needed</span></th>
+						<th class="right"><span id="hiddenLabel" style="display:none">Money Needed</span></th>
 					</tr>
 					
 					
@@ -165,8 +152,8 @@ the column labels. */
 									<td class="fundingSourceItem">
 											<a href="javascript:toggleRow('objective${loop.index}','icon${loop.index}');">
 											<img src="images/plus.gif" id="icon${loop.index}" class="icon"></a>
-											${project.name} Options</td>
-									<td class="col2" colspan="2" align="right"> ${(project.inclusive) ? 'Select at most one' : 'Select any number'} </td>
+											${project.name}</td>
+									<td class="col2" colspan="2" align="right"> <!--${(project.inclusive) ? 'Select at most one' : 'Select any number'}-->&nbsp; </td>
 								</tr>
 								<!-- end PROJECT -->
 
@@ -178,7 +165,7 @@ the column labels. */
 											<c:forEach var="alt" items="${project.alternatives}" varStatus="loop">
 												<tr>
 													<td class="col1"><a target="_blank" href="lmAlt.do?altId=${alt.id}">${alt.name}</td>
-													<td class="cost">$<fmt:formatNumber type="number">${alt.cost}</fmt:formatNumber>m</td>
+													<td class="cost">$<fmt:formatNumber type="number">${alt.cost}</fmt:formatNumber> million</td>
 												</tr>
 											</c:forEach>
 											<!-- end project alt-->
