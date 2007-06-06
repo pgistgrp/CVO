@@ -79,7 +79,7 @@
       <include method="addQuestionnaire"/>
       <include method="setToll"/>
       <include method="checkUsername"/>
-      <include method="createPasswordRecovery"/>
+      <include method="checkEmail"/>
     </create>
     
     <create creator="spring" javascript="ProfileAgent">

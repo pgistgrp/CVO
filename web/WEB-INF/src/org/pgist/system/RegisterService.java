@@ -55,4 +55,6 @@ public interface RegisterService {
 	
 	void deleteRecoverPassword(String code) throws Exception;
 	
+	void deleteAllExpired() throws Exception;
+	
 }

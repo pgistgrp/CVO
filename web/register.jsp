@@ -50,6 +50,7 @@
 		
 		var errordiv = document.getElementById("errors");
 		var errorusernamediv = document.getElementById("errorusername");
+		var erroremaildiv = document.getElementById("errorusername");
 		var errormsg = "";
  
 		var firstname = form.fname.value;	
@@ -124,7 +125,11 @@
 				callback:function(data){
 					if (data.available){		
 					//if Username is available
-					
+						//check email
+						RegisterAgent.checkEmail({email:email1}, {
+						callback:function(data){
+							if (data.available){
+						//if email is not used already
 							RegisterAgent.addUser({firstname:firstname, lastname:lastname, email1:email1, email2:email2, address1:address1, address2:address2, city:city, state:state, zipcode:zip, username:username, password1:password1, password2:password2}, {
 								callback:function(data){
 									if (data.successful){
@@ -136,7 +141,18 @@
 								alert("SystemAgent.createQuotaStats( error:" + errorString + exception);
 								}
 							});
-				
+							// else if email is taken
+							} else {
+							errormsg = errormsg + "Email Address is already being used in this system.";
+							erroremaildiv.innerHTML = "&nbsp;" + errormsg;
+							highlightErrors('email1');
+							highlightErrors('email2');
+							}
+							},
+							errorHandler:function(errorString, exception){ 
+							alert("SystemAgent.checkEmail( error:" + errorString + exception);
+							}
+						});	
 				// else if user name is taken
 				} else {
 					errormsg = errormsg + "Username Not Available";
@@ -145,7 +161,7 @@
 				}
 				},
 				errorHandler:function(errorString, exception){ 
-				alert("SystemAgent.createQuotaStats( error:" + errorString + exception);
+				alert("SystemAgent.checkUsername( error:" + errorString + exception);
 				}
 			});	
 		} else {
@@ -225,7 +241,7 @@
 			</p><br />
 			<p>
 				<span class="label">Email address:</span>
-				<span class="value"><input id="email1" type="text" /></span>
+				<span class="value"><input id="email1" type="text" /></span><span id="errorusername" style="color:#D85703;font-weight:bold;font-size: .8em;"></span>
 			</p><br />
 			<p>
 				<span class="label">Re-type email address:</span>

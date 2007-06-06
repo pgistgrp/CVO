@@ -82,7 +82,7 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     	save(u);
     	
     	return u.getId();
-    }
+    } //addUser()
     
     
     public boolean createQuotaQualify(Long id) throws Exception {
@@ -100,7 +100,7 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     		return true;
     	}
     	return false;
-    }
+    } //createQuotaQualify()
     
     
     public void addQuotaInfo(String user_interview, String user_observation, Long id) throws Exception {
@@ -109,20 +109,20 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     	user.setRecording(user_observation);
     	user.setConsented("Quota");
     	user.setQuota(true);
-    }
+    } //addQuotaInfo()
     
     
     public void addConsent(Long id) throws Exception {
     	User user = (User) load(User.class, id);
     	user.setConsented("Non-Quota");
-    }
+    } //addConsent()
     
     
     public void deleteUser(Long id) throws Exception {
     	User user = (User) load(User.class, id);
     	user.setDeleted(true);
     	user.setEnabled(false);
-    }
+    } //deleteUser()
     
     
     private static final String hql_getTolls = "from FundingSource fs order by fs.name";
@@ -130,7 +130,7 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 	public Collection getTolls() throws Exception {
 		
 		return getHibernateTemplate().find(hql_getTolls);
-	}
+	} //getTolls()
 	
 
 	public void addQuestionnaire(Long id, String incomeRange, int householdsize, int drive, int carpool, int carpoolpeople, int bus, int bike,  int walk) throws Exception {
@@ -145,7 +145,7 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 		user.setWalkDays(walk);
 		user.setEnabled(true);
 		save(user);
-	}
+	} //addQuestionnaire()
 	
 	
 	public void setToll(Long id, Long myTollId, boolean boolchecked) throws Exception {
@@ -160,7 +160,7 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 				toll.setUsed(boolchecked);
 			}
 		}
-    }
+    } //setToll()
 	
 	
 	private static final String hql_checkUsername = "from User u where u.loginname=?";
@@ -177,7 +177,7 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 		}
 		
 		return true;
-	}
+	} //checkUsername()
 	
 
 	private static final String hql_checkEmail = "from User u where u.email=?";
@@ -193,13 +193,13 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 		}
 		
 		return true;
-	}
+	} //checkEmail()
 	
 	
 	public User getCurrentUser(Long id) throws Exception {
 		User u = (User)load(User.class, id);
 		return u;
-	}
+	} //getCurrentUser()
 	
 	
 	private static final String hql_recoverPassword = "from User u where u.email=?";
@@ -235,25 +235,23 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     	emailSender.send(user, "recoverpassword", values);
     	
 		return true;
-	}
+	} //createPasswordRecovery()
 	
 	
 	public boolean validatePasswordRecoveryCode(String code) throws Exception {
-		
 		RecoverPassword rp = getRecoverPassword(code);		
 		if(rp != null) {
 			Date sDate = rp.getDate();
 			Date cDate = new Date();
-			
+			// make sure its still valid
 			if(sDate.compareTo(cDate) > 0) {
 				return true;
 			}
 			deleteRecoverPassword(code);
 			return false;
 		}
-		
 		return false;
-	}
+	} //validatePasswordRecoveryCode()
 	
 	
 	public boolean changePassword(String code, String password)throws Exception {
@@ -267,7 +265,7 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 			return true;
 		}
 		return false;
-	}
+	} //changePassword()
 	
 	
 	public void deleteRecoverPassword(String code) throws Exception {
@@ -275,13 +273,13 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 		if(rp != null) {
 			getHibernateTemplate().delete(rp);
 		}
-	}
+	} //deleteRecoverPassword()
 	
 
-	private static final String hql_validatePasswordRecovery = "from RecoverPassword rc where rc.code=?";
+	private static final String hql_getRecoverPassword = "from RecoverPassword rc where rc.code=?";
 	
 	public RecoverPassword getRecoverPassword(String code) throws Exception {
-		List list = getHibernateTemplate().find(hql_validatePasswordRecovery, new Object[] {
+		List list = getHibernateTemplate().find(hql_getRecoverPassword, new Object[] {
 				code,
     	});
 		
@@ -290,7 +288,29 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 			return rp;
 		}
 		return null;
-	}
+	} //getRecoverPassword()
+	
+	
+	private static final String hql_deleteAllExpired = "from RecoverPassword rc order by rc.date";
+	
+	public void deleteAllExpired() throws Exception {
+		List list = getHibernateTemplate().find(hql_deleteAllExpired);
+		
+		if(list.size() > 0) {
+			Iterator it = list.iterator();
+			while(it.hasNext()) {
+				RecoverPassword rp = (RecoverPassword) it.next();
+				Date sDate = rp.getDate();
+				Date cDate = new Date();
+				
+				if(sDate.compareTo(cDate) < 0) {			
+					this.deleteRecoverPassword(rp.getCode());
+				} else {
+					break;
+				}
+			}
+		}
+	} //deleteAllExpired()
 	
 	
 }

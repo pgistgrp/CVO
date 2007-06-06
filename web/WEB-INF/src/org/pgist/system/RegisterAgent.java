@@ -708,44 +708,4 @@ public class RegisterAgent {
     }//checkEmail()
     
     
-    /**
-     * recover the users password
-     * @param params a Map contains:<br>
-     *   <ul>
-     *     <li>email - string, user's email address</li>
-     *   </ul>
-     *   
-     * @return a Map contains:<br>
-     *   <ul>
-     *     <li>message - a string system message</li>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *   </ul>
-     */
-    public Map createPasswordRecovery(Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-       
-        String email = (String) params.get("email");
-       
-    	if(email==null || "".equals(email.trim())){
-    		map.put("reason", "email cannot be blank.");
-    		return map;
-    	}
-  
-        try {
-        	
-        	boolean emailfound = registerService.createPasswordRecovery(email);
-        	
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-            return map;
-        }
-
-        return map;
-    }//createPasswordRecovery()
-    
-    
 } //RegisterAgent()

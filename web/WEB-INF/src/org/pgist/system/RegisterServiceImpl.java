@@ -131,4 +131,8 @@ public class RegisterServiceImpl implements RegisterService {
 		registerDAO.deleteRecoverPassword(code);
 	}
 	
+	
+	public void deleteAllExpired() throws Exception {
+		registerDAO.deleteAllExpired();
+	}
 }

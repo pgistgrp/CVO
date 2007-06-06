@@ -46,4 +46,6 @@ public interface RegisterDAO extends BaseDAO {
 	
 	void deleteRecoverPassword(String code) throws Exception;
 	
+	void deleteAllExpired() throws Exception;
+	
 }

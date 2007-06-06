@@ -56,9 +56,8 @@ public class RecoverPasswordResetAction extends Action {
     			boolean valid = registerService.validatePasswordRecoveryCode(code);
     			if(valid) {
 	    			boolean changed = registerService.changePassword(code, password1);
+	    			registerService.deleteAllExpired(); //keep the database clean
 	    			request.setAttribute("passwordupdated", changed);
-	    			
-	    			//email them here?
 	    			
 	    			if(changed){
 	    				registerService.deleteRecoverPassword(code);

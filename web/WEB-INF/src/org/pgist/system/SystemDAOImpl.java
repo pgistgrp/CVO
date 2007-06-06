@@ -31,15 +31,18 @@ import org.pgist.web.DelegatingHttpServletRequestWrapper;
 public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     
     
-    private static final String hql_getFeedbacks_1 = "select count(fb.id) from Feedback fb";
-    
-    private static final String hql_getFeedbacks_2 = "from Feedback fb order by fb.id desc";
+
     
     private EmailSender emailSender;
     
     public void setEmailSender(EmailSender emailSender) {
         this.emailSender = emailSender;
     }
+
+
+    private static final String hql_getFeedbacks_1 = "select count(fb.id) from Feedback fb";
+    
+    private static final String hql_getFeedbacks_2 = "from Feedback fb order by fb.id desc";
     
     public Collection getFeedbacks(PageSetting setting) throws Exception {
         Query query = null;
