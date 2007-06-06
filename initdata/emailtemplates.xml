@@ -97,7 +97,7 @@
 	<notes>Variable: ${code}</notes>
 	<content><![CDATA[
 	<p>Your password recovery code is: <strong>${code}</strong><br/>
-	This code is used to reset your password.
+	This code is used to reset your password and will expire in 30 minutes.
 	</p>
 	<p>Please follow the link below to reset your password:
 	<a href="http://www.letsimprovetransportation.org/resetpassword.do?code=${code}">Password Recovery</a></p>

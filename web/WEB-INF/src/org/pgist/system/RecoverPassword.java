@@ -96,7 +96,17 @@ public class RecoverPassword implements Serializable{
   
     
     public void encode() {
-        code = MD5.getDigest(code);
+        String tempCode = MD5.getDigest(code);
+        char[] codeArray = tempCode.toCharArray();
+        
+        for(int i = 0; i < codeArray.length; i++) {
+        	if(Character.isLetter(codeArray[i])) {
+        		if(Math.random() > .5 ) {
+        			codeArray[i] = Character.toLowerCase(codeArray[i]);
+        		}
+        	}
+        }
+        code = new String(codeArray);
     }  
     
     
