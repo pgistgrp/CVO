@@ -61,3 +61,32 @@ margin-top:5px;
 #newExpiriment ul li {list-style:none}
 
 #expDesc {width:350px;}
+
+#global-components{text-align:left;}
+
+#global-components ul {
+list-style:none;
+padding:0px;
+margin:0px;
+}
+
+#global-components li {
+margin:0px 5px 5px 0px;
+width:118px;
+padding:5px;
+border:1px solid #C6D78C;
+float:left;
+}
+
+#global-components a {
+padding:5px;
+background:#EEF7DD;
+text-align:center;
+color:#000;
+display:block;
+}
+
+#global-components a:hover{
+background:#E1F1C5;
+text-decoration:underline;
+}

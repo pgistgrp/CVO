@@ -8,39 +8,6 @@
 
 <h2 class="headerColor">Welcome, ${baseuser.loginname}</h2>
 
-<pg:show roles="moderator">
-<h3 class="headerColor">Manage Global Components</h3>
-	<div class="home-row clearfix">
-		<div class="step"><a href="usermgr.do">Manage Users</a><br />
-			<small>Information about this step</small></div>
-	</div>
-	<div class="home-row clearfix">
-		<div class="step"><a href="glossaryManage.do">Manage Glossary</a><br />
-			<small>Information about this step</small></div>
-	</div>
-	<div class="home-row clearfix">
-		<div class="step"><a href="tagging.do">Manage Tags/Stopwords</a><br />
-			<small>Information about this step</small></div>
-	</div>
-
-	<div class="home-row clearfix">
-		<div class="step"><a href="projectManage.do">Manage Projects</a><br />
-			<small>Information about this step</small></div>
-	</div>
-	<div class="home-row clearfix">
-		<div class="step"><a href="fundingManage.do">Manage Funding</a><br />
-			<small>Information about this step</small></div>
-	</div>
-	<div class="home-row clearfix">
-		<div class="step"><a href="feedback.do">Manage Feedbacks</a><br />
-			<small>Information about this step</small></div>
-	</div>
-	<div class="home-row clearfix">
-		<div class="step"><a target="_blank" href="http://jordanisip.wufoo.com/forms/lit-bug-tracker/">Bug Tracker</a><br />
-			<small>Information about this step</small></div>
-	</div>
-</pg:show>
-
 <div id="workflows">
 	<pg:show roles="moderator">
 	<h3 class="headerColor">New Experiments</h3>
@@ -131,4 +98,19 @@
 	</pg:show>
 </div>
 
-
+<pg:show roles="moderator">
+<br />
+<h3 class="headerColor">Manage Global Components</h3>
+<div id="global-components">
+	<ul>
+		<li><a href="usermgr.do">Users</a></li>
+		<li><a href="glossaryManage.do">Glossary</a></li>
+		<li><a href="tagging.do">Stopwords</a></li>
+		<li><a href="projectManage.do">Projects</a></li>
+		<li><a href="fundingManage.do">Funding</a></li>
+		<li><a href="feedback.do">Feedbacks</a></li>
+		<li><a target="_blank" href="http://jordanisip.wufoo.com/forms/lit-bug-tracker/">Bug Tracker</a></li>
+		<br class="clearBoth" />
+	</ul>
+</div>
+</pg:show>
