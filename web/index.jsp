@@ -87,11 +87,11 @@ body {
 					Sound region, this site will help you:</h1>
 		
 		<p>
-			<ul>
+	  <ul>
 				<li><span>Voice your concerns with the transportation system</span></li>
 				<li><span>Design your own improvement plan and discuss it with others</span></li>
 				<li><span>Vote on which improvements are most important</span></li>
-			</ul>
+	  </ul>
 			<h3 style="text-align:right">Want to <a href="lmMenu.do">Learn More</a>?</h3>
 		</p>
 		
@@ -109,7 +109,7 @@ body {
 			<div class="clearBoth"></div>
 		</div>
 		
-		<h1 class="right">Need to <a href="register.do">Create an Account</a>? <a href="recoverpassword.do">Forgot your Password?</a></h1>
+		<h1 class="right">Need to <a href="register.do">Create an Account</a>? <a href="forgotpassword.do">Forgot your Password?</a></h1>
 	</div>
 </body>
 </html:html>

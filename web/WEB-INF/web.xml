@@ -46,7 +46,7 @@
             <param-value>
                 /login.do,
                 /register.do,
-                /recoverpassword.do,
+                /forgotpassword.do,
                 /resetpassword.do,
                 /registercomplete.do,
                 /publicprofile.do,

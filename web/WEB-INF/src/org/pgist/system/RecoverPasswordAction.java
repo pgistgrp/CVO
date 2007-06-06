@@ -47,21 +47,21 @@ public class RecoverPasswordAction extends Action {
 	    		if(email==null || "".equals(email.trim())) {	
 		    		request.setAttribute("sysmsg", "Email address cannot be empty.");
 		    		request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
-		    		return mapping.findForward("recoverpassword"); 
+		    		return mapping.findForward("forgotpassword"); 
 	    		}
 	    		boolean emailsent = registerService.createPasswordRecovery(email);
 	    		if(emailsent) {
-		    		request.setAttribute("sysmsg", "An email has been sent.");	
+		    		request.setAttribute("sysmsg", "<span style=\"color: green;\">A password recovery email has been sent to " + email + "</span>");	
 		    		request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
 	    		} else {
-	    			request.setAttribute("sysmsg", "Your email address was not found in the system.");	
+	    			request.setAttribute("sysmsg", "<span style=\"color: red;\">The email address you entered was not found in the system.</span>");	
 		    		request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
 	    		}
-	    		return mapping.findForward("recoverpassword"); 
+	    		return mapping.findForward("forgotpassword"); 
     	}
     	
     	request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
-        return mapping.findForward("recoverpassword");
+        return mapping.findForward("forgotpassword");
     }//execute()
     
     

@@ -104,7 +104,7 @@
     	<property name="profileService" ref="profileService"/>
     </bean>
     
-    <bean name="/recoverpassword" class="org.pgist.system.RecoverPasswordAction">
+    <bean name="/forgotpassword" class="org.pgist.system.RecoverPasswordAction">
 	<property name="registerService" ref="registerService"/>
     </bean>
     

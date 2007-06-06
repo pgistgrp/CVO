@@ -45,9 +45,11 @@
 		<h2>Reset Your Password</h2>
 		<html:form action="/resetpassword.do" method="POST">
 			 <html:hidden property="editPassword" value="true"/>
-			 <html:hidden property="code" value="<%= request.getParameter("rc") %>"/>
+			 
 			 	<p id="errors">${sysmsg}</p>
-			 	<div class="plabel">Enter your new password</div>
+			 	<div class="plabel">Recovery Code:</div>
+			 	<div class="pvalue"><html:text property="code" value="<%= request.getParameter("code") %>"/></div>
+				<div class="plabel">Enter your new password</div>
 			 	<div class="pvalue"><html:password property="password1" value=""/></div>
 				<div class="plabel">Confirm your new password</div>
 				<div class="pvalue"><html:password property="password2" value=""/></div>

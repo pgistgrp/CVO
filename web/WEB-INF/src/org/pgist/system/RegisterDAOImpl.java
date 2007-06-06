@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.List;
 import java.util.Date;
+import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
 
@@ -220,6 +221,8 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 		rp.setCode(code);
 		rp.encode();
 		Date date = new Date();
+		int minutes = date.getMinutes();
+		date.setMinutes(minutes+30);
 		rp.setDate(date);
 		rp.setUserId(user.getId());
 		save(rp);
@@ -235,50 +238,28 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 	}
 	
 	
-	private static final String hql_validatePasswordRecovery = "from RecoverPassword rc where rc.code=?";
-	
 	public boolean validatePasswordRecoveryCode(String code) throws Exception {
-		int timelimit = 30; //minutes
 		
-		List list = getHibernateTemplate().find(hql_validatePasswordRecovery, new Object[] {
-				code,
-    	});
-		
-		if(list.size() > 0) {
-			/*
-			RecoverPassword rp = (RecoverPassword) list.get(0);
+		RecoverPassword rp = getRecoverPassword(code);		
+		if(rp != null) {
 			Date sDate = rp.getDate();
 			Date cDate = new Date();
 			
-			int sMinutes = sDate.getMinutes();
-			
-			if((sMinutes + timelimit) > 60) {
-				int minutes = (sMinutes + timelimit) - 60;
-				int sHours = sDate.getHours();
-				sDate.setHours(sHours+1);
-				sDate.setMinutes(minutes);
-			}
-			if(sDate.before(cDate)) {
+			if(sDate.compareTo(cDate) > 0) {
 				return true;
 			}
-			
+			deleteRecoverPassword(code);
 			return false;
-			*/
-			return true;
 		}
-		
 		
 		return false;
 	}
 	
 	
 	public boolean changePassword(String code, String password)throws Exception {
-		List list = getHibernateTemplate().find(hql_validatePasswordRecovery, new Object[] {
-				code,
-    	});
+		RecoverPassword rp = getRecoverPassword(code);	
 		
-		if(list.size() > 0) {
-			RecoverPassword rp = (RecoverPassword) list.get(0);
+		if(rp != null) {			
 			Long id = rp.getUserId();
 			User user = (User) load(User.class, id);
 			user.setPassword(password);
@@ -290,15 +271,26 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 	
 	
 	public void deleteRecoverPassword(String code) throws Exception {
+		RecoverPassword rp = getRecoverPassword(code);		
+		if(rp != null) {
+			getHibernateTemplate().delete(rp);
+		}
+	}
+	
+
+	private static final String hql_validatePasswordRecovery = "from RecoverPassword rc where rc.code=?";
+	
+	public RecoverPassword getRecoverPassword(String code) throws Exception {
 		List list = getHibernateTemplate().find(hql_validatePasswordRecovery, new Object[] {
 				code,
     	});
 		
 		if(list.size() > 0) {
 			RecoverPassword rp = (RecoverPassword) list.get(0);
-			getHibernateTemplate().delete(rp);
+			return rp;
 		}
-		
+		return null;
 	}
+	
 	
 }

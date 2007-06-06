@@ -67,10 +67,12 @@ public class RecoverPasswordResetAction extends Action {
 	    			} else {
 	    				request.setAttribute("sysmsg", "Password update failed.");
 	    				request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);	    				
-	    			}
-	    			
+	    			}	    			
 	    			return mapping.findForward("resetpassword");
     			}
+    			request.setAttribute("sysmsg", "Your password recovery code is incorrect or has reached its 30 minute time limit. Please <a href=\"recoverpassword.do\">Try Again.</a>");
+        		request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
+        		return mapping.findForward("resetpassword"); 
     		}
     		request.setAttribute("sysmsg", "passwords do not match or the password is not at least six characters long");
     		request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);

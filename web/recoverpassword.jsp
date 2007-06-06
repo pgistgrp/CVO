@@ -44,10 +44,11 @@
 	<div id="container">
 	
 	<div id="email">
-	<h2>Recover Your Password</h2>
-	<html:form action="/recoverpassword.do" method="POST">
+	<h2>Forgot Your  Password?</h2>
+	<html:form action="/forgotpassword.do" method="POST">
 		 <html:hidden property="save" value="true"/>
-		 <p>To reset your password, please enter the email address you used during registration. A new password will be sent to this address. <br/> </p>
+		 <p>You can reset your password by entering the email address you used during registration. Details on how to reset your password will be sent to this address. <br/> 
+	    </p>
 		 <p id="errors">${sysmsg}</p>
 		 
 		 <p class="prow">
