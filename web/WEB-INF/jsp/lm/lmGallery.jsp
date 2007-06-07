@@ -17,67 +17,8 @@
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/util.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-<script type="text/javascript">
-		
-// Loop through the 'objectives' divs, show them, and change the icon.
-			function expandAll(){
-				var rows = document.getElementsByClassName('objectives');
-				var icons = document.getElementsByClassName('icon');
-				for (var i = 0;i <= rows.length - 1; i++){
-					var row = 'objective' + i;
-					var icon = 'icon' + i;
-					$(row).show();
-					$(icon).src = "/images/minus.gif";
-				}
-				$('hiddenLabel').show();
-			}
-
-// Loop through all the 'objectives' divs, hide them, and change the icon.
-			function collapseAll(){
-				var rows = document.getElementsByClassName('objectives');
-				for (var i = 0;i <= rows.length - 1; i++){
-					var row = 'objective' + i;
-					var icon = 'icon' + i;
-					$(row).hide();
-					$(icon).src = "/images/plus.gif";
-				}
-				$('hiddenLabel').hide();
-			}
-
-
-// First, hide the labels. Then, for every objective that is open, show the labels.
-			function testOpenRows(){
-				var rows = document.getElementsByClassName('objectives');
-				for (var i = 0;i <= rows.length -1; i++){
-					var row = 'objective' + i;
-					if ($(row).style.display != "none"){
-						$('hiddenLabel').show();
-					}else{
-						$('hiddenLabel').hide();
-					}
-				}
-			}
-	
-/* First, use Scriptaculous to toggle the objectives div.
-Then, decide whether to show the plus or minus icon based on whether 
-the div is displayed or not.  If the div is displayed, reveal
-the column labels. */
-
-			function toggleRow(project,icon){
-				Effect.toggle(project, 'appear', {duration:.2, afterFinish:
-					function(){
-						if ($(project).style.display != ""){
-							$(icon).src = "/images/plus.gif";
-								testOpenRows();
-							}else{
-								$(icon).src = "/images/minus.gif";
-								$('hiddenLabel').show();
-							}
-						}
-				});
-			}
-</script>
 
 <style type="text/css">
 @import "styles/lit.css";
@@ -118,8 +59,8 @@ the column labels. */
 	  The participants in this website will actually discuss these projects.  
 		<a href="#">Click here to login</a>.</p>
 	<div id="object">
-		<a href="javascript:expandAll();">Expand all</a>
-		<a href="javascript:collapseAll();">Collapse all</a>
+		<a href="javascript:Util.expandAll('objectives');">Expand all</a>
+		<a href="javascript:Util.collapseAll('objectives');">Collapse all</a>
 		<div id="rp3a-left" class="floatLeft">
 			<!-- begin collapsible list of projects -->
 			<div id="newtable">
@@ -150,15 +91,15 @@ the column labels. */
 								<!-- begin PROJECT -->
 								<tr class="fundingType">
 									<td class="fundingSourceItem">
-											<a href="javascript:toggleRow('objective${loop.index}','icon${loop.index}');">
-											<img src="images/plus.gif" id="icon${loop.index}" class="icon"></a>
-											${project.name}</td>
+											<a href="javascript:Util.toggleRow(${loop.index});">
+											<img src="images/plus.gif" id="icon${loop.index}" class="icon">${project.name}</a>
+									</td>
 									<td class="col2" colspan="2" align="right"> <!--${(project.inclusive) ? 'Select at most one' : 'Select any number'}-->&nbsp; </td>
 								</tr>
 								<!-- end PROJECT -->
 
 								<!-- begin HIDDEN ROW of OPTIONS -->
-								<tr style="display:none;" class="objectives" id="objective${loop.index}">
+								<tr style="display:none;" class="objectives" id="row${loop.index}">
 									<td colspan="3">
 										<table>
 											<!-- start project alt -->
