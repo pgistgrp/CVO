@@ -1,0 +1,23 @@
+#slate ul{display:inline; margin:0; padding:0}
+#slate li{list-style: none; display:inline; padding: 3px;}
+tr:hover {background-color: #F1F7FF;}
+
+#filterTerms{
+float:left;
+margin:10px 0px;
+border:1px solid #C6D78C;
+background:#E8F7CC;
+padding:5px;
+font-size:12pt;
+}
+
+#filterTerms input {
+font-size:14pt;
+margin-left:10px;
+}
+
+#slate ul{display:inline; margin:0; padding:0}
+#slate li{list-style: none; display:inline; padding: 3px;}
+tr:hover {background-color: #F1F7FF;}
+
+#termListTable {margin-top:10px}

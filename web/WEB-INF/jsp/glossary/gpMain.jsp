@@ -6,26 +6,22 @@
 <html>
 <head>
 <title>Let's Improve Transportation: Glossary</title>
-
-
 <!-- Site Wide CSS -->
-
-<style type="text/css" media="screen">@import "styles/lit.css";</style>
+<style type="text/css" media="screen">
+	@import "styles/lit.css";
+	@import "styles/glossary.css";
+</style>
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
-
-
 <!-- Site Wide JavaScript -->
 <script src="scripts/tabs.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 <script src="scripts/search.js" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
-
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
 <script type='text/javascript' src='/dwr/interface/GlossaryPublicAgent.js'></script>
-
 <script type="text/javascript">
 
 		var direction = "asc";
@@ -65,7 +61,7 @@
 				if ($('txtSearch') != null){
 							if ($('txtSearch').value != $('txtSearch').defaultValue) {
 								$('clearSearch').style.display = "inline";
-								$('clearSearch').innerHTML = '<a href="javascript: clearResults(\''+ sortby +'\');">Clear Search</a>';
+								$('clearSearch').innerHTML = '<input type="button" onclick="javascript:clearResults(\''+ sortby +'\');" value="Clear search">';
 							}
 				}
 				
@@ -122,7 +118,8 @@
 		function proposeTermCont(){
 			globalSourceLinks=new Array();
 			globalTermLinks = new Array();
-			$('proposeTermBox').style.display='block';
+			$('proposeTermResult').style.display="";
+			$('proposeTermBox').style.display="";
 			location.hash='proposeTermBox';
 			
 
@@ -298,8 +295,12 @@ function deleteSourceLink(arrid,tid){
 		
 		}
 
-</script>
+function resetFilter(){
+	$('txtSearch').value = '';
+	getTerms(this.value, 'name');
+}
 
+</script>
 <style>
 #slate ul{display:inline; margin:0; padding:0}
 #slate li{list-style: none; display:inline; padding: 3px;}
@@ -313,136 +314,229 @@ text-transform:none;
 <event:pageunload />
 </head>
 <body>
- <!-- Begin the header - loaded from a separate file -->
-  <div id="header">
+<!-- Begin the header - loaded from a separate file -->
+<div id="header">
 	<!-- Begin header -->
 	<jsp:include page="/header.jsp" />
 	<!-- End header -->
-  </div>
-  <!-- End header -->
-  	<!-- START LIGHTBOX -->
-
-	<div id="overlay" style="display: none;></div>
-	<div id="lightbox" class="blueBB" style="top: 50%; height: 450px; overflow: auto;"></div>
-	<!-- END LIGHTBOX -->
-  <!-- Begin header menu - The wide ribbon underneath the logo -->
-	<div id="headerMenu">
-		<div id="headerContainer">
-			<div id="headerTitle" class="floatLeft">
-				<h3 class="headerColor">Learn More</h3>
-			</div>
-			<div class="floatLeft headerButton"> <a href="lmMenu.do">Menu</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Gallery</a> </div>
-			<div class="floatLeft headerButton currentBox"> <a href="glossaryPublic.do">Glossary</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
+</div>
+<!-- End header -->
+<!-- START LIGHTBOX -->
+<div id="overlay" style="display: none;></div>
+	<div id="lightbox" class="blueBB" style="top: 50%; height: 450px; overflow: auto;">
+</div>
+<!-- END LIGHTBOX -->
+<!-- Begin header menu - The wide ribbon underneath the logo -->
+<div id="headerMenu">
+	<div id="headerContainer">
+		<div id="headerTitle" class="floatLeft">
+			<h3 class="headerColor">Learn More</h3>
 		</div>
+		<div class="floatLeft headerButton"> <a href="lmMenu.do">Menu</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Gallery</a> </div>
+		<div class="floatLeft headerButton currentBox"> <a href="glossaryPublic.do">Glossary</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
 	</div>
-	<!-- End header menu -->
-  <!-- #container is the container that wraps around all the main page content -->
-  <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
-  <div id="container">
-  	<!-- begin "overview and instructions" area -->
-		<div id="overview" class="box2">
-			<h3>Overview and Instructions</h3>
-		<p>This glossary contains some suggested definitions for terms you may encounter when discussing transportation issues.  To search for a term, begin typing in the "Filter Glossary" box and the glossary will be searched as you type.  You can also browse alphabetically.  Click on the name of a given term to get more information about it.  If you disagree with the definition of a term, you can flag it for the moderator, or leave a comment about it on the page for that term.</p>
-		</div>
-<!-- end overview -->
-			<div id="slate">
+</div>
+<!-- End header menu -->
+<!-- #container is the container that wraps around all the main page content -->
+<div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
+<div id="container">
+	<!-- begin "overview and instructions" area -->
+	<div id="overview" class="box2">
+		<h3>Overview and Instructions</h3>
+		<p>This glossary contains some suggested definitions for terms you may encounter
+			when discussing transportation issues. To search for a term, begin typing in the "Filter
+			Glossary" box and the glossary will be searched as you type. You can also browse
+			alphabetically. Click on the name of a given term to get more information about
+			it. If you disagree with the definition of a term, you can flag it for the moderator,
+			or leave a comment about it on the page for that term.</p>
+	</div>
+	<!-- end overview -->
+	<div id="slate">
 		<div id="filterTerms">
-		<form id="form1" name="form1" method="post" action="javascript:getTerms($('txtSearch').value, 'name');">
-		  <label>Filter Glossary 
-		  <input type="text" id="txtSearch" name="txtSearch" style="width:120px; padding-left: 1px; padding-right: 20px; margin-right:5px; background: url('/images/search_light.gif') no-repeat right; background-color: #FFFFFF; color: #999;" class="txtSearch" value="Search Terms" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" onkeyup="if (this.value.length >= 3){getTerms(this.value, 'name');}"><div id="txtSearchIndicator" style="visibility:hidden; position: absolute; right:0; margin-right: 150px;"><img src="/images/indicator.gif"></div>
-		  </label>
-		  <div id="clearSearch" style="display: none;"></div>
-		</form>
-		<p><a href="javascript:proposeTermCont();">Propose a Glossary Term</a></p>
-		<center><p>Found a bug? Problem accessing a part of the page? <a href="#feedbackForm" onclick="javascript:Effect.toggle('feedbackForm','blind'); setTimeout('location.hash=\'#feedbackDiv\';',900);">Send us feedback.</a></p></center>
-		<div id='proposeTermResult' style='display:none;'></div>
-		<div id='proposeTermBox' style='display:none;border:thick solid #C0C0C0;'><div><table style='width:100%; height:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='proptermname-1' type='text' value=''/><br />
-				<label><strong>Short Definition</strong></label><br /><textarea style='width:90%; height:100%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='proptermshortdef-1'></textarea></div></td>
-				<td rowspan=2><div style='margin:2%;'><label><strong>Sources</strong></label><br /><div id='sourcelinks-1'>
-				</div><br /><label><strong>Add Source</strong></label><br /><textarea style='width:90%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='propaddsourcecitation-1'>Citation</textarea><br /><input style='width:50%;' id='propaddsource-1' type='text' value='Http://'/>
-				<br /><button type='button' onclick='addSourceLink(-1); return false;'>Add Source</button><br /><br /><label><strong>Term Links</strong></label><br /><div id='termlinks-1'>
-				</div><br /><label>Add Link</label><br /><input style='width:50%;' id='propaddtermlink-1' type='text' value='Http://'/><br /><button type='button' onclick='addTermLink(-1); return false;'>Add Link</button></div></td></tr><tr style=''><td style=''><div style='min-height:100%; margin:2%;'><label><strong>Extended Definition</strong></label><br />
-				<textarea rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' style='width:90%; height:100%;' id='proptermextdef-1'></textarea></div></td></tr><tr style=''><td style='width:50%;'></td><td style=''><div style='margin:0.5%; float:right;'><button type='button' onclick="javascript:$('proposeTermBox').style.display='none'; return false;">Cancel</button>&nbsp;<button type='button' onclick='proposeTerm($("proptermname-1").value, $("proptermshortdef-1").value, $("proptermextdef-1").value); $("proptermname-1").value=""; $("proptermshortdef-1").value=""; $("proptermextdef-1").value=""; $("sourcelinks-1").innerHTML=""; $("termlinks-1").innerHTML=""; $("proposeTermBox").style.display="none"; return false;'>Save and Close</button></div></td></tr></tbody></table></div></div>
-	</div>
-	  <div id="list"></div>
-	</div>
-	
-
-</div>
-
-<div id="proposeForm" style="display:none;">
-			<h2>Propose a New Term</h2>
-			<form id="proposeForm" name="proposeForm" method="post" action="" style="padding-top: 20px;">
-			  <label>Glossary Term Name <br /><input type="text" name="termName" id="termName" style="width: 75%" /></label>
-			  <p><label>Short Definition <br /><input name="shortDef" id="shortDef" type="text" value="" style="width: 100%" /></label></p>
-			  <p><label>Extended Definition (Optional - leave blank if not available)<br />
-			    <textarea name="extDef" id="extDef" style="width: 100%"></textarea>
-			    </label>
-			  </p>
-			  
-			  
-			 	<div id="section_sources">
-			  	<label>Sources (at least 1 is required)</label><br />
-			 		<div id="sourceList">No sources have been created yet.</div><br>
-			  	<div id="addSourceFormCont" style="display:none; padding: 5px; width: 100%; background-color: #ddd; margin-bottom: 5px;">
-				  		<h4>Add a Source</h4>
-				  		<div id="addBookForm"><form><input name="author" type="text" id="txtauthor" value="Author" style="width: 30%" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;"/>&nbsp;&nbsp;<input name="author" type="text" id="txttitle" value="Title" style="width: 60%" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;"/><br></form></div>
-				  		<div id="addURLForm"><form><input name="url" type="text" id="txturl" value="http://" style="width: 95%" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;"/><br><a href="javascript: addSourceToList($('txtauthor').value,$('txttitle').value, $('txturl').value);">Add this Source</a></form></div>
-			  	</div>
-			  	<a href="javascript: Effect.toggle('addSourceFormCont', 'blind'); void(0);">Add a Source</a>
-			  
-				
-			  <br />
-			  <div id="section_termlinks">
-			  <label>Term Links (optional)</label><br />
-			 	<div id="termList">No term links have been created yet.</div><br>
-			  <div id="addTermsFormCont" style="display:none; padding: 5px; width: 100%; background-color: #ddd; margin-bottom: 5px;">
-				  <div id="addURLForm"><input name="url" type="text" id="txttermurl" value="http://" style="width: 95%" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;"/><br><a href="javascript: addItemToList('termList','url', $('txttermurl').value,'');">Add this URL Source</a></div>
-			  </div>
-			  <a href="javascript: Effect.toggle('addTermsFormCont', 'blind'); void(0);">Add a Term Link</a>
-			  <br>
-				</div>
-				<p><input type="button" value="Cancel" onClick="lightboxDisplay()"><input type="button" value="propose term" onClick="proposeTermPrep($('termName').value,$('shortDef').value,$('extDef').value, $('source1').value, $('source2').value, $('source3').value,$('termlink1').value,$('termlink2').value,$('termlink3').value);"></p>   
-		  
-		  </form>
-</div>
-
-  </div>
-  <!-- end container -->
-  
-<!-- start feedback form -->
-  <pg:feedback id="feedbackDiv" action="cctView.do"/>
-<!-- end feedback form -->
-
-  <!-- Begin header menu - The wide ribbon underneath the logo -->
-  <div id="headerMenu">
-		<div id="headerContainer">
-			<div id="headerTitle" class="floatLeft">
-				<h3 class="headerColor">Learn More</h3>
-			</div>
-			<div class="floatLeft headerButton"> <a href="lmMenu.do">Menu</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Gallery</a> </div>
-			<div class="floatLeft headerButton currentBox"> <a href="glossaryPublic.do">Glossary</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
+			<form id="form1" name="form1" method="post" action="javascript:getTerms($('txtSearch').value, 'name');">
+				<label>
+				Filter Glossary
+				<input type="text" id="txtSearch" name="txtSearch" style="background:url('/images/search_light.gif') no-repeat right;background:#fff;" class="txtSearch" value="Search Terms" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" onkeyup="if (this.value.length >= 3){getTerms(this.value, 'name');}">
+				<div id="txtSearchIndicator" style="visibility:hidden; position: absolute; right:0; margin-right: 150px;"><img src="/images/indicator.gif"></div>
+				</label>
+				<div id="clearSearch" style="display: none;"></div>
+			</form>
 		</div>
+		<br class="clearBoth" />
+		<p><a href="javascript:proposeTermCont();">Propose a Glossary Term</a></p>
+		<center>
+			<p>Found a bug? Problem accessing a part of the page? <a href="#feedbackForm" onclick="javascript:Effect.toggle('feedbackForm','blind'); setTimeout('location.hash=\'#feedbackDiv\';',900);">Send
+					us feedback.</a></p>
+		</center>
+		<div id='proposeTermResult' style='display:none;'>
+			<div id='proposeTermBox' style='display:none;border:thick solid #C0C0C0;'>
+				<div>
+					<table style='width:100%; height:100%;' rules='all'>
+						<tbody>
+							<tr>
+								<td cellspacing=10 style=''>
+									<div style='margin:2%;'>
+										<label><strong>Term Name:</strong></label>
+										<br />
+										<input style='width:50%;' id='proptermname-1' type='text' value=''/>
+										<br />
+										<label><strong>Short Definition</strong></label>
+										<br />
+										<textarea style='width:90%; height:100%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='proptermshortdef-1'></textarea>
+									</div>
+								</td>
+								<td rowspan=2>
+									<div style='margin:2%;'>
+										<label><strong>Sources</strong></label>
+										<br />
+										<div id='sourcelinks-1'> </div>
+										<br />
+										<label><strong>Add Source</strong></label>
+										<br />
+										<textarea style='width:90%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='propaddsourcecitation-1'>Citation</textarea>
+										<br />
+										<input style='width:50%;' id='propaddsource-1' type='text' value='Http://'/>
+										<br />
+										<button type='button' onclick='addSourceLink(-1); return false;'>Add Source</button>
+										<br />
+										<br />
+										<label><strong>Term Links</strong></label>
+										<br />
+										<div id='termlinks-1'> </div>
+										<br />
+										<label>Add Link</label>
+										<br />
+										<input style='width:50%;' id='propaddtermlink-1' type='text' value='Http://'/>
+										<br />
+										<button type='button' onclick='addTermLink(-1); return false;'>Add Link</button>
+									</div>
+								</td>
+							</tr>
+							<tr style=''>
+								<td style=''>
+									<div style='min-height:100%; margin:2%;'>
+										<label><strong>Extended Definition</strong></label>
+										<br />
+										<textarea rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' style='width:90%; height:100%;' id='proptermextdef-1'></textarea>
+									</div>
+								</td>
+							</tr>
+							<tr style=''>
+								<td style='width:50%;'></td>
+								<td style=''>
+									<div style='margin:0.5%; float:right;'>
+										<button type='button' onclick="javascript:$('proposeTermBox').style.display='none'; return false;">Cancel</button>
+										 
+										<button type='button' onclick='proposeTerm($("proptermname-1").value, $("proptermshortdef-1").value, $("proptermextdef-1").value); $("proptermname-1").value=""; $("proptermshortdef-1").value=""; $("proptermextdef-1").value=""; $("sourcelinks-1").innerHTML=""; $("termlinks-1").innerHTML=""; $("proposeTermBox").style.display="none"; return false;'>Save
+										and Close</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<br class="clearBoth" />
+		<div id="list"></div>
 	</div>
-	<!-- Begin footer -->
-	<div id="footer">
-		<jsp:include page="/footer.jsp" />
+</div>
+<div id="proposeForm" style="display:none;">
+	<h2>Propose a New Term</h2>
+	<form id="proposeForm" name="proposeForm" method="post" action="" style="padding-top: 20px;">
+	<label>Glossary Term Name <br />
+	<input type="text" name="termName" id="termName" style="width: 75%" />
+	</label>
+	<p>
+		<label>Short Definition <br />
+		<input name="shortDef" id="shortDef" type="text" value="" style="width: 100%" />
+		</label>
+	</p>
+	<p>
+		<label>Extended Definition (Optional - leave blank if not available)<br />
+		<textarea name="extDef" id="extDef" style="width: 100%"></textarea>
+		</label>
+	</p>
+	<div id="section_sources">
+	<label>Sources (at least 1 is required)</label>
+	<br />
+	<div id="sourceList">No sources have been created yet.</div>
+	<br>
+	<div id="addSourceFormCont" style="display:none; padding: 5px; width: 100%; background-color: #ddd; margin-bottom: 5px;">
+	<h4>Add a Source</h4>
+	<div id="addBookForm">
+	<form>
+		<input name="author" type="text" id="txtauthor" value="Author" style="width: 30%" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;"/>
+		&nbsp;&nbsp;
+		<input name="author" type="text" id="txttitle" value="Title" style="width: 60%" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;"/>
+		<br>
+	</form>
+</div>
+<div id="addURLForm">
+	<form>
+		<input name="url" type="text" id="txturl" value="http://" style="width: 95%" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;"/>
+		<br>
+		<a href="javascript: addSourceToList($('txtauthor').value,$('txttitle').value, $('txturl').value);">Add
+		this Source</a>
+	</form>
+</div>
+</div>
+<a href="javascript: Effect.toggle('addSourceFormCont', 'blind'); void(0);">Add a
+Source</a> <br />
+<div id="section_termlinks">
+	<label>Term Links (optional)</label>
+	<br />
+	<div id="termList">No term links have been created yet.</div>
+	<br>
+	<div id="addTermsFormCont" style="display:none; padding: 5px; width: 100%; background-color: #ddd; margin-bottom: 5px;">
+		<div id="addURLForm">
+			<input name="url" type="text" id="txttermurl" value="http://" style="width: 95%" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;"/>
+			<br>
+			<a href="javascript: addItemToList('termList','url', $('txttermurl').value,'');">Add
+			this URL Source</a></div>
 	</div>
-	<!-- End footer -->
-	<script type="text/javascript">
+	<a href="javascript: Effect.toggle('addTermsFormCont', 'blind'); void(0);">Add a
+	Term Link</a> <br>
+</div>
+<p>
+	<input type="button" value="Cancel" onClick="lightboxDisplay()">
+	<input type="button" value="propose term" onClick="proposeTermPrep($('termName').value,$('shortDef').value,$('extDef').value, $('source1').value, $('source2').value, $('source3').value,$('termlink1').value,$('termlink2').value,$('termlink3').value);">
+</p>
+</form>
+</div>
+</div>
+<!-- end container -->
+<!-- start feedback form -->
+<pg:feedback id="feedbackDiv" action="cctView.do"/>
+<!-- end feedback form -->
+<!-- Begin header menu - The wide ribbon underneath the logo -->
+<div id="headerMenu">
+	<div id="headerContainer">
+		<div id="headerTitle" class="floatLeft">
+			<h3 class="headerColor">Learn More</h3>
+		</div>
+		<div class="floatLeft headerButton"> <a href="lmMenu.do">Menu</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Gallery</a> </div>
+		<div class="floatLeft headerButton currentBox"> <a href="glossaryPublic.do">Glossary</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
+	</div>
+</div>
+<!-- Begin footer -->
+<div id="footer">
+	<jsp:include page="/footer.jsp" />
+</div>
+<!-- End footer -->
+<script type="text/javascript">
 	doOnLoad();
 	
 </script>
 </body>
-
 </html>

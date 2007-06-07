@@ -11,30 +11,7 @@
 <style type="text/css" media="screen">
 	@import "styles/lit.css";
 	@import "styles/loading-indicator.css";
-
-#slate ul{display:inline; margin:0; padding:0}
-#slate li{list-style: none; display:inline; padding: 3px;}
-tr:hover {background-color: #F1F7FF;}
-
-#filterTerms{
-float:left;
-margin:10px 0px;
-border:1px solid #C6D78C;
-background:#E8F7CC;
-padding:5px;
-font-size:12pt;
-}
-
-#filterTerms input {
-font-size:14pt;
-margin-left:10px;
-}
-
-#slate ul{display:inline; margin:0; padding:0}
-#slate li{list-style: none; display:inline; padding: 3px;}
-tr:hover {background-color: #F1F7FF;}
-
-#termListTable {margin-top:10px}
+	@import "styles/glossary.css";
 </style>
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
@@ -545,35 +522,7 @@ getTerms(this.value, 'name');
 </script>
 
 <style type="text/css">
-/*#saving-indicator{
-	display: none;
-	background-color: red;
-	color: white;
-	position:absolute;
-	top: 0;
-	left:0;
-	padding: 3px;
-	z-index: 500;
-}
 
-#loading-indicator{
-	
-	background-color: red;
-	color: white;
-	position:absolute;
-	top: 0;
-	left:0;
-	padding: 3px;
-	z-index: 500;
-}
-
-div > div#saving-indicator{
-position:fixed;
-}
-
-div > div#loading-indicator{
-position:fixed;
-}*/
 </style>
 <event:pageunload />
 </head>
