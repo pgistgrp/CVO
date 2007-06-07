@@ -104,9 +104,10 @@
 		}
 		
 		function editAnnouncementPrep(id){
+			tinyMCE.selectedInstance.editorId = 'mce_editor_0'
 			var old = $('message' + id).innerHTML;
 			$('announce-editor').style.display="";
-			tinyMCE.setContent(old,'modAnnounce');
+			tinyMCE.setContent(old)
 			$('editBtn').name = id;
 			showEditBtn();
 		}
@@ -153,7 +154,7 @@
 		width: "430"
 		});
 	
-	//tinyMCE.execCommand('mceFocus',false,'modAnnounce');
+	//tinyMCE.execCommand('mceFocus',false,'content');
 	
 	</script>
 	<event:pageunload />
@@ -353,8 +354,8 @@
 				onclick="Element.toggle($('announce-editor'));showPubBtn();tinyMCE.setContent('')" />
 				<div id="announce-editor" style="display:none">
 					<textarea name="content" id="modAnnounce"></textarea>
-					
-					<input id="email" type="checkbox" value="true" /> Email Participants<br/>
+					<br/>
+					<div class="floatRight"><input id="email" type="checkbox" value="true" /><label for="email">Email Participants</div>
 					<input type="button" id="pubBtn" 
 						onclick="addAnnouncement();Element.toggle($('announce-editor'));" 
 						class="padding5" value="Publish" />
