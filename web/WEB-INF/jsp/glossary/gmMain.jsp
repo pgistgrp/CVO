@@ -8,8 +8,34 @@
 <title>Glossary Management</title>
 
 <!-- Site Wide CSS -->
-<style type="text/css" media="screen">@import "styles/position.css";</style>
-<style type="text/css" media="screen">@import "styles/styles.css";</style>
+<style type="text/css" media="screen">
+	@import "styles/lit.css";
+	@import "styles/loading-indicator.css";
+
+#slate ul{display:inline; margin:0; padding:0}
+#slate li{list-style: none; display:inline; padding: 3px;}
+tr:hover {background-color: #F1F7FF;}
+
+#filterTerms{
+float:left;
+margin:10px 0px;
+border:1px solid #C6D78C;
+background:#E8F7CC;
+padding:5px;
+font-size:12pt;
+}
+
+#filterTerms input {
+font-size:14pt;
+margin-left:10px;
+}
+
+#slate ul{display:inline; margin:0; padding:0}
+#slate li{list-style: none; display:inline; padding: 3px;}
+tr:hover {background-color: #F1F7FF;}
+
+#termListTable {margin-top:10px}
+</style>
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 
@@ -24,6 +50,7 @@
 <!-- DWR JavaScript Libraries -->
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
+	<script type='text/javascript' src='/scripts/util.js'></script>
 <!-- End DWR JavaScript Libraries -->
 
 <script type='text/javascript' src='/dwr/interface/GlossaryManageAgent.js'></script>
@@ -61,6 +88,7 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 		}
 		
 		function deleteTerm(termid){
+		Util.loading(true,"Working");
 		GlossaryManageAgent.deleteTerm({id:termid},{
 		callback:function(data){
 			if (data.successful){
@@ -70,6 +98,7 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 			}else{
 			alert("deleteTerm failure reason: "+data.reason);
 			}
+		Util.loading(false);
 		},
 			errorHandler:function(errorString, exception){
 			alert("deleteTerm: "+errorString+" "+exception);
@@ -78,7 +107,7 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 		}
 		
 		function getProposedTerms(){
-		
+		Util.loading(true,"Working");
 			GlossaryManageAgent.getProposedTerms({},{
 				callback:function(data){
 					if (data.successful){
@@ -87,6 +116,7 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 					}else{
 						alert("deleteTerm failure reason: "+data.reason);
 					}
+				Util.loading(false);
 				},
 				errorHandler:function(errorString, exception){
 				alert("getProposedTerms: "+errorString+" "+exception);
@@ -100,7 +130,7 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 		
 		var gotTerms=false;
 		function getTerms(term,sortby){
-		$('loading-indicator').style.display="inline";
+		Util.loading(true,"Working");
 				GlossaryManageAgent.getTerms({filter:term, sort:sortby, direction:direction}, {
 				callback:function(data){
 					if (data.successful){ 	
@@ -114,9 +144,8 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 						//isTermsGotten();
 					}else{
 						alert("getTerms failure reason: "+data.reason);
-						$('loading-indicator').style.display = "none";
 					}
-					
+				Util.loading(false);	
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("getTerms: "+errorString+" "+exception);
@@ -128,7 +157,7 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 		
 		function saveNewTerm(termname, shortdef, extdef,  termlinklist, sourcelist){
 		
-		$('saving-indicator').style.display='inline';
+		Util.loading(true,"Working");
 			GlossaryManageAgent.saveTerm({id:-1, name:termname, shortDefinition:shortdef, extDefinition:extdef}, [], termlinklist, sourcelist, globalCategoryLinks,{
 			callback:function(data){
 			if(data.successful){
@@ -137,8 +166,8 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 			//isNewTermSaved();
 			}else{
 			alert("saveNewTerm failure reason: "+data.reason);
-			$('saving-indicator').style.display='none';
 			}
+			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){
 			alert("saveNewTerm: "+errorString+" "+exception);
@@ -160,8 +189,7 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 		
 		var saveFinished=false;
 		function saveEditedAttributes(tid){
-		$('saving-indicator').style.display = "inline";
-		
+		Util.loading(true,"Working");
 			GlossaryManageAgent.saveTerm({id:tid, name:$('edtermname'+tid).value, shortDefinition:$('edtermshortdef'+tid).value, extDefinition:document.getElementById('edtermextdef'+tid).value}, [], globalTermLinks, globalSourceLinks, globalCategoryLinks,{
 			callback:function(data){
 				if (data.successful){
@@ -170,8 +198,8 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 				//isSaved();
 				}else{
 					alert("saveEditedAttributes failure reason: "+data.reason);
-					$('saving-indicator').style.display="none";
 				}
+			Util.loading(false);
 			},
 			errorHandler:function(errorString, exception){
 			alert("saveEditedAttributes: "+errorString+" "+exception);
@@ -264,9 +292,9 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 		globalSourceLinks=new Array();
 		globalTermLinks = new Array();
 		globalCategoryLinks=new Array();
-			//new Effect.toggle('newTerm'+tid, 'blind',{duration:0.4});
+			new Effect.toggle('newTerm'+tid, 'blind',{duration:0.4});
 			
-			$('newTerm'+tid).style.display='block';
+			//$('newTerm'+tid).style.display='block';
 			jumpTo('newTerm'+tid);
 		}
 		
@@ -310,7 +338,7 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 		function isNewTermSaved(){
 		if(saveFinished){
 		saveFinished=false;
-		$('saving-indicator').style.display="none";
+		Util.loading(false);
 		
 		getTerms();
 		isTermsGotten();
@@ -325,7 +353,7 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 		
 		if(saveFinished){
 		saveFinished=false;
-		$('saving-indicator').style.display = "none";
+		Util.loading(false);
 		
 		}else{
 		
@@ -342,7 +370,7 @@ if (b > t.rows && agt.indexOf('opera') == -1) t.rows = b;
 		
 		if(gotTerms){
 		gotTerms=false;
-		$('loading-indicator').style.display = "none";
+		Util.loading(false);
 		}else{
 		
 		var t =setTimeout('isTermsGotten();',100);
@@ -483,10 +511,6 @@ var editrowid='editrow'+boxid;
 var editrow=document.getElementById(editrowid);
 var editbox=document.getElementById(editid);
 
-
-
-
-
 editbox.style.display='block';
 editbox.style.backgroundColor='white';
 
@@ -513,11 +537,15 @@ var t = setTimeout('jumpTo("'+editid+'");',500);
 }
 }
 
+function resetFilter(){
+$('txtSearch').value = '';
+getTerms(this.value, 'name');
+}
 
 </script>
 
 <style type="text/css">
-#saving-indicator{
+/*#saving-indicator{
 	display: none;
 	background-color: red;
 	color: white;
@@ -545,21 +573,8 @@ position:fixed;
 
 div > div#loading-indicator{
 position:fixed;
-}
+}*/
 </style>
-<!--[if gte IE 5.5]><![if lt IE 7]>
-		<style type="text/css">
-#loading-indicator {
-left: expression( ( 0 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
-top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
-}
-
-#saving-indicator {
-left: expression( ( 0 + ( fixme = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
-top: expression( ( 0 + ( fixme = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
-}
-		</style>
-		<![endif]><![endif]-->
 <event:pageunload />
 </head>
 
@@ -571,39 +586,11 @@ tr:hover {background-color: #F1F7FF;}
 
 </style>
 <body>
-	<jsp:include page="/header.jsp" />
 <div style="display: inline;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif" alt="Loading" /></div>
 <div style="display: none;" id="saving-indicator">Saving... <img src="/images/indicator_arrows.gif" alt="Saving" /></div>
 
 <div id="container">
-<p><a href="main.do">Back to Moderator Control Panel</a></p>
-		
-		<!-- Header -->
-		<div id="cont-top">
-		<!-- Sub Title -->
-		<div id="subheader">
-		<h1>Moderator Tools:</h1> 
-		<h2>Glossary Term Management</h2>
-		</div>
-		<div id="footprints">
-		<span class="smalltext"><a href="#">Participate</a> &raquo; <a href="#">Moderator Tools</a> &raquo; Glossary Term Management</span>
-		</div>
-		<!-- End Sub Title -->
-		<!-- Overview SpiffyBox -->
-		<div class="cssbox">
-			<div class="cssbox_head">
-				<h3>Overview</h3>
-			</div>
-			<div class="cssbox_body">
-				<p>Glossary term management instructions</p>
-				
-			</div>
-		</div>
-		<!-- End Overview -->
-		
-		</div> <!-- End cont-top -->
-	
-	
+<p><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
 	<!--Proposed Glossary Terms-->
 
 	<div id="proposedList">
@@ -617,7 +604,9 @@ tr:hover {background-color: #F1F7FF;}
 	<!-- End Sub Title -->
 	<!--new glossary term button-->
 	<br />
-	<div style="background-color: rgb(204, 255, 51); "><a href="javascript:openCreateTermBox(1);"><img src="../images/btn_newterm_a.gif" alt="Add a new term" name="newterm" class="button" id="newterm" onmouseover="MM_swapImage('newterm','','../images/btn_newterm_b.gif',1)" onmouseout="MM_swapImgRestore()"></a></div>
+	<button class="button" name="newterm" id="newterm" onclick="javascript:openCreateTermBox(1);">
+		Add a new term
+	</button>
 	<div id='newTerm1' style='display:none; border:thick solid #C0C0C0;'><div ><table style='width:100%; height:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='edtermname-1' type='text' value=''/><br />
 				<label><strong>Short Definition</strong></label><br /><textarea style='width:90%; height:100%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='edtermshortdef-1'></textarea></div></td>
 				<td rowspan=2><div style='margin:2%;'><label><strong>Sources</strong></label><br /><div id='sourcelinks-1'>
@@ -632,12 +621,15 @@ tr:hover {background-color: #F1F7FF;}
 		<div id="filterTerms">
 		<form id="form1" name="form1" method="post" action="">
 		  <label>Filter Glossary 
-		  <input id="txtSearch" name="txtSearch" style="background: rgb(255, 255, 255) url(/images/search_light.gif) no-repeat scroll right center; width: 120px; padding-left: 1px; padding-right: 20px; margin-right: 5px; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: rgb(153, 153, 153);" class="txtSearch" value="Search Terms" type="text"></label><div id="txtSearchIndicator" style="visibility: hidden; position: absolute; right: 0pt; margin-right: 150px;"><img src="glossaryTermManagement_files/indicator.gif"></div>
+		  <input id="txtSearch" name="txtSearch" class="txtSearch" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" onkeyup="if (this.value.length >= 3){getTerms(this.value, 'name');}" value="Search Terms" type="text"></label>
+		  <input type="button" value="Clear filter" onclick="resetFilter()">
+		  
+		  <div id="txtSearchIndicator" style="visibility: hidden; position: absolute; right: 0pt; margin-right: 150px;"><img src="glossaryTermManagement_files/indicator.gif"></div>
 		  
 		  <div id="clearSearch" style="display: none;"></div>
 		</form>
-		
 	</div>
+			<br class="clearBoth" />
 	  <div id="list"><!--Load glossary terms-->
 	<div>
 	
@@ -654,7 +646,6 @@ tr:hover {background-color: #F1F7FF;}
 	
 <br>
 	<!--new glossary term button-->
-	<div style="background-color: rgb(204, 255, 51); "><a href="javascript:openCreateTermBox(2);"><img src="../images/btn_newterm_a.gif" alt="Add a new term" name="newTerm" class="button" id="newTerm" onmouseover="MM_swapImage('newTerm','','../images/btn_newterm_b.gif',1)" onmouseout="MM_swapImgRestore()"></a></div>
 		<div id='newTerm2' style='display:none; border:thick solid #C0C0C0;'><div ><table style='width:100%;' rules='all'><tbody><tr><td cellspacing=10 style=''><div style='margin:2%;'><label><strong>Term Name:</strong></label><br /><input style='width:50%;' id='edtermname-2' type='text' value=''/><br />
 				<label><strong>Short Definition</strong></label><br /><textarea style='width:90%; height:100%;' rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' id='edtermshortdef-2'></textarea></div></td>
 				<td rowspan=2><div style='margin:2%;'><label><strong>Sources</strong></label><br /><div id='sourcelinks-2'>
@@ -663,35 +654,6 @@ tr:hover {background-color: #F1F7FF;}
 				</div><br /><label>Add Link</label><br /><input style='width:50%;' id='edaddtermlink-2' type='text' value='Http://'/><br /><button type='button' onclick='addTermLink(-2); return false;'>Add Link</button></div></td></tr><tr><td><div style='margin:2%;'><label><strong>Extended Definition</strong></label><br />
 				<textarea rows=3 cols=40 onclick='sz(this);' onkeyup='sz(this);' style='width:90%; height:100%;' id='edtermextdef-2'></textarea></div></td></tr><tr><td style='width:50%;'></td><td style=''><div style='margin:0.5%; float:right;'><button type='button' onclick='closeEdit(2,"newTerm"); return false;'>Cancel</button>&nbsp;<button type='button' onclick='saveNewTermClose(2,$("edtermname-2").value, $("edtermshortdef-2").value, $("edtermextdef-2").value); $("edtermname-2").value=""; $("edtermshortdef-2").value=""; $("edtermextdef-2").value=""; $("sourcelinks-2").innerHTML=""; $("termlinks-2").innerHTML=""; return false;'>Save and Close</button></div></td></tr></tbody></table></div></div>
 <br>
-<!-- Start Footer -->
-<div id="footer_clouds">
-
-<pg:feedback id="feedbackDiv" action="glossaryManage.do" />
-
-
-
-	<div id="footer_text">
-	<a href="http://www.pgist.org/"><img src="glossaryTermManagement_files/footerlogo.png" alt="PGIST Logo" class="imgright" border="0" height="51" width="156"></a><br>This
-research is funded by National Science Foundation, Division of
-Experimental and Integrative Activities, Information Technology
-Research (ITR) Program, Project Number EIA 0325916, funds managed
-within the Digital Government Program. </div>
-
-</div>
-<!-- End Footer -->
-
-			  
-			  
-			 	
-			  
-		
-
-				
-<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
-
-
-</div>
-
 <!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
 <script type="text/javascript">
 	doOnLoad();
