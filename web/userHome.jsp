@@ -103,11 +103,13 @@
 			});
 		}
 		
+		/* Have to use mceAddControl to instantiate editor onclick or else
+		   tinyMCE can't find it */
 		function editAnnouncementPrep(id){
-			tinyMCE.selectedInstance.editorId = 'mce_editor_0'
-			var old = $('message' + id).innerHTML;
 			$('announce-editor').style.display="";
-			tinyMCE.setContent(old)
+			tinyMCE.execCommand('mceAddControl',true,'modAnnounce');
+			var old = $('message' + id).innerHTML;
+			tinyMCE.setContent(old);
 			$('editBtn').name = id;
 			showEditBtn();
 		}
@@ -141,7 +143,12 @@
 			$('editBtn').style.display="";
 			$('pubBtn').style.display="none";
 		}
-
+		
+   function initialise() {
+   		var editor = tinyMCE.selectedInstance.editorId;
+      tinyMCE.execCommand('mceFocus', false, editor);
+   }
+   
 		tinyMCE.init({
 		theme : "advanced",
 		theme_advanced_buttons1 : "bold, italic, bullist, numlist,undo, redo,link",
@@ -149,7 +156,8 @@
 		theme_advanced_buttons3 : "",
 		content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css",
 		extended_valid_elements : "blockquote[style='']",
-		mode : "textareas",
+    setupcontent_callback : "initialise",
+		//mode : "textareas",
 		height: "100",
 		width: "430"
 		});
