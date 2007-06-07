@@ -867,8 +867,10 @@ public class SystemAgent {
 	        	Collection participants = systemService.getUsersByRole("participant");
 	            values.put("announcement", "test");
 	            for (User participant : (Collection<User>) participants) {
-	                values.put("participant", participant);
-	                emailSender.send(participant, "announcement", values);
+	            	if(participant.isEmailNotify()) {
+		                values.put("participant", participant);
+		                emailSender.send(participant, "announcement", values);
+	            	}
 	            }
         	}
         	map.put("successful", true);
