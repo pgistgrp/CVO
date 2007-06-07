@@ -103,13 +103,13 @@
 <h3 class="headerColor">Manage Global Components</h3>
 <div id="global-components">
 	<ul>
-		<li><a href="usermgr.do">Users</a></li>
-		<li><a href="glossaryManage.do">Glossary</a></li>
-		<li><a href="tagging.do">Stopwords</a></li>
-		<li><a href="projectManage.do">Projects</a></li>
-		<li><a href="fundingManage.do">Funding</a></li>
-		<li><a href="feedback.do">Feedbacks</a></li>
-		<li><a target="_blank" href="http://jordanisip.wufoo.com/forms/lit-bug-tracker/">Bug Tracker</a></li>
+		<li><a href="usermgr.do"><img src="images/user.png" title="Manage users"/>Users</a></li>
+		<li><a href="glossaryManage.do"><img src="images/book_open.png" title="Manage Glossary"/>Glossary</a></li>
+		<li><a href="tagging.do"><img src="images/stop.png" title="Manage stopwords"/>Stopwords</a></li>
+		<li><a href="projectManage.do"><img src="images/project.png" title="Manage projects"/>Projects</a></li>
+		<li><a href="fundingManage.do"><img src="images/money_dollar.png" title="Manage funding sources"/>Funding</a></li>
+		<li><a href="feedback.do"><img src="images/user_comment.png" title="Manage users"/>Feedbacks</a></li>
+		<li><a target="_blank" href="http://jordanisip.wufoo.com/forms/lit-bug-tracker/"><img src="images/bug.png" title="Manage users"/>Bug Tracker</a></li>
 		<br class="clearBoth" />
 	</ul>
 </div>

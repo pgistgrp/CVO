@@ -84,9 +84,11 @@ background:#EEF7DD;
 text-align:center;
 color:#000;
 display:block;
+text-decoration:none;
 }
 
 #global-components a:hover{
 background:#E1F1C5;
-text-decoration:underline;
 }
+
+#global-components li a img {margin-right:5px;}
