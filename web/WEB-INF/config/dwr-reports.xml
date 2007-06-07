@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" "http://getahead.ltd.uk/dwr/dwr20.dtd">
+
+<dwr>
+
+
+  <allow>
+  
+ <filter class="org.pgist.web.DWRLoggingFilter" />
+    
+    <convert converter="bean" match="org.pgist.users.User">
+      <param name="include" value="id, loginname, firstname, lastname, password, email, enabled, deleted, internal, city, zipcode, workZipcode, profileDesc, primaryTransport, vocation"/>
+    </convert>
+    
+    <convert converter="bean" match="org.pgist.users.Role">
+      <param name="include" value="id, name, description, deleted, internal"/>
+    </convert>
+
+    <convert converter="bean" match="org.pgist.util.PageSource"/>
+
+    <create creator="spring" javascript="ReportAgent">
+      <param name="beanName" value="reportAgent"/>
+    </create>
+
+    
+  </allow>
+
+
+</dwr>
+

@@ -215,26 +215,28 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 		}
 		
 		User user = (User) list.get(0);
-		
-		String code = Math.random() + user.getHomeAddr() + Math.random() + user.getPassword();
-		RecoverPassword rp = new RecoverPassword();
-		rp.setCode(code);
-		rp.encode();
-		Date date = new Date();
-		int minutes = date.getMinutes();
-		date.setMinutes(minutes+30);
-		rp.setDate(date);
-		rp.setUserId(user.getId());
-		save(rp);
-		
-		String recoveryCode = rp.getCode();
-		
-    	Map values = new HashMap();
-    	String loginname = user.getLoginname();
-        values.put("code", recoveryCode);
-    	emailSender.send(user, "recoverpassword", values);
-    	
-		return true;
+		if(user.getRoleString().equals("participant")) {
+			String code = Math.random() + user.getEmail() + Math.random() + user.getPassword();
+			RecoverPassword rp = new RecoverPassword();
+			rp.setCode(code);
+			rp.encode();
+			Date date = new Date();
+			int minutes = date.getMinutes();
+			date.setMinutes(minutes+30);
+			rp.setDate(date);
+			rp.setUserId(user.getId());
+			save(rp);
+			
+			String recoveryCode = rp.getCode();
+			
+	    	Map values = new HashMap();
+	    	String loginname = user.getLoginname();
+	        values.put("code", recoveryCode);
+	    	emailSender.send(user, "recoverpassword", values);
+	    	
+			return true;
+		}
+		return false;
 	} //createPasswordRecovery()
 	
 	

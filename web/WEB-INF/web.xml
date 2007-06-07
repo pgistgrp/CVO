@@ -17,6 +17,7 @@
             /WEB-INF/config/context-projects.xml
             /WEB-INF/config/context-packages.xml
             /WEB-INF/config/context-lm.xml
+            /WEB-INF/config/context-reports.xml
         </param-value>
     </context-param>
     
