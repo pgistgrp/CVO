@@ -569,7 +569,7 @@ tr:hover {background-color: #F1F7FF;}
 <div id="slate">
 		<div id="filterTerms">
 		<form id="form1" name="form1" method="post" action="">
-		  <label>Filter Glossary 
+		  <label>Search Glossary 
 		  <input id="txtSearch" name="txtSearch" class="txtSearch" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" onkeyup="if (this.value.length >= 3){getTerms(this.value, 'name');}" value="Search Terms" type="text"></label>
 		  <input type="button" value="Clear filter" onclick="resetFilter()">
 		  

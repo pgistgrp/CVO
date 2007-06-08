@@ -360,7 +360,7 @@ text-transform:none;
 		<div id="filterTerms">
 			<form id="form1" name="form1" method="post" action="javascript:getTerms($('txtSearch').value, 'name');">
 				<label>
-				Filter Glossary
+				Search Glossary
 				<input type="text" id="txtSearch" name="txtSearch" style="background:url('/images/search_light.gif') no-repeat right;background:#fff;" class="txtSearch" value="Search Terms" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;" onkeyup="if (this.value.length >= 3){getTerms(this.value, 'name');}">
 				<div id="txtSearchIndicator" style="visibility:hidden; position: absolute; right:0; margin-right: 150px;"><img src="/images/indicator.gif"></div>
 				</label>
