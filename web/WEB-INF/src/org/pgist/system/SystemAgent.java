@@ -1,6 +1,5 @@
 package org.pgist.system;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -1030,10 +1029,11 @@ public class SystemAgent {
     }//setUnloading();
     
     
-	/*
+	/**
 	 * =========================================
 	 * Ajax function
-	 * */
+	 *
+     */
 	public Map logMapEvent(String eventinfo){
 		Map result = new HashMap();
 		result.put("successful", true);
