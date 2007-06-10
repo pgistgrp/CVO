@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" "http://getahead.ltd.uk/dwr/dwr20.dtd">
+
+<dwr>
+
+
+  <allow>
+
+
+    <filter class="org.pgist.web.DWRLoggingFilter" />
+    
+    
+    <create creator="spring" javascript="OtherAgent">
+        <param name="beanName" value="otherAgent"/>
+        <include method="setSituationTemplate"/>
+    </create>
+    
+  </allow>
+
+
+</dwr>
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+    
+    <projects>
+        <project></project>
+    </projects>
+    
+    <fundings>
+        <funding></funding>
+    </fundings>
+    
+    <criteria>
+        <criterion></criterion>
+    </criteria>
+    
+</template>
+
