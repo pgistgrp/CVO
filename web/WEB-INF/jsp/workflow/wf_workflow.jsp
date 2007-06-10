@@ -115,7 +115,7 @@
 										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActive.id}">${gActive.description}</a><br />
 										<small>Information about this step</small>
 									</div>
-									<div class="date"><input type="button" onclick="if (window.confirm('This will publish any changes you have made with this tool.  There is no undo.')){workflow.nextStep(${workflow.id},${mActive.context.id},${gActive.id});}" value="Completed"/>	</div>
+									<div class="date"><pg:show role="moderator"><input type="button" onclick="if (window.confirm('This will publish any changes you have made with this tool.  There is no undo.')){workflow.nextStep(${workflow.id},${mActive.context.id},${gActive.id});}" value="Completed"/></pg:show>	</div>
 								</div>
 							</pg:show>
 						</c:when>
@@ -126,7 +126,7 @@
 										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActive.id}">${gActive.description}</a><br />
 										<small>Information about this step</small>
 									</div>
-									<div class="date"><input type="button" onclick="if (window.confirm('This will publish any changes you have made with this tool.  There is no undo.')){workflow.nextStep(${workflow.id},${mActive.context.id},${gActive.id});}" value="Completed"/>	</div>
+									<div class="date"><pg:show role="moderator"><input type="button" onclick="if (window.confirm('This will publish any changes you have made with this tool.  There is no undo.')){workflow.nextStep(${workflow.id},${mActive.context.id},${gActive.id});}" value="Completed"/><pg:show>	</div>
 								</div>
 							</pg:show>
 						</c:otherwise>
