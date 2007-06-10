@@ -4,6 +4,24 @@
 
     <pgames>
     
+        <pgame name="pgame-select.template" description="Select a situation template." auto="false" access="moderator" revisitable="false">
+            <actionName>action-select.template</actionName>
+            <declaration>
+                <outs>
+                    <var name="template_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-import.template" description="Import a situation template." auto="true">
+            <taskName>task-import.template</taskName>
+            <declaration>
+                <ins>
+                    <var name="template_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
         <pgame name="pgame-create.project.suite" description="Create a project suite." auto="true">
             <taskName>task-create.project.suite</taskName>
             <declaration>

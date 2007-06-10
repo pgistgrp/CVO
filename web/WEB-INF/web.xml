@@ -8,8 +8,9 @@
         <param-value>
             /WEB-INF/config/context-database.xml
             /WEB-INF/config/context-tasks.xml
-            /WEB-INF/config/context-system.xml
             classpath:/config/context-workflow.xml
+            /WEB-INF/config/context-system.xml
+            /WEB-INF/config/context-other.xml
             /WEB-INF/config/context-base.xml
             /WEB-INF/config/context-cvo.xml
             /WEB-INF/config/context-criteria.xml
@@ -161,6 +162,10 @@
         <init-param>
             <param-name>config-workflow</param-name>
             <param-value>WEB-INF/config/dwr-workflow.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>config-other</param-name>
+            <param-value>WEB-INF/config/dwr-other.xml</param-value>
         </init-param>
         <init-param>
             <param-name>debug</param-name>

@@ -23,6 +23,7 @@
                             <var name="pmethod.fund_suite_id" ref="meeting.fund_suite_id"/>
                             <var name="pmethod.proj_isid" ref="meeting.proj_isid"/>
                             <var name="pmethod.fund_isid" ref="meeting.fund_isid"/>
+                            <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
                         </outs>
                     </declaration>
                 </pmethod>
@@ -79,9 +80,9 @@
             <declaration>
                 <ins>
                     <var name="meeting.cct_id"/>
+                    <var name="meeting.crit_suite_id"/>
                 </ins>
                 <outs>
-                    <var name="meeting.crit_suite_id"/>
                     <var name="meeting.crit_isid"/>
                 </outs>
             </declaration>
@@ -90,9 +91,9 @@
                     <declaration>
                         <ins>
                             <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                            <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
                         </ins>
                         <outs>
-                            <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
                             <var name="pmethod.crit_isid" ref="meeting.crit_isid"/>
                         </outs>
                     </declaration>

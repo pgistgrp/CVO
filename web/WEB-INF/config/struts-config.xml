@@ -112,6 +112,10 @@
             <forward name="results" path="/WEB-INF/jsp/search/results.jsp" />
         </action>
 
+        <action path="/templateSelect" scope="request" type="org.pgist.other.TemplateImportingAction">
+            <forward name="list" path="/WEB-INF/jsp/other/templateList.jsp" />
+        </action>
+        
         <action name="cctForm" path="/cctlist" scope="request" type="org.pgist.cvo.CCTListAction">
             <forward name="list" path="/WEB-INF/jsp/cvo/cctlist.jsp" />
         </action>

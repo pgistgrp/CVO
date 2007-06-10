@@ -11,11 +11,11 @@
     
     
     <convert converter="bean" match="org.pgist.users.User">
-      <param name="include" value="id, loginname, firstname, lastname, password, email, enabled, deleted, internal, city, zipcode, workZipcode, profileDesc, primaryTransport, vocation"/>
+        <param name="include" value="id, loginname, firstname, lastname, password, email, enabled, deleted, internal, city, zipcode, workZipcode, profileDesc, primaryTransport, vocation"/>
     </convert>
     
     <convert converter="bean" match="org.pgist.users.Role">
-      <param name="include" value="id, name, description, deleted, internal"/>
+        <param name="include" value="id, name, description, deleted, internal"/>
     </convert>
 
     <convert converter="bean" match="org.pgist.util.PageSource"/>
@@ -32,63 +32,63 @@
 
 
     <create creator="spring" javascript="SystemAgent">
-      <param name="beanName" value="systemAgent"/>
-      <include method="createFeedback"/>
-      <include method="getFeedbacks"/>
-      <include method="disableUsers"/>
-      <include method="editUser"/>
-      <include method="enableUsers"/>
-      <include method="getAllUsers"/>
-      <include method="getEnabledUsers"/>
-      <include method="getDisabledUsers"/>
-      <include method="getUserById"/>
-      <include method="getEmailList"/>
-      <include method="setUnloading"/>
-      <include method="logMapEvent"/>   
-      <include method="resetPassword"/>   
-      <include method="setQuota"/>
-      <include method="setQuotaLimit"/>
-      <include method="addCounty"/>
-      <include method="createQuotaStats"/>
-      <include method="addZipCodes"/>
-      <include method="addRemoveZipCodes"/>
-      <include method="getAllCounties"/>
-      <include method="deleteZipCodes"/>
-      <include method="deleteCounty"/>
-      <include method="editCountyName"/>
-      <include method="addAnnouncement"/>
-      <include method="getAnnouncements"/>
-      <include method="editAnnouncement"/>
-      <include method="deleteAnnouncement"/>
+        <param name="beanName" value="systemAgent"/>
+        <include method="createFeedback"/>
+        <include method="getFeedbacks"/>
+        <include method="disableUsers"/>
+        <include method="editUser"/>
+        <include method="enableUsers"/>
+        <include method="getAllUsers"/>
+        <include method="getEnabledUsers"/>
+        <include method="getDisabledUsers"/>
+        <include method="getUserById"/>
+        <include method="getEmailList"/>
+        <include method="setUnloading"/>
+        <include method="logMapEvent"/>   
+        <include method="resetPassword"/>   
+        <include method="setQuota"/>
+        <include method="setQuotaLimit"/>
+        <include method="addCounty"/>
+        <include method="createQuotaStats"/>
+        <include method="addZipCodes"/>
+        <include method="addRemoveZipCodes"/>
+        <include method="getAllCounties"/>
+        <include method="deleteZipCodes"/>
+        <include method="deleteCounty"/>
+        <include method="editCountyName"/>
+        <include method="addAnnouncement"/>
+        <include method="getAnnouncements"/>
+        <include method="editAnnouncement"/>
+        <include method="deleteAnnouncement"/>
     </create>
 
 	
     <create creator="spring" javascript="RegisterAgent">
-      <param name="beanName" value="registerAgent"/>
-      <include method="addUser"/>
-      <include method="deleteUser"/>
-      <include method="addConsent"/>
-      <include method="addQuotaInfo"/>
-      <include method="createQuotaQualify"/>
-      <include method="deleteUser"/>
-      <include method="deleteVehicle"/>
-      <include method="createGetVehicles"/>
-      <include method="addVehicle"/>
-      <include method="updateVehicle"/>
-      <include method="getTolls"/>
-      <include method="addQuestionnaire"/>
-      <include method="setToll"/>
-      <include method="checkUsername"/>
-      <include method="checkEmail"/>
+        <param name="beanName" value="registerAgent"/>
+        <include method="addUser"/>
+        <include method="deleteUser"/>
+        <include method="addConsent"/>
+        <include method="addQuotaInfo"/>
+        <include method="createQuotaQualify"/>
+        <include method="deleteUser"/>
+        <include method="deleteVehicle"/>
+        <include method="createGetVehicles"/>
+        <include method="addVehicle"/>
+        <include method="updateVehicle"/>
+        <include method="getTolls"/>
+        <include method="addQuestionnaire"/>
+        <include method="setToll"/>
+        <include method="checkUsername"/>
+        <include method="checkEmail"/>
     </create>
     
     <create creator="spring" javascript="ProfileAgent">
-	<param name="beanName" value="profileAgent"/>
-	<include method="getUserInfo"/>
-	<include method="setUserInfo"/>
-	<include method="getUserStats"/>
-	<include method="getUserConcerns"/>
-	<include method="getUserDiscussion"/>
+        <param name="beanName" value="profileAgent"/>
+        <include method="getUserInfo"/>
+        <include method="setUserInfo"/>
+        <include method="getUserStats"/>
+        <include method="getUserConcerns"/>
+        <include method="getUserDiscussion"/>
     </create>
     
   </allow>

@@ -13,11 +13,23 @@ import org.pgist.users.UserInfo;
 public class WebUtils {
     
     
+    private static String contextPath;
+    
     private static ThreadLocal<UserInfo> threadLocalCurrentUser = new ThreadLocal<UserInfo>();
     
     private static ThreadLocal<Date> threadLocalDate = new ThreadLocal<Date>();
     
     
+    public static String getContextPath() {
+        return contextPath;
+    }
+
+
+    public static void setContextPath(String contextPath) {
+        WebUtils.contextPath = contextPath;
+    }
+
+
     public static UserInfo currentUser() {
         return threadLocalCurrentUser.get();
     }//currentUser()

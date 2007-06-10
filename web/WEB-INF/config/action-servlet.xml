@@ -13,16 +13,13 @@
     </bean>
     
     
-    <bean name="/logout" class="org.pgist.system.LogoutAction">
-    </bean>
+    <bean name="/logout" class="org.pgist.system.LogoutAction" />
     
     
-    <bean name="/main" class="org.pgist.system.MainAction">
-    </bean>
+    <bean name="/main" class="org.pgist.system.MainAction" />
     
     
-    <bean name="/userhome" class="org.pgist.system.UserHomeAction">
-    </bean>
+    <bean name="/userhome" class="org.pgist.system.UserHomeAction" />
     
     
     <bean name="/usercp" class="org.pgist.system.UsercpAction">
@@ -31,7 +28,7 @@
     
     
     <bean name="/profileedit" class="org.pgist.system.ProfileAction">
-         <property name="systemService" ref="systemService"/>
+        <property name="systemService" ref="systemService"/>
     </bean>
  
     
@@ -46,71 +43,81 @@
     
     
     <bean name="/registerq" class="org.pgist.system.RegisterQuestionAction">
-            <property name="systemService" ref="systemService"/>
+        <property name="systemService" ref="systemService"/>
     </bean>
     
     
     <bean name="/register2a" class="org.pgist.system.Register2aAction">
-            <property name="systemService" ref="systemService"/>
-            <property name="registerService" ref="registerService"/>
+        <property name="systemService" ref="systemService"/>
+        <property name="registerService" ref="registerService"/>
     </bean>
     
     
     <bean name="/register2b" class="org.pgist.system.Register2bAction">
-            <property name="systemService" ref="systemService"/>
+        <property name="systemService" ref="systemService"/>
     </bean>
     
     <bean name="/registercomplete" class="org.pgist.system.RegisterCompletionAction">
-                <property name="systemService" ref="systemService"/>
+        <property name="systemService" ref="systemService"/>
     </bean>
     
     
-    <bean name="/confirmation" class="org.pgist.system.ConfirmationAction">
-    </bean>
+    <bean name="/confirmation" class="org.pgist.system.ConfirmationAction" />
     
     
     <bean name="/feedback" class="org.pgist.system.FeedbackAction">
         <property name="systemService" ref="systemService"/>
     </bean>
     
-    <bean name="/lmAbout" class="org.pgist.lm.LmAboutAction">
-    </bean>
     
-    <bean name="/lmFaq" class="org.pgist.lm.LmFaqAction">
-    </bean>
+    <bean name="/lmAbout" class="org.pgist.lm.LmAboutAction" />
+    
+    
+    <bean name="/lmFaq" class="org.pgist.lm.LmFaqAction" />
+    
     
     <bean name="/lmAlt" class="org.pgist.lm.LmAltAction">
-    	<property name="lmService" ref="lmService"/>
+        <property name="lmService" ref="lmService"/>
     </bean>
+    
     
     <bean name="/lmGallery" class="org.pgist.lm.LmGalleryAction">
-    	<property name="lmService" ref="lmService"/>
+        <property name="lmService" ref="lmService"/>
     </bean>
     
-    <bean name="/lmMenu" class="org.pgist.lm.LmMenuAction">
-    </bean>
     
-    <bean name="/lmResources" class="org.pgist.lm.LmResourcesAction">
-    </bean>
+    <bean name="/lmMenu" class="org.pgist.lm.LmMenuAction" />
     
-    <bean name="/lmTutorial1" class="org.pgist.lm.LmTutorial1Action">
-    </bean>
     
-    <bean name="/lmTutorial2" class="org.pgist.lm.LmTutorial2Action">
-    </bean>
+    <bean name="/lmResources" class="org.pgist.lm.LmResourcesAction" />
+    
+    
+    <bean name="/lmTutorial1" class="org.pgist.lm.LmTutorial1Action" />
+    
+    
+    <bean name="/lmTutorial2" class="org.pgist.lm.LmTutorial2Action" />
+    
     
     <bean name="/publicprofile" class="org.pgist.system.UserProfileAction">
-    	<property name="systemService" ref="systemService"/>
-    	<property name="profileService" ref="profileService"/>
+        <property name="systemService" ref="systemService"/>
+        <property name="profileService" ref="profileService"/>
     </bean>
+    
     
     <bean name="/forgotpassword" class="org.pgist.system.RecoverPasswordAction">
-	<property name="registerService" ref="registerService"/>
+        <property name="registerService" ref="registerService"/>
     </bean>
     
+    
     <bean name="/resetpassword" class="org.pgist.system.RecoverPasswordResetAction">
-    	<property name="registerService" ref="registerService"/>
+        <property name="registerService" ref="registerService"/>
     </bean>
+    
+    
+    <bean name="/templateSelect" class="org.pgist.other.TemplateImportingAction">
+        <property name="importService" ref="importService"/>
+    </bean>
+    
     
     <bean name="/cctlist" class="org.pgist.cvo.CCTListAction">
         <property name="cctService" ref="cctService"/>
@@ -157,6 +164,7 @@
         <property name="projectService" ref="projectService"/>
     </bean>
 
+    
     <bean name="/projectGrading" class="org.pgist.projects.ProjectGradingAction">
         <property name="projectService" ref="projectService"/>
         <property name="criteriaService" ref="criteriaService"/>
@@ -177,31 +185,37 @@
         <property name="fundingService" ref="fundingService"/>
     </bean>
     
+    
     <bean name="/fundingCalc" class="org.pgist.funding.TaxCalculatorAction">
         <property name="fundingService" ref="fundingService"/>
     </bean>
 
+    
     <bean name="/package" class="org.pgist.packages.PackageAction">
         <property name="packageService" ref="packageService"/>
         <property name="fundingService" ref="fundingService"/>
         <property name="projectService" ref="projectService"/>
     </bean> 
 
+    
     <bean name="/packageVote" class="org.pgist.packages.PackageVoteAction">
         <property name="packageService" ref="packageService"/>
     </bean> 
-       
+    
+    
     <bean name="/createPackage" class="org.pgist.packages.CreatePackageAction">
         <property name="packageService" ref="packageService"/>
         <property name="fundingService" ref="fundingService"/>
         <property name="projectService" ref="projectService"/>
     </bean>    
 
+    
     <bean name="/editClusteredPackage" class="org.pgist.packages.EditClusteredPackageAction">
         <property name="packageService" ref="packageService"/>
         <property name="fundingService" ref="fundingService"/>
         <property name="projectService" ref="projectService"/>
     </bean>    
+    
     
     <bean name="/tuner" class="org.pgist.packages.UserPackageCreatorTunerAction">
         <property name="packageService" ref="packageService"/>
@@ -209,17 +223,21 @@
         <property name="projectService" ref="projectService"/>
     </bean>
     
+    
     <bean name="/criteriaList" class="org.pgist.criteria.CriteriaListAction">
-            <property name="criteriaService" ref="criteriaService"/>
+        <property name="criteriaService" ref="criteriaService"/>
     </bean>
+    
     
     <bean name="/criteriaMgr" class="org.pgist.criteria.CriteriaMgrAction">
         <property name="criteriaService" ref="criteriaService"/>
     </bean>
     
+    
     <bean name="/criteriaWeigh" class="org.pgist.criteria.CriteriaWeighAction">
         <property name="criteriaService" ref="criteriaService"/>
     </bean>
+    
     
     <bean name="/criteriaDefine" class="org.pgist.criteria.CriteriaDefinitionAction">
         <property name="criteriaService" ref="criteriaService"/>

@@ -3,6 +3,11 @@
 <beans>
 
 
+    <bean id="task-import.template" class="org.pgist.other.ImportTemplateTask">
+        <property name="importService" ref="importService"/>
+    </bean>
+    
+    
     <bean id="task-create.project.suite" class="org.pgist.projects.CreateProjectSuiteTask">
         <property name="projectService" ref="projectService"/>
     </bean>
@@ -66,6 +71,7 @@
     <bean id="workflow.registry" class="org.pgist.wfengine.WorkflowTaskRegistry">
         <property name="tasks">
             <map>
+              <entry><key><value>task-import.template</value></key><ref bean="task-import.template" /></entry>
               <entry><key><value>task-create.project.suite</value></key><ref bean="task-create.project.suite" /></entry>
               <entry><key><value>task-create.funding.suite</value></key><ref bean="task-create.funding.suite" /></entry>
               <entry><key><value>task-create.cct</value></key><ref bean="task-create.cct" /></entry>
@@ -81,6 +87,7 @@
         </property>
         <property name="actions">
             <map>
+              <entry><key><value>action-select.template</value></key><value>/templateSelect.do</value></entry>
               <entry><key><value>action-define.projects</value></key><value>/projectDefine.do</value></entry>
               <entry><key><value>action-define.fundings</value></key><value>/fundingDefine.do</value></entry>
               <entry><key><value>action-grade.projects</value></key><value>/projectGrading.do</value></entry>

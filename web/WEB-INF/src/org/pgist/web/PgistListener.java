@@ -1,5 +1,7 @@
 package org.pgist.web;
 
+import java.io.File;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -8,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.pgist.glossary.TermAnalyzer;
 import org.pgist.tagging.TagAnalyzer;
+import org.pgist.util.WebUtils;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.orm.hibernate3.SessionHolder;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
@@ -33,18 +36,22 @@ public class PgistListener implements ServletContextListener {
             (WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
         
         /*
-         * Config Search Helper
+         * Get the context path
          */
-        /*
-        SearchHelper helper = (SearchHelper) context.getBean("searchHelper");
-        
         String contextPath = servletContext.getRealPath("/");
         if (contextPath.endsWith(File.separator)) {
             contextPath = contextPath.substring(0, contextPath.length()-1);
         }
         
+        WebUtils.setContextPath(contextPath);
+        
+        /*
+         * Config Search Helper
+         */
+        /*
+        SearchHelper helper = (SearchHelper) context.getBean("searchHelper");
         helper.setContextPath(contextPath);
-        */
+        
         /*
          * The following operations need the OpenSessionInView
          */
