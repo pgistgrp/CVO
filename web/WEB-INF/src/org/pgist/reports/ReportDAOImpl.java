@@ -10,7 +10,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 
 	
 	private static final String hql_getUserStatistics1 = "from User u where u.gender=?"; //Male Female stats
-	private static final String hql_getUserStatistics2 = "from User u where u.primaryTransport=?"; //transportation stats
+	private static final String hql_getUserStatistics2 = "from User u where u.age<=? and u.age>="; //Age stats
 	
 	public Map getUserStatistics() throws Exception {
 		Map map = new HashMap();
