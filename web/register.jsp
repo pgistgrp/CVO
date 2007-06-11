@@ -50,7 +50,7 @@
 		
 		var errordiv = document.getElementById("errors");
 		var errorusernamediv = document.getElementById("errorusername");
-		var erroremaildiv = document.getElementById("errorusername");
+		var erroremaildiv = document.getElementById("erroremail");
 		var errormsg = "";
  
 		var firstname = form.fname.value;	
@@ -241,7 +241,7 @@
 			</p><br />
 			<p>
 				<span class="label">Email address:</span>
-				<span class="value"><input id="email1" type="text" /></span><span id="errorusername" style="color:#D85703;font-weight:bold;font-size: .8em;"></span>
+				<span class="value"><input id="email1" type="text" /></span><span id="erroremail" style="color:#D85703;font-weight:bold;font-size: .8em;"></span>
 			</p><br />
 			<p>
 				<span class="label">Re-type email address:</span>

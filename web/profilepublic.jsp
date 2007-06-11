@@ -118,9 +118,10 @@ function getDiscussion(start, end) {
 			<span class="value">${user.vocation}</span>
 		</p><br />
 		<p>
-			<span class="label">Methods of transportation</span>
+			<span class="label">Method of transportation</span>
 			<span class="value"><span>${user.primaryTransport}</span>
-		</p><br />
+		</p>
+		<br />
 		<div class="clearBoth"></div>
 		<p>
 			<span class="label">Why I'm here</span> 
