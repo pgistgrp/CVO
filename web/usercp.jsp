@@ -104,7 +104,7 @@ function validateForm(form,formId){
 	var address1 = $F('address1');
 	var hcity = $F('hcity');	
 	var wcity = $F('wcity');
-	var state = $F('state');
+	var state = "WA";//$F('state');
 	var hzip = $F('hzip');	
 	var wzip = $F('wzip');	
 	
@@ -267,9 +267,62 @@ function validateForm(form,formId){
 					<html:text property="city" styleId="hcity" value="${user.city}"/>
 				</div>
 				<div class="clearBoth"></div>
-				<div class="settings-col1"><small>State (Abbreviation)</small></div>
+				<div class="settings-col1"><small>State</small></div>
 				<div class="settings-col2">
-					<html:text property="state" styleId="state" value="${user.state}"/>
+					<html:select property="state">
+						<html:option value="${user.state}">${user.state}</html:option>
+						<html:option value="AL">Alabama</html:option>
+						<html:option value="AK">Alaska</html:option>
+						<html:option value="AZ">Arizona</html:option>
+						<html:option value="AR">Arkansas</html:option>
+						<html:option value="CA">California</html:option>
+						<html:option value="CO">Colorado</html:option>
+						<html:option value="CT">Connecticut</html:option>
+						<html:option value="DE">Delaware</html:option>
+						<html:option value="DC">District Of Columbia</html:option>
+						<html:option value="FL">Florida</html:option>
+						<html:option value="GA">Georgia</html:option>
+						<html:option value="HI">Hawaii</html:option>
+						<html:option value="ID">Idaho</html:option>
+						<html:option value="IL">Illinois</html:option>
+						<html:option value="IN">Indiana</html:option>
+						<html:option value="IA">Iowa</html:option>
+						<html:option value="KS">Kansas</html:option>
+						<html:option value="KY">Kentucky</html:option>
+						<html:option value="LA">Louisiana</html:option>
+						<html:option value="ME">Maine</html:option>
+						<html:option value="MD">Maryland</html:option>
+						<html:option value="MA">Massachusetts</html:option>
+						<html:option value="MI">Michigan</html:option>
+						<html:option value="MN">Minnesota</html:option>
+						<html:option value="MS">Mississippi</html:option>
+						<html:option value="MO">Missouri</html:option>
+						<html:option value="MT">Montana</html:option>
+						<html:option value="NE">Nebraska</html:option>
+						<html:option value="NV">Nevada</html:option>
+						<html:option value="NH">New Hampshire</html:option>
+						<html:option value="NJ">New Jersey</html:option>
+						<html:option value="NM">New Mexico</html:option>
+						<html:option value="NY">New York</html:option>
+						<html:option value="NC">North Carolina</html:option>
+						<html:option value="ND">North Dakota</html:option>
+						<html:option value="OH">Ohio</html:option>
+						<html:option value="OK">Oklahoma</html:option>
+						<html:option value="OR">Oregon</html:option>
+						<html:option value="PA">Pennsylvania</html:option>
+						<html:option value="RI">Rhode Island</html:option>
+						<html:option value="SC">South Carolin</html:option>
+						<html:option value="SD">South Dakota</html:option>
+						<html:option value="TN">Tennessee</html:option>
+						<html:option value="TX">Texas</html:option>
+						<html:option value="UT">Utah</html:option>
+						<html:option value="VT">Vermont</html:option>
+						<html:option value="VA">Virginia</html:option>
+						<html:option value="WA">Washington</html:option>
+						<html:option value="WV">West Virginia</html:option>
+						<html:option value="WI">Wisconsin</html:option>
+						<html:option value="WY">Wyoming</html:option>
+					</html:select>
 				</div>
 				<div class="clearBoth"></div>
 				<div class="settings-col1"><small>ZIP Code</small></div>
@@ -294,7 +347,19 @@ function validateForm(form,formId){
 				<br />
 				<span>How do you usually travel from your home to work and other regular errands?</span>
 				<p>
-					<html:text property="primaryTransport" value="${user.primaryTransport}" size="50"/>
+					
+					
+					<html:select property="primaryTransport">
+						<html:option value="${user.primaryTransport}">${user.primaryTransport}</html:option>
+						<html:option value="Drive Alone">Drive Alone</html:option>
+						<html:option value="Carpool or Vanpool">Carpool or Vanpool</html:option>
+						<html:option value="Bus or Transit">Public Transportation</html:option>
+						<html:option value="Walk or Bike">Walk or Bike</html:option>
+						<html:option value="Bus or Transit">Ferry</html:option>
+						<html:option value="Other">Other</html:option>
+					</html:select>
+					
+
 				</p>
 				<div class="clearBoth"></div>
 			</div>
