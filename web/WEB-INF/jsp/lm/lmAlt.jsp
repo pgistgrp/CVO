@@ -118,7 +118,7 @@
 		<!--begin project description -->
 		<p>
 		<h4 style="display:inline">Money needed to complete this project: </h4>
-		<span id="project-moneyNeeded">${alt.cost} million</span>
+		<span id="project-moneyNeeded">$<fmt:formatNumber type="number">${alt.cost}</fmt:formatNumber> million</span>
 		</p>
 		<p>
 		<h4 style="display:inline">Sponsoring Agency: </h4>
