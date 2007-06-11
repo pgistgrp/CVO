@@ -2,6 +2,7 @@ package org.pgist.projects;
 
 import org.pgist.discussion.InfoStructure;
 import org.pgist.wfengine.EnvironmentInOuts;
+import org.pgist.wfengine.WorkflowInfo;
 import org.pgist.wfengine.WorkflowTask;
 
 
@@ -33,7 +34,7 @@ public class PublishProjectsTask implements WorkflowTask {
      */
     
     
-    public void execute(EnvironmentInOuts inouts) throws Exception {
+    public void execute(WorkflowInfo info, EnvironmentInOuts inouts) throws Exception {
         System.out.println("@ PublishProjectsTask.execute()");
         
         Long suiteId = new Long(inouts.getIntValue(IN_SUITE_ID));

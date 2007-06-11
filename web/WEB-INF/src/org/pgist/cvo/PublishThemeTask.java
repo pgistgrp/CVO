@@ -2,6 +2,7 @@ package org.pgist.cvo;
 
 import org.pgist.discussion.InfoStructure;
 import org.pgist.wfengine.EnvironmentInOuts;
+import org.pgist.wfengine.WorkflowInfo;
 import org.pgist.wfengine.WorkflowTask;
 
 
@@ -31,7 +32,7 @@ public class PublishThemeTask implements WorkflowTask {
      */
     
     
-    public void execute(EnvironmentInOuts inouts) throws Exception {
+    public void execute(WorkflowInfo info, EnvironmentInOuts inouts) throws Exception {
         System.out.println("@ PublishThemeTask.execute()");
         
         Long cctId = new Long(inouts.getIntValue(IN_CCT_ID));
