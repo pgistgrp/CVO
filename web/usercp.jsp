@@ -193,6 +193,12 @@ function validateForm(form,formId){
 	} else {}
 	
 } 
+
+function formOther(){
+	if ($F('primaryTrans') == "Other"){
+		$('transOther').style.display = "";	
+	} else {$('transOther').style.display = "none";} 
+}
 	</script>
 <event:pageunload />
 	</head>
@@ -349,7 +355,7 @@ function validateForm(form,formId){
 				<p>
 					
 					
-					<html:select property="primaryTransport">
+					<html:select styleId="primaryTrans" onmouseup="javascript:formOther()" property="primaryTransport">
 						<html:option value="${user.primaryTransport}">${user.primaryTransport}</html:option>
 						<html:option value="Drive Alone">Drive Alone</html:option>
 						<html:option value="Carpool or Vanpool">Carpool or Vanpool</html:option>
@@ -359,6 +365,10 @@ function validateForm(form,formId){
 						<html:option value="Other">Other</html:option>
 					</html:select>
 					
+					<div id="transOther" style="display:none">
+						<strong>Please explain</strong><br>
+						<html:text property="transOther" value=""/>
+					</div>
 
 				</p>
 				<div class="clearBoth"></div>
