@@ -103,10 +103,21 @@
 			});
 		}
 		
+		function addAnnouncementPrep(){
+			Element.toggle($('announce-editor'));
+			showPubBtn();
+			// Remove the existing control before adding a new one (kludgey!)
+			tinyMCE.execCommand('mceRemoveControl',true,'modAnnounce');
+			// Have to add the control before setting content
+			tinyMCE.execCommand('mceAddControl',true,'modAnnounce');
+			tinyMCE.setContent('');
+		}
+		
 		/* Have to use mceAddControl to instantiate editor onclick or else
 		   tinyMCE can't find it */
 		function editAnnouncementPrep(id){
 			$('announce-editor').style.display="";
+			tinyMCE.execCommand('mceRemoveControl',true,'modAnnounce');
 			tinyMCE.execCommand('mceAddControl',true,'modAnnounce');
 			var old = $('message' + id).innerHTML;
 			tinyMCE.setContent(old);
@@ -359,7 +370,7 @@
 			</div>
 			<pg:show roles="moderator">
 				<input type="button" id="btnEdit" class="padding5" value="Add Announcement" 
-				onclick="Element.toggle($('announce-editor'));showPubBtn();tinyMCE.setContent('')" />
+				onclick="addAnnouncementPrep()" />
 				<div id="announce-editor" style="display:none">
 					<textarea name="content" id="modAnnounce"></textarea>
 					<br/>
@@ -369,7 +380,7 @@
 						class="padding5" value="Publish" />
 					<input type="button" id="editBtn" 
 						onclick="editAnnouncement(name);Element.toggle($('announce-editor'));" 
-						class="padding5" style="display:none" value="Edit" />
+						class="padding5" style="display:none" value="Save" />
 					<a href="javascript:Element.toggle($('announce-editor'));void(0);">Cancel</a> </div>
 			</pg:show>
 		</div>
