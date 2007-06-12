@@ -17,7 +17,7 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
 	<head>
-	<title>Let's Improve Transportation: ${alt.name}</title>
+	<title>Let's Improve Transportation: ${alt.project.name} - ${alt.name}</title>
 	<!-- Site Wide CSS -->
 	<style type="text/css" media="screen">
 	@import "styles/lit.css";
@@ -101,7 +101,7 @@
 	<div id="container">
 	<!-- begin Object -->
 	<div id="object">
-		<h3 class="headerColor" id="project-title">${alt.name}</h3>
+		<h3 class="headerColor" style="text-transform:none" id="project-title">${alt.project.name} - ${alt.name}</h3>
 		<!-- begin cell containing Google Map object -->
 		
 	

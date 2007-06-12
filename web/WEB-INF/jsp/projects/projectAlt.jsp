@@ -24,7 +24,7 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html xmlns:v="urn:schemas-microsoft-com:vml">
 	<head>
-	<title>Let's Improve Transportation: ${reference.alternative.name}</title>
+	<title>Let's Improve Transportation: ${reference.alternative.project.name} - ${reference.alternative.name}</title>
 	<!-- Site Wide CSS -->
 <style type="text/css" media="screen">
 @import "styles/lit.css";
@@ -186,7 +186,7 @@ the column labels. */
 	<div id="container">
 	<!-- begin Object -->
 	<div id="object">
-		<h3 class="headerColor" id="project-title">${reference.alternative.name}</h3>
+		<h3 class="headerColor" style="text-transform:none" id="project-title">${reference.alternative.project.name} - ${reference.alternative.name}</h3>
 		<!-- begin cell containing Google Map object -->
 		
 	
