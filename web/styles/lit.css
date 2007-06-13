@@ -398,10 +398,7 @@ padding:5px;
 
 input#manualTag[type=text]{width:100px;margin-top:10px;}
 
-#tagCloud{
-z-index:2500;
-width:680px;
-float:left;}
+#tagCloud{width:673px;_width:680px;}
 
 #tagCloud .pagination{padding:0px 10px}
 

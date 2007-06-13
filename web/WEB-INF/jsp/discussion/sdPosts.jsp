@@ -10,7 +10,9 @@
 
 <c:choose>
 	<c:when test="${fn:length(posts) <= 0}">
-		<div id="noTopicsBox" class="box2 centerAlign"><h3 class="headerColor">There aren't any topics yet!</h3><p>Why not <a href="javascript:Effect.toggle('newDiscussion','blind',{duration: 0.2});">start the first discussion</a>?</div>
+		<div id="noTopicsBox" class="box2 centerAlign"><h3 class="headerColor">There aren't any topics yet!</h3>
+			<p>Why not <a href="javascript:Effect.toggle('newDiscussion','blind',{duration: 0.2});">start the first discussion</a>?</p>
+		</div>
 	</c:when>
 	<c:otherwise>
 		
