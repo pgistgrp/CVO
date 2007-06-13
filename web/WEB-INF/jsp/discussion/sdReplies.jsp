@@ -134,16 +134,16 @@
 
 <div id="postReplies">
 <c:if test="${fn:length(replies) != 0}">
-	<h4 style="text-transform:capitalize;">${fn:length(replies)}
+	<h3 style="text-transform:none">${fn:length(replies)}
 	<c:choose>
 		<c:when test="${fn:length(replies) == 1}">
-			reply
+			Reply
 		</c:when>
 		<c:otherwise>
-			replies
+			Replies
 		</c:otherwise>
 	</c:choose>			
-	 to ${post.title}</h4>
+	 to this Discussion Post</h3>
 </c:if>
 <div id="filteredBy"></div>
 <logic:iterate id="reply" name="replies">
