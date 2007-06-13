@@ -12,10 +12,8 @@
 	<!--CSS Libraries -->
 
 	<style type="text/css" media="screen">@import "/styles/dhtmlXTree/dhtmlXTree.css";</style>
-	<style type="text/css" media="screen">@import "/styles/position.css";</style>
-	<style type="text/css" media="screen">@import "/styles/styles.css";</style>
 	<style type="text/css" media="screen">@import "/styles/tabs.css";</style>
-
+	<style type="text/css" media="screen">@import "/styles/lit.css";</style>
 
 	<script type="text/javascript" src="/scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
  	<!--JavaScript Libraries -->
@@ -109,7 +107,7 @@ tinyMCE.init({
 		
 		var editingThemeId = '';
 		function getThemes(themeId){
-			Util.loading(true,"Working1")
+			Util.loading(true,"Working")
 			CSTAgent.getThemes({cctId:cctId,asHTML:true}, {
 			callback:function(data){
 				if (data.successful){
@@ -160,7 +158,7 @@ tinyMCE.init({
 				summaryString=tinyMCE.getContent();
 				
 			//alert("cctId: " + cctId + " themeId: " + themeId + " summary:  " + summaryString + " tags: " + summaryTags);
-			Util.loading(true,"Working2")
+			Util.loading(true,"Working")
 			CSTAgent.saveSummary({cctId:cctId, themeId:themeId, summary:summaryString, description: "discuss concerns about", tags: summaryTags}, {
 			callback:function(data){
 				if (data.successful){
@@ -197,7 +195,7 @@ tinyMCE.init({
 		}
 		var relatedTagsArr = [];
 		function getTags(categoryId, page, type, orphanpage){
-			Util.loading(true,"Working3")
+			Util.loading(true,"Working")
 			CSTAgent.getTags({cctId:cctId, categoryId:categoryId, page:page, type: type, orphanPage:orphanpage}, {
 			callback:function(data){
 				if (data.successful){
@@ -239,7 +237,7 @@ tinyMCE.init({
 		function relateTag(tagId){
 			$('savingIndicator').style.display = "inline";
 			if(currentCategory == null)return;
-			Util.loading(true,"Working4")
+			Util.loading(true,"Working")
 			CSTAgent.relateTag({cctId:cctId, categoryId:currentCategory.dataId, tagId:tagId}, {
 			callback:function(data){
 					if (data.successful){
@@ -264,7 +262,7 @@ tinyMCE.init({
 		
 		function derelateTag(categoryId, tagId){
 			$('savingIndicator').style.display = "inline";
-				Util.loading(true,"Working5");
+				Util.loading(true,"Working");
 				CSTAgent.derelateTag({cctId:cctId, categoryId:categoryId, tagId:tagId}, {
 				callback:function(data){
 						if (data.successful){
@@ -288,7 +286,7 @@ tinyMCE.init({
 			
 		function getConcernsByTags(visibility){
 			//eventually make  paginated
-				Util.loading(true,"Working6");
+				Util.loading(true,"Working");
 				CSTAgent.getConcernsByTags({cctId:cctId, page: 1, count: -1}, relatedTagsArr, {
 				callback:function(data){
 						if (data.successful){
@@ -311,7 +309,7 @@ tinyMCE.init({
 		}
 		
 		function getConcerns(tagId, page){
-				Util.loading(true,"Working7");
+				Util.loading(true,"Working");
 				CSTAgent.getConcerns({cctId:cctId, tagId: tagId, page: page}, {
 				callback:function(data){
 						if (data.successful){
@@ -330,7 +328,7 @@ tinyMCE.init({
 		}
 		
 				function getConcerns(tagId, page){
-				Util.loading(true,"Working8");
+				Util.loading(true,"Working");
 				CSTAgent.getConcerns({cctId:cctId, tagId: tagId, page: page}, {
 				callback:function(data){
 						if (data.successful){
@@ -643,7 +641,6 @@ tinyMCE.init({
 	</script>
 	
 <style type="text/css"> 
-	@import "styles/loading-indicator.css";
 	
    .accordionTabTitleBar { 
       font-size: 12px; 
@@ -669,54 +666,65 @@ tinyMCE.init({
    		
    }
 
+
+#topMenu {
+padding:5px;
+background:#E1F1C5;
+border-bottom:1px solid #C6D78C;
+margin-bottom:5px;
+margin-left:-3px;
+}
+
+#topMenu input[type="text"]{width:110px;}
+
+#topMenu2 {
+padding:5px;
+padding-left:0px;
+width:97.75%;
+}
+
+#col-crud-options{
+background:#EEF7DD;
+padding:5px;
+margin-top:10px;
+border:1px solid #B4D579;
+}
+
+#col-left, #col {border:1px solid #B4D579;}
+
+.closeBox{float:right;}
+
+#summaryEditorTitle{display:block;margin-top:10px;}
+
+button#ss{font-size:12pt;padding:5px;}
+
+#sidebar_tags_header{border:1px solid #B4D579;}
 </style>
 <event:pageunload />
 </head>
 
 <body onResize="dosize()" onkeydown="globalKeyHandler(event);">
-<div id="savingIndicator" style="display: none; background-color:#FF0000;position:fixed;">&nbsp;Saving...<img src="/images/indicator.gif">&nbsp;</div>
-<div id="container">
+	<div id="savingIndicator" style="display: none; background-color:#FF0000;position:fixed;">&nbsp;Saving...<img src="/images/indicator.gif">&nbsp;</div>
+<div id="header">
+	<!-- Begin header -->
 	<jsp:include page="/header.jsp" />
-	<!-- START LIGHTBOX -->
-	<div id="overlay" style="display: none;"></div>
-	<div id="lightbox" style="display: none;" class="blueBB"></div>
-	
-	<!-- END LIGHTBOX -->
-	
-	<!-- Start Moderator Navigation -->
-	
-	<!-- End Moderator Navigation -->
-	<div id="pageTitle">
-		<h1>Moderator Dashboard: </h1><h2>Concerns Synthesis Tool</h2>
-	</div>	
-
-		<!-- Overview SpiffyBox -->
-		<div class="cssbox">
-			<div class="cssbox_head">
-				<h3>Overview and Instructions</h3>
-			</div>
-			<div class="cssbox_body">
-				<b>Synthesizing Concerns, Step 2:<br></b>As participants register and submit their tagged concerns, the moderator(s) may choose to review these concerns using the <a href="http://collab.geog.washington.edu:8200/arttype/userstory/Moderator3ASynthesizeConcerns">Concerns Synthesis Tool (CST)</a>.&nbsp; The CST is an interface to the participant concerns, which also allows the moderator to organize the metadata (tags) of the concerns into categories and, eventually, themes to be summarized.&nbsp; However, during this process, the moderator is encouraged to view this process as three major steps.<br><ol><li><b>Review concerns. </b>Begin this step at any point in the concerns elicitation process.<br></li><ol><li>Read as many concerns as possible before and during the process.</li><li>Pay careful attention to concerns which have not been tagged or have been tagged using words not from the include list.</li><li>Click on tags which seem most general, and inspect concerns for simularity or dissimularity.<br></li></ol><li><b>Create categories of concerns.</b> Only fully engage in this step after a majority of participants have submitted at least one concern.<br></li><ol><li>Work from the most obvious to the least obvious categories, creating categories by
-identifying the most obvious categories and the most obvious tags for those categories, then iterating through the remaining tags to find the next most
-obvious, and so on.
-</li><li>Ground tags in their usage by referring back to the concerns for a tag. </li><li>Put tags in every category in which they fit according to their general usage in concerns.</li><li>Only create categories that positively appear in concerns, and do not
-attempt to fit every tag into a category if it doesn't clearly fit.&nbsp;
-This means avoid having a "miscellaneous" category, or having 100
-categories, each with 1 or 2 tags in it.</li></ol><li><b>Identify themes and summarize.</b> Fully engage this step after nearly all participants have submitted at least one concern, or the concerns elicitation deadline has passed.</li><ol><li>As is applicable, create categories which are general categories for more specific, existing categories.&nbsp; These first-order categories are effectively 'themes'.</li><li>Review each first-order category, that each one represents a viable theme, which can be summarized based on the concerns that are members.</li><li>When certain that each first-order category is a theme, begin to compose the summaries for each theme.</li><li>When writing summaries, ground the text by reviewing example concerns which are members of the themes.</li></ol></ol>When finished with the summarization process, finalize these summaries by submitting them to the Review process (structured discussion for concerns, or SDC).<br>
-			</div>
-		</div>
-		<!-- End Overview -->
-
-	
+	<!-- End header -->
+</div>
+<!-- End header -->
+<!-- Begin header menu - The wide ribbon underneath the logo -->
+<div id="headerMenu"></div>
+<div id="container">
 	<div id="cont-resize">
-				<a name="colsTop"></a>
-				<input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
-				<input type="button" value="Add Category" onclick="addcategory();"><br>
-				<input type="button" value="Unselect All" onclick="unselectall(true);">
-
+		<a name="colsTop"></a>
+		<div id="topMenu2">
+			<input type="button" value="Unselect All" onclick="unselectall(true);">
 			<input type="checkbox" onclick="tree1.switchCopyMode()">Copy mode <small>(or ctrl + drag)</small>
-		
+		</div>
 		<div id="col-left" style="text-transform: capitalize; " onclick="unselectall(!tree1.clickedOn)">
+			<div id="topMenu">
+				<input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
+				<input type="button" id="addCat" value="Add Category" onclick="addcategory();">
+			</div>
 		</div>
 		
 		<div id="col">
@@ -749,51 +757,55 @@ categories, each with 1 or 2 tags in it.</li></ol><li><b>Identify themes and sum
 				<!--END Tabs -->
 		</div>
 	
-		<div id="clear" style="clear:both">
-			<div id="col-crud-options" style="display:none;"><span class="closeBox"><a href="javascript: new Effect.PhaseOut('col-crud-options'); void(0);"><img src="images/close.gif" border="0" alt="Hide" name="Hide" class="button" style="margin-bottom:3px;" id="hide" onMouseOver="MM_swapImage('hide','','images/close1.gif',1)" onMouseOut="MM_swapImgRestore()"></a></span>
-				<h4>Editing Options:</h4>
-				<small><a href="javascript: deleteSelectedCategory();">Delete</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript: new Effect.PhaseOut('col-crud-options'); void(0); new Effect.Appear('col-option'); void(0);">Rename</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:duplicateSelectedCategory();">Duplicate</a>&nbsp;&nbsp;|&nbsp;&nbsp;Edit Summary</small>
+		<div style="clear:both"></div>
+			
+			<div id="col-crud-options" style="display:none;">
+					<span class="closeBox">
+						<a href="javascript: new Effect.PhaseOut('col-crud-options'); void(0);">
+							<img src="images/close.gif" border="0" alt="Hide" name="Hide" class="button" style="margin-bottom:3px;" id="hide" onMouseOver="MM_swapImage('hide','','images/close1.gif',1)" onMouseOut="MM_swapImgRestore()">
+							</a>
+					</span>
+				<strong>Editing Options: </strong>
+					<input type="button" onclick="javascript: deleteSelectedCategory();" value="Delete">
+					<input type="button" cnclick="javascript: new Effect.PhaseOut('col-crud-options'); void(0); new Effect.Appear('col-option'); void(0);" value="Rename" />
+					<input type="button" onclick="javascript:duplicateSelectedCategory();" value="Duplicate" />
 			</div>
+			
 			<div id="col-option" style="display: none;"><span class="closeBox"><a href="javascript: new Effect.PhaseIn('col-crud-options'); void(0); new Effect.Fade('col-option'); void(0);">back to all options</a></span>
 				<h4>Editing Options</h4>
 				Rename to: <form name="modifyCategory" action="" method="GET" onsubmit="javascript: modifySelectedCategory(); return false;"><input type="text" style="width: 50%;" id="selcatetext" onkeydown="checkaddcategory(event)"><input type="button" id="btnNewName" value="Modify" onclick="modifySelectedCategory();"></form><br>
 			</div>
-		</div>
 
 		<div id="spacer">
 		</div>
 		
-		<div id="wysiwyg" style="padding-bottom: 10px;"> 
-			<h3>Step X - <span id="summaryEditorTitle">Click on the theme name to view/edit.</span></h3>
-		
-			<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->	
-			<script type="text/javascript">
-				dosize();
-				doOnLoad();
-				getThemes();
-				
-				//var editor1 = new WYSIWYG_Editor('editor1', 'Please select a theme to begin generating summary.');
-				  //  editor1.display();
+			<div id="wysiwyg" style="padding-bottom: 10px;"> 
+				<h3><span id="summaryEditorTitle">Click on the theme name to view/edit.</span></h3>
 			
-			</script>				  
-	     		<!-- END Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
-			<!--<div id="frmSaveSummary" style="text-align: right"><span id="wysiwyg_message" style="position: display:none;"></span><button id="ss" type="button" disabled="true" style="padding: 0pt 1em;" onclick="saveSummary()">Save summery</button></div>-->
-		</div>
-		
-		<div id="frmSaveSummary">
-			 <textarea id="sumtext" style="width:100%; height:140px;"></textarea>
-			 <p>Tags: <input id="summaryTags" type="text" style="width: 200px"/> (comma separated)</p>
-			 <p><button id="ss" type="button" disabled="true" style="padding: 0pt 1em;" onclick="saveSummary()">Save summary</button></p>
-			 </div>
-		<div id="spacer" style="text-align: right;"></div>
-		
-		
+				<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->	
+				<script type="text/javascript">
+					dosize();
+					doOnLoad();
+					getThemes();
+					
+					//var editor1 = new WYSIWYG_Editor('editor1', 'Please select a theme to begin generating summary.');
+					  //  editor1.display();
+				
+				</script>				  
+		     		<!-- END Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
+				<!--<div id="frmSaveSummary" style="text-align: right"><span id="wysiwyg_message" style="position: display:none;"></span><button id="ss" type="button" disabled="true" onclick="saveSummary()">Save summery</button></div>-->
+			</div>
 
-		<div id="finished">
-			<a name="finished"></a>
-	   		<h3 id="headerFinished">Finished synthesizing concerns?</h3>
-	   		<p>blah blah........			</p>
-		</div>
+	
+			<div id="frmSaveSummary">
+				<div id="editorWrap">	
+					 <textarea id="sumtext" style="width:100%; height:140px;"></textarea>
+					<div class="clearBoth"></div>
+				</div>
+				 <p>Tags: <input id="summaryTags" type="text" style="width: 200px"/> (comma separated)</p>
+				 <p><button id="ss" type="button" disabled="true" onclick="saveSummary()">Save summary</button></p>
+			</div>
+		<div id="spacer" style="text-align: right;"></div>
 </div>
 </div>
 
@@ -807,7 +819,14 @@ categories, each with 1 or 2 tags in it.</li></ol><li><b>Identify themes and sum
 <!--end feedback form-->
 
 <!-- Start Footer -->
-<jsp:include page="/footer.jsp" />
+	<div id="header">
+		<!-- Begin header -->
+		<jsp:include page="/footer.jsp" />
+		<!-- End header -->
+	</div>
+	<!-- End header -->
+	<!-- Begin header menu - The wide ribbon underneath the logo -->
+	<div id="headerMenu"></div>
 <!-- End Footer -->
 <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
 </script>
