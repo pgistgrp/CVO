@@ -29,13 +29,11 @@
 
 	<div id="overview" class="box2">
 		<h3>Overview and Instructions</h3>
-		<p>Criteria are used to help Evaluate which proposed transportation projects are
-			best suited to address problems with our transportation system. Below, these criteria
-			have been associated with the concern themes discussed in the previous step. Please
-			review these criteria and the associated themes. Do these criteria adequately
-			reflect your concerns and the summaries? What criteria might be useful in evaluating
-			proposed transportation projects?</p>
-		<p><a href="readmore.jsp">Read more about how this step fits into the bigger picture</a>.</p>
+		<p>Here you can review proposed projects for improving or expanding our regional transportation system. 
+			Click on a project to review information and discuss its merits or drawbacks with other participants.</p>
+
+		<p>Each of the projects has been examined by a panel of specialists who assigned scores based on the 
+			criteria we reviewed in step 2. <a href="readmore.jsp">Read more about the project scoring process</a></p>
 	</div>
 	<!-- end overview -->
 	<!-- begin Object -->

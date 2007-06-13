@@ -3,7 +3,7 @@
 <div id="headerMenu">
   <div id="headerContainer">
     <div id="headerTitle" class="floatLeft">
-      <h3 class="headerColor" style="margin-top:0px;">Step 1: Discuss Concerns</h3>
+      <h3 class="headerColor" style="margin-top:0px;">${structure.title}</h3>
     </div>
     <div class="headerButton floatLeft"><a href="cctlist.do">1a: Brainstorm</a></div>
     <div class="floatLeft headerButton currentBox"><a href="#">1b: Review Summaries</A></div>

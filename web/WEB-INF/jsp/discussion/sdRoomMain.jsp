@@ -325,9 +325,8 @@
 							if (data.count == 0){
 								$(io.divTagCloud).innerHTML = '<a href="javascript:Effect.Fade(\''+io.divTagCloud+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
 							}
-							if($(io.divTagCloud).style.display == 'none'){
-								new Effect.BlindDown(io.divTagCloud, {duration: 0.5});		
-							}		
+							new Effect.toggle(io.divTagCloud,'blind',{duration: 0.5});		
+									
 						}
 				},
 				errorHandler:function(errorString, exception){ 
@@ -380,7 +379,7 @@
 		<div class="sectionTitle">
 			<div class="floatLeft"><h3 class="headerColor">
 				<!--${object.discussion.numPosts} -->
-				Discussions about ${object.object}</h3></div>
+				Discussion</h3></div>
 			<div id="filteredBy" class="floatLeft"></div>
 			<div class="padding5 box5 floatRight" style="margin-bottom:2px;"> 
 			<a class="orangeButton" href="javascript:Effect.toggle('newDiscussion','blind',{duration:0.5});">Start a New Topic</a>
@@ -397,7 +396,7 @@
 			</span>
 			<span id="sm-middle">
 				or <a href="javascript:io.getTagCloud();">Browse All Tags</a>
-				<a href="javascript:getTagCloud();"><img src="images/keyword-cloud.gif" alt="Click here for the Keyword Cloud" /></a>
+				<a href="javascript:io.getTagCloud();"><img src="images/keyword-cloud.gif" alt="Click here for the Keyword Cloud" /></a>
 			</span>
 			<span id="sm-right">or sort concerns by:
 				<select name="selectsort" id="selectsort" 

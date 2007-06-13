@@ -82,23 +82,24 @@
 		
 		/*************** Get Targets - If IOID is ommitted, return sdcSummary.jsp::else, returns sdcStructureSummary.jsp************** */
 		io.getTargets = function(){
-			displayIndicator(true);
-			SDAgent.getSummary({isid: io.structureId, ioid: io.objectId  }, {
+			SDAgent.getTarget({isid:io.structureId, ioid:io.objectId}, {
 				callback:function(data){
 					if (data.successful){
-							displayIndicator(false);
-							$(io.objectDiv).innerHTML = data.source.html;
-						}else{
-							displayIndicator(false);
-							alert(data.reason);
-						}
-					},
-					errorHandler:function(errorString, exception){
-						alert("get targets error:" + errorString + exception);
+						$(io.objectDiv).innerHTML = data.source.html;
+						//alert(data.source.script)
+						eval(data.source.script);
+					}else{
+						alert(data.reason);
 					}
-				});
-			};
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("SDAgent.getTarget( error:" + errorString + "exception " +exception);
+				}
+			});		
 			
+		};
+	
+		
 		io.changeCurrentFilter = function(tagName){
 			io.getReplies(tagName, io.currentPage, true);
 			if(tagName != ""){
@@ -324,7 +325,7 @@
 
 <!-- Begin Breadcrumbs -->
 	<div id="breadCrumbs" class="floatLeft">
-<a href="sd.do?isid=${structure.id}">Select a Theme</a> &rarr; <a style="text-transform:capitalize;" href="/sdRoom.do?isid=${structure.id}&ioid=${object.id}&lp=${param.lp}">${object.object}</a> &rarr; ${post.title}
+<a href="sd.do?isid=${structure.id}">Select a Theme</a> &rarr; <a style="text-transform:capitalize;" href="/sdRoom.do?isid=${structure.id}&ioid=${object.id}&lp=${param.lp}">${(object.object) ? object.object : structure.title}</a> &rarr; ${post.title}
 	</div>
 <!-- End Breadcrumbs -->
 
