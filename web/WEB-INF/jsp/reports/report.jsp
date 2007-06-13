@@ -1319,9 +1319,3 @@
 	<!-- End Appendix C -->
 </body>
 </html:html>
-
-
-
-
-
-
