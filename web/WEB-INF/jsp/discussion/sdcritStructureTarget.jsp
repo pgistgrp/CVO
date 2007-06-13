@@ -70,9 +70,6 @@
 		  <div class="criteriaCol1 floatLeft">
 		    <h4 class="headerColor">Planning factor</h4>
 		  </div>
-		  <div class="criteriaCol2 floatLeft">
-		    <h4 class="headerColor">Description</h4>
-		  </div>
 		  <div class="criteriaCol3 floatLeft">
 		    <h4 class="headerColor">Related concern theme</h4>
 		  </div>
@@ -84,13 +81,10 @@
 		</c:if>
 		<c:forEach var="infoObject" items="${infoStructure.infoObjects}" varStatus="loop">
 		  <div id="criteria-${infoObject.object.criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
-		    <div class="criteriaCol1 floatLeft"><a href="#">
-		      <div class="floatLeft">
-				<a href="javascript:io.expandList('objectives${infoObject.object.criterion.id}','icon${infoObject.object.criterion.id}');"> <img src="/images/plus.gif" id="icon${infoObject.object.criterion.id}"></a>
-			  </div>
+		    <div class="criteriaCol1 floatLeft">
+				<div class="floatLeft"><a href="javascript:io.expandList('objectives${infoObject.object.criterion.id}','icon${infoObject.object.criterion.id}');"> <img src="/images/plus.gif" id="icon${infoObject.object.criterion.id}"></a></div>
 		      <div class="floatLeft"> ${infoObject.object.criterion.name}</div>
 		    </div>
-		    <div class="criteriaCol2 floatLeft">${infoObject.object.criterion.na}</div>
 		    <div class="criteriaCol3 floatLeft">
 		      <!--themes-->
 		      <c:if test="${fn:length(infoObject.object.criterion.themes) == 0}"> None

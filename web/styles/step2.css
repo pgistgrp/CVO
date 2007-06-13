@@ -36,7 +36,7 @@ text-align:left;
 
 .criteriaCol1
 {
-width:260px;
+width:590px;
 padding:0em .2em;
 }
 
@@ -47,6 +47,7 @@ vertical-align:middle;
 border:0px;
 }
 
+/* We got rid of col2 */
 .criteriaCol2
 {
 width:330px;
