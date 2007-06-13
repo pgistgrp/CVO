@@ -103,6 +103,8 @@
     	<property name="cstService" ref="cstService"/>
         <property name="criteriaService" ref="criteriaService"/>
         <property name="projectService" ref="projectService"/>
+        <property name="fundingService" ref="fundingService"/>
+        <property name="packageService" ref="packageService"/>
     </bean>
     
     
