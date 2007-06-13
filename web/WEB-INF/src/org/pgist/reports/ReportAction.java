@@ -147,7 +147,7 @@ public class ReportAction extends Action {
     	
     	while(it.hasNext()) {
     		UserPackage userPackage = (UserPackage) it.next();
-    		if(up.getAuthor().getId()==userInfo.getId()) {
+    		if(userPackage.getAuthor().getId()==userInfo.getId()) {
     			up = userPackage;
     			break;
     		}
