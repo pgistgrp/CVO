@@ -147,9 +147,10 @@ public class ReportAction extends Action {
     	
     	while(it.hasNext()) {
     		UserPackage userPackage = (UserPackage) it.next();
-    		if(userPackage.getAuthor().getId()==userInfo.getId()) {
+    		if(userPackage.getAuthor().getId().equals(userInfo.getId())) {
     			up = userPackage;
-    			break;
+    			request.setAttribute("found", "yes");
+    			request.setAttribute("size", up.getProjAltRefs().size());
     		}
     	}
     	
