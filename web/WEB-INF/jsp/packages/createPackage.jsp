@@ -510,7 +510,7 @@
 									<!-- begin PROJECT -->
 									<tr class="${(projectRef.project.inclusive) ? 'fundingType' : 'fundingType2'}">
 										<td class="fundingSourceItem">${projectRef.project.name} Options</td>
-										<td colspan="2"> ${(projectRef.project.inclusive) ? 'Select at most one' : 'Select any number'} </td>
+										<td colspan="2"> ${(projectRef.project.inclusive) ? '' : ''} </td>
 									</tr>
 									<!-- end PROJECT -->
 									<tr class="objectives" id="objective${projectRef.id}">
@@ -604,7 +604,7 @@
 						<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
 							<tr class="fundingType">
 								<td class="fundingSourceItem">${fundingRef.source.name}</td>
-								<td colspan="3">One option will be chosen</td>
+								<td colspan="3"></td>
 							</tr>
 							<!-- end FUNDING source -->
 							<!-- begin OPTIONS -->
