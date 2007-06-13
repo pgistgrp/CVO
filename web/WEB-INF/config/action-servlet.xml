@@ -105,6 +105,9 @@
         <property name="packageService" ref="packageService"/>
     </bean>
     
+    <bean name="/reportsummary" class="org.pgist.reports.ReportSummaryAction">
+    </bean>
+    
     
     <bean name="/publicprofile" class="org.pgist.system.UserProfileAction">
         <property name="systemService" ref="systemService"/>

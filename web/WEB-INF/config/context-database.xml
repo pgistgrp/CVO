@@ -38,6 +38,7 @@
         </property>
         <property name="mappingResources">
            <list>
+           	<value>org/pgist/reports/ReportSummary.hbm.xml</value>
                <value>org/pgist/system/RecoverPassword.hbm.xml</value>
                <value>org/pgist/system/EmailTemplate.hbm.xml</value>
                <value>org/pgist/system/Feedback.hbm.xml</value>

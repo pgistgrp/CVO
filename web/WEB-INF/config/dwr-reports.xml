@@ -12,14 +12,6 @@
       <param name="include" value="id, loginname, firstname, lastname, password, email, enabled, deleted, internal, city, zipcode, workZipcode, profileDesc, primaryTransport, vocation"/>
     </convert>
     
-    <convert converter="bean" match="org.pgist.projects.ProjectAltRef"/>
-    <convert converter="bean" match="org.pgist.projects.ProjectAlternative"/>
-    <convert converter="bean" match="org.pgist.packages.Package"/>
-    <convert converter="bean" match="org.pgist.packages.UserPackage"/>
-    <convert converter="bean" match="org.pgist.funding.FundingSource"/>      
-    <convert converter="bean" match="org.pgist.funding.FundingSourceAlternative"/>
-    <convert converter="bean" match="org.pgist.packages.FundingSourceDTO"/>
-    <convert converter="bean" match="org.pgist.packages.FundingSourceAlternativeDTO"/>
     
     <convert converter="bean" match="org.pgist.users.Role">
       <param name="include" value="id, name, description, deleted, internal"/>
