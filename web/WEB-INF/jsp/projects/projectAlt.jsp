@@ -22,7 +22,7 @@
 #### -->
 
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html:html xmlns:v="urn:schemas-microsoft-com:vml">
+<html xmlns:v="urn:schemas-microsoft-com:vml">
 	<head>
 	<title>Let's Improve Transportation: ${reference.alternative.project.name} - ${reference.alternative.name}</title>
 	<!-- Site Wide CSS -->
@@ -323,4 +323,4 @@ the column labels. */
 	<pg:feedback id="feedbackDiv" action="cctView.do"/>
 	<!-- end feedback form -->
 	</body>
-</html:html>
+</html>

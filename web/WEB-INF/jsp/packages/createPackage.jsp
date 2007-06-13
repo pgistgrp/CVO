@@ -559,7 +559,6 @@
 																			<input type="checkbox" ${(pg:containsProjAltRef(package.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToPkg('${altRef.id}', this.checked,'${altRef.alternative.id}');" />
 																		</c:otherwise>
 																	</c:choose>
-															
 																</c:otherwise>
 															</c:choose>
 															${altRef.alternative.name}</label>
