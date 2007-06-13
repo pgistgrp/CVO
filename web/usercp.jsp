@@ -367,7 +367,7 @@ function formOther(){
 					
 					<div id="transOther" style="display:none">
 						<strong>Please explain</strong><br>
-						<html:text property="transOther" value=""/>
+						<html:text property="primaryTransport" value=""/>
 					</div>
 
 				</p>

@@ -560,8 +560,8 @@ public class CSTServiceImpl implements CSTService {
         
         cstDAO.save(theme);
     }//saveSummary()
-
-
+    
+    
     public List getThemes(CCT cct) throws Exception {
         List themes = new ArrayList(cct.getRootCategory().getChildren().size());
         

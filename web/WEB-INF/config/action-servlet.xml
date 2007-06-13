@@ -98,6 +98,14 @@
     <bean name="/lmTutorial2" class="org.pgist.lm.LmTutorial2Action" />
     
     
+    <bean name="/reports" class="org.pgist.reports.ReportAction">
+    	<property name="cctService" ref="cctService"/>
+    	<property name="cstService" ref="cstService"/>
+        <property name="criteriaService" ref="criteriaService"/>
+        <property name="projectService" ref="projectService"/>
+    </bean>
+    
+    
     <bean name="/publicprofile" class="org.pgist.system.UserProfileAction">
         <property name="systemService" ref="systemService"/>
         <property name="profileService" ref="profileService"/>

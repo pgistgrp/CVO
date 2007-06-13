@@ -70,7 +70,10 @@
 
         <action path="/publicprofile" scope="request" type="org.pgist.system.UserProfileAction" />
 
-
+	<action path="/reports" scope="request" type="org.pgist.reports.ReportAction">
+            <forward name="reports" path="/WEB-INF/jsp/reports/report.jsp" />
+        </action>
+        
 	<action path="/lmAlt" scope="request" type="org.pgist.lm.LmAltAction">
             <forward name="main" path="/WEB-INF/jsp/lm/lmAlt.jsp" />
         </action>
