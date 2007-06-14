@@ -105,7 +105,7 @@ tinyMCE.init({
 		
 		var editingThemeId = '';
 		function getThemes(themeId){
-			Util.loading(true,"Working")
+			Util.loading(true,"Working");
 			CSTAgent.getThemes({cctId:cctId,asHTML:true}, {
 			callback:function(data){
 				if (data.successful){
@@ -233,20 +233,17 @@ tinyMCE.init({
 		}
 
 		function relateTag(tagId){
-			$('savingIndicator').style.display = "inline";
 			if(currentCategory == null)return;
 			Util.loading(true,"Working")
 			CSTAgent.relateTag({cctId:cctId, categoryId:currentCategory.dataId, tagId:tagId}, {
 			callback:function(data){
 					if (data.successful){
-						Effect.Fade('savingIndicator');
 						//new Effect.Fade('tag' + tagId, {duration: 0.5, afterFinish: function(){getTags(currentCategory.dataId, 0, 1, tagId);getTags(currentCategory.dataId, 0, 0, tagId);}});
 						getTags(currentCategory.dataId, 0, 1, tagId);
 						getTags(currentCategory.dataId, 0, 0, tagId);
 					}
 					if (data.successful != true){
 						alert(data.reason);
-						Effect.Fade('savingIndicator');
 					}
 				Util.loading(false);
 				},
@@ -259,20 +256,18 @@ tinyMCE.init({
 
 		
 		function derelateTag(categoryId, tagId){
-			$('savingIndicator').style.display = "inline";
+
 				Util.loading(true,"Working");
 				CSTAgent.derelateTag({cctId:cctId, categoryId:categoryId, tagId:tagId}, {
 				callback:function(data){
 						if (data.successful){
 									//new Effect.SwitchOff('tag' + tagId);
 									//new Effect.Fade('tag'+tagId, {duration: 0.5, afterFinish: function(){getTags(categoryId, 0, 1, tagId);getTags(categoryId, 0, 0, tagId);}});
-									Effect.Fade('savingIndicator');
 									getTags(categoryId, 0, 1, tagId);
 									getTags(categoryId, 0, 0, tagId);
 						}
 						if (data.successful != true){
 							alert(data.reason);
-							Effect.Fade('savingIndicator');
 						}
 					Util.loading(false)
 					},
@@ -384,7 +379,7 @@ tinyMCE.init({
 					}
 					
 					if (data.successful != true){
-						Effect.Fade('savingIndicator');
+
 						alert(data.reason);
 					}
 				Util.loading(false)
@@ -405,7 +400,6 @@ tinyMCE.init({
 		
 		if(tree1.lastSelected!=null){
 			if(confirm("Are you sure you want to delete category \"" + tree1.lastSelected.parentObject.label + "\"")){
-				$('savingIndicator').style.display = "inline";
 				if(tree1.lastSelected.parentObject.parentObject.id == 0)
 					var params = {cctId: cctId, categoryId: tree1.lastSelected.parentObject.dataId};
 				else
@@ -414,7 +408,6 @@ tinyMCE.init({
 				CSTAgent.deleteCategory(params, {
 							callback:function(data){
 								if (data.successful){
-									Effect.Fade('savingIndicator');
 									tree1.deleteSelectedItem();
 									new Effect.SlideUp('col-crud-options',{duration: .5});
 									getThemes(); 
@@ -432,12 +425,10 @@ tinyMCE.init({
 		
 		var newtext = document.getElementById("selcatetext").value;
 		if(tree1.lastSelected!=null && newtext!=""){
-			$('savingIndicator').style.display = "inline";
 			var params = {cctId: cctId, categoryId: tree1.lastSelected.parentObject.dataId, name:newtext};
 			CSTAgent.editCategory(params, {
 						callback:function(data){
 							if (data.successful){
-								Effect.Fade('savingIndicator');
 								tree1.modifyItemName(tree1.lastSelected.parentObject.dataId, newtext);
 								new Effect.Fade('col-option'); 
 								getThemes();
@@ -574,7 +565,6 @@ tinyMCE.init({
 	}
 	
 	function copyNodeHandler(sourceO, targetO){
-		$('savingIndicator').style.display = "inline";
 		CSTAgent.copyCategory({cctId: cctId, categoryId: sourceO.dataId, parentId: targetO.dataId},{
 			callback:function(data){
 				if (data.successful){
@@ -582,7 +572,6 @@ tinyMCE.init({
 					tree1.selectItem(newID);
 					getThemes();
 					return true;
-					Effect.Fade('savingIndicator');
 				}
 				else return false;
 			},
@@ -597,7 +586,6 @@ tinyMCE.init({
 		if(tree1.lastSelected!=null){
 			var obj1 = tree1.lastSelected.parentObject;
 			var params = {cctId:cctId,categoryId:obj1.dataId, name:"Similar to "+ obj1.label};
-			$('savingIndicator').style.display = "inline";
 			if(obj1.parentObject.Id!=0)
 				params.parentId = obj1.parentObject.dataId;
 			CSTAgent.duplicateCategory(params, 
@@ -616,11 +604,9 @@ tinyMCE.init({
 					}
 					new Effect.Fade('col-option');
 					location.href="#colsTop";
-					Effect.Fade('savingIndicator');
 				}else
 					
 					alert(data.reason);
-					Effect.Fade('savingIndicator');
 			},
 			errorHandler:function(errorString, exception){
 							alert(errorString+" "+exception);
