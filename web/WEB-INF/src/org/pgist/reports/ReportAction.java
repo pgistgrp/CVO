@@ -34,9 +34,12 @@ import java.util.Iterator;
  * 
  * The control will be forwarded to page with the mapping name of "reports", with the following variables available:<br>
  * <ul>
- *   <li>cr - a list or criteria references</li>
  *   <li>summaries - a list of themes</li>
- *   <li>pr - a list of project references</li>
+ *   <li>cr - a set or criterias</li>
+ *   <li>up - a set of user packages</li>
+ *   <li>cp - a set of clustered packages</li>
+ *   <li>pp - the preferred package</li> 
+ *   <li>vss - a set of voteSuiteStat objects</li>
  * </ul>
  * 
  * @author kenny
@@ -133,12 +136,16 @@ public class ReportAction extends Action {
     	// get preferred package
     	ClusteredPackage pp = reportService.getPreferredClusteredPackage(packSuiteId);
     	
+    	//get all vote suite stats
+    	Collection vss = reportService.getVoteSuiteStats(packSuiteId);
+    	
     	//Sets the Criteria References which contain criteria and grades.
     	request.setAttribute("summaries", summaries);
     	request.setAttribute("cr", cr);
     	request.setAttribute("up", up);
     	request.setAttribute("cp", cp);
     	request.setAttribute("pp", pp);
+    	request.setAttribute("vss", vss);
     	
         return mapping.findForward("reports");
     }//execute()

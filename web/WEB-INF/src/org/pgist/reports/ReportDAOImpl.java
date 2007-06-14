@@ -9,6 +9,7 @@ import org.pgist.packages.PackageSuite;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
@@ -67,5 +68,19 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		return bestVSS.getClusteredPackage();
 	}
 	
+	
+	public Collection getVoteSuiteStats(Long pkgSuiteId) throws Exception {
+		PackageSuite ps = (PackageSuite) load(PackageSuite.class, pkgSuiteId);
+		Set<PackageVoteSuite> voteSuites = ps.getVoteSuites();
+		
+		Set allVSS = new HashSet();
+		
+		for(PackageVoteSuite pvs : voteSuites) {
+			Set<VoteSuiteStat> votes = pvs.getStats();
+			allVSS.addAll(votes);
+		}
+		
+		return allVSS;
+	}
 	
 }
