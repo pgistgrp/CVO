@@ -382,7 +382,7 @@ tinyMCE.init({
 						data.newId);
 						document.getElementById("newcatetext").value = "";
 						getThemes();
-						top.location.reload()
+						top.location.reload();
 					}
 					
 					if (data.successful != true){
