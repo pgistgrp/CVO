@@ -7,7 +7,7 @@ function dosize(){
 		frameHeight = self.innerHeight;
 		windowWidth = frameWidth;
 	document.getElementById("cont-resize").style.height= (frameHeight) + "px;";
-	document.getElementById("myTab").style.height= ((frameHeight*.6)-74) + "px;";
+	document.getElementById("myTab").style.height= ((frameHeight*.6)-32) + "px;";
 	}
 	else if (document.documentElement && document.documentElement.clientWidth)
 	{
@@ -15,7 +15,7 @@ function dosize(){
 		frameHeight = document.documentElement.clientHeight;
 		windowWidth = frameWidth;
 	document.getElementById("cont-resize").style.height= (frameHeight);
-	document.getElementById("myTab").style.height= ((frameHeight*.6)-74) + "px;";
+	document.getElementById("myTab").style.height= ((frameHeight*.6)-32) + "px;";
 	}
 	else if (document.body)
 	{
@@ -23,7 +23,7 @@ function dosize(){
 		frameHeight = document.body.clientHeight;
 		windowWidth = frameWidth;
 	document.getElementById("cont-resize").style.height= (frameHeight);
-	document.getElementById("myTab").style.height= ((frameHeight*.6)-74) + "px;";
+	document.getElementById("myTab").style.height= ((frameHeight*.6)-32) + "px;";
 
 	}
 	else return;
