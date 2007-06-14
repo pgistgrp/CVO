@@ -33,7 +33,7 @@ ul.tabbernav
  margin:0;
  padding: 3px 0;
  border-bottom: 1px solid #F2E3EB;
- font-size: 10px;
+ font-size: 10pt;
 }
 
 ul.tabbernav li
@@ -48,42 +48,39 @@ ul.tabbernav li a
 	
  padding: 3px 0.5em;
  margin-left: 3px;
- border: 1px solid #E9EFD3;
+ border: 1px solid #C6D78C;
  border-bottom: none;
- background: #FFF;
+ background: auto;
+ color:#000;
  text-decoration: none;
  padding-bottom: 5px;
 }
 
-ul.tabbernav li a:link { color: #666; }
-ul.tabbernav li a:visited { color: #666; }
+ul.tabbernav li a:link { color: #000; }
+ul.tabbernav li a:visited { color: #000; }
 
 ul.tabbernav li a:hover
 {
- color: #C0C0C0;
- background-color: #EBEFF2;
- border-color: #CCCCCC;
- /*border-top: 2px solid #FF67B3;*/
+ color: #000;
+ background-color: #E1F1C5;
+ border-color: #C6D78C;
+ border-top: 3px solid #5F6F40;
 }
 
 ul.tabbernav li.tabberactive a
 {
-
- font-size: 12px;
  font-weight: bold;
- background-color: #E9EFD3;
- border-bottom: 1px solid #E9EFD3;
- /*border-top: 2px solid #FF67B3;*/
- color: #0061A8;
+ background-color: #E1F1C5;
+ margin-bottom:-1px;
+ border-top: 3px solid #5F6F40;
+ color: #000;
  /*cool pink color color: #FF67B3; */
 }
 
 ul.tabbernav li.tabberactive a:hover
 {
-	 color: #0061A8;
-	 background: #E9EFD3;
-	 border-bottom: 1px solid #E9EFD3;
-	 border-color: #E9EFD3;
+
+	 background-color: #E1F1C5;
 }
 
 /*--------------------------------------------------

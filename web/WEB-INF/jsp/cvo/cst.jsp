@@ -16,7 +16,6 @@
 	<style type="text/css" media="screen">@import "/styles/lit.css";</style>
 
 	<script type="text/javascript" src="/scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
- 	<!--JavaScript Libraries -->
  	<script src="/scripts/prototype.js" type="text/javascript"></script>
  	<script src="/scripts/rico_simple.js" type="text/javascript"></script>
  	<script src="/scripts/tabcookies.js" type="text/javascript"></script>
@@ -38,7 +37,6 @@
 	
 	<!-- Template 5 Specific -->
 	<style type="text/css" media="screen">@import "/styles/template5.css";</style>
-	<script src="/scripts/resize_t5.js" type="text/javascript"></script>
 	<script src="/scripts/util.js" type="text/javascript"></script>
 	<!-- End Template 5 Specific -->
 	
@@ -418,7 +416,7 @@ tinyMCE.init({
 								if (data.successful){
 									Effect.Fade('savingIndicator');
 									tree1.deleteSelectedItem();
-									new Effect.PhaseOut('col-crud-options');
+									new Effect.SlideUp('col-crud-options',{duration: .5});
 									getThemes(); 
 								}
 							},
@@ -501,7 +499,7 @@ tinyMCE.init({
 		getTags(clickid, 0, 1, 1);
 		
 		if ($('col-crud-options').style.display == 'none'){
-		new Effect.PhaseIn('col-crud-options'); 
+		new Effect.SlideDown('col-crud-options',{duration: .5}); 
 	}else{
 		new Effect.Highlight('col-crud-options');
 	}
@@ -612,7 +610,7 @@ tinyMCE.init({
 					//treeClickHandler(data.newId, data.newId, "Similar to "+ obj1.label)
 					getThemes();
 					if ($('col-crud-options').style.display == 'none'){
-						new Effect.PhaseIn('col-crud-options'); 
+						new Effect.SlideDown('col-crud-options',{duration: .5}); 
 					}else{
 						new Effect.Highlight('col-crud-options');
 					}
@@ -697,11 +695,16 @@ border:1px solid #B4D579;
 button#ss{font-size:12pt;padding:5px;}
 
 #sidebar_tags_header{border:1px solid #B4D579;}
+#col-left{width:31%;height:450px;_height:409px;}
+#col {width:29%;padding-left:10px;height:450px;}
+#col-right{width:37%;height:418px;}
+
+
 </style>
 <event:pageunload />
 </head>
 
-<body onResize="dosize()" onkeydown="globalKeyHandler(event);">
+<body onkeydown="globalKeyHandler(event);">
 	<div id="savingIndicator" style="display: none; background-color:#FF0000;position:fixed;">&nbsp;Saving...<img src="/images/indicator.gif">&nbsp;</div>
 <div id="header">
 	<!-- Begin header -->
@@ -713,6 +716,9 @@ button#ss{font-size:12pt;padding:5px;}
 <div id="headerMenu"></div>
 <div id="container">
 	<div id="cont-resize">
+		<p><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">
+			Back to Moderator Control Panel</a></p>
+		<h2 class="headerColor">Concerns Synthesis Tool</h2>
 		<a name="colsTop"></a>
 		<div id="topMenu2">
 			<input type="button" value="Unselect All" onclick="unselectall(true);">
@@ -759,17 +765,17 @@ button#ss{font-size:12pt;padding:5px;}
 			
 			<div id="col-crud-options" style="display:none;">
 					<span class="closeBox">
-						<a href="javascript: new Effect.PhaseOut('col-crud-options'); void(0);">
+						<a href="javascript: new Effect.SlideUp('col-crud-options',{duration: .5}); void(0);">
 							<img src="images/close.gif" border="0" alt="Hide" name="Hide" class="button" style="margin-bottom:3px;" id="hide" onMouseOver="MM_swapImage('hide','','images/close1.gif',1)" onMouseOut="MM_swapImgRestore()">
 							</a>
 					</span>
 				<strong>Editing Options: </strong>
 					<input type="button" onclick="javascript: deleteSelectedCategory();" value="Delete">
-					<input type="button" cnclick="javascript: new Effect.PhaseOut('col-crud-options'); void(0); new Effect.Appear('col-option'); void(0);" value="Rename" />
+					<input type="button" cnclick="javascript: new Effect.SlideUp('col-crud-options', {duration: .5}); void(0); new Effect.SlideDown('col-option',{duration: .5}); void(0);" value="Rename" />
 					<input type="button" onclick="javascript:duplicateSelectedCategory();" value="Duplicate" />
 			</div>
 			
-			<div id="col-option" style="display: none;"><span class="closeBox"><a href="javascript: new Effect.PhaseIn('col-crud-options'); void(0); new Effect.Fade('col-option'); void(0);">back to all options</a></span>
+			<div id="col-option" style="display: none;"><span class="closeBox"><a href="javascript: new Effect.SlideDown('col-crud-options',{duration: .5}); void(0); new Effect.Fade('col-option'); void(0);">back to all options</a></span>
 				<h4>Editing Options</h4>
 				Rename to: <form name="modifyCategory" action="" method="GET" onsubmit="javascript: modifySelectedCategory(); return false;"><input type="text" style="width: 50%;" id="selcatetext" onkeydown="checkaddcategory(event)"><input type="button" id="btnNewName" value="Modify" onclick="modifySelectedCategory();"></form><br>
 			</div>
@@ -782,7 +788,6 @@ button#ss{font-size:12pt;padding:5px;}
 			
 				<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->	
 				<script type="text/javascript">
-					dosize();
 					doOnLoad();
 					getThemes();
 					
@@ -816,15 +821,12 @@ button#ss{font-size:12pt;padding:5px;}
 
 <!--end feedback form-->
 
-<!-- Start Footer -->
-	<div id="header">
-		<!-- Begin header -->
-		<jsp:include page="/footer.jsp" />
-		<!-- End header -->
-	</div>
-	<!-- End header -->
 	<!-- Begin header menu - The wide ribbon underneath the logo -->
 	<div id="headerMenu"></div>
+<!-- Start Footer -->
+	<div id="footer">
+		<jsp:include page="/footer.jsp" />
+	</div>
 <!-- End Footer -->
 <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
 </script>
