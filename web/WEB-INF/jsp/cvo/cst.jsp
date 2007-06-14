@@ -371,7 +371,6 @@ tinyMCE.init({
 	function addcategory(){
 		
 		if(document.getElementById("newcatetext").value != ""){
-			$('savingIndicator').style.display = "inline";
 			var catname = document.getElementById("newcatetext").value;
 			var parentId = (tree1.lastSelected) ? tree1.lastSelected.parentObject.dataId : 0;
 			//alert("new cate: " + catname + "; parent=" + parentId);
@@ -383,8 +382,7 @@ tinyMCE.init({
 						data.newId);
 						document.getElementById("newcatetext").value = "";
 						getThemes();
-						Effect.Fade('savingIndicator');
-						/////to do: display a message...
+						top.location.reload()
 					}
 					
 					if (data.successful != true){
