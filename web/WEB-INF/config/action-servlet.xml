@@ -103,6 +103,7 @@
     	<property name="cstService" ref="cstService"/>
         <property name="criteriaService" ref="criteriaService"/>
         <property name="packageService" ref="packageService"/>
+        <property name="reportService" ref="reportService"/>
     </bean>
     
     <bean name="/reportsummary" class="org.pgist.reports.ReportSummaryAction">

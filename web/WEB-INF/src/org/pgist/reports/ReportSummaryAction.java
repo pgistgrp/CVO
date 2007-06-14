@@ -18,7 +18,22 @@ public class ReportSummaryAction extends Action  {
 	            javax.servlet.http.HttpServletResponse response
 	    ) throws java.lang.Exception {
 	    	
-
+		 	ReportForm rForm = (ReportForm) form;
+		 	
+		 	//Set ReportSummary
+		 	
+		 	if (!rForm.isSave()) return mapping.findForward("reportsummary");
+		 	
+		 	
+		 	String executiveSummary = rForm.getExecutiveSummary();
+		 	String participantsSummary = rForm.getParticipantsSummary();
+		 	String concernSummary = rForm.getConcernSummary();
+		 	String criteriaSummary = rForm.getCriteriaSummary();
+		 	String projectSummary = rForm.getProjectSummary();
+		 	String packageSummary = rForm.getPackageSummary();
+		 	
+		 	
+		 	
 	    	
 	        return mapping.findForward("reportsummary");
 	    }//execute()

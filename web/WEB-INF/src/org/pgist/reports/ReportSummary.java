@@ -116,4 +116,5 @@ public class ReportSummary implements Serializable {
 		this.projectSummary = projectSummary;
 	}
 	
+	
 } //class ReportSummary

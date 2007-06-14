@@ -9,15 +9,10 @@ import org.pgist.criteria.CriteriaSuite;
 import org.pgist.cvo.CSTService;
 import org.pgist.cvo.CCTService;
 import org.pgist.cvo.CCT;
-import org.pgist.projects.ProjectService;
-import org.pgist.projects.ProjectSuite;
-import org.pgist.projects.ProjectRef;
-import org.pgist.funding.FundingService;
-import org.pgist.funding.FundingSourceSuite;
 import org.pgist.packages.PackageService;
 import org.pgist.packages.PackageSuite;
 import org.pgist.packages.UserPackage;
-import org.pgist.users.User;
+import org.pgist.packages.ClusteredPackage;
 import org.pgist.users.UserInfo;
 import org.pgist.util.WebUtils;
 
@@ -50,13 +45,17 @@ import java.util.Iterator;
 
 public class ReportAction extends Action {
 
+	private ReportService reportService;
 	private CCTService cctService;
 	private CSTService cstService;
 	private CriteriaService criteriaService;
-//	private ProjectService projectService;
-//	private FundingService fundingService;
+
 	private PackageService packageService;
 	
+
+	public void setReportService(ReportService reportService) {
+		this.reportService = reportService;
+	}
 
 	public void setCstService(CSTService cstService) {
 		this.cstService = cstService;
@@ -70,13 +69,6 @@ public class ReportAction extends Action {
 		this.criteriaService = criteriaService;
 	}
 	
-//	public void setProjectService(ProjectService projectService) {
-//		this.projectService = projectService;
-//	}
-//
-//	public void setFundingService(FundingService fundingService) {
-//		this.fundingService = fundingService;
-//	}
 
 	public void setPackageService(PackageService packageService) {
 		this.packageService = packageService;
@@ -91,8 +83,6 @@ public class ReportAction extends Action {
     	
     	String strCctId = request.getParameter("cctId");
     	String strCritSuiteId = request.getParameter("critSuiteId");
-//    	String strProjSuiteId = request.getParameter("projSuiteId");
-//    	String strFundSuiteId = request.getParameter("fundSuiteId");
     	String strPackSuiteId = request.getParameter("packSuiteId");
     	
         if (strCctId==null || "".equals(strCctId.trim())) {
@@ -103,14 +93,6 @@ public class ReportAction extends Action {
             request.setAttribute("error", "critSuiteId cannot be empty");
             return mapping.findForward("reports");
         }
-//        if (strProjSuiteId==null || "".equals(strProjSuiteId.trim())) {
-//            request.setAttribute("error", "projSuiteId cannot be empty");
-//            return mapping.findForward("reports");
-//        }
-//        if (strFundSuiteId==null || "".equals(strFundSuiteId.trim())) {
-//            request.setAttribute("error", "fundSuiteId cannot be empty");
-//            return mapping.findForward("reports");
-//        }
         if (strPackSuiteId==null || "".equals(strPackSuiteId.trim())) {
             request.setAttribute("error", "packSuiteId cannot be empty");
             return mapping.findForward("reports");
@@ -118,27 +100,19 @@ public class ReportAction extends Action {
         
         Long cctId = Long.parseLong(strCctId);
         Long critSuiteId = Long.parseLong(strCritSuiteId);
-//        Long projSuiteId = Long.parseLong(strProjSuiteId);
-//        Long fundSuiteId = Long.parseLong(strFundSuiteId);
+
         Long packSuiteId = Long.parseLong(strPackSuiteId);
 
-        //1, get Concern Summaries
+        // get Concern Summaries
         CCT cct = cctService.getCCTById(cctId);
         Collection summaries = cstService.getThemes(cct);
         
-        //2, get Criteria
+        // get Criteria
     	CriteriaSuite cs = criteriaService.getCriteriaSuiteById(critSuiteId);
     	Collection cr = cs.getReferences();
     	
-    	//3, get Project - not needed?
-//    	ProjectSuite ps = projectService.getProjectSuite(projSuiteId);
-//    	Collection pr = ps.getReferences();
-//    	
-//    	//4, get Funding - not needed?
-//    	FundingSourceSuite fs = fundingService.getFundingSuite(fundSuiteId);
-//    	Collection fr = fs.getReferences();
     	
-    	//5, get Packages
+    	// get Packages
     	PackageSuite pkgSuite = packageService.getPackageSuite(packSuiteId);
     	Collection userPkgs = pkgSuite.getUserPkgs();
     	UserInfo userInfo = WebUtils.currentUser();
@@ -156,18 +130,19 @@ public class ReportAction extends Action {
     	// get cluster packages
     	Collection cp = pkgSuite.getClusteredPkgs();
     	
+    	// get preferred package
+    	ClusteredPackage pp = reportService.getPreferredClusteredPackage(packSuiteId);
     	
     	//Sets the Criteria References which contain criteria and grades.
     	request.setAttribute("summaries", summaries);
     	request.setAttribute("cr", cr);
-//    	request.setAttribute("pr", pr);
-//    	request.setAttribute("fr", fr);
     	request.setAttribute("up", up);
     	request.setAttribute("cp", cp);
-    	
+    	request.setAttribute("pp", pp);
     	
         return mapping.findForward("reports");
     }//execute()
+
 
 
 } //ReportAction

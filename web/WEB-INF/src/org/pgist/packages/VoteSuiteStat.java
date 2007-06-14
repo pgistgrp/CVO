@@ -112,4 +112,6 @@ public class VoteSuiteStat {
 	public void setTotalVotes(Integer totalVotes) {
 		this.totalVotes = totalVotes;
 	}	    
+	
+	
 }
