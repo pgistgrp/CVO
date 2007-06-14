@@ -153,6 +153,9 @@ public class ReportAction extends Action {
     		}
     	}
     	
+    	// get cluster packages
+    	Collection cp = pkgSuite.getClusteredPkgs();
+    	
     	
     	//Sets the Criteria References which contain criteria and grades.
     	request.setAttribute("summaries", summaries);
@@ -160,6 +163,7 @@ public class ReportAction extends Action {
 //    	request.setAttribute("pr", pr);
 //    	request.setAttribute("fr", fr);
     	request.setAttribute("up", up);
+    	request.setAttribute("cp", cp);
     	
     	
         return mapping.findForward("reports");
