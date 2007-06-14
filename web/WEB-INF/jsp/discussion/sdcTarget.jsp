@@ -35,7 +35,6 @@
 		</span>
 		<p>Does this summary reflect the group's concerns?</p>
 		<span id="structure_question">
-
 			<c:choose>
 				<c:when test="${voting == null}">
 					<a href="javascript:io.setVote('object',${infoObject.id}, 'true');"><img src="images/btn_thumbsup_large.png" alt="YES" class="floatRight" style="margin-right:5px;"><a href="javascript:io.setVote('object', ${infoObject.id}, 'false');"><img src="images/btn_thumbsdown_large.png" alt="NO" class="floatLeft" style="margin-left:5px;"></a></span>
