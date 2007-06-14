@@ -1018,8 +1018,29 @@ public class SDAgent {
         
         try {
             String type = null;
-            
-            if (ioid!=null) {
+            if(ioid != null && isid != null) {
+            	InfoStructure structure = sdService.getInfoStructureById(isid);
+            	InfoObject infoObject = sdService.getInfoObjectById(ioid);
+                
+                type = infoObject.getStructure().getType();
+                
+                YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_INFO_OBJECT, ioid);
+                if (voting!=null) {
+                    request.setAttribute("voting", voting);
+                    map.put("voting", voting);
+                }
+                
+                request.setAttribute("infoObject", infoObject);
+                
+                PageSource source = new PageSource();
+                map.put("source", source);
+                request.setAttribute("infoStructure", structure);
+                request.setAttribute(FragmentTag.FRAGMENT_TYPE, FragmentTag.HTML);
+                source.setHtml(WebContextFactory.get().forwardToString("/WEB-INF/jsp/discussion/"+type+"Target.jsp"));
+                
+                request.setAttribute(FragmentTag.FRAGMENT_TYPE, FragmentTag.SCRIPT);
+                source.setScript(WebContextFactory.get().forwardToString("/WEB-INF/jsp/discussion/"+type+"Target.jsp"));
+            } else if (ioid!=null) {
                 InfoObject infoObject = sdService.getInfoObjectById(ioid);
                 
                 type = infoObject.getStructure().getType();
