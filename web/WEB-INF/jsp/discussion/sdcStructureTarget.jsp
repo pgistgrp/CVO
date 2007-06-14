@@ -9,16 +9,16 @@
 
 <pg:fragment type="html">
 		<!-- Begin Breadcrumbs -->
-		<div id="breadCrumbs" class="floatLeft"> <a href="sd.do?isid=${structure.id}">Select
+		<div id="breadCrumbs" class="floatLeft"> <a href="sd.do?isid=${infoStructure.id}">Select
 				a Theme</a> &rarr; All Concern Themes</div>
 		<!-- End Breadcrumbs -->
 		<!-- jump to other room selection menu -->
 		<div class="floatRight"> Jump To:
 			<select name="selecttheme" id="selecttheme" 
-			onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">
+			onChange="javascript: location.href='sdRoom.do?isid=${infoStructure.id}&ioid=' + this.value;">
 				<option value = "${object.id}">Select a Theme</option>
 				<option value = "">Discussion of All Themes</option>
-				<c:forEach var="infoObject" items="${structure.infoObjects}">
+				<c:forEach var="infoObject" items="${infoStructure.infoObjects}">
 					<option value="${infoObject.id}">${infoObject.object}</option>
 				</c:forEach>
 			</select>
