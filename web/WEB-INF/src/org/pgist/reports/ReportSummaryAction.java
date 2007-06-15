@@ -20,7 +20,10 @@ public class ReportSummaryAction extends Action  {
 	    	
 		 	ReportForm rForm = (ReportForm) form;
 		 	
-		 	//Set ReportSummary
+		 	String pkgSuiteId = request.getParameter("pkgSuiteId");
+		 	//load pkgsuite
+		 	//get reportsummary class out og pkgsuite
+		 	//set reportsummary request.setAttribute("rs", rs);
 		 	
 		 	if (!rForm.isSave()) return mapping.findForward("reportsummary");
 		 	

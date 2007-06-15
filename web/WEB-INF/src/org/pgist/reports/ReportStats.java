@@ -1,6 +1,18 @@
 package org.pgist.reports;
 
-public class ReportStats {
+import java.io.Serializable;
+
+/**
+ * <span style="color:red;">POJO</span>: PGIST Announcement Class<br>
+ * <span style="color:red;">TABLE</span>: pgist_announcement
+ * 
+ * <p>Report statistics
+ * 
+ * @author John
+ * 
+ * @hibernate.class table="pgist_report_stats" lazy="true"
+ */
+public class ReportStats implements Serializable{
 
 	private Long id;
 	
