@@ -14,6 +14,10 @@
 	Author(s): 
 	     Front End: Jordan Isip, Adam Hindman
 	     Back End: John Le, Zhong Wang
+	[ ] Order project and funding sources within cp (John)
+	[ ] Appendix A and B hardcoded? (Matt and Kevin)
+	[ ] Package vote results (John and Jordan)
+	[ ] Statistics
 #### -->
 
 <html:html>
@@ -31,9 +35,11 @@
 	
 
 	<!--
-		Themes for summaries: ***${summaries}***<br />
-		Criteria References: ***${cr}***<br>
-		Project References: ***${pr}***
+		Themes for summaries: ***${summaries}***
+		Criteria References: ***${cr}***
+		Clustered Packages: ***${cp}***
+		Preferred Package: ***${pp}***
+		Vote Suite Stats: ***${vss}***
 	-->
 
 <div id="container">
@@ -174,7 +180,7 @@
 	<!-- End planning factors -->
 	<!-- Begin projects -->
 	<div id="projects" class="box3 padding5 section">
-		<h3 class="headingColor padding5 centerAlign"><a name="projects">3. Project selection
+		<h3 class="headingColor padding5 centerAlign"><a name="projects">3. Project selection, Funding selection, 
 				and personal package creation</a></h3>
 		<p>The third step began with a review and discussion of a list of 44 proposed transportation
 			improvement projects. This was followed by a review and discussion of available
@@ -197,19 +203,56 @@
 					<td colspan="5"><p>You did not select any projects when you created your package.</p></td>
 				</tr>
 			</c:if>
-			<c:forEach var="ref" items="${up.projAltRefs}" varStatus="loop">
-				<tr class="project" colspan="5">
-					<td>${ref.project.name}</td>
-				</tr>
-				<c:forEach var="altRef" items="${ref.altRefs}" varStatus="loop">
-					<tr class="project-options">
-						<td class="col1">${altRef.alternative.name}</td>
-						<td class="col2">$<fmt:formatNumber type="number">${altRef.alternative.cost}</fmt:formatNumber>  million</td>
-						<td class="col3">${altRef.alternative.county}</td>
-						<td class="col4">145 of 212</td>
-						<td class="col5">65%</td>
+			
+			<c:set var="prevProj" value="" />
+			<c:forEach var="altRef" items="${up.projAltRefs}" varStatus="loop">
+				<c:if test="${prevProj != altRef.projectRef.project.name}"> <!--workaround -->
+					<tr class="project" colspan="5">
+						<td>${altRef.projectRef.project.name}</td>
 					</tr>
-				</c:forEach>
+				</c:if>
+				<c:set var="prevProj" value="altRef.projectRef.project.name" />
+				
+				<tr class="project-options">
+					<td class="col1">${altRef.alternative.name}</td>
+					<td class="col2">$<fmt:formatNumber type="number">${altRef.alternative.cost}</fmt:formatNumber>  million</td>
+					<td class="col3">${altRef.alternative.county}</td>
+					<td class="col4">145 of 212</td>
+					<td class="col5">65%</td>
+				</tr>
+			</c:forEach>
+		</table>
+		
+		<table cellpadding=0 cellspacing=0>
+			<tr class="tableHeading">
+				<th class="col1">Funding source</th>
+				<th class="col2">Money raised</th>
+				<th class="col3">Annual cost to average resident</th>
+				<th class="col4">Number of participants who selected</th>
+				<th class="col5">% of participants who selected</th>
+			</tr>
+			<c:if test="${fn:length(up.fundAltRefs) == 0}">
+				<tr colspan="5">
+					<td colspan="5"><p>You did not select any funding sources when you created your package.</p></td>
+				</tr>
+			</c:if>
+			
+			<c:set var="prevFund" value="" />
+			<c:forEach var="altRef" items="${up.fundAltRefs}" varStatus="loop">
+				<c:if test="${prevFund != altRef.sourceRef.source.name}"> <!--workaround -->
+					<tr class="project" colspan="5">
+						<td>${altRef.sourceRef.source.name}</td>
+					</tr>
+				</c:if>
+				<c:set var="prevFund" value="altRef.sourceRef.project.name" />
+				
+				<tr class="project-options">
+					<td class="col1">${altRef.alternative.name}</td>
+					<td class="col2">$<fmt:formatNumber type="number">${altRef.alternative.revenue}</fmt:formatNumber>  million</td>
+					<td class="col3">${altRef.alternative.avgCost}</td>
+					<td class="col4">145 of 212</td>
+					<td class="col5">65%</td>
+				</tr>
 			</c:forEach>
 		</table>
 	</div>
@@ -570,752 +613,91 @@
 	<!-- End Appendix B -->
 	<!-- Begin Appendix C -->
 	<div id="appendixC" class="box3 padding5 section"><a name="appendixC"></a>
-		<h3 class="headingColor padding5 centerAlign">Appendix C: The six candidate packages</h3>
+		<h3 class="headingColor padding5 centerAlign">Appendix C: The ${fn:length(cp)} candidate packages</h3>
 		<p>[Some static text here providing context]</p>
-		<div class="projSummary clearfix">
-			<h3 class="headingColor padding5 clearfix">
-				<span class="packageNum">Package 1</span>
-				<span class="totalCost">Total cost: $13 billion</span>
-				<span class="yearlyCostToAvg">Yearly cost to the average resident: $230/year</span>
-			</h3>
-			<div class="obj-left floatLeft clearBoth">
-				<!--Begin project list -->
-				<div class="listRow row heading">
-					<div class="projCol1 floatLeft" style="margin-left:.2em">
-						<div class="floatLeft">
-							<h4>Projects included in this package</h4>
+		
+			
+			<c:forEach var="cPkg" items="${cp}" varStatus="loop">
+			<div class="projSummary clearfix">
+				<h3 class="headingColor padding5 clearfix">
+					<span class="packageNum">${cPkg.description}</span>
+					<span class="totalCost">Total cost: $<fmt:formatNumber type="number">${cPkg.totalCost}</fmt:formatNumber> Million</span>
+					<span class="yearlyCostToAvg">Yearly cost to the average resident: $<fmt:formatNumber type="number">${cPkg.avgResidentCost}</fmt:formatNumber> per year</span>
+				</h3>
+				<div class="obj-left floatLeft clearBoth">
+					<!--Begin project list -->
+					<div class="listRow row heading">
+						<div class="projCol1 floatLeft" style="margin-left:.2em">
+							<div class="floatLeft">
+								<h4>Projects included in this package</h4>
+							</div>
 						</div>
-					</div>
-					<div class="projCol2 floatLeft">
-						<h4>Money Needed</h4>
-					</div>
-					<div class="projCol3 floatRight">
-						<h4>County</h4>
-					</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Alaskan Way Viaduct</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Replace viaduct with 6-lane tunnel</div>
-					</div>
-					<div class="projCol2 floatLeft">$5 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">SR 520 Floating Bridge</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">6-lane bridge with ramp to UW</div>
-					</div>
-					<div class="projCol2 floatLeft">$4 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Light Rail: Seattle to Eastside</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Light rail Seattle to Overlake with tunnel</div>
-					</div>
-					<div class="projCol2 floatLeft">$4 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">I-405 Improvements</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Two additional HOV lanes from SR 169 to I-90</div>
-					</div>
-					<div class="projCol2 floatLeft">$212 million</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Two additional HOV lanes from SR 520 to I-5</div>
-					</div>
-					<div class="projCol2 floatLeft">$345 million</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<!--End project list -->
-			</div>
-			<!-- end obj-left -->
-			<!-- begin obj-right -->
-			<div class="floatRight obj-right">
-				<!-- Begin funding sources table -->
-				<div class="listRow row heading">
-					<div class="fundingCol1 floatLeft" style="margin-left:.2em">
-						<div class="floatLeft">
-							<h4>Funding sources included in this package</h4>
+						<div class="projCol2 floatLeft">
+							<h4>Money Needed</h4>
 						</div>
+						<div class="projCol3 floatRight">
+							<h4>County</h4>
+						</div>
+						<div class="clearBoth"></div>
 					</div>
-					<div class="fundingCol2 floatRight">
-						<h4>Money raised</h4>
+					<c:set var="superName" value="" />
+					<c:forEach var="altRef" items="${cPkg.projAltRefs}" varStatus="loop">
+						<div class="listRow row">
+							<h4 class="subHeading">${(superName == altRef.projectRef.project.name) ? "" : altRef.projectRef.project.name}</h4>
+							<c:set var="superName" value="${altRef.projectRef.project.name}" />
+							<div class="clearBoth"></div>
+						</div>
+						<div class="listRow row">
+							<div class="projCol1 floatLeft">
+								<div class="floatLeft">${altRef.alternative.name}</div>
+							</div>
+							<div class="projCol2 floatRight">$<fmt:formatNumber type="number">${altRef.alternative.cost}</fmt:formatNumber> Million</div>
+							<div class="clearBoth"></div>
+						</div>
+					</c:forEach>
+					<!--End project list -->
+				</div>
+				<!-- end obj-left -->
+				<!-- begin obj-right -->
+				<div class="floatRight obj-right">
+					<!-- Begin funding sources table -->
+					<div class="listRow row heading">
+						<div class="fundingCol1 floatLeft" style="margin-left:.2em">
+							<div class="floatLeft">
+								<h4>Funding sources included in this package</h4>
+							</div>
+						</div>
+						<div class="fundingCol2 floatRight">
+							<h4>Money raised</h4>
+						</div>
+						<div class="clearBoth"></div>
 					</div>
-					<div class="clearBoth"></div>
+					<c:set var="superName" value="" />
+					<c:forEach var="altRef" items="${cPkg.fundAltRefs}" varStatus="loop">
+						<div class="listRow row">
+							<h4 class="subHeading">${(superName == altRef.sourceRef.source.name) ? "" : altRef.sourceRef.source.name}</h4>
+							<c:set var="superName" value="${altRef.sourceRef.source.name}" />
+							<div class="clearBoth"></div>
+						</div>
+						<div class="listRow row">
+							<div class="fundingCol1 floatLeft">
+								<div class="floatLeft">${altRef.alternative.name}</div>
+							</div>
+							<div class="fundingCol2 floatRight">$<fmt:formatNumber type="number">${altRef.alternative.revenue}</fmt:formatNumber> Million</div>
+							<div class="clearBoth"></div>
+						</div>
+					</c:forEach>
+					<!-- end funding sources table -->
+					<br />
 				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Gas Tax</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="fundingCol1 floatLeft">
-						<div class="floatLeft">2.3 cent increase per gallon</div>
-					</div>
-					<div class="fundingCol2 floatRight">400 million</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Sales Tax</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="fundingCol1 floatLeft">
-						<div class="floatLeft">0.07% increase</div>
-					</div>
-					<div class="fundingCol2 floatRight">1000 million</div>
-					<div class="clearBoth"></div>
-				</div>
-				<!-- end funding sources table -->
-				<br />
-			</div>
-			<!-- end obj-right -->
+				<!-- end obj-right -->
+
+			<br />
+			<br />
 		</div>
-		<br />
-		<br />
-		<div class="projSummary clearfix">
-			<h3 class="headingColor padding5 clearfix">
-				<span class="packageNum">Package 2</span>
-				<span class="totalCost">Total cost: $13 billion</span>
-				<span class="yearlyCostToAvg">Yearly cost to the average resident: $230/year</span>
-			</h3>
-			<div class="obj-left floatLeft clearBoth">
-				<!--Begin project list -->
-				<div class="listRow row heading">
-					<div class="projCol1 floatLeft" style="margin-left:.2em">
-						<div class="floatLeft">
-							<h4>Projects included in this package</h4>
-						</div>
-					</div>
-					<div class="projCol2 floatLeft">
-						<h4>Money Needed</h4>
-					</div>
-					<div class="projCol3 floatRight">
-						<h4>County</h4>
-					</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Alaskan Way Viaduct</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Replace viaduct with 6-lane tunnel</div>
-					</div>
-					<div class="projCol2 floatLeft">$5 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">SR 520 Floating Bridge</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">6-lane bridge with ramp to UW</div>
-					</div>
-					<div class="projCol2 floatLeft">$4 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Light Rail: Seattle to Eastside</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Light rail Seattle to Overlake with tunnel</div>
-					</div>
-					<div class="projCol2 floatLeft">$4 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">I-405 Improvements</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Two additional HOV lanes from SR 169 to I-90</div>
-					</div>
-					<div class="projCol2 floatLeft">$212 million</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Two additional HOV lanes from SR 520 to I-5</div>
-					</div>
-					<div class="projCol2 floatLeft">$345 million</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<!--End project list -->
-			</div>
-			<!-- end obj-left -->
-			<!-- begin obj-right -->
-			<div class="floatRight obj-right">
-				<!-- Begin funding sources table -->
-				<div class="listRow row heading">
-					<div class="fundingCol1 floatLeft" style="margin-left:.2em">
-						<div class="floatLeft">
-							<h4>Funding sources included in this package</h4>
-						</div>
-					</div>
-					<div class="fundingCol2 floatRight">
-						<h4>Money raised</h4>
-					</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Gas Tax</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="fundingCol1 floatLeft">
-						<div class="floatLeft">2.3 cent increase per gallon</div>
-					</div>
-					<div class="fundingCol2 floatRight">400 million</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Sales Tax</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="fundingCol1 floatLeft">
-						<div class="floatLeft">0.07% increase</div>
-					</div>
-					<div class="fundingCol2 floatRight">1000 million</div>
-					<div class="clearBoth"></div>
-				</div>
-				<!-- end funding sources table -->
-				<br />
-			</div>
-			<!-- end obj-right -->
-		</div>
-		<br />
-		<br />
-		<div class="projSummary clearfix">
-			<h3 class="headingColor padding5 clearfix">
-				<span class="packageNum">Package 3</span>
-				<span class="totalCost">Total cost: $13 billion</span>
-				<span class="yearlyCostToAvg">Yearly cost to the average resident: $230/year</span>
-			</h3>
-			<div class="obj-left floatLeft clearBoth">
-				<!--Begin project list -->
-				<div class="listRow row heading">
-					<div class="projCol1 floatLeft" style="margin-left:.2em">
-						<div class="floatLeft">
-							<h4>Projects included in this package</h4>
-						</div>
-					</div>
-					<div class="projCol2 floatLeft">
-						<h4>Money Needed</h4>
-					</div>
-					<div class="projCol3 floatRight">
-						<h4>County</h4>
-					</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Alaskan Way Viaduct</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Replace viaduct with 6-lane tunnel</div>
-					</div>
-					<div class="projCol2 floatLeft">$5 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">SR 520 Floating Bridge</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">6-lane bridge with ramp to UW</div>
-					</div>
-					<div class="projCol2 floatLeft">$4 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Light Rail: Seattle to Eastside</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Light rail Seattle to Overlake with tunnel</div>
-					</div>
-					<div class="projCol2 floatLeft">$4 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">I-405 Improvements</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Two additional HOV lanes from SR 169 to I-90</div>
-					</div>
-					<div class="projCol2 floatLeft">$212 million</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Two additional HOV lanes from SR 520 to I-5</div>
-					</div>
-					<div class="projCol2 floatLeft">$345 million</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<!--End project list -->
-			</div>
-			<!-- end obj-left -->
-			<!-- begin obj-right -->
-			<div class="floatRight obj-right">
-				<!-- Begin funding sources table -->
-				<div class="listRow row heading">
-					<div class="fundingCol1 floatLeft" style="margin-left:.2em">
-						<div class="floatLeft">
-							<h4>Funding sources included in this package</h4>
-						</div>
-					</div>
-					<div class="fundingCol2 floatRight">
-						<h4>Money raised</h4>
-					</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Gas Tax</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="fundingCol1 floatLeft">
-						<div class="floatLeft">2.3 cent increase per gallon</div>
-					</div>
-					<div class="fundingCol2 floatRight">400 million</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Sales Tax</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="fundingCol1 floatLeft">
-						<div class="floatLeft">0.07% increase</div>
-					</div>
-					<div class="fundingCol2 floatRight">1000 million</div>
-					<div class="clearBoth"></div>
-				</div>
-				<!-- end funding sources table -->
-				<br />
-			</div>
-			<!-- end obj-right -->
-		</div>
-		<br />
-		<br />
-		<div class="projSummary clearfix">
-			<h3 class="headingColor padding5 clearfix">
-				<span class="packageNum">Package 4</span>
-				<span class="totalCost">Total cost: $13 billion</span>
-				<span class="yearlyCostToAvg">Yearly cost to the average resident: $230/year</span>
-			</h3>
-			<div class="obj-left floatLeft clearBoth">
-				<!--Begin project list -->
-				<div class="listRow row heading">
-					<div class="projCol1 floatLeft" style="margin-left:.2em">
-						<div class="floatLeft">
-							<h4>Projects included in this package</h4>
-						</div>
-					</div>
-					<div class="projCol2 floatLeft">
-						<h4>Money Needed</h4>
-					</div>
-					<div class="projCol3 floatRight">
-						<h4>County</h4>
-					</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Alaskan Way Viaduct</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Replace viaduct with 6-lane tunnel</div>
-					</div>
-					<div class="projCol2 floatLeft">$5 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">SR 520 Floating Bridge</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">6-lane bridge with ramp to UW</div>
-					</div>
-					<div class="projCol2 floatLeft">$4 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Light Rail: Seattle to Eastside</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Light rail Seattle to Overlake with tunnel</div>
-					</div>
-					<div class="projCol2 floatLeft">$4 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">I-405 Improvements</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Two additional HOV lanes from SR 169 to I-90</div>
-					</div>
-					<div class="projCol2 floatLeft">$212 million</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Two additional HOV lanes from SR 520 to I-5</div>
-					</div>
-					<div class="projCol2 floatLeft">$345 million</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<!--End project list -->
-			</div>
-			<!-- end obj-left -->
-			<!-- begin obj-right -->
-			<div class="floatRight obj-right">
-				<!-- Begin funding sources table -->
-				<div class="listRow row heading">
-					<div class="fundingCol1 floatLeft" style="margin-left:.2em">
-						<div class="floatLeft">
-							<h4>Funding sources included in this package</h4>
-						</div>
-					</div>
-					<div class="fundingCol2 floatRight">
-						<h4>Money raised</h4>
-					</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Gas Tax</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="fundingCol1 floatLeft">
-						<div class="floatLeft">2.3 cent increase per gallon</div>
-					</div>
-					<div class="fundingCol2 floatRight">400 million</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Sales Tax</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="fundingCol1 floatLeft">
-						<div class="floatLeft">0.07% increase</div>
-					</div>
-					<div class="fundingCol2 floatRight">1000 million</div>
-					<div class="clearBoth"></div>
-				</div>
-				<!-- end funding sources table -->
-				<br />
-			</div>
-			<!-- end obj-right -->
-		</div>
-		<br />
-		<br />
-		<div class="projSummary clearfix">
-			<h3 class="headingColor padding5 clearfix">
-				<span class="packageNum">Package 5</span>
-				<span class="totalCost">Total cost: $13 billion</span>
-				<span class="yearlyCostToAvg">Yearly cost to the average resident: $230/year</span>
-			</h3>
-			<div class="obj-left floatLeft clearBoth">
-				<!--Begin project list -->
-				<div class="listRow row heading">
-					<div class="projCol1 floatLeft" style="margin-left:.2em">
-						<div class="floatLeft">
-							<h4>Projects included in this package</h4>
-						</div>
-					</div>
-					<div class="projCol2 floatLeft">
-						<h4>Money Needed</h4>
-					</div>
-					<div class="projCol3 floatRight">
-						<h4>County</h4>
-					</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Alaskan Way Viaduct</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Replace viaduct with 6-lane tunnel</div>
-					</div>
-					<div class="projCol2 floatLeft">$5 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">SR 520 Floating Bridge</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">6-lane bridge with ramp to UW</div>
-					</div>
-					<div class="projCol2 floatLeft">$4 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Light Rail: Seattle to Eastside</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Light rail Seattle to Overlake with tunnel</div>
-					</div>
-					<div class="projCol2 floatLeft">$4 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">I-405 Improvements</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Two additional HOV lanes from SR 169 to I-90</div>
-					</div>
-					<div class="projCol2 floatLeft">$212 million</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Two additional HOV lanes from SR 520 to I-5</div>
-					</div>
-					<div class="projCol2 floatLeft">$345 million</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<!--End project list -->
-			</div>
-			<!-- end obj-left -->
-			<!-- begin obj-right -->
-			<div class="floatRight obj-right">
-				<!-- Begin funding sources table -->
-				<div class="listRow row heading">
-					<div class="fundingCol1 floatLeft" style="margin-left:.2em">
-						<div class="floatLeft">
-							<h4>Funding sources included in this package</h4>
-						</div>
-					</div>
-					<div class="fundingCol2 floatRight">
-						<h4>Money raised</h4>
-					</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Gas Tax</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="fundingCol1 floatLeft">
-						<div class="floatLeft">2.3 cent increase per gallon</div>
-					</div>
-					<div class="fundingCol2 floatRight">400 million</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Sales Tax</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="fundingCol1 floatLeft">
-						<div class="floatLeft">0.07% increase</div>
-					</div>
-					<div class="fundingCol2 floatRight">1000 million</div>
-					<div class="clearBoth"></div>
-				</div>
-				<!-- end funding sources table -->
-				<br />
-			</div>
-			<!-- end obj-right -->
-		</div>
-		<br />
-		<br />
-		<div class="projSummary clearfix">
-			<h3 class="headingColor padding5 clearfix">
-				<span class="packageNum">Package 6</span>
-				<span class="totalCost">Total cost: $13 billion</span>
-				<span class="yearlyCostToAvg">Yearly cost to the average resident: $230/year</span>
-			</h3>
-			<div class="obj-left floatLeft clearBoth">
-				<!--Begin project list -->
-				<div class="listRow row heading">
-					<div class="projCol1 floatLeft" style="margin-left:.2em">
-						<div class="floatLeft">
-							<h4>Projects included in this package</h4>
-						</div>
-					</div>
-					<div class="projCol2 floatLeft">
-						<h4>Money Needed</h4>
-					</div>
-					<div class="projCol3 floatRight">
-						<h4>County</h4>
-					</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Alaskan Way Viaduct</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Replace viaduct with 6-lane tunnel</div>
-					</div>
-					<div class="projCol2 floatLeft">$5 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">SR 520 Floating Bridge</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">6-lane bridge with ramp to UW</div>
-					</div>
-					<div class="projCol2 floatLeft">$4 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Light Rail: Seattle to Eastside</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Light rail Seattle to Overlake with tunnel</div>
-					</div>
-					<div class="projCol2 floatLeft">$4 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">I-405 Improvements</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Two additional HOV lanes from SR 169 to I-90</div>
-					</div>
-					<div class="projCol2 floatLeft">$212 million</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Two additional HOV lanes from SR 520 to I-5</div>
-					</div>
-					<div class="projCol2 floatLeft">$345 million</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<!--End project list -->
-			</div>
-			<!-- end obj-left -->
-			<!-- begin obj-right -->
-			<div class="floatRight obj-right">
-				<!-- Begin funding sources table -->
-				<div class="listRow row heading">
-					<div class="fundingCol1 floatLeft" style="margin-left:.2em">
-						<div class="floatLeft">
-							<h4>Funding sources included in this package</h4>
-						</div>
-					</div>
-					<div class="fundingCol2 floatRight">
-						<h4>Money raised</h4>
-					</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Gas Tax</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="fundingCol1 floatLeft">
-						<div class="floatLeft">2.3 cent increase per gallon</div>
-					</div>
-					<div class="fundingCol2 floatRight">400 million</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Sales Tax</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="fundingCol1 floatLeft">
-						<div class="floatLeft">0.07% increase</div>
-					</div>
-					<div class="fundingCol2 floatRight">1000 million</div>
-					<div class="clearBoth"></div>
-				</div>
-				<!-- end funding sources table -->
-				<br />
-			</div>
-			<!-- end obj-right -->
-		</div>
-		<br />
-	</div>
+		</c:forEach>
+		
+	
 	<!-- End Appendix C -->
 </body>
 </html:html>
