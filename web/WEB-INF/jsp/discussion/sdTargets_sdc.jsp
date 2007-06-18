@@ -14,7 +14,8 @@
 
 <div class="themeBox floatLeft">
 			<h3 class="headerColor"><a style="text-transform:capitalize;" href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</a></h3>
-			<p>"${fn:substring(infoObject.object.theme.summary, 0, 200)}"
+			<!-- We set the substring to begin at the 5th character to remove an extra paragraph tag. It was 0-->
+			<p>"${fn:substring(infoObject.object.theme.summary,5, 200)}"
 				
 			<span class="smallText"> ... <a style="text-transform:capitalize;" href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">More</a></span></p>
 			<span class="smallText"><span id="topicCount">
