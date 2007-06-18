@@ -82,7 +82,7 @@ public abstract class Package implements Serializable {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="suite_id" cascade="none" lazy="true"
+     * @hibernate.many-to-one column="suite_id" cascade="all" lazy="true"
      */
     public PackageSuite getSuite() {
         return suite;

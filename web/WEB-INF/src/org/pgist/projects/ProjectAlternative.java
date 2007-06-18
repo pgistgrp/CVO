@@ -265,7 +265,7 @@ public class ProjectAlternative implements Serializable, Comparable {
 
 	/**
      * @return
-     * @hibernate.many-to-one column="project_id" cascade="none"
+     * @hibernate.many-to-one column="project_id" cascade="all"
      */
 	public Project getProject(){
 		return this.project;

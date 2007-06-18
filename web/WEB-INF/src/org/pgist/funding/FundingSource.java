@@ -145,7 +145,7 @@ public class FundingSource implements Serializable {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="alternative_id" cascade="none"
+     * @hibernate.many-to-one column="alternative_id" cascade="all"
      */
     public FundingSourceAlternative getSelected() {
         return selected;

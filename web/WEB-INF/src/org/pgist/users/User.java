@@ -185,7 +185,7 @@ public class User extends BaseUser {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="commute_id" cascade="none"
+     * @hibernate.many-to-one column="commute_id" cascade="all"
      */
     public UserCommute getUserCommute() {
         return commute;

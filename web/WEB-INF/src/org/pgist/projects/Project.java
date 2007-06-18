@@ -165,7 +165,7 @@ public class Project implements Serializable {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="alternative_id" cascade="none"
+     * @hibernate.many-to-one column="alternative_id" cascade="all"
      */
     public ProjectAlternative getSelected() {
         return selected;

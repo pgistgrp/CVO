@@ -66,7 +66,7 @@ public class UserPackage extends Package {
     
     
     /**
-     * @hibernate.many-to-one column="user_id" cascade="none" lazy="true"
+     * @hibernate.many-to-one column="user_id" cascade="all" lazy="true"
      */
     public User getAuthor() {
         return author;
@@ -168,7 +168,7 @@ public class UserPackage extends Package {
     /**
      * @return
      * 
-     * @hibernate.set lazy="false" table="pgist_user_package_project_link" cascade="none" sort="org.pgist.projects.ProjectAltRefComparator"
+     * @hibernate.set lazy="false" table="pgist_user_package_project_link" cascade="all" sort="org.pgist.projects.ProjectAltRefComparator"
      * @hibernate.collection-key column="pkg_id"
      * @hibernate.collection-many-to-many column="project_id" class="org.pgist.projects.ProjectAltRef"
      */

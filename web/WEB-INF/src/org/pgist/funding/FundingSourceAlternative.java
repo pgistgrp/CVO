@@ -127,7 +127,7 @@ public class FundingSourceAlternative implements Serializable {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="source_id" cascade="none"
+     * @hibernate.many-to-one column="source_id" cascade="all"
      */
     public FundingSource getSource() {
         return source;

@@ -1,17 +1,9 @@
 package org.pgist.criteria;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
-import org.pgist.projects.Project;
-import org.pgist.projects.ProjectAltRef;
-import org.pgist.projects.ProjectRef;
-import org.pgist.users.User;
-import org.pgist.cvo.Theme;
 
 
 /**
@@ -26,7 +18,7 @@ public class CriteriaSuite {
     
     private Long id;
     
-    private SortedSet<CriteriaRef> references = new TreeSet<CriteriaRef>();
+    private SortedSet<CriteriaRef> references = new TreeSet<CriteriaRef>(new CriteriaRefComparator());
     
     private Map<CriteriaRef, CriteriaUserWeight> weights = new HashMap<CriteriaRef, CriteriaUserWeight>();
     
@@ -49,7 +41,7 @@ public class CriteriaSuite {
     /**
      * @return
      * 
-     * @hibernate.set inverse="true" lazy="true" table="pgist_suite_crit_link"  sort="org.pgist.criteria.CriteriaRef"
+     * @hibernate.set inverse="true" lazy="true" table="pgist_suite_crit_link" cascade="all" sort="org.pgist.criteria.CriteriaRefComparator"
      * @hibernate.collection-key column="suite_id"
      * @hibernate.collection-one-to-many class="org.pgist.criteria.CriteriaRef"
      */
@@ -66,7 +58,7 @@ public class CriteriaSuite {
     /**
      * @return
      * 
-     * @hibernate.map table="pgist_crit_suite_weight_map"
+     * @hibernate.map table="pgist_crit_suite_weight_map" cascade="all"
      * @hibernate.collection-key column="critsuite_id"
      * @hibernate.index-many-to-many column="crit_id" class="org.pgist.criteria.CriteriaRef"
      * @hibernate.collection-many-to-many class="org.pgist.criteria.CriteriaUserWeight" column="weight_id"
@@ -79,6 +71,11 @@ public class CriteriaSuite {
     public void setWeights(Map<CriteriaRef, CriteriaUserWeight> weights) {
         this.weights = weights;
     }
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
     
     
     /**
@@ -106,9 +103,19 @@ public class CriteriaSuite {
     		if(cr.getCriterion().getId().equals(criteria.getId())) {
     			return cr;
     		}
-    	}    	
+        }
     	return null;
     } //getProjectReference
-	
-    
+
+
+    public CriteriaRef getCriteriaReference(String name) {
+        for (CriteriaRef cr : getReferences()) {            
+            if (cr.getCriterion().getName().equals(name)) {
+                return cr;
+            }
+        }
+        return null;
+    }//getCriteria()
+
+
 }//class CriteriaSuite

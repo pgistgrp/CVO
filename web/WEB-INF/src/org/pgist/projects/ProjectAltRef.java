@@ -41,7 +41,7 @@ public class ProjectAltRef implements Comparable<ProjectAltRef> {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="projref_id" cascade="none" lazy="true"
+     * @hibernate.many-to-one column="projref_id" cascade="all" lazy="true"
      */
     public ProjectRef getProjectRef() {
         return projectRef;
@@ -56,7 +56,7 @@ public class ProjectAltRef implements Comparable<ProjectAltRef> {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="alternative_id" cascade="none" lazy="true"
+     * @hibernate.many-to-one column="alternative_id" cascade="all" lazy="true"
      */
     public ProjectAlternative getAlternative() {
         return alternative;

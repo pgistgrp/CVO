@@ -31,7 +31,7 @@ public class VoteSuiteStat {
 
 	/**
 	 * @return the clusteredPackage
-     * @hibernate.many-to-one column="clustered_pkg_id" cascade="none" class="org.pgist.packages.ClusteredPackage"
+     * @hibernate.many-to-one column="clustered_pkg_id" cascade="all" class="org.pgist.packages.ClusteredPackage"
 	 */
 	public ClusteredPackage getClusteredPackage() {
 		return clusteredPackage;

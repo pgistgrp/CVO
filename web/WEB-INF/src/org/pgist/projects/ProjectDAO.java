@@ -56,6 +56,11 @@ public interface ProjectDAO extends BaseDAO {
 	void save(ProjectRef projectRef) throws Exception;	
     void delete(ProjectRef projectRef) throws Exception;    
 	
-	void save(ProjectSuite suite) throws Exception;	
+	void save(ProjectSuite suite) throws Exception;
+    
+    Project getProjectByName(String name) throws Exception;
+    
+    ProjectAlternative getProjectAlternativeByName(String name) throws Exception;	
 	
+    
 }//interface ProjectDAO

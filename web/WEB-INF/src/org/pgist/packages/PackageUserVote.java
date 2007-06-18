@@ -65,7 +65,7 @@ public class PackageUserVote {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="votesuite_id" cascade="none"
+     * @hibernate.many-to-one column="votesuite_id" cascade="all"
      */
     public PackageVoteSuite getVoteSuite() {
         return voteSuite;

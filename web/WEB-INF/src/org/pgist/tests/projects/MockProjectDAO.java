@@ -184,5 +184,15 @@ public class MockProjectDAO implements ProjectDAO {
 	public void save(Object object) throws Exception {
 		this.saved.add(object);
 	}
+    
+    public ProjectAlternative getProjectAlternativeByName(String name) throws Exception {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
+    public Project getProjectByName(String name) throws Exception {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

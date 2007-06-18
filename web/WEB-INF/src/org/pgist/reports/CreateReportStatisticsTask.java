@@ -1,6 +1,5 @@
 package org.pgist.reports;
 
-import org.pgist.discussion.InfoStructure;
 import org.pgist.wfengine.EnvironmentInOuts;
 import org.pgist.wfengine.WorkflowInfo;
 import org.pgist.wfengine.WorkflowTask;

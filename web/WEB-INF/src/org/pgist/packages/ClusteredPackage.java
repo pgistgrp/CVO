@@ -47,7 +47,7 @@ public class ClusteredPackage extends Package {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="pgist_clustered_user_package" cascade="none" 
+     * @hibernate.set lazy="true" table="pgist_clustered_user_package" cascade="all" 
      * @hibernate.collection-key column="clustered_pkg_id"
      * @hibernate.collection-many-to-many column="user_pkg_id" class="org.pgist.packages.UserPackage"
      */
@@ -147,7 +147,7 @@ public class ClusteredPackage extends Package {
     /**
      * @return
      * 
-     * @hibernate.set lazy="false" table="pgist_clustered_package_project_link" cascade="none"
+     * @hibernate.set lazy="false" table="pgist_clustered_package_project_link" cascade="all"
      * @hibernate.collection-key column="pkg_id"
      * @hibernate.collection-many-to-many column="project_id" class="org.pgist.projects.ProjectAltRef"
      */

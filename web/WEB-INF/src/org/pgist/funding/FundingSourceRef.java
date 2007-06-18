@@ -40,7 +40,7 @@ public class FundingSourceRef {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="suite_id" cascade="none" lazy="true"
+     * @hibernate.many-to-one column="suite_id" cascade="all" lazy="true"
      */
     public FundingSourceSuite getSuite() {
         return suite;
@@ -55,7 +55,7 @@ public class FundingSourceRef {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="source_id" cascade="none" lazy="true"
+     * @hibernate.many-to-one column="source_id" cascade="all" lazy="true"
      */
     public FundingSource getSource() {
         return source;
@@ -70,7 +70,7 @@ public class FundingSourceRef {
     /**
      * @return
      * 
-     * @hibernate.set lazy="false" cascade="all-delete-orphan"
+     * @hibernate.set lazy="false" cascade="all-delete-orphan" cascade="all"
      * @hibernate.collection-key column="sourceref_id"
      * @hibernate.collection-one-to-many class="org.pgist.funding.FundingSourceAltRef"
      */

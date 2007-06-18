@@ -116,7 +116,7 @@
         <property name="hibernateProperties">
            <props>
                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
-               <prop key="hibernate.show_sql">true</prop>
+               <prop key="hibernate.show_sql">false</prop>
                <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
                <prop key="hibernate.default_batch_fetch_size">20</prop>
                <prop key="hibernate.c3p0.min_size">5</prop>
@@ -159,6 +159,7 @@
           <prop key="accept*">PROPAGATION_REQUIRED</prop>
           <prop key="reject*">PROPAGATION_REQUIRED</prop>
           <prop key="log*">PROPAGATION_REQUIRED</prop>
+          <prop key="import*">PROPAGATION_REQUIRED</prop>
         </props>
       </property>
     </bean>

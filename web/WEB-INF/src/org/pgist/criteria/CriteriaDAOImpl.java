@@ -8,13 +8,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.HashMap;
 
 import org.pgist.cvo.Theme;
+import org.pgist.discussion.InfoStructure;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;
-import org.pgist.discussion.InfoStructure;
 
 
 /**
@@ -385,6 +384,18 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	
     	return themes;
     }
-    
-    
+
+
+    public void editCriterion(boolean bool_name, boolean bool_themes, boolean bool_objectives, org.hibernate.Criteria c, String name, Set themes, SortedSet objectives, String na) throws Exception {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+    public void setWeight(Long suiteId, org.hibernate.Criteria criteria, int weight) throws Exception {
+        // TODO Auto-generated method stub
+        
+    }
+
+
 }//class CriteriaDAOImpl

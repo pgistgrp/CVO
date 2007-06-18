@@ -1,15 +1,13 @@
 package org.pgist.criteria;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.Comparator;
 
-import org.pgist.cvo.CCT;
 import org.pgist.cvo.Theme;
-
 
 
 /**
@@ -22,7 +20,7 @@ import org.pgist.cvo.Theme;
  * 
  * @hibernate.class table="pgist_crit" lazy="true"
  */
-public class Criteria implements Serializable, Comparator {
+public class Criteria implements Serializable {
     
     /**
      * <span style="color:blue;">(Column.)</span>
@@ -58,14 +56,14 @@ public class Criteria implements Serializable, Comparator {
      * <span style="color:blue;">(Column.)</span>
      * objectives. A Set of objectives for this criterion.
      */
-    private SortedSet<Objective> objectives = new TreeSet();
+    private SortedSet<Objective> objectives = new TreeSet<Objective>(new ObjectiveComparator());
     
     /**
      * <span style="color:blue;">(Column.)</span>
      * Object. Object holder, not currently used.
      */
     private Object object;
-
+    
     /**
      * <span style="color:blue;">(Column.)</span>
      * deleted. Determines if the crtieria is deleted so it won't be used.
@@ -108,7 +106,7 @@ public class Criteria implements Serializable, Comparator {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="suite_id" cascade="none"
+     * @hibernate.many-to-one column="suite_id" cascade="all"
      */
     public CriteriaSuite getSuite() {
         return suite;
@@ -121,7 +119,7 @@ public class Criteria implements Serializable, Comparator {
     
     
     /**
-     * @hibernate.property not-null="true" length="2000" comment="if a score for this project and criterion is not applicapable"
+     * @hibernate.property length="2000" comment="if a score for this project and criterion is not applicapable"
      */
     public String getNa() {
         return na;
@@ -138,7 +136,7 @@ public class Criteria implements Serializable, Comparator {
     }
     
     /**
-     * @hibernate.set lazy="false" table="pgist_criteria_theme_link" cascade="none"
+     * @hibernate.set lazy="false" table="pgist_criteria_theme_link" cascade="all"
      * @hibernate.collection-key column="criterion_id"
      * @hibernate.collection-many-to-many column="theme_id" class="org.pgist.cvo.Theme"
      */   
@@ -152,7 +150,7 @@ public class Criteria implements Serializable, Comparator {
     }
     
     /**
-     * @hibernate.set lazy="false" table="pgist_criteria_objective_link" cascade="none" sort="org.pgist.criteria.Objective"
+     * @hibernate.set lazy="false" table="pgist_criteria_objective_link" cascade="all" sort="org.pgist.criteria.ObjectiveComparator"
      * @hibernate.collection-key column="criterion_id"
      * @hibernate.collection-one-to-many column="objective_id" class="org.pgist.criteria.Objective"
      */   
@@ -200,8 +198,4 @@ public class Criteria implements Serializable, Comparator {
     }
     
     
-	public int compare(Object o1, Object o2) {
-		return ((Criteria)o1).getName().compareToIgnoreCase(((Criteria)o2).getName());
-	}
-	
 }//class Criteria

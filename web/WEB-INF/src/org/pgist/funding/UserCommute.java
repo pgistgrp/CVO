@@ -65,7 +65,7 @@ public class UserCommute implements Serializable {
 	/**
      * @return
      * 
-     * @hibernate.many-to-one column="suite_id" cascade="none"
+     * @hibernate.many-to-one column="suite_id" cascade="all"
      */
     public FundingSourceSuite getFundingSuite() {
         return fundingSuite;

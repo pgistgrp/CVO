@@ -41,7 +41,7 @@ public class CriteriaUserWeight {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="critsuite_id" cascade="none"
+     * @hibernate.many-to-one column="critsuite_id" cascade="all"
      */
     public CriteriaSuite getSuite() {
         return suite;
@@ -56,7 +56,7 @@ public class CriteriaUserWeight {
     /**
      * @return
      * 
-     * @hibernate.map table="pgist_crit_user_weight_map"
+     * @hibernate.map table="pgist_crit_user_weight_map" cascade="all"
      * @hibernate.collection-key column="userweight_id"
      * @hibernate.index-many-to-many column="user_id" class="org.pgist.users.User"
      * @hibernate.collection-element type="integer" column="weight"
@@ -69,6 +69,11 @@ public class CriteriaUserWeight {
     public void setWeights(Map<User, Integer> weights) {
         this.weights = weights;
     }
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
     
     
     /**

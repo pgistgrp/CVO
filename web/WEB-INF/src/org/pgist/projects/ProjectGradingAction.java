@@ -72,14 +72,13 @@ public class ProjectGradingAction extends Action {
     	String tempCritSuiteId = request.getParameter("critsuiteId");
 		Long critSuite = new Long(tempCritSuiteId);
 		request.setAttribute("critSuite", this.criteriaService.getCriteriaSuiteById(critSuite));
-
     	
     	String tempProjSuiteId = request.getParameter("projsuiteId");
 		Long projSuite = new Long(tempProjSuiteId);
 		ProjectSuite suite = this.projectService.getProjectSuite(projSuite);
 		this.projectService.updateProjectSuiteCriteria(suite, critSuite);
 		request.setAttribute("projSuite", suite);
-    	       
+		
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
         return mapping.findForward("view");

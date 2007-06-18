@@ -362,7 +362,7 @@ public class Term implements Serializable {
 
     /**
      * @return
-     * @hibernate.set lazy="true" table="pgist_glossary_term_categ_link" cascade="none" order-by="category_id"
+     * @hibernate.set lazy="true" table="pgist_glossary_term_categ_link" cascade="all" order-by="category_id"
      * @hibernate.collection-key column="term_id"
      * @hibernate.collection-many-to-many column="category_id" class="org.pgist.glossary.TermCategory"
      */

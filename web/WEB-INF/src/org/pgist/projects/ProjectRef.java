@@ -42,7 +42,7 @@ public class ProjectRef {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="suite_id" cascade="none" lazy="true"
+     * @hibernate.many-to-one column="suite_id" cascade="all" lazy="true"
      */
     public ProjectSuite getSuite() {
         return suite;
@@ -57,7 +57,7 @@ public class ProjectRef {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="project_id" cascade="none" lazy="true"
+     * @hibernate.many-to-one column="project_id" cascade="all" lazy="true"
      */
     public Project getProject() {
         return project;
@@ -72,7 +72,7 @@ public class ProjectRef {
     /**
      * @return
      * 
-     * @hibernate.set lazy="false" cascade="all-delete-orphan"  sort="org.pgist.projects.ProjectAltRefComparator"
+     * @hibernate.set lazy="false" cascade="all-delete-orphan" sort="org.pgist.projects.ProjectAltRefComparator"
      * @hibernate.collection-key column="projref_id"
      * @hibernate.collection-one-to-many class="org.pgist.projects.ProjectAltRef"
      */

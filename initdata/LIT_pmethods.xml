@@ -54,6 +54,9 @@
                 <pgame name="pgame-import.template">
                     <declaration>
                         <ins>
+                            <var name="proj_suite_id" ref="pmethod.proj_suite_id"/>
+                            <var name="fund_suite_id" ref="pmethod.fund_suite_id"/>
+                            <var name="crit_suite_id" ref="pmethod.crit_suite_id"/>
                             <var name="template_id"/>
                         </ins>
                     </declaration>

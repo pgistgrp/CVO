@@ -2,12 +2,10 @@ package org.pgist.criteria;
 
 import java.util.Collection;
 import java.util.Set;
-import org.pgist.cvo.CCT;
-import java.util.Map;
 import java.util.SortedSet;
 
-import org.pgist.system.BaseDAO;
 import org.pgist.cvo.Theme;
+import org.pgist.system.BaseDAO;
 
 /**
  * 
@@ -78,6 +76,6 @@ public interface CriteriaDAO extends BaseDAO {
 
 	
 	Collection getOrphanThemes(Long suiteId, Collection themes) throws Exception;
-	
-	
+
+
 }//interface CriteriaDAO

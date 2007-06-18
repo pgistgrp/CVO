@@ -257,6 +257,26 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	public ProjectSuite getProjectSuite(Long suiteID) throws Exception {
 		return (ProjectSuite)getHibernateTemplate().load(ProjectSuite.class, suiteID);
 	}
-
+	
+    
+    private static final String hql_getProjectByName = "from Project where name=?";
+    
+    
+    public Project getProjectByName(String name) throws Exception {
+        List list = getHibernateTemplate().find(hql_getProjectByName, name);
+        if (list.size()==0) return null;
+        return (Project) list.get(0);
+    }//getProjectByName()
+    
+    
+    private static final String hql_getProjectAlternativeByName = "from ProjectAlternative where name=?";
+    
+    
+    public ProjectAlternative getProjectAlternativeByName(String name) throws Exception {
+        List list = getHibernateTemplate().find(hql_getProjectAlternativeByName, name);
+        if (list.size()==0) return null;
+        return (ProjectAlternative) list.get(0);
+    }//getProjectAlternativeByName()
+    
     
 }//class ProjectDAOImpl

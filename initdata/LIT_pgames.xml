@@ -18,6 +18,9 @@
             <declaration>
                 <ins>
                     <var name="template_id"/>
+                    <var name="proj_suite_id"/>
+                    <var name="fund_suite_id"/>
+                    <var name="crit_suite_id"/>
                 </ins>
             </declaration>
         </pgame>

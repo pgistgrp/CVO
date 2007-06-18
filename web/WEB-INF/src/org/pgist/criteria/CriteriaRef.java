@@ -48,7 +48,7 @@ public class CriteriaRef implements Comparator {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="suite_id" cascade="none"
+     * @hibernate.many-to-one column="suite_id" cascade="all"
      */
     public CriteriaSuite getSuite() {
         return suite;
@@ -63,7 +63,7 @@ public class CriteriaRef implements Comparator {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="crit_id" cascade="none"
+     * @hibernate.many-to-one column="crit_id" cascade="all"
      */
     public Criteria getCriterion() {
         return criterion;
@@ -93,7 +93,7 @@ public class CriteriaRef implements Comparator {
     /**
      * @return
      * 
-     * @hibernate.map table="pgist_crit_ref_obj_grade_map"
+     * @hibernate.map table="pgist_crit_ref_obj_grade_map" cascade="all"
      * @hibernate.collection-key column="critref_id"
      * @hibernate.index-many-to-many column="obj_id" class="org.pgist.criteria.Objective"
      * @hibernate.collection-element type="integer" column="grade"

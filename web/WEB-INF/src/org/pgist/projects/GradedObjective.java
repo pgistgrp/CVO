@@ -48,7 +48,7 @@ public class GradedObjective {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="objective_id" cascade="none" lazy="true"
+     * @hibernate.many-to-one column="objective_id" cascade="all" lazy="true"
      */	
 	public Objective getObjective() {
 		return objective;

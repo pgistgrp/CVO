@@ -1,15 +1,16 @@
 package org.pgist.criteria;
 
 import java.io.Serializable;
-import java.util.Comparator;
+
 
 /**
  * @author John
  * 
  * @hibernate.class table="pgist_crit_objective" lazy="true"
  */
-public class Objective implements Serializable, Comparator {
+public class Objective implements Serializable {
 
+    
 	private Long id; 
 	
 	private String description;
@@ -43,11 +44,6 @@ public class Objective implements Serializable, Comparator {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	
-	public int compare(Object o1, Object o2) {	
-		return ((Objective)o1).getDescription().compareToIgnoreCase(((Objective)o2).getDescription());
-	}
-	
-	
+    
+    
 }//public class

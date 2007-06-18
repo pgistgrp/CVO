@@ -74,7 +74,7 @@ public class UserFundingSourceToll {
 
 	/**
 	 * @return the fundingSource
-     * @hibernate.many-to-one column="source_id" cascade="none"
+     * @hibernate.many-to-one column="source_id" cascade="all"
    	 */
 	public FundingSource getFundingSource() {
 		return fundingSource;
