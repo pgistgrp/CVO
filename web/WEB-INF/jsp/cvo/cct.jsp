@@ -187,7 +187,7 @@ var allNewConcernTags = new Array;
 		var str= "";
 		for(i=0; i < newConcernTagsArray.length; i++){
 			if(newConcernTagsArray[i] != ""){
-				str += '<li><input type="checkbox" '+newConcernTagsArray[i].status+' onclick="checkNewConcernTag('+ i +');" />'+ newConcernTagsArray[i].tagName +'</li>';
+				str += '<li><label><input type="checkbox" '+newConcernTagsArray[i].status+' onclick="checkNewConcernTag('+ i +');" />'+ newConcernTagsArray[i].tagName +'</label></li>';
 			}
 		}	
 		return str;
