@@ -181,7 +181,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     } //getAllCriterion();
     
     
-    private static final String hql_addObjective = "from Objective o where lower(o.description)=?";
+    //private static final String hql_addObjective = "from Objective o where lower(o.description)=?";
     
     public Objective addObjective(Long critId, String description) throws Exception {
     	
@@ -189,13 +189,13 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
 		
 		o.setDescription(description);
 		
-    	List list = getHibernateTemplate().find(hql_addObjective, new Object[] {
-    			description.toLowerCase(),
-        });
+//    	List list = getHibernateTemplate().find(hql_addObjective, new Object[] {
+//    			description.toLowerCase(),
+//        });
     	
-    	if(list.size()>0) {
-    		throw new Exception("Objective already exist.");
-    	}  	
+//    	if(list.size()>0) {
+//    		throw new Exception("Objective already exist.");
+//    	}  	
 		save(o);
 		
     	Criteria c = getCriterionById(critId);
