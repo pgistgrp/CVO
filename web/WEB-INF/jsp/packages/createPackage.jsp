@@ -586,7 +586,7 @@
 															</c:choose>
 															${altRef.alternative.name}</label>
 														</td>
-														<td class="cost"><fmt:formatNumber type="currency">${altRef.alternative.cost}</fmt:formatNumber> million</td>
+														<td class="cost">$<fmt:formatNumber type="number">${altRef.alternative.cost}</fmt:formatNumber> million</td>
 													</tr>
 													<c:if test="${pg:contains(userPkg.projAltRefs,altRef) && userPkg != null}">
 														<c:set var="doNothing"value="false"/>
@@ -618,7 +618,7 @@
 						<tr class="tableHeading">
 							<th class="first">Funding Source</th>
 							<th>Money Raised</th>
-							<th>Cost to the avg. taxpayer</th>
+							<th class="thcol2">Cost to the avg. taxpayer</th>
 							<c:if test="${userPkg != null}">
 								<th>Cost to you</th>
 							</c:if>
@@ -647,10 +647,10 @@
 
 										${altRef.alternative.name}</label>
 									</td>
-									<td><fmt:formatNumber type="currency">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
-									<td><fmt:formatNumber type="currency">${altRef.alternative.avgCost}</fmt:formatNumber></td>
+									<td class="col2">$<fmt:formatNumber type="number">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
+									<td class="col3">$<fmt:formatNumber type="number">${altRef.alternative.avgCost}</fmt:formatNumber></td>
 									<c:if test="${userPkg != null}">
-										<td><fmt:formatNumber type="currency">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
+										<td class="col4">$<fmt:formatNumber type="number">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
 									</c:if>						
 								</tr>
 								<c:choose>

@@ -89,12 +89,13 @@ background:#FBFEFF;
 .fundingTypeCol2{text-align:right;}
 #fundingTable table {width:100%;}
 #fundingTable th {font-size:10pt;text-align:center;}
+#fundingTable .thcol2{width:}
 #fundingTable td {font-size:9pt;}
 #fundingTable .first{width:170px;text-align:left;}
-#fundingTable .col2{text-align:center;}
-#fundingTable .col3{text-align:center;}
-#fundingTable .col4{text-align:center;}
-
+#fundingTable .fundingSourceItem{width:50%}
+#fundingTable .col2{text-align:center;width:20%}
+#fundingTable .col3{text-align:center;width:15%}
+#fundingTable .col4{text-align:center;width:15%}
 #map {margin:0px auto 10px auto;}
 
 .objectives table {width:100%;text-align:left;}
