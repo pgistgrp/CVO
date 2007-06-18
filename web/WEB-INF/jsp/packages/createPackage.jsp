@@ -398,14 +398,37 @@
 				}
 				return y;
 			}
-			function adjustMapPosition() {
-				if(document.body.scrollTop < mapPositionTop){
-					document.getElementById('themap').style.top = (mapPositionTop + 30) + "px";
-				}else{
-					document.getElementById('themap').style.top  = (document.body.scrollTop + 30) + "px";
-				}
+		function adjustMapPosition() {
+				mapPositionBottom = getYCoord($('themap')) + $('themap').clientHeight;
+				fundingPositionBottom = getYCoord($('fundingTable')) + $('fundingTable').clientHeight;
+				leftPositionTop = getYCoord($('left'));
+				mapPositionTop = getYCoord($('themap'));
 				
+				if(document.body.scrollTop < leftPositionTop){
+					$('themap').style.top = leftPositionTop; 
+				}
+				else{ 
+					newMapPosition = mapPositionBottom + 5;
+					if (newMapPosition >= fundingPositionBottom)
+					{
+						if (document.body.scrollTop < mapPositionTop)
+						{
+							$('themap').style.top = (document.body.scrollTop + 5) + 'px';
+						}else{}
+					}
+					else{$('themap').style.top = (document.body.scrollTop + 5) + 'px';}
+				}
+				clearBottom();
 			}
+			
+			function clearBottom(){ // Move the map so that it's not below the funding table
+				if(mapPositionBottom >= fundingPositionBottom){
+						$('themap').style.top = (fundingPositionBottom - 581) + 'px';
+					}
+			}
+			
+
+			
 	/* *************** END MAPPING FUNCTIONS *************** */
 </script>
 </head>
@@ -486,7 +509,7 @@
 					<div class="clearBoth"></div>
 
 					<!-- begin collapsible list of projects -->
-					<table cellpadding=0 cellspacing=0>
+					<table cellpadding=0 cellspacing=0 id="projectsTable">
 						<tr class="tableHeading">
 							<th colspan="2" class="first">All Proposed Projects</th>
 							<th>Money Needed</th>
@@ -577,7 +600,7 @@
 															Do nothing</label>
 														</td>
 														<td class="cost">&nbsp;</td>
-													</tr>
+													</tr>begin collapsible
 												</c:if>
 											</table>
 										</td>
@@ -591,7 +614,7 @@
 					<br />
 					
 					<!-- end collapsible project list -->
-					<table cellpadding="0" cellspacing="0">
+					<table cellpadding="0" cellspacing="0" id="fundingTable">
 						<tr class="tableHeading">
 							<th class="first">Funding Source</th>
 							<th>Money Raised</th>
