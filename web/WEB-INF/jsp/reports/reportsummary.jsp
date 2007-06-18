@@ -18,7 +18,7 @@
 
 <html:html>
 <head>
-<title>Let's Improve Transportation Final Report (DRAFT)</title>
+<title>Report Summary Form</title>
 <style type="text/css" media="screen">
         @import "styles/lit.css";
 				@import "styles/step4b-voteresults.css";
@@ -37,8 +37,19 @@
 	-->
 
 <div id="container">
-	report summary form page
-	</div>
+	<p>report summary form page  </p>
+	<html:form action="/reportsummary.do" method="POST">
+	<html:hidden property="save" value="true"/>
+	<p>Error Msg: ${reportForm.reason}</p>
+	<p>Executive Summary<html:textarea  property="executiveSummary" value="${rSummary.executiveSummary}"/></p>
+	<p>Participants Summary<html:textarea  property="participantsSummary" value="${rSummary.participantsSummary}"/></p>
+	<p>Concern Summary<html:textarea  property="concernSummary" value="${rSummary.concernSummary}"/></p>
+	<p>Criteria Summary<html:textarea  property="criteriaSummary" value="${rSummary.criteriaSummary}"/></p>
+	<p>Project Summary<html:textarea  property="projectSummary" value="${rSummary.projectSummary}"/></p>
+	<p>Package Summary<html:textarea  property="packageSummary" value="${rSummary.packageSummary}"/></p>
+	<html:submit value="submit" />
+	</html:form>
+</div>
 	<!-- End Appendix C -->
 </body>
 </html:html>

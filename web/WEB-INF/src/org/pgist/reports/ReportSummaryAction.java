@@ -10,8 +10,17 @@ import org.apache.struts.action.ActionMapping;
 
 
 public class ReportSummaryAction extends Action  {
+	
+	public ReportSummaryAction() {			
+	}
+	
+	 private ReportService reportService;
+	
+	 public void setReportService(ReportService reportService) {
+		this.reportService = reportService;
+	}
 
-	 public ActionForward execute(
+	public ActionForward execute(
 	            ActionMapping mapping,
 	            ActionForm form,
 	            javax.servlet.http.HttpServletRequest request,
@@ -20,14 +29,23 @@ public class ReportSummaryAction extends Action  {
 	    	
 		 	ReportForm rForm = (ReportForm) form;
 		 	
-		 	String pkgSuiteId = request.getParameter("pkgSuiteId");
-		 	//load pkgsuite
-		 	//get reportsummary class out og pkgsuite
-		 	//set reportsummary request.setAttribute("rs", rs);
+		 	String strReportSuiteId = request.getParameter("reportSuiteId");
+		 	
+		 	if (strReportSuiteId==null || "".equals(strReportSuiteId)) {
+		 		rForm.setReason("reportSuiteId is Required.");
+	            return mapping.findForward("reportsummary");
+	        }
+		 	
+		 	Long reportSuiteId = Long.parseLong(strReportSuiteId);
+		 
+		 	ReportSuite rs = reportService.getReportSuiteById(reportSuiteId);
+		 	ReportSummary rSummary = rs.getReportSummary();
+		 	
+		 	request.setAttribute("rSummary", rSummary);
 		 	
 		 	if (!rForm.isSave()) return mapping.findForward("reportsummary");
 		 	
-		 	
+		 	//get variables
 		 	String executiveSummary = rForm.getExecutiveSummary();
 		 	String participantsSummary = rForm.getParticipantsSummary();
 		 	String concernSummary = rForm.getConcernSummary();
@@ -35,7 +53,8 @@ public class ReportSummaryAction extends Action  {
 		 	String projectSummary = rForm.getProjectSummary();
 		 	String packageSummary = rForm.getPackageSummary();
 		 	
-		 	
+		 	//save 
+		 	reportService.editReportSummary(rSummary.getId(), executiveSummary, participantsSummary, concernSummary, criteriaSummary, projectSummary, packageSummary);
 		 	
 	    	
 	        return mapping.findForward("reportsummary");

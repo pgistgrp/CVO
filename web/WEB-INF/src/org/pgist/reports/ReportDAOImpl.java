@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
+
 public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 
 	
@@ -81,6 +82,26 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		}
 		
 		return allVSS;
+	}
+	
+	
+	public ReportSuite getReportSuiteById(Long id) throws Exception {
+		ReportSuite rs = (ReportSuite) load(ReportSuite.class, id);	
+		return rs;
+	}
+	
+	
+	public void editReportSummary(Long reportSummaryId, String executiveSummary, String participantsSummary, String concernSummary, String criteriaSummary, String projectSummary, String packageSummary) throws Exception {
+		ReportSummary rSummary = (ReportSummary) load(ReportSummary.class, reportSummaryId);
+		
+		rSummary.setExecutiveSummary(executiveSummary);
+	 	rSummary.setParticipantsSummary(participantsSummary);
+	 	rSummary.setConcernSummary(concernSummary);
+	 	rSummary.setCriteriaSummary(criteriaSummary);
+	 	rSummary.setProjectSummary(projectSummary);
+	 	rSummary.setPackageSummary(packageSummary);
+	 	
+	 	save(rSummary);
 	}
 	
 }

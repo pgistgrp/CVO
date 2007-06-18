@@ -18,6 +18,8 @@ public class ReportForm extends ActionForm {
 	private String projectSummary;
 	
 	private String packageSummary;
+	
+	private String reason;
 
     private boolean save;
 
@@ -88,6 +90,16 @@ public class ReportForm extends ActionForm {
 
 	public void setSave(boolean save) {
 		this.save = save;
+	}
+
+
+	public String getReason() {
+		return reason;
+	}
+
+
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 	
 	

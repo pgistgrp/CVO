@@ -3,6 +3,7 @@ package org.pgist.reports;
 import java.util.Collection;
 
 import org.pgist.packages.ClusteredPackage;
+import org.pgist.packages.PackageSuite;
 
 public interface ReportService {
 
@@ -12,5 +13,9 @@ public interface ReportService {
 	ClusteredPackage getPreferredClusteredPackage(Long pkgSuiteId) throws Exception;
 	
 	Collection getVoteSuiteStats(Long pkgSuiteId) throws Exception;
+	
+	ReportSuite getReportSuiteById(Long id) throws Exception;
+	
+	void editReportSummary(Long reportSummaryId, String executiveSummary, String participantsSummary, String concernSummary, String criteriaSummary, String projectSummary, String packageSummary) throws Exception;
 	
 }

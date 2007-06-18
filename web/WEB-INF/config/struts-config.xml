@@ -6,6 +6,7 @@
     <form-beans>
         <form-bean name="searchForm" type="org.pgist.search.SearchForm" />
         <form-bean name="userForm" type="org.pgist.system.UserForm" />
+        <form-bean name="reportForm" type="org.pgist.reports.ReportForm" />
         <form-bean name="cctForm" type="org.pgist.cvo.CCTForm" />
         <form-bean name="workflowForm" type="org.pgist.workflow.WorkflowForm" />
     </form-beans>
@@ -70,7 +71,7 @@
 
         <action path="/publicprofile" scope="request" type="org.pgist.system.UserProfileAction" />
 
-	<action path="/reportsummary" scope="request" type="org.pgist.reports.ReportSummaryAction">
+	<action name="reportForm" path="/reportsummary" scope="request" type="org.pgist.reports.ReportSummaryAction">
             <forward name="reportsummary" path="/WEB-INF/jsp/reports/reportsummary.jsp" />
         </action>
         
