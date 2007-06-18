@@ -154,6 +154,15 @@
             </script>
         </statement>
         
+        <statement exception="throw">
+            <description>insert the LIT template</description>
+            <script>
+              <![CDATA[
+                INSERT INTO pgist_situation_template VALUES (1, 'LIT template', '/WEB-INF/config/template_LIT.xml');
+              ]]>
+            </script>
+        </statement>
+        
     </creates>
     
 
