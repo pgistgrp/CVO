@@ -7,13 +7,13 @@
     
     <projects>
         <project name="Alaska Way Viaduct">
-            <alternative name="Elevated Structure">
+            <alternative name="Alternative 1, Elevated Structure">
                 <criterion name="Economic Vitality">
                     <objective description="Promotes general economic development">2</objective>
                     <objective description="Specificly improves or enhances tourism">-1</objective>
                 </criterion>
             </alternative>
-            <alternative name="Surface/Tunnel Hybrid">
+            <alternative name="Alternative 2, 6-Lane Tunnel">
                 <criterion name="Economic Vitality">
                     <objective description="Promotes general economic development">3</objective>
                     <objective description="Specificly improves or enhances tourism">2</objective>
