@@ -17,8 +17,12 @@
         activityId:${requestScope['org.pgist.wfengine.ACTIVITY_ID']},
       },
       function(data) {
-        if (data.successful) alert("success!");
-        else alert("failed!");
+        if (data.successful){
+			alert("Successful! Redirecting to overview...")
+			location.href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}"
+		}else{
+		 	alert("Uh oh! Notify Zhong!");
+		}
       }
     );
   }//selectTemplate()
@@ -29,14 +33,20 @@
 </script>
 </head>
 <body>
-  <p>Please slect a situation template:
+  <p><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
+  <h1>Select a Data Template</h1>
+  <p>Please select the data template that you would like to start this experiment with.
+      This will automatically select projects, project alternatives, funding sources, funding alternatives,
+      planning factors, objectives, and project grades.  Don't worry, you can modify the options throughout the 
+      experiment during each of the "define" tools.
   <form name="mainForm">
     <p><label><input type="radio" name="tSelect" value="-1" checked="true" onclick="checkit(this.value)">None</label>
     <c:forEach var="template" items="${templates}">
         <p><label><input type="radio" name="tSelect" value="${template.id}" onclick="checkit(this.value)">${template.name}</label>
     </c:forEach>
+    </p>
     <input type="hidden" id="templateId" size="20">
-    <input type="button" value ="Done" onclick="selectTemplate();">
+    </p><input type="button" value ="Done" onclick="selectTemplate();"></p>
   </form>
 </body>
 </html>
