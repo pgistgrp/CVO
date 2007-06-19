@@ -54,7 +54,7 @@ public class Discussion implements Serializable {
     
     /**
      * @return
-     * @hibernate.property not-null="true"
+     * @hibernate.property not-null="false"
      */
     public Long getWorkflowId() {
         return workflowId;
