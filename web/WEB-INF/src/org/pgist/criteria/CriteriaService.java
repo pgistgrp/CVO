@@ -1,14 +1,13 @@
 package org.pgist.criteria;
 
 import java.util.Collection;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.List;
 
 import org.pgist.cvo.CCT;
-import org.pgist.discussion.InfoStructure;
 import org.pgist.cvo.Theme;
+import org.pgist.discussion.InfoStructure;
 
 /**
  * 
@@ -66,9 +65,6 @@ public interface CriteriaService {
     int getWeight(Long critSuiteId, Long critId) throws Exception;
     
     
-    void publish(Long cctId) throws Exception;
-    
-    
     void setWeight(Long suiteId, Long critId, int weight) throws Exception;
     
     
@@ -87,7 +83,7 @@ public interface CriteriaService {
     CriteriaSuite createCriteriaSuite() throws Exception;
 
 
-    InfoStructure publish(Long cctId, Long suiteId, String title) throws Exception;
+    InfoStructure publish(Long workflowId, Long cctId, Long suiteId, String title) throws Exception;
     
     
     void editObjective(Long objectiveId, String description) throws Exception;

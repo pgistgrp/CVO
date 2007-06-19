@@ -529,7 +529,7 @@ public class ProjectServiceImpl implements ProjectService {
     }//createProjectSuite()
     
     
-    public InfoStructure publish(Long cctId, Long suiteId, String title) throws Exception {
+    public InfoStructure publish(Long workflowId, Long cctId, Long suiteId, String title) throws Exception {
         CCT cct = cctDAO.getCCTById(cctId);
         
         ProjectSuite suite = projectDAO.getProjectSuite(suiteId);
@@ -537,6 +537,7 @@ public class ProjectServiceImpl implements ProjectService {
         Date date = new Date();
         
         InfoStructure structure = new InfoStructure();
+        structure.getDiscussion().setWorkflowId(workflowId);
         structure.setType("sdp");
         structure.setTitle(title);
         structure.setRespTime(date);
@@ -551,6 +552,7 @@ public class ProjectServiceImpl implements ProjectService {
             ref.getSuite();
             
             InfoObject obj = new InfoObject();
+            obj.getDiscussion().setWorkflowId(workflowId);
             obj.setObject(ref);
             obj.setRespTime(date);
             discussionDAO.save(obj);

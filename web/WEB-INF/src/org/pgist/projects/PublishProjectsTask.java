@@ -43,7 +43,7 @@ public class PublishProjectsTask implements WorkflowTask {
         
         String title = inouts.getProperty("title");
         
-        InfoStructure structure = projectService.publish(cctId, suiteId, title);
+        InfoStructure structure = projectService.publish(info.getWorkflow().getId(), cctId, suiteId, title);
         
         inouts.setIntValue(OUT_ISID, structure.getId().intValue());
     }//execute()

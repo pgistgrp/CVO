@@ -131,11 +131,6 @@
     </bean>
     
     
-    <bean name="/cctlist" class="org.pgist.cvo.CCTListAction">
-        <property name="cctService" ref="cctService"/>
-    </bean>
-    
-    
     <bean name="/cctview" class="org.pgist.cvo.CCTViewAction">
         <property name="cctService" ref="cctService"/>
     </bean>
@@ -149,11 +144,6 @@
     
     <bean name="/tagging" class="org.pgist.tagging.TaggingAction">
         <property name="taggingService" ref="taggingService"/>
-    </bean>
-    
-    
-    <bean name="/cstlist" class="org.pgist.cvo.CSTListAction">
-        <property name="cctService" ref="cctService"/>
     </bean>
     
     
@@ -236,11 +226,6 @@
     </bean>
     
     
-    <bean name="/criteriaList" class="org.pgist.criteria.CriteriaListAction">
-        <property name="criteriaService" ref="criteriaService"/>
-    </bean>
-    
-    
     <bean name="/criteriaMgr" class="org.pgist.criteria.CriteriaMgrAction">
         <property name="criteriaService" ref="criteriaService"/>
     </bean>
@@ -253,17 +238,6 @@
     
     <bean name="/criteriaDefine" class="org.pgist.criteria.CriteriaDefinitionAction">
         <property name="criteriaService" ref="criteriaService"/>
-    </bean>
-    
-    
-    <bean name="/criteriaPublish" class="org.pgist.criteria.CriteriaPublishAction">
-        <property name="criteriaService" ref="criteriaService"/>
-        <property name="cctService" ref="cctService"/>
-    </bean>
-    
-    
-    <bean name="/sdlist" class="org.pgist.discussion.SDListAction">
-        <property name="sdService" ref="sdService"/>
     </bean>
     
     

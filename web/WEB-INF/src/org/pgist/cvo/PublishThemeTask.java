@@ -39,7 +39,7 @@ public class PublishThemeTask implements WorkflowTask {
         
         String title = inouts.getProperty("title");
         
-        InfoStructure structure = cstService.publish(cctId, title);
+        InfoStructure structure = cstService.publish(info.getWorkflow().getId(), cctId, title);
         
         inouts.setIntValue(OUT_ISID, structure.getId().intValue());
     }//execute()

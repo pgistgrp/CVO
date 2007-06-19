@@ -69,4 +69,4 @@ public class CriteriaDefinitionAction extends Action {
     }//execute()
 
 
-}//class CriteriaPublishAction
+}//class CriteriaDefinitionAction

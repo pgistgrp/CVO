@@ -43,7 +43,7 @@ public class PublishFundingsTask implements WorkflowTask {
         
         System.out.printf("\n\n\n(%d, %d)\n\n\n", suiteId, cctId);
         
-        InfoStructure structure = fundingService.publish(cctId, suiteId);
+        InfoStructure structure = fundingService.publish(info.getWorkflow().getId(), cctId, suiteId);
         
         inouts.setIntValue(OUT_ISID, structure.getId().intValue());
     }//execute()

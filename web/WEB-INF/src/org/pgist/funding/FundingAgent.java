@@ -2,7 +2,6 @@ package org.pgist.funding;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +10,6 @@ import org.directwebremoting.WebContextFactory;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
-import org.pgist.discussion.InfoStructure;
 
 /**
  * 
@@ -795,43 +793,6 @@ System.out.println("MATT: Looking up user");
         
         return map;
     }//setEstimates()
-    
-    
-    /**
-     * Manually publish Funding Sources for acceptance test
-     * 
-     * @param params a Map contains:<br>
-     *   <ul>
-     *       <li>cctId - int, cctId</li>
-     *       <li>suiteId - int, project suiteId</li>
-     *   </ul>
-     * 
-     * @return a Map contains:<br>
-     *   <ul>
-     *     <li>isid - id of the infostructure object</li>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *   </ul>
-     */
-    public Map publish(Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        try {
-            Long cctId = new Long((String) params.get("cctId"));
-            Long suiteId = new Long((String) params.get("suiteId"));
-
-            InfoStructure is = fundingService.publish(cctId, suiteId);
-            
-            map.put("isid", is.getId());
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-            return map;
-        }
-        return map;
-    }//publish()   
     
     
 }//class FundingAgent

@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -878,7 +877,7 @@ public class PackageServiceImpl implements PackageService {
     }//createPackageSuite()
     
     
-    public InfoStructure publish(Long cctId, Long suiteId, String title) throws Exception {
+    public InfoStructure publish(Long workflowId, Long cctId, Long suiteId, String title) throws Exception {
         CCT cct = cctDAO.getCCTById(cctId);
         
         PackageSuite suite = packageDAO.getPackageSuite(suiteId);
@@ -886,6 +885,7 @@ public class PackageServiceImpl implements PackageService {
         Date date = new Date();
         
         InfoStructure structure = new InfoStructure();
+        structure.getDiscussion().setWorkflowId(workflowId);
         structure.setType("sdPkg");
         structure.setTitle(title);
         structure.setRespTime(date);
@@ -904,6 +904,7 @@ public class PackageServiceImpl implements PackageService {
             pkg.getTotalFunding();
             
             InfoObject obj = new InfoObject();
+            obj.getDiscussion().setWorkflowId(workflowId);
             obj.setObject(pkg);
             obj.setRespTime(date);
             discussionDAO.save(obj);

@@ -71,7 +71,7 @@ public interface FundingService {
 
 	UserTaxInfoDTO createCostReport(UserTaxInfoDTO user, Long fundingSuiteId) throws Exception;
 
-    InfoStructure publish(Long cctId, Long suiteId) throws Exception;
+    InfoStructure publish(Long workflowId, Long cctId, Long suiteId) throws Exception;
     
 
 }//interface FundingService

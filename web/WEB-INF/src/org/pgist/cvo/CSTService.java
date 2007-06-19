@@ -56,11 +56,13 @@ public interface CSTService {
     /**
      * publish the specified CCT, and return the generated InfoStructure object.
      * 
+     * @param workflowId
      * @param cctId
+     * @param title
      * @return
      * @throws Exception
      */
-    InfoStructure publish(Long cctId, String title) throws Exception;
+    InfoStructure publish(Long workflowId, Long cctId, String title) throws Exception;
 
     
 }//interface CSTService

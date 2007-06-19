@@ -19,7 +19,7 @@
     <convert converter="bean" match="org.pgist.criteria.CriteriaSuite"/>
     <convert converter="bean" match="org.pgist.criteria.Objective"/>
    
-	
+    
     <!-- DWR Agents -->
 
 
@@ -33,17 +33,16 @@
         <include method="getCriteria"/>
         <include method="getCriterionById"/>
         <include method="getThemes"/>
-        <include method="publish"/>
-	<include method="getAllCriterion"/>
-	<include method="getAllCriterionForMgr"/>
-	<include method="addObjective"/>
-	<include method="getObjectives"/>
-	<include method="deleteObjective"/>
-	<include method="setCriteriaWeight"/>
-	<include method="getWeight"/>
-	<include method="getCriteriaSuiteById"/>
-	<include method="getContainsCriteria"/>
-	<include method="getOrphanThemes"/>
+        <include method="getAllCriterion"/>
+        <include method="getAllCriterionForMgr"/>
+        <include method="addObjective"/>
+        <include method="getObjectives"/>
+        <include method="deleteObjective"/>
+        <include method="setCriteriaWeight"/>
+        <include method="getWeight"/>
+        <include method="getCriteriaSuiteById"/>
+        <include method="getContainsCriteria"/>
+        <include method="getOrphanThemes"/>
     </create>
 
 

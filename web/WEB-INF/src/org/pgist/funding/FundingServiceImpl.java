@@ -612,7 +612,7 @@ public class FundingServiceImpl implements FundingService {
 	}
 		
     
-    public InfoStructure publish(Long cctId, Long suiteId) throws Exception {
+    public InfoStructure publish(Long workflowId, Long cctId, Long suiteId) throws Exception {
         CCT cct = cctDAO.getCCTById(cctId);
         
         FundingSourceSuite suite = fundingDAO.getFundingSuite(suiteId);
@@ -620,6 +620,7 @@ public class FundingServiceImpl implements FundingService {
         Date date = new Date();
         
         InfoStructure structure = new InfoStructure();
+        structure.getDiscussion().setWorkflowId(workflowId);
         structure.setType("sdf");
         structure.setTitle("Step 3b: Review Fundings.");
         structure.setRespTime(date);
@@ -634,6 +635,7 @@ public class FundingServiceImpl implements FundingService {
             ref.getSuite();
             
             InfoObject obj = new InfoObject();
+            obj.getDiscussion().setWorkflowId(workflowId);
             obj.setObject(ref);
             obj.setRespTime(date);
             discussionDAO.save(obj);

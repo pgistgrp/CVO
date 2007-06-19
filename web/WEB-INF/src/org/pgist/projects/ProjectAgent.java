@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.directwebremoting.WebContextFactory;
-import org.pgist.discussion.InfoStructure;
+
 
 /**
  * @author Guirong
@@ -727,47 +727,6 @@ public class ProjectAgent {
         
         return map;
     }//deleteFootPrint()
-    
-    
-    /**
-     * Manually publish projects for acceptance test<br>
-     * 
-     * @param params A map contains:
-     *     <ul>
-     *       <li>cctId - int, cctId</li>
-     *       <li>suiteId - int, project suiteId</li>
-     *       <li>title - string, title</li>
-     *     </ul>
-     * 
-     * @return A map contains:
-     *     <ul>
-     *       <li>isid - id of infostructure object</li>
-     *       <li>successful - a boolean value denoting if the operation succeeds</li>
-     *       <li>reason - reason why operation failed (valid when successful==false)</li>
-     *     </ul>
-     */
-    public Map publish(Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        try {
-            Long cctId = new Long((String) params.get("cctId"));
-            Long suiteId = new Long((String) params.get("suiteId"));
-            String title = (String) params.get("title");
-            
-            InfoStructure is = projectService.publish(cctId, suiteId, title);
-            
-            map.put("isid", is.getId());
-            
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-            return map;
-        }
-        
-        return map;
-    }//publish()
     
     
 }//class ProjectAgent

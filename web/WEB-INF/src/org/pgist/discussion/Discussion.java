@@ -16,6 +16,8 @@ public class Discussion implements Serializable {
     
     protected DiscussionPost lastPost;
     
+    protected Long workflowId;
+    
     protected int numPosts = 0;
     
     protected boolean deleted;
@@ -50,6 +52,20 @@ public class Discussion implements Serializable {
     }
     
     
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public Long getWorkflowId() {
+        return workflowId;
+    }
+
+
+    public void setWorkflowId(Long workflowId) {
+        this.workflowId = workflowId;
+    }
+
+
     /**
      * @return
      * @hibernate.property not-null="true"

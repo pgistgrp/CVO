@@ -1,19 +1,19 @@
 package org.pgist.criteria;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Collection;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.directwebremoting.WebContextFactory;
 import org.pgist.cvo.CCTService;
 import org.pgist.cvo.Theme;
-import org.pgist.discussion.InfoStructure;
 
 
 /**
@@ -442,62 +442,6 @@ public class CriteriaAgent {
         
         return map;
     }//getCriterionById()
-    
-    
-    /**
-     * Publish the current association of the given cct.
-     * 
-     * @param params a Map contains:
-     *   <ul>
-     *     <li>cctId - int, the id of an CCT object</li>
-     *     <li>Long suiteId </li>
-     *     <li>String title </li>
-     *   </ul>
-     * @return a Map contains:
-     *   <ul>
-     *     <li>isid - id of infostructure object</li>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *   </ul>
-     */
-    public Map publish(Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        String strCctId = (String)params.get("cctId");
-        String strSuiteId = (String)params.get("suiteId");
-        String title = (String)params.get("title");
-        
-        if(strCctId==null || "".equals(strCctId.trim())){
-        	map.put("reason", "CctId cannot be null.");
-    		return map;	
-        }
-        if(strSuiteId==null || "".equals(strSuiteId.trim())){
-        	map.put("reason", "SuiteId cannot be null.");
-    		return map;	
-        }
-        if(strCctId==null || "".equals(strCctId.trim())){
-        	map.put("reason", "Title cannot be null or blank.");
-    		return map;	
-        }
-        
-        
-        try {
-        	Long cctId = Long.parseLong(strCctId);
-        	Long suiteId = Long.parseLong(strSuiteId);
-            
-            InfoStructure is = criteriaService.publish(cctId, suiteId, title);
-            
-            map.put("isid", is.getId());
-            map.put("successful", true);
-        } catch(Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-            return map;
-        }
-        
-        return map;
-    }//publish()
     
     
     /**

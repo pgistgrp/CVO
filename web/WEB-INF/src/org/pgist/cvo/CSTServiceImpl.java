@@ -578,12 +578,13 @@ public class CSTServiceImpl implements CSTService {
      */
     
     
-    public InfoStructure publish(Long cctId, String title) throws Exception {
+    public InfoStructure publish(Long workflowId, Long cctId, String title) throws Exception {
         CCT cct = cctDAO.getCCTById(cctId);
         
         Date date = new Date();
         
         InfoStructure structure = new InfoStructure();
+        structure.getDiscussion().setWorkflowId(workflowId);
         structure.setType("sdc");
         structure.setTitle(title);
         structure.setRespTime(date);
@@ -599,6 +600,7 @@ public class CSTServiceImpl implements CSTService {
             ref.getTheme();
             
             InfoObject obj = new InfoObject();
+            obj.getDiscussion().setWorkflowId(workflowId);
             obj.setObject(ref);
             obj.setRespTime(date);
             discussionDAO.save(obj);

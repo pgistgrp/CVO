@@ -148,40 +148,6 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getWeights()
     
     
-    public void publish(Long cctId) throws Exception {
-    	
-        Date date = new Date();
-        
-        InfoStructure structure = new InfoStructure();
-        structure.setType("sdcrit");
-        structure.setTitle("Step 2: SD Criteria");
-        structure.setRespTime(date);
-        structure.setCctId(cctId);
-        criteriaDAO.save(structure);
-        
-        for (Criteria crit : (Collection<Criteria>) criteriaDAO.getAllCriterion()) {
-        	//crit.getCct();
-        	crit.getId();
-        	crit.getClass();
-        	crit.getNa();
-        	crit.getName();
-        	crit.getObjectives();
-        	crit.getThemes();
-            
-            InfoObject obj = new InfoObject();
-            obj.setObject(crit);
-            obj.setRespTime(date);
-            criteriaDAO.save(obj);
-            
-            structure.getInfoObjects().add(obj);
-            
-        }//for ref
-        
-        criteriaDAO.save(structure);
-        
-    }//publish()
-    
-    
     public CCT getCCTById(Long cctId) throws Exception {
     	CCT cct = cctDAO.getCCTById(cctId);
     	return cct;
@@ -219,7 +185,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//createCriteriaSuite()
 
 
-    public InfoStructure publish(Long cctId, Long suiteId, String title) throws Exception {
+    public InfoStructure publish(Long workflowId, Long cctId, Long suiteId, String title) throws Exception {
         CCT cct = cctDAO.getCCTById(cctId);
         
         CriteriaSuite suite = criteriaDAO.getCriteriaSuiteById(suiteId);
@@ -231,6 +197,7 @@ public class CriteriaServiceImpl implements CriteriaService {
         
         if(checkId == null) {         
 	        structure = new InfoStructure();
+            structure.getDiscussion().setWorkflowId(workflowId);
         } else {
         	structure = (InfoStructure) criteriaDAO.load(InfoStructure.class, checkId);
         	structure.deleteInfoObjects();
@@ -250,6 +217,7 @@ public class CriteriaServiceImpl implements CriteriaService {
             ref.getSuite();
             
             InfoObject obj = new InfoObject();
+            obj.getDiscussion().setWorkflowId(workflowId);
             obj.setObject(ref);
             obj.setRespTime(date);
             discussionDAO.save(obj);

@@ -43,7 +43,7 @@ public class PublishCriteriaTask implements WorkflowTask {
         
         String title = inouts.getProperty("title");
         
-        InfoStructure structure = criteriaService.publish(cctId, suiteId, title);
+        InfoStructure structure = criteriaService.publish(info.getWorkflow().getId(), cctId, suiteId, title);
         
         inouts.setIntValue(OUT_ISID, structure.getId().intValue());
     }//execute()

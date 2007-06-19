@@ -32,7 +32,6 @@
     <create creator="spring" javascript="PackageAgent">
         <param name="beanName" value="packageAgent"/>
         <include method="getTunerConfig"/>
-        <include method="publishPackages"/>
         <include method="createMyConfiguredPackage"/>
         <include method="createMyPackage"/>
         <include method="createClusteredPackages"/>

@@ -39,7 +39,7 @@ public interface PackageService {
 
 	void createClusteredPackages(Long pkgSuiteId, int pkgCount, Long projSuiteId, Long fundSuiteId) throws Exception;
     
-    InfoStructure publish(Long cctId, Long suiteId, String title) throws Exception;
+    InfoStructure publish(Long workflowId, Long cctId, Long suiteId, String title) throws Exception;
 
 	ClusteredPackage createClusteredPackage(Long suiteId, String description) throws Exception;
 

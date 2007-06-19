@@ -43,7 +43,7 @@ public class PublishPackagesTask implements WorkflowTask {
         
         String title = inouts.getProperty("title");
         
-        InfoStructure structure = packageService.publish(cctId, suiteId, title);
+        InfoStructure structure = packageService.publish(info.getWorkflow().getId(), cctId, suiteId, title);
         
         inouts.setIntValue(OUT_ISID, structure.getId().intValue());
     }//execute()
