@@ -333,12 +333,12 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     } //getCriteriaSuiteById();
     
     
-	private static final String hql_checkedPublished = "from InfoStructure infoS where cctId=?";
+	private static final String hql_checkedPublished = "from InfoStructure infoS where type=? and cctId=?";
 	
     public Long checkPublished(Long cctId) throws Exception {
     	
     	List list = getHibernateTemplate().find(hql_checkedPublished, new Object[] {
-                cctId,
+                "sdcrit", cctId,
         });
     	
     	Long id = null;

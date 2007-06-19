@@ -167,7 +167,6 @@ public class CriteriaServiceImpl implements CriteriaService {
         	crit.getName();
         	crit.getObjectives();
         	crit.getThemes();
-        	
             
             InfoObject obj = new InfoObject();
             obj.setObject(crit);
@@ -261,7 +260,6 @@ public class CriteriaServiceImpl implements CriteriaService {
         discussionDAO.save(structure);
         
         return structure;
-        
     }//publish()
     
     
