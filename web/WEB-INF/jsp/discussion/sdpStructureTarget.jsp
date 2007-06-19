@@ -69,8 +69,8 @@
 								<!-- begin PROJECT -->
 								<tr class="${(infoObject.object.project.inclusive) ? 'fundingType' : 'fundingType2'}">
 									<td class="fundingSourceItem">${infoObject.object.project.name} Options</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
+									<td class="col2">&nbsp;</td>
+									<td class="col3">&nbsp;</td>
 								</tr>
 								<!-- end PROJECT -->
 								
