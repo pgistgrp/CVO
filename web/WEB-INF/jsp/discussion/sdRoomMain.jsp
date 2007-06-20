@@ -29,7 +29,7 @@
 <!--SDX Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
-
+<script type='text/javascript' src='/scripts/util.js'></script>
 <!--End SDX Specific  Libraries-->
 <script type="text/javascript">
 	<!--
