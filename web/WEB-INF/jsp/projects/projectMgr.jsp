@@ -192,7 +192,8 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 			<div style="width:400px;float:left;margin-bottom:5px;"><input id="txtProjDesc' + id +'" type="text" value="'+description+'" size="25"></div><br />\
 			<div style="clear:both"></div>\
 			<div style="width:200px;float:left;margin-bottom:5px;"><label>Type:</label></div>\
-			<div style="width:400px;float:left;margin-bottom:5px;"><select id="selProjType' + id +'">';
+			<div style="width:400px;float:left;margin-bottom:5px;"><select id="selProjType' + id +'">\
+			<option value="0">Choose...</option>';
 			for(i=1; i<transModes.length; i++){
 				modeSelected = (i==transMode) ? "SELECTED" : "";
 				f += '<option value="'+ i +'" '+ modeSelected +'>'+transModes[i]+'</option>';
@@ -211,12 +212,13 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 		Util.loading(true,"Loading project..");
 		ProjectAgent.getProjectById({id:id}, {
 			callback:function(data){
-				//if (data.successful){
+				if (data.successful){
 					//alert(data.project);
 					renderProjectForm(data.project)
-				//}else{
-				//	alert(data.reason);
-				//}
+				}else{
+					alert(data.reason);
+				}
+				Util.loading(false);
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("ProjectAgent.getProjectById( error:" + errorString + exception);
