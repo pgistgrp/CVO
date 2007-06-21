@@ -59,6 +59,50 @@
 		</style>
 
 		<script type="text/javascript" charseut="utf-8">
+            projSuiteId = "${projSuite.id}";
+            
+            function updateXML(){
+                ProjectAgent.getProjectSuiteById({projSuiteId:projSuiteId}, {
+                    callback:function(data){
+                        if (data.successful){
+$('xmlDataTemplate').value = '<?xml version="1.0" encoding="UTF-8"?>\r\n\
+<template>\r\n\
+<projects>\r\n';
+    for (var i=0; i < data.references.length; i++) {
+        '<project name="'+data.references[i].project.name +'">\r\n'
+    };
+    /*
+        <alternative name="${altRef.alternative.name}">\r\n\
+        <c:forEach var="critGrade" items="${altRef.gradedCriteria}" varStatus="loop3">\r\n\
+            <criterion name="${critGrade.criteria.name}">\r\n\
+            <c:forEach var="gradedObjective" items="${critGrade.objectives}" varStatus="loop4">\r\n\
+                <objective description="${gradedObjective.objective.description}">${gradedObjective.grade}</objective>\r\n\
+                </c:forEach>
+            </criterion>\r\n\
+            </c:forEach>
+        </alternative>\r\n\
+        </c:forEach>
+    </project>\r\n\
+    </c:forEach>*/
+'</projects>\r\n\
+
+<fundings>
+    <funding name="">
+        <alternative></alternative>
+    </funding>
+</fundings>
+</template>';
+                            
+
+                        }else{
+                            alert(data.reason);
+                        }
+                    },
+                    errorHandler:function(errorString, exception){ 
+                    alert("ProjectAgent.getProjectSuiteById( error:" + errorString + exception);
+                    }
+                });
+            }
 			function setGrading(altRefId, critId, objId, value){
 				if(value != ""){
 					//alert("altRefId: " + altRefId + " critId: " + critId + " objId: " + objId +" value: " +value ); 
@@ -68,6 +112,7 @@
 							if (data.successful){
 								//alert("grade set! Setting Criteria Grade to: " + data.critGrade)  //testing
 								$('critGrade-' + altRefId + '-' + critId).innerHTML = data.critGrade; //returned grade
+								updateXML();
 								//new Effect.Highlight('critGrade-' + critId); //highlight reflecting change
 							}else{
 								alert(data.reason);
@@ -133,7 +178,14 @@
 		<input type="button" style="padding:5px;" 
 		onClick="location.href='userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" value="Finished!"/></p></div>
 		
+		<p>TEMP (For Developers) - View XML for Data Template</p>
+		<textarea id="xmlDataTemplate" style="width:100%; height: 500px">
+            <!--update via DWR-->
+	    </textarea>
+	    <br />
+		
 		<script type="text/javascript">
+		    updateXML();
 			//ddtreemenu.createTree(treeid, enablepersist, opt_persist_in_days (default is 1))
 			//ddtreemenu.createTree("treemenu1", false);
 			//ddtreemenu.flatten('treemenu1', 'contact');
