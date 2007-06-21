@@ -74,19 +74,19 @@ xml = '<?xml version="1.0" encoding="UTF-8"?>\r\n\
         xml += '\t<project name="'+pRef.project.name +'">\r\n'; 
         //alert(pRef.altRefs.length)
         pRef.altRefs.each(function(aRef){
-            alert(aRef)
-            /*
-            xml += '\t<alternative name="'+ar.alternative.name+'">\r\n'
+            xml += '\t\t<alternative name="'+aRef.alternative.name+'">\r\n'
             aRef.gradedCriteria.each(function(cRef){
                 xml += '\t<criterion name="'+cRef.criteria.name+'">\r\n'
+                /*
                 cRef.gradedObjective.each(function(oRef){
                     xml += '\t<objective description="'+oRef.objective.name+'">'+oRef.grade+'</objective>\r\n'
                 })
+                */
                 xml += '\t</criterion>\r\n'
             })
             xml += '\t</alternative>\r\n'
-            */
         })
+        xml += '\t</project>\r\n'
     });
 xml+='\
     </projects>\r\n\
