@@ -16,6 +16,7 @@
       <convert converter="bean" match="org.pgist.funding.PersonalFundingCost"/>
       <convert converter="bean" match="org.pgist.funding.PersonalFundingCostAlternative"/>
       <convert converter="bean" match="org.pgist.funding.VehicleDTO"/>
+      <convert converter="bean" match="org.pgist.funding.FundingSourceSuite"/>
 
       <!-- DWR Agents -->
 
@@ -41,6 +42,7 @@
           <include method="setFundingDef"/>          
           <include method="lookupUserById"/>      
           <include method="createFundingSourceSuite"/> 
+          <include method="getFundingSuite"/> 
       </create>
 
   </allow>

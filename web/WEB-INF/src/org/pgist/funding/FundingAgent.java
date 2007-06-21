@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
+import org.pgist.projects.ProjectSuite;
+import org.pgist.funding.FundingSourceSuite;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
@@ -793,6 +795,38 @@ System.out.println("MATT: Looking up user");
         
         return map;
     }//setEstimates()
+    
+    
+    /**
+     * Get Funding Suite
+     * 
+     * @param id - funding suite Id
+     * @param fundingSuiteID	The funding suite used to generate the report
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>fundSuite - funding suite</li>
+     *   </ul>
+     */
+    public Map getFundingSuite(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            
+        	Long id = new Long((String) params.get("id"));
+            FundingSourceSuite fundSuite = fundingService.getFundingSuite(id);
+            map.put("fundSuite", fundSuite);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//getFundingSuite()
     
     
 }//class FundingAgent
