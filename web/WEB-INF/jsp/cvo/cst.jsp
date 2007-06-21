@@ -795,6 +795,10 @@ button#ss{font-size:12pt;padding:5px;}
 				 <p><button id="ss" type="button" disabled="true" onclick="saveSummary()">Save summary</button></p>
 			</div>
 		<div id="spacer" style="text-align: right;"></div>
+		<h3>Dummy text for testing</h3>
+		<p>Vestibulum suscipit. Aliquam fringilla hendrerit neque. Aliquam a diam et ipsum convallis pretium. Nulla mattis. Nullam nibh. Sed risus augue, tincidunt eget, lacinia sed, condimentum quis, lacus. Fusce dignissim libero in eros rhoncus egestas. In non ligula accumsan erat lacinia lobortis. Praesent ultricies risus. Nam enim.Aenean hendrerit interdum lectus. Vestibulum porttitor sodales leo. Vestibulum molestie posuere nibh. Mauris feugiat, risus id tempor varius, orci magna viverra urna, in luctus orci leo ut ipsum. Integer quis est posuere erat dictum mollis. Etiam pharetra, nibh a ornare tempus, metus magna auctor dui, eu fringilla magna dolor aliquet lacus. In leo lacus, rutrum sit amet, facilisis id, ultrices a, ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos.</p>
+		
+		<p>In dolor. Donec neque erat, consequat vitae, hendrerit et, malesuada vel, metus. In vitae neque iaculis quam ornare pretium. Donec eros. Vestibulum eros nisi, congue nec, sodales eget, facilisis et, turpis. Fusce pede felis, fringilla id, posuere ac, volutpat ac, felis. Vivamus et augue.</p>
 </div>
 </div>
 
