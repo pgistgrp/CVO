@@ -38,7 +38,7 @@ Util.toggleRow = function(index){
 	Effect.toggle(row, 'blind', {duration:.1, afterFinish:
 		function(){
 			($(row).visible()) ? Util.hiddenLabels(true) : Util.testOpenRows(row);
-			$(icon).src = ($(row).visible()) ?  Util.minusIcon : $(icon).src = Util.plusIcon;;
+			$(icon).src = ($(row).visible()) ?  Util.minusIcon :  Util.plusIcon;;
 		}
 	});
 }
@@ -60,7 +60,7 @@ Util.expandAll = function(rowClass){
 	for (var i=0;i<rows.length; i++){
 		var row = 'row' + i;
 		var icon = 'icon' + i;
-		Effect.toggle(row, 'blind', {duration:.1});
+		Effect.BlindDown(row, {duration:.1});
 		$(icon).src = Util.minusIcon;
 	}
 }
@@ -71,7 +71,7 @@ Util.collapseAll = function(rowClass){
 	for (var i = 0;i < rows.length; i++){
 		var row = 'row' + i;
 		var icon = 'icon' + i;
-		$(row).hide();
+		Effect.BlindUp(row, {duration:.1});
 		$(icon).src = Util.plusIcon;
 	}
 }
