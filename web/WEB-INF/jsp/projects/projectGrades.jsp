@@ -72,7 +72,6 @@ xml = '<?xml version="1.0" encoding="UTF-8"?>\r\n\
     <projects>\r\n'
     data.projSuite.references.each(function(pRef){
         xml += '\t<project name="'+pRef.project.name +'">\r\n'; 
-        //alert(pRef.altRefs.length)
         pRef.altRefs.each(function(aRef){
             xml += '\t\t<alternative name="'+aRef.alternative.name+'">\r\n'
             aRef.gradedCriteria.each(function(cRef){
@@ -88,11 +87,16 @@ xml = '<?xml version="1.0" encoding="UTF-8"?>\r\n\
     });
 xml+='\
     </projects>\r\n\
-    <fundings>\r\n\
-        <funding name="">\r\n\
-            <alternative></alternative>\r\n\
-        </funding>\r\n\
-    </fundings>\r\n\
+    <fundings>\r\n'
+    /*
+    data.fundSuite.references.each(function(fRef){
+        xml += '\t<funding name="'+fRef.source.name +'">\r\n'; 
+        fRef.altRefs.each(function(faRef){
+            xml+= '\t\t<alternative>'+faRef.alternative.name+'</alternative\r\n'
+        })
+        xml += '\t</funding>\r\n'
+    })*/
+    xml += '</fundings>\r\n\
 </template>';
                             
                             $('xmlDataTemplate').value = xml;
