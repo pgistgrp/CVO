@@ -23,18 +23,19 @@
 <div class="pagination" class="marginRight">
 				You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
 			<logic:equal name="setting" property="page" value="1">
-				<img src="images/btn_prev_fade.gif" alt="No Previous Pages" />
+				<input type="button" alt="No Previous Pages" disabled="true" value="Prev" />
 			</logic:equal>
 			<logic:notEqual name="setting" property="page" value="1">	
-				<a href="javascript:goToPage(${setting.page}-1, 'tagCloud');"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+			<input type="button" alt="No Previous Pages" name="prev" id="prev" 
+				value="Prev" onclick="goToPage(${setting.page}-1, 'tagCloud');"/>
 			</logic:notEqual>
 			
-			
 			<logic:equal name="setting" property="page" value="${setting.pageSize}">
-				<img src="images/btn_next_fade.gif" alt="No Additional Pages" />
+				<input type="button" value="Next" disabled="true" alt="No Additional Pages" />
 			</logic:equal>
 			<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-				<a href="javascript:goToPage(${setting.page}+1, 'tagCloud')"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+				<input type="button" onclick="goToPage(${setting.page}+1, 'tagCloud')" 
+					value="Next" name="next" id="next" />
 			</logic:notEqual>
 			
 
