@@ -76,15 +76,13 @@ xml = '<?xml version="1.0" encoding="UTF-8"?>\r\n\
         pRef.altRefs.each(function(aRef){
             xml += '\t\t<alternative name="'+aRef.alternative.name+'">\r\n'
             aRef.gradedCriteria.each(function(cRef){
-                xml += '\t<criterion name="'+cRef.criteria.name+'">\r\n'
-                /*
-                cRef.gradedObjective.each(function(oRef){
-                    xml += '\t<objective description="'+oRef.objective.name+'">'+oRef.grade+'</objective>\r\n'
+                xml += '\t\t\t<criterion name="'+cRef.criteria.name+'">\r\n'
+                cRef.objectives.each(function(oRef){
+                    xml += '\t\t\t\t<objective description="'+oRef.objective.description+'">'+ oRef.grade +'</objective>\r\n'
                 })
-                */
-                xml += '\t</criterion>\r\n'
+                xml += '\t\t\t</criterion>\r\n'
             })
-            xml += '\t</alternative>\r\n'
+            xml += '\t\t</alternative>\r\n'
         })
         xml += '\t</project>\r\n'
     });
@@ -107,6 +105,7 @@ xml+='\
                     }
                 });
             }
+            
 			function setGrading(altRefId, critId, objId, value){
 				if(value != ""){
 					//alert("altRefId: " + altRefId + " critId: " + critId + " objId: " + objId +" value: " +value ); 
