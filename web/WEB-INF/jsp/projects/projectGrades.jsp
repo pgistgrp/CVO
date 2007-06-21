@@ -62,35 +62,21 @@
             projSuiteId = "${projSuite.id}";
             
             function updateXML(){
-                ProjectAgent.getProjectSuiteById({projSuiteId:projSuiteId}, {
+                ProjectAgent.getProjectSuite({id:projSuiteId}, {
                     callback:function(data){
                         if (data.successful){
 $('xmlDataTemplate').value = '<?xml version="1.0" encoding="UTF-8"?>\r\n\
 <template>\r\n\
 <projects>\r\n';
-    for (var i=0; i < data.references.length; i++) {
-        '<project name="'+data.references[i].project.name +'">\r\n'
+    for (var i=0; i < data.projSuite.references.length; i++) {
+        '<project name="'+data.projSuite.references[i].projectRef.project.name +'">\r\n'
     };
-    /*
-        <alternative name="${altRef.alternative.name}">\r\n\
-        <c:forEach var="critGrade" items="${altRef.gradedCriteria}" varStatus="loop3">\r\n\
-            <criterion name="${critGrade.criteria.name}">\r\n\
-            <c:forEach var="gradedObjective" items="${critGrade.objectives}" varStatus="loop4">\r\n\
-                <objective description="${gradedObjective.objective.description}">${gradedObjective.grade}</objective>\r\n\
-                </c:forEach>
-            </criterion>\r\n\
-            </c:forEach>
-        </alternative>\r\n\
-        </c:forEach>
-    </project>\r\n\
-    </c:forEach>*/
 '</projects>\r\n\
-
-<fundings>
-    <funding name="">
-        <alternative></alternative>
-    </funding>
-</fundings>
+<fundings>\
+    <funding name="">\
+        <alternative></alternative>\
+    </funding>\
+</fundings>\
 </template>';
                             
 
