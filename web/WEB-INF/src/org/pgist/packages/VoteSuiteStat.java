@@ -8,7 +8,7 @@ package org.pgist.packages;
 public class VoteSuiteStat {
 
 	private Long id;
-	private Integer totalVotes;
+	private Integer totalVotes = 0;
 	private ClusteredPackage clusteredPackage;
 	private Integer highVotePercent = 0;
 	private Integer mediumVotePercent = 0;
