@@ -38,8 +38,8 @@
 		<!-- begin Object -->
 		<div id="object">
 			<h3 class="headerColor">Available funding options</h3>
-			<a href="javascript:io.expandAll();">Expand all</a>
-			<a href="javascript:io.collapseAll();">Collapse all</a>
+			<a href="javascript:Util.expandAll('objectives');">Expand all</a>
+			<a href="javascript:Util.collapseAll('objectives');">Collapse all</a>
 			<div id="obj-left" class="floatLeft"> 
 			<div id="newtable">
 				<table cellpadding=0 cellspacing=0>
@@ -55,30 +55,28 @@
 					
 					<c:forEach var="infoObject" items="${infoStructure.infoObjects}" varStatus="loop">
 						<tr class="fundingType">
-							<td class="fundingSourceItem"><a href="javascript:io.toggleRow('objective${loop.index}','icon${loop.index}');">
-							<img src="images/plus.gif" id="icon${loop.index}" class="icon"></a> ${infoObject.object.source.name}</td>
+							<td class="fundingSourceItem"><a href="javascript:Util.toggleRow(${loop.index});">
+							<img src="images/plus.gif" id="icon${loop.index}" class="icon"></a> <a href="javascript:Util.toggleRow(${loop.index});">${infoObject.object.source.name}</a></td>
 							<td colspan="3">&nbsp;</td>
 						</tr>
 						<!-- end FUNDING source -->
 						<!-- begin OPTIONS -->
-						<c:set var="doNothing"value="true"/>
-						<c:forEach var="altRef" items="${infoObject.object.altRefs}" varStatus="loop2">
-							<tr style="display:none;" class="objectives" id="objective${loop.index}">
-								<td colspan="4">
-									<table>
+						<tr style="display:none;" class="objectives" id="row${loop.index}">
+							<td colspan="4">
+								<table>
+									<!-- start project alt -->
+									<c:forEach var="altRef" items="${infoObject.object.altRefs}" varStatus="loop2">
 										<tr>
 											<td>${altRef.alternative.name}</td>
 											<td>${altRef.alternative.revenue} million</td>
 											<td>$${altRef.alternative.avgCost}</td>
 											<td>$<c:out value="${userPkg.personalCost[altRef.id]}" /></td>
 										</tr>
-									</table>
-								</td>
-							</tr>
-							<c:if test="${pg:contains(userPkg.fundAltRefs,altRef)}">
-								<c:set var="doNothing"value="false"/>
-							</c:if>
-						</c:forEach>
+									</c:forEach>
+									<!-- end project alt-->
+								</table>
+							</td>
+						</tr>
 						<tr>
 							<td class="cost">&nbsp;</td>
 							<td class="cost">&nbsp;</td>

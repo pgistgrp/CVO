@@ -381,7 +381,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 					}else{
 						alert(data.reason);
 					}
-				Util.loading
+				Util.loading(false);
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("ProjectAgent.deleteProject( error:" + errorString + exception);
@@ -407,7 +407,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 				alert("ProjectAgent.deleteProjectAlternative( error:" + errorString + exception);
 				}
 			});
-		}Util.loading(false)
+		}
 	}
 	
 	////////// START Mapping Functions ////////////

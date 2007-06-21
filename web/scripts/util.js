@@ -20,37 +20,43 @@ Util.loading = function(show, message){
 }
 
 //Toggling functions use naming conventions.  The toggling row must have the id 'rowXX' and the icon must be 'iconXX'
-//If there is a hidden label that appears, call it 'hiddenLabel' or whatever is specified in Util.hiddenLabel
+//If there is a hidden label that appears, give it the class 'hiddenLabel' or whatever is specified in Util.hiddenLabel
 Util.plusIcon = "/images/plus.gif";
 Util.minusIcon = "/images/minus.gif";
-Util.hiddenLabel = "hiddenLabel";
+Util.hiddenLabelClassName = "hiddenLabel";
+
+Util.hiddenLabels = function(show){
+	hiddenLabels = document.getElementsByClassName(this.hiddenLabelClassName);
+	for(i=0;i<hiddenLabels.length;i++){
+		(show) ? hiddenLabels[i].show() : hiddenLabels[i].hide();
+	}
+}
 
 Util.toggleRow = function(index){
 	row = 'row' + index;
 	icon =  'icon' + index;
 	Effect.toggle(row, 'blind', {duration:.1, afterFinish:
 		function(){
-			if ($(row).visible()){
-					$(icon).src = Util.plusIcon;
-					if($(Util.hiddenLabel)){ $(Util.hiddenLabel).show(); }
-				}else{
-					$(icon).src = Util.minusIcon;
-					Util.testOpenRows(row);
-				}
-			}
+			($(row).visible()) ? Util.hiddenLabels(true) : Util.testOpenRows(row);
+			$(icon).src = ($(row).visible()) ?  Util.minusIcon : $(icon).src = Util.plusIcon;;
+		}
 	});
 }
 
 Util.testOpenRows = function(row){
-	var rows = document.getElementsByClassName($(row).className);
+	rows = document.getElementsByClassName($(row).className);
+
+	show = false;
 	for (var i=0;i<rows.length; i++){
-		($(row).visible()) ? $(Util.hiddenLabel).show() : $(Util.hiddenLabel).hide();
+		show = (rows[i].visible()) ? true : false;
+		if(show){break;}
 	}
+	(show) ?  Util.hiddenLabels(true) : Util.hiddenLabels(false);
 }
 
 Util.expandAll = function(rowClass){
 	var rows = document.getElementsByClassName(rowClass);
-	$(Util.hiddenLabel).show();
+	Util.hiddenLabels(true);
 	for (var i=0;i<rows.length; i++){
 		var row = 'row' + i;
 		var icon = 'icon' + i;
@@ -61,7 +67,7 @@ Util.expandAll = function(rowClass){
 
 Util.collapseAll = function(rowClass){
 	var rows = document.getElementsByClassName(rowClass);
-	$(Util.hiddenLabel).hide();
+	Util.hiddenLabels(false);
 	for (var i = 0;i < rows.length; i++){
 		var row = 'row' + i;
 		var icon = 'icon' + i;

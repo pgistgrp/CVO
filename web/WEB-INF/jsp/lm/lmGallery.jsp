@@ -67,7 +67,7 @@
 				<table cellpadding=0 cellspacing=0>
 					<tr class="tableHeading">
 						<th colspan="2" class="first">Proposed Projects</th>
-						<th class="right"><span id="hiddenLabel" style="display:none">Money Needed</span></th>
+						<th class="right"><span class="hiddenLabel" style="display:none">Money Needed</span></th>
 					</tr>
 					
 					
