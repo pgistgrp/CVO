@@ -119,8 +119,10 @@ xml+='\
 							if (data.successful){
 								//alert("grade set! Setting Criteria Grade to: " + data.critGrade)  //testing
 								$('critGrade-' + altRefId + '-' + critId).innerHTML = data.critGrade; //returned grade
-								updateXML();
 								//new Effect.Highlight('critGrade-' + critId); //highlight reflecting change
+							    if($('XMLwrapper').visible()){
+							        updateXML();
+							    }
 							}else{
 								alert(data.reason);
 							}
@@ -185,10 +187,12 @@ xml+='\
 		<input type="button" style="padding:5px;" 
 		onClick="location.href='userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" value="Finished!"/></p></div>
 		
-		<p>TEMP (For Developers) - View XML for Data Template</p>
-		<textarea id="xmlDataTemplate" style="width:100%; height: 500px">
-            <!--update via DWR-->
-	    </textarea>
+		<p>TEMP (For Developers) - <a href="javascript:Element.toggle('XMLwrapper');updateXML();">View XML for Data Template</a></p>
+		<div id="XMLwrapper" style="display:none">
+    		<textarea id="xmlDataTemplate" style="width:100%; height: 500px">
+                <!--update via DWR-->
+    	    </textarea>
+	    </div>
 	    <br />
 		
 		<script type="text/javascript">

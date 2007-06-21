@@ -128,21 +128,25 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 		var transMode = $F('selProjType'); //1 or 2
 		var inclusive = $('inclusive').checked; // "true" or "false"
 		//alert("name: " + name + " description: " + description + " transMode: " + transMode + " inclusive: " + inclusive)
-		Util.loading(true,"Saving project..");
-		ProjectAgent.createProject({name:name,description:description,transMode:transMode, inclusive:inclusive}, {
-			callback:function(data){
-				if (data.successful){
-					getProjects();
-					setTimeout(function() {new Effect.Highlight('project-'+ data.id, {duration:5});}, 100);
-				}else{
-					alert(data.reason);
-				}
-				Util.loading(false)
-			},
-			errorHandler:function(errorString, exception){ 
-			alert("ProjectAgent.createProject( error:" + errorString + exception);
-			}
-		});
+		if(!name || transMode == 0){
+		    alert("Please be sure to fill out all required fields.")
+		}else{
+    		Util.loading(true,"Saving project..");
+    		ProjectAgent.createProject({name:name,description:description,transMode:transMode, inclusive:inclusive}, {
+    			callback:function(data){
+    				if (data.successful){
+    					getProjects();
+    					setTimeout(function() {new Effect.Highlight('project-'+ data.id, {duration:5});}, 100);
+    				}else{
+    					alert(data.reason);
+    				}
+    				Util.loading(false)
+    			},
+    			errorHandler:function(errorString, exception){ 
+    			alert("ProjectAgent.createProject( error:" + errorString + exception);
+    			}
+    		});
+    	}
 	}
 	
 	function createProjectAlt(id){
@@ -164,7 +168,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 					getProjects();
 					//setTimeout(function() {new Effect.Highlight('alt-'+ data.id, {duration:5});}, 100);
 				}else{
-					alert(data.reason);
+					alert("Please be sure to fill out all required fields");
 				}
 				Util.loading(false)
 			},
@@ -185,13 +189,13 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 		transMode = (project) ? project.transMode : "";
 		transModes = ["null","road", "transit"];
 		
-		f = '<div style="width:200px;float:left;margin-bottom:5px;"><label>Project Name:</label></div>\
+		f = '<div style="width:200px;float:left;margin-bottom:5px;"><label>* Project Name:</label></div>\
 			<div style="width:400px;float:left;margin-bottom:5px;"><input id="txtProjName' + id +'" type="text" value="'+name+'" size="40"></div>\
 			<div style="clear:both"></div>\
 			<div style="width:200px;float:left;margin-bottom:5px;"><label>Project Description:</label></div>\
 			<div style="width:400px;float:left;margin-bottom:5px;"><input id="txtProjDesc' + id +'" type="text" value="'+description+'" size="25"></div><br />\
 			<div style="clear:both"></div>\
-			<div style="width:200px;float:left;margin-bottom:5px;"><label>Type:</label></div>\
+			<div style="width:200px;float:left;margin-bottom:5px;"><label>* Type:</label></div>\
 			<div style="width:400px;float:left;margin-bottom:5px;"><select id="selProjType' + id +'">\
 			<option value="0">Choose...</option>';
 			for(i=1; i<transModes.length; i++){
@@ -274,11 +278,11 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 				</div>\
 			<div style="width:850px;">\
 			<div style="float:left;margin-right:20px;">\
-				<label>Project Alternative Name:</label><br />\
+				<label>* Project Alternative Name:</label><br />\
 				<input id="txtAltName'+ altId +'" type="text" value="'+ name +'" size="40"><br />\
 				<p><label>Agency:</label><br />\
 				<input id="txtAltAgency'+ altId +'" type="text" value="'+ sponsor +'" size="40"></p>\
-				<p><label>Cost (in millions):</label><br />\
+				<p><label>* Cost (in millions):</label><br />\
 				<input id="txtAltCost'+ altId +'" type="text" value="'+ cost +'" size="40"></p>\
 				<p><label>County:</label><br />\
 				<input id="txtAltCounty'+ altId +'" type="text" value="'+ county +'" size="40"></p>\
