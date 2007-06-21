@@ -17,6 +17,8 @@
 
 	  <convert converter="bean" match="org.pgist.projects.ProjectAlternative"/>
 	  
+	  <convert converter="bean" match="org.pgist.projects.ProjectAltRef"/>
+	  
 	  <convert converter="bean" match="org.pgist.projects.ProjectSuite"/>
 	  
 	  <convert converter="bean" match="org.pgist.projects.ProjectRef"/>
