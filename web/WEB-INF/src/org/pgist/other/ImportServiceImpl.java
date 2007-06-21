@@ -13,6 +13,7 @@ import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaDAO;
 import org.pgist.criteria.CriteriaRef;
 import org.pgist.criteria.CriteriaSuite;
+import org.pgist.criteria.CriteriaUserWeight;
 import org.pgist.criteria.Objective;
 import org.pgist.cvo.CCTDAO;
 import org.pgist.funding.FundingDAO;
@@ -135,7 +136,13 @@ public class ImportServiceImpl implements ImportService {
                 
                 criteriaDAO.save(ref);
                 
+                CriteriaUserWeight cuw = new CriteriaUserWeight();
+                cuw.setSuite(critSuite);
+                
+                criteriaDAO.save(cuw);
+                
                 critSuite.getReferences().add(ref);
+                critSuite.getWeights().put(ref, cuw);
                 
                 critMap.put(name, ref);
             }
