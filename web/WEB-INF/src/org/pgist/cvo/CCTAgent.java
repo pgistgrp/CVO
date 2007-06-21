@@ -1270,5 +1270,9 @@ public class CCTAgent {
         return map;
     }//setCommentVoting()
     
+
+	public void test(){
+		
+	}
     
 }//class CCTAgent

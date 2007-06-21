@@ -65,21 +65,39 @@
                 ProjectAgent.getProjectSuite({id:projSuiteId}, {
                     callback:function(data){
                         if (data.successful){
-$('xmlDataTemplate').value = '<?xml version="1.0" encoding="UTF-8"?>\r\n\
+                            
+                            
+xml = '<?xml version="1.0" encoding="UTF-8"?>\r\n\
 <template>\r\n\
-<projects>\r\n';
-    for (var i=0; i < data.projSuite.references.length; i++) {
-        '<project name="'+data.projSuite.references[i].projectRef.project.name +'">\r\n'
-    };
-'</projects>\r\n\
-<fundings>\
-    <funding name="">\
-        <alternative></alternative>\
-    </funding>\
-</fundings>\
+    <projects>\r\n'
+    data.projSuite.references.each(function(pRef){
+        xml += '\t<project name="'+pRef.project.name +'">\r\n'; 
+        //alert(pRef.altRefs.length)
+        pRef.altRefs.each(function(aRef){
+            alert(aRef)
+            /*
+            xml += '\t<alternative name="'+ar.alternative.name+'">\r\n'
+            aRef.gradedCriteria.each(function(cRef){
+                xml += '\t<criterion name="'+cRef.criteria.name+'">\r\n'
+                cRef.gradedObjective.each(function(oRef){
+                    xml += '\t<objective description="'+oRef.objective.name+'">'+oRef.grade+'</objective>\r\n'
+                })
+                xml += '\t</criterion>\r\n'
+            })
+            xml += '\t</alternative>\r\n'
+            */
+        })
+    });
+xml+='\
+    </projects>\r\n\
+    <fundings>\r\n\
+        <funding name="">\r\n\
+            <alternative></alternative>\r\n\
+        </funding>\r\n\
+    </fundings>\r\n\
 </template>';
                             
-
+                            $('xmlDataTemplate').value = xml;
                         }else{
                             alert(data.reason);
                         }
