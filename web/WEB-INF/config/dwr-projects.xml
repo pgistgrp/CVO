@@ -16,6 +16,8 @@
 	  <convert converter="bean" match="org.pgist.projects.Project"/>
 
 	  <convert converter="bean" match="org.pgist.projects.ProjectAlternative"/>
+	  
+	  <convert converter="bean" match="org.pgist.projects.ProjectSuite"/>
 
     <convert converter="bean" match="org.pgist.projects.Package"/>
 
@@ -46,6 +48,7 @@
         <include method="enableProjectDiscussion"/>
         <include method="setGrading"/>
         <include method="createProjectSuite"/>
+        <include method="getProjectSuite"/>
     </create>
 
 

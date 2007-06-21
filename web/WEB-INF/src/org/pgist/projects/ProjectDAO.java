@@ -61,6 +61,6 @@ public interface ProjectDAO extends BaseDAO {
     Project getProjectByName(String name) throws Exception;
     
     ProjectAlternative getProjectAlternativeByName(String name) throws Exception;	
-	
+
     
 }//interface ProjectDAO

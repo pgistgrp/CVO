@@ -100,6 +100,39 @@ public class ProjectAgent {
     
     
     /**
+     * Get a ProjectAlternative object
+     *
+     * @param  A map contains:
+     *     <ul>
+     *       <li>id - int, id of the ProjectSuite object</li>
+     *     </ul>
+     * 
+     * @return A map contains:
+     *     <ul>
+     *       <li>successful - a boolean value denoting if the operation succeeds</li>
+     *       <li>reason - reason why operation failed (valid when successful==false)</li>
+     *       <li>projSuite - ProjectSuite object</li>
+     *     </ul>
+     */
+    public Map getProjectSuite(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long id = new Long((String) params.get("id"));
+            ProjectSuite projSuite = projectService.getProjectSuite(id);
+            map.put("projSuite", projSuite);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//getProjectSuite()
+    
+    
+    /**
      * Get a page segment of projects list for project management.<br>
      * 
      * @param params A empty map
