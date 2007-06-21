@@ -1407,7 +1407,9 @@ public class PackageServiceImpl implements PackageService {
         for (ClusteredPackage one : pkgSuite.getClusteredPkgs()) {
             VoteSuiteStat stat = new VoteSuiteStat();
             stat.setClusteredPackage(one);
+            
             voteSuite.getStats().add(stat);
+            
             packageDAO.save(stat);
         }//for
         

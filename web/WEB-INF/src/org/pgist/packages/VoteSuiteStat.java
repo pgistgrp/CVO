@@ -10,9 +10,9 @@ public class VoteSuiteStat {
 	private Long id;
 	private Integer totalVotes;
 	private ClusteredPackage clusteredPackage;
-	private Integer highVotePercent;
-	private Integer mediumVotePercent;
-	private Integer lowVotePercent;
+	private Integer highVotePercent = 0;
+	private Integer mediumVotePercent = 0;
+	private Integer lowVotePercent = 0;
 	
     /**
      * @return
