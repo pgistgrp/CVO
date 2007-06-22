@@ -1,8 +1,5 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-"http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
 <!--####
 	Project: Let's Improve Transportation!
@@ -97,7 +94,6 @@ body {
 		
 		<div id="login">
 			<html:form action="/login.do" method="POST" focus="user.loginname">
-				<input type="hidden" name="PG_INIT_URL" value="${param['PG_INIT_URL']}">
 				<div class="cell"><strong>User Name</strong><br /><html:text property="user.loginname"/></div>
 				<div class="cell"><strong>Password</strong>
 					<br /><html:password property="user.password" redisplay="false"/>

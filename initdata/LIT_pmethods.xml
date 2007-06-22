@@ -395,7 +395,7 @@
                         <pgame name="pgame-create.vote.suite">
                             <declaration>
                                 <ins>
-                                    <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
+                                    <var name="pkg_suite_id" ref="pmethod.pkg_suite_id"/>
                                 </ins>
                                 <outs>
                                     <var name="suite_id" ref="pmethod.vote_suite_id_2"/>

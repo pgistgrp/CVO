@@ -9,6 +9,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -94,26 +95,29 @@ public class PgistFilter implements Filter {
                 /*
                  * save the current URL for later user
                  */
-                StringBuilder initURL = new StringBuilder();
-                initURL.append(req.getContextPath());
-                initURL.append(loginURL);
-                initURL.append("?PG_INIT_URL=");
+                StringBuilder loginURL = new StringBuilder();
+                loginURL.append(req.getContextPath());
+                loginURL.append(loginURL);
                 
                 HttpServletResponse res = (HttpServletResponse) response;
                 
                 StringBuffer sb = req.getRequestURL();
                 sb.append('?').append(req.getQueryString());
-                initURL.append(res.encodeURL(sb.toString()));
                 
                 /*
-                 * redirect to login page with initURL
+                 * Save the original requested URL in cookie
                  */
-                res.sendRedirect( initURL.toString() );
+                Cookie cookie = new Cookie("PG_INIT_URL", res.encodeRedirectURL(sb.toString()));
+                cookie.setMaxAge(-1);
+                res.addCookie(cookie);
+                
+                /*
+                 * redirect to login page
+                 */
+                res.sendRedirect( loginURL.toString() );
                 
                 return;
             }
-            
-            req.setAttribute("PG_INIT_URL", "");
             
             //You can use the variable "baseuser" on any jsp page.
             request.setAttribute("baseuser", userInfo);

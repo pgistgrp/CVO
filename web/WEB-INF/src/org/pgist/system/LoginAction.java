@@ -1,5 +1,6 @@
 package org.pgist.system;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.Action;
@@ -82,21 +83,32 @@ public class LoginAction extends Action {
             /*
              * Check if it's a intermediate login
              */
-            String initURL = request.getParameter("PG_INIT_URL");
-            System.out.println("redirect to -----> "+initURL);
-            if (initURL!=null && initURL.length()>0) {
-                /*
-                 * redirect to the initial URL
-                 */
-                ActionForward af = new ActionForward(initURL, true);
-                return af;
-            }
+            for (Cookie cookie : request.getCookies()) {
+                if ("PG_INIT_URL".equals(cookie.getName())) {
+                    String initURL = cookie.getValue();
+                    System.out.println("redirect to -----> "+initURL);
+                    
+                    /*
+                     * Remove the cookie
+                     */
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                    
+                    if (initURL!=null && initURL.length()>0) {
+                        /*
+                         * redirect to the initial URL
+                         */
+                        ActionForward af = new ActionForward(initURL, true);
+                        return af;
+                    }
+                }
+            }//for
             
             return mapping.findForward("main");
         } else if(!user.checkPassword(password)){
         	uform.setReason("Your Password is Invalid. Please Try Again.");
         	return mapping.findForward("login");
-        } 
+        }
         
         return mapping.findForward("login");
     }//execute()
