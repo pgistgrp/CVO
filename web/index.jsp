@@ -97,7 +97,7 @@ body {
 				<div class="cell"><strong>Password</strong>
 					<br /><input type="password" name="password" value=""/>
 				</div>
-				<div style="float:right;"><input type="submit" class="sub" value="Login"/></div>
+				<div style="float:right;"><input type="submit" id="sub" value="Login"/></div>
 				<div style="clear:both"></div>
 				<span id="errors">${reason}</span>
 			</form>
