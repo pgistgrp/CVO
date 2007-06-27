@@ -639,6 +639,8 @@ PGISTMapEditor.prototype.scaleToCoords=function(crds, useextent){
 	var bounds = new GLatLngBounds( new GLatLng(miny, minx), new GLatLng(maxy,maxx) );
 	var zoomlevel = this.map.getBoundsZoomLevel(bounds);
 	var center = new GLatLng( (maxy+miny)/2, (maxx+minx)/2 );
+	
+	if(zoomlevel > 15)zoomlevel = 15;
 
 	if(zoomlevel != this.map.getZoom())this.map.setZoom(zoomlevel);
 

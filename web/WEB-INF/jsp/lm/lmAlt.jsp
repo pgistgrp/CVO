@@ -56,32 +56,28 @@
 			callback:function(data){
 				if (data.successful){
 					for(fpid in data.footprints){
+						var transicon = (transmode==2)?pgistmap.transiticon:pgistmap.roadicon;
+						var points = pgistmap.makeGPoints(data.footprints[fpid].coords);
+						var overlays = pgistmap.createOverlays(
+							points, 
+							data.footprints[fpid].geotype,
+							transcolor, 4, 0.9, "", transicon);
+						//make lines look better by adding thicker background lines
 						if(data.footprints[fpid].geotype==0 ||
 							data.footprints[fpid].geotype==2 || 
-							data.footprints[fpid].geotype==5){ // line
-							var points = pgistmap.makeGPoints(data.footprints[fpid].coords);
-							for(var j=0; j<points.length; j++){
-								pgistmap.map.addOverlay(
-									new GPolyline(points[j], "#FFFFFF", 8, 0.6) );
-								pgistmap.map.addOverlay(
-									new GPolyline(points[j], transcolor, 4, 0.9) );
-							}
-							pgistmap.scaleToCoords(points);
-							
-							//pgistmap.recoverCoords(data.footprints[fpid].coords);
-							//pgistmap.scaleToCoords();
-							//pgistmap.drawLines();
-						}else if(data.footprints[fpid].geotype==1 || 
-							data.footprints[fpid].geotype==4){ // point
-							pgistmap.recoverCoords(data.footprints[fpid].coords);
-							pgistmap.scaleToCoords();
-							pgistmap.drawPoints();	
-						}else{ //polygon
-							pgistmap.recoverCoords(data.footprints[fpid].coords);
-							pgistmap.scaleToCoords();
-							pgistmap.drawPolygons();	
-							
+							data.footprints[fpid].geotype==5){
+								var bgoverlays = pgistmap.createOverlays(
+									points, 
+									data.footprints[fpid].geotype,
+									"FFFFFF", 8, 0.9, "");
+								for(var j=0; j<overlays.length; j++){
+									pgistmap.map.addOverlay( bgoverlays[j] );
+								}
 						}
+						for(var j=0; j<overlays.length; j++){
+							pgistmap.map.addOverlay( overlays[j] );
+						}
+						pgistmap.scaleToCoords(points);
 					}
 				}else{
 					alert("Something wrong happened, reason: " + data.reason);
