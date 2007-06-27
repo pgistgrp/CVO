@@ -12,7 +12,7 @@ background: transparent url(/images/slider-track-left.png) no-repeat top left;
 
 /* put the track and the right rounded edge on the track */
 .track {
-background: transparent url(/images/slider-track-right.png) no-repeat top right;
+background: transparent url(/images/slider-track-right.png) repeat-x top right;
 }
 
 /*end scriptaculous slider css*/
@@ -30,7 +30,7 @@ padding:5px 0px;
 }
 
 
-.criteriaListHeader .weighCriteriaCol1 {width:205px;padding-left:5px;}
+.criteriaListHeader .weighCriteriaCol1 {width:305px;padding-left:5px;}
 
 #allCriteriaList
 {
@@ -41,7 +41,7 @@ text-align:left;
 
 .weighCriteriaCol1
 {
-width:210px;
+width:310px;
 margin-right:.5em;
 }
 
@@ -60,7 +60,7 @@ width:330px;
 .weighCriteriaCol3
 {
 margin-left:.5em;
-width:705px; /*375*/
+width:605px; /*375*/
 }	
 
 h4

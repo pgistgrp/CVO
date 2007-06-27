@@ -36,7 +36,7 @@
 	
 				<div class="weighCriteriaCol3 floatLeft">
 					<!-- start slider bar -->
-					<div id="track${ref.criterion.id}" class="track floatLeft" style="width:200px; height:9px;">
+					<div id="track${ref.criterion.id}" class="track floatLeft" style="width:550px;height:9px;">
 						<div id="track${ref.criterion.id}-left" class="track-left"></div>
 						<div id="handle${ref.criterion.id}" style="cursor: col-resize; width:19px; height:20px;"> 
 						<img src="images/slider-handle.png" alt="" style="float: left;"/> </div>
