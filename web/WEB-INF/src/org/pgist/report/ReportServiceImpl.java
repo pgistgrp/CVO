@@ -1,7 +1,13 @@
 package org.pgist.report;
 
 import java.util.Collection;
+import java.util.Date;
 
+import org.pgist.criteria.CriteriaRef;
+import org.pgist.criteria.CriteriaSuite;
+import org.pgist.cvo.CCT;
+import org.pgist.discussion.InfoObject;
+import org.pgist.discussion.InfoStructure;
 import org.pgist.packages.ClusteredPackage;
 import org.pgist.packages.PackageSuite;
 
@@ -46,5 +52,10 @@ public class ReportServiceImpl implements ReportService{
 		return reportDAO.createReportSuite();
 	}
 	
+	
+	 public InfoStructure publish(Long workflowId, Long cctId, Long suiteId, String title) throws Exception {
+	        //create publish function if needed
+	        return null;
+	    }//publish()
 	
 }

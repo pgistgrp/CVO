@@ -7,7 +7,6 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             /WEB-INF/config/context-database.xml
-            /WEB-INF/config/context-tasks.xml
             classpath:/config/context-workflow.xml
             /WEB-INF/config/context-system.xml
             /WEB-INF/config/context-other.xml
@@ -19,6 +18,7 @@
             /WEB-INF/config/context-packages.xml
             /WEB-INF/config/context-report.xml
             /WEB-INF/config/context-lm.xml
+            /WEB-INF/config/context-tasks.xml
         </param-value>
     </context-param>
     
@@ -143,6 +143,10 @@
             <param-name>config-criteria</param-name>
             <param-value>WEB-INF/config/dwr-criteria.xml</param-value>
         </init-param>
+	<init-param>
+	    <param-name>config-report</param-name>
+	    <param-value>WEB-INF/config/dwr-report.xml</param-value>
+        </init-param>
         <init-param>
             <param-name>config-package</param-name>
             <param-value>WEB-INF/config/dwr-package.xml</param-value>
@@ -162,10 +166,6 @@
         <init-param>
             <param-name>config-workflow</param-name>
             <param-value>WEB-INF/config/dwr-workflow.xml</param-value>
-        </init-param>
-        <init-param>
-            <param-name>config-report</param-name>
-            <param-value>WEB-INF/config/dwr-report.xml</param-value>
         </init-param>
         <init-param>
 	    <param-name>config-other</param-name>
