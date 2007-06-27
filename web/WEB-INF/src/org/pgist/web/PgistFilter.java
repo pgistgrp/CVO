@@ -35,20 +35,23 @@ public class PgistFilter implements Filter {
     protected FilterConfig filterConfig = null;
     
     /*
-     * If forceCloseConnection is true, each request will cause the system to try to close
-     * any database connection involved in this request.
-     */
-    protected boolean forceCloseConnection = true;
-    
-    /*
      * The login URL.
      */
-    protected String loginURL = null;
+    protected String loginURL;
     
     /*
-     * All request urls in the ignoreURLs will not be checked if the user has logged in.
+     * All requested urls in the ignoreURLs will not be checked if the user has logged in.
      */
-    protected HashSet ignoreURLs = new HashSet();
+    protected HashSet<String> ignoreURLs = new HashSet<String>();
+    
+    /*
+     * All requested urls in the httpsURLs will be forced to use https protocol.
+     */
+    protected HashSet<String> httpsURLs = new HashSet<String>();
+    
+    protected int httpPort = 80;
+    
+    protected int httpsPort = 443;
     
     
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -56,8 +59,6 @@ public class PgistFilter implements Filter {
         
         WebApplicationContext context = (WebApplicationContext) filterConfig.getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
         systemService = (SystemService) context.getBean("systemService");
-        
-        forceCloseConnection = "true".equals(filterConfig.getInitParameter("force-close-connection"));
         
         /*
          * loginURL should be in the ignoreURLs.
@@ -70,15 +71,34 @@ public class PgistFilter implements Filter {
         for (int i=0; i<array.length; i++) {
             ignoreURLs.add(array[i].trim());
         }
+        
+        String httpsURL = filterConfig.getInitParameter("https-url");
+        array = httpsURL.split(",");
+        for (int i=0; i<array.length; i++) {
+            httpsURLs.add(array[i].trim());
+        }
+        
+        String port = filterConfig.getInitParameter("http-port");
+        if (port!=null && port.trim().length()>0) {
+            port = port.trim();
+            httpPort = Integer.parseInt(port);
+        }
+        
+        port = filterConfig.getInitParameter("https-port");
+        if (port!=null && port.trim().length()>0) {
+            port = port.trim();
+            httpsPort = Integer.parseInt(port);
+        }
     }//init()
 
     
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         //check if the user logged in
         HttpServletRequest req = (HttpServletRequest) request;
-        String path = req.getRequestURI();
+        HttpServletResponse res = (HttpServletResponse) response;
+        
         String ctxPath = req.getContextPath();
-        path = path.substring(ctxPath.length());
+        String path = req.getRequestURI().substring(ctxPath.length());
         
         //System.out.println("URI: "+req.getRequestURI());
         //System.out.println("URL: "+req.getRequestURL());
@@ -86,6 +106,29 @@ public class PgistFilter implements Filter {
         
         UserInfo userInfo = null;
         
+        String httpsPrefix = "https://" + req.getServerName() + ":" + httpsPort;
+        req.setAttribute("httpsPrefix", httpsPrefix);
+        String httpPrefix = "http://" + req.getServerName() + ":" + httpPort;
+        req.setAttribute("httpPrefix", httpPrefix);
+        
+        /*
+         * check if the requested url should use https protocol.
+         */
+        if (httpsURLs.contains(path)) {
+            if (!req.isSecure()) {
+                req.getSession(true);
+                if (req.getQueryString()!=null) {
+                    res.sendRedirect( httpsPrefix + req.getRequestURI() + '?' + req.getQueryString() );
+                } else {
+                    res.sendRedirect( httpsPrefix + req.getRequestURI() );
+                }
+                return;
+            }
+        }
+        
+        /*
+         * check if the requested url is in ignore urls.
+         */
         if (!ignoreURLs.contains(path)) {
             HttpSession session = req.getSession();
             userInfo = (UserInfo) session.getAttribute("user");
@@ -93,28 +136,26 @@ public class PgistFilter implements Filter {
                 //user has not logged on
                 
                 /*
-                 * save the current URL for later user
+                 * save the original requested URL for later user
                  */
-                StringBuilder loginURL = new StringBuilder();
-                loginURL.append(req.getContextPath());
-                loginURL.append(loginURL);
+                StringBuffer initURL = req.getRequestURL();
+                if (req.getQueryString()!=null) {
+                    initURL.append('?').append(req.getQueryString());
+                }
                 
-                HttpServletResponse res = (HttpServletResponse) response;
-                
-                StringBuffer sb = req.getRequestURL();
-                sb.append('?').append(req.getQueryString());
-                
-                /*
-                 * Save the original requested URL in cookie
-                 */
-                Cookie cookie = new Cookie("PG_INIT_URL", res.encodeRedirectURL(sb.toString()));
-                cookie.setMaxAge(-1);
-                res.addCookie(cookie);
+                if (!"/".equalsIgnoreCase(req.getRequestURI())) {
+                    /*
+                     * Save the original requested URL in cookie
+                     */
+                    Cookie cookie = new Cookie("PG_INIT_URL", res.encodeRedirectURL(initURL.toString()));
+                    cookie.setMaxAge(-1);
+                    res.addCookie(cookie);
+                }
                 
                 /*
                  * redirect to login page
                  */
-                res.sendRedirect( loginURL.toString() );
+                res.sendRedirect( httpsPrefix + loginURL );
                 
                 return;
             }

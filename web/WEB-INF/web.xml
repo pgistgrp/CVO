@@ -44,6 +44,18 @@
             <param-value>/index.jsp</param-value>
         </init-param>
         <init-param>
+            <param-name>http-port</param-name>
+            <param-value>8080</param-value>
+        </init-param>
+        <init-param>
+            <param-name>https-port</param-name>
+            <param-value>8443</param-value>
+        </init-param>
+        <init-param>
+            <param-name>https-url</param-name>
+            <param-value>/login.do</param-value>
+        </init-param>
+        <init-param>
             <param-name>ignore-url</param-name>
             <param-value>
                 /login.do,
@@ -91,6 +103,16 @@
     <filter-mapping>
         <filter-name>pgist filter</filter-name>
         <url-pattern>/dwr/*</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>pgist filter</filter-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>pgist filter</filter-name>
+        <url-pattern>/main.jsp</url-pattern>
     </filter-mapping>
     
     <listener>
@@ -181,38 +203,6 @@
         </init-param>
     </servlet>
     
-    <!-- Axis 2 servlet -->
-    
-    <servlet>
-        <servlet-name>AxisServlet</servlet-name>
-        <display-name>Apache-Axis Servlet</display-name>
-        <servlet-class>org.apache.axis2.transport.http.AxisServlet</servlet-class>
-        <!--init-param>
-            <param-name>axis2.xml.path</param-name>
-            <param-value>/WEB-INF/config/axis2.xml</param-value>
-            <param-name>axis2.xml.url</param-name>
-            <param-value>http://localhost:8080/axis/axis2.xml</param-value>
-            <param-name>axis2.repository.path</param-name>
-            <param-value>/WEB-INF/config</param-value>
-            <param-name>axis2.repository.url</param-name>
-            <param-value>http://localhost:8080/axis</param-value>
-        </init-param-->
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    
-    <servlet>
-        <servlet-name>AxisRESTServlet</servlet-name>
-        <display-name>Apache-Axis Servlet (REST)</display-name>
-        <servlet-class>org.apache.axis2.transport.http.AxisRESTServlet</servlet-class>
-    </servlet>
-    
-    <servlet>
-        <servlet-name>AxisAdminServlet</servlet-name>
-        <display-name>Apache-Axis AxisAdmin Servlet (REST)</display-name>
-        <servlet-class>org.apache.axis2.transport.http.AxisAdminServlet</servlet-class>
-    </servlet>
-    
-    
     <servlet-mapping>
         <servlet-name>action</servlet-name>
         <url-pattern>*.do</url-pattern>
@@ -224,38 +214,11 @@
     </servlet-mapping>
     
     
-    <!-- Axis 2 servlet mappings -->
-    
-    <servlet-mapping>
-        <servlet-name>AxisRESTServlet</servlet-name>
-        <url-pattern>/rest/*</url-pattern>
-    </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>AxisServlet</servlet-name>
-        <url-pattern>/servlet/AxisServlet</url-pattern>
-    </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>AxisServlet</servlet-name>
-        <url-pattern>*.jws</url-pattern>
-    </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>AxisServlet</servlet-name>
-        <url-pattern>/services/*</url-pattern>
-    </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>AxisAdminServlet</servlet-name>
-        <url-pattern>/axis2-admin/*</url-pattern>
-    </servlet-mapping>
-    
-    
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    
     
     <error-page>
         <error-code>400</error-code>

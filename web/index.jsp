@@ -1,4 +1,3 @@
-<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
 <!--####
@@ -15,7 +14,7 @@
 		[x] Make it look all web 2.0 (Adam)
 #### -->
 
-<html:html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Let's Improve Transportation!</title>
@@ -93,19 +92,19 @@ body {
 		</p>
 		
 		<div id="login">
-			<html:form action="/login.do" method="POST" focus="user.loginname">
-				<div class="cell"><strong>User Name</strong><br /><html:text property="user.loginname"/></div>
+			<form action="/login.do" method="POST">
+				<div class="cell"><strong>User Name</strong><br /><input type="text" name="loginname" value="${user.loginname}" /></div>
 				<div class="cell"><strong>Password</strong>
-					<br /><html:password property="user.password" redisplay="false"/>
+					<br /><input type="password" name="password" value=""/>
 				</div>
-				<div style="float:right;"><html:submit styleId="sub" property="submit" value="Login"/></div>
+				<div style="float:right;"><input type="submit" class="sub" value="Login"/></div>
 				<div style="clear:both"></div>
-				<span id="errors">${userForm.reason}</span>
-			</html:form>
+				<span id="errors">${reason}</span>
+			</form>
 			<div class="clearBoth"></div>
 		</div>
 		
 		<h1 class="right">Need to <a href="register.do">Create an Account</a>? <a href="forgotpassword.do">Forgot your Password?</a></h1>
 	</div>
 </body>
-</html:html>
+</html>

@@ -12,7 +12,8 @@
     </form-beans>
 
     <global-forwards>
-        <forward name="login" path="/index.jsp" />
+        <forward name="loginAction" path="/login.do" redirect="true" />
+        <forward name="loginPage" path="/index.jsp" />
         <forward name="main" path="/main.jsp" />
         <forward name="register" path="/register.jsp" />
         <forward name="register2a" path="/register2a.jsp" />
@@ -53,7 +54,7 @@
 
         <action path="/main" scope="request" type="org.pgist.system.MainAction" />
 
-        <action name="userForm" path="/login" scope="request" type="org.pgist.system.LoginAction" />
+        <action path="/login" scope="request" type="org.pgist.system.LoginAction" />
 
         <action path="/logout" type="org.pgist.system.LogoutAction" />
 
@@ -71,15 +72,15 @@
 
         <action path="/publicprofile" scope="request" type="org.pgist.system.UserProfileAction" />
 
-	<action name="reportForm" path="/reportsummary" scope="request" type="org.pgist.report.ReportSummaryAction">
+        <action name="reportForm" path="/reportsummary" scope="request" type="org.pgist.report.ReportSummaryAction">
             <forward name="reportsummary" path="/WEB-INF/jsp/report/reportsummary.jsp" />
         </action>
         
-	<action path="/report" scope="request" type="org.pgist.report.ReportAction">
-	    <forward name="report" path="/WEB-INF/jsp/report/report.jsp" />
+        <action path="/report" scope="request" type="org.pgist.report.ReportAction">
+            <forward name="report" path="/WEB-INF/jsp/report/report.jsp" />
         </action>
         
-	<action path="/lmAlt" scope="request" type="org.pgist.lm.LmAltAction">
+        <action path="/lmAlt" scope="request" type="org.pgist.lm.LmAltAction">
             <forward name="main" path="/WEB-INF/jsp/lm/lmAlt.jsp" />
         </action>
         

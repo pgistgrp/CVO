@@ -36,34 +36,31 @@ public class LoginAction extends Action {
     ) throws java.lang.Exception {
         //Invalidate the Session
         HttpSession session = request.getSession(false);
-        if (session!=null) session.invalidate();
         
-        UserForm uform = (UserForm) form;
-        
-        String loginname = uform.getUser().getLoginname();
-        String password = uform.getUser().getPassword();
+        String loginname = request.getParameter("loginname");
+        String password = request.getParameter("password");
         
         if((loginname==null || "".equals(loginname)) && !(password==null || "".equals(password))){
-        	uform.setReason("Please Enter a User Name.");  
-        	return mapping.findForward("login");
+            request.setAttribute("reason", "Please Enter a User Name.");  
+        	return mapping.findForward("loginPage");
         } else if(!(loginname==null || "".equals(loginname)) && (password==null || "".equals(password))){
-        	uform.setReason("Please Enter a Password.");
-        	return mapping.findForward("login");
+            request.setAttribute("reason", "Please Enter a Password.");
+        	return mapping.findForward("loginPage");
         }
         
         if (loginname==null || "".equals(loginname)) {
-            return mapping.findForward("login");
+            return mapping.findForward("loginPage");
         }
         
         
         if (password==null || "".equals(password)) {
-            return mapping.findForward("login");
+            return mapping.findForward("loginPage");
         }
         
         User user = systemService.getUserByName(loginname, true, false);
         if(user == null) {
-        	uform.setReason("Invalid User Name.");
-        	return mapping.findForward("login");
+            request.setAttribute("reason", "Invalid User Name.");
+        	return mapping.findForward("loginPage");
         }
         
         if (user.checkPassword(password)) {
@@ -86,7 +83,6 @@ public class LoginAction extends Action {
             for (Cookie cookie : request.getCookies()) {
                 if ("PG_INIT_URL".equals(cookie.getName())) {
                     String initURL = cookie.getValue();
-                    System.out.println("redirect to -----> "+initURL);
                     
                     /*
                      * Remove the cookie
@@ -104,13 +100,14 @@ public class LoginAction extends Action {
                 }
             }//for
             
-            return mapping.findForward("main");
+            ActionForward af = new ActionForward(request.getAttribute("httpPrefix")+mapping.findForward("main").getPath(), true);
+            return af;
         } else if(!user.checkPassword(password)){
-        	uform.setReason("Your Password is Invalid. Please Try Again.");
-        	return mapping.findForward("login");
+            request.setAttribute("reason", "Your Password is Invalid. Please Try Again.");
+        	return mapping.findForward("loginPage");
         }
         
-        return mapping.findForward("login");
+        return mapping.findForward("loginPage");
     }//execute()
     
     
