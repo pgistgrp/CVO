@@ -75,6 +75,7 @@ public class WorkflowImporter extends MatchingTask {
                 configPath + "/context-criteria.xml",
                 configPath + "/context-projects.xml",
                 configPath + "/context-packages.xml",
+                configPath + "/context-report.xml",
                 configPath + "/context-funding.xml",
             }
         );
