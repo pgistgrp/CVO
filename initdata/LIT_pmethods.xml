@@ -419,7 +419,7 @@
         </pmethod>
         
 	
-	<pmethod name="pmethod-init.reports" description="Initialize Report">
+	<pmethod name="pmethod-init.report" description="Initialize Report">
             <declaration>
             	<ins>
             	    <var name="pmethod.cct_id"/>
@@ -438,7 +438,7 @@
 			    </declaration>
 			</pgame>
 		</sequence>
-	</pmethods>
+	</pmethod>
 	
 	
     </pmethods>
