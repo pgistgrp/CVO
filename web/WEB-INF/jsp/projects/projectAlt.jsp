@@ -186,7 +186,7 @@ the column labels. */
 	<div id="container">
 	<!-- begin Object -->
 	<div id="object">
-		<h3 class="headerColor" style="text-transform:none" id="project-title">${reference.alternative.project.name} - ${reference.alternative.name}</h3>
+		<h3  style="text-transform:none" id="project-title">${reference.alternative.project.name} - ${reference.alternative.name}</h3>
 		<!-- begin cell containing Google Map object -->
 		
 	
@@ -202,7 +202,7 @@ the column labels. */
 	
 		<!--begin project description -->
 		<p>
-		<h4 style="display:inline">Money needed to complete this project: </h4>
+		<h4 style="display:inline">Money needed to complete this project</h4>
 		<span id="project-moneyNeeded">$<fmt:formatNumber type="number">${reference.alternative.cost}</fmt:formatNumber>  million</span>
 		</p>
 		<p>
@@ -239,6 +239,7 @@ the column labels. */
 		<span id="project-statementAgainst">${reference.alternative.statementAgainst}</span>
 		</p>
 		<!-- end project description -->
+		<div class="clearBoth"></div>
 	</div>
 	<!-- end obj-left -->
 	<!-- begin firefox height hack -->

@@ -121,9 +121,7 @@ b#remainingWeight, b#remainingWeight2 {font-size:1.4em;}
 .objectives ul {margin-top:5px;}
 
 #critRowWrapper{border:1px solid #ADCFDE;padding:5px;}
-</style>
 
-<style type="text/css" media="screen">
 #left {margin:0px 15px;_margin:0px 10px;}
 #right {width:500px;}
 body {text-align:left;font-size:12pt;}
@@ -134,3 +132,5 @@ body {text-align:left;font-size:12pt;}
 .dollarSign {display:inline;margin-right:20px;}
 .stripWS {margin:0px;padding:0px;}
 .right-col2 {width:15%;}
+
+.pfValue{width:280px;}

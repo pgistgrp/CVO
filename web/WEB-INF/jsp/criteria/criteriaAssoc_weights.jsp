@@ -27,10 +27,10 @@
 		<c:if test="${ref.criterion.deleted == false}">
 			<div id="criteria-${ref.criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
 				<div class="weighCriteriaCol1 floatLeft"><a href="#">
-					<div class="floatLeft"> 
+					<div class="floatLeft iconImg"> 
 						<a href="javascript:expandList('objectives${ref.criterion.id}','icon${ref.criterion.id}');"> <img src="/images/plus.gif" id="icon${ref.criterion.id}"></a> 
 					</div>
-					<div class="floatLeft"><label for="icon${ref.criterion.id}" onclick="javascript:expandList('objectives${ref.criterion.id}','icon${ref.criterion.id}');">${ref.criterion.name}</label></div>
+					<div class="floatLeft pfValue"><label for="icon${ref.criterion.id}" onclick="javascript:expandList('objectives${ref.criterion.id}','icon${ref.criterion.id}');">${ref.criterion.name}</label></div>
 				</div>
 				<!--<div class="weighCriteriaCol2 floatLeft">${ref.criterion.na}</div>-->
 	
