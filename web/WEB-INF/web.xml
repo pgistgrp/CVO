@@ -17,8 +17,8 @@
             /WEB-INF/config/context-funding.xml
             /WEB-INF/config/context-projects.xml
             /WEB-INF/config/context-packages.xml
+            /WEB-INF/config/context-report.xml
             /WEB-INF/config/context-lm.xml
-            /WEB-INF/config/context-reports.xml
         </param-value>
     </context-param>
     
@@ -164,7 +164,11 @@
             <param-value>WEB-INF/config/dwr-workflow.xml</param-value>
         </init-param>
         <init-param>
-            <param-name>config-other</param-name>
+            <param-name>config-report</param-name>
+            <param-value>WEB-INF/config/dwr-report.xml</param-value>
+        </init-param>
+        <init-param>
+	    <param-name>config-other</param-name>
             <param-value>WEB-INF/config/dwr-other.xml</param-value>
         </init-param>
         <init-param>

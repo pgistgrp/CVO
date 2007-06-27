@@ -1,4 +1,4 @@
-package org.pgist.reports;
+package org.pgist.report;
 
 import java.util.Collection;
 
@@ -17,8 +17,8 @@ public class ReportServiceImpl implements ReportService{
 	}
 	
 	
-	public void createStatistics(Long workflowId, Long cctId, Long projSuiteId, Long fundSuiteId, Long critSuiteId, Long projISID, Long fundISID) throws Exception {
-		reportDAO.createStatistics(workflowId, cctId, projSuiteId, fundSuiteId, critSuiteId, projISID, fundISID);
+	public void createStatistics(Long workflowId, Long cctId, Long projSuiteId, Long fundSuiteId, Long critSuiteId, Long repoSuiteId, Long projISID, Long fundISID) throws Exception {
+		reportDAO.createStatistics(workflowId, cctId, projSuiteId, fundSuiteId, critSuiteId, repoSuiteId, projISID, fundISID);
 	}
 	
 	
@@ -40,5 +40,11 @@ public class ReportServiceImpl implements ReportService{
 	public void editReportSummary(Long reportSummaryId, String executiveSummary, String participantsSummary, String concernSummary, String criteriaSummary, String projectSummary, String packageSummary) throws Exception {
 		reportDAO.editReportSummary(reportSummaryId, executiveSummary, participantsSummary, concernSummary, criteriaSummary, projectSummary, packageSummary);
 	}
+	
+	
+	public ReportSuite createReportSuite() throws Exception {
+		return reportDAO.createReportSuite();
+	}
+	
 	
 }

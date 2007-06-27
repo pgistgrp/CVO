@@ -98,7 +98,7 @@
     <bean name="/lmTutorial2" class="org.pgist.lm.LmTutorial2Action" />
     
     
-    <bean name="/reports" class="org.pgist.reports.ReportAction">
+    <bean name="/report" class="org.pgist.report.ReportAction">
     	<property name="cctService" ref="cctService"/>
     	<property name="cstService" ref="cstService"/>
         <property name="criteriaService" ref="criteriaService"/>
@@ -106,7 +106,7 @@
         <property name="reportService" ref="reportService"/>
     </bean>
     
-    <bean name="/reportsummary" class="org.pgist.reports.ReportSummaryAction">
+    <bean name="/reportsummary" class="org.pgist.report.ReportSummaryAction">
     </bean>
     
     

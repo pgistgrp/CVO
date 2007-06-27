@@ -3,23 +3,23 @@
 
 <beans>
 
-    <bean id="reportDAO" class="org.pgist.reports.ReportDAOImpl">
+    <bean id="reportDAO" class="org.pgist.report.ReportDAOImpl">
 	<property name="sessionFactory">
 	    <ref bean="sessionFactory" />
 	</property>
     </bean>
 
-
+    
     <bean id="reportService" parent="baseTransactionProxy">
 	<property name="target">
-	    <bean class="org.pgist.reports.ReportServiceImpl">
+	    <bean class="org.pgist.report.ReportServiceImpl">
 		<property name="reportDAO" ref="reportDAO"/>
 	    </bean>
 	</property>
     </bean>
 
 
-    <bean id="reportAgent" class="org.pgist.reports.ReportAgent">
+    <bean id="reportAgent" class="org.pgist.report.ReportAgent">
 	<property name="reportService" ref="reportService"/>
     </bean>
     

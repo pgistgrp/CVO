@@ -1,4 +1,4 @@
-package org.pgist.reports;
+package org.pgist.report;
 
 import java.io.Serializable;
 
@@ -17,13 +17,13 @@ public class ReportSuite implements Serializable{
 	
 	private Long id;
 	
-	public ReportSummary reportSummary;
+	private ReportSummary reportSummary;
 	
-	public ReportStats reportStats;
+	private ReportStats reportStats;
 
 	
     /**
-     * @return
+     * @return 
      * 
      * @hibernate.id generator-class="native"
      */

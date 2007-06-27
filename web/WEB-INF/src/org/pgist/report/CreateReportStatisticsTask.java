@@ -1,4 +1,4 @@
-package org.pgist.reports;
+package org.pgist.report;
 
 import org.pgist.wfengine.EnvironmentInOuts;
 import org.pgist.wfengine.WorkflowInfo;
@@ -7,7 +7,7 @@ import org.pgist.wfengine.WorkflowTask;
 /**
  * Automatic workflow task for publishing criteria.
  * 
- * @author John
+ * @author John Le
  */
 
 public class CreateReportStatisticsTask implements WorkflowTask{
@@ -25,6 +25,8 @@ public class CreateReportStatisticsTask implements WorkflowTask{
     public static final String IN_PROJ_ISID = "proj_isid";
     
     public static final String IN_FUND_ISID = "fund_isid";
+    
+    public static final String IN_REPO_SUITE_ID = "repo_suite_id";
     
 	public void setReportService(ReportService reportService) {
 		this.reportService = reportService;
@@ -45,8 +47,9 @@ public class CreateReportStatisticsTask implements WorkflowTask{
         Long critSuiteId = new Long(inouts.getIntValue(IN_CRIT_SUITE_ID));
         Long projISID = new Long(inouts.getIntValue(IN_PROJ_ISID));
         Long fundISID = new Long(inouts.getIntValue(IN_FUND_ISID));
+        Long repoSuiteId = new Long(inouts.getIntValue(IN_REPO_SUITE_ID));
         
-        reportService.createStatistics(workflowId, cctId, projSuiteId, fundSuiteId, critSuiteId, projISID, fundISID);
+        reportService.createStatistics(workflowId, cctId, projSuiteId, fundSuiteId, critSuiteId, repoSuiteId, projISID, fundISID);
         
     }//execute()
 

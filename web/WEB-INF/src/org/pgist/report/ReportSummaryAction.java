@@ -1,4 +1,4 @@
-package org.pgist.reports;
+package org.pgist.report;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -31,7 +31,7 @@ public class ReportSummaryAction extends Action  {
 		 	
 		 	String strReportSuiteId = request.getParameter("reportSuiteId");
 		 	
-		 	if (strReportSuiteId==null || "".equals(strReportSuiteId)) {
+		 	if (strReportSuiteId==null || "".equals(strReportSuiteId)) { 
 		 		rForm.setReason("reportSuiteId is Required.");
 	            return mapping.findForward("reportsummary");
 	        }

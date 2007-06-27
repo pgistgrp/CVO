@@ -7,6 +7,7 @@
         <property name="importService" ref="importService"/>
     </bean>
     
+    
     <bean id="task-create.project.suite" class="org.pgist.projects.CreateProjectSuiteTask">
         <property name="projectService" ref="projectService"/>
     </bean>
@@ -24,6 +25,11 @@
     
     <bean id="task-publish.theme" class="org.pgist.cvo.PublishThemeTask">
         <property name="cstService" ref="cstService"/>
+    </bean>
+    
+    
+    <bean id="task-create.report.suite" class="org.pgist.report.CreateReportSuiteTask">
+        <property name="reportService" ref="reportService"/>
     </bean>
     
     
@@ -76,6 +82,7 @@
               <entry><key><value>task-create.cct</value></key><ref bean="task-create.cct" /></entry>
               <entry><key><value>task-publish.theme</value></key><ref bean="task-publish.theme" /></entry>
               <entry><key><value>task-create.criteria.suite</value></key><ref bean="task-create.criteria.suite" /></entry>
+              <entry><key><value>task-create.report.suite</value></key><ref bean="task-create.report.suite" /></entry>
               <entry><key><value>task-publish.criteria</value></key><ref bean="task-publish.criteria" /></entry>
               <entry><key><value>task-publish.projects</value></key><ref bean="task-publish.projects" /></entry>
               <entry><key><value>task-publish.fundings</value></key><ref bean="task-publish.fundings" /></entry>

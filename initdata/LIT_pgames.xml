@@ -345,6 +345,15 @@
             </declaration>
         </pgame>
         
+         <pgame name="pgame-create.report.suite" description="Create a report suite." auto="true">
+	    <taskName>task-create.report.suite</taskName>
+	    <declaration>
+		<outs>
+		    <var name="suite_id"/>
+		</outs>
+	    </declaration>
+        </pgame>
+        
     </pgames>
     
     

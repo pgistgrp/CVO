@@ -418,6 +418,29 @@
             </sequence>
         </pmethod>
         
+	
+	<pmethod name="pmethod-init.reports" description="Initialize Report">
+            <declaration>
+            	<ins>
+            	    <var name="pmethod.cct_id"/>
+            	</ins>
+                <outs>
+                    <var name="pmethod.repo_suite_id"/>
+                    <var name="pmethod.repo_isid"/>
+                </outs>
+            </declaration>
+            	<sequence>                                    
+			<pgame name="pgame-create.report.suite">
+			    <declaration>
+				<outs>
+				    <var name="suite_id" ref="pmethod.repo_suite_id"/>
+				</outs>
+			    </declaration>
+			</pgame>
+		</sequence>
+	</pmethods>
+	
+	
     </pmethods>
     
     

@@ -1,4 +1,4 @@
-package org.pgist.reports;
+package org.pgist.report;
 
 import org.apache.struts.action.ActionForm;
 import org.pgist.users.User;
@@ -22,7 +22,7 @@ public class ReportForm extends ActionForm {
 	private String reason;
 
     private boolean save;
-
+ 
 
 	public String getConcernSummary() {
 		return concernSummary;

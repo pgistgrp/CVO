@@ -1,4 +1,4 @@
-package org.pgist.reports;
+package org.pgist.report;
 
 import java.io.Serializable;
 
@@ -22,7 +22,7 @@ public class ReportSummary implements Serializable {
 
 	private String executiveSummary;
 	
-	private String participantsSummary;
+	private String participantsSummary; 
 	
 	private String concernSummary;
 	

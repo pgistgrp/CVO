@@ -1,14 +1,14 @@
-package org.pgist.reports;
+package org.pgist.report;
 
 import java.util.Collection;
 
 import org.pgist.packages.ClusteredPackage;
 import org.pgist.packages.PackageSuite;
+import org.pgist.system.BaseDAO;
 
-public interface ReportService {
+public interface ReportDAO extends BaseDAO {
 
-	
-	void createStatistics(Long workflowId, Long cctId, Long projSuiteId, Long fundSuiteId, Long critSuiteId, Long projISID, Long fundISID) throws Exception;
+	void createStatistics(Long workflowId, Long cctId, Long projSuiteId, Long fundSuiteId, Long critSuiteId, Long repoSuiteId, Long projISID, Long fundISID) throws Exception;
 	
 	ClusteredPackage getPreferredClusteredPackage(Long pkgSuiteId) throws Exception;
 	
@@ -18,4 +18,6 @@ public interface ReportService {
 	
 	void editReportSummary(Long reportSummaryId, String executiveSummary, String participantsSummary, String concernSummary, String criteriaSummary, String projectSummary, String packageSummary) throws Exception;
 	
+	ReportSuite createReportSuite() throws Exception;
+	 
 }

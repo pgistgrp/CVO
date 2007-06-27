@@ -1,4 +1,4 @@
-package org.pgist.reports;
+package org.pgist.report;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -23,7 +23,7 @@ import java.util.Iterator;
 
 
 /**
- * An action for step 5 reports<br>
+ * An action for step 5 reports<br> 
  * 
  * This action accepts such parameters:<br>
  * <ul>

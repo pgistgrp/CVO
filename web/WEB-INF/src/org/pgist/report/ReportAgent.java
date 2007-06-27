@@ -1,4 +1,4 @@
-package org.pgist.reports;
+package org.pgist.report;
 
 /**
  * DWR AJAX Agent class.<br>

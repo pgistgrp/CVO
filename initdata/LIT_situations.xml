@@ -75,6 +75,15 @@
                         </outs>
                     </declaration>
                 </meeting>
+                <meeting name="meeting-init.report">
+                    <declaration>
+                        <outs>
+                            <var name="meeting.repo_suite_id" ref="situation.repo_suite_id"/>
+                            <var name="meeting.repo_isid" ref="situation.repo_isid"/>
+                            <var name="meeting.cct_id" ref="situation.cct_id"/>
+                        </outs>
+                    </declaration>
+                </meeting>
             </sequence>
         </situation>
     </situations>
