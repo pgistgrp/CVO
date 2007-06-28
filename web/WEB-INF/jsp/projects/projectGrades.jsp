@@ -158,16 +158,17 @@ xml+='\
 									<c:forEach var="gradedObjective" items="${critGrade.objectives}" varStatus="loop">
 										<li>${gradedObjective.objective.description} - Grade:
 											<select id="objGrade-${gradedObjective.objective.id}" onchange="setGrading(${altRef.id},${critGrade.criteria.id},${gradedObjective.objective.id}, this.value);">
-												<c:forEach var="grade" begin="0" end="6">
+												<c:forEach var="grade" items="-3,-2.5,-2,-1.5,-1,-0.5,0,0.5,1,1.5,2,2.5,3">
+												
 													<c:choose>
-														<c:when test="${grade == 3}">
-															<!-- using this -3 hack because jstl does not support negatives in begin -- >
-															<option <c:if test="${gradedObjective.grade == null}">selected = "true"</c:if> value=""> </option>
+														<c:when test="${grade == 0}">
+															<option <c:if test="${gradedObjective.grade == null || gradedObjective.grade == 0}">selected = "true"</c:if> value="${grade}">${grade}</option>
 														</c:when>
 														<c:otherwise>
-															<option <c:if test="${gradedObjective.grade == (grade - 3)}"> selected = "true"</c:if> value="${grade - 3}">${grade - 3}</option>
+															<option <c:if test="${gradedObjective.grade == (grade)}"> selected = "true"</c:if> value="${grade}">${grade}</option>
 														</c:otherwise>
 													</c:choose>
+										
 												</c:forEach>
 											</select>
 										</li>	

@@ -7,7 +7,6 @@
         <property name="importService" ref="importService"/>
     </bean>
     
-    
     <bean id="task-create.project.suite" class="org.pgist.projects.CreateProjectSuiteTask">
         <property name="projectService" ref="projectService"/>
     </bean>
