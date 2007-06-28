@@ -314,6 +314,9 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	CriteriaUserWeight cuw = (CriteriaUserWeight) weights.get(cr);
     	Map userWeights = cuw.getWeights();
     	Integer myWeight = (Integer) userWeights.get(user);
+    	if(myWeight==null) {
+    		return 0;
+    	}
     	int myCritWeight = (int) myWeight;
     	return myCritWeight;
     }//getWeights();

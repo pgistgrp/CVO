@@ -25,7 +25,7 @@ public class CriteriaRef implements Comparator {
     
     private Criteria criterion;
     
-    private int grade; //compute average grade for this criterion based on objective scores
+    private float grade; //compute average grade for this criterion based on objective scores
     
     private Map<Objective, Integer> objectiveGrades = new HashMap<Objective, Integer>(); //objective object, grade
     
@@ -80,12 +80,12 @@ public class CriteriaRef implements Comparator {
      * 
      * @hibernate.property
      */
-    public int getGrade() {
+    public float getGrade() {
         return grade;
     }
 
 
-    public void setGrade(int grade) {
+    public void setGrade(float grade) {
         this.grade = grade;
     }
 
@@ -116,7 +116,7 @@ public class CriteriaRef implements Comparator {
      * @return	The new overall grade for the objective
      * @throws	An unknown objective exception if you can't find the objective
      */
-	public int setObjectiveGrade(Long objId, int value) throws UnknownObjectiveException {
+	public float setObjectiveGrade(Long objId, int value) throws UnknownObjectiveException {
 		Iterator i = this.objectiveGrades.keySet().iterator();
 		Objective tempObj;
 		while(i.hasNext()) {
