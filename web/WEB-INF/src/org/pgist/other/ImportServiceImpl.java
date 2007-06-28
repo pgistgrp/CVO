@@ -221,7 +221,7 @@ public class ImportServiceImpl implements ImportService {
                         Objective objective = objectives.get(description);
                         GradedObjective go = new GradedObjective();
                         go.setObjective(objective);
-                        go.setGrade(Integer.parseInt(objEle.getTextTrim()));
+                        go.setGrade(Float.parseFloat(objEle.getTextTrim()));
                         
                         gc.getObjectives().add(go);
                     }//for objEle

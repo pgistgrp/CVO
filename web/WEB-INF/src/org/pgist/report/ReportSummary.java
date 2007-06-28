@@ -46,7 +46,7 @@ public class ReportSummary implements Serializable {
 
     /**
      * @return
-     * @hibernate.property type="text" not-null="true"
+     * @hibernate.property type="text" not-null="false"
      */
 	public String getConcernSummary() {
 		return concernSummary;
@@ -58,7 +58,7 @@ public class ReportSummary implements Serializable {
 
     /**
      * @return
-     * @hibernate.property type="text" not-null="true"
+     * @hibernate.property type="text" not-null="false"
      */
 	public String getCriteriaSummary() {
 		return criteriaSummary;
@@ -70,7 +70,7 @@ public class ReportSummary implements Serializable {
 
     /**
      * @return
-     * @hibernate.property type="text" not-null="true"
+     * @hibernate.property type="text" not-null="false"
      */
 	public String getExecutiveSummary() {
 		return executiveSummary;
@@ -82,7 +82,7 @@ public class ReportSummary implements Serializable {
 
     /**
      * @return
-     * @hibernate.property type="text" not-null="true"
+     * @hibernate.property type="text" not-null="false"
      */
 	public String getPackageSummary() {
 		return packageSummary;
@@ -94,7 +94,7 @@ public class ReportSummary implements Serializable {
 
     /**
      * @return
-     * @hibernate.property type="text" not-null="true"
+     * @hibernate.property type="text" not-null="false"
      */
 	public String getParticipantsSummary() {
 		return participantsSummary;
@@ -106,7 +106,7 @@ public class ReportSummary implements Serializable {
 
     /**
      * @return
-     * @hibernate.property type="text" not-null="true"
+     * @hibernate.property type="text" not-null="false"
      */
 	public String getProjectSummary() {
 		return projectSummary;

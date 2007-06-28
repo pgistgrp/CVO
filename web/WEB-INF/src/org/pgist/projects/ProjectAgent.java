@@ -3,6 +3,7 @@ package org.pgist.projects;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.lang.Float;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -540,7 +541,7 @@ public class ProjectAgent {
             Long altRefId = new Long((String) params.get("altRefId"));
             Long critId = new Long((String) params.get("critId"));
             Long objId = new Long((String) params.get("objId"));
-            int value = new Integer((String) params.get("value"));
+            Float value = new Float((String) params.get("value"));
             
             String critGrade = projectService.setGrading(altRefId, critId, objId, value);
             map.put("critGrade", critGrade);

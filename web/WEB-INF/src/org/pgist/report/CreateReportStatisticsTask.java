@@ -49,7 +49,7 @@ public class CreateReportStatisticsTask implements WorkflowTask{
         Long fundISID = new Long(inouts.getIntValue(IN_FUND_ISID));
         Long repoSuiteId = new Long(inouts.getIntValue(IN_REPO_SUITE_ID));
         
-        reportService.createStatistics(workflowId, cctId, projSuiteId, fundSuiteId, critSuiteId, repoSuiteId, projISID, fundISID);
+        ReportStats rs = reportService.createStatistics(workflowId, cctId, projSuiteId, fundSuiteId, critSuiteId, repoSuiteId, projISID, fundISID);
         
     }//execute()
 

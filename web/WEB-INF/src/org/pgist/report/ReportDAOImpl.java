@@ -46,7 +46,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	}
 	
 	
-	public void createStatistics(Long workflowId, Long cctId, Long projSuiteId, Long fundSuiteId, Long critSuiteId, Long repoSuiteId, Long projISID, Long fundISID) throws Exception {
+	public ReportStats createStatistics(Long workflowId, Long cctId, Long projSuiteId, Long fundSuiteId, Long critSuiteId, Long repoSuiteId, Long projISID, Long fundISID) throws Exception {
 		CCT cct = (CCT)load(CCT.class, cctId);
 		ProjectSuite projSuite = (ProjectSuite) load(ProjectSuite.class, projSuiteId); 
 		FundingSourceSuite fundSuite = (FundingSourceSuite) load(FundingSourceSuite.class, fundSuiteId);
@@ -150,6 +150,10 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		rs.setUsers(users);
 		rs.setTotalUsers(totalUsers);
 		save(rs);
+		repoSuite.setReportStats(rs);
+		save(repoSuite);
+		
+		return rs;
 	}
 	
 	
@@ -215,12 +219,14 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	
 	public ReportSuite createReportSuite() throws Exception {
 		ReportSuite rSuite = new ReportSuite();
+		save(rSuite);
 		ReportSummary rSummary = new ReportSummary();
+		save(rSummary);
 		ReportStats rStats = new ReportStats();
+		save(rStats);
+		
 		rSuite.setReportStats(rStats);
 		rSuite.setReportSummary(rSummary);
-		save(rSummary);
-		save(rStats);
 		save(rSuite);
 				
 		return rSuite;

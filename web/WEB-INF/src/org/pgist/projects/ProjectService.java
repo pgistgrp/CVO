@@ -24,7 +24,7 @@ public interface ProjectService {
     
     void deleteProject(Long id) throws Exception;
                 
-    String setGrading(Long altRefId, Long critId, Long objId, int value) throws Exception, UnknownCriteriaException, UnknownObjectiveException;
+    String setGrading(Long altRefId, Long critId, Long objId, Float value) throws Exception, UnknownCriteriaException, UnknownObjectiveException;
 
     void setupProjectsForCCT(Long cctId, String[] ids) throws Exception;
 

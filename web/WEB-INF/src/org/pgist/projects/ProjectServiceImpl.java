@@ -195,7 +195,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @return	The grade of the criteria relative to this alternative
      * @throws Exception
      */
-    public String setGrading(Long altRefId, Long critId, Long objId, int value) throws Exception, UnknownCriteriaException, UnknownObjectiveException {
+    public String setGrading(Long altRefId, Long critId, Long objId, Float value) throws Exception, UnknownCriteriaException, UnknownObjectiveException {
 
     	ProjectAltRef altRef = projectDAO.getProjectAlternativeReference(altRefId);
 
@@ -220,7 +220,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @return	The grade of the criteria relative to this alternative
      * @throws Exception
      */
-    public String setGrading(GradedCriteria gradedCriteria, Long objId, int value) throws Exception, UnknownObjectiveException {
+    public String setGrading(GradedCriteria gradedCriteria, Long objId, Float value) throws Exception, UnknownObjectiveException {
     	Iterator<GradedObjective> objs = gradedCriteria.getObjectives().iterator();
     	GradedObjective tempObj;
     	while(objs.hasNext()) {
