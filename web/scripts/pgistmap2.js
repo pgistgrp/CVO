@@ -151,10 +151,30 @@ var PGISTMapEditor = function(mapcontainer, width, height, enableEdit) {
 
 
 	PGISTMapEditor_Global_Accessor = this;
+    
+    //enable map logging if PESAgent javascript is included
+    if(PESAgent != null){
+        GEvent.addListener(this.map, 'moveend', PGIST_Map_Logger);
+    }
 
 };
 
+/* log the map type and map extent */
+function PGIST_Map_Logger(){
+    if(PESAgent == null)return;
+    var logstr = PGISTMapEditor_Global_Accessor.map.getCurrentMapType().getName() + ":";
+    var b = PGISTMapEditor_Global_Accessor.map.getBounds();
+    logstr += b.getSouthWest().lng() + ',' + b.getSouthWest().lat() + ' ';
+    logstr += b.getNorthEast().lng() + ',' + b.getSouthWest().lat();
 
+    PESAgent.saveAct({mapaction:logstr}, {callback:function(data){
+                
+            },
+        errorHandler:function(errorString, exception){ 
+			alert("PESAgent error:" + errorString + " - " + exception);
+			}
+        });
+};
 
 /**
 
