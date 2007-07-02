@@ -19,8 +19,9 @@ public class ReportSuite implements Serializable{
 	
 	private ReportSummary reportSummary;
 	
-	private ReportStats reportStats;
+	private ReportStats reportStatsConcerns;
 
+	private ReportStats reportStatsEval;
 	
     /**
      * @return 
@@ -40,15 +41,15 @@ public class ReportSuite implements Serializable{
     /**
      * @return
      * 
-     * @hibernate.one-to-one column="reportstats_id" cascade="all"
+     * @hibernate.one-to-one column="reportstatsconcerns_id" cascade="all"
      */
-	public ReportStats getReportStats() {
-		return reportStats;
+	public ReportStats getReportStatsConcerns() {
+		return reportStatsConcerns;
 	}
 
 	
-	public void setReportStats(ReportStats reportStats) {
-		this.reportStats = reportStats;
+	public void setReportStatsConcerns(ReportStats reportStatsConcerns) {
+		this.reportStatsConcerns = reportStatsConcerns;
 	}
 
     /**
@@ -63,6 +64,21 @@ public class ReportSuite implements Serializable{
 	
 	public void setReportSummary(ReportSummary reportSummary) {
 		this.reportSummary = reportSummary;
+	}
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.one-to-one column="reportstatseval_id" cascade="all"
+     */
+	public ReportStats getReportStatsEval() {
+		return reportStatsEval;
+	}
+
+
+	public void setReportStatsEval(ReportStats reportStatsEval) {
+		this.reportStatsEval = reportStatsEval;
 	}
 	
 	

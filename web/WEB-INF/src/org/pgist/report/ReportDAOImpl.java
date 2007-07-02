@@ -141,7 +141,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		}
 		
 		//save stats to reportStats
-		ReportStats rs = repoSuite.getReportStats();
+		ReportStats rs = repoSuite.getReportStatsConcerns();
 		rs.setCountyStats(countySet);
 		rs.setIncomeStats(incomeSet);
 		rs.setTransportStats(transportSet);
@@ -150,7 +150,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		rs.setUsers(users);
 		rs.setTotalUsers(totalUsers);
 		save(rs);
-		repoSuite.setReportStats(rs);
+		repoSuite.setReportStatsConcerns(rs);
 		save(repoSuite);
 		
 		return rs;
@@ -225,7 +225,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		ReportStats rStats = new ReportStats();
 		save(rStats);
 		
-		rSuite.setReportStats(rStats);
+		rSuite.setReportStatsConcerns(rStats);
 		rSuite.setReportSummary(rSummary);
 		save(rSuite);
 				

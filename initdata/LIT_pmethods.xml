@@ -419,26 +419,67 @@
         </pmethod>
         
 	
-	<pmethod name="pmethod-init.report" description="Initialize Report">
+	<pmethod name="pmethod-report" description="Reports">
             <declaration>
-            	<ins>
-            	    <var name="pmethod.cct_id"/>
-            	</ins>
+                <ins>
+		    <var name="pmethod.cct_id"/>
+                    <var name="pmethod.proj_suite_id"/>
+                    <var name="pmethod.fund_suite_id"/>
+                    <var name="pmethod.proj_isid"/>
+                    <var name="pmethod.fund_isid"/>
+                    <var name="pmethod.crit_suite_id"/>
+		    <var name="pmethod.repo_suite_id"/>
+                </ins>
                 <outs>
-                    <var name="pmethod.repo_suite_id"/>
                     <var name="pmethod.repo_isid"/>
                 </outs>
             </declaration>
-            	<sequence>                                    
-			<pgame name="pgame-create.report.suite">
-			    <declaration>
-				<outs>
-				    <var name="suite_id" ref="pmethod.repo_suite_id"/>
-				</outs>
-			    </declaration>
-			</pgame>
-		</sequence>
-	</pmethod>
+            <sequence>
+	    
+                <pgame name="pgame-create.report.stats">
+		    <declaration>
+			<ins>
+			     <var name="pmethod.cct_id"/>
+			    <var name="pmethod.proj_suite_id"/>
+			    <var name="pmethod.fund_suite_id"/>
+			    <var name="pmethod.proj_isid"/>
+			    <var name="pmethod.fund_isid"/>
+			    <var name="pmethod.crit_suite_id"/>
+			    <var name="pmethod.repo_suite_id"/>
+			</ins>
+		    </declaration>
+		</pgame>
+		
+		<pgame name="pgame-view.report">
+                    <declaration>
+                        <ins>
+                            <var name="suiteId" ref="pmethod.repo_suite_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+		
+                <pgame name="pgame-publish.report">
+                    <declaration>
+                        <ins>
+                            <var name="suite_id" ref="pmethod.repo_suite_id"/>
+                            <var name="cct_id" ref="pmethod.cct_id"/>
+                        </ins>
+                        <outs>
+                            <var name="is_id" ref="pmethod.repo_isid"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+		
+		<pgame name="pgame-sd.report">
+		    <declaration>
+			<ins>
+			    <var name="isid" ref="pmethod.repo_isid"/>
+			</ins>
+		    </declaration>
+		</pgame>
+		
+            </sequence>
+        </pmethod>
 	
 	
     </pmethods>

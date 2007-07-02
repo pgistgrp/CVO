@@ -32,6 +32,11 @@
     </bean>
     
     
+    <bean id="task-publish.report" class="org.pgist.report.PublishReportTask">
+         <property name="reportService" ref="reportService"/>
+    </bean>
+    
+    
     <bean id="task-create.criteria.suite" class="org.pgist.criteria.CreateCriteriaSuiteTask">
         <property name="criteriaService" ref="criteriaService"/>
     </bean>
@@ -82,6 +87,7 @@
               <entry><key><value>task-publish.theme</value></key><ref bean="task-publish.theme" /></entry>
               <entry><key><value>task-create.criteria.suite</value></key><ref bean="task-create.criteria.suite" /></entry>
               <entry><key><value>task-create.report.suite</value></key><ref bean="task-create.report.suite" /></entry>
+              <entry><key><value>task-publish.report</value></key><ref bean="task-publish.report" /></entry>
               <entry><key><value>task-publish.criteria</value></key><ref bean="task-publish.criteria" /></entry>
               <entry><key><value>task-publish.projects</value></key><ref bean="task-publish.projects" /></entry>
               <entry><key><value>task-publish.fundings</value></key><ref bean="task-publish.fundings" /></entry>
@@ -105,6 +111,8 @@
               <entry><key><value>action-sd.projects</value></key><value>/sdRoom.do</value></entry>
               <entry><key><value>action-sd.fundings</value></key><value>/sdRoom.do</value></entry>
               <entry><key><value>action-sd.packages</value></key><value>/sdRoom.do</value></entry>
+              <entry><key><value>action-sd.report</value></key><value>/sdRoom.do</value></entry>
+              <entry><key><value>action-view.report</value></key><value>/report.do</value></entry>
               <entry><key><value>action-weigh.criteria</value></key><value>/criteriaWeigh.do</value></entry>
               <entry><key><value>action-create.user.package</value></key><value>/createPackage.do</value></entry>
               <entry><key><value>action-planning.factor.reweigh</value></key><value>/?????.do</value></entry>

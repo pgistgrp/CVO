@@ -172,21 +172,35 @@
             </sequence>
         </meeting>
     
-        <meeting name="meeting-init.report" description="Initialize Reports">
+	<meeting name="meeting-report" description="Reports">
             <declaration>
+               <ins>
+		    <var name="meeting.cct_id"/>
+                    <var name="meeting.proj_suite_id"/>
+                    <var name="meeting.fund_suite_id"/>
+                    <var name="meeting.proj_isid"/>
+                    <var name="meeting.fund_isid"/>
+                    <var name="meeting.crit_suite_id"/>
+		    <var name="meeting.repo_suite_id"/>
+                </ins>
                 <outs>
-                    <var name="meeting.repo_suite_id"/>
                     <var name="meeting.repo_isid"/>
-                    <var name="meeting.cct_id"/>
                 </outs>
             </declaration>
             <sequence>
-                <pmethod name="pmethod-init.report">
+                  <pmethod name="pmethod-report">
                     <declaration>
+                        <ins>
+			    <var name="pmethod.cct_id"/>
+			    <var name="pmethod.proj_suite_id"/>
+			    <var name="pmethod.fund_suite_id"/>
+			    <var name="pmethod.proj_isid"/>
+			    <var name="pmethod.fund_isid"/>
+			    <var name="pmethod.crit_suite_id"/>
+			    <var name="pmethod.repo_suite_id"/>
+                        </ins>
                         <outs>
-                            <var name="pmethod.repo_suite_id" ref="meeting.repo_suite_id"/>
-                            <var name="pmethod.repo_isid" ref="meeting.repo_isid"/>
-                            <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                            <var name="pmethod.repo_isid"/>
                         </outs>
                     </declaration>
                 </pmethod>

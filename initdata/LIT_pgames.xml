@@ -345,15 +345,64 @@
             </declaration>
         </pgame>
         
-         <pgame name="pgame-create.report.suite" description="Create a report suite." auto="true">
+ <pgame name="pgame-create.report.suite" description="Create a report suite." auto="true">
 	    <taskName>task-create.report.suite</taskName>
 	    <declaration>
 		<outs>
 		    <var name="suite_id"/>
 		</outs>
 	    </declaration>
-        </pgame>
-        
+	</pgame>
+
+	<pgame name="pgame-create.report.stats" description="Create report statistics." auto="true">
+	    <taskName>task-create.report.stats</taskName>
+	    <declaration>
+		<ins>
+		    <var name="cctId"/>
+		    <var name="projSuiteId"/>
+		    <var name="fundSuiteId"/>
+		    <var name="critSuiteId"/>
+		    <var name="repoSuiteId"/>
+		    <var name="projIsid"/>
+		    <var name="fundIsid"/>
+		</ins>
+	    </declaration>
+	</pgame>
+	
+	<pgame name="pgame-view.report" description="View Report" auto="true">
+	    <actionName>action-view.report</actionName>
+	    <declaration>
+		<ins>
+		    <var name="suiteId" ref="pmethod.repo_suite_id"/>
+		</ins>
+	    </declaration>
+	</pgame>
+	
+	<pgame name="pgame-publish.report" description="Publish Report" auto="true">
+	    <taskName>task-publish.report</taskName>
+	    <declaration>
+		<ins>
+		    <var name="suite_id"/>
+		    <var name="cct_id"/>
+		</ins>
+		<outs>
+		    <var name="is_id"/>
+		</outs>
+		<props>
+                    <property name="title" value="Step 5: Report" />
+                </props>
+	    </declaration>
+	</pgame>
+
+	<pgame name="pgame-sd.report" description="SD Report" auto="true">>
+	    <actionName>action-sd.reports</actionName>
+	    <declaration>
+		<ins>
+		    <var name="isid" ref="pmethod.repo_isid"/>
+		</ins>
+	    </declaration>
+	</pgame>
+	
     </pgames>
     
     

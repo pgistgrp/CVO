@@ -75,13 +75,21 @@
                         </outs>
                     </declaration>
                 </meeting>
-                <meeting name="meeting-init.report">
+               <meeting name="meeting-report">
                     <declaration>
-                        <outs>
-                            <var name="meeting.repo_suite_id" ref="situation.repo_suite_id"/>
-                            <var name="meeting.repo_isid" ref="situation.repo_isid"/>
-                            <var name="meeting.cct_id" ref="situation.cct_id"/>
-                        </outs>
+                        <ins>
+			    <var name="meeting.cct_id"/>
+			    <var name="meeting.proj_suite_id"/>
+			    <var name="meeting.fund_suite_id"/>
+			    <var name="meeting.proj_isid"/>
+			    <var name="meeting.fund_isid"/>
+			    <var name="meeting.crit_suite_id"/>
+			    <var name="meeting.repo_suite_id"/>
+			</ins>
+			<outs>
+			    <var name="meeting.repo_suite_id"/>
+			    <var name="meeting.repo_isid"/>
+			</outs>
                     </declaration>
                 </meeting>
             </sequence>
