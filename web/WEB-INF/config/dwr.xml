@@ -92,7 +92,7 @@
     </create>
 
     <create creator="spring" javascript="PESAgent">
-        <param name="beanName" value="simpleLogger"/>
+        <param name="beanName" value="pesAgent"/>
         <include method="saveAct"/>
     </create>
     
