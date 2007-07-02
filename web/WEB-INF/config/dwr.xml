@@ -90,6 +90,11 @@
         <include method="getUserConcerns"/>
         <include method="getUserDiscussion"/>
     </create>
+
+    <create creator="spring" javascript="PESAgent">
+        <param name="beanName" value="simpleLogger"/>
+        <include method="saveAct"/>
+    </create>
     
   </allow>
 
