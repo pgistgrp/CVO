@@ -15,7 +15,7 @@
 #### -->
 
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html:html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
 	<head>
 	<title>Let's Improve Transportation: ${alt.project.name} - ${alt.name}</title>
 	<!-- Site Wide CSS -->
@@ -24,6 +24,11 @@
 	@import "styles/table.css";
 	@import "styles/step3a-singleproject.css";
 	@import "styles/table-grades.css";
+	</style>
+	<style type="text/css">
+	    v\:* {
+	      behavior:url(#default#VML);
+	    }
 	</style>
 	<!-- Site Wide JS -->
 	<script src="scripts/prototype.js" type="text/javascript"></script>
@@ -165,4 +170,4 @@
 	<pg:feedback id="feedbackDiv" action="cctView.do"/>
 	<!-- end feedback form -->
 	</body>
-</html:html>
+</html>
