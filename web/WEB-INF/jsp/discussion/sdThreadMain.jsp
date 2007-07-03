@@ -62,9 +62,9 @@
 		io.postId = "${post.id}";
 		io.replyId = null;
 		io.currentFilter = '';
-		io.currentPage = 2;
+		//io.currentPage = 1;
 
-		io.replyCount = 15; //per page
+		io.replyCount = -1; //all posts 
 		io.contextPostCount = 3;
 
 		
@@ -101,7 +101,7 @@
 	
 		
 		io.changeCurrentFilter = function(tagName){
-			io.getReplies(tagName, io.currentPage, true);
+			io.getReplies(tagName, true);
 			if(tagName != ""){
 				$(io.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: io.changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
 			}else{
@@ -109,15 +109,14 @@
 			}
 		}	
 			
-		io.getReplies = function(tag, page, jump){
+		io.getReplies = function(tag, jump){
 			displayIndicator(true);
 				if(jump){
 					location.href = io.filterAnchor;
 				}
 				io.currentFilter = tag;
-			   io.currentPage = page;
-			  //alert("isid: " + io.structureId + " ioid: " + io.objectId + " postID: " + io.postId + " page " + io.currentPage + " count: " + io.replyCount + " filter: " + io.currentFilter);
-		      SDAgent.getReplies({isid: io.structureId, ioid:io.objectId, postid: io.postId, page: io.currentPage, count: io.replyCount, filter: io.currentFilter}, {
+			  //alert("isid: " + io.structureId + " ioid: " + io.objectId + " postID: " + io.postId + " page " + " count: " + io.replyCount + " filter: " + io.currentFilter);
+		      SDAgent.getReplies({isid: io.structureId, ioid:io.objectId, postid: io.postId, page: 1, count: io.replyCount, filter: io.currentFilter}, {
 		      callback:function(data){
 		          if (data.successful){
 		          			$(io.discussionDiv).innerHTML = data.html;         
@@ -135,16 +134,17 @@
 			tinyMCE.idCounter=0;
 			tinyMCE.execCommand('mceAddControl',false,'txtnewReply');
 		  }
-		  
-		  	function goToPage(type,page){
+		
+		/*
+		function goToPage(type,page){
 		  		if(type=='replies'){
 					io.getReplies(io.currentFilter,page,true); 
 				}else{
 					io.getContextPosts(page);	
 				}
 				//new Effect.Highlight('discussion-cont',{startcolor: "#D6E7EF"});
-			}
-			
+		}
+		*/	
 			
 		/*
 		function removeDoubleQuotes(str){
@@ -171,7 +171,7 @@
 		          		displayIndicator(false);
 						resetNewReplyForm();
 						io.replyId = null; //reset reply id
-						io.getReplies(io.currentFilter, io.currentPage, true);	
+						io.getReplies(io.currentFilter, true);	
 						location.href="#replyAnchor" + data.id;
 						//if(($('discussionText'+data.id)==undefined)){
 						
@@ -264,10 +264,10 @@
 								var votingDiv = 'voting-'+target+id;
 								if($(votingDiv) != undefined){
 
-	              				 	new Effect.Fade(votingDiv, {afterFinish: function(){io.getReplies(io.currentFilter, io.currentPage, false); io.getTargets(); new Effect.Appear(votingDiv);}});
+	              				 	new Effect.Fade(votingDiv, {afterFinish: function(){io.getReplies(io.currentFilter, false); io.getTargets(); new Effect.Appear(votingDiv);}});
 
 	              				}else{
-	              					io.getReplies(io.currentFilter, io.currentPage, false);	
+	              					io.getReplies(io.currentFilter, false);	
 									io.getTargets();
 
 	              				}
@@ -289,10 +289,10 @@
 							if (data.successful){
 								if (status){
 									alert("Email notification has been turned on!")
-									io.getReplies(io.currentFilter, io.currentPage, false);	
+									io.getReplies(io.currentFilter, false);	
 								}else{
 									alert("Email notification has been turned off!")
-									io.getReplies(io.currentFilter, io.currentPage, false);	
+									io.getReplies(io.currentFilter, false);	
 								}
 							}else{
 								alert(data.reason);
@@ -386,7 +386,7 @@
 	</div>
 	<!-- End footer -->
 <script type="text/javascript">
-	io.getReplies(io.currentFilter, 1, true);
+	io.getReplies(io.currentFilter, true);
 	io.getTargets();
 	//io.getContextPosts(1);
 	</script>

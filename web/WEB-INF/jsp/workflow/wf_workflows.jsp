@@ -22,8 +22,8 @@
 				</c:if>
 				<c:forEach var="workflow" items="${newWorkflows}">
 						<tr>
-							<td>${workflow.situation.name}</td>
-							<td>${workflow.situation.description}</td>
+							<td>${workflow.name}</td>
+							<td>${workflow.description}</td>
 							<td><input type="button" value="Start" onclick="javascript: workflow.startWorkflow(${workflow.id});"></td>
 						</tr>
 				</c:forEach>
@@ -51,8 +51,8 @@
 				</tr>
 				<c:forEach var="workflow" items="${runningWorkflows}">
 					<tr>
-						<td>${workflow.situation.name}</td>
-						<td>${workflow.situation.description}</td>
+						<td>${workflow.name}</td>
+						<td>${workflow.description}</td>
 						<td><fmt:formatDate dateStyle="full" value="${workflow.beginTime}" /> at <fmt:formatDate type="time" value="${workflow.beginTime}" /></td>
 						<td><input type="button" value="Participate" onclick="javascript:location.href='userhome.do?wf=${workflow.id}';"></td>
 					</tr>

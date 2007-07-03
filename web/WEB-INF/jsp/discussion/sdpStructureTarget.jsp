@@ -82,7 +82,7 @@
 											<c:forEach var="altRef" items="${infoObject.object.altRefs}" varStatus="loop">
 												<tr>
 													<td>
-														<a href="projectAlt.do?altrefId=${altRef.id}">${altRef.alternative.name}</a>
+														<a href="projectAlt.do?altrefId=${altRef.id}" target="blank">${altRef.alternative.name}</a>
 													</td>
 													<td class="cost">
 														$<fmt:formatNumber type="number">
