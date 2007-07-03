@@ -84,21 +84,27 @@ public class ReportAction extends Action {
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
     	
-    	String strCctId = request.getParameter("cctId");
+    	String strCctId = request.getParameter("cct_id");
     	String strCritSuiteId = request.getParameter("critSuiteId");
-    	String strPackSuiteId = request.getParameter("packSuiteId");
+    	String strPackSuiteId = request.getParameter("pkgSuiteId");
+    	String errors = "";
+    	boolean error = false;
     	
         if (strCctId==null || "".equals(strCctId.trim())) {
-            request.setAttribute("error", "cctId cannot be empty");
-            return mapping.findForward("report");
+            errors += "cct_id cannot be empty <br/>";
+            error = true;
         }     
         if (strCritSuiteId==null || "".equals(strCritSuiteId.trim())) {
-            request.setAttribute("error", "critSuiteId cannot be empty");
-            return mapping.findForward("report");
+        	errors += "critSuiteId cannot be empty <br/>";
+            error = true;
         }
         if (strPackSuiteId==null || "".equals(strPackSuiteId.trim())) {
-            request.setAttribute("error", "packSuiteId cannot be empty");
-            return mapping.findForward("report");
+        	errors += "pkgSuiteId cannot be empty <br/>";
+            error = true;
+        }
+        if(error) {
+        	request.setAttribute("error", errors);
+            return mapping.findForward("report");	
         }
         
         Long cctId = Long.parseLong(strCctId);

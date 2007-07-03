@@ -362,13 +362,13 @@
 	    <taskName>task-create.report.stats</taskName>
 	    <declaration>
 		<ins>
-		    <var name="cctId"/>
-		    <var name="projSuiteId"/>
-		    <var name="fundSuiteId"/>
-		    <var name="critSuiteId"/>
-		    <var name="repoSuiteId"/>
-		    <var name="projIsid"/>
-		    <var name="fundIsid"/>
+		    <var name="cct_id"/>
+		    <var name="proj_suite_id"/>
+		    <var name="fund_suite_id"/>
+		    <var name="crit_suite_id"/>
+		    <var name="repo_suite_id"/>
+		    <var name="proj_isid"/>
+		    <var name="fund_isid"/>
 		</ins>
 	    </declaration>
 	</pgame>
@@ -377,9 +377,9 @@
 	    <actionName>action-view.report</actionName>
 	    <declaration>
 		<ins>
-		    <var name="cctId" ref="pmethod.cct_id"/>
+		    <var name="cct_id"/>
 		    <var name="critSuiteId"/>
-	            <var name="packSuiteId"/>
+	            <var name="pkgSuiteId"/>
 		</ins>
 	    </declaration>
 	</pgame>
@@ -401,7 +401,7 @@
 	</pgame>
 
 	<pgame name="pgame-sd.report" description="SD Report" access="all" auto="false" revisitable="true">
-	    <actionName>action-sd.reports</actionName>
+	    <actionName>action-sd.report</actionName>
 	    <declaration>
 		<ins>
 		    <var name="isid"/>
