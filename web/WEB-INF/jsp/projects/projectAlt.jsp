@@ -257,11 +257,10 @@ the column labels. */
 			<a href="javascript:collapseAll();">Collapse all</a>
 
 			<div id="newtable">
-				<table border=0 cellpadding=0 cellspacing=0>
+				<table border="0" cellpadding="0" cellspacing="0">
 					<tr class="tableHeading">
 						<th class="first">Planning Factor</th>
-						<th><span class="hiddenLabel" 
-						style="visibility:hidden;">Specialist Panel Assessment</span></th>
+						<th><span class="hiddenLabel" style="visibility:hidden;">Specialist Panel Assessment</span></th>
 						<th>Planning Factor Grade</th>
 					</tr>
 					<!--======================-->
