@@ -13,6 +13,7 @@
                     <var name="pmethod.proj_isid"/>
                     <var name="pmethod.fund_isid"/>
                     <var name="pmethod.crit_suite_id"/>
+		    <var name="pmethod.repo_suite_id"/>
                 </outs>
             </declaration>
             <sequence>
@@ -41,6 +42,13 @@
                     <declaration>
                         <outs>
                             <var name="suite_id" ref="pmethod.crit_suite_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+		 <pgame name="pgame-create.report.suite">
+                    <declaration>
+                        <outs>
+                            <var name="suite_id" ref="pmethod.repo_suite_id"/>
                         </outs>
                     </declaration>
                 </pgame>
@@ -106,6 +114,8 @@
             </sequence>
         </pmethod>
         
+	
+	
         <pmethod name="pmethod-global" description="Always available">
             <declaration>
                 <ins>
