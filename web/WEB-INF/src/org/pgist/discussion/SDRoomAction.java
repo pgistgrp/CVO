@@ -72,6 +72,13 @@ public class SDRoomAction extends Action {
     	//
     	String strCctId = (String) request.getParameter("cct_Id");
     	String strSuiteId = (String) request.getParameter("suite_Id");
+    	
+    	//optional get all package id's for SD package
+    	String strProjSuiteId = (String) request.getParameter("projSuiteId");
+    	String strCritSuiteId = (String) request.getParameter("critSuiteId");
+    	String strFundSuiteId = (String) request.getParameter("fundSuiteId");
+    	String strPkgSuiteId = (String) request.getParameter("pkgSuiteId");
+    	
         /*
          * isid of a InfoStructure object
          */
@@ -112,6 +119,22 @@ public class SDRoomAction extends Action {
         if(strSuiteId!=null && !("".equals(strSuiteId.trim()))){
         	Long suiteId = Long.parseLong(strSuiteId);
         	request.setAttribute("suiteId", suiteId);
+        }
+        if(strProjSuiteId!=null && !("".equals(strProjSuiteId.trim()))) {
+        	Long projSuiteId = Long.parseLong(strProjSuiteId);
+        	request.setAttribute("projSuiteId", projSuiteId);
+        }
+        if(strCritSuiteId!=null && !("".equals(strCritSuiteId.trim()))) {
+        	Long critSuiteId = Long.parseLong(strCritSuiteId);
+        	request.setAttribute("critSuiteId", critSuiteId);
+        }
+        if(strFundSuiteId!=null && !("".equals(strFundSuiteId.trim()))) {
+        	Long fundSuiteId = Long.parseLong(strFundSuiteId);
+        	request.setAttribute("fundSuiteId", fundSuiteId);
+        }
+        if(strPkgSuiteId!=null && !("".equals(strPkgSuiteId.trim()))) {
+        	Long pkgSuiteId = Long.parseLong(strPkgSuiteId);
+        	request.setAttribute("pkgSuiteId", pkgSuiteId);
         }
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);

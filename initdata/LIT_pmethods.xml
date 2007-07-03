@@ -439,6 +439,7 @@
                     <var name="pmethod.fund_isid"/>
                     <var name="pmethod.crit_suite_id"/>
 		    <var name="pmethod.repo_suite_id"/>
+		    <var name="pmethod.pkg_suite_id"/>
                 </ins>
                 <outs>
                     <var name="pmethod.repo_isid"/>
@@ -463,7 +464,9 @@
 		<pgame name="pgame-view.report">
                     <declaration>
                         <ins>
-                            <var name="suiteId" ref="pmethod.repo_suite_id"/>
+                            <var name="cctId" ref="pmethod.cct_id"/>
+			    <var name="critSuiteId" ref="pmethod.repo_suite_id"/>
+			    <var name="packSuiteId" ref="pmethod.pkg_suite_id"/>
                         </ins>
                     </declaration>
                 </pgame>

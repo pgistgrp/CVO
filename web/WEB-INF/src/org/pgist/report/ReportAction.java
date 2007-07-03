@@ -90,15 +90,15 @@ public class ReportAction extends Action {
     	
         if (strCctId==null || "".equals(strCctId.trim())) {
             request.setAttribute("error", "cctId cannot be empty");
-            return mapping.findForward("reports");
+            return mapping.findForward("report");
         }     
         if (strCritSuiteId==null || "".equals(strCritSuiteId.trim())) {
             request.setAttribute("error", "critSuiteId cannot be empty");
-            return mapping.findForward("reports");
+            return mapping.findForward("report");
         }
         if (strPackSuiteId==null || "".equals(strPackSuiteId.trim())) {
             request.setAttribute("error", "packSuiteId cannot be empty");
-            return mapping.findForward("reports");
+            return mapping.findForward("report");
         }
         
         Long cctId = Long.parseLong(strCctId);
@@ -147,7 +147,7 @@ public class ReportAction extends Action {
     	request.setAttribute("pp", pp);
     	request.setAttribute("vss", vss);
     	
-        return mapping.findForward("reports");
+        return mapping.findForward("report");
     }//execute()
 
 

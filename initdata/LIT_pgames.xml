@@ -275,6 +275,10 @@
             <declaration>
                 <ins>
                     <var name="isid"/>
+		    <var name="pkgSuiteId"/>
+                    <var name="projSuiteId"/>
+                    <var name="fundSuiteId"/>
+                    <var name="critSuiteId"/>
                 </ins>
             </declaration>
         </pgame>
@@ -369,11 +373,13 @@
 	    </declaration>
 	</pgame>
 	
-	<pgame name="pgame-view.report" description="View Report" auto="true">
+	<pgame name="pgame-view.report" description="View Report" access="all" auto="false">
 	    <actionName>action-view.report</actionName>
 	    <declaration>
 		<ins>
-		    <var name="suiteId" ref="pmethod.repo_suite_id"/>
+		    <var name="cctId" ref="pmethod.cct_id"/>
+		    <var name="critSuiteId"/>
+	            <var name="packSuiteId"/>
 		</ins>
 	    </declaration>
 	</pgame>
@@ -394,11 +400,11 @@
 	    </declaration>
 	</pgame>
 
-	<pgame name="pgame-sd.report" description="SD Report" auto="true">>
+	<pgame name="pgame-sd.report" description="SD Report" access="all" auto="false" revisitable="true">
 	    <actionName>action-sd.reports</actionName>
 	    <declaration>
 		<ins>
-		    <var name="isid" ref="pmethod.repo_isid"/>
+		    <var name="isid"/>
 		</ins>
 	    </declaration>
 	</pgame>
