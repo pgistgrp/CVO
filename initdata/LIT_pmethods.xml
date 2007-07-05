@@ -460,6 +460,15 @@
 			</ins>
 		    </declaration>
 		</pgame>
+		
+		<pgame name="pgame-define.report">
+		    <declaration>
+			<ins>
+			    <var name="suite_id" ref="pmethod.repo_suite_id"/>
+			</ins>
+		    </declaration>
+		</pgame>
+		
 		<pgame name="pgame-publish.report">
 		    <declaration>
 			<ins>

@@ -29,7 +29,7 @@ public class ReportSummaryAction extends Action  {
 	    	
 		 	ReportForm rForm = (ReportForm) form;
 		 	
-		 	String strReportSuiteId = request.getParameter("reportSuiteId");
+		 	String strReportSuiteId = request.getParameter("suite_id");
 		 	
 		 	if (strReportSuiteId==null || "".equals(strReportSuiteId)) { 
 		 		rForm.setReason("reportSuiteId is Required.");

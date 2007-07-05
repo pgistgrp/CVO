@@ -112,6 +112,7 @@
               <entry><key><value>action-sd.fundings</value></key><value>/sdRoom.do</value></entry>
               <entry><key><value>action-sd.packages</value></key><value>/sdRoom.do</value></entry>
               <entry><key><value>action-sd.report</value></key><value>/sdRoom.do</value></entry>
+              <entry><key><value>action-define.report</value></key><value>/reportsummary.do</value></entry>
               <entry><key><value>action-view.report</value></key><value>/report.do</value></entry>
               <entry><key><value>action-weigh.criteria</value></key><value>/criteriaWeigh.do</value></entry>
               <entry><key><value>action-create.user.package</value></key><value>/createPackage.do</value></entry>

@@ -107,6 +107,7 @@
     </bean>
     
     <bean name="/reportsummary" class="org.pgist.report.ReportSummaryAction">
+    	<property name="reportService" ref="reportService"/>
     </bean>
     
     

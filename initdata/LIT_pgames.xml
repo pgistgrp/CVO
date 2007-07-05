@@ -372,14 +372,23 @@
 		</ins>
 	    </declaration>
 	</pgame>
-	
-	<pgame name="pgame-view.report" description="View Report" access="all" auto="false">
-	    <actionName>action-view.report</actionName>
+
+	<pgame name="pgame-define.report" description="Define Report" access="moderator" auto="false">
+	    <actionName>action-define.report</actionName>
 	    <declaration>
 		<ins>
 		    <var name="cct_id"/>
 		    <var name="critSuiteId"/>
 	            <var name="pkgSuiteId"/>
+		</ins>
+	    </declaration>
+	</pgame>
+	
+	<pgame name="pgame-view.report" description="View Report" access="all" auto="false">
+	    <actionName>action-view.report</actionName>
+	    <declaration>
+		<ins>
+		    <var name="suite_id"/>
 		</ins>
 	    </declaration>
 	</pgame>
