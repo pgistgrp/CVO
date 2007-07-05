@@ -64,17 +64,17 @@ public class PgistELFunctions extends SimpleTagSupport {
 			break;
 		}*/
 		
-		if(grade < -2) {
+		if(grade < -2.51) {
 			result = "major negative impact";
-		} else if(grade < -1.01) {
+		} else if(grade < -1.51) {
 			result = "moderate negative impact";
-		} else if(grade < 0) {
+		} else if(grade < -.5) {
 			result = "minor negative impact";
-		} else if(grade == 0) {
-			result = "no impact";
-		} else if(grade < 1.01) {
+		} else if(grade < .5) {
+			result = "no significant impact";
+		} else if(grade < 1.5) {
 			result = "minor positive impact";
-		} else if(grade < 2.01) {
+		} else if(grade < 2.5) {
 			result = "moderate positive impact";
 		} else if(grade < 3.01) {
 			result = "major positive impact";
