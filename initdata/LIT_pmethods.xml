@@ -446,7 +446,7 @@
                 </outs>
             </declaration>
             <sequence>
-	    
+	    	
                 <pgame name="pgame-create.report.stats">
 		    <declaration>
 			<ins>
@@ -460,37 +460,39 @@
 			</ins>
 		    </declaration>
 		</pgame>
-		
-		<pgame name="pgame-view.report">
-                    <declaration>
-                        <ins>
-                            <var name="cct_id" ref="pmethod.cct_id"/>
-			    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
-			    <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
-                        </ins>
-                    </declaration>
-                </pgame>
-		
-                <pgame name="pgame-publish.report">
-                    <declaration>
-                        <ins>
-                            <var name="suite_id" ref="pmethod.repo_suite_id"/>
-                            <var name="cct_id" ref="pmethod.cct_id"/>
-                        </ins>
-                        <outs>
-                            <var name="is_id" ref="pmethod.repo_isid"/>
-                        </outs>
-                    </declaration>
-                </pgame>
-		
-		<pgame name="pgame-sd.report">
+		<pgame name="pgame-publish.report">
 		    <declaration>
 			<ins>
-			    <var name="isid" ref="pmethod.repo_isid"/>
+			    <var name="suite_id" ref="pmethod.repo_suite_id"/>
+			    <var name="cct_id" ref="pmethod.cct_id"/>
 			</ins>
+			<outs>
+			    <var name="is_id" ref="pmethod.repo_isid"/>
+			</outs>
 		    </declaration>
 		</pgame>
-		
+		<branch>
+                    <sequence>
+			<pgame name="pgame-view.report">
+			    <declaration>
+				<ins>
+				    <var name="cct_id" ref="pmethod.cct_id"/>
+				    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+				    <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
+				</ins>
+			    </declaration>
+			</pgame>
+		    </sequence>
+		    <sequence>
+			<pgame name="pgame-sd.report">
+			    <declaration>
+				<ins>
+				    <var name="isid" ref="pmethod.repo_isid"/>
+				</ins>
+			    </declaration>
+			</pgame>
+		    </sequence>
+		</branch>
             </sequence>
         </pmethod>
 	
