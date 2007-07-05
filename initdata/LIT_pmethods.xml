@@ -439,6 +439,7 @@
 		    <var name="pmethod.cct_id"/>                  
                     <var name="pmethod.proj_isid"/>
                     <var name="pmethod.fund_isid"/>
+		    <var name="pmethod.repo_suite_id"/>
                 </ins>
                 <outs>
                     <var name="pmethod.repo_isid"/>
@@ -464,7 +465,7 @@
                     <declaration>
                         <ins>
                             <var name="cct_id" ref="pmethod.cct_id"/>
-			    <var name="critSuiteId" ref="pmethod.repo_suite_id"/>
+			    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
 			    <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
                         </ins>
                     </declaration>

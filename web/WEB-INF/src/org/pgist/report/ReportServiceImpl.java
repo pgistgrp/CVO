@@ -20,19 +20,11 @@ public class ReportServiceImpl implements ReportService{
 	private ReportDAO reportDAO;
 	
 	
-	private CCTDAO cctDAO;
-	
-	
 	private DiscussionDAO discussionDAO;
 	
 	
 	public void setDiscussionDAO(DiscussionDAO discussionDAO) {
 		this.discussionDAO = discussionDAO;
-	}
-
-	
-	public void setCctDAO(CCTDAO cctDAO) {
-		this.cctDAO = cctDAO;
 	}
 	
 	
@@ -74,7 +66,7 @@ public class ReportServiceImpl implements ReportService{
 	 public InfoStructure publish(Long workflowId, Long cctId, Long suiteId, String title) throws Exception {
 
 
-	        CCT cct = cctDAO.getCCTById(cctId);
+	        CCT cct = (CCT)reportDAO.load(CCT.class, cctId);
 	        
 	        ReportSuite suite = reportDAO.getReportSuiteById(suiteId);
 	        

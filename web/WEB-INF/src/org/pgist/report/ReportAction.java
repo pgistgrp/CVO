@@ -103,6 +103,7 @@ public class ReportAction extends Action {
             error = true;
         }
         if(error) {
+        	errors += " cctId:" + strCctId + " critSuiteId:" + strCritSuiteId;
         	request.setAttribute("error", errors);
             return mapping.findForward("report");	
         }

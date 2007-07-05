@@ -14,6 +14,7 @@
 	<property name="target">
 	    <bean class="org.pgist.report.ReportServiceImpl">
 		<property name="reportDAO" ref="reportDAO"/>
+		<property name="discussionDAO" ref="discussionDAO"/>
 	    </bean>
 	</property>
     </bean>
