@@ -9,8 +9,6 @@
 
 
 <pg:fragment type="html">
-
-
 	<!--####
 		Project: Let's Improve Transportation!
 		Page: SDCrit Structure Target
@@ -43,11 +41,11 @@
 
 	<h3 class="headerColor clearBoth">All planning factors and related concern themes</h3>
 
-			<!-- Begin voting tally menu -->
+	<!-- Begin voting tally menu -->
 	<div id="votingMenu" class="floatLeft"><div id="voting-structure${infoStructure.id}">
 		<div id="votingMenuTally" class="box1">
 			<span id="structure_question_status">
-				<h2>${infoStructure.numAgree} of ${infoStructure.numVote}</h2>
+			<h2>${infoStructure.numAgree} of ${infoStructure.numVote}</h2>
 			agree with that these planning factors adequately address the concerns expressed by participants in Step 1.</div>
 		</span>
 		<p>Do these planning factors adequately address the concerns expressed by participants in step 1?</p>
