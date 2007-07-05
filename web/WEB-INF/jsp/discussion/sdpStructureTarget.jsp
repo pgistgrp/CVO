@@ -15,15 +15,15 @@
 		Description: This page will list and map out all of the projects in the given decision situation.
 					 The javascript on this page will allow for map manipulation.  Clicking on a project
 					 will 
-		Author(s): Jordan Isip, Adam Hindman
+		Author(s): Jordan Isip, Adam Hindman, John Le
 		Todo Items:
 			[x] Initial Skeleton Code (Jordan)
 			[x] Integrate Structured Discussion (Jordan)
 			[x] Integrate Project Tree (Jordan)
 			[x] Integrate Layout (Adam) 
-			[ ] Ensure loop is working with backend (Jordan)
-			[ ] Ensure tree menu is working correctly (Jordan)
-			[ ] Test with backend contractor code (Jordan)
+			[x] Ensure loop is working with backend (Jordan)
+			[x] Ensure tree menu is working correctly (Jordan)
+			[x] Test with backend contractor code (Jordan)
 	#### -->
 <!-- begin "overview and instructions" area -->
 

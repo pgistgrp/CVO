@@ -16,12 +16,12 @@
 		Page: SDCrit Structure Target
 		Description: This is the object in the SDcriteria discussion room
 		Author(s): 
-		     Front End: Jordan Isip, Adam Hindman, Issac Yang
-		     Back End: Zhong Wang, John Le
+		     Front End: Jordan Isip, Adam Hindman
+		     Back End: John Le, Zhong Wang
 		Todo Items:
 			[x] Initial Skeleton Code (Jordan)
-			[ ] Add JavaScript to get criteria (Jordan)
-			[ ] Integrate Layout (Adam)
+			[x] Add JavaScript to get criteria (Jordan)
+			[x] Integrate Layout (Adam)
 	#### -->
 	<!-- begin "overview and instructions" area -->
 	<div id="overview" class="box2">
