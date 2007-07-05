@@ -217,4 +217,18 @@ public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
     public Vehicle getVehicle(Long vehicleId) throws Exception {
 		return (Vehicle)getHibernateTemplate().get(Vehicle.class, vehicleId);		    	
     }
+    
+    
+    private static final String hql_getFundingSourceAlternativeByName = "from FundingSourceAlternative where name=?";
+    
+    
+    public FundingSourceAlternative getFundingSourceAlternativeByName(String fundAltName) throws Exception {
+        List list = getHibernateTemplate().find(hql_getFundingSourceAlternativeByName, fundAltName);
+        
+        if (list.size()==0) return null;
+        
+        return (FundingSourceAlternative) list.get(0);
+    }//getFundingSourceAlternativeByName()
+    
+    
 }//class FundingDAOImpl

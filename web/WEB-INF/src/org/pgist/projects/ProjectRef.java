@@ -1,6 +1,5 @@
 package org.pgist.projects;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -42,7 +41,7 @@ public class ProjectRef {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="suite_id" cascade="all" lazy="true"
+     * @hibernate.many-to-one column="suite_id" cascade="none" lazy="true"
      */
     public ProjectSuite getSuite() {
         return suite;
@@ -57,7 +56,7 @@ public class ProjectRef {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="project_id" cascade="all" lazy="true"
+     * @hibernate.many-to-one column="project_id" cascade="none" lazy="true"
      */
     public Project getProject() {
         return project;
@@ -84,7 +83,13 @@ public class ProjectRef {
     public void setAltRefs(Set<ProjectAltRef> altRefs) {
         this.altRefs = altRefs;
     }
-
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
     /**
      * Removes the project alternative reference from this project reference
      * 
@@ -110,7 +115,7 @@ public class ProjectRef {
 			}
 		}
 		if(foundRef != null) {
-			this.getAltRefs().remove(foundRef);
+			getAltRefs().remove(foundRef);
 		}
 	}
 	
@@ -120,7 +125,7 @@ public class ProjectRef {
 	 * @return	The number of alternative references in this project reference
 	 */
 	public int getNumAltRefs() {
-		return this.altRefs.size();
+		return altRefs.size();
 	}
     
 	/**

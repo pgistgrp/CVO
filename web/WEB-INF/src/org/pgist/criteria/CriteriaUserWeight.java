@@ -41,7 +41,7 @@ public class CriteriaUserWeight {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="critsuite_id" cascade="all"
+     * @hibernate.many-to-one column="critsuite_id" cascade="none"
      */
     public CriteriaSuite getSuite() {
         return suite;

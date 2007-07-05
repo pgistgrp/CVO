@@ -357,26 +357,23 @@ public class ProjectServiceImpl implements ProjectService {
     	ProjectSuite suite = projectDAO.getProjectSuite(suiteId);
     	
     	if(suite == null) throw new UnknownProjectSuite("Unknown Project Suite [" + suiteId +"]");
-    	    	
+    	
     	ProjectAlternative projectAlt = projectDAO.getProjectAlternative(altId);
-
+    	
     	//Get the project reference that has this alternative reference in it
     	ProjectRef projectRef = suite.getProjectReference(projectAlt);    	
     	ProjectAltRef altRef = projectRef.getProjectAltRef(projectAlt);
     	
     	if(projectRef != null) {
     		//Remove the reference to the alt ref
-    		projectRef.removeAltRef(altRef);
+    		projectRef.getAltRefs().remove(altRef);
     		
-        	//Delete the project alterative reference provided
-    		projectDAO.delete(altRef);
-        	
         	//If that was the last alternative in that project reference then delete the project reference
-    		if(projectRef.getNumAltRefs() <= 0) {
-    			projectDAO.delete(projectRef);
-    		} else {
-    			projectDAO.save(projectRef);
+    		if(projectRef.getAltRefs().size() <= 0) {
+    		    suite.getReferences().remove(projectRef);;
     		}
+    		
+    		projectDAO.save(suite);
     	}    	
     }//derelateProjectAlt()
 

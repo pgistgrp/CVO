@@ -38,7 +38,7 @@ public class ProjectSuite {
     /**
      * @return
      * 
-     * @hibernate.set inverse="true" lazy="true" sort="org.pgist.projects.ProjectRefComparator" cascade="all"
+     * @hibernate.set lazy="true" sort="org.pgist.projects.ProjectRefComparator" cascade="all"
      * @hibernate.collection-key column="suite_id"
      * @hibernate.collection-one-to-many class="org.pgist.projects.ProjectRef"
      */

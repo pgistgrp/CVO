@@ -43,7 +43,7 @@ public class FundingSourceSuite {
     /**
      * @return
      * 
-     * @hibernate.set inverse="true" lazy="true"
+     * @hibernate.set lazy="true" cascade="all-delete-orphan"
      * @hibernate.collection-key column="suite_id"
      * @hibernate.collection-one-to-many class="org.pgist.funding.FundingSourceRef"
      */
@@ -60,7 +60,7 @@ public class FundingSourceSuite {
     /**
      * @return
      * 
-     * @hibernate.map table="pgist_funding_user_commute_map"
+     * @hibernate.map table="pgist_funding_user_commute_map" cascade="all"
      * @hibernate.collection-key column="fundsuite_id"
      * @hibernate.index-many-to-many column="user_id" class="org.pgist.users.User"
      * @hibernate.collection-many-to-many class="org.pgist.funding.UserCommute" column="usercommute_id"
@@ -128,6 +128,7 @@ public class FundingSourceSuite {
     	return null;
     } //getFundingSourceReference
     
+    
     /**
      * Returns the fundingSource reference that has a reference to the alternative provided
      * 
@@ -147,6 +148,7 @@ public class FundingSourceSuite {
     	return null;
     } //getFundingSourceReference
     
+    
     /**
      * Returns the project reference that has a reference to the alternative provided
      * 
@@ -162,7 +164,9 @@ public class FundingSourceSuite {
     				return ref;
     			}
         	}
-    	}    	
+    	}
     	return null;
-    } //getFundingSourceReference      
+    } //getFundingSourceReference
+    
+    
 }//class FundingSourceSuite

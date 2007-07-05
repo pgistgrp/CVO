@@ -1,5 +1,6 @@
 package org.pgist.discussion;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,8 +8,12 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.index.IndexWriter;
 import org.directwebremoting.WebContextFactory;
 import org.pgist.cvo.Concern;
+import org.pgist.search.SearchHelper;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
 import org.pgist.system.YesNoVoting;
@@ -37,6 +42,8 @@ public class SDAgent {
     
     private EmailSender emailSender;
     
+    private SearchHelper searchHelper;
+    
     
     public void setSdService(SDService sdService) {
         this.sdService = sdService;
@@ -50,6 +57,11 @@ public class SDAgent {
 
     public void setEmailSender(EmailSender emailSender) {
         this.emailSender = emailSender;
+    }
+
+
+    public void setSearchHelper(SearchHelper searchHelper) {
+        this.searchHelper = searchHelper;
     }
 
 
@@ -482,6 +494,8 @@ public class SDAgent {
         Long ioid = null;
         InfoObject object = null;
         
+        DiscussionPost post = null;
+        
         try {
             isid = new Long((String) params.get("isid"));
             if (isid==null) {
@@ -509,8 +523,6 @@ public class SDAgent {
                 }
             }
             
-            DiscussionPost post = null;
-            
             String emailNotify = (String) params.get("emailNotify");
             
             if (object==null) {
@@ -525,6 +537,28 @@ public class SDAgent {
             e.printStackTrace();
             map.put("reason", e.getMessage());
             return map;
+        }
+        
+        try {
+            if (post!=null) {
+                /*
+                 * Indexing with Lucene.
+                 */
+                IndexWriter writer = searchHelper.getIndexWriter();
+                Document doc = new Document();
+                doc.add( Field.Text("type", "post") );
+                doc.add( Field.Text("author", post.getOwner().getLoginname()) );
+                doc.add( Field.Text("date", post.getCreateTime().toString()) );
+                doc.add( Field.Text("title", post.getTitle()) );
+                doc.add( Field.Text("content", post.getContent()) );
+                doc.add( Field.Text("tag", Arrays.toString(tags)) );
+                doc.add( Field.UnIndexed("id", post.getId().toString()) );
+                doc.add( Field.UnIndexed("isid", isid==null ? "" : isid.toString()) );
+                doc.add( Field.UnIndexed("ioid", ioid==null ? "" : ioid.toString()) );
+                writer.addDocument(doc);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         
         return map;
@@ -575,6 +609,8 @@ public class SDAgent {
         Long pid = null;
         Long rid = null;
         
+        DiscussionReply reply = null;
+        
         try {
             isid = new Long((String) params.get("isid"));
             if (isid==null) {
@@ -601,7 +637,7 @@ public class SDAgent {
             
             String emailNotify = (String) params.get("emailNotify");
             
-            DiscussionReply reply = sdService.createReply(pid, rid, title, content, tags, "true".equals(emailNotify));
+            reply = sdService.createReply(pid, rid, title, content, tags, "true".equals(emailNotify));
             
             map.put("id", reply.getId());
             map.put("successful", true);
@@ -628,6 +664,27 @@ public class SDAgent {
             e.printStackTrace();
             map.put("reason", e.getMessage());
             return map;
+        }
+        
+        try {
+            if (reply!=null) {
+                /*
+                 * Indexing with Lucene.
+                 */
+                IndexWriter writer = searchHelper.getIndexWriter();
+                Document doc = new Document();
+                doc.add( Field.Text("type", "reply") );
+                doc.add( Field.Text("author", reply.getOwner().getLoginname()) );
+                doc.add( Field.Text("date", reply.getCreateTime().toString()) );
+                doc.add( Field.Text("title", reply.getTitle()) );
+                doc.add( Field.Text("content", reply.getContent()) );
+                doc.add( Field.Text("tag", Arrays.toString(tags)) );
+                doc.add( Field.UnIndexed("id", reply.getId().toString()) );
+                doc.add( Field.UnIndexed("isid", isid==null ? "" : isid.toString()) );
+                doc.add( Field.UnIndexed("ioid", reply==null ? "" : reply.toString()) );
+                writer.addDocument(doc);
+            }
+        } catch (Exception e) {
         }
         
         return map;

@@ -69,7 +69,7 @@ public class GradedCriteria {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="criteria_id" cascade="all" lazy="true"
+     * @hibernate.many-to-one column="criteria_id" cascade="none" lazy="true"
      */
 	public Criteria getCriteria() {
 		return criteria;

@@ -41,7 +41,7 @@ public class ProjectAltRef implements Comparable<ProjectAltRef> {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="projref_id" cascade="all" lazy="true"
+     * @hibernate.many-to-one column="projref_id" cascade="none" lazy="true"
      */
     public ProjectRef getProjectRef() {
         return projectRef;
@@ -56,7 +56,7 @@ public class ProjectAltRef implements Comparable<ProjectAltRef> {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="alternative_id" cascade="all" lazy="true"
+     * @hibernate.many-to-one column="alternative_id" cascade="none" lazy="true"
      */
     public ProjectAlternative getAlternative() {
         return alternative;
@@ -78,23 +78,30 @@ public class ProjectAltRef implements Comparable<ProjectAltRef> {
     public SortedSet<GradedCriteria> getGradedCriteria() {
 		return gradedCriteria;
 	}
-
+    
+    
 	public void setGradedCriteria(SortedSet<GradedCriteria> criteria) {
 		this.gradedCriteria = criteria;
-	}    
+	}
+	
+	
+	/*
+	 * ------------------------------------------------------------------------
+	 */
+	
 	
 	public boolean equals(Object obj) {
 		if(obj != null && obj instanceof ProjectAlternative) {
 			ProjectAlternative temp = (ProjectAlternative)obj;
-			if(this.getId().equals(temp.getId())) return true;
+			if(getId().equals(temp.getId())) return true;
 		}
 		return false;
 	}
 	
 	
-	
 	public int compareTo(ProjectAltRef o) {
-		return ((ProjectAltRef)o).getAlternative().getName().compareToIgnoreCase(this.getAlternative().getName());
+		return ((ProjectAltRef)o).getAlternative().getName().compareToIgnoreCase(getAlternative().getName());
 	}
+	
 	
 }//class ProjectAltRef

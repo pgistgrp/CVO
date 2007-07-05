@@ -357,27 +357,23 @@ public class FundingServiceImpl implements FundingService {
     	FundingSourceSuite suite = fundingDAO.getFundingSuite(suiteId);
     	
     	if(suite == null) throw new UnknownFundingSuiteException("Unknown FundingSource Suite [" + suiteId +"]");
-    	    	
+    	
     	FundingSourceAlternative fundingAlt = fundingDAO.getFundingSourceAlternative(altId);
-
+    	
     	//Get the funding reference that has this alternative reference in it
     	FundingSourceRef fundingRef = suite.getFundingSourceReference(fundingAlt);    	
     	FundingSourceAltRef altRef = fundingRef.getFundingSourceAltRef(fundingAlt);
-    	    	
+        
     	if(fundingRef != null) {
-    		//Remove the reference to the alt ref
-    		fundingRef.removeAltRef(altRef);
+    	    fundingRef.getAltRefs().remove(altRef);
     		
-        	//Delete the funding alterative reference provided
-    		fundingDAO.delete(altRef);
-        	
         	//If that was the last alternative in that funding reference then delete the funding reference
-    		if(fundingRef.getNumAltRefs() <= 0) {
-    			fundingDAO.delete(fundingRef);
-    		} else {
-    			fundingDAO.save(fundingRef);
+    		if(fundingRef.getAltRefs().size() <= 0) {
+    		    suite.getReferences().remove(fundingRef);
     		}
-    	}    	
+    		
+            fundingDAO.save(suite);
+    	}
     }//derelateFundingAlt()
     
 

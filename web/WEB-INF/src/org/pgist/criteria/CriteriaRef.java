@@ -48,7 +48,7 @@ public class CriteriaRef implements Comparator {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="suite_id" cascade="all"
+     * @hibernate.many-to-one column="suite_id" cascade="none"
      */
     public CriteriaSuite getSuite() {
         return suite;
@@ -63,7 +63,7 @@ public class CriteriaRef implements Comparator {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="crit_id" cascade="all"
+     * @hibernate.many-to-one column="crit_id" cascade="none"
      */
     public Criteria getCriterion() {
         return criterion;

@@ -40,7 +40,7 @@ public class FundingSourceRef {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="suite_id" cascade="all" lazy="true"
+     * @hibernate.many-to-one column="suite_id" cascade="none" lazy="true"
      */
     public FundingSourceSuite getSuite() {
         return suite;
@@ -55,7 +55,7 @@ public class FundingSourceRef {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="source_id" cascade="all" lazy="true"
+     * @hibernate.many-to-one column="source_id" cascade="none" lazy="true"
      */
     public FundingSource getSource() {
         return source;
@@ -70,7 +70,7 @@ public class FundingSourceRef {
     /**
      * @return
      * 
-     * @hibernate.set lazy="false" cascade="all-delete-orphan" cascade="all"
+     * @hibernate.set lazy="false" cascade="all-delete-orphan"
      * @hibernate.collection-key column="sourceref_id"
      * @hibernate.collection-one-to-many class="org.pgist.funding.FundingSourceAltRef"
      */
@@ -82,7 +82,13 @@ public class FundingSourceRef {
     public void setAltRefs(Set<FundingSourceAltRef> altRefs) {
         this.altRefs = altRefs;
     }
-
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
     /**
      * Removes the funding alternative reference from this funding reference
      * 
@@ -108,7 +114,7 @@ public class FundingSourceRef {
 			}
 		}
 		if(foundRef != null) {
-			this.getAltRefs().remove(foundRef);
+		    getAltRefs().remove(foundRef);
 		}
 	}
 	
@@ -118,7 +124,7 @@ public class FundingSourceRef {
 	 * @return	The number of alternative references in this funding reference
 	 */
 	public int getNumAltRefs() {
-		return this.altRefs.size();
+		return getAltRefs().size();
 	}
     
 	/**

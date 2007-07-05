@@ -23,8 +23,9 @@
     </projects>
     
     <fundings>
-        <funding name="">
-            <alternative></alternative>
+        <funding name="Sales Tax">
+            <alternative name="tax 1" />
+            <alternative name="tax 2" />
         </funding>
     </fundings>
     

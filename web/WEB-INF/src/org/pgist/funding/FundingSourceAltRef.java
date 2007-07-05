@@ -36,7 +36,7 @@ public class FundingSourceAltRef {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="alt_id" cascade="all" lazy="true"
+     * @hibernate.many-to-one column="alt_id" cascade="none" lazy="true"
      */
     public FundingSourceAlternative getAlternative() {
         return alternative;
@@ -51,7 +51,7 @@ public class FundingSourceAltRef {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="sourceref_id" cascade="all" lazy="true"
+     * @hibernate.many-to-one column="sourceref_id" cascade="none" lazy="true"
      */
     public FundingSourceRef getSourceRef() {
         return sourceRef;

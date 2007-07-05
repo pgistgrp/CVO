@@ -136,7 +136,7 @@ public class Criteria implements Serializable {
     }
     
     /**
-     * @hibernate.set lazy="false" table="pgist_criteria_theme_link" cascade="all"
+     * @hibernate.set lazy="false" table="pgist_criteria_theme_link" cascade="none"
      * @hibernate.collection-key column="criterion_id"
      * @hibernate.collection-many-to-many column="theme_id" class="org.pgist.cvo.Theme"
      */   

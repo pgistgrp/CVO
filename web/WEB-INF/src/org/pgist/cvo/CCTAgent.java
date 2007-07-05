@@ -1,5 +1,6 @@
 package org.pgist.cvo;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -7,7 +8,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.index.IndexWriter;
 import org.directwebremoting.WebContextFactory;
+import org.pgist.search.SearchHelper;
 import org.pgist.system.SystemService;
 import org.pgist.system.UserDAO;
 import org.pgist.system.YesNoVoting;
@@ -37,7 +42,9 @@ public class CCTAgent {
     
     private SystemService systemService;
 
-
+    private SearchHelper searchHelper;
+    
+    
     /**
      * This is not an AJAX service method.
      *
@@ -65,6 +72,16 @@ public class CCTAgent {
      */
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
+    }
+
+
+    /**
+     * This is not an AJAX service method.
+     *
+     * @param searchHelper
+     */
+    public void setSearchHelper(SearchHelper searchHelper) {
+        this.searchHelper = searchHelper;
     }
 
 
@@ -1111,14 +1128,36 @@ public class CCTAgent {
         
         String[] tags = StringUtil.splitCSL((String) params.get("tags"));
         
+        Comment comment = null;
+        
         try {
-            Comment comment = cctService.createComment(concernId, title, content, tags);
+            comment = cctService.createComment(concernId, title, content, tags);
             
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
             return map;
+        }
+        
+        if (comment!=null) {
+            try {
+                /*
+                 * Indexing with Lucene.
+                 */
+                IndexWriter writer = searchHelper.getIndexWriter();
+                Document doc = new Document();
+                doc.add( Field.Text("type", "concern") );
+                doc.add( Field.Text("author", comment.getOwner().getLoginname()) );
+                doc.add( Field.Text("date", comment.getCreateTime().toString()) );
+                doc.add( Field.Text("title", comment.getTitle()) );
+                doc.add( Field.Text("content", comment.getContent()) );
+                doc.add( Field.Text("tag", Arrays.toString(tags)) );
+                doc.add( Field.UnIndexed("id", comment.getId().toString()) );
+                writer.addDocument(doc);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }
         
         return map;

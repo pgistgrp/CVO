@@ -17,6 +17,10 @@ import org.pgist.criteria.CriteriaUserWeight;
 import org.pgist.criteria.Objective;
 import org.pgist.cvo.CCTDAO;
 import org.pgist.funding.FundingDAO;
+import org.pgist.funding.FundingSource;
+import org.pgist.funding.FundingSourceAltRef;
+import org.pgist.funding.FundingSourceAlternative;
+import org.pgist.funding.FundingSourceRef;
 import org.pgist.funding.FundingSourceSuite;
 import org.pgist.packages.PackageDAO;
 import org.pgist.projects.GradedCriteria;
@@ -234,7 +238,34 @@ public class ImportServiceImpl implements ImportService {
         /*
          * Import funding sources
          */
-        //TODO
+        for (Element fundEle : (List<Element>) document.selectNodes("/template/fundings/funding")) {
+            String fundName = fundEle.attributeValue("name");
+            if (fundName==null || fundName.trim().length()==0) throw new Exception("funding source name is required!");
+            
+            FundingSource source = fundingDAO.getFundingSourceByName(fundName);
+            if (source==null) throw new Exception("can't find funding source named \""+fundName+"\"");
+            
+            FundingSourceRef fundRef = new FundingSourceRef();
+            fundRef.setSuite(fundSuite);
+            fundRef.setSource(source);
+            fundSuite.getReferences().add(fundRef);
+            
+            for (Element altEle : (List<Element>) fundEle.selectNodes("alternative")) {
+                String fundAltName = altEle.attributeValue("name");
+                if (fundAltName==null || fundAltName.trim().length()==0) throw new Exception("funding source alternative name is required!");
+                
+                FundingSourceAlternative fundAlt = fundingDAO.getFundingSourceAlternativeByName(fundAltName);
+                if (fundAlt==null) throw new Exception("can't find funding source alternative named \""+fundAltName+"\"");
+                
+                FundingSourceAltRef altRef = new FundingSourceAltRef();
+                altRef.setAlternative(fundAlt);
+                altRef.setSourceRef(fundRef);
+                
+                fundRef.getAltRefs().add(altRef);
+            }//for fundEle
+            
+            projectDAO.save(fundSuite);
+        }//for projEle
     }//importTemplate()
 
 
