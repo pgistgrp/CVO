@@ -283,8 +283,8 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 				<input id="txtAltName'+ altId +'" type="text" value="'+ name +'" size="40"><br />\
 				<p><label>Agency:</label><br />\
 				<input id="txtAltAgency'+ altId +'" type="text" value="'+ sponsor +'" size="40"></p>\
-				<p><label>* Cost (in millions):</label><br />\
-				<input id="txtAltCost'+ altId +'" type="text" value="'+ cost +'" size="40"></p>\
+				<p><label>* Cost: (<em>ex: 4500000</em>)) </label><br />\
+				$ <input id="txtAltCost'+ altId +'" type="text" value="'+ cost +'" size="35"></p>\
 				<p><label>County:</label><br />\
 				<input id="txtAltCounty'+ altId +'" type="text" value="'+ county +'" size="40"></p>\
 				<p><label>Short Description:</label><br />\
