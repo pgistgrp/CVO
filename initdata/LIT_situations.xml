@@ -86,6 +86,7 @@
 			    <var name="meeting.fund_isid" ref="situation.fund_isid"/>
 			    <var name="meeting.crit_suite_id" ref="situation.crit_suite_id"/>
 			    <var name="meeting.repo_suite_id" ref="situation.repo_suite_id"/>
+			    <var name="meeting.pkg_suite_id" ref="situation.pkg_suite_id"/>
 			</ins>
 			<outs>
 			    <var name="meeting.repo_isid" ref="situation.repo_isid"/>
