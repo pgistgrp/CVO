@@ -380,7 +380,7 @@
 		    <var name="suite_id"/>
 		</ins>
 	    </declaration>
-	</pgame
+	</pgame>
 	
 	<pgame name="pgame-view.report" description="View Report" access="all" auto="false">
 	    <actionName>action-view.report</actionName>
