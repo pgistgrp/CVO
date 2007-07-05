@@ -32,7 +32,7 @@ public class ReportSummaryAction extends Action  {
 		 	String strReportSuiteId = request.getParameter("suite_id");
 		 	
 		 	if (strReportSuiteId==null || "".equals(strReportSuiteId)) { 
-		 		rForm.setReason("reportSuiteId is Required.");
+		 		rForm.setReason("suite_id is Required.");
 	            return mapping.findForward("reportsummary");
 	        }
 		 	
