@@ -88,7 +88,7 @@ public class ReportServiceImpl implements ReportService{
 	        InfoStructure structure = new InfoStructure();
             structure.getDiscussion().setWorkflowId(workflowId);
             
-	        structure.setType("sdrepo");
+	        structure.setType("sdr");
 	        structure.setTitle(title);
 	        structure.setRespTime(date);
 	        structure.setCctId(cct.getId());
