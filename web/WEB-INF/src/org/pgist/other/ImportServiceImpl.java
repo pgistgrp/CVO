@@ -42,31 +42,17 @@ import org.pgist.util.WebUtils;
 public class ImportServiceImpl implements ImportService {
     
     
-    private CCTDAO cctDAO;
-    
     private CriteriaDAO criteriaDAO;
     
     private ProjectDAO projectDAO;
     
     private FundingDAO fundingDAO;
     
-    private PackageDAO packageDAO;
-    
     private ImportDAO importDAO;
     
     
-    public void setCctDAO(CCTDAO cctDAO) {
-        this.cctDAO = cctDAO;
-    }
-
-
     public void setCriteriaDAO(CriteriaDAO criteriaDAO) {
         this.criteriaDAO = criteriaDAO;
-    }
-
-
-    public void setPackageDAO(PackageDAO packageDAO) {
-        this.packageDAO = packageDAO;
     }
 
 
@@ -120,152 +106,161 @@ public class ImportServiceImpl implements ImportService {
         /*
          * Import criteria
          */
-        for (Element critEle : (List<Element>) document.selectNodes("/template/projects/project/alternative/criterion")) {
-            String name = critEle.attributeValue("name");
-            
-            System.out.println("process criterion ---> "+name);
-            
-            CriteriaRef ref = (CriteriaRef) critMap.get(name);
-            
-            if (ref==null) {
-                Criteria crit = new Criteria();
-                crit.setName(name);
-                crit.setSuite(critSuite);
+        List<Element> critElements = (List<Element>) document.selectNodes("/template/projects/project/alternative/criterion");
+        if (critElements.size()>0) {
+            for (Element critEle : critElements) {
+                String name = critEle.attributeValue("name");
                 
-                criteriaDAO.save(crit);
+                System.out.println("process criterion ---> "+name);
                 
-                ref = new CriteriaRef();
-                ref.setCriterion(crit);
-                ref.setSuite(critSuite);
+                CriteriaRef ref = (CriteriaRef) critMap.get(name);
+                
+                if (ref==null) {
+                    Criteria crit = new Criteria();
+                    crit.setName(name);
+                    crit.setSuite(critSuite);
+                    
+                    criteriaDAO.save(crit);
+                    
+                    ref = new CriteriaRef();
+                    ref.setCriterion(crit);
+                    ref.setSuite(critSuite);
+                    
+                    criteriaDAO.save(ref);
+                    
+                    CriteriaUserWeight cuw = new CriteriaUserWeight();
+                    cuw.setSuite(critSuite);
+                    
+                    criteriaDAO.save(cuw);
+                    
+                    critSuite.getReferences().add(ref);
+                    critSuite.getWeights().put(ref, cuw);
+                    
+                    critMap.put(name, ref);
+                }
+                
+                /*
+                 * Import objective
+                 */
+                Map<String, Objective> objectives = new HashMap<String, Objective>();
+                ref.getCriterion().setObject(objectives);
+                
+                for (Element objEle : (List<Element>) document.selectNodes("//criterion[@name='"+name+"']/objective")) {
+                    String description = objEle.attributeValue("description");
+                    
+                    System.out.println("process objective ---> "+description);
+                    
+                    Objective objective = objectives.get(description);
+                    
+                    if (objective==null) {
+                        objective = new Objective();
+                        objective.setDescription(description);
+                        
+                        ref.getCriterion().getObjectives().add(objective);
+                        
+                        objectives.put(description, objective);
+                    }
+                }//for objEle
                 
                 criteriaDAO.save(ref);
-                
-                CriteriaUserWeight cuw = new CriteriaUserWeight();
-                cuw.setSuite(critSuite);
-                
-                criteriaDAO.save(cuw);
-                
-                critSuite.getReferences().add(ref);
-                critSuite.getWeights().put(ref, cuw);
-                
-                critMap.put(name, ref);
-            }
+            }//for critEle
             
-            /*
-             * Import objective
-             */
-            Map<String, Objective> objectives = new HashMap<String, Objective>();
-            ref.getCriterion().setObject(objectives);
-            
-            for (Element objEle : (List<Element>) document.selectNodes("//criterion[@name='"+name+"']/objective")) {
-                String description = objEle.attributeValue("description");
-                
-                System.out.println("process objective ---> "+description);
-                
-                Objective objective = objectives.get(description);
-                
-                if (objective==null) {
-                    objective = new Objective();
-                    objective.setDescription(description);
-                    
-                    ref.getCriterion().getObjectives().add(objective);
-                    
-                    objectives.put(description, objective);
-                }
-            }//for objEle
-            
-            criteriaDAO.save(ref);
-        }//for critEle
-        
-        criteriaDAO.save(critSuite);
+            criteriaDAO.save(critSuite);
+        }
         
         /*
          * Import projects
          */
-        for (Element projEle : (List<Element>) document.selectNodes("/template/projects/project")) {
-            String projName = projEle.attributeValue("name");
-            if (projName==null || projName.trim().length()==0) throw new Exception("project name is required!");
-            
-            Project project = projectDAO.getProjectByName(projName);
-            if (project==null) throw new Exception("can't find project named \""+projName+"\"");
-            
-            ProjectRef projRef = new ProjectRef();
-            projRef.setSuite(projSuite);
-            projRef.setProject(project);
-            projSuite.getReferences().add(projRef);
-            
-            for (Element altEle : (List<Element>) projEle.selectNodes("alternative")) {
-                String projAltName = altEle.attributeValue("name");
-                if (projAltName==null || projAltName.trim().length()==0) throw new Exception("project alternative name is required!");
+        List<Element> projElements = (List<Element>) document.selectNodes("/template/projects/project");
+        if (projElements.size()>0) {
+            for (Element projEle : projElements) {
+                String projName = projEle.attributeValue("name");
+                if (projName==null || projName.trim().length()==0) throw new Exception("project name is required!");
                 
-                ProjectAlternative projAlt = projectDAO.getProjectAlternativeByName(projAltName);
-                if (projAlt==null) throw new Exception("can't find project alternative named \""+projAltName+"\"");
+                Project project = projectDAO.getProjectByName(projName);
+                if (project==null) throw new Exception("can't find project named \""+projName+"\"");
                 
-                ProjectAltRef altRef = new ProjectAltRef();
-                altRef.setAlternative(projAlt);
-                altRef.setProjectRef(projRef);
+                ProjectRef projRef = new ProjectRef();
+                projRef.setSuite(projSuite);
+                projRef.setProject(project);
+                projSuite.getReferences().add(projRef);
                 
-                projRef.getAltRefs().add(altRef);
-                
-                for (Element critEle : (List<Element>) altEle.selectNodes("criterion")) {
-                    String critName = critEle.attributeValue("name");
-                    if (critName==null || critName.trim().length()==0) throw new Exception("criterion name is required!");
+                for (Element altEle : (List<Element>) projEle.selectNodes("alternative")) {
+                    String projAltName = altEle.attributeValue("name");
+                    if (projAltName==null || projAltName.trim().length()==0) throw new Exception("project alternative name is required!");
                     
-                    CriteriaRef critRef = critMap.get(critName);
-                    Map<String, Objective> objectives = (Map<String, Objective>) critRef.getCriterion().getObject();
+                    ProjectAlternative projAlt = projectDAO.getProjectAlternativeByName(projAltName);
+                    if (projAlt==null) throw new Exception("can't find project alternative named \""+projAltName+"\"");
                     
-                    GradedCriteria gc = new GradedCriteria();
-                    gc.setCriteria(critRef.getCriterion());
-                    altRef.getGradedCriteria().add(gc);
+                    ProjectAltRef altRef = new ProjectAltRef();
+                    altRef.setAlternative(projAlt);
+                    altRef.setProjectRef(projRef);
                     
-                    for (Element objEle : (List<Element>) critEle.selectNodes("objective")) {
-                        String description = objEle.attributeValue("description");
-                        if (description==null || description.trim().length()==0) throw new Exception("objective description is required!");
+                    projRef.getAltRefs().add(altRef);
+                    
+                    for (Element critEle : (List<Element>) altEle.selectNodes("criterion")) {
+                        String critName = critEle.attributeValue("name");
+                        if (critName==null || critName.trim().length()==0) throw new Exception("criterion name is required!");
                         
-                        Objective objective = objectives.get(description);
-                        GradedObjective go = new GradedObjective();
-                        go.setObjective(objective);
-                        go.setGrade(Float.parseFloat(objEle.getTextTrim()));
+                        CriteriaRef critRef = critMap.get(critName);
+                        Map<String, Objective> objectives = (Map<String, Objective>) critRef.getCriterion().getObject();
                         
-                        gc.getObjectives().add(go);
-                    }//for objEle
-                }//for critEle
-            }//for altEle
+                        GradedCriteria gc = new GradedCriteria();
+                        gc.setCriteria(critRef.getCriterion());
+                        altRef.getGradedCriteria().add(gc);
+                        
+                        for (Element objEle : (List<Element>) critEle.selectNodes("objective")) {
+                            String description = objEle.attributeValue("description");
+                            if (description==null || description.trim().length()==0) throw new Exception("objective description is required!");
+                            
+                            Objective objective = objectives.get(description);
+                            GradedObjective go = new GradedObjective();
+                            go.setObjective(objective);
+                            go.setGrade(Float.parseFloat(objEle.getTextTrim()));
+                            
+                            gc.getObjectives().add(go);
+                        }//for objEle
+                    }//for critEle
+                }//for altEle
+            }//for projEle
             
             projectDAO.save(projSuite);
-        }//for projEle
+        }
         
         /*
          * Import funding sources
          */
-        for (Element fundEle : (List<Element>) document.selectNodes("/template/fundings/funding")) {
-            String fundName = fundEle.attributeValue("name");
-            if (fundName==null || fundName.trim().length()==0) throw new Exception("funding source name is required!");
-            
-            FundingSource source = fundingDAO.getFundingSourceByName(fundName);
-            if (source==null) throw new Exception("can't find funding source named \""+fundName+"\"");
-            
-            FundingSourceRef fundRef = new FundingSourceRef();
-            fundRef.setSuite(fundSuite);
-            fundRef.setSource(source);
-            fundSuite.getReferences().add(fundRef);
-            
-            for (Element altEle : (List<Element>) fundEle.selectNodes("alternative")) {
-                String fundAltName = altEle.attributeValue("name");
-                if (fundAltName==null || fundAltName.trim().length()==0) throw new Exception("funding source alternative name is required!");
+        List<Element> fundElements = (List<Element>) document.selectNodes("/template/fundings/funding");
+        if (fundElements.size()>0) {
+            for (Element fundEle : fundElements) {
+                String fundName = fundEle.attributeValue("name");
+                if (fundName==null || fundName.trim().length()==0) throw new Exception("funding source name is required!");
                 
-                FundingSourceAlternative fundAlt = fundingDAO.getFundingSourceAlternativeByName(fundAltName);
-                if (fundAlt==null) throw new Exception("can't find funding source alternative named \""+fundAltName+"\"");
+                FundingSource source = fundingDAO.getFundingSourceByName(fundName);
+                if (source==null) throw new Exception("can't find funding source named \""+fundName+"\"");
                 
-                FundingSourceAltRef altRef = new FundingSourceAltRef();
-                altRef.setAlternative(fundAlt);
-                altRef.setSourceRef(fundRef);
+                FundingSourceRef fundRef = new FundingSourceRef();
+                fundRef.setSuite(fundSuite);
+                fundRef.setSource(source);
+                fundSuite.getReferences().add(fundRef);
                 
-                fundRef.getAltRefs().add(altRef);
+                for (Element altEle : (List<Element>) fundEle.selectNodes("alternative")) {
+                    String fundAltName = altEle.attributeValue("name");
+                    if (fundAltName==null || fundAltName.trim().length()==0) throw new Exception("funding source alternative name is required!");
+                    
+                    FundingSourceAlternative fundAlt = fundingDAO.getFundingSourceAlternativeByName(fundAltName);
+                    if (fundAlt==null) throw new Exception("can't find funding source alternative named \""+fundAltName+"\"");
+                    
+                    FundingSourceAltRef altRef = new FundingSourceAltRef();
+                    altRef.setAlternative(fundAlt);
+                    altRef.setSourceRef(fundRef);
+                    
+                    fundRef.getAltRefs().add(altRef);
+                }//for altEle
             }//for fundEle
             
             projectDAO.save(fundSuite);
-        }//for projEle
+        }
     }//importTemplate()
 
 

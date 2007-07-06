@@ -14,11 +14,9 @@
     <bean id="importService" parent="baseTransactionProxy">
         <property name="target">
             <bean class="org.pgist.other.ImportServiceImpl">
-                <property name="cctDAO" ref="cctDAO"/>
                 <property name="criteriaDAO" ref="criteriaDAO"/>
                 <property name="projectDAO" ref="projectDAO"/>
                 <property name="fundingDAO" ref="fundingDAO"/>
-                <property name="packageDAO" ref="packageDAO"/>
                 <property name="importDAO" ref="importDAO"/>
             </bean>
         </property>
