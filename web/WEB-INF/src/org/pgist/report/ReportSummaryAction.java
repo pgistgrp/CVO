@@ -31,6 +31,7 @@ public class ReportSummaryAction extends Action  {
 		 	
 		 	String strReportSuiteId = request.getParameter("suite_id");
 		 	
+		 	
 		 	if (strReportSuiteId==null || "".equals(strReportSuiteId)) { 
 		 		rForm.setReason("suite_id is Required.");
 	            return mapping.findForward("reportsummary");
@@ -42,6 +43,8 @@ public class ReportSummaryAction extends Action  {
 		 	ReportSummary rSummary = rs.getReportSummary();
 		 	
 		 	request.setAttribute("rSummary", rSummary);
+		 	
+		 	request.setAttribute("suite_id", reportSuiteId);
 		 	
 		 	if (!rForm.isSave()) return mapping.findForward("reportsummary");
 		 	

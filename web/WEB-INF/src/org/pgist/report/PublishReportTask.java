@@ -40,6 +40,8 @@ public class PublishReportTask implements WorkflowTask {
         
         Long cctId = new Long(inouts.getIntValue(IN_CCT_ID));
         
+        System.out.println(suiteId);
+        
         String title = inouts.getProperty("title");
         
         InfoStructure structure = reportService.publish(info.getWorkflow().getId(), cctId, suiteId, title);
