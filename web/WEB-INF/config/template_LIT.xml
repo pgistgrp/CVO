@@ -5,6 +5,7 @@
       Note: Make sure the names used in this file match that of in the database.
       -->
     
+    <!--
     <projects>
         <project name="Alaska Way Viaduct">
             <alternative name="Alternative 1, Elevated Structure">
@@ -21,13 +22,16 @@
             </alternative>
         </project>
     </projects>
+    -->
     
+    <!--
     <fundings>
         <funding name="Sales Tax">
             <alternative name="tax 1" />
             <alternative name="tax 2" />
         </funding>
     </fundings>
+    -->
     
 </template>
 

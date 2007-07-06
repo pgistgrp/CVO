@@ -22,5 +22,7 @@
     
     <handler name="glossary">org.pgist.ddl.GlossaryHandler</handler>
     
+    <handler type="sql">final-init.sql</handler>
+    
 </handlers>
 
