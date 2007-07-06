@@ -61,6 +61,7 @@ var PGISTMapEditor = function(mapcontainer, width, height, enableEdit) {
 	this.map.addControl(new GLargeMapControl());
 
 	this.map.addControl(new GMapTypeControl());
+	this.map.addControl(new GScaleControl(), new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(20, 40)));
 
 	this.map.setCenter(new GLatLng(47.65985278,-122.3224667),12,G_NORMAL_MAP);
 
@@ -145,6 +146,10 @@ var PGISTMapEditor = function(mapcontainer, width, height, enableEdit) {
 	this.roadicon.shadow = "images/shadow1.png";	
 
 	mapcontainer.appendChild(this._mapdiv);
+	
+	this._msgdiv = document.createElement("div");
+	this._msgdiv.innerHTML = "<span>Project footprints for geographic reference only</span>";
+	mapcontainer.appendChild(this._msgdiv);
 
 	this._container = mapcontainer;
 
