@@ -136,7 +136,7 @@ the column labels. */
 			
 	/* *************** Get footprints for a given project alternative id *************** */
 	var transmode = "${reference.alternative.project.transMode}";
-	var transcolor = (transmode==0)?"#FF0000":"#00FF00";
+	var transcolor = (transmode==2)?"#00FF00":"#FF0000";
 	function getFootprintsByAltId(id){
 		ProjectAgent.getFootprintsByAltId({altid:id}, {
 			callback:function(data){
