@@ -56,13 +56,11 @@ public class ReportSummaryAction extends Action  {
 		 	String criteriaSummary = rForm.getCriteriaSummary();
 		 	String projectSummary = rForm.getProjectSummary();
 		 	String packageSummary = rForm.getPackageSummary();
-		 	
-		 	//save 
-		 	System.out.println("***" + rSummary + "***");
+		 
 		 	
 		 	reportService.editReportSummary(rSummary.getId(), executiveSummary, participantsSummary, concernSummary, criteriaSummary, projectSummary, packageSummary);
 		 	//reportService.createReportSuite();
-		 	
+		 	rForm.setReason("Changes have been updated.");
 	    	
 	        return mapping.findForward("reportsummary");
 	    }//execute()

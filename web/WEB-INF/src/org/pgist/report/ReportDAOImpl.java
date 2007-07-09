@@ -219,7 +219,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	
 	public ReportSuite createReportSuite() throws Exception {
 		ReportSuite rSuite = new ReportSuite();
-		//save(rSuite);
+		save(rSuite);
 		ReportSummary rSummary = new ReportSummary();
 		save(rSummary);
 		ReportStats rStats = new ReportStats();
