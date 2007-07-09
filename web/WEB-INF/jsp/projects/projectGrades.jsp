@@ -161,7 +161,7 @@ xml+='\
 												<c:forEach var="grade" items="-3,-2.5,-2,-1.5,-1,-0.5,0,0.5,1,1.5,2,2.5,3">
 												
 													<c:choose>
-														<c:when test="${grade == 0}">
+														<c:when test="${grade == 0.0}">
 															<option <c:if test="${gradedObjective.grade == null || gradedObjective.grade == 0}">selected = "true"</c:if> value="${grade}">${grade}</option>
 														</c:when>
 														<c:otherwise>
