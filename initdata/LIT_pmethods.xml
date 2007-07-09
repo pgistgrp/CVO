@@ -488,6 +488,7 @@
 				    <var name="cct_id" ref="pmethod.cct_id"/>
 				    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
 				    <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
+				    <var name="repoSuiteId" ref="pmethod.repo_suite_id"/>
 				</ins>
 			    </declaration>
 			</pgame>

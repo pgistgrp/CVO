@@ -41,6 +41,13 @@
 		Preferred Package: ***${pp}***
 		Vote Suite Stats: ***${vss}***
 	-->
+		Concern Summaries: ***${concernSummary}***
+		Criteria Summaries: ***${criteriaSummary}***
+		Executive Summaries: ***${executiveSummary}***
+		Package Summaries: ***${packageSummary}***
+		Participants Summary: ***${participantsSummary}***
+		Project Summary: ***${projectSummary}***
+	
 
 <div id="container">
 	<h1 style="text-align:center">Let's Improve Transportation Final Report (DRAFT)</h1>

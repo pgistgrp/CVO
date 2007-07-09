@@ -87,7 +87,9 @@ public class ReportAction extends Action {
     	String strCctId = request.getParameter("cct_id");
     	String strCritSuiteId = request.getParameter("critSuiteId");
     	String strPackSuiteId = request.getParameter("pkgSuiteId");
+    	String strReportSuiteId = request.getParameter("repoSuiteId");
     	String errors = "";
+    	
     	boolean error = false;
     	
         if (strCctId==null || "".equals(strCctId.trim())) {
@@ -102,6 +104,10 @@ public class ReportAction extends Action {
         	errors += "pkgSuiteId cannot be empty <br/>";
             error = true;
         }
+        if (strReportSuiteId==null || "".equals(strReportSuiteId.trim())) {
+        	errors += "repoSuiteId cannot be empty <br/>";
+            error = true;
+        }
         if(error) {
         	errors += " cctId:" + strCctId + " critSuiteId:" + strCritSuiteId;
         	request.setAttribute("error", errors);
@@ -112,6 +118,7 @@ public class ReportAction extends Action {
         Long critSuiteId = Long.parseLong(strCritSuiteId);
 
         Long packSuiteId = Long.parseLong(strPackSuiteId);
+        Long repoSuiteId = Long.parseLong(strReportSuiteId);
 
         // get Concern Summaries
         CCT cct = cctService.getCCTById(cctId);
@@ -121,6 +128,9 @@ public class ReportAction extends Action {
     	CriteriaSuite cs = criteriaService.getCriteriaSuiteById(critSuiteId);
     	Collection cr = cs.getReferences();
     	
+    	//get Report Summary
+    	ReportSuite rs = reportService.getReportSuiteById(repoSuiteId);
+    	ReportSummary repoSummary = rs.getReportSummary();
     	
     	// get Packages
     	PackageSuite pkgSuite = packageService.getPackageSuite(packSuiteId);
@@ -153,6 +163,12 @@ public class ReportAction extends Action {
     	request.setAttribute("cp", cp);
     	request.setAttribute("pp", pp);
     	request.setAttribute("vss", vss);
+    	request.setAttribute("concernSummary", repoSummary.getConcernSummary());
+    	request.setAttribute("criteriaSummary", repoSummary.getCriteriaSummary());
+    	request.setAttribute("executiveSummary", repoSummary.getExecutiveSummary());
+    	request.setAttribute("packageSummary", repoSummary.getPackageSummary());
+    	request.setAttribute("participantsSummary", repoSummary.getParticipantsSummary());
+    	request.setAttribute("projectSummary", repoSummary.getProjectSummary());
     	
         return mapping.findForward("report");
     }//execute()

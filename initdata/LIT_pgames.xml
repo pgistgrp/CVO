@@ -389,6 +389,7 @@
 		    <var name="cct_id"/>
 		    <var name="critSuiteId"/>
 	            <var name="pkgSuiteId"/>
+		    <var name="repoSuiteId"/>
 		</ins>
 	    </declaration>
 	</pgame>
