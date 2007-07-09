@@ -169,6 +169,10 @@ public class ReportAction extends Action {
     	request.setAttribute("packageSummary", repoSummary.getPackageSummary());
     	request.setAttribute("participantsSummary", repoSummary.getParticipantsSummary());
     	request.setAttribute("projectSummary", repoSummary.getProjectSummary());
+    	request.setAttribute("critSuiteId", critSuiteId);
+    	request.setAttribute("cctId", cctId);
+    	request.setAttribute("packSuiteId", packSuiteId);
+
     	
         return mapping.findForward("report");
     }//execute()
