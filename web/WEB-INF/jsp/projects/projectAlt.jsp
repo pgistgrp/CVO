@@ -282,7 +282,17 @@ the column labels. */
 								<ul>
 									<p><b>Objectives:</b></p>	
 									<c:forEach var="gradeObj" items="${critGrade.objectives}" varStatus="loop">
-										<li>${gradeObj.objective.description}: ${pg:verboseGradeSwitch(gradeObj.grade)}</li>
+								        <li>
+								        ${gradeObj.objective.description}:
+									    <c:choose>
+									        <c:when test="${gradeObj.grade}">                                                    
+    									        ${pg:verboseGradeSwitch(gradeObj.grade)}
+    									    </c:when>
+    									    <c:otherwise>
+    									        No grade available.
+									        </c:otherwise>
+								        </c:choose>
+								        </li>
 									</c:forEach>
 								</ul>
 							</td>
