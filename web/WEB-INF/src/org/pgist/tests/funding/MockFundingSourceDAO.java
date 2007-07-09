@@ -114,6 +114,10 @@ public class MockFundingSourceDAO implements FundingDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public FundingSourceAlternative getFundingSourceAlternativeByName(String name) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	public Collection getFundingSources() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
