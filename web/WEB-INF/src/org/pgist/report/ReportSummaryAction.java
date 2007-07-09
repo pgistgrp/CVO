@@ -58,7 +58,7 @@ public class ReportSummaryAction extends Action  {
 		 	String packageSummary = rForm.getPackageSummary();
 		 	
 		 	//save 
-		 	//System.out.println("***" + rForm.getConcernSummary() + "***");
+		 	System.out.println("***" + rSummary + "***");
 		 	
 		 	reportService.editReportSummary(rSummary.getId(), executiveSummary, participantsSummary, concernSummary, criteriaSummary, projectSummary, packageSummary);
 		 	//reportService.createReportSuite();

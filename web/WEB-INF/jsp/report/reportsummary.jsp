@@ -13,7 +13,7 @@
 	Description: This is a full report of the entire challenge.
 	Author(s): 
 	     Front End: Jordan Isip, Adam Hindman
-	     Back End: John Le, Zhong Wang
+	     Back End: John Q Le, Zhong Wang
 #### -->
 
 <html:html>
@@ -37,9 +37,12 @@
 	-->
 
 <div id="container">
+
+
 	<p>report summary form page  </p>
-	<html:form action="/reportsummary.do" method="POST">
+	<html:form action="/reportsummary.do?suite_id=${suite_id}" method="POST">
 	<html:hidden property="save" value="true"/>
+
 	<p>Error Msg: ${reportForm.reason}</p>
 	<p>Executive Summary<html:textarea  property="executiveSummary" value="${rSummary.executiveSummary}"/></p>
 	<p>Participants Summary<html:textarea  property="participantsSummary" value="${rSummary.participantsSummary}"/></p>

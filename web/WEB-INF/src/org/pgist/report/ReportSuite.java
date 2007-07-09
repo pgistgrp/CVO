@@ -41,7 +41,7 @@ public class ReportSuite implements Serializable{
     /**
      * @return
      * 
-     * @hibernate.one-to-one column="reportstatsconcerns_id" cascade="all"
+     * @hibernate.many-to-one column="reportstatsconcerns_id" cascade="all"
      */
 	public ReportStats getReportStatsConcerns() {
 		return reportStatsConcerns;
@@ -55,7 +55,7 @@ public class ReportSuite implements Serializable{
     /**
      * @return
      * 
-     * @hibernate.one-to-one column="reportsummary_id" cascade="all"
+     * @hibernate.many-to-one column="reportsummary_id" cascade="all"
      */
 	public ReportSummary getReportSummary() {
 		return reportSummary;
@@ -70,7 +70,7 @@ public class ReportSuite implements Serializable{
     /**
      * @return
      * 
-     * @hibernate.one-to-one column="reportstatseval_id" cascade="all"
+     * @hibernate.many-to-one column="reportstatseval_id" cascade="all"
      */
 	public ReportStats getReportStatsEval() {
 		return reportStatsEval;
