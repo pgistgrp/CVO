@@ -93,7 +93,7 @@
 							<h3>- ${post.owner.loginname}</h3>
 						</div>
 						<div class="discussionComments">
-						<a href="#replyAnchor"><img src="images/btn_postreply_a.gif" alt="Reply" name="Reply" class="button" id="Reply" onMouseOver="MM_swapImage('Reply','','images/btn_postreply_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+						    <a href="#replyAnchor"><img src="images/btn_postreply_a.gif" alt="Reply" name="Reply" class="button" id="Reply" onMouseOver="MM_swapImage('Reply','','images/btn_postreply_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</div>
 						<c:if test="${fn:length(post.tags) > 0}">
 							<ul class="tagsInline">
@@ -170,7 +170,7 @@
 							</c:choose>
 						</div>
 						<span class="discussionTitle">
-							${reply.title}
+							<a href="#replyAnchor${reply.id}">${reply.title}</a>
 					</div>
 					
 						<c:choose>

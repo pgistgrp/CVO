@@ -112,15 +112,17 @@
 		io.getReplies = function(tag, jump){
 			displayIndicator(true);
 				if(jump){
-					location.href = io.filterAnchor;
+					setTimeout(function() {location.href = io.filterAnchor}, 500);
 				}
 				io.currentFilter = tag;
 			  //alert("isid: " + io.structureId + " ioid: " + io.objectId + " postID: " + io.postId + " page " + " count: " + io.replyCount + " filter: " + io.currentFilter);
 		      SDAgent.getReplies({isid: io.structureId, ioid:io.objectId, postid: io.postId, page: 1, count: io.replyCount, filter: io.currentFilter}, {
 		      callback:function(data){
 		          if (data.successful){
-		          			$(io.discussionDiv).innerHTML = data.html;         
-		          			displayIndicator(false);
+		          	$(io.discussionDiv).innerHTML = data.html;         
+		          	//setTimeout(function() {new Effect.ScrollTo('discussionHeader',{duration:0.5})}, 500);
+	          		displayIndicator(false);
+	          		//alert(location.hash)
 		          }else{
 		            alert("get replies error " + data.reason);
 		            displayIndicator(false);
@@ -171,7 +173,7 @@
 		          		displayIndicator(false);
 						resetNewReplyForm();
 						io.replyId = null; //reset reply id
-						io.getReplies(io.currentFilter, true);	
+						io.getReplies(io.currentFilter, false);	
 						location.href="#replyAnchor" + data.id;
 						//if(($('discussionText'+data.id)==undefined)){
 						
