@@ -404,7 +404,7 @@
 				</form>
 			</span>
 			<span id="sm-middle">
-				<a href="javascript:io.getTagCloud();">Browse all tags</a>
+				<a href="javascript:io.getTagCloud();">Browse all keywords</a>
 				<a href="javascript:io.getTagCloud();"><img src="images/keyword-cloud.gif" alt="Click here for the Keyword Cloud" /></a>
 			</span>
 			<span id="sm-right"> Sort concerns by:
