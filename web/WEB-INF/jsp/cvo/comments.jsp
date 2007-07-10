@@ -48,7 +48,7 @@
       <!-- iterate through concern tags here -->
       <div id="tagsUL${concern.id}">
         <ul class="tagsInline">
-          <li class="tagsInline"><strong>Tags:</strong> </li>
+          <li class="tagsInline"><strong>Keywords:</strong> </li>
           <c:forEach items="${concern.tags}" var="tagref">
             <c:choose>
               <c:when test="${baseuser.id == concern.author.id}">
@@ -84,8 +84,8 @@
     <p>
     <h3 class="headerColor">${fn:length(comments)}
       <c:choose>
-        <c:when test="${fn:length(comments) == 1}"> Comment about this Concern </c:when>
-        <c:otherwise> Comments about this Concern</c:otherwise>
+        <c:when test="${fn:length(comments) == 1}"> Comment about this concern </c:when>
+        <c:otherwise> Comments about this concern</c:otherwise>
       </c:choose>
     </h3>
     </p>
@@ -146,7 +146,7 @@
 							<div style="clear: left;"></div>
 						</c:if>-->
         <pg:show roles="moderator">
-          <div class="smallText" style="text-align:right;"> Moderator Options:
+          <div class="smallText" style="text-align:right;"> Moderator options:
             <input type="button" onClick="deleteComment(${comment.id});" value="Delete" />
           </div>
         </pg:show>
@@ -170,12 +170,12 @@
   <h3 class="headerColor">Post a comment</h3>
   <form onsubmit="return false;">
     <p>
-      <label>Post Title</label>
+      <label>Post title</label>
       <br>
       <input maxlength=100 size=100 type="text" value="" id="txtNewCommentTitle"/>
     </p>
     <p>
-      <label>Your Thoughts</label>
+      <label>Your thoughts</label>
       <br>
       <textarea style="width:100%; height: 150px;" id="txtNewComment"></textarea>
     </p>

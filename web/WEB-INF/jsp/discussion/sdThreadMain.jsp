@@ -103,7 +103,7 @@
 		io.changeCurrentFilter = function(tagName){
 			io.getReplies(tagName, true);
 			if(tagName != ""){
-				$(io.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: io.changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
+				$(io.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered by: ' + tagName + ' <a href="javascript: io.changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
 			}else{
 				$(io.divFilteredBy).innerHTML = "";
 			}
@@ -166,7 +166,7 @@
 			var rid = io.replyId;
 			var pid = "${post.id}";
 
-			//alert("structureId: " + io.structureId + " PostID: " + pid + " ReplyID: " + rid + " Title:" + title + " Content: "+ content + " Tags: " + tags + " EmailNotify " + emailNotify);
+			//alert("structureId: " + io.structureId + " PostID: " + pid + " ReplyID: " + rid + " Title:" + title + " Content: "+ content + " Keywords: " + tags + " EmailNotify " + emailNotify);
 			SDAgent.createReply({isid:io.structureId, pid:pid, rid:rid, title:title, content:content, tags: tags, emailNotify: emailNotify}, {
 		      callback:function(data){
 		          if (data.successful){     
@@ -325,32 +325,15 @@
 <div style="display: none;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 <div id="container">
 
-<!-- Begin Breadcrumbs -->
-	<div id="breadCrumbs" class="floatLeft">
-<a href="sd.do?isid=${structure.id}">Select a Theme</a> &rarr; <a style="text-transform:capitalize;" href="/sdRoom.do?isid=${structure.id}&ioid=${object.id}&lp=${param.lp}">${(object.object) ? object.object : structure.title}</a> &rarr; ${post.title}
-	</div>
-<!-- End Breadcrumbs -->
 
-<!-- jump to other room selection menu -->
-	<div class="floatRight">
-	  Jump To:
-	  <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=${object.id}">		  
-	    <option value = "${object.id}">Select a Theme</option>
-	    <option value = "">Discussion of All Themes</option>
-	   <c:forEach var="infoObject" items="${structure.infoObjects}">
-	       <option value="${infoObject.id}">${infoObject.object}</option>
-	    </c:forEach>	
-	    </select>
-	</div>
-<!-- end jump to other room selection menu -->
 
   <script type="text/javascript">
 				<c:choose>
 				<c:when test="${object.id==null}">
-				document.write("<h3 class=\"headerColor clearBoth\">Summarization of Participant Concerns</h3>");
+				document.write("<h3 class=\"headerColor clearBoth\">Summarization of participant concerns</h3>");
 				</c:when>
 				<c:otherwise>
-				document.write("<h3 class=\"headerColor clearBoth\">Summarization of Participant Concerns about ${object.object}</h3>");
+				document.write("<h3 class=\"headerColor clearBoth\">Summarization of participant concerns about ${object.object}</h3>");
 				</c:otherwise>
 				</c:choose>
 			</script>

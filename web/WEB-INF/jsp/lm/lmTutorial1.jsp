@@ -66,8 +66,16 @@ _top:170px; /* IE value */
 left:530px;
 }
 
-
 .arrow span, .arrow1 span, .arrow2 span {font-size:2em;margin-left:20px;}
+
+/* Step progress bar */
+
+#step-bar {margin-bottom:1em;padding:10px;}
+#step-progress {width:150px;margin:0px 5px;font-size:1.5em;text-align:center;}
+#submit-description {width:550px;margin:0px;}
+#submit-button {padding:5px;margin:0px;}
+#submit-button input {font-size:1.5em}
+#step-bar p{margin:0px;padding:0px;}
 
 </style>
 	<!-- End Site Wide CSS -->
@@ -104,6 +112,10 @@ left:530px;
 	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
+		<div id="step-bar" class="box10 padding6 clearfix">
+				<p class="floatLeft" id="submit-button"><input type="button" value="Next Page" style="font-size:1.2em;" onclick="location.href='lmTutorial2.do'"/></p>
+				<p class="floatRight" id="step-progress">Page 1 of 2</p>
+		</div>
 		<h2>Tutorial</h2>
 		<p>There are some cool features on this website we’d like you to know about, so
 			you can better make use of them!</p>
@@ -163,7 +175,10 @@ left:530px;
 		</div>			
 
 		<br />
-
+		<div id="step-bar" class="box10 padding6 clearfix">
+				<p class="floatLeft" id="submit-button"><input type="button" value="Next Page" style="font-size:1.2em;" onclick="location.href='lmTutorial2.do'"/></p>
+				<p class="floatRight" id="step-progress">Page 1 of 2</p>
+		</div>
 		
 	</div>
 	<!-- end container -->

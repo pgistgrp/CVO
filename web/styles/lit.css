@@ -41,7 +41,6 @@ h3
 font-size:1.3em;
 margin:0px;
 padding:0px;
-text-transform:capitalize;
 }
 
 img {border:0px;}
@@ -357,8 +356,12 @@ padding:5px;
 margin:5px 0px;
 }
 
+#sm-left{width:210px}
+#sm-middle{width:190px;}
+#sm-right{width:200px;}
+
+
 #sm-left,#sm-middle,#sm-right {
-width:200px;
 float:left;
 text-align:center;
 }

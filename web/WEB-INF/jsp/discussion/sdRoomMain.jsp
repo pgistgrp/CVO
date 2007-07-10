@@ -396,7 +396,7 @@
 		</div>
 		<div id="sortingMenu" class="box4 clearBoth">
 			<span id="sm-left">
-				filter discussion by:
+				Filter discussion by:
 				<form style="display:inline;" action="javascript: io.customFilterAction($('txtCustomFilter').value);">
 					<input type="text" id="txtCustomFilter" value="Add a filter" 
 					onKeyUp="io.customFilter(this.value, event);"  
@@ -404,19 +404,19 @@
 				</form>
 			</span>
 			<span id="sm-middle">
-				or <a href="javascript:io.getTagCloud();">Browse All Tags</a>
+				<a href="javascript:io.getTagCloud();">Browse all tags</a>
 				<a href="javascript:io.getTagCloud();"><img src="images/keyword-cloud.gif" alt="Click here for the Keyword Cloud" /></a>
 			</span>
-			<span id="sm-right">or sort concerns by:
+			<span id="sm-right"> Sort concerns by:
 				<select name="selectsort" id="selectsort" 
 					onChange="javascript:io.getPosts(io.currentFilter, 1, true, this.value);	">
-					<option value="1">Newest to Oldest</option>
-					<option value="2">Oldest to Newest</option>
-					<option value="3">Most Agreement</option>
-					<option value="4">Least Agreement</option>
-					<option value="5">Most Replies</option>
-					<option value="6">Most Views</option>
-					<option value="7">Most Votes</option>
+					<option value="1">Newest to oldest</option>
+					<option value="2">Oldest to newest</option>
+					<option value="3">Most agreement</option>
+					<option value="4">Least agreement</option>
+					<option value="5">Most replies</option>
+					<option value="6">Most views</option>
+					<option value="7">Most votes</option>
 				</select>
 			</span>
 			<div id="searchResults" style="display: none;"></div>
@@ -439,12 +439,12 @@
 				<div id="newdisc_inner">
 					<form>
 						<p>
-							<label>Post Title</label>
+							<label>Post title</label>
 							<br>
 							<input maxlength=100 size=100 type="text" id="txtNewPostTitle"/>
 						</p>
 						<p>
-							<label>Your Thoughts</label>
+							<label>Your thoughts</label>
 							<br>
 							<textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea>
 						</p>

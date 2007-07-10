@@ -18,7 +18,6 @@ position:absolute;
 font-size:12pt;
 }
 
-
 .arrow span {font-size:2em;margin-left:20px;}
 
 #mapLegend, #mapCell {margin-bottom:20px;}
@@ -39,6 +38,16 @@ font-size:12pt;
 #filterLegend .icon {float:left;margin:0px 0px 15px 0px}
 #filterLegend p {clear:both;}
 #filterLegend .value {float:right;width:195px;margin:0px 0px 15px 0px}
+
+/* Step progress bar */
+
+#step-bar {margin-bottom:1em;padding:10px;}
+#step-progress {width:150px;margin:0px 5px;font-size:1.5em;text-align:center;}
+#submit-description {width:550px;margin:0px;}
+#submit-button {padding:5px;margin:0px;}
+#submit-button input {font-size:1.5em}
+#step-bar p{margin:0px;padding:0px;}
+
 
 </style>
 
@@ -81,6 +90,11 @@ font-size:12pt;
 	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
+		<div id="step-bar" class="box10 padding5 clearfix">
+			<p class="floatLeft" id="submit-button"><input type="button" value="Previous Page" style="font-size:1.2em;" onclick="location.href='lmTutorial1.do'"/></p>
+			<p class="floatRight" id="step-progress">Page 2 of 2</p>
+
+		</div>	
 		<h2>Tutorial - Page 2 of 2</h2>
 		<h3>The map is yours too!</h3>
 			<p>During the discussions on Let's Improve Transportation, you will find the map useful for exploring proposed transportation projects and proposals for funded transportation packages.  You will also find that you and your co-contributors can add to our maps, by adding keywords to specific places.  Refer to this diagram below, which identifies the various controls on the map.</p>
@@ -152,9 +166,15 @@ font-size:12pt;
 
 		<br />
 	</div>
-		
+
 		<div class="clearBoth"></div>
+		<div id="step-bar" class="box10 padding5 clearfix">
+			<p class="floatLeft" id="submit-button"><input type="button" value="Previous Page" style="font-size:1.2em;" onclick="location.href='lmTutorial1.do'"/></p>
+			<p class="floatRight" id="step-progress">Page 2 of 2</p>
+
+		</div>		
 	</div>
+
 	<!-- end container -->
 	<!-- Begin header menu - The wide ribbon underneath the logo -->
 	<div id="headerMenu">

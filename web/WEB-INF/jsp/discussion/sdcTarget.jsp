@@ -9,22 +9,23 @@
 <pg:fragment type="html">
 		<!-- Begin Breadcrumbs -->
 		<div id="breadCrumbs" class="floatLeft"> <a href="sd.do?isid=${infoStructure.id}">Select
-				a Theme</a> &rarr; ${infoObject.object}</div>
+				a theme</a> &rarr; ${infoObject.object} &rarr; ${post.title}</div>
 		<!-- End Breadcrumbs -->
 		<!-- jump to other room selection menu -->
-		<div class="floatRight"> Jump To:
+		<div class="floatRight"> Jump to:
 			<select name="selecttheme" id="selecttheme" 
 			onChange="javascript: location.href='sdRoom.do?isid=${infoStructure.id}&ioid=' + this.value;">
-				<option value = "${object.id}">Select a Theme</option>
-				<option value = "">Discussion of All Themes</option>
+				<option value = "${object.id}">Select a theme</option>
+				<option value = "">Discussion of all themes</option>
 				<c:forEach var="infoObject" items="${infoStructure.infoObjects}">
 					<option value="${infoObject.id}">${infoObject.object}</option>
 				</c:forEach>
 			</select>
 		</div>
 		<!-- end jump to other room selection menu -->
+		
 
-		<h3 class="headerColor clearBoth">Summarization of Participant Concerns about "${infoObject.object}"</h3>
+		<h3 class="headerColor clearBoth">Summarization of participant concerns about "${infoObject.object}"</h3>
 
 			<!-- Begin voting tally menu -->
 	<div id="votingMenu" class="floatLeft"><div id="voting-object${infoObject.id}">

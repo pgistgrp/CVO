@@ -28,7 +28,7 @@
       <br />
       filter discussion by:
       <input type="text">
-      or <a href="#">Browse All Tags</A> </div>-->
+      or <a href="#">browse all tags</A> </div>-->
 </div>
 <!-- Begin Discussion Area -->
 				<!-- Begin hidden "New topic" DIV -->
@@ -37,13 +37,13 @@
 					<div id="newdisc_title" >
 						<div class="textright">
 						</div>
-						<h3 style="display: inline">New Topic</h3>
+						<h3 style="display: inline">New topic</h3>
 					</div> <!-- End newdisc_title -->
 					<div id="newdisc_content" class="greenBB">
 						<div id="newdisc_inner">
 							<form>
-								<p><label>Post Title</label><br><input maxlength=100 size=100 type="text" id="txtNewPostTitle"/></p>
-								<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea></p>
+								<p><label>Post title</label><br><input maxlength=100 size=100 type="text" id="txtNewPostTitle"/></p>
+								<p><label>Your thoughts</label><br><textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea></p>
 								<p><label>Keyword your post (comma separated)</label><br><input style="width:100%" id="txtNewPostTags" type="text" /></p>
 								<input type="button" onClick="io.createPost();" value="Create Discussion">
 						
@@ -97,7 +97,7 @@
 						</div>
 						<c:if test="${fn:length(post.tags) > 0}">
 							<ul class="tagsInline">
-								<li class="tagsInline"><strong>Tags:</strong> </li>
+								<li class="tagsInline"><strong>Keywords:</strong> </li>
 								<c:forEach var="tag" items="${post.tags}">
 									<c:choose>
 										<c:when test="${baseuser.id == post.owner.id}">
@@ -116,10 +116,10 @@
 							<div class="smallText" style="text-align:right;">
 							<c:choose>
 								<c:when test="${post.emailNotify}">
-									<a href="javascript:io.setupEmailNotify(${post.id}, 'post', false)">Turn off E-mail notification for this discussion</a>
+									<a href="javascript:io.setupEmailNotify(${post.id}, 'post', false)">Turn off e-mail notification for this discussion</a>
 								</c:when>
 								<c:otherwise>
-									<a href="javascript:io.setupEmailNotify(${post.id}, 'post', true)">Turn on E-mail notification for this discussion</a>
+									<a href="javascript:io.setupEmailNotify(${post.id}, 'post', true)">Turn on e-mail notification for this discussion</a>
 								</c:otherwise>
 							</c:choose>
 							</div>
@@ -143,7 +143,7 @@
 			Replies
 		</c:otherwise>
 	</c:choose>			
-	 to this Discussion Post</h3>
+	 to this discussion post</h3>
 </c:if>
 <div id="filteredBy"></div>
 <logic:iterate id="reply" name="replies">
@@ -191,7 +191,7 @@
 						</div>
 						<c:if test="${fn:length(reply.tags) > 0}">
 							<ul class="tagsInline">
-								<li class="tagsInline"><strong>Tags:</strong> </li>
+								<li class="tagsInline"><strong>Keywords:</strong> </li>
 								<c:forEach var="tag" items="${reply.tags}">
 									<c:choose>
 										<c:when test="${baseuser.id == reply.owner.id}">
@@ -209,7 +209,7 @@
 						
 						
 						<div class="smallText" style="text-align:right;">	
-							<pg:show roles="moderator"><p>Moderator Options: <input type="button" onClick="io.deleteReply(${reply.id});" value="Delete" /></p></pg:show>
+							<pg:show roles="moderator"><p>Moderator options: <input type="button" onClick="io.deleteReply(${reply.id});" value="Delete" /></p></pg:show>
 						</div>
 					</div>
 		
@@ -240,9 +240,9 @@
 </div>
 <a id="replyAnchor" name="replyAnchor"></a>
 <div id="newReply" class="box8 padding5" style="margin-top: 10px;">
-	<h3 class="headerColor">Post a Reply</h3>
+	<h3 class="headerColor">Post a reply</h3>
 	<form>
-		<p><label>Post Title</label><br><input style="maxlength=100 size=50 type="text" value="Re: ${post.title}" id="txtNewReplyTitle"/></p>
+		<p><label>Post title</label><br><input style="maxlength=100 size=50 type="text" value="Re: ${post.title}" id="txtNewReplyTitle"/></p>
 		<p><label>Your Thoughts</label><br><textarea style="width:85%; height: 150px;" id="txtnewReply"></textarea></p>
 		<p><label>Tag your post (comma separated)</label><br><input style="width:85%" id="txtNewReplyTags" type="text" /></p>
 		<input type="button" onClick="io.createReply();" value="Submit Reply">

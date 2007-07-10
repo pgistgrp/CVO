@@ -47,8 +47,8 @@ var allNewConcernTags = new Array;
 	cct.filterAnchor = "#filterJump";
 	cct.divTagCloud = 'tagCloud';
 	cct.divDiscussionTitle = "discussionTitle";
-		cct.discussionTitle = "All Participants' Concerns";
-		cct.discussionTitleOnChk = "Your Concerns";
+		cct.discussionTitle = "All participants' concerns";
+		cct.discussionTitleOnChk = "Your concerns";
 		
 //Input Element IDs
 	cct.txtAddConcern = 'txtAddConcern';
@@ -627,7 +627,7 @@ $('slate').style.Height = winH;
         <h3 class="headerColor">Step 1: Discuss Concerns</h3>
       </div>
     <div class="headerButton box4 floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
-    <div class="headerButtonCurrent floatLeft"><a href="http://128.95.212.210:8080/sd.do?isid=7362">1b: Review Summaries</A></div>
+    <div class="headerButtonCurrent floatLeft"><a href="http://128.95.212.210:8080/sd.do?isid=7362">1b: Review summaries</A></div>
       <div id="headerNext" class="box5 floatRight"><a href="http://128.95.212.210:8080/sd.do?isid=7362">Next Step</A></div>
     </div>
   </div>
@@ -646,7 +646,7 @@ $('slate').style.Height = winH;
     <div id="discussion" style="background-image: url('images/addConcern.gif'); background-repeat: no-repeat; background-position: 730px 0;">
       <div id="discussionHeader">
         <div class="sectionTitle">
-          <h3 id="discussionTitle">All Participants' Concerns</h3>
+          <h3 id="discussionTitle">All participants' concerns</h3>
           <div id="filteredBy"></div>
           <input type="checkbox" id="myconcerns" onClick="checkMyConcerns();"/>
           Show only my concerns </div>
@@ -660,19 +660,19 @@ $('slate').style.Height = winH;
 						<input type="text" id="txtCustomFilter" value="Add a filter" 
 					onKeyUp="customFilter(this.value, event);"  onKeyUp="customFilter(this.value, event);" 
 					onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
-						</span> <span id="sm-middle">or <a href="javascript:getTagCloud();">browse
+						</span> <span id="sm-middle"> <a href="javascript:getTagCloud();">Browse
 						keywords</a> <a href="javascript:getTagCloud();"><img src="images/keyword-cloud.gif" alt="Click here for the Keyword Cloud" /></a></span>
 					</form>
-					<span id="sm-right">or sort concerns by:
+					<span id="sm-right"> Sort concerns by:
 					<select name="selectsort" id="selectsort" 
 				onChange="javascript:getContextConcerns(cct.currentFilter, 1, true, cct.showOnlyMyConcerns, this.value);	">
-						<option value="1">Newest to Oldest</option>
-						<option value="2">Oldest to Newest</option>
-						<option value="3">Most Agreement</option>
-						<option value="4">Least Agreement</option>
-						<option value="5">Most Comments</option>
-						<option value="6">Most Views</option>
-						<option value="7">Most Votes</option>
+						<option value="1">Newest to oldest</option>
+						<option value="2">Oldest to newest</option>
+						<option value="3">Most agreement</option>
+						<option value="4">Least agreement</option>
+						<option value="5">Most comments</option>
+						<option value="6">Most views</option>
+						<option value="7">Most votes</option>
 					</select>
 					</span>
 					<div id="searchResults" style="display: none;"></div>
@@ -693,7 +693,7 @@ $('slate').style.Height = winH;
       <!-- end left col -->
       <div id="colRight" class="floatLeft box6 colRight">
         <!-- right col -->
-        <h3>Add your own Concern</h3>
+        <h3>Add your own concern</h3>
 		<p>Consider these questions:</p>
 		  <ul>
 			  <li>What problems do you encounter in your daily trips to work, shopping, errands, or entertainment? </li>
@@ -704,17 +704,17 @@ $('slate').style.Height = winH;
         <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type one problem with the transportation system.  You can add more later.</textarea>
         </fieldset>
         <div id="tagNewConcern" class="box6 padding5" style="display:none;">
-          <h3>Tag your concern</h3>
-		<p><a href="litfaq.jsp#whattag" target="_blank" class="glossHighlight" title="Think of tags as labels.  At this stage of the process, they assist the moderator in writing summaries, so it is important to tag your concerns with words that help convey your meaning.">What is a tag?</a> <img src="images/external.png" alt="(new window)"></p>
-          <p>Suggested tags:</p>
+          <h3>Keyword your concern</h3>
+		<p><a href="litfaq.jsp#whattag" target="_blank" class="glossHighlight" title="Think of keywords as labels.  At this stage of the process, they assist the moderator in writing summaries, so it is important to keyword your concerns with words that help convey your meaning.">What is a keyword?</a> <img src="images/external.png" alt="(new window)"></p>
+          <p>Suggested keywords:</p>
           <ul id="addConcernTagsList" class="tagsList">
             <!-- render suggested tags here -->
           </ul>
           <form action="javascript: addManualTag();">
-            <input id="manualTag" type="text" size="10" value="Add your own tag" onClick="if(this.value==this.defaultValue){this.value = ''}"/>
-            <input type="button" value="Add Tag" onClick="addManualTag();" />
+            <input id="manualTag" type="text" size="10" value="Add your own keyword" onClick="if(this.value==this.defaultValue){this.value = ''}"/>
+            <input type="button" value="Add Keyword" onClick="addManualTag();" />
           </form>
-          <p><small>You must use at least 2 or more tags to continue.</small></p>
+          <p><small>You must use at least 2 or more keywords to continue.</small></p>
         </div>
         <div id="btnContinueCont">
           <input id="btnContinue" type="button" value="Continue" onClick="prepareConcern();" />
@@ -738,7 +738,7 @@ $('slate').style.Height = winH;
         <h3 class="headerColor">Step 1: Discuss Concerns</h3>
       </div>
     <div class="headerButton box4 floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
-    <div class="headerButtonCurrent floatLeft"><a href="http://128.95.212.210:8080/sd.do?isid=7362">1b: Review Summaries</A></div>
+    <div class="headerButtonCurrent floatLeft"><a href="http://128.95.212.210:8080/sd.do?isid=7362">1b: Review summaries</A></div>
       <div id="headerNext" class="box5 floatRight"><a href="http://128.95.212.210:8080/sd.do?isid=7362">Next Step</A></div>
     </div>
   </div>

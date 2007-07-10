@@ -47,7 +47,7 @@
 										<div class="discussionTagsList">
 											<!-- iterate through concern tags here -->	
 											<div id="tagsUL${concern.id}"><ul class="tagsInline">
-												<li class="tagsInline"><strong>Tags:</strong> </li>
+												<li class="tagsInline"><strong>Keywords:</strong> </li>
 												<c:forEach items="${concern.tags}" var="tagref">
 													<c:choose>
 														<c:when test="${baseuser.id == concern.author.id}">
@@ -73,7 +73,7 @@
 											<c:if test="${concern.numVote == 1}">
 												<c:if test="${concern.replies == 0}">
 													<div class="box6">
-														<strong>Author Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});">Edit Concern</a> &nbsp; <a href="javascript:editTagsPopup(${concern.id});">Edit Tags</a> &nbsp; <a href="javascript:deleteConcern(${concern.id});">Delete Concern</a> 
+														<strong>Author Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});">Edit concern</a> &nbsp; <a href="javascript:editTagsPopup(${concern.id});">Edit keywords</a> &nbsp; <a href="javascript:deleteConcern(${concern.id});">Delete concern</a> 
 													</div>
 												</c:if>
 											</c:if>
