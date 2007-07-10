@@ -112,7 +112,7 @@ public class ProjectAgent {
      *     <ul>
      *       <li>successful - a boolean value denoting if the operation succeeds</li>
      *       <li>reason - reason why operation failed (valid when successful==false)</li>
-     *       <li>altRef - a ProjectAlternative object</li>
+     *       <li>altRef - a ProjectAlternative Ref object</li>
      *     </ul>
      */
     public Map getProjectAltRefById(Map params) {
