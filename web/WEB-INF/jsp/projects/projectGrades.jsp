@@ -147,7 +147,7 @@ xml+='\
 		<a href="javascript:ddtreemenu.flatten('treemenu1', 'contact')">Collapse All</a>
 	-->
 		<ul id="treemenu1" class="treeview">
-		    <c:set var="projectRef" value="${projSuite.references[0]}" />
+		    <c:set var="projectRef" value="${projSuite.references.first}" />
 
 				<li><span class="project">Project: ${projectRef.project.name}</span><ul>
 					<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
