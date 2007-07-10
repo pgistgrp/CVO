@@ -109,7 +109,7 @@
 		<li><a href="projectManage.do"><img src="images/project.png" title="Manage projects"/>Projects</a></li>
 		<li><a href="fundingManage.do"><img src="images/money_dollar.png" title="Manage funding sources"/>Funding</a></li>
 		<li><a href="feedback.do"><img src="images/user_comment.png" title="Manage users"/>Feedbacks</a></li>
-		<li><a target="_blank" href="http://jordanisip.wufoo.com/forms/lit-bug-tracker/"><img src="images/bug.png" title="Manage users"/>Bug Tracker</a></li>
+		<li id="bugtrack"><a target="_blank" href="http://jordanisip.wufoo.com/forms/lit-bug-tracker/"><img src="images/bug.png" title="Manage users"/>Bug Tracker</a></li>
 		<br class="clearBoth" />
 	</ul>
 </div>
