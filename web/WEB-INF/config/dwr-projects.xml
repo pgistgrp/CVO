@@ -58,6 +58,7 @@
         <include method="setGrading"/>
         <include method="createProjectSuite"/>
         <include method="getProjectSuite"/>
+        <include method="getProjectAltRefById"/>
     </create>
 
 
