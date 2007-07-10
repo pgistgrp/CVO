@@ -197,7 +197,7 @@ xml+='\
 	    <br />
 		
 		<script type="text/javascript">
-		    updateXML();
+		    //updateXML();
 			//ddtreemenu.createTree(treeid, enablepersist, opt_persist_in_days (default is 1))
 			//ddtreemenu.createTree("treemenu1", false);
 			//ddtreemenu.flatten('treemenu1', 'contact');

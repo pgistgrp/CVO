@@ -147,7 +147,7 @@
 </c:if>
 <div id="filteredBy"></div>
 <logic:iterate id="reply" name="replies">
-			<a name="replyAnchor${reply.id}"></a>
+			<a name="replyAnchor${reply.id}" id="replyAnchor${reply.id}"></a>
 			<div id="reply${reply.id}" class="discussionRow" style="margin-top: 5px;">
 						<c:choose>
 								<c:when test="${baseuser.id == reply.owner.id}">
@@ -238,7 +238,7 @@
 		  </div>
 </c:if>-->
 </div>
-<a name="replyAnchor"></a>
+<a id="replyAnchor" name="replyAnchor"></a>
 <div id="newReply" class="box8 padding5" style="margin-top: 10px;">
 	<h3 class="headerColor">Post a Reply</h3>
 	<form>

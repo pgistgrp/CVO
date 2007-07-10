@@ -44,7 +44,6 @@
 						<span class="discussionTitle">
 							<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.title}</a>
 					</div>
-					
 						<c:choose>
 								<c:when test="${baseuser.id == post.owner.id}">
 									<div class="discussionBody box7 padding5">		
@@ -58,13 +57,13 @@
 							<h3>- ${post.owner.loginname}</h3>
 						</div>
 						<div class="discussionComments peekaboobugfix">
-							 <c:choose>
+				<c:choose>
 				  <c:when test="${fmtToday == fmtLastPostDate || fmtToday == fmtLastReplyDate }">
 					<img src="/images/balloonactive2.gif" alt="Replies within the last 24 hours" /></c:when>
 				  <c:otherwise>
 					<img src="/images/ballooninactive2.gif" alt="No replies within the last 24 hours" /></c:otherwise>
 				  </c:choose>&nbsp;
-							<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}&lp=${setting.page}"><h3 style="display:inline;">${post.replies} Replies</h3></a> (${post.views} views)
+							<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}"><h3 style="display:inline;">${post.replies} Replies</h3></a> (${post.views} views)
 						</div>
 						<c:if test="${fn:length(post.tags) > 0}">
 							<ul class="tagsInline">
@@ -114,7 +113,7 @@
 							<img src="images/btn_prev_fade.gif" alt="No Previous Pages" />
 						</logic:equal>
 						<logic:notEqual name="setting" property="page" value="1">	
-							<a href="javascript:io.goToPage(${setting.page}-1, 'posts');"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<a href="javascript:io.switchPage(${setting.page - 1});"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
 						
 						
@@ -122,7 +121,7 @@
 							<img src="images/btn_next_fade.gif" alt="No Additional Pages" />
 						</logic:equal>
 						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-							<a href="javascript:io.goToPage(${setting.page}+1, 'posts')"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<a href="javascript:io.switchPage(${setting.page + 1});"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
 		  			</div>
 

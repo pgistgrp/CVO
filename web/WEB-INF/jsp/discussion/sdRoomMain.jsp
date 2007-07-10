@@ -55,8 +55,8 @@
 		io.fundSuiteId = "${fundSuiteId}"
 		io.cctId = "${structure.cctId}"
 		io.currentFilter = '';
-		io.currentPage = 1;
-		io.currentSort = 0;
+		io.currentPage = ("${param.page}" != "") ? "${param.page}" : 1;
+		io.currentSort = ("${param.sort}" != "") ? "${param.sort}" : 1;
 		io.postCount = 5;
 		io.tagCloudCount = 50;
 		io.currentTagCloudPage = 1;
@@ -123,9 +123,9 @@
 		/*************** Get Posts: posts.jsp************** */
 		
 		io.getPosts = function(tag, page, jump, sorting){
-				if(jump){
-					location.href = io.filterAnchor;
-				}
+    			if(jump || "${param.page}" != ""){
+      				setTimeout(function() {Element.scrollTo("discussionHeader");}, 300);
+    			}
 				displayIndicator(true);
 				io.currentPage = page;
 				io.currentSort = sorting;
@@ -147,17 +147,25 @@
 			      }
 			    });
 			  };
-		
+	
+	/*************** Go to page via AJAX ************** */
 	io.goToPage = function(page, component){
 		switch (component){
 			case "tagCloud":
 				io.getTagCloud(page);
 				break;	
 			case "posts":
-				io.getPosts(io.currentFilter,page,true, io.currentSort); 
+				io.getPosts(io.currentFilter,page,false, io.currentSort); 
 				break;
 			}
 	}
+	
+	/*************** Go to page via location.href - handles sort and page number ************** */
+	io.switchPage = function(page){
+	    location.href='sdRoom.do?isid='+ io.structureId +'&ioid='+ io.objectId +'&page='+page+'&sort='+ io.currentSort;
+	}
+	
+	
 	 	 
 	/*************** Set Email Notificaiton************** */
  	 io.setupEmailNotify = function(id, type, status){
@@ -475,19 +483,19 @@
 	<script type="text/javascript">
 			//io.getPosts('', 1, false, io.currentSort);
 			//infoObject.assignTargetHeaders();
-		checkForPage(${param.lp});
+		    //checkForPage(${param.lp});
 			io.goToPage(io.currentPage,'posts');
+			//location.href="sdRoom.do?isid="+io.structureId+"&ioid="+ io.objectId +"&page=" + page;
 			io.getTargets();
 			
 			
-			/*checks if the url parameter lp exists, else displays page 1*/
+			/*checks if the url parameter lp exists, else displays page 1
 			function checkForPage(page){
-			if(page){
-			io.currentPage=page;
+			    if(page){
+    			    io.currentPage=page;
+    			}
 			}
-			
-			}
-			
+			*/
 
 	</script>
 </div>

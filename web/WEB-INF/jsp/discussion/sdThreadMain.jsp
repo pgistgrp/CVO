@@ -111,9 +111,9 @@
 			
 		io.getReplies = function(tag, jump){
 			displayIndicator(true);
-				if(jump){
-					setTimeout(function() {location.href = io.filterAnchor}, 500);
-				}
+			  if(jump){
+				setTimeout(function() {Element.scrollTo("discussionHeader");}, 500);
+			  }
 				io.currentFilter = tag;
 			  //alert("isid: " + io.structureId + " ioid: " + io.objectId + " postID: " + io.postId + " page " + " count: " + io.replyCount + " filter: " + io.currentFilter);
 		      SDAgent.getReplies({isid: io.structureId, ioid:io.objectId, postid: io.postId, page: 1, count: io.replyCount, filter: io.currentFilter}, {
@@ -363,7 +363,7 @@
     <!--end object content -->
   </div>
   <!-- end object -->
-  <div class="clearBoth"></div><a name="filterJump"></a>
+  <div class="clearBoth"></div><a name="filterJump" id="filterJump"></a>
 	<div id="container-include">
 		<!-- load sdReplies.jsp via AJAX-->
 	</div>
