@@ -480,30 +480,20 @@
 			</outs>
 		    </declaration>
 		</pgame>
-		<branch>
-                    <sequence>
-			<pgame name="pgame-view.report">
-			    <declaration>
-				<ins>
-				    <var name="cct_id" ref="pmethod.cct_id"/>
-				    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
-				    <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
-				    <var name="repoSuiteId" ref="pmethod.repo_suite_id"/>
-				</ins>
-			    </declaration>
-			</pgame>
-		    </sequence>
-		    <sequence>
-			<pgame name="pgame-sd.report">
-			    <declaration>
-				<ins>
-				    <var name="isid" ref="pmethod.repo_isid"/>
-				</ins>
-			    </declaration>
-			</pgame>
-		    </sequence>
-		</branch>
-            </sequence>
+
+		<pgame name="pgame-sd.report">
+		    <declaration>
+			<ins>
+			    <var name="isid" ref="pmethod.repo_isid"/>
+			    <var name="cct_id" ref="pmethod.cct_id"/>
+			    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+			    <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
+			    <var name="repoSuiteId" ref="pmethod.repo_suite_id"/>
+			</ins>
+		    </declaration>
+		</pgame>
+	
+	</sequence>
         </pmethod>
 	
 	

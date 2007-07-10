@@ -23,7 +23,7 @@
 	#### -->
 	<!-- begin "overview and instructions" area -->
 	<div id="overview" class="box2">
-		<h3 class="headerColor">Instructions</h3>
+		<h3 class="headerColor">Instructions ** ${repoSuiteId} ****<a href="report.do?cct_id=${cct_id}&critSuiteId=${critSuiteId}&pkgSuiteId=${pkgSuiteId}&repoSuiteId=${repoSuiteId}">View Report</a>****</h3>
 		<p>
 			Here you can review proposed projects for improving or expanding our regional transportation system.  Click on a project
 			to review information and discuss its merits or drawbacks with other participants.

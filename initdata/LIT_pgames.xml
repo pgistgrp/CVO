@@ -382,7 +382,8 @@
 	    </declaration>
 	</pgame>
 	
-	<pgame name="pgame-view.report" description="View Report" access="all" auto="false">
+	<!--
+	<pgame name="pgame-view.report" description="View Report" access="moderator" auto="false">
 	    <actionName>action-view.report</actionName>
 	    <declaration>
 		<ins>
@@ -393,6 +394,7 @@
 		</ins>
 	    </declaration>
 	</pgame>
+	-->
 	
 	<pgame name="pgame-publish.report" description="Publish Report" auto="true">
 	    <taskName>task-publish.report</taskName>
@@ -415,6 +417,10 @@
 	    <declaration>
 		<ins>
 		    <var name="isid"/>
+		    <var name="cct_id"/>
+		    <var name="critSuiteId"/>
+	            <var name="pkgSuiteId"/>
+		    <var name="repoSuiteId"/>
 		</ins>
 	    </declaration>
 	</pgame>
