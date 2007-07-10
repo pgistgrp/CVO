@@ -30,6 +30,7 @@ Workflow.prototype.createInstance = function() {
 		}
 	}
 	if(templateId && description != "" && name != ""){
+	    Util.loading(true, "Creating new expiriment");
 		WorkflowAgent.createInstance(
 	    { situationId : templateId, name:name, description:description },
 	    function(data) {
@@ -38,6 +39,7 @@ Workflow.prototype.createInstance = function() {
 	      } else {
 	        alert(data.reason);
 	      }
+	      Util.loading(false);
 	    }
 	  );
 	}else{
@@ -47,29 +49,32 @@ Workflow.prototype.createInstance = function() {
 
 
 Workflow.prototype.getWorkflows = function(mod) {
-  Util.loading(true, "Loading Overview");
-  var thePanel = this.panel;
-  WorkflowAgent.getWorkflows(
-    { type : "all" },
-    function(data) {
-      if (data.successful){
-		if(!mod && data.runningTotal == 1){
-			location.href="userhome.do?wf="+ data.instanceId;
-		}else{
-			$(thePanel).innerHTML = data.html;
-			if(mod){workflow.getTemplates();}
+	Util.loading(true, "Loading Overview");
+	var thePanel = this.panel;
+	WorkflowAgent.getWorkflows({type:"all"}, {
+		callback:function(data){
+			if (data.successful){
+				if(!mod && data.runningTotal == 1){
+					location.href="userhome.do?wf="+ data.instanceId;
+				}else{
+					$(thePanel).innerHTML = data.html;
+					if(mod){workflow.getTemplates();}
+				}
+				Util.loading(false);
+			}else{
+				alert(data.reason);
+			}
+		},
+		errorHandler:function(errorString, exception){ 
+		alert("WorkflowAgent.getWorkflows( error:" + errorString + exception);
 		}
-		Util.loading(false);
-      } else {
-        alert(data.reason);
-      }
-    }
-  );
+	});
 };
 
 
 Workflow.prototype.startWorkflow = function(workflowId) {
   var workflow = this;
+  Util.loading(true, "Starting Expiriment");
   WorkflowAgent.startWorkflow(
     { workflowId : workflowId },
     function(data) {
@@ -78,6 +83,7 @@ Workflow.prototype.startWorkflow = function(workflowId) {
       } else {
         alert(data.reason);
       }
+      Util.loading(false);
     }
   );
 };
