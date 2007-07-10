@@ -101,6 +101,39 @@ public class ProjectAgent {
     
     
     /**
+     * Get a ProjectAlternative Ref object by id
+     *
+     * @param  A map contains:
+     *     <ul>
+     *       <li>id - int, id of the ProjectAlternative Ref object</li>
+     *     </ul>
+     * 
+     * @return A map contains:
+     *     <ul>
+     *       <li>successful - a boolean value denoting if the operation succeeds</li>
+     *       <li>reason - reason why operation failed (valid when successful==false)</li>
+     *       <li>altRef - a ProjectAlternative object</li>
+     *     </ul>
+     */
+    public Map getProjectAltRefById(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long id = new Long((String) params.get("id"));
+            ProjectAltRef altRef = projectService.getProjectAltRefById(id);
+            map.put("altRef", altRef);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//getProjectAltRefById()
+    
+    
+    /**
      * Get a ProjectAlternative object
      *
      * @param  A map contains:

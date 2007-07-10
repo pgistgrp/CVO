@@ -27,6 +27,7 @@
 	  
 	  <convert converter="bean" match="org.pgist.projects.ProjectRef"/>
 
+
     <convert converter="bean" match="org.pgist.projects.Package"/>
 
 

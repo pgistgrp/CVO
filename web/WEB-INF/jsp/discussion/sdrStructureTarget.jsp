@@ -23,7 +23,7 @@
 	#### -->
 	<!-- begin "overview and instructions" area -->
 	<div id="overview" class="box2">
-		<h3 class="headerColor">Instructions ** ${repoSuiteId} ****<a href="report.do?cct_id=${cct_id}&critSuiteId=${critSuiteId}&pkgSuiteId=${pkgSuiteId}&repoSuiteId=${repoSuiteId}">View Report</a>****</h3>
+		<h3 class="headerColor">Instructions</h3>
 		<p>
 			Here you can review proposed projects for improving or expanding our regional transportation system.  Click on a project
 			to review information and discuss its merits or drawbacks with other participants.
@@ -78,26 +78,14 @@
 					<li><a href="report.do#packages">Evaluation of packages</a></li>
 				</ol>
 			</div>
-			<input type="button" class="floatRight" value="Read the full report" />
+			<input type="button" class="floatRight" onclick="io.goToFullReport();" value="Read the full report" />
 		</div>
 	</div>
 </pg:fragment>
 
 <pg:fragment type="script">
-
-	/* *************** Toggle Tree Node to view Asscociated Objectives for a Given Criterion *************** */
-	io.expandList = function(objective,icon){
-		Effect.toggle(objective, 'appear', {duration: .5, afterFinish:
-			//window.setTimeout(toggleIcon,100);
-			function(){
-				if ($(objective).style.display != ""){
-						$(icon).src = "/images/plus.gif";
-					}else{
-						$(icon).src = "/images/minus.gif";
-					}
-				}
-		});
-	};
+	//All Javascript that is internal to this page must go here - not sdRoomMain.
+	//Add Javascript to build tree list
 
 	/* *************** load a dynamic javascript or css file ****************/
 
@@ -121,10 +109,15 @@
 		}
 		
 	}
-
 	
 	/* *************** loading on getTargets() in SDRoomMain *************** */
-	io.loadDynamicFile('styles/step5.css');
-	io.loadDynamicFile('/dwr/interface/ReportAgent.js');
-
+	io.loadDynamicFile('/styles/step4-start.css');
+	io.loadDynamicFile('/dwr/interface/ProjectAgent.js');
+	
+	/* *************** Build Package Link *************** */
+	
+	io.goToFullReport = function(){
+		window.open("report.do?cct_id="+io.cctId+"&repoSuiteId="+ io.repoSuiteId +"&projSuiteId="+io.projSuiteId+"&critSuiteId="+io.critSuiteId+"&pkgSuiteId="+io.pkgSuiteId,'Report Viewer','width=1000,height=600,resizable=yes,scrollbars=yes');
+	}
+	
 </pg:fragment>
