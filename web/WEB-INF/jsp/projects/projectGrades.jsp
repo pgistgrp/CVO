@@ -147,7 +147,8 @@ xml+='\
 		<a href="javascript:ddtreemenu.flatten('treemenu1', 'contact')">Collapse All</a>
 	-->
 		<ul id="treemenu1" class="treeview">
-			<c:forEach var="projectRef" items="${projSuite.references}" varStatus="loop">
+		    <c:set var="projectRef" value="${projSuite.references[0]}" />
+
 				<li><span class="project">Project: ${projectRef.project.name}</span><ul>
 					<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
 						<li><a href="projectAlt.do?altrefId=${altRef.id}" target="_blank">${altRef.alternative.name}</a>
@@ -179,7 +180,7 @@ xml+='\
 					</ul></li>
 					</c:forEach>
 					</ul></li>
-			</c:forEach>
+
 		</ul>
 		
 		<h3>Finished grading projects?</h3>
