@@ -74,8 +74,9 @@
                 /lmTutorial2.do,
                 /dwr/interface/RegisterAgent.js,
                 /dwr/interface/ProfileAgent.js,
-		/dwr/interface/ProjectAgent.js,
-		/dwr/interface/PESAgent.js,
+                /dwr/interface/ProjectAgent.js,
+                /dwr/interface/PESAgent.js,
+
                 /dwr/engine.js,
                 /dwr/util.js,
                 /dwr/call/plaincall/RegisterAgent.addUser.dwr,
@@ -83,8 +84,10 @@
                 /dwr/call/plaincall/RegisterAgent.checkUsername.dwr,
                 /dwr/call/plaincall/RegisterAgent.checkEmail.dwr,
                 /dwr/call/plaincall/ProfileAgent.getUserDiscussion.dwr,
-		/dwr/call/plaincall/ProjectAgent.getFootprintsByAltId.dwr,
-		/dwr/call/plaincall/PESAgent.saveAct.dwr
+                /dwr/call/plaincall/ProjectAgent.getFootprintsByAltId.dwr,
+                /dwr/call/plaincall/ProjectAgent.getGradesByAltRefId.dwr,
+                /dwr/call/plaincall/PESAgent.saveAct.dwr
+
             </param-value>
         </init-param>
     </filter>

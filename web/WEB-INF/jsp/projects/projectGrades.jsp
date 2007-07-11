@@ -135,27 +135,57 @@ xml+='\
 				}
 			}
 			
-
+            function getGrades(altRefId){
+					ProjectAgent.getGradesByAltRefId({id:altRefId},{
+						callback:function(data){
+							if (data.successful){
+								$('scorePane').innerHTML = data.html;
+                                
+                                /*if($('XMLwrapper').visible()){
+							        updateXML();
+							    }*/
+							}else{
+								alert(data.reason);
+							}
+						Util.loading(false)
+						},
+						errorHandler:function(errorString, exception){ 
+						alert("ProjectAgent.setGrading( error:" + errorString + exception);
+						}
+					});                
+            }
+            
 		</script>
 	<event:pageunload />
 	</head>
 	<body>
 		<p><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
 		<h1>Grade Projects on Criteria Objectives</h1>
+        <table border="0" width="95%">
+            <tr>
+            <td width="450">
+                <div style="width: 450px;height: 800px;overflow: auto;">
+                <ul id="treemenu1" class="treeview">
+                    <c:forEach var="projectRef"  items="${projSuite.references}" varStatus="loop">
+                    <li><span class="project">Project: ${projectRef.project.name}</span><ul>
+                        <c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
+                            <li><a href="javascript: getGrades(${altRef.id})">${altRef.alternative.name}</a></li>
+                        </c:forEach>
+                    </ul></li>
+                    </c:forEach>
+                </ul>
+                </div>
+            </td>
+            <td valign="top"><div id="scorePane">Click on a project alternative name to view/change the scores</div>
+            </td>
+            </tr>
+        </table>
+        
 		<!-->
 		<a href="javascript:ddtreemenu.flatten('treemenu1', 'expand')">Expand All</a> | 
 		<a href="javascript:ddtreemenu.flatten('treemenu1', 'contact')">Collapse All</a>
+        projectAlt.do?altrefId=${altRef.id}" target="_blank
 	-->
-		<ul id="treemenu1" class="treeview">
-		    <c:forEach var="projectRef"  items="${projSuite.references}" varStatus="loop">
-			<li><span class="project">Project: ${projectRef.project.name}</span><ul>
-				<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
-					<li><a href="projectAlt.do?altrefId=${altRef.id}" target="_blank">${altRef.alternative.name}</a>
-	</li>
-				</c:forEach>
-			</ul></li>
-		    </c:forEach>
-		</ul>
 		
 		<h3>Finished grading projects?</h3>
 		<!-- this button just redirects - saves are occuring on check. -->

@@ -131,7 +131,39 @@ public class ProjectAgent {
         
         return map;
     }//getProjectAltRefById()
-    
+
+    /**
+     * Get the grades of a ProjectAlternative Ref object by id
+     *
+     * @param  A map contains:
+     *     <ul>
+     *       <li>id - int, id of the ProjectAlternative Ref object</li>
+     *     </ul>
+     * 
+     * @return A map contains:
+     *     <ul>
+     *       <li>successful - a boolean value denoting if the operation succeeds</li>
+     *       <li>reason - reason why operation failed (valid when successful==false)</li>
+     *       <li>html - HTML rendition of the project grades, ready for edit</li>
+     *     </ul>
+     */
+    public Map getGradesByAltRefId(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long id = new Long((String) params.get("id"));
+            ProjectAltRef altRef = projectService.getProjectAltRefById(id);
+            request.setAttribute("altRef", altRef);
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/projects/projectGrades_pane.jsp"));
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//getGradesByAltRefId()
     
     /**
      * Get a ProjectAlternative object
