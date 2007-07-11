@@ -136,6 +136,7 @@ xml+='\
 			}
 			
             function getGrades(altRefId){
+	    				$('scorePane').innerHTML = "loading scores, please wait ...";
 					ProjectAgent.getGradesByAltRefId({id:altRefId},{
 						callback:function(data){
 							if (data.successful){
@@ -163,7 +164,7 @@ xml+='\
 		<h1>Grade Projects on Criteria Objectives</h1>
         <table border="0" width="95%">
             <tr>
-            <td width="450">
+            <td width="450" valign="top">
                 <div style="width: 450px;height: 800px;overflow: auto;">
                 <ul id="treemenu1" class="treeview">
                     <c:forEach var="projectRef"  items="${projSuite.references}" varStatus="loop">
