@@ -205,7 +205,7 @@ tinyMCE.init({
 				}
 			});
 		}else{
-						$('feedback').innerHTML = 'Your comment is blank.  Please write your comment in the textbox below and click on "Create Comment!"';
+						$('feedback').innerHTML = 'Your comment is blank. Please write your comment in the textbox below and click on "Create Comment!"';
 						Effect.Appear('feedback', {duration: 0.8, afterFinish:function(){Effect.Fade('feedback', {duration: 10.0});}});
 		}
 		}
@@ -244,38 +244,36 @@ tinyMCE.init({
 	  <logic:equal name="term" property="status" value="0">
       <pg:show roles="admin, moderator">
         <div style='background-color:gray; font-size:x-large;' id="modApproval"><strong>The term ${term.name} is awaiting moderator approval</strong><br /><br />
-	          Moderator Options:
+	          Moderator options:
 	          <button type='button' onclick='acceptTerm(${term.id});'>Accept</button>
 	          <button type='button' onclick='giveReason(${term.id});'>Decline</button>
         </div>
         <br />
         <div style='display:none; border:thick solid #666666; font-size:large;' id='modReasondiv'>
-          <div><strong>Reason for Declining Term</strong></div>
+          <div><strong>Reason for declining term</strong></div>
           <div>This reason will be emailed to the participant that proposed this glossary term.</div>
           <div style='margin:1%;'>
             <textarea style='height:100%; width:100%;' id='modReasontext'></textarea>
           </div>
-          <button type='button' onclick='javascript:rejectTerm(${term.id},$("modReasontext").value);'>Delete Term and Send Reason</button>
+          <button type='button' onclick='javascript:rejectTerm(${term.id},$("modReasontext").value);'>Delete term and send reason</button>
         </div>
         <br />
       </pg:show>
     </logic:equal>
-      <a href="glossaryPublic.do">Back to All Glossary Terms</a>
-    <h3 class="headerColor">Learn More: Listing of All Glossary Terms</h3>
+      <a href="glossaryPublic.do">Back to all glossary terms</a>
     <div id="term-text" style="margin-top: 10px;">
       <h3>${term.name}</h3>
       <p class="largeText">${term.shortDefinition}</p>
       <p class="largeText">${term.extDefinition}<br />
     
       </p>
-      <p><a href="javascript:setFlag(1);"><img src="/images/icon_flag3.gif" border="0"></a>&nbsp;<a href="javascript:setFlag(1);">Flag moderator to review this term's definition and/or comments</a></p>
       <div id="commentStats" style="padding-top: 10px;">
         <h3>Statistics</h3>
         <table cellpadding="5" cellspacing="5">
-          <th>Page Views</th>
-            <th>Unique Participant Views</th>
-            <th>Avg. Views Per Participant</th>
-            <th>Appearances in Pages</th>
+          <th>Page views</th>
+            <th>Unique participant views</th>
+            <th>Avg. views per participant</th>
+            <th>Appearances in pages</th>
           <tr style="text-align: center">
             <td>${term.viewCount}</td>
             <td>${term.participantCount}</td>
@@ -288,9 +286,10 @@ tinyMCE.init({
         <!--comments load here onLoad -->
       </div>
       <br>
+            <p><a href="javascript:setFlag(1);"><img src="/images/icon_flag3.gif" border="0"></a>&nbsp;<a href="javascript:setFlag(1);">Flag moderator to review this term's definition and/or comments</a></p>
       <div id="feedback" style="display: none; background-color:#ffc; color: #333; width:100%;"></div>
       <div id="newCommentForm">
-        <h3>Add a Comment</h3>
+        <h3>Add a comment</h3>
         (html OK)<br>
         <div id="reply-to"></div>
         <form name="commentForm" action="" onsubmit="createComment1(${term.id}, tinyMCE.getContent()); return false;">
@@ -301,14 +300,14 @@ tinyMCE.init({
         </form>
       </div>
       <br>
-      <a href="glossaryPublic.do">Back to All Glossary Terms</a> </div>
+      <a href="glossaryPublic.do">Back to all glossary terms</a> </div>
 	  
 	    <div id="right-col" class="box3">
     <pg:show roles="admin, moderator">
-      <p><a href="glossaryManage.do">Back to Glossary Management</a></p>
+      <p><a href="glossaryManage.do">Back to glossary management</a></p>
     </pg:show>
     <c:if test="${fn:length(term.links) != 0}">
-      <h3>Term Links</h3>
+      <h3>Term links</h3>
       <ul>
         <logic:iterate id="onelink" property="links" name="term">
           <li><a href="${onelink}">${onelink}</a></li>
@@ -316,7 +315,7 @@ tinyMCE.init({
       </ul>
     </c:if>
     <c:if test="${fn:length(term.relatedTerms) != 0}">
-      <h3>Related Terms</h3>
+      <h3>Related terms</h3>
       <ul>
         <logic:iterate id="oneterm" property="relatedTerms" name="term">
           <li><a href="glossaryView.do?id=${oneterm.id}">${oneterm}</a></li>

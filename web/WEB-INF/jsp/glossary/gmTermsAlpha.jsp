@@ -13,7 +13,7 @@ Jump to starts with letter:
 		
 <table id="termListTable" class="blueBB" cellspacing="2" cellpadding="4" frame="box" rules="all" width="100%">
 	 <tr>
-  	<th style="text-align: left" id="name">name</th><th style="text-align: left" id="def">a short definition</th><th style="text-align:center" id="comments">comments</a></th><th style="text-align:center" id="views">views</th><th style="text-align:center" id="actions">actions</th>
+  	<th style="text-align: left" id="name">Name</th><th style="text-align: left" id="def">Short definition</th><th style="text-align:center" id="comments">Comments</a></th><th style="text-align:center" id="views">Views</th><th style="text-align:center" id="actions">Actions</th>
    </tr>
   <bean:define id="storeInitial" value="" />
 	  <logic:iterate id="term" name="terms">
