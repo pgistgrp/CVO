@@ -322,7 +322,7 @@ text-transform:none;
 </div>
 <!-- End header -->
 <!-- START LIGHTBOX -->
-<div id="overlay" style="display: none;></div>
+<div id="overlay" style="display: none;"></div>
 	<div id="lightbox" class="blueBB" style="top: 50%; height: 450px; overflow: auto;">
 </div>
 <!-- END LIGHTBOX -->

@@ -25,7 +25,7 @@
 	<div id="container">
 		<!-- begin "overview and instructions" area -->
 		<div id="overview" class="box2">
-			<h3>Overview and Instructions</h3>
+			<h3>Overview and instructions</h3>
 			<p>How are we going to pay for improvements to the regional transportation system?
 				Some of the money for improvements comes from state and federal government. However,
 				all of the projects you reviewed in Step 3A are not yet fully funded by these
@@ -44,9 +44,9 @@
 			<div id="newtable">
 				<table cellpadding=0 cellspacing=0>
 					<tr class="tableHeading">
-						<th class="first">Proposed Funding Sources</th>
+						<th class="first">Proposed funding sources</th>
 						<th><span class="hiddenLabel" style="display:none">
-						Estimated Money Raised</span></th>
+						Estimated money raised</span></th>
 						<th><span class="hiddenLabel" style="display:none">
 						Estimated annual cost to the average taxpayer</span></th>
 						<th><span class="hiddenLabel" style="display:none">

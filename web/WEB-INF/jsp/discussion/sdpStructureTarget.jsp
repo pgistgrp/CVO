@@ -28,7 +28,7 @@
 <!-- begin "overview and instructions" area -->
 
 	<div id="overview" class="box2">
-		<h3>Overview and Instructions</h3>
+		<h3>Overview and instructions</h3>
 		<p>Here you can review proposed projects for improving or expanding our regional transportation system. 
 			Click on a project to review information and discuss its merits or drawbacks with other participants.</p>
 
@@ -43,8 +43,8 @@
 			<div id="newtable">
 				<table cellpadding=0 cellspacing=0>
 					<tr class="tableHeading">
-						<th colspan="2" class="first">My Proposed Projects</th>
-						<th class="right"><span id="hiddenLabel" style="visibility:hidden">Money Needed</span></th>
+						<th colspan="2" class="first">My proposed projects</th>
+						<th class="right"><span id="hiddenLabel" style="visibility:hidden">Money needed</span></th>
 					</tr>
 					
 				
@@ -53,10 +53,10 @@
 						<tr>
 							<c:choose>
 								<c:when test="${category == 1}">
-									<td class="category" colspan="3"><strong>Road Projects</strong></td>
+									<td class="category" colspan="3"><strong>Road projects</strong></td>
 								</c:when>
 								<c:otherwise>
-									<td class="category" colspan="3"><strong>Transit Projects</strong></td>
+									<td class="category" colspan="3"><strong>Transit projects</strong></td>
 								</c:otherwise>
 							</c:choose>
 						</tr>
