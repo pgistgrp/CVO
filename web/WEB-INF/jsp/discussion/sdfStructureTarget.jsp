@@ -44,12 +44,12 @@
 			<div id="newtable">
 				<table cellpadding=0 cellspacing=0>
 					<tr class="tableHeading">
-						<th class="first">Proposed funding sources</th>
-						<th><span class="hiddenLabel" style="display:none">
+						<th class="first" style="font-size:10pt;">Proposed funding sources</th>
+						<th><span class="hiddenLabel" style="display:none;font-size:10pt;">
 						Estimated money raised</span></th>
-						<th><span class="hiddenLabel" style="display:none">
+						<th><span class="hiddenLabel" style="display:none;font-size:10pt;">
 						Estimated annual cost to the average taxpayer</span></th>
-						<th><span class="hiddenLabel" style="display:none">
+						<th><span class="hiddenLabel" style="display:none;font-size:10pt;">
 						Estimated annual cost to you</span></th>
 					</tr>
 					

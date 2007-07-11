@@ -284,7 +284,7 @@
 		<!-- Begin calculator options -->
 		<div id="myIncome">
 			<h3 class="headerColor">My income</h3>
-			<span id="annualIncome"> Annual Income
+			<span id="annualIncome"> Annual income
 			<input name="annual-income" id="annual-income" type="text" value="${user.income}"></span>
 			<span id="householdSize"> Household size
 				<select name="household-size" id="household-size" >
@@ -295,14 +295,14 @@
 			</span>
 			</div>
 		<div id="myVehicles">
-			<h3 class="headerColor">My Vehicle(s)</h3>
+			<h3 class="headerColor">My vehicle(s)</h3>
 			<div id="vehicles">
 				<img src="/images/indicator_arrows.gif" /> Loading your vehicles...
 				<!-- vehicles rendered by separate jsp page -->
 			</div>		
 		</div>
 		<div id="myCommute">
-			<h3 class="headerColor">My Commute</h3>
+			<h3 class="headerColor">My commute</h3>
 			<div id="myCommute-left" class="floatLeft">
 			<p>Home zip code <input id="hZipcode" name="hZipcode" type="text" size="5" maxlength="5" value="${user.zipcode}"></span></p>
 			<p>Work zip code <input id="wZipcode" name="wZipcode" type="text" size="5" maxlength="5" value="${user.workZipcode}"></span></p>

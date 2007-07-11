@@ -234,7 +234,7 @@ function formOther(){
 		<div id="edit-profile" >
 		<span style="color:#FF0000;">${userForm.reason}</span>
 			<fieldset>
-			<legend>About Me</legend>
+			<legend>About me</legend>
 			<div class="settings-col1">Username</div>
 			<div class="settings-col2">${user.loginname}</div>
 			<div class="clearBoth"></div>
@@ -245,7 +245,7 @@ function formOther(){
 				<html:text property="vocation" size="50" value="${user.vocation}"/>
 			</div>
 			<div class="clearBoth"></div>
-			<div class="settings-col1">Why I'm Here<br />
+			<div class="settings-col1">Why I'm here<br />
 				<span> Tell us about your interest in transportation and why you've chosen to
 				take on the LIT challenge.</span> </div>
 			<div class="settings-col2">
@@ -258,12 +258,12 @@ function formOther(){
 			<div id="left" class="floatLeft">
 				<h3>Home Location</h3>
 				<br />
-				<div class="settings-col1"><small>Address Line 1</small></div>
+				<div class="settings-col1"><small>Address line 1</small></div>
 				<div class="settings-col2">
 					<html:text property="address1" styleId="address1" value="${user.homeAddr}"/>
 					<img title="This will not be shown to other participants" src="images/icon_private.png" /> </div>
 				<div class="clearBoth"></div>
-				<div class="settings-col1"><small>Address Line 2</small></div>
+				<div class="settings-col1"><small>Address line 2</small></div>
 				<div class="settings-col2">
 					<html:text property="address2" value="${user.homeAddr2}"/>
 					<img title="This will not be shown to other participants" src="images/icon_private.png" /> </div>
@@ -331,25 +331,25 @@ function formOther(){
 					</html:select>
 				</div>
 				<div class="clearBoth"></div>
-				<div class="settings-col1"><small>ZIP Code</small></div>
+				<div class="settings-col1"><small>ZIP code</small></div>
 				<div class="settings-col2">
 					<html:text property="zipcode" styleId="hzip" value="${user.zipcode}"/>
 				</div>
 				<div class="clearBoth"></div>
-				<h3>Work Location</h3>
+				<h3>Work location</h3>
 				<div class="settings-col1"><small>City</small></div>
 				<div class="settings-col2">
 					<html:text property="workCity" styleId="wcity" value="${user.workCity}"/>
 				</div>
 				<div class="clearBoth"></div>
-				<div class="settings-col1"><small>ZIP Code</small></div>
+				<div class="settings-col1"><small>ZIP code</small></div>
 				<div class="settings-col2">
 					<html:text property="workZipcode" styleId="wzip" value="${user.workZipcode}"/>
 				</div>
 				<div class="clearBoth"></div>
 			</div>
 			<div id="right" class="floatRight">
-				<h3>Method of Transportation</h3>
+				<h3>Method of transportation</h3>
 				<br />
 				<span>How do you usually travel from your home to work and other regular errands?</span>
 				<p>
@@ -357,10 +357,10 @@ function formOther(){
 					
 					<html:select styleId="primaryTrans" onmouseup="javascript:formOther()" property="primaryTransport">
 						<html:option value="${user.primaryTransport}">${user.primaryTransport}</html:option>
-						<html:option value="Drive Alone">Drive Alone</html:option>
-						<html:option value="Carpool or Vanpool">Carpool or Vanpool</html:option>
-						<html:option value="Bus or Transit">Public Transportation</html:option>
-						<html:option value="Walk or Bike">Walk or Bike</html:option>
+						<html:option value="Drive Alone">Drive alone</html:option>
+						<html:option value="Carpool or Vanpool">Carpool or vanpool</html:option>
+						<html:option value="Bus or Transit">Public transportation</html:option>
+						<html:option value="Walk or Bike">Walk or bike</html:option>
 						<html:option value="Bus or Transit">Ferry</html:option>
 						<html:option value="Other">Other</html:option>
 					</html:select>
@@ -383,14 +383,14 @@ function formOther(){
 		<html:form action="/usercp.do" styleId="settingsForm" method="POST">
 		<html:hidden property="save" value="true"/>
 		<!-- end EDIT-PROFILE -->
-		<h3 class="headerColor">View and Edit your private user settings</h3>
+		<h3 class="headerColor">View and edit your private user settings</h3>
 		<p>This information is private, and not shared with other participants in the LIT
 			challenge. You can always return to this page to edit it in the future. </p>
 		<!-- begin EDIT-SETTINGS -->
 		<div id="edit-settings">
 		 
 			<fieldset id="email">
-			<legend>My E-mail Settings</legend>
+			<legend>My e-mail settings</legend>
 			<div class="settings-col1">E-mail address</div>
 			<div class="settings-col2">
 				<html:text property="email" styleId="mail" value="${user.email}" />
@@ -435,21 +435,21 @@ function formOther(){
 			<br />
 			</fieldset>
 			<fieldset id="password">
-			<legend>Change my Password</legend>
+			<legend>Change my password</legend>
 			<div class="floatLeft">
 				<div class="settings-col1"></div>
 				<div class="clearBoth"></div>
-				<div class="settings-col1">Current Password</div>
+				<div class="settings-col1">Current password</div>
 				<div class="settings-col2">
 					<html:password property="currentpassword" styleId="currentpw" redisplay="false"/>
 				</div>
 				<div class="clearBoth"></div>
-				<div class="settings-col1">New Password</div>
+				<div class="settings-col1">New password</div>
 				<div class="settings-col2">
 					<html:password property="password1" styleId="password1" redisplay="false"/>
 				</div>
 				<div class="clearBoth"></div>
-				<div class="settings-col1">Retype New Password</div>
+				<div class="settings-col1">Retype new password</div>
 				<div class="settings-col2">
 					<html:password property="password2" styleId="password2" redisplay="false"/>
 				</div>
