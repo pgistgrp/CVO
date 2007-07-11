@@ -11,7 +11,7 @@
 	Page: Project Grading
 	Description: This page is to grade projects on criteria in the given decision situation.
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Issac Yang
+	     Front End: Jordan Isip, Adam Hindman
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
@@ -28,7 +28,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<title>Grade Projects</title>
+		<title>Projects Scoring</title>
 		<!-- Site Wide JavaScript -->
 		<script src="scripts/tags.js" type="text/javascript"></script>
 		<script src="scripts/prototype.js" type="text/javascript"></script>
@@ -46,19 +46,29 @@
 		<script src="scripts/simpletreemenu.js" type="text/javascript"></script>
 		<script src="scripts/util.js" type="text/javascript"></script>
 		<style type="text/css" media="screen">
-			@import "styles/simpletree.css";
-			@import "styles/loading-indicator.css";
-		</style>
-		
-		<style type="text/css" media="screen">
-			body {font-family:arial;font-size:12pt;}
-			
-			li{margin: 10px 0;}
-			.project{font-size: 1.3em;}
-			
-		</style>
+            @import "styles/lit.css";
+            @import "styles/step4-start.css";
+            @import "styles/loading-indicator.css";
+                    
+            #projects-list li{
+                padding: 5px;
+            }
+            
+            #obj-left, #obj-right{
+                overflow:auto;
+                height:500px;
+                border: 5px solid #DDD;
+                width: 45%;
+                padding:5px;
+            }
+        </style>			
+
 
 		<script type="text/javascript" charseut="utf-8">
+		    highlightOn = "#BDD5FA";
+		    highlightOff = "#FFFFFF";
+		    
+
             projSuiteId = "${projSuite.id}";
             
             function updateXML(){
@@ -135,80 +145,205 @@ xml+='\
 				}
 			}
 			
-            function getGrades(altRefId){
-	    				$('scorePane').innerHTML = "loading scores, please wait ...";
-					ProjectAgent.getGradesByAltRefId({id:altRefId},{
-						callback:function(data){
-							if (data.successful){
-								$('scorePane').innerHTML = data.html;
-                                
-                                /*if($('XMLwrapper').visible()){
-							        updateXML();
-							    }*/
-							}else{
-								alert(data.reason);
-							}
-						Util.loading(false)
-						},
-						errorHandler:function(errorString, exception){ 
-						alert("ProjectAgent.setGrading( error:" + errorString + exception);
-						}
-					});                
-            }
-            
+			function getAltRefScores(altRefId){
+			    Util.loading(true,"Loading scores");
+			    ProjectAgent.getProjectAltRefById({id:altRefId}, {
+			         callback:function(data){
+			             if (data.successful){
+			                 var score = new Object;
+			                 score.gCrits = data.altRef.gradedCriteria;
+			                 score.gCritIds = [];
+			                 score.gObjIds = [];
+			                 score.grades = [-3,-2.5,-2,-1.5,-1,-0.5,0.0,0.5,1,1.5,2,2.5,3]
+			                 score.html = "<h4>"+ data.altRef.alternative.name +"</h4><ul>";
+			                 
+			                 //Get and render graded crit and objectives array
+			                 score.gCrits.each(function(gCrit) {
+			                   score.html += "<li>"+ gCrit.criteria.name +" <b id='critGrade-"+ altRefId +"-"+ gCrit.criteria.id+"'>"+ gCrit.grade +"</b></li><ul>"                  
+                               gCrit.objectives.each(function(gObj){
+                                   score.html += "<li>\
+                                   <select id='objGrade-'"+ gObj.objective.id +"' onchange='setGrading("+altRefId+","+gCrit.criteria.id+","+gObj.objective.id+", this.value);'>";
+                                      score.grades.each(function(grade){
+                                          if(grade == 0.0){
+                                            selected = (gObj.grade == null || gObj.grade == 0.0) ? "selected = true" : "";
+                                            score.html += "<option "+ selected +" value="+ grade +">0</option>";
+                                          }else{
+                                            selected = (gObj.grade == grade) ? "selected = true" : "";
+                                            score.html += "<option "+ selected +" value="+ grade +">"+ grade +"</option>";
+                                          }
+                                      })  
+                                   score.html +="</select> "+ gObj.objective.description +"\
+                                   </li>";
+                                 
+                               })
+                               
+                               score.html += "</ul>"
+                             });
+                             score.html += "</ul>"
+                             $('scores').innerHTML = score.html;
+
+			             }else{
+			                 alert(data.reason);
+			             }
+			             Util.loading(false,"Loading scores");
+			         },
+			         errorHandler:function(errorString, exception){ 
+			         alert("ProjectAgent.getProjectALtRefById( error:" + errorString + exception);
+			         }
+			    });
+			}
+
+			function highlightList(){
+			    $$('.projAlt').each(function(alt){
+			        Event.observe(alt,'click',function(){
+			            highlighter(this);
+			            switchItem(this);
+			        });
+			    })
+			}
+			
+			var currentAlt = null;
+			function highlighter(choosen){
+			    currentAlt = choosen;
+			    $$('.projAlt').each(function(projAlt){
+			        if(choosen == projAlt){
+			            projAlt.style.background = highlightOn;
+			        }else{
+			            projAlt.style.background = highlightOff;
+		            }
+			    })
+			    
+			}
+
+            //adjust columns to full screen
+			function colsTofullScreen(){
+			    height = (document.documentElement.clientHeight || document.body.clientHeight);
+			    distanceFromTop = 50;
+			    hpx = (height - distanceFromTop) + "px";
+                $('obj-left').style.height = hpx;
+                $('obj-right').style.height = hpx;
+			}
+			
+			function observeKeys(){
+			    Event.observe(document, 'keypress', function(e){
+                    var code;
+                    if (!e) var e = window.event;
+                    if (e.keyCode) code = e.keyCode;
+                    else if (e.which) code = e.which;
+
+                    switch (e.keyCode){
+    					// Key up.
+    					case 38:
+    					    //check to see if no items are selected
+	    					if(!currentAlt){break;}
+
+    					    //check to see if it is the top row
+    					    
+    					    
+    						// move one row up.
+    						//alert(currentAlt.up(0).previous('.projAlt'))
+                            if(currentAlt.previous()){
+                                item = currentAlt.previous();
+                            }else{
+                                if (currentAlt.up(1).previous().down(2)) {
+                                    item = currentAlt.up(1).previous().down(2);
+                                } else{
+                                    alert("no more left")
+                                };
+                            }
+    						
+    					    break;
+    					    
+    					// Key down.
+    					case 40:
+	    					if(!currentAlt){break;}
+    					
+    					    //check to see if it is the bottom row
+    					    
+    					    // move one row down
+    					    item = currentAlt.next();
+    					    break;
+    				}
+					switchItem(item)
+                });
+			}
+			
+			function switchItem(item){
+			    tag = "liProjAlt";
+			    altRefId = item.id.substr(tag.length, item.id.length);
+			    highlighter(item)
+			    getAltRefScores(altRefId);
+			    
+			    //focus to first objective in scores
+			}
+			
+            Event.observe(window,'load',function(){
+                colsTofullScreen();
+                highlightList();
+                observeKeys();
+            });
+            Event.observe(window,'resize',function(){colsTofullScreen();});
 		</script>
 	<event:pageunload />
 	</head>
 	<body>
-		<p><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
-		<h1>Grade Projects on Criteria Objectives</h1>
-        <table border="0" width="95%">
-            <tr>
-            <td width="450" valign="top">
-                <div style="width: 450px;height: 800px;overflow: auto;">
-                <ul id="treemenu1" class="treeview">
-                    <c:forEach var="projectRef"  items="${projSuite.references}" varStatus="loop">
-                    <li><span class="project">Project: ${projectRef.project.name}</span><ul>
-                        <c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
-                            <li><a href="javascript: getGrades(${altRef.id})">${altRef.alternative.name}</a></li>
-                        </c:forEach>
-                    </ul></li>
-                    </c:forEach>
-                </ul>
-                </div>
-            </td>
-            <td valign="top"><div id="scorePane">Click on a project alternative name to view/change the scores</div>
-            </td>
-            </tr>
-        </table>
-        
-		<!-->
-		<a href="javascript:ddtreemenu.flatten('treemenu1', 'expand')">Expand All</a> | 
-		<a href="javascript:ddtreemenu.flatten('treemenu1', 'contact')">Collapse All</a>
-        projectAlt.do?altrefId=${altRef.id}" target="_blank
-	-->
-		
-		<h3>Finished grading projects?</h3>
-		<!-- this button just redirects - saves are occuring on check. -->
-		<p>
-		<input type="button" style="padding:5px;" 
-		onClick="location.href='userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" value="Finished!"/></p></div>
-		
-		<p>TEMP (For Developers) - <a href="javascript:Element.toggle('XMLwrapper');updateXML();">View XML for Data Template</a></p>
-		<div id="XMLwrapper" style="display:none">
-    		<textarea id="xmlDataTemplate" style="width:100%; height: 500px">
-                <!--update via DWR-->
-    	    </textarea>
-	    </div>
-	    <br />
-		
-		<script type="text/javascript">
-		    //updateXML();
-			//ddtreemenu.createTree(treeid, enablepersist, opt_persist_in_days (default is 1))
-			//ddtreemenu.createTree("treemenu1", false);
-			//ddtreemenu.flatten('treemenu1', 'contact');
-			//ddtreemenu.flatten('treemenu1', 'expand');
-		</script>
+	    
+	    <div id="container">
+    		<!-- begin Object -->
+    		<div id="object">
+		        <p><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
+		        <h1 class="headerColor">Project Scoring</h1>
+    			<!-- begin obj-left -->
+    			<div id="obj-left" class="floatLeft clearBoth">
+        		    <h3 class="headerColor">Projects and Project Alternatives</h3>
+    				<!-- begin list of funding options -->
+    				<div id="allListHeader">
+    					<ul id="projects-list">
+                			<c:forEach var="projectRef" items="${projSuite.references}" varStatus="loop">
+                				<li id="liProj${projectRef.id}"><span class="project">Project: ${projectRef.project.name}</span>
+                				    <ul id="ulProjAlts${projectRef.id}">
+                					<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
+                						<li id="liProjAlt${altRef.id}" class="projAlt">
+                						    <a id="projAlt${altRef.id}" href="#">${altRef.alternative.name}</a> 
+                						    <!--(<a href="projectAlt.do?altrefId=${altRef.id}">project info</a>)-->
+                					    </li>
+                					</c:forEach>
+                				    </ul>
+                		        </li>
+                			</c:forEach>
+                		</ul>
+                    </div>
+                    
+                    
+    			</div>
+    			<!-- end obj-left -->
+    			<!-- begin cell containing Google Map object -->
+    			<div id="obj-right" class="floatRight">
+                     <h3 class="headerColor">Scores</h3>
+    			     <div id="scores" class="scores">
+    			         <p>Click on a project alternative to load it's scores.</p>
+    			     </div>
+    		    </div>
+    			<!-- end cell containing Google Map object -->
+    			<!-- begin firefox height hack -->
+
+    			<div class="clearBoth"></div>
+    			<!-- end firefox height hack -->
+    		</div>
+    		<!-- end Object-->
+    		<h3 class="headerColor">Finished scoring projects?</h3>
+    		<p><input type="button" style="padding:5px;" onClick="location.href='userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" value="Finished!"/></p>
+    		<p>TEMP (For Developers) - <a href="javascript:Element.toggle('XMLwrapper');updateXML();">View XML for Data Template</a></p>
+    		
+    		<div id="XMLwrapper" style="display:none">
+        		<textarea id="xmlDataTemplate" style="width:100%; height: 500px">
+                    <!--update via DWR-->
+        	    </textarea>
+    	    </div>
+    	    <br />
+    	</div>
+    	<!-- end container -->
+
 	</body>
 </html>
 
