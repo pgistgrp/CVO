@@ -68,7 +68,7 @@
 									<c:forEach var="altRef" items="${infoObject.object.altRefs}" varStatus="loop2">
 										<tr>
 											<td>${altRef.alternative.name}</td>
-											<td>${altRef.alternative.revenue} million</td>
+											<td>$${altRef.alternative.revenue}</td>
 											<td>$${altRef.alternative.avgCost}</td>
 											<td>$<c:out value="${userPkg.personalCost[altRef.id]}" /></td>
 										</tr>
