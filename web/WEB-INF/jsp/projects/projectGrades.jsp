@@ -147,40 +147,14 @@ xml+='\
 		<a href="javascript:ddtreemenu.flatten('treemenu1', 'contact')">Collapse All</a>
 	-->
 		<ul id="treemenu1" class="treeview">
-		    <c:set var="projectRef" value="${projSuite.references.first}" />
-
-				<li><span class="project">Project: ${projectRef.project.name}</span><ul>
-					<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
-						<li><a href="projectAlt.do?altrefId=${altRef.id}" target="_blank">${altRef.alternative.name}</a>
-						<ul>
-						<c:forEach var="critGrade" items="${altRef.gradedCriteria}" varStatus="loop">
-							<li>Factor: ${critGrade.criteria.name} (Grade: <b id="critGrade-${altRef.id}-${critGrade.criteria.id}">${critGrade.grade}</b>):
-								<ul>
-									<c:forEach var="gradedObjective" items="${critGrade.objectives}" varStatus="loop">
-										<li>${gradedObjective.objective.description} - Grade:
-											<select id="objGrade-${gradedObjective.objective.id}" onchange="setGrading(${altRef.id},${critGrade.criteria.id},${gradedObjective.objective.id}, this.value);">
-												<c:forEach var="grade" items="-3,-2.5,-2,-1.5,-1,-0.5,0.0,0.5,1,1.5,2,2.5,3">
-												
-													<c:choose>
-														<c:when test="${grade == 0.0}">
-															<option <c:if test="${gradedObjective.grade == null || gradedObjective.grade == 0.0}">selected = "true"</c:if> value="${grade}">0</option>
-														</c:when>
-														<c:otherwise>
-															<option <c:if test="${gradedObjective.grade == (grade)}"> selected = "true"</c:if> value="${grade}">${grade}</option>
-														</c:otherwise>
-													</c:choose>
-										
-												</c:forEach>
-											</select>
-										</li>	
-									</c:forEach>
-								</ul>
-							</li>
-						</c:forEach>
-					</ul></li>
-					</c:forEach>
-					</ul></li>
-
+		    <c:forEach var="projectRef"  items="${projSuite.references}" varStatus="loop">
+			<li><span class="project">Project: ${projectRef.project.name}</span><ul>
+				<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
+					<li><a href="projectAlt.do?altrefId=${altRef.id}" target="_blank">${altRef.alternative.name}</a>
+	</li>
+				</c:forEach>
+			</ul></li>
+		    </c:forEach>
 		</ul>
 		
 		<h3>Finished grading projects?</h3>
