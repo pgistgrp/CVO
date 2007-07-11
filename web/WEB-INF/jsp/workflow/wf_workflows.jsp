@@ -10,7 +10,7 @@
 
 <div id="workflows">
 	<pg:show roles="moderator">
-	<h3 class="headerColor">New Experiments</h3>
+	<h3 class="headerColor">New experiments</h3>
 		
 			<table id="newTable" cellspacing="0" cellpadding="0">
 				<c:if test="${fn:length(newWorkflows) > 0}">
@@ -39,14 +39,14 @@
 	</pg:show>
 	
 	
-	<h3 class="headerColor">Running Experiments</h3>
+	<h3 class="headerColor">Running experiments</h3>
 	<c:choose>
 		<c:when test="${fn:length(runningWorkflows) > 0}">
 			<table id="newTable" class="running" cellspacing="0" cellpadding="0">
 				<tr>
 					<th>Name</th>
 					<th>Description</th>
-					<th>Begin Time</th>
+					<th>Begin time</th>
 					<th class="last">Operation</th>
 				</tr>
 				<c:forEach var="workflow" items="${runningWorkflows}">
@@ -75,13 +75,13 @@
 	<pg:show roles="moderator">
 		<c:if test="${fn:length(object.collection) > 0}">
 			<br />
-			<h3 class="headerColor">Completed Experiments</h3>
+			<h3 class="headerColor">Completed experiments</h3>
 			<table id="newTable" class="finished" cellspacing="0" cellpadding="0">
 				<tr>
 					<th>Name</th>
 					<th>Description</th>
-					<th>Begin Time</th>
-					<th>End Time</th>
+					<th>Begin time</th>
+					<th>End time</th>
 					<th class="last">Operation</th>
 				</tr>
 				<c:forEach var="workflow" items="${finishedWorkflows}">
@@ -100,7 +100,7 @@
 
 <pg:show roles="moderator">
 <br />
-<h3 class="headerColor">Manage Global Components</h3>
+<h3 class="headerColor">Manage global components</h3>
 <div id="global-components">
 	<ul>
 		<li><a href="usermgr.do"><img src="images/user.png" title="Manage users"/>Users</a></li>
