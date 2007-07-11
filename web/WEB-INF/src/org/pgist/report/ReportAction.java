@@ -172,7 +172,7 @@ public class ReportAction extends Action {
     	request.setAttribute("critSuiteId", critSuiteId);
     	request.setAttribute("cctId", cctId);
     	request.setAttribute("packSuiteId", packSuiteId);
-
+    	request.setAttribute("finalized", repoSummary.isFinalized());
     	
         return mapping.findForward("report");
     }//execute()

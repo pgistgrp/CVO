@@ -47,6 +47,7 @@
 		Package Summaries: ***${packageSummary}***
 		Participants Summary: ***${participantsSummary}***
 		Project Summary: ***${projectSummary}***
+		finalized: ***${finalized}***
 	
 
 <div id="container">

@@ -32,8 +32,22 @@ public class ReportSummary implements Serializable {
 	
 	private String packageSummary;
 	
+	private boolean finalized = false;
+	
 	
     /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public boolean isFinalized() {
+		return finalized;
+	}
+
+	public void setFinalized(boolean finalized) {
+		this.finalized = finalized;
+	}
+
+	/**
      * @hibernate.id generator-class="native"
      */
 	public Long getId() {

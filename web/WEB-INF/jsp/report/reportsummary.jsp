@@ -43,13 +43,15 @@
 	<html:form action="/reportsummary.do?suite_id=${suite_id}" method="POST">
 	<html:hidden property="save" value="true"/>
 
-	<p>Error Msg: ${reportForm.reason}</p>
+	<p>System Msg: ${reportForm.reason}</p>
 	<p>Executive Summary<html:textarea  property="executiveSummary" value="${rSummary.executiveSummary}"/></p>
 	<p>Participants Summary<html:textarea  property="participantsSummary" value="${rSummary.participantsSummary}"/></p>
 	<p>Concern Summary<html:textarea  property="concernSummary" value="${rSummary.concernSummary}"/></p>
 	<p>Criteria Summary<html:textarea  property="criteriaSummary" value="${rSummary.criteriaSummary}"/></p>
 	<p>Project Summary<html:textarea  property="projectSummary" value="${rSummary.projectSummary}"/></p>
 	<p>Package Summary<html:textarea  property="packageSummary" value="${rSummary.packageSummary}"/></p>
+	
+	<p>Finalize Report? Yes <html:radio property="finalized" value="true" />  No <html:radio property="finalized" value="false" /></p>
 	<html:submit value="submit" />
 	</html:form>
 </div>

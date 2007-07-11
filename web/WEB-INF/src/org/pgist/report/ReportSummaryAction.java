@@ -56,9 +56,9 @@ public class ReportSummaryAction extends Action  {
 		 	String criteriaSummary = rForm.getCriteriaSummary();
 		 	String projectSummary = rForm.getProjectSummary();
 		 	String packageSummary = rForm.getPackageSummary();
-		 
+		 	boolean finalized = rForm.isFinalized();
 		 	
-		 	reportService.editReportSummary(rSummary.getId(), executiveSummary, participantsSummary, concernSummary, criteriaSummary, projectSummary, packageSummary);
+		 	reportService.editReportSummary(rSummary.getId(), executiveSummary, participantsSummary, concernSummary, criteriaSummary, projectSummary, packageSummary, finalized);
 		 	//reportService.createReportSuite();
 		 	rForm.setReason("Changes have been updated.");
 	    	

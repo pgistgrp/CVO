@@ -203,7 +203,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	}
 	
 	
-	public void editReportSummary(Long reportSummaryId, String executiveSummary, String participantsSummary, String concernSummary, String criteriaSummary, String projectSummary, String packageSummary) throws Exception {
+	public void editReportSummary(Long reportSummaryId, String executiveSummary, String participantsSummary, String concernSummary, String criteriaSummary, String projectSummary, String packageSummary, boolean finalized) throws Exception {
 		ReportSummary rSummary = (ReportSummary) load(ReportSummary.class, reportSummaryId);
 		
 		rSummary.setExecutiveSummary(executiveSummary);
@@ -212,6 +212,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	 	rSummary.setCriteriaSummary(criteriaSummary);
 	 	rSummary.setProjectSummary(projectSummary);
 	 	rSummary.setPackageSummary(packageSummary);
+	 	rSummary.setFinalized(finalized);
 	 	
 	 	save(rSummary);
 	}

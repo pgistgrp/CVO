@@ -17,7 +17,7 @@ public interface ReportService {
 	
 	ReportSuite getReportSuiteById(Long id) throws Exception;
 	
-	void editReportSummary(Long reportSummaryId, String executiveSummary, String participantsSummary, String concernSummary, String criteriaSummary, String projectSummary, String packageSummary) throws Exception;
+	void editReportSummary(Long reportSummaryId, String executiveSummary, String participantsSummary, String concernSummary, String criteriaSummary, String projectSummary, String packageSummary, boolean finalized) throws Exception;
 	
 	ReportSuite createReportSuite() throws Exception;
 	

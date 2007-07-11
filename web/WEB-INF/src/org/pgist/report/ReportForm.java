@@ -22,6 +22,8 @@ public class ReportForm extends ActionForm {
 	private String reason;
 
     private boolean save;
+    
+    private boolean finalized;
  
 
 	public String getConcernSummary() {
@@ -100,6 +102,16 @@ public class ReportForm extends ActionForm {
 
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+
+
+	public boolean isFinalized() {
+		return finalized;
+	}
+
+
+	public void setFinalized(boolean finalized) {
+		this.finalized = finalized;
 	}
 	
 	
