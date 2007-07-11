@@ -8,7 +8,7 @@
 
 <c:choose>	
 	<c:when test="${fn:length(announcements) == 0}">
-		<p>No Announcements at this time.</p>
+		<p>No announcements at this time.</p>
 	</c:when>
 	<c:otherwise>
 		<c:forEach var="announcement" items="${announcements}" varStatus="loop">
@@ -18,8 +18,8 @@
 			&nbsp;<span id="message${announcement.id}">${announcement.message}</span>
 			<pg:show roles="moderator">
 				<small>
-					[ <a href="javascript:editAnnouncementPrep(${announcement.id});">edit</a> ] 
-					[ <a href="javascript:deleteAnnouncement(${announcement.id});">delete</a> ]	
+					[ <a href="javascript:editAnnouncementPrep(${announcement.id});">Edit</a> ] 
+					[ <a href="javascript:deleteAnnouncement(${announcement.id});">Delete</a> ]	
 				</small>
 			</pg:show>
 			</p>

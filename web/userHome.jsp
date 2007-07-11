@@ -194,9 +194,9 @@
 		<h2 class="headerColor">Welcome, ${baseuser.loginname}</h2>
 		<a href="publicprofile.do?user=${baseuser.loginname}">View / Edit your profile</a>
 		<div id="left-col">
-			<h3 class="headerColor">Overview of all Steps</h3>
+			<h3 class="headerColor">Overview of all steps</h3>
 			<div class="box12 clearfix">
-				<div id="workflow-panel"><img src="/images/indicator_arrows.gif" alt="Please wait..."/> Loading Overview...</div>
+				<div id="workflow-panel"><img src="/images/indicator_arrows.gif" alt="Please wait..."/> Loading overview...</div>
 				<pg:show roles="moderator">
 					<!--
 					<h5>** The following section is for testing purposes only. It will be removed
@@ -387,7 +387,7 @@
 		<div class="clearBoth"></div>
 		<!-- begin RECENT DISCUSSIONS -->
 		<div id="recent-wrapper">
-			<h3 class="headerColor floatLeft">Recent Discussions</h3>
+			<h3 class="headerColor floatLeft">Recent discussions</h3>
 			<div class="floatRight"><span><a href="#">Previous</a></span>
 			<span><a href="#">Next</a></span></div>
 			<div class="clearBoth"></div>
@@ -448,7 +448,7 @@
 		<!-- end RECENT DISCUSSIONS -->
 		<!--begin POPULAR DISCUSSIONS -->
 		<div id="popular-wrapper">
-			<h3 class="headerColor">Popular Discussions</h3>
+			<h3 class="headerColor">Popular discussions</h3>
 			<div id="popular-discussions" class="box3">
 				<!-- begin POPULAR DISCUSSIONS HEADER -->
 				<div class="listRow headingColor heading clearfix">
@@ -506,7 +506,7 @@
 		<!-- end POPULAR DISCUSSIONS -->
 		<div class="clearBoth"></div>
 		<pg:show roles="participant">
-			<h3 class="headerColor">My Keywords</h3>
+			<h3 class="headerColor">My keywords</h3>
 			<div id="keywords" class="clearfix">
 				<ul>
 					<li class="tagSize2">Accidents</li>
