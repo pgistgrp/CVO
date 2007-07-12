@@ -279,8 +279,8 @@
 
 	<div id="container">
 		<h3 class="headerColor">Calculating the annual cost to you</h3>
-		<p>Feel free to change the information you previously provided in the text boxes
-			below</p>
+		<p>The average annual cost estimates are based on data about residents' in our region, such as income, miles driven per year, and average miles per gallon. Your personal annual cost estimates are based on the information you provided during registration.</p>
+		<p>Feel free to adjust the information you previously provided in the text boxes below. </p>
 		<!-- Begin calculator options -->
 		<div id="myIncome">
 			<h3 class="headerColor">My income</h3>

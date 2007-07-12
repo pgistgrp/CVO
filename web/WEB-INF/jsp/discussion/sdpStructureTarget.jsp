@@ -29,11 +29,14 @@
 
 	<div id="overview" class="box2">
 		<h3>Overview and instructions</h3>
-		<p>Here you can review proposed projects for improving or expanding our regional transportation system. 
-			Click on a project to review information and discuss its merits or drawbacks with other participants.</p>
-
-		<p>Each of the projects has been examined by a panel of specialists who assigned scores based on the 
-			criteria we reviewed in step 2. <a href="readmore.jsp">Read more about the project scoring process</a></p>
+		Learn about proposed projects for improving or expanding our regional transportation system.
+		<ul>
+			<li>Click on a project to view it on the map and read more about it.</li>
+			<li>Discuss the benefits and drawbacks of any project in the discussion area below.</li>
+		</ul>
+			<p>When you are ready, feel free to <a class="FIXLINK" href="#">Review funding options</a> (Step 3b) and <a class="FIXLINK" href="#">Create your own package</a> (Step 3c). You have until <span class="FIXDATE"><strong>October 21</strong></span> to create your own package.</p>
+				<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
+		<p id="hiddenRM" style="display:none">The proposed projects have been examined by a panel of transportation specialists who assigned scores for the improvement factors we reviewed in Step 2. (<a href="readmore.jsp">Read more about the scoring process</a>). After reviewing the proposed transportation projects (Step 3a) and funding options (Step 3b) you will have an opportunity to create your own transportation package by selecting the projects and funding options you like best. </p>
 	</div>
 	<!-- end overview -->
 	<!-- begin Object -->
@@ -43,7 +46,7 @@
 			<div id="newtable">
 				<table cellpadding=0 cellspacing=0>
 					<tr class="tableHeading">
-						<th colspan="2" class="first">My proposed projects</th>
+						<th colspan="2" class="first">Proposed improvement projects</th>
 						<th class="right"><span id="hiddenLabel" style="visibility:hidden">Money needed</span></th>
 					</tr>
 					
@@ -109,7 +112,7 @@
 	</div>
 	<!-- begin cell containing Google Map object -->
 	<!-- GUIRONG: This can be up to 420px wide -->
-	<div id="map" class="floatRight">420px wide GMap goes here</div>
+	<div id="map" class="floatRight">Project footprints are intended for location reference only.</div>
 	<!-- end cell containing Google Map object -->
 	<!-- begin firefox height hack -->
 	<div class="clearBoth"></div>

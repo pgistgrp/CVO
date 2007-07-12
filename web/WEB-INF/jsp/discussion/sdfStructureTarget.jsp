@@ -26,25 +26,24 @@
 		<!-- begin "overview and instructions" area -->
 		<div id="overview" class="box2">
 			<h3>Overview and instructions</h3>
-			<p>How are we going to pay for improvements to the regional transportation system?
-				Some of the money for improvements comes from state and federal government. However,
-				all of the projects you reviewed in Step 3A are not yet fully funded by these
-				sources, and many are not funded at all. The purpose of the regional transportation
-				ballot measure is to fund some of these projects with new regional tax increases.</p>
-			<p>Below you can review and discuss five different kinds of regional tax increases
-				that can be used to pay for transportation improvements.</p>
+			Learn about regional taxes and tolling options available to pay for transportation improvements.
+			<ul>
+				<li>Review the funding options below</li>
+				<li>Discuss the benefits and drawbacks of these options with other participants</li>
+			</ul>
+			<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
+				<p id="hiddenRM" style="display:none">In Step 3c you will select funding options to pay for your preferred improvements. Some of the money for regional transportation improvements comes from state and federal government. However, none of the projects you reviewed in Step 3a are fully funded by these sources, and many are not funded at all. The purpose of putting a transportation package on the ballot is to fund some of these projects with new regional taxes or toll increases.</p>
 		</div>
 		<!-- end overview -->
 		<!-- begin Object -->
 		<div id="object">
-			<h3 class="headerColor">Available funding options</h3>
 			<a href="javascript:Util.expandAll('objectives');">Expand all</a>
 			<a href="javascript:Util.collapseAll('objectives');">Collapse all</a>
 			<div id="obj-left" class="floatLeft"> 
 			<div id="newtable">
 				<table cellpadding=0 cellspacing=0>
 					<tr class="tableHeading">
-						<th class="first" style="font-size:10pt;">Proposed funding sources</th>
+						<th class="first" style="font-size:10pt;">Available funding options</th>
 						<th><span class="hiddenLabel" style="display:none;font-size:10pt;">
 						Estimated money raised</span></th>
 						<th><span class="hiddenLabel" style="display:none;font-size:10pt;">
@@ -68,8 +67,8 @@
 									<c:forEach var="altRef" items="${infoObject.object.altRefs}" varStatus="loop2">
 										<tr>
 											<td>${altRef.alternative.name}</td>
-											<td>$${altRef.alternative.revenue}</td>
-											<td>$${altRef.alternative.avgCost}</td>
+											<td>$<fmt:formatNumber type="number">${altRef.alternative.revenue}</fmt:formatNumber></td>
+											<td>$<fmt:formatNumber type="number">${altRef.alternative.avgCost}</fmt:formatNumber></td>
 											<td>$<c:out value="${userPkg.personalCost[altRef.id]}" /></td>
 										</tr>
 									</c:forEach>
@@ -90,14 +89,14 @@
 			<div id="obj-right" class="floatRight">
 				<h4 style="margin-top:0px;padding-top:0px;" class="headerColor centerAlign">The
 					cost of tax increases</h4>
-				<p>How did we come up with the annual personal cost figures? We estimate these
-					figures based on data about residents in our region, such as income, miles driven
-					per year, and average miles per gallon. Your personal annual cost figures are
-					estimated based on the information you provided in the L.I.T. introductory questionnaire.</p>
+				<p>How did we come up with the annual personal cost figures?</p>
+				<ul>
+					<li>The estimates are based on data about residents’ in our region, such as income, miles driven per year, and average miles per gallon.</li>
+					<li>Your personal annual cost figures are estimated based on the information you provided during registration.</li>
+				</ul>
 				<div class="floatLeft" style="margin:1em"> 
 				<a href="javascript:io.goToCalc();"><img src="images/calculator2.gif" border="0"></a> </div>
-				<div class="floatLeft padding5" style="width:190px;margin-top:50px;"> <a href="javascript:io.goToCalc();">Calculate
-						the cost of tax increases for you and learn how these costs are estimated</a> </div>
+				<div class="floatLeft padding5" style="width:190px;margin-top:50px;"> <a href="javascript:io.goToCalc();">Learn how these costs are estimated and make adjustments</a> </div>
 			</div>
 			<!-- end cell containing Google Map object -->
 			<!-- begin firefox height hack -->

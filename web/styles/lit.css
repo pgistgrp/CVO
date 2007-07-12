@@ -326,6 +326,8 @@ padding:5px;
 border-width:1px;
 }
 
+#overview ul {list-style:inside;}
+
 div#qTip 
 {
 padding: 5px;

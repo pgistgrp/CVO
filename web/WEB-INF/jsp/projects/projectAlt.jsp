@@ -203,11 +203,15 @@ the column labels. */
 	
 		<!--begin project description -->
 		<p>
+		<h4>Short description</h4>
+		<span id="project-shortDescription">${reference.alternative.shortDesc}</span>
+		</p>
+		<p>
 		<h4 style="display:inline">Money needed to complete this project</h4>
 		<span id="project-moneyNeeded">$<fmt:formatNumber type="number">${reference.alternative.cost}</fmt:formatNumber>  million</span>
 		</p>
 		<p>
-		<h4 style="display:inline">Sponsoring Agency: </h4>
+		<h4 style="display:inline">Sponsoring agency: </h4>
 		<span id="project-sponsoringAgency">${reference.alternative.sponsor}</span>
 		</p>
 		<h4 style="display:inline">County: </h4>
@@ -215,11 +219,7 @@ the column labels. */
 		</p>
 		
 		<p>
-		<h4>Short Description</h4>
-		<span id="project-shortDescription">${reference.alternative.shortDesc}</span>
-		</p>
-		<p>
-		<h4>Detailed Description</h4>
+		<h4>Detailed description</h4>
 		<span id="project-detailedDescription">
 			<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
 				${reference.alternative.detailedDesc}
@@ -259,9 +259,9 @@ the column labels. */
 			<div id="newtable">
 				<table border="0" cellpadding="0" cellspacing="0">
 					<tr class="tableHeading">
-						<th class="first">Planning Factor</th>
+						<th class="first">Improvement factor</th>
 						<th><span class="hiddenLabel" style="visibility:hidden;">Specialist Panel Assessment</span></th>
-						<th>Planning Factor Grade</th>
+						<th>Overall grade</th>
 					</tr>
 					<!--======================-->
 					<c:forEach var="critGrade" items="${reference.gradedCriteria}" varStatus="loop">
@@ -317,7 +317,7 @@ the column labels. */
 
 					<tr class="headingColor">
 						<td class="fundingSourceItem">
-								Average weighted grade (based on all participants' planning factor weights)</td>
+								Average weighted grade (based on average of all participants' planning factor weights)</td>
 						<td>&nbsp;</td>
 						<td class="grade${pg:gradeSwitch(everyoneAverage)}">${everyoneAverage}</td>
 					</tr>

@@ -125,15 +125,15 @@ margin:.5em 0em .5em 1em;
     <span id="project-moneyNeeded">${reference.alternative.cost}</span>
     </p>
     <p>
-    <h4 style="display:inline">Sponsoring Agency: </h4>
+    <h4 style="display:inline">Sponsoring agency: </h4>
     <span id="project-sponsoringAgency">${reference.alternative.sponsor}</span>
     </p>
     <p>
-    <h4>Short Description</h4>
+    <h4>Short description</h4>
     <span id="project-shortDescription">${reference.alternative.shortDesc}</span>
     </p>
     <p>
-    <h4>Detailed Description</h4>
+    <h4>Detailed description</h4>
     <span id="project-detailedDescription">${reference.alternative.detailedDesc} </span>
     </p>
     <p>
@@ -158,7 +158,7 @@ margin:.5em 0em .5em 1em;
 <!-- Load separate file content starting here -->
 <div id="criteriaHeader" style="height:30px">
   <div class="floatLeft">
-    <h3 class="headerColor">Planning Factor Grades for ${alternative.name}</h3>
+    <h3 class="headerColor">Planning factor grades for ${alternative.name}</h3>
   </div>
 </div>
 <!-- begin criteria  -->
