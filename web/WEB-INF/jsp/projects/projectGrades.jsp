@@ -226,7 +226,7 @@ xml+='\
 			function highlightList(){
 			    $$('.projAlt').each(function(alt){
 			        Event.observe(alt,'click',function(){
-			            //highlighter(this);
+			            //highlighter(alt);
 			            switchItem(alt);
 			        });
 			    })
@@ -310,13 +310,18 @@ xml+='\
 			}
 			
 			function switchItem(item){
-			    tag = "liProjAlt";
-			    altRefId = item.id.substr(tag.length, item.id.length);
+			    altRefId = getAltIdFromItem(item)
 			    highlighter(item)
 			    getAltRefScores(altRefId);
 			    
 			}
-						
+			
+			function getAltIdFromItem(item){
+			    tag = "liProjAlt";
+			    altRefId = item.id.substr(tag.length, item.id.length);
+			    return altRefId;
+			}
+			
             Event.observe(window,'load',function(){
                 colsTofullScreen();
                 highlightList();
