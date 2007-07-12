@@ -37,14 +37,14 @@
 					<div id="newdisc_title" >
 						<div class="textright">
 						</div>
-						<h3 style="display: inline">New topic</h3>
+						<h3 style="display: inline">New discussion topic</h3>
 					</div> <!-- End newdisc_title -->
 					<div id="newdisc_content" class="greenBB">
 						<div id="newdisc_inner">
 							<form>
-								<p><label>Post title</label><br><input maxlength=100 size=100 type="text" id="txtNewPostTitle"/></p>
-								<p><label>Your thoughts</label><br><textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea></p>
-								<p><label>Keyword your post (comma separated)</label><br><input style="width:100%" id="txtNewPostTags" type="text" /></p>
+								<p><label>Title</label><br><input maxlength=100 size=100 type="text" id="txtNewPostTitle"/></p>
+								<p><br><textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea></p>
+								<p><label>Keywords (comma separated)</label><br><input style="width:100%" id="txtNewPostTags" type="text" /></p>
 								<input type="button" onClick="io.createPost();" value="Create Discussion">
 						
 							</form>
@@ -65,7 +65,7 @@
 								</c:otherwise>
 						</c:choose>
 						<div id="voting-post${post.id}" class="discussionVoting">
-							${post.numAgree} of ${post.numVote} participants agree with this post
+							Do you agree with this comment? ${post.numAgree} of ${post.numVote} agree so far.
 							<c:choose>
 								<c:when test="${post.object == null}">
 									<a href="javascript:io.setVote('post',${post.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
@@ -88,12 +88,12 @@
 									<div class="discussionBody">
 								</c:otherwise>
 						</c:choose>
-						<div class="discussionText">
+						<div class="discussionText peekaboobugfix">
 							<p>${post.content}</p>
 							<h3>- ${post.owner.loginname}</h3>
 						</div>
 						<div class="discussionComments">
-						    <a href="#replyAnchor"><img src="images/btn_postreply_a.gif" alt="Reply" name="Reply" class="button" id="Reply" onMouseOver="MM_swapImage('Reply','','images/btn_postreply_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+						    <input type="button" alt="Reply" onclick="location.href='#replyAnchor'" name="Reply" class="button" value="Reply" id="Reply">
 						</div>
 						<c:if test="${fn:length(post.tags) > 0}">
 							<ul class="tagsInline">
@@ -137,13 +137,13 @@
 	<h3 style="text-transform:none">${fn:length(replies)}
 	<c:choose>
 		<c:when test="${fn:length(replies) == 1}">
-			Reply
+			reply
 		</c:when>
 		<c:otherwise>
-			Replies
+			replies
 		</c:otherwise>
 	</c:choose>			
-	 to this discussion post</h3>
+	 to this discussion topic</h3>
 </c:if>
 <div id="filteredBy"></div>
 <logic:iterate id="reply" name="replies">
@@ -175,10 +175,10 @@
 					
 						<c:choose>
 								<c:when test="${baseuser.id == reply.owner.id}">
-									<div class="discussionBody box7 padding5">		
+									<div class="discussionBody box7 padding5 peekaboobugfix">		
 								</c:when>
 								<c:otherwise>
-									<div class="discussionBody padding5">
+									<div class="discussionBody padding5 peekaboobugfix">
 								</c:otherwise>
 						</c:choose>
 						<div id="discussionText${reply.id}" class="discussionText peekaboobugfix">
@@ -240,14 +240,14 @@
 </div>
 <a id="replyAnchor" name="replyAnchor"></a>
 <div id="newReply" class="box8 padding5" style="margin-top: 10px;">
-	<h3 class="headerColor">Post a reply</h3>
+	<h3 class="headerColor">Your reply</h3>
 	<form>
-		<p><label>Post title</label><br><input style="maxlength=100 size=50 type="text" value="Re: ${post.title}" id="txtNewReplyTitle"/></p>
+		<p><label>Title</label><br><input style="maxlength=100 size=50 type="text" value="Re: ${post.title}" id="txtNewReplyTitle"/></p>
 		<p><label>Your Thoughts</label><br><textarea style="width:85%; height: 150px;" id="txtnewReply"></textarea></p>
 		<p><label>Tag your post (comma separated)</label><br><input style="width:85%" id="txtNewReplyTags" type="text" /></p>
 		<input type="button" onClick="io.createReply();" value="Submit Reply">
 		<input type="button" onClick="io.cancelReply();" value="Cancel" />
-		<input type="checkbox" id="newReplyNotifier">E-mail me when someone responds to my post
+		<input type="checkbox" id="newReplyNotifier" />E-mail me when someone responds to this discussion
 	</form>
 </div>
 

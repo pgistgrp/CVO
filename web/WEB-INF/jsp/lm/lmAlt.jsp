@@ -124,7 +124,7 @@
 		<span id="project-moneyNeeded">$<fmt:formatNumber type="number">${alt.cost}</fmt:formatNumber> million</span>
 		</p>
 		<p>
-		<h4 style="display:inline">Sponsoring Agency: </h4>
+		<h4 style="display:inline">Sponsoring agency: </h4>
 		<span id="project-sponsoringAgency">${alt.sponsor}</span>
 		</p>
 		<h4 style="display:inline">County: </h4>
@@ -132,11 +132,11 @@
 		</p>
 		
 		<p>
-		<h4>Short Description</h4>
+		<h4>Short description</h4>
 		<span id="project-shortDescription">${alt.shortDesc}</span>
 		</p>
 		<p>
-		<h4>Detailed Description</h4>
+		<h4>Detailed description</h4>
 		<span id="project-detailedDescription">
 			<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
 				${alt.detailedDesc}

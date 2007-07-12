@@ -388,7 +388,7 @@
 		<div class="sectionTitle">
 			<div class="floatLeft"><h3 class="headerColor">
 				<!--${object.discussion.numPosts} -->
-				Discussion</h3></div>
+				${InfoStructure.title} Discussion</h3></div>
 			<div id="filteredBy" class="floatLeft"></div>
 			<div class="padding5 box5 floatRight" style="margin-bottom:2px;"> 
 			<a class="orangeButton" href="javascript:Effect.toggle('newDiscussion','blind',{duration:0.5});">Start a New Topic</a>
@@ -432,24 +432,23 @@
 		<div id="newDiscussion" style="display: none">
 			<div id="newdisc_title" >
 				<div class="textright"> </div>
-				<h3 style="display: inline">New Topic</h3>
+				<h3 style="display: inline">New discussion topic</h3>
 			</div>
 			<!-- End newdisc_title -->
 			<div id="newdisc_content" class="greenBB">
 				<div id="newdisc_inner">
 					<form>
 						<p>
-							<label>Post title</label>
+							<label>Title</label>
 							<br>
 							<input maxlength=100 size=100 type="text" id="txtNewPostTitle"/>
 						</p>
 						<p>
-							<label>Your thoughts</label>
 							<br>
 							<textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea>
 						</p>
 						<p>
-							<label>Keyword your post (comma separated)</label>
+							<label>Keywords (comma separated)</label>
 							<br>
 							<input style="width:100%" id="txtNewPostTags" type="text" />
 						</p>
@@ -459,7 +458,7 @@
 						Effect.toggle('newDiscussion','blind',{duration:0.5});" 
 						value="Cancel">
 						<input type="checkbox" id="ckboxPostNotifier">
-						E-mail me when someone responds to my post
+						<label for="ckboxPostNotifier">E-mail me when someone responds to this discussion</label>
 					</form>
 				</div>
 			</div>

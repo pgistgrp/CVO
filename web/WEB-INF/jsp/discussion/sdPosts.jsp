@@ -11,7 +11,7 @@
 <c:choose>
 	<c:when test="${fn:length(posts) <= 0}">
 		<div id="noTopicsBox" class="box2 centerAlign"><h3 class="headerColor">There aren't any topics yet!</h3>
-			<p>Why not <a href="javascript:Effect.toggle('newDiscussion','blind',{duration: 0.2});">start the first discussion</a>?</p>
+			<p><a href="javascript:Effect.toggle('newDiscussion','blind',{duration: 0.2});">Start a new topic</a>.</p>
 		</div>
 	</c:when>
 	<c:otherwise>
@@ -30,7 +30,7 @@
 								</c:otherwise>
 						</c:choose>
 						<div id="voting-post${post.id}" class="discussionVoting">
-							${post.numAgree} of ${post.numVote} participants agree with this post
+							Do you agree with this comment? ${post.numAgree} of ${post.numVote} agree so far.
 							<c:choose>
 								<c:when test="${post.object == null}">
 									<a href="javascript:io.setVote('post',${post.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
@@ -67,7 +67,7 @@
 						</div>
 						<c:if test="${fn:length(post.tags) > 0}">
 							<ul class="tagsInline">
-								<li class="tagsInline"><strong>Tags:</strong> </li>
+								<li class="tagsInline"><strong>Keywords:</strong> </li>
 								<c:forEach var="tag" items="${post.tags}">
 									<c:choose>
 										<c:when test="${baseuser.id == post.owner.id}">
@@ -84,7 +84,7 @@
 						</c:if>
 						<pg:show roles="moderator">
 						<div class="smallText" style="text-align:right;">	
-							Moderator Options: <input type="button" onClick="io.deletePost(${post.id});" value="Delete" />
+							Moderator options: <input type="button" onClick="io.deletePost(${post.id});" value="Delete" />
 						</div>
 						</pg:show>
 					</div>
@@ -108,7 +108,7 @@
 		</c:forEach>
 		
 				  <div class="pagination discussion-left">
-				  		You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
+				  		Viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
 						<logic:equal name="setting" property="page" value="1">
 							<img src="images/btn_prev_fade.gif" alt="No Previous Pages" />
 						</logic:equal>

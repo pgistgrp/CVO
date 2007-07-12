@@ -370,7 +370,7 @@ text-transform:none;
 		<br class="clearBoth" />
 		<p><a href="javascript:proposeTermCont();">Propose a glossary term</a></p>
 		<center>
-			<p>Found a bug? Problem accessing a part of the page? <a href="#feedbackForm" onclick="javascript:Effect.toggle('feedbackForm','blind'); setTimeout('location.hash=\'#feedbackDiv\';',900);">Send
+			<p>Got a question? Having trouble using this website? <a href="#feedbackForm" onclick="javascript:Effect.toggle('feedbackForm','blind'); setTimeout('location.hash=\'#feedbackDiv\';',900);">Send
 					us feedback.</a></p>
 		</center>
 		<div id='proposeTermResult' style='display:none;'>
