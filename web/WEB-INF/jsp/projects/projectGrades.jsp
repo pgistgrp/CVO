@@ -226,7 +226,7 @@ xml+='\
 			function highlightList(){
 			    $$('.projAlt').each(function(alt){
 			        Event.observe(alt,'click',function(){
-			            //highlighter(alt);
+			            highlighter(alt);
 			            switchItem(alt);
 			        });
 			    })
