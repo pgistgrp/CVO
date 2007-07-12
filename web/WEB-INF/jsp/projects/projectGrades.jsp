@@ -310,18 +310,13 @@ xml+='\
 			}
 			
 			function switchItem(item){
-			    altRefId = getAltIdFromItem(item)
+			    tag = "liProjAlt";
+			    altRefId = item.id.substr(tag.length, item.id.length);
 			    highlighter(item)
 			    getAltRefScores(altRefId);
 			    
 			}
-			
-			function getAltIdFromItem(item){
-			    tag = "liProjAlt";
-			    altRefId = item.id.substr(tag.length, item.id.length);
-			    return altRefId;
-			}
-			
+						
             Event.observe(window,'load',function(){
                 colsTofullScreen();
                 highlightList();
