@@ -37,32 +37,6 @@ public class PgistELFunctions extends SimpleTagSupport {
 	public static String verboseGradeSwitch(String strGrade) {
 		float grade = Float.parseFloat(strGrade);
 		String result = "unknown";
-		/*
-		switch (grade) {
-		case -3:
-			result = "major negative impact";
-			break;
-		
-		case -2:
-			result = "moderate negative impact";
-			break;
-		
-		case -1:
-			result = "minor negative impact";
-			break;
-		
-		case 1:
-			result = "minor positive impact";
-			break;
-		
-		case 2:
-			result = "moderate positive impact";
-			break;
-		
-		case 3:
-			result = "major positive impact";
-			break;
-		}*/
 		
 		if(grade < -2.51) {
 			result = "major negative impact";
