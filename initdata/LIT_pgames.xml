@@ -362,13 +362,9 @@
 	    <taskName>task-create.report.stats</taskName>
 	    <declaration>
 		<ins>
-		    <var name="cct_id"/>
-		    <var name="proj_suite_id"/>
-		    <var name="fund_suite_id"/>
-		    <var name="crit_suite_id"/>
+		    <var name="cct_id"/>		   
 		    <var name="repo_suite_id"/>
-		    <var name="proj_isid"/>
-		    <var name="fund_isid"/>
+		    <var name="pkg_suite_id"/>
 		</ins>
 	    </declaration>
 	</pgame>

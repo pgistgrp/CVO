@@ -9,7 +9,7 @@ import org.pgist.packages.PackageSuite;
 public interface ReportService {
 
 	
-	ReportStats createStatistics(Long workflowId, Long cctId, Long projSuiteId, Long fundSuiteId, Long critSuiteId, Long repoSuiteId, Long projISID, Long fundISID) throws Exception;
+	void createStatistics(Long workflowId, Long cctId, Long repoSuiteId, Long packSuiteId) throws Exception;
 	
 	ClusteredPackage getPreferredClusteredPackage(Long pkgSuiteId) throws Exception;
 	

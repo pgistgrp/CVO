@@ -8,7 +8,9 @@ import org.pgist.system.BaseDAO;
 
 public interface ReportDAO extends BaseDAO {
 
-	ReportStats createStatistics(Long workflowId, Long cctId, Long projSuiteId, Long fundSuiteId, Long critSuiteId, Long repoSuiteId, Long projISID, Long fundISID) throws Exception;
+	void createConcernStatistics(Long workflowId, Long cctId, Long repoSuiteId) throws Exception;
+	
+	void createPkgStatistics(Long workflowId, Long repoSuiteId, Long packSuiteId) throws Exception;
 	
 	ClusteredPackage getPreferredClusteredPackage(Long pkgSuiteId) throws Exception;
 	

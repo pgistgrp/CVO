@@ -5,6 +5,7 @@ import org.pgist.packages.PackageVoteSuite;
 import org.pgist.packages.VoteSuiteStat;
 import org.pgist.packages.ClusteredPackage;
 import org.pgist.packages.PackageSuite;
+import org.pgist.packages.UserPackage;
 import org.pgist.projects.ProjectSuite;
 import org.pgist.funding.FundingSourceSuite;
 import org.pgist.criteria.CriteriaSuite;
@@ -46,13 +47,13 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	}
 	
 	
-	public ReportStats createStatistics(Long workflowId, Long cctId, Long projSuiteId, Long fundSuiteId, Long critSuiteId, Long repoSuiteId, Long projISID, Long fundISID) throws Exception {
+	public void createConcernStatistics(Long workflowId, Long cctId, Long repoSuiteId) throws Exception {
 		CCT cct = (CCT)load(CCT.class, cctId);
-		ProjectSuite projSuite = (ProjectSuite) load(ProjectSuite.class, projSuiteId); 
-		FundingSourceSuite fundSuite = (FundingSourceSuite) load(FundingSourceSuite.class, fundSuiteId);
-		CriteriaSuite critSuite = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
 		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
-		
+		ReportStats rs = repoSuite.getReportStatsConcerns();
+		if(rs==null) {
+			rs = new ReportStats();
+		}
 		
 		//Variables to store stats
 		Set<User> users = new HashSet();
@@ -78,36 +79,38 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				}
 				
 				//County
-				County county = (County) load(County.class, u.getCountyId());
-				
-				if(countySet.get(county)==null) {
-					countySet.put(county, 1);
-				} else {
-					int num = countySet.get(county);
-					countySet.put(county, num+1);
+				if(u.getCountyId()!=null) {
+					County county = (County) load(County.class, u.getCountyId());
+					
+					if(countySet.get(county)==null) {
+						countySet.put(county, 1);
+					} else {
+						int num = countySet.get(county);
+						countySet.put(county, num+1);
+					}
 				}
 				
 				//Income
 				String income = u.getIncomeRange();
-				
-				if(incomeSet.get(income)==null) {
-					incomeSet.put(income, 1);
-				} else {
-					int num = incomeSet.get(income);
-					incomeSet.put(income, num+1);
+				if(income!=null && !("".equals(income.trim()))) {
+					if(incomeSet.get(income)==null) {
+						incomeSet.put(income, 1);
+					} else {
+						int num = incomeSet.get(income);
+						incomeSet.put(income, num+1);
+					}
 				}
-				
 				
 				//Primary Transport
 				String transport = u.getPrimaryTransport();
-				
-				if(transportSet.get(transport)==null) {
-					transportSet.put(transport, 1);
-				} else {
-					int num = transportSet.get(transport);
-					transportSet.put(transport, num+1);
+				if(transport!=null && !("".equals(transport.trim()))) {
+					if(transportSet.get(transport)==null) {
+						transportSet.put(transport, 1);
+					} else {
+						int num = transportSet.get(transport);
+						transportSet.put(transport, num+1);
+					}
 				}
-				
 				//add user Users set
 				users.add(u);
 			} //if()	
@@ -115,45 +118,158 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		
 		//calculate stats
 		int totalUsers = male + female;
-		int percentMale = male/totalUsers;
-		int percentFemale = female/totalUsers;
+		if(totalUsers>0) {
+			int percentMale = male/totalUsers;
+			int percentFemale = female/totalUsers;
 		
-		//convert numbers into percents
-		Set<County> countyKeys = countySet.keySet();
-		for(County c : countyKeys) {
-			int num = countySet.get(c);
-			int percent = num/totalUsers;
-			countySet.put(c, percent);
+			//convert numbers into percents
+			Set<County> countyKeys = countySet.keySet();
+			for(County c : countyKeys) {
+				int num = countySet.get(c);
+				int percent = num/totalUsers;
+				countySet.put(c, percent);
+			}
+			
+			Set<String> incomeKeys = incomeSet.keySet();
+			for(String i : incomeKeys) {
+				int num = incomeSet.get(i);
+				int percent = num/totalUsers;
+				incomeSet.put(i, percent);
+			}
+			
+			Set<String> transportKeys = transportSet.keySet();
+			for(String t : transportKeys) {
+				int num = transportSet.get(t);
+				int percent = num/totalUsers;
+				transportSet.put(t, percent);
+			}
+			// save stats to reportStats
+			rs.setFemales(percentFemale);
+			rs.setMales(percentMale);
 		}
-		
-		Set<String> incomeKeys = incomeSet.keySet();
-		for(String i : incomeKeys) {
-			int num = incomeSet.get(i);
-			int percent = num/totalUsers;
-			incomeSet.put(i, percent);
-		}
-		
-		Set<String> transportKeys = transportSet.keySet();
-		for(String t : transportKeys) {
-			int num = transportSet.get(t);
-			int percent = num/totalUsers;
-			transportSet.put(t, percent);
-		}
-		
 		//save stats to reportStats
-		ReportStats rs = repoSuite.getReportStatsConcerns();
 		rs.setCountyStats(countySet);
 		rs.setIncomeStats(incomeSet);
 		rs.setTransportStats(transportSet);
-		rs.setFemales(percentFemale);
-		rs.setMales(percentMale);
+		
 		rs.setUsers(users);
 		rs.setTotalUsers(totalUsers);
 		save(rs);
 		repoSuite.setReportStatsConcerns(rs);
 		save(repoSuite);
+	}
+	
+	
+	public void createPkgStatistics(Long workflowId, Long repoSuiteId, Long pkgSuiteId) throws Exception {
+		PackageSuite pkgSuite = (PackageSuite) load(PackageSuite.class, pkgSuiteId); 
+		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
+		ReportStats rs = repoSuite.getReportStatsEval();
+		if(rs==null) {
+			rs = new ReportStats();
+		}
 		
-		return rs;
+		System.out.println("****" + rs);
+		
+		//Variables to store stats
+		Set<User> users = new HashSet();
+		Map<County, Integer> countySet = new HashMap();
+		Map<String, Integer> incomeSet = new HashMap();		
+		Map<String, Integer> transportSet = new HashMap();	
+		int male = 0;
+		int female = 0;
+		
+		Set<UserPackage> packages = pkgSuite.getUserPkgs();
+		for(UserPackage up : packages) {
+			User u = up.getAuthor();
+			
+			// Check if users were already counted
+			if(!users.contains(u)) {
+				//Gender
+				if(u.isGender()) {
+					male++;
+				} else {
+					female++;
+				}
+				
+				//County
+				if(u.getCountyId()!=null) {
+					County county = (County) load(County.class, u.getCountyId());
+				
+					if(countySet.get(county)==null) {
+						countySet.put(county, 1);
+					} else {
+						int num = countySet.get(county);
+						countySet.put(county, num+1);
+					}
+				}
+				
+				//Income
+				String income = u.getIncomeRange();
+				if(income!=null && !("".equals(income.trim()))) {
+					if(incomeSet.get(income)==null) {
+						incomeSet.put(income, 1);
+					} else {
+						int num = incomeSet.get(income);
+						incomeSet.put(income, num+1);
+					}
+				}
+				
+				//Primary Transport
+				String transport = u.getPrimaryTransport();
+				if(transport!=null && !("".equals(transport.trim()))) {
+					if(transportSet.get(transport)==null) {
+						transportSet.put(transport, 1);
+					} else {
+						int num = transportSet.get(transport);
+						transportSet.put(transport, num+1);
+					}
+				}
+				//add user Users set
+				users.add(u);
+			} //if()	
+		} //for()
+		
+		//calculate stats
+		int totalUsers = male + female;
+		if(totalUsers>0) {
+			int percentMale = male/totalUsers;
+			int percentFemale = female/totalUsers;
+		
+			//convert numbers into percents
+			Set<County> countyKeys = countySet.keySet();
+			for(County c : countyKeys) {
+				int num = countySet.get(c);
+				int percent = num/totalUsers;
+				countySet.put(c, percent);
+			}
+			
+			Set<String> incomeKeys = incomeSet.keySet();
+			for(String i : incomeKeys) {
+				int num = incomeSet.get(i);
+				int percent = num/totalUsers;
+				incomeSet.put(i, percent);
+			}
+			
+			Set<String> transportKeys = transportSet.keySet();
+			for(String t : transportKeys) {
+				int num = transportSet.get(t);
+				int percent = num/totalUsers;
+				transportSet.put(t, percent);
+			}
+			// save stats to reportStats
+			rs.setFemales(percentFemale);
+			rs.setMales(percentMale);
+		}
+		//save stats to reportStats
+		rs.setCountyStats(countySet);
+		rs.setIncomeStats(incomeSet);
+		rs.setTransportStats(transportSet);
+		
+		rs.setUsers(users);
+		rs.setTotalUsers(totalUsers);
+		save(rs);
+		repoSuite.setReportStatsEval(rs);
+		save(repoSuite);
 	}
 	
 	

@@ -33,8 +33,9 @@ public class ReportServiceImpl implements ReportService{
 	}
 	
 	
-	public ReportStats createStatistics(Long workflowId, Long cctId, Long projSuiteId, Long fundSuiteId, Long critSuiteId, Long repoSuiteId, Long projISID, Long fundISID) throws Exception {
-		return reportDAO.createStatistics(workflowId, cctId, projSuiteId, fundSuiteId, critSuiteId, repoSuiteId, projISID, fundISID);
+	public void createStatistics(Long workflowId, Long cctId, Long repoSuiteId, Long packSuiteId) throws Exception {
+		reportDAO.createPkgStatistics(workflowId, repoSuiteId, packSuiteId);
+		reportDAO.createConcernStatistics(workflowId, cctId, repoSuiteId);
 	}
 	
 	
