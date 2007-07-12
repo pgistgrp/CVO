@@ -12,14 +12,8 @@
 	Description: This page is to grade projects on criteria in the given decision situation.
 	Author(s): 
 	     Front End: Jordan Isip, Adam Hindman
-	     Back End: Zhong Wang, John Le
-	Todo Items:
-		[x] Initial Skeleton Code (Jordan)
-		[x] Tree with Unobtrusive JS
-		[ ] Project Alt sorting (Matt)
-		[x] reason:"Error: this objective could not be assigned the specified grade",successful:false} (Matt)
-		[x] contains to get the objective value
-		[ ] Polishing (Adam)
+	     Back End: Zhong Wang, John Le, Guirong Zhou
+
 
 #### -->
 
@@ -146,6 +140,7 @@ xml+='\
 			}
 			
 			function getAltRefScores(altRefId){
+			    $('scores').innerHTML = "<img src='/images/indicator_arrows.gif' /> Loading scores...";
 			    Util.loading(true,"Loading scores");
 			    ProjectAgent.getProjectAltRefById({id:altRefId}, {
 			         callback:function(data){
@@ -155,14 +150,17 @@ xml+='\
 			                 score.gCritIds = [];
 			                 score.gObjIds = [];
 			                 score.grades = [-3,-2.5,-2,-1.5,-1,-0.5,0.0,0.5,1,1.5,2,2.5,3]
-			                 score.html = "<h4>"+ data.altRef.alternative.name +"</h4><ul>";
+			                 score.html = "<h4>"+ data.altRef.alternative.name +"</h4> <a id='info"+data.altRef.id+"' target='blank' href='projectAlt.do?altrefId="+data.altRef.id+"'>View project info</a><ul>";
+			                 score.counter = 0;
 			                 
 			                 //Get and render graded crit and objectives array
-			                 score.gCrits.each(function(gCrit) {
-			                   score.html += "<li>"+ gCrit.criteria.name +" <b id='critGrade-"+ altRefId +"-"+ gCrit.criteria.id+"'>"+ gCrit.grade +"</b></li><ul>"                  
-                               gCrit.objectives.each(function(gObj){
+			                 score.gCrits.each(function(gCrit, i) {
+			                   score.html += "<li>"+ gCrit.criteria.name +"  \
+			                   <b id='critGrade-"+ altRefId +"-"+ gCrit.criteria.id+"'>"+ gCrit.grade +"</b></li><ul>"                  
+                               gCrit.objectives.each(function(gObj,j){
+                                   score.counter += 1;
                                    score.html += "<li>\
-                                   <select id='objGrade-'"+ gObj.objective.id +"' onchange='setGrading("+altRefId+","+gCrit.criteria.id+","+gObj.objective.id+", this.value);'>";
+                                   <select id='objGrade-"+ data.altRef.id +"-"+ score.counter +"' onchange='setGrading("+altRefId+","+gCrit.criteria.id+","+gObj.objective.id+", this.value);'>";
                                       score.grades.each(function(grade){
                                           if(grade == 0.0){
                                             selected = (gObj.grade == null || gObj.grade == 0.0) ? "selected = true" : "";
@@ -172,15 +170,47 @@ xml+='\
                                             score.html += "<option "+ selected +" value="+ grade +">"+ grade +"</option>";
                                           }
                                       })  
+
                                    score.html +="</select> "+ gObj.objective.description +"\
                                    </li>";
+                                   
                                  
-                               })
+                               }) //end gCrit.objectives.each
                                
                                score.html += "</ul>"
                              });
                              score.html += "</ul>"
                              $('scores').innerHTML = score.html;
+                             
+                             
+             			    //focus to first objective in scores
+             			    $("objGrade-" + altRefId + "-1").focus();
+             			    
+                           //Add event observer if it is the last objective - on keydown of "tab" key switch to next alternative
+             			    Event.observe('objGrade-'+ altRefId +'-'+ score.counter, 'keypress', function(e){
+                                   var code;
+                                   if (!e) var e = window.event;
+                                   if (e.keyCode) code = e.keyCode;
+                                   else if (e.which) code = e.which;
+                                   
+                                   if (e.keyCode == 9){
+                                      nextRow();
+                                   }
+                   			
+                               });
+                           
+                           //Add event observer if it is the first objective - on keydown of "shift + tab" key switch to next alternative
+                            Event.observe('objGrade-'+ altRefId +'-'+ 1, 'keypress', function(e){
+                                  var code;
+                                  if (!e) var e = window.event;
+                                  if (e.keyCode) code = e.keyCode;
+                                  else if (e.which) code = e.which;
+
+                                  if (e.keyCode == 9 && e.keyCode == 16){
+                                     prevRow();
+                                  }
+
+                              });
 
 			             }else{
 			                 alert(data.reason);
@@ -218,14 +248,15 @@ xml+='\
             //adjust columns to full screen
 			function colsTofullScreen(){
 			    height = (document.documentElement.clientHeight || document.body.clientHeight);
-			    distanceFromTop = 50;
-			    hpx = (height - distanceFromTop) + "px";
+			    buffer = 150;
+			    hpx = (height - buffer) + "px";
                 $('obj-left').style.height = hpx;
                 $('obj-right').style.height = hpx;
 			}
 			
+
 			function observeKeys(){
-			    Event.observe(document, 'keypress', function(e){
+			    Event.observe('obj-left', 'keypress', function(e){
                     var code;
                     if (!e) var e = window.event;
                     if (e.keyCode) code = e.keyCode;
@@ -234,53 +265,67 @@ xml+='\
                     switch (e.keyCode){
     					// Key up.
     					case 38:
-    					    //check to see if no items are selected
-	    					if(!currentAlt){break;}
-
-    					    //check to see if it is the top row
-    					    
-    					    
-    						// move one row up.
-    						//alert(currentAlt.up(0).previous('.projAlt'))
-                            if(currentAlt.previous()){
-                                item = currentAlt.previous();
-                            }else{
-                                if (currentAlt.up(1).previous().down(2)) {
-                                    item = currentAlt.up(1).previous().down(2);
-                                } else{
-                                    alert("no more left")
-                                };
-                            }
-    						
+    						previousRow();					
     					    break;
     					    
     					// Key down.
     					case 40:
-	    					if(!currentAlt){break;}
-    					
-    					    //check to see if it is the bottom row
-    					    
-    					    // move one row down
-    					    item = currentAlt.next();
+                            nextRow();
     					    break;
     				}
-					switchItem(item)
+					
                 });
 			}
 			
+			function nextRow(){
+			    if(!currentAlt){return false}
+			    if(currentAlt.next()){
+                    item = currentAlt.next();
+                }else{
+				    //check to see if it is the top row
+                    if (currentAlt.up(1).next()) {
+                        item = currentAlt.up(1).next().down(2);
+                    }else{
+                        return false;
+                    }
+                }
+                switchItem(item);
+			}
+			
+			function previousRow(){
+		        if(!currentAlt){return false}
+			    if(currentAlt.previous()){
+                    item = currentAlt.previous();
+                }else{
+				    //check to see if it is the top row
+                    if (currentAlt.up(1).previous()) {
+                        items = currentAlt.up(1).previous().descendants();
+                        //Get the last item in the previous list then go back up to the LI element
+                        item = items[items.length - 1].up();
+                    }else{
+                        return false;
+                    }
+                }
+                switchItem(item);
+			}
+			
 			function switchItem(item){
-			    tag = "liProjAlt";
-			    altRefId = item.id.substr(tag.length, item.id.length);
+			    altRefId = getAltIdFromItem(item)
 			    highlighter(item)
 			    getAltRefScores(altRefId);
 			    
-			    //focus to first objective in scores
+			}
+			
+			function getAltIdFromItem(item){
+			    tag = "liProjAlt";
+			    altRefId = item.id.substr(tag.length, item.id.length);
+			    return altRefId;
 			}
 			
             Event.observe(window,'load',function(){
                 colsTofullScreen();
                 highlightList();
-                observeKeys();
+               // observeKeys();  
             });
             Event.observe(window,'resize',function(){colsTofullScreen();});
 		</script>
