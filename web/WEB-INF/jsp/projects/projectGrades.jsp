@@ -232,7 +232,7 @@ xml+='\
 			    })
 			}
 			
-			var currentAlt = null;
+			var currentAlt = new Object;
 			function highlighter(choosen){
 			    currentAlt = choosen;
 			    $$('.projAlt').each(function(projAlt){
