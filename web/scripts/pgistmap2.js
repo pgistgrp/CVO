@@ -148,7 +148,7 @@ var PGISTMapEditor = function(mapcontainer, width, height, enableEdit) {
 	mapcontainer.appendChild(this._mapdiv);
 	
 	this._msgdiv = document.createElement("div");
-	this._msgdiv.innerHTML = "<span>Project footprints for geographic reference only</span>";
+	this._msgdiv.innerHTML = "<img src='images/map-caption.png' />";
 	mapcontainer.appendChild(this._msgdiv);
 
 	this._container = mapcontainer;

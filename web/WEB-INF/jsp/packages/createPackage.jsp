@@ -55,6 +55,7 @@
 	@import "styles/lit.css";
 	@import "styles/table.css";
 	@import "styles/step3c.css";	
+	#themap span {font-size:15px}
 </style>
 <style type="text/css">
     v\:* {
@@ -424,7 +425,7 @@
 			
 			function clearBottom(){ // Move the map so that it's not below the funding table
 				if(mapPositionBottom >= fundingPositionBottom){
-						$('themap').style.top = (fundingPositionBottom - 581) + 'px';
+						$('themap').style.top = (fundingPositionBottom - 599) + 'px';
 					}
 			}
 			
@@ -434,7 +435,7 @@
 </script>
 </head>
 
-<body onresize="adjustMapPosition();" onscroll="adjustMapPosition();" onload="load()" onunload="clearMemory();">
+<body onresize="ajdustMapPosition();" onscroll="adjustMapPosition();" onload="load()" onunload="clearMemory();">
 	<div id="header">
 		<!-- Begin header -->
 		<jsp:include page="/header.jsp" />
@@ -462,7 +463,7 @@
 			<ul>
 				<li>Select projects and funding options to include in your package.</li>
 				<li>Be sure to provide enough funding to pay for your projects!</li>
-				<li>Click "Help Me" if you’d like help selecting projects and funding options which match your preferences.</li>
+				<li>Click "Help Me" if you'd like help selecting projects and funding options which match your preferences.</li>
 			</ul>
 			<p>You have until <span class="FIXDATE"><b>October 21</b></span> to create and submit your package. You can only submit one package.</p>
 			<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false;adjustMapPosition();">Read more about this step</a>
