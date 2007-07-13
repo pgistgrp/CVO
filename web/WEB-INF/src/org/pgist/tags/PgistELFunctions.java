@@ -60,6 +60,7 @@ public class PgistELFunctions extends SimpleTagSupport {
     }// contains()
 	
 	public static String gradeSwitch(String ingrade) {
+		System.out.println("***GradeSwitch Executed: " + ingrade + "*****");
 		if(ingrade.length() > 0) {
 			char lastChar = ingrade.charAt(ingrade.length() -1);
 			String result;
