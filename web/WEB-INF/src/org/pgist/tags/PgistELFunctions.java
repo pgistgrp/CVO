@@ -35,8 +35,10 @@ import org.pgist.cvo.Theme;
 public class PgistELFunctions extends SimpleTagSupport {
 
 	public static String verboseGradeSwitch(String strGrade) {
+		System.out.println("***verboseGradeSwitch executed: " + strGrade + "*****");
 		float grade = Float.parseFloat(strGrade);
 		String result = "unknown";
+		
 		
 		if(grade < -2.51) {
 			result = "major negative impact";
@@ -44,7 +46,7 @@ public class PgistELFunctions extends SimpleTagSupport {
 			result = "moderate negative impact";
 		} else if(grade < -.5) {
 			result = "minor negative impact";
-		} else if(grade < .5) {
+		} else if(grade < 0.5) {
 			result = "no significant impact";
 		} else if(grade < 1.5) {
 			result = "minor positive impact";
@@ -53,7 +55,7 @@ public class PgistELFunctions extends SimpleTagSupport {
 		} else if(grade < 3.01) {
 			result = "major positive impact";
 		}
-		
+		System.out.println("***verboseGradeSwitch completed: " + result + "*****");
 		return result;
     }// contains()
 	
