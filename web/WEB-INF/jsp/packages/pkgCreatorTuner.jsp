@@ -42,6 +42,9 @@
 	@import "styles/table.css";
 	@import "styles/step3c.css";
 	@import "styles/weighCriteria.css";
+#top{padding:0px;}
+#left{margin-left:0px;}
+.dollarSign {display:inline;margin:auto 5px auto 10px}
 </style>
 
 
@@ -133,138 +136,144 @@
 <event:pageunload />
 </head>
 <body>
-	<div style="display: none;" id="loading-indicator"> Loading... 
-		<img src="/images/indicator_arrows.gif"> 
-	</div>
-	<div style="display:none;" id="saving-indicator"> Saving...
-		<img src="/images/indicator_arrows.gif">
-	</div>
-<div id="top">
-		<h2 class="headerColor">Fine Tune a Package</h2>
-		<div id="overview" class="box2">
-		<h3 class="headerColor">Overview and Instructions</h3>
-			<p>Answer the following questions so that we can suggest a package that matches
-				your general preferences. you will be able to adjust your suggested package before
-				moving on.</p>
+	<div id="container">
+		<div style="display: none;" id="loading-indicator"> Loading... 
+			<img src="/images/indicator_arrows.gif"> 
 		</div>
-		<p><label>How much would you be willing to pay each year for this package?</label> <span class="dollarSign">$</span><input type="text" id="mylimit" size="5"/></p>
-	</div>
-<div id="object" class="stripWS">
-			<h3 class="headerColor">Re-Weigh Your Criteria</h3>
-			<div id="criteria">
-				<!--load the criteria partial here -->
+		<div style="display:none;" id="saving-indicator"> Saving...
+			<img src="/images/indicator_arrows.gif">
+		</div>
+	<div id="top">
+			<h2 class="headerColor">Fine tune a package</h2>
+			<div id="overview" class="box2">
+			<h3 class="headerColor">Overview and instructions</h3>
+				<p>Answer the following questions so that we can suggest a package that matches
+					your general preferences. you will be able to adjust your suggested package before
+					moving on.</p>
 			</div>
-			<!-- begin NewTable-->
-			<br />
-			<div id="newTable" class="stripWS">
-				<h3 class="headerColor">Fine Tune Projects and Funding Sources</h3>
-				<div id="left" class="floatLeft">
-					<table cellpadding=0 cellspacing=0>
-						<!-- begin CATEGORY LABEL -->
-						<tr class="tableHeading">
-							<th colspan="2" class="first">Projects</th>
-							<th>Priority</th>
-						</tr>
-				
-						<c:forEach var="category" begin="1" end="2">
-							<!-- start road projects -->
-							<tr>
-								<c:choose>
-									<c:when test="${category == 1}">
-										<td class="category" colspan="3"><strong>Road Projects</strong></td>
-									</c:when>
-									<c:otherwise>
-										<td class="category" colspan="3"><strong>Transit Projects</strong></td>
-									</c:otherwise>
-								</c:choose>
-						
-							</tr>
-							<!-- end CATEGORY LABEL -->
-							<!-- ******* LOOP ENTIRE PROJECT ******** -->
-							<c:forEach var="projectRef" items="${projectRefs}" varStatus="loop">
-								<c:if test="${projectRef.project.transMode == category}">						
-									<!-- begin PROJECT -->
-									<tr class="${(projectRef.project.inclusive) ? 'fundingType' : 'fundingType2'}">
-										<td class="fundingSourceItem">${projectRef.project.name} Options</td>
-										<td colspan="2">&nbsp;
-											
-										</td>
-									</tr>
-									<!-- end PROJECT -->
-									<tr class="objectives" id="objective${projectRef.id}">
-										<td colspan="3">
-											<table>
-												<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
-													<tr>
-														<td>
-															<label>
-																<span style="font-size:9pt">${altRef.alternative.name}</span>
-															</label>
-														</td>
-														<td class="cost">
-															<select name="projectChoices" id="projAltSelect-${altRef.alternative.id}">
-																<option value="2">Include it</option>
-																<option value="1" SELECTED>Don't care</option>
-																<option value="0">Exclude it</option>
-															</select>
-														</td>
-													</tr>
-												</c:forEach>
-											</table>
-										</td>
-									</tr>
-								</c:if>
-							</c:forEach>
-				
-							<!-- ******* END LOOP ENTIRE PROJECT ******** -->
-						</c:forEach>
-					</table>
-					<!-- end collapsible project list -->
+			<div class="box6 padding5">
+				<h3 class="headerColor">How much are you willing to pay per year?</h3>
+				<label>What is the total annual cost <em><strong>you</strong></em> are willing to pay to fund your preferred transportation package per year?</label> <span class="dollarSign">$</span><input type="text" id="mylimit" size="5"/><br/>
+				<div class="clearBoth"></div>
+			</div>
+		</div>
+	<div id="object" class="stripWS">
+				<h3 class="headerColor">Re-weigh your criteria</h3>
+				<div id="criteria">
+					<!--load the criteria partial here -->
 				</div>
-			
-				<div id="right">
-					<table cellpadding=0 cellspacing=0>
-						<tr class="tableHeading">
-							<th class="first">Funding Source</th>
-							<th>Priority</th>
-						</tr>
-						<!-- begin FUNDING source -->
-						<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
-							<tr class="fundingType">
-								<td class="fundingSourceItem">${fundingRef.source.name}</td>
-								<td colspan="3">&nbsp;</td>
+				<!-- begin NewTable-->
+				<br />
+				<div id="newTable" class="stripWS">
+					<h3 class="headerColor">Fine tune projects and funding sources</h3>
+					<div id="left" class="floatLeft">
+						<table cellpadding=0 cellspacing=0>
+							<!-- begin CATEGORY LABEL -->
+							<tr class="tableHeading">
+								<th colspan="2" class="first">Projects</th>
+								<th>Priority</th>
 							</tr>
-							<!-- end FUNDING source -->
-							<!-- begin OPTIONS -->
-							<c:set var="doNothing"value="true"/>
-							<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
+					
+							<c:forEach var="category" begin="1" end="2">
+								<!-- start road projects -->
 								<tr>
-									<td class="fundingSourceItem">
-										<label style="font-size:9pt">${altRef.alternative.name}</label>
-									</td>
-	
-									<td class="right-col2">
-										<select name="fundingChoices" id="fundAltSelect-${altRef.alternative.id}">
-											<option value="2">Include it</option>
-											<option value="1" SELECTED>Don't care</option>
-											<option value="0">Exclude it</option>
-										</select>
-									</td>
+									<c:choose>
+										<c:when test="${category == 1}">
+											<td class="category" colspan="3"><strong>Road projects</strong></td>
+										</c:when>
+										<c:otherwise>
+											<td class="category" colspan="3"><strong>Transit projects</strong></td>
+										</c:otherwise>
+									</c:choose>
+							
 								</tr>
+								<!-- end CATEGORY LABEL -->
+								<!-- ******* LOOP ENTIRE PROJECT ******** -->
+								<c:forEach var="projectRef" items="${projectRefs}" varStatus="loop">
+									<c:if test="${projectRef.project.transMode == category}">						
+										<!-- begin PROJECT -->
+										<tr class="${(projectRef.project.inclusive) ? 'fundingType' : 'fundingType2'}">
+											<td class="fundingSourceItem">${projectRef.project.name} Options</td>
+											<td colspan="2">&nbsp;
+												
+											</td>
+										</tr>
+										<!-- end PROJECT -->
+										<tr class="objectives" id="objective${projectRef.id}">
+											<td colspan="3">
+												<table>
+													<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
+														<tr>
+															<td>
+																<label>
+																	<span style="font-size:9pt">${altRef.alternative.name}</span>
+																</label>
+															</td>
+															<td class="cost">
+																<select name="projectChoices" id="projAltSelect-${altRef.alternative.id}">
+																	<option value="2">Include it</option>
+																	<option value="1" SELECTED>Don't care</option>
+																	<option value="0">Exclude it</option>
+																</select>
+															</td>
+														</tr>
+													</c:forEach>
+												</table>
+											</td>
+										</tr>
+									</c:if>
+								</c:forEach>
+					
+								<!-- ******* END LOOP ENTIRE PROJECT ******** -->
 							</c:forEach>
-						</c:forEach>
-						<!-- end OPTIONS -->
-					</table>
-				</div>
+						</table>
+						<!-- end collapsible project list -->
+					</div>
 				
+					<div id="right">
+						<table cellpadding=0 cellspacing=0>
+							<tr class="tableHeading">
+								<th class="first">Funding source</th>
+								<th>Priority</th>
+							</tr>
+							<!-- begin FUNDING source -->
+							<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
+								<tr class="fundingType">
+									<td class="fundingSourceItem">${fundingRef.source.name}</td>
+									<td colspan="3">&nbsp;</td>
+								</tr>
+								<!-- end FUNDING source -->
+								<!-- begin OPTIONS -->
+								<c:set var="doNothing"value="true"/>
+								<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
+									<tr>
+										<td class="fundingSourceItem">
+											<label style="font-size:9pt">${altRef.alternative.name}</label>
+										</td>
+		
+										<td class="right-col2">
+											<select name="fundingChoices" id="fundAltSelect-${altRef.alternative.id}">
+												<option value="2">Include it</option>
+												<option value="1" SELECTED>Don't care</option>
+												<option value="0">Exclude it</option>
+											</select>
+										</td>
+									</tr>
+								</c:forEach>
+							</c:forEach>
+							<!-- end OPTIONS -->
+						</table>
+					</div>
+					
+				</div>
 			</div>
-		</div>
-		<div class="clearBoth">
-		</div>
-		<div id="finished" class="box7">
-			<h3>Finished fine tuning your package?</h3>
-			<input type="button" id="goBtn" onClick="getTunerConfig();" value="Create My Package"/>
-			<div class="clearBoth"></div>
+			<div class="clearBoth">
+			</div>
+			<div id="finished" class="box7">
+				<h3>Finished fine tuning your package?</h3>
+				<input type="button" id="goBtn" onClick="getTunerConfig();" value="I'm done. Show me my created package."/>
+				<div class="clearBoth"></div>
+			</div>
 		</div>
 		
 		<script type="text/javascript" charset="utf-8">

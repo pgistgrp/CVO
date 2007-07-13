@@ -444,10 +444,10 @@
 	<div id="headerMenu">
 		<div id="headerContainer">
 			<div id="headerTitle" class="floatLeft">
-				<h3 class="headerColor">Step 3: Create Packages</h3>
+				<h3 class="headerColor">Step 3: Create transportation packages</h3>
 			</div><!-- end headerTitle-->
-			<div class="headerButton floatLeft "> <a href="step3a.html">3a: Review projects</a> </div>
-			<div class="headerButton floatLeft "> <a href="step3b.html">3b: Review funding options</a> </div>
+			<div class="headerButton floatLeft "> <a href="step3a.html">3a: Discuss projects</a> </div>
+			<div class="headerButton floatLeft "> <a href="step3b.html">3b: Discuss funding options</a> </div>
 			<div class="headerButton floatLeft currentBox "> <a href="step3c.html">3c: Create your own package</a> </div>
 			<div id="headerNext" class="floatRight box5"> <a href="step3b.html">Next Step</a> </div>
 		</div> <!-- end headercontainer -->
@@ -457,14 +457,17 @@
 	<div id="container">
 		<!-- begin "overview and instructions" area -->
 		<div id="overview" class="box2">
-			<h3>Overview and Instructions</h3>
-			<p>Criteria are used to help Evaluate which proposed transportation projects are
-				best suited to address problems with our transportation system. Below, these criteria
-				have been associated with the concern themes discussed in the previous step. Please
-				review these criteria and the associated themes. Do these criteria adequately
-				reflect your concerns and the summaries? What criteria might be useful in evaluating
-				proposed transportation projects?</p>
-			<p><a href="readmore.jsp">Read more about how this step fits into the bigger picture</a>.</p>
+			<h3>Overview and instructions</h3>
+			Create your own transportation package
+			<ul>
+				<li>Select projects and funding options to include in your package.</li>
+				<li>Be sure to provide enough funding to pay for your projects!</li>
+				<li>Click "Help Me" if you’d like help selecting projects and funding options which match your preferences.</li>
+			</ul>
+			<p>You have until <span class="FIXDATE"><b>October 21</b></span> to create and submit your package. You can only submit one package.</p>
+			<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false;adjustMapPosition();">Read more about this step</a>
+				<p id="hiddenRM" style="display:none">The goal of the <em>LIT Challenge</em> is for participants to develop a transportation package to recommend to regional decision makers. Such a package could appear on a regional ballot for voter approval, much like the "Roads and Transit" package on the ballot in November 2007.<br />
+Once all participants have submitted their own packages, five new packages will be generated through a statistical process. These new packages will represent the diversity of the different packages submitted by individual participants. In Step 4 we will evaluate these new packages and decide whether there is a significant majority of support for a single package. </p>
 		</div> <!-- end overview -->
 		
 		<!-- begin Object -->
@@ -472,6 +475,7 @@
 			<!-- begin NewTable-->
 			<div id="newTable">
 				<div id="left" class="floatLeft">
+					<h3 class="headerColor">Your package summary</h3>
 					<div id="yourSummary" class="summary">
 						<!-- summary goes here -->
 					</div> <!-- end yoursummary -->
@@ -503,7 +507,7 @@
 							<div class="floatLeft" style="width:60%"><label> What's the most you would be willing to pay to fund this package? </label></div>
 							<div class="floatRight"> <span style="font-size:1.3em;">$<input type="text" size="3" id="mylimit" /></span></div>
 							<div class="clearBoth"></div>
-							<div style="margin-top:15px;" class="floatLeft"><input type="submit" class="floatLeft padding5" value="Create a package"/></div>
+							<div style="margin-top:10px;margin-bottom:10px;" class="floatLeft"><input type="submit" class="floatLeft padding5" value="Create a package"/></div>
 							<div class="floatRight"><a href="javascript:window.open('tuner.do?usrPkgId=${userPkg.id}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}','helpMe','width=1000,height=500,resizable=yes,scrollbars=yes'); void(0);"> <img src="images/tuneup.gif">Fine tune a package</a></div>
 						</form>
 					</div><!--end help me-->
@@ -512,7 +516,7 @@
 					<!-- begin collapsible list of projects -->
 					<table cellpadding=0 cellspacing=0 id="projectsTable">
 						<tr class="tableHeading">
-							<th colspan="2" class="first">All Proposed Projects</th>
+							<th colspan="2" class="first">Proposed improvement projects</th>
 							<th>Money Needed</th>
 						</tr>
 						<c:forEach var="category" begin="1" end="2">
@@ -587,7 +591,7 @@
 															</c:choose>
 															${altRef.alternative.name}</label>
 														</td>
-														<td class="cost">$<fmt:formatNumber type="number">${altRef.alternative.cost}</fmt:formatNumber> million</td>
+														<td class="cost">$<fmt:formatNumber type="number">${altRef.alternative.cost}</fmt:formatNumber></td>
 													</tr>
 													<c:if test="${pg:contains(userPkg.projAltRefs,altRef) && userPkg != null}">
 														<c:set var="doNothing"value="false"/>
@@ -711,10 +715,10 @@
 	<div id="headerMenu">
 		<div id="headerContainer">
 			<div id="headerTitle" class="floatLeft">
-				<h3 class="headerColor">Step 3: Create Packages</h3>
+				<h3 class="headerColor">Step 3: Create transportation packages</h3>
 			</div>
-			<div class="headerButton floatLeft "> <a href="step3a.html">3a: Review projects</a> </div>
-			<div class="headerButton floatLeft "> <a href="step3b.html">3b: Review funding options</a> </div>
+			<div class="headerButton floatLeft "> <a href="step3a.html">3a: Discuss projects</a> </div>
+			<div class="headerButton floatLeft "> <a href="step3b.html">3b: Discuss funding options</a> </div>
 			<div class="headerButton floatLeft currentBox"> <a href="step3c.html">3c: Create your own package</a> </div>
 			<div id="headerNext" class="floatRight box5"> <a href="step3b.html">Next Step</a> </div>
 		</div>
