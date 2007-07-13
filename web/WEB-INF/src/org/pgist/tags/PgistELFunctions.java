@@ -35,32 +35,32 @@ import org.pgist.cvo.Theme;
 public class PgistELFunctions extends SimpleTagSupport {
 
 	public static String verboseGradeSwitch(String strGrade) {
-		System.out.println("***verboseGradeSwitch executed: " + strGrade + "*****");
-		//float grade = Float.parseFloat(strGrade);
+		
+		float grade = Float.parseFloat(strGrade);
 		String result = "unknown";
 		
-//		
-//		if(grade < -2.51) {
-//			result = "major negative impact";
-//		} else if(grade < -1.51) {
-//			result = "moderate negative impact";
-//		} else if(grade < -.5) {
-//			result = "minor negative impact";
-//		} else if(grade < 0.5) {
-//			result = "no significant impact";
-//		} else if(grade < 1.5) {
-//			result = "minor positive impact";
-//		} else if(grade < 2.5) {
-//			result = "moderate positive impact";
-//		} else if(grade < 3.01) {
-//			result = "major positive impact";
-//		}
-		System.out.println("***verboseGradeSwitch completed: " + result + "*****");
+		
+		if(grade < -2.51) {
+			result = "major negative impact";
+		} else if(grade < -1.51) {
+			result = "moderate negative impact";
+		} else if(grade < -.5) {
+			result = "minor negative impact";
+		} else if(grade < 0.5) {
+			result = "no significant impact";
+		} else if(grade < 1.5) {
+			result = "minor positive impact";
+		} else if(grade < 2.5) {
+			result = "moderate positive impact";
+		} else if(grade < 3.01) {
+			result = "major positive impact";
+		}
+		
 		return result;
     }// contains()
 	
 	public static String gradeSwitch(String ingrade) {
-		System.out.println("***GradeSwitch Executed: " + ingrade + "*****");
+		
 		if(ingrade.length() > 0) {
 			char lastChar = ingrade.charAt(ingrade.length() -1);
 			String result;
