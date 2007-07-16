@@ -565,6 +565,7 @@ public class SDAgent {
                     writer.addDocument(doc);
                 } catch(Exception e) {
                     e.printStackTrace();
+                } finally {
                     if (writer!=null) writer.close();
                 }
             }
@@ -678,12 +679,14 @@ public class SDAgent {
             return map;
         }
         
-        try {
-            if (reply!=null) {
+        if (reply!=null) {
+            IndexWriter writer = null;
+            
+            try {
                 /*
                  * Indexing with Lucene.
                  */
-                IndexWriter writer = searchHelper.getIndexWriter();
+                writer = searchHelper.getIndexWriter();
                 Document doc = new Document();
                 doc.add( new Field("type", "reply", Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("author", reply.getOwner().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
@@ -696,9 +699,17 @@ public class SDAgent {
                 doc.add( new Field("ioid", infoObject==null ? "" : infoObject.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 writer.addDocument(doc);
                 writer.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (writer!=null) {
+                    try {
+                        writer.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         
         return map;
@@ -761,6 +772,8 @@ public class SDAgent {
                             reader.deleteDocument(hits.id(i));
                         }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 } finally {
                     if (searcher!=null) searcher.close();
                     if (reader!=null) reader.close();
@@ -828,13 +841,15 @@ public class SDAgent {
                     
                     Hits hits = searcher.search(searchHelper.getParser().parse(
                         "workflowid:"+reply.getParent().getDiscussion().getWorkflowId()
-                       +" AND type:post AND postid:"+reply.getParent().getId()+" AND replyid:"+reply.getId()
+                       +" AND type:reply AND postid:"+reply.getParent().getId()+" AND replyid:"+reply.getId()
                     ));
                     
                     if (hits.length()>0) {
                         reader = searchHelper.getIndexReader();
                         reader.deleteDocument(hits.id(0));
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 } finally {
                     if (searcher!=null) searcher.close();
                     if (reader!=null) reader.close();
@@ -944,6 +959,8 @@ public class SDAgent {
                     writer = searchHelper.getIndexWriter();
                     writer.addDocument(doc);
                 } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
                     if (searcher!=null) searcher.close();
                     if (writer!=null) writer.close();
                 }

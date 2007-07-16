@@ -212,6 +212,8 @@ public class CCTAgent {
                 doc.add( new Field("workflowid", concern.getCct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 writer.addDocument(doc);
             } catch(Exception e) {
+                e.printStackTrace();
+            } finally {
                 if (writer!=null) {
                     try {
                         writer.close();
@@ -659,6 +661,8 @@ public class CCTAgent {
                      */
                     writer.addDocument(doc);
                 } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
                     if (searcher!=null) searcher.close();
                     if (writer!=null) writer.close();
                 }
@@ -738,6 +742,8 @@ public class CCTAgent {
                         }
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
                     if (searcher!=null) searcher.close();
                     if (reader!=null) reader.close();
                 }
@@ -746,10 +752,11 @@ public class CCTAgent {
                 return map;
             }
         } catch (Exception e) {
+            e.printStackTrace();
             map.put("reason", e.getMessage());
             return map;
         }
-
+        
         return map;
     }//deleteConcern()
 
@@ -847,6 +854,8 @@ public class CCTAgent {
                     
                     writer.addDocument(doc);
                 } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
                     if (searcher!=null) searcher.close();
                     if (writer!=null) writer.close();
                 }
@@ -1247,6 +1256,8 @@ public class CCTAgent {
                 doc.add( new Field("workflowid", comment.getConcern().getCct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 writer.addDocument(doc);
             } catch(Exception e) {
+                e.printStackTrace();
+            } finally {
                 if (writer!=null) {
                     try {
                         writer.close();
@@ -1336,6 +1347,8 @@ public class CCTAgent {
                  */
                 writer.addDocument(doc);
             } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
                 if (writer!=null) writer.close();
             }
             
@@ -1400,6 +1413,8 @@ public class CCTAgent {
                     reader.deleteDocument(hits.id(0));
                 }
             } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
                 if (searcher!=null) searcher.close();
                 if (reader!=null) reader.close();
             }
