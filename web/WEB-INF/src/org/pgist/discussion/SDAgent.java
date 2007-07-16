@@ -557,15 +557,14 @@ public class SDAgent {
                     doc.add( new Field("type", "post", Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("author", post.getOwner().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
                     doc.add( new Field("date", post.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("title", post.getTitle(), Field.Store.NO, Field.Index.TOKENIZED) );
-                    doc.add( new Field("contents", post.getContent(), Field.Store.NO, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("tags", Arrays.toString(tags), Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("contents", post.getTitle()+" "+Arrays.toString(tags)+" "+post.getContent(), Field.Store.NO, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("workflowid", post.getDiscussion().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("postid", post.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("isid", isid==null ? "" : isid.toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("ioid", ioid==null ? "" : ioid.toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     writer.addDocument(doc);
                 } catch(Exception e) {
+                    e.printStackTrace();
                     if (writer!=null) writer.close();
                 }
             }
@@ -689,9 +688,7 @@ public class SDAgent {
                 doc.add( new Field("type", "reply", Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("author", reply.getOwner().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
                 doc.add( new Field("date", reply.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("title", reply.getTitle(), Field.Store.NO, Field.Index.TOKENIZED) );
-                doc.add( new Field("contents", reply.getContent(), Field.Store.NO, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("tags", Arrays.toString(tags), Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("contents", reply.getTitle()+" "+Arrays.toString(tags)+" "+reply.getContent(), Field.Store.NO, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("workflowid", reply.getParent().getDiscussion().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("postid", reply.getParent().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("replyid", reply.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
@@ -701,6 +698,7 @@ public class SDAgent {
                 writer.close();
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
         
         return map;
@@ -747,7 +745,26 @@ public class SDAgent {
                 /*
                  * delete from lucene
                  */
-                searchHelper.getIndexReader().deleteDocuments(new Term("postid", pid.toString()));
+                IndexSearcher searcher = null;
+                IndexReader reader = null;
+                try {
+                    searcher = searchHelper.getIndexSearcher();
+                    
+                    Hits hits = searcher.search(searchHelper.getParser().parse(
+                        "workflowid:"+post.getDiscussion().getWorkflowId()
+                       +" AND postid:"+post.getId()
+                    ));
+                    
+                    if (hits.length()>0) {
+                        reader = searchHelper.getIndexReader();
+                        for (int i=0; i<hits.length(); i++) {
+                            reader.deleteDocument(hits.id(i));
+                        }
+                    }
+                } finally {
+                    if (searcher!=null) searcher.close();
+                    if (reader!=null) reader.close();
+                }
             } else {
                 map.put("reason", "You are not the owner of this Discussion Post");
                 return map;
@@ -804,11 +821,22 @@ public class SDAgent {
                 /*
                  * delete from lucene
                  */
+                IndexSearcher searcher = null;
                 IndexReader reader = null;
                 try {
-                    reader = searchHelper.getIndexReader();
-                    reader.deleteDocuments(new Term("replyid", rid.toString()));
-                } catch (Exception e) {
+                    searcher = searchHelper.getIndexSearcher();
+                    
+                    Hits hits = searcher.search(searchHelper.getParser().parse(
+                        "workflowid:"+reply.getParent().getDiscussion().getWorkflowId()
+                       +" AND type:post AND postid:"+reply.getParent().getId()+" AND replyid:"+reply.getId()
+                    ));
+                    
+                    if (hits.length()>0) {
+                        reader = searchHelper.getIndexReader();
+                        reader.deleteDocument(hits.id(0));
+                    }
+                } finally {
+                    if (searcher!=null) searcher.close();
                     if (reader!=null) reader.close();
                 }
             } else {
@@ -889,28 +917,31 @@ public class SDAgent {
                 try {
                     searcher = searchHelper.getIndexSearcher();
                     
-                    Term term = new Term("postid", pid.toString());
-                    Query query = new TermQuery(term);
-                    Hits hits = searcher.search(query);
+                    Hits hits = searcher.search(searchHelper.getParser().parse(
+                        "workflowid:"+post.getDiscussion().getWorkflowId()
+                       +" AND type:post AND postid:"+post.getId()
+                    ));
+                    
                     if (hits.length()>0) {
                         Document hit = hits.doc(0);
                         doc.add( new Field("type", "post", Field.Store.YES, Field.Index.UN_TOKENIZED) );
                         doc.add( new Field("author", post.getOwner().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
                         doc.add( new Field("date", post.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                        doc.add( new Field("title", post.getTitle(), Field.Store.NO, Field.Index.TOKENIZED) );
-                        doc.add( new Field("contents", post.getContent(), Field.Store.NO, Field.Index.UN_TOKENIZED) );
-                        doc.add( new Field("tags", Arrays.toString(tags), Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                        doc.add( new Field("contents", post.getTitle()+" "+Arrays.toString(tags)+" "+post.getContent(), Field.Store.NO, Field.Index.UN_TOKENIZED) );
                         doc.add( new Field("workflowid", post.getDiscussion().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                         doc.add( new Field("postid", post.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                         doc.add( new Field("isid", hit.getField("isid").stringValue(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                         doc.add( new Field("ioid", hit.getField("ioid").stringValue(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                        
+                        IndexReader reader = searchHelper.getIndexReader();
+                        reader.deleteDocument(hits.id(0));
+                        reader.close();
                     }
                     
                     /*
                      * reindexing in lucene
                      */
                     writer = searchHelper.getIndexWriter();
-                    writer.deleteDocuments(term);
                     writer.addDocument(doc);
                 } catch (Exception e) {
                     if (searcher!=null) searcher.close();
