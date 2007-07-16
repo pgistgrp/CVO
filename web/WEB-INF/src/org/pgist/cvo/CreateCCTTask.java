@@ -36,7 +36,7 @@ public class CreateCCTTask implements WorkflowTask {
         String purpose = inouts.getProperty("purpose");
         String instruction = inouts.getProperty("instruction");
         
-        CCT cct = cctService.createCCT(name, purpose, instruction);
+        CCT cct = cctService.createCCT(info.getWorkflow().getId(), name, purpose, instruction);
         
         inouts.setIntValue(OUT_CCT_ID, cct.getId().intValue());
     }//execute()

@@ -3,7 +3,9 @@ package org.pgist.search;
 import java.io.IOException;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 
 
@@ -20,6 +22,8 @@ public class SearchHelper {
     private String indexPath;
     
     private String absolutePath;
+    
+    private QueryParser parser = new QueryParser("contents", new StandardAnalyzer());
     
     
     public SearchHelper() {
@@ -44,7 +48,7 @@ public class SearchHelper {
     }//getIndexSearcher()
 
 
-    public IndexWriter getIndexWriter() throws IOException   {
+    public IndexWriter getIndexWriter() throws IOException {
         if (absolutePath==null) {
             absolutePath = contextPath + indexPath;
         }
@@ -52,4 +56,17 @@ public class SearchHelper {
     }//getIndexWriter()
     
     
+    public IndexReader getIndexReader() throws IOException {
+        if (absolutePath==null) {
+            absolutePath = contextPath + indexPath;
+        }
+        return IndexReader.open(absolutePath);
+    }//getIndexReader()
+
+
+    public QueryParser getParser() {
+        return parser;
+    }
+
+
 }//class SearchHelper

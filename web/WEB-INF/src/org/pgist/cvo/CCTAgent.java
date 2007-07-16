@@ -10,7 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.search.Hits;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.TermQuery;
 import org.directwebremoting.WebContextFactory;
 import org.pgist.search.SearchHelper;
 import org.pgist.system.SystemService;
@@ -114,57 +120,6 @@ public class CCTAgent {
 
 
     /**
-     * Create a new CCT instance with the given parameters.
-     *
-     * @param params A map contains:<br>
-     *         <ul>
-     *           <li>name - String, name of the new CCT instance</li>
-     *           <li>purpose - String, purpose of the new CCT instance</li>
-     *           <li>instruction - String, instruction of the new CCT instance</li>
-     *         </ul>
-     * @return A map contains:<br>
-     *         <ul>
-     *           <li>cctId - the id of the cct object</li>
-     *           <li>successful - a boolean value denoting if the operation succeeds</li>
-     *           <li>reason - reason why operation failed (valid when successful==false)</li>
-     *         </ul>
-     */
-    public Map createCCT(Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-
-        String name = (String) params.get("name");
-        if (name == null || "".equals(name.trim())) {
-            map.put("reason", "name can not be empty.");
-            return map;
-        }
-
-        String purpose = (String) params.get("purpose");
-        if (purpose == null || "".equals(purpose.trim())) {
-            map.put("reason", "purpose can not be empty.");
-            return map;
-        }
-
-        String instruction = (String) params.get("instruction");
-        if (instruction == null || "".equals(instruction.trim())) {
-            map.put("reason", "instruction can not be empty.");
-            return map;
-        }
-
-        try {
-            CCT cct = cctService.createCCT(name, purpose, instruction);
-            map.put("cctId", cct.getId());
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-        }
-
-        return map;
-    }//createCCT()
-
-
-    /**
      * Analyze the given concern, extract and return the recognized tags from it.
      *
      * @param params A map contains:<br>
@@ -222,23 +177,52 @@ public class CCTAgent {
 
         Long cctId = new Long((String) params.get("cctId"));
 
-        String concern = (String) params.get("concern");
-        if (concern == null || "".equals(concern.trim())) {
+        String concernStr = (String) params.get("concern");
+        if (concernStr == null || "".equals(concernStr.trim())) {
             map.put("reason", "concern can not be empty.");
             return map;
         }
 
         String tags = (String) params.get("tags");
-
+        
+        Concern concern = null;
+        
         try {
-            Concern c = cctService.createConcern(cctId, concern, tags.split(","));
-            map.put("concern", c);
+            concern = cctService.createConcern(cctId, concernStr, tags.split(","));
+            map.put("concern", concern);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
         }
 
+        if (concern!=null) {
+            /*
+             * Indexing with Lucene.
+             */
+            IndexWriter writer = null;
+            try {
+                writer = searchHelper.getIndexWriter();
+                Document doc = new Document();
+                doc.add( new Field("type", "comment", Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("author", concern.getAuthor().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
+                doc.add( new Field("date", concern.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("contents", concern.getContent(), Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("tags", tags, Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("concernid", concern.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("workflowid", concern.getCct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                writer.addDocument(doc);
+            } catch(Exception e) {
+                if (writer!=null) {
+                    try {
+                        writer.close();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        }
+        
         return map;
     }//saveConcern()
 
@@ -592,17 +576,18 @@ public class CCTAgent {
      */
     public Map editConcern(Map params) {
         Map map = new HashMap();
-
+        map.put("successful", false);
+        
         Long concernId = null;
         Concern concern = null;
-
+        
         String newConcern = (String) params.get("concern");
         if (newConcern == null || "".equals(newConcern.trim())) {
             map.put("successful", new Boolean(false));
             map.put("reason", "Concern string can't be empty.");
             return map;
         }
-
+        
         try {
             concernId = new Long((String) params.get("concernId"));
             concern = cctService.getConcernById(concernId);
@@ -621,7 +606,7 @@ public class CCTAgent {
             }
             return map;
         }
-
+        
         //Check if the current user is the author of this concern.
         try {
             Long userId = WebUtils.currentUserId();
@@ -630,18 +615,62 @@ public class CCTAgent {
                 concern.setContent(newConcern);
                 concern.setCreateTime(new Date());
                 cctService.save(concern);
-                map.put("successful", new Boolean(true));
+                map.put("successful", true);
+                
+                IndexSearcher searcher = null;
+                IndexWriter writer = null;
+                try {
+                    searcher = searchHelper.getIndexSearcher();
+                    Hits hits = searcher.search(searchHelper.getParser().parse(
+                        "type:concern AND concernid:"+concernId
+                    ));
+                    
+                    String tags = "";
+                    
+                    if (hits.length()>0) {
+                        /*
+                         * delete from lucene
+                         */
+                        IndexReader reader = null;
+                        try {
+                            Document doc = hits.doc(0);
+                            
+                            tags = doc.get("tags");
+                            
+                            reader = searchHelper.getIndexReader();
+                            
+                            reader.deleteDocument(hits.id(0));
+                        } finally {
+                            if (reader!=null) reader.close();
+                        }
+                    }
+                    
+                    writer = searchHelper.getIndexWriter();
+                    
+                    Document doc = new Document();
+                    doc.add( new Field("type", "concern", Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("author", concern.getAuthor().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
+                    doc.add( new Field("date", concern.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("contents", concern.getContent(), Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("tags", tags, Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("workflowid", concern.getCct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    
+                    /*
+                     * reindexing in lucene
+                     */
+                    writer.addDocument(doc);
+                } catch (Exception e) {
+                    if (searcher!=null) searcher.close();
+                    if (writer!=null) writer.close();
+                }
             } else {
-                map.put("successful", new Boolean(false));
                 map.put("reason", "You have no right to edit this concern.");
                 return map;
             }
         } catch (Exception e) {
-            map.put("successful", new Boolean(false));
             map.put("reason", e.getMessage());
-            return map;
         }
-
+        
         return map;
     }//editConcern()
 
@@ -661,7 +690,8 @@ public class CCTAgent {
      */
     public Map deleteConcern(Map params) {
         Map map = new HashMap();
-
+        map.put("successful", false);
+        
         Long concernId = null;
         Concern concern = null;
 
@@ -669,17 +699,14 @@ public class CCTAgent {
             concernId = new Long((String) params.get("concernId"));
             concern = cctService.getConcernById(concernId);
             if (concern.isDeleted()) {
-                map.put("successful", new Boolean(false));
                 map.put("reason", "This concern is already deleted.");
                 return map;
             }
         } catch (Exception e) {
-            map.put("successful", new Boolean(false));
             if (concernId == null) {
                 map.put("reason", "concernId is required.");
             } else {
-                map.put("reason",
-                        "failed to extract concern object with id " + concernId);
+                map.put("reason", "failed to extract concern object with id " + concernId);
             }
             return map;
         }
@@ -691,13 +718,33 @@ public class CCTAgent {
             if (user.getId().doubleValue() == concern.getAuthor().getId()) {
                 cctService.deleteConcern(concern);
                 map.put("successful", new Boolean(true));
+                
+                /*
+                 * delete from lucene
+                 */
+                IndexSearcher searcher = null;
+                IndexReader reader = null;
+                try {
+                    searcher = searchHelper.getIndexSearcher();
+                    
+                    Hits hits = searcher.search(searchHelper.getParser().parse(
+                        "workflowid:" + concern.getCct().getWorkflowId()
+                        + "AND concernid:" + concern.getId()
+                    ));
+                    
+                    if (hits.length()>0) {
+                        reader = searchHelper.getIndexReader();
+                        reader.deleteDocument(hits.id(0));
+                    }
+                } catch (Exception e) {
+                    if (searcher!=null) searcher.close();
+                    if (reader!=null) reader.close();
+                }
             } else {
-                map.put("successful", new Boolean(false));
                 map.put("reason", "You have no right to edit this concern.");
                 return map;
             }
         } catch (Exception e) {
-            map.put("successful", new Boolean(false));
             map.put("reason", e.getMessage());
             return map;
         }
@@ -723,7 +770,8 @@ public class CCTAgent {
      */
     public Map editTags(Map params) {
         Map map = new HashMap();
-
+        map.put("successful", false);
+        
         Long concernId = null;
         Concern concern = null;
 
@@ -731,12 +779,10 @@ public class CCTAgent {
             concernId = new Long((String) params.get("concernId"));
             concern = cctService.getConcernById(concernId);
             if (concern.isDeleted()) {
-                map.put("successful", new Boolean(false));
                 map.put("reason", "This concern is already deleted.");
                 return map;
             }
         } catch (Exception e) {
-            map.put("successful", new Boolean(false));
             if (concernId == null) {
                 map.put("reason", "concernId is required.");
             } else {
@@ -757,15 +803,57 @@ public class CCTAgent {
             if (user.getId().doubleValue() == concern.getAuthor().getId()) {
                 concern.setCreateTime(new Date());
                 cctService.editConcernTags(concern, tags);
-                map.put("successful", new Boolean(true));
+                map.put("successful", true);
+                
+                IndexSearcher searcher = null;
+                IndexWriter writer = null;
+                try {
+                    searcher = searchHelper.getIndexSearcher();
+                    Hits hits = searcher.search(searchHelper.getParser().parse(
+                        "type:concern AND concernid:"+concernId
+                    ));
+                    
+                    if (hits.length()>0) {
+                        /*
+                         * delete from lucene
+                         */
+                        IndexReader reader = null;
+                        try {
+                            Document document = hits.doc(0);
+                            
+                            reader = searchHelper.getIndexReader();
+                            
+                            reader.deleteDocument(hits.id(0));
+                        } finally {
+                            if (reader!=null) reader.close();
+                        }
+                    }
+                    
+                    writer = searchHelper.getIndexWriter();
+                    
+                    /*
+                     * reindexing in lucene
+                     */
+                    Document doc = new Document();
+                    
+                    doc.add( new Field("type", "concern", Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("author", concern.getAuthor().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
+                    doc.add( new Field("date", concern.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("contents", concern.getContent(), Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("tags", tagStr, Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("workflowid", concern.getCct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    
+                    writer.addDocument(doc);
+                } catch (Exception e) {
+                    if (searcher!=null) searcher.close();
+                    if (writer!=null) writer.close();
+                }
             } else {
-                map.put("successful", new Boolean(false));
                 map.put("reason", "You have no right to edit this concern.");
                 return map;
             }
         } catch (Exception e) {
             e.printStackTrace();
-            map.put("successful", new Boolean(false));
             map.put("reason", e.getMessage());
             return map;
         }
@@ -1141,22 +1229,31 @@ public class CCTAgent {
         }
         
         if (comment!=null) {
+            /*
+             * Indexing with Lucene.
+             */
+            IndexWriter writer = null;
             try {
-                /*
-                 * Indexing with Lucene.
-                 */
-                IndexWriter writer = searchHelper.getIndexWriter();
+                writer = searchHelper.getIndexWriter();
                 Document doc = new Document();
-                doc.add( Field.Text("type", "concern") );
-                doc.add( Field.Text("author", comment.getOwner().getLoginname()) );
-                doc.add( Field.Text("date", comment.getCreateTime().toString()) );
-                doc.add( Field.Text("title", comment.getTitle()) );
-                doc.add( Field.Text("content", comment.getContent()) );
-                doc.add( Field.Text("tag", Arrays.toString(tags)) );
-                doc.add( Field.UnIndexed("id", comment.getId().toString()) );
+                doc.add( new Field("type", "comment", Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("author", comment.getOwner().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
+                doc.add( new Field("date", comment.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("title", comment.getTitle(), Field.Store.NO, Field.Index.TOKENIZED) );
+                doc.add( new Field("contents", comment.getContent(), Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("tags", Arrays.toString(tags), Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("commentid", comment.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("concernid", comment.getConcern().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("workflowid", comment.getConcern().getCct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 writer.addDocument(doc);
             } catch(Exception e) {
-                e.printStackTrace();
+                if (writer!=null) {
+                    try {
+                        writer.close();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
             }
         }
         
@@ -1212,8 +1309,37 @@ public class CCTAgent {
         
         String[] tags = StringUtil.splitCSL((String) params.get("tags"));
         
+        Comment comment = null;
+        
         try {
-            cctService.editComment(commentId, title, content, tags);
+            comment = cctService.editComment(commentId, title, content, tags);
+            
+            IndexWriter writer = null;
+            try {
+                writer = searchHelper.getIndexWriter();
+                
+                /*
+                 * delete from lucene
+                 */
+                
+                writer.deleteDocuments(new Term("commentid", commentId.toString()));
+                
+                Document doc = new Document();
+                doc.add( new Field("type", "post", Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("author", comment.getOwner().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
+                doc.add( new Field("date", comment.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("title", comment.getTitle(), Field.Store.NO, Field.Index.TOKENIZED) );
+                doc.add( new Field("contents", comment.getContent(), Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("tags", Arrays.toString(tags), Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("workflowid", comment.getConcern().getCct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                
+                /*
+                 * reindexing in lucene
+                 */
+                writer.addDocument(doc);
+            } catch (Exception e) {
+                if (writer!=null) writer.close();
+            }
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -1254,7 +1380,31 @@ public class CCTAgent {
         }
         
         try {
+            Comment comment = cctService.getCommentById(commentId);
             cctService.deleteComment(commentId);
+            
+            /*
+             * delete from lucene
+             */
+            IndexSearcher searcher = null;
+            IndexReader reader = null;
+            try {
+                searcher = searchHelper.getIndexSearcher();
+                
+                Hits hits = searcher.search(searchHelper.getParser().parse(
+                    "workflowid:" + comment.getConcern().getCct().getWorkflowId()
+                    + "AND concernid:" + comment.getConcern().getId()
+                    + "AND commentid:" + comment.getId()
+                ));
+                
+                if (hits.length()>0) {
+                    reader = searchHelper.getIndexReader();
+                    reader.deleteDocument(hits.id(0));
+                }
+            } catch (Exception e) {
+                if (searcher!=null) searcher.close();
+                if (reader!=null) reader.close();
+            }
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -1310,8 +1460,4 @@ public class CCTAgent {
     }//setCommentVoting()
     
 
-	public void test(){
-		
-	}
-    
 }//class CCTAgent

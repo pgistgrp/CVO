@@ -31,6 +31,10 @@ public class CCTHandler extends XMLHandler {
             CCT cct = getCCTByName(name);
             if (cct==null) {
                 cct = new CCT();
+                /*
+                 * FIXME: workflowId
+                 */
+                cct.setWorkflowId(1L);
                 cct.setName(name);
                 cct.setDeleted(false);
             }

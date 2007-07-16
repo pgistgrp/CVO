@@ -29,13 +29,14 @@ public interface CCTService {
     /**
      * Create a CCT object.
      *
+     * @param workflowId
      * @param name
      * @param purpose
      * @param instruction
      * @return
      * @throws Exception
      */
-    CCT createCCT(String name, String purpose, String instruction) throws Exception;
+    CCT createCCT(Long workflowId, String name, String purpose, String instruction) throws Exception;
 
     /**
      * Save the given CCT object to database.<br>
@@ -226,7 +227,7 @@ public interface CCTService {
     Comment createComment(Long concernId, String title, String content, String[] tags) throws Exception;
     
     
-    void editComment(Long commentId, String title, String content, String[] tags) throws Exception;
+    Comment editComment(Long commentId, String title, String content, String[] tags) throws Exception;
     
     
     void deleteComment(Long commentId) throws Exception;
@@ -239,6 +240,9 @@ public interface CCTService {
     
     
     void increaseViews(Long concernId) throws Exception;
+    
+    
+    Comment getCommentById(Long commentId) throws Exception;
 
 
 }//interface CCTService

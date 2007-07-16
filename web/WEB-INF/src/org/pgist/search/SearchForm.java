@@ -19,6 +19,8 @@ public class SearchForm extends ActionForm {
     
     private Collection results;
     
+    private int workflowId;
+    
     private int total;
     
     
@@ -39,6 +41,16 @@ public class SearchForm extends ActionForm {
 
     public void setResults(Collection results) {
         this.results = results;
+    }
+
+
+    public int getWorkflowId() {
+        return workflowId;
+    }
+
+
+    public void setWorkflowId(int workflowId) {
+        this.workflowId = workflowId;
     }
 
 

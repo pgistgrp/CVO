@@ -10,7 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.search.Hits;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.TermQuery;
 import org.directwebremoting.WebContextFactory;
 import org.pgist.cvo.Concern;
 import org.pgist.search.SearchHelper;
@@ -471,7 +477,7 @@ public class SDAgent {
      *     <li>id - int, the id of the new Post</li>
      *   </ul>
      */
-    public Map createPost(Map params) {
+    public Map createPost(HttpServletRequest request, Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -544,18 +550,24 @@ public class SDAgent {
                 /*
                  * Indexing with Lucene.
                  */
-                IndexWriter writer = searchHelper.getIndexWriter();
-                Document doc = new Document();
-                doc.add( Field.Text("type", "post") );
-                doc.add( Field.Text("author", post.getOwner().getLoginname()) );
-                doc.add( Field.Text("date", post.getCreateTime().toString()) );
-                doc.add( Field.Text("title", post.getTitle()) );
-                doc.add( Field.Text("content", post.getContent()) );
-                doc.add( Field.Text("tag", Arrays.toString(tags)) );
-                doc.add( Field.UnIndexed("id", post.getId().toString()) );
-                doc.add( Field.UnIndexed("isid", isid==null ? "" : isid.toString()) );
-                doc.add( Field.UnIndexed("ioid", ioid==null ? "" : ioid.toString()) );
-                writer.addDocument(doc);
+                IndexWriter writer = null;
+                try {
+                    writer = searchHelper.getIndexWriter();
+                    Document doc = new Document();
+                    doc.add( new Field("type", "post", Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("author", post.getOwner().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
+                    doc.add( new Field("date", post.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("title", post.getTitle(), Field.Store.NO, Field.Index.TOKENIZED) );
+                    doc.add( new Field("contents", post.getContent(), Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("tags", Arrays.toString(tags), Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("workflowid", post.getDiscussion().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("postid", post.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("isid", isid==null ? "" : isid.toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("ioid", ioid==null ? "" : ioid.toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    writer.addDocument(doc);
+                } catch(Exception e) {
+                    if (writer!=null) writer.close();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -605,6 +617,7 @@ public class SDAgent {
         
         Long isid = null;
         InfoStructure structure = null;
+        InfoObject infoObject = null;
         
         Long pid = null;
         Long rid = null;
@@ -642,7 +655,7 @@ public class SDAgent {
             map.put("id", reply.getId());
             map.put("successful", true);
             
-            InfoObject infoObject = sdService.getInfoObjectByDiscussionId(reply.getParent().getDiscussion().getId());
+            infoObject = sdService.getInfoObjectByDiscussionId(reply.getParent().getDiscussion().getId());
             
             //sending email notification
             try {
@@ -673,16 +686,19 @@ public class SDAgent {
                  */
                 IndexWriter writer = searchHelper.getIndexWriter();
                 Document doc = new Document();
-                doc.add( Field.Text("type", "reply") );
-                doc.add( Field.Text("author", reply.getOwner().getLoginname()) );
-                doc.add( Field.Text("date", reply.getCreateTime().toString()) );
-                doc.add( Field.Text("title", reply.getTitle()) );
-                doc.add( Field.Text("content", reply.getContent()) );
-                doc.add( Field.Text("tag", Arrays.toString(tags)) );
-                doc.add( Field.UnIndexed("id", reply.getId().toString()) );
-                doc.add( Field.UnIndexed("isid", isid==null ? "" : isid.toString()) );
-                doc.add( Field.UnIndexed("ioid", reply==null ? "" : reply.toString()) );
+                doc.add( new Field("type", "reply", Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("author", reply.getOwner().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
+                doc.add( new Field("date", reply.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("title", reply.getTitle(), Field.Store.NO, Field.Index.TOKENIZED) );
+                doc.add( new Field("contents", reply.getContent(), Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("tags", Arrays.toString(tags), Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("workflowid", reply.getParent().getDiscussion().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("postid", reply.getParent().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("replyid", reply.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("isid", isid==null ? "" : isid.toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("ioid", infoObject==null ? "" : infoObject.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 writer.addDocument(doc);
+                writer.close();
             }
         } catch (Exception e) {
         }
@@ -727,6 +743,11 @@ public class SDAgent {
             
             if (post.getOwner().getId().equals(WebUtils.currentUserId())) {
                 sdService.deletePost(post);
+                
+                /*
+                 * delete from lucene
+                 */
+                searchHelper.getIndexReader().deleteDocuments(new Term("postid", pid.toString()));
             } else {
                 map.put("reason", "You are not the owner of this Discussion Post");
                 return map;
@@ -779,6 +800,17 @@ public class SDAgent {
             //check if it's moderator, TODO
             if (reply.getOwner().getId().equals(WebUtils.currentUserId())) {
                 sdService.deleteReply(reply);
+                
+                /*
+                 * delete from lucene
+                 */
+                IndexReader reader = null;
+                try {
+                    reader = searchHelper.getIndexReader();
+                    reader.deleteDocuments(new Term("replyid", rid.toString()));
+                } catch (Exception e) {
+                    if (reader!=null) reader.close();
+                }
             } else {
                 map.put("reason", "You are not the owner of this Discussion Post");
                 return map;
@@ -846,6 +878,45 @@ public class SDAgent {
             
             if (post.getOwner().getId()==WebUtils.currentUserId()) {
                 sdService.editPost(post, title, content, tags);
+                
+                Document doc = new Document();
+                
+                /*
+                 * delete from lucene
+                 */
+                IndexSearcher searcher = null;
+                IndexWriter writer = null;
+                try {
+                    searcher = searchHelper.getIndexSearcher();
+                    
+                    Term term = new Term("postid", pid.toString());
+                    Query query = new TermQuery(term);
+                    Hits hits = searcher.search(query);
+                    if (hits.length()>0) {
+                        Document hit = hits.doc(0);
+                        doc.add( new Field("type", "post", Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                        doc.add( new Field("author", post.getOwner().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
+                        doc.add( new Field("date", post.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                        doc.add( new Field("title", post.getTitle(), Field.Store.NO, Field.Index.TOKENIZED) );
+                        doc.add( new Field("contents", post.getContent(), Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                        doc.add( new Field("tags", Arrays.toString(tags), Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                        doc.add( new Field("workflowid", post.getDiscussion().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                        doc.add( new Field("postid", post.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                        doc.add( new Field("isid", hit.getField("isid").stringValue(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                        doc.add( new Field("ioid", hit.getField("ioid").stringValue(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    }
+                    
+                    /*
+                     * reindexing in lucene
+                     */
+                    writer = searchHelper.getIndexWriter();
+                    writer.deleteDocuments(term);
+                    writer.addDocument(doc);
+                } catch (Exception e) {
+                    if (searcher!=null) searcher.close();
+                    if (writer!=null) writer.close();
+                }
+                
             } else {
                 map.put("reason", "You are not the owner of this Discussion Post");
             }

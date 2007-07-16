@@ -8,10 +8,15 @@ import java.util.Map;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.search.FuzzyQuery;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.TermQuery;
+import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -49,29 +54,41 @@ public class SearchAction extends Action {
         if (queryStr==null || "".equals(queryStr)) return mapping.findForward("index");
         
         IndexSearcher indexSearcher = null;
+        
         try {
-            searchHelper.getIndexSearcher();
-            Analyzer analyzer = new StandardAnalyzer();
-            Query query = QueryParser.parse(queryStr, "contents", analyzer);
+            indexSearcher = searchHelper.getIndexSearcher();
+            //Query query = QueryParser.parse(queryStr, "contents", new StandardAnalyzer());
+            BooleanQuery query = new BooleanQuery();
+            query.add(new TermQuery(new Term("workflowid", ""+sform.getWorkflowId())), Occur.MUST);
+            query.add(new FuzzyQuery(new Term("contents", queryStr)), Occur.SHOULD);
             
             Hits hits = indexSearcher.search(query);
+            
             sform.setTotal(hits.length());
+            
             final int HITS_PER_PAGE = 10;
+            
             int end = Math.min(hits.length(), HITS_PER_PAGE);
+            
             for (int i=0; i<end; i++) {
                 Document doc = hits.doc(i);
+                
                 String type = doc.get("type");
+                
                 Map map = new HashMap();
                 map.put("type", type);
                 map.put("doc", doc);
-                if ("concern".equals(type) || "comment".equals(type)) {
-                    String id = doc.get("id");
-                    //Post post = cvoDAO.getPostById(new Long(id));
-                    String cvoId = doc.get("cvoId");
-                    //CVO cvo = cvoDAO.getCVOById(new Long(cvoId));
-                    //map.put("cvo", cvo);
-                    //map.put("post", post);
+                
+                if ("post".equals(type)) {
+                    map.put("isid", doc.get("isid"));
+                    map.put("ioid", doc.get("ioid"));
+                } else if ("reply".equals(type)) {
+                    map.put("pid", doc.get("postid"));
+                    map.put("rid", doc.get("replyid"));
+                    map.put("isid", doc.get("isid"));
+                    map.put("ioid", doc.get("ioid"));
                 }
+                
                 list.add(map);
             }//for i
         } finally {

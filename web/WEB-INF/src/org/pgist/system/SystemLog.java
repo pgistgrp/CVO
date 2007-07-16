@@ -2,8 +2,6 @@ package org.pgist.system;
 
 import java.util.Date;
 
-import org.pgist.users.User;
-
 
 /**
  * 
@@ -27,6 +25,8 @@ public class SystemLog {
     private String method;
     
     private String postData;
+    
+    private String referer;
     
     private boolean successful;
     
@@ -126,6 +126,20 @@ public class SystemLog {
 
     public void setPostData(String postData) {
         this.postData = postData;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property length="1024"
+     */
+    public String getReferer() {
+        return referer;
+    }
+
+
+    public void setReferer(String referer) {
+        this.referer = referer;
     }
 
 

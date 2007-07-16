@@ -269,6 +269,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         post.setDiscussion(discussion);
         post.setOwner(getUserById(WebUtils.currentUserId()));
         post.setCreateTime(date);
+        post.setModifyTime(date);
         post.setReplyTime(date);
         post.setEmailNotify(emailNotify);
         
@@ -288,6 +289,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         reply.setDeleted(false);
         
         reply.setCreateTime(new Date());
+        reply.setModifyTime(new Date());
         reply.setParent(post);
         reply.setParentReply(parentReply);
         reply.setOwner(getUserById(WebUtils.currentUserId()));
@@ -302,6 +304,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
 
 
     public void editPost(DiscussionPost post, String title, String content, String[] tags) throws Exception {
+        post.setModifyTime(new Date());
         post.setTitle(title);
         post.setContent(content);
         post.getTags().clear();
@@ -319,12 +322,14 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
 
 
     public void deletePost(DiscussionPost post) throws Exception {
+        post.setModifyTime(new Date());
         post.setDeleted(true);
         save(post);
     }//deletePost()
 
 
     public void deleteReply(DiscussionReply reply) throws Exception {
+        reply.setModifyTime(new Date());
         reply.setDeleted(true);
         save(reply);
     }//deleteReply()

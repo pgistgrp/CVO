@@ -111,6 +111,7 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
         log.setUrl(request.getRequestURL().toString());
         log.setQuery(request.getQueryString());
         log.setPostData("");
+        log.setReferer(request.getHeader("referer"));
         log.setSuccessful((new Boolean(true).equals(request.getAttribute("PGIST_SERVICE_SUCCESSFUL"))));
         
         save(log);
@@ -126,6 +127,7 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
         log.setUrl(request.getRequestURL().toString());
         log.setQuery(request.getQueryString());
         log.setPostData(request.getLogging());
+        log.setReferer(request.getHeader("referer"));
         log.setSuccessful((new Boolean(true).equals(request.getAttribute("PGIST_SERVICE_SUCCESSFUL"))));
         
         save(log);

@@ -28,6 +28,8 @@ public abstract class GenericPost implements Serializable {
     
     protected Date createTime;
     
+    protected Date modifyTime;
+    
     protected int numAgree;
     
     protected int numVote;
@@ -114,6 +116,20 @@ public abstract class GenericPost implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
     }
 
 

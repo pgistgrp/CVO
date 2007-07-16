@@ -120,9 +120,11 @@
     <bean id="profileAgent" class="org.pgist.system.ProfileAgent">
         <property name="profileService" ref="profileService"/>
     </bean>
-
+    
+    
     <bean id="pesAgent" class="org.pgist.pes.SimpleLogger">
     </bean>
+    
     
 </beans>
 

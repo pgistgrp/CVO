@@ -86,6 +86,7 @@
         <property name="sdService" ref="sdService"/>
         <property name="systemService" ref="systemService"/>
         <property name="emailSender" ref="emailSender"/>
+        <property name="searchHelper" ref="searchHelper"/>
     </bean>
 
 

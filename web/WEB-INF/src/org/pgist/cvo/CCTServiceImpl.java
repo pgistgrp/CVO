@@ -70,7 +70,7 @@ public class CCTServiceImpl implements CCTService {
     } //getCCTs()
 
 
-    public CCT createCCT(String name, String purpose, String instruction) throws Exception {
+    public CCT createCCT(Long workflowId, String name, String purpose, String instruction) throws Exception {
         Date time = new Date();
         CCT cct = new CCT();
 
@@ -79,6 +79,7 @@ public class CCTServiceImpl implements CCTService {
         
         cct.setRootCategory(catRef);
         
+        cct.setWorkflowId(workflowId);
         cct.setName(name);
         cct.setPurpose(purpose);
         cct.setInstruction(instruction);
@@ -207,6 +208,11 @@ public class CCTServiceImpl implements CCTService {
     public Concern getConcernById(Long concernId) throws Exception {
         return cctDAO.getConcernById(concernId);
     } //getConcernById()
+
+
+    public Comment getCommentById(Long commentId) throws Exception {
+        return cctDAO.getCommentById(commentId);
+    }//getCommentById()
 
 
     public void deleteConcern(Concern concern) throws Exception {
@@ -388,7 +394,7 @@ public class CCTServiceImpl implements CCTService {
     }//createComment()
 
 
-    public void editComment(Long commentId, String title, String content, String[] tags) throws Exception {
+    public Comment editComment(Long commentId, String title, String content, String[] tags) throws Exception {
         Comment comment = cctDAO.getCommentById(commentId);
         
         if (comment==null) throw new Exception("can't find the specified comment");
@@ -413,6 +419,8 @@ public class CCTServiceImpl implements CCTService {
         }
         
         cctDAO.save(comment);
+        
+        return comment;
     }//editComment()
 
 

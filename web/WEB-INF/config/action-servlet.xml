@@ -70,6 +70,11 @@
     </bean>
     
     
+    <bean name="/search" class="org.pgist.search.SearchAction">
+        <property name="searchHelper" ref="searchHelper"/>
+    </bean>
+    
+    
     <bean name="/lmAbout" class="org.pgist.lm.LmAboutAction" />
     
     

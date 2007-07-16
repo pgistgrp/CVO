@@ -10,6 +10,8 @@
 
 <html:form action="/search.do" method="post">
 
+<html:hidden property="workflowId" name="searchForm" value="${param['workflowId']}"/>
+
 <table width="100%">
   <tr>
     <td><html:text property="queryStr" name="searchForm" maxlength="50" size="50"/><input type="submit" value="Search"></td>

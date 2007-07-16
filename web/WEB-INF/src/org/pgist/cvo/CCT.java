@@ -35,6 +35,8 @@ public class CCT {
     //private Set criteria = new HashSet();
     
     private CategoryReference rootCategory = new CategoryReference();
+
+    private Long workflowId;
     
     
     /**
@@ -205,6 +207,21 @@ public class CCT {
 
     public void setPurpose(String purpose) {
         this.purpose = purpose;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.property not-null="true"
+     */
+    public Long getWorkflowId() {
+        return workflowId;
+    }
+
+
+    public void setWorkflowId(Long workflowId) {
+        this.workflowId = workflowId;
     }
 
     

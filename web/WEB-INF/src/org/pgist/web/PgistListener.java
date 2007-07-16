@@ -9,6 +9,7 @@ import javax.servlet.ServletContextListener;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.pgist.glossary.TermAnalyzer;
+import org.pgist.search.SearchHelper;
 import org.pgist.tagging.TagAnalyzer;
 import org.pgist.util.WebUtils;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
@@ -48,7 +49,6 @@ public class PgistListener implements ServletContextListener {
         /*
          * Config Search Helper
          */
-        /*
         SearchHelper helper = (SearchHelper) context.getBean("searchHelper");
         helper.setContextPath(contextPath);
         
