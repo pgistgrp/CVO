@@ -30,6 +30,8 @@
     <td>
       <c:if test="${result.type=='post'}"><a href="/sdRoom.do?isid=${result.isid}&ioid=${result.ioid}">Post</a></c:if>
       <c:if test="${result.type=='reply'}"><a href="/sdThread.do?isid=${result.isid}&ioid=${result.ioid}&pid=${result.pid}">Reply</a></c:if>
+      <c:if test="${result.type=='concern'}"><a href="/cctview.do?cctId=${result.cctid}">Concern</a></c:if>
+      <c:if test="${result.type=='comment'}"><a href="/cctview.do?cctId=${result.cctid}">Comment</a></c:if>
     </td>
   </tr>
   </c:forEach>

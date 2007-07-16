@@ -5,11 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.FuzzyQuery;
 import org.apache.lucene.search.Hits;
@@ -57,10 +54,8 @@ public class SearchAction extends Action {
         
         try {
             indexSearcher = searchHelper.getIndexSearcher();
-            //Query query = QueryParser.parse(queryStr, "contents", new StandardAnalyzer());
-            BooleanQuery query = new BooleanQuery();
-            query.add(new TermQuery(new Term("workflowid", ""+sform.getWorkflowId())), Occur.MUST);
-            query.add(new FuzzyQuery(new Term("contents", queryStr)), Occur.SHOULD);
+            
+            Query query = searchHelper.getParser().parse("workflowid:"+sform.getWorkflowId()+" AND "+queryStr);
             
             Hits hits = indexSearcher.search(query);
             
@@ -87,6 +82,10 @@ public class SearchAction extends Action {
                     map.put("rid", doc.get("replyid"));
                     map.put("isid", doc.get("isid"));
                     map.put("ioid", doc.get("ioid"));
+                } else if ("concern".equals(type)) {
+                    map.put("concernid", doc.get("concernid"));
+                } else if ("comment".equals(type)) {
+                    map.put("commentid", doc.get("commentid"));
                 }
                 
                 list.add(map);
