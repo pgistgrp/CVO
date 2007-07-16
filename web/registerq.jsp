@@ -209,8 +209,7 @@ function selectToll(tollid) {
 			</span>
 			 </div>
 		<div id="myVehicles">
-			<p>How many vehicles are registered to your household?</p>
-			<p><small>For each vehicle, please provide the following information:</small></p>
+			<p>Tell us about the motor vehicles which are registered to your household.</p>
 				<div id="vehicles">
 					<img src="/images/indicator_arrows.gif" /> Loading your vehicles...
 					<!-- vehicles rendered by separate jsp page -->

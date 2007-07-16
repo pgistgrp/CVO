@@ -222,7 +222,7 @@
 	
 	<!-- begin OVERVIEW -->
 	<div id="overview" class="box2">
-		<p>Let’s Improve Transportation (LIT) is part of a research study at the University of Washington. To participate in this study you must fill out the information below. Qualified participants may be eligible for payment. Complete the information below to find out if you are eligible.</p>
+		<p>Let's Improve Transportation (LIT) is part of a research study at the University of Washington. To participate fill out the information below. Qualified participants may be eligible for payment. Complete the information below to find out if you are eligible.</p>
 	</div>
 	<!-- end OVERVIEW -->
 	

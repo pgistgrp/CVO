@@ -80,14 +80,14 @@ function submit2A() {
 			<label>
 				<input type="radio" name="interview" value="no" /> No, I'm not interested
 			</label><br/>
-			<small>Must travel to the University of Washington Seattle campus for a 1- hour, audio-recorded interview. A researcher will contact you to schedule an appointment. Payment = $50</small>
+			<small>Must travel to the University of Washington Seattle campus for a 1- hour, audio-recorded interview. A researcher will contact you to schedule an appointment. Payment = $40</small>
 		</span>
 	</p><br />
 	
 	<div class="clearBoth"></div>
 			
 	<p>
-		<span class="consent-label">Three 30-minute observations of you using the website: </span> 
+		<span class="consent-label">Two 30-minute observations of you using the website: </span> 
 		<span class="consent-value">
 			<label>
 				<input type="radio" name="observation" value="yes" checked="checked" /> Yes, I'm interested
@@ -95,7 +95,7 @@ function submit2A() {
 			<label>
 				<input type="radio" name="observation" value="no" /> No, I'm not interested
 			</label><br/>
-			<small>Must travel to the University of Washington Seattle campus for three 30- minute, video/audio-recorded interviews. A researcher will contact you to schedule an appointment. Payment = $20</small>
+			<small>Must travel to the University of Washington Seattle campus for two 30- minute, video/audio-recorded interviews. A researcher will contact you to schedule an appointment. Payment = $60</small>
 		</span>
 	</p><br/>
 	</fieldset>
