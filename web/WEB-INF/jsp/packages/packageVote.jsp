@@ -151,9 +151,9 @@ background:#FFF1DC;
       <div id="headerTitle" class="floatLeft">
         <h3 class="headerColor">Step 4: Select a Recommended Package</h3>
       </div>
-    <div class="headerButton box4 floatLeft currentBox"><a href="#">Discuss candidate packages</a></div>
-    <div class="headerButtonCurrent floatLeft"><a href="#">Vote on package recommendation</A></div>
-      <div id="headerNext" class="box5 floatRight"><a href="http://128.95.212.210:8080/sd.do?isid=7362">Next Step</A></div>
+    <div class="headerButton box4 floatLeft"><a href="#">Discuss candidate packages</a></div>
+    <div class="headerButtonCurrent currentBox floatLeft"><a href="#">Vote on package recommendation</A></div>
+      <div id="headerNext" class="box5 floatRight"><a href="#">Next Step</A></div>
     </div>
   </div>
 <!-- End header menu -->
@@ -220,9 +220,9 @@ background:#FFF1DC;
       <div id="headerTitle" class="floatLeft">
         <h3 class="headerColor">Step 4: Select a Recommended Package</h3>
       </div>
-    <div class="headerButton box4 floatLeft currentBox"><a href="#">Discuss candidate packages</a></div>
-    <div class="headerButtonCurrent floatLeft"><a href="#">Vote on package recommendation</A></div>
-      <div id="headerNext" class="box5 floatRight"><a href="http://128.95.212.210:8080/sd.do?isid=7362">Next Step</A></div>
+    <div class="headerButton box4 floatLeft"><a href="#">Discuss candidate packages</a></div>
+    <div class="headerButtonCurrent currentBox floatLeft"><a href="#">Vote on package recommendation</A></div>
+      <div id="headerNext" class="box5 floatRight"><a href="#">Next Step</A></div>
     </div>
   </div>
 <!-- End header menu -->
