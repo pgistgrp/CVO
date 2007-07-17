@@ -310,7 +310,7 @@
         </pgame>
         
 	
-        <pgame name="pgame-manage.packages" description="Moderator: Manage Packages." auto="false" access="moderator">
+        <pgame name="pgame-manage.packages" description="Moderator: Manage packages." auto="false" access="moderator">
             <actionName>action-manage.packages</actionName>
             <declaration>
                 <ins>
