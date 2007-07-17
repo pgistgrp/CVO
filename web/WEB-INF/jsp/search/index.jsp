@@ -6,7 +6,7 @@
 <title>PGIST Search</title>
 <event:pageunload />
 </head>
-<body bgcolor="white">
+<body>
 
 <html:form action="/search.do" method="post">
 

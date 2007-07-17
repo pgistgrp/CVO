@@ -35,8 +35,6 @@
 <!--End CCT Specific  Libraries-->
 
 <script type="text/javascript">
-
-	
 	tinyMCE.init({
 		mode : "exact",
 		theme : "advanced",
@@ -52,6 +50,7 @@
 	var commentCount = 15;
 	var divDiscussion = "container-include";
 	var filterAnchor = "#filterAnchor";
+	var commentAnchor = "#commentAnchor";
 	
 	//Inputs
 	var txtNewCommentTitle = 'txtNewCommentTitle';
@@ -61,9 +60,7 @@
 
 	function getComments(page, jump){
 		currentPage = page;
-		if(jump){
-			location.href = filterAnchor;
-		}
+
 		//alert("concernId: " + concernId + " page: " + currentPage + " count: " + commentCount); 
 		CCTAgent.getComments({concernId: concernId, page: currentPage, count: commentCount}, {
 			callback:function(data){
@@ -71,6 +68,8 @@
 					$(divDiscussion).innerHTML = data.html; //uses commentsMain.jsp
 					tinyMCE.idCounter=0;
 					tinyMCE.execCommand('mceAddControl',false,'txtNewComment');
+					var anchor = location.hash;
+                    Element.scrollTo(anchor.substr(1,anchor.length))
 				}else{
 					alert(data.reason);
 				}

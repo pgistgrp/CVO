@@ -94,6 +94,7 @@
 <div id="postcomments" class="clearBoth">
 <div id="filteredBy"></div>
 <logic:iterate id="comment" name="comments">
+
 <div id="comment${comment.id}" class="discussionRow">
   <c:choose>
   <c:when test="${baseuser.id == comment.owner.id}">
@@ -109,7 +110,7 @@
           <c:otherwise> <img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/> </c:otherwise>
         </c:choose>
       </div>
-      <span class="discussionTitle"> ${comment.title} </div>
+      <span class="discussionTitle"><a id="commentAnchor${comment.id}" name="commentAnchor${comment.id}" href="#commentAnchor${comment.id}">${comment.title}</a></div>
     <c:choose>
     <c:when test="${baseuser.id == comment.owner.id}">
     <div class="discussionBody box7 padding5">
