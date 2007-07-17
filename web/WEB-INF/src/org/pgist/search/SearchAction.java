@@ -74,8 +74,8 @@ public class SearchAction extends Action {
                 map.put("type", type);
                 map.put("doc", doc);
                 map.put("title", doc.get("title"));
-                map.put("contents", contents);
-                map.put("tags", tags);
+                map.put("contents", doc.get("contents"));
+                map.put("tags", doc.get("tags"));
                 
                 if ("post".equals(type)) {
                     map.put("isid", doc.get("isid"));
