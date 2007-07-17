@@ -6,14 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.lucene.document.Document;
-import org.apache.lucene.index.Term;
-import org.apache.lucene.search.BooleanQuery;
-import org.apache.lucene.search.FuzzyQuery;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
-import org.apache.lucene.search.TermQuery;
-import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -74,15 +69,16 @@ public class SearchAction extends Action {
                 map.put("type", type);
                 map.put("doc", doc);
                 map.put("title", doc.get("title"));
-                map.put("contents", doc.get("contents"));
+                map.put("body", doc.get("body"));
                 map.put("tags", doc.get("tags"));
                 
                 if ("post".equals(type)) {
                     map.put("isid", doc.get("isid"));
                     map.put("ioid", doc.get("ioid"));
+                    map.put("postid", doc.get("postid"));
                 } else if ("reply".equals(type)) {
-                    map.put("pid", doc.get("postid"));
-                    map.put("rid", doc.get("replyid"));
+                    map.put("postid", doc.get("postid"));
+                    map.put("replyid", doc.get("replyid"));
                     map.put("isid", doc.get("isid"));
                     map.put("ioid", doc.get("ioid"));
                 } else if ("concern".equals(type)) {
