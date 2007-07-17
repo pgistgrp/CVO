@@ -205,7 +205,8 @@ public class CCTAgent {
                 doc.add( new Field("type", "concern", Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("author", concern.getAuthor().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
                 doc.add( new Field("date", concern.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("contents", tags+" "+concern.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
+                doc.add( new Field("tags", tags, Field.Store.YES, Field.Index.TOKENIZED) );
+                doc.add( new Field("contents", tags+" "+concern.getContent(), Field.Store.YES, Field.Index.TOKENIZED) );
                 doc.add( new Field("workflowid", concern.getCct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("cctid", concern.getCct().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("concernid", concern.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
@@ -652,6 +653,7 @@ public class CCTAgent {
                     doc.add( new Field("type", "concern", Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("author", concern.getAuthor().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
                     doc.add( new Field("date", concern.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("tags", tags, Field.Store.NO, Field.Index.TOKENIZED) );
                     doc.add( new Field("contents", tags+" "+concern.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
                     doc.add( new Field("workflowid", concern.getCct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("cctid", concern.getCct().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
@@ -849,8 +851,10 @@ public class CCTAgent {
                     doc.add( new Field("type", "concern", Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("author", concern.getAuthor().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
                     doc.add( new Field("date", concern.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("contents", concern.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
+                    doc.add( new Field("contents", tagStr+" "+concern.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
                     doc.add( new Field("tags", tagStr, Field.Store.NO, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("concernid", concern.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("cctid", concern.getCct().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("workflowid", concern.getCct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     
                     writer.addDocument(doc);
@@ -1251,7 +1255,9 @@ public class CCTAgent {
                 doc.add( new Field("type", "comment", Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("author", comment.getOwner().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
                 doc.add( new Field("date", comment.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("title", comment.getTitle(), Field.Store.NO, Field.Index.TOKENIZED) );
                 doc.add( new Field("contents", comment.getTitle()+" "+Arrays.toString(tags)+" "+comment.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
+                doc.add( new Field("tags", Arrays.toString(tags), Field.Store.NO, Field.Index.TOKENIZED) );
                 doc.add( new Field("commentid", comment.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("cctid", comment.getConcern().getCct().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("concernid", comment.getConcern().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
@@ -1341,7 +1347,9 @@ public class CCTAgent {
                 doc.add( new Field("type", "post", Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("author", comment.getOwner().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
                 doc.add( new Field("date", comment.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("title", comment.getTitle(), Field.Store.NO, Field.Index.TOKENIZED) );
                 doc.add( new Field("contents", comment.getTitle()+" "+Arrays.toString(tags)+" "+comment.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
+                doc.add( new Field("tags", Arrays.toString(tags), Field.Store.NO, Field.Index.TOKENIZED) );
                 doc.add( new Field("workflowid", comment.getConcern().getCct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("cctid", comment.getConcern().getCct().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("concernid", comment.getConcern().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
