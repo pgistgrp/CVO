@@ -85,6 +85,7 @@ public class SearchAction extends Action {
                 } else if ("concern".equals(type)) {
                     map.put("concernid", doc.get("concernid"));
                 } else if ("comment".equals(type)) {
+                    map.put("concernid", doc.get("concernid"));
                     map.put("commentid", doc.get("commentid"));
                 }
                 
