@@ -60,11 +60,7 @@ width:200px;
 padding-left:.3em;
 }	
 
-.criteriaListHeader
-{
-background:#fff;
-padding:.3em 0em;
-}
+.criteriaListHeader{background:#ADCFDE;padding:5px 0px;font-size:13pt;}
 
 .criteriaListRow
 {

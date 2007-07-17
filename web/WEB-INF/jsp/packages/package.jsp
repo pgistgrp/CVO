@@ -34,7 +34,7 @@
 	<div id="container">
 		<!-- begin Object -->
 		<div id="object clearfix">
-			<p><h2 class="headerColor">Package ${package.description} Details</h2></p>
+			<p><h2 class="headerColor">${package.description} Details</h2></p>
 			<!-- begin TOP SUMMARY -->
 			<div class="summary box11">
 				<table>
@@ -87,7 +87,7 @@
 				<div id="top" class="box11">
 					<table cellpadding=0 cellspacing=0>
 						<tr class="tableHeading">
-							<th class="first col1">Funding</th>
+							<th class="first col1">Funding for ${package.description}</th>
 							<th class="col2">Estimated Money Raised</th>
 							<th class="col3">Estimated annual cost to the average taxpayer</th>
 							<th class="col4">Estimated annual cost to you</th>
@@ -107,7 +107,7 @@
 											<c:forEach var="alt" items="${source.fundingSourceAlternatives}" varStatus="loop">
 												<tr>
 													<td class="col1">${alt.name}</td>
-													<td class="col2"><fmt:formatNumber type="currency">${alt.estCost}</fmt:formatNumber> million</td>
+													<td class="col2"><fmt:formatNumber type="currency">${alt.estCost}</fmt:formatNumber></td>
 													<td class="col3"><fmt:formatNumber type="currency">${alt.avgCost}</fmt:formatNumber></td>
 													<td class="col4"><fmt:formatNumber type="currency">${alt.yourCost}</fmt:formatNumber></td>
 												</tr>
@@ -124,7 +124,7 @@
 				<div id="bottom" class="box11">
 					<table cellpadding=0 cellspacing=0>
 						<tr class="tableHeading">
-							<th class="col1">My Proposed Projects</th>
+							<th class="col1">Projects ${package.description}</th>
 							<th class="col2">Money Needed</th>
 							<th class="col3">Average Grade</th>
 							<th class="col4">Average Weighted Grade (your weights)</th>
@@ -132,7 +132,7 @@
 						</tr>
 						<!-- begin CATEGORY LABEL -->
 						<tr >
-							<td class="category" colspan="5"><strong>Road Projects</strong></td>
+							<td class="category" colspan="5"><strong>Road projects</strong></td>
 						</tr>
 						<!-- end CATEGORY LABEL -->
 						<!-- begin PROJECT -->
@@ -166,7 +166,7 @@
 						</c:forEach>
 						
 						<tr >
-							<td class="category" colspan="5"><strong>Transit Projects</strong></td>
+							<td class="category" colspan="5"><strong>Transit projects</strong></td>
 						</tr>
 						<!-- end CATEGORY LABEL -->
 						<!-- begin PROJECT -->

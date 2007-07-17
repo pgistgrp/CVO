@@ -25,7 +25,7 @@
 #### -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Step 4b: Vote</title>
+<title>Step 4b: Vote Results</title>
 
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
@@ -60,27 +60,10 @@
 </div>
 <!-- End header -->
 <!-- Begin header menu - The wide ribbon underneath the logo -->
-<div id="headerMenu">
-	<div id="headerContainer">
-		<div id="headerTitle" class="floatLeft">
-			<h3 class="headerColor">Step 4b: Evaluate Candidate Packages</h3>
-		</div>
-		<div class="headerButton floatLeft"> <a href="step4.html">4a: Review packages</a> </div>
-		<div class="headerButton floatLeft currentBox"> <a href="step4b.html">4b: Vote</a> </div>
-		<div id="headerNext" class="floatRight box5"> <a href="step4b.html">Next Step</a> </div>
-	</div>
-</div>
 <!-- End header menu -->
 <!-- #container is the container that wraps around all the main page content -->
 <div id="container">
 	<!-- begin "overview and instructions" area -->
-	<div id="overview" class="box2">
-		<h3>Overview and Instructions</h3>
-		<p>During this step, the moderator asks participants to determine which packages
-			have the greatest level of collective support. This polling information will help
-			us to decide which package to collectively recommend. The final vote will be held
-			on --- workflow date ---.</p>
-	</div>
 	<!-- end overview -->
 	<!-- begin Object -->
 	<div id="object">
@@ -90,18 +73,19 @@
 		<jsp:useBean id="now" class="java.util.Date" />
 		<fmt:formatDate value="${now}" dateStyle="full" var="formattedDate" />
 
-		<h3 class="headerColor">Package Poll Results as of ${formattedDate}</h3>
+		<h3 class="headerColor">Package Poll</h3>
+		Results as of ${formattedDate}</h3>
 		<c:set var="voters" value="${(fn:length(voteSuite.userVotes) / fn:length(voteSuite.stats))}" />
 		<p><fmt:formatNumber type="number">${voters}</fmt:formatNumber> participants voted in this
 			poll (<fmt:formatNumber type="percent">${voters / 20}</fmt:formatNumber> of all participants). Poll results are displayed below.</p>
 		<div class="voteBox box3 padding5" class="clearfix">
 			<div class="VoteListRow row odd">
 				<div class="voteCol1 floatLeft">&nbsp;</div>
-				<div class="voteCol2 floatLeft">I would <strong>enthusiastically endorse</strong> this
+				<div class="voteCol2 floatLeft">I would <strong>enthusiastically recommend</strong> this
 					package</div>
-				<div class="voteCol3 floatLeft">I am <strong>willing to endorse</strong> this
+				<div class="voteCol3 floatLeft">I am <strong>willing to recommend</strong> this
 					package if it receives greatest participant support</div>
-				<div class="voteCol4 floatLeft">I would <strong>not endorse</strong> this package,
+				<div class="voteCol4 floatLeft">I would <strong>not recommend</strong> this package,
 					regardless of its support among other participants</div>
 				<div class="clearBoth"></div>
 			</div>
