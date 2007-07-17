@@ -12,6 +12,9 @@
                     <var name="meeting.fund_suite_id"/>
                     <var name="meeting.proj_isid"/>
                     <var name="meeting.fund_isid"/>
+		    <var name="meeting.crit_suite_id"/>
+		    <var name="meeting.repo_suite_id"/>
+		    <var name="meeting.pkg_suite_id"/>
                 </outs>
             </declaration>
             <sequence>
@@ -25,6 +28,7 @@
                             <var name="pmethod.fund_isid" ref="meeting.fund_isid"/>
                             <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
 			    <var name="pmethod.repo_suite_id" ref="meeting.repo_suite_id"/>
+			    <var name="pmethod.pkg_suite_id" ref="meeting.pkg_suite_id"/>
                         </outs>
                     </declaration>
                 </pmethod>
@@ -102,7 +106,7 @@
             </sequence>
         </meeting>
         
-        <meeting name="meeting-projects-fundings" description="Review Projects and Fundings">
+        <meeting name="meeting-create-package" description="Review Projects and Fundings">
             <declaration>
                 <ins>
                     <var name="meeting.cct_id"/>
@@ -111,34 +115,23 @@
                     <var name="meeting.fund_suite_id"/>
                     <var name="meeting.proj_isid"/>
                     <var name="meeting.fund_isid"/>
+		    <var name="meeting.pkg_suite_id"/>
                 </ins>
             </declaration>
             <sequence>
-                <branch>
-                    <sequence>
-                        <pmethod name="pmethod-projects">
-                            <declaration>
-                                <ins>
-                                    <var name="pmethod.cct_id" ref="meeting.cct_id"/>
-                                    <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
-                                    <var name="pmethod.suite_id" ref="meeting.proj_suite_id"/>
-                                    <var name="pmethod.is_id" ref="meeting.proj_isid"/>
-                                </ins>
-                            </declaration>
-                        </pmethod>
-                    </sequence>
-                    <sequence>
-                        <pmethod name="pmethod-fundings">
-                            <declaration>
-                                <ins>
-                                    <var name="pmethod.cct_id" ref="meeting.cct_id"/>
-                                    <var name="pmethod.suite_id" ref="meeting.fund_suite_id"/>
-                                    <var name="pmethod.is_id" ref="meeting.fund_isid"/>
-                                </ins>
-                            </declaration>
-                        </pmethod>
-                    </sequence>
-                </branch>
+		<pmethod name="pmethod-projects">
+		    <declaration>
+			<ins>
+			    <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+			    <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
+			    <var name="pmethod.proj_suite_id" ref="meeting.proj_suite_id"/>
+			    <var name="pmethod.proj_is_id" ref="meeting.proj_isid"/>
+			    <var name="pmethod.fund_suite_id" ref="meeting.fund_suite_id"/>
+			    <var name="pmethod.fund_is_id" ref="meeting.fund_isid"/>
+			    <var name="pmethod.pkg_suite_id" ref="meeting.pkg_suite_id"/>
+			</ins>
+		    </declaration>
+		</pmethod>
             </sequence>
         </meeting>
         
@@ -149,10 +142,8 @@
                     <var name="meeting.proj_suite_id"/>
                     <var name="meeting.fund_suite_id"/>
                     <var name="meeting.crit_suite_id"/>
+		    <var name="meeting.pkg_suite_id"/>
                 </ins>
-                <outs>
-                    <var name="meeting.pkg_suite_id"/>
-                </outs>
             </declaration>
             <sequence>
                 <pmethod name="pmethod-packages">
@@ -162,9 +153,9 @@
                             <var name="pmethod.proj_suite_id" ref="meeting.proj_suite_id"/>
                             <var name="pmethod.fund_suite_id" ref="meeting.fund_suite_id"/>
                             <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
+			     <var name="pmethod.pkg_suite_id" ref="meeting.pkg_suite_id"/>
                         </ins>
                         <outs>
-                            <var name="pmethod.pkg_suite_id" ref="meeting.pkg_suite_id"/>
                             <var name="pmethod.vote_suite_id_1" ref="meeting.vote_suite_id_1"/>
                             <var name="pmethod.vote_suite_id_2" ref="meeting.vote_suite_id_2"/>
                         </outs>

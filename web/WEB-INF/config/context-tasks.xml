@@ -124,6 +124,7 @@
               <entry><key><value>action-planning.factor.reweigh</value></key><value>/?????.do</value></entry>
               <entry><key><value>action-manage.packages</value></key><value>/packageMgr.do</value></entry>
               <entry><key><value>action-vote.packages</value></key><value>/packageVote.do</value></entry>
+              <entry><key><value>action-vote.report</value></key><value>/packageVote.do</value></entry>
             </map>
         </property>
     </bean>
