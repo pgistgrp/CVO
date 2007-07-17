@@ -61,7 +61,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-grade.projects" description="Moderator: Grade Projects." auto="false" access="moderator" revisitable="true">
+        <pgame name="pgame-grade.projects" description="Moderator: Grade projects." auto="false" access="moderator" revisitable="true">
             <actionName>action-grade.projects</actionName>
             <declaration>
                 <ins>
@@ -100,7 +100,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-cvo.cst" description="Moderator: Concerns Synthesis Tool" auto="false" access="moderator" revisitable="true">
+        <pgame name="pgame-cvo.cst" description="Moderator: Concerns synthesis tool" auto="false" access="moderator" revisitable="true">
             <actionName>action-cvo.cst</actionName>
             <declaration>
                 <ins>
@@ -142,7 +142,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-define.criteria" description="Moderator: Define Improvement Factors" auto="false" access="moderator">
+        <pgame name="pgame-define.criteria" description="Moderator: Define improvement factors" auto="false" access="moderator">
             <actionName>action-define.criteria</actionName>
             <declaration>
                 <ins>
@@ -396,7 +396,7 @@
 	    </declaration>
 	</pgame>
 
-	<pgame name="pgame-define.report" description="Moderator: Define Report" access="moderator" auto="false">
+	<pgame name="pgame-define.report" description="Moderator: Define report" access="moderator" auto="false">
 	    <actionName>action-define.report</actionName>
 	    <declaration>
 		<ins>
