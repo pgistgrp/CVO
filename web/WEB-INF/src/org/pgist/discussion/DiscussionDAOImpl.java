@@ -1147,7 +1147,11 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         if (rs.next()) {
             Long ioid = rs.getLong(1);
-            return (InfoObject) getHibernateTemplate().load(InfoObject.class, ioid);
+            if (ioid>0) {
+                return (InfoObject) getHibernateTemplate().load(InfoObject.class, ioid);
+            } else {
+                return null;
+            }
         } else {
             throw new Exception("can't find the ioid corresponds to the did.");
         }
