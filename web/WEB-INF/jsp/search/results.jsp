@@ -22,6 +22,7 @@
             [ ] Pagination (Zhong/Jordan)
             [ ] Keyword Browsing (Zhong/Jordan)
             [ ] ioid null instead of 0 on type reply (Zhong)
+            [ ] Search projects and user profiles (Zhong)
     #### -->
 	<head>
     	<title>Let's Improve Transportation - Global Search</title>
