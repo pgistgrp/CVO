@@ -2,6 +2,7 @@ package org.pgist.report;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
 import org.pgist.criteria.CriteriaRef;
 import org.pgist.criteria.CriteriaSuite;
@@ -12,7 +13,7 @@ import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
 import org.pgist.packages.ClusteredPackage;
 import org.pgist.packages.PackageSuite;
-
+import org.pgist.util.WebUtils;
 
 public class ReportServiceImpl implements ReportService{
 	
@@ -73,18 +74,6 @@ public class ReportServiceImpl implements ReportService{
 	        
 	        Date date = new Date();
 	        
-	        /*
-	        Long checkId = criteriaDAO.checkPublished(cctId);
-	        InfoStructure structure = null;
-	        
-	        if(checkId == null) {         
-		        structure = new InfoStructure();
-	            structure.getDiscussion().setWorkflowId(workflowId);
-	        } else {
-	        	structure = (InfoStructure) criteriaDAO.load(InfoStructure.class, checkId);
-	        	structure.deleteInfoObjects();
-	        }
-	        */
 	        
 	        InfoStructure structure = new InfoStructure();
             structure.getDiscussion().setWorkflowId(workflowId);
@@ -106,9 +95,21 @@ public class ReportServiceImpl implements ReportService{
 	        discussionDAO.save(structure);
 	        
 	        return structure;
-	    }//publish()
+	 }//publish()
 
 
-
+	 public void createReportVote(Long suiteId, boolean vote) throws Exception {
+		 Long userId = WebUtils.currentUserId();
+		 reportDAO.createReportVote(suiteId, vote, userId);
+	 }
 	
+	 
+	 public boolean getUserVoted(Long suiteId, Long userId) throws Exception {
+		 return reportDAO.getUserVoted(suiteId, userId);
+	 }
+	 
+	 public Map getVoteStats(Long suiteId) throws Exception {
+		 return reportDAO.getVoteStats(suiteId);
+	 }
+	 
 }

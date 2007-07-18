@@ -27,9 +27,10 @@ import java.util.Iterator;
  * 
  * This action accepts such parameters:<br>
  * <ul>
- *   <li>cctId - long, Id of the CCT object</li>
+ *   <li>cct_id - long, Id of the CCT object</li>
  *   <li>critSuiteId - long, id of the criteria suite</li>
- *   <li>packSuiteId - long, id of the package suite</li>
+ *   <li>pkgSuiteId - long, id of the package suite</li>
+ *   <li>repoSuiteId - long, id of the report suite</li>
  * </ul>
  * 
  * The control will be forwarded to page with the mapping name of "reports", with the following variables available:<br>

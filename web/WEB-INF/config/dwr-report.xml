@@ -22,6 +22,9 @@
 
     <create creator="spring" javascript="ReportAgent">
       <param name="beanName" value="reportAgent"/>
+      <include method="getVoteStats"/>
+      <include method="createReportVote"/>
+      <include method="getUserVoted"/>
     </create>
 
     

@@ -1,6 +1,7 @@
 package org.pgist.report;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.pgist.packages.ClusteredPackage;
 import org.pgist.packages.PackageSuite;
@@ -22,4 +23,10 @@ public interface ReportDAO extends BaseDAO {
 	
 	ReportSuite createReportSuite() throws Exception;
 	 
+	void createReportVote(Long suiteId, boolean vote, Long userId) throws Exception;
+	
+	boolean getUserVoted(Long suiteId, Long userId) throws Exception;
+	
+	Map getVoteStats(Long suiteId) throws Exception;
+	
 }

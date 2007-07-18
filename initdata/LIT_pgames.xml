@@ -434,10 +434,13 @@
 	    </declaration>
 	</pgame>
 	
-	<pgame name="pgame-vote.report" description="5b: Vote on report endorsement (Incomplete)" access="all" auto="false" revisitable="true">
-	    <actionName>action-sd.report</actionName>
+	<pgame name="pgame-vote.report" description="5b: Vote on report endorsement" access="all" auto="false" revisitable="true">
+	    <actionName>action-view.report</actionName>
 	    <declaration>
 		<ins>
+		    <var name="cct_id"/>
+		    <var name="critSuiteId"/>
+	            <var name="pkgSuiteId"/>
 		    <var name="repoSuiteId"/>
 		</ins>
 	    </declaration>

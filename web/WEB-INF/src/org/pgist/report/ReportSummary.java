@@ -34,6 +34,9 @@ public class ReportSummary implements Serializable {
 	
 	private boolean finalized = false;
 	
+    private String finalVoteDate;
+
+    private String finalReportDate;
 	
     /**
      * @return
@@ -129,6 +132,32 @@ public class ReportSummary implements Serializable {
 	public void setProjectSummary(String projectSummary) {
 		this.projectSummary = projectSummary;
 	}
+
+    /**
+     * @return
+     * @hibernate.property type="text" not-null="false"
+     */
+	public String getFinalVoteDate() {
+		return finalVoteDate;
+	}
+
+	public void setFinalVoteDate(String finalVoteDate) {
+		this.finalVoteDate = finalVoteDate;
+	}
+
+    /**
+     * @return
+     * @hibernate.property type="text" not-null="false"
+     */
+	public String getFinalReportDate() {
+		return finalReportDate;
+	}
+
+	public void setFinalReportDate(String finalReportDate) {
+		this.finalReportDate = finalReportDate;
+	}
+
+
 	
 	
 } //class ReportSummary

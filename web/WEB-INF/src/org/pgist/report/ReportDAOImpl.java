@@ -350,4 +350,60 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	}
 	
 	
+	public void createReportVote(Long suiteId, boolean vote, Long userId) throws Exception {
+		User user = (User) load(User.class, userId);
+		ReportSuite rs = (ReportSuite) load(ReportSuite.class, suiteId);
+		
+		ReportVote reportVote = new ReportVote();
+		
+		reportVote.setOwner(user);
+		reportVote.setVoting(vote);
+		save(reportVote);
+		
+		rs.getVotes().add(reportVote);
+		save(rs);
+	}
+	
+	
+	public boolean getUserVoted(Long suiteId, Long userId) throws Exception {
+		User user = (User) load(User.class, userId);
+		ReportSuite rs = (ReportSuite) load(ReportSuite.class, suiteId);
+		Set<ReportVote> votes = rs.getVotes();
+		
+		Iterator it = votes.iterator();
+		while(it.hasNext()) {
+			ReportVote rv = (ReportVote) it.next();
+			if(rv.getOwner()==user) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	public Map getVoteStats(Long suiteId) throws Exception {
+		ReportSuite rs = (ReportSuite) load(ReportSuite.class, suiteId);
+		Set<ReportVote> votes = rs.getVotes();
+		
+		int yes = 0;
+		int total = votes.size();
+		
+		Iterator it = votes.iterator();
+		while(it.hasNext()) {
+			ReportVote rv = (ReportVote) it.next();
+			if(rv.isVoting()) {
+				yes++;
+			}
+		}
+		
+		Map map = new HashMap();
+		map.put("yes", yes);
+		map.put("total", total);
+		map.put("no", total-yes);
+		map.put("percentyes", yes/total);
+		map.put("percentno", (total-yes)/total);
+		
+		return map;
+	}
+	
 }

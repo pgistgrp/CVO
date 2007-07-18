@@ -1,6 +1,7 @@
 package org.pgist.report;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * <span style="color:red;">POJO</span>: PGIST Announcement Class<br>
@@ -22,6 +23,8 @@ public class ReportSuite implements Serializable{
 	private ReportStats reportStatsConcerns;
 
 	private ReportStats reportStatsEval;
+	
+	private Set<ReportVote> votes;
 	
     /**
      * @return 
@@ -79,6 +82,23 @@ public class ReportSuite implements Serializable{
 
 	public void setReportStatsEval(ReportStats reportStatsEval) {
 		this.reportStatsEval = reportStatsEval;
+	}
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.set lazy="true" cascade="all" order-by="id"
+     * @hibernate.collection-key column="suite_id"
+     * @hibernate.collection-one-to-many class="org.pgist.report.ReportVote"
+     */
+	public Set<ReportVote> getVotes() {
+		return votes;
+	}
+
+
+	public void setVotes(Set<ReportVote> votes) {
+		this.votes = votes;
 	}
 	
 	

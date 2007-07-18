@@ -38,6 +38,7 @@
         </property>
         <property name="mappingResources">
            <list>
+	       <value>org/pgist/report/ReportVote.hbm.xml</value>
                <value>org/pgist/report/ReportStats.hbm.xml</value>
                <value>org/pgist/report/ReportSuite.hbm.xml</value>
                <value>org/pgist/report/ReportSummary.hbm.xml</value>

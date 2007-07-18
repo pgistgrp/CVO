@@ -25,6 +25,11 @@ public class ReportForm extends ActionForm {
     
     private boolean finalized;
  
+    private String finalVoteHeading;
+
+    private String finalVoteSubheading;
+
+
 
 	public String getConcernSummary() {
 		return concernSummary;
@@ -112,6 +117,26 @@ public class ReportForm extends ActionForm {
 
 	public void setFinalized(boolean finalized) {
 		this.finalized = finalized;
+	}
+
+
+	public String getFinalVoteHeading() {
+		return finalVoteHeading;
+	}
+
+
+	public void setFinalVoteHeading(String finalVoteHeading) {
+		this.finalVoteHeading = finalVoteHeading;
+	}
+
+
+	public String getFinalVoteSubheading() {
+		return finalVoteSubheading;
+	}
+
+
+	public void setFinalVoteSubheading(String finalVoteSubheading) {
+		this.finalVoteSubheading = finalVoteSubheading;
 	}
 	
 	
