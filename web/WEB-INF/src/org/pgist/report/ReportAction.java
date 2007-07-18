@@ -13,6 +13,7 @@ import org.pgist.packages.PackageService;
 import org.pgist.packages.PackageSuite;
 import org.pgist.packages.UserPackage;
 import org.pgist.packages.ClusteredPackage;
+import org.pgist.system.SystemService;
 import org.pgist.users.UserInfo;
 import org.pgist.util.WebUtils;
 
@@ -53,7 +54,7 @@ public class ReportAction extends Action {
 	private CCTService cctService;
 	private CSTService cstService;
 	private CriteriaService criteriaService;
-
+	private SystemService systemService;
 	private PackageService packageService;
 	
 
@@ -176,9 +177,14 @@ public class ReportAction extends Action {
     	request.setAttribute("finalized", repoSummary.isFinalized());
     	request.setAttribute("concernStats", rs.getReportStatsConcerns());
     	request.setAttribute("evalStats", rs.getReportStatsEval());
+    	request.setAttribute("counties", systemService.getAllCounties());
     	
         return mapping.findForward("report");
     }//execute()
+
+	public void setSystemService(SystemService systemService) {
+		this.systemService = systemService;
+	}
 
 
 
