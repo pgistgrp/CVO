@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" version="2.4">
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+   version="2.5">
 
     <display-name>CVO Test Application</display-name>
     
@@ -92,6 +95,11 @@
         </init-param>
     </filter>
     
+    <filter>
+        <filter-name>WorkflowFilter</filter-name>
+        <filter-class>org.pgist.wfengine.web.WorkflowFilter</filter-class>
+    </filter>
+    
     <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
         <servlet-name>action</servlet-name>
@@ -110,16 +118,28 @@
     <filter-mapping>
         <filter-name>pgist filter</filter-name>
         <url-pattern>/dwr/*</url-pattern>
-    </filter-mapping>
-    
-    <filter-mapping>
-        <filter-name>pgist filter</filter-name>
         <url-pattern>/index.jsp</url-pattern>
+        <url-pattern>/main.jsp</url-pattern>
     </filter-mapping>
     
     <filter-mapping>
-        <filter-name>pgist filter</filter-name>
-        <url-pattern>/main.jsp</url-pattern>
+        <filter-name>WorkflowFilter</filter-name>
+        <url-pattern>/templateSelect.do</url-pattern>
+        <url-pattern>/projectDefine.do</url-pattern>
+        <url-pattern>/fundingDefine.do</url-pattern>
+        <url-pattern>/projectGrading.do</url-pattern>
+        <url-pattern>/cctview.do</url-pattern>
+        <url-pattern>/cstview.do</url-pattern>
+        <url-pattern>/criteriaMgr.do</url-pattern>
+        <url-pattern>/criteriaDefine.do</url-pattern>
+        <url-pattern>/sd.do</url-pattern>
+        <url-pattern>/sdRoom.do</url-pattern>
+        <url-pattern>/reportsummary.do</url-pattern>
+        <url-pattern>/report.do</url-pattern>
+        <url-pattern>/criteriaWeigh.do</url-pattern>
+        <url-pattern>/createPackage.do</url-pattern>
+        <url-pattern>/packageMgr.do</url-pattern>
+        <url-pattern>/packageVote.do</url-pattern>
     </filter-mapping>
     
     <listener>
@@ -172,9 +192,9 @@
             <param-name>config-criteria</param-name>
             <param-value>WEB-INF/config/dwr-criteria.xml</param-value>
         </init-param>
-	<init-param>
-	    <param-name>config-report</param-name>
-	    <param-value>WEB-INF/config/dwr-report.xml</param-value>
+        <init-param>
+            <param-name>config-report</param-name>
+        <param-value>WEB-INF/config/dwr-report.xml</param-value>
         </init-param>
         <init-param>
             <param-name>config-package</param-name>
@@ -197,7 +217,7 @@
             <param-value>WEB-INF/config/dwr-workflow.xml</param-value>
         </init-param>
         <init-param>
-	    <param-name>config-other</param-name>
+        <param-name>config-other</param-name>
             <param-value>WEB-INF/config/dwr-other.xml</param-value>
         </init-param>
         <init-param>

@@ -18,12 +18,12 @@
 	<!--History-->
 	<c:forEach var="sHistory" items="${workflow.situation.context.histories}" varStatus="loop">
 		<pg:narrow name="sHistory"/>
-		<c:set var="sHistoryActivity" value="${sHistory.activity}" />
+		<c:set var="sHistoryActivity" value="${sHistory}" />
 		<pg:narrow name="sHistoryActivity"/>
 		<!--${sHistoryActivity.description}-->
 			<c:forEach var="mHistory" items="${sHistoryActivity.context.histories}" varStatus="loop">
 				<pg:narrow name="mHistory"/>
-				<c:set var="mHistoryActivity" value="${mHistory.activity}" />
+				<c:set var="mHistoryActivity" value="${mHistory}" />
 				<pg:narrow name="mHistoryActivity"/>
 				
 				<h4 class="headerColor clearBoth step-header">${mHistoryActivity.description}</h4>
@@ -32,14 +32,14 @@
 				</c:if>
 				<c:forEach var="gHistory" items="${mHistoryActivity.context.histories}" varStatus="loop">		
 					<pg:narrow name="gHistory"/>
-					<c:set var="gHistoryActivity" value="${gHistory.activity}" />
+					<c:set var="gHistoryActivity" value="${gHistory}" />
 					<pg:narrow name="gHistoryActivity"/>
 					<div class="home-row clearfix">
 						<c:choose>
 							<c:when test="${gHistoryActivity.access == 'moderator'}">
 								<pg:show roles="moderator">
 									<div class="step">
-										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mHistoryActivity.context.id}&historyId=${gHistory.id}">${gHistoryActivity.description}</a><br />
+										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mHistoryActivity.context.id}&activityId=${gHistory.id}">${gHistoryActivity.description}</a><br />
 										<small>Information about this step</small>
 									</div>
 									<div class="date">00/00</div>
@@ -48,7 +48,7 @@
 							<c:otherwise>
 								<pg:show roles="participant">
 									<div class="step">
-										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mHistoryActivity.context.id}&historyId=${gHistory.id}">${gHistoryActivity.description}</a><br />
+										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mHistoryActivity.context.id}&activityId=${gHistory.id}">${gHistoryActivity.description}</a><br />
 										<small>Information about this step</small>
 									</div>
 									<div class="date">00/00</div>
@@ -75,14 +75,14 @@
 
 				<c:forEach var="gActiveHistory" items="${mActive.context.histories}">
 					<pg:narrow name="gActiveHistory"/>
-					<c:set var="gActiveHistoryActivity" value="${gActiveHistory.activity}" />
+					<c:set var="gActiveHistoryActivity" value="${gActiveHistory}" />
 					<pg:narrow name="gActiveHistoryActivity"/>
 					<c:choose>
 						<c:when test="${gActiveHistoryActivity.access == 'moderator'}">
 							<pg:show roles="moderator">
 								<div class="home-row clearfix">
 									<div class="step">
-										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&historyId=${gActiveHistory.id}">${gActiveHistoryActivity.description}</a><br />
+										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActiveHistory.id}">${gActiveHistoryActivity.description}</a><br />
 										<small>Information about this step</small>
 									</div>
 									<div class="date">00/00</div>
@@ -93,7 +93,7 @@
 							<pg:show roles="participant">
 								<div class="home-row clearfix">
 									<div class="step">
-										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&historyId=${gActiveHistory.id}">${gActiveHistoryActivity.description}</a><br />
+										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActiveHistory.id}">${gActiveHistoryActivity.description}</a><br />
 										<small>Information about this step</small>
 									</div>
 									<div class="date">00/00</div>

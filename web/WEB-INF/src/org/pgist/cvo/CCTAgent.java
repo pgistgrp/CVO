@@ -41,11 +41,11 @@ public class CCTAgent {
 
 
     private CCTService cctService = null;
-
+    
     private UserDAO userDAO = null;
     
     private SystemService systemService;
-
+    
     private SearchHelper searchHelper;
     
     

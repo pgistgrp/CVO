@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
@@ -78,6 +79,9 @@ input[type=button]{padding:5px;margin-top:15px;}
   </div>
 	</p><input type="button" value ="Done" onclick="selectTemplate();"></p>
 	</form>
+
+  <!-- DELETE ME, I AM ONLY A DEMO -->
+  <pg:url page="/test.do" params="input=1000">Hello</pg:url>
 </div>
 </body>
 </html>
