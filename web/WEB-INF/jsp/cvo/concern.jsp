@@ -69,7 +69,7 @@
 					tinyMCE.idCounter=0;
 					tinyMCE.execCommand('mceAddControl',false,'txtNewComment');
 					var anchor = location.hash;
-                    Element.scrollTo(anchor.substr(1,anchor.length))
+                    if(anchor){Element.scrollTo(anchor.substr(1,anchor.length))}
 				}else{
 					alert(data.reason);
 				}

@@ -18,11 +18,10 @@
              Front End: Jordan Isip, Adam Hindman
              Back End: Zhong Wang, John Le
         Todo Items:
-            [ ] Integrate header.jsp - needs consistent wfId (Zhong/Jordan)
+            [ ]  custom tag/fix all links (Zhong/Jordan)
             [ ] Pagination (Zhong/Jordan)
-            [ ] Keyword Browsing (Zhong/Jordan)
-            [ ] ioid null instead of 0 on type reply (Zhong)
-            [ ] Search projects and user profiles (John)
+            [ ] Keyword Browsing (John)
+            [ ] Search projects and user profiles (Zhong/John)
     #### -->
 	<head>
     	<title>Let's Improve Transportation - Global Search</title>
@@ -117,6 +116,7 @@
 		</div>
 	</div>
 	<!-- end container -->
+		
 	<!-- start feedback form -->
 	<pg:feedback id="feedbackDiv" action="cctView.do"/>
 	<!-- end feedback form -->
