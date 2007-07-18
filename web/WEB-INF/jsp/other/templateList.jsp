@@ -80,8 +80,8 @@ input[type=button]{padding:5px;margin-top:15px;}
 	</p><input type="button" value ="Done" onclick="selectTemplate();"></p>
 	</form>
 
-  <!-- DELETE ME, I AM ONLY A DEMO -->
-  <pg:url page="/test.do" params="input=1000">Hello</pg:url>
+  <!-- DELETE ME, I AM ONLY A DEMO
+  <pg:url page="/test.do" params="input=1000">Hello</pg:url> -->
 </div>
 </body>
 </html>
