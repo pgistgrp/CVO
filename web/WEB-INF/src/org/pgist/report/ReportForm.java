@@ -25,9 +25,9 @@ public class ReportForm extends ActionForm {
     
     private boolean finalized;
  
-    private String finalVoteHeading;
+    private String finalVoteDate;
 
-    private String finalVoteSubheading;
+    private String finalReportDate;
 
 
 
@@ -120,24 +120,26 @@ public class ReportForm extends ActionForm {
 	}
 
 
-	public String getFinalVoteHeading() {
-		return finalVoteHeading;
+	public String getFinalReportDate() {
+		return finalReportDate;
 	}
 
 
-	public void setFinalVoteHeading(String finalVoteHeading) {
-		this.finalVoteHeading = finalVoteHeading;
+	public void setFinalReportDate(String finalReportDate) {
+		this.finalReportDate = finalReportDate;
 	}
 
 
-	public String getFinalVoteSubheading() {
-		return finalVoteSubheading;
+	public String getFinalVoteDate() {
+		return finalVoteDate;
 	}
 
 
-	public void setFinalVoteSubheading(String finalVoteSubheading) {
-		this.finalVoteSubheading = finalVoteSubheading;
+	public void setFinalVoteDate(String finalVoteDate) {
+		this.finalVoteDate = finalVoteDate;
 	}
-	
+
+
+
 	
 }//class UserForm
