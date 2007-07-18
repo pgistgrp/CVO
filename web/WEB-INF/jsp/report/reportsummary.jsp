@@ -53,11 +53,11 @@
 	
 	<p>Finalize Report? Yes <html:radio property="finalized" value="true" />  No <html:radio property="finalized" value="false" /></p>
 	
-	<p>Final Vote Heading: 
-	  <html:textarea property="finalVoteHeading" value="${rSummary.finalVoteHeading}"/></p>
+	<p>Final Vote Date: 
+	  <html:textarea property="finalVoteDate" value="${rSummary.finalVoteHeading}"/></p>
 	  
-	  <p>Final Vote Subheading: 
-	  <html:textarea property="finalVoteSubheading" value="${rSummary.finalVoteSubheading}"/></p>
+	  <p>Final Report Date: 
+	  <html:textarea property="finalReportDate" value="${rSummary.finalVoteSubheading}"/></p>
 	  
 	<html:submit value="submit" />
 	</html:form>
