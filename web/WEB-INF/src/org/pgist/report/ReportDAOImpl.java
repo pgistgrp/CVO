@@ -119,28 +119,28 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		//calculate stats
 		int totalUsers = male + female;
 		if(totalUsers>0) {
-			int percentMale = male/totalUsers;
-			int percentFemale = female/totalUsers;
+			int percentMale = (male/totalUsers)  * 100;
+			int percentFemale = (female/totalUsers)  * 100;
 		
 			//convert numbers into percents
 			Set<County> countyKeys = countySet.keySet();
 			for(County c : countyKeys) {
 				int num = countySet.get(c);
-				int percent = num/totalUsers;
+				int percent = (num/totalUsers) * 100;
 				countySet.put(c, percent);
 			}
 			
 			Set<String> incomeKeys = incomeSet.keySet();
 			for(String i : incomeKeys) {
 				int num = incomeSet.get(i);
-				int percent = num/totalUsers;
+				int percent = (num/totalUsers) * 100;
 				incomeSet.put(i, percent);
 			}
 			
 			Set<String> transportKeys = transportSet.keySet();
 			for(String t : transportKeys) {
 				int num = transportSet.get(t);
-				int percent = num/totalUsers;
+				int percent = (num/totalUsers)  * 100;
 				transportSet.put(t, percent);
 			}
 			// save stats to reportStats
@@ -232,28 +232,28 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		//calculate stats
 		int totalUsers = male + female;
 		if(totalUsers>0) {
-			int percentMale = male/totalUsers;
-			int percentFemale = female/totalUsers;
+			int percentMale = (male/totalUsers) * 100;
+			int percentFemale = (female/totalUsers) * 100;
 		
 			//convert numbers into percents
 			Set<County> countyKeys = countySet.keySet();
 			for(County c : countyKeys) {
 				int num = countySet.get(c);
-				int percent = num/totalUsers;
+				int percent = (num/totalUsers) * 100;
 				countySet.put(c, percent);
 			}
 			
 			Set<String> incomeKeys = incomeSet.keySet();
 			for(String i : incomeKeys) {
 				int num = incomeSet.get(i);
-				int percent = num/totalUsers;
+				int percent = (num/totalUsers) * 100;
 				incomeSet.put(i, percent);
 			}
 			
 			Set<String> transportKeys = transportSet.keySet();
 			for(String t : transportKeys) {
 				int num = transportSet.get(t);
-				int percent = num/totalUsers;
+				int percent = (num/totalUsers) * 100;
 				transportSet.put(t, percent);
 			}
 			// save stats to reportStats
