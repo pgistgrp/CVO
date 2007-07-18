@@ -31,7 +31,7 @@ body {
 	img.splash {
 		margin:auto;
 		position:relative;
-		top:1px;
+		top:2px;
 	}
 	
 	div#text {
