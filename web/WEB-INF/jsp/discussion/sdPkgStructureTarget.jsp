@@ -1,7 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -68,9 +68,12 @@
 								<div class="col1 floatLeft">
 									<div class="floatLeft"><a href="javascript:io.goToPackage(${infoObject.object.id});">Package ${infoObject.object.description}</a></div>
 								</div>
-								<div class="col2 floatLeft">$<fmt:formatNumber type="number">${infoObject.object.totalCost}</fmt:formatNumber></div>
+								<div class="col2 floatLeft">
+								$<fmt:formatNumber maxFractionDigits="0" value="${infoObject.object.totalCost/1000000}" /> million
+								</div>
 								<div class="col3 floatLeft">Unknown</div>
-								<div class="col4 floatLeft">$<fmt:formatNumber type="number">${infoObject.object.avgResidentCost}</fmt:formatNumber>/year</div>
+								<div class="col4 floatLeft">
+								$<fmt:formatNumber maxFractionDigits="0" value="${infoObject.object.avgResidentCost/1000000}" /> million / year</div>
 								<div class="clearBoth"></div>
 							</div>
 						</c:if>
@@ -84,9 +87,10 @@
 								<div class="col1 floatLeft">
 									<div class="floatLeft"><a href="javascript:io.goToPackage(${infoObject.object.id});">${infoObject.object.description}</a></div>
 								</div>
-								<div class="col2 floatLeft">$<fmt:formatNumber type="number">${infoObject.object.totalCost}</fmt:formatNumber></div>
+								<div class="col2 floatLeft">
+								$<fmt:formatNumber maxFractionDigits="0" value="${infoObject.object.totalCost/1000000}" /> million </div>
 								<div class="col3 floatLeft">Unknown</div>
-								<div class="col4 floatLeft">$<fmt:formatNumber type="number">${infoObject.object.avgResidentCost}</fmt:formatNumber>/year</div>
+								<div class="col4 floatLeft">$<fmt:formatNumber maxFractionDigits="0" value="${infoObject.object.avgResidentCost/1000000}" /> million / year</div>
 								<div class="clearBoth"></div>
 							</div>
 						</c:if>
@@ -94,7 +98,8 @@
 					
 					</p>
 					
-					<strong>Note: The <em>Roads and Transit</em> package above is the package which will appear on the November 2007 ballot.</strong>
+					<strong>
+					Note: the Proposed package above is an approximation of the package proposed by RTID and Sound Transit.  The actual Roads and Transit package which will appear on the November 2007 ballot may differ in its projects and cost estimates.</strong>
 					<p><a href="#" target="_blank">Compare the spatial equity of these packages</a><br/>Express your preferences in the <a href="#">package poll</a></p>
 				</div>
 				<!-- end list of funding options -->

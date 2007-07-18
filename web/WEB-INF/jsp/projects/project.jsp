@@ -1,7 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -107,7 +107,6 @@ margin:.5em 0em .5em 1em;
 			});
 		}
 </script>
-<script type='text/javascript' src='/scripts/util.js'></script>
 <!-- #container is the container that wraps around all the main page content -->
 <div id="container">
 <!-- begin Object -->
@@ -122,18 +121,20 @@ margin:.5em 0em .5em 1em;
     <p>
     <h4 style="display:inline">Money needed to complete this
       project: </h4>
-    <span id="project-moneyNeeded">${reference.alternative.cost}</span>
+    <span id="project-moneyNeeded">
+    $<fmt:formatNumber maxFractionDigits="0" value="${reference.alternative.cost/1000000}" /> million
+    </span>
     </p>
     <p>
-    <h4 style="display:inline">Sponsoring agency: </h4>
+    <h4 style="display:inline">Sponsoring Agency: </h4>
     <span id="project-sponsoringAgency">${reference.alternative.sponsor}</span>
     </p>
     <p>
-    <h4>Short description</h4>
+    <h4>Short Description</h4>
     <span id="project-shortDescription">${reference.alternative.shortDesc}</span>
     </p>
     <p>
-    <h4>Detailed description</h4>
+    <h4>Detailed Description</h4>
     <span id="project-detailedDescription">${reference.alternative.detailedDesc} </span>
     </p>
     <p>
@@ -158,7 +159,7 @@ margin:.5em 0em .5em 1em;
 <!-- Load separate file content starting here -->
 <div id="criteriaHeader" style="height:30px">
   <div class="floatLeft">
-    <h3 class="headerColor">Planning factor grades for ${alternative.name}</h3>
+    <h3 class="headerColor">Planning Factor Grades for ${alternative.name}</h3>
   </div>
 </div>
 <!-- begin criteria  -->

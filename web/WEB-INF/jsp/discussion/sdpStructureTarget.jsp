@@ -1,7 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -71,7 +71,7 @@
 								
 								<!-- begin PROJECT -->
 								<tr class="${(infoObject.object.project.inclusive) ? 'fundingType' : 'fundingType2'}">
-									<td class="fundingSourceItem">${infoObject.object.project.name} Options</td>
+									<td class="fundingSourceItem">${infoObject.object.project.name}</td>
 									<td class="col2">&nbsp;</td>
 									<td class="col3">&nbsp;</td>
 								</tr>
@@ -88,8 +88,8 @@
 														<a href="projectAlt.do?altrefId=${altRef.id}" target="blank">${altRef.alternative.name}</a>
 													</td>
 													<td class="cost">
-														$<fmt:formatNumber type="number">
-														${altRef.alternative.cost}</fmt:formatNumber></td>
+														$<fmt:formatNumber maxFractionDigits="0" value="${altRef.alternative.cost/1000000}" /> million
+														</td>
 												</tr>
 												<c:if test="${pg:contains(userPkg.projAltRefs,altRef)}">
 													<c:set var="doNothing"value="false"/>

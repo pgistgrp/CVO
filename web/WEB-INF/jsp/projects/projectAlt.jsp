@@ -208,7 +208,7 @@ the column labels. */
 		</p>
 		<p>
 		<h4 style="display:inline">Money needed to complete this project</h4>
-		<span id="project-moneyNeeded">$<fmt:formatNumber type="number">${reference.alternative.cost}</fmt:formatNumber>  million</span>
+		<span id="project-moneyNeeded">$<fmt:formatNumber maxFractionDigits="0" value="${reference.alternative.cost/1000000}" />  million</span>
 		</p>
 		<p>
 		<h4 style="display:inline">Sponsoring agency: </h4>
