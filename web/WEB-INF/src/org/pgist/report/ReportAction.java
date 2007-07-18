@@ -174,6 +174,8 @@ public class ReportAction extends Action {
     	request.setAttribute("cctId", cctId);
     	request.setAttribute("packSuiteId", packSuiteId);
     	request.setAttribute("finalized", repoSummary.isFinalized());
+    	request.setAttribute("concernStats", rs.getReportStatsConcerns());
+    	request.setAttribute("evalStats", rs.getReportStatsEval());
     	
         return mapping.findForward("report");
     }//execute()
