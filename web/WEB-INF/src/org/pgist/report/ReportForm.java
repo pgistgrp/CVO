@@ -1,7 +1,6 @@
 package org.pgist.report;
 
 import org.apache.struts.action.ActionForm;
-import org.pgist.users.User;
 
 
 public class ReportForm extends ActionForm {

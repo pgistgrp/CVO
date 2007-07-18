@@ -1,10 +1,10 @@
 package org.pgist.tests.projects;
 
-import org.pgist.projects.ProjectAltRef;
-import org.pgist.projects.ProjectRef;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.pgist.projects.ProjectAltRef;
+import org.pgist.projects.ProjectRef;
 
 /**
  * Used to test the functionality of the ProjectSuite

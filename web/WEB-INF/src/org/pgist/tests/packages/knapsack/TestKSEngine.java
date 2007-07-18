@@ -1,21 +1,11 @@
 package org.pgist.tests.packages.knapsack;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.pgist.funding.FundingServiceImpl;
-import org.pgist.funding.FundingSource;
-import org.pgist.funding.FundingSourceAltRef;
-import org.pgist.funding.FundingSourceAlternative;
-import org.pgist.funding.FundingSourceRef;
-import org.pgist.funding.FundingSourceSuite;
 import org.pgist.packages.knapsack.KSChoices;
 import org.pgist.packages.knapsack.KSEngine;
 import org.pgist.packages.knapsack.KSItem;

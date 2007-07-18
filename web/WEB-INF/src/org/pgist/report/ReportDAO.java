@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.pgist.packages.ClusteredPackage;
-import org.pgist.packages.PackageSuite;
 import org.pgist.system.BaseDAO;
 
 public interface ReportDAO extends BaseDAO {

@@ -3,7 +3,6 @@ package org.pgist.projects;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.lang.Float;
 
 import javax.servlet.http.HttpServletRequest;
 

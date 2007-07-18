@@ -4,15 +4,11 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 
-import org.pgist.criteria.CriteriaRef;
-import org.pgist.criteria.CriteriaSuite;
 import org.pgist.cvo.CCT;
-import org.pgist.cvo.CCTDAO;
 import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
 import org.pgist.packages.ClusteredPackage;
-import org.pgist.packages.PackageSuite;
 import org.pgist.util.WebUtils;
 
 public class ReportServiceImpl implements ReportService{

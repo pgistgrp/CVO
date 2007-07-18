@@ -1,11 +1,8 @@
 package org.pgist.system;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.pgist.criteria.CriteriaRef;
 
 /**
  * <span style="color:red;">POJO</span>: PGIST Criteria Class<br>

@@ -1,12 +1,8 @@
 package org.pgist.system;
 
 import java.util.Collection;
-import java.util.Set;
 
-import org.pgist.funding.FundingSource;
 import org.pgist.users.User;
-import org.pgist.util.PageSetting;
-import org.pgist.web.DelegatingHttpServletRequestWrapper;
 
 
 /**

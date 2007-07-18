@@ -1,6 +1,5 @@
 package org.pgist.report;
 
-import java.io.Serializable;
 import org.pgist.users.User;
 
 /**

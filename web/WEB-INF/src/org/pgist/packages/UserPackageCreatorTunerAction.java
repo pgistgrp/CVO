@@ -4,11 +4,8 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.criteria.CriteriaService;
-import org.pgist.criteria.CriteriaSuite;
 import org.pgist.funding.FundingService;
 import org.pgist.projects.ProjectService;
-import org.pgist.util.WebUtils;
 
 
 /**

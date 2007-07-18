@@ -1,5 +1,7 @@
 package org.pgist.tests.projects;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -8,8 +10,6 @@ import org.pgist.criteria.Objective;
 import org.pgist.projects.GradedCriteria;
 import org.pgist.projects.GradedObjective;
 import org.pgist.projects.GradedObjectiveComparator;
-
-import static org.junit.Assert.*;
 
 /**
  * Used to test the functionality of the ProjectSuite

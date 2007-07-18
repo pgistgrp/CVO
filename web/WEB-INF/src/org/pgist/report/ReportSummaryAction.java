@@ -1,8 +1,5 @@
 package org.pgist.report;
 
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;

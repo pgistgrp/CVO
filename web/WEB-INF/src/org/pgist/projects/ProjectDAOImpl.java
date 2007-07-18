@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Query;
-import org.pgist.packages.Package;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.util.WKT;
 import org.postgis.Geometry;

@@ -1,23 +1,15 @@
 package org.pgist.system;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
-import org.pgist.criteria.Criteria;
-import org.pgist.criteria.CriteriaService;
-import org.pgist.cvo.CCTService;
 import org.pgist.funding.FundingService;
 import org.pgist.funding.UserTaxInfoDTO;
 import org.pgist.users.User;
-import org.pgist.users.Vehicle;
-import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 
 

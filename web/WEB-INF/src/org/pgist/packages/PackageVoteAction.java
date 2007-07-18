@@ -3,7 +3,6 @@ package org.pgist.packages;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.SortedSet;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;

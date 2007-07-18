@@ -4,14 +4,12 @@ import java.util.Iterator;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.pgist.funding.FundingDAO;
 import org.pgist.funding.FundingSource;
 import org.pgist.funding.FundingSourceAltRef;
 import org.pgist.funding.FundingSourceAlternative;
 import org.pgist.funding.FundingSourceRef;
 import org.pgist.funding.FundingSourceSuite;
 import org.pgist.packages.ClusteredPackage;
-import org.pgist.packages.PackageDAO;
 import org.pgist.packages.PackageServiceImpl;
 import org.pgist.packages.PackageSuite;
 import org.pgist.packages.UserPackage;

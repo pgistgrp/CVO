@@ -2,7 +2,6 @@ package org.pgist.projects;
 
 import org.postgis.Geometry;
 import org.postgis.PGgeometry;
-import org.postgresql.util.PGobject;
 
 
 /*

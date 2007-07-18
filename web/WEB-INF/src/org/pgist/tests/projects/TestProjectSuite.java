@@ -1,15 +1,16 @@
 package org.pgist.tests.projects;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 import org.pgist.projects.Project;
 import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectAlternative;
 import org.pgist.projects.ProjectRef;
 import org.pgist.projects.ProjectSuite;
-
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Used to test the functionality of the ProjectSuite

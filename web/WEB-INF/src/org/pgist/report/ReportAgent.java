@@ -1,11 +1,7 @@
 package org.pgist.report;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.pgist.system.Feedback;
-import org.pgist.users.User;
 
 /**
  * DWR AJAX Agent class.<br>

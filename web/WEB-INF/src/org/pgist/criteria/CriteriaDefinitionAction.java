@@ -7,9 +7,7 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.cvo.CCT;
 import org.pgist.cvo.CCTService;
-import org.pgist.cvo.Theme;
 
 /**
  * 

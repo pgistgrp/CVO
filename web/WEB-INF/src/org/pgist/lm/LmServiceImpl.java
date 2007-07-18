@@ -1,9 +1,9 @@
 package org.pgist.lm;
 
-import org.pgist.projects.ProjectService;
-import org.pgist.system.RegisterService;
 import java.util.Collection;
+
 import org.pgist.projects.ProjectAlternative;
+import org.pgist.projects.ProjectService;
 
 public class LmServiceImpl implements LmService{
 

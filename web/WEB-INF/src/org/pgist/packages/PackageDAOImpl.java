@@ -1,6 +1,5 @@
 package org.pgist.packages;
 
-import org.pgist.projects.ProjectAlternative;
 import org.pgist.system.BaseDAOImpl;
 
 

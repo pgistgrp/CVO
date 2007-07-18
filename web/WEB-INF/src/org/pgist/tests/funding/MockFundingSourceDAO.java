@@ -2,8 +2,6 @@ package org.pgist.tests.funding;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
 import org.pgist.funding.Consumption;
 import org.pgist.funding.FundingDAO;
@@ -17,13 +15,6 @@ import org.pgist.funding.UserCommute;
 import org.pgist.funding.UserFundingSourceToll;
 import org.pgist.funding.ZipCodeFactor;
 import org.pgist.funding.ZipCodeGas;
-import org.pgist.packages.Package;
-import org.pgist.projects.Project;
-import org.pgist.projects.ProjectAltRef;
-import org.pgist.projects.ProjectAlternative;
-import org.pgist.projects.ProjectDAO;
-import org.pgist.projects.ProjectRef;
-import org.pgist.projects.ProjectSuite;
 import org.pgist.users.User;
 import org.pgist.users.Vehicle;
 

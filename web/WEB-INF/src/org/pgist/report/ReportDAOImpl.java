@@ -1,26 +1,23 @@
 package org.pgist.report;
 
-import org.pgist.system.BaseDAOImpl;
-import org.pgist.packages.PackageVoteSuite;
-import org.pgist.packages.VoteSuiteStat;
-import org.pgist.packages.ClusteredPackage;
-import org.pgist.packages.PackageSuite;
-import org.pgist.packages.UserPackage;
-import org.pgist.projects.ProjectSuite;
-import org.pgist.funding.FundingSourceSuite;
-import org.pgist.criteria.CriteriaSuite;
-import org.pgist.cvo.CCT;
-import org.pgist.cvo.Concern;
-import org.pgist.users.User;
-import org.pgist.system.County;
-
-import java.util.List;
-import java.util.Map;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+import org.pgist.cvo.CCT;
+import org.pgist.cvo.Concern;
+import org.pgist.packages.ClusteredPackage;
+import org.pgist.packages.PackageSuite;
+import org.pgist.packages.PackageVoteSuite;
+import org.pgist.packages.UserPackage;
+import org.pgist.packages.VoteSuiteStat;
+import org.pgist.system.BaseDAOImpl;
+import org.pgist.system.County;
+import org.pgist.users.User;
 
 
 public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {

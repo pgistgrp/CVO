@@ -2,11 +2,10 @@ package org.pgist.report;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
-import org.pgist.criteria.Objective;
 import org.pgist.system.County;
 import org.pgist.users.User;
 

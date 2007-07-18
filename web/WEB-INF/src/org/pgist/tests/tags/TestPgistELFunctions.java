@@ -1,19 +1,9 @@
 package org.pgist.tests.tags;
 
-import org.pgist.projects.Project;
-import org.pgist.projects.ProjectAltRef;
-import org.pgist.projects.ProjectAlternative;
-import org.pgist.projects.ProjectRef;
-import org.pgist.projects.ProjectSuite;
-import org.pgist.tags.PgistELFunctions;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-
-import common.Assert;
-
-import static org.junit.Assert.*;
+import org.pgist.tags.PgistELFunctions;
 
 /**
  * Used to test the functionality of the ProjectSuite

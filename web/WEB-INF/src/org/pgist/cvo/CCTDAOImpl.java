@@ -9,12 +9,10 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Query;
-import org.hibernate.property.Getter;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.util.DBMetaData;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
-import org.pgist.wfengine.activity.PAutoGameActivity;
 
 
 /**

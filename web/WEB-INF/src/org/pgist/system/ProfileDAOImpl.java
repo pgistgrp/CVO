@@ -2,29 +2,25 @@ package org.pgist.system;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Iterator;
-import java.util.SortedSet;
 import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import org.pgist.criteria.Criteria;
+import org.pgist.criteria.CriteriaRef;
+import org.pgist.criteria.CriteriaSuite;
+import org.pgist.criteria.CriteriaUserWeight;
+import org.pgist.cvo.Concern;
+import org.pgist.cvo.TagReference;
 import org.pgist.discussion.DiscussionPost;
 import org.pgist.discussion.DiscussionReply;
 import org.pgist.discussion.GenericPost;
-import org.pgist.users.User;
-import org.pgist.util.WebUtils;
-import org.pgist.criteria.CriteriaRef;
-import org.pgist.criteria.CriteriaUserWeight;
-import org.pgist.criteria.CriteriaSuite;
-import org.pgist.criteria.Criteria;
-import org.pgist.cvo.Concern;
-import org.pgist.cvo.TagReference;
 import org.pgist.tagging.Tag;
+import org.pgist.users.User;
 
 public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
 

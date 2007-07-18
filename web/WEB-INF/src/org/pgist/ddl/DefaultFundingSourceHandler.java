@@ -1,13 +1,10 @@
 package org.pgist.ddl;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.pgist.funding.FundingSource;
-import org.pgist.users.Role;
-import org.pgist.users.User;
 
 
 /**

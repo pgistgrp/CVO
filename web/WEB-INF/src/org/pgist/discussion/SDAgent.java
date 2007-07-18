@@ -467,6 +467,13 @@ public class SDAgent {
      *     <li>emailNotify - string, "true" means sending email notification, "false" means not. Default is "false".</li>
      *   </ul>
      *   
+     * @param wfinfo A map contains:
+     *   <ul>
+     *     <li>workflowId - long</li>
+     *     <li>contextId - long</li>
+     *     <li>activityId - long</li>
+     *   </ul>
+     * 
      * @return A map contains:<br>
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -474,7 +481,7 @@ public class SDAgent {
      *     <li>id - int, the id of the new Post</li>
      *   </ul>
      */
-    public Map createPost(HttpServletRequest request, Map params) {
+    public Map createPost(HttpServletRequest request, Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -559,6 +566,8 @@ public class SDAgent {
                     doc.add( new Field("tags", Arrays.toString(tags), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("contents", post.getTitle()+" "+Arrays.toString(tags)+" "+post.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
                     doc.add( new Field("workflowid", post.getDiscussion().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("contextid", wfinfo.get("contextId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("activityid", wfinfo.get("activityId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("postid", post.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("isid", isid==null ? "" : isid.toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("ioid", ioid==null ? "" : ioid.toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
@@ -591,6 +600,13 @@ public class SDAgent {
      *     <li>emailNotify - string, "true" means sending email notification, "false" means not. Default is "false".</li>
      *   </ul>
      *   
+     * @param wfinfo A map contains:
+     *   <ul>
+     *     <li>workflowId - long</li>
+     *     <li>contextId - long</li>
+     *     <li>activityId - long</li>
+     *   </ul>
+     * 
      * @return A map contains:<br>
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -598,7 +614,7 @@ public class SDAgent {
      *     <li>id - int, the id of the new reply</li>
      *   </ul>
      */
-    public Map createReply(HttpServletRequest request, Map params) {
+    public Map createReply(HttpServletRequest request, Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -696,6 +712,8 @@ public class SDAgent {
                 doc.add( new Field("tags", Arrays.toString(tags), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("contents", reply.getTitle()+" "+Arrays.toString(tags)+" "+reply.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
                 doc.add( new Field("workflowid", reply.getParent().getDiscussion().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("contextid", wfinfo.get("contextId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("activityid", wfinfo.get("activityId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("postid", reply.getParent().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("replyid", reply.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("isid", isid==null ? "" : isid.toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
@@ -883,13 +901,21 @@ public class SDAgent {
      *     <li>tags - string, comma separated tag names. Optional.</li>
      *   </ul>
      *   
+     * 
+     * @param wfinfo A map contains:
+     *   <ul>
+     *     <li>workflowId - long</li>
+     *     <li>contextId - long</li>
+     *     <li>activityId - long</li>
+     *   </ul>
+     * 
      * @return A map contains:<br>
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map editPost(Map params) {
+    public Map editPost(Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -950,6 +976,8 @@ public class SDAgent {
                         doc.add( new Field("tags", Arrays.toString(tags), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                         doc.add( new Field("contents", post.getTitle()+" "+Arrays.toString(tags)+" "+post.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
                         doc.add( new Field("workflowid", post.getDiscussion().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                        doc.add( new Field("contextid", wfinfo.get("contextId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                        doc.add( new Field("activityid", wfinfo.get("activityId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                         doc.add( new Field("postid", post.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                         doc.add( new Field("isid", hit.getField("isid").stringValue(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                         doc.add( new Field("ioid", hit.getField("ioid").stringValue(), Field.Store.YES, Field.Index.UN_TOKENIZED) );

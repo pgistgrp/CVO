@@ -1,12 +1,13 @@
 package org.pgist.system;
 
 import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
 import org.pgist.util.WebUtils;
-import org.pgist.system.SystemService;
 
 
 /**

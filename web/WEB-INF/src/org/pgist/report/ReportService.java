@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.pgist.discussion.InfoStructure;
 import org.pgist.packages.ClusteredPackage;
-import org.pgist.packages.PackageSuite;
 
 public interface ReportService {
 

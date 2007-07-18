@@ -464,5 +464,13 @@
   </tag>
   
 
+  <tag>
+    <name>wfinfo</name>
+    <tag-class>org.pgist.tags.WorkflowInfoTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which knows workflow information</description>
+  </tag>
+  
+
 </taglib>
 

@@ -1,17 +1,14 @@
 package org.pgist.system;
 
 import java.text.DateFormat;
-import java.util.Date;
 import java.util.Collection;
-import java.util.SortedSet;
+import java.util.Date;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.exceptions.UserExistException;
 import org.pgist.users.User;
-import org.pgist.util.WebUtils;
 
 
 /**

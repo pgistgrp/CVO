@@ -1,11 +1,12 @@
 package org.pgist.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
-
 import org.pgist.util.ScanResult;
 import org.pgist.util.Trie;
 import org.pgist.util.TrieScanner;

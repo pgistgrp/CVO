@@ -161,7 +161,18 @@ public class CCTAgent {
      *           <li>cctId - long int, the current CCT instance id</li>
      *           <li>concern - String, the new concern which user entered</li>
      *           <li>tags - String, a comma-separated tag list provided by current user</li>
+     *           <li>workflowId - long</li>
+     *           <li>contextId - long</li>
+     *           <li>activityId - long</li>
      *         </ul>
+     * 
+     * @param wfinfo A map contains:
+     *   <ul>
+     *     <li>workflowId - long</li>
+     *     <li>contextId - long</li>
+     *     <li>activityId - long</li>
+     *   </ul>
+     * 
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -169,7 +180,7 @@ public class CCTAgent {
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
-    public Map saveConcern(Map params) {
+    public Map saveConcern(Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
 
@@ -209,6 +220,8 @@ public class CCTAgent {
                 doc.add( new Field("tags", tags, Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("contents", tags+" "+concern.getContent(), Field.Store.YES, Field.Index.TOKENIZED) );
                 doc.add( new Field("workflowid", concern.getCct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("contextid", wfinfo.get("contextId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("activityid", wfinfo.get("activityId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("cctid", concern.getCct().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("concernid", concern.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 writer.addDocument(doc);
@@ -570,13 +583,21 @@ public class CCTAgent {
      *           <li>concernId - long int, the Concern instance id</li>
      *           <li>concern - A string, the concern which user edited, can be null or "" after trimed, means don't edit the concern string.</li>
      *         </ul>
+     * 
+     * @param wfinfo A map contains:
+     *   <ul>
+     *     <li>workflowId - long</li>
+     *     <li>contextId - long</li>
+     *     <li>activityId - long</li>
+     *   </ul>
+     *   
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
-    public Map editConcern(Map params) {
+    public Map editConcern(Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -658,6 +679,8 @@ public class CCTAgent {
                     doc.add( new Field("tags", tags, Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("contents", tags+" "+concern.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
                     doc.add( new Field("workflowid", concern.getCct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("contextid", wfinfo.get("contextId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("activityid", wfinfo.get("activityId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("cctid", concern.getCct().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("concernid", concern.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     
@@ -771,17 +794,25 @@ public class CCTAgent {
      * this concern.
      *
      * @param params A map contains:<br>
-     *         <ul>
-     *           <li>concernId - long int, the Concern instance id</li>
-     *           <li>tags - A string, a comma-separated tag name list which is the final tags</li>
-     *         </ul>
+     *   <ul>
+     *     <li>concernId - long int, the Concern instance id</li>
+     *     <li>tags - A string, a comma-separated tag name list which is the final tags</li>
+     *   </ul>
+     * 
+     * @param wfinfo A map contains:
+     *   <ul>
+     *     <li>workflowId - long</li>
+     *     <li>contextId - long</li>
+     *     <li>activityId - long</li>
+     *   </ul>
+     *   
      * @return A map contains:<br>
-     *         <ul>
-     *           <li>successful - a boolean value denoting if the operation succeeds</li>
-     *           <li>reason - reason why operation failed (valid when successful==false)</li>
-     *         </ul>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
      */
-    public Map editTags(Map params) {
+    public Map editTags(Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -859,6 +890,8 @@ public class CCTAgent {
                     doc.add( new Field("concernid", concern.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("cctid", concern.getCct().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("workflowid", concern.getCct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("contextid", wfinfo.get("contextId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("activityid", wfinfo.get("activityId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     
                     writer.addDocument(doc);
                 } catch (Exception e) {
@@ -1197,6 +1230,13 @@ public class CCTAgent {
      *     <li>content - string, content of the comment. Required.</li>
      *     <li>tags - string, comma separated tag name list. Required.</li>
      *   </ul>
+     * 
+     * @param wfinfo A map contains:
+     *   <ul>
+     *     <li>workflowId - long</li>
+     *     <li>contextId - long</li>
+     *     <li>activityId - long</li>
+     *   </ul>
      *   
      * @return A map contains:<br>
      *   <ul>
@@ -1204,12 +1244,12 @@ public class CCTAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map createComment(Map params) {
+    public Map createComment(Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
         Long concernId = null;
-
+        
         try {
             concernId = new Long((String) params.get("concernId"));
         } catch (Exception e) {
@@ -1266,6 +1306,8 @@ public class CCTAgent {
                 doc.add( new Field("cctid", comment.getConcern().getCct().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("concernid", comment.getConcern().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("workflowid", comment.getConcern().getCct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("contextid", wfinfo.get("contextId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("activityid", wfinfo.get("activityId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 writer.addDocument(doc);
             } catch(Exception e) {
                 e.printStackTrace();
@@ -1295,13 +1337,20 @@ public class CCTAgent {
      *     <li>tags - string, comma separated tag name list. Required.</li>
      *   </ul>
      *   
+     * @param wfinfo A map contains:
+     *   <ul>
+     *     <li>workflowId - long</li>
+     *     <li>contextId - long</li>
+     *     <li>activityId - long</li>
+     *   </ul>
+     *   
      * @return A map contains:<br>
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map editComment(Map params) {
+    public Map editComment(Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -1356,6 +1405,8 @@ public class CCTAgent {
                 doc.add( new Field("tags", Arrays.toString(tags), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("contents", comment.getTitle()+" "+Arrays.toString(tags)+" "+comment.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
                 doc.add( new Field("workflowid", comment.getConcern().getCct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("contextid", wfinfo.get("contextId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("activityid", wfinfo.get("activityId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("cctid", comment.getConcern().getCct().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("concernid", comment.getConcern().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("commentid", comment.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
