@@ -10,7 +10,7 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
 <head>
-<title>Let's Improve Transportation: Eros Profile</title>
+<title>Let's Improve Transportation: Profile</title>
 
 <style type="text/css" media="screen">
 @import "styles/lit.css";
@@ -75,7 +75,6 @@ function getDiscussion(start, end) {
 <div id="headerMenu">
 	<div id="headerContainer">
 		<div id="headerTitle" class="floatLeft">
-			<h3 class="headerColor">Learn More</h3>
 		</div>
 	</div>
 </div>
@@ -107,18 +106,18 @@ function getDiscussion(start, end) {
 		</p><br />
 		<p>
 			<span class="label">Home location</span>
-			<span class="value">${user.city}, ${user.zipcode} [map]</span>
+			<span class="value">${user.city}, ${user.zipcode}</span>
 		</p><br />
 		<p>
 			<span class="label">Work Location</span>
-			<span class="value">${user.workCity}, ${user.workZipcode}[map]</span>
+			<span class="value">${user.workCity}, ${user.workZipcode}</span>
 		</p><br />
 		<p>
 			<span class="label">Vocation</span>
 			<span class="value">${user.vocation}</span>
 		</p><br />
 		<p>
-			<span class="label">Method of transportation</span>
+			<span class="label">Transportation</span>
 			<span class="value"><span>${user.primaryTransport}</span>
 		</p>
 		<br />
@@ -132,7 +131,7 @@ function getDiscussion(start, end) {
 		<div class="clearBoth"></div>
 
 		<p>
-			<span class="label">My tags</span>
+			<span class="label">My Keywords</span>
 	  <span class="value" id="keywords" style="width:600px;">
 	  			<c:choose>	
 					<c:when test="${fn:length(tags) == 0}">
@@ -271,7 +270,6 @@ function getDiscussion(start, end) {
 <div id="headerMenu">
 	<div id="headerContainer">
 		<div id="headerTitle" class="floatLeft">
-			<h3 class="headerColor">Learn More</h3>
 		</div>
 	</div>
 </div>
