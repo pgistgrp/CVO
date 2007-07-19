@@ -114,8 +114,7 @@ xml+='\
                 });
             }
             
-			function setGrading(altRefId, critId, objId, value){
-				if(value != ""){
+            function setGrading(altRefId, critId, objId, value){
 					//alert("altRefId: " + altRefId + " critId: " + critId + " objId: " + objId +" value: " +value ); 
 					Util.loading(true,"Saving grades");
 					ProjectAgent.setGrading({altRefId:altRefId,critId:critId,objId:objId,value:value},{
@@ -136,7 +135,6 @@ xml+='\
 						alert("ProjectAgent.setGrading( error:" + errorString + exception);
 						}
 					});
-				}
 			}
 			
 			function getAltRefScores(altRefId){
@@ -149,7 +147,7 @@ xml+='\
 			                 score.gCrits = data.altRef.gradedCriteria;
 			                 score.gCritIds = [];
 			                 score.gObjIds = [];
-			                 score.grades = [-3,-2.5,-2,-1.5,-1,-0.5,0.0,0.5,1,1.5,2,2.5,3]
+			                 score.grades = [-3,-2.5,-2,-1.5,-1,-0.5,null,0.0,0.5,1,1.5,2,2.5,3]
 			                 score.html = "<h4>"+ data.altRef.alternative.name +"</h4> <a id='info"+data.altRef.id+"' target='blank' href='projectAlt.do?altrefId="+data.altRef.id+"'>View project info</a><ul>";
 			                 score.counter = 0;
 			                 
@@ -163,8 +161,11 @@ xml+='\
                                    <select id='objGrade-"+ data.altRef.id +"-"+ score.counter +"' onchange='setGrading("+altRefId+","+gCrit.criteria.id+","+gObj.objective.id+", this.value);'>";
                                       score.grades.each(function(grade){
                                           if(grade == 0.0){
-                                            selected = (gObj.grade == null || gObj.grade == 0.0) ? "selected = true" : "";
+                                            selected = (gObj.grade == 0.0) ? "selected = true" : "";
                                             score.html += "<option "+ selected +" value="+ grade +">0</option>";
+                                          }else if(grade == null){
+                                              selected = (gObj.grade == null) ? "selected = true" : "";
+                                              score.html += "<option "+ selected +" value=''>NA</option>";
                                           }else{
                                             selected = (gObj.grade == grade) ? "selected = true" : "";
                                             score.html += "<option "+ selected +" value="+ grade +">"+ grade +"</option>";

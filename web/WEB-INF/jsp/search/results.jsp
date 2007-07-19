@@ -18,10 +18,9 @@
              Front End: Jordan Isip, Adam Hindman
              Back End: Zhong Wang, John Le
         Todo Items:
-            [ ]  custom tag/fix all links (Zhong/Jordan)
-            [ ] Pagination (Zhong/Jordan)
-            [ ] Keyword Browsing (John)
-            [ ] Search projects and user profiles (Zhong/John)
+            [ ] custom tag/fix all links (Zhong/Jordan)
+            [ ] Pagination (Jordan)
+            [ ] Search projects,static pages, and user profiles (John)
     #### -->
 	<head>
     	<title>Let's Improve Transportation - Global Search</title>

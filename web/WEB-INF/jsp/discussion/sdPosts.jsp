@@ -42,7 +42,7 @@
 							</c:choose>
 						</div>
 						<span class="discussionTitle">
-							<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.title}</a>
+						    <pg:url page="/sdThread.do" params="isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.title}</pg:url>
 					</div>
 						<c:choose>
 								<c:when test="${baseuser.id == post.owner.id}">
@@ -63,7 +63,7 @@
 				  <c:otherwise>
 					<img src="/images/ballooninactive2.gif" alt="No replies within the last 24 hours" /></c:otherwise>
 				  </c:choose>&nbsp;
-						<a href="sdThread.do?isid=${structure.id}&pid=${post.id}&ioid=${object.id}"><h3 style="display:inline;">${post.replies} Replies</h3></a> (${post.views} views)
+				        <h3 style="display:inline"><pg:url page="/sdThread.do" params="isid=${structure.id}&pid=${post.id}&ioid=${object.id}">${post.replies} Replies</pg:url></h3>
 						</div>
 						<c:if test="${fn:length(post.tags) > 0}">
 							<ul class="tagsInline">
