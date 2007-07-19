@@ -1,7 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -67,7 +67,8 @@
 									<c:forEach var="altRef" items="${infoObject.object.altRefs}" varStatus="loop2">
 										<tr>
 											<td>${altRef.alternative.name}</td>
-											<td>$<fmt:formatNumber type="number">${altRef.alternative.revenue}</fmt:formatNumber></td>
+											<td>$<fmt:formatNumber maxFractionDigits="0" value="${altRef.alternative.revenue/1000000}" /> million
+												</td>
 											<td>$<fmt:formatNumber type="number">${altRef.alternative.avgCost}</fmt:formatNumber></td>
 											<td>$<c:out value="${userPkg.personalCost[altRef.id]}" /></td>
 										</tr>
