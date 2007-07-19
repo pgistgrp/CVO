@@ -693,7 +693,7 @@ Once all participants have submitted their own packages, five new packages will 
 			<!-- begin cell containing #right -->
 			<div id="right" class="floatRight">
 				<!-- begin GOOGLE MAP -->
-				<div id="themap" style="position:absolute">
+				<div id="themap" style="background-color:#C4D88C;position:absolute">
 					<!-- load the map here -->
 				</div>
 				<!-- end GOOGLE MAP -->
