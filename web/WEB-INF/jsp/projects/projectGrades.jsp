@@ -165,7 +165,7 @@ xml+='\
                                             score.html += "<option "+ selected +" value="+ grade +">0</option>";
                                           }else if(grade == null){
                                               selected = (gObj.grade == null) ? "selected = true" : "";
-                                              score.html += "<option "+ selected +" value=''>NA</option>";
+                                              score.html += "<option "+ selected +" value=''>N/A</option>";
                                           }else{
                                             selected = (gObj.grade == grade) ? "selected = true" : "";
                                             score.html += "<option "+ selected +" value="+ grade +">"+ grade +"</option>";
