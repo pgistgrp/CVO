@@ -397,8 +397,7 @@ function formOther(){
 			</div>
 			<div class="clearBoth"></div>
 			<br />
-			<div class="email-col1"> Do you wish to receive e-mails notifying you of new activity
-				in your discussions? </div>
+			<div class="email-col1">Do you wish to receive e-mails notifying you of new activity in my discussions?</div>
 			<div class="email-col2">
 				<label>
 				<html:radio property="emailNotifyDisc" value="true" />

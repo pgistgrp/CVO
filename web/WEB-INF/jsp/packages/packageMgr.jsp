@@ -1,7 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -29,7 +29,6 @@
 <script src="scripts/search.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
-<script type='text/javascript' src='/scripts/util.js'></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 
@@ -61,7 +60,6 @@ function createClusteredPackages(){
 	$('newtable').innerHTML = '<img src="/images/indicator_arrows.gif" /> Clustering Packages';
 	var pkgCount = $F('pkgCount');
 	alert("pkgSuiteId: " + pkgSuiteId + " pkgCount: " + pkgCount + "projSuiteId: " + projSuiteId + " fundSuiteID: "+ fundSuiteId);
-	Util.loading(true,"Working");
 	PackageAgent.createClusteredPackages({pkgSuiteId:pkgSuiteId, pkgCount:pkgCount, projSuiteId: projSuiteId, fundSuiteId:fundSuiteId}, {
 		callback:function(data){
 			if (data.successful){
@@ -69,7 +67,6 @@ function createClusteredPackages(){
 			}else{
 				alert(data.reason);
 			}
-		Util.loading(false);
 		},
 		errorHandler:function(errorString, exception){ 
 		alert("PackageAgent.createClusteredPackages( error:" + errorString + exception);
@@ -81,7 +78,6 @@ function createClusteredPackage(){
 	var description = $F('packageDesc');
 	//alert("description: " + description)
 	if(description.length > 0){
-		Util.loading(true,"Saving package");
 		PackageAgent.createClusteredPackage({suiteId:pkgSuiteId,description:description}, {
 			callback:function(data){
 				if (data.successful){
@@ -89,7 +85,6 @@ function createClusteredPackage(){
 				}else{
 					alert(data.reason);
 				}
-			Util.loading(false);
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("PackageAgent.createClusteredPackage( error:" + errorString + exception);
@@ -103,7 +98,6 @@ function createClusteredPackage(){
 
 function getClusteredPackages(){
 	//alert("ProjSuiteId: " + projSuiteId + " fundSuiteId: " + fundSuiteId + " critSuiteId: " + critSuiteId + " pkgSuiteId: " + pkgSuiteId)
-	Util.loading(true,"Loading packages");
 	PackageAgent.getAutocreatedClusteredPackages({pkgSuiteId:pkgSuiteId, projSuiteId:projSuiteId,fundSuiteId:fundSuiteId,critSuiteId:critSuiteId}, {
 		callback:function(data){
 			if (data.successful){
@@ -111,7 +105,6 @@ function getClusteredPackages(){
 			}else{
 				alert(data.reason);
 			}
-		Util.loading(false);
 		},
 		errorHandler:function(errorString, exception){ 
 		alert("PackageAgent.getAutocreatedClusteredPackages( error:" + errorString + exception);
@@ -120,7 +113,6 @@ function getClusteredPackages(){
 }
 
 function getManualPackages(){
-	Util.loading(true,"Loading packages");
 	PackageAgent.getManualPackages({pkgSuiteId:pkgSuiteId,projSuiteId:projSuiteId,fundSuiteId:fundSuiteId,critSuiteId:critSuiteId}, {
 		callback:function(data){
 			if (data.successful){
@@ -128,7 +120,6 @@ function getManualPackages(){
 			}else{
 				alert(data.reason);
 			}
-		Util.loading(false);
 		},
 		errorHandler:function(errorString, exception){ 
 		alert("PackageAgent.getManualPackages( error:" + errorString + exception);
@@ -138,7 +129,6 @@ function getManualPackages(){
 
 function deleteClusteredPackage(pkgId){
 	//alert("suiteId: " + pkgSuiteId + " pkgId: " + pkgId); 
-	Util.loading(true,"Deleting package");
 	PackageAgent.deleteClusteredPackage({suiteId:pkgSuiteId,pkgId:pkgId}, {
 		callback:function(data){
 			if (data.successful){
@@ -147,7 +137,6 @@ function deleteClusteredPackage(pkgId){
 			}else{
 				alert(data.reason);
 			}
-			Util.loading(false);
 		},
 		errorHandler:function(errorString, exception){ 
 		alert("PackageAgent.deleteClusteredPackage( error:" + errorString + exception);
@@ -156,7 +145,6 @@ function deleteClusteredPackage(pkgId){
 }
 
 function publishPackages(){
-	Util.loading(true,"Publishing packages");
 	PackageAgent.publishPackages({pkgSuiteId:pkgSuiteId}, {
 		callback:function(data){
 			if (data.successful){
@@ -165,7 +153,6 @@ function publishPackages(){
 			}else{
 				alert(data.reason);
 			}
-		Util.loading(false)
 		},
 		errorHandler:function(errorString, exception){ 
 		alert("PackageAgent.publishPackages( error:" + errorString + exception);
@@ -192,7 +179,7 @@ td.col1 a {display:block;text-decoration:underline;}
 <!-- #container is the container that wraps around all the main page content -->
 
 <div id="container">
-	<p><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
+	<p><a href="main.do">Back to Moderator Control Panel</a></p>
 	<!-- begin "overview and instructions" area -->
 	<div id="overview" class="box2">
 		<h3>Overview and Instructions</h3>
@@ -202,8 +189,9 @@ td.col1 a {display:block;text-decoration:underline;}
 	<h2 class="headerColor">Moderator Package Manager</h2>
 	<br>
 	<span class="floatLeft" style="width:49%;border-right:1px solid #ccc;padding-right:1%;">
-
-
+	<h3 class="headerColor">Automatically Created Packages </h3>
+	<p>Participant packages will be clustered on 11/06/07 (Beginning of Step 4a)</p>
+	<p>[On 11/06/07, participant packages were clustered into 6 packages below]</p>
 	<div id="newtable">
 		<!-- load clustered packages via js-->
 	</div>
@@ -246,7 +234,7 @@ td.col1 a {display:block;text-decoration:underline;}
 	<input type="button" value="Publish Packages" onClick="publishPackages();" class="padding5">-->
 		<h3>Finished managing packages?</h3>
 	<!-- this button just redirects - saves are occuring on check. -->
-	<p><input type="button" style="padding:5px" onClick="location.href='userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" value="Finished!"/></p>
+	<p><input type="button" style="padding:5px" onClick="location.href='userhome.do'" value="Finished!"/></p>
 </div>
 <script type="text/javascript" charset="utf-8">
 	getManualPackages()

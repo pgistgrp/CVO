@@ -1,7 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -22,7 +22,8 @@
 	<c:forEach var="package" items="${packages}" varStatus="loop">
 		<tr class="${(package.id == userClusteredPkgId) ? 'box5': ''}">
 			<td class="col1"><a target="_blank" href="package.do?pkgId=${package.id}&fundSuiteId=${fundSuiteId}&projSuiteId=${projSuiteId}&critSuiteId=${critSuiteId}&pkgSuiteId=${pkgSuiteId}">${package.description}</a></td>
-			<td>$${package.totalCost} Million</td>
+			<td>
+			$<fmt:formatNumber maxFractionDigits="0" value="${package.totalCost/1000000}" /> million</td>
 			<td>$${package.avgResidentCost}/year</td>
 		</tr>
 	</c:forEach>
