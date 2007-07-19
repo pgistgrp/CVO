@@ -1,8 +1,7 @@
 #container {padding:1em;font-size:11pt;}
 #object{padding:5px;border:1px solid #ADCFDE}
 
-#obj-right {margin:0px 0px 20px 20px;;}
-#obj-right img {margin:0px 0px 20px 20px;}
+#obj-right {margin:0px 0px 20px 20px;background-color:#C4D88C;}
 
 h3{
 font-size:16pt;
