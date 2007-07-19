@@ -40,7 +40,7 @@
 			<div class="floatLeft headerButton currentBox"> <a href="lmAbout.do">About LIT</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Gallery</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Map</a> </div>
 			<div class="floatLeft headerButton"> <a href="glossaryPublic.do">Glossary</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
 		</div>
@@ -57,20 +57,19 @@
     </ul>
 
 <p>This October, residents of King, Pierce, and Snohomish counties are invited to participate in the LIT Challenge, a 4-week long online experiment in which 300 or more individuals will participate via the Internet at their own convenience. The purpose of this experiment is to evaluate a new and potentially more meaningful way to involve citizens in the process of regional transportation decision making.</p>
-<p>As a participants in the <em>LIT Challenge</em>, you will be asked to imagine you are a member of a large citizen advisory committee. You committee's goal is to provide regional policy makers with your recommendations regarding a regional transportation funding ballot measure. The hypothetical measure will ask voters in the region if they wish to raise taxes to pay for a package of road and transit improvement projects. Your task is to determine which proposed transportation improvement projects to build and which funding options (such as taxes or bridge tolls) should be used to pay for these improvements. The challenging part is to get as many participants as possible to collectively recommend a single "package" of projects and funding options. Fortunately, the LIT website is designed to support exactly this kind of challenge. </p>
-<p>There are five steps in the <em>LIT Challenge</em>, which can be completed at your own convenience over the course of 4 weeks.</p>
-<ol>
-	<li>Discuss concerns</li>
-	<li>Assess transportation improvement factors</li>
-	<li>Create transportation packages</li>
-	<li>Select a recommended package</li>
-	<li>Prepare group report</li>
-</ol>
-<p>While this may sound complicated, the website is designed to lead any interested citizen through the process. No prior experience with transportation issues is necessary. It is estimated that your full participation will take as little as 8-10 hours over the four week period. Qualified participants who complete the LIT Challenge will receive compensation for their efforts.</p>
+<p>Participants in the LIT Challenge are asked to imagine they are a member of a large citizen advisory committee charged with providing policy makers with their recommendations regarding the make-up of a regional transportation ballot measure. The (hypothetical) measure will ask voters in the region if they wish to raise taxes to pay for a package of road and transit improvement projects. The task of LIT Challenge participants is to determine which proposed transportation improvement projects to build and which funding mechanisms (such as taxes or bridge tolls) should be used to pay for these improvements. The challenging part is to get as many participants as possible to collectively recommend a single "package" of projects and funding options. Fortunately, the LIT website was designed to support exactly this kind of challenge. The website, as well as a small team of online moderators, will facilitate a process in which participants:</p>
+<ul>
+	<li>brainstorm concerns,</li>
+	<li>assess different goals for transportation improvement,</li>
+	<li>create personal "packages" of transportation projects and funding,</li>
+	<li>discuss and evaluate 5 representative packages in order to determine which ones can gain the greatest degree of participant support,</li>
+	<li>and compose a report to communicate the final recommendations to the public and policy makers.</li>
+</ul>
+<p>While this may sound complicated, the website is designed to lead any interested citizen through the process. No prior experience with transportation issues is necessary. It is estimated that full participation in the LIT Challenge will take as little as 8-10 hours over the four week period. Qualified participants who complete the LIT Challenge will receive compensation for their efforts.</p>
  <h3 class="headerColor" style="text-transform:none"><a name="realWorld" class="headerColor">How is LIT related to the (real world) "Roads and Transit" ballot measure in November 2007?</a></h3>
-<p>In the real world, regional policy makers have already created a single "Roads and Transit" package. They will be asking voters in King, Pierce, and Snohomish counties whether or not this package should become law. The "Roads and Transit" package is the result of years of negotiations between county elected officials as well as pressure from businesses, transportation advocacy organizations, and concerned members of the public. Transportation funding ballot measures such as this one have become increasingly common in metropolitan regions across the U.S.</p>
+<p>In the real world, regional policy makers have already created a single "Roads and Transit" package and will be asking voters in King, Pierce, and Snohomish counties whether or not it should become law. The "Roads and Transit" package is the result of years of negotiations between county elected officials as well as pressure from businesses, transportation advocacy organizations, and concerned members of the public. Transportation funding ballot measures such as this one have become increasingly common in metropolitan regions across the U.S.</p>
 
-<p>LIT is an experimental approach to supporting public participation in regional transportation decision making before a single package is placed on the ballot. Therefore the outcome of the LIT Challenge will have no effect on the "Roads and Transit" package. However participants will have the opportunity to carefully examine the "Roads and Transit" package and compare it to alternative packages created based on participant input. Researchers also hope that the LIT Challenge will inspire new models for involving the public in future regional transportation decisions.</p>
+<p>LIT is an attempt to design a more meaningful way to involve members of the public in regional transportation decision making before a single package is placed on the ballot. Therefore the outcome of the LIT Challenge will no effect on the make-up of the "Roads and Transit" package. However participants will have the opportunity to carefully examine the "Roads and Transit" package and compare it to alternative packages created based on participant input. Researchers also hope that the LIT Challenge will serve as a model for how to involve the public in future regional transportation decisions.</p>
 
 <p>To learn more about this research project, go to <a href="http://www.pgist.org" target="_blank">www.pgist.org</a>.</p>
 
@@ -87,7 +86,7 @@
 			<div class="floatLeft headerButton currentBox"> <a href="lmAbout.do">About LIT</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Gallery</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Map</a> </div>
 			<div class="floatLeft headerButton"> <a href="glossaryPublic.do">Glossary</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
 		</div>
