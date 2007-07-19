@@ -1,7 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -518,17 +518,17 @@ Once all participants have submitted their own packages, five new packages will 
 					<table cellpadding=0 cellspacing=0 id="projectsTable">
 						<tr class="tableHeading">
 							<th colspan="2" class="first">Proposed improvement projects</th>
-							<th>Money Needed</th>
+							<th>Money needed</th>
 						</tr>
 						<c:forEach var="category" begin="1" end="2">
 							<!-- start road projects -->
 							<tr>
 								<c:choose>
 									<c:when test="${category == 1}">
-										<td class="category" colspan="3"><strong>Road Projects</strong></td>
+										<td class="category" colspan="3"><strong>Road projects</strong></td>
 									</c:when>
 									<c:otherwise>
-										<td class="category" colspan="3"><strong>Transit Projects</strong></td>
+										<td class="category" colspan="3"><strong>Transit projects</strong></td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
@@ -592,7 +592,8 @@ Once all participants have submitted their own packages, five new packages will 
 															</c:choose>
 															${altRef.alternative.name}</label>
 														</td>
-														<td class="cost">$<fmt:formatNumber type="number">${altRef.alternative.cost}</fmt:formatNumber></td>
+														<td class="cost">
+															$<fmt:formatNumber maxFractionDigits="0" value="${altRef.alternative.cost/1000000}" /> million</td>
 													</tr>
 													<c:if test="${pg:contains(userPkg.projAltRefs,altRef) && userPkg != null}">
 														<c:set var="doNothing"value="false"/>
@@ -622,7 +623,7 @@ Once all participants have submitted their own packages, five new packages will 
 					<!-- end collapsible project list -->
 					<table cellpadding="0" cellspacing="0" id="fundingTable">
 						<tr class="tableHeading">
-							<th class="first">Funding Source</th>
+							<th class="first">Funding source</th>
 							<th>Money Raised</th>
 							<th class="thcol2">Cost to the avg. taxpayer</th>
 							<c:if test="${userPkg != null}">
@@ -653,7 +654,8 @@ Once all participants have submitted their own packages, five new packages will 
 
 										${altRef.alternative.name}</label>
 									</td>
-									<td class="col2">$<fmt:formatNumber type="number">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
+									<td class="col2">
+										$<fmt:formatNumber maxFractionDigits="0" value="${altRef.alternative.revenue/1000000}" /> million</td>
 									<td class="col3">$<fmt:formatNumber type="number">${altRef.alternative.avgCost}</fmt:formatNumber></td>
 									<c:if test="${userPkg != null}">
 										<td class="col4">$<fmt:formatNumber type="number">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
