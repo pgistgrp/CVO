@@ -48,7 +48,7 @@ public class WorkflowInfoTag extends SimpleTagSupport {
         writer.write(workflowId);
         writer.write(", contextId:");
         writer.write(activityId);
-        writer.write("activityId:");
+        writer.write(", activityId:");
         writer.write(workflowId);
         writer.write("}");
     }//doTag()

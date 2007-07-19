@@ -13,6 +13,7 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.util.PageSetting;
 
 
 /**
@@ -37,30 +38,31 @@ public class SearchAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-        SearchForm sform = (SearchForm) form;
-        
         List list = new ArrayList();
-
-        String queryStr = sform.getQueryStr();
+        
+        String queryStr = request.getParameter("queryStr");
         
         if (queryStr==null || "".equals(queryStr)) return mapping.findForward("index");
         
         IndexSearcher indexSearcher = null;
+        PageSetting setting = null;
         
         try {
             indexSearcher = searchHelper.getIndexSearcher();
             
-            Query query = searchHelper.getParser().parse("workflowid:"+sform.getWorkflowId()+" AND "+queryStr);
+            Query query = searchHelper.getParser().parse("workflowid:"+request.getParameter("workflowId")+" AND "+queryStr);
             
             Hits hits = indexSearcher.search(query);
             
-            sform.setTotal(hits.length());
+            setting = new PageSetting(20);
+            setting.setPage(request.getParameter("page"));
             
-            final int HITS_PER_PAGE = 10;
+            setting.setRowSize(hits.length());
             
-            int end = Math.min(hits.length(), HITS_PER_PAGE);
+            int start = setting.getFirstRow();
+            int end = Math.min(hits.length(), start+setting.getRowOfPage());
             
-            for (int i=0; i<end; i++) {
+            for (int i=start; i<end; i++) {
                 Document doc = hits.doc(i);
                 
                 String type = doc.get("type");
@@ -94,7 +96,8 @@ public class SearchAction extends Action {
             indexSearcher.close();
         }
         
-        sform.setResults(list);
+        request.setAttribute("setting", setting);
+        request.setAttribute("results", list);
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

@@ -198,7 +198,7 @@
 	 	 		var notify = $(io.newPostNotifier).checked;
 				var emailNotify = notify.toString();
 	 	 		//alert("ISID: " + this.structureId + "IOID: " + this.objectId + "Title: " + newPostTitle + "Content: " + newPost + "Tags: " + newPostTags + " Email Notification: " + emailNotify);
-				SDAgent.createPost({isid:io.structureId, ioid: io.objectId, title: newPostTitle, content: newPost, tags:newPostTags, emailNotify: "true"}, {
+				SDAgent.createPost({isid:io.structureId, ioid: io.objectId, title: newPostTitle, content: newPost, tags:newPostTags, emailNotify: "true"}, <pg:wfinfo/>, {
 				callback:function(data){
 						if (data.successful){
 							 displayIndicator(false);

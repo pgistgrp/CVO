@@ -66,15 +66,15 @@
 		</html:form>
 				
 		<div class="pagination box3 padding5">
-		    You are currently viewing page: 2 of 7 &nbsp;
+		    You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
 		    <a href="#"><img src="http://www.letsimprovetransportation.org/images/btn_prev_b.gif" style="vertical-align:top"></a>
 			<a href="#"><img src="http://www.letsimprovetransportation.org/images/btn_next_a.gif" style="vertical-align:top"></a>
 		</div>
 		<h2 class="headerColor" style="float:left;margin-right:.5em;">Searched for: </h2>
 		<h2 class="contrast2">"${param.queryStr}"</h2>
-		<h3 class="headerColor">Found: ${searchForm.total} 
+		<h3 class="headerColor">Found: ${setting.rowSize} 
 		<c:choose>
-	      <c:when test="${searchForm.total == 1}">
+	      <c:when test="${setting.rowSize == 1}">
 	          result
 	      </c:when>
 	      <c:otherwise>
@@ -86,7 +86,7 @@
 		<div id="gs_results">
 			<div id="gs_typecontainer">
 			        <ol>
-        			    <c:forEach var="result" items="${searchForm.results}">
+        			    <c:forEach var="result" items="${results}">
     					<li>
     					    <h3 class="headerColor">
     					        <span class="capitalize">${result.type}</a>
@@ -108,7 +108,7 @@
     				</ol>
 			</div>
 			 <div class="pagination box3 padding5">
-			 	You are currently viewing page: 2 of 7 &nbsp;
+			 	You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
 				<a href="#"><img src="http://www.letsimprovetransportation.org/images/btn_prev_b.gif"></a>
 				<a href="#"><img src="http://www.letsimprovetransportation.org/images/btn_next_a.gif"></a>
 		  </div>
