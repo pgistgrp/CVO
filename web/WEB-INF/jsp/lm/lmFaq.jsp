@@ -50,7 +50,7 @@
 	</div>
 	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
-	<div id="container">
+	<div id="container"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
 		<h2 class="headerColor">Frequently Asked Questions</h2>
 		<p>Here are answers to some of the most common questions participants ask.</p>
 		
@@ -73,7 +73,7 @@
 		
 		<a name="step1-revised"><h4 class="headerColor">How are summaries revised?</h4></a>
 		<p>	When a significant number of participants indicate that they disagree with a summary, the moderator will review 	discussions and suggested revisions by participants. If it appears that a revision is necessary, the moderator will make 	changes and notify participants. At the conclusion of this step, the summaries will no longer be revised. Some 	participants may disagree with the 'final' version of a summary. These participants can express this disagreement in the 	poll as well as their discussion comments about the summary. These comments will always be available for review to all 	participants and will also be available to decision makers as an appendix to the final report.</p>
-		<br />
+		<br /></pg:termHighlight>
 	</div>
 	<!-- end container -->
 	<!-- Begin header menu - The wide ribbon underneath the logo -->

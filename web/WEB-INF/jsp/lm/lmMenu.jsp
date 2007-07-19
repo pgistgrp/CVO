@@ -52,7 +52,7 @@ p.nomargin {margin-left:0px;}
 	<div id="container">
 		<h2 class="headerColor">Learn More</h2>
 		<h3 class="headerColor"><a href="lmAbout.do">Read More about <em>Let's Improve Transportation</em></a></h3>
-		<h3 class="headerColor"><a href="lmFaq.do"Read our Frequently Asked Questions</a></h3>
+		<h3 class="headerColor"><a href="lmFaq.do">Read our Frequently Asked Questions</a></h3>
 		<h3 class="headerColor"><a href="lmTutorial1.do">Learn about the more advanced features of this site</a></h3>
 		<h3 class="headerColor"><a href="lmGallery.do">View a map of proposed transportation improvements</a></h3>
 		<h3 class="headerColor"><a href="lmResources.do">Browse articles and other resources about transportation planning</a></h3>

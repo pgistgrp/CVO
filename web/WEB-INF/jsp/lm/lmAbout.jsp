@@ -49,6 +49,8 @@
 	<!-- #container is the container that wraps around all the main page content -->
 	 <div id="container">
  <h2 class="headerColor" style="text-transform:none"><a name="purpose" class="headerColor">What is <em>Let's Improve Transportation</em> and the <em>LIT Challenge</em>?</a></h2>
+<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
+
 <p>Let's Improve Transportation (LIT) is an experiment in participatory democracy. A research team based at the University of Washington has developed an innovative new website where you can:</p>
     <ul>
       <li>learn about proposed improvements to the central Puget Sound regional transportation system,</li>
@@ -72,6 +74,7 @@
 <p>LIT is an attempt to design a more meaningful way to involve members of the public in regional transportation decision making before a single package is placed on the ballot. Therefore the outcome of the LIT Challenge will no effect on the make-up of the "Roads and Transit" package. However participants will have the opportunity to carefully examine the "Roads and Transit" package and compare it to alternative packages created based on participant input. Researchers also hope that the LIT Challenge will serve as a model for how to involve the public in future regional transportation decisions.</p>
 
 <p>To learn more about this research project, go to <a href="http://www.pgist.org" target="_blank">www.pgist.org</a>.</p>
+			</pg:termHighlight>
 
   </div>
 </div>
