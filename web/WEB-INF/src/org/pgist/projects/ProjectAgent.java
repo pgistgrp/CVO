@@ -605,7 +605,8 @@ public class ProjectAgent {
             Long altRefId = new Long((String) params.get("altRefId"));
             Long critId = new Long((String) params.get("critId"));
             Long objId = new Long((String) params.get("objId"));
-            Float value = new Float((String) params.get("value"));
+            String valueStr = (String) params.get("value");
+            Float value = (valueStr==null) ? null : new Float(valueStr);
             
             String critGrade = projectService.setGrading(altRefId, critId, objId, value);
             map.put("critGrade", critGrade);
