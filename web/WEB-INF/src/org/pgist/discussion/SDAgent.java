@@ -143,6 +143,13 @@ public class SDAgent {
      *     <li>count - int, number of posts to be displayed in a page. Optional, default value is -1, means to get all posts.</li>
      *   </ul>
      * 
+     * @param wfinfo A map contains:
+     *   <ul>
+     *   <li>workflowId - long</li>
+     *   <li>contextId - long</li>
+     *   <li>activityId - long</li>
+     * </ul>
+     * 
      * @return A map contains:<br>
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -160,7 +167,7 @@ public class SDAgent {
      *     </li>
      *   </ul>
      */
-    public Map getPosts(HttpServletRequest request, Map params) {
+    public Map getPosts(HttpServletRequest request, Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -170,6 +177,8 @@ public class SDAgent {
         InfoObject object = null;
         
         try {
+            request.setAttribute("wfinfo", wfinfo);
+            
             isid = new Long((String) params.get("isid"));
             if (isid==null) {
                 map.put("reason", "no such InfoStructure object");
@@ -272,7 +281,7 @@ public class SDAgent {
      *     </li>
      *   </ul>
      */
-    public Map getReplies(HttpServletRequest request, Map params) {
+    public Map getReplies(HttpServletRequest request, Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -284,6 +293,8 @@ public class SDAgent {
         DiscussionPost post = null;
         
         try {
+            request.setAttribute("wfinfo", wfinfo);
+            
             isid = new Long((String) params.get("isid"));
             if (isid==null) {
                 map.put("reason", "no such InfoStructure object");
@@ -373,7 +384,14 @@ public class SDAgent {
      *   <ul>
      *     <li>isid - int, id of a InfoStructure object</li>
      *   </ul>
-     *   
+     * 
+     * @param wfinfo A map contains:
+     *   <ul>
+     *   <li>workflowId - long</li>
+     *   <li>contextId - long</li>
+     *   <li>activityId - long</li>
+     * </ul>
+     * 
      * @return A map contains:<br>
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -401,7 +419,7 @@ public class SDAgent {
      *     </li>
      *   </ul>
      */
-    public Map getTargets(HttpServletRequest request, Map params) {
+    public Map getTargets(HttpServletRequest request, Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -409,6 +427,8 @@ public class SDAgent {
         InfoStructure structure = null;
         
         try {
+            request.setAttribute("wfinfo", wfinfo);
+            
             isid = new Long((String) params.get("isid"));
             if (isid==null) {
                 map.put("reason", "no such InfoStructure object");
@@ -507,6 +527,8 @@ public class SDAgent {
         DiscussionPost post = null;
         
         try {
+            request.setAttribute("wfinfo", wfinfo);
+            
             isid = new Long((String) params.get("isid"));
             if (isid==null) {
                 map.put("reason", "no such InfoStructure object");
@@ -641,6 +663,8 @@ public class SDAgent {
         DiscussionReply reply = null;
         
         try {
+            request.setAttribute("wfinfo", wfinfo);
+            
             isid = new Long((String) params.get("isid"));
             if (isid==null) {
                 map.put("reason", "no such InfoStructure object");
@@ -900,7 +924,6 @@ public class SDAgent {
      *     <li>content - string, content of the post</li>
      *     <li>tags - string, comma separated tag names. Optional.</li>
      *   </ul>
-     *   
      * 
      * @param wfinfo A map contains:
      *   <ul>
@@ -1023,6 +1046,13 @@ public class SDAgent {
      *     <li>type - string, ["asHTML" | "asObject"]. Optional, default is "asHTML"</li>
      *   </ul>
      *   
+     * @param wfinfo A map contains:
+     *   <ul>
+     *   <li>workflowId - long</li>
+     *   <li>contextId - long</li>
+     *   <li>activityId - long</li>
+     * </ul>
+     * 
      * @return A map contains:<br>
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -1064,7 +1094,7 @@ public class SDAgent {
      *     </li>
      *   </ul>
      */
-    public Map getSummary(HttpServletRequest request, Map params) {
+    public Map getSummary(HttpServletRequest request, Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -1086,6 +1116,8 @@ public class SDAgent {
         }
         
         try {
+            request.setAttribute("wfinfo", wfinfo);
+            
             String type = (String) params.get("type");
             
             if (ioid!=null) {
@@ -1164,6 +1196,13 @@ public class SDAgent {
      *     <li>ioid - int, id of the InfoObject object. Optional, if isid is given</li>
      *   </ul>
      *   
+     * @param wfinfo A map contains:
+     *   <ul>
+     *     <li>workflowId - long</li>
+     *     <li>contextId - long</li>
+     *     <li>activityId - long</li>
+     *   </ul>
+     * 
      * @return A map contains:<br>
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -1205,7 +1244,7 @@ public class SDAgent {
      *     </li>
      *   </ul>
      */
-    public Map getTarget(HttpServletRequest request, Map params) {
+    public Map getTarget(HttpServletRequest request, Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -1227,6 +1266,8 @@ public class SDAgent {
         }
         
         try {
+            request.setAttribute("wfinfo", wfinfo);
+            
             String type = null;
             if(ioid != null && isid != null) {
             	InfoStructure structure = sdService.getInfoStructureById(isid);
@@ -1460,7 +1501,7 @@ public class SDAgent {
      *       </li>
      *     </ul>
      */
-    public Map getConcerns(HttpServletRequest request, Map params) {
+    public Map getConcerns(HttpServletRequest request, Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
