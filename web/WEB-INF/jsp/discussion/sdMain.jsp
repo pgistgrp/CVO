@@ -46,7 +46,7 @@
 	 	displayIndicator(true);
 		this.isDivElement = 'object';
 	 	 this.getTargets = function(){
-				SDAgent.getTargets({isid:${structure.id}}, {
+				SDAgent.getTargets({isid:${structure.id}}, <pg:wfinfo/>,{
 				callback:function(data){
 						if (data.successful){
 							displayIndicator(false);
@@ -96,8 +96,8 @@
 			<li>Read the summary of each theme and discuss how well you feel it describes the diversity of concerns submitted by participants.</li>
 			<li>Indicate whether you feel the current summary adequately reflects participants' concerns by clicking the thumb's up or thumb's down button.</li>
 			</ul>
-			<p><a href="/lmFaq.do#step1-created" target="_blank">How are these summaries created, and why are they important?</a> <img src="images/external.png" alt="(new window)"></p>
-			<p><a href="/lmAbout.do">Read more about how this step fits into the bigger picture.</a></p>
+			<p><pg:url page="lmFaq.do#step1-created">How are these summaries created, and why are they important?</pg:url> <img src="images/external.png" alt="(new window)"></p>
+			<p><pg:url page="/lmAbout.do">Read more about how this step fits into the bigger picture.</pg:url></p>
 			
 		</div>
 		<!-- end overview -->
@@ -114,8 +114,12 @@
 <!-- Begin all discussions box -->
 
 
-				<div class="themeBox floatLeft box6" id="allDiscussionsBox"> <h3 
-			class="headerColor"><a href="/sdRoom.do?isid=${structure.id}">Discussion about all concern themes</a></h3> <p>This room is for discussing whether any themes the moderator has identified should be removed, or changed, or if new themes should be added.<span class="smallText"><a href="/sdRoom.do?isid=${structure.id}">more</a></span></p> 
+				<div class="themeBox floatLeft box6" id="allDiscussionsBox">
+				    <h3 class="headerColor">
+				    <pg:url page="/sdRoom.do" params="isid=${structure.id}">Discussion about all concern themes</pg:url>
+                    </h3> <p>This room is for discussing whether any themes the moderator has identified should be removed, or changed, or if new themes should be added.<span class="smallText">
+                    <pg:url page="/sdRoom.do" params="isid=${structure.id}">more</pg:url>
+                    </span></p> 
 			
 			
 			
@@ -124,7 +128,7 @@
 
 				<c:choose>
 					<c:when test="${structure.discussion.lastPost.id != null}">
-						"<a href="/sdThread.do?isid=${structure.id}&pid=${structure.discussion.lastPost.id}">${structure.discussion.lastPost.title}</a>"<br />
+						"<pg:url page="/sdThread.do" params="isid=${structure.id}&pid=${structure.discussion.lastPost.id}">${structure.discussion.lastPost.title}</pg:url>"<br />
 						by ${structure.discussion.lastPost.owner.loginname}
 					</c:when>
 					<c:otherwise>
