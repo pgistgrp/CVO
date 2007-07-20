@@ -196,9 +196,68 @@
 				}
 		});
 	}
+    
+    function loadFootprints(){
+        if(fpidlist.length > 0){
+            fpidlist = fpidlist.substring(1, fpidlist.length-1);  //get rid of the first comma
+            ProjectAgent.getFootprints({fpids:fpidlist}, {
+                callback:function(data){
+                    if (data.successful){
+                        for(fpid in data.footprints){
+                            overlaypoints['_'+fpid] = [];
+                            overlaypoints['_'+fpid]["geotype"] = data.footprints[fpid].geotype;
+                            overlaypoints['_'+fpid]["coords"] = pgistmap.makeGPoints(data.footprints[fpid].coords);
+                        }
+                        renderProjects();
+                    }else{
+                        alert(data.reason);
+                    }
+                },
+                errorHandler:function(errorString, exception){ 
+                    alert("ProjectAgent.getFootprint( error:" + errorString + exception);
+                }
+            });
+        }
+    }
+    
+    function renderProjects(){
+        for(var i=0;i<prjaltlist.length;i++){
+            var p = prjaltlist[i];
+            p["overlays"] = []; 
+            if(p["fpids"] == "") continue;
+            
+            var geomkeys = p["fpids"].split(',');
+            for(var k=0; k<geomkeys.length; k++){
+                var geomkey = '_'+geomkeys[k];
+                if(overlaypoints[geomkey] == null)continue;
+                
+                var transcolor = (p["mode"]==2)?"#0bc00f":"#FF0000";
+                var transicon = (p["mode"]==2)?pgistmap.transiticon:pgistmap.roadicon;
+                p["overlays"] = p["overlays"].concat(pgistmap.createOverlays(overlaypoints[geomkey]["coords"], 
+                    overlaypoints[geomkey]["geotype"], transcolor, 2, 0.9, "", transicon));
+                
+                for(var j=0; j<p["overlays"].length; j++){
+                    pgistmap.map.addOverlay( p["overlays"][j] );
+                }
+            }
+        }
+    }
+
 	/* *************** loading on getTargets() in SDRoomMain *************** */
 	io.loadDynamicFile('/styles/step3a-reviewprojects.css');
 	io.loadDynamicFile('/styles/table.css');
-	io.loadDynamicFile('/dwr/interface/ProjectAgent.js');
-
+	//io.loadDynamicFile('/dwr/interface/ProjectAgent.js');
+    
+    var pgistmap = new PGISTMapEditor('map', 420, 520, false);
+    var prjaltlist = [];
+    var fpidlist = "";
+    var overlaypoints = [];
+    <c:forEach var="infoObject" items="${infoStructure.infoObjects}" varStatus="loop">
+        <c:forEach var="altRef" items="${infoObject.object.altRefs}" varStatus="loop">
+            prjaltlist.push({"id":"${altRef.id}", "fpids":"${altRef.alternative.fpids}", "mode":"${altRef.alternative.project.transMode}",
+                             "name_p":"${infoObject.object.project.name}", "name_a":"${altRef.alternative.name}"}); 
+            fpidlist += "," + "${altRef.alternative.fpids}";
+        </c:forEach>
+    </c:forEach>
+    loadFootprints();
 </pg:fragment>

@@ -6,12 +6,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
 <title>Step 1b: Review Summaries - Rooms</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">
 	@import "styles/lit.css";	
 </style>
+<style type="text/css"> v\:* {behavior:url(#default#VML);}</style>
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 <script language="javascript" type="text/javascript" src="/scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
@@ -31,6 +33,13 @@
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
 <script type='text/javascript' src='/scripts/util.js'></script>
 <!--End SDX Specific  Libraries-->
+<!--Mapping  Libraries-->
+<script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/PESAgent.js'></script>
+<script type='text/javascript' src='scripts/pgistmap2.js'></script>
+<script type="text/javascript" src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAq4HJEw-8aIG3Ew6IOzpYEBTwM0brOpm-All5BF6PoaKBxRWWERSP-RPo4689bM1xw9IvCyK4oTwAIw"></script>
+<!--END Mapping  Libraries-->
+
 <script type="text/javascript">
 	<!--
 		tinyMCE.init({
@@ -198,7 +207,7 @@
 	 	 		var notify = $(io.newPostNotifier).checked;
 				var emailNotify = notify.toString();
 	 	 		//alert("ISID: " + this.structureId + "IOID: " + this.objectId + "Title: " + newPostTitle + "Content: " + newPost + "Tags: " + newPostTags + " Email Notification: " + emailNotify);
-				SDAgent.createPost({isid:io.structureId, ioid: io.objectId, title: newPostTitle, content: newPost, tags:newPostTags, emailNotify: "true"}, <pg:wfinfo/>, {
+				SDAgent.createPost({isid:io.structureId, ioid: io.objectId, title: newPostTitle, content: newPost, tags:newPostTags, emailNotify: "true"}, {
 				callback:function(data){
 						if (data.successful){
 							 displayIndicator(false);
@@ -388,7 +397,7 @@
 		<div class="sectionTitle">
 			<div class="floatLeft"><h3 class="headerColor">
 				<!--${object.discussion.numPosts} -->
-				${InfoStructure.title} Discussion</h3></div>
+				Discussion</h3></div>
 			<div id="filteredBy" class="floatLeft"></div>
 			<div class="padding5 box5 floatRight" style="margin-bottom:2px;"> 
 			<a class="orangeButton" href="javascript:Effect.toggle('newDiscussion','blind',{duration:0.5});">Start a New Topic</a>
@@ -432,23 +441,24 @@
 		<div id="newDiscussion" style="display: none">
 			<div id="newdisc_title" >
 				<div class="textright"> </div>
-				<h3 style="display: inline">New discussion topic</h3>
+				<h3 style="display: inline">New Topic</h3>
 			</div>
 			<!-- End newdisc_title -->
 			<div id="newdisc_content" class="greenBB">
 				<div id="newdisc_inner">
 					<form>
 						<p>
-							<label>Title</label>
+							<label>Post title</label>
 							<br>
 							<input maxlength=100 size=100 type="text" id="txtNewPostTitle"/>
 						</p>
 						<p>
+							<label>Your thoughts</label>
 							<br>
 							<textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea>
 						</p>
 						<p>
-							<label>Keywords (comma separated)</label>
+							<label>Keyword your post (comma separated)</label>
 							<br>
 							<input style="width:100%" id="txtNewPostTags" type="text" />
 						</p>
@@ -458,7 +468,7 @@
 						Effect.toggle('newDiscussion','blind',{duration:0.5});" 
 						value="Cancel">
 						<input type="checkbox" id="ckboxPostNotifier">
-						<label for="ckboxPostNotifier">E-mail me when someone responds to this discussion</label>
+						E-mail me when someone responds to my post
 					</form>
 				</div>
 			</div>

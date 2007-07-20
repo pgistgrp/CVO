@@ -61,9 +61,10 @@ var PGISTMapEditor = function(mapcontainer, width, height, enableEdit) {
 	this.map.addControl(new GLargeMapControl());
 
 	this.map.addControl(new GMapTypeControl());
+
 	this.map.addControl(new GScaleControl(), new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(20, 40)));
 
-	this.map.setCenter(new GLatLng(47.65985278,-122.3224667),12,G_NORMAL_MAP);
+	this.map.setCenter(new GLatLng(47.65985278,-122.3224667),10,G_NORMAL_MAP);
 
 	this.map.enableContinuousZoom();
 
@@ -149,36 +150,36 @@ var PGISTMapEditor = function(mapcontainer, width, height, enableEdit) {
 	
 	this._msgdiv = document.createElement("div");
 	this._msgdiv.innerHTML = "<center><img src='../images/map-caption.png'></center>";
+
 	mapcontainer.appendChild(this._msgdiv);
 
 	this._container = mapcontainer;
 
-
-
 	PGISTMapEditor_Global_Accessor = this;
     
     //enable map logging if PESAgent javascript is included
-    if(PESAgent != null){
-        GEvent.addListener(this.map, 'moveend', PGIST_Map_Logger);
-    }
+    GEvent.addListener(this.map, 'moveend', PGIST_Map_Logger);
 
 };
 
 /* log the map type and map extent */
 function PGIST_Map_Logger(){
-    if(PESAgent == null)return;
-    var logstr = PGISTMapEditor_Global_Accessor.map.getCurrentMapType().getName() + ":";
-    var b = PGISTMapEditor_Global_Accessor.map.getBounds();
-    logstr += b.getSouthWest().lng() + ',' + b.getSouthWest().lat() + ' ';
-    logstr += b.getNorthEast().lng() + ',' + b.getSouthWest().lat();
-
-    PESAgent.saveAct({mapaction:logstr}, {callback:function(data){
-                
-            },
-        errorHandler:function(errorString, exception){ 
-			alert("PESAgent error:" + errorString + " - " + exception);
-			}
-        });
+    try{
+        var logstr = PGISTMapEditor_Global_Accessor.map.getCurrentMapType().getName() + "|";
+        logstr += PGISTMapEditor_Global_Accessor.map.getZoom() + "|";
+        
+        var b = PGISTMapEditor_Global_Accessor.map.getBounds();
+        logstr += b.getSouthWest().lng() + ',' + b.getSouthWest().lat() + ' ';
+        logstr += b.getNorthEast().lng() + ',' + b.getSouthWest().lat();
+    
+        PESAgent.saveAct({mapaction:logstr}, {callback:function(data){
+                    
+                },
+            errorHandler:function(errorString, exception){ 
+                alert("PESAgent error:" + errorString + " - " + exception);
+                }
+            });
+    }catch(err){}
 };
 
 /**
