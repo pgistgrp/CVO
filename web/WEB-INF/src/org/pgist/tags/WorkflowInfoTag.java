@@ -1,6 +1,7 @@
 package org.pgist.tags;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
@@ -41,6 +42,15 @@ public class WorkflowInfoTag extends SimpleTagSupport {
         String workflowId = request.getParameter("workflowId");
         String contextId = request.getParameter("contextId");
         String activityId = request.getParameter("activityId");
+        
+        if (workflowId==null) {
+            Map wfinfo = (Map) request.getAttribute("wfinfo");
+            if (wfinfo!=null) {
+                workflowId = (String) wfinfo.get("workflowId");
+                contextId = (String) wfinfo.get("contextId");
+                activityId = (String) wfinfo.get("activityId");
+            }
+        }
         
         JspWriter writer = getJspContext().getOut();
         writer.write("{");

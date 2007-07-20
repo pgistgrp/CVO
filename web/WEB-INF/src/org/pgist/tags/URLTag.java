@@ -1,6 +1,7 @@
 package org.pgist.tags;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
@@ -25,6 +26,10 @@ public class URLTag extends SimpleTagSupport {
     
     private String params = "";
     
+    private String anchor = "";
+    
+    private String target = "";
+    
     private JspFragment jspBody;
 
 
@@ -35,6 +40,16 @@ public class URLTag extends SimpleTagSupport {
 
     public void setParams(String params) {
         this.params = params;
+    }
+
+
+    public void setAnchor(String anchor) {
+        this.anchor = anchor;
+    }
+
+
+    public void setTarget(String target) {
+        this.target = target;
     }
 
 
@@ -56,6 +71,15 @@ public class URLTag extends SimpleTagSupport {
         String contextId = request.getParameter("contextId");
         String activityId = request.getParameter("activityId");
         
+        if (workflowId==null) {
+            Map wfinfo = (Map) request.getAttribute("wfinfo");
+            if (wfinfo!=null) {
+                workflowId = (String) wfinfo.get("workflowId");
+                contextId = (String) wfinfo.get("contextId");
+                activityId = (String) wfinfo.get("activityId");
+            }
+        }
+        
         JspWriter writer = getJspContext().getOut();
         writer.write("<a href=\"");
         writer.write(page);
@@ -68,7 +92,23 @@ public class URLTag extends SimpleTagSupport {
         writer.write(activityId);
         writer.write("&");
         writer.write(params);
-        writer.write("\">");
+        if (anchor!=null) {
+            anchor = anchor.trim();
+            if (anchor.length()>0) {
+                writer.write("#");
+                writer.write(anchor);
+            }
+        }
+        writer.write("\"");
+        if (target!=null) {
+            target = target.trim();
+            if (target.length()>0) {
+                writer.write(" target=\"");
+                writer.write(target);
+                writer.write("\"");
+            }
+        }
+        writer.write(">");
         jspBody.invoke(writer);
         writer.write("</a>");
     }//doTag()
