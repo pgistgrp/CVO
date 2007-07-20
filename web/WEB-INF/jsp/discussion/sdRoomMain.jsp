@@ -89,7 +89,7 @@
 		
 		/*************** Get Targets - If IOID is ommitted, return sdcSummary.jsp::else, returns sdcStructureSummary.jsp************** */
 		io.getTargets = function(){
-			SDAgent.getTarget({isid:io.structureId, ioid:io.objectId}, {
+			SDAgent.getTarget({isid:io.structureId, ioid:io.objectId}, <pg:wfinfo/>,{
 				callback:function(data){
 					if (data.successful){
 						$(io.objectDiv).innerHTML = data.source.html;
