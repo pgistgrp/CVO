@@ -112,7 +112,7 @@
 	</div>
 	<!-- begin cell containing Google Map object -->
 	<!-- GUIRONG: This can be up to 420px wide -->
-	<div id="map" class="floatRight">Project footprints are intended for location reference only.</div>
+	<div id="map" class="floatRight"></div>
 	<!-- end cell containing Google Map object -->
 	<!-- begin firefox height hack -->
 	<div class="clearBoth"></div>
@@ -241,6 +241,7 @@
                 }
             }
         }
+	 pgistmap.map.setCenter(new GLatLng(47.651500,-122.165222),9);
     }
 
 	/* *************** loading on getTargets() in SDRoomMain *************** */
@@ -248,7 +249,7 @@
 	io.loadDynamicFile('/styles/table.css');
 	//io.loadDynamicFile('/dwr/interface/ProjectAgent.js');
     
-    var pgistmap = new PGISTMapEditor('map', 420, 520, false);
+    var pgistmap = new PGISTMapEditor('map', 420, 600, false);
     var prjaltlist = [];
     var fpidlist = "";
     var overlaypoints = [];
