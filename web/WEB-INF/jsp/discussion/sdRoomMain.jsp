@@ -5,6 +5,8 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
+
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
@@ -363,16 +365,12 @@
 		<event:pageunload />
 </head>
 <body>
-<!-- Begin the header - loaded from a separate file -->
-<div id="header">
-	<!-- Begin header -->
-	<jsp:include page="/header.jsp" />
-	<!-- End header -->
-</div>
-<!-- End header -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-<jsp:include page="sdcHeader.jsp" />
-<!-- End header menu -->
+
+<!-- Start Global Headers  -->
+<wf:nav />
+<wf:subNav />
+<!-- End Global Headers -->
+
 <div style="display: none;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 <div id="container">
 
@@ -511,7 +509,7 @@
 </div>
 <!-- start the bottom header menu -->
 <!-- Begin header menu - The wide ribbon underneath the logo -->
-<jsp:include page="sdcHeader.jsp" />
+<wf:nav />
 <!-- End header menu -->
 <!-- end the bottom header menu -->
 <!-- Begin footer -->

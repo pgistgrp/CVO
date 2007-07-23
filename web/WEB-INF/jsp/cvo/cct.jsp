@@ -5,6 +5,8 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
+
 <html:html>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
@@ -613,32 +615,17 @@ $('slate').style.Height = winH;
 
   <event:pageunload />
   </head><body>
-  <!-- Begin the header - loaded from a separate file -->
-  <div id="header">
-	<!-- Begin header -->
-	<jsp:include page="/header.jsp" />
-	<!-- End header -->
-  </div>
-  <!-- End header -->
-  <!-- Begin header menu - The wide ribbon underneath the logo -->
-  <div id="headerMenu">
-    <div id="headerContainer">
-      <div id="headerTitle" class="floatLeft">
-        <h3 class="headerColor">Step 1: Discuss Concerns</h3>
-      </div>
-    <div class="headerButton box4 floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
-    <div class="headerButtonCurrent floatLeft"><a href="http://128.95.212.210:8080/sd.do?isid=7362">1b: Review summaries</A></div>
-      <div id="headerNext" class="box5 floatRight"><a href="http://128.95.212.210:8080/sd.do?isid=7362">Next Step</A></div>
-    </div>
-  </div>
-  <!-- End header menu -->
+  <!-- Start Global Headers  -->
+  <wf:nav />
+  <wf:subNav />
+  <!-- End Global Headers -->
   <!-- #container is the container that wraps around all the main page content -->
   <div id="container">
     <!-- begin "overview and instructions" area -->
     <div id="overview" class="box2">
       <h3>Overview and Instructions</h3>
       <p>Before we can determine how to best improve the transportation system, we need to know what the problems are. Therefore, our first task is to brainstorm concerns about transportation in our region.  Brainstorming will conclude at 11:59pm on Thursday, December 7th.</p> 
-      <p><a href="lmAbout.do">Read more about how this step fits into the bigger picture</A>.</p>
+      <p><pg:url page="/lmAbout.do" target="blank">Read more about how this step fits into the bigger picture</pg:url>.</p>
     </div>
     <!-- end overview -->
 
@@ -731,18 +718,9 @@ $('slate').style.Height = winH;
   <pg:feedback id="feedbackDiv" action="cctView.do"/>
 <!-- end feedback form -->
 
-  <!-- Begin header menu - The wide ribbon underneath the logo -->
-  <div id="headerMenu">
-    <div id="headerContainer">
-      <div id="headerTitle" class="floatLeft">
-        <h3 class="headerColor">Step 1: Discuss Concerns</h3>
-      </div>
-    <div class="headerButton box4 floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
-    <div class="headerButtonCurrent floatLeft"><a href="http://128.95.212.210:8080/sd.do?isid=7362">1b: Review summaries</A></div>
-      <div id="headerNext" class="box5 floatRight"><a href="http://128.95.212.210:8080/sd.do?isid=7362">Next Step</A></div>
-    </div>
-  </div>
-  <!-- End header menu -->
+<!-- Start Global Headers  -->
+    <wf:subNav />
+<!-- End Global Headers -->
 
 	<!-- Begin footer -->
 	<div id="footer">

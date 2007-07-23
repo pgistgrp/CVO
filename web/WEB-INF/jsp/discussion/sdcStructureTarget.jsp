@@ -55,7 +55,7 @@
 </pg:fragment>
 
 <pg:fragment type="script">
-	SDAgent.getSummary({isid: io.structureId, ioid: io.objectId}, {  // change to getTarget()
+	SDAgent.getSummary({isid: io.structureId, ioid: io.objectId}, <pg:wfinfo/> ,{  // change to getTarget()
 		callback:function(data){
 			if (data.successful){
 				$('summary').innerHTML = data.source.html;

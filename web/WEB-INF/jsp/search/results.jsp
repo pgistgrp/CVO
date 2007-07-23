@@ -18,8 +18,6 @@
              Front End: Jordan Isip, Adam Hindman
              Back End: Zhong Wang, John Le
         Todo Items:
-            [ ] custom tag/fix all links (Zhong/Jordan)
-            [ ] Pagination (Jordan)
             [ ] Search projects,static pages, and user profiles (John)
     #### -->
 	<head>
@@ -63,12 +61,37 @@
             <html:text property="queryStr" name="searchForm" maxlength="25" size="25"/>
             <input type="submit" value="Search"> 
 		</html:form>
+		
+		<c:choose>
+            <c:when test="${param.page}">
+                <c:set var="page" value="param.page" />
+            </c:when>
+            <c:otherwise>
+                <c:set var="page" value="1" />
+            </c:otherwise>
+        </c:choose>
 				
-		<div class="pagination box3 padding5">
-		    You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
-		    <a href="#"><img src="http://www.letsimprovetransportation.org/images/btn_prev_b.gif" style="vertical-align:top"></a>
-			<a href="#"><img src="http://www.letsimprovetransportation.org/images/btn_next_a.gif" style="vertical-align:top"></a>
-		</div>
+		 <div class="pagination box3 padding5">
+		 	You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
+
+	 	    <c:choose>
+	 	       <c:when test="${setting.page == 1}">
+	 	           <img src="images/btn_prev_fade.gif" alt="No Previous Pages" />
+	 	       </c:when>
+	 	       <c:otherwise>
+	 	           <a href="/search.do?workflowId=${param.workflowId}&queryStr=${param.queryStr}&page=${page - 1}"><img src="images/btn_prev_a.gif"></a>
+	 	       </c:otherwise>
+	 	    </c:choose>
+	 	    
+	 	    <c:choose>
+	 	       <c:when test="${setting.page == setting.pageSize}">
+	 	           <img src="images/btn_next_fade.gif" alt="No Additional Pages" />
+	 	       </c:when>
+	 	       <c:otherwise>
+	 	           <a href="search.do?workflowId=${param.workflowId}&queryStr=${param.queryStr}&page=${page + 1}"><img src="/images/btn_next_a.gif"></a>
+	 	       </c:otherwise>
+	 	    </c:choose>
+	    </div>
 		<h2 class="headerColor" style="float:left;margin-right:.5em;">Searched for: </h2>
 		<h2 class="contrast2">"${param.queryStr}"</h2>
 		<h3 class="headerColor">Found: ${setting.rowSize} 
@@ -89,18 +112,16 @@
     					<li>
     					    <h3 class="headerColor">
     					        <span class="capitalize">${result.type}</a>
-    					        <c:if test="${result.type=='post'}"><a href="/sdThread.do?isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}"></c:if>
-                                <c:if test="${result.type=='reply'}"><a href="/sdThread.do?isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}#replyAnchor${result.replyid}"></c:if>
-                                <c:if test="${result.type=='concern'}"><a href="concern.do?id=${result.concernid}"></c:if>
-                                <c:if test="${result.type=='comment'}"><a href="concern.do?id=${result.concernid}#commentAnchor${result.commentid}"></c:if>
-        					    ${result.title}</a>
+    					        <c:if test="${result.type=='post'}"><pg:url page="/sdThread.do" params="isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}">${result.title}</pg:url></c:if>
+    					        <c:if test="${result.type=='reply'}"><pg:url page="/sdThread.do" params="isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}#replyAnchor${result.replyid}">${result.title}</pg:url></c:if>
+    					        <c:if test="${result.type=='concern'}"><pg:url page="/concern.do" params="id=${result.concernid}">${result.title}</pg:url></c:if>
+    					        <c:if test="${result.type=='comment'}"><pg:url page="/concern.do" params="id=${result.concernid}#commentAnchor${result.commentid}">${result.title}</pg:url></c:if>
     					    </h3> 
-    					    <p>${fn:substring(result.body, 0, 500)}...<br />
-        						<c:if test="${result.type=='post'}"><a href="/sdThread.do?isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}"></c:if>
-                                <c:if test="${result.type=='reply'}"><a href="/sdThread.do?isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}#replyAnchor${result.replyid}"></c:if>
-                                <c:if test="${result.type=='concern'}"><a href="concern.do?id=${result.concernid}"></c:if>
-                                <c:if test="${result.type=='comment'}"><a href="concern.do?id=${result.concernid}#commentAnchor${result.commentid}"></c:if>
-                                View this ${result.type}</a>
+    					    <p><c:out value="${fn:substring(result.body, 0, 500)}" />...<br />
+    					        <c:if test="${result.type=='post'}"><pg:url page="/sdThread.do" params="isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}">View this ${result.type}</pg:url></c:if>
+    					        <c:if test="${result.type=='reply'}"><pg:url page="/sdThread.do" params="isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}#replyAnchor${result.replyid}">View this ${result.type}</pg:url></c:if>
+    					        <c:if test="${result.type=='concern'}"><pg:url page="/concern.do" params="id=${result.concernid}">View this ${result.type}</pg:url></c:if>
+    					        <c:if test="${result.type=='comment'}"><pg:url page="/concern.do" params="id=${result.concernid}#commentAnchor${result.commentid}">View this ${result.type}</pg:url></c:if>
         					</p>
     					</li>
 		                </c:forEach>
@@ -108,9 +129,25 @@
 			</div>
 			 <div class="pagination box3 padding5">
 			 	You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
-				<a href="#"><img src="http://www.letsimprovetransportation.org/images/btn_prev_b.gif"></a>
-				<a href="#"><img src="http://www.letsimprovetransportation.org/images/btn_next_a.gif"></a>
-		  </div>
+
+		 	    <c:choose>
+		 	       <c:when test="${setting.page == 1}">
+		 	           <img src="images/btn_prev_fade.gif" alt="No Previous Pages" />
+		 	       </c:when>
+		 	       <c:otherwise>
+		 	           <a href="/search.do?workflowId=${param.workflowId}&queryStr=${param.queryStr}&page=${page - 1}"><img src="images/btn_prev_a.gif"></a>
+		 	       </c:otherwise>
+		 	    </c:choose>
+		 	    
+		 	    <c:choose>
+		 	       <c:when test="${setting.page == setting.pageSize}">
+		 	           <img src="images/btn_next_fade.gif" alt="No Additional Pages" />
+		 	       </c:when>
+		 	       <c:otherwise>
+		 	           <a href="search.do?workflowId=${param.workflowId}&queryStr=${param.queryStr}&page=${page + 1}"><img src="/images/btn_next_a.gif"></a>
+		 	       </c:otherwise>
+		 	    </c:choose>
+		      </div>
 
 		</div>
 	</div>

@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <head>
 <title>Step 1b: Review Summaries - Main</title>
@@ -71,18 +72,10 @@
 </head>
 
 <body>
-
-  <!-- Begin the header - loaded from a separate file -->
-  <div id="header">
-	<!-- Begin header -->
-	<jsp:include page="/header.jsp" />
-	<!-- End header -->
-  </div>
-  <!-- End header -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-	<jsp:include page="sdcHeader.jsp" />
-<!-- End header menu -->
-
+    <!-- Start Global Headers  -->
+    <wf:nav />
+    <wf:subNav />
+    <!-- End Global Headers -->
 
 	<!-- #container is the container that wraps around all the main page content -->
 	<div style="display: none;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
@@ -141,10 +134,10 @@
 
 <div class="clearBoth"></div>
 </div>
+<!-- Start Global Headers  -->
 
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-	<jsp:include page="sdcHeader.jsp" />
-<!-- End header menu -->
+<wf:subNav />
+<!-- End Global Headers -->
 
 <!-- start feedback form -->
 		
