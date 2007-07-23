@@ -40,7 +40,7 @@
 			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Gallery</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Map</a> </div>
 			<div class="floatLeft headerButton"> <a href="glossaryPublic.do">Glossary</a> </div>
 			<div class="floatLeft headerButton currentBox"> <a href="lmResources.do">More Resources</a> </div>
 		</div>
@@ -48,14 +48,9 @@
 	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
-		<h2 class="headerColor">Additional Resources</h2>
-		<p>Still want to learn about transportation issues in our region? Here is a list
-			of web sites and documents outside of <i>Let's Improve Transportation</i> that
-			you might find useful. If you're looking for additional information about a particular
-			proposed transportation project, go to the proposed projects page for the project.
-			If you know about a web resource that you feel should be lsited here, please let
-			us know by <a href="mailto:#">sending us an email</a>.</p>
-		<div id="resources">
+		<h2 class="headerColor">Resources</h2>
+		<p>Are you inspired to learn more about transportation planning in the central Puget Sound region? Here we recommend several websites to get your started. If you find resources that you feel should be listed here, please submit them to us by <a href="mailto:pgistfeedback@gmail.com">sending us an email</a>.</p>
+		<!--<div id="resources">
 			<h3 class="headerColor">Transportation agencies and decision-making bodies in
 				our region</h3>
 			<p><a href="#">Sample web site name</a><br />
@@ -71,7 +66,7 @@
 			<p> <a href="#">Sample web site name</a><br />
 				This is the description of that site, written by moderators and added by
 					Adam. Lorem ipsum dolor sit amet, consectetuer adapiscing elit. </p>
-		</div>
+		</div>-->
 	</div>
 	<!-- end container -->
 	<!-- Begin header menu - The wide ribbon underneath the logo -->

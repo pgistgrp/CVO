@@ -3,7 +3,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 		
-Jump to starts with letter:
+Browse glossary:
 	<ul>
 	<logic:iterate id="initial" name="initials">
 		<li><a href="#${initial}">${initial}</a></li>

@@ -348,12 +348,8 @@ text-transform:none;
 	<!-- begin "overview and instructions" area -->
 	<div id="overview" class="box2">
 		<h3>Overview and instructions</h3>
-		<p>This glossary contains some suggested definitions for terms you may encounter
-			when discussing transportation issues. To search for a term, begin typing in the "Filter
-			Glossary" box and the glossary will be searched as you type. You can also browse
-			alphabetically. Click on the name of a given term to get more information about
-			it. If you disagree with the definition of a term, you can flag it for the moderator,
-			or leave a comment about it on the page for that term.</p>
+		<p>Here you can search and browse this glossary of transportation planning jargon. Click on a term for an extended definition, or to make a comment of your own.</p>
+		<p>Can't find the term you’re looking for? <a href="javascript:proposeTermCont();">Propose a term we should add to this glossary.</a></p>
 	</div>
 	<!-- end overview -->
 	<div id="slate">
@@ -368,11 +364,6 @@ text-transform:none;
 			</form>
 		</div>
 		<br class="clearBoth" />
-		<p><a href="javascript:proposeTermCont();">Propose a glossary term</a></p>
-		<center>
-			<p>Got a question? Having trouble using this website? <a href="#feedbackForm" onclick="javascript:Effect.toggle('feedbackForm','blind'); setTimeout('location.hash=\'#feedbackDiv\';',900);">Send
-					us feedback.</a></p>
-		</center>
 		<div id='proposeTermResult' style='display:none;'>
 			<div id='proposeTermBox' style='display:none;border:thick solid #C0C0C0;'>
 				<div>

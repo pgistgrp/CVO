@@ -1,7 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="javascript" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -9,7 +9,7 @@
 
 <html:html>
 <head>
-<title>Let's Improve Transportation - Learnmore: Review Projects</title>
+<title>Let's Improve Transportation - Learn more: Project Map</title>
 <!-- Site Wide JS -->
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
@@ -24,6 +24,7 @@
 @import "styles/lit.css";
 @import "styles/table.css";
 @import "styles/step3a-reviewprojects.css";
+#newTable .fundingSourceItem{width:75%;}
 </style>
 
 </head>
@@ -45,7 +46,7 @@
 			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
-			<div class="floatLeft headerButton currentBox"> <a href="lmGallery.do">Project Gallery</a> </div>
+			<div class="floatLeft headerButton currentBox"> <a href="lmGallery.do">Project Map</a> </div>
 			<div class="floatLeft headerButton"> <a href="glossaryPublic.do">Glossary</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
 		</div>
@@ -54,10 +55,8 @@
 <!-- #container is the container that wraps around all the main page content -->
 <div id="container">
 	<!-- begin Object --> 
-	<h3 class="headerColor">Project Gallery</h3>
-	<p>Explore the projects being considered in Let’s Improve Transportation.
-	  The participants in this website will actually discuss these projects.  
-		<a href="#">Click here to login</a>.</p>
+	<h3 class="headerColor">Project Map</h3>
+	<p>Explore the projects being considered in the <em>LIT Challenge</em>. Registered users can discuss these projects with other participants. <a href="index.jsp">Join the discussion</a>, or <a href="register.do">register now</a>.</p>
 	<div id="object">
 		<a href="javascript:Util.expandAll('objectives');">Expand all</a>
 		<a href="javascript:Util.collapseAll('objectives');">Collapse all</a>
@@ -66,7 +65,7 @@
 			<div id="newtable">
 				<table cellpadding=0 cellspacing=0>
 					<tr class="tableHeading">
-						<th colspan="2" class="first">Proposed Projects</th>
+						<th colspan="2" class="first">Proposed improvement projects</th>
 						<th class="right"><span class="hiddenLabel" style="display:none">Money Needed</span></th>
 					</tr>
 					
@@ -76,10 +75,10 @@
 						<tr>
 							<c:choose>
 								<c:when test="${category == 1}">
-									<td class="category" colspan="3"><strong>Road Projects</strong></td>
+									<td class="category" colspan="3"><strong>Road projects</strong></td>
 								</c:when>
 								<c:otherwise>
-									<td class="category" colspan="3"><strong>Transit Projects</strong></td>
+									<td class="category" colspan="3"><strong>Transit projects</strong></td>
 								</c:otherwise>
 							</c:choose>
 						</tr>
@@ -106,7 +105,8 @@
 											<c:forEach var="alt" items="${project.alternatives}" varStatus="loop">
 												<tr>
 													<td class="col1"><a target="_blank" href="lmAlt.do?altId=${alt.id}">${alt.name}</td>
-													<td class="cost">$<fmt:formatNumber type="number">${alt.cost}</fmt:formatNumber> million</td>
+													<td class="cost">
+													$<fmt:formatNumber maxFractionDigits="0" value="${alt.cost/1000000}" /> million</td>
 												</tr>
 											</c:forEach>
 											<!-- end project alt-->
