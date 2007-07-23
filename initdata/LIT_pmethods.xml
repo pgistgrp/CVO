@@ -296,23 +296,27 @@
                     </declaration>
                 </pgame>
 		
-                <pgame name="pgame-sd.projects">
-                    <declaration>
-                        <ins>
-                            <var name="isid" ref="pmethod.proj_is_id"/>
-                        </ins>
-                    </declaration>
-                </pgame>
-		
-		<pgame name="pgame-sd.fundings">
-                    <declaration>
-                        <ins>
-                            <var name="isid" ref="pmethod.fund_is_id"/>
-                            <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
-                        </ins>
-                    </declaration>
-                </pgame>
-		
+		<branch>
+			<sequence>
+				<pgame name="pgame-sd.projects">
+				    <declaration>
+					<ins>
+					    <var name="isid" ref="pmethod.proj_is_id"/>
+					</ins>
+				    </declaration>
+				</pgame>
+			</sequence>
+			<sequence>
+				<pgame name="pgame-sd.fundings">
+				    <declaration>
+					<ins>
+					    <var name="isid" ref="pmethod.fund_is_id"/>
+					    <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+					</ins>
+				    </declaration>
+				</pgame>
+			</sequence>
+		</branch>
 		 <pgame name="pgame-create.user.package">
                     <declaration>
                         <ins>
