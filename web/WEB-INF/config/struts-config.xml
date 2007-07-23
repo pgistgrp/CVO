@@ -199,6 +199,11 @@
             <forward name="results" path="/WEB-INF/jsp/packages/packageVote_results.jsp"/>
         </action>
 
+	<action path="/packagePoll" scope="request" type="org.pgist.packages.PackagePollAction">
+            <forward name="view" path="/WEB-INF/jsp/packages/packagePoll.jsp"/>
+            <forward name="results" path="/WEB-INF/jsp/packages/packagePoll_results.jsp"/>
+        </action>
+	
         <action path="/criteriaMgr" scope="request" type="org.pgist.criteria.CriteriaMgrAction">
             <forward name="list" path="/WEB-INF/jsp/criteria/criteriaMgr.jsp"/>
         </action>

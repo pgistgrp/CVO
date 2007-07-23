@@ -109,7 +109,6 @@
         <property name="criteriaService" ref="criteriaService"/>
         <property name="packageService" ref="packageService"/>
         <property name="reportService" ref="reportService"/>
-	<property name="systemService" ref="systemService"/>
     </bean>
     
     <bean name="/reportsummary" class="org.pgist.report.ReportSummaryAction">
@@ -211,6 +210,9 @@
         <property name="packageService" ref="packageService"/>
     </bean> 
     
+    <bean name="/packagePoll" class="org.pgist.packages.PackagePollAction">
+        <property name="packageService" ref="packageService"/>
+    </bean> 
     
     <bean name="/createPackage" class="org.pgist.packages.CreatePackageAction">
         <property name="packageService" ref="packageService"/>
