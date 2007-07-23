@@ -134,6 +134,7 @@
         <url-pattern>/criteriaDefine.do</url-pattern>
         <url-pattern>/sd.do</url-pattern>
         <url-pattern>/sdRoom.do</url-pattern>
+        <url-pattern>/sdThread.do</url-pattern>
         <url-pattern>/reportsummary.do</url-pattern>
         <url-pattern>/report.do</url-pattern>
         <url-pattern>/criteriaWeigh.do</url-pattern>
