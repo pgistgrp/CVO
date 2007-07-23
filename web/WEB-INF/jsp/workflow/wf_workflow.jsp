@@ -39,7 +39,7 @@
 							<c:when test="${gHistoryActivity.access == 'moderator'}">
 								<pg:show roles="moderator">
 									<div class="step">
-										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mHistoryActivity.context.id}&activityId=${gHistory.id}">${gHistoryActivity.description}</a><br />
+										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mHistoryActivity.context.id}&activityId=${gHistory.id}">${gHistoryActivity.title}</a><br />
 										<small>Information about this step</small>
 									</div>
 									<div class="date">00/00</div>
@@ -48,7 +48,7 @@
 							<c:otherwise>
 								<pg:show roles="participant">
 									<div class="step">
-										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mHistoryActivity.context.id}&activityId=${gHistory.id}">${gHistoryActivity.description}</a><br />
+										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mHistoryActivity.context.id}&activityId=${gHistory.id}">${gHistoryActivity.title}</a><br />
 										<small>Information about this step</small>
 									</div>
 									<div class="date">00/00</div>
@@ -82,7 +82,7 @@
 							<pg:show roles="moderator">
 								<div class="home-row clearfix">
 									<div class="step">
-										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActiveHistory.id}">${gActiveHistoryActivity.description}</a><br />
+										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActiveHistory.id}">${gActiveHistoryActivity.title}</a><br />
 										<small>Information about this step</small>
 									</div>
 									<div class="date">00/00</div>
@@ -93,7 +93,7 @@
 							<pg:show roles="participant">
 								<div class="home-row clearfix">
 									<div class="step">
-										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActiveHistory.id}">${gActiveHistoryActivity.description}</a><br />
+										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActiveHistory.id}">${gActiveHistoryActivity.title}</a><br />
 										<small>Information about this step</small>
 									</div>
 									<div class="date">00/00</div>
@@ -112,7 +112,7 @@
 							<pg:show roles="moderator">
 								<div class="home-row clearfix">
 									<div class="step">
-										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActive.id}">${gActive.description}</a><br />
+										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActive.id}">${gActive.title}</a><br />
 										<small>Information about this step</small>
 									</div>
 									<div class="date"><pg:show roles="moderator"><input type="button" onclick="if (window.confirm('This will publish any changes you have made with this tool.  There is no undo.')){workflow.nextStep(${workflow.id},${mActive.context.id},${gActive.id});}" value="Completed"/></pg:show>	</div>
@@ -123,7 +123,7 @@
 							<pg:show roles="participant">
 								<div class="home-row clearfix">
 									<div class="step">
-										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActive.id}">${gActive.description}</a><br />
+										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActive.id}">${gActive.title}</a><br />
 										<small>Information about this step</small>
 									</div>
 									<div class="date"><pg:show roles="moderator"><input type="button" onclick="if (window.confirm('This will publish any changes you have made with this tool.  There is no undo.')){workflow.nextStep(${workflow.id},${mActive.context.id},${gActive.id});}" value="Completed"/></pg:show>	</div>
@@ -141,7 +141,7 @@
 						<c:when test="${gActiveFuture.access == 'moderator'}">
 							<pg:show roles="moderator">
 								<div class="home-row clearfix">
-									<div class="step disabled">${gActiveFuture.description}<br />
+									<div class="step disabled">${gActiveFuture.title}<br />
 										<small>Information about this step</small>
 									</div>
 									<div class="date disabled">00/00</div>
@@ -151,7 +151,7 @@
 						<c:otherwise>
 							<pg:show roles="participant">
 								<div class="home-row clearfix">
-									<div class="step disabled">${gActiveFuture.description}<br />
+									<div class="step disabled">${gActiveFuture.title}<br />
 										<small>Information about this step</small>
 									</div>
 									<div class="date disabled">00/00</div>
@@ -180,7 +180,7 @@
 						<c:when test="${gFuture.access == 'moderator'}">
 							<pg:show roles="moderator">
 								<div class="home-row clearfix">
-									<div class="step disabled">${gFuture.description}<br />
+									<div class="step disabled">${gFuture.title}<br />
 										<small>Information about this step</small>
 									</div>
 									<div class="date disabled">00/00</div>
@@ -190,7 +190,7 @@
 						<c:otherwise>
 							<pg:show roles="participant">
 								<div class="home-row clearfix">
-									<div class="step disabled">${gFuture.description}<br />
+									<div class="step disabled">${gFuture.title}<br />
 										<small>Information about this step</small>
 									</div>
 									<div class="date disabled">00/00</div>

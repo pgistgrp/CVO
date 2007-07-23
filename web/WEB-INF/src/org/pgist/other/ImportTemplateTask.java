@@ -39,11 +39,12 @@ public class ImportTemplateTask implements WorkflowTask {
         System.out.println("@ ImportTemplateTask.execute()");
         
         //Get template name
-        Long templateId = new Long(inouts.getIntValue(IN_TEMPLATE_ID));
-        System.out.println("    template_id: "+templateId);
+        Integer id = inouts.getIntValue(IN_TEMPLATE_ID);
+        Long templateId = null;
+        if (id!=null) templateId = new Long(inouts.getIntValue(IN_TEMPLATE_ID));
         
         //if template name is -1, ignore it
-        if (templateId==-1) return;
+        if (templateId==null || templateId==-1) return;
         
         Long projSuiteId = new Long(inouts.getIntValue(IN_PROJECT_SUITE_ID));
         Long fundSuiteId = new Long(inouts.getIntValue(IN_FUNDING_SUITE_ID));

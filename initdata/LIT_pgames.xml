@@ -4,7 +4,10 @@
 
     <pgames>
     
-        <pgame name="pgame-select.template" description="Select a situation template." auto="false" access="moderator" revisitable="false">
+        <pgame name="pgame-select.template" title="Select a situation template." auto="false" access="moderator" revisitable="false">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-select.template</actionName>
             <declaration>
                 <outs>
@@ -13,7 +16,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-import.template" description="Import a situation template." auto="true">
+        <pgame name="pgame-import.template" title="Import a situation template." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-import.template</taskName>
             <declaration>
                 <ins>
@@ -25,7 +31,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-create.project.suite" description="Create a project suite." auto="true">
+        <pgame name="pgame-create.project.suite" title="Create a project suite." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-create.project.suite</taskName>
             <declaration>
                 <outs>
@@ -34,7 +43,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-define.projects" description="Define projects in a project suite." auto="false" access="moderator" revisitable="true">
+        <pgame name="pgame-define.projects" title="Define projects in a project suite." auto="false" access="moderator" revisitable="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-define.projects</actionName>
             <declaration>
                 <ins>
@@ -43,7 +55,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-create.funding.suite" description="Create a funding source suite." auto="true">
+        <pgame name="pgame-create.funding.suite" title="Create a funding source suite." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-create.funding.suite</taskName>
             <declaration>
                 <outs>
@@ -52,7 +67,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-define.fundings" description="Define funding sources in a funding source suite." auto="false" access="moderator" revisitable="true">
+        <pgame name="pgame-define.fundings" title="Define funding sources in a funding source suite." auto="false" access="moderator" revisitable="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-define.fundings</actionName>
             <declaration>
                 <ins>
@@ -61,7 +79,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-grade.projects" description="Moderator: Grade projects." auto="false" access="moderator" revisitable="true">
+        <pgame name="pgame-grade.projects" title="Moderator: Grade projects." auto="false" access="moderator" revisitable="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-grade.projects</actionName>
             <declaration>
                 <ins>
@@ -71,7 +92,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-create.cct" description="Create a CCT instance." auto="true">
+        <pgame name="pgame-create.cct" title="Create a CCT instance." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-create.cct</taskName>
             <declaration>
                 <outs>
@@ -85,13 +109,19 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-define.concerns" description="1a: Map your daily travel (Incomplete)" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-define.concerns" title="1a: Map your daily travel (Incomplete)" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-sd.concerns</actionName>
             <declaration>>
             </declaration>
         </pgame>
     
-        <pgame name="pgame-cvo.cct" description="1b: Brainstorm concerns" auto="false" access="all">
+        <pgame name="pgame-cvo.cct" title="1b: Brainstorm concerns" auto="false" access="all">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-cvo.cct</actionName>
             <declaration>
                 <ins>
@@ -100,7 +130,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-cvo.cst" description="Moderator: Concerns synthesis tool" auto="false" access="moderator" revisitable="true">
+        <pgame name="pgame-cvo.cst" title="Moderator: Concerns synthesis tool" auto="false" access="moderator" revisitable="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-cvo.cst</actionName>
             <declaration>
                 <ins>
@@ -109,7 +142,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-publish.theme" description="Publish Themes." auto="true">
+        <pgame name="pgame-publish.theme" title="Publish Themes." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-publish.theme</taskName>
             <declaration>
                 <ins>
@@ -124,7 +160,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.concerns" description="1c: Review summaries." auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sd.concerns" title="1c: Review summaries." auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-sd.concerns</actionName>
             <declaration>
                 <ins>
@@ -133,7 +172,10 @@
             </declaration>
         </pgame>
     
-        <pgame name="pgame-create.criteria.suite" description="Create a criteria suite." auto="true">
+        <pgame name="pgame-create.criteria.suite" title="Create a criteria suite." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-create.criteria.suite</taskName>
             <declaration>
                 <outs>
@@ -142,7 +184,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-define.criteria" description="Moderator: Define improvement factors" auto="false" access="moderator">
+        <pgame name="pgame-define.criteria" title="Moderator: Define improvement factors" auto="false" access="moderator">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-define.criteria</actionName>
             <declaration>
                 <ins>
@@ -152,7 +197,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-publish.criteria" description="Publish Criteria." auto="true">
+        <pgame name="pgame-publish.criteria" title="Publish Criteria." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-publish.criteria</taskName>
             <declaration>
                 <ins>
@@ -168,7 +216,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.criteria" description="2a: Review factors" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sd.criteria" title="2a: Review factors" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-sd.criteria</actionName>
             <declaration>
             <ins>
@@ -177,7 +228,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-weigh.criteria" description="2b: Weight factors" auto="false" access="all">
+        <pgame name="pgame-weigh.criteria" title="2b: Weight factors" auto="false" access="all">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-weigh.criteria</actionName>
             <declaration>
             <ins>
@@ -186,7 +240,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-publish.projects" description="Publish Projects." auto="true">
+        <pgame name="pgame-publish.projects" title="Publish Projects." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-publish.projects</taskName>
             <declaration>
                 <ins>
@@ -202,7 +259,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.projects" description="3a: Discuss projects" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sd.projects" title="3a: Discuss projects" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-sd.projects</actionName>
             <declaration>
                 <ins>
@@ -211,7 +271,10 @@
             </declaration>
         </pgame>
     
-        <pgame name="pgame-sda.projects" description="Review projects" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sda.projects" title="Review projects" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-sd.projects</actionName>
             <declaration>
                 <ins>
@@ -220,7 +283,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-publish.fundings" description="Publish Fundings." auto="true">
+        <pgame name="pgame-publish.fundings" title="Publish Fundings." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-publish.fundings</taskName>
             <declaration>
                 <ins>
@@ -236,7 +302,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.fundings" description="3b: Discuss funding options" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sd.fundings" title="3b: Discuss funding options" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-sd.fundings</actionName>
             <declaration>
                 <ins>
@@ -246,7 +315,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sda.fundings" description="Review funding options" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sda.fundings" title="Review funding options" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-sd.fundings</actionName>
             <declaration>
                 <ins>
@@ -256,7 +328,10 @@
             </declaration>
         </pgame>
     
-        <pgame name="pgame-create.package.suite" description="Create a package suite." auto="true">
+        <pgame name="pgame-create.package.suite" title="Create a package suite." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-create.package.suite</taskName>
             <declaration>
                 <outs>
@@ -265,7 +340,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-planning.factor.reweigh" description="Planning Factor Reweigh." auto="false" access="all">
+        <pgame name="pgame-planning.factor.reweigh" title="Planning Factor Reweigh." auto="false" access="all">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-planning.factor.reweigh</actionName>
             <declaration>
                 <ins>
@@ -274,7 +352,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-create.user.package" description="3c: Create your own package" auto="false" access="all">
+        <pgame name="pgame-create.user.package" title="3c: Create your own package" auto="false" access="all">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-create.user.package</actionName>
             <declaration>
                 <ins>
@@ -286,7 +367,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-group.packages" description="Group candidate packages." auto="true">
+        <pgame name="pgame-group.packages" title="Group candidate packages." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-group.packages</taskName>
             <declaration>
                 <ins>
@@ -296,7 +380,10 @@
         </pgame>
         
     
-        <pgame name="pgame-sd.packages" description="Review Fundings." auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sd.packages" title="Review Fundings." auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-sd.packages</actionName>
             <declaration>
                 <ins>
@@ -310,7 +397,10 @@
         </pgame>
         
     
-        <pgame name="pgame-manage.packages" description="Moderator: Manage packages." auto="false" access="moderator">
+        <pgame name="pgame-manage.packages" title="Moderator: Manage packages." auto="false" access="moderator">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-manage.packages</actionName>
             <declaration>
                 <ins>
@@ -322,7 +412,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-publish.packages" description="Publish Packages." auto="true">
+        <pgame name="pgame-publish.packages" title="Publish Packages." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-publish.packages</taskName>
             <declaration>
                 <ins>
@@ -338,7 +431,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.packages" description="4a: Evaluate candidate packages" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sd.packages" title="4a: Evaluate candidate packages" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-sd.packages</actionName>
             <declaration>
                 <ins>
@@ -351,7 +447,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-vote.packages" description="4b: Final recommendation vote" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-vote.packages" title="4b: Final recommendation vote" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-vote.packages</actionName>
             <declaration>
                 <ins>
@@ -364,7 +463,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-create.vote.suite" description="Create a vote suite." auto="true">
+        <pgame name="pgame-create.vote.suite" title="Create a vote suite." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-create.vote.suite</taskName>
             <declaration>
                 <ins>
@@ -376,7 +478,10 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-create.report.suite" description="Create a report suite." auto="true">
+        <pgame name="pgame-create.report.suite" title="Create a report suite." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-create.report.suite</taskName>
             <declaration>
             <outs>
@@ -385,7 +490,10 @@
             </declaration>
         </pgame>
     
-        <pgame name="pgame-create.report.stats" description="Create report statistics." auto="true">
+        <pgame name="pgame-create.report.stats" title="Create report statistics." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-create.report.stats</taskName>
             <declaration>
             <ins>
@@ -396,7 +504,10 @@
             </declaration>
         </pgame>
     
-        <pgame name="pgame-define.report" description="Moderator: Define report" access="moderator" auto="false">
+        <pgame name="pgame-define.report" title="Moderator: Define report" access="moderator" auto="false">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-define.report</actionName>
             <declaration>
             <ins>
@@ -405,7 +516,10 @@
             </declaration>
         </pgame>
     
-        <pgame name="pgame-publish.report" description="Publish Report" auto="true">
+        <pgame name="pgame-publish.report" title="Publish Report" auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-publish.report</taskName>
             <declaration>
             <ins>
@@ -421,7 +535,10 @@
             </declaration>
         </pgame>
     
-        <pgame name="pgame-sd.report" description="5a: Review draft report" access="all" auto="false" revisitable="true">
+        <pgame name="pgame-sd.report" title="5a: Review draft report" access="all" auto="false" revisitable="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-sd.report</actionName>
             <declaration>
             <ins>
@@ -434,7 +551,10 @@
             </declaration>
         </pgame>
     
-        <pgame name="pgame-vote.report" description="5b: Vote on report endorsement" access="all" auto="false" revisitable="true">
+        <pgame name="pgame-vote.report" title="5b: Vote on report endorsement" access="all" auto="false" revisitable="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <actionName>action-view.report</actionName>
             <declaration>
             <ins>

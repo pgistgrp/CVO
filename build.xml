@@ -206,6 +206,19 @@
     </target>
     
 
+    <target name="fastdeploy" depends="compile">
+        <mkdir dir="${webapp}"/>
+        <copy todir="${webapp}">
+          <fileset dir="${web}">
+            <exclude name="WEB-INF/classes/org/pgist/ddl/**"/>
+            <exclude name="WEB-INF/classes/org/pgist/tests/**"/>
+            <exclude name="WEB-INF/src/**"/>
+            <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
+          </fileset>
+        </copy>
+    </target>
+    
+
     <target name="war" depends="compile, mapping">
         <war destfile="${base}/cvotest.war" webxml="${web}/WEB-INF/web.xml">
             <fileset dir="${web}">

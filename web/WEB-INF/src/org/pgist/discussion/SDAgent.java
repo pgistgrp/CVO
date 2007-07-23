@@ -262,6 +262,13 @@ public class SDAgent {
      *     <li>count - int, number of posts to be displayed in a page. Optional, default value is -1, means to get all posts.</li>
      *   </ul>
      *   
+     * @param wfinfo A map contains:
+     *   <ul>
+     *   <li>workflowId - long</li>
+     *   <li>contextId - long</li>
+     *   <li>activityId - long</li>
+     * </ul>
+     * 
      * @return A map contains:<br>
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
