@@ -147,7 +147,7 @@ left:530px;
 		<br />
 		
 		<div id="kw-cloud" style="position:relative;" class="peekaboobugfix">
-		<h3>2. Need to find it? Use the Keyword Cloud?</h3>
+		<h3>2. Need to find it? Use the Keyword Cloud!</h3>
 		<p>The Keyword Cloud allows you to review the keywords that your co-contributors
 			are using. Select a keyword in the cloud to find discussion posts or concerns
 			that use that keyword. It can also be used to find keywords on a map. It’s a great
