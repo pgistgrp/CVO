@@ -8,8 +8,17 @@
 
 <pg:fragment type="html">
 		<!-- Begin Breadcrumbs -->
-		<div id="breadCrumbs" class="floatLeft"> <a href="sd.do?isid=${infoStructure.id}">Select
-				a theme</a> &rarr; ${infoObject.object} &rarr; ${post.title}</div>
+		<div id="breadCrumbs" class="floatLeft"> <a href="sd.do?isid=${infoStructure.id}">
+		    <pg:url page="/sd.do" params="isid=${infoStructure.id}">Select a theme</pg:url> &rarr; 
+		    <c:choose>
+		      <c:when test="${infoObject != null}">
+		          <pg:url page="/sdRoom.do" params="isid=${infoStructure.id}&ioid=${infoObject.id}">${infoObject.object}</pg:url>
+		      </c:when>
+		      <c:otherwise>
+		          <pg:url page="/sdRoom.do" params="isid=${infoStructure.id}">All concern themes</pg:url>
+		      </c:otherwise>
+		    </c:choose>
+		</div>
 		<!-- End Breadcrumbs -->
 		<!-- jump to other room selection menu -->
 		<div class="floatRight"> Jump to:

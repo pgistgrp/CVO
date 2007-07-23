@@ -509,7 +509,7 @@
 </div>
 <!-- start the bottom header menu -->
 <!-- Begin header menu - The wide ribbon underneath the logo -->
-<wf:nav />
+<wf:subNav />
 <!-- End header menu -->
 <!-- end the bottom header menu -->
 <!-- Begin footer -->

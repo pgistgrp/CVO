@@ -5,12 +5,21 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 
 <pg:fragment type="html">
 		<!-- Begin Breadcrumbs -->
-		<div id="breadCrumbs" class="floatLeft"> <a href="sd.do?isid=${infoStructure.id}">Select
-				a theme</a> &rarr; All concern themes  &rarr; Discussion post</div>
+		<div id="breadCrumbs" class="floatLeft">
+		    <pg:url page="/sd.do" params="isid=${infoStructure.id}">Select a theme</pg:url> &rarr; 
+		    <c:choose>
+		      <c:when test="${infoObject != null}">
+		          <pg:url page="/sdRoom.do" params="isid=${infoStructure.id}&ioid=${infoObject.id}">${infoObject.object}</pg:url>
+		      </c:when>
+		      <c:otherwise>
+		          <pg:url page="/sdRoom.do" params="isid=${infoStructure.id}">All concern themes</pg:url>
+		      </c:otherwise>
+		    </c:choose>
+		</div>
 		<!-- End Breadcrumbs -->
 		<!-- jump to other room selection menu -->
 		<div class="floatRight"> Jump to:

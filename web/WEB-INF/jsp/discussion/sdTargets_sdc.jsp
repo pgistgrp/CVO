@@ -13,11 +13,13 @@
     	<c:set var="fmtToday"><fmt:formatDate value="${today}" pattern="yyyy/MM/dd"/></c:set>
 
 <div class="themeBox floatLeft">
-			<h3 class="headerColor"><a style="text-transform:capitalize;" href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</a></h3>
+			<h3 class="headerColor">
+			    <pg:url page="/sdRoom.do" params="isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</pg:url>
+			</h3>
 			<!-- We set the substring to begin at the 5th character to remove an extra paragraph tag. It was 0-->
 			<p>"${fn:substring(infoObject.object.theme.summary,5, 200)}"
 				
-			<span class="smallText"> ... <a style="text-transform:capitalize;" href="/sdRoom.do?isid=${structure.id}&ioid=${infoObject.id}">More</a></span></p>
+			<span class="smallText"> ... <pg:url page="/sdRoom.do" params="isid=${structure.id}&ioid=${infoObject.id}">more</pg:url></span></p>
 			<span class="smallText"><span id="topicCount">
 			<c:choose>
 			  <c:when test="${fmtToday == fmtLastPostDate}">
@@ -31,7 +33,7 @@
 				<p><strong>Latest post</strong><br />
 					<c:choose>
 		      <c:when test="${infoObject.discussion.lastPost.id != null}">
-		     		 "<a href="/sdThread.do?isid=${structure.id}&pid=${infoObject.discussion.lastPost.id}&ioid=${infoObject.id}">${infoObject.discussion.lastPost.title}</a>"
+		          "<pg:url page="/sdThread.do" params="isid=${structure.id}&pid=${infoObject.discussion.lastPost.id}&ioid=${infoObject.id}">${infoObject.discussion.lastPost.title}</pg:url>"
 		      </c:when>
 		      <c:otherwise>
 		      	No current discussions
