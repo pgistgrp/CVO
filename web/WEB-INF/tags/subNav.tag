@@ -7,24 +7,26 @@
     <div id="headerTitle" class="floatLeft">
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <h3 class="headerColor floatLeft" style="margin-top:0px;">${current.description}</h3>
+      <h3 class="headerColor floatLeft" style="margin-top:0px;">${current.title}</h3>
     </div>
 
     <!-- HISTORIES -->
     <c:forEach var="history" items="${requestScope['org.pgist.wfengine.HISTORIES']}" varStatus="loop">
     <pg:narrow name="history"/>
-    <c:if test="${history.access != 'moderator' && requestScope['org.pgist.wfengine.CURRENT'] != history}">
-      <div class="headerButton floatLeft">
-        <a href="/workflow.do?workflowId=${param.workflowId}&contextId=${param.contextId}&activityId=${history.id}">${history.description}</a>
+    <c:if test="${history.access != 'moderator'}">
+      <div class="headerButton floatLeft ${(requestScope['org.pgist.wfengine.CURRENT'] == history) ? "currentBox": ""}">
+        <a href="/workflow.do?workflowId=${param.workflowId}&contextId=${param.contextId}&activityId=${history.id}">${history.title}</a>
       </div>
     </c:if>
     </c:forEach>
     <!-- END HISTORIES -->
 
     <!-- CURRENT -->
-    <div class="headerButton floatLeft currentBox">
-        <a href="/workflow.do?workflowId=${param.workflowId}&contextId=${param.contextId}&activityId=${current.id}">${current.description}</a>
-    </div>
+    <c:if test="${requestScope['org.pgist.wfengine.ACTIVITY_RUNNING']}">
+        <div class="headerButton floatLeft currentBox">
+            <a href="/workflow.do?workflowId=${param.workflowId}&contextId=${param.contextId}&activityId=${current.id}">${current.title}</a>
+        </div>
+    </c:if>
     <!-- END CURRENT -->
     
     <!-- FUTURES -->
@@ -32,13 +34,15 @@
     <pg:narrow name="future"/>
     <c:if test="${future.access != 'moderator' && requestScope['org.pgist.wfengine.CURRENT'] != future}">
       <div class="headerButton floatLeft">
-        ${future.description}
+        ${future.title}
       </div>
     </c:if>
     </c:forEach>
     <!-- END FUTURES -->
     
-    <div id="headerNext" class="floatRight box5"><a href="/sdcWaiting.jsp">Next step</A></div>
+    <div id="headerNext" class="floatRight box5">
+        <a href="/workflow.do?workflowId=${param.workflowId}&contextId=${param.contextId}&activityId=">Next step</a>
+    </div>
   </div>
 </div>
 <!-- End header menu -->

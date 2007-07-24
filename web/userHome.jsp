@@ -539,7 +539,7 @@
 		<jsp:include page="/footer.jsp" />
 	</div>
 	<!-- End footer -->
-	<script type="text/javascript" charset="utf-8">
+	<script type="text/javascript" charset="utf-8"> 
 		getAnnouncements();
 	</script>
 	</body>

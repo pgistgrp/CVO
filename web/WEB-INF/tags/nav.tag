@@ -8,17 +8,15 @@
         </div>
         
         <div id="header-navigation">
+            <span><a href="main.do">Home</a></span>
+            <span><pg:url page="/lmMenu.do">Learn More</pg:url></span>
             <c:choose>
             <c:when test="${baseuser != null}">
-                <span><a href="main.do">Home</a></span>
-                <span><a href="lmMenu.do">Learn More</a></span>
-                <span><a href="usercp.do">User Settings</a></span>
-                <span><a href="/logout.do">Log out</a></span>
+                <span><pg:url page="/usercp.do">User Settings</pg:url></span>
+                <span><pg:url page="/logout.do">Log out</pg:url></span>
             </c:when>
             <c:otherwise>
-                <span><a href="main.do">Home</a></span>
-                <span><a href="lmMenu.do">Learn More</a></span>
-                <span><a href="/login.do">Log in</a></span>
+                <span><pg:url page="/login.do">Log in</pg:url></span>
             </c:otherwise>
             </c:choose>
         </div>
