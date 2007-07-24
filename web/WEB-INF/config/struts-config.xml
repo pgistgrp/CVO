@@ -38,6 +38,11 @@
 
         <action path="/workflow" scope="request" type="org.pgist.wfengine.web.WorkflowAction" />
         
+        <action path="/agendaManager" scope="request" type="org.pgist.wfengine.web.AgendaManagerAction">
+            <forward name="view" path="/WEB-INF/jsp/workflow/agendaManager.jsp" />
+            <forward name="done" path="/WEB-INF/jsp/workflow/agendaManager.jsp" />
+        </action>
+        
         <action name="userForm" path="/forgotpassword" scope="request" type="org.pgist.system.RecoverPasswordAction" />
         
         <action name="userForm" path="/resetpassword" scope="request" type="org.pgist.system.RecoverPasswordResetAction" />
@@ -199,11 +204,11 @@
             <forward name="results" path="/WEB-INF/jsp/packages/packageVote_results.jsp"/>
         </action>
 
-	<action path="/packagePoll" scope="request" type="org.pgist.packages.PackagePollAction">
+        <action path="/packagePoll" scope="request" type="org.pgist.packages.PackagePollAction">
             <forward name="view" path="/WEB-INF/jsp/packages/packagePoll.jsp"/>
             <forward name="results" path="/WEB-INF/jsp/packages/packagePoll_results.jsp"/>
         </action>
-	
+        
         <action path="/criteriaMgr" scope="request" type="org.pgist.criteria.CriteriaMgrAction">
             <forward name="list" path="/WEB-INF/jsp/criteria/criteriaMgr.jsp"/>
         </action>
