@@ -8,6 +8,11 @@
     </bean>
     
     
+    <bean name="/agendaManager" class="org.pgist.wfengine.web.AgendaManagerAction">
+        <property name="engine" ref="txEngine"/>
+    </bean>
+    
+    
     <bean name="/login" class="org.pgist.system.LoginAction">
         <property name="systemService" ref="systemService"/>
     </bean>
