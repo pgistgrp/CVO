@@ -1,6 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -24,13 +25,7 @@
 	<script type='text/javascript' src='/dwr/util.js'></script>
 	</head>
 	<body>
-	<!-- Begin the header - loaded from a separate file -->
-	<div id="header">
-		<!-- Begin header -->
-		<jsp:include page="/header.jsp" />
-		<!-- End header -->
-	</div>
-	<!-- End header -->
+	<wf:nav />
 	<!-- Begin header menu - The wide ribbon underneath the logo -->
 	<div id="headerMenu">
 		<div id="headerContainer">

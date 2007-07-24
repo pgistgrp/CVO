@@ -2,6 +2,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
@@ -66,11 +67,7 @@ font-size:12pt;
 
 	</head>
 	<body>
-<div id="header">
-		<!-- Begin header -->
-		[Load header from separate file]
-		<!-- End header -->
-	</div>
+    <wf:nav />
 	<!-- End header -->
 	<!-- Begin header menu - The wide ribbon underneath the logo -->
 	<div id="headerMenu">
@@ -78,13 +75,13 @@ font-size:12pt;
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="headerButton floatLeft"> <a href="#">About LIT</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">FAQ</a> </div>
-			<div class="floatLeft headerButton currentBox"> <a href="#">Tutorial</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">Project Gallery</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">Glossary</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">More Resources</a> </div>
-			<div id="headerNext" class="floatRight box5"> <a href="#">Next Step</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmMenu.do">Menu</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
+			<div class="floatLeft headerButton currentBox"> <a href="lmTutorial1.do">Tutorial</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Gallery</a> </div>
+			<div class="floatLeft headerButton"> <a href="glossaryPublic.do">Glossary</a> </div>
+			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
 		</div>
 	</div>
 	<!-- End header menu -->

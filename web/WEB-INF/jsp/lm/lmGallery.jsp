@@ -6,6 +6,7 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="javascript" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 
 <html:html>
 <head>
@@ -30,11 +31,7 @@
 </head>
 <body>
 <!-- Begin the header - loaded from a separate file -->
-<div id="header">
-	<!-- Begin header -->
-	<jsp:include page="/header.jsp" />
-	<!-- End header -->
-</div>
+    <wf:nav />
 <!-- End header -->
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 	<div id="headerMenu">
