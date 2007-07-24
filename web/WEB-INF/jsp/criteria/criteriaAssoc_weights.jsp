@@ -12,13 +12,13 @@
 <div id="critRowWrapper">
 <div class="criteriaListHeader">
 	<div class="weighCriteriaCol1 floatLeft">
-		<h4>Planning factor</h4>
+		<h4>Improvement factor</h4>
 	</div>
 	<!--<div class="weighCriteriaCol2 floatLeft">
 		<h4>Description</h4>
 	</div>-->
 	<div class="weighCriteriaCol3 floatLeft">
-		<h4>Weight</h4>
+		<h4>Your weight</h4>
 	</div>
 	<div class="clearBoth"></div>
 </div>

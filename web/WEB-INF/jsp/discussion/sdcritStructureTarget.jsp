@@ -23,23 +23,17 @@
 	#### -->
 	<!-- begin "overview and instructions" area -->
 	<div id="overview" class="box2">
-		<h3 class="headerColor">Instructions</h3>
-		<p>
-			"Planning factors" are common used to help evaluate which proposed transportation improvement projects are best 
-			suited to address problems with our transportation system.  Here we review and discuss nine planning factors. 
-			In step 3 you will review proposed transportation projects which are evaluated based on the nine factors.
-		</p>
-		<p>
-			To assist in your review of these factors, the moderator determined which concern themes are most closely related 
-			to each factor.  Consider how well these factors address the range of concerns expressed by participants in Step 1.
-			Consider also which factors may be more important to you in the evaluation of proposed transportation projects.
-		</p>
-			
-		
+		<h3 class="headerColor">Overview and instructions</h3>
+		Here we assess nine "factors" that will be used in Step 3 to evaluate proposed transportation improvement projects. 
+		<ul>
+			<li>Review the factors below and discuss with other participants</li>
+			<li>Cast your vote in the poll</li>
+		</ul>
+		<p>When you are ready, move on to <strong>Weigh improvement factors (Step 2b)</strong>.</p>
+		<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
+		<p id="hiddenRM" style="display:none">Transportation specialists often define specific transportation improvement factors to help systematically evaluate which proposed transportation improvement projects are best suited to address our transportation needs. To assist in your review of these improvement factors, the moderator determined which concern themes are most closely related to each factor. Consider how well these factors address the range of concerns expressed by participants in Step 1. Consider also which factors may be more important to you in the evaluation of proposed transportation projects. In Step 2b you will weigh the relative importance of each of these factors. This will help you evaluate proposed transportation improvement projects in Step 3.</p>
 	</div>
 	<!-- end overview -->
-
-	<h3 class="headerColor clearBoth">All planning factors and related concern themes</h3>
 
 	<!-- Begin voting tally menu -->
 	<div id="votingMenu" class="floatLeft"><div id="voting-structure${infoStructure.id}">
@@ -48,7 +42,7 @@
 			<h2>${infoStructure.numAgree} of ${infoStructure.numVote}</h2>
 			agree with that these planning factors adequately address the concerns expressed by participants in Step 1.</div>
 		</span>
-		<p>Do these planning factors adequately address the concerns expressed by participants in step 1?</p>
+		<p>Do these planning factors adequately address the concerns expressed by participants in Step 1?</p>
 		<span id="structure_question">
 
 			<c:choose>
@@ -66,10 +60,10 @@
 	<div id="criteria" class="box3 floatLeft">
 		<div class="criteriaListHeader">
 		  <div class="criteriaCol1 floatLeft">
-		    <h4 class="headerColor">Planning factor</h4>
+		    <h4 class="headerColor">Improvement factor</h4>
 		  </div>
 		  <div class="criteriaCol3 floatLeft">
-		    <h4 class="headerColor">Related concern theme</h4>
+		    <h4 class="headerColor">Related concern theme(s)</h4>
 		  </div>
 		  <div class="clearBoth"></div>
 		</div>

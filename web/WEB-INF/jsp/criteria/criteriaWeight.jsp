@@ -12,7 +12,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<title>Weigh Planning Factors</title>
+		<title>Weigh Improvement Factors</title>
 		<!-- Site Wide JavaScript -->
 		<script src="/scripts/globalSnippits.js" type="text/javascript"></script>
 		<script src="/scripts/tags.js" type="text/javascript"></script>
@@ -79,14 +79,15 @@ position:fixed;
 		<div id="container">
 			<!-- begin "overview and instructions" area -->
 			<div id="overview" class="box2">
-				<h3>Overview and Instructions</h3>
-<p>Which planning factors do you feel are most important when determining which transportation improvement projects to fund and build? On this page you can assign weights to the nine different planning factors. This will help you to identify projects in Step 3 which most closely reflect your own priorities for transportation system improvement.</p>
-
-<p>To assign a weight to a planning factor, drag the slider bar next to that factor. You have <strong>100 points</strong> to distribute between the nine factors.</p>
-
-<strong>Hint:</strong> Click the "plus" (<img src="images/plus.gif" valign="bottom"> ) icon to see what objectives go into grading each project.<br />
-				<p><a href="readmore.jsp">Read more about how this step fits
-						into the bigger picture</a>.</p>
+				<h3>Overview and instructions</h3>
+				<p>In this step you can weigh the relative importance of the improvement factors.
+					<ul>
+						<li>You have a total of 100 points to distribute among the nine factors.</li>
+						<li>Drag the bar next to an improvement factor to assign a weight.</li>
+						<li>Assign a higher weight to factors you feel are most important.</li>
+					</ul>
+				</p>
+				<p>Assigning weights will help you to identify transportation projects in Step 3 which most closely reflect your own priorities for transportation system improvement.</p>
 			</div>
 			<!-- end overview -->
 			<!-- begin object -->
