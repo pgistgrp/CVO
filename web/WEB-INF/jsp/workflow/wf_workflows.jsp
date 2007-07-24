@@ -54,7 +54,7 @@
 						<td>${workflow.name}</td>
 						<td>${workflow.description}</td>
 						<td><fmt:formatDate dateStyle="full" value="${workflow.beginTime}" /> at <fmt:formatDate type="time" value="${workflow.beginTime}" /></td>
-						<td><input type="button" value="Participate" onclick="javascript:location.href='userhome.do?wf=${workflow.id}';"></td>
+						<td><input type="button" value="Participate" onclick="javascript:location.href='userhome.do?workflowId=${workflow.id}';"></td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -73,7 +73,7 @@
 	
 	
 	<pg:show roles="moderator">
-		<c:if test="${fn:length(object.collection) > 0}">
+		<c:if test="${fn:length(finishedWorkflows) > 0}">
 			<br />
 			<h3 class="headerColor">Completed experiments</h3>
 			<table id="newTable" class="finished" cellspacing="0" cellpadding="0">
@@ -90,7 +90,7 @@
 							<td>${workflow.situation.description}</td>
 							<td>${workflow.beginTime}</td>
 							<td>${workflow.endTime}</td>
-							<td><input type="button" value="Review" onclick="javascript:location.href='userhome.do?wf=${workflow.id}'"></td>
+							<td><input type="button" value="Review" onclick="javascript:location.href='userhome.do?workflowId=${workflow.id}'"></td>
 						</tr>
 				</c:forEach>
 			</table>

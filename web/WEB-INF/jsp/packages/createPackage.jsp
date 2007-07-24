@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!--####
 	Project: Let's Improve Transportation!
 	Page: Create My Transportation Package
@@ -436,24 +437,10 @@
 </head>
 
 <body onresize="ajdustMapPosition();" onscroll="adjustMapPosition();" onload="load()" onunload="clearMemory();">
-	<div id="header">
-		<!-- Begin header -->
-		<jsp:include page="/header.jsp" />
-	</div> <!-- End header -->
-
-	<!-- Begin header menu - The wide ribbon underneath the logo -->
-	<div id="headerMenu">
-		<div id="headerContainer">
-			<div id="headerTitle" class="floatLeft">
-				<h3 class="headerColor">Step 3: Create transportation packages</h3>
-			</div><!-- end headerTitle-->
-			<div class="headerButton floatLeft "> <a href="step3a.html">3a: Discuss projects</a> </div>
-			<div class="headerButton floatLeft "> <a href="step3b.html">3b: Discuss funding options</a> </div>
-			<div class="headerButton floatLeft currentBox "> <a href="step3c.html">3c: Create your own package</a> </div>
-			<div id="headerNext" class="floatRight box5"> <a href="step3b.html">Next Step</a> </div>
-		</div> <!-- end headercontainer -->
-	</div> <!-- End header menu -->
-	
+    <!-- Start Global Headers  -->
+    <wf:nav />
+    <wf:subNav />
+    <!-- End Global Headers -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
 		<!-- begin "overview and instructions" area -->
@@ -714,19 +701,9 @@ Once all participants have submitted their own packages, five new packages will 
 	<!-- start feedback form -->
 	<pg:feedback id="feedbackDiv" action="cctView.do"/>
 	<!-- end feedback form -->
-	<!-- Begin header menu - The wide ribbon underneath the logo -->
-	<div id="headerMenu">
-		<div id="headerContainer">
-			<div id="headerTitle" class="floatLeft">
-				<h3 class="headerColor">Step 3: Create transportation packages</h3>
-			</div>
-			<div class="headerButton floatLeft "> <a href="step3a.html">3a: Discuss projects</a> </div>
-			<div class="headerButton floatLeft "> <a href="step3b.html">3b: Discuss funding options</a> </div>
-			<div class="headerButton floatLeft currentBox"> <a href="step3c.html">3c: Create your own package</a> </div>
-			<div id="headerNext" class="floatRight box5"> <a href="step3b.html">Next Step</a> </div>
-		</div>
-	</div>
-	<!-- End header menu -->
+    <!-- Start Global Headers  -->
+    <wf:subNav />
+    <!-- End Global Headers -->
 	<!-- Begin footer -->
 	<div id="footer">
 		<jsp:include page="/footer.jsp" />

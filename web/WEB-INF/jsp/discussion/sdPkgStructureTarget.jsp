@@ -103,7 +103,8 @@ the package proposed by RTID and Sound Transit.  The actual "Roads and
 Transit" package which will appear on the November 2007 ballot differs
 slightly in its projects and cost estimates. For more details see
 <a href="http://www.roadsandtransit.org" target="_blank">www.roadsandtransit.org</a>.
-					<p><a href="#" target="_blank">Compare the spatial equity of these packages</a><br/>Express your preferences in the <a href="#">package poll</a></p>
+					<p><pg:url page="/blah.do" target="_blank" params="input=1000">Compare the spatial equity of these packages</pg:url>
+					<br/>Express your preferences in the <pg:url page="/blah.do" target="_blank" params="input=1000">package poll</pg:url></p>
 				</div>
 				<!-- end list of funding options -->
 			</div>
@@ -154,7 +155,7 @@ slightly in its projects and cost estimates. For more details see
 	/* *************** Build Package Link *************** */
 	
 	io.goToPackage = function(id){
-		window.open("package.do?pkgId="+id+"&fundSuiteId="+io.fundSuiteId+"&projSuiteId="+io.projSuiteId+"&critSuiteId="+io.critSuiteId+"&pkgSuiteId="+io.pkgSuiteId,'Package Viewer','width=1000,height=600,resizable=yes,scrollbars=yes');
+		window.open("package.do?"+io.wfInfo+"&pkgId="+id+"&fundSuiteId="+io.fundSuiteId+"&projSuiteId="+io.projSuiteId+"&critSuiteId="+io.critSuiteId+"&pkgSuiteId="+io.pkgSuiteId,'Package Viewer','width=1000,height=600,resizable=yes,scrollbars=yes');
 	}
 	
 

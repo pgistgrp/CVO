@@ -85,7 +85,7 @@
 											<c:forEach var="altRef" items="${infoObject.object.altRefs}" varStatus="loop">
 												<tr>
 													<td>
-													    <pg:url page="/projectAlt.do" params="altrefId=${altRef.id}">${altRef.alternative.name}</pg:url>
+													    <pg:url page="/projectAlt.do" params="altrefId=${altRef.id}" target="_blank">${altRef.alternative.name}</pg:url>
 													</td>
 													<td class="cost">
 														$<fmt:formatNumber maxFractionDigits="0" value="${altRef.alternative.cost/1000000}" /> million

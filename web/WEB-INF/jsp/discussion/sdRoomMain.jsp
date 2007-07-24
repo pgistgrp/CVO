@@ -66,6 +66,10 @@
 		io.fundSuiteId = "${fundSuiteId}";
 		io.repoSuiteId = "${repoSuiteId}";
 		io.cctId = "${structure.cctId}";
+		io.workflowId = "${param.workflowId}";
+		io.contextId = "${param.contextId}";
+		io.activityId = "${param.activityId}";
+		io.wfInfo = "workflowId="+io.workflowId+"&contextId="+io.contextId+"&activityId="+io.activityId;
 		io.currentFilter = '';
 		io.currentPage = ("${param.page}" != "") ? "${param.page}" : 1;
 		io.currentSort = ("${param.sort}" != "") ? "${param.sort}" : 1;

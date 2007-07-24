@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 	"http://www.w3.org/TR/html4/strict.dtd">
@@ -62,24 +63,10 @@ position:fixed;
 		          <![endif]-->
 		<!-- End conditional styles -->
 		
-		<!-- Begin header -->
-		<div id="header">		<jsp:include page="/header.jsp" /></div>
-		<!-- End header -->
-		<!-- Begin header menu - The wide ribbon underneath the logo -->
-		<div id="headerMenu">
-			<div id="headerContainer">
-				<div id="headerTitle" class="floatLeft">
-					<h3 class="headerColor">Step 2: Evaluate Planning Factors</h3>
-				</div>
-				<div class="headerButton floatLeft"> <a href="step2a.html">2a:
-						Review and discuss factors</a> </div>
-				<div class="headerButtonCurrent floatLeft currentBox"> <a href="step2b.html">2b:
-						Weigh factors</a> </div>
-				<div id="headerNext" class="floatRight box5"> <a href="/sdcWaiting.jsp">Next
-						Step</a> </div>
-			</div>
-		</div>
-		<!-- End header menu -->
+        <!-- Start Global Headers  -->
+        <wf:nav />
+        <wf:subNav />
+        <!-- End Global Headers -->
 		<!-- Begin loading indicator -->
 		<div style="display: none;" id="loading-indicator"> Loading... 
 			<img src="/images/indicator_arrows.gif"> 
@@ -128,24 +115,9 @@ position:fixed;
 		//	setTimeout(function() {initWeights();}, 350);
 		</script>
 		
-		<!-- start the bottom header menu -->
-		<!-- Begin header menu - The wide ribbon underneath the logo -->
-		<div id="headerMenu">
-			<div id="headerContainer">
-				<div id="headerTitle" class="floatLeft">
-					<h3 class="headerColor">Step 2: Evaluate Planning Factors</h3>
-				</div>
-				<div class="headerButton floatLeft"> <a href="step2a.html">2a:
-						Review and discuss factors</a> </div>
-				<div class="headerButtonCurrent floatLeft currentBox"> <a href="step2b.html">2b:
-						Weigh factors</a> </div>
-				<div id="headerNext" class="floatRight box5"> <a href="/sdcWaiting.jsp">Next
-						Step</a> </div>
-			</div>
-		</div>
-
-		<!-- End header menu -->
-		<!-- end the bottom header menu -->
+        <!-- Start Global Headers  -->
+        <wf:subNav />
+        <!-- End Global Headers -->
 		<!-- Begin footer -->
 		<div id="footer"> 		<jsp:include page="/footer.jsp" /></div>
 		<!-- End footer -->

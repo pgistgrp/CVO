@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 
 <!--####
@@ -137,27 +138,10 @@ background:#FFF1DC;
 <event:pageunload />
 </head>
 <body>
-<!-- Begin the header - loaded from a separate file -->
-<div id="header">
-  <!-- Begin header -->
-  <jsp:include page="/header.jsp" />
-
-  <!-- End header -->
-</div>
-<!-- End header -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-  <div id="headerMenu">
-    <div id="headerContainer">
-      <div id="headerTitle" class="floatLeft">
-        <h3 class="headerColor">Step 4: Select a Recommended Package</h3>
-      </div>
-    <div class="headerButton box4 floatLeft"><a href="#">Discuss candidate packages</a></div>
-    <div class="headerButtonCurrent currentBox floatLeft"><a href="#">Vote on package recommendation</A></div>
-      <div id="headerNext" class="box5 floatRight"><a href="#">Next Step</A></div>
-    </div>
-  </div>
-<!-- End header menu -->
-
+<!-- Start Global Headers  -->
+<wf:nav />
+<wf:subNav />
+<!-- End Global Headers -->
 <!-- #container is the container that wraps around all the main page content -->
 <div id="container">
   <!-- begin "overview and instructions" area -->
@@ -187,7 +171,9 @@ background:#FFF1DC;
 			<c:forEach var="clusteredPkg" items="${voteSuite.pkgSuite.clusteredPkgs}" varStatus="loop">
 			       <div class="VoteListRow row ${((loop.index % 2) == 0) ? 'even' : 'odd'}">
 			         <div class="voteCol1 floatLeft">
-			           <div class="floatLeft"><a href="package.do?pkgId=${clusteredPkg.id}&pkgSuiteId=${pkgSuiteId}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}">${clusteredPkg.description}</a></div>
+			           <div class="floatLeft">
+			               <pg:url target="blank" page="/package.do" params="pkgId=${clusteredPkg.id}&pkgSuiteId=${pkgSuiteId}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}">${clusteredPkg.description}</pg:url>
+			           </div>
 			         </div>
 			         <div class="voteCol2 floatLeft"><input name="pkg${clusteredPkg.id}" value="1" type="radio" /></div>
 			         <div class="voteCol3 floatLeft"><input name="pkg${clusteredPkg.id}" value="2" type="radio" /></div>
@@ -214,18 +200,9 @@ background:#FFF1DC;
 <!-- start feedback form -->
 <pg:feedback id="feedbackDiv" action="cctView.do"/>
 <!-- end feedback form -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-  <div id="headerMenu">
-    <div id="headerContainer">
-      <div id="headerTitle" class="floatLeft">
-        <h3 class="headerColor">Step 4: Select a Recommended Package</h3>
-      </div>
-    <div class="headerButton box4 floatLeft"><a href="#">Discuss candidate packages</a></div>
-    <div class="headerButtonCurrent currentBox floatLeft"><a href="#">Vote on package recommendation</A></div>
-      <div id="headerNext" class="box5 floatRight"><a href="#">Next Step</A></div>
-    </div>
-  </div>
-<!-- End header menu -->
+<!-- Start Global Headers  -->
+<wf:subNav />
+<!-- End Global Headers -->
 <!-- Begin footer -->
 <div id="footer">
   <jsp:include page="/footer.jsp" />

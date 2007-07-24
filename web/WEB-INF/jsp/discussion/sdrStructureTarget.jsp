@@ -72,10 +72,11 @@
 			<div>
 			    <strong>This report includes 4 sections:</strong>
 				<ol>
-					<li><a href="report.do#participants">The participants and their concerns about transportation</a></li>
-					<li><a href="report.do#planningfactors">"Planning factors" used in project evaluation</a></li>
-					<li><a href="report.do#projects">Project selection and personal package creation</a></li>
-					<li><a href="report.do#packages">Evaluation of packages</a></li>
+					<li>
+					    <a href="javascript:io.goToFullReport('participants');">The participants and their concerns about transportation</a></li>
+					<li><a href="javascript:io.goToFullReport('planningfactors');">"Planning factors" used in project evaluation</a></li>
+					<li><a href="javascript:io.goToFullReport('projects');">Project selection and personal package creation</a></li>
+					<li><a href="javascript:io.goToFullReport('packages');">Evaluation of packages</a></li>
 				</ol>
 			</div>
 			<input type="button" class="floatRight" onclick="io.goToFullReport();" value="Read the full report" />
@@ -116,8 +117,9 @@
 	
 	/* *************** Build Package Link *************** */
 	
-	io.goToFullReport = function(){
-		window.open("report.do?cct_id="+io.cctId+"&repoSuiteId="+ io.repoSuiteId +"&projSuiteId="+io.projSuiteId+"&critSuiteId="+io.critSuiteId+"&pkgSuiteId="+io.pkgSuiteId,'Report Viewer','width=1000,height=600,resizable=yes,scrollbars=yes');
+	io.goToFullReport = function(anchor){
+	    anchor = (anchor) ? "#"+anchor : "";
+		window.open("report.do?"+io.wfInfo+"&cct_id="+io.cctId+"&repoSuiteId="+ io.repoSuiteId +"&projSuiteId="+io.projSuiteId+"&critSuiteId="+io.critSuiteId+"&pkgSuiteId="+io.pkgSuiteId+anchor,'Report Viewer','width=1000,height=600,resizable=yes,scrollbars=yes');
 	}
 	
 </pg:fragment>
