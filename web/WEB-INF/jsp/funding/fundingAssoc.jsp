@@ -92,7 +92,7 @@
 
 
 <body>
-	<p><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
+	<p><a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
 	<h1>Define Funding Source Alternatives</h1>
 	<p>Select all funding source alternatives that you would like to include for this expiriment.</p>
 

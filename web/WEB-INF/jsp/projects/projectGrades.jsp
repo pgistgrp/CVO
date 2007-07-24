@@ -337,7 +337,7 @@ xml+='\
 	    <div id="container">
     		<!-- begin Object -->
     		<div id="object">
-		        <p><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
+		        <p><a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
 		        <h1 class="headerColor">Project Scoring</h1>
     			<!-- begin obj-left -->
     			<div id="obj-left" class="floatLeft clearBoth">

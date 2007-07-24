@@ -702,7 +702,7 @@ button#ss{font-size:12pt;padding:5px;}
 <div id="headerMenu"></div>
 <div id="container">
 	<div id="cont-resize">
-		<p><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">
+		<p><a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">
 			Back to Moderator Control Panel</a></p>
 		<h2 class="headerColor">Concerns Synthesis Tool</h2>
 		<a name="colsTop"></a>

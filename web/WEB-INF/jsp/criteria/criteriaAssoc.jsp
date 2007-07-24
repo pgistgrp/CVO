@@ -392,7 +392,7 @@
 </head>
 
 <body>
-	<a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a>
+	<a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a>
 	<h2>Define Planning Factors</h2>
 	<!-- Begin list of planning factors -->
 	

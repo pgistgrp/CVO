@@ -102,7 +102,7 @@
 
 
 <body>
-	<p><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
+	<p><a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
 	<h1>Define Projects for this Experiment</h1>
 	<p>Which projects are available for the "Let's Improve Transportation Challenge" experiment? Go to <a href="projectManage.do">manage projects</a> to add/remove projects.</p>
 	<form method="POST" name="publishProjects" action="projectDefine.do">

@@ -179,7 +179,7 @@ td.col1 a {display:block;text-decoration:underline;}
 <!-- #container is the container that wraps around all the main page content -->
 
 <div id="container">
-	<p><a href="main.do">Back to Moderator Control Panel</a></p>
+    <p><a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
 	<!-- begin "overview and instructions" area -->
 	<div id="overview" class="box2">
 		<h3>Overview and Instructions</h3>

@@ -36,7 +36,14 @@
 			</ul>
 			A final vote on package recommendation will begin <strong>October 20</strong>.<p>
 			<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false;adjustMapPosition();">Read more about this step</a></p>
-				<p id="hiddenRM" style="display:none">Participants created <strong>283</strong> unique packages in Step 3. In order to narrow down the field of packages under consideration we generated five new packages through a statistical process.  These new packages collectively represent the diversity of packages created by participants in Step 3 (<a href="lmFaq.do">read about how we did this</a>). Also included here is the  "Roads and Transit" package which will appear on the November ballot. The goal of this step is to work together to determine which package can get the greatest degree of collective support by <em>LIT Challenge participants</em>. The package poll is intended to help inform this discussion. In the event that strong majority consensus does not emerge in the final vote, the moderator will identify a minority endorsement package based on an analysis of final vote results.</p>
+				<p id="hiddenRM" style="display:none">Participants created <strong>283</strong> unique packages in Step 3. In order to narrow
+				     down the field of packages under consideration we generated five new packages through a statistical process.  These new 
+				     packages collectively represent the diversity of packages created by participants in Step 3 (<pg:url page="/lmFaq.do" target="_blank">read about 
+				     how we did this</pg:url>). Also included here is the  "Roads and Transit" package which will appear on the November ballot. 
+				     The goal of this step is to work together to determine which package can get the greatest degree of collective support by 
+				     <em>LIT Challenge participants</em>. The package poll is intended to help inform this discussion. In the event that strong 
+				     majority consensus does not emerge in the final vote, the moderator will identify a minority endorsement package based on 
+				     an analysis of final vote results.</p>
 		</div>
 		<!-- end overview -->
 		<!-- begin Object -->
