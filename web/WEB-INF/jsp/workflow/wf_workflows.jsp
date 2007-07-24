@@ -56,7 +56,7 @@
 						<td><fmt:formatDate dateStyle="full" value="${workflow.beginTime}" /> at <fmt:formatDate type="time" value="${workflow.beginTime}" /></td>
 						<td>
 						    <input type="button" value="Participate" onclick="javascript:location.href='userhome.do?workflowId=${workflow.id}';" />
-						    <input type="button" value="Manage Agenda" onclick="javascript:location.href='agendaManager.do?workflowId=${workflow.id}';" /> 
+						    <pg:show roles="moderator"><input type="button" value="Manage Agenda" onclick="javascript:location.href='agendaManager.do?workflowId=${workflow.id}';" /></pg:show>
 						</td>
 					</tr>
 				</c:forEach>
