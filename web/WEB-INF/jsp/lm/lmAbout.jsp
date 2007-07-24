@@ -16,6 +16,7 @@
 </style>
 	<!-- End Site Wide CSS -->
 	<!-- Site Wide JS -->
+	<script language="JavaScript" src="scripts/qtip.js" type="text/JavaScript"></script>
 	<script src="scripts/prototype.js" type="text/javascript"></script>
 	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 	<script src="scripts/search.js" type="text/javascript"></script>
