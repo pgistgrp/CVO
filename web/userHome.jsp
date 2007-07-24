@@ -42,7 +42,7 @@
 	  var workflow = new Workflow('workflow-panel');
 	</script>
 	<script type="text/javascript">
-		var wfId = "${param.wf}";
+		var wfId = "${param.workflowId}";
 		
 		if(!wfId){location.href="main.do"}
 		function getAnnouncements(){
@@ -178,7 +178,7 @@
 	</script>
 	<event:pageunload />
 	</head>
-	<body onload="workflow.getWorkflow(${param.wf});">
+	<body onload="workflow.getWorkflow(${param.workflowId});">
 	<!-- Begin the header - loaded from a separate file -->
 	<div id="header">
 		<!-- Begin header -->
