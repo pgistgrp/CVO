@@ -40,9 +40,12 @@
     </c:forEach>
     <!-- END FUTURES -->
     
-    <div id="headerNext" class="floatRight box5">
-        <a href="/workflow.do?workflowId=${param.workflowId}&contextId=${param.contextId}&activityId=">Next step</a>
-    </div>
+    <c:if test="${param.activityId != null}">
+        <div id="headerNext" class="floatRight box5">
+            <a href="/workflow.do?workflowId=${param.workflowId}&contextId=${param.contextId}&activityId=">Next step</a>
+        </div>
+    </c:if>
+
   </div>
 </div>
 <!-- End header menu -->
