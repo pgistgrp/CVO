@@ -623,9 +623,16 @@ $('slate').style.Height = winH;
   <div id="container">
     <!-- begin "overview and instructions" area -->
     <div id="overview" class="box2">
-      <h3>Overview and Instructions</h3>
-      <p>Before we can determine how to best improve the transportation system, we need to know what the problems are. Therefore, our first task is to brainstorm concerns about transportation in our region.  Brainstorming will conclude at 11:59pm on Thursday, December 7th.</p> 
-      <p><pg:url page="/lmAbout.do" target="blank">Read more about how this step fits into the bigger picture</pg:url>.</p>
+			<h3>Overview and instructions</h3>
+			<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
+			Before we can determine how to best improve the transportation system, we need to know what the problems are. In this step you can:
+			<ul>
+				<li>Read concerns posted by other participants.</li>
+				<li>Share your own concerns.</li>
+			</ul>
+			<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
+				<p id="hiddenRM" style="display:none">When step 1b concludes on October 3 the moderators will review and summarize them according to themes. The final version of these summaries will be included in the final report of the <em>LIT Challenge</em>. The summaries will also be used in Step 2 when we assess different "factors" used to evaluate proposed transportation improvement projects.</p>
+			</pg:termHighlight>
     </div>
     <!-- end overview -->
 
@@ -688,7 +695,7 @@ $('slate').style.Height = winH;
 			  fails to meet the needs of our growing and changing region?</li>
 		  </ul></p>
         <fieldset>
-        <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type one problem with the transportation system.  You can add more later.</textarea>
+        <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type in one concern about the transportation system. You can enter more later.</textarea>
         </fieldset>
         <div id="tagNewConcern" class="box6 padding5" style="display:none;">
           <h3>Keyword your concern</h3>

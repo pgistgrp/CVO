@@ -54,8 +54,9 @@ div.home-col1 > div > span {font-size:.9em;margin-left:.5em}
 padding:.5em 0em;
 }
 
-.home-row {font-size:.9em;height:auto;_margin:5px 0px;}
+.home-row {font-size:11pt;height:auto;_margin:5px 0px;}
 .home-row input {margin-top:10px;margin-right:10px;}
+.home-row small {font-size:9pt;}
 
 #left-col, #right-col {margin-top:1em;}
 

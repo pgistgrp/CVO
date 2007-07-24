@@ -85,7 +85,7 @@
 			</c:forEach>
 
 		  <div class="pagination">
-		  				You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
+		  				Viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
 						<logic:equal name="setting" property="page" value="1">
 							<input type="button" value="Prev" alt="No Previous Pages" disabled="true" />
 						</logic:equal>

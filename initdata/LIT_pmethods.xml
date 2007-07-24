@@ -329,7 +329,7 @@
             </sequence>
         </pmethod>
         
-        <pmethod name="pmethod-packages" description="Step 4: Select a Recommended Package">
+        <pmethod name="pmethod-packages" description="Step 4: Select a Package for Recommendation">
             <declaration>
                 <ins>
                     <var name="pmethod.cct_id"/>

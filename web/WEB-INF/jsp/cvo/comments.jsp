@@ -157,7 +157,7 @@
   <div class="clearBoth"></div>
   </logic:iterate>
   <c:if test="${fn:length(comments) > 0}">
-    <div class="pagination"> You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
+    <div class="pagination"> Viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
       <logic:equal name="setting" property="page" value="1"> <img src="images/btn_prev_fade.gif" alt="No Previous Pages" /> </logic:equal>
       <logic:notEqual name="setting" property="page" value="1"> <a href="javascript:goToPage('comments',${setting.page}-1);"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a> </logic:notEqual>
       <logic:equal name="setting" property="page" value="${setting.pageSize}"> <img src="images/btn_next_fade.gif" alt="No Additional Pages" /> </logic:equal>

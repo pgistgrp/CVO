@@ -72,7 +72,7 @@
         </c:choose>
 				
 		 <div class="pagination box3 padding5">
-		 	You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
+		 	Viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
 
 	 	    <c:choose>
 	 	       <c:when test="${setting.page == 1}">
@@ -128,7 +128,7 @@
     				</ol>
 			</div>
 			 <div class="pagination box3 padding5">
-			 	You are currently viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
+			 	Viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
 
 		 	    <c:choose>
 		 	       <c:when test="${setting.page == 1}">

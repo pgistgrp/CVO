@@ -83,19 +83,21 @@
 
 		<!-- begin "overview and instructions" area -->
 		<div id="overview" class="box2">
-			<h3 class="headerColor">Instructions</h3>
-			<p>Thanks to everyone who submitted their concerns about our regional transportation system. The moderator has reviewed the concerns and identified themes, listed below. Each theme is associated with a group of concern tags.</p>
-			There are two main ways to participate in Step 1b.<ul>
-			<li>Read the summary of each theme and discuss how well you feel it describes the diversity of concerns submitted by participants.</li>
-			<li>Indicate whether you feel the current summary adequately reflects participants' concerns by clicking the thumb's up or thumb's down button.</li>
+			<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
+			<h3 class="headerColor">Overview and instructions</h3>
+			<p>The moderators have reviewed the concerns and summarized them according to themes. Now you can:</p>
+			<ul>
+				<li>Review the concern themes</li>
+				<li>Discuss how well these summaries represent participants' concerns</li>
+				<li>Suggest revisions to the summaries in your discussion comments</li>
 			</ul>
-			<p><pg:url page="lmFaq.do" anchor="step1-created">How are these summaries created, and why are they important?</pg:url> <img src="images/external.png" alt="(new window)"></p>
-			<p><pg:url page="/lmAbout.do">Read more about how this step fits into the bigger picture.</pg:url></p>
-			
+			<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
+			<p id="hiddenRM" style="display:none">After the brainstorm concluded, the moderators synthesized and summarized the concerns offered by participants. (<pg:url page="lmFaq.do" target="_blank" anchor="step1-created">Read more about the summarization process</pg:url>). Each concern theme is associated with a group of keywords. As you review summaries let us know if you think these summaries are accurate and if you feel any important themes were left out. The moderator will make revisions based on participant comments. The final version of these summaries will be included in the final report of the <em>LIT Challenge</em>. The summaries will also be used in Step 2 when we we assess different "factors" used to evaluate proposed transportation improvement projects.</p>
+		</pg:termHighlight>
 		</div>
 		<!-- end overview -->
 
-<h3 class="headerColor">Select a Theme to Review and Discuss Concern Summary</h3>
+<h3 class="headerColor">Select a concern theme to review and discuss</h3>
 
 
 <!-- Here's the div where the contents get placed -->
@@ -109,8 +111,8 @@
 
 				<div class="themeBox floatLeft box6" id="allDiscussionsBox">
 				    <h3 class="headerColor">
-				    <pg:url page="/sdRoom.do" params="isid=${structure.id}">Discussion about all concern themes</pg:url>
-                    </h3> <p>This room is for discussing whether any themes the moderator has identified should be removed, or changed, or if new themes should be added.<span class="smallText">
+				    <pg:url page="/sdRoom.do" params="isid=${structure.id}">Other discussions</pg:url>
+                    </h3> <p>Here is a space for other discussions, including  the concerns summarization process and whether any themes should be added or removed. <span class="smallText">
                     <pg:url page="/sdRoom.do" params="isid=${structure.id}">more</pg:url>
                     </span></p> 
 			

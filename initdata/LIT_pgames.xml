@@ -6,7 +6,7 @@
     
         <pgame name="pgame-select.template" title="Select a situation template." auto="false" access="moderator" revisitable="false">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Moderator tool for loading a template</small>]]>
             </description>
             <actionName>action-select.template</actionName>
             <declaration>
@@ -45,7 +45,7 @@
         
         <pgame name="pgame-define.projects" title="Define projects in a project suite." auto="false" access="moderator" revisitable="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Select which pre-defined projects will be included in this experiment</small>]]>
             </description>
             <actionName>action-define.projects</actionName>
             <declaration>
@@ -69,7 +69,7 @@
         
         <pgame name="pgame-define.fundings" title="Define funding sources in a funding source suite." auto="false" access="moderator" revisitable="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Select which pre-defined funding sources will be included in this experiment</small>]]>
             </description>
             <actionName>action-define.fundings</actionName>
             <declaration>
@@ -81,7 +81,7 @@
         
         <pgame name="pgame-grade.projects" title="Moderator: Grade projects." auto="false" access="moderator" revisitable="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Input grades for projects</small>]]>
             </description>
             <actionName>action-grade.projects</actionName>
             <declaration>
@@ -94,7 +94,7 @@
         
         <pgame name="pgame-create.cct" title="Create a CCT instance." auto="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Start a new instance of CCT</small>]]>
             </description>
             <taskName>task-create.cct</taskName>
             <declaration>
@@ -109,9 +109,9 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-define.concerns" title="1a: Map your daily travel (Incomplete)" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-define.concerns" title="1a: Map your daily travel" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Make a map of how you use the transportation system on an average day.</small>]]>
             </description>
             <actionName>action-sd.concerns</actionName>
             <declaration>>
@@ -120,7 +120,7 @@
     
         <pgame name="pgame-cvo.cct" title="1b: Brainstorm concerns" auto="false" access="all">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Brainstorm transportation concerns with other participants.</small>]]>
             </description>
             <actionName>action-cvo.cct</actionName>
             <declaration>
@@ -132,7 +132,7 @@
         
         <pgame name="pgame-cvo.cst" title="Moderator: Concerns synthesis tool" auto="false" access="moderator" revisitable="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Write summaries by categorizing concerns and tags into themes</small>]]>
             </description>
             <actionName>action-cvo.cst</actionName>
             <declaration>
@@ -160,9 +160,9 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.concerns" title="1c: Review summaries." auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sd.concerns" title="1c: Review summaries" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Discuss and evaluate summaries of all participant concerns.</small>]]>
             </description>
             <actionName>action-sd.concerns</actionName>
             <declaration>
@@ -218,7 +218,7 @@
         
         <pgame name="pgame-sd.criteria" title="2a: Review factors" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Discuss different factors used to evaluate transportation improvements</small>]]>
             </description>
             <actionName>action-sd.criteria</actionName>
             <declaration>
@@ -228,9 +228,9 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-weigh.criteria" title="2b: Weight factors" auto="false" access="all">
+        <pgame name="pgame-weigh.criteria" title="2b: Weigh factors" auto="false" access="all">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Decide which factors are most important to you</small>]]>
             </description>
             <actionName>action-weigh.criteria</actionName>
             <declaration>
@@ -254,14 +254,14 @@
                     <var name="is_id"/>
                 </outs>
                 <props>
-                    <property name="title" value="Step 3: Create Transportation Packages (Packages)" />
+                    <property name="title" value="Step 3: Create Transportation Packages" />
                 </props>
             </declaration>
         </pgame>
         
         <pgame name="pgame-sd.projects" title="3a: Discuss projects" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Discuss and evaluate proposed transportation improvement projects.</small>]]>
             </description>
             <actionName>action-sd.projects</actionName>
             <declaration>
@@ -273,7 +273,7 @@
     
         <pgame name="pgame-sda.projects" title="Review projects" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Review proposed transportation improvement projects.</small>]]>
             </description>
             <actionName>action-sd.projects</actionName>
             <declaration>
@@ -304,7 +304,7 @@
         
         <pgame name="pgame-sd.fundings" title="3b: Discuss funding options" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Discuss and evaluate ways to pay for transportation improvements.</small>]]>
             </description>
             <actionName>action-sd.fundings</actionName>
             <declaration>
@@ -317,7 +317,7 @@
         
         <pgame name="pgame-sda.fundings" title="Review funding options" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Review options to pay for transportation improvements.</small>]]>
             </description>
             <actionName>action-sd.fundings</actionName>
             <declaration>
@@ -340,9 +340,9 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-planning.factor.reweigh" title="Planning Factor Reweigh." auto="false" access="all">
+        <pgame name="pgame-planning.factor.reweigh" title="Improvement Factor Reweigh." auto="false" access="all">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Reweigh improvement factors</small>]]>
             </description>
             <actionName>action-planning.factor.reweigh</actionName>
             <declaration>
@@ -354,7 +354,7 @@
         
         <pgame name="pgame-create.user.package" title="3c: Create your own package" auto="false" access="all">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Suggest your own package of projects and funding options.</small>]]>
             </description>
             <actionName>action-create.user.package</actionName>
             <declaration>
@@ -369,7 +369,7 @@
         
         <pgame name="pgame-group.packages" title="Group candidate packages." auto="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Sort candidate packages into groups</small>]]>
             </description>
             <taskName>task-group.packages</taskName>
             <declaration>
@@ -380,9 +380,9 @@
         </pgame>
         
     
-        <pgame name="pgame-sd.packages" title="Review Fundings." auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sd.packages" title="Review funding options" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Review options to pay for transportation improvements.</small>]]>
             </description>
             <actionName>action-sd.packages</actionName>
             <declaration>
@@ -399,7 +399,7 @@
     
         <pgame name="pgame-manage.packages" title="Moderator: Manage packages." auto="false" access="moderator">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Create and manage packages</small>]]>
             </description>
             <actionName>action-manage.packages</actionName>
             <declaration>
@@ -426,14 +426,14 @@
                     <var name="is_id"/>
                 </outs>
                 <props>
-                    <property name="title" value="Step 4: Select a Recommended Package" />
+                    <property name="title" value="Step 4: Select a Package for Recommendation" />
                 </props>
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.packages" title="4a: Evaluate candidate packages" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sd.packages" title="4a: Discuss candidate packages" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Compare, and discuss six candidate packages.</small>]]>
             </description>
             <actionName>action-sd.packages</actionName>
             <declaration>
@@ -447,9 +447,9 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-vote.packages" title="4b: Final recommendation vote" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-vote.packages" title="4b: Vote on package recommendation" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Declare your willingness to support the candidate for recommendation to decision maker.</small>]]>
             </description>
             <actionName>action-vote.packages</actionName>
             <declaration>
@@ -537,7 +537,7 @@
     
         <pgame name="pgame-sd.report" title="5a: Review draft report" access="all" auto="false" revisitable="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Discuss a draft report of the results of the LIT Challenge and suggest revisions.</small>]]>
             </description>
             <actionName>action-sd.report</actionName>
             <declaration>
@@ -553,7 +553,7 @@
     
         <pgame name="pgame-vote.report" title="5b: Vote on report endorsement" access="all" auto="false" revisitable="true">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[<small>Vote to endorse (or reject) the final report.</small>]]>
             </description>
             <actionName>action-view.report</actionName>
             <declaration>

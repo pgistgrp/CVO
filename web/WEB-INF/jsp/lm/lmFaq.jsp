@@ -101,7 +101,7 @@
 		<p><strong>Total non-English speakers from the ages of 5 through 65:</strong> This variable indicates areas where special attention (in the form of signs and symbols) may need to be directed.</p>
 		<p><strong>Total elderly population:</strong> Elderly people face unique transportation challenges that necessitate attention. In this study, elderly is considered to be those individuals at or over the age of 65.</p> 
 		<p><strong>Carless households:</strong> Carless people must rely on public transportation, friends, family, co-workers, bicycles, or their own two feet to get places they need to go (including work, grocery shopping, parks, and schools). This variable is calculated for both renters and owners of a residence.</p> 
-		<p><strong>Disability:</strong> People with disability are less able to be mobile or leave the home and therefore may need special attention vis-à-vis transportation improvements. </p>
+		<p><strong>Disability:</strong> People with disability are less able to be mobile or leave the home and therefore may need special attention vis-&aacute;-vis transportation improvements. </p>
 
 
 		<a name="step4-collected"><h4 class="headerColor">How were the data for environmental justice variables collected?</h4></a>	
