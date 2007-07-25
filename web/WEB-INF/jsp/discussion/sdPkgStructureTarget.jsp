@@ -97,7 +97,7 @@
 					</c:forEach>
 					
 					<p><pg:url page="/blah.do" target="_blank" params="input=1000">Compare the spatial equity of these packages</pg:url>
-					<br/>Express your preferences in the <pg:url page="/blah.do" target="_blank" params="input=1000">package poll</pg:url></p>
+					<br/>Express your preferences in the <pg:url page="/packagePoll.do" target="_blank" params="input=1000">package poll</pg:url></p>
 					<br>
 					<h3 class="headerColor">Package appearing on the November 2007 ballot</h3>
 					<p>

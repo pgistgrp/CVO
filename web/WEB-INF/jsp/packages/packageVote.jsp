@@ -49,9 +49,6 @@
 </style>
 <!-- End Site Wide CSS -->
 <style type="text/css">
-@import "styles/lit.css";
-
-@import "styles/lit.css";
 
 #voteBox
 {
@@ -75,7 +72,7 @@ padding:.3em 0em;
 {
 width:16%;
 margin-right:.5em;
-padding-left:2em;
+padding-left:10px;
 font-size:1.1em;
 }
 
@@ -96,7 +93,7 @@ margin:0em auto;
 background:#FFF1DC;
 }
 
-.voteHeader{background:#ADCFDE}
+.voteHeader{background:#ADCFDE;font-size:12pt;}
 
 
 </style>
@@ -181,7 +178,7 @@ background:#FFF1DC;
 			         <div class="clearBoth"></div>
 			       </div>
 			</c:forEach>
-			<p class="floatRight"><input type="reset" value="Reset form and start over" /> <input type="submit" value="Submit Vote" /></p>
+			<p class="floatRight"><input type="reset" class="padding5" value="Reset form and start over" /> <input type="submit" class="padding5" value="Submit Vote" /></p>
 		</form>
 		
 	</div><!-- end one voting box -->
