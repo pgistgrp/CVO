@@ -17,8 +17,9 @@
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/util.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-
+<script src="scripts/calendar_date_select.js" type="text/javascript"></script>
 <style type="text/css">
+    @import "styles/calendar_date_select.css";
     @import "styles/lit.css";
 </style>
 
@@ -29,14 +30,25 @@
     <form action="/agendaManager.do" method="POST">
     <input type="hidden" name="workflowId" value="${param.workflowId}" />
     <input type="hidden" name="save" value="true" />
+    <h2>Initialize Data</h2>
+    <c:set var="stepCounter" value="1" />
     <c:forEach var="step" items="${activities}" varStatus="loop">
-        <h2>Step: ${loop.index}</h2>
+        <c:if test="${loop.index > 1}">
+            <h2>Step: ${stepCounter}</h2>
+            <c:set var="stepCounter" value="${stepCounter + 1}" />
+        </c:if>
         <c:forEach var="activity" items="${step}" varStatus="loop2">
             <pg:narrow name="activity" />
             <input type="hidden" name="activity_id" value="${activity.id}" />
             <h3 class="headerColor">${activity.title}</h3>
-            <p><label>Begin Time:</label><input type="text" name="${activity.id}_begin" value="${activity.beginTime}" /></p>
-            <p><label>End Time:</label><input type="text" name="${activity.id}_end" value="${activity.endTime}" /></p>
+            <p>
+                <label>Begin Time:</label><input type="text" id="${activity.id}_begin" name="${activity.id}_begin" value="${activity.beginTime}" /> 
+                <img alt="Calendar" onclick="new CalendarDateSelect('${activity.id}_begin');" src="/images/calendar.gif" style="cursor: pointer;" />
+            </p>
+            <p>
+                <label>End Time:</label><input type="text" name="${activity.id}_end" id="${activity.id}_end" value="${activity.endTime}" /> 
+                <img alt="Calendar" onclick="new CalendarDateSelect('${activity.id}_end');" src="/images/calendar.gif" style="cursor: pointer;" />
+            </p>
         </c:forEach>
     </c:forEach>
     <input type="submit" value="submit"/>
