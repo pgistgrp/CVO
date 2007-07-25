@@ -42,7 +42,7 @@
 										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mHistoryActivity.context.id}&activityId=${gHistory.id}">${gHistoryActivity.title}</a><br />
 										<small>${gHistoryActivity.description}</small>
 									</div>
-									<div class="date">00/00</div>
+									<div class="date">${gHistoryActivity.beginTime} - ${gHistoryActivity.endTime}</div>
 								</pg:show>
 							</c:when>
 							<c:otherwise>
@@ -51,7 +51,7 @@
 										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mHistoryActivity.context.id}&activityId=${gHistory.id}">${gHistoryActivity.title}</a><br />
 										<small>${gHistoryActivity.description}</small>
 									</div>
-									<div class="date">00/00</div>
+									<div class="date">${gHistoryActivity.beginTime} - ${gHistoryActivity.endTime}</div>
 								</pg:show>
 							</c:otherwise>
 						</c:choose>
@@ -85,7 +85,7 @@
 										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActiveHistory.id}">${gActiveHistoryActivity.title}</a><br />
 										<small>${gActiveHistoryActivity.title}</small>
 									</div>
-									<div class="date">00/00</div>
+									<div class="date">${gActiveHistoryActivity.beginTime} - ${gActiveHistoryActivity.endTime}</div>
 								</div>
 							</pg:show>
 						</c:when>
@@ -96,7 +96,7 @@
 										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActiveHistory.id}">${gActiveHistoryActivity.title}</a><br />
 										<small>${gActiveHistoryActivity.title}</small>
 									</div>
-									<div class="date">00/00</div>
+									<div class="date">${gActiveHistoryActivity.beginTime} - ${gActiveHistoryActivity.endTime}</div>
 								</div>
 							</pg:show>
 						</c:otherwise>
@@ -144,7 +144,7 @@
 									<div class="step disabled">${gActiveFuture.title}<br />
 										<small>${gActiveFuture.description}</small>
 									</div>
-									<div class="date disabled">00/00</div>
+									<div class="date disabled">${gActiveFuture.beginTime} - ${gActiveFuture.endTime}</div>
 								</div>
 							</pg:show>
 						</c:when>
@@ -154,7 +154,7 @@
 									<div class="step disabled">${gActiveFuture.title}<br />
 										<small>${gActiveFuture.description}</small>
 									</div>
-									<div class="date disabled">00/00</div>
+									<div class="date disabled">${gActiveFuture.beginTime} - ${gActiveFuture.endTime}</div>
 								</div>
 							</pg:show>
 						</c:otherwise>
@@ -183,7 +183,7 @@
 									<div class="step disabled">${gFuture.title}<br />
 										<small>${gFuture.description}</small>
 									</div>
-									<div class="date disabled">00/00</div>
+									<div class="date disabled">${gFuture.beginTime} - ${gFuture.endTime}</div>
 								</div>
 							</pg:show>
 						</c:when>
@@ -193,7 +193,7 @@
 									<div class="step disabled">${gFuture.title}<br />
 										<small>${gFuture.description}</small>
 									</div>
-									<div class="date disabled">00/00</div>
+									<div class="date disabled">${gFuture.beginTime} - ${gFuture.endTime}</div>
 								</div>
 							</pg:show>
 						</c:otherwise>
