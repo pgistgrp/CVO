@@ -28,22 +28,15 @@
 		<!-- begin "overview and instructions" area -->
 		<div id="overview" class="box2">
 			<h3>Overview and instructions</h3>
-			<p>In this step we determine which single package participants are willing to recommend to decision makers. Based on the <strong>283</strong> unique packages created by participants in Step 3, five new “candidate packages” were generated through a statistical process. Also available for review is the “Roads and Transit” package which will appear on the November ballot.</p>
+			<p>In this step we determine which single package participants are willing to recommend to decision makers. Based on the <strong>283</strong> unique packages created by participants in Step 3, a set of new "candidate packages" were generated through a statistical process.</p>
 			<ul>
-				<li>Review, compare, and evaluate these six candidate packages.</li>
+				<li>Review, compare, and evaluate the candidate packages.</li>
 				<li>Discuss with other participants which package should be collectively recommended to decision makers.</li>
 				<li>When you are ready, express your preferences in the package poll.</li>
 			</ul>
 			A final vote on package recommendation will begin <strong>October 20</strong>.<p>
 			<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false;adjustMapPosition();">Read more about this step</a></p>
-				<p id="hiddenRM" style="display:none">Participants created <strong>283</strong> unique packages in Step 3. In order to narrow
-				     down the field of packages under consideration we generated five new packages through a statistical process.  These new 
-				     packages collectively represent the diversity of packages created by participants in Step 3 (<pg:url page="/lmFaq.do" target="_blank">read about 
-				     how we did this</pg:url>). Also included here is the  "Roads and Transit" package which will appear on the November ballot. 
-				     The goal of this step is to work together to determine which package can get the greatest degree of collective support by 
-				     <em>LIT Challenge participants</em>. The package poll is intended to help inform this discussion. In the event that strong 
-				     majority consensus does not emerge in the final vote, the moderator will identify a minority endorsement package based on 
-				     an analysis of final vote results.</p>
+				<p id="hiddenRM" style="display:none">Participants created <strong>283</strong> unique packages in Step 3. In order to narrow down the field of packages under consideration we generated a small set of new packages through a statistical process.  These new packages collectively represent the diversity of packages created by participants in Step 3 (<pg:url page="lmFaq.do" target="_blank" anchor="step4-clustered">read about how we did this</pg:url>). The goal of this step is to work together to determine which package can get the greatest degree of collective support by <em>LIT Challenge participants</em>. The package poll is intended to help inform this discussion. In the event that strong majority consensus does not emerge in the final vote, the moderator will identify a minority endorsement package based on an analysis of final vote results.</p>
 		</div>
 		<!-- end overview -->
 		<!-- begin Object -->
@@ -97,21 +90,38 @@
 								<div class="col2 floatLeft">
 								$<fmt:formatNumber maxFractionDigits="0" value="${infoObject.object.totalCost/1000000}" /> million </div>
 								<div class="col3 floatLeft">Unknown</div>
-								<div class="col4 floatLeft">$<fmt:formatNumber maxFractionDigits="0" value="${infoObject.object.avgResidentCost/1000000}" /> million / year</div>
+								<div class="col4 floatLeft">$<fmt:formatNumber maxFractionDigits="0" value="${infoObject.object.avgResidentCost/1000000}" /> / year</div>
 								<div class="clearBoth"></div>
 							</div>
 						</c:if>
 					</c:forEach>
 					
-					</p>
-					
-<strong>* Note:</strong> the "Roads and Transit*" package above is an approximation of
-the package proposed by RTID and Sound Transit.  The actual "Roads and
-Transit" package which will appear on the November 2007 ballot differs
-slightly in its projects and cost estimates. For more details see
-<a href="http://www.roadsandtransit.org" target="_blank">www.roadsandtransit.org</a>.
 					<p><pg:url page="/blah.do" target="_blank" params="input=1000">Compare the spatial equity of these packages</pg:url>
 					<br/>Express your preferences in the <pg:url page="/blah.do" target="_blank" params="input=1000">package poll</pg:url></p>
+					<br>
+					<h3 class="headerColor">Package appearing on the November 2007 ballot</h3>
+					<p>
+					<div class="listRow row headingColor">
+						<div class="col1 floatLeft">
+							<div class="floatLeft">&nbsp;</div>
+						</div>
+						<div class="col2 floatLeft">Total</div>
+						<div class="col3 floatLeft">&nbsp;</div>
+						<div class="col4 floatLeft">Cost for avg. resident</div>
+						<div class="clearBoth"></div>
+					</div>
+						<div class="listRow row">
+							<div class="col1 floatLeft">
+								<div class="floatLeft">Roads and Transit*</div>
+							</div>
+							<div class="col2 floatLeft">$17.8 billion</div>
+							<div class="col3 floatLeft">&nbsp;</div>
+							<div class="col4 floatLeft">$218 per year</div>
+							<div class="clearBoth"></div>
+						</div>
+					</p>
+					<p>* Note: "Roads and Transit*" refers to two separate packages being proposed by RTID and Sound Transit. Both packages must be approved by voters for either to be made into law. For more details about these packages and cost estimates see <a href="http://www.roadsandtransit.org" target="_blank">www.roadsandtransit.org</a>.</p>
+
 				</div>
 				<!-- end list of funding options -->
 			</div>

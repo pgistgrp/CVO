@@ -18,6 +18,8 @@ margin:.5em 0em .5em .5em;
 padding:.3em 0em;
 }
 
+.headingColor{font-size:11pt;}
+
 #allListHeader
 {
 text-align:left;
@@ -25,15 +27,14 @@ text-align:left;
 
 .col1
 {
-width:100px;
+width:140px;
 margin-right:.5em;
-padding-left:2em;
 font-size:1.1em;
 }
 
 .col2
 {
-width:100px;
+width:70px;
 text-align:center;
 }
 
@@ -45,7 +46,7 @@ text-align:center;
 
 .col4
 {
-width:125px;
+width:170px;
 text-align:center; 
 }
 
