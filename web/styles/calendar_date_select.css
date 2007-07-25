@@ -8,7 +8,7 @@
 
 .calendar_date_select .weekdays td {
   font-weight:bold;
-  background-color: #E7E8E8;
+  background-color: #D6E7EF;
   border-bottom:2px solid black;
   color: black !important;
 }
@@ -16,18 +16,18 @@
 .calendar_date_select .cds_time, .calendar_date_select .cds_buttons {
   text-align:center;
   padding:5px 0px;
-  background-color: #5f0000;
+  background-color: #D6E7EF;
 
 }
 
 .calendar_date_select .cds_buttons {
-  background-color:#E7E8E8;
+  background-color:#D6E7EF;
   border-top: 2px solid black;
   border-bottom: 1px solid black;
 }
 
 .calendar_date_select .cds_footer {
-  background-color: black;
+  background-color: #415613;
   padding:3px;
   text-align:center;
 }
@@ -63,7 +63,7 @@
 }
 
 .calendar_date_select td {
-  background-color: #660000;
+  background-color: #B4D579;
   font-size:12px;
   width: 24px;
   height: 21px;
@@ -71,11 +71,11 @@
   vertical-align: middle;
 }
 .calendar_date_select td.weekend {
-  background-color: #5a0000;
+  background-color: #EEF7DD;
 }
 
 .calendar_date_select td div {
-  color:#fff;
+  color:#415613;
 }
 .calendar_date_select td div.other {
   color: #93554C;
@@ -86,7 +86,7 @@
 
 
 .calendar_date_select .days td {
-  border-bottom: 1px solid #550000;
+  border-bottom: 1px solid #D6E7EF;
 }
 .calendar_date_select .days td.selected {
   background-color:white;
@@ -94,12 +94,11 @@
 }
 
 .calendar_date_select .days td.hover {
-  background-color:#ccc;
+  background-color:#D6E7EF;
 }
 
 .calendar_date_select .days td.today {
-  border: 1px dashed red;
+  border: 1px dashed #415613;
 }
 
 /* adjust bordered cells to have slightly smaller inner areas so they look the same as the rest of the elements */
- 
