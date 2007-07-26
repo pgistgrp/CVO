@@ -67,7 +67,7 @@ input[type=button]{padding:5px;margin-top:15px;}
 </head>
 <body>
 <div id="container">
-	<p><a href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
+	<p><a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
 	<div id="selectTemplate">
 	  <h1 class="headerColor">Select a Data Template</h1>
 	  <p>Please select the data template that you would like to start this experiment with.
