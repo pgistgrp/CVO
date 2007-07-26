@@ -135,6 +135,7 @@ background:#FFF1DC;
 <event:pageunload />
 </head>
 <body>
+<div id="container">
 <!-- #container is the container that wraps around all the main page content -->
   <!-- begin Object -->
 	<div id="object">
