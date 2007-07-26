@@ -360,6 +360,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		PackageVoteSuite pvs = (PackageVoteSuite) it.next();
 		
 		Set voteStats = pvs.getStats();
+		System.out.println("Step5: # of voteStats: " + voteStats.size());
 		
 		int high = -1;
 		int percentHighVote = -1;
@@ -369,7 +370,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		
 		Iterator itVotes = voteStats.iterator();
 		while(itVotes.hasNext()) {
-			VoteSuiteStat vss = (VoteSuiteStat) it.next();
+			VoteSuiteStat vss = (VoteSuiteStat) itVotes.next(); //Error Here
 			int pHigh = vss.getHighVotePercent();
 			int pMid = vss.getMediumVotePercent();
 			int composite = pHigh + pMid;
