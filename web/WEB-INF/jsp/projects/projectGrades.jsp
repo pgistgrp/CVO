@@ -151,7 +151,12 @@ xml+='\
 			                 score.html = "<h4>"+ data.altRef.alternative.name +"</h4> <a id='info"+data.altRef.id+"' target='blank' href='projectAlt.do?altrefId="+data.altRef.id+"'>View project info</a><ul>";
 			                 score.counter = 0;
 			                 
+			                 
 			                 //Get and render graded crit and objectives array
+			                 if(score.gCrits.length == 0){
+			                     alert("No improvement factors found.  Please be sure to create improvement factors before scoring.")
+			                     return;
+			                 }
 			                 score.gCrits.each(function(gCrit, i) {
 			                   score.html += "<li>"+ gCrit.criteria.name +"  \
 			                   <b id='critGrade-"+ altRefId +"-"+ gCrit.criteria.id+"'>"+ gCrit.grade +"</b></li><ul>"                  
