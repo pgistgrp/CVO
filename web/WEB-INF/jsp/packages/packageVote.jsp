@@ -197,7 +197,7 @@ background:#FFF1DC;
 <!-- start feedback form -->
 <pg:feedback id="feedbackDiv" action="cctView.do"/>
 <!-- end feedback form -->
-<!-- Start Global Headers  -->
+<!-- Start Global Headers  --> 
 <wf:subNav />
 <!-- End Global Headers -->
 <!-- Begin footer -->

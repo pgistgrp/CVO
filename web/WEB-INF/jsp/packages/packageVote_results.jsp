@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <!--####
@@ -51,16 +51,11 @@
 <event:pageunload />
 </head>
 <body>
+<!-- Start Global Headers  -->
+    <wf:nav />
+    <wf:subNav />
+<!-- End Global Headers -->
 
-<div id="header">
-	<!-- Begin header -->
-	<jsp:include page="/header.jsp" />
-
-	<!-- End header -->
-</div>
-<!-- End header -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-<!-- End header menu -->
 <!-- #container is the container that wraps around all the main page content -->
 <div id="container">
 	<!-- begin "overview and instructions" area -->
@@ -71,10 +66,9 @@
 		<h2 class="headerColor">Active polls</h2>
 		<!-- begin one voting box -->
 		<jsp:useBean id="now" class="java.util.Date" />
-		<fmt:formatDate value="${now}" dateStyle="full" var="formattedDate" />
-
+        
 		<h3 class="headerColor">Package Poll</h3>
-		Results as of ${formattedDate}</h3>
+		Results as of <fmt:formatDate value="${now}" dateStyle="full" /> <fmt:formatDate value="${now}" type="time" /></h3>
 		<c:set var="voters" value="${(fn:length(voteSuite.userVotes) / fn:length(voteSuite.stats))}" />
 		<p><fmt:formatNumber type="number">${voters}</fmt:formatNumber> participants voted in this
 			poll (<fmt:formatNumber type="percent">${voters / 20}</fmt:formatNumber> of all participants). Poll results are displayed below.</p>
@@ -104,12 +98,13 @@
 		</div>
 		<!-- end one voting box -->
 		<div class="clearBoth"></div>
-		
+		<!--		
 		<h2 class="headerColor">Previous polls</h2>
 		<c:if test="${fn:length(pVoteSuites) == 0}">
 			<p>There have not been any previous polls.</p>
 		</c:if>
-		<!-- begin one voting box -->
+
+
 		****${pVoteSuites}
 		<c:forEach var="suite" items="${pVoteSuites}" varStatus="loop">
 			<h3 class="headerColor">Package Poll Results --- workflow date ---</h3>
@@ -141,6 +136,7 @@
 				</c:forEach>
 			</div>
 		</c:forEach>
+	-->
 	</div>
 	<!-- end obj-left -->
 	<!-- begin firefox height hack -->
@@ -155,19 +151,9 @@
 <!-- start feedback form -->
 <pg:feedback id="feedbackDiv" action="cctView.do"/>
 <!-- end feedback form -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-<div id="headerMenu">
-	<div id="headerContainer">
-		<div id="headerTitle" class="floatLeft">
-			<h3 class="headerColor">Step 4b: Evaluate Candidate Packages</h3>
-		</div>
-		<div class="headerButton floatLeft"> <a href="step4.html">4a: Review
-				packages</a> </div>
-		<div class="headerButton floatLeft currentBox"> <a href="step4b.html">4b: Vote</a> </div>
-		<div id="headerNext" class="floatRight box5"> <a href="step4b.html">Next Step</a> </div>
-	</div>
-</div>
-<!-- End header menu -->
+<!-- Start Global Headers  -->
+    <wf:subNav />
+<!-- End Global Headers -->
 <!-- Begin footer -->
 <div id="footer">
 	<jsp:include page="/footer.jsp" />
