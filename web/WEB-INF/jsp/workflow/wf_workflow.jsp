@@ -42,7 +42,8 @@
 										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mHistoryActivity.context.id}&activityId=${gHistory.id}">${gHistoryActivity.title}</a><br />
 										<small>${gHistoryActivity.description}</small>
 									</div>
-									<div class="date">${gHistoryActivity.beginTime} - ${gHistoryActivity.endTime}</div>
+									<div class="date">
+									    ${gHistoryActivity.beginTime} - ${gHistoryActivity.endTime}</div>
 								</pg:show>
 							</c:when>
 							<c:otherwise>

@@ -1,10 +1,11 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 
 <html:html>
 <head>
@@ -42,11 +43,11 @@
             <input type="hidden" name="activity_id" value="${activity.id}" />
             <h3 class="headerColor">${activity.title}</h3>
             <p>
-                <label>Begin Time:</label><input type="text"  id="${activity.id}_begin" name="${activity.id}_begin" value="${activity.beginTime}" /> 
+                <label>Begin Time:</label><input type="text"  id="${activity.id}_begin" name="${activity.id}_begin" value='<fmt:formatDate value="${activity.beginTime}" pattern="MM-dd-yyyy" />' /> 
                 <img alt="Calendar" onclick="new CalendarDateSelect('${activity.id}_begin');" id="_${activity.id}_begin_link" src="/images/calendar.gif" style="cursor: pointer;" />
             </p>
             <p>
-                <label>End Time:</label><input type="text"  name="${activity.id}_end" id="${activity.id}_end" value="${activity.endTime}" /> 
+                <label>End Time:</label><input type="text"  name="${activity.id}_end" id="${activity.id}_end" value='<fmt:formatDate value="${activity.endTime}" pattern="MM-dd-yyyy" />' /> 
                 <img alt="Calendar" onclick="new CalendarDateSelect('${activity.id}_end');" id="_${activity.id}_end_link" src="/images/calendar.gif" style="cursor: pointer;" />
             </p>
         </c:forEach>
