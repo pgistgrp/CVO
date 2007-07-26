@@ -55,7 +55,7 @@ Workflow.prototype.getWorkflows = function(mod) {
 		callback:function(data){
 			if (data.successful){
 				if(!mod && data.runningTotal == 1){
-					location.href="userhome.do?wf="+ data.instanceId;
+					location.href="userhome.do?workflowId="+ data.instanceId;
 				}else{
 					$(thePanel).innerHTML = data.html;
 					if(mod){workflow.getTemplates();}
