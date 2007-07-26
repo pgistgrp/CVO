@@ -43,7 +43,9 @@
 										<small>${gHistoryActivity.description}</small>
 									</div>
 									<div class="date">
-									    ${gHistoryActivity.beginTime} - ${gHistoryActivity.endTime}</div>
+									    <fmt:formatDate value="${gHistoryActivity.beginTime}" pattern="MM/dd" /> - 
+									    <fmt:formatDate value="${gHistoryActivity.endTime}" pattern="MM/dd" />
+                                    </div>
 								</pg:show>
 							</c:when>
 							<c:otherwise>
@@ -52,7 +54,10 @@
 										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mHistoryActivity.context.id}&activityId=${gHistory.id}">${gHistoryActivity.title}</a><br />
 										<small>${gHistoryActivity.description}</small>
 									</div>
-									<div class="date">${gHistoryActivity.beginTime} - ${gHistoryActivity.endTime}</div>
+									<div class="date">
+									    <fmt:formatDate value="${gHistoryActivity.beginTime}" pattern="MM/dd" /> - 
+									    <fmt:formatDate value="${gHistoryActivity.endTime}" pattern="MM/dd" />
+									</div>
 								</pg:show>
 							</c:otherwise>
 						</c:choose>
@@ -86,7 +91,10 @@
 										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActiveHistory.id}">${gActiveHistoryActivity.title}</a><br />
 										<small>${gActiveHistoryActivity.title}</small>
 									</div>
-									<div class="date">${gActiveHistoryActivity.beginTime} - ${gActiveHistoryActivity.endTime}</div>
+									<div class="date">
+									    <fmt:formatDate value="${gActiveHistoryActivity.beginTime}" pattern="MM/dd" /> - 
+									    <fmt:formatDate value="${gActiveHistoryActivity.endTime}" pattern="MM/dd" />
+									</div>
 								</div>
 							</pg:show>
 						</c:when>
@@ -97,7 +105,10 @@
 										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActiveHistory.id}">${gActiveHistoryActivity.title}</a><br />
 										<small>${gActiveHistoryActivity.title}</small>
 									</div>
-									<div class="date">${gActiveHistoryActivity.beginTime} - ${gActiveHistoryActivity.endTime}</div>
+									<div class="date">
+									    <fmt:formatDate value="${gActiveHistoryActivity.beginTime}" pattern="MM/dd" /> - 
+									    <fmt:formatDate value="${gActiveHistoryActivity.endTime}" pattern="MM/dd" />
+									</div>
 								</div>
 							</pg:show>
 						</c:otherwise>
@@ -145,7 +156,10 @@
 									<div class="step disabled">${gActiveFuture.title}<br />
 										<small>${gActiveFuture.description}</small>
 									</div>
-									<div class="date disabled">${gActiveFuture.beginTime} - ${gActiveFuture.endTime}</div>
+									<div class="date disabled">
+									    <fmt:formatDate value="${gActiveFuture.beginTime}" pattern="MM/dd" /> - 
+									    <fmt:formatDate value="${gActiveFuture.endTime}" pattern="MM/dd" />
+									</div>
 								</div>
 							</pg:show>
 						</c:when>
@@ -155,7 +169,10 @@
 									<div class="step disabled">${gActiveFuture.title}<br />
 										<small>${gActiveFuture.description}</small>
 									</div>
-									<div class="date disabled">${gActiveFuture.beginTime} - ${gActiveFuture.endTime}</div>
+									<div class="date disabled">
+									    <fmt:formatDate value="${gActiveFuture.beginTime}" pattern="MM/dd" /> - 
+									    <fmt:formatDate value="${gActiveFuture.endTime}" pattern="MM/dd" />
+									</div>
 								</div>
 							</pg:show>
 						</c:otherwise>
@@ -184,7 +201,10 @@
 									<div class="step disabled">${gFuture.title}<br />
 										<small>${gFuture.description}</small>
 									</div>
-									<div class="date disabled">${gFuture.beginTime} - ${gFuture.endTime}</div>
+									<div class="date disabled">
+									    <fmt:formatDate value="${gFuture.beginTime}" pattern="MM/dd" /> - 
+									    <fmt:formatDate value="${gFuture.endTime}" pattern="MM/dd" />
+									</div>
 								</div>
 							</pg:show>
 						</c:when>
@@ -194,7 +214,10 @@
 									<div class="step disabled">${gFuture.title}<br />
 										<small>${gFuture.description}</small>
 									</div>
-									<div class="date disabled">${gFuture.beginTime} - ${gFuture.endTime}</div>
+									<div class="date disabled">
+									    <fmt:formatDate value="${gFuture.beginTime}" pattern="MM/dd" /> - 
+									    <fmt:formatDate value="${gFuture.endTime}" pattern="MM/dd" />
+									</div>
 								</div>
 							</pg:show>
 						</c:otherwise>

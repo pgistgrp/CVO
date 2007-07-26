@@ -23,7 +23,7 @@ function selectTemplate(){
         callback:function(data){
             if (data.successful){
     			alert("Successful! Redirecting to overview...")
-    			location.href="userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}"
+    			location.href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}"
             }else{
                 alert(data.reason);
             }
