@@ -28,6 +28,9 @@
 <body>
 <div id="container">
     <h1>Agenda Manager</h1>
+    <p>
+       These dates will serve only as a guideline for participants.  They do not affect the flow of the system. 
+    <p>
     <form action="/agendaManager.do" method="POST">
     <input type="hidden" name="workflowId" value="${param.workflowId}" />
     <input type="hidden" name="save" value="true" />
