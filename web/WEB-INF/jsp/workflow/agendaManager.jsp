@@ -27,6 +27,7 @@
 </head>
 <body>
 <div id="container">
+    <p><a href="userhome.do?workflowId=${param.workflowId}">Back to Moderator Control Panel</a></p>
     <h1>Agenda Manager</h1>
     <p>
        These dates will serve only as a guideline for participants.  They do not affect the flow of the system. 

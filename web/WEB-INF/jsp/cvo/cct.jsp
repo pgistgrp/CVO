@@ -303,7 +303,7 @@ var allNewConcernTags = new Array;
 		//alert('cctId:' + cctId + ', concern: ' + concern + ', tags: ' + newConcernSelectedTagsString);
 		//alert(newConcernSelectedTagsString);
 		
-		CCTAgent.saveConcern({cctId:cct.cctId,concern:concern,tags:newConcernSelectedTagsString}, {
+		CCTAgent.saveConcern({cctId:cct.cctId,concern:concern,tags:newConcernSelectedTagsString},<pg:wfinfo/>, {
 			callback:function(data){
 				if (data.successful){
 					getContextConcerns(cct.currentFilter, 0, true, cct.showOnlyMyConcerns, cct.currentSort); 	
@@ -476,7 +476,7 @@ CCTAgent.getConcernById(concernId, {
 function editConcern(concernId){
 	var newConcern = $('editConcern').value;
 	var concernBody = 'discussionText' + concernId;
-	CCTAgent.editConcern({concernId:concernId, concern:newConcern}, {
+	CCTAgent.editConcern({concernId:concernId, concern:newConcern}, <pg:wfinfo/>,{
 		callback:function(data){
 				if (data.successful){
 					getContextConcerns(cct.currentFilter, cct.currentPage, false, cct.showOnlyMyConcerns, cct.currentSort);
@@ -560,7 +560,7 @@ function editTags(concernId){
 	//for (i=0; i<newConcernSelectedTagsArray.length; i++){
 		//newConcernSelectedTagsString += newConcernSelectedTagsArray[i] + ',';	
 	//}
-	CCTAgent.editTags({concernId:concernId, tags:newConcernSelectedTagsString}, {
+	CCTAgent.editTags({concernId:concernId, tags:newConcernSelectedTagsString}, <pg:wfinfo/>,{
 		callback:function(data){
 			if (data.successful){ 
 				getContextConcerns(cct.currentFilter, cct.currentPage, false, false, cct.currentSort);
