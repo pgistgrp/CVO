@@ -474,6 +474,7 @@ public class PackageServiceImpl implements PackageService {
      * @param voteValue
      */
 	public void assignVote(PackageVoteSuite vSuite, User user, ClusteredPackage clusteredPkg, Integer voteValue) throws Exception {
+		
 		PackageUserVote votes = vSuite.getUserVotes().get(clusteredPkg);
 		if(votes == null) {
 			votes = new PackageUserVote();
@@ -489,11 +490,13 @@ public class PackageServiceImpl implements PackageService {
 
 	public void recountVotes(PackageVoteSuite vSuite) throws Exception {
 		//Clear original values
-		Iterator<VoteSuiteStat> iStats = vSuite.getStats().iterator();
+		Set vSuites = vSuite.getStats();
+		vSuite.getStats().clear();
+		Iterator<VoteSuiteStat> iStats = vSuites.iterator();
 		while(iStats.hasNext()) {
 			this.packageDAO.delete(iStats.next());
 		}
-		vSuite.getStats().clear();
+		
 		
 		//For each package, go through and tally up the total votes
 		Iterator<ClusteredPackage> cIter = vSuite.getUserVotes().keySet().iterator();
