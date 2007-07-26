@@ -3,6 +3,10 @@ package org.pgist.report;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.directwebremoting.WebContextFactory;
+
 /**
  * DWR AJAX Agent class.<br>
  * Provide AJAX services to client programs.<br>
@@ -79,7 +83,6 @@ public class ReportAgent {
      * @param a map contains:
      *   <ul>
      *     <li>suiteId - Long report suite id</li>
-     *     <li>userId - sLong, user's id/li>
      *   </ul>
      * 
      * @return a map contains:
@@ -94,23 +97,17 @@ public class ReportAgent {
         map.put("successful", false);
         
         String strSuiteId = (String) params.get("suiteId");
-        String strUserId = (String) params.get("userId");
         
         if (strSuiteId==null || "".equals(strSuiteId.trim())) {
             map.put("reason", "The content of suiteId can't be empty!");
             return map;
         }
-        
-        if (strUserId==null || "".equals(strUserId.trim())) {
-        	map.put("reason", "The content of userId can't be empty!");
-            return map;
-        }
+
 
         try {
         	Long suiteId = Long.parseLong(strSuiteId);
-        	Long userId = Long.parseLong(strUserId);
         	
-        	boolean voted = reportService.getUserVoted(suiteId, userId);
+        	boolean voted = reportService.getUserVoted(suiteId);
         	
             map.put("voted", voted);
             map.put("successful", true);
@@ -136,13 +133,11 @@ public class ReportAgent {
      *     <li>yes - int, yes votes</li>
      *     <li>no - int, no votes</li>
      *     <li>total - int, total votes</li>
-     *     <li>percentyes - int, percent yes</li>
-     *     <li>percentno -int, percent no</li>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map getVoteStats(Map params) {
+    public Map getVoteStats(HttpServletRequest request, Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -157,12 +152,13 @@ public class ReportAgent {
         	Long suiteId = Long.parseLong(strSuiteId);
         	
         	Map voteStats = reportService.getVoteStats(suiteId);
-        	        	
-            map.put("yes", voteStats.get("yes"));
-            map.put("no", voteStats.get("no"));
-            map.put("total", voteStats.get("total"));
-            map.put("percentyes",voteStats.get("percentyes"));
-            map.put("percentno",voteStats.get("percentno"));
+        	
+            request.setAttribute("yes", voteStats.get("yes"));
+            request.setAttribute("no", voteStats.get("no"));
+            request.setAttribute("total", voteStats.get("total"));
+            
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/report/pollresults.jsp"));
+            
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

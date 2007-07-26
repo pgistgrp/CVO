@@ -17,11 +17,22 @@ import org.pgist.packages.UserPackage;
 import org.pgist.packages.VoteSuiteStat;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.system.County;
+import org.pgist.system.SystemService;
 import org.pgist.users.User;
+import org.pgist.criteria.CriteriaSuite;
+import org.pgist.projects.ProjectSuite;
+
 
 
 public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 
+	private SystemService systemService;
+	
+
+	public void setSystemService(SystemService systemService) {
+		this.systemService = systemService;
+	}
+	
 	
 	private static final String hql_getUserStatistics1 = "from User u where u.gender=?"; //Male Female stats
 	private static final String hql_getUserStatistics2 = "from User u where u.age<=? and u.age>="; //Age stats
@@ -44,10 +55,10 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	}
 	
 	
-	public void createConcernStatistics(Long workflowId, Long cctId, Long repoSuiteId) throws Exception {
+	public void createStatsPart1(Long workflowId, Long cctId, Long repoSuiteId) throws Exception {
 		CCT cct = (CCT)load(CCT.class, cctId);
 		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
-		ReportStats rs = repoSuite.getReportStatsConcerns();
+		ReportStats rs = new ReportStats();
 		if(rs==null) {
 			rs = new ReportStats();
 		}
@@ -59,12 +70,12 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		Map<String, Integer> transportSet = new HashMap();	
 		int male = 0;
 		int female = 0;
-		
+		Set<String> incomeRanges = new HashSet<String>();
+		Set<String> transTypes = new HashSet<String>();
 		
 		Set<Concern> concerns = cct.getConcerns();
 		for(Concern c : concerns) {
 			User u = c.getAuthor();
-			
 			
 			//Check if users were already counted
 			if(!users.contains(u)) {
@@ -89,6 +100,8 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				
 				//Income
 				String income = u.getIncomeRange();
+				incomeRanges.add(income);
+				
 				if(income!=null && !("".equals(income.trim()))) {
 					if(incomeSet.get(income)==null) {
 						incomeSet.put(income, 1);
@@ -100,6 +113,8 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				
 				//Primary Transport
 				String transport = u.getPrimaryTransport();
+				transTypes.add(transport);
+				
 				if(transport!=null && !("".equals(transport.trim()))) {
 					if(transportSet.get(transport)==null) {
 						transportSet.put(transport, 1);
@@ -148,24 +163,59 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		rs.setCountyStats(countySet);
 		rs.setIncomeStats(incomeSet);
 		rs.setTransportStats(transportSet);
+		rs.setIncomeRanges(incomeRanges);
+		rs.setTransTypes(transTypes);
+		//Complete: Add counties, incomeranges, transporttypes
+		Collection<County> counties = systemService.getAllCounties();
+		Set<County> sc = new HashSet<County>();
+		sc.addAll(counties);
+		rs.setCounties(sc);
 		
 		rs.setUsers(users);
 		rs.setTotalUsers(totalUsers);
 		save(rs);
-		repoSuite.setReportStatsConcerns(rs);
+		repoSuite.setStatsPart1(rs);
 		save(repoSuite);
 	}
 	
 	
-	public void createPkgStatistics(Long workflowId, Long repoSuiteId, Long pkgSuiteId) throws Exception {
+	public void createStatsPart2(Long workflowId, Long cctId, Long repoSuiteId, Long critSuiteId) throws Exception {
+		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
+		ReportStats rs = new ReportStats();
+		CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
+		int critNum = cs.getReferences().size();
+		
+		rs.setQuanity(critNum);
+		save(rs);
+		save(repoSuite);
+	}
+	
+	
+	public void createStatsPart3(Long workflowId, Long cctId, Long repoSuiteId, Long projSuiteId, Long packSuiteId) throws Exception {
+		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
+		ReportStats rs = new ReportStats();
+		
+		ProjectSuite ps = (ProjectSuite) load(ProjectSuite.class, projSuiteId);
+		int projectNum = ps.getReferences().size(); //save this number
+		rs.setQuanity(projectNum);
+		
+		PackageSuite pkgSuite = (PackageSuite) load(PackageSuite.class, packSuiteId); 
+		int userNumCompleted = pkgSuite.getUserPkgs().size(); //save this number
+		rs.setUserCompleted(userNumCompleted);
+		
+		save(rs);
+		repoSuite.setStatsPart3(rs);
+		save(repoSuite);
+	}
+	
+	
+	public void createStatsPart4(Long workflowId, Long repoSuiteId, Long pkgSuiteId) throws Exception {
 		PackageSuite pkgSuite = (PackageSuite) load(PackageSuite.class, pkgSuiteId); 
 		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
-		ReportStats rs = repoSuite.getReportStatsEval();
+		ReportStats rs = new ReportStats();
 		if(rs==null) {
 			rs = new ReportStats();
 		}
-		
-		System.out.println("****" + rs);
 		
 		//Variables to store stats
 		Set<User> users = new HashSet();
@@ -174,8 +224,12 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		Map<String, Integer> transportSet = new HashMap();	
 		int male = 0;
 		int female = 0;
+		Set<String> incomeRanges = new HashSet<String>();
+		Set<String> transTypes = new HashSet<String>();
+		int totalPackages = 0;
 		
 		Set<UserPackage> packages = pkgSuite.getUserPkgs();
+		totalPackages = packages.size();
 		for(UserPackage up : packages) {
 			User u = up.getAuthor();
 			
@@ -202,6 +256,8 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				
 				//Income
 				String income = u.getIncomeRange();
+				incomeRanges.add(income);
+				
 				if(income!=null && !("".equals(income.trim()))) {
 					if(incomeSet.get(income)==null) {
 						incomeSet.put(income, 1);
@@ -213,6 +269,8 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				
 				//Primary Transport
 				String transport = u.getPrimaryTransport();
+				transTypes.add(transport);
+				
 				if(transport!=null && !("".equals(transport.trim()))) {
 					if(transportSet.get(transport)==null) {
 						transportSet.put(transport, 1);
@@ -261,11 +319,81 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		rs.setCountyStats(countySet);
 		rs.setIncomeStats(incomeSet);
 		rs.setTransportStats(transportSet);
+		rs.setIncomeRanges(incomeRanges);
+		rs.setTransTypes(transTypes);
+		rs.setTotalPackages(totalPackages);
 		
 		rs.setUsers(users);
 		rs.setTotalUsers(totalUsers);
 		save(rs);
-		repoSuite.setReportStatsEval(rs);
+		repoSuite.setStatsPart4(rs);
+		save(repoSuite);
+	}
+	
+	
+	public void createStatsES(Long workflowId, Long repoSuiteId, Long packSuiteId) throws Exception {
+		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
+		ReportStats rs = new ReportStats();
+		
+		ReportStats report1 = repoSuite.getStatsPart1();
+		ReportStats report4 = repoSuite.getStatsPart4();
+		
+		HashSet allUsers = new HashSet();
+		Set<User> users1 = report1.getUsers();
+		Set<User> users2 = report4.getUsers();
+		allUsers.addAll(users1);
+		allUsers.addAll(users2);
+		
+		int allUserNum = allUsers.size();
+		
+		
+		rs.setTotalUsers(allUserNum);
+		
+		PackageSuite ps = (PackageSuite) load(PackageSuite.class, packSuiteId);
+		Set pkgVoteSuites = ps.getVoteSuites();
+		
+		//test code
+		System.out.println("Step5: # of PackageVoteSuites: " + pkgVoteSuites.size());
+		
+		Iterator it = pkgVoteSuites.iterator();
+		
+		PackageVoteSuite pvs = (PackageVoteSuite) it.next();
+		
+		Set voteStats = pvs.getStats();
+		
+		int high = -1;
+		int percentHighVote = -1;
+		int totalVotes = -1;
+		ClusteredPackage preferredPackage = null;
+		
+		
+		Iterator itVotes = voteStats.iterator();
+		while(itVotes.hasNext()) {
+			VoteSuiteStat vss = (VoteSuiteStat) it.next();
+			int pHigh = vss.getHighVotePercent();
+			int pMid = vss.getMediumVotePercent();
+			int composite = pHigh + pMid;
+			
+			
+			if(composite > high) {
+				preferredPackage = vss.getClusteredPackage();
+				high = composite;
+				percentHighVote = pHigh;
+				totalVotes = vss.getTotalVotes();
+			}
+		}
+
+		
+		int totalCost = (int) preferredPackage.getTotalCost();
+		int numEndorsed = totalVotes * (high-100);
+		
+		//save
+		rs.setNumEndorsed(numEndorsed);
+		rs.setTotalCost(totalCost);
+		rs.setTotalPorjects(preferredPackage.getFundAltRefs().size());
+		rs.setPreferredPackage(preferredPackage);
+		save(rs);
+		repoSuite.setStatsES(rs);
 		save(repoSuite);
 	}
 	
@@ -316,16 +444,19 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	}
 	
 	
-	public void editReportSummary(Long reportSummaryId, String executiveSummary, String participantsSummary, String concernSummary, String criteriaSummary, String projectSummary, String packageSummary, boolean finalized) throws Exception {
+	public void editReportSummary(Long reportSummaryId, String executiveSummary, String part1a, String part1b, String part2a, String part3a, String part4a, boolean finalized, String finalVoteDate, String finalReportDate) throws Exception {
 		ReportSummary rSummary = (ReportSummary) load(ReportSummary.class, reportSummaryId);
 		
 		rSummary.setExecutiveSummary(executiveSummary);
-	 	rSummary.setParticipantsSummary(participantsSummary);
-	 	rSummary.setConcernSummary(concernSummary);
-	 	rSummary.setCriteriaSummary(criteriaSummary);
-	 	rSummary.setProjectSummary(projectSummary);
-	 	rSummary.setPackageSummary(packageSummary);
+	 	rSummary.setPart1a(part1a);
+	 	rSummary.setPart1b(part1b);
+	 	rSummary.setPart2a(part2a);
+	 	rSummary.setPart3a(part3a);
+	 	rSummary.setPart4a(part4a);
+	 	
 	 	rSummary.setFinalized(finalized);
+	 	rSummary.setFinalVoteDate(finalVoteDate);
+	 	rSummary.setFinalReportDate(finalReportDate);
 	 	
 	 	save(rSummary);
 	}
@@ -336,10 +467,8 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		save(rSuite);
 		ReportSummary rSummary = new ReportSummary();
 		save(rSummary);
-		ReportStats rStats = new ReportStats();
-		save(rStats);
+
 		
-		rSuite.setReportStatsConcerns(rStats);
 		rSuite.setReportSummary(rSummary);
 		save(rSuite);
 				
@@ -351,14 +480,28 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		User user = (User) load(User.class, userId);
 		ReportSuite rs = (ReportSuite) load(ReportSuite.class, suiteId);
 		
-		ReportVote reportVote = new ReportVote();
 		
-		reportVote.setOwner(user);
-		reportVote.setVoting(vote);
-		save(reportVote);
 		
-		rs.getVotes().add(reportVote);
-		save(rs);
+		boolean save = true;
+		Set votes = rs.getVotes();
+		Iterator it = votes.iterator();
+		while(it.hasNext()) {
+			ReportVote rv = (ReportVote) it.next();
+			if(rv.getOwner()==user) {
+				save = false;
+			}
+		}
+		
+		if(save){
+			ReportVote reportVote = new ReportVote();
+			
+			reportVote.setOwner(user);
+			reportVote.setVoting(vote);
+			
+			save(reportVote);
+			rs.getVotes().add(reportVote);
+			save(rs);
+		}
 	}
 	
 	
@@ -397,10 +540,10 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		map.put("yes", yes);
 		map.put("total", total);
 		map.put("no", total-yes);
-		map.put("percentyes", yes/total);
-		map.put("percentno", (total-yes)/total);
 		
 		return map;
 	}
+
+
 	
 }

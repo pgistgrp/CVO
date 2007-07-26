@@ -8,9 +8,15 @@ import org.pgist.system.BaseDAO;
 
 public interface ReportDAO extends BaseDAO {
 
-	void createConcernStatistics(Long workflowId, Long cctId, Long repoSuiteId) throws Exception;
+	void createStatsPart1(Long workflowId, Long cctId, Long repoSuiteId) throws Exception;
 	
-	void createPkgStatistics(Long workflowId, Long repoSuiteId, Long packSuiteId) throws Exception;
+	void createStatsPart2(Long workflowId, Long cctId, Long repoSuiteId, Long critSuiteId) throws Exception;
+	
+	void createStatsPart3(Long workflowId, Long cctId, Long repoSuiteId, Long projSuiteId, Long packSuiteId) throws Exception;
+	
+	void createStatsPart4(Long workflowId, Long repoSuiteId, Long packSuiteId) throws Exception;
+	
+	void createStatsES(Long workflowId, Long cctId, Long repoSuiteId) throws Exception;
 	
 	ClusteredPackage getPreferredClusteredPackage(Long pkgSuiteId) throws Exception;
 	
@@ -18,7 +24,7 @@ public interface ReportDAO extends BaseDAO {
 	
 	ReportSuite getReportSuiteById(Long id) throws Exception;
 	
-	void editReportSummary(Long reportSummaryId, String executiveSummary, String participantsSummary, String concernSummary, String criteriaSummary, String projectSummary, String packageSummary, boolean finalized) throws Exception;
+	void editReportSummary(Long reportSummaryId, String executiveSummary, String part1a, String part1b, String part2a, String part3a, String part4a, boolean finalized, String finalVoteDate, String finalReportDate) throws Exception;
 	
 	ReportSuite createReportSuite() throws Exception;
 	 

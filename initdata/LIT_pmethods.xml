@@ -429,11 +429,12 @@
         <pmethod name="pmethod-report" description="Step 5: Prepare Group Report">
             <declaration>
                 <ins>
-                    <var name="pmethod.pkg_suite_id"/>
-                    <!-- <var name="pmethod.proj_suite_id"/>
+                    <!-- 
                     <var name="pmethod.fund_suite_id"/>
                     <var name="pmethod.proj_isid"/>
                     <var name="pmethod.fund_isid"/>-->
+                    <var name="pmethod.pkg_suite_id"/>
+                    <var name="pmethod.proj_suite_id"/>
                     <var name="pmethod.crit_suite_id"/>
                     <var name="pmethod.cct_id"/>                     
                     <var name="pmethod.repo_suite_id"/>
@@ -447,6 +448,8 @@
                 <pgame name="pgame-create.report.stats">
                     <declaration>
                         <ins>
+                            <var name="proj_suite_id" ref="pmethod.proj_suite_id"/>
+                            <var name="crit_suite_id" ref="pmethod.crit_suite_id"/>
                             <var name="pkg_suite_id" ref="pmethod.pkg_suite_id"/>
                             <var name="repo_suite_id" ref="pmethod.repo_suite_id"/>
                             <var name="cct_id" ref="pmethod.cct_id"/>   

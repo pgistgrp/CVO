@@ -30,6 +30,55 @@
 </style>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script type='text/javascript' src='/dwr/interface/ReportAgent.js'></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/util.js'></script>
+
+<script type="text/javascript" charset="utf-8">
+function vote(vote) {
+	ReportAgent.createReportVote({suiteId:${repoSuiteId}, vote:vote});
+	setTimeout("checkvoted()",100);
+}
+
+function checkvoted() {
+	 ReportAgent.getUserVoted({suiteId:${repoSuiteId}}, {
+		callback:function(data){
+			if (data.voted){
+				hide('votingBox');
+				hide('pollresults');
+				pollresults();
+			}else{
+					
+			}
+		},
+		
+	});
+}
+
+function hide(divid){
+	if(document.getElementById(divid).style.display!="none") {
+		document.getElementById(divid).style.display="none";
+	} else {
+		document.getElementById(divid).style.display="block";
+	}
+}
+
+function pollresults() {
+		 ReportAgent.getVoteStats({suiteId:${repoSuiteId}}, {
+		callback:function(data){
+			if (data.successful){
+				$('pollresults').innerHTML = data.html;
+				
+			}else{
+				$('pollresults').innerHTML = "<b>Error in ReportAgent.getVoteStats Method: </b>" + data.reason; 
+			}
+		},
+		errorHandler:function(errorString, exception){ 
+		alert("ReportAgent.getVoteStats( error:" + errorString + exception);
+		}
+	});
+}
+</script>
 </head>
 <body>
 	
@@ -51,28 +100,58 @@
 	
 
 <div id="container">
-	<h1 style="text-align:center">Let's Improve Transportation Final Report (DRAFT)</h1>
-	<div id="votingBox" class="box6 clearfix">
-		<h3>Please respond to this endorsement vote by <strong>midnight Thursday, November 2</strong></h3>
-		<div class="left">
-			This final report will be made public on Thursday, November 3<br/>
-		</div>
-		<div class="right">
-			<p>Do you wish to endorse the Let's Improve Transportation Final Report?</p>
-			<input type="button" value="Yes" /> <input type="button" value="No" />
-		</div>		
-	</div>
+	<c:choose>
+			<c:when test='${finalized == "true"}'>
+				<h1 style="text-align:center">Let's Improve Transportation Final Report</h1>
+				<c:choose>
+					<c:when test='${finalized == "true"}'>
+						<div id="votingBox" class="box6 clearfix">
+							<h3>Please respond to this endorsement vote by <strong>${reportVoteDate}</strong></h3>
+							<div class="left">
+								This final report will be made public on ${finalReportDate}<br/>
+							</div>
+						  <div class="right">
+								<p>Do you wish to endorse the Let's Improve Transportation Final Report?</p>
+								<input name="yes" id="yes" type="button" value="yes" onClick="javascript:vote('yes');" /> <input name="no" id="no" type="button" value="no" onClick="javascript:vote('no');" />
+							</div>		
+						</div>
+						<!--hidden poll results -->
+						<div id="pollresults" class="box6 clearfix" style="display:none;">
+							<h3>Poll Results</h3>
+							<div class="left">
+								Text Here<br/>
+							</div>
+						  <div class="right">
+								<p>Text Here</p>
+							</div>		
+						</div>
+						
+					</c:when>
+					<c:otherwise>
+					</c:otherwise>
+				</c:choose>
+			</c:when>
+			<c:otherwise>
+				<h1 style="text-align:center">Let's Improve Transportation DRAFT Report</h1>
+			</c:otherwise>
+	</c:choose>
+	
+	
 	<div id="executiveSummary" class="box3 padding5 section peekaboobugfix">
 		<h3 class="headingColor padding5 centerAlign">Executive Summary</h3>
-		<p>298 residents of King, Pierce, and Snohomish county worked together online over
+		<p>${statsES.totalUsers} residents of King, Pierce, and Snohomish county worked together online over
 			the course of 5 weeks to learn about transportation problems in our region, discuss
 			their own concerns, and create a package of transportation projects and funding
-			sources to address our transportation needs. On November 2, 2007 they released
+			sources to address our transportation needs. On ${finalReportDate} they released
 			the results of their efforts.</p>
-		<p>The package contains 32 road and transit projects across the 3 county region.
+		<p>The package contains ${statsES.totalProjects} road and transit projects across the 3 county region.
 			It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
-			fees. The total cost of the package is $16 billion. The package was endorsed by
-			81% of the participants (256 our of 298 participating).</p>
+			fees. The total cost of the package is $${statsES.totalCost} billion. The package was endorsed by
+			<c:set var="totalVotes" value="${statsES.totalVotes}"/>
+			<c:set var="percentyes" value="${statsES.numEndorsed/totalVotes*100}"/>
+			<fmt:formatNumber maxFractionDigits="0" value="${percentyes}"/>
+			% of the participants (${statsES.numEndorsed} our of ${statsES.totalVotes} participating).</p>
+		<p>${executiveSummary}</p>
 		<div class="floatLeft" style="margin:0em 2em"><strong>This report includes 4 sections:</strong>
 			<ol>
 				<li><a href="#participants">The participants and their concerns about transportation</a></li>
@@ -92,16 +171,30 @@
 	<div id="participants" class="box3 padding5 section">
 		<h3 class="headingColor padding5 centerAlign">1. The participants and their concerns
 			about transportation</h3>
-		<p>298 residents of King, Pierce, and Snohomish counties participated in the Letís
+		<p>298 residents of King, Pierce, and Snohomish counties participated in the Let's
 			Improve Transportation challenge. Here is some more information about the participants:</p>
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr class="odd">
 				<td><strong>Gender:</strong></td>
-				<td>55% male, 45% female</td>
+				<td>${concernStats.males}% male, ${concernStats.females}% female</td>
 			</tr>
 			<tr>
 				<td><strong>County of residence:</strong></td>
-				<td>44% King, 23% Pierce, 23% Snohomish</td>
+				<td>
+				<!-- display counties -->
+				<c:choose>	
+					<c:when test="${fn:length(concernStats.counties) == 0}">
+						<p>No Counties Available</p>
+					</c:when>
+					<c:otherwise>
+
+					<c:forEach var="county" items="${concernStats.counties}" varStatus="loop">
+						${concernStats.countyStats[county].name} ${county.name},
+					</c:forEach>
+					</c:otherwise>
+				</c:choose>
+	
+		</td>
 			</tr>
 			<tr class="odd">
 				<td><strong>Primary mode of transportation (daily commute):</strong></td>
@@ -119,11 +212,9 @@
 			</tr>
 		</table>
 		<br />
+		<p>${part1a}</p>
 		<h3>Concerns expressed by participants</h3>
-		<p>The first step of the Letís Improve Transportation challenge was brainstorming
-			concerns about the regional transportation system. The following summaries of
-			concern themes were synthesized by the moderator using a computer-assisted process
-			and then revised based on participant feedback.</p>
+		<p>${part1b}</p>
 		<blockquote>
 			<c:forEach var="theme" items="${summaries}" varStatus="loop">
 				<h4>${theme.title}</h4>
@@ -145,10 +236,7 @@
 			the scoring process. These scores, in turn, were used by participants in their
 			effort to evaluate the benefits or drawbacks of the proposed transportation projects
 			(see <a href="#projects">following section</a> for details).</p>
-		<p>Participants were given the opportunity to weight the planning factors based
-			on their individual preferences by distributing 100 total points among the 10
-			factors. The following table displays information about the planning factors and
-			participant weight preferences.</p>
+		<p>${part2a}</p>
 		<div id="criteria" class="box3 floatLeft">
 			<!-- START All Criteria List -->
 			<div id="allCriteriaList">
@@ -198,6 +286,8 @@
 			tabulated the results of participant project and funding source selection below.
 			Note: only 212 of the total 298 participants completed this step. The percentages
 			below refer to the percent of participants who completed this step.</p>
+			
+			<p>${part3a}</p>
 		<table cellpadding=0 cellspacing=0>
 			<tr class="tableHeading">
 				<th class="col1">Project</th>
@@ -276,9 +366,7 @@
 			in Step 3 (this process is described in Appendix B). Participants reviewed these
 			five packages as well as the ìRTIDî package that will appear on the ballot on
 			November 8, 2007.</p>
-		<p>Participants votes twice regarding their willingness to endorse each of the
-			six different packages, first a poll after a preliminary discussion, and then
-			a final vote after additional discussion in light of poll results...</p>
+		<p>${part4a}</p>
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr class="odd">
 				<td><strong>Gender:</strong></td>
@@ -705,7 +793,9 @@
 		</div>
 		</c:forEach>
 		
-	
+	<script type="text/javascript">
+	checkvoted();
+	</script>
 	<!-- End Appendix C -->
 </body>
 </html:html>

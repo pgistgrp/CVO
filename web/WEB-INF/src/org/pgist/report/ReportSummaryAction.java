@@ -48,14 +48,18 @@ public class ReportSummaryAction extends Action  {
 		 	
 		 	//get variables
 		 	String executiveSummary = rForm.getExecutiveSummary();
-		 	String participantsSummary = rForm.getParticipantsSummary();
-		 	String concernSummary = rForm.getConcernSummary();
-		 	String criteriaSummary = rForm.getCriteriaSummary();
-		 	String projectSummary = rForm.getProjectSummary();
-		 	String packageSummary = rForm.getPackageSummary();
+		 	String part1a = rForm.getPart1a();
+		 	String part1b = rForm.getPart1b();
+		 	String part2a = rForm.getPart2a();
+		 	String part3a = rForm.getPart3a();
+		 	String part4a = rForm.getPart4a();
+		 	
+		 		
+		 	String finalVoteDate = rForm.getFinalVoteDate();
+		 	String finalReportDate = rForm.getFinalReportDate();
 		 	boolean finalized = rForm.isFinalized();
 		 	
-		 	reportService.editReportSummary(rSummary.getId(), executiveSummary, participantsSummary, concernSummary, criteriaSummary, projectSummary, packageSummary, finalized);
+		 	reportService.editReportSummary(rSummary.getId(), executiveSummary, part1a, part1b, part2a, part3a, part4a, finalized, finalVoteDate, finalReportDate);
 		 	//reportService.createReportSuite();
 		 	rForm.setReason("Changes have been updated.");
 	    	

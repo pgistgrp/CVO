@@ -52,8 +52,8 @@ public class ReportAction extends Action {
 	private CCTService cctService;
 	private CSTService cstService;
 	private CriteriaService criteriaService;
-	private SystemService systemService;
 	private PackageService packageService;
+	private SystemService systemService;
 	
 
 	public void setReportService(ReportService reportService) {
@@ -76,6 +76,12 @@ public class ReportAction extends Action {
 	public void setPackageService(PackageService packageService) {
 		this.packageService = packageService;
 	}
+	
+	
+	public void setSystemService(SystemService systemService) {
+		this.systemService = systemService;
+	}
+
 	
     public ActionForward execute(
             ActionMapping mapping,
@@ -163,26 +169,32 @@ public class ReportAction extends Action {
     	request.setAttribute("cp", cp);
     	request.setAttribute("pp", pp);
     	request.setAttribute("vss", vss);
-    	request.setAttribute("concernSummary", repoSummary.getConcernSummary());
-    	request.setAttribute("criteriaSummary", repoSummary.getCriteriaSummary());
+    	
     	request.setAttribute("executiveSummary", repoSummary.getExecutiveSummary());
-    	request.setAttribute("packageSummary", repoSummary.getPackageSummary());
-    	request.setAttribute("participantsSummary", repoSummary.getParticipantsSummary());
-    	request.setAttribute("projectSummary", repoSummary.getProjectSummary());
+    	request.setAttribute("part1a", repoSummary.getPart1a());
+    	request.setAttribute("part1b", repoSummary.getPart1b());
+    	request.setAttribute("part2a", repoSummary.getPart2a());
+    	request.setAttribute("part3a", repoSummary.getPart3a());
+    	request.setAttribute("part4a", repoSummary.getPart4a());
+    	
     	request.setAttribute("critSuiteId", critSuiteId);
     	request.setAttribute("cctId", cctId);
     	request.setAttribute("packSuiteId", packSuiteId);
     	request.setAttribute("finalized", repoSummary.isFinalized());
-    	request.setAttribute("concernStats", rs.getReportStatsConcerns());
-    	request.setAttribute("evalStats", rs.getReportStatsEval());
+    	
+    	request.setAttribute("statsES", rs.getStatsES());
+    	request.setAttribute("statsPart1", rs.getStatsPart1());
+    	request.setAttribute("statsPart2", rs.getStatsPart2());
+    	request.setAttribute("statsPart3", rs.getStatsPart3());
+    	request.setAttribute("statsPart4", rs.getStatsPart4());
+    	
+    	request.setAttribute("finalReportDate", repoSummary.getFinalReportDate());
+    	request.setAttribute("reportVoteDate", repoSummary.getFinalVoteDate());
+    	request.setAttribute("repoSuiteId", repoSuiteId);
     	request.setAttribute("counties", systemService.getAllCounties());
     	
         return mapping.findForward("report");
     }//execute()
-
-	public void setSystemService(SystemService systemService) {
-		this.systemService = systemService;
-	}
 
 
 

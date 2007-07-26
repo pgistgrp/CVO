@@ -57,7 +57,7 @@ padding:15px 10px 10px 10px;
 		<script type='text/javascript' src='/dwr/engine.js'></script>
 		<script type='text/javascript' src='/dwr/util.js'></script>
 		<script type='text/javascript' src='/dwr/interface/SystemAgent.js'></script>
-		<script type="text/javascript" charset="utf-8">
+<script type="text/javascript" charset="utf-8">
 window.onLoad = doOnLoad();
 		
 function doOnLoad(){

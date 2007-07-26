@@ -30,9 +30,12 @@ public class ReportServiceImpl implements ReportService{
 	}
 	
 	
-	public void createStatistics(Long workflowId, Long cctId, Long repoSuiteId, Long packSuiteId) throws Exception {
-		reportDAO.createPkgStatistics(workflowId, repoSuiteId, packSuiteId);
-		reportDAO.createConcernStatistics(workflowId, cctId, repoSuiteId);
+	public void createStatistics(Long workflowId, Long cctId, Long repoSuiteId, Long packSuiteId, Long critSuiteId, Long projSuiteId) throws Exception {
+		reportDAO.createStatsPart1(workflowId, cctId, repoSuiteId);
+		reportDAO.createStatsPart2(workflowId, cctId, repoSuiteId, critSuiteId);
+		reportDAO.createStatsPart3(workflowId, cctId, repoSuiteId, projSuiteId, packSuiteId);
+		reportDAO.createStatsPart4(workflowId, repoSuiteId, packSuiteId);
+		reportDAO.createStatsES(workflowId, repoSuiteId, packSuiteId); // Must be ran last
 	}
 	
 	
@@ -51,8 +54,8 @@ public class ReportServiceImpl implements ReportService{
 	}
 	
 	
-	public void editReportSummary(Long reportSummaryId, String executiveSummary, String participantsSummary, String concernSummary, String criteriaSummary, String projectSummary, String packageSummary, boolean finalized) throws Exception {
-		reportDAO.editReportSummary(reportSummaryId, executiveSummary, participantsSummary, concernSummary, criteriaSummary, projectSummary, packageSummary, finalized);
+	public void editReportSummary(Long reportSummaryId, String executiveSummary, String part1a, String part1b, String part2a, String part3a, String part4a, boolean finalized, String finalVoteDate, String finalReportDate) throws Exception {
+		reportDAO.editReportSummary(reportSummaryId, executiveSummary, part1a, part1b, part2a, part3a, part4a, finalized, finalVoteDate, finalReportDate);
 	}
 	
 	
@@ -100,7 +103,8 @@ public class ReportServiceImpl implements ReportService{
 	 }
 	
 	 
-	 public boolean getUserVoted(Long suiteId, Long userId) throws Exception {
+	 public boolean getUserVoted(Long suiteId) throws Exception {
+		 Long userId = WebUtils.currentUserId();
 		 return reportDAO.getUserVoted(suiteId, userId);
 	 }
 	 

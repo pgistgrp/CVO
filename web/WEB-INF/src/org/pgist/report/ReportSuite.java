@@ -20,9 +20,15 @@ public class ReportSuite implements Serializable{
 	
 	private ReportSummary reportSummary;
 	
-	private ReportStats reportStatsConcerns;
-
-	private ReportStats reportStatsEval;
+	private ReportStats statsES;
+	
+	private ReportStats statsPart1;
+	
+	private ReportStats statsPart2;
+	
+	private ReportStats statsPart3;
+	
+	private ReportStats statsPart4;
 	
 	private Set<ReportVote> votes;
 	
@@ -40,20 +46,6 @@ public class ReportSuite implements Serializable{
 		this.id = id;
 	}
 
-	
-    /**
-     * @return
-     * 
-     * @hibernate.many-to-one column="reportstatsconcerns_id" cascade="all"
-     */
-	public ReportStats getReportStatsConcerns() {
-		return reportStatsConcerns;
-	}
-
-	
-	public void setReportStatsConcerns(ReportStats reportStatsConcerns) {
-		this.reportStatsConcerns = reportStatsConcerns;
-	}
 
     /**
      * @return
@@ -70,20 +62,6 @@ public class ReportSuite implements Serializable{
 	}
 
 
-    /**
-     * @return
-     * 
-     * @hibernate.many-to-one column="reportstatseval_id" cascade="all"
-     */
-	public ReportStats getReportStatsEval() {
-		return reportStatsEval;
-	}
-
-
-	public void setReportStatsEval(ReportStats reportStatsEval) {
-		this.reportStatsEval = reportStatsEval;
-	}
-
 
     /**
      * @return
@@ -99,6 +77,81 @@ public class ReportSuite implements Serializable{
 
 	public void setVotes(Set<ReportVote> votes) {
 		this.votes = votes;
+	}
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="reportstats_part_1" cascade="all"
+     */
+	public ReportStats getStatsPart1() {
+		return statsPart1;
+	}
+
+
+	public void setStatsPart1(ReportStats statsPart1) {
+		this.statsPart1 = statsPart1;
+	}
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="reportstats_part_2" cascade="all"
+     */
+	public ReportStats getStatsPart2() {
+		return statsPart2;
+	}
+
+
+	public void setStatsPart2(ReportStats statsPart2) {
+		this.statsPart2 = statsPart2;
+	}
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="reportstats_part_3" cascade="all"
+     */
+	public ReportStats getStatsPart3() {
+		return statsPart3;
+	}
+
+
+	public void setStatsPart3(ReportStats statsPart3) {
+		this.statsPart3 = statsPart3;
+	}
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="reportstats_part_4" cascade="all"
+     */
+	public ReportStats getStatsPart4() {
+		return statsPart4;
+	}
+
+
+	public void setStatsPart4(ReportStats statsPart4) {
+		this.statsPart4 = statsPart4;
+	}
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="reportstats_es" cascade="all"
+     */
+	public ReportStats getStatsES() {
+		return statsES;
+	}
+
+
+	public void setStatsES(ReportStats statsES) {
+		this.statsES = statsES;
 	}
 	
 	

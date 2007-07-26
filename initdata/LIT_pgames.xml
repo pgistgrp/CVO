@@ -500,6 +500,8 @@
                 <var name="cct_id"/>           
                 <var name="repo_suite_id"/>
                 <var name="pkg_suite_id"/>
+                <var name="crit_suite_id"/>
+                <var name="proj_suite_id"/>
             </ins>
             </declaration>
         </pgame>
@@ -529,7 +531,7 @@
             <outs>
                 <var name="is_id"/>
             </outs>
-            <props>
+                    <props>
                         <property name="title" value="Step 5: Prepare Group Report" />
                     </props>
             </declaration>
@@ -545,7 +547,7 @@
                 <var name="isid"/>
                 <var name="cct_id"/>
                 <var name="critSuiteId"/>
-                    <var name="pkgSuiteId"/>
+                <var name="pkgSuiteId"/>
                 <var name="repoSuiteId"/>
             </ins>
             </declaration>
@@ -560,7 +562,7 @@
             <ins>
                 <var name="cct_id"/>
                 <var name="critSuiteId"/>
-                    <var name="pkgSuiteId"/>
+                <var name="pkgSuiteId"/>
                 <var name="repoSuiteId"/>
             </ins>
             </declaration>

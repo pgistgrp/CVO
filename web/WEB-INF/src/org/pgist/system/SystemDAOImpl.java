@@ -298,5 +298,6 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     	return getHibernateTemplate().find(hql_getAnnouncements, workflowId);
     }
     
+
     
 }//class SystemDAOImpl

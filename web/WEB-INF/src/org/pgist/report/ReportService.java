@@ -9,7 +9,7 @@ import org.pgist.packages.ClusteredPackage;
 public interface ReportService {
 
 	
-	void createStatistics(Long workflowId, Long cctId, Long repoSuiteId, Long packSuiteId) throws Exception;
+	void createStatistics(Long workflowId, Long cctId, Long repoSuiteId, Long packSuiteId, Long critSuiteId, Long projSuiteId) throws Exception;
 	
 	ClusteredPackage getPreferredClusteredPackage(Long pkgSuiteId) throws Exception;
 	
@@ -17,7 +17,7 @@ public interface ReportService {
 	
 	ReportSuite getReportSuiteById(Long id) throws Exception;
 	
-	void editReportSummary(Long reportSummaryId, String executiveSummary, String participantsSummary, String concernSummary, String criteriaSummary, String projectSummary, String packageSummary, boolean finalized) throws Exception;
+	void editReportSummary(Long reportSummaryId, String executiveSummary, String part1a, String part1b, String part2a, String part3a, String part4a, boolean finalized, String finalVoteDate, String finalReportDate) throws Exception;
 	
 	ReportSuite createReportSuite() throws Exception;
 	
@@ -25,7 +25,7 @@ public interface ReportService {
 	
 	void createReportVote(Long suiteId, boolean vote) throws Exception;
 	
-	boolean getUserVoted(Long suiteId, Long userId) throws Exception;
+	boolean getUserVoted(Long suiteId) throws Exception;
 	
 	Map getVoteStats(Long suiteId) throws Exception;
 	

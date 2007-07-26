@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.pgist.system.County;
 import org.pgist.users.User;
+import org.pgist.packages.ClusteredPackage;
 
 /**
  * <span style="color:red;">POJO</span>: PGIST Announcement Class<br>
@@ -23,13 +24,19 @@ public class ReportStats implements Serializable{
 
 	private Long id;
 	
-	private Long workflowId;
+	private Long workflowId; //not used, delete later
 	
 	private int totalUsers;
 	
 	private int males;
 	
 	private int females;
+	
+	private Set<County> counties = new HashSet<County>();
+	
+	private Set<String> incomeRanges = new HashSet<String>();
+	
+	private Set<String> transTypes = new HashSet<String>();
 	 
 	private Map<County, Integer> countyStats = new HashMap<County, Integer>();
 	
@@ -39,8 +46,117 @@ public class ReportStats implements Serializable{
 	
 	private Set<User> users = new HashSet<User>();
 	
+	private int totalPackages;
 	
-    /**
+	private int userCompleted;
+	
+	private int quanity;
+	
+	private ClusteredPackage preferredPackage;
+
+	private int totalVotes;
+	
+	private int numEndorsed;
+	
+	private int totalCost;
+	
+	//# of projects inside the preferred package
+	private int totalPorjects; 
+	
+	
+	/**
+     * @hibernate.property not-null="false"
+     */
+	public int getTotalPorjects() {
+		return totalPorjects;
+	}
+
+
+	public void setTotalPorjects(int totalPorjects) {
+		this.totalPorjects = totalPorjects;
+	}
+
+
+	/**
+     * @hibernate.property not-null="false"
+     */
+	public int getNumEndorsed() {
+		return numEndorsed;
+	}
+
+
+	public void setNumEndorsed(int numEndorsed) {
+		this.numEndorsed = numEndorsed;
+	}
+
+
+	/**
+     * @hibernate.property not-null="false"
+     */
+	public int getTotalCost() {
+		return totalCost;
+	}
+
+
+	public void setTotalCost(int totalCost) {
+		this.totalCost = totalCost;
+	}
+
+
+	/**
+     * @hibernate.property not-null="false"
+     */
+	public int getTotalVotes() {
+		return totalVotes;
+	}
+
+
+	public void setTotalVotes(int totalVotes) {
+		this.totalVotes = totalVotes;
+	}
+
+
+	/**
+	 * @return the clusteredPackage
+     * @hibernate.many-to-one column="clustered_pkg_id" cascade="all" class="org.pgist.packages.ClusteredPackage"
+	 */
+	public ClusteredPackage getPreferredPackage() {
+		return preferredPackage;
+	}
+
+
+	public void setPreferredPackage(ClusteredPackage preferredPackage) {
+		this.preferredPackage = preferredPackage;
+	}
+
+
+	/**
+     * @hibernate.property not-null="false"
+     */
+	public int getQuanity() {
+		return quanity;
+	}
+
+
+	public void setQuanity(int quanity) {
+		this.quanity = quanity;
+	}
+
+
+	/**
+     * @hibernate.property not-null="false"
+     */
+	public int getUserCompleted() {
+		return userCompleted;
+	}
+
+
+	public void setUserCompleted(int userCompleted) {
+		this.userCompleted = userCompleted;
+	}
+
+
+	/**
      * @return
      * 
      * @hibernate.set lazy="true" cascade="all" order-by="id"
@@ -176,7 +292,67 @@ public class ReportStats implements Serializable{
 	public void setWorkflowId(Long workflowId) {
 		this.workflowId = workflowId;
 	}
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.set lazy="true" cascade="all" order-by="id"
+     * @hibernate.collection-key column="reportstats_id"
+     * @hibernate.collection-one-to-many class="org.pgist.system.County"
+     */
+	public Set<County> getCounties() {
+		return counties;
+	}
+
+
+	public void setCounties(Set<County> counties) {
+		this.counties = counties;
+	}
+
 	
+	/**
+	* @hibernate.set table="pgist_report_income_ranges"
+	* @hibernate.collection-key column="reportstats_id"
+	* @hibernate.collection-element type="string" column="income_range"
+	*/
+	public Set getIncomeRanges() {
+		return incomeRanges;
+	}
+
+
+	public void setIncomeRanges(Set<String> incomeRanges) {
+		this.incomeRanges = incomeRanges;
+	}
+
+
 	
+	/**
+	* @hibernate.set table="pgist_report_trans_types"
+	* @hibernate.collection-key column="reportstats_id"
+	* @hibernate.collection-element type="string" column="trans_types"
+	*/
+	public Set<String> getTransTypes() {
+		return transTypes;
+	}
+
+
+	public void setTransTypes(Set<String> transTypes) {
+		this.transTypes = transTypes;
+	}
+
+
+	/**
+     * @hibernate.property not-null="false"
+     */
+    public int getTotalPackages() {
+		return totalPackages;
+	}
+
+
+	public void setTotalPackages(int totalPackages) {
+		this.totalPackages = totalPackages;
+	}
+
 
 }
