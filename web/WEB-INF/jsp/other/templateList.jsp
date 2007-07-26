@@ -13,12 +13,16 @@
 <script type="text/javascript" charseut="utf-8">
 
 function selectTemplate(){
-    tRadio = $$("input[name='tSelect'][checked='true']");
-    templateId = tRadio.value;
+    tRadios = document.getElementsByName('tSelect');
+    for (var i=0; i < tRadios.length; i++) {
+        if(tRadios[i].checked){
+            templateId = tRadios[i].value;
+            break;
+        }
+    };
     workflowId = ${requestScope['org.pgist.wfengine.WORKFLOW_ID']};
     contextId = ${requestScope['org.pgist.wfengine.CONTEXT_ID']};
     activityId = ${requestScope['org.pgist.wfengine.ACTIVITY_ID']};
-    
     OtherAgent.setSituationTemplate({templateId:templateId,workflowId:workflowId,contextId:contextId,activityId:activityId}, {
         callback:function(data){
             if (data.successful){
