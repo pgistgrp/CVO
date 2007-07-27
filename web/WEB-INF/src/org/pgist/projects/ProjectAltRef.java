@@ -20,7 +20,7 @@ public class ProjectAltRef implements Comparable<ProjectAltRef> {
     
     private ProjectAlternative alternative;
     
-	private SortedSet<GradedCriteria> gradedCriteria = new TreeSet<GradedCriteria>();
+	private SortedSet<GradedCriteria> gradedCriteria = new TreeSet<GradedCriteria>(new GradedCriteriaComparator());
     
     
     /**
@@ -91,9 +91,9 @@ public class ProjectAltRef implements Comparable<ProjectAltRef> {
 	
 	
 	public boolean equals(Object obj) {
-		if(obj != null && obj instanceof ProjectAlternative) {
-			ProjectAlternative temp = (ProjectAlternative)obj;
-			if(getId().equals(temp.getId())) return true;
+		if(obj != null && obj instanceof ProjectAltRef) {
+		    ProjectAltRef temp = (ProjectAltRef) obj;
+			if (getId().equals(temp.getId())) return true;
 		}
 		return false;
 	}

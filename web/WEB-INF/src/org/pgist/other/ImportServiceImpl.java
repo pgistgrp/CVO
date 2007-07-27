@@ -30,6 +30,7 @@ import org.pgist.projects.ProjectDAO;
 import org.pgist.projects.ProjectRef;
 import org.pgist.projects.ProjectSuite;
 import org.pgist.util.WebUtils;
+import org.pgist.wfengine.util.Utils;
 
 
 /**
@@ -109,7 +110,7 @@ public class ImportServiceImpl implements ImportService {
             for (Element critEle : critElements) {
                 String name = critEle.attributeValue("name");
                 
-                System.out.println("process criterion ---> "+name);
+                //System.out.println("process criterion ---> "+name);
                 
                 CriteriaRef ref = (CriteriaRef) critMap.get(name);
                 
@@ -146,13 +147,15 @@ public class ImportServiceImpl implements ImportService {
                 for (Element objEle : (List<Element>) document.selectNodes("//criterion[@name='"+name+"']/objective")) {
                     String description = objEle.attributeValue("description");
                     
-                    System.out.println("process objective ---> "+description);
+                    //System.out.println("process objective ---> "+description);
                     
                     Objective objective = objectives.get(description);
                     
                     if (objective==null) {
                         objective = new Objective();
                         objective.setDescription(description);
+                        
+                        criteriaDAO.save(objective);
                         
                         ref.getCriterion().getObjectives().add(objective);
                         
@@ -205,6 +208,9 @@ public class ImportServiceImpl implements ImportService {
                         
                         GradedCriteria gc = new GradedCriteria();
                         gc.setCriteria(critRef.getCriterion());
+                        gc = (GradedCriteria) Utils.narrow(gc);
+                        System.out.println("--> "+gc);
+                        System.out.println("--> "+altRef.getGradedCriteria());
                         altRef.getGradedCriteria().add(gc);
                         
                         for (Element objEle : (List<Element>) critEle.selectNodes("objective")) {
