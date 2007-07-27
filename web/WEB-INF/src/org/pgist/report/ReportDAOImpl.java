@@ -373,6 +373,8 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 			VoteSuiteStat vss = (VoteSuiteStat) itVotes.next(); //Error Here
 			int pHigh = vss.getHighVotePercent();
 			int pMid = vss.getMediumVotePercent();
+			System.out.println("High: " + pHigh);
+			System.out.println("Mid: " + pMid);
 			int composite = pHigh + pMid;
 			
 			
@@ -386,12 +388,17 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 
 		
 		int totalCost = (int) preferredPackage.getTotalCost();
-		int numEndorsed = totalVotes * (high-100);
-		
+		float percentEndorsed = high - 100;
+		float floatEndorsed = totalVotes * percentEndorsed;
+		int numEndorsed = (int) floatEndorsed;
+		System.out.println("Step5: # of Votes: " + totalVotes);
+		System.out.println("Step5: # of Endorsed: " + numEndorsed);
+		System.out.println("Step5: percent endorsed: " + percentEndorsed);
 		//save
+		rs.setTotalVotes(totalVotes);
 		rs.setNumEndorsed(numEndorsed);
 		rs.setTotalCost(totalCost);
-		rs.setTotalPorjects(preferredPackage.getFundAltRefs().size());
+		rs.setTotalProjects(preferredPackage.getFundAltRefs().size());
 		rs.setPreferredPackage(preferredPackage);
 		save(rs);
 		repoSuite.setStatsES(rs);

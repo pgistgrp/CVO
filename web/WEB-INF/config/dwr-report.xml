@@ -25,6 +25,7 @@
       <include method="getVoteStats"/>
       <include method="createReportVote"/>
       <include method="getUserVoted"/>
+      <include method="createReportStats"/>
     </create>
 
     

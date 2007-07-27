@@ -61,19 +61,19 @@ public class ReportStats implements Serializable{
 	private int totalCost;
 	
 	//# of projects inside the preferred package
-	private int totalPorjects; 
+	private int totalProjects; 
 	
 	
 	/**
      * @hibernate.property not-null="false"
      */
-	public int getTotalPorjects() {
-		return totalPorjects;
+	public int getTotalProjects() {
+		return totalProjects;
 	}
 
 
-	public void setTotalPorjects(int totalPorjects) {
-		this.totalPorjects = totalPorjects;
+	public void setTotalProjects(int totalProjects) {
+		this.totalProjects = totalProjects;
 	}
 
 

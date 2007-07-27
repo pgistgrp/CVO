@@ -169,4 +169,51 @@ public class ReportAgent {
     }
     
     
+    /**
+     * Create Report Statistics, used for testing only
+     * 
+     * @param a map contains:
+     *   <ul>
+     *   </ul>
+     * 
+     * @return a map contains:
+     *   <ul>
+
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map createReportStats(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        String strCctId = (String) params.get("cctId");
+        String strCritId = (String) params.get("critId");
+        String strRepoId = (String) params.get("repoId");
+        String strPkgId = (String) params.get("pkgId");
+        String strProjId = (String) params.get("projId");
+        String strWorkId = (String) params.get("workflowId");
+
+        try {
+        	Long cctId = Long.parseLong(strCctId);
+        	Long critSuiteId = Long.parseLong(strCritId);
+        	Long repoSuiteId = Long.parseLong(strRepoId);
+        	Long packSuiteId = Long.parseLong(strPkgId);
+        	Long projSuiteId = Long.parseLong(strProjId);
+        	Long workflowId = Long.parseLong(strWorkId);
+        	
+        	reportService.createStatistics(workflowId, cctId, repoSuiteId, packSuiteId, critSuiteId, projSuiteId);
+        	
+
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }
+    
+    
 } //ReportAgent
