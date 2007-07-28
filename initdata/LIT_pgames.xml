@@ -224,6 +224,7 @@
             <declaration>
             <ins>
                 <var name="isid"/>
+		<var name="critSuiteId"/>
             </ins>
             </declaration>
         </pgame>
