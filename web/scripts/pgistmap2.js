@@ -149,8 +149,7 @@ var PGISTMapEditor = function(mapcontainer, width, height, enableEdit) {
 	mapcontainer.appendChild(this._mapdiv);
 	
 	this._msgdiv = document.createElement("div");
-	this._msgdiv.innerHTML = "<center><img src='../images/map-caption.png'></center>";
-
+	this._msgdiv.innerHTML = "<img src='images/map-caption.png' width='" + width + "'/>";
 	mapcontainer.appendChild(this._msgdiv);
 
 	this._container = mapcontainer;
@@ -170,7 +169,7 @@ function PGIST_Map_Logger(){
         
         var b = PGISTMapEditor_Global_Accessor.map.getBounds();
         logstr += b.getSouthWest().lng() + ',' + b.getSouthWest().lat() + ' ';
-        logstr += b.getNorthEast().lng() + ',' + b.getNorthEast().lat();
+        logstr += b.getNorthEast().lng() + ',' + b.getSouthWest().lat();
     
         PESAgent.saveAct({mapaction:logstr}, {callback:function(data){
                     
@@ -182,6 +181,10 @@ function PGIST_Map_Logger(){
     }catch(err){}
 };
 
+
+PGISTMapEditor.prototype.addLegend = function(itemsdata){
+    this.map.addControl( new PGISTLegendControl(itemsdata) );
+}
 /**
 
  * Change the container of the map to the new target
@@ -1172,4 +1175,55 @@ PGISTMapTitleControl.prototype.setButtonStyle_ = function(button) {
   button.style.cursor = "pointer";
 
 };
+
+/**
+
+ * Creates a one DIV as the container to hold legend items as HTML.
+
+ * 
+
+ **/
+function PGISTLegendControl(itemsdata){
+    this.legendItems = itemsdata;
+}
+
+PGISTLegendControl.prototype = new GControl();
+
+PGISTLegendControl.prototype.initialize = function(map) {
+
+  var container = document.createElement("div");
+
+
+
+  var legendDiv = document.createElement("div");
+
+  container.appendChild(legendDiv);
+  var html = "<table border='0' bgcolor='#FFFFFF'>";
+  for(var i=0; i<this.legendItems.length; i++){
+      html += "<tr><td width='40' height='15'><img src='" 
+            + this.legendItems[i]["img"] + "' width='40' title='" + this.legendItems[i]["descp"] + "'></td>";
+      html += "<td width='40'>" + this.legendItems[i]["descp"] + "</td></tr>";
+  }
+  html += "</table>";
+
+  legendDiv.innerHTML = html;
+
+
+  map.getContainer().appendChild(container);
+
+  return container;
+
+};
+
+
+
+// By default, the control will appear in the bottom right corner of the
+// map with 40 pixels of padding.
+PGISTLegendControl.prototype.getDefaultPosition = function() {
+
+  return new GControlPosition(G_ANCHOR_BOTTOM_RIGHT, new GSize(15, 15));
+
+};
+
+
 

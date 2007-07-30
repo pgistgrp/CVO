@@ -1,16 +1,15 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="javascript" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 
-<html:html>
+<html xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
-<title>Let's Improve Transportation - Learn more: Project Map</title>
+<title>Let's Improve Transportation - Learnmore: Review Projects</title>
 <!-- Site Wide JS -->
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
@@ -20,18 +19,82 @@
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/util.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<!--Mapping  Libraries-->
+<script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/PESAgent.js'></script>
+<script type="text/javascript" src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAq4HJEw-8aIG3Ew6IOzpYEBTwM0brOpm-All5BF6PoaKBxRWWERSP-RPo4689bM1xw9IvCyK4oTwAIw"></script>
+<script type='text/javascript' src='scripts/pgistmap2.js'></script>
+<!--END Mapping  Libraries-->
 
+<script type="text/javascript">
+var prjaltlist = [];
+var fpidlist = "";
+var overlaypoints = [];
+var pgistmap = null;
+
+function load(){
+    pgistmap = new PGISTMapEditor('map', 420, 520, false);
+    if(fpidlist.length > 0){
+        fpidlist = fpidlist.substring(1, fpidlist.length-1);  //get rid of the first comma
+        ProjectAgent.getFootprints({fpids:fpidlist}, {
+            callback:function(data){
+                if (data.successful){
+                    for(fpid in data.footprints){
+                        overlaypoints['_'+fpid] = [];
+                        overlaypoints['_'+fpid]["geotype"] = data.footprints[fpid].geotype;
+                        overlaypoints['_'+fpid]["coords"] = pgistmap.makeGPoints(data.footprints[fpid].coords);
+                    }
+                    renderProjects();
+                }else{
+                    alert(data.reason);
+                }
+            },
+            errorHandler:function(errorString, exception){ 
+                alert("ProjectAgent.getFootprint( error:" + errorString + exception);
+            }
+        });
+    }
+}
+
+function renderProjects(){
+    for(var i=0;i<prjaltlist.length;i++){
+        var p = prjaltlist[i];
+        p["overlays"] = []; 
+        if(p["fpids"] == "") continue;
+        
+        var geomkeys = p["fpids"].split(',');
+        for(var k=0; k<geomkeys.length; k++){
+            var geomkey = '_'+geomkeys[k];
+            if(overlaypoints[geomkey] == null)continue;
+            
+            var transcolor = (p["mode"]==2)?"#0bc00f":"#FF0000";
+            var transicon = (p["mode"]==2)?pgistmap.transiticon:pgistmap.roadicon;
+            p["overlays"] = p["overlays"].concat(pgistmap.createOverlays(overlaypoints[geomkey]["coords"], 
+                overlaypoints[geomkey]["geotype"], transcolor, 2, 0.9, "", transicon));
+            
+            for(var j=0; j<p["overlays"].length; j++){
+                pgistmap.map.addOverlay( p["overlays"][j] );
+            }
+        }
+    }
+     pgistmap.addLegend([{"img":"/images/lm-filterbar.png", "descp":"Road projects"}]);
+}
+
+</script>
 <style type="text/css">
 @import "styles/lit.css";
 @import "styles/table.css";
 @import "styles/step3a-reviewprojects.css";
-#newTable .fundingSourceItem{width:75%;}
 </style>
-
+<style type="text/css"> v\:* {behavior:url(#default#VML);}</style>
 </head>
-<body>
+<body onload="load()" onunload="GUnload()">
 <!-- Begin the header - loaded from a separate file -->
-    <wf:nav />
+<div id="header">
+	<!-- Begin header -->
+	<jsp:include page="/header.jsp" />
+	<!-- End header -->
+</div>
 <!-- End header -->
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 	<div id="headerMenu">
@@ -43,7 +106,7 @@
 			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
-			<div class="floatLeft headerButton currentBox"> <a href="lmGallery.do">Project Map</a> </div>
+			<div class="floatLeft headerButton currentBox"> <a href="lmGallery.do">Project Gallery</a> </div>
 			<div class="floatLeft headerButton"> <a href="glossaryPublic.do">Glossary</a> </div>
 			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
 		</div>
@@ -52,8 +115,10 @@
 <!-- #container is the container that wraps around all the main page content -->
 <div id="container">
 	<!-- begin Object --> 
-	<h3 class="headerColor">Project Map</h3>
-	<p>Explore the projects being considered in the <em>LIT Challenge</em>. Registered users can discuss these projects with other participants. <a href="index.jsp">Join the discussion</a>, or <a href="register.do">register now</a>.</p>
+	<h3 class="headerColor">Project Gallery</h3>
+	<p>Explore the projects being considered in Let's Improve Transportation.
+	  The participants in this website will actually discuss these projects.  
+		<a href="#">Click here to login</a>.</p>
 	<div id="object">
 		<a href="javascript:Util.expandAll('objectives');">Expand all</a>
 		<a href="javascript:Util.collapseAll('objectives');">Collapse all</a>
@@ -62,7 +127,7 @@
 			<div id="newtable">
 				<table cellpadding=0 cellspacing=0>
 					<tr class="tableHeading">
-						<th colspan="2" class="first">Proposed improvement projects</th>
+						<th colspan="2" class="first">Proposed Projects</th>
 						<th class="right"><span class="hiddenLabel" style="display:none">Money Needed</span></th>
 					</tr>
 					
@@ -72,10 +137,10 @@
 						<tr>
 							<c:choose>
 								<c:when test="${category == 1}">
-									<td class="category" colspan="3"><strong>Road projects</strong></td>
+									<td class="category" colspan="3"><strong>Road Projects</strong></td>
 								</c:when>
 								<c:otherwise>
-									<td class="category" colspan="3"><strong>Transit projects</strong></td>
+									<td class="category" colspan="3"><strong>Transit Projects</strong></td>
 								</c:otherwise>
 							</c:choose>
 						</tr>
@@ -102,8 +167,11 @@
 											<c:forEach var="alt" items="${project.alternatives}" varStatus="loop">
 												<tr>
 													<td class="col1"><a target="_blank" href="lmAlt.do?altId=${alt.id}">${alt.name}</td>
-													<td class="cost">
-													$<fmt:formatNumber maxFractionDigits="0" value="${alt.cost/1000000}" /> million</td>
+													<td class="cost">$<fmt:formatNumber type="number">${alt.cost}</fmt:formatNumber> million</td>
+                                                    <script type="text/javascript">
+                                                                prjaltlist.push({"id":"${alt.id}", "fpids":"${alt.fpids}", "mode":"${alt.project.transMode}"}); 
+                                                                fpidlist += "," + "${alt.fpids}";
+                                                    </script>
 												</tr>
 											</c:forEach>
 											<!-- end project alt-->
@@ -124,7 +192,7 @@
 	</div>
 	<!-- begin cell containing Google Map object -->
 	<!-- GUIRONG: This can be up to 420px wide -->
-	<div id="map" class="floatRight">420px wide GMap goes here</div>
+	<div id="map" class="floatRight"></div>
 	<!-- end cell containing Google Map object -->
 	<!-- begin firefox height hack -->
 	<div class="clearBoth"></div>
@@ -157,5 +225,6 @@
 	<jsp:include page="/footer.jsp" />
 </div>
 <!-- End footer -->
+
 </body>
-</html:html>
+</html>
