@@ -718,6 +718,43 @@ public class ProjectAgent {
         
         return map;
     }//getFootprintsByAltId()
+
+    /**
+     * get footprints for a project alternative.<br>
+     * 
+     * @param params A map contains:
+     *     <ul>
+     *       <li>altid - long, the ID of an project alternative
+     *     </ul>
+     * 
+     * @param 
+     * 
+     * @return A map contains:
+     *     <ul>
+     *       <li>successful - a boolean value denoting if the operation succeeds</li>
+     *       <li>reason - reason why operation failed (valid when successful==false)</li>
+     *       <li>footprints - a map contains pair of (id, coordinates)</li>
+     *     </ul>
+     */
+    public Map getFootprintsByXY(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            double x = new Double((String) params.get("lng"));
+            double y = new Double((String) params.get("lat"));
+         
+            Map footprints = projectService.getFootprintsByXY(x, y);
+            
+            map.put("footprints", footprints);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//getFootprintsByXY()
     
     /**
      * Save the given footprint for a project alternative.<br>

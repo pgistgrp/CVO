@@ -29,6 +29,7 @@ public interface ProjectDAO extends BaseDAO {
 	
     
 	Map getFootprints(String fpids) throws Exception;
+	Map getFootprintsByXY(double x, double y) throws Exception;
 	
     
 	void saveFootprint(ProjectAlternative pa, double[][][] coords, String type) throws Exception;

@@ -265,7 +265,10 @@ public class ProjectServiceImpl implements ProjectService {
         return projectDAO.getFootprints(fpids);
     }//getFootprints()
     
-    
+    public Map getFootprintsByXY(double x, double y) throws Exception{
+        return projectDAO.getFootprintsByXY(x, y);
+    }//getFootprints()
+     
     public Long saveFootprint(Long altId, double[][][] coords, String shape) throws Exception {
         /*
          * TODO

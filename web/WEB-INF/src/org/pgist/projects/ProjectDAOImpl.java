@@ -174,7 +174,7 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 		return query.list();
 	}
 	
-	public double[][][] getFootprint(long fpid){
+	public double[][][] getFootprint(long fpid) throws Exception{
 		//Map footprint = new HashMap();
 		Connection conn = getSession().connection();
 		
@@ -204,7 +204,7 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	 * return a map, containing a list of footprint ids and
 	 * coordinates 
 	 */
-	public Map getFootprints(String fpids){
+	public Map getFootprints(String fpids) throws Exception{
 		Connection conn = getSession().connection();
 		Map footprints = new HashMap();
 		
@@ -219,15 +219,13 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 			
 			while(r.next()){
 				Long id = r.getLong(1);
-/*Gman*/				Object o = r.getObject(2);
-/**gman*/				System.out.println("==>>obj class: " + o.getClass().getName());
 
 				PGgeometry geom = (PGgeometry)r.getObject(2);
 				int[] parts = {};
 				
 				double[][][] coords = new double[1][][]; 
 				coords = WKT.geomToArray(geom);
-				System.out.println("==>>id=" + id + ";coords length: " + coords.length);
+
 				Map feature = new HashMap();
 				feature.put("geotype",new Integer( geom.getGeoType() ));
 				feature.put("coords", coords);
@@ -240,7 +238,43 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 		
 		return footprints;
 	}
-	
+
+    /**
+     * return a map, containing a list of footprint ids and
+     * coordinates 
+     */
+    public Map getFootprintsByXY(double x, double y) throws Exception{
+        Connection conn = getSession().connection();
+        Map footprints = new HashMap();
+        
+        String whereclause = " where ST_Distance(the_geom, GeometryFromText('MULTIPOINT("
+            + x + " " + y + ")'))<0.0001";
+        
+        try {
+            Statement s = conn.createStatement();
+            ResultSet r = s.executeQuery("select id, the_geom from " +
+                    "(select id, the_geom from " + pfTableName + 
+                    " union select id, the_geom from " + pfTableName2 + ") as allfps " +
+                    whereclause);
+            
+            while(r.next()){
+                Long id = r.getLong(1);
+
+                PGgeometry geom = (PGgeometry)r.getObject(2);
+                int[] parts = {};
+                
+                double[][][] coords = new double[1][][]; 
+                coords = WKT.geomToArray(geom);
+
+                footprints.put(id, new Integer( geom.getGeoType() ));
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }           
+        
+        return footprints;
+    }
     
     private static String hql_getProjects_2 = "from Project p order by p.name asc";
     
