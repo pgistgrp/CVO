@@ -26,6 +26,8 @@ import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.PageSource;
 import org.pgist.util.WebUtils;
+import org.pgist.wfengine.WorkflowEngine;
+import org.pgist.wfengine.web.WorkflowUtils;
 
 
 /**
@@ -47,6 +49,8 @@ public class SDAgent {
     
     private SearchHelper searchHelper;
     
+    private WorkflowUtils workflowUtils;
+    
     
     public void setSdService(SDService sdService) {
         this.sdService = sdService;
@@ -65,6 +69,11 @@ public class SDAgent {
 
     public void setSearchHelper(SearchHelper searchHelper) {
         this.searchHelper = searchHelper;
+    }
+
+
+    public void setWorkflowUtils(WorkflowUtils workflowUtils) {
+        this.workflowUtils = workflowUtils;
     }
 
 
@@ -1274,6 +1283,12 @@ public class SDAgent {
         
         try {
             request.setAttribute("wfinfo", wfinfo);
+            workflowUtils.processWorkflowInfo(
+                request,
+                new Long(request.getParameter("workflowId")),
+                new Long(request.getParameter("contextId")),
+                new Long(request.getParameter("activityId"))
+            );
             
             String type = null;
             if(ioid != null && isid != null) {
