@@ -1,11 +1,10 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!--####
 	Project: Let's Improve Transportation!
 	Page: Create My Transportation Package
@@ -56,7 +55,6 @@
 	@import "styles/lit.css";
 	@import "styles/table.css";
 	@import "styles/step3c.css";	
-	#themap span {font-size:15px}
 </style>
 <style type="text/css">
     v\:* {
@@ -426,7 +424,7 @@
 			
 			function clearBottom(){ // Move the map so that it's not below the funding table
 				if(mapPositionBottom >= fundingPositionBottom){
-						$('themap').style.top = (fundingPositionBottom - 599) + 'px';
+						$('themap').style.top = (fundingPositionBottom - 581) + 'px';
 					}
 			}
 			
@@ -436,26 +434,37 @@
 </script>
 </head>
 
-<body onresize="ajdustMapPosition();" onscroll="adjustMapPosition();" onload="load()" onunload="clearMemory();">
-    <!-- Start Global Headers  -->
-    <wf:nav />
-    <wf:subNav />
-    <!-- End Global Headers -->
+<body onresize="adjustMapPosition();" onscroll="adjustMapPosition();" onload="load()" onunload="clearMemory();">
+	<div id="header">
+		<!-- Begin header -->
+		<jsp:include page="/header.jsp" />
+	</div> <!-- End header -->
+
+	<!-- Begin header menu - The wide ribbon underneath the logo -->
+	<div id="headerMenu">
+		<div id="headerContainer">
+			<div id="headerTitle" class="floatLeft">
+				<h3 class="headerColor">Step 3: Create Packages</h3>
+			</div><!-- end headerTitle-->
+			<div class="headerButton floatLeft "> <a href="step3a.html">3a: Review projects</a> </div>
+			<div class="headerButton floatLeft "> <a href="step3b.html">3b: Review funding options</a> </div>
+			<div class="headerButton floatLeft currentBox "> <a href="step3c.html">3c: Create your own package</a> </div>
+			<div id="headerNext" class="floatRight box5"> <a href="step3b.html">Next Step</a> </div>
+		</div> <!-- end headercontainer -->
+	</div> <!-- End header menu -->
+	
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
 		<!-- begin "overview and instructions" area -->
 		<div id="overview" class="box2">
-			<h3>Overview and instructions</h3>
-			Create your own transportation package
-			<ul>
-				<li>Select projects and funding options to include in your package.</li>
-				<li>Be sure to provide enough funding to pay for your projects!</li>
-				<li>Click "Help Me" if you'd like help selecting projects and funding options which match your preferences.</li>
-			</ul>
-			<p>You have until <span class="FIXDATE"><b>October 21</b></span> to create and submit your package. You can only submit one package.</p>
-			<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false;adjustMapPosition();">Read more about this step</a>
-				<p id="hiddenRM" style="display:none">The goal of the <em>LIT Challenge</em> is for participants to develop a transportation package to recommend to regional decision makers. Such a package could appear on a regional ballot for voter approval, much like the "Roads and Transit" package on the ballot in November 2007.<br />
-Once all participants have submitted their own packages, five new packages will be generated through a statistical process. These new packages will represent the diversity of the different packages submitted by individual participants. In Step 4 we will evaluate these new packages and decide whether there is a significant majority of support for a single package. </p>
+			<h3>Overview and Instructions</h3>
+			<p>Criteria are used to help Evaluate which proposed transportation projects are
+				best suited to address problems with our transportation system. Below, these criteria
+				have been associated with the concern themes discussed in the previous step. Please
+				review these criteria and the associated themes. Do these criteria adequately
+				reflect your concerns and the summaries? What criteria might be useful in evaluating
+				proposed transportation projects?</p>
+			<p><a href="readmore.jsp">Read more about how this step fits into the bigger picture</a>.</p>
 		</div> <!-- end overview -->
 		
 		<!-- begin Object -->
@@ -463,7 +472,6 @@ Once all participants have submitted their own packages, five new packages will 
 			<!-- begin NewTable-->
 			<div id="newTable">
 				<div id="left" class="floatLeft">
-					<h3 class="headerColor">Your package summary</h3>
 					<div id="yourSummary" class="summary">
 						<!-- summary goes here -->
 					</div> <!-- end yoursummary -->
@@ -495,7 +503,7 @@ Once all participants have submitted their own packages, five new packages will 
 							<div class="floatLeft" style="width:60%"><label> What's the most you would be willing to pay to fund this package? </label></div>
 							<div class="floatRight"> <span style="font-size:1.3em;">$<input type="text" size="3" id="mylimit" /></span></div>
 							<div class="clearBoth"></div>
-							<div style="margin-top:10px;margin-bottom:10px;" class="floatLeft"><input type="submit" class="floatLeft padding5" value="Create a package"/></div>
+							<div style="margin-top:15px;" class="floatLeft"><input type="submit" class="floatLeft padding5" value="Create a package"/></div>
 							<div class="floatRight"><a href="javascript:window.open('tuner.do?usrPkgId=${userPkg.id}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}','helpMe','width=1000,height=500,resizable=yes,scrollbars=yes'); void(0);"> <img src="images/tuneup.gif">Fine tune a package</a></div>
 						</form>
 					</div><!--end help me-->
@@ -504,18 +512,18 @@ Once all participants have submitted their own packages, five new packages will 
 					<!-- begin collapsible list of projects -->
 					<table cellpadding=0 cellspacing=0 id="projectsTable">
 						<tr class="tableHeading">
-							<th colspan="2" class="first">Proposed improvement projects</th>
-							<th>Money needed</th>
+							<th colspan="2" class="first">All Proposed Projects</th>
+							<th>Money Needed</th>
 						</tr>
 						<c:forEach var="category" begin="1" end="2">
 							<!-- start road projects -->
 							<tr>
 								<c:choose>
 									<c:when test="${category == 1}">
-										<td class="category" colspan="3"><strong>Road projects</strong></td>
+										<td class="category" colspan="3"><strong>Road Projects</strong></td>
 									</c:when>
 									<c:otherwise>
-										<td class="category" colspan="3"><strong>Transit projects</strong></td>
+										<td class="category" colspan="3"><strong>Transit Projects</strong></td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
@@ -535,7 +543,8 @@ Once all participants have submitted their own packages, five new packages will 
 												<c:set var="doNothing"value="true"/>
 												<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
 													<script type="text/javascript" charset="utf-8">
-													fpidlist += "," + "${altRef.alternative.fpids}";
+													altfpids = "${altRef.alternative.fpids}";
+													if(altfpids.length > 0) fpidlist += "," + altfpids;
 													prjaltlist.push({"name":"${altRef.alternative.name}", 
 															"id":"${altRef.alternative.id}",
 															"cost":"${altRef.alternative.cost}", 
@@ -579,8 +588,7 @@ Once all participants have submitted their own packages, five new packages will 
 															</c:choose>
 															${altRef.alternative.name}</label>
 														</td>
-														<td class="cost">
-															$<fmt:formatNumber maxFractionDigits="0" value="${altRef.alternative.cost/1000000}" /> million</td>
+														<td class="cost">$<fmt:formatNumber type="number">${altRef.alternative.cost}</fmt:formatNumber> million</td>
 													</tr>
 													<c:if test="${pg:contains(userPkg.projAltRefs,altRef) && userPkg != null}">
 														<c:set var="doNothing"value="false"/>
@@ -610,7 +618,7 @@ Once all participants have submitted their own packages, five new packages will 
 					<!-- end collapsible project list -->
 					<table cellpadding="0" cellspacing="0" id="fundingTable">
 						<tr class="tableHeading">
-							<th class="first">Funding source</th>
+							<th class="first">Funding Source</th>
 							<th>Money Raised</th>
 							<th class="thcol2">Cost to the avg. taxpayer</th>
 							<c:if test="${userPkg != null}">
@@ -641,8 +649,7 @@ Once all participants have submitted their own packages, five new packages will 
 
 										${altRef.alternative.name}</label>
 									</td>
-									<td class="col2">
-										$<fmt:formatNumber maxFractionDigits="0" value="${altRef.alternative.revenue/1000000}" /> million</td>
+									<td class="col2">$<fmt:formatNumber type="number">${altRef.alternative.revenue}</fmt:formatNumber> million</td>
 									<td class="col3">$<fmt:formatNumber type="number">${altRef.alternative.avgCost}</fmt:formatNumber></td>
 									<c:if test="${userPkg != null}">
 										<td class="col4">$<fmt:formatNumber type="number">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
@@ -680,7 +687,7 @@ Once all participants have submitted their own packages, five new packages will 
 			<!-- begin cell containing #right -->
 			<div id="right" class="floatRight">
 				<!-- begin GOOGLE MAP -->
-				<div id="themap" style="background-color:#C4D88C;position:absolute">
+				<div id="themap" style="position:absolute">
 					<!-- load the map here -->
 				</div>
 				<!-- end GOOGLE MAP -->
@@ -701,9 +708,19 @@ Once all participants have submitted their own packages, five new packages will 
 	<!-- start feedback form -->
 	<pg:feedback id="feedbackDiv" action="cctView.do"/>
 	<!-- end feedback form -->
-    <!-- Start Global Headers  -->
-    <wf:subNav />
-    <!-- End Global Headers -->
+	<!-- Begin header menu - The wide ribbon underneath the logo -->
+	<div id="headerMenu">
+		<div id="headerContainer">
+			<div id="headerTitle" class="floatLeft">
+				<h3 class="headerColor">Step 3: Create Packages</h3>
+			</div>
+			<div class="headerButton floatLeft "> <a href="step3a.html">3a: Review projects</a> </div>
+			<div class="headerButton floatLeft "> <a href="step3b.html">3b: Review funding options</a> </div>
+			<div class="headerButton floatLeft currentBox"> <a href="step3c.html">3c: Create your own package</a> </div>
+			<div id="headerNext" class="floatRight box5"> <a href="step3b.html">Next Step</a> </div>
+		</div>
+	</div>
+	<!-- End header menu -->
 	<!-- Begin footer -->
 	<div id="footer">
 		<jsp:include page="/footer.jsp" />
