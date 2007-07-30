@@ -90,13 +90,6 @@ function pollresults() {
 		Preferred Package: ***${pp}***
 		Vote Suite Stats: ***${vss}***
 	-->
-		Concern Summaries: ***${concernSummary}***
-		Criteria Summaries: ***${criteriaSummary}***
-		Executive Summaries: ***${executiveSummary}***
-		Package Summaries: ***${packageSummary}***
-		Participants Summary: ***${participantsSummary}***
-		Project Summary: ***${projectSummary}***
-		finalized: ***${finalized}***
 	
 
 <div id="container">
@@ -139,18 +132,10 @@ function pollresults() {
 	
 	<div id="executiveSummary" class="box3 padding5 section peekaboobugfix">
 		<h3 class="headingColor padding5 centerAlign">Executive Summary</h3>
-		<p>${statsES.totalUsers} residents of King, Pierce, and Snohomish county worked together online over
-			the course of 5 weeks to learn about transportation problems in our region, discuss
-			their own concerns, and create a package of transportation projects and funding
-			sources to address our transportation needs. On ${finalReportDate} they released
-			the results of their efforts.</p>
-		<p>The package contains ${statsES.totalProjects} road and transit projects across the 3 county region.
-			It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
-			fees. The total cost of the package is $${statsES.totalCost} billion. The package was endorsed by
-			<c:set var="totalVotes" value="${statsES.totalVotes}"/>
-			<c:set var="percentyes" value="${statsES.numEndorsed/totalVotes*100}"/>
-			<fmt:formatNumber maxFractionDigits="0" value="${percentyes}"/>
-			% of the participants (${statsES.numEndorsed} our of ${statsES.totalVotes} participating).</p>
+		<p>
+This report describes the results of the Let’s Improve Transportation Challenge, an online experiment in participatory democracy facilitated by researchers at the University of Washington. ${statsES.totalUsers} residents of King, Pierce, and Snohomish county worked together over the course of four weeks to learn about transportation problems, discuss their concerns, and collectively recommend a package of improvement projects and funding sources to address regional transportation needs. On ${finalReportDate} they released the results of their efforts. 
+
+The recommended package contains ${statsES.totalProjects} road and transit projects across the three-county region. It is funded by a combination of bridge tolls, parking taxes, and vehicle excise fees. The total cost of the package is $${statsES.strTotalCost}. The package was endorsed by 81% of the participants (${statsES.numEndorsed} our of ${statsES.totalVotes} participating).		</p>
 		<p>${executiveSummary}</p>
 		<div class="floatLeft" style="margin:0em 2em"><strong>This report includes 4 sections:</strong>
 			<ol>
@@ -171,44 +156,58 @@ function pollresults() {
 	<div id="participants" class="box3 padding5 section">
 		<h3 class="headingColor padding5 centerAlign">1. The participants and their concerns
 			about transportation</h3>
-		<p>298 residents of King, Pierce, and Snohomish counties participated in the Let's
-			Improve Transportation challenge. Here is some more information about the participants:</p>
+		<p>
+		${statsPart1.totalUsers} residents of King, Pierce, and Snohomish counties contributed their ideas and concerns in the LIT Challenge. Here is some demographic information about these contributors.		</p>
+		
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr class="odd">
 				<td><strong>Gender:</strong></td>
-				<td>${concernStats.males}% male, ${concernStats.females}% female</td>
+				<td>${statsPart1.males}% male, ${statsPart1.females}% female</td>
 			</tr>
 			<tr>
 				<td><strong>County of residence:</strong></td>
 				<td>
 				<!-- display counties -->
 				<c:choose>	
-					<c:when test="${fn:length(concernStats.counties) == 0}">
+					<c:when test="${fn:length(statsPart1.counties) == 0}">
 						<p>No Counties Available</p>
 					</c:when>
 					<c:otherwise>
 
-					<c:forEach var="county" items="${concernStats.counties}" varStatus="loop">
-						${concernStats.countyStats[county].name} ${county.name},
-					</c:forEach>
+					<c:forEach var="county" items="${statsPart1.counties}" varStatus="loop">
+						${statsPart1.countyStats[county].name} ${county.name},					</c:forEach>
 					</c:otherwise>
-				</c:choose>
-	
-		</td>
+				</c:choose>		</td>
 			</tr>
 			<tr class="odd">
 				<td><strong>Primary mode of transportation (daily commute):</strong></td>
-				<td>23% drive alone, 29% bus or transit, 12% carpool or vanpool, 7% walk or bike,
-					3% work at home or are retired</td>
+				<td>
+				<c:choose>	
+					<c:when test="${fn:length(statsPart1.transTypes) == 0}">
+						<p>No Transportation Types Available</p>
+					</c:when>
+					<c:otherwise>
+
+					<c:forEach var="transport" items="${statsPart1.transTypes}" varStatus="loop">
+						${statsPart1.transportStats[transport]} ${transport},					</c:forEach>
+					</c:otherwise>
+				</c:choose>
+				</td>
 			</tr> 
 			<tr>
 				<td><strong>Yearly household income</strong></td>
-				<td>22% 150k or more, 15% 100K-150K, 29% $75K-$100K, 11% 50K-75K, 19% $25K-$50K</td>
-			</tr>
-			<tr class="odd">
-				<td><strong>Age</strong></td>
-				<td>15% 18-25 years old, 24% 26-35 years old, 33% 35-45 years old, 28% 46-55
-					years old, 13% 55 years or older</td>
+				<td>
+				<c:choose>	
+					<c:when test="${fn:length(statsPart1.incomeRanges) == 0}">
+						<p>No Transportation Types Available</p>
+					</c:when>
+					<c:otherwise>
+
+					<c:forEach var="income" items="${statsPart1.incomeRanges}" varStatus="loop">
+						${statsPart1.incomeStats[income]} ${income},					</c:forEach>
+					</c:otherwise>
+				</c:choose>
+				</td>
 			</tr>
 		</table>
 		<br />
@@ -229,13 +228,11 @@ function pollresults() {
 	<div id="planningFactors" class="box3 padding5 section">
 		<h3 class="headingColor padding5 centerAlign">2. Planning factors used in project
 			evaluation</h3>
-		<p>The second step included a review, discussion, and weighting of "planning factors" used
-			to evaluate the proposed transportation projects. These planning factors were
-			adapted from .... They were used by a panel of transportation specialists to qualitatively "score" proposed
-			projects. <a href="#appendixA">Appendix A</a> includes a detailed discussion of
-			the scoring process. These scores, in turn, were used by participants in their
-			effort to evaluate the benefits or drawbacks of the proposed transportation projects
-			(see <a href="#projects">following section</a> for details).</p>
+	    <p>
+		The second step included a review, discussion, and weighting of ${statsPart2.quanity} "improvement factors" used to evaluate the proposed transportation projects. They were used by a panel of transportation specialists to qualitatively “score” proposed projects. (Appendix B includes a detailed discussion of the factors and scoring process). 
+
+After a period of discussion about the relevance of the improvement factors to the concerns discussed in Step 1, participants weighted the relative importance of each factor based on their individual preferences. 100 total points were available to distribute between the ${statsPart2.quanity} factors. The following table displays information about the improvement factors and participant weight preferences.		</p>
+		
 		<p>${part2a}</p>
 		<div id="criteria" class="box3 floatLeft">
 			<!-- START All Criteria List -->
@@ -278,14 +275,10 @@ function pollresults() {
 	<div id="projects" class="box3 padding5 section">
 		<h3 class="headingColor padding5 centerAlign"><a name="projects">3. Project selection, Funding selection, 
 				and personal package creation</a></h3>
-		<p>The third step began with a review and discussion of a list of 44 proposed transportation
-			improvement projects. This was followed by a review and discussion of available
-			funding options. Finally, participants were each given the opportunity to create
-			their own personal transportation package including both a set of projects and
-			a set of revenue sources which provide enough money to pay for the projects. We
-			tabulated the results of participant project and funding source selection below.
-			Note: only 212 of the total 298 participants completed this step. The percentages
-			below refer to the percent of participants who completed this step.</p>
+		
+		<p>
+		In the third step participants first reviewed and discussed a list of ${statsPart3.quanity} proposed transportation improvement projects in the three-county region. This was followed by a review and discussion of available options for funding these transportation improvements. Finally, participants were each given the opportunity to create their own personal transportation package including both a set of projects and a set of funding sources which provide enough money to pay for the projects. The results of participant project and funding source selection are described below. Note: only  ${statsPart4.userCompleted} of the total ${statsES.totalUsers} participants completed this step.		</p>
+		
 			
 			<p>${part3a}</p>
 		<table cellpadding=0 cellspacing=0>
@@ -360,35 +353,43 @@ function pollresults() {
 	<div id="packages" class="box3 padding5 section">
 		<h3 class="headingColor padding5 centerAlign"><a name="packages">4. Evaluation
 				of packages</a></h3>
-		<p>Participants created 212 unique packages. In order to narrow down the field
-			of packages under consideration the system automatically created five new packages
-			that collectively represent the diversity of packages created by participants
-			in Step 3 (this process is described in Appendix B). Participants reviewed these
-			five packages as well as the ìRTIDî package that will appear on the ballot on
-			November 8, 2007.</p>
+				
+				<p>
+				Participants created ${statsPart4.totalPackages} unique packages. In order to narrow the field of packages under consideration for recommendation, five new packages were computationally generated. These new candidate packages collectively represent the diversity of packages created by participants in Step 3. Details about each of these five packages, as well as the methodology used to create them is available in Appendix C. </p>
+<p>
+In the fourth step, participants reviewed and evaluated these five candidate packages as well as the “Roads and Transit” package which will appear on the ballot in the November 2007 election. A preliminary poll regarding participants’ degree of support for each of the packages was used to inform the discussion. This was followed by a final package recommendation vote.</p>
+				
 		<p>${part4a}</p>
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr class="odd">
 				<td><strong>Gender:</strong></td>
-				<td>55% male, 45% female</td>
+				<td>${statsPart4.males}% male, ${statsPart4.females}% female</td>
 			</tr>
 			<tr>
 				<td><strong>County of residence:</strong></td>
-				<td>44% King, 23% Pierce, 23% Snohomish</td>
+				<td><c:choose>	
+					<c:when test="${fn:length(statsPart4.counties) == 0}">
+						<p>No Counties Available</p>
+					</c:when>
+					<c:otherwise>
+
+					<c:forEach var="county" items="${statsPart1.counties}" varStatus="loop">
+						${statsPart4.countyStats[county].name} ${county.name},					</c:forEach>
+					</c:otherwise>
+				</c:choose>	</td>
 			</tr>
 			<tr class="odd">
 				<td><strong>Primary mode of transportation (daily commute):</strong></td>
-				<td>23% drive alone, 29% bus or transit, 12% carpool or vanpool, 7% walk or bike,
-					3% work at home or are retired</td>
-			</tr>
-			<tr>
-				<td><strong>Yearly household income</strong></td>
-				<td>22% 150k or more, 15% 100K-150K, 29% $75K-$100K, 11% 50K-75K, 19% $25K-$50K</td>
-			</tr>
-			<tr class="odd">
-				<td><strong>Age</strong></td>
-				<td>15% 18-25 years old, 24% 26-35 years old, 33% 35-45 years old, 28% 46-55
-					years old, 13% 55 years or older</td>
+				<td><c:choose>	
+					<c:when test="${fn:length(statsPart4.transTypes) == 0}">
+						<p>No Transportation Types Available</p>
+					</c:when>
+					<c:otherwise>
+
+					<c:forEach var="transport" items="${statsPart4.transTypes}" varStatus="loop">
+						${statsPart4.transportStats[transport]} ${transport},					</c:forEach>
+					</c:otherwise>
+				</c:choose></td>
 			</tr>
 		</table>
 		<div class="clearBoth"></div>
