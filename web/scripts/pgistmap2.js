@@ -1186,7 +1186,6 @@ PGISTMapTitleControl.prototype.setButtonStyle_ = function(button) {
 function PGISTLegendControl(itemsdata, imgonly){
     this.legendItems = itemsdata;
     this.imgonly = imgonly || false;
-    alert(this.imgonly);
 }
 
 PGISTLegendControl.prototype = new GControl();
