@@ -143,30 +143,28 @@ public class GradedCriteria {
 		String letter = "NA";
 		
 		//choose the letter grade based off the final result
-		if(avgScore > 93) {
+		if(avgScore > 91) {
 			letter = "A";
-		} else if (avgScore > 90 ){
-			letter = "A-";			
-		} else if (avgScore > 87 ){
-			letter = "B+";			
 		} else if (avgScore > 83 ){
-			letter = "B";			
-		} else if (avgScore > 80 ){
-			letter = "B-";
-		} else if (avgScore > 77 ){
-			letter = "C+";
-		} else if (avgScore > 73 ){
-			letter = "C";
-		} else if (avgScore > 70 ){
-			letter = "C-";
+			letter = "A-";			
+		} else if (avgScore > 75 ){
+			letter = "B+";			
 		} else if (avgScore > 67 ){
+			letter = "B";			
+		} else if (avgScore > 59 ){
+			letter = "B-";
+		} else if (avgScore > 52 ){
+			letter = "C+";
+		} else if (avgScore > 40 ){
+			letter = "C";
+		} else if (avgScore > 32 ){
+			letter = "C-";
+		} else if (avgScore > 24 ){
 			letter = "D+";
-		} else if (avgScore > 63 ){
+		} else if (avgScore > 15 ){
 			letter = "D";
-		} else if (avgScore > 60 ){
+		} else if (avgScore > 8 ){
 			letter = "D-";			
-		} else if (avgScore > 57 ){
-			letter = "F+";			
 		} else {
 			letter = "F";			
 		}
