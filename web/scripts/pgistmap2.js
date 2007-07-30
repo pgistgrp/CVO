@@ -182,8 +182,8 @@ function PGIST_Map_Logger(){
 };
 
 
-PGISTMapEditor.prototype.addLegend = function(itemsdata){
-    this.map.addControl( new PGISTLegendControl(itemsdata) );
+PGISTMapEditor.prototype.addLegend = function(itemsdata, imgonly){
+    this.map.addControl( new PGISTLegendControl(itemsdata, imgonly) );
 }
 /**
 
@@ -1183,8 +1183,10 @@ PGISTMapTitleControl.prototype.setButtonStyle_ = function(button) {
  * 
 
  **/
-function PGISTLegendControl(itemsdata){
+function PGISTLegendControl(itemsdata, imgonly){
     this.legendItems = itemsdata;
+    this.imgonly = imgonly || false;
+    alert(this.imgonly);
 }
 
 PGISTLegendControl.prototype = new GControl();
@@ -1200,9 +1202,10 @@ PGISTLegendControl.prototype.initialize = function(map) {
   container.appendChild(legendDiv);
   var html = "<table border='0' bgcolor='#FFFFFF'>";
   for(var i=0; i<this.legendItems.length; i++){
-      html += "<tr><td width='40' height='15'><img src='" 
-            + this.legendItems[i]["img"] + "' width='40' title='" + this.legendItems[i]["descp"] + "'></td>";
-      html += "<td width='40'>" + this.legendItems[i]["descp"] + "</td></tr>";
+      html += "<tr><td><img height='15' src='" 
+            + this.legendItems[i]["img"] + "'  title='" + this.legendItems[i]["descp"] + "'></td>";
+      if(!this.imgonly) html += "<td width='40'>" + this.legendItems[i]["descp"] + "</td>";
+      html += "</tr>";
   }
   html += "</table>";
 
