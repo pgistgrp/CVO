@@ -114,12 +114,18 @@ public class GISDataLoader extends MatchingTask {
     	
         appContext = new FileSystemXmlApplicationContext(
                 new String[] {
-                    configPath + "/context-database.xml",
-                    configPath + "/context-system.xml",
-                    configPath + "/context-base.xml",
-                    configPath + "/context-cvo.xml",
-                    configPath + "/context-projects.xml",
-                    configPath + "/context-funding.xml",
+                        configPath + "/context-database.xml",
+                        configPath + "/context-system.xml",
+                        configPath + "/context-tasks.xml",
+                        configPath + "/context-other.xml",
+                        "classpath:/config/context-workflow.xml",
+                        configPath + "/context-base.xml",
+                        configPath + "/context-cvo.xml",
+                        configPath + "/context-criteria.xml",
+                        configPath + "/context-projects.xml",
+                        configPath + "/context-funding.xml",
+                        configPath + "/context-report.xml",
+                        configPath + "/context-packages.xml",
                 }
             );    	
     	
