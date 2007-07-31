@@ -149,7 +149,7 @@ var PGISTMapEditor = function(mapcontainer, width, height, enableEdit) {
 	mapcontainer.appendChild(this._mapdiv);
 	
 	this._msgdiv = document.createElement("div");
-	this._msgdiv.innerHTML = "<img src='images/map-caption.png' width='" + width + "'/>";
+	this._msgdiv.innerHTML = "<center><img src='images/map-caption.png'/></center>";
 	mapcontainer.appendChild(this._msgdiv);
 
 	this._container = mapcontainer;

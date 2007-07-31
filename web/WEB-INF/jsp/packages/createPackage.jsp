@@ -424,7 +424,7 @@
 			
 			function clearBottom(){ // Move the map so that it's not below the funding table
 				if(mapPositionBottom >= fundingPositionBottom){
-						$('themap').style.top = (fundingPositionBottom - 581) + 'px';
+						$('themap').style.top = (fundingPositionBottom - 599) + 'px';
 					}
 			}
 			
