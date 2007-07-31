@@ -50,7 +50,11 @@ public class ImportTemplateTask implements WorkflowTask {
         Long fundSuiteId = new Long(inouts.getIntValue(IN_FUNDING_SUITE_ID));
         Long critSuiteId = new Long(inouts.getIntValue(IN_CRIT_SUITE_ID));
         
+        System.out.println("***" + projSuiteId + "***" + fundSuiteId + "***" + critSuiteId + "*** " + id);
+        
         importService.importTemplate(templateId, projSuiteId, fundSuiteId, critSuiteId);
+        
+        System.out.println("***Import completed***");
     }//execute()
     
     
