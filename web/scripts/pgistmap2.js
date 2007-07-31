@@ -1201,7 +1201,7 @@ PGISTLegendControl.prototype.initialize = function(map) {
   container.appendChild(legendDiv);
   var html = "<table border='0' bgcolor='#FFFFFF'>";
   for(var i=0; i<this.legendItems.length; i++){
-      html += "<tr><td><img height='15' src='" 
+      html += "<tr><td><img src='" 
             + this.legendItems[i]["img"] + "'  title='" + this.legendItems[i]["descp"] + "'></td>";
       if(!this.imgonly) html += "<td width='40'>" + this.legendItems[i]["descp"] + "</td>";
       html += "</tr>";
