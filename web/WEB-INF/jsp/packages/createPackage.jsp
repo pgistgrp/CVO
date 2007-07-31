@@ -457,14 +457,14 @@
 	<div id="container">
 		<!-- begin "overview and instructions" area -->
 		<div id="overview" class="box2">
-			<h3>Overview and Instructions</h3>
-			<p>Criteria are used to help Evaluate which proposed transportation projects are
-				best suited to address problems with our transportation system. Below, these criteria
-				have been associated with the concern themes discussed in the previous step. Please
-				review these criteria and the associated themes. Do these criteria adequately
-				reflect your concerns and the summaries? What criteria might be useful in evaluating
-				proposed transportation projects?</p>
-			<p><a href="readmore.jsp">Read more about how this step fits into the bigger picture</a>.</p>
+			<h3>Overview and instructions</h3>
+				<ul>Create your own transportation package.
+					<li>Select projects and funding options to include in your package.</li>
+					<li>Be sure to provide enough funding to pay for your projects!</li>
+					<li>Click "Help Me" if you’d like help selecting projects and funding options which match your preferences.</li>
+				</ul>
+			<p><a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a></p>
+			<p class="hiddenRM" style="display:none">The goal of the <em>LIT Challenge</em> is for participants to develop a transportation package to recommend to regional decision makers. Such a package could appear on a regional ballot for voter approval, much like the "Roads and Transit" package on the ballot in November 2007. <br/>Once all participants have submitted their own packages, five new packages will be generated through a statistical process. These new packages will represent the diversity of the different packages submitted by individual participants. In Step 4 we will evaluate these new packages and decide whether there is a significant majority of support for a single package. </p>
 		</div> <!-- end overview -->
 		
 		<!-- begin Object -->
@@ -473,6 +473,7 @@
 			<div id="newTable">
 				<div id="left" class="floatLeft">
 					<div id="yourSummary" class="summary">
+						<h3 class="HeaderColor">Your package summary</h3>
 						<!-- summary goes here -->
 					</div> <!-- end yoursummary -->
 					<div class="clearBoth"></div>
@@ -512,7 +513,7 @@
 					<!-- begin collapsible list of projects -->
 					<table cellpadding=0 cellspacing=0 id="projectsTable">
 						<tr class="tableHeading">
-							<th colspan="2" class="first">All Proposed Projects</th>
+							<th colspan="2" class="first">Proposed improvement projects</th>
 							<th>Money Needed</th>
 						</tr>
 						<c:forEach var="category" begin="1" end="2">

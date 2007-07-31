@@ -505,20 +505,20 @@
 			<h3 class="headerColor">My keywords</h3>
 			<div id="keywords" class="clearfix">
 				<ul>
-					<li class="tagSize2">Accidents</li>
-					<li class="tagSize4">Aesthetic</li>
-					<li class="tagSize3">Argentine Fabulism</li>
-					<li class="tagSize2">Bike</li>
-					<li class="tagSize3">Crosswalks</li>
+					<li class="tagSize2">accidents</li>
+					<li class="tagSize4">automobiles</li>
+					<li class="tagSize3">Snohomish</li>
+					<li class="tagSize2">bike</li>
+					<li class="tagSize3">bicycle</li>
 					<li class="tagSize1">Density</li>
-					<li class="tagSize4">Disagreement</li>
-					<li class="tagSize2">Environment</li>
-					<li class="tagSize1">Entropy</li>
-					<li class="tagSize5">Federal</li>
-					<li class="tagSize3">Fractal Geometry</li>
-					<li class="tagSize1">Groceries</li>
-					<li class="tagSize1">Pinball Machine</li>
-					<li class="tagSize2">Umbrellas</li>
+					<li class="tagSize4">disagreement</li>
+					<li class="tagSize2">environment</li>
+					<li class="tagSize1">I-405</li>
+					<li class="tagSize5">federal</li>
+					<li class="tagSize3">taxes</li>
+					<li class="tagSize1">community</li>
+					<li class="tagSize1">Transit</li>
+					<li class="tagSize2">commuting</li>
 					<li class="tagSize4">Viaduct</li>
 				</ul>
 			</div>
