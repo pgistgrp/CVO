@@ -67,7 +67,7 @@ public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
 		try {
 			linkFundingSource(toll);
 		} catch (UnknownFundingSourceException e) {
-			System.out.println("ERROR: " + e.getMessage());
+			e.printStackTrace();
 		}
     	
     	return toll;
