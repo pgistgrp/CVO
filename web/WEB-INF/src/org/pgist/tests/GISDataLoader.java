@@ -72,7 +72,8 @@ public class GISDataLoader extends MatchingTask {
         			if(current == null || current.getName().compareToIgnoreCase(content) != 0){
         				current = new Project();
         				current.setName(content);
-        				//Johns addition for testing only
+        				
+        				//John's addition for testing only
         				if(sht.getCell(5,i).getContents().equals("transit")) {
         					current.setTransMode(2);
         				} else if(sht.getCell(5,i).getContents().equals("road")) {
