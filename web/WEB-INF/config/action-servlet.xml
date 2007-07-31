@@ -4,7 +4,7 @@
 
 
     <bean name="/workflow" class="org.pgist.wfengine.web.WorkflowAction">
-        <property name="engine" ref="txEngine"/>
+        <property name="workflowUtils" ref="workflowUtils"/>
     </bean>
     
     
