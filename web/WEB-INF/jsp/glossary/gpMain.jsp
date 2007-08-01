@@ -2,6 +2,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -314,18 +315,9 @@ text-transform:none;
 <event:pageunload />
 </head>
 <body>
-<!-- Begin the header - loaded from a separate file -->
-<div id="header">
-	<!-- Begin header -->
-	<jsp:include page="/header.jsp" />
-	<!-- End header -->
-</div>
-<!-- End header -->
-<!-- START LIGHTBOX -->
-<div id="overlay" style="display: none;"></div>
-	<div id="lightbox" class="blueBB" style="top: 50%; height: 450px; overflow: auto;">
-</div>
-<!-- END LIGHTBOX -->
+<!-- Start Global Headers  -->
+	<wf:nav />
+<!-- End Global Headers -->
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 <div id="headerMenu">
 	<div id="headerContainer">
@@ -349,7 +341,7 @@ text-transform:none;
 	<div id="overview" class="box2">
 		<h3>Overview and instructions</h3>
 		<p>Here you can search and browse this glossary of transportation planning jargon. Click on a term for an extended definition, or to make a comment of your own.</p>
-		<p>Can't find the term you’re looking for? <a href="javascript:proposeTermCont();">Propose a term we should add to this glossary.</a></p>
+		<p>Can't find the term you're looking for? <a href="javascript:proposeTermCont();">Propose a term we should add to this glossary.</a></p>
 	</div>
 	<!-- end overview -->
 	<div id="slate">
