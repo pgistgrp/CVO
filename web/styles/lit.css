@@ -286,6 +286,14 @@ text-align:center;
 font-size:12pt;
 }
 
+#searchbox{
+padding:5px;
+float: left;
+margin:2px;
+}
+	
+}
+
 #loading-indicator
 {
 background:#FFF3DE;
