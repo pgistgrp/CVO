@@ -1284,9 +1284,9 @@ public class SDAgent {
             request.setAttribute("wfinfo", wfinfo);
             workflowUtils.processWorkflowInfo(
                 request,
-                new Long(request.getParameter("workflowId")),
-                new Long(request.getParameter("contextId")),
-                new Long(request.getParameter("activityId"))
+                new Long(wfinfo.get("workflowId").toString()),
+                new Long(wfinfo.get("contextId").toString()),
+                new Long(wfinfo.get("activityId").toString())
             );
             
             String type = null;
