@@ -3,10 +3,12 @@
  * Testing script for hibernate execution.
  */
 
-import org.hibernate.Query;
+hql = "from Tag";
 
-Query query = session.createQuery("select cr from CategoryReference cr where cr.id=?");
-query.setLong(0, 4290);
+query = session.createQuery(hql);
+// query.setLong(0, 4254);
+// query.setLong(1, 4254);
+// query.setLong(2, 4290);
 
 List test = query.list();
 
