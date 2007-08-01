@@ -10,14 +10,14 @@
 <p>Participant packages will be clustered on -- workflow date -- (Beginning of Step 4a)</p>
 
 <c:if test="${clusteredDate != null}">
-	<p>On ${clusteredDate}, participant packages were clustered into 6 packages below</p>
+	<p>On ${clusteredDate}, participant packages were clustered into the packages below</p>
 </c:if>
 
 <table border="0" cellspacing="0" width="100%" class="box12">
 	<tr>
 		<th>Package</th>
 		<th>Total</th>
-		<th>Total Cost to Average Resident</th>
+		<th>Total cost to average resident</th>
 	</tr>
 	<c:forEach var="package" items="${packages}" varStatus="loop">
 		<tr class="${(package.id == userClusteredPkgId) ? 'box5': ''}">

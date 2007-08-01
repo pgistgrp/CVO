@@ -1,7 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -39,22 +39,23 @@
 			<div class="summary box11">
 				<table>
 					<tr>
-						<td><h3>Total Cost</h3></td>
-						<td><fmt:formatNumber type="currency">${package.totalCost}</fmt:formatNumber> million</td>
+						<td><h3>Total cost</h3></td>
+						<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalCost}" /> million
+							</td>
 					</tr>
 					<tr>
 						<td><h3>Total funding</h3></td>
-						<td><fmt:formatNumber type="currency">${package.totalFunding}</fmt:formatNumber> million</td>
+						<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalFunding}" /> million</td>
 					</tr>
 					<c:if test="${userPkg != null}">
 						<tr>
 							<td><strong>Cost to you:</strong></td>
-							<td><fmt:formatNumber type="currency">${package.yourCost}</fmt:formatNumber> per year</td>
+							<td><fmt:formatNumber type="currency" value="${package.yourCost}"/> per year</td>
 						</tr>
 					</c:if>
 					<tr>
 						<td><strong>Cost to the average resident:</strong></td>
-						<td><fmt:formatNumber type="currency">${package.avgResidentCost}</fmt:formatNumber> per year</td>
+						<td><fmt:formatNumber type="currency" value="${package.avgResidentCost}" /> per year</td>
 					</tr>
 					<tr>
 						<td><strong>Number of projects in your package:</strong></td>
@@ -65,17 +66,17 @@
 					<c:choose>
 						<c:when test="${(package.totalFunding - package.totalCost) > 0}">
 							<div id="balance" class="balance">
-								<h3>Revenues Exceed Costs</h3>
+								<h3>Revenues exceed costs</h3>
 							</div>
 						</c:when>
 						<c:when test="${(package.totalFunding - package.totalCost) == 0}">
 							<div id="balance" class="balance">
-								<h3>Revenues Equal Costs</h3>
+								<h3>Revenues equal costs</h3>
 							</div>
 						</c:when>
 						<c:otherwise>
 							<div id="balance" class="exceed">
-								<h3>Costs Exceed Revenue!</h3>
+								<h3>Costs exceed revenue!</h3>
 							</div>
 						</c:otherwise>
 					</c:choose>
@@ -88,7 +89,7 @@
 					<table cellpadding=0 cellspacing=0>
 						<tr class="tableHeading">
 							<th class="first col1">Funding for ${package.description}</th>
-							<th class="col2">Estimated Money Raised</th>
+							<th class="col2">Estimated money raised</th>
 							<th class="col3">Estimated annual cost to the average taxpayer</th>
 							<th class="col4">Estimated annual cost to you</th>
 						</tr>
@@ -107,9 +108,9 @@
 											<c:forEach var="alt" items="${source.fundingSourceAlternatives}" varStatus="loop">
 												<tr>
 													<td class="col1">${alt.name}</td>
-													<td class="col2"><fmt:formatNumber type="currency">${alt.estCost}</fmt:formatNumber></td>
-													<td class="col3"><fmt:formatNumber type="currency">${alt.avgCost}</fmt:formatNumber></td>
-													<td class="col4"><fmt:formatNumber type="currency">${alt.yourCost}</fmt:formatNumber></td>
+													<td class="col2">$<fmt:formatNumber maxFractionDigits="0" value="${alt.estCost}" /> million</td>
+													<td class="col3"><fmt:formatNumber type="currency" value="${alt.avgCost}"/></td>
+													<td class="col4"><fmt:formatNumber type="currency" value="${alt.yourCost}"/></td>
 												</tr>
 											</c:forEach>
 										</table>
@@ -152,7 +153,8 @@
 										<c:forEach var="alt" items="${project.projectAlternatives}" varStatus="loop">
 											<tr class="option">
 												<td class="col1">${alt.name}</td>
-												<td class="col2"><fmt:formatNumber type="currency">${alt.moneyNeeded}</fmt:formatNumber> Million</td>
+												<td class="col2">
+													$<fmt:formatNumber maxFractionDigits="0" value="${alt.moneyNeeded}" /> million</td>
 												<td class="col3 grade${pg:gradeSwitch(alt.projGrade)}">${alt.projGrade}</td>
 												<td class="col4 grade${pg:gradeSwitch(alt.yourGrade)}">${alt.yourGrade}</td>
 												<td class="col5 grade${pg:gradeSwitch(alt.avgGrade)}">${alt.avgGrade}</td>
@@ -186,7 +188,7 @@
 										<c:forEach var="alt" items="${project.projectAlternatives}" varStatus="loop">
 											<tr class="option">
 												<td class="col1">${alt.name}</td>
-												<td class="col2"><fmt:formatNumber type="currency">${alt.moneyNeeded}</fmt:formatNumber> Million</td>
+												<td class="col2"><fmt:formatNumber type="currency" value="${alt.moneyNeeded}"/> million</td>
 												<td class="col3 grade${pg:gradeSwitch(alt.projGrade)}">${alt.projGrade}</td>
 												<td class="col4 grade${pg:gradeSwitch(alt.yourGrade)}">${alt.yourGrade}</td>
 												<td class="col5 grade${pg:gradeSwitch(alt.avgGrade)}">${alt.avgGrade}</td>
