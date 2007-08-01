@@ -2,6 +2,8 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
@@ -212,7 +214,7 @@ function formOther(){
 	<!-- Begin the header - loaded from a separate file -->
 	<div id="header">
 		<!-- Begin header -->
-		<jsp:include page="/header.jsp" />
+  <wf:nav />
 		<!-- End header -->
 	</div>
 	<!-- End header -->

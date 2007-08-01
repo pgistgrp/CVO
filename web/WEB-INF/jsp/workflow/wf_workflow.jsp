@@ -13,7 +13,7 @@
 	<fmt:formatDate value="${workflow.beginTime}" dateStyle="full" var="beginTime" />
 	<p><small>This experiment began on: ${beginTime}</small></p>
 
- 	<h3 class="headerColor inline">Overview of all Steps</h3>
+ 	<h3 class="headerColor inline">Overview of all steps</h3>
 	<!--History-->
 	<c:forEach var="sHistory" items="${workflow.situation.context.histories}" varStatus="loop">
 		<pg:narrow name="sHistory"/>
