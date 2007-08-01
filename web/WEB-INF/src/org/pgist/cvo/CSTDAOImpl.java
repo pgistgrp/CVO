@@ -164,7 +164,8 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
        + " tr.cctId=? "
        //+ " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id))"
        + " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=?))"
-       + " and tr.id not in (select cr.tags.id from CategoryReference cr where cr.id=?) ";
+       //+ " and tr.id not in (select cr.tags.id from CategoryReference cr where cr.id=?) ";
+       ;
     
     
     private static final String hql_getUnrelatedTags2 =
@@ -190,7 +191,7 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
         List list = getHibernateTemplate().find(hql_getUnrelatedTags1, new Object[] {
                 cctId,
                 cctId,
-                categoryId,
+                //categoryId,
         });
         
         if (list.size()==0) return new ArrayList();
