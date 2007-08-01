@@ -162,18 +162,15 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
     private static final String hql_getUnrelatedTags1 =
          "select count(tr.id) from TagReference tr where "
        + " tr.cctId=? "
-       //+ " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id))"
-       + " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=?))"
-       //+ " and tr.id not in (select cr.tags.id from CategoryReference cr where cr.id=?) ";
-       ;
+       + " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id))"
+       + " and tr.id not in (select tag.id from (select cr.tags as tag from CategoryReference cr where cr.id=?)) ";
     
     
     private static final String hql_getUnrelatedTags2 =
         "from TagReference tr where "
        + " tr.cctId=? "
-       //+ " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id))"
-       + " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=?))"
-       //+ " and tr.id not in (select cr.tags.id from CategoryReference cr where cr.id=?) "
+       + " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id))"
+       + " and tr.id not in (select cr.tags.id from CategoryReference cr where cr.id=?) "
        + " order by tr.tag.name";
     
     
@@ -191,19 +188,19 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
         List list = getHibernateTemplate().find(hql_getUnrelatedTags1, new Object[] {
                 cctId,
                 cctId,
-                //categoryId,
+                categoryId,
         });
         
         if (list.size()==0) return new ArrayList();
         
-        int count = ((Number) list.get(0)).intValue();
+        int count = ((Integer) list.get(0)).intValue();
         if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
         setting.setRowSize(count);
         
         Query query = getSession().createQuery(hql_getUnrelatedTags2);
         query.setLong(0, cctId);
         query.setLong(1, cctId);
-        //query.setLong(2, categoryId);
+        query.setLong(2, categoryId);
         query.setMaxResults(setting.getRowOfPage());
         query.setFirstResult(setting.getFirstRow());
         

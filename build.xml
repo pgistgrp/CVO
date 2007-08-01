@@ -169,12 +169,12 @@
     </target>
 
 
-    <target name="tagMatcher" depends="compile, mapping">
-        <taskdef name="TagMatcher" classname="org.pgist.tests.TagMatcherTest" classpathref="classpath">
+    <target name="hibernate" depends="compile">
+        <taskdef name="TestHibernate" classname="org.pgist.tests.TestHibernate" classpathref="classpath">
         </taskdef>
-        <TagMatcher configPath="${web}/WEB-INF/config"/>
+        <TestHibernate configPath="${web}/WEB-INF/config" script="testdata/hibernate.bsh"/>
     </target>
-
+    
 
     <target name="javadoc">
         <delete dir="${javadoc}"/>

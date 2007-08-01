@@ -1,0 +1,9 @@
+import org.hibernate.Query;
+
+Query query = session.createQuery("from Tag tag where tag in (select cr.tags from CategoryReference cr where cr.id=?)");
+query.setLong(0, 4290);
+List test = query.list();
+for (Object o : test) {
+    System.out.println("-----> "+o);
+}//for
+
