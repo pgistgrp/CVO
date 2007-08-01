@@ -1358,6 +1358,7 @@ public class SDAgent {
             
             map.put("successful", true);
         } catch (Exception e) {
+            e.printStackTrace();
             map.put("reason", e.getMessage());
             return map;
         }
