@@ -162,14 +162,16 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
     private static final String hql_getUnrelatedTags1 =
          "select count(tr.id) from TagReference tr where "
        + " tr.cctId=? "
-       + " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id))"
+       //+ " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id))"
+       + " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=?))"
        + " and tr.id not in (select cr.tags.id from CategoryReference cr where cr.id=?) ";
     
     
     private static final String hql_getUnrelatedTags2 =
         "from TagReference tr where "
        + " tr.cctId=? "
-       + " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id))"
+       //+ " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id))"
+       + " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=?))"
        + " and tr.id not in (select cr.tags.id from CategoryReference cr where cr.id=?) "
        + " order by tr.tag.name";
     
