@@ -224,6 +224,8 @@ public class ImportServiceImpl implements ImportService {
                             
                             gc.getObjectives().add(go);
                         }//for objEle
+                        
+                        gc.recalcGrade();
                     }//for critEle
                 }//for altEle
             }//for projEle
