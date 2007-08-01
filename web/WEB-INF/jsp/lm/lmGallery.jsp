@@ -6,7 +6,7 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="javascript" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <html xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
 <title>Let's Improve Transportation - Learnmore: Review Projects</title>
@@ -93,11 +93,9 @@ function renderProjects(){
 </head>
 <body onload="load()" onunload="GUnload()">
 <!-- Begin the header - loaded from a separate file -->
-<div id="header">
-	<!-- Begin header -->
-	<jsp:include page="/header.jsp" />
-	<!-- End header -->
-</div>
+<!-- Start Global Headers  -->
+	<wf:nav />
+<!-- End Global Headers -->
 <!-- End header -->
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 	<div id="headerMenu">
