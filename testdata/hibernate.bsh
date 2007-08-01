@@ -1,3 +1,8 @@
+/*
+ * Bean Shell Script.
+ * Testing script for hibernate execution.
+ */
+
 import org.hibernate.Query;
 
 Query query = session.createQuery("select cr from CategoryReference cr where cr.id=?");
