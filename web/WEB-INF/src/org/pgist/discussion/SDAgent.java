@@ -1282,6 +1282,10 @@ public class SDAgent {
         
         try {
             request.setAttribute("wfinfo", wfinfo);
+            System.out.println("\n\n----> "+wfinfo.get("workflowId"));
+            System.out.println("----> "+wfinfo.get("contextId"));
+            System.out.println("----> "+wfinfo.get("activityId"));
+            System.out.println("\n\n");
             workflowUtils.processWorkflowInfo(
                 request,
                 new Long(wfinfo.get("workflowId").toString()),
