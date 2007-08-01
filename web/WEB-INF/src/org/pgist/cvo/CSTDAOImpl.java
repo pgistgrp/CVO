@@ -173,7 +173,7 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
        + " tr.cctId=? "
        //+ " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=? and tag.id in cr.tags.id))"
        + " and tr.id in ((select distinct tag.id from TagReference tag, CategoryReference cr where cr.cct.id=?))"
-       + " and tr.id not in (select cr.tags.id from CategoryReference cr where cr.id=?) "
+       //+ " and tr.id not in (select cr.tags.id from CategoryReference cr where cr.id=?) "
        + " order by tr.tag.name";
     
     
@@ -196,14 +196,14 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
         
         if (list.size()==0) return new ArrayList();
         
-        int count = ((Integer) list.get(0)).intValue();
+        int count = ((Number) list.get(0)).intValue();
         if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
         setting.setRowSize(count);
         
         Query query = getSession().createQuery(hql_getUnrelatedTags2);
         query.setLong(0, cctId);
         query.setLong(1, cctId);
-        query.setLong(2, categoryId);
+        //query.setLong(2, categoryId);
         query.setMaxResults(setting.getRowOfPage());
         query.setFirstResult(setting.getFirstRow());
         
