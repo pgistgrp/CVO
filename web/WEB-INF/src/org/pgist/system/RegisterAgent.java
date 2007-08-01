@@ -141,6 +141,8 @@ public class RegisterAgent {
         		Long id = registerService.addUser(firstname, lastname, email1, address1, address2, city, state, zipcode, username, password1);
         		registerService.login(request, id);
             	map.put("id", id);
+            	boolean qualify = registerService.createQuotaQualify(id);
+            	map.put("q", qualify);
         	}
         	
             map.put("successful", true);

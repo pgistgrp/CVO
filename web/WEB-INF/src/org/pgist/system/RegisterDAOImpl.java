@@ -80,7 +80,7 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     } //addUser()
     
     
-    public boolean createQuotaQualify(Long id) throws Exception {
+    public boolean createQuotaQualify(Long id) throws Exception {  	
     	User u = (User) load(User.class, id);
     	Long cid = u.getCountyId();
     	if(cid==null) {
@@ -91,11 +91,29 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     	int current = c.getTempQuotaNumber();
     	
     	if(current < limit) {
-    		u.setQuota(true);
-    		return true;
+    		if(checkAddress(u)) {
+	    		u.setQuota(true);    		
+	    		return true;
+    		}	
     	}
     	return false;
     } //createQuotaQualify()
+    
+    
+    
+    private static final String hql_checkAddress = "from User u where u.quota=? and u.homeAddr=? and u.homeAddr=? and u.zipcode=?";
+    
+    public boolean checkAddress(User u) throws Exception {
+    	List list = getHibernateTemplate().find(hql_checkAddress, new Object[] {
+    			true, u.getHomeAddr(), u.getHomeAddr2(), u.getZipcode(),
+    	});
+    	
+    	if(list.size()>0) {
+    		return false;
+    	}
+    	
+    	return true;
+    }
     
     
     public void addQuotaInfo(String user_interview, String user_observation, Long id) throws Exception {

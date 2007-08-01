@@ -133,8 +133,13 @@
 							RegisterAgent.addUser({firstname:firstname, lastname:lastname, email1:email1, email2:email2, address1:address1, address2:address2, city:city, state:state, zipcode:zip, username:username, password1:password1, password2:password2}, {
 								callback:function(data){
 									if (data.successful){
-										var id = data.id;		
-										var t = checkQ(id);				
+										
+										if(data.q == true) {
+											window.location = "register2a.do";		
+										} else {
+											window.location = "register2b.do";
+										}
+													
 									}
 								},
 								errorHandler:function(errorString, exception){ 
@@ -169,25 +174,6 @@
 		}
 	}
 	
-	function checkQ(id) {
-		RegisterAgent.createQuotaQualify({id:id}, {
-		callback:function(data){
-			if (data.successful){
-				if(data.qualify == true) {
-					window.location = "register2a.do";		
-				} else {
-					window.location = "register2b.do";
-				}
-			}else{
-				//error occurred
-				return false;
-			}
-		},
-			errorHandler:function(errorString, exception){ 
-				alert("RegisterAgent.createQuotaQualfiy( error:" + errorString + exception);
-			}
-		});	
-	}
 	
 	</script>
 	</head>
