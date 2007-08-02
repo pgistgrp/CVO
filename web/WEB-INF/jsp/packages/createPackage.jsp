@@ -500,6 +500,7 @@
 					<div class="clearBoth"></div>
 
 					<!-- begin collapsible list of projects -->
+					<h3 class="headerColor" style="margin-bottom:10px">Select projects to include in your package</h3>
 					<table cellpadding=0 cellspacing=0 id="projectsTable">
 						<tr class="tableHeading">
 							<th colspan="2" class="first">Proposed improvement projects</th>
@@ -606,6 +607,7 @@
 					<br />
 					
 					<!-- end collapsible project list -->
+					<h3 class="headerColor" style="margin-bottom:10px">Decide how to pay for your package</h3>
 					<table cellpadding="0" cellspacing="0" id="fundingTable">
 						<tr class="tableHeading">
 							<th class="first">Funding Source</th>
