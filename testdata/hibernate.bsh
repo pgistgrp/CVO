@@ -3,12 +3,15 @@
  * Testing script for hibernate execution.
  */
 
-hql = "from Tag";
+categoryId = 4290;
+cctId = 4254;
+
+hql = "select distinct c from Concern c inner join c.tags as tr where c.cct.id=? and c.deleted=? and tr.id=? order by c.id";
 
 query = session.createQuery(hql);
-// query.setLong(0, 4254);
-// query.setLong(1, 4254);
-// query.setLong(2, 4290);
+query.setLong(0, cctId);
+query.setBoolean(1, new Boolean(false));
+query.setLong(2, 4900);
 
 List test = query.list();
 
