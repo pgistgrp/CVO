@@ -41,7 +41,17 @@
 <!--Criteria Specific  Libraries-->
 <script src="scripts/SideBar.js" type="text/javascript"></script>
 <script type='text/javascript' src='/dwr/interface/PackageAgent.js'></script>
-
+<script type="text/javascript" charset="utf-8">
+	function paintRows(){
+		rows = document.getElementsByClassName('VoteListRow');
+		for (var i = 0;i<rows.length;i++){
+			if(i%2!=0){
+				$(rows[i]).style.background="#E7F2F7";		
+			}
+			
+		}	
+	}
+</script>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">
 		@import "styles/lit.css";
@@ -50,7 +60,7 @@
 <!-- End Site Wide CSS -->
 <event:pageunload />
 </head>
-<body>
+<body onload="paintRows()">
 <!-- Start Global Headers  -->
     <wf:nav />
     <wf:subNav />
