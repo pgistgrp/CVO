@@ -8,7 +8,7 @@
 <%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <head>
-<title>Step 1b: Review Summaries - Main</title>
+<title>Step 1c: Review Summaries - Main</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/lit.css";</style>
 <!-- End Site Wide CSS -->
@@ -91,6 +91,7 @@
 				<li>Discuss how well these summaries represent participants' concerns</li>
 				<li>Suggest revisions to the summaries in your discussion comments</li>
 			</ul>
+			<p>This step will conclude on <strong><fmt:formatDate value="${current.endTime}" dateStyle="long" /></strong>.</p>
 			<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
 			<p id="hiddenRM" style="display:none">After the brainstorm concluded, the moderators synthesized and summarized the concerns offered by participants. (<pg:url page="lmFaq.do" target="_blank" anchor="step1-created">Read more about the summarization process</pg:url>). Each concern theme is associated with a group of keywords. As you review summaries let us know if you think these summaries are accurate and if you feel any important themes were left out. The moderator will make revisions based on participant comments. The final version of these summaries will be included in the final report of the <em>LIT Challenge</em>. The summaries will also be used in Step 2 when we we assess different "factors" used to evaluate proposed transportation improvement projects.</p>
 		</pg:termHighlight>

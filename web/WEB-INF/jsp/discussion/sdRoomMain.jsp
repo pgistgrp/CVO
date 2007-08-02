@@ -10,7 +10,7 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
-<title>Step 1b: Review Summaries - Rooms</title>
+<title>Let's Improve Transportation - Discuss</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">
 	@import "styles/lit.css";	
@@ -33,7 +33,7 @@
 <!--SDX Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
-<script type='text/javascript' src='/dwr/interface/CriteriaAgent.js'>
+<script type='text/javascript' src='/dwr/interface/CriteriaAgent.js'></script>
 <script type='text/javascript' src='/scripts/util.js'></script>
 <!--End SDX Specific  Libraries-->
 

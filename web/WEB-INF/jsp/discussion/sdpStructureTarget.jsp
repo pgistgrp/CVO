@@ -36,7 +36,7 @@
 			<li>Click on a project to view it on the map and read more about it.</li>
 			<li>Discuss the benefits and drawbacks of any project in the discussion area below.</li>
 		</ul>
-			<p>When you are ready, feel free to <a class="FIXLINK" href="#">Review funding options</a> (Step 3b) and <a class="FIXLINK" href="#">Create your own package</a> (Step 3c). You have until <span class="FIXDATE"><strong>October 21</strong></span> to create your own package.</p>
+			<p>When you are ready, feel free to Review funding options (Step 3b) and Create your own package (Step 3c)</a>.</p>
 				<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
 		<p id="hiddenRM" style="display:none">The proposed projects have been examined by a panel of transportation specialists who assigned scores for the improvement factors we reviewed in Step 2. (<a href="readmore.jsp">Read more about the scoring process</a>). After reviewing the proposed transportation projects (Step 3a) and funding options (Step 3b) you will have an opportunity to create your own transportation package by selecting the projects and funding options you like best. </p>
 	</div>

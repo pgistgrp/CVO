@@ -623,11 +623,13 @@ $('slate').style.Height = winH;
   <div id="container">
     <!-- begin "overview and instructions" area -->
     <div id="overview" class="box2">
+    <!--
+    		<p>***** Started on: <fmt:formatDate value="${current.beginTime}" dateStyle="long" /> *****</p>
+    		<p>***** Ends on: <fmt:formatDate value="${current.endTime}" dateStyle="long" /> *****</p>    
+    -->
 			<h3>Overview and instructions</h3>
     		
     		<c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
-    		<p>***** Started on: <fmt:formatDate value="${current.beginTime}" dateStyle="long" /> *****</p>
-    		<p>***** Ends on: <fmt:formatDate value="${current.endTime}" dateStyle="long" /> *****</p>
 			
 			<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
 			Before we can determine how to best improve the transportation system, we need to know what the problems are. In this step you can:
@@ -635,6 +637,7 @@ $('slate').style.Height = winH;
 				<li>Read concerns posted by other participants.</li>
 				<li>Share your own concerns.</li>
 			</ul>
+			<p>Brainstorming will conclude at midnight on <strong><fmt:formatDate value="${current.endTime}" dateStyle="long" /></strong>.</p>
 			<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
 				<p id="hiddenRM" style="display:none">When step 1b concludes on October 3 the moderators will review and summarize them according to themes. The final version of these summaries will be included in the final report of the <em>LIT Challenge</em>. The summaries will also be used in Step 2 when we assess different "factors" used to evaluate proposed transportation improvement projects.</p>
 			</pg:termHighlight>

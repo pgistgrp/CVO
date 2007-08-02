@@ -104,10 +104,10 @@
 		    </div>
 		  </div>
 		</c:forEach>
-		<div class="clearBoth"></div>
-	</div>
-	<div id="orphanThemes">
+		<div id="orphanThemes">
 	    <!-- loaded by js -->
+		</div>
+		<div class="clearBoth"></div>
 	</div>
 	
 </pg:fragment>
