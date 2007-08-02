@@ -428,7 +428,7 @@
 		<br />
 		<h4>Finished Managing Planning Factors?</h4>
 
-		<p><input type="button" style="padding:5px" onClick="location.href='userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" 
+		<p><input type="button" style="padding:5px" onClick="location.href='userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" 
 			value="Finished!"/></p>
 
 		<!--end publishing options -->

@@ -383,7 +383,7 @@ xml+='\
     		</div>
     		<!-- end Object-->
     		<h3 class="headerColor">Finished scoring projects?</h3>
-    		<p><input type="button" style="padding:5px;" onClick="location.href='userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" value="Finished!"/></p>
+    		<p><input type="button" style="padding:5px;" onClick="location.href='userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" value="Finished!"/></p>
     		<p>TEMP (For Developers) - <a href="javascript:Element.toggle('XMLwrapper');updateXML();">View XML for Data Template</a></p>
     		
     		<div id="XMLwrapper" style="display:none">

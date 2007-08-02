@@ -114,6 +114,8 @@
 		</div>
 		<!-- end one voting box -->
 		<div class="clearBoth"></div>
+		
+		<p><a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Overview</a></p>
 		<!--		
 		<h2 class="headerColor">Previous polls</h2>
 		<c:if test="${fn:length(pVoteSuites) == 0}">

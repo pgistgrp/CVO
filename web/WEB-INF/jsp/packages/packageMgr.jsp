@@ -234,7 +234,7 @@ td.col1 a {display:block;text-decoration:underline;}
 	<input type="button" value="Publish Packages" onClick="publishPackages();" class="padding5">-->
 		<h3>Finished managing packages?</h3>
 	<!-- this button just redirects - saves are occuring on check. -->
-	<p><input type="button" style="padding:5px" onClick="location.href='userhome.do'" value="Finished!"/></p>
+	<p align="right"><input type="button" style="padding:5px;" onClick="location.href='userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" value="Finished!"/></p>
 </div>
 <script type="text/javascript" charset="utf-8">
 	getManualPackages()

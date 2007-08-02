@@ -6,7 +6,7 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="javascript" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 	"http://www.w3.org/TR/html4/strict.dtd">
 <html:html>
@@ -36,24 +36,11 @@
     	<!-- End Site Wide CSS -->
 	</head>
 	<body>
-	<!-- Begin the header - loaded from a separate file -->
-	<div id="header">
-		<!-- Begin header -->
-		<jsp:include page="/header.jsp" />
-		<!-- End header -->
-	</div>
-	<!-- End header -->
+    <!-- Start Global Headers  -->
+        <wf:nav />
+        <wf:subNav />
+    <!-- End Global Headers -->
 
-	<!-- Begin header menu - The wide ribbon underneath the logo -->
-	<div id="headerMenu">
-		<div id="headerContainer">
-			<div id="headerTitle" class="floatLeft">
-				<h3 class="headerColor">Search Results</h3>
-			</div>
-			<div class="headerButton floatRight"><a href="#">Browse by Keyword</a></div>
-		</div>
-	</div>
-	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
         <html:form action="/search.do" method="GET">
@@ -156,17 +143,9 @@
 	<!-- start feedback form -->
 	<pg:feedback id="feedbackDiv" action="cctView.do"/>
 	<!-- end feedback form -->
-	<!-- Begin header menu - The wide ribbon underneath the logo -->
-	<div id="headerMenu">
-		<div id="headerContainer">
-
-			<div id="headerTitle" class="floatLeft">
-				<h3 class="headerColor">Search Results</h3>
-			</div>
-			<div class="headerButton floatRight"><a href="#">Browse by Keyword</a></div>
-		</div>
-	</div>
-	<!-- End header menu -->
+    <!-- Start Global Headers  -->
+        <wf:subNav />
+    <!-- End Global Headers -->
 	<div id="footer">
 
 		<jsp:include page="/footer.jsp" />

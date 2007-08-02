@@ -120,7 +120,7 @@
 
 	<h3 align="right">Finished selecting funding source alternatives?</h3>
 	
-	<p align="right"><input type="button" style="padding:5px;" onClick="location.href='userhome.do?wf=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" value="Finished!"/></p>
+	<p align="right"><input type="button" style="padding:5px;" onClick="location.href='userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" value="Finished!"/></p>
 </body>
 </html:html>
 
