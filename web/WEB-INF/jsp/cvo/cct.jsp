@@ -1,7 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -624,6 +624,11 @@ $('slate').style.Height = winH;
     <!-- begin "overview and instructions" area -->
     <div id="overview" class="box2">
 			<h3>Overview and instructions</h3>
+    		
+    		<c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
+    		<p>***** Started on: <fmt:formatDate value="${current.beginTime}" dateStyle="long" /> *****</p>
+    		<p>***** Ends on: <fmt:formatDate value="${current.endTime}" dateStyle="long" /> *****</p>
+			
 			<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
 			Before we can determine how to best improve the transportation system, we need to know what the problems are. In this step you can:
 			<ul>

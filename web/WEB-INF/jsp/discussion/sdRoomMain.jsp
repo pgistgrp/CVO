@@ -33,8 +33,10 @@
 <!--SDX Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/CriteriaAgent.js'>
 <script type='text/javascript' src='/scripts/util.js'></script>
 <!--End SDX Specific  Libraries-->
+
 <!--Mapping  Libraries-->
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/PESAgent.js'></script>
@@ -99,10 +101,9 @@
 				callback:function(data){
 					if (data.successful){
 						$(io.objectDiv).innerHTML = data.source.html;
-						//alert(data.source.script)
 						eval(data.source.script);
 					}else{
-						alert(data.reason);
+						alert("GET TARGETS FAILED.  REASON: "+data.reason);
 					}
 				},
 				errorHandler:function(errorString, exception){ 

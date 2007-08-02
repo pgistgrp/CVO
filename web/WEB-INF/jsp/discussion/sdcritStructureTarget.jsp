@@ -20,10 +20,13 @@
 			[x] Initial Skeleton Code (Jordan)
 			[x] Add JavaScript to get criteria (Jordan)
 			[x] Integrate Layout (Adam)
+			[ ] Need critSuiteId for getOrphanThemes (Zhong)
 	#### -->
 	<!-- begin "overview and instructions" area -->
 	<div id="overview" class="box2">
 		<h3 class="headerColor">Overview and instructions</h3>
+		<c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
+		***** ${current}  ******
 		Here we assess nine "factors" that will be used in Step 3 to evaluate proposed transportation improvement projects. 
 		<ul>
 			<li>Review the factors below and discuss with other participants</li>
@@ -103,7 +106,9 @@
 		</c:forEach>
 		<div class="clearBoth"></div>
 	</div>
-	
+	<div id="orphanThemes">
+	    <!-- loaded by js -->
+	</div>
 	
 </pg:fragment>
 
@@ -137,21 +142,33 @@
 			cssLinkElem.setAttribute('type', 'text/css');
 			cssLinkElem.setAttribute('rel', 'stylesheet');
 			headElem.appendChild(cssLinkElem);
-		}else{ //javascript
+		}else{
 			var jsLinkElem = document.createElement('script');
 			jsLinkElem.setAttribute('src', file);
 			jsLinkElem.setAttribute('type', 'text/javascript');
-			headElem.appendChild(jsLinkElem);
+			//headElem.appendChild(jsLinkElem);
 		}
 		
 	}
 
-	function getOrphanThemes(){
+
+	
+	/* *************** loading on getTargets() in SDRoomMain *************** */
+	io.loadDynamicFile('styles/step2.css');
+	//io.loadDynamicFile('/dwr/interface/CriteriaAgent.js');
+    
+    
+    function getOrphanThemes(){
 		//alert("critSuiteId: " + io.critSuiteId + " cctId: " + cctId); 
 		CriteriaAgent.getOrphanThemes({critSuiteId:io.critSuiteId,cctId:io.cctId}, {
 			callback:function(data){
 				if (data.successful){
-					alert(data.themes);
+				    var themes = [];
+					data.themes.each(function(t){
+					    themes.push("<a href='sdRoom.do"+io.wfInfo+"&isid=#&ioid=#'>"+t.title+"</a>");
+					})
+					$('orphanThemes').innerHTML = "Concern themes that the moderator has determined are unrelated to any of these planning factors include:"
+					 + themes.toString();
 				}else{
 					alert(data.reason);
 				}
@@ -161,11 +178,6 @@
 			}
 		});
 	}
-	
-	/* *************** loading on getTargets() in SDRoomMain *************** */
-	io.loadDynamicFile('styles/step2.css');
-	io.loadDynamicFile('/dwr/interface/CriteriaAgent.js');
-	
-
+	getOrphanThemes();
 
 </pg:fragment>

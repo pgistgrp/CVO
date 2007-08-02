@@ -29,6 +29,8 @@
 
 	<div id="overview" class="box2">
 		<h3>Overview and instructions</h3>
+		<c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
+		***** ${current}  ******
 		Learn about proposed projects for improving or expanding our regional transportation system.
 		<ul>
 			<li>Click on a project to view it on the map and read more about it.</li>
