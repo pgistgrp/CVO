@@ -43,17 +43,17 @@
         <c:set var="stepCounter" value="${stepCounter + 1}" />
     </c:if>
     <c:forEach var="activity" items="${step}" varStatus="loop2">
+          <input type="hidden" name="activity_id" value="${activity.id}" />
+          <h3 class="headerColor">${activity.title}</h3>
+          <p>
+              <label>Begin Time:</label><input type="text"  id="${activity.id}_begin" name="${activity.id}_begin" value='<fmt:formatDate value="${activity.beginTime}" pattern="MM-dd-yyyy" />' /> 
+              <img alt="Calendar" onclick="new CalendarDateSelect('${activity.id}_begin');" id="_${activity.id}_begin_link" src="/images/calendar.gif" style="cursor: pointer;" />
+          </p>
+          <p>
+            <label>End Time:</label><input type="text"  name="${activity.id}_end" id="${activity.id}_end" value='<fmt:formatDate value="${activity.endTime}" pattern="MM-dd-yyyy" />' /> 
+            <img alt="Calendar" onclick="new CalendarDateSelect('${activity.id}_end');" id="_${activity.id}_end_link" src="/images/calendar.gif" style="cursor: pointer;" />
+          </p>
       <pg:narrow name="activity" />
-      <input type="hidden" name="activity_id" value="${activity.id}" />
-      <h3 class="headerColor">${activity.title}</h3>
-      <p>
-          <label>Begin Time:</label><input type="text"  id="${activity.id}_begin" name="${activity.id}_begin" value='<fmt:formatDate value="${activity.beginTime}" pattern="MM-dd-yyyy" />' /> 
-          <img alt="Calendar" onclick="new CalendarDateSelect('${activity.id}_begin');" id="_${activity.id}_begin_link" src="/images/calendar.gif" style="cursor: pointer;" />
-      </p>
-      <p>
-        <label>End Time:</label><input type="text"  name="${activity.id}_end" id="${activity.id}_end" value='<fmt:formatDate value="${activity.endTime}" pattern="MM-dd-yyyy" />' /> 
-        <img alt="Calendar" onclick="new CalendarDateSelect('${activity.id}_end');" id="_${activity.id}_end_link" src="/images/calendar.gif" style="cursor: pointer;" />
-      </p>
     </c:forEach>
   </c:forEach>
   <input type="submit" value="submit"/>
