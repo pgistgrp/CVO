@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title></title>
+		<title>Help Me</title>
 				
 		<!-- Site Wide JavaScript -->
 		
