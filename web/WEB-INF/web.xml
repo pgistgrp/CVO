@@ -29,6 +29,11 @@
         <param-name>org.pgist.CONFIG_DIR</param-name>
         <param-value>/WEB-INF/config</param-value>
     </context-param>
+
+    <context-param>
+        <param-name>org.pgist.GMAP_KEY</param-name>
+        <param-value>PGIST_GMAP_KEY</param-value>
+    </context-param>
     
     <filter>
         <filter-name>OpenSessionInViewFilter</filter-name>

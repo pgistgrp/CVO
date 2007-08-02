@@ -45,10 +45,7 @@
 <script type='text/javascript' src='/dwr/interface/PackageAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/PESAgent.js'></script>
-<!-- mapping JavaScript pgistdev: ABQIAAAADmWGO07Q7ZeAHCvFNooqIxSrR7p1nyD8TH138ULjTOjQOW5fjxTrHGj2RyW-631yBK63wnZBIuC6BA-->
-<!-- mapping JavaScript localhost: ABQIAAAAq4HJEw-8aIG3Ew6IOzpYEBTwM0brOpm-All5BF6PoaKBxRWWERSP-RPo4689bM1xw9IvCyK4oTwAIw-->
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxSrR7p1nyD8TH138ULjTOjQOW5fjxTrHGj2RyW-631yBK63wnZBIuC6BA"
-      type="text/javascript"></script>
+<wf:gmapjs />
 <script src="scripts/pgistmap2.js"></script>
 
 <!-- End of mapping JavaScript -->
@@ -57,11 +54,7 @@
 	@import "styles/table.css";
 	@import "styles/step3c.css";	
 </style>
-<style type="text/css">
-    v\:* {
-      behavior:url(#default#VML);
-    }
-</style>
+<style type="text/css">v\:* {behavior:url(#default#VML);}</style>
 <script type="text/javascript" charset="utf-8">
 			//Global Vars
 			var userPkg = Boolean("${userPkg.id}");

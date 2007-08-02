@@ -203,8 +203,8 @@
             <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
           </fileset>
         </copy>
-    </target>
-    
+        <replace file="${webapp}/WEB-INF/web.xml" token="PGIST_GMAP_KEY" value="${googleMapKey}"/>
+    </target>  
 
     <target name="fastdeploy" depends="compile">
         <mkdir dir="${webapp}"/>

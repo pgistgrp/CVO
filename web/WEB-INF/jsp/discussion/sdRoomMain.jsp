@@ -41,7 +41,7 @@
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/PESAgent.js'></script>
 <script type='text/javascript' src='scripts/pgistmap2.js'></script>
-<script type="text/javascript" src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAq4HJEw-8aIG3Ew6IOzpYEBTwM0brOpm-All5BF6PoaKBxRWWERSP-RPo4689bM1xw9IvCyK4oTwAIw"></script>
+<wf:gmapjs />
 <!--END Mapping  Libraries-->
 
 <script type="text/javascript">

@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="javascript" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 
 <!--####
@@ -49,9 +50,9 @@
 
 
 <!-- mapping JavaScript -->
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADmWGO07Q7ZeAHCvFNooqIxSrR7p1nyD8TH138ULjTOjQOW5fjxTrHGj2RyW-631yBK63wnZBIuC6BA"
-      type="text/javascript"></script>
+<javascript:gmapjs />
 <script src="scripts/pgistmap2.js"></script>
+<script type='text/javascript' src='/dwr/interface/PESAgent.js'></script>
 <!-- End of mapping JavaScript -->
 
 <!-- DWR JavaScript Libraries -->
@@ -62,8 +63,6 @@
 <!--Project Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
 <script src="scripts/simpletreemenu.js" type="text/javascript"></script>
-<script type='text/javascript' src='/dwr/interface/PESAgent.js'></script>
-
 <script language="javascript" type="text/javascript" src="/scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
 <script type='text/javascript' src='/scripts/util.js'></script>
 <style type="text/css" media="screen">
