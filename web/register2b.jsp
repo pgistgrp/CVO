@@ -2,6 +2,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
@@ -40,9 +41,9 @@ function submit2B() {
 
 <!-- Begin the header - loaded from a separate file -->
 <div id="header">
-	<!-- Begin header -->
-	<jsp:include page="/header.jsp" />
-	<!-- End header -->
+  <!-- Start Global Headers  -->
+  <wf:nav />
+  <!-- End Global Headers -->
 </div>
 <!-- End header -->
 <!-- Begin header menu - The wide ribbon underneath the logo -->
