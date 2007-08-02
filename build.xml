@@ -176,6 +176,13 @@
     </target>
     
 
+    <target name="lucene" depends="compile">
+        <taskdef name="TestLucene" classname="org.pgist.tests.TestLucene" classpathref="classpath">
+        </taskdef>
+        <TestLucene indexPath="/opt/tomcat/cvotest/webapps/ROOT/WEB-INF/lucene" script="testdata/lucene.bsh"/>
+    </target>
+    
+
     <target name="javadoc">
         <delete dir="${javadoc}"/>
         <mkdir dir="${javadoc}"/>

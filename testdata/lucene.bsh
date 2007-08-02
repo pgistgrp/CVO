@@ -1,0 +1,45 @@
+/*
+ * Bean Shell Script.
+ * Testing script for lucene execution.
+ */
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+
+/*
+writer = searchHelper.getIndexWriter();
+try {
+  doc = new Document();
+  doc.add( new Field("type", "This is a simple test!", Field.Store.YES, Field.Index.UN_TOKENIZED) );
+  writer.addDocument(doc);
+  writer.optimize();
+} finally {
+  writer.close();
+}
+*/
+
+
+/*
+reader = searchHelper.getIndexReader();
+reader.close();
+*/
+
+
+queryStr = "reduce";
+
+searcher = searchHelper.getIndexSearcher();
+try {
+  query = searchHelper.getParser().parse(queryStr);
+  
+  hits = searcher.search(query);
+  
+  for (i=0; i<hits.length(); i++) {
+      doc = hits.doc(i);
+      print("Found one document:");
+      for (one : doc.getFields()) {
+          print("    "+one+" : "+doc.get(one.name()));
+      }
+  }//for
+} finally {
+  searcher.close();
+}
+

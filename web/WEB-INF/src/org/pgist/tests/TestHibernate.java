@@ -1,12 +1,10 @@
 package org.pgist.tests;
 
-import java.util.List;
 import java.util.Scanner;
 
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.MatchingTask;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -121,7 +119,7 @@ public class TestHibernate extends MatchingTask {
             
             System.out.print("------------------------------------------------------------------------");
         }//while
-    }//initWorkflow()
+    }//test()
     
     
 }//class WorkflowImporter
