@@ -24,7 +24,7 @@ reader.close();
 */
 
 
-queryStr = "+type:userprofile";
+queryStr = "(span AND type:userprofile) OR (span AND type:project AND workflowid:14482)";
 
 searcher = searchHelper.getIndexSearcher();
 try {

@@ -50,7 +50,13 @@ public class SearchAction extends Action {
         try {
             indexSearcher = searchHelper.getIndexSearcher();
             
-            Query query = searchHelper.getParser().parse("workflowid:"+request.getParameter("workflowId")+" AND "+queryStr);
+            String luceneQuery =
+                //discussion and concern and project
+                "(workflowid:"+request.getParameter("workflowId")+" AND "+queryStr+")"
+                //user profile
+               +" OR (type:userprofile AND "+queryStr+")";
+            
+            Query query = searchHelper.getParser().parse(luceneQuery);
             
             Hits hits = indexSearcher.search(query);
             
