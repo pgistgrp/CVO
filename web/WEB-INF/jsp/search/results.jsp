@@ -98,17 +98,22 @@
         			    <c:forEach var="result" items="${results}">
     					<li>
     					    <h3 class="headerColor">
-    					        <span class="capitalize">${result.type}</a>
+    					        <span class="capitalize">${result.type}:</span>
     					        <c:if test="${result.type=='post'}"><pg:url page="/sdThread.do" params="isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}">${result.title}</pg:url></c:if>
     					        <c:if test="${result.type=='reply'}"><pg:url page="/sdThread.do" params="isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}#replyAnchor${result.replyid}">${result.title}</pg:url></c:if>
     					        <c:if test="${result.type=='concern'}"><pg:url page="/concern.do" params="id=${result.concernid}">${result.title}</pg:url></c:if>
     					        <c:if test="${result.type=='comment'}"><pg:url page="/concern.do" params="id=${result.concernid}#commentAnchor${result.commentid}">${result.title}</pg:url></c:if>
+    					        <c:if test="${result.type=='project'}"><pg:url page="/projectAlt.do" target="_blank" params="altrefId=${result.projectaltid}">${result.projectaltname}</pg:url></c:if>
+    					        <c:if test="${result.type=='userprofile'}"><pg:url page="/publicprofile.do" params="user=${result.loginname}">${result.loginname}</pg:url></c:if>
+
     					    </h3> 
-    					    <p><c:out value="${fn:substring(result.body, 0, 500)}" />...<br />
+    					    <p><c:out value="${fn:substring(result.body, 0, 500)}" escapeXml="false" />...<br />
     					        <c:if test="${result.type=='post'}"><pg:url page="/sdThread.do" params="isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}">View this ${result.type}</pg:url></c:if>
     					        <c:if test="${result.type=='reply'}"><pg:url page="/sdThread.do" params="isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}#replyAnchor${result.replyid}">View this ${result.type}</pg:url></c:if>
     					        <c:if test="${result.type=='concern'}"><pg:url page="/concern.do" params="id=${result.concernid}">View this ${result.type}</pg:url></c:if>
     					        <c:if test="${result.type=='comment'}"><pg:url page="/concern.do" params="id=${result.concernid}#commentAnchor${result.commentid}">View this ${result.type}</pg:url></c:if>
+    					        <c:if test="${result.type=='project'}"><pg:url page="/projectAlt.do" target="_blank" params="altrefId=${result.projectaltid}">View this ${result.type}</pg:url></c:if>
+        					    <c:if test="${result.type=='userprofile'}"><pg:url page="/publicprofile.do" params="user=${result.loginname}">View ${result.loginname}'s Profile</pg:url></c:if>
         					</p>
     					</li>
 		                </c:forEach>
