@@ -29,6 +29,18 @@
     </c:if>
     <!-- END CURRENT -->
     
+    
+    <!-- PARALLEL -->
+    <c:forEach var="parallel" items="${requestScope['org.pgist.wfengine.PARALLEL']}" varStatus="loop">
+    <pg:narrow name="parallel"/>
+    <c:if test="${parallel.access != 'moderator'}">
+      <div class="headerButton floatLeft">
+        <a href="/workflow.do?workflowId=${param.workflowId}&contextId=${param.contextId}&activityId=${parallel.id}">${parallel.title}</a>
+      </div>
+    </c:if>
+    </c:forEach>
+    <!-- END PARALLEL -->
+    
     <!-- FUTURES -->
     <c:forEach var="future" items="${requestScope['org.pgist.wfengine.FUTURES']}" varStatus="loop">
     <pg:narrow name="future"/>
