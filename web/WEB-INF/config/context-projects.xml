@@ -23,6 +23,7 @@
                 <property name="criteriaDAO" ref="criteriaDAO"/>                
                 <property name="cctDAO" ref="cctDAO"/>                
                 <property name="discussionDAO" ref="discussionDAO"/>                
+                <property name="searchHelper" ref="searchHelper"/>
             </bean>
         </property>
     </bean>

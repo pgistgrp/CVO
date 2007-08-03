@@ -70,24 +70,36 @@ public class SearchAction extends Action {
                 Map map = new HashMap();
                 map.put("type", type);
                 map.put("doc", doc);
-                map.put("title", doc.get("title"));
                 map.put("body", doc.get("body"));
-                map.put("tags", doc.get("tags"));
                 
                 if ("post".equals(type)) {
                     map.put("isid", doc.get("isid"));
                     map.put("ioid", doc.get("ioid"));
                     map.put("postid", doc.get("postid"));
+                    map.put("title", doc.get("title"));
+                    map.put("tags", doc.get("tags"));
                 } else if ("reply".equals(type)) {
                     map.put("postid", doc.get("postid"));
                     map.put("replyid", doc.get("replyid"));
                     map.put("isid", doc.get("isid"));
                     map.put("ioid", doc.get("ioid"));
+                    map.put("title", doc.get("title"));
+                    map.put("tags", doc.get("tags"));
                 } else if ("concern".equals(type)) {
                     map.put("concernid", doc.get("concernid"));
+                    map.put("title", doc.get("title"));
+                    map.put("tags", doc.get("tags"));
                 } else if ("comment".equals(type)) {
                     map.put("concernid", doc.get("concernid"));
                     map.put("commentid", doc.get("commentid"));
+                    map.put("title", doc.get("title"));
+                    map.put("tags", doc.get("tags"));
+                } else if ("project".equals(type)) {
+                    map.put("suiteid", doc.get("suiteid"));
+                    map.put("projectid", doc.get("projectid"));
+                    map.put("projectaltid", doc.get("projectaltid"));
+                } else if ("userprofile".equals(type)) {
+                    map.put("userid", doc.get("userid"));
                 }
                 
                 list.add(map);

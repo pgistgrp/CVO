@@ -24,7 +24,7 @@ reader.close();
 */
 
 
-queryStr = "reduce";
+queryStr = "+type:userprofile";
 
 searcher = searchHelper.getIndexSearcher();
 try {

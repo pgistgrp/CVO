@@ -55,6 +55,18 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-index.project.suite" title="Index the project suite." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
+            <taskName>task-index.project.suite</taskName>
+            <declaration>
+                <ins>
+                    <var name="suite_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
         <pgame name="pgame-create.funding.suite" title="Create a funding source suite." auto="true">
             <description>
               <![CDATA[Here is the description.]]>

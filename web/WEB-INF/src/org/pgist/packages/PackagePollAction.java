@@ -1,15 +1,9 @@
 package org.pgist.packages;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.users.User;
-import org.pgist.util.WebUtils;
 
 /**
  * Participants use this action to vote on the clustered packages.<br>

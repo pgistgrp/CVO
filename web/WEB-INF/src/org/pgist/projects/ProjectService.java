@@ -57,5 +57,8 @@ public interface ProjectService {
     ProjectSuite createProjectSuite() throws Exception;
 
     InfoStructure publish(Long workflowId, Long cctId, Long suiteId, String title) throws Exception;
+
+    void indexProjectSuite(Long workflowId, Long suiteId) throws Exception;
+    
     
 }//interface ProjectService

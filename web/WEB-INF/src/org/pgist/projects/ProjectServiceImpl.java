@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.index.IndexWriter;
 import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaDAO;
 import org.pgist.criteria.CriteriaRef;
@@ -16,6 +19,7 @@ import org.pgist.cvo.CCTDAO;
 import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
+import org.pgist.search.SearchHelper;
 
 
 /**
@@ -31,6 +35,8 @@ public class ProjectServiceImpl implements ProjectService {
     private CCTDAO cctDAO;
     
     private DiscussionDAO discussionDAO;
+    
+    private SearchHelper searchHelper;
     
     
     public void setCriteriaDAO(CriteriaDAO criteriaDAO) {
@@ -54,6 +60,11 @@ public class ProjectServiceImpl implements ProjectService {
 
     public void setDiscussionDAO(DiscussionDAO discussionDAO) {
         this.discussionDAO = discussionDAO;
+    }
+
+
+    public void setSearchHelper(SearchHelper searchHelper) {
+        this.searchHelper = searchHelper;
     }
 
 
@@ -564,6 +575,56 @@ public class ProjectServiceImpl implements ProjectService {
         
         return structure;
     }//publish()
+
+
+    /**
+     * Index the project suite with lucene.
+     * @param workflowId
+     * @param suiteId
+     */
+    public void indexProjectSuite(Long workflowId, Long suiteId) throws Exception {
+        ProjectSuite suite = projectDAO.getProjectSuite(suiteId);
+        
+        if (suite==null) throw new Exception("Project suite with id "+suiteId+" is not found");
+        
+        /*
+         * Indexing with Lucene.
+         */
+        IndexWriter writer = null;
+        try {
+            writer = searchHelper.getIndexWriter();
+            
+            for (ProjectRef projectRef : suite.getReferences()) {
+                for (ProjectAltRef altRef : projectRef.getAltRefs()) {
+                    String contents = altRef.getAlternative().toString();
+                    
+                    Document doc = new Document();
+                    
+                    doc.add( new Field("type", "project", Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("body", contents, Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("contents", contents, Field.Store.YES, Field.Index.TOKENIZED) );
+                    doc.add( new Field("workflowid", workflowId.toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("suiteid", suiteId.toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("projectid", projectRef.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("projectaltid", altRef.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    
+                    writer.addDocument(doc);
+                }//for
+            }//for
+            
+            writer.optimize();
+        } catch(Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (writer!=null) {
+                try {
+                    writer.close();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+    }//indexProjectSuite()
     
     
 }//class ProjectServiceImpl

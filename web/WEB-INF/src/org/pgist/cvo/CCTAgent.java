@@ -688,6 +688,8 @@ public class CCTAgent {
                      * reindexing in lucene
                      */
                     writer.addDocument(doc);
+                    
+                    writer.optimize();
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {

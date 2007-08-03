@@ -86,6 +86,13 @@
                                 </ins>
                             </declaration>
                         </pgame>
+                        <pgame name="pgame-index.project.suite">
+                            <declaration>
+                                <ins>
+                                    <var name="suite_id" ref="pmethod.proj_suite_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
                     </sequence>
                     <sequence>
                         <pgame name="pgame-define.fundings">

@@ -348,13 +348,19 @@ public class ProjectAlternative implements Serializable, Comparable {
     }
 
 
-	public int compareTo(Object o) {
+	/*
+	 * ------------------------------------------------------------------------
+	 */
+    
+    
+    public int compareTo(Object o) {
 		if(o instanceof ProjectAlternative) {
 			return this.name.compareTo(((ProjectAlternative)o).getName());
 		}
 		return 0;
 	}
     
+	
 	public boolean equals(Object obj) {
 		if(obj != null && obj instanceof ProjectAlternative) {
 			ProjectAlternative temp = (ProjectAlternative)obj;
@@ -362,5 +368,13 @@ public class ProjectAlternative implements Serializable, Comparable {
 		}
 		return false;
 	}
+	
     
+	public String toString() {
+	    return name + " " + shortDesc + " " + detailedDesc + " " + statementFor
+	                + " " + statementAgainst + " " + sponsor + " " + annoString
+	                + " " + county;
+	}//toString()
+	
+	
 }//class ProjectAlternative

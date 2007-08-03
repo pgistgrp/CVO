@@ -22,6 +22,11 @@
     </bean>
     
     
+    <bean id="task-index.project.suite" class="org.pgist.projects.IndexProjectsTask">
+        <property name="projectService" ref="projectService"/>
+    </bean>
+    
+    
     <bean id="task-publish.theme" class="org.pgist.cvo.PublishThemeTask">
         <property name="cstService" ref="cstService"/>
     </bean>
@@ -88,6 +93,7 @@
               <entry><key><value>task-create.project.suite</value></key><ref bean="task-create.project.suite" /></entry>
               <entry><key><value>task-create.funding.suite</value></key><ref bean="task-create.funding.suite" /></entry>
               <entry><key><value>task-create.cct</value></key><ref bean="task-create.cct" /></entry>
+              <entry><key><value>task-index.project.suite</value></key><ref bean="task-index.project.suite" /></entry>
               <entry><key><value>task-publish.theme</value></key><ref bean="task-publish.theme" /></entry>
               <entry><key><value>task-create.criteria.suite</value></key><ref bean="task-create.criteria.suite" /></entry>
               <entry><key><value>task-create.report.suite</value></key><ref bean="task-create.report.suite" /></entry>

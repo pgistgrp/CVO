@@ -64,6 +64,7 @@
             <bean class="org.pgist.system.SystemServiceImpl">
                 <property name="systemDAO" ref="systemDAO"/>
                 <property name="userDAO" ref="userDAO"/>
+                <property name="searchHelper" ref="searchHelper"/>
             </bean>
         </property>
     </bean>

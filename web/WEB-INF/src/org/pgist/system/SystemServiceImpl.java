@@ -4,7 +4,13 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.Term;
 import org.pgist.exceptions.UserExistException;
+import org.pgist.search.SearchHelper;
 import org.pgist.users.BaseUser;
 import org.pgist.users.Role;
 import org.pgist.users.User;
@@ -25,6 +31,8 @@ public class SystemServiceImpl implements SystemService {
     
     private UserDAO userDAO;
     
+    private SearchHelper searchHelper;
+    
     
     public void setSystemDAO(SystemDAO systemDAO) {
         this.systemDAO = systemDAO;
@@ -33,6 +41,11 @@ public class SystemServiceImpl implements SystemService {
 
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
+    }
+
+
+    public void setSearchHelper(SearchHelper searchHelper) {
+        this.searchHelper = searchHelper;
     }
 
 
@@ -136,6 +149,50 @@ public class SystemServiceImpl implements SystemService {
         }
 
         userDAO.updateProfile(user);
+        
+        /*
+         * Index the user profile with Lucene
+         */
+        IndexWriter writer = null;
+        try {
+            /*
+             * First delete the user profile from Lucene
+             */
+            IndexReader reader = null;
+            try {
+                reader = searchHelper.getIndexReader();
+                reader.deleteDocuments(new Term("userprofileid", user.getId().toString()));
+            } finally {
+                if (reader!=null) reader.close();
+            }
+            
+            /*
+             * Then index the user profile again
+             */
+            writer = searchHelper.getIndexWriter();
+            
+            String contents = user.getLoginname() + " " + user.getFirstname() + " " + user.getLastname()
+                            + " " + user.getVocation() + " " + user.getProfileDesc();
+            
+            Document doc = new Document();
+            
+            doc.add( new Field("type", "userprofile", Field.Store.YES, Field.Index.UN_TOKENIZED) );
+            doc.add( new Field("body", contents, Field.Store.YES, Field.Index.UN_TOKENIZED) );
+            doc.add( new Field("contents", contents, Field.Store.NO, Field.Index.TOKENIZED) );
+            doc.add( new Field("userid", user.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+            doc.add( new Field("userprofileid", user.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+            
+            writer.addDocument(doc);
+            
+            writer.optimize();
+        } catch (Exception e) {
+            /*
+             * catch and ignore any exception here, we don't want lucene interfere with the execution
+             */
+            e.printStackTrace();
+        } finally {
+            if (writer!=null) writer.close();
+        }
     }//editCurrentUser()
 
     
