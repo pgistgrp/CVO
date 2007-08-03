@@ -94,6 +94,7 @@
                 /dwr/call/plaincall/ProfileAgent.getUserDiscussion.dwr,
                 /dwr/call/plaincall/ProjectAgent.getFootprintsByAltId.dwr,
                 /dwr/call/plaincall/ProjectAgent.getGradesByAltRefId.dwr,
+                /dwr/call/plaincall/ProjectAgent.getFootprints.dwr,
                 /dwr/call/plaincall/PESAgent.saveAct.dwr
 
             </param-value>
