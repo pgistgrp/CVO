@@ -1,5 +1,5 @@
-ant LIT_pgames
-ant LIT_pmethods
-ant LIT_meetings
-ant LIT_situations
-
+CALL pgames.bat
+CALL pmethods.bat
+CALL meetings.bat
+CALL situations.bat
+CALL deploy.bat
