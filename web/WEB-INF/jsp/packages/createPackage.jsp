@@ -281,6 +281,9 @@
 					});
 				}
 				mapPositionTop = getYCoord(document.getElementById('themap'));
+                pgistmap.addLegend([{"img":"/images/leg_road.gif", "descp":"Road projects"},
+                    {"img":"/images/leg_transit.gif", "descp":"Transit projects"}], true);
+
 			}
 			
 			function renderProjects(){
