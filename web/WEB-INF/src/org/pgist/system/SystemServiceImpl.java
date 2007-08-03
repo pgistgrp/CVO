@@ -178,8 +178,9 @@ public class SystemServiceImpl implements SystemService {
             
             doc.add( new Field("type", "userprofile", Field.Store.YES, Field.Index.UN_TOKENIZED) );
             doc.add( new Field("body", contents, Field.Store.YES, Field.Index.UN_TOKENIZED) );
-            doc.add( new Field("contents", contents, Field.Store.NO, Field.Index.TOKENIZED) );
+            doc.add( new Field("contents", user.getLoginname() + " " + user.getVocation() + " " + user.getProfileDesc(), Field.Store.NO, Field.Index.TOKENIZED) );
             doc.add( new Field("userid", user.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+            doc.add( new Field("loginname", user.getLoginname().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
             doc.add( new Field("userprofileid", user.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
             
             writer.addDocument(doc);

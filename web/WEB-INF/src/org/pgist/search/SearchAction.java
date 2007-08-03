@@ -104,8 +104,10 @@ public class SearchAction extends Action {
                     map.put("suiteid", doc.get("suiteid"));
                     map.put("projectid", doc.get("projectid"));
                     map.put("projectaltid", doc.get("projectaltid"));
+                    map.put("projectaltname", doc.get("projectaltname"));
                 } else if ("userprofile".equals(type)) {
                     map.put("userid", doc.get("userid"));
+                    map.put("loginname", doc.get("loginname"));
                 }
                 
                 list.add(map);

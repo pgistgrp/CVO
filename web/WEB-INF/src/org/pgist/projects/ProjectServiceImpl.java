@@ -607,6 +607,7 @@ public class ProjectServiceImpl implements ProjectService {
                     doc.add( new Field("suiteid", suiteId.toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("projectid", projectRef.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("projectaltid", altRef.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("projectaltname", altRef.getAlternative().getName(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     
                     writer.addDocument(doc);
                 }//for
