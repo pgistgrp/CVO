@@ -171,8 +171,10 @@ public class SystemServiceImpl implements SystemService {
              */
             writer = searchHelper.getIndexWriter();
             
-            String contents = user.getLoginname() + " " + user.getFirstname() + " " + user.getLastname()
-                            + " " + user.getVocation() + " " + user.getProfileDesc();
+            String contents = "<p>" + user.getFirstname() + " " + user.getLastname() + " is a "
+                            + user.getVocation() + " from " + user.getCity() + ".<p>"
+                            + "<p>Reason why " + user.getFirstname() + " is here: "
+                            + user.getProfileDesc() + "</p>";
             
             Document doc = new Document();
             
