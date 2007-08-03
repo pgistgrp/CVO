@@ -24,7 +24,10 @@
 						<tr>
 							<td>${workflow.name}</td>
 							<td>${workflow.description}</td>
-							<td style="text-align:right"><input type="button" value="Start" onclick="javascript: workflow.startWorkflow(${workflow.id});"></td>
+							<td style="text-align:right">
+							    <input type="button" value="Start" onclick="javascript: workflow.startWorkflow(${workflow.id});">
+							    <input type="button" value="Manage Agenda" onclick="javascript:location.href='agendaManager.do?workflowId=${workflow.id}';" />
+							</td>
 						</tr>
 				</c:forEach>
 			</table>

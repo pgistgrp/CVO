@@ -104,12 +104,18 @@ Workflow.prototype.getWorkflow = function(workflowId) {
 };
 
 Workflow.prototype.nextStep = function(workflowId, contextId, activityId) {
+  Util.loading(true, "Starting next step");
+  var buttons = document.getElementsByName("completedButton")
+  for (var i=0; i < buttons.length; i++) {
+    buttons[i].disabled = true;
+  };
   //alert("workflowId: " + workflowId + " contextId : " + contextId + " activityId: " + activityId)
   WorkflowAgent.nextStep(
     { workflowId : workflowId, contextId: contextId, activityId: activityId },
     function(data) {
       if (data.successful) {
         workflow.getWorkflow(workflowId);
+        Util.loading(false);
       } else {
         alert("REASON: " + data.reason);
       }
