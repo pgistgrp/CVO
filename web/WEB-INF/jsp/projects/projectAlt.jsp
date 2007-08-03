@@ -50,7 +50,8 @@
 <javascript:gmapjs />
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
 <script src="scripts/pgistmap2.js"></script>
-
+<script type="text/javascript" charset="utf-8">
+    
 // Loop through the 'objectives' divs, show them, and change the icon.
 			function expandAll(){
 				var rows = document.getElementsByClassName('objectives');
