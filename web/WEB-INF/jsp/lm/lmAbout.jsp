@@ -54,7 +54,7 @@
  <h3 class="headerColor" style="text-transform:none"><a name="whatis" class="headerColor">What is Let's Improve Transportation?</a></h3>
 <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
 
-<p>Let's Improve Transportation (LIT) is an experiment in participatory democracy. A research team based at the University of Washington(1) has developed an innovative new website where you can:</p>
+<p>Let's Improve Transportation (LIT) is an experiment in participatory democracy. A research team based at the University of Washington<sub>(1)</sub> has developed an innovative new website where you can:</p>
 <ul>
   <li>learn about proposed improvements to the central Puget Sound regional transportation system,</li>
   <li>consider the potential impacts of these changes on our communities, and</li>
@@ -79,7 +79,7 @@
 
 <h3 class="headerColor" style="text-transform:none"><a name="purpose" class="headerColor">What is the purpose of the research effort behind LIT?</a></h3>
 
-<p>The <a href="http://www.pgist.org" target="_blank">Participatory GIS for Transportation</a> (PGIST) research study at the University of Washington<sub>(1)</sub> was founded to develop web and mapping technologies for supporting public participation in transportation improvement programming decisions. As part of the PGIST study, a demonstration website was developed, called Let’s Improve Transportation (LIT). In October 2007 an <a href="#whatis" target="_blank">experiment</a> will be conducted to evaluate the LIT website.</p>
+<p>The <a href="http://www.pgist.org" target="_blank">Participatory GIS for Transportation</a> (PGIST) research study at the University of Washington<sub>(1)</sub> was founded to develop web and mapping technologies for supporting public participation in transportation improvement programming decisions. As part of the PGIST study, a demonstration website was developed, called Let's Improve Transportation (LIT). In October 2007 an <a href="#whatis" target="_blank">experiment</a> will be conducted to evaluate the LIT website.</p>
 
 <p>There are three main goals of the "LIT Challenge" experiment:</p>
 <ol>

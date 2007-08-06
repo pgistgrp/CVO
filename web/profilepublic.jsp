@@ -5,6 +5,8 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -68,21 +70,14 @@ function getDiscussion(start, end) {
 			fieldset p {padding-bottom:1px;}
 		</style>
 	<![endif]-->
-<!-- Begin header -->
-<div id="header"><jsp:include page="/header.jsp" /></div>
-<!-- End header -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-<div id="headerMenu">
-	<div id="headerContainer">
-		<div id="headerTitle" class="floatLeft">
-		</div>
-	</div>
-</div>
-<!-- End header menu -->
+  <!-- Start Global Headers  -->
+  <wf:nav />
+  <wf:subNav />
+  <!-- End Global Headers -->
 <!-- Begin container - Main page content begins here -->
 <div id="container" class="clearfix">
 	<p><h3 class="headerColor" style="display:inline">LIT Participant Profile</h3>
-	<a href="usercp.do">Edit my profile and settings</a></p>
+	<pg:url page="usercp.do"> Edit my profile and settings</pg:url></p>
 	<!-- start PROFILE-FIELDS section -->
 	<div id="profile-fields">
 		<div id="statistics" class="box9">
