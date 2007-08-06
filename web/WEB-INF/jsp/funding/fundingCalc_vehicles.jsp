@@ -8,7 +8,7 @@
 
 <c:forEach var="vehicle" items="${vehicles}" varStatus="loop">
 	<div id="vehicle${vehicle.id}" class="myVehiclesRow"> 
-		<strong>Vehicle ${loop.index + 1}: </strong>Miles per
+		<strong>Vehicle ${loop.index + 1}: </strong> Miles per
 		gallon
 		<fmt:formatNumber type="number">${vehicle.milesPerGallon}</fmt:formatNumber>
 		Approximate value
@@ -22,9 +22,9 @@
 	<div id="vehicleEdit${vehicle.id}" class="myVehiclesRow" style="display: none;"> 
 		<form id="editVehicle" action="javascript:editVehicle(${vehicle.id});">
 		<strong>Vehicle ${loop.index + 1}: </strong> 
-		Miles per gallon <input name="mpg" onBlur="this.value=filterNum(this.value);" id="vehicleMpg${vehicle.id}" type="text" value="${vehicle.milesPerGallon}" />
-		Approximate value <input name="value" class="moneyInput" onBlur="this.value=filterNum(this.value);" id="vehicleValue${vehicle.id}" type="text" value="${vehicle.approxValue}" />
-		Miles driven per year <input name="mpy" onBlur="this.value=filterNum(this.value);" id="vehicleMpy${vehicle.id}" type="text" value="${vehicle.milesPerYear}" />
+		Miles per gallon <input name="mpg" id="vehicleMpg${vehicle.id}" type="text" value="${vehicle.milesPerGallon}" />
+		Approximate value <input name="value" id="vehicleValue${vehicle.id}" type="text" value="${vehicle.approxValue}" />
+		Miles driven per year <input name="mpy" id="vehicleMpy${vehicle.id}" type="text" value="${vehicle.milesPerYear}" />
 
 		<input type="submit" value="Update" /><small> <a href="javascript:toggleEditField('vehicle',${vehicle.id});">Cancel</a></small>
 		</form>
