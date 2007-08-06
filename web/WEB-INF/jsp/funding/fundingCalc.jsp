@@ -271,6 +271,11 @@
 			});
 		}
 		
+	function filterNum(str) {
+		re = /[^0-9|\.]/g;
+		// remove everything but numbers
+		return str.replace(re, "");
+	}
 	</script>
 	<event:pageunload />
 	</head>
@@ -285,7 +290,7 @@
 		<div id="myIncome">
 			<h3 class="headerColor">My income</h3>
 			<span id="annualIncome"> Annual income
-			<input name="annual-income" id="annual-income" type="text" value="${user.income}"></span>
+			<input name="annual-income" id="annual-income" onBlur="this.value=filterNum(this.value);" type="text" value="${user.income}"></span>
 			<span id="householdSize"> Household size
 				<select name="household-size" id="household-size" >
 					<c:forEach var="i" begin="1" end="11">
