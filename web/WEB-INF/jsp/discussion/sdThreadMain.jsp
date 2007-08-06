@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html:html>
+<html xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
 <title style="text-transform:capitalize;">Step 1b: ${post.title}</title>
 <!-- Site Wide CSS -->
@@ -17,6 +17,7 @@
 #discussionHeader{width:auto;}
 .sectionTitle{width:auto}
 </style>
+<style type="text/css"> v\:* {behavior:url(#default#VML);}</style>
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
 
@@ -39,7 +40,12 @@
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
 <!--End SDX Specific  Libraries-->
-
+<!--Mapping  Libraries-->
+<wf:gmapjs />
+<script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/PESAgent.js'></script>
+<script type='text/javascript' src='scripts/pgistmap2.js'></script>
+<!--END Mapping  Libraries-->
 
 <script type="text/javascript">
 	
@@ -367,8 +373,8 @@
 	io.getReplies(io.currentFilter, true);
 	io.getTargets();
 	//io.getContextPosts(1);
-	</script>
+</script>
 
-</html:html>
+</html>
 
 
