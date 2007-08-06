@@ -665,6 +665,7 @@ public class PackageAgent {
         map.put("successful", false);
 
         try {        	
+        	System.out.println("***SetVoting() " + votes);
             this.packageService.setVotes(this.packageService.getUser(WebUtils.currentUser()), clusterPkgId, votes);
             map.put("successful", true);
         } catch (Exception e) {

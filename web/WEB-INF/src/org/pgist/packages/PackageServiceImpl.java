@@ -5,9 +5,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaDAO;
@@ -454,17 +457,21 @@ public class PackageServiceImpl implements PackageService {
 	 */
 	public void setVotes(User user, Long voteSuiteId, HashMap<Long, Integer> votes) throws Exception {
 		PackageVoteSuite vSuite = this.packageDAO.getVoteSuite(voteSuiteId);
+
 		Iterator<Long> i = votes.keySet().iterator();
 		Long cPkgId;
 		Integer voteValue;
 		ClusteredPackage clusteredPkg;
 		while(i.hasNext()) {
+
 			cPkgId = i.next();
 			voteValue = votes.get(cPkgId);
 			clusteredPkg = this.packageDAO.getClusteredPackage(cPkgId);
+
 			assignVote(vSuite, user, clusteredPkg, voteValue);
 		}
-		recountVotes(vSuite);
+
+		//recountVotes(vSuite);
 	}
 
     /**
@@ -475,39 +482,102 @@ public class PackageServiceImpl implements PackageService {
      */
 	public void assignVote(PackageVoteSuite vSuite, User user, ClusteredPackage clusteredPkg, Integer voteValue) throws Exception {
 		
-		PackageUserVote votes = vSuite.getUserVotes().get(clusteredPkg);
-		if(votes == null) {
-			votes = new PackageUserVote();
-			votes.setVoteSuite(vSuite);
-			this.packageDAO.save(votes);
-			vSuite.getUserVotes().put(clusteredPkg, votes); 
+		PackageUserVote puv = vSuite.getUserVotes().get(clusteredPkg);
+		if(puv == null) {
+
+			puv = new PackageUserVote();
+			puv.setVoteSuite(vSuite);
+			this.packageDAO.save(puv);
+			
+			vSuite.getUserVotes().put(clusteredPkg, puv); 
 			this.packageDAO.save(vSuite);
 		}
-		votes.getVotes().put(user, voteValue);
-		this.packageDAO.save(votes);
+		puv.getVotes().put(user, voteValue);
+
+		//calculate voteStats
+		Set statSet = vSuite.getStats();
+		//Set statSet = packageDAO.getVoteSuiteStatsBySuite(vSuite.getId());
+		
+		int highVoteTotal = 0; 
+
+		Iterator itStats = statSet.iterator();
+		while(itStats.hasNext()) {
+
+			VoteSuiteStat tempVSS = (VoteSuiteStat) itStats.next();
+			int tempValue = 0;
+			
+			if(tempVSS.getClusteredPackage().getId()==clusteredPkg.getId()) {
+
+				tempVSS.setTotalVotes(tempVSS.getTotalVotes()+1);
+				
+				if(voteValue==3) {
+					tempValue = tempVSS.getLowVotes()+1;
+					tempVSS.setLowVotes(tempValue);
+					System.out.println("***tempValue: " + tempValue); 
+				} else if (voteValue==2) {
+					tempValue = tempVSS.getMediumVotes()+1;
+					tempVSS.setMediumVotes(tempValue);
+					System.out.println("***tempValue: " + tempValue);
+				} else if (voteValue==1) {
+					tempValue = tempVSS.getHighVotes()+1;
+					tempVSS.setHighVotes(tempValue);
+					System.out.println("***tempValue: " + tempValue);
+				} else {
+					System.out.println("PackageService.assignVote: Value out of range: " + voteValue);
+				}
+				
+				if(tempVSS.getTotalVotes()>highVoteTotal) {
+					highVoteTotal= tempVSS.getTotalVotes();
+				}
+				
+				packageDAO.save(tempVSS);
+			}
+
+		}
+
+		System.out.println("***getStats size" + vSuite.getStats().size());
+		vSuite.setNumVoters(highVoteTotal);
+		packageDAO.save(vSuite);
+		this.packageDAO.save(puv);
+		System.out.println("*** Assign Vote done for CPID" + clusteredPkg.getId() + "\n");
 	}	
 
-
+	// No longer used for now at least - JOhn
 	public void recountVotes(PackageVoteSuite vSuite) throws Exception {
+		System.out.println("***recount votes ");
 		//Clear original values
 		Set vSuites = vSuite.getStats();
-		vSuite.getStats().clear();
+		//vSuite.getStats().clear();
+		//vSuite.clearStats();
+		packageDAO.save(vSuite);
+		
+		System.out.println("***vSuite stats " + vSuite.getStats());
+		
 		Iterator<VoteSuiteStat> iStats = vSuites.iterator();
+		//something is wrong here, need to delete all of the voteStats but it can find some
 		while(iStats.hasNext()) {
-			this.packageDAO.delete(iStats.next());
+			VoteSuiteStat tempStat = iStats.next();
+			//vSuite.getStats().remove(tempStat);
+			System.out.println("***delete voteStat");
+			this.packageDAO.delete(tempStat);
+			vSuite.getStats().remove(tempStat); //test it here
+			System.out.println("***delete voteStat done ");
 		}
 		
+		System.out.println("***vSuite stats " + vSuite.getStats());
 		
+		System.out.println("***recount votes 2");
 		//For each package, go through and tally up the total votes
 		Iterator<ClusteredPackage> cIter = vSuite.getUserVotes().keySet().iterator();
 		
 		ClusteredPackage tempCPkg;
 		PackageUserVote votes;
-		Iterator<Integer> iValues;
+		Iterator<User> iValues;
 		int tempHigh;
 		int tempMed;
 		int tempLow;
 		int total;
+		int totalUserVotes = 0;
 		while(cIter.hasNext()) {
 			tempCPkg = cIter.next();
 			
@@ -517,9 +587,31 @@ public class PackageServiceImpl implements PackageService {
 			tempMed = 0;
 			tempLow = 0;
 			total = votes.getVotes().size();
+			
+			//total participants who voted
+			if(votes.getVotes().size()>totalUserVotes) {
+				totalUserVotes = votes.getVotes().size();
+			}
+			System.out.println("***recount votes 3");
 			if(total > 0) {
-				iValues = votes.getVotes().values().iterator();
+				//iValues = votes.getVotes().values().iterator();
+				iValues = votes.getVotes().keySet().iterator();
+				
 				while(iValues.hasNext()) {
+					int voteValue = votes.getVotes().get(iValues.next());
+					
+					
+					if(voteValue == 1) {					
+						tempHigh++;
+					} else if (voteValue == 2) {
+						tempMed++;
+					} else if (voteValue == 3) {
+						tempLow++;
+					} else {
+						System.out.println("***PackageService.recountValues() error, vote value is out of range.***");
+					}
+					
+					/* Original code
 					switch (iValues.next().intValue()) {
 					case PackageUserVote.VOTE_HIGH:
 						tempHigh++;
@@ -530,20 +622,34 @@ public class PackageServiceImpl implements PackageService {
 					case PackageUserVote.VOTE_LOW:
 						tempLow++;
 						break;
-					}
+					}*/
 				}
 				
+				System.out.println("***recount votes 4");
 				VoteSuiteStat stat = new VoteSuiteStat();
+				System.out.println("***recount votes 4a");
+				stat.setPackageVoteSuite(vSuite);
+				System.out.println("***recount votes 4b");
 				stat.setClusteredPackage(tempCPkg);
+				System.out.println("***recount votes 4c");
 				stat.setTotalVotes(total);
-				stat.setHighVotePercent(tempHigh/total);
-				stat.setMediumVotePercent(tempMed/total);
-				stat.setLowVotePercent(tempLow/total);
+				System.out.println("***recount votes 4d");
+				stat.setHighVotes(tempHigh);
+				System.out.println("***recount votes 4e");
+				
+				stat.setMediumVotes(tempMed);
+				System.out.println("***recount votes 4f");
+				stat.setLowVotes(tempLow);
+				System.out.println("***recount votes 4g");
 				
 				this.packageDAO.save(stat);
+				System.out.println("***recount votes 4h");
 				vSuite.getStats().add(stat);
+				System.out.println("***recount votes 4i");
 			}			
 		}
+		System.out.println("***recount votes 5");
+		vSuite.setNumVoters(totalUserVotes);
 		this.packageDAO.save(vSuite);
 	}
 
@@ -1398,30 +1504,43 @@ public class PackageServiceImpl implements PackageService {
 
 
     public PackageVoteSuite createPackageVoteSuite(Long pkgSuiteId) throws Exception {
-        PackageSuite pkgSuite = getPackageSuite(pkgSuiteId);
-        
+
+    	PackageSuite pkgSuite = getPackageSuite(pkgSuiteId);
+
         if (pkgSuite==null) throw new Exception("package suite with id " + pkgSuiteId + " is not found");
+
         
         PackageVoteSuite voteSuite = new PackageVoteSuite();
+
         voteSuite.setPkgSuite(pkgSuite);
         
         packageDAO.save(voteSuite);
         
+        
         for (ClusteredPackage one : pkgSuite.getClusteredPkgs()) {
+        	
             VoteSuiteStat stat = new VoteSuiteStat();
             stat.setClusteredPackage(one);
-            
-            voteSuite.getStats().add(stat);
+            stat.setPackageVoteSuite(voteSuite);
             
             packageDAO.save(stat);
+            voteSuite.getStats().add(stat);
+            
+            System.out.println("**PackageService.createPackageVoteSuite ***" + stat.getId());
         }//for
         
-        pkgSuite.getVoteSuites().add(voteSuite);
         
+        pkgSuite.getVoteSuites().add(voteSuite);
         packageDAO.save(pkgSuite);
         
         return voteSuite;
     }//createPackageVoteSuite()
+    
+    
+    public Set getVoteSuiteStatsBySuite(Long pkgVoteSuiteId) throws Exception {
+    	
+    	return packageDAO.getVoteSuiteStatsBySuite(pkgVoteSuiteId);
+    }
     
     
 }//class PackageServiceImpl

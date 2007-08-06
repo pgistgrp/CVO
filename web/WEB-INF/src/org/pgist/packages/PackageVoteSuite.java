@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.pgist.users.User;
 
@@ -30,10 +32,12 @@ public class PackageVoteSuite {
     
     private Map<ClusteredPackage, PackageUserVote> userVotes = new HashMap<ClusteredPackage, PackageUserVote>();
 
-    private Set<VoteSuiteStat> stats = new HashSet<VoteSuiteStat>();
+    private SortedSet<VoteSuiteStat> stats = new TreeSet<VoteSuiteStat>(new VoteSuiteStatComparator());
     
+    private int numVoters;
     
-    /**
+
+	/**
      * @return
      * 
      * @hibernate.id generator-class="native"
@@ -47,7 +51,20 @@ public class PackageVoteSuite {
         this.id = id;
     }
 
+    
+	/**
+     * @hibernate.property not-null="false"
+     */
+    public int getNumVoters() {
+		return numVoters;
+	}
 
+
+	public void setNumVoters(int numVoters) {
+		this.numVoters = numVoters;
+	}
+	
+	
     /**
      * @return
      * 
@@ -80,29 +97,31 @@ public class PackageVoteSuite {
         this.userVotes = userVotes;
     }
 
-    /**
-     * @return
-     * 
-     * @hibernate.set lazy="true" cascade="all" 
-     * @hibernate.collection-key column="vote_suite_id"
-     * @hibernate.collection-one-to-many class="org.pgist.packages.VoteSuiteStat"
-     */
-    public Set<VoteSuiteStat> getStats() {
-        return stats;
-    }
-
-
-    public void setStats(Set<VoteSuiteStat> stats) {
-        this.stats = stats;
-    }
     
     
     /*
      * ------------------------------------------------------------------------
      */
     
-    
+   
     /**
+     * @return
+     * 
+     * @hibernate.set inverse="true" lazy="true" cascade="all" sort="org.pgist.packages.VoteSuiteStatComparator"
+     * @hibernate.collection-key column="votesuite_id"
+     * @hibernate.collection-one-to-many class="org.pgist.packages.VoteSuiteStat"
+     */
+    public SortedSet<VoteSuiteStat> getStats() {
+		return stats;
+	}
+
+
+	public void setStats(SortedSet<VoteSuiteStat> stats) {
+		this.stats = stats;
+	}
+
+
+	/**
      * Returns true if the user has voted on all of the clustered packages
      */
     public boolean userVoted(User user) {
@@ -125,6 +144,7 @@ public class PackageVoteSuite {
         }
         return true;
     }
+    
     
     
 }//class PackageVoteSuite

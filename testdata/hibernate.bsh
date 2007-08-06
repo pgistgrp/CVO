@@ -4,18 +4,23 @@
  */
 
 categoryId = 4290;
-cctId = 4254;
+Long cctId = 3342;
 
-hql = "select distinct c from Concern c inner join c.tags as tr where c.cct.id=? and c.deleted=? and tr.id=? order by c.id";
+hql = "from PackageVoteSuite where id=?";
 
 query = session.createQuery(hql);
-query.setLong(0, cctId);
-query.setBoolean(1, new Boolean(false));
-query.setLong(2, 4900);
+query.setLong(0, 3342);
+
 
 List test = query.list();
 
 for (Object o : test) {
-    System.out.println("-----> "+o);
+    System.out.println("-----> "+o.stats.size());
 }//for
 
+o = session.load(org.pgist.packages.PackageVoteSuite.class, cctId);
+System.out.println("-----> "+o.stats.size());
+
+for (x : o.stats) {
+	print(x.id);
+}

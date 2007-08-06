@@ -60,8 +60,11 @@ public class ReportStats implements Serializable{
 	
 	private int totalCost;
 	
+	private String strTotalCost;
+	
 	//# of projects inside the preferred package
 	private int totalProjects; 
+	
 	
 	
 	/**
@@ -352,6 +355,19 @@ public class ReportStats implements Serializable{
 
 	public void setTotalPackages(int totalPackages) {
 		this.totalPackages = totalPackages;
+	}
+
+
+	/**
+     * @hibernate.property not-null="false"
+     */
+	public String getStrTotalCost() {
+		return strTotalCost;
+	}
+
+
+	public void setStrTotalCost(String strTotalCost) {
+		this.strTotalCost = strTotalCost;
 	}
 
 

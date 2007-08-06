@@ -2,6 +2,7 @@ package org.pgist.packages;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.pgist.discussion.InfoStructure;
 import org.pgist.users.User;
@@ -64,5 +65,6 @@ public interface PackageService {
 
     PackageVoteSuite createPackageVoteSuite(Long pkgSuiteId) throws Exception; 
     
+    Set getVoteSuiteStatsBySuite(Long pkgVoteSuiteId) throws Exception;
     
 }//interface PackageService

@@ -214,6 +214,7 @@
     
     <bean name="/packageVote" class="org.pgist.packages.PackageVoteAction">
         <property name="packageService" ref="packageService"/>
+	<property name="systemService" ref="systemService"/>
     </bean> 
     
     <bean name="/packagePoll" class="org.pgist.packages.PackagePollAction">

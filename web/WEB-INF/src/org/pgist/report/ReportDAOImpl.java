@@ -196,11 +196,11 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		ReportStats rs = new ReportStats();
 		
 		ProjectSuite ps = (ProjectSuite) load(ProjectSuite.class, projSuiteId);
-		int projectNum = ps.getReferences().size(); //save this number
+		int projectNum = ps.getReferences().size(); 
 		rs.setQuanity(projectNum);
 		
 		PackageSuite pkgSuite = (PackageSuite) load(PackageSuite.class, packSuiteId); 
-		int userNumCompleted = pkgSuite.getUserPkgs().size(); //save this number
+		int userNumCompleted = pkgSuite.getUserPkgs().size(); 
 		rs.setUserCompleted(userNumCompleted);
 		
 		save(rs);
@@ -371,8 +371,8 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		Iterator itVotes = voteStats.iterator();
 		while(itVotes.hasNext()) {
 			VoteSuiteStat vss = (VoteSuiteStat) itVotes.next(); //Error Here
-			int pHigh = vss.getHighVotePercent();
-			int pMid = vss.getMediumVotePercent();
+			int pHigh = vss.getHighVotes();
+			int pMid = vss.getMediumVotes();
 			System.out.println("High: " + pHigh);
 			System.out.println("Mid: " + pMid);
 			int composite = pHigh + pMid;
@@ -387,7 +387,21 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		}
 
 		
-		int totalCost = (int) preferredPackage.getTotalCost();
+		String strTotalCost = "";
+		int totalCost = (int) preferredPackage.getTotalCost(); 
+		if(totalCost >=1000000000) {
+			totalCost = totalCost/1000000000;
+			strTotalCost = totalCost + " billion";
+		} else if (totalCost >= 1000000) {
+			totalCost = totalCost/1000000;
+			strTotalCost = totalCost + " million";
+		} else if (totalCost>=1000){
+			totalCost = totalCost/1000;
+			strTotalCost = totalCost + " thousand";
+		} else {
+			strTotalCost = totalCost + "";
+		}
+		
 		float percentEndorsed = high - 100;
 		float floatEndorsed = totalVotes * percentEndorsed;
 		int numEndorsed = (int) floatEndorsed;
@@ -417,8 +431,8 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 			Set<VoteSuiteStat> votes = pvs.getStats();
 			
 			for(VoteSuiteStat vss : votes) {
-				int high = vss.getHighVotePercent();
-				int low = vss.getLowVotePercent();
+				int high = vss.getHighVotes();
+				int low = vss.getLowVotes();
 				int grade = high - low;
 				
 				if(highGrade < grade) {
@@ -473,13 +487,19 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	public ReportSuite createReportSuite() throws Exception {
 		ReportSuite rSuite = new ReportSuite();
 		save(rSuite);
+		
+			System.out.println("***RS created***"); //Print
+		
 		ReportSummary rSummary = new ReportSummary();
 		save(rSummary);
-
+		
+			System.out.println("***rSummary created***"); //Print
 		
 		rSuite.setReportSummary(rSummary);
 		save(rSuite);
-				
+		
+			System.out.println("***Saved***"); //print		
+		
 		return rSuite;
 	}
 	

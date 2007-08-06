@@ -31,8 +31,9 @@ public class CreateReportSuiteTask implements WorkflowTask {
         System.out.println("@ CreateReportSuiteTask.execute()");
         
         ReportSuite suite = reportService.createReportSuite();
-        
+        System.out.println("***" + suite.getId().intValue() + "***");
         inouts.setIntValue(OUT_SUITE_ID, suite.getId().intValue());
+        System.out.println("***Finished with CreateReportSuite****");
     }//execute()
 
 

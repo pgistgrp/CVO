@@ -2,6 +2,8 @@ package org.pgist.packages;
 
 import org.pgist.system.BaseDAO;
 
+import java.util.Set;
+import java.util.Collection;
 
 /**
  * 
@@ -29,5 +31,6 @@ public interface PackageDAO extends BaseDAO {
 	void delete(VoteSuiteStat stat) throws Exception;
 	void delete(ClusteredPackage cp) throws Exception;
     
+	Set getVoteSuiteStatsBySuite(Long pkgVoteSuiteId) throws Exception;
     
 }//interface PackageDAO

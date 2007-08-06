@@ -1,5 +1,10 @@
 package org.pgist.packages;
 
+import java.util.Set;
+import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
+
 import org.pgist.system.BaseDAOImpl;
 
 
@@ -82,4 +87,15 @@ public class PackageDAOImpl extends BaseDAOImpl implements PackageDAO {
 	public PackageVoteSuite getVoteSuite(Long suiteId){
 		return (PackageVoteSuite)getHibernateTemplate().load(PackageVoteSuite.class, suiteId);
     }    
+	
+	
+	private static final String hql_getVoteSuiteStatsBySuite = "from VoteSuiteStat vss where vss.packageVoteSuite.id=?";
+	
+	public Set getVoteSuiteStatsBySuite(Long pkgVoteSuiteId) throws Exception {
+		Collection collection =getHibernateTemplate().find(hql_getVoteSuiteStatsBySuite, new Object[] {pkgVoteSuiteId, });
+		Set set = new HashSet();
+		set.addAll(collection);
+		return set;
+	}
+	
 }//class PackageDAOImpl
