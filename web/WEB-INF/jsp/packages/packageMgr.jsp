@@ -59,7 +59,7 @@ function listMyPackages(myPackages){
 function createClusteredPackages(){
 	$('newtable').innerHTML = '<img src="/images/indicator_arrows.gif" /> Clustering Packages';
 	var pkgCount = $F('pkgCount');
-	alert("pkgSuiteId: " + pkgSuiteId + " pkgCount: " + pkgCount + "projSuiteId: " + projSuiteId + " fundSuiteID: "+ fundSuiteId);
+	//alert("pkgSuiteId: " + pkgSuiteId + " pkgCount: " + pkgCount + "projSuiteId: " + projSuiteId + " fundSuiteID: "+ fundSuiteId);
 	PackageAgent.createClusteredPackages({pkgSuiteId:pkgSuiteId, pkgCount:pkgCount, projSuiteId: projSuiteId, fundSuiteId:fundSuiteId}, {
 		callback:function(data){
 			if (data.successful){
