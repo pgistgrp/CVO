@@ -32,7 +32,7 @@
 	<c:otherwise>
 	<c:forEach var="user" items="${users}" varStatus="loop">
 	  <tr>
-		<td>${user.loginname}</td>
+		<td><pg:url page="/publicprofile.do" target="_blank" params="user=${user.loginname}">${user.loginname}</pg:url></td>
 		<td>${user.email}</td>
 		<td>
 		<c:choose> 

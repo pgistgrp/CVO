@@ -16,7 +16,8 @@
 	<c:forEach var="concern" items="${concerns}" varStatus="loop">
 			<div id="concernId${concern.id}" class="theConcern"><!--${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_a'}-->
 						<logic:notEqual name="type" value="0">
-							<small><strong><bean:write name="concern" property="author.loginname" /></strong>&nbsp;said:</small>
+							<small><strong>
+		    					<pg:url page="/publicprofile.do" target="_blank" params="user=${concern.author.loginname}">${concern.author.loginname}</pg:url></strong>&nbsp;said:</small>
 							<br>
 						</logic:notEqual>
 						<logic:equal name="type" value="0">

@@ -41,7 +41,7 @@
       <p>"${concern.content}"</p>
     </div>
     <h3 id="discussionAuthor">-
-      <bean:write name="concern" property="author.loginname" />
+        <pg:url page="/publicprofile.do" target="_blank" params="user=${concern.author.loginname}">${concern.author.loginname}</pg:url>
     </h3>
     <!--<div class="discussionComments" id="discussionComments"><h3><a href="concern.do?id=${concern.id}">${concern.replies} Comments</a></h3> (${concern.views} views)</div>-->
     <div class="discussionTagsList">
@@ -93,7 +93,7 @@
 </div>
 <div id="postcomments" class="clearBoth">
 <div id="filteredBy"></div>
-<logic:iterate id="comment" name="comments">
+<c:forEach var="comment" items="${comments}" varStatus="loop">
 
 <div id="comment${comment.id}" class="discussionRow">
   <c:choose>
@@ -124,7 +124,7 @@
             <p>${comment.content}</p>
           </div>
           <div id="commentOwner${comment.id}">
-            <h3>- ${comment.owner.loginname}</h3>
+            <h3>- <pg:url page="/publicprofile.do" target="_blank" params="user=${comment.owner.loginname}">${comment.owner.loginname}</pg:url></h3>
           </div>
         </div>
         <div class="discussionComments peekaboobugfix"> <a href="javascript:setQuote(${comment.id});">Quote</a> </div>
@@ -155,7 +155,7 @@
     </div>
   </div>
   <div class="clearBoth"></div>
-  </logic:iterate>
+  </c:forEach>
   <c:if test="${fn:length(comments) > 0}">
     <div class="pagination"> Viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
       <logic:equal name="setting" property="page" value="1"> <img src="images/btn_prev_fade.gif" alt="No Previous Pages" /> </logic:equal>

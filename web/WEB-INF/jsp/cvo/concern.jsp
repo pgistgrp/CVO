@@ -88,7 +88,7 @@
 						
 		//alert("concernId: " + concernId + " title: " + title + " content: " + content + " tags: " + tags); 
 
-		CCTAgent.createComment({concernId: concernId, title: title, content: content, tags: tags},<pg:wfinfo/>,{
+		CCTAgent.createComment({concernId: concernId, title: title, content: content, tags: tags},{
 			callback:function(data){
 				if (data.successful){
 					getComments(1, true);

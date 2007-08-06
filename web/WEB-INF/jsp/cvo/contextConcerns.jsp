@@ -42,7 +42,7 @@
 								<div class="discussionBody">
 									<div id="editingArea${concern.id}" style="display:none"></div>
 									<div class="discussionText" id="discussionText${concern.id}"><p>"${concern.content}"</p></div>
-									<h3 id="discussionAuthor">- <bean:write name="concern" property="author.loginname" /></h3>
+									<h3 id="discussionAuthor">- <pg:url page="/publicprofile.do" target="_blank" params="user=${concern.author.loginname}">${concern.author.loginname}</pg:url></h3>
 										<div class="discussionComments" id="discussionComments"><h3><a href="concern.do?id=${concern.id}">${concern.replies} Comments</a></h3> (${concern.views} views)</div>
 										<div class="discussionTagsList">
 											<!-- iterate through concern tags here -->	
