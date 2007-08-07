@@ -83,7 +83,7 @@ font-weight:normal;
 	h4{font-weight:normal;font-style:italic;font-size:13pt}
 
 small {display:block;margin-top:20px;}
-
+.rightAlign{text-align:right}
 
 </style>
 </head>
@@ -108,6 +108,7 @@ small {display:block;margin-top:20px;}
 			</form>
 			<div class="clearBoth"></div>
 		</div>
+					<p class="rightAlign"><a href="recoverpassword.jsp">Forgot your password?</a></p>
 	<small>This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.</small>
 	</div>
 </body>
