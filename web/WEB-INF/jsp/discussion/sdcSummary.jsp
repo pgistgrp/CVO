@@ -14,9 +14,14 @@
 	<ul class="tagsInline">
 		<li class="tagsInline"><strong>Tags highlighted by the moderator:</strong> </li>
 		<c:forEach var="tag" items="${infoObject.object.theme.tags}">
-			<li class="box8 tagsInline padding5"><a href="javascript:window.open('sdConcerns.do?ioid=${infoObject.id}&isid=${structure.id}&tag=${tag.id}','themeConcerns','width=730,height=500,resizable=yes,scrollbars=yes'); void(0);">${tag.name} <img src="images/external.png" alt="(new window)" /></a></li>
+			<li class="box8 tagsInline padding5">
+			    <a href="javascript:io.getThemeConcerns(${tag.id});">${tag.name} <img src="images/external.png" alt="(new window)" /></a>
+			</li>
 		</c:forEach>
 	</ul>
 	<div style="clear: left;"></div>
-	<p align="right"><a href="javascript:window.open('sdConcerns.do?ioid=${infoObject.id}&isid=${structure.id}&tag=','themeConcerns','width=730,height=500,resizable=yes,scrollbars=yes'); void(0);">View all Concerns for this Summary <img src="images/external.png" alt="(new window)" /></a></p>
+	<p align="right">
+	    <a href="javascript:io.getThemeConcerns();">View all Concerns for this Summary <img src="images/external.png" alt="(new window)" /></a>
+	</p>
+	
 </pg:fragment>

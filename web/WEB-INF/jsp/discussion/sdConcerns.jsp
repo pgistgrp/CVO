@@ -48,7 +48,7 @@
 			location.href = sd.filterAnchor;
 		}
 		//alert("isid: " + sd.isid + " ioid: " + sd.ioid + " tagId: " + tagId +" page: " + page + " count: " + sd.concernCount); 
-		SDAgent.getConcerns({isid:sd.isid, ioid: sd.ioid, tags: tagId, type:"tag", page: page, count: sd.concernCount}, {
+		SDAgent.getConcerns({isid:sd.isid, ioid: sd.ioid, tags: tagId, type:"tag", page: page, count: sd.concernCount},<pg:wfinfo/>, {
 			callback:function(data){
 					if (data.successful){
 					   	$(sd.divDiscussion).innerHTML = (data.source.html);
@@ -193,7 +193,7 @@
    
   <script type="text/javascript">
 
-		var defaultTagId = '<%= request.getParameter("tag") %>';
+		var defaultTagId = "${param.tag}";
 		changeCurrentFilter(defaultTagId, 'tag');
 </script>
   </body>
