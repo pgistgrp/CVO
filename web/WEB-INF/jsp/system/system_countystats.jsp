@@ -36,7 +36,7 @@
 							<tr class="rowcolor rowfont"> 
 						</c:otherwise>
 					</c:choose>
-					<td><span id="name${count}"><strong>${county.name}</strong>
+					<td class="counties"><span id="name${count}"><strong>${county.name}</strong>
 							<input id="countyid${count}" type="hidden" value="${county.id}" /><input name="edit" type="button" 
 							onclick="Element.toggle('editName${count}'),Element.toggle('name${count}')" 
 							value="Edit" />
@@ -61,9 +61,9 @@
 								</span>
 							</form>
 						</td>
-						<td>
+						<td class="zipcodes">
 							<c:forEach var="zip" items="${county.zipCodes}" varStatus="loop">
-								<div align="left">&nbsp;${zip}<a href="javascript:deleteZip('${county.id}','${zip}')"> <img class="trash" src="images/btn_trash.gif" alt="Remove this ZIP code"/></a><br />
+								<div align="left" class="zipcode">&nbsp;${zip}<a href="javascript:deleteZip('${county.id}','${zip}')"> <img class="trash" src="images/btn_trash.gif" alt="Remove this ZIP code"/></a><br />
 								</div>
 							</c:forEach>
 						</td>

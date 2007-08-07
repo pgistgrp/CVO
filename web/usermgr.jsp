@@ -15,10 +15,7 @@
 		<style type="text/css" media="screen">
 @import "styles/lit.css";
 @import "styles/table.css";
-</style>
-		<!-- End Site Wide CSS -->
-		<style type="text/css">
-		
+
 body {font-size:12pt}
 .center {
 	text-align:center;
@@ -49,6 +46,10 @@ padding:15px 10px 10px 10px;
 #newTable {margin-top:0em;}
 #emailList form {margin:5px 0px;}
 .leftMargin span {vertical-align:-30%;}
+
+td.counties{width:100px;}
+td.zipcodes{width:200px;}
+div.zipcode{float:left;}
 </style>
 		<!-- Site Wide JS -->
 		<script src="scripts/prototype.js" type="text/javascript"></script>
