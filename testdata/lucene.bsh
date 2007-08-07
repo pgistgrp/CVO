@@ -24,7 +24,28 @@ reader.close();
 */
 
 
-queryStr = "(span AND type:userprofile) OR (span AND type:project AND workflowid:14482)";
+queryStr = "impro tes";
+
+String[] words = queryStr.split(" ");
+StringBuilder sb = new StringBuilder("(");
+
+for (String s : words) {
+    if (s!=null && s.length()>0) {
+        if (sb.length()>1) sb.append(" OR ");
+        sb.append(s).append("*");
+    }
+}
+sb.append(")");
+
+queryStr = sb.toString();
+
+String luceneQuery =
+                //discussion and concern and project
+                "(workflowid:"+8648+" AND "+queryStr+")"
+                //user profile
+                +" OR (type:userprofile AND "+queryStr+")"
+                //static pages
+                +" OR (type:staticpage AND "+queryStr+")";
 
 searcher = searchHelper.getIndexSearcher();
 try {
@@ -32,11 +53,13 @@ try {
   
   hits = searcher.search(query);
   
+  print("Totally found "+hits.length()+" documents.");
+  
   for (i=0; i<hits.length(); i++) {
       doc = hits.doc(i);
       print("Found one document:");
       for (one : doc.getFields()) {
-          print("    "+one+" : "+doc.get(one.name()));
+          print("    "+one);
       }
   }//for
 } finally {

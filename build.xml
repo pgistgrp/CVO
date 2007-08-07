@@ -183,6 +183,14 @@
     </target>
     
 
+    <target name="staticpage" depends="compile">
+        <taskdef name="StaticPageIndexing" classname="org.pgist.tests.StaticPageIndexing" classpathref="classpath">
+        </taskdef>
+        <StaticPageIndexing indexPath="/opt/tomcat/cvotest/webapps/ROOT/WEB-INF/lucene"
+            dataPath="${base}/initdata" sourcePath="${web}/WEB-INF/jsp/lm" />
+    </target>
+    
+
     <target name="javadoc">
         <delete dir="${javadoc}"/>
         <mkdir dir="${javadoc}"/>

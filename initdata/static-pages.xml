@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pages>
+    <page url="/lmAbout.do">lmAbout.jsp</page>
+    <page url="/lmAlt.do">lmAlt.jsp</page>
+    <page url="/lmFaq.do">lmFaq.jsp</page>
+    <page url="/lmGallery.do">lmGallery.jsp</page>
+    <page url="/lmMenu.do">lmMenu.jsp</page>
+    <page url="/lmResources.do">lmResources.jsp</page>
+    <page url="/lmTutorial1.do">lmTutorial1.jsp</page>
+    <page url="/lmTutorial2.do">lmTutorial2.jsp</page>
+</pages>
+

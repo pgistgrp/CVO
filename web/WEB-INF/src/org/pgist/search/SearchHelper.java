@@ -2,6 +2,7 @@ package org.pgist.search;
 
 import java.io.IOException;
 
+import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
@@ -49,10 +50,15 @@ public class SearchHelper {
 
 
     public IndexWriter getIndexWriter() throws IOException {
+        return getIndexWriter(new StandardAnalyzer());
+    }//getIndexWriter()
+    
+    
+    public IndexWriter getIndexWriter(Analyzer analyzer) throws IOException {
         if (absolutePath==null) {
             absolutePath = contextPath + indexPath;
         }
-        return new IndexWriter(absolutePath, new StandardAnalyzer(), false);
+        return new IndexWriter(absolutePath, analyzer, false);
     }//getIndexWriter()
     
     

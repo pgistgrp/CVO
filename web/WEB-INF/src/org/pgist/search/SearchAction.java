@@ -32,6 +32,11 @@ public class SearchAction extends Action {
     }
 
 
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
     public ActionForward execute(
             ActionMapping mapping,
             ActionForm form,
@@ -44,6 +49,26 @@ public class SearchAction extends Action {
         
         if (queryStr==null || "".equals(queryStr)) return mapping.findForward("index");
         
+        /*
+         * process the query string, add * to each word
+         */
+        
+        String[] words = queryStr.split(" ");
+        StringBuilder sb = new StringBuilder("(");
+        
+        for (String s : words) {
+            if (s!=null && s.length()>0) {
+                if (sb.length()>1) sb.append(" OR ");
+                sb.append(s).append("*");
+            }
+        }
+        
+        sb.append(")");
+        
+        queryStr = sb.toString();
+        
+        if (queryStr==null || queryStr.length()==0) return mapping.findForward("index");
+        
         IndexSearcher indexSearcher = null;
         PageSetting setting = null;
         
@@ -54,7 +79,9 @@ public class SearchAction extends Action {
                 //discussion and concern and project
                 "(workflowid:"+request.getParameter("workflowId")+" AND "+queryStr+")"
                 //user profile
-               +" OR (type:userprofile AND "+queryStr+")";
+                +" OR (type:userprofile AND "+queryStr+")"
+                //static pages
+                +" OR (type:staticpage AND "+queryStr+")";
             
             Query query = searchHelper.getParser().parse(luceneQuery);
             
@@ -108,6 +135,8 @@ public class SearchAction extends Action {
                 } else if ("userprofile".equals(type)) {
                     map.put("userid", doc.get("userid"));
                     map.put("loginname", doc.get("loginname"));
+                } else if ("staticpage".equals(type)) {
+                    map.put("path", doc.get("path"));
                 }
                 
                 list.add(map);
