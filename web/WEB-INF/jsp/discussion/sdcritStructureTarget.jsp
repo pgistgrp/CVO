@@ -164,8 +164,8 @@
 			callback:function(data){
 				if (data.successful){
 				    var themes = [];
-					data.themes.each(function(t){
-					    themes.push("<a href='sdRoom.do"+io.wfInfo+"&isid=#&ioid=#'>"+t.title+"</a>");
+					data.themes.each(function(t){   
+					    themes.push("<a href='sdRoom.do?"+io.wfInfo+"&isid=#&ioid=#'>"+t.title+"</a>");
 					})
 					$('orphanThemes').innerHTML = "Concern themes that the moderator has determined are unrelated to any of these planning factors include:"
 					 + themes.toString();

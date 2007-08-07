@@ -23,7 +23,7 @@
 		<!-- jump to other room selection menu -->
 		<div class="floatRight"> Jump to:
 			<select name="selecttheme" id="selecttheme" 
-			onChange="javascript: location.href='sdRoom.do?isid=${infoStructure.id}&ioid=' + this.value;">
+			onChange="javascript:io.jumpToTheme(this.value);">
 				<option value = "${object.id}">Select a theme</option>
 				<option value = "">Discussion of all themes</option>
 				<c:forEach var="infoObject" items="${infoStructure.infoObjects}">
@@ -85,5 +85,9 @@
 	io.getThemeConcerns = function(tag){
 	    tag = tag || "";
 		window.open("sdConcerns.do?"+io.wfInfo+"&ioid="+io.objectId+"&isid="+io.structureId+"&tag="+tag+"",'Theme Concerns','width=1000,height=600,resizable=yes,scrollbars=yes');
+	}
+	
+	io.jumpToTheme = function(id){
+	    location.href= "sdRoom.do?"+io.wfInfo+"&isid="+io.structureId+"&ioid="+ id
 	}
 </pg:fragment>
