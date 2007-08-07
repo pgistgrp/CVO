@@ -76,7 +76,7 @@
 		io.currentPage = ("${param.page}" != "") ? "${param.page}" : 1;
 		io.currentSort = ("${param.sort}" != "") ? "${param.sort}" : 1;
 		io.postCount = 5;
-		io.tagCloudCount = 50;
+		io.tagCloudCount = 20;
 		io.currentTagCloudPage = 1;
 		
 		/*----Input ID's - these id's of input elements have changing content or gets read by the javascript ---- */
@@ -350,7 +350,9 @@
 							if (data.count == 0){
 								$(io.divTagCloud).innerHTML = '<a href="javascript:Effect.Fade(\''+io.divTagCloud+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
 							}
-							new Effect.toggle(io.divTagCloud,'blind',{duration: 0.5});		
+							if($(io.divTagCloud).style.display == 'none'){
+							    new Effect.toggle(io.divTagCloud,'blind',{duration: 0.5});		
+					        }
 									
 						}
 				},

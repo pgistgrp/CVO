@@ -14,7 +14,11 @@
 <ul class="tagsInline">
 	<li class="tagsInline"><strong>Keywords:</strong> </li>
 	<c:forEach items="${tags}" var="tagRef">
-		<li class="box1 tagsInline"><a href="javascript:changeCurrentFilter(${tagRef.id}); setTimeout('Effect.BlindUp(\'tagCloud\')',1000); void(0);">${tagRef.tag.name}</a></li>
+		<li class="box1 tagsInline">
+		    <a class="tagSize${tagRef.fontSize}" href="javascript:changeCurrentFilter(${tagRef.id}); setTimeout('Effect.BlindUp(\'tagCloud\')',1000); void(0);">
+		        ${tagRef.tag.name}
+		    </a>
+		</li>
 	</c:forEach>
 </ul>
 <div style="clear: left;"></div>
