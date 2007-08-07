@@ -107,7 +107,7 @@ function submitQ(form) {
 	var errormsg = "";
 
 	var income = form.income.value;	
-	var householdsize = form.householdsize.value;
+	var householdsize = parseInt(form.householdsize.value);
 	var drive = form.drive.value;
 	var carpool = form.carpool.value;
 	var carpoolpeople = form.carpoolpeople.value;
