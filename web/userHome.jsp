@@ -14,11 +14,6 @@
 	Author(s): 
 	     Front End: Jordan Isip, Adam Hindman
 	     Back End: Zhong Wang, John Le
-	Todo Items:
-		[ ] Recent Discussion (John)
-		[ ] User's Tags (John)
-		[ ] Integrate workflow (Jordan)
- 
 #### -->  
 	<head> 
 	<title>Let's Improve Transportation - Home</title>
