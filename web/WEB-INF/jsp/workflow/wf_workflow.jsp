@@ -8,12 +8,8 @@
 	<c:if test="${fn:length(workflow.situation.context.pendingActivities) == 0}">
 		<h2>This experiment has ended.</h2>
 	</c:if>
-	<h3 class="headerColor">${workflow.situation.name}</h3>
-	<p><strong>124</strong> participants have been active in the ${workflow.situation.name} in the past 12 hours</p>
+	<!--<p><strong>124</strong> participants have visited in the ${workflow.situation.name} in the past 12 hours</p>-->
 	<fmt:formatDate value="${workflow.beginTime}" dateStyle="full" var="beginTime" />
-	<p><small>This experiment began on: ${beginTime}</small></p>
-
- 	<h3 class="headerColor inline">Overview of all steps</h3>
 	<!--History-->
 	<c:forEach var="sHistory" items="${workflow.situation.context.histories}" varStatus="loop">
 		<pg:narrow name="sHistory"/>
