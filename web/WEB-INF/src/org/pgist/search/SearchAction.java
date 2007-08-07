@@ -137,6 +137,8 @@ public class SearchAction extends Action {
                     map.put("loginname", doc.get("loginname"));
                 } else if ("staticpage".equals(type)) {
                     map.put("path", doc.get("path"));
+                    map.put("url", doc.get("url"));
+                    map.put("title", doc.get("title"));
                 }
                 
                 list.add(map);
