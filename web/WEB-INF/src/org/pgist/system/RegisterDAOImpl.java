@@ -1,5 +1,6 @@
 package org.pgist.system;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,10 +9,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 
+import org.hibernate.Query;
 import org.pgist.funding.UserCommute;
 import org.pgist.funding.UserFundingSourceToll;
 import org.pgist.users.Role;
+import org.pgist.users.TravelMarker;
+import org.pgist.users.TravelTrip;
 import org.pgist.users.User;
+import org.pgist.util.WKT;
+import org.postgis.Geometry;
+import org.postgis.LineString;
+import org.postgis.Point;
 
 
 /**
@@ -327,5 +335,60 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 		}
 	} //deleteAllExpired()
 	
+    public Long saveUserTravelTrip(User user, TravelTrip trip) throws Exception{
+    	trip.setOwner(user);
+    	
+    	//convert trips and markers coords into geometry
+    	Iterator itMarkers = trip.getMarkers().iterator();
+    	Point p;
+    	while(itMarkers.hasNext()){
+    		TravelMarker m = (TravelMarker)itMarkers.next();
+    		p = new Point(m.getLng(), m.getLat());
+    		m.setPoint(p);
+    	}
+    	if(trip.getCoords().length > 0){
+	    	Point[] points = new Point[trip.getCoords().length/2];
+	    	for(int i=0; i<trip.getCoords().length; i=i+2){
+	    		points[i/2] = new Point(trip.getCoords()[i], trip.getCoords()[i+1]);
+	    	}
+	    	LineString ls = new LineString(points);
+	    	trip.setRoute(ls);
+    	}
+    	
+    	save(trip);
+    	
+    	return trip.getId();
+    }
+    
+	private static final String hql_getUserTravelTrips = "from TravelTrip trip where trip.owner.id=?";
+    public ArrayList<TravelTrip> getUserTravelTrips (Long uid) throws Exception{
+        //get rows
+        Query query = getSession().createQuery(hql_getUserTravelTrips);
+        query.setLong(0, uid);
+        
+        
+        ArrayList<TravelTrip> trips = new ArrayList<TravelTrip>(query.list());
+        for(TravelTrip trip : trips){
+        	//handle lat lngs for markers in each trip:
+        	Iterator itMarkers = trip.getMarkers().iterator();
+        	while(itMarkers.hasNext()){
+        		TravelMarker m = (TravelMarker)itMarkers.next();
+        		Point p = (Point)m.getPoint();
+        		m.setLat(p.getY());
+        		m.setLng(p.getX());
+        	}
+        	
+        	//convert line into x y series
+        	LineString ls = (LineString)trip.getRoute();
+        	Point[] points = ls.getPoints();
+        	double[] coords = new double[points.length*2];
+        	for(int i=0; i<points.length; i++){
+        		coords[i*2] = points[i].getX();
+        		coords[i*2 + 1] = points[i].getY();
+        	}
+        	trip.setCoords(coords);
+        }
+        return trips;
+    }
 	
 }

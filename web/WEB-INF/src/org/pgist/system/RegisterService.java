@@ -1,9 +1,11 @@
 package org.pgist.system;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.pgist.users.TravelTrip;
 import org.pgist.users.User;
 
 
@@ -50,5 +52,9 @@ public interface RegisterService {
 	void deleteRecoverPassword(String code) throws Exception;
 	
 	void deleteAllExpired() throws Exception;
+    
+	Long saveUserTravelTrip(Long uid, TravelTrip trip) throws Exception;
+    
+	ArrayList<TravelTrip> getUserTravelTrips (Long uid) throws Exception;
 	
 }

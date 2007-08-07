@@ -1,10 +1,12 @@
 package org.pgist.system;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.pgist.users.TravelTrip;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
 import org.pgist.util.WebUtils;
@@ -136,4 +138,14 @@ public class RegisterServiceImpl implements RegisterService {
 	public void deleteAllExpired() throws Exception {
 		registerDAO.deleteAllExpired();
 	}
+	
+    public Long saveUserTravelTrip(Long uid, TravelTrip trip) throws Exception{
+    	User user = registerDAO.getCurrentUser(uid);
+    	return registerDAO.saveUserTravelTrip(user, trip);
+    }
+    
+    public ArrayList<TravelTrip> getUserTravelTrips (Long uid) throws Exception{
+    	return registerDAO.getUserTravelTrips(uid);
+    }
+
 }

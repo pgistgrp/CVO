@@ -29,7 +29,13 @@
     <convert converter="bean" match="org.pgist.system.YesNoVoting">
         <param name="include" value="id, targetType, targetId, voting, owner"/>
     </convert>
-
+    
+    <convert converter="bean" match="org.pgist.users.TravelMarker">
+        <param name="include" value="type, index, name, data1, data2, lat, lng"/>
+    </convert>
+    <convert converter="bean" match="org.pgist.users.TravelTrip">
+        <param name="include" value="mode, frequency, markers, coords"/>
+    </convert>
 
     <create creator="spring" javascript="SystemAgent">
         <param name="beanName" value="systemAgent"/>
@@ -60,6 +66,7 @@
         <include method="getAnnouncements"/>
         <include method="editAnnouncement"/>
         <include method="deleteAnnouncement"/>
+        <include method="saveUserTrip"/>
     </create>
 
 	
@@ -80,6 +87,8 @@
         <include method="setToll"/>
         <include method="checkUsername"/>
         <include method="checkEmail"/>
+        <include method="saveUserTrip"/>
+        <include method="getUserTrips"/>
     </create>
     
     <create creator="spring" javascript="ProfileAgent">

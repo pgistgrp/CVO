@@ -1,5 +1,6 @@
 package org.pgist.system;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.directwebremoting.WebContextFactory;
 import org.pgist.funding.FundingService;
 import org.pgist.funding.UserTaxInfoDTO;
+import org.pgist.users.TravelMarker;
+import org.pgist.users.TravelTrip;
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;
 
@@ -701,5 +704,86 @@ public class RegisterAgent {
         return map;
     }//checkEmail()
     
+	 /**
+     * Save a trip information of a given user Id
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>uid - string, id of the user</li>
+     *     <li>markers[] - an array of marker objects</li>
+     *     <li>trip - trip information</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>trip id - the id of the newly created trip object</li>
+     *   </ul>
+     */
+	public Map saveUserTrip(long uid, TravelMarker[] markers, TravelTrip trip) {
+		Map map = new HashMap();
+        map.put("successful", false);
+		
+        /*String strId = (String)params.get("uid");
+        
+        if(strId==null || "".equals(strId.trim())){
+        	map.put("reason", "User id cannot be null.");
+    		return map;	
+        }
+        
+        Long id = Long.parseLong(strId);
+        */
+        //Object markers = (Object)params.get("markers");
+        System.out.println(markers[0].getId());//(markers.size());
+        //for(int i=0; i<markers.size(); i++)
+        //	System.out.println(markers.get(i).get("id"));
+        
+        try {
+        	for(int i=0; i<markers.length; i++){
+        		trip.getMarkers().add(markers[i]);
+        	}
+        	
+        	Long tid = registerService.saveUserTravelTrip(uid, trip);
+        	map.put("tripId", tid);
+        	      	
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+	} //getUserById()
+
+	 /**
+     * Save a trip information of a given user Id
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>uid - string, id of the user</li>
+     *     <li>markers[] - an array of marker objects</li>
+     *     <li>trip - trip information</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>trips - an array of trips, each contains markers and polyline</li>
+     *   </ul>
+     */
+	public Map getUserTrips(long uid) {
+		Map map = new HashMap();
+        map.put("successful", false);
+        try {
+        	ArrayList<TravelTrip> trips = registerService.getUserTravelTrips(uid);
+        	map.put("trips", trips);
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;		
+	}
     
 } //RegisterAgent()
