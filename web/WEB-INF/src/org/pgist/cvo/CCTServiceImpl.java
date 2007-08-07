@@ -399,11 +399,13 @@ public class CCTServiceImpl implements CCTService {
         
         if (comment==null) throw new Exception("can't find the specified comment");
             
-        comment.setTitle(title);
-        
         User owner = userDAO.getUserById(WebUtils.currentUserId(), true, false);
-        comment.setOwner(owner);
         
+        if (owner.getId().equals(comment.getOwner().getId())) {
+            throw new Exception("You are not the owner of this comment");
+        }
+        
+        comment.setTitle(title);
         comment.getTags().clear();
         
         for (String tagStr : tags) {
@@ -428,6 +430,12 @@ public class CCTServiceImpl implements CCTService {
         Comment comment = cctDAO.getCommentById(commentId);
         
         if (comment==null) throw new Exception("can't find the specified comment");
+        
+        User owner = userDAO.getUserById(WebUtils.currentUserId(), true, false);
+        
+        if (owner.getId().equals(comment.getOwner().getId())) {
+            throw new Exception("You are not the owner of this comment");
+        }
         
         comment.setDeleted(true);
         

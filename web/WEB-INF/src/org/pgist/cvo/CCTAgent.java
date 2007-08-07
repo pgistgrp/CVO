@@ -101,18 +101,24 @@ public class CCTAgent {
      * @return A map contains:<br>
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
-     *           <li>ccts - a list of CCT objects</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *           <li>ccts - a list of CCT objects</li>
      *         </ul>
      * @throws Exception
      */
     public Map getCCTs(Map params) throws Exception {
         Map map = new HashMap();
-
-        Collection list = cctService.getCCTs();
-        map.put("successful", new Boolean(true));
-        map.put("ccts", list);
-
+        map.put("successful", false);
+        
+        try {
+            Collection list = cctService.getCCTs();
+            map.put("successful", new Boolean(true));
+            map.put("ccts", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
         return map;
     }//getCCTs()
 
@@ -391,10 +397,10 @@ public class CCTAgent {
      */
     public Map getTagCloud(HttpServletRequest request, Map params) {
         Map map = new HashMap();
-
+        
         int type = -1;
         CCT cct = null;
-
+        
         try {
             type = Integer.parseInt((String) params.get("type"));
             Long cctId = new Long((String) params.get("cctId"));
@@ -406,7 +412,7 @@ public class CCTAgent {
             if (cct == null) map.put("reason", "No CCTId is given.");
             return map;
         }
-
+        
         if (type == 0) {
             int count = -1;
             try {
@@ -437,7 +443,7 @@ public class CCTAgent {
             } catch (Exception e) {
                 threshhold = 10;
             }
-
+            
             try {
                 Collection tags = cctService.getTagsByThreshold(cct, threshhold);
                 request.setAttribute("tags", tags);
@@ -466,7 +472,7 @@ public class CCTAgent {
         } else {
             map.put("reason", "Wrong invocation type!");
         }
-
+        
         return map;
     }//getTagCloud()
 

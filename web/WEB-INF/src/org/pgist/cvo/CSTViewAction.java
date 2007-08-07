@@ -4,6 +4,7 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -37,6 +38,10 @@ public class CSTViewAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
+        if (!WebUtils.checkRole("moderator")) {
+            throw new Exception("This function is restricted only to moderator!");
+        }
+        
         CCTForm cctform = (CCTForm) form;
         
         CCT cct = cctService.getCCTById(cctform.getCctId());
