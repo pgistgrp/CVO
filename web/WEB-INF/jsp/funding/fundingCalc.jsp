@@ -61,14 +61,13 @@
 		}
 		
 		function addVehicle(){
-			var userId = "${user.userId}"
 			var mpg = $F('vehicleMpg');
 			var value = $F('vehicleValue');
 			var mpy = $F('vehicleMpy');
 			
-			//alert("userId: " + userId + "milesPerGallon: " + mpg + " value: " + value + " milesPerYear: " + mpy); 
+			//alert("milesPerGallon: " + mpg + " value: " + value + " milesPerYear: " + mpy); 
 			Util.loading(true,"Working");
-			FundingAgent.addVehicle({userId:userId,milesPerGallon:mpg,value:value,milesPerYear:mpy}, {
+			FundingAgent.addVehicle({milesPerGallon:mpg,value:value,milesPerYear:mpy}, {
 				callback:function(data){
 					if (data.successful){
 						getVehicles();
