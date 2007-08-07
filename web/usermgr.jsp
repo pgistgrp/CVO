@@ -236,9 +236,6 @@ function greyDisabled() {
   <!-- End Global Headers -->
 		</div>
 		<!-- End header -->
-		<!-- Begin header menu - The wide ribbon underneath the logo -->
-		<div id="headerMenu"> </div>
-		<!-- End header menu -->
 		<!-- #container is the container that wraps around all the main page content -->
 		<div id="container">
 			<h2 class="headerColor">Moderator Tools</h2>
