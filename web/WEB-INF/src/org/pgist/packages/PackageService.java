@@ -63,7 +63,7 @@ public interface PackageService {
 
 	void setManualPkgDesc(Long pkgId, String desc) throws Exception;
 
-    PackageVoteSuite createPackageVoteSuite(Long pkgSuiteId) throws Exception; 
+    PackageVoteSuite createPackageVoteSuite(Long pkgSuiteId, boolean finalVote) throws Exception; 
     
     Set getVoteSuiteStatsBySuite(Long pkgVoteSuiteId) throws Exception;
     

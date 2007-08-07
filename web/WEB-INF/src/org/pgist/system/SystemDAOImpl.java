@@ -183,7 +183,7 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
 
     	User user = getUserById(WebUtils.currentUserId());
     	user.setQuota(quota);
-    	
+    	save(user);
     } //setQuota();
     
     

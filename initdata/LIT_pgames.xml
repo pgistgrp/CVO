@@ -456,6 +456,7 @@
                     <var name="projSuiteId"/>
                     <var name="fundSuiteId"/>
                     <var name="critSuiteId"/>
+		    <var name="voteSuiteId"/>
                 </ins>
             </declaration>
         </pgame>
@@ -471,7 +472,7 @@
                     <var name="projSuiteId"/>
                     <var name="fundSuiteId"/>
                     <var name="critSuiteId"/>
-                    <var name="voteSuiteId"/>
+                    <var name="voteSuiteId"/>  
                 </ins>
             </declaration>
         </pgame>
@@ -486,7 +487,8 @@
                     <var name="pkg_suite_id"/>
                 </ins>
                 <outs>
-                    <var name="suite_id"/>
+                    <var name="poll_suite_id"/>
+		    <var name="vote_suite_id"/>
                 </outs>
             </declaration>
         </pgame>

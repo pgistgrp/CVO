@@ -1,9 +1,17 @@
 package org.pgist.packages;
 
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.users.User;
+import org.pgist.system.SystemService;
+import org.pgist.util.WebUtils;
 
 /**
  * Participants use this action to vote on the clustered packages.<br>
@@ -63,52 +71,51 @@ public class PackagePollAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-//    	String tempPackageSuiteId = request.getParameter("pkgSuiteId");
-//    	String tempProjSuiteId = request.getParameter("projSuiteId");
-//    	String tempFundSuiteId = request.getParameter("fundSuiteId");
-//    	String tempCritSuiteId = request.getParameter("critSuiteId");
-//		Long packSuite = new Long(tempPackageSuiteId);
-//		Long projSuite = new Long(tempProjSuiteId);
-//		Long fundSuite = new Long(tempFundSuiteId);
-//		Long critSuite = new Long(tempCritSuiteId);     	
-//    	
-//    	String tempVoteSuiteId = request.getParameter("voteSuiteId");
-//    	Long voteSuiteId = new Long(tempVoteSuiteId);
-//    	PackageVoteSuite vSuite = packageService.getPackageVoteSuite(voteSuiteId);
-//
-//		//Grade it
-//    	User user = packageService.getUser(WebUtils.currentUser());    	
-//		request.setAttribute("voteSuite", vSuite);    		
-//		request.setAttribute("pkgSuiteId", packSuite);
-//		request.setAttribute("projSuiteId", projSuite);
-//		request.setAttribute("fundSuiteId", fundSuite);
-//		request.setAttribute("critSuiteId", critSuite); 
-//		
-//        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
-//        if(vSuite.userVoted(user)) {
-//        	PackageSuite pkgSuite = packageService.getPackageSuite(packSuite);
-//        	Set<PackageVoteSuite> voteSuites = pkgSuite.getVoteSuites();
-//        	System.out.println("MATT1: *(&(*&(* " + voteSuites.size());
-//        	
-//        	Set<PackageVoteSuite> pVoteSuites = new HashSet<PackageVoteSuite>();
-//        	
-//        	Iterator<PackageVoteSuite> iVS = voteSuites.iterator();
-//        	PackageVoteSuite tempVS;
-//        	while(iVS.hasNext()) {
-//        		tempVS = iVS.next();
-//        		if(tempVS.getId() != vSuite.getId()) {
-//        			pVoteSuites.add(tempVS);
-//        		}
-//        	}
-//        	
-//        	System.out.println("MATT1: *(&(*&(* " + pVoteSuites.size());
-//    		request.setAttribute("pVoteSuites", pVoteSuites);
-//        	
-//            return mapping.findForward("results");        	
-//        } else {
+    	String tempPackageSuiteId = request.getParameter("pkgSuiteId");
+    	String tempProjSuiteId = request.getParameter("projSuiteId");
+    	String tempFundSuiteId = request.getParameter("fundSuiteId");
+    	String tempCritSuiteId = request.getParameter("critSuiteId");
+		Long packSuite = new Long(tempPackageSuiteId);
+		Long projSuite = new Long(tempProjSuiteId);
+		Long fundSuite = new Long(tempFundSuiteId);
+		Long critSuite = new Long(tempCritSuiteId);     	
+    	
+    	String tempVoteSuiteId = request.getParameter("voteSuiteId");
+    	Long voteSuiteId = new Long(tempVoteSuiteId);
+    	PackageVoteSuite vSuite = packageService.getPackageVoteSuite(voteSuiteId);
+
+		//Grade it
+    	User user = packageService.getUser(WebUtils.currentUser());    	
+		request.setAttribute("voteSuite", vSuite);    		
+		request.setAttribute("pkgSuiteId", packSuite);
+		request.setAttribute("projSuiteId", projSuite);
+		request.setAttribute("fundSuiteId", fundSuite);
+		request.setAttribute("critSuiteId", critSuite); 
+		
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+        if(vSuite.userVoted(user)) {
+        	PackageSuite pkgSuite = packageService.getPackageSuite(packSuite);
+        	Set<PackageVoteSuite> voteSuites = pkgSuite.getVoteSuites();
+        	System.out.println("MATT1: *(&(*&(* " + voteSuites.size());
+        	
+        	Set<PackageVoteSuite> pVoteSuites = new HashSet<PackageVoteSuite>();
+        	
+        	Iterator<PackageVoteSuite> iVS = voteSuites.iterator();
+        	PackageVoteSuite tempVS;
+        	while(iVS.hasNext()) {
+        		tempVS = iVS.next();
+        		if(tempVS.getId() != vSuite.getId()) {
+        			pVoteSuites.add(tempVS);
+        		}
+        	}
+        	
+        	System.out.println("MATT1: *(&(*&(* " + pVoteSuites.size());
+    		request.setAttribute("pVoteSuites", pVoteSuites);
+        	
+            return mapping.findForward("results");        	
+        } else {
             return mapping.findForward("view");        	
-//        }
-//        //return mapping.findForward("results");
+        }
    }//execute()
     
 } //class PackagePollAction

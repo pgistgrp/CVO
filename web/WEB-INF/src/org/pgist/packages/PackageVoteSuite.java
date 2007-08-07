@@ -36,6 +36,9 @@ public class PackageVoteSuite {
     
     private int numVoters;
     
+    private boolean finalVote = false;
+    
+	
 
 	/**
      * @return
@@ -52,6 +55,19 @@ public class PackageVoteSuite {
     }
 
     
+	/**
+     * @hibernate.property not-null="true"
+     */
+    public boolean isFinalVote() {
+		return finalVote;
+	}
+
+
+	public void setFinalVote(boolean finalVote) {
+		this.finalVote = finalVote;
+	}
+	
+	
 	/**
      * @hibernate.property not-null="false"
      */

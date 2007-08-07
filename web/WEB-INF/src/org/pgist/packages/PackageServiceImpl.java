@@ -1503,7 +1503,7 @@ public class PackageServiceImpl implements PackageService {
 	}
 
 
-    public PackageVoteSuite createPackageVoteSuite(Long pkgSuiteId) throws Exception {
+    public PackageVoteSuite createPackageVoteSuite(Long pkgSuiteId, boolean finalVote) throws Exception {
 
     	PackageSuite pkgSuite = getPackageSuite(pkgSuiteId);
 
@@ -1526,10 +1526,10 @@ public class PackageServiceImpl implements PackageService {
             packageDAO.save(stat);
             voteSuite.getStats().add(stat);
             
-            System.out.println("**PackageService.createPackageVoteSuite ***" + stat.getId());
+            System.out.println("***PackageService.createPackageVoteSuite ***" + stat.getId());
         }//for
         
-        
+        voteSuite.setFinalVote(finalVote);
         pkgSuite.getVoteSuites().add(voteSuite);
         packageDAO.save(pkgSuite);
         
@@ -1537,8 +1537,7 @@ public class PackageServiceImpl implements PackageService {
     }//createPackageVoteSuite()
     
     
-    public Set getVoteSuiteStatsBySuite(Long pkgVoteSuiteId) throws Exception {
-    	
+    public Set getVoteSuiteStatsBySuite(Long pkgVoteSuiteId) throws Exception {	
     	return packageDAO.getVoteSuiteStatsBySuite(pkgVoteSuiteId);
     }
     
