@@ -248,6 +248,12 @@
     </servlet-mapping>
     
     
+    <session-config>
+        <!-- Session timeout is in minutes -->
+        <session-timeout>360</session-timeout>
+    </session-config>
+    
+    
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
         <welcome-file>index.jsp</welcome-file>
