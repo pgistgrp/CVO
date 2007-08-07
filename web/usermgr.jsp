@@ -182,7 +182,7 @@ function addCounty() {
 }
 
 function resetPassword(myid) {
-	SystemAgent.resetPassword({ids:myid});
+	//SystemAgent.resetPassword({ids:myid});
 	SystemAgent.resetPassword({ids:myid}, {
 		callback:function(data){
 			if (data.successful){
