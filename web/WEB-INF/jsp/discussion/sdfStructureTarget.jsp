@@ -92,10 +92,10 @@
 					cost of tax increases</h4>
 				<p>How did we come up with the annual personal cost figures?</p>
 				<ul>
-					<li>The estimates are based on data about residents’ in our region, such as income, miles driven per year, and average miles per gallon.</li>
+					<li>The estimates are based on data about residents in our region, such as income, miles driven per year, and average miles per gallon.</li>
 					<li>Your personal annual cost figures are estimated based on the information you provided during registration.</li>
 				</ul>
-				<div class="floatLeft" style="margin:1em"> 
+				<div class="floatLeft" style="margin:1em">
 				<a href="javascript:io.goToCalc();"><img src="images/calculator2.gif" border="0"></a> </div>
 				<div class="floatLeft padding5" style="width:190px;margin-top:50px;"> <a href="javascript:io.goToCalc();">Learn how these costs are estimated and make adjustments</a> </div>
 			</div>

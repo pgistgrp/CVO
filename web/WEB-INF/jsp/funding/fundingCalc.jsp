@@ -290,7 +290,7 @@
 		<div id="myIncome">
 			<h3 class="headerColor">My income</h3>
 			<span id="annualIncome"> Annual income
-			<input name="annual-income" id="annual-income" onBlur="this.value=filterNum(this.value);" type="text" value="${user.income}"></span>
+			<input name="annual-income" class="moneyInput" id="annual-income" onBlur="this.value=filterNum(this.value);" type="text" value="${user.income}"></span>
 			<span id="householdSize"> Household size
 				<select name="household-size" id="household-size" >
 					<c:forEach var="i" begin="1" end="11">
@@ -309,8 +309,8 @@
 		<div id="myCommute">
 			<h3 class="headerColor">My commute</h3>
 			<div id="myCommute-left" class="floatLeft">
-			<p>Home zip code <input id="hZipcode" name="hZipcode" type="text" size="5" maxlength="5" value="${user.zipcode}"></span></p>
-			<p>Work zip code <input id="wZipcode" name="wZipcode" type="text" size="5" maxlength="5" value="${user.workZipcode}"></span></p>
+			<p>Home zip code <input id="hZipcode" name="hZipcode" onBlur="this.value=filterNum(this.value);" type="text" size="7" maxlength="5" value="${user.zipcode}"></span></p>
+			<p>Work zip code <input id="wZipcode" name="wZipcode" onBlur="this.value=filterNum(this.value);"type="text" size="7" maxlength="5" value="${user.workZipcode}"></span></p>
 			</div>
 			<div id="myCommute-center" class="floatLeft"> 
 				I <strong>drive alone</strong>

@@ -2,6 +2,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
 	<head>
@@ -21,19 +22,12 @@
 	<body>
 	<!-- Begin the header - loaded from a separate file -->
 	<div id="header">
-		<!-- Begin header -->
-		<jsp:include page="/header.jsp" />
-		<!-- End header -->
+  <!-- Start Global Headers  -->
+  <wf:nav />
+  <wf:subNav />
+  <!-- End Global Headers -->
 	</div>
 	<!-- End header -->
-	<!-- Begin header menu - The wide ribbon underneath the logo -->
-	<!-- Begin header menu - The wide ribbon underneath the logo -->
-	<div id="headerMenu">
-		<div id="headerContainer">
-		</div>
-	</div>
-	<!-- End header menu -->
-	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
 		<div style="width:600px;">
@@ -47,12 +41,9 @@
 	<!-- start feedback form -->
 	<pg:feedback id="feedbackDiv" action="cctView.do"/>
 	<!-- end feedback form -->
-	<!-- Begin header menu - The wide ribbon underneath the logo -->
-	<div id="headerMenu">
-		<div id="headerContainer">
-		</div>
-	</div>
-	<!-- End header menu -->
+	  <!-- Start Global Headers  -->
+  <wf:subNav />
+  <!-- End Global Headers -->
 	<!-- Begin footer -->
 	<div id="footer">
 		<jsp:include page="/footer.jsp" />

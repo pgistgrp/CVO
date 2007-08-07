@@ -288,6 +288,7 @@ function greyDisabled() {
 	<!-- this button just redirects - saves are occuring on check. -->
 	<p><input type="button" style="padding:5px" onClick="location.href='userhome.do'" value="Finished!"/></p>
 		</div>
+		<div id="allUsersList">All Users List</div>
 		<!-- end container -->
 		<!-- start feedback form -->
 		<pg:feedback id="feedbackDiv" action="cctView.do"/>
