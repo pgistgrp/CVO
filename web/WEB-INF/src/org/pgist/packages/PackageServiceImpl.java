@@ -261,6 +261,10 @@ public class PackageServiceImpl implements PackageService {
 			//Get the user package
 			UserPackage uPack = this.packageDAO.getUserPackage(pkgId);
 			
+            if (!WebUtils.checkUser(uPack.getAuthor().getId())) {
+                throw new Exception("This function is restricted only to moderator!");
+            }
+            
 			//get the alternative
 			FundingSourceAltRef altRef = this.fundingDAO.getFundingSourceAlternativeReference(funAltRefId);
 
@@ -274,6 +278,10 @@ public class PackageServiceImpl implements PackageService {
 
 			return uPack;			
 		} else {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This function is restricted only to moderator!");
+            }
+            
 			//Get the user package
 			ClusteredPackage cPack = this.packageDAO.getClusteredPackage(pkgId);
 			
