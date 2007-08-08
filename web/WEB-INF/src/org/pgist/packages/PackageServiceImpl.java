@@ -1065,7 +1065,6 @@ public class PackageServiceImpl implements PackageService {
      * @throws Exception 
      */
     public void calcUserValues(Package pkg, User user, Long funSuiteId) throws Exception {
-//System.out.println("MATT##################: Sweet ID!" + funSuiteId);    
     	if(user.getUserCommute() == null) {
     		fundingDAO.initializeUser(user);    		
     	}
