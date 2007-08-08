@@ -60,12 +60,12 @@
 				var trip = {mode:2, frequency:1, coords:coords};
 				
 				//the first argument of this call is the user ID, which we can either set from this page, or get from the context
-				RegisterAgent.saveUserTrip(6, markers, trip, function(data){
+				RegisterAgent.saveUserTrip(5, markers, trip, function(data){
 							if(data.successful) alert("path and markers saved successfully, with tripid=" + data.tripId);
 						});
 			}
 			
-			/* a test function to load the trips of a particular user, and display the first trip
+			/* a test function to load the trips of a particular user, and display the last trip
 			 * of course you can create your own code to display all trips, with certain symbology, and adjust map extent
 			 * again, first parameter is the user ID.
 			 */
@@ -74,7 +74,8 @@
 					//data.trips is now an array of trips
 					if(data.successful){
 						alert("Total number of trips: " + data.trips.length);
-						testDrawTrip(data.trips[0].coords);
+						if(data.trips.length>0)
+							testDrawTrip(data.trips[data.trips.length-1].coords);
 					}
 				});
 			}
