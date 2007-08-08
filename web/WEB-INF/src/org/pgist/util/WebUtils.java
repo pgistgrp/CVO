@@ -2,7 +2,6 @@ package org.pgist.util;
 
 import java.util.Date;
 
-import org.pgist.users.User;
 import org.pgist.users.UserInfo;
 
 

@@ -6,7 +6,6 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.util.WebUtils;
 
 
 /**
@@ -36,10 +35,6 @@ public class TemplateImportingAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-        if (!WebUtils.checkRole("moderator")) {
-            throw new Exception("This function is restricted only to moderator!");
-        }
-        
         Collection list = importService.getTemplates();
         
         request.setAttribute("templates", list);

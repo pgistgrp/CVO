@@ -4,7 +4,6 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.util.WebUtils;
 
 
 /**
@@ -60,10 +59,6 @@ public class FundingDefAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-        if (!WebUtils.checkRole("moderator")) {
-            throw new Exception("This function is restricted only to moderator!");
-        }
-        
     	String tempSuiteId = request.getParameter("suiteId");
     	if(tempSuiteId != null) {
     		Long suiteId = new Long(tempSuiteId);

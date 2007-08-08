@@ -181,10 +181,6 @@ public class PackageAgent {
         map.put("successful", false);
         
         try {
-            if (!WebUtils.checkRole("moderator")) {
-                throw new Exception("This function is restricted only to moderator!");
-            }
-            
             Long pkgSuiteId = new Long((String) params.get("pkgSuiteId"));
             int pkgCount = new Integer((String) params.get("pkgCount"));
             Long projSuiteId = new Long((String) params.get("projSuiteId"));
@@ -555,10 +551,6 @@ public class PackageAgent {
         map.put("successful", false);
         
         try {
-            if (!WebUtils.checkRole("moderator")) {
-                throw new Exception("This function is restricted only to moderator!");
-            }
-            
             Long pkgId = new Long((String) params.get("pkgId"));
             String desc = (String)params.get("desc");
             
@@ -695,10 +687,6 @@ public class PackageAgent {
         String description = (String) params.get("description");
         
         try {
-            if (!WebUtils.checkRole("moderator")) {
-                throw new Exception("This function is restricted only to moderator!");
-            }
-            
             ClusteredPackage cpkg = this.packageService.createClusteredPackage(suiteId, description);
             map.put("pkgId", cpkg.getId());
             map.put("successful", true);
@@ -731,10 +719,6 @@ public class PackageAgent {
         map.put("successful", false);
         
         try {
-            if (!WebUtils.checkRole("moderator")) {
-                throw new Exception("This function is restricted only to moderator!");
-            }
-            
             Long suiteId = new Long((String) params.get("suiteId"));
             Long pkgId = new Long((String) params.get("pkgId"));
         	
@@ -750,32 +734,5 @@ public class PackageAgent {
         return map;
     }//deleteClusteredPackage()
     
-    
-    /**
-     * Manually Create a new PackageSuite for acceptance test
-     * 
-     * @returnA A map contains:
-     *   <ul>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *     <li>id - int, the newly created package id (valid when successful==false)</li>
-     *   </ul>
-     */
-    public Map createPackageSuite(Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        try {
-            PackageSuite ps = packageService.createPackageSuite();
-            map.put("id", ps.getId());
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-            return map;
-        }
-        
-        return map;
-    }//createPackageSuite()
     
 }//class PackageAgent

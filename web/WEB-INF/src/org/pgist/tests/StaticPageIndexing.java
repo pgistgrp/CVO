@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
 
-import javax.swing.text.html.HTMLDocument;
-
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;

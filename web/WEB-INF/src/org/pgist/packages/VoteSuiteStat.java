@@ -2,8 +2,6 @@ package org.pgist.packages;
 
 import java.util.Comparator;
 
-import org.pgist.criteria.CriteriaRef;
-
 /**
  * Represents a vote for one clustered package
  * 

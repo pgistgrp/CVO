@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
 import org.pgist.util.PageSetting;
-import org.pgist.util.WebUtils;
 
 
 /**
@@ -286,11 +285,6 @@ public class CSTAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
-        if (!WebUtils.checkRole("moderator")) {
-            map.put("reason", "This function is restricted only to moderator!");
-            return map;
-        }
-        
         Long parentId = null;
         try {
             parentId = new Long((String)params.get("parentId"));
@@ -339,11 +333,6 @@ public class CSTAgent {
     public Map copyCategory(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
-        
-        if (!WebUtils.checkRole("moderator")) {
-            map.put("reason", "This function is restricted only to moderator!");
-            return map;
-        }
         
         Long categoryId = null;
         try {
@@ -405,11 +394,6 @@ public class CSTAgent {
     public Map duplicateCategory(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
-        
-        if (!WebUtils.checkRole("moderator")) {
-            map.put("reason", "This function is restricted only to moderator!");
-            return map;
-        }
         
         String name = (String) params.get("name");
         if (name==null || "".equals(name.trim())) {
@@ -475,11 +459,6 @@ public class CSTAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
-        if (!WebUtils.checkRole("moderator")) {
-            map.put("reason", "This function is restricted only to moderator!");
-            return map;
-        }
-        
         Long categoryId = null;
         try {
             categoryId = new Long((String)params.get("categoryId"));
@@ -541,10 +520,6 @@ public class CSTAgent {
         map.put("successful", false);
         
         try {
-            if (!WebUtils.checkRole("moderator")) {
-                throw new Exception("This function is restricted only to moderator!");
-            }
-            
             Long cctId = new Long((String) params.get("cctId"));
             Long categoryId = new Long((String) params.get("categoryId"));
             String name = (String) params.get("name");
@@ -587,10 +562,6 @@ public class CSTAgent {
         map.put("successful", false);
         
         try {
-            if (!WebUtils.checkRole("moderator")) {
-                throw new Exception("This function is restricted only to moderator!");
-            }
-            
             Long cctId = new Long((String) params.get("cctId"));
             
             Long parentId = null;
@@ -633,10 +604,6 @@ public class CSTAgent {
         map.put("successful", false);
         
         try {
-            if (!WebUtils.checkRole("moderator")) {
-                throw new Exception("This function is restricted only to moderator!");
-            }
-            
             Long cctId = new Long((String) params.get("cctId"));
             Long categoryId = new Long((String) params.get("categoryId"));
             Long tagId = new Long((String) params.get("tagId"));
@@ -673,10 +640,6 @@ public class CSTAgent {
         map.put("successful", false);
         
         try {
-            if (!WebUtils.checkRole("moderator")) {
-                throw new Exception("This function is restricted only to moderator!");
-            }
-            
             Long cctId = new Long((String) params.get("cctId"));
             Long categoryId = new Long((String) params.get("categoryId"));
             Long tagId = new Long((String) params.get("tagId"));
@@ -977,10 +940,6 @@ public class CSTAgent {
         map.put("successful", false);
         
         try {
-            if (!WebUtils.checkRole("moderator")) {
-                throw new Exception("This function is restricted only to moderator!");
-            }
-            
             Long cctId = new Long((String) params.get("cctId"));
             Long themeId = new Long((String) params.get("themeId"));
             String description = (String) params.get("description");

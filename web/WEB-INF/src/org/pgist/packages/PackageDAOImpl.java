@@ -1,9 +1,8 @@
 package org.pgist.packages;
 
-import java.util.Set;
-import java.util.List;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 import org.pgist.system.BaseDAOImpl;
 

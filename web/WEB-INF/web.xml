@@ -84,7 +84,6 @@
                 /dwr/interface/ProfileAgent.js,
                 /dwr/interface/ProjectAgent.js,
                 /dwr/interface/PESAgent.js,
-
                 /dwr/engine.js,
                 /dwr/util.js,
                 /dwr/call/plaincall/RegisterAgent.addUser.dwr,
@@ -96,8 +95,16 @@
                 /dwr/call/plaincall/ProjectAgent.getGradesByAltRefId.dwr,
                 /dwr/call/plaincall/ProjectAgent.getFootprints.dwr,
                 /dwr/call/plaincall/PESAgent.saveAct.dwr
-
             </param-value>
+        </init-param>
+    </filter>
+    
+    <filter>
+        <filter-name>CheckRoleFilter</filter-name>
+        <filter-class>org.pgist.web.CheckRoleFilter</filter-class>
+        <init-param>
+            <param-name>role</param-name>
+            <param-value>moderator</param-value>
         </init-param>
     </filter>
     
@@ -126,6 +133,75 @@
         <url-pattern>/dwr/*</url-pattern>
         <url-pattern>/index.jsp</url-pattern>
         <url-pattern>/main.jsp</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>CheckRoleFilter</filter-name>
+        <url-pattern>/agendaManager.do</url-pattern>
+        <url-pattern>/dwr/call/plaincall/WorkflowAgent.createInstance.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/WorkflowAgent.nextStep.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/WorkflowAgent.startWorkflow.dwr</url-pattern>
+        <url-pattern>/usermgr.do</url-pattern>
+        <url-pattern>/templateSelect.do</url-pattern>
+        <url-pattern>/dwr/call/plaincall/OtherAgent.setSituationTemplate.dwr</url-pattern>
+        <url-pattern>/catsTree.do</url-pattern>
+        <url-pattern>/cstview.do</url-pattern>
+        <url-pattern>/dwr/call/plaincall/CSTAgent.addCategory.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/CSTAgent.copyCategory.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/CSTAgent.deleteCategory.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/CSTAgent.derelateTag.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/CSTAgent.duplicateCategory.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/CSTAgent.editCategory.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/CSTAgent.moveCategory.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/CSTAgent.relateTag.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/CSTAgent.saveSummary.dwr</url-pattern>
+        <url-pattern>/tagging.do</url-pattern>
+        <url-pattern>/dwr/call/plaincall/TaggingAgent.createStopWord.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/TaggingAgent.createTag.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/TaggingAgent.deleteStopWord.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/TaggingAgent.deleteTag.dwr</url-pattern>
+        <url-pattern>/projectManage.do</url-pattern>
+        <url-pattern>/projectDefine.do</url-pattern>
+        <url-pattern>/projectGrading.do</url-pattern>
+        <url-pattern>/dwr/call/plaincall/ProjectAgent.createProject.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/ProjectAgent.createProjectAlt.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/ProjectAgent.deleteFootprint.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/ProjectAgent.deleteProject.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/ProjectAgent.deleteProjectAlt.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/ProjectAgent.editProject.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/ProjectAgent.editProjectAlt.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/ProjectAgent.saveFootprint.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/ProjectAgent.setGrading.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/ProjectAgent.setProjectDefine.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/ProjectAgent.useFootprint.dwr</url-pattern>
+        <url-pattern>/fundingManage.do</url-pattern>
+        <url-pattern>/fundingDefine.do</url-pattern>
+        <url-pattern>/dwr/call/plaincall/FundingAgent.createFundingSource.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/FundingAgent.createFundingSourceAlt.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/FundingAgent.deleteFundingSource.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/FundingAgent.deleteFundingSourceAlt.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/FundingAgent.editFundingSource.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/FundingAgent.editFundingSourceAlt.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/FundingAgent.setFundingDef.dwr</url-pattern>
+        <url-pattern>/createPackage.do</url-pattern>
+        <url-pattern>/editClusteredPackage.do</url-pattern>
+        <url-pattern>/packageMgr.do</url-pattern>
+        <url-pattern>/dwr/call/plaincall/PackageAgent.createClusteredPackage.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/PackageAgent.createClusteredPackages.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/PackageAgent.deleteClusteredPackage.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/PackageAgent.setManualPkgDesc.dwr</url-pattern>
+        <url-pattern>/criteriaMgr.do</url-pattern>
+        <url-pattern>/criteriaDefine.do</url-pattern>
+        <url-pattern>/glossaryManage.do</url-pattern>
+        <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.acceptTerm.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.deleteComment.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.deleteTerm.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.rejectTerm.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.saveTerm.dwr</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ERROR</dispatcher>
     </filter-mapping>
     
     <filter-mapping>

@@ -320,10 +320,6 @@ public class FundingAgent {
         map.put("successful", false);
         
         try {
-            if (!WebUtils.checkRole("moderator")) {
-                throw new Exception("This functionality is restricted to moderator only!");
-            }
-            
             String name = (String) params.get("name");
             if (name==null || name.trim().length()==0) {
                 map.put("reason", "name is required.");
@@ -366,10 +362,6 @@ public class FundingAgent {
         map.put("successful", false);
         
         try {
-            if (!WebUtils.checkRole("moderator")) {
-                throw new Exception("This functionality is restricted to moderator only!");
-            }
-            
             Long id = new Long((String) params.get("id"));
             
             String name = (String) params.get("name");
@@ -410,10 +402,6 @@ public class FundingAgent {
         map.put("successful", false);
         
         try {
-            if (!WebUtils.checkRole("moderator")) {
-                throw new Exception("This functionality is restricted to moderator only!");
-            }
-            
             Long id = new Long((String) params.get("id"));
             
             fundingService.deleteFundingSource(id);
@@ -457,10 +445,6 @@ public class FundingAgent {
         map.put("successful", false);
         
         try {
-            if (!WebUtils.checkRole("moderator")) {
-                throw new Exception("This functionality is restricted to moderator only!");
-            }
-            
             String name = (String) params.get("name");
             if (name==null || name.trim().length()==0) {
                 map.put("reason", "name is required.");
@@ -521,10 +505,6 @@ public class FundingAgent {
         map.put("successful", false);
         
         try {
-            if (!WebUtils.checkRole("moderator")) {
-                throw new Exception("This functionality is restricted to moderator only!");
-            }
-            
             Long id = new Long((String) params.get("id"));
             
             String name = (String) params.get("name");
@@ -576,10 +556,6 @@ public class FundingAgent {
         map.put("successful", false);
         
         try {
-            if (!WebUtils.checkRole("moderator")) {
-                throw new Exception("This functionality is restricted to moderator only!");
-            }
-            
             Long id = new Long((String) params.get("id"));
             
             fundingService.deleteFundingSourceAlt(id);

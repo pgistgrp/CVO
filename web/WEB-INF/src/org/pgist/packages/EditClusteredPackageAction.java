@@ -6,7 +6,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.funding.FundingService;
 import org.pgist.projects.ProjectService;
-import org.pgist.util.WebUtils;
 
 
 /**
@@ -81,10 +80,6 @@ public class EditClusteredPackageAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-        if (!WebUtils.checkRole("moderator")) {
-            throw new Exception("This function is restricted only to moderator!");
-        }
-        
     	String tempPackageSuiteId = request.getParameter("pkgSuiteId");
     	String tempProjSuiteId = request.getParameter("projSuiteId");
     	String tempFundSuiteId = request.getParameter("fundSuiteId");

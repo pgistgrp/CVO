@@ -5,7 +5,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.criteria.CriteriaService;
-import org.pgist.util.WebUtils;
 
 
 /**
@@ -68,10 +67,6 @@ public class ProjectGradingAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-        if (!WebUtils.checkRole("moderator")) {
-            throw new Exception("This function is restricted only to moderator!");
-        }
-        
     	String tempCritSuiteId = request.getParameter("critsuiteId");
 		Long critSuite = new Long(tempCritSuiteId);
 		request.setAttribute("critSuite", this.criteriaService.getCriteriaSuiteById(critSuite));

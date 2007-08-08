@@ -3,7 +3,6 @@ package org.pgist.other;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.pgist.util.WebUtils;
 import org.pgist.wfengine.EnvironmentHandler;
 import org.pgist.wfengine.EnvironmentInOuts;
 import org.pgist.wfengine.WorkflowEngine;
@@ -57,10 +56,6 @@ public class OtherAgent {
         results.put("successful", false);
         
         try {
-            if (!WebUtils.checkRole("moderator")) {
-                throw new Exception("This function is restricted only to moderator!");
-            }
-            
             Long workflowId = new Long((String) params.get("workflowId"));
             Long contextId = new Long((String) params.get("contextId"));
             Long activityId = new Long((String) params.get("activityId"));

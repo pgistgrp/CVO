@@ -1,9 +1,8 @@
 package org.pgist.packages;
 
-import org.pgist.system.BaseDAO;
-
 import java.util.Set;
-import java.util.Collection;
+
+import org.pgist.system.BaseDAO;
 
 /**
  * 
