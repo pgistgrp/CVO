@@ -6,21 +6,15 @@
 categoryId = 4290;
 Long cctId = 3342;
 
-hql = "from PackageVoteSuite where id=?";
+hql = "from Activity";
 
 query = session.createQuery(hql);
-query.setLong(0, 3342);
+//query.setLong(0, 3342);
 
 
 List test = query.list();
 
 for (Object o : test) {
-    System.out.println("-----> "+o.stats.size());
+    System.out.println("-----> "+o);
 }//for
 
-o = session.load(org.pgist.packages.PackageVoteSuite.class, cctId);
-System.out.println("-----> "+o.stats.size());
-
-for (x : o.stats) {
-	print(x.id);
-}

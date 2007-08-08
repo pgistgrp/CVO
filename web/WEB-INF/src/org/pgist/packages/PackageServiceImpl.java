@@ -379,8 +379,6 @@ public class PackageServiceImpl implements PackageService {
 	}	
 	
 	
-	
-	
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#formPackageFundingDTOs(org.pgist.packages.ClusteredPackage)
 	 */
@@ -440,7 +438,6 @@ public class PackageServiceImpl implements PackageService {
 		
 		return result;
 	}
-
 
 	
 	/* (non-Javadoc)
