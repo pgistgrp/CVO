@@ -116,23 +116,49 @@
     <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
         <servlet-name>action</servlet-name>
-    </filter-mapping>
-    
-    <filter-mapping>
-        <filter-name>OpenSessionInViewFilter</filter-name>
         <url-pattern>/dwr/*</url-pattern>
+        <url-pattern>/agendaManager.do</url-pattern>
+        <url-pattern>/usermgr.do</url-pattern>
+        <url-pattern>/templateSelect.do</url-pattern>
+        <url-pattern>/catsTree.do</url-pattern>
+        <url-pattern>/cstview.do</url-pattern>
+        <url-pattern>/tagging.do</url-pattern>
+        <url-pattern>/projectManage.do</url-pattern>
+        <url-pattern>/projectDefine.do</url-pattern>
+        <url-pattern>/projectGrading.do</url-pattern>
+        <url-pattern>/fundingManage.do</url-pattern>
+        <url-pattern>/fundingDefine.do</url-pattern>
+        <url-pattern>/createPackage.do</url-pattern>
+        <url-pattern>/editClusteredPackage.do</url-pattern>
+        <url-pattern>/packageMgr.do</url-pattern>
+        <url-pattern>/criteriaMgr.do</url-pattern>
+        <url-pattern>/criteriaDefine.do</url-pattern>
+        <url-pattern>/glossaryManage.do</url-pattern>
     </filter-mapping>
     
     <filter-mapping>
         <filter-name>pgist filter</filter-name>
         <servlet-name>action</servlet-name>
-    </filter-mapping>
-    
-    <filter-mapping>
-        <filter-name>pgist filter</filter-name>
         <url-pattern>/dwr/*</url-pattern>
         <url-pattern>/index.jsp</url-pattern>
         <url-pattern>/main.jsp</url-pattern>
+        <url-pattern>/agendaManager.do</url-pattern>
+        <url-pattern>/usermgr.do</url-pattern>
+        <url-pattern>/templateSelect.do</url-pattern>
+        <url-pattern>/catsTree.do</url-pattern>
+        <url-pattern>/cstview.do</url-pattern>
+        <url-pattern>/tagging.do</url-pattern>
+        <url-pattern>/projectManage.do</url-pattern>
+        <url-pattern>/projectDefine.do</url-pattern>
+        <url-pattern>/projectGrading.do</url-pattern>
+        <url-pattern>/fundingManage.do</url-pattern>
+        <url-pattern>/fundingDefine.do</url-pattern>
+        <url-pattern>/createPackage.do</url-pattern>
+        <url-pattern>/editClusteredPackage.do</url-pattern>
+        <url-pattern>/packageMgr.do</url-pattern>
+        <url-pattern>/criteriaMgr.do</url-pattern>
+        <url-pattern>/criteriaDefine.do</url-pattern>
+        <url-pattern>/glossaryManage.do</url-pattern>
     </filter-mapping>
     
     <filter-mapping>
