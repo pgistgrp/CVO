@@ -112,6 +112,8 @@
                <value>org/pgist/packages/PackageUserVote.hbm.xml</value>
                <value>org/pgist/packages/PackageSuite.hbm.xml</value>
                <value>org/pgist/packages/VoteSuiteStat.hbm.xml</value>
+               <value>org/pgist/users/TravelMarker.hbm.xml</value>
+               <value>org/pgist/users/TravelTrip.hbm.xml</value>
            </list>
         </property>
         <property name="hibernateProperties">
