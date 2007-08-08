@@ -147,5 +147,9 @@ public class RegisterServiceImpl implements RegisterService {
     public ArrayList<TravelTrip> getUserTravelTrips (Long uid) throws Exception{
     	return registerDAO.getUserTravelTrips(uid);
     }
+    
+    public void deleteTravelTrip(long tripId) throws Exception{
+    	registerDAO.deleteTravelTrip(tripId);
+    }
 
 }

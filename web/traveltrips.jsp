@@ -15,7 +15,7 @@
     <script type='text/javascript' src='/dwr/interface/RegisterAgent.js'></script>
 	<script type='text/javascript' src='/dwr/engine.js'></script>
    
-    <link rel="stylesheet" href="travelpath.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/travelpath.css" type="text/css" />
         
     <!-- for dhtml window with veil -->
     <link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
@@ -38,7 +38,7 @@
 			function getXYFromGPolyline(gpolyline){
 				var coords = [];
 				try{
-					for(var i=0; i<gpolyline.getVertexCount(); i=i+2){
+					for(var i=0; i<gpolyline.getVertexCount()*2; i=i+2){
 						var v = gpolyline.getVertex(i/2);
 						coords[i] = v.lng();
 						coords[i+1] = v.lat();
@@ -60,8 +60,8 @@
 				var trip = {mode:2, frequency:1, coords:coords};
 				
 				//the first argument of this call is the user ID, which we can either set from this page, or get from the context
-				RegisterAgent.saveUserTrip(5, markers, trip, function(data){
-							if(data.successful) alert("path and markers saved successfully, with tripid=" + data.tripId);
+				RegisterAgent.saveUserTrip(5, [markers], [trip], function(data){
+							if(data.successful) alert("path and markers saved successfully, with tripid=" + data.tripIds);
 						});
 			}
 			
@@ -75,17 +75,20 @@
 					if(data.successful){
 						alert("Total number of trips: " + data.trips.length);
 						if(data.trips.length>0)
-							testDrawTrip(data.trips[data.trips.length-1].coords);
+							testDrawTrip(data.trips[data.trips.length-1].coords, data.trips[data.trips.length-1].markers);
 					}
 				});
 			}
 			
-			function testDrawTrip(coords){
+			function testDrawTrip(coords, markers){
 				var points= [];
 				for(i=0;i<coords.length; i=i+2){
 					points[i/2] = new GPoint(coords[i], coords[i+1]);
 				}
-				map.addOverlay( new GPolyline(points, "#000000", 6, 0.6) );
+				map.addOverlay( new GPolyline(points, "#0000FF", 6, 0.6) );
+				for(i=0; i<markers.length; i++){
+					map.addOverlay( new GMarker(new GLatLng(markers[i].lat, markers[i].lng)) );
+				}
 			}
 		</script>   
 	</head>

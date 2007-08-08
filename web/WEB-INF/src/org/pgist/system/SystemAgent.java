@@ -1,5 +1,6 @@
 package org.pgist.system;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.directwebremoting.WebContextFactory;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
-
+import org.pgist.users.TravelMarker;
+import org.pgist.users.TravelTrip;
+import org.postgis.LineString;
 
 /**
  * DWR AJAX Agent class.<br>
@@ -1040,6 +1043,5 @@ public class SystemAgent {
 		
 		return result;
 	} //logMapEvent();
-
 
 }//class SystemAgent

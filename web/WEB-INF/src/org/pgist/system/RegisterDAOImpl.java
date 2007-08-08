@@ -354,18 +354,18 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 	    	LineString ls = new LineString(points);
 	    	trip.setRoute(ls);
     	}
-    	
+		trip.setDeleted(false);
     	save(trip);
     	
     	return trip.getId();
     }
     
-	private static final String hql_getUserTravelTrips = "from TravelTrip trip where trip.owner.id=?";
+	private static final String hql_getUserTravelTrips = "from TravelTrip trip where trip.owner.id=? and trip.deleted=?";
     public ArrayList<TravelTrip> getUserTravelTrips (Long uid) throws Exception{
         //get rows
         Query query = getSession().createQuery(hql_getUserTravelTrips);
         query.setLong(0, uid);
-        
+        query.setBoolean(1, false);
         
         ArrayList<TravelTrip> trips = new ArrayList<TravelTrip>(query.list());
         for(TravelTrip trip : trips){
@@ -387,8 +387,16 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
         		coords[i*2 + 1] = points[i].getY();
         	}
         	trip.setCoords(coords);
+        	
         }
         return trips;
+    }// end of getUserTravelTrips
+    
+    //needed: deleteTravelTrip(long tripId)
+    public void deleteTravelTrip(long tripId) throws Exception{
+    	TravelTrip trip = (TravelTrip)this.load(TravelTrip.class, tripId);
+    	trip.setDeleted(true);
+    	save(trip);
     }
 	
 }

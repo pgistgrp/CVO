@@ -50,4 +50,5 @@ public interface RegisterDAO extends BaseDAO {
     
     ArrayList<TravelTrip> getUserTravelTrips (Long uid) throws Exception;
 
+    void deleteTravelTrip(long tripId) throws Exception;
 }

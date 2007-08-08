@@ -17,6 +17,7 @@ public class TravelTrip {
 	private Geometry route;
 	private User owner;
 	private double[] coords;
+	private boolean deleted;
 	
 	/**
 	 * @hibernate.id generator-class="native"
@@ -85,5 +86,15 @@ public class TravelTrip {
 	}
 	public void setCoords(double[] coords) {
 		this.coords = coords;
+	}
+	
+	/**
+	 * @hibernate.property not-null="true" default="false"
+	 */
+	public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 }

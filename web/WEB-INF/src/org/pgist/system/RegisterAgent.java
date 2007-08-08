@@ -720,31 +720,22 @@ public class RegisterAgent {
      *     <li>trip id - the id of the newly created trip object</li>
      *   </ul>
      */
-	public Map saveUserTrip(long uid, TravelMarker[] markers, TravelTrip trip) {
+	public Map saveUserTrip(long uid, TravelMarker[][] markers, TravelTrip[] trips) {
 		Map map = new HashMap();
         map.put("successful", false);
 		
-        /*String strId = (String)params.get("uid");
-        
-        if(strId==null || "".equals(strId.trim())){
-        	map.put("reason", "User id cannot be null.");
-    		return map;	
-        }
-        
-        Long id = Long.parseLong(strId);
-        */
-        //Object markers = (Object)params.get("markers");
-        System.out.println(markers[0].getId());//(markers.size());
-        //for(int i=0; i<markers.size(); i++)
-        //	System.out.println(markers.get(i).get("id"));
-        
         try {
-        	for(int i=0; i<markers.length; i++){
-        		trip.getMarkers().add(markers[i]);
+        	ArrayList tripids = new ArrayList();
+        	for(int i=0; i<trips.length; i++){
+        		for(int j=0; j<markers[i].length; j++){
+        			trips[i].getMarkers().add(markers[i][j]);
+        		}
+        		Long tid = registerService.saveUserTravelTrip(uid, trips[i]);
+        		tripids.add(tid);
         	}
         	
-        	Long tid = registerService.saveUserTravelTrip(uid, trip);
-        	map.put("tripId", tid);
+        	
+        	map.put("tripIds", tripids);
         	      	
         	map.put("successful", true);
         } catch (Exception e) {
@@ -777,6 +768,20 @@ public class RegisterAgent {
         try {
         	ArrayList<TravelTrip> trips = registerService.getUserTravelTrips(uid);
         	map.put("trips", trips);
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;		
+	}
+	
+	public Map removeTravelTrip(long tripId) {
+		Map map = new HashMap();
+        map.put("successful", false);
+        try {
+        	registerService.deleteTravelTrip(tripId);
         	map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
