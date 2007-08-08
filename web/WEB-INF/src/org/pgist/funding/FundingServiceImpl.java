@@ -14,6 +14,7 @@ import org.pgist.discussion.InfoStructure;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
 import org.pgist.users.Vehicle;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -242,7 +243,7 @@ public class FundingServiceImpl implements FundingService {
 	 */
 	public UserTaxInfoDTO addVehicle(Long userId, Float mpg, Float value, Float mpy) throws Exception {
 		User user = this.fundingDAO.getUserById(userId);
-
+		
 		Vehicle v = new Vehicle();
 		v.setApproxValue(value);
 		v.setMilesPerGallon(mpg);
@@ -265,11 +266,16 @@ public class FundingServiceImpl implements FundingService {
 	 * @throws Exception 
 	 */
 	public void updateVehicle(Long vehicleId, Float mpg, Float value, Float mpy) throws Exception {
-		
 		Vehicle v = this.fundingDAO.getVehicle(vehicleId);
+		
+		if (!WebUtils.checkUser(v.getOwner().getId())) {
+		    throw new Exception("You are not the owner of this vehicle!");
+		}
+		
 		v.setApproxValue(value);
 		v.setMilesPerGallon(mpg);
 		v.setMilesPerYear(mpy);
+		
 		this.fundingDAO.save(v);
 	}
 	

@@ -66,7 +66,6 @@ public class FundingAgent {
      * 
      * @param params a Map contains:<br>
      *   <ul>
-     *     <li>userId - int, id of a User to add the vehicle to</li>
      *     <li>milesPerGallon - float, The miles per gallon for the new vehicle</li>
      *     <li>value - float, The approximate value of the vehicle</li>
      *     <li>milesPerYear - float, The miles per year used with this vehicle</li>
@@ -84,7 +83,7 @@ public class FundingAgent {
         map.put("successful", false);
         
         try {
-            Long userId = new Long((String) params.get("userId"));
+            Long userId = WebUtils.currentUserId();
             float mpg = new Float((String) params.get("milesPerGallon"));
             float value = new Float((String) params.get("value"));
             float mpy = new Float((String) params.get("milesPerYear"));
@@ -146,7 +145,6 @@ public class FundingAgent {
      * 
      * @param params a Map contains:<br>
      *   <ul>
-     *     <li>userId - int, id of a User to add the vehicle to</li>
      *     <li>vehicleId - int, The ID of the vehicle to remove</li>
      *   </ul>
      * 
@@ -162,7 +160,7 @@ public class FundingAgent {
         map.put("successful", false);
         
         try {
-            Long userId = new Long((String) params.get("userId"));
+            Long userId = WebUtils.currentUserId();
             Long vehicleId = new Long((String) params.get("vehicleId"));
             
             map.put("user", this.fundingService.deleteVehicle(userId, vehicleId));
@@ -322,6 +320,10 @@ public class FundingAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This functionality is restricted to moderator only!");
+            }
+            
             String name = (String) params.get("name");
             if (name==null || name.trim().length()==0) {
                 map.put("reason", "name is required.");
@@ -341,36 +343,6 @@ public class FundingAgent {
         
         return map;
     }//createFundingSource()
-    
-    
-    /**
-     * Manually Create a FundingSourceSuite, for acceptance test    
-     * @return a Map contains:<br>
-     *   <ul>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *     <li>id - the id of the newly created funding source</li>
-     *   </ul>
-     */
-    public Map createFundingSourceSuite(Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        try {
-            
-            FundingSourceSuite fss = fundingService.createFundingSourceSuite();
-            
-            map.put("id", fss.getId());
-            
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-            return map;
-        }
-        
-        return map;
-    }//createFundingSourceSuite()
     
     
     /**
@@ -394,6 +366,10 @@ public class FundingAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This functionality is restricted to moderator only!");
+            }
+            
             Long id = new Long((String) params.get("id"));
             
             String name = (String) params.get("name");
@@ -434,6 +410,10 @@ public class FundingAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This functionality is restricted to moderator only!");
+            }
+            
             Long id = new Long((String) params.get("id"));
             
             fundingService.deleteFundingSource(id);
@@ -477,6 +457,10 @@ public class FundingAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This functionality is restricted to moderator only!");
+            }
+            
             String name = (String) params.get("name");
             if (name==null || name.trim().length()==0) {
                 map.put("reason", "name is required.");
@@ -537,6 +521,10 @@ public class FundingAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This functionality is restricted to moderator only!");
+            }
+            
             Long id = new Long((String) params.get("id"));
             
             String name = (String) params.get("name");
@@ -588,6 +576,10 @@ public class FundingAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This functionality is restricted to moderator only!");
+            }
+            
             Long id = new Long((String) params.get("id"));
             
             fundingService.deleteFundingSourceAlt(id);
@@ -649,6 +641,8 @@ public class FundingAgent {
     
 
     /**
+     * ????? Serious Security Issue
+     * 
      * Returns the user you are looking for with the provided ID
      * 
      * @param params a Map contains:<br>
@@ -671,12 +665,10 @@ public class FundingAgent {
     public Map lookupUserById(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
-System.out.println("MATT: Looking up user");        
+        
         try {
             Long userId = new Long((String) params.get("userId"));
-            System.out.println("MATT: Looking up user " + userId);
         	map.put("user", this.fundingService.createUserTaxInfoDTO(userId));
-        	System.out.println("MATT: Got the user" + map.get("user"));
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -685,7 +677,6 @@ System.out.println("MATT: Looking up user");
         }
         
         return map;
-    	
     }//getUserById
     
     
@@ -713,6 +704,10 @@ System.out.println("MATT: Looking up user");
         try {
             UserTaxInfoDTO user = (UserTaxInfoDTO) params.get("user");
 
+            if (!WebUtils.checkUser(user.getUserId())) {
+                throw new Exception("You are not the owner of this UserTaxInfo!");
+            }
+            
             this.fundingService.updateUserTaxInfo(user);
             
             map.put("successful", true);
@@ -742,6 +737,10 @@ System.out.println("MATT: Looking up user");
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkUser(user.getUserId())) {
+                throw new Exception("You are not the owner of this UserTaxInfo!");
+            }
+            
         	map.put("reason", "Bike Days = " + user.getBikeDays() + " ID = " + user.getUserId());
 			
         	//Find the commute object       	
@@ -780,7 +779,10 @@ System.out.println("MATT: Looking up user");
         map.put("successful", false);
         
         try {
-
+            if (!WebUtils.checkUser(user.getUserId())) {
+                throw new Exception("You are not the owner of this UserTaxInfo!");
+            }
+            
             request.setAttribute("user", this.fundingService.createCostReport(user, fundingSuiteId));
             
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/funding/fundingCalc_report.jsp"));            

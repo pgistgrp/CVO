@@ -6,6 +6,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.funding.FundingService;
 import org.pgist.projects.ProjectService;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -80,6 +81,10 @@ public class EditClusteredPackageAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
+        if (!WebUtils.checkRole("moderator")) {
+            throw new Exception("This function is restricted only to moderator!");
+        }
+        
     	String tempPackageSuiteId = request.getParameter("pkgSuiteId");
     	String tempProjSuiteId = request.getParameter("projSuiteId");
     	String tempFundSuiteId = request.getParameter("fundSuiteId");
@@ -93,7 +98,8 @@ public class EditClusteredPackageAction extends Action {
     		Long pkgId = new Long(tempPkgId);
     		Long critSuite = new Long(tempCritSuiteId);
     		    		
-    		ClusteredPackage uPack = this.packageService.getClusteredPackage(pkgId);    			
+    		ClusteredPackage uPack = this.packageService.getClusteredPackage(pkgId);
+    		
     		request.setAttribute("package", uPack);    		
     		request.setAttribute("projectRefs", projectService.getProjectSuite(projSuite).getReferences());
     		request.setAttribute("fundingRefs", fundingService.getFundingSuite(fundSuite).getReferences());
@@ -101,8 +107,8 @@ public class EditClusteredPackageAction extends Action {
     		request.setAttribute("fundSuiteId", fundSuite);
     		request.setAttribute("critSuiteId", critSuite);
     		request.setAttribute("pkgSuiteId", packSuite);
-    		
     	}
+    	
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
         return mapping.findForward("view");

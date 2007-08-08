@@ -10,7 +10,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.users.User;
-import org.pgist.system.SystemService;
 import org.pgist.util.WebUtils;
 
 /**
@@ -75,6 +74,7 @@ public class PackagePollAction extends Action {
     	String tempProjSuiteId = request.getParameter("projSuiteId");
     	String tempFundSuiteId = request.getParameter("fundSuiteId");
     	String tempCritSuiteId = request.getParameter("critSuiteId");
+    	
 		Long packSuite = new Long(tempPackageSuiteId);
 		Long projSuite = new Long(tempProjSuiteId);
 		Long fundSuite = new Long(tempFundSuiteId);
@@ -85,23 +85,22 @@ public class PackagePollAction extends Action {
     	PackageVoteSuite vSuite = packageService.getPackageVoteSuite(voteSuiteId);
 
 		//Grade it
-    	User user = packageService.getUser(WebUtils.currentUser());    	
-		request.setAttribute("voteSuite", vSuite);    		
+    	User user = packageService.getUser(WebUtils.currentUser());
+		request.setAttribute("voteSuite", vSuite);
 		request.setAttribute("pkgSuiteId", packSuite);
 		request.setAttribute("projSuiteId", projSuite);
 		request.setAttribute("fundSuiteId", fundSuite);
-		request.setAttribute("critSuiteId", critSuite); 
+		request.setAttribute("critSuiteId", critSuite);
 		
-        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         if(vSuite.userVoted(user)) {
         	PackageSuite pkgSuite = packageService.getPackageSuite(packSuite);
+        	
         	Set<PackageVoteSuite> voteSuites = pkgSuite.getVoteSuites();
-        	System.out.println("MATT1: *(&(*&(* " + voteSuites.size());
-        	
         	Set<PackageVoteSuite> pVoteSuites = new HashSet<PackageVoteSuite>();
-        	
         	Iterator<PackageVoteSuite> iVS = voteSuites.iterator();
+        	
         	PackageVoteSuite tempVS;
+        	
         	while(iVS.hasNext()) {
         		tempVS = iVS.next();
         		if(tempVS.getId() != vSuite.getId()) {
@@ -109,11 +108,14 @@ public class PackagePollAction extends Action {
         		}
         	}
         	
-        	System.out.println("MATT1: *(&(*&(* " + pVoteSuites.size());
     		request.setAttribute("pVoteSuites", pVoteSuites);
         	
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            
             return mapping.findForward("results");        	
         } else {
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            
             return mapping.findForward("view");        	
         }
    }//execute()

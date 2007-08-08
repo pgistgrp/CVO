@@ -4,6 +4,7 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -63,6 +64,10 @@ public class ProjectMgrAction extends Action {
          *           "projects" - projects list
          *   (-) Any error, forward to page "error"
          */
+        
+        if (!WebUtils.checkRole("moderator")) {
+            throw new Exception("This function is restricted only to moderator!");
+        }
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

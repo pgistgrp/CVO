@@ -5,12 +5,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaDAO;
@@ -48,6 +45,7 @@ import org.pgist.projects.ProjectSuite;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
 import org.pgist.users.Vehicle;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -202,6 +200,10 @@ public class PackageServiceImpl implements PackageService {
 			//Get the user package
 			UserPackage uPack = this.packageDAO.getUserPackage(pkgId);
 					
+	        if (!WebUtils.checkUser(uPack.getAuthor().getId())) {
+	            throw new Exception("This function is restricted only to moderator!");
+	        }
+	        
 			//Loop through to find the alternative with the particular ID, you do this instead
 			//of using the collections routines because you would have to maintain the equals
 			//method on the ProjectAltRef object, this gives you less chances for bugs as things change
@@ -222,7 +224,10 @@ public class PackageServiceImpl implements PackageService {
 			
 			return uPack;			
 		} else {
-			
+	        if (!WebUtils.checkRole("moderator")) {
+	            throw new Exception("This function is restricted only to moderator!");
+	        }
+	        
 			//Get the Clustered package
 			ClusteredPackage cPack = this.packageDAO.getClusteredPackage(pkgId);
 					
@@ -294,6 +299,10 @@ public class PackageServiceImpl implements PackageService {
 			//Get the user package
 			UserPackage uPack = this.packageDAO.getUserPackage(pkgId);
 					
+	        if (!WebUtils.checkUser(uPack.getAuthor().getId())) {
+	            throw new Exception("You are not the owner of this user package!");
+	        }
+	        
 			//Loop through to find the alternative with the particular ID, you do this instead
 			//of using the collections routines because you would have to maintain the equals
 			//method on the FundingSourceAltRef object, this gives you less chances for bugs as things change
@@ -317,6 +326,10 @@ public class PackageServiceImpl implements PackageService {
 			//Get the clustered package
 			ClusteredPackage cPack = this.packageDAO.getClusteredPackage(pkgId);
 					
+	        if (!WebUtils.checkRole("moderator")) {
+	            throw new Exception("This function is restricted only to moderator!");
+	        }
+	        
 			//Loop through to find the alternative with the particular ID, you do this instead
 			//of using the collections routines because you would have to maintain the equals
 			//method on the FundingSourceAltRef object, this gives you less chances for bugs as things change
@@ -1246,8 +1259,12 @@ public class PackageServiceImpl implements PackageService {
 	 * @see org.pgist.packages.PackageService#createUserPackage(org.pgist.packages.TunerConfig, float)
 	 */
 	public void createKSUserPackage(Long usrPkgId, TunerConfig conf, float mylimit, float avglimit) throws Exception {
-
 		UserPackage upack = this.getUserPackage(usrPkgId);
+		
+		if (!WebUtils.checkUser(upack.getAuthor().getId())) {
+		    throw new Exception("You are not the owner of this user package!");
+		}
+		
 		this.calcUserValues(upack, upack.getAuthor(), conf.getFundSuiteId());
 		
 		//upack.printPersonalCost();

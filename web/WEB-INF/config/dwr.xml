@@ -11,7 +11,7 @@
     
     
     <convert converter="bean" match="org.pgist.users.User">
-        <param name="include" value="id, loginname, firstname, lastname, password, email, enabled, deleted, internal, city, zipcode, workZipcode, profileDesc, primaryTransport, vocation"/>
+        <param name="include" value="id, loginname"/>
     </convert>
     
     <convert converter="bean" match="org.pgist.users.Role">

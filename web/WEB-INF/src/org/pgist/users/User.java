@@ -518,9 +518,9 @@ public class User extends BaseUser {
        
     /**
      * @return
-     * @hibernate.set lazy="true" table="pgist_user_vehicle_link" cascade="all" order-by="vehicle_id"
-     * @hibernate.collection-key column="user_id"
-     * @hibernate.collection-many-to-many column="vehicle_id" class="org.pgist.users.Vehicle"
+     * @hibernate.set lazy="true" cascade="all" order-by="vehicle_id"
+     * @hibernate.collection-key column="owner_id"
+     * @hibernate.collection-one-to-many class="org.pgist.users.Vehicle"
      */
     public Set<Vehicle> getVehicles() {
         return vehicles;

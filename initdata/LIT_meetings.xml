@@ -4,7 +4,7 @@
 
     <meetings>
     
-        <meeting name="meeting-init.situation" description="Initialize Decision Situation">
+        <meeting name="meeting-init.situation" access="moderator" description="Initialize Decision Situation">
             <declaration>
                 <outs>
                     <var name="meeting.cct_id"/>

@@ -60,11 +60,13 @@ public class PackageVoteAction extends Action {
     public void setPackageService(PackageService packageService) {
         this.packageService = packageService;
     }
-
+    
+    
 	public void setSystemService(SystemService systemService) {
 		this.systemService = systemService;
 	}
-
+	
+	
     /*
      * ------------------------------------------------------------------------
      */
@@ -80,6 +82,7 @@ public class PackageVoteAction extends Action {
     	String tempProjSuiteId = request.getParameter("projSuiteId");
     	String tempFundSuiteId = request.getParameter("fundSuiteId");
     	String tempCritSuiteId = request.getParameter("critSuiteId");
+    	
 		Long packSuite = new Long(tempPackageSuiteId);
 		Long projSuite = new Long(tempProjSuiteId);
 		Long fundSuite = new Long(tempFundSuiteId);
@@ -88,11 +91,9 @@ public class PackageVoteAction extends Action {
     	String tempVoteSuiteId = request.getParameter("voteSuiteId");
     	Long voteSuiteId = new Long(tempVoteSuiteId);
     	PackageVoteSuite vSuite = packageService.getPackageVoteSuite(voteSuiteId);
-
-    	
     	
 		//Grade it
-    	User user = packageService.getUser(WebUtils.currentUser());    	
+    	User user = packageService.getUser(WebUtils.currentUser());
 		request.setAttribute("voteSuite", vSuite);    		
 		request.setAttribute("pkgSuiteId", packSuite);
 		request.setAttribute("projSuiteId", projSuite);
@@ -100,16 +101,15 @@ public class PackageVoteAction extends Action {
 		request.setAttribute("critSuiteId", critSuite); 
 		request.setAttribute("totalUsers", systemService.getAllUsers().size()); 
 		
-        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         if(vSuite.userVoted(user)) {
         	PackageSuite pkgSuite = packageService.getPackageSuite(packSuite);
+        	
         	Set<PackageVoteSuite> voteSuites = pkgSuite.getVoteSuites();
-        	System.out.println("MATT1: *(&(*&(* " + voteSuites.size());
-        	
         	Set<PackageVoteSuite> pVoteSuites = new HashSet<PackageVoteSuite>();
-        	
         	Iterator<PackageVoteSuite> iVS = voteSuites.iterator();
+        	
         	PackageVoteSuite tempVS;
+        	
         	while(iVS.hasNext()) {
         		tempVS = iVS.next();
         		if(tempVS.getId() != vSuite.getId()) {
@@ -117,19 +117,17 @@ public class PackageVoteAction extends Action {
         		}
         	}
         	
-        	System.out.println("MATT1: *(&(*&(* " + pVoteSuites.size());
     		request.setAttribute("pVoteSuites", pVoteSuites);
     		
-    		
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            
             return mapping.findForward("results");        	
         } else {
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            
             return mapping.findForward("view");        	
         }
-        //return mapping.findForward("results");
     }//execute()
-
-
-
     
     
 }//class PackageVoteAction

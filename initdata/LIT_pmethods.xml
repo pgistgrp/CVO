@@ -4,7 +4,7 @@
 
     <pmethods>
     
-        <pmethod name="pmethod-init.situation" access="moderator" description="Initialize Projects">
+        <pmethod name="pmethod-init.situation" description="Initialize Projects">
             <declaration>
                 <outs>
                     <var name="pmethod.cct_id"/>

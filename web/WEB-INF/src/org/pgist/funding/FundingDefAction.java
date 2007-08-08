@@ -4,6 +4,7 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -59,9 +60,10 @@ public class FundingDefAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-
-        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
-
+        if (!WebUtils.checkRole("moderator")) {
+            throw new Exception("This function is restricted only to moderator!");
+        }
+        
     	String tempSuiteId = request.getParameter("suiteId");
     	if(tempSuiteId != null) {
     		Long suiteId = new Long(tempSuiteId);
@@ -70,6 +72,8 @@ public class FundingDefAction extends Action {
     	    	
         request.setAttribute("sources", this.fundingService.getFundingSources());        
         
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+
         return mapping.findForward("view");
     }//execute()
     

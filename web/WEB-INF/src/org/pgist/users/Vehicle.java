@@ -19,6 +19,8 @@ public class Vehicle implements Serializable {
     
     private float approxValue;
     
+    private User owner;
+    
     
     /**
      * @return
@@ -73,6 +75,20 @@ public class Vehicle implements Serializable {
 
     public void setApproxValue(float approxValue) {
         this.approxValue = approxValue;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.many-to-one column="concern_id" lazy="true" class="org.pgist.users.User" cascade="all"
+     */
+    public User getOwner() {
+        return owner;
+    }
+
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
     
     

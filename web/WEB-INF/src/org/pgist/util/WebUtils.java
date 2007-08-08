@@ -2,6 +2,7 @@ package org.pgist.util;
 
 import java.util.Date;
 
+import org.pgist.users.User;
 import org.pgist.users.UserInfo;
 
 
@@ -54,6 +55,15 @@ public class WebUtils {
     public static boolean checkRole(String roleName) {
         return threadLocalCurrentUser.get().checkRole(roleName);
     }//checkRole()
+    
+    
+    public static boolean checkUser(Long userId) {
+        UserInfo info = threadLocalCurrentUser.get();
+        
+        if (info!=null && info.getId()!=null && info.getId().equals(userId)) return true;
+        
+        return false;
+    }//checkUser()
     
     
     public static Date getDate() {

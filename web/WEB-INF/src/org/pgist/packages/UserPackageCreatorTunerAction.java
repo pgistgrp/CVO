@@ -37,23 +37,25 @@ public class UserPackageCreatorTunerAction extends Action {
     
     private PackageService packageService;
     
+    private ProjectService projectService;
+    
+    private FundingService fundingService;
+    
     
     public void setPackageService(PackageService packageService) {
         this.packageService = packageService;
     }
 
     
-    private ProjectService projectService;
-    
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
     }
 
-    private FundingService fundingService;
     
     public void setFundingService(FundingService fundingService) {
         this.fundingService = fundingService;
     }
+    
     
     /*
      * ------------------------------------------------------------------------
@@ -71,14 +73,12 @@ public class UserPackageCreatorTunerAction extends Action {
     	String tempFundSuiteId = request.getParameter("fundSuiteId");
     	String tempCritSuiteId = request.getParameter("critSuiteId");
     	
-    	
     	if(tempUsrPkgId != null) {
     		Long usrPkgId = new Long(tempUsrPkgId);
     		Long projSuite = new Long(tempProjSuiteId);
     		Long fundSuite = new Long(tempFundSuiteId);
     		Long critSuite = new Long(tempCritSuiteId);
-    		
-   		
+            
     		request.setAttribute("projectRefs", projectService.getProjectSuite(projSuite).getReferences());
     		request.setAttribute("fundingRefs", fundingService.getFundingSuite(fundSuite).getReferences());
     		
@@ -87,7 +87,7 @@ public class UserPackageCreatorTunerAction extends Action {
     		request.setAttribute("projSuiteId", projSuite);
     		request.setAttribute("fundSuiteId", fundSuite);
     		request.setAttribute("critSuiteId", critSuite);
-    	}    	
+    	}
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

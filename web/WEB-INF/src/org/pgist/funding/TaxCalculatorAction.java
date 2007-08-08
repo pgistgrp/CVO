@@ -64,22 +64,16 @@ public class TaxCalculatorAction extends Action {
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
     	String tempFundSuiteId = request.getParameter("fundSuiteId");
-//    	if(tempSuiteId != null) {
-//    		Long suiteId = new Long(tempSuiteId);
-//    		FundingSourceSuite funSuite = this.fundingService.getFundingSuite(suiteId);
-//    		request.setAttribute("suite", funSuite);
-//    	}
-    	           
+    	
 		//Get the current user
     	User user = this.fundingService.getUser(WebUtils.currentUser());
-   	
+        
     	UserTaxInfoDTO taxInfo = this.fundingService.createUserTaxInfoDTO(user.getId());
 		request.setAttribute("user", taxInfo);
 		request.setAttribute("fundSuiteId", tempFundSuiteId);
     	
-    	
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
-        return mapping.findForward("view");
         
+        return mapping.findForward("view");
     }//execute()    
 }//class TaxCalculatorAction

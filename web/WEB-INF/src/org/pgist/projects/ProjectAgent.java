@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.directwebremoting.WebContextFactory;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -261,6 +262,10 @@ public class ProjectAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This function is restricted only to moderator!");
+            }
+            
             String name = (String) params.get("name");
             String description = (String) params.get("description");
             int transMode = Integer.parseInt((String) params.get("transMode"));
@@ -269,38 +274,6 @@ public class ProjectAgent {
             Project project = projectService.createProject(name, description, transMode, inclusive);
             
             map.put("id", project.getId());
-            
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-            return map;
-        }
-        
-        return map;
-    }//createProject()
-    
-    
-    /**
-     * Manually Create ProjectSuite, For Acceptance Test
-     * 
-     * 
-     * @return A map contains:
-     *     <ul>
-     *       <li>successful - a boolean value denoting if the operation succeeds</li>
-     *       <li>reason - reason why operation failed (valid when successful==false)</li>
-     *       <li>id - the id of the new Project object</li>
-     *     </ul>
-     */
-    public Map createProjectSuite(Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        try {
-
-            ProjectSuite projectSuite = projectService.createProjectSuite();
-            
-            map.put("id", projectSuite.getId());
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -342,6 +315,10 @@ public class ProjectAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This function is restricted only to moderator!");
+            }
+            
             Long id = new Long((String) params.get("id"));
             
             String name = (String) params.get("name");
@@ -392,6 +369,10 @@ public class ProjectAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This function is restricted only to moderator!");
+            }
+            
             Long id = new Long((String) params.get("id"));
             String name = (String) params.get("name");
             String description = (String) params.get("description");
@@ -439,6 +420,10 @@ public class ProjectAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This function is restricted only to moderator!");
+            }
+            
             Long id = new Long((String) params.get("id"));
 
             String name = (String) params.get("name");
@@ -485,6 +470,10 @@ public class ProjectAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This function is restricted only to moderator!");
+            }
+            
             Long id = new Long((String) params.get("id"));
             
             projectService.deleteProject(id);
@@ -519,6 +508,10 @@ public class ProjectAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This function is restricted only to moderator!");
+            }
+            
             Long id = new Long((String) params.get("id"));
             
             projectService.deleteProjectAlt(id);
@@ -555,6 +548,10 @@ public class ProjectAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This function is restricted only to moderator!");
+            }
+            
             Long suiteId = new Long((String) params.get("suiteId"));
             Long altId = new Long((String) params.get("altId"));
             String operation = (String) params.get("operation");
@@ -602,6 +599,10 @@ public class ProjectAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This function is restricted only to moderator!");
+            }
+            
             Long altRefId = new Long((String) params.get("altRefId"));
             Long critId = new Long((String) params.get("critId"));
             Long objId = new Long((String) params.get("objId"));
@@ -618,18 +619,13 @@ public class ProjectAgent {
             System.out.println(e.getMessage());
             e.printStackTrace();
             map.put("reason", "Error: this objective could not be assigned the specified grade");
-            return map;
-        	
         } catch (UnknownObjectiveException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
             map.put("reason", "Error: this objective could not be assigned the specified grade");
-            return map;
-        	
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
-            return map;
         }
         
         return map;
@@ -781,6 +777,10 @@ public class ProjectAgent {
         map.put("successful", false);
         System.out.println(">>try to create new geometry");
         try {            
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This function is restricted only to moderator!");
+            }
+            
             Long id = projectService.saveFootprint(altId, coordinates, shape);
             
             map.put("altId", id);
@@ -818,6 +818,10 @@ public class ProjectAgent {
         
         System.out.println(">>try to use existing geometry");
         try {            
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This function is restricted only to moderator!");
+            }
+            
             Long id = projectService.saveFootprint(altId, fpids);
             
             map.put("altId", id);
@@ -851,6 +855,10 @@ public class ProjectAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This function is restricted only to moderator!");
+            }
+            
             Long fpid = new Long((String) params.get("fpid"));
             
             projectService.deleteFootPrint(fpid);

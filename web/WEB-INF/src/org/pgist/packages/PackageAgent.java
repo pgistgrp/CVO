@@ -71,7 +71,6 @@ public class PackageAgent {
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
-            return map;
         }
         
         return map;      
@@ -92,28 +91,19 @@ public class PackageAgent {
      *   </ul>
      */
     public Map createMyConfiguredPackage(TunerConfig conf, HashMap fundingChoices, HashMap projectChoices, float mylimit, float avglimit, long userPkgId) {
-//System.out.println("MATT ____________()()()()(Configuring");
-    	Iterator i = fundingChoices.keySet().iterator();
-    	Object key;
-    	Object value;
-    	while(i.hasNext()) {
-    		key = i.next();
-    		value = fundingChoices.get(key);
-    		System.out.println("Found Key = " + key.getClass().getName() + ":" + key + " Value=" + value.getClass().getName() + ":" + value);
-    	}
-    	
     	Map map = new HashMap();
         map.put("successful", false);
         
         try {
         	conf.setFundingChoices(fundingChoices);
         	conf.setProjectChoices(projectChoices);
+        	
             this.packageService.createKSUserPackage(userPkgId, conf, mylimit, avglimit);
+            
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
-            return map;
         }
         
         return map;    	
@@ -162,7 +152,6 @@ public class PackageAgent {
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
-            return map;
         }
         
         return map;    	
@@ -192,6 +181,10 @@ public class PackageAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This function is restricted only to moderator!");
+            }
+            
             Long pkgSuiteId = new Long((String) params.get("pkgSuiteId"));
             int pkgCount = new Integer((String) params.get("pkgCount"));
             Long projSuiteId = new Long((String) params.get("projSuiteId"));
@@ -203,7 +196,6 @@ public class PackageAgent {
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
-            return map;
         }
         
         return map;
@@ -276,7 +268,6 @@ public class PackageAgent {
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
-            return map;
         }
         
         return map;
@@ -337,7 +328,6 @@ public class PackageAgent {
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
-            return map;
         }
         
         return map;
@@ -403,7 +393,6 @@ public class PackageAgent {
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
-            return map;
         }
         
         return map;
@@ -444,7 +433,6 @@ public class PackageAgent {
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
-            return map;
         }
         
         return map;
@@ -485,7 +473,6 @@ public class PackageAgent {
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
-            return map;
         }
         
         return map;
@@ -526,14 +513,15 @@ public class PackageAgent {
             Long altId = new Long((String) params.get("altId"));
             Long fundingSuiteId = new Long((String) params.get("fundingSuiteId"));
             boolean deleting = "true".equals((String) params.get("deleting"));            
-            boolean userPkg = "true".equals((String) params.get("userPkg"));            
+            boolean userPkg = "true".equals((String) params.get("userPkg"));
+            
             Package pkg;
+            
             if(deleting) {
             	pkg = this.packageService.deleteProjectAlternative(pkgId, altId, userPkg, fundingSuiteId);
             } else {
             	pkg = this.packageService.addProjectAlternative(pkgId, altId, userPkg, fundingSuiteId);
             }
-                        
 			
             request.setAttribute("package", pkg);
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/createPackage_summary.jsp"));            
@@ -542,7 +530,6 @@ public class PackageAgent {
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
-            return map;
         }
         
         return map;
@@ -568,15 +555,19 @@ public class PackageAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This function is restricted only to moderator!");
+            }
+            
             Long pkgId = new Long((String) params.get("pkgId"));
             String desc = (String)params.get("desc");
-           	this.packageService.setManualPkgDesc(pkgId, desc);
-            map.put("successful", true);
             
+           	this.packageService.setManualPkgDesc(pkgId, desc);
+           	
+            map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
-            return map;
         }
         
         return map;
@@ -617,14 +608,18 @@ public class PackageAgent {
             Long altId = new Long((String) params.get("altId"));
             Long fundingSuiteId = new Long((String) params.get("fundingSuiteId"));
             boolean deleting = "true".equals((String) params.get("deleting"));      
-            boolean userPkg = "true".equals((String) params.get("userPkg"));            
+            boolean userPkg = "true".equals((String) params.get("userPkg"));
+            
             Package pkg;
-            if(deleting) {
+            
+            if (deleting) {
             	pkg = this.packageService.deleteFundingAlternative(pkgId, altId, userPkg, fundingSuiteId);
             } else {
             	pkg = this.packageService.addFundingAlternative(pkgId, altId, userPkg, fundingSuiteId);
             }
+            
             request.setAttribute("package", pkg);
+            
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/createPackage_summary.jsp"));            
             map.put("successful", true);
             
@@ -665,7 +660,6 @@ public class PackageAgent {
         map.put("successful", false);
 
         try {        	
-        	System.out.println("***SetVoting() " + votes);
             this.packageService.setVotes(this.packageService.getUser(WebUtils.currentUser()), clusterPkgId, votes);
             map.put("successful", true);
         } catch (Exception e) {
@@ -701,6 +695,10 @@ public class PackageAgent {
         String description = (String) params.get("description");
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This function is restricted only to moderator!");
+            }
+            
             ClusteredPackage cpkg = this.packageService.createClusteredPackage(suiteId, description);
             map.put("pkgId", cpkg.getId());
             map.put("successful", true);
@@ -733,6 +731,10 @@ public class PackageAgent {
         map.put("successful", false);
         
         try {
+            if (!WebUtils.checkRole("moderator")) {
+                throw new Exception("This function is restricted only to moderator!");
+            }
+            
             Long suiteId = new Long((String) params.get("suiteId"));
             Long pkgId = new Long((String) params.get("pkgId"));
         	
