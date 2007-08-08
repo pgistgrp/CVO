@@ -56,40 +56,40 @@ import org.pgist.util.WebUtils;
  */
 public class PackageServiceImpl implements PackageService {
 	
-    CriteriaDAO criteriaDAO;
     
     public static final String CLUSTERED_PACKAGE_NAME = "Package";
     
+    private CriteriaDAO criteriaDAO;
+    
+    private FundingDAO fundingDAO;
+    
+    private PackageDAO packageDAO;
+    
+    private ProjectDAO projectDAO;
+    
+    private CCTDAO cctDAO;
+    
+    private DiscussionDAO discussionDAO;
+    
+    
     public void setCriteriaDAO(CriteriaDAO criteriaDAO) {
         this.criteriaDAO = criteriaDAO;
-    }		
+    }
 	
-    FundingDAO fundingDAO;
-    
     
     public void setFundingDAO(FundingDAO fundingDAO) {
         this.fundingDAO = fundingDAO;
     }	
     
     
-    PackageDAO packageDAO;
-    
-    
     public void setPackageDAO(PackageDAO packageDAO) {
         this.packageDAO = packageDAO;
     }
 
-    ProjectDAO projectDAO;
-    
     
     public void setProjectDAO(ProjectDAO projectDAO) {
         this.projectDAO = projectDAO;
     }
-    
-    
-    private CCTDAO cctDAO;
-    
-    private DiscussionDAO discussionDAO;
     
     
     public void setCctDAO(CCTDAO cctDAO) {
