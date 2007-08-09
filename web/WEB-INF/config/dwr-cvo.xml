@@ -171,6 +171,7 @@
       <include method="getTagById"/>
       <include method="getConcernById"/>
       <include method="setupEmailNotify"/>
+      <include method="search"/>
     </create>
 
 

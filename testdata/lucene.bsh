@@ -39,17 +39,11 @@ sb.append(")");
 
 queryStr = sb.toString();
 
-String luceneQuery =
-                //discussion and concern and project
-                "(workflowid:"+8648+" AND "+queryStr+")"
-                //user profile
-                +" OR (type:userprofile AND "+queryStr+")"
-                //static pages
-                +" OR (type:staticpage AND "+queryStr+")";
+String luceneQuery = "(type:post OR type:reply) AND isid:26296 AND (bridge* nece*)";
 
 searcher = searchHelper.getIndexSearcher();
 try {
-  query = searchHelper.getParser().parse(queryStr);
+  query = searchHelper.getParser().parse(luceneQuery);
   
   hits = searcher.search(query);
   

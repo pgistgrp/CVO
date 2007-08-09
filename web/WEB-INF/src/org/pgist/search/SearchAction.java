@@ -53,19 +53,7 @@ public class SearchAction extends Action {
          * process the query string, add * to each word
          */
         
-        String[] words = queryStr.split(" ");
-        StringBuilder sb = new StringBuilder("(");
-        
-        for (String s : words) {
-            if (s!=null && s.length()>0) {
-                if (sb.length()>1) sb.append(" OR ");
-                sb.append(s).append("*");
-            }
-        }
-        
-        sb.append(")");
-        
-        queryStr = sb.toString();
+        queryStr = searchHelper.prefixString(queryStr);
         
         if (queryStr==null || queryStr.length()==0) return mapping.findForward("index");
         
@@ -77,11 +65,11 @@ public class SearchAction extends Action {
             
             String luceneQuery =
                 //discussion and concern and project
-                "(workflowid:"+request.getParameter("workflowId")+" AND "+queryStr+")"
+                "(workflowid:"+request.getParameter("workflowId")+" AND ("+queryStr+"))"
                 //user profile
-                +" OR (type:userprofile AND "+queryStr+")"
+                +" OR (type:userprofile AND ("+queryStr+"))"
                 //static pages
-                +" OR (type:staticpage AND "+queryStr+")";
+                +" OR (type:staticpage AND ("+queryStr+"))";
             
             Query query = searchHelper.getParser().parse(luceneQuery);
             

@@ -73,6 +73,34 @@ public class SearchHelper {
     public QueryParser getParser() {
         return parser;
     }
+    
+    
+    public String prefixString(String queryStr) {
+        StringBuilder sb = new StringBuilder();
+        
+        for (char ch : queryStr.toCharArray()) {
+            if (Character.isLetterOrDigit(ch)) {
+                sb.append(ch);
+            } else if (ch=='\'') {
+                sb.append(ch);
+            } else {
+                sb.append(' ');
+            }
+        }
+        
+        queryStr = sb.toString();
+        sb = new StringBuilder();
+        
+        String[] words = queryStr.split(" ");
+        
+        for (String s : words) {
+            if (s!=null && s.length()>0) {
+                sb.append(s).append("* ");
+            }
+        }
+        
+        return sb.toString();
+    }//prefixString
 
 
 }//class SearchHelper
