@@ -238,6 +238,7 @@
             <ins>
                 <var name="isid"/>
 		<var name="critSuiteId"/>
+		<var name="themeIsid"/>
             </ins>
             </declaration>
         </pgame>

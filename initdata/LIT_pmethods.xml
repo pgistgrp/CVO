@@ -264,6 +264,7 @@
                                 <ins>
                                     <var name="isid" ref="pmethod.crit_isid"/>
 				    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+				    <var name="themeIsid" ref="pmethod.theme_isid"/>
                                 </ins>
                             </declaration>
                         </pgame>
