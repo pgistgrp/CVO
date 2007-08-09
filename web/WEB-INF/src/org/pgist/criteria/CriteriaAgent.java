@@ -285,6 +285,7 @@ public class CriteriaAgent {
      *     <li>name - string, name of the criteia - Optional</li>
      *     <li>infoObjectIds - string, name of the infoObjectIds separated by commas - Optional</li>
      *     <li>objectiveIds - string, list of Object Id's - Optional</li>	
+     *     <li>editInfoObjects - string, true or false</li>	
      *     <li>na - string, descript. - Optional</li>
      *   </ul>
      * @return a Map contains:
@@ -305,6 +306,7 @@ public class CriteriaAgent {
     	String infoObjectIds = (String) params.get("infoObjectIds");
     	String objectiveIds = (String) params.get("objectiveIds");
     	String na = (String) params.get("na");
+    	String strInfoObjects = (String) params.get("editInfoObjecsts");
     	
     	if(strId==null || "".equals(strId.trim())){
     		map.put("reason", "Criterion id cannot be empty.");
@@ -313,7 +315,7 @@ public class CriteriaAgent {
     	if(name==null || "".equals(name.trim())){
     		bool_name = false;
     	}
-    	if(infoObjectIds==null || "".equals(infoObjectIds.trim())){
+    	if(strInfoObjects.equals("false")){
     		bool_infoObjects = false;
     	}
     	if(objectiveIds==null || "".equals(objectiveIds.trim())){
