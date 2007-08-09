@@ -19,20 +19,18 @@
 		<small><a href="javascript:toggleEditField('vehicle',${vehicle.id});">Edit</a> | <a href="javascript:deleteVehicle(${vehicle.id})">Remove</a></small> 
 	</div>
 	<div id="vehicleEdit${vehicle.id}" class="myVehiclesRow" style="display: none;"> 
-		<form id="addVehicle" action="javascript:editVehicle(${vehicle.id});">
 		<strong>Vehicle ${loop.index + 1}: </strong> 
 		Miles per gallon <input name="mpg" id="vehicleMpg${vehicle.id}" type="text" value="${vehicle.milesPerGallon}" />
 		Approximate value <input name="value" id="vehicleValue${vehicle.id}" type="text" value="${vehicle.approxValue}" />
 		Miles driven per year <input name="mpy" id="vehicleMpy${vehicle.id}" type="text" value="${vehicle.milesPerYear}" />
 
-		<input type="submit" value="Update" /><small><a href="javascript:toggleEditField('vehicle',${vehicle.id});">Cancel</a></small>
-		</form>
+		<input type="submit" onclick="editVehicle(${vehicle.id});" value="Update" /><small><a href="javascript:toggleEditField('vehicle',${vehicle.id});">Cancel</a></small>
 	</div>
 </c:forEach>
 
 <p><a href="javascript:Element.toggle('newVehicle');void(0);">Add vehicle</a> 
 	<div id="newVehicle" class="myVehiclesRow" style="display:none;"> 
-		<form id="addVehicle" action="javascript:addVehicle();">
+
 		<strong>New Vehicle: </strong> Miles per gallon
 		<input name="mpg" id="vehicleMpg" type="text" />
 		Approximate value
@@ -41,6 +39,6 @@
 		<input name="mpy" id="vehicleMpy" type="text" />
 
 		<input type="submit" onClick="addVehicle();" value="Add" /><small> <a href="javascript:Element.toggle('newVehicle');">Cancel</a></small>
-		</form>
+
 	</div>		
 </p>

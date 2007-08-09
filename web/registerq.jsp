@@ -61,7 +61,7 @@ function getVehicles(){
 		}
 	});
 }
-	
+
 function toggleEditField(item, id) {
 	Element.toggle(item + "Edit" + id);
 	Element.toggle(item + id);
