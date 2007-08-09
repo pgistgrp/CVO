@@ -39,6 +39,7 @@
 
 <script>
 	var cctId = "${cctId}";
+	var isid = "${isid}";
 	var critSuiteId = "${criteriasuite.id}"
 
 	function assocCriterion(critId, checked){
@@ -80,10 +81,11 @@
 			}
 		};
 		themeIdsStr = themeIds.toString();
+
 		Util.loading(true,"Working");
-		CriteriaAgent.editCriterion({critId:critId,themeIds:themeIdsStr}, {
+		CriteriaAgent.editCriterion({critId:critId,infoObjectIds:themeIdsStr}, {
 			callback:function(data){
-				if (data.successful){
+				if (data.successful){ 
 					//alert("Successful")
 				}else{
 					alert(data.reason);
@@ -101,7 +103,7 @@
 	/* *************** Grab All Criteria in the System - uses criteria.jsp *************** */
 	function getCriteria(newCritId){
 		Util.loading(true,"Loading planning factors");
-		CriteriaAgent.getAllCriterionForMgr({critSuiteId:critSuiteId,cctId:cctId}, {
+		CriteriaAgent.getAllCriterionForMgr({critSuiteId:critSuiteId,isid:isid, cctId:cctId}, {
 			callback:function(data){
 				if (data.successful){
 					$('allCriteriaList').innerHTML = data.html;

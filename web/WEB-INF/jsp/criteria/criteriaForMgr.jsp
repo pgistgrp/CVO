@@ -15,12 +15,7 @@
 				 This is also used on sdcritStructureTarget.jsp
 	Author(s): 
 	     Front End: Jordan Isip, Adam Hindman
-	     Back End: Zhong Wang, John Le
-	Todo Items:
-		[x] Initial Skeleton Code (Jordan)
-		[x] Ensure connection with criteriaMgr.jsp (Jordan)
-		[x] Loop through ${criteria} (Jordan)
-		
+	     Back End: Zhong Wang, John Le	
 #### -->
 
 <c:if test="${fn:length(criteria) == 0}">
@@ -45,13 +40,13 @@
 		
 		<ul id="${criterion.id}themes"}>
 			<li class="liHeader">Which concern themes are related to this planning factor?</li>
-			<c:if test="${fn:length(themes) == 0}">
+			<c:if test="${fn:length(infoObjects) == 0}">
 				<li class="mleft15">Concern themes have not been created yet.  Please use the <a href="cstview.do?cctId=${cctId}">Concern Synthesis Tool</a> to create concern themes after participants have expressed their concerns.</li>
 			</c:if>
-			<c:forEach var="theme" items="${themes}" varStatus="loop">
+			<c:forEach var="infoObject" items="${infoObjects}" varStatus="loop">
 				<li class="mleft15">
-					<label><input type="checkbox" id="theme${theme.id}"  ${(pg:containsTheme(criterion,theme)) ? "checked='CHECKED'" : ""} name="${criterion.id}checkboxes" onClick="setThemes('${criterion.id}checkboxes', ${criterion.id});"/>
-					${theme.title}</label>
+					<label><input type="checkbox" id="theme${infoObject.id}" ${(pg:containsInfoObject(criterion,infoObject)) ? "checked='CHECKED'" : ""} name="${criterion.id}checkboxes" onClick="setThemes('${criterion.id}checkboxes', ${criterion.id});"/>
+					${infoObject.object}</label>
 				</li>
 			</c:forEach>
 
