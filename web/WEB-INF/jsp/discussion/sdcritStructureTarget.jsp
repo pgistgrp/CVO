@@ -79,7 +79,7 @@
 		      <!--themes-->
               <c:if test="${fn:length(infoObject.object.criterion.infoObjects) == 0}"> None Selected </c:if>
               <c:forEach var="infoObject" items="${infoObject.object.criterion.infoObjects}" varStatus="loop">
-                ${infoObject.object}<br />
+                ${infoObject.object.theme.title}<br />
               </c:forEach>
 		    </div>
 		    <div class="clearBoth"></div>
