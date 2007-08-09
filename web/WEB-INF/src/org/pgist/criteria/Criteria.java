@@ -7,6 +7,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.pgist.cvo.Theme;
+import org.pgist.discussion.InfoObject;
 
 
 /**
@@ -45,11 +46,14 @@ public class Criteria implements Serializable {
      */
     private String na;
     
+    
+    //private Set<Theme> themes = new HashSet();
+    
     /**
      * <span style="color:blue;">(Column.)</span>
      * themes. A Set of themes associated with this criterion.
      */
-    private Set<Theme> themes = new HashSet();
+    private Set<InfoObject> infoObjects = new HashSet();
     
     /**
      * <span style="color:blue;">(Column.)</span>
@@ -130,20 +134,6 @@ public class Criteria implements Serializable {
     }
     
     
-    public void setThemes(Set<Theme> themes) {
-        this.themes = themes;
-    }
-    
-    /**
-     * @hibernate.set lazy="false" table="pgist_criteria_theme_link" cascade="none"
-     * @hibernate.collection-key column="criterion_id"
-     * @hibernate.collection-many-to-many column="theme_id" class="org.pgist.cvo.Theme"
-     */   
-    public Set<Theme> getThemes() {
-        return themes;
-    }
-    
-    
     public void setObjectives(SortedSet<Objective> objectives) {
         this.objectives = objectives;
     }
@@ -182,6 +172,19 @@ public class Criteria implements Serializable {
     }
     
     
+	public Set<InfoObject> getInfoObjects() {
+		return infoObjects;
+	}
+
+    /**
+     * @hibernate.set lazy="false" table="pgist_criteria_info_object_link" cascade="none"
+     * @hibernate.collection-key column="criterion_id"
+     * @hibernate.collection-many-to-many column="info_object_id" class="org.pgist.discussion.InfoObject"
+     */   
+	public void setInfoObjects(Set<InfoObject> infoObjects) {
+		this.infoObjects = infoObjects;
+	}
+    
     /*
      * ------------------------------------------------------------------------
      */
@@ -195,6 +198,9 @@ public class Criteria implements Serializable {
     public void setObject(Object object) {
         this.object = object;
     }
+
+
+
     
     
 }//class Criteria

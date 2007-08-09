@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.directwebremoting.WebContextFactory;
 import org.pgist.cvo.CCTService;
 import org.pgist.cvo.Theme;
+import org.pgist.discussion.InfoObject;
 
 
 /**
@@ -55,7 +56,7 @@ public class CriteriaAgent {
      *   <ul>
      *     <li>name - string, name of the criteia</li>
      *     <li>critSuiteId - long, id of crit suite</li>
-     *     <li>themeIds - string, name of the themeid's separated by commas - Optional</li>
+     *     <li>infoObjectIds - string, name of the themeid's separated by commas - Optional</li>
      *     <li>objectiveIds - string, list of Object Id's - Optional</li>	
      *     <li>na - string, description. - Optional</li>
      *   </ul>
@@ -69,12 +70,12 @@ public class CriteriaAgent {
     public Map addCriterion(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
-        boolean bool_themes = true;
+        boolean bool_infoObjects = true;
         boolean bool_objectives = true;
         
         String name = (String) params.get("name");
         String strCritSuiteId = (String) params.get("critSuiteId");
-    	String themeIds = (String) params.get("themeIds");
+    	String infoObjectIds = (String) params.get("infoObjectIds");
     	String objectiveIds = (String) params.get("objectiveIds");
     	String na = (String) params.get("na");
     	
@@ -88,8 +89,8 @@ public class CriteriaAgent {
     		return map;
     	}
     	
-    	if(themeIds==null || "".equals(themeIds.trim())){
-    		bool_themes = false;
+    	if(infoObjectIds==null || "".equals(infoObjectIds.trim())){
+    		bool_infoObjects = false;
     	}
     	
     	if(objectiveIds==null || "".equals(objectiveIds.trim())){
@@ -102,21 +103,21 @@ public class CriteriaAgent {
         try {
         	Long critSuiteId = Long.parseLong(strCritSuiteId);
         	
-        	String[] themeIdList;
+        	String[] infoObjectsIdList;
         	String[] objectiveIdList;
-        	Set<Theme> themes = new HashSet();
+        	Set<InfoObject> infoObjects = new HashSet();
         	SortedSet objectives = new TreeSet();
         	
-        	if(bool_themes) {
-		    	themeIdList = themeIds.split(",");
-		    	themes = criteriaService.getThemeObjects(themeIdList);
+        	if(bool_infoObjects) {
+        		infoObjectsIdList =infoObjectIds.split(",");
+        		infoObjects = criteriaService.getInfoObjects(infoObjectsIdList);
         	}
         	if(bool_objectives) {
 	        	objectiveIdList = objectiveIds.split(",");
 	        	objectives = criteriaService.getObjectiveObjects(objectiveIdList);
         	}
         	
-        	Criteria c = criteriaService.addCriterion(bool_themes, bool_objectives, name, themes, objectives, na);
+        	Criteria c = criteriaService.addCriterion(bool_infoObjects, bool_objectives, name, infoObjects, objectives, na);
         	criteriaService.addAssocCriterion(c.getId(), critSuiteId, true);
         	
         	map.put("id", c.getId());
@@ -282,7 +283,7 @@ public class CriteriaAgent {
      *   <ul>
      *     <li>critId - string, id of the criterion</li>
      *     <li>name - string, name of the criteia - Optional</li>
-     *     <li>themeIds - string, name of the themeid's separated by commas - Optional</li>
+     *     <li>infoObjectIds - string, name of the themeid's separated by commas - Optional</li>
      *     <li>objectiveIds - string, list of Object Id's - Optional</li>	
      *     <li>na - string, descript. - Optional</li>
      *   </ul>
@@ -296,12 +297,12 @@ public class CriteriaAgent {
         Map map = new HashMap();
         map.put("successful", false);
         boolean bool_name = true;
-        boolean bool_themes = true;
+        boolean bool_infoObjects = true;
         boolean bool_objectives = true;
         
         String strId = (String) params.get("critId");
         String name = (String) params.get("name");
-    	String themeIds = (String) params.get("themeIds");
+    	String infoObjectIds = (String) params.get("infoObjectId");
     	String objectiveIds = (String) params.get("objectiveIds");
     	String na = (String) params.get("na");
     	
@@ -312,8 +313,8 @@ public class CriteriaAgent {
     	if(name==null || "".equals(name.trim())){
     		bool_name = false;
     	}
-    	if(themeIds==null || "".equals(themeIds.trim())){
-    		bool_themes = false;
+    	if(infoObjectIds==null || "".equals(infoObjectIds.trim())){
+    		bool_infoObjects = false;
     	}
     	if(objectiveIds==null || "".equals(objectiveIds.trim())){
     		bool_objectives = false;
@@ -326,21 +327,21 @@ public class CriteriaAgent {
         try {
         	Criteria c = criteriaService.getCriterionById(id);
         	
-        	String[] themeIdList;
+        	String[] infoObjectList;
         	String[] objectiveIdList;
-        	Set themes = new HashSet();
+        	Set infoObjects = new HashSet();
         	SortedSet objectives = new TreeSet();
         	
-        	if(bool_themes) {
-		    	themeIdList = themeIds.split(",");
-		    	themes = criteriaService.getThemeObjects(themeIdList);
+        	if(bool_infoObjects) {
+        		infoObjectList = infoObjectIds.split(",");
+        		infoObjects = criteriaService.getInfoObjects(infoObjectList);
         	}
         	if(bool_objectives) {
 	        	objectiveIdList = objectiveIds.split(",");
 	        	objectives = criteriaService.getObjectiveObjects(objectiveIdList);
         	}
         	
-        	criteriaService.editCriterion(bool_name, bool_themes, bool_objectives, c, name, themes, objectives, na);
+        	criteriaService.editCriterion(bool_name, bool_infoObjects, bool_objectives, c, name, infoObjects, objectives, na);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -352,11 +353,11 @@ public class CriteriaAgent {
     
     
     /**
-     * Get the theme list for the given cct.
+     * Get the infoObjects list for the given isid.
      * 
      * @param params a Map contains:
      *   <ul>
-     *     <li>cctId - int, the id of an CriteriaRefId object</li>
+     *     <li>isid - int, the id of an infoStructure object</li>
      *   </ul>
      * 
      * @return a Map contains:
@@ -367,7 +368,7 @@ public class CriteriaAgent {
      *       html - a HTML source segment. (Generated by /WEB-INF/jsp/criteria/criteriaAssoc_themes.jsp)<br>
      *       The following variables are available for use in the jsp:
      *         <ul>
-     *           <li>cct - A CCT Id</li>
+     *           <li>isid - A infostructure Id</li>
      *           <li>themes - A list of theme objects</li>
      *     		 <li>html - a HTML source segment. (Generated by /WEB-INF/jsp/criteria/criteriaAssoc_themes.jsp)<br>
      *           The following variables are available for use in the jsp:
@@ -379,18 +380,18 @@ public class CriteriaAgent {
      *     </li>
      *   </ul>
      */
-    public Map getThemes(HttpServletRequest request, Map params) {
+    public Map getInfoObjects(HttpServletRequest request, Map params) {
         Map map = new HashMap();
         map.put("successful", false);    
         
         
-        Long cctId = new Long((String) params.get("cctId"));
+        Long isid = new Long((String) params.get("isid"));
   
         try {        	
-            List themes = criteriaService.getThemes(cctId);
+            Set infoObjects = criteriaService.getInfoObjects(isid);
             
-            request.setAttribute("themes", themes); 
-            map.put("themes", themes);
+            request.setAttribute("infoObjects", infoObjects); 
+            map.put("infoObjects", infoObjects);
         	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteriaAssoc_themes.jsp"));
             map.put("successful", true);   
             
@@ -401,7 +402,7 @@ public class CriteriaAgent {
         }
         
         return map;
-    }//getThemes()
+    }//getInfoObjects()
     
     
     /**
@@ -607,7 +608,7 @@ public class CriteriaAgent {
      * @param params An empty map.
      * <ul>
      *     <li>critSuiteId - string, critSuiteId</li>
-     *     <li>cctId - string, cctId</li>
+     *     <li>isid - string, isid</li>
      * </ul>
      * @return a Map contains:
      *   <ul>
@@ -626,13 +627,13 @@ public class CriteriaAgent {
     	
     	Map map = new HashMap();
         map.put("successful", false);
-        boolean useCctId= true;
+        boolean useIsid= true;
        
         String strCritSuiteId = (String) params.get("critSuiteId");
-        String strCctId = (String) params.get("cctId");
+        String strIsid = (String) params.get("isid");
         
-        if(strCctId==null || "".equals(strCctId.trim())){
-        	useCctId = false;
+        if(strIsid==null || "".equals(strIsid.trim())){
+        	useIsid = false;
     	}
 
         if(strCritSuiteId==null || "".equals(strCritSuiteId.trim())){
@@ -642,17 +643,17 @@ public class CriteriaAgent {
 
         
         try {
-        	Collection themes;
+        	Collection infoObjects;
         	Long critSuiteId = Long.parseLong(strCritSuiteId);
         	
         	Collection criteria = criteriaService.getAllCriterion(critSuiteId);
         	
-        	if(useCctId){
-        		Long cctId = new Long(strCctId);
-        		themes = criteriaService.getThemes(cctId);
-        		request.setAttribute("themes", themes); 
-        		map.put("themes", themes);
-        		request.setAttribute("cctId", cctId); 
+        	if(useIsid){
+        		Long isid = new Long(strIsid);
+        		infoObjects = criteriaService.getInfoObjects(isid);
+        		request.setAttribute("infoObjects", infoObjects); 
+        		map.put("infoObjects", infoObjects);
+        		request.setAttribute("isid", isid); 
         	} 
         	
         	request.setAttribute("criteria", criteria); 
@@ -919,7 +920,7 @@ public class CriteriaAgent {
      * @param params a Map contains:
      *   <ul>
      *     <li>critSuiteId - long, id of a CriteriaSuite object</li>
-     *     <li>cctId - long, cctId</li>
+     *     <li>isid - long, isid</li>
      *   </ul>
      * @return a Map contains:
      *   <ul>
@@ -927,12 +928,12 @@ public class CriteriaAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map getOrphanThemes(Map params) {
+    public Map getOrphanInfoObjects(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
         String strId = (String)params.get("critSuiteId");
-        String strCctId = (String)params.get("cctId");
+        String strIsid = (String)params.get("isid");
         
         if(strId==null || "".equals(strId.trim())){
         		map.put("reason", "critSuiteId cannot be null.");
@@ -940,18 +941,18 @@ public class CriteriaAgent {
         }
 
         
-        if(strCctId==null || "".equals(strCctId.trim())){
-        		map.put("reason", "cctId cannot be null.");
+        if(strIsid==null || "".equals(strIsid.trim())){
+        		map.put("reason", "isid cannot be null.");
         		return map;	
         }
         
         Long suiteId = Long.parseLong(strId); 
-        Long cctId = Long.parseLong(strCctId); 
+        Long isid = Long.parseLong(strIsid); 
         
         try {        	
-        	Collection themes = criteriaService.getOrphanThemes(suiteId, cctId);
+        	Collection infoObjects = criteriaService.getOrphanInfoObjects(suiteId, isid);
         	
-        	map.put("themes", themes);
+        	map.put("infoObjects", infoObjects);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

@@ -2,6 +2,7 @@ package org.pgist.criteria;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -48,16 +49,18 @@ public class CriteriaDefinitionAction extends Action {
         	
             String strSuiteId = request.getParameter("suiteId");
             String strCctId = request.getParameter("cctId");
-            
+            String strThemeIsid = request.getParameter("theme_isid");
+            System.out.println("*** ThemeISID:" + strThemeIsid);
             Long suiteId = Long.parseLong(strSuiteId);
             CriteriaSuite cs = criteriaService.getCriteriaSuiteById(suiteId);
             
-            Long cctId = Long.parseLong(strCctId);
-            List themes = criteriaService.getThemes(cctId);
+            Long themeIsid = Long.parseLong(strThemeIsid);
+            Set infoObjects = criteriaService.getInfoObjects(themeIsid);
             
-            request.setAttribute("cctId", cctId);
+            
+            //request.setAttribute("cctId", cctId);
             request.setAttribute("criteriasuite", cs);
-            request.setAttribute("themes", themes);
+            request.setAttribute("infoObjects", infoObjects);
             //request.setAttribute("criteria", criteria);
             
             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);

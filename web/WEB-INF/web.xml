@@ -131,7 +131,6 @@
         <url-pattern>/createPackage.do</url-pattern>
         <url-pattern>/editClusteredPackage.do</url-pattern>
         <url-pattern>/packageMgr.do</url-pattern>
-        <url-pattern>/criteriaMgr.do</url-pattern>
         <url-pattern>/criteriaDefine.do</url-pattern>
         <url-pattern>/glossaryManage.do</url-pattern>
     </filter-mapping>
@@ -156,7 +155,6 @@
         <url-pattern>/createPackage.do</url-pattern>
         <url-pattern>/editClusteredPackage.do</url-pattern>
         <url-pattern>/packageMgr.do</url-pattern>
-        <url-pattern>/criteriaMgr.do</url-pattern>
         <url-pattern>/criteriaDefine.do</url-pattern>
         <url-pattern>/glossaryManage.do</url-pattern>
     </filter-mapping>
@@ -217,13 +215,24 @@
         <url-pattern>/dwr/call/plaincall/PackageAgent.deleteClusteredPackage.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/PackageAgent.setManualPkgDesc.dwr</url-pattern>
         <url-pattern>/criteriaMgr.do</url-pattern>
-        <url-pattern>/criteriaDefine.do</url-pattern>
         <url-pattern>/glossaryManage.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.acceptTerm.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.deleteComment.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.deleteTerm.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.rejectTerm.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.saveTerm.dwr</url-pattern>
+
+        <url-pattern>/criteriaDefine.do</url-pattern>
+	<url-pattern>/dwr/call/plaincall/CriteriaAgent.getAllCriterion.dwr</url-pattern>
+	<url-pattern>/dwr/call/plaincall/CriteriaAgent.getAddCriterion.dwr</url-pattern>
+	<url-pattern>/dwr/call/plaincall/CriteriaAgent.getEditCriterion.dwr</url-pattern>
+	<url-pattern>/dwr/call/plaincall/CriteriaAgent.getAllCriterionForMgr.dwr</url-pattern>
+	<url-pattern>/dwr/call/plaincall/CriteriaAgent.addObjective.dwr</url-pattern>
+	<url-pattern>/dwr/call/plaincall/CriteriaAgent.editObjective.dwr</url-pattern>
+	<url-pattern>/dwr/call/plaincall/CriteriaAgent.deleteCriterion.dwr</url-pattern>
+	<url-pattern>/dwr/call/plaincall/CriteriaAgent.deleteObjective.dwr</url-pattern>
+	<url-pattern>/dwr/call/plaincall/CriteriaAgent.addAssocCriterion.dwr</url-pattern>
+	
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>INCLUDE</dispatcher>
         <dispatcher>REQUEST</dispatcher>

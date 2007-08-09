@@ -67,6 +67,7 @@
 		io.pkgSuiteId = "${pkgSuiteId}";
 		io.fundSuiteId = "${fundSuiteId}";
 		io.repoSuiteId = "${repoSuiteId}";
+		io.voteSuiteId = "${voteSuiteId}";
 		io.cctId = "${structure.cctId}";
 		io.workflowId = "${param.workflowId}";
 		io.contextId = "${param.contextId}";

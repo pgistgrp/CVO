@@ -11,6 +11,7 @@ import java.util.TreeSet;
 
 import org.pgist.cvo.Theme;
 import org.pgist.discussion.InfoStructure;
+import org.pgist.discussion.InfoObject;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;
@@ -22,23 +23,10 @@ import org.pgist.util.WebUtils;
  *
  */
 public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
-
-	
-	private static final String hql_addCriterion = "from Criteria c where lower(c.name)=?";
 	
     
-    public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Set themes, SortedSet objectives, String na) throws Exception {
-    	/*
-    	List list = getHibernateTemplate().find(hql_addCriterion, new Object[] {
-                name.toLowerCase(),
-        });
-    	
-    	//Check for existing criteria
-    	if(list.size()>0) {
-    		throw new Exception("Criteria already exist.");
-    	}  		
-    	*/
-    	//create all classes
+    public Criteria addCriterion(Boolean bool_infoObjects, Boolean bool_objectives, String name, Set infoObjects, SortedSet objectives, String na) throws Exception {
+
     	Criteria c = new Criteria();
 
     	//set Criterion
@@ -46,8 +34,8 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	c.setNa(na);
 
     	
-    	if(bool_themes) {
-    		c.setThemes(themes);
+    	if(bool_infoObjects) {
+    		c.setInfoObjects(infoObjects);
     	}
     	if(bool_objectives) {
     		c.setObjectives(objectives);
@@ -109,7 +97,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     }//deleteCriteria()
     
     
-    public void editCriterion(boolean bool_name, boolean bool_themes, boolean bool_objectives, Criteria c, String name, Set themes, SortedSet objectives, String na) throws Exception {
+    public void editCriterion(boolean bool_name, boolean bool_infoObjects, boolean bool_objectives, Criteria c, String name, Set infoObjects, SortedSet objectives, String na) throws Exception {
     	if(bool_name) {
     		c.setName(name);
     	} else {
@@ -118,8 +106,8 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	if(!(na.equals("NONE"))) {
     		c.setNa(na);
     	}
-    	if(bool_themes) {
-    		c.setThemes(themes);
+    	if(bool_infoObjects) {
+    		c.setInfoObjects(infoObjects);
     	}
     	if(bool_objectives) {
     		c.setObjectives(objectives);		
@@ -182,22 +170,13 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
                 false, critSuiteId});
     } //getAllCriterion();
     
-    
-    //private static final String hql_addObjective = "from Objective o where lower(o.description)=?";
-    
+
     public Objective addObjective(Long critId, String description) throws Exception {
     	
 		Objective o = new Objective();
 		
 		o.setDescription(description);
 		
-//    	List list = getHibernateTemplate().find(hql_addObjective, new Object[] {
-//    			description.toLowerCase(),
-//        });
-    	
-//    	if(list.size()>0) {
-//    		throw new Exception("Objective already exist.");
-//    	}  	
 		save(o);
 		
     	Criteria c = getCriterionById(critId);
@@ -210,15 +189,15 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     }//addObjectives()
     
     
-    public Set<Theme> getThemeObjects(String[] themeIdList) throws Exception {
-    	Set<Theme> themeObjects = new HashSet();  
+    public Set<InfoObject> getInfoObjects(String[] infoObjectsIdList)throws Exception {
+    	Set<InfoObject> InfoObjects = new HashSet();  
     	
-    	for(int i=0; i<themeIdList.length; i++){
-    		Long themeId = Long.parseLong(themeIdList[i]);
-    		themeObjects.add((Theme)load(Theme.class, themeId));
+    	for(int i=0; i<infoObjectsIdList.length; i++){
+    		Long themeId = Long.parseLong(infoObjectsIdList[i]);
+    		InfoObjects.add((InfoObject)load(Theme.class, themeId));
     	} //for  	
     	
-    	return themeObjects;
+    	return InfoObjects;
     } //getThemeObjects()
     
     
@@ -365,33 +344,39 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     }
     
     
-    private static final String hql_getOrphanThemes = "from Criteria c where c.suite=?";
+    private static final String hql_getOrphanInfoObjects = "from Criteria c where c.suite=?";
     
-    public Collection getOrphanThemes(Long suiteId, Collection themes) throws Exception {
-    	HashSet usedThemes = new HashSet();
+    public Collection getOrphanInfoObjects(Long suiteId, Collection infoObjects) throws Exception {
+    	HashSet usedInfoObjects = new HashSet();
     	CriteriaSuite cs = getCriteriaSuiteById(suiteId);
     	
-    	List list = getHibernateTemplate().find(hql_getOrphanThemes, new Object[] {
+    	List list = getHibernateTemplate().find(hql_getOrphanInfoObjects, new Object[] {
                 cs,
         });
     	
     	Iterator it = list.iterator();
     	while(it.hasNext()) {
     		Criteria c = (Criteria)it.next();
-    		usedThemes.addAll(c.getThemes());
+    		usedInfoObjects.addAll(c.getInfoObjects());
     	}
     	
-    	Iterator utIt = usedThemes.iterator();
+    	Iterator utIt = usedInfoObjects.iterator();
     	while(utIt.hasNext()) {
-    		Theme t = (Theme) utIt.next();
-    		themes.remove(t);
+    		InfoObject t = (InfoObject) utIt.next();
+    		infoObjects.remove(t);
     	}
     	
-    	return themes;
+    	return infoObjects;
     }
 
 
-    public void editCriterion(boolean bool_name, boolean bool_themes, boolean bool_objectives, org.hibernate.Criteria c, String name, Set themes, SortedSet objectives, String na) throws Exception {
+    public Set getInfoObjects(Long isid) throws Exception {
+    	InfoStructure is = (InfoStructure) load(InfoStructure.class, isid);	
+    	return is.getInfoObjects();
+    }
+    
+    
+    public void editCriterion(boolean bool_name, boolean bool_infoObjects, boolean bool_objectives, org.hibernate.Criteria c, String name, Set infoObjects, SortedSet objectives, String na) throws Exception {
         // TODO Auto-generated method stub
         
     }

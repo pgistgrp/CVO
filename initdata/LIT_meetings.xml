@@ -86,6 +86,7 @@
                 <ins>
                     <var name="meeting.cct_id"/>
                     <var name="meeting.crit_suite_id"/>
+		    <var name="meeting.is_id"/>
                 </ins>
                 <outs>
                     <var name="meeting.crit_isid"/>
@@ -97,6 +98,7 @@
                         <ins>
                             <var name="pmethod.cct_id" ref="meeting.cct_id"/>
                             <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
+			     <var name="pmethod.theme_isid" ref="meeting.is_id"/>
                         </ins>
                         <outs>
                             <var name="pmethod.crit_isid" ref="meeting.crit_isid"/>

@@ -79,6 +79,7 @@ public class SDRoomAction extends Action {
     	String strFundSuiteId = (String) request.getParameter("fundSuiteId");
     	String strPkgSuiteId = (String) request.getParameter("pkgSuiteId");
     	String strRepoSuiteId = (String) request.getParameter("repoSuiteId");
+    	String strVoteSuiteId = (String) request.getParameter("voteSuiteId");
     	
         /*
          * isid of a InfoStructure object
@@ -140,6 +141,10 @@ public class SDRoomAction extends Action {
         if(strRepoSuiteId!=null && !("".equals(strRepoSuiteId.trim()))) {
         	Long repoSuiteId = Long.parseLong(strRepoSuiteId);
         	request.setAttribute("repoSuiteId", repoSuiteId);
+        }
+        if(strVoteSuiteId!=null && !("".equals(strVoteSuiteId.trim()))) {
+        	Long voteSuiteId = Long.parseLong(strVoteSuiteId);
+        	request.setAttribute("voteSuiteId", voteSuiteId);
         }
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);

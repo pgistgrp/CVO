@@ -230,6 +230,7 @@
                 <ins>
                     <var name="pmethod.cct_id"/>
                     <var name="pmethod.crit_suite_id"/>
+		    <var name="pmethod.theme_isid"/>
                 </ins>
                 <outs>
                     <var name="pmethod.crit_isid"/>
@@ -241,6 +242,7 @@
                         <ins>
                             <var name="suiteId" ref="pmethod.crit_suite_id"/>
                             <var name="cctId" ref="pmethod.cct_id"/>
+			    <var name="theme_isid" ref="pmethod.theme_isid"/>
                         </ins>
                     </declaration>
                 </pgame>

@@ -32,7 +32,7 @@
         <include method="editObjective"/>
         <include method="getCriteria"/>
         <include method="getCriterionById"/>
-        <include method="getThemes"/>
+        <include method="getInfoObjects"/>
         <include method="getAllCriterion"/>
         <include method="getAllCriterionForMgr"/>
         <include method="addObjective"/>
@@ -42,7 +42,7 @@
         <include method="getWeight"/>
         <include method="getCriteriaSuiteById"/>
         <include method="getContainsCriteria"/>
-        <include method="getOrphanThemes"/>
+        <include method="getOrphanInfoObjects"/>
     </create>
 
 

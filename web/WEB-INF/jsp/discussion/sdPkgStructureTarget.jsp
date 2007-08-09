@@ -96,7 +96,7 @@
 					</c:forEach>
 					
 					<p><pg:url page="/blah.do" target="_blank" params="input=1000">Compare the spatial equity of these packages</pg:url>
-					<br/>Express your preferences in the <pg:url page="/packagePoll.do" target="_blank" params="input=1000">package poll</pg:url></p>
+					<br/>Express your preferences in the <a href="javascript:io.goToPackagePoll();">package poll</a></p>
 					<br>
 					<h3 class="headerColor">Package appearing on the November 2007 ballot</h3>
 					<p>
@@ -172,6 +172,10 @@
 	
 	io.goToPackage = function(id){
 		window.open("package.do?"+io.wfInfo+"&pkgId="+id+"&fundSuiteId="+io.fundSuiteId+"&projSuiteId="+io.projSuiteId+"&critSuiteId="+io.critSuiteId+"&pkgSuiteId="+io.pkgSuiteId,'Package Viewer','width=1000,height=600,resizable=yes,scrollbars=yes');
+	}
+	
+	io.goToPackagePoll = function(){
+		window.open("packagePoll.do?"+io.wfInfo+"&voteSuiteId="+io.voteSuiteId+"&fundSuiteId="+io.fundSuiteId+"&projSuiteId="+io.projSuiteId+"&critSuiteId="+io.critSuiteId+"&pkgSuiteId="+io.pkgSuiteId,'Package Viewer','width=1000,height=600,resizable=yes,scrollbars=yes');
 	}
 	
 

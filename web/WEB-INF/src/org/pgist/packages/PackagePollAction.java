@@ -11,6 +11,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;
+import org.pgist.system.SystemService;
+
 
 /**
  * Participants use this action to vote on the clustered packages.<br>
@@ -53,11 +55,15 @@ public class PackagePollAction extends Action {
 	 
     private PackageService packageService;
     
+    private SystemService systemService;
     
     public void setPackageService(PackageService packageService) {
         this.packageService = packageService;
     }
 
+	public void setSystemService(SystemService systemService) {
+		this.systemService = systemService;
+	}
 
     /*
      * ------------------------------------------------------------------------
@@ -84,13 +90,17 @@ public class PackagePollAction extends Action {
     	Long voteSuiteId = new Long(tempVoteSuiteId);
     	PackageVoteSuite vSuite = packageService.getPackageVoteSuite(voteSuiteId);
 
+    	
+    	
 		//Grade it
     	User user = packageService.getUser(WebUtils.currentUser());
 		request.setAttribute("voteSuite", vSuite);
 		request.setAttribute("pkgSuiteId", packSuite);
 		request.setAttribute("projSuiteId", projSuite);
 		request.setAttribute("fundSuiteId", fundSuite);
-		request.setAttribute("critSuiteId", critSuite);
+		request.setAttribute("critSuiteId", critSuite); 
+		request.setAttribute("totalUsers", systemService.getAllUsers().size()); 
+
 		
         if(vSuite.userVoted(user)) {
         	PackageSuite pkgSuite = packageService.getPackageSuite(packSuite);
@@ -109,15 +119,17 @@ public class PackagePollAction extends Action {
         	}
         	
     		request.setAttribute("pVoteSuites", pVoteSuites);
+
         	
             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
-            
+
             return mapping.findForward("results");        	
         } else {
             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             
             return mapping.findForward("view");        	
         }
-   }//execute()
+        //return mapping.findForward("results");
+    }//execute()
     
 } //class PackagePollAction

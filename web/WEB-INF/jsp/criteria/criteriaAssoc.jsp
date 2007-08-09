@@ -110,12 +110,12 @@
 						$("objDesc"+newCritId).focus();
 					}
 				}else{
-					$('allCriteriaList').innerHTML = "<b>Error in CriteriaAgent.getAllCriterion Method: </b>" + data.reason; 
+					$('allCriteriaList').innerHTML = "<b>Error in CriteriaAgent.getAllCriterionForMgr Method: </b>" + data.reason; 
 				}
 			Util.loading(false)
 			},
 			errorHandler:function(errorString, exception){ 
-			alert("CriteriaAgent.getAllCriterion( error:" + errorString + exception);
+			alert("CriteriaAgent.getAllCriterionForMgr( error:" + errorString + exception);
 			}
 		});
 	}

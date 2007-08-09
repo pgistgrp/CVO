@@ -12,7 +12,6 @@ import java.util.List;
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.CCTDAO;
 import org.pgist.cvo.CategoryReference;
-import org.pgist.cvo.Theme;
 import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
@@ -63,9 +62,9 @@ public class CriteriaServiceImpl implements CriteriaService {
     }//getCriterias()
     
     
-    public Criteria addCriterion(Boolean bool_themes, Boolean bool_objectives, String name, Set themes,  SortedSet objectives, String na) throws Exception {
+    public Criteria addCriterion(Boolean bool_infoObjects, Boolean bool_objectives, String name, Set infoObjects,  SortedSet objectives, String na) throws Exception {
     		
-    	return criteriaDAO.addCriterion(bool_themes, bool_objectives, name, themes, objectives, na);
+    	return criteriaDAO.addCriterion(bool_infoObjects, bool_objectives, name, infoObjects, objectives, na);
     }//addCriterion()
     
     
@@ -83,8 +82,8 @@ public class CriteriaServiceImpl implements CriteriaService {
     	return criteriaDAO.getContainsCriteria(critId, critSuiteId);
     }
     
-    public void editCriterion(boolean bool_name, boolean bool_themes, boolean bool_objectives, Criteria c, String name, Set themes, SortedSet objectives, String na) throws Exception {	
-    	criteriaDAO.editCriterion(bool_name, bool_themes, bool_objectives, c, name, themes, objectives, na);
+    public void editCriterion(boolean bool_name, boolean bool_infoObjects, boolean bool_objectives, Criteria c, String name, Set infoObjects, SortedSet objectives, String na) throws Exception {	
+    	criteriaDAO.editCriterion(bool_name, bool_infoObjects, bool_objectives, c, name, infoObjects, objectives, na);
     }//editCriterion()
     
     
@@ -107,7 +106,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     	return criteriaDAO.addObjective(critId, description);
     }//addCriterion()
     
-    
+    /*
     public List getThemes(Long cctId) throws Exception {
     	CCT cct = cctDAO.getCCTById(cctId);           
         Set refs = cct.getRootCategory().getChildren();          
@@ -121,11 +120,11 @@ public class CriteriaServiceImpl implements CriteriaService {
         }//for
         return themes;
     }//getThemes()
+    */
     
-    
-    public Set getThemeObjects(String[] themeIdList) throws Exception {
-        return criteriaDAO.getThemeObjects(themeIdList);
-    }//getThemesObjects()
+    public Set<InfoObject> getInfoObjects(String[] infoObjectsIdList)throws Exception {
+        return criteriaDAO.getInfoObjects(infoObjectsIdList);
+    }//getInfoObjects()
     
     
     public SortedSet getObjectiveObjects(String[] objectiveIdList) throws Exception {
@@ -236,11 +235,15 @@ public class CriteriaServiceImpl implements CriteriaService {
     }
     
     
-    public Collection getOrphanThemes(Long suiteId, Long cctId) throws Exception {
-    	Collection themes = getThemes(cctId);
+    public Collection getOrphanInfoObjects(Long suiteId, Long isid) throws Exception {
+    	Collection infoObjects = getInfoObjects(isid);
     	
-    	return criteriaDAO.getOrphanThemes(suiteId, themes);
+    	return criteriaDAO.getOrphanInfoObjects(suiteId, infoObjects);
     }
     
+    
+    public Set getInfoObjects(Long isid) throws Exception {
+    	return criteriaDAO.getInfoObjects(isid);
+    }
     
 }//class CriteriaServiceImpl
