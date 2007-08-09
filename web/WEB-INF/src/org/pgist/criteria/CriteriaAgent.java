@@ -283,7 +283,7 @@ public class CriteriaAgent {
      *   <ul>
      *     <li>critId - string, id of the criterion</li>
      *     <li>name - string, name of the criteia - Optional</li>
-     *     <li>infoObjectIds - string, name of the themeid's separated by commas - Optional</li>
+     *     <li>infoObjectIds - string, name of the infoObjectIds separated by commas - Optional</li>
      *     <li>objectiveIds - string, list of Object Id's - Optional</li>	
      *     <li>na - string, descript. - Optional</li>
      *   </ul>
@@ -302,7 +302,7 @@ public class CriteriaAgent {
         
         String strId = (String) params.get("critId");
         String name = (String) params.get("name");
-    	String infoObjectIds = (String) params.get("infoObjectId");
+    	String infoObjectIds = (String) params.get("infoObjectIds");
     	String objectiveIds = (String) params.get("objectiveIds");
     	String na = (String) params.get("na");
     	

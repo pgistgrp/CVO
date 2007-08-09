@@ -193,8 +193,8 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	Set<InfoObject> InfoObjects = new HashSet();  
     	
     	for(int i=0; i<infoObjectsIdList.length; i++){
-    		Long themeId = Long.parseLong(infoObjectsIdList[i]);
-    		InfoObjects.add((InfoObject)load(Theme.class, themeId));
+    		Long infoObjectId = Long.parseLong(infoObjectsIdList[i]);
+    		InfoObjects.add((InfoObject)load(InfoObject.class, infoObjectId));
     	} //for  	
     	
     	return InfoObjects;
