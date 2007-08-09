@@ -4,7 +4,7 @@
 
     <pmethods>
     
-        <pmethod name="pmethod-init.situation" description="Initialize Projects" access="moderator">
+        <pmethod name="pmethod-init.situation" description="Available steps are highlighted" access="moderator">
             <declaration>
                 <outs>
                     <var name="pmethod.cct_id"/>
