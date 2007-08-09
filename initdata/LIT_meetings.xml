@@ -58,7 +58,7 @@
             </sequence>
         </meeting>
         
-        <meeting name="meeting-cvo" description="Concern Value Object">
+        <meeting name="meeting-cvo" description="Step 1: Discuss Concerns">
             <declaration>
                 <ins>
                     <var name="meeting.cct_id"/>
@@ -81,7 +81,7 @@
             </sequence>
         </meeting>
         
-       <meeting name="meeting-criteria" description="Criteria and Objectives">
+       <meeting name="meeting-criteria" description="Step 2: Assess Factors">
             <declaration>
                 <ins>
                     <var name="meeting.cct_id"/>
@@ -108,7 +108,7 @@
             </sequence>
         </meeting>
         
-        <meeting name="meeting-create-package" description="Review Projects and Fundings">
+        <meeting name="meeting-create-package" description="Step 3: Create Packages">
             <declaration>
                 <ins>
                     <var name="meeting.cct_id"/>
@@ -137,7 +137,7 @@
             </sequence>
         </meeting>
         
-        <meeting name="meeting-packages" description="Review Packages">
+        <meeting name="meeting-packages" description="Step 4: Select a Package">
             <declaration>
                 <ins>
                     <var name="meeting.cct_id"/>
@@ -166,7 +166,7 @@
             </sequence>
         </meeting>
     
-        <meeting name="meeting-report" description="Reports">
+        <meeting name="meeting-report" description="Step 5: Prepare Group Report">
             <declaration>
                <ins>
                     <var name="meeting.cct_id"/>   
