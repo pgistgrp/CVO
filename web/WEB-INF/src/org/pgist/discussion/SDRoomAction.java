@@ -150,7 +150,6 @@ public class SDRoomAction extends Action {
         if(strThemeIsid!=null && !("".equals(strThemeIsid.trim()))) {
         	Long themeIsid = Long.parseLong(strThemeIsid);
         	request.setAttribute("themeIsid", themeIsid);
-        	System.out.println("*** ThemeIsid" + themeIsid);
         }
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
