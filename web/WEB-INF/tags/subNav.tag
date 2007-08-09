@@ -7,9 +7,11 @@
     <div id="headerTitle" class="floatLeft">
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <h3 class="headerColor floatLeft" style="margin-top:0px;">${current.title}</h3>
+      
+      <c:set var="meeting" value="${requestScope['org.pgist.wfengine.MEETING']}" />
+      <pg:narrow name="meeting" />
+      <h3 class="headerColor floatLeft" style="margin-top:0px;">${meeting.description}</h3>
     </div>
-
     <!-- HISTORIES -->
     <c:forEach var="history" items="${requestScope['org.pgist.wfengine.HISTORIES']}" varStatus="loop">
     <pg:narrow name="history"/>
