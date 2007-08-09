@@ -63,6 +63,7 @@ public class TravelTrip {
 	
 	/**
 	 * @hibernate.property type="org.postgis.hibernate.GeometryType"
+	 * @hibernate.column sql-type="geometry"
 	 */
 	public Geometry getRoute() {
 		return route;
