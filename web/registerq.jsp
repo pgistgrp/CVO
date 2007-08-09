@@ -195,23 +195,23 @@ function filterNum(str) {
 			What is your approximate annual household income?
 			<span id="annualIncome">
 			<select id="income" style="margin-left:1em;">
-				<option>$0 - $24,999</option>
-				<option>$25,000 - $49,999</option>
-				<option>$50,000 - $74,999</option>
-				<option>$75,000 - $99,999</option>
-				<option>$100,000 or more</option>
+				<option value="$0 - $24,999">$0 - $24,999</option>
+				<option value="$25,000 - $49,999">$25,000 - $49,999</option>
+				<option value="$50,000 - $74,999">$50,000 - $74,999</option>
+				<option value="$75,000 - $99,999">$75,000 - $99,999</option>
+				<option value="$100,000 or more">$100,000 or more</option>
 			</select>
 			</span>
 			 </div>
 		<div id="myHousehold">
 			How many people live in your household?
 			<span id="household"><select id="householdsize" style="margin-left:1em;">
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
-				<option>4</option>
-				<option>5</option>
-				<option>6 or more</option>				
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6 or more">6 or more</option>				
 			</select>
 			</span>
 			 </div>
