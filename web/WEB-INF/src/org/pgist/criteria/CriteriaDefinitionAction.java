@@ -54,13 +54,15 @@ public class CriteriaDefinitionAction extends Action {
             Long suiteId = Long.parseLong(strSuiteId);
             CriteriaSuite cs = criteriaService.getCriteriaSuiteById(suiteId);
             
+            Long cctId = Long.parseLong(strCctId);
             Long themeIsid = Long.parseLong(strThemeIsid);
             Set infoObjects = criteriaService.getInfoObjects(themeIsid);
             System.out.println("***ThemeIsid" + themeIsid);
-            
-            //request.setAttribute("cctId", cctId);
+           
             request.setAttribute("criteriasuite", cs);
             request.setAttribute("infoObjects", infoObjects);
+            request.setAttribute("cctId", cctId);
+            request.setAttribute("isid", themeIsid);
             System.out.println("***InfoObjects" + infoObjects);
             //request.setAttribute("criteria", criteria);
             

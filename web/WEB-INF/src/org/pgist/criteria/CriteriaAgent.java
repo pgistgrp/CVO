@@ -609,6 +609,7 @@ public class CriteriaAgent {
      * <ul>
      *     <li>critSuiteId - string, critSuiteId</li>
      *     <li>isid - string, isid</li>
+     *     <li>cctId - string, cctId</li>
      * </ul>
      * @return a Map contains:
      *   <ul>
@@ -631,6 +632,7 @@ public class CriteriaAgent {
        
         String strCritSuiteId = (String) params.get("critSuiteId");
         String strIsid = (String) params.get("isid");
+        String strCctId = (String) params.get("cctId");
         
         if(strIsid==null || "".equals(strIsid.trim())){
         	useIsid = false;
@@ -640,11 +642,15 @@ public class CriteriaAgent {
         	map.put("reason", "critSuiteId cannot be null.");
     		return map;	
     	}
-
+        if(strCctId==null || "".equals(strCctId.trim())){
+        	map.put("reason", "cctId cannot be null.");
+    		return map;	
+    	}
         
         try {
         	Collection infoObjects;
         	Long critSuiteId = Long.parseLong(strCritSuiteId);
+        	Long cctId = Long.parseLong(strCctId);
         	
         	Collection criteria = criteriaService.getAllCriterion(critSuiteId);
         	
@@ -656,8 +662,10 @@ public class CriteriaAgent {
         		request.setAttribute("isid", isid); 
         	} 
         	
+        	request.setAttribute("cctId", cctId); 
         	request.setAttribute("criteria", criteria); 
         	map.put("criteria", criteria);
+        	map.put("cctId", cctId);
         	map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/criteria/criteriaForMgr.jsp"));
         	map.put("successful", true);
         	
