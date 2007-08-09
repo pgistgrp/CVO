@@ -16,11 +16,6 @@
 		Author(s): 
 		     Front End: Jordan Isip, Adam Hindman
 		     Back End: John Le, Zhong Wang
-		Todo Items:
-			[x] Initial Skeleton Code (Jordan)
-			[x] Add JavaScript to get criteria (Jordan)
-			[x] Integrate Layout (Adam)
-			[ ] Need critSuiteId for getOrphanThemes (Zhong)
 	#### -->
 	<!-- begin "overview and instructions" area -->
 	<div id="overview" class="box2">
@@ -82,11 +77,10 @@
 		    </div>
 		    <div class="criteriaCol3 floatLeft">
 		      <!--themes-->
-		      <c:if test="${fn:length(infoObject.object.criterion.themes) == 0}"> None
-		        Selected </c:if>
-		      <c:forEach var="theme" items="${infoObject.object.criterion.themes}" varStatus="loop">
-		        ${theme.title}<br />
-		      </c:forEach>
+              <c:if test="${fn:length(infoObject.object.criterion.infoObjects) == 0}"> None Selected </c:if>
+              <c:forEach var="infoObject" items="${infoObject.object.criterion.infoObjects}" varStatus="loop">
+                ${infoObject.object}<br />
+              </c:forEach>
 		    </div>
 		    <div class="clearBoth"></div>
 		    <div class="objectives" id="criteriaEdit${infoObject.object.criterion.id}">
@@ -158,14 +152,14 @@
 	//io.loadDynamicFile('/dwr/interface/CriteriaAgent.js');
     
     
-    function getOrphanThemes(){
-		//alert("critSuiteId: " + io.critSuiteId + " cctId: " + cctId); 
-		CriteriaAgent.getOrphanThemes({critSuiteId:io.critSuiteId,cctId:io.cctId}, {
+    function getOrphanInfoObjects(){
+		//alert("critSuiteId: " + io.critSuiteId + " isid: " + io.sdcStructureId); 
+		CriteriaAgent.getOrphanInfoObjects({critSuiteId:io.critSuiteId,isid:io.sdcStructureId}, {
 			callback:function(data){
 				if (data.successful){
 				    var themes = [];
-					data.themes.each(function(t){   
-					    themes.push("<a href='sdRoom.do?"+io.wfInfo+"&isid=#&ioid=#'>"+t.title+"</a>");
+					data.infoObjects.each(function(infoObject){   
+					    themes.push("<a href='sdRoom.do?"+io.wfInfo+"&isid="+io.structureId+"&ioid="+infoObject.id+"'>"+ infoObject +"</a>");
 					})
 					$('orphanThemes').innerHTML = "Concern themes that the moderator has determined are unrelated to any of these planning factors include:"
 					 + themes.toString();
@@ -178,6 +172,6 @@
 			}
 		});
 	}
-	getOrphanThemes();
+	getOrphanInfoObjects();
 
 </pg:fragment>

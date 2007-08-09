@@ -60,6 +60,7 @@
 		
 		var io = new Object;
 		//Global Var Settings
+		io.sdcStructureId = "${themeIsid}";
 		io.structureId = "${structure.id}";
 		io.objectId = "${object.id}";
 		io.projSuiteId = "${projSuiteId}";

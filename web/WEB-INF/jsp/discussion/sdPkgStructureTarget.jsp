@@ -160,7 +160,7 @@
 			jsLinkElem.setAttribute('src', file);
 			jsLinkElem.setAttribute('type', 'text/javascript');
 			headElem.appendChild(jsLinkElem);
-		}
+		} 
 		
 	}
 	
