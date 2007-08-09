@@ -31,10 +31,10 @@
     </convert>
     
     <convert converter="bean" match="org.pgist.users.TravelMarker">
-        <param name="include" value="type, index, name, data1, data2, lat, lng"/>
+        <param name="include" value="id, type, index, name, data1, data2, lat, lng"/>
     </convert>
     <convert converter="bean" match="org.pgist.users.TravelTrip">
-        <param name="include" value="mode, frequency, markers, coords"/>
+        <param name="include" value="id, mode, frequency, markers, coords"/>
     </convert>
 
     <create creator="spring" javascript="SystemAgent">
