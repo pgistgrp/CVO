@@ -40,8 +40,10 @@ public class CreateVoteSuiteTask implements WorkflowTask {
         PackageVoteSuite suite1 = packageService.createPackageVoteSuite(pkgSuiteId, false);
         PackageVoteSuite suite2 = packageService.createPackageVoteSuite(pkgSuiteId, true);
         
-        inouts.setIntValue(OUT_SUITE_ID, suite2.getId().intValue());
+        inouts.setIntValue(OUT_SUITE_ID, suite1.getId().intValue());
         inouts.setIntValue(OUT_SUITE_ID_FINAL, suite2.getId().intValue());
+        
+        
     }//execute()
     
     

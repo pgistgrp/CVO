@@ -98,45 +98,7 @@
   </div>
 		<!-- end one voting box -->
 		<div class="clearBoth"></div>
-		<!--		
-		<h2 class="headerColor">Previous polls</h2>
-		<c:if test="${fn:length(pVoteSuites) == 0}">
-			<p>There have not been any previous polls.</p>
-		</c:if>
-
-
-		****${pVoteSuites}
-		<c:forEach var="suite" items="${pVoteSuites}" varStatus="loop">
-			<h3 class="headerColor">Package Poll Results --- workflow date ---</h3>
-			<c:set var="voters" value="${(fn:length(suite.userVotes) / fn:length(suite.stats))}" />
-			<p><fmt:formatNumber type="number">${voters}</fmt:formatNumber> participants voted in this
-				poll (<fmt:formatNumber type="percent">${voters / 20}</fmt:formatNumber> of all participants). Poll results are displayed below.</p>
-			<div class="voteBox box3 padding5" class="clearfix">
-				<div class="VoteListRow row odd">
-					<div class="voteCol1 floatLeft">&nbsp;</div>
-					<div class="voteCol2 floatLeft">I would <strong>enthusiastically endorse</strong> this
-						package</div>
-					<div class="voteCol3 floatLeft">I am <strong>willing to endorse</strong> this
-						package if it receives greatest participant support</div>
-					<div class="voteCol4 floatLeft">I would <strong>not endorse</strong> this package,
-						regardless of its support among other participants</div>
-					<div class="clearBoth"></div>
-				</div>
-
-				<c:forEach var="stat" items="${suite.stats}" varStatus="loop">
-					<div class="VoteListRow row ">
-						<div class="voteCol1 floatLeft">
-							<div class="floatLeft">${stat.clusteredPackage.description}</div>
-						</div>
-						<div class="voteCol2 floatLeft"><fmt:formatNumber type="percent">${stat.highVotePercent / stat.totalVotes}</fmt:formatNumber></div>
-						<div class="voteCol3 floatLeft"><fmt:formatNumber type="percent">${stat.mediumVotePercent / stat.totalVotes}</fmt:formatNumber></div>
-						<div class="voteCol4 floatLeft"><fmt:formatNumber type="percent">${stat.lowVotePercent / stat.totalVotes}</fmt:formatNumber></div>
-						<div class="clearBoth"></div>
-					</div>
-				</c:forEach>
-			</div>
-		</c:forEach>
-	-->
+	
 	</div>
 	<!-- end obj-left -->
 	<!-- begin firefox height hack -->

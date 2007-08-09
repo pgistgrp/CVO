@@ -101,6 +101,7 @@ public class PackagePollAction extends Action {
 		request.setAttribute("critSuiteId", critSuite); 
 		request.setAttribute("totalUsers", systemService.getAllUsers().size()); 
 
+		System.out.println("***vsuiteId Poll:" + vSuite.getId());
 		
         if(vSuite.userVoted(user)) {
         	PackageSuite pkgSuite = packageService.getPackageSuite(packSuite);

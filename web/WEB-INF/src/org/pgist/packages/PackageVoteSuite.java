@@ -141,6 +141,17 @@ public class PackageVoteSuite {
     public boolean userVoted(User user) {
         boolean voted = false;
         
+        Iterator itKeys = userVotes.keySet().iterator();
+        
+        while(itKeys.hasNext()) {
+        	PackageUserVote puv= userVotes.get(itKeys.next());
+        	if(puv.getVotes().keySet().contains(user)) {
+        		return true;
+        	}
+        }
+        return false;
+
+        /*
         Iterator<ClusteredPackage> iCPackage = pkgSuite.getClusteredPkgs().iterator();
         ClusteredPackage tempCPackage;
         PackageUserVote puv;
@@ -157,6 +168,7 @@ public class PackageVoteSuite {
             }
         }
         return true;
+        */
     }
     
     

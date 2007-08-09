@@ -128,7 +128,6 @@
         <url-pattern>/projectGrading.do</url-pattern>
         <url-pattern>/fundingManage.do</url-pattern>
         <url-pattern>/fundingDefine.do</url-pattern>
-        <url-pattern>/createPackage.do</url-pattern>
         <url-pattern>/editClusteredPackage.do</url-pattern>
         <url-pattern>/packageMgr.do</url-pattern>
         <url-pattern>/criteriaDefine.do</url-pattern>
@@ -152,7 +151,6 @@
         <url-pattern>/projectGrading.do</url-pattern>
         <url-pattern>/fundingManage.do</url-pattern>
         <url-pattern>/fundingDefine.do</url-pattern>
-        <url-pattern>/createPackage.do</url-pattern>
         <url-pattern>/editClusteredPackage.do</url-pattern>
         <url-pattern>/packageMgr.do</url-pattern>
         <url-pattern>/criteriaDefine.do</url-pattern>
@@ -207,7 +205,6 @@
         <url-pattern>/dwr/call/plaincall/FundingAgent.editFundingSource.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/FundingAgent.editFundingSourceAlt.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/FundingAgent.setFundingDef.dwr</url-pattern>
-        <url-pattern>/createPackage.do</url-pattern>
         <url-pattern>/editClusteredPackage.do</url-pattern>
         <url-pattern>/packageMgr.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/PackageAgent.createClusteredPackage.dwr</url-pattern>
