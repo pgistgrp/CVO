@@ -306,7 +306,7 @@ public class CriteriaAgent {
     	String infoObjectIds = (String) params.get("infoObjectIds");
     	String objectiveIds = (String) params.get("objectiveIds");
     	String na = (String) params.get("na");
-    	String strInfoObjects = (String) params.get("editInfoObjecsts");
+    	String strInfoObjects = (String) params.get("editInfoObjects");
     	
     	if(strId==null || "".equals(strId.trim())){
     		map.put("reason", "Criterion id cannot be empty.");
@@ -335,8 +335,12 @@ public class CriteriaAgent {
         	SortedSet objectives = new TreeSet();
         	
         	if(bool_infoObjects) {
-        		infoObjectList = infoObjectIds.split(",");
-        		infoObjects = criteriaService.getInfoObjects(infoObjectList);
+        		if("".equals(infoObjectIds.trim())) {
+	        		
+        		} else {
+        			infoObjectList = infoObjectIds.split(",");
+	        		infoObjects = criteriaService.getInfoObjects(infoObjectList);
+        		}
         	}
         	if(bool_objectives) {
 	        	objectiveIdList = objectiveIds.split(",");

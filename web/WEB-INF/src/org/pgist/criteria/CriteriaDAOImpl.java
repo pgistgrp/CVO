@@ -109,7 +109,9 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
     	if(bool_infoObjects) {
     		c.getInfoObjects().clear();
     		save(c);
-    		c.setInfoObjects(infoObjects);
+    		if(infoObjects.size() > 0) {
+    			c.setInfoObjects(infoObjects);
+    		}
     	}
     	if(bool_objectives) {
     		c.setObjectives(objectives);		

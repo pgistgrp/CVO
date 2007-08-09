@@ -83,7 +83,7 @@
 		themeIdsStr = themeIds.toString();
 
 		Util.loading(true,"Working");
-		CriteriaAgent.editCriterion({critId:critId,infoObjectIds:themeIdsStr,editInfoObjects:"true"}, {
+		CriteriaAgent.editCriterion({critId:critId,infoObjectIds:themeIdsStr,editInfoObjects:true}, {
 			callback:function(data){
 				if (data.successful){ 
 					//alert("Successful")
@@ -176,7 +176,7 @@
 		var name = $('criterionName'+ id).value;
 		//alert("id: " + id +" name: " + name + " description" + description + " objectives: " + objectivesArr);
 		Util.loading(true,"Working");
-		CriteriaAgent.editCriterion({critId:id,name:name, editInfoObjects:"false"}, {
+		CriteriaAgent.editCriterion({critId:id,name:name, editInfoObjects:false}, {
 			callback:function(data){
 				if (data.successful){
 					getCriteria();
