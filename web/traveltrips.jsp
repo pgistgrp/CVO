@@ -73,10 +73,12 @@
 				RegisterAgent.getUserTrips(5, function(data){
 					//data.trips is now an array of trips
 					if(data.successful){
-						alert("Total number of trips: " + data.trips.length);
 						if(data.trips.length>0)
 							testDrawTrip(data.trips[data.trips.length-1].coords, data.trips[data.trips.length-1].markers);
+						lastTripId = data.trips[data.trips.length-1].id;
+						alert("Total number of trips: " + data.trips.length + "; last tripid=" + lastTripId);
 					}
+					
 				});
 			}
 			
@@ -88,6 +90,19 @@
 				map.addOverlay( new GPolyline(points, "#0000FF", 6, 0.6) );
 				for(i=0; i<markers.length; i++){
 					map.addOverlay( new GMarker(new GLatLng(markers[i].lat, markers[i].lng)) );
+				}
+			}
+			
+			var lastTripId;
+			function testDelete(){
+				if(lastTripId){
+					RegisterAgent.removeTravelTrip(lastTripId, function(){
+						if(data.successful){
+							testLoad();
+						}else{
+							alert(data.reason);
+						}
+					});
 				}
 			}
 		</script>   
@@ -234,7 +249,7 @@
     								<!-- placeholder -->
 									</select>  
 								</div>
-								<input type="button" class="midsize_btns" value="Delete Trip" id="tripDeleteButton" onmouseover="this.className='btnhov_msb'" onmouseout="this.className='midsize_btns'" onClick="deleteSelectedTrip();" />&nbsp;<input type="button" class="huge_btns2" value="Save collection and EXIT" id="tripDeleteButton" onmouseover="this.className='btnhov_hb2'" onmouseout="this.className='huge_btns2'" onClick="saveTripsAndExit();" /> <input type="button" value="test save" onclick="testSave()"/><input type="button" value="test load" onclick="testLoad()"/>
+								<input type="button" class="midsize_btns" value="Delete Trip" id="tripDeleteButton" onmouseover="this.className='btnhov_msb'" onmouseout="this.className='midsize_btns'" onClick="deleteSelectedTrip();" />&nbsp;<input type="button" class="huge_btns2" value="Save collection and EXIT" id="tripDeleteButton" onmouseover="this.className='btnhov_hb2'" onmouseout="this.className='huge_btns2'" onClick="saveTripsAndExit();" /> <input type="button" value="test save" onclick="testSave()"/><input type="button" value="test load" onclick="testLoad()"/><input type="button" value="test delete" onclick="testDelete()"/>
 							</td>
 						</tr>
 					</table>	
