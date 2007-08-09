@@ -56,11 +56,12 @@ public class CriteriaDefinitionAction extends Action {
             
             Long themeIsid = Long.parseLong(strThemeIsid);
             Set infoObjects = criteriaService.getInfoObjects(themeIsid);
-            
+            System.out.println("***ThemeIsid" + themeIsid);
             
             //request.setAttribute("cctId", cctId);
             request.setAttribute("criteriasuite", cs);
             request.setAttribute("infoObjects", infoObjects);
+            System.out.println("***InfoObjects" + infoObjects);
             //request.setAttribute("criteria", criteria);
             
             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
