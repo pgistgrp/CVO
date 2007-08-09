@@ -200,10 +200,9 @@
 	io.loadDynamicFile('/styles/table.css');
 	io.loadDynamicFile('/dwr/interface/ProjectAgent.js');
 	
-	
-	
 	io.goToCalc = function(){
-		window.open("fundingCalc.do?&fundSuiteId="+io.fundSuiteId,'Tax Calculator','width=1000,height=600,resizable=yes,scrollbars=yes');
+		var fsUrl="fundingCalc.do?&fundSuiteId="+io.fundSuiteId;
+		window.open(fsUrl,'_blank','width=1000,height=600,resizable=yes,scrollbars=yes');
 	}
 	
 </pg:fragment>

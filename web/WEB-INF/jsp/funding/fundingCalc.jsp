@@ -111,10 +111,10 @@
 		}
 
 		function deleteVehicle(vehicleId){
-			userId = "${user.userId}"
+			//userId = "${user.userId}"
 			//alert("userId: " + userId + " vehicleId: " + vehicleId); 
 			Util.loading(true,"Deleting vehicle");
-			FundingAgent.deleteVehicle({userId:userId,vehicleId:vehicleId}, {
+			FundingAgent.deleteVehicle({vehicleId:vehicleId}, {
 				callback:function(data){
 					if (data.successful){
 						new Effect.DropOut('vehicle' + vehicleId)
