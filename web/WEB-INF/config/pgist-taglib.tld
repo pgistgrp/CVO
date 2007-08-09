@@ -59,9 +59,9 @@
   </function>
   
   <function>
-      <name>containsTheme</name>
+      <name>containsInfoObject</name>
       <function-class>org.pgist.tags.PgistELFunctions</function-class>
-      <function-signature>boolean containsTheme(org.pgist.criteria.Criteria, org.pgist.cvo.Theme)</function-signature>
+      <function-signature>boolean containsInfoObject(org.pgist.criteria.Criteria, org.pgist.discussion.InfoObject)</function-signature>
   </function>
   
   <tag>
