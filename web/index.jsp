@@ -42,8 +42,7 @@ body {
 	}
 	
 	h1 {
-		font-family:"Trebuchet MS",arial,verdana,sans-serif;
-		font-size:1.3em;
+		font-size:13pt;
 		color:#000;
 font-weight:normal;
 	}

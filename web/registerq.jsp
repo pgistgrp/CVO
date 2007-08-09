@@ -160,6 +160,12 @@ function selectToll(tollid) {
 	}
 }
 
+function filterNum(str) {
+	re = /[^0-9|\.]/g;
+	// remove everything but numbers
+	return str.replace(re, "");
+}
+
 </script>
 </head>
 <body>
