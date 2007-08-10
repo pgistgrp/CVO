@@ -82,8 +82,8 @@ var allNewConcernTags = new Array;
 		cct.currentPage = page; //set current page
 		cct.currentSort = sorting; 
 		
-	//	alert("cct: " + cct.cctId + " filter: " + filter + " count: " + cct.concernsPerPage + " page: " + page + " sorting: " + cct.currentSort + " type: " + type);
-		CCTAgent.getContextConcerns({cctId: cct.cctId,filter: filter, count: cct.concernsPerPage, page: page, sorting: cct.currentSort, type: type}, {
+	    //	alert("cct: " + cct.cctId + " filter: " + filter + " count: " + cct.concernsPerPage + " page: " + page + " sorting: " + cct.currentSort + " type: " + type);
+		CCTAgent.getContextConcerns({cctId: cct.cctId,filter: filter, count: cct.concernsPerPage, page: page, sorting: cct.currentSort, type: type},<pg:wfinfo/>, {
 			callback:function(data){
 					if (data.successful){
 						$(cct.divDiscussionCont).innerHTML = data.html;
