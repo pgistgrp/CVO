@@ -1046,6 +1046,13 @@ public class CCTAgent {
      *     </li>
      *   </ul>
      * 
+     * @param wfinfo A map contains:
+     *   <ul>
+     *   <li>workflowId - long</li>
+     *   <li>contextId - long</li>
+     *   <li>activityId - long</li>
+     * </ul>
+     * 
      * @return A map contains:
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -1062,13 +1069,15 @@ public class CCTAgent {
      *   </ul>
      * 
      */
-    public Map getContextConcerns(HttpServletRequest request, Map params) {
+    public Map getContextConcerns(HttpServletRequest request, Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
         CCT cct = null;
 
         try {
+            request.setAttribute("wfinfo", wfinfo);
+            
             Long cctId = new Long((String) params.get("cctId"));
             cct = cctService.getCCTById(cctId);
         } catch (Exception e) {
