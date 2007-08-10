@@ -159,7 +159,7 @@
 				if (data.successful){
 				    var themes = [];
 					data.infoObjects.each(function(infoObject){   
-					    themes.push("<a href='sdRoom.do?"+io.wfInfo+"&isid="+io.structureId+"&ioid="+infoObject.id+"'>"+ infoObject.object.id +"</a>");
+					    themes.push("<a href='sdRoom.do?"+io.wfInfo+"&isid="+io.structureId+"&ioid="+infoObject.id+"'>"+ infoObject.object.theme.title +"</a>");
 					})
 					$('orphanThemes').innerHTML = "Concern themes that the moderator has determined are unrelated to any of these planning factors include:"
 					 + themes.toString();
