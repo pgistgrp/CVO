@@ -519,9 +519,9 @@ public class FundingAgent {
             boolean toll = Boolean.parseBoolean((String) params.get("toll"));
             float peakHourTrips = 0;
             float offPeakTrips = 0;
-            if(toll) {
-                new Float((String) params.get("peakHourTrips"));
-                new Float((String) params.get("offPeakTrips"));            	
+            if (toll) {
+                peakHourTrips = Float.parseFloat((String) params.get("peakHourTrips"));
+                offPeakTrips = Float.parseFloat((String) params.get("offPeakTrips"));            	
             }
             
             fundingService.editFundingSourceAlt(id, name, revenue, taxRate, source, avgCost, toll, peakHourTrips, offPeakTrips);
