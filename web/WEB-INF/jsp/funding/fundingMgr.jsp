@@ -164,6 +164,7 @@
 			callback:function(data){
 				if(data.successful){
 					getFundingSources();
+					setTimeout(function() {new Effect.Highlight('source-'+ id, {duration:5});}, 200);
 				}else{
 					alert(data.reason);
 				}
@@ -233,8 +234,8 @@
 		avgCost = (alt.avgCost) ? alt.avgCost : "";
 		toll = (alt) ? alt.toll : "";
 		tollChecked = (toll == true) ? "CHECKED" : "";
-		peakHourTripsRate = (alt.peakHourTripsRate) ? alt.peakHourTripsRate : "";
-		offPeakTripsRate = (alt.offPeakTripsRate) ? alt.offPeakTripsRate : "";
+		peakHourTripsRate = (alt) ? alt.peakHourTripsRate : "";
+		offPeakTripsRate = (alt) ? alt.offPeakTripsRate : "";
 
 		
 		f = '<h4>Editing Funding Source Alternative</h4>\
@@ -256,8 +257,8 @@
 			<div style="clear:both">\
 			</div>\
 			<label>Is this a toll? </label>\
-			<input id="ckbxToll'+ altId +'" type="checkbox" onClick="Element.toggle(\'ifTolls\')" value="'+ toll +'" '+tollChecked+'><br />\
-			<div id="ifTolls" style="display:none;">\
+			<input id="ckbxToll'+ altId +'" type="checkbox" onClick="Element.toggle(\'ifTolls'+ altId +'\')" value="'+ toll +'" '+tollChecked+'><br />\
+			<div id="ifTolls'+altId+'" style="display:none;">\
 				<div><p style="float:left;margin-right:50px;"><label>Peak Rate</label><br />\
 				$ <input id="txtAltPeakHourTripsRate'+ altId +'" type="text" value="'+ peakHourTripsRate +'" size="5"></p>\
 				<p style="float:left"><label>Off Peak Rate</label><br />\
@@ -269,7 +270,7 @@
 		
 
 		$("frmSourceAlt"+altId).innerHTML = f;
-		(tollChecked) ? Element.toggle('ifTolls') : ""
+		(tollChecked) ? Element.toggle('ifTolls'+altId) : "";
 	}
 	
 	function createSourceAlt(id){
@@ -337,12 +338,13 @@
 		offPeakTripsRate = $F('txtAltOffPeakTripsRate' + id);
 		tollFormatted = toll.toString();
 		
-		//alert("id: " + id + " name: " + name + " revenue: " + revenue + " taxRate: " + taxRate + " source: " + sourceURL + " avgCost: " + avgCost + " toll: " + tollFormatted + " peakHourTrips: " + peakHourTripsRate + " offPeakTrips: " + offPeakTripsRate)
+		alert("id: " + id + " name: " + name + " revenue: " + revenue + " taxRate: " + taxRate + " source: " + sourceURL + " avgCost: " + avgCost + " toll: " + tollFormatted + " peakHourTrips: " + peakHourTripsRate + " offPeakTrips: " + offPeakTripsRate)
 		Util.loading(true,"Working");
 		FundingAgent.editFundingSourceAlt({id:id,name:name,revenue:revenue,taxRate:taxRate,source:sourceURL,avgCost:avgCost,toll:tollFormatted,peakHourTrips:peakHourTripsRate,offPeakTrips:offPeakTripsRate}, {
 			callback:function(data){
 				if(data.successful){
 					getFundingSources();
+					setTimeout(function() {new Effect.Highlight('alt-'+ id, {duration:5});}, 200);
 				}else{
 					alert(data.reason);
 				}
