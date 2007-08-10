@@ -221,10 +221,7 @@
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.saveTerm.dwr</url-pattern>
         <url-pattern>/criteriaMgr.do</url-pattern>
         <url-pattern>/criteriaDefine.do</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CriteriaAgent.getAllCriterion.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CriteriaAgent.getAddCriterion.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/CriteriaAgent.getEditCriterion.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CriteriaAgent.getAllCriterionForMgr.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/CriteriaAgent.addObjective.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/CriteriaAgent.editObjective.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/CriteriaAgent.deleteCriterion.dwr</url-pattern>
