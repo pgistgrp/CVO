@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <html:html>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
@@ -88,7 +89,7 @@
 						
 		//alert("concernId: " + concernId + " title: " + title + " content: " + content + " tags: " + tags); 
 
-		CCTAgent.createComment({concernId: concernId, title: title, content: content, tags: tags},{
+		CCTAgent.createComment({concernId: concernId, title: title, content: content, tags: tags},<pg:wfinfo/>,{
 			callback:function(data){
 				if (data.successful){
 					getComments(1, true);
@@ -182,45 +183,30 @@
 	*/
 	function deleteComment(id){
 		//alert("isid: " + sd.isid + " ioid: " + sd.ioid + " tags: " + tags + " page: " + page + " count: " + sd.concernCount); 
-		CCTAgent.deleteComment({commentId: id}, {
-			callback:function(data){
-				if (data.successful){
-					new Effect.Puff("comment" + id, {afterFinish: function(){getComments(currentPage, false);}});
-				}else{
-					alert(data.reason);
-				}
-			},
-			errorHandler:function(errorString, exception){ 
-			alert("CCTAgent.deleteComment( error:" + errorString + exception);
-			}
-		});
+		var destroy = confirm ("Are you sure you want to delete this comment? Note: there is no undo.")
+		if(destroy){
+		    CCTAgent.deleteComment({commentId: id}, {
+    		callback:function(data){
+    				if (data.successful){
+    					new Effect.Puff("comment" + id, {afterFinish: function(){getComments(currentPage, false);}});
+    				}else{
+    					alert(data.reason);
+    				}
+    			},
+    			errorHandler:function(errorString, exception){ 
+    			alert("CCTAgent.deleteComment( error:" + errorString + exception);
+    			}
+    		});
+	    }
 	}
 
 </script>
 <event:pageunload />
 </head><body>
-<!-- Begin the header - loaded from a separate file -->
-<div id="header">
-  <!-- Begin header -->
-  <jsp:include page="/header.jsp" />
-  <!-- End header -->
-</div>
-<!-- End header -->
-
-  <!-- Begin header menu - The wide ribbon underneath the logo -->
-  <div id="headerMenu">
-    <div id="headerContainer">
-      <div id="headerTitle" class="floatLeft">
-        <h3 class="headerColor">Step 1: Discuss Concerns</h3>
-      </div>
-    <div class="headerButton box4 floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
-    <div class="headerButtonCurrent floatLeft"><a href="http://128.95.212.210:8080/sd.do?isid=7362">1b: Review Summaries</A></div>
-      <div id="headerNext" class="box5 floatRight"><a href="http://128.95.212.210:8080/sd.do?isid=7362">Next Step</A></div>
-    </div>
-  </div>
-  <!-- End header menu -->
-
-
+    <!-- Start Global Headers  -->
+    <wf:nav />
+    <wf:subNav />
+    <!-- End Global Headers -->
 <div style="display: none;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 <div id="container">
 
@@ -238,20 +224,9 @@
 		getComments(currentPage, false);
 	</script>
 </div><!-- end container -->
-<!-- start the bottom header menu -->
-  <!-- Begin header menu - The wide ribbon underneath the logo -->
-  <div id="headerMenu">
-    <div id="headerContainer">
-      <div id="headerTitle" class="floatLeft">
-        <h3 class="headerColor">Step 1: Discuss Concerns</h3>
-      </div>
-    <div class="headerButton box4 floatLeft currentBox"><a href="cctlist.do">1a: Brainstorm</a></div>
-    <div class="headerButtonCurrent floatLeft"><a href="http://128.95.212.210:8080/sd.do?isid=7362">1b: Review Summaries</A></div>
-      <div id="headerNext" class="box5 floatRight"><a href="http://128.95.212.210:8080/sd.do?isid=7362">Next Step</A></div>
-    </div>
-  </div>
-  <!-- End header menu -->
-<!-- end the bottom header menu -->
+<!-- Start Global Headers  -->
+<wf:subNav />
+<!-- End Global Headers -->
 <!-- Begin footer -->
 <div id="footer">
   <jsp:include page="/footer.jsp" />

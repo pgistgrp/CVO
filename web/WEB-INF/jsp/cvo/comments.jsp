@@ -7,7 +7,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html:html>
 <!-- Begin Breadcrumbs -->
-<div id="breadCrumbs" class="clearBoth"> <a href="cctview.do?cctId=${cct.id}">Step 1a: Brainstorm</a> &rarr; Comments about a concern</div>
+<div id="breadCrumbs" class="clearBoth"> 
+    <pg:url page="/cctview.do" params="cctId=${cct.id}">Step 1a: Brainstorm</pg:url> &rarr; Comments about a concern
+</div>
 <!-- End Breadcrumbs -->
 
 
@@ -69,9 +71,10 @@
       <!-- end tag iteration -->
     </div>
     <!--end discussionTagsList -->
-    <!--<c:if test="${baseuser.id == concern.author.id}">
+
+    <c:if test="${baseuser.id == concern.author.id}">
         <div class="box6"> <strong>Author Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});">Edit Concern</a> &nbsp; <a href="javascript:editTagsPopup(${concern.id});">Edit Tags</a> &nbsp; <a href="javascript:deleteConcern(${concern.id});">Delete Concern</a></div>
-      </c:if>-->
+    </c:if>
   </div>
   <!-- end discussion body -->
 </div>
