@@ -1,3 +1,4 @@
+#yourSummaryRepeat {padding:5px}
 #themap {background:#C5D78B;}
 .summary
 {
@@ -27,8 +28,9 @@ border-bottom-color:#FFE3B9;
 
 /* .balance and .exceed are classes for the revenue summary.
    Balance is green and exceed is red. */
-	
-.balance, .exceed {padding:5px;text-align:center;margin:5px;}
+
+#balance h3{float:left;}	
+.balance, .exceed {padding:5px;}
 
 .balance 
 {
