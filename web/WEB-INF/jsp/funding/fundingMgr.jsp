@@ -247,7 +247,7 @@
 			<p style="float:left;margin-right:20px;"><label>Revenue (<em>ex. 45000000</em>)</label><br />\
 			$ <input id="txtAltRevenue'+ altId +'" type="text" value="'+ revenue +'" style="width:150px;"></p>\
 			<p style="float:left;"><label>Tax Rate</label><br />\
-			<input id="txtAltTaxRate'+ altId +'" type="text" value="'+ taxRate +'" style="width:110px;"> %</p><br />\
+			<input id="txtAltTaxRate'+ altId +'" type="text" value="'+ taxRate +'" style="width:110px;"></p><br />\
 			<div style="clear:both">\
 			</div>\
 			<p style="float:left;margin-right:20px;"><label>Source URL</label><br />\
