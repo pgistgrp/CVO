@@ -99,43 +99,9 @@ public class SystemInit extends MatchingTask {
         LocalSessionFactoryBean slfb = (LocalSessionFactoryBean) appContext.getBean("&sessionFactory");
         
         if ("createdb".equalsIgnoreCase(action)) {
-            
-            SAXReader reader = new SAXReader();
-            Document document = reader.read(new File(dataPath, "schema.sql.xml"));
-            Element root = document.getRootElement();
-            
-            List<SchemaManager> managers = new ArrayList<SchemaManager>();
-            
-            List scripts = root.elements("script");
-            for (int i=0; i<scripts.size(); i++) {
-                Element element = (Element) scripts.get(i);
-                
-                String file = element.elementTextTrim("file");
-                
-                SchemaManager manager = null;
-                
-                manager = new SchemaManager();
-                
-                manager.setFile(new File(dataPath, file));
-                
-                managers.add(manager);
-            }//for i
-            
             Connection connection = session.connection();
-            
-            //drop additional schemas
-            for (int i=0; i<managers.size(); i++) {
-                managers.get(i).executeDrop(connection);
-            }
-            
             slfb.dropDatabaseSchema();
             slfb.createDatabaseSchema();
-            
-            //create additional schemas
-            for (int i=0; i<managers.size(); i++) {
-                managers.get(i).executeCreate(connection);
-            }
-            
         } else if ("restoredb".equalsIgnoreCase(action)) {
             slfb.dropDatabaseSchema();
             slfb.createDatabaseSchema();
