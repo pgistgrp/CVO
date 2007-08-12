@@ -38,7 +38,8 @@
         </property>
         <property name="mappingResources">
            <list>
-	       <value>org/pgist/report/ReportVote.hbm.xml</value>
+               <!-- POJO schema information -->
+               <value>org/pgist/report/ReportVote.hbm.xml</value>
                <value>org/pgist/report/ReportStats.hbm.xml</value>
                <value>org/pgist/report/ReportSuite.hbm.xml</value>
                <value>org/pgist/report/ReportSummary.hbm.xml</value>
@@ -114,6 +115,9 @@
                <value>org/pgist/packages/VoteSuiteStat.hbm.xml</value>
                <value>org/pgist/users/TravelMarker.hbm.xml</value>
                <value>org/pgist/users/TravelTrip.hbm.xml</value>
+               <!-- Other schema information -->
+               <value>org/pgist/PgistOtherSchema.hbm.xml</value>
+               <value>org/pgist/PgistGISSchema.hbm.xml</value>
            </list>
         </property>
         <property name="hibernateProperties">
