@@ -41,12 +41,12 @@
 				<table>
 					<tr>
 						<td><h3>Total cost</h3></td>
-						<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalCost}" /> million
+						<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalCost/1000000}" /> million
 							</td>
 					</tr>
 					<tr>
 						<td><h3>Total funding</h3></td>
-						<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalFunding}" /> million</td>
+						<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalFunding/1000000}" /> million</td>
 					</tr>
 					<c:if test="${userPkg != null}">
 						<tr>
@@ -109,7 +109,7 @@
 											<c:forEach var="alt" items="${source.fundingSourceAlternatives}" varStatus="loop">
 												<tr>
 													<td class="col1">${alt.name}</td>
-													<td class="col2">$<fmt:formatNumber maxFractionDigits="0" value="${alt.estCost}" /> million</td>
+													<td class="col2">$<fmt:formatNumber maxFractionDigits="0" value="${alt.estCost/1000000}" /> million</td>
 													<td class="col3"><fmt:formatNumber type="currency" value="${alt.avgCost}"/></td>
 													<td class="col4"><fmt:formatNumber type="currency" value="${alt.yourCost}"/></td>
 												</tr>
@@ -155,7 +155,7 @@
 											<tr class="option">
 												<td class="col1">${alt.name}</td>
 												<td class="col2">
-													$<fmt:formatNumber maxFractionDigits="0" value="${alt.moneyNeeded}" /> million</td>
+													$<fmt:formatNumber maxFractionDigits="0" value="${alt.moneyNeeded/1000000}" /> million</td>
 												<td class="col3 grade${pg:gradeSwitch(alt.projGrade)}">${alt.projGrade}</td>
 												<td class="col4 grade${pg:gradeSwitch(alt.yourGrade)}">${alt.yourGrade}</td>
 												<td class="col5 grade${pg:gradeSwitch(alt.avgGrade)}">${alt.avgGrade}</td>
@@ -189,7 +189,7 @@
 										<c:forEach var="alt" items="${project.projectAlternatives}" varStatus="loop">
 											<tr class="option">
 												<td class="col1">${alt.name}</td>
-												<td class="col2"><fmt:formatNumber type="currency" value="${alt.moneyNeeded}"/> million</td>
+												<td class="col2"><fmt:formatNumber type="currency" value="${alt.moneyNeeded/1000000}"/> million</td>
 												<td class="col3 grade${pg:gradeSwitch(alt.projGrade)}">${alt.projGrade}</td>
 												<td class="col4 grade${pg:gradeSwitch(alt.yourGrade)}">${alt.yourGrade}</td>
 												<td class="col5 grade${pg:gradeSwitch(alt.avgGrade)}">${alt.avgGrade}</td>

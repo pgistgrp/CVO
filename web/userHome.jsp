@@ -42,7 +42,7 @@
 		
 		if(!wfId){location.href="main.do"}
 		function getAnnouncements(){
-			Util.loading(true, "Loading Annoucements");
+			Util.loading(true, "Loading Announcements");
 			SystemAgent.getAnnouncements({workflowId:wfId}, {
 				callback:function(data){
 					if (data.successful){
@@ -65,7 +65,7 @@
 			} else {
 				email = email.toString();
 			}
-			Util.loading(true, "Saving Annoucement");
+			Util.loading(true, "Saving Announcement");
 			var message = tinyMCE.getContent();
 			SystemAgent.addAnnouncement({workflowId:wfId,message:message,email:email}, {
 				callback:function(data){
@@ -81,15 +81,15 @@
 				}
 			});
 		}
-		
+	
 		function deleteAnnouncement(id){
-			Util.loading(true, "Deleting Annoucement");
+			Util.loading(true, "Deleting Announcement");
 			SystemAgent.deleteAnnouncement({id:id}, {
 				callback:function(data){
 					if (data.successful){
 						new Effect.DropOut('announcement' + id)
-					}else{
 						alert(data.reason);
+					}else{
 					}
 					Util.loading(false);
 				},
@@ -122,7 +122,7 @@
 		}
 		
 		function editAnnouncement(id){
-			Util.loading(true, "Saving Annoucement");
+			Util.loading(true, "Saving Announcement");
 			var message="default text";
 			var message = tinyMCE.getContent();
 			SystemAgent.editAnnouncement({id:id, message:message}, {
@@ -155,7 +155,7 @@
    		var editor = tinyMCE.selectedInstance.editorId;
       tinyMCE.execCommand('mceFocus', false, editor);
    }
-   
+
 		tinyMCE.init({
 		theme : "advanced",
 		theme_advanced_buttons1 : "bold, italic, bullist, numlist,undo, redo,link",
@@ -170,7 +170,6 @@
 		});
 	
 	//tinyMCE.execCommand('mceFocus',false,'content');
-	
 	</script>
 	<event:pageunload />
 	</head>

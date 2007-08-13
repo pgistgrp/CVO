@@ -41,8 +41,8 @@
 /* summary */
 .summary{width:410px;}
 .summary table {width:100%}
-.summary table td {font-size:.9em;}
-.summary table td + td {text-align:right;font-size:.9em;}
+.summary table td {font-size:10pt;}
+.summary table td + td {text-align:right;font-size:10pt;}
 
 /* .balance and .exceed are classes for the revenue summary.
    Balance is green and exceed is red. */
