@@ -77,6 +77,10 @@
 
         <action path="/publicprofile" scope="request" type="org.pgist.system.UserProfileAction" />
 
+	<action path="/travelPath" scope="request" type="org.pgist.cvo.TravelPathAction">
+            <forward name="travelPath" path="/traveltrips.jsp" />
+        </action>
+	
         <action name="reportForm" path="/reportsummary" scope="request" type="org.pgist.report.ReportSummaryAction">
             <forward name="reportsummary" path="/WEB-INF/jsp/report/reportsummary.jsp" />
         </action>

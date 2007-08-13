@@ -49,7 +49,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		map.put("percentMale", percentMale);
 		map.put("percentFemale", percentFemale);
 		
-		List transList = getHibernateTemplate().find(hql_getUserStatistics2, new Object[] {new Boolean(true),});
+		//List transList = getHibernateTemplate().find(hql_getUserStatistics2, new Object[] {new Boolean(true),});
 		
 		return map; 
 	}
@@ -59,9 +59,6 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		CCT cct = (CCT)load(CCT.class, cctId);
 		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
 		ReportStats rs = new ReportStats();
-		if(rs==null) {
-			rs = new ReportStats();
-		}
 		
 		//Variables to store stats
 		Set<User> users = new HashSet();
@@ -74,6 +71,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		Set<String> transTypes = new HashSet<String>();
 		
 		Set<Concern> concerns = cct.getConcerns();
+		System.out.println("*** Concerns" + concerns.size());
 		for(Concern c : concerns) {
 			User u = c.getAuthor();
 			
@@ -130,34 +128,30 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		
 		//calculate stats
 		int totalUsers = male + female;
+
 		if(totalUsers>0) {
-			int percentMale = (male/totalUsers)  * 100;
-			int percentFemale = (female/totalUsers)  * 100;
 		
 			//convert numbers into percents
 			Set<County> countyKeys = countySet.keySet();
 			for(County c : countyKeys) {
 				int num = countySet.get(c);
-				int percent = (num/totalUsers) * 100;
-				countySet.put(c, percent);
+				countySet.put(c, num);
 			}
 			
 			Set<String> incomeKeys = incomeSet.keySet();
 			for(String i : incomeKeys) {
 				int num = incomeSet.get(i);
-				int percent = (num/totalUsers) * 100;
-				incomeSet.put(i, percent);
+				incomeSet.put(i, num);
 			}
 			
 			Set<String> transportKeys = transportSet.keySet();
 			for(String t : transportKeys) {
 				int num = transportSet.get(t);
-				int percent = (num/totalUsers)  * 100;
-				transportSet.put(t, percent);
+				transportSet.put(t, num);
 			}
 			// save stats to reportStats
-			rs.setFemales(percentFemale);
-			rs.setMales(percentMale);
+			rs.setFemales(female);
+			rs.setMales(male);
 		}
 		//save stats to reportStats
 		rs.setCountyStats(countySet);
@@ -166,10 +160,8 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		rs.setIncomeRanges(incomeRanges);
 		rs.setTransTypes(transTypes);
 		//Complete: Add counties, incomeranges, transporttypes
-		Collection<County> counties = systemService.getAllCounties();
-		Set<County> sc = new HashSet<County>();
-		sc.addAll(counties);
-		rs.setCounties(sc);
+		
+		rs.setCounties(countySet.keySet());
 		
 		rs.setUsers(users);
 		rs.setTotalUsers(totalUsers);
@@ -330,65 +322,27 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		save(repoSuite);
 	}
 	
-	
+	private static final String hql_createStatsES = "from User u order by u.id";
+		
 	public void createStatsES(Long workflowId, Long repoSuiteId, Long packSuiteId) throws Exception {
 		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
 		ReportStats rs = new ReportStats();
-		
-		ReportStats report1 = repoSuite.getStatsPart1();
-		ReportStats report4 = repoSuite.getStatsPart4();
-		
-		HashSet allUsers = new HashSet();
-		Set<User> users1 = report1.getUsers();
-		Set<User> users2 = report4.getUsers();
-		allUsers.addAll(users1);
-		allUsers.addAll(users2);
-		
-		int allUserNum = allUsers.size();
-		
-		
-		rs.setTotalUsers(allUserNum);
+				
+		//Find the number of users in the entire system - admin and moderators currently count
+		List userlist = getHibernateTemplate().find(hql_createStatsES);		
+		rs.setTotalUsers(userlist.size());
 		
 		PackageSuite ps = (PackageSuite) load(PackageSuite.class, packSuiteId);
-		Set pkgVoteSuites = ps.getVoteSuites();
 		
-		//test code
-		System.out.println("Step5: # of PackageVoteSuites: " + pkgVoteSuites.size());
+		VoteSuiteStat vss = ps.getPrefPkgVoteSuiteStat();
+		ClusteredPackage preferredPackage = vss.getClusteredPackage();	
 		
-		Iterator it = pkgVoteSuites.iterator();
+		int numEndorsed = vss.getHighVotes() + vss.getMediumVotes();
+		int totalVotes = vss.getTotalVotes();
 		
-		PackageVoteSuite pvs = (PackageVoteSuite) it.next();
-		
-		Set voteStats = pvs.getStats();
-		System.out.println("Step5: # of voteStats: " + voteStats.size());
-		
-		int high = -1;
-		int percentHighVote = -1;
-		int totalVotes = -1;
-		ClusteredPackage preferredPackage = null;
-		
-		
-		Iterator itVotes = voteStats.iterator();
-		while(itVotes.hasNext()) {
-			VoteSuiteStat vss = (VoteSuiteStat) itVotes.next(); //Error Here
-			int pHigh = vss.getHighVotes();
-			int pMid = vss.getMediumVotes();
-			System.out.println("High: " + pHigh);
-			System.out.println("Mid: " + pMid);
-			int composite = pHigh + pMid;
-			
-			
-			if(composite > high) {
-				preferredPackage = vss.getClusteredPackage();
-				high = composite;
-				percentHighVote = pHigh;
-				totalVotes = vss.getTotalVotes();
-			}
-		}
-
-		
+		// Format cost to 2 thousand vs 2000
 		String strTotalCost = "";
-		int totalCost = (int) preferredPackage.getTotalCost(); 
+		int totalCost = (int) preferredPackage.getTotalCost();
 		if(totalCost >=1000000000) {
 			totalCost = totalCost/1000000000;
 			strTotalCost = totalCost + " billion";
@@ -402,12 +356,6 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 			strTotalCost = totalCost + "";
 		}
 		
-		float percentEndorsed = high - 100;
-		float floatEndorsed = totalVotes * percentEndorsed;
-		int numEndorsed = (int) floatEndorsed;
-		System.out.println("Step5: # of Votes: " + totalVotes);
-		System.out.println("Step5: # of Endorsed: " + numEndorsed);
-		System.out.println("Step5: percent endorsed: " + percentEndorsed);
 		//save
 		rs.setTotalVotes(totalVotes);
 		rs.setNumEndorsed(numEndorsed);
@@ -419,30 +367,6 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		save(repoSuite);
 	}
 	
-	
-	public ClusteredPackage getPreferredClusteredPackage(Long pkgSuiteId) throws Exception {
-		PackageSuite ps = (PackageSuite) load(PackageSuite.class, pkgSuiteId);
-		Set<PackageVoteSuite> voteSuites = ps.getVoteSuites();
-		
-		int highGrade = -100;
-		VoteSuiteStat bestVSS = new VoteSuiteStat(); 
-		
-		for(PackageVoteSuite pvs : voteSuites) {
-			Set<VoteSuiteStat> votes = pvs.getStats();
-			
-			for(VoteSuiteStat vss : votes) {
-				int high = vss.getHighVotes();
-				int low = vss.getLowVotes();
-				int grade = high - low;
-				
-				if(highGrade < grade) {
-					highGrade = grade;
-					bestVSS = vss;
-				}
-			}
-		}
-		return bestVSS.getClusteredPackage();
-	}
 	
 	
 	public Collection getVoteSuiteStats(Long pkgSuiteId) throws Exception {

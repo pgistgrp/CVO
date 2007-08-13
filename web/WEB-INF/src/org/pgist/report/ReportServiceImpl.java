@@ -39,11 +39,6 @@ public class ReportServiceImpl implements ReportService{
 	}
 	
 	
-	public ClusteredPackage getPreferredClusteredPackage(Long pkgSuiteId) throws Exception {
-		return reportDAO.getPreferredClusteredPackage(pkgSuiteId);
-	}
-	
-	
 	public Collection getVoteSuiteStats(Long pkgSuiteId) throws Exception {
 		return reportDAO.getVoteSuiteStats(pkgSuiteId);
 	}

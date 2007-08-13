@@ -133,16 +133,57 @@ function pollresults() {
 	<div id="executiveSummary" class="box3 padding5 section peekaboobugfix">
 		<h3 class="headingColor padding5 centerAlign">Executive Summary</h3>
 		<p>
-This report describes the results of the Let’s Improve Transportation Challenge, an online experiment in participatory democracy facilitated by researchers at the University of Washington. ${statsES.totalUsers} residents of King, Pierce, and Snohomish county worked together over the course of four weeks to learn about transportation problems, discuss their concerns, and collectively recommend a package of improvement projects and funding sources to address regional transportation needs. On ${finalReportDate} they released the results of their efforts. 
+This report describes the results of the <em>Let's Improve Transportation Challenge</em>, an online experiment in participatory democracy facilitated by researchers at the University of Washington. ${statsES.totalUsers} residents 
 
-The recommended package contains ${statsES.totalProjects} road and transit projects across the three-county region. It is funded by a combination of bridge tolls, parking taxes, and vehicle excise fees. The total cost of the package is $${statsES.strTotalCost}. The package was endorsed by 81% of the participants (${statsES.numEndorsed} our of ${statsES.totalVotes} participating).		</p>
+
+<c:choose>
+	<c:when test="${fn:length(counties) == 0}">
+		
+	</c:when>
+	<c:otherwise>
+	of 
+	<c:set var="size" value="${fn:length(counties)}" />
+
+	<c:forEach var="i" begin="0" end="${size-2}" step="1" varStatus ="status">
+		${counties[i].name},
+	</c:forEach>
+	and ${counties[size-1].name} county 	
+	</c:otherwise>
+</c:choose>
+
+
+ worked together over the course of four weeks to learn about transportation problems, discuss their concerns, and collectively recommend a package of improvement projects and funding sources to address regional transportation needs. On ${finalReportDate} they released the results of their efforts. 
+
+The recommended package contains ${statsES.totalProjects} road and transit projects across the three-county region. 
+<c:choose>
+	<c:when test="${statsES.totalCost == null}">
+		*** Error Total Cost for project was null ***
+	</c:when>
+	<c:otherwise>
+It is funded by a combination of bridge tolls, parking taxes, and vehicle excise fees. The total cost of the package is $${statsES.totalCost}. 	
+	</c:otherwise>
+</c:choose>
+
+<c:set var="numEndorsed" value="${statsES.numEndorsed}" />
+<c:set var="totalVotes" value="${statsES.totalVotes}" />
+<c:choose>
+	<c:when test="${totalVotes == 0}">
+		*** Error no users voted on this package ***
+	</c:when>
+	<c:otherwise>
+	The package was endorsed by 
+	<fmt:formatNumber type="percent">${numEndorsed / totalVotes}</fmt:formatNumber>
+	of the participants (${numEndorsed} our of ${totalVotes} participating).		
+	</c:otherwise>
+</c:choose>
+</p>
 		<p>${executiveSummary}</p>
 		<div class="floatLeft" style="margin:0em 2em"><strong>This report includes 4 sections:</strong>
 			<ol>
 				<li><a href="#participants">The participants and their concerns about transportation</a></li>
-				<li><a href="#planningFactors">ìPlanning factorsî used in project evaluation</a></li>
-				<li><a href="#projects">Project selection and personal package creation</a></li>
-				<li><a href="#packages">Evaluation of packages</a></li>
+				<li><a href="#planningFactors">Improvement factors used in project evaluation</a></li>
+				<li><a href="#projects">Individual project review and  package creation</a></li>
+				<li><a href="#packages">The participant's recommended transportation package </a></li>
 			</ol>
 		</div>
 		<div class="floatLeft" style="margin-right:1em"> <strong>Report appendices</strong><p>
@@ -157,12 +198,45 @@ The recommended package contains ${statsES.totalProjects} road and transit proje
 		<h3 class="headingColor padding5 centerAlign">1. The participants and their concerns
 			about transportation</h3>
 		<p>
-		${statsPart1.totalUsers} residents of King, Pierce, and Snohomish counties contributed their ideas and concerns in the LIT Challenge. Here is some demographic information about these contributors.		</p>
-		
+		${statsPart1.totalUsers} residents
+		<c:choose>
+			<c:when test="${fn:length(statsPart1.counties) == 0}">
+				
+			</c:when>
+			<c:otherwise>
+			of 
+			<c:set var="stats1size" value="${fn:length(statsPart1.counties)}" />
+			<c:set var="temp" value="0" />
+				<c:forEach var="county" items="${statsPart1.counties}" varStatus="loop">
+					<c:set var="temp" value="${temp+1}"/>
+					<c:choose>
+						<c:when test="${temp == stats1size}">
+						and ${county.name}
+						</c:when>
+						<c:otherwise>
+						${county.name},
+						</c:otherwise>
+					</c:choose>				
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
+
+		contributed their ideas and concerns in the LIT Challenge. Here is some demographic information about these contributors. </p>
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr class="odd">
 				<td><strong>Gender:</strong></td>
-				<td>${statsPart1.males}% male, ${statsPart1.females}% female</td>
+				<td>
+				<c:choose>
+					<c:when test="${statsPart1.totalUsers == 0}">
+						N/A no users submitted concerns
+					</c:when>
+					<c:otherwise>
+					
+					<fmt:formatNumber type="percent">${statsPart1.males / statsPart1.totalUsers}</fmt:formatNumber>,
+					<fmt:formatNumber type="percent">${statsPart1.females / statsPart1.totalUsers}</fmt:formatNumber>
+					</c:otherwise>
+				</c:choose>
+				</td>
 			</tr>
 			<tr>
 				<td><strong>County of residence:</strong></td>
@@ -175,7 +249,9 @@ The recommended package contains ${statsES.totalProjects} road and transit proje
 					<c:otherwise>
 
 					<c:forEach var="county" items="${statsPart1.counties}" varStatus="loop">
-						${statsPart1.countyStats[county].name} ${county.name},					</c:forEach>
+						<fmt:formatNumber type="percent">${statsPart1.countyStats[county]/statsPart1.totalUsers}</fmt:formatNumber> ${county.name},					
+					</c:forEach>
+					
 					</c:otherwise>
 				</c:choose>		</td>
 			</tr>
@@ -189,7 +265,8 @@ The recommended package contains ${statsES.totalProjects} road and transit proje
 					<c:otherwise>
 
 					<c:forEach var="transport" items="${statsPart1.transTypes}" varStatus="loop">
-						${statsPart1.transportStats[transport]} ${transport},					</c:forEach>
+						<fmt:formatNumber type="percent">${statsPart1.transportStats[transport]/statsPart1.totalUsers}</fmt:formatNumber>  ${transport},
+					</c:forEach>
 					</c:otherwise>
 				</c:choose>
 				</td>
@@ -204,7 +281,7 @@ The recommended package contains ${statsES.totalProjects} road and transit proje
 					<c:otherwise>
 
 					<c:forEach var="income" items="${statsPart1.incomeRanges}" varStatus="loop">
-						${statsPart1.incomeStats[income]} ${income},					</c:forEach>
+						<fmt:formatNumber type="percent">${statsPart1.incomeStats[income]/statsPart1.totalUsers}</fmt:formatNumber> ${income}, </c:forEach>
 					</c:otherwise>
 				</c:choose>
 				</td>

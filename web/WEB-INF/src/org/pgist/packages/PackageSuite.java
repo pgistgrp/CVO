@@ -25,9 +25,11 @@ public class PackageSuite {
     
     private Set<PackageVoteSuite> voteSuites = new HashSet<PackageVoteSuite>();
     
+    private VoteSuiteStat prefPkgVoteSuiteStat;
     
-    
-    /**
+
+
+	/**
      * @return
      * 
      * @hibernate.id generator-class="native"
@@ -92,7 +94,22 @@ public class PackageSuite {
         this.voteSuites = voteSuites;
     }
 
+    
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="suite_id" cascade="all"
+     */
+    public VoteSuiteStat getPrefPkgVoteSuiteStat() {
+		return prefPkgVoteSuiteStat;
+	}
 
+
+	public void setPrefPkgVoteSuiteStat(VoteSuiteStat prefPkgVoteSuiteStat) {
+		this.prefPkgVoteSuiteStat = prefPkgVoteSuiteStat;
+	}
+    
+    
     /**
      * Returns the ID of the clustered package that this users package ended up in
      * 

@@ -18,8 +18,6 @@ public interface ReportDAO extends BaseDAO {
 	
 	void createStatsES(Long workflowId, Long cctId, Long repoSuiteId) throws Exception;
 	
-	ClusteredPackage getPreferredClusteredPackage(Long pkgSuiteId) throws Exception;
-	
 	Collection getVoteSuiteStats(Long pkgSuiteId) throws Exception;
 	
 	ReportSuite getReportSuiteById(Long id) throws Exception;

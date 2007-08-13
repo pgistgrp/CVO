@@ -107,7 +107,8 @@
     
     <bean name="/lmTutorial2" class="org.pgist.lm.LmTutorial2Action" />
     
-    
+    <bean name="/travelPath" class="org.pgist.cvo.TravelPathAction" />
+       
     <bean name="/report" class="org.pgist.report.ReportAction">
     	<property name="cctService" ref="cctService"/>
     	<property name="cstService" ref="cstService"/>

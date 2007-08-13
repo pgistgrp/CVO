@@ -16,6 +16,7 @@ import org.pgist.packages.ClusteredPackage;
 import org.pgist.packages.PackageService;
 import org.pgist.packages.PackageSuite;
 import org.pgist.packages.UserPackage;
+import org.pgist.packages.VoteSuiteStat;
 import org.pgist.system.SystemService;
 import org.pgist.users.UserInfo;
 import org.pgist.util.WebUtils;
@@ -157,7 +158,8 @@ public class ReportAction extends Action {
     	Collection cp = pkgSuite.getClusteredPkgs();
     	
     	// get preferred package
-    	ClusteredPackage pp = reportService.getPreferredClusteredPackage(packSuiteId);
+    	VoteSuiteStat ppvss = pkgSuite.getPrefPkgVoteSuiteStat();
+    	ClusteredPackage pp = ppvss.getClusteredPackage();
     	
     	//get all vote suite stats
     	Collection vss = reportService.getVoteSuiteStats(packSuiteId);

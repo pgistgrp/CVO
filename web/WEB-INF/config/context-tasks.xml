@@ -17,6 +17,11 @@
     </bean>
     
     
+    <bean id="task-create.packages.preferredpackage" class="org.pgist.packages.CreatePreferredPackageTask">
+        <property name="packageService" ref="packageService"/>
+    </bean>
+    
+    
     <bean id="task-create.cct" class="org.pgist.cvo.CreateCCTTask">
         <property name="cctService" ref="cctService"/>
     </bean>
@@ -96,7 +101,8 @@
               <entry><key><value>task-index.project.suite</value></key><ref bean="task-index.project.suite" /></entry>
               <entry><key><value>task-publish.theme</value></key><ref bean="task-publish.theme" /></entry>
               <entry><key><value>task-create.criteria.suite</value></key><ref bean="task-create.criteria.suite" /></entry>
-              <entry><key><value>task-create.report.suite</value></key><ref bean="task-create.report.suite" /></entry>
+              <entry><key><value>task-create.packages.preferredpackage</value></key><ref bean="task-create.packages.preferredpackage" /></entry>
+	      <entry><key><value>task-create.report.suite</value></key><ref bean="task-create.report.suite" /></entry>
               <entry><key><value>task-create.report.stats</value></key><ref bean="task-create.report.stats" /></entry>
               <entry><key><value>task-publish.report</value></key><ref bean="task-publish.report" /></entry>
               <entry><key><value>task-publish.criteria</value></key><ref bean="task-publish.criteria" /></entry>
@@ -109,7 +115,8 @@
         </property>
         <property name="actions">
             <map>
-              <entry><key><value>action-select.template</value></key><value>/templateSelect.do</value></entry>
+              <entry><key><value>action-define.travelPath</value></key><value>/travelPath.do</value></entry>
+	      <entry><key><value>action-select.template</value></key><value>/templateSelect.do</value></entry>
               <entry><key><value>action-define.projects</value></key><value>/projectDefine.do</value></entry>
               <entry><key><value>action-define.fundings</value></key><value>/fundingDefine.do</value></entry>
               <entry><key><value>action-grade.projects</value></key><value>/projectGrading.do</value></entry>

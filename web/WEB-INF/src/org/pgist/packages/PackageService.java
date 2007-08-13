@@ -67,4 +67,6 @@ public interface PackageService {
     
     Set getVoteSuiteStatsBySuite(Long pkgVoteSuiteId) throws Exception;
     
+    void calculatePreferredPackage(Long pkgSuiteId, Long voteSuiteId) throws Exception;
+    
 }//interface PackageService

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
 
 import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaDAO;
@@ -1560,6 +1561,17 @@ public class PackageServiceImpl implements PackageService {
     
     public Set getVoteSuiteStatsBySuite(Long pkgVoteSuiteId) throws Exception {	
     	return packageDAO.getVoteSuiteStatsBySuite(pkgVoteSuiteId);
+    }
+    
+    
+    public void calculatePreferredPackage(Long pkgSuiteId, Long voteSuiteId) throws Exception {
+    	PackageSuite pkgSuite = (PackageSuite) packageDAO.load(PackageSuite.class, pkgSuiteId);
+    	PackageVoteSuite vSuite = (PackageVoteSuite) packageDAO.load(PackageVoteSuite.class, voteSuiteId);
+    	SortedSet stats = vSuite.getStats();
+    	VoteSuiteStat vss = (VoteSuiteStat) stats.first();
+    	
+    	pkgSuite.setPrefPkgVoteSuiteStat(vss);
+    	packageDAO.save(pkgSuite);
     }
     
     

@@ -11,8 +11,6 @@ public interface ReportService {
 	
 	void createStatistics(Long workflowId, Long cctId, Long repoSuiteId, Long packSuiteId, Long critSuiteId, Long projSuiteId) throws Exception;
 	
-	ClusteredPackage getPreferredClusteredPackage(Long pkgSuiteId) throws Exception;
-	
 	Collection getVoteSuiteStats(Long pkgSuiteId) throws Exception;
 	
 	ReportSuite getReportSuiteById(Long id) throws Exception;
