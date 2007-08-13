@@ -182,7 +182,7 @@
 				//Render Summaries
 				$('yourSummary').innerHTML = data.html;
 				$('yourSummaryRepeat').innerHTML = data.html;
-
+				updateMapSum();
 				if($('yourSummary').style.backgroundColor == "transparent"){
 					new Effect.Highlight('yourSummary',{duration:0.3});
 					new Effect.Highlight('yourSummaryRepeat',{duration:0.3});
@@ -283,7 +283,7 @@
 				mapPositionTop = getYCoord(document.getElementById('themap'));
                 pgistmap.addLegend([{"img":"/images/leg_road.gif", "descp":"Road projects"},
                     {"img":"/images/leg_transit.gif", "descp":"Transit projects"}], true);
-
+				updateMapSum();
 			}
 			
 			function renderProjects(){
@@ -421,12 +421,16 @@
 			
 			function clearBottom(){ // Move the map so that it's not below the funding table
 				if(mapPositionBottom >= fundingPositionBottom){
-						$('themap').style.top = (fundingPositionBottom - 599) + 'px';
+						$('themap').style.top = (fundingPositionBottom - 629) + 'px';
 					}
 			}
-			
 
-			
+function updateMapSum(){
+	var theSum = $('sum').firstChild.nodeValue;
+	$('mapSum').innerHTML = theSum;
+	var balanceBG = $('balance').style.backgroundColor;
+	$('mapSumContainer').style.backgroundColor = balanceBG;
+}			
 	/* *************** END MAPPING FUNCTIONS *************** */
 </script>
 </head>
@@ -556,20 +560,20 @@
 																<c:when test="${projectRef.project.inclusive}">
 																	<c:choose>
 																		<c:when test="${userPkg != null}">
-																			<input type="radio" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" />
+																			<input type="radio" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onclick="clearSelectionThenDefine('${projectRef.project.id}', 'project');" />
 																		</c:when>
 																		<c:otherwise>
-																			<input type="radio" ${(pg:containsProjAltRef(package.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" />
+																			<input type="radio" ${(pg:containsProjAltRef(package.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="project-${projectRef.project.id}" id="alt-${altRef.id}" onclick="clearSelectionThenDefine('${projectRef.project.id}', 'project');" />
 																		</c:otherwise>
 																	</c:choose>
 																</c:when>
 																<c:otherwise>
 																	<c:choose>
 																		<c:when test="${userPkg != null}">
-																			<input type="checkbox" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToPkg('${altRef.id}', this.checked, '${altRef.alternative.id}');" />
+																			<input type="checkbox" ${(pg:containsProjAltRef(userPkg.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onclick="setProjectToPkg('${altRef.id}', this.checked, '${altRef.alternative.id}');" />
 																		</c:when>
 																		<c:otherwise>
-																			<input type="checkbox" ${(pg:containsProjAltRef(package.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onChange="setProjectToPkg('${altRef.id}', this.checked,'${altRef.alternative.id}');" />
+																			<input type="checkbox" ${(pg:containsProjAltRef(package.projAltRefs,altRef.id)) ? "checked='CHECKED'" : ""} name="proj-${projectRef.project.id}" onclick="setProjectToPkg('${altRef.id}', this.checked,'${altRef.alternative.id}');" />
 																		</c:otherwise>
 																	</c:choose>
 																</c:otherwise>
@@ -587,7 +591,7 @@
 													<tr>
 														<td>
 															<label>
-															<input type="radio" ${(doNothing) ? "checked" : ""}  onchange="clearSelectionThenDefine('${projectRef.project.id}', 'project')" name="project-${projectRef.project.id}"  />
+															<input type="radio" ${(doNothing) ? "checked" : ""}  onclick="clearSelectionThenDefine('${projectRef.project.id}', 'project');" name="project-${projectRef.project.id}"  />
 															Do nothing</label>
 														</td>
 														<td class="cost">&nbsp;</td>
@@ -630,10 +634,10 @@
 										<label>
 										<c:choose>
 											<c:when test="${userPkg !=null}">
-												<input type="radio" ${(pg:containsFundAltRef(userPkg.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
+												<input type="radio" ${(pg:containsFundAltRef(userPkg.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onclick="clearSelectionThenDefine('${fundingRef.source.id}', 'source');" />
 											</c:when>
 											<c:otherwise>
-												<input type="radio" ${(pg:containsFundAltRef(package.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
+												<input type="radio" ${(pg:containsFundAltRef(package.fundAltRefs,altRef.id)) ? "CHECKED" : ""}  name="source-${fundingRef.source.id}" id="alt-${altRef.id}" onclick="clearSelectionThenDefine('${fundingRef.source.id}', 'source');" />
 											</c:otherwise>
 										</c:choose>
 
@@ -662,7 +666,7 @@
 							<tr>
 								<td class="fundingSourceItem">
 									<label>
-									<input type="radio" ${(doNothing) ? "CHECKED" : ""} name="source-${fundingRef.source.id}" onChange="clearSelectionThenDefine('${fundingRef.source.id}', 'source')" />
+									<input type="radio" ${(doNothing) ? "CHECKED" : ""} name="source-${fundingRef.source.id}" onclick="clearSelectionThenDefine('${fundingRef.source.id}', 'source');" />
 									Do nothing</label>
 								</td>
 								<td class="cost">&nbsp;</td>
@@ -680,6 +684,10 @@
 				<!-- begin GOOGLE MAP -->
 				<div id="themap" style="position:absolute">
 					<!-- load the map here -->
+					<div id="mapSumContainer" style="height:25px;width:500px;_width:510px;padding:5px 10px 0px 10px">
+						<h3 style="width:250px;float:left;">Balance:</h3>
+						<h3 id="mapSum" style="width:250px;float:right;text-align:right;"></h3><div class="clearBoth"></div>
+					</div>
 				</div>
 				<!-- end GOOGLE MAP -->
 			</div>

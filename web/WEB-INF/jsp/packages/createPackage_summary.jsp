@@ -32,21 +32,21 @@
 		<td colspan="2">
 		<c:choose>
 		<c:when test="${(package.totalFunding - package.totalCost) > 0}">
-			<div id="balance" class="balance">
+			<div id="balance" class="balance" style="background-color:#C9E1BD;">
 				<h3 style="width:50%;">Balance:</h3>
-				<h3 style="width:49%;text-align:right;">$<fmt:formatNumber type="number" maxFractionDigits="0" value="${(package.totalFunding - package.totalCost)/1000000}" /> million </h3><div class="clearBoth"></div>
+				<h3 id="sum" style="width:49%;text-align:right;">$<fmt:formatNumber type="number" maxFractionDigits="0" value="${(package.totalFunding - package.totalCost)/1000000}" /> million </h3><div class="clearBoth"></div>
 			</div>
 		</c:when>
 		<c:when test="${(package.totalFunding - package.totalCost) == 0}">
-			<div id="balance" class="balance">
+			<div id="balance" class="balance" style="background-color:#C9E1BD;">
 				<h3 style="width:50%">Balance:</h3>
-				<h3 style="width:49%;text-align:right;">$<fmt:formatNumber type="number" maxFractionDigits="0" value="${(package.totalFunding - package.totalCost)/1000000}" /> million </h3><div class="clearBoth"></div>
+				<h3 id="sum" style="width:49%;text-align:right;">$<fmt:formatNumber type="number" maxFractionDigits="0" value="${(package.totalFunding - package.totalCost)/1000000}" /> million </h3><div class="clearBoth"></div>
 			</div>
 		</c:when>
 		<c:otherwise>
-			<div id="balance" class="exceed">
+			<div id="balance" class="exceed" style="background-color:#E5A9A6">
 				<h3 style="width:50%;">Balance:</h3>
-				<h3 style="width:49%;text-align:right;">$<fmt:formatNumber type="number" maxFractionDigits="0" value="${(package.totalFunding - package.totalCost)/1000000}" /> million </h3><div class="clearBoth"></div>
+				<h3 id="sum" style="width:49%;text-align:right;">$<fmt:formatNumber type="number" maxFractionDigits="0" value="${(package.totalFunding - package.totalCost)/1000000}" /> million </h3><div class="clearBoth"></div>
 			</div>
 		</c:otherwise>
 		</c:choose>
