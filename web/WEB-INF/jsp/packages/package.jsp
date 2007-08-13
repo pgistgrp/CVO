@@ -5,10 +5,10 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html:html>
+<html xmlns:v="urn:schemas-microsoft-com:vml">
 	<head>
 	<title>Let's Improve Transportation - Step 4b: Package Info Page</title>
 	<!-- Site Wide CSS -->
@@ -18,6 +18,7 @@
 		@import "styles/table-grades.css";
 		@import "styles/step4b-packageinfo.css";
 	</style>
+    <style type="text/css">v\:* {behavior:url(#default#VML);}</style>
 	<!-- End Site Wide CSS -->
 	<!-- Site Wide JS -->
 	<script src="scripts/prototype.js" type="text/javascript"></script>
@@ -25,11 +26,80 @@
 	<script src="scripts/search.js" type="text/javascript"></script>
 	<script type='text/javascript' src='/dwr/engine.js'></script>
 	<script type='text/javascript' src='/dwr/util.js'></script>
-	<script src="scripts/prototype.js" type="text/javascript"></script>
 	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+    <wf:gmapjs />
+    <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
+    <script type='text/javascript' src='/dwr/interface/PESAgent.js'></script>
+    <script src="scripts/pgistmap2.js"></script>
+    <script type='text/javascript'>
+        var pgistmap = null;
+        var prjaltlist = [];
+        var fpidlist = "";
+        var overlaypoints = [];
+        
+        <c:forEach var="infoObject" items="${infoStructure.infoObjects}" varStatus="loop">
+            <c:forEach var="altRef" items="${infoObject.object.altRefs}" varStatus="loop">
+                prjaltlist.push({"id":"${altRef.id}", "fpids":"${altRef.alternative.fpids}", "mode":"${altRef.alternative.project.transMode}",
+                                 "name_p":"${infoObject.object.project.name}", "name_a":"${altRef.alternative.name}"}); 
+                fpidlist += "," + "${altRef.alternative.fpids}";
+            </c:forEach>
+        </c:forEach>
+
+        function loadFootprints(){
+            pgistmap = new PGISTMapEditor('gmap', 500, 380, false);
+            pgistmap.addLegend([{"img":"/images/leg_road.gif", "descp":"Road projects"},
+                    {"img":"/images/leg_transit.gif", "descp":"Transit projects"}], true);
+
+            if(fpidlist.length > 0){
+                fpidlist = fpidlist.substring(1, fpidlist.length-1);  //get rid of the first comma
+                ProjectAgent.getFootprints({fpids:fpidlist}, {
+                    callback:function(data){
+                        if (data.successful){
+                            for(fpid in data.footprints){
+                                overlaypoints['_'+fpid] = [];
+                                overlaypoints['_'+fpid]["geotype"] = data.footprints[fpid].geotype;
+                                overlaypoints['_'+fpid]["coords"] = pgistmap.makeGPoints(data.footprints[fpid].coords);
+                            }
+                            renderProjects();
+                        }else{
+                            alert(data.reason);
+                        }
+                    },
+                    errorHandler:function(errorString, exception){ 
+                        alert("ProjectAgent.getFootprint( error:" + errorString + exception);
+                    }
+                });
+            }
+        }
+        
+        function renderProjects(){
+            for(var i=0;i<prjaltlist.length;i++){
+                var p = prjaltlist[i];
+                p["overlays"] = []; 
+                if(p["fpids"] == "") continue;
+                
+                var geomkeys = p["fpids"].split(',');
+                for(var k=0; k<geomkeys.length; k++){
+                    var geomkey = '_'+geomkeys[k];
+                    if(overlaypoints[geomkey] == null)continue;
+                    
+                    var transcolor = (p["mode"]==2)?"#0bc00f":"#FF0000";
+                    var transicon = (p["mode"]==2)?pgistmap.transiticon:pgistmap.roadicon;
+                    p["overlays"] = p["overlays"].concat(pgistmap.createOverlays(overlaypoints[geomkey]["coords"], 
+                        overlaypoints[geomkey]["geotype"], transcolor, 2, 0.9, "", transicon));
+                    
+                    for(var j=0; j<p["overlays"].length; j++){
+                        pgistmap.map.addOverlay( p["overlays"][j] );
+                    }
+                }
+            }
+         pgistmap.map.setCenter(new GLatLng(47.651500,-122.165222),9);
+        }
+    </script>
+    
 <event:pageunload />
 	</head>
-	<body>
+	<body onload="loadFootprints()" onunload="GUnload()">
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
 		<!-- begin Object -->
@@ -193,6 +263,16 @@
 												<td class="col3 grade${pg:gradeSwitch(alt.projGrade)}">${alt.projGrade}</td>
 												<td class="col4 grade${pg:gradeSwitch(alt.yourGrade)}">${alt.yourGrade}</td>
 												<td class="col5 grade${pg:gradeSwitch(alt.avgGrade)}">${alt.avgGrade}</td>
+                                                <script type="text/javascript" charset="utf-8">
+													altfpids = "${alt.fpids}";
+													if(altfpids.length > 0) fpidlist += "," + altfpids;
+													prjaltlist.push({"name":"${alt.name}", 
+															"id":"${alt.id}",
+															"cost":"${alt.cost}", 
+															"mode":"${alt.transMode}",
+															"fpids":"${alt.fpids}",
+															});
+												</script>
 											</tr>
 										</c:forEach>
 									</table>
@@ -209,7 +289,7 @@
 	</div>
 	<!-- end container -->
 	</body>
-</html:html>
+</html>
 <!-- 												
 
 												<tr class="option">
