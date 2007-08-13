@@ -30,12 +30,10 @@
 	<!-- End header -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
-		<div style="width:600px;">
-			<h3 class="headerColor">Waiting for the next step to begin</h3>
-			<p>Thanks for your input. You've completed this step in the <I>Let's
-					Improve Transportation</I> challenge. Once everybody has completed this step, we will process the results and prepare the next step.</p>
-				<p><strong>When the next step is ready, you will automatically receive an e-mail from the moderator</strong>, so be sure to check your inbox. You can also check the <a href="main.do">Home</a> page to see when the next step will open.</p>
-		</div>
+		<h2 class="headerColor">Waiting for next step to begin</h2>
+		<p>Thanks for completing this step in the LIT Challenge. Check the <a href="/main.do">agenda</a> to see when the next step begins. You will also receive an email reminder.</p>
+		<p>Still looking for something to do?</p> 
+		<p>Remember that "review projects" and "review funding options" are always available on the agenda. Go there to read about and discuss proposed transportation improvement projects and funding sources.</p> 
 	</div>
 	<!-- end container -->
 	<!-- start feedback form -->
