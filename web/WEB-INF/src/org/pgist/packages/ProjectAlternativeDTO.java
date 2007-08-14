@@ -16,6 +16,7 @@ public class ProjectAlternativeDTO implements Comparable<ProjectAlternativeDTO> 
 	private String yourGrade;
 	private String avgGrade;
 	private String fpids;
+	private Integer transMode;
 
 	public ProjectAlternativeDTO(ProjectAlternative tempAlt) {
 		this.name = tempAlt.getName();
@@ -25,6 +26,7 @@ public class ProjectAlternativeDTO implements Comparable<ProjectAlternativeDTO> 
 		this.setAvgGrade("NA");
 		this.setMoneyNeeded(tempAlt.getCost());
 		this.setFpids(tempAlt.getFpids());
+		this.setTransMode(tempAlt.getProject().getTransMode());
 	}
 
 	/**
@@ -116,5 +118,13 @@ public class ProjectAlternativeDTO implements Comparable<ProjectAlternativeDTO> 
 
 	public void setFpids(String fpids) {
 		this.fpids = fpids;
+	}
+
+	public Integer getTransMode() {
+		return transMode;
+	}
+
+	public void setTransMode(Integer transMode) {
+		this.transMode = transMode;
 	}
 }
