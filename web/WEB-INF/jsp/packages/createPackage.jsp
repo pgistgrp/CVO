@@ -595,7 +595,7 @@ function updateMapSum(){
 															Do nothing</label>
 														</td>
 														<td class="cost">&nbsp;</td>
-													</tr>begin collapsible
+													</tr>
 												</c:if>
 											</table>
 										</td>
