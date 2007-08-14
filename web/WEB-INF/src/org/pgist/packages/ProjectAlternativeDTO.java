@@ -15,7 +15,8 @@ public class ProjectAlternativeDTO implements Comparable<ProjectAlternativeDTO> 
 	private String projGrade;
 	private String yourGrade;
 	private String avgGrade;
-	 
+	private String fpids;
+
 	public ProjectAlternativeDTO(ProjectAlternative tempAlt) {
 		this.name = tempAlt.getName();
 		this.projectAlternativeID = tempAlt.getId();
@@ -23,6 +24,7 @@ public class ProjectAlternativeDTO implements Comparable<ProjectAlternativeDTO> 
 		this.setProjGrade("NA");
 		this.setAvgGrade("NA");
 		this.setMoneyNeeded(tempAlt.getCost());
+		this.setFpids(tempAlt.getFpids());
 	}
 
 	/**
@@ -103,4 +105,16 @@ public class ProjectAlternativeDTO implements Comparable<ProjectAlternativeDTO> 
 	public int compareTo(ProjectAlternativeDTO o) {
 		return this.getName().compareTo(o.getName());
 	}	
+	
+	/**
+	 * Just to keep a copy of the footprint IDs.
+	 * @return
+	 */
+	public String getFpids() {
+		return fpids;
+	}
+
+	public void setFpids(String fpids) {
+		this.fpids = fpids;
+	}
 }
