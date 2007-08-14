@@ -73,7 +73,7 @@
 							$('list').innerHTML += data.html;
 							//$('list').innerHTML = data.html;
 							setSort(sortby, term);
-							direction = "asc"; //reset direction
+							direction = "desc"; //reset direction
 						$('loading-indicator').style.display = "none";
 					}else{
 						alert("reason for getTerms failure: "+data.reason);
