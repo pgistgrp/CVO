@@ -56,6 +56,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	
 	
 	public void createStatsPart1(Long workflowId, Long cctId, Long repoSuiteId) throws Exception {
+		System.out.println("***Excecute CreateStatsPart1()");
 		CCT cct = (CCT)load(CCT.class, cctId);
 		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
 		ReportStats rs = new ReportStats();
@@ -172,6 +173,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	
 	
 	public void createStatsPart2(Long workflowId, Long cctId, Long repoSuiteId, Long critSuiteId) throws Exception {
+		System.out.println("***Excecute CreateStatsPart2()");
 		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
 		ReportStats rs = new ReportStats();
 		CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
@@ -184,6 +186,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	
 	
 	public void createStatsPart3(Long workflowId, Long cctId, Long repoSuiteId, Long projSuiteId, Long packSuiteId) throws Exception {
+		System.out.println("***Excecute CreateStatsPart3()");
 		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
 		ReportStats rs = new ReportStats();
 		
@@ -202,6 +205,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	
 	
 	public void createStatsPart4(Long workflowId, Long repoSuiteId, Long pkgSuiteId) throws Exception {
+		System.out.println("***Excecute CreateStatsPart4()");
 		PackageSuite pkgSuite = (PackageSuite) load(PackageSuite.class, pkgSuiteId); 
 		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
 		ReportStats rs = new ReportStats();
@@ -279,33 +283,28 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		//calculate stats
 		int totalUsers = male + female;
 		if(totalUsers>0) {
-			int percentMale = (male/totalUsers) * 100;
-			int percentFemale = (female/totalUsers) * 100;
 		
 			//convert numbers into percents
 			Set<County> countyKeys = countySet.keySet();
 			for(County c : countyKeys) {
 				int num = countySet.get(c);
-				int percent = (num/totalUsers) * 100;
-				countySet.put(c, percent);
+				countySet.put(c, num);
 			}
 			
 			Set<String> incomeKeys = incomeSet.keySet();
 			for(String i : incomeKeys) {
 				int num = incomeSet.get(i);
-				int percent = (num/totalUsers) * 100;
-				incomeSet.put(i, percent);
+				incomeSet.put(i, num);
 			}
 			
 			Set<String> transportKeys = transportSet.keySet();
 			for(String t : transportKeys) {
 				int num = transportSet.get(t);
-				int percent = (num/totalUsers) * 100;
-				transportSet.put(t, percent);
+				transportSet.put(t, num);
 			}
 			// save stats to reportStats
-			rs.setFemales(percentFemale);
-			rs.setMales(percentMale);
+			rs.setFemales(female);
+			rs.setMales(male);
 		}
 		//save stats to reportStats
 		rs.setCountyStats(countySet);
@@ -325,21 +324,23 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	private static final String hql_createStatsES = "from User u order by u.id";
 		
 	public void createStatsES(Long workflowId, Long repoSuiteId, Long packSuiteId) throws Exception {
+		System.out.println("***Excecute CreateStatsES()*");
 		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
 		ReportStats rs = new ReportStats();
-				
+		System.out.println("***ES start" +
+				" total users");
 		//Find the number of users in the entire system - admin and moderators currently count
 		List userlist = getHibernateTemplate().find(hql_createStatsES);		
 		rs.setTotalUsers(userlist.size());
-		
+		System.out.println("***ES finish total users");
 		PackageSuite ps = (PackageSuite) load(PackageSuite.class, packSuiteId);
 		
 		VoteSuiteStat vss = ps.getPrefPkgVoteSuiteStat();
 		ClusteredPackage preferredPackage = vss.getClusteredPackage();	
-		
+		System.out.println("***ES finish preferred package");
 		int numEndorsed = vss.getHighVotes() + vss.getMediumVotes();
 		int totalVotes = vss.getTotalVotes();
-		
+		System.out.println("***ES startcost");
 		// Format cost to 2 thousand vs 2000
 		String strTotalCost = "";
 		int totalCost = (int) preferredPackage.getTotalCost();
@@ -355,7 +356,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		} else {
 			strTotalCost = totalCost + "";
 		}
-		
+		System.out.println("***ES finish cost");
 		//save
 		rs.setTotalVotes(totalVotes);
 		rs.setNumEndorsed(numEndorsed);
@@ -365,6 +366,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		save(rs);
 		repoSuite.setStatsES(rs);
 		save(repoSuite);
+		System.out.println("***ES finish all");
 	}
 	
 	

@@ -183,7 +183,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 				<li><a href="#participants">The participants and their concerns about transportation</a></li>
 				<li><a href="#planningFactors">Improvement factors used in project evaluation</a></li>
 				<li><a href="#projects">Individual project review and  package creation</a></li>
-				<li><a href="#packages">The participant's recommended transportation package </a></li>
+				<li><a href="#packages">The participants' recommended transportation package </a></li>
 			</ol>
 		</div>
 		<div class="floatLeft" style="margin-right:1em"> <strong>Report appendices</strong><p>
@@ -265,7 +265,8 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 					<c:otherwise>
 
 					<c:forEach var="transport" items="${statsPart1.transTypes}" varStatus="loop">
-						<fmt:formatNumber type="percent">${statsPart1.transportStats[transport]/statsPart1.totalUsers}</fmt:formatNumber>  ${transport},
+						<fmt:formatNumber type="percent">${statsPart1.transportStats[transport]/statsPart1.totalUsers}</fmt:formatNumber>
+						  ${transport},
 					</c:forEach>
 					</c:otherwise>
 				</c:choose>
@@ -305,11 +306,10 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 	<div id="planningFactors" class="box3 padding5 section">
 		<h3 class="headingColor padding5 centerAlign">2. Planning factors used in project
 			evaluation</h3>
-	    <p>
-		The second step included a review, discussion, and weighting of ${statsPart2.quanity} "improvement factors" used to evaluate the proposed transportation projects. They were used by a panel of transportation specialists to qualitatively “score” proposed projects. (Appendix B includes a detailed discussion of the factors and scoring process). 
+      <p>
+		The second step included a review, discussion, and weighting of ${statsPart2.quanity} "improvement factors" used to evaluate the proposed transportation projects. They were used by a panel of transportation specialists to qualitatively "score" proposed projects. (Appendix B includes a detailed discussion of the factors and scoring process). 
 
 After a period of discussion about the relevance of the improvement factors to the concerns discussed in Step 1, participants weighted the relative importance of each factor based on their individual preferences. 100 total points were available to distribute between the ${statsPart2.quanity} factors. The following table displays information about the improvement factors and participant weight preferences.		</p>
-		
 		<p>${part2a}</p>
 		<div id="criteria" class="box3 floatLeft">
 			<!-- START All Criteria List -->
@@ -354,8 +354,8 @@ After a period of discussion about the relevance of the improvement factors to t
 				and personal package creation</a></h3>
 		
 		<p>
-		In the third step participants first reviewed and discussed a list of ${statsPart3.quanity} proposed transportation improvement projects in the three-county region. This was followed by a review and discussion of available options for funding these transportation improvements. Finally, participants were each given the opportunity to create their own personal transportation package including both a set of projects and a set of funding sources which provide enough money to pay for the projects. The results of participant project and funding source selection are described below. Note: only  ${statsPart4.userCompleted} of the total ${statsES.totalUsers} participants completed this step.		</p>
-		
+		In the third step participants first reviewed and discussed a list of ${statsPart3.quanity} proposed transportation improvement projects in the ${size} county region. This was followed by a review and discussion of available options for funding these transportation improvements. Finally, participants were each given the opportunity to create their own personal transportation package including both a set of projects and a set of funding sources which provide enough money to pay for the projects. The results of participant project and funding source selection are described below. Note: only ${statsPart4.userCompleted} of the total ${statsES.totalUsers} participants completed this step.
+		</p>
 			
 			<p>${part3a}</p>
 		<table cellpadding=0 cellspacing=0>
@@ -431,16 +431,23 @@ After a period of discussion about the relevance of the improvement factors to t
 		<h3 class="headingColor padding5 centerAlign"><a name="packages">4. Evaluation
 				of packages</a></h3>
 				
-				<p>
-				Participants created ${statsPart4.totalPackages} unique packages. In order to narrow the field of packages under consideration for recommendation, five new packages were computationally generated. These new candidate packages collectively represent the diversity of packages created by participants in Step 3. Details about each of these five packages, as well as the methodology used to create them is available in Appendix C. </p>
-<p>
-In the fourth step, participants reviewed and evaluated these five candidate packages as well as the “Roads and Transit” package which will appear on the ballot in the November 2007 election. A preliminary poll regarding participants’ degree of support for each of the packages was used to inform the discussion. This was followed by a final package recommendation vote.</p>
-				
+		<p>Participants created ${statsPart4.totalPackages} unique packages. In order to narrow the field of packages under consideration for recommendation, five new packages were computationally generated. These new candidate packages collectively represent the diversity of packages created by participants in Step 3. Details about each of these five packages, as well as the methodology used to create them is available in Appendix C. </p>
+		<p>In the fourth step, participants reviewed and evaluated these five candidate packages as well as the &quot;Roads and Transit&quot; package which will appear on the ballot in the November 2007 election. A preliminary poll regarding participants' degree of support for each of the packages was used to inform the discussion. This was followed by a final package recommendation vote.</p>
 		<p>${part4a}</p>
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr class="odd">
 				<td><strong>Gender:</strong></td>
-				<td>${statsPart4.males}% male, ${statsPart4.females}% female</td>
+				<td>
+				<c:choose>
+					<c:when test="${statsPart4.totalUsers == 0}">
+						N/A no users submitted concerns
+					</c:when>
+					<c:otherwise>
+					
+					<fmt:formatNumber type="percent">${statsPart4.males / statsPart4.totalUsers}</fmt:formatNumber>,
+					<fmt:formatNumber type="percent">${statsPart4.females / statsPart4.totalUsers}</fmt:formatNumber>
+					</c:otherwise>
+				</c:choose>
 			</tr>
 			<tr>
 				<td><strong>County of residence:</strong></td>
@@ -451,7 +458,8 @@ In the fourth step, participants reviewed and evaluated these five candidate pac
 					<c:otherwise>
 
 					<c:forEach var="county" items="${statsPart1.counties}" varStatus="loop">
-						${statsPart4.countyStats[county].name} ${county.name},					</c:forEach>
+						${statsPart4.countyStats[county]/statsPart4.totalUsers} ${county.name},
+					</c:forEach>
 					</c:otherwise>
 				</c:choose>	</td>
 			</tr>
@@ -464,7 +472,7 @@ In the fourth step, participants reviewed and evaluated these five candidate pac
 					<c:otherwise>
 
 					<c:forEach var="transport" items="${statsPart4.transTypes}" varStatus="loop">
-						${statsPart4.transportStats[transport]} ${transport},					</c:forEach>
+						${statsPart4.transportStats[transport]/statsPart4.totalUsers} ${transport},					</c:forEach>
 					</c:otherwise>
 				</c:choose></td>
 			</tr>
