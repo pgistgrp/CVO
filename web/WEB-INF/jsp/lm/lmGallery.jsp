@@ -1,7 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="javascript" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -166,7 +166,8 @@ function renderProjects(){
 											<c:forEach var="alt" items="${project.alternatives}" varStatus="loop">
 												<tr>
 													<td class="col1"><a target="_blank" href="lmAlt.do?altId=${alt.id}">${alt.name}</td>
-													<td class="cost">$<fmt:formatNumber type="number">${alt.cost}</fmt:formatNumber> million</td>
+													
+													<td class="cost">$<fmt:formatNumber maxFractionDigits="0" value="${alt.cost/1000000}" /> million </td>
                                                     <script type="text/javascript">
                                                                 prjaltlist.push({"id":"${alt.id}", "fpids":"${alt.fpids}", "mode":"${alt.project.transMode}"}); 
                                                                 fpidlist += "," + "${alt.fpids}";
