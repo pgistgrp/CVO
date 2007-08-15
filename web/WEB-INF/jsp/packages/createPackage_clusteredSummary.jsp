@@ -1,7 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -18,15 +18,47 @@
 		[x] Test and Refine (Jordan)
 #### -->
 
-<table>
+<table cellpadding="0" cellspacing="0">
 	<tr>
 		<td><h3>Total Cost</h3></td>
-		<td><fmt:formatNumber type="currency">${package.totalCost}</fmt:formatNumber> million</td>
+		<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalCost/1000000}" /> million</td>
 	</tr>
 	<tr>
 		<td><h3>Total funding</h3></td>
-		<td><fmt:formatNumber type="currency">${package.totalFunding}</fmt:formatNumber> million</td>
+		<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalFunding/1000000}" /> million</td>
 	</tr>
+	
+	<tr>
+		<td colspan="2">
+		<c:choose>
+		<c:when test="${(package.totalFunding - package.totalCost) > 0}">
+			<div id="balance" class="balance" style="background-color:#C9E1BD;">
+				<h3 style="width:50%;">Balance:</h3>
+				<h3 id="sum" style="width:49%;text-align:right;">$<fmt:formatNumber type="number" maxFractionDigits="0" value="${(package.totalFunding - package.totalCost)/1000000}" /> million </h3><div class="clearBoth"></div>
+			</div>
+		</c:when>
+		<c:when test="${(package.totalFunding - package.totalCost) == 0}">
+			<div id="balance" class="balance" style="background-color:#C9E1BD;">
+				<h3 style="width:50%">Balance:</h3>
+				<h3 id="sum" style="width:49%;text-align:right;">$<fmt:formatNumber type="number" maxFractionDigits="0" value="${(package.totalFunding - package.totalCost)/1000000}" /> million </h3><div class="clearBoth"></div>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div id="balance" class="exceed" style="background-color:#E5A9A6">
+				<h3 style="width:50%;">Balance:</h3>
+				<h3 id="sum" style="width:49%;text-align:right;">$<fmt:formatNumber type="number" maxFractionDigits="0" value="${(package.totalFunding - package.totalCost)/1000000}" /> million </h3><div class="clearBoth"></div>
+			</div>
+		</c:otherwise>
+		</c:choose>
+		</td>
+	</tr>
+	
+	<c:if test="${userPkg != null}">
+		<tr>
+			<td><strong>Cost to you:</strong></td>
+			<td><fmt:formatNumber type="currency">${package.yourCost}</fmt:formatNumber> per year</td>
+		</tr>
+	</c:if>
 	<tr>
 		<td><strong>Cost to the average resident:</strong></td>
 		<td><fmt:formatNumber type="currency">${package.avgResidentCost}</fmt:formatNumber> per year</td>
@@ -36,24 +68,6 @@
 		<td>${fn:length(package.projAltRefs)}</td>
 	</tr>
 </table>
-
-	<c:choose>
-		<c:when test="${(package.totalFunding - package.totalCost) > 0}">
-			<div id="balance" class="balance">
-				<h3>Revenues Exceed Costs</h3>
-			</div>
-		</c:when>
-		<c:when test="${(package.totalFunding - package.totalCost) == 0}">
-			<div id="balance" class="balance">
-				<h3>Revenues Equal Costs</h3>
-			</div>
-		</c:when>
-		<c:otherwise>
-			<div id="balance" class="exceed">
-				<h3>Costs Exceed Revenue!</h3>
-			</div>
-		</c:otherwise>
-	</c:choose>
 
 	<input class="finishedButton" type="button" onclick="finished();" value="Finished? Submit your package" 
 	${((package.totalFunding - package.totalCost) < 0) ? "disabled='true'" : ""} />
