@@ -10,12 +10,12 @@
 	<div id="vehicle${vehicle.id}" class="myVehiclesRow"> 
 		<strong>Vehicle ${loop.index + 1}: </strong> Miles per
 		gallon:  
-		<em><fmt:formatNumber type="number">${vehicle.milesPerGallon}</fmt:formatNumber></em>
-		/ Approximate value:  
-		<em><fmt:formatNumber type="number">${vehicle.approxValue}</fmt:formatNumber></em>
+		<strong><fmt:formatNumber type="number">${vehicle.milesPerGallon}</fmt:formatNumber></strong>
+		&nbsp;&nbsp;&nbsp;Approximate value:  
+		<strong><fmt:formatNumber type="number">${vehicle.approxValue}</fmt:formatNumber></strong>
 
-		/ Miles driven per year:
-		<em><fmt:formatNumber type="number">${vehicle.milesPerYear}</fmt:formatNumber></em>	
+		&nbsp;&nbsp;&nbsp;Miles driven per year:
+		<strong><fmt:formatNumber type="number">${vehicle.milesPerYear}</fmt:formatNumber></strong>	
 		<small><a href="javascript:toggleEditField('vehicle',${vehicle.id});">Edit</a> | <a href="javascript:deleteVehicle(${vehicle.id})">Remove</a></small> 
 	</div>
 	<div id="vehicleEdit${vehicle.id}" class="myVehiclesRow" style="display: none;"> 
