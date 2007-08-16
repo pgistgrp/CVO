@@ -55,6 +55,8 @@
 		<!-- end voting tally menu -->
 
 	<div id="criteria" class="box3 floatLeft">
+	    <a href="javascript:Util.expandAll('objectives');">Expand all</a>
+    	<a href="javascript:Util.collapseAll('objectives');">Collapse all</a>
 		<div class="criteriaListHeader">
 		  <div class="criteriaCol1 floatLeft">
 		    <h4 class="headerColor">Improvement factor</h4>
@@ -71,13 +73,13 @@
 		<c:forEach var="infoObj" items="${infoStructure.infoObjects}" varStatus="loop">
 		  <div id="criteria-${infoObj.object.criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
 		    <div class="criteriaCol1 floatLeft">
-				<div class="floatLeft"><a href="javascript:io.expandList('objectives${infoObj.object.criterion.id}','icon${infoObj.object.criterion.id}');"> <img src="/images/plus.gif" id="icon${infoObj.object.criterion.id}"></a></div>
+				<div class="floatLeft"><a href="javascript:Util.toggleRow(${loop.index});"> <img src="/images/plus.gif" id="icon${loop.index}"></a></div>
 		      <div class="floatLeft"> ${infoObj.object.criterion.name}</div>
 		    </div>
 		    <div class="criteriaCol3 floatLeft">
 		      <!--themes-->
               <c:if test="${fn:length(infoObj.object.criterion.infoObjects) == 0}"> None Selected </c:if>
-              <c:forEach var="themeRef" items="${infoObj.object.criterion.infoObjects}" varStatus="loop">
+              <c:forEach var="themeRef" items="${infoObj.object.criterion.infoObjects}" varStatus="loop2">
                 ${themeRef.object.theme.title}<br />
               </c:forEach>
 		    </div>
@@ -85,7 +87,7 @@
 		    <div class="objectives" id="criteriaEdit${infoObj.object.criterion.id}">
 		      <!--javascript will load edit form here -->
 		    </div>
-		    <div class="objectives" id="objectives${infoObj.object.criterion.id}" style="display:none;"><br /><strong>Objectives:</strong>
+		    <div class="objectives" id="row${loop.index}" style="display:none;"><br /><strong>Objectives:</strong>
 		      <ul class="smallText">
 		        <c:if test="${fn:length(infoObj.object.criterion.objectives) == 0}">
 		          <li>None Selected</li>
