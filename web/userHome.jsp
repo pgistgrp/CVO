@@ -181,8 +181,9 @@
 	<body onload="workflow.getWorkflow(${param.workflowId});">
         <!-- Start Global Headers  -->
         <wf:nav />
-        <wf:subNav />
+        <div id="headerMenu"></div>
         <!-- End Global Headers -->
+        
 	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
@@ -529,7 +530,7 @@
 	<!-- end feedback form -->
 	<!-- Begin header menu - The wide ribbon underneath the logo -->
     <!-- Start Global Headers  -->
-    <wf:subNav />
+<div id="headerMenu"></div>
     <!-- End Global Headers -->
 	<!-- Begin footer -->
 	<div id="footer"> 

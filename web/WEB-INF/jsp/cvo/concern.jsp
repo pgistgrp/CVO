@@ -46,18 +46,46 @@
 		extended_valid_elements : "blockquote[style='']"
 	});
 //START Global Variables
+	var cct = new Object;
 	var concernId = ${concern.id}
 	var currentPage = 1;
 	var commentCount = 15;
 	var divDiscussion = "container-include";
 	var filterAnchor = "#filterAnchor";
 	var commentAnchor = "#commentAnchor";
-	
+	cct.cctId = "${cctForm.cct.id}";	
 	//Inputs
 	var txtNewCommentTitle = 'txtNewCommentTitle';
 	var txtNewComment = 'txtNewComment';
 	var txtNewCommentTags = 'txtNewCommentTags'
 //END Global variables
+
+	function getContextConcerns(filter, page, jump, showMyConcerns, sorting){
+		//alert("filter" + filter + " page: " + page + " jump: " + jump + " showMyConcerns: " + showMyConcerns + " sorting: " + sorting)
+		if(jump){
+			location.href = cct.filterAnchor; //set anchor if need be
+		}		
+		cct.showOnlyMyConcerns = showMyConcerns;
+		type = (cct.showOnlyMyConcerns) ? "owner" : "all"; //determine type
+		cct.currentPage = page; //set current page
+		cct.currentSort = sorting; 
+		
+	  //alert("cct: " + cct.cctId + " filter: " + filter + " count: " + cct.concernsPerPage + " page: " + page + " sorting: " + cct.currentSort + " type: " + type);
+		CCTAgent.getContextConcerns({cctId: cct.cctId,filter: filter, count: cct.concernsPerPage, page: page, sorting: cct.currentSort, type: type},<pg:wfinfo/>, {
+			callback:function(data){
+					if (data.successful){
+						$(cct.divDiscussionCont).innerHTML = data.html;
+					}else{
+						alert(data.reason);
+					}
+				},
+				async:false,
+			errorHandler:function(errorString, exception){ 
+					alert("getContextConcerns error:" + errorString + exception);
+			}
+		});	
+		return true
+	}
 
 	function getComments(page, jump){
 		currentPage = page;
@@ -200,6 +228,93 @@
 	    }
 	}
 
+function toggleEditing(component, concernId){
+	var concernBody = 'discussionText' + concernId;
+	var concernTags = 'tagsUL' + concernId;
+	var editConcern = 'editingArea' +concernId;
+	var editTags = 'tagEditingArea' +concernId;	
+	
+	if(component == "concern"){
+		($(editTags).style.display != "none") ? Element.toggle(editTags) : '';
+		Element.toggle(concernTags);
+		Element.toggle(concernBody);
+		Element.toggle(editConcern);
+	}
+	if(component == "tags"){
+		($(editConcern).style.display != "none") ? Element.toggle(editConcern) : '';
+		($(concernBody).style.display == "none") ? Element.toggle(concernBody) : '';
+		($(concernTags).style.display != "none") ? Element.toggle(concernTags) : '';
+		Element.toggle(editTags);
+	}	
+}
+
+function editConcern(concernId){
+	var newConcern = $('editConcern').value;
+	var concernBody = 'discussionText' + concernId;
+	CCTAgent.editConcern({concernId:concernId, concern:newConcern}, <pg:wfinfo/>,{
+		callback:function(data){
+				if (data.successful){
+					getContextConcerns(cct.currentFilter, cct.currentPage, false, cct.showOnlyMyConcerns, cct.currentSort);
+				
+				}  
+		},
+		errorHandler:function(errorString, exception){ 
+			alert("editConcern: "+errorString+" "+exception);
+			//showTheError();
+		}
+	});
+}
+
+function editConcernPopup(concernId){
+var currentConcern = '';
+CCTAgent.getConcernById(concernId, {
+
+	callback:function(data){
+		if (data.successful){
+				currentConcern = data.concern.content;
+				toggleEditing('concern', concernId);
+				var editConcern = 'editingArea' +concernId;
+					os = "";
+					os += '<textarea style="" name="editConcern" id="editConcern" cols="50" rows="5">' +currentConcern+ '</textarea>';
+					os += '<input type="button" id="modifyConcern" value="Submit Edits!" onclick="javascript:editConcern('+concernId+');"/>';
+					os += '<input type="button" value="Cancel" onClick="javascript:toggleEditing(\'concern\', '+concernId+');">';
+				$(editConcern).innerHTML = os;		
+		}
+	},
+	errorHandler:function(errorString, exception){ 
+			alert("editConcernPopup: "+errorString+" "+exception);
+			//showTheError();
+	}
+
+});
+
+}
+
+function editTagsPopup(concernId){
+	tagHolderId = 1;
+	concernTags = "";
+
+	CCTAgent.getConcernById(concernId, {
+	callback:function(data) {
+			if (data.successful){
+			var tagDiv = 'tagEditingArea' +concernId;
+			toggleEditing('tags', concernId);
+					
+			//Find Current Tags
+					newConcernTagsArray = [];
+					editingTags = data.concern.tags;
+					for(i=0; i < editingTags.length; i++){
+						addToConcernTagsArray(editingTags[i].tag.name, "checked");
+					}
+					$(tagDiv).innerHTML = renderEditingTags(concernId);  
+				}
+		},
+		errorHandler:function(errorString, exception){ 
+				alert("editTagsPopup: "+errorString+" "+exception);
+				//showTheError();
+		}
+	});
+}
 </script>
 <event:pageunload />
 </head><body>

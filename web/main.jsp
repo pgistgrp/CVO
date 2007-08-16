@@ -33,7 +33,7 @@
 	<body>
         <!-- Start Global Headers  -->
         <wf:nav />
-        <wf:subNav />
+        <div id="headerMenu"></div>
         <!-- End Global Headers -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
@@ -44,9 +44,9 @@
 	<pg:feedback id="feedbackDiv" action="cctView.do"/>
 	<!-- end feedback form -->
 	<!-- Begin header menu - The wide ribbon underneath the logo -->
-    <!-- Start Global Headers  -->
-    <wf:subNav />
-    <!-- End Global Headers -->
+        <!-- Start Global Headers  -->
+        <div id="headerMenu"></div>
+        <!-- End Global Headers -->
 	<!-- Begin footer -->
 	<div id="footer">
 		<jsp:include page="/footer.jsp" />

@@ -38,7 +38,7 @@
 <!-- BEGIN CONCERN -->
 <div id="summary" class="box3 floatLeft">
   <div class="discussionBody">
-    <!--<div id="editingArea${concern.id}" style="display:none"></div>-->
+    <div id="editingArea${concern.id}" style="display:none"></div>
     <div id="discussionText${concern.id}">
       <p>"${concern.content}"</p>
     </div>
@@ -66,7 +66,7 @@
           </c:forEach>
         </ul>
       </div>
-      <!--<div id="tagEditingArea${concern.id}" style="display:none"></div>-->
+      <div id="tagEditingArea${concern.id}" style="display:none"></div>
       <div style="clear: left;"></div>
       <!-- end tag iteration -->
     </div>
