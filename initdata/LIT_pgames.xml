@@ -198,7 +198,7 @@
         
         <pgame name="pgame-define.criteria" title="Moderator: Define improvement factors" auto="false" access="moderator">
             <description>
-              <![CDATA[Here is the description.]]>
+              <![CDATA[Create improvement factors, associate them with themes, and add objectives]]>
             </description>
             <actionName>action-define.criteria</actionName>
             <declaration>
