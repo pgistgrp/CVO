@@ -54,8 +54,10 @@
     </c:forEach>
     <!-- END FUTURES -->
 
+  <div id="headerNext" class="floatRight box5"> <pg:url page="/userhome.do">Back to Agenda</pg:url> </div>
   </div>
   
-  <div id="headerNext" class="floatRight box5"> <pg:url page="/userhome.do">Back to Agenda</pg:url> </div>
+
+
 </div>
 <!-- End header menu -->
