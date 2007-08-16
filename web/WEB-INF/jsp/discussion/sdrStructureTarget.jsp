@@ -23,28 +23,33 @@
 	#### -->
 	<!-- begin "overview and instructions" area -->
 	<div id="overview" class="box2">
-		<h3 class="headerColor">Instructions</h3>
-		<p>
-			Here you can review proposed projects for improving or expanding our regional transportation system.  Click on a project
-			to review information and discuss its merits or drawbacks with other participants.
-		</p>
-		<p>
-			Each of the project has been examined by a panel of specialists who assigned scores based on the criteria we reviewed in Step 2.
-		</p>
+		<h3>Overview and instructions</h3>
+		Our final step is to prepare a final report to communicate the results of the <em>LIT Challenge</em>. A draft report has already been created for your review.
+		<ul><strong>Activities in this step</strong>
+			<li>Review the report and discuss with other participants</li>
+			<li>Suggest revisions to the report in the discussion forum (below)</li>
+			<li>Vote in the draft report poll</li>
+		</ul>
+		<p>A final vote on report endorsement will begin <strong>October 27</strong>.</p>
+		<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
+			<div id="hiddenRM" style="display:none">
+				<ul><li>On October 26, the moderator will begin making revisions to the draft report. Once the revisions are complete, all participants will have the opportunity to vote to endorse (or not) the report. The vote results will appear in the executive summary of the final report.</li>
+				<li>On October 29, the final report will be published online for the public to view. Special invitations to read the report will be sent to transportation decision makers and members of the media.</li></ul>				
+			</div>
 	</div>
 	<!-- end overview -->
 	
 	
-	<h3 class="headerColor clearBoth">All planning factors and related concern themes</h3>
+	<h3 class="headerColor clearBoth">Let’s Improve Transportation DRAFT Report: Executive Summary</h3>
 
 	<!-- Begin voting tally menu -->
 	<div id="votingMenu" class="floatLeft"><div id="voting-structure${infoStructure.id}">
 		<div id="votingMenuTally" class="box1">
 			<span id="structure_question_status">
 			<h2>${infoStructure.numAgree} of ${infoStructure.numVote}</h2>
-			agree with that these planning factors adequately address the concerns expressed by participants in Step 1.</div>
+			agree that this draft report adequately describes the outcome of the LIT Challenge?</div>
 		</span>
-		<p>Do these planning factors adequately address the concerns expressed by participants in step 1?</p>
+		<p>Does this draft report adequately describe the outcomes of the LIT Challenge?</p>
 		<span id="structure_question">
 			<c:choose>
 				<c:when test="${voting == null}">
@@ -60,12 +65,9 @@
 
 	<div id="summary" class="box3 floatLeft">
 		<h3 class="headerColor">Let's Improve Transportation Final Report: Executive Summary (DRAFT)</h3>
-		<div id="executiveSummary"> 298 residents of King, Pierce, and Snohomish county
-			worked together online over the course of 5 weeks to learn about transportation
-			problems in our region, discuss their own concerns, and create a package of
-			transportation projects and funding sources to address our transportation needs.
-			On November 2, 2007 they released the results of their efforts.
-			<p>The package contains 32 road and transit projects across the 3 county region.
+		<div id="executiveSummary">
+			<p>This report describes the results of the </em>Let's Improve Transportation Challenge</em>, an online experiment in participatory democracy facilitated by researchers at the University of Washington. 298 residents of King, Pierce, and Snohomish county worked together over the course of four weeks to learn about transportation problems, discuss their concerns, and collectively recommend a package of improvement projects and funding sources to address regional transportation needs. On October 29, 2007 they released the results of their efforts. </p>
+			<p>The recommended package contains 32 road and transit projects across the three-county region.
 				It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 				fees. The total cost of the package is $16 billion. The package was endorsed
 				by 81% of the participants (256 our of 298 participating).</p>
@@ -74,9 +76,9 @@
 				<ol>
 					<li>
 					    <a href="javascript:io.goToFullReport('participants');">The participants and their concerns about transportation</a></li>
-					<li><a href="javascript:io.goToFullReport('planningfactors');">"Planning factors" used in project evaluation</a></li>
-					<li><a href="javascript:io.goToFullReport('projects');">Project selection and personal package creation</a></li>
-					<li><a href="javascript:io.goToFullReport('packages');">Evaluation of packages</a></li>
+					<li><a href="javascript:io.goToFullReport('planningfactors');">Improvement factors used in project evaluation</a></li>
+					<li><a href="javascript:io.goToFullReport('projects');">Individual project review and package creation</a></li>
+					<li><a href="javascript:io.goToFullReport('packages');">The recommended transportation package</a></li>
 				</ol>
 			</div>
 			<input type="button" class="floatRight" onclick="io.goToFullReport();" value="Read the full report" />
