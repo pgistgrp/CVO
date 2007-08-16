@@ -14,14 +14,6 @@
 	Author(s): 
 	     Front End: Jordan Isip, Adam Hindman
 	     Back End: Matt Paulin, Zhong Wang
-	Todo Items:
-		[x] Initial Skeleton Code (Jordan)
-		[x] Backend code (Matt)
-		[x] BareBones JavaScript (Jordan)
-		[x] fundingDefine.do?suiteId=xxx does not grab fundingAssoc.jsp
-		[x] Integrate backend code (Jordan)
-		[ ] setFundingDef does not add suiteId to db - therefore containsFundingRef does not work. (Matt)
-		[ ] loading indicator (Jordan)
 #### -->
 <html:html> 
 <head>
@@ -68,17 +60,48 @@
 			callback:function(data){
 				if (data.successful){
 					//alert("alternative operation saved!");
-					//add loading indicator if time permits
+					updateXML();
 				}else{
 					alert(data.reason);
 				}
-			Util.loading(false)
+			Util.loading(false);
 			},
 			errorHandler:function(errorString, exception){ 
 			alert("FundingAgent.setFundingDef( error:" + errorString + exception);
 			}
 		});
 	}
+	
+	function updateXML(){
+        FundingAgent.getFundingSuiteById({id:suiteId}, {
+            callback:function(data){
+                if (data.successful){
+                    xml=data.fundSuite.references
+                    /*
+xml = '<?xml version="1.0" encoding="UTF-8"?>\r\n\
+<template>\r\n\
+    <fundings>\r\n'
+    data.fundSuite.references.each(function(fRef){
+    xml += '\t<funding name="'+fRef.project.name +'">\r\n'; 
+    fRef.altRefs.each(function(aRef){
+        xml += '\t\t<alternative name="'+aRef.alternative.name+'"></alternative>\r\n'
+    })
+    xml += '\t</funding>\r\n'
+    });
+    xml+='\
+    </fundings>\r\n\
+</template>';
+*/
+                    $('xmlDataTemplate').value = xml;
+                }else{
+                    alert(data.reason);
+                }
+            },
+            errorHandler:function(errorString, exception){ 
+            alert("FundingAgent.getFundingSuiteById( error:" + errorString + exception);
+            }
+        });
+    }
 </script>
 <style type="text/css">
 	@import "styles/loading-indicator.css";
@@ -119,6 +142,14 @@
 	</ul>
 
 	<h3 align="right">Finished selecting funding source alternatives?</h3>
+	
+	<p>TEMP (For Developers) - <a href="javascript:Element.toggle('XMLwrapper');updateXML();">View XML for Data Template</a></p>
+	
+	<div id="XMLwrapper" style="display:none">
+		<textarea id="xmlDataTemplate" style="width:100%; height: 500px">
+            <!--update via DWR-->
+	    </textarea>
+    </div>
 	
 	<p align="right"><input type="button" style="padding:5px;" onClick="location.href='userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" value="Finished!"/></p>
 </body>

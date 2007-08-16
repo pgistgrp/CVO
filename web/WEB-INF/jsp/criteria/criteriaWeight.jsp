@@ -17,6 +17,7 @@
 		<script src="/scripts/globalSnippits.js" type="text/javascript"></script>
 		<script src="/scripts/tags.js" type="text/javascript"></script>
 		<script src="/scripts/prototype.js" type="text/javascript"></script>
+		<script src="/scripts/util.js" type="text/javascript"></script>
 		<script src="/scripts/scriptaculous.js?control,effect" type="text/javascript"></script>
 		<!-- End Site Wide JavaScript -->
 		<!-- DWR JavaScript Libraries -->

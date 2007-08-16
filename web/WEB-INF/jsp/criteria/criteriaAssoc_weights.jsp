@@ -10,6 +10,8 @@
 <!--load remaining weight here -->
 </b></p><br class="clearBoth" />
 <div id="critRowWrapper">
+    <a href="javascript:Util.expandAll('objectives');">Expand all</a>
+	<a href="javascript:Util.collapseAll('objectives');">Collapse all</a>
 <div class="criteriaListHeader">
 	<div class="weighCriteriaCol1 floatLeft">
 		<h4>Improvement factor</h4>
@@ -28,9 +30,9 @@
 			<div id="criteria-${ref.criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
 				<div class="weighCriteriaCol1 floatLeft"><a href="#">
 					<div class="floatLeft iconImg"> 
-						<a href="javascript:expandList('objectives${ref.criterion.id}','icon${ref.criterion.id}');"> <img src="/images/plus.gif" id="icon${ref.criterion.id}"></a> 
+						<a href="javascript:Util.toggleRow(${loop.index});"> <img src="/images/plus.gif" id="icon${loop.index}"></a> 
 					</div>
-					<div class="floatLeft pfValue"><label for="icon${ref.criterion.id}" onclick="javascript:expandList('objectives${ref.criterion.id}','icon${ref.criterion.id}');">${ref.criterion.name}</label></div>
+					<div class="floatLeft pfValue"><label for="icon${loop.index}" onclick="Util.toggleRow(${loop.index});">${ref.criterion.name}</label></div>
 				</div>
 				<!--<div class="weighCriteriaCol2 floatLeft">${ref.criterion.na}</div>-->
 	
@@ -53,7 +55,7 @@
 					<div class="clearBoth"></div>
 				</div>
 				<div class="clearBoth"></div>
-				<div class="objectives" id="objectives${ref.criterion.id}" style="display:none;">
+				<div class="objectives" id="row${loop.index}" style="display:none;">
 					<p>To get a good grade in <strong>${ref.criterion.name}</strong>, a transportation project must meet the following objectives:</p>
 					<ul><c:if test="${fn:length(ref.criterion.objectives) == 0}">
 							<li>None Selected</li>

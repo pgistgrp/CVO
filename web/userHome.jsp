@@ -42,7 +42,7 @@
 		
 		if(!wfId){location.href="main.do"}
 		function getAnnouncements(){
-			Util.loading(true, "Loading Announcements");
+			Util.loading(true, "Loading Annoucements");
 			SystemAgent.getAnnouncements({workflowId:wfId}, {
 				callback:function(data){
 					if (data.successful){
@@ -65,11 +65,12 @@
 			} else {
 				email = email.toString();
 			}
-			Util.loading(true, "Saving Announcement");
+			Util.loading(true, "Saving Annoucement");
 			var message = tinyMCE.getContent();
 			SystemAgent.addAnnouncement({workflowId:wfId,message:message,email:email}, {
 				callback:function(data){
 					if (data.successful){
+					    new Effect.ScrollTo("right-col");
 						getAnnouncements();
 					}else{
 						alert(data.reason);
@@ -81,15 +82,15 @@
 				}
 			});
 		}
-	
+		
 		function deleteAnnouncement(id){
-			Util.loading(true, "Deleting Announcement");
+			Util.loading(true, "Deleting Annoucement");
 			SystemAgent.deleteAnnouncement({id:id}, {
 				callback:function(data){
 					if (data.successful){
 						new Effect.DropOut('announcement' + id)
-						alert(data.reason);
 					}else{
+						alert(data.reason);
 					}
 					Util.loading(false);
 				},
@@ -112,6 +113,7 @@
 		/* Have to use mceAddControl to instantiate editor onclick or else
 		   tinyMCE can't find it */
 		function editAnnouncementPrep(id){
+		    new Effect.ScrollTo("btnEdit");
 			$('announce-editor').style.display="";
 			tinyMCE.execCommand('mceRemoveControl',true,'modAnnounce');
 			tinyMCE.execCommand('mceAddControl',true,'modAnnounce');
@@ -122,14 +124,16 @@
 		}
 		
 		function editAnnouncement(id){
-			Util.loading(true, "Saving Announcement");
+			Util.loading(true, "Saving Annoucement");
 			var message="default text";
 			var message = tinyMCE.getContent();
 			SystemAgent.editAnnouncement({id:id, message:message}, {
 				callback:function(data){
 					if (data.successful){
+					    new Effect.ScrollTo("right-col");
 						tinyMCE.setContent("");
 						getAnnouncements();
+						setTimeout(function() {new Effect.Highlight("announcement"+id,{duration:4.0});}, 100);
 					}else{
 						alert(data.reason);
 					}
@@ -155,7 +159,7 @@
    		var editor = tinyMCE.selectedInstance.editorId;
       tinyMCE.execCommand('mceFocus', false, editor);
    }
-
+   
 		tinyMCE.init({
 		theme : "advanced",
 		theme_advanced_buttons1 : "bold, italic, bullist, numlist,undo, redo,link",
@@ -170,6 +174,7 @@
 		});
 	
 	//tinyMCE.execCommand('mceFocus',false,'content');
+	
 	</script>
 	<event:pageunload />
 	</head>
@@ -371,7 +376,7 @@
 					<input type="button" id="editBtn" 
 						onclick="editAnnouncement(name);Element.toggle($('announce-editor'));" 
 						class="padding5" style="display:none" value="Save" />
-					<a href="javascript:Element.toggle($('announce-editor'));void(0);">Cancel</a> </div>
+					<a href="javascript:Element.toggle('announce-editor');new Effect.ScrollTo('right-col');void(0);">Cancel</a> </div>
 			</pg:show>
 		</div>
 		<div class="clearBoth"></div>
