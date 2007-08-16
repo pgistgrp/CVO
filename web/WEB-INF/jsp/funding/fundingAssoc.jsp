@@ -60,7 +60,7 @@
 			callback:function(data){
 				if (data.successful){
 					//alert("alternative operation saved!");
-					updateXML();
+					//updateXML();
 				}else{
 					alert(data.reason);
 				}
