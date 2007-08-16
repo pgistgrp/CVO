@@ -10,16 +10,26 @@ import java.util.Set;
 
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.Concern;
+import org.pgist.cvo.CSTService;
+import org.pgist.cvo.Theme;
+import org.pgist.cvo.CategoryReference;
+import org.pgist.discussion.InfoObject;
 import org.pgist.packages.ClusteredPackage;
 import org.pgist.packages.PackageSuite;
 import org.pgist.packages.PackageVoteSuite;
 import org.pgist.packages.UserPackage;
 import org.pgist.packages.VoteSuiteStat;
+import org.pgist.projects.ProjectAltRef;
+import org.pgist.projects.ProjectRef;
+import org.pgist.projects.Project;
+import org.pgist.projects.ProjectService;
+import org.pgist.projects.ProjectAlternative;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.system.County;
 import org.pgist.system.SystemService;
 import org.pgist.users.User;
 import org.pgist.criteria.CriteriaSuite;
+import org.pgist.criteria.CriteriaRef;
 import org.pgist.projects.ProjectSuite;
 
 
@@ -28,9 +38,20 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 
 	private SystemService systemService;
 	
+	private CSTService cstService;
 
+	private ProjectService projectService;
+	
 	public void setSystemService(SystemService systemService) {
 		this.systemService = systemService;
+	}
+	
+	public void setCstService(CSTService cstService) {
+		this.cstService = cstService;
+	}
+	
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
 	}
 	
 	
@@ -54,12 +75,37 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		return map; 
 	}
 	
+	private static final String hql_createStatsPart1 = "from CategoryReference cr where cr.theme=?"; 
+	private static final String hql_createStatsPart2 = "from InfoObject io where io.object.id=?"; 
 	
 	public void createStatsPart1(Long workflowId, Long cctId, Long repoSuiteId) throws Exception {
 		System.out.println("***Excecute CreateStatsPart1()");
 		CCT cct = (CCT)load(CCT.class, cctId);
 		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
 		ReportStats rs = new ReportStats();
+		
+		//Get Themes and stats
+		List themelist = cstService.getThemes(cct);
+		Set themes = new HashSet();
+		themes.addAll(themelist);
+		Iterator itThemes = themes.iterator();
+		while(itThemes.hasNext()) {
+			Theme theme = (Theme) itThemes.next();
+			ReportThemeStat tempRTS = new ReportThemeStat();
+			tempRTS.setTheme(theme);
+			List catRefList = getHibernateTemplate().find(hql_createStatsPart1, new Object[] {theme,});			
+			CategoryReference cr = (CategoryReference)catRefList.get(0);
+			System.out.println("***ReportStats1 cr size: " + catRefList.size());
+			
+			List InfoObjList = getHibernateTemplate().find(hql_createStatsPart2, new Object[] {cr.getId(),});
+			InfoObject io = (InfoObject) InfoObjList.get(0);
+			System.out.println("***ReportStats1 io size: " + InfoObjList.size());
+			
+			tempRTS.setYesVotes(io.getNumAgree());
+			tempRTS.setTotalVotes(io.getNumVote());
+			
+			rs.getReportThemeStats().add(tempRTS);
+		}
 		
 		//Variables to store stats
 		Set<User> users = new HashSet();
@@ -179,6 +225,14 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
 		int critNum = cs.getReferences().size();
 		
+		//get Criteria and avg weights
+		/*Set critRefs = cs.getReferences();
+		Iterator itCR = critRefs.iterator();
+		while(itCR.hasNext()) {
+			CriteriaRef cr = (CriteriaRef) itCR.next();
+			cr.get
+		}*/
+		
 		rs.setQuanity(critNum);
 		save(rs);
 		save(repoSuite);
@@ -198,6 +252,40 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		int userNumCompleted = pkgSuite.getUserPkgs().size(); 
 		rs.setUserCompleted(userNumCompleted);
 		
+		
+		Collection projects = projectService.getProjects();
+		Iterator itProj = projects.iterator();
+		
+		while(itProj.hasNext()) {
+			Project project = (Project) itProj.next();
+			ReportProjectStat rps = new ReportProjectStat();
+			rps.setProject(project);
+			save(rps);
+			rs.getReportProjectStats().add(rps);
+		}
+		save(rs);
+		/*
+		Set userPkgs = pkgSuite.getUserPkgs();
+		Iterator itPkg = userPkgs.iterator();
+		while(itPkg.hasNext()) {
+			
+			UserPackage up = (UserPackage) itPkg.next();
+			Set ProjAltRefs = up.getProjAltRefs();
+			Iterator itPar = ProjAltRefs.iterator();
+			while(itPar.hasNext()) {
+				ProjectAltRef par = (ProjectAltRef) itPar.next(); 
+				ProjectAlternative pa = par.getAlternative();
+				if(pa.getTotalVotes()==0) {
+					pa.setYesVotes(1);
+					pa.setTotalVotes(1);					
+				} else {
+					pa.setYesVotes(pa.getYesVotes()+1);
+					pa.setTotalVotes(pa.getTotalVotes()+1);
+				}
+				save(pa);
+			}
+		}
+		*/
 		save(rs);
 		repoSuite.setStatsPart3(rs);
 		save(repoSuite);
@@ -497,6 +585,9 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		
 		return map;
 	}
+
+
+
 
 
 	

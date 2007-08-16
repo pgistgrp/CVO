@@ -35,7 +35,8 @@ public class ReportServiceImpl implements ReportService{
 		reportDAO.createStatsPart2(workflowId, cctId, repoSuiteId, critSuiteId);
 		reportDAO.createStatsPart3(workflowId, cctId, repoSuiteId, projSuiteId, packSuiteId);
 		reportDAO.createStatsPart4(workflowId, repoSuiteId, packSuiteId);
-		reportDAO.createStatsES(workflowId, repoSuiteId, packSuiteId); // Must be ran last
+		reportDAO.createStatsES(workflowId, repoSuiteId, packSuiteId); 
+		System.out.println("***CreateStats done");
 	}
 	
 	

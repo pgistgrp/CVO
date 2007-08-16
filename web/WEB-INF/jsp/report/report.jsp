@@ -293,10 +293,10 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 		<h3>Concerns expressed by participants</h3>
 		<p>${part1b}</p>
 		<blockquote>
-			<c:forEach var="theme" items="${summaries}" varStatus="loop">
-				<h4>${theme.title}</h4>
-				<p>${theme.summary}</p>
-				<p>110 out of 134 agree that this summary reflects the concerns of all participants.<br />
+			<c:forEach var="reportThemeStat" items="${statsPart1.reportThemeStats}" varStatus="loop">
+				<h4>${reportThemeStat.theme.title}</h4>
+				<p>${reportThemeStat.theme.summary}</p>
+				<p>${reportThemeStat.yesVotes} out of ${reportThemeStat.totalVotes} agree that this summary reflects the concerns of all participants.<br />
 					<a href="#">Read participant concerns related to ${theme.title}</a></p>
 			</c:forEach>
 		</blockquote>
@@ -354,7 +354,7 @@ After a period of discussion about the relevance of the improvement factors to t
 				and personal package creation</a></h3>
 		
 		<p>
-		In the third step participants first reviewed and discussed a list of ${statsPart3.quanity} proposed transportation improvement projects in the ${size} county region. This was followed by a review and discussion of available options for funding these transportation improvements. Finally, participants were each given the opportunity to create their own personal transportation package including both a set of projects and a set of funding sources which provide enough money to pay for the projects. The results of participant project and funding source selection are described below. Note: only ${statsPart4.userCompleted} of the total ${statsES.totalUsers} participants completed this step.
+		In the third step participants first reviewed and discussed a list of ${statsPart3.quanity} proposed transportation improvement projects in the ${size} county region. This was followed by a review and discussion of available options for funding these transportation improvements. Finally, participants were each given the opportunity to create their own personal transportation package including both a set of projects and a set of funding sources which provide enough money to pay for the projects. The results of participant project and funding source selection are described below. Note: only ${statsPart3.userCompleted} of the total ${statsES.totalUsers} participants completed this step.
 		</p>
 			
 			<p>${part3a}</p>

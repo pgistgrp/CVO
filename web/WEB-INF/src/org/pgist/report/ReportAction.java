@@ -141,18 +141,18 @@ public class ReportAction extends Action {
     	
     	// get Packages
     	PackageSuite pkgSuite = packageService.getPackageSuite(packSuiteId);
-    	Collection userPkgs = pkgSuite.getUserPkgs();
-    	UserInfo userInfo = WebUtils.currentUser();
-    	Iterator it = userPkgs.iterator();
-    	UserPackage up = new UserPackage();
+    	Collection userPkgs = pkgSuite.getClusteredPkgs();
+    	//UserInfo userInfo = WebUtils.currentUser();
+    	//Iterator it = userPkgs.iterator();
+    	//UserPackage up = new UserPackage();
     	
-    	while(it.hasNext()) {
+    	/*while(it.hasNext()) {
     		UserPackage userPackage = (UserPackage) it.next();
     		if(userPackage.getAuthor().getId().equals(userInfo.getId())) {
     			up = userPackage;
     			break;
     		}
-    	}
+    	}*/
     	
     	// get cluster packages
     	Collection cp = pkgSuite.getClusteredPkgs();
@@ -167,7 +167,7 @@ public class ReportAction extends Action {
     	//Sets the Criteria References which contain criteria and grades.
     	request.setAttribute("summaries", summaries);
     	request.setAttribute("cr", cr);
-    	request.setAttribute("up", up);
+    	request.setAttribute("up", userPkgs);
     	request.setAttribute("cp", cp);
     	request.setAttribute("pp", pp);
     	request.setAttribute("vss", vss);

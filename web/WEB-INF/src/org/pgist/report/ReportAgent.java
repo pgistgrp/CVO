@@ -203,9 +203,7 @@ public class ReportAgent {
         	Long workflowId = Long.parseLong(strWorkId);
         	
         	reportService.createStatistics(workflowId, cctId, repoSuiteId, packSuiteId, critSuiteId, projSuiteId);
-        	
-
-            
+      
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -214,6 +212,7 @@ public class ReportAgent {
         
         return map;
     }
+    
     
     
 } //ReportAgent

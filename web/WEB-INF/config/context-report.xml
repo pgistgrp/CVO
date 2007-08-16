@@ -8,6 +8,8 @@
 	    <ref bean="sessionFactory" />
 	</property>
 	<property name="systemService" ref="systemService"/>
+	<property name="cstService" ref="cstService"/>
+	<property name="projectService" ref="projectService"/>
     </bean>
 
     

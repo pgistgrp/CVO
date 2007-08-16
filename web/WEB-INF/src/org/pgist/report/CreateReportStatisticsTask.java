@@ -52,9 +52,9 @@ public class CreateReportStatisticsTask implements WorkflowTask{
         Long repoSuiteId = new Long(inouts.getIntValue(IN_REPO_SUITE_ID));
         Long packSuiteId = new Long(inouts.getIntValue(IN_PACK_SUITE_ID));
         
-                
+        System.out.println("***CreateStatsTask start");        
         reportService.createStatistics(workflowId, cctId, repoSuiteId, packSuiteId, critSuiteId, projSuiteId);
-        
+        System.out.println("***CreateStatsTask done");
     }//execute()
 
     
