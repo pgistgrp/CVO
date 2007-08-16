@@ -106,51 +106,58 @@
 		<div id="object clearfix">
 			<p><h2 class="headerColor">${package.description} Details</h2></p>
 			<!-- begin TOP SUMMARY -->
-			<div id="gmap" class="floatRight box11">500px Gmap goes here</div>			
+			<div id="gmap" class="floatRight box11"></div>			
 			<div class="summary box11">
-				<table>
-					<tr>
-						<td><h3>Total cost</h3></td>
-						<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalCost/1000000}" /> million
-							</td>
-					</tr>
-					<tr>
-						<td><h3>Total funding</h3></td>
-						<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalFunding/1000000}" /> million</td>
-					</tr>
-					<c:if test="${userPkg != null}">
-						<tr>
-							<td><strong>Cost to you:</strong></td>
-							<td><fmt:formatNumber type="currency" value="${package.yourCost}"/> per year</td>
-						</tr>
-					</c:if>
-					<tr>
-						<td><strong>Cost to the average resident:</strong></td>
-						<td><fmt:formatNumber type="currency" value="${package.avgResidentCost}" /> per year</td>
-					</tr>
-					<tr>
-						<td><strong>Number of projects in your package:</strong></td>
-						<td>${fn:length(package.projAltRefs)}</td>
-					</tr>
-				</table>
-
-					<c:choose>
-						<c:when test="${(package.totalFunding - package.totalCost) > 0}">
-							<div id="balance" class="balance">
-								<h3>Revenues exceed costs</h3>
-							</div>
-						</c:when>
-						<c:when test="${(package.totalFunding - package.totalCost) == 0}">
-							<div id="balance" class="balance">
-								<h3>Revenues equal costs</h3>
-							</div>
-						</c:when>
-						<c:otherwise>
-							<div id="balance" class="exceed">
-								<h3>Costs exceed revenue!</h3>
-							</div>
-						</c:otherwise>
-					</c:choose>
+<table cellpadding="0" cellspacing="0">
+	<tr>
+		<td><h3>Total Cost</h3></td>
+		<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalCost/1000000}" /> million</td>
+	</tr>
+	<tr>
+		<td><h3>Total funding</h3></td>
+		<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalFunding/1000000}" /> million</td>
+	</tr>
+	
+	<tr>
+		<td colspan="2">
+		<c:choose>
+		<c:when test="${(package.totalFunding - package.totalCost) > 0}">
+			<div id="balance" class="balance" style="background-color:#C9E1BD;">
+				<h3 style="width:50%;float:left;text-align:left;">Balance:</h3>
+				<h3 id="sum" style="width:49%;text-align:right;float:left;">$<fmt:formatNumber type="number" maxFractionDigits="0" value="${(package.totalFunding - package.totalCost)/1000000}" /> million </h3><div class="clearBoth"></div>
+			</div>
+		</c:when>
+		<c:when test="${(package.totalFunding - package.totalCost) == 0}">
+			<div id="balance" class="balance" style="background-color:#C9E1BD;">
+				<h3 style="width:50%;float:left;text-align:left;">Balance:</h3>
+				<h3 id="sum" style="width:49%;text-align:right;float:left;">$<fmt:formatNumber type="number" maxFractionDigits="0" value="${(package.totalFunding - package.totalCost)/1000000}" /> million </h3><div class="clearBoth"></div>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div id="balance" class="exceed" style="background-color:#E5A9A6">
+				<h3 style="float:left;width:50%;text-align:left;">Balance:</h3>
+				<h3 id="sum" style="float:left;width:49%;text-align:right;">$<fmt:formatNumber type="number" maxFractionDigits="0" value="${(package.totalFunding - package.totalCost)/1000000}" /> million </h3><div class="clearBoth"></div>
+			</div>
+		</c:otherwise>
+		</c:choose>
+		</td>
+	</tr>
+	
+	<c:if test="${userPkg != null}">
+		<tr>
+			<td><strong>Cost to you:</strong></td>
+			<td><fmt:formatNumber type="currency">${package.yourCost}</fmt:formatNumber> per year</td>
+		</tr>
+	</c:if>
+	<tr>
+		<td><strong>Cost to the average resident:</strong></td>
+		<td><fmt:formatNumber type="currency">${package.avgResidentCost}</fmt:formatNumber> per year</td>
+	</tr>
+	<tr>
+		<td><strong>Number of projects in your package:</strong></td>
+		<td>${fn:length(package.projAltRefs)}</td>
+	</tr>
+</table>
 			</div>
 			<!-- end TOP SUMMARY -->
 			<div class="clearBoth"></div>

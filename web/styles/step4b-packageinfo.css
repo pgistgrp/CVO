@@ -1,4 +1,5 @@
-#gmap{width:500px;}
+#gmap{width:500px;background:#C5D78B}
+#gmap.box11{padding:0px}
 
 #newTable table {width:100%}
 #top, #bottom{margin-bottom:2em;}
@@ -47,7 +48,7 @@
 /* .balance and .exceed are classes for the revenue summary.
    Balance is green and exceed is red. */
 	
-.balance, .exceed {padding:5px;text-align:center;margin:5px;}
+.balance, .exceed {padding:5px;text-align:center;}
 
 .balance 
 {

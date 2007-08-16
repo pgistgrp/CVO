@@ -77,7 +77,9 @@ function getDiscussion(start, end) {
 <!-- Begin container - Main page content begins here -->
 <div id="container" class="clearfix">
 	<p><h3 class="headerColor" style="display:inline">LIT Participant Profile</h3>
-	<pg:url page="usercp.do"> Edit my profile and settings</pg:url></p>
+	<c:if test="${user.loginname==baseuser.loginname}">
+		<pg:url page="usercp.do"> Edit my profile and settings</pg:url></p>
+	</c:if>
 	<!-- start PROFILE-FIELDS section -->
 	<div id="profile-fields">
 		<div id="statistics" class="box9">

@@ -19,5 +19,5 @@ text-align:center;
 .gradeDPlus {background:#E3AFB3}
 .gradeD {background:#D78C93}
 .gradeDMinus {background:#C9636D}
-.gradeFPlus {background:#BC3D4A}
-.gradeF {background:#B2172D}
+.gradeFPlus {background:#BC3D4A;color:#fff;}
+.gradeF {background:#B2172D;color:#fff;}
