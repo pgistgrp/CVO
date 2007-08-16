@@ -5,8 +5,8 @@ import java.io.Serializable;
 import org.pgist.cvo.Theme;
 
 /**
- * <span style="color:red;">POJO</span>: PGIST Announcement Class<br>
- * <span style="color:red;">TABLE</span>: pgist_announcement
+ * <span style="color:red;">POJO</span>: PGIST report theme stat Class<br>
+ * <span style="color:red;">TABLE</span>: pgist_report_theme_stat
  * 
  * <p>Report theme statistics
  * 

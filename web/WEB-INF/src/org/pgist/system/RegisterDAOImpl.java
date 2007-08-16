@@ -17,6 +17,7 @@ import org.pgist.users.TravelMarker;
 import org.pgist.users.TravelTrip;
 import org.pgist.users.User;
 import org.pgist.util.WKT;
+import org.pgist.util.WebUtils;
 import org.postgis.Geometry;
 import org.postgis.LineString;
 import org.postgis.Point;
@@ -83,6 +84,7 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     	}
     	
     	save(u);
+    	assignWebQId(u.getId());
     	
     	return u.getId();
     } //addUser()
@@ -334,6 +336,50 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 			}
 		}
 	} //deleteAllExpired()
+	
+	
+	private static final String hql_getRegisterObjectByType = "from RegisterObject ro where ro.type=?";
+	
+	public Collection getRegisterObjectByType(String type) throws Exception {
+		Collection collection = getHibernateTemplate().find(hql_getRegisterObjectByType, new Object[] {
+				type,
+    	});
+		
+		return collection;
+	} //getRegisterObjectByType()
+	
+	
+	private static final String hql_assignWebQId = "from RegisterObject ro where ro.type=? and ro.used=?";
+	
+	public RegisterObject assignWebQId(Long userId) throws Exception {
+		String type = "webq";
+		Collection collection = getHibernateTemplate().find(hql_assignWebQId, new Object[] {
+				type, false,
+    	});
+		
+		Iterator it = collection.iterator();
+		RegisterObject ro = (RegisterObject) it.next();
+		 
+		User u = (User)load(User.class, userId);
+		ro.setUsed(true);
+		save(ro);
+		u.setWebQ(ro);
+		save(u);
+		 
+		return ro;
+	}
+	
+	public void createRegisterObjects(String type, String[] valuelist) throws Exception {
+		
+		for(int i = 0; i < valuelist.length; i++) {
+			RegisterObject ro = new RegisterObject();
+			ro.setType(type);
+			ro.setValue(valuelist[i]);
+			save(ro);
+		}
+		
+	}
+	
 	
     public Long saveUserTravelTrip(User user, TravelTrip trip) throws Exception{
     	trip.setOwner(user);

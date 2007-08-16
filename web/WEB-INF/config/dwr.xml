@@ -89,6 +89,7 @@
         <include method="saveUserTrip"/>
         <include method="getUserTrips"/>
         <include method="removeTravelTrip"/>
+	<include method="createRegisterObjects"/>
     </create>
     
     <create creator="spring" javascript="ProfileAgent">

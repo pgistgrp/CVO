@@ -3,7 +3,7 @@ package org.pgist.users;
 import java.io.Serializable;
 
 import org.pgist.util.MD5;
-
+import org.pgist.system.RegisterObject;
 
 /**
  * <span style="color:red;">POJO:</span> Basic User Class<br>
@@ -129,10 +129,16 @@ public class BaseUser implements Serializable {
      */
     protected String vocation = "";
     
-  
-
-    
     /**
+     * <span style="color:blue;">(Column.)</span>
+     * WebQ. Users assigned WebQ.
+     */
+    protected RegisterObject webQ;
+    
+
+
+
+	/**
      * @return
      * @hibernate.id generator-class="native"
      */
@@ -386,8 +392,18 @@ public class BaseUser implements Serializable {
         this.vocation = vocation;
     }
     
+    /**
+     * @return
+     * @hibernate.many-to-one column="webq_id" lazy="true"
+     */
+    public RegisterObject getWebQ() {
+		return webQ;
+	}
 
 
+	public void setWebQ(RegisterObject webQ) {
+		this.webQ = webQ;
+	}
     
     
 }//class BaseUser

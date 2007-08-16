@@ -49,6 +49,7 @@
     
     <bean name="/registerq" class="org.pgist.system.RegisterQuestionAction">
         <property name="systemService" ref="systemService"/>
+	<property name="registerService" ref="registerService"/>
     </bean>
     
     

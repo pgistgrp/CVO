@@ -241,6 +241,10 @@ function formOther(){
 			<div class="settings-col2">${user.loginname}</div>
 			<div class="clearBoth"></div>
 			</p>
+			<div class="settings-col1">WebQ Id</div>
+			<div class="settings-col2">${user.webQ.value}</div>
+			<div class="clearBoth"></div>
+			
 			<div class="settings-col1">Vocation<br />
 				<span>What do you do?</span></div>
 			<div class="settings-col2">

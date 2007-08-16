@@ -790,5 +790,53 @@ public class RegisterAgent {
         
         return map;		
 	}
-    
+	
+	
+	/**
+    * Add RegisterObjects
+    * 
+    * @param params a Map contains:
+    *   <ul>
+    *     <li>type - string type</li>
+    *     <li>values - coma separated values</li>
+    *   </ul>
+    * @return a Map contains:
+    *   <ul>
+    *     <li>successful - a boolean value denoting if the operation succeeds</li>
+    *     <li>reason - reason why operation failed (valid when successful==false)</li>
+    *   </ul>
+    */
+	public Map createRegisterObjects(Map params) {
+		Map map = new HashMap();
+		map.put("successful", false);
+		
+        String type = (String) params.get("type");
+        String values = (String) params.get("values");
+        
+    	if(type==null || "".equals(type.trim())){
+    		map.put("reason", "type cannot be blank.");
+    		return map;
+    	}
+    	if(values==null || "".equals(values.trim())){
+    		map.put("reason", "values cannot be blank.");
+    		return map;
+    	}
+    	
+		try {
+       	
+		String[] valuelist = values.split(", ");
+		
+    	registerService.createRegisterObjects(type, valuelist);
+    	
+       	map.put("successful", true);
+       } catch (Exception e) {
+           e.printStackTrace();
+           map.put("reason", e.getMessage());
+       }
+       
+       return map;		
+	}
+	
+
+	
 } //RegisterAgent()

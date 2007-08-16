@@ -58,4 +58,8 @@ public interface RegisterService {
 	ArrayList<TravelTrip> getUserTravelTrips (Long uid) throws Exception;
 	
 	void deleteTravelTrip(long tripId) throws Exception;
+	
+	Collection getRegisterObjectByType(String type) throws Exception;
+	
+	void createRegisterObjects(String type, String[] valuelist) throws Exception;
 }

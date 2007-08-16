@@ -152,4 +152,13 @@ public class RegisterServiceImpl implements RegisterService {
     	registerDAO.deleteTravelTrip(tripId);
     }
 
+    public Collection getRegisterObjectByType(String type) throws Exception {
+    	return registerDAO.getRegisterObjectByType(type);
+    }
+    
+    public void createRegisterObjects(String type, String[] valuelist) throws Exception {
+    	registerDAO.createRegisterObjects(type, valuelist);
+    }
+    
+    
 }

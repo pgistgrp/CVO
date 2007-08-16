@@ -1,8 +1,10 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
-<%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
@@ -194,13 +196,19 @@ function filterNum(str) {
 		<div id="myIncome">
 			What is your approximate annual household income?
 			<span id="annualIncome">
-			<select id="income" style="margin-left:1em;">
-				<option value="$0 - $24,999">$0 - $24,999</option>
-				<option value="$25,000 - $49,999">$25,000 - $49,999</option>
-				<option value="$50,000 - $74,999">$50,000 - $74,999</option>
-				<option value="$75,000 - $99,999">$75,000 - $99,999</option>
-				<option value="$100,000 or more">$100,000 or more</option>
-			</select>
+			<c:choose>	
+				<c:when test="${fn:length(annualIncome) == 0}">
+					<p>Error No household income found</p>
+				</c:when>
+				<c:otherwise>
+				<select id="income" style="margin-left:1em;">
+				<c:forEach var="income" items="${annualIncome}" varStatus="loop">
+					<option value="${income.id}">${income.value}</option>			
+				</c:forEach>
+				</select>
+				</c:otherwise>
+			</c:choose>
+			
 			</span>
 			 </div>
 		<div id="myHousehold">
@@ -309,15 +317,15 @@ function filterNum(str) {
 		<!-- End calculator options -->
 			<fieldset>
 				<legend>Please complete our detailed participant questionnaire</legend>
-				<p>Please take some time to complete our questionnaire. This is the first, and longest, of 3 questionnaires you will be asked to complete during the <em>Let’s Improve Transportation Challenge</em>. It will take about 30 minutes to complete. To access the questionnaire, you will be asked for your participant ID number, which is displayed below. (FYI: Your participant ID number will also be displayed on your personal LIT homepage when you visit this website in the future.)</p>
+				<p>Please take some time to complete our questionnaire. This is the first, and longest, of 3 questionnaires you will be asked to complete during the <em>Let's Improve Transportation Challenge</em>. It will take about 30 minutes to complete. To access the questionnaire, you will be asked for your participant ID number, which is displayed below. (FYI: Your participant ID number will also be displayed on your personal LIT homepage when you visit this website in the future.)</p>
 				<p>When you click the "Go to questionnaire" button below, the questionnaire will launch in a new window. When you are done filling out he questionnaire, simply close the window and return to this page.</p>
-				<p>Your participant ID is: <code>3091</code></p>
+				<p>Your participant ID is: <code>${user.webQ.value}</code></p>
 				<input type="button" value="Go to questionnaire">
 			</fieldset>
 			
 		<div id="step-bar" class="box5 padding5 clearfix">
 				<p class="floatLeft" id="step-progress">Step 3 of 3</p>
-				<p class="floatLeft" id="submit-description" style="width:450px;">When you are finished with the questionnaire Click “complete registration” get started on the Let’s Improve Transportation challenge!</p>
+				<p class="floatLeft" id="submit-description" style="width:450px;">When you are finished with the questionnaire Click &quot;complete registration&quot; get started on the Let’s Improve Transportation challenge!</p>
 				<p class="floatRight" id="submit-button"><input type="button" value="Complete registration" style="font-size:1.2em;" onclick="submitQ(this.form)"/></p>
 		</div>
 		</form>
