@@ -116,7 +116,7 @@
 	<tr>
 		<td><h3>Total funding</h3></td>
 		<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalFunding/1000000}" /> million</td>
-	</tr>
+	</tr> 
 	
 	<tr>
 		<td colspan="2">
