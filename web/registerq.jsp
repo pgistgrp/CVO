@@ -24,17 +24,17 @@
 <script type='text/javascript' src='/dwr/util.js'></script>
 <script type='text/javascript' src='/dwr/interface/SystemAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/RegisterAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/FundingAgent.js'></script>
 
 <script type='text/javascript'> 
 
 function addVehicle() {
-	
 	var mpg = $F('vehicleMpg');
 	var value = $F('vehicleValue');
 	var mpy = $F('vehicleMpy');
 	
 	//alert("milesPerGallon: " + mpg + " value: " + value + " milesPerYear: " + mpy); 
-	RegisterAgent.addVehicle({milesPerGallon:mpg,value:value,milesPerYear:mpy}, {
+	FundingAgent.addVehicle({milesPerGallon:mpg,value:value,milesPerYear:mpy}, {
 		callback:function(data){
 			if (data.successful){
 				getVehicles();
@@ -44,13 +44,13 @@ function addVehicle() {
 			}
 		},
 		errorHandler:function(errorString, exception){ 
-		alert("RegisterAgent.addVehicle( error:" + errorString + exception);
+		alert("FundingAgent.addVehicle( error:" + errorString + exception);
 		}
 	});
 }
 
 function getVehicles(){
-	RegisterAgent.createGetVehicles({}, {
+	FundingAgent.getVehicles({}, {
 		callback:function(data){
 			if (data.successful){
 				$('vehicles').innerHTML = data.html;
@@ -59,7 +59,7 @@ function getVehicles(){
 			}
 		},
 		errorHandler:function(errorString, exception){ 
-		alert("RegisterAgent.createGetVehicles( error:" + errorString + exception);
+		alert("FundingAgent.getVehicles( error:" + errorString + exception);
 		}
 	});
 }
@@ -74,7 +74,7 @@ function editVehicle(vehicleId){
 	var value = $F('vehicleValue' + vehicleId);
 	var mpy = $F('vehicleMpy'+ vehicleId);
 
-	RegisterAgent.updateVehicle({vehicleId:vehicleId,milesPerGallon:mpg,value:value,milesPerYear:mpy}, {
+	FundingAgent.updateVehicle({vehicleId:vehicleId,milesPerGallon:mpg,value:value,milesPerYear:mpy}, {
 		callback:function(data){
 			if (data.successful){
 				getVehicles();
