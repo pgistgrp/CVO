@@ -2,6 +2,7 @@ package org.pgist.report;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -12,6 +13,7 @@ import org.pgist.criteria.CriteriaSuite;
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.CCTService;
 import org.pgist.cvo.CSTService;
+import org.pgist.funding.FundingSourceSuite;
 import org.pgist.packages.ClusteredPackage;
 import org.pgist.packages.PackageService;
 import org.pgist.packages.PackageSuite;
@@ -95,6 +97,8 @@ public class ReportAction extends Action {
     	String strCritSuiteId = request.getParameter("critSuiteId");
     	String strPackSuiteId = request.getParameter("pkgSuiteId");
     	String strReportSuiteId = request.getParameter("repoSuiteId");
+    	String strFundingSuiteId = request.getParameter("fundSuiteId");
+    	String strProjectSuiteId = request.getParameter("projSuiteId");
     	String errors = "";
     	
     	boolean error = false;
@@ -109,6 +113,14 @@ public class ReportAction extends Action {
         }
         if (strPackSuiteId==null || "".equals(strPackSuiteId.trim())) {
         	errors += "pkgSuiteId cannot be empty <br/>";
+            error = true;
+        }
+        if (strFundingSuiteId==null || "".equals(strFundingSuiteId.trim())) {
+        	errors += "fundingSuiteId cannot be empty <br/>";
+            error = true;
+        }
+        if (strProjectSuiteId==null || "".equals(strProjectSuiteId.trim())) {
+        	errors += "projectSuiteId cannot be empty <br/>";
             error = true;
         }
         if (strReportSuiteId==null || "".equals(strReportSuiteId.trim())) {
@@ -126,6 +138,8 @@ public class ReportAction extends Action {
 
         Long packSuiteId = Long.parseLong(strPackSuiteId);
         Long repoSuiteId = Long.parseLong(strReportSuiteId);
+        Long fundSuiteId = Long.parseLong(strFundingSuiteId);
+        Long projSuiteId = Long.parseLong(strProjectSuiteId);
 
         // get Concern Summaries
         CCT cct = cctService.getCCTById(cctId);
@@ -141,18 +155,6 @@ public class ReportAction extends Action {
     	
     	// get Packages
     	PackageSuite pkgSuite = packageService.getPackageSuite(packSuiteId);
-    	Collection userPkgs = pkgSuite.getClusteredPkgs();
-    	//UserInfo userInfo = WebUtils.currentUser();
-    	//Iterator it = userPkgs.iterator();
-    	//UserPackage up = new UserPackage();
-    	
-    	/*while(it.hasNext()) {
-    		UserPackage userPackage = (UserPackage) it.next();
-    		if(userPackage.getAuthor().getId().equals(userInfo.getId())) {
-    			up = userPackage;
-    			break;
-    		}
-    	}*/
     	
     	// get cluster packages
     	Collection cp = pkgSuite.getClusteredPkgs();
@@ -164,10 +166,17 @@ public class ReportAction extends Action {
     	//get all vote suite stats
     	Collection vss = reportService.getVoteSuiteStats(packSuiteId);
     	
+    	//get Funding refs
+    	Set fundRefs = reportService.getFundRefbySuiteId(fundSuiteId);
+    	
+    	//get Project refs
+    	Set projRefs = reportService.getProjRefbySuiteId(projSuiteId);
+    	
     	//Sets the Criteria References which contain criteria and grades.
     	request.setAttribute("summaries", summaries);
     	request.setAttribute("cr", cr);
-    	request.setAttribute("up", userPkgs);
+    	request.setAttribute("fundRefs", fundRefs);
+    	request.setAttribute("projRefs", projRefs);
     	request.setAttribute("cp", cp);
     	request.setAttribute("pp", pp);
     	request.setAttribute("vss", vss);

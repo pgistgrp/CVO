@@ -41,7 +41,6 @@
                <!-- POJO schema information -->
                <value>org/pgist/report/ReportVote.hbm.xml</value> 
 	       <value>org/pgist/report/ReportThemeStat.hbm.xml</value>
-	       <value>org/pgist/report/ReportProjectStat.hbm.xml</value>
                <value>org/pgist/report/ReportStats.hbm.xml</value>
                <value>org/pgist/report/ReportSuite.hbm.xml</value>
                <value>org/pgist/report/ReportSummary.hbm.xml</value>

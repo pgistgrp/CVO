@@ -192,6 +192,7 @@ public class ReportAgent {
         String strRepoId = (String) params.get("repoId");
         String strPkgId = (String) params.get("pkgId");
         String strProjId = (String) params.get("projId");
+        String strfundId = (String) params.get("fundId");
         String strWorkId = (String) params.get("workflowId");
 
         try {
@@ -200,9 +201,10 @@ public class ReportAgent {
         	Long repoSuiteId = Long.parseLong(strRepoId);
         	Long packSuiteId = Long.parseLong(strPkgId);
         	Long projSuiteId = Long.parseLong(strProjId);
+        	Long fundSuiteId = Long.parseLong(strfundId);
         	Long workflowId = Long.parseLong(strWorkId);
         	
-        	reportService.createStatistics(workflowId, cctId, repoSuiteId, packSuiteId, critSuiteId, projSuiteId);
+        	reportService.createStatistics(workflowId, cctId, repoSuiteId, packSuiteId, critSuiteId, projSuiteId, fundSuiteId);
       
             map.put("successful", true);
         } catch (Exception e) {

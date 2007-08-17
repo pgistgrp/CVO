@@ -366,28 +366,39 @@ After a period of discussion about the relevance of the improvement factors to t
 				<th class="col4">Number of participants who selected</th>
 				<th class="col5">% of participants who selected</th>
 			</tr>
-			<c:if test="${fn:length(up.projAltRefs) == 0}">
+			<c:if test="${fn:length(projRefs) == 0}">
 				<tr colspan="5">
 					<td colspan="5"><p>You did not select any projects when you created your package.</p></td>
 				</tr>
 			</c:if>
 			
-			<c:set var="prevProj" value="" />
-			<c:forEach var="altRef" items="${up.projAltRefs}" varStatus="loop">
-				<c:if test="${prevProj != altRef.projectRef.project.name}"> <!--workaround -->
-					<tr class="project" colspan="5">
-						<td>${altRef.projectRef.project.name}</td>
-					</tr>
-				</c:if>
-				<c:set var="prevProj" value="altRef.projectRef.project.name" />
+			<c:set var="projectRefs" value="${projRefs}" />
+			<c:forEach var="projectRef" items="${projectRefs}" varStatus="loop">
 				
+					<tr class="project" colspan="5">
+						<td>${projectRef.project.name}</td>
+					</tr>
+				
+				<c:set var="altRefs" value="${projectRef.altRefs}" />
+				<c:forEach var="altRef" items="${altRefs}" varStatus="loop">
 				<tr class="project-options">
 					<td class="col1">${altRef.alternative.name}</td>
 					<td class="col2">$<fmt:formatNumber type="number">${altRef.alternative.cost}</fmt:formatNumber>  million</td>
 					<td class="col3">${altRef.alternative.county}</td>
-					<td class="col4">145 of 212</td>
-					<td class="col5">65%</td>
+					<c:set var="yesVotes" value="${altRef.alternative.yesVotes}" />
+					<c:set var="numVotes" value="${altRef.alternative.numVotes}" />
+					<td class="col4">${yesVotes} of ${numVotes}</td>
+					<c:choose>
+						<c:when test="${numVotes > 0}">
+						<td class="col5"><fmt:formatNumber type="percent">${yesVotes/numVotes}</fmt:formatNumber>
+						</c:when>
+						<c:otherwise>
+						<td class="col5">N/A</td>
+						</c:otherwise>
+					</c:choose>					
+
 				</tr>
+				</c:forEach>
 			</c:forEach>
 		</table>
 		
@@ -399,30 +410,42 @@ After a period of discussion about the relevance of the improvement factors to t
 				<th class="col4">Number of participants who selected</th>
 				<th class="col5">% of participants who selected</th>
 			</tr>
-			<c:if test="${fn:length(up.fundAltRefs) == 0}">
+			<c:if test="${fn:length(fundRefs) == 0}">
 				<tr colspan="5">
 					<td colspan="5"><p>You did not select any funding sources when you created your package.</p></td>
 				</tr>
 			</c:if>
 			
-			<c:set var="prevFund" value="" />
-			<c:forEach var="altRef" items="${up.fundAltRefs}" varStatus="loop">
-				<c:if test="${prevFund != altRef.sourceRef.source.name}"> <!--workaround -->
-					<tr class="project" colspan="5">
-						<td>${altRef.sourceRef.source.name}</td>
-					</tr>
-				</c:if>
-				<c:set var="prevFund" value="altRef.sourceRef.project.name" />
+			
+			<c:set var="fundingRefs" value="${fundRefs}" />
+			<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
 				
+					<tr class="project" colspan="5">
+						<td>${fundingRef.source.name}</td>
+					</tr>
+				
+				<c:set var="altRefs" value="${fundingRef.altRefs}" />
+				<c:forEach var="altRef" items="${altRefs}" varStatus="loop">
 				<tr class="project-options">
 					<td class="col1">${altRef.alternative.name}</td>
 					<td class="col2">$<fmt:formatNumber type="number">${altRef.alternative.revenue}</fmt:formatNumber>  million</td>
 					<td class="col3">${altRef.alternative.avgCost}</td>
-					<td class="col4">145 of 212</td>
-					<td class="col5">65%</td>
+					<c:set var="yesVotes" value="${altRef.alternative.yesVotes}" />
+					<c:set var="numVotes" value="${altRef.alternative.numVotes}" />
+					<td class="col4">${yesVotes} of ${numVotes}</td>
+					<c:choose>
+						<c:when test="${numVotes > 0}">
+						<td class="col5"><fmt:formatNumber type="percent">${yesVotes/numVotes}</fmt:formatNumber>
+						</c:when>
+						<c:otherwise>
+						<td class="col5">N/A</td>
+						</c:otherwise>
+					</c:choose>	
 				</tr>
+				</c:forEach>
 			</c:forEach>
 		</table>
+			
 	</div>
 	<!-- End projects -->
 	

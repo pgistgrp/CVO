@@ -3,6 +3,7 @@ package org.pgist.report;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 
 import org.pgist.cvo.CCT;
 import org.pgist.discussion.DiscussionDAO;
@@ -30,10 +31,10 @@ public class ReportServiceImpl implements ReportService{
 	}
 	
 	
-	public void createStatistics(Long workflowId, Long cctId, Long repoSuiteId, Long packSuiteId, Long critSuiteId, Long projSuiteId) throws Exception {
+	public void createStatistics(Long workflowId, Long cctId, Long repoSuiteId, Long packSuiteId, Long critSuiteId, Long projSuiteId, Long fundSuiteId) throws Exception {
 		reportDAO.createStatsPart1(workflowId, cctId, repoSuiteId);
 		reportDAO.createStatsPart2(workflowId, cctId, repoSuiteId, critSuiteId);
-		reportDAO.createStatsPart3(workflowId, cctId, repoSuiteId, projSuiteId, packSuiteId);
+		reportDAO.createStatsPart3(workflowId, cctId, repoSuiteId, projSuiteId, packSuiteId, fundSuiteId);
 		reportDAO.createStatsPart4(workflowId, repoSuiteId, packSuiteId);
 		reportDAO.createStatsES(workflowId, repoSuiteId, packSuiteId); 
 		System.out.println("***CreateStats done");
@@ -61,12 +62,12 @@ public class ReportServiceImpl implements ReportService{
 	
 	
 	 public InfoStructure publish(Long workflowId, Long cctId, Long suiteId, String title) throws Exception {
-
+		 	System.out.println("***Publish Report, workflowId: " + workflowId + " cctId: " + cctId + " suiteId: " + suiteId);
 
 	        CCT cct = (CCT)reportDAO.load(CCT.class, cctId);
 	        
 	        ReportSuite suite = reportDAO.getReportSuiteById(suiteId);
-	        
+	        System.out.println("***Load Report Suite Complete");
 	        Date date = new Date();
 	        
 	        
@@ -88,7 +89,7 @@ public class ReportServiceImpl implements ReportService{
             structure.getInfoObjects().add(obj);
 
 	        discussionDAO.save(structure);
-	        
+	        System.out.println("***Finish Publish Report");
 	        return structure;
 	 }//publish()
 
@@ -104,8 +105,20 @@ public class ReportServiceImpl implements ReportService{
 		 return reportDAO.getUserVoted(suiteId, userId);
 	 }
 	 
+	 
 	 public Map getVoteStats(Long suiteId) throws Exception {
 		 return reportDAO.getVoteStats(suiteId);
 	 }
+	 
+	 
+	 public Set getProjRefbySuiteId(Long suiteId) throws Exception {
+		 return reportDAO.getProjRefbySuiteId(suiteId);
+	 }
+	 
+	 
+	 public Set getFundRefbySuiteId(Long suiteId) throws Exception {
+		 return reportDAO.getFundRefbySuiteId(suiteId);
+	 }
+	 
 	 
 }

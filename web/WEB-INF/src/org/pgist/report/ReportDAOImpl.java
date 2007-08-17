@@ -13,6 +13,10 @@ import org.pgist.cvo.Concern;
 import org.pgist.cvo.CSTService;
 import org.pgist.cvo.Theme;
 import org.pgist.cvo.CategoryReference;
+import org.pgist.funding.FundingSourceAlternative;
+import org.pgist.funding.FundingSourceAltRef;
+import org.pgist.funding.FundingSource;
+import org.pgist.funding.FundingSourceSuite;
 import org.pgist.discussion.InfoObject;
 import org.pgist.packages.ClusteredPackage;
 import org.pgist.packages.PackageSuite;
@@ -239,7 +243,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	}
 	
 	
-	public void createStatsPart3(Long workflowId, Long cctId, Long repoSuiteId, Long projSuiteId, Long packSuiteId) throws Exception {
+	public void createStatsPart3(Long workflowId, Long cctId, Long repoSuiteId, Long projSuiteId, Long packSuiteId, Long fundSuiteId) throws Exception {
 		System.out.println("***Excecute CreateStatsPart3()");
 		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
 		ReportStats rs = new ReportStats();
@@ -250,21 +254,15 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		
 		PackageSuite pkgSuite = (PackageSuite) load(PackageSuite.class, packSuiteId); 
 		int userNumCompleted = pkgSuite.getUserPkgs().size(); 
-		rs.setUserCompleted(userNumCompleted);
+    	rs.setUserCompleted(userNumCompleted);
+//		rs.setProjRefs(ps.getReferences());
+//		
+//		FundingSourceSuite fundSuite = (FundingSourceSuite) load(FundingSourceSuite.class, fundSuiteId);
+//		rs.setFundRefs(fundSuite.getReferences());
+//		save(rs);
 		
 		
-		Collection projects = projectService.getProjects();
-		Iterator itProj = projects.iterator();
 		
-		while(itProj.hasNext()) {
-			Project project = (Project) itProj.next();
-			ReportProjectStat rps = new ReportProjectStat();
-			rps.setProject(project);
-			save(rps);
-			rs.getReportProjectStats().add(rps);
-		}
-		save(rs);
-		/*
 		Set userPkgs = pkgSuite.getUserPkgs();
 		Iterator itPkg = userPkgs.iterator();
 		while(itPkg.hasNext()) {
@@ -275,17 +273,32 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 			while(itPar.hasNext()) {
 				ProjectAltRef par = (ProjectAltRef) itPar.next(); 
 				ProjectAlternative pa = par.getAlternative();
-				if(pa.getTotalVotes()==0) {
+				if(pa.getNumVotes()==0) {
 					pa.setYesVotes(1);
-					pa.setTotalVotes(1);					
+					pa.setNumVotes(1);					
 				} else {
 					pa.setYesVotes(pa.getYesVotes()+1);
-					pa.setTotalVotes(pa.getTotalVotes()+1);
+					pa.setNumVotes(pa.getNumVotes()+1);
 				}
 				save(pa);
 			}
+			
+			Set fundAltRefs = up.getFundAltRefs();
+			Iterator itFar = fundAltRefs.iterator();
+			while(itFar.hasNext()) {
+				FundingSourceAltRef far = (FundingSourceAltRef) itFar.next(); 
+				FundingSourceAlternative fsa = far.getAlternative();
+				if(fsa.getNumVotes()==0) {
+					fsa.setYesVotes(1);
+					fsa.setNumVotes(1);					
+				} else {
+					fsa.setYesVotes(fsa.getYesVotes()+1);
+					fsa.setNumVotes(fsa.getNumVotes()+1);
+				}
+				save(fsa);
+			}
 		}
-		*/
+		
 		save(rs);
 		repoSuite.setStatsPart3(rs);
 		save(repoSuite);
@@ -585,7 +598,19 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		
 		return map;
 	}
-
+	
+	
+	public Set getFundRefbySuiteId(Long suiteId) throws Exception {
+		FundingSourceSuite fss = (FundingSourceSuite) load(FundingSourceSuite.class, suiteId);
+			
+		return fss.getReferences();
+	}
+	
+	public Set getProjRefbySuiteId(Long suiteId) throws Exception {
+		ProjectSuite ps = (ProjectSuite) load(ProjectSuite.class, suiteId);
+			
+		return ps.getReferences();
+	}
 
 
 

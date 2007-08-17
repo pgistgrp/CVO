@@ -444,9 +444,8 @@
         <pmethod name="pmethod-report" description="Step 5: Prepare Group Report">
             <declaration>
                 <ins>
-                    <!-- 
                     <var name="pmethod.fund_suite_id"/>
-                    <var name="pmethod.proj_isid"/>
+                    <!-- <var name="pmethod.proj_isid"/>
                     <var name="pmethod.fund_isid"/>-->
 		    <var name="pmethod.pkg_suite_id"/>
 		    <var name="pmethod.proj_suite_id"/>
@@ -464,6 +463,7 @@
                     <declaration>
                         <ins>
 			    <var name="proj_suite_id" ref="pmethod.proj_suite_id"/>
+			    <var name="fund_suite_id" ref="pmethod.fund_suite_id"/>
 			    <var name="crit_suite_id" ref="pmethod.crit_suite_id"/>
                             <var name="pkg_suite_id" ref="pmethod.pkg_suite_id"/>
                             <var name="repo_suite_id" ref="pmethod.repo_suite_id"/>
@@ -500,6 +500,8 @@
                             <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
                             <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
                             <var name="repoSuiteId" ref="pmethod.repo_suite_id"/>
+			    <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
+			    <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
                         </ins>
                     </declaration>
                 </pgame>
@@ -511,6 +513,8 @@
                             <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
                             <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
                             <var name="repoSuiteId" ref="pmethod.repo_suite_id"/>
+			    <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
+			    <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
                         </ins>
                     </declaration>
                 </pgame>

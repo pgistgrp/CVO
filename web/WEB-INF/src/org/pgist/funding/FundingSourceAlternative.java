@@ -28,7 +28,11 @@ public class FundingSourceAlternative implements Serializable {
     private float peakHourTripsRate;
     
     private float offPeakTripsRate;
-    
+ 
+	private int yesVotes = 0;
+	
+	private int numVotes = 0;
+	
     /**
      * Links to an extenal to reference the alternative
      */
@@ -168,5 +172,29 @@ public class FundingSourceAlternative implements Serializable {
         this.toll = toll;
     }
     
+    
+    /**
+     * @hibernate.property not-null="true"
+     */
+    public int getNumVotes() {
+		return numVotes;
+	}
+
+
+	public void setNumVotes(int numVotes) {
+		this.numVotes = numVotes;
+	}
+
+	/**
+     * @hibernate.property not-null="true"
+     */
+	public int getYesVotes() {
+		return yesVotes;
+	}
+
+
+	public void setYesVotes(int yesVotes) {
+		this.yesVotes = yesVotes;
+	}
     
 }//class FundingSourceAlternative

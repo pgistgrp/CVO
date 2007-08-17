@@ -2,6 +2,7 @@ package org.pgist.report;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
 import org.pgist.discussion.InfoStructure;
 import org.pgist.packages.ClusteredPackage;
@@ -9,7 +10,7 @@ import org.pgist.packages.ClusteredPackage;
 public interface ReportService {
 
 	
-	void createStatistics(Long workflowId, Long cctId, Long repoSuiteId, Long packSuiteId, Long critSuiteId, Long projSuiteId) throws Exception;
+	void createStatistics(Long workflowId, Long cctId, Long repoSuiteId, Long packSuiteId, Long critSuiteId, Long projSuiteId, Long fundSuiteId) throws Exception;
 	
 	Collection getVoteSuiteStats(Long pkgSuiteId) throws Exception;
 	
@@ -26,6 +27,10 @@ public interface ReportService {
 	boolean getUserVoted(Long suiteId) throws Exception;
 	
 	Map getVoteStats(Long suiteId) throws Exception;
+	
+	Set getFundRefbySuiteId(Long suiteId) throws Exception;
+	
+	Set getProjRefbySuiteId(Long suiteId) throws Exception;
 	
 }
  

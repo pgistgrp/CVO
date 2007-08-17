@@ -2,6 +2,7 @@ package org.pgist.report;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
 import org.pgist.packages.ClusteredPackage;
 import org.pgist.system.BaseDAO;
@@ -12,7 +13,7 @@ public interface ReportDAO extends BaseDAO {
 	
 	void createStatsPart2(Long workflowId, Long cctId, Long repoSuiteId, Long critSuiteId) throws Exception;
 	
-	void createStatsPart3(Long workflowId, Long cctId, Long repoSuiteId, Long projSuiteId, Long packSuiteId) throws Exception;
+	void createStatsPart3(Long workflowId, Long cctId, Long repoSuiteId, Long projSuiteId, Long packSuiteId, Long fundSuiteId) throws Exception;
 	
 	void createStatsPart4(Long workflowId, Long repoSuiteId, Long packSuiteId) throws Exception;
 	
@@ -32,4 +33,7 @@ public interface ReportDAO extends BaseDAO {
 	
 	Map getVoteStats(Long suiteId) throws Exception;
 	
+	Set getFundRefbySuiteId(Long suiteId) throws Exception;
+	
+	Set getProjRefbySuiteId(Long suiteId) throws Exception;
 }

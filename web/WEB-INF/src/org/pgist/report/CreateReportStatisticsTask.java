@@ -18,7 +18,7 @@ public class CreateReportStatisticsTask implements WorkflowTask{
     
     public static final String IN_PROJ_SUITE_ID = "proj_suite_id";
     
-    //public static final String IN_FUND_SUITE_ID = "fund_suite_id";
+    public static final String IN_FUND_SUITE_ID = "fund_suite_id";
     
     public static final String IN_CRIT_SUITE_ID = "crit_suite_id";
     
@@ -45,7 +45,7 @@ public class CreateReportStatisticsTask implements WorkflowTask{
         Long workflowId = info.getWorkflow().getId();
         Long cctId = new Long(inouts.getIntValue(IN_CCT_ID));
         Long projSuiteId = new Long(inouts.getIntValue(IN_PROJ_SUITE_ID)); 
-        //Long fundSuiteId = new Long(inouts.getIntValue(IN_FUND_SUITE_ID));
+        Long fundSuiteId = new Long(inouts.getIntValue(IN_FUND_SUITE_ID));
         Long critSuiteId = new Long(inouts.getIntValue(IN_CRIT_SUITE_ID));
         //Long projISID = new Long(inouts.getIntValue(IN_PROJ_ISID));
         //Long fundISID = new Long(inouts.getIntValue(IN_FUND_ISID));
@@ -53,7 +53,7 @@ public class CreateReportStatisticsTask implements WorkflowTask{
         Long packSuiteId = new Long(inouts.getIntValue(IN_PACK_SUITE_ID));
         
         System.out.println("***CreateStatsTask start");        
-        reportService.createStatistics(workflowId, cctId, repoSuiteId, packSuiteId, critSuiteId, projSuiteId);
+        reportService.createStatistics(workflowId, cctId, repoSuiteId, packSuiteId, critSuiteId, projSuiteId, fundSuiteId);
         System.out.println("***CreateStatsTask done");
     }//execute()
 

@@ -21,9 +21,8 @@ public class ProjectAltRef implements Comparable<ProjectAltRef> {
     private ProjectAlternative alternative;
     
 	private SortedSet<GradedCriteria> gradedCriteria = new TreeSet<GradedCriteria>(new GradedCriteriaComparator());
-    
-    
-    /**
+
+	/**
      * @return
      * 
      * @hibernate.id generator-class="native"
@@ -84,6 +83,7 @@ public class ProjectAltRef implements Comparable<ProjectAltRef> {
 		this.gradedCriteria = criteria;
 	}
 	
+
 	
 	/*
 	 * ------------------------------------------------------------------------

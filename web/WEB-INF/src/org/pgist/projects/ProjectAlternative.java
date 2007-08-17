@@ -45,6 +45,10 @@ public class ProjectAlternative implements Serializable, Comparable {
     
     private Project project;
     
+	private int yesVotes = 0;
+	
+	private int numVotes = 0;
+	
     /**
      * fpid: a comma-delimited footprint id list for
      * this porject, e.g., "1,2", or "1"
@@ -333,6 +337,30 @@ public class ProjectAlternative implements Serializable, Comparable {
     }
 
 
+	/**
+     * @hibernate.property not-null="true"
+     */
+    public int getNumVotes() {
+		return numVotes;
+	}
+
+
+	public void setNumVotes(int numVotes) {
+		this.numVotes = numVotes;
+	}
+
+	/**
+     * @hibernate.property not-null="true"
+     */
+	public int getYesVotes() {
+		return yesVotes;
+	}
+
+
+	public void setYesVotes(int yesVotes) {
+		this.yesVotes = yesVotes;
+	}
+	
     /*
      * ------------------------------------------------------------------------
      */

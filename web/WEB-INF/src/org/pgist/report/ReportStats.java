@@ -9,6 +9,8 @@ import java.util.Set;
 import org.pgist.system.County;
 import org.pgist.users.User;
 import org.pgist.packages.ClusteredPackage;
+import org.pgist.projects.ProjectRef;
+import org.pgist.funding.FundingSourceRef;
 
 /**
  * <span style="color:red;">POJO</span>: PGIST Announcement Class<br>
@@ -47,8 +49,6 @@ public class ReportStats implements Serializable{
 	private Set<User> users = new HashSet<User>();
 	
 	private Set<ReportThemeStat> reportThemeStats = new HashSet<ReportThemeStat>();
-	
-	private Set<ReportProjectStat> reportProjectStats = new HashSet<ReportProjectStat>();
 	
 	private int totalPackages;
 	
@@ -391,23 +391,6 @@ public class ReportStats implements Serializable{
 
 	public void setReportThemeStats(Set<ReportThemeStat> reportThemeStats) {
 		this.reportThemeStats = reportThemeStats;
-	}
-
-
-	/**
-     * @return
-     * 
-     * @hibernate.set lazy="true" cascade="all" order-by="id"
-     * @hibernate.collection-key column="report_project_stat_id"
-     * @hibernate.collection-one-to-many class="org.pgist.report.ReportProjectStat"
-     */
-	public Set<ReportProjectStat> getReportProjectStats() {
-		return reportProjectStats;
-	}
-
-
-	public void setReportProjectStats(Set<ReportProjectStat> reportProjectStats) {
-		this.reportProjectStats = reportProjectStats;
 	}
 
 

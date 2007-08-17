@@ -121,7 +121,7 @@
 	
 	io.goToFullReport = function(anchor){
 	    anchor = (anchor) ? "#"+anchor : "";
-		window.open("report.do?"+io.wfInfo+"&cct_id="+io.cctId+"&repoSuiteId="+ io.repoSuiteId +"&projSuiteId="+io.projSuiteId+"&critSuiteId="+io.critSuiteId+"&pkgSuiteId="+io.pkgSuiteId+anchor,'Report Viewer','width=1000,height=600,resizable=yes,scrollbars=yes');
+		window.open("report.do?"+io.wfInfo+"&cct_id="+io.cctId+"&repoSuiteId="+ io.repoSuiteId +"&projSuiteId="+io.projSuiteId+"&critSuiteId="+io.critSuiteId+"&fundSuiteId="+io.fundSuiteId+"&projSuiteId="+io.projSuiteId+"&pkgSuiteId="+io.pkgSuiteId+anchor,'Report Viewer','width=1000,height=600,resizable=yes,scrollbars=yes');
 	}
 	
 </pg:fragment>

@@ -531,6 +531,7 @@
                 <var name="pkg_suite_id"/>
                 <var name="crit_suite_id"/>
                 <var name="proj_suite_id"/>
+		<var name="fund_suite_id"/>
             </ins>
             </declaration>
         </pgame>
@@ -578,6 +579,8 @@
                 <var name="critSuiteId"/>
                 <var name="pkgSuiteId"/>
                 <var name="repoSuiteId"/>
+		<var name="fundSuiteId"/>
+		<var name="projSuiteId"/>
             </ins>
             </declaration>
         </pgame>
@@ -593,6 +596,8 @@
                 <var name="critSuiteId"/>
                 <var name="pkgSuiteId"/>
                 <var name="repoSuiteId"/>
+		<var name="fundSuiteId"/>
+		<var name="projSuiteId"/>
             </ins>
             </declaration>
         </pgame>
