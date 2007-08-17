@@ -167,7 +167,7 @@ function submit2A() {
 	<div id="step-bar" class="box5 padding5 clearfix">
 			<p class="floatLeft" id="step-progress">Step 2 of 3</p>
 			<p class="floatLeft" id="submit-description" style="width:420px;">By clicking “I Agree” you (a) agree to the “informed consent” above and (b) agree to receive required notices from Let’s Improve Transportation electronically.</p>
-			<p class="floatRight" id="submit-button"><input type="button" value="I Agree" style="font-size:1.5em;" onClick="submit2A()" /> <input type="button" value="I Do Not Agree" style="font-size:1.5em;" onClick="cancel()"/></p>
+			<p class="floatRight" id="submit-button"><input type="button" value="I Agree" style="font-size:14pt;" onClick="submit2A()" /> <input type="button" value="I Do Not Agree" style="font-size:14pt;" onClick="cancel()"/></p>
 		</div>
 	
 </div>

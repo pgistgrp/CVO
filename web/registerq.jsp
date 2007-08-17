@@ -322,10 +322,11 @@ function filterNum(str) {
 				<p>Your participant ID is: <code>${user.webQ.value}</code></p>
 				<c:choose>
 				    <c:when test="${user.quota}">
-        				<input type="button" value="Go to questionnaire" onclick="location.href='https://catalysttools.washington.edu/survey/mwarrenw/40839';"/>
+        				<input type="button" value="Go to questionnaire" 
+        					onclick="window.open('https://catalysttools.washington.edu/survey/mwarrenw/40839');"/>
 				    </c:when>
 				    <c:otherwise>
-				        <input type="button" value="Go to questionnaire" onclick="location.href='https://catalysttools.washington.edu/survey/mwarrenw/40868';" />
+				        <input type="button" value="Go to questionnaire" onclick="window.open('https://catalysttools.washington.edu/survey/mwarrenw/40868');" />
 				    </c:otherwise>
 				</c:choose>
 			</fieldset>
@@ -333,7 +334,7 @@ function filterNum(str) {
 		<div id="step-bar" class="box5 padding5 clearfix">
 				<p class="floatLeft" id="step-progress">Step 3 of 3</p>
 				<p class="floatLeft" id="submit-description" style="width:450px;">When you are finished with the questionnaire Click &quot;complete registration&quot; get started on the Let’s Improve Transportation challenge!</p>
-				<p class="floatRight" id="submit-button"><input type="button" value="Complete registration" style="font-size:1.2em;" onclick="submitQ(this.form)"/></p>
+				<p class="floatRight" id="submit-button"><input type="button" value="Complete registration" style="font-size:14pt;" onclick="submitQ(this.form)"/></p>
 		</div>
 		</form>
 		</div>

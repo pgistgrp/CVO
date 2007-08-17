@@ -356,7 +356,7 @@
 	<div id="step-bar" class="box5 padding5 clearfix">
 		<p class="floatLeft" id="step-progress">Step 1 of 3</p>
 		<p class="floatLeft" id="submit-description">Click the Submit button, to submit your registration and see if you qualify for our study. You will be asked to fill out a consent form and a questionnaire, before we process your account.</p>
-		<p class="floatRight" id="submit-button"><input type="button" value="Next" onclick="submitForm(this.form)" id="submitBtn" style="font-size:1.5em;"/>
+		<p class="floatRight" id="submit-button"><input type="button" value="Next" onclick="submitForm(this.form)" id="submitBtn" style="font-size:14pt;"/>
 		</p>
 	</div>
 	</form>
