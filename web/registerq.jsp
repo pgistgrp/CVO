@@ -320,7 +320,14 @@ function filterNum(str) {
 				<p>Please take some time to complete our questionnaire. This is the first, and longest, of 3 questionnaires you will be asked to complete during the <em>Let's Improve Transportation Challenge</em>. It will take about 30 minutes to complete. To access the questionnaire, you will be asked for your participant ID number, which is displayed below. (FYI: Your participant ID number will also be displayed on your personal LIT homepage when you visit this website in the future.)</p>
 				<p>When you click the "Go to questionnaire" button below, the questionnaire will launch in a new window. When you are done filling out he questionnaire, simply close the window and return to this page.</p>
 				<p>Your participant ID is: <code>${user.webQ.value}</code></p>
-				<input type="button" value="Go to questionnaire">
+				<c:choose>
+				    <c:when test="${user.quota}">
+        				<input type="button" value="Go to questionnaire" onclick="location.href='https://catalysttools.washington.edu/survey/mwarrenw/40839';"/>
+				    </c:when>
+				    <c:otherwise>
+				        <input type="button" value="Go to questionnaire" onclick="location.href='https://catalysttools.washington.edu/survey/mwarrenw/40868';" />
+				    </c:otherwise>
+				</c:choose>
 			</fieldset>
 			
 		<div id="step-bar" class="box5 padding5 clearfix">
