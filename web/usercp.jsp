@@ -226,11 +226,11 @@ function formOther(){
 	<html:form action="/profileedit.do" styleId="profileForm" method="POST">
 		 <html:hidden property="save" value="true"/>
 		<h3 class="headerColor">Edit your participant profile information</h3>
-		<p>Here you can edit your Let’s Improve Transportation user profile. Some information
+		<p>Here you can edit your Let's Improve Transportation user profile. Some information
 			in your user profile will appear to all other participants in the LIT challenge,
 			but if a field is marked by this icon ( <img src="images/icon_private.png" /> )
 			it will be kept private. You can return to this page to edit your profile at any
-			time. Simply click “user settings” at the top of any page.</p>
+			time. Simply click "user settings" at the top of any page.</p>
 		<!-- begin EDIT-PROFILE -->
 		
 		<div id="edit-profile" >
@@ -282,7 +282,7 @@ function formOther(){
 				<div class="settings-col1"><small>State</small></div>
 				<div class="settings-col2">
 					<html:select property="state">
-						<html:option value="${user.state}">${user.state}</html:option>
+						<html:option value="WA">Washington</html:option>
 						<html:option value="AL">Alabama</html:option>
 						<html:option value="AK">Alaska</html:option>
 						<html:option value="AZ">Arizona</html:option>
