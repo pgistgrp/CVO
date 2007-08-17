@@ -110,12 +110,12 @@ public class BaseUser implements Serializable {
     
     /**
      * <span style="color:blue;">(Column.)</span>
-     * The income range of a user. Allowable ranges (Faked at present):
+     * The income range of a user. 
      * <ul>
      *   <li>50,000-75,000</li>
      * </ul>
      */
-    protected String incomeRange = "";
+    protected RegisterObject incomeRange;
     
     /**
      * <span style="color:blue;">(Column.)</span>
@@ -351,16 +351,16 @@ public class BaseUser implements Serializable {
     }
 
 
-    /**
-     * @return
-     * @hibernate.property unique="false" not-null="false"
-     */
-    public String getIncomeRange() {
+	/**
+	 * @return the RegisterObject
+     * @hibernate.many-to-one column="register_object_id" cascade="all" class="org.pgist.system.RegisterObject"
+	 */
+    public RegisterObject getIncomeRange() {
         return incomeRange;
     }
 
 
-    public void setIncomeRange(String incomeRange) {
+    public void setIncomeRange(RegisterObject incomeRange) {
         this.incomeRange = incomeRange;
     }
     

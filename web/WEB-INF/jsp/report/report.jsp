@@ -282,7 +282,8 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 					<c:otherwise>
 
 					<c:forEach var="income" items="${statsPart1.incomeRanges}" varStatus="loop">
-						<fmt:formatNumber type="percent">${statsPart1.incomeStats[income]/statsPart1.totalUsers}</fmt:formatNumber> ${income}, </c:forEach>
+						<fmt:formatNumber type="percent">${statsPart1.incomeStats[income]/statsPart1.totalUsers}</fmt:formatNumber> ${income}, 
+					</c:forEach>
 					</c:otherwise>
 				</c:choose>
 				</td>
@@ -495,7 +496,7 @@ After a period of discussion about the relevance of the improvement factors to t
 					<c:otherwise>
 
 					<c:forEach var="transport" items="${statsPart4.transTypes}" varStatus="loop">
-						${statsPart4.transportStats[transport]/statsPart4.totalUsers} ${transport},					</c:forEach>
+						${statsPart4.transportStats[transport]/statsPart4.totalUsers} ${transport},	</c:forEach>
 					</c:otherwise>
 				</c:choose></td>
 			</tr>
@@ -697,129 +698,71 @@ After a period of discussion about the relevance of the improvement factors to t
 	<div id="appendixA" class="box3 padding5 section">
 		<h3 class="headingColor padding5 centerAlign"><a name="appendixA">Appendix A: Project
 				scoring methodology</a></h3>
-		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla eleifend nibh
-			tincidunt nibh dapibus vestibulum. Mauris nec nulla at nunc convallis cursus.
-			Vivamus tincidunt nibh adipiscing risus. Sed vel odio. In dapibus. Nunc pulvinar,
-			metus sed venenatis porttitor, mauris urna eleifend velit, vel adipiscing sapien
-			risus et ante. In nunc. Sed eget dolor facilisis tortor aliquam auctor. Maecenas
-			sit amet sem commodo orci lacinia interdum. Donec quam. Sed leo tortor, hendrerit
-			nec, auctor et, rhoncus a, tortor. Ut dictum eros in metus.</p>
-		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla eleifend nibh
-			tincidunt nibh dapibus vestibulum. Mauris nec nulla at nunc convallis cursus.
-			Vivamus tincidunt nibh adipiscing risus. Sed vel odio.
-		<p>
-		<p>In dapibus. Nunc pulvinar, metus sed venenatis porttitor, mauris urna eleifend
-			velit, vel adipiscing sapien risus et ante. In nunc. Sed eget dolor facilisis
-			tortor aliquam auctor. Maecenas sit amet sem commodo orci lacinia interdum. Donec
-			quam. Sed leo tortor, hendrerit nec, auctor et, rhoncus a, tortor. Ut dictum eros
-			in metus.</p>
-		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla eleifend nibh
-			tincidunt nibh dapibus vestibulum. Mauris nec nulla at nunc convallis cursus.
-			Vivamus tincidunt nibh adipiscing risus. Sed vel odio. In dapibus. Nunc pulvinar,
-			metus sed venenatis porttitor, mauris urna eleifend velit, vel adipiscing sapien
-			risus et ante. In nunc. Sed eget dolor facilisis tortor aliquam auctor. Maecenas
-			sit amet sem commodo orci lacinia interdum. Donec quam. Sed leo tortor, hendrerit
-			nec, auctor et, rhoncus a, tortor. Ut dictum eros in metus.</p>
-		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla eleifend nibh
-			tincidunt nibh dapibus vestibulum. Mauris nec nulla at nunc convallis cursus.
-			Vivamus tincidunt nibh adipiscing risus. Sed vel odio. In dapibus. Nunc pulvinar,
-			metus sed venenatis porttitor, mauris urna eleifend velit, vel adipiscing sapien
-			risus et ante. In nunc. Sed eget dolor facilisis tortor aliquam auctor. Maecenas
-			sit amet sem commodo orci lacinia interdum. Donec quam. Sed leo tortor, hendrerit
-			nec, auctor et, rhoncus a, tortor. Ut dictum eros in metus. Lorem ipsum dolor
-			sit amet, consectetuer adipiscing elit. Nulla eleifend nibh tincidunt nibh dapibus
-			vestibulum. Mauris nec nulla at nunc convallis cursus. Vivamus tincidunt nibh
-			adipiscing risus. Sed vel odio. In dapibus. Nunc pulvinar, metus sed venenatis
-			porttitor, mauris urna eleifend velit, vel adipiscing sapien risus et ante. In
-			nunc. Sed eget dolor facilisis tortor aliquam auctor. Maecenas sit amet sem commodo
-			orci lacinia interdum. Donec quam. Sed leo tortor, hendrerit nec, auctor et, rhoncus
-			a, tortor. Ut dictum eros in metus.</p>
-		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla eleifend nibh
-			tincidunt nibh dapibus vestibulum. Mauris nec nulla at nunc convallis cursus.
-			Vivamus tincidunt nibh adipiscing risus. Sed vel odio. In dapibus. Nunc pulvinar,
-			metus sed venenatis porttitor, mauris urna eleifend velit, vel adipiscing sapien
-			risus et ante. In nunc. Sed eget dolor facilisis tortor aliquam auctor. Maecenas
-			sit amet sem commodo orci lacinia interdum. Donec quam. Sed leo tortor, hendrerit
-			nec, auctor et, rhoncus a, tortor. Ut dictum eros in metus.</p>
-		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla eleifend nibh
-			tincidunt nibh dapibus vestibulum. Mauris nec nulla at nunc convallis cursus.
-			Vivamus tincidunt nibh adipiscing risus. Sed vel odio.
-		<p>
-		<p>In dapibus. Nunc pulvinar, metus sed venenatis porttitor, mauris urna eleifend
-			velit, vel adipiscing sapien risus et ante. In nunc. Sed eget dolor facilisis
-			tortor aliquam auctor. Maecenas sit amet sem commodo orci lacinia interdum. Donec
-			quam. Sed leo tortor, hendrerit nec, auctor et, rhoncus a, tortor. Ut dictum eros
-			in metus.</p>
-		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla eleifend nibh
-			tincidunt nibh dapibus vestibulum. Mauris nec nulla at nunc convallis cursus.
-			Vivamus tincidunt nibh adipiscing risus. Sed vel odio. In dapibus. Nunc pulvinar,
-			metus sed venenatis porttitor, mauris urna eleifend velit, vel adipiscing sapien
-			risus et ante. In nunc. Sed eget dolor facilisis tortor aliquam auctor. Maecenas
-			sit amet sem commodo orci lacinia interdum. Donec quam. Sed leo tortor, hendrerit
-			nec, auctor et, rhoncus a, tortor. Ut dictum eros in metus.</p>
-		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla eleifend nibh
-			tincidunt nibh dapibus vestibulum. Mauris nec nulla at nunc convallis cursus.
-			Vivamus tincidunt nibh adipiscing risus. Sed vel odio. In dapibus. Nunc pulvinar,
-			metus sed venenatis porttitor, mauris urna eleifend velit, vel adipiscing sapien
-			risus et ante. In nunc. Sed eget dolor facilisis tortor aliquam auctor. Maecenas
-			sit amet sem commodo orci lacinia interdum. Donec quam. Sed leo tortor, hendrerit
-			nec, auctor et, rhoncus a, tortor. Ut dictum eros in metus. Lorem ipsum dolor
-			sit amet, consectetuer adipiscing elit. Nulla eleifend nibh tincidunt nibh dapibus
-			vestibulum. Mauris nec nulla at nunc convallis cursus. Vivamus tincidunt nibh
-			adipiscing risus. Sed vel odio. In dapibus. Nunc pulvinar, metus sed venenatis
-			porttitor, mauris urna eleifend velit, vel adipiscing sapien risus et ante. In
-			nunc. Sed eget dolor facilisis tortor aliquam auctor. Maecenas sit amet sem commodo
-			orci lacinia interdum. Donec quam. Sed leo tortor, hendrerit nec, auctor et, rhoncus
-			a, tortor. Ut dictum eros in metus.</p>
+		<p>During the month of October 2007, residents of King, Pierce, and Snohomish counties were invited to participate in the 
+<em>Let's Improve Transportation Challenge</em>, an experiment in online participatory democracy. The purpose of this experiment was to evaluate a new and potentially more meaningful way to involve citizens in the process of regional transportation improvement decision making.</p>
+<p>Participants were asked to imagine they are a member of a large citizen advisory committee, charged with providing policy makers their recommendations regarding a regional transportation ballot measure. The measure would ask voters in the region if they wish to raise taxes to pay for a package of road and transit improvement projects. The participants' task was to determine which projects to build and which funding mechanisms (such as taxes or tolls) should be used to pay for them. The challenge for participants was to identify which package of projects and funding options they could collectively recommend. An innovative new website called Let's Improve Transportation was developed to support this collaborative process, which included five steps:</p>
+<ol>
+	<li>Brainstorm concerns</li>
+	<li>Review improvement factors</li>
+	<li>Create personal transportation package</li>
+	<li>Select a recommended transportation package</li>
+	<li>Create a final report</li>
+</ol>
+<p>No prior experience with transportation issues was necessary for participation. Qualified participants who completed the LIT Challenge received a small stipend for their efforts.</p>
+
+<h3 class="headerColor">About the research effort behind Let's Improve Transportation</h3>
+
+<p>The Participatory GIS for Transportation (PGIST) research study at the University of Washington<sub>(1)</sub> was founded to develop web and mapping technologies for supporting public participation in transportation improvement programming decisions. A demonstration website, www.LetsImproveTransportation.org employs state-of-the-art Web 2.0 technology which provides a simple web interface to support facilitators or agency planners in several stages of a transportation improvement programming process.</p>
+
+<h3 class="headerColor">Project solicitation and evaluation</h3>
+<ul>
+	<li>Define "improvement factors", or criteria for project evaluation. 
+	<li>Enter information about proposed transportation improvement projects into an online database. 
+	<li>Input scores for individual proposed projects based on the defined improvement factors. 
+	<li>Define available funding mechanisms (in the case of a ballot measure financing plan such as RTID).
+</ul>
+
+<h3 class="headerColor">Public review and participation</h3>
+<ul>
+	<li>Display project information, project scores, project location (footprints), and funding options on a website for public review. 
+	<li>Support a structured public consultation process (see description above)
+	<li>Support the automated clustering of individual transportation packages created by participants into a short list of representative "candidate" packages for public review and evaluation.
+</ul>
+<p>The problem posed to participants in the LIT Challenge was modeled on the RTID/Sound Transit November ballot measure. This decision situation was chosen because of the increasingly common phenomena of ballot box financing in metropolitan areas across the U.S. While the timing of the experiment was dictated by the research study and website development schedule, the potentially heightened public awareness of regional transportation issues during the election season to provide an interesting backdrop for the evaluation of the website.</p>
+
+<h3 class="headerColor">There were three main goals for the LIT Challenge experiment:</h3>
+<ol>
+	<li>To serve as a public demonstration of one way to enhance the involvement of citizens in transportation improvement programming decision processes. 
+	<li>To allow PGIST researchers to evaluate the effectiveness of this experimental model of public involvement.
+	<li>Allow agency collaborators to evaluate the capabilities of the web technology and provide feedback regarding its appropriateness to their transportation improvement programming and public involvement needs.
+</ol>
+<p>Researchers hope that web technology developed by PGIST can be refined, improved, and eventually put to use by transportation agencies around U.S. and the world.</p>
+
+<h3 class="headerColor">Notes</h3>
+<strong>1</strong> Research institutions associated with this study include University of Washington departments of Geography, Civil Engineering, and Information Science, San Diego State University department of Geography, and University of Wyoming department of Civil Engineering.
+
+		
+		
 	</div>
 	<!-- End Appendix A -->
 	<!-- Begin Appendix B -->
 	<div id="appendixB" class="box3 padding5 section"><a name="appendixB"></a>
 		<h3 class="headingColor padding5 centerAlign">Appendix B: Candidate package creation
 			methodology</h3>
-		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla eleifend nibh
-			tincidunt nibh dapibus vestibulum. Mauris nec nulla at nunc convallis cursus.
-			Vivamus tincidunt nibh adipiscing risus. Sed vel odio. In dapibus. Nunc pulvinar,
-			metus sed venenatis porttitor, mauris urna eleifend velit, vel adipiscing sapien
-			risus et ante. In nunc. Sed eget dolor facilisis tortor aliquam auctor. Maecenas
-			sit amet sem commodo orci lacinia interdum. Donec quam. Sed leo tortor, hendrerit
-			nec, auctor et, rhoncus a, tortor. Ut dictum eros in metus.</p>
-		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla eleifend nibh
-			tincidunt nibh dapibus vestibulum. Mauris nec nulla at nunc convallis cursus.
-			Vivamus tincidunt nibh adipiscing risus. Sed vel odio.
-		<p>
-		<p>In dapibus. Nunc pulvinar, metus sed venenatis porttitor, mauris urna eleifend
-			velit, vel adipiscing sapien risus et ante. In nunc. Sed eget dolor facilisis
-			tortor aliquam auctor. Maecenas sit amet sem commodo orci lacinia interdum. Donec
-			quam. Sed leo tortor, hendrerit nec, auctor et, rhoncus a, tortor. Ut dictum eros
-			in metus.</p>
-		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla eleifend nibh
-			tincidunt nibh dapibus vestibulum. Mauris nec nulla at nunc convallis cursus.
-			Vivamus tincidunt nibh adipiscing risus. Sed vel odio. In dapibus. Nunc pulvinar,
-			metus sed venenatis porttitor, mauris urna eleifend velit, vel adipiscing sapien
-			risus et ante. In nunc. Sed eget dolor facilisis tortor aliquam auctor. Maecenas
-			sit amet sem commodo orci lacinia interdum. Donec quam. Sed leo tortor, hendrerit
-			nec, auctor et, rhoncus a, tortor. Ut dictum eros in metus.</p>
-		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla eleifend nibh
-			tincidunt nibh dapibus vestibulum. Mauris nec nulla at nunc convallis cursus.
-			Vivamus tincidunt nibh adipiscing risus. Sed vel odio. In dapibus. Nunc pulvinar,
-			metus sed venenatis porttitor, mauris urna eleifend velit, vel adipiscing sapien
-			risus et ante. In nunc. Sed eget dolor facilisis tortor aliquam auctor. Maecenas
-			sit amet sem commodo orci lacinia interdum. Donec quam. Sed leo tortor, hendrerit
-			nec, auctor et, rhoncus a, tortor. Ut dictum eros in metus. Lorem ipsum dolor
-			sit amet, consectetuer adipiscing elit. Nulla eleifend nibh tincidunt nibh dapibus
-			vestibulum. Mauris nec nulla at nunc convallis cursus. Vivamus tincidunt nibh
-			adipiscing risus. Sed vel odio. In dapibus. Nunc pulvinar, metus sed venenatis
-			porttitor, mauris urna eleifend velit, vel adipiscing sapien risus et ante. In
-			nunc. Sed eget dolor facilisis tortor aliquam auctor. Maecenas sit amet sem commodo
-			orci lacinia interdum. Donec quam. Sed leo tortor, hendrerit nec, auctor et, rhoncus
-			a, tortor. Ut dictum eros in metus.</p>
-	</div>
+		<p>All proposed transportation projects appearing on the LIT website have a letter grade for each improvement factor. The factors were not scored directly. Rather, a panel of six researcher team members with a diversity of perspectives in transportation planning assigned a numeric score to each objective associated with the improvement factors. The scores, ranging from negative three to positive three, correspond to a subjective judgment regarding the predicted impacts of the completed project on the region. Positive scores mean the project is predicted to have a positive impact on the region for the objective under consideration, while negative scores mean the predicted impact is negative.</p>
+
+<p>For example, a score of two for the objective "impact on vehicle emissions and air pollution" means that the panel judged the project would have a moderate amount of beneficial impact on the region's vehicle emissions and air pollution. Conversely, a score of negative one for the objective "impact on travel demand" means the judges felt the project would have a minor negative impact on travel demand (or, in other words, a minor increase in regional travel demand).</p>
+
+<p>A project's improvement factor grade is based on a numeric average of the scores assigned to each of the four objectives associated with that factor. Each objective score is the average of two individual judges' scores, one with expertise in transportation engineering and another with expertise in urban planning or urban geography. The judges assigned scores to each project over a three-week period. To evaluate the projects they used the same project information currently available to users of the LIT website.</p>
+
+<p>It is important to note that the scores represent the <em>qualitative</em> judgments of research staff based on limited information. The transportation projects under consideration are at widely varying levels of completion. Some are nearly ready for construction, others have barely begun the planning and design process. In some cases a great deal of information is known about the projects, in others it is too early in their development to have many details. Therefore, the project grades are intended simply to begin a broader conversation among LIT participants regarding the potential merits and impacts of proposed projects.</p>
+
+  </div>
 	<!-- End Appendix B -->
 	<!-- Begin Appendix C -->
 	<div id="appendixC" class="box3 padding5 section"><a name="appendixC"></a>
 		<h3 class="headingColor padding5 centerAlign">Appendix C: The ${fn:length(cp)} candidate packages</h3>
-		<p>[Some static text here providing context]</p>
+		<p>After every participant submitted their package in step 3c, a statistical procedure was used to identify a small set of "candidate" packages that best represented the diversity of packages created by all participants.  The statistical procedure is called "cluster analysis".  In this procedure, all of the participant packages were separated into clusters (subgroups of packages) based on the package’s project and funding selections.  Then, for each cluster, one representative package was identified as a candidate package. (Kaufman and Rousseeuw, 1990).</p>
 		
 			
 			<c:forEach var="cPkg" items="${cp}" varStatus="loop">

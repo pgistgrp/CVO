@@ -163,7 +163,7 @@ public class RegisterAgent {
      * 
      * @param params a Map contains:
      *   <ul>
-     *     <li>income - string, user's income</li>
+     *     <li>income - string id, user's income</li>
      *     <li>householdsize - string, user's household size</li>
      *     <li>drive - string, user's drive days</li>
      *     <li>carpool - string, user's carpool days</li>

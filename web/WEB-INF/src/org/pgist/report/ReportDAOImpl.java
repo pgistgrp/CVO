@@ -35,6 +35,7 @@ import org.pgist.users.User;
 import org.pgist.criteria.CriteriaSuite;
 import org.pgist.criteria.CriteriaRef;
 import org.pgist.projects.ProjectSuite;
+import org.pgist.system.RegisterObject;
 
 
 
@@ -79,8 +80,9 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		return map; 
 	}
 	
-	private static final String hql_createStatsPart1 = "from CategoryReference cr where cr.theme=?"; 
-	private static final String hql_createStatsPart2 = "from InfoObject io where io.object.id=?"; 
+	private static final String hql_createStatsPart1_1 = "from CategoryReference cr where cr.theme=?"; 
+	private static final String hql_createStatsPart1_2 = "from InfoObject io where io.object.id=?"; 
+	private static final String hql_createStatsPart1_3 = "from RegisterObject ro where ro.type=?"; 
 	
 	public void createStatsPart1(Long workflowId, Long cctId, Long repoSuiteId) throws Exception {
 		System.out.println("***Excecute CreateStatsPart1()");
@@ -97,11 +99,11 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 			Theme theme = (Theme) itThemes.next();
 			ReportThemeStat tempRTS = new ReportThemeStat();
 			tempRTS.setTheme(theme);
-			List catRefList = getHibernateTemplate().find(hql_createStatsPart1, new Object[] {theme,});			
+			List catRefList = getHibernateTemplate().find(hql_createStatsPart1_1, new Object[] {theme,});			
 			CategoryReference cr = (CategoryReference)catRefList.get(0);
 			System.out.println("***ReportStats1 cr size: " + catRefList.size());
 			
-			List InfoObjList = getHibernateTemplate().find(hql_createStatsPart2, new Object[] {cr.getId(),});
+			List InfoObjList = getHibernateTemplate().find(hql_createStatsPart1_2, new Object[] {cr.getId(),});
 			InfoObject io = (InfoObject) InfoObjList.get(0);
 			System.out.println("***ReportStats1 io size: " + InfoObjList.size());
 			
@@ -113,12 +115,21 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		
 		//Variables to store stats
 		Set<User> users = new HashSet();
+		Set<String> incomeRanges = new HashSet();
 		Map<County, Integer> countySet = new HashMap();
 		Map<String, Integer> incomeSet = new HashMap();		
 		Map<String, Integer> transportSet = new HashMap();	
 		int male = 0;
 		int female = 0;
-		Set<String> incomeRanges = new HashSet<String>();
+		
+		//get Income ReportObjects
+		Collection regObjects = getHibernateTemplate().find(hql_createStatsPart1_3, new Object[] {"income",});
+		Iterator itRo = regObjects.iterator();
+		while(itRo.hasNext()) {
+			RegisterObject ro = (RegisterObject) itRo.next();
+			incomeRanges.add(ro.getValue());
+		}
+		
 		Set<String> transTypes = new HashSet<String>();
 		
 		Set<Concern> concerns = cct.getConcerns();
@@ -148,15 +159,18 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				}
 				
 				//Income
-				String income = u.getIncomeRange();
-				incomeRanges.add(income);
-				
-				if(income!=null && !("".equals(income.trim()))) {
-					if(incomeSet.get(income)==null) {
-						incomeSet.put(income, 1);
-					} else {
-						int num = incomeSet.get(income);
-						incomeSet.put(income, num+1);
+				RegisterObject ro = u.getIncomeRange();
+				if(ro!=null){
+					String income = ro.getValue();
+					incomeRanges.add(income);
+		
+					if(income!=null && !("".equals(income.trim()))) {
+						if(incomeSet.get(income)==null) {
+							incomeSet.put(income, 1);
+						} else {
+							int num = incomeSet.get(income);
+							incomeSet.put(income, num+1);
+						}
 					}
 				}
 				
@@ -228,14 +242,6 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		ReportStats rs = new ReportStats();
 		CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
 		int critNum = cs.getReferences().size();
-		
-		//get Criteria and avg weights
-		/*Set critRefs = cs.getReferences();
-		Iterator itCR = critRefs.iterator();
-		while(itCR.hasNext()) {
-			CriteriaRef cr = (CriteriaRef) itCR.next();
-			cr.get
-		}*/
 		
 		rs.setQuanity(critNum);
 		save(rs);
@@ -352,15 +358,18 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				}
 				
 				//Income
-				String income = u.getIncomeRange();
-				incomeRanges.add(income);
-				
-				if(income!=null && !("".equals(income.trim()))) {
-					if(incomeSet.get(income)==null) {
-						incomeSet.put(income, 1);
-					} else {
-						int num = incomeSet.get(income);
-						incomeSet.put(income, num+1);
+				RegisterObject ro = u.getIncomeRange();
+				if(ro!=null){
+					String income = ro.getValue();
+					incomeRanges.add(income);
+		
+					if(income!=null && !("".equals(income.trim()))) {
+						if(incomeSet.get(income)==null) {
+							incomeSet.put(income, 1);
+						} else {
+							int num = incomeSet.get(income);
+							incomeSet.put(income, num+1);
+						}
 					}
 				}
 				

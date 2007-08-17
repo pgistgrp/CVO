@@ -158,7 +158,9 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 
 	public void addQuestionnaire(Long id, String incomeRange, int householdsize, int drive, int carpool, int carpoolpeople, int bus, int bike,  int walk) throws Exception {
 		User user = (User) load(User.class, id);
-		user.setIncomeRange(incomeRange);
+		Long incomeId = Long.parseLong(incomeRange);
+		RegisterObject income = (RegisterObject) load(RegisterObject.class, incomeId);
+		user.setIncomeRange(income);
 		user.setFamilyCount(householdsize);
 		user.setDriveDays(drive);
 		user.setCarpoolDays(carpool);
