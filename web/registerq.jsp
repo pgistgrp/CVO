@@ -89,8 +89,7 @@ function editVehicle(vehicleId){
 }
 
 function deleteVehicle(vehicleId){
-
-	RegisterAgent.deleteVehicle({vehicleId:vehicleId}, {
+	FundingAgent.deleteVehicle({vehicleId:vehicleId}, {
 		callback:function(data){
 			if (data.successful){
 				new Effect.DropOut('vehicle' + vehicleId)
@@ -99,7 +98,7 @@ function deleteVehicle(vehicleId){
 			}
 		},
 		errorHandler:function(errorString, exception){ 
-		alert("ClassName.methodName( error:" + errorString + exception);
+		alert("FundingAgent.deleteVehicle( error:" + errorString + exception);
 		}
 	});
 }
