@@ -149,7 +149,7 @@
 
 	
 	/* *************** loading on getTargets() in SDRoomMain *************** */
-	io.loadDynamicFile('styles/step2.css');
+	io.loadDynamicFile('/styles/step2.css');
 	//io.loadDynamicFile('/dwr/interface/CriteriaAgent.js');
     
     
