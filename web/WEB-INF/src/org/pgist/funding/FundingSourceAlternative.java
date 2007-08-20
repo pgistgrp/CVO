@@ -174,7 +174,7 @@ public class FundingSourceAlternative implements Serializable {
     
     
     /**
-     * @hibernate.property not-null="true"
+     * @hibernate.property
      */
     public int getNumVotes() {
 		return numVotes;
@@ -186,7 +186,7 @@ public class FundingSourceAlternative implements Serializable {
 	}
 
 	/**
-     * @hibernate.property not-null="true"
+     * @hibernate.property
      */
 	public int getYesVotes() {
 		return yesVotes;
