@@ -284,7 +284,7 @@
 				<objective description="Impact on overall system accessibility, mobility, and connectivity">1</objective>
 			</criterion>
 		</alternative>
-		<alternative name="Transit Center & Parking Garage at Bothell">
+		<alternative name="Transit Center &amp; Parking Garage at Bothell">
 			<criterion name="1. Economic Vitality">
 				<objective description="Impact on access to terminal (sea, air, multimodal)">1</objective>
 				<objective description="Impact on general economic development">1.5</objective>
@@ -2154,7 +2154,7 @@
 		</alternative>
 	</project>
 	<project name="Other Snohomish Road Improvements">
-		<alternative name="Add capacity & safety features on 84th Ave. W from 212 St. SW to 238th St. SW">
+		<alternative name="Add capacity &amp; safety features on 84th Ave. W from 212 St. SW to 238th St. SW">
 			<criterion name="1. Economic Vitality">
 				<objective description="Impact on access to terminal (sea, air, multimodal)">1</objective>
 				<objective description="Impact on general economic development">0.5</objective>
@@ -2434,7 +2434,7 @@
 				<objective description="Impact on overall system accessibility, mobility, and connectivity">3</objective>
 			</criterion>
 		</alternative>
-		<alternative name="Widen & Connect 39th and 35th Ave. SE from 240 St. SE to Seattle Hill Rd.">
+		<alternative name="Widen &amp; Connect 39th and 35th Ave. SE from 240 St. SE to Seattle Hill Rd.">
 			<criterion name="1. Economic Vitality">
 				<objective description="Impact on access to terminal (sea, air, multimodal)">1.5</objective>
 				<objective description="Impact on general economic development">1</objective>
@@ -2884,7 +2884,7 @@
 				<objective description="Impact on overall system accessibility, mobility, and connectivity">1</objective>
 			</criterion>
 		</alternative>
-		<alternative name="North County (I-5, SR 2, SR 9) Park & Ride Facilities">
+		<alternative name="North County (I-5, SR 2, SR 9) Park &amp; Ride Facilities">
 			<criterion name="1. Economic Vitality">
 				<objective description="Impact on access to terminal (sea, air, multimodal)">1</objective>
 				<objective description="Impact on general economic development">1</objective>
@@ -2940,7 +2940,7 @@
 				<objective description="Impact on overall system accessibility, mobility, and connectivity">1</objective>
 			</criterion>
 		</alternative>
-		<alternative name="SR 525 Mukilteo Park & Ride Lot ">
+		<alternative name="SR 525 Mukilteo Park &amp; Ride Lot ">
 			<criterion name="1. Economic Vitality">
 				<objective description="Impact on access to terminal (sea, air, multimodal)">1</objective>
 				<objective description="Impact on general economic development">1</objective>
