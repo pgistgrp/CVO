@@ -77,11 +77,6 @@
 								</table>
 							</td>
 						</tr>
-						<tr>
-							<td class="cost">&nbsp;</td>
-							<td class="cost">&nbsp;</td>
-							<td class="cost">&nbsp;</td>
-						</tr>
 					</c:forEach>
 				</table>
 			</div>
