@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2007-08-19 17:46:41
+-- Started on 2007-08-20 14:48:30
 
 SET client_encoding = 'SQL_ASCII';
 SET standard_conforming_strings = off;
@@ -13,35 +13,33 @@ SET escape_string_warning = off;
 SET search_path = public, pg_catalog;
 
 --
--- TOC entry 2572 (class 0 OID 19540)
--- Dependencies: 2177
+-- TOC entry 2326 (class 0 OID 507089)
+-- Dependencies: 1931
 -- Data for Name: pgist_projects; Type: TABLE DATA; Schema: public; Owner: pgist
 --
 
-COPY pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) FROM stdin;
-37	I-405 Improvements	null	1	\N	f	\N
-91	Enhanced Express Bus Service	null	2	\N	f	\N
-43	SR 167 Improvements	\N	1	\N	f	\N
-51	New Highway Segments	\N	1	\N	f	\N
-55	Snohomish SR 9 Improvements	\N	1	\N	f	\N
-58	Snohomish I-5 Access Improvements	\N	1	\N	f	\N
-94	Sounder Improvements	\N	2	\N	f	\N
-99	Snohomish County Transit Improvements	\N	2	\N	f	\N
-27	Alaska Way Viaduct	null	1	\N	t	\N
-105	Other Seattle Area Improvements	null	1	\N	f	\N
-64	Other Snohomish Road Improvements	null	1	\N	f	\N
-79	Light Rail Extension to the North	null	2	\N	t	\N
-73	Light Rail Extension to the Eastside	null	2	\N	t	\N
-86	Light Rail Extension to the South	null	2	\N	t	\N
-32	SR 520 Bridge	null	1	\N	t	\N
-83	Enhanced Transit: Downtown to Capital Hill via First Hill	null	2	\N	t	\N
-72856	Light Rail Extension Studies		2	\N	f	\N
-72944	I-90 Improvements		1	\N	f	\N
-48	Other Pierce Road Improvements	null	1	\N	f	\N
-\.
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (37, 'I-405 Improvements', 'null', 1, NULL, false, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (91, 'Enhanced Express Bus Service', 'null', 2, NULL, false, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (43, 'SR 167 Improvements', NULL, 1, NULL, false, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (51, 'New Highway Segments', NULL, 1, NULL, false, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (55, 'Snohomish SR 9 Improvements', NULL, 1, NULL, false, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (58, 'Snohomish I-5 Access Improvements', NULL, 1, NULL, false, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (94, 'Sounder Improvements', NULL, 2, NULL, false, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (99, 'Snohomish County Transit Improvements', NULL, 2, NULL, false, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (27, 'Alaska Way Viaduct', 'null', 1, NULL, true, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (105, 'Other Seattle Area Improvements', 'null', 1, NULL, false, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (64, 'Other Snohomish Road Improvements', 'null', 1, NULL, false, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (79, 'Light Rail Extension to the North', 'null', 2, NULL, true, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (73, 'Light Rail Extension to the Eastside', 'null', 2, NULL, true, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (86, 'Light Rail Extension to the South', 'null', 2, NULL, true, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (32, 'SR 520 Bridge', 'null', 1, NULL, true, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (83, 'Enhanced Transit: Downtown to Capital Hill via First Hill', 'null', 2, NULL, true, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (72856, 'Light Rail Extension Studies', '', 2, NULL, false, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (72944, 'I-90 Improvements', '', 1, NULL, false, NULL);
+INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (48, 'Other Pierce Road Improvements', 'null', 1, NULL, false, NULL);
 
 
--- Completed on 2007-08-19 17:46:42
+-- Completed on 2007-08-20 14:48:31
 
 --
 -- PostgreSQL database dump complete
