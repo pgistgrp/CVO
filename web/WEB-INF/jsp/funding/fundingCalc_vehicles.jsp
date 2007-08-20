@@ -32,7 +32,7 @@
 
 <p><a href="javascript:Element.toggle('newVehicle');void(0);">Add vehicle</a> 
 	<div id="newVehicle" class="myVehiclesRow" style="display:none;"> 
-		<form id="addVehicle" action="javascript:addVehicle();">
+		<form id="addVehicle" action="javascript:addVehicle();void(0);">
 		<strong>New Vehicle: </strong> Miles per gallon
 		<input name="mpg" onBlur="this.value=filterNum(this.value);" id="vehicleMpg" type="text" />
 		Approximate value
@@ -40,7 +40,7 @@
 		Miles driven per year
 		<input name="mpy" onBlur="this.value=filterNum(this.value);" id="vehicleMpy" type="text" />
 
-		<input type="submit" value="Add" />
+		<input type="submit" value="Add"/>
 		<input type="button" value="Cancel" onclick="javascript:Element.toggle('newVehicle');">
 		</form>
 	</div>		
