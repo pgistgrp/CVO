@@ -153,6 +153,7 @@ public class ProjectServiceImpl implements ProjectService {
     	alternative.setStatementFor(statementFor);
     	alternative.setStatementAgainst(statementAgainst);
     	alternative.setCounty(county);
+    	alternative.setProject(project);
     	
     	//Save the alternative, then links the project and saves the project
     	projectDAO.save(alternative);
