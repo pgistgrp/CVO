@@ -1,5 +1,3 @@
-<style type="text/css">
-
 .voteBox
 {
 width:100%;
@@ -13,7 +11,7 @@ border: 1px solid #ADCFDE;
 
 .VoteListRow
 {
-padding:.3em 0em;
+padding:5px 0em;
 }
 
 .voteCol1
@@ -40,5 +38,3 @@ margin:0em auto;
 {
 background:#FFF1DC;
 }
-
-</style>

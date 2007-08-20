@@ -63,16 +63,15 @@
 	<!-- begin Object -->
 	<div id="object">
 		<!-- begin obj-left -->
-		<h2 class="headerColor">Active polls</h2>
 		<!-- begin one voting box -->
 		<jsp:useBean id="now" class="java.util.Date" />
         
-		<h3 class="headerColor">Package Poll</h3>
-		Results as of <fmt:formatDate value="${now}" dateStyle="full" /> <fmt:formatDate value="${now}" type="time" /></h3>
+		<h3 class="headerColor">Preliminary vote results</h3>
+		Results as of <fmt:formatDate value="${now}" dateStyle="full" /> <fmt:formatDate value="${now}" type="time" /><br/>
 		<c:set var="voters" value="${voteSuite.numVoters}" />
 		<c:set var="users" value="${totalUsers}" />
-		<p><fmt:formatNumber type="number">${voters}</fmt:formatNumber> participants voted in this
-			poll (<fmt:formatNumber type="percent">${voters / users}</fmt:formatNumber> of all participants). Poll results are displayed below.</p>
+		<fmt:formatNumber type="number">${voters}</fmt:formatNumber> participants have voted.
+		<p>Please indicate your willingness to recommend the following packages to decision makers.</p>
 		<div class="voteBox box3 padding5" class="clearfix">
 			<div class="VoteListRow row odd">
 				<div class="voteCol1 floatLeft">&nbsp;</div>
