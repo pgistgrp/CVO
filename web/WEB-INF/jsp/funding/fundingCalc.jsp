@@ -93,7 +93,7 @@
 			var value = $F('vehicleValue' + vehicleId);
 			var mpy = $F('vehicleMpy'+ vehicleId);
 			
-			//alert("vehicleId: " + vehicleId + " milesPerGallon: " + milesPerGallon + " value: " + value + " milesPerYear: " + milesPerYear); 
+			//alert("vehicleId: " + vehicleId + " milesPerGallon: " + mpg + " value: " + value + " milesPerYear: " + mpy); 
 			Util.loading(true,"Working");
 			FundingAgent.updateVehicle({vehicleId:vehicleId,milesPerGallon:mpg,value:value,milesPerYear:mpy}, {
 				callback:function(data){
