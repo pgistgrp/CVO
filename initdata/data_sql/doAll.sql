@@ -10,12 +10,6 @@ SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
---
--- TOC entry 2197 (class 0 OID 33212)
--- Dependencies: 1808
--- Data for Name: pgist_projects; Type: TABLE DATA; Schema: public; Owner: pgist
---
-
 
 delete from pgist_funding_source where true;
 delete from pgist_funding_source_alter where true;
@@ -226,8 +220,6 @@ INSERT INTO pgist_funding_source_alter (id, sourceurl, offpeaktripsrate, peakhou
 INSERT INTO pgist_funding_source_alter (id, sourceurl, offpeaktripsrate, peakhourtripsrate, name, revenue, taxrate, source_id, avgcost, toll, numvotes, yesvotes) VALUES (89427, '', 1, 1, 'Variable rate (congestion pricing), $2.25 peak hour and $0.50 off-peak one way', 4000000, 1, 89415, 1, true, 0, 0);
 INSERT INTO pgist_funding_source_alter (id, sourceurl, offpeaktripsrate, peakhourtripsrate, name, revenue, taxrate, source_id, avgcost, toll, numvotes, yesvotes) VALUES (8711, '', 0, 0, '1.0%', 4e+009, 0.0099999998, 8696, 143, false, 1, 1);
 INSERT INTO pgist_funding_source_alter (id, sourceurl, offpeaktripsrate, peakhourtripsrate, name, revenue, taxrate, source_id, avgcost, toll, numvotes, yesvotes) VALUES (8645, '', 0, 0, '$75 per vehicle', 1.96875e+009, 75, 8623, 75, false, 1, 1);
-
-
 
 
 INSERT INTO pgist_county (id, name, quotalimit, tempquotanumber, reportstats_id) VALUES (3084, 'Snohomish', 0, 0, NULL);
