@@ -44,4 +44,4 @@
 		<input type="button" value="Cancel" onclick="javascript:Element.toggle('newVehicle');">
 		</form>
 	</div>		
-</p>
+</p> 
