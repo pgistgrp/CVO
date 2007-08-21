@@ -583,36 +583,31 @@ public class FundingServiceImpl implements FundingService {
 	 * 
 	 * @param	toll	The funding toll source
 	 */
-	private void setTripRates(UserFundingSourceToll toll, ZipCodeFactor zcf, float carFactor, int driveAlone, int carpool, int numPassengers) {
-//System.out.println("MATT: Calc toll for " + toll.getName());		
-		try {
-			if(toll.getName().equals(UserFundingSourceToll.PARKING_DOWNTOWN)) {
-				toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getParking(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-				toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getParking(), carFactor, toll.isUsed()));
-			} else if(toll.getName().equals(UserFundingSourceToll.ALASKA_WAY_VIADUCT)) {
-				toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getSR99(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-				toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getSR99(), carFactor, toll.isUsed()));
-			} else if(toll.getName().equals(UserFundingSourceToll.I405N)) {
-				toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getI405N(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-				toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getI405N(), carFactor, toll.isUsed()));
-			} else if(toll.getName().equals(UserFundingSourceToll.I405S)) {
-				toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getI405S(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-				toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getI405S(), carFactor, toll.isUsed()));
-			} else if(toll.getName().equals(UserFundingSourceToll.SR520)) {
-				toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getSR520(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-				toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getSR520(), carFactor, toll.isUsed()));
-			} else if(toll.getName().equals(UserFundingSourceToll.I90)) {
-				toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getI90(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-				toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getI90(), carFactor, toll.isUsed()));
-			} else if(toll.getName().equals(UserFundingSourceToll.SR167)) {
-				toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getSR167(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
-				toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getSR167(), carFactor, toll.isUsed()));
-			}			
-		} catch (NullPointerException e) {
-			throw new RuntimeException("Could not calculate user data, because you probibly need to load the tax data");
-		}
+	private void setTripRates(UserFundingSourceToll toll, ZipCodeFactor zcf, float carFactor, int driveAlone, int carpool, int numPassengers) throws Exception {
+        if(toll.getName().equals(UserFundingSourceToll.PARKING_DOWNTOWN)) {
+            toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getParking(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+            toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getParking(), carFactor, toll.isUsed()));
+        } else if(toll.getName().equals(UserFundingSourceToll.ALASKA_WAY_VIADUCT)) {
+            toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getSR99(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+            toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getSR99(), carFactor, toll.isUsed()));
+        } else if(toll.getName().equals(UserFundingSourceToll.I405N)) {
+            toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getI405N(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+            toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getI405N(), carFactor, toll.isUsed()));
+        } else if(toll.getName().equals(UserFundingSourceToll.I405S)) {
+            toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getI405S(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+            toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getI405S(), carFactor, toll.isUsed()));
+        } else if(toll.getName().equals(UserFundingSourceToll.SR520)) {
+            toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getSR520(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+            toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getSR520(), carFactor, toll.isUsed()));
+        } else if(toll.getName().equals(UserFundingSourceToll.I90)) {
+            toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getI90(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+            toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getI90(), carFactor, toll.isUsed()));
+        } else if(toll.getName().equals(UserFundingSourceToll.SR167)) {
+            toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getSR167(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+            toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getSR167(), carFactor, toll.isUsed()));
+        }
 	}
-		
+    
     
     public InfoStructure publish(Long workflowId, Long cctId, Long suiteId) throws Exception {
         CCT cct = cctDAO.getCCTById(cctId);
