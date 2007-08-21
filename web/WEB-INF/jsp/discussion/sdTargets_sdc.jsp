@@ -17,7 +17,7 @@
 			    <pg:url page="/sdRoom.do" params="isid=${structure.id}&ioid=${infoObject.id}">${infoObject.object.theme.title}</pg:url>
 			</h3>
 			<!-- We set the substring to begin at the 5th character to remove an extra paragraph tag. It was 0-->
-			<p>"${fn:substring(infoObject.object.theme.summary,5, 200)}"
+			<p>"${fn:substring(infoObject.object.theme.summary,0, 200)}"
 				
 			<span class="smallText"> ... <pg:url page="/sdRoom.do" params="isid=${structure.id}&ioid=${infoObject.id}">more</pg:url></span></p>
 			<span class="smallText"><span id="topicCount">
