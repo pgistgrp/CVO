@@ -525,8 +525,7 @@ function updateMapSum(){
 								<c:if test="${projectRef.project.transMode == category}">
 									<!-- begin PROJECT -->
 									<tr class="${(projectRef.project.inclusive) ? 'fundingType' : 'fundingType2'}">
-										<td class="fundingSourceItem">${projectRef.project.name} Options</td>
-										<td colspan="2"> ${(projectRef.project.inclusive) ? '' : ''} </td>
+										<td  colspan="3" class="fundingSourceItem">${projectRef.project.name} Options</td>
 									</tr>
 									<!-- end PROJECT -->
 									<tr class="objectives" id="objective${projectRef.id}">
