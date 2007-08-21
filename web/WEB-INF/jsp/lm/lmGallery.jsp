@@ -70,7 +70,7 @@ function renderProjects(){
             var transcolor = (p["mode"]==2)?"#0bc00f":"#FF0000";
             var transicon = (p["mode"]==2)?pgistmap.transiticon:pgistmap.roadicon;
             p["overlays"] = p["overlays"].concat(pgistmap.createOverlays(overlaypoints[geomkey]["coords"], 
-                overlaypoints[geomkey]["geotype"], transcolor, 2, 0.9, "", transicon));
+                overlaypoints[geomkey]["geotype"], transcolor, 3, 0.9, "", transicon));
             
             for(var j=0; j<p["overlays"].length; j++){
                 pgistmap.map.addOverlay( p["overlays"][j] );
