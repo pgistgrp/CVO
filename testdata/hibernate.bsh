@@ -11,10 +11,9 @@ hql = "from Activity";
 query = session.createQuery(hql);
 //query.setLong(0, 3342);
 
+v = session.load(org.pgist.users.Vehicle.class, new Long(11431));
+print(v.getApproxValue());
+print(v.getOwner());
 
 List test = query.list();
-
-for (Object o : test) {
-    System.out.println("-----> "+o);
-}//for
 
