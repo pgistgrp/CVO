@@ -185,7 +185,7 @@
 							
 							<div id="replyContent${reply.id}"><p>${reply.content}</p></div>
 							<div id="replyOwner${reply.id}">
-								<h3>- <pg:url page="/publicprofile.do" target="_blank" params="user=${post.owner.loginname}">${post.owner.loginname}</pg:url></h3>    
+								<h3>- <pg:url page="/publicprofile.do" target="_blank" params="user=${reply.owner.loginname}">${reply.owner.loginname}</pg:url></h3>    
 							</div>
 						</div>
 						<div class="discussionComments peekaboobugfix">
