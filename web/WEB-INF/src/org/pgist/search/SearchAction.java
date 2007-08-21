@@ -92,6 +92,9 @@ public class SearchAction extends Action {
                 map.put("type", type);
                 map.put("doc", doc);
                 map.put("body", doc.get("body"));
+                map.put("workflowid", doc.get("workflowid"));
+                map.put("contextid", doc.get("contextid"));
+                map.put("activityid", doc.get("activityid"));
                 
                 if ("post".equals(type)) {
                     map.put("isid", doc.get("isid"));
