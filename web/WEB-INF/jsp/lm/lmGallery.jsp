@@ -170,7 +170,8 @@ function renderProjects(){
 													<td class="cost">$<fmt:formatNumber maxFractionDigits="0" value="${alt.cost/1000000}" /> million </td>
                                                     <script type="text/javascript">
                                                                 prjaltlist.push({"id":"${alt.id}", "fpids":"${alt.fpids}", "mode":"${alt.project.transMode}"}); 
-                                                                fpidlist += "," + "${alt.fpids}";
+                                                                altfpids = "${alt.fpids}";
+                                                                if(altfpids.length > 0) fpidlist += "," + "${alt.fpids}";
                                                     </script>
 												</tr>
 											</c:forEach>
