@@ -623,13 +623,11 @@ $('slate').style.Height = winH;
   <div id="container">
     <!-- begin "overview and instructions" area -->
     <div id="overview" class="box2">
-    <!--
-    		<p>***** Started on: <fmt:formatDate value="${current.beginTime}" dateStyle="long" /> *****</p>
-    		<p>***** Ends on: <fmt:formatDate value="${current.endTime}" dateStyle="long" /> *****</p>    
-    -->
+
 			<h3>Overview and instructions</h3>
     		
     		<c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
+			<pg:narrow name="current"/>
 			
 			<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
 			Before we can determine how to best improve the transportation system, we need to know what the problems are. In this step you can:
