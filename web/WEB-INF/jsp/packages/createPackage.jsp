@@ -358,14 +358,12 @@
 				if(project==null)return;
 				
 				if(project["overlays"] == null)return;
-				//var img = (project["mode"]==2)?"images/grnpin1.png":"images/redpin1.png";
-                var icon = (project["mode"]==2)?pgistmap.transiticon:pgistmap.roadicon;
+				var icon = (project["mode"]==2)?pgistmap.transiticon:pgistmap.roadicon;
 				for (var i=0;i<project["overlays"].length;i++){	//add back original overlays
-					if( project["overlays"][i] ){
-						//project["overlays"][i].setImage(img);
-                        pgistmap.map.removeOverlay(project["overlays"][i]);
-                        project["overlays"][i] = new GMarker(project["overlays"][i].getPoint(), icon);
-                        pgistmap.map.addOverlay(project["overlays"][i]);
+					if( project["overlays"][i].getIcon ){
+						pgistmap.map.removeOverlay(project["overlays"][i]);
+						project["overlays"][i] = new GMarker(project["overlays"][i].getPoint(), icon);
+						pgistmap.map.addOverlay(project["overlays"][i]);
 					}
 				}
 
