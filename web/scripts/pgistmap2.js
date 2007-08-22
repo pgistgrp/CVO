@@ -46,8 +46,6 @@ var PGISTMapEditor = function(mapcontainer, width, height, enableEdit) {
 
 		mapcontainer = document.getElementById(mapcontainer);
 
-
-
 	this._mapdiv = document.createElement("div");
 
 	width = width || 600;
@@ -157,9 +155,17 @@ var PGISTMapEditor = function(mapcontainer, width, height, enableEdit) {
 	PGISTMapEditor_Global_Accessor = this;
     
     //enable map logging if PESAgent javascript is included
-    GEvent.addListener(this.map, 'moveend', PGIST_Map_Logger);
+    this.mapLogger = GEvent.addListener(this.map, 'moveend', PGIST_Map_Logger);
 
 };
+
+PGISTMapEditor.prototype.enableMapLogger=function(){
+    this.mapLogger = GEvent.addListener(this.map, 'moveend', PGIST_Map_Logger);
+}
+
+PGISTMapEditor.prototype.disableMapLogger=function(){
+    GEvent.removeListener(this.mapLogger);
+}
 
 /* log the map type and map extent */
 function PGIST_Map_Logger(){

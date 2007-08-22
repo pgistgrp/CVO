@@ -130,10 +130,10 @@
 							}
 							
 							if(!deleting){
-								highlightProject(altId);
+								highlightProject(altIdLookUp["" + altRefId]);
 								//alert("adding: " + p["name"]);
 							}else{
-								unHighlightProject(altId);
+								unHighlightProject(altIdLookUp["" + altRefId]);
 								//alert("removing: " + p["name"]);
 							}
 						}else{
@@ -252,12 +252,13 @@
 			var pgistmap = null;
 			var overlaypoints = [];
 			var mapPositionTop = 0;
+            var altIdLookUp = [];
 			
 			function load(){
-				pgistmap = new PGISTMapEditor('themap', 520, 580, false);
-				//alert(prjaltlist.length);
+				pgistmap = new PGISTMapEditor(document.getElementById('themap'), 520, 580, false);
+				
 				if(fpidlist.length > 0){
-					fpidlist = fpidlist.substring(1, fpidlist.length-1);  //get rid of the first comma
+					fpidlist = fpidlist.substring(1, fpidlist.length);  //get rid of the first comma
 					ProjectAgent.getFootprints({fpids:fpidlist}, {
 						callback:function(data){
 							if (data.successful){
@@ -269,8 +270,6 @@
 								}
 								//render projects
 								renderProjects();
-
-								//alert(data.footprints); //coordinates - 3d array returned
 							}else{
 								alert(data.reason);
 							}
@@ -287,16 +286,16 @@
 			}
 			
 			function renderProjects(){
+                pgistmap.disableMapLogger();
 				for(var i=0;i<prjaltlist.length;i++){
 					//var fpid = parseInt(p["fpids"]);
 					var p = prjaltlist[i];
 					p["overlays"] = []; 
 					if(p["fpids"] == "") continue;
-					
 					var geomkeys = p["fpids"].split(',');
 					for(var k=0; k<geomkeys.length; k++){
 						var geomkey = '_'+geomkeys[k];
-						if(overlaypoints[geomkey] == null)continue;
+						if(overlaypoints[geomkey] == null){continue;}
 						
 						var transcolor = (p["mode"]==2)?"#0bc00f":"#FF0000";
 						var transicon = (p["mode"]==2)?pgistmap.transiticon:pgistmap.roadicon;
@@ -310,16 +309,15 @@
 					//if project alternative selected highlight it
 					if(p["selected"]){
 						highlightProject(p);
-						//pgistmap.scaleToCoords(overlaypoints[geomkey]["coords"], true);
 					}
 				}
+                pgistmap.enableMapLogger();
 			}
 			
 			function highlightProject(project){
 			
 				if(typeof(project) != 'object') project = getProjectById(project);
 				if(project==null)return;
-				
 				var transcolor = (project["mode"]==2)?"#0bc00f":"#FF0000";	//1=road; 2=transit
 				if(project["fpids"] == "") return;
 
@@ -327,7 +325,7 @@
 				project["hioverlays"]=[];
 				for(var k=0; k<geomkeys.length; k++){
 					var geomkey = '_'+geomkeys[k];
-					
+
 					//handle points differently
 					if(overlaypoints[geomkey]["geotype"]==1 || overlaypoints[geomkey]["geotype"]==4){
 						var img = (project["mode"]==2)?"images/grnpin2.png":"images/redpin2.png";
@@ -360,16 +358,21 @@
 				if(project==null)return;
 				
 				if(project["overlays"] == null)return;
-				var img = (project["mode"]==2)?"images/grnpin1.png":"images/redpin1.png";
+				//var img = (project["mode"]==2)?"images/grnpin1.png":"images/redpin1.png";
+                var icon = (project["mode"]==2)?pgistmap.transiticon:pgistmap.roadicon;
 				for (var i=0;i<project["overlays"].length;i++){	//add back original overlays
-					if( project["overlays"][i].getIcon){
-						project["overlays"][i].setImage(img);
+					if( project["overlays"][i] ){
+						//project["overlays"][i].setImage(img);
+                        pgistmap.map.removeOverlay(project["overlays"][i]);
+                        project["overlays"][i] = new GMarker(project["overlays"][i].getPoint(), icon);
+                        pgistmap.map.addOverlay(project["overlays"][i]);
 					}
 				}
 
 				var transcolor = (project["mode"]==0)?"#FF0000":"#0bc00f";
 				if(project["fpids"] == "") return;
 				var geomkey = '_'+project["fpids"];
+                if(!project["hioverlays"])return;
 				for (var i=0;i<project["hioverlays"].length;i++){
 					pgistmap.map.removeOverlay(project["hioverlays"][i]);
 				}
@@ -535,6 +538,7 @@ function updateMapSum(){
 												<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
 													<script type="text/javascript" charset="utf-8">
 													altfpids = "${altRef.alternative.fpids}";
+                                                    altIdLookUp["${altRef.id}"] = ${altRef.alternative.id};
 													if(altfpids.length > 0) fpidlist += "," + altfpids;
 													prjaltlist.push({"name":"${altRef.alternative.name}", 
 															"id":"${altRef.alternative.id}",
@@ -619,7 +623,7 @@ function updateMapSum(){
 							</c:if>
 						</tr>
 						<!-- begin FUNDING source -->
-						<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
+						<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop1">
 							<tr class="fundingType">
 								<td class="fundingSourceItem">${fundingRef.source.name}</td>
 								<td colspan="3"></td>
@@ -627,8 +631,10 @@ function updateMapSum(){
 							<!-- end FUNDING source -->
 							<!-- begin OPTIONS -->
 							<c:set var="doNothing"value="true"/>
-							<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
+							<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop2">
 								<tr>
+                                
+                                
 									<td class="fundingSourceItem">
 										<label>
 										<c:choose>
@@ -642,13 +648,23 @@ function updateMapSum(){
 
 										${altRef.alternative.name}</label>
 									</td>
+                                    
+                                    
 									<td class="col2">
 										$<fmt:formatNumber maxFractionDigits="0" value="${altRef.alternative.revenue/1000000}" /> million</td>
 									<td class="col3">$<fmt:formatNumber type="number">${altRef.alternative.avgCost}</fmt:formatNumber></td>
-									<c:if test="${userPkg != null}">
-										<td class="col4">$<fmt:formatNumber type="number">${userPkg.personalCost[altRef.id]}</fmt:formatNumber></td>
-									</c:if>						
+									
+                                    
+                                    <c:if test="${userPkg != null}">
+										<td class="col4"><!--need formating-->
+                                            ${userPkg.personalCost[altRef.id]}
+                                        </td>
+									</c:if>		
+                                    
+                                    
 								</tr>
+                                
+                                
 								<c:choose>
 									<c:when test="${userPkg != null}">
 										<c:if test="${pg:contains(userPkg.fundAltRefs,altRef)}">
@@ -662,6 +678,7 @@ function updateMapSum(){
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
+
 							<tr>
 								<td class="fundingSourceItem">
 									<label>
