@@ -91,7 +91,7 @@
 		currentPage = page;
 
 		//alert("concernId: " + concernId + " page: " + currentPage + " count: " + commentCount); 
-		CCTAgent.getComments({concernId: concernId, page: currentPage, count: commentCount}, {
+		CCTAgent.getComments({concernId: concernId, page: currentPage, count: commentCount},<pg:wfinfo/>, {
 			callback:function(data){
 				if (data.successful){
 					$(divDiscussion).innerHTML = data.html; //uses commentsMain.jsp
