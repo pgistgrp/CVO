@@ -47,45 +47,21 @@
 	});
 //START Global Variables
 	var cct = new Object;
+	cct.divDiscussionCont = 'discussionBody';
 	var concernId = ${concern.id}
 	var currentPage = 1;
 	var commentCount = 15;
 	var divDiscussion = "container-include";
 	var filterAnchor = "#filterAnchor";
 	var commentAnchor = "#commentAnchor";
-	cct.cctId = "${cctForm.cct.id}";	
+	cct.cctId = "${concern.cct.id}";	
 	//Inputs
 	var txtNewCommentTitle = 'txtNewCommentTitle';
 	var txtNewComment = 'txtNewComment';
 	var txtNewCommentTags = 'txtNewCommentTags'
 //END Global variables
 
-	function getContextConcerns(filter, page, jump, showMyConcerns, sorting){
-		//alert("filter" + filter + " page: " + page + " jump: " + jump + " showMyConcerns: " + showMyConcerns + " sorting: " + sorting)
-		if(jump){
-			location.href = cct.filterAnchor; //set anchor if need be
-		}		
-		cct.showOnlyMyConcerns = showMyConcerns;
-		type = (cct.showOnlyMyConcerns) ? "owner" : "all"; //determine type
-		cct.currentPage = page; //set current page
-		cct.currentSort = sorting; 
-		
-	  //alert("cct: " + cct.cctId + " filter: " + filter + " count: " + cct.concernsPerPage + " page: " + page + " sorting: " + cct.currentSort + " type: " + type);
-		CCTAgent.getContextConcerns({cctId: cct.cctId,filter: filter, count: cct.concernsPerPage, page: page, sorting: cct.currentSort, type: type},<pg:wfinfo/>, {
-			callback:function(data){
-					if (data.successful){
-						$(cct.divDiscussionCont).innerHTML = data.html;
-					}else{
-						alert(data.reason);
-					}
-				},
-				async:false,
-			errorHandler:function(errorString, exception){ 
-					alert("getContextConcerns error:" + errorString + exception);
-			}
-		});	
-		return true
-	}
+
 
 	function getComments(page, jump){
 		currentPage = page;
@@ -147,8 +123,8 @@
            				getComments(currentPage, false);
            			}
 				}else{
-					alert(data.reason);
 				}
+					alert(data.reason);
 			},
 		errorHandler:function(errorString, exception){ 
 				alert("setVote error:" + errorString + exception);
@@ -254,7 +230,7 @@ function editConcern(concernId){
 	CCTAgent.editConcern({concernId:concernId, concern:newConcern}, <pg:wfinfo/>,{
 		callback:function(data){
 				if (data.successful){
-					getContextConcerns(cct.currentFilter, cct.currentPage, false, cct.showOnlyMyConcerns, cct.currentSort);
+					getComments(currentPage, false);
 				
 				}  
 		},
@@ -276,7 +252,7 @@ CCTAgent.getConcernById(concernId, {
 				var editConcern = 'editingArea' +concernId;
 					os = "";
 					os += '<textarea style="" name="editConcern" id="editConcern" cols="50" rows="5">' +currentConcern+ '</textarea>';
-					os += '<input type="button" id="modifyConcern" value="Submit Edits!" onclick="javascript:editConcern('+concernId+');"/>';
+					os += '<br/><input type="button" id="modifyConcern" value="Submit Edits!" onclick="javascript:editConcern('+concernId+');"/>';
 					os += '<input type="button" value="Cancel" onClick="javascript:toggleEditing(\'concern\', '+concernId+');">';
 				$(editConcern).innerHTML = os;		
 		}
@@ -315,6 +291,132 @@ function editTagsPopup(concernId){
 		}
 	});
 }
+
+function addToConcernTagsArray(tagName, status){
+	var newConcernTagInstance = new NewConcernTag(tagName, status);
+	newConcernTagsArray.push(newConcernTagInstance);
+}
+
+function NewConcernTag(tagName, status){
+	this.tagName = tagName;
+	this.status = status;
+}
+
+function renderEditingTags(concernId){
+	os = '<ul  class="tagsList">' + renderTags(); + '</ul>';
+	os += '<form action="javascript: addManualEditTag('+concernId+');"><input id="manualEditTag" type="text" />';
+      os += '<input type="button" value="Add Tag" onClick="addManualEditTag('+concernId+');" /></form>';
+      os += '<p><small>You must use at least 2 or more tags to continue.</small></p>';
+     	os += '<div><hr><input type="button" id="subeditTags" value="Submit Edits" onClick="editTags('+concernId+')">';
+	os += '<input type="button" value="Cancel" onClick="javascript:toggleEditing(\'tags\', '+concernId+');"></div>';
+     return os;
+}
+
+function renderTags(){
+	var str= "";
+	for(i=0; i < newConcernTagsArray.length; i++){
+		if(newConcernTagsArray[i] != ""){
+			str += '<li><label><input type="checkbox" '+newConcernTagsArray[i].status+' onclick="checkNewConcernTag('+ i +');" />'+ newConcernTagsArray[i].tagName +'</label></li>';
+		}
+	}	
+	return str;
+}
+
+function addManualEditTag(concernId){
+	var tagDiv = 'tagEditingArea' + concernId;
+	var manualTag = $('manualEditTag').value;
+	if(manualTag != ""){
+		addToConcernTagsArray(manualTag, "checked");	
+		$('manualEditTag').value = ""; //clear textbox
+		$(tagDiv).innerHTML = renderEditingTags(concernId);  
+	}else{
+		alert("Tag can not be blank.");
+	}
+}
+		
+function renderEditingTags(concernId){
+	os = '<ul  class="tagsList">' + renderTags(); + '</ul>';
+	os += '<form action="javascript: addManualEditTag('+concernId+');"><input id="manualEditTag" type="text" />';
+      os += '<input type="button" value="Add Tag" onClick="addManualEditTag('+concernId+');" /></form>';
+      os += '<p><small>You must use at least 2 or more tags to continue.</small></p>';
+     	os += '<div><hr><input type="button" id="subeditTags" value="Submit Edits" onClick="editTags('+concernId+')">';
+	os += '<input type="button" value="Cancel" onClick="javascript:toggleEditing(\'tags\', '+concernId+');"></div>';
+     return os;
+}
+	
+
+function editTags(concernId){
+	getSelectedTags();
+	if(newConcernSelectedTagsArray.length<cct.numTagsInNewConcern){
+		alert("You must use at least "+ cct.numTagsInNewConcern +" tags");
+	}else{
+	var newConcernSelectedTagsString = newConcernSelectedTagsArray.toString();
+	//for (i=0; i<newConcernSelectedTagsArray.length; i++){
+		//newConcernSelectedTagsString += newConcernSelectedTagsArray[i] + ',';	
+	//}
+	CCTAgent.editTags({concernId:concernId, tags:newConcernSelectedTagsString}, <pg:wfinfo/>,{
+		callback:function(data){
+			if (data.successful){ 
+				getComments(currentPage, false);
+			}else{
+				alert(data.reason);	
+			}
+			
+		},
+		errorHandler:function(errorString, exception){ 
+				alert("editTags: "+errorString+" "+exception);
+				//showTheError();
+		}
+	});
+	}
+}
+
+function getSelectedTags(){
+	newConcernSelectedTagsArray = [];
+	for(i=0; i<newConcernTagsArray.length; i++){
+		if(newConcernTagsArray[i].status == 'checked'){
+			newConcernSelectedTagsArray.push(newConcernTagsArray[i].tagName);
+		}
+	}	
+	//alert(newConcernSelectedTagsArray);
+}
+	
+function checkNewConcernTag(index){
+	if(newConcernTagsArray[index].status == "unchecked"){
+		newConcernTagsArray[index].status = "checked";
+	}else{
+		newConcernTagsArray[index].status = "unchecked";
+	}
+}
+
+function changeCurrentFilter(tagRefId){
+	$(cct.chbxMyConcerns).checked = false; //a user's concerns can not be filtered.
+	checkMyConcerns();
+	if (tagRefId != ''){
+			CCTAgent.getTagByTagRefId(tagRefId, {
+			callback:function(data){
+			if (data.successful){
+						var tagName = data.tag.name;
+						getComments(currentPage, false);
+						cct.currentFilter = tagName;
+	          			
+						$(cct.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
+					}else{
+						alert(data.reason);
+					}
+			},
+			errorHandler:function(errorString, exception){ 
+					alert("get tagbytagref error:" + errorString + exception);
+			}
+			});
+	}else{	
+		cct.currentFilter='';
+		getComments(currentPage, false);
+		$(cct.divFilteredBy).innerHTML = '';
+		
+	}
+}
+
 </script>
 <event:pageunload />
 </head><body>

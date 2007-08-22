@@ -37,7 +37,7 @@
 <!-- end voting tally menu -->
 <!-- BEGIN CONCERN -->
 <div id="summary" class="box3 floatLeft">
-  <div class="discussionBody">
+  <div class="discussionBody" id="discussionBody">
     <div id="editingArea${concern.id}" style="display:none"></div>
     <div id="discussionText${concern.id}">
       <p>"${concern.content}"</p>
@@ -73,7 +73,7 @@
     <!--end discussionTagsList -->
 
     <c:if test="${baseuser.id == concern.author.id}">
-        <div class="box6"> <strong>Author Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});">Edit Concern</a> &nbsp; <a href="javascript:editTagsPopup(${concern.id});">Edit Tags</a> &nbsp; <a href="javascript:deleteConcern(${concern.id});">Delete Concern</a></div>
+        <div class="box6"> <strong>Author Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});">Edit Concern</a> &nbsp; <a href="javascript:editTagsPopup(${concern.id});">Edit Tags</a></div>
     </c:if>
   </div>
   <!-- end discussion body -->
