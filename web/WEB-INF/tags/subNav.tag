@@ -12,47 +12,28 @@
       <pg:narrow name="meeting" />
       <h3 class="headerColor floatLeft" style="margin-top:0px;">${meeting.description}</h3>
     </div>
-    <!-- HISTORIES -->
-    <c:forEach var="history" items="${requestScope['org.pgist.wfengine.HISTORIES']}" varStatus="loop">
-    <pg:narrow name="history"/>
-    <c:if test="${history.access != 'moderator'}">
-      <div class="headerButton floatLeft ${(requestScope['org.pgist.wfengine.CURRENT'] == history) ? "currentBox": ""}">
-        <a href="/workflow.do?workflowId=${param.workflowId}&contextId=${param.contextId}&activityId=${history.id}">${history.title}</a>
-      </div>
-    </c:if>
-    </c:forEach>
-    <!-- END HISTORIES -->
 
-    <!-- CURRENT -->
-    <c:if test="${requestScope['org.pgist.wfengine.ACTIVITY_RUNNING']}">
-        <div class="headerButton floatLeft currentBox">
-            <a href="/workflow.do?workflowId=${param.workflowId}&contextId=${param.contextId}&activityId=${current.id}">${current.title}</a>
-        </div>
-    </c:if>
-    <!-- END CURRENT -->
-    
-    
     <!-- PARALLEL -->
-    <c:forEach var="parallel" items="${requestScope['org.pgist.wfengine.PARALLEL']}" varStatus="loop">
-    <pg:narrow name="parallel"/>
-    <c:if test="${parallel.access != 'moderator'}">
-      <div class="headerButton floatLeft">
-        <a href="/workflow.do?workflowId=${param.workflowId}&contextId=${param.contextId}&activityId=${parallel.id}">${parallel.title}</a>
+
+    <c:forEach var="serial" items="${requestScope['org.pgist.wfengine.SERIAL']}" varStatus="loop">
+    <pg:narrow name="SERIAL"/>
+    <c:set var="running" value="${pg:contains(requestScope['org.pgist.wfengine.CONTEXT'].runningActivities, serial)}" />
+    <c:set var="histories" value="${pg:contains(requestScope['org.pgist.wfengine.HISTORIES'], serial)}" />
+    
+    <c:if test="${serial.access != 'moderator'}">
+      <div class="headerButton floatLeft ${(serial.id == current.id) ? 'currentBox' : ''}">
+        <c:choose>
+            <c:when test="${running || histories}">
+                <a href="/workflow.do?workflowId=${param.workflowId}&contextId=${param.contextId}&activityId=${serial.id}">${serial.title}</a>
+            </c:when>
+            <c:otherwise>
+                ${serial.title}
+            </c:otherwise>
+        </c:choose>
       </div>
     </c:if>
     </c:forEach>
     <!-- END PARALLEL -->
-    
-    <!-- FUTURES -->
-    <c:forEach var="future" items="${requestScope['org.pgist.wfengine.FUTURES']}" varStatus="loop">
-    <pg:narrow name="future"/>
-    <c:if test="${future.access != 'moderator' && requestScope['org.pgist.wfengine.CURRENT'] != future}">
-      <div class="headerButton floatLeft">
-        ${future.title}
-      </div>
-    </c:if>
-    </c:forEach>
-    <!-- END FUTURES -->
 
   <div id="headerNext" class="floatRight box5"> <pg:url page="/userhome.do">Back to Agenda</pg:url> </div>
   </div>
