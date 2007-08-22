@@ -170,10 +170,10 @@ public interface CCTService {
     /**
      * Delete the given Concern object.
      *
-     * @param concern The Concern object.
+     * @param concernId id of the Concern object.
      * @throws Exception
      */
-    void deleteConcern(Concern concern) throws Exception;
+    void deleteConcern(Long concernId) throws Exception;
 
     /**
      * Edit the tag list of the given Concern object.

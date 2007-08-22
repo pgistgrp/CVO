@@ -215,12 +215,26 @@ public class CCTServiceImpl implements CCTService {
     }//getCommentById()
 
 
-    public void deleteConcern(Concern concern) throws Exception {
+    public void deleteConcern(Long concernId) throws Exception {
+        Concern concern = cctDAO.getConcernById(concernId);
+        
+        if (concern==null) {
+            throw new Exception("can't find the specified concern");
+        }
+        
+        if (concern.isDeleted()) {
+            throw new Exception("This concern is already deleted.");
+        }
+        
+        if (!WebUtils.checkUser(concern.getAuthor().getId())) {
+            throw new Exception("You have no right to edit this concern.");
+        }
+        
         CCT cct = concern.getCct();
-
+        
         Set oldTags = new HashSet(concern.getTags());
         concern.getTags().clear();
-
+        
         for (Object object : oldTags) {
             TagReference ref = (TagReference) object;
             if (ref.getTimes() > 0) {
@@ -228,13 +242,15 @@ public class CCTServiceImpl implements CCTService {
                 cctDAO.save(ref);
             }
         } //for
-
+        
         concern.setDeleted(true);
         concern.setCreateTime(new Date());
         
         cctDAO.deleteComments(concern);
-
+        cct.getConcerns().remove(concern);
+        
         cctDAO.save(concern);
+        
         cctDAO.save(cct);
     } //deleteConcern()
 
@@ -433,7 +449,7 @@ public class CCTServiceImpl implements CCTService {
         
         User owner = userDAO.getUserById(WebUtils.currentUserId(), true, false);
         
-        if (owner.getId().equals(comment.getOwner().getId())) {
+        if (!owner.getId().equals(comment.getOwner().getId())) {
             throw new Exception("You are not the owner of this comment");
         }
         

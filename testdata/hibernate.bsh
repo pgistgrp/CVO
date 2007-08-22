@@ -6,14 +6,11 @@
 categoryId = 4290;
 Long cctId = 3342;
 
-hql = "from Activity";
+hql = "update Comment set deleted=?";
 
 query = session.createQuery(hql);
-//query.setLong(0, 3342);
+query.setBoolean(0, true);
+//query.setLong(1, 12101);
+//query.setString(0, "1111");
 
-v = session.load(org.pgist.users.Vehicle.class, new Long(11431));
-print(v.getApproxValue());
-print(v.getOwner());
-
-List test = query.list();
-
+query.executeUpdate();

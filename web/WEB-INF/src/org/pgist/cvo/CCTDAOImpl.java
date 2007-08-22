@@ -474,13 +474,13 @@ public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
     
     
     public void decreaseReplies(Concern concern) throws Exception {
-        Query query = getSession().createQuery(hql_increaseReplies);
+        Query query = getSession().createQuery(hql_decreaseReplies);
         query.setLong(0, concern.getId());
         query.executeUpdate();
     }//decreaseReplies()
 
 
-    private static final String hql_deleteComments = "update Comment set delete=? where concern_id=?";
+    private static final String hql_deleteComments = "update Comment set deleted=? where concern_id=?";
     
     
     public void deleteComments(Concern concern) throws Exception {

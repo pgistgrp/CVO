@@ -732,60 +732,42 @@ public class CCTAgent {
         map.put("successful", false);
         
         Long concernId = null;
-        Concern concern = null;
-
-        try {
-            concernId = new Long((String) params.get("concernId"));
-            concern = cctService.getConcernById(concernId);
-            if (concern.isDeleted()) {
-                map.put("reason", "This concern is already deleted.");
-                return map;
-            }
-        } catch (Exception e) {
-            if (concernId == null) {
-                map.put("reason", "concernId is required.");
-            } else {
-                map.put("reason", "failed to extract concern object with id " + concernId);
-            }
-            return map;
-        }
-
+        
         //Check if the current user is the author of this concern.
         try {
-            Long userId = WebUtils.currentUserId();
-            User user = userDAO.getUserById(userId, true, false);
-            if (user.getId().doubleValue() == concern.getAuthor().getId()) {
-                cctService.deleteConcern(concern);
-                map.put("successful", new Boolean(true));
-                
-                /*
-                 * delete from lucene
-                 */
-                IndexSearcher searcher = null;
-                IndexReader reader = null;
-                try {
-                    searcher = searchHelper.getIndexSearcher();
-                    
-                    Hits hits = searcher.search(searchHelper.getParser().parse(
-                        "workflowid:" + concern.getCct().getWorkflowId()
-                        + "AND concernid:" + concern.getId()
-                    ));
-                    
-                    if (hits.length()>0) {
-                        reader = searchHelper.getIndexReader();
-                        for (int i=0; i<hits.length(); i++) {
-                            reader.deleteDocument(hits.id(i));
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    if (searcher!=null) searcher.close();
-                    if (reader!=null) reader.close();
-                }
-            } else {
-                map.put("reason", "You have no right to edit this concern.");
+            concernId = new Long((String) params.get("concernId"));
+            if (concernId == null) {
+                map.put("reason", "concernId is required.");
                 return map;
+            }
+            
+            cctService.deleteConcern(concernId);
+            
+            map.put("successful", new Boolean(true));
+            
+            /*
+             * delete from lucene
+             */
+            IndexSearcher searcher = null;
+            IndexReader reader = null;
+            try {
+                searcher = searchHelper.getIndexSearcher();
+                
+                Hits hits = searcher.search(searchHelper.getParser().parse(
+                    "concernid:" + concernId
+                ));
+                
+                if (hits.length()>0) {
+                    reader = searchHelper.getIndexReader();
+                    for (int i=0; i<hits.length(); i++) {
+                        reader.deleteDocument(hits.id(i));
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (searcher!=null) searcher.close();
+                if (reader!=null) reader.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
