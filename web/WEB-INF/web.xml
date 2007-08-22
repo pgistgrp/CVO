@@ -235,6 +235,7 @@
     
     <filter-mapping>
         <filter-name>WorkflowFilter</filter-name>
+        <url-pattern>/concern.do</url-pattern>
         <url-pattern>/templateSelect.do</url-pattern>
         <url-pattern>/projectDefine.do</url-pattern>
         <url-pattern>/fundingDefine.do</url-pattern>
