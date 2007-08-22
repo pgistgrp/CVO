@@ -1056,7 +1056,7 @@ public class CCTAgent {
         map.put("successful", false);
         
         CCT cct = null;
-
+        
         try {
             request.setAttribute("wfinfo", wfinfo);
             
