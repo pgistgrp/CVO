@@ -36,14 +36,6 @@
         var prjaltlist = [];
         var fpidlist = "";
         var overlaypoints = [];
-        
-        <c:forEach var="infoObject" items="${infoStructure.infoObjects}" varStatus="loop">
-            <c:forEach var="altRef" items="${infoObject.object.altRefs}" varStatus="loop">
-                prjaltlist.push({"id":"${altRef.id}", "fpids":"${altRef.alternative.fpids}", "mode":"${altRef.alternative.project.transMode}",
-                                 "name_p":"${infoObject.object.project.name}", "name_a":"${altRef.alternative.name}"}); 
-                fpidlist += "," + "${altRef.alternative.fpids}";
-            </c:forEach>
-        </c:forEach>
 
         function loadFootprints(){
             pgistmap = new PGISTMapEditor('gmap', 500, 380, false);
@@ -86,7 +78,7 @@
                     var transcolor = (p["mode"]==2)?"#0bc00f":"#FF0000";
                     var transicon = (p["mode"]==2)?pgistmap.transiticon:pgistmap.roadicon;
                     p["overlays"] = p["overlays"].concat(pgistmap.createOverlays(overlaypoints[geomkey]["coords"], 
-                        overlaypoints[geomkey]["geotype"], transcolor, 2, 0.9, "", transicon));
+                        overlaypoints[geomkey]["geotype"], transcolor, 4, 0.9, "", transicon));
                     
                     for(var j=0; j<p["overlays"].length; j++){
                         pgistmap.map.addOverlay( p["overlays"][j] );
@@ -106,58 +98,51 @@
 		<div id="object clearfix">
 			<p><h2 class="headerColor">${package.description} Details</h2></p>
 			<!-- begin TOP SUMMARY -->
-			<div id="gmap" class="floatRight box11"></div>			
+			<div id="gmap" class="floatRight box11">500px Gmap goes here</div>			
 			<div class="summary box11">
-<table cellpadding="0" cellspacing="0">
-	<tr>
-		<td><h3>Total Cost</h3></td>
-		<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalCost/1000000}" /> million</td>
-	</tr>
-	<tr>
-		<td><h3>Total funding</h3></td>
-		<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalFunding/1000000}" /> million</td>
-	</tr> 
-	
-	<tr>
-		<td colspan="2">
-		<c:choose>
-		<c:when test="${(package.totalFunding - package.totalCost) > 0}">
-			<div id="balance" class="balance" style="background-color:#C9E1BD;">
-				<h3 style="width:50%;float:left;text-align:left;">Balance:</h3>
-				<h3 id="sum" style="width:49%;text-align:right;float:left;">$<fmt:formatNumber type="number" maxFractionDigits="0" value="${(package.totalFunding - package.totalCost)/1000000}" /> million </h3><div class="clearBoth"></div>
-			</div>
-		</c:when>
-		<c:when test="${(package.totalFunding - package.totalCost) == 0}">
-			<div id="balance" class="balance" style="background-color:#C9E1BD;">
-				<h3 style="width:50%;float:left;text-align:left;">Balance:</h3>
-				<h3 id="sum" style="width:49%;text-align:right;float:left;">$<fmt:formatNumber type="number" maxFractionDigits="0" value="${(package.totalFunding - package.totalCost)/1000000}" /> million </h3><div class="clearBoth"></div>
-			</div>
-		</c:when>
-		<c:otherwise>
-			<div id="balance" class="exceed" style="background-color:#E5A9A6">
-				<h3 style="float:left;width:50%;text-align:left;">Balance:</h3>
-				<h3 id="sum" style="float:left;width:49%;text-align:right;">$<fmt:formatNumber type="number" maxFractionDigits="0" value="${(package.totalFunding - package.totalCost)/1000000}" /> million </h3><div class="clearBoth"></div>
-			</div>
-		</c:otherwise>
-		</c:choose>
-		</td>
-	</tr>
-	
-	<c:if test="${userPkg != null}">
-		<tr>
-			<td><strong>Cost to you:</strong></td>
-			<td><fmt:formatNumber type="currency">${package.yourCost}</fmt:formatNumber> per year</td>
-		</tr>
-	</c:if>
-	<tr>
-		<td><strong>Cost to the average resident:</strong></td>
-		<td><fmt:formatNumber type="currency">${package.avgResidentCost}</fmt:formatNumber> per year</td>
-	</tr>
-	<tr>
-		<td><strong>Number of projects in your package:</strong></td>
-		<td>${fn:length(package.projAltRefs)}</td>
-	</tr>
-</table>
+				<table>
+					<tr>
+						<td><h3>Total cost</h3></td>
+						<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalCost/1000000}" /> million
+							</td>
+					</tr>
+					<tr>
+						<td><h3>Total funding</h3></td>
+						<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalFunding/1000000}" /> million</td>
+					</tr>
+					<c:if test="${userPkg != null}">
+						<tr>
+							<td><strong>Cost to you:</strong></td>
+							<td><fmt:formatNumber type="currency" value="${package.yourCost}"/> per year</td>
+						</tr>
+					</c:if>
+					<tr>
+						<td><strong>Cost to the average resident:</strong></td>
+						<td><fmt:formatNumber type="currency" value="${package.avgResidentCost}" /> per year</td>
+					</tr>
+					<tr>
+						<td><strong>Number of projects in your package:</strong></td>
+						<td>${fn:length(package.projAltRefs)}</td>
+					</tr>
+				</table>
+
+					<c:choose>
+						<c:when test="${(package.totalFunding - package.totalCost) > 0}">
+							<div id="balance" class="balance">
+								<h3>Revenues exceed costs</h3>
+							</div>
+						</c:when>
+						<c:when test="${(package.totalFunding - package.totalCost) == 0}">
+							<div id="balance" class="balance">
+								<h3>Revenues equal costs</h3>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div id="balance" class="exceed">
+								<h3>Costs exceed revenue!</h3>
+							</div>
+						</c:otherwise>
+					</c:choose>
 			</div>
 			<!-- end TOP SUMMARY -->
 			<div class="clearBoth"></div>
@@ -237,7 +222,16 @@
 												<td class="col4 grade${pg:gradeSwitch(alt.yourGrade)}">${alt.yourGrade}</td>
 												<td class="col5 grade${pg:gradeSwitch(alt.avgGrade)}">${alt.avgGrade}</td>
 											</tr>
-										</c:forEach>
+											<script type="text/javascript">
+												altfpids = "${alt.fpids}";
+												if(altfpids.length > 0) fpidlist += "," + altfpids;
+												prjaltlist.push({"name":"${alt.name}", 
+														"id":"${alt.projectAlternativeID}",
+														"mode":"${alt.transMode}",
+														"fpids":"${alt.fpids}",
+														});
+											</script>
+											</c:forEach>
 									</table>
 								</td>
 							</tr>
@@ -270,12 +264,11 @@
 												<td class="col3 grade${pg:gradeSwitch(alt.projGrade)}">${alt.projGrade}</td>
 												<td class="col4 grade${pg:gradeSwitch(alt.yourGrade)}">${alt.yourGrade}</td>
 												<td class="col5 grade${pg:gradeSwitch(alt.avgGrade)}">${alt.avgGrade}</td>
-                                                <script type="text/javascript" charset="utf-8">
+												<script type="text/javascript">
 													altfpids = "${alt.fpids}";
 													if(altfpids.length > 0) fpidlist += "," + altfpids;
 													prjaltlist.push({"name":"${alt.name}", 
-															"id":"${alt.id}",
-															"cost":"${alt.cost}", 
+															"id":"${alt.projectAlternativeID}",
 															"mode":"${alt.transMode}",
 															"fpids":"${alt.fpids}",
 															});
