@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.pgist.cvo.Theme;
 import org.pgist.discussion.InfoObject;
 
 

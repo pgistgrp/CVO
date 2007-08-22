@@ -5,6 +5,10 @@ import java.util.Iterator;
 
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
+import org.pgist.criteria.Criteria;
+import org.pgist.criteria.CriteriaRef;
+import org.pgist.criteria.CriteriaSuite;
+import org.pgist.discussion.InfoObject;
 import org.pgist.funding.FundingSource;
 import org.pgist.funding.FundingSourceAltRef;
 import org.pgist.funding.FundingSourceAlternative;
@@ -15,11 +19,6 @@ import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectAlternative;
 import org.pgist.projects.ProjectRef;
 import org.pgist.projects.ProjectSuite;
-import org.pgist.criteria.Criteria;
-import org.pgist.criteria.CriteriaSuite;
-import org.pgist.criteria.CriteriaRef;
-import org.pgist.cvo.Theme;
-import org.pgist.discussion.InfoObject;
 
 /**
  * PGIST JSP Expression Language functions.<br>

@@ -61,7 +61,7 @@
         </init-param>
         <init-param>
             <param-name>https-url</param-name>
-            <param-value>/login.do</param-value>
+            <param-value>/login.do, /index.jsp, /login.jsp</param-value>
         </init-param>
         <init-param>
             <param-name>ignore-url</param-name>

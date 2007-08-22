@@ -9,9 +9,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.pgist.cvo.Theme;
-import org.pgist.discussion.InfoStructure;
 import org.pgist.discussion.InfoObject;
+import org.pgist.discussion.InfoStructure;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;

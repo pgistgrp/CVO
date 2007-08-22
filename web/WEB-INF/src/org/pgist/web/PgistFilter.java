@@ -144,10 +144,14 @@ public class PgistFilter implements Filter {
                 }
                 
                 if (!"/".equalsIgnoreCase(req.getRequestURI())) {
+                    String savedURL = res.encodeRedirectURL(initURL.toString());
+                    
+                    if ("/index.jsp".equalsIgnoreCase(req.getRequestURI())) savedURL = httpPrefix + "/main.jsp";
+                    
                     /*
                      * Save the original requested URL in cookie
                      */
-                    Cookie cookie = new Cookie("PG_INIT_URL", res.encodeRedirectURL(initURL.toString()));
+                    Cookie cookie = new Cookie("PG_INIT_URL", savedURL);
                     cookie.setMaxAge(-1);
                     res.addCookie(cookie);
                 }

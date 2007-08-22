@@ -1,17 +1,12 @@
 package org.pgist.criteria;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.List;
 
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.CCTDAO;
-import org.pgist.cvo.CategoryReference;
 import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;

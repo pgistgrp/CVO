@@ -3,7 +3,6 @@ package org.pgist.criteria;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
 import org.pgist.cvo.CCTService;
-import org.pgist.cvo.Theme;
 import org.pgist.discussion.InfoObject;
 
 

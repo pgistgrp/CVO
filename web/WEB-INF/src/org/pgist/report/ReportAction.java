@@ -1,10 +1,8 @@
 package org.pgist.report;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -15,17 +13,14 @@ import org.pgist.criteria.CriteriaSuite;
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.CCTService;
 import org.pgist.cvo.CSTService;
-import org.pgist.funding.FundingSourceSuite;
 import org.pgist.packages.ClusteredPackage;
 import org.pgist.packages.PackageService;
 import org.pgist.packages.PackageSuite;
 import org.pgist.packages.PackageVoteSuite;
-import org.pgist.packages.UserPackage;
 import org.pgist.packages.VoteSuiteStat;
 import org.pgist.projects.ProjectService;
 import org.pgist.projects.ProjectSuite;
 import org.pgist.system.SystemService;
-import org.pgist.users.UserInfo;
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;
 

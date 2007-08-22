@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-import org.pgist.packages.ClusteredPackage;
 import org.pgist.system.BaseDAO;
 import org.pgist.users.User;
 

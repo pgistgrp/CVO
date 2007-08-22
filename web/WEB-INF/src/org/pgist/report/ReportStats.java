@@ -6,11 +6,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.pgist.packages.ClusteredPackage;
 import org.pgist.system.County;
 import org.pgist.users.User;
-import org.pgist.packages.ClusteredPackage;
-import org.pgist.projects.ProjectRef;
-import org.pgist.funding.FundingSourceRef;
 
 /**
  * <span style="color:red;">POJO</span>: PGIST Announcement Class<br>

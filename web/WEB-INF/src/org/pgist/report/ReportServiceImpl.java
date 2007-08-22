@@ -9,9 +9,8 @@ import org.pgist.cvo.CCT;
 import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
-import org.pgist.packages.ClusteredPackage;
-import org.pgist.util.WebUtils;
 import org.pgist.users.User;
+import org.pgist.util.WebUtils;
 
 public class ReportServiceImpl implements ReportService{
 	

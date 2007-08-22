@@ -1,13 +1,12 @@
 package org.pgist.criteria;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 
 import org.pgist.cvo.CCT;
-import org.pgist.discussion.InfoStructure;
 import org.pgist.discussion.InfoObject;
+import org.pgist.discussion.InfoStructure;
 
 
 /**

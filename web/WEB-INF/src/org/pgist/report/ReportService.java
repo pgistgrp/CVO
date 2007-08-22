@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.pgist.discussion.InfoStructure;
-import org.pgist.packages.ClusteredPackage;
 import org.pgist.users.User;
 
 public interface ReportService {

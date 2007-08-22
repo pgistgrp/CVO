@@ -16,9 +16,6 @@ import org.pgist.users.Role;
 import org.pgist.users.TravelMarker;
 import org.pgist.users.TravelTrip;
 import org.pgist.users.User;
-import org.pgist.util.WKT;
-import org.pgist.util.WebUtils;
-import org.postgis.Geometry;
 import org.postgis.LineString;
 import org.postgis.Point;
 

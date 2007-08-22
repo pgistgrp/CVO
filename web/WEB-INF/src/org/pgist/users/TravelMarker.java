@@ -1,6 +1,5 @@
 package org.pgist.users;
 
-import org.postgis.hibernate.GeometryType;
 import org.postgis.Geometry;
 
 /**

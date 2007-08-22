@@ -8,35 +8,32 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.pgist.criteria.CriteriaRef;
+import org.pgist.criteria.CriteriaSuite;
+import org.pgist.criteria.CriteriaUserWeight;
 import org.pgist.cvo.CCT;
-import org.pgist.cvo.Concern;
 import org.pgist.cvo.CSTService;
-import org.pgist.cvo.Theme;
 import org.pgist.cvo.CategoryReference;
-import org.pgist.funding.FundingSourceAlternative;
-import org.pgist.funding.FundingSourceAltRef;
-import org.pgist.funding.FundingSource;
-import org.pgist.funding.FundingSourceSuite;
+import org.pgist.cvo.Concern;
+import org.pgist.cvo.Theme;
 import org.pgist.discussion.InfoObject;
+import org.pgist.funding.FundingSourceAltRef;
+import org.pgist.funding.FundingSourceAlternative;
+import org.pgist.funding.FundingSourceSuite;
 import org.pgist.packages.ClusteredPackage;
 import org.pgist.packages.PackageSuite;
 import org.pgist.packages.PackageVoteSuite;
 import org.pgist.packages.UserPackage;
 import org.pgist.packages.VoteSuiteStat;
 import org.pgist.projects.ProjectAltRef;
-import org.pgist.projects.ProjectRef;
-import org.pgist.projects.Project;
-import org.pgist.projects.ProjectService;
 import org.pgist.projects.ProjectAlternative;
+import org.pgist.projects.ProjectService;
+import org.pgist.projects.ProjectSuite;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.system.County;
+import org.pgist.system.RegisterObject;
 import org.pgist.system.SystemService;
 import org.pgist.users.User;
-import org.pgist.criteria.CriteriaSuite;
-import org.pgist.criteria.CriteriaRef;
-import org.pgist.criteria.CriteriaUserWeight;
-import org.pgist.projects.ProjectSuite;
-import org.pgist.system.RegisterObject;
 
 
 
