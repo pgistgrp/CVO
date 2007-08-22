@@ -3,6 +3,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
@@ -187,7 +188,7 @@
 	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
-		<h2 class="headerColor">Welcome, ${baseuser.loginname}</h2>
+		<h2 class="headerColor">Welcome, ${baseuser.loginname} (WebQ ID: ${webq}) </h2>
 		<a href="publicprofile.do?user=${baseuser.loginname}">View / Edit your profile</a>
 		<div id="left-col">
 			<h3 class="headerColor">Overview of all steps</h3>

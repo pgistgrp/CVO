@@ -24,8 +24,9 @@
     <bean name="/main" class="org.pgist.system.MainAction" />
     
     
-    <bean name="/userhome" class="org.pgist.system.UserHomeAction" />
-    
+    <bean name="/userhome" class="org.pgist.system.UserHomeAction" >
+    	<property name="systemService" ref="systemService"/>
+    </bean>
     
     <bean name="/usercp" class="org.pgist.system.UsercpAction">
         <property name="systemService" ref="systemService"/>
@@ -117,6 +118,7 @@
         <property name="packageService" ref="packageService"/>
         <property name="reportService" ref="reportService"/>
 	<property name="systemService" ref="systemService"/>
+	<property name="projectService" ref="projectService"/>
     </bean>
     
     <bean name="/reportsummary" class="org.pgist.report.ReportSummaryAction">
