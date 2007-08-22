@@ -1158,6 +1158,13 @@ public class CCTAgent {
      *     <li>count - int, total number of pages.</li>
      *   </ul>
      *   
+     * @param wfinfo A map contains:
+     *   <ul>
+     *     <li>workflowId - long</li>
+     *     <li>contextId - long</li>
+     *     <li>activityId - long</li>
+     *   </ul>
+     * 
      * @return A map contains:<br>
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
@@ -1173,7 +1180,7 @@ public class CCTAgent {
      *     </li>
      *   </ul>
      */
-    public Map getComments(HttpServletRequest request, Map params) {
+    public Map getComments(HttpServletRequest request, Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -1187,6 +1194,8 @@ public class CCTAgent {
         }
         
         try {
+            request.setAttribute("wfinfo", wfinfo);
+            
             PageSetting setting = new PageSetting();
             setting.setPage((String) map.get("page"));
             setting.setRowOfPage((String) map.get("count"));
