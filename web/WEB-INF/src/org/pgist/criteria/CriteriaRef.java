@@ -29,7 +29,6 @@ public class CriteriaRef implements Comparator {
     
     private Map<Objective, Integer> objectiveGrades = new HashMap<Objective, Integer>(); //objective object, grade
     
-    
     /**
      * @return
      * 

@@ -349,6 +349,9 @@
                     <var name="pmethod.crit_suite_id"/>
                     <var name="pmethod.pkg_suite_id"/>
                 </ins>
+		<outs>
+		    <var name="pmethod.vote_suite_id"/>
+		</outs>
             </declaration>
             <sequence>
                 
@@ -452,6 +455,7 @@
                     <var name="pmethod.crit_suite_id"/>
                     <var name="pmethod.cct_id"/>                     
                     <var name="pmethod.repo_suite_id"/>
+		    <var name="pmethod.vote_suite_id"/>
                 </ins>
                 <outs>
                     <var name="pmethod.repo_isid"/>
@@ -502,6 +506,7 @@
                             <var name="repoSuiteId" ref="pmethod.repo_suite_id"/>
 			    <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
 			    <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+			    <var name="voteSuiteId" ref="pmethod.vote_suite_id"/>
                         </ins>
                     </declaration>
                 </pgame>
@@ -515,6 +520,7 @@
                             <var name="repoSuiteId" ref="pmethod.repo_suite_id"/>
 			    <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
 			    <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+			    <var name="voteSuiteId" ref="pmethod.vote_suite_id"/>
                         </ins>
                     </declaration>
                 </pgame>

@@ -232,8 +232,8 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 					</c:when>
 					<c:otherwise>
 					
-					<fmt:formatNumber type="percent">${statsPart1.males / statsPart1.totalUsers}</fmt:formatNumber>,
-					<fmt:formatNumber type="percent">${statsPart1.females / statsPart1.totalUsers}</fmt:formatNumber>
+					<fmt:formatNumber type="percent">${statsPart1.males / statsPart1.totalUsers}</fmt:formatNumber> Male,
+					<fmt:formatNumber type="percent">${statsPart1.females / statsPart1.totalUsers}</fmt:formatNumber> Female
 					</c:otherwise>
 				</c:choose>
 				</td>
@@ -257,7 +257,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 			</tr>
 			<tr class="odd">
 				<td><strong>Primary mode of transportation (daily commute):</strong></td>
-				<td>
+			  <td>
 				<c:choose>	
 					<c:when test="${fn:length(statsPart1.transTypes) == 0}">
 						<p>No Transportation Types Available</p>
@@ -384,7 +384,7 @@ After a period of discussion about the relevance of the improvement factors to t
 				<c:forEach var="altRef" items="${altRefs}" varStatus="loop">
 				<tr class="project-options">
 					<td class="col1">${altRef.alternative.name}</td>
-					<td class="col2">$<fmt:formatNumber type="number">${altRef.alternative.cost}</fmt:formatNumber>  million</td>
+					<td class="col2">$<fmt:formatNumber type="number" maxFractionDigits="1" value="${altRef.alternative.cost/1000000}" /> million</td>
 					<td class="col3">${altRef.alternative.county}</td>
 					<c:set var="yesVotes" value="${altRef.alternative.yesVotes}" />
 					<c:set var="numVotes" value="${altRef.alternative.numVotes}" />
@@ -468,8 +468,8 @@ After a period of discussion about the relevance of the improvement factors to t
 					</c:when>
 					<c:otherwise>
 					
-					<fmt:formatNumber type="percent">${statsPart4.males / statsPart4.totalUsers}</fmt:formatNumber>,
-					<fmt:formatNumber type="percent">${statsPart4.females / statsPart4.totalUsers}</fmt:formatNumber>
+					<fmt:formatNumber type="percent">${statsPart4.males / statsPart4.totalUsers}</fmt:formatNumber> Male,
+					<fmt:formatNumber type="percent">${statsPart4.females / statsPart4.totalUsers}</fmt:formatNumber> Female
 					</c:otherwise>
 				</c:choose>
 			</tr>
@@ -516,64 +516,45 @@ After a period of discussion about the relevance of the improvement factors to t
 					regardless of its support among other participants</div>
 				<div class="clearBoth"></div>
 			</div>
-			<div class="VoteListRow row highlight">
-				<div class="voteCol1 floatLeft clearfix">
-					<div class="floatLeft">Package A </div>
-				</div>
-				<div class="voteCol2 floatLeft">50%</div>
-				<div class="voteCol3 floatLeft">44%</div>
-				<div class="voteCol4 floatLeft">6%</div>
-				<div class="clearBoth"></div>
-			</div>
-			<div class="VoteListRow row">
-				<div class="voteCol1 floatLeft">Package B </div>
-				<div class="voteCol2 floatLeft">43%</div>
-				<div class="voteCol3 floatLeft">39%</div>
-				<div class="voteCol4 floatLeft">18%</div>
-				<div class="clearBoth"></div>
-			</div>
-			<div class="VoteListRow row">
-				<div class="voteCol1 floatLeft"> Package C </div>
-				<div class="voteCol2 floatLeft">40%</div>
-				<div class="voteCol3 floatLeft">23%</div>
-				<div class="voteCol4 floatLeft">37%</div>
-				<div class="clearBoth"></div>
-			</div>
-			<div class="VoteListRow row">
-				<div class="voteCol1 floatLeft">
-					<div class="floatLeft">Package D </div>
-				</div>
-				<div class="voteCol2 floatLeft">33%</div>
-				<div class="voteCol3 floatLeft">23%</div>
-				<div class="voteCol4 floatLeft">44%</div>
-				<div class="clearBoth"></div>
-			</div>
-			<div class="VoteListRow row">
-				<div class="voteCol1 floatLeft">
-					<div class="floatLeft">Package E </div>
-				</div>
-				<div class="voteCol2 floatLeft">12%</div>
-				<div class="voteCol3 floatLeft">44%</div>
-				<div class="voteCol4 floatLeft">44%</div>
-				<div class="clearBoth"></div>
-			</div>
-			<div class="VoteListRow row">
-				<div class="voteCol1 floatLeft">
-					<div class="floatLeft">RTID Package</div>
-				</div>
-				<div class="voteCol2 floatLeft">12%</div>
-				<div class="voteCol3 floatLeft">44%</div>
-				<div class="voteCol4 floatLeft">44%</div>
-				<div class="clearBoth"></div>
-			</div>
-		</div>
+
+			<c:choose>
+				
+				<c:when test="${fn:length(voteSuite.stats) == 0}">
+					<p>No Clustered Packages Available</p>
+				</c:when>
+				<c:otherwise>
+				
+				<c:set var="firstcp" value="true" />
+ 				<c:forEach var="stat" items="${voteSuite.stats}" varStatus="loop">
+					 <c:if test="${firstcp == false}">
+						<div class="VoteListRow row ">
+					</c:if>
+					<c:if test="${firstcp == true}">
+						<div class="VoteListRow row highlight">
+						<c:set var="firstcp" value="false" />
+					</c:if>
+
+						<div class="voteCol1 floatLeft">
+							<div class="floatLeft">${stat.clusteredPackage.description}</div>
+						</div>
+						<div class="voteCol2 floatLeft"><fmt:formatNumber type="percent">${stat.highVotes / stat.totalVotes}</fmt:formatNumber></div>
+						<div class="voteCol3 floatLeft"><fmt:formatNumber type="percent">${stat.mediumVotes / stat.totalVotes}</fmt:formatNumber></div>
+						<div class="voteCol4 floatLeft"><fmt:formatNumber type="percent">${stat.lowVotes / stat.totalVotes}</fmt:formatNumber></div>
+						<div class="clearBoth"></div>
+					</div>
+				</c:forEach>
+				</c:otherwise>
+			</c:choose>
+			
+			
 		<!-- end PACKAGE ENDORSEMENT VOTE RESULTS -->
-		
+
 		<div class="projSummary clearfix">
 			<h3 class="headingColor padding5 clearfix">
-				<span class="packageNum">Package 3 (The winning/preferred package)</span>
-				<span class="totalCost">Total cost: $13 billion</span>
-				<span class="yearlyCostToAvg">Yearly cost to the average resident: $230/year</span>
+				<span class="packageNum">${pp.description} (The winning/preferred package)</span>
+				<span class="totalCost">Total cost: $<fmt:formatNumber type="number" maxFractionDigits="1" value="${pp.totalCost/1000000000}" /> 
+				billion</span>
+				<span class="yearlyCostToAvg">Yearly cost to the average resident: <fmt:formatNumber type="currency">${pp.avgResidentCost}</fmt:formatNumber>/year</span>
 			</h3>
 			<div class="obj-left floatLeft clearBoth">
 				<!--Begin project list -->
@@ -591,62 +572,26 @@ After a period of discussion about the relevance of the improvement factors to t
 					</div>
 					<div class="clearBoth"></div>
 				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Alaskan Way Viaduct</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Replace viaduct with 6-lane tunnel</div>
+				***${packageRoadProjects}***
+				<c:forEach var="project" items="${packageRoadProjects}" varStatus="loop">
+					<div class="listRow row">
+						<h4 class="subHeading">${project.name}</h4>
+						<div class="clearBoth"></div>
 					</div>
-					<div class="projCol2 floatLeft">$5 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">SR 520 Floating Bridge</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">6-lane bridge with ramp to UW</div>
+					<div class="listRow row">
+						<div class="projCol1 floatLeft">
+							
+							<c:forEach var="alt" items="{project.projectAlternatives}" varStatus="loop">
+							<div class="floatLeft">${alt.name} </div>
+							</c:forEach>
+							
+						</div>
+						<div class="projCol2 floatLeft">$5 billion</div>
+						<div class="projCol3 floatRight">King</div>
+						<div class="clearBoth"></div>
 					</div>
-					<div class="projCol2 floatLeft">$4 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Light Rail: Seattle to Eastside</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Light rail Seattle to Overlake with tunnel</div>
-					</div>
-					<div class="projCol2 floatLeft">$4 billion</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">I-405 Improvements</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Two additional HOV lanes from SR 169 to I-90</div>
-					</div>
-					<div class="projCol2 floatLeft">$212 million</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="projCol1 floatLeft">
-						<div class="floatLeft">Two additional HOV lanes from SR 520 to I-5</div>
-					</div>
-					<div class="projCol2 floatLeft">$345 million</div>
-					<div class="projCol3 floatRight">King</div>
-					<div class="clearBoth"></div>
-				</div>
+				</c:forEach>
+				
 				<!--End project list -->
 			</div>
 			<!-- end obj-left -->

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.pgist.discussion.InfoStructure;
 import org.pgist.packages.ClusteredPackage;
+import org.pgist.users.User;
 
 public interface ReportService {
 
@@ -31,6 +32,8 @@ public interface ReportService {
 	Set getFundRefbySuiteId(Long suiteId) throws Exception;
 	
 	Set getProjRefbySuiteId(Long suiteId) throws Exception;
+	
+	User getUserById(Long id) throws Exception;
 	
 }
  

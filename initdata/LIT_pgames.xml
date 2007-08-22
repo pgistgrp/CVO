@@ -581,6 +581,7 @@
                 <var name="repoSuiteId"/>
 		<var name="fundSuiteId"/>
 		<var name="projSuiteId"/>
+		<var name="voteSuiteId"/>
             </ins>
             </declaration>
         </pgame>
@@ -598,6 +599,7 @@
                 <var name="repoSuiteId"/>
 		<var name="fundSuiteId"/>
 		<var name="projSuiteId"/>
+		<var name="voteSuiteId"/>
             </ins>
             </declaration>
         </pgame>

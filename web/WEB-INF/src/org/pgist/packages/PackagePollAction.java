@@ -24,6 +24,7 @@ import org.pgist.system.SystemService;
  *   <li>projSuiteId - the id of a specified PackageSuite object</li>
  *   <li>fundSuiteId - the id of a specified FundingSuite object</li>
  *   <li>critSuiteId - the id of a specified CriteriaSuite object</li>   
+ *   <li>voteSuiteId - the id of a specified voteSuite object</li>   
  * </ul>
  * 
  * <p>According to whether the current user voted or not in the current phase, the action forwards to different page.
@@ -90,8 +91,6 @@ public class PackagePollAction extends Action {
     	Long voteSuiteId = new Long(tempVoteSuiteId);
     	PackageVoteSuite vSuite = packageService.getPackageVoteSuite(voteSuiteId);
 
-    	
-    	
 		//Grade it
     	User user = packageService.getUser(WebUtils.currentUser());
 		request.setAttribute("voteSuite", vSuite);

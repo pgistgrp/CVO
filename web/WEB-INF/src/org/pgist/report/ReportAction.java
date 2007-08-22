@@ -1,8 +1,10 @@
 package org.pgist.report;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.List;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -17,10 +19,14 @@ import org.pgist.funding.FundingSourceSuite;
 import org.pgist.packages.ClusteredPackage;
 import org.pgist.packages.PackageService;
 import org.pgist.packages.PackageSuite;
+import org.pgist.packages.PackageVoteSuite;
 import org.pgist.packages.UserPackage;
 import org.pgist.packages.VoteSuiteStat;
+import org.pgist.projects.ProjectService;
+import org.pgist.projects.ProjectSuite;
 import org.pgist.system.SystemService;
 import org.pgist.users.UserInfo;
+import org.pgist.users.User;
 import org.pgist.util.WebUtils;
 
 
@@ -56,6 +62,7 @@ public class ReportAction extends Action {
 	private CSTService cstService;
 	private CriteriaService criteriaService;
 	private PackageService packageService;
+	private ProjectService projectService;
 	private SystemService systemService;
 	
 
@@ -75,11 +82,13 @@ public class ReportAction extends Action {
 		this.criteriaService = criteriaService;
 	}
 	
-
 	public void setPackageService(PackageService packageService) {
 		this.packageService = packageService;
 	}
-	
+
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
+	}
 	
 	public void setSystemService(SystemService systemService) {
 		this.systemService = systemService;
@@ -99,6 +108,7 @@ public class ReportAction extends Action {
     	String strReportSuiteId = request.getParameter("repoSuiteId");
     	String strFundingSuiteId = request.getParameter("fundSuiteId");
     	String strProjectSuiteId = request.getParameter("projSuiteId");
+    	String strVoteSuiteId = request.getParameter("voteSuiteId");
     	String errors = "";
     	
     	boolean error = false;
@@ -127,6 +137,10 @@ public class ReportAction extends Action {
         	errors += "repoSuiteId cannot be empty <br/>";
             error = true;
         }
+        if (strVoteSuiteId==null || "".equals(strVoteSuiteId.trim())) {
+        	errors += "voteSuiteId cannot be empty <br/>";
+            error = true;
+        }
         if(error) {
         	errors += " cctId:" + strCctId + " critSuiteId:" + strCritSuiteId;
         	request.setAttribute("error", errors);
@@ -140,7 +154,8 @@ public class ReportAction extends Action {
         Long repoSuiteId = Long.parseLong(strReportSuiteId);
         Long fundSuiteId = Long.parseLong(strFundingSuiteId);
         Long projSuiteId = Long.parseLong(strProjectSuiteId);
-
+        Long voteSuiteId = Long.parseLong(strVoteSuiteId);
+        
         // get Concern Summaries
         CCT cct = cctService.getCCTById(cctId);
         Collection summaries = cstService.getThemes(cct);
@@ -171,8 +186,20 @@ public class ReportAction extends Action {
     	
     	//get Project refs
     	Set projRefs = reportService.getProjRefbySuiteId(projSuiteId);
+    	ProjectSuite ps = projectService.getProjectSuite(projSuiteId);
+    	
+    	//Get clustered packages vote suite stats
+    	PackageVoteSuite vSuite = packageService.getPackageVoteSuite(voteSuiteId);
+    	
+    	//get DTO mess
+    	User u = reportService.getUserById(WebUtils.currentUserId()); 
+    	List dto = packageService.createPackageRoadProjectDTOs(pp, critSuiteId, projSuiteId, u);
+    	System.out.println("***ReportAction PPID" + pp.getId() + " crit " + critSuiteId + " proj " + projSuiteId + " user " + u.getLoginname() + "dto = " + dto);
+    	request.setAttribute("packageRoadProjects", dto);
+ 	
     	
     	//Sets the Criteria References which contain criteria and grades.
+    	request.setAttribute("voteSuite", vSuite);  
     	request.setAttribute("summaries", summaries);
     	request.setAttribute("cr", cr);
     	request.setAttribute("fundRefs", fundRefs);
@@ -180,6 +207,7 @@ public class ReportAction extends Action {
     	request.setAttribute("cp", cp);
     	request.setAttribute("pp", pp);
     	request.setAttribute("vss", vss);
+    	//request.setAttribute("pkgSuite", pkgSuite);
     	
     	request.setAttribute("executiveSummary", repoSummary.getExecutiveSummary());
     	request.setAttribute("part1a", repoSummary.getPart1a());

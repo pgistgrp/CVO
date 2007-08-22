@@ -84,6 +84,8 @@ public class PackageAction extends Action {
 		request.setAttribute("packageRoadProjects", this.packageService.createPackageRoadProjectDTOs(uPack, critSuite, projSuite, user));
 		request.setAttribute("packageTransitProjects", this.packageService.createPackageTransitProjectDTOs(uPack, critSuite, projSuite, user));
 		request.setAttribute("packageFunding", this.packageService.createPackageFundingDTOs(uPack, user, fundSuite));
+		
+    	System.out.println("***uPackid" + uPack.getId() + " crit " + critSuite + " proj " + projSuite + " user " + user.getLoginname() + "crap " + this.packageService.createPackageTransitProjectDTOs(uPack, critSuite, projSuite, user));
     	
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

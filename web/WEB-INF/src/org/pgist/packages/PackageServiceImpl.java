@@ -512,7 +512,7 @@ public class PackageServiceImpl implements PackageService {
 			this.packageDAO.save(vSuite);
 		}
 		puv.getVotes().put(user, voteValue);
-
+		
 		//calculate voteStats
 		Set statSet = vSuite.getStats();
 		//Set statSet = packageDAO.getVoteSuiteStatsBySuite(vSuite.getId());

@@ -11,6 +11,7 @@ import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
 import org.pgist.packages.ClusteredPackage;
 import org.pgist.util.WebUtils;
+import org.pgist.users.User;
 
 public class ReportServiceImpl implements ReportService{
 	
@@ -120,5 +121,9 @@ public class ReportServiceImpl implements ReportService{
 		 return reportDAO.getFundRefbySuiteId(suiteId);
 	 }
 	 
+	 
+	 public User getUserById(Long id) throws Exception {
+		return reportDAO.getUserById(id); 
+	 }
 	 
 }

@@ -34,6 +34,7 @@ import org.pgist.system.SystemService;
 import org.pgist.users.User;
 import org.pgist.criteria.CriteriaSuite;
 import org.pgist.criteria.CriteriaRef;
+import org.pgist.criteria.CriteriaUserWeight;
 import org.pgist.projects.ProjectSuite;
 import org.pgist.system.RegisterObject;
 
@@ -58,7 +59,6 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
 	}
-	
 	
 	private static final String hql_getUserStatistics1 = "from User u where u.gender=?"; //Male Female stats
 	private static final String hql_getUserStatistics2 = "from User u where u.age<=? and u.age>="; //Age stats
@@ -243,7 +243,26 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		CriteriaSuite cs = (CriteriaSuite) load(CriteriaSuite.class, critSuiteId);
 		int critNum = cs.getReferences().size();
 		
+		Set critRefs = cs.getReferences();
+		Iterator itCr = critRefs.iterator();
+		while(itCr.hasNext()) {
+			CriteriaRef cr = (CriteriaRef) itCr.next();
+			CriteriaUserWeight cuw = cs.getWeights().get(cr);
+			Map<User, Integer> userWeights = cuw.getWeights();
+			Set<User> keys = userWeights.keySet();
+			Iterator itKeys = keys.iterator();
+			int sumWeight = 0;
+			while(itKeys.hasNext()) {
+				User user = (User) itKeys.next();
+				int weight = userWeights.get(user);
+				sumWeight += weight;
+			}
+			cr.setGrade(sumWeight/userWeights.size());
+			save(cr);
+		}
+		
 		rs.setQuanity(critNum);
+		save(cs);
 		save(rs);
 		save(repoSuite);
 	}
@@ -266,8 +285,6 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 //		FundingSourceSuite fundSuite = (FundingSourceSuite) load(FundingSourceSuite.class, fundSuiteId);
 //		rs.setFundRefs(fundSuite.getReferences());
 //		save(rs);
-		
-		
 		
 		Set userPkgs = pkgSuite.getUserPkgs();
 		Iterator itPkg = userPkgs.iterator();
@@ -416,6 +433,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 			rs.setFemales(female);
 			rs.setMales(male);
 		}
+		
 		//save stats to reportStats
 		rs.setCountyStats(countySet);
 		rs.setIncomeStats(incomeSet);
@@ -621,7 +639,9 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		return ps.getReferences();
 	}
 
-
+	public User getUserById(Long id) throws Exception {
+		return (User)load(User.class, id);
+	}
 
 
 	

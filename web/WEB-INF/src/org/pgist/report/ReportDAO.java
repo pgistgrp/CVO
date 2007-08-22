@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.pgist.packages.ClusteredPackage;
 import org.pgist.system.BaseDAO;
+import org.pgist.users.User;
 
 public interface ReportDAO extends BaseDAO {
 
@@ -36,4 +37,7 @@ public interface ReportDAO extends BaseDAO {
 	Set getFundRefbySuiteId(Long suiteId) throws Exception;
 	
 	Set getProjRefbySuiteId(Long suiteId) throws Exception;
+	
+	User getUserById(Long id) throws Exception;
+	
 }
