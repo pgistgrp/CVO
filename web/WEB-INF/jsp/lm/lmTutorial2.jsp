@@ -5,9 +5,9 @@
 <%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html:html>
+<html>
 	<head>
-	<title>Let's Improve Transportation - Learn More Tutorial</title>
+	<title>Learn More Tutorial - Page 2</title>
 	<!-- Site Wide CSS -->
 <style type="text/css" media="screen">
 @import "styles/lit.css";
@@ -192,4 +192,4 @@ font-size:12pt;
 	<!-- Begin footer -->
 	<!-- End footer -->
 	</body>
-</html:html>
+</html>
