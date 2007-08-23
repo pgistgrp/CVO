@@ -17,6 +17,9 @@ import org.pgist.packages.ClusteredPackage;
 import org.pgist.packages.PackageService;
 import org.pgist.packages.PackageSuite;
 import org.pgist.packages.PackageVoteSuite;
+import org.pgist.packages.UserPackage;
+import org.pgist.packages.ProjectDTO;
+import org.pgist.packages.FundingSourceDTO;
 import org.pgist.packages.VoteSuiteStat;
 import org.pgist.projects.ProjectService;
 import org.pgist.projects.ProjectSuite;
@@ -186,14 +189,17 @@ public class ReportAction extends Action {
     	//Get clustered packages vote suite stats
     	PackageVoteSuite vSuite = packageService.getPackageVoteSuite(voteSuiteId);
     	
-    	//get DTO mess
+    	//Get DTO objects
     	User u = reportService.getUserById(WebUtils.currentUserId()); 
-    	List dto = packageService.createPackageRoadProjectDTOs(pp, critSuiteId, projSuiteId, u);
-    	System.out.println("***ReportAction PPID" + pp.getId() + " crit " + critSuiteId + " proj " + projSuiteId + " user " + u.getLoginname() + "dto = " + dto);
-    	request.setAttribute("packageRoadProjects", dto);
- 	
+    	List prpDTO = packageService.createPackageRoadProjectDTOs(pp, critSuiteId, projSuiteId, u);
+    	System.out.println("***ReportAction PPID" + pp.getId() + " crit " + critSuiteId + " proj " + projSuiteId + " user " + u.getLoginname() + "dto = " + prpDTO);
+    	List ptpDTO = packageService.createPackageTransitProjectDTOs(pp, critSuiteId, projSuiteId, u);
+    	
+    	
     	
     	//Sets the Criteria References which contain criteria and grades.
+    	request.setAttribute("packageRoadProjects", prpDTO);
+    	request.setAttribute("packageTransitProjects", ptpDTO);
     	request.setAttribute("voteSuite", vSuite);  
     	request.setAttribute("summaries", summaries);
     	request.setAttribute("cr", cr);

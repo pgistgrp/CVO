@@ -556,7 +556,7 @@ After a period of discussion about the relevance of the improvement factors to t
 				billion</span>
 				<span class="yearlyCostToAvg">Yearly cost to the average resident: <fmt:formatNumber type="currency">${pp.avgResidentCost}</fmt:formatNumber>/year</span>
 			</h3>
-			<div class="obj-left floatLeft clearBoth">
+		  <div class="obj-left floatLeft clearBoth">
 				<!--Begin project list -->
 				<div class="listRow row heading">
 					<div class="projCol1 floatLeft" style="margin-left:.2em">
@@ -572,27 +572,29 @@ After a period of discussion about the relevance of the improvement factors to t
 					</div>
 					<div class="clearBoth"></div>
 				</div>
-				***${packageRoadProjects}***
-				<c:forEach var="project" items="${packageRoadProjects}" varStatus="loop">
-					<div class="listRow row">
-						<h4 class="subHeading">${project.name}</h4>
-						<div class="clearBoth"></div>
-					</div>
-					<div class="listRow row">
-						<div class="projCol1 floatLeft">
+			  ***${packageRoadProjects}***
+			  				  <p>
+***${packageTransitProjects}</p>
+			  <c:forEach var="project" items="${packageRoadProjects}" varStatus="loop">
+
+				  <div class="listRow row">
+					  <h4 class="subHeading">${project.name}</h4>
+					  <div class="clearBoth"></div>
+				  </div>
+				  <div class="listRow row">
+					  <div class="projCol1 floatLeft">
 							
-							<c:forEach var="alt" items="{project.projectAlternatives}" varStatus="loop">
+						  <c:forEach var="alt" items="{project.projectAlternatives}" varStatus="loop">
 							<div class="floatLeft">${alt.name} </div>
-							</c:forEach>
-							
-						</div>
-						<div class="projCol2 floatLeft">$5 billion</div>
-						<div class="projCol3 floatRight">King</div>
-						<div class="clearBoth"></div>
-					</div>
-				</c:forEach>
+						  </c:forEach>
+					  </div>
+					  <div class="projCol2 floatLeft">$5 billion</div>
+					  <div class="projCol3 floatRight">King</div>
+					  <div class="clearBoth"></div>
+				  </div>
+		    </c:forEach>
 				
-				<!--End project list -->
+			  <!--End project list -->
 			</div>
 			<!-- end obj-left -->
 			<!-- begin obj-right -->
