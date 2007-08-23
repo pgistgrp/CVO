@@ -38,7 +38,7 @@
 		</ul>
 			<p>When you are ready, feel free to Review funding options (Step 3b) and Create your own package (Step 3c)</a>.</p>
 				<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
-		<p id="hiddenRM" style="display:none">The proposed projects have been examined by a panel of transportation specialists who assigned scores for the improvement factors we reviewed in Step 2. (<pg:url page="readmore.jsp">Read more about the scoring process</pg:url>). After reviewing the proposed transportation projects (Step 3a) and funding options (Step 3b) you will have an opportunity to create your own transportation package by selecting the projects and funding options you like best. </p>
+		<p id="hiddenRM" style="display:none">The proposed projects have been examined by a panel of transportation specialists who assigned scores for the improvement factors we reviewed in Step 2. (<pg:url page="readmore.jsp" target="_blank">Read more about the scoring process</pg:url>). After reviewing the proposed transportation projects (Step 3a) and funding options (Step 3b) you will have an opportunity to create your own transportation package by selecting the projects and funding options you like best. </p>
 	</div>
 	<!-- end overview -->
 	<!-- begin Object -->

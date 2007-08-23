@@ -7,7 +7,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
-
 <pg:fragment type="html">
 	<!--####
 		Project: Let's Improve Transportation!
@@ -65,7 +64,7 @@
 						<c:if test="${infoObject.object.manual == false}">
 							<div class="listRow row ${(loop.index == 2) ? 'highlight' : ''}"> <!-- use 'highlight' css class to highlight user's related package -->
 								<div class="col1 floatLeft">
-									<div class="floatLeft"><a href="javascript:io.goToPackage(${infoObject.object.id});">Package ${infoObject.object.description}</a></div>
+									<div class="floatLeft"><a href="javascript:io.goToPackage(${infoObject.object.id});">${infoObject.object.description}</a></div>
 								</div>
 								<div class="col2 floatLeft">
 								$<fmt:formatNumber maxFractionDigits="0" value="${infoObject.object.totalCost/1000000}" /> million
