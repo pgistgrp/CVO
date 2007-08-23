@@ -32,13 +32,13 @@
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="floatLeft headerButton"> <a href="lmMenu.do">Menu</a> </div>
-			<div class="floatLeft headerButton currentBox"> <a href="lmAbout.do">About LIT</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Map</a> </div>
-			<div class="floatLeft headerButton"> <a href="glossaryPublic.do">Glossary</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
+			<div class="floatLeft headerButton currentBox"> <pg:url page="lmAbout.do">About LIT</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Project Map</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
 		</div>
 	</div>
 	<!-- End header menu -->
@@ -46,10 +46,10 @@
 	 <div id="container">
 	 <h2 class='headerColor'>About Let's Improve Transportation</h2>
 	 <ul>
-	 	<li><a href="#whatis">What is Let's Improve Transportation (LIT)?</a></li>
-		<li><a href="#realworld">How is LIT related to the "Roads and Transit" ballot measure?</a></li>
-		<li><a href="#purpose">What is the purpose of the research effort behind LIT?</a></li>
-		<li><a href="#support">How can the LIT website support transportation improvement decision making processes?</a></li></ul>
+	 	<li><pg:url page="lmAbout.do" anchor="whatis">What is Let's Improve Transportation (LIT)?</pg:url></li>
+		<li><pg:url page="lmAbout.do" anchor="realworld">How is LIT related to the "Roads and Transit" ballot measure?</pg:url></li>
+		<li><pg:url page="lmAbout.do" anchor="purpose">What is the purpose of the research effort behind LIT?</pg:url></li>
+		<li><pg:url page="lmAbout.do" anchor="support">How can the LIT website support transportation improvement decision making processes?</pg:url></li></ul>
 
  <h3 class="headerColor" style="text-transform:none"><a name="whatis" class="headerColor">What is Let's Improve Transportation?</a></h3>
 <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
@@ -120,13 +120,13 @@
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="floatLeft headerButton"> <a href="lmMenu.do">Menu</a> </div>
-			<div class="floatLeft headerButton currentBox"> <a href="lmAbout.do">About LIT</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Map</a> </div>
-			<div class="floatLeft headerButton"> <a href="glossaryPublic.do">Glossary</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
+			<div class="floatLeft headerButton currentBox"> <pg:url page="lmAbout.do">About LIT</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Project Map</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
 		</div>
 	</div>
 	<!-- End header menu -->

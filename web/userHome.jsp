@@ -188,7 +188,7 @@
 	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
-		<h3 class="floatRight" id="webq">Your participant ID # is <strong>${webq}</strong></h3>
+		<h4 class="floatRight" id="webq">Your participant ID # is ${webq}</h4>
 		<h2 class="headerColor">Welcome, ${baseuser.loginname}</h2>
 		<a href="publicprofile.do?user=${baseuser.loginname}">View / Edit your profile</a>
 		<div id="left-col">

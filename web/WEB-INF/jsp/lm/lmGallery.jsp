@@ -101,13 +101,13 @@ function renderProjects(){
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="floatLeft headerButton"> <a href="lmMenu.do">Menu</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
-			<div class="floatLeft headerButton currentBox"> <a href="lmGallery.do">Project Gallery</a> </div>
-			<div class="floatLeft headerButton"> <a href="glossaryPublic.do">Glossary</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About LIT</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
+			<div class="floatLeft headerButton currentBox"> <pg:url page="lmGallery.do">Project Map</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
 		</div>
 	</div>
 <!-- End header menu -->
@@ -117,7 +117,7 @@ function renderProjects(){
 	<h3 class="headerColor">Project Gallery</h3>
 	<p>Explore the projects being considered in Let's Improve Transportation.
 	  The participants in this website will actually discuss these projects.  
-		<a href="#">Click here to login</a>.</p>
+		<pg:url page="index.do">Click here to login</pg:url>.</p>
 	<div id="object">
 		<a href="javascript:Util.expandAll('objectives');">Expand all</a>
 		<a href="javascript:Util.collapseAll('objectives');">Collapse all</a>
@@ -165,7 +165,7 @@ function renderProjects(){
 											<!-- start project alt -->
 											<c:forEach var="alt" items="${project.alternatives}" varStatus="loop">
 												<tr>
-													<td class="col1"><a target="_blank" href="lmAlt.do?altId=${alt.id}">${alt.name}</td>
+													<td class="col1"><pg:url page="lmAlt.do" target="_blank" params="altId=${alt.id}">${alt.name}</pg:url></td>
 													
 													<td class="cost">$<fmt:formatNumber maxFractionDigits="0" value="${alt.cost/1000000}" /> million </td>
                                                     <script type="text/javascript">
@@ -211,13 +211,13 @@ function renderProjects(){
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="floatLeft headerButton"> <a href="lmMenu.do">Menu</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
-			<div class="floatLeft headerButton currentBox"> <a href="lmGallery.do">Project Gallery</a> </div>
-			<div class="floatLeft headerButton"> <a href="glossaryPublic.do">Glossary</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About LIT</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
+			<div class="floatLeft headerButton currentBox"> <pg:url page="lmGallery.do">Project Map</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
 		</div>
 	</div>
 <!-- End header menu -->

@@ -75,13 +75,13 @@ font-size:12pt;
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="floatLeft headerButton"> <a href="lmMenu.do">Menu</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
-			<div class="floatLeft headerButton currentBox"> <a href="lmTutorial1.do">Tutorial</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmGallery.do">Project Gallery</a> </div>
-			<div class="floatLeft headerButton"> <a href="glossaryPublic.do">Glossary</a> </div>
-			<div class="floatLeft headerButton"> <a href="lmResources.do">More Resources</a> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About LIT</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
+			<div class="floatLeft headerButton currentBox"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Project Map</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
 		</div>
 	</div>
 	<!-- End header menu -->
@@ -179,13 +179,13 @@ font-size:12pt;
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="floatLeft headerButton"> <a href="#">About LIT</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">FAQ</a> </div>
-			<div class="floatLeft headerButton currentBox"> <a href="#">Tutorial</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">Project Gallery</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">Glossary</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">More Resources</a> </div>
-			<div id="headerNext" class="floatRight box5"> <a href="#">Next Step</a> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About LIT</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
+			<div class="floatLeft headerButton currentBox"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Project Map</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
 		</div>
 	</div>
 	<!-- End header menu -->
