@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 
 
 <pg:fragment type="html">
@@ -38,7 +38,7 @@
 		</ul>
 			<p>When you are ready, feel free to Review funding options (Step 3b) and Create your own package (Step 3c)</a>.</p>
 				<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
-		<p id="hiddenRM" style="display:none">The proposed projects have been examined by a panel of transportation specialists who assigned scores for the improvement factors we reviewed in Step 2. (<a href="readmore.jsp">Read more about the scoring process</a>). After reviewing the proposed transportation projects (Step 3a) and funding options (Step 3b) you will have an opportunity to create your own transportation package by selecting the projects and funding options you like best. </p>
+		<p id="hiddenRM" style="display:none">The proposed projects have been examined by a panel of transportation specialists who assigned scores for the improvement factors we reviewed in Step 2. (<pg:url page="readmore.jsp">Read more about the scoring process</pg:url>). After reviewing the proposed transportation projects (Step 3a) and funding options (Step 3b) you will have an opportunity to create your own transportation package by selecting the projects and funding options you like best. </p>
 	</div>
 	<!-- end overview -->
 	<!-- begin Object -->
