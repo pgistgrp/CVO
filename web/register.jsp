@@ -14,7 +14,7 @@
 @import "styles/registration-1.css";
 </style>
 	<!-- End Site Wide CSS -->
-	<!-- Site Wide JS -->
+	<!-- Site Wide JS --> 
 
 	<script src="scripts/prototype.js" type="text/javascript"></script>
 	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
@@ -203,7 +203,7 @@
 	<!-- begin SIGN-IN -->
 	<div>
 		<h3>Already have an account at Let's Improve Transportation? 
-		<a href="#">Sign in</a>.</h3>
+		<a href="login.do">Sign in</a>.</h3>
 	</div>
 	<!-- end  SIGN-IN -->
 	
