@@ -160,11 +160,11 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
 
 
     private static final String hql_getUnrelatedTags1 =
-        "select count(tr.id) from CategoryReference cr inner join cr.tags as tr where cr.cct.id=? and tr.id not in (select tr.id from CategoryReference cr inner join cr.tags as tr where cr.id=? order by tr.tag.name)";
+        "select count(distinct tr.id) from CategoryReference cr inner join cr.tags as tr where cr.cct.id=? and tr.id not in (select tr.id from CategoryReference cr inner join cr.tags as tr where cr.id=?)";
     
     
     private static final String hql_getUnrelatedTags2 =
-        "select tr from CategoryReference cr inner join cr.tags as tr where cr.cct.id=? and tr.id not in (select tr.id from CategoryReference cr inner join cr.tags as tr where cr.id=? order by tr.tag.name)";
+        "select distinct tr, tr.tag.name as name from CategoryReference cr inner join cr.tags as tr where cr.cct.id=? and tr.id not in (select tr.id from CategoryReference cr inner join cr.tags as tr where cr.id=?) order by name";
     
     
     /**
@@ -178,12 +178,14 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
      * 
      */
     public Collection getUnrelatedTags(Long cctId, Long categoryId, PageSetting setting) throws Exception {
+        List results = new ArrayList();
+        
         List list = getHibernateTemplate().find(hql_getUnrelatedTags1, new Object[] {
                 cctId,
                 categoryId,
         });
         
-        if (list.size()==0) return new ArrayList();
+        if (list.size()==0) return results;
         
         int count = ((Number) list.get(0)).intValue();
         if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
@@ -195,17 +197,25 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
         query.setMaxResults(setting.getRowOfPage());
         query.setFirstResult(setting.getFirstRow());
         
-        return query.list();
+        list = query.list();
+        
+        for (Object[] array : (List<Object[]>) list) {
+            results.add(array[0]);
+        }
+        
+        return results;
     }//getUnrelatedTags()
 
 
-    private static final String hql_getOrphanTags1 = "select count(tr.id) from TagReference tr where tr.cctId=? and tr.id not in (select tr.id from CategoryReference cr inner join cr.tags as tr where cr.cct.id=? order by tr.tag.name)";
+    private static final String hql_getOrphanTags1 = "select count(tr.id) from TagReference tr where tr.cctId=? and tr.id not in (select tr.id from CategoryReference cr inner join cr.tags as tr where cr.cct.id=?)";
     
     
-    private static final String hql_getOrphanTags2 = "select tr from TagReference tr where tr.cctId=? and tr.id not in (select tr.id from CategoryReference cr inner join cr.tags as tr where cr.cct.id=? order by tr.tag.name)";
+    private static final String hql_getOrphanTags2 = "select distinct tr, tr.tag.name as name from TagReference tr where tr.cctId=? and tr.id not in (select tr.id from CategoryReference cr inner join cr.tags as tr where cr.cct.id=?) order by name";
     
     
     public Collection getOrphanTags(Long cctId, PageSetting setting) throws Exception {
+        List results = new ArrayList();
+        
         List list = getHibernateTemplate().find(hql_getOrphanTags1, new Object[] {
                 cctId,
                 cctId,
@@ -223,7 +233,13 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
         query.setMaxResults(setting.getRowOfPage());
         query.setFirstResult(setting.getFirstRow());
         
-        return query.list();
+        list = query.list();
+        
+        for (Object[] array : (List<Object[]>) list) {
+            results.add(array[0]);
+        }
+        
+        return results;
     }//getOrphanTags()
 
 

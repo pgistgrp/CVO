@@ -39,7 +39,7 @@ sb.append(")");
 
 queryStr = sb.toString();
 
-String luceneQuery = "(type:post OR type:reply) AND isid:26296 AND (bridge* nece*)";
+String luceneQuery = "tutor*";
 
 searcher = searchHelper.getIndexSearcher();
 try {

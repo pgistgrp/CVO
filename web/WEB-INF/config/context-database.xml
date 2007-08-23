@@ -40,7 +40,7 @@
            <list>
                <!-- POJO schema information -->
                <value>org/pgist/report/ReportVote.hbm.xml</value> 
-	       <value>org/pgist/report/ReportThemeStat.hbm.xml</value>
+               <value>org/pgist/report/ReportThemeStat.hbm.xml</value>
                <value>org/pgist/report/ReportStats.hbm.xml</value>
                <value>org/pgist/report/ReportSuite.hbm.xml</value>
                <value>org/pgist/report/ReportSummary.hbm.xml</value>
@@ -51,7 +51,7 @@
                <value>org/pgist/system/SystemLog.hbm.xml</value>
                <value>org/pgist/system/County.hbm.xml</value>
                <value>org/pgist/system/Announcement.hbm.xml</value>
-	       <value>org/pgist/system/RegisterObject.hbm.xml</value>
+               <value>org/pgist/system/RegisterObject.hbm.xml</value>
                <value>org/pgist/other/SituationTemplate.hbm.xml</value>
                <value>org/pgist/users/BaseUser.hbm.xml</value>
                <value>org/pgist/users/Role.hbm.xml</value>

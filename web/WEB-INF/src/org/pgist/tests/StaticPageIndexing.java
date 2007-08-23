@@ -93,7 +93,6 @@ public class StaticPageIndexing extends MatchingTask {
             for (Element one : (List<Element>) root.elements("page")) {
                 String url = one.attributeValue("url");
                 String path = one.getTextTrim();
-                System.out.println(url+" ----> "+path);
                 
                 File file = new File(sourcePath, path);
                 
@@ -103,6 +102,8 @@ public class StaticPageIndexing extends MatchingTask {
                 }
                 
                 HTMLParser parser = new HTMLParser(new FileInputStream(file));
+                
+                System.out.println("title: "+parser.getTitle()+"   "+url+" ----> "+path);
                 
                 org.apache.lucene.document.Document document = new org.apache.lucene.document.Document();
                 document.add(new Field("type", "staticpage", Field.Store.YES, Field.Index.UN_TOKENIZED));

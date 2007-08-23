@@ -6,11 +6,16 @@
 categoryId = 4290;
 Long cctId = 3342;
 
-hql = "update Comment set deleted=?";
+hql = "select distinct tr, tr.tag.name as name from CategoryReference cr inner join cr.tags as tr where cr.cct.id=? order by name";
 
 query = session.createQuery(hql);
-query.setBoolean(0, true);
-//query.setLong(1, 12101);
-//query.setString(0, "1111");
+query.setLong(0, 3974);
+//query.setLong(1, 3975);
 
-query.executeUpdate();
+list = query.list();
+
+for (one: list) {
+  print(one[0].tag.name);
+}
+
+
