@@ -216,7 +216,7 @@ public class PackageServiceImpl implements PackageService {
 				if(tempRef.getId().equals(altId)) {
 					uPack.getProjAltRefs().remove(tempRef);
 					
-					this.calcUserValues(uPack, fundingSuiteId);					
+					this.calcUserValues(uPack, fundingSuiteId);
 					uPack.updateCalculations();
 					this.packageDAO.save(uPack);
 					return uPack;
@@ -1158,12 +1158,12 @@ public class PackageServiceImpl implements PackageService {
         
         //Clean out old non manual clustered packages
         Iterator<ClusteredPackage> iCPackages = new ArrayList<ClusteredPackage>(pSuite.getClusteredPkgs()).iterator();
-                        
+        
         ClusteredPackage cp;
         //Remove the old clusters from the package suite
         while(iCPackages.hasNext()) {
         	cp = iCPackages.next();
-        	if(!cp.isManual()) {        		
+        	if(!cp.isManual()) {
         		pSuite.getClusteredPkgs().remove(cp);
         	}
         }
@@ -1172,20 +1172,18 @@ public class PackageServiceImpl implements PackageService {
         ProjectItemFactory pFactory = new ProjectItemFactory();
         pFactory.prepareFactory(projSuite, fundSuite);
         
-        
         ArrayList<Item> items = new ArrayList<Item>();
         Iterator<UserPackage> iUPack = pSuite.getUserPkgs().iterator();
         UserPackage tempPkg;
         while(iUPack.hasNext()) {
-        	tempPkg = iUPack.next();        	
-        	items.add(pFactory.createPackageItem(tempPkg));
+        	tempPkg = iUPack.next();
+        	if (tempPkg.isValid()) items.add(pFactory.createPackageItem(tempPkg));
         }
-                
         
         //Run Clustering algorithm
    		Collection<ItemCluster> results = PAMClusterer.calcClusters(pkgCount, items);
 		printResults(results);
-
+		
         //Convert back into the clustered packages
 		Iterator<ItemCluster> i = results.iterator();
 		ItemCluster temp;
@@ -1205,7 +1203,7 @@ public class PackageServiceImpl implements PackageService {
 			//Set the medoid properties as the new cluster properties
 			tempItem = (PackageItem)temp.getMediod();
 			uPack = packageDAO.getUserPackage(tempItem.getUserPkgId());	
-
+			
 			//Add the medoid package
 			cp.getUserPkgs().add(uPack);
 			
@@ -1230,16 +1228,16 @@ public class PackageServiceImpl implements PackageService {
 			//For some reason you cannot save the user package into the clustered package.
 			//System.out.println("MATT added the medoid so now we have " + cp.getUserPkgs().size() + " in cluster " + cp.getId() + " with uPack " + uPack.getId());
 			
-			
 			cp.updateCalculations();
 			
 			packageDAO.save(cp);
 			pSuite.getClusteredPkgs().add(cp);
 			num++;
-		}		
-       
+		}
+        
         packageDAO.save(pSuite);               
-	}
+	}//createClusteredPackages()
+	
 	
 	/**
 	 * Used for debugging, this prints the results from a collection of items
@@ -1256,7 +1254,7 @@ public class PackageServiceImpl implements PackageService {
 			while(iItems.hasNext()) {
 				System.out.println("Member Item:" + iItems.next());
 			}
-		}				
+		}
 	}
 	
 	

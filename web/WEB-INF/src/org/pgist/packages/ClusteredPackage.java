@@ -29,10 +29,6 @@ public class ClusteredPackage extends Package {
     
     private float avgResidentCost;
     
-    private float totalCost;
-    
-    private float totalFunding;
-    
     protected Set<ProjectAltRef> projAltRefs = new HashSet<ProjectAltRef>();
     
     protected Set<FundingSourceAltRef> fundAltRefs = new HashSet<FundingSourceAltRef>();    
@@ -90,41 +86,11 @@ public class ClusteredPackage extends Package {
     }
 
 
-    /**
-     * @hibernate.property
-     */
-    public float getTotalCost() {
-        return totalCost;
-    }
-
-
-    public void setTotalCost(float totalCost) {
-        this.totalCost = totalCost;
-    }
-
-
-    /**
-     * @hibernate.property
-     */
-    public float getTotalFunding() {
-        return totalFunding;
-    }
-
-
-    public void setTotalFunding(float totalFunding) {
-        this.totalFunding = totalFunding;
-    }
-
-
     /*
      * ------------------------------------------------------------------------
      */
     
     
-    public float getBalance() {
-        return totalFunding - totalCost;
-    }
-
     /**
      * @return
      * 
@@ -158,6 +124,12 @@ public class ClusteredPackage extends Package {
     public void setProjAltRefs(Set<ProjectAltRef> projAltRefs) {
         this.projAltRefs = projAltRefs;
     }
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
     
 	/**
      * Recalculates all of the information about this user package

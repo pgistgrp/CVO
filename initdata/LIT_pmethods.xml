@@ -230,7 +230,7 @@
                 <ins>
                     <var name="pmethod.cct_id"/>
                     <var name="pmethod.crit_suite_id"/>
-		    <var name="pmethod.theme_isid"/>
+                    <var name="pmethod.theme_isid"/>
                 </ins>
                 <outs>
                     <var name="pmethod.crit_isid"/>
@@ -242,7 +242,7 @@
                         <ins>
                             <var name="suiteId" ref="pmethod.crit_suite_id"/>
                             <var name="cctId" ref="pmethod.cct_id"/>
-			    <var name="theme_isid" ref="pmethod.theme_isid"/>
+                            <var name="theme_isid" ref="pmethod.theme_isid"/>
                         </ins>
                     </declaration>
                 </pgame>
@@ -263,8 +263,8 @@
                             <declaration>
                                 <ins>
                                     <var name="isid" ref="pmethod.crit_isid"/>
-				    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
-				    <var name="themeIsid" ref="pmethod.theme_isid"/>
+                                    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+                                    <var name="themeIsid" ref="pmethod.theme_isid"/>
                                 </ins>
                             </declaration>
                         </pgame>
@@ -349,9 +349,9 @@
                     <var name="pmethod.crit_suite_id"/>
                     <var name="pmethod.pkg_suite_id"/>
                 </ins>
-		<outs>
-		    <var name="pmethod.vote_suite_id"/>
-		</outs>
+                <outs>
+                    <var name="pmethod.vote_suite_id"/>
+                </outs>
             </declaration>
             <sequence>
                 
@@ -401,41 +401,41 @@
                         </ins>
                         <outs>
                             <var name="poll_suite_id" ref="pmethod.poll_suite_id"/>
-			    <var name="vote_suite_id" ref="pmethod.vote_suite_id"/>
+                            <var name="vote_suite_id" ref="pmethod.vote_suite_id"/>
                         </outs>
                     </declaration>
                 </pgame>
 
-		<pgame name="pgame-sd.packages">
-		    <declaration>
-			<ins>
-			    <var name="isid" ref="pmethod.is_id"/>
-			    <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
-			    <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
-			    <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
-			    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
-			    <var name="voteSuiteId" ref="pmethod.poll_suite_id"/>
-			</ins>
-		    </declaration>
-		</pgame>
+                <pgame name="pgame-sd.packages">
+                    <declaration>
+                        <ins>
+                            <var name="isid" ref="pmethod.is_id"/>
+                            <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
+                            <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
+                            <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+                            <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+                            <var name="voteSuiteId" ref="pmethod.poll_suite_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
 
-		<pgame name="pgame-vote.packages">
-		    <declaration>
-			<ins>
-			    <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
-			    <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
-			    <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
-			    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
-			    <var name="voteSuiteId" ref="pmethod.vote_suite_id"/>
-			</ins>
-		    </declaration>
-		</pgame>
-			
-		<pgame name="pgame-tally.packages">
+                <pgame name="pgame-vote.packages">
+                    <declaration>
+                        <ins>
+                            <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
+                            <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
+                            <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+                            <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+                            <var name="voteSuiteId" ref="pmethod.vote_suite_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                        
+                <pgame name="pgame-tally.packages">
                     <declaration>
                         <ins>
                             <var name="pkg_suite_id" ref="pmethod.pkg_suite_id"/>
-			    <var name="vote_suite_id" ref="pmethod.vote_suite_id"/>
+                            <var name="vote_suite_id" ref="pmethod.vote_suite_id"/>
                         </ins>
                     </declaration>
                 </pgame>
@@ -450,12 +450,12 @@
                     <var name="pmethod.fund_suite_id"/>
                     <!-- <var name="pmethod.proj_isid"/>
                     <var name="pmethod.fund_isid"/>-->
-		    <var name="pmethod.pkg_suite_id"/>
-		    <var name="pmethod.proj_suite_id"/>
+                    <var name="pmethod.pkg_suite_id"/>
+                    <var name="pmethod.proj_suite_id"/>
                     <var name="pmethod.crit_suite_id"/>
                     <var name="pmethod.cct_id"/>                     
                     <var name="pmethod.repo_suite_id"/>
-		    <var name="pmethod.vote_suite_id"/>
+                    <var name="pmethod.vote_suite_id"/>
                 </ins>
                 <outs>
                     <var name="pmethod.repo_isid"/>
@@ -466,9 +466,9 @@
                 <pgame name="pgame-create.report.stats">
                     <declaration>
                         <ins>
-			    <var name="proj_suite_id" ref="pmethod.proj_suite_id"/>
-			    <var name="fund_suite_id" ref="pmethod.fund_suite_id"/>
-			    <var name="crit_suite_id" ref="pmethod.crit_suite_id"/>
+                            <var name="proj_suite_id" ref="pmethod.proj_suite_id"/>
+                            <var name="fund_suite_id" ref="pmethod.fund_suite_id"/>
+                            <var name="crit_suite_id" ref="pmethod.crit_suite_id"/>
                             <var name="pkg_suite_id" ref="pmethod.pkg_suite_id"/>
                             <var name="repo_suite_id" ref="pmethod.repo_suite_id"/>
                             <var name="cct_id" ref="pmethod.cct_id"/>   
@@ -504,9 +504,9 @@
                             <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
                             <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
                             <var name="repoSuiteId" ref="pmethod.repo_suite_id"/>
-			    <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
-			    <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
-			    <var name="voteSuiteId" ref="pmethod.vote_suite_id"/>
+                            <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
+                            <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+                            <var name="voteSuiteId" ref="pmethod.vote_suite_id"/>
                         </ins>
                     </declaration>
                 </pgame>
@@ -518,9 +518,9 @@
                             <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
                             <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
                             <var name="repoSuiteId" ref="pmethod.repo_suite_id"/>
-			    <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
-			    <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
-			    <var name="voteSuiteId" ref="pmethod.vote_suite_id"/>
+                            <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
+                            <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+                            <var name="voteSuiteId" ref="pmethod.vote_suite_id"/>
                         </ins>
                     </declaration>
                 </pgame>

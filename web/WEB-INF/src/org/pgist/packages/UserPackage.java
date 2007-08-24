@@ -25,43 +25,15 @@ public class UserPackage extends Package {
     
     private User author;
     
-    private float totalCost;
-    
-    private float totalFunding;
-    
     private float yourCost;
     
     private float avgResidentCost;
-        
+    
     protected SortedSet<ProjectAltRef> projAltRefs = new TreeSet<ProjectAltRef>(new ProjectAltRefComparator());
     
     protected SortedSet<FundingSourceAltRef> fundAltRefs = new TreeSet<FundingSourceAltRef>(new FundingSourceAltRefComparator());
     
-	/**
-     * Recalculates all of the information about this user package
-     */
-    public void updateCalculations() {
-    	//System.out.println("MATT: Updating cost for the [" + this.projAltRefs.size() + "] projects and [" + this.fundAltRefs.size() + "] funding sources");
-    	this.totalCost = 0;
-    	this.totalFunding = 0;
-    	this.avgResidentCost = 0;
-    	this.yourCost = 0;
-  
-    	Iterator<ProjectAltRef> projects = this.projAltRefs.iterator();
-    	while(projects.hasNext()) {
-    		totalCost = totalCost + (float)projects.next().getAlternative().getCost();
-    	}
-    	
-    	Iterator<FundingSourceAltRef> funding = this.fundAltRefs.iterator();
-    	FundingSourceAlternative fAlt;
-    	
-    	while(funding.hasNext()) {
-    		fAlt = funding.next().getAlternative();
-    		totalFunding = totalFunding + (float)fAlt.getRevenue();
-    		avgResidentCost = avgResidentCost + fAlt.getAvgCost();
-    		yourCost = yourCost + this.getPersonalCost(fAlt.getId());
-    	}    
-    }
+    private boolean valid = false;
     
     
     /**
@@ -181,6 +153,25 @@ public class UserPackage extends Package {
     }
 
 
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public boolean isValid() {
+        return valid;
+    }
+
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
 	public void printPersonalCost() {
 		HashMap map = this.getPersonalCost();
 		Iterator i = map.keySet().iterator();
@@ -189,5 +180,41 @@ public class UserPackage extends Package {
 			key = i.next();
 			System.out.println("for " + key + " I have a " + map.get(key));
 		}			
-	}        
+	}
+
+
+    /**
+     * Recalculates all of the information about this user package
+     */
+    public void updateCalculations() {
+        //System.out.println("MATT: Updating cost for the [" + this.projAltRefs.size() + "] projects and [" + this.fundAltRefs.size() + "] funding sources");
+        this.totalCost = 0;
+        this.totalFunding = 0;
+        this.avgResidentCost = 0;
+        this.yourCost = 0;
+  
+        Iterator<ProjectAltRef> projects = this.projAltRefs.iterator();
+        while(projects.hasNext()) {
+            totalCost = totalCost + (float)projects.next().getAlternative().getCost();
+        }
+        
+        Iterator<FundingSourceAltRef> funding = this.fundAltRefs.iterator();
+        FundingSourceAlternative fAlt;
+        
+        while(funding.hasNext()) {
+            fAlt = funding.next().getAlternative();
+            totalFunding = totalFunding + (float)fAlt.getRevenue();
+            avgResidentCost = avgResidentCost + fAlt.getAvgCost();
+            yourCost = yourCost + this.getPersonalCost(fAlt.getId());
+        }
+        
+        /*
+         * check if this user package is valid
+         */
+        if (getTotalCost()<=0.0) valid = false;
+        else if (getBalance()>0.0) valid = true;
+        else valid = false;
+    }//updateCalculations()
+    
+    
 }//class UserPackage

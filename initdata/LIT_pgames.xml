@@ -205,7 +205,7 @@
                 <ins>
                     <var name="cctId"/>
                     <var name="suiteId"/>
-		    <var name="theme_isid"/>
+                    <var name="theme_isid"/>
                 </ins>
             </declaration>
         </pgame>
@@ -237,8 +237,8 @@
             <declaration>
             <ins>
                 <var name="isid"/>
-		<var name="critSuiteId"/>
-		<var name="themeIsid"/>
+                <var name="critSuiteId"/>
+                <var name="themeIsid"/>
             </ins>
             </declaration>
         </pgame>
@@ -394,7 +394,7 @@
             </declaration>
         </pgame>
         
-	<pgame name="pgame-tally.packages" title="Find Preferred Package." auto="true">
+        <pgame name="pgame-tally.packages" title="Find Preferred Package." auto="true">
             <description>
               <![CDATA[<small>Determine the Preferred Package</small>]]>
             </description>
@@ -402,11 +402,11 @@
             <declaration>
                 <ins>
                     <var name="pkg_suite_id"/>
-		    <var name="vote_suite_id"/>
+                    <var name="vote_suite_id"/>
                 </ins>
             </declaration>
         </pgame>
-	
+        
         <pgame name="pgame-sd.packages" title="Review funding options" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Review options to pay for transportation improvements.</small>]]>
@@ -470,7 +470,7 @@
                     <var name="projSuiteId"/>
                     <var name="fundSuiteId"/>
                     <var name="critSuiteId"/>
-		    <var name="voteSuiteId"/>
+                    <var name="voteSuiteId"/>
                 </ins>
             </declaration>
         </pgame>
@@ -502,7 +502,7 @@
                 </ins>
                 <outs>
                     <var name="poll_suite_id"/>
-		    <var name="vote_suite_id"/>
+                    <var name="vote_suite_id"/>
                 </outs>
             </declaration>
         </pgame>
@@ -531,7 +531,7 @@
                 <var name="pkg_suite_id"/>
                 <var name="crit_suite_id"/>
                 <var name="proj_suite_id"/>
-		<var name="fund_suite_id"/>
+                <var name="fund_suite_id"/>
             </ins>
             </declaration>
         </pgame>
@@ -579,9 +579,9 @@
                 <var name="critSuiteId"/>
                 <var name="pkgSuiteId"/>
                 <var name="repoSuiteId"/>
-		<var name="fundSuiteId"/>
-		<var name="projSuiteId"/>
-		<var name="voteSuiteId"/>
+                <var name="fundSuiteId"/>
+                <var name="projSuiteId"/>
+                <var name="voteSuiteId"/>
             </ins>
             </declaration>
         </pgame>
@@ -597,9 +597,9 @@
                 <var name="critSuiteId"/>
                 <var name="pkgSuiteId"/>
                 <var name="repoSuiteId"/>
-		<var name="fundSuiteId"/>
-		<var name="projSuiteId"/>
-		<var name="voteSuiteId"/>
+                <var name="fundSuiteId"/>
+                <var name="projSuiteId"/>
+                <var name="voteSuiteId"/>
             </ins>
             </declaration>
         </pgame>

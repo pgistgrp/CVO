@@ -23,10 +23,15 @@ public abstract class Package implements Serializable {
     
     protected Date createDate;
 
+    protected float totalCost;
+    
+    protected float totalFunding;
+    
     /**
      * Non persisted values that represent the users cost in regards to a funding source alternative
      */
     protected HashMap<Long, Float> personalCost = new HashMap<Long, Float>();
+    
     
     /**
      * Returns a map of the personal cost for a person in relation to a FundingSourceAlternative.
@@ -115,4 +120,42 @@ public abstract class Package implements Serializable {
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
+    
+    
+    /**
+     * @hibernate.property
+     */
+    public float getTotalCost() {
+        return totalCost;
+    }
+
+
+    public void setTotalCost(float totalCost) {
+        this.totalCost = totalCost;
+    }
+
+
+    /**
+     * @hibernate.property
+     */
+    public float getTotalFunding() {
+        return totalFunding;
+    }
+
+
+    public void setTotalFunding(float totalFunding) {
+        this.totalFunding = totalFunding;
+    }
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+
+
+    public float getBalance() {
+        return totalFunding - totalCost;
+    }//getBalance()
+    
+
 }//class Package

@@ -86,7 +86,7 @@
                 <ins>
                     <var name="meeting.cct_id"/>
                     <var name="meeting.crit_suite_id"/>
-		    <var name="meeting.is_id"/>
+                    <var name="meeting.is_id"/>
                 </ins>
                 <outs>
                     <var name="meeting.crit_isid"/>
@@ -98,7 +98,7 @@
                         <ins>
                             <var name="pmethod.cct_id" ref="meeting.cct_id"/>
                             <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
-			     <var name="pmethod.theme_isid" ref="meeting.is_id"/>
+                            <var name="pmethod.theme_isid" ref="meeting.is_id"/>
                         </ins>
                         <outs>
                             <var name="pmethod.crit_isid" ref="meeting.crit_isid"/>
@@ -146,9 +146,9 @@
                     <var name="meeting.crit_suite_id"/>
                     <var name="meeting.pkg_suite_id"/>
                 </ins>
-		<outs>
-			<var name="meeting.vote_suite_id"/>
-		</outs>
+                <outs>
+                    <var name="meeting.vote_suite_id"/>
+                </outs>
             </declaration>
             <sequence>
                 <pmethod name="pmethod-packages">
@@ -158,7 +158,7 @@
                             <var name="pmethod.proj_suite_id" ref="meeting.proj_suite_id"/>
                             <var name="pmethod.fund_suite_id" ref="meeting.fund_suite_id"/>
                             <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
-                             <var name="pmethod.pkg_suite_id" ref="meeting.pkg_suite_id"/>
+                            <var name="pmethod.pkg_suite_id" ref="meeting.pkg_suite_id"/>
                         </ins>
                         <outs>
                             <var name="pmethod.vote_suite_id" ref="meeting.vote_suite_id"/>
@@ -180,7 +180,7 @@
                     <var name="meeting.crit_suite_id"/>
                     <var name="meeting.repo_suite_id"/>
                     <var name="meeting.pkg_suite_id"/>
-		    <var name="meeting.vote_suite_id"/>
+                    <var name="meeting.vote_suite_id"/>
                 </ins>
                 <outs>
                     <var name="meeting.repo_isid"/>
@@ -198,7 +198,7 @@
                             <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
                             <var name="pmethod.repo_suite_id" ref="meeting.repo_suite_id"/>
                             <var name="pmethod.pkg_suite_id" ref="meeting.pkg_suite_id"/>
-			    <var name="pmethod.vote_suite_id" ref="meeting.vote_suite_id"/>
+                            <var name="pmethod.vote_suite_id" ref="meeting.vote_suite_id"/>
                         </ins>
                         <outs>
                             <var name="pmethod.repo_isid" ref="meeting.repo_isid"/>
