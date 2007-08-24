@@ -98,7 +98,7 @@
 		<div id="object clearfix">
 			<p><h2 class="headerColor">${package.description} Details</h2></p>
 			<!-- begin TOP SUMMARY -->
-			<div id="gmap" class="floatRight box11">500px Gmap goes here</div>			
+			<div id="gmap" class="floatRight box11"></div>			
 			<div class="summary box11">
 				<table>
 					<tr>
