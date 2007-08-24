@@ -225,7 +225,8 @@ function formOther(){
 	<div id="container" class="clearfix">
 	<html:form action="/profileedit.do" styleId="profileForm" method="POST">
 		 <html:hidden property="save" value="true"/>
-		<h3 class="headerColor">Edit your participant profile information</h3>
+		<h3 class="headerColor" style="display:inline">Edit your participant profile information&nbsp;&nbsp;&nbsp;</h3>
+		<pg:url page="publicprofile.do" params="user=${baseuser.loginname}">View your profile</pg:url>
 		<p>Here you can edit your Let's Improve Transportation user profile. Some information
 			in your user profile will appear to all other participants in the LIT challenge,
 			but if a field is marked by this icon ( <img src="images/icon_private.png" /> )

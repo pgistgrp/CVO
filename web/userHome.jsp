@@ -188,9 +188,9 @@
 	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
-		<h4 class="floatRight" id="webq">Your participant ID # is ${webq}</h4>
+		<h3 class="floatRight">Your participant ID is <strong>${webq}</strong></h3>
 		<h2 class="headerColor">Welcome, ${baseuser.loginname}</h2>
-		<a href="publicprofile.do?user=${baseuser.loginname}">View / Edit your profile</a>
+		<pg:url page="publicprofile.do" params="user=${baseuser.loginname}">View</pg:url> / <pg:url page="/usercp.do">Edit your profile</pg:url>
 		<div id="left-col">
 			<h3 class="headerColor">Overview of all steps</h3>
 			<div class="box12 clearfix">

@@ -77,9 +77,7 @@ function getDiscussion(start, end) {
 <!-- Begin container - Main page content begins here -->
 <div id="container" class="clearfix">
 	<p><h3 class="headerColor" style="display:inline">LIT Participant Profile</h3>
-	<c:if test="${user.loginname==baseuser.loginname}">
-		<pg:url page="usercp.do"> Edit my profile and settings</pg:url></p>
-	</c:if>
+	<pg:url page="usercp.do"> Edit your profile and settings</pg:url>
 	<!-- start PROFILE-FIELDS section -->
 	<div id="profile-fields">
 		<div id="statistics" class="box9">
@@ -262,17 +260,9 @@ function getDiscussion(start, end) {
 	<div class="clearBoth"></div>
 	<!-- end PROFILE-FIELDS section -->
 </div>
-<!-- End Container -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-<div id="headerMenu">
-	<div id="headerContainer">
-		<div id="headerTitle" class="floatLeft">
-		</div>
-	</div>
-</div>
-<!-- End header menu -->
-<!-- end the bottom header menu -->
-<!-- Begin footer -->
+
+<wf:subNav />
+
 <div id="footer"><jsp:include page="/footer.jsp" /></div>
 <!-- End footer -->
 <script type="text/javascript">
