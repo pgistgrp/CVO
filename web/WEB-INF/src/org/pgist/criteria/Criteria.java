@@ -171,15 +171,16 @@ public class Criteria implements Serializable {
     }
     
     
-	public Set<InfoObject> getInfoObjects() {
-		return infoObjects;
-	}
-
     /**
      * @hibernate.set lazy="false" table="pgist_criteria_info_object_link" cascade="none"
      * @hibernate.collection-key column="criterion_id"
      * @hibernate.collection-many-to-many column="info_object_id" class="org.pgist.discussion.InfoObject"
      */   
+	public Set<InfoObject> getInfoObjects() {
+		return infoObjects;
+	}
+	
+	
 	public void setInfoObjects(Set<InfoObject> infoObjects) {
 		this.infoObjects = infoObjects;
 	}
