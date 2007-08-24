@@ -172,17 +172,24 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				}
 				
 				//Primary Transport
-				String transport = u.getPrimaryTransport();
-				transTypes.add(transport);
-				
-				if(transport!=null && !("".equals(transport.trim()))) {
-					if(transportSet.get(transport)==null) {
-						transportSet.put(transport, 1);
-					} else {
-						int num = transportSet.get(transport);
-						transportSet.put(transport, num+1);
+				RegisterObject pt = u.getPrimaryTransport();
+				if(pt!=null) {
+					String transport = pt.getValue();
+					transTypes.add(transport);
+					
+					if(transport!=null && !("".equals(transport.trim()))) {
+						
+						if(transportSet.get(transport)==null) {
+							transportSet.put(transport, 1);
+						} else {
+							int num = transportSet.get(transport);
+							transportSet.put(transport, num+1);
+						}
 					}
 				}
+				
+				
+				
 				//add user Users set
 				users.add(u);
 			} //if()	
@@ -254,7 +261,11 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				int weight = userWeights.get(user);
 				sumWeight += weight;
 			}
-			cr.setGrade(sumWeight/userWeights.size());
+			if(userWeights.size() > 0) {
+				cr.setGrade(sumWeight/userWeights.size());
+			} else {
+				cr.setGrade(0);
+			}
 			save(cr);
 		}
 		
@@ -388,17 +399,21 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				}
 				
 				//Primary Transport
-				String transport = u.getPrimaryTransport();
-				transTypes.add(transport);
-				
-				if(transport!=null && !("".equals(transport.trim()))) {
-					if(transportSet.get(transport)==null) {
-						transportSet.put(transport, 1);
-					} else {
-						int num = transportSet.get(transport);
-						transportSet.put(transport, num+1);
+				RegisterObject pt = u.getPrimaryTransport();
+				if(pt!=null) {
+					String transport = pt.getValue();
+					transTypes.add(transport);
+					
+					if(transport!=null && !("".equals(transport.trim()))) {
+						if(transportSet.get(transport)==null) {
+							transportSet.put(transport, 1);
+						} else {
+							int num = transportSet.get(transport);
+							transportSet.put(transport, num+1);
+						}
 					}
 				}
+				
 				//add user Users set
 				users.add(u);
 			} //if()	
@@ -446,16 +461,17 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		save(repoSuite);
 	}
 	
-	private static final String hql_createStatsES = "from User u order by u.id";
+	private static final String hql_createStatsES = "from User u";
 		
 	public void createStatsES(Long workflowId, Long repoSuiteId, Long packSuiteId) throws Exception {
 		System.out.println("***Excecute CreateStatsES()*");
 		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
 		ReportStats rs = new ReportStats();
-		System.out.println("***ES start" +
-				" total users");
+		System.out.println("***ES start total users");
+		
 		//Find the number of users in the entire system - admin and moderators currently count
-		List userlist = getHibernateTemplate().find(hql_createStatsES);		
+		List userlist = getHibernateTemplate().find(hql_createStatsES);	
+		
 		rs.setTotalUsers(userlist.size());
 		System.out.println("***ES finish total users");
 		PackageSuite ps = (PackageSuite) load(PackageSuite.class, packSuiteId);
@@ -467,8 +483,9 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		int totalVotes = vss.getTotalVotes();
 		System.out.println("***ES startcost");
 		// Format cost to 2 thousand vs 2000
-		String strTotalCost = "";
+		//String strTotalCost = "";
 		int totalCost = (int) preferredPackage.getTotalCost();
+		/*
 		if(totalCost >=1000000000) {
 			totalCost = totalCost/1000000000;
 			strTotalCost = totalCost + " billion";
@@ -482,6 +499,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 			strTotalCost = totalCost + "";
 		}
 		System.out.println("***ES finish cost");
+		*/
 		//save
 		rs.setTotalVotes(totalVotes);
 		rs.setNumEndorsed(numEndorsed);

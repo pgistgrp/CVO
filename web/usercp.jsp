@@ -4,6 +4,11 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
@@ -361,21 +366,17 @@ function formOther(){
 				<span>How do you usually travel from your home to work and other regular errands?</span>
 				<p>
 					
-					
-					<html:select styleId="primaryTrans" onmouseup="javascript:formOther()" property="primaryTransport">
-						<html:option value="${user.primaryTransport}">${user.primaryTransport}</html:option>
-						<html:option value="Drive Alone">Drive alone</html:option>
-						<html:option value="Carpool or Vanpool">Carpool or vanpool</html:option>
-						<html:option value="Bus or Transit">Public transportation</html:option>
-						<html:option value="Walk or Bike">Walk or bike</html:option>
-						<html:option value="Bus or Transit">Ferry</html:option>
-						<html:option value="Other">Other</html:option>
+					<html:select styleId="primaryTrans" onmouseup="javascript:formOther()" property="primaryTransport" value="${user.primaryTransport.id}">
+						<html:option value=""></html:option>
+						<c:forEach var="transtype" items="${transtypes}" varStatus="loop">
+								<html:option value="${transtype.id}">${transtype.value}</html:option>		
+						</c:forEach>
 					</html:select>
 					
-					<div id="transOther" style="display:none">
+			  <div id="transOther" style="display:none">
 						<strong>Please explain</strong><br>
 						<html:text property="primaryTransport" value=""/>
-					</div>
+			  </div>
 
 				</p>
 				<div class="clearBoth"></div>

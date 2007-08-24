@@ -60,7 +60,9 @@ public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
 			user.setProfileDesc(profiledesc);
 		}
 		if(primarytransport!=null || !("".equals(primarytransport.trim()))){
-			user.setPrimaryTransport(primarytransport);
+			Long transId = Long.parseLong(primarytransport);
+			RegisterObject transport = (RegisterObject) load(RegisterObject.class, transId);
+			user.setPrimaryTransport(transport);
 		}
 		if(vocation!=null || !("".equals(vocation.trim()))){
 			user.setVocation(vocation);

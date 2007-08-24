@@ -160,5 +160,8 @@ public class RegisterServiceImpl implements RegisterService {
     	registerDAO.createRegisterObjects(type, valuelist);
     }
     
+    public Collection getTransTypes() throws Exception {
+    	return registerDAO.getTransTypes();
+    }
     
 }

@@ -138,6 +138,7 @@ public class BaseUser implements Serializable {
 
 
 
+
 	/**
      * @return
      * @hibernate.id generator-class="native"
@@ -351,10 +352,10 @@ public class BaseUser implements Serializable {
     }
 
 
-	/**
-	 * @return the RegisterObject
-     * @hibernate.many-to-one column="register_object_id" cascade="all" class="org.pgist.system.RegisterObject"
-	 */
+    /**
+     * @return
+     * @hibernate.many-to-one column="income_range_id" lazy="true"
+     */
     public RegisterObject getIncomeRange() {
         return incomeRange;
     }

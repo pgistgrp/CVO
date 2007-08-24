@@ -528,12 +528,11 @@ After a period of discussion about the relevance of the improvement factors to t
  				<c:forEach var="stat" items="${voteSuite.stats}" varStatus="loop">
 					 <c:if test="${firstcp == false}">
 						<div class="VoteListRow row ">
-					</c:if>
-					<c:if test="${firstcp == true}">
+					 </c:if>
+					 <c:if test="${firstcp == true}">
 						<div class="VoteListRow row highlight">
 						<c:set var="firstcp" value="false" />
-					</c:if>
-
+					 </c:if>
 						<div class="voteCol1 floatLeft">
 							<div class="floatLeft">${stat.clusteredPackage.description}</div>
 						</div>
@@ -556,6 +555,7 @@ After a period of discussion about the relevance of the improvement factors to t
 				billion</span>
 				<span class="yearlyCostToAvg">Yearly cost to the average resident: <fmt:formatNumber type="currency">${pp.avgResidentCost}</fmt:formatNumber>/year</span>
 			</h3>
+			
 		  <div class="obj-left floatLeft clearBoth">
 				<!--Begin project list -->
 				<div class="listRow row heading">
@@ -572,26 +572,23 @@ After a period of discussion about the relevance of the improvement factors to t
 					</div>
 					<div class="clearBoth"></div>
 				</div>
-			  ***${packageRoadProjects}***
-			  				  <p>
-***${packageTransitProjects}</p>
-			  <c:forEach var="project" items="${packageRoadProjects}" varStatus="loop">
+
+			 <c:forEach var="alt" items="${pp.projAltRefs}" varStatus="loop">
 
 				  <div class="listRow row">
-					  <h4 class="subHeading">${project.name}</h4>
+					  <h4 class="subHeading">${alt.projectRef.project.name}</h4>
 					  <div class="clearBoth"></div>
 				  </div>
+
 				  <div class="listRow row">
 					  <div class="projCol1 floatLeft">
-							
-						  <c:forEach var="alt" items="{project.projectAlternatives}" varStatus="loop">
-							<div class="floatLeft">${alt.name} </div>
-						  </c:forEach>
+							<div class="floatLeft">${alt.alternative.name}</div>	  
 					  </div>
-					  <div class="projCol2 floatLeft">$5 billion</div>
-					  <div class="projCol3 floatRight">King</div>
-					  <div class="clearBoth"></div>
+					  <div class="projCol2 floatLeft"> $<fmt:formatNumber type="number" maxFractionDigits="1" value="${alt.alternative.cost/1000000}" /> Million</div>
+					  <div class="projCol3 floatRight">${alt.alternative.county}</div>
+					  <div class="clearBoth"></div>	 
 				  </div>
+
 		    </c:forEach>
 				
 			  <!--End project list -->
@@ -611,28 +608,23 @@ After a period of discussion about the relevance of the improvement factors to t
 					</div>
 					<div class="clearBoth"></div>
 				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Gas Tax</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="fundingCol1 floatLeft">
-						<div class="floatLeft">2.3 cent increase per gallon</div>
+				
+				
+				<c:forEach var="fundAlt" items="${pp.fundAltRefs}" varStatus="loop">
+					<div class="listRow row">
+						<h4 class="subHeading">${fundAlt.alternative.source.name}</h4>
+						<div class="clearBoth"></div>
 					</div>
-					<div class="fundingCol2 floatRight">400 million</div>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<h4 class="subHeading">Sales Tax</h4>
-					<div class="clearBoth"></div>
-				</div>
-				<div class="listRow row">
-					<div class="fundingCol1 floatLeft">
-						<div class="floatLeft">0.07% increase</div>
+					<div class="listRow row">
+						<div class="fundingCol1 floatLeft">
+							<div class="floatLeft">${fundAlt.alternative.name}</div>
+						</div>
+						<div class="fundingCol2 floatRight">$<fmt:formatNumber type="number" maxFractionDigits="1" value="${fundAlt.alternative.revenue/1000000}" /> Million</div>
+						<div class="clearBoth"></div>
 					</div>
-					<div class="fundingCol2 floatRight">1000 million</div>
-					<div class="clearBoth"></div>
-				</div>
+				</c:forEach>
+				
+				
 				<!-- end funding sources table -->
 				<br />
 			</div>
@@ -746,7 +738,8 @@ After a period of discussion about the relevance of the improvement factors to t
 							<div class="projCol1 floatLeft">
 								<div class="floatLeft">${altRef.alternative.name}</div>
 							</div>
-							<div class="projCol2 floatRight">$<fmt:formatNumber type="number">${altRef.alternative.cost}</fmt:formatNumber> Million</div>
+							<div class="projCol2 floatLeft">$<fmt:formatNumber type="number">${altRef.alternative.cost/1000000}</fmt:formatNumber> Million</div>
+							<div class="projCol3 floatRight">${altRef.alternative.county}</div>
 							<div class="clearBoth"></div>
 						</div>
 					</c:forEach>
@@ -778,7 +771,8 @@ After a period of discussion about the relevance of the improvement factors to t
 							<div class="fundingCol1 floatLeft">
 								<div class="floatLeft">${altRef.alternative.name}</div>
 							</div>
-							<div class="fundingCol2 floatRight">$<fmt:formatNumber type="number">${altRef.alternative.revenue}</fmt:formatNumber> Million</div>
+							<div class="fundingCol2 floatRight">$<fmt:formatNumber type="number">${altRef.alternative.revenue/1000000}</fmt:formatNumber> Million</div>
+							
 							<div class="clearBoth"></div>
 						</div>
 					</c:forEach>

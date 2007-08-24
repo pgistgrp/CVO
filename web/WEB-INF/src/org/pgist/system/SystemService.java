@@ -103,5 +103,6 @@ public interface SystemService {
     
     Collection getAnnouncements(Long workflowId) throws Exception;
     
+    Collection getTransTypes() throws Exception;
     
 }//interface SystemService

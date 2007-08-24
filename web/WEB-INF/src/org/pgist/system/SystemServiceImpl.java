@@ -142,7 +142,9 @@ public class SystemServiceImpl implements SystemService {
         	user.setVocation(vocation);
         }
         if(!("".equals(primaryTransport.trim()))) {
-        	user.setPrimaryTransport(primaryTransport);
+        	Long transId = Long.parseLong(primaryTransport);
+        	RegisterObject transtype = (RegisterObject) systemDAO.load(RegisterObject.class, transId);
+        	user.setPrimaryTransport(transtype);
         }
         if(!("".equals(profileDesc.trim()))) {
         	user.setProfileDesc(profileDesc);
@@ -352,5 +354,8 @@ public class SystemServiceImpl implements SystemService {
     	return systemDAO.getAnnouncements(workflowId);
     }
     
+    public Collection getTransTypes() throws Exception {
+    	return systemDAO.getTransTypes();
+    }
     
 }//class SystemServiceImpl

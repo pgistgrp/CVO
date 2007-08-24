@@ -1472,6 +1472,12 @@ INSERT INTO pgist_register_object (id, "type", value, used) VALUES (3877, 'incom
 INSERT INTO pgist_register_object (id, "type", value, used) VALUES (3878, 'income', '$50,000-$74,999', false);
 INSERT INTO pgist_register_object (id, "type", value, used) VALUES (3879, 'income', '$75,000-$99,999', false);
 INSERT INTO pgist_register_object (id, "type", value, used) VALUES (3880, 'income', '$100,000 or more', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2508, 'transport', 'Bus or Transit', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2509, 'transport', 'Carpool or Vanpool', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2510, 'transport', 'Drive Alone', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2511, 'transport', 'Ferry', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2512, 'transport', 'Walk or Bike', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2513, 'transport', 'Other', false);
 
 
 -- Completed on 2007-07-06 02:43:07 Pacific Daylight Time

@@ -37,6 +37,7 @@ public class ProfileAction extends Action {
 		UserForm uform = (UserForm) form;
 		User userInfo = systemService.getCurrentUser();
     	request.setAttribute("user", userInfo);
+    	request.setAttribute("transtypes", systemService.getTransTypes());
     	
 		if (!uform.isSave()) return mapping.findForward("usercp");
 		

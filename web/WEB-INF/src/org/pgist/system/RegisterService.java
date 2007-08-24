@@ -62,4 +62,7 @@ public interface RegisterService {
 	Collection getRegisterObjectByType(String type) throws Exception;
 	
 	void createRegisterObjects(String type, String[] valuelist) throws Exception;
+	
+	Collection getTransTypes() throws Exception;
+
 }

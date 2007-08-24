@@ -298,6 +298,11 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     	return getHibernateTemplate().find(hql_getAnnouncements, workflowId);
     }
     
-
+    
+    private static final String hql_getTransTypes = "from RegisterObject ro where ro.type=? order by ro.value desc";
+    
+    public Collection getTransTypes() throws Exception {
+    	return getHibernateTemplate().find(hql_getTransTypes, "transport");
+    }
     
 }//class SystemDAOImpl

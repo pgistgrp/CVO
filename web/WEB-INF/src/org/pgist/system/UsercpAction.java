@@ -37,6 +37,7 @@ public class UsercpAction extends Action {
 		User userInfo = systemService.getCurrentUser();
 		
     	request.setAttribute("user", userInfo);
+    	request.setAttribute("transtypes", systemService.getTransTypes());
     	
 		if (!uform.isSave()) return mapping.findForward("usercp");
 	

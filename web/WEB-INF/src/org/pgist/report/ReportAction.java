@@ -184,22 +184,13 @@ public class ReportAction extends Action {
     	
     	//get Project refs
     	Set projRefs = reportService.getProjRefbySuiteId(projSuiteId);
-    	ProjectSuite ps = projectService.getProjectSuite(projSuiteId);
+    	//ProjectSuite ps = projectService.getProjectSuite(projSuiteId);
     	
     	//Get clustered packages vote suite stats
     	PackageVoteSuite vSuite = packageService.getPackageVoteSuite(voteSuiteId);
     	
-    	//Get DTO objects
-    	User u = reportService.getUserById(WebUtils.currentUserId()); 
-    	List prpDTO = packageService.createPackageRoadProjectDTOs(pp, critSuiteId, projSuiteId, u);
-    	System.out.println("***ReportAction PPID" + pp.getId() + " crit " + critSuiteId + " proj " + projSuiteId + " user " + u.getLoginname() + "dto = " + prpDTO);
-    	List ptpDTO = packageService.createPackageTransitProjectDTOs(pp, critSuiteId, projSuiteId, u);
-    	
-    	
     	
     	//Sets the Criteria References which contain criteria and grades.
-    	request.setAttribute("packageRoadProjects", prpDTO);
-    	request.setAttribute("packageTransitProjects", ptpDTO);
     	request.setAttribute("voteSuite", vSuite);  
     	request.setAttribute("summaries", summaries);
     	request.setAttribute("cr", cr);

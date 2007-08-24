@@ -56,4 +56,6 @@ public interface RegisterDAO extends BaseDAO {
     
     void createRegisterObjects(String type, String[] valuelist) throws Exception;
     
+    Collection getTransTypes() throws Exception;
+    
 }

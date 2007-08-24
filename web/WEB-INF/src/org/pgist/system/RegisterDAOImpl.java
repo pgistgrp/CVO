@@ -444,4 +444,10 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     	save(trip);
     }
 	
+    private static final String hql_getTransTypes = "from RegisterObject ro where ro.type=? order by ro.value desc";
+    
+    public Collection getTransTypes() throws Exception {
+    	return getHibernateTemplate().find(hql_getTransTypes, "transport");
+    }
+    
 }

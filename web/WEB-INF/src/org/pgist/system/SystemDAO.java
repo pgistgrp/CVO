@@ -86,5 +86,6 @@ public interface SystemDAO extends BaseDAO {
     
     Collection getAnnouncements(Long workflowId) throws Exception;
     
+    Collection getTransTypes() throws Exception;
     
 }//interface SystemDAO

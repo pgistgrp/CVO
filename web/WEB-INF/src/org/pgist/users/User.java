@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.pgist.funding.UserCommute;
 import org.pgist.util.MD5;
+import org.pgist.system.RegisterObject;
 
 
 /**
@@ -174,12 +175,12 @@ public class User extends BaseUser {
      */
     private UserCommute commute;
     
+  
     /**
      * <span style="color:blue;">(Column.)</span>
      * primaryTransport. The user's primary method of transportation:
      */
-    protected String primaryTransport = "";
-  
+    protected RegisterObject primaryTransport;
     
     
     /**
@@ -534,18 +535,18 @@ public class User extends BaseUser {
     
     /**
      * @return
-     * @hibernate.property unique="false" not-null="false"
+     * @hibernate.many-to-one column="primary_transport_id" lazy="true"
      */
-    public String getPrimaryTransport() {
-        return primaryTransport;
-    }
+	public RegisterObject getPrimaryTransport() {
+		return primaryTransport;
+	}
 
 
-    public void setPrimaryTransport(String primaryTransport) {
-        this.primaryTransport = primaryTransport;
-    }
-    
-    
+	public void setPrimaryTransport(RegisterObject primaryTransport) {
+		this.primaryTransport = primaryTransport;
+	}
+
+	
     /*
      * ------------------------------------------------------------------------
      */
