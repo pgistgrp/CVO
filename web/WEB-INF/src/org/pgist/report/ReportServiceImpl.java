@@ -125,4 +125,10 @@ public class ReportServiceImpl implements ReportService{
 		return reportDAO.getUserById(id); 
 	 }
 	 
+	 
+	 public int getNumUsers() throws Exception {
+		 
+		 return reportDAO.getNumUsers();
+	 }
+	 
 }

@@ -39,4 +39,7 @@ public interface ReportDAO extends BaseDAO {
 	
 	User getUserById(Long id) throws Exception;
 	
+	int getNumUsers() throws Exception;
+	
+	
 }

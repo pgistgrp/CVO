@@ -216,5 +216,37 @@ public class ReportAgent {
     }
     
     
+    /**
+     * Get the number of users (testing only)
+     * 
+     * @param a map contains:
+     * 
+     * @return a map contains:
+     *   <ul>
+     *     <li>num - number of users</li>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map getNumUsers(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+
+
+        try {
+        	
+        	int num = reportService.getNumUsers();
+        	
+            map.put("num", num);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }
+    
     
 } //ReportAgent

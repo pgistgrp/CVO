@@ -461,7 +461,6 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		save(repoSuite);
 	}
 	
-	private static final String hql_createStatsES = "from User u";
 		
 	public void createStatsES(Long workflowId, Long repoSuiteId, Long packSuiteId) throws Exception {
 		System.out.println("***Excecute CreateStatsES()*");
@@ -469,10 +468,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		ReportStats rs = new ReportStats();
 		System.out.println("***ES start total users");
 		
-		//Find the number of users in the entire system - admin and moderators currently count
-		List userlist = getHibernateTemplate().find(hql_createStatsES);	
-		
-		rs.setTotalUsers(userlist.size());
+		//rs.setTotalUsers(this.getNumUsers());
 		System.out.println("***ES finish total users");
 		PackageSuite ps = (PackageSuite) load(PackageSuite.class, packSuiteId);
 		
@@ -657,7 +653,13 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	public User getUserById(Long id) throws Exception {
 		return (User)load(User.class, id);
 	}
+	
+	
+	private static final String hql_getNumUsers = "from User u";
 
-
+	public int getNumUsers() throws Exception {
+		List userlist = getHibernateTemplate().find(hql_getNumUsers);	
+		return userlist.size();
+	}
 	
 }
