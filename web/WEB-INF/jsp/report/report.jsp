@@ -109,16 +109,12 @@ function pollresults() {
 							</div>		
 						</div>
 						<!--hidden poll results -->
-						<div id="pollresults" class="box6 clearfix" style="display:none;">
-							<h3>Poll Results</h3>
-							<div class="left">
-								Text Here<br/>
-							</div>
-						  <div class="right">
-								<p>Text Here</p>
-							</div>		
+						<div id="pollresults" class="clearfix" style="display:none;">
+							
+								
 						</div>
-						
+						<br>
+
 					</c:when>
 					<c:otherwise>
 					</c:otherwise>
@@ -382,6 +378,7 @@ After a period of discussion about the relevance of the improvement factors to t
 				
 				<c:set var="altRefs" value="${projectRef.altRefs}" />
 				<c:forEach var="altRef" items="${altRefs}" varStatus="loop">
+				<c:if test="${altRef.alternative.numVotes > 0}">
 				<tr class="project-options">
 					<td class="col1">${altRef.alternative.name}</td>
 					<td class="col2">$<fmt:formatNumber type="number" maxFractionDigits="1" value="${altRef.alternative.cost/1000000}" /> million</td>
@@ -399,6 +396,7 @@ After a period of discussion about the relevance of the improvement factors to t
 					</c:choose>					
 
 				</tr>
+				</c:if>
 				</c:forEach>
 			</c:forEach>
 		</table>
@@ -427,6 +425,7 @@ After a period of discussion about the relevance of the improvement factors to t
 				
 				<c:set var="altRefs" value="${fundingRef.altRefs}" />
 				<c:forEach var="altRef" items="${altRefs}" varStatus="loop">
+				<c:if test="${altRef.alternative.numVotes > 0}">
 				<tr class="project-options">
 					<td class="col1">${altRef.alternative.name}</td>
 					<td class="col2">$<fmt:formatNumber type="number">${altRef.alternative.revenue}</fmt:formatNumber>  million</td>
@@ -443,6 +442,7 @@ After a period of discussion about the relevance of the improvement factors to t
 						</c:otherwise>
 					</c:choose>	
 				</tr>
+				</c:if>
 				</c:forEach>
 			</c:forEach>
 		</table>
