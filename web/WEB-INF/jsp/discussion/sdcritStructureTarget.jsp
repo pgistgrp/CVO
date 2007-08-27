@@ -78,7 +78,7 @@
 		    </div>
 		    <div class="criteriaCol3 floatLeft">
 		      <!--themes-->
-              <c:if test="${fn:length(infoObj.object.criterion.infoObjects) == 0}"> None Selected </c:if>
+              <c:if test="${fn:length(infoObj.object.criterion.infoObjects) == 0}"> &nbsp; </c:if>
               <c:forEach var="themeRef" items="${infoObj.object.criterion.infoObjects}" varStatus="loop2">
                 ${themeRef.object.theme.title}<br />
               </c:forEach>
@@ -90,7 +90,7 @@
 		    <div class="objectives" id="row${loop.index}" style="display:none;"><br /><strong>Objectives:</strong>
 		      <ul class="smallText">
 		        <c:if test="${fn:length(infoObj.object.criterion.objectives) == 0}">
-		          <li>None Selected</li>
+		          <li>&nbsp;</li>
 		        </c:if>
 		        <c:forEach var="objective" items="${infoObj.object.criterion.objectives}" varStatus="loop">
 		          <li>${objective.description}</li>

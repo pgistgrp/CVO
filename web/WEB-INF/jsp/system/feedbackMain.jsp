@@ -2,6 +2,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
@@ -57,17 +58,10 @@
 </script><event:pageunload />
 </head><body onLoad="getFeedbacks();">
 
- <!-- Begin the header - loaded from a separate file -->
-  <div id="header">
-	<!-- Begin header -->
-	<jsp:include page="/header.jsp" />
-	<!-- End header -->
-  </div>
-  <!-- End header -->
-  <!-- Begin header menu - The wide ribbon underneath the logo -->
-  <div id="headerMenu">
-  </div>
-  <!-- End header menu -->
+  <!-- Start Global Headers  -->
+  <wf:nav />
+  <wf:subNav />
+  <!-- End Global Headers -->
   
   <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
   
@@ -87,10 +81,8 @@
   <pg:feedback id="feedbackDiv" action="cctView.do"/>
 <!-- end feedback form -->
 
-  <!-- Begin header menu - The wide ribbon underneath the logo -->
-  <div id="headerMenu">
-
-  </div>
+  <wf:subNav />
+  <!-- End Global Headers -->
 
 	<!-- Begin footer -->
 	<div id="footer">

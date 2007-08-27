@@ -40,7 +40,7 @@
 	<!-- end overview -->
 	
 	
-	<h3 class="headerColor clearBoth">Let’s Improve Transportation DRAFT Report: Executive Summary</h3>
+	<h3 class="headerColor clearBoth">Let's Improve Transportation DRAFT Report: Executive Summary</h3>
 
 	<!-- Begin voting tally menu -->
 	<div id="votingMenu" class="floatLeft"><div id="voting-structure${infoStructure.id}">
