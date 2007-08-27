@@ -245,7 +245,7 @@ public class TaggingAgent {
         }
 
         try {
-            Collection tags = taggingService.getTags(setting, false);
+            Collection tags = taggingService.getTags(setting, true);
             request.setAttribute("tags", tags);
             request.setAttribute("setting", setting);
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/tagging/tags.jsp"));

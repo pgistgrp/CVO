@@ -68,8 +68,8 @@ public class ClusteredPackage extends Package {
 	/**
 	 * @param avgResidentCost the avgResidentCost to set
 	 */
-	public void setAvgResidentCost(float totalCostForAvgResident) {
-		this.avgResidentCost = totalCostForAvgResident;
+	public void setAvgResidentCost(float avgResidentCost) {
+		this.avgResidentCost = avgResidentCost;
 	}
 
 

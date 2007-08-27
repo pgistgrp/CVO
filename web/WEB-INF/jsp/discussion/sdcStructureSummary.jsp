@@ -13,6 +13,6 @@
   <pg:sort name="infoObjects" items="${infoStructure.infoObjects}" key="object.category.name" />
   <c:forEach var="infoObject" items="${infoObjects}">
 	     <p>${infoObject.object}</p>
-	</c:forEach>	
+  </c:forEach>	
 
 </pg:fragment>

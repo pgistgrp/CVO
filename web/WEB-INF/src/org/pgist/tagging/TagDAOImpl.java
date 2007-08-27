@@ -95,7 +95,7 @@ public class TagDAOImpl extends BaseDAOImpl implements TagDAO {
         
         if (list == null || list.size() == 0) return result;
 
-        int total = ((Integer) list.get(0)).intValue();
+        int total = ((Number) list.get(0)).intValue();
         if (setting.getRowOfPage() == -1) setting.setRowOfPage(total);
         setting.setRowSize(total);
 

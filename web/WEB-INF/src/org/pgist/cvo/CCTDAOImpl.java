@@ -121,7 +121,7 @@ public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
         List list = getHibernateTemplate().find(getRandomConcerns1, new Object[] {new Boolean(false), cctId, userId});
         if (list==null || list.size()==0) return result;
         
-        int total = ((Integer) list.get(0)).intValue();
+        int total = ((Number) list.get(0)).intValue();
         if (setting.getRowOfPage()==-1) setting.setRowOfPage(total);
         setting.setRowSize(total);
         
@@ -175,7 +175,7 @@ public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
             default:
         }
         
-        if (list!=null && list.size()>0) return ((Integer)list.get(0)).intValue();
+        if (list!=null && list.size()>0) return ((Number)list.get(0)).intValue();
         
         return 0;
     }//getConcernsTotal()

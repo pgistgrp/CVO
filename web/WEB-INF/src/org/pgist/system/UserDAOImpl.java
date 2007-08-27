@@ -144,7 +144,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
         list = query.list();
         
         if (list.size()>0) {
-            setting.setRowSize(((Integer)list.get(0)).intValue());
+            setting.setRowSize(((Number)list.get(0)).intValue());
             
             hql.append(" order by user.id");
             query = session.createQuery(hql.toString());
@@ -181,7 +181,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
         list = query.list();
         
         if (list.size()>0) {
-            setting.setRowSize(((Integer)list.get(0)).intValue());
+            setting.setRowSize(((Number)list.get(0)).intValue());
             
             query = session.createQuery(hql.toString());
             query.setBoolean("enabled", enabled);
@@ -349,7 +349,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
         list = query.list();
         
         if (list.size()>0) {
-            setting.setRowSize(((Integer)list.get(0)).intValue());
+            setting.setRowSize(((Number)list.get(0)).intValue());
             
             query = session.createQuery(hql.toString());
             query.setBoolean("deleted", false);

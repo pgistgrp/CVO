@@ -1174,6 +1174,8 @@ public class PackageServiceImpl implements PackageService {
         
         ArrayList<Item> items = new ArrayList<Item>();
         Iterator<UserPackage> iUPack = pSuite.getUserPkgs().iterator();
+        
+        //filter out invalid packages
         UserPackage tempPkg;
         while(iUPack.hasNext()) {
         	tempPkg = iUPack.next();
@@ -1375,7 +1377,7 @@ public class PackageServiceImpl implements PackageService {
 						//Do nothing, the user hates this option
 						break;
 				}				
-			}			
+			}
 			
 			if(choices.getChoices().size() > 0) {
 				choiceCol.add(choices);
