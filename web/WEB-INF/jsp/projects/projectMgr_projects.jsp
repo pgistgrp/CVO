@@ -58,7 +58,7 @@
 						</div>
 						<div id="alternativeMap${alternative.id}">
 							<!-- map for this alt goes here -->
-						</div>
+						</div></span>
 					</li>
 				</c:forEach>
 				<!-- for creating project alt-->
