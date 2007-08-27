@@ -201,7 +201,7 @@
     
     function loadFootprints(){
         if(fpidlist.length > 0){
-            fpidlist = fpidlist.substring(1, fpidlist.length-1);  //get rid of the first comma
+            fpidlist = fpidlist.substring(1, fpidlist.length);  //get rid of the first comma
             ProjectAgent.getFootprints({fpids:fpidlist}, {
                 callback:function(data){
                     if (data.successful){
@@ -259,7 +259,8 @@
         <c:forEach var="altRef" items="${infoObject.object.altRefs}" varStatus="loop">
             prjaltlist.push({"id":"${altRef.id}", "fpids":"${altRef.alternative.fpids}", "mode":"${altRef.alternative.project.transMode}",
                              "name_p":"${infoObject.object.project.name}", "name_a":"${altRef.alternative.name}"}); 
-            fpidlist += "," + "${altRef.alternative.fpids}";
+            fpids = "${altRef.alternative.fpids}";
+	    if(fpids.length > 0)fpidlist += "," + fpids;
         </c:forEach>
     </c:forEach>
     loadFootprints();
