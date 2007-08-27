@@ -16,7 +16,7 @@
 <script type='text/javascript' src='/dwr/util.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/TaggingAgent.js'></script>
-
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <script type="text/javascript">
 	window.onload(doOnLoad());
 
@@ -335,56 +335,17 @@ TaggingAgent.searchTags({name:tag},{
 <body>
 
 <!-- HEADER -->
-<div id="decorBar"></div>
+  <!-- Start Global Headers  -->
+  <wf:nav />
+  <wf:subNav />
+  <!-- End Global Headers -->
 <div id="container">
-
-<div id="searchNavContiner">
-		<div id="logo" style="top: 30px;"><img src="/images/logo2.png" alt="logo" border="0"></div>
-		<div id="authentication">Welcome, ${baseuser.firstname} [&nbsp;<a href="/logout.do">logout</a>&nbsp;]</div>
-		<div id="mainSearch">
-				<form name="mainSearch" method="post" onSubmit="search();">
-					<input type="text" ID="tbx1" class="searchBox" style="padding-left: 5px; padding-right:20px; background: url('/images/search.gif') no-repeat right;" value="Search" onfocus="this.value = ( this.value == this.defaultValue ) ? '' : this.value;return true;">
-				</form>
-		</div>
-	  <div id="navContent" class="navigation">
-	  	<ul>
-	  		<li><a href="modHome.jsp">Home</a></li>
-				<li><a href-"modAgendaManager.jsp">Agenda Manager</a></li>
-				<li><span class="active"><a href="modDatabases.jsp">Databases</a></span></li>
-				<li><a href="modSynthesize.jsp">Synthesize Concerns</a></li>
-				<li><a href="modDiscussion.jsp">Manage Discussion</a></li>
-			</ul>
-		</div>
-</div>
-<!-- END HEADER -->
 
 
 	<!-- LIGHTBOX -->
 	<div id="overlay"></div>
 	<div id="lightbox"></div>
 	<!-- END LIGHTBOX -->
-	<div id="pageTitle">
-	<p><a href="main.do">Back to Moderator Control Panel</a></p>
-	<h2>Moderator Dashboard: </h2><h3>Stop Word and Tag Database Management Tool</h3>
-		<div id="bread">
-		<ul>
-			<li class="first"><a href="null">Moderator Dashboard</a>
-				<ul>
-					<li>&#187; <a href="null">Databases</a></li>
-						<ul>
-								<li>&#187; <a href="null">Stop Word and Tag Database Management Tool</a></li>
-						</ul>
-				</ul>
-			</li>
-		</ul>
-		</div>
-	</div>
-
-	 <div id="overview">
-		  	<h4>Overview and Instructions</h4>
-		  	<p class="indent"><strong>Overview: </strong>${cctForm.cct.purpose}</p>
-		  	<p class="indent"><strong>Instructions: </strong>${cctForm.cct.instruction}</p>
-	 </div>
 
 	
 	<div class="tabber" id="myTab">
@@ -459,10 +420,9 @@ TaggingAgent.searchTags({name:tag},{
 </div>
  <div id="caughtException"><h2>A Problem has Occured</h2><br>We are sorry but there was a problem accessing the server to complete your request.  <b>Please try refreshing the page.</b></div>
 </div>
-<div id="footerContainer">
-	<div id="footer"><a href="http://www.pgist.org" target="_blank"><img src="/images/footer_pgist.jpg" alt="Powered by the PGIST Portal" border="0" align="right"></a></div>
-	<div id="nsf">This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.</div>
-</div>
+  <!-- Start Global Headers  -->
+  <wf:subNav />
+  <!-- End Global Headers -->
 </body>
 </html>
 
