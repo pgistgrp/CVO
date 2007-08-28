@@ -664,7 +664,7 @@ public class CriteriaAgent {
         		request.setAttribute("infoObjects", infoObjects); 
         		map.put("infoObjects", infoObjects);
         		request.setAttribute("isid", isid); 
-        	} 
+        	}
         	
         	request.setAttribute("cctId", cctId); 
         	request.setAttribute("criteria", criteria); 

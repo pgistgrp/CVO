@@ -375,7 +375,7 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
 
     public Set getInfoObjects(Long isid) throws Exception {
     	InfoStructure is = (InfoStructure) load(InfoStructure.class, isid);	
-    	return is.getInfoObjects();
+    	return new HashSet(is.getInfoObjects());
     }
     
     

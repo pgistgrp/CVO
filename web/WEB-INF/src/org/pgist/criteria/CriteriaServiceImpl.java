@@ -231,7 +231,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     
     
     public Collection getOrphanInfoObjects(Long suiteId, Long isid) throws Exception {
-    	Collection infoObjects = getInfoObjects(isid);
+    	Collection infoObjects = criteriaDAO.getInfoObjects(isid);
     	
     	return criteriaDAO.getOrphanInfoObjects(suiteId, infoObjects);
     }
@@ -240,5 +240,6 @@ public class CriteriaServiceImpl implements CriteriaService {
     public Set getInfoObjects(Long isid) throws Exception {
     	return criteriaDAO.getInfoObjects(isid);
     }
+    
     
 }//class CriteriaServiceImpl

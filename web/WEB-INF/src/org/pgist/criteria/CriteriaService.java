@@ -90,6 +90,6 @@ public interface CriteriaService {
     
     
     Set getInfoObjects(Long isid) throws Exception;
-   
+    
     
 }//interface CriteriaService
