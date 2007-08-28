@@ -413,6 +413,7 @@ public class PackageAgent {
      *           <li>package - a UserPackage object</li>
      *         </ul>
      *     </li>
+     *     <li>valid - boolean, package.valid</li>
      *   </ul>
      */
     public Map getSummary(HttpServletRequest request, Map params) {
@@ -423,9 +424,10 @@ public class PackageAgent {
             Long pkgId = new Long((String) params.get("pkgId"));
             UserPackage userPkg = this.packageService.getUserPackage(pkgId);
             request.setAttribute("package", userPkg);
-            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/createPackage_summary.jsp"));            
-            map.put("successful", true);
             
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/packages/createPackage_summary.jsp"));            
+            map.put("valid", userPkg.isValid());
+            map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
