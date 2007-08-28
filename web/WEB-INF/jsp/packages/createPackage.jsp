@@ -63,6 +63,7 @@
 			var fundSuiteId = "${fundSuiteId}";
 			var projSuiteId = "${projSuiteId}";
 			var pkgSuiteId = "${pkgSuiteId}";
+			var pkgValid = null;
 			//End Global Vars
 
 			function setFundingToPkg(altRefId,checked){
@@ -245,6 +246,8 @@
 					location.href='packageMgr.do?pkgSuiteId='+pkgSuiteId+'&projSuiteId='+projSuiteId+'&fundSuiteId='+fundSuiteId+'&critSuiteId='+critSuiteId;
 				}
 			}
+			
+
 
 			/* *************** START MAPPING FUNCTIONS *************** */
 			var fpidlist = "";
@@ -420,18 +423,21 @@
 				clearBottom();
 			}
 			
-			function clearBottom(){ // Move the map so that it's not below the funding table
-				if(mapPositionBottom >= fundingPositionBottom){
-						$('themap').style.top = (fundingPositionBottom - 629) + 'px';
-					}
-			}
+		function clearBottom(){ // Move the map so that it's not below the funding table
+			if(mapPositionBottom >= fundingPositionBottom){
+					$('themap').style.top = (fundingPositionBottom - 629) + 'px';
+				}
+		}
 
-function updateMapSum(){
-	var theSum = $('sum').firstChild.nodeValue;
-	$('mapSum').innerHTML = theSum;
-	var balanceBG = $('balance').style.backgroundColor;
-	$('mapSumContainer').style.backgroundColor = balanceBG;
-}			
+        function updateMapSum(){
+        	var theSum = $('sum').firstChild.nodeValue;
+        	$('mapSum').innerHTML = theSum;
+        	var balanceBG = $('balance').style.backgroundColor;
+        	$('mapSumContainer').style.backgroundColor = balanceBG;
+        }			
+            
+
+
 	/* *************** END MAPPING FUNCTIONS *************** */
 </script>
 </head>

@@ -20,7 +20,7 @@
 	</style>
     <style type="text/css">v\:* {behavior:url(#default#VML);}</style>
 	<!-- End Site Wide CSS -->
-	<!-- Site Wide JS -->
+	<!-- Site Wide JS --> 
 	<script src="scripts/prototype.js" type="text/javascript"></script>
 	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 	<script src="scripts/search.js" type="text/javascript"></script>
