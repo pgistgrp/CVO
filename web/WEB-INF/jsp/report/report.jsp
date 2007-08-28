@@ -228,7 +228,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 					</c:when>
 					<c:otherwise>
 					
-					<fmt:formatNumber type="percent">${statsPart1.males / statsPart1.totalUsers}</fmt:formatNumber> Male,
+					<fmt:formatNumber type="percent">${statsPart1.males / statsPart1.totalUsers}</fmt:formatNumber> Male<br/>
 					<fmt:formatNumber type="percent">${statsPart1.females / statsPart1.totalUsers}</fmt:formatNumber> Female
 					</c:otherwise>
 				</c:choose>
@@ -245,7 +245,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 					<c:otherwise>
 
 					<c:forEach var="county" items="${statsPart1.counties}" varStatus="loop">
-						<fmt:formatNumber type="percent">${statsPart1.countyStats[county]/statsPart1.totalUsers}</fmt:formatNumber> ${county.name},					
+						<fmt:formatNumber type="percent">${statsPart1.countyStats[county]/statsPart1.totalUsers}</fmt:formatNumber>: ${county.name}<br/>				
 					</c:forEach>
 					
 					</c:otherwise>
@@ -261,8 +261,8 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 					<c:otherwise>
 
 					<c:forEach var="transport" items="${statsPart1.transTypes}" varStatus="loop">
-						<fmt:formatNumber type="percent">${statsPart1.transportStats[transport]/statsPart1.totalUsers}</fmt:formatNumber>
-						  ${transport},
+						<fmt:formatNumber type="percent">${statsPart1.transportStats[transport]/statsPart1.totalUsers}</fmt:formatNumber>: 
+						  ${transport}<br/>
 					</c:forEach>
 					</c:otherwise>
 				</c:choose>
@@ -278,7 +278,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 					<c:otherwise>
 
 					<c:forEach var="income" items="${statsPart1.incomeRanges}" varStatus="loop">
-						<fmt:formatNumber type="percent">${statsPart1.incomeStats[income]/statsPart1.totalUsers}</fmt:formatNumber> ${income}, 
+						<fmt:formatNumber type="percent">${statsPart1.incomeStats[income]/statsPart1.totalUsers}</fmt:formatNumber>: ${income}<br/>
 					</c:forEach>
 					</c:otherwise>
 				</c:choose>
@@ -428,7 +428,7 @@ After a period of discussion about the relevance of the improvement factors to t
 				<c:if test="${altRef.alternative.numVotes > 0}">
 				<tr class="project-options">
 					<td class="col1">${altRef.alternative.name}</td>
-					<td class="col2">$<fmt:formatNumber type="number">${altRef.alternative.revenue}</fmt:formatNumber>  million</td>
+					<td class="col2">$<fmt:formatNumber maxFractionDigits="1" value="${altRef.alternative.revenue/1000000}" /> million</td>
 					<td class="col3">${altRef.alternative.avgCost}</td>
 					<c:set var="yesVotes" value="${altRef.alternative.yesVotes}" />
 					<c:set var="numVotes" value="${altRef.alternative.numVotes}" />
@@ -468,7 +468,7 @@ After a period of discussion about the relevance of the improvement factors to t
 					</c:when>
 					<c:otherwise>
 					
-					<fmt:formatNumber type="percent">${statsPart4.males / statsPart4.totalUsers}</fmt:formatNumber> Male,
+					<fmt:formatNumber type="percent">${statsPart4.males / statsPart4.totalUsers}</fmt:formatNumber> Male<br/>
 					<fmt:formatNumber type="percent">${statsPart4.females / statsPart4.totalUsers}</fmt:formatNumber> Female
 					</c:otherwise>
 				</c:choose>
@@ -619,7 +619,7 @@ After a period of discussion about the relevance of the improvement factors to t
 						<div class="fundingCol1 floatLeft">
 							<div class="floatLeft">${fundAlt.alternative.name}</div>
 						</div>
-						<div class="fundingCol2 floatRight">$<fmt:formatNumber type="number" maxFractionDigits="1" value="${fundAlt.alternative.revenue/1000000}" /> Million</div>
+						<div class="fundingCol2 floatRight">$<fmt:formatNumber type="number" maxFractionDigits="1" value="${fundAlt.alternative.revenue/1000000}" /> million</div>
 						<div class="clearBoth"></div>
 					</div>
 				</c:forEach>
@@ -701,7 +701,7 @@ After a period of discussion about the relevance of the improvement factors to t
 	<!-- Begin Appendix C -->
 	<div id="appendixC" class="box3 padding5 section"><a name="appendixC"></a>
 		<h3 class="headingColor padding5 centerAlign">Appendix C: The ${fn:length(cp)} candidate packages</h3>
-		<p>After every participant submitted their package in step 3c, a statistical procedure was used to identify a small set of "candidate" packages that best represented the diversity of packages created by all participants.  The statistical procedure is called "cluster analysis".  In this procedure, all of the participant packages were separated into clusters (subgroups of packages) based on the package’s project and funding selections.  Then, for each cluster, one representative package was identified as a candidate package. (Kaufman and Rousseeuw, 1990).</p>
+		<p>After every participant submitted their package in step 3c, a statistical procedure was used to identify a small set of "candidate" packages that best represented the diversity of packages created by all participants.  The statistical procedure is called "cluster analysis".  In this procedure, all of the participant packages were separated into clusters (subgroups of packages) based on the packageâ€™s project and funding selections.  Then, for each cluster, one representative package was identified as a candidate package. (Kaufman and Rousseeuw, 1990).</p>
 		
 			
 			<c:forEach var="cPkg" items="${cp}" varStatus="loop">
@@ -771,8 +771,7 @@ After a period of discussion about the relevance of the improvement factors to t
 							<div class="fundingCol1 floatLeft">
 								<div class="floatLeft">${altRef.alternative.name}</div>
 							</div>
-							<div class="fundingCol2 floatRight">$<fmt:formatNumber type="number">${altRef.alternative.revenue/1000000}</fmt:formatNumber> Million</div>
-							
+							<div class="fundingCol2 floatRight">$<fmt:formatNumber maxFractionDigits="1" value="${altRef.alternative.revenue/1000000}" /> million</div>
 							<div class="clearBoth"></div>
 						</div>
 					</c:forEach>
