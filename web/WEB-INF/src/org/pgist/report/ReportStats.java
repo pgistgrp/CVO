@@ -9,6 +9,7 @@ import java.util.Set;
 import org.pgist.packages.ClusteredPackage;
 import org.pgist.system.County;
 import org.pgist.users.User;
+import org.pgist.system.RegisterObject;
 
 /**
  * <span style="color:red;">POJO</span>: PGIST Announcement Class<br>
@@ -34,15 +35,15 @@ public class ReportStats implements Serializable{
 	
 	private Set<County> counties = new HashSet<County>();
 	
-	private Set<String> incomeRanges = new HashSet<String>();
+	private Set<RegisterObject> incomeRanges = new HashSet<RegisterObject>();
 	
-	private Set<String> transTypes = new HashSet<String>();
+	private Set<RegisterObject> transTypes = new HashSet<RegisterObject>();
 	 
 	private Map<County, Integer> countyStats = new HashMap<County, Integer>();
 	
-	private Map<String, Integer> incomeStats = new HashMap<String, Integer>();
+	private Map<RegisterObject, Integer> incomeStats = new HashMap<RegisterObject, Integer>();
 	
-	private Map<String, Integer> transportStats = new HashMap<String, Integer>();
+	private Map<RegisterObject, Integer> transportStats = new HashMap<RegisterObject, Integer>();
 	
 	private Set<User> users = new HashSet<User>();
 	
@@ -238,39 +239,39 @@ public class ReportStats implements Serializable{
 		this.males = males;
 	}
 
-
+	
     /**
      * @return
      * 
      * @hibernate.map table="pgist_report_stats_income_num_map" cascade="all"
      * @hibernate.collection-key column="reportstats_id"
-     * @hibernate.index-many-to-many column="incomeRange" class="org.pgist.users.BaseUser"
+     * @hibernate.index-many-to-many column="incomeRange" class="org.pgist.system.RegisterObject"
      * @hibernate.collection-element type="integer" column="num"
      */
-	public Map<String, Integer> getIncomeStats() {
+	public Map<RegisterObject, Integer> getIncomeStats() {
 		return incomeStats;
 	}
 
 
-	public void setIncomeStats(Map<String, Integer> incomeStats) {
+	public void setIncomeStats(Map<RegisterObject, Integer> incomeStats) {
 		this.incomeStats = incomeStats;
 	}
 
-
+	
     /**
      * @return
      * 
      * @hibernate.map table="pgist_report_stats_transport_num_map" cascade="all"
      * @hibernate.collection-key column="reportstats_id"
-     * @hibernate.index-many-to-many column="primaryTransport" class="org.pgist.users.User"
+     * @hibernate.index-many-to-many column="reg_obj_id" class="org.pgist.system.RegisterObject"
      * @hibernate.collection-element type="integer" column="num"
      */
-	public Map<String, Integer> getTransportStats() {
+	public Map<RegisterObject, Integer> getTransportStats() {
 		return transportStats;
 	}
 
 
-	public void setTransportStats(Map<String, Integer> transportStats) {
+	public void setTransportStats(Map<RegisterObject, Integer> transportStats) {
 		this.transportStats = transportStats;
 	}
 
@@ -319,32 +320,35 @@ public class ReportStats implements Serializable{
 
 	
 	/**
-	* @hibernate.set table="pgist_report_income_ranges"
-	* @hibernate.collection-key column="reportstats_id"
-	* @hibernate.collection-element type="string" column="income_range"
-	*/
+     * @return
+     * 
+     * @hibernate.set lazy="true" cascade="all" order-by="id"
+     * @hibernate.collection-key column="register_object_id"
+     * @hibernate.collection-one-to-many class="org.pgist.system.RegisterObject"
+     */
 	public Set getIncomeRanges() {
 		return incomeRanges;
 	}
 
 
-	public void setIncomeRanges(Set<String> incomeRanges) {
+	public void setIncomeRanges(Set<RegisterObject> incomeRanges) {
 		this.incomeRanges = incomeRanges;
 	}
 
 
-	
 	/**
-	* @hibernate.set table="pgist_report_trans_types"
-	* @hibernate.collection-key column="reportstats_id"
-	* @hibernate.collection-element type="string" column="trans_types"
-	*/
-	public Set<String> getTransTypes() {
+     * @return
+     * 
+     * @hibernate.set lazy="true" cascade="all" order-by="id"
+     * @hibernate.collection-key column="register_object_id"
+     * @hibernate.collection-one-to-many class="org.pgist.system.RegisterObject"
+     */
+	public Set<RegisterObject> getTransTypes() {
 		return transTypes;
 	}
 
 
-	public void setTransTypes(Set<String> transTypes) {
+	public void setTransTypes(Set<RegisterObject> transTypes) {
 		this.transTypes = transTypes;
 	}
 

@@ -23,7 +23,7 @@ public class ReportSummaryAction extends Action  {
 	            javax.servlet.http.HttpServletRequest request,
 	            javax.servlet.http.HttpServletResponse response
 	    ) throws java.lang.Exception {
-	    	
+			System.out.println("***Start Report Summary Action****");
 		 	ReportForm rForm = (ReportForm) form;
 		 	
 		 	String strReportSuiteId = request.getParameter("suite_id");

@@ -111,23 +111,24 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		}
 		
 		//Variables to store stats
-		Set<User> users = new HashSet();
-		Set<String> incomeRanges = new HashSet();
-		Map<County, Integer> countySet = new HashMap();
-		Map<String, Integer> incomeSet = new HashMap();		
-		Map<String, Integer> transportSet = new HashMap();	
+		Set<User> users = new HashSet<User>();
+		Set<RegisterObject> incomeRanges = new HashSet<RegisterObject>();
+		Map<County, Integer> countySet = new HashMap<County, Integer>();
+		Map<RegisterObject, Integer> incomeSet = new HashMap<RegisterObject, Integer>();		
+		Map<RegisterObject, Integer> transportSet = new HashMap<RegisterObject, Integer>();	
 		int male = 0;
 		int female = 0;
 		
 		//get Income ReportObjects
 		Collection regObjects = getHibernateTemplate().find(hql_createStatsPart1_3, new Object[] {"income",});
-		Iterator itRo = regObjects.iterator();
-		while(itRo.hasNext()) {
-			RegisterObject ro = (RegisterObject) itRo.next();
-			incomeRanges.add(ro.getValue());
-		}
+		incomeRanges.addAll(regObjects);
+//		Iterator itRo = regObjects.iterator();
+//		while(itRo.hasNext()) {
+//			RegisterObject ro = (RegisterObject) itRo.next();
+//			incomeRanges.add(ro);
+//		}
 		
-		Set<String> transTypes = new HashSet<String>();
+		Set<RegisterObject> transTypes = new HashSet<RegisterObject>();
 		
 		Set<Concern> concerns = cct.getConcerns();
 		System.out.println("*** Concerns" + concerns.size());
@@ -156,39 +157,38 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				}
 				
 				//Income
-				RegisterObject ro = u.getIncomeRange();
-				if(ro!=null){
-					String income = ro.getValue();
-					incomeRanges.add(income);
-		
-					if(income!=null && !("".equals(income.trim()))) {
-						if(incomeSet.get(income)==null) {
-							incomeSet.put(income, 1);
+				System.out.println("CreateStatsPart1: PrimaryTransport Username: " +u.getLoginname() + " Income Range: " + u.getIncomeRange());
+				if(u.getIncomeRange()!=null && !(u.getIncomeRange().equals(""))){
+					RegisterObject ro = u.getIncomeRange();
+					if(ro!=null) {	
+						incomeRanges.add(ro);					
+						if(incomeSet.get(ro)==null) {
+							incomeSet.put(ro, 1);
 						} else {
-							int num = incomeSet.get(income);
-							incomeSet.put(income, num+1);
+							int num = incomeSet.get(ro);
+							incomeSet.remove(ro);
+							incomeSet.put(ro, num+1);
 						}
+						
 					}
 				}
 				
 				//Primary Transport
-				RegisterObject pt = u.getPrimaryTransport();
-				if(pt!=null) {
-					String transport = pt.getValue();
-					transTypes.add(transport);
-					
-					if(transport!=null && !("".equals(transport.trim()))) {
-						
-						if(transportSet.get(transport)==null) {
-							transportSet.put(transport, 1);
+				System.out.println("CreateStatsPart1: PrimaryTransport Username: " +u.getLoginname() + " primaryTransport: " + u.getPrimaryTransport());
+				
+				if(u.getPrimaryTransport()!=null && !(u.getPrimaryTransport().equals(""))) {
+					RegisterObject pt = u.getPrimaryTransport();
+					if(pt!=null){
+						transTypes.add(pt);
+						if(transportSet.get(pt)==null) {
+							transportSet.put(pt, 1);
 						} else {
-							int num = transportSet.get(transport);
-							transportSet.put(transport, num+1);
+							int num = transportSet.get(pt);
+							transportSet.remove(pt);
+							transportSet.put(pt, num+1);
 						}
 					}
 				}
-				
-				
 				
 				//add user Users set
 				users.add(u);
@@ -207,14 +207,14 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				countySet.put(c, num);
 			}
 			
-			Set<String> incomeKeys = incomeSet.keySet();
-			for(String i : incomeKeys) {
+			Set<RegisterObject> incomeKeys = incomeSet.keySet();
+			for(RegisterObject i : incomeKeys) {
 				int num = incomeSet.get(i);
 				incomeSet.put(i, num);
 			}
 			
-			Set<String> transportKeys = transportSet.keySet();
-			for(String t : transportKeys) {
+			Set<RegisterObject> transportKeys = transportSet.keySet();
+			for(RegisterObject t : transportKeys) {
 				int num = transportSet.get(t);
 				transportSet.put(t, num);
 			}
@@ -346,14 +346,14 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		}
 		
 		//Variables to store stats
-		Set<User> users = new HashSet();
-		Map<County, Integer> countySet = new HashMap();
-		Map<String, Integer> incomeSet = new HashMap();		
-		Map<String, Integer> transportSet = new HashMap();	
+		Set<User> users = new HashSet<User>();
+		Map<County, Integer> countySet = new HashMap<County, Integer>();
+		Map<RegisterObject, Integer> incomeSet = new HashMap<RegisterObject, Integer>();		
+		Map<RegisterObject, Integer> transportSet = new HashMap<RegisterObject, Integer>();	
 		int male = 0;
 		int female = 0;
-		Set<String> incomeRanges = new HashSet<String>();
-		Set<String> transTypes = new HashSet<String>();
+		Set<RegisterObject> incomeRanges = new HashSet<RegisterObject>();
+		Set<RegisterObject> transTypes = new HashSet<RegisterObject>();
 		int totalPackages = 0;
 		
 		Set<UserPackage> packages = pkgSuite.getUserPkgs();
@@ -383,34 +383,35 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				}
 				
 				//Income
-				RegisterObject ro = u.getIncomeRange();
-				if(ro!=null){
-					String income = ro.getValue();
-					incomeRanges.add(income);
-		
-					if(income!=null && !("".equals(income.trim()))) {
-						if(incomeSet.get(income)==null) {
-							incomeSet.put(income, 1);
+				if(u.getIncomeRange()!=null && !(u.getIncomeRange().equals(""))){
+					RegisterObject ro = u.getIncomeRange();
+					if(ro!=null) {	
+						incomeRanges.add(ro);					
+						if(incomeSet.get(ro)==null) {
+							incomeSet.put(ro, 1);
 						} else {
-							int num = incomeSet.get(income);
-							incomeSet.put(income, num+1);
+							int num = incomeSet.get(ro);
+							incomeSet.remove(ro);
+							incomeSet.put(ro, num+1);
 						}
+						
 					}
 				}
 				
 				//Primary Transport
-				RegisterObject pt = u.getPrimaryTransport();
-				if(pt!=null) {
-					String transport = pt.getValue();
-					transTypes.add(transport);
-					
-					if(transport!=null && !("".equals(transport.trim()))) {
-						if(transportSet.get(transport)==null) {
-							transportSet.put(transport, 1);
+				//System.out.println("CreateStatsPart4: PrimaryTransport Username: " +u.getLoginname() + " primaryTransport: " + u.getPrimaryTransport().getValue());
+				if(u.getPrimaryTransport()!=null && !(u.getPrimaryTransport().equals(""))) {
+					RegisterObject pt = u.getPrimaryTransport();
+					if(pt!=null){
+						transTypes.add(pt);
+						if(transportSet.get(pt)==null) {
+							transportSet.put(pt, 1);
 						} else {
-							int num = transportSet.get(transport);
-							transportSet.put(transport, num+1);
+							int num = transportSet.get(pt);
+							transportSet.remove(pt);
+							transportSet.put(pt, num+1);
 						}
+						
 					}
 				}
 				
@@ -430,14 +431,14 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				countySet.put(c, num);
 			}
 			
-			Set<String> incomeKeys = incomeSet.keySet();
-			for(String i : incomeKeys) {
+			Set<RegisterObject> incomeKeys = incomeSet.keySet();
+			for(RegisterObject i : incomeKeys) {
 				int num = incomeSet.get(i);
 				incomeSet.put(i, num);
 			}
 			
-			Set<String> transportKeys = transportSet.keySet();
-			for(String t : transportKeys) {
+			Set<RegisterObject> transportKeys = transportSet.keySet();
+			for(RegisterObject t : transportKeys) {
 				int num = transportSet.get(t);
 				transportSet.put(t, num);
 			}
@@ -468,7 +469,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		ReportStats rs = new ReportStats();
 		System.out.println("***ES start total users");
 		
-		//rs.setTotalUsers(this.getNumUsers());
+		rs.setTotalUsers(this.getNumUsers());
 		System.out.println("***ES finish total users");
 		PackageSuite ps = (PackageSuite) load(PackageSuite.class, packSuiteId);
 		
@@ -478,24 +479,9 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		int numEndorsed = vss.getHighVotes() + vss.getMediumVotes();
 		int totalVotes = vss.getTotalVotes();
 		System.out.println("***ES startcost");
-		// Format cost to 2 thousand vs 2000
-		//String strTotalCost = "";
+		
 		int totalCost = (int) preferredPackage.getTotalCost();
-		/*
-		if(totalCost >=1000000000) {
-			totalCost = totalCost/1000000000;
-			strTotalCost = totalCost + " billion";
-		} else if (totalCost >= 1000000) {
-			totalCost = totalCost/1000000;
-			strTotalCost = totalCost + " million";
-		} else if (totalCost>=1000){
-			totalCost = totalCost/1000;
-			strTotalCost = totalCost + " thousand";
-		} else {
-			strTotalCost = totalCost + "";
-		}
-		System.out.println("***ES finish cost");
-		*/
+
 		//save
 		rs.setTotalVotes(totalVotes);
 		rs.setNumEndorsed(numEndorsed);
