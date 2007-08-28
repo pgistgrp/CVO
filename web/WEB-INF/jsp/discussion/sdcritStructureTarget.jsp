@@ -70,7 +70,8 @@
 		<c:if test="${fn:length(infoStructure.infoObjects) == 0}">
 		  <p>There are no planning factors created for this study yet! How did you get to this page?</p>
 		</c:if>
-		<c:forEach var="infoObj" items="${infoStructure.infoObjects}" varStatus="loop">
+		<pg:sort name="infoObjects" items="${infoStructure.infoObjects}" key="object.criterion.name" />
+		<c:forEach var="infoObj" items="${infoObjects}" varStatus="loop">
 		  <div id="criteria-${infoObj.object.criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
 		    <div class="criteriaCol1 floatLeft">
 				<div class="floatLeft"><a href="javascript:Util.toggleRow(${loop.index});"> <img src="/images/plus.gif" id="icon${loop.index}"></a></div>
@@ -92,7 +93,8 @@
 		        <c:if test="${fn:length(infoObj.object.criterion.objectives) == 0}">
 		          <li>&nbsp;</li>
 		        </c:if>
-		        <c:forEach var="objective" items="${infoObj.object.criterion.objectives}" varStatus="loop">
+		        <pg:sort name="objectives" items="${infoObj.object.criterion.objectives}" key="description" />
+		        <c:forEach var="objective" items="${objectives}" varStatus="loop">
 		          <li>${objective.description}</li>
 		        </c:forEach>
 		      </ul>

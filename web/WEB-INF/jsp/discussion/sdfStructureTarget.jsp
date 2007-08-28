@@ -51,8 +51,9 @@
 						<th><span class="hiddenLabel" style="display:none;font-size:10pt;">
 						Estimated annual cost to you</span></th>
 					</tr>
-					
-					<c:forEach var="infoObject" items="${infoStructure.infoObjects}" varStatus="loop">
+
+					<pg:sort name="infoObjects" items="${infoStructure.infoObjects}" key="object.source.name" />
+					<c:forEach var="infoObject" items="${infoObjects}" varStatus="loop">
 						<tr class="fundingType">
 							<td class="fundingSourceItem"><a href="javascript:Util.toggleRow(${loop.index});">
 							<img src="images/plus.gif" id="icon${loop.index}" class="icon"></a> <a href="javascript:Util.toggleRow(${loop.index});">${infoObject.object.source.name}</a></td>
@@ -64,7 +65,8 @@
 							<td colspan="4">
 								<table>
 									<!-- start project alt -->
-									<c:forEach var="altRef" items="${infoObject.object.altRefs}" varStatus="loop2">
+									<pg:sort name="altRefs" items="${infoObject.object.altRefs}" key="alternative.name" />
+									<c:forEach var="altRef" items="${altRefs}" varStatus="loop2">
 										<tr>
 											<td>${altRef.alternative.name}</td>
 											<td>$<fmt:formatNumber maxFractionDigits="0" value="${altRef.alternative.revenue/1000000}" /> million

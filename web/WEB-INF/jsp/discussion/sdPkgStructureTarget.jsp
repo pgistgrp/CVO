@@ -59,8 +59,8 @@
 						<div class="col4 floatLeft">Cost for avg. resident</div>
 						<div class="clearBoth"></div>
 					</div>
-					
-					<c:forEach var="infoObject" items="${infoStructure.infoObjects}" varStatus="loop">
+					<pg:sort name="infoObjects" items="${infoObjects}" key="object.description" />
+					<c:forEach var="infoObjects" items="${infoStructure.infoObjects}" varStatus="loop">
 						<c:if test="${infoObject.object.manual == false}">
 							<div class="listRow row ${(loop.index == 2) ? 'highlight' : ''}"> <!-- use 'highlight' css class to highlight user's related package -->
 								<div class="col1 floatLeft">

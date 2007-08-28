@@ -8,7 +8,8 @@
 
 <pg:fragment type="html">
 	<jsp:useBean id="today" class="java.util.Date"/>
-    <c:forEach var="infoObject" items="${structure.infoObjects}" varStatus="loop">
+	<pg:sort name="infoObjects" items="${structure.infoObjects}" key="object.theme.title" />
+    <c:forEach var="infoObject" items="${infoObjects}" varStatus="loop">
     	<c:set var="fmtLastPostDate"><fmt:formatDate value="${infoObject.discussion.lastPost.createTime}" pattern="yyyy/MM/dd"/></c:set>
     	<c:set var="fmtToday"><fmt:formatDate value="${today}" pattern="yyyy/MM/dd"/></c:set>
 
