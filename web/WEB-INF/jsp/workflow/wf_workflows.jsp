@@ -76,32 +76,29 @@
 		</c:otherwise>
 	</c:choose>
 
-	
-	
-	<pg:show roles="moderator">
-		<c:if test="${fn:length(finishedWorkflows) > 0}">
-			<br />
-			<h3 class="headerColor">Completed experiments</h3>
-			<table id="newTable" class="finished" cellspacing="0" cellpadding="0">
-				<tr>
-					<th>Name</th>
-					<th>Description</th>
-					<th>Begin time</th>
-					<th>End time</th>
-					<th class="last">Operation</th>
-				</tr>
-				<c:forEach var="workflow" items="${finishedWorkflows}">
-						<tr style="color:#999;">
-							<td>${workflow.situation.name}</td>
-							<td>${workflow.situation.description}</td>
-							<td>${workflow.beginTime}</td>
-							<td>${workflow.endTime}</td>
-							<td><input type="button" value="Review" onclick="javascript:location.href='userhome.do?workflowId=${workflow.id}'"></td>
-						</tr>
-				</c:forEach>
-			</table>
-		</c:if>
-	</pg:show>
+	<c:if test="${fn:length(finishedWorkflows) > 0}">
+		<br />
+		<h3 class="headerColor">Completed experiments</h3>
+		<table id="newTable" class="finished" cellspacing="0" cellpadding="0">
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Begin time</th>
+				<th>End time</th>
+				<th class="last">Operation</th>
+			</tr>
+			<c:forEach var="workflow" items="${finishedWorkflows}">
+					<tr style="color:#999;">
+						<td>${workflow.situation.name}</td>
+						<td>${workflow.situation.description}</td>
+						<td>${workflow.beginTime}</td>
+						<td>${workflow.endTime}</td>
+						<td><input type="button" value="Review" onclick="javascript:location.href='userhome.do?workflowId=${workflow.id}'"></td>
+					</tr>
+			</c:forEach>
+		</table>
+	</c:if>
+
 </div>
 
 <pg:show roles="moderator">
