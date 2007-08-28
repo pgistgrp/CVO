@@ -156,7 +156,8 @@ The recommended package contains ${statsES.totalProjects} road and transit proje
 		*** Error Total Cost for project was null ***
 	</c:when>
 	<c:otherwise>
-It is funded by a combination of bridge tolls, parking taxes, and vehicle excise fees. The total cost of the package is $${statsES.totalCost}. 	
+It is funded by a combination of bridge tolls, parking taxes, and vehicle excise fees. The total cost of the package is 
+$<fmt:formatNumber maxFractionDigits="0" value="${statsES.totalCost/1000000}" /> million. 	
 	</c:otherwise>
 </c:choose>
 
@@ -183,9 +184,9 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 			</ol>
 		</div>
 		<div class="floatLeft" style="margin-right:1em"> <strong>Report appendices</strong><p>
-			<a href="#appendixA">Appendix A: Project scoring methodology</a><br />
-			<a href="#appendixB">Appendix B: Candidate package creation methodology</a><br />
-			<a href="#appendixC">Appendix C: The six candidate packages</a></p>
+			<a href="#appendixA">Appendix A: About <em>Let's Improve Transportation</em></a><br />
+			<a href="#appendixB">Appendix B: Project scoring methodology</a><br />
+			<a href="#appendixC">Appendix C: The candidate packages</a></p>
 		</div>
 		<div class="clearBoth"></div>
 	</div>
@@ -293,8 +294,8 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 			<c:forEach var="reportThemeStat" items="${statsPart1.reportThemeStats}" varStatus="loop">
 				<h4>${reportThemeStat.theme.title}</h4>
 				<p>${reportThemeStat.theme.summary}</p>
-				<p>${reportThemeStat.yesVotes} out of ${reportThemeStat.totalVotes} agree that this summary reflects the concerns of all participants.<br />
-					<a href="#">Read participant concerns related to ${theme.title}</a></p>
+				<p><em>${reportThemeStat.yesVotes} out of ${reportThemeStat.totalVotes} agree that this summary reflects the concerns of all participants.</em><br />
+					<!--<a href="#">Read participant concerns related to ${theme.title}</a>--></p>
 			</c:forEach>
 		</blockquote>
 	</div>
@@ -347,7 +348,7 @@ After a period of discussion about the relevance of the improvement factors to t
 	<!-- End planning factors -->
 	<!-- Begin projects -->
 	<div id="projects" class="box3 padding5 section">
-		<h3 class="headingColor padding5 centerAlign"><a name="projects">3. Project selection, Funding selection, 
+		<h3 class="headingColor padding5 centerAlign"><a name="projects">3. Project selection, funding selection, 
 				and personal package creation</a></h3>
 		
 		<p>
@@ -453,10 +454,10 @@ After a period of discussion about the relevance of the improvement factors to t
 	<!-- Begin packages -->
 	<div id="packages" class="box3 padding5 section">
 		<h3 class="headingColor padding5 centerAlign"><a name="packages">4. Evaluation
-				of packages</a></h3>
+				of candidate packages and package selection</a></h3>
 				
 		<p>Participants created ${statsPart4.totalPackages} unique packages. In order to narrow the field of packages under consideration for recommendation, five new packages were computationally generated. These new candidate packages collectively represent the diversity of packages created by participants in Step 3. Details about each of these five packages, as well as the methodology used to create them is available in Appendix C. </p>
-		<p>In the fourth step, participants reviewed and evaluated these five candidate packages as well as the &quot;Roads and Transit&quot; package which will appear on the ballot in the November 2007 election. A preliminary poll regarding participants' degree of support for each of the packages was used to inform the discussion. This was followed by a final package recommendation vote.</p>
+		<p>In the fourth step, participants reviewed and evaluated these five candidate packages. A preliminary poll regarding participants' degree of support for each of the packages was used to inform the discussion. This was followed by a final package recommendation vote.</p>
 		<p>${part4a}</p>
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr class="odd">
@@ -635,8 +636,7 @@ After a period of discussion about the relevance of the improvement factors to t
 	</div>
 	<!-- Begin Appendix A -->
 	<div id="appendixA" class="box3 padding5 section">
-		<h3 class="headingColor padding5 centerAlign"><a name="appendixA">Appendix A: Project
-				scoring methodology</a></h3>
+		<h3 class="headingColor padding5 centerAlign"><a name="appendixA">Appendix A: About <em>Let's Improve Transportation</em></a></h3>
 		<p>During the month of October 2007, residents of King, Pierce, and Snohomish counties were invited to participate in the 
 <em>Let's Improve Transportation Challenge</em>, an experiment in online participatory democracy. The purpose of this experiment was to evaluate a new and potentially more meaningful way to involve citizens in the process of regional transportation improvement decision making.</p>
 <p>Participants were asked to imagine they are a member of a large citizen advisory committee, charged with providing policy makers their recommendations regarding a regional transportation ballot measure. The measure would ask voters in the region if they wish to raise taxes to pay for a package of road and transit improvement projects. The participants' task was to determine which projects to build and which funding mechanisms (such as taxes or tolls) should be used to pay for them. The challenge for participants was to identify which package of projects and funding options they could collectively recommend. An innovative new website called Let's Improve Transportation was developed to support this collaborative process, which included five steps:</p>
