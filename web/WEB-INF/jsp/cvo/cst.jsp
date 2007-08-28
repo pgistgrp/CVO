@@ -398,7 +398,6 @@ tinyMCE.init({
 	}
 		
 	function deleteSelectedCategory(){
-		
 		if(tree1.lastSelected!=null){
 			if(confirm("Are you sure you want to delete category \"" + tree1.lastSelected.parentObject.label + "\"")){
 				if(tree1.lastSelected.parentObject.parentObject.id == 0)
@@ -583,7 +582,6 @@ tinyMCE.init({
 	}
 	
 	function duplicateSelectedCategory(){
-		
 		if(tree1.lastSelected!=null){
 			var obj1 = tree1.lastSelected.parentObject;
 			var params = {cctId:cctId,categoryId:obj1.dataId, name:"Similar to "+ obj1.label};
@@ -606,7 +604,6 @@ tinyMCE.init({
 					new Effect.Fade('col-option');
 					location.href="#colsTop";
 				}else
-					
 					alert(data.reason);
 			},
 			errorHandler:function(errorString, exception){
@@ -750,19 +747,18 @@ button#ss{font-size:12pt;padding:5px;}
 	
 		<div style="clear:both"></div>
 			
-			<div id="col-crud-options" style="display:none;">
+			<div id="col-crud-options" style="display:none;margin-top:50px">
 					<span class="closeBox">
 						<a href="javascript: new Effect.SlideUp('col-crud-options',{duration: .5}); void(0);">
 							<img src="images/close.gif" border="0" alt="Hide" name="Hide" class="button" style="margin-bottom:3px;" id="hide" onMouseOver="MM_swapImage('hide','','images/close1.gif',1)" onMouseOut="MM_swapImgRestore()">
 							</a>
 					</span>
 				<strong>Editing Options: </strong>
-					<input type="button" onclick="javascript: deleteSelectedCategory();" value="Delete">
-					<input type="button" cnclick="javascript: new Effect.SlideUp('col-crud-options', {duration: .5}); void(0); new Effect.SlideDown('col-option',{duration: .5}); void(0);" value="Rename" />
-					<input type="button" onclick="javascript:duplicateSelectedCategory();" value="Duplicate" />
+					<input type="button" onclick="deleteSelectedCategory();" value="Delete" />
+					<input type="button" onclick="Element.toggle('col-option')" value="Rename"/>
 			</div>
 			
-			<div id="col-option" style="display: none;"><span class="closeBox"><a href="javascript: new Effect.SlideDown('col-crud-options',{duration: .5}); void(0); new Effect.Fade('col-option'); void(0);">back to all options</a></span>
+			<div id="col-option" style="display:none;"><span class="closeBox"><a href="javascript: new Effect.SlideDown('col-crud-options',{duration: .5}); void(0); new Effect.Fade('col-option'); void(0);">back to all options</a></span>
 				<h4>Editing Options</h4>
 				Rename to: <form name="modifyCategory" action="" method="GET" onsubmit="javascript: modifySelectedCategory(); return false;"><input type="text" style="width: 50%;" id="selcatetext" onkeydown="checkaddcategory(event)"><input type="button" id="btnNewName" value="Modify" onclick="modifySelectedCategory();"></form><br>
 			</div>

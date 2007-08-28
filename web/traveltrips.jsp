@@ -1,4 +1,13 @@
 <%@ taglib prefix="gmap" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"  xmlns:v="urn:schemas-microsoft-com:vml">
   <head>
@@ -6,6 +15,26 @@
     
     <title>Individual Travel Path</title>
     
+		<!-- Site Wide CSS -->
+		<style type="text/css" media="screen">@import "styles/lit.css";</style>
+		<!-- End Site Wide CSS -->
+		<!-- Site Wide JavaScript -->
+		<script language="JavaScript" src="scripts/qtip.js" type="text/JavaScript"></script>
+		<script src="scripts/tags.js" type="text/javascript"></script>
+		<script src="scripts/prototype.js" type="text/javascript"></script>
+		<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+		<script src="scripts/globalSnippits.js" type="text/javascript"></script>
+		<!-- End Site Wide JavaScript -->
+		
+		<!-- DWR JavaScript Libraries -->
+		<script type='text/javascript' src='/dwr/engine.js'></script>
+		<script type='text/javascript' src='/dwr/util.js'></script>
+		<!-- End DWR JavaScript Libraries -->
+		
+		<!--SDX Specific  Libraries-->
+		<script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
+		<script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
+
     <!-- following line contains the google maps key for http://localhost:8080/test -->
 	<gmap:gmapjs />
     <script language="javascript" type="text/javascript" src="scripts/pdmarker.js"></script>
@@ -109,6 +138,11 @@
 	</head>
 
 	<body onload="load()" onunload="GUnload()">
+    <!-- Start Global Headers  -->
+    <wf:nav />
+    <wf:subNav />
+    <!-- End Global Headers -->
+  <div id="container">
 	  
 <!--	  <h2>Individual Travel Path App Demo</h2>
 	  
@@ -442,7 +476,8 @@
 			<br/>
 			&nbsp;&nbsp;<input type='button' value='Save it!' class="menu_btns" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick='closeTripFreqModeWindow()' />
 		</div>
-		
+</div>
+<!-- END CONTAINER-->
 	</body>
 	
 </html>
