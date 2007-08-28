@@ -226,9 +226,10 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
     }//getReplies()
     
     
-    private static final String hql_getReplies_C_1 = "select count(r.id) from DiscussionReply r where r.parent.id=? and r.deleted=? and lower(r.tags.name)=?";
+    //private static final String hql_getReplies_C_1 = "select count(r.id) from DiscussionReply r where r.parent.id=? and r.deleted=? and lower(r.tags.name)=?";
+    private static final String hql_getReplies_C_1 = "select count(r.id) from DiscussionReply r inner join r.tags as tag where r.parent.id=? and r.deleted=? and lower(tag.name)=?";
     
-    private static final String hql_getReplies_C_2 = "from DiscussionReply r where r.parent.id=? and r.deleted=? and lower(r.tags.name)=? order by r.id";
+    private static final String hql_getReplies_C_2 = "select r from DiscussionReply r inner join r.tags as tag where r.parent.id=? and r.deleted=? and lower(tag.name)=? order by r.id";
     
     
     public Collection getReplies(DiscussionPost post, PageSetting setting, String filter) throws Exception {
