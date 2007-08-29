@@ -661,14 +661,11 @@
                                     
                                     <c:if test="${userPkg != null}">
 										<td class="col4"><!--need formating-->
-                                            ${userPkg.personalCost[altRef.id]}
+                                            ${userPkg.personalCost[altRef.alternative.id]}
                                         </td>
-									</c:if>		
-                                    
-                                    
+									</c:if>
 								</tr>
-                                
-                                
+                
 								<c:choose>
 									<c:when test="${userPkg != null}">
 										<c:if test="${pg:contains(userPkg.fundAltRefs,altRef)}">
