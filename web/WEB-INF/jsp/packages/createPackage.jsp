@@ -661,8 +661,8 @@
                                     
                                     <c:if test="${userPkg != null}">
 										<td class="col4"><!--need formating-->
-                                            $${userPkg.personalCost[altRef.alternative.id]}
-                                        </td>
+												$<fmt:formatNumber maxFractionDigits="0" value="${userPkg.personalCost[altRef.alternative.id]}" />
+                    </td>
 									</c:if>
 								</tr>
                 
