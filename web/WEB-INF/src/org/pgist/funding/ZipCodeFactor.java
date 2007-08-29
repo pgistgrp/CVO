@@ -19,6 +19,8 @@ public class ZipCodeFactor implements Serializable {
 	private int SR167;
 	private int parking;
 	private int I405N;
+	private int I5N;
+	private int I5S;
 
     private Long id;
 	
@@ -111,6 +113,34 @@ public class ZipCodeFactor implements Serializable {
 	public void setSR99(int sr99) {
 		SR99 = sr99;
 	}
+	
+	
+    /**
+     * @return
+     * 
+     * @hibernate.property not-null="true"
+     */
+    public int getI5N() {
+        return I5N;
+    }
+    public void setI5N(int i5n) {
+        I5N = i5n;
+    }
+    
+    
+    /**
+     * @return
+     * 
+     * @hibernate.property not-null="true"
+     */
+    public int getI5S() {
+        return I5S;
+    }
+    public void setI5S(int i5s) {
+        I5S = i5s;
+    }
+    
+    
     /**
      * @return
      * 

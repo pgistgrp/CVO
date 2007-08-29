@@ -176,6 +176,13 @@
     </target>
     
 
+    <target name="matrix" depends="compile">
+        <taskdef name="TestHibernate" classname="org.pgist.tests.TestHibernate" classpathref="classpath">
+        </taskdef>
+        <TestHibernate configPath="${web}/WEB-INF/config" script="testdata/matrix.bsh"/>
+    </target>
+    
+
     <target name="lucene" depends="compile">
         <taskdef name="TestLucene" classname="org.pgist.tests.TestLucene" classpathref="classpath">
         </taskdef>

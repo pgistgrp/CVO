@@ -94,6 +94,8 @@ public class CreatePackageAction extends Action {
     		UserPackage uPack = this.packageService.createUserPackage(packSuite, WebUtils.currentUser(), fundSuite);    			
     		request.setAttribute("userPkg", uPack);
     		
+    		System.out.println("Zhong =============> "+uPack.getPersonalCost());
+    		
     		request.setAttribute("projectRefs", projectService.getProjectSuite(projSuite).getReferences());
     		request.setAttribute("fundingRefs", fundingService.getFundingSuite(fundSuite).getReferences());
     		request.setAttribute("projSuiteId", projSuite);

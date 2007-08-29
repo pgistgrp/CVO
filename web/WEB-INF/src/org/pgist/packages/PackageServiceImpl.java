@@ -832,7 +832,7 @@ public class PackageServiceImpl implements PackageService {
 				if(tempPackage.getSuite().getId().equals(suite.getId())) {
 					//System.out.println("MATT 2");
 					this.calcUserValues(tempPackage, tempPackage.getAuthor(), fundingSuiteId);
-					return tempPackage;					
+					return tempPackage;
 				}
 			}
 		}
@@ -985,15 +985,14 @@ public class PackageServiceImpl implements PackageService {
 
 	
 	private void displayUserValues(Package uPack) {
-		//System.out.println("MATT##################: Looking up funding sources in user package");
+		System.out.println("MATT##################: Looking up funding sources in user package");
 		Iterator i = uPack.getPersonalCost().keySet().iterator();
 		Long key;
 		while(i.hasNext()) {
 			key = (Long)i.next();
-			//System.out.println("FunSourceAltRef [" + key + "] cost = [" +  uPack.getPersonalCost().get(key) + "]");
+			System.out.println("FunSourceAltRef [" + key + "] cost = [" +  uPack.getPersonalCost().get(key) + "]");
 		}
-		//System.out.println("MATT##################: Looking up funding sources 2");
-		
+		System.out.println("MATT##################: Looking up funding sources 2");
 	}
 
     public PackageSuite createPackageSuite() throws Exception {
@@ -1055,7 +1054,7 @@ public class PackageServiceImpl implements PackageService {
      */
     public void calcUserValues(UserPackage pkg, Long funSuiteId) throws Exception {
     	this.calcUserValues(pkg, pkg.getAuthor(), funSuiteId);
-    }	
+    }
     
     /**
      * Utility method that does all of the user calculations regarding the estimated annual cost
@@ -1071,8 +1070,8 @@ public class PackageServiceImpl implements PackageService {
     	}
 		//Get the users last commute object		
 		UserCommute commute = user.getUserCommute();
-		FundingSourceSuite fsuite = this.fundingDAO.getFundingSuite(funSuiteId);
-				
+		FundingSourceSuite fsuite = fundingDAO.getFundingSuite(funSuiteId);
+		
 		float totalVValue = 0;
 		float totalMilesDrive = 0;
 		float avgMPG = 0;

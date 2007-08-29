@@ -18,6 +18,7 @@ public class Consumption implements Serializable {
 	private Float size3;
 	private Float size4;
 	private Float size5;
+	private Float size6;
 
     private Long id;
 	
@@ -36,8 +37,10 @@ public class Consumption implements Serializable {
     		return this.getSize3();    		
     	} else if (familySize == 4) {
     		return this.getSize4();    		
+        } else if (familySize == 5) {
+            return this.getSize5();         
     	} else {
-    		return this.getSize5();    		
+    		return this.getSize6();    		
     	}
     }
     
@@ -138,6 +141,18 @@ public class Consumption implements Serializable {
 		this.size5 = size5;
 	}
 
-	
+
+    /**
+     * @return
+     * 
+     * @hibernate.property not-null="true"
+     */ 
+    public Float getSize6() {
+        return size6;
+    }
+    public void setSize6(Float size6) {
+        this.size6 = size6;
+    }
+
 	
 }//class UserCommute

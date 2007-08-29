@@ -103,7 +103,7 @@ public class TaxCalcDataLoader extends MatchingTask {
     	
     	Consumption cons;
     	
-        CSVReader reader = new CSVReader(new FileReader(new File(dataPath, "consumption.csv")));
+        CSVReader reader = new CSVReader(new FileReader(new File(dataPath, "consumption1.csv")));
         String [] nextLine;
         
         while ((nextLine = reader.readNext()) != null) {
@@ -116,6 +116,7 @@ public class TaxCalcDataLoader extends MatchingTask {
         	cons.setSize3(toFloat(nextLine[4]));
         	cons.setSize4(toFloat(nextLine[5]));
         	cons.setSize5(toFloat(nextLine[6]));
+        	cons.setSize6(toFloat(nextLine[7]));
         	save(cons);
         }    	
     }
@@ -142,7 +143,7 @@ public class TaxCalcDataLoader extends MatchingTask {
     	
     	ZipCodeFactor zcf;
     	
-        CSVReader reader = new CSVReader(new FileReader(new File(dataPath, "zipCodeFactors.csv")));
+        CSVReader reader = new CSVReader(new FileReader(new File(dataPath, "zipCodeFactors1.csv")));
         String [] nextLine;
         
         while ((nextLine = reader.readNext()) != null) {
@@ -156,6 +157,8 @@ public class TaxCalcDataLoader extends MatchingTask {
         	zcf.setSR167(toInt(nextLine[5]));
         	zcf.setParking(toInt(nextLine[6]));
         	zcf.setI405N(toInt(nextLine[7]));
+        	zcf.setI5N(toInt(nextLine[8]));
+        	zcf.setI5S(toInt(nextLine[9]));
         	save(zcf);
         }    	    	    	
     }
