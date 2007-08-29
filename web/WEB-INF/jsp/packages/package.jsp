@@ -102,12 +102,12 @@
 			<div class="summary box11">
 				<table>
 					<tr>
-						<td><h3>Total cost</h3></td>
+						<td><h3>Total money needed</h3></td>
 						<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalCost/1000000}" /> million
 							</td>
 					</tr>
 					<tr>
-						<td><h3>Total funding</h3></td>
+						<td><h3>Total money raised</h3></td>
 						<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalFunding/1000000}" /> million</td>
 					</tr>
 					<c:if test="${userPkg != null}">
