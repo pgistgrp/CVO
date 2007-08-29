@@ -661,7 +661,7 @@
                                     
                                     <c:if test="${userPkg != null}">
 										<td class="col4"><!--need formating-->
-                                            ${userPkg.personalCost[altRef.alternative.id]}
+                                            $${userPkg.personalCost[altRef.alternative.id]}
                                         </td>
 									</c:if>
 								</tr>
