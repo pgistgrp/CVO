@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.MatchingTask;
+import org.jgap.Configuration;
 
 import bsh.Interpreter;
 
@@ -40,6 +41,8 @@ public class TestGAKnapsack extends MatchingTask {
             String line = scanner.nextLine();
             
             try {
+                Configuration.reset();
+                
                 interpreter.source(script);
             } catch (Exception e) {
                 e.printStackTrace();

@@ -212,7 +212,6 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
         
         // Good things
         fitness += costDifferenceBonus(costDifference);
-        //System.out.printf("%f %f\n", costDifference, fitness);
         fitness += benefitBonus(totalBenefit);
         
         // bad things

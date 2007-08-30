@@ -114,8 +114,6 @@ public class GAKnapsackEngine {
     ) throws Exception {       
         ArrayList<KSItem> result = new ArrayList<KSItem>();
         
-        Configuration.reset();
-        
         GAKnapsackFitnessFunction fitnessFunction = new GAKnapsackFitnessFunction(choices, limit);
         
         IChromosome chromosome = findBestSolution(fitnessFunction, evolutionTimes, populationSize);
@@ -136,6 +134,7 @@ public class GAKnapsackEngine {
         float selectedTotalCost = 0;
         float projTotalProfit = 0;
         float selectedTotalProfit = 0;
+        System.out.printf(" group (s/m)     cost        profit\n");
         for (int i=0; i<choices.length; i++) {
             for (int j=0; j<choices[i].getChoices().size(); j++) {
                 gene = (IntegerGene) chromosome.getGene(k);
@@ -148,9 +147,9 @@ public class GAKnapsackEngine {
                     result.add(item);
                     selectedTotalCost += item.getCost();
                     selectedTotalProfit += item.getProfit();
-                    System.out.printf(" + %d(%c) %8.2f %8.2f\n", i, choices[i].isSingle()?'s':'m', item.getCost(), item.getProfit());
+                    System.out.printf(" + %d   (%c)    %8.2f    %8.2f\n", i, choices[i].isSingle()?'s':'m', item.getCost(), item.getProfit());
                 } else {
-                    System.out.printf(" - %d(%c) %8.2f %8.2f\n", i, choices[i].isSingle()?'s':'m', item.getCost(), item.getProfit());
+                    System.out.printf(" - %d   (%c)    %8.2f    %8.2f\n", i, choices[i].isSingle()?'s':'m', item.getCost(), item.getProfit());
                 }
                 
                 k++;
