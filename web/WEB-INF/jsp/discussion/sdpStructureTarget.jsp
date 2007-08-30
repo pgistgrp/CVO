@@ -261,10 +261,17 @@
                         travelPath.push( drawTrip(pgistmap, data.trips[k].coords) );
                     }
                 }
+                PESAgent.saveAct({mapaction:"show personal travel trip"}, {callback:function(data){},
+                    errorHandler:function(errorString, exception){} });
+                
                 pgistmap.enableMapLogger();
             });
         }else{
+            pgistmap.disableMapLogger();
             while(travelPath.length>0)pgistmap.map.removeOverlay( travelPath.pop() );
+            PESAgent.saveAct({mapaction:"hide personal travel trip"}, {callback:function(data){},
+                errorHandler:function(errorString, exception){} });
+            pgistmap.enableMapLogger();
         }
     }
     
