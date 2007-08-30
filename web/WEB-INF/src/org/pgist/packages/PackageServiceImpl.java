@@ -1138,7 +1138,7 @@ public class PackageServiceImpl implements PackageService {
 
     			default:
     				break;
-    			} 		    		
+    			}
         	}
     	}
 		displayUserValues(pkg);
@@ -1336,7 +1336,7 @@ public class PackageServiceImpl implements PackageService {
 		Iterator<ProjectRef> refs = pSuite.getReferences().iterator();
 		while(refs.hasNext()) {
 			tempRef = refs.next();
-			choices = new KSChoices();
+			choices = new KSChoices(!tempRef.getProject().isInclusive());
 			
 			//Loop through the alternatives
 			tempProject = tempRef.getProject();
@@ -1353,16 +1353,7 @@ public class PackageServiceImpl implements PackageService {
 				//figure out what to do with the item
 				switch (choice) {
 					case TunerConfig.MAYBE:
-						ProjectKSItem tempProjectKSI = new ProjectKSItem();
-						
-						//Set the profit and cost for this item
-						tempProjectKSI.setCost(tempProjectAlt.getCost());
-						
-						//Add up all the cost and weights here
-						tempProjectKSI.setProfit(calcProjectProfit(tempProjectAltRef, cWeight));
-						tempProjectKSI.setProjectAltRef(tempProjectAltRef);
-						
-						choices.getChoices().add(tempProjectKSI);
+						ProjectKSItem tempProjectKSI = new ProjectKSItem(choices, tempProjectAltRef, calcProjectProfit(tempProjectAltRef, cWeight));
 						break;
 					case TunerConfig.MUST_HAVE:
 						//Find the must haves and add them to the package
@@ -1442,7 +1433,7 @@ public class PackageServiceImpl implements PackageService {
 		//Create a collection of funding source KS Items, do not add the ones that are to be left out
 		Collection<KSChoices> choiceCol = new ArrayList<KSChoices>(); 
 		KSChoices choices;
-				
+		
 		//Get all the funding sources for the suite
 		FundingSourceSuite fSuite = fundingDAO.getFundingSuite(conf.getFundSuiteId());
 		FundingSourceRef tempRef;
@@ -1457,7 +1448,7 @@ public class PackageServiceImpl implements PackageService {
 		Iterator<FundingSourceRef> refs = fSuite.getReferences().iterator();
 		while(refs.hasNext()) {
 			tempRef = refs.next();
-			choices = new KSChoices();
+			choices = new KSChoices(true);
 			
 			//Loop through the alternatives
 			tempFSource = tempRef.getSource();
@@ -1477,14 +1468,8 @@ public class PackageServiceImpl implements PackageService {
 				//figure out what to do with the item
 				switch (choice) {
 					case TunerConfig.MAYBE:
-						FundingSourceKSItem tempFSKSI = new FundingSourceKSItem();
-						
-						//Set the profit and cost for this item, we only sort on the users cost
-						tempFSKSI.setCost(myFundingCost);
-						tempFSKSI.setProfit(tempFSourceAlt.getRevenue());
-						tempFSKSI.setFundingSourceAltRef(tempFSourceAltRef);
-						
-						choices.getChoices().add(tempFSKSI);
+                        //Set the profit and cost for this item, we only sort on the users cost
+						FundingSourceKSItem tempFSKSI = new FundingSourceKSItem(choices, tempFSourceAltRef, myFundingCost);
 						break;
 					case TunerConfig.MUST_HAVE:
 						//Find the must haves and add them to the package
@@ -1497,14 +1482,13 @@ public class PackageServiceImpl implements PackageService {
 					case TunerConfig.NEVER:
 						//Do nothing, the user hates this option
 						break;
-				}				
-			}			
+				}
+			}
 			
 			if(choices.getChoices().size() > 0) {
 				choiceCol.add(choices);
 			}
 		}
-		
 		
 		//Check that the package isn't already over buget
 		if(mybudget > mylimit) throw new BudgetExceededException("The funding sources must have cost more than the budget you provided");
@@ -1520,7 +1504,7 @@ public class PackageServiceImpl implements PackageService {
 		while(resultIter.hasNext()) {
 			tempFSKSI = (FundingSourceKSItem)resultIter.next();
 			upack.getFundAltRefs().add(tempFSKSI.getFundingSourceAltRef());
-		}			
+		}
 	}
 
 

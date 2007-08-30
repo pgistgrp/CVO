@@ -25,17 +25,17 @@ public class KSEngine {
 	public static Collection<KSItem> mcknap(Collection<KSChoices> choices, float limit) {		
 		ArrayList<KSItem> result = new ArrayList<KSItem>();
 		
-		//Go through and add a 0,0 item to every choice		
+		//Go through and add a 0,0 item to every choice
 		Iterator<KSChoices> i = choices.iterator();
 		KSChoices tempChoice;
 		ZeroItem zItem;
 		SelectedItemHolder holder = new SelectedItemHolder();
 		
-		//Initialize the holder with the zero item and remove the dominated items		
+		//Initialize the holder with the zero item and remove the dominated items
 		while(i.hasNext()) {
 			tempChoice = i.next();
 	
-			zItem = new ZeroItem();
+			zItem = new ZeroItem(tempChoice);
 			tempChoice.getChoices().add(zItem);
 			//tempChoice.removeDominatedItems();
 
@@ -43,9 +43,7 @@ public class KSEngine {
 		}
 		
 		griterate(holder, choices, limit);
-//		griterate(holder, choices, limit);
-//		griterate(holder, choices, limit);
-				
+		
 		return holder.getResults();				
 	}
 	
@@ -76,7 +74,7 @@ public class KSEngine {
 				if(!(tempItem instanceof ZeroItem)) {
 					tempGradient = new Gradient(tempItem, selected, tempChoice);
 					//System.out.println("Slope = " + tempGradient.getSlope());
-					gradients.add(tempGradient);					
+					gradients.add(tempGradient);
 				}
 			}
 		}
@@ -84,6 +82,11 @@ public class KSEngine {
 
 		//Sort the gradients
 		System.out.println("I Have " + gradients.size() + " gradietns");
+		
+		/*
+		 * Commented by Zhong:
+		 *     This sorting actually is in decreasing order.
+		 */
 		Collections.sort(gradients);
 		
 		Iterator<Gradient> gIter = gradients.iterator();

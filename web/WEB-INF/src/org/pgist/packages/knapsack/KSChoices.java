@@ -12,9 +12,22 @@ import java.util.List;
 public class KSChoices {
 	
 	
+    private boolean single = false;
+    
 	private List<KSItem> choices = new ArrayList<KSItem>();
-
-	/**
+	
+	
+	public KSChoices(boolean single) {
+	    this.single = single;
+	}
+	
+	
+	public boolean isSingle() {
+        return single;
+    }
+	
+	
+    /**
 	 * @return the choices
 	 */
 	public List<KSItem> getChoices() {
@@ -48,7 +61,7 @@ public class KSChoices {
 					if(otherItem.dominates(checkItem)) {
 						dominated = true;
 						break;
-					}					
+					}
 				}
 			}
 			if(!dominated) {
@@ -57,5 +70,6 @@ public class KSChoices {
 		}
 		choices = undominated;
 	}
+	
 	
 }

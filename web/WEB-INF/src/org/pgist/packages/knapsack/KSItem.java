@@ -6,24 +6,28 @@ package org.pgist.packages.knapsack;
  * @author Matt Paulin
  */
 public abstract class KSItem {
-
+    
+    
+    private KSChoices choices;
+    
 	private double cost;
-	private double profit;
-
 	
-	/**
-	 * @param cost the cost to set
-	 */
-	public final void setCost(double cost) {
-		this.cost = cost;
+	private double profit;
+	
+	
+	public KSItem(KSChoices choices, double cost, double profit) {
+	    this.choices = choices;
+	    this.cost = cost;
+	    this.profit = profit;
+	    
+	    choices.getChoices().add(this);
 	}
+	
+	
+	public KSChoices getChoices() {
+        return choices;
+    }
 
-	/**
-	 * @param profit the profit to set
-	 */
-	public final void setProfit(double profit) {
-		this.profit = profit;
-	}
 
 	/**
 	 * Returns the cost of the item.  In the temps of the knapsack problem this is the amount of resources
@@ -36,6 +40,7 @@ public abstract class KSItem {
 		return cost;
 	}
 	
+	
 	/**
 	 * Returns the profit of the item.  In the temps of the knapsack problem this is the benifit of having
 	 * this item.
@@ -45,14 +50,18 @@ public abstract class KSItem {
 	public double getProfit() {
 		return profit;
 	}
-
+	
+	
 	public boolean isZeroed() {
 		if(this.getCost() == 0 && this.getProfit() == 0) return true;
 		return false;
 	}
-
+	
+	
 	public boolean dominates(KSItem nextItem) {
 		if(this.getCost() >= nextItem.getCost() && this.getProfit() <= nextItem.getProfit()) return true;
 		return false;
-	}	
-}
+	}
+	
+	
+}//class KSItem

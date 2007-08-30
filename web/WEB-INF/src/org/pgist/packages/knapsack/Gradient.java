@@ -21,7 +21,7 @@ public class Gradient implements Comparable<Gradient>{
 			this.slope = (challenger.getProfit() - currentlySelected.getProfit())/(challenger.getCost() - currentlySelected.getCost());		
 		}
 	}
-		
+	
 	/**
 	 * @return the choices
 	 */
