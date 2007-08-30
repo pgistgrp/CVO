@@ -322,7 +322,7 @@ public class ReportStats implements Serializable{
 	/**
      * @return
      * 
-     * @hibernate.set lazy="true" cascade="all" order-by="id"
+     * @hibernate.set table="pgist_report_stats_income_range"  lazy="true" cascade="all" order-by="id"
      * @hibernate.collection-key column="register_object_income_id"
      * @hibernate.collection-many-to-many class="org.pgist.system.RegisterObject" column="id"
      */
@@ -339,7 +339,7 @@ public class ReportStats implements Serializable{
 	/**
      * @return
      * 
-     * @hibernate.set lazy="true" cascade="all" order-by="id"
+     * @hibernate.set table="pgist_report_stats_trans_type" lazy="true" cascade="all" order-by="id"
      * @hibernate.collection-key column="register_object_trans_id"
      * @hibernate.collection-many-to-many class="org.pgist.system.RegisterObject" column="id"
      */

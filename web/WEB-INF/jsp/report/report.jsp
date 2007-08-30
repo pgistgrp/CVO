@@ -253,7 +253,8 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 					<c:otherwise>
 
 					<c:forEach var="county" items="${statsPart1.counties}" varStatus="loop">
-						<fmt:formatNumber type="percent">${statsPart1.countyStats[county]/statsPart1.totalUsers}</fmt:formatNumber>: ${county.name}<br/>				
+						<fmt:formatNumber type="percent">${statsPart1.countyStats[county]/statsPart1.totalUsers} </fmt:formatNumber>
+						: ${county.name}<br/>				
 					</c:forEach>
 					
 					</c:otherwise>

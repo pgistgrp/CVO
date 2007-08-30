@@ -18,7 +18,7 @@ delete from pgist_project_alternatives where true;
 delete from pgist_county where true;
 delete from pgist_county_zipcodes_link where true;
 delete from pgist_register_object where true;
-
+delete from pgist_data_project_footprint where true;
 
 INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (37, 'I-405 Improvements', 'null', 1, NULL, false, NULL);
 INSERT INTO pgist_projects (id, name, description, transmode, corridor_id, inclusive, alternative_id) VALUES (91, 'Enhanced Express Bus Service', 'null', 2, NULL, false, NULL);
