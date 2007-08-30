@@ -7,14 +7,10 @@
 <html>
 <head>
 <title>Let's Improve Transportation: Glossary</title>
-<!-- Site Wide CSS -->
 <style type="text/css" media="screen">
 	@import "styles/lit.css";
 	@import "styles/glossary.css";
 </style>
-<!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
-<!-- End Site Wide CSS -->
-<!-- Site Wide JavaScript -->
 <script src="scripts/tabs.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
@@ -324,13 +320,13 @@ text-transform:none;
 		<div id="headerTitle" class="floatLeft">
 			<h3 class="headerColor">Learn More</h3>
 		</div>
-			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About LIT</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Project Map</pg:url> </div>
-			<div class="floatLeft headerButton currentBox"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
+		<div class="floatLeft headerButton"> <a href="lmMenu.do">Menu</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmGallery.do">Project gallery</a> </div>
+		<div class="floatLeft headerButton currentBox"> <a href="glossaryPublic.do">Glossary</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmResources.do">More resources</a> </div>
 	</div>
 </div>
 <!-- End header menu -->
@@ -414,7 +410,6 @@ text-transform:none;
 								<td style=''>
 									<div style='margin:0.5%; float:right;'>
 										<button type='button' onclick="javascript:$('proposeTermBox').style.display='none'; return false;">Cancel</button>
-										 
 										<button type='button' onclick='proposeTerm($("proptermname-1").value, $("proptermshortdef-1").value, $("proptermextdef-1").value); $("proptermname-1").value=""; $("proptermshortdef-1").value=""; $("proptermextdef-1").value=""; $("sourcelinks-1").innerHTML=""; $("termlinks-1").innerHTML=""; $("proposeTermBox").style.display="none"; return false;'>Save
 										and Close</button>
 									</div>
@@ -503,13 +498,13 @@ source</a> <br />
 		<div id="headerTitle" class="floatLeft">
 			<h3 class="headerColor">Learn More</h3>
 		</div>
-			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About LIT</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Project Map</pg:url> </div>
-			<div class="floatLeft headerButton currentBox"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
+		<div class="floatLeft headerButton"> <a href="lmMenu.do">Menu</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmGallery.do">Project gallery</a> </div>
+		<div class="floatLeft headerButton currentBox"> <a href="glossaryPublic.do">glossary</a> </div>
+		<div class="floatLeft headerButton"> <a href="lmResources.do">More resources</a> </div>
 	</div>
 </div>
 <!-- Begin footer -->
