@@ -487,12 +487,9 @@ source</a> <br />
 </p>
 </form>
 </div>
-</div>
-<!-- end container -->
-<!-- start feedback form -->
 <pg:feedback id="feedbackDiv" action="cctView.do"/>
-<!-- end feedback form -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
+</div>
+
 <div id="headerMenu">
 	<div id="headerContainer">
 		<div id="headerTitle" class="floatLeft">
@@ -507,11 +504,11 @@ source</a> <br />
 		<div class="floatLeft headerButton"> <a href="lmResources.do">More resources</a> </div>
 	</div>
 </div>
-<!-- Begin footer -->
+
 <div id="footer">
 	<jsp:include page="/footer.jsp" />
 </div>
-<!-- End footer -->
+
 <script type="text/javascript">
 	doOnLoad();
 	
