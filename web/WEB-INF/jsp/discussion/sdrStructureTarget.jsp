@@ -78,7 +78,7 @@
 					    <a href="javascript:io.goToFullReport('participants');">The participants and their concerns about transportation</a></li>
 					<li><a href="javascript:io.goToFullReport('planningfactors');">Improvement factors used in project evaluation</a></li>
 					<li><a href="javascript:io.goToFullReport('projects');">Individual project review and package creation</a></li>
-					<li><a href="javascript:io.goToFullReport('packages');">The recommended transportation package</a></li>
+					<li><a href="javascript:io.goToFullReport('packages');">The participants' recommended transportation package</a></li>
 				</ol>
 			</div>
 			<input type="button" class="floatRight" onclick="io.goToFullReport();" value="Read the full report" />

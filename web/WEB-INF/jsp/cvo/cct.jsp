@@ -577,39 +577,6 @@ function editTags(concernId){
 	}
 }
 
-/*
-
-function ifEnter(field,event) {
-
-var theCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
-if (theCode == 13){
-prepareConcern();
-$('theTag').focus();
-return false;
-} 
-else
-return true;
-}   
-
-
-var winH;
-function getWinH(){
-if (parseInt(navigator.appVersion)>3) {
- if (navigator.appName=="Netscape") {
-  winH = window.innerHeight;
- }
- if (navigator.appName.indexOf("Microsoft")!=-1) {
-  winH = document.body.offsetHeight;
- }
-}
-
-alert(winH);
-$('slate').style.Height = winH;
-}
-
-
-*/
-
 </script>
 
 
