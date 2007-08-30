@@ -104,6 +104,7 @@ function deleteVehicle(vehicleId){
 }
 
 function submitQ(form) {
+	document.questionnaire.submitq.disabled=true;
 	var errordiv = document.getElementById("errors");
 	var errormsg = "";
 
@@ -333,7 +334,7 @@ function filterNum(str) {
 		<div id="step-bar" class="box5 padding5 clearfix">
 				<p class="floatLeft" id="step-progress">Step 3 of 3</p>
 				<p class="floatLeft" id="submit-description" style="width:450px;">When you are finished with the questionnaire Click &quot;complete registration&quot; get started on the Let’s Improve Transportation challenge!</p>
-				<p class="floatRight" id="submit-button"><input type="button" value="Complete registration" style="font-size:14pt;" onclick="submitQ(this.form)"/></p>
+				<p class="floatRight" id="submit-button"><input type="button" name="submitq" value="Complete registration" style="font-size:14pt;" onclick="submitQ(this.form)"/></p>
 		</div>
 		</form>
 		</div>
@@ -348,5 +349,6 @@ function filterNum(str) {
 	<!-- Begin header menu - The wide ribbon underneath the logo -->
 	<div id="headerMenu"> </div>
 	<!-- End header menu -->
+
 </body>
 </html:html>
