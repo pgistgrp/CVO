@@ -7,7 +7,6 @@ import java.util.Random;
 
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
-import org.jgap.Gene;
 import org.jgap.Genotype;
 import org.jgap.IChromosome;
 import org.jgap.impl.DefaultConfiguration;
@@ -23,24 +22,21 @@ public class GAKnapsackEngine {
     
     
     /**
-     * The total number of times we'll let the population evolve.
-     */
-    private static final int MAX_ALLOWED_EVOLUTIONS = 100;
-    
-    private static final int MAX_POPULATION_SIZE = 100;
-    
-    
-    /**
-     * Executes the genetic algorithm to determine the minimum number of
-     * items necessary to make up the given target volume. The solution will then
-     * be written to the console.
+     * Executes the genetic algorithm to determine the best solution.
      *
-     * @param a_knapsackVolume the target volume for which this method is
-     * attempting to produce the optimal list of items
+     * @param fitnessFunction
+     * @param evolutionTimes
+     * @param populationSize
+     * 
+     * @return
      *
      * @throws Exception
      */
-    private static IChromosome findBestSolution(GAKnapsackFitnessFunction fitnessFunction) throws Exception {
+    private static IChromosome findBestSolution(
+        GAKnapsackFitnessFunction fitnessFunction,
+        final int evolutionTimes,
+        final int populationSize
+    ) throws Exception {
         // Start with a DefaultConfiguration, which comes setup with the most common settings.
         Configuration conf = new DefaultConfiguration();
         conf.setPreservFittestIndividual(true);
@@ -60,18 +56,18 @@ public class GAKnapsackEngine {
          * also lets us specify a lower and upper bound, which we set
          * to senseful values (i.e. maximum possible) for each item type.
          */
-        List<Gene> sampleGenes = new ArrayList<Gene>();
+        List<IntegerGene> sampleGenes = new ArrayList<IntegerGene>();
         
-        Gene gene = null;
+        IntegerGene gene = null;
         for (KSChoices choices : fitnessFunction.getChoices()) {
             for (KSItem item : choices.getChoices()) {
                 gene = new IntegerGene(conf, 0, 1);
-                gene.setApplicationData(item);
+                //gene.setApplicationData(item);
                 sampleGenes.add(gene);
             }
         }
         
-        Gene[] temp = new Gene[sampleGenes.size()];
+        IntegerGene[] temp = new IntegerGene[sampleGenes.size()];
         for (int i=0; i<sampleGenes.size(); i++) {
             temp[i] = sampleGenes.get(i);
         }
@@ -86,7 +82,7 @@ public class GAKnapsackEngine {
          * finding the answer), but the longer it will take to evolve
          * the population (which could be seen as bad).
          */
-        conf.setPopulationSize(MAX_POPULATION_SIZE);
+        conf.setPopulationSize(populationSize);
         
         /*
          * Create random initial population of Chromosomes.
@@ -97,7 +93,7 @@ public class GAKnapsackEngine {
          * Evolve the population. Since we don't know what the best answer
          * is going to be, we just evolve the max number of times.
          */
-        for (int i=0; i<MAX_ALLOWED_EVOLUTIONS; i++) {
+        for (int i=0; i<evolutionTimes; i++) {
             population.evolve();
         }
         
@@ -105,34 +101,24 @@ public class GAKnapsackEngine {
     }//findBestSolution()
     
     
-    /**
-     * Test.
-     */
-    public static void main(String[] args) {
-        try {
-            Random random = new Random();
-            
-            KSChoices[] choices = new KSChoices[10];
-            for (int i=0; i<choices.length; i++) {
-                choices[i] = new KSChoices(i%3==0);
-                for (int j=0; j<3; j++) {
-                    new TempItem(choices[i], random.nextInt(100), random.nextInt(100));
-                }
-            }
-            
-            Collection<KSItem> items = mcknap(choices, 10);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//main()
+    public static Collection<KSItem> mcknap(KSChoices[] choices, double limit) throws Exception {
+        return mcknap(choices, limit, 100, 100);
+    }//mcknap()
     
     
-    public static Collection<KSItem> mcknap(KSChoices[] choices, double limit) throws Exception {       
+    public static Collection<KSItem> mcknap(
+        KSChoices[] choices,
+        double limit,
+        final int evolutionTimes,
+        final int populationSize
+    ) throws Exception {       
         ArrayList<KSItem> result = new ArrayList<KSItem>();
+        
+        Configuration.reset();
         
         GAKnapsackFitnessFunction fitnessFunction = new GAKnapsackFitnessFunction(choices, limit);
         
-        IChromosome chromosome = findBestSolution(fitnessFunction);
+        IChromosome chromosome = findBestSolution(fitnessFunction, evolutionTimes, populationSize);
         
         IntegerGene gene = null;
         KSItem item = null;
@@ -146,35 +132,36 @@ public class GAKnapsackEngine {
         */
         
         int k = 0;
-        float cost0 = 0;
-        float cost = 0;
-        float profit0 = 0;
-        float profit = 0;
+        float projTotalCost = 0;
+        float selectedTotalCost = 0;
+        float projTotalProfit = 0;
+        float selectedTotalProfit = 0;
         for (int i=0; i<choices.length; i++) {
             for (int j=0; j<choices[i].getChoices().size(); j++) {
-                gene = (IntegerGene) chromosome.getGene(i);
+                gene = (IntegerGene) chromosome.getGene(k);
                 item = choices[i].getChoices().get(j);
                 
-                cost0 += item.getCost();
-                profit0 += item.getProfit();
+                projTotalCost += item.getCost();
+                projTotalProfit += item.getProfit();
                 
                 if (gene.intValue()==1) {
                     result.add(item);
-                    cost += item.getCost();
-                    profit += item.getProfit();
-                    System.out.printf(" + %d(%c) %f %f\n", i, choices[i].isSingle()?'s':'m', item.getCost(), item.getProfit());
+                    selectedTotalCost += item.getCost();
+                    selectedTotalProfit += item.getProfit();
+                    System.out.printf(" + %d(%c) %8.2f %8.2f\n", i, choices[i].isSingle()?'s':'m', item.getCost(), item.getProfit());
                 } else {
-                    System.out.printf(" - %d(%c) %f %f\n", i, choices[i].isSingle()?'s':'m', item.getCost(), item.getProfit());
+                    System.out.printf(" - %d(%c) %8.2f %8.2f\n", i, choices[i].isSingle()?'s':'m', item.getCost(), item.getProfit());
                 }
                 
                 k++;
             }
         }//for i
         
-        System.out.println("total cost0 ---> "+cost0);
-        System.out.println("total cost ---> "+cost);
-        System.out.println("total profit0 ---> "+profit0);
-        System.out.println("total profit ---> "+profit);
+        System.out.println("limit : "+limit);
+        System.out.println("total cost of all projects : "+projTotalCost);
+        System.out.println("total cost of selected projects : "+selectedTotalCost);
+        System.out.println("total profit of all projects : "+projTotalProfit);
+        System.out.println("total profit of selected projects : "+selectedTotalProfit);
         
         return result;
     }//mcknap()

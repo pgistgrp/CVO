@@ -1,8 +1,5 @@
 package org.pgist.packages.knapsack;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.jgap.FitnessFunction;
 import org.jgap.IChromosome;
 import org.jgap.impl.IntegerGene;
@@ -13,20 +10,16 @@ import org.jgap.impl.IntegerGene;
  * @author kenny
  *
  */
-public class GAKnapsackFitnessFunction extends FitnessFunction {
+class GAKnapsackFitnessFunction extends FitnessFunction {
     
     
-    public static final double MAX_BOUND = 1E20;
+    public static final double MAX_BOUND = 1E9;
 
-    public static final double ZERO_DIFFERENCE_FITNESS = Math.sqrt(MAX_BOUND);
-    
     
     private KSChoices[] choices;
     
     private double limit;
     
-    //private final double m_knapsackVolume;
-
     
     public GAKnapsackFitnessFunction(KSChoices[] choices, double limit) {
         if (limit<1 || limit>=MAX_BOUND) {
@@ -73,7 +66,7 @@ public class GAKnapsackFitnessFunction extends FitnessFunction {
         int k = 0;
         for (int i=0; i<choices.length; i++) {
             for (int j=0; j<choices[i].getChoices().size(); j++) {
-                gene = (IntegerGene) chromosome.getGene(i);
+                gene = (IntegerGene) chromosome.getGene(k);
                 item = choices[i].getChoices().get(j);
                 totalCost += gene.intValue() * item.getCost();
                 k++;
@@ -101,7 +94,7 @@ public class GAKnapsackFitnessFunction extends FitnessFunction {
         int k = 0;
         for (int i=0; i<choices.length; i++) {
             for (int j=0; j<choices[i].getChoices().size(); j++) {
-                gene = (IntegerGene) chromosome.getGene(i);
+                gene = (IntegerGene) chromosome.getGene(k);
                 item = choices[i].getChoices().get(j);
                 totalBenefit += gene.intValue() * item.getProfit();
                 k++;
@@ -186,10 +179,10 @@ public class GAKnapsackFitnessFunction extends FitnessFunction {
             if (choices[i].isSingle()) {
                 int selection = 0;
                 for (int j=0; j<choices[i].getChoices().size(); j++) {
-                    gene = (IntegerGene) chromosome.getGene(i);
+                    gene = (IntegerGene) chromosome.getGene(k);
                     item = choices[i].getChoices().get(j);
                     
-                    if (gene.intValue()==1) selection++;
+                    selection += gene.intValue();
                     
                     k++;
                 }
@@ -212,12 +205,14 @@ public class GAKnapsackFitnessFunction extends FitnessFunction {
      */
     public double evaluate(IChromosome chromosome) {
         double totalCost = getTotalCost(chromosome);
-        double costDifference = Math.abs(limit - totalCost);
+        //double costDifference = Math.abs(limit - totalCost);
+        double costDifference = limit - totalCost;
         double totalBenefit = getTotalBenefit(chromosome);
         double fitness = 0.0d;
         
         // Good things
         fitness += costDifferenceBonus(costDifference);
+        //System.out.printf("%f %f\n", costDifference, fitness);
         fitness += benefitBonus(totalBenefit);
         
         // bad things

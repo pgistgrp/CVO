@@ -177,9 +177,16 @@
     
 
     <target name="matrix" depends="compile">
-        <taskdef name="TestHibernate" classname="org.pgist.tests.TestHibernate" classpathref="classpath">
+        <taskdef name="TestMatrix" classname="org.pgist.tests.TestHibernate" classpathref="classpath">
         </taskdef>
-        <TestHibernate configPath="${web}/WEB-INF/config" script="testdata/matrix.bsh"/>
+        <TestMatrix configPath="${web}/WEB-INF/config" script="testdata/matrix.bsh"/>
+    </target>
+    
+
+    <target name="ga" depends="compile">
+        <taskdef name="TestGAKnapsack" classname="org.pgist.tests.TestGAKnapsack" classpathref="classpath">
+        </taskdef>
+        <TestGAKnapsack script="testdata/knapsack.bsh"/>
     </target>
     
 
