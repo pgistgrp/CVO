@@ -136,7 +136,7 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
      * @return bonus for given volume difference
      */
     protected double benefitBonus(double totalBenefit) {
-        return (Math.min(MAX_BOUND, totalBenefit * totalBenefit));
+        return (Math.min(MAX_BOUND, totalBenefit));
     }//benefitBonus()
     
     
@@ -205,7 +205,6 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
      */
     public double evaluate(IChromosome chromosome) {
         double totalCost = getTotalCost(chromosome);
-        //double costDifference = Math.abs(limit - totalCost);
         double costDifference = limit - totalCost;
         double totalBenefit = getTotalBenefit(chromosome);
         double fitness = 0.0d;

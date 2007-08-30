@@ -6,10 +6,10 @@
 import org.pgist.packages.knapsack.*;
 
 //constants to define the input
-evolutionTimes = 100;
-populationSize = 100;
-numberOfProjects = 6;
-numberOfAltsPerProject = 5; //Note: there will be one single selection per numberOfAltsPerProject projects
+evolutionTimes = 1000;
+populationSize = 50;
+numberOfProjects = 100;
+numberOfAltsPerProject = 3; //Note: there will be one single selection per numberOfAltsPerProject projects
 limit = 250;
 
 Random random = new Random();

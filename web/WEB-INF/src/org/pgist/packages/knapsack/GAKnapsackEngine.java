@@ -156,6 +156,7 @@ public class GAKnapsackEngine {
             }
         }//for i
         
+        System.out.println("fitness : "+chromosome.getFitnessValue());
         System.out.println("limit : "+limit);
         System.out.println("total cost of all projects : "+projTotalCost);
         System.out.println("total cost of selected projects : "+selectedTotalCost);
