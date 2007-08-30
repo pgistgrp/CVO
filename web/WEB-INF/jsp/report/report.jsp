@@ -106,7 +106,7 @@ function pollresults() {
 						  <div class="right">
 								<p>Do you wish to endorse the Let's Improve Transportation Final Report?</p>
 								<input name="yes" id="yes" type="button" value="yes" onClick="javascript:vote('yes');" /> <input name="no" id="no" type="button" value="no" onClick="javascript:vote('no');" />
-							</div>		
+						  </div>		
 						</div>
 						<!--hidden poll results -->
 						<div id="pollresults" class="clearfix" style="display:none;">
@@ -193,7 +193,7 @@ $<fmt:formatNumber maxFractionDigits="0" value="${statsES.totalCost/1000000}" />
 	<!-- Begin participants + concerns -->
 	<div id="participants" class="box3 padding5 section">
 		<h3 class="headingColor padding5 centerAlign">1. The participants and their concerns
-			about transportation</h3>
+			about transportation ${statsPart1.id} </h3>
 		<p>
 		${statsPart1.totalUsers} residents
 		<c:choose>
@@ -262,12 +262,14 @@ $<fmt:formatNumber maxFractionDigits="0" value="${statsES.totalCost/1000000}" />
 					<c:otherwise>
 
 					<c:forEach var="transport" items="${statsPart1.transTypes}" varStatus="loop">
-						<fmt:formatNumber type="percent">${statsPart1.transportStats[transport]/statsPart1.totalUsers}</fmt:formatNumber>: 
-						  ${transport}<br/>
+						<fmt:formatNumber type="percent">${statsPart1.transportStats[transport]/statsPart1.totalUsers}</fmt:formatNumber>
+						: 
+						  ${transport.value}<br/>
 					</c:forEach>
+
 					</c:otherwise>
 				</c:choose>
-				</td>
+			  </td>
 			</tr> 
 			<tr>
 				<td><strong>Yearly household income</strong></td>
@@ -279,7 +281,8 @@ $<fmt:formatNumber maxFractionDigits="0" value="${statsES.totalCost/1000000}" />
 					<c:otherwise>
 
 					<c:forEach var="income" items="${statsPart1.incomeRanges}" varStatus="loop">
-						<fmt:formatNumber type="percent">${statsPart1.incomeStats[income]/statsPart1.totalUsers}</fmt:formatNumber>: ${income}<br/>
+						<fmt:formatNumber type="percent">${statsPart1.incomeStats[income]/statsPart1.totalUsers}</fmt:formatNumber>
+						: ${income.value}<br/>
 					</c:forEach>
 					</c:otherwise>
 				</c:choose>
@@ -298,7 +301,7 @@ $<fmt:formatNumber maxFractionDigits="0" value="${statsES.totalCost/1000000}" />
 					<!--<a href="#">Read participant concerns related to ${theme.title}</a>--></p>
 			</c:forEach>
 		</blockquote>
-	</div>
+  </div>
 	<!-- End participants + concerns -->
 	<!-- Begin planning factors -->
 	<div id="planningFactors" class="box3 padding5 section">
@@ -382,14 +385,23 @@ After a period of discussion about the relevance of the improvement factors to t
 				<c:if test="${altRef.alternative.numVotes > 0}">
 				<tr class="project-options">
 					<td class="col1">${altRef.alternative.name}</td>
-					<td class="col2">$<fmt:formatNumber type="number" maxFractionDigits="1" value="${altRef.alternative.cost/1000000}" /> million</td>
+					<td class="col2">
+					
+					<c:if test="${altRef.alternative.cost > 999999 && altRef.alternative.cost < 1000000000}">
+					$<fmt:formatNumber type="number" maxFractionDigits="1">${altRef.alternative.cost/1000000}</fmt:formatNumber> Million
+					</c:if>
+					<c:if test="${altRef.alternative.cost > 999999999 && altRef.alternative.cost < 1000000000000}">
+					$<fmt:formatNumber type="number" maxFractionDigits="1">${altRef.alternative.cost/1000000000}</fmt:formatNumber> Billion
+					</c:if>
+					
+					</td>
 					<td class="col3">${altRef.alternative.county}</td>
 					<c:set var="yesVotes" value="${altRef.alternative.yesVotes}" />
-					<c:set var="numVotes" value="${altRef.alternative.numVotes}" />
-					<td class="col4">${yesVotes} of ${numVotes}</td>
+					<c:set var="numPack" value="${fn:length(pkgSuite.userPkgs)}" />
+					<td class="col4">${yesVotes} of ${numPack}</td>
 					<c:choose>
-						<c:when test="${numVotes > 0}">
-						<td class="col5"><fmt:formatNumber type="percent">${yesVotes/numVotes}</fmt:formatNumber>
+						<c:when test="${numPack > 0}">
+						<td class="col5"><fmt:formatNumber type="percent">${yesVotes/numPack}</fmt:formatNumber>
 						</c:when>
 						<c:otherwise>
 						<td class="col5">N/A</td>
@@ -429,14 +441,25 @@ After a period of discussion about the relevance of the improvement factors to t
 				<c:if test="${altRef.alternative.numVotes > 0}">
 				<tr class="project-options">
 					<td class="col1">${altRef.alternative.name}</td>
-					<td class="col2">$<fmt:formatNumber maxFractionDigits="1" value="${altRef.alternative.revenue/1000000}" /> million</td>
-					<td class="col3">${altRef.alternative.avgCost}</td>
+				  <td class="col2">
+				  
+				  	<c:if test="${altRef.alternative.revenue > 999999 && altRef.alternative.revenue < 1000000000}">
+					$<fmt:formatNumber type="number" maxFractionDigits="1">${altRef.alternative.revenue/1000000}</fmt:formatNumber> Million
+					</c:if>
+					<c:if test="${altRef.alternative.revenue > 999999999 && altRef.alternative.revenue < 1000000000000}">
+					$<fmt:formatNumber type="number" maxFractionDigits="1">${altRef.alternative.revenue/1000000000}</fmt:formatNumber> Billion
+					</c:if>
+				  
+				  
+				  </td>
+					<td class="col3">$<fmt:formatNumber maxFractionDigits="2" value="${altRef.alternative.avgCost}" /></td>
 					<c:set var="yesVotes" value="${altRef.alternative.yesVotes}" />
-					<c:set var="numVotes" value="${altRef.alternative.numVotes}" />
-					<td class="col4">${yesVotes} of ${numVotes}</td>
+					<c:set var="numPack" value="${fn:length(pkgSuite.userPkgs)}" />
+					
+					<td class="col4">${yesVotes} of ${numPack}</td>
 					<c:choose>
-						<c:when test="${numVotes > 0}">
-						<td class="col5"><fmt:formatNumber type="percent">${yesVotes/numVotes}</fmt:formatNumber>
+						<c:when test="${numPack > 0}">
+						<td class="col5"><fmt:formatNumber type="percent">${yesVotes/numPack}</fmt:formatNumber>
 						</c:when>
 						<c:otherwise>
 						<td class="col5">N/A</td>
@@ -497,9 +520,29 @@ After a period of discussion about the relevance of the improvement factors to t
 					<c:otherwise>
 
 					<c:forEach var="transport" items="${statsPart4.transTypes}" varStatus="loop">
-						${statsPart4.transportStats[transport]/statsPart4.totalUsers} ${transport},	</c:forEach>
+						<fmt:formatNumber type="percent">${statsPart4.transportStats[transport]/statsPart4.totalUsers}
+						</fmt:formatNumber>
+						 ${transport.value}<br>
+</c:forEach>
 					</c:otherwise>
 				</c:choose></td>
+			</tr>
+						<tr>
+				<td><strong>Yearly household income</strong></td>
+				<td>
+				<c:choose>	
+					<c:when test="${fn:length(statsPart4.incomeRanges) == 0}">
+						<p>No Transportation Types Available</p>
+					</c:when>
+					<c:otherwise>
+
+					<c:forEach var="income" items="${statsPart4.incomeRanges}" varStatus="loop">
+						<fmt:formatNumber type="percent">${statsPart4.incomeStats[income]/statsPart4.totalUsers}</fmt:formatNumber>
+						: ${income.value}<br/>
+					</c:forEach>
+					</c:otherwise>
+				</c:choose>
+				</td>
 			</tr>
 		</table>
 		<div class="clearBoth"></div>
@@ -585,7 +628,16 @@ After a period of discussion about the relevance of the improvement factors to t
 					  <div class="projCol1 floatLeft">
 							<div class="floatLeft">${alt.alternative.name}</div>	  
 					  </div>
-					  <div class="projCol2 floatLeft"> $<fmt:formatNumber type="number" maxFractionDigits="1" value="${alt.alternative.cost/1000000}" /> Million</div>
+					  <div class="projCol2 floatLeft">
+					  
+					 <c:if test="${alt.alternative.cost > 999999 && alt.alternative.cost < 1000000000}">
+					$<fmt:formatNumber type="number" maxFractionDigits="1">${alt.alternative.cost/1000000}</fmt:formatNumber> Million
+					</c:if>
+					<c:if test="${alt.alternative.cost > 999999999 && alt.alternative.cost < 1000000000000}">
+					$<fmt:formatNumber type="number" maxFractionDigits="1">${alt.alternative.cost/1000000000}</fmt:formatNumber> Billion
+					</c:if>
+					  
+					  </div>
 					  <div class="projCol3 floatRight">${alt.alternative.county}</div>
 					  <div class="clearBoth"></div>	 
 				  </div>
@@ -593,7 +645,7 @@ After a period of discussion about the relevance of the improvement factors to t
 		    </c:forEach>
 				
 			  <!--End project list -->
-			</div>
+		  </div>
 			<!-- end obj-left -->
 			<!-- begin obj-right -->
 			<div class="floatRight obj-right">
@@ -620,7 +672,16 @@ After a period of discussion about the relevance of the improvement factors to t
 						<div class="fundingCol1 floatLeft">
 							<div class="floatLeft">${fundAlt.alternative.name}</div>
 						</div>
-						<div class="fundingCol2 floatRight">$<fmt:formatNumber type="number" maxFractionDigits="1" value="${fundAlt.alternative.revenue/1000000}" /> million</div>
+					  <div class="fundingCol2 floatRight">
+					  
+					  <c:if test="${fundAlt.alternative.revenue > 999999 && fundAlt.alternative.revenue < 1000000000}">
+					$<fmt:formatNumber type="number" maxFractionDigits="1">${fundAlt.alternative.revenue/1000000}</fmt:formatNumber> Million
+					</c:if>
+					<c:if test="${fundAlt.alternative.revenue > 999999999 && fundAlt.alternative.revenue < 1000000000000}">
+					$<fmt:formatNumber type="number" maxFractionDigits="1">${fundAlt.alternative.revenue/1000000000}</fmt:formatNumber> Billion
+					</c:if>
+					  
+					  </div>
 						<div class="clearBoth"></div>
 					</div>
 				</c:forEach>
@@ -701,15 +762,24 @@ After a period of discussion about the relevance of the improvement factors to t
 	<!-- Begin Appendix C -->
 	<div id="appendixC" class="box3 padding5 section"><a name="appendixC"></a>
 		<h3 class="headingColor padding5 centerAlign">Appendix C: The ${fn:length(cp)} candidate packages</h3>
-		<p>After every participant submitted their package in step 3c, a statistical procedure was used to identify a small set of "candidate" packages that best represented the diversity of packages created by all participants.  The statistical procedure is called "cluster analysis".  In this procedure, all of the participant packages were separated into clusters (subgroups of packages) based on the package’s project and funding selections.  Then, for each cluster, one representative package was identified as a candidate package. (Kaufman and Rousseeuw, 1990).</p>
+		<p>After every participant submitted their package in step 3c, a statistical procedure was used to identify a small set of "candidate" packages that best represented the diversity of packages created by all participants.  The statistical procedure is called "cluster analysis".  In this procedure, all of the participant packages were separated into clusters (subgroups of packages) based on the package's project and funding selections.  Then, for each cluster, one representative package was identified as a candidate package. (Kaufman and Rousseeuw, 1990).</p>
 		
 			
 			<c:forEach var="cPkg" items="${cp}" varStatus="loop">
 			<div class="projSummary clearfix">
 				<h3 class="headingColor padding5 clearfix">
 					<span class="packageNum">${cPkg.description}</span>
-					<span class="totalCost">Total cost: $<fmt:formatNumber type="number">${cPkg.totalCost}</fmt:formatNumber> Million</span>
-					<span class="yearlyCostToAvg">Yearly cost to the average resident: $<fmt:formatNumber type="number">${cPkg.avgResidentCost}</fmt:formatNumber> per year</span>
+					<span class="totalCost">Total cost:
+							
+							<c:if test="${cPkg.totalCost > 999999 && cPkg.totalCost < 1000000000}">
+							$<fmt:formatNumber type="number" maxFractionDigits="1">${cPkg.totalCost/1000000}</fmt:formatNumber> Million
+							</c:if>
+							<c:if test="${cPkg.totalCost > 999999999 && cPkg.totalCost < 1000000000000}">
+							$<fmt:formatNumber type="number" maxFractionDigits="1">${cPkg.totalCost/1000000000}</fmt:formatNumber> Billion
+							</c:if>
+					
+					</span>
+					<span class="yearlyCostToAvg">Yearly cost to the average resident: <fmt:formatNumber type="currency">${cPkg.avgResidentCost}</fmt:formatNumber> per year</span>
 				</h3>
 				<div class="obj-left floatLeft clearBoth">
 					<!--Begin project list -->
@@ -738,7 +808,16 @@ After a period of discussion about the relevance of the improvement factors to t
 							<div class="projCol1 floatLeft">
 								<div class="floatLeft">${altRef.alternative.name}</div>
 							</div>
-							<div class="projCol2 floatLeft">$<fmt:formatNumber type="number">${altRef.alternative.cost/1000000}</fmt:formatNumber> Million</div>
+							<div class="projCol2 floatLeft">
+
+							<c:if test="${altRef.alternative.cost > 999999 && altRef.alternative.cost < 1000000000}">
+							$<fmt:formatNumber type="number" maxFractionDigits="1">${altRef.alternative.cost/1000000}</fmt:formatNumber> Million
+							</c:if>
+							<c:if test="${altRef.alternative.cost > 999999999 && altRef.alternative.cost < 1000000000000}">
+							$<fmt:formatNumber type="number" maxFractionDigits="1">${altRef.alternative.cost/1000000000}</fmt:formatNumber> Billion
+							</c:if>
+							
+							</div>
 							<div class="projCol3 floatRight">${altRef.alternative.county}</div>
 							<div class="clearBoth"></div>
 						</div>
@@ -771,7 +850,16 @@ After a period of discussion about the relevance of the improvement factors to t
 							<div class="fundingCol1 floatLeft">
 								<div class="floatLeft">${altRef.alternative.name}</div>
 							</div>
-							<div class="fundingCol2 floatRight">$<fmt:formatNumber maxFractionDigits="1" value="${altRef.alternative.revenue/1000000}" /> million</div>
+							<div class="fundingCol2 floatRight">
+							
+							<c:if test="${altRef.alternative.revenue > 999999 && altRef.alternative.revenue < 1000000000}">
+							$<fmt:formatNumber type="number" maxFractionDigits="1">${altRef.alternative.revenue/1000000}</fmt:formatNumber> Million
+							</c:if>
+							<c:if test="${altRef.alternative.revenue > 999999999 && altRef.alternative.revenue < 1000000000000}">
+							$<fmt:formatNumber type="number" maxFractionDigits="1">${altRef.alternative.revenue/1000000000}</fmt:formatNumber> Billion
+							</c:if>
+							
+							</div>
 							<div class="clearBoth"></div>
 						</div>
 					</c:forEach>

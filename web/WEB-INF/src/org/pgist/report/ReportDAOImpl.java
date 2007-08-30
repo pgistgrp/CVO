@@ -113,6 +113,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		//Variables to store stats
 		Set<User> users = new HashSet<User>();
 		Set<RegisterObject> incomeRanges = new HashSet<RegisterObject>();
+		Set<RegisterObject> transTypes = new HashSet<RegisterObject>();
 		Map<County, Integer> countySet = new HashMap<County, Integer>();
 		Map<RegisterObject, Integer> incomeSet = new HashMap<RegisterObject, Integer>();		
 		Map<RegisterObject, Integer> transportSet = new HashMap<RegisterObject, Integer>();	
@@ -120,15 +121,11 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		int female = 0;
 		
 		//get Income ReportObjects
-		Collection regObjects = getHibernateTemplate().find(hql_createStatsPart1_3, new Object[] {"income",});
-		incomeRanges.addAll(regObjects);
-//		Iterator itRo = regObjects.iterator();
-//		while(itRo.hasNext()) {
-//			RegisterObject ro = (RegisterObject) itRo.next();
-//			incomeRanges.add(ro);
-//		}
-		
-		Set<RegisterObject> transTypes = new HashSet<RegisterObject>();
+		Collection roIncome = getHibernateTemplate().find(hql_createStatsPart1_3, new Object[] {"income",});
+		incomeRanges.addAll(roIncome);
+
+		Collection roTransport = getHibernateTemplate().find(hql_createStatsPart1_3, new Object[] {"transport",});
+		transTypes.addAll(roTransport);
 		
 		Set<Concern> concerns = cct.getConcerns();
 		System.out.println("*** Concerns" + concerns.size());
@@ -157,7 +154,6 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				}
 				
 				//Income
-				System.out.println("CreateStatsPart1: PrimaryTransport Username: " +u.getLoginname() + " Income Range: " + u.getIncomeRange());
 				if(u.getIncomeRange()!=null && !(u.getIncomeRange().equals(""))){
 					RegisterObject ro = u.getIncomeRange();
 					if(ro!=null) {	
@@ -174,8 +170,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				}
 				
 				//Primary Transport
-				System.out.println("CreateStatsPart1: PrimaryTransport Username: " +u.getLoginname() + " primaryTransport: " + u.getPrimaryTransport());
-				
+				//System.out.println("CreateStatsPart4: PrimaryTransport Username: " +u.getLoginname() + " primaryTransport: " + u.getPrimaryTransport().getValue());
 				if(u.getPrimaryTransport()!=null && !(u.getPrimaryTransport().equals(""))) {
 					RegisterObject pt = u.getPrimaryTransport();
 					if(pt!=null){
@@ -187,6 +182,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 							transportSet.remove(pt);
 							transportSet.put(pt, num+1);
 						}
+						
 					}
 				}
 				
@@ -355,6 +351,13 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		Set<RegisterObject> incomeRanges = new HashSet<RegisterObject>();
 		Set<RegisterObject> transTypes = new HashSet<RegisterObject>();
 		int totalPackages = 0;
+		
+//		//get Income ReportObjects
+		Collection roIncome = getHibernateTemplate().find(hql_createStatsPart1_3, new Object[] {"income",});
+		incomeRanges.addAll(roIncome);
+
+		Collection roTransport = getHibernateTemplate().find(hql_createStatsPart1_3, new Object[] {"transport",});
+		transTypes.addAll(roTransport);
 		
 		Set<UserPackage> packages = pkgSuite.getUserPkgs();
 		totalPackages = packages.size();

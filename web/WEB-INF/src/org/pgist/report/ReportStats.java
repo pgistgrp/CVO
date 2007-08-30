@@ -323,8 +323,8 @@ public class ReportStats implements Serializable{
      * @return
      * 
      * @hibernate.set lazy="true" cascade="all" order-by="id"
-     * @hibernate.collection-key column="register_object_id"
-     * @hibernate.collection-one-to-many class="org.pgist.system.RegisterObject"
+     * @hibernate.collection-key column="register_object_income_id"
+     * @hibernate.collection-many-to-many class="org.pgist.system.RegisterObject" column="id"
      */
 	public Set getIncomeRanges() {
 		return incomeRanges;
@@ -340,8 +340,8 @@ public class ReportStats implements Serializable{
      * @return
      * 
      * @hibernate.set lazy="true" cascade="all" order-by="id"
-     * @hibernate.collection-key column="register_object_id"
-     * @hibernate.collection-one-to-many class="org.pgist.system.RegisterObject"
+     * @hibernate.collection-key column="register_object_trans_id"
+     * @hibernate.collection-many-to-many class="org.pgist.system.RegisterObject" column="id"
      */
 	public Set<RegisterObject> getTransTypes() {
 		return transTypes;

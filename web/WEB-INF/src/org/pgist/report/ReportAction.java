@@ -199,7 +199,7 @@ public class ReportAction extends Action {
     	request.setAttribute("cp", cp);
     	request.setAttribute("pp", pp);
     	request.setAttribute("vss", vss);
-    	//request.setAttribute("pkgSuite", pkgSuite);
+    	request.setAttribute("pkgSuite", pkgSuite);
     	
     	request.setAttribute("executiveSummary", repoSummary.getExecutiveSummary());
     	request.setAttribute("part1a", repoSummary.getPart1a());
