@@ -9,8 +9,10 @@ import org.jgap.Chromosome;
 import org.jgap.Configuration;
 import org.jgap.Genotype;
 import org.jgap.IChromosome;
+import org.jgap.Population;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.IntegerGene;
+import org.jgap.impl.MutationOperator;
 
 
 /**
@@ -38,8 +40,12 @@ public class GAKnapsackEngine {
         final int populationSize
     ) throws Exception {
         // Start with a DefaultConfiguration, which comes setup with the most common settings.
-        Configuration conf = new DefaultConfiguration();
+        DefaultConfiguration conf = new DefaultConfiguration();
         conf.setPreservFittestIndividual(true);
+        
+        // Mutation Rate
+        //MutationOperator mutationOperator = new MutationOperator(conf, 2);
+        //conf.addGeneticOperator(mutationOperator);
         
         // Set the fitness function we want to use.
         conf.setFitnessFunction(fitnessFunction);
@@ -60,10 +66,15 @@ public class GAKnapsackEngine {
         
         IntegerGene gene = null;
         for (KSChoices choices : fitnessFunction.getChoices()) {
-            for (KSItem item : choices.getChoices()) {
-                gene = new IntegerGene(conf, 0, 1);
-                //gene.setApplicationData(item);
+            if (choices.isSingle()) {
+                gene = new IntegerGene(conf, 0, choices.getChoices().size());
                 sampleGenes.add(gene);
+            } else {
+                for (KSItem item : choices.getChoices()) {
+                    gene = new IntegerGene(conf, 0, 1);
+                    //gene.setApplicationData(item);
+                    sampleGenes.add(gene);
+                }
             }
         }
         
@@ -87,7 +98,17 @@ public class GAKnapsackEngine {
         /*
          * Create random initial population of Chromosomes.
          */
-        Genotype population = Genotype.randomInitialGenotype(conf);
+        //Genotype population = Genotype.randomInitialGenotype(conf);
+        Population initialPopulation = new Population(conf, populationSize);
+        temp = new IntegerGene[sampleGenes.size()];
+        for (int i=0; i<temp.length; i++) {
+            temp[i] = new IntegerGene(conf, 0, 1);
+            temp[i].setAllele(0);
+        }
+        IChromosome initial1 = new Chromosome(conf, temp);
+        initialPopulation.addChromosome(initial1);
+        
+        Genotype population = new Genotype(conf, initialPopulation);
         
         /*
          * Evolve the population. Since we don't know what the best answer
@@ -136,23 +157,41 @@ public class GAKnapsackEngine {
         float selectedTotalProfit = 0;
         System.out.printf(" group (s/m)     cost        profit\n");
         for (int i=0; i<choices.length; i++) {
-            for (int j=0; j<choices[i].getChoices().size(); j++) {
+            if (choices[i].isSingle()) {
                 gene = (IntegerGene) chromosome.getGene(k);
-                item = choices[i].getChoices().get(j);
-                
-                projTotalCost += item.getCost();
-                projTotalProfit += item.getProfit();
-                
-                if (gene.intValue()==1) {
-                    result.add(item);
-                    selectedTotalCost += item.getCost();
-                    selectedTotalProfit += item.getProfit();
-                    System.out.printf(" + %d   (%c)    %8.2f    %8.2f\n", i, choices[i].isSingle()?'s':'m', item.getCost(), item.getProfit());
-                } else {
-                    System.out.printf(" - %d   (%c)    %8.2f    %8.2f\n", i, choices[i].isSingle()?'s':'m', item.getCost(), item.getProfit());
+                for (int j=0; j<choices[i].getChoices().size(); j++) {
+                    item = choices[i].getChoices().get(j);
+                    projTotalCost += item.getCost();
+                    projTotalProfit += item.getProfit();
+                    if (gene.intValue()-1==j) {
+                        result.add(item);
+                        selectedTotalCost += item.getCost();
+                        selectedTotalProfit += item.getProfit();
+                        System.out.printf(" + %d   (%c)    %8.2f    %8.2f\n", i, choices[i].isSingle()?'s':'m', item.getCost(), item.getProfit());
+                    } else {
+                        System.out.printf(" - %d   (%c)    %8.2f    %8.2f\n", i, choices[i].isSingle()?'s':'m', item.getCost(), item.getProfit());
+                    }
                 }
-                
                 k++;
+            } else {
+                for (int j=0; j<choices[i].getChoices().size(); j++) {
+                    gene = (IntegerGene) chromosome.getGene(k);
+                    item = choices[i].getChoices().get(j);
+                    
+                    projTotalCost += item.getCost();
+                    projTotalProfit += item.getProfit();
+                    
+                    if (gene.intValue()==1) {
+                        result.add(item);
+                        selectedTotalCost += item.getCost();
+                        selectedTotalProfit += item.getProfit();
+                        System.out.printf(" + %d   (%c)    %8.2f    %8.2f\n", i, choices[i].isSingle()?'s':'m', item.getCost(), item.getProfit());
+                    } else {
+                        System.out.printf(" - %d   (%c)    %8.2f    %8.2f\n", i, choices[i].isSingle()?'s':'m', item.getCost(), item.getProfit());
+                    }
+                    
+                    k++;
+                }
             }
         }//for i
         

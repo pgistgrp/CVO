@@ -65,11 +65,20 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
         
         int k = 0;
         for (int i=0; i<choices.length; i++) {
-            for (int j=0; j<choices[i].getChoices().size(); j++) {
+            if (choices[i].isSingle()) {
                 gene = (IntegerGene) chromosome.getGene(k);
-                item = choices[i].getChoices().get(j);
-                totalCost += gene.intValue() * item.getCost();
+                if (gene.intValue()>0) {
+                    item = choices[i].getChoices().get(gene.intValue()-1);
+                    totalCost += gene.intValue() * item.getCost();
+                }
                 k++;
+            } else {
+                for (int j=0; j<choices[i].getChoices().size(); j++) {
+                    gene = (IntegerGene) chromosome.getGene(k);
+                    item = choices[i].getChoices().get(j);
+                    totalCost += gene.intValue() * item.getCost();
+                    k++;
+                }
             }
         }//for i
         
@@ -93,11 +102,20 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
         
         int k = 0;
         for (int i=0; i<choices.length; i++) {
-            for (int j=0; j<choices[i].getChoices().size(); j++) {
+            if (choices[i].isSingle()) {
                 gene = (IntegerGene) chromosome.getGene(k);
-                item = choices[i].getChoices().get(j);
-                totalBenefit += gene.intValue() * item.getProfit();
+                if (gene.intValue()>0) {
+                    item = choices[i].getChoices().get(gene.intValue()-1);
+                    totalBenefit += gene.intValue() * item.getProfit();
+                }
                 k++;
+            } else {
+                for (int j=0; j<choices[i].getChoices().size(); j++) {
+                    gene = (IntegerGene) chromosome.getGene(k);
+                    item = choices[i].getChoices().get(j);
+                    totalBenefit += gene.intValue() * item.getProfit();
+                    k++;
+                }
             }
         }//for i
         
@@ -119,11 +137,7 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
         } else if (costDifference < 0) {
             return -MAX_BOUND;
         } else {
-            /*
-             * we arbitrarily work with half of the maximum fitness as basis for non-
-             * optimal solutions (concerning costDifference)
-             */
-            return MAX_BOUND/2 - (costDifference * costDifference);
+            return MAX_BOUND - (costDifference * costDifference);
         }
     }//costDifferenceBonus()
     
@@ -136,62 +150,8 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
      * @return bonus for given volume difference
      */
     protected double benefitBonus(double totalBenefit) {
-        return (Math.min(MAX_BOUND, totalBenefit));
+        return (Math.min(MAX_BOUND, totalBenefit * totalBenefit));
     }//benefitBonus()
-    
-    
-    /**
-     * Calculates the penalty to apply to the fitness value based on the amount of items in the solution.
-     *
-     * @param chromosome the potential solution to evaluate
-     * 
-     * @return a penalty for the fitness value based on the single penalty
-     */
-    private double computeSinglePenalty(IChromosome chromosome) {
-        //Map<KSChoices, Integer> counts = new HashMap<KSChoices, Integer>();
-        
-        IntegerGene gene = null;
-        KSItem item = null;
-        KSChoices choice = null;
-        
-        /*
-        for (int i=0; i<chromosome.getGenes().length; i++) {
-            gene = (IntegerGene) chromosome.getGene(i);
-            item = (KSItem) gene.getApplicationData();
-            choice = item.getChoices();
-            
-            if (choice.isSingle()) {
-                if (counts.containsKey(choice)) {
-                    counts.put(choice, counts.get(choices)+1);
-                } else {
-                    counts.put(choice, 1);
-                }
-            }
-        }//for i
-        
-        for (Map.Entry<KSChoices, Integer> entry : counts.entrySet()) {
-            if (entry.getValue()>1) return -MAX_BOUND;
-        }//for entry
-        */
-        
-        int k = 0;
-        for (int i=0; i<choices.length; i++) {
-            if (choices[i].isSingle()) {
-                int selection = 0;
-                for (int j=0; j<choices[i].getChoices().size(); j++) {
-                    gene = (IntegerGene) chromosome.getGene(k);
-                    item = choices[i].getChoices().get(j);
-                    
-                    selection += gene.intValue();
-                    
-                    k++;
-                }
-                if (selection>1) return -MAX_BOUND;
-            }
-        }//for i
-        
-        return 0;
-    }//computeSinglePenalty()
     
     
     /**
@@ -209,12 +169,8 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
         double totalBenefit = getTotalBenefit(chromosome);
         double fitness = 0.0d;
         
-        // Good things
         fitness += costDifferenceBonus(costDifference);
         fitness += benefitBonus(totalBenefit);
-        
-        // bad things
-        fitness += computeSinglePenalty(chromosome);
         
         // Make sure fitness value is always positive.
         return Math.max(1.0d, fitness);
