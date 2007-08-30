@@ -225,7 +225,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		rs.setIncomeRanges(incomeRanges);
 		rs.setTransTypes(transTypes);
 		//Complete: Add counties, incomeranges, transporttypes
-		
+		countySet.remove("");
 		rs.setCounties(countySet.keySet());
 		
 		rs.setUsers(users);

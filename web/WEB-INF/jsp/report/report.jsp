@@ -156,8 +156,15 @@ The recommended package contains ${statsES.totalProjects} road and transit proje
 		*** Error Total Cost for project was null ***
 	</c:when>
 	<c:otherwise>
-It is funded by a combination of bridge tolls, parking taxes, and vehicle excise fees. The total cost of the package is 
-$<fmt:formatNumber maxFractionDigits="0" value="${statsES.totalCost/1000000}" /> million. 	
+It is funded by a combination of bridge tolls, parking taxes, and vehicle excise fees. The total cost of the package is 	
+
+							<c:if test="${statsES.totalCost > 999999 && statsES.totalCost < 1000000000}">
+							$<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000}</fmt:formatNumber> Million.
+							</c:if>
+							<c:if test="${statsES.totalCost > 999999999 && statsES.totalCost < 1000000000000}">
+							$<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000000}</fmt:formatNumber> Billion.
+							</c:if>
+							
 	</c:otherwise>
 </c:choose>
 
@@ -193,7 +200,7 @@ $<fmt:formatNumber maxFractionDigits="0" value="${statsES.totalCost/1000000}" />
 	<!-- Begin participants + concerns -->
 	<div id="participants" class="box3 padding5 section">
 		<h3 class="headingColor padding5 centerAlign">1. The participants and their concerns
-			about transportation ${statsPart1.id} </h3>
+			about transportation </h3>
 		<p>
 		${statsPart1.totalUsers} residents
 		<c:choose>
@@ -207,11 +214,11 @@ $<fmt:formatNumber maxFractionDigits="0" value="${statsES.totalCost/1000000}" />
 				<c:forEach var="county" items="${statsPart1.counties}" varStatus="loop">
 					<c:set var="temp" value="${temp+1}"/>
 					<c:choose>
-						<c:when test="${temp == stats1size}">
+						<c:when test="${temp == stats1size && stats1size > 1}">
 						and ${county.name}
 						</c:when>
 						<c:otherwise>
-						${county.name},
+						${county.name}<c:if test="${stats1size > 1}">, </c:if>
 						</c:otherwise>
 					</c:choose>				
 				</c:forEach>
