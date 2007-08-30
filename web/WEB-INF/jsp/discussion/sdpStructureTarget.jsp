@@ -243,9 +243,42 @@
                 }
             }
         }
-	 pgistmap.map.setCenter(new GLatLng(47.651500,-122.165222),9);
+	 //pgistmap.map.setCenter(new GLatLng(47.651500,-122.165222),9);
+     pgistmap.addLegend([{"img":"/images/leg_road.gif", "descp":"Road projects"},
+                         {"img":"/images/leg_transit.gif", "descp":"Transit projects"}], true);
+     pgistmap.addLegendItem("<label><input type='checkbox'>&nbsp;My trips</label>", loadTravelPath);
+     //loadTravelPath();
     }
-
+    
+    var travelPath = [];
+    function loadTravelPath(){
+        if(travelPath.length == 0){
+            RegisterAgent.getUserTrips(-1, function(data){//use -1 for user id for the current user
+                //data.trips is now an array of trips
+                pgistmap.disableMapLogger();
+                if(data.successful){
+                    for(k=0; k<data.trips.length; k++){
+                        travelPath.push( drawTrip(pgistmap, data.trips[k].coords) );
+                    }
+                }
+                pgistmap.enableMapLogger();
+            });
+        }else{
+            while(travelPath.length>0)pgistmap.map.removeOverlay( travelPath.pop() );
+        }
+    }
+    
+    function drawTrip(pgmap, coords){
+        var points= [];
+        for(i=0;i<coords.length; i=i+2){
+            points[i/2] = new GPoint(coords[i], coords[i+1]);
+        }
+        var tripline = new GPolyline(points, "#0000FF", 6, 0.5);
+        pgmap.map.addOverlay( tripline );
+        pgmap.scaleToCoords(points, true);
+        return(tripline);
+    }
+    
 	/* *************** loading on getTargets() in SDRoomMain *************** */
 	io.loadDynamicFile('/styles/step3a-reviewprojects.css');
 	io.loadDynamicFile('/styles/table.css');
@@ -264,4 +297,5 @@
         </c:forEach>
     </c:forEach>
     loadFootprints();
+    
 </pg:fragment>

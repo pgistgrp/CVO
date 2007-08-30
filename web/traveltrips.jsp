@@ -89,7 +89,7 @@
 				var trip = {mode:2, frequency:1, coords:coords};
 				
 				//the first argument of this call is the user ID, which we can either set from this page, or get from the context
-				RegisterAgent.saveUserTrip(5, [markers], [trip], function(data){
+				RegisterAgent.saveUserTrip(-1, [markers], [trip], function(data){
 							if(data.successful) alert("path and markers saved successfully, with tripid=" + data.tripIds);
 						});
 			}
@@ -99,7 +99,7 @@
 			 * again, first parameter is the user ID.
 			 */
 			function testLoad(){
-				RegisterAgent.getUserTrips(5, function(data){
+				RegisterAgent.getUserTrips(-1, function(data){
 					//data.trips is now an array of trips
 					if(data.successful){
 						if(data.trips.length>0)

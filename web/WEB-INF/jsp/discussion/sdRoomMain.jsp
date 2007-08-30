@@ -42,6 +42,7 @@
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/PESAgent.js'></script>
 <script type='text/javascript' src='scripts/pgistmap2.js'></script>
+<script type='text/javascript' src='/dwr/interface/RegisterAgent.js'></script>
 <!--END Mapping  Libraries-->
 
 <script type="text/javascript">

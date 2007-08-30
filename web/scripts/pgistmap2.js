@@ -189,8 +189,16 @@ function PGIST_Map_Logger(){
 
 
 PGISTMapEditor.prototype.addLegend = function(itemsdata, imgonly){
-    this.map.addControl( new PGISTLegendControl(itemsdata, imgonly) );
-}
+    this.legend = new PGISTLegendControl(itemsdata, imgonly);
+    this.map.addControl( this.legend );
+};
+
+
+PGISTMapEditor.prototype.addLegendItem = function(html, handler){
+    if(this.legend){
+        this.legend.addControl(html, handler);
+    }
+};
 /**
 
  * Change the container of the map to the new target
@@ -1192,6 +1200,7 @@ PGISTMapTitleControl.prototype.setButtonStyle_ = function(button) {
 function PGISTLegendControl(itemsdata, imgonly){
     this.legendItems = itemsdata;
     this.imgonly = imgonly || false;
+    this.legendDiv = null;
 }
 
 PGISTLegendControl.prototype = new GControl();
@@ -1200,11 +1209,9 @@ PGISTLegendControl.prototype.initialize = function(map) {
 
   var container = document.createElement("div");
 
+  this.legendDiv = document.createElement("div");
 
-
-  var legendDiv = document.createElement("div");
-
-  container.appendChild(legendDiv);
+  container.appendChild(this.legendDiv);
   var html = "<table border='0' bgcolor='#FFFFFF'>";
   for(var i=0; i<this.legendItems.length; i++){
       html += "<tr><td><img src='" 
@@ -1214,7 +1221,7 @@ PGISTLegendControl.prototype.initialize = function(map) {
   }
   html += "</table>";
 
-  legendDiv.innerHTML = html;
+  this.legendDiv.innerHTML = html;
 
 
   map.getContainer().appendChild(container);
@@ -1223,8 +1230,13 @@ PGISTLegendControl.prototype.initialize = function(map) {
 
 };
 
-
-
+PGISTLegendControl.prototype.addControl = function(html, handler) {
+    var div = document.createElement("div");
+    div.innerHTML = html;
+    div.onclick = handler;
+    div.style.backgroundColor = "#FFFFFF";
+    this.legendDiv.appendChild(div);
+};
 // By default, the control will appear in the bottom right corner of the
 // map with 40 pixels of padding.
 PGISTLegendControl.prototype.getDefaultPosition = function() {
