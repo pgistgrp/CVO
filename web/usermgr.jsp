@@ -124,17 +124,17 @@ function enableUsers(myId) {
 }
 
 function getEmailList(mychoice) {
-	var enable = "";
-	var disable = "";
-	if(mychoice=="enabled") {
-		enable="true";
-		disable ="false";
-	} else if (mychoice == "disabled") {
-		disable ="true";
-		enable="false";
+	var quota = "";
+	var nonquota = "";
+	if(mychoice=="quota") {
+		quota="true";
+		nonquota ="false";
+	} else if (mychoice == "nonquota") {
+		quota ="false";
+		nonquota="true";
 	}
 	
-	SystemAgent.getEmailList({enabled:enable, disabled:disable}, {
+	SystemAgent.getEmailList({quota:quota, nonquota:nonquota}, {
 		callback:function(data){
 			if (data.successful){
 				$('EmailList').value = data.emaillist;
@@ -270,13 +270,13 @@ function greyDisabled() {
 							<br/>
 							<label>
 							<input type="radio" name="userfilter" value="enabled" 
-							onChange="getEmailList('enabled');">
-							Enabled Only</label>
+							onChange="getEmailList('quota');">
+							Quota Only</label>
 							<br/>
 							<label>
 							<input type="radio" name="userfilter" value="enabled" 
-							onChange="getEmailList('disabled');">
-							Disabled Only</label>
+							onChange="getEmailList('nonquota');">
+							Non-Quota Only</label>
 						</div>
 						<div class="clearBoth"></div>
 						</p>

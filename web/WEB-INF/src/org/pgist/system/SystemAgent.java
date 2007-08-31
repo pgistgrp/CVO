@@ -395,8 +395,8 @@ public class SystemAgent {
 	/**
      * Gets an email list of user emails. Either All users, don't set variables.
      *   <ul>
-     *     <li>enabled - (optional) boolean, string</li>
-     *     <li>disabled - (optional)boolean, string</li>
+     *     <li>quota - (optional) boolean, string</li>
+     *     <li>nonquota - (optional)boolean, string</li>
      *   </ul>
      * @return a Map contains:
      *   <ul>
@@ -408,21 +408,21 @@ public class SystemAgent {
 	public Map getEmailList(Map params) {
 		Map map = new HashMap();
         map.put("successful", false);
-        boolean bool_enabled = false;
-        boolean bool_disabled = false;
+        boolean bool_quota = false;
+        boolean bool_nonquota = false;
         
-        String enabled = (String)params.get("enabled");
-        String disabled = (String)params.get("disabled");
+        String quota = (String)params.get("quota");
+        String nonquota = (String)params.get("nonquota");
         
-        if(enabled.toLowerCase().equals("true")) {
-        	bool_enabled = true;
+        if(quota.toLowerCase().equals("true")) {
+        	bool_quota = true;
         }
-        if(disabled.toLowerCase().equals("true")) {
-        	bool_disabled = true;
+        if(nonquota.toLowerCase().equals("true")) {
+        	bool_nonquota = true;
         }
         
         try {
-        	String emaillist = systemService.getEmailList(bool_enabled, bool_disabled);
+        	String emaillist = systemService.getEmailList(bool_quota, bool_nonquota);
         	map.put("emaillist", emaillist);
         	map.put("successful", true);
         } catch (Exception e) {

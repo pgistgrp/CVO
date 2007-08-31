@@ -60,7 +60,7 @@ public interface SystemService {
     Collection getDisabledUsers() throws Exception;
     
     
-    String getEmailList(boolean enabled, boolean disabled) throws Exception;
+    String getEmailList(boolean quota, boolean nonquota) throws Exception;
     
     
     void resetPassword(String[] ids, String password) throws Exception;

@@ -9,18 +9,22 @@
 
 <table id="newTable" border="0" cellpadding="3" cellspacing="0" class="center">
   <tr>
-    <th title="The login name">User Name </th>
+    <th title="The login name">Login  Name </th>
+    <th title="The e-mail address given by the user">Name</th>
     <th title="The e-mail address given by the user">Email Address</th>
     <th title="User qualifies for payment">Quota?</th>
     <th title="Agreed to an interview">Interview</th>
     <th title="Agreed to undergo recorded (screencast) session(s)">Recording</th>
     <th title="Agreed to consent form">Consented</th>
+    <th>WebQ Id </th>
     <th>Actions</th>
   </tr>
 <c:choose>	
 	<c:when test="${fn:length(users) == 0}">
 	<tr>
 		<td>No Users</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>
@@ -42,8 +46,9 @@
 		<c:set var="rowcount" value="0"/>
 		</c:otherwise>
 		</c:choose>
-		<td><pg:url page="/publicprofile.do" target="_blank" params="user=${user.loginname}">${user.loginname}</pg:url></td>
-		<td>${user.email}</td>
+		<tr><td><pg:url page="/publicprofile.do" target="_blank" params="user=${user.loginname}">${user.loginname}</pg:url></td>
+		  <td>${user.firstname} ${user.lastname} </td>
+		  <td>${user.email}</td>
 		<td>
 		<c:choose> 
 			<c:when test='${user.quota == "true"}'>
@@ -52,11 +57,11 @@
 			<c:otherwise>
 				<input name="" type="checkbox"  onchange="quota('${user.id}', 'true')"/>
 			</c:otherwise>
-		</c:choose>
-		</td>
+		</c:choose>		</td>
 		<td>${user.interview}</td>
 		<td>${user.recording}</td>
 		<td>${user.consented}</td>
+		<td>${user.webQ.id}</td>
 		<td>
 		<c:choose> 
 			<c:when test='${user.enabled == "true"}'>
@@ -66,9 +71,7 @@
 				<input name="Enable" id="enable" class="disabled" type="button" value="Enable" onclick="javascript:enableUsers('${user.id}');setTimeout('getAllUsers();',100);" />	
 			</c:otherwise>
 		</c:choose>
-		<input name="Reset Password" type="button" value="Reset Password" onclick="javascript:resetPassword('${user.id}')" />
-
-		</td>
+		<input name="Reset Password" type="button" value="Reset Password" onclick="javascript:resetPassword('${user.id}')" />		</td>
 	  </tr>
   	</c:forEach>
 	</c:otherwise>

@@ -254,28 +254,28 @@ public class SystemServiceImpl implements SystemService {
     }
     
     
-    public String getEmailList(boolean enabled, boolean disabled) throws Exception {
+    public String getEmailList(boolean quota, boolean nonquota) throws Exception {
     	Collection userslist = getAllUsers();
     	String emaillist = "";
     	
     	Iterator ul = userslist.iterator();
     	
-		if(enabled == disabled) {
+		if(quota == nonquota) {
 			while(ul.hasNext()) {
 	    		User user = (User)ul.next();
 	    		emaillist += user.getEmail() + ", ";
 			}
-		} else if (enabled) {
+		} else if (quota) {
 			while(ul.hasNext()) {
 	    		User user = (User)ul.next();
-	    		if(user.isEnabled()) {
+	    		if(user.getQuota()) {
 	    			emaillist += user.getEmail() + ", ";
 	    		}
 			}
-		} else if (disabled) {
+		} else if (nonquota) {
 			while(ul.hasNext()) {
 	    		User user = (User)ul.next();
-	    		if(!user.isEnabled()) {
+	    		if(!user.getQuota()) {
 	    			emaillist += user.getEmail() + ", ";
 	    		}
 			}
