@@ -494,7 +494,7 @@
 
 					<div id="helpMe" style="display:none;">
 						<p>Using the information you provided during registration, we can put together
-							a package for you automatically.  Enter the amount of money that you would be willing to pay to fund a package and click the button below. </p>
+							a package for you automatically.  Enter the amount of money that you would be willing to pay annually to fund a package. Then click the button below. </p>
 						<form action="javascript:createMyPackage();">
 							<h4>Cost per year that you are willing to pay</h4>
 			

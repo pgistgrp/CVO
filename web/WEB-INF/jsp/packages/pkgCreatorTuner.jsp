@@ -147,7 +147,7 @@
 			<h2 class="headerColor">Help me create a package</h2>
 			<div id="overview" class="box2">
 			<h3 class="headerColor">Instructions</h3>
-				<p>Complete this form and click the button at the bottom to create a package.  You can adjust the package before you submit it on the main page.</p>
+				<p>Complete this form and click the button at the bottom of this page to create a package.  You are able to adjust the package before you submit it on the main page.</p>
 			</div>
 			<div class="box6 padding5">
 				<h3 class="headerColor">1. How much are you willing to pay per year?</h3>
@@ -156,14 +156,16 @@
 			</div>
 		</div>
 	<div id="object" class="stripWS">
-				<h3 class="headerColor">2. Re-weigh your criteria</h3>
+				<h3 class="headerColor">2. What is the relative importance of each improvement factor?</h3>
+        <label>You can keep your weights from Step 2b or you can change them here.</label>
 				<div id="criteria">
 					<!--load the criteria partial here -->
 				</div>
 				<!-- begin NewTable-->
 				<br />
 				<div id="newTable" class="stripWS">
-					<h3 class="headerColor">3. Declare your project and funding source preferences</h3>
+					<h3 class="headerColor">3. Which choices are you sure about?</h3>
+         <label>Mark the projects and funding sources that you want to include or exclude from the package that will be created.</label><br/>
 					<div id="left" class="floatLeft">
 						<table cellpadding=0 cellspacing=0>
 							<!-- begin CATEGORY LABEL -->

@@ -318,7 +318,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
       <p>
 		The second step included a review, discussion, and weighting of ${statsPart2.quanity} "improvement factors" used to evaluate the proposed transportation projects. They were used by a panel of transportation specialists to qualitatively "score" proposed projects. (Appendix B includes a detailed discussion of the factors and scoring process). 
 
-After a period of discussion about the relevance of the improvement factors to the concerns discussed in Step 1, participants weighted the relative importance of each factor based on their individual preferences. 100 total points were available to distribute between the ${statsPart2.quanity} factors. The following table displays information about the improvement factors and participant weight preferences.		</p>
+After a period of discussion about the relevance of the improvement factors to the concerns discussed in Step 1, participants weighted the relative importance of each factor based on their individual preferences. A total weight of 100 was distributed by each participant across the ${statsPart2.quanity} factors. The following table displays information about the improvement factors and participant weight preferences.		</p>
 		<p>${part2a}</p>
 		<div id="criteria" class="box3 floatLeft">
 			<!-- START All Criteria List -->

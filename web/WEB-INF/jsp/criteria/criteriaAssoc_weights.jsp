@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<p class="floatRight" id="remainingWeightP2">Points Left: <b id="remainingWeight2">
+<p class="floatRight" id="remainingWeightP2"> <SMALL>Weight remaining: </SMALL><b id="remainingWeight2">
 <!--load remaining weight here -->
 </b></p><br class="clearBoth" />
 <div id="critRowWrapper">
@@ -72,6 +72,6 @@
 </div>
 </div>
 </div>
-<p id="remainingWeightP">Points Left: <b id="remainingWeight">
+<p id="remainingWeightP"><SMALL>Weight remaining: </SMALL><b id="remainingWeight">
 <!--load remaining weight here -->
 </b></p><br class="clearBoth" />

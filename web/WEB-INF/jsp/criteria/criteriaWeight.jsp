@@ -83,12 +83,11 @@ position:fixed;
 				<h3>Overview and instructions</h3>
 				<p>In this step you can weigh the relative importance of the improvement factors.
 					<ul>
-						<li>You have a total of 100 points to distribute among the nine factors.</li>
 						<li>Drag the bar next to an improvement factor to assign a weight.</li>
 						<li>Assign a higher weight to factors you feel are most important.</li>
 					</ul>
 				</p>
-				<p>Assigning weights will help you to identify transportation projects in Step 3 which most closely reflect your own priorities for transportation system improvement.</p>
+				<p>Assigning weights will help you in Step 3 to identify the transportation projects that most closely reflect your own priorities for transportation system improvement.</p>
 			</div>
 			<!-- end overview -->
 			<!-- begin object -->
