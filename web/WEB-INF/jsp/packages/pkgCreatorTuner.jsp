@@ -144,34 +144,32 @@
 			<img src="/images/indicator_arrows.gif">
 		</div>
 	<div id="top">
-			<h2 class="headerColor">Fine tune a package</h2>
+			<h2 class="headerColor">Help me create a package</h2>
 			<div id="overview" class="box2">
-			<h3 class="headerColor">Overview and instructions</h3>
-				<p>Answer the following questions so that we can suggest a package that matches
-					your general preferences. you will be able to adjust your suggested package before
-					moving on.</p>
+			<h3 class="headerColor">Instructions</h3>
+				<p>Complete this form and click the button at the bottom to create a package.  You can adjust the package before you submit it on the main page.</p>
 			</div>
 			<div class="box6 padding5">
-				<h3 class="headerColor">How much are you willing to pay per year?</h3>
-				<label>What is the total annual cost <em><strong>you</strong></em> are willing to pay to fund your preferred transportation package per year?</label> <span class="dollarSign">$</span><input type="text" id="mylimit" size="5"/><br/>
+				<h3 class="headerColor">1. How much are you willing to pay per year?</h3>
+				<label>What is the total annual cost <em><strong>you</strong></em> are willing to pay to fund your preferred transportation package?</label> <span class="dollarSign">$</span><input type="text" id="mylimit" size="5"/><br/>
 				<div class="clearBoth"></div>
 			</div>
 		</div>
 	<div id="object" class="stripWS">
-				<h3 class="headerColor">Re-weigh your criteria</h3>
+				<h3 class="headerColor">2. Re-weigh your criteria</h3>
 				<div id="criteria">
 					<!--load the criteria partial here -->
 				</div>
 				<!-- begin NewTable-->
 				<br />
 				<div id="newTable" class="stripWS">
-					<h3 class="headerColor">Fine tune projects and funding sources</h3>
+					<h3 class="headerColor">3. Declare your project and funding source preferences</h3>
 					<div id="left" class="floatLeft">
 						<table cellpadding=0 cellspacing=0>
 							<!-- begin CATEGORY LABEL -->
 							<tr class="tableHeading">
 								<th colspan="2" class="first">Projects</th>
-								<th>Priority</th>
+								<th>Include or Exclude</th>
 							</tr>
 					
 							<c:forEach var="category" begin="1" end="2">
@@ -212,7 +210,7 @@
 															<td class="cost">
 																<select name="projectChoices" id="projAltSelect-${altRef.alternative.id}">
 																	<option value="2">Include it</option>
-																	<option value="1" SELECTED>Don't care</option>
+																	<option value="1" SELECTED>No opinion</option>
 																	<option value="0">Exclude it</option>
 																</select>
 															</td>
@@ -234,7 +232,7 @@
 						<table cellpadding=0 cellspacing=0>
 							<tr class="tableHeading">
 								<th class="first">Funding source</th>
-								<th>Priority</th>
+								<th>Include or Exclude</th>
 							</tr>
 							<!-- begin FUNDING source -->
 							<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
@@ -254,7 +252,7 @@
 										<td class="right-col2">
 											<select name="fundingChoices" id="fundAltSelect-${altRef.alternative.id}">
 												<option value="2">Include it</option>
-												<option value="1" SELECTED>Don't care</option>
+												<option value="1" SELECTED>No opinion</option>
 												<option value="0">Exclude it</option>
 											</select>
 										</td>

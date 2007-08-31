@@ -457,7 +457,7 @@
 				<ul>Create your own transportation package.
 					<li>Select projects and funding options to include in your package.</li>
 					<li>Be sure to provide enough funding to pay for your projects!</li>
-					<li>Click "Help Me" if you’d like help selecting projects and funding options which match your preferences.</li>
+					<li>Click "Help me create a package" if you’d like help selecting projects and funding options which match your preferences.</li>
 				</ul>
 			<p>You have until <strong><fmt:formatDate value="${current.endTime}" dateStyle="long" /></strong> to create and submit your package.You can only submit one package.</p>
 			<p><a href="#" onclick="Effect.toggle('hiddenRM','blind',{duration:0});">Read more about this step</a></p>
@@ -494,21 +494,21 @@
 
 					<div id="helpMe" style="display:none;">
 						<p>Using the information you provided during registration, we can put together
-							a package for you automatically. Any projects and funding sources you've already
-							selected will be included in this package.</p>
+							a package for you automatically.  Enter the amount of money that you would be willing to pay to fund a package and click the button below. </p>
 						<form action="javascript:createMyPackage();">
-							<h4>Cost per year</h4>
-							<div class="floatLeft" style="width:60%"><label> What's the most you would be willing to pay to fund this package? </label></div>
-							<div class="floatRight"> <span style="font-size:1.3em;">$<input type="text" size="3" id="mylimit" /></span></div>
+							<h4>Cost per year that you are willing to pay</h4>
+			
+              <div class="floatRight"> <span style="font-size:1.3em;">$<input type="text" size="3" id="mylimit" /></span></div>
 							<div class="clearBoth"></div>
 							<div style="margin-top:15px;" class="floatLeft"><input type="submit" class="floatLeft padding5" value="Create a package"/></div>
-							<div class="floatRight"><a href="javascript:window.open('tuner.do?usrPkgId=${userPkg.id}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}','helpMe','width=1000,height=500,resizable=yes,scrollbars=yes'); void(0);"> <img src="images/tuneup.gif">Fine tune a package</a></div>
+							<div class="floatRight"><a href="javascript:window.open('tuner.do?usrPkgId=${userPkg.id}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}','helpMe','width=1000,height=500,resizable=yes,scrollbars=yes'); void(0);"> <img src="images/tuneup.gif">More tool options</a></div>
 						</form>
 					</div><!--end help me-->
 					<div class="clearBoth"></div>
 
 					<!-- begin collapsible list of projects -->
-					<h3 class="headerColor" style="margin-bottom:10px">Select projects to include in your package</h3>
+          <p> </p>
+          <h3 class="headerColor" style="margin-bottom:10px">Select projects to include in your package</h3>
 					<table cellpadding=0 cellspacing=0 id="projectsTable">
 						<tr class="tableHeading">
 							<th colspan="2" class="first">Proposed improvement projects</th>
