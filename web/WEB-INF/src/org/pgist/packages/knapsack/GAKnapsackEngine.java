@@ -39,6 +39,8 @@ public class GAKnapsackEngine {
         final int evolutionTimes,
         final int populationSize
     ) throws Exception {
+        Configuration.reset();
+        
         // Start with a DefaultConfiguration, which comes setup with the most common settings.
         DefaultConfiguration conf = new DefaultConfiguration();
         conf.setPreservFittestIndividual(true);
@@ -122,6 +124,11 @@ public class GAKnapsackEngine {
     }//findBestSolution()
     
     
+    public static Collection<KSItem> mcknap(Collection<KSChoices> choices, double limit) throws Exception {
+        return mcknap(choices.toArray(new KSChoices[0]), limit, 100, 100);
+    }//mcknap()
+    
+    
     public static Collection<KSItem> mcknap(KSChoices[] choices, double limit) throws Exception {
         return mcknap(choices, limit, 100, 100);
     }//mcknap()
@@ -132,7 +139,7 @@ public class GAKnapsackEngine {
         double limit,
         final int evolutionTimes,
         final int populationSize
-    ) throws Exception {       
+    ) throws Exception {
         ArrayList<KSItem> result = new ArrayList<KSItem>();
         
         GAKnapsackFitnessFunction fitnessFunction = new GAKnapsackFitnessFunction(choices, limit);

@@ -33,6 +33,7 @@ import org.pgist.packages.cluster.ItemCluster;
 import org.pgist.packages.cluster.PAMClusterer;
 import org.pgist.packages.cluster.PackageItem;
 import org.pgist.packages.cluster.ProjectItemFactory;
+import org.pgist.packages.knapsack.GAKnapsackEngine;
 import org.pgist.packages.knapsack.KSChoices;
 import org.pgist.packages.knapsack.KSEngine;
 import org.pgist.packages.knapsack.KSItem;
@@ -1317,7 +1318,6 @@ public class PackageServiceImpl implements PackageService {
 	 * @throws Exception 
 	 */
 	private void findBestProjectSolution(UserPackage upack, TunerConfig conf, float totalFunding, HashMap<Criteria, Integer> cWeight) throws Exception {
-		
 		//Create a collection of ProjectKSItems
 		Collection<KSChoices> choiceCol = new ArrayList<KSChoices>(); 
 		KSChoices choices;
@@ -1326,7 +1326,7 @@ public class PackageServiceImpl implements PackageService {
 		ProjectSuite pSuite = projectDAO.getProjectSuite(conf.getProjSuiteId());
 		ProjectRef tempRef;
 		Project tempProject;
-
+		
 		Iterator<ProjectAltRef> pAltsRef;
 		ProjectAltRef tempProjectAltRef;
 		ProjectAlternative tempProjectAlt;
@@ -1336,7 +1336,7 @@ public class PackageServiceImpl implements PackageService {
 		Iterator<ProjectRef> refs = pSuite.getReferences().iterator();
 		while(refs.hasNext()) {
 			tempRef = refs.next();
-			choices = new KSChoices(!tempRef.getProject().isInclusive());
+			choices = new KSChoices(tempRef.getProject().isInclusive());
 			
 			//Loop through the alternatives
 			tempProject = tempRef.getProject();
@@ -1344,7 +1344,7 @@ public class PackageServiceImpl implements PackageService {
 			while(pAltsRef.hasNext()) {
 				tempProjectAltRef = pAltsRef.next();
 				tempProjectAlt = tempProjectAltRef.getAlternative();
-								
+				
 				//Get the users opinion on this project
 				choice = (Integer)conf.getProjectChoices().get(tempProjectAlt.getId());
 				System.out.println("MATT CHOICE = " + choice);
@@ -1376,10 +1376,10 @@ public class PackageServiceImpl implements PackageService {
 		
 		//Check that the package isn't already over buget
 		if(totalFunding < 0) throw new BudgetExceededException("The projects selected exceed the budget limits you provided");
-
 		
 		//Send the collection to the KSAlgorithm
-		Collection<KSItem> result = KSEngine.mcknap(choiceCol, totalFunding);
+        System.out.println("findBestProjectSolution ---> "+totalFunding);
+		Collection<KSItem> result = GAKnapsackEngine.mcknap(choiceCol, totalFunding);
 		
 		//Add the resulting items to the users package
 		Iterator<KSItem> resultIter = result.iterator();
@@ -1496,7 +1496,8 @@ public class PackageServiceImpl implements PackageService {
 		mylimit = mylimit - mybudget;
 		
 		//Send the collection to the KSAlgorithm
-		Collection<KSItem> result = KSEngine.mcknap(choiceCol, mylimit);
+        System.out.println("findBestFundingSourceSolution ---> "+mylimit);
+		Collection<KSItem> result = GAKnapsackEngine.mcknap(choiceCol, mylimit);
 		
 		//Add the resulting items to the users package
 		Iterator<KSItem> resultIter = result.iterator();

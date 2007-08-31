@@ -13,7 +13,7 @@ import org.jgap.impl.IntegerGene;
 class GAKnapsackFitnessFunction extends FitnessFunction {
     
     
-    public static final double MAX_BOUND = 1E9;
+    public static final double MAX_BOUND = 1E20;
 
     
     private KSChoices[] choices;

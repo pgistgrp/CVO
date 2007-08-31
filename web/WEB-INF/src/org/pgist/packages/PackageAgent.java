@@ -65,7 +65,7 @@ public class PackageAgent {
             config.setFundSuiteId(fundSuiteId);
             config.setProjSuiteId(projSuiteId);
             config.setCritSuiteId(critSuiteId);
-                        
+            
             map.put("config", config);
             map.put("successful", true);
         } catch (Exception e) {
@@ -73,7 +73,7 @@ public class PackageAgent {
             map.put("reason", e.getMessage());
         }
         
-        return map;      
+        return map;
     }
     
     /**
@@ -106,7 +106,7 @@ public class PackageAgent {
             map.put("reason", e.getMessage());
         }
         
-        return map;    	
+        return map;
     }
     
     /**
@@ -154,7 +154,7 @@ public class PackageAgent {
             map.put("reason", e.getMessage());
         }
         
-        return map;    	
+        return map;
     }
     
     
@@ -195,7 +195,7 @@ public class PackageAgent {
         }
         
         return map;
-    }//createClusteredPackages()    
+    }//createClusteredPackages()
 
     /**
      * Returns all of the clustered packages contained in the provided package suite
