@@ -242,6 +242,7 @@ public class RegisterAgent {
         	String loginname = user.getLoginname();
             values.put("loginname", loginname);
             values.put("participant", user);
+            values.put("webqid", user.getWebQ().getId());
         	emailSender.send(user, "registration", values);
         	
         	registerService.logout(request);

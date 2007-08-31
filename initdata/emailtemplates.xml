@@ -54,12 +54,15 @@
     
     <template name="registration">
             <description>Send an email notification to user that their account has been created.</description>
-            <subject>LIT: New Account Creation</subject>
-            <notes>Variable: ${loginname}</notes>
+            <subject>Welcome to Let’s Improve Transportation</subject>
+            <notes>Variable: ${loginname}, ${webqid}</notes>
             <content><![CDATA[
-            <h3>Welcome to LIT: Let's Improve Transportation</h3>
-            <p>Your account has been successfully created.</p>
-            <p>Your Login Name is <strong>${loginname}</strong>.</p>            
+		<p>Welcome to Let's Improve Transportation, or LIT.</p>
+		<p>Your user account has been successfully created. Your Login Name is ${loginname}. Your participant id number is ${webqid}. (You will need this number to access surveys.)
+		Thanks for becoming the newest participant in the LIT Challenge. To login and get started simply go to:
+		<a href="http://www.letsimprovetransportation.org">www.letsimprovetransportation.org</a> </p>
+		<p>See you online soon!<br/>
+		Matt and Kevin, the LIT moderators</p>
             ]]>
             </content>
     </template>
