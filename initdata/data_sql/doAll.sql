@@ -415,6 +415,7 @@ INSERT INTO pgist_county_zipcodes_link (id, zipcodes) VALUES (3122, '98375');
 INSERT INTO pgist_county_zipcodes_link (id, zipcodes) VALUES (3122, '98444');
 
 
+
 INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2823, 'webq', '3160', false);
 INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2824, 'webq', '2466', false);
 INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2825, 'webq', '1598', false);
@@ -1467,17 +1468,27 @@ INSERT INTO pgist_register_object (id, "type", value, used) VALUES (3871, 'webq'
 INSERT INTO pgist_register_object (id, "type", value, used) VALUES (3872, 'webq', '2363', false);
 INSERT INTO pgist_register_object (id, "type", value, used) VALUES (3873, 'webq', '5670', false);
 INSERT INTO pgist_register_object (id, "type", value, used) VALUES (3874, 'webq', '6214', false);
-INSERT INTO pgist_register_object (id, "type", value, used) VALUES (3876, 'income', '$0-$24,999', false);
-INSERT INTO pgist_register_object (id, "type", value, used) VALUES (3877, 'income', '$25,000-$49,999', false);
-INSERT INTO pgist_register_object (id, "type", value, used) VALUES (3878, 'income', '$50,000-$74,999', false);
-INSERT INTO pgist_register_object (id, "type", value, used) VALUES (3879, 'income', '$75,000-$99,999', false);
-INSERT INTO pgist_register_object (id, "type", value, used) VALUES (3880, 'income', '$100,000 or more', false);
 INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2508, 'transport', 'Bus or Transit', false);
 INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2509, 'transport', 'Carpool or Vanpool', false);
 INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2510, 'transport', 'Drive Alone', false);
 INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2511, 'transport', 'Ferry', false);
 INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2512, 'transport', 'Walk or Bike', false);
 INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2513, 'transport', 'Other', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2517, 'income', '$0-$20,000', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2519, 'income', '$20,000-$30,000', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2520, 'income', '$30,000-$40,000', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2521, 'income', '$40,000-$50,000', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2522, 'income', '$50,000-$60,000', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2523, 'income', '$60,000-$70,000', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2524, 'income', '$70,000-$80,000', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2525, 'income', '$80,000-$90,000', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2526, 'income', '$90,000-$100,000', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2527, 'income', '$100,000-$120,000', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2528, 'income', '$120,000-$140,000', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2529, 'income', '$140,000-$160,000', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2530, 'income', '$160,000-$180,000', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2531, 'income', '$180,000-$200,000', false);
+INSERT INTO pgist_register_object (id, "type", value, used) VALUES (2532, 'income', '$200,000 or more', false);
 
 
 INSERT INTO pgist_data_project_footprint (id, the_geom, ref_prj_name) VALUES (3198, '01050000000100000001020000001B00000000000098FE955EC0B680F1A3D6CF474000000098FE955EC08F83D53871CF47400000003EFE955EC05C77CD062CCF474000000098FE955EC0ADB0D8A205CF4740000000FC3F965EC08400E3419FCE4740000000BE41965EC0866EBCB996CE47400000001842965EC013EA8BC58CCE47400000006441965EC08A0498067FCE4740000000103B965EC03DB4BF3869CE4740000000762F965EC0FC88F9C74CCE4740000000C61B965EC041E895992BCE4740000000F40B965EC04D5F392A18CE4740000000BAFA955EC0E7103991FECD4740000000CC8E955EC0943A2DA518CD47400000006280955EC02AFADBC6FACC4740000000D07B955EC071FCBAC2E8CC4740000000767B955EC0B891AC2AD8CC4740000000A678955EC05B9BC69634CC4740000000B479955EC0F912CE6BF7CB4740000000DE7C955EC0571E0608E3CB4740000000909D955EC017DF9E3E55CB47400000007CA2955EC00259C51146CB474000000038AA955EC01691A4BA30CB474000000070AE955EC08C0B858022CB4740000000C4B4955EC045FC4E880FCB474000000094B7955EC0C912BE3303CB4740000000B0B9955EC068F4D83223C94740', 'Alaskan Way Viaduct');
