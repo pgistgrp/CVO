@@ -6,14 +6,14 @@
     
     <property file="${base}/build.properties"/>
     
-    <property name="web" value="${tomcat.path}" />
+    <property name="web" value="web" />
     <property name="temp" value="${web}/temp" />
     <property name="src" value="${web}/WEB-INF/src" />
     <property name="deplib" value="lib" />
     <property name="lib" value="${web}/WEB-INF/lib" />
     <property name="build" value="${web}/WEB-INF/classes" />
-    <property name="webapp" value="${tomcat}/webapps/ROOT"/>
-    <property name="javadoc-webapp" value="${tomcat}/webapps/pgist-docs"/>
+    <property name="webapp" value="${tomcat.path}/webapps/ROOT"/>
+    <property name="javadoc-webapp" value="${tomcat.path}/webapps/pgist-docs"/>
     <property name="javadoc" value="docs/api"/>
     <property name="doctime" value="2006"/>
 
@@ -193,7 +193,7 @@
     <target name="lucene" depends="compile">
         <taskdef name="TestLucene" classname="org.pgist.tests.TestLucene" classpathref="classpath">
         </taskdef>
-        <TestLucene indexPath="/opt/tomcat/cvotest/webapps/ROOT/WEB-INF/lucene" script="testdata/lucene.bsh"/>
+        <TestLucene indexPath="${webapp}/WEB-INF/lucene" script="testdata/lucene.bsh"/>
     </target>
     
 
