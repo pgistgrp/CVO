@@ -32,7 +32,7 @@
 
     <context-param>
         <param-name>org.pgist.GMAP_KEY</param-name>
-        <param-value>PGIST_GMAP_KEY</param-value>
+        <param-value>@google.mapKey@</param-value>
     </context-param>
     
     <filter>
@@ -53,11 +53,11 @@
         </init-param>
         <init-param>
             <param-name>http-port</param-name>
-            <param-value>8080</param-value>
+            <param-value>@tomcat.port.http@</param-value>
         </init-param>
         <init-param>
             <param-name>https-port</param-name>
-            <param-value>8443</param-value>
+            <param-value>@tomcat.port.https@</param-value>
         </init-param>
         <init-param>
             <param-name>https-url</param-name>
@@ -339,7 +339,7 @@
         </init-param>
         <init-param>
             <param-name>scriptSessionTimeout</param-name>
-            <param-value>300</param-value>
+            <param-value>@tomcat.session.timeout@</param-value>
         </init-param>
     </servlet>
     
@@ -356,7 +356,7 @@
     
     <session-config>
         <!-- Session timeout is in minutes -->
-        <session-timeout>360</session-timeout>
+        <session-timeout>@tomcat.session.timeout@</session-timeout>
     </session-config>
     
     

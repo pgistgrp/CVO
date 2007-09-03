@@ -9,13 +9,13 @@
            <value>org.postgresql.Driver</value>
         </property>
         <property name="jdbcUrl">
-           <value>jdbc:postgresql://localhost/cvotest</value>
+           <value>jdbc:postgresql://localhost/@database.databaseName@</value>
         </property>
         <property name="user">
-           <value>pgist</value>
+           <value>@database.userName@</value>
         </property>
         <property name="password">
-           <value>ppgis.2005</value>
+           <value>@database.password@</value>
         </property>
         <property name="minPoolSize">
            <value>5</value>

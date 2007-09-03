@@ -6,7 +6,7 @@
     
     <property file="${base}/build.properties"/>
     
-    <property name="web" value="web" />
+    <property name="web" value="${tomcat.path}" />
     <property name="temp" value="${web}/temp" />
     <property name="src" value="${web}/WEB-INF/src" />
     <property name="deplib" value="lib" />
@@ -232,8 +232,18 @@
             <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
           </fileset>
         </copy>
-        <replace file="${webapp}/WEB-INF/web.xml" token="PGIST_GMAP_KEY" value="${googleMapKey}"/>
-    </target>  
+        <replace file="${webapp}/WEB-INF/web.xml">
+            <replacefilter token="@google.mapKey@" value="${google.mapKey}"/>
+            <replacefilter token="@tomcat.port.http@" value="${tomcat.port.http}"/>
+            <replacefilter token="@tomcat.port.https@" value="${tomcat.port.https}"/>
+            <replacefilter token="@tomcat.session.timeout@" value="${tomcat.session.timeout}"/>
+        </replace>
+        <replace file="${webapp}/WEB-INF/config/context-database.xml">
+            <replacefilter token="@database.userName@" value="${database.userName}"/>
+            <replacefilter token="@database.password@" value="${database.password}"/>
+            <replacefilter token="@database.databaseName@" value="${database.databaseName}"/>
+        </replace>
+    </target>
 
     <target name="fastdeploy" depends="compile">
         <mkdir dir="${webapp}"/>
