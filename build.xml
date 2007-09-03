@@ -47,9 +47,19 @@
 
 
     <target name="compile" depends="init">
+        <copy todir="${build}">
+            <fileset dir="${web}">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <javac classpathref="classpath" srcdir="${src}" destdir="${classes}" debug="on">
             <include name="**/*.java" />
         </javac>
+        <copy todir="${build}">
+            <fileset dir="${web}">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
         <replace file="${build}/WEB-INF/web.xml">
             <replacefilter token="@google.mapKey@" value="${google.mapKey}"/>
             <replacefilter token="@tomcat.port.http@" value="${tomcat.port.http}"/>
