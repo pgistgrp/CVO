@@ -60,6 +60,11 @@
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
+        <copy todir="${classes}">
+            <fileset dir="${src}">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
         <replace file="${build}/WEB-INF/web.xml">
             <replacefilter token="@google.mapKey@" value="${google.mapKey}"/>
             <replacefilter token="@tomcat.port.http@" value="${tomcat.port.http}"/>
@@ -235,12 +240,11 @@
                  use="true" windowtitle="PGIST API" doctitle="PGIST" Locale="en_US"
                  bottom="Copyright &#169; ${doctime} University of Washington. All Rights Reserved.">
             <packageset dir="${src}" defaultexcludes="yes">
-              <include name="**"/>
+                <include name="**"/>
             </packageset>
         </javadoc>
         <copy todir="${javadoc-webapp}">
-          <fileset dir="${javadoc}">
-          </fileset>
+            <fileset dir="${javadoc}" />
         </copy>
     </target>
 
@@ -248,23 +252,25 @@
     <target name="deploy" depends="compile, mapping">
         <mkdir dir="${webapp}"/>
         <copy todir="${webapp}">
-          <fileset dir="${build}">
-            <exclude name="WEB-INF/classes/org/pgist/ddl/**"/>
-            <exclude name="WEB-INF/classes/org/pgist/tests/**"/>
-            <exclude name="WEB-INF/src/**"/>
-            <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
-          </fileset>
+            <fileset dir="${build}">
+                <exclude name="temp"/>
+                <exclude name="WEB-INF/classes/org/pgist/ddl/**"/>
+                <exclude name="WEB-INF/classes/org/pgist/tests/**"/>
+                <exclude name="WEB-INF/src/**"/>
+                <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
+            </fileset>
         </copy>
     </target>
 
     <target name="fastdeploy" depends="compile">
         <copy todir="${webapp}">
-          <fileset dir="${build}">
-            <exclude name="WEB-INF/classes/org/pgist/ddl/**"/>
-            <exclude name="WEB-INF/classes/org/pgist/tests/**"/>
-            <exclude name="WEB-INF/src/**"/>
-            <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
-          </fileset>
+            <fileset dir="${build}">
+                <exclude name="temp"/>
+                <exclude name="WEB-INF/classes/org/pgist/ddl/**"/>
+                <exclude name="WEB-INF/classes/org/pgist/tests/**"/>
+                <exclude name="WEB-INF/src/**"/>
+                <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
+            </fileset>
         </copy>
     </target>
     
@@ -272,6 +278,8 @@
     <target name="war" depends="compile, mapping">
         <war destfile="${base}/cvotest.war" webxml="${build}/WEB-INF/web.xml">
             <fileset dir="${web}">
+                <exclude name="temp"/>
+                <exclude name="WEB-INF/classes/org/pgist/ddl/**"/>
                 <exclude name="WEB-INF/classes/org/pgist/tests/**"/>
                 <exclude name="WEB-INF/src/**"/>
                 <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
