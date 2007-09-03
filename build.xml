@@ -35,7 +35,9 @@
         <mkdir dir="${build}" />
         <mkdir dir="${classes}" />
         <mkdir dir="${temp}" />
-        <copy todir="${build}" file="${web}" />
+        <copy todir="${build}">
+            <fileset dir="${web}"/>
+        </copy>
     </target>
 
 
