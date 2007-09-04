@@ -26,8 +26,20 @@
 
 <script type="text/javascript">
 function submit2B() {
+	document.formreg2b.agree.disabled=true;
+	document.formreg2b.disagree.disabled=true;
 	RegisterAgent.addConsent({});
+	setTimeout("redirect()",100);
+}
+function redirect() {
 	window.location = "registerq.do";
+}
+function cancel() {
+	RegisterAgent.createCancel({});
+	setTimeout("redirectcancel()",100);
+}
+function redirectcancel() {
+	window.location = "main.do";
 }
 </script>
 </head>
@@ -97,11 +109,11 @@ function submit2B() {
 	</fieldset>
 	<!-- end OPPORTUNITIES -->
 	<div class="clearBoth"></div>
-	
+<form name="formreg2b">
 	<div id="step-bar" class="box5 padding5 clearfix">
 			<p class="floatLeft" id="step-progress">Step 2 of 3</p>
 			<p class="floatLeft" id="submit-description" style="width:420px;">By clicking “I Agree” you (a) agree to the “informed consent” above and (b) agree to receive required notices from Let’s Improve Transportation electronically.</p>
-			<p class="floatRight" id="submit-button"><input type="button" value="I Agree" style="font-size:14pt;" onClick="submit2B()" /> <input type="button" value="I Do Not Agree" style="font-size:14pt;" onClick="cancel()" /></p>
+			<p class="floatRight" id="submit-button"><input type="button" name="agree" value="I Agree" style="font-size:14pt;" onClick="submit2B()" /> <input type="button" name="disagree" value="I Do Not Agree" style="font-size:14pt;" onClick="cancel()" /></p>
 		</div>
 </div>
 </form>

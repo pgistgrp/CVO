@@ -164,4 +164,10 @@ public class RegisterServiceImpl implements RegisterService {
     	return registerDAO.getTransTypes();
     }
     
+    public void createCancel(HttpServletRequest request) throws Exception {
+    	Long id = WebUtils.currentUserId();
+    	registerDAO.createCancel(id);
+    	logout(request);
+    }
+    
 }

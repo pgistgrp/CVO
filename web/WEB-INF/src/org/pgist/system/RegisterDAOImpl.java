@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.SortedSet;
 
 import org.hibernate.Query;
+import org.hibernate.sql.Delete;
 import org.pgist.funding.UserCommute;
 import org.pgist.funding.UserFundingSourceToll;
 import org.pgist.users.Role;
@@ -211,7 +214,7 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 	public boolean checkEmail(String email) throws Exception {
 		
 		List list = getHibernateTemplate().find(hql_checkEmail, new Object[] {
-				email,
+				email
     	});
 		
 		if(list.size() > 0) {
@@ -371,6 +374,17 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 		save(u);
 		 
 		return ro;
+	}
+	
+
+	
+	public void createCancel(Long id) throws Exception {
+		System.out.println("***registerDAOImpl cancel user");
+		User u = (User)load(User.class, id);
+		Set<Role> empty = new HashSet<Role>();
+		u.setRoles(empty);
+		save(u);
+		getHibernateTemplate().delete(u);
 	}
 	
 	public void createRegisterObjects(String type, String[] valuelist) throws Exception {

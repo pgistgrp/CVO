@@ -64,5 +64,7 @@ public interface RegisterService {
 	void createRegisterObjects(String type, String[] valuelist) throws Exception;
 	
 	Collection getTransTypes() throws Exception;
+	
+	void createCancel(HttpServletRequest request) throws Exception;
 
 }

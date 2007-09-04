@@ -42,6 +42,13 @@ function submit2A() {
 function redirect() {
 	window.location = "registerq.do";
 }
+function cancel() {
+	RegisterAgent.createCancel({});
+	setTimeout("redirectcancel()",100);
+}
+function redirectcancel() {
+	window.location = "main.do";
+}
 </script>
 </head>
 <body>
