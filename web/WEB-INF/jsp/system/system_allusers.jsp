@@ -61,7 +61,7 @@
 		<td>${user.interview}</td>
 		<td>${user.recording}</td>
 		<td>${user.consented}</td>
-		<td>${user.webQ.id}</td>
+		<td>${user.webQ.value}</td>
 		<td>
 		<c:choose> 
 			<c:when test='${user.enabled == "true"}'>

@@ -54,7 +54,7 @@
     
     <template name="registration">
             <description>Send an email notification to user that their account has been created.</description>
-            <subject>Welcome to Let’s Improve Transportation</subject>
+            <subject>Welcome to Let's Improve Transportation</subject>
             <notes>Variable: ${loginname}, ${webqid}</notes>
             <content><![CDATA[
 		<p>Welcome to Let's Improve Transportation, or LIT.</p>
