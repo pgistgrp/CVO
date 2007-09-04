@@ -25,6 +25,8 @@
 
 <script type="text/javascript">
 function submit2A() {
+	document.formreg2a.agree.disabled=true;
+	document.formreg2a.disagree.disabled=true;
 	var errordiv = document.getElementById("errors");
 	var errormsg = "";
 
@@ -35,6 +37,9 @@ function submit2A() {
 	var observation2 = document.formreg2a.observation[1].checked;
 
 	RegisterAgent.addQuotaInfo({interview:interview1, observation:observation1});
+	setTimeout("redirect()",100);
+}
+function redirect() {
 	window.location = "registerq.do";
 }
 </script>
@@ -167,7 +172,7 @@ function submit2A() {
 	<div id="step-bar" class="box5 padding5 clearfix">
 			<p class="floatLeft" id="step-progress">Step 2 of 3</p>
 			<p class="floatLeft" id="submit-description" style="width:420px;">By clicking “I Agree” you (a) agree to the “informed consent” above and (b) agree to receive required notices from Let’s Improve Transportation electronically.</p>
-			<p class="floatRight" id="submit-button"><input type="button" value="I Agree" style="font-size:14pt;" onClick="submit2A()" /> <input type="button" value="I Do Not Agree" style="font-size:14pt;" onClick="cancel()"/></p>
+			<p class="floatRight" id="submit-button"><input type="button" name="agree" value="I Agree" style="font-size:14pt;" onClick="submit2A()" /> <input type="button" name="disagree" value="I Do Not Agree" style="font-size:14pt;" onClick="cancel()"/></p>
 		</div>
 	
 </div>

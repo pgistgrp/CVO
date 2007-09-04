@@ -130,6 +130,7 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     	user.setConsented("Quota");
     	user.setQuota(true);
     	save(user);
+    	System.out.println("***RegisterDAOImpl " + user_interview + " " + user_observation + " " + id + " " + user.getLoginname());
     } //addQuotaInfo()
     
     

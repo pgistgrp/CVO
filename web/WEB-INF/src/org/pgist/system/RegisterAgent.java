@@ -310,6 +310,7 @@ public class RegisterAgent {
      *   </ul>
      */
     public Map addQuotaInfo(Map params) {
+    	System.out.println("***registerAgent addQuotaInfo start");
     	Map map = new HashMap();
         map.put("successful", false);
         
@@ -337,6 +338,7 @@ public class RegisterAgent {
         
         try {
         	registerService.addQuotaInfo(user_interview, user_observation);
+        	System.out.println("***registerAgent" + user_interview + " " + user_observation);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
