@@ -129,12 +129,14 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     	user.setRecording(user_observation);
     	user.setConsented("Quota");
     	user.setQuota(true);
+    	save(user);
     } //addQuotaInfo()
     
     
     public void addConsent(Long id) throws Exception {
     	User user = (User) load(User.class, id);
     	user.setConsented("Non-Quota");
+    	save(user);
     } //addConsent()
     
     
@@ -142,6 +144,7 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     	User user = (User) load(User.class, id);
     	user.setDeleted(true);
     	user.setEnabled(false);
+    	save(user);
     } //deleteUser()
     
     
@@ -286,6 +289,7 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 			User user = (User) load(User.class, id);
 			user.setPassword(password);
 			user.encodePassword();
+			save(user);
 			return true;
 		}
 		return false;
