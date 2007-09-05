@@ -263,19 +263,21 @@ public class SystemServiceImpl implements SystemService {
 		if(quota == nonquota) {
 			while(ul.hasNext()) {
 	    		User user = (User)ul.next();
-	    		emaillist += user.getEmail() + ", ";
+	    		if(user.isEnabled()) {
+	    			emaillist += user.getEmail() + ", ";
+	    		}
 			}
 		} else if (quota) {
 			while(ul.hasNext()) {
 	    		User user = (User)ul.next();
-	    		if(user.getQuota()) {
+	    		if(user.getQuota() && user.isEnabled()) {
 	    			emaillist += user.getEmail() + ", ";
 	    		}
 			}
 		} else if (nonquota) {
 			while(ul.hasNext()) {
 	    		User user = (User)ul.next();
-	    		if(!user.getQuota()) {
+	    		if(!user.getQuota() && user.isEnabled()) {
 	    			emaillist += user.getEmail() + ", ";
 	    		}
 			}

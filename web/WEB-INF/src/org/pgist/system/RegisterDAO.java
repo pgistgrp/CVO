@@ -58,6 +58,6 @@ public interface RegisterDAO extends BaseDAO {
     
     Collection getTransTypes() throws Exception;
     
-    void createCancel(Long id) throws Exception;
+    void createCancel(long id) throws Exception;
     
 }
