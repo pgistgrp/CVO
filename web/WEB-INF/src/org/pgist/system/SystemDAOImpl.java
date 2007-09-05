@@ -181,7 +181,7 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     
     public void setQuota(Long id, boolean quota) throws Exception {
 
-    	User user = getUserById(WebUtils.currentUserId());
+    	User user = getUserById(id);
     	user.setQuota(quota);
     	save(user);
     } //setQuota();

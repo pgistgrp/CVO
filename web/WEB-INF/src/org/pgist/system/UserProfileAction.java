@@ -56,13 +56,6 @@ public class UserProfileAction extends Action {
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
     		String username = request.getParameter("user");
-    		
-//			User currentUser = systemService.getCurrentUser();
-//			if(currentUser!=null){
-//				User baseuser = new User();
-//				baseuser.setLoginname(currentUser.getLoginname());
-//				request.setAttribute("baseuser", baseuser);
-//			}
 			
     		try {
     	        UserInfo userInfo = (UserInfo) request.getSession().getAttribute("user");
