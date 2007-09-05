@@ -12,7 +12,6 @@ import java.util.Set;
 import java.util.SortedSet;
 
 import org.hibernate.Query;
-import org.hibernate.sql.Delete;
 import org.pgist.funding.UserCommute;
 import org.pgist.funding.UserFundingSourceToll;
 import org.pgist.users.Role;

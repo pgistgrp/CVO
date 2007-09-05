@@ -65,6 +65,12 @@
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
+        <copy todir="${build}" overwrite="true">
+            <fileset dir="${web}">
+                <include name="WEB-INF/web.xml"/>
+                <include name="WEB-INF/config/context-database.xml"/>
+            </fileset>
+        </copy>
         <replace file="${build}/WEB-INF/web.xml">
             <replacefilter token="@google.mapKey@" value="${google.mapKey}"/>
             <replacefilter token="@tomcat.port.http@" value="${tomcat.port.http}"/>
@@ -266,6 +272,7 @@
         <copy todir="${webapp}">
             <fileset dir="${build}">
                 <exclude name="temp"/>
+                <exclude name="WEB-INF/web.xml"/>
                 <exclude name="WEB-INF/classes/org/pgist/ddl/**"/>
                 <exclude name="WEB-INF/classes/org/pgist/tests/**"/>
                 <exclude name="WEB-INF/src/**"/>

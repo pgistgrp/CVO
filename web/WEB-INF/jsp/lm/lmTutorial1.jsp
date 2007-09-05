@@ -114,12 +114,12 @@ left:530px;
 				<p class="floatRight" id="step-progress">Page 1 of 2</p>
 		</div>
 		<h2>Tutorial</h2>
-		<p>There are some cool features on this website we’d like you to know about, so
+		<p>There are some cool features on this website weÂ’d like you to know about, so
 			you can better make use of them!</p>
 		<h2>Keyword your concerns, discussion posts, and the map!</h2>
 		<p>By adding keywords to things you care about, you can direct other users to specific
 			concerns, discussion posts, and the points on the map. There are two things to
-			keep in mind throughout your use of Let’s Improve Transportation.</p>
+			keep in mind throughout your use of LetÂ’s Improve Transportation.</p>
 
 		<br />
 
@@ -147,8 +147,8 @@ left:530px;
 		<h3>2. Need to find it? Use the Keyword Cloud!</h3>
 		<p>The Keyword Cloud allows you to review the keywords that your co-contributors
 			are using. Select a keyword in the cloud to find discussion posts or concerns
-			that use that keyword. It can also be used to find keywords on a map. It’s a great
-			way to browse what’s out there! You can also use Search.</p>
+			that use that keyword. It can also be used to find keywords on a map. ItÂ’s a great
+			way to browse whatÂ’s out there! You can also use Search.</p>
 			<p class="arrow">Click this button to use the Keyword Cloud <span>&rarr;</span></p>
 			<img src="images/keyword-cloud.gif" class="floatRight"/>
 			<br class="clearBoth" /> 

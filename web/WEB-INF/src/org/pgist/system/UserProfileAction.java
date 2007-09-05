@@ -9,6 +9,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.users.User;
+import org.pgist.users.UserInfo;
 
 
 /**
@@ -54,8 +55,6 @@ public class UserProfileAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-
-
     		String username = request.getParameter("user");
     		
 //			User currentUser = systemService.getCurrentUser();
@@ -66,6 +65,8 @@ public class UserProfileAction extends Action {
 //			}
 			
     		try {
+    	        UserInfo userInfo = (UserInfo) request.getSession().getAttribute("user");
+    	        request.setAttribute("baseuser", userInfo);
         		
     			User u = profileService.getUserInfo(username);
     			Date date = profileService.getLastLogin(username);
