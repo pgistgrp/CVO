@@ -113,7 +113,7 @@ function getDiscussion(start, end) {
 		</p><br />
 		<p>
 			<span class="label">Transportation</span>
-			<span class="value"><span>${user.primaryTransport}</span>
+			<span class="value"><span>${user.primaryTransport.value}</span>
 		</p>
 		<br />
 		<div class="clearBoth"></div>
@@ -194,7 +194,7 @@ function getDiscussion(start, end) {
 				
 	<!-- end RECENT DISCUSSIONS -->
 	</div>
-			</span>
+	  </span>
 		</p><br />				
 		<div class="clearBoth"></div>
 		
@@ -254,7 +254,7 @@ function getDiscussion(start, end) {
 				<!-- end RECENT DISCUSSIONS -->
 
   </div>
-			</span>
+	  </span>
 	</div>
 	</p><br />
 	<div class="clearBoth"></div>

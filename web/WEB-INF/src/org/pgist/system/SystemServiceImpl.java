@@ -102,7 +102,13 @@ public class SystemServiceImpl implements SystemService {
 
 
 	public User getCurrentUser() throws Exception {
-		return userDAO.getUserById(WebUtils.currentUserId(), true, false);
+		Long id = WebUtils.currentUserId();
+		System.out.println("***SystemServiceImpl CurrentUser id: " + id);
+		if(id!=null){
+			return userDAO.getUserById(id, true, false);
+		}
+		return null;
+		
 	}
     
     
