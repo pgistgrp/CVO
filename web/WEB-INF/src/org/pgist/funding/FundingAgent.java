@@ -49,7 +49,7 @@ public class FundingAgent {
         	UserTaxInfoDTO taxinfo = this.fundingService.createUserTaxInfoDTO(user.getId());
             
             request.setAttribute("vehicles", taxinfo.getVehicles());
-            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/funding/fundingCalc_vehicles.jsp"));            
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/funding/fundingCalc_vehicles.jsp"));
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

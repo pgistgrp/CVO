@@ -80,7 +80,7 @@ public class Vehicle implements Serializable {
 
     /**
      * @return
-     * @hibernate.many-to-one column="owner_id" lazy="true" cascade="all"
+     * @hibernate.many-to-one column="owner_id" lazy="true"
      */
     public User getOwner() {
         return owner;
