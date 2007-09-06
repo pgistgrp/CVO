@@ -21,7 +21,6 @@
 	<div id="overview" class="box2">
 		<h3 class="headerColor">Overview and instructions</h3>
 		<c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
-		***** ${current}  ******
 		Here we assess nine "factors" that will be used in Step 3 to evaluate proposed transportation improvement projects. 
 		<ul>
 			<li>Review the factors below and discuss with other participants</li>
