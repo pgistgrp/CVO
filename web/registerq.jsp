@@ -5,6 +5,8 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
@@ -38,13 +40,13 @@ function addVehicle() {
 		callback:function(data){
 			if (data.successful){
 				getVehicles();
-				Form.reset('addVehicle');
+				//Form.reset('addVehicle');
 			}else{
 				alert(data.reason);
 			}
 		},
 		errorHandler:function(errorString, exception){ 
-		alert("FundingAgent.addVehicle( error:" + errorString + exception);
+		//alert("FundingAgent.addVehicle( error:" + errorString + exception);
 		}
 	});
 }
@@ -59,6 +61,8 @@ function getVehicles(){
 			}
 		},
 		errorHandler:function(errorString, exception){ 
+			//for (var x in exception){alert(x + exception[x]);}
+			//alert('hey');
 		alert("FundingAgent.getVehicles( error:" + errorString + exception);
 		}
 	});

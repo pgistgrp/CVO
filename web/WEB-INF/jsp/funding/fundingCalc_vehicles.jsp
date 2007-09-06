@@ -19,20 +19,20 @@
 		<small><a href="javascript:toggleEditField('vehicle',${vehicle.id});">Edit</a> | <a href="javascript:deleteVehicle(${vehicle.id})">Remove</a></small> 
 	</div>
 	<div id="vehicleEdit${vehicle.id}" class="myVehiclesRow" style="display: none;"> 
-		<form id="editVehicle" action="javascript:editVehicle(${vehicle.id});">
+		<!--<form id="editVehicle" action="javascript:editVehicle(${vehicle.id});">-->
 		<strong>Vehicle ${loop.index + 1}: </strong> 
 		Miles per gallon <input name="mpg" onBlur="this.value=filterNum(this.value);" id="vehicleMpg${vehicle.id}" type="text" value="${vehicle.milesPerGallon}" />
 		Approximate value <input name="value" class="moneyInput" onBlur="this.value=filterNum(this.value);" id="vehicleValue${vehicle.id}" type="text" value="${vehicle.approxValue}" />
 		Miles driven per year <input name="mpy" onBlur="this.value=filterNum(this.value);" id="vehicleMpy${vehicle.id}" type="text" value="${vehicle.milesPerYear}" />
 
-		<input type="submit" value="Update" /><small> <a href="javascript:toggleEditField('vehicle',${vehicle.id});">Cancel</a></small>
-		</form>
+		<input type="button" onclick="javascript:editVehicle(${vehicle.id});" value="Update" />
+		<small> <a href="javascript:toggleEditField('vehicle',${vehicle.id});">Cancel</a></small>
 	</div>
 </c:forEach>
 
 <p><a href="javascript:Element.toggle('newVehicle');void(0);">Add vehicle</a> 
 	<div id="newVehicle" class="myVehiclesRow" style="display:none;"> 
-		<form id="addVehicle" action="javascript:addVehicle();void(0);">
+		<!--<form id="addVehicle" action="javascript:addVehicle();void(0);">-->
 		<strong>New Vehicle: </strong> Miles per gallon
 		<input name="mpg" onBlur="this.value=filterNum(this.value);" id="vehicleMpg" type="text" />
 		Approximate value
@@ -40,8 +40,7 @@
 		Miles driven per year
 		<input name="mpy" onBlur="this.value=filterNum(this.value);" id="vehicleMpy" type="text" />
 
-		<input type="submit" value="Add"/>
+		<input type="button" value="Add" onclick="addVehicle();void(0);"/>
 		<input type="button" value="Cancel" onclick="javascript:Element.toggle('newVehicle');">
-		</form>
 	</div>		
-</p> 
+</p>
