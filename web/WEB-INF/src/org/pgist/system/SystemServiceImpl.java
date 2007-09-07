@@ -366,4 +366,8 @@ public class SystemServiceImpl implements SystemService {
     	return systemDAO.getTransTypes();
     }
     
+    public void deleteUser(Long id) throws Exception {
+    	systemDAO.deleteUser(id);
+    }
+    
 }//class SystemServiceImpl

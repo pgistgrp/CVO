@@ -296,6 +296,44 @@ public class SystemAgent {
 	
 	
 	 /**
+     * Delete a user account
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>id - user id</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+	public Map deleteUser(Map params) {
+		Map map = new HashMap();
+        map.put("successful", false);
+		
+        String strId = (String)params.get("id");
+        
+        if(strId==null || "".equals(strId.trim())){
+        	map.put("reason", "User id cannot be null.");
+    		return map;	
+        }
+        
+        
+        try {
+        	Long id = Long.parseLong(strId);
+        	
+        	systemService.deleteUser(id);
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        return map;	
+	} //disableUser()
+	
+	
+	 /**
      * enables a user account
      * 
      * @param params a Map contains:

@@ -59,7 +59,13 @@ public class LoginAction extends Action {
         
         User user = systemService.getUserByName(loginname, true, false);
         if(user == null) {
-            request.setAttribute("reason", "Invalid User Name.");
+        	//check to see if the account is disabled
+        	User user2 = systemService.getUserByName(loginname, false, false);
+        	if(user2 != null) {
+        		request.setAttribute("reason", "You account has been disabled. Please contact us at <a href=\"mailto:moderator@letsimprovetransportation.org\">moderator@letsimprovetransportation.org</a> for assistance.");
+        	} else {
+        		request.setAttribute("reason", "Invalid User Name.");
+        	}
         	return mapping.findForward("loginPage");
         }
         

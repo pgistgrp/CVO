@@ -1,5 +1,8 @@
 package org.pgist.projects;
 
+import java.util.Set;
+import java.util.Iterator;
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -53,6 +56,16 @@ public class ProjectAltAction extends Action {
         Long altrefId = new Long(request.getParameter("altrefId"));
         
         ProjectAltRef reference = projectService.getProjectAltRefById(altrefId);
+        
+//        Set gradedCrits = reference.getGradedCriteria();
+//        int size = gradedCrits.size();
+//        int sum = 0;
+//        Iterator it = gradedCrits.iterator();
+//        while(it.hasNext()) {
+//        	GradedCriteria gc = (GradedCriteria)it.next();
+//        	gc.getGrade();
+//        }
+        
         
         request.setAttribute("reference", reference);
         request.setAttribute("average", "B");

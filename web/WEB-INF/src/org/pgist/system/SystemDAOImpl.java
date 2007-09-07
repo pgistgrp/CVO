@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.Query;
+import org.pgist.users.Role;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
@@ -126,11 +128,11 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     }//logPosting();
     
     
-    private static final String hql_getAllUsers = "from User u order by u.id";
+    private static final String hql_getAllUsers = "from User u where u.deleted=? order by u.id";
     
     public Collection getAllUsers() throws Exception {    	
     	
-    	return getHibernateTemplate().find(hql_getAllUsers);
+    	return getHibernateTemplate().find(hql_getAllUsers, false);
     } //getAllUsers();
     
     
@@ -304,5 +306,25 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     public Collection getTransTypes() throws Exception {
     	return getHibernateTemplate().find(hql_getTransTypes, "transport");
     }
+    
+    
+    public void deleteUser(Long id) throws Exception {
+		User u = (User)load(User.class, id);
+		Set empty = new HashSet();
+		u.setRoles(empty);
+		u.setVehicles(empty);
+		u.setDeleted(true);
+		u.setEnabled(false);
+		u.setQuota(false);
+		Date d = new Date();
+		u.setLoginname(u.getLoginname() + "deleted" + d);
+		u.setHomeAddr("");
+		u.setZipcode("");
+		u.setCountyId(null);
+		u.setEmail("");
+		
+		save(u);
+    }
+    
     
 }//class SystemDAOImpl

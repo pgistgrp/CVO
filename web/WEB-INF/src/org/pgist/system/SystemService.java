@@ -105,4 +105,7 @@ public interface SystemService {
     
     Collection getTransTypes() throws Exception;
     
+    void deleteUser(Long id) throws Exception;
+    
+    
 }//interface SystemService

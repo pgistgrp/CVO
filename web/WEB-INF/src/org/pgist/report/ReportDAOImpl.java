@@ -57,14 +57,13 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		this.projectService = projectService;
 	}
 	
-	private static final String hql_getUserStatistics1 = "from User u where u.gender=?"; //Male Female stats
-	private static final String hql_getUserStatistics2 = "from User u where u.age<=? and u.age>="; //Age stats
+	private static final String hql_getUserStatistics1 = "from User u where u.gender=? and u.deleted=? and u.enabled=?"; //Male Female stats
 	
 	public Map getUserStatistics() throws Exception {
 		Map map = new HashMap();
 		
-		List maleList = getHibernateTemplate().find(hql_getUserStatistics1, new Object[] {new Boolean(true),});
-		List femaleList = getHibernateTemplate().find(hql_getUserStatistics1, new Object[] {new Boolean(false),});
+		List maleList = getHibernateTemplate().find(hql_getUserStatistics1, new Object[] {new Boolean(true), new Boolean(false), new Boolean(true),});
+		List femaleList = getHibernateTemplate().find(hql_getUserStatistics1, new Object[] {new Boolean(false), new Boolean(false), new Boolean(true),});
 		int males = maleList.size();
 		int females = femaleList.size();
 		int percentMale = males /(males + females);
@@ -644,10 +643,10 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	}
 	
 	
-	private static final String hql_getNumUsers = "from User u";
+	private static final String hql_getNumUsers = "from User u where u.deleted=? and u.enabled=?";
 
 	public int getNumUsers() throws Exception {
-		List userlist = getHibernateTemplate().find(hql_getNumUsers);	
+		List userlist = getHibernateTemplate().find(hql_getNumUsers, new Object[] {new Boolean(false), new Boolean(true)});	
 		return userlist.size();
 	}
 	

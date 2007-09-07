@@ -50,7 +50,7 @@
 		
 			<div class="profile-col1 floatLeft">
 				<div class="floatLeft">
-					<a href="#">${discussion.title}</a><br />
+					 <pg:url page="/sdThread.do" params="pid=${discussion.id}">${discussion.title}</pg:url><br />
 
 					<span>Some how get the step</span>
 				</div>

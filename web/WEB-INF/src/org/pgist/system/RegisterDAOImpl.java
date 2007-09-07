@@ -110,11 +110,11 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     
     
     
-    private static final String hql_checkAddress = "from User u where u.quota=? and u.homeAddr=? and u.homeAddr=? and u.zipcode=?";
+    private static final String hql_checkAddress = "from User u where u.quota=? and u.homeAddr=? and u.homeAddr=? and u.zipcode=? and u.deleted=?";
     
     public boolean checkAddress(User u) throws Exception {
     	List list = getHibernateTemplate().find(hql_checkAddress, new Object[] {
-    			true, u.getHomeAddr(), u.getHomeAddr2(), u.getZipcode(),
+    			true, u.getHomeAddr(), u.getHomeAddr2(), u.getZipcode(), false,
     	});
     	
     	if(list.size()>0) {
@@ -191,12 +191,12 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     } //setToll()
 	
 	
-	private static final String hql_checkUsername = "from User u where u.loginname=?";
+	private static final String hql_checkUsername = "from User u where u.loginname=? and u.deleted=?";
 	
 	public boolean checkUsername(String username) throws Exception {
 		
 		List list = getHibernateTemplate().find(hql_checkUsername, new Object[] {
-				username,
+				username, false,
     	});
 		
 		if(list.size() > 0) {
@@ -208,12 +208,12 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 	} //checkUsername()
 	
 
-	private static final String hql_checkEmail = "from User u where u.email=?";
+	private static final String hql_checkEmail = "from User u where u.email=? and u.deleted=?";
 	
 	public boolean checkEmail(String email) throws Exception {
 		
 		List list = getHibernateTemplate().find(hql_checkEmail, new Object[] {
-				email
+				email, false
     	});
 		
 		if(list.size() > 0) {
@@ -375,10 +375,8 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 		return ro;
 	}
 	
-
 	
 	public void createCancel(Long id) throws Exception {
-		System.out.println("***registerDAOImpl cancel user");
 		User u = (User)load(User.class, id);
 		Set<Role> empty = new HashSet<Role>();
 		u.setRoles(empty);
