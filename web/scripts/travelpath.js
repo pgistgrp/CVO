@@ -4,23 +4,13 @@
 //### Author:																						 ###
 //### Martin Swobodzinski																 ###
 //### San Diego State University												 ###
-//### July, 28 2007																			 ###
+//### September, 05 2007																 ###
 //##########################################################
-
-//######################## old variables
-//var geocoder;
-//var marker;
-//var addressMarker;
-//var gmarkers = [];
-//var htmls = [];
-//var bus_flag = false;
-//var placemarkIndex;
-//##### end old variables; think i dont need those anymore
 
 var map; //the google map
 var gdir; //the google directions object
 
-var userId; //has to be initialized through some context; assuming here that i know the userId when the page is loaded
+var userId = -1; //has to be initialized through some context; assuming here that i know the userId when the page is loaded
 
 //geocode variables
 var global_geocodePoint = null;
@@ -86,15 +76,12 @@ var global_tmp_polyline = null;
 
 function load() 
   {
-  
-  //has to be initialized through some context; assuming here that i know the userId when the page is loaded
-  userId = 1;	
-  	
+ 	
 	if (GBrowserIsCompatible()) 
  		{      
 	  map = new GMap2(document.getElementById("map"));
 	  map.addControl(new GLargeMapControl());
-	  map.setCenter(new GLatLng(32.775290000000005,-117.0733), 13); //SDSU
+	  map.setCenter(new GLatLng(47.658345,-122.303017), 10); //UW Seattle
 	
 	  gdir = new GDirections(null, null);
 	        
@@ -120,7 +107,9 @@ function load()
   				console.info("What the heck is the marker that the map hands to createClickMarker(marker, point)? Answer: " + marker.getName());
   				global_itIsMe = marker.getId();
   				
-  				if (marker.getName() !== "origin" && marker.getName() !== "destination")
+  				//check also if the user clicked an already stored waypoint marker; if so, ignore the click (one cannot edit already stored trips)
+    				
+  				if (marker.getName() !== "origin" && marker.getName() !== "destination" && marker.getName().indexOf("trip#") == -1)
 						{
   					handleWaypointMarkerClick(map.getMarkerById(global_itIsMe));
   					}
@@ -142,6 +131,16 @@ function load()
 	  check_msie();
 	  
 	  console.log("Client using MSIE?\nAnswer: " + is_msie);
+	  
+	  try
+	  	{
+	  	//call retrieveUserTrips to see if the user continues an earlier session
+			retrieveUserTrips(userId);
+			}
+			
+		catch(e)
+			{
+			}	
 	  
 	 	}
 	}
@@ -208,20 +207,26 @@ function saveCurrentTrip()
 	
 	global_tripsVertices[myTripIndex] = global_routeVertices;
 	
-	//disable draggable option and click event handler on all markers
 	for (var i = 0; i < global_routeMarkers.length; i++)
 		{
 		
-		global_routeMarkers[i].disableDragging();
-
-		GEvent.clearListeners(global_routeMarkers[i], "click");
+		var marker = global_routeMarkers[i];
 			
+		//change the name of the waypoint to contain a reference to the trip index if not there yet (which is the case in for a new trip)
+		//disable draggable option and click event handler on all new markers	
+		if (marker.getName().indexOf("trip#") == -1)
+			{
+			var newMarkerName = "trip#" + myTripIndex + "_" + global_routeMarkers[i].getName();
+			global_routeMarkers[i].setName(newMarkerName);
+			global_routeMarkers[i].disableDragging();
+			GEvent.clearListeners(global_routeMarkers[i], "click");
+			}
+				
 		} 
 	
 	global_tripsMarkers[myTripIndex] = global_routeMarkers;
 	global_tripsFrequency[myTripIndex] = global_routeFrequency;
 	global_tripsMode[myTripIndex] = global_routeMode;
-	//global_tripsLabelArray[myTripIndex] = "#" + (myTripIndex + 1) + ": By " + global_tripsMode[myTripIndex].toLowerCase() + " " + global_tripsFrequency[myTripIndex].toLowerCase() + " per week.";
 	global_tripsLabelArray[myTripIndex] = "By " + global_tripsMode[myTripIndex].toLowerCase() + " " + global_tripsFrequency[myTripIndex].toLowerCase() + " per week.";
 	
 	updateTripList();
@@ -241,11 +246,73 @@ function closeTripFreqModeWindow()
 
 
 //#########################################################################################
-//#########################################################################################
 
 function saveTripsAndExit()
 	{
-	console.log("Saving the trips through TripsAgent to the database and exiting the app!");
+	
+	var dwrMarkers = [];
+	var dwrTrips = [];
+	
+	//loop through all saved trips
+	for (var i = 0; i < global_tripsLabelArray.length; i++)
+		{
+		
+		//first handle all the markers of the trip i
+		var pdMarkerArray = global_tripsMarkers[i];
+		
+		var typeInt;
+		
+		//loop through the markers of the trip i; these markers are of type pdMarker and have to be converted into DWR/JSON objects	
+		for (var j = 0; j <	pdMarkerArray.length; j++)
+			{
+						
+			var pdMarker = pdMarkerArray[j];
+			
+			//check what type the marker is; could probably be avoided if the stored indexes are right
+			if (pdMarker.getName().indexOf("origin") !== -1)
+				{
+				typeInt = 0;	
+				}
+				
+			else if (pdMarker.getName().indexOf("waypoint") !== -1)	
+				{
+				typeInt = 1;	
+				}
+				
+			else if (pdMarker.getName().indexOf("destination") !== -1)
+				{
+				typeInt = 2;	
+				}
+			
+			//add marker data in form of DWR/JSON objects to the dwrMarkers array
+			dwrMarkers[j] = {type:typeInt, index:pdMarker.getId(), name:pdMarker.getName(), data1:pdMarker.getUserData(), data2:pdMarker.getUserData2(), lat:pdMarker.getPoint().lat(), lng:pdMarker.getPoint().lng()};
+				
+			}
+			
+		//next handle the other properties of trip i (mode, travel frequency and the geometry of the trip)
+		var modeInt = getIntFromMode(global_tripsMode[i]);
+		var freqInt = getIntFromFrequency(global_tripsFrequency[i]);
+		var tripCoords = getXYFromVertices(global_tripsVertices[i]);
+		
+		dwrTrips[i] = {mode:modeInt, frequency:freqInt, coords:tripCoords};
+		}
+				
+	//now call RegisterAgent and save all the trips data
+	RegisterAgent.saveUserTrip(userId, dwrMarkers, dwrTrips, function(data)
+		{
+			
+		if (data.successful) 
+			{
+			console.log("All trips have been saved successfully");
+			}
+		
+		else
+			{
+			alert("There was a problem during the communication with the database. Trips could not be saved.");	
+			}	
+		});
+	
+	//something has to happen at the end of this function that takes the user to LIT challenge overview page	
 	}
 
 
@@ -277,7 +344,7 @@ function handleMultiplePlacemarks(placemarks_in)
 		console.log("lng: " + lng);
 		console.log("lng: " + lat);
 			
-		console.log("THe global_markerType before the test for calling createMarker is: " + global_markerType);
+		console.log("The global_markerType before the test for calling createMarker is: " + global_markerType);
 			
 		//Store the coordinates in the global variable global_geocodePoint
 		//GLatLng takes arguments in the form of (lat, lng)
@@ -376,7 +443,7 @@ function onGDirectionsLoad()
 		  	
 	console.log("Number of vertices in myPolyline: " + myPolyline.getVertexCount());
 	
-	if (global_polyline !== null)
+	if (global_polyline !== null && typeof global_polyline !== 'undefined')
 		{
 		map.removeOverlay(global_polyline);
 		}
@@ -846,7 +913,7 @@ function moveWaypointUp()
 			{
 				
 			//remove the polyline from the map if one was calculated before the waypoint is moved
-			if (global_polyline !== null)
+			if (global_polyline !== null && typeof global_polyline !== 'undefined')
 				{
 				map.removeOverlay(global_polyline);
 				}	
@@ -918,7 +985,7 @@ function moveWaypointDown()
 			{
 				
 			//remove the polyline from the map if one was calculated before the waypoint is moved
-			if (global_polyline !== null)
+			if (global_polyline !== null && typeof global_polyline !== 'undefined')
 				{
 				map.removeOverlay(global_polyline);
 				}	
@@ -1064,7 +1131,7 @@ function deleteSelectedWaypoint()
 		console.info("selectedWaypointIndex: " + selectedWaypointIndex);
 		
 		//remove the polyline from the map if one was calculated before the waypoint is supposed to be deleted
-		if (global_polyline !== null)
+		if (global_polyline !== null && typeof global_polyline !== 'undefined')
 			{
 			map.removeOverlay(global_polyline);
 			}
@@ -1395,7 +1462,7 @@ function createClickMarker(marker, point)
   			
   	GEvent.addListener(waypoint_marker, "dragstart", function() 
   		{
-  		if (global_polyline !== null)
+  		if (global_polyline !== null && typeof global_polyline !== 'undefined')
 				{
 				map.removeOverlay(global_polyline);
 				}
@@ -1450,7 +1517,7 @@ function createClickMarker(marker, point)
 				return true;	
   			});
 	  
-	  if (global_polyline !== null)
+	  if (global_polyline !== null && typeof global_polyline !== 'undefined')
 			{
 			map.removeOverlay(global_polyline);
 			}
@@ -1480,7 +1547,7 @@ function createClickMarker(marker, point)
   	
   	htmlInfoCloud = "";
   		
-  	htmlInfoCloud += "<p>This waypoint has currently no label.<br/></p>";
+  	htmlInfoCloud += "<p><label class='hd_labels'>This waypoint has currently no label.</label><br/></p>";
   	htmlInfoCloud += "<div align='left'><input type='button' class='huge_btns' value='Click here to assign a label to this waypoint!' id='waypointLabelYesButton' onmouseover='this.className=\"btnhov_hb\"' onmouseout='this.className=\"huge_btns\"' onClick='assignNewLabel(\"" + waypoint_marker.getId() + "\");' /></div>";
   	
   	global_openWaypointInfoWindowHtml = false;		  	  			
@@ -1549,7 +1616,6 @@ function createMarker(marker, point, type_in)
     global_tmp_routeMarkers = [];     	
 		}	
 		
-	//var tempMarker;// = new PdMarker(new GLatLng(point.lat(),point.lng()));	
   var pnt;
   var icon;
   
@@ -1578,7 +1644,7 @@ function createMarker(marker, point, type_in)
   		
   		GEvent.addListener(origin_marker, "dragstart", function() 
   			{
-  			if (global_polyline !== null)
+  			if (global_polyline !== null && typeof global_polyline !== 'undefined')
 					{
 					map.removeOverlay(global_polyline);
 					}
@@ -1679,7 +1745,7 @@ function createMarker(marker, point, type_in)
 	 		GEvent.addListener(destination_marker, "dragstart", function() 
   			{
   			
-  			if (global_polyline !== null)
+  			if (global_polyline !== null && typeof global_polyline !== 'undefined')
 					{
 					map.removeOverlay(global_polyline);
 					}
@@ -1837,7 +1903,7 @@ function createMarker(marker, point, type_in)
   			GEvent.addListener(waypoint_marker, "dragstart", function() 
   				{
   			
-  				if (global_polyline !== null)
+  				if (global_polyline !== null && typeof global_polyline !== 'undefined')
 						{
 						map.removeOverlay(global_polyline);
 						}
@@ -1892,7 +1958,7 @@ function createMarker(marker, point, type_in)
     		waypoint_marker.setTooltip("No Label");
   			waypoint_marker.setOpacity(100);
     		
-    		if (global_polyline !== null)
+    		if (global_polyline !== null && typeof global_polyline !== 'undefined')
 					{
 					map.removeOverlay(global_polyline);
 					}
@@ -1924,8 +1990,6 @@ function createMarker(marker, point, type_in)
   			htmlInfoCloud = "";
   		
   			htmlInfoCloud += "<p>This waypoint has currently no label.<br/></p>";
-  			//htmlInfoCloud += "<div align='right'><input type='button' class='huge_btns' value='Click Me to Assign a Label to this Waypoint!' id='waypointLabelYesButton' onmouseover='this.className=\"btnhov_hb\"' onmouseout='this.className=\"huge_btns\"' onClick='assignNewLabel(\"" + waypoint_marker.getId() + "\");' /></div>";
-  			//htmlInfoCloud += "</b></p><div align='left'><input type='button' class='menu_btns' value='Relabel' id='htmlCloudRelabelButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='assignNewLabel(\"" + waypoint_marker.getId() +"\");' />&nbsp;<input type='button' class='menu_btns' value='Close' id='htmlCloudCloseButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='map.closeInfoWindow();' /></div>";
   			htmlInfoCloud += "<div align='right'><input type='button' class='huge_btns' value='Click here to assign a label to this waypoint!' id='waypointLabelYesButton' onmouseover='this.className=\"btnhov_hb\"' onmouseout='this.className=\"huge_btns\"' onClick='assignNewLabel(\"" + waypoint_marker.getId() + "\");' /></div>"; 
   			  			  	  			
     		waypoint_marker.openInfoWindowHtml(htmlInfoCloud);
@@ -1960,7 +2024,7 @@ function createMarker(marker, point, type_in)
   		GEvent.addListener(waypoint_marker, "dragstart", function() 
   			{
   			
-  			if (global_polyline !== null)
+  			if (global_polyline !== null && typeof global_polyline !== 'undefined')
 					{
 					map.removeOverlay(global_polyline);
 					}
@@ -1998,12 +2062,7 @@ function createMarker(marker, point, type_in)
   			 			
   				var htmlInfoCloud = "<p>This location is:<br/><b>";
   				htmlInfoCloud += this.getUserData();
-  				//htmlInfoCloud += "</b></p><div align='right'><input type='button' class='menu_btns' value='Relabel' id='htmlCloudRelabelButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='assignNewLabel(\"" + waypoint_marker.getId() +"\");' /></div>";
-  				//htmlInfoCloud += "</b></p><div align='right'><input type='button' class='menu_btns' value='Relabel' id='htmlCloudRelabelButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='assignNewLabel(\"" + this.getId() +"\");' /></div>";
-  			  //htmlInfoCloud += "</b></p><div align='left'><input type='button' class='menu_btns' value='Relabel' id='htmlCloudRelabelButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='assignNewLabel(\"" + this.getId() +"\");' />&nbsp;<input type='button' class='menu_btns' value='Close' id='htmlCloudCloseButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='map.closeInfoWindow();' /></div>";
-  			  //htmlInfoCloud += "</b></p><div align='left'><input type='button' class='menu_btns' value='Relabel' id='htmlCloudRelabelButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='assignNewLabel(\"" + waypoint_marker.getId() +"\");' />&nbsp;<input type='button' class='menu_btns' value='Close' id='htmlCloudCloseButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='map.closeInfoWindow();' /></div>";
-  			  //htmlInfoCloud += "<div align='right'><input type='button' class='huge_btns' value='Click here to assign a label to this waypoint!' id='waypointLabelYesButton' onmouseover='this.className=\"btnhov_hb\"' onmouseout='this.className=\"huge_btns\"' onClick='assignNewLabel(\"" + waypoint_marker.getId() + "\");' /></div>"; 
-  			  htmlInfoCloud += "</b></p><div align='left'><input type='button' class='menu_btns' value='Relabel' id='htmlCloudRelabelButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='assignNewLabel(\"" + waypoint_marker.getId() +"\");' />&nbsp;<input type='button' class='menu_btns' value='Close' id='htmlCloudCloseButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='map.closeInfoWindow();' /></div>";
+  				htmlInfoCloud += "</b></p><div align='left'><input type='button' class='menu_btns' value='Relabel' id='htmlCloudRelabelButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='assignNewLabel(\"" + waypoint_marker.getId() +"\");' />&nbsp;<input type='button' class='menu_btns' value='Close' id='htmlCloudCloseButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='map.closeInfoWindow();' /></div>";
   			  
   			  global_openWaypointInfoWindowHtml = false;	  			
     			//waypoint_marker.openInfoWindowHtml(htmlInfoCloud);
@@ -2019,7 +2078,7 @@ function createMarker(marker, point, type_in)
   		waypoint_marker.setTooltip("No Label");
   		waypoint_marker.setOpacity(100);
   		
-  		if (global_polyline !== null)
+  		if (global_polyline !== null && typeof global_polyline !== 'undefined')
 				{
 				map.removeOverlay(global_polyline);
 				}
@@ -2052,8 +2111,7 @@ function createMarker(marker, point, type_in)
   		htmlInfoCloud = "";
   		
  			htmlInfoCloud += "<p>This waypoint has currently no label.<br/></p>";
- 			//htmlInfoCloud += "<div align='right'><input type='button' class='huge_btns' value='Click Me to Assign a Label to this Waypoint!' id='waypointLabelYesButton' onmouseover='this.className=\"btnhov_hb\"' onmouseout='this.className=\"huge_btns\"' onClick='assignNewLabel(\"" + waypoint_marker.getId() + "\");' /></div>";
-  		htmlInfoCloud += "<div align='left'><input type='button' class='huge_btns' value='Click here to assign a label to this waypoint!' id='waypointLabelYesButton' onmouseover='this.className=\"btnhov_hb\"' onmouseout='this.className=\"huge_btns\"' onClick='assignNewLabel(\"" + waypoint_marker.getId() + "\");' /></div>";
+ 			htmlInfoCloud += "<div align='left'><input type='button' class='huge_btns' value='Click here to assign a label to this waypoint!' id='waypointLabelYesButton' onmouseover='this.className=\"btnhov_hb\"' onmouseout='this.className=\"huge_btns\"' onClick='assignNewLabel(\"" + waypoint_marker.getId() + "\");' /></div>";
   			  	  			
    		waypoint_marker.openInfoWindowHtml(htmlInfoCloud);
    		global_openWaypointInfoWindowHtml = false;	
@@ -2288,55 +2346,38 @@ function populateControls(json_in)
 		}
 
 //#########################################################################################
-//#########################################################################################	
+//#########################################################################################
+
+function helpInstruction(e)
+	{
 	
-/*	function createRouteArray2()
-		{
-		
-		//this is not checking yet if the start or end marker are null, should happen here or in a different function!!!!!!
-		if (origin_marker === null || destination_marker === null)
-			{
-			alert("No origin or destination specified. Please check you input.");
-			return;	
-			}
-		
-		//reset global_routePoints arrays
-		global_routePoints = [];
-			
-		var num_waypoints = global_waypointMarkers.length;	
-		  			
-  	//add start point to the routePoints array at index 0
-  	global_routePoints[0] = origin_marker.getPoint();
-		
-		//add start point to the routePoints array at the correct index depending on the number of points in the waypoints array
-  	if (num_waypoints > 0)
-  		{
-  		
-  		//append the waypoints to the global_routePoints array 	
-  		for (var ind = 0; ind < num_waypoints; ind++)
-  			{
-  			global_routePoints[ind + 1]	= global_waypointMarkers[ind].getPoint(); 
-  			}
-  		
-  		//and add the end point to the end of the global_routePoints array
-  		//both approaches should be equivalent
-   		//global_routePoints[num_waypoints + 1] = destination_marker.getPoint();
-   		console. log("Let's see if both indexes match: (1) " + (num_waypoints + 1) + ", (2) " + global_routePoints.length);
-   		global_routePoints[global_routePoints.length] = destination_marker.getPoint();	
-   			
-  		}
+	var obj = eventTrigger (e);
+
+	if (obj)
+  	{
+  	 
+  	console.info('helpInstruction; You clicked the textfield: ' + obj.id);  		
+  	var myHelpMeDiv = document.getElementById("helpMeDiv");
+  	
+ 		if (obj.className == "fieldsInitial")
+ 			{
   			
-  	else if (num_waypoints === 0)
-  		{
-  		//If you get here then the waypoints are zero so the length of global_routePoints should at least two
-  		console. log("So the length of global_routePoints should always be two in this case (i.e., zero waypoints): " + global_routePoints.length);
-  		global_routePoints[global_routePoints.length] = destination_marker.getPoint();			
-  		}
-			
-		}*/
+ 			obj.className = "fields";	
+ 			obj.value = "";
+  			
+ 			}
+  	
+  	myHelpMeDiv.innerHTML = "The format of the address can be a place name (e.g., Seattle Airport), the name of an intersection (comprised of the respective street names) or any combination of street address, city name, and 5-digit zip code. The more specific you are, the higher the probability that we will find the place that you meant. And don't forget to click the Add button once you are done entering the information!"; 
+  	
+		}
+		
+	return true;
+		
+	}
+
 
 //#########################################################################################
-//#########################################################################################	
+//#########################################################################################
 
 //Called whenever a start or end marker is added to the map after a successful geocode
 function disableAddressInput(type_in)
@@ -2394,7 +2435,7 @@ function clearStartStop(type_in)
 			myButton.disabled = false;
 			//myButton.src = "images/add2.png";
 			
-			if (global_polyline !== null)
+			if (global_polyline !== null && typeof global_polyline !== 'undefined')
 				{
 				map.removeOverlay(global_polyline);
 				}
@@ -2423,7 +2464,7 @@ function clearStartStop(type_in)
 			myButton = document.getElementById("destinationAddButton");
 			myButton.disabled = false;
 			
-			if (global_polyline !== null)
+			if (global_polyline !== null && typeof global_polyline !== 'undefined')
 				{
 				map.removeOverlay(global_polyline);
 				}
@@ -2435,3 +2476,376 @@ function clearStartStop(type_in)
 
 //#########################################################################################
 //#########################################################################################
+//Server-side interaction functions
+
+// This is a utility function that converts a GLatLng array to a series of coords in the form of x,y,x,y,....
+function getXYFromVertices(gPoints_in)
+	{
+				
+	var coords = [];
+				
+	try
+		{
+		
+		var j = 0;
+		
+		for(var i = 0; i < gPoints_in.length; i++)
+			{
+				
+			var gPoint = gPoints_in[i];
+						
+			coords[j] = gPoint.lng();
+			coords[j+1] = gPoint.lat();
+					
+			j = j + 2;			
+						
+			}
+		}
+				
+	catch (e)
+		{
+		}
+				
+	return coords;
+	}
+
+//#########################################################################################		
+// This is a utility function that converts x,y coords from the database to a GLatLon array
+
+function getVerticesFromXY(coords)
+	{
+		
+	var points = [];
+	
+	try
+		{
+			
+		var j = 0;	
+			
+		for (var i = 0; i < coords.length; i = i+2)
+			{
+			//GLatLng takes lat and then lng as parameters (should be the other way round coming from the DB	
+			var vertex = new GLatLng(coords[i+1],coords[i]);
+			
+			points[j] = vertex;
+			j++;
+			}
+				
+		}
+			
+	catch (e)
+		{
+		}
+				
+	return points;
+	}
+
+//#########################################################################################
+// This is a utility function that converts numeric mode values to strings
+
+function getModeFromInt(num_mode)
+	{
+		
+	var myModeString;	
+		
+	try
+		{
+		
+		switch (num_mode)
+			{
+			case 0:
+				myModeString = "Car";
+				break;
+			
+			case 1:
+				myModeString = "Bus";
+				break;
+				
+			case 2:
+				myModeString = "Bike";
+				break;
+				
+			case 3:
+				myModeString = "Walk";
+				break;
+				
+			case 4:
+				myModeString = "Ferry";
+				break;
+				
+			case 5:
+				myModeString = "Train";
+				break;
+				
+			case 6:
+				myModeString = "Other";
+				break;								
+			
+			default:
+				break;
+			}
+				
+		}
+			
+	catch (e)
+		{
+		}
+				
+	return myModeString;
+	}
+
+//#########################################################################################
+// This is a utility function that converts numeric frequency values to strings
+
+function getFrequencyFromInt(num_freq)
+	{
+		
+	var myFrequencyString;	
+		
+	try
+		{
+		
+		switch (num_freq)
+			{
+			case 0:
+				myFrequencyString = "Less than once";
+				break;
+			
+			case 1:
+				myFrequencyString = "Once";
+				break;
+				
+			case 2:
+				myFrequencyString = "Two to three times";
+				break;
+				
+			case 3:
+				myFrequencyString = "Four to five times";
+				break;
+				
+			case 4:
+				myFrequencyString = "Six or more times";
+				break;
+			
+			default:
+				break;
+			}
+				
+		}
+			
+	catch (e)
+		{
+		}
+				
+	return myFrequencyString;
+	}
+
+//#########################################################################################
+// This is a utility function that converts mode strings to integers for storage of trips in DB
+
+function getIntFromMode(string_mode)
+	{
+		
+	var myModeInt;	
+		
+	try
+		{
+		
+		switch (string_mode)
+			{
+			case "Car":
+				myModeInt = 0;
+				break;
+			
+			case "Bus":
+				myModeInt = 1;
+				break;
+				
+			case "Bike":
+				myModeInt = 2;
+				break;
+				
+			case "Walk":
+				myModeInt = 3;
+				break;
+				
+			case "Ferry":
+				myModeInt = 4;
+				break;
+				
+			case "Train":
+				myModeInt = 5;
+				break;
+				
+			case "Other":
+				myModeInt = 6;
+				break;								
+			
+			default:
+				break;
+			}
+				
+		}
+			
+	catch (e)
+		{
+		}
+				
+	return myModeInt;
+	}
+
+//#########################################################################################
+// This is a utility function that converts travel frequency strings to integers
+
+function getIntFromFrequency(string_freq)
+	{
+		
+	var myFreqInt;	
+		
+	try
+		{
+		
+		switch (string_freq)
+			{
+			case "Less than once":
+				myFreqInt = 0;
+				break;
+			
+			case "Once":
+				myFreqInt = 1;
+				break;
+				
+			case "Two to three times":
+				myFreqInt = 2;
+				break;
+				
+			case "Four to five times":
+				myFreqInt = 3;
+				break;
+				
+			case "Six or more times":
+				myFreqInt = 4;
+				break;
+			
+			default:
+				break;
+			}
+				
+		}
+			
+	catch (e)
+		{
+		}
+				
+	return myFreqInt;
+	}
+	
+//#########################################################################################			
+// retrieves the trips of a user; should be called during onLoad() at the beginning of the session
+
+function retrieveUserTrips(userId)
+	{
+		
+	RegisterAgent.getUserTrips(userId, function(data)
+		{
+		//data.trips is now an array of trips
+		if (data.successful)
+			{
+	
+			//if there are any trips, save the trips in the trips list; otherwise don't do anything
+			if (data.trips.length !== 0)
+				{
+	
+				//iterate through the returned trips and save each trip one by one through saveCurrentTrip()
+				for (var i = 0; i < data.trips.length; i++)
+					{
+					
+					//convert the array of x/y coordinates to an array of GLatLng	and save it in global_routeVertices
+					global_routeVertices = getVerticesFromXY(data.trips[i].coords);	
+					
+					//convert the numerical values coming from the DB into the respective string values of travel mode and frequency
+					global_routeFrequency = getFrequencyFromInt(data.trips[i].frequency);
+					global_routeMode = getModeFromInt(data.trips[i].mode);
+										
+					//now get the markers data from the trip and create new PdMArkers and add them to global_routeMarkers array
+					for (var j = 0; j < data.trips[i].markers.length; j++)
+						{
+						
+						var pnt;
+						
+ 						var icon;
+  			  	var tooltipString;
+					
+						var baseIcon = new GIcon();
+						baseIcon.shadow = "images/markers/shadow.png";
+						baseIcon.iconSize = new GSize(20, 34);
+						baseIcon.shadowSize = new GSize(37, 34);
+						baseIcon.iconAnchor = new GPoint(9, 34);
+						baseIcon.infoWindowAnchor = new GPoint(9, 2);
+						baseIcon.infoShadowAnchor = new GPoint(18, 25);
+						
+						icon = new GIcon(baseIcon);
+					
+						//stores the data of the current DWR marker as coming from the DB
+						var currentMarker = data.trips[i].markers[j];					
+						
+						//origin
+						if (currentMarker.type === 0)
+							{
+	 						icon.image = "images/markers/start2.png";	
+							}
+						
+						//waypoint(s)
+						else if (currentMarker.type == 1)
+							{
+							if (currentMarker.index > 98)
+  							{
+  							icon.image = "images/markers/marker0.png";	
+  							}
+  				
+  						else
+  							{	
+  							icon.image = "images/markers/marker" + (currentMarker.index) + ".png";
+  			  			}
+							}
+						
+						//destination	
+						else if (currentMarker.type == 2)
+							{
+							icon.image = "images/markers/end2.png";	
+							}
+						
+						pnt = new GLatLng(currentMarker.lat, currentMarker.lng);	
+ 						
+ 						
+ 						//stores the DWR marker data in form of an instance of PdMarker
+ 						var tmpMarker = new PdMarker(pnt, {icon: icon});
+ 						
+						tmpMarker.setOpacity(100);
+							  						
+						tmpMarker.setName(data.trips[i].markers[j].name);
+  		
+  					//numbering of marker ids starts with 0
+  					tmpMarker.setId(data.trips[i].markers[j].index);
+  						  		
+  					tmpMarker.setUserData(data.trips[i].markers[j].data1);	  		
+  					tmpMarker.setUserData2(data.trips[i].markers[j].data2);	
+  		
+  					tmpMarker.setTooltip(tmpMarker.getUserData());
+
+						global_routeMarkers[tmpMarker.getId()] = tmpMarker;		
+							
+						}
+						
+					//now call saveCurrentTrip() to save the data in the respective storage arrays
+					saveCurrentTrip();	
+					} 
+				}
+			}
+			
+		else
+			alert("There seems to be a problem with the communication with the server. Couldn't retrieve the trips of the user.");	
+		});
+	}
+
+//#########################################################################################			
