@@ -62,7 +62,7 @@
         <copy todir="${webapp}">
           <fileset dir="${temp}">
             <include name="WEB-INF/web.xml"/>
-            <include name="WEB-INF/config/context-database.xml"/>
+            <include name="WEB-INF/config/*"/>
           </fileset>
         </copy>
     </target>
