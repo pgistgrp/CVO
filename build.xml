@@ -41,6 +41,33 @@
     </target>
 
 
+    <target name="config">
+        <copy todir="${temp}">
+          <fileset dir="${web}">
+            <include name="WEB-INF/web.xml"/>
+            <include name="WEB-INF/config/context-database.xml"/>
+          </fileset>
+        </copy>
+        <replace file="${temp}/web.xml">
+            <replacefilter token="@google.mapKey@" value="${google.mapKey}"/>
+            <replacefilter token="@tomcat.port.http@" value="${tomcat.port.http}"/>
+            <replacefilter token="@tomcat.port.https@" value="${tomcat.port.https}"/>
+            <replacefilter token="@tomcat.session.timeout@" value="${tomcat.session.timeout}"/>
+        </replace>
+        <replace file="${temp}/config/context-database.xml">
+            <replacefilter token="@database.userName@" value="${database.userName}"/>
+            <replacefilter token="@database.password@" value="${database.password}"/>
+            <replacefilter token="@database.databaseName@" value="${database.databaseName}"/>
+        </replace>
+        <copy todir="${webapp}">
+          <fileset dir="${temp}">
+            <include name="WEB-INF/web.xml"/>
+            <include name="WEB-INF/config/context-database.xml"/>
+          </fileset>
+        </copy>
+    </target>
+
+
     <target name="compile" depends="init">
         <javac classpathref="classpath" srcdir="${src}" destdir="${build}" debug="on">
             <include name="**/*.java" />
@@ -69,54 +96,54 @@
     <target name="createdb" depends="mapping">
         <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
         </taskdef>
-        <SystemInit action="createdb" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
+        <SystemInit action="createdb" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
     
     
     <target name="updatedb" depends="mapping">
         <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
         </taskdef>
-        <SystemInit action="updatedb" configPath="${web}/WEB-INF/config"/>
+        <SystemInit action="updatedb" configPath="${temp}/WEB-INF/config"/>
     </target>
 
 
     <target name="restoredb" depends="mapping">
         <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
         </taskdef>
-        <SystemInit action="createdb" configPath="${web}/WEB-INF/config" dataPath="${base}/backup"/>
+        <SystemInit action="createdb" configPath="${temp}/WEB-INF/config" dataPath="${base}/backup"/>
     </target>
     
     
     <target name="backupdb" depends="mapping">
         <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
         </taskdef>
-        <SystemInit action="backup" configPath="${web}/WEB-INF/config" dataPath="${base}/backup"/>
+        <SystemInit action="backup" configPath="${temp}/WEB-INF/config" dataPath="${base}/backup"/>
     </target>
     
     
     <target name="loadTaxData" depends="compile">
         <taskdef name="TaxCalcDataLoader" classname="org.pgist.tests.TaxCalcDataLoader" classpathref="classpath">
         </taskdef>
-        <TaxCalcDataLoader configPath="${web}/WEB-INF/config" dataPath="${base}/initdata/taxcalc"/>
+        <TaxCalcDataLoader configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata/taxcalc"/>
     </target>
     
     
     <target name="loadTestData" depends="mapping">
         <taskdef name="LoadTestData" classname="org.pgist.tests.PrepTestDataLoader" classpathref="classpath">
         </taskdef>
-        <LoadTestData configPath="${web}/WEB-INF/config"/>
+        <LoadTestData configPath="${temp}/WEB-INF/config"/>
     </target>
     
     <target name="loadGisData" depends="mapping">
         <taskdef name="GISDataLoader" classname="org.pgist.tests.GISDataLoader" classpathref="classpath">
         </taskdef>
-        <GISDataLoader configPath="${web}/WEB-INF/config" xlsPath="${base}/initdata/PostGIS/PGISTDB.xls" />
+        <GISDataLoader configPath="${temp}/WEB-INF/config" xlsPath="${base}/initdata/PostGIS/PGISTDB.xls" />
     </target>
     
     <target name="workflow">
         <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
         </taskdef>
-        <WorkflowImporter definition="workflow.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
+        <WorkflowImporter definition="workflow.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
     
     
@@ -130,35 +157,35 @@
     <target name="LIT_pgames">
         <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
         </taskdef>
-        <WorkflowImporter definition="LIT_pgames.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
+        <WorkflowImporter definition="LIT_pgames.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
     
 
     <target name="LIT_pmethods">
         <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
         </taskdef>
-        <WorkflowImporter definition="LIT_pmethods.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
+        <WorkflowImporter definition="LIT_pmethods.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
     
 
     <target name="LIT_meetings">
         <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
         </taskdef>
-        <WorkflowImporter definition="LIT_meetings.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
+        <WorkflowImporter definition="LIT_meetings.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
     
 
     <target name="LIT_situations">
         <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
         </taskdef>
-        <WorkflowImporter definition="LIT_situations.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
+        <WorkflowImporter definition="LIT_situations.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
     
 
     <target name="criteria">
         <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
         </taskdef>
-        <WorkflowImporter definition="criteria.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>
+        <WorkflowImporter definition="criteria.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
 
     <target name="test" depends="compile, mapping">
@@ -172,14 +199,14 @@
     <target name="hibernate" depends="compile">
         <taskdef name="TestHibernate" classname="org.pgist.tests.TestHibernate" classpathref="classpath">
         </taskdef>
-        <TestHibernate configPath="${web}/WEB-INF/config" script="testdata/hibernate.bsh"/>
+        <TestHibernate configPath="${temp}/WEB-INF/config" script="testdata/hibernate.bsh"/>
     </target>
     
 
     <target name="matrix" depends="compile">
         <taskdef name="TestMatrix" classname="org.pgist.tests.TestHibernate" classpathref="classpath">
         </taskdef>
-        <TestMatrix configPath="${web}/WEB-INF/config" script="testdata/matrix.bsh"/>
+        <TestMatrix configPath="${temp}/WEB-INF/config" script="testdata/matrix.bsh"/>
     </target>
     
 
@@ -222,7 +249,7 @@
     </target>
 
 
-    <target name="deploy" depends="compile, mapping">
+    <target name="deploy" depends="compile, mapping, config">
         <mkdir dir="${webapp}"/>
         <copy todir="${webapp}">
           <fileset dir="${web}">
@@ -232,20 +259,10 @@
             <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
           </fileset>
         </copy>
-        <replace file="${webapp}/WEB-INF/web.xml">
-            <replacefilter token="@google.mapKey@" value="${google.mapKey}"/>
-            <replacefilter token="@tomcat.port.http@" value="${tomcat.port.http}"/>
-            <replacefilter token="@tomcat.port.https@" value="${tomcat.port.https}"/>
-            <replacefilter token="@tomcat.session.timeout@" value="${tomcat.session.timeout}"/>
-        </replace>
-        <replace file="${webapp}/WEB-INF/config/context-database.xml">
-            <replacefilter token="@database.userName@" value="${database.userName}"/>
-            <replacefilter token="@database.password@" value="${database.password}"/>
-            <replacefilter token="@database.databaseName@" value="${database.databaseName}"/>
-        </replace>
     </target>
 
-    <target name="fastdeploy" depends="compile">
+    
+    <target name="fastdeploy" depends="compile, config">
         <mkdir dir="${webapp}"/>
         <copy todir="${webapp}">
             <fileset dir="${web}">
@@ -304,6 +321,7 @@
     </target>
     
     
+    <!--
     <target name="webservice" description="Web Service with XDoclet">
         <taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask" classpathref="classpath"/>
         <ejbdoclet destdir="${temp}">
@@ -317,6 +335,7 @@
             <axisundeploy destDir="${temp}"/>
         </ejbdoclet>
     </target>
+    -->
     
     
 </project>
