@@ -45,16 +45,16 @@
         <copy todir="${temp}">
           <fileset dir="${web}">
             <include name="WEB-INF/web.xml"/>
-            <include name="WEB-INF/config/context-database.xml"/>
+            <include name="WEB-INF/config/*"/>
           </fileset>
         </copy>
-        <replace file="${temp}/web.xml">
+        <replace file="${temp}/WEB-INF/web.xml">
             <replacefilter token="@google.mapKey@" value="${google.mapKey}"/>
             <replacefilter token="@tomcat.port.http@" value="${tomcat.port.http}"/>
             <replacefilter token="@tomcat.port.https@" value="${tomcat.port.https}"/>
             <replacefilter token="@tomcat.session.timeout@" value="${tomcat.session.timeout}"/>
         </replace>
-        <replace file="${temp}/config/context-database.xml">
+        <replace file="${temp}/WEB-INF/config/context-database.xml">
             <replacefilter token="@database.userName@" value="${database.userName}"/>
             <replacefilter token="@database.password@" value="${database.password}"/>
             <replacefilter token="@database.databaseName@" value="${database.databaseName}"/>
