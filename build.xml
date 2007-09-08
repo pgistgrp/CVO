@@ -147,37 +147,25 @@
     </target>
     
     
-    <target name="LIT" depends="LIT_pgames, LIT_pmethods, LIT_meetings, LIT_situations">
-        <!--<taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
-        </taskdef>
-        <WorkflowImporter definition="LIT.xml" configPath="${web}/WEB-INF/config" dataPath="${base}/initdata"/>-->
-    </target>
+    <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath" />
     
-
+    
     <target name="LIT_pgames">
-        <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
-        </taskdef>
         <WorkflowImporter definition="LIT_pgames.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
     
 
     <target name="LIT_pmethods">
-        <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
-        </taskdef>
         <WorkflowImporter definition="LIT_pmethods.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
     
 
     <target name="LIT_meetings">
-        <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
-        </taskdef>
         <WorkflowImporter definition="LIT_meetings.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
     
 
     <target name="LIT_situations">
-        <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
-        </taskdef>
         <WorkflowImporter definition="LIT_situations.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
     
@@ -221,6 +209,13 @@
         <taskdef name="TestLucene" classname="org.pgist.tests.TestLucene" classpathref="classpath">
         </taskdef>
         <TestLucene indexPath="${webapp}/WEB-INF/lucene" script="testdata/lucene.bsh"/>
+    </target>
+    
+
+    <target name="htmlparser" depends="compile">
+        <taskdef name="TestLucene" classname="org.pgist.tests.TestHtmlParser" classpathref="classpath">
+        </taskdef>
+        <TestLucene script="testdata/htmlparser.bsh"/>
     </target>
     
 

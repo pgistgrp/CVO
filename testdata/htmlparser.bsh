@@ -1,0 +1,26 @@
+/*
+ * Bean Shell Script.
+ * Testing script for htmlparser execution.
+ */
+
+//html = "<p>Hello, world! <a href=\"http://www.google.com\">action</a>Some words</p>";
+html = "<html><head><!--\n Hehe --><script>This is script.</script><title>This is the title!</title></head><body>Hello, world! <div><p>Hahahaha</p></div><a href=\"http://www.google.com\">action</a>Some words</body></html>";
+
+filter.reset();
+//parser.setInputHTML(html);
+parser.setResource("testdata/test.html");
+//parser.setResource("http://www.npr.org");
+
+nodelist = parser.parse(filter);
+
+print("body: "+nodelist.elementAt(0).toPlainTextString());
+
+for (node : nodelist.toNodeArray()) {
+  //print(node.toPlainTextString());
+}
+
+//print("title: "+filter.getTitle());
+//print("body: "+filter.getBody());
+
+//print(nodelist);
+
