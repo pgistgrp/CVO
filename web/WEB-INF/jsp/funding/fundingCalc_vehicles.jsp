@@ -7,7 +7,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:forEach var="vehicle" items="${vehicles}" varStatus="loop">
-	<div id="vehicle${vehicle.id}" class="myVehiclesRow"> 
+
+	<div id="vehicle${vehicle.id}" class="myVehiclesRow">
 		<strong>Vehicle ${loop.index + 1}: </strong> Miles per
 		gallon:  
 		<strong><fmt:formatNumber type="number">${vehicle.milesPerGallon}</fmt:formatNumber></strong>
@@ -18,6 +19,7 @@
 		<strong><fmt:formatNumber type="number">${vehicle.milesPerYear}</fmt:formatNumber></strong>	
 		<small><a href="javascript:toggleEditField('vehicle',${vehicle.id});">Edit</a> | <a href="javascript:deleteVehicle(${vehicle.id})">Remove</a></small> 
 	</div>
+
 	<div id="vehicleEdit${vehicle.id}" class="myVehiclesRow" style="display: none;"> 
 		<!--<form id="editVehicle" action="javascript:editVehicle(${vehicle.id});">-->
 		<strong>Vehicle ${loop.index + 1}: </strong> 
@@ -28,6 +30,7 @@
 		<input type="button" onclick="javascript:editVehicle(${vehicle.id});" value="Update" />
 		<small> <a href="javascript:toggleEditField('vehicle',${vehicle.id});">Cancel</a></small>
 	</div>
+
 </c:forEach>
 
 <p><a href="javascript:Element.toggle('newVehicle');void(0);">Add vehicle</a> 

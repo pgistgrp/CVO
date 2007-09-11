@@ -174,7 +174,7 @@ function filterNum(str) {
 
 </script>
 </head>
-<body>
+<body onload="getVehicles();getTolls();">
 	<!--[if IE]>
 		<style type="text/css">
 			fieldset p {padding-bottom:1px;}
@@ -342,10 +342,6 @@ function filterNum(str) {
 		</div>
 		</form>
 		</div>
-	<script type="text/javascript">
-		getVehicles();
-		getTolls();
-	</script>
 	<!-- end container -->
 	<!-- start feedback form -->
 	<pg:feedback id="feedbackDiv" action="cctView.do"/>
