@@ -123,8 +123,8 @@
            				getComments(currentPage, false);
            			}
 				}else{
-				}
 					alert(data.reason);
+				}
 			},
 		errorHandler:function(errorString, exception){ 
 				alert("setVote error:" + errorString + exception);
