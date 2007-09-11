@@ -192,7 +192,7 @@
 		<pg:url page="publicprofile.do" params="user=${baseuser.loginname}">View</pg:url> / <pg:url page="/usercp.do">Edit your profile</pg:url>
 				<h3 style="display:inline;margin:0px;padding:0px;margin-left:20px">Your participant ID is <strong>${webq}</strong></h3>
 		<div id="left-col">
-			<h3 class="headerColor">Overview of all steps</h3>
+			<h3 class="headerColor">Agenda</h3>
 			<div class="box12 clearfix">
 				<div id="workflow-panel"><img src="/images/indicator_arrows.gif" alt="Please wait..."/> Loading overview...</div>
 			</div>

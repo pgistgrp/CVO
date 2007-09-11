@@ -334,6 +334,7 @@ text-transform:none;
 <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 <div id="container">
 	<!-- begin "overview and instructions" area -->
+	<h2 class="headerColor">Glossary</h2><br/>
 	<div id="overview" class="box2">
 		<h3>Overview and instructions</h3>
 		<p>Here you can search and browse this glossary of transportation planning jargon. Click on a term for an extended definition, or to make a comment of your own.</p>

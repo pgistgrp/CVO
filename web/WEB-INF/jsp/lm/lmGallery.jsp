@@ -114,7 +114,7 @@ function renderProjects(){
 <!-- #container is the container that wraps around all the main page content -->
 <div id="container">
 	<!-- begin Object --> 
-	<h3 class="headerColor">Project Gallery</h3>
+	<h2 class="headerColor">Project Map</h2>
 	<p>Explore the projects being considered in Let's Improve Transportation.
 	  The participants in this website will actually discuss these projects.  
 		<pg:url page="index.do">Click here to login</pg:url>.</p>
