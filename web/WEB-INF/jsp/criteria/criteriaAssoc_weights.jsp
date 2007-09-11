@@ -56,7 +56,7 @@
 				</div>
 				<div class="clearBoth"></div>
 				<div class="objectives" id="row${loop.index}" style="display:none;">
-					<p>To get a good grade in <strong>${ref.criterion.name}</strong>, a transportation project must meet the following objectives:</p>
+					<p>To get a good grade in <strong>${ref.criterion.name}</strong>, a transportation project exhibit significant positive impacts in the following areas:</p>
 					<ul><c:if test="${fn:length(ref.criterion.objectives) == 0}">
 							<li>None Selected</li>
 						</c:if>

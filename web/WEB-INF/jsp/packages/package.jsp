@@ -192,7 +192,7 @@
 							<th class="col2">Money Needed</th>
 							<th class="col3">Average Grade</th>
 							<th class="col4">Average Weighted Grade (your weights)</th>
-							<th class="col5">Average Weighted Grade (all participants grades)</th>
+							<th class="col5">Average Weighted Grade (all participants' weights)</th>
 						</tr>
 						<!-- begin CATEGORY LABEL -->
 						<tr >

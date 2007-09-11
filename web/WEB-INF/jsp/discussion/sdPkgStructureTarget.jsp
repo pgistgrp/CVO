@@ -97,28 +97,6 @@
 					<p><pg:url page="/blah.do" target="_blank" params="input=1000">Compare the spatial equity of these packages</pg:url>
 					<br/>Express your preferences in the <a href="javascript:io.goToPackagePoll();">package poll</a></p>
 					<br>
-					<h3 class="headerColor">Package appearing on the November 2007 ballot</h3>
-					<p>
-					<div class="listRow row headingColor">
-						<div class="col1 floatLeft">
-							<div class="floatLeft">&nbsp;</div>
-						</div>
-						<div class="col2 floatLeft">Total</div>
-						<div class="col3 floatLeft">&nbsp;</div>
-						<div class="col4 floatLeft">Cost for avg. resident</div>
-						<div class="clearBoth"></div>
-					</div>
-						<div class="listRow row">
-							<div class="col1 floatLeft">
-								<div class="floatLeft"> <a href="http://www.roadsandtransit.org" target="_blank">Roads and Transit</a>*</div>
-							</div>
-							<div class="col2 floatLeft">$17.8 billion</div>
-							<div class="col3 floatLeft">&nbsp;</div>
-							<div class="col4 floatLeft">$218 per year</div>
-							<div class="clearBoth"></div>
-						</div>
-					</p>
-					<p>* Note: "Roads and Transit*" refers to two separate packages being proposed by RTID and Sound Transit. Both packages must be approved by voters for either to be made into law. For more details about these packages and cost estimates see <a href="http://www.roadsandtransit.org" target="_blank">www.roadsandtransit.org</a>.</p>
 
 				</div>
 				<!-- end list of funding options -->
