@@ -461,7 +461,7 @@
 				</ul>
 			<p>You have until <strong><fmt:formatDate value="${current.endTime}" dateStyle="long" /></strong> to create and submit your package.You can only submit one package.</p>
 			<p><a href="#" onclick="Effect.toggle('hiddenRM','blind',{duration:0});">Read more about this step</a></p>
-			<p id="hiddenRM" style="display:none">The goal of the <em>LIT Challenge</em> is for participants to develop a transportation package to recommend to regional decision makers. Such a package could appear on a regional ballot for voter approval, much like the "Roads and Transit" package on the ballot in November 2007. <br/>Once all participants have submitted their own packages, five new packages will be generated through a statistical process. These new packages will represent the diversity of the different packages submitted by individual participants. In Step 4 we will evaluate these new packages and decide whether there is a significant majority of support for a single package. </p>
+			<p id="hiddenRM" style="display:none">The goal of the <em>LIT Challenge</em> is for participants to develop a transportation package to recommend to regional decision makers. <br/>Once all participants have submitted their own packages, new packages will be generated through a statistical process. These new packages will represent the diversity of the different packages submitted by individual participants. In Step 4 we will evaluate these new packages and decide whether there is a significant majority of support for a single package. </p>
 		</div> <!-- end overview -->
 		
 		<!-- begin Object -->

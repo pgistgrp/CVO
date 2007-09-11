@@ -94,8 +94,8 @@
 						</c:if>
 					</c:forEach>
 					
-					<p><pg:url page="/blah.do" target="_blank" params="input=1000">Compare the spatial equity of these packages</pg:url>
-					<br/>Express your preferences in the <a href="javascript:io.goToPackagePoll();">package poll</a></p>
+					<p style="margin-top:20px;font-size:14pt;"><pg:url page="/blah.do" target="_blank" params="input=1000">Compare the spatial equity of these packages</pg:url>
+					<br/>Express your preferences in the <strong><a href="javascript:io.goToPackagePoll();">package poll</a></strong></p>
 					<br>
 
 				</div>
