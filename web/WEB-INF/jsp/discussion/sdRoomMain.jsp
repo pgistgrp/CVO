@@ -314,7 +314,7 @@
 	
 	io.customFilter = function(query, key){
 		if (key.keyCode == 8 && query.length < 1){
-			return false;	
+			return false;
 		}
 		if(query.length > 3){
 			io.customFilterAction(query);	
@@ -322,18 +322,11 @@
 	}
 	
 	io.customFilterAction = function(query){
-			SDAgent.searchTags({isid:io.structureId,tag:query},{
+			SDAgent.search({isid:io.structureId,queryStr:query},{
 				callback:function(data){
 						if (data.successful){
-							if($(io.divSearchResults).style.display == 'none'){
-								new Effect.Appear(io.divSearchResults, {duration: 0.5});		
-							}		
-							
-							$(io.divSearchResults).innerHTML = $(io.divSearchResults).innerHTML = data.html;
-							if (data.count == 0){
-								$(io.divSearchResults).innerHTML = '<a href="javascript:Effect.Fade(\''+io.divSearchResults+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
-							}
-						}
+                            //io.getPosts(query, 1, true, io.currentSort);
+                        }
 				},
 				errorHandler:function(errorString, exception){ 
 							alert("sidebarSearchTagsAction: "+errorString+" "+exception);
@@ -413,12 +406,17 @@
 		</div>
 		<div id="sortingMenu" class="box4 clearBoth">
 			<span id="sm-left">
-				Filter discussion by:
-				<form style="display:inline;" action="javascript: io.customFilterAction($('txtCustomFilter').value);">
-					<input type="text" id="txtCustomFilter" value="Add a filter" 
-					onKeyUp="io.customFilter(this.value, event);"  
-					onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
-				</form>
+				Search for discussions about:
+				<form action="/sdSearch.do" method="GET">
+				    <input type="hidden" name="workflowId" value="${param.workflowId}" />
+                    <input type="hidden" name="contextId" value="${param.contextId}" />
+                    <input type="hidden" name="activityId" value="${param.activityId}" />
+                    <input type="hidden" name="isid" value="${param.isid}" />
+                    <input type="hidden" name="ioid" value="${param.ioid}" />
+                    <input type="hidden" name="count" value="${param.count}" />
+                    <input type="hidden" name="page" value="${param.page}" />
+                    <input type="text" name="queryStr" value="Add a filter" onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
+        		</form>
 			</span>
 			<span id="sm-middle">
 				<a href="javascript:io.getTagCloud();">Browse all keywords</a>

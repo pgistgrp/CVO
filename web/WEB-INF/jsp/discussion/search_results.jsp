@@ -43,11 +43,17 @@
 
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
-        <html:form action="/search.do" method="GET">
-            <html:hidden property="workflowId" name="searchForm" value="${param['workflowId']}"/>
-            <html:text property="queryStr" name="searchForm" maxlength="25" size="25"/>
+        <form action="/sdSearch.do" method="GET">
+            <input type="hidden" name="workflowId" value="${param.workflowId}" />
+            <input type="hidden" name="contextId" value="${param.contextId}" />
+            <input type="hidden" name="activityId" value="${param.activityId}" />
+            <input type="hidden" name="isid" value="${param.isid}" />
+            <input type="hidden" name="ioid" value="${param.ioid}" />
+            <input type="hidden" name="count" value="${param.count}" />
+            <input type="hidden" name="page" value="${param.page}" />
+            <input type="text" name="queryStr" value="${param.queryStr}" />
             <input type="submit" value="Search"> 
-		</html:form>
+		</form>
 		
 		<c:choose>
             <c:when test="${param.page}">
@@ -79,7 +85,7 @@
 	 	       </c:otherwise>
 	 	    </c:choose>
 	    </div>
-		<h2 class="headerColor" style="float:left;margin-right:.5em;">Global Search for: </h2>
+		<h2 class="headerColor" style="float:left;margin-right:.5em;">Discussion Search for: </h2>
 		<h2 class="contrast2">"${param.queryStr}"</h2>
 		<h3 class="headerColor">Found: ${setting.rowSize} 
 		<c:choose>
@@ -107,26 +113,12 @@
     					           </c:otherwise>
     					        </c:choose>
     					        :</span>
-    					        <c:if test="${result.type=='post'}"><pg:url page="/sdThread.do" params="isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}">${result.title}</pg:url></c:if>
-    					        <c:if test="${result.type=='reply'}"><pg:url page="/sdThread.do" params="isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}#replyAnchor${result.replyid}">${result.title}</pg:url></c:if>
-    					        <c:if test="${result.type=='concern'}"><pg:url page="/concern.do" params="id=${result.concernid}">${result.title}</pg:url></c:if>
-    					        <c:if test="${result.type=='comment'}"><pg:url page="/concern.do" params="id=${result.concernid}#commentAnchor${result.commentid}">${result.title}</pg:url></c:if>
-    					        <c:if test="${result.type=='project'}"><pg:url page="/projectAlt.do" target="_blank" params="altrefId=${result.projectaltid}">${result.projectaltname}</pg:url></c:if>
-    					        <c:if test="${result.type=='userprofile'}"><pg:url page="/publicprofile.do" params="user=${result.loginname}">${result.loginname}</pg:url></c:if>
-                                <c:if test="${result.type=='staticpage'}"><pg:url page="${result.url}">${result.title}</pg:url></c:if>
+    					        <c:if test="${result.type=='post'}"><a href="sdThread.do?workflowId=${result.workflowid}&contextId=${result.contextid}&activityId=${result.activityid}&isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}">${result.title}</a></c:if>
+    					        <c:if test="${result.type=='reply'}"><a href="sdThread.do?workflowId=${result.workflowid}&contextId=${result.contextid}&activityId=${result.activityid}&isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}#replyAnchor${result.replyid}">${result.title}</a></c:if>
     					    </h3> 
     					    <p>
-    					        <c:if test="${result.type != 'staticpage'}">
-           					        <c:out value="${fn:substring(result.body, 0, 500)}" escapeXml="false" />...<br />
-    					        </c:if>
-
-    					        <c:if test="${result.type=='post'}"><pg:url page="/sdThread.do" params="isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}">View this ${result.type}</pg:url></c:if>
-    					        <c:if test="${result.type=='reply'}"><pg:url page="/sdThread.do" params="isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}#replyAnchor${result.replyid}">View this ${result.type}</pg:url></c:if>
-    					        <c:if test="${result.type=='concern'}"><pg:url page="/concern.do" params="id=${result.concernid}">View this ${result.type}</pg:url></c:if>
-    					        <c:if test="${result.type=='comment'}"><pg:url page="/concern.do" params="id=${result.concernid}#commentAnchor${result.commentid}">View this ${result.type}</pg:url></c:if>
-    					        <c:if test="${result.type=='project'}"><pg:url page="/projectAlt.do" target="_blank" params="altrefId=${result.projectaltid}">View this ${result.type}</pg:url></c:if>
-        					    <c:if test="${result.type=='userprofile'}"><pg:url page="/publicprofile.do" params="user=${result.loginname}">View ${result.loginname}'s Profile</pg:url></c:if>
-    					        <c:if test="${result.type=='staticpage'}"><pg:url page="${result.url}">View ${result.title}</pg:url></c:if>
+    					        <c:if test="${result.type=='post'}"><a href="sdThread.do?workflowId=${result.workflowid}&contextId=${result.contextid}&activityId=${result.activityid}&isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}">View this ${result.type}</a></c:if>
+    					        <c:if test="${result.type=='reply'}"><a href="sdThread.do?workflowId=${result.workflowid}&contextId=${result.contextid}&activityId=${result.activityid}&isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}#replyAnchor${result.replyid}">View this ${result.type}</a></c:if>
         					</p>
     					</li>
 		                </c:forEach>

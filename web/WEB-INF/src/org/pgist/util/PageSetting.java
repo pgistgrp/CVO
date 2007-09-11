@@ -99,16 +99,16 @@ public class PageSetting {
 
     public void setRowOfPage(int rowOfPage) {
         this.rowOfPage = rowOfPage;
-        if (this.rowOfPage<=0) this.rowOfPage = -1;
+        if (this.rowOfPage<=0) this.rowOfPage = 20;
     }
 
 
     public void setRowOfPage(String rowOfPage) {
         try {
             this.rowOfPage = Integer.parseInt(rowOfPage);
-            if (this.rowOfPage<=0) this.rowOfPage = -1;
+            if (this.rowOfPage<=0) this.rowOfPage = 20;
         } catch(Exception e) {
-            this.rowOfPage = -1;
+            this.rowOfPage = 20;
         }
     }
 
