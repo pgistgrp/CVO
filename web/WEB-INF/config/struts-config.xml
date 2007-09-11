@@ -230,6 +230,10 @@
             <forward name="main" path="/WEB-INF/jsp/discussion/sdMain.jsp"/>
         </action>
 
+        <action path="/sdSearch" scope="request" type="org.pgist.discussion.SDSearchAction">
+            <forward name="view" path="/WEB-INF/jsp/discussion/search_results.jsp"/>
+        </action>
+
         <action path="/sdRoom" scope="request" type="org.pgist.discussion.SDRoomAction">
             <forward name="main" path="/WEB-INF/jsp/discussion/sdRoomMain.jsp"/>
         </action>

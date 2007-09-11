@@ -266,6 +266,10 @@
         <property name="sdService" ref="sdService"/>
     </bean>
     
+    <bean name="/sdSearch" class="org.pgist.discussion.SDSearchAction">
+        <property name="sdService" ref="sdService"/>
+        <property name="searchHelper" ref="searchHelper"/>
+    </bean>
     
     <bean name="/sdRoom" class="org.pgist.discussion.SDRoomAction">
         <property name="sdService" ref="sdService"/>
