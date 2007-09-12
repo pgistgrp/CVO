@@ -23,6 +23,7 @@
 
 <script language="javascript" type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
 <script language="JavaScript" src="scripts/qtip.js" type="text/JavaScript"></script>
+<script language="JavaScript" src="scripts/util.js" type="text/JavaScript"></script>
 
 <!-- Site Wide JavaScript -->
 <script src="scripts/tags.js" type="text/javascript"></script>
@@ -39,6 +40,7 @@
 <!--SDX Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/CriteriaAgent.js'></script>
 <!--End SDX Specific  Libraries-->
 <!--Mapping  Libraries-->
 <wf:gmapjs />
@@ -65,6 +67,7 @@
 		var io = new Object;
 		//Global Var Settings
 		io.structureId = "${structure.id}";
+		io.critSuiteId = "${critSuiteId}";
 		io.objectId = "${object.id}";
 		io.postId = "${post.id}";
 		io.replyId = null;

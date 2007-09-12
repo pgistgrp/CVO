@@ -43,6 +43,8 @@
 
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
+	    <pg:url page="/sdRoom.do" params="isid=${param.isid}&ioid=${param.ioid}">Back to Discussion</pg:url>
+	    
         <form action="/sdSearch.do" method="GET">
             <input type="hidden" name="workflowId" value="${param.workflowId}" />
             <input type="hidden" name="contextId" value="${param.contextId}" />
@@ -102,25 +104,33 @@
 			<div id="gs_typecontainer">
 			        <ol>
         			    <c:forEach var="result" items="${results}">
-    					<li>
-    					    <h3 class="headerColor"><span class="capitalize">
-    					        <c:choose>
-    					           <c:when test="${result.type == 'staticpage'}">
-    					               Learn More
-    					           </c:when>
-    					           <c:otherwise>
-    					               ${result.type}
-    					           </c:otherwise>
-    					        </c:choose>
-    					        :</span>
-    					        <c:if test="${result.type=='post'}"><a href="sdThread.do?workflowId=${result.workflowid}&contextId=${result.contextid}&activityId=${result.activityid}&isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}">${result.title}</a></c:if>
-    					        <c:if test="${result.type=='reply'}"><a href="sdThread.do?workflowId=${result.workflowid}&contextId=${result.contextid}&activityId=${result.activityid}&isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}#replyAnchor${result.replyid}">${result.title}</a></c:if>
-    					    </h3> 
-    					    <p>
-    					        <c:if test="${result.type=='post'}"><a href="sdThread.do?workflowId=${result.workflowid}&contextId=${result.contextid}&activityId=${result.activityid}&isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}">View this ${result.type}</a></c:if>
-    					        <c:if test="${result.type=='reply'}"><a href="sdThread.do?workflowId=${result.workflowid}&contextId=${result.contextid}&activityId=${result.activityid}&isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}#replyAnchor${result.replyid}">View this ${result.type}</a></c:if>
-        					</p>
-    					</li>
+        					<li>
+        					    <h3 class="headerColor"><span class="capitalize">
+        					        <c:choose>
+        					           <c:when test="${result.type == 'staticpage'}">
+        					               Learn More
+        					           </c:when>
+        					           <c:otherwise>
+        					               ${result.type}
+        					           </c:otherwise>
+        					        </c:choose>
+        					        :</span>
+        					        <c:if test="${result.type=='post'}"><a href="sdThread.do?workflowId=${result.workflowid}&contextId=${result.contextid}&activityId=${result.activityid}&isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}">${result.title}</a></c:if>
+        					        <c:if test="${result.type=='reply'}"><a href="sdThread.do?workflowId=${result.workflowid}&contextId=${result.contextid}&activityId=${result.activityid}&isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}#replyAnchor${result.replyid}">${result.title}</a></c:if>
+        					    </h3> 
+        					    <p>
+        					    <c:out value="${fn:substring(result.body, 0, 500)}" escapeXml="false" />...</p>
+    					    
+        					    <c:if test="${fn:length(result.tags) > 0}">
+        							<strong>Keywords:</strong>
+    								<c:forEach var="keyword" items="${result.tags}">
+                                        <span class="box4 tagsInline">${keyword}</span>
+    								</c:forEach>
+                					<div style="clear:left;"></div>
+        						</c:if>
+	        					<br />
+        					</li>
+
 		                </c:forEach>
     				</ol>
 			</div>

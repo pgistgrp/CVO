@@ -415,7 +415,7 @@
                     <input type="hidden" name="ioid" value="${param.ioid}" />
                     <input type="hidden" name="count" value="${param.count}" />
                     <input type="hidden" name="page" value="${param.page}" />
-                    <input type="text" name="queryStr" value="Add a filter" onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
+                    <input type="text" name="queryStr" value="Search for Discussions" onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
         		</form>
 			</span>
 			<span id="sm-middle">
