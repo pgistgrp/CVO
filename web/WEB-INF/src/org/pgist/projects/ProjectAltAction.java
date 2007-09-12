@@ -72,20 +72,8 @@ public class ProjectAltAction extends Action {
         ProjectAltRef reference = projectService.getProjectAltRefById(altrefId);
         CriteriaSuite critSuite = criteriaService.getCriteriaSuiteById(critSuiteId);
         
-        //Calculate Project Grades (average) - John 
-//        Set gradedCrits = reference.getGradedCriteria();
-//        int size = gradedCrits.size();
-//        int sum = 0;
-//        Iterator it = gradedCrits.iterator();
-//        while(it.hasNext()) {
-//        	GradedCriteria gc = (GradedCriteria)it.next();
-//        	sum += gc.getGradePointValue();
-//        }
-//        float avgGrade = sum/size;
-//        GradedCriteria tempGC = new GradedCriteria();
-//        String strAvgGrade = tempGC.convertGrade(avgGrade);
         
-        //Avg weighted
+        //Get avg weights using matt's functions
         User user = projectService.getCurrentUser();
         String avg = packageService.getAvgGrade(reference, critSuite, user);
         String personalAvg = packageService.getYourGrade(reference, critSuite, user);
