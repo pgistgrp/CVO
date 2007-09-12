@@ -170,4 +170,35 @@ public class GradedCriteria {
 		}
 		return letter;
 	}
+	
+	
+	//I just did standard UW grading scale, it may need to be adjusted to whatever mike wants. -John
+//	public double getGradePointValue() {
+//		String letterGrade = this.getGrade();	
+//		if(letterGrade.toLowerCase().equals("a")) {
+//			return 3.95;
+//		} else if(letterGrade.toLowerCase().equals("a-")) {
+//			return 3.65;
+//		} else if(letterGrade.toLowerCase().equals("b+")) {
+//			return 3.3;
+//		} else if(letterGrade.toLowerCase().equals("b")) {
+//			return 3.0;
+//		} else if(letterGrade.toLowerCase().equals("b-")) {
+//			return 2.65;
+//		} else if(letterGrade.toLowerCase().equals("c+")) {
+//			return 2.3;
+//		} else if(letterGrade.toLowerCase().equals("c")) {
+//			return 2.0;
+//		} else if(letterGrade.toLowerCase().equals("c-")) {
+//			return 1.65;
+//		} else if(letterGrade.toLowerCase().equals("d+")) {
+//			return 1.3;
+//		} else if(letterGrade.toLowerCase().equals("d")) {
+//			return 1.0;
+//		} else if(letterGrade.toLowerCase().equals("d-")) {
+//			return .75;
+//		} 
+//		return 0;	
+//	}
+	
 }

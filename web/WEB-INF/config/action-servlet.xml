@@ -191,6 +191,8 @@
     
     <bean name="/projectAlt" class="org.pgist.projects.ProjectAltAction">
         <property name="projectService" ref="projectService"/>
+	<property name="packageService" ref="packageService"/>
+	<property name="criteriaService" ref="criteriaService"/>
     </bean>
     
     

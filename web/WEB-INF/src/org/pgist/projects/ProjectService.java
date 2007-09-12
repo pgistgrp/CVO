@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.pgist.discussion.InfoStructure;
-
+import org.pgist.users.User;
 
 /**
  * @author Guirong
@@ -59,6 +59,9 @@ public interface ProjectService {
     InfoStructure publish(Long workflowId, Long cctId, Long suiteId, String title) throws Exception;
 
     void indexProjectSuite(Long workflowId, Long suiteId) throws Exception;
+    
+    User getCurrentUser() throws Exception;
+    
     
     
 }//interface ProjectService

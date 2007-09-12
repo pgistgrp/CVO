@@ -67,11 +67,11 @@ public class ProjectGradingAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-    	String tempCritSuiteId = request.getParameter("critsuiteId");
+    	String tempCritSuiteId = request.getParameter("critSuiteId");
 		Long critSuite = new Long(tempCritSuiteId);
 		request.setAttribute("critSuite", this.criteriaService.getCriteriaSuiteById(critSuite));
     	
-    	String tempProjSuiteId = request.getParameter("projsuiteId");
+    	String tempProjSuiteId = request.getParameter("projSuiteId");
 		Long projSuite = new Long(tempProjSuiteId);
 		ProjectSuite suite = this.projectService.getProjectSuite(projSuite);
 		this.projectService.updateProjectSuiteCriteria(suite, critSuite);

@@ -11,7 +11,7 @@
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="box6">
-<h3>Poll Results</h3>
+<h3>Participant endorsement vote results</h3>
 <c:set var="total" value="${total}"/>
 <p>Yes Votes: ${yes}<c:set var="yes" value="${yes}"/> or 
 <c:set var="percentyes" value="${yes/total*100}"/>

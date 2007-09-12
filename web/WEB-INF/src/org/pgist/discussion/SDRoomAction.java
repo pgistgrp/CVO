@@ -130,6 +130,7 @@ public class SDRoomAction extends Action {
         if(strCritSuiteId!=null && !("".equals(strCritSuiteId.trim()))) {
         	Long critSuiteId = Long.parseLong(strCritSuiteId);
         	request.setAttribute("critSuiteId", critSuiteId);
+        	System.out.println("***SDRoomAction: critSuiteId Found" + critSuiteId);
         }
         if(strFundSuiteId!=null && !("".equals(strFundSuiteId.trim()))) {
         	Long fundSuiteId = Long.parseLong(strFundSuiteId);

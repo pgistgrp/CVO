@@ -299,8 +299,8 @@
                 <pgame name="pgame-grade.projects">
                     <declaration>
                         <ins>
-                            <var name="projsuiteId" ref="pmethod.proj_suite_id"/>
-                            <var name="critsuiteId" ref="pmethod.crit_suite_id"/>
+                            <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
+                            <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
                         </ins>
                     </declaration>
                 </pgame>
@@ -311,6 +311,7 @@
                                     <declaration>
                                         <ins>
                                             <var name="isid" ref="pmethod.proj_is_id"/>
+					    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
                                         </ins>
                                     </declaration>
                                 </pgame>

@@ -20,7 +20,8 @@ import org.pgist.discussion.DiscussionDAO;
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
 import org.pgist.search.SearchHelper;
-
+import org.pgist.users.User;
+import org.pgist.util.WebUtils;
 
 /**
  * @author  Guirong
@@ -627,6 +628,12 @@ public class ProjectServiceImpl implements ProjectService {
             }
         }
     }//indexProjectSuite()
+    
+    
+    public User getCurrentUser() throws Exception {
+    	User u = (User) projectDAO.load(User.class, WebUtils.currentUserId());
+    	return u;
+    }
     
     
 }//class ProjectServiceImpl

@@ -289,8 +289,10 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 					<c:otherwise>
 
 					<c:forEach var="income" items="${statsPart1.incomeRanges}" varStatus="loop">
+						<c:if test="${statsPart1.incomeStats[income] > 0}">
 						<fmt:formatNumber type="percent">${statsPart1.incomeStats[income]/statsPart1.totalUsers}</fmt:formatNumber>
 						: ${income.value}<br/>
+						</c:if>
 					</c:forEach>
 					</c:otherwise>
 				</c:choose>
@@ -545,8 +547,10 @@ After a period of discussion about the relevance of the improvement factors to t
 					<c:otherwise>
 
 					<c:forEach var="income" items="${statsPart4.incomeRanges}" varStatus="loop">
+						<c:if test="${statsPart4.incomeStats[income] > 0}">
 						<fmt:formatNumber type="percent">${statsPart4.incomeStats[income]/statsPart4.totalUsers}</fmt:formatNumber>
 						: ${income.value}<br/>
+						</c:if>
 					</c:forEach>
 					</c:otherwise>
 				</c:choose>

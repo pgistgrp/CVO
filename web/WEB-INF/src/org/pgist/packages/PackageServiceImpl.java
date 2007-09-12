@@ -856,7 +856,7 @@ public class PackageServiceImpl implements PackageService {
 	 * @param altRef
 	 * @return
 	 */
-	private String getProjectGrade(ProjectAltRef altRef) {
+	public String getProjectGrade(ProjectAltRef altRef) throws Exception{
 		Set<GradedCriteria> gradedC = altRef.getGradedCriteria();
 		//Return NA if there are no criteria associated to this project
 		if(gradedC.size() == 0) return "NA";
@@ -878,7 +878,7 @@ public class PackageServiceImpl implements PackageService {
 	 * @param altRef
 	 * @return
 	 */
-	private String getYourGrade(ProjectAltRef altRef, CriteriaSuite cSuite, User user) {
+	public String getYourGrade(ProjectAltRef altRef, CriteriaSuite cSuite, User user) throws Exception {
 		Set<GradedCriteria> gradedC = altRef.getGradedCriteria();
 		
 		HashMap<Criteria, Integer> crits = createPersonalCritsMap(cSuite, user);
@@ -937,7 +937,7 @@ public class PackageServiceImpl implements PackageService {
 	 * @param user
 	 * @return
 	 */
-	private String getAvgGrade(ProjectAltRef altRef, CriteriaSuite cSuite, User user) {
+	public String getAvgGrade(ProjectAltRef altRef, CriteriaSuite cSuite, User user) throws Exception{
 		Set<GradedCriteria> gradedC = altRef.getGradedCriteria();
 		
 		HashMap<Criteria, Integer> crits = createEveryoneCritsMap(cSuite, user);

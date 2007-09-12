@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import org.pgist.criteria.CriteriaSuite;
 import org.pgist.discussion.InfoStructure;
+import org.pgist.projects.ProjectAltRef;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
 
@@ -68,5 +70,11 @@ public interface PackageService {
     Set getVoteSuiteStatsBySuite(Long pkgVoteSuiteId) throws Exception;
     
     void calculatePreferredPackage(Long pkgSuiteId, Long voteSuiteId) throws Exception;
+    
+    String getYourGrade(ProjectAltRef altRef, CriteriaSuite cSuite, User user) throws Exception;
+    
+    String getAvgGrade(ProjectAltRef altRef, CriteriaSuite cSuite, User user) throws Exception;
+    
+    String getProjectGrade(ProjectAltRef altRef) throws Exception;
     
 }//interface PackageService

@@ -27,7 +27,7 @@
 	#### -->
 <!-- begin "overview and instructions" area -->
 
-	<div id="overview" class="box2">
+  <div id="overview" class="box2">
 		<h3>Overview and instructions</h3>
 		<c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
 		
@@ -39,7 +39,7 @@
 			<p>When you are ready, feel free to Review funding options (Step 3b) and Create your own package (Step 3c)</a>.</p>
 				<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
 		<p id="hiddenRM" style="display:none">The proposed projects have been examined by a panel of transportation specialists who assigned scores for the improvement factors we reviewed in Step 2. (<pg:url page="lmFaq.do" target="_blank" anchor="step3-assigned">Read more about the scoring process</pg:url>). After reviewing the proposed transportation projects (Step 3a) and funding options (Step 3b) you will have an opportunity to create your own transportation package by selecting the projects and funding options you like best. </p>
-	</div>
+  </div>
 	<!-- end overview -->
 	<!-- begin Object -->
 	<div id="object">
@@ -84,14 +84,15 @@
 									<td colspan="3">
 										<table>
 											<c:set var="doNothing"value="true"/>
+											
 											<c:forEach var="altRef" items="${infoObject.object.altRefs}" varStatus="loop">
 												<tr>
 													<td>
-													    <pg:url page="/projectAlt.do" params="altrefId=${altRef.id}" target="_blank">${altRef.alternative.name}</pg:url>
+													    <a href="javascript:io.goToProjectAlt(${altRef.id});">${altRef.alternative.name}</a>
 													</td>
 													<td class="cost">
 														$<fmt:formatNumber maxFractionDigits="0" value="${altRef.alternative.cost/1000000}" /> million
-														</td>
+												  </td>
 												</tr>
 												<c:if test="${pg:contains(userPkg.projAltRefs,altRef)}">
 													<c:set var="doNothing"value="false"/>
@@ -199,6 +200,8 @@
 		});
 	}
     
+
+	
     function loadFootprints(){
         if(fpidlist.length > 0){
             fpidlist = fpidlist.substring(1, fpidlist.length);  //get rid of the first comma
@@ -291,6 +294,10 @@
 	io.loadDynamicFile('/styles/table.css');
 	//io.loadDynamicFile('/dwr/interface/ProjectAgent.js');
     
+		io.goToProjectAlt = function(altRefid){
+		window.open("projectAlt.do?"+io.wfInfo+"&altrefId="+altRefid+"&critSuiteId="+io.critSuiteId,'_blank');
+	}
+	
     var pgistmap = new PGISTMapEditor('map', 420, 600, false);
     var prjaltlist = [];
     var fpidlist = "";
