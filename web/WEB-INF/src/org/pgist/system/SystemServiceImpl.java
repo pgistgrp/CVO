@@ -367,7 +367,9 @@ public class SystemServiceImpl implements SystemService {
     }
     
     public void deleteUser(Long id) throws Exception {
-    	systemDAO.deleteUser(id);
+    	if(WebUtils.checkRole("moderator")){
+    		systemDAO.deleteUser(id);
+    	}
     }
     
 }//class SystemServiceImpl

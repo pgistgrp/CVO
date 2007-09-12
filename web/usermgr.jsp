@@ -182,7 +182,12 @@ function addCounty() {
 	SystemAgent.addCounty({name:countyname});
 	setTimeout("getQuotaStats()",100);
 }
-
+function deleteUser(myid) {
+	var answer = confirm("Are you sure about that Chief?")
+	if (answer){
+		SystemAgent.deleteUser({id:myid});
+	}
+}
 function resetPassword(myid) {
 	//SystemAgent.resetPassword({ids:myid});
 	SystemAgent.resetPassword({ids:myid}, {

@@ -71,7 +71,10 @@
 				<input name="Enable" id="enable" class="disabled" type="button" value="Enable" onclick="javascript:enableUsers('${user.id}');setTimeout('getAllUsers();',100);" />	
 			</c:otherwise>
 		</c:choose>
-		<input name="Reset Password" type="button" value="Reset Password" onclick="javascript:resetPassword('${user.id}')" />		</td>
+		<input name="Reset Password" type="button" value="Reset Password" onclick="javascript:resetPassword('${user.id}')" />
+		<input name="Delete" type="button" value="Delete" onclick="javascript:deleteUser('${user.id}');setTimeout('getAllUsers();',100);" />
+			
+			</td>
 	  </tr>
   	</c:forEach>
 	</c:otherwise>
