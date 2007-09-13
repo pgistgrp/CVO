@@ -100,13 +100,18 @@ public class LoginAction extends Action {
                         /*
                          * redirect to the initial URL
                          */
-                        ActionForward af = new ActionForward(initURL, true);
-                        return af;
+                        return new ActionForward(initURL, true);
                     }
                 }
             }//for
             
-            ActionForward af = new ActionForward(request.getAttribute("httpPrefix")+mapping.findForward("main").getPath(), true);
+            ActionForward af = new ActionForward(
+                request.getAttribute("httpPrefix")
+                + mapping.findForward("main").getPath()
+                + ";jsessionid="+session.getId(),
+                true
+            );
+            
             return af;
         } else if(!user.checkPassword(password)){
             request.setAttribute("reason", "Your Password is Invalid. Please Try Again.");

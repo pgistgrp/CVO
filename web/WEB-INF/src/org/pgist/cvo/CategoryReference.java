@@ -147,12 +147,16 @@ public class CategoryReference implements Node, Serializable {
     
     
     public String toString() {
-        return getCategory().toString();
+        Category one = getCategory();
+        if (one!=null) return one.toString();
+        else return null;
     }
 
 
     public String getCaption() {
-        return getCategory().toString();
+        Category one = getCategory();
+        if (one!=null) return one.toString();
+        else return null;
     }
     
     

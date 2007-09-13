@@ -132,6 +132,7 @@ public class PgistFilter implements Filter {
         if (!ignoreURLs.contains(path)) {
             HttpSession session = req.getSession();
             userInfo = (UserInfo) session.getAttribute("user");
+            
             if (userInfo==null) {
                 //user has not logged on
                 
@@ -162,6 +163,16 @@ public class PgistFilter implements Filter {
                 res.sendRedirect( httpsPrefix + loginURL );
                 
                 return;
+            } else {
+                if (req.isRequestedSessionIdFromURL()) {
+                    /*
+                     * The current session is maintained with URL rewriting,
+                     * now we change it to Cookie.
+                     */
+                    Cookie cookie = new Cookie("JSESSIONID", session.getId());
+                    cookie.setMaxAge(-1);
+                    res.addCookie(cookie);
+                }
             }
             
             //You can use the variable "baseuser" on any jsp page.

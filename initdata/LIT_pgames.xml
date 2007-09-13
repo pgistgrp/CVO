@@ -562,9 +562,9 @@
             <outs>
                 <var name="is_id"/>
             </outs>
-                    <props>
-                        <property name="title" value="Step 5: Prepare Group Report" />
-                    </props>
+            <props>
+                <property name="title" value="Step 5: Prepare Group Report" />
+            </props>
             </declaration>
         </pgame>
     

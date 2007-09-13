@@ -67,6 +67,7 @@
             <param-name>ignore-url</param-name>
             <param-value>
                 /login.do,
+                /logout.do,
                 /register.do,
                 /forgotpassword.do,
                 /resetpassword.do,
