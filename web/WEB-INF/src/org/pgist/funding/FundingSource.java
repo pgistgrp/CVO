@@ -74,6 +74,8 @@ public class FundingSource implements Serializable {
     
     private String name;
     
+    private String location;
+    
     private Set<FundingSourceAlternative> alternatives = new HashSet<FundingSourceAlternative>();
     
     /**
@@ -109,6 +111,18 @@ public class FundingSource implements Serializable {
         this.name = name;
     }
 
+    
+    /**
+     * @hibernate.property not-null="false"
+     */
+	public String getLocation() {
+		return location;
+	}
+
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
 
     /**
      * @return
@@ -155,6 +169,9 @@ public class FundingSource implements Serializable {
     public void setSelected(FundingSourceAlternative selected) {
         this.selected = selected;
     }
+
+
+
 
 
 }//class FundingSource

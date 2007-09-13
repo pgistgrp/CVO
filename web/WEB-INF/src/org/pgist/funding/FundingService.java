@@ -31,10 +31,10 @@ public interface FundingService {
     Collection getFundingSources() throws Exception;
 
 
-    FundingSource createFundingSource(String name, int type) throws Exception;
+    FundingSource createFundingSource(String name, int type, String location) throws Exception;
 
 
-    void editFundingSource(Long id, String name, int type) throws Exception;
+    void editFundingSource(Long id, String name, int type, String location) throws Exception;
 
 
     FundingSourceAlternative createFundingSourceAlt(Long id, String name, float revenue, float taxRate, String source, float avgCost, boolean toll, float peakHourTrips, float offPeakTrips) throws Exception;

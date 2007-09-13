@@ -305,6 +305,7 @@ public class FundingAgent {
      * @param params a Map contains:<br>
      *   <ul>
      *     <li>name - string, name of the funding source</li>
+     *     <li>location - string, location of the funding source</li>
      *     <li>type - int, Type of calculation from the FundingSource</li>
      *   </ul>
      *   
@@ -324,9 +325,10 @@ public class FundingAgent {
             if (name==null || name.trim().length()==0) {
                 map.put("reason", "name is required.");
             }
+            String location = (String) params.get("location");
             int type = Integer.parseInt((String) params.get("type"));
             
-            FundingSource funding = fundingService.createFundingSource(name, type);
+            FundingSource funding = fundingService.createFundingSource(name, type, location);
             
             map.put("id", funding.getId());
             
@@ -348,6 +350,7 @@ public class FundingAgent {
      *   <ul>
      *     <li>id - int, id of the FundingSource object</li>
      *     <li>name - string, name of the funding source</li>
+     *     <li>location - string, location of the funding source</li>
      *     <li>type - int, Type of calculation from the FundingSource</li>
      *   </ul>
      *   
@@ -368,9 +371,10 @@ public class FundingAgent {
             if (name==null || name.trim().length()==0) {
                 map.put("reason", "name is required.");
             }
+            String location = (String) params.get("location");
             int type = Integer.parseInt((String) params.get("type"));
             
-            fundingService.editFundingSource(id, name, type);
+            fundingService.editFundingSource(id, name, type, location);
             
             map.put("successful", true);
         } catch (Exception e) {

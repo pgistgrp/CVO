@@ -143,7 +143,9 @@ function getTolls() {
 				tolls = data.tolls;
 				var tolloutput = "";
 				for(var i = 0; i<tolls.length; i++) {
-					tolloutput += "<input name=\"toll" + tolls[i].id + "\" id=\"" + tolls[i].id + "\" type=\"checkbox\" onchange=\"selectToll(" + tolls[i].id + ")\"/>" + tolls[i].name + "<br />";
+					if(tolls[i].location != null) {
+					tolloutput += "<input name=\"toll" + tolls[i].id + "\" id=\"" + tolls[i].id + "\" type=\"checkbox\" onchange=\"selectToll(" + tolls[i].id + ")\"/>" + tolls[i].location + "<br />";
+					}
 				}
 				document.getElementById('mytolls').innerHTML = tolloutput;
 			}else{

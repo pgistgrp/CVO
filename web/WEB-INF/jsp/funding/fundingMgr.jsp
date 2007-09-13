@@ -110,6 +110,7 @@
 		//using ternery operators so it won't complain about the values when creating a new project :)
 		id = (source) ? source.id : "";
 		name = (source) ? source.name : "";
+		varlocation = (source) ? source.location : "";
 		type = (source) ? source.type : "";	
 		types = ["null",
 				"annual cost = (tax rate) * (estimated annual consumption)",
@@ -123,6 +124,8 @@
 		
 		f = '<p style="width:500px;"><span style="width:150px;float:left;"><label>Funding Source Name:</label></span>\
 			<span style="float:right;width:300px"><input id="txtSourceName' + id +'" type="text" value="'+name+'" size="25"></p><br />\
+			<p style="width:500px;"><span style="width:150px;float:left;"><label>Funding Source Location:</label></span>\
+			<span style="float:right;width:300px"><input id="txtSourceLocation' + id +'" type="text" value="'+varlocation+'" size="25"></p><br />\
 			<p style="width:500px;"><span style="width:150px;float:left;"><label>Calculation Type:</label></span>\
 			<span style="float:right;width:300px"><select id="selSourceType' + id +'">';
 			for(i=1; i<types.length; i++){
@@ -137,10 +140,11 @@
 
 	function createSource(){
 		var name = $F('txtSourceName');
+		var location = $F('txtSourceLocation');
 		var type = $F('selSourceType');
 		//alert('name: ' + name + ' type: ' + type);
 		Util.loading(true,"Working");
-		FundingAgent.createFundingSource({name:name, type:type}, {
+		FundingAgent.createFundingSource({name:name, type:type, location:location}, {
 			callback:function(data){
 				if (data.successful){
 					getFundingSources();
@@ -158,9 +162,10 @@
 	/* *************** edit a given funding source *************** */	
 	function editSource(id){
 		var name = $F('txtSourceName' + id);
+		var location = $F('txtSourceLocation' + id);
 		var type = $F('selSourceType' + id);
 		Util.loading(true,"Working");
-		FundingAgent.editFundingSource({id:id, name:name, type:type}, {
+		FundingAgent.editFundingSource({id:id, name:name, type:type, location:location}, {
 			callback:function(data){
 				if(data.successful){
 					getFundingSources();

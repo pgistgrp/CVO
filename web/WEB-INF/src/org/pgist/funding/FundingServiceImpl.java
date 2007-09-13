@@ -403,7 +403,7 @@ public class FundingServiceImpl implements FundingService {
     }//getFundingSources()
 
 
-    public FundingSource createFundingSource(String name, int type) throws Exception {
+    public FundingSource createFundingSource(String name, int type, String location) throws Exception {
         /*
          * Check if the same name exists.
          */
@@ -417,6 +417,7 @@ public class FundingServiceImpl implements FundingService {
         funding = new FundingSource();
         funding.setName(name);
         funding.setType(type);
+        funding.setLocation(location);
         
         fundingDAO.save(funding);
         
@@ -424,7 +425,7 @@ public class FundingServiceImpl implements FundingService {
     }//createFundingSource()
 
 
-    public void editFundingSource(Long id, String name, int type) throws Exception {
+    public void editFundingSource(Long id, String name, int type, String location) throws Exception {
         /*
          * Retrieve the funding source
          */
@@ -433,6 +434,7 @@ public class FundingServiceImpl implements FundingService {
         
         funding.setName(name);
         funding.setType(type);
+        funding.setLocation(location);
         
         fundingDAO.save(funding);
     }//editFundingSource()
