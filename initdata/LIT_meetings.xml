@@ -15,6 +15,7 @@
                     <var name="meeting.crit_suite_id"/>
                     <var name="meeting.repo_suite_id"/>
                     <var name="meeting.pkg_suite_id"/>
+                    <var name="meeting.experiment_id"/>
                 </outs>
             </declaration>
             <sequence>
@@ -29,6 +30,7 @@
                             <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
                             <var name="pmethod.repo_suite_id" ref="meeting.repo_suite_id"/>
                             <var name="pmethod.pkg_suite_id" ref="meeting.pkg_suite_id"/>
+                            <var name="pmethod.experiment_id" ref="meeting.experiment_id"/>
                         </outs>
                     </declaration>
                 </pmethod>

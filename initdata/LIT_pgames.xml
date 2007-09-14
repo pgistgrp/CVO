@@ -79,6 +79,26 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-create.experiment" title="Create an experiment." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
+            <taskName>task-create.experiment</taskName>
+            <declaration>
+                <ins>
+                    <var name="cct_id"/>
+                    <var name="project_suite_id"/>
+                    <var name="funding_suite_id"/>
+                    <var name="package_suite_id"/>
+                    <var name="crit_suite_id"/>
+                    <var name="report_suite_id"/>
+                </ins>
+                <outs>
+                    <var name="experiment_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
         <pgame name="pgame-define.fundings" title="Define funding sources in a funding source suite." auto="false" access="moderator" revisitable="true">
             <description>
               <![CDATA[<small>Select which pre-defined funding sources will be included in this experiment</small>]]>

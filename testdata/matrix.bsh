@@ -3,61 +3,65 @@
  * Testing script for matrix execution.
  */
 
-userPackageSuiteId = 10223;
-projectSuiteId = 10217;
-fundingSuiteId = 10218;
-
-hql = "from UserPackage where suite.id=?";
+hql = "from PackageSuite";
 query = session.createQuery(hql);
-query.setLong(0, userPackageSuiteId);
-upkgs = query.list();
+pkgSuites = query.list();
 
-hql = "from ProjectSuite where id=?";
-query = session.createQuery(hql);
-query.setLong(0, projectSuiteId);
-projects = query.uniqueResult().references;
-
-hql = "from FundingSourceSuite where id=?";
-query = session.createQuery(hql);
-query.setLong(0, fundingSuiteId);
-fundings = query.uniqueResult().references;
-
-print("user-project matrix in user package: ");
-
-for (upkg: upkgs) {
-  for (project: projects) {
-    for (projectAltRef: project.altRefs) {
-      if (upkg.projAltRefs.contains(projectAltRef)) {
-        System.out.print("1 ");
-        out.print("1 ");
-      } else {
-        System.out.print("0 ");
-        out.print("0 ");
-      }
+for (pkgSuite : pkgSuites) {
+    hql = "from UserPackage where suite.id=?";
+    query = session.createQuery(hql);
+    query.setLong(0, pkgSuite.getId());
+    upkgs = query.list();
+    
+    hql = "from ProjectSuite where id=?";
+    query = session.createQuery(hql);
+    query.setLong(0, projectSuiteId);
+    projects = query.uniqueResult().references;
+    
+    hql = "from FundingSourceSuite where id=?";
+    query = session.createQuery(hql);
+    query.setLong(0, fundingSuiteId);
+    fundings = query.uniqueResult().references;
+    
+    print("user-project matrix in user package: ");
+    out.println("user-project matrix in user package: ");
+    
+    for (upkg: upkgs) {
+        for (project: projects) {
+            for (projectAltRef: project.altRefs) {
+                if (upkg.projAltRefs.contains(projectAltRef)) {
+                    System.out.print("1 ");
+                    out.print("1 ");
+                } else {
+                    System.out.print("0 ");
+                    out.print("0 ");
+                }
+            }
+        }
+        System.out.println();
+        out.println();
     }
-  }
-  System.out.println();
-  out.println();
-}
-
-System.out.println();
-out.println();
-
-print("user-funding matrix in user package: ");
-
-for (upkg: upkgs) {
-  for (funding: fundings) {
-    for (fundingAltRef: funding.altRefs) {
-      if (upkg.fundAltRefs.contains(fundingAltRef)) {
-        System.out.print("1 ");
-        out.print("1 ");
-      } else {
-        System.out.print("0 ");
-        out.print("0 ");
-      }
+    
+    System.out.println();
+    out.println();
+    
+    print("user-funding matrix in user package: ");
+    out.println("user-funding matrix in user package: ");
+    
+    for (upkg: upkgs) {
+        for (funding: fundings) {
+            for (fundingAltRef: funding.altRefs) {
+                if (upkg.fundAltRefs.contains(fundingAltRef)) {
+                    System.out.print("1 ");
+                    out.print("1 ");
+                } else {
+                    System.out.print("0 ");
+                    out.print("0 ");
+                }
+            }
+        }
+        System.out.println();
+        out.println();
     }
-  }
-  System.out.println();
-  out.println();
 }
 

@@ -15,6 +15,7 @@
                     <var name="pmethod.crit_suite_id"/>
                     <var name="pmethod.repo_suite_id"/>
                     <var name="pmethod.pkg_suite_id"/>
+                    <var name="pmethod.experiment_id"/>
                 </outs>
             </declaration>
             <sequence>
@@ -123,6 +124,21 @@
                         </ins>
                         <outs>
                             <var name="is_id" ref="pmethod.fund_isid"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-create.experiment">
+                    <declaration>
+                        <ins>
+                            <var name="cct_id" ref="pmethod.cct_id"/>
+                            <var name="project_suite_id" ref="pmethod.proj_suite_id"/>
+                            <var name="funding_suite_id" ref="pmethod.fund_suite_id"/>
+                            <var name="package_suite_id" ref="pmethod.pkg_suite_id"/>
+                            <var name="crit_suite_id" ref="pmethod.crit_suite_id"/>
+                            <var name="report_suite_id" ref="pmethod.repo_suite_id"/>
+                        </ins>
+                        <outs>
+                            <var name="experiment_id" ref="pmethod.experiment_id"/>
                         </outs>
                     </declaration>
                 </pgame>

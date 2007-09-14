@@ -16,6 +16,7 @@
                             <var name="meeting.crit_suite_id" ref="situation.crit_suite_id"/>
                             <var name="meeting.repo_suite_id" ref="situation.repo_suite_id"/>
                             <var name="meeting.pkg_suite_id" ref="situation.pkg_suite_id"/>
+                            <var name="meeting.experiment_id" ref="situation.experiment_id"/>
                         </outs>
                     </declaration>
                 </meeting>

@@ -15,12 +15,14 @@ import org.pgist.criteria.CriteriaRef;
 import org.pgist.criteria.CriteriaSuite;
 import org.pgist.criteria.CriteriaUserWeight;
 import org.pgist.criteria.Objective;
+import org.pgist.cvo.CCTDAO;
 import org.pgist.funding.FundingDAO;
 import org.pgist.funding.FundingSource;
 import org.pgist.funding.FundingSourceAltRef;
 import org.pgist.funding.FundingSourceAlternative;
 import org.pgist.funding.FundingSourceRef;
 import org.pgist.funding.FundingSourceSuite;
+import org.pgist.packages.PackageDAO;
 import org.pgist.projects.GradedCriteria;
 import org.pgist.projects.GradedObjective;
 import org.pgist.projects.Project;
@@ -29,6 +31,7 @@ import org.pgist.projects.ProjectAlternative;
 import org.pgist.projects.ProjectDAO;
 import org.pgist.projects.ProjectRef;
 import org.pgist.projects.ProjectSuite;
+import org.pgist.report.ReportDAO;
 import org.pgist.util.WebUtils;
 import org.pgist.wfengine.util.Utils;
 
@@ -41,15 +44,26 @@ import org.pgist.wfengine.util.Utils;
 public class ImportServiceImpl implements ImportService {
     
     
+    private CCTDAO cctDAO;
+    
     private CriteriaDAO criteriaDAO;
     
     private ProjectDAO projectDAO;
     
     private FundingDAO fundingDAO;
     
+    private PackageDAO packageDAO;
+    
+    private ReportDAO reportDAO;
+    
     private ImportDAO importDAO;
     
     
+    public void setCctDAO(CCTDAO cctDAO) {
+        this.cctDAO = cctDAO;
+    }
+
+
     public void setCriteriaDAO(CriteriaDAO criteriaDAO) {
         this.criteriaDAO = criteriaDAO;
     }
@@ -62,6 +76,16 @@ public class ImportServiceImpl implements ImportService {
 
     public void setFundingDAO(FundingDAO fundingDAO) {
         this.fundingDAO = fundingDAO;
+    }
+
+
+    public void setPackageDAO(PackageDAO packageDAO) {
+        this.packageDAO = packageDAO;
+    }
+
+
+    public void setReportDAO(ReportDAO reportDAO) {
+        this.reportDAO = reportDAO;
     }
 
 
@@ -268,6 +292,23 @@ public class ImportServiceImpl implements ImportService {
             projectDAO.save(fundSuite);
         }
     }//importTemplate()
+
+
+    public Experiment createExperiment(Long workflowId, Long cctId, Long projSuiteId, Long fundSuiteId, Long pkgSuiteId, Long critSuiteId, Long reportSuiteId) throws Exception {
+        Experiment experiment = new Experiment();
+        
+        experiment.setWorkflowId(workflowId);
+        experiment.setCct(cctDAO.getCCTById(cctId));
+        experiment.setProjectSuite(projectDAO.getProjectSuite(projSuiteId));
+        experiment.setFundingSuite(fundingDAO.getFundingSuite(fundSuiteId));
+        experiment.setPkgSuite(packageDAO.getPackageSuite(pkgSuiteId));
+        experiment.setCritSuite(criteriaDAO.getCriteriaSuiteById(critSuiteId));
+        experiment.setReportSuite(reportDAO.getReportSuiteById(reportSuiteId));
+        
+        importDAO.save(experiment);
+        
+        return experiment;
+    }//createExperiment()
 
 
 }//ImportService

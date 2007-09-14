@@ -249,7 +249,7 @@
             <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
           </fileset>
         </copy>
-        <copy todir="${webapp}">
+        <copy todir="${webapp}" overwrite="true">
           <fileset dir="${temp}">
             <include name="WEB-INF/web.xml"/>
             <include name="WEB-INF/config/*"/>
@@ -268,7 +268,7 @@
                 <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
             </fileset>
         </copy>
-        <copy todir="${webapp}">
+        <copy todir="${webapp}" overwrite="true">
           <fileset dir="${temp}">
             <include name="WEB-INF/web.xml"/>
             <include name="WEB-INF/config/*"/>

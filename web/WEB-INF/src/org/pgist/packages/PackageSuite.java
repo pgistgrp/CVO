@@ -28,7 +28,6 @@ public class PackageSuite {
     private VoteSuiteStat prefPkgVoteSuiteStat;
     
 
-
 	/**
      * @return
      * 

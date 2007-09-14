@@ -53,6 +53,7 @@
                <value>org/pgist/system/Announcement.hbm.xml</value>
                <value>org/pgist/system/RegisterObject.hbm.xml</value>
                <value>org/pgist/other/SituationTemplate.hbm.xml</value>
+               <value>org/pgist/other/Experiment.hbm.xml</value>
                <value>org/pgist/users/BaseUser.hbm.xml</value>
                <value>org/pgist/users/Role.hbm.xml</value>
                <value>org/pgist/users/Vehicle.hbm.xml</value>
