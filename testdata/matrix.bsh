@@ -27,24 +27,37 @@ print("user-project matrix in user package: ");
 for (upkg: upkgs) {
   for (project: projects) {
     for (projectAltRef: project.altRefs) {
-      if (upkg.projAltRefs.contains(projectAltRef)) System.out.print("1 ");
-      else System.out.print("0 ");
+      if (upkg.projAltRefs.contains(projectAltRef)) {
+        System.out.print("1 ");
+        out.print("1 ");
+      } else {
+        System.out.print("0 ");
+        out.print("0 ");
+      }
     }
   }
   System.out.println();
+  out.println();
 }
 
 System.out.println();
+out.println();
 
 print("user-funding matrix in user package: ");
 
 for (upkg: upkgs) {
   for (funding: fundings) {
     for (fundingAltRef: funding.altRefs) {
-      if (upkg.fundAltRefs.contains(fundingAltRef)) System.out.print("1 ");
-      else System.out.print("0 ");
+      if (upkg.fundAltRefs.contains(fundingAltRef)) {
+        System.out.print("1 ");
+        out.print("1 ");
+      } else {
+        System.out.print("0 ");
+        out.print("0 ");
+      }
     }
   }
   System.out.println();
+  out.println();
 }
 

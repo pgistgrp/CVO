@@ -59,12 +59,6 @@
             <replacefilter token="@database.password@" value="${database.password}"/>
             <replacefilter token="@database.databaseName@" value="${database.databaseName}"/>
         </replace>
-        <copy todir="${webapp}">
-          <fileset dir="${temp}">
-            <include name="WEB-INF/web.xml"/>
-            <include name="WEB-INF/config/*"/>
-          </fileset>
-        </copy>
     </target>
 
 
@@ -255,6 +249,12 @@
             <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
           </fileset>
         </copy>
+        <copy todir="${webapp}">
+          <fileset dir="${temp}">
+            <include name="WEB-INF/web.xml"/>
+            <include name="WEB-INF/config/*"/>
+          </fileset>
+        </copy>
     </target>
 
     
@@ -267,6 +267,12 @@
                 <exclude name="WEB-INF/src/**"/>
                 <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
             </fileset>
+        </copy>
+        <copy todir="${webapp}">
+          <fileset dir="${temp}">
+            <include name="WEB-INF/web.xml"/>
+            <include name="WEB-INF/config/*"/>
+          </fileset>
         </copy>
     </target>
     

@@ -105,11 +105,8 @@ public class TestMatrix extends MatchingTask {
         
         Scanner scanner = new Scanner(System.in);
         
-        PrintWriter writer = new PrintWriter(new File(output));
-        
         Interpreter interpreter = new Interpreter();
         interpreter.set("session", session);
-        interpreter.set("out", writer);
         
         while (true) {
             System.out.println();
@@ -118,15 +115,22 @@ public class TestMatrix extends MatchingTask {
             
             String line = scanner.nextLine();
             
+            PrintWriter writer = null;
+            
             try {
                 tx = session.beginTransaction();
                 
+                writer = new PrintWriter(new File(output));
+                
+                interpreter.set("out", writer);
                 interpreter.source(script);
                 
                 tx.commit();
             } catch (Exception e) {
                 e.printStackTrace();
                 tx.rollback();
+            } finally {
+                if (writer!=null) writer.close();
             }
             
             System.out.print("------------------------------------------------------------------------");
