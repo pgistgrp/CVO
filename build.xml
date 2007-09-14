@@ -193,9 +193,9 @@
     
 
     <target name="matrix" depends="compile">
-        <taskdef name="TestMatrix" classname="org.pgist.tests.TestHibernate" classpathref="classpath">
+        <taskdef name="TestMatrix" classname="org.pgist.tests.TestMatrix" classpathref="classpath">
         </taskdef>
-        <TestMatrix configPath="${temp}/WEB-INF/config" script="testdata/matrix.bsh"/>
+        <TestMatrix configPath="${temp}/WEB-INF/config" script="testdata/matrix.bsh" output="testdata/matrix.log"/>
     </target>
     
 

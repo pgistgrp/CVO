@@ -18,7 +18,7 @@ import bsh.Interpreter;
 
 
 /**
- * Init the PGIST system
+ * Test Hibernate.
  * @author kenny
  *
  */
@@ -122,4 +122,4 @@ public class TestHibernate extends MatchingTask {
     }//test()
     
     
-}//class WorkflowImporter
+}//class TestHibernate
