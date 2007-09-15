@@ -125,8 +125,8 @@ public class RegisterServiceImpl implements RegisterService {
 	}
 	
 	
-	public boolean changePassword(String code, String password)throws Exception {
-		return registerDAO.changePassword(code, password);
+	public boolean createChangePassword(String code, String password)throws Exception {
+		return registerDAO.createChangePassword(code, password);
 	}
 	
 	

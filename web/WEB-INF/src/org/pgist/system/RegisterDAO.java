@@ -40,7 +40,7 @@ public interface RegisterDAO extends BaseDAO {
 	
 	boolean validatePasswordRecoveryCode(String code) throws Exception;
 	
-	boolean changePassword(String code, String password)throws Exception;
+	boolean createChangePassword(String code, String password)throws Exception;
 	
 	void deleteRecoverPassword(String code) throws Exception;
 	

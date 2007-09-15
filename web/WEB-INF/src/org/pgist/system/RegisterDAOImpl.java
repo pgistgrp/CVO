@@ -284,7 +284,7 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 	} //validatePasswordRecoveryCode()
 	
 	
-	public boolean changePassword(String code, String password)throws Exception {
+	public boolean createChangePassword(String code, String password)throws Exception {
 		RecoverPassword rp = getRecoverPassword(code);	
 		
 		if(rp != null) {			

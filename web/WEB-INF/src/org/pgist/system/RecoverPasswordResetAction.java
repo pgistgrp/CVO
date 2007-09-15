@@ -53,7 +53,7 @@ public class RecoverPasswordResetAction extends Action {
     		if(password1.equals(password2) && password1.length() > 5) {
     			boolean valid = registerService.validatePasswordRecoveryCode(code);
     			if(valid) {
-	    			boolean changed = registerService.changePassword(code, password1);
+	    			boolean changed = registerService.createChangePassword(code, password1);
 	    			registerService.deleteAllExpired(); //keep the database clean
 	    			request.setAttribute("passwordupdated", changed);
 	    			
