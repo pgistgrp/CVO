@@ -211,10 +211,11 @@ public class SystemServiceImpl implements SystemService {
     	User user = userDAO.getUserById(WebUtils.currentUserId(), true, false);
     	
     	if((cpassword==null || "".equals(cpassword)) && (password1==null || "".equals(password1))) {
+    		System.out.println("SystemServiceImpl: 1" + emailNotify + emailNotifyDisc);
     		user.setEmail(email);
         	user.setEmailNotify(emailNotify);
         	user.setEmailNotifyDisc(emailNotifyDisc);
-        	userDAO.save(user);
+        	systemDAO.save(user);
         	return true;
     	} else {
 	    	if (!user.checkPassword(cpassword)) {
@@ -226,8 +227,8 @@ public class SystemServiceImpl implements SystemService {
 	    	user.setEmail(email);
         	user.setEmailNotify(emailNotify);
         	user.setEmailNotifyDisc(emailNotifyDisc);
-        	
-	    	userDAO.save(user);
+        	System.out.println("SystemServiceImpl: 12" + emailNotify + emailNotifyDisc);
+        	systemDAO.save(user);
 	    	return true;
     	}
     }

@@ -217,11 +217,60 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 			rs.setFemales(female);
 			rs.setMales(male);
 		}
+		
+		//combine income ranges for Kevin. It is hardcoded which is bad and its inefficient
+		Set<RegisterObject> newIncomeRanges = new HashSet<RegisterObject>();
+		Map<RegisterObject, Integer> newIncomeSet = new HashMap<RegisterObject, Integer>();
+		
+		RegisterObject incomeRange1 = new RegisterObject();
+		incomeRange1.setType("newIncome");
+		incomeRange1.setValue("$0-$30,000");
+		save(incomeRange1);
+		
+		RegisterObject incomeRange2 = new RegisterObject();
+		incomeRange2.setType("newIncome");
+		incomeRange2.setValue("$30,000-$50,000");
+		save(incomeRange2);
+		
+		RegisterObject incomeRange3 = new RegisterObject();
+		incomeRange3.setType("newIncome");
+		incomeRange3.setValue("$50,000-$80,000");
+		save(incomeRange3);
+		
+		RegisterObject incomeRange4 = new RegisterObject();
+		incomeRange4.setType("newIncome");
+		incomeRange4.setValue("$80,000-$100,000");
+		save(incomeRange4);
+		
+		RegisterObject incomeRange5 = new RegisterObject();
+		incomeRange5.setType("newIncome");
+		incomeRange5.setValue("$100,000 or more");
+		save(incomeRange5);
+		
+		newIncomeRanges.add(incomeRange1);
+		newIncomeRanges.add(incomeRange2);
+		newIncomeRanges.add(incomeRange3);
+		newIncomeRanges.add(incomeRange4);
+		newIncomeRanges.add(incomeRange5);
+		
+		newIncomeSet.put(incomeRange1, incomeSet.get("$0-$20,000")+incomeSet.get("$20,000-$30,000"));
+		newIncomeSet.put(incomeRange2, incomeSet.get("$30,000-$40,000")+incomeSet.get("$40,000-$50,000"));
+		newIncomeSet.put(incomeRange3, incomeSet.get("$50,000-$60,000")+incomeSet.get("$60,000-$70,000")+incomeSet.get("$70,000-$80,000"));
+		newIncomeSet.put(incomeRange4, incomeSet.get("$50,000-$60,000")+incomeSet.get("$60,000-$70,000")+incomeSet.get("$70,000-$80,000"));
+		
+		newIncomeSet.put(
+				incomeRange5, 
+				incomeSet.get("$80,000-$90,000") + incomeSet.get("$90,000-$100,000") + incomeSet.get("$100,000-$120,000")
+				+ incomeSet.get("$120,000-$140,000") + incomeSet.get("$140,000-$160,000") + incomeSet.get("$160,000-$180,000")
+				+ incomeSet.get("$180,000-$200,000") + incomeSet.get("$200,000 or more")
+				);
+		//End new income ranges
+		
 		//save stats to reportStats
 		rs.setCountyStats(countySet);
-		rs.setIncomeStats(incomeSet);
+		rs.setIncomeStats(newIncomeSet);
 		rs.setTransportStats(transportSet);
-		rs.setIncomeRanges(incomeRanges);
+		rs.setIncomeRanges(newIncomeRanges);
 		rs.setTransTypes(transTypes);
 		//Complete: Add counties, incomeranges, transporttypes
 		countySet.remove("");
@@ -448,12 +497,59 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 			rs.setFemales(female);
 			rs.setMales(male);
 		}
+		//combine income ranges for Kevin. It is hardcoded which is bad and its inefficient
+		Set<RegisterObject> newIncomeRanges = new HashSet<RegisterObject>();
+		Map<RegisterObject, Integer> newIncomeSet = new HashMap<RegisterObject, Integer>();
+		
+		RegisterObject incomeRange1 = new RegisterObject();
+		incomeRange1.setType("newIncome");
+		incomeRange1.setValue("$0-$30,000");
+		save(incomeRange1);
+		
+		RegisterObject incomeRange2 = new RegisterObject();
+		incomeRange2.setType("newIncome");
+		incomeRange2.setValue("$30,000-$50,000");
+		save(incomeRange2);
+		
+		RegisterObject incomeRange3 = new RegisterObject();
+		incomeRange3.setType("newIncome");
+		incomeRange3.setValue("$50,000-$80,000");
+		save(incomeRange3);
+		
+		RegisterObject incomeRange4 = new RegisterObject();
+		incomeRange4.setType("newIncome");
+		incomeRange4.setValue("$80,000-$100,000");
+		save(incomeRange4);
+		
+		RegisterObject incomeRange5 = new RegisterObject();
+		incomeRange5.setType("newIncome");
+		incomeRange5.setValue("$100,000 or more");
+		save(incomeRange5);
+		
+		newIncomeRanges.add(incomeRange1);
+		newIncomeRanges.add(incomeRange2);
+		newIncomeRanges.add(incomeRange3);
+		newIncomeRanges.add(incomeRange4);
+		newIncomeRanges.add(incomeRange5);
+		
+		newIncomeSet.put(incomeRange1, incomeSet.get("$0-$20,000")+incomeSet.get("$20,000-$30,000"));
+		newIncomeSet.put(incomeRange2, incomeSet.get("$30,000-$40,000")+incomeSet.get("$40,000-$50,000"));
+		newIncomeSet.put(incomeRange3, incomeSet.get("$50,000-$60,000")+incomeSet.get("$60,000-$70,000")+incomeSet.get("$70,000-$80,000"));
+		newIncomeSet.put(incomeRange4, incomeSet.get("$50,000-$60,000")+incomeSet.get("$60,000-$70,000")+incomeSet.get("$70,000-$80,000"));
+		
+		newIncomeSet.put(
+				incomeRange5, 
+				incomeSet.get("$80,000-$90,000") + incomeSet.get("$90,000-$100,000") + incomeSet.get("$100,000-$120,000")
+				+ incomeSet.get("$120,000-$140,000") + incomeSet.get("$140,000-$160,000") + incomeSet.get("$160,000-$180,000")
+				+ incomeSet.get("$180,000-$200,000") + incomeSet.get("$200,000 or more")
+				);
+		//End new income ranges
 		
 		//save stats to reportStats
 		rs.setCountyStats(countySet);
-		rs.setIncomeStats(incomeSet);
+		rs.setIncomeStats(newIncomeSet);
 		rs.setTransportStats(transportSet);
-		rs.setIncomeRanges(incomeRanges);
+		rs.setIncomeRanges(newIncomeRanges);
 		rs.setTransTypes(transTypes);
 		rs.setTotalPackages(totalPackages);
 		

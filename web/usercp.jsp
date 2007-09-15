@@ -156,7 +156,10 @@ function validateForm(form,formId){
 		if(errormsg1.length != 0){
 			errordiv1.style.display = "";
 			errordiv1.innerHTML = '<h3>Please change the following:</h3><ul>' + errormsg1 + '</ul>';
-		}	else {$('profileForm').submit();}
+		}	else {
+		$('profileForm').submit();
+		$('settingsForm').submit();
+		}
 
 		
 	} else if (formId == 2) {

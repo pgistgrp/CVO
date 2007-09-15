@@ -35,9 +35,10 @@ public class UsercpAction extends Action {
 			
 		UserForm uform = (UserForm) form;
 		User userInfo = systemService.getCurrentUser();
-		uform.setEmailNotify(userInfo.isEmailNotify());
-		uform.setEmailNotifyDisc(userInfo.isEmailNotifyDisc());
-
+		if(uform.getEmail()==null || uform.getEmail().equals("")){
+			uform.setEmailNotify(userInfo.isEmailNotify());
+			uform.setEmailNotifyDisc(userInfo.isEmailNotifyDisc());
+		}
 		request.setAttribute("user", userInfo);
     	request.setAttribute("transtypes", systemService.getTransTypes());
     	
@@ -49,6 +50,8 @@ public class UsercpAction extends Action {
         String password1 = uform.getPassword1();
         String password2 = uform.getPassword2();
         String cpassword = uform.getCurrentpassword();
+        
+        System.out.println("UsercpAction: " + emailNotify + emailNotifyDisc);
         
         if (email==null || "".equals(email)) {
             uform.setReason("Email is Required.");
