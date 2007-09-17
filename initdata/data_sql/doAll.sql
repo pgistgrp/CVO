@@ -1,16 +1,3 @@
---
--- PostgreSQL database dump
---
-
--- Started on 2007-07-06 02:43:06 Pacific Daylight Time
-
-SET client_encoding = 'SQL_ASCII';
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
-SET search_path = public, pg_catalog;
-
-
 delete from pgist_funding_source where true;
 delete from pgist_funding_source_alter where true;
 delete from pgist_projects where true;

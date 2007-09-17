@@ -160,6 +160,7 @@ public class SystemInit extends MatchingTask {
             
             tx.commit();
         } catch(Exception e) {
+            e.printStackTrace();
             tx.rollback();
             throw e;
         }

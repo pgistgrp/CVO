@@ -115,22 +115,16 @@ public class TestMatrix extends MatchingTask {
             
             String line = scanner.nextLine();
             
-            PrintWriter writer = null;
-            
             try {
                 tx = session.beginTransaction();
                 
-                writer = new PrintWriter(new File(output));
-                
-                interpreter.set("out", writer);
+                interpreter.set("outputPath", new File(output));
                 interpreter.source(script);
                 
                 tx.commit();
             } catch (Exception e) {
                 e.printStackTrace();
                 tx.rollback();
-            } finally {
-                if (writer!=null) writer.close();
             }
             
             System.out.print("------------------------------------------------------------------------");
