@@ -205,6 +205,7 @@
 								<td>No road projects were selected for this package.</td>
 							</tr>
 						</c:if>
+
 						<c:forEach var="project" items="${packageRoadProjects}" varStatus="loop">
 							<tr id="projId" class="fundingType">
 								<td colspan="5" class="fundingSourceItem">${project.name}</td>
