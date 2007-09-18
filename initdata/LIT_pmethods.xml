@@ -150,8 +150,8 @@
                 <ins>
                     <var name="pmethod.proj_suite_id"/>
                     <var name="pmethod.fund_suite_id"/>
-                    <var name="meeting.proj_isid"/>
-                    <var name="meeting.fund_isid"/>
+                    <var name="pmethod.proj_isid"/>
+                    <var name="pmethod.fund_isid"/>
                 </ins>
             </declaration>
             <sequence>
@@ -161,6 +161,7 @@
                             <declaration>
                                 <ins>
                                     <var name="isid" ref="pmethod.proj_isid"/>
+                                    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
                                 </ins>
                             </declaration>
                         </pgame>
