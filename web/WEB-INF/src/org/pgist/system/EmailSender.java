@@ -7,6 +7,7 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -117,6 +118,7 @@ public class EmailSender {
         
         Message msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress(from));
+        msg.setReplyTo(new Address[] { new InternetAddress(from) });
         InternetAddress[] address = InternetAddress.parse(to);
         msg.setRecipients(Message.RecipientType.TO, address);
         msg.setSubject(subject);
