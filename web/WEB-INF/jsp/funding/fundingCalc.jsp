@@ -311,20 +311,18 @@
 			</div>
 			<div id="myCommute-center" class="floatLeft"> 
 				I <strong>drive alone</strong>
-				<select name="drive-alone" id="drive-alone">
+				to work <select name="drive-alone" id="drive-alone">
 					<c:forEach var="i" begin="1" end="8">
 						<option ${(user.driveDays == (i-1)) ? "SELECTED" : ""} value="${i-1}">${i-1}</option>
 					</c:forEach>
-				</select>
-				days to work each week<br/>
+				</select> days per week<br/>
 				
 				I <strong>carpool</strong> to work
 				<select name="carpool" id="carpool">
 					<c:forEach var="i" begin="1" end="8">
 						<option ${(user.carpoolDays == (i-1)) ? "SELECTED" : ""} value="${i-1}">${i-1}</option>
 					</c:forEach>
-				</select>
-				days each week with
+				</select> days per week with 
 				<select name="carpool-with" id="carpool-with">
 					<c:forEach var="i" begin="1" end="8">
 						<option ${(user.carpoolPeople == (i-1)) ? "SELECTED" : ""} value="${i-1}">${i-1}</option>
@@ -338,7 +336,7 @@
 						<option ${(user.busDays == (i-1)) ? "SELECTED" : ""} value="${i-1}">${i-1}</option>
 					</c:forEach>
 				</select>
-				days each week<br/>
+				days per week<br/>
 				
 				I <strong>walk</strong> to work
 				<select name="walk" id="walk">
@@ -346,15 +344,15 @@
 						<option ${(user.walkDays == (i-1)) ? "SELECTED" : ""} value="${i-1}">${i-1}</option>
 					</c:forEach>
 				</select>
-				days each week<br/>
+				days per week<br/>
 				
-				I <strong>bike</strong>
+				I <strong>bike</strong> to work
 				<select name="bike" id="bike">
 					<c:forEach var="i" begin="1" end="8">
 						<option ${(user.bikeDays == (i-1)) ? "SELECTED" : ""} value="${i-1}">${i-1}</option>
 					</c:forEach>
 				</select>
-				days to work each week<br/>
+				days per week<br/>
 			</div>
 			<div id="myCommute-right" class="floatLeft"> My daily commute includes:<br />
 				<c:forEach var="toll" items="${user.tolls}" varStatus="loop">

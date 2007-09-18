@@ -238,7 +238,7 @@ function filterNum(str) {
 			</div>
 		<div id="myCommute" class="peekaboobugfix">
 			<p>Please provide the following information about your commute to and from work</p>
-			<div id="myCommute-center" class="floatLeft"> I <strong>drive alone</strong>
+			<div id="myCommute-center" class="floatLeft"> I <strong>drive alone</strong> to work 
 				<select id="drive">
 				  <option value="0">0</option>
 				  <option value="1">1</option>
@@ -250,8 +250,8 @@ function filterNum(str) {
 				  <option value="7">7</option>
 			    </select>
 
-				days to work each week<br/>
-				I <strong>carpool</strong>
+				days per week<br/>
+				I <strong>carpool</strong> to work 
 				<select id="carpool">
 				  <option value="0">0</option>
 				  <option value="1">1</option>
@@ -262,7 +262,7 @@ function filterNum(str) {
 				  <option value="6">6</option>
 				  <option value="7">7</option>
 			    </select>
-				days to work each week with
+				days per week with
 				<select id="carpoolpeople">
 				  <option value="0" selected="selected">0</option>
 				  <option value="1">1</option>
@@ -275,7 +275,7 @@ function filterNum(str) {
 			                                    </select>
 				people<br/>
 
-				I <strong>ride the bus</strong>
+				I <strong>ride the bus</strong> to work 
 				<select id="bus">
 				  <option value="0">0</option>
 				  <option value="1">1</option>
@@ -286,8 +286,8 @@ function filterNum(str) {
 				  <option value="6">6</option>
 				  <option value="7">7</option>
 			    </select>
-				days to work each week<br/>
-				I <strong>bike</strong>
+				days per week<br/>
+				I <strong>bike</strong> to work 
 				<select id="bike">
 				  <option value="0">0</option>
 				  <option value="1">1</option>
@@ -298,7 +298,7 @@ function filterNum(str) {
 				  <option value="6">6</option>
 				  <option value="7">7</option>
 			    </select>
-				days to work each week<br/>
+				days per week<br/>
 				
 			I <strong>walk</strong> to work
 				<select id="walk">
@@ -311,7 +311,7 @@ function filterNum(str) {
 				  <option value="6">6</option>
 				  <option value="7">7</option>
 				</select>
-				days each week<br/>
+				days per week<br/>
 			</div>
 			<div id="myCommute-right" class="floatLeft"> My daily commute includes:<br />
 				<div id="mytolls">
