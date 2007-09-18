@@ -23,7 +23,7 @@
 		<c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
 		Here we assess nine "improvement factors" that will be used in Step 3 to evaluate proposed transportation improvement projects. 
 		<ul>
-			<li>Review the improvement factors below and discuss with other participants</li>
+			<li>Review the improvement factors below and discuss with other participants their importance</li>
 			<li>Cast your vote in the poll</li>
 		</ul>
 		<p>When you are ready, move on to <strong>Weigh improvement factors (Step 2b)</strong>.</p>
@@ -87,7 +87,7 @@
 		    <div class="objectives" id="criteriaEdit${infoObj.object.criterion.id}">
 		      <!--javascript will load edit form here -->
 		    </div>
-		    <div class="objectives" id="row${loop.index}" style="display:none;"><br /><strong>Objectives:</strong>
+		    <div class="objectives" id="row${loop.index}" style="display:none;"><br /><strong>Related impacts:</strong>
 		      <ul class="smallText">
 		        <c:if test="${fn:length(infoObj.object.criterion.objectives) == 0}">
 		          <li>&nbsp;</li>
